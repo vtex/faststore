@@ -1,0 +1,41 @@
+[data-fs-region-popover] {
+  // --------------------------------------------------------
+  // Design Tokens for Region Popover
+  // --------------------------------------------------------
+
+  // Description
+  --fs-region-popover-description-text-size : var(--fs-text-size-legend);
+
+  // Link
+  --fs-region-popover-link-padding          : 0;
+  --fs-region-popover-link-column-gap       : var(--fs-spacing-0);
+  --fs-region-popover-link-color            : var(--fs-color-link);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  [data-fs-region-popover-description] {
+    font-size: var(--fs-region-popover-description-text-size);
+
+    span {
+      font-weight: var(--fs-text-weight-bold);
+      color: var(--fs-color-text-light);
+    }
+  }
+
+  [data-fs-region-popover-input] {
+    margin: var(--fs-spacing-2) 0;
+  }
+
+  // Duplicate from data-fs-region-modal-link
+  [data-fs-region-popover-link] {
+    display: flex;
+    flex-direction: row;
+    column-gap: var(--fs-region-popover-link-column-gap);
+    align-content: flex-start;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--fs-region-popover-link-padding);
+    color: var(--fs-region-popover-link-color);
+  }
+}

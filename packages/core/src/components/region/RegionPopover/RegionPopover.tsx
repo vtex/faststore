@@ -59,14 +59,15 @@ function RegionPopover({
 
   const RegionPopoverContent = (
     <>
-      <span>
-        Your current location is {postalCode}. Use the field below to change it.
+      <span data-fs-region-popover-description>
+        Your current location is <span>{postalCode}</span>. Use the field below
+        to change it.
       </span>
       <UIInputField
         data-fs-region-popover-input
         id="region-popover-input-postal-code"
         inputRef={inputRef}
-        label="Enter your location"
+        label="Postal Code"
         actionable
         value={input}
         buttonActionText="Apply"
@@ -86,6 +87,7 @@ function RegionPopover({
   return (
     <>
       <UIPopover
+        data-fs-region-popover
         title="Set your location"
         dismissible
         isOpen={isOpen}
