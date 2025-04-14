@@ -7,6 +7,7 @@ import {
 import React, { useRef, useState } from 'react'
 
 import { sessionStore } from 'src/sdk/session'
+import { textToTitleCase } from 'src/utils/utilities'
 
 function RegionPopover({
   open,
@@ -28,7 +29,10 @@ function RegionPopover({
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isOpen, setOpen] = useState(true)
 
-  const { postalCode } = sessionStore.read()
+  const { city, postalCode } = sessionStore.read()
+  const locationText = city
+    ? `${textToTitleCase(city)}, ${postalCode}`
+    : postalCode
 
   const resetInputField = () => {
     setInput('')
@@ -60,8 +64,8 @@ function RegionPopover({
   const RegionPopoverContent = (
     <>
       <span data-fs-region-popover-description>
-        Your current location is <span>{postalCode}</span>. Use the field below
-        to change it.
+        Your current location is <span>{locationText}</span>. Use the field
+        below to change it.
       </span>
       <UIInputField
         data-fs-region-popover-input
