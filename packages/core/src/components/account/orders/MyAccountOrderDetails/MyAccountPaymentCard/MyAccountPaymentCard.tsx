@@ -95,14 +95,6 @@ function MyAccountPaymentCard({
 
           return (
             <div key={payment.id} data-fs-payment-info>
-              <span data-fs-payment-datetime>
-                {formatDate(
-                  (payment as ExtendedMyAccountPayment).date ??
-                    new Date().toISOString()
-                )}{' '}
-                - {methodInfo.type}
-              </span>
-
               <div data-fs-payment-method>
                 <div>
                   <p data-fs-payment-name>{methodInfo.methodName}</p>
