@@ -1,5 +1,5 @@
-import type { MyAccountPayment } from '../../../mocks/orderDetails'
-import paymentFlags from '../../../../../images/payment-flags.png'
+import type { MyAccountPayment } from 'src/components/account/mocks/orderSummaryGenerator'
+import { Icon as UIIcon } from '@faststore/ui'
 
 interface PaymentFlagsIconProps {
   payment: Pick<MyAccountPayment, 'group' | 'paymentSystemName'>
@@ -13,21 +13,29 @@ const PAYMENT_GROUPS = {
 } as const
 
 const PAYMENT_FLAGS = {
-  visa: { x: 0, y: 0 },
-  mastercard: { x: -40, y: 0 },
-  diners: { x: -80, y: 0 },
-  american: { x: -120, y: 0 },
-  hipercard: { x: -160, y: 0 },
-  discover: { x: -200, y: 0 },
-  banricompras: { x: -240, y: 0 },
-  aura: { x: -280, y: 0 },
-  elo: { x: -320, y: 0 },
-  jcb: { x: -360, y: 0 },
-  bankinvoice: { x: -400, y: 0 },
-  paypal: { x: -440, y: 0 },
-  giftcard: { x: -480, y: 0 },
-  cash: { x: -520, y: 0 },
+  visa: 'Visa',
+  mastercard: 'Mastercard',
+  diners: 'Diners',
+  american: 'Amex',
+  hipercard: 'Hipercard',
+  discover: 'Discover',
+  banricompras: 'Banricompras',
+  aura: 'Aura',
+  elo: 'EloCard',
+  jcb: 'JCB',
+  bankinvoice: 'Cash',
+  paypal: 'PayPal',
+  giftcard: 'Gift',
+  cash: 'Cash',
 } as const
+
+function shouldShowFlag(payment: Pick<MyAccountPayment, 'paymentSystemName'>) {
+  if (!payment.paymentSystemName || payment.paymentSystemName === 'Free') {
+    return false
+  }
+
+  return true
+}
 
 function MyAccountPaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
   const getPaymentFlag = () => {
@@ -57,23 +65,14 @@ function MyAccountPaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
     )
   }
 
-  const flag = getPaymentFlag()
-
-  if (!payment.paymentSystemName) {
+  if (!shouldShowFlag(payment)) {
     return null
   }
 
   return (
-    <div
-      data-fs-payment-flag
-      style={{
-        width: '40px',
-        height: paymentFlags.height,
-        backgroundImage: `url(${paymentFlags.src})`,
-        backgroundPosition: `${flag.x}px ${flag.y}px`,
-        backgroundRepeat: 'no-repeat',
-      }}
-    />
+    <div data-fs-payment-flag>
+      <UIIcon name={getPaymentFlag()} height={22} />
+    </div>
   )
 }
 

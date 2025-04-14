@@ -1,18 +1,11 @@
+import { useSession } from 'src/sdk/session'
 import MyAccountCard from '../../../components/MyAccountCard'
 import type {
   MyAccountTransaction,
   MyAccountPayment,
 } from '../../../mocks/orderSummaryGenerator'
 import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
-
-// Extend the MyAccountPayment type to include missing properties
-interface ExtendedMyAccountPayment extends MyAccountPayment {
-  date?: string
-  giftCard?: {
-    name: string
-    redemptionCode?: string
-  }
-}
+import { useCallback } from 'react'
 
 interface MyAccountPaymentCardProps {
   paymentData?: {
@@ -21,32 +14,24 @@ interface MyAccountPaymentCardProps {
   currencyCode: string
 }
 
-// Format date to the desired format
-const formatDate = (date: string) => {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'numeric',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  }).format(new Date(date))
-}
-
 function MyAccountPaymentCard({
   paymentData,
   currencyCode,
 }: MyAccountPaymentCardProps) {
-  // Format price values according to the specified currency (converts cents to standard units)
-  const formatPrice = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currencyCode,
-    }).format(value / 100)
-  }
+  const { locale } = useSession()
 
-  // Get payment method display info
-  const getPaymentMethodInfo = (payment: ExtendedMyAccountPayment) => {
+  const formatPrice = useCallback(
+    (value: number, currencyCode: string) => {
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currencyCode,
+        minimumFractionDigits: 2,
+      }).format(value / 100)
+    },
+    [locale]
+  )
+
+  const getPaymentMethodInfo = (payment: MyAccountPayment) => {
     const baseInfo = {
       type: 'Billing',
       methodName: '',
@@ -89,27 +74,35 @@ function MyAccountPaymentCard({
     <MyAccountCard title="Payment" data-fs-order-payment-card>
       <div data-fs-payment-details>
         {paymentData?.transactions[0]?.payments.map((payment) => {
-          const methodInfo = getPaymentMethodInfo(
-            payment as ExtendedMyAccountPayment
-          )
+          const methodInfo = getPaymentMethodInfo(payment)
 
           return (
             <div key={payment.id} data-fs-payment-info>
               <div data-fs-payment-method>
                 <div>
                   <p data-fs-payment-name>{methodInfo.methodName}</p>
-                  <div data-fs-payment-value>
-                    {payment.installments > 1 ? (
-                      <span>
-                        {payment.installments}x of{' '}
-                        {formatPrice(payment.value / payment.installments)}
-                      </span>
-                    ) : (
-                      <span>{formatPrice(payment.value)}</span>
-                    )}
-                  </div>
+                  <MyAccountPaymentFlagsIcon payment={payment} />
                 </div>
-                <MyAccountPaymentFlagsIcon payment={payment} />
+                <div data-fs-payment-value>
+                  {payment.group === 'giftCard' &&
+                  payment.giftCard?.redemptionCode ? (
+                    <span>
+                      {/* TODO: Check if this value its received already with a hidden text or we need to implement it */}
+                      {payment.giftCard?.redemptionCode} -{' '}
+                      {formatPrice(payment.value, currencyCode)}
+                    </span>
+                  ) : payment.installments > 1 ? (
+                    <span>
+                      {payment.installments}x of{' '}
+                      {formatPrice(
+                        payment.value / payment.installments,
+                        currencyCode
+                      )}
+                    </span>
+                  ) : (
+                    <span>{formatPrice(payment.value, currencyCode)}</span>
+                  )}
+                </div>
               </div>
 
               <div data-fs-payment-transaction-info>
@@ -127,16 +120,6 @@ function MyAccountPaymentCard({
                   <span data-fs-payment-bank-invoice>
                     Invoice Number:{' '}
                     {payment.bankIssuedInvoiceIdentificationNumber}
-                  </span>
-                )}
-                {(payment as ExtendedMyAccountPayment).giftCard
-                  ?.redemptionCode && (
-                  <span data-fs-payment-gift-code>
-                    Redemption Code:{' '}
-                    {
-                      (payment as ExtendedMyAccountPayment).giftCard
-                        ?.redemptionCode
-                    }
                   </span>
                 )}
               </div>
