@@ -18,12 +18,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type OrderDetailsPageProps = {
-  orderId: string
+  id: string
 } & MyAccountProps
 
 export default function OrderDetailsPage({
   globalSections,
-  orderId,
+  id,
 }: OrderDetailsPageProps) {
   return (
     <RenderSections
@@ -33,7 +33,7 @@ export default function OrderDetailsPage({
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
-        <MyAccountOrderDetails orderId={orderId} />
+        <MyAccountOrderDetails orderId={id} />
       </MyAccountLayout>
     </RenderSections>
   )
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const {
     previewData,
-    params: { orderId },
+    params: { id },
   } = context
   const [
     globalSectionsPromise,
@@ -68,6 +68,6 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult, orderId },
+    props: { globalSections: globalSectionsResult, id },
   }
 }
