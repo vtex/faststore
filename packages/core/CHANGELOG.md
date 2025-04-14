@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.40.1](https://github.com/vtex/faststore/compare/v3.40.0...v3.40.1) (2025-04-14)
+
+### Bug Fixes
+
+- term required in `ClientSearchSuggestionsQuery` (useSuggestions) ([#2785](https://github.com/vtex/faststore/issues/2785)) ([17cc81c](https://github.com/vtex/faststore/commit/17cc81c41e6542b16b89053cb543926da67375c2))
+
 # [3.40.0](https://github.com/vtex/faststore/compare/v3.39.0...v3.40.0) (2025-04-11)
 
 ### Features
