@@ -53,6 +53,8 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
+  // TODO validate permissions here
+
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,

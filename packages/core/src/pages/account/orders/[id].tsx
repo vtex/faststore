@@ -44,6 +44,8 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
+  // TODO validate permissions here
+
   const {
     previewData,
     params: { id },
