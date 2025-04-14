@@ -3,6 +3,9 @@
   // Design Tokens for Region Popover
   // --------------------------------------------------------
 
+  // Default properties
+  --fs-region-popover-width                : 406px;
+
   // Description
   --fs-region-popover-description-text-size : var(--fs-text-size-legend);
 
@@ -14,6 +17,13 @@
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+
+  width: 100%;
+
+  @include media(">=notebook") {
+    width: var(--fs-region-popover-width);
+  }
+
   [data-fs-region-popover-description] {
     font-size: var(--fs-region-popover-description-text-size);
 
