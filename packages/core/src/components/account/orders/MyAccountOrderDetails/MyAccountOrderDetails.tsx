@@ -28,7 +28,7 @@ export default function MyAccountOrderDetails({
             aria-label="Go back"
             icon={<UIIcon name="ArrowLeft" />}
           />
-          <h2>Order #{orderId}</h2>
+          <h1 data-fs-order-details-header-title-text>Order #{orderId}</h1>
           <UIBadge variant="warning">Pending approval</UIBadge>
         </div>
         <div data-fs-order-details-header-actions>

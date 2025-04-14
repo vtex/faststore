@@ -69,7 +69,7 @@
         align-items: center;
       }
 
-      h2 {
+      [data-fs-order-details-header-title-text] {
         font-size: var(--fs-order-details-header-size);
         font-weight: var(--fs-order-details-header-weight);
         line-height: var(--fs-order-details-header-line-height);
