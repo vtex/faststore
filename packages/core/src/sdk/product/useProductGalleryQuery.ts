@@ -192,5 +192,13 @@ export const useProductGalleryQuery = ({
     },
   })
 
+  const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
+  const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
+  const shouldRefetchQuery =
+    !queryResult.error && (!fuzzyFacetValue || !operatorFacetValue)
+  if (shouldRefetchQuery) {
+    // The first result is not relevant, return null data to avoid rendering the page while the query is being re-fetched
+    return { ...queryResult, isValidating: true, data: null }
+  }
   return queryResult
 }
