@@ -5,8 +5,8 @@ import {
 } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
-import { execute } from '../../server'
 import discoveryConfig from 'discovery.config'
+import { execute } from '../../server'
 
 const ONE_MINUTE = 60
 
@@ -30,32 +30,38 @@ const replaceSetCookieDomain = (request: NextApiRequest, setCookie: string) => {
 }
 
 const parseRequest = (request: NextApiRequest) => {
-  const { operationName, operationHash, variables, query } =
-    request.method === 'POST'
-      ? request.body
-      : {
-          operationName: request.query.operationName,
-          operationHash: request.query.operationHash,
-          variables: JSON.parse(
-            typeof request.query.variables === 'string'
-              ? request.query.variables
-              : ''
-          ),
-          query: undefined,
-        }
+  try {
+    const { operationName, operationHash, variables, query } =
+      request.method === 'POST'
+        ? request.body
+        : {
+            operationName: request.query.operationName,
+            operationHash: request.query.operationHash,
+            variables: JSON.parse(
+              typeof request.query.variables === 'string'
+                ? request.query.variables
+                : ''
+            ),
+            query: undefined,
+          }
 
-  return {
-    operation: {
-      __meta__: {
-        operationName,
-        operationHash,
+    return {
+      operation: {
+        __meta__: {
+          operationName,
+          operationHash,
+        },
       },
-    },
-    variables,
-    // Do not allow queries in production, only for devMode so we can use graphql tools
-    // like introspection etc. In production, we only accept known queries for better
-    // security
-    query: process.env.NODE_ENV !== 'production' ? query : undefined,
+      variables,
+      // Do not allow queries in production, only for devMode so we can use graphql tools
+      // like introspection etc. In production, we only accept known queries for better
+      // security
+      query: process.env.NODE_ENV !== 'production' ? query : undefined,
+    }
+  } catch (error) {
+    throw new BadRequestError(
+      `Invalid request. Please check the request. ${error}`
+    )
   }
 }
 
@@ -66,9 +72,9 @@ const handler: NextApiHandler = async (request, response) => {
     return
   }
 
-  const { operation, variables, query } = parseRequest(request)
-
   try {
+    const { operation, variables, query } = parseRequest(request)
+
     const { data, errors, extensions } = await execute(
       {
         operation,
