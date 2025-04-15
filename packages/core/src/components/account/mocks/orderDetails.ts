@@ -1,9 +1,9 @@
 export const usdOrderSummary = {
   totals: [
-    { id: 'Items', name: 'Items Total', value: 29709 },
-    { id: 'Discounts', name: 'Discounts Total', value: 0 },
-    { id: 'Shipping', name: 'Shipping Total', value: 500 },
-    { id: 'Tax', name: 'Tax Total', value: 0 },
+    { id: 'Items', name: 'Subtotal', value: 29709 },
+    { id: 'Discounts', name: 'Discounts', value: 0 },
+    { id: 'Shipping', name: 'Shipping', value: 500 },
+    { id: 'Tax', name: 'Taxes', value: 0 },
   ],
   currencyCode: 'USD',
   paymentData: {
