@@ -1,4 +1,6 @@
 import { useState } from 'react'
+
+import type { Session } from '@faststore/sdk'
 import { sessionStore, validateSession } from 'src/sdk/session'
 
 interface UseSetLocationParams {
@@ -8,7 +10,7 @@ interface UseSetLocationParams {
   handleSubmit: (
     postalCode: string | undefined,
     inputFieldErrorMessage: string,
-    session: any,
+    session: Session,
     onSuccess?: () => void
   ) => Promise<void>
   errorMessage: string
@@ -29,7 +31,7 @@ export function useSetLocation(): UseSetLocationParams {
   const handleSubmit = async (
     postalCode: string | undefined,
     inputFieldErrorMessage: string,
-    session: any,
+    session: Session,
     onSuccess?: () => void
   ) => {
     if (typeof postalCode !== 'string') {
@@ -43,7 +45,7 @@ export function useSetLocation(): UseSetLocationParams {
         ...session,
         postalCode,
         geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
-      }
+      } as Session
 
       const validatedSession = await validateSession(newSession)
 
