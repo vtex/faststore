@@ -6,18 +6,18 @@ import {
 } from '@faststore/ui'
 import React, { useRef, useState } from 'react'
 
-import { sessionStore } from 'src/sdk/session'
+import { useSetLocation } from './../RegionModal/useSetLocation'
+
+import { sessionStore, useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
 function RegionPopover({
-  open,
   triggerRef,
   onDismiss,
   offsetTop,
   offsetLeft,
   placement = 'bottom-start',
 }: {
-  open: boolean
   triggerRef?: React.RefObject<HTMLButtonElement>
   onDismiss: () => void
   offsetTop?: number
@@ -25,18 +25,41 @@ function RegionPopover({
   placement?: string
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [input, setInput] = useState<string>('')
-  const [errorMessage, setErrorMessage] = useState<string>('')
   const [isOpen, setOpen] = useState(true)
+  const { isValidating, ...session } = useSession()
 
   const { city, postalCode } = sessionStore.read()
   const locationText = city
     ? `${textToTitleCase(city)}, ${postalCode}`
     : postalCode
 
-  const resetInputField = () => {
-    setInput('')
-    setErrorMessage('')
+  const inputFieldErrorMessage = 'Please enter a valid postal code'
+
+  const {
+    input,
+    setInput,
+    handleSubmit: setLocation,
+    resetInputField,
+    loading,
+    errorMessage,
+    setErrorMessage,
+  } = useSetLocation()
+
+  const inputButtonActionText = 'Apply'
+
+  const handleSubmit = async () => {
+    if (isValidating) {
+      return
+    }
+
+    await setLocation(
+      inputRef.current?.value,
+      inputFieldErrorMessage,
+      session,
+      () => {
+        setOpen(false)
+      }
+    )
   }
 
   // TODO: Get this from hCMS
@@ -74,14 +97,13 @@ function RegionPopover({
         label="Postal Code"
         actionable
         value={input}
-        buttonActionText="Apply"
         onInput={(e) => {
+          errorMessage !== '' && setErrorMessage('')
           setInput(e.currentTarget.value)
         }}
-        onSubmit={() => {
-          // Handle form submission
-        }}
+        onSubmit={handleSubmit}
         onClear={resetInputField}
+        buttonActionText={loading ? '...' : inputButtonActionText}
         error={errorMessage}
       />
       <UILink data-fs-region-popover-link {...idkPostalCodeLinkProps} />

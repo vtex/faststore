@@ -32,7 +32,6 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
 
       {defaultPostalCode && (
         <RegionPopover
-          open={true}
           triggerRef={buttonRef}
           onDismiss={() => {}}
           offsetTop={-65}
