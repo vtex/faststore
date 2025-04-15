@@ -31,21 +31,25 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    */
   'aria-labelledby'?: AriaAttributes['aria-label']
   /**
-   * A boolean value that represents the state of the Modal
+   * A boolean value that represents the state of the Modal.
    */
   isOpen?: boolean
   /**
-   * Event emitted when the modal is closed
+   * Event emitted when the modal is closed.
    */
   onDismiss?: () => void
   /**
-   * Props forwarded to the `Overlay` component
+   * Props forwarded to the `Overlay` component.
    */
   overlayProps?: OverlayProps
   /**
-   * Children or function as a children
+   * Children or function as a children.
    */
   children: ModalChildrenFunction | ReactNode
+  /**
+   * Disable being closed using the Escape key.
+   */
+  disableEscapeKeyDown?: boolean
 }
 
 /*
@@ -60,13 +64,14 @@ const Modal = ({
   isOpen = true,
   onDismiss,
   overlayProps,
+  disableEscapeKeyDown = false,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
   const { fade, fadeOut, fadeIn } = useFadeEffect()
 
   const handleBackdropClick = (event: MouseEvent) => {
-    if (event.defaultPrevented) {
+    if (disableEscapeKeyDown || event.defaultPrevented) {
       return
     }
 
@@ -76,7 +81,11 @@ const Modal = ({
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    if (event.key !== 'Escape' || event.defaultPrevented) {
+    if (
+      disableEscapeKeyDown ||
+      event.key !== 'Escape' ||
+      event.defaultPrevented
+    ) {
       return
     }
 

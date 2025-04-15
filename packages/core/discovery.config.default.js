@@ -52,6 +52,7 @@ module.exports = {
     country: 'USA',
     deliveryMode: null,
     addressType: null,
+    city: null,
     postalCode: null,
     geoCoordinates: null,
     b2b: null,
@@ -119,6 +120,11 @@ module.exports = {
 
   cms: {
     data: process.env.CMS_DATA,
+  },
+
+  deliveryPromise: {
+    enabled: false,
+    mandatory: false,
   },
 
   experimental: {

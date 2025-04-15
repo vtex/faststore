@@ -13,5 +13,5 @@ export interface Address {
   neighborhood: string
   complement: string
   reference: string
-  geoCoordinates: [number]
+  geoCoordinates: [number, number] // [longitude, latitude]
 }
