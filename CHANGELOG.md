@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.40.2](https://github.com/vtex/faststore/compare/v3.40.1...v3.40.2) (2025-04-15)
+
+### Bug Fixes
+
+- handle invalid requests in `parseRequest` function ([#2790](https://github.com/vtex/faststore/issues/2790)) ([fca3c26](https://github.com/vtex/faststore/commit/fca3c265ecd4d9390775da9d6be014d9b26f40d1))
+
 ## [3.40.1](https://github.com/vtex/faststore/compare/v3.40.0...v3.40.1) (2025-04-14)
 
 ### Bug Fixes
