@@ -1,28 +1,27 @@
 import { useState } from 'react'
 import { sessionStore, validateSession } from 'src/sdk/session'
 
-interface UseSetLocationReturn {
+interface UseSetLocationParams {
   input: string
+  setInput: (value: string) => void
+  resetInputField: () => void
   handleSubmit: (
     postalCode: string | undefined,
     inputFieldErrorMessage: string,
     session: any,
-    closeModal?: () => void
+    onSuccess?: () => void
   ) => Promise<void>
-  resetInputField: () => void
-  setInput: (value: string) => void
-  setErrorMessage: (value: string) => void
   errorMessage: string
+  setErrorMessage: (value: string) => void
   loading: boolean
 }
 
-export function useSetLocation(): UseSetLocationReturn {
+export function useSetLocation(): UseSetLocationParams {
   const [input, setInput] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
   const resetInputField = () => {
-    console.log('Resetting input and error message') // Debugging log
     setInput('')
     setErrorMessage('')
   }
@@ -31,7 +30,7 @@ export function useSetLocation(): UseSetLocationReturn {
     postalCode: string | undefined,
     inputFieldErrorMessage: string,
     session: any,
-    closeModal?: () => void
+    onSuccess?: () => void
   ) => {
     if (typeof postalCode !== 'string') {
       return
@@ -46,13 +45,11 @@ export function useSetLocation(): UseSetLocationReturn {
         geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
       }
 
-      console.log('New session:', newSession) // Debugging log
-
       const validatedSession = await validateSession(newSession)
 
       sessionStore.set(validatedSession ?? newSession)
       resetInputField()
-      closeModal?.() // Close modal after successfully applied
+      onSuccess?.() // Execute the post-validation action (close modal, etc.)
     } catch (error) {
       setErrorMessage(inputFieldErrorMessage)
     } finally {
@@ -62,11 +59,11 @@ export function useSetLocation(): UseSetLocationReturn {
 
   return {
     input,
-    handleSubmit,
-    resetInputField,
     setInput,
-    setErrorMessage,
+    resetInputField,
+    handleSubmit,
     errorMessage,
+    setErrorMessage,
     loading,
   }
 }
