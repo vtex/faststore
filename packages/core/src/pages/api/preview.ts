@@ -12,7 +12,10 @@ type Settings = {
   }
 }
 class StatusError extends Error {
-  constructor(message: string, public status: number) {
+  constructor(
+    message: string,
+    public status: number
+  ) {
     super(message)
   }
 }
@@ -35,13 +38,16 @@ const handler: NextApiHandler = async (req, res) => {
       'documentId',
       'versionId',
       'releaseId',
-    ].reduce((acc, param) => {
-      const value = pickParam(req, param)
+    ].reduce(
+      (acc, param) => {
+        const value = pickParam(req, param)
 
-      if (value !== undefined) acc[param] = value
+        if (value !== undefined) acc[param] = value
 
-      return acc
-    }, {} as Record<string, string>)
+        return acc
+      },
+      {} as Record<string, string>
+    )
 
     // Check if required path params are present
     if (!locator.contentType || !locator.documentId) {

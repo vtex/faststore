@@ -1,5 +1,19 @@
-import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import type {
+  QueryAllCollectionsArgs,
+  QueryAllProductsArgs,
+  QueryCollectionArgs,
+  QueryProductArgs,
+  QueryProfileArgs,
+  QueryRedirectArgs,
+  QuerySearchArgs,
+  QuerySellersArgs,
+  QueryShippingArgs,
+} from '../../../__generated__/schema'
 import { BadRequestError, NotFoundError } from '../../errors'
+import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { ProfileAddress } from '../clients/commerce/types/Profile'
+import type { SearchArgs } from '../clients/search'
+import type { Context } from '../index'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
@@ -10,22 +24,10 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
-import { SORT_MAP } from '../utils/sort'
-import { StoreCollection } from './collection'
-import type {
-  QueryAllCollectionsArgs,
-  QueryAllProductsArgs,
-  QueryCollectionArgs,
-  QueryProductArgs,
-  QuerySearchArgs,
-  QuerySellersArgs,
-  QueryShippingArgs,
-  QueryRedirectArgs,
-} from '../../../__generated__/schema'
-import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
-import { SearchArgs } from '../clients/search'
+import { SORT_MAP } from '../utils/sort'
+import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import { StoreCollection } from './collection'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -92,6 +94,8 @@ export const Query = {
         page: 0,
         count: 1,
         query: `product:${route.id}`,
+        // Manually disabling this flag to prevent regionalization issues
+        hideUnavailableItems: false,
       })
 
       if (!product) {
@@ -112,7 +116,14 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets, sponsoredCount }: QuerySearchArgs,
+    {
+      first,
+      after: maybeAfter,
+      sort,
+      term,
+      selectedFacets,
+      sponsoredCount,
+    }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -155,12 +166,12 @@ export const Query = {
 
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs: Omit<SearchArgs, 'type'> = {
-      page: Math.ceil(after / first),
+      page: Math.ceil(after / first) || 0,
       count: first,
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
-      sponsoredCount: sponsoredCount ?? undefined
+      sponsoredCount: sponsoredCount ?? undefined,
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
@@ -183,8 +194,9 @@ export const Query = {
     })
 
     const skus = products.products
-      .map((product) => product.items.map((sku) => enhanceSku(sku, product)))
-      .flat()
+      .flatMap((product) =>
+        product.items.map((sku) => enhanceSku(sku, product))
+      )
       .filter((sku) => sku.sellers.length > 0)
 
     return {
@@ -280,7 +292,6 @@ export const Query = {
       address,
     }
   },
-
   redirect: async (
     _: unknown,
     { term, selectedFacets }: QueryRedirectArgs,
@@ -303,7 +314,6 @@ export const Query = {
       url: redirect,
     }
   },
-
   sellers: async (
     _: unknown,
     { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
@@ -326,5 +336,28 @@ export const Query = {
       id,
       sellers,
     }
+  },
+  profile: async (_: unknown, { id }: QueryProfileArgs, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const addresses = await commerce.profile.addresses(id)
+
+    function mapAddressesToList(
+      addressesObj: Record<string, string>
+    ): ProfileAddress[] {
+      if (!addressesObj || Object.keys(addressesObj).length === 0) {
+        return []
+      }
+
+      return Object.values(addressesObj).map(
+        (stringifiedObj) => JSON.parse(stringifiedObj) as ProfileAddress
+      )
+    }
+
+    const parsedAddresses = mapAddressesToList(addresses)
+
+    return { addresses: parsedAddresses }
   },
 }

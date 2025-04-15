@@ -1,17 +1,18 @@
 import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
-import { Locator } from '@vtex/client-cms'
-import { GetStaticProps } from 'next'
+import type { Locator } from '@vtex/client-cms'
+import type { GetStaticProps } from 'next'
 import type { ComponentType } from 'react'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import {
-  GlobalSectionsData,
+  type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from 'src/components/cms/RenderSections'
+import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 
 type Props = {
@@ -46,10 +47,27 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
 
   return {
-    props: { globalSections },
+    props: { globalSections: globalSectionsResult },
   }
 }
 

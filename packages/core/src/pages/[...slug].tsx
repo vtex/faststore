@@ -6,26 +6,31 @@ import { gql } from '@generated'
 import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables,
 } from '@generated/graphql'
 import { execute } from 'src/server'
 
-import { Locator } from '@vtex/client-cms'
+import type { SearchState } from '@faststore/sdk'
+import type { Locator } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,
-  GlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import {
   getLandingPageBySlug,
-  LandingPageProps,
+  type LandingPageProps,
 } from 'src/components/templates/LandingPage'
 import ProductListingPage, {
-  ProductListingPageProps,
+  type ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
 import { getRedirect } from 'src/sdk/redirects'
-import { PageContentType } from 'src/server/cms'
-import { getPLP, PLPContentType } from 'src/server/cms/plp'
+import type { PageContentType } from 'src/server/cms'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getPLP, type PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -40,7 +45,8 @@ type Props = BaseProps &
     | {
         type: 'plp'
         page: PLPContentType
-        data: ServerCollectionPageQueryQuery
+        data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
+        serverManyProductsVariables: ServerManyProductsQueryQueryVariables
       }
     | {
         type: 'page'
@@ -102,23 +108,39 @@ export const getStaticProps: GetStaticProps<
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
 
-  const [landingPagePromise, globalSectionsPromise] = [
-    getLandingPageBySlug(slug, previewData),
-    getGlobalSectionsData(previewData),
-  ]
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const landingPagePromise = getLandingPageBySlug(slug, previewData)
 
   const landingPage = await landingPagePromise
 
   if (landingPage) {
-    const [serverData, globalSections] = await Promise.all([
+    const [
+      serverData,
+      globalSections,
+      globalSectionsHeader,
+      globalSectionsFooter,
+    ] = await Promise.all([
       getDynamicContent({ pageType: slug }),
       globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
     ])
+
+    const globalSectionsResult = injectGlobalSections({
+      globalSections,
+      globalSectionsHeader,
+      globalSectionsFooter,
+    })
 
     return {
       props: {
         page: landingPage,
-        globalSections,
+        globalSections: globalSectionsResult,
         type: 'page',
         slug,
         serverData,
@@ -126,7 +148,13 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
+  const [
+    { data, errors = [] },
+    cmsPage,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -136,7 +164,18 @@ export const getStaticProps: GetStaticProps<
     }),
     getPLP(slug, previewData, rewrites),
     globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
   ])
+
+  const [serverManyProductsData, serverManyProductsVariables] =
+    await fetchServerManyProducts({
+      itemsPerPage: cmsPage?.settings?.productGallery?.itemsPerPage,
+      sort: cmsPage?.settings?.productGallery
+        ?.sortBySelection as SearchState['sort'],
+      term: '',
+      selectedFacets: data?.collection?.meta.selectedFacets,
+    })
 
   const notFound = errors.find(isNotFoundError)
 
@@ -161,11 +200,21 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
     props: {
-      data,
+      data: {
+        ...data,
+        ...serverManyProductsData,
+      },
+      serverManyProductsVariables,
       page: cmsPage,
-      globalSections,
+      globalSections: globalSectionsResult,
       type: 'plp',
       key: slug,
     },

@@ -1,9 +1,6 @@
 .turbo
 .next
 
-# VSCode
-.vscode
-
 # Logs
 logs
 *.log
@@ -52,9 +49,6 @@ jspm_packages/
 # Optional npm cache directory
 .npm
 
-# Optional eslint cache
-.eslintcache
-
 # Optional REPL history
 .node_repl_history
 
@@ -67,7 +61,6 @@ jspm_packages/
 # gatsby files
 .cache/
 public
-!apps/site/public
 
 # Mac files
 .DS_Store
@@ -115,3 +108,5 @@ packages/core/@generated/persisted-documents.json
 /package-lock.json
 /tmp
 oclif.manifest.json
+
+*storybook.log

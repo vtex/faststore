@@ -22,7 +22,8 @@ export const useLazyQuery = <Data, Variables = Record<string, unknown>>(
       options
     )
 
-    response.mutate(data, false)
+    const updatedData = await response.mutate(data, false)
+    return updatedData
   }
 
   return [execute, response] as [typeof execute, typeof response]

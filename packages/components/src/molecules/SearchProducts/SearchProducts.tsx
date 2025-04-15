@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import { List, useSearch } from '../..'
 
 export interface SearchProductsProps extends HTMLAttributes<HTMLDivElement> {
@@ -20,7 +20,7 @@ const SearchProductsProps = ({
 }: SearchProductsProps) => {
   const { inContext, values } = useSearch()
 
-  if (inContext && (values.products.length <= 0)) {
+  if (inContext && values.products.length <= 0) {
     return null
   }
   return (

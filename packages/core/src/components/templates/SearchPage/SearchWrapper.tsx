@@ -1,26 +1,14 @@
 import { useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
-import EmptyState from 'src/components/sections/EmptyState'
-import ProductGalleryStyles from 'src/components/sections/ProductGallery/section.module.scss'
-import Section from 'src/components/sections/Section'
 import type { SearchPageContextType } from 'src/pages/s'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import type { SearchContentType } from 'src/server/cms'
+import storeConfig from 'discovery.config'
 
+import RenderSections from 'src/components/cms/RenderSections'
+import EmptySearch from './EmptySearch'
 import SearchPage from './SearchPage'
-
-function EmptySearch() {
-  return (
-    <Section
-      className={`${ProductGalleryStyles.section} section-product-gallery`}
-    >
-      <section data-testid="product-gallery" data-fs-product-listing>
-        <EmptyState title="" showLoader />
-      </section>
-    </Section>
-  )
-}
 
 export type SearchWrapperProps = {
   itemsPerPage: number
@@ -51,8 +39,19 @@ export default function SearchWrapper({
     }
   )
 
+  const emptySearchProps = storeConfig.experimental.enableSearchSSR
+    ? {
+        title: storeConfig.seo.search.bodyH1 ?? 'Showing results for:',
+        term: serverData.searchTerm,
+      }
+    : {}
+
   if (isValidating || !pageProductGalleryData) {
-    return <EmptySearch />
+    return (
+      <RenderSections globalSections={globalSections}>
+        <EmptySearch {...emptySearchProps} />
+      </RenderSections>
+    )
   }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
@@ -61,7 +60,11 @@ export default function SearchWrapper({
       shallow: true,
     })
 
-    return <EmptySearch />
+    return (
+      <RenderSections globalSections={globalSections}>
+        <EmptySearch {...emptySearchProps} />
+      </RenderSections>
+    )
   }
 
   const productGalleryProducts = pageProductGalleryData?.search?.products

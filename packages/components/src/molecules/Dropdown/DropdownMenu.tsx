@@ -62,7 +62,8 @@ const DropdownMenu = ({
     id,
   } = useDropdown()
 
-  const { loading: loadingPosition, ...dropdownPosition } = useDropdownPosition(align)
+  const { loading: loadingPosition, ...dropdownPosition } =
+    useDropdownPosition(align)
 
   const childrenLength = React.Children.toArray(children).length
 
@@ -102,24 +103,23 @@ const DropdownMenu = ({
   }
 
   const handleKeyNavigatePress = (key: string) => {
-    const dropdownItems = dropdownItemsRef?.current ?? [];
-    const selectedIndex = selectedDropdownItemIndexRef!.current;
-  
+    const dropdownItems = dropdownItemsRef?.current ?? []
+    const selectedIndex = selectedDropdownItemIndexRef!.current
+
     const rearrangedDropdownItems = [
       ...dropdownItems.slice(selectedIndex + 1),
       ...dropdownItems.slice(0, selectedIndex + 1),
-    ];
-  
+    ]
+
     const matchItem = rearrangedDropdownItems.find(
       (item) => item.textContent?.[0]?.toLowerCase() === key.toLowerCase()
-    );
-  
+    )
+
     if (matchItem) {
-      selectedDropdownItemIndexRef!.current = dropdownItems.indexOf(matchItem);
-      matchItem.focus();
+      selectedDropdownItemIndexRef!.current = dropdownItems.indexOf(matchItem)
+      matchItem.focus()
     }
-  };
-  
+  }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
     if (event.defaultPrevented || event.key === 'Enter' || event.key === ' ') {
@@ -158,7 +158,7 @@ const DropdownMenu = ({
     return null
   }
 
-  return (isOpen && !loadingPosition)
+  return isOpen && !loadingPosition
     ? createPortal(
         <div
           role="presentation"

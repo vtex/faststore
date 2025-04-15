@@ -23,10 +23,10 @@
 
 ## Installation
 
-From the command line in your project directory, run yarn add `@faststore/api`.
+From the command line in your project directory, run pnpm add `@faststore/api`.
 
 ```cmd
-yarn add @faststore/api
+pnpm add @faststore/api
 ```
 
 ## Usage

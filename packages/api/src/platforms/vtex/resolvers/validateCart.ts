@@ -25,7 +25,7 @@ import type {
 } from '../clients/commerce/types/OrderForm'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
-import { SelectedAddress } from '../clients/commerce/types/ShippingData'
+import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
 
 type Indexed<T> = T & { index?: number }
@@ -333,9 +333,12 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const orderNumber = order?.orderNumber
-    ? order.orderNumber
-    : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
+  const orderFormIdFromCookie = getCookieCheckoutOrderNumber(
+    ctx.headers.cookie,
+    'checkout.vtex.com'
+  )
+  const orderNumber =
+    orderFormIdFromCookie !== '' ? orderFormIdFromCookie : order?.orderNumber
 
   const { acceptedOffer, shouldSplitItem } = order
   const {
@@ -447,6 +450,17 @@ export const validateCart = async (
     })
     // update orderForm shippingData
     .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
+    // update marketingData
+    .then((form: OrderForm) => {
+      if (session?.marketingData) {
+        return commerce.checkout.marketingData({
+          id: orderForm.orderFormId,
+          marketingData: session.marketingData,
+        })
+      }
+
+      return form
+    })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form: OrderForm) => setOrderFormEtag(form, commerce))
     .then(joinItems)

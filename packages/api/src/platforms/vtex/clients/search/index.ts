@@ -1,7 +1,11 @@
 import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
-import { getStoreCookie } from '../../utils/cookies'
-import type { FuzzyFacet, OperatorFacet, SelectedFacet } from '../../utils/facets'
+import { getWithCookie } from '../../utils/cookies'
+import type {
+  FuzzyFacet,
+  OperatorFacet,
+  SelectedFacet,
+} from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 import type {
   Facet,
@@ -72,11 +76,34 @@ const isOperatorFacet = (facet: SelectedFacet): facet is OperatorFacet => {
 }
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems, simulationBehavior, showSponsored }: Options,
+  {
+    account,
+    environment,
+    hideUnavailableItems,
+    simulationBehavior,
+    showSponsored,
+    subDomainPrefix,
+  }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
-  const storeCookies = getStoreCookie(ctx)
+  const withCookie = getWithCookie(ctx)
+
+  const host =
+    new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
+
+  const selectedPrefix = subDomainPrefix
+    ? subDomainPrefix
+        .map((prefix) => prefix + '.')
+        .find((prefix) => host.includes(prefix)) || ''
+    : ''
+
+  const forwardedHost = host.replace(selectedPrefix, '')
+
+  const headers: HeadersInit = withCookie({
+    'content-type': 'application/json',
+    'X-FORWARDED-HOST': forwardedHost,
+  })
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
@@ -154,11 +181,12 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     showInvisibleItems,
-    sponsoredCount
+    sponsoredCount,
+    hideUnavailableItems: searchHideUnavailableItems,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
-      count: count.toString(),
+      count: count !== 0 ? count.toString() : '1',
       query,
       sort,
       locale: ctx.storage.locale,
@@ -171,7 +199,11 @@ export const IntelligentSearch = (
     }
 
     if (hideUnavailableItems !== undefined) {
-      params.append('hideUnavailableItems', hideUnavailableItems.toString())
+      params.append(
+        'hideUnavailableItems',
+        searchHideUnavailableItems?.toString() ??
+          hideUnavailableItems.toString()
+      )
     }
 
     if (simulationBehavior !== undefined) {
@@ -192,8 +224,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      undefined,
-      { storeCookies }
+      { headers }
     )
   }
 
@@ -210,8 +241,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      undefined,
-      { storeCookies }
+      { headers }
     )
   }
 
@@ -222,8 +252,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      undefined,
-      { storeCookies }
+      { headers }
     )
   }
 

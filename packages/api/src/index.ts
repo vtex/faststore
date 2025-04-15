@@ -11,7 +11,6 @@ import type { Options as OptionsVTEX } from './platforms/vtex'
 
 export * from './__generated__/schema'
 export * from './platforms/errors'
-export * from './telemetry'
 export { stringify as stringifyCacheControl } from './directives/cacheControl'
 export type { CacheControl } from './directives/cacheControl'
 
@@ -24,11 +23,12 @@ const platforms = {
   },
 }
 
-const directives: Directive[] = [
-  cacheControlDirective
-]
+const directives: Directive[] = [cacheControlDirective]
 
-export const getTypeDefs = () => [typeDefs, ...directives.map(d => d.typeDefs)]
+export const getTypeDefs = () => [
+  typeDefs,
+  ...directives.map((d) => d.typeDefs),
+]
 
 export const getResolvers = (options: Options) =>
   platforms[options.platform].getResolvers(options)
@@ -47,3 +47,10 @@ export const getSchema = async (options: Options) => {
 
 export * from './platforms/vtex/resolvers/root'
 export type { Resolver } from './platforms/vtex'
+
+export type {
+  CommertialOffer,
+  Item,
+  ProductSearchResult,
+  Seller,
+} from './platforms/vtex/clients/search/types/ProductSearchResult'

@@ -216,6 +216,15 @@ export type IStoreImage = {
   url: Scalars['String'];
 };
 
+export type IStoreMarketingData = {
+  utmCampaign?: Maybe<Scalars['String']>;
+  utmMedium?: Maybe<Scalars['String']>;
+  utmSource?: Maybe<Scalars['String']>;
+  utmiCampaign?: Maybe<Scalars['String']>;
+  utmiPage?: Maybe<Scalars['String']>;
+  utmiPart?: Maybe<Scalars['String']>;
+};
+
 /** Offer input. */
 export type IStoreOffer = {
   /** Information on the item being offered. */
@@ -307,6 +316,8 @@ export type IStoreSession = {
   geoCoordinates?: Maybe<IStoreGeoCoordinates>;
   /** Session input locale. */
   locale: Scalars['String'];
+  /** Marketing information input. */
+  marketingData?: Maybe<IStoreMarketingData>;
   /** Session input person. */
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
@@ -455,6 +466,42 @@ export type PickupStoreInfo = {
   isPickupStore?: Maybe<Scalars['Boolean']>;
 };
 
+export type Profile = {
+  __typename?: 'Profile';
+  /** Collection of user's address */
+  addresses?: Maybe<Array<Maybe<ProfileAddress>>>;
+};
+
+export type ProfileAddress = {
+  __typename?: 'ProfileAddress';
+  /** ProfileAddress address name/id. */
+  addressName?: Maybe<Scalars['String']>;
+  /** ProfileAddress address type. */
+  addressType?: Maybe<Scalars['String']>;
+  /** ProfileAddress city. */
+  city?: Maybe<Scalars['String']>;
+  /** ProfileAddress complement. */
+  complement?: Maybe<Scalars['String']>;
+  /** ProfileAddress country. */
+  country?: Maybe<Scalars['String']>;
+  /** ProfileAddress geo coordinate. */
+  geoCoordinate?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  /** ProfileAddress neighborhood. */
+  neighborhood?: Maybe<Scalars['String']>;
+  /** ProfileAddress number. */
+  number?: Maybe<Scalars['String']>;
+  /** ProfileAddress postal code. */
+  postalCode?: Maybe<Scalars['String']>;
+  /** ProfileAddress receiver name. */
+  receiverName?: Maybe<Scalars['String']>;
+  /** ProfileAddress reference. */
+  reference?: Maybe<Scalars['String']>;
+  /** ProfileAddress state. */
+  state?: Maybe<Scalars['String']>;
+  /** ProfileAddress street. */
+  street?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   /** Returns information about all collections. */
@@ -465,6 +512,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
+  /** Returns information about the profile. */
+  profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -495,6 +544,11 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
+};
+
+
+export type QueryProfileArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -611,6 +665,8 @@ export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
   activeVariations?: Maybe<Scalars['ActiveVariations']>;
+  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName?: Maybe<Scalars['VariantsByName']>;
   /**
@@ -895,6 +951,17 @@ export type StoreListItem = {
   position: Scalars['Int'];
 };
 
+/** Marketing information. */
+export type StoreMarketingData = {
+  __typename?: 'StoreMarketingData';
+  utmCampaign?: Maybe<Scalars['String']>;
+  utmMedium?: Maybe<Scalars['String']>;
+  utmSource?: Maybe<Scalars['String']>;
+  utmiCampaign?: Maybe<Scalars['String']>;
+  utmiPage?: Maybe<Scalars['String']>;
+  utmiPart?: Maybe<Scalars['String']>;
+};
+
 /** Offer information. */
 export type StoreOffer = {
   __typename?: 'StoreOffer';
@@ -1141,6 +1208,8 @@ export type StoreSession = {
   geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */
   locale: Scalars['String'];
+  /** Marketing information. */
+  marketingData?: Maybe<StoreMarketingData>;
   /** Session input person. */
   person?: Maybe<StorePerson>;
   /** Session postal code. */

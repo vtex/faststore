@@ -29,10 +29,10 @@
 
 ## Installation
 
-From the command line in your project directory, run yarn add `@faststore/ui`.
+From the command line in your project directory, run pnpm add `@faststore/ui`.
 
 ```cmd
-yarn add @faststore/ui
+pnpm add @faststore/ui
 ```
 
 ## Usage
