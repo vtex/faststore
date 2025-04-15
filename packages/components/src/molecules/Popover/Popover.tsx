@@ -9,7 +9,7 @@ import React, {
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
 
-import { useOnClickOutside } from '../../hooks'
+import { useOnClickOutside, useUI } from '../../hooks'
 
 /**
  * Specifies Popover position.
@@ -49,6 +49,10 @@ export interface PopoverProps
    */
   onDismiss?: () => void
   /**
+   * Close button aria-label.
+   */
+  closeButtonAriaLabel?: string
+  /**
    * Controls whether the Popover is open.
    */
   isOpen: boolean
@@ -80,9 +84,10 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     dismissible = false,
     onDismiss,
     isOpen,
-    triggerRef,
+    triggerRef: propTriggerRef,
     offsetTop = 8,
     offsetLeft = 0,
+    closeButtonAriaLabel = 'Close Popover',
     testId = 'fs-popover',
     ...otherProps
   },
@@ -93,6 +98,12 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
 
   // Set the position according to the trigger element
   const [styles, setStyles] = useState({ top: 0, left: 0 })
+
+  const { popover } = useUI()
+  const contextTriggerRef = popover.triggerRef
+
+  // Use the propTriggerRef if provided, otherwise fallback to contextTriggerRef
+  const triggerRef = propTriggerRef || contextTriggerRef
 
   useEffect(() => {
     if (!isOpen || !triggerRef?.current) return
@@ -145,7 +156,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
             size="small"
             variant="tertiary"
             icon={<Icon name="X" width={20} height={20} />}
-            aria-label="Dismiss popover"
+            aria-label={closeButtonAriaLabel}
             onClick={handleDismiss}
           />
         )}
