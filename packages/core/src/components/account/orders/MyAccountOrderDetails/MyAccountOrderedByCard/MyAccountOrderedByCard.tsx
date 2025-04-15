@@ -28,15 +28,11 @@ function MyAccountOrderedByCard({
       {isCorporate && corporateName && (
         <div data-fs-ordered-by-org>
           <div data-fs-ordered-by-avatar>{getFirstLetter(corporateName)}</div>
-          <p>
-            <b>{corporateName}</b>
-          </p>
+          <p data-fs-ordered-by-org-name>{corporateName}</p>
         </div>
       )}
       <div data-fs-ordered-by-client-info>
-        <p>
-          <b>{`${firstName} ${lastName}`}</b>
-        </p>
+        <p data-fs-ordered-by-client-name>{`${firstName} ${lastName}`}</p>
         {(phone || email) && (
           <p>
             {phone && <>{phone}</>}
