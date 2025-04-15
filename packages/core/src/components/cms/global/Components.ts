@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
+import RegionPopover from 'src/components/region/RegionPopover'
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
@@ -32,6 +33,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
   Navbar,
   RegionBar,
+  RegionPopover,
   CartSidebar, // out of viewport
   RegionModal, // out of viewport
   Footer, // out of viewport

@@ -1,15 +1,41 @@
+import type { PopoverProps as UIPopoverProps } from '@faststore/ui'
 import {
   Icon as UIIcon,
   InputField as UIInputField,
   Link as UILink,
   Popover as UIPopover,
+  useUI,
 } from '@faststore/ui'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useSetLocation } from './../RegionModal/useSetLocation'
 
 import { sessionStore, useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
+import styles from './section.module.scss'
+
+interface RegionPopoverProps {
+  title?: UIPopoverProps['title']
+  closeButtonAriaLabel?: UIPopoverProps['closeButtonAriaLabel']
+  inputField?: {
+    label?: string
+    errorMessage?: string
+    buttonActionText?: string
+  }
+  idkPostalCodeLink?: {
+    text?: string
+    to?: string
+    icon?: {
+      icon?: string
+      alt: string
+    }
+  }
+  triggerRef?: UIPopoverProps['triggerRef']
+  onDismiss: UIPopoverProps['onDismiss']
+  offsetTop?: UIPopoverProps['offsetTop']
+  offsetLeft?: UIPopoverProps['offsetLeft']
+  placement?: UIPopoverProps['placement']
+}
 
 function RegionPopover({
   triggerRef,
@@ -17,23 +43,28 @@ function RegionPopover({
   offsetTop,
   offsetLeft,
   placement = 'bottom-start',
-}: {
-  triggerRef?: React.RefObject<HTMLButtonElement>
-  onDismiss: () => void
-  offsetTop?: number
-  offsetLeft?: number
-  placement?: string
-}) {
+  title = 'Set your location',
+  closeButtonAriaLabel,
+  inputField: {
+    label: inputFieldLabel,
+    errorMessage: inputFieldErrorMessage,
+    buttonActionText: inputButtonActionText,
+  },
+  idkPostalCodeLink: {
+    text: idkPostalCodeLinkText,
+    to: idkPostalCodeLinkTo,
+    icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
+  },
+}: RegionPopoverProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
+  const { popover: displayPopover, closePopover } = useUI()
 
   const { city, postalCode } = sessionStore.read()
   const locationText = city
     ? `${textToTitleCase(city)}, ${postalCode}`
     : postalCode
-
-  const inputFieldErrorMessage = 'Please enter a valid postal code'
 
   const {
     input,
@@ -44,8 +75,6 @@ function RegionPopover({
     errorMessage,
     setErrorMessage,
   } = useSetLocation()
-
-  const inputButtonActionText = 'Apply'
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -62,13 +91,8 @@ function RegionPopover({
     )
   }
 
-  // TODO: Get this from hCMS
-  const idkPostalCodeLinkText = 'I don’t know my postal code'
-  const idkPostalCodeLinkIcon = 'ArrowSquareOut'
-  const idkPostalCodeLinkIconAlt = 'Help icon'
-
   const idkPostalCodeLinkProps = {
-    href: '#',
+    href: idkPostalCodeLinkTo ?? '#',
     children: (
       <>
         {idkPostalCodeLinkText}
@@ -94,7 +118,7 @@ function RegionPopover({
         data-fs-region-popover-input
         id="region-popover-input-postal-code"
         inputRef={inputRef}
-        label="Postal Code"
+        label={inputFieldLabel}
         actionable
         value={input}
         onInput={(e) => {
@@ -112,17 +136,23 @@ function RegionPopover({
 
   return (
     <>
-      <UIPopover
-        data-fs-region-popover
-        title="Set your location"
-        dismissible
-        isOpen={isOpen}
-        content={RegionPopoverContent}
-        placement="bottom-start"
-        onDismiss={() => setOpen(false)}
-        triggerRef={triggerRef}
-        offsetTop={offsetTop}
-      />
+      {displayPopover && (
+        <div className={`${styles.section} section-region-popover`}>
+          <UIPopover
+            data-fs-region-popover
+            title={title}
+            isOpen={isOpen}
+            content={RegionPopoverContent}
+            placement={placement}
+            dismissible
+            onDismiss={() => setOpen(false)}
+            triggerRef={triggerRef}
+            offsetTop={offsetTop}
+            offsetLeft={offsetLeft}
+            closeButtonAriaLabel={closeButtonAriaLabel}
+          />
+        </div>
+      )}
     </>
   )
 }
