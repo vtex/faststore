@@ -308,6 +308,7 @@ export const Query = {
       count: 1,
       query: term ?? undefined,
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      allowRedirect: true,
     })
 
     return {
