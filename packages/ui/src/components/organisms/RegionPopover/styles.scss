@@ -19,9 +19,9 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  width: 100%;
+  width: auto;
 
-  @include media(">=notebook") {
+  @include media(">=tablet") {
     width: var(--fs-region-popover-width);
   }
 

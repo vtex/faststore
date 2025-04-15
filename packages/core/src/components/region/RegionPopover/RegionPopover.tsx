@@ -58,9 +58,11 @@ function RegionPopover({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
+  const { city, postalCode } = sessionStore.read()
   const { popover: displayPopover } = useUI()
 
-  const { city, postalCode } = sessionStore.read()
+  const defaultOffsetTop = 54 // 48px + 6px (offset)
+
   const locationText = city
     ? `${textToTitleCase(city)}, ${postalCode}`
     : postalCode
@@ -146,7 +148,7 @@ function RegionPopover({
             dismissible
             onDismiss={() => setOpen(false)}
             triggerRef={triggerRef}
-            offsetTop={offsetTop}
+            offsetTop={offsetTop ? offsetTop : defaultOffsetTop}
             offsetLeft={offsetLeft}
             closeButtonAriaLabel={closeButtonAriaLabel}
           />
