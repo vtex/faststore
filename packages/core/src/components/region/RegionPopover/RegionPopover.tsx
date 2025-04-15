@@ -39,7 +39,6 @@ interface RegionPopoverProps {
 
 function RegionPopover({
   triggerRef,
-  onDismiss,
   offsetTop,
   offsetLeft,
   placement = 'bottom-start',
@@ -59,7 +58,7 @@ function RegionPopover({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
-  const { popover: displayPopover, closePopover } = useUI()
+  const { popover: displayPopover } = useUI()
 
   const { city, postalCode } = sessionStore.read()
   const locationText = city
