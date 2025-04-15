@@ -4,7 +4,8 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-region-popover-width                : 406px;
+  --fs-region-popover-width                 : 406px;
+  --fs-region-popover-row-gap               : var(--fs-spacing-2);
 
   // Description
   --fs-region-popover-description-text-size : var(--fs-text-size-legend);
@@ -24,6 +25,12 @@
     width: var(--fs-region-popover-width);
   }
 
+  [data-fs-popover-content] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-region-popover-row-gap);
+  }
+
   [data-fs-region-popover-description] {
     font-size: var(--fs-region-popover-description-text-size);
 
@@ -31,10 +38,6 @@
       font-weight: var(--fs-text-weight-bold);
       color: var(--fs-color-text-light);
     }
-  }
-
-  [data-fs-region-popover-input] {
-    margin: var(--fs-spacing-2) 0;
   }
 
   // Duplicate from data-fs-region-modal-link
