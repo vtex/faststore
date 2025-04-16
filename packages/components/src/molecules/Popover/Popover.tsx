@@ -99,7 +99,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   // Set the position according to the trigger element
   const [styles, setStyles] = useState({ top: 0, left: 0 })
 
-  const { popover } = useUI()
+  const { popover, closePopover } = useUI()
   const contextTriggerRef = popover.triggerRef
 
   // Use the propTriggerRef if provided, otherwise fallback to contextTriggerRef
@@ -117,6 +117,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   }, [isOpen, triggerRef, offsetTop, offsetLeft])
 
   const handleDismiss = () => {
+    closePopover()
     onDismiss?.()
   }
 

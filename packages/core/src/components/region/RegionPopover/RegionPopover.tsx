@@ -59,7 +59,7 @@ function RegionPopover({
   const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
   const { city, postalCode } = sessionStore.read()
-  const { popover: displayPopover } = useUI()
+  const { popover: displayPopover, closePopover } = useUI()
 
   const defaultOffsetTop = 54 // 48px + 6px (offset)
 
@@ -137,7 +137,7 @@ function RegionPopover({
 
   return (
     <>
-      {displayPopover && (
+      {displayPopover.isOpen && (
         <div className={`${styles.section} section-region-popover`}>
           <UIPopover
             data-fs-region-popover
@@ -146,7 +146,10 @@ function RegionPopover({
             content={RegionPopoverContent}
             placement={placement}
             dismissible
-            onDismiss={() => setOpen(false)}
+            onDismiss={() => {
+              setOpen(false)
+              closePopover
+            }}
             triggerRef={triggerRef}
             offsetTop={offsetTop ? offsetTop : defaultOffsetTop}
             offsetLeft={offsetLeft}
