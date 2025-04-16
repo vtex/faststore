@@ -13,5 +13,3 @@ export type {
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
 export { useProductComparison } from './useProductComparison'
-
-

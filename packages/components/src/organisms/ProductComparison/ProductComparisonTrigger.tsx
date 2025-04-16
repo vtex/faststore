@@ -1,14 +1,14 @@
 import React, { forwardRef } from 'react'
 import type { IProductComparison } from './provider/ProductComparisonProvider'
 import CheckboxField, {
-  CheckboxFieldProps,
+  type CheckboxFieldProps,
 } from '../../molecules/CheckboxField'
 import { useProductComparison } from '../../hooks/useProductComparison'
 
 export type ProductComparisonTriggerProps = CheckboxFieldProps & {
   /*
-    * The product to be compared.
-  */
+   * The product to be compared.
+   */
   product: IProductComparison
 }
 

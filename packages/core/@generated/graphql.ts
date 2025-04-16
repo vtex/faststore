@@ -673,10 +673,6 @@ export type SkuVariants = {
   slugsMap: Maybe<Scalars['SlugsMap']['output']>
 }
 
-export type SkuVariantsAllVariantProductsArgs = {
-  productID: InputMaybe<Scalars['String']['input']>
-}
-
 export type SkuVariantsAvailableVariationsArgs = {
   dominantVariantName: InputMaybe<Scalars['String']['input']>
 }

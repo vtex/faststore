@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef, type HTMLAttributes } from 'react'
 import ProductComparisonProvider from './provider/ProductComparisonProvider'
 
 export interface ProductComparisonProps extends HTMLAttributes<HTMLDivElement> {

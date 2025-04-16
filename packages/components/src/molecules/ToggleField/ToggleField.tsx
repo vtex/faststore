@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { Label, SROnly, Toggle, ToggleProps } from './../../'
+import { Label, SROnly, Toggle, type ToggleProps } from './../../'
 
 export interface ToggleFieldProps extends ToggleProps {
   /**
