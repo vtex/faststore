@@ -5,13 +5,13 @@ export default {
   title: 'Tooltip',
 }
 
-export function BottomStart() {
+export function Default() {
   return (
     <div
       style={{ margin: '16px', position: 'relative', display: 'inline-block' }}
     >
       <Tooltip
-        content={<div>Tooltip content goes here</div>}
+        content={<div>Tooltip content goes here BottomStart</div>}
         placement="bottom-start"
       >
         <button>Hover over me</button>
