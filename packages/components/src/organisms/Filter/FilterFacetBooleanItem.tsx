@@ -1,6 +1,6 @@
 import React from 'react'
 import { Badge, Checkbox, Label } from '../..'
-import { OnFacetChange } from './Filter'
+import type { OnFacetChange } from './Filter'
 
 export interface FilterFacetBooleanItemProps {
   /**

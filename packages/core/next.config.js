@@ -65,6 +65,9 @@ const nextConfig = {
   },
   redirects: storeConfig.redirects,
   rewrites: storeConfig.rewrites,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig

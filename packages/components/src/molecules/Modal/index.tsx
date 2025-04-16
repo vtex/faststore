@@ -1,5 +1,7 @@
 export { default } from './Modal'
 export { default as ModalHeader } from './ModalHeader'
+export { default as ModalFooter } from './ModalFooter'
 export { default as ModalBody } from './ModalBody'
 export type { ModalProps } from './Modal'
 export type { ModalHeaderProps } from './ModalHeader'
+export type { ModalFooterProps } from './ModalFooter'

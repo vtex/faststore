@@ -12,6 +12,8 @@ export { default as Icon } from './atoms/Icon'
 export type { IconProps } from './atoms/Icon'
 export { default as Input } from './atoms/Input'
 export type { InputProps } from './atoms/Input'
+export { default as Textarea } from './atoms/Textarea'
+export type { TextareaProps } from './atoms/Textarea'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
 export { default as Link } from './atoms/Link'
@@ -67,12 +69,8 @@ export type {
   CarouselBulletsProps,
 } from './molecules/Carousel'
 
-export {
-  default as Card
-} from './molecules/Card'
-export type {
-  CardProps
-} from './molecules/Card'
+export { default as Card } from './molecules/Card'
+export type { CardProps } from './molecules/Card'
 
 export {
   default as CartItem,
@@ -110,9 +108,16 @@ export type {
 } from './molecules/Gift'
 export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
+export { default as TextareaField } from './molecules/TextareaField'
+export type { TextareaFieldProps } from './molecules/TextareaField'
 export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
-export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
+export {
+  default as Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
 export {
   default as NavbarLinks,
@@ -146,8 +151,12 @@ export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
 export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
+export { default as RatingField } from './molecules/RatingField'
+export type { RatingFieldProps } from './molecules/RatingField'
 export { default as RegionBar } from './molecules/RegionBar'
 export type { RegionBarProps } from './molecules/RegionBar'
+export { default as Tooltip } from './molecules/Tooltip'
+export type { TooltipProps } from './molecules/Tooltip'
 
 export { default as SearchProvider } from './molecules/SearchProvider'
 export type { SearchProviderContextValue } from './molecules/SearchProvider'
@@ -369,7 +378,7 @@ export {
 export type {
   SKUMatrixProps,
   SKUMatrixTriggerProps,
-  SKUMatrixSidebarProps
+  SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
 
 export { default as ProductComparison, ProductComparisonTrigger, ProductComparisonToolbar, ProductComparisonSidebar } from './organisms/ProductComparison'

@@ -8,9 +8,9 @@ Before you begin, make sure you have the following installed on your local machi
 
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en)
-- [Yarn](https://yarnpkg.com/)
+- [Pnpm](https://pnpm.io)
 - [Turbo](https://turbo.build/repo/docs/getting-started/installation#installing-turbo)
-- Your Preferred Code Editor (VSCode, Sublime, etc.)
+- Your Preferred Code Editor (VSCode, Sublime, Zed, etc.)
 
 ## 2. Getting Started
 
@@ -28,17 +28,17 @@ Fork the repository (click the <kbd>Fork</kbd> button at the top right of
 
 ### Setting Up the Environment
 
-1. Run `yarn` at the root of the repository.
+1. Run `pnpm i` at the root of the repository.
 
-2. Run `yarn build` at the root of the repository.
+2. Run `pnpm build` at the root of the repository.
 
-3. Run `yarn turbo run dev --filter={packageName}` to run a package individually.
+3. Run `pnpm turbo run dev --filter={packageName}` to run a package individually.
 
 > For example, if you want to run the `@faststore/core` package, at the root of the repository run:
 >
-> `yarn turbo run dev --filter=@faststore/core`
+> `pnpm turbo run dev --filter=@faststore/core`
 
-**Note**: If you encounter issues during the setup process, please check if your current version of Yarn, Turbo, and Node.js are matching the versions specified in the package.json file.
+**Note**: If you encounter issues during the setup process, please check if your current version of Pnpm, Turbo, and Node.js are matching the versions specified in the package.json file.
 
 ## 3. Working on an Issue
 
@@ -67,7 +67,7 @@ To test your changes in a store, you will need to create a pull request (for mor
 <img width="502" alt="image" src="https://vtexhelp.vtexassets.com/assets/docs/src/fs-package-local-install-cli___692a64eba8c0b3745c468176bfc610fb.png
 "></img>
 
-4. Run `yarn` to install the updates and test your changes in the store.
+4. Run `pnpm` to install the updates and test your changes in the store.
 
 **Note**: This link is intended for testing purposes only. Please avoid using it in your store. Once the published version of your package is available, make sure to update the link accordingly.
 

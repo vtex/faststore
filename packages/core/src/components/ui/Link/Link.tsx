@@ -10,7 +10,7 @@ export type LinkProps<T extends LinkElementType = 'a'> = UILinkProps<T> &
   AnchorHTMLAttributes<HTMLAnchorElement>
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
-  T extends LinkElementType = 'a'
+  T extends LinkElementType = 'a',
 >(
   { href, inverse, children, variant = 'default', ...otherProps }: LinkProps<T>,
   ref: Ref<HTMLAnchorElement>

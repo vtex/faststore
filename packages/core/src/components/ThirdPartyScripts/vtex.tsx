@@ -8,8 +8,9 @@ function VTEX() {
         type="text/partytown"
         dangerouslySetInnerHTML={{
           __html: `
-    window.sendrc=function(en,ed){window.NavigationCapture&&window.NavigationCapture.sendEvent(en,ed)};
-    `,
+            window.VTEX_METADATA = {account:'${storeConfig.api.storeId}', renderer: 'faststore'};
+            window.sendrc=function(en,ed){window.NavigationCapture&&window.NavigationCapture.sendEvent(en,ed)};
+          `,
         }}
       />
       <script
