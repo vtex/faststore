@@ -1010,8 +1010,8 @@ export type StoreProduct = {
   additionalProperty: Array<StorePropertyValue>;
   /** Advertisement information about the product. */
   advertisement?: Maybe<Advertisement>;
-  /** Aggregate ratings data. */
-  aggregateRating: StoreAggregateRating;
+  /** Product rating. */
+  aggregateRating: StoreProductRating;
   /** Product brand. */
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -1030,12 +1030,8 @@ export type StoreProduct = {
   offers: StoreAggregateOffer;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String'];
-  /** Product rating. */
-  rating: StoreProductRating;
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
   releaseDate: Scalars['String'];
-  /** Array with review information. */
-  review: Array<StoreReview>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
@@ -1120,12 +1116,12 @@ export const enum StoreProductListReviewsSort {
 
 export type StoreProductRating = {
   __typename?: 'StoreProductRating';
-  /** Product average rating. */
-  average: Scalars['Float'];
   /** Product rating distribution in percentages. */
   distribution: StoreProductRatingDistribution;
+  /** Product average rating. */
+  ratingValue: Scalars['Float'];
   /** Product amount of ratings received. */
-  totalCount: Scalars['Int'];
+  reviewCount: Scalars['Int'];
 };
 
 /** Product rating distribution in percentages. */
@@ -1147,22 +1143,22 @@ export type StoreProductReview = {
   __typename?: 'StoreProductReview';
   /** Indicates if the review was approved by the store owner. */
   approved: Scalars['Boolean'];
+  /** Review author email. */
+  author?: Maybe<Scalars['String']>;
+  /** Review creation date. */
+  datePublished: Scalars['String'];
   /** Review ID. */
   id: Scalars['String'];
+  /** Review name, like a title. */
+  name: Scalars['String'];
   /** Product ID. */
   productId: Scalars['String'];
+  /** Review content. */
+  reviewBody: Scalars['String'];
   /** Review rating. */
-  rating: Scalars['Int'];
-  /** Review creation date. */
-  reviewDateTime: Scalars['String'];
-  /** Review author name. */
-  reviewerName?: Maybe<Scalars['String']>;
+  reviewRating: Scalars['Int'];
   /** Review author ID. */
   shopperId: Scalars['String'];
-  /** Review content. */
-  text: Scalars['String'];
-  /** Review title. */
-  title: Scalars['String'];
   /** Indicates if the review was made by a verified purchaser. */
   verifiedPurchaser: Scalars['Boolean'];
 };
@@ -1188,24 +1184,6 @@ export type StoreRedirect = {
   __typename?: 'StoreRedirect';
   /** URL to redirect */
   url?: Maybe<Scalars['String']>;
-};
-
-/** Information of a given review. */
-export type StoreReview = {
-  __typename?: 'StoreReview';
-  /** Review author. */
-  author: StoreAuthor;
-  /** Review rating information. */
-  reviewRating: StoreReviewRating;
-};
-
-/** Information of a given review rating. */
-export type StoreReviewRating = {
-  __typename?: 'StoreReviewRating';
-  /** Best rating value. */
-  bestRating: Scalars['Float'];
-  /** Rating value. */
-  ratingValue: Scalars['Float'];
 };
 
 /** Search result. */

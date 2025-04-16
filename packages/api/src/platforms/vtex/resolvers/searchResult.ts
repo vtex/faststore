@@ -61,7 +61,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skusWithRatings = skus.map((sku, index) => ({
       ...sku,
-      rating: ratings[index],
+      aggregateRating: {
+        ratingValue: ratings[index]?.average,
+        reviewCount: ratings[index]?.totalCount,
+      },
     }))
 
     const { searches } = terms
@@ -93,7 +96,13 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
     )
 
     const edges = skus.map((sku, index) => ({
-      node: { ...sku, rating: ratings[index] },
+      node: {
+        ...sku,
+        aggregateRating: {
+          ratingValue: ratings[index]?.average,
+          reviewCount: ratings[index]?.totalCount,
+        },
+      },
       cursor: index.toString(),
     }))
 

@@ -26,15 +26,6 @@ export const AllProductsQueryFirst5 = `query AllProducts {
         }
         name
         productID
-        review {
-          author {
-            name
-          }
-          reviewRating {
-            bestRating
-            ratingValue
-          }
-        }
         seo {
           canonical
           description

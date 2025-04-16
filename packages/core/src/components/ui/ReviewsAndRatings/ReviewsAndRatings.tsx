@@ -37,7 +37,7 @@ function ReviewsAndRatings({
   const { isDesktop } = useScreenResize()
   const { product, isValidating } = context.data
 
-  const rating = product?.rating
+  const rating = product?.aggregateRating
 
   return (
     <>
@@ -47,7 +47,7 @@ function ReviewsAndRatings({
           <RatingSummarySkeleton.Component />
         ) : (
           rating &&
-          (isDesktop || rating?.totalCount > 0) && (
+          (isDesktop || rating?.reviewCount > 0) && (
             <RatingSummary.Component
               {...RatingSummary.props}
               textLabels={{ ...ratingSummary }}
