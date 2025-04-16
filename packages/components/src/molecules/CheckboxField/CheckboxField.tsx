@@ -25,7 +25,6 @@ const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
       label,
       value,
       name,
-      checked,
       error,
       disabled,
       alignment = 'center',
@@ -47,7 +46,7 @@ const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
           id={id}
           value={value ?? label}
           name={name}
-          defaultChecked={checked}
+          defaultChecked={otherProps?.checked}
           disabled={disabled}
           {...otherProps}
         />
