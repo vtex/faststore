@@ -73,7 +73,7 @@ export interface PopoverProps
   /**
    * Reference to the trigger element that opens the Popover.
    */
-  triggerRef?: React.RefObject<HTMLButtonElement>
+  triggerRef?: React.RefObject<HTMLElement>
 }
 
 const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(

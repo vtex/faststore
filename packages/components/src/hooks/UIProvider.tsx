@@ -10,7 +10,7 @@ export interface Toast {
 
 export interface Popover {
   isOpen: boolean
-  triggerRef?: React.RefObject<HTMLButtonElement>
+  triggerRef?: React.RefObject<HTMLElement>
 }
 
 interface State {
@@ -50,7 +50,7 @@ type Action =
       type: 'openPopover'
       payload: {
         isOpen: boolean
-        triggerRef?: React.RefObject<HTMLButtonElement>
+        triggerRef?: React.RefObject<HTMLElement>
       }
     }
   | {
