@@ -9,7 +9,6 @@ type ImageComponentType = FunctionComponent<{
   width?: number
   height?: number
 }>
-
 export interface ProductComparisonToolbarProps {
   /*
    * Set the label for the warning message when products are selected.
@@ -25,8 +24,9 @@ export interface ProductComparisonToolbarProps {
   clearSelectionButtonLabel?: string
 }
 
-const ImageComponent: ImageComponentType =
-  ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
+const ImageComponent: ImageComponentType = ({ src, alt, ...otherProps }) => (
+  <img src={src} alt={alt} {...otherProps} />
+)
 
 function ProductComparisonToolbar({
   clearSelectionButtonLabel,
