@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.3](https://github.com/vtex/faststore/compare/v3.41.2...v3.41.3) (2025-04-16)
+
+### Bug Fixes
+
+- Allow control to `Checkbox`'s `checked` attribute ([#2614](https://github.com/vtex/faststore/issues/2614)) ([f0b8f2b](https://github.com/vtex/faststore/commit/f0b8f2bdcda879854c84e99bc3f59844b16fb564))
+
 ## 3.38.3 (2025-04-11)
 
 ### Bug Fixes
