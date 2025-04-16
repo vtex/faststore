@@ -53,7 +53,7 @@ module.exports = {
     deliveryMode: null,
     addressType: null,
     city: null,
-    postalCode: '12121',
+    postalCode: null,
     geoCoordinates: null,
     b2b: null,
     person: null,
@@ -123,7 +123,7 @@ module.exports = {
   },
 
   deliveryPromise: {
-    enabled: true,
+    enabled: false,
     mandatory: false,
   },
 
