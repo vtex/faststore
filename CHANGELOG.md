@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.1](https://github.com/vtex/faststore/compare/v3.41.0...v3.41.1) (2025-04-16)
+
+### Bug Fixes
+
+- log error and properly end response in GraphQL handler ([#2792](https://github.com/vtex/faststore/issues/2792)) ([878923c](https://github.com/vtex/faststore/commit/878923cbecf073b06251c3fcdb79560b9ee6ebc0))
+
 # [3.41.0](https://github.com/vtex/faststore/compare/v3.40.2...v3.41.0) (2025-04-15)
 
 ### Features
