@@ -3,12 +3,13 @@ import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
+import Head from 'next/head'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
-import {
-  type ServerProductQueryQuery,
-  type ServerProductQueryQueryVariables,
+import type {
+  ServerProductQueryQuery,
+  ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
@@ -21,19 +22,29 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
+import { getRedirect } from 'src/sdk/redirects'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
 import {
-  GlobalSectionsData,
   getGlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
+import { getOfferUrl, useOffer } from 'src/sdk/offer'
+import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import { PDPContentType, getPDP } from 'src/server/cms/pdp'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
+
+type StoreConfig = typeof storeConfig & {
+  experimental: {
+    revalidate?: number
+    enableClientOffer?: boolean
+  }
+}
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -68,15 +79,59 @@ type Props = PDPContentType & {
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
-function Page({ data: server, sections, globalSections, offers, meta }: Props) {
+const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
+  .enableClientOffer
+
+function Page({
+  data: server,
+  sections,
+  settings,
+  globalSections,
+  offers,
+  meta,
+}: Props) {
   const { product } = server
   const { currency } = useSession()
-  const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
+  const {
+    seo: { pdp: pdpSeo, ...storeSeo },
+  } = storeConfig
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data: client, isValidating } = useProductQuery(product.id, {
-    product: product,
-  })
+  // SEO data
+  const title = meta?.title ?? storeSeo.title
+  const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
+  const description =
+    meta?.description ||
+    pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
+    storeSeo.description
+
+  let itemListElements = product.breadcrumbList.itemListElement ?? []
+  if (itemListElements.length !== 0) {
+    itemListElements = itemListElements.map(
+      ({ item: pathname, name, position }) => {
+        const pageUrl = storeConfig.storeUrl + pathname
+
+        return { name, position, item: pageUrl }
+      }
+    )
+  }
+
+  const { client, isValidating } = isClientOfferEnabled
+    ? (() => {
+        const offer = useOffer({ skuId: product.sku })
+        return {
+          client: { product: { offers: offer.offers } },
+          isValidating: offer.isValidating,
+        }
+      })()
+    : (() => {
+        const productQuery = useProductQuery(product.id, {
+          product: product,
+        })
+        return {
+          client: productQuery.data,
+          isValidating: productQuery.isValidating,
+        }
+      })()
 
   const context = {
     data: {
@@ -87,16 +142,27 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
 
   return (
     <>
+      {isClientOfferEnabled && (
+        <Head>
+          <link
+            rel="preload"
+            href={getOfferUrl(product.sku)}
+            as="fetch"
+            crossOrigin="anonymous"
+            fetchPriority="high"
+          />
+        </Head>
+      )}
       {/* SEO */}
       <NextSeo
-        title={meta.title}
-        description={meta.description}
+        title={title}
+        description={description}
         canonical={meta.canonical}
         openGraph={{
           type: 'og:product',
           url: meta.canonical,
-          title: meta.title,
-          description: meta.description,
+          title,
+          description,
           images: product.image.map((img) => ({
             url: img.url,
             alt: img.alternateName,
@@ -114,10 +180,10 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         ]}
         titleTemplate={titleTemplate}
       />
-      <BreadcrumbJsonLd
-        itemListElements={product.breadcrumbList.itemListElement}
-      />
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
       <ProductJsonLd
+        id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
+        mainEntityOfPage={`${meta.canonical}${settings?.seo?.mainEntityOfPage ?? ''}`}
         productName={product.name}
         description={product.description}
         brand={product.brand.name}
@@ -126,6 +192,9 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
+        {...(itemListElements.length !== 0 && {
+          category: itemListElements[0].name,
+        })}
       />
 
       {/*
@@ -217,12 +286,26 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, globalSections] = await Promise.all([
+
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [
+    searchResult,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    getGlobalSectionsData(previewData),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
   ])
 
   const { data, errors = [] } = searchResult
@@ -230,6 +313,17 @@ export const getStaticProps: GetStaticProps<
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
+    if (storeConfig.experimental.enableRedirects) {
+      const redirect = await getRedirect({ pathname: `/${slug}/p` })
+
+      if (redirect) {
+        return {
+          redirect,
+          revalidate: 60 * 5, // 5 minutes
+        }
+      }
+    }
+
     return {
       notFound: true,
     }
@@ -242,8 +336,8 @@ export const getStaticProps: GetStaticProps<
   const cmsPage: PDPContentType = await getPDP(data.product, previewData)
 
   const { seo } = data.product
-  const title = seo.title || storeConfig.seo.title
-  const description = seo.description || storeConfig.seo.description
+  const title = seo.title
+  const description = seo.description
   const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
   const meta = { title, description, canonical }
@@ -262,15 +356,22 @@ export const getStaticProps: GetStaticProps<
     url: canonical,
   }
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
     props: {
       data,
       ...cmsPage,
       meta,
       offers,
-      globalSections,
+      globalSections: globalSectionsResult,
       key: seo.canonical,
     },
+    revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
   }
 }
 

@@ -1,18 +1,19 @@
-import { Locator } from '@vtex/client-cms'
-import { GetStaticProps } from 'next'
+import type { Locator } from '@vtex/client-cms'
+import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import {
-  GlobalSectionsData,
+  type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PageContentType, getPage } from 'src/server/cms'
+import PLUGINS_COMPONENTS from 'src/plugins'
+import { type PageContentType, getPage } from 'src/server/cms'
+import { injectGlobalSections } from 'src/server/cms/global'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -56,16 +57,31 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const [page, globalSections] = await Promise.all([
-    getPage<PageContentType>({
-      ...(previewData?.contentType === '404' && previewData),
-      contentType: '404',
-    }),
-    getGlobalSectionsData(previewData),
-  ])
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      getPage<PageContentType>({
+        ...(previewData?.contentType === '404' && previewData),
+        contentType: '404',
+      }),
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
 
   return {
-    props: { page, globalSections },
+    props: { page, globalSections: globalSectionsResult },
   }
 }
 

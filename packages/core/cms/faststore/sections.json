@@ -1949,6 +1949,32 @@
                   "type": "string",
                   "default": "Select at least"
                 },
+                "sidebarComponent": {
+                  "title": "Sidebar component",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Compare Products"
+                    },
+                    "sortLabel": {
+                      "title": "Sort text",
+                      "type": "string",
+                      "default": "Sort by"
+                    },
+                    "cartButtonLabel": {
+                      "title": "Add to cart button",
+                      "type": "string",
+                      "default": "Add to cart"
+                    },
+                    "priceWithTaxLabel": {
+                      "title": "Price with taxes text",
+                      "type": "string",
+                      "default": "Price with taxes"
+                    }
+                  }
+                },
                 "technicalInformation": {
                   "title": "Technical Information",
                   "type": "object",

@@ -3,7 +3,7 @@ const { compilerOptions } = require('./tsconfig')
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: 'ts-jest',
+  ...require('../../jest.config.js'),
   testPathIgnorePatterns: ['/node_modules/', 'cypress/'],
 
   /** Support importing from src/ or @generated/ folders (TS path imports) */

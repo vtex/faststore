@@ -27,8 +27,8 @@
   [data-fs-product-listing-content-grid] {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
+    height: 100%;
 
     @include media("<notebook") {
       padding-right: 0;
@@ -131,6 +131,8 @@
       padding: 0;
       background-color: unset;
     }
+
+    [data-fs-product-grid] { min-height: rem(290px); }
 
     [data-fs-product-card] { min-width: 100%; }
   }

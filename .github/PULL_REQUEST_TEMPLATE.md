@@ -37,7 +37,7 @@
 
 **Dependencies**
 
-- [ ] Committed the `yarn.lock` file when there were changes to the packages
+- [ ] Committed the `pnpm-lock.yaml` file when there were changes to the packages
 
 **Documentation**
 

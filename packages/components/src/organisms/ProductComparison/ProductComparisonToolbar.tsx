@@ -1,8 +1,14 @@
-import React from 'react'
-import Image from 'next/image'
+import React, { type FunctionComponent } from 'react'
 import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
 import SelectField from '../../molecules/SelectField'
+
+type ImageComponentType = FunctionComponent<{
+  src: string
+  alt: string
+  width?: number
+  height?: number
+}>
 
 export interface ProductComparisonToolbarProps {
   /*
@@ -19,6 +25,9 @@ export interface ProductComparisonToolbarProps {
   clearSelectionButtonLabel?: string
 }
 
+const ImageComponent: ImageComponentType =
+  ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
+
 function ProductComparisonToolbar({
   clearSelectionButtonLabel,
   compareButtonLabel,
@@ -34,7 +43,7 @@ function ProductComparisonToolbar({
         <footer data-fs-product-comparison-toolbar>
           <div data-fs-product-comparison-toolbar-image>
             {selectedProductsDisplay.map((product) => (
-              <Image
+              <ImageComponent
                 key={product.id}
                 src={product.image[0].url}
                 alt={product.name}
@@ -53,7 +62,7 @@ function ProductComparisonToolbar({
               <SelectField
                 disabled
                 label={selectionWarningLabel as string}
-                value={""}
+                value={''}
                 id={''}
                 options={{}}
               />

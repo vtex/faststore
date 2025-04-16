@@ -10,6 +10,7 @@ export { useProductsQuery } from './src/sdk/product/useProductsQuery'
 
 export * from './src/typings/overrides'
 export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'
+export { getMyAccountRoutes } from './src/sdk/account/getMyAccountRoutes'
 
 // Overridable Sections
 export { default as AlertSection } from './src/components/sections/Alert'
@@ -24,3 +25,4 @@ export { default as ProductDetailsSection } from './src/components/sections/Prod
 export { default as ProductGallerySection } from './src/components/sections/ProductGallery'
 export { default as ProductShelfSection } from './src/components/sections/ProductShelf'
 export { default as RegionBarSection } from './src/components/sections/RegionBar'
+export { default as Section } from './src/components/sections/Section'

@@ -1,5 +1,5 @@
 import React from 'react'
-import BreadcrumbBase, { BreadcrumbBaseProps } from './BreadcrumbBase'
+import BreadcrumbBase, { type BreadcrumbBaseProps } from './BreadcrumbBase'
 
 export interface BreadcrumbProps
   extends Omit<BreadcrumbBaseProps, 'isDesktop'> {}

@@ -52,6 +52,7 @@ function useSuggestions(term: string) {
     [term, locale, channel]
   )
   const { data, error } = useQuery<Query, Variables>(query, variables, {
+    doNotRun: term === null || term === undefined, // it is ok to be empty string ""
     onSuccess: (callbackData) => {
       if (callbackData && term) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {

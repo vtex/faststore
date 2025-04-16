@@ -1,9 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import Image from 'next/image'
-
+import React, {
+  type FunctionComponent,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { useFadeEffect, useProductComparison } from '../../hooks'
-import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
-import { IProductComparison } from './provider/ProductComparisonProvider'
+import SlideOver, { SlideOverHeader, type SlideOverProps } from '../SlideOver'
+import type { IProductComparison } from './provider/ProductComparisonProvider'
 
 import {
   Table,
@@ -17,22 +20,45 @@ import ToggleField from '../../molecules/ToggleField'
 import Badge from '../../atoms/Badge'
 import Button from '../../atoms/Button'
 import Select from '../../atoms/Select'
-import Price, { PriceFormatter } from '../../atoms/Price'
+import Price, { type PriceFormatter } from '../../atoms/Price'
 
 const SPECIFICATION = 'SPECIFICATION'
 
 export interface SortOptions {
   label: string
   value: string
-  function: (productComparison: IProductComparison[]) => IProductComparison[]
+  onChange: (productComparison: IProductComparison[]) => IProductComparison[]
 }
+
+type ImageComponentType = FunctionComponent<{
+  src: string
+  alt: string
+  width?: number
+  height?: number
+}>
 
 export interface ProductComparisonSidebarProps
   extends Omit<SlideOverProps, 'children' | 'isOpen' | 'setIsOpen' | 'fade'> {
   /**
+   * Defines the title of the SlideOver.
+   */
+  title: string
+  /**
+   * Defines the sort label.
+   */
+  sortLabel: string
+  /**
+   * Defines the label from add to cart button.
+   */
+  cartButtonLabel: string
+  /**
+   * Defines the label for the price including taxes.
+   */
+  priceWithTaxLabel: string
+  /**
    * Formatter function that transforms the raw price value and render the result.
    */
-  formatter?: PriceFormatter
+  priceFormatter?: PriceFormatter
   /**
    * Custom labels to introducing about products.
    */
@@ -54,25 +80,30 @@ export interface ProductComparisonSidebarProps
     onClick(e: React.MouseEvent<HTMLButtonElement>): void
   }
   /**
-   * Function to handle the product to buy.
-  */
+   * Function to select the product that will be added to the cart.
+   */
   handleProductToBuy: (productId: string) => void
-
 }
 
+const ImageComponent: ImageComponentType =
+  ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
+
 function ProductComparisonSidebar({
+  title,
+  sortLabel,
+  cartButtonLabel,
+  priceWithTaxLabel,
   technicalInformation,
   size = 'partial',
   direction = 'rightSide',
-  formatter,
+  priceFormatter,
   overlayProps,
   sortOptions,
-  buyProps: {onClick},
+  buyProps: { onClick },
   handleProductToBuy,
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
-
   const { isOpen, setIsOpen, products } = useProductComparison()
 
   const [selectedFilter, setSelectedFilter] =
@@ -81,7 +112,10 @@ function ProductComparisonSidebar({
   const [productsSpecs, setProductsSpecs] = useState<string[]>([])
   const [differenceSpecs, setDifferenceSpecs] = useState<string[]>([])
 
-  const handleClickAddCart = (event: React.MouseEvent<HTMLButtonElement>, product: IProductComparison ) => {
+  const handleClickAddCart = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    product: IProductComparison
+  ) => {
     event.preventDefault()
     handleProductToBuy(product.id)
     onClick(event)
@@ -91,7 +125,7 @@ function ProductComparisonSidebar({
     () =>
       sortOptions
         ?.find((option) => option.value === selectedFilter)
-        ?.function(products) ?? products,
+        ?.onChange(products) ?? products,
     [selectedFilter, products]
   )
 
@@ -106,14 +140,11 @@ function ProductComparisonSidebar({
     if (isOpen) {
       // Prevent scrolling when the drawer is open
       document.body.style.overflow = 'hidden'
-    } else {
-      // Restore scrolling when the drawer is closed
-      document.body.style.overflow = ''
+      return
     }
 
-    return () => {
-      document.body.style.overflow = ''
-    }
+    // Restore scrolling when the drawer is closed
+    document.body.style.overflow = ''
   }, [isOpen])
 
   const options = useMemo(
@@ -139,7 +170,7 @@ function ProductComparisonSidebar({
       {...otherProps}
     >
       <SlideOverHeader onClose={() => setIsOpen(false)}>
-        <h2>Compare Products</h2>
+        <h2>{title}</h2>
         <Badge size="big" variant="neutral">
           {products.length}
         </Badge>
@@ -147,7 +178,7 @@ function ProductComparisonSidebar({
 
       <div data-fs-product-comparison-filters>
         <div>
-          <p>Sort by</p>
+          <p>{sortLabel}</p>
           <Select
             id="product-comparison-sort-by"
             options={options}
@@ -180,7 +211,7 @@ function ProductComparisonSidebar({
               )
               return (
                 <TableCell key={product.id}>
-                  <Image
+                  <ImageComponent
                     width={250}
                     height={225}
                     src={product.image[0]?.url ?? ''}
@@ -199,12 +230,12 @@ function ProductComparisonSidebar({
                         <Price
                           value={product.offers.offers[0].listPrice}
                           variant="listing"
-                          formatter={formatter}
+                          formatter={priceFormatter}
                         />
                         <Price
                           value={product.offers.lowPrice}
                           variant="selling"
-                          formatter={formatter}
+                          formatter={priceFormatter}
                         />
                       </div>
                       <Badge size="small" variant="neutral">
@@ -215,7 +246,7 @@ function ProductComparisonSidebar({
                     <Price
                       value={product.offers.lowPriceWithTaxes}
                       variant="selling"
-                      formatter={formatter}
+                      formatter={priceFormatter}
                     />
                   )}
 
@@ -224,7 +255,7 @@ function ProductComparisonSidebar({
                     size="small"
                     onClick={(event) => handleClickAddCart(event, product)}
                   >
-                    Add to Cart
+                    {cartButtonLabel}
                   </Button>
                 </TableCell>
               )
@@ -243,9 +274,9 @@ function ProductComparisonSidebar({
           <TableRow>
             {productSorted.map((product) => (
               <TableCell key={product.id}>
-                <h3>Price With Taxes</h3>
+                <h3>{priceWithTaxLabel}</h3>
                 <Price
-                  formatter={formatter}
+                  formatter={priceFormatter}
                   value={product.offers.lowPriceWithTaxes}
                   variant="selling"
                 />

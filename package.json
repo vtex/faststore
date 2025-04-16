@@ -5,30 +5,45 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
-    "lint": "turbo run lint",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "test": "turbo run test",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --yes && lerna publish from-git --yes",
     "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\""
+    "prepare": "husky"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.0",
-    "lerna": "^8.0.0",
+    "@biomejs/biome": "1.9.4",
+    "husky": "9.1.7",
+    "lerna": "^8.1.9",
+    "lint-staged": "15.4.3",
     "prettier": "^3.1.0",
-    "turbo": "^2.3.3"
+    "stylelint": "^14.6.0",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.0.1",
+    "turbo": "^2.3.4",
+    "typescript": "5.3.2"
   },
   "version": "0.0.0",
   "volta": {
     "node": "18.19.0",
-    "yarn": "1.19.1"
+    "pnpm": "9.15.5"
   },
-  "dependencies": {},
-  "packageManager": "yarn@1.19.1"
+  "packageManager": "pnpm@9.15.5",
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",
+    "*.scss": "stylelint --fix"
+  },
+  "dependencies": {
+    "axios": "^1.8.2"
+  }
 }

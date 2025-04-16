@@ -41,7 +41,6 @@ function logToTerminal(violations) {
 
 Cypress.Commands.overwrite(
   'checkA11y',
-  // eslint-disable-next-line max-params
   (originalFn, context, options, callback) => {
     return originalFn(context, options, callback ?? logToTerminal)
   }

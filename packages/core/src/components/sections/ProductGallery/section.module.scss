@@ -13,6 +13,23 @@
       }
     }
 
+    [data-fs-search-loading] {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      h1 {
+        font-size: var(--fs-text-size-4);
+
+        @include media(">=tablet") { padding-top: var(--fs-spacing-4); font-size: var(--fs-text-size-5); }
+
+        span {
+          font-weight: var(--fs-text-weight-bold);
+        }
+      }
+    }
+
     @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
     @import "@faststore/ui/src/components/atoms/Button/styles.scss";
     @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";

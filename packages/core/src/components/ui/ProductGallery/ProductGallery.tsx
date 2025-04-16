@@ -9,13 +9,13 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import dynamic from 'next/dynamic'
 
-import { ProductCardProps } from 'src/components/product/ProductCard'
-import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
-import { SortProps } from 'src/components/search/Sort/Sort'
+import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
+import type { SortProps } from 'src/components/search/Sort/Sort'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import {
-  PLPContext,
-  SearchPageContext,
+  type PLPContext,
+  type SearchPageContext,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
@@ -71,6 +71,12 @@ export interface ProductGalleryProps {
       compareButton: string
       clearSelectionButton: string
       selectionWarning: string
+      sidebarComponent: {
+        title: string
+        sortLabel: string
+        cartButtonLabel: string
+        priceWithTaxLabel: string
+      }
       technicalInformation: {
         title: string
         description: string
@@ -198,10 +204,9 @@ function ProductGallery({
                 id="toggle-field-comparison"
                 label={productComparison?.labels?.compareButton}
                 checked={showComparisonProducts}
-                onChange={() => {
+                onChange={() =>
                   setShowComparisonProducts((prev) => !prev)
-                  console.log('Comparison is enabled', showComparisonProducts)
-                }}
+                }
                 {...ToggleField.props}
               />
             )}
@@ -350,7 +355,15 @@ function ProductGallery({
             <ProductComparisonSidebar.Component
               direction="rightSide"
               size="partial"
-              formatter={useFormattedPrice}
+              priceFormatter={useFormattedPrice}
+              title={productComparison.labels.sidebarComponent.title}
+              sortLabel={productComparison.labels.sidebarComponent.sortLabel}
+              cartButtonLabel={
+                productComparison.labels.sidebarComponent.cartButtonLabel
+              }
+              priceWithTaxLabel={
+                productComparison.labels.sidebarComponent.priceWithTaxLabel
+              }
               technicalInformation={{
                 title: productComparison.labels.technicalInformation.title,
                 description:

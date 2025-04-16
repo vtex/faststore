@@ -18,6 +18,7 @@ import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
+import { createNextJsPages } from './createNextjsPages'
 
 interface GenerateOptions {
   setup?: boolean
@@ -57,7 +58,7 @@ function filterAndCopyPackageJson(basePath: string) {
   const corePackageJsonPath = path.join(coreDir, 'package.json')
 
   const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
-  let { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
+  const { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
 
   filteredFileContent.name = 'dot-faststore'
 
@@ -209,6 +210,7 @@ function copyUserStarterToCustomizations(basePath: string) {
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
       copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
+      createNextJsPages(basePath)
     }
 
     if (existsSync(userStoreConfigFile)) {
@@ -373,7 +375,7 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       logger.warn(
         `${chalk.yellow(
           'warning'
-        )} - Version mismatch detected for ${packageName}. 
+        )} - Version mismatch detected for ${packageName}.
           Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
     }
@@ -396,7 +398,8 @@ function updateNextConfig(basePath: string) {
 
 // returns new (discovery.config.js) or legacy (faststore.config.js) store config file
 function getCurrentUserStoreConfigFile(basePath: string) {
-  const { userStoreConfigFile, userLegacyStoreConfigFile } = withBasePath(basePath)
+  const { userStoreConfigFile, userLegacyStoreConfigFile } =
+    withBasePath(basePath)
 
   if (existsSync(userStoreConfigFile)) {
     return userStoreConfigFile
@@ -412,7 +415,7 @@ function getCurrentUserStoreConfigFile(basePath: string) {
 function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir } = withBasePath(basePath)
 
-  const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath) 
+  const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath)
 
   if (!currentUserStoreConfigFile) {
     return
@@ -489,6 +492,29 @@ function enableRedirectsMiddleware(basePath: string) {
   }
 }
 
+function enableSearchSSR(basePath: string) {
+  const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
+
+  if (!storeConfigPath) {
+    return
+  }
+  const storeConfig = require(storeConfigPath)
+  if (!storeConfig.experimental.enableSearchSSR) {
+    return
+  }
+
+  const { tmpDir } = withBasePath(basePath)
+  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's.tsx')
+  const searchPageData = String(readFileSync(searchPagePath))
+
+  const searchPageWithSSR = searchPageData.replaceAll(
+    'getStaticProps',
+    'getServerSideProps'
+  )
+
+  writeFileSync(searchPagePath, searchPageWithSSR)
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -508,6 +534,7 @@ export async function generate(options: GenerateOptions) {
   await Promise.all([
     setupPromise,
     checkDependencies(basePath, ['typescript']),
+    enableSearchSSR(basePath),
     updateBuildTime(basePath),
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
