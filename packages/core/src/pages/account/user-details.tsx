@@ -1,30 +1,40 @@
-import type { Locator } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+/* ######################################### */
+/* Mocked Page until development is finished, it will be removed after */
+
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
-import MyAccountOrderDetails from 'src/components/account/orders/MyAccountOrderDetails'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+
+import type { Locator } from '@vtex/client-cms'
+import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
+
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 
+/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
-type OrderDetailsPageProps = {
-  id: string
-} & MyAccountProps
+const style = {
+  alignContent: 'center',
+  justifyContent: 'center',
+  alignItems: 'center',
+  display: 'flex',
+  backgroundColor: 'green',
+  h1: {
+    color: 'black',
+    fontSize: '100px',
+  },
+}
 
-export default function OrderDetailsPage({
-  globalSections,
-  id,
-}: OrderDetailsPageProps) {
+export default function Page({ globalSections }: MyAccountProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -33,23 +43,21 @@ export default function OrderDetailsPage({
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
-        <MyAccountOrderDetails orderId={id} />
+        <div style={style}>
+          <h1 style={style.h1}>User Details</h1>
+        </div>
       </MyAccountLayout>
     </RenderSections>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<
-  OrderDetailsPageProps,
+  MyAccountProps,
   Record<string, string>,
   Locator
-> = async (context) => {
+> = async ({ previewData }) => {
   // TODO validate permissions here
 
-  const {
-    previewData,
-    params: { id },
-  } = context
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -70,6 +78,6 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult, id },
+    props: { globalSections: globalSectionsResult },
   }
 }
