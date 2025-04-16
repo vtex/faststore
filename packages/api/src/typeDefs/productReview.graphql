@@ -10,19 +10,19 @@ type StoreProductReview {
   """
   Review rating.
   """
-  rating: Int!
+  reviewRating: Int!
   """
-  Review title.
+  Review name, like a title.
   """
-  title: String!
+  name: String!
   """
   Review content.
   """
-  text: String!
+  reviewBody: String!
   """
-  Review author name.
+  Review author email.
   """
-  reviewerName: String
+  author: String
   """
   Review author ID.
   """
@@ -30,7 +30,7 @@ type StoreProductReview {
   """
   Review creation date.
   """
-  reviewDateTime: String!
+  datePublished: String!
   """
   Indicates if the review was made by a verified purchaser.
   """

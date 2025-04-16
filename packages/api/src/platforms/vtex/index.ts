@@ -19,7 +19,6 @@ import { StoreProduct } from './resolvers/product'
 import { StoreProductGroup } from './resolvers/productGroup'
 import { StorePropertyValue } from './resolvers/propertyValue'
 import { Query } from './resolvers/query'
-import { StoreReview } from './resolvers/review'
 import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
 import { ShippingSLA } from './resolvers/shippingSLA'
@@ -83,7 +82,6 @@ const Resolvers = {
   StoreFacetValueBoolean,
   StoreOffer,
   StoreAggregateRating,
-  StoreReview,
   StoreProductGroup,
   StoreSearchResult,
   StorePropertyValue,

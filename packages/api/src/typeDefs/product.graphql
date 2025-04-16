@@ -47,13 +47,9 @@ type StoreProduct {
   """
   gtin: String!
   """
-  Array with review information.
+  Product rating.
   """
-  review: [StoreReview!]!
-  """
-  Aggregate ratings data.
-  """
-  aggregateRating: StoreAggregateRating!
+  aggregateRating: StoreProductRating!
   """
   Indicates product group related to this product.
   """
@@ -74,10 +70,6 @@ type StoreProduct {
   Advertisement information about the product.
   """
   advertisement: Advertisement
-  """
-  Product rating.
-  """
-  rating: StoreProductRating!
 }
 
 """

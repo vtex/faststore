@@ -7,11 +7,11 @@ export interface RatingSummaryProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The average rating of the product. A decimal number between 0 and 5.
    */
-  average: number
+  ratingValue: number
   /**
    * The total number of reviews of the product. An integer number.
    */
-  totalCount: number
+  reviewCount: number
   /**
    * The distribution percentage of the ratings
    */
@@ -77,8 +77,8 @@ const RatingSummaryHeader = ({
 export const RatingSummary = forwardRef<HTMLDivElement, RatingSummaryProps>(
   function RatingSummary(
     {
-      average,
-      totalCount,
+      ratingValue: average,
+      reviewCount: totalCount,
       distribution,
       textLabels: {
         ratingCounter: {

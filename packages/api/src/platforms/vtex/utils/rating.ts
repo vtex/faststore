@@ -11,8 +11,8 @@ export function buildRatingDistribution({
   starsFive,
 }: ApiClientProductRating): ProductRating {
   const rating: ProductRating = {
-    average,
-    totalCount,
+    ratingValue: average,
+    reviewCount: totalCount,
     distribution: {
       1: 0,
       2: 0,
@@ -22,7 +22,7 @@ export function buildRatingDistribution({
     },
   }
 
-  if (rating.totalCount === 0) {
+  if (totalCount === 0) {
     return rating
   }
 

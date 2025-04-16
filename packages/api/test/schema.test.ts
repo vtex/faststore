@@ -42,8 +42,6 @@ const TYPES = [
   'StoreSort',
   'IStoreSelectedFacet',
   'StoreSearchResult',
-  'StoreReviewRating',
-  'StoreReview',
   'StoreSeo',
   'StoreStatus',
   'IShippingItem',

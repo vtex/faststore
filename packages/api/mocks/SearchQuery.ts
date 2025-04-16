@@ -49,15 +49,6 @@ export const SearchQueryFirst5Products = `query SearchQuery {
               }
             }
           }
-          review {
-            reviewRating {
-              ratingValue
-              bestRating
-            }
-            author {
-              name
-            }
-          }
           aggregateRating {
             ratingValue
             reviewCount

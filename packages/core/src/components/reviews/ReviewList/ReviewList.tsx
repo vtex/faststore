@@ -146,12 +146,12 @@ function ReviewList({
           {reviews.map((review) => (
             <li key={review.id}>
               <UIReviewCard
-                title={review.title}
-                text={review.text}
-                rating={review.rating}
-                author={review.reviewerName}
+                title={review.name}
+                text={review.reviewBody}
+                rating={review.reviewRating}
+                author={review.author}
                 isVerified={review.verifiedPurchaser}
-                date={new Date(review.reviewDateTime)}
+                date={new Date(review.datePublished)}
               />
             </li>
           ))}
