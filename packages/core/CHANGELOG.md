@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.2](https://github.com/vtex/faststore/compare/v3.41.1...v3.41.2) (2025-04-16)
+
+### Bug Fixes
+
+- add key prop to Component in App for better rendering ([#2793](https://github.com/vtex/faststore/issues/2793)) ([b790bc0](https://github.com/vtex/faststore/commit/b790bc069ee67dfc2907f01b84239c29bbdc83b6))
+
 ## [3.41.1](https://github.com/vtex/faststore/compare/v3.41.0...v3.41.1) (2025-04-16)
 
 ### Bug Fixes
