@@ -15,6 +15,7 @@ const query = gql(`
   query ClientSearchSuggestionsQuery(
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]
+    $shouldQueryProducts: Boolean = true
   ) {
     ...ClientSearchSuggestions
     search(first: 5, term: $term, selectedFacets: $selectedFacets) {
@@ -26,12 +27,12 @@ const query = gql(`
           ...ProductSummary_product
         }
       }
-      products {
+      products @include(if: $shouldQueryProducts) {
         pageInfo {
           totalCount
         }
       }
-      metadata {
+      metadata @include(if: $shouldQueryProducts) {
         ...SearchEvent_metadata
       }
     }
@@ -40,6 +41,7 @@ const query = gql(`
 
 function useSuggestions(term: string) {
   const { channel, locale } = useSession()
+  const shouldQueryProducts = term.trim() !== ''
 
   const variables = useMemo(
     () => ({
@@ -48,8 +50,9 @@ function useSuggestions(term: string) {
         { key: 'channel', value: channel ?? '' },
         { key: 'locale', value: locale },
       ],
+      shouldQueryProducts,
     }),
-    [term, locale, channel]
+    [term, locale, channel, shouldQueryProducts]
   )
   const { data, error } = useQuery<Query, Variables>(query, variables, {
     doNotRun: term === null || term === undefined, // it is ok to be empty string ""
@@ -66,7 +69,8 @@ function useSuggestions(term: string) {
                 callbackData.search.metadata?.logicalOperator ?? 'and',
               isTermMisspelled:
                 callbackData.search.metadata?.isTermMisspelled ?? false,
-              totalCount: callbackData.search.products.pageInfo.totalCount,
+              totalCount:
+                callbackData.search.products?.pageInfo?.totalCount ?? 0,
             },
           })
         })
