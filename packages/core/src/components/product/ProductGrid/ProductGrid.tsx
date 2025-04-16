@@ -72,8 +72,6 @@ function ProductGrid({
   const aspectRatio = 1
   const isGridWithViewportObserver = isMobile && firstPage === page
 
-  console.log("ProductGrid: ", shouldShowComparison)
-
   return (
     <ProductGridSkeleton
       aspectRatio={aspectRatio}
