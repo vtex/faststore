@@ -5,25 +5,29 @@ import { session as initialSession } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
+import { useRegionModal } from '../RegionModal/useRegionModal'
+
 function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
 
-  console.log(postalCode)
+  const defaultPostalCode =
+    postalCode === initialSession.postalCode &&
+    initialSession.postalCode !== null
 
-  const defaultPostalCode = postalCode === initialSession.postalCode
+  const { isValidationComplete } = useRegionModal()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   // Call openPopover if defaultPostalCode is true
   useEffect(() => {
-    if (defaultPostalCode && buttonRef) {
+    if (isValidationComplete && defaultPostalCode) {
       openPopover({
         isOpen: true,
         triggerRef: buttonRef,
       })
     }
-  }, [defaultPostalCode, openPopover])
+  }, [isValidationComplete, defaultPostalCode, openPopover])
 
   return (
     <>
