@@ -11,6 +11,7 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import styles from './section.module.scss'
+import { clientProfileData, usdOrderSummary } from '../../mocks/orderDetails'
 
 export interface MyAccountOrderDetailsProps {
   orderId: string
@@ -52,11 +53,15 @@ export default function MyAccountOrderDetails({
         </div>
       </header>
       <main data-fs-order-details-content>
-        <MyAccountOrderedByCard />
+        <MyAccountOrderedByCard clientProfileData={clientProfileData} />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard />
-        <MyAccountSummaryCard />
+        <MyAccountSummaryCard
+          totals={usdOrderSummary.totals}
+          currencyCode={usdOrderSummary.currencyCode}
+          transactions={usdOrderSummary.paymentData.transactions}
+        />
       </main>
     </div>
   )

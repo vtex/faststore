@@ -1,0 +1,65 @@
+[data-fs-order-ordered-by-card] {
+  // --------------------------------------------------------
+  // Design Tokens for Ordered By Card
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-ordered-by-avatar-size                  : 24px;
+  --fs-ordered-by-avatar-bg                    : var(--fs-color-primary-bkg);
+  --fs-ordered-by-avatar-color                 : var(--fs-color-primary-text);
+
+  --fs-ordered-by-text-size                    : var(--fs-text-size-2);
+  --fs-ordered-by-text-line-height             : 24px;
+  --fs-ordered-by-text-letter-spacing          : -2%;
+  --fs-ordered-by-text-client-weight           : var(--fs-text-weight-regular);
+  --fs-ordered-by-text-client-strong-weight    : var(--fs-text-weight-medium);
+  --fs-ordered-by-text-corporate-weight        : var(--fs-text-weight-semibold);
+
+  [data-fs-card-body] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-3);
+
+    [data-fs-ordered-by-org] {
+      display: flex;
+      gap: var(--fs-spacing-1);
+      align-items: center;
+
+      [data-fs-ordered-by-avatar] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--fs-ordered-by-avatar-size);
+        height: var(--fs-ordered-by-avatar-size);
+        font-size: var(--fs-text-size-1);
+        font-weight: var(--fs-text-weight-semibold);
+        color: var(--fs-color-main-2);
+        background-color: var(--fs-color-accent-0);
+        border-radius: var(--fs-border-radius-pill);
+      }
+
+      [data-fs-ordered-by-org-name] {
+        font-size: var(--fs-ordered-by-text-size);
+        font-weight: var(--fs-ordered-by-text-corporate-weight);
+        line-height: var(--fs-ordered-by-text-line-height);
+        letter-spacing: var(--fs-ordered-by-text-letter-spacing);
+      }
+    }
+
+    [data-fs-ordered-by-client-info] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--fs-spacing-1);
+
+      p {
+        font-size: var(--fs-ordered-by-text-size);
+        font-weight: var(--fs-ordered-by-text-client-weight);
+        letter-spacing: var(--fs-ordered-by-text-letter-spacing);
+      }
+
+      [data-fs-ordered-by-client-name] {
+        font-weight: var(--fs-ordered-by-text-client-strong-weight);
+      }
+    }
+  }
+}
