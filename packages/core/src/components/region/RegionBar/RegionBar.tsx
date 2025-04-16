@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { session as initialSession } from 'discovery.config'
+import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { textToTitleCase } from 'src/utils/utilities'
 
@@ -56,11 +56,15 @@ function RegionBar({
     postalCode === initialSession.postalCode &&
     initialSession.postalCode !== null
 
+  // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
+  const displayRegionPopover =
+    defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
+
   const regionBarRef = useRef<HTMLDivElement>(null)
 
   // Call openPopover if defaultPostalCode is true
   useEffect(() => {
-    if (isValidationComplete && defaultPostalCode) {
+    if (isValidationComplete && displayRegionPopover) {
       openPopover({
         isOpen: true,
         triggerRef: regionBarRef,

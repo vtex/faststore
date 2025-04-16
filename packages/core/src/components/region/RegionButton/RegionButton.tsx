@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
-import { session as initialSession } from 'discovery.config'
+import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
@@ -16,11 +16,14 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
     postalCode === initialSession.postalCode &&
     initialSession.postalCode !== null
 
+  // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
+  const displayRegionPopover =
+    defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
+
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  // Call openPopover if defaultPostalCode is true
   useEffect(() => {
-    if (isValidationComplete && defaultPostalCode) {
+    if (isValidationComplete && displayRegionPopover) {
       openPopover({
         isOpen: true,
         triggerRef: buttonRef,
