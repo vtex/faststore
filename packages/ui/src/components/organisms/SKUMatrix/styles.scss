@@ -35,17 +35,6 @@
     flex-shrink: 0;
     padding: var(--fs-spacing-3) var(--fs-spacing-8);
     padding-bottom: 0;
-    color: var(--fs-color-neutral-6);
-
-    [data-fs-table-cell] {
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &:last-child {
-        padding-right: 0;
-      }
-    }
 
     @include media('<tablet') {
       padding: var(--fs-spacing-3);
@@ -79,6 +68,20 @@
     font-size: var(--fs-sku-matrix-sidebar-title-size);
     font-weight: var(--fs-sku-matrix-sidebar-title-text-weight);
     line-height: 1.12;
+  }
+
+  [data-fs-table] {
+    color: var(--fs-color-neutral-6);
+
+    [data-fs-table-cell] {
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
   }
 
   [data-fs-table-head] {
