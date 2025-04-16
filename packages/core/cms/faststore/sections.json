@@ -2224,6 +2224,23 @@
             }
           }
         },
+        "textBeforeLocation": {
+          "title": "Text before location",
+          "type": "string",
+          "default": "Your current location is",
+          "description": "If location is available, this text will be shown before the location"
+        },
+        "textAfterLocation": {
+          "title": "Text After location",
+          "type": "string",
+          "default": "Use the field below to change it.",
+          "description": "If location is available, this text will be shown after the location"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Offers and availability vary by location"
+        },
         "idkPostalCodeLink": {
           "title": "I don't know my postal code link",
           "type": "object",

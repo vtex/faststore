@@ -30,6 +30,9 @@ interface RegionPopoverProps {
       alt: string
     }
   }
+  textBeforeLocation?: string
+  textAfterLocation?: string
+  description?: string
   triggerRef?: UIPopoverProps['triggerRef']
   onDismiss: UIPopoverProps['onDismiss']
   offsetTop?: UIPopoverProps['offsetTop']
@@ -54,6 +57,9 @@ function RegionPopover({
     to: idkPostalCodeLinkTo,
     icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
   },
+  textBeforeLocation = 'Your current location is:',
+  textAfterLocation = 'Use the field below to change it.',
+  description = 'Offers and availability vary by location.',
 }: RegionPopoverProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
@@ -63,9 +69,7 @@ function RegionPopover({
 
   const defaultOffsetTop = 54 // 48px + 6px (offset)
 
-  const locationText = city
-    ? `${textToTitleCase(city)}, ${postalCode}`
-    : postalCode
+  const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
   const {
     input,
@@ -112,8 +116,13 @@ function RegionPopover({
   const RegionPopoverContent = (
     <>
       <span data-fs-region-popover-description>
-        Your current location is <span>{locationText}</span>. Use the field
-        below to change it.
+        {postalCode ? (
+          <>
+            {textBeforeLocation} <span>{location}</span>. {textAfterLocation}
+          </>
+        ) : (
+          <>{description}</>
+        )}
       </span>
       <UIInputField
         data-fs-region-popover-input
