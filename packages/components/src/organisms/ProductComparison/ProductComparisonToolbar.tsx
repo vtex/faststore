@@ -3,6 +3,13 @@ import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
 import SelectField from '../../molecules/SelectField'
 
+
+type ImageComponentType = FunctionComponent<{
+  src: string
+  alt: string
+  width?: number
+  height?: number
+}>
 export interface ProductComparisonToolbarProps {
   /*
    * Set the label for the warning message when products are selected.
@@ -16,25 +23,15 @@ export interface ProductComparisonToolbarProps {
    * Set the label for the clear selection button
    */
   clearSelectionButtonLabel?: string
-  /**
-   * Function that returns a React component that will be used to render images.
-   */
-  ImageComponent: FunctionComponent<{
-    src: string
-    alt: string
-    width?: number
-    height?: number
-  }>
 }
 
-const ImageComponentFallback: ProductComparisonToolbarProps['ImageComponent'] =
+const ImageComponent: ImageComponentType =
   ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
 
 function ProductComparisonToolbar({
   clearSelectionButtonLabel,
   compareButtonLabel,
   selectionWarningLabel,
-  ImageComponent = ImageComponentFallback,
 }: ProductComparisonToolbarProps) {
   const { isOpen, setIsOpen, products, clearProducts } = useProductComparison()
 

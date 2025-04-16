@@ -30,6 +30,13 @@ export interface SortOptions {
   onChange: (productComparison: IProductComparison[]) => IProductComparison[]
 }
 
+type ImageComponentType = FunctionComponent<{
+  src: string
+  alt: string
+  width?: number
+  height?: number
+}>
+
 export interface ProductComparisonSidebarProps
   extends Omit<SlideOverProps, 'children' | 'isOpen' | 'setIsOpen' | 'fade'> {
   /**
@@ -76,18 +83,9 @@ export interface ProductComparisonSidebarProps
    * Function to select the product that will be added to the cart.
    */
   handleProductToBuy: (productId: string) => void
-  /**
-   * Function that returns a React component that will be used to render images.
-   */
-  ImageComponent: FunctionComponent<{
-    src: string
-    alt: string
-    width?: number
-    height?: number
-  }>
 }
 
-const ImageComponentFallback: ProductComparisonSidebarProps['ImageComponent'] =
+const ImageComponent: ImageComponentType =
   ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
 
 function ProductComparisonSidebar({
@@ -103,7 +101,6 @@ function ProductComparisonSidebar({
   sortOptions,
   buyProps: { onClick },
   handleProductToBuy,
-  ImageComponent = ImageComponentFallback,
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
