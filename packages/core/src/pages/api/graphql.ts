@@ -88,8 +88,10 @@ const handler: NextApiHandler = async (request, response) => {
 
     if (hasErrors) {
       const error = errors.find(isFastStoreError)
+      console.error(error)
 
-      response.status(error?.extensions.status ?? 500)
+      response.status(error?.extensions.status ?? 500).end()
+      return
     }
 
     const cacheControl =
