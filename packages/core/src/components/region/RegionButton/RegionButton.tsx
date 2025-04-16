@@ -23,7 +23,7 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    if (isValidationComplete && displayRegionPopover) {
+    if (isValidationComplete && displayRegionPopover && buttonRef.current) {
       openPopover({
         isOpen: true,
         triggerRef: buttonRef,

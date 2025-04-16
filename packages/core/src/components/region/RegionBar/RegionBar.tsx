@@ -62,9 +62,8 @@ function RegionBar({
 
   const regionBarRef = useRef<HTMLDivElement>(null)
 
-  // Call openPopover if defaultPostalCode is true
   useEffect(() => {
-    if (isValidationComplete && displayRegionPopover) {
+    if (isValidationComplete && displayRegionPopover && regionBarRef.current) {
       openPopover({
         isOpen: true,
         triggerRef: regionBarRef,
