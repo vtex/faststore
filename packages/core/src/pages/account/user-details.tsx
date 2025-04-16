@@ -13,8 +13,8 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSession } from 'src/customizations/src/myAccount/extensions/user-details/after'
-import { default as BeforeSession } from 'src/customizations/src/myAccount/extensions/user-details/before'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 
@@ -33,11 +33,11 @@ export default function Page({ globalSections }: MyAccountProps) {
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
-        <BeforeSession />
+        <BeforeSection />
         <div>
           <h1>User Details</h1>
         </div>
-        <AfterSession />
+        <AfterSection />
       </MyAccountLayout>
     </RenderSections>
   )

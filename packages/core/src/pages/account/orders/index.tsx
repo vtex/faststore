@@ -12,8 +12,8 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSession } from 'src/customizations/src/myAccount/extensions/orders/after'
-import { default as BeforeSession } from 'src/customizations/src/myAccount/extensions/orders/before'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 
@@ -32,11 +32,11 @@ export default function ListOrders({ globalSections }: MyAccountProps) {
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
-        <BeforeSession />
+        <BeforeSection />
         <div>
           <h1>List Orders</h1>
         </div>
-        <AfterSession />
+        <AfterSection />
       </MyAccountLayout>
     </RenderSections>
   )
