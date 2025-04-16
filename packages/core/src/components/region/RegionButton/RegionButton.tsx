@@ -10,12 +10,11 @@ import { useRegionModal } from '../RegionModal/useRegionModal'
 function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
+  const { isValidationComplete } = useRegionModal()
 
   const defaultPostalCode =
     postalCode === initialSession.postalCode &&
     initialSession.postalCode !== null
-
-  const { isValidationComplete } = useRegionModal()
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 

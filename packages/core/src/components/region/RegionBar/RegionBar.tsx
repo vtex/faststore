@@ -1,11 +1,14 @@
 import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
+import { useEffect, useRef } from 'react'
 
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { textToTitleCase } from 'src/utils/utilities'
 import { session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { textToTitleCase } from 'src/utils/utilities'
+
+import { useRegionModal } from '../RegionModal/useRegionModal'
 
 export interface RegionBarProps {
   /**
@@ -45,9 +48,25 @@ function RegionBar({
     ButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
-  const { openModal } = useUI()
+  const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
-  const shouldDisplayPostalCode = postalCode !== initialSession.postalCode
+  const { isValidationComplete } = useRegionModal()
+
+  const defaultPostalCode =
+    postalCode === initialSession.postalCode &&
+    initialSession.postalCode !== null
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  // Call openPopover if defaultPostalCode is true
+  useEffect(() => {
+    if (isValidationComplete && defaultPostalCode) {
+      openPopover({
+        isOpen: true,
+        triggerRef: buttonRef,
+      })
+    }
+  }, [isValidationComplete, defaultPostalCode, openPopover])
 
   return (
     <RegionBarWrapper.Component
@@ -73,7 +92,8 @@ function RegionBar({
       onButtonClick={openModal}
       postalCode={postalCode}
       city={textToTitleCase(city ?? '')}
-      shouldDisplayPostalCode={shouldDisplayPostalCode}
+      shouldDisplayPostalCode={true}
+      ref={buttonRef}
       {...otherProps}
     />
   )
