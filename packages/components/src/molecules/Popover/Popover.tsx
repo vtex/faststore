@@ -1,10 +1,13 @@
 import React, {
   forwardRef,
+  useCallback,
   useEffect,
   useRef,
   useState,
   type HTMLAttributes,
+  type KeyboardEvent,
   type ReactNode,
+  type RefObject,
 } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
@@ -73,7 +76,7 @@ export interface PopoverProps
   /**
    * Reference to the trigger element that opens the Popover.
    */
-  triggerRef?: React.RefObject<HTMLElement>
+  triggerRef?: RefObject<HTMLElement>
 }
 
 const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
@@ -116,21 +119,21 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     })
   }, [isOpen, triggerRef, offsetTop, offsetLeft])
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     closePopover()
     onDismiss?.()
-  }
+  }, [closePopover, onDismiss])
 
-  useOnClickOutside(
-    popoverRef as React.RefObject<HTMLDivElement>,
-    handleDismiss
+  useOnClickOutside(popoverRef as RefObject<HTMLDivElement>, handleDismiss)
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Escape') {
+        handleDismiss()
+      }
+    },
+    [handleDismiss]
   )
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Escape') {
-      handleDismiss()
-    }
-  }
 
   if (!isOpen) {
     return null

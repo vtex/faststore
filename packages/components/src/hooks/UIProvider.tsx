@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode, RefObject } from 'react'
 import React, { createContext, useContext, useMemo, useReducer } from 'react'
 
 export interface Toast {
@@ -10,7 +10,7 @@ export interface Toast {
 
 export interface Popover {
   isOpen: boolean
-  triggerRef?: React.RefObject<HTMLElement>
+  triggerRef?: RefObject<HTMLElement>
 }
 
 interface State {
@@ -50,7 +50,7 @@ type Action =
       type: 'openPopover'
       payload: {
         isOpen: boolean
-        triggerRef?: React.RefObject<HTMLElement>
+        triggerRef?: RefObject<HTMLElement>
       }
     }
   | {
