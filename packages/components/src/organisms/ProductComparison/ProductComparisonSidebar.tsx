@@ -85,8 +85,9 @@ export interface ProductComparisonSidebarProps
   handleProductToBuy: (productId: string) => void
 }
 
-const ImageComponent: ImageComponentType =
-  ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
+const ImageComponent: ImageComponentType = ({ src, alt, ...otherProps }) => (
+  <img src={src} alt={alt} {...otherProps} />
+)
 
 function ProductComparisonSidebar({
   title,
@@ -170,10 +171,12 @@ function ProductComparisonSidebar({
       {...otherProps}
     >
       <SlideOverHeader onClose={() => setIsOpen(false)}>
-        <h2>{title}</h2>
-        <Badge size="big" variant="neutral">
-          {products.length}
-        </Badge>
+        <div>
+          <h2>{title}</h2>
+          <Badge size="big" variant="neutral">
+            {products.length}
+          </Badge>
+        </div>
       </SlideOverHeader>
 
       <div data-fs-product-comparison-filters>
