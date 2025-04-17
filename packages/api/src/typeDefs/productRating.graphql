@@ -2,11 +2,11 @@ type StoreProductRating {
   """
   Product average rating.
   """
-  average: Float!
+  ratingValue: Float!
   """
   Product amount of ratings received.
   """
-  totalCount: Int!
+  reviewCount: Int!
   """
   Product rating distribution in percentages.
   """

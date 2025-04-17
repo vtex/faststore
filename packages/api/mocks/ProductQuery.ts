@@ -32,15 +32,6 @@ export const ProductByIdQuery = `query ProductQuery {
       offerCount
       priceCurrency
     }
-    review {
-      reviewRating {
-        ratingValue
-        bestRating
-      }
-      author {
-        name
-      }
-    }
     aggregateRating {
       ratingValue
       reviewCount

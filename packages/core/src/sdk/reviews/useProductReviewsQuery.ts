@@ -23,11 +23,11 @@ export const query = gql(`
       data {
         id
         productId
-        rating
-        title
-        text
-        reviewDateTime
-        reviewerName
+        reviewRating
+        name
+        reviewBody
+        datePublished
+        author
         verifiedPurchaser
       }
       range {
