@@ -11,7 +11,6 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import styles from './section.module.scss'
-import { clientProfileData } from '../../mocks/orderDetails'
 import { multipleCardsOrderSummary } from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
@@ -21,6 +20,9 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   orderId,
 }: MyAccountOrderDetailsProps) {
+  // TODO: Using multipleCardsOrderSummary as an example, but this would come from an API
+  const orderSummary = multipleCardsOrderSummary
+
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
@@ -54,18 +56,20 @@ export default function MyAccountOrderDetails({
         </div>
       </header>
       <main data-fs-order-details-content>
-        <MyAccountOrderedByCard clientProfileData={clientProfileData} />
+        <MyAccountOrderedByCard
+          clientProfileData={orderSummary.clientProfileData}
+        />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard
-          currencyCode={multipleCardsOrderSummary.currencyCode}
-          paymentData={multipleCardsOrderSummary.paymentData}
-          allowCancellation={multipleCardsOrderSummary.allowCancellation}
+          currencyCode={orderSummary.currencyCode}
+          paymentData={orderSummary.paymentData}
+          allowCancellation={orderSummary.allowCancellation}
         />
         <MyAccountSummaryCard
-          totals={multipleCardsOrderSummary.totals}
-          currencyCode={multipleCardsOrderSummary.currencyCode}
-          transactions={multipleCardsOrderSummary.paymentData.transactions}
+          totals={orderSummary.totals}
+          currencyCode={orderSummary.currencyCode}
+          transactions={orderSummary.paymentData.transactions}
         />
       </main>
     </div>
