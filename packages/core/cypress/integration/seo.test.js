@@ -1,4 +1,3 @@
-// eslint-disable-next-line spaced-comment
 /// <reference types="cypress" />
 /**
  * Cypress tests for testing Seo tags, like canonicals, index/noindex and structured data

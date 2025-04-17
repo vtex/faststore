@@ -1,8 +1,0 @@
-export { default as TokenDivider } from './TokenDivider'
-export { default as TokenRow } from './TokenRow'
-export type { TokenRowProps } from './TokenRow'
-export { default as TokenTable } from './TokenTable'
-export type { TokenTableProps } from './TokenTable'
-export { default as TokenColor } from './TokenColor'
-export { default as TokenColors } from './TokenColors'
-export { default as Typeset } from './Typeset'

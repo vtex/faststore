@@ -1,13 +1,13 @@
 import ProductGallery, {
-  ProductGalleryProps,
+  type ProductGalleryProps,
 } from '../../ui/ProductGallery/ProductGallery'
 import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
 
 import styles from './section.module.scss'
 import {
-  PLPContext,
-  SearchPageContext,
+  type PLPContext,
+  type SearchPageContext,
   isPLP,
   isSearchPage,
   usePage,
@@ -39,8 +39,8 @@ function ProductGallerySection({
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]
     : isPLP(context)
-    ? [context?.data?.collection?.seo?.title]
-    : ['']
+      ? [context?.data?.collection?.seo?.title]
+      : ['']
 
   const totalCount = context?.data?.search?.products?.pageInfo?.totalCount ?? 0
 

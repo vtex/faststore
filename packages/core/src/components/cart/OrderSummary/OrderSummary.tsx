@@ -1,6 +1,6 @@
 import {
   OrderSummary as UIOrderSummary,
-  OrderSummaryProps as UIOrderSummaryProps,
+  type OrderSummaryProps as UIOrderSummaryProps,
 } from '@faststore/ui'
 import type { ReactNode } from 'react'
 

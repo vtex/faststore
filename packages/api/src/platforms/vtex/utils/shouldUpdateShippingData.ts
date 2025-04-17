@@ -1,8 +1,8 @@
-import {
+import type {
   IStoreGeoCoordinates,
   IStoreSession,
 } from '../../../__generated__/schema'
-import {
+import type {
   CheckoutAddress,
   OrderForm,
   LogisticsInfo,

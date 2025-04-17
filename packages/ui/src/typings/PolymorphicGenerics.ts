@@ -22,7 +22,7 @@ type AsProp<C extends ElementType> = {
  */
 type ExtendableProps<
   ExtendedProps = Record<string, never>,
-  OverrideProps = Record<string, never>
+  OverrideProps = Record<string, never>,
 > = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>
 
 /**
@@ -32,17 +32,17 @@ type ExtendableProps<
  */
 type InheritableElementProps<
   C extends ElementType,
-  Props = Record<string, never>
+  Props = Record<string, never>,
 > = ExtendableProps<ComponentPropsWithoutRef<C>, Props>
 
 export type PolymorphicComponentProps<
   C extends ElementType,
-  Props = Record<string, never>
+  Props = Record<string, never>,
 > = InheritableElementProps<C, Props & AsProp<C>>
 
 export type PolymorphicComponentPropsWithRef<
   C extends ElementType,
-  P = Record<string, never>
+  P = Record<string, never>,
 > = PolymorphicComponentProps<C, P> & { ref?: ComponentPropsWithRef<C>['ref'] }
 
 // Extract the `ref` prop from a polymorphic component

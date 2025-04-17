@@ -1,23 +1,26 @@
-import { Locator, Section } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
-import { PageContentType, getPage } from 'src/server/cms'
+import { type PageContentType, getPage } from 'src/server/cms'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
+export const GLOBAL_SECTIONS_HEADER_CONTENT_TYPE = 'globalHeaderSections'
+export const GLOBAL_SECTIONS_FOOTER_CONTENT_TYPE = 'globalFooterSections'
 
 export type GlobalSectionsData = {
   sections: Section[]
 }
 
-export const getGlobalSectionsData = async (
-  previewData: Locator
+export const getGlobalSectionsByType = async (
+  previewData: Locator,
+  contentType: string
 ): Promise<GlobalSectionsData> => {
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
-    const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]
+    const page = cmsData[contentType][0]
 
     if (page) {
       const pageData = getPage<PageContentType>({
-        contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
+        contentType: contentType,
         documentId: page.documentId,
         versionId: page.versionId,
       })
@@ -27,10 +30,28 @@ export const getGlobalSectionsData = async (
   }
 
   const pageData = getPage<PageContentType>({
-    ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE &&
-      previewData),
-    contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
+    ...(previewData?.contentType === contentType && previewData),
+    contentType: contentType,
   })
 
   return pageData
+}
+
+export const getGlobalSectionsData = (
+  previewData: Locator
+): Promise<GlobalSectionsData>[] => {
+  const globalSections = getGlobalSectionsByType(
+    previewData,
+    GLOBAL_SECTIONS_CONTENT_TYPE
+  )
+  const globalHeaderSections = getGlobalSectionsByType(
+    previewData,
+    GLOBAL_SECTIONS_HEADER_CONTENT_TYPE
+  )
+  const globalFooterSections = getGlobalSectionsByType(
+    previewData,
+    GLOBAL_SECTIONS_FOOTER_CONTENT_TYPE
+  )
+
+  return [globalSections, globalHeaderSections, globalFooterSections]
 }

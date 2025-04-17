@@ -1,7 +1,14 @@
-import { isFastStoreError, stringifyCacheControl } from '@faststore/api'
+import {
+  BadRequestError,
+  isFastStoreError,
+  stringifyCacheControl,
+} from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
+import discoveryConfig from 'discovery.config'
 import { execute } from '../../server'
+
+const ONE_MINUTE = 60
 
 /**
  * This function replaces the setCookie domain so that we can use localhost in dev environment.
@@ -23,45 +30,51 @@ const replaceSetCookieDomain = (request: NextApiRequest, setCookie: string) => {
 }
 
 const parseRequest = (request: NextApiRequest) => {
-  const { operationName, operationHash, variables, query } =
-    request.method === 'POST'
-      ? request.body
-      : {
-          operationName: request.query.operationName,
-          operationHash: request.query.operationHash,
-          variables: JSON.parse(
-            typeof request.query.variables === 'string'
-              ? request.query.variables
-              : ''
-          ),
-          query: undefined,
-        }
+  try {
+    const { operationName, operationHash, variables, query } =
+      request.method === 'POST'
+        ? request.body
+        : {
+            operationName: request.query.operationName,
+            operationHash: request.query.operationHash,
+            variables: JSON.parse(
+              typeof request.query.variables === 'string'
+                ? request.query.variables
+                : ''
+            ),
+            query: undefined,
+          }
 
-  return {
-    operation: {
-      __meta__: {
-        operationName,
-        operationHash,
+    return {
+      operation: {
+        __meta__: {
+          operationName,
+          operationHash,
+        },
       },
-    },
-    variables,
-    // Do not allow queries in production, only for devMode so we can use graphql tools
-    // like introspection etc. In production, we only accept known queries for better
-    // security
-    query: process.env.NODE_ENV !== 'production' ? query : undefined,
+      variables,
+      // Do not allow queries in production, only for devMode so we can use graphql tools
+      // like introspection etc. In production, we only accept known queries for better
+      // security
+      query: process.env.NODE_ENV !== 'production' ? query : undefined,
+    }
+  } catch (error) {
+    throw new BadRequestError(
+      `Invalid request. Please check the request. ${error}`
+    )
   }
 }
 
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
-    response.status(405)
+    response.status(405).end()
 
     return
   }
 
-  const { operation, variables, query } = parseRequest(request)
-
   try {
+    const { operation, variables, query } = parseRequest(request)
+
     const { data, errors, extensions } = await execute(
       {
         operation,
@@ -75,14 +88,33 @@ const handler: NextApiHandler = async (request, response) => {
 
     if (hasErrors) {
       const error = errors.find(isFastStoreError)
+      console.error(error)
 
-      response.status(error?.extensions.status ?? 500)
+      response.status(error?.extensions.status ?? 500).end()
+      return
     }
 
     const cacheControl =
       !hasErrors && extensions.cacheControl
         ? stringifyCacheControl(extensions.cacheControl)
         : 'no-cache, no-store'
+
+    if (
+      request.method === 'GET' &&
+      discoveryConfig?.experimental?.graphqlCacheControl?.maxAge
+    ) {
+      const maxAge = discoveryConfig.experimental.graphqlCacheControl.maxAge
+      const staleWhileRevalidate =
+        discoveryConfig?.experimental?.graphqlCacheControl
+          ?.staleWhileRevalidate ?? ONE_MINUTE
+
+      response.setHeader(
+        'cache-control',
+        `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+      )
+    } else {
+      response.setHeader('cache-control', cacheControl)
+    }
 
     const setCookieValues = Array.from(extensions.cookies.values())
     if (setCookieValues.length > 0 && !hasErrors) {
@@ -96,13 +128,17 @@ const handler: NextApiHandler = async (request, response) => {
       )
     }
 
-    response.setHeader('cache-control', cacheControl)
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
 
-    response.status(500)
+    if (err instanceof BadRequestError) {
+      response.status(400).end()
+      return
+    }
+
+    response.status(500).end()
   }
 }
 

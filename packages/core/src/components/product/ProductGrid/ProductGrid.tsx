@@ -4,12 +4,13 @@ import {
 } from '@faststore/ui'
 import type { ClientManyProductsQueryQuery } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import { ProductCardProps } from '../ProductCard'
+import type { ProductCardProps } from '../ProductCard'
 
 import { memo } from 'react'
 import ViewportObserver from 'src/components/cms/ViewportObserver'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+import ProductSentinel from 'src/sdk/product/ProductSentinel'
 
 interface Props {
   /**
@@ -35,8 +36,18 @@ interface Props {
    * Determine if the current page is the first page.
    */
   firstPage?: number
+  /**
+   * Determine whether to show the comparison checkbox.
+   */
   shouldShowComparison?: boolean
+  /**
+   * Label for comparison text.
+   */
   compareLabel?: string
+  /**
+   * Title for the `ProductGrid` component that will be send to GA events.
+   */
+  title?: string
 }
 
 function ProductGrid({
@@ -52,6 +63,7 @@ function ProductGrid({
   firstPage,
   shouldShowComparison,
   compareLabel,
+  title,
 }: Props) {
   const { isMobile } = useScreenResize()
   const { __experimentalProductCard: ProductCard } =
@@ -71,31 +83,12 @@ function ProductGrid({
           <>
             {products.slice(0, 2).map(({ node: product }, idx) => (
               <UIProductGridItem key={`${product.id}`}>
-                <ProductCard.Component
-                  enableCompareCheckboxOnDisplay={shouldShowComparison}
-                  compareLabel={compareLabel}
-                  aspectRatio={aspectRatio}
-                  imgProps={{
-                    width: 150,
-                    height: 150,
-                    sizes: '30vw',
-                    loading: 'eager',
-                  }}
-                  {...ProductCard.props}
-                  bordered={bordered ?? ProductCard.props.bordered}
-                  showDiscountBadge={
-                    showDiscountBadge ?? ProductCard.props.showDiscountBadge
-                  }
+                <ProductSentinel
                   product={product}
-                  index={pageSize * page + idx + 1}
-                  taxesConfiguration={taxesConfiguration}
-                  sponsoredLabel={sponsoredLabel}
-                />
-              </UIProductGridItem>
-            ))}
-            <ViewportObserver sectionName="UIProductGrid-out-viewport">
-              {products.slice(2).map(({ node: product }, idx) => (
-                <UIProductGridItem key={`${product.id}`}>
+                  title={title}
+                  page={page}
+                  pageSize={pageSize}
+                >
                   <ProductCard.Component
                     enableCompareCheckboxOnDisplay={shouldShowComparison}
                     compareLabel={compareLabel}
@@ -104,7 +97,7 @@ function ProductGrid({
                       width: 150,
                       height: 150,
                       sizes: '30vw',
-                      loading: 'lazy',
+                      loading: 'eager',
                     }}
                     {...ProductCard.props}
                     bordered={bordered ?? ProductCard.props.bordered}
@@ -116,6 +109,39 @@ function ProductGrid({
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
                   />
+                </ProductSentinel>
+              </UIProductGridItem>
+            ))}
+            <ViewportObserver sectionName="UIProductGrid-out-viewport">
+              {products.slice(2).map(({ node: product }, idx) => (
+                <UIProductGridItem key={`${product.id}`}>
+                  <ProductSentinel
+                    product={product}
+                    title={title}
+                    page={page}
+                    pageSize={pageSize}
+                  >
+                    <ProductCard.Component
+                      enableCompareCheckboxOnDisplay={shouldShowComparison}
+                      compareLabel={compareLabel}
+                      aspectRatio={aspectRatio}
+                      imgProps={{
+                        width: 150,
+                        height: 150,
+                        sizes: '30vw',
+                        loading: 'lazy',
+                      }}
+                      {...ProductCard.props}
+                      bordered={bordered ?? ProductCard.props.bordered}
+                      showDiscountBadge={
+                        showDiscountBadge ?? ProductCard.props.showDiscountBadge
+                      }
+                      product={product}
+                      index={pageSize * page + idx + 1}
+                      taxesConfiguration={taxesConfiguration}
+                      sponsoredLabel={sponsoredLabel}
+                    />
+                  </ProductSentinel>
                 </UIProductGridItem>
               ))}
             </ViewportObserver>
@@ -124,26 +150,33 @@ function ProductGrid({
           <>
             {products.map(({ node: product }, idx) => (
               <UIProductGridItem key={`${product.id}`}>
-                <ProductCard.Component
-                  enableCompareCheckboxOnDisplay={shouldShowComparison}
-                  compareLabel={compareLabel}
-                  aspectRatio={aspectRatio}
-                  imgProps={{
-                    width: 150,
-                    height: 150,
-                    sizes: '30vw',
-                    loading: idx === 0 ? 'eager' : 'lazy',
-                  }}
-                  {...ProductCard.props}
-                  bordered={bordered ?? ProductCard.props.bordered}
-                  showDiscountBadge={
-                    showDiscountBadge ?? ProductCard.props.showDiscountBadge
-                  }
+                <ProductSentinel
                   product={product}
-                  index={pageSize * page + idx + 1}
-                  taxesConfiguration={taxesConfiguration}
-                  sponsoredLabel={sponsoredLabel}
-                />
+                  title={title}
+                  page={page}
+                  pageSize={pageSize}
+                >
+                  <ProductCard.Component
+                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
+                    aspectRatio={aspectRatio}
+                    imgProps={{
+                      width: 150,
+                      height: 150,
+                      sizes: '30vw',
+                      loading: idx === 0 ? 'eager' : 'lazy',
+                    }}
+                    {...ProductCard.props}
+                    bordered={bordered ?? ProductCard.props.bordered}
+                    showDiscountBadge={
+                      showDiscountBadge ?? ProductCard.props.showDiscountBadge
+                    }
+                    product={product}
+                    index={pageSize * page + idx + 1}
+                    taxesConfiguration={taxesConfiguration}
+                    sponsoredLabel={sponsoredLabel}
+                  />
+                </ProductSentinel>
               </UIProductGridItem>
             ))}
           </>

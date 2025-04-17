@@ -16,13 +16,13 @@ const sortOptions = [
   {
     value: 'productByName',
     label: 'Product Name',
-    function: (productComparison: IProductComparison[]) =>
+    onChange: (productComparison: IProductComparison[]) =>
       productComparison.sort((a, b) => a.name.localeCompare(b.name)),
   },
   {
     value: 'productByPrice',
     label: 'Price',
-    function: (productComparison: IProductComparison[]) =>
+    onChange: (productComparison: IProductComparison[]) =>
       productComparison.sort((a, b) => a.offers.lowPrice - b.offers.lowPrice),
   },
 ] as const

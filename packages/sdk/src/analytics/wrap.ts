@@ -16,7 +16,7 @@ import type { SelectPromotionEvent } from './events/select_promotion'
 import type { ViewPromotionEvent } from './events/view_promotion'
 import type { ViewItemEvent } from './events/view_item'
 import type { ViewItemListEvent } from './events/view_item_list'
-import { PageViewEvent } from './events/page_view'
+import type { PageViewEvent } from './events/page_view'
 
 /**
  * All these events are based on the official GA4 docs. https://developers.google.com/gtagjs/reference/ga4-events
@@ -73,7 +73,7 @@ export const wrap = <T extends UnknownEvent>(
       ...event,
       name: `${STORE_EVENT_PREFIX}${event.name}`,
     },
-  } as WrappedAnalyticsEvent<T>)
+  }) as WrappedAnalyticsEvent<T>
 
 export const unwrap = <T extends UnknownEvent>(
   event: WrappedAnalyticsEvent<T>

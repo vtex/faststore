@@ -4,9 +4,64 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-checkbox-field-gap : var(--fs-spacing-1);
+  --fs-checkbox-field-gap                                         : var(--fs-spacing-1);
+
+  // Label
+  --fs-checkbox-field-label-color                                 : var(--fs-color-text-light);
+  --fs-checkbox-field-label-size                                  : var(--fs-text-size-1);
+  --fs-checkbox-field-label-weight                                : var(--fs-text-weight-regular);
+  --fs-checkbox-field-label-line-height                           : 1.42;
+
+  /* Error tokens */
+  --fs-checkbox-field-error-message-size                          : var(--fs-text-size-legend);
+  --fs-checkbox-field-error-message-line-height                   : 1.1;
+  --fs-checkbox-field-error-message-margin-top                    : var(--fs-spacing-0);
+  --fs-checkbox-field-error-message-color                         : var(--fs-color-danger-text);
+  --fs-checkbox-field-error-border-color                          : var(--fs-color-danger-border);
 
   display: flex;
-  align-items: center;
   column-gap: var(--fs-checkbox-field-gap);
-};
+
+  [data-fs-checkbox] {
+    flex-shrink: 0;
+  }
+
+  [data-fs-checkbox-field-content] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  [data-fs-checkbox-field-label] {
+    color: var(--fs-checkbox-field-label-color);
+    font-size: var(--fs-checkbox-field-label-size);
+    font-weight: var(--fs-checkbox-field-label-weight);
+    line-height: var(--fs-checkbox-field-label-line-height);
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-checkbox-field-alignment='center'] {
+    align-items: center;
+  }
+  &[data-fs-checkbox-field-alignment='top'] {
+    align-items: flex-start;
+  }
+  &[data-fs-checkbox-field-alignment='bottom'] {
+    align-items: flex-end;
+  }
+
+  &[data-fs-checkbox-field-error='true'] {
+    [data-fs-checkbox-field-error-message] {
+      margin-top: var(--fs-checkbox-field-error-message-margin-top);
+      font-size: var(--fs-checkbox-field-error-message-size);
+      line-height: var(--fs-checkbox-field-error-message-line-height);
+      color: var(--fs-checkbox-field-error-message-color);
+    }
+
+    [data-fs-checkbox]:not(:disabled) {
+      border-color: var(--fs-checkbox-field-error-border-color);
+    }
+  }
+}

@@ -9,7 +9,7 @@ import { StoreCollection } from './resolvers/collection'
 import {
   StoreFacet,
   StoreFacetBoolean,
-  StoreFacetRange
+  StoreFacetRange,
 } from './resolvers/facet'
 import { StoreFacetValueBoolean } from './resolvers/faceValue'
 import { Mutation } from './resolvers/mutation'
