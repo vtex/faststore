@@ -90,6 +90,21 @@ interface PaymentMethodConfig {
   paypal?: boolean
   giftCard?: boolean
   bankInvoice?: boolean
+  cash?: boolean
+  nubank?: boolean
+  promissory?: boolean
+  applePay?: boolean
+  googlePay?: boolean
+  multipleCards?: {
+    cards: Array<{
+      brand: CardBrand
+      installments: number
+      cardHolder: string
+      lastDigits: string
+      firstDigits: string
+      value: number
+    }>
+  }
 }
 
 interface GenerateOrderSummaryParams {
@@ -100,6 +115,7 @@ interface GenerateOrderSummaryParams {
   tax?: number
   change?: number
   payments?: PaymentMethodConfig
+  allowCancellation?: boolean
 }
 
 interface OrderSummary {
@@ -109,6 +125,7 @@ interface OrderSummary {
     giftCards: any[]
     transactions: MyAccountTransaction[]
   }
+  allowCancellation: boolean
 }
 
 const defaultPayment: MyAccountPayment = {
@@ -133,6 +150,7 @@ export function generateOrderSummary(
     tax = 0,
     change = 0,
     payments = { free: true },
+    allowCancellation = false,
   } = params
 
   const totalAmount = itemsTotal + shipping - discounts + tax - change
@@ -264,6 +282,7 @@ export function generateOrderSummary(
       dueDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000)
         .toISOString()
         .split('T')[0], // 15 days from now
+      url: 'https://recorrenciaqa.vtexpayments.com.br:443/BankIssuedInvoice/Transaction/abcd1234efgh5678/Payment/ijkl9012mnop3456/Installment/{Installment}',
       bankIssuedInvoiceIdentificationNumber:
         '34191.79001 01043.510047 91020.150008 4 84410026000',
       bankIssuedInvoiceIdentificationNumberFormatted:
@@ -306,9 +325,116 @@ export function generateOrderSummary(
     })
   }
 
+  if (payments.cash) {
+    paymentsList.push({
+      ...defaultPayment,
+      id: 'cash-' + Math.random().toString(36).substring(7),
+      paymentSystem: '47',
+      paymentSystemName: 'Cash',
+      group: 'cash',
+      value: totalAmount,
+      referenceValue: totalAmount,
+    })
+  }
+
+  if (payments.nubank) {
+    paymentsList.push({
+      ...defaultPayment,
+      id: 'nu-' + Math.random().toString(36).substring(7),
+      paymentSystem: '178',
+      paymentSystemName: 'Nubank',
+      group: 'Nubank',
+      value: totalAmount,
+      referenceValue: totalAmount,
+      connectorResponses: {
+        tid: null,
+        returnCode: null,
+        message: '[401] Unauthorized Undefined auth appKey header',
+      },
+    })
+  }
+
+  if (payments.promissory) {
+    paymentsList.push({
+      ...defaultPayment,
+      id: 'prom-' + Math.random().toString(36).substring(7),
+      paymentSystem: '201',
+      paymentSystemName: 'Depósito Banco do Brasil',
+      group: 'promissory',
+      value: totalAmount,
+      referenceValue: totalAmount,
+    })
+  }
+
+  if (payments.multipleCards?.cards?.length) {
+    payments.multipleCards.cards.forEach((card, index) => {
+      paymentsList.push({
+        ...defaultPayment,
+        id: `mcc-${index}-` + Math.random().toString(36).substring(7),
+        paymentSystem: card.brand === 'visa' ? '2' : '4', // Simple mapping for visa/mastercard
+        paymentSystemName:
+          card.brand.charAt(0).toUpperCase() + card.brand.slice(1),
+        group: 'creditCard',
+        value: card.value,
+        referenceValue: card.value,
+        lastDigits: card.lastDigits,
+        cardHolder: card.cardHolder,
+        firstDigits: card.firstDigits,
+        installments: card.installments,
+        connectorResponses: {
+          authId: `AUT-${Math.random().toString(36).substring(7).toUpperCase()}`,
+          tid: `TID-${Math.random().toString(36).substring(7).toUpperCase()}`,
+          returnCode: '2000',
+          message: 'Transaction successful',
+        },
+      })
+    })
+  }
+
+  if (payments.applePay) {
+    paymentsList.push({
+      ...defaultPayment,
+      id: 'ap-' + Math.random().toString(36).substring(7),
+      paymentSystem: 'applePay',
+      paymentSystemName: 'ApplePay',
+      group: 'applePay',
+      value: totalAmount,
+      referenceValue: totalAmount,
+      tid: 'AP-' + Math.random().toString(36).substring(7).toUpperCase(),
+      connectorResponses: {
+        authId:
+          'APPLE-' + Math.random().toString(36).substring(7).toUpperCase(),
+        tid: 'TID-' + Math.random().toString(36).substring(7).toUpperCase(),
+        returnCode: '0000',
+        message: 'Apple Pay transaction approved',
+      },
+    })
+  }
+
+  if (payments.googlePay) {
+    paymentsList.push({
+      ...defaultPayment,
+      id: 'gp-' + Math.random().toString(36).substring(7),
+      paymentSystem: 'googlePay',
+      paymentSystemName: 'GooglePay',
+      group: 'googlePay',
+      value: totalAmount,
+      referenceValue: totalAmount,
+      tid: 'GP-' + Math.random().toString(36).substring(7).toUpperCase(),
+      connectorResponses: {
+        authId:
+          'GOOGLE-' + Math.random().toString(36).substring(7).toUpperCase(),
+        tid: 'TID-' + Math.random().toString(36).substring(7).toUpperCase(),
+        returnCode: '0000',
+        message: 'Google Pay transaction approved',
+      },
+    })
+  }
+
   return {
     totals,
     currencyCode,
+    allowCancellation,
     paymentData: {
       giftCards: [],
       transactions: [
