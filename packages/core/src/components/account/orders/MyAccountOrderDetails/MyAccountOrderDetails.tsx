@@ -21,6 +21,9 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
+  // TODO: Using multipleCardsOrderSummary as an example, but this would come from an API
+  const orderSummary = multipleCardsOrderSummary
+
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
@@ -60,9 +63,9 @@ export default function MyAccountOrderDetails({
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard
-          currencyCode={multipleCardsOrderSummary.currencyCode}
-          paymentData={multipleCardsOrderSummary.paymentData}
-          allowCancellation={multipleCardsOrderSummary.allowCancellation}
+          currencyCode={orderSummary.currencyCode}
+          paymentData={orderSummary.paymentData}
+          allowCancellation={orderSummary.allowCancellation}
         />
         <MyAccountSummaryCard
           totals={order.totals}
