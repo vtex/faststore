@@ -1,4 +1,4 @@
-import {
+import type {
   ClientManyProductsQueryQuery,
   ClientProductGalleryQueryQuery,
   ClientProductQueryQuery,
@@ -7,7 +7,7 @@ import {
 } from '@generated/graphql'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
-import { SearchPageContextType } from 'src/pages/s'
+import type { SearchPageContextType } from 'src/pages/s'
 
 export interface PDPContext {
   data?: ServerProductQueryQuery &
@@ -87,7 +87,6 @@ export const usePLP = () => usePage<PLPContext>()
 
 export const useSearchPage = () => usePage<SearchPageContext>()
 
-export const useDynamicContent = <T extends unknown>() =>
-  usePage<DynamicContent<T>>()
+export const useDynamicContent = <T,>() => usePage<DynamicContent<T>>()
 
 export default PageProvider

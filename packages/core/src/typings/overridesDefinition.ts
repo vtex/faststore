@@ -1,7 +1,7 @@
-import { ComponentsFromSection, SectionsOverrides } from './overrides'
+import type { ComponentsFromSection, SectionsOverrides } from './overrides'
 
 export type SectionOverrideDefinitionV1<
-  SectionName extends keyof SectionsOverrides
+  SectionName extends keyof SectionsOverrides,
 > = {
   /**
    * CSS class to be appended to the \<section\> element. Behaves similarly to React's className.
@@ -15,7 +15,7 @@ export type SectionOverrideDefinitionV1<
 }
 
 export type SectionOverrideDefinition<
-  Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
+  Section extends SectionsOverrides[keyof SectionsOverrides]['Section'],
 > = {
   /**
    * CSS class to be appended to the \<section\> element. Behaves similarly to React's className.
@@ -36,7 +36,7 @@ export type OverriddenComponents<SectionName extends keyof SectionsOverrides> =
   }
 
 export type DefaultSectionComponentsDefinitions<
-  K extends keyof SectionsOverrides
+  K extends keyof SectionsOverrides,
 > = Record<keyof SectionsOverrides[K]['components'], React.ComponentType>
 
 export type ComponentOverrideDefinition<ComponentProps, Props> =

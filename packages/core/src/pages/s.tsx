@@ -1,4 +1,3 @@
-import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
@@ -14,19 +13,13 @@ import { SROnly as UISROnly } from '@faststore/ui'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
-import {
-  getGlobalSectionsData,
-  GlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
-import { SearchWrapper } from 'src/components/templates/SearchPage'
-import { getPage, SearchContentType } from 'src/server/cms'
 
-type Props = {
-  page: SearchContentType
-  globalSections: GlobalSectionsData
-}
+import { SearchWrapper } from 'src/components/templates/SearchPage'
+import {
+  getStaticProps,
+  type SearchPageProps,
+} from 'src/experimental/searchServerSideFunctions'
 
 export interface SearchPageContextType {
   title: string
@@ -54,20 +47,75 @@ const useSearchParams = ({
   }, [asPath, defaultSort])
 }
 
-function Page({ page: searchContentType, globalSections }: Props) {
+type StoreConfig = typeof storeConfig
+
+function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
+  const { search: searchSeo, ...seo } = storeConfig.seo
+
+  const isSSREnabled = storeConfig.experimental.enableSearchSSR
+
+  // default behavior without SSR
+  if (!isSSREnabled) {
+    return {
+      noindex: searchSeo?.noIndex ?? true,
+      nofollow: searchSeo?.noFollow ?? true,
+      title: seo.title,
+      description: seo.description,
+      titleTemplate: seo.titleTemplate,
+      openGraph: {
+        type: 'website',
+        title: seo.title,
+        description: seo.description,
+      },
+    }
+  }
+
+  const title = searchTerm ?? 'Search Results'
+  const titleTemplate = searchSeo?.titleTemplate ?? seo.titleTemplate
+  const description = searchSeo?.descriptionTemplate
+    ? searchSeo.descriptionTemplate.replace(/%s/g, () => searchTerm)
+    : seo.description
+
+  const canonical = searchTerm
+    ? `${storeConfig.storeUrl}/s?q=${searchTerm.replaceAll(' ', '+')}`
+    : undefined
+
+  return {
+    noindex: searchSeo?.noIndex ?? true,
+    nofollow: searchSeo?.noFollow ?? true,
+    title,
+    description,
+    titleTemplate,
+    canonical,
+    openGraph: {
+      type: 'website',
+      title: title,
+      description: description,
+    },
+  }
+}
+
+function Page({
+  page: searchContentType,
+  globalSections,
+  searchTerm,
+}: SearchPageProps) {
   const { settings } = searchContentType
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const title = 'Search Results'
-  const { description, titleTemplate } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   if (!searchParams) {
     return null
   }
+
+  const { noindex, nofollow, ...seoData } = generateSEOData(
+    storeConfig,
+    searchTerm
+  )
 
   return (
     <SearchProvider
@@ -76,19 +124,9 @@ function Page({ page: searchContentType, globalSections }: Props) {
       {...searchParams}
     >
       {/* SEO */}
-      <NextSeo
-        noindex
-        title={title}
-        description={description}
-        titleTemplate={titleTemplate}
-        openGraph={{
-          type: 'website',
-          title,
-          description,
-        }}
-      />
+      <NextSeo noindex={noindex} nofollow={nofollow} {...seoData} />
 
-      <UISROnly text={title} />
+      <UISROnly text={seoData.title} />
 
       {/*
           WARNING: Do not import or render components from any
@@ -105,8 +143,8 @@ function Page({ page: searchContentType, globalSections }: Props) {
         itemsPerPage={itemsPerPage}
         searchContentType={searchContentType}
         serverData={{
-          title,
-          searchTerm: searchParams.term ?? undefined,
+          title: seoData.title,
+          searchTerm: searchTerm ?? searchParams.term ?? undefined,
         }}
         globalSections={globalSections.sections}
       />
@@ -114,41 +152,6 @@ function Page({ page: searchContentType, globalSections }: Props) {
   )
 }
 
-export const getStaticProps: GetStaticProps<
-  Props,
-  Record<string, string>,
-  Locator
-> = async ({ previewData }) => {
-  const globalSections = await getGlobalSectionsData(previewData)
-
-  if (storeConfig.cms.data) {
-    const cmsData = JSON.parse(storeConfig.cms.data)
-    const page = cmsData['search'][0]
-
-    if (page) {
-      const pageData = await getPage<SearchContentType>({
-        contentType: 'search',
-        documentId: page.documentId,
-        versionId: page.versionId,
-      })
-
-      return {
-        props: { page: pageData, globalSections },
-      }
-    }
-  }
-
-  const page = await getPage<SearchContentType>({
-    ...(previewData?.contentType === 'search' ? previewData : null),
-    contentType: 'search',
-  })
-
-  return {
-    props: {
-      page,
-      globalSections,
-    },
-  }
-}
+export { getStaticProps }
 
 export default Page

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import { List, useSearch } from '../..'
 
 export interface SearchAutoCompleteProps
@@ -14,7 +14,6 @@ const SearchAutoComplete = ({
   children,
   ...otherProps
 }: SearchAutoCompleteProps) => {
-
   const { inContext, values } = useSearch()
 
   if (inContext && (values.terms.length <= 0 || values.term.length <= 0)) {

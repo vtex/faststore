@@ -36,7 +36,7 @@ type FormattedVariantProduct = {
 }
 
 export const useAllVariantProducts = <
-  T extends ClientAllVariantProductsQueryQuery
+  T extends ClientAllVariantProductsQueryQuery,
 >(
   productID: string,
   enabled: boolean,

@@ -3,10 +3,10 @@ export const logger = new Proxy(console, {
     if (prop === 'log') {
       return (...args: any[]) => {
         if (process.env.DISCOVERY_DEBUG === 'true') {
-          target.log(...args);
+          target.log(...args)
         }
-      };
+      }
     }
-    return target[prop];
-  }
-});
+    return target[prop]
+  },
+})
