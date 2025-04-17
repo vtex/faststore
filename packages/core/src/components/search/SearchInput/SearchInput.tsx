@@ -10,7 +10,7 @@ import {
 } from 'react'
 
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 

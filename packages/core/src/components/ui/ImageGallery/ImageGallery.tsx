@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 import type { ImageGalleryProps as UIImageGalleryProps } from '@faststore/ui'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const ImageComponent = ({
   url,
@@ -33,7 +34,9 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
 
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx] ?? images[0]
-  const dynamicRoute = useRouter().asPath
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const dynamicRoute = `${pathname}${searchParams ? `?${searchParams.toString()}` : ''}`
 
   useEffect(() => setSelectedImageIdx(0), [dynamicRoute])
 

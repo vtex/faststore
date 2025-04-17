@@ -1,8 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 import { useEffect, type PropsWithChildren } from 'react'
 import { useInView } from 'react-intersection-observer'
-import type { NextRouter } from 'next/router'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
@@ -16,7 +15,10 @@ interface SentinelProps {
 }
 
 // Adds/Replaces ?page= to the querystring of the page
-const replacePagination = (page: string, router: NextRouter) => {
+const replacePagination = (
+  page: string,
+  router: ReturnType<typeof useRouter>
+) => {
   const url = new URL(window.location.href)
 
   // In case the page argument already matches the target page
@@ -26,7 +28,7 @@ const replacePagination = (page: string, router: NextRouter) => {
 
   // Set ?page= parameter and replace route
   url.searchParams.set('page', page)
-  router.replace(url, undefined, { shallow: true, scroll: false })
+  router.replace(url.toString(), { scroll: false })
 }
 
 /**

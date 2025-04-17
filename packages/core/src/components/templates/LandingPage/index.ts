@@ -1,2 +1,3 @@
-export { default, getLandingPageBySlug } from './LandingPage'
+export { default } from './LandingPage'
 export type { LandingPageProps } from './LandingPage'
+export { getLandingPageBySlug } from './getLandingPageBySlug'
