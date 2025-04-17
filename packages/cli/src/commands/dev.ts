@@ -4,13 +4,14 @@ import chalk from 'chalk'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
-import { readFileSync, cpSync } from 'fs'
+import { readFileSync, cpSync, existsSync } from 'fs'
 import path from 'path'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { getPreferredPackageManager } from '../utils/commands'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 
 /**
  * Taken from toolbelt
@@ -41,7 +42,19 @@ async function storeDev(
   coreDir: string,
   port: number
 ) {
-  const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
+  // Only try to read vtex.env if it exists
+  let envVars = {}
+  const vtexEnvPath = path.join(rootDir, 'vtex.env')
+
+  if (existsSync(vtexEnvPath)) {
+    try {
+      envVars = dotenv.parse(readFileSync(vtexEnvPath))
+    } catch (err) {
+      logger.log(
+        `${chalk.yellow('warn')} - Error parsing vtex.env file: ${err}`
+      )
+    }
+  }
 
   const packageManager = getPreferredPackageManager()
 
@@ -131,6 +144,8 @@ export default class Dev extends Command {
     const port = args.port ?? 3000
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
+
+    checkDeprecatedSecretFiles(basePath)
 
     const queueChange = (/* path: string, remove: boolean */) => {
       generate({ basePath })
