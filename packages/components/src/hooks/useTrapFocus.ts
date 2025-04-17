@@ -4,9 +4,9 @@ import type { FocusableElement } from 'tabbable'
 import { tabbable } from 'tabbable'
 
 interface TrapFocusParams {
-  beforeElementRef: RefObject<HTMLElement>
-  trapFocusRef: RefObject<HTMLElement>
-  afterElementRef: RefObject<HTMLElement>
+  beforeElementRef: RefObject<HTMLElement | null>
+  trapFocusRef: RefObject<HTMLElement | null>
+  afterElementRef: RefObject<HTMLElement | null>
 }
 
 /*
@@ -20,7 +20,7 @@ export const useTrapFocus = ({
   beforeElementRef,
   afterElementRef,
 }: TrapFocusParams) => {
-  const tabbableNodesRef = useRef<FocusableElement[]>()
+  const tabbableNodesRef = useRef<FocusableElement[]>(null)
   const nodeToRestoreRef = useRef<HTMLElement | null>(
     document.hasFocus() ? (document.activeElement as HTMLElement) : null
   )
