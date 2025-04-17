@@ -27,7 +27,7 @@
   "dependencies": {
     "@faststore/components": "^3.41.3",
     "@faststore/ui": "^3.41.3",
-    "next": "^15.1.6",
+    "next": "^14.2.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
