@@ -7,6 +7,8 @@ const MyAccountRedirectPage: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  // TODO validate permissions here
+
   if (storeConfig.experimental.enableFaststoreMyAccount) {
     return {
       redirect: {

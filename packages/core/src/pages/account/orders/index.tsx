@@ -12,8 +12,8 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 
@@ -23,7 +23,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-export default function Profile({ globalSections }: MyAccountProps) {
+export default function ListOrders({ globalSections }: MyAccountProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -34,7 +34,7 @@ export default function Profile({ globalSections }: MyAccountProps) {
       <MyAccountLayout>
         <BeforeSection />
         <div>
-          <h1>Profile</h1>
+          <h1>List Orders</h1>
         </div>
         <AfterSection />
       </MyAccountLayout>

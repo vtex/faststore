@@ -1,29 +1,32 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
+import MyAccountOrderDetails from 'src/components/account/orders/MyAccountOrderDetails'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
-
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
 import { injectGlobalSections } from 'src/server/cms/global'
 
-/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
-export default function Profile({ globalSections }: MyAccountProps) {
+type OrderDetailsPageProps = {
+  id: string
+} & MyAccountProps
+
+export default function OrderDetailsPage({
+  globalSections,
+  id,
+}: OrderDetailsPageProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -33,9 +36,7 @@ export default function Profile({ globalSections }: MyAccountProps) {
 
       <MyAccountLayout>
         <BeforeSection />
-        <div>
-          <h1>Profile</h1>
-        </div>
+        <MyAccountOrderDetails orderId={id} />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
@@ -43,12 +44,16 @@ export default function Profile({ globalSections }: MyAccountProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<
-  MyAccountProps,
+  OrderDetailsPageProps,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async (context) => {
   // TODO validate permissions here
 
+  const {
+    previewData,
+    params: { id },
+  } = context
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -69,6 +74,6 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult },
+    props: { globalSections: globalSectionsResult, id },
   }
 }

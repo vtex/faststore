@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
-import MyAccountMenu from '../MyAccountMenu'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
+import MyAccountMenu from '../MyAccountMenu'
 import styles from '../section.module.scss'
 
 export type MyAccountLayoutProps = {}
@@ -17,7 +17,7 @@ const MyAccountLayout = ({
   return (
     <div className={styles.layout}>
       <MyAccountMenu accountName={mockedUserName} items={menuRoutes} />
-      {children}
+      <section>{children}</section>
     </div>
   )
 }
