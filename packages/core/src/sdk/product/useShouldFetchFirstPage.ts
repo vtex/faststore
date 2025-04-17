@@ -31,7 +31,7 @@ export function useShouldFetchFirstPage({
 }: UseShouldFetchFirstPageParams): boolean {
   if (page !== 0) return false
 
-  const lastFetchTime = useRef<number | undefined>()
+  const lastFetchTime = useRef<number | undefined>(null)
 
   const passedFiveMinutesAfterBuild = hasTimeElapsed({
     timestamp: generatedBuildTime,

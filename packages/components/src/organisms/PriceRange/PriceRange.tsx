@@ -42,7 +42,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
   ) {
     const sliderRef = useRef<{
       setSliderValues: (values: { min: number; max: number }) => void
-    }>()
+    }>(null)
 
     useImperativeHandle(ref, () => ({
       setPriceRangeValues: (values: { min: number; max: number }) => {

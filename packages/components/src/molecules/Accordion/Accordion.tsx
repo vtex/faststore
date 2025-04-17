@@ -1,9 +1,10 @@
-import type { HTMLAttributes, ReactElement } from 'react'
+import type { HTMLAttributes } from 'react'
 import React, {
   useContext,
   cloneElement,
   forwardRef,
   createContext,
+  isValidElement,
 } from 'react'
 
 interface AccordionContext {
@@ -31,19 +32,26 @@ export interface AccordionProps
   onChange: (index: number) => void
 }
 
+type PropsWithOptionalIndex = { index?: number }
+
 const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   { testId = 'fs-accordion', indices, onChange, children, ...otherProps },
   ref
 ) {
-  const childrenWithIndex = React.Children.map(
-    children as ReactElement,
-    (child, index) => cloneElement(child, { index: child.props.index ?? index })
-  )
+  const childrenWithIndex = React.Children.map(children, (child, index) => {
+    if (isValidElement<PropsWithOptionalIndex>(child)) {
+      return cloneElement(child, {
+        index: child.props.index ?? index,
+      })
+    }
+
+    return child
+  })
 
   const context = {
     indices: new Set(indices),
     onChange,
-    numberOfItems: childrenWithIndex.length,
+    numberOfItems: childrenWithIndex?.length ?? 0,
   }
 
   return (
