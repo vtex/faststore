@@ -84,19 +84,19 @@ export type SectionOverride = {
 export type OverrideComponentsForSection<
   Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
 > = {
-// The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
-[K in keyof SectionsOverrides as SectionsOverrides[K] extends {
-  Section: never
-}
+  // The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
+  [K in keyof SectionsOverrides as SectionsOverrides[K] extends {
+    Section: never
+  }
     ? never
     : // In the second 'extends' condition, we check if the section matches the one we're looking for
     SectionsOverrides[K] extends {
-      Section: Section
-    }
+        Section: Section
+      }
     ? // If it does, we return the components. Otherwise, we return 'never', which is filtered out
-    K
+      K
     : never]: SectionsOverrides[K]['components']
-  }
+}
 
 // This type is used to extract only the list of components from the section override
 export type ComponentsFromSection<
@@ -198,7 +198,7 @@ export type SectionsOverrides = {
         IconButtonProps,
         Omit<IconButtonProps, 'onClick'>
       >
-      _experimentalSKUMatrixSidebar: ComponentOverrideDefinition<any, any>
+      __experimentalSKUMatrixSidebar: ComponentOverrideDefinition<any, any>
       _experimentalButtonSignIn: ComponentOverrideDefinition<any, any>
     }
   }

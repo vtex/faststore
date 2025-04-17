@@ -52,7 +52,7 @@ function SearchProductItem({
   } = useSearch()
   const { pushToast } = useUI()
 
-  const { _experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
+  const { __experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
     useOverrideComponents<'Navbar'>()
 
   const { href, onClick, ...baseLinkProps } = useProductLink({
