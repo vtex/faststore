@@ -37,7 +37,7 @@ interface Props {
    */
   firstPage?: number
   /**
-   * Determine if product comparison is enabled.
+   * Determine whether to show the comparison checkbox.
    */
   shouldShowComparison?: boolean
   /**
