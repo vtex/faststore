@@ -1194,6 +1194,75 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
+export type ServerCollectionPageQueryQueryVariables = Exact<{
+  slug: Scalars['String']['input']
+}>
+
+export type ServerCollectionPageQueryQuery = {
+  collection: {
+    id: string
+    seo: { title: string; description: string }
+    breadcrumbList: {
+      itemListElement: Array<{ item: string; name: string; position: number }>
+    }
+    meta: { selectedFacets: Array<{ key: string; value: string }> }
+  }
+}
+
+export type ServerProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ServerProductQueryQuery = {
+  product: {
+    sku: string
+    gtin: string
+    name: string
+    description: string
+    releaseDate: string
+    unitMultiplier: number | null
+    id: string
+    seo: { title: string; description: string; canonical: string }
+    brand: { name: string }
+    breadcrumbList: {
+      itemListElement: Array<{ item: string; name: string; position: number }>
+    }
+    image: Array<{ url: string; alternateName: string }>
+    offers: {
+      lowPrice: number
+      highPrice: number
+      lowPriceWithTaxes: number
+      priceCurrency: string
+      offers: Array<{
+        availability: string
+        price: number
+        priceValidUntil: string
+        priceCurrency: string
+        itemCondition: string
+        priceWithTaxes: number
+        listPrice: number
+        listPriceWithTaxes: number
+        seller: { identifier: string }
+      }>
+    }
+    isVariantOf: {
+      productGroupID: string
+      name: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+      } | null
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+  }
+}
+
 export type ProductSummary_ProductFragment = {
   slug: string
   sku: string
@@ -1256,8 +1325,8 @@ export type ProductDetailsFragment_ProductFragment = {
   unitMultiplier: number | null
   id: string
   isVariantOf: {
-    name: string
     productGroupID: string
+    name: string
     skuVariants: {
       activeVariations: any | null
       slugsMap: any | null
@@ -1354,75 +1423,6 @@ export type ClientTopSearchSuggestionsFragment = {
 export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductFragment = { product: { id: string } }
-
-export type ServerCollectionPageQueryQueryVariables = Exact<{
-  slug: Scalars['String']['input']
-}>
-
-export type ServerCollectionPageQueryQuery = {
-  collection: {
-    id: string
-    seo: { title: string; description: string }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
-    }
-    meta: { selectedFacets: Array<{ key: string; value: string }> }
-  }
-}
-
-export type ServerProductQueryQueryVariables = Exact<{
-  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
-}>
-
-export type ServerProductQueryQuery = {
-  product: {
-    sku: string
-    gtin: string
-    name: string
-    description: string
-    releaseDate: string
-    unitMultiplier: number | null
-    id: string
-    seo: { title: string; description: string; canonical: string }
-    brand: { name: string }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
-    }
-    image: Array<{ url: string; alternateName: string }>
-    offers: {
-      lowPrice: number
-      highPrice: number
-      lowPriceWithTaxes: number
-      priceCurrency: string
-      offers: Array<{
-        availability: string
-        price: number
-        priceValidUntil: string
-        priceCurrency: string
-        itemCondition: string
-        priceWithTaxes: number
-        listPrice: number
-        listPriceWithTaxes: number
-        seller: { identifier: string }
-      }>
-    }
-    isVariantOf: {
-      name: string
-      productGroupID: string
-      skuVariants: {
-        activeVariations: any | null
-        slugsMap: any | null
-        availableVariations: any | null
-      } | null
-    }
-    additionalProperty: Array<{
-      propertyID: string
-      name: string
-      value: any
-      valueReference: any
-    }>
-  }
-}
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
@@ -1692,8 +1692,8 @@ export type ClientProductQueryQuery = {
     unitMultiplier: number | null
     id: string
     isVariantOf: {
-      name: string
       productGroupID: string
+      name: string
       skuVariants: {
         activeVariations: any | null
         slugsMap: any | null
