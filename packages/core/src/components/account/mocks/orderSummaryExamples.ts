@@ -21,6 +21,7 @@ export const brlOrderSummaryWithChange = generateOrderSummary({
   payments: {
     bankInvoice: true,
   },
+  allowCancellation: true,
 })
 
 // Example with Debit Card Payment (Mastercard)
@@ -51,6 +52,7 @@ export const bankInvoiceOrderSummary = generateOrderSummary({
   payments: {
     bankInvoice: true,
   },
+  allowCancellation: true,
 })
 
 // Example with PayPal Payment
@@ -301,5 +303,90 @@ export const jcbOrderSummary = generateOrderSummary({
       expireMonth: '10',
       expireYear: '2026',
     },
+  },
+})
+
+// Example with Cash Payment
+export const cashOrderSummary = generateOrderSummary({
+  currencyCode: 'BRL',
+  itemsTotal: 399,
+  shipping: 0,
+  tax: 0,
+  payments: {
+    cash: true,
+  },
+})
+
+// Example with Multiple Credit Cards Payment (Split Payment)
+export const multipleCardsOrderSummary = generateOrderSummary({
+  currencyCode: 'BRL',
+  itemsTotal: 535,
+  shipping: 0,
+  tax: 0,
+  payments: {
+    multipleCards: {
+      cards: [
+        {
+          brand: 'visa',
+          installments: 1,
+          cardHolder: 'John Doe',
+          lastDigits: '2321',
+          firstDigits: '425481',
+          value: 267,
+        },
+        {
+          brand: 'mastercard',
+          installments: 2,
+          cardHolder: 'John Doe',
+          lastDigits: '0155',
+          firstDigits: '234065',
+          value: 268,
+        },
+      ],
+    },
+  },
+})
+
+// Example with Nubank Payment
+export const nubankOrderSummary = generateOrderSummary({
+  currencyCode: 'BRL',
+  itemsTotal: 8800,
+  shipping: 0,
+  tax: 0,
+  payments: {
+    nubank: true,
+  },
+})
+
+// Example with Promissory Payment (Bank Deposit)
+export const promissoryOrderSummary = generateOrderSummary({
+  currencyCode: 'BRL',
+  itemsTotal: 11010,
+  shipping: 0,
+  tax: 0,
+  payments: {
+    promissory: true,
+  },
+})
+
+// Example with Apple Pay Payment
+export const applePayOrderSummary = generateOrderSummary({
+  currencyCode: 'USD',
+  itemsTotal: 9999,
+  shipping: 0,
+  tax: 0,
+  payments: {
+    applePay: true,
+  },
+})
+
+// Example with Google Pay Payment
+export const googlePayOrderSummary = generateOrderSummary({
+  currencyCode: 'USD',
+  itemsTotal: 8888,
+  shipping: 0,
+  tax: 0,
+  payments: {
+    googlePay: true,
   },
 })

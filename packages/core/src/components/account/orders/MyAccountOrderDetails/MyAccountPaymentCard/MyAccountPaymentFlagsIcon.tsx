@@ -23,10 +23,13 @@ const PAYMENT_FLAGS = {
   aura: 'Aura',
   elo: 'EloCard',
   jcb: 'JCB',
-  bankinvoice: 'Cash',
+  bankinvoice: 'FileText',
   paypal: 'PayPal',
   giftcard: 'Gift',
-  cash: 'Cash',
+  cash: 'Currency',
+  // TODO: I could not check this with api. We need to check if the flag key is correct
+  applepay: 'ApplePay',
+  googlepay: 'GooglePay',
 } as const
 
 function shouldShowFlag(payment: Pick<MyAccountPayment, 'paymentSystemName'>) {
@@ -60,18 +63,26 @@ function MyAccountPaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
         break
     }
 
-    return (
-      PAYMENT_FLAGS[slug as keyof typeof PAYMENT_FLAGS] ?? PAYMENT_FLAGS.cash
-    )
+    if (!(slug in PAYMENT_FLAGS)) {
+      return null
+    }
+
+    return PAYMENT_FLAGS[slug as keyof typeof PAYMENT_FLAGS]
   }
 
   if (!shouldShowFlag(payment)) {
     return null
   }
 
+  const flagName = getPaymentFlag()
+
+  if (!flagName) {
+    return null
+  }
+
   return (
     <div data-fs-payment-flag>
-      <UIIcon name={getPaymentFlag()} height={22} />
+      <UIIcon name={flagName} height={22} />
     </div>
   )
 }

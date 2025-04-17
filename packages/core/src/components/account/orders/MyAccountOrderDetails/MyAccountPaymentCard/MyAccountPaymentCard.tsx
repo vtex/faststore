@@ -6,17 +6,71 @@ import type {
 } from '../../../mocks/orderSummaryGenerator'
 import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
 import { useCallback } from 'react'
+import { Link } from '@faststore/ui'
 
 interface MyAccountPaymentCardProps {
   paymentData?: {
     transactions: MyAccountTransaction[]
   }
   currencyCode: string
+  allowCancellation?: boolean
+}
+
+const getPaymentMethodInfo = (payment: MyAccountPayment) => {
+  const baseInfo = {
+    type: 'Billing',
+    methodName: '',
+    icon: payment.paymentSystemName,
+  }
+
+  switch (payment.group) {
+    case 'creditCard':
+    case 'debitCard':
+      return {
+        ...baseInfo,
+        methodName: `${payment.paymentSystemName} ending in ${payment.lastDigits}`,
+      }
+    case 'bankInvoice':
+      return {
+        ...baseInfo,
+        type: 'Bank Invoice',
+        methodName: 'Bank Invoice',
+      }
+    case 'payPal':
+      return {
+        ...baseInfo,
+        methodName: 'PayPal',
+      }
+    case 'giftCard':
+      return {
+        ...baseInfo,
+        type: 'Gift Card',
+        methodName: payment.giftCard?.name ?? 'Gift Card',
+      }
+    default:
+      return {
+        ...baseInfo,
+        methodName: payment.paymentSystemName,
+      }
+  }
+}
+
+const getBankInvoiceUrl = (transactions: MyAccountTransaction[]) => {
+  for (const transaction of transactions) {
+    for (const payment of transaction.payments) {
+      if (payment.url) {
+        return payment.url.replace('{Installment}', '1')
+      }
+    }
+  }
+
+  return null
 }
 
 function MyAccountPaymentCard({
   paymentData,
   currencyCode,
+  allowCancellation = false,
 }: MyAccountPaymentCardProps) {
   const { locale } = useSession()
 
@@ -31,44 +85,9 @@ function MyAccountPaymentCard({
     [locale]
   )
 
-  const getPaymentMethodInfo = (payment: MyAccountPayment) => {
-    const baseInfo = {
-      type: 'Billing',
-      methodName: '',
-      icon: payment.paymentSystemName,
-    }
+  const bankInvoiceUrl = getBankInvoiceUrl(paymentData?.transactions)
 
-    switch (payment.group) {
-      case 'creditCard':
-      case 'debitCard':
-        return {
-          ...baseInfo,
-          methodName: `${payment.paymentSystemName} ending in ${payment.lastDigits}`,
-        }
-      case 'bankInvoice':
-        return {
-          ...baseInfo,
-          type: 'Bank Invoice',
-          methodName: 'Bank Invoice',
-        }
-      case 'payPal':
-        return {
-          ...baseInfo,
-          methodName: 'PayPal',
-        }
-      case 'giftCard':
-        return {
-          ...baseInfo,
-          type: 'Gift Card',
-          methodName: payment.giftCard?.name ?? 'Gift Card',
-        }
-      default:
-        return {
-          ...baseInfo,
-          methodName: payment.paymentSystemName,
-        }
-    }
-  }
+  const showPrintBankInvoiceButton = allowCancellation && bankInvoiceUrl
 
   return (
     <MyAccountCard title="Payment" data-fs-order-payment-card>
@@ -116,12 +135,23 @@ function MyAccountPaymentCard({
                     AuthId: {payment.connectorResponses.authId}
                   </span>
                 )}
-                {payment.bankIssuedInvoiceIdentificationNumber && (
-                  <span data-fs-payment-bank-invoice>
-                    Invoice Number:{' '}
-                    {payment.bankIssuedInvoiceIdentificationNumber}
-                  </span>
-                )}
+                <div data-fs-payment-bank-invoice>
+                  {payment.bankIssuedInvoiceIdentificationNumber && (
+                    <span data-fs-payment-bank-invoice-number>
+                      Invoice Number:{' '}
+                      {payment.bankIssuedInvoiceIdentificationNumber}
+                    </span>
+                  )}
+                  {showPrintBankInvoiceButton && (
+                    <Link
+                      data-fs-payment-invoice-link
+                      href={bankInvoiceUrl}
+                      target="_blank"
+                    >
+                      Print Bank Invoice
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           )

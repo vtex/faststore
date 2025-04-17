@@ -53,6 +53,8 @@
       justify-content: center;
       width: var(--fs-spacing-5);
       height: var(--fs-spacing-4);
+      padding: 2px 0;
+      color: var(--fs-color-neutral-4);
       border: var(--fs-border-width) solid var(--fs-border-color-light);
       border-radius: var(--fs-border-radius);
     }
@@ -64,5 +66,11 @@
     gap: var(--fs-spacing-0);
     font-size: var(--fs-order-payment-card-tid-font-size);
     color: var(--fs-order-payment-card-tid-color);
+  }
+
+  [data-fs-payment-bank-invoice] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-0);
   }
 }
