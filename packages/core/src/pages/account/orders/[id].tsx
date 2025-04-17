@@ -10,6 +10,8 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
 import { injectGlobalSections } from 'src/server/cms/global'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -33,7 +35,9 @@ export default function OrderDetailsPage({
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
+        <BeforeSection />
         <MyAccountOrderDetails orderId={id} />
+        <AfterSection />
       </MyAccountLayout>
     </RenderSections>
   )
