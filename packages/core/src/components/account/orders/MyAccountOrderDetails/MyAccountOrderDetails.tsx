@@ -12,30 +12,7 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
-import {
-  debitCardOrderSummary,
-  bankInvoiceOrderSummary,
-  paypalOrderSummary,
-  giftCardOrderSummary,
-  freeOrderSummary,
-  multiplePaymentsOrderSummary,
-  dinersOrderSummary,
-  amexOrderSummary,
-  hipercardOrderSummary,
-  discoverOrderSummary,
-  banricomprasOrderSummary,
-  auraOrderSummary,
-  eloOrderSummary,
-  jcbOrderSummary,
-  visaOrderSummary,
-  mastercardOrderSummary,
-  nubankOrderSummary,
-  promissoryOrderSummary,
-  multipleCardsOrderSummary,
-  cashOrderSummary,
-  applePayOrderSummary,
-  googlePayOrderSummary,
-} from '../../mocks/orderSummaryExamples'
+import { multipleCardsOrderSummary } from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -94,114 +71,6 @@ export default function MyAccountOrderDetails({
           totals={order.totals}
           currencyCode={order.storePreferencesData.currencyCode}
           transactions={order.paymentData.transactions}
-        />
-        <MyAccountPaymentCard
-          currencyCode={mastercardOrderSummary.currencyCode}
-          paymentData={mastercardOrderSummary.paymentData}
-          allowCancellation={mastercardOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={dinersOrderSummary.currencyCode}
-          paymentData={dinersOrderSummary.paymentData}
-          allowCancellation={dinersOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={amexOrderSummary.currencyCode}
-          paymentData={amexOrderSummary.paymentData}
-          allowCancellation={amexOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={hipercardOrderSummary.currencyCode}
-          paymentData={hipercardOrderSummary.paymentData}
-          allowCancellation={hipercardOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={discoverOrderSummary.currencyCode}
-          paymentData={discoverOrderSummary.paymentData}
-          allowCancellation={discoverOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={banricomprasOrderSummary.currencyCode}
-          paymentData={banricomprasOrderSummary.paymentData}
-          allowCancellation={banricomprasOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={auraOrderSummary.currencyCode}
-          paymentData={auraOrderSummary.paymentData}
-          allowCancellation={auraOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={eloOrderSummary.currencyCode}
-          paymentData={eloOrderSummary.paymentData}
-        />
-        <MyAccountPaymentCard
-          currencyCode={jcbOrderSummary.currencyCode}
-          paymentData={jcbOrderSummary.paymentData}
-          allowCancellation={jcbOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={debitCardOrderSummary.currencyCode}
-          paymentData={debitCardOrderSummary.paymentData}
-          allowCancellation={debitCardOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={paypalOrderSummary.currencyCode}
-          paymentData={paypalOrderSummary.paymentData}
-          allowCancellation={paypalOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={multiplePaymentsOrderSummary.currencyCode}
-          paymentData={multiplePaymentsOrderSummary.paymentData}
-          allowCancellation={multiplePaymentsOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={giftCardOrderSummary.currencyCode}
-          paymentData={giftCardOrderSummary.paymentData}
-          allowCancellation={giftCardOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={bankInvoiceOrderSummary.currencyCode}
-          paymentData={bankInvoiceOrderSummary.paymentData}
-          allowCancellation={bankInvoiceOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={freeOrderSummary.currencyCode}
-          paymentData={freeOrderSummary.paymentData}
-          allowCancellation={freeOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={nubankOrderSummary.currencyCode}
-          paymentData={nubankOrderSummary.paymentData}
-          allowCancellation={nubankOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={promissoryOrderSummary.currencyCode}
-          paymentData={promissoryOrderSummary.paymentData}
-          allowCancellation={promissoryOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={debitCardOrderSummary.currencyCode}
-          paymentData={debitCardOrderSummary.paymentData}
-          allowCancellation={debitCardOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={multipleCardsOrderSummary.currencyCode}
-          paymentData={multipleCardsOrderSummary.paymentData}
-          allowCancellation={multipleCardsOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={cashOrderSummary.currencyCode}
-          paymentData={cashOrderSummary.paymentData}
-        />
-        <MyAccountPaymentCard
-          currencyCode={applePayOrderSummary.currencyCode}
-          paymentData={applePayOrderSummary.paymentData}
-          allowCancellation={applePayOrderSummary.allowCancellation}
-        />
-        <MyAccountPaymentCard
-          currencyCode={googlePayOrderSummary.currencyCode}
-          paymentData={googlePayOrderSummary.paymentData}
-          allowCancellation={googlePayOrderSummary.allowCancellation}
         />
       </main>
     </div>
