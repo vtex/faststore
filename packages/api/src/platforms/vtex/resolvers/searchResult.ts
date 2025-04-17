@@ -1,13 +1,13 @@
-import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import { enhanceSku } from '../utils/enhanceSku'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
-  productSearchPromise: Promise<ProductSearchResult>
+  getProductSearchPromise: () => Promise<ProductSearchResult>
 }
 
 const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
@@ -19,6 +19,7 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
+    console.log('[lari-test] Entrou em suggestions, term:', root.searchArgs)
     const {
       clients: { search },
     } = ctx
@@ -38,10 +39,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       }
     }
 
-    const { productSearchPromise } = root
+    const { getProductSearchPromise } = root
     const [terms, productSearchResult] = await Promise.all([
       search.suggestedTerms(searchArgs),
-      productSearchPromise,
+      getProductSearchPromise(),
     ])
 
     const skus = productSearchResult.products
@@ -61,8 +62,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }) => {
-    const productSearchResult = await productSearchPromise
+  products: async ({ getProductSearchPromise }) => {
+    const productSearchResult = await getProductSearchPromise()
 
     const skus = productSearchResult.products
       .map((product) => {
@@ -117,8 +118,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     return filteredFacets
   },
-  metadata: async ({ productSearchPromise }) => {
-    const productSearchResult = await productSearchPromise
+  metadata: async ({ getProductSearchPromise }) => {
+    const productSearchResult = await getProductSearchPromise()
 
     return {
       isTermMisspelled: productSearchResult.correction?.misspelled ?? false,

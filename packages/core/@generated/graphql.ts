@@ -1726,6 +1726,7 @@ export type ClientProductQueryQuery = {
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
+  shouldQueryProducts?: InputMaybe<Scalars['Boolean']['input']>
 }>
 
 export type ClientSearchSuggestionsQueryQuery = {
@@ -1762,8 +1763,8 @@ export type ClientSearchSuggestionsQueryQuery = {
         advertisement: { adId: string; adResponseId: string } | null
       }>
     }
-    products: { pageInfo: { totalCount: number } }
-    metadata: {
+    products?: { pageInfo: { totalCount: number } }
+    metadata?: {
       isTermMisspelled: boolean
       logicalOperator: string
       fuzzy: string | null
@@ -2414,7 +2415,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
+    operationHash: '91535820c8ff69a941af6e81ad582412ae81f8c1',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

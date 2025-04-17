@@ -174,9 +174,12 @@ export const Query = {
       sponsoredCount: sponsoredCount ?? undefined,
     }
 
-    const productSearchPromise = ctx.clients.search.products(searchArgs)
+    // Wrap the promise in a function to avoid executing it before it's necessary
+    // If the promise is not needed, it will not execute, saving unnecessary API calls
+    const getProductSearchPromise = () =>
+      ctx.clients.search.products(searchArgs)
 
-    return { searchArgs, productSearchPromise }
+    return { searchArgs, getProductSearchPromise }
   },
   allProducts: async (
     _: unknown,
