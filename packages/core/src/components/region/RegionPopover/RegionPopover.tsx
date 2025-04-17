@@ -90,9 +90,7 @@ function RegionPopover({
       inputRef.current?.value,
       inputFieldErrorMessage,
       session,
-      () => {
-        setOpen(false)
-      }
+      () => setOpen(false)
     )
   }
 

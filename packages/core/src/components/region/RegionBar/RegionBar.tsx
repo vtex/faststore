@@ -95,7 +95,7 @@ function RegionBar({
       onButtonClick={openModal}
       postalCode={postalCode}
       city={textToTitleCase(city ?? '')}
-      shouldDisplayPostalCode={true}
+      shouldDisplayPostalCode
       {...otherProps}
       ref={regionBarRef}
     />
