@@ -107,7 +107,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   {
     title,
     content,
-    placement = 'bottom-center',
+    placement = 'bottom-start',
     dismissible = false,
     onDismiss,
     isOpen,
@@ -116,6 +116,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     offsetLeft = 0,
     closeButtonAriaLabel = 'Close Popover',
     testId = 'fs-popover',
+    style,
     ...otherProps
   },
   ref
@@ -123,7 +124,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   // Use forwarded ref or internal ref for fallback
   const popoverRef = ref || useRef<HTMLDivElement>(null)
 
-  const [styles, setStyles] = useState({ top: 0, left: 0 })
+  const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 })
   const { popover, closePopover } = useUI()
 
   const contextTriggerRef = popover.triggerRef
@@ -136,7 +137,10 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
 
     // Set the position according to the trigger element and placement
     const rect = triggerRef.current.getBoundingClientRect()
-    setStyles(calculatePosition(rect, placement, offsetTop, offsetLeft))
+
+    setPopoverPosition(
+      calculatePosition(rect, placement, offsetTop, offsetLeft)
+    )
   }, [isOpen, triggerRef, offsetTop, offsetLeft, placement])
 
   const handleDismiss = useCallback(() => {
@@ -170,9 +174,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
       data-fs-popover-placement={placement}
       onKeyDown={handleKeyDown}
       data-testid={testId}
-      style={{
-        ...styles,
-      }}
+      style={{ position: 'absolute', ...popoverPosition, ...style }}
       {...otherProps}
     >
       <header data-fs-popover-header>
