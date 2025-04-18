@@ -11,22 +11,24 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
   const { isValidationComplete } = useRegionModal()
+  const regionButtonRef = useRef<HTMLButtonElement>(null)
 
   const defaultPostalCode =
-    postalCode === initialSession.postalCode &&
-    initialSession.postalCode !== null
+    !!initialSession?.postalCode && postalCode === initialSession.postalCode
 
   // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
   const displayRegionPopover =
     defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
 
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
   useEffect(() => {
-    if (isValidationComplete && displayRegionPopover && buttonRef.current) {
+    if (
+      isValidationComplete &&
+      displayRegionPopover &&
+      regionButtonRef.current
+    ) {
       openPopover({
         isOpen: true,
-        triggerRef: buttonRef,
+        triggerRef: regionButtonRef,
       })
     }
   }, [isValidationComplete, defaultPostalCode, openPopover])
@@ -39,7 +41,7 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
         icon={<UIIcon name={icon} width={18} height={18} weight="bold" />}
         iconPosition="left"
         onClick={openModal}
-        ref={buttonRef}
+        ref={regionButtonRef}
       >
         {city && postalCode ? `${textToTitleCase(city)}, ${postalCode}` : label}
       </UIButton>
