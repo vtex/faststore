@@ -51,16 +51,14 @@ function RegionBar({
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
   const { isValidationComplete } = useRegionModal()
+  const regionBarRef = useRef<HTMLDivElement>(null)
 
   const defaultPostalCode =
-    postalCode === initialSession.postalCode &&
-    initialSession.postalCode !== null
+    !!initialSession?.postalCode && postalCode === initialSession.postalCode
 
   // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
   const displayRegionPopover =
     defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
-
-  const regionBarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (isValidationComplete && displayRegionPopover && regionBarRef.current) {
