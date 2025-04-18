@@ -8,7 +8,7 @@ import {
 } from '@faststore/ui'
 import { useRef, useState } from 'react'
 
-import { useSetLocation } from './../RegionModal/useSetLocation'
+import { useRegionManager } from './../RegionModal/useRegionManager'
 
 import { sessionStore, useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
@@ -64,13 +64,7 @@ function RegionPopover({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
-  const { city, postalCode } = sessionStore.read()
   const { popover: displayPopover, closePopover } = useUI()
-
-  const defaultOffsetTop = 54 // 48px + 6px (offset)
-
-  const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
-
   const {
     input,
     setInput,
@@ -79,10 +73,17 @@ function RegionPopover({
     loading,
     errorMessage,
     setErrorMessage,
-  } = useSetLocation()
+    isValidationComplete,
+    postalCode,
+  } = useRegionManager()
+  const { city } = sessionStore.read()
+
+  const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
+
+  const defaultOffsetTop = 54 // 48px + 6px (offset)
 
   const handleSubmit = async () => {
-    if (isValidating) {
+    if (!isValidationComplete) {
       return
     }
 
