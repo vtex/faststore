@@ -85,16 +85,18 @@ const calculatePosition = (
   offsetTop: number,
   offsetLeft: number
 ) => {
+  const { top, left } = rect
+
   switch (true) {
     case placement.startsWith('top'):
       return {
-        top: rect.top + window.scrollY - offsetTop,
-        left: rect.left + window.scrollX + offsetLeft,
+        top: top + window.scrollY - offsetTop,
+        left: left + window.scrollX + offsetLeft,
       }
     case placement.startsWith('bottom'):
       return {
-        top: rect.top + window.scrollY + offsetTop,
-        left: rect.left + window.scrollX + offsetLeft,
+        top: top + window.scrollY + offsetTop,
+        left: left + window.scrollX + offsetLeft,
       }
     default:
       return { top: 0, left: 0 }
@@ -142,7 +144,10 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     onDismiss?.()
   }, [closePopover, onDismiss])
 
-  useOnClickOutside(popoverRef as RefObject<HTMLDivElement>, handleDismiss)
+  useOnClickOutside(
+    isOpen ? (popoverRef as RefObject<HTMLDivElement>) : undefined,
+    handleDismiss
+  )
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {

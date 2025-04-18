@@ -4,13 +4,15 @@ import { useEffect } from 'react'
 type Handler = (event: any) => void
 
 export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
-  ref: RefObject<T>,
+  ref: RefObject<T> | undefined,
   handler: Handler
 ) {
   useEffect(
     () => {
+      if (!ref?.current) return
+
       const listener: Handler = (event) => {
-        if (!ref.current || ref.current.contains(event.target)) {
+        if (!ref?.current || ref.current.contains(event.target)) {
           return
         }
 
