@@ -17,7 +17,7 @@ import { useOnClickOutside, useUI } from '../../hooks'
 /**
  * Specifies Popover position.
  */
-export type Side = 'bottom'
+export type Side = 'bottom' | 'top'
 
 /**
  * Specifies tooltip alignment.
@@ -79,6 +79,28 @@ export interface PopoverProps
   triggerRef?: RefObject<HTMLElement>
 }
 
+const calculatePosition = (
+  rect: DOMRect,
+  placement: Placement,
+  offsetTop: number,
+  offsetLeft: number
+) => {
+  switch (true) {
+    case placement.startsWith('top'):
+      return {
+        top: rect.top + window.scrollY - offsetTop,
+        left: rect.left + window.scrollX + offsetLeft,
+      }
+    case placement.startsWith('bottom'):
+      return {
+        top: rect.top + window.scrollY + offsetTop,
+        left: rect.left + window.scrollX + offsetLeft,
+      }
+    default:
+      return { top: 0, left: 0 }
+  }
+}
+
 const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   {
     title,
@@ -99,10 +121,9 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   // Use forwarded ref or internal ref for fallback
   const popoverRef = ref || useRef<HTMLDivElement>(null)
 
-  // Set the position according to the trigger element
   const [styles, setStyles] = useState({ top: 0, left: 0 })
-
   const { popover, closePopover } = useUI()
+
   const contextTriggerRef = popover.triggerRef
 
   // Use the propTriggerRef if provided, otherwise fallback to contextTriggerRef
@@ -111,13 +132,10 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   useEffect(() => {
     if (!isOpen || !triggerRef?.current) return
 
+    // Set the position according to the trigger element and placement
     const rect = triggerRef.current.getBoundingClientRect()
-
-    setStyles({
-      top: rect.top + window.scrollY + offsetTop,
-      left: rect.left + window.scrollX + offsetLeft,
-    })
-  }, [isOpen, triggerRef, offsetTop, offsetLeft])
+    setStyles(calculatePosition(rect, placement, offsetTop, offsetLeft))
+  }, [isOpen, triggerRef, offsetTop, offsetLeft, placement])
 
   const handleDismiss = useCallback(() => {
     closePopover()

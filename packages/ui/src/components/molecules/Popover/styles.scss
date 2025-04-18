@@ -25,6 +25,7 @@
   z-index: var(--fs-popover-z-index);
   display: flex;
   flex-direction: column;
+  height: fit-content;
   padding: var(--fs-popover-padding);
   margin: var(--fs-popover-margin);
   background-color: var(--fs-popover-bkg-color);
