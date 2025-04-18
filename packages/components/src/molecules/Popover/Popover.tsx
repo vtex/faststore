@@ -85,17 +85,17 @@ const calculatePosition = (
   offsetTop: number,
   offsetLeft: number
 ) => {
-  const { top, left } = rect
+  const { top, left, height } = rect
 
   switch (true) {
     case placement.startsWith('top'):
       return {
-        top: top + window.scrollY - offsetTop,
+        top: top + height + window.scrollY - offsetTop,
         left: left + window.scrollX + offsetLeft,
       }
     case placement.startsWith('bottom'):
       return {
-        top: top + window.scrollY + offsetTop,
+        top: top + height + window.scrollY + offsetTop,
         left: left + window.scrollX + offsetLeft,
       }
     default:

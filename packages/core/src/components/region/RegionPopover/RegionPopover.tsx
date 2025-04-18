@@ -41,10 +41,6 @@ interface RegionPopoverProps {
 }
 
 function RegionPopover({
-  triggerRef,
-  offsetTop,
-  offsetLeft,
-  placement = 'bottom-start',
   title = 'Set your location',
   closeButtonAriaLabel,
   inputField: {
@@ -60,6 +56,10 @@ function RegionPopover({
   textBeforeLocation = 'Your current location is:',
   textAfterLocation = 'Use the field below to change it.',
   description = 'Offers and availability vary by location.',
+  triggerRef,
+  offsetTop = 6,
+  offsetLeft,
+  placement = 'bottom-start',
 }: RegionPopoverProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
@@ -79,8 +79,6 @@ function RegionPopover({
   const { city } = sessionStore.read()
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
-
-  const defaultOffsetTop = 54 // 48px + 6px (offset)
 
   const handleSubmit = async () => {
     if (!isValidationComplete) {
@@ -159,7 +157,7 @@ function RegionPopover({
               closePopover
             }}
             triggerRef={triggerRef}
-            offsetTop={offsetTop ? offsetTop : defaultOffsetTop}
+            offsetTop={offsetTop}
             offsetLeft={offsetLeft}
             closeButtonAriaLabel={closeButtonAriaLabel}
           />
