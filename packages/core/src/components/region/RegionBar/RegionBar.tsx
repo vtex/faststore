@@ -1,11 +1,14 @@
 import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
+import { useEffect, useRef } from 'react'
 
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { textToTitleCase } from 'src/utils/utilities'
-import { session as initialSession } from 'discovery.config'
+import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { textToTitleCase } from 'src/utils/utilities'
+
+import { useRegionManager } from '../RegionModal/useRegionManager'
 
 export interface RegionBarProps {
   /**
@@ -45,9 +48,26 @@ function RegionBar({
     ButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
-  const { openModal } = useUI()
+  const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
-  const shouldDisplayPostalCode = postalCode !== initialSession.postalCode
+  const { isValidationComplete } = useRegionManager()
+  const regionBarRef = useRef<HTMLDivElement>(null)
+
+  const defaultPostalCode =
+    !!initialSession?.postalCode && postalCode === initialSession.postalCode
+
+  // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
+  const displayRegionPopover =
+    defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
+
+  useEffect(() => {
+    if (isValidationComplete && displayRegionPopover && regionBarRef.current) {
+      openPopover({
+        isOpen: true,
+        triggerRef: regionBarRef,
+      })
+    }
+  }, [isValidationComplete, defaultPostalCode, openPopover])
 
   return (
     <RegionBarWrapper.Component
@@ -73,8 +93,9 @@ function RegionBar({
       onButtonClick={openModal}
       postalCode={postalCode}
       city={textToTitleCase(city ?? '')}
-      shouldDisplayPostalCode={shouldDisplayPostalCode}
+      shouldDisplayPostalCode
       {...otherProps}
+      ref={regionBarRef}
     />
   )
 }

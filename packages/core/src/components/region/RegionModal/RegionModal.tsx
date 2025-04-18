@@ -1,11 +1,13 @@
 import dynamic from 'next/dynamic'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
 import { Icon, useUI } from '@faststore/ui'
 
 import { deliveryPromise } from 'discovery.config'
-import { sessionStore, useSession, validateSession } from 'src/sdk/session'
+import { useSession } from 'src/sdk/session'
+
+import { useRegionManager } from './useRegionManager'
 
 import styles from './section.module.scss'
 
@@ -52,45 +54,33 @@ function RegionModal({
 }: RegionModalProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
-  const [errorMessage, setErrorMessage] = useState<string>('')
-  const [input, setInput] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
   const { modal: displayModal, closeModal } = useUI()
 
-  const isDismissible = !!(!deliveryPromise?.mandatory || session.postalCode)
+  const {
+    input,
+    setInput,
+    setLocation,
+    resetInputField,
+    loading,
+    errorMessage,
+    setErrorMessage,
+    isValidationComplete,
+    postalCode,
+  } = useRegionManager()
 
-  const resetInputField = () => {
-    setInput('')
-    setErrorMessage('')
-  }
+  const isDismissible = !!(!deliveryPromise?.mandatory || postalCode)
 
   const handleSubmit = async () => {
-    const postalCode = inputRef.current?.value
-
-    if (typeof postalCode !== 'string') {
+    if (!isValidationComplete) {
       return
     }
 
-    setErrorMessage('')
-    setLoading(true)
-
-    try {
-      const newSession = {
-        ...session,
-        postalCode,
-        geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
-      } as typeof session
-
-      const validatedSession = await validateSession(newSession)
-
-      sessionStore.set(validatedSession ?? newSession)
-      resetInputField()
-      closeModal() // Close modal after successfully applied postal code
-    } catch (error) {
-      setErrorMessage(inputFieldErrorMessage)
-    } finally {
-      setLoading(false) // Reset loading to false when validation is complete
-    }
+    await setLocation(
+      inputRef.current?.value,
+      inputFieldErrorMessage,
+      session,
+      closeModal
+    )
   }
 
   const idkPostalCodeLinkProps: UIRegionModalProps['idkPostalCodeLinkProps'] = {

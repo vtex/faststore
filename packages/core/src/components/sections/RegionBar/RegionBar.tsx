@@ -1,3 +1,4 @@
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 import RegionBar, {
   type RegionBarProps,
@@ -30,10 +31,14 @@ type RegionBarSectionProps = {
 }
 
 function RegionBarSection({ ...otherProps }: RegionBarSectionProps) {
+  const { isDesktop } = useScreenResize()
+
   return (
-    <Section className={`${styles.section} section-region-bar display-mobile`}>
-      <RegionBar {...otherProps} />
-    </Section>
+    !isDesktop && (
+      <Section className={`${styles.section} section-region-bar`}>
+        <RegionBar {...otherProps} />
+      </Section>
+    )
   )
 }
 
