@@ -7,7 +7,7 @@ interface UseSetLocationParams {
   input: string
   setInput: (value: string) => void
   resetInputField: () => void
-  handleSubmit: (
+  setLocation: (
     postalCode: string | undefined,
     inputFieldErrorMessage: string,
     session: Session,
@@ -28,7 +28,7 @@ export function useSetLocation(): UseSetLocationParams {
     setErrorMessage('')
   }
 
-  const handleSubmit = async (
+  const setLocation = async (
     postalCode: string | undefined,
     inputFieldErrorMessage: string,
     session: Session,
@@ -63,7 +63,7 @@ export function useSetLocation(): UseSetLocationParams {
     input,
     setInput,
     resetInputField,
-    handleSubmit,
+    setLocation,
     errorMessage,
     setErrorMessage,
     loading,

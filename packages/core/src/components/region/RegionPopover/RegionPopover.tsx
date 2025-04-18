@@ -74,7 +74,7 @@ function RegionPopover({
   const {
     input,
     setInput,
-    handleSubmit: setLocation,
+    setLocation,
     resetInputField,
     loading,
     errorMessage,
