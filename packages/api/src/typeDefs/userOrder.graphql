@@ -1,0 +1,499 @@
+type UserOrder {
+  orderId: String
+  sequence: String
+  marketplaceOrderId: String
+  marketplaceServicesEndpoint: String
+  sellerOrderId: String
+  origin: String
+  affiliateId: String
+  salesChannel: String
+  merchantName: String
+  status: String
+  workflowIsInError: Boolean
+  statusDescription: String
+  value: Int
+  creationDate: String
+  lastChange: String
+  orderGroup: String
+  giftRegistryData: String
+  marketingData: String
+  callCenterOperatorData: String
+  followUpEmail: String
+  lastMessage: String
+  hostname: String
+  invoiceData: String
+  changesAttachment: String
+  openTextField: String
+  roundingError: Int
+  orderFormId: String
+  commercialConditionData: String
+  isCompleted: Boolean
+  customData: UserOrderCustomData
+  allowCancellation: Boolean
+  allowEdition: Boolean
+  isCheckedIn: Boolean
+  authorizedDate: String
+  invoicedDate: String
+  cancelReason: String
+  subscriptionData: String
+  taxData: String
+  checkedInPickupPointId: String
+  cancellationData: String
+  cancellationRequests: String
+  clientPreferencesData: UserOrderClientPreferencesData
+  itemMetadata: UserOrderItemMetadata
+  marketplace: UserOrderMarketplace
+  storePreferencesData: UserOrderStorePreferencesData
+  sellers: [UserOrderStoreSellers]
+  packageAttachment: UserOrderPackageAttachment
+  paymentData: UserOrderPaymentData
+  shippingData: UserOrderShippingData
+  ratesAndBenefitsData: UserOrderRatesAndBenefitsData
+  clientProfileData: UserOrderClientProfileData
+  marketplaceItems: [String]
+  items: [UserOrderItems]
+  totals: [UserOrderTotals]
+}
+
+type UserOrderCustomData {
+  customApps: [UserOrderCustomApp]
+}
+
+type UserOrderCustomApp {
+  fields: UserOrderFields
+  id: String
+  major: Int
+}
+
+type UserOrderFields {
+  cartEtag: String
+}
+
+type UserOrderStoreSellers {
+  id: String
+  name: String
+  logo: String
+  fulfillmentEndpoint: String
+}
+
+type UserOrderClientPreferencesData {
+  locale: String
+  optinNewsLetter: Boolean
+}
+
+type UserOrderAssemblyOptions {
+  Id: String
+  Name: String
+  Required: Boolean
+  Composition: String
+}
+
+type UserOrderItemMetadata {
+  Items: [UserOrderItemMetadataItem]
+}
+
+type UserOrderItemMetadataItem {
+  uniqueId: String
+  id: String
+  productId: String
+  ean: String
+  lockId: String
+  quantity: Int
+  seller: String
+  name: String
+  refId: String
+  price: Int
+  listPrice: Int
+  manualPrice: String
+  manualPriceAppliedBy: String
+  imageUrl: String
+  detailUrl: String
+  sellerSku: String
+  priceValidUntil: String
+  commission: Int
+  tax: Int
+  preSaleDate: String
+  measurementUnit: String
+  unitMultiplier: Int
+  sellingPrice: Int
+  isGift: Boolean
+  shippingPrice: String
+  rewardValue: Int
+  freightCommission: Int
+  taxCode: String
+  parentItemIndex: String
+  parentAssemblyBinding: String
+  callCenterOperator: String
+  serialNumbers: String
+  costPrice: Int
+  assemblies: [String]
+  priceDefinition: UserOrderPriceDefinition
+  additionalInfo: UserOrderAdditionalInfo
+  attachmentOfferings: [String]
+  offerings: [String]
+  params: [String]
+  bundleItems: [String]
+  components: [String]
+  priceTags: [String]
+  attachments: [String]
+  itemAttachment: UserOrderItemAttachment
+}
+
+type UserOrderMarketplace {
+  baseURL: String
+  isCertified: String
+  name: String
+}
+
+type UserOrderCurrencyFormatInfo {
+  CurrencyDecimalDigits: Int
+  CurrencyDecimalSeparator: String
+  CurrencyGroupSeparator: String
+  CurrencyGroupSize: Int
+  StartsWithCurrencySymbol: Boolean
+}
+
+type UserOrderStorePreferencesData {
+  countryCode: String
+  currencyCode: String
+  currencyLocale: Int
+  currencySymbol: String
+  timeZone: String
+  currencyFormatInfo: UserOrderCurrencyFormatInfo
+}
+
+type UserOrderCurrencyFormatInfo {
+  CurrencyDecimalDigits: Int
+  CurrencyDecimalSeparator: String
+  CurrencyGroupSeparator: String
+  CurrencyGroupSize: Int
+  StartsWithCurrencySymbol: Boolean
+}
+
+type UserOrderSellers {
+  id: String
+  name: String
+  logo: String
+  fulfillmentEndpoint: String
+}
+
+type UserOrderPackageAttachment {
+  packages: [String]
+}
+
+type UserOrderPayments {
+  id: String
+  paymentSystem: String
+  paymentSystemName: String
+  value: Int
+  installments: Int
+  referenceValue: Int
+  cardHolder: String
+  cardNumber: String
+  firstDigits: String
+  lastDigits: String
+  cvv2: String
+  expireMonth: String
+  expireYear: String
+  url: String
+  giftCardId: String
+  giftCardName: String
+  giftCardCaption: String
+  redemptionCode: String
+  group: String
+  tid: String
+  dueDate: String
+  giftCardProvider: String
+  giftCardAsDiscount: String
+  koinUrl: String
+  accountId: String
+  parentAccountId: String
+  bankIssuedInvoiceIdentificationNumber: String
+  bankIssuedInvoiceIdentificationNumberFormatted: String
+  bankIssuedInvoiceBarCodeNumber: String
+  bankIssuedInvoiceBarCodeType: String
+  billingAddress: String
+  paymentOrigin: String
+}
+
+type UserOrderTransactions {
+  isActive: Boolean
+  transactionId: String
+  merchantName: String
+  payments: [UserOrderPayments]
+}
+
+type UserOrderPaymentData {
+  transactions: [UserOrderTransactions]
+  giftCards: [String]
+}
+
+type UserOrderAvailableAddresses {
+  addressId: String
+  versionId: String
+  entityId: String
+  addressType: String
+  receiverName: String
+  street: String
+  number: String
+  complement: String
+  neighborhood: String
+  postalCode: String
+  city: String
+  state: String
+  country: String
+  reference: String
+  geoCoordinates: [Float]
+}
+
+type UserOrderSelectedAddresses {
+  addressId: String
+  versionId: String
+  entityId: String
+  addressType: String
+  receiverName: String
+  street: String
+  number: String
+  complement: String
+  neighborhood: String
+  postalCode: String
+  city: String
+  state: String
+  country: String
+  reference: String
+  geoCoordinates: [Float]
+}
+
+type UserOrderPickupStoreInfo {
+  additionalInfo: String
+  address: String
+  dockId: String
+  friendlyName: String
+  isPickupStore: Boolean
+}
+
+type UserOrderDeliveryChannels {
+  id: String
+  stockBalance: Int
+}
+
+type UserOrderDeliveryIds {
+  courierId: String
+  courierName: String
+  dockId: String
+  quantity: Int
+  warehouseId: String
+  accountCarrierName: String
+  kitItemDetails: [String]
+}
+type UserOrderDeliveryWindow {
+  startDateUtc: String
+  endDateUtc: String
+  price: Float
+}
+
+type UserOrderSlas {
+  id: String
+  name: String
+  shippingEstimate: String
+  shippingEstimateDate: String
+  deliveryWindow: UserOrderDeliveryWindow
+  listPrice: Int
+  price: Int
+  deliveryChannel: String
+  polygonName: String
+  lockTTL: String
+  pickupPointId: String
+  transitTime: String
+  pickupDistance: Int
+  pickupStoreInfo: UserOrderPickupStoreInfo
+  deliveryIds: [UserOrderDeliveryIds]
+  availableDeliveryWindows: [UserOrderDeliveryWindow]
+}
+
+type UserOrderLogisticsInfo {
+  itemIndex: Int
+  itemId: String
+  selectedDeliveryChannel: String
+  selectedSla: String
+  lockTTL: String
+  price: Int
+  listPrice: Int
+  sellingPrice: Int
+  deliveryWindow: UserOrderDeliveryWindow
+  deliveryCompany: String
+  shippingEstimate: String
+  shippingEstimateDate: String
+  deliveryChannel: String
+  addressId: String
+  versionId: String
+  entityId: String
+  polygonName: String
+  pickupPointId: String
+  transitTime: String
+  pickupStoreInfo: UserOrderPickupStoreInfo
+  deliveryChannels: [UserOrderDeliveryChannels]
+  deliveryIds: [UserOrderDeliveryIds]
+  shipsTo: [String]
+  slas: [UserOrderSlas]
+}
+
+type UserOrderAddress {
+  addressType: String
+  receiverName: String
+  addressId: String
+  versionId: String
+  entityId: String
+  postalCode: String
+  city: String
+  state: String
+  country: String
+  street: String
+  number: String
+  neighborhood: String
+  complement: String
+  reference: String
+  geoCoordinates: [Float]
+}
+
+type UserOrderShippingData {
+  id: String
+  trackingHints: String
+  contactInformation: [String]
+  availableAddresses: [UserOrderAvailableAddresses]
+  selectedAddresses: [UserOrderSelectedAddresses]
+  logisticsInfo: [UserOrderLogisticsInfo]
+  address: UserOrderAddress
+}
+
+type UserOrderRatesAndBenefitsData {
+  id: String
+  rateAndBenefitsIdentifiers: [String]
+}
+
+type UserOrderClientProfileData {
+  id: String
+  email: String
+  firstName: String
+  lastName: String
+  documentType: String
+  document: String
+  phone: String
+  corporateName: String
+  tradeName: String
+  corporateDocument: String
+  stateInscription: String
+  corporatePhone: String
+  isCorporate: Boolean
+  userProfileId: String
+  userProfileVersion: String
+  customerClass: String
+  customerCode: String
+}
+
+type UserOrderSellingPrices {
+  value: Int
+  quantity: Int
+}
+
+type UserOrderPriceDefinition {
+  calculatedSellingPrice: Int
+  total: Int
+  reason: String
+  sellingPrices: [UserOrderSellingPrices]
+}
+
+type UserOrderDimension {
+  cubicweight: Float
+  height: Int
+  length: Int
+  weight: Int
+  width: Int
+}
+
+type UserOrderCategories {
+  id: Int
+  name: String
+}
+
+type UserOrderAdditionalInfo {
+  brandName: String
+  brandId: String
+  categoriesIds: String
+  productClusterId: String
+  commercialConditionId: String
+  offeringInfo: String
+  offeringType: String
+  offeringTypeId: String
+  dimension: UserOrderDimension
+  categories: [UserOrderCategories]
+}
+
+type UserOrderAttachmentOfferings {
+  name: String
+  required: Boolean
+}
+
+type UserOrderOfferings {
+  type: String
+  id: String
+  name: String
+  price: Int
+}
+
+type UserOrderItemAttachment {
+  name: String
+}
+
+type UserOrderItems {
+  uniqueId: String
+  id: String
+  productId: String
+  ean: String
+  lockId: String
+  quantity: Int
+  seller: String
+  name: String
+  refId: String
+  price: Int
+  listPrice: Int
+  manualPrice: String
+  manualPriceAppliedBy: String
+  imageUrl: String
+  detailUrl: String
+  sellerSku: String
+  priceValidUntil: String
+  commission: Int
+  tax: Int
+  preSaleDate: String
+  measurementUnit: String
+  unitMultiplier: Int
+  sellingPrice: Int
+  isGift: Boolean
+  shippingPrice: String
+  rewardValue: Int
+  freightCommission: Int
+  taxCode: String
+  parentItemIndex: String
+  parentAssemblyBinding: String
+  callCenterOperator: String
+  serialNumbers: String
+  costPrice: Int
+  assemblies: [String]
+  priceDefinition: UserOrderPriceDefinition
+  additionalInfo: UserOrderAdditionalInfo
+  attachmentOfferings: [UserOrderAttachmentOfferings]
+  offerings: [UserOrderOfferings]
+  params: [String]
+  bundleItems: [String]
+  components: [String]
+  priceTags: [String]
+  attachments: [String]
+  itemAttachment: UserOrderItemAttachment
+}
+
+type UserOrderTotals {
+  id: String
+  name: String
+  value: Int
+}

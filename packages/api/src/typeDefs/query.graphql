@@ -349,6 +349,16 @@ type Query {
     id: String!
   ): Profile
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+  """
+  Returns information about the Details of an User Order.
+  """
+  userOrder(
+    """
+    Identifier for the order.
+    """
+    orderId: String!
+  ): UserOrder
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
 """
