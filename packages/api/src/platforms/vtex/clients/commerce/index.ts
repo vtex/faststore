@@ -407,5 +407,24 @@ export const VtexCommerce = (
         )
       },
     },
+    oms: {
+      userOrder: ({
+        orderId,
+      }: { orderId: string }): Promise<Record<string, string>> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/oms/user/orders/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+    },
   }
 }

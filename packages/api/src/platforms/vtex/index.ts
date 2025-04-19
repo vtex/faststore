@@ -15,6 +15,7 @@ import { StoreFacetValueBoolean } from './resolvers/faceValue'
 import { Mutation } from './resolvers/mutation'
 import { ObjectOrString } from './resolvers/objectOrString'
 import { StoreOffer } from './resolvers/offer'
+import { UserOrder } from './resolvers/order'
 import { StoreProduct } from './resolvers/product'
 import { StoreProductGroup } from './resolvers/productGroup'
 import { StorePropertyValue } from './resolvers/propertyValue'
@@ -89,6 +90,7 @@ const Resolvers = {
   StorePropertyValue,
   SkuVariants,
   ShippingSLA,
+  UserOrder,
   ObjectOrString,
   Query,
   Mutation,

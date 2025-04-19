@@ -1,9 +1,9 @@
-import type { ClientProfileData } from '@faststore/api/dist/esm/src/platforms/vtex/clients/commerce/types/OrderForm'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import MyAccountCard from '../../../components/MyAccountCard'
 
 interface MyAccountOrderedByCardProps {
   clientProfileData: Pick<
-    ClientProfileData,
+    ServerOrderDetailsQueryQuery['userOrder']['clientProfileData'],
     | 'firstName'
     | 'lastName'
     | 'email'
@@ -16,8 +16,12 @@ interface MyAccountOrderedByCardProps {
 function MyAccountOrderedByCard({
   clientProfileData,
 }: MyAccountOrderedByCardProps) {
-  const { firstName, lastName, email, phone, corporateName, isCorporate } =
-    clientProfileData
+  const firstName = clientProfileData?.firstName
+  const lastName = clientProfileData?.lastName
+  const email = clientProfileData?.email
+  const phone = clientProfileData?.phone
+  const corporateName = clientProfileData?.corporateName
+  const isCorporate = clientProfileData?.isCorporate
 
   const getFirstLetter = (name: string) => {
     return name.charAt(0).toUpperCase()
@@ -32,7 +36,9 @@ function MyAccountOrderedByCard({
         </div>
       )}
       <div data-fs-ordered-by-client-info>
-        <p data-fs-ordered-by-client-name>{`${firstName} ${lastName}`}</p>
+        <p
+          data-fs-ordered-by-client-name
+        >{`${firstName ?? ''} ${lastName ?? ''}`}</p>
         {(phone || email) && (
           <p>
             {phone && <>{phone}</>}
