@@ -6,7 +6,11 @@ import { generateFullSchema } from '../utils/contentPlatform'
 
 export default class ContentPlatformSync extends Command {
   static flags = {
-    ['dry-run']: Flags.boolean({ char: 'd' }),
+    ['dry-run']: Flags.boolean({
+      char: 'd',
+      description:
+        "Run the full command, but don't upload anything to Content Platform.",
+    }),
   }
 
   static args = [
