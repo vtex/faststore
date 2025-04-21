@@ -1,0 +1,2259 @@
+export const sections = [
+  {
+    name: 'Search',
+    requiredScopes: [],
+    schema: {
+      title: 'Search Bar',
+      type: 'object',
+      description: 'Search Bar Configuration',
+      required: [
+        'searchInput',
+        'searchHistory',
+        'searchTop',
+        'searchAutocomplete',
+      ],
+      properties: {
+        searchInput: {
+          title: 'Input Field',
+          type: 'object',
+          properties: {
+            placeholder: {
+              title: 'Placeholder',
+              type: 'string',
+              default: 'Search Everything at the Store',
+            },
+            icon: {
+              title: 'Search Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['Magnifying Glass'],
+                  enum: ['MagnifyingGlass'],
+                  default: 'MagnifyingGlass',
+                },
+                alt: {
+                  title: 'Alternative Label',
+                  type: 'string',
+                  default: 'Magnifying Glass',
+                },
+              },
+            },
+          },
+        },
+        searchHistory: {
+          title: 'Search History',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'History',
+            },
+            clearButtonLabel: {
+              type: 'string',
+              title: 'Clear Button Label',
+              default: 'Clear History',
+            },
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['Clock Clockwise'],
+                  enum: ['ClockClockwise'],
+                  default: 'ClockClockwise',
+                },
+                alt: {
+                  type: 'string',
+                  title: 'Alternative Label',
+                  default: 'History',
+                },
+              },
+            },
+            maxItems: {
+              title: 'Maximum Number of History Items',
+              type: 'integer',
+              default: 5,
+            },
+          },
+        },
+        searchTop: {
+          title: 'Top Search',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Top Search',
+            },
+            maxItems: {
+              title: 'Maximum Number of Top Search Items',
+              type: 'integer',
+              default: 5,
+            },
+          },
+        },
+        searchAutocomplete: {
+          title: 'Autocomplete',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['Magnifying Glass'],
+                  enum: ['MagnifyingGlass'],
+                },
+                alt: {
+                  type: 'string',
+                  title: 'Alternative Label',
+                  default: 'Magnifying Glass',
+                },
+              },
+            },
+            maxItems: {
+              title: 'Maximum Number of Autocomplete Items',
+              type: 'integer',
+              default: 5,
+            },
+          },
+        },
+        searchProducts: {
+          title: 'Suggested Products',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Suggested Products',
+            },
+            maxItems: {
+              title: 'Maximum Number of Suggested Products',
+              type: 'integer',
+              default: 5,
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'Navbar',
+    requiredScopes: [],
+    schema: {
+      title: 'Navbar',
+      type: 'object',
+      description: 'Navbar configuration',
+      required: ['logo'],
+      properties: {
+        logo: {
+          title: 'Logo',
+          type: 'object',
+          required: ['src'],
+          properties: {
+            src: {
+              title: 'Image',
+              type: 'string',
+              widget: {
+                'ui:widget': 'media-gallery',
+              },
+            },
+            alt: {
+              title: 'Alternative Label',
+              type: 'string',
+            },
+            link: {
+              title: 'Logo Link',
+              type: 'object',
+              required: ['url', 'title'],
+              properties: {
+                url: {
+                  title: 'Link URL',
+                  type: 'string',
+                },
+                title: {
+                  title: 'Link Title',
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+        searchInput: {
+          title: 'Search Input',
+          description: 'Search Input configurations',
+          type: 'object',
+          required: ['sort'],
+          properties: {
+            placeholder: {
+              title: 'Placeholder for Search Bar',
+              type: 'string',
+              default: 'Search everything at the store',
+            },
+            sort: {
+              title: 'Results default sort value',
+              type: 'string',
+              default: 'score_desc',
+              enumNames: [
+                'Price, descending',
+                'Price, ascending',
+                'Top sales',
+                'Name, A-Z',
+                'Name, Z-A',
+                'Release date',
+                'Discount',
+                'Relevance',
+              ],
+              enum: [
+                'price_desc',
+                'price_asc',
+                'orders_desc',
+                'name_asc',
+                'name_desc',
+                'release_desc',
+                'discount_desc',
+                'score_desc',
+              ],
+            },
+          },
+        },
+        signInButton: {
+          title: 'Sign In Button',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['User'],
+                  enum: ['User'],
+                  default: 'User',
+                },
+                alt: {
+                  title: 'Alternative Label',
+                  type: 'string',
+                  default: 'User',
+                },
+              },
+            },
+            label: {
+              title: 'Call to Action',
+              type: 'string',
+              default: 'Sign In',
+            },
+            myAccountLabel: {
+              title: 'My Account Label',
+              type: 'string',
+              default: 'My Account',
+            },
+          },
+        },
+        cartIcon: {
+          title: 'Cart Icon',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['Shopping Cart'],
+              enum: ['ShoppingCart'],
+              default: 'ShoppingCart',
+            },
+            alt: {
+              title: 'Alternative Label',
+              type: 'string',
+              default: 'Shopping Cart',
+            },
+          },
+        },
+        navigation: {
+          title: 'Navigation',
+          type: 'object',
+          properties: {
+            regionalization: {
+              type: 'object',
+              title: 'Regionalization',
+              properties: {
+                enabled: {
+                  type: 'boolean',
+                  title: 'Use Regionalization?',
+                  default: true,
+                },
+                icon: {
+                  title: 'Icon',
+                  type: 'object',
+                  properties: {
+                    icon: {
+                      title: 'Icon',
+                      type: 'string',
+                      enumNames: ['Map Pin'],
+                      enum: ['MapPin'],
+                      default: 'MapPin',
+                    },
+                    alt: {
+                      title: 'Alternative Label',
+                      type: 'string',
+                      default: 'MapPin',
+                    },
+                  },
+                },
+                label: {
+                  title: 'Call to Action',
+                  type: 'string',
+                  default: 'Set Location',
+                },
+              },
+            },
+            pageLinks: {
+              title: 'Links',
+              type: 'array',
+              maxItems: 8,
+              items: {
+                title: 'Link',
+                type: 'object',
+                required: ['text', 'url'],
+                properties: {
+                  text: {
+                    title: 'Link Text',
+                    type: 'string',
+                  },
+                  url: {
+                    title: 'Link URL',
+                    type: 'string',
+                  },
+                },
+              },
+            },
+            menu: {
+              type: 'object',
+              title: 'Menu',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'object',
+                  properties: {
+                    icon: {
+                      title: 'Icon',
+                      type: 'string',
+                      enumNames: ['List'],
+                      enum: ['List'],
+                      default: 'List',
+                    },
+                    alt: {
+                      title: 'Alternative Label',
+                      type: 'string',
+                      default: 'List',
+                    },
+                  },
+                },
+              },
+            },
+            home: {
+              title: 'Home',
+              type: 'object',
+              properties: {
+                label: {
+                  title: 'Go to Home Label',
+                  type: 'string',
+                  default: 'Go to Home',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'Alert',
+    requiredScopes: [],
+    schema: {
+      title: 'Alert',
+      description: 'Add an alert',
+      type: 'object',
+      required: ['icon', 'content', 'dismissible'],
+      properties: {
+        icon: {
+          type: 'string',
+          title: 'Icon',
+          enumNames: [
+            'Bell',
+            'BellRinging',
+            'Checked',
+            'Info',
+            'Truck',
+            'User',
+          ],
+          enum: ['Bell', 'BellRinging', 'Checked', 'Info', 'Truck', 'User'],
+        },
+        content: {
+          type: 'string',
+          title: 'Content',
+        },
+        link: {
+          title: 'Link',
+          type: 'object',
+          properties: {
+            text: {
+              type: 'string',
+              title: 'Link Text',
+            },
+            to: {
+              type: 'string',
+              title: 'Action link',
+            },
+          },
+        },
+        dismissible: {
+          type: 'boolean',
+          default: false,
+          title: 'Is dismissible?',
+        },
+      },
+    },
+  },
+  {
+    name: 'Footer',
+    requiredScopes: [],
+    schema: {
+      title: 'Footer',
+      description: 'Footer displayed on all pages',
+      type: 'object',
+      properties: {
+        incentives: {
+          title: 'Incentives',
+          type: 'array',
+          minItems: 3,
+          maxItems: 5,
+          items: {
+            title: 'Incentive',
+            type: 'object',
+            required: ['title', 'firstLineText', 'icon'],
+            properties: {
+              title: {
+                type: 'string',
+                title: 'Title',
+              },
+              firstLineText: {
+                type: 'string',
+                title: 'First line of text',
+              },
+              secondLineText: {
+                type: 'string',
+                title: 'Second line of text',
+              },
+              icon: {
+                type: 'string',
+                title: 'Icon',
+                enumNames: [
+                  'Truck',
+                  'Calendar',
+                  'Gift',
+                  'Store Front',
+                  'Shield Check',
+                ],
+                enum: [
+                  'Truck',
+                  'Calendar',
+                  'Gift',
+                  'Storefront',
+                  'ShieldCheck',
+                ],
+              },
+              alt: {
+                title: 'Alternative Label',
+                type: 'string',
+              },
+            },
+          },
+        },
+        footerLinks: {
+          title: 'Footer Links Sections',
+          type: 'array',
+          maxItems: 4,
+          items: {
+            title: 'Footer Links Section',
+            type: 'object',
+            properties: {
+              sectionTitle: {
+                title: 'Section Title',
+                type: 'string',
+              },
+              items: {
+                title: 'Links',
+                type: 'array',
+                minItems: 1,
+                maxItems: 8,
+                items: {
+                  title: 'Link',
+                  type: 'object',
+                  required: ['text', 'url'],
+                  properties: {
+                    text: {
+                      title: 'Link Text',
+                      type: 'string',
+                    },
+                    url: {
+                      title: 'Link URL',
+                      type: 'string',
+                      description: 'Absolute or Relative',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        footerSocial: {
+          title: 'Social Media Links',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Follow Us',
+            },
+            socialLinks: {
+              title: 'Social Media',
+              type: 'array',
+              minItems: 0,
+              maxItems: 8,
+              items: {
+                title: 'Link',
+                type: 'object',
+                required: ['alt', 'url', 'icon'],
+                properties: {
+                  icon: {
+                    title: 'Icon',
+                    type: 'object',
+                    properties: {
+                      icon: {
+                        title: 'Icon',
+                        type: 'string',
+                        enumNames: [
+                          'Facebook',
+                          'Instagram',
+                          'Pinterest',
+                          'Twitter',
+                        ],
+                        enum: ['Facebook', 'Instagram', 'Pinterest', 'Twitter'],
+                      },
+                    },
+                  },
+                  alt: {
+                    title: 'Alt',
+                    type: 'string',
+                  },
+                  url: {
+                    title: 'URL',
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+        logo: {
+          title: 'Logo',
+          type: 'object',
+          properties: {
+            src: {
+              title: 'Image',
+              type: 'string',
+              widget: {
+                'ui:widget': 'media-gallery',
+              },
+            },
+            alt: {
+              title: 'Alternative Label',
+              type: 'string',
+            },
+            link: {
+              title: 'Logo Link',
+              type: 'object',
+              required: ['url', 'title'],
+              properties: {
+                url: {
+                  title: 'Link URL',
+                  type: 'string',
+                },
+                title: {
+                  title: 'Link Title',
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+        copyrightInfo: {
+          title: 'Copyright Message',
+          type: 'string',
+        },
+        acceptedPaymentMethods: {
+          title: 'Payment Methods Sections',
+          type: 'object',
+          required: ['showPaymentMethods'],
+          properties: {
+            showPaymentMethods: {
+              title: 'Display Payment Methods',
+              type: 'boolean',
+              default: true,
+            },
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Payment Methods',
+            },
+            paymentMethods: {
+              title: 'Payment Methods',
+              type: 'array',
+              items: {
+                title: 'Payment Method',
+                type: 'object',
+                required: ['icon', 'alt'],
+                properties: {
+                  icon: {
+                    type: 'object',
+                    properties: {
+                      icon: {
+                        title: 'Icon',
+                        type: 'string',
+                        enumNames: [
+                          'Visa',
+                          'Diners Club',
+                          'Mastercard',
+                          'Elo Card',
+                          'PayPal',
+                          'Stripe',
+                          'GooglePay',
+                          'ApplePay',
+                        ],
+                        enum: [
+                          'Visa',
+                          'Diners',
+                          'Mastercard',
+                          'EloCard',
+                          'PayPal',
+                          'Stripe',
+                          'GooglePay',
+                          'ApplePay',
+                        ],
+                      },
+                    },
+                  },
+                  alt: {
+                    type: 'string',
+                    title: 'Alternative Label',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'BannerText',
+    requiredScopes: [],
+    schema: {
+      title: 'Banner Text',
+      description: 'Add a quick promotion with a text/action pair',
+      type: 'object',
+      required: ['title', 'caption', 'link'],
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+        },
+        caption: {
+          title: 'Caption',
+          type: 'string',
+        },
+        link: {
+          title: 'Call to Action',
+          type: 'object',
+          required: ['text', 'url'],
+          properties: {
+            text: {
+              title: 'Text',
+              type: 'string',
+            },
+            url: {
+              title: 'URL',
+              type: 'string',
+            },
+            linkTargetBlank: {
+              type: 'boolean',
+              title: 'Open link in new window?',
+              default: false,
+            },
+          },
+        },
+        colorVariant: {
+          type: 'string',
+          title: 'Color variant',
+          enumNames: ['Main', 'Light', 'Accent'],
+          enum: ['main', 'light', 'accent'],
+        },
+        variant: {
+          type: 'string',
+          title: 'Variant',
+          enumNames: ['Primary', 'Secondary'],
+          enum: ['primary', 'secondary'],
+        },
+      },
+    },
+  },
+  {
+    name: 'Hero',
+    requiredScopes: [],
+    schema: {
+      title: 'Hero',
+      description: 'Add a quick promotion with an image/action pair',
+      type: 'object',
+      required: ['title'],
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+        },
+        subtitle: {
+          title: 'Subtitle',
+          type: 'string',
+        },
+        link: {
+          title: 'Call to Action',
+          type: 'object',
+          properties: {
+            text: {
+              type: 'string',
+              title: 'Text',
+            },
+            url: {
+              type: 'string',
+              title: 'URL',
+            },
+            linkTargetBlank: {
+              type: 'boolean',
+              title: 'Open link in new window?',
+              default: false,
+            },
+          },
+        },
+        image: {
+          type: 'object',
+          title: 'Image',
+          properties: {
+            src: {
+              type: 'string',
+              title: 'Image',
+              widget: {
+                'ui:widget': 'media-gallery',
+              },
+            },
+            alt: {
+              type: 'string',
+              title: 'Alternative Label',
+            },
+          },
+        },
+        colorVariant: {
+          type: 'string',
+          title: 'Color variant',
+          enumNames: ['Main', 'Light', 'Accent'],
+          enum: ['main', 'light', 'accent'],
+        },
+        variant: {
+          type: 'string',
+          title: 'Variant',
+          enumNames: ['Primary', 'Secondary'],
+          enum: ['primary', 'secondary'],
+        },
+      },
+    },
+  },
+  {
+    name: 'Incentives',
+    requiredScopes: [],
+    schema: {
+      title: 'Incentives',
+      description: 'Add Incentives to your shopper',
+      type: 'object',
+      properties: {
+        incentives: {
+          title: 'Incentives',
+          type: 'array',
+          minItems: 3,
+          maxItems: 5,
+          items: {
+            title: 'Incentive',
+            type: 'object',
+            required: ['title', 'firstLineText', 'icon'],
+            properties: {
+              title: {
+                type: 'string',
+                title: 'Title',
+              },
+              firstLineText: {
+                type: 'string',
+                title: 'First line of text',
+              },
+              secondLineText: {
+                type: 'string',
+                title: 'Second line of text',
+              },
+              icon: {
+                type: 'string',
+                title: 'Icon',
+                enumNames: [
+                  'Truck',
+                  'Calendar',
+                  'Gift',
+                  'Store Front',
+                  'Shield Check',
+                ],
+                enum: [
+                  'Truck',
+                  'Calendar',
+                  'Gift',
+                  'Storefront',
+                  'ShieldCheck',
+                ],
+              },
+              alt: {
+                title: 'Alternative Label',
+                type: 'string',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'ProductShelf',
+    requiredScopes: [],
+    schema: {
+      title: 'Product Shelf',
+      description: 'Add custom shelves to your store',
+      type: 'object',
+      required: ['title', 'numberOfItems', 'after', 'sort'],
+      properties: {
+        title: {
+          type: 'string',
+          title: 'Title',
+        },
+        numberOfItems: {
+          type: 'integer',
+          title: 'Total number of items',
+          default: 5,
+          description:
+            'Total number of items. The quantity may be smaller if the query returns fewer products.',
+        },
+        itemsPerPage: {
+          type: 'integer',
+          title: 'Number of items per page',
+          default: 5,
+          description: 'Number of items to display per page in carousel',
+        },
+        after: {
+          type: 'integer',
+          title: 'After',
+          default: '0',
+          description: 'Initial pagination item',
+        },
+        sort: {
+          title: 'Sort',
+          description: 'Items order',
+          default: 'score_desc',
+          enum: [
+            'discount_desc',
+            'name_asc',
+            'name_desc',
+            'orders_desc',
+            'price_asc',
+            'price_desc',
+            'release_desc',
+            'score_desc',
+          ],
+          enumNames: [
+            'Discount: higher to lower',
+            'Name: A-Z',
+            'Name: Z-A',
+            'Orders: higher to lower',
+            'Price: lower to higher',
+            'Price: higher to lower',
+            'Release date: newer to older',
+            'Relevance: higher to lower',
+          ],
+        },
+        term: {
+          type: 'string',
+          title: 'Search term',
+        },
+        selectedFacets: {
+          title: 'Facets',
+          type: 'array',
+          items: {
+            title: 'Facet',
+            type: 'object',
+            required: ['key', 'value'],
+            properties: {
+              key: {
+                title: 'Key',
+                description: 'For collections use: productClusterIds',
+                type: 'string',
+                default: 'productClusterIds',
+              },
+              value: {
+                title: 'Value',
+                description:
+                  "E.g. For 'Most Wanted' collection, use: 140. To consult your collection ids go to Collections page",
+                type: 'string',
+                default: '140',
+              },
+            },
+          },
+        },
+        taxesConfiguration: {
+          title: 'Taxes Configuration',
+          type: 'object',
+          properties: {
+            usePriceWithTaxes: {
+              title: 'Should use taxes to calculate the price?',
+              type: 'boolean',
+              default: false,
+            },
+            taxesLabel: {
+              title: 'Tax label to be displayed',
+              type: 'string',
+              default: 'Tax included',
+            },
+          },
+        },
+        productCardConfiguration: {
+          title: 'Product Card Configuration',
+          type: 'object',
+          properties: {
+            showDiscountBadge: {
+              title: 'Show discount badge?',
+              type: 'boolean',
+              default: true,
+            },
+            bordered: {
+              title: 'Cards should be bordered?',
+              type: 'boolean',
+              default: true,
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'CrossSellingShelf',
+    requiredScopes: ['pdp', 'custom'],
+    schema: {
+      title: 'Cross Selling Shelf',
+      description: 'Add cross selling product data to your users',
+      type: 'object',
+      required: ['title', 'numberOfItems', 'kind'],
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+        },
+        numberOfItems: {
+          title: 'Total number of items',
+          type: 'integer',
+          default: 5,
+          description:
+            'Total number of items. The quantity may be smaller if the query returns fewer products.',
+        },
+        itemsPerPage: {
+          type: 'integer',
+          title: 'Number of items per page',
+          default: 5,
+          description: 'Number of items to display per page in carousel',
+        },
+        kind: {
+          title: 'Kind',
+          description: 'Change cross selling types',
+          default: 'buy',
+          enum: ['buy', 'view'],
+          enumNames: ['Who bought also bought', 'Who saw also saw'],
+        },
+        taxesConfiguration: {
+          title: 'Taxes Configuration',
+          type: 'object',
+          properties: {
+            usePriceWithTaxes: {
+              title: 'Should use taxes to calculate the price?',
+              type: 'boolean',
+              default: false,
+            },
+            taxesLabel: {
+              title: 'Tax label to be displayed',
+              type: 'string',
+              default: 'Tax included',
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'ProductTiles',
+    requiredScopes: [],
+    schema: {
+      title: 'Product Tiles',
+      description: 'Add custom highlights to your store',
+      type: 'object',
+      required: ['title', 'first', 'after', 'sort'],
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+        },
+        first: {
+          title: 'First',
+          type: 'integer',
+          default: 3,
+          description: 'Number of items to display',
+        },
+        after: {
+          title: 'After',
+          type: 'integer',
+          default: '0',
+          description: 'Initial pagination item',
+        },
+        sort: {
+          title: 'Sort',
+          description: 'Items order',
+          default: 'score_desc',
+          enum: [
+            'discount_desc',
+            'name_asc',
+            'name_desc',
+            'orders_desc',
+            'price_asc',
+            'price_desc',
+            'release_desc',
+            'score_desc',
+          ],
+          enumNames: [
+            'Discount: higher to lower',
+            'Name: Z-A',
+            'Name: A-Z',
+            'Orders: higher to lower',
+            'Price: lower to higher',
+            'Price: higher to lower',
+            'Release date: newer to older',
+            'Relevance: higher to lower',
+          ],
+        },
+        term: {
+          title: 'Search term',
+          type: 'string',
+        },
+        selectedFacets: {
+          title: 'Facets',
+          type: 'array',
+          items: {
+            title: 'Facet',
+            type: 'object',
+            required: ['key', 'value'],
+            properties: {
+              key: {
+                title: 'Key',
+                description: 'Tip: For collections, use: productClusterIds',
+                type: 'string',
+                default: 'productClusterIds',
+              },
+              value: {
+                title: 'Value',
+                description: 'Tip: For collection 140, use: 140',
+                type: 'string',
+                default: '140',
+              },
+            },
+          },
+        },
+        taxesConfiguration: {
+          title: 'Taxes Configuration',
+          type: 'object',
+          properties: {
+            usePriceWithTaxes: {
+              title: 'Should use taxes to calculate the price?',
+              type: 'boolean',
+              default: false,
+            },
+            taxesLabel: {
+              title: 'Tax label to be displayed',
+              type: 'string',
+              default: 'Tax included',
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'Newsletter',
+    requiredScopes: [],
+    schema: {
+      title: 'Newsletter',
+      description: 'Allow users to subscribe to your updates',
+      type: 'object',
+      required: ['title'],
+      properties: {
+        icon: {
+          title: 'Icon',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['Envelope'],
+              enum: ['Envelope'],
+              default: 'Envelope',
+            },
+            alt: {
+              type: 'string',
+              title: 'Alternative Label',
+              default: 'Envelope',
+            },
+          },
+        },
+        title: {
+          title: 'Title',
+          type: 'string',
+          default: 'Get News and Special Offers!',
+        },
+        description: {
+          title: 'Description',
+          type: 'string',
+          default: 'Receive our news and promotions in advance',
+        },
+        privacyPolicy: {
+          title: 'Privacy Policy Disclaimer',
+          type: 'string',
+          widget: {
+            'ui:widget': 'draftjs-rich-text',
+          },
+        },
+        emailInputLabel: {
+          title: 'Email input label',
+          type: 'string',
+          default: 'Your Email',
+        },
+        displayNameInput: {
+          title: 'Request name?',
+          type: 'boolean',
+          default: true,
+        },
+        nameInputLabel: {
+          title: 'Name input label',
+          type: 'string',
+          default: 'Your Name',
+        },
+        subscribeButtonLabel: {
+          title: 'Subscribe button label',
+          type: 'string',
+          default: 'Subscribe',
+        },
+        subscribeButtonLoadingLabel: {
+          title: 'Subscribe button loading label',
+          type: 'string',
+          default: 'Loading...',
+        },
+        card: {
+          title: 'Newsletter should be in card format?',
+          type: 'boolean',
+          default: false,
+        },
+        colorVariant: {
+          title: 'Color variant',
+          type: 'string',
+          enumNames: ['Main', 'Light', 'Accent'],
+          enum: ['main', 'light', 'accent'],
+          default: 'main',
+        },
+        toastSubscribe: {
+          title: 'Toast Subscribe',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              description: 'Message Title',
+              type: 'string',
+              default: 'Hooray!',
+            },
+            message: {
+              title: 'Message',
+              description: 'Message',
+              type: 'string',
+              default: 'Thank for your subscription.',
+            },
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['CircleWavyCheck'],
+              enum: ['CircleWavyCheck'],
+              default: 'CircleWavyCheck',
+            },
+          },
+        },
+        toastSubscribeError: {
+          title: 'Toast Subscribe Error',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              description: 'Message Title',
+              type: 'string',
+              default: 'Oops.',
+            },
+            message: {
+              title: 'Message',
+              description: 'Message',
+              type: 'string',
+              default: 'Something went wrong. Please Try again.',
+            },
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['CircleWavyWarning'],
+              enum: ['CircleWavyWarning'],
+              default: 'CircleWavyWarning',
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'Children',
+    schema: {
+      title: 'Children',
+      type: 'object',
+      properties: {},
+    },
+  },
+  {
+    name: 'BannerNewsletter',
+    requiredScopes: [],
+    schema: {
+      title: 'Banner Newsletter',
+      description: 'Add newsletter with a banner',
+      type: 'object',
+      required: ['banner', 'newsletter'],
+      properties: {
+        banner: {
+          title: 'Banner',
+          type: 'object',
+          required: ['title', 'link'],
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Get to Know Our Next Release',
+            },
+            caption: {
+              title: 'Caption',
+              type: 'string',
+              default:
+                'Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!',
+            },
+            link: {
+              title: 'Call to Action',
+              type: 'object',
+              required: ['text', 'url'],
+              properties: {
+                text: {
+                  title: 'Text',
+                  type: 'string',
+                  default: 'Shop now',
+                },
+                url: {
+                  title: 'URL',
+                  type: 'string',
+                  default: '/',
+                },
+              },
+            },
+            colorVariant: {
+              title: 'Color variant',
+              type: 'string',
+              enumNames: ['Main', 'Light', 'Accent'],
+              enum: ['main', 'light', 'accent'],
+              default: 'light',
+            },
+            variant: {
+              title: 'Variant',
+              type: 'string',
+              enumNames: ['Primary', 'Secondary'],
+              enum: ['primary', 'secondary'],
+              default: 'secondary',
+            },
+          },
+        },
+        newsletter: {
+          title: 'Newsletter',
+          type: 'object',
+          required: ['title', 'description'],
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['Envelope'],
+                  enum: ['Envelope'],
+                  default: 'Envelope',
+                },
+                alt: {
+                  type: 'string',
+                  title: 'Alternative Label',
+                  default: 'Envelope',
+                },
+              },
+            },
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Get News and Special Offers!',
+            },
+            description: {
+              title: 'Description',
+              type: 'string',
+              default: 'Receive our news and promotions in advance',
+            },
+            privacyPolicy: {
+              title: 'Privacy Policy Disclaimer',
+              type: 'string',
+              widget: {
+                'ui:widget': 'draftjs-rich-text',
+              },
+            },
+            emailInputLabel: {
+              title: 'Email input label',
+              type: 'string',
+              default: 'Your Email',
+            },
+            displayNameInput: {
+              title: 'Request name?',
+              type: 'boolean',
+              default: true,
+            },
+            nameInputLabel: {
+              title: 'Name input label',
+              type: 'string',
+              default: 'Your Name',
+            },
+            subscribeButtonLabel: {
+              title: 'Subscribe button label',
+              type: 'string',
+              default: 'Subscribe',
+            },
+            subscribeButtonLoadingLabel: {
+              title: 'Subscribe button loading label',
+              type: 'string',
+              default: 'Loading...',
+            },
+            colorVariant: {
+              title: 'Color variant',
+              type: 'string',
+              enumNames: ['Main', 'Light', 'Accent'],
+              enum: ['main', 'light', 'accent'],
+              default: 'main',
+            },
+            toastSubscribe: {
+              title: 'Toast Subscribe',
+              type: 'object',
+              properties: {
+                title: {
+                  title: 'Title',
+                  description: 'Message Title',
+                  type: 'string',
+                  default: 'Hooray!',
+                },
+                message: {
+                  title: 'Message',
+                  description: 'Message',
+                  type: 'string',
+                  default: 'Thank for your subscription.',
+                },
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['CircleWavyCheck'],
+                  enum: ['CircleWavyCheck'],
+                  default: 'CircleWavyCheck',
+                },
+              },
+            },
+            toastSubscribeError: {
+              title: 'Toast Subscribe Error',
+              type: 'object',
+              properties: {
+                title: {
+                  title: 'Title',
+                  description: 'Message Title',
+                  type: 'string',
+                  default: 'Oops.',
+                },
+                message: {
+                  title: 'Message',
+                  description: 'Message',
+                  type: 'string',
+                  default: 'Something went wrong. Please Try again.',
+                },
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['CircleWavyWarning'],
+                  enum: ['CircleWavyWarning'],
+                  default: 'CircleWavyWarning',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'Breadcrumb',
+    requiredScopes: ['pdp', 'plp'],
+    schema: {
+      title: 'Breadcrumb',
+      description: 'Configure the breadcrumb icon and depth',
+      type: 'object',
+      required: ['icon', 'alt'],
+      properties: {
+        icon: {
+          title: 'Icon',
+          type: 'string',
+          enumNames: ['House'],
+          enum: ['House'],
+        },
+        alt: {
+          title: 'Alternative Label',
+          type: 'string',
+        },
+      },
+    },
+  },
+  {
+    name: 'ProductDetails',
+    requiredScopes: ['pdp'],
+    schema: {
+      title: 'Product Details',
+      type: 'object',
+      description: 'Display Product Details Section',
+      properties: {
+        productTitle: {
+          title: 'Product Title',
+          type: 'object',
+          properties: {
+            discountBadge: {
+              title: 'Discount Badge',
+              type: 'object',
+              properties: {
+                showDiscountBadge: {
+                  title: 'Show Discount Badge?',
+                  type: 'boolean',
+                  default: false,
+                },
+                size: {
+                  title: 'Size',
+                  type: 'string',
+                  enumNames: ['Big', 'Small'],
+                  enum: ['big', 'small'],
+                },
+              },
+            },
+            refNumber: {
+              title: 'Show Reference Number?',
+              type: 'boolean',
+              default: false,
+            },
+          },
+        },
+        buyButton: {
+          title: 'Buy Button',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Add to Cart',
+            },
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['Shopping Cart'],
+                  enum: ['ShoppingCart'],
+                },
+                alt: {
+                  type: 'string',
+                  title: 'Alternative Label',
+                  default: 'Shopping Cart',
+                },
+              },
+            },
+          },
+        },
+        notAvailableButton: {
+          title: 'Not Available Button',
+          description: 'Shown when a SKU is not available',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Not Available',
+            },
+          },
+        },
+        shippingSimulator: {
+          title: 'Shipping Simulation',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Shipping',
+            },
+            inputLabel: {
+              title: 'Input Label',
+              type: 'string',
+              default: 'Postal Code',
+            },
+            link: {
+              title: 'Postal Code Discovery',
+              type: 'object',
+              properties: {
+                text: {
+                  title: 'Link Text',
+                  type: 'string',
+                  default: "I don't know my Postal Code",
+                },
+                to: {
+                  title: 'URL',
+                  type: 'string',
+                },
+              },
+            },
+            shippingOptionsTableTitle: {
+              title: 'Shipping Options Table Header',
+              type: 'string',
+            },
+          },
+        },
+        productDescription: {
+          title: 'Product Description',
+          type: 'object',
+          properties: {
+            initiallyExpanded: {
+              type: 'string',
+              title: 'Initially Expanded?',
+              enumNames: ['First', 'All', 'None'],
+              enum: ['first', 'all', 'none'],
+            },
+            displayDescription: {
+              title: 'Should display description?',
+              type: 'boolean',
+              default: true,
+            },
+            title: {
+              title: 'Description section title',
+              type: 'string',
+              default: 'Description',
+            },
+          },
+        },
+        quantitySelector: {
+          title: 'Quantity Selector',
+          type: 'object',
+          properties: {
+            useUnitMultiplier: {
+              title: 'Should use unit multiplier?',
+              type: 'boolean',
+              default: false,
+            },
+          },
+        },
+        taxesConfiguration: {
+          title: 'Taxes Configuration',
+          type: 'object',
+          properties: {
+            usePriceWithTaxes: {
+              title: 'Should use taxes to calculate the price?',
+              type: 'boolean',
+              default: false,
+            },
+            taxesLabel: {
+              title: 'Tax label to be displayed',
+              type: 'string',
+              default: 'Tax included',
+            },
+          },
+        },
+        skuMatrix: {
+          title: 'SKUMatrix Configuration',
+          type: 'object',
+          properties: {
+            shouldDisplaySKUMatrix: {
+              title: 'Should display SKUMatrix?',
+              type: 'boolean',
+              default: false,
+            },
+            triggerButtonLabel: {
+              title: 'SKU Matrix Trigger label to be displayed',
+              type: 'string',
+              default: 'Select multiple',
+            },
+            separatorButtonsText: {
+              title: 'Separator text',
+              description:
+                'Text that separates the add to cart button from the SKU Matrix Trigger button.',
+              type: 'string',
+              default: 'Or',
+            },
+            columns: {
+              title: 'Columns',
+              type: 'object',
+              properties: {
+                name: {
+                  title: 'SKU name column label',
+                  type: 'string',
+                  default: 'Name',
+                },
+                additionalColumns: {
+                  title: 'Additional columns',
+                  type: 'array',
+                  items: {
+                    title: 'Column',
+                    type: 'object',
+                    required: ['label', 'value'],
+                    properties: {
+                      label: {
+                        title: 'Label',
+                        type: 'string',
+                      },
+                      value: {
+                        title: 'Value',
+                        type: 'string',
+                      },
+                    },
+                  },
+                },
+                availability: {
+                  title: 'Availability column label',
+                  type: 'object',
+                  properties: {
+                    label: {
+                      title: 'Label',
+                      type: 'string',
+                      default: 'Availability',
+                    },
+                    stockDisplaySettings: {
+                      title: 'Stock display settings',
+                      description:
+                        'Control how the stock status of your products is displayed to customers on your online store.',
+                      type: 'string',
+                      enum: ['showAvailability', 'showStockQuantity'],
+                      enumNames: [
+                        'Show availability (Available/Out of Stock)',
+                        'Show stock quantity',
+                      ],
+                      default: 'showAvailability',
+                    },
+                  },
+                },
+                price: {
+                  title: 'Price column label',
+                  type: 'string',
+                  default: 'Price',
+                },
+                quantitySelector: {
+                  title: 'Quantity selector column label',
+                  type: 'string',
+                  default: 'Quantity',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'ProductGallery',
+    requiredScopes: ['plp', 'search'],
+    schema: {
+      title: 'Product Gallery',
+      type: 'object',
+      description: 'Product Gallery configuration',
+      required: ['filter'],
+      properties: {
+        searchTermLabel: {
+          title: 'Search page term label',
+          type: 'string',
+          default: 'Showing results for:',
+        },
+        totalCountLabel: {
+          title: 'Total count label',
+          type: 'string',
+          default: 'Results',
+        },
+        previousPageButton: {
+          title: 'Previous page button',
+          type: 'object',
+          required: ['icon', 'label'],
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['ArrowLeft'],
+                  enum: ['ArrowLeft'],
+                  default: 'ArrowLeft',
+                },
+                alt: {
+                  title: 'Alternative label',
+                  type: 'string',
+                  default: 'Arrow Left icon',
+                },
+              },
+            },
+            label: {
+              title: 'Previous page button',
+              type: 'string',
+              default: 'Previous Page',
+            },
+          },
+        },
+        loadMorePageButton: {
+          title: 'Load more products Button',
+          type: 'object',
+          required: ['label'],
+          properties: {
+            label: {
+              title: 'Load more products label',
+              type: 'string',
+              default: 'Load more products',
+            },
+          },
+        },
+        filter: {
+          title: 'Filter',
+          type: 'object',
+          required: ['title', 'mobileOnly'],
+          properties: {
+            title: {
+              title: 'Filter title',
+              type: 'string',
+              default: 'Filters',
+            },
+            mobileOnly: {
+              title: 'Mobile Only',
+              type: 'object',
+              required: [
+                'filterButton',
+                'clearButtonLabel',
+                'applyButtonLabel',
+              ],
+              properties: {
+                filterButton: {
+                  title: 'Show filter button',
+                  type: 'object',
+                  required: ['label', 'icon'],
+                  properties: {
+                    label: {
+                      title: 'Label',
+                      type: 'string',
+                      default: 'Filters',
+                    },
+                    icon: {
+                      title: 'Icon',
+                      type: 'object',
+                      required: ['icon', 'alt'],
+                      properties: {
+                        icon: {
+                          title: 'Icon',
+                          type: 'string',
+                          enumNames: ['FadersHorizontal'],
+                          enum: ['FadersHorizontal'],
+                          default: 'FadersHorizontal',
+                        },
+                        alt: {
+                          title: 'Alternative label',
+                          type: 'string',
+                          default: 'Open Filters',
+                        },
+                      },
+                    },
+                  },
+                },
+                clearButtonLabel: {
+                  title: 'Clear button label',
+                  type: 'string',
+                  default: 'Clear All',
+                },
+                applyButtonLabel: {
+                  title: 'Apply button label',
+                  type: 'string',
+                  default: 'Apply',
+                },
+              },
+            },
+          },
+        },
+        productCard: {
+          title: 'Product Card Configuration',
+          type: 'object',
+          properties: {
+            showDiscountBadge: {
+              title: 'Show discount badge?',
+              type: 'boolean',
+              default: true,
+            },
+            bordered: {
+              title: 'Cards should be bordered?',
+              type: 'boolean',
+              default: true,
+            },
+            taxesConfiguration: {
+              title: 'Taxes Configuration',
+              type: 'object',
+              properties: {
+                usePriceWithTaxes: {
+                  title: 'Should use taxes to calculate the price?',
+                  type: 'boolean',
+                  default: false,
+                },
+                taxesLabel: {
+                  title: 'Tax label to be displayed',
+                  type: 'string',
+                  default: 'Tax included',
+                },
+              },
+            },
+            sponsoredLabel: {
+              title: 'Sponsored Label',
+              type: 'string',
+              default: 'Sponsored',
+            },
+          },
+        },
+        emptyGallery: {
+          title: 'Empty Gallery',
+          type: 'object',
+          properties: {
+            title: {
+              title: 'Title',
+              type: 'string',
+              default: 'Nothing matches with your search',
+            },
+            firstButton: {
+              title: 'First Button',
+              type: 'object',
+              properties: {
+                label: {
+                  type: 'string',
+                  title: 'Label',
+                  default: 'Browse Offers',
+                },
+                url: {
+                  type: 'string',
+                  title: 'URL',
+                  default: '/office',
+                },
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  default: 'CircleWavyWarning',
+                },
+              },
+            },
+            secondButton: {
+              title: 'Second Button',
+              type: 'object',
+              properties: {
+                label: {
+                  type: 'string',
+                  title: 'Label',
+                  default: 'Just Arrived',
+                },
+                url: {
+                  type: 'string',
+                  title: 'URL',
+                  default: '/technology',
+                },
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  default: 'RocketLaunch',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'CartSidebar',
+    requiredScopes: [],
+    schema: {
+      title: 'Cart Sidebar',
+      type: 'object',
+      description: 'Cart Sidebar configuration',
+      properties: {
+        title: {
+          title: 'Title text',
+          type: 'string',
+          default: 'Your Cart',
+        },
+        alert: {
+          title: 'Alert',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              required: ['icon', 'alt'],
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: [
+                    'Bell',
+                    'BellRinging',
+                    'Checked',
+                    'Info',
+                    'Truck',
+                    'User',
+                  ],
+                  enum: [
+                    'Bell',
+                    'BellRinging',
+                    'Checked',
+                    'Info',
+                    'Truck',
+                    'User',
+                  ],
+                  default: 'Truck',
+                },
+                alt: {
+                  title: 'Alternative label',
+                  type: 'string',
+                  default: 'Arrow Right icon',
+                },
+              },
+            },
+            text: {
+              type: 'string',
+              title: 'Text',
+              default: 'Free shipping starts at $300',
+            },
+          },
+        },
+        checkoutButton: {
+          title: 'Checkout button',
+          type: 'object',
+          required: ['label', 'loadingLabel', 'icon'],
+          properties: {
+            label: {
+              title: 'Label',
+              type: 'string',
+              default: 'Checkout',
+            },
+            loadingLabel: {
+              title: 'Loading label',
+              type: 'string',
+              default: 'Loading...',
+            },
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              required: ['icon', 'alt'],
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['ArrowRight'],
+                  enum: ['ArrowRight'],
+                  default: 'ArrowRight',
+                },
+                alt: {
+                  title: 'Alternative label',
+                  type: 'string',
+                  default: 'Arrow Right icon',
+                },
+              },
+            },
+          },
+        },
+        quantitySelector: {
+          title: 'Quantity Selector',
+          type: 'object',
+          properties: {
+            useUnitMultiplier: {
+              title: 'Should use unit multiplier?',
+              type: 'boolean',
+              default: false,
+            },
+          },
+        },
+        taxesConfiguration: {
+          title: 'Taxes Configuration',
+          type: 'object',
+          properties: {
+            usePriceWithTaxes: {
+              title: 'Should use taxes to calculate the price?',
+              type: 'boolean',
+              default: false,
+            },
+            taxesLabel: {
+              title: 'Tax label to be displayed',
+              type: 'string',
+              default: 'Tax included',
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'RegionBar',
+    requiredScopes: [],
+    schema: {
+      title: 'Region Bar',
+      type: 'object',
+      description: 'Region Bar configuration',
+      required: ['label'],
+      properties: {
+        icon: {
+          title: 'Location Icon',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['Map Pin'],
+              enum: ['MapPin'],
+              default: 'MapPin',
+            },
+            alt: {
+              title: 'Alternative Label',
+              type: 'string',
+              default: 'Map Pin icon',
+            },
+          },
+        },
+        label: {
+          title: 'Location label',
+          type: 'string',
+          default: 'Set your location',
+        },
+        editLabel: {
+          title: 'Location edit label',
+          type: 'string',
+          default: 'Edit',
+        },
+        buttonIcon: {
+          title: 'Button Icon',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['Caret Right'],
+              enum: ['CaretRight'],
+              default: 'CaretRight',
+            },
+            alt: {
+              title: 'Alternative Label',
+              type: 'string',
+              default: 'Caret Right icon',
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'RegionModal',
+    requiredScopes: [],
+    schema: {
+      title: 'Region Modal',
+      type: 'object',
+      description: 'Region Modal configuration',
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+          default: 'Set your location',
+        },
+        description: {
+          title: 'Description',
+          type: 'string',
+          default:
+            'Prices, offers and availability may vary according to your location.',
+        },
+        closeButtonAriaLabel: {
+          title: 'Close modal aria-label',
+          type: 'string',
+          default: 'Close Region Modal',
+        },
+        inputField: {
+          title: 'Input Field',
+          type: 'object',
+          properties: {
+            label: {
+              title: 'Input field label',
+              type: 'string',
+              default: 'Postal Code',
+            },
+            errorMessage: {
+              title: 'Input field error message',
+              type: 'string',
+              default: 'You entered an invalid Postal Code',
+            },
+          },
+        },
+        idkPostalCodeLink: {
+          title: "I don't know my postal code link",
+          type: 'object',
+          properties: {
+            text: {
+              type: 'string',
+              title: 'Link Text',
+              default: "I don't know my Postal Code",
+            },
+            to: {
+              type: 'string',
+              title: 'Action link',
+            },
+            icon: {
+              title: 'Icon',
+              type: 'object',
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  enumNames: ['Arrow Square Out'],
+                  enum: ['ArrowSquareOut'],
+                  default: 'ArrowSquareOut',
+                },
+                alt: {
+                  title: 'Alternative Label',
+                  type: 'string',
+                  default: 'Arrow Square Out icon',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    name: 'EmptyState',
+    schema: {
+      title: 'Empty State',
+      type: 'object',
+      description: 'Empty State configuration',
+      properties: {
+        title: {
+          title: 'Title',
+          type: 'string',
+        },
+        titleIcon: {
+          title: 'Title Icon',
+          type: 'object',
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              enumNames: ['CircleWavy Warning'],
+              enum: ['CircleWavyWarning'],
+            },
+            alt: {
+              title: 'Alternative Label',
+              type: 'string',
+            },
+          },
+        },
+        subtitle: {
+          title: 'Subtitle',
+          type: 'string',
+        },
+        showLoader: {
+          type: 'boolean',
+          title: 'Show loader?',
+          default: false,
+        },
+        errorState: {
+          title:
+            'Error state used for shown errorId and fromUrl properties in 500 and 404 pages',
+          type: 'object',
+          properties: {
+            errorId: {
+              title: 'errorId used in 500 and 404 pages',
+              type: 'object',
+              properties: {
+                show: {
+                  type: 'boolean',
+                  title: 'Show errorId in the end of message?',
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description shown before the errorId',
+                },
+              },
+            },
+            fromUrl: {
+              title: 'fromUrl used in 500 and 404 pages',
+              type: 'object',
+              properties: {
+                show: {
+                  type: 'boolean',
+                  title: 'Show fromUrl in the end of message?',
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description shown before the fromUrl',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+]
