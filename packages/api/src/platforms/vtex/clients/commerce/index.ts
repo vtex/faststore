@@ -2,7 +2,7 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type { StoreMarketingData } from '../../../..'
+import type { StoreMarketingData, UserOrder } from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
 import { getStoreCookie, getWithCookie } from '../../utils/cookies'
@@ -408,9 +408,7 @@ export const VtexCommerce = (
       },
     },
     oms: {
-      userOrder: ({
-        orderId,
-      }: { orderId: string }): Promise<Record<string, string>> => {
+      userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
