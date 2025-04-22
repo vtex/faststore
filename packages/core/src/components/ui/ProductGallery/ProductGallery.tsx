@@ -71,6 +71,12 @@ export interface ProductGalleryProps {
       compareButton: string
       clearSelectionButton: string
       selectionWarning: string
+      sidebarComponent: {
+        title: string
+        sortLabel: string
+        cartButtonLabel: string
+        priceWithTaxLabel: string
+      }
       technicalInformation: {
         title: string
         description: string
