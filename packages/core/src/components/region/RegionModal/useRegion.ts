@@ -6,7 +6,7 @@ import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 import { useUI } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 
-interface UseRegionManagerParams {
+interface UseRegionParams {
   input: string
   setInput: (value: string) => void
   resetInputField: () => void
@@ -24,7 +24,7 @@ interface UseRegionManagerParams {
   postalCode: string | null
 }
 
-export function useRegionManager(): UseRegionManagerParams {
+export function useRegion(): UseRegionParams {
   const [input, setInput] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)

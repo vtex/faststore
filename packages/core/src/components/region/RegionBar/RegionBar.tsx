@@ -8,7 +8,7 @@ import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { textToTitleCase } from 'src/utils/utilities'
 
-import { useRegionManager } from '../RegionModal/useRegionManager'
+import { useRegion } from '../RegionModal/useRegion'
 
 export interface RegionBarProps {
   /**
@@ -50,7 +50,7 @@ function RegionBar({
 
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
-  const { isValidationComplete } = useRegionManager()
+  const { isValidationComplete } = useRegion()
   const regionBarRef = useRef<HTMLDivElement>(null)
 
   const defaultPostalCode =

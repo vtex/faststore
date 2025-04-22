@@ -8,7 +8,7 @@ import {
 } from '@faststore/ui'
 import { useRef, useState } from 'react'
 
-import { useRegionManager } from './../RegionModal/useRegionManager'
+import { useRegion } from './../RegionModal/useRegion'
 
 import { sessionStore, useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
@@ -75,7 +75,7 @@ function RegionPopover({
     setErrorMessage,
     isValidationComplete,
     postalCode,
-  } = useRegionManager()
+  } = useRegion()
   const { city } = sessionStore.read()
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode

@@ -7,7 +7,7 @@ import { Icon, useUI } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
 
-import { useRegionManager } from './useRegionManager'
+import { useRegion } from './useRegion'
 
 import styles from './section.module.scss'
 
@@ -66,7 +66,7 @@ function RegionModal({
     setErrorMessage,
     isValidationComplete,
     postalCode,
-  } = useRegionManager()
+  } = useRegion()
 
   const isDismissible = !!(!deliveryPromise?.mandatory || postalCode)
 

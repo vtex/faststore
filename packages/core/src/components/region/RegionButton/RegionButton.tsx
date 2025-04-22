@@ -5,12 +5,12 @@ import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
-import { useRegionManager } from '../RegionModal/useRegionManager'
+import { useRegion } from '../RegionModal/useRegion'
 
 function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
-  const { isValidationComplete } = useRegionManager()
+  const { isValidationComplete } = useRegion()
   const regionButtonRef = useRef<HTMLButtonElement>(null)
 
   const defaultPostalCode =

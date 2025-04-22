@@ -1,12 +1,12 @@
 import { useMemo, type PropsWithChildren, type ReactElement } from 'react'
 
-import { useRegionManager } from './components/region/RegionModal/useRegionManager'
+import { useRegion } from './components/region/RegionModal/useRegion'
 import { usePageViewEvent } from './sdk/analytics/hooks/usePageViewEvent'
 
 function Layout({ children }: PropsWithChildren) {
   const props = useMemo(() => (children as ReactElement)?.props, [])
   usePageViewEvent(props)
-  useRegionManager()
+  useRegion()
 
   return <>{children}</>
 }
