@@ -19,6 +19,7 @@ import { default as AfterSection } from 'src/customizations/src/myAccount/extens
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -518,6 +519,14 @@ export const getServerSideProps: GetServerSideProps<
   Locator
 > = async (context) => {
   // TODO validate permissions here
+
+  const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
+    query: context.query,
+  })
+
+  if (!isFaststoreMyAccountEnabled) {
+    return { redirect }
+  }
 
   const {
     previewData,
