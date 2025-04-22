@@ -39,6 +39,7 @@ export interface SearchArgs {
   showInvisibleItems?: boolean
   showSponsored?: boolean
   sponsoredCount?: number
+  allowRedirect?: boolean
 }
 
 export interface ProductLocator {
@@ -183,6 +184,7 @@ export const IntelligentSearch = (
     showInvisibleItems,
     sponsoredCount,
     hideUnavailableItems: searchHideUnavailableItems,
+    allowRedirect = false,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -216,6 +218,10 @@ export const IntelligentSearch = (
 
     if (sponsoredCount !== undefined) {
       params.append('sponsoredCount', sponsoredCount.toString())
+    }
+
+    if (allowRedirect !== undefined) {
+      params.append('allowRedirect', allowRedirect.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)

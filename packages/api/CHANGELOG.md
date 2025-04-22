@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.41.0](https://github.com/vtex/faststore/compare/v3.40.2...v3.41.0) (2025-04-15)
+
+### Features
+
+- explicitly add allowRedirect to IS req ([#2791](https://github.com/vtex/faststore/issues/2791)) ([379d614](https://github.com/vtex/faststore/commit/379d6141dd631da066d54d779512eace1ad63f7a))
+
 ## 3.38.3 (2025-04-11)
 
 ### Bug Fixes

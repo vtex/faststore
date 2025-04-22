@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.4](https://github.com/vtex/faststore/compare/v3.41.3...v3.41.4) (2025-04-17)
+
+**Note:** Version bump only for package faststore
+
+## [3.41.3](https://github.com/vtex/faststore/compare/v3.41.2...v3.41.3) (2025-04-16)
+
+### Bug Fixes
+
+- Allow control to `Checkbox`'s `checked` attribute ([#2614](https://github.com/vtex/faststore/issues/2614)) ([f0b8f2b](https://github.com/vtex/faststore/commit/f0b8f2bdcda879854c84e99bc3f59844b16fb564))
+
+## [3.41.2](https://github.com/vtex/faststore/compare/v3.41.1...v3.41.2) (2025-04-16)
+
+### Bug Fixes
+
+- add key prop to Component in App for better rendering ([#2793](https://github.com/vtex/faststore/issues/2793)) ([b790bc0](https://github.com/vtex/faststore/commit/b790bc069ee67dfc2907f01b84239c29bbdc83b6))
+
+## [3.41.1](https://github.com/vtex/faststore/compare/v3.41.0...v3.41.1) (2025-04-16)
+
+### Bug Fixes
+
+- log error and properly end response in GraphQL handler ([#2792](https://github.com/vtex/faststore/issues/2792)) ([878923c](https://github.com/vtex/faststore/commit/878923cbecf073b06251c3fcdb79560b9ee6ebc0))
+
+# [3.41.0](https://github.com/vtex/faststore/compare/v3.40.2...v3.41.0) (2025-04-15)
+
+### Features
+
+- explicitly add allowRedirect to IS req ([#2791](https://github.com/vtex/faststore/issues/2791)) ([379d614](https://github.com/vtex/faststore/commit/379d6141dd631da066d54d779512eace1ad63f7a))
+
+## [3.40.2](https://github.com/vtex/faststore/compare/v3.40.1...v3.40.2) (2025-04-15)
+
+### Bug Fixes
+
+- handle invalid requests in `parseRequest` function ([#2790](https://github.com/vtex/faststore/issues/2790)) ([fca3c26](https://github.com/vtex/faststore/commit/fca3c265ecd4d9390775da9d6be014d9b26f40d1))
+
+## [3.40.1](https://github.com/vtex/faststore/compare/v3.40.0...v3.40.1) (2025-04-14)
+
+### Bug Fixes
+
+- term required in `ClientSearchSuggestionsQuery` (useSuggestions) ([#2785](https://github.com/vtex/faststore/issues/2785)) ([17cc81c](https://github.com/vtex/faststore/commit/17cc81c41e6542b16b89053cb543926da67375c2))
+
+# [3.40.0](https://github.com/vtex/faststore/compare/v3.39.0...v3.40.0) (2025-04-11)
+
+### Features
+
+- GA `view_item_list` event only when item is in viewport of `ProductGallery` ([#2771](https://github.com/vtex/faststore/issues/2771)) ([16a4efa](https://github.com/vtex/faststore/commit/16a4efa23b7459a4327df0bc994b96c15f44ee5e))
+
+# [3.39.0](https://github.com/vtex/faststore/compare/v3.38.3...v3.39.0) (2025-04-11)
+
+### Features
+
+- MyAccount redirects using SSR - SFS-2440 ([#2782](https://github.com/vtex/faststore/issues/2782)) ([6f92f41](https://github.com/vtex/faststore/commit/6f92f41e647298734bcc0f503810845c1558fd6f))
+
 ## 3.38.3 (2025-04-11)
 
 ### Bug Fixes

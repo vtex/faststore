@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.4](https://github.com/vtex/faststore/compare/v3.41.3...v3.41.4) (2025-04-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.41.3](https://github.com/vtex/faststore/compare/v3.41.2...v3.41.3) (2025-04-16)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.41.2](https://github.com/vtex/faststore/compare/v3.41.1...v3.41.2) (2025-04-16)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.41.1](https://github.com/vtex/faststore/compare/v3.41.0...v3.41.1) (2025-04-16)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.41.0](https://github.com/vtex/faststore/compare/v3.40.2...v3.41.0) (2025-04-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.40.2](https://github.com/vtex/faststore/compare/v3.40.1...v3.40.2) (2025-04-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.40.1](https://github.com/vtex/faststore/compare/v3.40.0...v3.40.1) (2025-04-14)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.40.0](https://github.com/vtex/faststore/compare/v3.39.0...v3.40.0) (2025-04-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.39.0](https://github.com/vtex/faststore/compare/v3.38.3...v3.39.0) (2025-04-11)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## 3.38.3 (2025-04-11)
 
 ### Bug Fixes
