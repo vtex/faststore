@@ -1,9 +1,9 @@
 // import { fetch } from "undici";
 import { resolve } from 'path'
-import { readFileSync, readdir } from 'fs-extra'
+import { readFileSync, readdir, stat } from 'fs-extra'
 import chalk from 'chalk'
 
-import { sections as MockSchema } from './__mockSchema__'
+import { formSchema as MockSchema } from './__mockSchema__'
 
 //const SCHEMA_REGISTRY_BASE_URL =
 //  "https://api.vtexcommercebeta.com.br/api/content-platform/schemas";
@@ -17,6 +17,12 @@ const CP_CONTENT_TYPE_SCHEMA_REGEX =
 // This implementation is necessary to support Node 18.x, as it doesn't have
 // support for `recursive: true` in `fs.readdir`.
 async function listFilesRecursive(basePath: string, matchPattern: RegExp) {
+  const isBasePathAFile = (await stat(basePath)).isFile()
+
+  if (isBasePathAFile) {
+    return [basePath]
+  }
+
   const filesInPath = await readdir(basePath, { withFileTypes: true })
 
   const files: (string | string[])[] = await Promise.all(
@@ -39,79 +45,12 @@ async function fetchFastStoreSchema() {
   const fastStoreSchema: any = {
     $id: 'https://api.myvtex.com/api/content-platform/schemas/faststore-base',
     $schema: 'https://api.myvtex.com/api/content-platform/schemas/consumer',
-    title: 'FastStore Base Schemas',
-    description: 'Collection of base schemas for FastStore',
-    contexts: {},
-    components: [...MockSchema],
-    contentTypes: {
-      globalSections: {
-        title: 'Global Sections',
-        $singleton: true,
-        $extends: ['#/components/base-page-template'],
-      },
-      globalHeaderSections: {
-        title: 'Global Header Sections',
-        $singleton: true,
-        $extends: ['#/components/base-page-template'],
-      },
-      globalFooterSections: {
-        title: 'Global Footer Sections',
-        $singleton: true,
-        $extends: ['#/components/base-page-template'],
-      },
-      home: {
-        title: 'Home',
-        $singleton: true,
-        $extends: ['#/components/base-page-template'],
-        properties: {
-          seo: {
-            $ref: '#/components/core.seo',
-          },
-          sections: {
-            items: {
-              // Allowed sections provided by scopes
-              anyOf: [
-                {
-                  $ref: '#/$defs/components/core.richText',
-                },
-                {
-                  $ref: '#/$defs/components/core.hero',
-                },
-                {
-                  $ref: '#/$defs/components/core.productShelf',
-                },
-              ],
-            },
-          },
-        },
-      },
-      search: {
-        title: 'Search Page',
-        $singleton: true,
-        $extends: ['#/components/base-page-template'],
-        properties: {
-          productGalery: {
-            $ref: '#/components/core.productGallery',
-          },
-        },
-      },
-      login: {
-        title: 'Login',
-        $singleton: true,
-      },
-      '500': {
-        title: 'Error 500',
-        $singleton: true,
-      },
-    },
+    ...MockSchema,
   }
 
   return fastStoreSchema
 }
 
-// This function will loop through all user `.json(c)` files and group all
-// component definitions under a single object with a single `components`
-// property.
 async function groupComponentDefinitions(componentsPath: string) {
   const componentsDir = await listFilesRecursive(
     componentsPath,
@@ -154,8 +93,6 @@ async function groupContentTypeDefinitions(contentTypesPath: string) {
 
   const customContentTypeDefinitions = {}
 
-  console.log('contentTypesDir', contentTypesDir)
-
   for (const contentSchemaFileName of contentTypesDir) {
     const fileContent = readFileSync(contentSchemaFileName, 'utf8')
 
@@ -179,16 +116,49 @@ async function groupContentTypeDefinitions(contentTypesPath: string) {
   return customContentTypeDefinitions
 }
 
-// This function should loop over all content-type definitions and add `anyOf`
-// properties where they're missing.
-// function addContentTypeScopes(
-//   components: Record<string, any>,
-//   contentTypes: Record<string, any>,
-// ) {
-//   const baseAllComponentsDefinition = {
+// A more generic solution for this would be to add a `anyOf` with the same
+// list of components to each individual content-type schema, but that's not
+// necessary in this case, as this is only used by FastStore.
+function addAnyOfToDynamicAreas(schema: Record<string, any>) {
+  const allComponentRefs = Object.keys(schema.components).map(
+    (componentKey) => ({
+      $ref: `#/components/${componentKey}`,
+    })
+  )
 
-//   }
-// }
+  const baseDynamicAreaDefinition = schema.components['base-dynamic-area']
+
+  if (!baseDynamicAreaDefinition) {
+    console.info(
+      `${chalk.red(
+        'error'
+      )} - Could not find a \`base-dynamic-area\` component definition.`
+    )
+
+    return schema.components
+  }
+
+  const updatedBaseDynamicAreaDefinition = {
+    ...baseDynamicAreaDefinition,
+    properties: {
+      ...baseDynamicAreaDefinition.properties,
+      sections: {
+        type: 'array',
+        items: {
+          anyOf: allComponentRefs,
+        },
+      },
+    },
+  }
+
+  return {
+    ...schema,
+    components: {
+      ...schema.components,
+      'base-dynamic-area': updatedBaseDynamicAreaDefinition,
+    },
+  }
+}
 
 // My idea for finding overrides is using a Set to keep track of previously
 // seen $componentKey's.
@@ -211,17 +181,17 @@ export async function generateFullSchema(
       fetchFastStoreSchema(),
     ])
 
-  return {
+  return addAnyOfToDynamicAreas({
     ...originalSchema,
     components: {
       ...originalSchema.components,
       ...customComponents,
     },
-    contentTypes: {
-      ...originalSchema.contentTypes,
+    ['content-types']: {
+      ...originalSchema['content-types'],
       ...customContentTypes,
     },
-  }
+  })
 }
 
 export async function sendToRegistry() {}

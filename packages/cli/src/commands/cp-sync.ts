@@ -4,6 +4,7 @@ import path from 'path'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { generateFullSchema } from '../utils/contentPlatform'
+import { writeJsonSync } from 'fs-extra'
 
 export default class ContentPlatformSync extends Command {
   static flags = {
@@ -45,7 +46,9 @@ export default class ContentPlatformSync extends Command {
         `${chalk.green('info')} - Full CP schema created sucessfully!`
       )
 
-      console.log(fullSchema)
+      writeJsonSync(path.join(userDir, 'schema_result.json'), fullSchema, {
+        spaces: 2,
+      })
 
       return
     }
