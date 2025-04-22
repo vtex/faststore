@@ -1,5 +1,6 @@
 import { Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
+import path from 'path'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { generateFullSchema } from '../utils/contentPlatform'
@@ -35,9 +36,8 @@ export default class ContentPlatformSync extends Command {
     await generate({ setup: true, basePath })
 
     const fullSchema = await generateFullSchema(
-      userDir,
-      args.component_schemas_path,
-      args.content_types_path
+      path.join(userDir, args.component_schemas_path),
+      path.join(userDir, args.content_types_path)
     )
 
     if (flags['dry-run']) {

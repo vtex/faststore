@@ -1,6 +1,6 @@
 // import { fetch } from "undici";
-import path, { resolve } from 'path'
-import { readFileSync, readdirSync, readdir } from 'fs-extra'
+import { resolve } from 'path'
+import { readFileSync, readdir } from 'fs-extra'
 import chalk from 'chalk'
 
 import { sections as MockSchema } from './__mockSchema__'
@@ -10,21 +10,26 @@ import { sections as MockSchema } from './__mockSchema__'
 
 // const SCHEMA_REGISTRY_BASE_URL = "http://localhost:3002";
 
-const readDirectory = async (path: string) => {
-  const filesInPath = await readdir(path, { withFileTypes: true })
+const CP_COMPONENT_SCHEMA_REGEX = /(?:^|\/)cp_schema[^/]*\.(json|jsonc)$/
+const CP_CONTENT_TYPE_SCHEMA_REGEX =
+  /(?:^|\/)cp_content_schema[^/]*\.(json|jsonc)$/
+
+// This implementation is necessary to support Node 18.x, as it doesn't have
+// support for `recursive: true` in `fs.readdir`.
+async function listFilesRecursive(basePath: string, matchPattern: RegExp) {
+  const filesInPath = await readdir(basePath, { withFileTypes: true })
 
   const files: (string | string[])[] = await Promise.all(
     filesInPath.map((fileInPath) => {
-      const resolvedPath = resolve(path, fileInPath.name)
+      const resolvedPath = resolve(basePath, fileInPath.name)
+
       return fileInPath.isDirectory()
-        ? readDirectory(resolvedPath)
+        ? listFilesRecursive(resolvedPath, matchPattern)
         : resolvedPath
     })
   )
 
-  const cpSchemaRegex = /(?:^|\/)cp_schema[^/]*\.(json|jsonc)$/
-
-  return files.flat()?.filter((path) => cpSchemaRegex.test(path))
+  return files.flat()?.filter((path) => matchPattern.test(path))
 }
 
 async function fetchFastStoreSchema() {
@@ -32,9 +37,7 @@ async function fetchFastStoreSchema() {
   //   `${SCHEMA_REGISTRY_BASE_URL}/vtex/faststore`,
   // );
   const fastStoreSchema: any = {
-    // The URL here should match the actual URL from Schema Registry
     $id: 'https://api.myvtex.com/api/content-platform/schemas/faststore-base',
-    // This should match the URL for our consumer meta schema.
     $schema: 'https://api.myvtex.com/api/content-platform/schemas/consumer',
     title: 'FastStore Base Schemas',
     description: 'Collection of base schemas for FastStore',
@@ -55,33 +58,6 @@ async function fetchFastStoreSchema() {
         title: 'Global Footer Sections',
         $singleton: true,
         $extends: ['#/components/base-page-template'],
-      },
-      pdp: {
-        title: 'Product Page',
-        $extends: ['#/components/base-page-template'],
-        properties: {
-          seo: {
-            $ref: '#/components/core.seo',
-          },
-        },
-      },
-      plp: {
-        title: 'Product List Page',
-        $extends: ['#/components/base-page-template'],
-        properties: {
-          productGalery: {
-            $ref: '#/components/core.productGallery',
-          },
-        },
-      },
-      landingPage: {
-        title: 'Landing Page',
-        $extends: ['#/components/base-page-template'],
-        properties: {
-          seo: {
-            $ref: '#/components/core.seo',
-          },
-        },
       },
       home: {
         title: 'Home',
@@ -127,24 +103,20 @@ async function fetchFastStoreSchema() {
         title: 'Error 500',
         $singleton: true,
       },
-      '404': {
-        title: 'Error 404',
-        $singleton: true,
-      },
     },
   }
+
   return fastStoreSchema
 }
 
 // This function will loop through all user `.json(c)` files and group all
 // component definitions under a single object with a single `components`
 // property.
-export async function groupComponentDefinitions(
-  basePath: string,
-  componentsPath: string
-) {
-  const allComponentsPath = path.join(basePath, componentsPath)
-  const componentsDir = await readDirectory(allComponentsPath)
+async function groupComponentDefinitions(componentsPath: string) {
+  const componentsDir = await listFilesRecursive(
+    componentsPath,
+    CP_COMPONENT_SCHEMA_REGEX
+  )
 
   const customComponentDefinitions: Record<string, any> = {}
 
@@ -174,24 +146,18 @@ export async function groupComponentDefinitions(
   return customComponentDefinitions
 }
 
-// Same as above, but looking for content-type definitions. Might support
-// multiple files or not.
-export function groupContentTypeDefinitions(
-  basePath: string,
-  contentTypesPath: string
-) {
-  const allContentTypesPath = path.join(basePath, contentTypesPath)
-  const componentsDir = readdirSync(allContentTypesPath)
+async function groupContentTypeDefinitions(contentTypesPath: string) {
+  const contentTypesDir = await listFilesRecursive(
+    contentTypesPath,
+    CP_CONTENT_TYPE_SCHEMA_REGEX
+  )
 
   const customContentTypeDefinitions = {}
 
-  console.log(componentsDir)
+  console.log('contentTypesDir', contentTypesDir)
 
-  for (const schemaFileName of componentsDir) {
-    const fileContent = readFileSync(
-      path.join(allContentTypesPath, schemaFileName),
-      'utf8'
-    )
+  for (const contentSchemaFileName of contentTypesDir) {
+    const fileContent = readFileSync(contentSchemaFileName, 'utf8')
 
     try {
       const contentTypeSchema = JSON.parse(fileContent)
@@ -202,7 +168,7 @@ export function groupContentTypeDefinitions(
         console.info(
           `${chalk.red(
             'error'
-          )} - ${schemaFileName} is a malformed JSON file, ignoring its contents.`
+          )} - ${contentSchemaFileName} is a malformed JSON file, ignoring its contents.`
         )
       } else {
         throw err
@@ -215,7 +181,14 @@ export function groupContentTypeDefinitions(
 
 // This function should loop over all content-type definitions and add `anyOf`
 // properties where they're missing.
-// function addContentTypeScopes() {}
+// function addContentTypeScopes(
+//   components: Record<string, any>,
+//   contentTypes: Record<string, any>,
+// ) {
+//   const baseAllComponentsDefinition = {
+
+//   }
+// }
 
 // My idea for finding overrides is using a Set to keep track of previously
 // seen $componentKey's.
@@ -228,23 +201,15 @@ export function groupContentTypeDefinitions(
 // ) {}
 
 export async function generateFullSchema(
-  basePath: string,
   componentsPath: string,
-  // contentTypesPath: string,
-  _: string
+  contentTypesPath: string
 ) {
-  const customComponents = await groupComponentDefinitions(
-    basePath,
-    componentsPath
-  )
-
-  // const customContentTypes = groupContentTypeDefinitions(
-  //   basePath,
-  //   contentTypesPath,
-  // );
-
-  const originalSchema = await fetchFastStoreSchema()
-  // ).json()) as Record<string, any>;
+  const [customComponents, customContentTypes, originalSchema] =
+    await Promise.all([
+      groupComponentDefinitions(componentsPath),
+      groupContentTypeDefinitions(contentTypesPath),
+      fetchFastStoreSchema(),
+    ])
 
   return {
     ...originalSchema,
@@ -254,7 +219,7 @@ export async function generateFullSchema(
     },
     contentTypes: {
       ...originalSchema.contentTypes,
-      // ...customContentTypes,
+      ...customContentTypes,
     },
   }
 }
