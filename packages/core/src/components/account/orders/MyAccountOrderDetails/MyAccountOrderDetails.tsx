@@ -1,24 +1,24 @@
 import {
-  Button as UIButton,
   Badge as UIBadge,
+  Button as UIButton,
   Icon as UIIcon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
-import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
+import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
-import { clientProfileData, usdOrderSummary } from '../../mocks/orderDetails'
 
 export interface MyAccountOrderDetailsProps {
-  orderId: string
+  order: ServerOrderDetailsQueryQuery['userOrder']
 }
 
 export default function MyAccountOrderDetails({
-  orderId,
+  order,
 }: MyAccountOrderDetailsProps) {
   return (
     <div className={styles.page} data-fs-order-details>
@@ -29,7 +29,9 @@ export default function MyAccountOrderDetails({
             aria-label="Go back"
             icon={<UIIcon name="ArrowLeft" />}
           />
-          <h1 data-fs-order-details-header-title-text>Order #{orderId}</h1>
+          <h1 data-fs-order-details-header-title-text>
+            Order #{order.orderId}
+          </h1>
           <UIBadge variant="warning">Pending approval</UIBadge>
         </div>
         <div data-fs-order-details-header-actions>
@@ -53,14 +55,14 @@ export default function MyAccountOrderDetails({
         </div>
       </header>
       <main data-fs-order-details-content>
-        <MyAccountOrderedByCard clientProfileData={clientProfileData} />
+        <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard />
         <MyAccountSummaryCard
-          totals={usdOrderSummary.totals}
-          currencyCode={usdOrderSummary.currencyCode}
-          transactions={usdOrderSummary.paymentData.transactions}
+          totals={order.totals}
+          currencyCode={order.storePreferencesData.currencyCode}
+          transactions={order.paymentData.transactions}
         />
       </main>
     </div>

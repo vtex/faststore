@@ -9,9 +9,15 @@ import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Componen
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 
+import { gql } from '@generated'
+import type {
+  ServerOrderDetailsQueryQuery,
+  ServerOrderDetailsQueryQueryVariables,
+} from '@generated/graphql'
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
+import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -20,12 +26,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type OrderDetailsPageProps = {
-  id: string
+  order: ServerOrderDetailsQueryQuery['userOrder']
 } & MyAccountProps
 
 export default function OrderDetailsPage({
   globalSections,
-  id,
+  order,
 }: OrderDetailsPageProps) {
   return (
     <RenderSections
@@ -36,12 +42,475 @@ export default function OrderDetailsPage({
 
       <MyAccountLayout>
         <BeforeSection />
-        <MyAccountOrderDetails orderId={id} />
+        <MyAccountOrderDetails order={order} />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
   )
 }
+
+const query = gql(`
+  query ServerOrderDetailsQuery($orderId: String!) {
+    userOrder(orderId: $orderId) {
+      orderId
+      sequence
+      marketplaceOrderId
+      marketplaceServicesEndpoint
+      sellerOrderId
+      origin
+      affiliateId
+      salesChannel
+      merchantName
+      status
+      workflowIsInError
+      statusDescription
+      value
+      creationDate
+      lastChange
+      orderGroup
+      giftRegistryData
+      marketingData
+      callCenterOperatorData
+      followUpEmail
+      lastMessage
+      hostname
+      invoiceData
+      changesAttachment
+      openTextField
+      roundingError
+      orderFormId
+      commercialConditionData
+      isCompleted
+      customData {
+        customApps {
+          fields {
+            cartEtag
+          }
+          id
+          major
+        }
+      }
+      allowCancellation
+      allowEdition
+      isCheckedIn
+      authorizedDate
+      invoicedDate
+      cancelReason
+      subscriptionData
+      taxData
+      checkedInPickupPointId
+      cancellationData
+      cancellationRequests
+      clientPreferencesData {
+        locale
+        optinNewsLetter
+      }
+      itemMetadata {
+        Items {
+          uniqueId
+          id
+          productId
+          ean
+          lockId
+          quantity
+          seller
+          name
+          refId
+          price
+          listPrice
+          manualPrice
+          manualPriceAppliedBy
+          imageUrl
+          detailUrl
+          sellerSku
+          priceValidUntil
+          commission
+          tax
+          preSaleDate
+          measurementUnit
+          unitMultiplier
+          sellingPrice
+          isGift
+          shippingPrice
+          rewardValue
+          freightCommission
+          taxCode
+          parentItemIndex
+          parentAssemblyBinding
+          callCenterOperator
+          serialNumbers
+          costPrice
+          assemblies
+          priceDefinition {
+            calculatedSellingPrice
+            total
+            reason
+            sellingPrices {
+              value
+              quantity
+            }
+          }
+          additionalInfo {
+            brandName
+            brandId
+            categoriesIds
+            productClusterId
+            commercialConditionId
+            offeringInfo
+            offeringType
+            offeringTypeId
+            dimension {
+              cubicweight
+              height
+              length
+              weight
+              width
+            }
+            categories {
+              id
+              name
+            }
+          }
+          attachmentOfferings
+          offerings
+          params
+          bundleItems
+          components
+          priceTags
+          attachments
+          itemAttachment {
+            name
+          }
+        }
+      }
+      marketplace {
+        baseURL
+        isCertified
+        name
+      }
+      storePreferencesData {
+        countryCode
+        currencyCode
+        currencyLocale
+        currencySymbol
+        timeZone
+        currencyFormatInfo {
+          CurrencyDecimalDigits
+          CurrencyDecimalSeparator
+          CurrencyGroupSeparator
+          CurrencyGroupSize
+          StartsWithCurrencySymbol
+        }
+      }
+      sellers {
+        id
+        name
+        logo
+        fulfillmentEndpoint
+      }
+      packageAttachment {
+        packages
+      }
+      paymentData {
+        transactions {
+          isActive
+          transactionId
+          merchantName
+          payments {
+            id
+            paymentSystem
+            paymentSystemName
+            value
+            installments
+            referenceValue
+            cardHolder
+            cardNumber
+            firstDigits
+            lastDigits
+            cvv2
+            expireMonth
+            expireYear
+            url
+            giftCardId
+            giftCardName
+            giftCardCaption
+            redemptionCode
+            group
+            tid
+            dueDate
+            giftCardProvider
+            giftCardAsDiscount
+            koinUrl
+            accountId
+            parentAccountId
+            bankIssuedInvoiceIdentificationNumber
+            bankIssuedInvoiceIdentificationNumberFormatted
+            bankIssuedInvoiceBarCodeNumber
+            bankIssuedInvoiceBarCodeType
+            billingAddress
+            paymentOrigin
+          }
+        }
+        giftCards
+      }
+      shippingData {
+        id
+        trackingHints
+        contactInformation
+        availableAddresses {
+          addressId
+          versionId
+          entityId
+          addressType
+          receiverName
+          street
+          number
+          complement
+          neighborhood
+          postalCode
+          city
+          state
+          country
+          reference
+          geoCoordinates
+        }
+        selectedAddresses {
+          addressId
+          versionId
+          entityId
+          addressType
+          receiverName
+          street
+          number
+          complement
+          neighborhood
+          postalCode
+          city
+          state
+          country
+          reference
+          geoCoordinates
+        }
+        logisticsInfo {
+          itemIndex
+          itemId
+          selectedDeliveryChannel
+          selectedSla
+          lockTTL
+          price
+          listPrice
+          sellingPrice
+          deliveryWindow {
+            startDateUtc
+            endDateUtc
+            price
+          }
+          deliveryCompany
+          shippingEstimate
+          shippingEstimateDate
+          deliveryChannel
+          addressId
+          versionId
+          entityId
+          polygonName
+          pickupPointId
+          transitTime
+          pickupStoreInfo {
+            additionalInfo
+            address
+            dockId
+            friendlyName
+            isPickupStore
+          }
+          deliveryChannels {
+            id
+            stockBalance
+          }
+          deliveryIds {
+            courierId
+            courierName
+            dockId
+            quantity
+            warehouseId
+            accountCarrierName
+            kitItemDetails
+          }
+          shipsTo
+          slas {
+            id
+            name
+            shippingEstimate
+            shippingEstimateDate
+            deliveryWindow {
+              startDateUtc
+              endDateUtc
+              price
+            }
+            listPrice
+            price
+            deliveryChannel
+            polygonName
+            lockTTL
+            pickupPointId
+            transitTime
+            pickupDistance
+            pickupStoreInfo {
+              additionalInfo
+              address
+              dockId
+              friendlyName
+              isPickupStore
+            }
+            deliveryIds {
+              courierId
+              courierName
+              dockId
+              quantity
+              warehouseId
+              accountCarrierName
+              kitItemDetails
+            }
+            availableDeliveryWindows {
+              startDateUtc
+              endDateUtc
+              price
+            }
+          }
+        }
+        address {
+          addressType
+          receiverName
+          addressId
+          versionId
+          entityId
+          postalCode
+          city
+          state
+          country
+          street
+          number
+          neighborhood
+          complement
+          reference
+          geoCoordinates
+        }
+      }
+      ratesAndBenefitsData {
+        id
+        rateAndBenefitsIdentifiers
+      }
+      clientProfileData {
+        id
+        email
+        firstName
+        lastName
+        documentType
+        document
+        phone
+        corporateName
+        tradeName
+        corporateDocument
+        stateInscription
+        corporatePhone
+        isCorporate
+        userProfileId
+        userProfileVersion
+        customerClass
+        customerCode
+      }
+      marketplaceItems
+      items {
+        uniqueId
+        id
+        productId
+        ean
+        lockId
+        quantity
+        seller
+        name
+        refId
+        price
+        listPrice
+        manualPrice
+        manualPriceAppliedBy
+        imageUrl
+        detailUrl
+        sellerSku
+        priceValidUntil
+        commission
+        tax
+        preSaleDate
+        measurementUnit
+        unitMultiplier
+        sellingPrice
+        isGift
+        shippingPrice
+        rewardValue
+        freightCommission
+        taxCode
+        parentItemIndex
+        parentAssemblyBinding
+        callCenterOperator
+        serialNumbers
+        costPrice
+        assemblies
+        priceDefinition {
+          calculatedSellingPrice
+          total
+          reason
+          sellingPrices {
+            value
+            quantity
+          }
+        }
+        additionalInfo {
+          brandName
+          brandId
+          categoriesIds
+          productClusterId
+          commercialConditionId
+          offeringInfo
+          offeringType
+          offeringTypeId
+          dimension {
+            cubicweight
+            height
+            length
+            weight
+            width
+          }
+          categories {
+            id
+            name
+          }
+        }
+        attachmentOfferings {
+          name
+          required
+        }
+        offerings {
+          type
+          id
+          name
+          price
+        }
+        params
+        bundleItems
+        components
+        priceTags
+        attachments
+        itemAttachment {
+          name
+        }
+      }
+      totals {
+        id
+        name
+        value
+      }
+    }
+  }
+`)
 
 export const getServerSideProps: GetServerSideProps<
   OrderDetailsPageProps,
@@ -60,12 +529,32 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
 
-  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    orderDetails,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    execute<
+      ServerOrderDetailsQueryQueryVariables,
+      ServerOrderDetailsQueryQuery
+    >(
+      {
+        variables: { orderId: id },
+        operation: query,
+      },
+      { headers: { ...context.req.headers } }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
+
+  if (orderDetails.errors) {
+    return {
+      notFound: true,
+    }
+  }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -74,6 +563,9 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult, id },
+    props: {
+      globalSections: globalSectionsResult,
+      order: orderDetails.data.userOrder,
+    },
   }
 }

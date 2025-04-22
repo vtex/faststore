@@ -60,6 +60,7 @@ const TYPES = [
   'PickupAddress',
   'MessageInfo',
   'MessageFields',
+  'UserOrder',
 ]
 
 const QUERIES = [
@@ -72,6 +73,7 @@ const QUERIES = [
   'redirect',
   'sellers',
   'profile',
+  'userOrder',
 ]
 
 const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
