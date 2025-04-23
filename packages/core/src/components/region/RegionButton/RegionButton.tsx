@@ -34,18 +34,16 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
   }, [isValidationComplete, defaultPostalCode, openPopover])
 
   return (
-    <>
-      <UIButton
-        variant="tertiary"
-        size="small"
-        icon={<UIIcon name={icon} width={18} height={18} weight="bold" />}
-        iconPosition="left"
-        onClick={openModal}
-        ref={regionButtonRef}
-      >
-        {city && postalCode ? `${textToTitleCase(city)}, ${postalCode}` : label}
-      </UIButton>
-    </>
+    <UIButton
+      variant="tertiary"
+      size="small"
+      icon={<UIIcon name={icon} width={18} height={18} weight="bold" />}
+      iconPosition="left"
+      onClick={openModal}
+      ref={regionButtonRef}
+    >
+      {city && postalCode ? `${textToTitleCase(city)}, ${postalCode}` : label}
+    </UIButton>
   )
 }
 
