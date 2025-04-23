@@ -200,5 +200,6 @@ export const useProductGalleryQuery = ({
     // The first result is not relevant, return null data to avoid rendering the page while the query is being re-fetched
     return { ...queryResult, isValidating: true, data: null }
   }
+
   return queryResult
 }
