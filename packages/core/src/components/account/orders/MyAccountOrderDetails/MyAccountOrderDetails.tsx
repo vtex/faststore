@@ -4,7 +4,7 @@ import {
   Icon as UIIcon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
-import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
+import MyAccountStatusCard, { type ApiOrderStatus } from './MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
@@ -57,7 +57,7 @@ export default function MyAccountOrderDetails({
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard />
-        <MyAccountStatusCard />
+        <MyAccountStatusCard status={order.status as ApiOrderStatus} />
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
           paymentData={order.paymentData}
