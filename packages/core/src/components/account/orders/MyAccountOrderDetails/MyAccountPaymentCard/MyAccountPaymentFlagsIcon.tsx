@@ -2,7 +2,10 @@ import type { MyAccountPayment } from 'src/components/account/mocks/orderSummary
 import { Icon as UIIcon } from '@faststore/ui'
 
 interface PaymentFlagsIconProps {
-  payment: Pick<MyAccountPayment, 'group' | 'paymentSystemName'>
+  payment: Pick<
+    MyAccountPayment,
+    'group' | 'paymentSystemName' | 'paymentOrigin'
+  >
 }
 
 const PAYMENT_GROUPS = {
@@ -12,6 +15,7 @@ const PAYMENT_GROUPS = {
   DEBIT_CARD: 'debitCard',
 } as const
 
+// Map for icons names
 const PAYMENT_FLAGS = {
   visa: 'Visa',
   mastercard: 'Mastercard',
@@ -27,7 +31,6 @@ const PAYMENT_FLAGS = {
   paypal: 'PayPal',
   giftcard: 'Gift',
   cash: 'Currency',
-  // TODO: I could not check this with api. We need to check if the flag key is correct
   applepay: 'ApplePay',
   googlepay: 'GooglePay',
 } as const
@@ -42,7 +45,18 @@ function shouldShowFlag(payment: Pick<MyAccountPayment, 'paymentSystemName'>) {
 
 function MyAccountPaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
   const getPaymentFlag = () => {
-    const { group, paymentSystemName } = payment
+    const { group, paymentSystemName, paymentOrigin } = payment
+
+    // Handle Google Pay and Apple Pay based on paymentOrigin
+    if (paymentOrigin) {
+      if (paymentOrigin === 'Google Pay') {
+        return PAYMENT_FLAGS.googlepay
+      }
+      if (paymentOrigin === 'Apple Pay') {
+        return PAYMENT_FLAGS.applepay
+      }
+    }
+
     let slug: string
 
     switch (group) {

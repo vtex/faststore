@@ -45,7 +45,7 @@ const getPaymentMethodInfo = (payment: MyAccountPayment) => {
       return {
         ...baseInfo,
         type: 'Gift Card',
-        methodName: payment.giftCard?.name ?? 'Gift Card',
+        methodName: 'Gift Card',
       }
     default:
       return {
@@ -94,6 +94,9 @@ function MyAccountPaymentCard({
       <div data-fs-payment-details>
         {paymentData?.transactions[0]?.payments.map((payment) => {
           const methodInfo = getPaymentMethodInfo(payment)
+          // Check if redemptionCode exists on payment
+          const hasRedemptionCode =
+            payment.group === 'giftCard' && payment.redemptionCode
 
           return (
             <div key={payment.id} data-fs-payment-info>
@@ -103,11 +106,9 @@ function MyAccountPaymentCard({
                   <MyAccountPaymentFlagsIcon payment={payment} />
                 </div>
                 <div data-fs-payment-value>
-                  {payment.group === 'giftCard' &&
-                  payment.giftCard?.redemptionCode ? (
+                  {hasRedemptionCode ? (
                     <span>
-                      {/* TODO: Check if this value its received already with a hidden text or we need to implement it */}
-                      {payment.giftCard?.redemptionCode} -{' '}
+                      {payment.redemptionCode} -{' '}
                       {formatPrice(payment.value, currencyCode)}
                     </span>
                   ) : payment.installments > 1 ? (
@@ -125,14 +126,12 @@ function MyAccountPaymentCard({
               </div>
 
               <div data-fs-payment-transaction-info>
-                {payment.connectorResponses?.tid && (
-                  <span data-fs-payment-tid>
-                    Tid: {payment.connectorResponses.tid}
-                  </span>
+                {payment.tid && (
+                  <span data-fs-payment-tid>Tid: {payment.tid}</span>
                 )}
                 {payment.connectorResponses?.authId && (
                   <span data-fs-payment-authid>
-                    AuthId: {payment.connectorResponses.authId}
+                    AuthId: {String(payment.connectorResponses?.authId)}
                   </span>
                 )}
                 <div data-fs-payment-bank-invoice>

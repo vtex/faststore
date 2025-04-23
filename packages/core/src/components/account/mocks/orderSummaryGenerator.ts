@@ -2,13 +2,11 @@ export interface MyAccountPayment {
   paymentSystemName: string
   id: string
   paymentSystem: string
-  giftCard?: {
-    id: string
-    name: string
-    redemptionCode: string
-    caption: string
-    provider: string
-  } | null
+  giftCardId?: string | null
+  giftCardName?: string | null
+  giftCardCaption?: string | null
+  redemptionCode?: string | null
+  giftCardProvider?: string | null
   group: string
   lastDigits?: string
   value: number
@@ -23,12 +21,7 @@ export interface MyAccountPayment {
   url?: string | null
   tid?: string | null
   dueDate?: string | null
-  connectorResponses?: {
-    tid?: string
-    returnCode?: string
-    message?: string
-    authId?: string
-  } | null
+  connectorResponses?: Record<string, unknown> | null
   giftCardAsDiscount?: boolean | null
   koinUrl?: string | null
   accountId?: string | null
@@ -136,7 +129,7 @@ interface GenerateOrderSummaryParams {
   allowCancellation?: boolean
 }
 
-interface OrderSummary {
+export interface OrderSummary {
   totals: MyAccountTotal[]
   currencyCode: string
   paymentData: {
@@ -296,13 +289,18 @@ export function generateOrderSummary(
       group: 'giftCard',
       value: totalAmount,
       referenceValue: totalAmount,
-      giftCard: {
-        name: 'Holiday Special Gift Card',
-        id: 'GC' + Math.random().toString(36).substring(7).toUpperCase(),
-        caption: 'Holiday Special',
-        redemptionCode: '****-****-****-MGOG',
-        provider: 'Store Gift Card',
-      },
+      // giftCard: {
+      //   name: 'Holiday Special Gift Card',
+      //   id: 'GC' + Math.random().toString(36).substring(7).toUpperCase(),
+      //   caption: 'Holiday Special',
+      //   redemptionCode: '****-****-****-MGOG',
+      //   provider: 'Store Gift Card',
+      // },
+      giftCardId: 'GC' + Math.random().toString(36).substring(7).toUpperCase(),
+      giftCardName: null,
+      giftCardCaption: null,
+      redemptionCode: 'WGNG-VG**-****-EYVJ',
+      giftCardProvider: 'Store Gift Card',
       giftCardAsDiscount: false,
     })
   }

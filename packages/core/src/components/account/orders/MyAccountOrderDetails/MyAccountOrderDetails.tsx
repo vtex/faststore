@@ -12,7 +12,13 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
-import { multipleCardsOrderSummary } from '../../mocks/orderSummaryExamples'
+import {
+  giftCardOrderSummary,
+  multipleCardsOrderSummary,
+  realGiftCardOrderSummary,
+  realGooglePayOrderSummary,
+  realMultiplePaymentMethodsOrderSummary,
+} from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -22,7 +28,7 @@ export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
   // TODO: Using multipleCardsOrderSummary as an example, but this would come from an API
-  const orderSummary = multipleCardsOrderSummary
+  const orderSummary = realMultiplePaymentMethodsOrderSummary
 
   return (
     <div className={styles.page} data-fs-order-details>
