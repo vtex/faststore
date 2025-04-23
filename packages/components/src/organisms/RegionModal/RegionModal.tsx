@@ -149,7 +149,9 @@ function RegionModal({
               onClear={() => onClear?.()}
               error={errorMessage}
             />
-            <Link data-fs-region-modal-link {...idkPostalCodeLinkProps} />
+            {idkPostalCodeLinkProps && (
+              <Link data-fs-region-modal-link {...idkPostalCodeLinkProps} />
+            )}
           </ModalBody>
         </>
       )}

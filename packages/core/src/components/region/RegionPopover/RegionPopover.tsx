@@ -94,7 +94,7 @@ function RegionPopover({
   }
 
   const idkPostalCodeLinkProps = {
-    href: idkPostalCodeLinkTo ?? '#',
+    href: idkPostalCodeLinkTo,
     children: (
       <>
         {idkPostalCodeLinkText}
@@ -137,7 +137,9 @@ function RegionPopover({
         buttonActionText={loading ? '...' : inputButtonActionText}
         error={errorMessage}
       />
-      <UILink data-fs-region-popover-link {...idkPostalCodeLinkProps} />
+      {idkPostalCodeLinkTo && (
+        <UILink data-fs-region-popover-link {...idkPostalCodeLinkProps} />
+      )}
     </>
   )
 

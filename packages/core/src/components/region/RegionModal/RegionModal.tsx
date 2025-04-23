@@ -84,7 +84,7 @@ function RegionModal({
   }
 
   const idkPostalCodeLinkProps: UIRegionModalProps['idkPostalCodeLinkProps'] = {
-    href: idkPostalCodeLinkTo ?? '#',
+    href: idkPostalCodeLinkTo,
     children: (
       <>
         {idkPostalCodeLinkText}
@@ -114,7 +114,9 @@ function RegionModal({
           inputValue={input}
           inputLabel={inputFieldLabel}
           errorMessage={errorMessage}
-          idkPostalCodeLinkProps={idkPostalCodeLinkProps}
+          idkPostalCodeLinkProps={
+            idkPostalCodeLinkTo ? idkPostalCodeLinkProps : null
+          }
           onInput={(e) => {
             errorMessage !== '' && setErrorMessage('')
             setInput(e.currentTarget.value)
