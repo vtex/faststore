@@ -75,11 +75,11 @@ module.exports = {
   },
 
   // Production URLs
-  storeUrl: 'https://vtexfaststore.com',
-  secureSubdomain: 'https://secure.vtexfaststore.com',
-  checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
-  loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
-  accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
+  storeUrl: 'https://homebrewqa.fast.store',
+  secureSubdomain: 'https://homebrewqa.fast.store',
+  checkoutUrl: 'https://homebrewqa.fast.store/checkout',
+  loginUrl: 'https://homebrewqa.fast.store/api/io/login',
+  accountUrl: 'https://homebrewqa.fast.store/api/io/account',
 
   // Preview redirects
   previewRedirects: {
