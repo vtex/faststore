@@ -13,7 +13,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     req,
   })
 
-  const secret = req.nextUrl.searchParams.get('secret')
+  // const secret = req.nextUrl.searchParams.get('secret')
   const path = req.nextUrl.searchParams.get('path')
 
   if (!path) {
@@ -25,7 +25,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     })
   }
 
-  revalidatePath(path, 'page')
+  revalidatePath(path)
 
-  return NextResponse.json({ status: 200, revalidated: true, now: Date.now() })
+  return NextResponse.json({
+    status: 200,
+    revalidated: true,
+    now: Date.now(),
+    message: `Revalidated path: ${path}`,
+  })
 }
