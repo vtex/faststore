@@ -22,6 +22,7 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type { PickupPointsInput, PickupPoints } from './types/PickupPoints'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -348,6 +349,33 @@ export const VtexCommerce = (
           {
             headers,
           },
+          { storeCookies }
+        )
+      },
+      pickupPoints: ({
+        geoCoordinates,
+        postalCode,
+        country,
+      }: PickupPointsInput): Promise<PickupPoints> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        const params = new URLSearchParams()
+
+        if (geoCoordinates) {
+          params.append(
+            'geoCoordinates',
+            `${geoCoordinates.longitude};${geoCoordinates.latitude}`
+          )
+        } else {
+          params.append('countryCode', country as string)
+          params.append('postalCode', postalCode as string)
+        }
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/pickup-points?${params.toString()}`,
+          { headers },
           { storeCookies }
         )
       },
