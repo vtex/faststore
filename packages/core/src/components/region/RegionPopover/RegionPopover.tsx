@@ -27,7 +27,7 @@ interface RegionPopoverProps {
     to?: string
     icon?: {
       icon?: string
-      alt: string
+      alt?: string
     }
   }
   textBeforeLocation?: string
