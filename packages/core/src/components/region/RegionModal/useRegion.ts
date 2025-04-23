@@ -82,18 +82,22 @@ export function useRegion(): UseRegionParams {
   // Effect to handle when isValidating changes from true to false
   useEffect(() => {
     // Check if validation has completed (isValidating changed from true to false)
-    if (prevIsValidating.current && !isValidating) {
-      setValidationComplete(true)
+    const hasValidationCompleted = prevIsValidating.current && !isValidating
+    // Handle the case where `isValidating` is already false on mount
+    const isInitialValidationComplete =
+      !prevIsValidating.current && !isValidating && !isValidationComplete
 
-      // If the postal code is not set and is mandatory, open the region modal
-      if (deliveryPromise.enabled && deliveryPromise.mandatory) {
-        openRegionModal()
-      }
+    if (hasValidationCompleted || isInitialValidationComplete) {
+      setValidationComplete(true)
     }
 
-    // Handle the case where `isValidating` is already false on mount
-    if (!prevIsValidating.current && !isValidating && !isValidationComplete) {
-      setValidationComplete(true)
+    // If the postal code is not set and is mandatory, open the region modal
+    if (
+      hasValidationCompleted &&
+      deliveryPromise.enabled &&
+      deliveryPromise.mandatory
+    ) {
+      openRegionModal()
     }
 
     // Update the previous value of isValidating
