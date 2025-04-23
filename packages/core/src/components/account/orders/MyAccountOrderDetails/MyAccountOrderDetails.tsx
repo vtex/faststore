@@ -1,5 +1,11 @@
-import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
-import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
+import {
+  Badge as UIBadge,
+  Icon as UIIcon,
+  IconButton as UIIconButton,
+} from '@faststore/ui'
+import MyAccountStatusCard, {
+  type ApiOrderStatus,
+} from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
 import MyAccountOrderActions from './MyAccountOrderActions'
@@ -64,7 +70,7 @@ export default function MyAccountOrderDetails({
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
         />
-        <MyAccountStatusCard />
+        <MyAccountStatusCard status={order.status as ApiOrderStatus} />
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
           paymentData={order.paymentData}

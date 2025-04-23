@@ -1,0 +1,220 @@
+[data-fs-order-status-card] {
+  // --------------------------------------------------------
+  // Design Tokens for Order Status Card
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-order-status-card-gap                     : var(--fs-spacing-1);
+  --fs-order-status-card-padding                 : var(--fs-spacing-3) var(--fs-spacing-2);
+  --fs-order-status-card-bkg-color               : var(--fs-color-neutral-1);
+  --fs-order-status-card-border-radius           : var(--fs-border-radius-medium);
+
+  // Step Icon
+  --fs-order-status-step-icon-size              : var(--fs-spacing-4);
+  --fs-order-status-step-icon-half-size         : calc(var(--fs-order-status-step-icon-size) / 2);
+  --fs-order-status-step-icon-border            : var(--fs-border-width) solid var(--fs-border-color-light);
+  --fs-order-status-step-icon-border-radius     : var(--fs-border-radius-circle);
+  --fs-order-status-step-icon-margin            : var(--fs-spacing-0);
+
+  // Step Icon States
+  --fs-order-status-step-icon-completed-color   : #08a822;
+  --fs-order-status-step-icon-failed-color      : #5c5c5c;
+  --fs-order-status-step-icon-loading-color     : var(--fs-color-neutral-4);
+  --fs-order-status-step-icon-text-color        : var(--fs-color-neutral-0);
+
+  // Step Content
+  --fs-order-status-step-content-gap            : var(--fs-spacing-0);
+  --fs-order-status-step-label-size             : var(--fs-text-size-2);
+  --fs-order-status-step-label-weight           : var(--fs-text-weight-medium);
+  --fs-order-status-step-label-line-height      : 1.25;
+  --fs-order-status-step-details-size           : var(--fs-text-size-1);
+
+  // Step States Colors
+  --fs-order-status-step-loading-color          : var(--fs-color-neutral-5);
+  --fs-order-status-step-completed-color        : var(--fs-color-text);
+  --fs-order-status-step-failed-color           : var(--fs-color-text);
+  --fs-order-status-step-not-started-color      : var(--fs-color-disabled-text);
+
+  // Connector
+  --fs-order-status-connector-color             : var(--fs-border-color-light);
+  --fs-order-status-connector-completed-color   : var(--fs-order-status-step-icon-completed-color);
+  --fs-order-status-connector-spacing           : var(--fs-spacing-0);
+
+  // Desktop Specific
+  --fs-order-status-step-desktop-height         : 7.75rem;
+  --fs-order-status-step-desktop-min-width      : 6.25rem;
+  --fs-order-status-step-desktop-max-width      : 9rem;
+  --fs-order-status-connector-desktop-spacing   : 0.625rem;
+
+  [data-fs-card-body] {
+    @include media(">=notebook") {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  [data-fs-order-status-content] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-order-status-card-gap);
+    width: 100%;
+    overflow-x: auto;
+
+    @include media(">=notebook") {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  [data-fs-shipping-step] {
+    position: relative;
+    display: flex;
+    gap: var(--fs-spacing-1);
+    align-items: center;
+    width: 100%;
+    padding: var(--fs-order-status-card-padding);
+
+    &[data-fs-shipping-status="loading"] {
+      background-color: var(--fs-order-status-card-bkg-color);
+      border-radius: var(--fs-order-status-card-border-radius);
+    }
+
+    @include media(">=notebook") {
+      flex: 1;
+      flex-direction: column;
+      gap: var(--fs-spacing-2);
+      align-items: center;
+      width: clamp(var(--fs-order-status-step-desktop-min-width), calc((100% - (5 * var(--fs-spacing-2))) / 6), var(--fs-order-status-step-desktop-max-width));
+      min-width: var(--fs-order-status-step-desktop-min-width);
+      max-width: var(--fs-order-status-step-desktop-max-width);
+      height: var(--fs-order-status-step-desktop-height);
+      text-align: center;
+    }
+
+    [data-fs-shipping-step-icon] {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: var(--fs-order-status-step-icon-size);
+      height: var(--fs-order-status-step-icon-size);
+      margin: var(--fs-order-status-step-icon-margin);
+
+      [data-fs-icon] {
+        color: var(--fs-color-neutral-0);
+      }
+
+      &[data-fs-shipping-step-completed] {
+        background-color: var(--fs-order-status-step-icon-completed-color);
+        border-radius: var(--fs-order-status-step-icon-border-radius);
+
+        [class*="icon"] {
+          color: var(--fs-order-status-step-icon-text-color);
+        }
+      }
+
+      &[data-fs-shipping-step-failed] {
+        background-color: var(--fs-order-status-step-icon-failed-color);
+        border-radius: var(--fs-order-status-step-icon-border-radius);
+
+        [class*="icon"] {
+          color: var(--fs-order-status-step-icon-text-color);
+        }
+      }
+
+      &[data-fs-shipping-step-loading] {
+        background-color: var(--fs-order-status-step-icon-loading-color);
+        border-radius: var(--fs-order-status-step-icon-border-radius);
+
+        [class*="icon"] {
+          color: var(--fs-order-status-step-icon-text-color);
+        }
+      }
+
+      &:not([data-fs-shipping-step-completed]):not([data-fs-shipping-step-loading]) {
+        border: var(--fs-order-status-step-icon-border);
+        border-radius: var(--fs-order-status-step-icon-border-radius);
+      }
+    }
+
+    [data-fs-shipping-step-content] {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--fs-order-status-step-content-gap);
+
+      @include media(">=notebook") {
+        text-align: center;
+      }
+    }
+
+    [data-fs-shipping-step-label] {
+      font-size: var(--fs-order-status-step-label-size);
+      font-weight: var(--fs-order-status-step-label-weight);
+      line-height: var(--fs-order-status-step-label-line-height);
+      color: var(--fs-color-text);
+    }
+
+    [data-fs-shipping-step-details] {
+      display: flex;
+      font-size: var(--fs-order-status-step-details-size);
+      color: var(--fs-color-text-light);
+
+      @include media(">=notebook") {
+        flex-direction: column;
+      }
+    }
+
+    [data-fs-shipping-connector] {
+      position: absolute;
+      z-index: 1;
+      background-color: var(--fs-order-status-connector-color);
+
+      &[data-fs-shipping-connector-status="completed"] {
+        background-color: var(--fs-order-status-connector-completed-color);
+      }
+
+      @include media("<notebook") {
+        top: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-connector-spacing));
+        left: calc(var(--fs-spacing-2) + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-step-icon-margin));
+        width: var(--fs-border-width);
+        height: calc((50% - var(--fs-order-status-step-icon-half-size)) + var(--fs-order-status-card-gap) + (50% - var(--fs-order-status-step-icon-half-size)) - (var(--fs-order-status-connector-spacing) * 2));
+      }
+
+      @include media(">=notebook") {
+        top: calc(1rem + var(--fs-order-status-step-icon-half-size));
+        left: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-connector-desktop-spacing) + var(--fs-order-status-step-icon-margin));
+        width: calc((50% - var(--fs-order-status-step-icon-half-size)) + var(--fs-order-status-card-gap) + (50% - var(--fs-order-status-step-icon-half-size)) - (var(--fs-order-status-connector-desktop-spacing) * 2));
+        height: var(--fs-border-width);
+      }
+    }
+  }
+
+  [data-fs-shipping-status="loading"] {
+    [data-fs-shipping-step-label] {
+      color: var(--fs-order-status-step-loading-color);
+    }
+  }
+
+  [data-fs-shipping-status="completed"] {
+    [data-fs-shipping-step-label] {
+      color: var(--fs-order-status-step-completed-color);
+    }
+  }
+
+  [data-fs-shipping-status="not-started"] {
+    [data-fs-shipping-step-label] {
+      color: var(--fs-order-status-step-not-started-color);
+    }
+  }
+
+  [data-fs-shipping-status="failed"] {
+    [data-fs-shipping-step-label] {
+      color: var(--fs-order-status-step-failed-color);
+    }
+  }
+}
