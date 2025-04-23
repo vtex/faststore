@@ -12,6 +12,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import { PdpClient } from './pdp-client'
 import { getOffer } from 'src/sdk/offer'
 import deepmerge from 'deepmerge'
+import { notFound } from 'next/navigation'
 
 interface PdpProps {
   params: Promise<{
@@ -163,9 +164,7 @@ async function getData(slug = '', previewData: any = undefined) {
 
   const { data, errors = [] } = searchResult
 
-  const notFound = errors.find(isNotFoundError)
-
-  if (notFound) {
+  if (errors.find(isNotFoundError)) {
     // if (storeConfig.experimental.enableRedirects) {
     //   const redirect = await getRedirect({ pathname: `/${slug}/p` })
 
@@ -177,9 +176,7 @@ async function getData(slug = '', previewData: any = undefined) {
     //   }
     // }
 
-    return {
-      notFound: true,
-    }
+    notFound()
   }
 
   if (errors.length > 0) {

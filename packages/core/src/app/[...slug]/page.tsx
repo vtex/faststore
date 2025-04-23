@@ -14,6 +14,7 @@ import type {
   ServerCollectionPageQueryQueryVariables,
 } from '@generated/graphql'
 import type { ComponentProps } from 'react'
+import { notFound } from 'next/navigation'
 
 interface Props {
   params: Promise<{ slug: string[] }>
@@ -134,9 +135,9 @@ async function getPageProps(params: GetPagePropsParams) {
 
   const [serverManyProductsData, serverManyProductsVariables] = serverMany!
 
-  const notFound = errors.find(isNotFoundError)
+  const isNotFound = errors.find(isNotFoundError)
 
-  if (notFound) {
+  if (isNotFound) {
     // if (storeConfig.experimental.enableRedirects) {
     //   const redirect = await getRedirect({ pathname: `/${slug}` })
     //   if (redirect) {
@@ -146,6 +147,8 @@ async function getPageProps(params: GetPagePropsParams) {
     //     }
     //   }
     // }
+
+    notFound()
 
     return {
       notFound: true,
