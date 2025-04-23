@@ -64,7 +64,7 @@ function RegionPopover({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
-  const { popover: displayPopover, closePopover } = useUI()
+  const { popover: displayPopover } = useUI()
   const {
     input,
     setInput,
@@ -152,10 +152,7 @@ function RegionPopover({
             content={RegionPopoverContent}
             placement={placement}
             dismissible
-            onDismiss={() => {
-              setOpen(false)
-              closePopover
-            }}
+            onDismiss={() => setOpen(false)}
             triggerRef={triggerRef}
             offsetTop={offsetTop}
             offsetLeft={offsetLeft}
