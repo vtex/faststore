@@ -16,6 +16,7 @@ import { default as AfterSection } from 'src/customizations/src/myAccount/extens
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -46,8 +47,16 @@ export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async ({ previewData, query }) => {
   // TODO validate permissions here
+
+  const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
+    query,
+  })
+
+  if (!isFaststoreMyAccountEnabled) {
+    return { redirect }
+  }
 
   const [
     globalSectionsPromise,

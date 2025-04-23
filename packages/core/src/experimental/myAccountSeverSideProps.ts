@@ -7,6 +7,7 @@ import {
 } from 'src/components/cms/GlobalSections'
 
 import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -16,8 +17,16 @@ export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async ({ previewData, query }) => {
   // TODO validate permissions here
+
+  const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
+    query,
+  })
+
+  if (!isFaststoreMyAccountEnabled) {
+    return { redirect }
+  }
 
   const [
     globalSectionsPromise,
