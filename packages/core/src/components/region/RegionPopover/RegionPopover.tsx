@@ -6,9 +6,9 @@ import {
   Popover as UIPopover,
   useUI,
 } from '@faststore/ui'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
-import { useRegion } from './../RegionModal/useRegion'
+import { useSetLocation } from './../RegionModal/useSetLocation'
 
 import { sessionStore, useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
@@ -62,9 +62,9 @@ function RegionPopover({
   placement = 'bottom-start',
 }: RegionPopoverProps) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [isOpen, setOpen] = useState(true)
   const { isValidating, ...session } = useSession()
-  const { popover: displayPopover } = useUI()
+  const { popover: displayPopover, closePopover } = useUI()
+  const { city, postalCode } = sessionStore.read()
   const {
     input,
     setInput,
@@ -73,15 +73,14 @@ function RegionPopover({
     loading,
     errorMessage,
     setErrorMessage,
-    isValidationComplete,
-    postalCode,
-  } = useRegion()
-  const { city } = sessionStore.read()
+  } = useSetLocation()
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
+  console.log('displayPopover.isOpen', displayPopover.isOpen)
+
   const handleSubmit = async () => {
-    if (!isValidationComplete) {
+    if (isValidating) {
       return
     }
 
@@ -89,7 +88,9 @@ function RegionPopover({
       inputRef.current?.value,
       inputFieldErrorMessage,
       session,
-      () => setOpen(false)
+      () => {
+        closePopover()
+      }
     )
   }
 
@@ -150,11 +151,10 @@ function RegionPopover({
           <UIPopover
             data-fs-region-popover
             title={title}
-            isOpen={isOpen}
+            isOpen={displayPopover.isOpen}
             content={RegionPopoverContent}
             placement={placement}
             dismissible
-            onDismiss={() => setOpen(false)}
             triggerRef={triggerRef}
             offsetTop={offsetTop}
             offsetLeft={offsetLeft}
