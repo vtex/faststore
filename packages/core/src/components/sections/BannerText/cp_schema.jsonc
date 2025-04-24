@@ -1,56 +1,49 @@
-// cp-only-schema
 {
-  "core.bannerText": {
-    "$extends": ["#/components/base-component"],
-    "description": "BannerText component",
-    "properties": {
-      "name": {
-        "const": "BannerText"
-      },
-      "data": {
-        "properties": {
-          "title": {
-            "title": "Title",
-            "type": "string"
-          },
-          "caption": {
-            "title": "Caption",
-            "type": "string"
-          },
-          "link": {
-            "title": "Call to Action",
-            "type": "object",
-            "required": ["text", "url"],
-            "properties": {
-              "text": {
-                "title": "Text",
-                "type": "string"
-              },
-              "url": {
-                "title": "URL",
-                "type": "string"
-              },
-              "linkTargetBlank": {
-                "type": "boolean",
-                "title": "Open link in new window?",
-                "default": false
-              }
-            }
-          },
-          "colorVariant": {
-            "type": "string",
-            "title": "Color variant",
-            "enumNames": ["Main", "Light", "Accent"],
-            "enum": ["main", "light", "accent"]
-          },
-          "variant": {
-            "type": "string",
-            "title": "Variant",
-            "enumNames": ["Primary", "Secondary"],
-            "enum": ["primary", "secondary"]
-          }
+  "$extends": ["#/components/base-component"],
+  "$componentKey": "BannerText",
+  "$componentTitle": "Text Banner",
+  "type": "object",
+  "description": "Text Banner Component",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "caption": {
+      "title": "Caption",
+      "type": "string"
+    },
+    "link": {
+      "title": "Call to Action",
+      "type": "object",
+      "required": ["text", "url"],
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "url": {
+          "title": "URL",
+          "type": "string"
+        },
+        "linkTargetBlank": {
+          "type": "boolean",
+          "title": "Open link in new window?",
+          "default": false
         }
       }
+    },
+    "colorVariant": {
+      "type": "string",
+      "title": "Color variant",
+      "enumNames": ["Main", "Light", "Accent"],
+      "enum": ["main", "light", "accent"]
+    },
+    "variant": {
+      "type": "string",
+      "title": "Variant",
+      "enumNames": ["Primary", "Secondary"],
+      "enum": ["primary", "secondary"]
     }
   }
 }

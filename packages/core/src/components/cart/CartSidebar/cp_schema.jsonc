@@ -1,126 +1,119 @@
-// cp-only-schema
 {
-  "core.cartSidebar": {
-    "$extends": ["#/components/base-component"],
-    "description": "Cart Sidebar configuration",
-    "properties": {
-      "name": {
-        "const": "CartSidebar"
-      },
-      "data": {
-        "properties": {
-          "title": {
-            "title": "Title text",
-            "type": "string",
-            "default": "Your Cart"
-          },
-          "alert": {
-            "title": "Alert",
-            "type": "object",
-            "properties": {
-              "icon": {
-                "title": "Icon",
-                "type": "object",
-                "required": ["icon", "alt"],
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": [
-                      "Bell",
-                      "BellRinging",
-                      "Checked",
-                      "Info",
-                      "Truck",
-                      "User"
-                    ],
-                    "enum": [
-                      "Bell",
-                      "BellRinging",
-                      "Checked",
-                      "Info",
-                      "Truck",
-                      "User"
-                    ],
-                    "default": "Truck"
-                  },
-                  "alt": {
-                    "title": "Alternative label",
-                    "type": "string",
-                    "default": "Arrow Right icon"
-                  }
-                }
-              },
-              "text": {
-                "type": "string",
-                "title": "Text",
-                "default": "Free shipping starts at $300"
-              }
-            }
-          },
-          "checkoutButton": {
-            "title": "Checkout button",
-            "type": "object",
-            "required": ["label", "loadingLabel", "icon"],
-            "properties": {
-              "label": {
-                "title": "Label",
-                "type": "string",
-                "default": "Checkout"
-              },
-              "loadingLabel": {
-                "title": "Loading label",
-                "type": "string",
-                "default": "Loading..."
-              },
-              "icon": {
-                "title": "Icon",
-                "type": "object",
-                "required": ["icon", "alt"],
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": ["ArrowRight"],
-                    "enum": ["ArrowRight"],
-                    "default": "ArrowRight"
-                  },
-                  "alt": {
-                    "title": "Alternative label",
-                    "type": "string",
-                    "default": "Arrow Right icon"
-                  }
-                }
-              }
-            }
-          },
-          "quantitySelector": {
-            "title": "Quantity Selector",
-            "type": "object",
-            "properties": {
-              "useUnitMultiplier": {
-                "title": "Should use unit multiplier?",
-                "type": "boolean",
-                "default": false
-              }
-            }
-          },
-          "taxesConfiguration": {
-            "title": "Taxes Configuration",
-            "type": "object",
-            "properties": {
-              "usePriceWithTaxes": {
-                "title": "Should use taxes to calculate the price?",
-                "type": "boolean",
-                "default": false
-              },
-              "taxesLabel": {
-                "title": "Tax label to be displayed",
-                "type": "string",
-                "default": "Tax included"
-              }
+  "$componentKey": "CartSidebar",
+  "$componentTitle": "Cart Sidebar",
+  "$extends": ["#/components/base-component"],
+  "type": "object",
+  "description": "Cart Sidebar configuration",
+  "properties": {
+    "title": {
+      "title": "Title text",
+      "type": "string",
+      "default": "Your Cart"
+    },
+    "alert": {
+      "title": "Alert",
+      "type": "object",
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "required": ["icon", "alt"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": [
+                "Bell",
+                "BellRinging",
+                "Checked",
+                "Info",
+                "Truck",
+                "User"
+              ],
+              "enum": [
+                "Bell",
+                "BellRinging",
+                "Checked",
+                "Info",
+                "Truck",
+                "User"
+              ],
+              "default": "Truck"
+            },
+            "alt": {
+              "title": "Alternative label",
+              "type": "string",
+              "default": "Arrow Right icon"
             }
           }
+        },
+        "text": {
+          "type": "string",
+          "title": "Text",
+          "default": "Free shipping starts at $300"
+        }
+      }
+    },
+    "checkoutButton": {
+      "title": "Checkout button",
+      "type": "object",
+      "required": ["label", "loadingLabel", "icon"],
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "default": "Checkout"
+        },
+        "loadingLabel": {
+          "title": "Loading label",
+          "type": "string",
+          "default": "Loading..."
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "required": ["icon", "alt"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["ArrowRight"],
+              "enum": ["ArrowRight"],
+              "default": "ArrowRight"
+            },
+            "alt": {
+              "title": "Alternative label",
+              "type": "string",
+              "default": "Arrow Right icon"
+            }
+          }
+        }
+      }
+    },
+    "quantitySelector": {
+      "title": "Quantity Selector",
+      "type": "object",
+      "properties": {
+        "useUnitMultiplier": {
+          "title": "Should use unit multiplier?",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "taxesConfiguration": {
+      "title": "Taxes Configuration",
+      "type": "object",
+      "properties": {
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
+        },
+        "taxesLabel": {
+          "title": "Tax label to be displayed",
+          "type": "string",
+          "default": "Tax included"
         }
       }
     }
