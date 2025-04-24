@@ -23,76 +23,84 @@ const contextFactory = getContextFactory(apiOptions)
 const context = contextFactory({})
 const getClients = clients.getClients
 
+const fetchAPIMocked = jest.fn()
 const pickupPointsMocked = jest.fn()
 
-jest
-  .spyOn(clients, 'getClients')
-  .mockImplementation((options, context): Clients => {
-    const otherClients = getClients(options, context)
+jest.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
+  fetchAPI: async (
+    info: RequestInfo,
+    init?: RequestInit,
+    options?: { storeCookies?: (headers: Headers) => void }
+  ) => fetchAPIMocked(info, init, options),
+}))
 
-    return {
-      ...otherClients,
-      commerce: {
-        ...otherClients.commerce,
-        checkout: {
-          ...otherClients.commerce.checkout,
-          pickupPoints: pickupPointsMocked,
-        },
-      },
-    }
-  })
+beforeEach(() => {
+  fetchAPIMocked.mockClear()
+})
 
 describe('VTEX Commerce', () => {
   describe('Checkout', () => {
     describe('Pickup points', () => {
       it('should succeed with valid geo coordinates', async () => {
+        const validResponse = { paging: {}, items: [] }
         const geoCoordinates = {
           latitude: 123,
           longitude: 456,
         }
 
-        pickupPointsMocked.mockResolvedValueOnce({ paging: {}, items: [] })
+        fetchAPIMocked.mockResolvedValueOnce(validResponse)
 
         const { commerce } = clients.getClients(apiOptions, context)
-
         const result = await commerce.checkout.pickupPoints({
           geoCoordinates,
         })
 
-        expect(pickupPointsMocked).toHaveBeenCalledTimes(1)
-        expect(pickupPointsMocked).toHaveBeenCalledWith({ geoCoordinates })
-        expect(result).toEqual({ paging: {}, items: [] })
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        expect(result).toEqual(validResponse)
       })
 
       it('should succeed with valid postal code and country', async () => {
         const country = 'BRA'
         const postalCode = '123456'
+        const validResponse = { paging: {}, items: [] }
 
-        pickupPointsMocked.mockResolvedValueOnce({ paging: {}, items: [] })
+        fetchAPIMocked.mockResolvedValueOnce(validResponse)
 
         const { commerce } = clients.getClients(apiOptions, context)
-
         const result = await commerce.checkout.pickupPoints({
           country,
           postalCode,
         })
 
-        expect(pickupPointsMocked).toHaveBeenCalledTimes(1)
-        expect(pickupPointsMocked).toHaveBeenCalledWith({ postalCode, country })
-        expect(result).toEqual({ paging: {}, items: [] })
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        expect(result).toEqual(validResponse)
       })
 
       it('should throw an error when no params', async () => {
-        const errorMessage = 'Missing required parameters.'
+        jest
+          .spyOn(clients, 'getClients')
+          .mockImplementation((options, context): Clients => {
+            const otherClients = getClients(options, context)
 
-        pickupPointsMocked.mockRejectedValueOnce(() => {
-          throw new Error(errorMessage)
-        })
+            return {
+              ...otherClients,
+              commerce: {
+                ...otherClients.commerce,
+                checkout: {
+                  ...otherClients.commerce.checkout,
+                  pickupPoints: pickupPointsMocked,
+                },
+              },
+            }
+          })
+
+        const errorMessage = 'Missing required parameters'
+        pickupPointsMocked.mockRejectedValueOnce(new Error(errorMessage))
 
         const { commerce } = clients.getClients(apiOptions, context)
 
-        expect(pickupPointsMocked).not.toHaveBeenCalledWith()
-        await expect(commerce.checkout.pickupPoints({})).rejects.toThrow(
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+        await expect(commerce.checkout.pickupPoints({})).rejects.toThrowError(
           errorMessage
         )
       })
