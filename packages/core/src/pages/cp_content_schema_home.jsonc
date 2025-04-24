@@ -1,38 +1,12 @@
 {
   "home": {
     "$extends": ["#/components/base-page-template"],
-    "$singleton": false,
+    "$singleton": true,
     "title": "Home",
+    "type": "object",
     "properties": {
-      "sections": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "$ref": "#/components/Hero"
-            },
-            {
-              "$ref": "#/components/BannerText"
-            },
-            {
-              "$ref": "#/components/Newsletter"
-            },
-            {
-              "$ref": "#/components/RichText"
-            },
-            {
-              "$ref": "#/components/ProductDetails"
-            },
-            {
-              "$ref": "#/components/ProductShelf"
-            }
-          ]
-        }
-      },
-      "settings": {
-        "seo": {
-          "$ref": "#/components/SEO"
-        }
+      "seo": {
+        "$ref": "#/components/SEO"
       }
     }
   }
