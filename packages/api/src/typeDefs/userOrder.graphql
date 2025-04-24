@@ -204,6 +204,13 @@ type UserOrderRestitutionItem {
   unitMultiplier: Float
 }
 
+type UserOrderPaymentConnectorResponses {
+  Tid: String
+  ReturnCode: String
+  Message: String
+  authId: String
+}
+
 type UserOrderPayments {
   id: String
   paymentSystem: String
@@ -226,6 +233,7 @@ type UserOrderPayments {
   group: String
   tid: String
   dueDate: String
+  connectorResponses: UserOrderPaymentConnectorResponses
   giftCardProvider: String
   giftCardAsDiscount: String
   koinUrl: String

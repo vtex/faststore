@@ -1681,6 +1681,14 @@ export type UserOrderPackageItem = {
   quantity?: Maybe<Scalars['Int']>;
 };
 
+export type UserOrderPaymentConnectorResponses = {
+  __typename?: 'UserOrderPaymentConnectorResponses';
+  Message?: Maybe<Scalars['String']>;
+  ReturnCode?: Maybe<Scalars['String']>;
+  Tid?: Maybe<Scalars['String']>;
+  authId?: Maybe<Scalars['String']>;
+};
+
 export type UserOrderPaymentData = {
   __typename?: 'UserOrderPaymentData';
   giftCards?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1697,6 +1705,7 @@ export type UserOrderPayments = {
   billingAddress?: Maybe<Scalars['String']>;
   cardHolder?: Maybe<Scalars['String']>;
   cardNumber?: Maybe<Scalars['String']>;
+  connectorResponses?: Maybe<UserOrderPaymentConnectorResponses>;
   cvv2?: Maybe<Scalars['String']>;
   dueDate?: Maybe<Scalars['String']>;
   expireMonth?: Maybe<Scalars['String']>;

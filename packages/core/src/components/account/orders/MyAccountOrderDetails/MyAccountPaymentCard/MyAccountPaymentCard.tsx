@@ -1,22 +1,26 @@
 import { useSession } from 'src/sdk/session'
 import MyAccountCard from '../../../components/MyAccountCard'
-import type {
-  MyAccountTransaction,
-  MyAccountPayment,
-} from '../../../mocks/orderSummaryGenerator'
 import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
 import { useCallback } from 'react'
 import { Link } from '@faststore/ui'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
+export type OrderPaymentData =
+  ServerOrderDetailsQueryQuery['userOrder']['paymentData']
+export type OrderPaymentDataTransaction =
+  OrderPaymentData['transactions'][number]
+export type OrderPaymentDataTransactionPayment =
+  OrderPaymentDataTransaction['payments'][number]
 
 interface MyAccountPaymentCardProps {
-  paymentData?: {
-    transactions: MyAccountTransaction[]
-  }
+  paymentData?: OrderPaymentData
   currencyCode: string
   allowCancellation?: boolean
 }
 
-const getPaymentMethodInfo = (payment: MyAccountPayment) => {
+const getPaymentMethodInfo = (
+  payment: OrderPaymentDataTransaction['payments'][number]
+) => {
   const baseInfo = {
     type: 'Billing',
     methodName: '',
@@ -55,7 +59,7 @@ const getPaymentMethodInfo = (payment: MyAccountPayment) => {
   }
 }
 
-const getBankInvoiceUrl = (transactions: MyAccountTransaction[]) => {
+const getBankInvoiceUrl = (transactions: OrderPaymentDataTransaction[]) => {
   for (const transaction of transactions) {
     for (const payment of transaction.payments) {
       if (payment.url) {
@@ -131,7 +135,7 @@ function MyAccountPaymentCard({
                 )}
                 {payment.connectorResponses?.authId && (
                   <span data-fs-payment-authid>
-                    AuthId: {String(payment.connectorResponses?.authId)}
+                    AuthId: {String(payment.connectorResponses.authId)}
                   </span>
                 )}
                 <div data-fs-payment-bank-invoice>

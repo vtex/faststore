@@ -251,6 +251,12 @@ const query = gql(`
             group
             tid
             dueDate
+            connectorResponses {
+              Message
+              ReturnCode
+              Tid
+              authId
+            }
             giftCardProvider
             giftCardAsDiscount
             koinUrl

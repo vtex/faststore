@@ -12,13 +12,6 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
-import {
-  giftCardOrderSummary,
-  multipleCardsOrderSummary,
-  realGiftCardOrderSummary,
-  realGooglePayOrderSummary,
-  realMultiplePaymentMethodsOrderSummary,
-} from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -27,9 +20,6 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
-  // TODO: Using multipleCardsOrderSummary as an example, but this would come from an API
-  const orderSummary = realMultiplePaymentMethodsOrderSummary
-
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
@@ -69,9 +59,9 @@ export default function MyAccountOrderDetails({
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard
-          currencyCode={orderSummary.currencyCode}
-          paymentData={orderSummary.paymentData}
-          allowCancellation={orderSummary.allowCancellation}
+          currencyCode={order.storePreferencesData.currencyCode}
+          paymentData={order.paymentData}
+          allowCancellation={order.allowCancellation}
         />
         <MyAccountSummaryCard
           totals={order.totals}

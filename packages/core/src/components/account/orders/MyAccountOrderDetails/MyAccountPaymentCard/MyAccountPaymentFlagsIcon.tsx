@@ -1,9 +1,9 @@
-import type { MyAccountPayment } from 'src/components/account/mocks/orderSummaryGenerator'
 import { Icon as UIIcon } from '@faststore/ui'
+import type { OrderPaymentDataTransactionPayment } from './MyAccountPaymentCard'
 
 interface PaymentFlagsIconProps {
   payment: Pick<
-    MyAccountPayment,
+    OrderPaymentDataTransactionPayment,
     'group' | 'paymentSystemName' | 'paymentOrigin'
   >
 }
@@ -35,7 +35,9 @@ const PAYMENT_FLAGS = {
   googlepay: 'GooglePay',
 } as const
 
-function shouldShowFlag(payment: Pick<MyAccountPayment, 'paymentSystemName'>) {
+function shouldShowFlag(
+  payment: Pick<OrderPaymentDataTransactionPayment, 'paymentSystemName'>
+) {
   if (!payment.paymentSystemName || payment.paymentSystemName === 'Free') {
     return false
   }
