@@ -68,6 +68,7 @@ export type Scalars = {
    * ```
    */
   FormattedVariants: { input: any; output: any }
+  JSONObject: { input: any; output: any }
   ObjectOrString: { input: any; output: any }
   /**
    * Example:
@@ -1229,7 +1230,7 @@ export type UserOrder = {
   lastMessage: Maybe<Scalars['String']['output']>
   marketingData: Maybe<Scalars['String']['output']>
   marketplace: Maybe<UserOrderMarketplace>
-  marketplaceItems: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  marketplaceItems: Maybe<Array<Maybe<UserOrderItems>>>
   marketplaceOrderId: Maybe<Scalars['String']['output']>
   marketplaceServicesEndpoint: Maybe<Scalars['String']['output']>
   merchantName: Maybe<Scalars['String']['output']>
@@ -1253,7 +1254,7 @@ export type UserOrder = {
   subscriptionData: Maybe<Scalars['String']['output']>
   taxData: Maybe<Scalars['String']['output']>
   totals: Maybe<Array<Maybe<UserOrderTotals>>>
-  value: Maybe<Scalars['Int']['output']>
+  value: Maybe<Scalars['Float']['output']>
   workflowIsInError: Maybe<Scalars['Boolean']['output']>
 }
 
@@ -1289,7 +1290,6 @@ export type UserOrderAddress = {
 }
 
 export type UserOrderAssemblyOptions = {
-  Composition: Maybe<Scalars['String']['output']>
   Id: Maybe<Scalars['String']['output']>
   Name: Maybe<Scalars['String']['output']>
   Required: Maybe<Scalars['Boolean']['output']>
@@ -1300,22 +1300,9 @@ export type UserOrderAttachmentOfferings = {
   required: Maybe<Scalars['Boolean']['output']>
 }
 
-export type UserOrderAvailableAddresses = {
-  addressId: Maybe<Scalars['String']['output']>
-  addressType: Maybe<Scalars['String']['output']>
-  city: Maybe<Scalars['String']['output']>
-  complement: Maybe<Scalars['String']['output']>
-  country: Maybe<Scalars['String']['output']>
-  entityId: Maybe<Scalars['String']['output']>
-  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']['output']>>>
-  neighborhood: Maybe<Scalars['String']['output']>
-  number: Maybe<Scalars['String']['output']>
-  postalCode: Maybe<Scalars['String']['output']>
-  receiverName: Maybe<Scalars['String']['output']>
-  reference: Maybe<Scalars['String']['output']>
-  state: Maybe<Scalars['String']['output']>
-  street: Maybe<Scalars['String']['output']>
-  versionId: Maybe<Scalars['String']['output']>
+export type UserOrderAttachments = {
+  content: Maybe<Scalars['JSONObject']['output']>
+  name: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderCategories = {
@@ -1346,6 +1333,22 @@ export type UserOrderClientProfileData = {
   tradeName: Maybe<Scalars['String']['output']>
   userProfileId: Maybe<Scalars['String']['output']>
   userProfileVersion: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderContactInformation = {
+  document: Maybe<Scalars['String']['output']>
+  documentType: Maybe<Scalars['String']['output']>
+  email: Maybe<Scalars['String']['output']>
+  firstName: Maybe<Scalars['String']['output']>
+  id: Scalars['ID']['output']
+  lastName: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCourierStatus = {
+  data: Maybe<Array<UserOrderTrackingInformation>>
+  finished: Maybe<Scalars['Boolean']['output']>
+  status: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderCurrencyFormatInfo = {
@@ -1399,6 +1402,8 @@ export type UserOrderFields = {
   cartEtag: Maybe<Scalars['String']['output']>
 }
 
+export type UserOrderInvoiceType = 'Input' | 'Output'
+
 export type UserOrderItemAttachment = {
   name: Maybe<Scalars['String']['output']>
 }
@@ -1408,70 +1413,36 @@ export type UserOrderItemMetadata = {
 }
 
 export type UserOrderItemMetadataItem = {
-  additionalInfo: Maybe<UserOrderAdditionalInfo>
-  assemblies: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  attachmentOfferings: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  attachments: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  bundleItems: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  callCenterOperator: Maybe<Scalars['String']['output']>
-  commission: Maybe<Scalars['Int']['output']>
-  components: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  costPrice: Maybe<Scalars['Int']['output']>
-  detailUrl: Maybe<Scalars['String']['output']>
-  ean: Maybe<Scalars['String']['output']>
-  freightCommission: Maybe<Scalars['Int']['output']>
-  id: Maybe<Scalars['String']['output']>
-  imageUrl: Maybe<Scalars['String']['output']>
-  isGift: Maybe<Scalars['Boolean']['output']>
-  itemAttachment: Maybe<UserOrderItemAttachment>
-  listPrice: Maybe<Scalars['Int']['output']>
-  lockId: Maybe<Scalars['String']['output']>
-  manualPrice: Maybe<Scalars['String']['output']>
-  manualPriceAppliedBy: Maybe<Scalars['String']['output']>
-  measurementUnit: Maybe<Scalars['String']['output']>
-  name: Maybe<Scalars['String']['output']>
-  offerings: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  params: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  parentAssemblyBinding: Maybe<Scalars['String']['output']>
-  parentItemIndex: Maybe<Scalars['String']['output']>
-  preSaleDate: Maybe<Scalars['String']['output']>
-  price: Maybe<Scalars['Int']['output']>
-  priceDefinition: Maybe<UserOrderPriceDefinition>
-  priceTags: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  priceValidUntil: Maybe<Scalars['String']['output']>
-  productId: Maybe<Scalars['String']['output']>
-  quantity: Maybe<Scalars['Int']['output']>
-  refId: Maybe<Scalars['String']['output']>
-  rewardValue: Maybe<Scalars['Int']['output']>
-  seller: Maybe<Scalars['String']['output']>
-  sellerSku: Maybe<Scalars['String']['output']>
-  sellingPrice: Maybe<Scalars['Int']['output']>
-  serialNumbers: Maybe<Scalars['String']['output']>
-  shippingPrice: Maybe<Scalars['String']['output']>
-  tax: Maybe<Scalars['Int']['output']>
-  taxCode: Maybe<Scalars['String']['output']>
-  uniqueId: Maybe<Scalars['String']['output']>
-  unitMultiplier: Maybe<Scalars['Int']['output']>
+  AssemblyOptions: Maybe<Array<Maybe<UserOrderAssemblyOptions>>>
+  DetailUrl: Maybe<Scalars['String']['output']>
+  Ean: Maybe<Scalars['String']['output']>
+  Id: Maybe<Scalars['String']['output']>
+  ImageUrl: Maybe<Scalars['String']['output']>
+  Name: Maybe<Scalars['String']['output']>
+  ProductId: Maybe<Scalars['String']['output']>
+  RefId: Maybe<Scalars['String']['output']>
+  Seller: Maybe<Scalars['String']['output']>
+  SkuName: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderItems = {
   additionalInfo: Maybe<UserOrderAdditionalInfo>
   assemblies: Maybe<Array<Maybe<Scalars['String']['output']>>>
   attachmentOfferings: Maybe<Array<Maybe<UserOrderAttachmentOfferings>>>
-  attachments: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  bundleItems: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  attachments: Maybe<Array<Maybe<UserOrderAttachments>>>
+  bundleItems: Maybe<Array<Maybe<UserOrderItems>>>
   callCenterOperator: Maybe<Scalars['String']['output']>
-  commission: Maybe<Scalars['Int']['output']>
-  components: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  costPrice: Maybe<Scalars['Int']['output']>
+  commission: Maybe<Scalars['Float']['output']>
+  components: Maybe<Array<Maybe<UserOrderItems>>>
+  costPrice: Maybe<Scalars['Float']['output']>
   detailUrl: Maybe<Scalars['String']['output']>
   ean: Maybe<Scalars['String']['output']>
-  freightCommission: Maybe<Scalars['Int']['output']>
+  freightCommission: Maybe<Scalars['Float']['output']>
   id: Maybe<Scalars['String']['output']>
   imageUrl: Maybe<Scalars['String']['output']>
   isGift: Maybe<Scalars['Boolean']['output']>
   itemAttachment: Maybe<UserOrderItemAttachment>
-  listPrice: Maybe<Scalars['Int']['output']>
+  listPrice: Maybe<Scalars['Float']['output']>
   lockId: Maybe<Scalars['String']['output']>
   manualPrice: Maybe<Scalars['String']['output']>
   manualPriceAppliedBy: Maybe<Scalars['String']['output']>
@@ -1482,23 +1453,23 @@ export type UserOrderItems = {
   parentAssemblyBinding: Maybe<Scalars['String']['output']>
   parentItemIndex: Maybe<Scalars['String']['output']>
   preSaleDate: Maybe<Scalars['String']['output']>
-  price: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Float']['output']>
   priceDefinition: Maybe<UserOrderPriceDefinition>
-  priceTags: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  priceTags: Maybe<Array<Maybe<UserOrderPriceTag>>>
   priceValidUntil: Maybe<Scalars['String']['output']>
   productId: Maybe<Scalars['String']['output']>
   quantity: Maybe<Scalars['Int']['output']>
   refId: Maybe<Scalars['String']['output']>
-  rewardValue: Maybe<Scalars['Int']['output']>
+  rewardValue: Maybe<Scalars['Float']['output']>
   seller: Maybe<Scalars['String']['output']>
   sellerSku: Maybe<Scalars['String']['output']>
-  sellingPrice: Maybe<Scalars['Int']['output']>
+  sellingPrice: Maybe<Scalars['Float']['output']>
   serialNumbers: Maybe<Scalars['String']['output']>
   shippingPrice: Maybe<Scalars['String']['output']>
-  tax: Maybe<Scalars['Int']['output']>
+  tax: Maybe<Scalars['Float']['output']>
   taxCode: Maybe<Scalars['String']['output']>
   uniqueId: Maybe<Scalars['String']['output']>
-  unitMultiplier: Maybe<Scalars['Int']['output']>
+  unitMultiplier: Maybe<Scalars['Float']['output']>
 }
 
 export type UserOrderLogisticsInfo = {
@@ -1511,15 +1482,15 @@ export type UserOrderLogisticsInfo = {
   entityId: Maybe<Scalars['String']['output']>
   itemId: Maybe<Scalars['String']['output']>
   itemIndex: Maybe<Scalars['Int']['output']>
-  listPrice: Maybe<Scalars['Int']['output']>
+  listPrice: Maybe<Scalars['Float']['output']>
   lockTTL: Maybe<Scalars['String']['output']>
   pickupPointId: Maybe<Scalars['String']['output']>
   pickupStoreInfo: Maybe<UserOrderPickupStoreInfo>
   polygonName: Maybe<Scalars['String']['output']>
-  price: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Float']['output']>
   selectedDeliveryChannel: Maybe<Scalars['String']['output']>
   selectedSla: Maybe<Scalars['String']['output']>
-  sellingPrice: Maybe<Scalars['Int']['output']>
+  sellingPrice: Maybe<Scalars['Float']['output']>
   shippingEstimate: Maybe<Scalars['String']['output']>
   shippingEstimateDate: Maybe<Scalars['String']['output']>
   shipsTo: Maybe<Array<Maybe<Scalars['String']['output']>>>
@@ -1537,12 +1508,35 @@ export type UserOrderMarketplace = {
 export type UserOrderOfferings = {
   id: Maybe<Scalars['String']['output']>
   name: Maybe<Scalars['String']['output']>
-  price: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Float']['output']>
   type: Maybe<Scalars['String']['output']>
 }
 
+export type UserOrderPackage = {
+  courier: Maybe<Scalars['String']['output']>
+  courierStatus: Maybe<UserOrderCourierStatus>
+  extraValue: Maybe<Scalars['Float']['output']>
+  invoiceKey: Maybe<Scalars['String']['output']>
+  invoiceNumber: Scalars['String']['output']
+  invoiceUrl: Maybe<Scalars['String']['output']>
+  invoiceValue: Scalars['Float']['output']
+  issuanceDate: Maybe<Scalars['String']['output']>
+  items: Maybe<Array<UserOrderPackageItem>>
+  restitutions: Maybe<UserOrderRestitutions>
+  trackingNumber: Maybe<Scalars['String']['output']>
+  trackingUrl: Maybe<Scalars['String']['output']>
+  type: Maybe<UserOrderInvoiceType>
+}
+
 export type UserOrderPackageAttachment = {
-  packages: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  packages: Maybe<Array<Maybe<UserOrderPackage>>>
+}
+
+export type UserOrderPackageItem = {
+  description: Maybe<Scalars['String']['output']>
+  itemIndex: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Int']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
 }
 
 export type UserOrderPaymentData = {
@@ -1596,54 +1590,74 @@ export type UserOrderPickupStoreInfo = {
 }
 
 export type UserOrderPriceDefinition = {
-  calculatedSellingPrice: Maybe<Scalars['Int']['output']>
+  calculatedSellingPrice: Maybe<Scalars['Float']['output']>
   reason: Maybe<Scalars['String']['output']>
   sellingPrices: Maybe<Array<Maybe<UserOrderSellingPrices>>>
-  total: Maybe<Scalars['Int']['output']>
+  total: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderPriceTag = {
+  identifier: Maybe<Scalars['String']['output']>
+  isPercentual: Maybe<Scalars['Boolean']['output']>
+  jurisCode: Maybe<Scalars['String']['output']>
+  jurisName: Maybe<Scalars['String']['output']>
+  jurisType: Maybe<Scalars['String']['output']>
+  name: Scalars['String']['output']
+  owner: Maybe<Scalars['String']['output']>
+  rate: Maybe<Scalars['Float']['output']>
+  rawValue: Scalars['Float']['output']
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderRateAndBenefitsIdentifier = {
+  additionalInfo: Maybe<Scalars['String']['output']>
+  description: Maybe<Scalars['String']['output']>
+  featured: Maybe<Scalars['Boolean']['output']>
+  id: Maybe<Scalars['ID']['output']>
+  name: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderRatesAndBenefitsData = {
   id: Maybe<Scalars['String']['output']>
-  rateAndBenefitsIdentifiers: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  rateAndBenefitsIdentifiers: Maybe<
+    Array<Maybe<UserOrderRateAndBenefitsIdentifier>>
+  >
 }
 
-export type UserOrderSelectedAddresses = {
-  addressId: Maybe<Scalars['String']['output']>
-  addressType: Maybe<Scalars['String']['output']>
-  city: Maybe<Scalars['String']['output']>
-  complement: Maybe<Scalars['String']['output']>
-  country: Maybe<Scalars['String']['output']>
-  entityId: Maybe<Scalars['String']['output']>
-  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']['output']>>>
-  neighborhood: Maybe<Scalars['String']['output']>
-  number: Maybe<Scalars['String']['output']>
-  postalCode: Maybe<Scalars['String']['output']>
-  receiverName: Maybe<Scalars['String']['output']>
-  reference: Maybe<Scalars['String']['output']>
-  state: Maybe<Scalars['String']['output']>
-  street: Maybe<Scalars['String']['output']>
-  versionId: Maybe<Scalars['String']['output']>
+export type UserOrderRestitutionItem = {
+  compensationValue: Maybe<Scalars['Float']['output']>
+  description: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['ID']['output']>
+  isCompensation: Maybe<Scalars['Boolean']['output']>
+  itemIndex: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  unitMultiplier: Maybe<Scalars['Float']['output']>
+  useFreight: Maybe<Scalars['Boolean']['output']>
 }
 
-export type UserOrderSellers = {
-  fulfillmentEndpoint: Maybe<Scalars['String']['output']>
-  id: Maybe<Scalars['String']['output']>
-  logo: Maybe<Scalars['String']['output']>
-  name: Maybe<Scalars['String']['output']>
+export type UserOrderRestitutionOption = {
+  items: Maybe<Array<UserOrderRestitutionItem>>
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderRestitutions = {
+  GiftCard: Maybe<UserOrderRestitutionOption>
+  Refund: Maybe<UserOrderRestitutionOption>
 }
 
 export type UserOrderSellingPrices = {
   quantity: Maybe<Scalars['Int']['output']>
-  value: Maybe<Scalars['Int']['output']>
+  value: Maybe<Scalars['Float']['output']>
 }
 
 export type UserOrderShippingData = {
   address: Maybe<UserOrderAddress>
-  availableAddresses: Maybe<Array<Maybe<UserOrderAvailableAddresses>>>
-  contactInformation: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  availableAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
+  contactInformation: Maybe<Array<Maybe<UserOrderContactInformation>>>
   id: Maybe<Scalars['String']['output']>
   logisticsInfo: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>
-  selectedAddresses: Maybe<Array<Maybe<UserOrderSelectedAddresses>>>
+  selectedAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
   trackingHints: Maybe<Scalars['String']['output']>
 }
 
@@ -1653,14 +1667,14 @@ export type UserOrderSlas = {
   deliveryIds: Maybe<Array<Maybe<UserOrderDeliveryIds>>>
   deliveryWindow: Maybe<UserOrderDeliveryWindow>
   id: Maybe<Scalars['String']['output']>
-  listPrice: Maybe<Scalars['Int']['output']>
+  listPrice: Maybe<Scalars['Float']['output']>
   lockTTL: Maybe<Scalars['String']['output']>
   name: Maybe<Scalars['String']['output']>
   pickupDistance: Maybe<Scalars['Int']['output']>
   pickupPointId: Maybe<Scalars['String']['output']>
   pickupStoreInfo: Maybe<UserOrderPickupStoreInfo>
   polygonName: Maybe<Scalars['String']['output']>
-  price: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Float']['output']>
   shippingEstimate: Maybe<Scalars['String']['output']>
   shippingEstimateDate: Maybe<Scalars['String']['output']>
   transitTime: Maybe<Scalars['String']['output']>
@@ -1685,7 +1699,14 @@ export type UserOrderStoreSellers = {
 export type UserOrderTotals = {
   id: Maybe<Scalars['String']['output']>
   name: Maybe<Scalars['String']['output']>
-  value: Maybe<Scalars['Int']['output']>
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderTrackingInformation = {
+  city: Maybe<Scalars['String']['output']>
+  description: Maybe<Scalars['String']['output']>
+  lastChange: Maybe<Scalars['String']['output']>
+  state: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderTransactions = {
@@ -1925,6 +1946,19 @@ export type ServerProductQueryQuery = {
   }
 }
 
+export type UserOrderItemsFragmentFragment = {
+  id: string | null
+  name: string | null
+  quantity: number | null
+  sellingPrice: number | null
+  unitMultiplier: number | null
+  measurementUnit: string | null
+  imageUrl: string | null
+  detailUrl: string | null
+  refId: string | null
+  rewardValue: number | null
+}
+
 export type ServerOrderDetailsQueryQueryVariables = Exact<{
   orderId: Scalars['String']['input']
 }>
@@ -1971,7 +2005,6 @@ export type ServerOrderDetailsQueryQuery = {
     checkedInPickupPointId: string | null
     cancellationData: string | null
     cancellationRequests: string | null
-    marketplaceItems: Array<string | null> | null
     customData: {
       customApps: Array<{
         id: string | null
@@ -1985,78 +2018,20 @@ export type ServerOrderDetailsQueryQuery = {
     } | null
     itemMetadata: {
       Items: Array<{
-        uniqueId: string | null
-        id: string | null
-        productId: string | null
-        ean: string | null
-        lockId: string | null
-        quantity: number | null
-        seller: string | null
-        name: string | null
-        refId: string | null
-        price: number | null
-        listPrice: number | null
-        manualPrice: string | null
-        manualPriceAppliedBy: string | null
-        imageUrl: string | null
-        detailUrl: string | null
-        sellerSku: string | null
-        priceValidUntil: string | null
-        commission: number | null
-        tax: number | null
-        preSaleDate: string | null
-        measurementUnit: string | null
-        unitMultiplier: number | null
-        sellingPrice: number | null
-        isGift: boolean | null
-        shippingPrice: string | null
-        rewardValue: number | null
-        freightCommission: number | null
-        taxCode: string | null
-        parentItemIndex: string | null
-        parentAssemblyBinding: string | null
-        callCenterOperator: string | null
-        serialNumbers: string | null
-        costPrice: number | null
-        assemblies: Array<string | null> | null
-        attachmentOfferings: Array<string | null> | null
-        offerings: Array<string | null> | null
-        params: Array<string | null> | null
-        bundleItems: Array<string | null> | null
-        components: Array<string | null> | null
-        priceTags: Array<string | null> | null
-        attachments: Array<string | null> | null
-        priceDefinition: {
-          calculatedSellingPrice: number | null
-          total: number | null
-          reason: string | null
-          sellingPrices: Array<{
-            value: number | null
-            quantity: number | null
-          } | null> | null
-        } | null
-        additionalInfo: {
-          brandName: string | null
-          brandId: string | null
-          categoriesIds: string | null
-          productClusterId: string | null
-          commercialConditionId: string | null
-          offeringInfo: string | null
-          offeringType: string | null
-          offeringTypeId: string | null
-          dimension: {
-            cubicweight: number | null
-            height: number | null
-            length: number | null
-            weight: number | null
-            width: number | null
-          } | null
-          categories: Array<{
-            id: number | null
-            name: string | null
-          } | null> | null
-        } | null
-        itemAttachment: { name: string | null } | null
+        Id: string | null
+        Seller: string | null
+        Name: string | null
+        SkuName: string | null
+        ProductId: string | null
+        RefId: string | null
+        Ean: string | null
+        ImageUrl: string | null
+        DetailUrl: string | null
+        AssemblyOptions: Array<{
+          Id: string | null
+          Name: string | null
+          Required: boolean | null
+        } | null> | null
       } | null> | null
     } | null
     marketplace: {
@@ -2084,7 +2059,66 @@ export type ServerOrderDetailsQueryQuery = {
       logo: string | null
       fulfillmentEndpoint: string | null
     } | null> | null
-    packageAttachment: { packages: Array<string | null> | null } | null
+    packageAttachment: {
+      packages: Array<{
+        courier: string | null
+        invoiceNumber: string
+        invoiceUrl: string | null
+        invoiceValue: number
+        extraValue: number | null
+        issuanceDate: string | null
+        trackingNumber: string | null
+        trackingUrl: string | null
+        invoiceKey: string | null
+        type: UserOrderInvoiceType | null
+        courierStatus: {
+          finished: boolean | null
+          status: string | null
+          data: Array<{
+            city: string | null
+            description: string | null
+            lastChange: string | null
+            state: string | null
+          }> | null
+        } | null
+        items: Array<{
+          description: string | null
+          itemIndex: number | null
+          price: number | null
+          quantity: number | null
+        }> | null
+        restitutions: {
+          Refund: {
+            value: number | null
+            items: Array<{
+              useFreight: boolean | null
+              isCompensation: boolean | null
+              compensationValue: number | null
+              itemIndex: number | null
+              id: string | null
+              quantity: number | null
+              price: number | null
+              description: string | null
+              unitMultiplier: number | null
+            }> | null
+          } | null
+          GiftCard: {
+            value: number | null
+            items: Array<{
+              useFreight: boolean | null
+              isCompensation: boolean | null
+              compensationValue: number | null
+              itemIndex: number | null
+              id: string | null
+              quantity: number | null
+              price: number | null
+              description: string | null
+              unitMultiplier: number | null
+            }> | null
+          } | null
+        } | null
+      } | null> | null
+    } | null
     paymentData: {
       giftCards: Array<string | null> | null
       transactions: Array<{
@@ -2130,7 +2164,15 @@ export type ServerOrderDetailsQueryQuery = {
     shippingData: {
       id: string | null
       trackingHints: string | null
-      contactInformation: Array<string | null> | null
+      contactInformation: Array<{
+        id: string
+        email: string | null
+        firstName: string | null
+        lastName: string | null
+        document: string | null
+        documentType: string | null
+        phone: string | null
+      } | null> | null
       availableAddresses: Array<{
         addressId: string | null
         versionId: string | null
@@ -2271,7 +2313,13 @@ export type ServerOrderDetailsQueryQuery = {
     } | null
     ratesAndBenefitsData: {
       id: string | null
-      rateAndBenefitsIdentifiers: Array<string | null> | null
+      rateAndBenefitsIdentifiers: Array<{
+        id: string | null
+        additionalInfo: string | null
+        description: string | null
+        featured: boolean | null
+        name: string | null
+      } | null> | null
     } | null
     clientProfileData: {
       id: string | null
@@ -2328,10 +2376,6 @@ export type ServerOrderDetailsQueryQuery = {
       costPrice: number | null
       assemblies: Array<string | null> | null
       params: Array<string | null> | null
-      bundleItems: Array<string | null> | null
-      components: Array<string | null> | null
-      priceTags: Array<string | null> | null
-      attachments: Array<string | null> | null
       priceDefinition: {
         calculatedSellingPrice: number | null
         total: number | null
@@ -2371,6 +2415,44 @@ export type ServerOrderDetailsQueryQuery = {
         id: string | null
         name: string | null
         price: number | null
+      } | null> | null
+      bundleItems: Array<{
+        id: string | null
+        name: string | null
+        quantity: number | null
+        sellingPrice: number | null
+        unitMultiplier: number | null
+        measurementUnit: string | null
+        imageUrl: string | null
+        detailUrl: string | null
+        refId: string | null
+        rewardValue: number | null
+        attachments: Array<{
+          name: string | null
+          content: any | null
+        } | null> | null
+      } | null> | null
+      components: Array<{
+        id: string | null
+        name: string | null
+        quantity: number | null
+        sellingPrice: number | null
+        unitMultiplier: number | null
+        measurementUnit: string | null
+        imageUrl: string | null
+        detailUrl: string | null
+        refId: string | null
+        rewardValue: number | null
+      } | null> | null
+      priceTags: Array<{
+        name: string
+        value: number | null
+        rawValue: number
+        isPercentual: boolean | null
+      } | null> | null
+      attachments: Array<{
+        name: string | null
+        content: any | null
       } | null> | null
       itemAttachment: { name: string | null } | null
     } | null> | null
@@ -3233,6 +3315,23 @@ export const ServerProductFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'ServerProduct' }
 ) as unknown as TypedDocumentString<ServerProductFragment, unknown>
+export const UserOrderItemsFragmentFragmentDoc = new TypedDocumentString(
+  `
+    fragment UserOrderItemsFragment on UserOrderItems {
+  id
+  name
+  quantity
+  sellingPrice
+  unitMultiplier
+  measurementUnit
+  imageUrl
+  detailUrl
+  refId
+  rewardValue
+}
+    `,
+  { fragmentName: 'UserOrderItemsFragment' }
+) as unknown as TypedDocumentString<UserOrderItemsFragmentFragment, unknown>
 export const CartMessageFragmentDoc = new TypedDocumentString(
   `
     fragment CartMessage on StoreCartMessage {
@@ -3318,7 +3417,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '2c361a6b2214892863137ac14bd482ca168f2d5d',
+    operationHash: 'a18355781eafdf5003530b0cad497186e86be9dd',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

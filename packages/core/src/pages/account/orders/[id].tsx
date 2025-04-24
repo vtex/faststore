@@ -50,6 +50,21 @@ export default function OrderDetailsPage({
   )
 }
 
+export const fragment = gql(`
+  fragment UserOrderItemsFragment on UserOrderItems {
+    id
+    name
+    quantity
+    sellingPrice
+    unitMultiplier
+    measurementUnit
+    imageUrl
+    detailUrl
+    refId
+    rewardValue
+  }
+`)
+
 const query = gql(`
   query ServerOrderDetailsQuery($orderId: String!) {
     userOrder(orderId: $orderId) {
@@ -108,79 +123,19 @@ const query = gql(`
       }
       itemMetadata {
         Items {
-          uniqueId
-          id
-          productId
-          ean
-          lockId
-          quantity
-          seller
-          name
-          refId
-          price
-          listPrice
-          manualPrice
-          manualPriceAppliedBy
-          imageUrl
-          detailUrl
-          sellerSku
-          priceValidUntil
-          commission
-          tax
-          preSaleDate
-          measurementUnit
-          unitMultiplier
-          sellingPrice
-          isGift
-          shippingPrice
-          rewardValue
-          freightCommission
-          taxCode
-          parentItemIndex
-          parentAssemblyBinding
-          callCenterOperator
-          serialNumbers
-          costPrice
-          assemblies
-          priceDefinition {
-            calculatedSellingPrice
-            total
-            reason
-            sellingPrices {
-              value
-              quantity
-            }
-          }
-          additionalInfo {
-            brandName
-            brandId
-            categoriesIds
-            productClusterId
-            commercialConditionId
-            offeringInfo
-            offeringType
-            offeringTypeId
-            dimension {
-              cubicweight
-              height
-              length
-              weight
-              width
-            }
-            categories {
-              id
-              name
-            }
-          }
-          attachmentOfferings
-          offerings
-          params
-          bundleItems
-          components
-          priceTags
-          attachments
-          itemAttachment {
-            name
+          Id
+          Seller
+          Name
+          SkuName
+          ProductId
+          RefId
+          Ean
+          ImageUrl
+          DetailUrl
+          AssemblyOptions {
+            Id
+            Name
+            Required
           }
         }
       }
@@ -210,7 +165,64 @@ const query = gql(`
         fulfillmentEndpoint
       }
       packageAttachment {
-        packages
+        packages {
+          courier
+          courierStatus {
+            data {
+              city
+              description
+              lastChange
+              state
+            }
+            finished
+            status
+          }
+          invoiceNumber
+          invoiceUrl
+          invoiceValue
+          extraValue
+          issuanceDate
+          items {
+            description
+            itemIndex
+            price
+            quantity
+          }
+          trackingNumber
+          trackingUrl
+          invoiceKey
+          type
+          restitutions {
+            Refund {
+              value
+              items {
+                useFreight
+                isCompensation
+                compensationValue
+                itemIndex
+                id
+                quantity
+                price
+                description
+                unitMultiplier
+              }
+            }
+            GiftCard {
+              value
+              items {
+                useFreight
+                isCompensation
+                compensationValue
+                itemIndex
+                id
+                quantity
+                price
+                description
+                unitMultiplier
+              }
+            }
+          }
+        }
       }
       paymentData {
         transactions {
@@ -257,7 +269,15 @@ const query = gql(`
       shippingData {
         id
         trackingHints
-        contactInformation
+        contactInformation {
+          id
+          email
+          firstName
+          lastName
+          document
+          documentType
+          phone
+        }
         availableAddresses {
           addressId
           versionId
@@ -398,7 +418,13 @@ const query = gql(`
       }
       ratesAndBenefitsData {
         id
-        rateAndBenefitsIdentifiers
+        rateAndBenefitsIdentifiers {
+          id
+          additionalInfo
+          description
+          featured
+          name
+        }
       }
       clientProfileData {
         id
@@ -419,7 +445,6 @@ const query = gql(`
         customerClass
         customerCode
       }
-      marketplaceItems
       items {
         uniqueId
         id
@@ -496,10 +521,26 @@ const query = gql(`
           price
         }
         params
-        bundleItems
-        components
-        priceTags
-        attachments
+        bundleItems {
+          ...UserOrderItemsFragment
+          attachments {
+            name
+            content
+          }
+        }
+        components {
+          ...UserOrderItemsFragment
+        }
+        priceTags {
+          name
+          value
+          rawValue
+          isPercentual
+        }
+        attachments {
+          name
+          content
+        }
         itemAttachment {
           name
         }

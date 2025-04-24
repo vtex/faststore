@@ -25,7 +25,7 @@ export function getMyAccountRedirect({ query }: { query: ParsedUrlQuery }): {
     }
 
     const redirect = {
-      destination: `${storeConfig.accountUrl}${searchParams.size > 0 ? '?' + searchParams.toString() : ''}`,
+      destination: `${storeConfig.accountUrl}${searchParams.toString().length > 0 ? '?' + searchParams.toString() : ''}`,
       permanent: false,
     }
 

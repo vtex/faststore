@@ -1,3 +1,5 @@
+scalar JSONObject
+
 type UserOrder {
   orderId: String
   sequence: String
@@ -11,7 +13,7 @@ type UserOrder {
   status: String
   workflowIsInError: Boolean
   statusDescription: String
-  value: Int
+  value: Float
   creationDate: String
   lastChange: String
   orderGroup: String
@@ -28,7 +30,6 @@ type UserOrder {
   orderFormId: String
   commercialConditionData: String
   isCompleted: Boolean
-  customData: UserOrderCustomData
   allowCancellation: Boolean
   allowEdition: Boolean
   isCheckedIn: Boolean
@@ -40,6 +41,7 @@ type UserOrder {
   checkedInPickupPointId: String
   cancellationData: String
   cancellationRequests: String
+  customData: UserOrderCustomData
   clientPreferencesData: UserOrderClientPreferencesData
   itemMetadata: UserOrderItemMetadata
   marketplace: UserOrderMarketplace
@@ -50,7 +52,7 @@ type UserOrder {
   shippingData: UserOrderShippingData
   ratesAndBenefitsData: UserOrderRatesAndBenefitsData
   clientProfileData: UserOrderClientProfileData
-  marketplaceItems: [String]
+  marketplaceItems: [UserOrderItems]
   items: [UserOrderItems]
   totals: [UserOrderTotals]
 }
@@ -81,62 +83,34 @@ type UserOrderClientPreferencesData {
   optinNewsLetter: Boolean
 }
 
-type UserOrderAssemblyOptions {
-  Id: String
-  Name: String
-  Required: Boolean
-  Composition: String
-}
-
 type UserOrderItemMetadata {
   Items: [UserOrderItemMetadataItem]
 }
 
 type UserOrderItemMetadataItem {
-  uniqueId: String
+  Id: String
+  Seller: String
+  Name: String
+  SkuName: String
+  ProductId: String
+  RefId: String
+  Ean: String
+  ImageUrl: String
+  DetailUrl: String
+  AssemblyOptions: [UserOrderAssemblyOptions]
+}
+
+type UserOrderAssemblyOptions {
+  Id: String
+  Name: String
+  Required: Boolean
+}
+
+type UserOrderOfferings {
+  type: String
   id: String
-  productId: String
-  ean: String
-  lockId: String
-  quantity: Int
-  seller: String
   name: String
-  refId: String
-  price: Int
-  listPrice: Int
-  manualPrice: String
-  manualPriceAppliedBy: String
-  imageUrl: String
-  detailUrl: String
-  sellerSku: String
-  priceValidUntil: String
-  commission: Int
-  tax: Int
-  preSaleDate: String
-  measurementUnit: String
-  unitMultiplier: Int
-  sellingPrice: Int
-  isGift: Boolean
-  shippingPrice: String
-  rewardValue: Int
-  freightCommission: Int
-  taxCode: String
-  parentItemIndex: String
-  parentAssemblyBinding: String
-  callCenterOperator: String
-  serialNumbers: String
-  costPrice: Int
-  assemblies: [String]
-  priceDefinition: UserOrderPriceDefinition
-  additionalInfo: UserOrderAdditionalInfo
-  attachmentOfferings: [String]
-  offerings: [String]
-  params: [String]
-  bundleItems: [String]
-  components: [String]
-  priceTags: [String]
-  attachments: [String]
-  itemAttachment: UserOrderItemAttachment
+  price: Float
 }
 
 type UserOrderMarketplace {
@@ -162,23 +136,71 @@ type UserOrderStorePreferencesData {
   currencyFormatInfo: UserOrderCurrencyFormatInfo
 }
 
-type UserOrderCurrencyFormatInfo {
-  CurrencyDecimalDigits: Int
-  CurrencyDecimalSeparator: String
-  CurrencyGroupSeparator: String
-  CurrencyGroupSize: Int
-  StartsWithCurrencySymbol: Boolean
-}
-
-type UserOrderSellers {
-  id: String
-  name: String
-  logo: String
-  fulfillmentEndpoint: String
-}
-
 type UserOrderPackageAttachment {
-  packages: [String]
+  packages: [UserOrderPackage]
+}
+
+type UserOrderPackage {
+  courier: String
+  courierStatus: UserOrderCourierStatus
+  invoiceNumber: String!
+  invoiceUrl: String
+  invoiceValue: Float!
+  extraValue: Float
+  issuanceDate: String
+  items: [UserOrderPackageItem!]
+  trackingNumber: String
+  trackingUrl: String
+  invoiceKey: String
+  type: UserOrderInvoiceType
+  restitutions: UserOrderRestitutions
+}
+
+type UserOrderCourierStatus {
+  data: [UserOrderTrackingInformation!]
+  finished: Boolean
+  status: String
+}
+
+type UserOrderTrackingInformation {
+  city: String
+  description: String
+  lastChange: String
+  state: String
+}
+
+enum UserOrderInvoiceType {
+  Input
+  Output
+}
+
+type UserOrderPackageItem {
+  description: String
+  itemIndex: Int
+  price: Int
+  quantity: Int
+}
+
+type UserOrderRestitutions {
+  Refund: UserOrderRestitutionOption
+  GiftCard: UserOrderRestitutionOption
+}
+
+type UserOrderRestitutionOption {
+  value: Float
+  items: [UserOrderRestitutionItem!]
+}
+
+type UserOrderRestitutionItem {
+  useFreight: Boolean
+  isCompensation: Boolean
+  compensationValue: Float
+  itemIndex: Int
+  id: ID
+  quantity: Int
+  price: Float
+  description: String
+  unitMultiplier: Float
 }
 
 type UserOrderPayments {
@@ -228,42 +250,6 @@ type UserOrderPaymentData {
   giftCards: [String]
 }
 
-type UserOrderAvailableAddresses {
-  addressId: String
-  versionId: String
-  entityId: String
-  addressType: String
-  receiverName: String
-  street: String
-  number: String
-  complement: String
-  neighborhood: String
-  postalCode: String
-  city: String
-  state: String
-  country: String
-  reference: String
-  geoCoordinates: [Float]
-}
-
-type UserOrderSelectedAddresses {
-  addressId: String
-  versionId: String
-  entityId: String
-  addressType: String
-  receiverName: String
-  street: String
-  number: String
-  complement: String
-  neighborhood: String
-  postalCode: String
-  city: String
-  state: String
-  country: String
-  reference: String
-  geoCoordinates: [Float]
-}
-
 type UserOrderPickupStoreInfo {
   additionalInfo: String
   address: String
@@ -298,8 +284,8 @@ type UserOrderSlas {
   shippingEstimate: String
   shippingEstimateDate: String
   deliveryWindow: UserOrderDeliveryWindow
-  listPrice: Int
-  price: Int
+  listPrice: Float
+  price: Float
   deliveryChannel: String
   polygonName: String
   lockTTL: String
@@ -317,9 +303,9 @@ type UserOrderLogisticsInfo {
   selectedDeliveryChannel: String
   selectedSla: String
   lockTTL: String
-  price: Int
-  listPrice: Int
-  sellingPrice: Int
+  price: Float
+  listPrice: Float
+  sellingPrice: Float
   deliveryWindow: UserOrderDeliveryWindow
   deliveryCompany: String
   shippingEstimate: String
@@ -359,16 +345,24 @@ type UserOrderAddress {
 type UserOrderShippingData {
   id: String
   trackingHints: String
-  contactInformation: [String]
-  availableAddresses: [UserOrderAvailableAddresses]
-  selectedAddresses: [UserOrderSelectedAddresses]
+  contactInformation: [UserOrderContactInformation]
+  availableAddresses: [UserOrderAddress]
+  selectedAddresses: [UserOrderAddress]
   logisticsInfo: [UserOrderLogisticsInfo]
   address: UserOrderAddress
 }
 
 type UserOrderRatesAndBenefitsData {
   id: String
-  rateAndBenefitsIdentifiers: [String]
+  rateAndBenefitsIdentifiers: [UserOrderRateAndBenefitsIdentifier]
+}
+
+type UserOrderRateAndBenefitsIdentifier {
+  id: ID
+  additionalInfo: String
+  description: String
+  featured: Boolean
+  name: String
 }
 
 type UserOrderClientProfileData {
@@ -392,13 +386,13 @@ type UserOrderClientProfileData {
 }
 
 type UserOrderSellingPrices {
-  value: Int
+  value: Float
   quantity: Int
 }
 
 type UserOrderPriceDefinition {
-  calculatedSellingPrice: Int
-  total: Int
+  calculatedSellingPrice: Float
+  total: Float
   reason: String
   sellingPrices: [UserOrderSellingPrices]
 }
@@ -434,13 +428,6 @@ type UserOrderAttachmentOfferings {
   required: Boolean
 }
 
-type UserOrderOfferings {
-  type: String
-  id: String
-  name: String
-  price: Int
-}
-
 type UserOrderItemAttachment {
   name: String
 }
@@ -455,45 +442,73 @@ type UserOrderItems {
   seller: String
   name: String
   refId: String
-  price: Int
-  listPrice: Int
+  price: Float
+  listPrice: Float
   manualPrice: String
   manualPriceAppliedBy: String
   imageUrl: String
   detailUrl: String
   sellerSku: String
   priceValidUntil: String
-  commission: Int
-  tax: Int
+  commission: Float
+  tax: Float
   preSaleDate: String
   measurementUnit: String
-  unitMultiplier: Int
-  sellingPrice: Int
+  unitMultiplier: Float
+  sellingPrice: Float
   isGift: Boolean
   shippingPrice: String
-  rewardValue: Int
-  freightCommission: Int
+  rewardValue: Float
+  freightCommission: Float
   taxCode: String
   parentItemIndex: String
   parentAssemblyBinding: String
   callCenterOperator: String
   serialNumbers: String
-  costPrice: Int
+  costPrice: Float
   assemblies: [String]
   priceDefinition: UserOrderPriceDefinition
   additionalInfo: UserOrderAdditionalInfo
   attachmentOfferings: [UserOrderAttachmentOfferings]
   offerings: [UserOrderOfferings]
   params: [String]
-  bundleItems: [String]
-  components: [String]
-  priceTags: [String]
-  attachments: [String]
+  bundleItems: [UserOrderItems]
+  components: [UserOrderItems]
+  priceTags: [UserOrderPriceTag]
+  attachments: [UserOrderAttachments]
   itemAttachment: UserOrderItemAttachment
+}
+
+type UserOrderAttachments {
+  name: String
+  content: JSONObject
+}
+
+type UserOrderPriceTag {
+  name: String!
+  value: Float
+  rawValue: Float!
+  rate: Float
+  jurisCode: String
+  jurisType: String
+  jurisName: String
+  isPercentual: Boolean
+  identifier: String
+  owner: String
 }
 
 type UserOrderTotals {
   id: String
   name: String
-  value: Int
+  value: Float
+}
+
+type UserOrderContactInformation {
+  id: ID!
+  email: String
+  firstName: String
+  lastName: String
+  document: String
+  documentType: String
+  phone: String
 }
