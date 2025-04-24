@@ -81,21 +81,21 @@ describe('VTEX Commerce', () => {
         expect(pickupPointsMocked).toHaveBeenCalledWith({ postalCode, country })
         expect(result).toEqual({ paging: {}, items: [] })
       })
-    })
 
-    it('should throw an error when no params', async () => {
-      const errorMessage = 'Missing required parameters.'
+      it('should throw an error when no params', async () => {
+        const errorMessage = 'Missing required parameters.'
 
-      pickupPointsMocked.mockRejectedValueOnce(() => {
-        throw new Error(errorMessage)
+        pickupPointsMocked.mockRejectedValueOnce(() => {
+          throw new Error(errorMessage)
+        })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(pickupPointsMocked).not.toHaveBeenCalledWith()
+        await expect(commerce.checkout.pickupPoints({})).rejects.toThrow(
+          errorMessage
+        )
       })
-
-      const { commerce } = clients.getClients(apiOptions, context)
-
-      expect(pickupPointsMocked).not.toHaveBeenCalledWith()
-      await expect(commerce.checkout.pickupPoints({})).rejects.toThrow(
-        errorMessage
-      )
     })
   })
 })
