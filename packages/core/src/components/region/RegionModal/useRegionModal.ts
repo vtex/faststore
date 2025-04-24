@@ -26,8 +26,6 @@ export function useRegionModal() {
       return
     }
 
-    console.log('region modal useEffect isValidating', isValidating)
-
     // Check if validation has completed (isValidating changed from true to false)
     if (prevIsValidating.current && !isValidating) {
       setValidationComplete(true)

@@ -77,8 +77,6 @@ function RegionPopover({
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
-  console.log('displayPopover.isOpen', displayPopover.isOpen)
-
   const handleSubmit = async () => {
     if (isValidating) {
       return
