@@ -46,7 +46,7 @@
       },
       "type": "object"
     },
-    // `core.children` is not assigned to any specific React component.
+    // `Children` is not assigned to any specific React component.
     // Instead, it's used as a "splitter" to orient the rendering process.
     "Children": {
       "$extends": ["#/components/base-component"],
@@ -116,7 +116,7 @@
         }
       }
     },
-    // `core.search` serves as a configuration holder.
+    // `Search` serves as a configuration holder.
     "Search": {
       "$componentKey": "Search",
       "$componentTitle": "Search Bar Configuration",

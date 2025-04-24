@@ -16,7 +16,7 @@
         "items": {
           "anyOf": [
             {
-              "$ref": "#/components/core.hero"
+              "$ref": "#/components/Hero"
             }
           ]
         }

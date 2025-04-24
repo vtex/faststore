@@ -16,7 +16,7 @@
         "items": {
           "anyOf": [
             {
-              "$ref": "#/components/core.productShelf"
+              "$ref": "#/components/ProductShelf"
             }
           ]
         }
