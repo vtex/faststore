@@ -3,7 +3,7 @@ import {
   getContextFactory,
 } from '../../../../../src/platforms/vtex'
 import * as clients from '../../../../../src/platforms/vtex/clients'
-import type { Clients } from '../../../../../src/platforms/vtex/clients'
+// import type { Clients } from '../../../../../src/platforms/vtex/clients'
 
 const apiOptions = {
   platform: 'vtex',
@@ -21,10 +21,10 @@ const apiOptions = {
 
 const contextFactory = getContextFactory(apiOptions)
 const context = contextFactory({})
-const getClients = clients.getClients
+// const getClients = clients.getClients
 
 const fetchAPIMocked = jest.fn()
-const pickupPointsMocked = jest.fn()
+// const pickupPointsMocked = jest.fn()
 
 jest.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
@@ -77,32 +77,16 @@ describe('VTEX Commerce', () => {
       })
 
       it('should throw an error when no params', async () => {
-        jest
-          .spyOn(clients, 'getClients')
-          .mockImplementation((options, context): Clients => {
-            const otherClients = getClients(options, context)
-
-            return {
-              ...otherClients,
-              commerce: {
-                ...otherClients.commerce,
-                checkout: {
-                  ...otherClients.commerce.checkout,
-                  pickupPoints: pickupPointsMocked,
-                },
-              },
-            }
-          })
-
-        const errorMessage = 'Missing required parameters'
-        pickupPointsMocked.mockRejectedValueOnce(new Error(errorMessage))
-
         const { commerce } = clients.getClients(apiOptions, context)
 
+        expect(() => commerce.checkout.pickupPoints({})).toThrow(Error)
+        expect(() =>
+          commerce.checkout.pickupPoints({
+            geoCoordinates: undefined,
+            postalCode: undefined,
+          })
+        ).toThrow(Error)
         expect(fetchAPIMocked).not.toHaveBeenCalled()
-        await expect(commerce.checkout.pickupPoints({})).rejects.toThrowError(
-          errorMessage
-        )
       })
     })
   })
