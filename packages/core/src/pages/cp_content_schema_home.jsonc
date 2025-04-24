@@ -1,0 +1,39 @@
+{
+  "home": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": false,
+    "title": "Home",
+    "properties": {
+      "sections": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/core.hero"
+            },
+            {
+              "$ref": "#/components/core.bannerText"
+            },
+            {
+              "$ref": "#/components/core.newsletter"
+            },
+            {
+              "$ref": "#/components/core.richText"
+            },
+            {
+              "$ref": "#/components/core.productDetails"
+            },
+            {
+              "$ref": "#/components/core.productShelf"
+            }
+          ]
+        }
+      },
+      "settings": {
+        "seo": {
+          "$ref": "#/components/core.seo"
+        }
+      }
+    }
+  }
+}

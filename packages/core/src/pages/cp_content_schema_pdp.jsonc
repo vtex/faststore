@@ -1,0 +1,26 @@
+{
+  "pdp": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": false,
+    "title": "Product Page",
+    "properties": {
+      "slug": {
+        "title": "Slug",
+        "widget": {
+          "ui:widget": "slug"
+        },
+        "type": "string"
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/core.productShelf"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
