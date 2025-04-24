@@ -75,6 +75,7 @@ module.exports = {
   },
 
   // Production URLs
+  // secureSubdomain is the same as storeUrl because we are using single domain approach for this account
   storeUrl: 'https://homebrewqa.fast.store',
   secureSubdomain: 'https://homebrewqa.fast.store',
   checkoutUrl: 'https://homebrewqa.fast.store/checkout',
