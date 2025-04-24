@@ -357,6 +357,12 @@ export const VtexCommerce = (
         postalCode,
         country,
       }: PickupPointsInput): Promise<PickupPoints> => {
+        if (!geoCoordinates && (!postalCode || !country)) {
+          throw new Error(
+            'Missing required parameters for listing pickup points.'
+          )
+        }
+
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
