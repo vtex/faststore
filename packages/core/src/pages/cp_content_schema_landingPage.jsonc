@@ -6,23 +6,20 @@
     "type": "object",
     "properties": {
       "seo": {
-        "$ref": "#/components/core.seo"
+        "$ref": "#/components/SEO"
       },
       "sections": {
         "type": "array",
         "items": {
           "anyOf": [
             {
-              "$ref": "#/components/core.hero"
+              "$ref": "#/components/Hero"
             },
             {
-              "$ref": "#/components/core.richText"
+              "$ref": "#/components/BannerText"
             },
             {
-              "$ref": "#/components/core.bannerText"
-            },
-            {
-              "$ref": "#/components/core.newsletter"
+              "$ref": "#/components/Newsletter"
             }
           ]
         }

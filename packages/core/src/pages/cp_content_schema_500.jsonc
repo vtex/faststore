@@ -2,6 +2,6 @@
   "500": {
     "$extends": ["#/components/base-page-template"],
     "$singleton": true,
-    "title": "error 500"
+    "title": "Error 500"
   }
 }

@@ -9,29 +9,29 @@
         "items": {
           "anyOf": [
             {
-              "$ref": "#/components/core.hero"
+              "$ref": "#/components/Hero"
             },
             {
-              "$ref": "#/components/core.bannerText"
+              "$ref": "#/components/BannerText"
             },
             {
-              "$ref": "#/components/core.newsletter"
+              "$ref": "#/components/Newsletter"
             },
             {
-              "$ref": "#/components/core.richText"
+              "$ref": "#/components/RichText"
             },
             {
-              "$ref": "#/components/core.productDetails"
+              "$ref": "#/components/ProductDetails"
             },
             {
-              "$ref": "#/components/core.productShelf"
+              "$ref": "#/components/ProductShelf"
             }
           ]
         }
       },
       "settings": {
         "seo": {
-          "$ref": "#/components/core.seo"
+          "$ref": "#/components/SEO"
         }
       }
     }
