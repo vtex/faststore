@@ -10,16 +10,6 @@
           "ui:widget": "slug"
         },
         "type": "string"
-      },
-      "sections": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "$ref": "#/components/Hero"
-            }
-          ]
-        }
       }
     }
   }

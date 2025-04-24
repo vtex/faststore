@@ -7,22 +7,6 @@
     "properties": {
       "seo": {
         "$ref": "#/components/SEO"
-      },
-      "sections": {
-        "type": "array",
-        "items": {
-          "anyOf": [
-            {
-              "$ref": "#/components/Hero"
-            },
-            {
-              "$ref": "#/components/BannerText"
-            },
-            {
-              "$ref": "#/components/Newsletter"
-            }
-          ]
-        }
       }
     }
   }
