@@ -30,14 +30,12 @@ export default function SearchWrapper({
     resetInfiniteScroll,
   } = useSearch()
 
-  const { data: pageProductGalleryData, isValidating } = useProductGalleryQuery(
-    {
-      term,
-      sort,
-      itemsPerPage,
-      selectedFacets,
-    }
-  )
+  const { data: pageProductGalleryData } = useProductGalleryQuery({
+    term,
+    sort,
+    itemsPerPage,
+    selectedFacets,
+  })
 
   const emptySearchProps = storeConfig.experimental.enableSearchSSR
     ? {
@@ -46,7 +44,7 @@ export default function SearchWrapper({
       }
     : {}
 
-  if (isValidating || !pageProductGalleryData) {
+  if (!pageProductGalleryData) {
     return (
       <RenderSections globalSections={globalSections}>
         <EmptySearch {...emptySearchProps} />
