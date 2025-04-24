@@ -1,5 +1,5 @@
-// import { fetch } from "undici";
 import { resolve } from 'path'
+import { parse as parseJSONC } from 'jsonc-parser'
 import { readFileSync, readdir, stat } from 'fs-extra'
 import chalk from 'chalk'
 
@@ -39,10 +39,29 @@ async function listFilesRecursive(basePath: string, matchPattern: RegExp) {
   return files.flat()?.filter((path) => matchPattern.test(path))
 }
 
-async function fetchFastStoreSchema() {
+async function fetchFastStoreSchema(localSchemaPath: string | null) {
   // const fastStoreSchema = await fetch(
   //   `${SCHEMA_REGISTRY_BASE_URL}/vtex/faststore`,
   // );
+
+  if (localSchemaPath) {
+    try {
+      const fileContent = readFileSync(localSchemaPath, 'utf8')
+      const fastStoreSchema = parseJSONC(fileContent)
+
+      console.log('Using a local schema as the base schema.')
+
+      return fastStoreSchema
+    } catch (err) {
+      if (err instanceof SyntaxError) {
+        console.info(
+          `${chalk.red('error')} - ${localSchemaPath} is a malformed JSON file.`
+        )
+      }
+      throw err
+    }
+  }
+
   const fastStoreSchema: any = {
     $id: 'https://api.myvtex.com/api/content-platform/schemas/faststore-base',
     $schema: 'https://api.myvtex.com/api/content-platform/schemas/consumer',
@@ -193,13 +212,14 @@ async function confirmUserChoice(
 
 export async function generateFullSchema(
   componentsPath: string,
-  contentTypesPath: string
+  contentTypesPath: string,
+  localSchemaPath: string | null
 ) {
   const [customComponents, customContentTypes, originalSchema] =
     await Promise.all([
       groupCustomComponentDefinitions(componentsPath),
       groupCustomContentTypeDefinitions(contentTypesPath),
-      fetchFastStoreSchema(),
+      fetchFastStoreSchema(localSchemaPath),
     ])
 
   const contentTypeDuplicates = findOverrides(

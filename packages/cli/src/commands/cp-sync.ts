@@ -13,6 +13,12 @@ export default class ContentPlatformSync extends Command {
       description:
         "Run the full command, but don't upload anything to Content Platform.",
     }),
+    local: Flags.string({
+      char: 'l',
+      helpValue: 'path-to-schema-file',
+      description:
+        "Use a local schema as the base schema instead of the latest FastStore schema from CP's registry.",
+    }),
   }
 
   static args = [
@@ -38,7 +44,8 @@ export default class ContentPlatformSync extends Command {
 
     const fullSchema = await generateFullSchema(
       path.join(userDir, args.component_schemas_path),
-      path.join(userDir, args.content_types_path)
+      path.join(userDir, args.content_types_path),
+      flags.local ? path.join(userDir, flags.local) : null
     )
 
     if (flags['dry-run']) {
