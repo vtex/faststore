@@ -1,70 +1,62 @@
-// cp-only-schema
 {
-  "core.hero": {
-    "$extends": ["#/components/base-component"],
-    "description": "Hero component",
-    "properties": {
-      "name": {
-        "const": "Hero"
-      },
-      "data": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "title": "Title",
-            "type": "string"
-          },
-          "subtitle": {
-            "title": "Subtitle",
-            "type": "string"
-          },
-          "link": {
-            "title": "Call to Action",
-            "type": "object",
-            "properties": {
-              "text": {
-                "type": "string",
-                "title": "Text"
-              },
-              "url": {
-                "type": "string",
-                "title": "URL"
-              },
-              "linkTargetBlank": {
-                "type": "boolean",
-                "title": "Open link in new window?",
-                "default": false
-              }
-            }
-          },
-          "image": {
-            "type": "object",
-            "title": "Image",
-            "properties": {
-              "src": {
-                "type": "string",
-                "title": "Image"
-              },
-              "alt": {
-                "type": "string",
-                "title": "Alternative Label"
-              }
-            }
-          },
-          "colorVariant": {
-            "type": "string",
-            "title": "Color variant",
-            //"enumNames": ["Main","Light","Accent"],
-            "enum": ["main", "light", "accent"]
-          },
-          "variant": {
-            "type": "string",
-            "title": "Variant",
-            //"enumNames": ["Primary","Secondary"],
-            "enum": ["primary", "secondary"]
-          }
+  "$extends": ["#/components/base-component"],
+  "$componentKey": "Hero",
+  "$componentTitle": "Hero",
+  "description": "Hero component",
+  "type": "object",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "subtitle": {
+      "title": "Subtitle",
+      "type": "string"
+    },
+    "link": {
+      "title": "Call to Action",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "title": "Text"
+        },
+        "url": {
+          "type": "string",
+          "title": "URL"
+        },
+        "linkTargetBlank": {
+          "type": "boolean",
+          "title": "Open link in new window?",
+          "default": false
         }
       }
+    },
+    "image": {
+      "type": "object",
+      "title": "Image",
+      "properties": {
+        "src": {
+          "type": "string",
+          "title": "Image"
+        },
+        "alt": {
+          "type": "string",
+          "title": "Alternative Label"
+        }
+      }
+    },
+    "colorVariant": {
+      "type": "string",
+      "title": "Color variant",
+      "enumNames": ["Main", "Light", "Accent"],
+      "enum": ["main", "light", "accent"]
+    },
+    "variant": {
+      "type": "string",
+      "title": "Variant",
+      "enumNames": ["Primary", "Secondary"],
+      "enum": ["primary", "secondary"]
     }
   }
 }

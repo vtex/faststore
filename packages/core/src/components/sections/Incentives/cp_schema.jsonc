@@ -1,60 +1,47 @@
-// cp-only-schema
 {
-  "core.incentives": {
-    "$extends": ["#/components/base-component"],
-    "description": "Add Incentives to your shopper",
-    "properties": {
-      "name": {
-        "const": "Incentives"
-      },
-      "data": {
+  "$extends": ["#/components/base-component"],
+  "$componentKey": "Incentives",
+  "$componentTitle": "Incentives",
+  "type": "object",
+  "description": "List incentives to your shopper",
+  "properties": {
+    "incentives": {
+      "title": "Incentives",
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "title": "Incentive",
+        "type": "object",
+        "required": ["title", "firstLineText", "icon"],
         "properties": {
-          "incentives": {
-            "title": "Incentives",
-            "type": "array",
-            "minItems": 3,
-            "maxItems": 5,
-            "items": {
-              "title": "Incentive",
-              "type": "object",
-              "required": ["title", "firstLineText", "icon"],
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "title": "Title"
-                },
-                "firstLineText": {
-                  "type": "string",
-                  "title": "First line of text"
-                },
-                "secondLineText": {
-                  "type": "string",
-                  "title": "Second line of text"
-                },
-                "icon": {
-                  "type": "string",
-                  "title": "Icon",
-                  "enumNames": [
-                    "Truck",
-                    "Calendar",
-                    "Gift",
-                    "Store Front",
-                    "Shield Check"
-                  ],
-                  "enum": [
-                    "Truck",
-                    "Calendar",
-                    "Gift",
-                    "Storefront",
-                    "ShieldCheck"
-                  ]
-                },
-                "alt": {
-                  "title": "Alternative Label",
-                  "type": "string"
-                }
-              }
-            }
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "firstLineText": {
+            "type": "string",
+            "title": "First line of text"
+          },
+          "secondLineText": {
+            "type": "string",
+            "title": "Second line of text"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon",
+            "enumNames": [
+              "Truck",
+              "Calendar",
+              "Gift",
+              "Store Front",
+              "Shield Check"
+            ],
+            "enum": ["Truck", "Calendar", "Gift", "Storefront", "ShieldCheck"]
+          },
+          "alt": {
+            "title": "Alternative Label",
+            "type": "string"
           }
         }
       }

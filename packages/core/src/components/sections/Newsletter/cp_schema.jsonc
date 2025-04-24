@@ -1,136 +1,129 @@
-// cp-only-schema
 {
-  "core.newsletter": {
-    "$extends": ["#/components/base-component"],
-    "description": "Allow users to subscribe to your updates",
-    "properties": {
-      "name": {
-        "const": "Newsletter"
-      },
-      "data": {
-        "properties": {
-          "icon": {
-            "title": "Icon",
-            "type": "object",
-            "properties": {
-              "icon": {
-                "title": "Icon",
-                "type": "string",
-                "enumNames": ["Envelope"],
-                "enum": ["Envelope"],
-                "default": "Envelope"
-              },
-              "alt": {
-                "type": "string",
-                "title": "Alternative Label",
-                "default": "Envelope"
-              }
-            }
-          },
-          "title": {
-            "title": "Title",
-            "type": "string",
-            "default": "Get News and Special Offers!"
-          },
-          "description": {
-            "title": "Description",
-            "type": "string",
-            "default": "Receive our news and promotions in advance"
-          },
-          "privacyPolicy": {
-            "title": "Privacy Policy Disclaimer",
-            "type": "string",
-            "widget": {
-              "ui:widget": "draftjs-rich-text"
-            }
-          },
-          "emailInputLabel": {
-            "title": "Email input label",
-            "type": "string",
-            "default": "Your Email"
-          },
-          "displayNameInput": {
-            "title": "Request name?",
-            "type": "boolean",
-            "default": true
-          },
-          "nameInputLabel": {
-            "title": "Name input label",
-            "type": "string",
-            "default": "Your Name"
-          },
-          "subscribeButtonLabel": {
-            "title": "Subscribe button label",
-            "type": "string",
-            "default": "Subscribe"
-          },
-          "subscribeButtonLoadingLabel": {
-            "title": "Subscribe button loading label",
-            "type": "string",
-            "default": "Loading..."
-          },
-          "card": {
-            "title": "Newsletter should be in card format?",
-            "type": "boolean",
-            "default": false
-          },
-          "colorVariant": {
-            "title": "Color variant",
-            "type": "string",
-            "enumNames": ["Main", "Light", "Accent"],
-            "enum": ["main", "light", "accent"],
-            "default": "main"
-          },
-          "toastSubscribe": {
-            "title": "Toast Subscribe",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "description": "Message Title",
-                "type": "string",
-                "default": "Hooray!"
-              },
-              "message": {
-                "title": "Message",
-                "description": "Message",
-                "type": "string",
-                "default": "Thank for your subscription."
-              },
-              "icon": {
-                "title": "Icon",
-                "type": "string",
-                "enumNames": ["CircleWavyCheck"],
-                "enum": ["CircleWavyCheck"],
-                "default": "CircleWavyCheck"
-              }
-            }
-          },
-          "toastSubscribeError": {
-            "title": "Toast Subscribe Error",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "description": "Message Title",
-                "type": "string",
-                "default": "Oops."
-              },
-              "message": {
-                "title": "Message",
-                "description": "Message",
-                "type": "string",
-                "default": "Something went wrong. Please Try again."
-              },
-              "icon": {
-                "title": "Icon",
-                "type": "string",
-                "enumNames": ["CircleWavyWarning"],
-                "enum": ["CircleWavyWarning"],
-                "default": "CircleWavyWarning"
-              }
-            }
-          }
+  "$extends": ["#/components/base-component"],
+  "$componentKey": "Newsletter",
+  "$componentTitle": "Newsletter",
+  "type": "object",
+  "description": "Allow users to subscribe to your updates",
+  "properties": {
+    "icon": {
+      "title": "Icon",
+      "type": "object",
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["Envelope"],
+          "enum": ["Envelope"],
+          "default": "Envelope"
+        },
+        "alt": {
+          "type": "string",
+          "title": "Alternative Label",
+          "default": "Envelope"
+        }
+      }
+    },
+    "title": {
+      "title": "Title",
+      "type": "string",
+      "default": "Get News and Special Offers!"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "default": "Receive our news and promotions in advance"
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy Disclaimer",
+      "type": "string",
+      "widget": {
+        "ui:widget": "draftjs-rich-text"
+      }
+    },
+    "emailInputLabel": {
+      "title": "Email input label",
+      "type": "string",
+      "default": "Your Email"
+    },
+    "displayNameInput": {
+      "title": "Request name?",
+      "type": "boolean",
+      "default": true
+    },
+    "nameInputLabel": {
+      "title": "Name input label",
+      "type": "string",
+      "default": "Your Name"
+    },
+    "subscribeButtonLabel": {
+      "title": "Subscribe button label",
+      "type": "string",
+      "default": "Subscribe"
+    },
+    "subscribeButtonLoadingLabel": {
+      "title": "Subscribe button loading label",
+      "type": "string",
+      "default": "Loading..."
+    },
+    "card": {
+      "title": "Newsletter should be in card format?",
+      "type": "boolean",
+      "default": false
+    },
+    "colorVariant": {
+      "title": "Color variant",
+      "type": "string",
+      "enumNames": ["Main", "Light", "Accent"],
+      "enum": ["main", "light", "accent"],
+      "default": "main"
+    },
+    "toastSubscribe": {
+      "title": "Toast Subscribe",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "description": "Message Title",
+          "type": "string",
+          "default": "Hooray!"
+        },
+        "message": {
+          "title": "Message",
+          "description": "Message",
+          "type": "string",
+          "default": "Thank for your subscription."
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["CircleWavyCheck"],
+          "enum": ["CircleWavyCheck"],
+          "default": "CircleWavyCheck"
+        }
+      }
+    },
+    "toastSubscribeError": {
+      "title": "Toast Subscribe Error",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "description": "Message Title",
+          "type": "string",
+          "default": "Oops."
+        },
+        "message": {
+          "title": "Message",
+          "description": "Message",
+          "type": "string",
+          "default": "Something went wrong. Please Try again."
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["CircleWavyWarning"],
+          "enum": ["CircleWavyWarning"],
+          "default": "CircleWavyWarning"
         }
       }
     }

@@ -1,248 +1,241 @@
-// cp-only-schema
 {
-  "core.productDetails": {
-    "$extends": ["#/components/base-component"],
-    "description": "Display Product Details Section",
-    "properties": {
-      "name": {
-        "const": "ProductDetails"
-      },
-      "data": {
-        "properties": {
-          "productTitle": {
-            "title": "Product Title",
-            "type": "object",
-            "properties": {
-              "discountBadge": {
-                "title": "Discount Badge",
-                "type": "object",
-                "properties": {
-                  "showDiscountBadge": {
-                    "title": "Show Discount Badge?",
-                    "type": "boolean",
-                    "default": false
-                  },
-                  "size": {
-                    "title": "Size",
-                    "type": "string",
-                    "enumNames": ["Big", "Small"],
-                    "enum": ["big", "small"]
-                  }
-                }
-              },
-              "refNumber": {
-                "title": "Show Reference Number?",
-                "type": "boolean",
-                "default": false
-              }
+  "$extends": ["#/components/base-component"],
+  "$componentKey": "ProductDetails",
+  "$componentTitle": "Product Details",
+  "type": "object",
+  "description": "Display Product Details Section",
+  "properties": {
+    "productTitle": {
+      "title": "Product Title",
+      "type": "object",
+      "properties": {
+        "discountBadge": {
+          "title": "Discount Badge",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show Discount Badge?",
+              "type": "boolean",
+              "default": false
+            },
+            "size": {
+              "title": "Size",
+              "type": "string",
+              "enumNames": ["Big", "Small"],
+              "enum": ["big", "small"]
             }
-          },
-          "buyButton": {
-            "title": "Buy Button",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Add to Cart"
-              },
-              "icon": {
-                "title": "Icon",
-                "type": "object",
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": ["Shopping Cart"],
-                    "enum": ["ShoppingCart"]
-                  },
-                  "alt": {
-                    "type": "string",
-                    "title": "Alternative Label",
-                    "default": "Shopping Cart"
-                  }
-                }
-              }
+          }
+        },
+        "refNumber": {
+          "title": "Show Reference Number?",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "buyButton": {
+      "title": "Buy Button",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Add to Cart"
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Shopping Cart"],
+              "enum": ["ShoppingCart"]
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alternative Label",
+              "default": "Shopping Cart"
             }
-          },
-          "notAvailableButton": {
-            "title": "Not Available Button",
-            "description": "Shown when a SKU is not available",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Not Available"
-              }
+          }
+        }
+      }
+    },
+    "notAvailableButton": {
+      "title": "Not Available Button",
+      "description": "Shown when a SKU is not available",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Not Available"
+        }
+      }
+    },
+    "shippingSimulator": {
+      "title": "Shipping Simulation",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Shipping"
+        },
+        "inputLabel": {
+          "title": "Input Label",
+          "type": "string",
+          "default": "Postal Code"
+        },
+        "link": {
+          "title": "Postal Code Discovery",
+          "type": "object",
+          "properties": {
+            "text": {
+              "title": "Link Text",
+              "type": "string",
+              "default": "I don't know my Postal Code"
+            },
+            "to": {
+              "title": "URL",
+              "type": "string"
             }
-          },
-          "shippingSimulator": {
-            "title": "Shipping Simulation",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Shipping"
-              },
-              "inputLabel": {
-                "title": "Input Label",
-                "type": "string",
-                "default": "Postal Code"
-              },
-              "link": {
-                "title": "Postal Code Discovery",
+          }
+        },
+        "shippingOptionsTableTitle": {
+          "title": "Shipping Options Table Header",
+          "type": "string"
+        }
+      }
+    },
+    "productDescription": {
+      "title": "Product Description",
+      "type": "object",
+      "properties": {
+        "initiallyExpanded": {
+          "type": "string",
+          "title": "Initially Expanded?",
+          "enumNames": ["First", "All", "None"],
+          "enum": ["first", "all", "none"]
+        },
+        "displayDescription": {
+          "title": "Should display description?",
+          "type": "boolean",
+          "default": true
+        },
+        "title": {
+          "title": "Description section title",
+          "type": "string",
+          "default": "Description"
+        }
+      }
+    },
+    "quantitySelector": {
+      "title": "Quantity Selector",
+      "type": "object",
+      "properties": {
+        "useUnitMultiplier": {
+          "title": "Should use unit multiplier?",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "taxesConfiguration": {
+      "title": "Taxes Configuration",
+      "type": "object",
+      "properties": {
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
+        },
+        "taxesLabel": {
+          "title": "Tax label to be displayed",
+          "type": "string",
+          "default": "Tax included"
+        }
+      }
+    },
+    "skuMatrix": {
+      "title": "SKUMatrix Configuration",
+      "type": "object",
+      "properties": {
+        "shouldDisplaySKUMatrix": {
+          "title": "Should display SKUMatrix?",
+          "type": "boolean",
+          "default": false
+        },
+        "triggerButtonLabel": {
+          "title": "SKU Matrix Trigger label to be displayed",
+          "type": "string",
+          "default": "Select multiple"
+        },
+        "separatorButtonsText": {
+          "title": "Separator text",
+          "description": "Text that separates the add to cart button from the SKU Matrix Trigger button.",
+          "type": "string",
+          "default": "Or"
+        },
+        "columns": {
+          "title": "Columns",
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "SKU name column label",
+              "type": "string",
+              "default": "Name"
+            },
+            "additionalColumns": {
+              "title": "Additional columns",
+              "type": "array",
+              "items": {
+                "title": "Column",
                 "type": "object",
+                "required": ["label", "value"],
                 "properties": {
-                  "text": {
-                    "title": "Link Text",
-                    "type": "string",
-                    "default": "I don't know my Postal Code"
+                  "label": {
+                    "title": "Label",
+                    "type": "string"
                   },
-                  "to": {
-                    "title": "URL",
+                  "value": {
+                    "title": "Value",
                     "type": "string"
                   }
                 }
-              },
-              "shippingOptionsTableTitle": {
-                "title": "Shipping Options Table Header",
-                "type": "string"
               }
-            }
-          },
-          "productDescription": {
-            "title": "Product Description",
-            "type": "object",
-            "properties": {
-              "initiallyExpanded": {
-                "type": "string",
-                "title": "Initially Expanded?",
-                "enumNames": ["First", "All", "None"],
-                "enum": ["first", "all", "none"]
-              },
-              "displayDescription": {
-                "title": "Should display description?",
-                "type": "boolean",
-                "default": true
-              },
-              "title": {
-                "title": "Description section title",
-                "type": "string",
-                "default": "Description"
-              }
-            }
-          },
-          "quantitySelector": {
-            "title": "Quantity Selector",
-            "type": "object",
-            "properties": {
-              "useUnitMultiplier": {
-                "title": "Should use unit multiplier?",
-                "type": "boolean",
-                "default": false
-              }
-            }
-          },
-          "taxesConfiguration": {
-            "title": "Taxes Configuration",
-            "type": "object",
-            "properties": {
-              "usePriceWithTaxes": {
-                "title": "Should use taxes to calculate the price?",
-                "type": "boolean",
-                "default": false
-              },
-              "taxesLabel": {
-                "title": "Tax label to be displayed",
-                "type": "string",
-                "default": "Tax included"
-              }
-            }
-          },
-          "skuMatrix": {
-            "title": "SKUMatrix Configuration",
-            "type": "object",
-            "properties": {
-              "shouldDisplaySKUMatrix": {
-                "title": "Should display SKUMatrix?",
-                "type": "boolean",
-                "default": false
-              },
-              "triggerButtonLabel": {
-                "title": "SKU Matrix Trigger label to be displayed",
-                "type": "string",
-                "default": "Select multiple"
-              },
-              "separatorButtonsText": {
-                "title": "Separator text",
-                "description": "Text that separates the add to cart button from the SKU Matrix Trigger button.",
-                "type": "string",
-                "default": "Or"
-              },
-              "columns": {
-                "title": "Columns",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "title": "SKU name column label",
-                    "type": "string",
-                    "default": "Name"
-                  },
-                  "additionalColumns": {
-                    "title": "Additional columns",
-                    "type": "array",
-                    "items": {
-                      "title": "Column",
-                      "type": "object",
-                      "required": ["label", "value"],
-                      "properties": {
-                        "label": {
-                          "title": "Label",
-                          "type": "string"
-                        },
-                        "value": {
-                          "title": "Value",
-                          "type": "string"
-                        }
-                      }
-                    }
-                  },
-                  "availability": {
-                    "title": "Availability column label",
-                    "type": "object",
-                    "properties": {
-                      "label": {
-                        "title": "Label",
-                        "type": "string",
-                        "default": "Availability"
-                      },
-                      "stockDisplaySettings": {
-                        "title": "Stock display settings",
-                        "description": "Control how the stock status of your products is displayed to customers on your online store.",
-                        "type": "string",
-                        "enum": ["showAvailability", "showStockQuantity"],
-                        "enumNames": [
-                          "Show availability (Available/Out of Stock)",
-                          "Show stock quantity"
-                        ],
-                        "default": "showAvailability"
-                      }
-                    }
-                  },
-                  "price": {
-                    "title": "Price column label",
-                    "type": "string",
-                    "default": "Price"
-                  },
-                  "quantitySelector": {
-                    "title": "Quantity selector column label",
-                    "type": "string",
-                    "default": "Quantity"
-                  }
+            },
+            "availability": {
+              "title": "Availability column label",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Label",
+                  "type": "string",
+                  "default": "Availability"
+                },
+                "stockDisplaySettings": {
+                  "title": "Stock display settings",
+                  "description": "Control how the stock status of your products is displayed to customers on your online store.",
+                  "type": "string",
+                  "enum": ["showAvailability", "showStockQuantity"],
+                  "enumNames": [
+                    "Show availability (Available/Out of Stock)",
+                    "Show stock quantity"
+                  ],
+                  "default": "showAvailability"
                 }
               }
+            },
+            "price": {
+              "title": "Price column label",
+              "type": "string",
+              "default": "Price"
+            },
+            "quantitySelector": {
+              "title": "Quantity selector column label",
+              "type": "string",
+              "default": "Quantity"
             }
           }
         }
