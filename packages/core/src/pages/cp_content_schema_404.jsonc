@@ -1,0 +1,7 @@
+{
+  "404": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": true,
+    "title": "Error 404"
+  }
+}

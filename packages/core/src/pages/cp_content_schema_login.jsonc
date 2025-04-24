@@ -1,0 +1,7 @@
+{
+  "login": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": true,
+    "title": "Login"
+  }
+}

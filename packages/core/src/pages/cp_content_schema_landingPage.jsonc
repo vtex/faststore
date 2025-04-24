@@ -1,0 +1,32 @@
+{
+  "landingPage": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": false,
+    "title": "Landing Page",
+    "type": "object",
+    "properties": {
+      "seo": {
+        "$ref": "#/components/core.seo"
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/core.hero"
+            },
+            {
+              "$ref": "#/components/core.richText"
+            },
+            {
+              "$ref": "#/components/core.bannerText"
+            },
+            {
+              "$ref": "#/components/core.newsletter"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
