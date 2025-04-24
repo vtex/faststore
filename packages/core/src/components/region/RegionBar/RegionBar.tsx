@@ -61,13 +61,21 @@ function RegionBar({
     defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
 
   useEffect(() => {
+    if (!deliveryPromise.enabled) {
+      return
+    }
+
+    if (!isValidationComplete) {
+      return
+    }
+
     if (isValidationComplete && displayRegionPopover && regionBarRef.current) {
       openPopover({
         isOpen: true,
         triggerRef: regionBarRef,
       })
     }
-  }, [isValidationComplete, defaultPostalCode, openPopover])
+  }, [isValidationComplete])
 
   return (
     <RegionBarWrapper.Component

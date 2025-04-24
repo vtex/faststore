@@ -21,6 +21,14 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
     defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
 
   useEffect(() => {
+    if (!deliveryPromise.enabled) {
+      return
+    }
+
+    if (!isValidationComplete) {
+      return
+    }
+
     if (
       isValidationComplete &&
       displayRegionPopover &&
@@ -31,7 +39,7 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
         triggerRef: regionButtonRef,
       })
     }
-  }, [isValidationComplete, defaultPostalCode, openPopover])
+  }, [isValidationComplete])
 
   return (
     <UIButton
