@@ -1,59 +1,58 @@
 {
-  // The URL here should match the actual URL from Schema Registry
-  "$id": "https://api.myvtex.com/api/content-platform/schemas/faststore-base",
-  // This should match the URL for our consumer meta schema.
-  "$schema": "https://api.myvtex.com/api/content-platform/schemas/consumer",
-  "title": "FastStore Base Schemas",
-  "description": "Collection of base schemas for FastStore",
+  // This should be automatically updated and point to Schema Registry.
+  "$id": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore",
+  // This should always point to CP's meta-schema for Stores.
+  // "$schema": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/meta-schema",
+  "title": "FastStore Schema",
+  "description": "Collection of default schemas for FastStore.",
   "contexts": {},
+  "uiSchema": {
+    "content-types.home.sections": {
+      "ui:options": {
+        "expandOnSidebar": true
+      }
+    }
+  },
   "components": {
     "base-component": {
-      "type": "object",
-      "$abstract": true,
       "properties": {
-        "id": {
+        "$componentKey": {
           "type": "string"
         },
-        "name": {
+        "$componentTitle": {
           "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "data": {
-          "type": "object"
         }
       },
-      "required": ["name"]
+      "required": ["$componentKey"]
     },
-    "base-section": {
-      "type": "object",
-      "$abstract": true,
+    "base-dynamic-area": {
       "$extends": ["#/components/base-component"],
       "properties": {
         "sections": {
-          "type": "array",
           "items": {
             "$ref": "#/components/base-component"
-          }
+          },
+          "type": "array"
         }
-      }
+      },
+      "type": "object"
     },
     "base-page-template": {
-      "type": "object",
-      "$abstract": true,
-      "$extends": ["#/components/base-section"],
+      "$extends": ["#/components/base-dynamic-area"],
       "properties": {
         "slug": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
     },
     // `core.children` is not assigned to any specific React component.
     // Instead, it's used as a "splitter" to orient the rendering process.
-    "core.children": {
+    "Children": {
       "$extends": ["#/components/base-component"],
+      "$componentKey": "Children",
       "description": "Children",
+      "type": "object",
       "properties": {
         "name": {
           "const": "Children"
@@ -63,281 +62,221 @@
         }
       }
     },
-    // `core.seo` is also not assigned to any specific React component.
+    // `SEO` is also not assigned to any specific React component.
     // It serves as a way to define SEO options for a given page.
-    "core.seo": {
+    "SEO": {
       "$extends": ["#/components/base-component"],
-      "description": "Search Engine Optimization options",
+      "$componentKey": "SEO",
+      "$componentTitle": "SEO",
+      "type": "object",
       "properties": {
-        "name": {
-          "const": "SEO"
+        "options": {
+          "type": "string",
+          "enum": ["index", "noindex"]
+        },
+        "cacheExpiresIn": {
+          "type": "number"
+        },
+        "icon": {
+          "title": "Icon",
+          "enum": ["MagnifyingGlass", "LockKeyOpen", "Megaphone", "MapPin"],
+          "type": "string",
+          "default": "MagnifyingGlass"
+        },
+        "mediaGallery": {
+          "widget": {
+            "ui:widget": "media-gallery"
+          },
+          "title": "Media",
+          "type": "string"
         },
         "data": {
-          "required": ["title", "description"],
           "properties": {
-            "slug": {
-              "title": "Path",
-              "type": "string",
-              "default": "/"
-            },
             "title": {
               "title": "Default page title",
-              "description": "Display this title when no other tile is available",
+
               "type": "string",
+              "description": "Display this title when no other tile is available",
               "default": "FastStore Starter"
             },
             "description": {
               "title": "Meta tag description",
+
               "type": "string",
               "default": "A beautifully designed store"
             },
             "canonical": {
               "title": "Canonical url for the page",
+
               "type": "string"
             }
-          }
+          },
+          "required": ["title", "description"],
+          "type": "object"
         }
       }
     },
     // `core.search` serves as a configuration holder.
-    "core.search": {
+    "Search": {
+      "$componentKey": "Search",
+      "$componentTitle": "Search Bar Configuration",
       "$extends": ["#/components/base-component"],
       "description": "Search Bar Configuration",
       "properties": {
-        "name": {
-          "const": "Search"
-        },
-        "data": {
-          "required": [
-            "searchInput",
-            "searchHistory",
-            "searchTop",
-            "searchAutocomplete"
-          ],
-          "properties": {
-            "searchInput": {
-              "title": "Input Field",
-              "type": "object",
-              "properties": {
-                "placeholder": {
-                  "title": "Placeholder",
-                  "type": "string",
-                  "default": "Search Everything at the Store"
-                },
-                "icon": {
-                  "title": "Search Icon",
-                  "type": "object",
-                  "properties": {
-                    "icon": {
-                      "title": "Icon",
-                      "type": "string",
-                      "enumNames": ["Magnifying Glass"],
-                      "enum": ["MagnifyingGlass"],
-                      "default": "MagnifyingGlass"
-                    },
-                    "alt": {
-                      "title": "Alternative Label",
-                      "type": "string",
-                      "default": "Magnifying Glass"
-                    }
+        "properties": {
+          "searchInput": {
+            "title": "Input Field",
+            "type": "object",
+            "properties": {
+              "placeholder": {
+                "title": "Placeholder",
+                "type": "string",
+                "default": "Search Everything at the Store"
+              },
+              "icon": {
+                "title": "Search Icon",
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": ["Magnifying Glass"],
+                    "enum": ["MagnifyingGlass"],
+                    "default": "MagnifyingGlass"
+                  },
+                  "alt": {
+                    "title": "Alternative Label",
+                    "type": "string",
+                    "default": "Magnifying Glass"
                   }
                 }
               }
-            },
-            "searchHistory": {
-              "title": "Search History",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title",
-                  "type": "string",
-                  "default": "History"
-                },
-                "clearButtonLabel": {
-                  "type": "string",
-                  "title": "Clear Button Label",
-                  "default": "Clear History"
-                },
-                "icon": {
-                  "title": "Icon",
-                  "type": "object",
-                  "properties": {
-                    "icon": {
-                      "title": "Icon",
-                      "type": "string",
-                      "enumNames": ["Clock Clockwise"],
-                      "enum": ["ClockClockwise"],
-                      "default": "ClockClockwise"
-                    },
-                    "alt": {
-                      "type": "string",
-                      "title": "Alternative Label",
-                      "default": "History"
-                    }
+            }
+          },
+          "searchHistory": {
+            "title": "Search History",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string",
+                "default": "History"
+              },
+              "clearButtonLabel": {
+                "type": "string",
+                "title": "Clear Button Label",
+                "default": "Clear History"
+              },
+              "icon": {
+                "title": "Icon",
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": ["Clock Clockwise"],
+                    "enum": ["ClockClockwise"],
+                    "default": "ClockClockwise"
+                  },
+                  "alt": {
+                    "type": "string",
+                    "title": "Alternative Label",
+                    "default": "History"
                   }
-                },
-                "maxItems": {
-                  "title": "Maximum Number of History Items",
-                  "type": "integer",
-                  "default": 5
                 }
+              },
+              "maxItems": {
+                "title": "Maximum Number of History Items",
+                "type": "integer",
+                "default": 5
               }
-            },
-            "searchTop": {
-              "title": "Top Search",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title",
-                  "type": "string",
-                  "default": "Top Search"
-                },
-                "maxItems": {
-                  "title": "Maximum Number of Top Search Items",
-                  "type": "integer",
-                  "default": 5
-                }
+            }
+          },
+          "searchTop": {
+            "title": "Top Search",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string",
+                "default": "Top Search"
+              },
+              "maxItems": {
+                "title": "Maximum Number of Top Search Items",
+                "type": "integer",
+                "default": 5
               }
-            },
-            "searchAutocomplete": {
-              "title": "Autocomplete",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "object",
-                  "properties": {
-                    "icon": {
-                      "title": "Icon",
-                      "type": "string",
-                      "enumNames": ["Magnifying Glass"],
-                      "enum": ["MagnifyingGlass"]
-                    },
-                    "alt": {
-                      "type": "string",
-                      "title": "Alternative Label",
-                      "default": "Magnifying Glass"
-                    }
+            }
+          },
+          "searchAutocomplete": {
+            "title": "Autocomplete",
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": ["Magnifying Glass"],
+                    "enum": ["MagnifyingGlass"]
+                  },
+                  "alt": {
+                    "type": "string",
+                    "title": "Alternative Label",
+                    "default": "Magnifying Glass"
                   }
-                },
-                "maxItems": {
-                  "title": "Maximum Number of Autocomplete Items",
-                  "type": "integer",
-                  "default": 5
                 }
+              },
+              "maxItems": {
+                "title": "Maximum Number of Autocomplete Items",
+                "type": "integer",
+                "default": 5
               }
-            },
-            "searchProducts": {
-              "title": "Suggested Products",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title",
-                  "type": "string",
-                  "default": "Suggested Products"
-                },
-                "maxItems": {
-                  "title": "Maximum Number of Suggested Products",
-                  "type": "integer",
-                  "default": 5
-                }
+            }
+          },
+          "searchProducts": {
+            "title": "Suggested Products",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string",
+                "default": "Suggested Products"
+              },
+              "maxItems": {
+                "title": "Maximum Number of Suggested Products",
+                "type": "integer",
+                "default": 5
               }
             }
           }
         }
-      }
+      },
+      "required": [
+        "searchInput",
+        "searchHistory",
+        "searchTop",
+        "searchAutocomplete"
+      ]
     }
   },
   "content-types": {
     "globalSections": {
-      "title": "Global Sections",
+      "$extends": ["#/components/base-dynamic-area"],
       "$singleton": true,
-      "$extends": ["#/components/base-page-template"]
+      "title": "Global Sections"
     },
     "globalHeaderSections": {
       "title": "Global Header Sections",
       "$singleton": true,
-      "$extends": ["#/components/base-page-template"]
+      "$extends": ["#/components/base-dynamic-area"]
     },
     "globalFooterSections": {
       "title": "Global Footer Sections",
       "$singleton": true,
-      "$extends": ["#/components/base-page-template"]
-    },
-    "pdp": {
-      "title": "Product Page",
-      "$extends": ["#/components/base-page-template"],
-      "properties": {
-        "seo": {
-          "$ref": "#/components/core.seo"
-        }
-      }
-    },
-    "plp": {
-      "title": "Product List Page",
-      "$extends": ["#/components/base-page-template"],
-      "properties": {
-        "productGalery": {
-          "$ref": "#/components/core.productGallery"
-        }
-      }
-    },
-    "landingPage": {
-      "title": "Landing Page",
-      "$extends": ["#/components/base-page-template"],
-      "properties": {
-        "seo": {
-          "$ref": "#/components/core.seo"
-        }
-      }
-    },
-    "home": {
-      "title": "Home",
-      "$singleton": true,
-      "$extends": ["#/components/base-page-template"],
-      "properties": {
-        "seo": {
-          "$ref": "#/components/core.seo"
-        },
-        "sections": {
-          "items": {
-            // Allowed sections provided by scopes
-            "anyOf": [
-              {
-                "$ref": "#/$defs/components/core.richText"
-              },
-              {
-                "$ref": "#/$defs/components/core.hero"
-              },
-              {
-                "$ref": "#/$defs/components/core.productShelf"
-              }
-            ]
-          }
-        }
-      }
-    },
-    "search": {
-      "title": "Search Page",
-      "$singleton": true,
-      "$extends": ["#/components/base-page-template"],
-      "properties": {
-        "productGalery": {
-          "$ref": "#/components/core.productGallery"
-        }
-      }
-    },
-    "login": {
-      "title": "Login",
-      "$singleton": true
-    },
-    "500": {
-      "title": "Error 500",
-      "$singleton": true
-    },
-    "404": {
-      "title": "Error 404",
-      "$singleton": true
+      "$extends": ["#/components/base-dynamic-area"]
     }
   }
 }
