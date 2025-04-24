@@ -39,11 +39,6 @@
     },
     "base-page-template": {
       "$extends": ["#/components/base-dynamic-area"],
-      "properties": {
-        "slug": {
-          "type": "string"
-        }
-      },
       "type": "object"
     },
     // `Children` is not assigned to any specific React component.
