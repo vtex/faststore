@@ -5,7 +5,7 @@
     "title": "Search Page",
     "properties": {
       "productGalery": {
-        "$ref": "#/components/core.seo"
+        "$ref": "#/components/SEO"
       }
     }
   }
