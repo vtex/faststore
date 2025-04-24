@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.6](https://github.com/vtex/faststore/compare/v3.41.5...v3.41.6) (2025-04-24)
+
+### Bug Fixes
+
+- Search page blink ([#2789](https://github.com/vtex/faststore/issues/2789)) ([4fa98be](https://github.com/vtex/faststore/commit/4fa98bee61c7c5ad335afaa4b0572817e8a5124e)), closes [vtex-sites/faststoreqa.store#775](https://github.com/vtex-sites/faststoreqa.store/issues/775)
+
 ## [3.41.5](https://github.com/vtex/faststore/compare/v3.41.4...v3.41.5) (2025-04-22)
 
 ### Bug Fixes
