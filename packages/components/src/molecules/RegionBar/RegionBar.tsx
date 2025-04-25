@@ -1,9 +1,11 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode, RefAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { Button } from '../../'
 
-export interface RegionBarProps extends HTMLAttributes<HTMLDivElement> {
+export interface RegionBarProps
+  extends HTMLAttributes<HTMLDivElement>,
+    RefAttributes<HTMLDivElement> {
   /**
    * City to be displayed in the component.
    */

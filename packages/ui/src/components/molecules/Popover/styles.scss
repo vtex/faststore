@@ -1,0 +1,143 @@
+[data-fs-popover] {
+  // --------------------------------------------------------
+  // Design Tokens for Popover
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-popover-margin                                : 0 var(--fs-spacing-3);
+  --fs-popover-padding                               : var(--fs-spacing-3) var(--fs-spacing-4) var(--fs-spacing-4);
+  --fs-popover-border-radius                         : var(--fs-border-radius);
+  --fs-popover-bkg-color                             : var(--fs-color-body-bkg);
+  --fs-popover-box-shadow                            : var(--fs-shadow-darker);
+  --fs-popover-z-index                               : var(--fs-z-index-high);
+
+  // Indicator
+  --fs-popover-indicator-size                        : var(--fs-spacing-1);
+  --fs-popover-indicator-distance-edge               : var(--fs-spacing-3);
+  --fs-popover-indicator-distance-base               : var(--fs-spacing-1);
+  --fs-popover-indicator-translate                   : calc(var(--fs-popover-indicator-size) + var(--fs-popover-indicator-distance-base));
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: absolute;
+  z-index: var(--fs-popover-z-index);
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  padding: var(--fs-popover-padding);
+  margin: var(--fs-popover-margin);
+  background-color: var(--fs-popover-bkg-color);
+  border-radius: var(--fs-popover-border-radius);
+  box-shadow: var(--fs-popover-box-shadow);
+
+  [data-fs-popover-header] {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  [data-fs-popover-header-title] {
+    font-weight: var(--fs-text-weight-medium);
+  }
+
+  [data-fs-popover-header-dismiss-button] {
+    margin-top: calc(-1 * var(--fs-spacing-3));
+    margin-right: calc(-1 * var(--fs-spacing-3));
+  }
+
+  [data-fs-popover-indicator] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: var(--fs-popover-indicator-size) solid transparent;
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  /* TOP */
+  &[data-fs-popover-placement^="top"] {
+    bottom: 100%;
+    transform: translateY(calc(-1 * var(--fs-popover-indicator-translate)));
+  }
+
+  &[data-fs-popover-placement^="top"] [data-fs-popover-indicator] {
+    top: 100%;
+    border-top-color: var(--fs-popover-bkg-color);
+  }
+
+  /* TOP-CENTER */
+  &[data-fs-popover-placement="top-center"] {
+    left: 50%;
+    transform:
+      translateX(-50%)
+      translateY(calc(-1 * var(--fs-popover-indicator-translate)));
+  }
+
+  &[data-fs-popover-placement="top-center"] [data-fs-popover-indicator] {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* TOP-START */
+  &[data-fs-popover-placement="top-start"] {
+    left: 0;
+  }
+
+  &[data-fs-popover-placement="top-start"] [data-fs-popover-indicator] {
+    left: var(--fs-spacing-3);
+  }
+
+  /* TOP-END */
+  &[data-fs-popover-placement="top-end"] {
+    right: 0;
+  }
+
+  &[data-fs-popover-placement="top-end"] [data-fs-popover-indicator] {
+    right: var(--fs-spacing-3);
+  }
+
+  /* BOTTOM */
+  &[data-fs-popover-placement^="bottom"] {
+    top: 100%;
+    transform: translateY(var(--fs-popover-indicator-translate));
+  }
+
+  &[data-fs-popover-placement^="bottom"] [data-fs-popover-indicator] {
+    bottom: 100%;
+    border-bottom-color: var(--fs-popover-bkg-color);
+  }
+
+  /* BOTTOM-CENTER */
+  &[data-fs-popover-placement="bottom-center"] {
+    left: 50%;
+    transform:
+      translateX(-50%)
+      translateY(var(--fs-popover-indicator-translate));
+  }
+
+  &[data-fs-popover-placement="bottom-center"] [data-fs-popover-indicator] {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* BOTTOM-START */
+  &[data-fs-popover-placement="bottom-start"] {
+    left: 0;
+  }
+
+  &[data-fs-popover-placement="bottom-start"] [data-fs-popover-indicator] {
+    left: var(--fs-spacing-3);
+  }
+
+  /* BOTTOM-END */
+  &[data-fs-popover-placement="bottom-end"] {
+    right: 0;
+  }
+
+  &[data-fs-popover-placement="bottom-end"] [data-fs-popover-indicator] {
+    right: var(--fs-spacing-3);
+  }
+}
