@@ -1,12 +1,12 @@
-import { ContentData, Locator } from '@vtex/client-cms'
+import type { ContentData, Locator } from '@vtex/client-cms'
 import MissingContentError from 'src/sdk/error/MissingContentError'
 import {
-  Rewrite,
-  RewritesConfig,
+  type Rewrite,
+  type RewritesConfig,
   findBestPLPTemplate,
 } from 'src/utils/multipleTemplates'
 import config from '../../../discovery.config'
-import { Options, getCMSPage, getPage } from '../cms'
+import { type Options, getCMSPage, getPage } from '../cms'
 
 type PLPSettings = {
   settings: {

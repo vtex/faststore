@@ -2,17 +2,17 @@ import { memo } from 'react'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import {
-  PDPContext,
-  PLPContext,
+  type PDPContext,
+  type PLPContext,
   isPDP,
   isPLP,
   usePage,
 } from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { BreadcrumbDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -31,8 +31,8 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
   const breadcrumbList = isPDP(context)
     ? context?.data?.product?.breadcrumbList?.itemListElement
     : isPLP(context)
-    ? context?.data?.collection?.breadcrumbList?.itemListElement
-    : fallback
+      ? context?.data?.collection?.breadcrumbList?.itemListElement
+      : fallback
 
   return (
     <Section className={`${styles.section} section-breadcrumb`}>

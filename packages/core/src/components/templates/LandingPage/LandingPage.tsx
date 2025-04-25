@@ -11,6 +11,7 @@ import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
@@ -31,6 +32,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Newsletter,
   ProductShelf,
   ProductTiles,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

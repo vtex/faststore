@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import { List, Button, useSearch } from '../..'
 
 export interface SearchHistoryProps extends HTMLAttributes<HTMLDivElement> {
@@ -28,7 +28,6 @@ const SearchHistory = ({
   children,
   ...otherProps
 }: SearchHistoryProps) => {
-
   const { inContext, values } = useSearch()
 
   if (inContext && (values.term.length !== 0 || values.isLoading)) {

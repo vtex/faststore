@@ -5,7 +5,7 @@ import { existsSync } from 'fs-extra'
 import { withBasePath } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
 import { getPreferredPackageManager } from '../utils/commands'
-import { logger } from '../utils/logger';
+import { logger } from '../utils/logger'
 
 export default class GenerateGraphql extends Command {
   static flags = {
@@ -15,8 +15,9 @@ export default class GenerateGraphql extends Command {
   static args = [
     {
       name: 'path',
-      description: 'The path where the FastStore GraphQL customization is. Defaults to cwd.',
-    }
+      description:
+        'The path where the FastStore GraphQL customization is. Defaults to cwd.',
+    },
   ]
 
   async run() {
@@ -56,8 +57,7 @@ export default class GenerateGraphql extends Command {
 
     runCommandSync({
       cmd: `${packageManager} run format:generated`,
-      errorMessage:
-        `Failed to format generated files. '${packageManager} format:generated' thrown errors`,
+      errorMessage: `Failed to format generated files. '${packageManager} format:generated' thrown errors`,
       throws: 'warning',
       cwd: isCore ? undefined : tmpDir,
     })
@@ -65,8 +65,7 @@ export default class GenerateGraphql extends Command {
     // The command generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
     runCommandSync({
       cmd: `DESTINATION=${coreDir} ${packageManager} run generate:copy-back`,
-      errorMessage:
-        `Failed to copy back typings files. '${packageManager} generate:copy-back' thrown errors`,
+      errorMessage: `Failed to copy back typings files. '${packageManager} generate:copy-back' thrown errors`,
       throws: 'warning',
       cwd: isCore ? undefined : tmpDir,
     })

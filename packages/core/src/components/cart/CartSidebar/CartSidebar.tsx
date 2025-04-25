@@ -7,7 +7,7 @@ import type {
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { ReactNode, useCallback, useEffect, useMemo } from 'react'
+import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
@@ -65,7 +65,12 @@ function useViewCartEvent() {
   const {
     currency: { code },
   } = useSession()
-  const { items, gifts, total } = useCart()
+  const { items: itemsFromCart, gifts: giftsFromCart, total } = useCart()
+
+  // We need to stringify the items and gifts to avoid circular references
+  // when sending the event to the analytics
+  const gifts = JSON.stringify(giftsFromCart)
+  const items = JSON.stringify(itemsFromCart)
 
   const sendViewCartEvent = useCallback(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
@@ -74,7 +79,7 @@ function useViewCartEvent() {
         params: {
           currency: code as CurrencyCode,
           value: total,
-          items: items.concat(gifts).map((item) => ({
+          items: itemsFromCart.concat(giftsFromCart).map((item) => ({
             item_id: item.itemOffered.isVariantOf.productGroupID,
             item_name: item.itemOffered.isVariantOf.name,
             item_brand: item.itemOffered.brand.name,

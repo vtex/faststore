@@ -1,4 +1,4 @@
-import {
+import type {
   BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
 } from '@faststore/ui'

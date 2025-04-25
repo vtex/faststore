@@ -1,4 +1,9 @@
-import React, { createContext, useCallback, useState, SetStateAction  } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  type SetStateAction,
+} from 'react'
 import type { ReactNode } from 'react'
 
 interface IAllVariantProducts {
@@ -49,11 +54,9 @@ export interface SKUMatrixProviderContextValue {
   /*
     Function to set the array of all variant products.
   */
-  setAllVariantProducts(
-    items: SetStateAction<IAllVariantProducts[]>
-  ): void
+  setAllVariantProducts(items: SetStateAction<IAllVariantProducts[]>): void
   /*
-  */
+   */
   onChangeQuantityItem(id: string, value: number): IAllVariantProducts[]
   /*
     function to set the modal is open
@@ -74,8 +77,8 @@ function SKUMatrixProvider({ children }: { children: ReactNode }) {
     (id: string, value: number) => {
       const data = [...allVariantProducts]
       const matchedSKU = data.find((item) => item.id === id)
-      
-      if(matchedSKU) {
+
+      if (matchedSKU) {
         matchedSKU.selectedCount = value
       }
 
