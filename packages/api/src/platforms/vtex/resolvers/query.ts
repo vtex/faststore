@@ -82,7 +82,7 @@ export const Query = {
 
       const rating = await commerce.rating(sku.itemId)
 
-      sku.rating = buildRatingDistribution(rating)
+      sku.aggregateRating = buildRatingDistribution(rating)
 
       return sku
     } catch (err) {
@@ -114,7 +114,7 @@ export const Query = {
 
       const enhancedSku = enhanceSku(sku, product)
 
-      enhancedSku.rating = buildRatingDistribution(rating)
+      enhancedSku.aggregateRating = buildRatingDistribution(rating)
 
       return enhancedSku
     }

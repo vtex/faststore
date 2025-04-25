@@ -19,8 +19,8 @@ describe('rating', () => {
       expect.assertions(1)
 
       expect(result).toStrictEqual({
-        average: 0,
-        totalCount: 0,
+        ratingValue: 0,
+        reviewCount: 0,
         distribution: {
           1: 0,
           2: 0,
@@ -47,8 +47,8 @@ describe('rating', () => {
       expect.assertions(1)
 
       expect(result).toStrictEqual({
-        average: 5,
-        totalCount: 5,
+        ratingValue: 5,
+        reviewCount: 5,
         distribution: {
           1: 0,
           2: 0,
@@ -75,8 +75,8 @@ describe('rating', () => {
       expect.assertions(1)
 
       expect(result).toStrictEqual({
-        average: 3,
-        totalCount: 10,
+        ratingValue: 3,
+        reviewCount: 10,
         distribution: {
           1: 10,
           2: 20,
@@ -108,8 +108,8 @@ describe('rating', () => {
 
       expect(percentageSum).toBe(100)
       expect(result).toStrictEqual({
-        average: 3.64,
-        totalCount: 11,
+        ratingValue: 3.64,
+        reviewCount: 11,
         distribution: {
           1: 9,
           2: 9,
@@ -141,8 +141,8 @@ describe('rating', () => {
 
       expect(percentageSum).toBe(100)
       expect(result).toStrictEqual({
-        average: 3.5,
-        totalCount: 14,
+        ratingValue: 3.5,
+        reviewCount: 14,
         distribution: {
           1: 7,
           2: 29,
@@ -174,8 +174,8 @@ describe('rating', () => {
 
       expect(percentageSum).toBe(100)
       expect(result).toStrictEqual({
-        average: 3.43,
-        totalCount: 14,
+        ratingValue: 3.43,
+        reviewCount: 14,
         distribution: {
           1: 0,
           2: 29,
@@ -207,8 +207,8 @@ describe('rating', () => {
 
       expect(percentageSum).toBe(100)
       expect(result).toStrictEqual({
-        average: 3.32,
-        totalCount: 19,
+        ratingValue: 3.32,
+        reviewCount: 19,
         distribution: {
           1: 0,
           2: 21,

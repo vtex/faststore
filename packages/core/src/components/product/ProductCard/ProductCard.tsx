@@ -89,7 +89,7 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
-    rating,
+    aggregateRating,
   } = product
 
   const linkProps = {
@@ -148,7 +148,9 @@ function ProductCard({
           listPrice: listPrice,
           formatter: useFormattedPrice,
         }}
-        ratingValue={apiConfig.reviewsAndRatings ? rating.average : undefined}
+        ratingValue={
+          apiConfig.reviewsAndRatings ? aggregateRating.ratingValue : undefined
+        }
         outOfStock={outOfStock}
         onButtonClick={onButtonClick}
         linkProps={linkProps}
@@ -214,9 +216,9 @@ export const fragment = gql(`
       adResponseId
     }
 
-    rating {
-      average
-      totalCount
+    aggregateRating {
+      ratingValue
+      reviewCount
     }
   }
 `)

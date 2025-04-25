@@ -93,7 +93,11 @@ function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
-    rating: { noReviewsText, multipleReviewsText, singleReviewText },
+    rating: { noReviewsText, multipleReviewsText, singleReviewText } = {
+      noReviewsText: 'No reviews yet',
+      multipleReviewsText: 'Reviews',
+      singleReviewText: 'Review',
+    },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
@@ -151,7 +155,7 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
-    rating,
+    aggregateRating,
   } = product
 
   useEffect(() => {
@@ -228,8 +232,8 @@ function ProductDetails({
               refNumber={showRefNumber && productId}
               {...(apiConfig.reviewsAndRatings && {
                 reviewsAndRatings: {
-                  ratingValue: rating.average,
-                  reviewsCount: rating.totalCount,
+                  ratingValue: aggregateRating.ratingValue,
+                  reviewsCount: aggregateRating.reviewCount,
                   noReviewsText,
                   multipleReviewsText,
                   singleReviewText,
@@ -381,9 +385,9 @@ export const fragment = gql(`
       valueReference
     }
 
-    rating {
-      average
-      totalCount
+    aggregateRating {
+      ratingValue
+      reviewCount
       distribution {
         starsOne
         starsTwo

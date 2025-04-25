@@ -2,13 +2,13 @@ import type { Product, Item } from '../clients/search/types/ProductSearchResult'
 import { sanitizeHtml } from './sanitizeHtml'
 
 export type ProductRating = {
-  average: number
-  totalCount: number
+  ratingValue: number
+  reviewCount: number
   distribution: Record<number, number>
 }
 
 export type EnhancedSku = Item & { isVariantOf: Product } & {
-  rating: ProductRating
+  aggregateRating: ProductRating
 }
 
 function sanitizeProduct(product: Product): Product {
@@ -22,9 +22,9 @@ function sanitizeProduct(product: Product): Product {
 
 export const enhanceSku = (item: Item, product: Product): EnhancedSku => ({
   ...item,
-  rating: {
-    average: 0,
-    totalCount: 0,
+  aggregateRating: {
+    ratingValue: 0,
+    reviewCount: 0,
     distribution: {
       1: 0,
       2: 0,

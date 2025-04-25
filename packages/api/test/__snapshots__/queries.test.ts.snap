@@ -231,7 +231,6 @@ exports[`\`allProducts\` query 1`] = `
               "priceCurrency": "USD",
             },
             "productID": "99988213",
-            "review": [],
             "seo": {
               "canonical": "/4k-philips-monitor/p",
               "description": "4k Philips Monitor 27\"",
@@ -290,7 +289,6 @@ exports[`\`allProducts\` query 1`] = `
               "priceCurrency": "USD",
             },
             "productID": "99988211",
-            "review": [],
             "seo": {
               "canonical": "/aedle-vk1-headphone/p",
               "description": "Aedle VK-1 L Headphone",
@@ -349,7 +347,6 @@ exports[`\`allProducts\` query 1`] = `
               "priceCurrency": "USD",
             },
             "productID": "99988214",
-            "review": [],
             "seo": {
               "canonical": "/echo-dot-smart-speaker/p",
               "description": "Echo Dot Smart Speaker",
@@ -408,7 +405,6 @@ exports[`\`allProducts\` query 1`] = `
               "priceCurrency": "USD",
             },
             "productID": "99988210",
-            "review": [],
             "seo": {
               "canonical": "/oculus-vr-headset/p",
               "description": "Virtual reality kit",
@@ -467,7 +463,6 @@ exports[`\`allProducts\` query 1`] = `
               "priceCurrency": "USD",
             },
             "productID": "99988212",
-            "review": [],
             "seo": {
               "canonical": "/apple-magic-mouse/p",
               "description": "Apple Magic Mouse",
@@ -542,8 +537,8 @@ exports[`\`product\` query 1`] = `
     "product": {
       "additionalProperty": [],
       "aggregateRating": {
-        "ratingValue": 5,
-        "reviewCount": 0,
+        "ratingValue": 4.5,
+        "reviewCount": 20,
       },
       "brand": {
         "name": "Brand",
@@ -604,7 +599,6 @@ exports[`\`product\` query 1`] = `
         "priceCurrency": "USD",
       },
       "productID": "64953394",
-      "review": [],
       "seo": {
         "canonical": "/unbranded-concrete-table-small/p",
         "description": "Aut omnis nobis tenetur.",
@@ -711,8 +705,8 @@ exports[`\`search\` query 1`] = `
             "node": {
               "additionalProperty": [],
               "aggregateRating": {
-                "ratingValue": 5,
-                "reviewCount": 0,
+                "ratingValue": 4.5,
+                "reviewCount": 20,
               },
               "brand": {
                 "name": "Skechers",
@@ -781,7 +775,6 @@ exports[`\`search\` query 1`] = `
                 "priceCurrency": "USD",
               },
               "productID": "2791588",
-              "review": [],
               "sku": "2791588",
               "slug": "licensed-cotton-hat-licensed-2791588",
             },
@@ -791,8 +784,8 @@ exports[`\`search\` query 1`] = `
             "node": {
               "additionalProperty": [],
               "aggregateRating": {
-                "ratingValue": 5,
-                "reviewCount": 0,
+                "ratingValue": 4.5,
+                "reviewCount": 20,
               },
               "brand": {
                 "name": "adidas",
@@ -853,7 +846,6 @@ exports[`\`search\` query 1`] = `
                 "priceCurrency": "USD",
               },
               "productID": "44903104",
-              "review": [],
               "sku": "44903104",
               "slug": "handmade-granite-computer-unbranded-44903104",
             },
@@ -863,8 +855,8 @@ exports[`\`search\` query 1`] = `
             "node": {
               "additionalProperty": [],
               "aggregateRating": {
-                "ratingValue": 5,
-                "reviewCount": 0,
+                "ratingValue": 4.5,
+                "reviewCount": 20,
               },
               "brand": {
                 "name": "Acer",
@@ -939,7 +931,6 @@ exports[`\`search\` query 1`] = `
                 "priceCurrency": "USD",
               },
               "productID": "96175310",
-              "review": [],
               "sku": "96175310",
               "slug": "small-cotton-cheese-3325400227651-96175310",
             },
@@ -949,8 +940,8 @@ exports[`\`search\` query 1`] = `
             "node": {
               "additionalProperty": [],
               "aggregateRating": {
-                "ratingValue": 5,
-                "reviewCount": 0,
+                "ratingValue": 4.5,
+                "reviewCount": 20,
               },
               "brand": {
                 "name": "adidas",
@@ -1011,7 +1002,6 @@ exports[`\`search\` query 1`] = `
                 "priceCurrency": "USD",
               },
               "productID": "12405783",
-              "review": [],
               "sku": "12405783",
               "slug": "tasty-frozen-tuna-handmade-12405783",
             },
@@ -1021,8 +1011,8 @@ exports[`\`search\` query 1`] = `
             "node": {
               "additionalProperty": [],
               "aggregateRating": {
-                "ratingValue": 5,
-                "reviewCount": 0,
+                "ratingValue": 4.5,
+                "reviewCount": 20,
               },
               "brand": {
                 "name": "Acer",
@@ -1087,7 +1077,6 @@ exports[`\`search\` query 1`] = `
                 "priceCurrency": "USD",
               },
               "productID": "24041857",
-              "review": [],
               "sku": "24041857",
               "slug": "sleek-metal-pizza-24041857",
             },

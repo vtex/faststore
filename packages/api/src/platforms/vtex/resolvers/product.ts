@@ -115,8 +115,6 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   },
   sku: ({ itemId }) => itemId,
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
-  review: () => [],
-  aggregateRating: () => ({}),
   offers: (root) =>
     root.sellers
       .map((seller) =>
@@ -157,9 +155,11 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   },
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
-  rating: ({ rating: { average, totalCount, distribution } }) => ({
-    average,
-    totalCount,
+  aggregateRating: ({
+    aggregateRating: { ratingValue, reviewCount, distribution },
+  }) => ({
+    ratingValue,
+    reviewCount,
     distribution: {
       starsOne: distribution?.[1] ?? 0,
       starsTwo: distribution?.[2] ?? 0,
