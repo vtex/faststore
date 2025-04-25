@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
 import { Icon, useUI } from '@faststore/ui'
