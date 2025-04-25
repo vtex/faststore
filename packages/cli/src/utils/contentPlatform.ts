@@ -136,46 +136,29 @@ async function groupCustomContentTypeDefinitions(contentTypesPath: string) {
   return customContentTypeDefinitions
 }
 
-// A more generic solution for this would be to add a `anyOf` with the same
-// list of components to each individual content-type schema, but that's not
-// necessary in this case, as this is only used by FastStore.
-function addAnyOfToDynamicAreas(schema: Record<string, any>) {
+// This function adds a new property `$ALLOW_ALL_COMPONENTS` to the schema,
+// under the $defs property.
+function addAllowAllComponentsDefToSchema(schema: Record<string, any>) {
   const allComponentRefs = Object.keys(schema.components).map(
     (componentKey) => ({
       $ref: `#/components/${componentKey}`,
     })
   )
 
-  const baseDynamicAreaDefinition = schema.components['base-dynamic-area']
-
-  if (!baseDynamicAreaDefinition) {
-    console.info(
-      `${chalk.red(
-        'error'
-      )} - Could not find a \`base-dynamic-area\` component definition.`
-    )
-
-    return schema.components
-  }
-
-  const updatedBaseDynamicAreaDefinition = {
-    ...baseDynamicAreaDefinition,
-    properties: {
-      ...baseDynamicAreaDefinition.properties,
-      sections: {
-        type: 'array',
-        items: {
-          anyOf: allComponentRefs,
-        },
+  const allowAllComponentsDef = {
+    $ALLOW_ALL_COMPONENTS: {
+      type: 'array',
+      items: {
+        anyOf: allComponentRefs,
       },
     },
   }
 
   return {
     ...schema,
-    components: {
-      ...schema.components,
-      'base-dynamic-area': updatedBaseDynamicAreaDefinition,
+    $defs: {
+      ...(schema.$defs ?? {}),
+      ...allowAllComponentsDef,
     },
   }
 }
@@ -240,7 +223,7 @@ export async function generateFullSchema(
     await confirmUserChoice(contentTypeDuplicates, 'content-types')
   }
 
-  return addAnyOfToDynamicAreas({
+  return addAllowAllComponentsDefToSchema({
     ...originalSchema,
     components: {
       ...originalSchema.components,
