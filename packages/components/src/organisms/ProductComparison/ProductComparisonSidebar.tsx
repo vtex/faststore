@@ -71,23 +71,36 @@ export interface ProductComparisonSidebarProps
    */
   sortOptions?: SortOptions[]
   /**
-   * Properties related to the 'add to cart' button
-   */
-  buyProps: {
-    'data-testid': string
-    'data-sku': string
-    'data-seller': string
-    onClick(e: React.MouseEvent<HTMLButtonElement>): void
-  }
-  /**
    * Function to select the product that will be added to the cart.
    */
   handleProductToBuy: (productId: string) => void
+  /**
+   * Event to handle the click on the add to cart button.
+   */
+  setPendingEvent: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const ImageComponent: ImageComponentType = ({ src, alt, ...otherProps }) => (
   <img src={src} alt={alt} {...otherProps} />
 )
+
+function useProductSpecifications(
+  products: IProductComparison[],
+  productSorted: IProductComparison[],
+  showOnlyDifferences: boolean
+) {
+  return useMemo(() => {
+    const firstProduct = products[0]
+    const allSpecs = getAllSpecifications(firstProduct)
+    const diffSpecs = getDifferences(firstProduct, productSorted)
+
+    return {
+      specsToShow: showOnlyDifferences ? diffSpecs : allSpecs,
+      allSpecs,
+      diffSpecs,
+    }
+  }, [products, productSorted, showOnlyDifferences])
+}
 
 function ProductComparisonSidebar({
   title,
@@ -100,8 +113,8 @@ function ProductComparisonSidebar({
   priceFormatter,
   overlayProps,
   sortOptions,
-  buyProps: { onClick },
   handleProductToBuy,
+  setPendingEvent,
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
@@ -119,7 +132,7 @@ function ProductComparisonSidebar({
   ) => {
     event.preventDefault()
     handleProductToBuy(product.id)
-    onClick(event)
+    setPendingEvent(event)
   }
 
   const productSorted = useMemo(
@@ -130,13 +143,11 @@ function ProductComparisonSidebar({
     [selectedFilter, products]
   )
 
-  useEffect(() => {
-    const firstProduct = products[0]
-
-    setProductsSpecs(getAllSpecifications(firstProduct))
-    setDifferenceSpecs(getDifferences(firstProduct, productSorted))
-  }, [showOnlyDifferences, productSorted, products])
-
+  const { specsToShow, allSpecs, diffSpecs } = useProductSpecifications(
+    products,
+    productSorted,
+    showOnlyDifferences
+  )
   useEffect(() => {
     if (isOpen) {
       // Prevent scrolling when the drawer is open
@@ -288,7 +299,7 @@ function ProductComparisonSidebar({
           </TableRow>
 
           {showOnlyDifferences
-            ? differenceSpecs?.map((spec) => (
+            ? diffSpecs?.map((spec) => (
                 <TableRow key={spec}>
                   {productSorted.map((product) => (
                     <TableCell key={product.id}>
@@ -304,7 +315,7 @@ function ProductComparisonSidebar({
                   ))}
                 </TableRow>
               ))
-            : productsSpecs?.map((spec) => (
+            : allSpecs?.map((spec) => (
                 <TableRow key={spec}>
                   {productSorted.map((product) => (
                     <TableCell key={product.id}>

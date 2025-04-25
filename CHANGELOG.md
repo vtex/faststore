@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.5](https://github.com/vtex/faststore/compare/v3.41.4...v3.41.5) (2025-04-22)
+
+### Bug Fixes
+
+- Tooltip positions ([#2799](https://github.com/vtex/faststore/issues/2799)) ([2044412](https://github.com/vtex/faststore/commit/20444128fbc609941793aec4472f498233878e6d))
+
+## [3.41.4](https://github.com/vtex/faststore/compare/v3.41.3...v3.41.4) (2025-04-17)
+
+**Note:** Version bump only for package faststore
+
 ## [3.41.3](https://github.com/vtex/faststore/compare/v3.41.2...v3.41.3) (2025-04-16)
 
 ### Bug Fixes
