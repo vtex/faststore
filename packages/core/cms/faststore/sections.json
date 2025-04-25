@@ -2271,6 +2271,98 @@
     }
   },
   {
+    "name": "RegionPopover",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Region Popover",
+      "type": "object",
+      "description": "Region Popover configuration",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "closeButtonAriaLabel": {
+          "title": "Close popover aria-label",
+          "type": "string",
+          "default": "Close Region Popover"
+        },
+        "inputField": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Input field label",
+              "type": "string",
+              "default": "Postal Code"
+            },
+            "errorMessage": {
+              "title": "Input field error message",
+              "type": "string",
+              "default": "You entered an invalid Postal Code"
+            },
+            "buttonActionText": {
+              "title": "Input field action button label",
+              "type": "string",
+              "default": "Apply"
+            }
+          }
+        },
+        "textBeforeLocation": {
+          "title": "Text before location",
+          "type": "string",
+          "default": "Your current location is",
+          "description": "If location is available, this text will be shown before the location"
+        },
+        "textAfterLocation": {
+          "title": "Text After location",
+          "type": "string",
+          "default": "Use the field below to change it.",
+          "description": "If location is available, this text will be shown after the location"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Offers and availability vary by location"
+        },
+        "idkPostalCodeLink": {
+          "title": "I don't know my postal code link",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Link Text",
+              "default": "I don't know my Postal Code"
+            },
+            "to": {
+              "type": "string",
+              "title": "Action link"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Arrow Square Out"],
+                  "enum": ["ArrowSquareOut"],
+                  "default": "ArrowSquareOut"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "Arrow Square Out icon"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "EmptyState",
     "schema": {
       "title": "Empty State",

@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode, RefObject } from 'react'
 import React, { createContext, useContext, useMemo, useReducer } from 'react'
 
 export interface Toast {
@@ -6,6 +6,11 @@ export interface Toast {
   status: 'ERROR' | 'WARNING' | 'INFO'
   title?: string
   icon?: ReactNode
+}
+
+export interface Popover {
+  isOpen: boolean
+  triggerRef?: RefObject<HTMLElement>
 }
 
 interface State {
@@ -17,7 +22,10 @@ interface State {
   navbar: boolean
   /** Search page filter slider */
   filter: boolean
+  /** Toast notifications */
   toasts: Toast[]
+  /** Region Popover */
+  popover: Popover
 }
 
 type UIElement = 'navbar' | 'cart' | 'modal' | 'filter'
@@ -37,6 +45,16 @@ type Action =
     }
   | {
       type: 'popToast'
+    }
+  | {
+      type: 'openPopover'
+      payload: {
+        isOpen: boolean
+        triggerRef?: RefObject<HTMLElement>
+      }
+    }
+  | {
+      type: 'closePopover'
     }
 
 const reducer = (state: State, action: Action): State => {
@@ -89,6 +107,26 @@ const reducer = (state: State, action: Action): State => {
       }
     }
 
+    case 'openPopover': {
+      return {
+        ...state,
+        popover: {
+          isOpen: true,
+          triggerRef: action.payload.triggerRef,
+        },
+      }
+    }
+
+    case 'closePopover': {
+      return {
+        ...state,
+        popover: {
+          isOpen: false,
+          triggerRef: undefined,
+        },
+      }
+    }
+
     default:
       throw new Error(`Action ${type} not implemented`)
   }
@@ -100,6 +138,10 @@ const initializer = (): State => ({
   navbar: false,
   filter: false,
   toasts: [],
+  popover: {
+    isOpen: false,
+    triggerRef: undefined,
+  },
 })
 
 interface Context extends State {
@@ -113,6 +155,8 @@ interface Context extends State {
   closeModal: () => void
   pushToast: (data: Toast) => void
   popToast: () => void
+  openPopover: (popover: Popover) => void
+  closePopover: () => void
 }
 
 const UIContext = createContext<Context | undefined>(undefined)
@@ -133,6 +177,9 @@ function UIProvider({ children }: PropsWithChildren<unknown>) {
       pushToast: (toast: Toast) =>
         dispatch({ type: 'pushToast', payload: toast }),
       popToast: () => dispatch({ type: 'popToast' }),
+      openPopover: (popover: Popover) =>
+        dispatch({ type: 'openPopover', payload: popover }),
+      closePopover: () => dispatch({ type: 'closePopover' }),
     }),
     []
   )
