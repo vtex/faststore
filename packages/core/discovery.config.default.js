@@ -123,7 +123,7 @@ module.exports = {
   },
 
   contentSource: {
-    type: 'CP',
+    type: 'CMS',
   },
 
   experimental: {
