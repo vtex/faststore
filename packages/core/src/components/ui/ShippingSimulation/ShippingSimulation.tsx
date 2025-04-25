@@ -1,4 +1,4 @@
-import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
+import type { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
 
 import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
 

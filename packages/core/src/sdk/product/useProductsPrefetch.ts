@@ -1,7 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 
 import { gql } from '@generated'
-import { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
+import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 import { useEffect, useCallback } from 'react'
 
 import type { QueryOptions } from '../graphql/useQuery'

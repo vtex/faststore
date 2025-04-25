@@ -30,6 +30,29 @@ export type PageContentType = ContentData & {
       title: string
       description: string
       canonical?: string
+      name?: string
+      publisherId?: string
+      organization: {
+        id?: string
+        url?: string
+        sameAs?: string[]
+        logo?: string
+        image?: {
+          url: string
+          caption: string
+          id: string
+        }
+        name: string
+        legalName?: string
+        email?: string
+        telephone?: string
+        address?: {
+          streetAddress?: string
+          addressLocality?: string
+          postalCode?: string
+          addressCountry?: string
+        }
+      }
     }
   }
 }
@@ -56,7 +79,7 @@ export const getCMSPage = async (
   }
 
   const pages = []
-  let page = 1
+  const page = 1
   const perPage = 10
   const response = await cmsClient.getCMSPagesByContentType(
     options.contentType,
@@ -95,11 +118,7 @@ export const getPage = async <T extends ContentData>(options: Options) => {
 
   const pages = result.data
 
-  if (!pages[0]) {
-    throw new MissingContentError(options)
-  }
-
-  if (pages.length !== 1) {
+  if (pages.length > 1) {
     throw new MultipleContentError(options)
   }
 

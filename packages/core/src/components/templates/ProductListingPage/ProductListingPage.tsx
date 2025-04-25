@@ -8,17 +8,22 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import type {
+  ServerCollectionPageQueryQuery,
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables,
+} from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import { PLPContentType } from 'src/server/cms/plp'
+import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
 
 export type ProductListingPageProps = {
-  data: ServerCollectionPageQueryQuery
+  data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
+  serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
 }
@@ -26,12 +31,24 @@ export type ProductListingPageProps = {
 type UseSearchParams = {
   collection: ServerCollectionPageQueryQuery['collection']
   sort: SearchState['sort']
+  serverData?: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
 }
 const useSearchParams = ({
   collection,
   sort,
+  serverData,
 }: UseSearchParams): SearchState => {
-  const selectedFacets = collection?.meta.selectedFacets
+  const selectedFacets = [
+    ...collection?.meta.selectedFacets,
+    {
+      key: 'fuzzy',
+      value: serverData?.search?.metadata?.fuzzy ?? 'auto',
+    },
+    {
+      key: 'operator',
+      value: serverData?.search?.metadata?.logicalOperator ?? 'and',
+    },
+  ]
   const { asPath } = useRouter()
 
   const hrefState = useMemo(() => {
@@ -57,6 +74,7 @@ const useSearchParams = ({
 export default function ProductListingPage({
   page: plpContentType,
   data: server,
+  serverManyProductsVariables,
   globalSections,
 }: ProductListingPageProps) {
   const { settings } = plpContentType
@@ -66,13 +84,33 @@ export default function ProductListingPage({
   const searchParams = useSearchParams({
     collection,
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
+    serverData: server,
   })
 
-  const title = collection?.seo.title ?? storeConfig.seo.title
-  const description = collection?.seo.description ?? storeConfig.seo.title
+  const {
+    seo: { plp: plpSeo, ...storeSeo },
+  } = storeConfig
+  const title = collection?.seo.title ?? storeSeo.title
+  const titleTemplate = plpSeo?.titleTemplate ?? storeSeo.titleTemplate
+  const description =
+    collection?.seo.description || // Use description that comes from the Checkout API
+    plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
+    storeSeo.description // Use default description from the store SEO config
+
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+
+  let itemListElements = collection?.breadcrumbList.itemListElement ?? []
+  if (itemListElements.length !== 0) {
+    itemListElements = itemListElements.map(
+      ({ item: pathname, name, position }) => {
+        const pageUrl = storeConfig.storeUrl + pathname
+
+        return { name, position, item: pageUrl }
+      }
+    )
+  }
 
   return (
     <SearchProvider
@@ -84,7 +122,7 @@ export default function ProductListingPage({
       <NextSeo
         title={title}
         description={description}
-        titleTemplate={storeConfig.seo.titleTemplate}
+        titleTemplate={titleTemplate}
         canonical={canonical}
         openGraph={{
           type: 'website',
@@ -92,14 +130,13 @@ export default function ProductListingPage({
           description,
         }}
       />
-      <BreadcrumbJsonLd
-        itemListElements={collection?.breadcrumbList.itemListElement ?? []}
-      />
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
 
       <ProductListing
         globalSections={globalSections}
         page={plpContentType}
         data={server}
+        serverManyProductsVariables={serverManyProductsVariables}
       />
     </SearchProvider>
   )

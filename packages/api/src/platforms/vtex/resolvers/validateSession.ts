@@ -4,6 +4,7 @@ import ChannelMarshal from '../utils/channel'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
+  StoreMarketingData,
   StoreSession,
 } from '../../../__generated__/schema'
 
@@ -12,7 +13,6 @@ export const validateSession = async (
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients }: Context
 ): Promise<StoreSession | null> => {
-
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
   const geoCoordinates = oldSession.geoCoordinates ?? null
@@ -24,14 +24,26 @@ export const validateSession = async (
 
   params.set('sc', salesChannel)
 
+  const { marketingData: oldMarketingData } = oldSession
+
+  const marketingData: StoreMarketingData = {
+    utmCampaign:
+      params.get('utm_campaign') ?? oldMarketingData?.utmCampaign ?? '',
+    utmMedium: params.get('utm_medium') ?? oldMarketingData?.utmMedium ?? '',
+    utmSource: params.get('utm_source') ?? oldMarketingData?.utmSource ?? '',
+    utmiCampaign: params.get('utmi_cp') ?? oldMarketingData?.utmiCampaign ?? '',
+    utmiPage: params.get('utmi_p') ?? oldMarketingData?.utmiPage ?? '',
+    utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
+  }
+
   const [regionData, sessionData] = await Promise.all([
     postalCode || geoCoordinates
       ? clients.commerce.checkout.region({
-        postalCode,
-        geoCoordinates,
-        country,
-        salesChannel,
-      })
+          postalCode,
+          geoCoordinates,
+          country,
+          salesChannel,
+        })
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
@@ -54,18 +66,19 @@ export const validateSession = async (
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: region?.id ?? channel.regionId,
       seller: seller?.id,
-      hasOnlyDefaultSalesChannel: !store?.channel?.value
+      hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
     b2b: {
-      customerId: authentication?.customerId?.value ?? ''
+      customerId: authentication?.customerId?.value ?? '',
     },
+    marketingData,
     person: profile?.id
       ? {
-        id: profile.id?.value ?? '',
-        email: profile.email?.value ?? '',
-        givenName: profile.firstName?.value ?? '',
-        familyName: profile.lastName?.value ?? '',
-      }
+          id: profile.id?.value ?? '',
+          email: profile.email?.value ?? '',
+          givenName: profile.firstName?.value ?? '',
+          familyName: profile.lastName?.value ?? '',
+        }
       : null,
   }
 

@@ -89,7 +89,6 @@ async function normalizeStandaloneBuildDir(basePath: string) {
 async function copyResources(basePath: string) {
   const { tmpDir, userDir } = withBasePath(basePath)
 
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.BUILD_CONTEXT === 'vercel') {
     const toDir = process.cwd()
 

@@ -39,7 +39,7 @@ const UINavbarSliderFooter = dynamic(() =>
 
 const LocalSKUMatrixSidebar = dynamic(() =>
   import(
-    /* webpackChunkName: "UINavbarSliderFooter" */ 'src/components/ui/SKUMatrix/SKUMatrixSidebar'
+    /* webpackChunkName: "UISKUMatrixSidebar" */ 'src/components/ui/SKUMatrix/SKUMatrixSidebar'
   ).then((module) => module.default)
 )
 
@@ -56,5 +56,5 @@ export const NavbarDefaultComponents = {
   NavbarButtons: UINavbarButtons,
   IconButton: UIIconButton,
   _experimentalButtonSignIn: ButtonSignIn,
-  _experimentalSKUMatrixSidebar: LocalSKUMatrixSidebar,
+  __experimentalSKUMatrixSidebar: LocalSKUMatrixSidebar,
 } as const

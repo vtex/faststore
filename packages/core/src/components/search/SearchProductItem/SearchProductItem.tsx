@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import {
-  Button,
   Icon,
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
@@ -16,9 +15,10 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { NavbarProps } from 'src/components/sections/Navbar'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
+
 import styles from 'src/components/sections/Navbar/section.module.scss'
 
 type SearchProductItemProps = {
@@ -52,7 +52,7 @@ function SearchProductItem({
   } = useSearch()
   const { pushToast } = useUI()
 
-  const { _experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
+  const { __experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
     useOverrideComponents<'Navbar'>()
 
   const { href, onClick, ...baseLinkProps } = useProductLink({
@@ -162,7 +162,7 @@ function SearchProductItem({
           })
         }
         quickOrder={{
-          enabled: quickOrderSettings.quickOrder,
+          enabled: quickOrderSettings?.quickOrder,
           outOfStockLabel: 'Out of stock',
           availability: !outOfStock,
           hasVariants,

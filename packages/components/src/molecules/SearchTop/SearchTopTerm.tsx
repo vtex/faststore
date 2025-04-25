@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Badge, Link, LinkElementType, LinkProps } from '../../'
+import { Badge, Link, type LinkElementType, type LinkProps } from '../../'
 
 export interface SearchTopTermProps extends HTMLAttributes<HTMLDivElement> {
   /**

@@ -9,7 +9,7 @@ export const initialize = ({
   term = null,
   base = '/',
   page = 0,
-  passThrough = new URLSearchParams()
+  passThrough = new URLSearchParams(),
 }: Partial<State> | undefined = {}) => ({
   sort,
   selectedFacets,

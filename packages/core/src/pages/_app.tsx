@@ -7,11 +7,14 @@ import SEO from '../../next-seo.config'
 
 // FastStore UI's base styles
 import '../styles/global/index.scss'
+import '../plugins/index.scss'
 import '../customizations/src/themes/index.scss'
 
 import { DefaultSeo } from 'next-seo'
 
 function App({ Component, pageProps }: AppProps) {
+  const { key } = pageProps
+
   return (
     <ErrorBoundary>
       <DefaultSeo {...SEO} />
@@ -20,7 +23,7 @@ function App({ Component, pageProps }: AppProps) {
 
       <UIProvider>
         <Layout>
-          <Component {...pageProps} />
+          <Component {...pageProps} key={key} />
         </Layout>
       </UIProvider>
     </ErrorBoundary>

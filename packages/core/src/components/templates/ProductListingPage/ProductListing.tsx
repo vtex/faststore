@@ -1,5 +1,9 @@
-import { useSearch } from '@faststore/sdk'
-import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import { formatSearchState, useSearch } from '@faststore/sdk'
+import type {
+  ServerCollectionPageQueryQuery,
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables,
+} from '@generated/graphql'
 import deepmerge from 'deepmerge'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
@@ -9,14 +13,16 @@ import COMPONENTS from 'src/components/cms/plp/Components'
 import RenderSections, {
   LazyLoadingSection,
 } from 'src/components/cms/RenderSections'
-import { PLPContentType } from 'src/server/cms/plp'
+import type { PLPContentType } from 'src/server/cms/plp'
 
-import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
+import { useEffect } from 'react'
+import PageProvider, { type PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import { useApplySearchState } from 'src/sdk/search/state'
 
 const ScrollToTopButton = dynamic(
   () =>
@@ -27,7 +33,8 @@ const ScrollToTopButton = dynamic(
 )
 
 export type ProductListingPageProps = {
-  data: ServerCollectionPageQueryQuery
+  data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
+  serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
 }
@@ -39,12 +46,18 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 export default function ProductListing({
   page: { sections, settings },
   data: server,
+  serverManyProductsVariables,
   globalSections,
 }: ProductListingPageProps) {
-  const {
-    state: { sort, term, selectedFacets },
-  } = useSearch()
+  const { state } = useSearch()
+  const { sort, term, selectedFacets } = state
+
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+
+  const applySearchState = useApplySearchState()
+  useEffect(() => {
+    applySearchState(formatSearchState(state))
+  }, [])
 
   const { data: pageProductGalleryData } = useProductGalleryQuery({
     term,
@@ -53,7 +66,11 @@ export default function ProductListing({
     itemsPerPage,
   })
 
-  const { pages, useGalleryPage } = useCreateUseGalleryPage()
+  const initialPages = { search: server?.search }
+  const { pages, useGalleryPage } = useCreateUseGalleryPage({
+    initialPages,
+    serverManyProductsVariables,
+  })
 
   const context = {
     data: {

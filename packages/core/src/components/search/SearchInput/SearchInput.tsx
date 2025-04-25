@@ -25,7 +25,7 @@ import type {
   SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
 
-import { SearchProviderContextValue } from '@faststore/ui'
+import type { SearchProviderContextValue } from '@faststore/ui'
 
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
@@ -178,7 +178,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }
-                  quickOrder={quickOrderSettings}
                 />
               </Suspense>
             )}

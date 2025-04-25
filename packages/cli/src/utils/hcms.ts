@@ -4,6 +4,7 @@ import { CliUx } from '@oclif/core'
 import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
 
 import { withBasePath } from './directory'
+import { getPluginName, getPluginsList } from './plugins'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -96,7 +97,8 @@ async function confirmUserChoice(
   fileName: string
 ) {
   const goAhead = await CliUx.ux.confirm(
-    `You are about to override default ${fileName.split('.')[0]
+    `You are about to override default ${
+      fileName.split('.')[0]
     }:\n\n${duplicates
       .map((definition) => definition.id || definition.name)
       .join('\n')}\n\nAre you sure? [yes/no]`
@@ -110,7 +112,8 @@ async function confirmUserChoice(
 }
 
 export async function mergeCMSFile(fileName: string, basePath: string) {
-  const { coreCMSDir, userCMSDir, tmpCMSDir } = withBasePath(basePath)
+  const { coreCMSDir, userCMSDir, tmpCMSDir, getPackagePath } =
+    withBasePath(basePath)
 
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
@@ -123,32 +126,44 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
 
   let output: ContentTypeOrSectionDefinition[] = coreDefinitions
 
+  const plugins = await getPluginsList(basePath)
+
+  const pluginCMSFilePaths = plugins.map((plugin) =>
+    getPackagePath(getPluginName(plugin), 'cms', 'faststore', fileName)
+  )
+
+  const customizations = [...pluginCMSFilePaths, customFilePath].filter(
+    (pluginCMSFilePath) => existsSync(pluginCMSFilePath)
+  )
+
   // TODO: create a validation when the CMS files exist but don't have a component for them
-  if (existsSync(customFilePath)) {
-    const customFile = readFileSync(customFilePath, 'utf8')
+  for (const newFilePath of customizations) {
+    const customFile = readFileSync(newFilePath, 'utf8')
 
     try {
       const customDefinitions = JSON.parse(customFile)
 
       const { duplicates, newDefinitions } = splitCustomDefinitions(
-        coreDefinitions,
+        output,
         customDefinitions,
         primaryIdentifierForDefinitions
       )
 
       if (duplicates.length) {
-        await confirmUserChoice(duplicates, fileName)
+        if (newFilePath === customFilePath) {
+          await confirmUserChoice(duplicates, fileName)
+        }
 
         output = [
           ...dedupeAndMergeDefinitions(
-            coreDefinitions,
+            output,
             duplicates,
             primaryIdentifierForDefinitions
           ),
           ...newDefinitions,
         ]
       } else {
-        output = [...coreDefinitions, ...newDefinitions]
+        output = [...output, ...newDefinitions]
       }
     } catch (err) {
       if (err instanceof SyntaxError) {

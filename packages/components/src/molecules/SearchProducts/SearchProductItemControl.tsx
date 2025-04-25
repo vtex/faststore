@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes, useCallback } from 'react'
+import React, { forwardRef, HTMLAttributes, useCallback, useState } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
 import type { MouseEvent, ReactNode } from 'react'
@@ -74,7 +74,7 @@ const SearchProductItemControl = forwardRef<
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
-    React.useState<StatusButtonAddToCartType>('default')
+    useState<StatusButtonAddToCartType>('default')
 
   const showSKUMatrixControl = availability && hasVariants
 
@@ -108,7 +108,7 @@ const SearchProductItemControl = forwardRef<
       default:
         return <Icon name="ShoppingCart" width={24} height={24} />
     }
-  }, [statusAddToCart])  
+  }, [statusAddToCart])
 
   function validateBlur() {
     const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
@@ -144,6 +144,7 @@ const SearchProductItemControl = forwardRef<
               disabled={statusAddToCart !== 'default'}
               max={max}
               onValidateBlur={onValidateBlur}
+              initial={quantity}
               onChange={onChangeQuantity}
             />
           </div>

@@ -79,7 +79,7 @@ function ViewportObserver({
             height: VIEWPORT_SIZE, // required to make sections out of the viewport to be rendered on demand
             width: '100%',
           }}
-        ></div>
+        />
       )}
 
       {(isVisible || isInteractive) && children}
