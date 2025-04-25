@@ -51,8 +51,8 @@ const baseRequest = async <V = any, D = any>(
     fetchOptions?.method !== undefined
       ? fetchOptions.method.toUpperCase()
       : operationName.endsWith('Query')
-      ? 'GET'
-      : 'POST'
+        ? 'GET'
+        : 'POST'
 
   const params = new URLSearchParams({
     operationName,

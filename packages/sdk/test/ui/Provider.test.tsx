@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from 'react'
-import { act, renderHook } from '@testing-library/react-hooks'
+import React, { type PropsWithChildren } from 'react'
+import { act, renderHook } from '@testing-library/react'
 import type { FC } from 'react'
 
 import { UIProvider, useGlobalUIState } from '../../src'

@@ -1,6 +1,6 @@
 import {
   Icon,
-  RegionModalProps as UIRegionModalProps,
+  type RegionModalProps as UIRegionModalProps,
   useUI,
 } from '@faststore/ui'
 import { useRef, useState } from 'react'

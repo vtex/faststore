@@ -1,4 +1,3 @@
-// eslint-disable-next-line spaced-comment
 /// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -22,13 +21,11 @@ module.exports = (on, config) => {
 
   on('task', {
     log(message) {
-      // eslint-disable-next-line no-console
       console.log(message)
 
       return null
     },
     table(message) {
-      // eslint-disable-next-line no-console
       console.table(message)
 
       return null

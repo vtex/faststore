@@ -1,7 +1,7 @@
 export interface PageViewParams {
-  page_title?: string,
-  page_location?: string,
-  send_page_view?: boolean,
+  page_title?: string
+  page_location?: string
+  send_page_view?: boolean
   [key: string]: any
 }
 

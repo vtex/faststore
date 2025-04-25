@@ -29,10 +29,10 @@
 
 ## Installation
 
-From the command line in your project directory, run yarn add `@faststore/sdk`.
+From the command line in your project directory, run pnpm add `@faststore/sdk`.
 
 ```cmd
-yarn add @faststore/sdk
+pnpm add @faststore/sdk
 ```
 
 ## Usage

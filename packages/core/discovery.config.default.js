@@ -4,6 +4,23 @@ module.exports = {
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
     author: 'Store Framework',
+    name: 'FastStore',
+    publisherId: '',
+    plp: {
+      titleTemplate: '%s | FastStore PLP',
+      descriptionTemplate: '%s products on FastStore Product Listing Page',
+    },
+    pdp: {
+      titleTemplate: '%s | FastStore PDP',
+      descriptionTemplate: '%s products on FastStore Product Detail Page',
+    },
+    search: {
+      titleTemplate: '%s: Search results title',
+      descriptionTemplate: '%s: Search results description',
+      noIndex: true,
+      noFollow: true,
+      bodyH1: 'Showing results for:',
+    },
   },
 
   // Theming
@@ -39,6 +56,14 @@ module.exports = {
     geoCoordinates: null,
     b2b: null,
     person: null,
+    marketingData: {
+      utmCampaign: '',
+      utmMedium: '',
+      utmSource: '',
+      utmiCampaign: '',
+      utmiPart: '',
+      utmiPage: '',
+    },
   },
 
   // Default cart
@@ -50,11 +75,12 @@ module.exports = {
   },
 
   // Production URLs
-  storeUrl: 'https://vtexfaststore.com',
-  secureSubdomain: 'https://secure.vtexfaststore.com',
-  checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
-  loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
-  accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
+  // secureSubdomain is the same as storeUrl because we are using single domain approach for this account
+  storeUrl: 'https://homebrewqa.fast.store',
+  secureSubdomain: 'https://homebrewqa.fast.store',
+  checkoutUrl: 'https://homebrewqa.fast.store/checkout',
+  loginUrl: 'https://homebrewqa.fast.store/api/io/login',
+  accountUrl: 'https://homebrewqa.fast.store/api/io/account',
 
   // Preview redirects
   previewRedirects: {
@@ -100,7 +126,16 @@ module.exports = {
     cypressVersion: 12,
     enableCypressExtension: false,
     noRobots: false,
+    noindex: false,
+    nofollow: false,
     preact: false,
     enableRedirects: false,
+    enableSearchSSR: false,
+    enableFaststoreMyAccount: false,
+    enableVtexAssetsLoader: false,
+    graphqlCacheControl: {
+      maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
+      staleWhileRevalidate: 60,
+    },
   },
 }

@@ -230,6 +230,15 @@ export type IStoreImage = {
   url: Scalars['String']['input']
 }
 
+export type IStoreMarketingData = {
+  utmCampaign: InputMaybe<Scalars['String']['input']>
+  utmMedium: InputMaybe<Scalars['String']['input']>
+  utmSource: InputMaybe<Scalars['String']['input']>
+  utmiCampaign: InputMaybe<Scalars['String']['input']>
+  utmiPage: InputMaybe<Scalars['String']['input']>
+  utmiPart: InputMaybe<Scalars['String']['input']>
+}
+
 /** Offer input. */
 export type IStoreOffer = {
   /** Information on the item being offered. */
@@ -321,6 +330,8 @@ export type IStoreSession = {
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>
   /** Session input locale. */
   locale: Scalars['String']['input']
+  /** Marketing information input. */
+  marketingData: InputMaybe<IStoreMarketingData>
   /** Session input person. */
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
@@ -458,6 +469,40 @@ export type PickupStoreInfo = {
   isPickupStore: Maybe<Scalars['Boolean']['output']>
 }
 
+export type Profile = {
+  /** Collection of user's address */
+  addresses: Maybe<Array<Maybe<ProfileAddress>>>
+}
+
+export type ProfileAddress = {
+  /** ProfileAddress address name/id. */
+  addressName: Maybe<Scalars['String']['output']>
+  /** ProfileAddress address type. */
+  addressType: Maybe<Scalars['String']['output']>
+  /** ProfileAddress city. */
+  city: Maybe<Scalars['String']['output']>
+  /** ProfileAddress complement. */
+  complement: Maybe<Scalars['String']['output']>
+  /** ProfileAddress country. */
+  country: Maybe<Scalars['String']['output']>
+  /** ProfileAddress geo coordinate. */
+  geoCoordinate: Maybe<Array<Maybe<Scalars['Float']['output']>>>
+  /** ProfileAddress neighborhood. */
+  neighborhood: Maybe<Scalars['String']['output']>
+  /** ProfileAddress number. */
+  number: Maybe<Scalars['String']['output']>
+  /** ProfileAddress postal code. */
+  postalCode: Maybe<Scalars['String']['output']>
+  /** ProfileAddress receiver name. */
+  receiverName: Maybe<Scalars['String']['output']>
+  /** ProfileAddress reference. */
+  reference: Maybe<Scalars['String']['output']>
+  /** ProfileAddress state. */
+  state: Maybe<Scalars['String']['output']>
+  /** ProfileAddress street. */
+  street: Maybe<Scalars['String']['output']>
+}
+
 export type Query = {
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
@@ -467,6 +512,8 @@ export type Query = {
   collection: StoreCollection
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
+  /** Returns information about the profile. */
+  profile: Maybe<Profile>
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
@@ -493,6 +540,10 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
+}
+
+export type QueryProfileArgs = {
+  id: Scalars['String']['input']
 }
 
 export type QueryRedirectArgs = {
@@ -858,6 +909,16 @@ export type StoreListItem = {
   position: Scalars['Int']['output']
 }
 
+/** Marketing information. */
+export type StoreMarketingData = {
+  utmCampaign: Maybe<Scalars['String']['output']>
+  utmMedium: Maybe<Scalars['String']['output']>
+  utmSource: Maybe<Scalars['String']['output']>
+  utmiCampaign: Maybe<Scalars['String']['output']>
+  utmiPage: Maybe<Scalars['String']['output']>
+  utmiPart: Maybe<Scalars['String']['output']>
+}
+
 /** Offer information. */
 export type StoreOffer = {
   /** Offer item availability. */
@@ -1087,6 +1148,8 @@ export type StoreSession = {
   geoCoordinates: Maybe<StoreGeoCoordinates>
   /** Session locale. */
   locale: Scalars['String']['output']
+  /** Marketing information. */
+  marketingData: Maybe<StoreMarketingData>
   /** Session input person. */
   person: Maybe<StorePerson>
   /** Session postal code. */
@@ -1776,6 +1839,14 @@ export type ValidateSessionMutation = {
       familyName: string
     } | null
     b2b: { customerId: string } | null
+    marketingData: {
+      utmCampaign: string | null
+      utmMedium: string | null
+      utmSource: string | null
+      utmiCampaign: string | null
+      utmiPage: string | null
+      utmiPart: string | null
+    } | null
   } | null
 }
 
@@ -1793,6 +1864,7 @@ export type ClientShippingSimulationQueryQuery = {
         price: number | null
         shippingEstimate: string | null
         localizedEstimates: string | null
+        deliveryChannel: string | null
         availableDeliveryWindows: Array<{
           startDateUtc: string | null
           endDateUtc: string | null
@@ -1807,6 +1879,59 @@ export type ClientShippingSimulationQueryQuery = {
       state: string | null
     } | null
   } | null
+}
+
+export type ServerManyProductsQueryQueryVariables = Exact<{
+  first: Scalars['Int']['input']
+  after: InputMaybe<Scalars['String']['input']>
+  sort: StoreSort
+  term: Scalars['String']['input']
+  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  sponsoredCount: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type ServerManyProductsQueryQuery = {
+  search: {
+    products: {
+      pageInfo: { totalCount: number }
+      edges: Array<{
+        node: {
+          slug: string
+          sku: string
+          name: string
+          gtin: string
+          id: string
+          brand: { name: string; brandName: string }
+          isVariantOf: { productGroupID: string; name: string }
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offers: Array<{
+              availability: string
+              price: number
+              listPrice: number
+              listPriceWithTaxes: number
+              quantity: number
+              seller: { identifier: string }
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: any
+          }>
+          advertisement: { adId: string; adResponseId: string } | null
+        }
+      }>
+    }
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
+  }
 }
 
 export class TypedDocumentString<TResult, TVariables>
@@ -2348,7 +2473,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '1e69c734ed31bd9e763a34fe9660f5bbad3fd143',
+    operationHash: '2c6e94b978eb50647873082daebcc5b332154cb1',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
@@ -2357,9 +2482,18 @@ export const ValidateSessionDocument = {
 export const ClientShippingSimulationQueryDocument = {
   __meta__: {
     operationName: 'ClientShippingSimulationQuery',
-    operationHash: 'd6667f1de2a26b94b9b55f4b25d7d823f82635a0',
+    operationHash: 'c35bad22f67f3eb34fea52bb49efa6b1da6b728d',
   },
 } as unknown as TypedDocumentString<
   ClientShippingSimulationQueryQuery,
   ClientShippingSimulationQueryQueryVariables
+>
+export const ServerManyProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerManyProductsQuery',
+    operationHash: '4fa4dfd1233e2ed5b0b3f662e8866a901d481a52',
+  },
+} as unknown as TypedDocumentString<
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables
 >

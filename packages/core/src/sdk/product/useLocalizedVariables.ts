@@ -1,4 +1,4 @@
-import { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
+import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 import { useMemo } from 'react'
 import { ITEMS_PER_SECTION } from 'src/constants'
 import { useSession } from '../session'

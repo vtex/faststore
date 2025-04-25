@@ -31,6 +31,15 @@
 
     @include media(">=notebook") {
       height: var(--fs-navbar-height-desktop);
+
+      // Sets margin to avoid overlapping the section below
+      &:has([data-fs-navbar-scroll]) {
+        margin-bottom: var(--fs-control-min-height);
+      }
+
+      &:has([data-fs-navbar-scroll="down"]) {
+        margin-bottom: 0;
+      }
     }
   }
 }

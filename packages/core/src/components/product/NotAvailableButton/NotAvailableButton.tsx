@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import { Button } from '@faststore/ui'
 
 // TODO: Remove this component when <OutOfStock /> is ready to use

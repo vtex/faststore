@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Link, LinkElementType, LinkProps } from '../..'
+import { Link, type LinkElementType, type LinkProps } from '../..'
 
 export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
   /**

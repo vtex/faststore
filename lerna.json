@@ -1,6 +1,6 @@
 {
-  "version": "3.8.0",
-  "npmClient": "yarn",
+  "version": "3.41.7",
+  "npmClient": "pnpm",
   "command": {
     "publish": {
       "message": "[no ci] Release: %v"
@@ -12,6 +12,5 @@
     "**/*.snap",
     "**/*.test.*",
     "**/*.md"
-  ],
-  "packages": ["packages/*", "apps/*"]
+  ]
 }
