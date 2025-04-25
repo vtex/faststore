@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
   type IProductComparison,
   type ProductComparisonSidebarProps as UIProductComparisonSidebarProps,
@@ -7,7 +7,7 @@ import {
 } from '@faststore/ui'
 
 import { gql } from '@generated/gql'
-import { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
+import type { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useProductsSelected } from 'src/sdk/product/useProductsSelected'
@@ -38,6 +38,12 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
   const [productIdToBuy, setProductIdToBuy] = React.useState<string | null>(
     null
   )
+  const [pendingEvent, setPendingEvent] = React.useState<
+    React.MouseEvent<HTMLButtonElement>
+  >({
+    currentTarget: {} as HTMLButtonElement,
+    preventDefault: () => {},
+  } as React.MouseEvent<HTMLButtonElement>)
 
   function processResponse(data: ClientManyProductsSelectedQueryQuery) {
     const formattedData: IProductComparison[] = data.products.map((product) => {
@@ -90,55 +96,65 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
     handleProductsComparison(formattedData)
   }
 
-  const buyButtonProps = products
-    .map((product: IProductComparison) => {
-      const {
-        id,
-        sku,
-        gtin,
-        unitMultiplier,
-        name: variantName,
-        brand,
-        isVariantOf,
-        image: productImages,
-        additionalProperty,
-        offers: {
-          offers: [
-            {
-              price,
-              priceWithTaxes,
-              listPrice,
-              seller,
-              quantity,
-              listPriceWithTaxes,
-            },
-          ],
-        },
-      } = product
-
-      return {
-        id,
-        price,
-        priceWithTaxes,
-        listPrice,
-        listPriceWithTaxes,
-        seller,
-        quantity: productIdToBuy === id ? 1 : 0,
-        itemOffered: {
+  const buyButtonProps = React.useMemo(() => {
+    return products
+      .map((product: IProductComparison) => {
+        const {
+          id,
           sku,
-          name: variantName,
           gtin,
-          image: productImages,
+          unitMultiplier,
+          name: variantName,
           brand,
           isVariantOf,
+          image: productImages,
           additionalProperty,
-          unitMultiplier,
-        },
-      }
-    })
-    .filter((product) => product.quantity > 0)
+          offers: {
+            offers: [
+              {
+                price,
+                priceWithTaxes,
+                listPrice,
+                seller,
+                quantity,
+                listPriceWithTaxes,
+              },
+            ],
+          },
+        } = product
+
+        return {
+          id,
+          price,
+          priceWithTaxes,
+          listPrice,
+          listPriceWithTaxes,
+          seller,
+          quantity: productIdToBuy === id ? 1 : 0,
+          itemOffered: {
+            sku,
+            name: variantName,
+            gtin,
+            image: productImages,
+            brand,
+            isVariantOf,
+            additionalProperty,
+            unitMultiplier,
+          },
+        }
+      })
+      .filter((product) => product.quantity > 0)
+  }, [products, productIdToBuy])
 
   const buyProps = useBuyButton(buyButtonProps)
+
+  React.useEffect(() => {
+    if (!productIdToBuy) {
+      return
+    }
+
+    buyProps.onClick(pendingEvent as React.MouseEvent<HTMLButtonElement>)
+  }, [productIdToBuy, pendingEvent])
 
   useProductsSelected(productIds, isOpen, processResponse)
 
@@ -146,6 +162,7 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
     <UIProductComparisonSidebar
       buyProps={buyProps}
       handleProductToBuy={setProductIdToBuy}
+      setPendingEvent={setPendingEvent}
       sortOptions={[...sortOptions]}
       {...props}
     />
