@@ -1217,6 +1217,7 @@ export type UserOrder = {
   commercialConditionData: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   customData: Maybe<UserOrderCustomData>
+  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
   followUpEmail: Maybe<Scalars['String']['output']>
   giftRegistryData: Maybe<Scalars['String']['output']>
   hostname: Maybe<Scalars['String']['output']>
@@ -1382,6 +1383,42 @@ export type UserOrderDeliveryIds = {
   kitItemDetails: Maybe<Array<Maybe<Scalars['String']['output']>>>
   quantity: Maybe<Scalars['Int']['output']>
   warehouseId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderDeliveryOption = {
+  address: Maybe<UserOrderAddress>
+  deliveryChannel: Maybe<Scalars['String']['output']>
+  deliveryCompany: Maybe<Scalars['String']['output']>
+  friendlyDeliveryOptionName: Maybe<Scalars['String']['output']>
+  friendlyShippingEstimate: Maybe<Scalars['String']['output']>
+  items: Maybe<Array<Maybe<UserOrderDeliveryOptionsItems>>>
+  pickupStoreInfo: Maybe<UserOrderPickupStoreInfo>
+  quantityOfDifferentItems: Maybe<Scalars['Int']['output']>
+  selectedSla: Maybe<Scalars['String']['output']>
+  seller: Maybe<Scalars['String']['output']>
+  shippingEstimate: Maybe<Scalars['String']['output']>
+  shippingEstimateDate: Maybe<Scalars['String']['output']>
+  total: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderDeliveryOptionsContact = {
+  email: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderDeliveryOptionsData = {
+  contact: Maybe<UserOrderDeliveryOptionsContact>
+  deliveryOptions: Maybe<Array<Maybe<UserOrderDeliveryOption>>>
+}
+
+export type UserOrderDeliveryOptionsItems = {
+  imageUrl: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  tax: Maybe<Scalars['Float']['output']>
+  total: Maybe<Scalars['Float']['output']>
 }
 
 export type UserOrderDeliveryWindow = {
@@ -2461,6 +2498,57 @@ export type ServerOrderDetailsQueryQuery = {
       name: string | null
       value: number | null
     } | null> | null
+    deliveryOptionsData: {
+      deliveryOptions: Array<{
+        selectedSla: string | null
+        deliveryChannel: string | null
+        deliveryCompany: string | null
+        shippingEstimate: string | null
+        shippingEstimateDate: string | null
+        friendlyShippingEstimate: string | null
+        friendlyDeliveryOptionName: string | null
+        seller: string | null
+        quantityOfDifferentItems: number | null
+        total: number | null
+        address: {
+          addressType: string | null
+          receiverName: string | null
+          addressId: string | null
+          versionId: string | null
+          entityId: string | null
+          postalCode: string | null
+          city: string | null
+          state: string | null
+          country: string | null
+          street: string | null
+          number: string | null
+          neighborhood: string | null
+          complement: string | null
+          reference: string | null
+          geoCoordinates: Array<number | null> | null
+        } | null
+        pickupStoreInfo: {
+          additionalInfo: string | null
+          address: string | null
+          dockId: string | null
+          friendlyName: string | null
+          isPickupStore: boolean | null
+        } | null
+        items: Array<{
+          name: string | null
+          quantity: number | null
+          price: number | null
+          imageUrl: string | null
+          tax: number | null
+          total: number | null
+        } | null> | null
+      } | null> | null
+      contact: {
+        email: string | null
+        phone: string | null
+        name: string | null
+      } | null
+    } | null
   } | null
 }
 
@@ -3417,7 +3505,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'a18355781eafdf5003530b0cad497186e86be9dd',
+    operationHash: 'fa9cf0d48ede2db793667d057b5f82dba1ba49bc',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

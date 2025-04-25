@@ -550,6 +550,57 @@ const query = gql(`
         name
         value
       }
+      deliveryOptionsData {
+        deliveryOptions {
+          selectedSla
+          deliveryChannel
+          deliveryCompany
+          shippingEstimate
+          shippingEstimateDate
+          friendlyShippingEstimate
+          friendlyDeliveryOptionName
+          seller
+          address {
+            addressType
+            receiverName
+            addressId
+            versionId
+            entityId
+            postalCode
+            city
+            state
+            country
+            street
+            number
+            neighborhood
+            complement
+            reference
+            geoCoordinates
+          }
+          pickupStoreInfo {
+            additionalInfo
+            address
+            dockId
+            friendlyName
+            isPickupStore
+          }
+          quantityOfDifferentItems
+          total
+          items {
+            name
+            quantity
+            price
+            imageUrl
+            tax
+            total
+          }
+        }
+        contact {
+          email
+          phone
+          name
+        }
+      }
     }
   }
 `)
