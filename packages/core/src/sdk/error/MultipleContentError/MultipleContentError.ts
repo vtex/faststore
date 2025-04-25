@@ -1,12 +1,13 @@
 import type { Options } from 'src/server/cms'
+import type { EntryPathParams } from '@vtex/client-cp'
 
 export default class MultipleContentError extends Error {
-  constructor(options: Options) {
+  constructor(params: Options | EntryPathParams, origin = 'CMS') {
     super(
-      `Multiple content defined on the CMS for content type ${
-        options.contentType
+      `Multiple content defined on the ${origin} for content type ${
+        params.contentType
       }. Remove duplicated content before proceeding. Context: ${JSON.stringify(
-        options,
+        params,
         null,
         2
       )}`

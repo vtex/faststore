@@ -122,6 +122,10 @@ module.exports = {
     data: process.env.CMS_DATA,
   },
 
+  contentSource: {
+    type: 'CP',
+  },
+
   experimental: {
     cypressVersion: 12,
     enableCypressExtension: false,

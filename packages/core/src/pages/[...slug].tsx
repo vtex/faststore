@@ -12,7 +12,6 @@ import type {
 import { execute } from 'src/server'
 
 import type { SearchState } from '@faststore/sdk'
-import type { Locator } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,
@@ -28,9 +27,11 @@ import ProductListingPage, {
 import { getRedirect } from 'src/sdk/redirects'
 import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
-import { getPLP, type PLPContentType } from 'src/server/cms/plp'
+import type { PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -103,7 +104,7 @@ const query = gql(`
 export const getStaticProps: GetStaticProps<
   Props,
   { slug: string[] },
-  Locator
+  PreviewData
 > = async ({ params, previewData }) => {
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
@@ -162,7 +163,19 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
-    getPLP(slug, previewData, rewrites),
+    contentService.getPlpContent(
+      {
+        cmsOptions: {
+          ...(previewData?.contentType === 'plp' && previewData),
+          contentType: 'plp',
+        },
+        ...(previewData?.contentType === 'plp' && {
+          origin: previewData.origin,
+        }),
+        slug,
+      },
+      rewrites
+    ),
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,

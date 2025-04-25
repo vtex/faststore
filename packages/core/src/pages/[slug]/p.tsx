@@ -1,5 +1,4 @@
 import { isNotFoundError } from '@faststore/api'
-import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
@@ -37,7 +36,9 @@ import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { injectGlobalSections } from 'src/server/cms/global'
-import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
+import type { PDPContentType } from 'src/server/cms/pdp'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -183,7 +184,9 @@ function Page({
       <BreadcrumbJsonLd itemListElements={itemListElements} />
       <ProductJsonLd
         id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
-        mainEntityOfPage={`${meta.canonical}${settings?.seo?.mainEntityOfPage ?? ''}`}
+        mainEntityOfPage={`${meta.canonical}${
+          settings?.seo?.mainEntityOfPage ?? ''
+        }`}
         productName={product.name}
         description={product.description}
         brand={product.brand.name}
@@ -283,7 +286,7 @@ const query = gql(`
 export const getStaticProps: GetStaticProps<
   Props,
   { slug: string },
-  Locator
+  PreviewData
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
 
@@ -333,7 +336,19 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
-  const cmsPage: PDPContentType = await getPDP(data.product, previewData)
+  const cmsPage: PDPContentType = await contentService.getPdpContent(
+    data.product,
+    {
+      cmsOptions: {
+        ...(previewData?.contentType === 'pdp' && previewData),
+        contentType: 'pdp',
+      },
+      ...(previewData?.contentType === 'plp' && {
+        origin: previewData.origin,
+      }),
+      slug,
+    }
+  )
 
   const { seo } = data.product
   const title = seo.title
