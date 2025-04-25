@@ -1286,6 +1286,7 @@ export type UserOrder = {
   commercialConditionData?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   customData?: Maybe<UserOrderCustomData>;
+  deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
   followUpEmail?: Maybe<Scalars['String']>;
   giftRegistryData?: Maybe<Scalars['String']>;
   hostname?: Maybe<Scalars['String']>;
@@ -1466,6 +1467,46 @@ export type UserOrderDeliveryIds = {
   kitItemDetails?: Maybe<Array<Maybe<Scalars['String']>>>;
   quantity?: Maybe<Scalars['Int']>;
   warehouseId?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderDeliveryOption = {
+  __typename?: 'UserOrderDeliveryOption';
+  address?: Maybe<UserOrderAddress>;
+  deliveryChannel?: Maybe<Scalars['String']>;
+  deliveryCompany?: Maybe<Scalars['String']>;
+  friendlyDeliveryOptionName?: Maybe<Scalars['String']>;
+  friendlyShippingEstimate?: Maybe<Scalars['String']>;
+  items?: Maybe<Array<Maybe<UserOrderDeliveryOptionsItems>>>;
+  pickupStoreInfo?: Maybe<UserOrderPickupStoreInfo>;
+  quantityOfDifferentItems?: Maybe<Scalars['Int']>;
+  selectedSla?: Maybe<Scalars['String']>;
+  seller?: Maybe<Scalars['String']>;
+  shippingEstimate?: Maybe<Scalars['String']>;
+  shippingEstimateDate?: Maybe<Scalars['String']>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type UserOrderDeliveryOptionsContact = {
+  __typename?: 'UserOrderDeliveryOptionsContact';
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderDeliveryOptionsData = {
+  __typename?: 'UserOrderDeliveryOptionsData';
+  contact?: Maybe<UserOrderDeliveryOptionsContact>;
+  deliveryOptions?: Maybe<Array<Maybe<UserOrderDeliveryOption>>>;
+};
+
+export type UserOrderDeliveryOptionsItems = {
+  __typename?: 'UserOrderDeliveryOptionsItems';
+  imageUrl?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Int']>;
+  tax?: Maybe<Scalars['Float']>;
+  total?: Maybe<Scalars['Float']>;
 };
 
 export type UserOrderDeliveryWindow = {

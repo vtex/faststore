@@ -369,6 +369,9 @@ export const Query = {
     const {
       clients: { commerce },
     } = ctx
+    if (!orderId) {
+      throw new BadRequestError('Missing orderId')
+    }
 
     const order = await commerce.oms.userOrder({ orderId })
 
