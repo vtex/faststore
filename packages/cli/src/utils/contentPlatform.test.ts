@@ -7,7 +7,6 @@ import {
   groupCustomComponentDefinitions,
   groupCustomContentTypeDefinitions,
   addAllowAllComponentsDefToSchema,
-  // generateFullSchema,
 } from './contentPlatform'
 
 const mockDirent = (name: string, isDir: boolean): Dirent =>
@@ -86,7 +85,6 @@ jest.mock('fs-extra', () => ({
 
 const mockedFs = fse as jest.Mocked<typeof fse>
 
-// This is just to make it easier to match paths inside the tests
 jest.mock('path', () => ({
   ...jest.requireActual('path'),
   resolve: jest.fn((...args: string[]) => args.join('/')),
