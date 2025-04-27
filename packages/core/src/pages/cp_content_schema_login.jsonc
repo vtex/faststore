@@ -2,6 +2,12 @@
   "login": {
     "$extends": ["#/components/base-page-template"],
     "$singleton": true,
-    "title": "Login"
+    "title": "Login",
+    "type": "object",
+    "properties": {
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    }
   }
 }
