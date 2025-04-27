@@ -1,13 +1,14 @@
 import type { Dirent } from 'fs-extra'
 import fse from 'fs-extra'
+import chalk from 'chalk'
+
 import {
   listFilesRecursive,
   groupCustomComponentDefinitions,
-  // groupCustomContentTypeDefinitions,
-  // addAllowAllComponentsDefToSchema,
+  groupCustomContentTypeDefinitions,
+  addAllowAllComponentsDefToSchema,
   // generateFullSchema,
 } from './contentPlatform'
-import chalk from 'chalk'
 
 const mockDirent = (name: string, isDir: boolean): Dirent =>
   ({
@@ -236,7 +237,7 @@ describe('groupCustomComponentDefinitions', () => {
     expect(mockedFs.readFileSync).not.toHaveBeenCalled()
   })
 
-  it('should log when JSON file is malformed, ignore it and not throw', () => {
+  it('should log when JSON file is malformed, ignore its content', () => {
     mockedFs.readFileSync.mockReturnValueOnce('invalid json')
 
     const result = groupCustomComponentDefinitions(['./malformed.json'])
@@ -314,24 +315,298 @@ describe('groupCustomComponentDefinitions', () => {
   })
 })
 
-describe('groupCustomContentTypeDefinitions', () => {})
+describe('groupCustomContentTypeDefinitions', () => {
+  const consoleSpy = jest.spyOn(console, 'info')
+  beforeEach(() => {
+    mockedFs.readFileSync.mockClear()
+    consoleSpy.mockClear()
+  })
 
-describe('addAllowAllComponentsDefToSchema', () => {
-  it.todo(
-    'should add $ALLOW_ALL_COMPONENTS under $defs property and not overwrite existing definitions'
-  )
+  it('should group valid content-type definitions keeping their keys', () => {
+    const schema1 = {
+      '404': {
+        $extends: ['#/components/base-page-template'],
+        $singleton: true,
+        type: 'object',
+        title: 'Error 404',
+        properties: {
+          sections: {
+            $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+          },
+        },
+      },
+    }
+    const schema2 = {
+      '500': {
+        $extends: ['#/components/base-page-template'],
+        $singleton: true,
+        type: 'object',
+        title: 'Error 500',
+        properties: {
+          sections: {
+            $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+          },
+        },
+      },
+    }
+    const schema3 = {
+      home: {
+        $extends: ['#/components/base-page-template'],
+        $singleton: true,
+        title: 'Home',
+        type: 'object',
+        properties: {
+          seo: {
+            $ref: '#/components/SEO',
+          },
+          sections: {
+            $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+          },
+        },
+      },
+    }
 
-  it.todo(
-    'should generate $ALLOW_ALL_COMPONENTS that includes all components in the schema'
-  )
+    mockedFs.readFileSync
+      .mockReturnValueOnce(JSON.stringify(schema1))
+      .mockReturnValueOnce(JSON.stringify(schema2))
+      .mockReturnValueOnce(JSON.stringify(schema3))
 
-  it.todo(
-    'should add an empty $ALLOW_ALL_COMPONENTS definition if the schema has no components'
-  )
+    const schemaFiles = [
+      './dir1/dir2/dir3/cp_schema1.json',
+      './dir1/dir2/dir3/cp_schema2.json',
+      './dir1/dir2/dir3/cp_schema3.json',
+    ]
+
+    const result = groupCustomContentTypeDefinitions(schemaFiles)
+
+    expect(result).toEqual({ ...schema1, ...schema2, ...schema3 })
+    expect(mockedFs.readFileSync).toHaveBeenCalledTimes(3)
+  })
+
+  it('should return empty object when no schema files are provided', () => {
+    const result = groupCustomContentTypeDefinitions([])
+
+    expect(result).toEqual({})
+    expect(mockedFs.readFileSync).not.toHaveBeenCalled()
+  })
+
+  it('should log when JSON file is malformed and ignore its content', () => {
+    mockedFs.readFileSync.mockReturnValueOnce('invalid json')
+
+    const result = groupCustomContentTypeDefinitions(['./malformed.json'])
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      // The use of chalk.red is needed here, otherwise this won't match.
+      `${chalk.red(
+        'error'
+      )} - ./malformed.json is a malformed JSON file, ignoring its content.`
+    )
+    expect(consoleSpy).toHaveBeenCalledTimes(1)
+    expect(result).toEqual({})
+  })
+
+  it('should use the last definition when duplicates are encountered and also let the user know', () => {
+    const schema1 = {
+      '404': {
+        $extends: ['#/components/base-page-template'],
+        $singleton: true,
+        type: 'object',
+        title: 'Custom 404',
+        properties: {
+          sections: {
+            $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+          },
+        },
+      },
+    }
+    const schema2 = {
+      '404': {
+        $extends: ['#/components/base-page-template'],
+        $singleton: true,
+        type: 'object',
+        title: 'My Custom Error 404',
+        properties: {
+          sections: {
+            $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+          },
+        },
+      },
+    }
+
+    mockedFs.readFileSync
+      .mockReturnValueOnce(JSON.stringify(schema1))
+      .mockReturnValueOnce(JSON.stringify(schema2))
+
+    const schemaFiles = [
+      './dir1/dir2/dir3/cp_schema1.json',
+      './dir1/dir2/dir3/cp_schema2.json',
+    ]
+
+    const result = groupCustomContentTypeDefinitions(schemaFiles)
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      // The use of chalk.red is needed here, otherwise this won't match.
+      `${chalk.red(
+        'info'
+      )} - The content-type 404 is being defined more than once.\nThis can lead to unexpected behavior, please check your content-type schemas.\nUsing the last definition found, from: ./dir1/dir2/dir3/cp_schema2.json`
+    )
+    expect(consoleSpy).toHaveBeenCalledTimes(1)
+
+    // Last definition wins
+    expect(result).toEqual(schema2)
+    expect(mockedFs.readFileSync).toHaveBeenCalledTimes(2)
+  })
 })
 
-describe('generateFullSchema', () => {
-  it.todo(
-    'should generate a full schema with all expected definitions from original and custom schemas'
-  )
+describe('addAllowAllComponentsDefToSchema', () => {
+  it('should add $ALLOW_ALL_COMPONENTS under $defs property and not overwrite existing definitions', () => {
+    const schema = {
+      'content-types': {
+        '404': {
+          $extends: ['#/components/base-page-template'],
+          $singleton: true,
+          type: 'object',
+          title: 'Error 404',
+          properties: {
+            sections: {
+              $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+            },
+          },
+        },
+      },
+      components: {
+        component1: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+          },
+        },
+        component2: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+          },
+        },
+        component3: {
+          type: 'object',
+          properties: {
+            description: { type: 'string' },
+          },
+        },
+      },
+      $defs: {
+        existingDef: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+          },
+        },
+      },
+    }
+
+    const expectedSchema = {
+      'content-types': {
+        '404': {
+          $extends: ['#/components/base-page-template'],
+          $singleton: true,
+          type: 'object',
+          title: 'Error 404',
+          properties: {
+            sections: {
+              $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+            },
+          },
+        },
+      },
+      components: {
+        component1: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+          },
+        },
+        component2: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+          },
+        },
+        component3: {
+          type: 'object',
+          properties: {
+            description: { type: 'string' },
+          },
+        },
+      },
+      $defs: {
+        existingDef: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+          },
+        },
+        $ALLOW_ALL_COMPONENTS: {
+          type: 'array',
+          items: {
+            anyOf: [
+              { $ref: '#/components/component1' },
+              { $ref: '#/components/component2' },
+              { $ref: '#/components/component3' },
+            ],
+          },
+        },
+      },
+    }
+
+    const result = addAllowAllComponentsDefToSchema(schema)
+
+    expect(result).toEqual(expectedSchema)
+  })
+
+  it('should add an empty $ALLOW_ALL_COMPONENTS definition if the schema has no components', () => {
+    const schema = {
+      'content-types': {
+        '404': {
+          $extends: ['#/components/base-page-template'],
+          $singleton: true,
+          type: 'object',
+          title: 'Error 404',
+          properties: {
+            sections: {
+              $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+            },
+          },
+        },
+      },
+      components: {},
+    }
+
+    const expectedSchema = {
+      'content-types': {
+        '404': {
+          $extends: ['#/components/base-page-template'],
+          $singleton: true,
+          type: 'object',
+          title: 'Error 404',
+          properties: {
+            sections: {
+              $ref: '#/$defs/$ALLOW_ALL_COMPONENTS',
+            },
+          },
+        },
+      },
+      components: {},
+      $defs: {
+        $ALLOW_ALL_COMPONENTS: {
+          type: 'array',
+          items: {
+            anyOf: [],
+          },
+        },
+      },
+    }
+
+    const result = addAllowAllComponentsDefToSchema(schema)
+    expect(result).toEqual(expectedSchema)
+  })
 })
