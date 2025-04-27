@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import path from 'path'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
-import { generateFullSchema } from '../utils/contentPlatform'
+import { generateFullSchema, sendToRegistry } from '../utils/contentPlatform'
 import { writeJsonSync } from 'fs-extra'
 
 const SCHEMA_REGISTRY_URL =
@@ -82,6 +82,6 @@ export default class ContentPlatformSync extends Command {
       return
     }
 
-    // await sendToRegistry(fullSchema);
+    await sendToRegistry(fullSchema)
   }
 }

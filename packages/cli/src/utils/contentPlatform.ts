@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { CliUx } from '@oclif/core'
 import { parse as parseJSONC } from 'jsonc-parser'
 import { readFileSync, readdir, stat } from 'fs-extra'
+import { input } from '@inquirer/prompts'
 
 const CP_COMPONENT_SCHEMA_REGEX = /(?:^|\/)cp_schema[^/]*\.(json|jsonc)$/
 const CP_CONTENT_TYPE_SCHEMA_REGEX =
@@ -279,4 +280,33 @@ export async function generateFullSchema({
   })
 }
 
-export async function sendToRegistry() {}
+// The actual implementation of the function will change before full release,
+// this is just to make it easier for us to test the command.
+export async function sendToRegistry(fullSchema: Record<string, any>) {
+  console.log("You're about to send the resulting schema to the CP registry.")
+
+  const account = await input({
+    message: "What's the account you want to upload the schema to?",
+    validate: (input) => !!input || 'Account name is required.',
+  })
+
+  const storeId = await input({
+    message: "What's the store ID you want to associate to this schema?",
+    validate: (input) => !!input || 'Store ID is required.',
+    default: 'faststore',
+  })
+
+  const res = await fetch(
+    `https://api.vtexcommercebeta.com.br/api/content-platform/registry/${account}/schemas/${storeId}`,
+    { method: 'PUT', body: JSON.stringify(fullSchema) }
+  )
+
+  if (!res.ok) {
+    console.error(
+      `${chalk.red('error')} - Failed to upload the schema to Content Platform.`,
+      res.statusText
+    )
+  }
+
+  return res
+}
