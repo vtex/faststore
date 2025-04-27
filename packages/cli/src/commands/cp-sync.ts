@@ -10,6 +10,12 @@ const SCHEMA_REGISTRY_URL =
   'https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore'
 
 export default class ContentPlatformSync extends Command {
+  // Keeping the command hidden for now, as the implementation is not final yet.
+  static hidden = true
+
+  static description =
+    '[WIP] Generate a full Content Platform schema by merging the latest FastStore schema with your custom components and content types.'
+
   static flags = {
     ['dry-run']: Flags.boolean({
       char: 'd',
