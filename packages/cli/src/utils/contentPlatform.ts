@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import { CliUx } from '@oclif/core'
 
 const SCHEMA_REGISTRY_URL =
-  'http://localhost:3003/api/cp/schema-registry/vtex/schemas/faststore'
+  'https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore'
 
 const CP_COMPONENT_SCHEMA_REGEX = /(?:^|\/)cp_schema[^/]*\.(json|jsonc)$/
 const CP_CONTENT_TYPE_SCHEMA_REGEX =
@@ -132,7 +132,7 @@ export function groupCustomContentTypeDefinitions(contentTypesDir: string[]) {
           console.info(
             `${chalk.red(
               'info'
-            )} - The content type key ${key} is being used more than once.\nThis can lead to unexpected behavior, please check your content-type schemas.\nUsing the last definition found, from: ${contentSchemaFileName}`
+            )} - The content-type ${key} is being defined more than once.\nThis can lead to unexpected behavior, please check your content-type schemas.\nUsing the last definition found, from: ${contentSchemaFileName}`
           )
         } else {
           customContentTypeKeys.add(key)
@@ -145,7 +145,7 @@ export function groupCustomContentTypeDefinitions(contentTypesDir: string[]) {
         console.info(
           `${chalk.red(
             'error'
-          )} - ${contentSchemaFileName} is a malformed JSON file, ignoring its contents.`
+          )} - ${contentSchemaFileName} is a malformed JSON file, ignoring its content.`
         )
       } else {
         throw err
@@ -233,12 +233,12 @@ export async function generateFullSchema(
   const customContentTypes = groupCustomContentTypeDefinitions(contentTypeFiles)
 
   const contentTypeDuplicates = findOverrides(
-    originalSchema['content-types'],
+    originalSchema['content-types'] ?? {},
     customContentTypes
   )
 
   const componentDuplicates = findOverrides(
-    originalSchema.components,
+    originalSchema.components ?? {},
     customComponents
   )
 
@@ -253,11 +253,11 @@ export async function generateFullSchema(
   return addAllowAllComponentsDefToSchema({
     ...originalSchema,
     components: {
-      ...originalSchema.components,
+      ...(originalSchema.components ?? {}),
       ...customComponents,
     },
     ['content-types']: {
-      ...originalSchema['content-types'],
+      ...(originalSchema['content-types'] ?? {}),
       ...customContentTypes,
     },
   })
