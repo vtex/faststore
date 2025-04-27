@@ -10,6 +10,9 @@
           "ui:widget": "slug"
         },
         "type": "string"
+      },
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
       }
     }
   }
