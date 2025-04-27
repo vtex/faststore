@@ -3,13 +3,10 @@ import { parse as parseJSONC } from 'jsonc-parser'
 import { readFileSync, readdir, stat } from 'fs-extra'
 import chalk from 'chalk'
 
-import { formSchema as MockSchema } from './__mockSchema__'
 import { CliUx } from '@oclif/core'
 
-//const SCHEMA_REGISTRY_BASE_URL =
-//  "https://api.vtexcommercebeta.com.br/api/content-platform/schemas";
-
-// const SCHEMA_REGISTRY_BASE_URL = 'http://localhost:3002'
+const SCHEMA_REGISTRY_URL =
+  'http://localhost:3003/api/cp/schema-registry/vtex/schemas/faststore'
 
 const CP_COMPONENT_SCHEMA_REGEX = /(?:^|\/)cp_schema[^/]*\.(json|jsonc)$/
 const CP_CONTENT_TYPE_SCHEMA_REGEX =
@@ -17,11 +14,16 @@ const CP_CONTENT_TYPE_SCHEMA_REGEX =
 
 // This implementation is necessary to support Node 18.x, as it doesn't have
 // support for `recursive: true` in `fs.readdir`.
-async function listFilesRecursive(basePath: string, matchPattern: RegExp) {
+export async function listFilesRecursive(
+  basePath: string,
+  matchPattern: RegExp
+) {
   const isBasePathAFile = (await stat(basePath)).isFile()
 
   if (isBasePathAFile) {
-    return [basePath]
+    const fileMatchesPattern = matchPattern.test(basePath)
+
+    return fileMatchesPattern ? [basePath] : []
   }
 
   const filesInPath = await readdir(basePath, { withFileTypes: true })
@@ -39,10 +41,8 @@ async function listFilesRecursive(basePath: string, matchPattern: RegExp) {
   return files.flat()?.filter((path) => matchPattern.test(path))
 }
 
-async function fetchFastStoreSchema(localSchemaPath: string | null) {
-  // const fastStoreSchema = await fetch(
-  //   `${SCHEMA_REGISTRY_BASE_URL}/vtex/faststore`,
-  // );
+export async function fetchFastStoreSchema(localSchemaPath: string | null) {
+  const fastStoreSchema = await (await fetch(SCHEMA_REGISTRY_URL)).json()
 
   if (localSchemaPath) {
     try {
@@ -62,22 +62,12 @@ async function fetchFastStoreSchema(localSchemaPath: string | null) {
     }
   }
 
-  const fastStoreSchema: any = {
-    $id: 'https://api.myvtex.com/api/content-platform/schemas/faststore-base',
-    $schema: 'https://api.myvtex.com/api/content-platform/schemas/consumer',
-    ...MockSchema,
-  }
-
   return fastStoreSchema
 }
 
-async function groupCustomComponentDefinitions(componentsPath: string) {
-  const componentsDir = await listFilesRecursive(
-    componentsPath,
-    CP_COMPONENT_SCHEMA_REGEX
-  )
-
+export function groupCustomComponentDefinitions(componentsDir: string[]) {
   const customComponentDefinitions: Record<string, any> = {}
+  const customComponentKeys = new Set<string>()
 
   for (const schemaFileName of componentsDir) {
     const fileContent = readFileSync(schemaFileName, 'utf8')
@@ -85,16 +75,37 @@ async function groupCustomComponentDefinitions(componentsPath: string) {
     try {
       const componentSchema = JSON.parse(fileContent)
 
+      const componentKey = componentSchema.$componentKey
+
+      if (!componentKey) {
+        console.info(
+          `${chalk.red(
+            'error'
+          )} - ${schemaFileName} is missing the $componentKey property. Ignoring it.`
+        )
+
+        continue
+      }
+
+      if (customComponentKeys.has(componentKey)) {
+        console.info(
+          `${chalk.red(
+            'info'
+          )} - The component key ${componentKey} is being used more than once.\nThis can lead to unexpected behavior, please check your component schemas.\nUsing the last definition found for this key, from: ${schemaFileName}`
+        )
+      } else {
+        customComponentKeys.add(componentKey)
+      }
+
       // Using `$componentKey` as the property name for each component in the
       // final schema.
-      customComponentDefinitions[componentSchema.$componentKey] =
-        componentSchema
+      customComponentDefinitions[componentKey] = componentSchema
     } catch (err) {
       if (err instanceof SyntaxError) {
         console.info(
           `${chalk.red(
             'error'
-          )} - ${schemaFileName} is a malformed JSON file, ignoring its contents.`
+          )} - ${schemaFileName} is a malformed JSON file, ignoring its content.`
         )
       } else {
         throw err
@@ -105,19 +116,28 @@ async function groupCustomComponentDefinitions(componentsPath: string) {
   return customComponentDefinitions
 }
 
-async function groupCustomContentTypeDefinitions(contentTypesPath: string) {
-  const contentTypesDir = await listFilesRecursive(
-    contentTypesPath,
-    CP_CONTENT_TYPE_SCHEMA_REGEX
-  )
-
+export function groupCustomContentTypeDefinitions(contentTypesDir: string[]) {
   const customContentTypeDefinitions = {}
+  const customContentTypeKeys = new Set<string>()
 
   for (const contentSchemaFileName of contentTypesDir) {
     const fileContent = readFileSync(contentSchemaFileName, 'utf8')
 
     try {
       const contentTypeSchema = JSON.parse(fileContent)
+      const keys = Object.keys(contentTypeSchema)
+
+      for (const key of keys) {
+        if (customContentTypeKeys.has(key)) {
+          console.info(
+            `${chalk.red(
+              'info'
+            )} - The content type key ${key} is being used more than once.\nThis can lead to unexpected behavior, please check your content-type schemas.\nUsing the last definition found, from: ${contentSchemaFileName}`
+          )
+        } else {
+          customContentTypeKeys.add(key)
+        }
+      }
 
       Object.assign(customContentTypeDefinitions, contentTypeSchema)
     } catch (err) {
@@ -138,7 +158,7 @@ async function groupCustomContentTypeDefinitions(contentTypesPath: string) {
 
 // This function adds a new property `$ALLOW_ALL_COMPONENTS` to the schema,
 // under the $defs property.
-function addAllowAllComponentsDefToSchema(schema: Record<string, any>) {
+export function addAllowAllComponentsDefToSchema(schema: Record<string, any>) {
   const allComponentRefs = Object.keys(schema.components).map(
     (componentKey) => ({
       $ref: `#/components/${componentKey}`,
@@ -198,12 +218,19 @@ export async function generateFullSchema(
   contentTypesPath: string,
   localSchemaPath: string | null
 ) {
-  const [customComponents, customContentTypes, originalSchema] =
-    await Promise.all([
-      groupCustomComponentDefinitions(componentsPath),
-      groupCustomContentTypeDefinitions(contentTypesPath),
-      fetchFastStoreSchema(localSchemaPath),
-    ])
+  const componentFiles = await listFilesRecursive(
+    componentsPath,
+    CP_COMPONENT_SCHEMA_REGEX
+  )
+
+  const contentTypeFiles = await listFilesRecursive(
+    contentTypesPath,
+    CP_CONTENT_TYPE_SCHEMA_REGEX
+  )
+
+  const originalSchema = await fetchFastStoreSchema(localSchemaPath)
+  const customComponents = groupCustomComponentDefinitions(componentFiles)
+  const customContentTypes = groupCustomContentTypeDefinitions(contentTypeFiles)
 
   const contentTypeDuplicates = findOverrides(
     originalSchema['content-types'],
