@@ -3,6 +3,11 @@
     "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",
-    "title": "Error 404"
+    "title": "Error 404",
+    "properties": {
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    }
   }
 }

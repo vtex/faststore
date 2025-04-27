@@ -3,6 +3,11 @@
     "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",
-    "title": "Error 500"
+    "title": "Error 500",
+    "properties": {
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    }
   }
 }
