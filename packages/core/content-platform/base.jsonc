@@ -25,21 +25,13 @@
       },
       "required": ["$componentKey"]
     },
-    "base-dynamic-area": {
-      "$extends": ["#/components/base-component"],
+    "base-page-template": {
+      "type": "object",
       "properties": {
         "sections": {
-          "items": {
-            "$ref": "#/components/base-component"
-          },
-          "type": "array"
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
-      },
-      "type": "object"
-    },
-    "base-page-template": {
-      "$extends": ["#/components/base-dynamic-area"],
-      "type": "object"
+      }
     },
     // `Children` is not assigned to any specific React component.
     // Instead, it's used as a "splitter" to orient the rendering process.
@@ -48,14 +40,7 @@
       "$componentKey": "Children",
       "description": "Children",
       "type": "object",
-      "properties": {
-        "name": {
-          "const": "Children"
-        },
-        "data": {
-          "properties": {}
-        }
-      }
+      "properties": {}
     },
     // `SEO` is also not assigned to any specific React component.
     // It serves as a way to define SEO options for a given page.
@@ -117,134 +102,133 @@
       "$componentTitle": "Search Bar Configuration",
       "$extends": ["#/components/base-component"],
       "description": "Search Bar Configuration",
+      "type": "object",
       "properties": {
-        "properties": {
-          "searchInput": {
-            "title": "Input Field",
-            "type": "object",
-            "properties": {
-              "placeholder": {
-                "title": "Placeholder",
-                "type": "string",
-                "default": "Search Everything at the Store"
-              },
-              "icon": {
-                "title": "Search Icon",
-                "type": "object",
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": ["Magnifying Glass"],
-                    "enum": ["MagnifyingGlass"],
-                    "default": "MagnifyingGlass"
-                  },
-                  "alt": {
-                    "title": "Alternative Label",
-                    "type": "string",
-                    "default": "Magnifying Glass"
-                  }
+        "searchInput": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "placeholder": {
+              "title": "Placeholder",
+              "type": "string",
+              "default": "Search Everything at the Store"
+            },
+            "icon": {
+              "title": "Search Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"],
+                  "default": "MagnifyingGlass"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "Magnifying Glass"
                 }
               }
             }
-          },
-          "searchHistory": {
-            "title": "Search History",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "History"
-              },
-              "clearButtonLabel": {
-                "type": "string",
-                "title": "Clear Button Label",
-                "default": "Clear History"
-              },
-              "icon": {
-                "title": "Icon",
-                "type": "object",
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": ["Clock Clockwise"],
-                    "enum": ["ClockClockwise"],
-                    "default": "ClockClockwise"
-                  },
-                  "alt": {
-                    "type": "string",
-                    "title": "Alternative Label",
-                    "default": "History"
-                  }
+          }
+        },
+        "searchHistory": {
+          "title": "Search History",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "History"
+            },
+            "clearButtonLabel": {
+              "type": "string",
+              "title": "Clear Button Label",
+              "default": "Clear History"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Clock Clockwise"],
+                  "enum": ["ClockClockwise"],
+                  "default": "ClockClockwise"
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "History"
                 }
-              },
-              "maxItems": {
-                "title": "Maximum Number of History Items",
-                "type": "integer",
-                "default": 5
               }
+            },
+            "maxItems": {
+              "title": "Maximum Number of History Items",
+              "type": "integer",
+              "default": 5
             }
-          },
-          "searchTop": {
-            "title": "Top Search",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Top Search"
-              },
-              "maxItems": {
-                "title": "Maximum Number of Top Search Items",
-                "type": "integer",
-                "default": 5
-              }
+          }
+        },
+        "searchTop": {
+          "title": "Top Search",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Top Search"
+            },
+            "maxItems": {
+              "title": "Maximum Number of Top Search Items",
+              "type": "integer",
+              "default": 5
             }
-          },
-          "searchAutocomplete": {
-            "title": "Autocomplete",
-            "type": "object",
-            "properties": {
-              "icon": {
-                "title": "Icon",
-                "type": "object",
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": ["Magnifying Glass"],
-                    "enum": ["MagnifyingGlass"]
-                  },
-                  "alt": {
-                    "type": "string",
-                    "title": "Alternative Label",
-                    "default": "Magnifying Glass"
-                  }
+          }
+        },
+        "searchAutocomplete": {
+          "title": "Autocomplete",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Magnifying Glass"
                 }
-              },
-              "maxItems": {
-                "title": "Maximum Number of Autocomplete Items",
-                "type": "integer",
-                "default": 5
               }
+            },
+            "maxItems": {
+              "title": "Maximum Number of Autocomplete Items",
+              "type": "integer",
+              "default": 5
             }
-          },
-          "searchProducts": {
-            "title": "Suggested Products",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Suggested Products"
-              },
-              "maxItems": {
-                "title": "Maximum Number of Suggested Products",
-                "type": "integer",
-                "default": 5
-              }
+          }
+        },
+        "searchProducts": {
+          "title": "Suggested Products",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Suggested Products"
+            },
+            "maxItems": {
+              "title": "Maximum Number of Suggested Products",
+              "type": "integer",
+              "default": 5
             }
           }
         }
@@ -259,19 +243,43 @@
   },
   "content-types": {
     "globalSections": {
-      "$extends": ["#/components/base-dynamic-area"],
+      "title": "Global Sections",
+      "$extends": ["#/components/base-page-template"],
       "$singleton": true,
-      "title": "Global Sections"
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
     },
     "globalHeaderSections": {
       "title": "Global Header Sections",
       "$singleton": true,
-      "$extends": ["#/components/base-dynamic-area"]
+      "$extends": ["#/components/base-page-template"],
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
     },
     "globalFooterSections": {
       "title": "Global Footer Sections",
       "$singleton": true,
-      "$extends": ["#/components/base-dynamic-area"]
+      "$extends": ["#/components/base-page-template"],
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
     }
+  },
+  "$defs": {
+    // This is a special property that allows all components to be used in the
+    // `sections` property of a content-type. Its content will be generated
+    // before this schema is sent to CP's registry.
+    "$ALLOW_ALL_COMPONENTS": {}
   }
 }
