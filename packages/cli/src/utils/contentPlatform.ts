@@ -1,12 +1,8 @@
+import chalk from 'chalk'
 import { resolve } from 'path'
+import { CliUx } from '@oclif/core'
 import { parse as parseJSONC } from 'jsonc-parser'
 import { readFileSync, readdir, stat } from 'fs-extra'
-import chalk from 'chalk'
-
-import { CliUx } from '@oclif/core'
-
-const SCHEMA_REGISTRY_URL =
-  'https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore'
 
 const CP_COMPONENT_SCHEMA_REGEX = /(?:^|\/)cp_schema[^/]*\.(json|jsonc)$/
 const CP_CONTENT_TYPE_SCHEMA_REGEX =
@@ -41,9 +37,10 @@ export async function listFilesRecursive(
   return files.flat()?.filter((path) => matchPattern.test(path))
 }
 
-export async function fetchFastStoreSchema(localSchemaPath: string | null) {
-  const fastStoreSchema = await (await fetch(SCHEMA_REGISTRY_URL)).json()
-
+export async function fetchFastStoreSchema(
+  localSchemaPath: string | null,
+  remoteSchemaUrl: string
+) {
   if (localSchemaPath) {
     try {
       const fileContent = readFileSync(localSchemaPath, 'utf8')
@@ -62,7 +59,15 @@ export async function fetchFastStoreSchema(localSchemaPath: string | null) {
     }
   }
 
-  return fastStoreSchema
+  try {
+    const res = await fetch(remoteSchemaUrl)
+
+    return await res.json()
+  } catch (err) {
+    throw new Error(
+      `Failed to fetch remote base schema from ${remoteSchemaUrl}.`
+    )
+  }
 }
 
 export function groupCustomComponentDefinitions(componentsDir: string[]) {
@@ -213,11 +218,19 @@ async function confirmUserChoice(
   return
 }
 
-export async function generateFullSchema(
-  componentsPath: string,
-  contentTypesPath: string,
+interface GenerateFullSchemaArgs {
+  componentsPath: string
+  contentTypesPath: string
+  remoteSchemaUrl: string
   localSchemaPath: string | null
-) {
+}
+
+export async function generateFullSchema({
+  componentsPath,
+  contentTypesPath,
+  localSchemaPath,
+  remoteSchemaUrl,
+}: GenerateFullSchemaArgs) {
   const componentFiles = await listFilesRecursive(
     componentsPath,
     CP_COMPONENT_SCHEMA_REGEX
@@ -228,7 +241,10 @@ export async function generateFullSchema(
     CP_CONTENT_TYPE_SCHEMA_REGEX
   )
 
-  const originalSchema = await fetchFastStoreSchema(localSchemaPath)
+  const originalSchema = await fetchFastStoreSchema(
+    localSchemaPath,
+    remoteSchemaUrl
+  )
   const customComponents = groupCustomComponentDefinitions(componentFiles)
   const customContentTypes = groupCustomContentTypeDefinitions(contentTypeFiles)
 
