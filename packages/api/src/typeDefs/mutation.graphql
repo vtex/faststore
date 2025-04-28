@@ -11,4 +11,8 @@ type Mutation {
   Subscribes a new person to the newsletter list.
   """
   subscribeToNewsletter(data: IPersonNewsletter!): PersonNewsletter
+  """
+  Cancels user order
+  """
+  cancelOrder(orderId: String!): UserOrderCancel
 }

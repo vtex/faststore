@@ -391,12 +391,19 @@ export type MessageInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Cancels user order */
+  cancelOrder?: Maybe<UserOrderCancel>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart?: Maybe<StoreCart>;
   /** Updates a web session with the specified values. */
   validateSession?: Maybe<StoreSession>;
+};
+
+
+export type MutationCancelOrderArgs = {
+  orderId: Scalars['String'];
 };
 
 
@@ -1377,6 +1384,13 @@ export type UserOrderAttachments = {
   __typename?: 'UserOrderAttachments';
   content?: Maybe<Scalars['JSONObject']>;
   name?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderCancel = {
+  __typename?: 'UserOrderCancel';
+  date?: Maybe<Scalars['String']>;
+  orderId?: Maybe<Scalars['String']>;
+  receipt?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderCategories = {

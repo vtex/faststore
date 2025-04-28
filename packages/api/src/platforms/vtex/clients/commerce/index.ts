@@ -2,7 +2,11 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type { StoreMarketingData, UserOrder } from '../../../..'
+import type {
+  StoreMarketingData,
+  UserOrder,
+  UserOrderCancel,
+} from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
 import { getStoreCookie, getWithCookie } from '../../utils/cookies'
@@ -418,6 +422,23 @@ export const VtexCommerce = (
           `${base}/api/oms/user/orders/${orderId}`,
           {
             method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+      cancelOrder: ({
+        orderId,
+      }: { orderId: string }): Promise<UserOrderCancel> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/oms/pvt/orders/${orderId}/cancel`,
+          {
+            method: 'POST',
             headers,
           },
           { storeCookies }

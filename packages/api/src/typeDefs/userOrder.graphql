@@ -512,3 +512,9 @@ type UserOrderContactInformation {
   documentType: String
   phone: String
 }
+
+type UserOrderCancel {
+  date: String
+  orderId: String
+  receipt: String
+}
