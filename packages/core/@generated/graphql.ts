@@ -1389,6 +1389,7 @@ export type UserOrderDeliveryOption = {
   address: Maybe<UserOrderAddress>
   deliveryChannel: Maybe<Scalars['String']['output']>
   deliveryCompany: Maybe<Scalars['String']['output']>
+  deliveryWindow: Maybe<UserOrderDeliveryWindow>
   friendlyDeliveryOptionName: Maybe<Scalars['String']['output']>
   friendlyShippingEstimate: Maybe<Scalars['String']['output']>
   items: Maybe<Array<Maybe<UserOrderDeliveryOptionsItems>>>
@@ -2541,6 +2542,11 @@ export type ServerOrderDetailsQueryQuery = {
         seller: string | null
         quantityOfDifferentItems: number | null
         total: number | null
+        deliveryWindow: {
+          startDateUtc: string | null
+          endDateUtc: string | null
+          price: number | null
+        } | null
         address: {
           addressType: string | null
           receiverName: string | null
@@ -3552,7 +3558,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'fd08b9da350d2228f4b999fc28cf26606013a2bd',
+    operationHash: '938d6d01250ddf8805146719e7c79c1bd0903fbc',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

@@ -1474,6 +1474,7 @@ export type UserOrderDeliveryOption = {
   address?: Maybe<UserOrderAddress>;
   deliveryChannel?: Maybe<Scalars['String']>;
   deliveryCompany?: Maybe<Scalars['String']>;
+  deliveryWindow?: Maybe<UserOrderDeliveryWindow>;
   friendlyDeliveryOptionName?: Maybe<Scalars['String']>;
   friendlyShippingEstimate?: Maybe<Scalars['String']>;
   items?: Maybe<Array<Maybe<UserOrderDeliveryOptionsItems>>>;

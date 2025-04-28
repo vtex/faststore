@@ -36,6 +36,7 @@ export const UserOrder: Record<string, Resolver<Root>> = {
           logisticsItem?.deliveryChannel ||
           ''
         const deliveryCompany = logisticsItem?.deliveryCompany || '' // Correios / Fedex
+        const deliveryWindow = logisticsItem?.deliveryWindow
         const pickupStoreInfo = logisticsItem?.pickupStoreInfo
         const shippingEstimate = logisticsItem?.shippingEstimate || '' // 1bd
         const friendlyShippingEstimate = logisticsItem?.shippingEstimate
@@ -69,6 +70,7 @@ export const UserOrder: Record<string, Resolver<Root>> = {
             selectedSla,
             deliveryChannel,
             deliveryCompany,
+            deliveryWindow,
             shippingEstimate,
             shippingEstimateDate,
             seller,

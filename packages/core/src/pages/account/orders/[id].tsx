@@ -586,6 +586,11 @@ const query = gql(`
           selectedSla
           deliveryChannel
           deliveryCompany
+          deliveryWindow {
+            startDateUtc
+            endDateUtc
+            price
+          }
           shippingEstimate
           shippingEstimateDate
           friendlyShippingEstimate

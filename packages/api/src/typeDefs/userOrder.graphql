@@ -523,6 +523,7 @@ type UserOrderDeliveryOption {
   selectedSla: String
   deliveryChannel: String
   deliveryCompany: String
+  deliveryWindow: UserOrderDeliveryWindow
   shippingEstimate: String
   shippingEstimateDate: String
   friendlyShippingEstimate: String
