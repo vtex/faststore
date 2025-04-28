@@ -44,4 +44,6 @@ function BannerNewsletter({
   )
 }
 
+BannerNewsletter.$componentKey = 'BannerNewsletter'
+
 export default BannerNewsletter

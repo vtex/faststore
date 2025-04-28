@@ -41,6 +41,8 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
   )
 }
 
+BreadcrumbSection.$componentKey = 'Breadcrumb'
+
 const OverridableBreadcrumbSection = getOverridableSection<
   typeof BreadcrumbSection
 >('Breadcrumb', BreadcrumbSection, BreadcrumbDefaultComponents)
