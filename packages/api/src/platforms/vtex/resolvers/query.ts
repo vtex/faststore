@@ -224,7 +224,7 @@ export const Query = {
       clients: { search },
     } = ctx
 
-    if(!productIds.length) {
+    if (!productIds?.length) {
       return []
     }
 
