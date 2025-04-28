@@ -21,6 +21,10 @@ import Badge from '../../atoms/Badge'
 import Button from '../../atoms/Button'
 import Select from '../../atoms/Select'
 import Price, { type PriceFormatter } from '../../atoms/Price'
+import ProductCard, {
+  ProductCardContent,
+  ProductCardImage,
+} from '../../molecules/ProductCard'
 
 const SPECIFICATION = 'SPECIFICATION'
 
@@ -58,7 +62,7 @@ export interface ProductComparisonSidebarProps
   /**
    * Formatter function that transforms the raw price value and render the result.
    */
-  priceFormatter?: PriceFormatter
+  priceFormatter: PriceFormatter
   /**
    * Custom labels to introducing about products.
    */
@@ -123,8 +127,6 @@ function ProductComparisonSidebar({
   const [selectedFilter, setSelectedFilter] =
     useState<SortOptions['value']>('productByName')
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false)
-  const [productsSpecs, setProductsSpecs] = useState<string[]>([])
-  const [differenceSpecs, setDifferenceSpecs] = useState<string[]>([])
 
   const handleClickAddCart = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -143,7 +145,7 @@ function ProductComparisonSidebar({
     [selectedFilter, products]
   )
 
-  const { specsToShow, allSpecs, diffSpecs } = useProductSpecifications(
+  const { allSpecs, diffSpecs } = useProductSpecifications(
     products,
     productSorted,
     showOnlyDifferences
@@ -212,56 +214,31 @@ function ProductComparisonSidebar({
         <TableHead>
           <TableRow>
             {products.map((product) => {
-              const highestListPrice = Math.max(
-                ...product.offers.offers.map((offer) => offer.listPrice)
-              )
-
-              const showDiscount = highestListPrice > product.offers.lowPrice
-
-              const discount = Math.round(
-                (1 - product.offers.lowPrice / highestListPrice) * 100
-              )
               return (
                 <TableCell key={product.id}>
-                  <ImageComponent
-                    width={250}
-                    height={225}
-                    src={product.image[0]?.url ?? ''}
-                    alt={product.name}
-                  />
-                  <h3>
-                    {product.name}{' '}
-                    {product.additionalProperty
-                      .map((index) => index.value)
-                      .join(' ')}
-                  </h3>
+                  <ProductCard>
+                    <ProductCardImage aspectRatio={1}>
+                      <ImageComponent
+                        src={product.image[0]?.url}
+                        alt={product.image[0]?.alternateName}
+                      />
+                    </ProductCardImage>
 
-                  {showDiscount ? (
-                    <>
-                      <div>
-                        <Price
-                          value={product.offers.offers[0].listPrice}
-                          variant="listing"
-                          formatter={priceFormatter}
-                        />
-                        <Price
-                          value={product.offers.lowPrice}
-                          variant="selling"
-                          formatter={priceFormatter}
-                        />
-                      </div>
-                      <Badge size="small" variant="neutral">
-                        -{discount}% OFF
-                      </Badge>
-                    </>
-                  ) : (
-                    <Price
-                      value={product.offers.lowPriceWithTaxes}
-                      variant="selling"
-                      formatter={priceFormatter}
+                    <ProductCardContent
+                      title={product.name}
+                      outOfStock={
+                        product.offers.offers[0].availability !==
+                        'https://schema.org/InStock'
+                      }
+                      price={{
+                        value: product.offers.offers[0].price,
+                        listPrice: product.offers.offers[0].listPrice,
+                        formatter: priceFormatter,
+                      }}
+                      buttonLabel={cartButtonLabel}
+                      showDiscountBadge
                     />
-                  )}
-
+                  </ProductCard>
                   <Button
                     variant="tertiary"
                     size="small"
