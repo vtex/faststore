@@ -113,6 +113,8 @@ function Newsletter({
   )
 }
 
+Newsletter.$componentKey = 'Newsletter'
+
 const OverridableNewsletter = getOverridableSection<typeof Newsletter>(
   'Newsletter',
   Newsletter,
