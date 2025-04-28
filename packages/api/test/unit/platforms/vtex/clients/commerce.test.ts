@@ -82,8 +82,27 @@ describe('VTEX Commerce', () => {
         expect(() => commerce.checkout.pickupPoints({})).toThrow(Error)
         expect(() =>
           commerce.checkout.pickupPoints({
+            country: undefined,
             geoCoordinates: undefined,
             postalCode: undefined,
+          })
+        ).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it('should throw an error when postal code or country is missing', async () => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() =>
+          commerce.checkout.pickupPoints({
+            country: 'BRA',
+            postalCode: undefined,
+          })
+        ).toThrow(Error)
+        expect(() =>
+          commerce.checkout.pickupPoints({
+            country: undefined,
+            postalCode: '123456',
           })
         ).toThrow(Error)
         expect(fetchAPIMocked).not.toHaveBeenCalled()
