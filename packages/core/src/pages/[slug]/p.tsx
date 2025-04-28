@@ -11,7 +11,9 @@ import type {
   ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections, {
+  getComponentKey,
+} from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -53,15 +55,15 @@ type StoreConfig = typeof storeConfig & {
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  Breadcrumb,
-  BannerNewsletter,
-  Newsletter,
-  BannerText,
-  Hero,
-  ProductDetails,
-  ProductShelf,
-  ProductTiles,
-  CrossSellingShelf,
+  [getComponentKey(Breadcrumb, 'Breadcrumb')]: Breadcrumb,
+  [getComponentKey(BannerNewsletter, 'BannerNewsletter')]: BannerNewsletter,
+  [getComponentKey(Newsletter, 'Newsletter')]: Newsletter,
+  [getComponentKey(BannerText, 'BannerText')]: BannerText,
+  [getComponentKey(Hero, 'Hero')]: Hero,
+  [getComponentKey(ProductDetails, 'ProductDetails')]: ProductDetails,
+  [getComponentKey(ProductShelf, 'ProductShelf')]: ProductShelf,
+  [getComponentKey(ProductTiles, 'ProductTiles')]: ProductTiles,
+  [getComponentKey(CrossSellingShelf, 'CrossSellingShelf')]: CrossSellingShelf,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
