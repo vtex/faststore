@@ -2345,6 +2345,7 @@ export type ServerOrderDetailsQueryQuery = {
           isPickupStore: boolean | null
           address: {
             addressType: string | null
+            receiverName: string | null
             addressId: string | null
             versionId: string | null
             entityId: string | null

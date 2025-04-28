@@ -361,6 +361,7 @@ const query = gql(`
             additionalInfo
             address {
               addressType
+              receiverName
               addressId
               versionId
               entityId
