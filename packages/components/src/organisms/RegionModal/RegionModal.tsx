@@ -114,6 +114,11 @@ function RegionModal({
       title="Region modal"
       aria-label="Region modal"
       disableEscapeKeyDown={!dismissible}
+      onEntered={() => {
+        if (inputRef?.current) {
+          inputRef.current.focus()
+        }
+      }}
       {...otherProps}
     >
       {({ fadeOut }) => (
