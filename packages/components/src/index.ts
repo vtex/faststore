@@ -380,3 +380,17 @@ export type {
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
+
+export {
+  default as ProductComparison,
+  ProductComparisonTrigger,
+  ProductComparisonToolbar,
+  ProductComparisonSidebar,
+} from './organisms/ProductComparison'
+export type {
+  IProductComparison,
+  ProductComparisonProps,
+  ProductComparisonTriggerProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonSidebarProps,
+} from './organisms/ProductComparison'
