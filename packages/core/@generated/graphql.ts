@@ -400,12 +400,18 @@ export type MessageInfo = {
 }
 
 export type Mutation = {
+  /** Cancels user order */
+  cancelOrder: Maybe<UserOrderCancel>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart: Maybe<StoreCart>
   /** Updates a web session with the specified values. */
   validateSession: Maybe<StoreSession>
+}
+
+export type MutationCancelOrderArgs = {
+  orderId: Scalars['String']['input']
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -1303,6 +1309,12 @@ export type UserOrderAttachmentOfferings = {
 export type UserOrderAttachments = {
   content: Maybe<Scalars['JSONObject']['output']>
   name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCancel = {
+  date: Maybe<Scalars['String']['output']>
+  orderId: Maybe<Scalars['String']['output']>
+  receipt: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderCategories = {
@@ -2464,6 +2476,18 @@ export type ServerOrderDetailsQueryQuery = {
   } | null
 }
 
+export type CancelOrderMutationMutationVariables = Exact<{
+  orderId: Scalars['String']['input']
+}>
+
+export type CancelOrderMutationMutation = {
+  cancelOrder: {
+    date: string | null
+    orderId: string | null
+    receipt: string | null
+  } | null
+}
+
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
   session: IStoreSession
@@ -3422,6 +3446,15 @@ export const ServerOrderDetailsQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
   ServerOrderDetailsQueryQueryVariables
+>
+export const CancelOrderMutationDocument = {
+  __meta__: {
+    operationName: 'CancelOrderMutation',
+    operationHash: '6bb34fd101a7627a6578e4205c44320b31fc4c3e',
+  },
+} as unknown as TypedDocumentString<
+  CancelOrderMutationMutation,
+  CancelOrderMutationMutationVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
