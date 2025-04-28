@@ -39,6 +39,10 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    */
   onDismiss?: () => void
   /**
+   * Callback function when the modal is opened.
+   */
+  onEntered?: () => void
+  /**
    * Props forwarded to the `Overlay` component.
    */
   overlayProps?: OverlayProps
@@ -65,6 +69,7 @@ const Modal = ({
   onDismiss,
   overlayProps,
   disableEscapeKeyDown = false,
+  onEntered,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
@@ -102,7 +107,13 @@ const Modal = ({
           {...overlayProps}
         >
           <ModalContent
-            onTransitionEnd={() => fade === 'out' && closeModal()}
+            onTransitionEnd={() => {
+              if (fade === 'out') {
+                closeModal()
+              } else if (fade === 'in' && onEntered) {
+                onEntered()
+              }
+            }}
             data-fs-modal
             data-fs-modal-state={fade}
             testId={testId}
