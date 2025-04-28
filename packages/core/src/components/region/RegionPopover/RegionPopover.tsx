@@ -157,6 +157,11 @@ function RegionPopover({
             offsetTop={offsetTop}
             offsetLeft={offsetLeft}
             closeButtonAriaLabel={closeButtonAriaLabel}
+            onEntered={() => {
+              if (inputRef.current) {
+                inputRef.current.focus()
+              }
+            }}
           />
         </div>
       )}
