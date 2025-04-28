@@ -160,7 +160,6 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
 
   return (
     <UIProductComparisonSidebar
-      buyProps={buyProps}
       handleProductToBuy={setProductIdToBuy}
       setPendingEvent={setPendingEvent}
       sortOptions={[...sortOptions]}
