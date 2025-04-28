@@ -3,7 +3,6 @@ import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
 import SelectField from '../../molecules/SelectField'
 
-
 type ImageComponentType = FunctionComponent<{
   src: string
   alt: string
@@ -25,8 +24,9 @@ export interface ProductComparisonToolbarProps {
   clearSelectionButtonLabel?: string
 }
 
-const ImageComponent: ImageComponentType =
-  ({ src, alt, ...otherProps }) => <img src={src} alt={alt} {...otherProps} />
+const ImageComponent: ImageComponentType = ({ src, alt, ...otherProps }) => (
+  <img src={src} alt={alt} {...otherProps} />
+)
 
 function ProductComparisonToolbar({
   clearSelectionButtonLabel,
