@@ -2,7 +2,10 @@
   .section {
     @include media("<notebook") {
       margin-top: 0;
-      &:last-child { margin-bottom: 0; }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       @include section-divisor(bottom, 0);
     }
@@ -22,7 +25,10 @@
       h1 {
         font-size: var(--fs-text-size-4);
 
-        @include media(">=tablet") { padding-top: var(--fs-spacing-4); font-size: var(--fs-text-size-5); }
+        @include media(">=tablet") {
+          padding-top: var(--fs-spacing-4);
+          font-size: var(--fs-text-size-5);
+        }
 
         span {
           font-weight: var(--fs-text-weight-bold);
@@ -50,6 +56,7 @@
     @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
     @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
     @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
     @import "@faststore/ui/src/components/molecules/Toggle/styles.scss";
     @import "@faststore/ui/src/components/molecules/ToggleField/styles.scss";
     @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
