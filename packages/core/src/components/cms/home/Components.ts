@@ -4,6 +4,7 @@ import type { ComponentType } from 'react'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
+import { getComponentKey } from '../RenderSections'
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
@@ -43,12 +44,12 @@ const ProductTiles = dynamic(
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  Hero,
-  Incentives,
-  BannerText,
-  Newsletter,
-  ProductShelf,
-  ProductTiles,
+  [getComponentKey(Hero, 'Hero')]: Hero,
+  [getComponentKey(Incentives, 'Incentives')]: Incentives,
+  [getComponentKey(BannerText, 'BannerText')]: BannerText,
+  [getComponentKey(Newsletter, 'Newsletter')]: Newsletter,
+  [getComponentKey(ProductShelf, 'ProductShelf')]: ProductShelf,
+  [getComponentKey(ProductTiles, 'ProductTiles')]: ProductTiles,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
