@@ -18,24 +18,34 @@ const randomUUID = () =>
 const getBaseDomain = (urls: string[]) => {
   const domains = urls.map((url) => new URL(url).hostname.split('.'))
 
-  // Attempts to get the common domain from the store and secure urls
+  // Find the common parts of the domains store / secure subdomain
   const commonParts = domains.reduce((common, parts) => {
-    const result = []
-
+    const result: string[] = []
     const minLength = Math.min(common.length, parts.length)
 
     for (let i = 1; i <= minLength; i++) {
-      if (common[common.length - i] === parts[parts.length - i]) {
-        result.push(common[common.length - i])
+      const commonPart = common[common.length - i]
+      const part = parts[parts.length - i]
+
+      if (commonPart === part) {
+        result.push(commonPart)
       } else {
-        break
+        return []
       }
     }
 
     return result
   })
 
-  return commonParts.length ? `.${commonParts.reverse().join('.')}` : ''
+  if (commonParts.length === 0) {
+    const err = `No common domain found for URLs: ${urls.join(', ')}`
+    console.warn(
+      `${err}. Please check the Production URLs in the discovery.config file.`
+    )
+    return ''
+  }
+
+  return `.${commonParts.reverse().join('.')}`
 }
 
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
