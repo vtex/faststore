@@ -1,5 +1,6 @@
 import React, {
   type FunctionComponent,
+  Suspense,
   useEffect,
   useMemo,
   useState,
@@ -25,6 +26,11 @@ import ProductCard, {
   ProductCardContent,
   ProductCardImage,
 } from '../../molecules/ProductCard'
+import Dropdown, {
+  DropdownButton,
+  DropdownMenu,
+  DropdownItem,
+} from '../../molecules/Dropdown'
 
 const SPECIFICATION = 'SPECIFICATION'
 
@@ -209,6 +215,40 @@ function ProductComparisonSidebar({
           onChange={() => setShowOnlyDifferences((prev) => !prev)}
         />
       </div>
+
+      <Suspense>
+        <Dropdown>
+          <DropdownButton>Filter</DropdownButton>
+          <DropdownMenu
+            style={{
+              zIndex: 1000,
+            }}
+            className={overlayProps?.className}
+          >
+            <DropdownItem>
+              <label>Preferences</label>
+            </DropdownItem>
+
+            <DropdownItem>
+              <ToggleField
+                id="product-comparison-show-differences"
+                label="Show only differences"
+                checked={showOnlyDifferences}
+                onChange={() => setShowOnlyDifferences((prev) => !prev)}
+              />
+            </DropdownItem>
+            <DropdownItem>
+              <label>Sort by</label>
+            </DropdownItem>
+            <DropdownItem>
+              <div>Product Name</div>
+            </DropdownItem>
+            <DropdownItem>
+              <div>Price</div>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </Suspense>
 
       <Table>
         <TableHead>
