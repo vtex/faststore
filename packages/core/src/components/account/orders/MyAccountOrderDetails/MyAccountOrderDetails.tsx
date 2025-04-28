@@ -12,6 +12,7 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
+import { deliveryMock } from './MyAccountDeliveryCard/__mocks__'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -56,7 +57,7 @@ export default function MyAccountOrderDetails({
       </header>
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
-        <MyAccountDeliveryCard />
+        <MyAccountDeliveryCard deliveryOptionsData={deliveryMock} />
         <MyAccountStatusCard />
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
