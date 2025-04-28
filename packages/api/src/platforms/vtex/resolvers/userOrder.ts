@@ -50,7 +50,7 @@ export const UserOrder: Record<string, Resolver<Root>> = {
         const item = items?.[itemIndex]
         const seller = item?.seller || ''
 
-        const groupKey = `${selectedSla}|${deliveryChannel}|${deliveryCompany}|${seller}|${shippingEstimate}|${shippingEstimateDate}|${addressId}`
+        const groupKey = `${selectedSla}|${deliveryChannel}|${deliveryCompany}|${seller}|${shippingEstimate}|${shippingEstimateDate}|${addressId}|${deliveryWindow?.startDateUtc}|${deliveryWindow?.endDateUtc}`
 
         const address = addresses?.find(
           (address) => address?.addressId === addressId
