@@ -552,6 +552,7 @@ export type QueryRedirectArgs = {
 }
 
 export type QuerySearchArgs = {
+  advertisementPlacement: InputMaybe<Scalars['String']['input']>
   after: InputMaybe<Scalars['String']['input']>
   first: Scalars['Int']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
@@ -1592,6 +1593,7 @@ export type ClientManyProductsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
   sponsoredCount: InputMaybe<Scalars['Int']['input']>
+  advertisementPlacement: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientManyProductsQueryQuery = {
@@ -2174,6 +2176,7 @@ export const ClientManyProductsFragmentDoc = new TypedDocumentString(
     term: $term
     selectedFacets: $selectedFacets
     sponsoredCount: $sponsoredCount
+    advertisementPlacement: $advertisementPlacement
   ) {
     products {
       pageInfo {
@@ -2387,7 +2390,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '14148671fbf53498fad5c600ee87765920145019',
+    operationHash: 'dcff0fa900eb8ba4d3dae3f67e6d0253eaefe880',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
