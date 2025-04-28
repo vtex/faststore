@@ -37,6 +37,8 @@ function Alert({ icon, content, link: { text, to }, dismissible }: AlertProps) {
   )
 }
 
+Alert.$componentKey = 'Alert'
+
 const OverridableAlert = getOverridableSection<typeof Alert>(
   'Alert',
   Alert,
