@@ -1620,7 +1620,7 @@ export type UserOrderPayments = {
 
 export type UserOrderPickupStoreInfo = {
   additionalInfo: Maybe<Scalars['String']['output']>
-  address: Maybe<Scalars['String']['output']>
+  address: Maybe<UserOrderAddress>
   dockId: Maybe<Scalars['String']['output']>
   friendlyName: Maybe<Scalars['String']['output']>
   isPickupStore: Maybe<Scalars['Boolean']['output']>
@@ -2271,10 +2271,25 @@ export type ServerOrderDetailsQueryQuery = {
         } | null
         pickupStoreInfo: {
           additionalInfo: string | null
-          address: string | null
           dockId: string | null
           friendlyName: string | null
           isPickupStore: boolean | null
+          address: {
+            addressType: string | null
+            addressId: string | null
+            versionId: string | null
+            entityId: string | null
+            postalCode: string | null
+            city: string | null
+            state: string | null
+            country: string | null
+            street: string | null
+            number: string | null
+            neighborhood: string | null
+            complement: string | null
+            reference: string | null
+            geoCoordinates: Array<number | null> | null
+          } | null
         } | null
         deliveryChannels: Array<{
           id: string | null
@@ -2309,10 +2324,26 @@ export type ServerOrderDetailsQueryQuery = {
           } | null
           pickupStoreInfo: {
             additionalInfo: string | null
-            address: string | null
             dockId: string | null
             friendlyName: string | null
             isPickupStore: boolean | null
+            address: {
+              addressType: string | null
+              receiverName: string | null
+              addressId: string | null
+              versionId: string | null
+              entityId: string | null
+              postalCode: string | null
+              city: string | null
+              state: string | null
+              country: string | null
+              street: string | null
+              number: string | null
+              neighborhood: string | null
+              complement: string | null
+              reference: string | null
+              geoCoordinates: Array<number | null> | null
+            } | null
           } | null
           deliveryIds: Array<{
             courierId: string | null
@@ -2529,10 +2560,26 @@ export type ServerOrderDetailsQueryQuery = {
         } | null
         pickupStoreInfo: {
           additionalInfo: string | null
-          address: string | null
           dockId: string | null
           friendlyName: string | null
           isPickupStore: boolean | null
+          address: {
+            addressType: string | null
+            receiverName: string | null
+            addressId: string | null
+            versionId: string | null
+            entityId: string | null
+            postalCode: string | null
+            city: string | null
+            state: string | null
+            country: string | null
+            street: string | null
+            number: string | null
+            neighborhood: string | null
+            complement: string | null
+            reference: string | null
+            geoCoordinates: Array<number | null> | null
+          } | null
         } | null
         items: Array<{
           name: string | null
@@ -3505,7 +3552,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'fa9cf0d48ede2db793667d057b5f82dba1ba49bc',
+    operationHash: 'fd08b9da350d2228f4b999fc28cf26606013a2bd',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

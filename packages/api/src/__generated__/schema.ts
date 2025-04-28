@@ -1725,7 +1725,7 @@ export type UserOrderPayments = {
 export type UserOrderPickupStoreInfo = {
   __typename?: 'UserOrderPickupStoreInfo';
   additionalInfo?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
+  address?: Maybe<UserOrderAddress>;
   dockId?: Maybe<Scalars['String']>;
   friendlyName?: Maybe<Scalars['String']>;
   isPickupStore?: Maybe<Scalars['Boolean']>;

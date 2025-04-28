@@ -253,7 +253,7 @@ type UserOrderPaymentData {
 
 type UserOrderPickupStoreInfo {
   additionalInfo: String
-  address: String
+  address: UserOrderAddress
   dockId: String
   friendlyName: String
   isPickupStore: Boolean

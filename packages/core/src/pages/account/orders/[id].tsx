@@ -338,7 +338,22 @@ const query = gql(`
           transitTime
           pickupStoreInfo {
             additionalInfo
-            address
+            address {
+              addressType
+              addressId
+              versionId
+              entityId
+              postalCode
+              city
+              state
+              country
+              street
+              number
+              neighborhood
+              complement
+              reference
+              geoCoordinates
+            }
             dockId
             friendlyName
             isPickupStore
@@ -377,7 +392,23 @@ const query = gql(`
             pickupDistance
             pickupStoreInfo {
               additionalInfo
-              address
+              address {
+                addressType
+                receiverName
+                addressId
+                versionId
+                entityId
+                postalCode
+                city
+                state
+                country
+                street
+                number
+                neighborhood
+                complement
+                reference
+                geoCoordinates
+              }
               dockId
               friendlyName
               isPickupStore
@@ -579,7 +610,23 @@ const query = gql(`
           }
           pickupStoreInfo {
             additionalInfo
-            address
+            address {
+              addressType
+              receiverName
+              addressId
+              versionId
+              entityId
+              postalCode
+              city
+              state
+              country
+              street
+              number
+              neighborhood
+              complement
+              reference
+              geoCoordinates
+            }
             dockId
             friendlyName
             isPickupStore
