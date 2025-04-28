@@ -36,6 +36,7 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import type { PickupPointsInput, PickupPoints } from './types/PickupPoints'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -375,7 +376,6 @@ export const VtexCommerce = (
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
-
         return fetchAPI(
           `${base}/api/checkout/pub/orders/${orderId}/user-cancel-request`,
           {
@@ -387,6 +387,39 @@ export const VtexCommerce = (
             }),
           },
           {}
+        )
+      },
+      pickupPoints: ({
+        geoCoordinates,
+        postalCode,
+        country,
+      }: PickupPointsInput): Promise<PickupPoints> => {
+        if (!geoCoordinates && (!postalCode || !country)) {
+          throw new Error(
+            'Missing required parameters for listing pickup points.'
+          )
+        }
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        const params = new URLSearchParams()
+
+        if (geoCoordinates) {
+          params.append(
+            'geoCoordinates',
+            `${geoCoordinates.longitude};${geoCoordinates.latitude}`
+          )
+        } else {
+          params.append('countryCode', country as string)
+          params.append('postalCode', postalCode as string)
+        }
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/pickup-points?${params.toString()}`,
+          { headers },
+          { storeCookies }
         )
       },
     },
