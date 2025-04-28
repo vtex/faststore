@@ -1,7 +1,9 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections, {
+  getComponentKey,
+} from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
@@ -24,14 +26,14 @@ import { contentService } from 'src/server/content/service'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  Hero,
-  BannerText,
-  BannerNewsletter,
-  CrossSellingShelf,
-  Incentives,
-  Newsletter,
-  ProductShelf,
-  ProductTiles,
+  [getComponentKey(Hero, 'Hero')]: Hero,
+  [getComponentKey(BannerText, 'BannerText')]: BannerText,
+  [getComponentKey(BannerNewsletter, 'BannerNewsletter')]: BannerNewsletter,
+  [getComponentKey(Incentives, 'Incentives')]: Incentives,
+  [getComponentKey(CrossSellingShelf, 'CrossSellingShelf')]: CrossSellingShelf,
+  [getComponentKey(Newsletter, 'Newsletter')]: Newsletter,
+  [getComponentKey(ProductShelf, 'ProductShelf')]: ProductShelf,
+  [getComponentKey(ProductTiles, 'ProductTiles')]: ProductTiles,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
