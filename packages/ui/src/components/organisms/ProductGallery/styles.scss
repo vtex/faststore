@@ -69,7 +69,7 @@
     }
 
     @include media(">=notebook") {
-      grid-column: 6 / span 7;
+      grid-column: 7 / span 7;
       justify-content: flex-end;
       order: unset;
       min-height: initial;
@@ -109,6 +109,12 @@
     [data-fs-product-listing-results-count-skeleton] {
       min-width: rem(130px);
     }
+  }
+
+  [data-fs-product-comparison-enabled] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   [data-fs-product-listing-results] {
