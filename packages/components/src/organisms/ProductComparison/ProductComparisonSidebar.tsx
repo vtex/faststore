@@ -31,6 +31,7 @@ import Dropdown, {
   DropdownMenu,
   DropdownItem,
 } from '../../molecules/Dropdown'
+import Icon from '../../atoms/Icon'
 
 const SPECIFICATION = 'SPECIFICATION'
 
@@ -227,11 +228,11 @@ function ProductComparisonSidebar({
             }}
             className={overlayProps?.className}
           >
-            <DropdownItem>
+            <DropdownItem dismissOnClick={false}>
               <label>Preferences</label>
             </DropdownItem>
 
-            <DropdownItem>
+            <DropdownItem dismissOnClick={false}>
               <ToggleField
                 id="product-comparison-show-differences"
                 label="Show only differences"
@@ -239,14 +240,32 @@ function ProductComparisonSidebar({
                 onChange={() => setShowOnlyDifferences((prev) => !prev)}
               />
             </DropdownItem>
-            <DropdownItem>
+            <DropdownItem dismissOnClick={false}>
               <label>Sort by</label>
             </DropdownItem>
-            <DropdownItem>
-              <div>Product Name</div>
+            <DropdownItem
+              dismissOnClick={false}
+              onClick={() => setSelectedFilter('productByName')}
+              data-fs-dropdown-filter-selected={
+                selectedFilter === 'productByName' ? true : undefined
+              }
+            >
+              {selectedFilter === 'productByName' && (
+                <Icon name="Checked" width={16} height={16} />
+              )}
+              <p>Product Name</p>
             </DropdownItem>
-            <DropdownItem>
-              <div>Price</div>
+            <DropdownItem
+              dismissOnClick={false}
+              onClick={() => setSelectedFilter('productByPrice')}
+              data-fs-dropdown-filter-selected={
+                selectedFilter === 'productByPrice' ? true : undefined
+              }
+            >
+              {selectedFilter === 'productByPrice' && (
+                <Icon name="Checked" width={16} height={16} />
+              )}
+              <p>Price</p>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

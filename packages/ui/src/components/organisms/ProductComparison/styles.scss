@@ -1,10 +1,51 @@
-[data-fs-dropdown-item] {
-  background-color: red;
+/* stylelint-disable declaration-no-important */
+[data-fs-dropdown-button] {
+  @include media(">notebook") {
+    display: none;
+  }
 }
+
+[data-fs-dropdown-item] {
+  gap: var(--fs-spacing-2);
+  width: 100% !important;
+  padding: var(--fs-spacing-0) calc(var(--fs-spacing-4) + 0.375rem) !important;
+  margin: 0 !important;
+  color: var(--fs-color-text) !important;
+
+  &[data-fs-dropdown-filter-selected] {
+    padding:
+      var(--fs-spacing-0) calc(var(--fs-spacing-4) + 0.375rem)
+      var(--fs-spacing-0) var(--fs-spacing-0) !important;
+  }
+
+  label {
+    font-size: var(--fs-text-size-1);
+    font-weight: var(--fs-text-weight-regular);
+    line-height: 1.25rem; // 20px -> 1.25rem
+    color: var(--fs-color-text-light);
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: var(--fs-text-size-2);
+    font-weight: var(--fs-text-weight-regular) !important;
+    line-height: var(--fs-spacing-4);
+    color: var(--fs-color-text) !important;
+    letter-spacing: -0.02em;
+    vertical-align: middle;
+  }
+
+  [data-fs-toggle-field-label] {
+    font-size: var(--fs-text-size-2) !important;
+    font-weight: var(--fs-text-weight-semibold) !important;
+    color: var(--fs-color-text) !important;
+  }
+}
+/* stylelint-enable declaration-no-important */
 
 [data-fs-product-grid-item] {
   [data-fs-product-comparison-trigger] {
-    height: 36px;
+    height: calc(var(--fs-spacing-5) + var(--fs-spacing-0));
   }
 
   [data-fs-checkbox-field] {
@@ -13,7 +54,6 @@
 }
 
 [data-fs-product-comparison-toolbar] {
-  // --------------------------------------------------------
   // Design Tokens for Product Comparison Toolbar
   // --------------------------------------------------------
 
@@ -30,13 +70,12 @@
   --fs-product-comparison-text-weight: var(--fs-text-weight-light);
   --fs-product-comparison-text-color: var(--fs-border-color-light);
 
-  position: fixed;
-  bottom: 0;
-
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
+  position: fixed;
+  bottom: 0;
   z-index: var(--fs-z-index-highest);
   display: grid;
   grid-template-columns: 1fr auto;
@@ -66,15 +105,15 @@
 
   @include media("<notebook") {
     [data-fs-button] {
+      &[data-fs-button-variant="primary"],
+      &[data-fs-button-variant="tertiary"] {
+        font-size: var(--fs-text-size-1);
+      }
+
       &[data-fs-button-variant="primary"] {
         grid-row: 2;
         grid-column: 1 / -1;
         width: 100%;
-        font-size: var(--fs-text-size-1);
-      }
-
-      &[data-fs-button-variant="tertiary"] {
-        font-size: var(--fs-text-size-1);
       }
     }
   }
@@ -183,7 +222,7 @@
             flex-direction: column;
             gap: var(--fs-spacing-1);
             justify-content: space-between;
-            width: 200px;
+            width: 12.5rem; // 200px -> 12.5rem
           }
         }
       }
@@ -203,7 +242,7 @@
             var(--fs-border-color-light);
 
           [data-fs-table-cell] {
-            width: 200px;
+            width: 12.5rem;
             padding: var(--fs-spacing-3) 0;
 
             h2 {
@@ -212,22 +251,12 @@
               font-weight: var(--fs-text-weight-medium);
             }
 
-            h3 {
-              margin-bottom: var(--fs-spacing-2);
-              font-size: var(--fs-text-size-2);
-              font-weight: var(--fs-text-weight-regular);
-              white-space: nowrap;
-            }
-
-            p {
-              font-size: var(--fs-text-size-2);
-              font-weight: var(--fs-text-weight-medium);
-              white-space: nowrap;
-            }
-
+            h3,
+            p,
             [data-fs-price] {
               font-size: var(--fs-text-size-2);
               font-weight: var(--fs-text-weight-medium);
+              white-space: nowrap;
             }
           }
         }
@@ -253,8 +282,8 @@
       }
 
       &[data-fs-slide-over-size="partial"] {
-        width: 100vw - 10vw;
-        max-width: 100vw - 10vw;
+        width: calc(100vw - 10vw);
+        max-width: calc(100vw - 10vw);
         padding: var(--fs-spacing-5) var(--fs-spacing-8);
       }
 
@@ -305,7 +334,7 @@
             margin: var(--fs-spacing-3) 0;
 
             [data-fs-table-cell] {
-              width: 200px;
+              width: 12.5rem;
 
               h2 {
                 margin-bottom: var(--fs-spacing-2);
@@ -322,15 +351,11 @@
                 white-space: nowrap;
               }
 
-              p {
-                font-size: var(--fs-text-size-2);
-                font-weight: var(--fs-text-weight-medium);
-                white-space: nowrap;
-              }
-
+              p,
               [data-fs-price] {
                 font-size: var(--fs-text-size-2);
                 font-weight: var(--fs-text-weight-medium);
+                white-space: nowrap;
               }
             }
           }
