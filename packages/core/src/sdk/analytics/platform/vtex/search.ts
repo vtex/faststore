@@ -18,24 +18,19 @@ const randomUUID = () =>
 const getBaseDomain = (urls: string[]) => {
   const domains = urls.map((url) => new URL(url).hostname.split('.'))
 
+  const minLength = Math.min(...domains.map((d) => d.length))
+  const commonParts: string[] = []
   // Find the common parts of the domains store / secure subdomain
-  const commonParts = domains.reduce((common, parts) => {
-    const result: string[] = []
-    const minLength = Math.min(common.length, parts.length)
 
-    for (let i = 1; i <= minLength; i++) {
-      const commonPart = common[common.length - i]
-      const part = parts[parts.length - i]
+  for (let i = 1; i <= minLength; i++) {
+    const parts = domains.map((d) => d[d.length - i])
 
-      if (commonPart === part) {
-        result.push(commonPart)
-      } else {
-        return []
-      }
+    if (parts.every((p) => p === parts[0])) {
+      commonParts.unshift(parts[0])
+    } else {
+      break
     }
-
-    return result
-  })
+  }
 
   if (commonParts.length === 0) {
     const err = `No common domain found for URLs: ${urls.join(', ')}`
@@ -45,7 +40,7 @@ const getBaseDomain = (urls: string[]) => {
     return ''
   }
 
-  return `.${commonParts.reverse().join('.')}`
+  return `.${commonParts.join('.')}`
 }
 
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
