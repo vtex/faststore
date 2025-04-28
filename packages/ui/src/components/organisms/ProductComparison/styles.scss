@@ -1,3 +1,7 @@
+[data-fs-dropdown-item] {
+  background-color: red;
+}
+
 [data-fs-product-grid-item] {
   [data-fs-product-comparison-trigger] {
     height: 36px;
@@ -162,10 +166,7 @@
     }
 
     [data-fs-product-comparison-filters] {
-      display: flex;
-      padding-bottom: 0;
-      margin-bottom: var(--fs-spacing-3);
-      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+      display: none;
     }
 
     [data-fs-table] {
@@ -183,35 +184,6 @@
             gap: var(--fs-spacing-1);
             justify-content: space-between;
             width: 200px;
-
-            h3 {
-              font-size: var(--fs-text-size-2);
-              font-weight: var(--fs-text-weight-regular);
-              line-height: var(--fs-spacing-3);
-              text-align: left;
-            }
-
-            img {
-              width: 200px;
-              height: 200px;
-              resize: both;
-              border-radius: var(--fs-border-radius);
-            }
-
-            div {
-              display: flex;
-              gap: var(--fs-spacing-1);
-              align-items: center;
-              justify-content: flex-start;
-
-              [data-fs-price] {
-                font-size: var(--fs-text-size-1);
-
-                &[data-fs-price-variant="listing"] {
-                  font-size: var(--fs-text-size-1);
-                }
-              }
-            }
           }
         }
       }
@@ -225,7 +197,7 @@
 
         [data-fs-table-row] {
           display: flex;
-          gap: var(--fs-spacing-6);
+          gap: var(--fs-spacing-2);
           border-bottom:
             var(--fs-border-width) solid
             var(--fs-border-color-light);
