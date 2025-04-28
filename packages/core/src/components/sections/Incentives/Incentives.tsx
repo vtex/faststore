@@ -18,4 +18,6 @@ function Incentives({ incentives, label }: Props) {
   )
 }
 
+Incentives.$componentKey = 'Incentives'
+
 export default Incentives
