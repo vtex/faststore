@@ -15,13 +15,37 @@ const randomUUID = () =>
     ? crypto.randomUUID().replaceAll('-', '')
     : (Math.random() * 1e6).toFixed(0)
 
+const getBaseDomain = (urls: string[]) => {
+  const domains = urls.map((url) => new URL(url).hostname.split('.'))
+
+  // Attempts to get the common domain from the store and secure urls
+  const commonParts = domains.reduce((common, parts) => {
+    const result = []
+
+    const minLength = Math.min(common.length, parts.length)
+
+    for (let i = 1; i <= minLength; i++) {
+      if (common[common.length - i] === parts[parts.length - i]) {
+        result.push(common[common.length - i])
+      } else {
+        break
+      }
+    }
+
+    return result
+  })
+
+  return commonParts.length ? `.${commonParts.reverse().join('.')}` : ''
+}
+
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
   // Setting the domain attribute specifies which host can receive it; we need it to make the cookies available on the `secure` subdomain.
   // Although https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie mentioned leading dot (.) is not needed and ignored. I couldn't set the cookies without it.
   const urlDomain =
     process.env.NODE_ENV === 'development'
       ? '.localhost'
-      : `.${new URL(config.storeUrl).hostname}`
+      : getBaseDomain([config.storeUrl, config.secureSubdomain]) ||
+        `.${new URL(config.storeUrl).hostname}`
 
   return () => {
     let currentValue = getCookie(key)
