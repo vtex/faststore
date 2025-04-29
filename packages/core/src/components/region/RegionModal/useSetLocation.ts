@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import type { Session } from '@faststore/sdk'
 import { sessionStore, validateSession } from 'src/sdk/session'
+import { getProductCount } from 'src/sdk/product'
 
 interface UseSetLocationParams {
   input: string
@@ -48,6 +49,14 @@ export function useSetLocation(): UseSetLocationParams {
       } as Session
 
       const validatedSession = await validateSession(newSession)
+
+      // Check product availability for specific location
+      const productCount = await getProductCount()
+      if (productCount === 0) {
+        setErrorMessage(`There are no products available for ${postalCode}.`)
+        setLoading(false)
+        return
+      }
 
       sessionStore.set(validatedSession ?? newSession)
       resetInputField()
