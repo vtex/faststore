@@ -20,7 +20,8 @@ export type ModalChildrenProps = {
 
 type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
 
-export interface ModalProps extends Omit<ModalContentProps, 'children'> {
+export interface ModalProps
+  extends Omit<ModalContentProps, 'children' | 'onEntered'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -38,6 +39,10 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    * Event emitted when the modal is closed.
    */
   onDismiss?: () => void
+  /**
+   * Callback function when the modal is opened.
+   */
+  onEntered?: () => void
   /**
    * Props forwarded to the `Overlay` component.
    */
@@ -65,6 +70,7 @@ const Modal = ({
   onDismiss,
   overlayProps,
   disableEscapeKeyDown = false,
+  onEntered,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
@@ -102,7 +108,13 @@ const Modal = ({
           {...overlayProps}
         >
           <ModalContent
-            onTransitionEnd={() => fade === 'out' && closeModal()}
+            onTransitionEnd={() => {
+              if (fade === 'out') {
+                closeModal()
+              } else if (fade === 'in' && onEntered) {
+                onEntered()
+              }
+            }}
             data-fs-modal
             data-fs-modal-state={fade}
             testId={testId}

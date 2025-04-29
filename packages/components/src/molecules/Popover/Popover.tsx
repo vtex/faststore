@@ -52,6 +52,10 @@ export interface PopoverProps
    */
   onDismiss?: () => void
   /**
+   * Callback when the Popover is fully rendered and positioned.
+   */
+  onEntered?: () => void
+  /**
    * Close button aria-label.
    */
   closeButtonAriaLabel?: string
@@ -117,6 +121,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     closeButtonAriaLabel = 'Close Popover',
     testId = 'fs-popover',
     style,
+    onEntered,
     ...otherProps
   },
   ref
@@ -141,6 +146,11 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     setPopoverPosition(
       calculatePosition(rect, placement, offsetTop, offsetLeft)
     )
+
+    // Trigger the onEntered callback after positioning
+    if (onEntered) {
+      onEntered()
+    }
   }, [isOpen, triggerRef, offsetTop, offsetLeft, placement])
 
   const handleDismiss = useCallback(() => {
