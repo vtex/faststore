@@ -8,6 +8,7 @@ import type { SearchContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { createContentOptions } from 'src/server/content/utils'
 
 export type SearchPageProps = {
   page: SearchContentType
@@ -42,17 +43,14 @@ export const getStaticProps: GetStaticProps<
         globalSectionsHeader,
         globalSectionsFooter,
       ] = await Promise.all([
-        contentService.getSingleContent<SearchContentType>({
-          cmsOptions: {
+        contentService.getSingleContent<SearchContentType>(
+          createContentOptions({
             contentType: 'search',
+            previewData,
             documentId: page.documentId,
             versionId: page.versionId,
-          },
-          ...(previewData?.contentType === 'search' && {
-            origin: previewData.origin,
-          }),
-          isPreview: previewData?.contentType === 'search',
-        }),
+          })
+        ),
         globalSectionsPromise,
         globalSectionsHeaderPromise,
         globalSectionsFooterPromise,
@@ -72,16 +70,12 @@ export const getStaticProps: GetStaticProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      contentService.getSingleContent<SearchContentType>({
-        cmsOptions: {
-          ...(previewData?.contentType === 'search' && previewData),
+      contentService.getSingleContent<SearchContentType>(
+        createContentOptions({
           contentType: 'search',
-        },
-        ...(previewData?.contentType === 'search' && {
-          origin: previewData.origin,
-        }),
-        isPreview: previewData?.contentType === 'search',
-      }),
+          previewData,
+        })
+      ),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,

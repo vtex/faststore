@@ -17,6 +17,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { createContentOptions } from 'src/server/content/utils'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -40,7 +41,7 @@ function Page({ page: { sections }, globalSections }: Props) {
       loginUrl.searchParams.append(key, value)
     }
 
-    // window.location.href = loginUrl.toString()
+    window.location.href = loginUrl.toString()
   }, [])
 
   return (
@@ -79,16 +80,12 @@ export const getStaticProps: GetStaticProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      contentService.getSingleContent<PageContentType>({
-        cmsOptions: {
-          ...(previewData?.contentType === 'login' && previewData),
+      contentService.getSingleContent<PageContentType>(
+        createContentOptions({
           contentType: 'login',
-        },
-        ...(previewData?.contentType === 'home' && {
-          origin: previewData.origin,
-          slug: previewData.slug,
-        }),
-      }),
+          previewData,
+        })
+      ),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,

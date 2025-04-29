@@ -46,7 +46,6 @@ const setPreviewAndRedirect = (
     maxAge: 3600,
     path: redirectPath,
   })
-  console.log('Redirecting to:', redirectPath)
   res.redirect(redirectPath)
 }
 

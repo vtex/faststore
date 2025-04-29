@@ -22,6 +22,8 @@ export class ContentService {
   constructor() {
     this.clientCP = new ClientCP({
       tenant: config.api.storeId,
+      controlPlaneBaseUrl: 'http://localhost:3002',
+      dataPlaneBaseUrl: 'http://localhost:3003',
     })
   }
 
