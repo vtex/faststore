@@ -16,31 +16,39 @@ const randomUUID = () =>
     : (Math.random() * 1e6).toFixed(0)
 
 const getBaseDomain = (urls: string[]) => {
-  const domains = urls.map((url) => new URL(url).hostname.split('.'))
+  const extractHostname = (url: string) => {
+    try {
+      return new URL(url).hostname.replace(/^www\./, '')
+    } catch {
+      return ''
+    }
+  }
 
-  const minLength = Math.min(...domains.map((d) => d.length))
-  const commonParts: string[] = []
-  // Find the common parts of the domains store / secure subdomain
+  const hostnames = urls.map(extractHostname)
 
-  for (let i = 1; i <= minLength; i++) {
-    const parts = domains.map((d) => d[d.length - i])
+  // Find common parts
+  const splitHostnames = hostnames.map((hostname) =>
+    hostname.split('.').reverse()
+  )
 
-    if (parts.every((p) => p === parts[0])) {
-      commonParts.unshift(parts[0])
+  const minLength = Math.min(...splitHostnames.map((parts) => parts.length))
+
+  const commonParts = []
+  for (let i = 0; i < minLength; i++) {
+    const partSet = new Set(splitHostnames.map((parts) => parts[i]))
+    if (partSet.size === 1) {
+      commonParts.push(splitHostnames[0][i])
     } else {
       break
     }
   }
 
-  if (commonParts.length === 0) {
-    const err = `No common domain found for URLs: ${urls.join(', ')}`
-    console.warn(
-      `${err}. Please check the Production URLs in the discovery.config file.`
-    )
+  if (commonParts.length < 2) {
+    // If we cannot find at least domain + tld, fallback to ''
     return ''
   }
 
-  return `.${commonParts.join('.')}`
+  return '.' + commonParts.reverse().join('.')
 }
 
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
