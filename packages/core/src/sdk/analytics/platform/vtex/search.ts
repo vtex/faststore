@@ -4,8 +4,9 @@
 import type { AnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvents } from '../../types'
 
+import { getBaseDomain } from 'src/utils/getBaseDomain'
+import { getCookie } from 'src/utils/getCookie'
 import config from '../../../../../discovery.config'
-import { getCookie } from '../../../../utils/getCookie'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
@@ -14,46 +15,6 @@ const randomUUID = () =>
   typeof crypto.randomUUID === 'function'
     ? crypto.randomUUID().replaceAll('-', '')
     : (Math.random() * 1e6).toFixed(0)
-
-const getBaseDomain = (urls: string[]) => {
-  const extractHostname = (url: string) => {
-    try {
-      const hostname = new URL(url).hostname
-      const subDomainPrefixes = config.api.subDomainPrefix || []
-
-      const prefixRegex = new RegExp(`^(${subDomainPrefixes.join('|')})\\.`)
-
-      return hostname.replace(prefixRegex, '')
-    } catch {
-      return ''
-    }
-  }
-  const hostnames = urls.map(extractHostname)
-
-  // Find common parts
-  const splitHostnames = hostnames.map((hostname) =>
-    hostname.split('.').reverse()
-  )
-
-  const minLength = Math.min(...splitHostnames.map((parts) => parts.length))
-
-  const commonParts = []
-  for (let i = 0; i < minLength; i++) {
-    const partSet = new Set(splitHostnames.map((parts) => parts[i]))
-    if (partSet.size === 1) {
-      commonParts.push(splitHostnames[0][i])
-    } else {
-      break
-    }
-  }
-
-  if (commonParts.length < 2) {
-    // If we cannot find at least domain + tld, fallback to ''
-    return ''
-  }
-
-  return '.' + commonParts.reverse().join('.')
-}
 
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
   // Setting the domain attribute specifies which host can receive it; we need it to make the cookies available on the `secure` subdomain.
