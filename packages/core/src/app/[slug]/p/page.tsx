@@ -10,10 +10,7 @@ import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
 import storeConfig from 'discovery.config'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { PDP_COMPONENTS, PdpData } from './pdp-client'
-import { getOffer } from 'src/sdk/offer'
-import deepmerge from 'deepmerge'
 import { notFound } from 'next/navigation'
-import PageProvider from 'src/sdk/overrides/PageProvider'
 import RenderSections from 'src/components/cms/RenderSections'
 
 interface PdpProps {
@@ -22,27 +19,23 @@ interface PdpProps {
   }>
 }
 
-export default async function PdpServer(props: PdpProps) {
-  const { params } = props
+export default async function PdpServer({ params }: PdpProps) {
+  const { slug: productId } = await params
 
-  const { slug } = await params
-
-  console.log({
-    pdp: slug,
-  })
-
-  const productId = slug
-  const { data, sections, globalSections } = await getData(productId)
-  const product = data.product
-
-  const serverData = {
-    data: {
-      product,
-    },
-  }
+  const {
+    data: { product },
+    sections,
+    globalSections,
+  } = await getData(productId)
 
   return (
-    <PdpData serverData={serverData}>
+    <PdpData
+      serverData={{
+        data: {
+          product,
+        },
+      }}
+    >
       <RenderSections
         sections={sections}
         globalSections={globalSections.sections}

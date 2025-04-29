@@ -1,8 +1,7 @@
 'use client'
 
-import { useMemo, type ComponentType, type ReactNode } from 'react'
+import type { ComponentType, ReactNode } from 'react'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -16,7 +15,6 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useOffer } from 'src/sdk/offer'
 import PageProvider from 'src/sdk/overrides/PageProvider'
-import deepmerge from 'deepmerge'
 
 export const PDP_COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -41,31 +39,40 @@ interface PdpDataProps {
 export function PdpData(props: PdpDataProps) {
   const { serverData, children } = props
 
-  const { offers, isValidating } = useOffer({
+  const { offers, isValidating = false } = useOffer({
     skuId: serverData.data.product.id,
   })
+
+  const clientOffer = offers as any
+  const serverOffer = serverData.data.product.offers.offers[0]
+
+  const data = {
+    data: {
+      isValidating,
+      product: {
+        ...serverData.data.product,
+        offers: {
+          ...serverData.data.product.offers,
+          ...offers,
+          offers: [
+            {
+              ...serverOffer,
+              price: clientOffer?.lowPrice ?? serverOffer.price,
+              priceWithTaxes:
+                clientOffer?.lowPriceWithTaxes ?? serverOffer.priceWithTaxes,
+            },
+          ],
+        },
+      },
+    },
+  }
 
   console.log({
     offers,
     isValidating,
+    serverData,
+    data,
   })
-
-  const clientData = {
-    data: {
-      product: {
-        offers,
-      },
-      isValidating,
-    },
-  }
-
-  const data = useMemo(
-    () =>
-      deepmerge(serverData, clientData, {
-        arrayMerge: (_: any[], sourceArray: any[]) => sourceArray,
-      }),
-    [serverData, clientData]
-  )
 
   return <PageProvider context={data}>{children}</PageProvider>
 }
