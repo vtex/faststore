@@ -55,6 +55,7 @@ type UserOrder {
   marketplaceItems: [UserOrderItems]
   items: [UserOrderItems]
   totals: [UserOrderTotals]
+  deliveryOptionsData: UserOrderDeliveryOptionsData
 }
 
 type UserOrderCustomData {
@@ -252,7 +253,7 @@ type UserOrderPaymentData {
 
 type UserOrderPickupStoreInfo {
   additionalInfo: String
-  address: String
+  address: UserOrderAddress
   dockId: String
   friendlyName: String
   isPickupStore: Boolean
@@ -510,5 +511,42 @@ type UserOrderContactInformation {
   lastName: String
   document: String
   documentType: String
+  phone: String
+}
+
+type UserOrderDeliveryOptionsData {
+  deliveryOptions: [UserOrderDeliveryOption]
+  contact: UserOrderDeliveryOptionsContact
+}
+
+type UserOrderDeliveryOption {
+  selectedSla: String
+  deliveryChannel: String
+  deliveryCompany: String
+  deliveryWindow: UserOrderDeliveryWindow
+  shippingEstimate: String
+  shippingEstimateDate: String
+  friendlyShippingEstimate: String
+  friendlyDeliveryOptionName: String
+  seller: String
+  address: UserOrderAddress
+  pickupStoreInfo: UserOrderPickupStoreInfo
+  quantityOfDifferentItems: Int
+  total: Int
+  items: [UserOrderDeliveryOptionsItems]
+}
+
+type UserOrderDeliveryOptionsItems {
+  name: String
+  quantity: Int
+  price: Float
+  imageUrl: String
+  tax: Float
+  total: Float
+}
+
+type UserOrderDeliveryOptionsContact {
+  name: String
+  email: String
   phone: String
 }
