@@ -6,8 +6,8 @@ import type {
 import { useLazyQuery } from '../graphql/useLazyQuery'
 
 export const mutation = gql(`
-  mutation CancelOrderMutation($orderId: String!) {
-    cancelOrder(orderId: $orderId) {
+  mutation CancelOrderMutation($data: IUserOrderCancel!) {
+    cancelOrder(data: $data) {
       date
       orderId
       receipt
@@ -20,7 +20,11 @@ export const useCancelOrder = () => {
     Mutation,
     Variables
   >(mutation, {
-    orderId: '',
+    data: {
+      orderId: '',
+      reason: '',
+      customerEmail: '',
+    },
   })
 
   return {

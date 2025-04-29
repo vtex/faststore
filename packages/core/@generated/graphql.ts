@@ -339,6 +339,16 @@ export type IStoreSession = {
   postalCode: InputMaybe<Scalars['String']['input']>
 }
 
+/** Input to the cancel order API. */
+export type IUserOrderCancel = {
+  /** Customer's email. */
+  customerEmail: InputMaybe<Scalars['String']['input']>
+  /** Person's name. */
+  orderId: Scalars['String']['input']
+  /** Reason. */
+  reason: InputMaybe<Scalars['String']['input']>
+}
+
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -411,7 +421,7 @@ export type Mutation = {
 }
 
 export type MutationCancelOrderArgs = {
-  orderId: Scalars['String']['input']
+  data: IUserOrderCancel
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -2618,7 +2628,7 @@ export type ServerOrderDetailsQueryQuery = {
 }
 
 export type CancelOrderMutationMutationVariables = Exact<{
-  orderId: Scalars['String']['input']
+  data: IUserOrderCancel
 }>
 
 export type CancelOrderMutationMutation = {
@@ -3591,7 +3601,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const CancelOrderMutationDocument = {
   __meta__: {
     operationName: 'CancelOrderMutation',
-    operationHash: '6bb34fd101a7627a6578e4205c44320b31fc4c3e',
+    operationHash: 'bf39d39f30deb0b74dc47bb3917ead63774f1b4d',
   },
 } as unknown as TypedDocumentString<
   CancelOrderMutationMutation,
