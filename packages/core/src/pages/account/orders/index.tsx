@@ -12,9 +12,15 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
+import { gql } from '@generated/gql'
+import type {
+  ServerListOrdersQueryQuery,
+  ServerListOrdersQueryQueryVariables,
+} from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
@@ -24,7 +30,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-export default function ListOrders({ globalSections }: MyAccountProps) {
+type ListOrdersPageProps = {
+  listOrders: ServerListOrdersQueryQuery['listUserOrders']
+} & MyAccountProps
+
+export default function ListOrders({
+  globalSections,
+  listOrders,
+}: ListOrdersPageProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -36,6 +49,8 @@ export default function ListOrders({ globalSections }: MyAccountProps) {
         <BeforeSection />
         <div>
           <h1>List Orders</h1>
+          <p>Orders: {JSON.stringify(listOrders, null, 2)}</p>
+          <p>Orders count: {listOrders?.list?.length}</p>
         </div>
         <AfterSection />
       </MyAccountLayout>
@@ -43,15 +58,107 @@ export default function ListOrders({ globalSections }: MyAccountProps) {
   )
 }
 
+const query = gql(`
+  query ServerListOrdersQuery {
+    listUserOrders {
+      list {
+        orderId
+        creationDate
+        clientName
+        items {
+          seller
+          quantity
+          description
+          ean
+          refId
+          id
+          productId
+          sellingPrice
+          price
+        }
+        totalValue
+        paymentNames
+        status
+        statusDescription
+        marketPlaceOrderId
+        sequence
+        salesChannel
+        affiliateId
+        origin
+        workflowInErrorState
+        workflowInRetry
+        lastMessageUnread
+        ShippingEstimatedDate
+        ShippingEstimatedDateMax
+        ShippingEstimatedDateMin
+        orderIsComplete
+        listId
+        listType
+        authorizedDate
+        callCenterOperatorName
+        totalItems
+        currencyCode
+        hostname
+        invoiceOutput
+        invoiceInput
+        lastChange
+        isAllDelivered
+        isAnyDelivered
+        giftCardProviders
+        orderFormId
+        paymentApprovedDate
+        readyForHandlingDate
+        deliveryDates
+      }
+      paging {
+        total
+        pages
+        currentPage
+        perPage
+      }
+      stats {
+        stats {
+          totalValue {
+            Count
+            Max
+            Mean
+            Min
+            Missing
+            StdDev
+            Sum
+            SumOfSquares
+            Facets
+          }
+          totalItems {
+            Count
+            Max
+            Mean
+            Min
+            Missing
+            StdDev
+            Sum
+            SumOfSquares
+            Facets
+          }
+        }
+      }
+      facets
+      reportRecordsLimit
+    }
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
-> = async ({ previewData, query }) => {
+> = async (context) => {
   // TODO validate permissions here
 
+  const { previewData } = context
+
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query,
+    query: context.query,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -64,12 +171,29 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
 
-  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    listOrders,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    execute<ServerListOrdersQueryQueryVariables, ServerListOrdersQueryQuery>(
+      {
+        variables: {},
+        operation: query,
+      },
+      { headers: { ...context.req.headers } }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
+
+  if (listOrders.errors) {
+    return {
+      notFound: true,
+    }
+  }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -78,6 +202,9 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult },
+    props: {
+      globalSections: globalSectionsResult,
+      listOrders: listOrders.data.listUserOrders,
+    },
   }
 }
