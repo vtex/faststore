@@ -1,27 +1,23 @@
 import type { Context } from '..'
 import type {
-  IUserOrderCancel,
+  MutationCancelOrderArgs,
   UserOrderCancel,
 } from '../../../__generated__/schema'
 import { BadRequestError, NotFoundError } from '../../errors'
 
 export const cancelOrder = async (
   _: any,
-  { orderId, customerEmail, reason }: IUserOrderCancel,
+  { data }: MutationCancelOrderArgs,
   { clients: { commerce } }: Context
 ): Promise<UserOrderCancel | null> => {
-  if (!orderId) {
+  if (!data?.orderId) {
     throw new BadRequestError('Missing orderId')
   }
 
-  const response = await commerce.oms.cancelOrder({
-    orderId,
-    customerEmail,
-    reason,
-  })
+  const response = await commerce.oms.cancelOrder(data)
 
   if (!response) {
-    throw new NotFoundError(`No order found for id ${orderId}`)
+    throw new NotFoundError(`No order found for id ${data?.orderId}`)
   }
 
   return {
