@@ -356,6 +356,29 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      cancelOrder: ({
+        orderId,
+        customerEmail,
+        reason,
+      }: IUserOrderCancel): Promise<UserOrderCancel> | undefined => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orders/${orderId}/user-cancel-request`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              customerEmail,
+              reason,
+            }),
+          },
+          {}
+        )
+      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
@@ -424,29 +447,6 @@ export const VtexCommerce = (
           {
             method: 'GET',
             headers,
-          },
-          { storeCookies }
-        )
-      },
-      cancelOrder: ({
-        orderId,
-        customerEmail,
-        reason,
-      }: IUserOrderCancel): Promise<UserOrderCancel> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        return fetchAPI(
-          `${base}/api/oms/pvt/orders/${orderId}/cancel`,
-          {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              customerEmail,
-              reason,
-            }),
           },
           { storeCookies }
         )

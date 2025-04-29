@@ -552,9 +552,7 @@ type UserOrderDeliveryOptionsContact {
 }
 
 type UserOrderCancel {
-  date: String
-  orderId: String
-  receipt: String
+  data: String
 }
 
 """

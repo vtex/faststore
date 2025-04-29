@@ -1399,9 +1399,7 @@ export type UserOrderAttachments = {
 
 export type UserOrderCancel = {
   __typename?: 'UserOrderCancel';
-  date?: Maybe<Scalars['String']>;
-  orderId?: Maybe<Scalars['String']>;
-  receipt?: Maybe<Scalars['String']>;
+  data?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderCategories = {

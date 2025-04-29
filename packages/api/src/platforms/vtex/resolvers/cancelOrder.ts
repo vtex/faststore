@@ -3,7 +3,7 @@ import type {
   MutationCancelOrderArgs,
   UserOrderCancel,
 } from '../../../__generated__/schema'
-import { BadRequestError, NotFoundError } from '../../errors'
+import { BadRequestError } from '../../errors'
 
 export const cancelOrder = async (
   _: any,
@@ -14,15 +14,7 @@ export const cancelOrder = async (
     throw new BadRequestError('Missing orderId')
   }
 
-  const response = await commerce.oms.cancelOrder(data)
+  const response = await commerce.checkout.cancelOrder(data)
 
-  if (!response) {
-    throw new NotFoundError(`No order found for id ${data?.orderId}`)
-  }
-
-  return {
-    date: response?.date,
-    orderId: response?.orderId,
-    receipt: response?.receipt,
-  }
+  return { data: response?.data }
 }
