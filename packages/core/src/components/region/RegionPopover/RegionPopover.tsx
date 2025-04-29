@@ -158,7 +158,7 @@ function RegionPopover({
             offsetLeft={offsetLeft}
             closeButtonAriaLabel={closeButtonAriaLabel}
             onEntered={() => {
-              if (inputRef.current) {
+              if (!postalCode && inputRef.current) {
                 inputRef.current.focus()
               }
             }}
