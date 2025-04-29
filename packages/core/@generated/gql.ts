@@ -44,6 +44,8 @@ const documents = {
     types.ValidateCartMutationDocument,
   '\n  mutation SubscribeToNewsletter($data: IPersonNewsletter!) {\n    subscribeToNewsletter(data: $data) {\n      id\n    }\n  }\n':
     types.SubscribeToNewsletterDocument,
+  '\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n':
+    types.ClientProductCountQueryDocument,
   '\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n':
     types.ClientAllVariantProductsQueryDocument,
   '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
@@ -162,6 +164,12 @@ export function gql(
 export function gql(
   source: '\n  mutation SubscribeToNewsletter($data: IPersonNewsletter!) {\n    subscribeToNewsletter(data: $data) {\n      id\n    }\n  }\n'
 ): typeof import('./graphql').SubscribeToNewsletterDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n'
+): typeof import('./graphql').ClientProductCountQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
