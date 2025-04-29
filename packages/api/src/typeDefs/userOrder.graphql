@@ -58,6 +58,82 @@ type UserOrder {
   deliveryOptionsData: UserOrderDeliveryOptionsData
 }
 
+type UserOrderListResult {
+  list: [UserOrderFromList]
+  paging: UserOrderListPaging
+  stats: UserOrderListStats
+  facets: [String]
+  reportRecordsLimit: Int
+}
+
+type UserOrderListPaging {
+  total: Int
+  pages: Int
+  currentPage: Int
+  perPage: Int
+}
+
+type UserOrderListStats {
+  stats: UserOrderListStatsData
+}
+
+type UserOrderListStatsData {
+  totalValue: UserOrderListStatsValue
+  totalItems: UserOrderListStatsValue
+}
+
+type UserOrderListStatsValue {
+  Count: Int
+  Max: Float
+  Mean: Float
+  Min: Float
+  Missing: Int
+  StdDev: Float
+  Sum: Float
+  SumOfSquares: Float
+  Facets: JSONObject
+}
+
+type UserOrderFromList {
+  orderId: String
+  creationDate: String
+  clientName: String
+  items: [UserOrderItemsSummarized]
+  totalValue: Float
+  paymentNames: String
+  status: String
+  statusDescription: String
+  marketPlaceOrderId: String
+  sequence: String
+  salesChannel: String
+  affiliateId: String
+  origin: String
+  workflowInErrorState: Boolean
+  workflowInRetry: Boolean
+  lastMessageUnread: String
+  ShippingEstimatedDate: String
+  ShippingEstimatedDateMax: String
+  ShippingEstimatedDateMin: String
+  orderIsComplete: Boolean
+  listId: String
+  listType: String
+  authorizedDate: String
+  callCenterOperatorName: String
+  totalItems: Int
+  currencyCode: String
+  hostname: String
+  invoiceOutput: [String]
+  invoiceInput: [String]
+  lastChange: String
+  isAllDelivered: Boolean
+  isAnyDelivered: Boolean
+  giftCardProviders: [String]
+  orderFormId: String
+  paymentApprovedDate: String
+  readyForHandlingDate: String
+  deliveryDates: [String]
+}
+
 type UserOrderCustomData {
   customApps: [UserOrderCustomApp]
 }
@@ -478,6 +554,18 @@ type UserOrderItems {
   priceTags: [UserOrderPriceTag]
   attachments: [UserOrderAttachments]
   itemAttachment: UserOrderItemAttachment
+}
+
+type UserOrderItemsSummarized {
+  seller: String
+  quantity: Int
+  description: String
+  ean: String
+  refId: String
+  id: String
+  productId: String
+  sellingPrice: Float
+  price: Float
 }
 
 type UserOrderAttachments {

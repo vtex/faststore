@@ -511,6 +511,8 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Returns information about the list of Orders that the User can view. */
+  listUserOrders?: Maybe<UserOrderListResult>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
   /** Returns information about the profile. */
@@ -1531,6 +1533,47 @@ export type UserOrderFields = {
   cartEtag?: Maybe<Scalars['String']>;
 };
 
+export type UserOrderFromList = {
+  __typename?: 'UserOrderFromList';
+  ShippingEstimatedDate?: Maybe<Scalars['String']>;
+  ShippingEstimatedDateMax?: Maybe<Scalars['String']>;
+  ShippingEstimatedDateMin?: Maybe<Scalars['String']>;
+  affiliateId?: Maybe<Scalars['String']>;
+  authorizedDate?: Maybe<Scalars['String']>;
+  callCenterOperatorName?: Maybe<Scalars['String']>;
+  clientName?: Maybe<Scalars['String']>;
+  creationDate?: Maybe<Scalars['String']>;
+  currencyCode?: Maybe<Scalars['String']>;
+  deliveryDates?: Maybe<Array<Maybe<Scalars['String']>>>;
+  giftCardProviders?: Maybe<Array<Maybe<Scalars['String']>>>;
+  hostname?: Maybe<Scalars['String']>;
+  invoiceInput?: Maybe<Array<Maybe<Scalars['String']>>>;
+  invoiceOutput?: Maybe<Array<Maybe<Scalars['String']>>>;
+  isAllDelivered?: Maybe<Scalars['Boolean']>;
+  isAnyDelivered?: Maybe<Scalars['Boolean']>;
+  items?: Maybe<Array<Maybe<UserOrderItemsSummarized>>>;
+  lastChange?: Maybe<Scalars['String']>;
+  lastMessageUnread?: Maybe<Scalars['String']>;
+  listId?: Maybe<Scalars['String']>;
+  listType?: Maybe<Scalars['String']>;
+  marketPlaceOrderId?: Maybe<Scalars['String']>;
+  orderFormId?: Maybe<Scalars['String']>;
+  orderId?: Maybe<Scalars['String']>;
+  orderIsComplete?: Maybe<Scalars['Boolean']>;
+  origin?: Maybe<Scalars['String']>;
+  paymentApprovedDate?: Maybe<Scalars['String']>;
+  paymentNames?: Maybe<Scalars['String']>;
+  readyForHandlingDate?: Maybe<Scalars['String']>;
+  salesChannel?: Maybe<Scalars['String']>;
+  sequence?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  statusDescription?: Maybe<Scalars['String']>;
+  totalItems?: Maybe<Scalars['Int']>;
+  totalValue?: Maybe<Scalars['Float']>;
+  workflowInErrorState?: Maybe<Scalars['Boolean']>;
+  workflowInRetry?: Maybe<Scalars['Boolean']>;
+};
+
 export const enum UserOrderInvoiceType {
   Input = 'Input',
   Output = 'Output'
@@ -1606,6 +1649,60 @@ export type UserOrderItems = {
   taxCode?: Maybe<Scalars['String']>;
   uniqueId?: Maybe<Scalars['String']>;
   unitMultiplier?: Maybe<Scalars['Float']>;
+};
+
+export type UserOrderItemsSummarized = {
+  __typename?: 'UserOrderItemsSummarized';
+  description?: Maybe<Scalars['String']>;
+  ean?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  productId?: Maybe<Scalars['String']>;
+  quantity?: Maybe<Scalars['Int']>;
+  refId?: Maybe<Scalars['String']>;
+  seller?: Maybe<Scalars['String']>;
+  sellingPrice?: Maybe<Scalars['Float']>;
+};
+
+export type UserOrderListPaging = {
+  __typename?: 'UserOrderListPaging';
+  currentPage?: Maybe<Scalars['Int']>;
+  pages?: Maybe<Scalars['Int']>;
+  perPage?: Maybe<Scalars['Int']>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type UserOrderListResult = {
+  __typename?: 'UserOrderListResult';
+  facets?: Maybe<Array<Maybe<Scalars['String']>>>;
+  list?: Maybe<Array<Maybe<UserOrderFromList>>>;
+  paging?: Maybe<UserOrderListPaging>;
+  reportRecordsLimit?: Maybe<Scalars['Int']>;
+  stats?: Maybe<UserOrderListStats>;
+};
+
+export type UserOrderListStats = {
+  __typename?: 'UserOrderListStats';
+  stats?: Maybe<UserOrderListStatsData>;
+};
+
+export type UserOrderListStatsData = {
+  __typename?: 'UserOrderListStatsData';
+  totalItems?: Maybe<UserOrderListStatsValue>;
+  totalValue?: Maybe<UserOrderListStatsValue>;
+};
+
+export type UserOrderListStatsValue = {
+  __typename?: 'UserOrderListStatsValue';
+  Count?: Maybe<Scalars['Int']>;
+  Facets?: Maybe<Scalars['JSONObject']>;
+  Max?: Maybe<Scalars['Float']>;
+  Mean?: Maybe<Scalars['Float']>;
+  Min?: Maybe<Scalars['Float']>;
+  Missing?: Maybe<Scalars['Int']>;
+  StdDev?: Maybe<Scalars['Float']>;
+  Sum?: Maybe<Scalars['Float']>;
+  SumOfSquares?: Maybe<Scalars['Float']>;
 };
 
 export type UserOrderLogisticsInfo = {
