@@ -3,6 +3,7 @@ import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
 import type {
+  IUserOrderCancel,
   StoreMarketingData,
   UserOrder,
   UserOrderCancel,
@@ -429,7 +430,9 @@ export const VtexCommerce = (
       },
       cancelOrder: ({
         orderId,
-      }: { orderId: string }): Promise<UserOrderCancel> => {
+        customerEmail,
+        reason,
+      }: IUserOrderCancel): Promise<UserOrderCancel> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
@@ -440,6 +443,10 @@ export const VtexCommerce = (
           {
             method: 'POST',
             headers,
+            body: JSON.stringify({
+              customerEmail,
+              reason,
+            }),
           },
           { storeCookies }
         )

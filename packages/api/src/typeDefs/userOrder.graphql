@@ -556,3 +556,21 @@ type UserOrderCancel {
   orderId: String
   receipt: String
 }
+
+"""
+Input to the cancel order API.
+"""
+input IUserOrderCancel {
+  """
+  Person's name.
+  """
+  orderId: String!
+  """
+  Customer's email.
+  """
+  customerEmail: String
+  """
+  Reason.
+  """
+  reason: String
+}

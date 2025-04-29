@@ -325,6 +325,16 @@ export type IStoreSession = {
   postalCode?: Maybe<Scalars['String']>;
 };
 
+/** Input to the cancel order API. */
+export type IUserOrderCancel = {
+  /** Customer's email. */
+  customerEmail?: Maybe<Scalars['String']>;
+  /** Person's name. */
+  orderId: Scalars['String'];
+  /** Reason. */
+  reason?: Maybe<Scalars['String']>;
+};
+
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
@@ -403,7 +413,7 @@ export type Mutation = {
 
 
 export type MutationCancelOrderArgs = {
-  orderId: Scalars['String'];
+  data: IUserOrderCancel;
 };
 
 

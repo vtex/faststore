@@ -14,5 +14,5 @@ type Mutation {
   """
   Cancels user order
   """
-  cancelOrder(orderId: String!): UserOrderCancel
+  cancelOrder(data: IUserOrderCancel!): UserOrderCancel
 }
