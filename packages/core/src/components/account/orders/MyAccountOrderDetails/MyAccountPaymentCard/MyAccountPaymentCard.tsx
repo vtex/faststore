@@ -105,7 +105,7 @@ function MyAccountPaymentCard({
           return (
             <div key={payment.id} data-fs-payment-info>
               <div data-fs-payment-method>
-                <div>
+                <div data-fs-payment-method-info>
                   <p data-fs-payment-name>{methodInfo.methodName}</p>
                   <MyAccountPaymentFlagsIcon payment={payment} />
                 </div>
