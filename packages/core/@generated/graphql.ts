@@ -1323,9 +1323,7 @@ export type UserOrderAttachments = {
 }
 
 export type UserOrderCancel = {
-  date: Maybe<Scalars['String']['output']>
-  orderId: Maybe<Scalars['String']['output']>
-  receipt: Maybe<Scalars['String']['output']>
+  data: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderCategories = {
@@ -2632,11 +2630,7 @@ export type CancelOrderMutationMutationVariables = Exact<{
 }>
 
 export type CancelOrderMutationMutation = {
-  cancelOrder: {
-    date: string | null
-    orderId: string | null
-    receipt: string | null
-  } | null
+  cancelOrder: { data: string | null } | null
 }
 
 export type ValidateCartMutationMutationVariables = Exact<{
@@ -3601,7 +3595,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const CancelOrderMutationDocument = {
   __meta__: {
     operationName: 'CancelOrderMutation',
-    operationHash: 'bf39d39f30deb0b74dc47bb3917ead63774f1b4d',
+    operationHash: 'e2b06da6840614d3c72768e56579b9d3b8e80802',
   },
 } as unknown as TypedDocumentString<
   CancelOrderMutationMutation,
