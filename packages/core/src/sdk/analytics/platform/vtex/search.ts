@@ -18,12 +18,16 @@ const randomUUID = () =>
 const getBaseDomain = (urls: string[]) => {
   const extractHostname = (url: string) => {
     try {
-      return new URL(url).hostname.replace(/^www\./, '')
+      const hostname = new URL(url).hostname
+      const subDomainPrefixes = config.api.subDomainPrefix || []
+
+      const prefixRegex = new RegExp(`^(${subDomainPrefixes.join('|')})\\.`)
+
+      return hostname.replace(prefixRegex, '')
     } catch {
       return ''
     }
   }
-
   const hostnames = urls.map(extractHostname)
 
   // Find common parts
