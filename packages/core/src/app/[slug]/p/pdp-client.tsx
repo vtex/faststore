@@ -1,6 +1,6 @@
 'use client'
 
-import type { ComponentType } from 'react'
+import { useMemo, type ComponentType, type ReactNode } from 'react'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
@@ -14,9 +14,11 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
+import { useOffer } from 'src/sdk/offer'
 import PageProvider from 'src/sdk/overrides/PageProvider'
+import deepmerge from 'deepmerge'
 
-const COMPONENTS: Record<string, ComponentType<any>> = {
+export const PDP_COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   Breadcrumb,
   BannerNewsletter,
@@ -31,14 +33,39 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-export function PdpClient({ sections, context, globalSections }: any) {
-  return (
-    <PageProvider context={context}>
-      <RenderSections
-        sections={sections}
-        globalSections={globalSections.sections}
-        components={COMPONENTS}
-      />
-    </PageProvider>
+interface PdpDataProps {
+  serverData: any
+  children: ReactNode
+}
+
+export function PdpData(props: PdpDataProps) {
+  const { serverData, children } = props
+
+  const { offers, isValidating } = useOffer({
+    skuId: serverData.data.product.id,
+  })
+
+  console.log({
+    offers,
+    isValidating,
+  })
+
+  const clientData = {
+    data: {
+      product: {
+        offers,
+      },
+      isValidating,
+    },
+  }
+
+  const data = useMemo(
+    () =>
+      deepmerge(serverData, clientData, {
+        arrayMerge: (_: any[], sourceArray: any[]) => sourceArray,
+      }),
+    [serverData, clientData]
   )
+
+  return <PageProvider context={data}>{children}</PageProvider>
 }

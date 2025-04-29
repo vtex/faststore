@@ -9,20 +9,18 @@ import { execute } from 'src/server'
 import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
 import storeConfig from 'discovery.config'
 import { injectGlobalSections } from 'src/server/cms/global'
-import { PdpClient } from './pdp-client'
+import { PDP_COMPONENTS, PdpData } from './pdp-client'
 import { getOffer } from 'src/sdk/offer'
 import deepmerge from 'deepmerge'
 import { notFound } from 'next/navigation'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import RenderSections from 'src/components/cms/RenderSections'
 
 interface PdpProps {
   params: Promise<{
     slug: string
   }>
 }
-
-// Array merging strategy from deepmerge that makes client arrays overwrite server array
-// https://www.npmjs.com/package/deepmerge
-const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
 export default async function PdpServer(props: PdpProps) {
   const { params } = props
@@ -34,48 +32,23 @@ export default async function PdpServer(props: PdpProps) {
   })
 
   const productId = slug
-  const data = await getData(productId)
-  const product = data.props?.data.product
-  // let offer = { offers: {} }
+  const { data, sections, globalSections } = await getData(productId)
+  const product = data.product
 
-  // try {
-  //   const res = await getOffer({ skuId: product?.id ?? '' })
-  //   offer = res
-  // } catch (e) {
-  //   console.log(e)
-  //   console.log('failed with offer')
-  // }
-
-  // const finalProduct = deepmerge(
-  //   product ?? {},
-  //   {
-  //     offers: offer.offers,
-  //   },
-  //   { arrayMerge: overwriteMerge }
-  // )
-  //
-
-  const finalProduct = product
-
-  // console.log({
-  //   product,
-  //   offer,
-  //   finalProduct,
-  // })
-
-  const context = {
+  const serverData = {
     data: {
-      product: finalProduct,
-      isValidating: false,
+      product,
     },
   }
 
   return (
-    <PdpClient
-      globalSections={data.props?.globalSections}
-      sections={data.props?.sections}
-      context={context}
-    />
+    <PdpData serverData={serverData}>
+      <RenderSections
+        sections={sections}
+        globalSections={globalSections.sections}
+        components={PDP_COMPONENTS}
+      />
+    </PdpData>
   )
 }
 
@@ -213,15 +186,12 @@ async function getData(slug = '', previewData: any = undefined) {
   })
 
   return {
-    props: {
-      data,
-      ...cmsPage,
-      meta,
-      offers,
-      globalSections: globalSectionsResult,
-      key: seo.canonical,
-    },
-    revalidate: false,
+    data,
+    ...cmsPage,
+    meta,
+    offers,
+    globalSections: globalSectionsResult,
+    key: seo.canonical,
   }
 }
 
