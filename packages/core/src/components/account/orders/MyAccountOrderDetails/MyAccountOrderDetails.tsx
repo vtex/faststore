@@ -58,7 +58,11 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
-        <MyAccountPaymentCard />
+        <MyAccountPaymentCard
+          currencyCode={order.storePreferencesData.currencyCode}
+          paymentData={order.paymentData}
+          allowCancellation={order.allowCancellation}
+        />
         <MyAccountSummaryCard
           totals={order.totals}
           currencyCode={order.storePreferencesData.currencyCode}

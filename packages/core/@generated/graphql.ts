@@ -1577,6 +1577,13 @@ export type UserOrderPackageItem = {
   quantity: Maybe<Scalars['Int']['output']>
 }
 
+export type UserOrderPaymentConnectorResponses = {
+  Message: Maybe<Scalars['String']['output']>
+  ReturnCode: Maybe<Scalars['String']['output']>
+  Tid: Maybe<Scalars['String']['output']>
+  authId: Maybe<Scalars['String']['output']>
+}
+
 export type UserOrderPaymentData = {
   giftCards: Maybe<Array<Maybe<Scalars['String']['output']>>>
   transactions: Maybe<Array<Maybe<UserOrderTransactions>>>
@@ -1593,6 +1600,7 @@ export type UserOrderPayments = {
   billingAddress: Maybe<Scalars['String']['output']>
   cardHolder: Maybe<Scalars['String']['output']>
   cardNumber: Maybe<Scalars['String']['output']>
+  connectorResponses: Maybe<UserOrderPaymentConnectorResponses>
   cvv2: Maybe<Scalars['String']['output']>
   dueDate: Maybe<Scalars['String']['output']>
   expireMonth: Maybe<Scalars['String']['output']>
@@ -2196,6 +2204,12 @@ export type ServerOrderDetailsQueryQuery = {
           bankIssuedInvoiceBarCodeType: string | null
           billingAddress: string | null
           paymentOrigin: string | null
+          connectorResponses: {
+            Message: string | null
+            ReturnCode: string | null
+            Tid: string | null
+            authId: string | null
+          } | null
         } | null> | null
       } | null> | null
     } | null
