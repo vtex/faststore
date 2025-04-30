@@ -388,10 +388,6 @@ export const Query = {
 
     const orders = await commerce.oms.listUserOrders()
 
-    if (!orders) {
-      throw new NotFoundError(`No orders found for user`)
-    }
-
     return orders
   },
 }
