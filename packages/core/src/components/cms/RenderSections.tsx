@@ -88,7 +88,7 @@ export const LazyLoadingSection = ({
   )
 }
 
-const RenderSectionsBase = ({
+export const RenderSectionsBase = ({
   sections = [],
   components,
   isInteractive,
