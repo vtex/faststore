@@ -339,6 +339,16 @@ export type IStoreSession = {
   postalCode: InputMaybe<Scalars['String']['input']>
 }
 
+/** Input to the cancel order API. */
+export type IUserOrderCancel = {
+  /** Customer's email. */
+  customerEmail: InputMaybe<Scalars['String']['input']>
+  /** Person's name. */
+  orderId: Scalars['String']['input']
+  /** Reason. */
+  reason: InputMaybe<Scalars['String']['input']>
+}
+
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -400,12 +410,18 @@ export type MessageInfo = {
 }
 
 export type Mutation = {
+  /** Cancels user order */
+  cancelOrder: Maybe<UserOrderCancel>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart: Maybe<StoreCart>
   /** Updates a web session with the specified values. */
   validateSession: Maybe<StoreSession>
+}
+
+export type MutationCancelOrderArgs = {
+  data: IUserOrderCancel
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -1308,6 +1324,10 @@ export type UserOrderAttachments = {
   name: Maybe<Scalars['String']['output']>
 }
 
+export type UserOrderCancel = {
+  data: Maybe<Scalars['String']['output']>
+}
+
 export type UserOrderCategories = {
   id: Maybe<Scalars['Int']['output']>
   name: Maybe<Scalars['String']['output']>
@@ -1667,6 +1687,13 @@ export type UserOrderPackageItem = {
   quantity: Maybe<Scalars['Int']['output']>
 }
 
+export type UserOrderPaymentConnectorResponses = {
+  Message: Maybe<Scalars['String']['output']>
+  ReturnCode: Maybe<Scalars['String']['output']>
+  Tid: Maybe<Scalars['String']['output']>
+  authId: Maybe<Scalars['String']['output']>
+}
+
 export type UserOrderPaymentData = {
   giftCards: Maybe<Array<Maybe<Scalars['String']['output']>>>
   transactions: Maybe<Array<Maybe<UserOrderTransactions>>>
@@ -1683,6 +1710,7 @@ export type UserOrderPayments = {
   billingAddress: Maybe<Scalars['String']['output']>
   cardHolder: Maybe<Scalars['String']['output']>
   cardNumber: Maybe<Scalars['String']['output']>
+  connectorResponses: Maybe<UserOrderPaymentConnectorResponses>
   cvv2: Maybe<Scalars['String']['output']>
   dueDate: Maybe<Scalars['String']['output']>
   expireMonth: Maybe<Scalars['String']['output']>
@@ -2286,6 +2314,12 @@ export type ServerOrderDetailsQueryQuery = {
           bankIssuedInvoiceBarCodeType: string | null
           billingAddress: string | null
           paymentOrigin: string | null
+          connectorResponses: {
+            Message: string | null
+            ReturnCode: string | null
+            Tid: string | null
+            authId: string | null
+          } | null
         } | null> | null
       } | null> | null
     } | null
@@ -2785,6 +2819,14 @@ export type ServerListOrdersQueryQuery = {
       } | null
     } | null
   } | null
+}
+
+export type CancelOrderMutationMutationVariables = Exact<{
+  data: IUserOrderCancel
+}>
+
+export type CancelOrderMutationMutation = {
+  cancelOrder: { data: string | null } | null
 }
 
 export type ValidateCartMutationMutationVariables = Exact<{
@@ -3740,7 +3782,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '938d6d01250ddf8805146719e7c79c1bd0903fbc',
+    operationHash: '6e428f9f177d543133ac2ab2078c7ff009f80f9b',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3754,6 +3796,15 @@ export const ServerListOrdersQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
   ServerListOrdersQueryQueryVariables
+>
+export const CancelOrderMutationDocument = {
+  __meta__: {
+    operationName: 'CancelOrderMutation',
+    operationHash: 'e2b06da6840614d3c72768e56579b9d3b8e80802',
+  },
+} as unknown as TypedDocumentString<
+  CancelOrderMutationMutation,
+  CancelOrderMutationMutationVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
