@@ -1,9 +1,10 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import type { ElementType } from 'react'
 import type {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
 } from '../../typings'
+import { createPolymorphicComponent } from '../../utils'
 
 type LinkBaseProps = {
   /**
@@ -29,7 +30,9 @@ export type LinkElementType = ElementType
 export type LinkProps<C extends LinkElementType = 'a'> =
   PolymorphicComponentPropsWithRef<C, LinkBaseProps>
 
-const Link = forwardRef(function Link<C extends LinkElementType = 'a'>(
+const Link = createPolymorphicComponent<'a', LinkBaseProps>(function Link<
+  C extends ElementType,
+>(
   {
     as,
     children,
@@ -39,7 +42,7 @@ const Link = forwardRef(function Link<C extends LinkElementType = 'a'>(
     testId = 'fs-link',
     ...otherProps
   }: LinkProps<C>,
-  ref?: PolymorphicRef<C>
+  ref: PolymorphicRef<C>
 ) {
   const Component = as ?? 'a'
 

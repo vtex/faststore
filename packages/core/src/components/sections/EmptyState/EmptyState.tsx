@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from 'react'
-import { useRouter } from 'next/router'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
@@ -11,6 +10,7 @@ import styles from './section.module.scss'
 
 import { EmptyStateDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 export interface EmptyStateProps {
   /**
@@ -48,12 +48,12 @@ export interface EmptyStateProps {
 }
 
 const useErrorState = () => {
-  const router = useRouter()
-  const {
-    query: { errorId, fromUrl },
-    pathname,
-    asPath,
-  } = router
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const errorId = searchParams?.get('errorId') ?? ''
+  const fromUrl = searchParams?.get('fromUrl') ?? ''
+  const asPath = `${pathname}${searchParams ? `?${searchParams.toString()}` : ''}`
 
   return {
     errorId,

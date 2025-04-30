@@ -43,7 +43,10 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
     const triggerProps = useDropdownTrigger({ triggerRef })
 
     const asChildrenTrigger = React.isValidElement(children)
-      ? cloneElement(children, { ...triggerProps, ...children.props })
+      ? cloneElement(children, {
+          ...triggerProps,
+          ...(children.props as Record<string, any>),
+        })
       : children
 
     return (

@@ -5,7 +5,6 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
 import type {
@@ -20,6 +19,10 @@ import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
+import {
+  usePathname,
+  useSearchParams as useNextSearchParams,
+} from 'next/navigation'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
@@ -33,6 +36,22 @@ type UseSearchParams = {
   sort: SearchState['sort']
   serverData?: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
 }
+
+function useAsPath() {
+  const pathname = usePathname()
+  const searchParams = useNextSearchParams()
+
+  if (!pathname) {
+    return ''
+  }
+
+  if (!searchParams) {
+    return pathname
+  }
+
+  return `${pathname}?${searchParams.toString()}`
+}
+
 const useSearchParams = ({
   collection,
   sort,
@@ -49,7 +68,8 @@ const useSearchParams = ({
       value: serverData?.search?.metadata?.logicalOperator ?? 'and',
     },
   ]
-  const { asPath } = useRouter()
+
+  const asPath = useAsPath()
 
   const hrefState = useMemo(() => {
     const url = new URL(asPath, 'http://localhost')
@@ -79,7 +99,7 @@ export default function ProductListingPage({
 }: ProductListingPageProps) {
   const { settings } = plpContentType
   const collection = server.collection
-  const router = useRouter()
+  const pathname = usePathname()
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     collection,
@@ -97,7 +117,6 @@ export default function ProductListingPage({
     plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
     storeSeo.description // Use default description from the store SEO config
 
-  const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
