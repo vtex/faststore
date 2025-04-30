@@ -1224,8 +1224,8 @@ export type UserOrder = {
   authorizedDate: Maybe<Scalars['String']['output']>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
-  cancellationData: Maybe<Scalars['String']['output']>
-  cancellationRequests: Maybe<Scalars['String']['output']>
+  cancellationData: Maybe<UserOrderCancellationData>
+  cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
   changesAttachment: Maybe<Scalars['String']['output']>
   checkedInPickupPointId: Maybe<Scalars['String']['output']>
   clientPreferencesData: Maybe<UserOrderClientPreferencesData>
@@ -1324,6 +1324,25 @@ export type UserOrderAttachments = {
 
 export type UserOrderCancel = {
   data: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCancellationData = {
+  CancellationDate: Maybe<Scalars['String']['output']>
+  Reason: Maybe<Scalars['String']['output']>
+  RequestedByPaymentNotification: Maybe<Scalars['Boolean']['output']>
+  RequestedBySellerNotification: Maybe<Scalars['Boolean']['output']>
+  RequestedBySystem: Maybe<Scalars['Boolean']['output']>
+  RequestedByUser: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderCancellationRequest = {
+  cancellationRequestDate: Maybe<Scalars['String']['output']>
+  cancellationRequestDenyDate: Maybe<Scalars['String']['output']>
+  deniedBySeller: Maybe<Scalars['Boolean']['output']>
+  deniedBySellerReason: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  reason: Maybe<Scalars['String']['output']>
+  requestedByUser: Maybe<Scalars['Boolean']['output']>
 }
 
 export type UserOrderCategories = {
@@ -2069,8 +2088,6 @@ export type ServerOrderDetailsQueryQuery = {
     subscriptionData: string | null
     taxData: string | null
     checkedInPickupPointId: string | null
-    cancellationData: string | null
-    cancellationRequests: string | null
     customData: {
       customApps: Array<{
         id: string | null
@@ -2078,6 +2095,23 @@ export type ServerOrderDetailsQueryQuery = {
         fields: { cartEtag: string | null } | null
       } | null> | null
     } | null
+    cancellationData: {
+      RequestedByUser: boolean | null
+      RequestedBySystem: boolean | null
+      RequestedBySellerNotification: boolean | null
+      RequestedByPaymentNotification: boolean | null
+      Reason: string | null
+      CancellationDate: string | null
+    } | null
+    cancellationRequests: Array<{
+      id: string | null
+      reason: string | null
+      cancellationRequestDate: string | null
+      requestedByUser: boolean | null
+      deniedBySeller: boolean | null
+      deniedBySellerReason: string | null
+      cancellationRequestDenyDate: string | null
+    } | null> | null
     clientPreferencesData: {
       locale: string | null
       optinNewsLetter: boolean | null
@@ -3600,7 +3634,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '938d6d01250ddf8805146719e7c79c1bd0903fbc',
+    operationHash: 'ccfd2fa59ee18399b9cdb47b8d4667b526cecd6f',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

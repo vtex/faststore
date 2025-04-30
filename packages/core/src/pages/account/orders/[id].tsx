@@ -115,8 +115,23 @@ const query = gql(`
       subscriptionData
       taxData
       checkedInPickupPointId
-      cancellationData
-      cancellationRequests
+      cancellationData {
+        RequestedByUser
+        RequestedBySystem
+        RequestedBySellerNotification
+        RequestedByPaymentNotification
+        Reason
+        CancellationDate
+      }
+      cancellationRequests {
+        id
+        reason
+        cancellationRequestDate
+        requestedByUser
+        deniedBySeller
+        deniedBySellerReason
+        cancellationRequestDenyDate
+      }
       clientPreferencesData {
         locale
         optinNewsLetter
