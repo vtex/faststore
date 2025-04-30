@@ -16,6 +16,7 @@ import type {
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
+import type { ProductCountResult } from './types/ProductCountResult'
 
 export type Sort =
   | 'price:desc'
@@ -265,10 +266,26 @@ export const IntelligentSearch = (
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
+  const productCount = (
+    args: Pick<SearchArgs, 'query'>
+  ): Promise<ProductCountResult> => {
+    const params = new URLSearchParams()
+
+    if (args?.query) {
+      params.append('query', args.query.toString())
+    }
+
+    return fetchAPI(
+      `${base}/_v/api/intelligent-search/catalog_count?${params.toString()}`,
+      { headers }
+    )
+  }
+
   return {
     facets,
     products,
     suggestedTerms,
     topSearches,
+    productCount,
   }
 }

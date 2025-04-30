@@ -471,6 +471,11 @@ export type PickupStoreInfo = {
   isPickupStore: Maybe<Scalars['Boolean']['output']>
 }
 
+export type ProductCountResult = {
+  /** Total product count. */
+  total: Scalars['Int']['output']
+}
+
 export type Profile = {
   /** Collection of user's address */
   addresses: Maybe<Array<Maybe<ProfileAddress>>>
@@ -514,6 +519,8 @@ export type Query = {
   collection: StoreCollection
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
+  /** Returns information about total product count based on VTEX segment cookie. */
+  productCount: Maybe<ProductCountResult>
   /** Returns information about the profile. */
   profile: Maybe<Profile>
   /** Returns if there's a redirect for a search. */
@@ -542,6 +549,10 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
+}
+
+export type QueryProductCountArgs = {
+  term: InputMaybe<Scalars['String']['input']>
 }
 
 export type QueryProfileArgs = {
@@ -1551,6 +1562,14 @@ export type SubscribeToNewsletterMutation = {
   subscribeToNewsletter: { id: string } | null
 }
 
+export type ClientProductCountQueryQueryVariables = Exact<{
+  term: InputMaybe<Scalars['String']['input']>
+}>
+
+export type ClientProductCountQueryQuery = {
+  productCount: { total: number } | null
+}
+
 export type ClientAllVariantProductsQueryQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
@@ -2446,6 +2465,15 @@ export const SubscribeToNewsletterDocument = {
 } as unknown as TypedDocumentString<
   SubscribeToNewsletterMutation,
   SubscribeToNewsletterMutationVariables
+>
+export const ClientProductCountQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProductCountQuery',
+    operationHash: 'dc912e7272e3d9f5ced206837df87f544d39d0a5',
+  },
+} as unknown as TypedDocumentString<
+  ClientProductCountQueryQuery,
+  ClientProductCountQueryQueryVariables
 >
 export const ClientAllVariantProductsQueryDocument = {
   __meta__: {
