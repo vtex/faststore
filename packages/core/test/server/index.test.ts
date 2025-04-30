@@ -76,7 +76,12 @@ const QUERIES = [
   'userOrder',
 ]
 
-const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
+const MUTATIONS = [
+  'validateCart',
+  'validateSession',
+  'subscribeToNewsletter',
+  'cancelOrder',
+]
 
 describe('FastStore GraphQL Layer', () => {
   describe('@faststore/api', () => {

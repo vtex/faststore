@@ -71,7 +71,12 @@ const QUERIES = [
   'userOrder',
 ]
 
-const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
+const MUTATIONS = [
+  'validateCart',
+  'validateSession',
+  'subscribeToNewsletter',
+  'cancelOrder',
+]
 
 let schema: GraphQLSchema
 

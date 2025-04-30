@@ -339,6 +339,16 @@ export type IStoreSession = {
   postalCode: InputMaybe<Scalars['String']['input']>
 }
 
+/** Input to the cancel order API. */
+export type IUserOrderCancel = {
+  /** Customer's email. */
+  customerEmail: InputMaybe<Scalars['String']['input']>
+  /** Person's name. */
+  orderId: Scalars['String']['input']
+  /** Reason. */
+  reason: InputMaybe<Scalars['String']['input']>
+}
+
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -400,12 +410,18 @@ export type MessageInfo = {
 }
 
 export type Mutation = {
+  /** Cancels user order */
+  cancelOrder: Maybe<UserOrderCancel>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart: Maybe<StoreCart>
   /** Updates a web session with the specified values. */
   validateSession: Maybe<StoreSession>
+}
+
+export type MutationCancelOrderArgs = {
+  data: IUserOrderCancel
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -1304,6 +1320,10 @@ export type UserOrderAttachmentOfferings = {
 export type UserOrderAttachments = {
   content: Maybe<Scalars['JSONObject']['output']>
   name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCancel = {
+  data: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderCategories = {
@@ -2619,6 +2639,14 @@ export type ServerOrderDetailsQueryQuery = {
   } | null
 }
 
+export type CancelOrderMutationMutationVariables = Exact<{
+  data: IUserOrderCancel
+}>
+
+export type CancelOrderMutationMutation = {
+  cancelOrder: { data: string | null } | null
+}
+
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
   session: IStoreSession
@@ -3577,6 +3605,15 @@ export const ServerOrderDetailsQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
   ServerOrderDetailsQueryQueryVariables
+>
+export const CancelOrderMutationDocument = {
+  __meta__: {
+    operationName: 'CancelOrderMutation',
+    operationHash: 'e2b06da6840614d3c72768e56579b9d3b8e80802',
+  },
+} as unknown as TypedDocumentString<
+  CancelOrderMutationMutation,
+  CancelOrderMutationMutationVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
