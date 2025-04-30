@@ -1,0 +1,191 @@
+[data-fs-delivery-option-accordion] {
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  // Product Image
+  --fs-order-product-image-size                   : 60px;
+  --fs-order-product-image-radius                 : var(--fs-spacing-0);
+  --fs-order-product-image-background             : var(--fs-color-main-0);
+
+  // Product
+  --fs-orders-total-items-height                  : 20px;
+  --fs-orders-total-items-min-width               : var(--fs-orders-total-items-height);
+  --fs-orders-total-items-padding                 : 2px var(--fs-spacing-0);
+  --fs-orders-total-items-radius                  : var(--fs-border-radius-pill);
+  --fs-orders-total-items-bottom                  : 4px;
+  --fs-orders-total-items-right                   : var(--fs-orders-total-items-bottom);
+  --fs-orders-total-items-border                  : var(--fs-border-width) solid var(--fs-color-neutral-0);
+  --fs-orders-total-items-background              : var(--fs-color-main-4);
+  --fs-orders-total-items-color                   : var(--fs-color-text-inverse);
+  --fs-orders-total-items-weight                  : var(--fs-text-weight-medium);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  [data-fs-delivery-option-accordion-delivery-info] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--fs-spacing-3);
+    padding: var(--fs-spacing-4) var(--fs-spacing-4) var(--fs-spacing-5);
+    border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+
+    @include media(">=tablet") {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      [data-fs-delivery-option-accordion-title] {
+        font-size: var(--fs-text-size-1);
+        line-height: 1.25;
+        color: var(--fs-color-text-light);
+        letter-spacing: 1%;
+      }
+
+      span:not([data-fs-delivery-option-accordion-title]) {
+        font-size: var(--fs-text-size-2);
+        line-height: 1.5;
+        color: var(--fs-color-text);
+        letter-spacing: -2%;
+
+        strong {
+          font-weight: var(--fs-text-weight-medium);
+        }
+      }
+    }
+  }
+
+  [data-fs-delivery-option-accordion-products] {
+    display: flex;
+    flex-direction: column;
+    padding: var(--fs-spacing-1) var(--fs-spacing-4);
+
+    [data-fs-delivery-option-accordion-product] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--fs-spacing-3);
+      padding: var(--fs-spacing-3) 0;
+      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      [data-fs-delivery-option-accordion-product-top] {
+        display: flex;
+        gap: var(--fs-spacing-3);
+        width: 100%;
+      }
+
+      [data-fs-delivery-option-accordion-product-bottom] {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+        gap: var(--fs-spacing-0);
+      }
+
+      @include media(">=notebook") {
+        display: grid;
+        grid-template-columns: auto 1fr repeat(3, minmax(100px, auto));
+        grid-auto-flow: column;
+        gap: var(--fs-spacing-2);
+
+        [data-fs-delivery-option-accordion-product-top] {
+          display: contents;
+        }
+
+        [data-fs-delivery-option-accordion-product-bottom] {
+          display: contents;
+        }
+      }
+
+      [data-fs-delivery-option-accordion-product-image] {
+        position: relative;
+        display: flex;
+        flex-shrink: 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: var(--fs-order-product-image-size);
+        height: var(--fs-order-product-image-size);
+        overflow: hidden;
+        background-color: var(--fs-order-product-image-background);
+        border-radius: var(--fs-order-product-image-radius);
+
+        img {
+          width: inherit;
+          height: inherit;
+          object-fit: contain;
+        }
+
+        [data-fs-delivery-option-accordion-product-quantity] {
+          position: absolute;
+          right: var(--fs-orders-total-items-right);
+          bottom: var(--fs-orders-total-items-bottom);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: var(--fs-orders-total-items-min-width);
+          height: var(--fs-orders-total-items-height);
+          padding: var(--fs-orders-total-items-padding);
+          font-weight: var(--fs-orders-total-items-weight);
+          color: var(--fs-orders-total-items-color);
+          background-color: var(--fs-orders-total-items-background);
+          border: var(--fs-orders-total-items-border);
+          border-radius: var(--fs-orders-total-items-radius);
+        }
+      }
+
+      [data-fs-delivery-option-accordion-product-details] {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: var(--fs-spacing-1);
+
+        p {
+          margin: 0;
+          font-size: var(--fs-text-size-base);
+          font-weight: var(--fs-text-weight-medium);
+          line-height: 1.5;
+
+          @include truncate-title(1);
+        }
+
+        span {
+          font-size: var(--fs-text-size-1);
+          line-height: 1.5;
+          color: var(--fs-color-text-light);
+
+          @include truncate-title(1);
+        }
+      }
+
+      [data-fs-delivery-option-accordion-product-price],
+      [data-fs-delivery-option-accordion-product-tax],
+      [data-fs-delivery-option-accordion-product-total] {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        @include media(">=notebook") {
+          align-items: flex-end;
+        }
+
+        p {
+          margin: 0;
+          font-size: var(--fs-text-size-base);
+          font-weight: var(--fs-text-weight-medium);
+          line-height: 1.5;
+        }
+
+        span {
+          font-size: var(--fs-text-size-1);
+          line-height: 1.5;
+          color: var(--fs-color-text-light);
+        }
+      }
+    }
+  }
+}
