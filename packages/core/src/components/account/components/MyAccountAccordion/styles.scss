@@ -1,0 +1,87 @@
+[data-fs-my-account-accordion] {
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  // Accordion
+  --fs-accordion-item-border-bottom-width          : 0;
+  --fs-accordion-button-padding                    : var(--fs-spacing-4);
+  --fs-accordion-button-font-size                  : var(--fs-text-size-base);
+  --fs-accordion-button-font-weight                : var(--fs-text-weight-regular);
+  --fs-accordion-panel-padding-bottom              : var(--fs-spacing-4);
+
+  background-color: var(--fs-color-neutral-0);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  border: var(--fs-border-width) solid var(--fs-border-color-light);
+  border-radius: var(--fs-border-radius);
+
+  [data-fs-my-account-accordion-button] {
+    width: 100%;
+
+    &[data-fs-accordion-button="expanded"], &:hover {
+      background: var(--fs-color-secondary-bkg-light-active);
+      border-radius: var(--fs-border-radius);
+    }
+
+    &[data-fs-accordion-button="expanded"] {
+      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+    }
+
+    [data-fs-button-wrapper] {
+      padding: var(--fs-spacing-4);
+
+      span:first-child {
+        width: 100%;
+        padding: 0;
+
+        @include media(">=notebook") {
+          display: flex;
+          flex: 1;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    [data-fs-my-account-accordion-header] {
+      display: flex;
+      gap: var(--fs-spacing-2);
+      align-items: center;
+
+      [data-fs-icon] {
+        color: var(--fs-color-neutral-4);
+      }
+
+      [data-fs-my-account-accordion-header-title] {
+        font-size: var(--fs-text-size-3);
+        font-weight: var(--fs-text-weight-semibold);
+        line-height: 1.5;
+        color: var(--fs-color-text);
+        text-align: start;
+
+        @include truncate-title(1);
+      }
+    }
+
+    [data-fs-my-account-accordion-summary] {
+      flex-shrink: 0;
+      padding-left: calc(24px + var(--fs-spacing-2)); // icon + padding
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-medium);
+      line-height: 1.5;
+      color: var(--fs-color-text-light);
+      text-align: start;
+    }
+  }
+
+  [data-fs-accordion-panel] {
+    [data-fs-my-account-accordion-content] {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
