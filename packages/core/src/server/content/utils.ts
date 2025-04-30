@@ -1,28 +1,13 @@
-import type { ContentOptions, PreviewData } from './types'
+import type { Locator } from '@vtex/client-cms'
 
-export function createContentOptions({
-  contentType,
-  previewData,
-  slug,
-  documentId,
-  versionId,
-  filters,
-  customCmsOptions = {},
-}: {
-  contentType: string
-  previewData?: PreviewData | null
-  slug?: string
-  documentId?: string
-  versionId?: string
-  filters?: Record<string, any>
-  customCmsOptions?: Record<string, any>
-}): ContentOptions {
+import type { ContentOptions, ContentParams } from './types'
+
+export function createContentOptions(params: ContentParams): ContentOptions {
+  const { contentType, previewData, slug, documentId, versionId, filters } =
+    params
+
   const isPreview = previewData?.contentType === contentType
-  const {
-    origin: previewOrigin,
-    slug: _,
-    ...previewLocator
-  } = previewData || {}
+  const { slug: _, ...previewLocator } = previewData || {}
 
   const cmsOptions = {
     contentType,
@@ -30,13 +15,22 @@ export function createContentOptions({
     ...(documentId !== undefined && { documentId }),
     ...(versionId !== undefined && { versionId }),
     ...(filters && { filters }),
-    ...customCmsOptions,
   }
 
   return {
     cmsOptions,
     ...(slug !== undefined && { slug }),
-    ...(isPreview && previewOrigin && { origin: previewOrigin }),
     isPreview,
   }
+}
+
+export function isLocator(obj: any): obj is Locator {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    typeof obj.contentType === 'string' &&
+    typeof obj.documentId === 'string' &&
+    (typeof obj.versionId === 'string' || obj.versionId === undefined) &&
+    (typeof obj.releaseId === 'string' || obj.releaseId === undefined)
+  )
 }

@@ -1,7 +1,6 @@
 import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
-import MissingContentError from 'src/sdk/error/MissingContentError'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import config from '../../../discovery.config'
 

@@ -1,4 +1,3 @@
-import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
@@ -16,7 +15,6 @@ import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { createContentOptions } from 'src/server/content/utils'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -69,12 +67,10 @@ export const getStaticProps: GetStaticProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      contentService.getSingleContent<PageContentType>(
-        createContentOptions({
-          contentType: '500',
-          previewData,
-        })
-      ),
+      contentService.getSingleContent<PageContentType>({
+        contentType: '500',
+        previewData,
+      }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,

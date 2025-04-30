@@ -15,7 +15,6 @@ import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { createContentOptions } from 'src/server/content/utils'
 
 type Props = {
   page: PageContentType
@@ -163,20 +162,16 @@ export const getStaticProps: GetStaticProps<
   }
 
   const pagePromise = cmsPage
-    ? contentService.getSingleContent<PageContentType>(
-        createContentOptions({
-          contentType: 'home',
-          previewData,
-          documentId: cmsPage.documentId,
-          versionId: cmsPage.versionId,
-        })
-      )
-    : contentService.getSingleContent<PageContentType>(
-        createContentOptions({
-          contentType: 'home',
-          previewData,
-        })
-      )
+    ? contentService.getSingleContent<PageContentType>({
+        contentType: 'home',
+        previewData,
+        documentId: cmsPage.documentId,
+        versionId: cmsPage.versionId,
+      })
+    : contentService.getSingleContent<PageContentType>({
+        contentType: 'home',
+        previewData,
+      })
 
   const [
     page,

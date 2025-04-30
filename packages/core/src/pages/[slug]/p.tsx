@@ -39,7 +39,6 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { createContentOptions } from 'src/server/content/utils'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -339,11 +338,10 @@ export const getStaticProps: GetStaticProps<
 
   const cmsPage: PDPContentType = await contentService.getPdpContent(
     data.product,
-    createContentOptions({
-      contentType: 'pdp',
+    {
       previewData,
       slug,
-    })
+    }
   )
 
   const { seo } = data.product

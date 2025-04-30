@@ -3,7 +3,6 @@ import storeConfig from 'discovery.config'
 import type { PageContentType } from 'src/server/cms'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { createContentOptions } from 'src/server/content/utils'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 export const GLOBAL_SECTIONS_HEADER_CONTENT_TYPE = 'globalHeaderSections'
@@ -22,25 +21,21 @@ export const getGlobalSectionsByType = async (
     const page = cmsData[contentType][0]
 
     if (page) {
-      const pageData = contentService.getSingleContent<PageContentType>(
-        createContentOptions({
-          contentType,
-          previewData,
-          documentId: page.documentId,
-          versionId: page.versionId,
-        })
-      )
+      const pageData = contentService.getSingleContent<PageContentType>({
+        contentType,
+        previewData,
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
 
       return pageData
     }
   }
 
-  const pageData = await contentService.getSingleContent<PageContentType>(
-    createContentOptions({
-      contentType: contentType,
-      previewData,
-    })
-  )
+  const pageData = await contentService.getSingleContent<PageContentType>({
+    contentType,
+    previewData,
+  })
 
   return pageData
 }

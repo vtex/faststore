@@ -7,7 +7,6 @@ import { type SearchContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
-import { createContentOptions } from 'src/server/content/utils'
 
 export const getServerSideProps: GetServerSideProps<
   SearchPageProps,
@@ -33,14 +32,12 @@ export const getServerSideProps: GetServerSideProps<
         globalSectionsHeader,
         globalSectionsFooter,
       ] = await Promise.all([
-        contentService.getSingleContent<SearchContentType>(
-          createContentOptions({
-            contentType: 'search',
-            previewData,
-            documentId: page.documentId,
-            versionId: page.versionId,
-          })
-        ),
+        contentService.getSingleContent<SearchContentType>({
+          contentType: 'search',
+          previewData,
+          documentId: page.documentId,
+          versionId: page.versionId,
+        }),
         globalSectionsPromise,
         globalSectionsHeaderPromise,
         globalSectionsFooterPromise,
@@ -63,12 +60,10 @@ export const getServerSideProps: GetServerSideProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      contentService.getSingleContent<SearchContentType>(
-        createContentOptions({
-          contentType: 'search',
-          previewData,
-        })
-      ),
+      contentService.getSingleContent<SearchContentType>({
+        contentType: 'search',
+        previewData,
+      }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,

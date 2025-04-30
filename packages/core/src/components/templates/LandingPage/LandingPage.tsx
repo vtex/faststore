@@ -20,7 +20,6 @@ import type { PageContentType } from 'src/server/cms'
 import storeConfig from 'discovery.config'
 import type { PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
-import { createContentOptions } from 'src/server/content/utils'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -117,32 +116,28 @@ export const getLandingPageBySlug = async (
 
       if (pageBySlug) {
         const landingPageData =
-          await contentService.getSingleContent<PageContentType>(
-            createContentOptions({
-              contentType: 'landingPage',
-              previewData,
-              documentId: pageBySlug.documentId,
-              versionId: pageBySlug.versionId,
-              slug: pageBySlug.settings?.seo?.slug,
-            })
-          )
+          await contentService.getSingleContent<PageContentType>({
+            contentType: 'landingPage',
+            previewData,
+            documentId: pageBySlug.documentId,
+            versionId: pageBySlug.versionId,
+            slug: pageBySlug.settings?.seo?.slug,
+          })
 
         return landingPageData
       }
     }
 
     const landingPageData =
-      await contentService.getSingleContent<PageContentType>(
-        createContentOptions({
-          contentType: 'landingPage',
-          previewData,
-          slug,
-          filters:
-            previewData?.contentType !== 'landingPage'
-              ? { filters: { 'settings.seo.slug': `/${slug}` } }
-              : undefined,
-        })
-      )
+      await contentService.getSingleContent<PageContentType>({
+        contentType: 'landingPage',
+        previewData,
+        slug,
+        filters:
+          previewData?.contentType !== 'landingPage'
+            ? { filters: { 'settings.seo.slug': `/${slug}` } }
+            : undefined,
+      })
     return landingPageData
   } catch (error) {
     if (error instanceof MissingContentError) {

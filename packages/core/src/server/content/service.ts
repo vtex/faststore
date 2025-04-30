@@ -1,8 +1,8 @@
-import type { ContentData, Locator } from '@vtex/client-cms'
+import type { ContentData } from '@vtex/client-cms'
 import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
-import type { ContentOptions } from './types'
+import type { ContentOptions, ContentParams, PreviewData } from './types'
 import config from '../../../discovery.config'
 import { getPLP, type PLPContentType } from '../cms/plp'
 import {
@@ -12,9 +12,10 @@ import {
   type RewritesConfig,
 } from 'src/utils/multipleTemplates'
 import MissingContentError from 'src/sdk/error/MissingContentError'
-import type { ServerProductQueryQuery } from '@generated/graphql'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
+import { createContentOptions, isLocator } from './utils'
+import type { ServerProductQueryQuery } from '@generated/graphql'
 
 export class ContentService {
   private clientCP: ClientCP
@@ -28,22 +29,26 @@ export class ContentService {
   }
 
   async getSingleContent<T extends ContentData>(
-    options: ContentOptions
+    params: ContentParams
   ): Promise<T> {
-    if (options.origin === 'CP' || config.contentSource.type === 'CP') {
+    const options = createContentOptions(params)
+
+    if (config.contentSource.type === 'CP') {
       return this.getFromCP<T>(options)
     }
-    return getPage(options.cmsOptions as Locator)
+    return getPage(options.cmsOptions)
   }
 
-  async getContent(options: ContentOptions) {
-    if (options.origin === 'CP' || config.contentSource.type === 'CP') {
-      const params = this.convertOptionsToParams(options)
-      const { entries } = await this.clientCP.listEntries(params)
+  async getContent(params: ContentParams) {
+    const options = createContentOptions(params)
+
+    if (config.contentSource.type === 'CP') {
+      const serviceParams = this.convertOptionsToParams(options)
+      const { entries } = await this.clientCP.listEntries(serviceParams)
       const data = await Promise.all(
         entries.map(async (entry) => {
           const entryData = await this.getSingleEntry(
-            { ...params, entryId: entry.id },
+            { ...serviceParams, entryId: entry.id },
             !!options.isPreview
           )
           return this.mergeEntryWithData(entry, entryData)
@@ -51,15 +56,18 @@ export class ContentService {
       )
       return { data }
     }
-    return getCMSPage(options.cmsOptions as Locator)
+    return getCMSPage(options.cmsOptions)
   }
 
   async getPlpContent(
-    options: ContentOptions,
+    params: ContentParams,
     rewrites: Rewrite[] | RewritesConfig
   ): Promise<PLPContentType> {
-    if (options.origin === 'CP' || config.contentSource.type === 'CP') {
-      const pages = (await this.getContent(options)).data
+    const plpParams = { ...params, contentType: 'plp' }
+    const options = createContentOptions(plpParams)
+
+    if (config.contentSource.type === 'CP') {
+      const pages = (await this.getContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
         pages,
@@ -67,19 +75,28 @@ export class ContentService {
         rewrites
       ) as PLPContentType
     }
-    return getPLP(options.slug, options.cmsOptions as Locator, rewrites)
+    if (isLocator(options.cmsOptions)) {
+      return getPLP(options.slug, options.cmsOptions, rewrites)
+    }
+    throw new Error('Invalid cmsOptions provided')
   }
 
   async getPdpContent(
     product: ServerProductQueryQuery['product'],
-    options: ContentOptions
+    params: ContentParams
   ): Promise<PDPContentType> {
-    if (options.origin === 'CP' || config.contentSource.type === 'CP') {
-      const pages = (await this.getContent(options)).data
+    const pdpParams = { ...params, contentType: 'pdp' }
+    const options = createContentOptions(pdpParams)
+
+    if (config.contentSource.type === 'CP') {
+      const pages = (await this.getContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
       return findBestPDPTemplate(pages, product) as PDPContentType
     }
-    return getPDP(product, options.cmsOptions as Locator)
+    if (isLocator(options.cmsOptions)) {
+      return getPDP(product, options.cmsOptions)
+    }
+    throw new Error('Invalid cmsOptions provided')
   }
 
   private async getFromCP<T extends ContentData>(
@@ -109,6 +126,7 @@ export class ContentService {
       throw new Error('Preview requires entryId or slug')
     }
     if (params.entryId) return this.clientCP.getEntry(params)
+    // TODO: update this when CP supports fetching by slug on Data Plane
     if (params.slug) return this.clientCP.previewEntryBySlug(params)
     throw new Error('getEntry requires entryId')
   }
@@ -123,7 +141,7 @@ export class ContentService {
       return {} as PageContentType
     }
     if (entries.length > 1) {
-      throw new MultipleContentError(params, 'CP')
+      throw new MultipleContentError(params)
     }
     return this.getSingleEntry({ ...params, entryId: entries[0].id }, isPreview)
   }

@@ -32,7 +32,6 @@ import { getDynamicContent } from 'src/utils/dynamicContent'
 import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { createContentOptions } from 'src/server/content/utils'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -165,11 +164,10 @@ export const getStaticProps: GetStaticProps<
       operation: query,
     }),
     contentService.getPlpContent(
-      createContentOptions({
-        contentType: 'plp',
+      {
         previewData,
         slug,
-      }),
+      },
       rewrites
     ),
     globalSectionsPromise,

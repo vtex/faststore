@@ -17,7 +17,6 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { createContentOptions } from 'src/server/content/utils'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -80,12 +79,10 @@ export const getStaticProps: GetStaticProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      contentService.getSingleContent<PageContentType>(
-        createContentOptions({
-          contentType: 'login',
-          previewData,
-        })
-      ),
+      contentService.getSingleContent<PageContentType>({
+        contentType: 'login',
+        previewData,
+      }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,

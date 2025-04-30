@@ -1,8 +1,8 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
-import type { Locator } from '@vtex/client-cms'
 
-import { previewRedirects } from '../../../discovery.config'
+import { contentSource, previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
+import { isLocator } from 'src/server/content/utils'
 
 type Settings = {
   seo: {
@@ -25,8 +25,8 @@ const pickParam = (req: NextApiRequest, parameter: string) => {
   return typeof maybeParam === 'string' ? maybeParam : undefined
 }
 
-const getSeoSlug = (page: any, origin?: string): string | undefined => {
-  if (origin === 'CP') {
+const getSeoSlug = (page: any): string | undefined => {
+  if (contentSource.type === 'CP') {
     if (!page.settings?.seo) return undefined
 
     const seoKey = Object.keys(page.settings.seo)[0]
@@ -52,7 +52,6 @@ const setPreviewAndRedirect = (
 // TODO: Improve security by disabling CMS preview in production
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const origin = pickParam(req, 'origin')
     let slug = pickParam(req, 'slug')
 
     const locator = [
@@ -87,17 +86,22 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    if (slug && slug.length > 0 && origin === 'CP') {
-      const previewData = { ...locator, origin, slug }
+    if (slug && slug.length > 0 && contentSource.type === 'CP') {
+      const previewData = { ...locator, slug }
       return setPreviewAndRedirect(res, previewData, `/${slug}`)
+    }
+
+    if (!isLocator(locator)) {
+      throw new StatusError('Invalid locator object', 400)
     }
 
     // Fetch CMS to check if the provided `locator` exists
     const page = await contentService.getSingleContent({
-      cmsOptions: locator as Locator,
+      contentType: locator.contentType,
+      previewData: locator,
       slug,
-      origin,
-      isPreview: true,
+      documentId: locator.documentId,
+      versionId: locator.versionId,
     })
 
     // If the content doesn't exist prevent preview mode from being enabled
@@ -108,28 +112,19 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    slug = getSeoSlug(page, origin)
-
-    const previewData = {
-      ...locator,
-      origin,
-    }
+    slug = getSeoSlug(page)
 
     // Redirect to the path from the fetched locator
     const redirects = previewRedirects as Record<string, string>
     if (redirects[locator.contentType]) {
-      return setPreviewAndRedirect(
-        res,
-        previewData,
-        redirects[locator.contentType]
-      )
+      return setPreviewAndRedirect(res, locator, redirects[locator.contentType])
     }
 
     if (locator.contentType === 'landingPage') {
-      return setPreviewAndRedirect(res, previewData, slug)
+      return setPreviewAndRedirect(res, locator, slug)
     }
 
-    return setPreviewAndRedirect(res, previewData, '/')
+    return setPreviewAndRedirect(res, locator, '/')
   } catch (error) {
     if (error instanceof StatusError) {
       res.status(error.status).end(error.message)
