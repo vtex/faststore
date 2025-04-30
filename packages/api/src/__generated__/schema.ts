@@ -468,6 +468,12 @@ export type PickupStoreInfo = {
   isPickupStore?: Maybe<Scalars['Boolean']>;
 };
 
+export type ProductCountResult = {
+  __typename?: 'ProductCountResult';
+  /** Total product count. */
+  total: Scalars['Int'];
+};
+
 export type Profile = {
   __typename?: 'Profile';
   /** Collection of user's address */
@@ -514,6 +520,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
+  /** Returns information about total product count based on VTEX segment cookie. */
+  productCount?: Maybe<ProductCountResult>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
@@ -546,6 +554,11 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
+};
+
+
+export type QueryProductCountArgs = {
+  term?: Maybe<Scalars['String']>;
 };
 
 
