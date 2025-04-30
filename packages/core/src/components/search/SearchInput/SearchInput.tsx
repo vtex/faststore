@@ -83,6 +83,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
   ) {
     const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
+    const [
+      customSearchDropdownVisibleCondition,
+      setCustomSearchDropdownVisibleCondition,
+    ] = useState<boolean>(false)
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
@@ -105,7 +109,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchQuery(term)
     }
 
-    useOnClickOutside(searchRef, () => setSearchDropdownVisible(false))
+    useOnClickOutside(searchRef, () =>
+      setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
+    )
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -168,7 +174,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               <Suspense fallback={null}>
                 <SearchDropdown
                   sort={sort as SearchState['sort']}
-                  quickOrder={quickOrderSettings}
+                  quickOrderSettings={quickOrderSettings}
+                  onChangeCustomSearchDropdownVisible={
+                    setCustomSearchDropdownVisibleCondition
+                  }
                 />
               </Suspense>
             )}
