@@ -358,7 +358,7 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
-  Returns information about total product count based on VTEX segment cookie.
+  Returns the total product count information based on a specific location accessible through the VTEX segment cookie.
   """
   productCount(
     """
