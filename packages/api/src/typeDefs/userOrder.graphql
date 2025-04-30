@@ -39,8 +39,8 @@ type UserOrder {
   subscriptionData: String
   taxData: String
   checkedInPickupPointId: String
-  cancellationData: String
-  cancellationRequests: String
+  cancellationData: UserOrderCancellationData
+  cancellationRequests: [UserOrderCancellationRequest]
   customData: UserOrderCustomData
   clientPreferencesData: UserOrderClientPreferencesData
   itemMetadata: UserOrderItemMetadata
@@ -579,4 +579,23 @@ input IUserOrderCancel {
   Reason.
   """
   reason: String
+}
+
+type UserOrderCancellationData {
+  RequestedByUser: Boolean
+  RequestedBySystem: Boolean
+  RequestedBySellerNotification: Boolean
+  RequestedByPaymentNotification: Boolean
+  Reason: String
+  CancellationDate: String
+}
+
+type UserOrderCancellationRequest {
+  id: String
+  reason: String
+  cancellationRequestDate: String
+  requestedByUser: Boolean
+  deniedBySeller: Boolean
+  deniedBySellerReason: String
+  cancellationRequestDenyDate: String
 }

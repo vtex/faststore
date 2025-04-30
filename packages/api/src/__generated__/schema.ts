@@ -1294,8 +1294,8 @@ export type UserOrder = {
   authorizedDate?: Maybe<Scalars['String']>;
   callCenterOperatorData?: Maybe<Scalars['String']>;
   cancelReason?: Maybe<Scalars['String']>;
-  cancellationData?: Maybe<Scalars['String']>;
-  cancellationRequests?: Maybe<Scalars['String']>;
+  cancellationData?: Maybe<UserOrderCancellationData>;
+  cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
   changesAttachment?: Maybe<Scalars['String']>;
   checkedInPickupPointId?: Maybe<Scalars['String']>;
   clientPreferencesData?: Maybe<UserOrderClientPreferencesData>;
@@ -1400,6 +1400,27 @@ export type UserOrderAttachments = {
 export type UserOrderCancel = {
   __typename?: 'UserOrderCancel';
   data?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderCancellationData = {
+  __typename?: 'UserOrderCancellationData';
+  CancellationDate?: Maybe<Scalars['String']>;
+  Reason?: Maybe<Scalars['String']>;
+  RequestedByPaymentNotification?: Maybe<Scalars['Boolean']>;
+  RequestedBySellerNotification?: Maybe<Scalars['Boolean']>;
+  RequestedBySystem?: Maybe<Scalars['Boolean']>;
+  RequestedByUser?: Maybe<Scalars['Boolean']>;
+};
+
+export type UserOrderCancellationRequest = {
+  __typename?: 'UserOrderCancellationRequest';
+  cancellationRequestDate?: Maybe<Scalars['String']>;
+  cancellationRequestDenyDate?: Maybe<Scalars['String']>;
+  deniedBySeller?: Maybe<Scalars['Boolean']>;
+  deniedBySellerReason?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  reason?: Maybe<Scalars['String']>;
+  requestedByUser?: Maybe<Scalars['Boolean']>;
 };
 
 export type UserOrderCategories = {
