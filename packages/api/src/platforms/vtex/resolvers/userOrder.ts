@@ -56,9 +56,8 @@ export const UserOrder: Record<string, Resolver<Root>> = {
           (address) => address?.addressId === addressId
         )
 
-        // Express delivery up to 1 business day / Standard shipping to SpringField / Pickup today
         const friendlyDeliveryOptionName =
-          `${selectedSla} ${deliveryChannelsMapping[deliveryChannel as keyof typeof deliveryChannelsMapping] || ''} ${friendlyShippingEstimate} ${address?.neighborhood ? `to ${address?.neighborhood}` : ''}`.trim()
+          `${deliveryChannelsMapping[deliveryChannel as keyof typeof deliveryChannelsMapping] || ''} ${friendlyShippingEstimate} ${address?.neighborhood ? `to ${address?.neighborhood}` : ''}`.trim()
 
         // TODO check other totals like bundleItems etc
         const itemTotal =
