@@ -9,10 +9,10 @@ import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
+import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
-import { deliveryMock } from './MyAccountDeliveryCard/__mocks__'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -57,7 +57,9 @@ export default function MyAccountOrderDetails({
       </header>
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
-        <MyAccountDeliveryCard deliveryOptionsData={deliveryMock} />
+        <MyAccountDeliveryCard
+          deliveryOptionsData={order.deliveryOptionsData}
+        />
         <MyAccountStatusCard />
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
@@ -69,6 +71,14 @@ export default function MyAccountOrderDetails({
           currencyCode={order.storePreferencesData.currencyCode}
           transactions={order.paymentData.transactions}
         />
+
+        {order.deliveryOptionsData.deliveryOptions.map((option) => (
+          <MyAccountDeliveryOptionAccordion
+            key={option.friendlyDeliveryOptionName}
+            deliveryOption={option}
+            contact={order.deliveryOptionsData.contact}
+          />
+        ))}
       </main>
     </div>
   )
