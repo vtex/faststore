@@ -4,6 +4,7 @@ import { fetchAPI } from '../fetch'
 
 import type {
   IUserOrderCancel,
+  QueryListUserOrdersArgs,
   StoreMarketingData,
   UserOrder,
   UserOrderCancel,
@@ -452,14 +453,39 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
-      listUserOrders: (): Promise<UserOrderListResult> => {
+      listUserOrders: ({
+        page,
+        status,
+        dateInitial,
+        dateFinal,
+        text,
+        clientEmail,
+        perPage,
+      }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
+        const params = new URLSearchParams()
+
+        if (text) params.append('text', text)
+        if (status && status.length > 0) {
+          status.forEach((s) =>
+            s && s.length > 0 ? params.append('status', s) : null
+          )
+        }
+        if (dateInitial) params.append('creation_date', dateInitial)
+        if (dateFinal) params.append('creation_date', dateFinal)
+        if (clientEmail) params.append('clientEmail', clientEmail)
+        if (page) params.append('page', page.toString())
+        if (perPage) params.append('per_page', perPage.toString())
+
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
 
+        const url = `${base}/api/oms/user/orders?${params.toString()}`
+        console.log('🚀 ~ url:', url)
+
         return fetchAPI(
-          `${base}/api/oms/user/orders`,
+          url,
           {
             method: 'GET',
             headers,
