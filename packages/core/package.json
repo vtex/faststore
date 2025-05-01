@@ -29,10 +29,10 @@
     "partytown": "partytown copylib ./public/~partytown"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "volta": {
-    "node": "18.19.0",
+    "node": "20.19.1",
     "pnpm": "9.15.1",
     "yarn": "1.22.22"
   },
