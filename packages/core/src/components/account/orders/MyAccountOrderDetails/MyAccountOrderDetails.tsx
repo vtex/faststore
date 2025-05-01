@@ -11,6 +11,7 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import router from 'next/router'
 import styles from './section.module.scss'
 
 export interface MyAccountOrderDetailsProps {
@@ -28,6 +29,7 @@ export default function MyAccountOrderDetails({
             size="small"
             aria-label="Go back"
             icon={<UIIcon name="ArrowLeft" />}
+            onClick={() => router.push('/account/orders')}
           />
           <h1 data-fs-order-details-header-title-text>
             Order #{order.orderId}
