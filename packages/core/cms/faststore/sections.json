@@ -2227,6 +2227,12 @@
               "type": "string",
               "default": "You entered an invalid Postal Code"
             },
+            "noProductsAvailableErrorMessage": {
+              "title": "Input field error message for the scenario of no products available",
+              "type": "string",
+              "default": "There are no products available for",
+              "description": "If postal code is available, this error message will be shown before the postal code in the following format: 'There are no products available for {postalCode}'."
+            },
             "buttonActionText": {
               "title": "Input field action button label",
               "type": "string",
@@ -2301,6 +2307,12 @@
               "title": "Input field error message",
               "type": "string",
               "default": "You entered an invalid Postal Code"
+            },
+            "noProductsAvailableErrorMessage": {
+              "title": "Input field error message for the scenario of no products available",
+              "type": "string",
+              "default": "There are no products available for",
+              "description": "If postal code is available, this error message will be shown before the postal code in the following format: 'There are no products available for {postalCode}'."
             },
             "buttonActionText": {
               "title": "Input field action button label",
