@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.9](https://github.com/vtex/faststore/compare/v3.41.8...v3.41.9) (2025-05-01)
+
+### Bug Fixes
+
+- Sets domain search cookies ([#2811](https://github.com/vtex/faststore/issues/2811)) ([83bda9a](https://github.com/vtex/faststore/commit/83bda9a80554f57974e78e7bef1c454dc1bae3a7))
+
 ## [3.41.8](https://github.com/vtex/faststore/compare/v3.41.7...v3.41.8) (2025-04-30)
 
 **Note:** Version bump only for package @faststore/core
