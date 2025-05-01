@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
 import { Icon, useUI } from '@faststore/ui'
@@ -7,7 +7,7 @@ import { Icon, useUI } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
 
-import { useSetLocation } from './useSetLocation'
+import useRegion from './useRegion'
 
 import styles from './section.module.scss'
 
@@ -25,6 +25,7 @@ interface RegionModalProps {
   inputField?: {
     label?: UIRegionModalProps['inputLabel']
     errorMessage?: UIRegionModalProps['errorMessage']
+    noProductsAvailableErrorMessage?: UIRegionModalProps['errorMessage']
     buttonActionText?: UIRegionModalProps['inputButtonActionText']
   }
   idkPostalCodeLink?: {
@@ -44,6 +45,7 @@ function RegionModal({
   inputField: {
     label: inputFieldLabel,
     errorMessage: inputFieldErrorMessage,
+    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
     buttonActionText: inputButtonActionText,
   },
   idkPostalCodeLink: {
@@ -56,31 +58,29 @@ function RegionModal({
   const { isValidating, ...session } = useSession()
   const { modal: displayModal, closeModal } = useUI()
 
-  const {
-    input,
-    setInput,
-    setLocation,
-    resetInputField,
-    loading,
-    errorMessage,
-    setErrorMessage,
-  } = useSetLocation()
+  const [input, setInput] = useState<string>('')
 
-  const isDismissible = !!(!deliveryPromise?.mandatory || session.postalCode)
+  const { loading, setRegion, regionError, setRegionError } = useRegion()
 
   const handleSubmit = async () => {
     if (isValidating) {
       return
     }
 
-    await setLocation(
-      inputRef.current?.value,
-      inputFieldErrorMessage,
+    await setRegion({
       session,
-      closeModal
-    )
+      onSuccess: () => {
+        setInput('')
+        closeModal()
+      },
+      postalCode: inputRef.current?.value,
+      errorMessage: inputFieldErrorMessage,
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage,
+    })
   }
 
+  const isDismissible = !!(!deliveryPromise?.mandatory || session.postalCode)
   const idkPostalCodeLinkProps: UIRegionModalProps['idkPostalCodeLinkProps'] = {
     href: idkPostalCodeLinkTo,
     children: (
@@ -111,17 +111,20 @@ function RegionModal({
           inputRef={inputRef}
           inputValue={input}
           inputLabel={inputFieldLabel}
-          errorMessage={errorMessage}
+          errorMessage={regionError}
           idkPostalCodeLinkProps={
             idkPostalCodeLinkTo ? idkPostalCodeLinkProps : null
           }
           onInput={(e) => {
-            errorMessage !== '' && setErrorMessage('')
+            regionError !== '' && setRegionError('')
             setInput(e.currentTarget.value)
           }}
           onSubmit={handleSubmit}
           fadeOutOnSubmit={false}
-          onClear={resetInputField}
+          onClear={() => {
+            setInput('')
+            setRegionError('')
+          }}
           inputButtonActionText={loading ? '...' : inputButtonActionText}
           dismissible={isDismissible}
         />

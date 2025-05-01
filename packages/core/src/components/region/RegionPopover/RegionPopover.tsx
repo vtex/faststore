@@ -6,9 +6,9 @@ import {
   Popover as UIPopover,
   useUI,
 } from '@faststore/ui'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
-import { useSetLocation } from './../RegionModal/useSetLocation'
+import useRegion from '../RegionModal/useRegion'
 
 import { sessionStore, useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
@@ -20,6 +20,7 @@ interface RegionPopoverProps {
   inputField?: {
     label?: string
     errorMessage?: string
+    noProductsAvailableErrorMessage?: string
     buttonActionText?: string
   }
   idkPostalCodeLink?: {
@@ -46,6 +47,7 @@ function RegionPopover({
   inputField: {
     label: inputFieldLabel,
     errorMessage: inputFieldErrorMessage,
+    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
     buttonActionText: inputButtonActionText,
   },
   idkPostalCodeLink: {
@@ -65,31 +67,28 @@ function RegionPopover({
   const { isValidating, ...session } = useSession()
   const { popover: displayPopover, closePopover } = useUI()
   const { city, postalCode } = sessionStore.read()
-  const {
-    input,
-    setInput,
-    setLocation,
-    resetInputField,
-    loading,
-    errorMessage,
-    setErrorMessage,
-  } = useSetLocation()
-
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
+
+  const [input, setInput] = useState<string>('')
+
+  const { loading, setRegion, regionError, setRegionError } = useRegion()
 
   const handleSubmit = async () => {
     if (isValidating) {
       return
     }
 
-    await setLocation(
-      inputRef.current?.value,
-      inputFieldErrorMessage,
+    await setRegion({
       session,
-      () => {
+      onSuccess: () => {
+        setInput('')
         closePopover()
-      }
-    )
+      },
+      postalCode: inputRef.current?.value,
+      errorMessage: inputFieldErrorMessage,
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage,
+    })
   }
 
   const idkPostalCodeLinkProps = {
@@ -128,13 +127,16 @@ function RegionPopover({
         actionable
         value={input}
         onInput={(e) => {
-          errorMessage !== '' && setErrorMessage('')
+          regionError !== '' && setRegionError('')
           setInput(e.currentTarget.value)
         }}
         onSubmit={handleSubmit}
-        onClear={resetInputField}
+        onClear={() => {
+          setInput('')
+          setRegionError('')
+        }}
         buttonActionText={loading ? '...' : inputButtonActionText}
-        error={errorMessage}
+        error={regionError}
       />
       {idkPostalCodeLinkTo && (
         <UILink data-fs-region-popover-link {...idkPostalCodeLinkProps} />
