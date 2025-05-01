@@ -114,7 +114,7 @@ export default function ListOrdersPage({
     })
   }
 
-  const handleOrderDetail = ({ orderId }: { orderId: number }) => {
+  const handleOrderDetail = ({ orderId }: { orderId: string }) => {
     console.log('🚀 ~ orderId:', orderId)
     router.push({
       pathname: `/account/orders/${orderId}`,
@@ -180,17 +180,10 @@ export default function ListOrdersPage({
             </thead>
             <tbody>
               {listOrders.list.map((item) => (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                 <tr
                   key={item.orderId}
-                  onClick={() =>
-                    handleOrderDetail({ orderId: Number(item.orderId) })
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      handleOrderDetail({ orderId: Number(item.orderId) })
-                    }
-                  }}
-                  tabIndex={0}
+                  onClick={() => handleOrderDetail({ orderId: item.orderId })}
                   role="button"
                 >
                   <td>{item.orderId || '-'}</td>
