@@ -1913,6 +1913,48 @@
                   "default": "Apply"
                 }
               }
+            },
+            "deliverySettings": {
+              "title": "Delivery Settings",
+              "type": "object",
+              "properties": {
+                "sectionTitle": {
+                  "title": "Delivery section label",
+                  "type": "string",
+                  "default": "Delivery"
+                },
+                "sectionDescription": {
+                  "title": "Delivery section description",
+                  "type": "string",
+                  "default": "Offers and delivery options vary based on region."
+                },
+                "deliveryCustomLabels": {
+                  "title": "Delivery Custom labels",
+                  "type": "object",
+                  "properties": {
+                    "delivery": {
+                      "title": "Delivery label",
+                      "type": "string",
+                      "default": "Delivery to"
+                    },
+                    "pickupInPoint": {
+                      "title": "Pickup in point label",
+                      "type": "string",
+                      "default": "Pickup at"
+                    },
+                    "pickupNearby": {
+                      "title": "Pickup Nearby label",
+                      "type": "string",
+                      "default": "Pickup Nearby"
+                    },
+                    "pickupAll": {
+                      "title": "Pickup Anywhere label",
+                      "type": "string",
+                      "default": "Pickup Anywhere"
+                    }
+                  }
+                }
+              }
             }
           }
         },
