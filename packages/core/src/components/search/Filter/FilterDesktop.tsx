@@ -27,6 +27,14 @@ interface Props {
    * Title for the `FilterDesktop` component.
    */
   title?: string
+  /**
+   * Settings for specific values related to shipping (e.g., custom name for title, delivery, pickup, pickup-nearby).
+   */
+  shippingSettings?: {
+    titleLabel?: string
+    description?: string
+    customLabels?: Record<string, string>
+  }
 }
 
 function FilterDesktop({
@@ -35,8 +43,44 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
+  shippingSettings = {},
 }: Props & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
+
+  console.log(facets, 'FACETS DESKTOP')
+
+  const shippingLabel = shippingSettings.titleLabel ?? 'Delivery'
+
+  const mapShippingLabel: Record<string, string> = {
+    delivery: shippingSettings.customLabels?.delivery ?? 'Deliver to',
+    'pickup-nearby':
+      shippingSettings.customLabels?.pickupNearby ?? 'Pickup Nearby',
+    'pickup-all':
+      shippingSettings.customLabels?.pickupAll ?? 'Pickup All Locations',
+    'pickup-anywhere':
+      shippingSettings.customLabels?.pickupAnywhere ?? 'Pickup Anywhere',
+  }
+
+  function shippingOptions(item: any) {
+    if (item.value === 'delivery') {
+      return (
+        <>
+          {mapShippingLabel[item.value]}
+          <UIButton
+            data-fs-filter-list-item-button
+            size="small"
+            onClick={() => {
+              // TODO: open edit local slideOver
+              window.alert('Open Modal')
+            }}
+          >
+            Melrose, 12121
+          </UIButton>
+        </>
+      )
+    }
+    return mapShippingLabel[item.value]
+  }
 
   return (
     <UIFilter
@@ -48,6 +92,7 @@ function FilterDesktop({
       }
     >
       {facets.map((facet, index) => {
+        console.log(facet, 'FACET DESKTOP LOOP')
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (
@@ -57,7 +102,12 @@ function FilterDesktop({
               testId={testId}
               index={index}
               type={type}
-              label={label}
+              label={facet.key === 'shipping' ? shippingLabel : label}
+              description={
+                facet.key === 'shipping'
+                  ? 'Offers and delivery options vary based on region.'
+                  : null
+              }
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
                 <UIFilterFacetBoolean>
@@ -81,7 +131,12 @@ function FilterDesktop({
                       value={item.value}
                       quantity={item.quantity}
                       facetKey={facet.key}
-                      label={item.label}
+                      label={
+                        facet.key === 'shipping'
+                          ? shippingOptions(item)
+                          : item.label
+                      }
+                      type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
                     />
                   ))}
                 </UIFilterFacetBoolean>
@@ -114,90 +169,6 @@ function FilterDesktop({
           </>
         )
       })}
-
-      <UIFilterFacets // MOCKED: adding here just for testing purposes / TODO: REMOVE and add dynamic data when facets available!
-        key="test-delivery"
-        testId={testId}
-        index={3}
-        type="StoreFacetBoolean"
-        label="Delivery"
-        description="Offers and delivery options vary based on region."
-      >
-        <UIFilterFacetBoolean>
-          <UIFilterFacetBooleanItem
-            key={`${testId}-test-delivery-1`}
-            id="test-delivery-item-1"
-            testId="test-delivery-item-1"
-            onFacetChange={() => {}}
-            selected={true}
-            value="test-delivery-item-1"
-            facetKey="facet-delivery"
-            label={
-              <>
-                Deliver to
-                <UIButton
-                  data-fs-filter-list-item-button
-                  size="small"
-                  onClick={() => {
-                    // MOCKED: open edit local slide over
-                    window.alert('Open Modal')
-                  }}
-                >
-                  Melrose, 12121
-                </UIButton>
-              </>
-            }
-            type="radio"
-          />
-          <UIFilterFacetBooleanItem
-            key={`${testId}-test-delivery-2`}
-            id="test-delivery-item-2"
-            testId="test-delivery-item-2"
-            onFacetChange={() => {}}
-            selected={true}
-            value="test-delivery-item-2"
-            facetKey="facet-delivery"
-            label={
-              <>
-                Pick up at
-                <UIButton
-                  data-fs-filter-list-item-button
-                  size="small"
-                  onClick={() => {
-                    // MOCKED: open edit local slide over
-                    window.alert('Open Modal')
-                  }}
-                >
-                  Robson St.
-                </UIButton>
-              </>
-            }
-            type="radio"
-          />
-          <UIFilterFacetBooleanItem
-            key={`${testId}-test-delivery-3`}
-            id="test-delivery-item-3"
-            testId="test-delivery-item-3"
-            onFacetChange={() => {}}
-            selected={true}
-            value="test-delivery-item-3"
-            facetKey="facet-delivery"
-            label="Pick up nearby"
-            type="radio"
-          />
-          <UIFilterFacetBooleanItem
-            key={`${testId}-test-delivery-4`}
-            id="test-delivery-item-4"
-            testId="test-delivery-item-4"
-            onFacetChange={() => {}}
-            selected={true}
-            value="test-delivery-item-4"
-            facetKey="facet-delivery"
-            label="Pick up anywhere"
-            type="radio"
-          />
-        </UIFilterFacetBoolean>
-      </UIFilterFacets>
     </UIFilter>
   )
 }
