@@ -4,7 +4,6 @@ import { useSearch } from '@faststore/sdk'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type {
-  ButtonProps as UIButtonProps,
   FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
   FilterFacetRangeProps as UIFilterFacetRangeProps,
   FilterFacetsProps as UIFilterFacetsProps,
@@ -39,16 +38,19 @@ const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
   import('@faststore/ui').then((mod) => mod.FilterSlider)
 )
 
-const UIButton = dynamic<UIButtonProps>(() =>
-  /* webpackChunkName: "UIButton" */
-  import('@faststore/ui').then((mod) => mod.Button)
-)
-
 import type { Filter_FacetsFragment } from '@generated/graphql'
+import FilterDeliveryOption from './FilterDeliveryOption'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 
 import styles from './section.module.scss'
+
+interface DeliveryCustomLabels {
+  delivery?: string
+  pickupInPoint?: string
+  pickupNearby?: string
+  pickupAll?: string
+}
 
 export interface FilterSliderProps {
   /**
@@ -78,7 +80,7 @@ export interface FilterSliderProps {
   deliverySettings?: {
     sectionTitle?: string
     sectionDescription?: string
-    deliveryCustomLabels?: Record<string, string>
+    deliveryCustomLabels?: DeliveryCustomLabels
   }
 }
 
@@ -96,54 +98,6 @@ function FilterSlider({
   const { resetInfiniteScroll, setState, state } = useSearch()
 
   const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
-
-  const mapShippingLabel: Record<string, string> = {
-    delivery: deliverySettings.deliveryCustomLabels?.delivery ?? 'Deliver to',
-    'pickup-in-point':
-      deliverySettings.deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
-    'pickup-nearby':
-      deliverySettings.deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
-    'pickup-all':
-      deliverySettings.deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
-  }
-
-  function shippingOptions(item: any) {
-    if (item.value === 'delivery') {
-      return (
-        <>
-          {mapShippingLabel[item.value]}
-          <UIButton
-            data-fs-filter-list-item-button
-            size="small"
-            onClick={() => {
-              // TODO: open edit local slideOver
-              window.alert('Open Modal')
-            }}
-          >
-            Melrose, 12121
-          </UIButton>
-        </>
-      )
-    }
-    if (item.value === 'pickup-in-point') {
-      return (
-        <>
-          {mapShippingLabel[item.value]}
-          <UIButton
-            data-fs-filter-list-item-button
-            size="small"
-            onClick={() => {
-              // TODO: open edit local slideOver
-              window.alert('Open Modal')
-            }}
-          >
-            Robson St
-          </UIButton>
-        </>
-      )
-    }
-    return mapShippingLabel[item.value]
-  }
 
   return (
     <UIFilterSlider
@@ -197,7 +151,7 @@ function FilterSlider({
               label={facet.key === 'shipping' ? shippingLabel : label}
               description={
                 facet.key === 'shipping'
-                  ? deliverySettings.description
+                  ? deliverySettings.sectionDescription
                   : undefined
               }
             >
@@ -216,9 +170,16 @@ function FilterSlider({
                       quantity={item.quantity}
                       facetKey={facet.key}
                       label={
-                        facet.key === 'shipping'
-                          ? shippingOptions(item)
-                          : item.label
+                        facet.key === 'shipping' ? (
+                          <FilterDeliveryOption
+                            item={item}
+                            deliveryCustomLabels={
+                              deliverySettings.deliveryCustomLabels
+                            }
+                          />
+                        ) : (
+                          item.label
+                        )
                       }
                       type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
                     />

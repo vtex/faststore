@@ -1,7 +1,6 @@
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import {
-  Button as UIButton,
   Filter as UIFilter,
   FilterFacetBoolean as UIFilterFacetBoolean,
   FilterFacetBooleanItem as UIFilterFacetBooleanItem,
@@ -9,33 +8,16 @@ import {
   FilterFacets as UIFilterFacets,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
-import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
+import { FilterDeliveryOption } from './FilterDeliveryOption'
+import type { FilterSliderProps } from './FilterSlider'
 
-export interface FilterDesktopProps {
-  /**
-   * The array that represents the details of every facet.
-   */
-  facets: Filter_FacetsFragment[]
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
-  /**
-   * Title for the `FilterDesktop` component.
-   */
-  title?: string
-  /**
-   * CMS settings for values related to delivery (e.g., custom name for title, delivery, pickup, pickup-nearby).
-   */
-  deliverySettings?: {
-    sectionTitle?: string
-    sectionDescription?: string
-    deliveryCustomLabels?: Record<string, string>
-  }
-}
+interface FilterDesktopProps
+  extends Omit<
+    FilterSliderProps,
+    'onClose' | 'size' | 'direction' | 'applyBtnProps' | 'clearBtnProps'
+  > {}
 
 function FilterDesktop({
   facets,
@@ -47,56 +29,7 @@ function FilterDesktop({
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  console.log(deliverySettings, 'deliverySettings')
   const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
-
-  const mapShippingLabel: Record<string, string> = {
-    delivery: deliverySettings.deliveryCustomLabels?.delivery ?? 'Deliver to',
-    'pickup-in-point':
-      deliverySettings.deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
-    'pickup-nearby':
-      deliverySettings.deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
-    'pickup-all':
-      deliverySettings.deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
-  }
-
-  function shippingOptions(item: any) {
-    if (item.value === 'delivery') {
-      return (
-        <>
-          {mapShippingLabel[item.value]}
-          <UIButton
-            data-fs-filter-list-item-button
-            size="small"
-            onClick={() => {
-              // TODO: open edit local slideOver
-              window.alert('Open Modal')
-            }}
-          >
-            Melrose, 12121
-          </UIButton>
-        </>
-      )
-    }
-    if (item.value === 'pickup-in-point') {
-      return (
-        <>
-          {mapShippingLabel[item.value]}
-          <UIButton
-            data-fs-filter-list-item-button
-            size="small"
-            onClick={() => {
-              // TODO: open edit local slideOver
-              window.alert('Open Modal')
-            }}
-          >
-            Robson St
-          </UIButton>
-        </>
-      )
-    }
-    return mapShippingLabel[item.value]
-  }
 
   return (
     <UIFilter
@@ -108,7 +41,6 @@ function FilterDesktop({
       }
     >
       {facets.map((facet, index) => {
-        console.log(facet, 'FACET DESKTOP LOOP')
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (
@@ -121,7 +53,7 @@ function FilterDesktop({
               label={facet.key === 'shipping' ? shippingLabel : label}
               description={
                 facet.key === 'shipping'
-                  ? deliverySettings.description
+                  ? deliverySettings.sectionDescription
                   : undefined
               }
             >
@@ -148,9 +80,16 @@ function FilterDesktop({
                       quantity={item.quantity}
                       facetKey={facet.key}
                       label={
-                        facet.key === 'shipping'
-                          ? shippingOptions(item)
-                          : item.label
+                        facet.key === 'shipping' ? (
+                          <FilterDeliveryOption
+                            item={item}
+                            deliveryCustomLabels={
+                              deliverySettings.deliveryCustomLabels
+                            }
+                          />
+                        ) : (
+                          item.label
+                        )
                       }
                       type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
                     />
