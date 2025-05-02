@@ -13,7 +13,7 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 
-interface Props {
+export interface FilterDesktopProps {
   /**
    * The array that represents the details of every facet.
    */
@@ -30,10 +30,10 @@ interface Props {
   /**
    * Settings for specific values related to shipping (e.g., custom name for title, delivery, pickup, pickup-nearby).
    */
-  shippingSettings?: {
-    titleLabel?: string
+  deliverySettings?: {
+    sectionTitle?: string
     description?: string
-    customLabels?: Record<string, string>
+    deliveryCustomLabels?: Record<string, string>
   }
 }
 
@@ -43,22 +43,23 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
-  shippingSettings = {},
-}: Props & ReturnType<typeof useFilter>) {
+  deliverySettings = {},
+}: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
   console.log(facets, 'FACETS DESKTOP')
 
-  const shippingLabel = shippingSettings.titleLabel ?? 'Delivery'
+  console.log(deliverySettings, 'DELIVERY SETTINGS')
+  const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
 
   const mapShippingLabel: Record<string, string> = {
-    delivery: shippingSettings.customLabels?.delivery ?? 'Deliver to',
+    delivery: deliverySettings.deliveryCustomLabels?.delivery ?? 'Deliver to',
+    'pickup-in-point':
+      deliverySettings.deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
     'pickup-nearby':
-      shippingSettings.customLabels?.pickupNearby ?? 'Pickup Nearby',
+      deliverySettings.deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
     'pickup-all':
-      shippingSettings.customLabels?.pickupAll ?? 'Pickup All Locations',
-    'pickup-anywhere':
-      shippingSettings.customLabels?.pickupAnywhere ?? 'Pickup Anywhere',
+      deliverySettings.deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
   }
 
   function shippingOptions(item: any) {
@@ -75,6 +76,23 @@ function FilterDesktop({
             }}
           >
             Melrose, 12121
+          </UIButton>
+        </>
+      )
+    }
+    if (item.value === 'pickup-in-point') {
+      return (
+        <>
+          {mapShippingLabel[item.value]}
+          <UIButton
+            data-fs-filter-list-item-button
+            size="small"
+            onClick={() => {
+              // TODO: open edit local slideOver
+              window.alert('Open Modal')
+            }}
+          >
+            Robson St
           </UIButton>
         </>
       )
@@ -105,8 +123,8 @@ function FilterDesktop({
               label={facet.key === 'shipping' ? shippingLabel : label}
               description={
                 facet.key === 'shipping'
-                  ? 'Offers and delivery options vary based on region.'
-                  : null
+                  ? deliverySettings.description
+                  : undefined
               }
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
