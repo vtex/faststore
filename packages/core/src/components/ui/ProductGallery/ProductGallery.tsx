@@ -10,6 +10,7 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import dynamic from 'next/dynamic'
 
 import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { FilterDesktopProps } from 'src/components/search/Filter/FilterDesktop'
 import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import type { SortProps } from 'src/components/search/Sort/Sort'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -54,6 +55,7 @@ export interface ProductGalleryProps {
       clearButtonLabel: FilterSliderProps['clearButtonLabel']
       applyButtonLabel: FilterSliderProps['applyButtonLabel']
     }
+    deliverySettings?: FilterDesktopProps['deliverySettings']
   }
   previousPageButton?: {
     label?: string
@@ -139,6 +141,7 @@ function ProductGallery({
                     {...FilterDesktop.props}
                     {...filter}
                     title={filterCmsData?.title}
+                    deliverySettings={filterCmsData?.deliverySettings}
                   />
                 </div>
               )}
