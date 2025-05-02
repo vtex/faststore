@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
 import Label from '../../atoms/Label'
@@ -14,9 +14,9 @@ export interface RadioFieldProps extends HTMLAttributes<HTMLDivElement> {
    */
   id: string
   /**
-   * The text displayed to identify the input radio.
+   * The text or component displayed to identify the input radio.
    */
-  label: string
+  label: string | ReactNode
   /**
    * The value to identify the input radio.
    */
@@ -34,7 +34,12 @@ const RadioField = forwardRef<HTMLDivElement, RadioFieldProps>(
   ) {
     return (
       <div ref={ref} data-fs-radio-field data-testid={testId}>
-        <Radio id={id} value={value ?? label} name={name} {...otherProps} />
+        <Radio
+          id={id}
+          value={typeof label === 'string' ? label : value}
+          name={name}
+          {...otherProps}
+        />
         <Label htmlFor={id}>{label}</Label>
       </div>
     )
