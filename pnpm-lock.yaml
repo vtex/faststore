@@ -143,7 +143,11 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
 <<<<<<< HEAD
+<<<<<<< HEAD
       "@faststore/core":
+=======
+      '@faststore/core':
+>>>>>>> a2d02e856 (updating lock)
         specifier: ^3.41.9
         version: link:../core
       '@inquirer/prompts':
@@ -295,13 +299,8 @@ importers:
       '@envelop/validation-cache':
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
-<<<<<<< HEAD
-      "@faststore/api":
-        specifier: ^3.41.8
-=======
       '@faststore/api':
-        specifier: ^3.41.0
->>>>>>> 78ea69551 (Adding CP integration as a data source alternative to hCMS)
+        specifier: ^3.41.8
         version: link:../api
       "@faststore/components":
         specifier: ^3.41.3
