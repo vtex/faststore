@@ -28,11 +28,11 @@ export interface FilterDesktopProps {
    */
   title?: string
   /**
-   * Settings for specific values related to shipping (e.g., custom name for title, delivery, pickup, pickup-nearby).
+   * CMS settings for values related to delivery (e.g., custom name for title, delivery, pickup, pickup-nearby).
    */
   deliverySettings?: {
     sectionTitle?: string
-    description?: string
+    sectionDescription?: string
     deliveryCustomLabels?: Record<string, string>
   }
 }
@@ -43,13 +43,11 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
-  deliverySettings = {},
+  deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  console.log(facets, 'FACETS DESKTOP')
-
-  console.log(deliverySettings, 'DELIVERY SETTINGS')
+  console.log(deliverySettings, 'deliverySettings')
   const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
 
   const mapShippingLabel: Record<string, string> = {
