@@ -132,7 +132,8 @@
 
   [data-fs-filter-list-item-radio] {
     + [data-fs-label] {
-      display: flex;
+      display: inline-flex;
+      flex-wrap: wrap;
       column-gap: var(--fs-spacing-0);
       align-items: center;
     }
