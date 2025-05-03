@@ -109,7 +109,7 @@ function FilterSlider({
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
 
-  const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
+  const shippingLabel = deliverySettings?.sectionTitle ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
   const filteredFacets = deliveryPromise.enabled
@@ -168,7 +168,7 @@ function FilterSlider({
                   index={index - 1}
                   type=""
                   label={shippingLabel}
-                  description={deliverySettings.sectionDescription}
+                  description={deliverySettings?.sectionDescription}
                 >
                   <UIButton
                     data-fs-filter-list-delivery-button
@@ -191,7 +191,7 @@ function FilterSlider({
                 label={facet.key === 'shipping' ? shippingLabel : label}
                 description={
                   facet.key === 'shipping'
-                    ? deliverySettings.sectionDescription
+                    ? deliverySettings?.sectionDescription
                     : undefined
                 }
               >
@@ -214,7 +214,7 @@ function FilterSlider({
                             <FilterDeliveryOption
                               item={item}
                               deliveryCustomLabels={
-                                deliverySettings.deliveryCustomLabels
+                                deliverySettings?.deliveryCustomLabels
                               }
                             />
                           ) : (

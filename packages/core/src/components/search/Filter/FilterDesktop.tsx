@@ -34,7 +34,7 @@ function FilterDesktop({
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
+  const shippingLabel = deliverySettings?.sectionTitle ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
   const filteredFacets = deliveryPromise.enabled
@@ -51,7 +51,6 @@ function FilterDesktop({
       }
     >
       {filteredFacets.map((facet, index) => {
-        console.log(facet, 'FACET')
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (
@@ -63,7 +62,7 @@ function FilterDesktop({
                 index={index - 1}
                 type=""
                 label={shippingLabel}
-                description={deliverySettings.sectionDescription}
+                description={deliverySettings?.sectionDescription}
               >
                 <UIButton
                   data-fs-filter-list-delivery-button
