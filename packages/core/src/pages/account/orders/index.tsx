@@ -1,7 +1,7 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
-import type { ComponentType } from 'react'
+import { useCallback, type ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
@@ -22,6 +22,15 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
+import Image from 'next/image'
+
+import { Badge, Button, Icon, SearchInputField } from '@faststore/ui'
+import { useSession } from 'src/sdk/session'
+import {
+  orderStatusMap,
+  type OrderStatusKey,
+  type OrderStatusMapValue,
+} from 'src/utils/userOrderStatus'
 import styles from './styles.module.scss'
 
 /* A list of components that can be used in the CMS. */
@@ -44,6 +53,22 @@ type ListOrdersPageProps = {
   }
 } & MyAccountProps
 
+function formatShippingDate(date: string, locale: string) {
+  return new Date(date).toLocaleDateString(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+}
+
+function getStatusVariant({ status }: { status: string }) {
+  const variant =
+    (orderStatusMap[status as OrderStatusKey] as OrderStatusMapValue)
+      ?.variant || 'neutral'
+
+  return variant.charAt(0).toUpperCase() + variant.slice(1)
+}
+
 export default function ListOrdersPage({
   globalSections,
   listOrders,
@@ -52,7 +77,20 @@ export default function ListOrdersPage({
   filters,
 }: ListOrdersPageProps) {
   const router = useRouter()
-  console.log('🚀 ~ listOrders:', listOrders.list)
+  console.log('🚀 ~ listOrders:', listOrders)
+
+  const { locale } = useSession()
+
+  const formatPrice = useCallback(
+    (value: number, currencyCode: string) => {
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currencyCode,
+        minimumFractionDigits: 2,
+      }).format(value / 100)
+    },
+    [locale]
+  )
 
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -115,13 +153,36 @@ export default function ListOrdersPage({
   }
 
   const handleOrderDetail = ({ orderId }: { orderId: string }) => {
-    console.log('🚀 ~ orderId:', orderId)
     router.push({
       pathname: `/account/orders/${orderId}`,
     })
   }
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    router.push({
+      pathname: '/account/orders',
+      query: {
+        ...router.query,
+        text: value,
+        page: 1,
+      },
+    })
+  }
+
+  const handleSearchSubmit = (value: string) => {
+    router.push({
+      pathname: '/account/orders',
+      query: {
+        ...router.query,
+        text: value,
+        page: 1,
+      },
+    })
+  }
+
   const totalPages = Math.ceil(total / perPage)
+
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -132,49 +193,43 @@ export default function ListOrdersPage({
       <MyAccountLayout>
         <BeforeSection />
         <div className={styles.container}>
-          <h1>Orders</h1>
+          <h1 className={styles.title}>Orders</h1>
 
-          <div className={styles.filters}>
-            <select
-              title="Status"
-              name="status"
-              multiple={true}
-              value={
-                Array.isArray(filters.status)
-                  ? filters.status
-                  : [filters.status]
+          <div className={styles.searchFiltersContainer}>
+            <SearchInputField
+              data-fs-search-input-field-list-orders
+              placeholder="Search"
+              onChange={(e) => handleSearchChange(e)}
+              onSubmit={(e) => handleSearchSubmit(e)}
+              // value={}
+            />
+            <Button
+              data-fs-button-list-orders-filter-button
+              variant="tertiary"
+              icon={
+                <Icon
+                  width={16}
+                  height={16}
+                  name="FadersHorizontal"
+                  aria-label="Open Filters"
+                />
               }
-              onChange={handleStatusChange}
+              iconPosition="left"
+              onClick={() => console.log('Hi')}
             >
-              <option value="">All</option>
-              <option value="ready-for-handling">ready-for-handling</option>
-              <option value="canceled">canceled</option>
-              <option value="shipped">shipped</option>
-            </select>
-            <input
-              title="Data Inicial"
-              name="dateInitial"
-              type="date"
-              value={filters.dateInitial || ''}
-              onChange={handleFilterChange}
-            />
-            <input
-              title="Data Final"
-              name="dateFinal"
-              type="date"
-              value={filters.dateFinal || ''}
-              onChange={handleFilterChange}
-            />
+              Filters
+            </Button>
           </div>
 
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Data</th>
-                <th>Client</th>
-                <th>Total</th>
-                <th>Payment</th>
+                <th>Order</th>
+                <th>Ordered by</th>
+                <th>Cost Center</th>
+                <th>Release</th>
+                <th>PO number</th>
+                <th>Delivery by</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -186,20 +241,56 @@ export default function ListOrdersPage({
                   onClick={() => handleOrderDetail({ orderId: item.orderId })}
                   role="button"
                 >
-                  <td>{item.orderId || '-'}</td>
                   <td>
-                    {item.creationDate
-                      ? new Date(item.creationDate).toLocaleDateString()
+                    <div className={styles.imageContainer}>
+                      <Image
+                        src={item.items?.[0]?.imageUrl || '/placeholder.png'}
+                        alt={item.items?.[0]?.description || 'Product image'}
+                        width={64}
+                        height={64}
+                        onError={(e) => {
+                          e.currentTarget.src = '/placeholder.png'
+                        }}
+                      />
+                      {item.totalItems > 0 && (
+                        <Badge counter>{item.totalItems}</Badge>
+                      )}
+                    </div>
+                    <div>
+                      <p>{item.orderId || '-'}</p>
+                      <p>
+                        Placed on{' '}
+                        {item.creationDate
+                          ? formatShippingDate(item.creationDate, locale)
+                          : '-'}
+                      </p>
+                      <p>
+                        Total: {formatPrice(item.totalValue, item.currencyCode)}
+                      </p>
+                    </div>
+                  </td>
+                  <td>{item?.clientName}</td>
+                  <td>{item?.costCenter || '(Cost Center)'}</td>
+                  <td>{item?.release || '(Release)'}</td>
+                  <td>{item?.poNumber || '(PO Number)'}</td>
+                  <td>
+                    {item.ShippingEstimatedDate
+                      ? formatShippingDate(item.ShippingEstimatedDate, locale)
                       : '-'}
                   </td>
-                  <td>{item.clientName || '-'}</td>
                   <td>
-                    {item.totalValue != null
-                      ? `R$ ${(item.totalValue / 100).toFixed(2)}`
-                      : '-'}
+                    <span
+                      className={`${styles.status} ${
+                        styles[
+                          `status${getStatusVariant({ status: item.status })}`
+                        ]
+                      }`}
+                    >
+                      {orderStatusMap[item.status as OrderStatusKey]?.label ||
+                        item.statusDescription ||
+                        '-'}
+                    </span>
                   </td>
-                  <td>{item.paymentNames || '-'}</td>
-                  <td>{item.statusDescription || '-'}</td>
                 </tr>
               ))}
             </tbody>
@@ -208,6 +299,7 @@ export default function ListOrdersPage({
           <div className={styles.pagination}>
             {Array.from({ length: totalPages }, (_, i) => (
               <button
+                type="button"
                 key={i}
                 className={i + 1 === filters?.page ? styles.active : ''}
                 onClick={() => handlePageChange(i + 1)}
