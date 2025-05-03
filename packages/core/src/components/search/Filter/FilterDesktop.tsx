@@ -37,6 +37,10 @@ function FilterDesktop({
   const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
+  const filteredFacets = deliveryPromise.enabled
+    ? facets
+    : facets.filter((facet) => facet.key !== 'shipping')
+
   return (
     <UIFilter
       testId={`desktop-${testId}`}
@@ -46,7 +50,8 @@ function FilterDesktop({
         dispatch({ type: 'toggleExpanded', payload: idx })
       }
     >
-      {facets.map((facet, index) => {
+      {filteredFacets.map((facet, index) => {
+        console.log(facet, 'FACET')
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (
