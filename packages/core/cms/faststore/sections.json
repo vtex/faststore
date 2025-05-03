@@ -1917,6 +1917,7 @@
             "deliverySettings": {
               "title": "Delivery Settings",
               "type": "object",
+              "required": ["sectionTitle", "sectionDescription"],
               "properties": {
                 "sectionTitle": {
                   "title": "Delivery section label",
