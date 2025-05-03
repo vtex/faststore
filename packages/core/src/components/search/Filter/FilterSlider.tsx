@@ -1,15 +1,17 @@
 import dynamic from 'next/dynamic'
 
 import { useSearch } from '@faststore/sdk'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-
 import type {
+  ButtonProps as UIButtonProps,
   FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
   FilterFacetRangeProps as UIFilterFacetRangeProps,
   FilterFacetsProps as UIFilterFacetsProps,
   FilterProps as UIFilterProps,
   FilterSliderProps as UIFilterSliderProps,
+  IconProps as UIIconProps,
 } from '@faststore/ui'
+import { deliveryPromise } from 'discovery.config.default'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -38,10 +40,20 @@ const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
   import('@faststore/ui').then((mod) => mod.FilterSlider)
 )
 
+const UIButton = dynamic<UIButtonProps>(() =>
+  /* webpackChunkName: "UIButton" */
+  import('@faststore/ui').then((mod) => mod.Button)
+)
+const UIIcon = dynamic<UIIconProps>(() =>
+  /* webpackChunkName: "UIIcon" */
+  import('@faststore/ui').then((mod) => mod.Icon)
+)
+
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryOption from './FilterDeliveryOption'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
+import { sessionStore } from 'src/sdk/session'
 
 import styles from './section.module.scss'
 
@@ -98,6 +110,7 @@ function FilterSlider({
   const { resetInfiniteScroll, setState, state } = useSearch()
 
   const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
+  const { postalCode } = sessionStore.read()
 
   return (
     <UIFilterSlider
@@ -143,68 +156,92 @@ function FilterSlider({
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
           return (
-            <UIFilterFacets
-              key={`${testId}-${label}-${index}`}
-              testId={`mobile-${testId}`}
-              index={index}
-              type={type}
-              label={facet.key === 'shipping' ? shippingLabel : label}
-              description={
-                facet.key === 'shipping'
-                  ? deliverySettings.sectionDescription
-                  : undefined
-              }
-            >
-              {type === 'StoreFacetBoolean' && isExpanded && (
-                <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
-                        dispatch({ type: 'toggleFacet', payload: facet })
-                      }
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={
-                        facet.key === 'shipping' ? (
-                          <FilterDeliveryOption
-                            item={item}
-                            deliveryCustomLabels={
-                              deliverySettings.deliveryCustomLabels
-                            }
-                          />
-                        ) : (
-                          item.label
-                        )
-                      }
-                      type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
-                    />
-                  ))}
-                </UIFilterFacetBoolean>
+            <>
+              {deliveryPromise.enabled && !postalCode && (
+                <UIFilterFacets
+                  key={`${testId}-delivery-unset`}
+                  testId={testId}
+                  index={index - 1}
+                  type=""
+                  label={shippingLabel}
+                  description={deliverySettings.sectionDescription}
+                >
+                  <UIButton
+                    data-fs-filter-list-delivery-button
+                    variant="secondary"
+                    onClick={() => {
+                      // TODO: open edit local slideOver
+                    }}
+                    icon={<UIIcon name="MapPin" />}
+                  >
+                    Set Location
+                  </UIButton>
+                </UIFilterFacets>
               )}
-              {type === 'StoreFacetRange' && isExpanded && (
-                <UIFilterFacetRange
-                  facetKey={facet.key}
-                  min={facet.min}
-                  max={facet.max}
-                  formatter={
-                    facet.key.toLowerCase() === 'price'
-                      ? useFormattedPrice
-                      : undefined
-                  }
-                  onFacetChange={(facet) =>
-                    dispatch({
-                      type: 'setFacet',
-                      payload: { facet, unique: true },
-                    })
-                  }
-                />
-              )}
-            </UIFilterFacets>
+
+              <UIFilterFacets
+                key={`${testId}-${label}-${index}`}
+                testId={`mobile-${testId}`}
+                index={index}
+                type={type}
+                label={facet.key === 'shipping' ? shippingLabel : label}
+                description={
+                  facet.key === 'shipping'
+                    ? deliverySettings.sectionDescription
+                    : undefined
+                }
+              >
+                {type === 'StoreFacetBoolean' && isExpanded && (
+                  <UIFilterFacetBoolean>
+                    {facet.values.map((item) => (
+                      <UIFilterFacetBooleanItem
+                        key={`${testId}-${facet.label}-${item.label}`}
+                        id={`${testId}-${facet.label}-${item.label}`}
+                        testId={`mobile-${testId}`}
+                        onFacetChange={(facet) =>
+                          dispatch({ type: 'toggleFacet', payload: facet })
+                        }
+                        selected={item.selected}
+                        value={item.value}
+                        quantity={item.quantity}
+                        facetKey={facet.key}
+                        label={
+                          facet.key === 'shipping' ? (
+                            <FilterDeliveryOption
+                              item={item}
+                              deliveryCustomLabels={
+                                deliverySettings.deliveryCustomLabels
+                              }
+                            />
+                          ) : (
+                            item.label
+                          )
+                        }
+                        type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
+                      />
+                    ))}
+                  </UIFilterFacetBoolean>
+                )}
+                {type === 'StoreFacetRange' && isExpanded && (
+                  <UIFilterFacetRange
+                    facetKey={facet.key}
+                    min={facet.min}
+                    max={facet.max}
+                    formatter={
+                      facet.key.toLowerCase() === 'price'
+                        ? useFormattedPrice
+                        : undefined
+                    }
+                    onFacetChange={(facet) =>
+                      dispatch({
+                        type: 'setFacet',
+                        payload: { facet, unique: true },
+                      })
+                    }
+                  />
+                )}
+              </UIFilterFacets>
+            </>
           )
         })}
       </UIFilter>
