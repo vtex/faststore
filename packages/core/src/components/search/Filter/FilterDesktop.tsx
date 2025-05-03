@@ -1,17 +1,22 @@
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import {
+  Button as UIButton,
   Filter as UIFilter,
   FilterFacetBoolean as UIFilterFacetBoolean,
   FilterFacetBooleanItem as UIFilterFacetBooleanItem,
   FilterFacetRange as UIFilterFacetRange,
   FilterFacets as UIFilterFacets,
+  Icon as UIIcon,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
+import { deliveryPromise } from 'discovery.config.default'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { FilterDeliveryOption } from './FilterDeliveryOption'
 import type { FilterSliderProps } from './FilterSlider'
+
+import { sessionStore } from 'src/sdk/session'
 
 interface FilterDesktopProps
   extends Omit<
@@ -30,6 +35,7 @@ function FilterDesktop({
   const { resetInfiniteScroll, state, setState } = useSearch()
 
   const shippingLabel = deliverySettings.sectionTitle ?? 'Delivery'
+  const { postalCode } = sessionStore.read()
 
   return (
     <UIFilter
@@ -45,6 +51,28 @@ function FilterDesktop({
         const isExpanded = expanded.has(index)
         return (
           <>
+            {deliveryPromise.enabled && !postalCode && (
+              <UIFilterFacets
+                key={`${testId}-delivery-unset`}
+                testId={testId}
+                index={index - 1}
+                type=""
+                label={shippingLabel}
+                description={deliverySettings.sectionDescription}
+              >
+                <UIButton
+                  data-fs-filter-list-delivery-button
+                  variant="secondary"
+                  onClick={() => {
+                    // TODO: open edit local slideOver
+                  }}
+                  icon={<UIIcon name="MapPin" />}
+                >
+                  Set Location
+                </UIButton>
+              </UIFilterFacets>
+            )}
+
             <UIFilterFacets
               key={`${testId}-${label}-${index}`}
               testId={testId}
