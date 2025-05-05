@@ -7,6 +7,7 @@ import type {
   StoreMarketingData,
   UserOrder,
   UserOrderCancel,
+  UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
@@ -444,6 +445,21 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+      listUserOrders: (): Promise<UserOrderListResult> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/oms/user/orders`,
           {
             method: 'GET',
             headers,

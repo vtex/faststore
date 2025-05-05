@@ -527,6 +527,8 @@ export type Query = {
   allProducts: StoreProductConnection
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection
+  /** Returns information about the list of Orders that the User can view. */
+  listUserOrders: Maybe<UserOrderListResult>
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
   /** Returns information about the profile. */
@@ -1479,6 +1481,46 @@ export type UserOrderFields = {
   cartEtag: Maybe<Scalars['String']['output']>
 }
 
+export type UserOrderFromList = {
+  ShippingEstimatedDate: Maybe<Scalars['String']['output']>
+  ShippingEstimatedDateMax: Maybe<Scalars['String']['output']>
+  ShippingEstimatedDateMin: Maybe<Scalars['String']['output']>
+  affiliateId: Maybe<Scalars['String']['output']>
+  authorizedDate: Maybe<Scalars['String']['output']>
+  callCenterOperatorName: Maybe<Scalars['String']['output']>
+  clientName: Maybe<Scalars['String']['output']>
+  creationDate: Maybe<Scalars['String']['output']>
+  currencyCode: Maybe<Scalars['String']['output']>
+  deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  hostname: Maybe<Scalars['String']['output']>
+  invoiceInput: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  invoiceOutput: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  isAllDelivered: Maybe<Scalars['Boolean']['output']>
+  isAnyDelivered: Maybe<Scalars['Boolean']['output']>
+  items: Maybe<Array<Maybe<UserOrderItemsSummarized>>>
+  lastChange: Maybe<Scalars['String']['output']>
+  lastMessageUnread: Maybe<Scalars['String']['output']>
+  listId: Maybe<Scalars['String']['output']>
+  listType: Maybe<Scalars['String']['output']>
+  marketPlaceOrderId: Maybe<Scalars['String']['output']>
+  orderFormId: Maybe<Scalars['String']['output']>
+  orderId: Maybe<Scalars['String']['output']>
+  orderIsComplete: Maybe<Scalars['Boolean']['output']>
+  origin: Maybe<Scalars['String']['output']>
+  paymentApprovedDate: Maybe<Scalars['String']['output']>
+  paymentNames: Maybe<Scalars['String']['output']>
+  readyForHandlingDate: Maybe<Scalars['String']['output']>
+  salesChannel: Maybe<Scalars['String']['output']>
+  sequence: Maybe<Scalars['String']['output']>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  totalItems: Maybe<Scalars['Int']['output']>
+  totalValue: Maybe<Scalars['Float']['output']>
+  workflowInErrorState: Maybe<Scalars['Boolean']['output']>
+  workflowInRetry: Maybe<Scalars['Boolean']['output']>
+}
+
 export type UserOrderInvoiceType = 'Input' | 'Output'
 
 export type UserOrderItemAttachment = {
@@ -1547,6 +1589,54 @@ export type UserOrderItems = {
   taxCode: Maybe<Scalars['String']['output']>
   uniqueId: Maybe<Scalars['String']['output']>
   unitMultiplier: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderItemsSummarized = {
+  description: Maybe<Scalars['String']['output']>
+  ean: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  productId: Maybe<Scalars['String']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  refId: Maybe<Scalars['String']['output']>
+  seller: Maybe<Scalars['String']['output']>
+  sellingPrice: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderListPaging = {
+  currentPage: Maybe<Scalars['Int']['output']>
+  pages: Maybe<Scalars['Int']['output']>
+  perPage: Maybe<Scalars['Int']['output']>
+  total: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderListResult = {
+  facets: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  list: Maybe<Array<Maybe<UserOrderFromList>>>
+  paging: Maybe<UserOrderListPaging>
+  reportRecordsLimit: Maybe<Scalars['Int']['output']>
+  stats: Maybe<UserOrderListStats>
+}
+
+export type UserOrderListStats = {
+  stats: Maybe<UserOrderListStatsData>
+}
+
+export type UserOrderListStatsData = {
+  totalItems: Maybe<UserOrderListStatsValue>
+  totalValue: Maybe<UserOrderListStatsValue>
+}
+
+export type UserOrderListStatsValue = {
+  Count: Maybe<Scalars['Int']['output']>
+  Facets: Maybe<Scalars['JSONObject']['output']>
+  Max: Maybe<Scalars['Float']['output']>
+  Mean: Maybe<Scalars['Float']['output']>
+  Min: Maybe<Scalars['Float']['output']>
+  Missing: Maybe<Scalars['Int']['output']>
+  StdDev: Maybe<Scalars['Float']['output']>
+  Sum: Maybe<Scalars['Float']['output']>
+  SumOfSquares: Maybe<Scalars['Float']['output']>
 }
 
 export type UserOrderLogisticsInfo = {
@@ -2673,6 +2763,98 @@ export type ServerOrderDetailsQueryQuery = {
   } | null
 }
 
+export type ServerListOrdersQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerListOrdersQueryQuery = {
+  listUserOrders: {
+    facets: Array<string | null> | null
+    reportRecordsLimit: number | null
+    list: Array<{
+      orderId: string | null
+      creationDate: string | null
+      clientName: string | null
+      totalValue: number | null
+      paymentNames: string | null
+      status: string | null
+      statusDescription: string | null
+      marketPlaceOrderId: string | null
+      sequence: string | null
+      salesChannel: string | null
+      affiliateId: string | null
+      origin: string | null
+      workflowInErrorState: boolean | null
+      workflowInRetry: boolean | null
+      lastMessageUnread: string | null
+      ShippingEstimatedDate: string | null
+      ShippingEstimatedDateMax: string | null
+      ShippingEstimatedDateMin: string | null
+      orderIsComplete: boolean | null
+      listId: string | null
+      listType: string | null
+      authorizedDate: string | null
+      callCenterOperatorName: string | null
+      totalItems: number | null
+      currencyCode: string | null
+      hostname: string | null
+      invoiceOutput: Array<string | null> | null
+      invoiceInput: Array<string | null> | null
+      lastChange: string | null
+      isAllDelivered: boolean | null
+      isAnyDelivered: boolean | null
+      giftCardProviders: Array<string | null> | null
+      orderFormId: string | null
+      paymentApprovedDate: string | null
+      readyForHandlingDate: string | null
+      deliveryDates: Array<string | null> | null
+      items: Array<{
+        seller: string | null
+        quantity: number | null
+        description: string | null
+        ean: string | null
+        refId: string | null
+        id: string | null
+        productId: string | null
+        sellingPrice: number | null
+        price: number | null
+      } | null> | null
+    } | null> | null
+    paging: {
+      total: number | null
+      pages: number | null
+      currentPage: number | null
+      perPage: number | null
+    } | null
+    stats: {
+      stats: {
+        totalValue: {
+          Count: number | null
+          Max: number | null
+          Mean: number | null
+          Min: number | null
+          Missing: number | null
+          StdDev: number | null
+          Sum: number | null
+          SumOfSquares: number | null
+          Facets: any | null
+        } | null
+        totalItems: {
+          Count: number | null
+          Max: number | null
+          Mean: number | null
+          Min: number | null
+          Missing: number | null
+          StdDev: number | null
+          Sum: number | null
+          SumOfSquares: number | null
+          Facets: any | null
+        } | null
+      } | null
+    } | null
+  } | null
+}
+
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
 }>
@@ -3639,6 +3821,15 @@ export const ServerOrderDetailsQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
   ServerOrderDetailsQueryQueryVariables
+>
+export const ServerListOrdersQueryDocument = {
+  __meta__: {
+    operationName: 'ServerListOrdersQuery',
+    operationHash: 'aea44ba46b7b82192da9e8e6d4a28add288f11d1',
+  },
+} as unknown as TypedDocumentString<
+  ServerListOrdersQueryQuery,
+  ServerListOrdersQueryQueryVariables
 >
 export const CancelOrderMutationDocument = {
   __meta__: {

@@ -381,4 +381,13 @@ export const Query = {
 
     return order
   },
+  listUserOrders: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const orders = await commerce.oms.listUserOrders()
+
+    return orders
+  },
 }
