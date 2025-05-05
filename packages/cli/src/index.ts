@@ -14,6 +14,6 @@ export const commands = {
   build: Build,
   serve: Serve,
   'cms-sync': CmsSync,
-  'content-platform-sync': ContentPlatformSync,
+  'cp-sync': ContentPlatformSync,
   test: Test,
 }
