@@ -9,6 +9,20 @@
 }
 
 .searchFiltersContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 55%;
+  margin-bottom: 1rem;
+
+  @include media("<notebook") {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
   [data-fs-search-input-field] {
     [data-fs-search-input-field-input] {
       @include media("<notebook") {
@@ -58,16 +72,34 @@
 
 .table th:first-child, .table td:first-child {
   width: 30%;
+
+  @include media("<notebook") {
+    display: flex;
+    width: 50%;
+  }
 }
 
 .table th:last-child, .table td:last-child {
   width: 10%;
+
+  @include media("<notebook") {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 50%;
+  }
 }
 
 .table td:first-child {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+
+  @include media("<notebook") {
+    flex-direction: column;
+  }
 }
 
 .table td:first-child img {
@@ -106,6 +138,10 @@
   padding: 1.4rem 0.6rem;
   text-align: left;
   border: none;
+
+  @include media("<notebook") {
+    padding: 1.2rem 0.3rem;
+  }
 }
 
 .table td:not(:first-child):not(:last-child) {
@@ -116,6 +152,11 @@
   cursor: pointer;
   border-bottom: 1px solid #e0e0e0;
   transition: background-color 0.5s ease;
+
+  @include media("<notebook") {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .table tbody tr:hover, .table tbody tr:focus {
@@ -147,14 +188,6 @@
   font-weight: bold;
   color: white;
   background-color: var(--fs-color-link);
-}
-
-.searchFiltersContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 55%;
-  margin-bottom: 1rem;
 }
 
 .status {

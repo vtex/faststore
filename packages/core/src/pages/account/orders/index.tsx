@@ -26,6 +26,7 @@ import Image from 'next/image'
 
 import { Badge, Button, Icon, SearchInputField } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 import {
   orderStatusMap,
   type OrderStatusKey,
@@ -77,6 +78,7 @@ export default function ListOrdersPage({
   filters,
 }: ListOrdersPageProps) {
   const router = useRouter()
+  const { isDesktop } = useScreenResize()
   console.log('🚀 ~ listOrders:', listOrders)
 
   const { locale } = useSession()
@@ -225,12 +227,16 @@ export default function ListOrdersPage({
             <thead>
               <tr>
                 <th>Order</th>
-                <th>Ordered by</th>
-                <th>Cost Center</th>
-                <th>Release</th>
-                <th>PO number</th>
-                <th>Delivery by</th>
-                <th>Status</th>
+                {isDesktop && (
+                  <>
+                    <th>Ordered by</th>
+                    <th>Cost Center</th>
+                    <th>Release</th>
+                    <th>PO number</th>
+                    <th>Delivery by</th>
+                  </>
+                )}
+                <th> {isDesktop && <>Status</>}</th>
               </tr>
             </thead>
             <tbody>
@@ -269,27 +275,64 @@ export default function ListOrdersPage({
                       </p>
                     </div>
                   </td>
-                  <td>{item?.clientName}</td>
-                  <td>{item?.costCenter || '(Cost Center)'}</td>
-                  <td>{item?.release || '(Release)'}</td>
-                  <td>{item?.poNumber || '(PO Number)'}</td>
+
+                  {isDesktop && (
+                    <>
+                      <td>{item?.clientName}</td>
+                      <td>{item?.costCenter || '(Cost Center)'}</td>
+                      <td>{item?.release || '(Release)'}</td>
+                      <td>{item?.poNumber || '(PO Number)'}</td>
+                      <td>
+                        {item.ShippingEstimatedDate
+                          ? formatShippingDate(
+                              item.ShippingEstimatedDate,
+                              locale
+                            )
+                          : '-'}
+                      </td>
+                    </>
+                  )}
+
                   <td>
-                    {item.ShippingEstimatedDate
-                      ? formatShippingDate(item.ShippingEstimatedDate, locale)
-                      : '-'}
-                  </td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${
-                        styles[
-                          `status${getStatusVariant({ status: item.status })}`
-                        ]
-                      }`}
-                    >
-                      {orderStatusMap[item.status as OrderStatusKey]?.label ||
-                        item.statusDescription ||
-                        '-'}
-                    </span>
+                    {isDesktop ? (
+                      <div>
+                        <span
+                          className={`${styles.status} ${
+                            styles[
+                              `status${getStatusVariant({ status: item.status })}`
+                            ]
+                          }`}
+                        >
+                          {orderStatusMap[item.status as OrderStatusKey]
+                            ?.label ||
+                            item.statusDescription ||
+                            '-'}
+                        </span>
+                      </div>
+                    ) : (
+                      <>
+                        <span
+                          className={`${styles.status} ${
+                            styles[
+                              `status${getStatusVariant({ status: item.status })}`
+                            ]
+                          }`}
+                        >
+                          {orderStatusMap[item.status as OrderStatusKey]
+                            ?.label ||
+                            item.statusDescription ||
+                            '-'}
+                        </span>
+                        <p>
+                          {item.ShippingEstimatedDate
+                            ? `Delivery by ${formatShippingDate(
+                                item.ShippingEstimatedDate,
+                                locale
+                              )}`
+                            : ''}
+                        </p>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}
