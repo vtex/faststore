@@ -2230,8 +2230,8 @@
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available",
               "type": "string",
-              "default": "There are no products available for",
-              "description": "If postal code is available, this error message will be shown before the postal code in the following format: 'There are no products available for {postalCode}'."
+              "default": "There are no products available for %s",
+              "description": "If postal code is available, the '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
               "title": "Input field action button label",
@@ -2311,8 +2311,8 @@
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available",
               "type": "string",
-              "default": "There are no products available for",
-              "description": "If postal code is available, this error message will be shown before the postal code in the following format: 'There are no products available for {postalCode}'."
+              "default": "There are no products available for %s",
+              "description": "If postal code is available, the '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
               "title": "Input field action button label",
