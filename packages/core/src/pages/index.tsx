@@ -167,6 +167,7 @@ export const getStaticProps: GetStaticProps<
         previewData,
         documentId: cmsPage.documentId,
         versionId: cmsPage.versionId,
+        releaseId: cmsPage.releaseId,
       })
     : contentService.getSingleContent<PageContentType>({
         contentType: 'home',

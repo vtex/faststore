@@ -56,7 +56,7 @@ export type PageContentType = ContentData & {
   }
 }
 
-const isLocator = (x: any): x is Locator =>
+export const isLocator = (x: any): x is Locator =>
   typeof x.contentType === 'string' &&
   (typeof x.releaseId === 'string' ||
     typeof x.documentId === 'string' ||

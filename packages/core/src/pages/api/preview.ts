@@ -2,7 +2,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { contentSource, previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
-import { isLocator } from 'src/server/content/utils'
+import { isLocator } from 'src/server/cms'
 
 type Settings = {
   seo: {
@@ -102,6 +102,7 @@ const handler: NextApiHandler = async (req, res) => {
       slug,
       documentId: locator.documentId,
       versionId: locator.versionId,
+      releaseId: locator.releaseId,
     })
 
     // If the content doesn't exist prevent preview mode from being enabled

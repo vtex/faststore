@@ -13,6 +13,7 @@ export interface ContentParams {
   slug?: string
   documentId?: string
   versionId?: string
+  releaseId?: string
   filters?: Record<string, any>
 }
 

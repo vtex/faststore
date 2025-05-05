@@ -26,13 +26,14 @@ export const getGlobalSectionsByType = async (
         previewData,
         documentId: page.documentId,
         versionId: page.versionId,
+        releaseId: page.releaseId,
       })
 
       return pageData
     }
   }
 
-  const pageData = await contentService.getSingleContent<PageContentType>({
+  const pageData = contentService.getSingleContent<PageContentType>({
     contentType,
     previewData,
   })

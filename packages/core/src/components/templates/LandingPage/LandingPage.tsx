@@ -121,6 +121,7 @@ export const getLandingPageBySlug = async (
             previewData,
             documentId: pageBySlug.documentId,
             versionId: pageBySlug.versionId,
+            releaseId: pageBySlug.releaseId,
             slug: pageBySlug.settings?.seo?.slug,
           })
 

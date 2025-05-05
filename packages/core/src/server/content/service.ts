@@ -1,8 +1,8 @@
-import type { ContentData } from '@vtex/client-cms'
+import type { ContentData, Locator } from '@vtex/client-cms'
 import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
-import type { ContentOptions, ContentParams, PreviewData } from './types'
+import type { ContentOptions, ContentParams } from './types'
 import config from '../../../discovery.config'
 import { getPLP, type PLPContentType } from '../cms/plp'
 import {
@@ -14,7 +14,6 @@ import {
 import MissingContentError from 'src/sdk/error/MissingContentError'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
-import { createContentOptions, isLocator } from './utils'
 import type { ServerProductQueryQuery } from '@generated/graphql'
 
 export class ContentService {
@@ -29,7 +28,7 @@ export class ContentService {
   async getSingleContent<T extends ContentData>(
     params: ContentParams
   ): Promise<T> {
-    const options = createContentOptions(params)
+    const options = this.createContentOptions(params)
 
     if (config.contentSource.type === 'CP') {
       return this.getFromCP<T>(options)
@@ -38,7 +37,7 @@ export class ContentService {
   }
 
   async getContent(params: ContentParams) {
-    const options = createContentOptions(params)
+    const options = this.createContentOptions(params)
 
     if (config.contentSource.type === 'CP') {
       const serviceParams = this.convertOptionsToParams(options)
@@ -62,7 +61,7 @@ export class ContentService {
     rewrites: Rewrite[] | RewritesConfig
   ): Promise<PLPContentType> {
     const plpParams = { ...params, contentType: 'plp' }
-    const options = createContentOptions(plpParams)
+    const options = this.createContentOptions(plpParams)
 
     if (config.contentSource.type === 'CP') {
       const pages = (await this.getContent(plpParams)).data
@@ -73,10 +72,7 @@ export class ContentService {
         rewrites
       ) as PLPContentType
     }
-    if (isLocator(options.cmsOptions)) {
-      return getPLP(options.slug, options.cmsOptions, rewrites)
-    }
-    throw new Error('Invalid cmsOptions provided')
+    return getPLP(options.slug, options.cmsOptions as Locator, rewrites)
   }
 
   async getPdpContent(
@@ -84,17 +80,14 @@ export class ContentService {
     params: ContentParams
   ): Promise<PDPContentType> {
     const pdpParams = { ...params, contentType: 'pdp' }
-    const options = createContentOptions(pdpParams)
+    const options = this.createContentOptions(pdpParams)
 
     if (config.contentSource.type === 'CP') {
       const pages = (await this.getContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
       return findBestPDPTemplate(pages, product) as PDPContentType
     }
-    if (isLocator(options.cmsOptions)) {
-      return getPDP(product, options.cmsOptions)
-    }
-    throw new Error('Invalid cmsOptions provided')
+    return getPDP(product, options.cmsOptions as Locator)
   }
 
   private async getFromCP<T extends ContentData>(
@@ -133,7 +126,7 @@ export class ContentService {
       return this.clientCP.getEntry(params) as Promise<PageContentType>
     if (params.slug)
       return this.clientCP.getEntryBySlug(params) as Promise<PageContentType>
-    throw new Error('getEntry requires entryId')
+    throw new Error('getEntry requires entryId or slug')
   }
 
   private async fetchFirstEntry(
@@ -191,6 +184,36 @@ export class ContentService {
     }
 
     return params as EntryPathParams
+  }
+
+  private createContentOptions(params: ContentParams): ContentOptions {
+    const {
+      contentType,
+      previewData,
+      slug,
+      documentId,
+      versionId,
+      releaseId,
+      filters,
+    } = params
+
+    const isPreview = previewData?.contentType === contentType
+    const { slug: _, ...previewLocator } = previewData || {}
+
+    const cmsOptions = {
+      contentType,
+      ...(isPreview ? previewLocator : {}),
+      ...(documentId !== undefined && { documentId }),
+      ...(versionId !== undefined && { versionId }),
+      ...(releaseId !== undefined && { releaseId }),
+      ...(filters && { filters }),
+    }
+
+    return {
+      cmsOptions,
+      ...(slug !== undefined && { slug }),
+      isPreview,
+    }
   }
 }
 

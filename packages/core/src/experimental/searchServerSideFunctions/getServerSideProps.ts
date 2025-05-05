@@ -37,6 +37,7 @@ export const getServerSideProps: GetServerSideProps<
           previewData,
           documentId: page.documentId,
           versionId: page.versionId,
+          releaseId: page.releaseId,
         }),
         globalSectionsPromise,
         globalSectionsHeaderPromise,
