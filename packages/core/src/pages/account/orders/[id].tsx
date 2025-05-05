@@ -115,8 +115,23 @@ const query = gql(`
       subscriptionData
       taxData
       checkedInPickupPointId
-      cancellationData
-      cancellationRequests
+      cancellationData {
+        RequestedByUser
+        RequestedBySystem
+        RequestedBySellerNotification
+        RequestedByPaymentNotification
+        Reason
+        CancellationDate
+      }
+      cancellationRequests {
+        id
+        reason
+        cancellationRequestDate
+        requestedByUser
+        deniedBySeller
+        deniedBySellerReason
+        cancellationRequestDenyDate
+      }
       clientPreferencesData {
         locale
         optinNewsLetter
@@ -711,7 +726,10 @@ export const getServerSideProps: GetServerSideProps<
 
   if (orderDetails.errors) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/account/404',
+        permanent: false,
+      },
     }
   }
 
