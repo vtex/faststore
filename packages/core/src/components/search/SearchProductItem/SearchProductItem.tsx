@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { type Dispatch, type SetStateAction, useMemo, useState } from 'react'
 import {
   Icon,
   SearchProductItem as UISearchProductItem,
@@ -16,7 +16,7 @@ import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
-import { NavbarProps } from 'src/components/sections/Navbar'
+import type { NavbarProps } from 'src/components/sections/Navbar'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import styles from 'src/components/sections/Navbar/section.module.scss'

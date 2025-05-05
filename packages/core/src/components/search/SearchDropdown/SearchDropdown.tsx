@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import {
   SearchProducts,
   SearchAutoComplete as UISearchAutoComplete,
@@ -18,7 +18,7 @@ import type {
   IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteClickParams,
 } from 'src/sdk/analytics/types'
-import { NavbarProps } from 'src/components/sections/Navbar'
+import type { NavbarProps } from 'src/components/sections/Navbar'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']

@@ -1,4 +1,9 @@
-import React, { forwardRef, HTMLAttributes, useCallback, useState } from 'react'
+import React, {
+  forwardRef,
+  type HTMLAttributes,
+  useCallback,
+  useState,
+} from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
 import type { MouseEvent, ReactNode } from 'react'
@@ -137,6 +142,9 @@ const SearchProductItemControl = forwardRef<
         <div
           data-fs-search-product-item-control-actions
           role="group"
+          aria-hidden={true}
+          tabIndex={-1}
+          onKeyDown={() => {}}
           onClick={stopPropagationClick}
         >
           <div data-fs-search-product-item-control-actions-desktop>
@@ -176,7 +184,14 @@ const SearchProductItemControl = forwardRef<
       )}
 
       {showSKUMatrixControl && (
-        <div onClick={stopPropagationClick}>{skuMatrixControl}</div>
+        <div
+          onClick={stopPropagationClick}
+          aria-hidden={true}
+          tabIndex={-1}
+          onKeyDown={() => {}}
+        >
+          {skuMatrixControl}
+        </div>
       )}
     </div>
   )

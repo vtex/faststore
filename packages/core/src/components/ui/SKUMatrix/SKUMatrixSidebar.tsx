@@ -5,7 +5,7 @@ import {
   useSKUMatrix,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
-import { ProductSummary_ProductFragment } from '@generated/graphql'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import { useAllVariantProducts } from 'src/sdk/product/useAllVariantProducts'

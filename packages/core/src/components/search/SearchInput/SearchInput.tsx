@@ -30,7 +30,7 @@ import type { SearchProviderContextValue } from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
-import { NavbarProps } from 'src/components/sections/Navbar'
+import type { NavbarProps } from 'src/components/sections/Navbar'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
