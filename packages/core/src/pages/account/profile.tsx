@@ -71,6 +71,16 @@ export const getServerSideProps: GetServerSideProps<
       globalSectionsFooterPromise,
     ])
 
+  // TODO handle 404 when profile request is made
+  // if (profile.errors) {
+  //   return {
+  //     redirect: {
+  //       destination: '/account/404',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
