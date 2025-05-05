@@ -106,11 +106,6 @@ export const RenderSectionsBase = ({
     <>
       {sections.map(({ name, data = {}, $componentKey }, index) => {
         const key = $componentKey ?? name // Changes need to made here:
-        // [X] 1. The `section.name` being should be replaced by `$componentKey`
-        // 2. Find every reference of the `COMPONENTS` list and change the index
-        //    from just the component name to the component's `$componentKey`.
-        // 3. Every component that is configured via CMS, needs to have the
-        //    `$componentKey` property added to it.
         const Component = components[key]
 
         if (!Component) {
