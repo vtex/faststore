@@ -119,13 +119,20 @@ export class ContentService {
     isPreview: boolean
   ): Promise<PageContentType> {
     if (isPreview) {
-      if (params.entryId) return this.clientCP.previewEntryById(params)
-      if (params.slug) return this.clientCP.previewEntryBySlug(params)
+      if (params.entryId)
+        return this.clientCP.previewEntryById(
+          params
+        ) as Promise<PageContentType>
+      if (params.slug)
+        return this.clientCP.previewEntryBySlug(
+          params
+        ) as Promise<PageContentType>
       throw new Error('Preview requires entryId or slug')
     }
-    if (params.entryId) return this.clientCP.getEntry(params)
-    // TODO: update this when CP supports fetching by slug on Data Plane
-    if (params.slug) return this.clientCP.previewEntryBySlug(params)
+    if (params.entryId)
+      return this.clientCP.getEntry(params) as Promise<PageContentType>
+    if (params.slug)
+      return this.clientCP.getEntryBySlug(params) as Promise<PageContentType>
     throw new Error('getEntry requires entryId')
   }
 
