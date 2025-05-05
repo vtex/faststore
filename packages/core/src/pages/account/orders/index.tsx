@@ -377,7 +377,10 @@ export const getServerSideProps: GetServerSideProps<
 
   if (listOrders.errors) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/account/404',
+        permanent: false,
+      },
     }
   }
 

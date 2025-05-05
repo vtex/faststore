@@ -726,7 +726,10 @@ export const getServerSideProps: GetServerSideProps<
 
   if (orderDetails.errors) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/account/404',
+        permanent: false,
+      },
     }
   }
 
