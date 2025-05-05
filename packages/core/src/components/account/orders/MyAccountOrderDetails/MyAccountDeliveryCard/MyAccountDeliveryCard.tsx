@@ -1,8 +1,8 @@
-import type { DeliveryOptionsData } from './__mocks__/types'
 import MyAccountCard from '../../../components/MyAccountCard'
+import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
 
 interface MyAccountDeliveryCardProps {
-  deliveryOptionsData?: DeliveryOptionsData
+  deliveryOptionsData?: UserOrderDeliveryOptionsData
 }
 
 export default function MyAccountDeliveryCard({
