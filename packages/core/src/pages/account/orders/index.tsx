@@ -1,7 +1,12 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
-import { useCallback, type ComponentType } from 'react'
+import {
+  useCallback,
+  useRef,
+  type ComponentType,
+  type MutableRefObject,
+} from 'react'
 import { MyAccountLayout } from 'src/components/account'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
@@ -24,7 +29,19 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 import Image from 'next/image'
 
-import { Badge, Button, Icon, SearchInputField } from '@faststore/ui'
+import {
+  Badge,
+  Button,
+  Icon,
+  SearchInputField,
+  useUI,
+  type SearchInputFieldRef,
+} from '@faststore/ui'
+import MyAccountFilterSlider from 'src/components/account/components/MyAccountFilterSlider'
+import {
+  useMyAccountFilter,
+  type SelectedFacet,
+} from 'src/sdk/search/useMyAccountFilter'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import {
@@ -78,6 +95,8 @@ export default function ListOrdersPage({
   filters,
 }: ListOrdersPageProps) {
   const router = useRouter()
+  const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
+
   const { isDesktop } = useScreenResize()
   console.log('🚀 ~ listOrders:', listOrders)
 
@@ -93,56 +112,6 @@ export default function ListOrdersPage({
     },
     [locale]
   )
-
-  const handleFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ): void => {
-    const { name, value } = e.target
-
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...router.query,
-        [name]: value,
-        page: 1,
-      },
-    })
-  }
-
-  const handleStatusChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    const { value } = e.target
-    if (value === '' || value === 'all') {
-      const { status: emptyStatus, page, ...rest } = router.query
-      router.push({
-        pathname: '/account/orders',
-        query: {
-          ...rest,
-        },
-      })
-      return
-    }
-
-    const selectedOptions = Array.from(
-      (e.target as HTMLSelectElement).selectedOptions
-    )
-
-    const { page, status, ...rest } = router.query
-    const selectedValues = selectedOptions.map((option) => option.value)
-
-    const previousStatus = (
-      Array.isArray(status) ? status : [status]
-    ) as string[]
-
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...rest,
-        status: [...previousStatus, ...selectedValues].filter(Boolean),
-      },
-    })
-  }
 
   const handlePageChange = (newPage: number) => {
     router.push({
@@ -183,6 +152,91 @@ export default function ListOrdersPage({
     })
   }
 
+  const selectedFacets: SelectedFacet[] = Object.keys(filters).reduce(
+    (acc, filter) => {
+      if (filter === 'page' || filter === 'text' || filter === 'clientEmail') {
+        return acc
+      }
+
+      const value = filters[filter as keyof typeof filters] as string | string[]
+
+      if (filter === 'status' && value.length > 0) {
+        const status = Array.isArray(value) ? value : [value]
+        acc.push(
+          ...status.map((statusValue) => ({
+            key: 'status',
+            value: statusValue,
+          }))
+        )
+      } else if (filter === 'dateInitial') {
+        acc.push({
+          key: 'dateInitial',
+          value: String(value),
+        })
+      } else if (filter === 'dateFinal') {
+        acc.push({
+          key: 'dateFinal',
+          value: String(value),
+        })
+      }
+
+      return acc
+    },
+    [] as SelectedFacet[]
+  )
+
+  const filter = useMyAccountFilter({
+    allFacets: [
+      {
+        __typename: 'StoreFacetBoolean',
+        key: 'status',
+        label: 'Status',
+        values: [
+          {
+            label: 'Order placed',
+            quantity: 0,
+            selected: false,
+            value: 'order-placed',
+          },
+          {
+            label: 'Pending approval',
+            quantity: 0,
+            selected: false,
+            value: 'pending-approval',
+          },
+          {
+            label: 'Payment authorized',
+            quantity: 0,
+            selected: false,
+            value: 'payment-authorized',
+          },
+          {
+            label: 'Handling',
+            quantity: 0,
+            selected: false,
+            value: 'handling',
+          },
+          {
+            label: 'Shipping',
+            quantity: 0,
+            selected: false,
+            value: 'shipping',
+          },
+        ],
+      },
+      {
+        __typename: 'StoreFacetRange',
+        key: 'dateRange',
+        label: 'Order Date',
+        from: filters.dateInitial,
+        to: filters.dateFinal,
+      },
+    ],
+    selectedFacets,
+  })
+
+  const { openFilter, filter: displayFilter } = useUI()
+
   const totalPages = Math.ceil(total / perPage)
 
   return (
@@ -199,6 +253,7 @@ export default function ListOrdersPage({
 
           <div className={styles.searchFiltersContainer}>
             <SearchInputField
+              ref={searchInputRef}
               data-fs-search-input-field-list-orders
               placeholder="Search"
               onChange={(e) => handleSearchChange(e)}
@@ -217,11 +272,23 @@ export default function ListOrdersPage({
                 />
               }
               iconPosition="left"
-              onClick={() => console.log('Hi')}
+              onClick={openFilter}
             >
               Filters
             </Button>
           </div>
+
+          {displayFilter && (
+            <div data-fs-list-orders-filters>
+              <MyAccountFilterSlider
+                {...filter}
+                title="Filters"
+                clearButtonLabel="Clear All"
+                applyButtonLabel="View Results"
+                searchInputRef={searchInputRef}
+              />
+            </div>
+          )}
 
           <table className={styles.table}>
             <thead>
