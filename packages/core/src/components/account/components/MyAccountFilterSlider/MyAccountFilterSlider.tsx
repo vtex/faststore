@@ -8,7 +8,7 @@ import {
 } from '@faststore/ui'
 
 import router from 'next/router'
-import { type MutableRefObject, useRef } from 'react'
+import { type MutableRefObject, useRef, useState } from 'react'
 import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
@@ -63,6 +63,8 @@ function MyAccountFilterSlider({
     }
   }>(null)
 
+  const [disabled, setDisabled] = useState(false)
+
   const handleFilterChange = ({
     selectedFacets,
     text,
@@ -100,7 +102,6 @@ function MyAccountFilterSlider({
       query: {
         ...(text ? { text } : {}),
         ...facets,
-        page: 1,
       },
     })
   }
@@ -117,10 +118,6 @@ function MyAccountFilterSlider({
         variant: 'secondary',
         onClick: () => {
           dateRangeInputRef.current?.clear()
-          searchInputRef.current?.formRef.current?.clear()
-          if (searchInputRef.current?.inputRef.value) {
-            searchInputRef.current.inputRef.value = ''
-          }
           dispatch({ type: 'selectFacets', payload: [] })
         },
         children: clearButtonLabel ?? 'Clear All',
@@ -129,25 +126,29 @@ function MyAccountFilterSlider({
         variant: 'primary',
         onClick: () => {
           const dateRangeFacet = dateRangeInputRef.current?.getDataRangeFacet()
-          const selectedFacets =
-            dateRangeFacet.value.from && dateRangeFacet.value.to
-              ? [
-                  ...selected,
-                  {
-                    key: 'dateInitial',
-                    value: dateRangeFacet.value.from,
-                  },
-                  {
-                    key: 'dateFinal',
-                    value: dateRangeFacet.value.to,
-                  },
-                ]
-              : selected
+
+          const selectedFacets = [
+            ...selected,
+            dateRangeFacet.value.from.trim()
+              ? {
+                  key: 'dateInitial',
+                  value: dateRangeFacet.value.from,
+                }
+              : undefined,
+            dateRangeFacet.value.to.trim()
+              ? {
+                  key: 'dateFinal',
+                  value: dateRangeFacet.value.to,
+                }
+              : undefined,
+          ].filter(Boolean)
+
           handleFilterChange({
             selectedFacets,
             text: searchInputRef.current?.inputRef.value,
           })
         },
+        disabled: disabled,
         children: applyButtonLabel ?? 'Apply',
       }}
       onClose={() => {}}
@@ -194,6 +195,7 @@ function MyAccountFilterSlider({
                   ref={dateRangeInputRef}
                   from={facet.from}
                   to={facet.to}
+                  setDisabled={setDisabled}
                 />
               )}
             </UIFilterFacets>

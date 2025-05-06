@@ -10,6 +10,10 @@ export interface FilterFacetDateRangeProps {
    * The to value of the Range Facet
    */
   to: string
+  /**
+   * The function to be called when the date range changes
+   */
+  setDisabled: (disabled: boolean) => void
 }
 
 const FilterFacetDateRange = forwardRef<
@@ -21,7 +25,7 @@ const FilterFacetDateRange = forwardRef<
     }
   },
   FilterFacetDateRangeProps
->(({ to, from }, ref) => {
+>(({ to, from, setDisabled }, ref) => {
   const inputFromRef = useRef<HTMLInputElement>(null)
   const inputToRef = useRef<HTMLInputElement>(null)
   const [inputFromError, setInputFromError] = useState<string>()
@@ -32,22 +36,38 @@ const FilterFacetDateRange = forwardRef<
     to,
   })
 
-  function onChangeInputFrom(value: string) {
-    setInputFromError(undefined)
+  function onEnd(value: { from: string; to: string }) {
+    if (!value.from || !value.to) {
+      setInputFromError(undefined)
+      setInputToError(undefined)
+      setDisabled(false)
+      return
+    }
 
-    // TODO validate date ranges -> from can not be > to
+    if (new Date(value.from) > new Date(value.to)) {
+      setInputFromError('From date cannot be greater than To date')
+      setDisabled(true)
+    } else {
+      setInputFromError(undefined)
+      setInputToError(undefined)
+      setDisabled(false)
+    }
+  }
+
+  function onChangeInputFrom(value: string) {
     setDateRange({ ...dateRange, from: String(value) })
+    onEnd?.({ ...dateRange, from: String(value) })
   }
 
   function onChangeInputTo(value: string) {
-    setInputToError(undefined)
-
-    // TODO validate date ranges -> To can not be < From
     setDateRange({ ...dateRange, to: String(value) })
+    onEnd?.({ ...dateRange, to: String(value) })
   }
 
   useImperativeHandle(ref, () => ({
     clear: () => {
+      setInputFromError(undefined)
+      setInputToError(undefined)
       setDateRange({ from: '', to: '' })
       if (inputFromRef.current) inputFromRef.current.value = ''
       if (inputToRef.current) inputToRef.current.value = ''
@@ -72,7 +92,7 @@ const FilterFacetDateRange = forwardRef<
           inputRef={inputFromRef}
           value={dateRange.from}
           onChange={(e) => onChangeInputFrom(e.target.value)}
-          // onBlur={() => !inputFromError && onEnd?.(dateRange)}
+          onBlur={() => !inputFromError && onEnd?.(dateRange)}
         />
         <InputField
           id="date-range-to"
@@ -83,7 +103,7 @@ const FilterFacetDateRange = forwardRef<
           inputRef={inputToRef}
           value={dateRange.to}
           onChange={(e) => onChangeInputTo(e.target.value)}
-          // onBlur={() => !inputToError && onEnd?.(dateRange)}
+          onBlur={() => !inputToError && onEnd?.(dateRange)}
         />
       </div>
     </div>

@@ -37,6 +37,7 @@ import {
   useUI,
   type SearchInputFieldRef,
 } from '@faststore/ui'
+import { useEffect, useState } from 'react'
 import MyAccountFilterSlider from 'src/components/account/components/MyAccountFilterSlider'
 import {
   useMyAccountFilter,
@@ -87,6 +88,64 @@ function getStatusVariant({ status }: { status: string }) {
   return variant.charAt(0).toUpperCase() + variant.slice(1)
 }
 
+const useDebounce = (
+  callback: (value: string) => void,
+  delay: number,
+  initialValue: string
+) => {
+  const [debouncedValue, setDebouncedValue] = useState<string>(initialValue)
+
+  useEffect(() => {
+    if (debouncedValue === initialValue) return
+
+    const handler = setTimeout(() => {
+      callback(debouncedValue)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [debouncedValue])
+
+  return setDebouncedValue
+}
+
+export function getSelectedFacets({
+  filters,
+}: {
+  filters: ListOrdersPageProps['filters']
+}): SelectedFacet[] {
+  return Object.keys(filters).reduce((acc, filter) => {
+    if (filter === 'page' || filter === 'text' || filter === 'clientEmail') {
+      return acc
+    }
+
+    const value = filters[filter as keyof typeof filters] as string | string[]
+
+    if (filter === 'status' && value.length > 0) {
+      const status = Array.isArray(value) ? value : [value]
+      acc.push(
+        ...status.map((statusValue) => ({
+          key: 'status',
+          value: statusValue,
+        }))
+      )
+    } else if (filter === 'dateInitial' && value) {
+      acc.push({
+        key: 'dateInitial',
+        value: String(value),
+      })
+    } else if (filter === 'dateFinal' && value) {
+      acc.push({
+        key: 'dateFinal',
+        value: String(value),
+      })
+    }
+
+    return acc
+  }, [] as SelectedFacet[])
+}
+
 export default function ListOrdersPage({
   globalSections,
   listOrders,
@@ -97,8 +156,15 @@ export default function ListOrdersPage({
   const router = useRouter()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
 
+  useEffect(() => {
+    if (filters?.text && searchInputRef.current) {
+      searchInputRef.current.inputRef.value = filters.text
+    } else {
+      searchInputRef.current.inputRef.value = ''
+    }
+  }, [filters?.text])
+
   const { isDesktop } = useScreenResize()
-  console.log('🚀 ~ listOrders:', listOrders)
 
   const { locale } = useSession()
 
@@ -114,11 +180,13 @@ export default function ListOrdersPage({
   )
 
   const handlePageChange = (newPage: number) => {
+    const { page, ...rest } = router.query
+    const isFirstPage = newPage === 0 || newPage === 1
     router.push({
       pathname: '/account/orders',
       query: {
-        ...router.query,
-        page: newPage,
+        ...rest,
+        ...(!isFirstPage ? { page: newPage } : {}),
       },
     })
   }
@@ -129,61 +197,37 @@ export default function ListOrdersPage({
     })
   }
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...router.query,
-        text: value,
-        page: 1,
-      },
-    })
-  }
-
-  const handleSearchSubmit = (value: string) => {
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...router.query,
-        text: value,
-        page: 1,
-      },
-    })
-  }
-
-  const selectedFacets: SelectedFacet[] = Object.keys(filters).reduce(
-    (acc, filter) => {
-      if (filter === 'page' || filter === 'text' || filter === 'clientEmail') {
-        return acc
+  const handleSearchChange = useDebounce(
+    (value: string) => {
+      if (!value && !router.query.text) {
+        return
       }
 
-      const value = filters[filter as keyof typeof filters] as string | string[]
+      const searchInputValueChanged =
+        value.trim().toLowerCase() !==
+        router.query.text?.toString().trim().toLowerCase()
 
-      if (filter === 'status' && value.length > 0) {
-        const status = Array.isArray(value) ? value : [value]
-        acc.push(
-          ...status.map((statusValue) => ({
-            key: 'status',
-            value: statusValue,
-          }))
-        )
-      } else if (filter === 'dateInitial') {
-        acc.push({
-          key: 'dateInitial',
-          value: String(value),
-        })
-      } else if (filter === 'dateFinal') {
-        acc.push({
-          key: 'dateFinal',
-          value: String(value),
+      if (searchInputValueChanged) {
+        const { text, page, ...rest } = router.query
+        router.push({
+          pathname: '/account/orders',
+          query: {
+            ...rest,
+            ...(value ? { text: value } : {}),
+          },
         })
       }
-
-      return acc
     },
-    [] as SelectedFacet[]
+    300,
+    String(router.query.text)
   )
+
+  const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    handleSearchChange(value)
+  }
+
+  const selectedFacets: SelectedFacet[] = getSelectedFacets({ filters })
 
   const filter = useMyAccountFilter({
     allFacets: [
@@ -256,9 +300,8 @@ export default function ListOrdersPage({
               ref={searchInputRef}
               data-fs-search-input-field-list-orders
               placeholder="Search"
-              onChange={(e) => handleSearchChange(e)}
-              onSubmit={(e) => handleSearchSubmit(e)}
-              // value={}
+              onChange={(e) => onSearchInputChange(e)}
+              onSubmit={(e) => handleSearchChange(e)}
             />
             <Button
               data-fs-button-list-orders-filter-button
@@ -272,7 +315,13 @@ export default function ListOrdersPage({
                 />
               }
               iconPosition="left"
-              onClick={openFilter}
+              onClick={() => {
+                filter.dispatch({
+                  type: 'selectFacets',
+                  payload: getSelectedFacets({ filters }),
+                })
+                openFilter()
+              }}
             >
               Filters
             </Button>
@@ -527,7 +576,6 @@ export const getServerSideProps: GetServerSideProps<
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
   })
-  console.log('🚀 ~ context.query:', context.query)
 
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }
