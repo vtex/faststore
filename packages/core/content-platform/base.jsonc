@@ -219,7 +219,7 @@
   "content-types": {
     "globalSections": {
       "title": "Global Sections",
-      "$extends": ["#/components/base-page-template"],
+      "$extends": ["#/$defs/base-page-template"],
       "$singleton": true,
       "type": "object",
       "properties": {
@@ -231,7 +231,7 @@
     "globalHeaderSections": {
       "title": "Global Header Sections",
       "$singleton": true,
-      "$extends": ["#/components/base-page-template"],
+      "$extends": ["#/$defs/base-page-template"],
       "type": "object",
       "properties": {
         "sections": {
@@ -242,7 +242,7 @@
     "globalFooterSections": {
       "title": "Global Footer Sections",
       "$singleton": true,
-      "$extends": ["#/components/base-page-template"],
+      "$extends": ["#/$defs/base-page-template"],
       "type": "object",
       "properties": {
         "sections": {
