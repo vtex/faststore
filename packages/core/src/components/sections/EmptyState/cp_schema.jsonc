@@ -1,5 +1,5 @@
 {
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Empty State configuration",
   "$componentKey": "EmptyState",
   "$componentTitle": "Empty State",

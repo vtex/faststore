@@ -1,5 +1,5 @@
 {
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Alert",
   "$componentTitle": "Alert",
   "description": "Add an alert",

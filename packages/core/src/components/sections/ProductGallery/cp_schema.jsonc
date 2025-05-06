@@ -2,7 +2,7 @@
   "$componentKey": "ProductGallery",
   "$componentTitle": "Product Gallery",
   "type": "object",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Product Gallery options",
   "required": ["itemsPerPage", "sortBySelection"],
   "properties": {

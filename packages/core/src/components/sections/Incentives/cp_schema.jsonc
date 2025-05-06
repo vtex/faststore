@@ -1,5 +1,5 @@
 {
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Incentives",
   "$componentTitle": "Incentives",
   "type": "object",

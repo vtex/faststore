@@ -1,6 +1,5 @@
 {
   "plp": {
-    "$extends": ["#/components/base-page-template"],
     "$singleton": false,
     "title": "Product List Page",
     "properties": {

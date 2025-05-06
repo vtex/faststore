@@ -1,7 +1,7 @@
 {
   "$componentKey": "CartSidebar",
   "$componentTitle": "Cart Sidebar",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "type": "object",
   "description": "Cart Sidebar configuration",
   "properties": {

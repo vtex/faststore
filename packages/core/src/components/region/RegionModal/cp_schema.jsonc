@@ -1,7 +1,7 @@
 {
   "$componentKey": "RegionModal",
   "$componentTitle": "Region Modal",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Region Modal configuration",
   "properties": {
     "title": {
