@@ -22,10 +22,10 @@ export function checkDeprecatedSecretFiles(basePath: string) {
       .filter(Boolean)
       .join(' and ')
 
-    logger.log(
+    logger.warn(
       `${chalk.yellow('warning')} - Deprecated secret files detected: ${chalk.bold(filesFound)}\n` +
-        `These files are deprecated and will be ignored in future versions.\n` +
-        `Please create your secrets directly in the FastStore WebOps UI instead.`
+        `Note: 'vtex.env' should only be used for local development and not in production.\n` +
+        `For production environments, please configure your secrets directly in the FastStore UI Settings page.`
     )
     logger.log('') // Add empty line for better readability
   }
