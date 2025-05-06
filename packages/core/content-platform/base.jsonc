@@ -6,45 +6,13 @@
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
   "contexts": {},
-  "uiSchema": {
-    "content-types.home.sections": {
-      "ui:options": {
-        "expandOnSidebar": true
-      }
-    }
-  },
   "components": {
-    "base-component": {
-      "properties": {
-        "$componentKey": {
-          "type": "string"
-        },
-        "$componentTitle": {
-          "type": "string"
-        }
-      },
-      "required": ["$componentKey"]
-    },
-    "base-page-template": {
-      "type": "object",
-      "properties": {
-        "sections": {
-          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
-        },
-        "slug": {
-          "title": "Slug",
-          "widget": {
-            "ui:widget": "slug"
-          },
-          "type": "string"
-        }
-      }
-    },
     // `Children` is not assigned to any specific React component.
     // Instead, it's used as a "splitter" to orient the rendering process.
     "Children": {
-      "$extends": ["#/components/base-component"],
+      "$extends": ["#/$defs/base-component"],
       "$componentKey": "Children",
+      "$componentTitle": "Children",
       "description": "Children",
       "type": "object",
       "properties": {}
@@ -52,7 +20,7 @@
     // `SEO` is also not assigned to any specific React component.
     // It serves as a way to define SEO options for a given page.
     "SEO": {
-      "$extends": ["#/components/base-component"],
+      "$extends": ["#/$defs/base-component"],
       "$componentKey": "SEO",
       "$componentTitle": "SEO",
       "type": "object",
@@ -107,7 +75,7 @@
     "Search": {
       "$componentKey": "Search",
       "$componentTitle": "Search Bar Configuration",
-      "$extends": ["#/components/base-component"],
+      "$extends": ["#/$defs/base-component"],
       "description": "Search Bar Configuration",
       "type": "object",
       "properties": {
@@ -284,6 +252,15 @@
     }
   },
   "$defs": {
+    "base-component": {},
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
     // This is a special property that allows all components to be used in the
     // `sections` property of a content-type. Its content will be generated
     // before this schema is sent to CP's registry.

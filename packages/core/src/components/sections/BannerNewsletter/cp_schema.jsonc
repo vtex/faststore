@@ -1,7 +1,7 @@
 {
   "$componentKey": "BannerNewsletter",
   "$componentTitle": "Newsletter Banner",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Add newsletter with a banner",
   "required": ["banner", "newsletter"],
   "type": "object",

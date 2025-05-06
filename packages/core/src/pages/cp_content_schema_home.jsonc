@@ -1,6 +1,6 @@
 {
   "home": {
-    "$extends": ["#/components/base-page-template"],
+    "$extends": ["#/$defs/base-page-template"],
     "$singleton": true,
     "title": "Home",
     "type": "object",

@@ -2,7 +2,7 @@
   "$componentKey": "ProductShelf",
   "$componentTitle": "Product Shelf",
   "type": "object",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Add custom shelves to your store",
   "required": ["title", "numberOfItems", "after", "sort"],
   "properties": {

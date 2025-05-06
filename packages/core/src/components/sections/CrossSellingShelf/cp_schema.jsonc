@@ -1,5 +1,5 @@
 {
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "CrossSellingShelf",
   "$componentTitle": "Cross Selling Shelf",
   "description": "Add cross selling product data to your users",
