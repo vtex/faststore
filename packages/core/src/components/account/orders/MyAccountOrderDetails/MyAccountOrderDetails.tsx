@@ -14,6 +14,7 @@ import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccor
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import router from 'next/router'
 import styles from './section.module.scss'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -22,39 +23,67 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
+  const { isMobile, isTablet } = useScreenResize()
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
         <div data-fs-order-details-header-title>
-          <UIIconButton
-            size="small"
-            aria-label="Go back"
-            icon={<UIIcon name="ArrowLeft" />}
-            onClick={() => router.push('/account/orders')}
-          />
-          <h1 data-fs-order-details-header-title-text>
-            Order #{order.orderId}
-          </h1>
+          <div data-fs-order-details-header-title-content>
+            <UIIconButton
+              size="small"
+              aria-label="Go back"
+              icon={<UIIcon name="ArrowLeft" />}
+              type="button"
+            />
+            <h1 data-fs-order-details-header-title-text>
+              Order #{order.orderId}
+            </h1>
+          </div>
           <UIBadge variant="warning">Pending approval</UIBadge>
         </div>
         <div data-fs-order-details-header-actions>
-          <UIButton variant="secondary" size="small">
-            Cancel order
-          </UIButton>
           <UIButton
             variant="secondary"
-            size="small"
-            icon={<UIIcon name="XCircle" />}
+            data-fs-order-details-header-actions-cancel
+            size={isMobile || isTablet ? 'regular' : 'small'}
+            type="button"
           >
-            Reject
+            Cancel order
           </UIButton>
-          <UIButton
-            variant="primary"
-            size="small"
-            icon={<UIIcon name="CircleCheck" />}
-          >
-            Approve
-          </UIButton>
+          {isMobile || isTablet ? (
+            <UIIconButton
+              aria-label="Reject"
+              icon={<UIIcon name="XCircle" />}
+              variant="tertiary"
+              type="button"
+            />
+          ) : (
+            <UIButton
+              variant="secondary"
+              size="small"
+              icon={<UIIcon name="XCircle" />}
+              type="button"
+            >
+              Reject
+            </UIButton>
+          )}
+          {isMobile || isTablet ? (
+            <UIIconButton
+              aria-label="Approve"
+              icon={<UIIcon name="CircleCheck" />}
+              variant="primary"
+              type="button"
+            />
+          ) : (
+            <UIButton
+              variant="primary"
+              size="small"
+              icon={<UIIcon name="CircleCheck" />}
+              type="button"
+            >
+              Approve
+            </UIButton>
+          )}
         </div>
       </header>
       <main data-fs-order-details-content>
