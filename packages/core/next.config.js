@@ -27,6 +27,20 @@ const nextConfig = {
       'global-builtin',
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/:slug/p',
+        headers: [
+          {
+            key: 'cache-control',
+            value:
+              's-maxage=600, stale-while-revalidate=31536000, stale-if-error=31536000',
+          },
+        ],
+      },
+    ]
+  },
   /*
    * The FastStore Discovery CLI will update this value to match the path where the
    * command is being run, because that is where the node_modules directory is.
