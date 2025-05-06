@@ -4,13 +4,15 @@ import {
   Icon as UIIcon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
+
+import { getStatusVariant } from 'src/utils/getStatusVariant'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
-
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
 
 export interface MyAccountOrderDetailsProps {
@@ -20,6 +22,8 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
+  const orderStatus = getStatusVariant({ status: order.status })
+
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
@@ -30,9 +34,9 @@ export default function MyAccountOrderDetails({
             icon={<UIIcon name="ArrowLeft" />}
           />
           <h1 data-fs-order-details-header-title-text>
-            Order #{order.orderId}
+            Order {`#${order.orderId}`}
           </h1>
-          <UIBadge variant="warning">Pending approval</UIBadge>
+          <UIBadge variant={orderStatus.variant}>{orderStatus.label}</UIBadge>
         </div>
         <div data-fs-order-details-header-actions>
           <UIButton variant="secondary" size="small">
