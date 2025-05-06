@@ -1,6 +1,5 @@
 {
   "pdp": {
-    "$extends": ["#/components/base-page-template"],
     "$singleton": false,
     "title": "Product Page",
     "properties": {

@@ -1,6 +1,5 @@
 {
   "search": {
-    "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "title": "Search Page",
     "properties": {

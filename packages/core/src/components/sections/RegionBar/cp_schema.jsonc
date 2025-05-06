@@ -1,7 +1,7 @@
 {
   "$componentKey": "RegionBar",
   "$componentTitle": "Region Select Bar",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Region Select Bar configuration",
   "required": ["label"],
   "properties": {

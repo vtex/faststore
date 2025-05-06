@@ -2,7 +2,7 @@
   "$componentKey": "ProductTiles",
   "$componentTitle": "Product Tiles",
   "type": "object",
-  "$extends": ["#/components/base-component"],
+  "$extends": ["#/$defs/base-component"],
   "description": "Add custom shelves to your store",
   "required": ["title", "first", "after", "sort"],
   "properties": {
