@@ -16,4 +16,9 @@
   @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
   @import "./FilterFacetDateRange/styles.scss";
+
+  [data-fs-badge] {
+    display: none;
+    visibility: hidden;
+  }
 }
