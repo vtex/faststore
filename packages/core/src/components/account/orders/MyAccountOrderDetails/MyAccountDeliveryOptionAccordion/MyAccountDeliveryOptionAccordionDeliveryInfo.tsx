@@ -4,15 +4,15 @@ import type {
   UserOrderDeliveryOptionsContact,
 } from '@generated/graphql'
 
-interface InfoSectionProps {
+interface InfoContainerProps {
   title: string
   children: ReactNode
 }
 
-function InfoSection({ title, children }: InfoSectionProps) {
+function InfoContainer({ title, children }: InfoContainerProps) {
   return (
-    <div>
-      <span data-fs-delivery-option-accordion-title>{title}</span>
+    <div data-fs-delivery-option-accordion-info-container>
+      <span data-fs-delivery-option-accordion-info-title>{title}</span>
       {children}
     </div>
   )
@@ -39,39 +39,45 @@ function MyAccountDeliveryOptionAccordionDeliveryInfo({
   return (
     <div data-fs-delivery-option-accordion-delivery-info>
       {!isPickup && contact && (
-        <InfoSection title="Recipient">
-          <span>
+        <InfoContainer title="Recipient">
+          <span data-fs-delivery-option-accordion-info>
             <strong>{contact.name}</strong>
           </span>
-          {contact.phone && <span>{contact.phone}</span>}
-          {contact.email && <span>{contact.email}</span>}
-        </InfoSection>
+          {contact.phone && (
+            <span data-fs-delivery-option-accordion-info>{contact.phone}</span>
+          )}
+          {contact.email && (
+            <span data-fs-delivery-option-accordion-info>{contact.email}</span>
+          )}
+        </InfoContainer>
       )}
 
-      <InfoSection title={isPickup ? 'Store address' : 'Delivery address'}>
-        <span>
+      <InfoContainer title={isPickup ? 'Store address' : 'Delivery address'}>
+        <span data-fs-delivery-option-accordion-info>
           <strong>{address.city}</strong>
         </span>
-        <span>{address.street}</span>
-        <span>{`${address.postalCode}${address.state ? `, ${address.state}` : ''}${address.country ? `, ${address.country}.` : ''}`}</span>
-      </InfoSection>
+        <span data-fs-delivery-option-accordion-info>{address.street}</span>
+        <span
+          data-fs-delivery-option-accordion-info
+        >{`${address.postalCode}${address.state ? `, ${address.state}` : ''}${address.country ? `, ${address.country}.` : ''}`}</span>
+      </InfoContainer>
 
       {/* TODO: Validate this after we check the return from api  */}
       {isPickup && deliveryOption.deliveryWindow && (
-        <InfoSection title="Store Hours">
-          <span>
+        <InfoContainer title="Store Hours">
+          <span data-fs-delivery-option-accordion-info>
             From:{' '}
             {new Date(
               deliveryOption.deliveryWindow.startDateUtc
             ).toLocaleString()}
           </span>
-          <span>
+          <span data-fs-delivery-option-accordion-info>
             To:{' '}
             {new Date(
               deliveryOption.deliveryWindow.endDateUtc
             ).toLocaleString()}
           </span>
-        </InfoSection>
+        </InfoContainer>
       )}
     </div>
   )

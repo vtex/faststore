@@ -5,7 +5,7 @@
 
   // Default properties
   --fs-ordered-by-text-size: var(--fs-text-size-2);
-  --fs-ordered-by-text-line-height: 24px;
+  --fs-ordered-by-text-line-height: 1.5;
   --fs-ordered-by-text-letter-spacing: -2%;
   --fs-ordered-by-text-contact-weight: var(--fs-text-weight-regular);
   --fs-ordered-by-text-contact-strong-weight: var(--fs-text-weight-medium);
@@ -34,7 +34,7 @@
       flex-direction: column;
       gap: var(--fs-spacing-1);
 
-      p {
+      [data-fs-delivery-contact-name], [data-fs-delivery-contact-phone] {
         font-size: var(--fs-ordered-by-text-size);
         font-weight: var(--fs-ordered-by-text-contact-weight);
         letter-spacing: var(--fs-ordered-by-text-letter-spacing);
