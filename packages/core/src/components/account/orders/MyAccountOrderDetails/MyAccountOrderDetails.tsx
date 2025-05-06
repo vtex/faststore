@@ -77,6 +77,7 @@ export default function MyAccountOrderDetails({
             key={option.friendlyDeliveryOptionName}
             deliveryOption={option}
             contact={order.deliveryOptionsData.contact}
+            currencyCode={order.storePreferencesData.currencyCode}
           />
         ))}
       </main>

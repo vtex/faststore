@@ -14,23 +14,27 @@ import {
   MyAccountAccordionButton,
   MyAccountAccordionPanel,
 } from '../../../components/MyAccountAccordion'
+import { useFormatPrice } from '../../../utils/useFormatPrice'
 
 interface MyAccountDeliveryOptionAccordionProps {
   deliveryOption: UserOrderDeliveryOption
   contact?: UserOrderDeliveryOptionsContact | null
+  currencyCode: string
 }
 
 function MyAccountDeliveryOptionAccordion({
   deliveryOption,
   contact,
+  currencyCode,
 }: MyAccountDeliveryOptionAccordionProps) {
   const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
     new Set([])
   )
+  const formatPrice = useFormatPrice()
 
   const title = deliveryOption.friendlyDeliveryOptionName
 
-  const summary = `${deliveryOption.quantityOfDifferentItems} items – Total $${deliveryOption.total?.toFixed(2) || '0.00'}`
+  const summary = `${deliveryOption.quantityOfDifferentItems} items – Total ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
 
   const onChange = (index: number) => {
     if (indicesExpanded.has(index)) {
@@ -63,9 +67,9 @@ function MyAccountDeliveryOptionAccordion({
                 name={item.name}
                 // TODO: custom field
                 // costCenter={item.costCenter}
-                price={`$${item.price?.toFixed(2) || '0.00'}`}
-                tax={`$${item.tax?.toFixed(2) || '0.00'}`}
-                total={`$${item.total?.toFixed(2) || '0.00'}`}
+                price={formatPrice(item.price ?? 0, currencyCode)}
+                tax={formatPrice(item.tax ?? 0, currencyCode)}
+                total={formatPrice(item.total ?? 0, currencyCode)}
               />
             ))}
           </MyAccountDeliveryOptionAccordionProducts>
