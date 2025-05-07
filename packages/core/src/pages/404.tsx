@@ -8,7 +8,9 @@ import {
 } from 'src/components/cms/GlobalSections'
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections, {
+  getComponentKey,
+} from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
@@ -18,7 +20,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  EmptyState,
+  [getComponentKey(EmptyState, 'EmptyState')]: EmptyState,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }

@@ -115,4 +115,6 @@ const ProductTiles = ({
   )
 }
 
+ProductTiles.$componentKey = 'ProductTiles'
+
 export default ProductTiles

@@ -7,6 +7,7 @@ import { OverriddenDefaultProductGallery as ProductGallery } from 'src/component
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
+import { getComponentKey } from '../RenderSections'
 
 const BannerText = dynamic(
   () =>
@@ -55,14 +56,14 @@ const ProductTiles = dynamic(
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  Breadcrumb,
-  Hero,
-  ProductGallery,
-  BannerText,
-  BannerNewsletter,
-  Newsletter,
-  ProductShelf,
-  ProductTiles,
+  [getComponentKey(Hero, 'Hero')]: Hero,
+  [getComponentKey(Breadcrumb, 'Breadcrumb')]: Breadcrumb,
+  [getComponentKey(ProductGallery, 'ProductGallery')]: ProductGallery,
+  [getComponentKey(BannerText, 'BannerText')]: BannerText,
+  [getComponentKey(BannerNewsletter, 'BannerNewsletter')]: BannerNewsletter,
+  [getComponentKey(Newsletter, 'Newsletter')]: Newsletter,
+  [getComponentKey(ProductShelf, 'ProductShelf')]: ProductShelf,
+  [getComponentKey(ProductTiles, 'ProductTiles')]: ProductTiles,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
