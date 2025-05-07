@@ -4,6 +4,7 @@ import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
 import { useCallback } from 'react'
 import { Link } from '@faststore/ui'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import { useFormatPrice } from '../../../utils/useFormatPrice'
 
 export type OrderPaymentData =
   ServerOrderDetailsQueryQuery['userOrder']['paymentData']
@@ -76,18 +77,7 @@ function MyAccountPaymentCard({
   currencyCode,
   allowCancellation = false,
 }: MyAccountPaymentCardProps) {
-  const { locale } = useSession()
-
-  const formatPrice = useCallback(
-    (value: number, currencyCode: string) => {
-      return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency: currencyCode,
-        minimumFractionDigits: 2,
-      }).format(value / 100)
-    },
-    [locale]
-  )
+  const formatPrice = useFormatPrice()
 
   const bankInvoiceUrl = getBankInvoiceUrl(paymentData?.transactions)
 

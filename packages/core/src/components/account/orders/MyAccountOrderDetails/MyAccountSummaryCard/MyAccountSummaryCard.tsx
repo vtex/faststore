@@ -1,4 +1,5 @@
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
+import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 
 // Interface for order totals (items, shipping, discounts)
@@ -30,7 +31,8 @@ function MyAccountSummaryCard({
   currencyCode,
   transactions,
 }: MyAccountSummaryCardProps) {
-  const { locale } = useSession()
+  const formatPrice = useFormatPrice()
+
   // Calculate any payment surcharges from active transactions
   const calculatePaymentSurcharge = () => {
     let surchargeAmount = 0
@@ -67,15 +69,6 @@ function MyAccountSummaryCard({
     return totals
   }
 
-  // Format price values according to the specified currency (converts cents to standard units)
-  const formatPrice = (value: number, currencyCode: string, locale: string) => {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: currencyCode,
-      minimumFractionDigits: 2,
-    }).format(value / 100)
-  }
-
   const displayTotals = getDisplayTotals()
 
   const totalAmount = displayTotals.reduce((sum, total) => sum + total.value, 0)
@@ -85,12 +78,12 @@ function MyAccountSummaryCard({
       {displayTotals.map((total) => (
         <div key={total.id} data-fs-order-summary-item>
           <span>{total.name}</span>
-          <span>{formatPrice(total.value, currencyCode, locale)}</span>
+          <span>{formatPrice(total.value, currencyCode)}</span>
         </div>
       ))}
       <div data-fs-order-summary-item data-fs-order-summary-total>
         <span>Total</span>
-        <span>{formatPrice(totalAmount, currencyCode, locale)}</span>
+        <span>{formatPrice(totalAmount, currencyCode)}</span>
       </div>
     </MyAccountCard>
   )
