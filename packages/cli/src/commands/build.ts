@@ -22,10 +22,10 @@ export default class Build extends Command {
   ]
 
   static flags = {
-    checkDeps: Flags.boolean({
-      description: 'Skips check of faststore dependencies check.',
-      char: 'c',
-      default: true,
+    checkDeps: Flags.string({
+      description:
+        'Check of faststore dependencies version string to prevent usage of packages outside npm registry.',
+      default: 'true',
     }),
   }
 
@@ -34,7 +34,8 @@ export default class Build extends Command {
 
     const basePath = args.path ?? process.cwd()
 
-    if (flags.checkDeps === true) {
+    //negating false to make any typo on the value to be true.
+    if (!(flags.checkDeps === 'false')) {
       try {
         await checkDeps(basePath)
       } catch (error: unknown) {
