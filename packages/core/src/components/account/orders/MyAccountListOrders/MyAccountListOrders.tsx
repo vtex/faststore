@@ -20,7 +20,7 @@ import {
 import MyAccountListOrdersTable from './MyAccountListOrdersTable/MyAccountListOrdersTable'
 import styles from './styles.module.scss'
 
-type ListOrdersPageProps = {
+type MyAccountListOrdersProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
   total: number
   perPage: number
@@ -59,7 +59,7 @@ const useDebounce = (
 function getSelectedFacets({
   filters,
 }: {
-  filters: ListOrdersPageProps['filters']
+  filters: MyAccountListOrdersProps['filters']
 }): SelectedFacet[] {
   return Object.keys(filters).reduce((acc, filter) => {
     // FilterSlider does not deal with these filters
@@ -97,7 +97,7 @@ function getSelectedFacets({
 function getAllFacets({
   filters,
 }: {
-  filters: ListOrdersPageProps['filters']
+  filters: MyAccountListOrdersProps['filters']
 }): MyAccountFilter_FacetsFragment[] {
   return [
     {
@@ -147,12 +147,12 @@ function getAllFacets({
   ]
 }
 
-export default function ListOrdersPage({
+export default function MyAccountListOrders({
   listOrders,
   total,
   perPage,
   filters,
-}: ListOrdersPageProps) {
+}: MyAccountListOrdersProps) {
   const router = useRouter()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
 
@@ -207,10 +207,10 @@ export default function ListOrdersPage({
   const { openFilter, filter: displayFilter } = useUI()
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Orders</h1>
+    <div className={styles.page}>
+      <h1 data-fs-list-orders-title>Orders</h1>
 
-      <div className={styles.searchFiltersContainer}>
+      <div data-fs-list-orders-search-filters>
         <SearchInputField
           ref={searchInputRef}
           data-fs-search-input-field-list-orders
@@ -219,7 +219,7 @@ export default function ListOrdersPage({
           onSubmit={(e) => handleSearchChange(e)}
         />
         <Button
-          data-fs-button-list-orders-filter-button
+          data-fs-list-orders-search-filters-button
           variant="tertiary"
           icon={
             <Icon
