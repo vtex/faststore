@@ -111,12 +111,12 @@ export default function MyAccountListOrdersTable({
                 <div data-fs-list-orders-table-image-container>
                   <Image
                     data-fs-list-orders-table-product-image
-                    src="/placeholder.png"
+                    src="/my_account_placeholder.png"
                     alt={item.items?.[0]?.description || 'Product image'}
                     width={64}
                     height={64}
                     onError={(e) => {
-                      e.currentTarget.src = '/placeholder.png'
+                      e.currentTarget.src = '/my_account_placeholder.png'
                     }}
                   />
                   {item.totalItems > 0 && (
