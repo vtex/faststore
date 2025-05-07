@@ -84,7 +84,7 @@ function RegionPopover({
         setInput('')
         closePopover()
       },
-      postalCode: inputRef.current?.value,
+      postalCode: input,
       errorMessage: inputFieldErrorMessage,
       noProductsAvailableErrorMessage:
         inputFieldNoProductsAvailableErrorMessage,

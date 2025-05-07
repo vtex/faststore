@@ -73,7 +73,7 @@ function RegionModal({
         setInput('')
         closeModal()
       },
-      postalCode: inputRef.current?.value,
+      postalCode: input,
       errorMessage: inputFieldErrorMessage,
       noProductsAvailableErrorMessage:
         inputFieldNoProductsAvailableErrorMessage,
