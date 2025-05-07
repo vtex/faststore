@@ -34,7 +34,7 @@ function MyAccountDeliveryOptionAccordion({
 
   const title = deliveryOption.friendlyDeliveryOptionName
 
-  const summary = `${deliveryOption.quantityOfDifferentItems} items – Total ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
+  const summary = `${deliveryOption.quantityOfDifferentItems} ${deliveryOption.quantityOfDifferentItems === 1 ? 'item' : 'items'} – Total ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
 
   const onChange = (index: number) => {
     if (indicesExpanded.has(index)) {
