@@ -146,18 +146,23 @@ async function checkDeps(basePath: string) {
     dependencies
   )
 
-  const deps = [
+  let hasInvalidVersion = false,
+    invalidPackages = ''
+  ;[
     '@faststore/core',
     '@faststore/components',
     '@faststore/api',
     '@faststore/cli',
-  ]
-  Object.entries(allDeps).forEach(([key, version]) => {
-    if (deps.includes(key) === false) return
-
-    if (/^(http|https|git):.+/.test(version) === true)
-      throw new Error(
-        `Incorrect ${key} version. Please provides a valid version.`
-      )
+  ].forEach((pkg) => {
+    const version = allDeps[pkg]
+    if (version && /^(http|https|git):.+/.test(version) === true) {
+      hasInvalidVersion = true
+      invalidPackages = `${invalidPackages}${pkg},`
+    }
   })
+
+  if (hasInvalidVersion)
+    throw new Error(
+      `Incorrect version specified for packages. Please provides a valid version.\n ---> ${invalidPackages}`
+    )
 }
