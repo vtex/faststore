@@ -3,7 +3,7 @@ import { sessionStore } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
 interface DeliveryCustomLabels {
-  delivery?: string
+  shipping?: string
   pickupInPoint?: string
   pickupNearby?: string
   pickupAll?: string
@@ -28,17 +28,17 @@ export function FilterDeliveryOption({
   const { city, postalCode } = sessionStore.read()
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
-  const mapShippingLabel: Record<string, string> = {
-    delivery: deliveryCustomLabels?.delivery ?? 'Deliver to',
+  const mapDeliveryCustomLabel: Record<string, string> = {
+    shipping: deliveryCustomLabels?.shipping ?? 'Shipping to',
     'pickup-in-point': deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
     'pickup-nearby': deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
     'pickup-all': deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
   }
 
-  if (item.value === 'delivery') {
+  if (item.value === 'shipping') {
     return (
       <>
-        {mapShippingLabel[item.value]}
+        {mapDeliveryCustomLabel[item.value]}
         <UIButton
           data-fs-filter-list-item-button
           size="small"
@@ -56,7 +56,7 @@ export function FilterDeliveryOption({
   if (item.value === 'pickup-in-point') {
     return (
       <>
-        {mapShippingLabel[item.value]}
+        {mapDeliveryCustomLabel[item.value]}
         <UIButton
           data-fs-filter-list-item-button
           size="small"
@@ -71,6 +71,6 @@ export function FilterDeliveryOption({
     )
   }
 
-  return <>{mapShippingLabel[item.value]}</>
+  return <>{mapDeliveryCustomLabel[item.value]}</>
 }
 export default FilterDeliveryOption

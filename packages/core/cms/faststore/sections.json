@@ -1917,26 +1917,31 @@
             "deliverySettings": {
               "title": "Delivery Settings",
               "type": "object",
-              "required": ["sectionTitle", "sectionDescription"],
+              "required": ["title", "description"],
               "properties": {
-                "sectionTitle": {
-                  "title": "Delivery section label",
+                "title": {
+                  "title": "Delivery section title",
                   "type": "string",
                   "default": "Delivery"
                 },
-                "sectionDescription": {
+                "description": {
                   "title": "Delivery section description",
                   "type": "string",
                   "default": "Offers and delivery options vary based on region."
+                },
+                "setLocationButtonLabel": {
+                  "title": "Call to Action label",
+                  "type": "string",
+                  "default": "Set Location"
                 },
                 "deliveryCustomLabels": {
                   "title": "Delivery Custom labels",
                   "type": "object",
                   "properties": {
-                    "delivery": {
-                      "title": "Delivery label",
+                    "shipping": {
+                      "title": "Shipping label",
                       "type": "string",
-                      "default": "Delivery to"
+                      "default": "Shipping to"
                     },
                     "pickupInPoint": {
                       "title": "Pickup in point label",

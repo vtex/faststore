@@ -34,7 +34,7 @@ function FilterDesktop({
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  const shippingLabel = deliverySettings?.sectionTitle ?? 'Delivery'
+  const shippingLabel = deliverySettings?.title ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
   const filteredFacets = deliveryPromise.enabled
@@ -62,7 +62,7 @@ function FilterDesktop({
                 index={index - 1}
                 type=""
                 label={shippingLabel}
-                description={deliverySettings?.sectionDescription}
+                description={deliverySettings?.description}
               >
                 <UIButton
                   data-fs-filter-list-delivery-button
@@ -72,7 +72,7 @@ function FilterDesktop({
                   }}
                   icon={<UIIcon name="MapPin" />}
                 >
-                  Set Location
+                  {deliverySettings?.setLocationButtonLabel}
                 </UIButton>
               </UIFilterFacets>
             )}
@@ -85,7 +85,7 @@ function FilterDesktop({
               label={facet.key === 'shipping' ? shippingLabel : label}
               description={
                 facet.key === 'shipping'
-                  ? deliverySettings.sectionDescription
+                  ? deliverySettings.description
                   : undefined
               }
             >
