@@ -1,4 +1,4 @@
-import { Command } from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
@@ -21,10 +21,27 @@ export default class Build extends Command {
     },
   ]
 
+  static flags = {
+    checkDeps: Flags.boolean({
+      description: 'Skips check of faststore dependencies check.',
+      char: 'c',
+      default: true,
+    }),
+  }
+
   async run() {
-    const { args } = await this.parse(Build)
+    const { args, flags } = await this.parse(Build)
 
     const basePath = args.path ?? process.cwd()
+
+    if (flags.checkDeps === true) {
+      try {
+        checkDeps(basePath)
+      } catch (error: unknown) {
+        if (error instanceof Error) this.error(error)
+        else this.error('Something bad happened while checking dependencies.')
+      }
+    }
 
     const { tmpDir } = withBasePath(basePath)
 
@@ -108,4 +125,38 @@ async function copyResources(basePath: string) {
     )
     await copyResource(`${tmpDir}/public`, `${userDir}/public`)
   }
+}
+
+async function checkDeps(basePath: string) {
+  const packageJsonPath = `${basePath}/package.json`
+  if (!existsSync(packageJsonPath))
+    throw new Error(`package.json not found at ${packageJsonPath}`)
+
+  const {
+    devDependencies = {},
+    dependencies = {},
+    peerDependencies = {},
+  } = await import(packageJsonPath)
+
+  const allDeps: Record<string, string> = Object.assign(
+    {},
+    peerDependencies,
+    devDependencies,
+    dependencies
+  )
+
+  const deps = [
+    '@faststore/core',
+    '@faststore/components',
+    '@faststore/api',
+    '@faststore/cli',
+  ]
+  Object.entries(allDeps).forEach(([key, version]) => {
+    if (deps.includes(key) === false) return
+
+    if (/^(http|https|git):.+/.test(version) === true)
+      throw new Error(
+        `Incorrect ${key} version. Please provides a valid version.`
+      )
+  })
 }
