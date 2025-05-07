@@ -45,7 +45,7 @@ const FilterFacetDateRange = forwardRef<
     }
 
     if (new Date(value.from) > new Date(value.to)) {
-      setInputFromError('From date cannot be greater than To date')
+      setInputFromError('Invalid date range')
       setDisabled(true)
     } else {
       setInputFromError(undefined)
