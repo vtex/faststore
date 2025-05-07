@@ -39,7 +39,10 @@ export default function MyAccountOrderDetails({
           </div>
           <UIBadge variant="warning">Pending approval</UIBadge>
         </div>
-        <MyAccountOrderActions />
+        <MyAccountOrderActions
+          orderId={order.orderId}
+          customerEmail={order.clientProfileData?.email}
+        />
       </header>
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
