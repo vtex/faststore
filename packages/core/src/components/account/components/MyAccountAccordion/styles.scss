@@ -53,6 +53,7 @@
       align-items: center;
 
       [data-fs-icon] {
+        flex-shrink: 0;
         color: var(--fs-color-neutral-4);
       }
 
