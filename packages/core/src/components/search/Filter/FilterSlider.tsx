@@ -58,7 +58,7 @@ import { sessionStore } from 'src/sdk/session'
 import styles from './section.module.scss'
 
 interface DeliveryCustomLabels {
-  delivery?: string
+  shipping?: string
   pickupInPoint?: string
   pickupNearby?: string
   pickupAll?: string
@@ -90,8 +90,9 @@ export interface FilterSliderProps {
    * CMS settings for values related to delivery (e.g., custom name for title, delivery, pickup, pickup-nearby).
    */
   deliverySettings?: {
-    sectionTitle?: string
-    sectionDescription?: string
+    title?: string
+    description?: string
+    setLocationButtonLabel?: string
     deliveryCustomLabels?: DeliveryCustomLabels
   }
 }
@@ -109,7 +110,7 @@ function FilterSlider({
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
 
-  const shippingLabel = deliverySettings?.sectionTitle ?? 'Delivery'
+  const shippingLabel = deliverySettings?.title ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
   const filteredFacets = deliveryPromise.enabled
@@ -168,7 +169,7 @@ function FilterSlider({
                   index={index - 1}
                   type=""
                   label={shippingLabel}
-                  description={deliverySettings?.sectionDescription}
+                  description={deliverySettings?.description}
                 >
                   <UIButton
                     data-fs-filter-list-delivery-button
@@ -178,7 +179,7 @@ function FilterSlider({
                     }}
                     icon={<UIIcon name="MapPin" />}
                   >
-                    Set Location
+                    {deliverySettings?.setLocationButtonLabel}
                   </UIButton>
                 </UIFilterFacets>
               )}
@@ -191,7 +192,7 @@ function FilterSlider({
                 label={facet.key === 'shipping' ? shippingLabel : label}
                 description={
                   facet.key === 'shipping'
-                    ? deliverySettings?.sectionDescription
+                    ? deliverySettings?.description
                     : undefined
                 }
               >

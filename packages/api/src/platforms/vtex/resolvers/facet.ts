@@ -19,7 +19,7 @@ export const StoreFacet: Record<string, Resolver<Root>> = {
       return 'StoreFacetBoolean'
     }
 
-    if (values && values.every((value) => (value as FacetValueRange).range)) {
+    if (values.every((value) => (value as FacetValueRange).range)) {
       return 'StoreFacetRange'
     }
 
