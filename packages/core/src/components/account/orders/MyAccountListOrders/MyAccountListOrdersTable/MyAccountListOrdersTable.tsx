@@ -5,11 +5,10 @@ import { useRouter } from 'next/router'
 
 import Image from 'next/image'
 
-import { Badge } from '@faststore/ui'
+import { Badge, Button } from '@faststore/ui'
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import styles from './styles.module.scss'
 
 function formatShippingDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale, {
@@ -77,33 +76,41 @@ export default function MyAccountListOrdersTable({
   const totalPages = Math.ceil(total / perPage)
   return (
     <>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Order</th>
+      <table data-fs-list-orders-table>
+        <thead data-fs-list-orders-table-header>
+          <tr
+            data-fs-list-orders-table-header-row
+            data-fs-list-orders-table-row
+          >
+            <th data-fs-list-orders-table-header-cell>Order</th>
             {isDesktop && (
               <>
-                <th>Ordered by</th>
-                <th>Cost Center</th>
-                <th>Release</th>
-                <th>PO number</th>
-                <th>Delivery by</th>
+                <th data-fs-list-orders-table-header-cell>Ordered by</th>
+                <th data-fs-list-orders-table-header-cell>Cost Center</th>
+                <th data-fs-list-orders-table-header-cell>Release</th>
+                <th data-fs-list-orders-table-header-cell>PO number</th>
+                <th data-fs-list-orders-table-header-cell>Delivery by</th>
               </>
             )}
-            <th> {isDesktop && <>Status</>}</th>
+            <th data-fs-list-orders-table-header-cell>
+              {isDesktop && <>Status</>}
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-fs-list-orders-table-body>
           {listOrders.list.map((item) => (
             // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
             <tr
+              data-fs-list-orders-table-body-row
+              data-fs-list-orders-table-row
               key={item.orderId}
               onClick={() => handleOrderDetail({ orderId: item.orderId })}
               role="button"
             >
-              <td>
-                <div className={styles.imageContainer}>
+              <td data-fs-list-orders-table-cell>
+                <div data-fs-list-orders-table-image-container>
                   <Image
+                    data-fs-list-orders-table-product-image
                     src="/placeholder.png"
                     alt={item.items?.[0]?.description || 'Product image'}
                     width={64}
@@ -116,15 +123,17 @@ export default function MyAccountListOrdersTable({
                     <Badge counter>{item.totalItems}</Badge>
                   )}
                 </div>
-                <div>
-                  <p>{item.orderId || '-'}</p>
-                  <p>
+                <div data-fs-list-orders-table-product-info>
+                  <p data-fs-list-orders-table-product-info-order-id>
+                    {item.orderId || '-'}
+                  </p>
+                  <p data-fs-list-orders-table-product-info-order-date>
                     Placed on{' '}
                     {item.creationDate
                       ? formatShippingDate(item.creationDate, locale)
                       : '-'}
                   </p>
-                  <p>
+                  <p data-fs-list-orders-table-product-info-order-total>
                     Total: {formatPrice(item.totalValue, item.currencyCode)}
                   </p>
                 </div>
@@ -132,17 +141,17 @@ export default function MyAccountListOrdersTable({
 
               {isDesktop && (
                 <>
-                  <td>{item?.clientName}</td>
-                  <td>
+                  <td data-fs-list-orders-table-cell>{item?.clientName}</td>
+                  <td data-fs-list-orders-table-cell>
                     <p>(Cost Center)</p>
                   </td>
-                  <td>
+                  <td data-fs-list-orders-table-cell>
                     <p>(Release)</p>
                   </td>
-                  <td>
+                  <td data-fs-list-orders-table-cell>
                     <p>(PO Number)</p>
                   </td>
-                  <td>
+                  <td data-fs-list-orders-table-cell>
                     {item.ShippingEstimatedDate
                       ? formatShippingDate(item.ShippingEstimatedDate, locale)
                       : '-'}
@@ -150,7 +159,7 @@ export default function MyAccountListOrdersTable({
                 </>
               )}
 
-              <td>
+              <td data-fs-list-orders-table-cell>
                 <MyAccountStatusBadge
                   status={item.status}
                   statusFallback={item.statusDescription}
@@ -171,16 +180,19 @@ export default function MyAccountListOrdersTable({
         </tbody>
       </table>
 
-      <div className={styles.pagination}>
+      <div data-fs-list-orders-table-pagination>
         {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            type="button"
+          <Button
+            size="small"
+            data-fs-list-orders-table-pagination-button
             key={i}
-            className={i + 1 === filters?.page ? styles.active : ''}
+            data-fs-list-orders-table-pagination-button-active={
+              i + 1 === filters?.page ? 'true' : ''
+            }
             onClick={() => handlePageChange(i + 1)}
           >
             {i + 1}
-          </button>
+          </Button>
         ))}
       </div>
     </>

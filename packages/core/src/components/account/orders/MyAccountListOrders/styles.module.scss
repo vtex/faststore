@@ -1,4 +1,6 @@
 .page {
+  @import "./MyAccountListOrdersTable/styles.scss";
+
   // --------------------------------------------------------
   // Design Tokens
   // --------------------------------------------------------
@@ -18,8 +20,6 @@
   --fs-list-orders-filter-width-mobile                : 100%;
   --fs-list-orders-filter-margin-bottom-mobile        : 0;
 
-  --fs-list-orders-filter-input-border-width          : var(--fs-input-border-width);
-  --fs-list-orders-filter-input-border-color          : var(--fs-input-border-color);
   --fs-list-orders-filter-input-border-color-hover    : var(--fs-input-border-color-hover);
   --fs-list-orders-filter-input-shadow-hover          : var(--fs-input-box-shadow-hover);
 
@@ -53,7 +53,7 @@
     [data-fs-search-input-field] {
       [data-fs-search-input-field-input] {
         @include media("<notebook") {
-          border: var(--fs-list-orders-filter-input-border-width) solid var(--fs-list-orders-filter-input-border-color);
+          border: var(--fs-input-border-width) solid var(--fs-input-border-color);
 
           @include input-focus-ring;
 
