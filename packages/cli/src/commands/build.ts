@@ -6,6 +6,7 @@ import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { logger } from '../utils/logger'
 
 export default class Build extends Command {
   static args = [
@@ -35,12 +36,14 @@ export default class Build extends Command {
 
     //negating false to make any typo on the value to be true.
     if (!flags['no-verify']) {
-      try {
-        await checkDeps(basePath)
-      } catch (error: unknown) {
-        if (error instanceof Error) this.warn(error)
-        else this.error('Something bad happened while checking dependencies.')
-      }
+      const invalidPackages = await checkDeps(basePath)
+      invalidPackages.forEach((pkg) =>
+        logger.warn(
+          `${chalk.yellow(
+            'warning'
+          )} - Package ${pkg} dependency has invalid version signature. Please use a semver like ^1.0.0`
+        )
+      )
     }
 
     const { tmpDir } = withBasePath(basePath)
@@ -127,7 +130,7 @@ async function copyResources(basePath: string) {
   }
 }
 
-async function checkDeps(basePath: string) {
+async function checkDeps(basePath: string): Promise<Array<string>> {
   const packageJsonPath = `${basePath}/package.json`
   if (!existsSync(packageJsonPath))
     throw new Error(`package.json not found at ${packageJsonPath}`)
@@ -145,20 +148,15 @@ async function checkDeps(basePath: string) {
     dependencies
   )
 
-  let hasInvalidVersion = false,
-    invalidPackages = ''
+  const invalidPackages: Array<string> = []
 
   Object.entries(allDeps).forEach(([pkg, version]) => {
     if (/^@faststore\/.+/i.test(pkg) === false) return
 
     if (version && /^(http|https|git):.+/.test(version) === true) {
-      hasInvalidVersion = true
-      invalidPackages = `${invalidPackages}${pkg},`
+      invalidPackages.push(pkg)
     }
   })
 
-  if (hasInvalidVersion)
-    throw new Error(
-      `Incorrect version specified for packages. Please provides a valid version.\n ---> ${invalidPackages}`
-    )
+  return invalidPackages
 }
