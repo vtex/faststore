@@ -22,10 +22,9 @@ export default class Build extends Command {
   ]
 
   static flags = {
-    checkDeps: Flags.string({
+    ['no-verify']: Flags.boolean({
       description:
-        'Check of faststore dependencies version string to prevent usage of packages outside npm registry.',
-      default: 'true',
+        'Skips verification of faststore dependencies version string to prevent usage of packages outside npm registry.',
     }),
   }
 
@@ -35,11 +34,11 @@ export default class Build extends Command {
     const basePath = args.path ?? process.cwd()
 
     //negating false to make any typo on the value to be true.
-    if (!(flags.checkDeps === 'false')) {
+    if (!flags['no-verify']) {
       try {
         await checkDeps(basePath)
       } catch (error: unknown) {
-        if (error instanceof Error) this.error(error)
+        if (error instanceof Error) this.warn(error)
         else this.error('Something bad happened while checking dependencies.')
       }
     }
@@ -148,13 +147,10 @@ async function checkDeps(basePath: string) {
 
   let hasInvalidVersion = false,
     invalidPackages = ''
-  ;[
-    '@faststore/core',
-    '@faststore/components',
-    '@faststore/api',
-    '@faststore/cli',
-  ].forEach((pkg) => {
-    const version = allDeps[pkg]
+
+  Object.entries(allDeps).forEach(([pkg, version]) => {
+    if (/^@faststore\/.+/i.test(pkg) === false) return
+
     if (version && /^(http|https|git):.+/.test(version) === true) {
       hasInvalidVersion = true
       invalidPackages = `${invalidPackages}${pkg},`
