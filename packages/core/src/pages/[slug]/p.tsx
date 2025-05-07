@@ -108,7 +108,7 @@ function Page({
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = storeConfig.storeUrl + pathname + ''
 
         return { name, position, item: pageUrl }
       }
