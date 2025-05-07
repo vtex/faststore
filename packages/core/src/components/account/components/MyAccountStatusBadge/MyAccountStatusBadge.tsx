@@ -1,5 +1,3 @@
-import styles from './styles.module.scss'
-
 import {
   orderStatusMap,
   type OrderStatusKey,
@@ -20,9 +18,8 @@ function MyAccountStatusBadge({
 }: { status: string; statusFallback?: string }) {
   return (
     <span
-      className={`${styles.status} ${
-        styles[`status${getStatusVariant({ status })}`]
-      }`}
+      data-fs-my-account-badge
+      data-fs-my-account-badge-variant={getStatusVariant({ status })}
     >
       {orderStatusMap[status as OrderStatusKey]?.label || statusFallback || '-'}
     </span>

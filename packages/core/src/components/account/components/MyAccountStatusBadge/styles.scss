@@ -1,0 +1,47 @@
+[data-fs-my-account-badge] {
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  --fs-my-account-badge-padding                                  : var(--fs-spacing-0) var(--fs-spacing-2);
+  --fs-my-account-badge-line-height                              : 1;
+  --fs-my-account-badge-color                                    : var(--fs-color-text);
+  --fs-my-account-badge-border                                   : 1px none transparent;
+  --fs-my-account-badge-border-radius                            : var(--fs-border-radius-pill);
+  --fs-my-account-badge-success-bg                               : #e9fce3;
+  --fs-my-account-badge-success-border                           : #e9fce3;
+  --fs-my-account-badge-warning-bg                               : #ffedcd;
+  --fs-my-account-badge-warning-border                           : #ffedcd;
+  --fs-my-account-badge-neutral-bg                               : #f5f5f5;
+  --fs-my-account-badge-neutral-border                           : #f5f5f5;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  padding: var(--fs-my-account-badge-padding);
+  overflow: hidden;
+  line-height: var(--fs-my-account-badge-line-height);
+  color: var(--fs-my-account-badge-color);
+  white-space: nowrap;
+  border: var(--fs-my-account-badge-border);
+  border-radius: var(--fs-my-account-badge-border-radius);
+}
+
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="Success"] {
+  background-color: var(--fs-my-account-badge-success-bg);
+  border-color: var(--fs-my-account-badge-success-border);
+}
+
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="Warning"] {
+  background-color: var(--fs-my-account-badge-warning-bg);
+  border-color: var(--fs-my-account-badge-warning-border);
+}
+
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="Neutral"] {
+  background-color: var(--fs-my-account-badge-neutral-bg);
+  border-color: var(--fs-my-account-badge-neutral-border);
+}
