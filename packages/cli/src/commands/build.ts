@@ -36,7 +36,7 @@ export default class Build extends Command {
 
     if (flags.checkDeps === true) {
       try {
-        checkDeps(basePath)
+        await checkDeps(basePath)
       } catch (error: unknown) {
         if (error instanceof Error) this.error(error)
         else this.error('Something bad happened while checking dependencies.')
