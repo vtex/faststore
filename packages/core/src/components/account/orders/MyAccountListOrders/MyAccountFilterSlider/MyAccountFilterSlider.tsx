@@ -13,7 +13,7 @@ import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
-import FilterFacetDateRange from './FilterFacetDateRange/FilterFacetDateRange'
+import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
