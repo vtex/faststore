@@ -510,11 +510,8 @@ export const VtexCommerce = (
           'X-FORWARDED-HOST': forwardedHost,
         })
 
-        const url = `${base}/api/oms/user/orders?${params.toString()}`
-        console.log('🚀 ~ url:', url)
-
         return fetchAPI(
-          url,
+          `${base}/api/oms/user/orders?${params.toString()}`,
           {
             method: 'GET',
             headers,
