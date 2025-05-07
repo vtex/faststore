@@ -10,6 +10,7 @@
   @import "./MyAccountDeliveryCard/styles.scss";
   @import "./MyAccountPaymentCard/styles.scss";
   @import "./MyAccountDeliveryOptionAccordion/styles.scss";
+  @import "./MyAccountOrderActions/styles.scss";
 
   // --------------------------------------------------------
   // Design Tokens
@@ -80,37 +81,6 @@
         line-height: var(--fs-order-details-header-line-height);
 
         @include truncate-title(1);
-      }
-    }
-
-    [data-fs-order-details-header-actions] {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-
-      // gap: var(--fs-spacing-2);
-
-      @include media("<=tablet") {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 10;
-        gap: var(--fs-spacing-1);
-        justify-content: flex-end;
-        padding: 1.25rem;
-        background: var(--fs-color-body-bkg);
-        border-top: 1px solid var(--fs-color-neutral-2);
-        box-shadow: 0 -1px 15px 0 #0000001a;
-
-        [data-fs-order-details-header-actions-cancel] {
-          margin-right: auto;
-        }
-      }
-
-      @include media(">tablet") {
-        flex-flow: row;
-        flex-shrink: 0;
       }
     }
   }

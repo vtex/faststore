@@ -1,6 +1,5 @@
 import {
   Badge as UIBadge,
-  Button as UIButton,
   Icon as UIIcon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
@@ -10,11 +9,11 @@ import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
+import MyAccountOrderActions from './MyAccountOrderActions'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import router from 'next/router'
 import styles from './section.module.scss'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -23,7 +22,6 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
-  const { isMobile, isTablet } = useScreenResize()
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
@@ -41,50 +39,7 @@ export default function MyAccountOrderDetails({
           </div>
           <UIBadge variant="warning">Pending approval</UIBadge>
         </div>
-        <div data-fs-order-details-header-actions>
-          <UIButton
-            variant="secondary"
-            data-fs-order-details-header-actions-cancel
-            size={isMobile || isTablet ? 'regular' : 'small'}
-            type="button"
-          >
-            Cancel order
-          </UIButton>
-          {isMobile || isTablet ? (
-            <UIIconButton
-              aria-label="Reject"
-              icon={<UIIcon name="XCircle" />}
-              variant="tertiary"
-              type="button"
-            />
-          ) : (
-            <UIButton
-              variant="secondary"
-              size="small"
-              icon={<UIIcon name="XCircle" />}
-              type="button"
-            >
-              Reject
-            </UIButton>
-          )}
-          {isMobile || isTablet ? (
-            <UIIconButton
-              aria-label="Approve"
-              icon={<UIIcon name="CircleCheck" />}
-              variant="primary"
-              type="button"
-            />
-          ) : (
-            <UIButton
-              variant="primary"
-              size="small"
-              icon={<UIIcon name="CircleCheck" />}
-              type="button"
-            >
-              Approve
-            </UIButton>
-          )}
-        </div>
+        <MyAccountOrderActions />
       </header>
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
