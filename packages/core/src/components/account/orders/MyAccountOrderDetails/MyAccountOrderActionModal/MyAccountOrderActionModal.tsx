@@ -47,6 +47,7 @@ const ACTION_CONFIGS: Record<OrderActionType, OrderActionConfig> = {
 
 interface MyAccountOrderActionModalProps {
   isOpen: boolean
+  loading?: boolean
   fade?: 'in' | 'out'
   actionType: OrderActionType | null
   onClose: (actionType: OrderActionType) => void
@@ -55,6 +56,7 @@ interface MyAccountOrderActionModalProps {
 
 export default function MyAccountOrderActionModal({
   isOpen = false,
+  loading = false,
   fade = 'out',
   actionType,
   onClose,
@@ -80,6 +82,7 @@ export default function MyAccountOrderActionModal({
         <UIButton
           variant={config?.confirmVariant}
           onClick={() => onConfirm(actionType)}
+          loading={loading}
         >
           {config?.confirmText}
         </UIButton>

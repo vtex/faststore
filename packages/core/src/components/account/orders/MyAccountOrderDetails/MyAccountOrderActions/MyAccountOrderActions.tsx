@@ -2,20 +2,50 @@ import {
   Button as UIButton,
   Icon as UIIcon,
   IconButton as UIIconButton,
+  useUI,
 } from '@faststore/ui'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import MyAccountOrderActionModal, {
   useOrderActionModal,
 } from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
+import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 
-export default function MyAccountOrderActions() {
+interface MyAccountOrderActionsProps {
+  orderId: string
+  customerEmail?: string
+}
+
+export default function MyAccountOrderActions({
+  orderId,
+  customerEmail,
+}: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
   const { isOpen, actionType, fade, openDialog, closeDialog } =
     useOrderActionModal()
+  const { cancelOrder, loading } = useCancelOrder()
+  const { pushToast } = useUI()
 
-  const handleConfirm = () => {
-    // TODO: Implement the actual action handling
-    closeDialog()
+  const handleConfirm = async (type: string) => {
+    if (type === 'cancel') {
+      try {
+        await cancelOrder({
+          data: {
+            orderId,
+            customerEmail,
+            // TODO: We don't have a reason for cancellation yet
+            reason: '',
+          },
+        })
+
+        closeDialog()
+      } catch (error) {
+        pushToast({
+          status: 'ERROR',
+          message: error.message,
+          icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
+        })
+      }
+    }
   }
 
   return (
@@ -72,6 +102,7 @@ export default function MyAccountOrderActions() {
 
       <MyAccountOrderActionModal
         isOpen={isOpen}
+        loading={loading}
         fade={fade}
         actionType={actionType}
         onClose={closeDialog}
