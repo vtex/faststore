@@ -104,7 +104,7 @@ export default function MyAccountListOrdersTable({
               <td>
                 <div className={styles.imageContainer}>
                   <Image
-                    src={item.items?.[0]?.imageUrl || '/placeholder.png'}
+                    src="/placeholder.png"
                     alt={item.items?.[0]?.description || 'Product image'}
                     width={64}
                     height={64}
@@ -133,9 +133,15 @@ export default function MyAccountListOrdersTable({
               {isDesktop && (
                 <>
                   <td>{item?.clientName}</td>
-                  <td>{item?.costCenter || '(Cost Center)'}</td>
-                  <td>{item?.release || '(Release)'}</td>
-                  <td>{item?.poNumber || '(PO Number)'}</td>
+                  <td>
+                    <p>(Cost Center)</p>
+                  </td>
+                  <td>
+                    <p>(Release)</p>
+                  </td>
+                  <td>
+                    <p>(PO Number)</p>
+                  </td>
                   <td>
                     {item.ShippingEstimatedDate
                       ? formatShippingDate(item.ShippingEstimatedDate, locale)
