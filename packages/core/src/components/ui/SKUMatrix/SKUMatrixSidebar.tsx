@@ -1,15 +1,20 @@
+import { useEffect } from 'react'
 import type { SKUMatrixSidebarProps as UISKUMatrixSidebarProps } from '@faststore/ui'
 import {
   SKUMatrixSidebar as UISKUMatrixSidebar,
   useSKUMatrix,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import { useAllVariantProducts } from 'src/sdk/product/useAllVariantProducts'
 import { Image } from '../Image'
 
-interface SKUMatrixProps extends UISKUMatrixSidebarProps {}
+interface SKUMatrixProps extends UISKUMatrixSidebarProps {
+  product?: ProductSummary_ProductFragment
+  status?(data: 'visible' | null): void
+}
 
 const ImageComponent: UISKUMatrixSidebarProps['ImageComponent'] = ({
   src,
@@ -18,9 +23,8 @@ const ImageComponent: UISKUMatrixSidebarProps['ImageComponent'] = ({
 }) => <Image src={src} alt={alt} width={48} height={48} {...otherProps} />
 
 function SKUMatrixSidebar(props: SKUMatrixProps) {
-  const {
-    data: { product },
-  } = usePDP()
+  const { data } = usePDP()
+  const product = props.product ?? data.product
 
   const { allVariantProducts, isOpen, setAllVariantProducts } = useSKUMatrix()
   const { isValidating } = useAllVariantProducts(
@@ -28,6 +32,10 @@ function SKUMatrixSidebar(props: SKUMatrixProps) {
     isOpen,
     setAllVariantProducts
   )
+
+  useEffect(() => {
+    props.status?.(isOpen ? 'visible' : null)
+  }, [isOpen])
 
   const {
     gtin,
