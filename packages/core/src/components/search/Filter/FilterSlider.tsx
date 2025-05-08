@@ -58,7 +58,7 @@ import { sessionStore } from 'src/sdk/session'
 import styles from './section.module.scss'
 
 interface DeliveryCustomLabels {
-  shipping?: string
+  delivery?: string
   pickupInPoint?: string
   pickupNearby?: string
   pickupAll?: string
@@ -87,7 +87,7 @@ export interface FilterSliderProps {
    */
   applyButtonLabel?: string
   /**
-   * CMS settings for values related to delivery (e.g., custom name for title, delivery, pickup, pickup-nearby).
+   * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
    */
   deliverySettings?: {
     title?: string
@@ -110,7 +110,7 @@ function FilterSlider({
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
 
-  const shippingLabel = deliverySettings?.title ?? 'Delivery'
+  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
   const filteredFacets = deliveryPromise.enabled
@@ -160,6 +160,8 @@ function FilterSlider({
         {filteredFacets.map((facet, index) => {
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
+          const isDeliveryFacet = facet.key === 'shipping'
+
           return (
             <>
               {deliveryPromise.enabled && !postalCode && (
@@ -168,7 +170,7 @@ function FilterSlider({
                   testId={testId}
                   index={index - 1}
                   type=""
-                  label={shippingLabel}
+                  label={deliveryLabel}
                   description={deliverySettings?.description}
                 >
                   <UIButton
@@ -189,11 +191,9 @@ function FilterSlider({
                 testId={`mobile-${testId}`}
                 index={index}
                 type={type}
-                label={facet.key === 'shipping' ? shippingLabel : label}
+                label={isDeliveryFacet ? deliveryLabel : label}
                 description={
-                  facet.key === 'shipping'
-                    ? deliverySettings?.description
-                    : undefined
+                  isDeliveryFacet ? deliverySettings?.description : undefined
                 }
               >
                 {type === 'StoreFacetBoolean' && isExpanded && (
@@ -211,7 +211,7 @@ function FilterSlider({
                         quantity={item.quantity}
                         facetKey={facet.key}
                         label={
-                          facet.key === 'shipping' ? (
+                          isDeliveryFacet ? (
                             <FilterDeliveryOption
                               item={item}
                               deliveryCustomLabels={
@@ -222,7 +222,7 @@ function FilterSlider({
                             item.label
                           )
                         }
-                        type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
+                        type={isDeliveryFacet ? 'radio' : 'checkbox'}
                       />
                     ))}
                   </UIFilterFacetBoolean>

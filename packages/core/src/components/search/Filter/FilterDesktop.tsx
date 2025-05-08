@@ -34,7 +34,7 @@ function FilterDesktop({
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  const shippingLabel = deliverySettings?.title ?? 'Delivery'
+  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
   const filteredFacets = deliveryPromise.enabled
@@ -53,6 +53,8 @@ function FilterDesktop({
       {filteredFacets.map((facet, index) => {
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
+        const isDeliveryFacet = facet.key === 'shipping'
+
         return (
           <>
             {deliveryPromise.enabled && !postalCode && (
@@ -61,7 +63,7 @@ function FilterDesktop({
                 testId={testId}
                 index={index - 1}
                 type=""
-                label={shippingLabel}
+                label={deliveryLabel}
                 description={deliverySettings?.description}
               >
                 <UIButton
@@ -82,11 +84,9 @@ function FilterDesktop({
               testId={testId}
               index={index}
               type={type}
-              label={facet.key === 'shipping' ? shippingLabel : label}
+              label={isDeliveryFacet ? deliveryLabel : label}
               description={
-                facet.key === 'shipping'
-                  ? deliverySettings.description
-                  : undefined
+                isDeliveryFacet ? deliverySettings.description : undefined
               }
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
@@ -112,7 +112,7 @@ function FilterDesktop({
                       quantity={item.quantity}
                       facetKey={facet.key}
                       label={
-                        facet.key === 'shipping' ? (
+                        isDeliveryFacet ? (
                           <FilterDeliveryOption
                             item={item}
                             deliveryCustomLabels={
@@ -123,7 +123,7 @@ function FilterDesktop({
                           item.label
                         )
                       }
-                      type={facet.key === 'shipping' ? 'radio' : 'checkbox'}
+                      type={isDeliveryFacet ? 'radio' : 'checkbox'}
                     />
                   ))}
                 </UIFilterFacetBoolean>

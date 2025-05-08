@@ -3,7 +3,7 @@ import { sessionStore } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
 interface DeliveryCustomLabels {
-  shipping?: string
+  delivery?: string
   pickupInPoint?: string
   pickupNearby?: string
   pickupAll?: string
@@ -29,13 +29,13 @@ export function FilterDeliveryOption({
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
   const mapDeliveryCustomLabel: Record<string, string> = {
-    shipping: deliveryCustomLabels?.shipping ?? 'Shipping to',
+    delivery: deliveryCustomLabels?.delivery ?? 'Shipping to',
     'pickup-in-point': deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
     'pickup-nearby': deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
     'pickup-all': deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
   }
 
-  if (item.value === 'shipping') {
+  if (item.value === 'delivery') {
     return (
       <>
         {mapDeliveryCustomLabel[item.value]}
