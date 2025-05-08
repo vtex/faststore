@@ -520,7 +520,7 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
-  /** Returns information about total product count based on VTEX segment cookie. */
+  /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
   productCount?: Maybe<ProductCountResult>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;

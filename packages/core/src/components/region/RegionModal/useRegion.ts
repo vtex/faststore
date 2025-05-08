@@ -1,41 +1,36 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import type { Session } from '@faststore/sdk'
 import { sessionStore, validateSession } from 'src/sdk/session'
 import { getProductCount } from 'src/sdk/product'
 import { deliveryPromise } from 'discovery.config'
 
-interface UseSetLocationParams {
-  input: string
-  setInput: (value: string) => void
-  resetInputField: () => void
-  setLocation: (
-    postalCode: string | undefined,
-    inputFieldErrorMessage: string,
-    session: Session,
-    onSuccess?: () => void
-  ) => Promise<void>
+type SetRegionProps = {
+  session: Session
+  postalCode: string | undefined
+  onSuccess?: () => void
   errorMessage: string
-  setErrorMessage: (value: string) => void
-  loading: boolean
+  noProductsAvailableErrorMessage?: string
 }
 
-export function useSetLocation(): UseSetLocationParams {
-  const [input, setInput] = useState<string>('')
-  const [errorMessage, setErrorMessage] = useState<string>('')
+type UseRegionValues = {
+  loading: boolean
+  regionError: string
+  setRegion: (props: SetRegionProps) => Promise<void>
+  setRegionError: (value: string) => void
+}
+
+export default function useRegion(): UseRegionValues {
   const [loading, setLoading] = useState<boolean>(false)
+  const [regionError, setRegionError] = useState<string>('')
 
-  const resetInputField = () => {
-    setInput('')
-    setErrorMessage('')
-  }
-
-  const setLocation = async (
-    postalCode: string | undefined,
-    inputFieldErrorMessage: string,
-    session: Session,
-    onSuccess?: () => void
-  ) => {
+  const setRegion = async ({
+    postalCode,
+    errorMessage,
+    session,
+    onSuccess,
+    noProductsAvailableErrorMessage,
+  }: SetRegionProps) => {
     if (typeof postalCode !== 'string') {
       return
     }
@@ -52,32 +47,33 @@ export function useSetLocation(): UseSetLocationParams {
       const validatedSession = await validateSession(newSession)
 
       if (deliveryPromise.enabled) {
-        // Check product availability for specific location
+        // Check product availability for specific postal code
         const productCount = await getProductCount()
         if (productCount === 0) {
-          setErrorMessage(`There are no products available for ${postalCode}.`)
+          const errorFallback = `There are no products available for ${postalCode}.`
+          const noProductsAvailableError =
+            noProductsAvailableErrorMessage?.replace(/%s/g, () => postalCode)
+
+          setRegionError(noProductsAvailableError ?? errorFallback)
           setLoading(false)
           return
         }
       }
 
       sessionStore.set(validatedSession ?? newSession)
-      resetInputField()
+      setRegionError('')
       onSuccess?.() // Execute the post-validation action (close modal, etc.)
     } catch (error) {
-      setErrorMessage(inputFieldErrorMessage)
+      setRegionError(errorMessage)
     } finally {
       setLoading(false) // Reset loading to false when validation is complete
     }
   }
 
   return {
-    input,
-    setInput,
-    resetInputField,
-    setLocation,
-    errorMessage,
-    setErrorMessage,
     loading,
+    setRegion,
+    regionError,
+    setRegionError,
   }
 }
