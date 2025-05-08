@@ -1,6 +1,6 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
 
-import { contentSource, previewRedirects } from '../../../discovery.config'
+import { previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import { isLocator } from 'src/server/cms'
 import { isContentPlatformSource } from 'src/server/content/utils'
