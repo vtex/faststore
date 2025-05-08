@@ -6,6 +6,7 @@ import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 
 export default class Build extends Command {
   static args = [
@@ -25,6 +26,9 @@ export default class Build extends Command {
     const { args } = await this.parse(Build)
 
     const basePath = args.path ?? process.cwd()
+
+    // Check for deprecated secret files
+    checkDeprecatedSecretFiles(basePath)
 
     const { tmpDir } = withBasePath(basePath)
 
