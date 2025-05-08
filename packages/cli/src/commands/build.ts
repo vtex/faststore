@@ -34,7 +34,6 @@ export default class Build extends Command {
 
     const basePath = args.path ?? process.cwd()
 
-    //negating false to make any typo on the value to be true.
     if (!flags['no-verify']) {
       const invalidPackages = await checkDeps(basePath)
       invalidPackages.forEach((pkg) =>
