@@ -41,7 +41,7 @@ export default class Build extends Command {
         logger.warn(
           `${chalk.yellow(
             'warning'
-          )} - Package ${pkg} dependency has invalid version signature. Please use a semver like ^1.0.0`
+          )} - Dependency ${pkg} has invalid version signature. Please use a semver like ^1.0.0 (check the official releases on https://github.com/vtex/faststore)`
         )
       )
     }
