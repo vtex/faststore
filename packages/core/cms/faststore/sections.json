@@ -1938,7 +1938,7 @@
                   "title": "Delivery Custom labels",
                   "type": "object",
                   "properties": {
-                    "shipping": {
+                    "delivery": {
                       "title": "Shipping label",
                       "type": "string",
                       "default": "Shipping to"
