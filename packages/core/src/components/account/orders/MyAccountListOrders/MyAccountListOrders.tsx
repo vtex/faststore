@@ -191,11 +191,6 @@ export default function MyAccountListOrders({
     String(router.query.text)
   )
 
-  const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    handleSearchChange(value)
-  }
-
   const selectedFacets: SelectedFacet[] = getSelectedFacets({ filters })
   const allFacets = getAllFacets({ filters })
 
@@ -215,8 +210,17 @@ export default function MyAccountListOrders({
           ref={searchInputRef}
           data-fs-search-input-field-list-orders
           placeholder="Search"
-          onChange={(e) => onSearchInputChange(e)}
-          onSubmit={(e) => handleSearchChange(e)}
+          onBlur={(_) => {
+            handleSearchChange(searchInputRef.current.inputRef.value)
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchChange(searchInputRef.current.inputRef.value)
+            }
+          }}
+          onSubmit={(_) => {
+            handleSearchChange(searchInputRef.current.inputRef.value)
+          }}
         />
         <Button
           data-fs-list-orders-search-filters-button
