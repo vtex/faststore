@@ -1,5 +1,5 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
-import ClientCP from '@vtex/client-cp'
+import ClientCP from '../../../../../../content-management-packages/packages/client-cp/'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
 import type { ContentOptions, ContentParams } from './types'
@@ -15,6 +15,7 @@ import MissingContentError from 'src/sdk/error/MissingContentError'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import type { ServerProductQueryQuery } from '@generated/graphql'
+import { isContentPlatformSource } from './utils'
 
 export class ContentService {
   private clientCP: ClientCP
@@ -30,7 +31,7 @@ export class ContentService {
   ): Promise<T> {
     const options = this.createContentOptions(params)
 
-    if (config.contentSource.type === 'CP') {
+    if (isContentPlatformSource()) {
       return this.getFromCP<T>(options)
     }
     return getPage(options.cmsOptions)
@@ -39,7 +40,7 @@ export class ContentService {
   async getContent(params: ContentParams) {
     const options = this.createContentOptions(params)
 
-    if (config.contentSource.type === 'CP') {
+    if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
       const { entries } = await this.clientCP.listEntries(serviceParams)
       const data = await Promise.all(
@@ -63,7 +64,7 @@ export class ContentService {
     const plpParams = { ...params, contentType: 'plp' }
     const options = this.createContentOptions(plpParams)
 
-    if (config.contentSource.type === 'CP') {
+    if (isContentPlatformSource()) {
       const pages = (await this.getContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
@@ -82,7 +83,7 @@ export class ContentService {
     const pdpParams = { ...params, contentType: 'pdp' }
     const options = this.createContentOptions(pdpParams)
 
-    if (config.contentSource.type === 'CP') {
+    if (isContentPlatformSource()) {
       const pages = (await this.getContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
       return findBestPDPTemplate(pages, product) as PDPContentType
@@ -152,7 +153,7 @@ export class ContentService {
       ...entry,
       ...data,
       id: entry.id,
-      name: entry.name || (data.name as string) || '',
+      name: entry.name || '',
     }
   }
 

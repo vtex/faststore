@@ -1,7 +1,9 @@
 import type { Locator } from '@vtex/client-cms'
 import type { Options } from '../cms'
 
-export type ContentProviderType = 'CMS' | 'CP'
+export const ContentSourceType = {
+  ContentPlatform: 'cp',
+}
 
 export type PreviewData = Locator & {
   slug?: string

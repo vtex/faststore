@@ -88,6 +88,8 @@ module.exports = {
     plp: '/office',
     search: '/s?q=headphone',
     pdp: '/apple-magic-mouse/p',
+    500: '/500',
+    404: '/404',
   },
 
   // Lighthouse CI

@@ -3,6 +3,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import { contentSource, previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import { isLocator } from 'src/server/cms'
+import { isContentPlatformSource } from 'src/server/content/utils'
 
 type Settings = {
   seo: {
@@ -25,18 +26,6 @@ const pickParam = (req: NextApiRequest, parameter: string) => {
   return typeof maybeParam === 'string' ? maybeParam : undefined
 }
 
-const getSeoSlug = (page: any): string | undefined => {
-  if (contentSource.type === 'CP') {
-    if (!page.settings?.seo) return undefined
-
-    const seoKey = Object.keys(page.settings.seo)[0]
-    if (!seoKey) return undefined
-
-    return page.settings.seo[seoKey]
-  }
-  return (page.settings as Settings)?.seo?.slug
-}
-
 const setPreviewAndRedirect = (
   res: any,
   previewData: Record<string, string>,
@@ -53,6 +42,9 @@ const setPreviewAndRedirect = (
 const handler: NextApiHandler = async (req, res) => {
   try {
     let slug = pickParam(req, 'slug')
+    if (slug && !slug.startsWith('/')) {
+      slug = `/${slug}`
+    }
 
     const locator = [
       'contentType',
@@ -86,11 +78,6 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    if (slug && slug.length > 0 && contentSource.type === 'CP') {
-      const previewData = { ...locator, slug }
-      return setPreviewAndRedirect(res, previewData, `/${slug}`)
-    }
-
     if (!isLocator(locator)) {
       throw new StatusError('Invalid locator object', 400)
     }
@@ -113,7 +100,13 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    slug = getSeoSlug(page)
+    if (
+      isContentPlatformSource() &&
+      slug &&
+      ['landingPage', 'plp', 'pdp'].includes(locator.contentType)
+    ) {
+      return setPreviewAndRedirect(res, locator, slug)
+    }
 
     // Redirect to the path from the fetched locator
     const redirects = previewRedirects as Record<string, string>
@@ -122,6 +115,7 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     if (locator.contentType === 'landingPage') {
+      slug = (page.settings as Settings)?.seo?.slug
       return setPreviewAndRedirect(res, locator, slug)
     }
 
