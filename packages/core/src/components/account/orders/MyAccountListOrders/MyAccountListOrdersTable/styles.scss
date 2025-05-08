@@ -8,7 +8,7 @@
   --fs-list-orders-table-header-font-weight        : var(--fs-text-weight-medium);
   --fs-list-orders-table-header-line-height        : var(--fs-text-size-1);
   --fs-list-orders-table-header-color              : var(--fs-color-neutral-6);
-  --fs-list-orders-table-first-child-width         : 30%;
+  --fs-list-orders-table-first-child-width         : 20%;
   --fs-list-orders-table-first-child-width-mobile  : 50%;
   --fs-list-orders-table-last-child-width          : 10%;
   --fs-list-orders-table-gap                       : 1.2rem;
@@ -21,9 +21,6 @@
   --fs-list-orders-table-cell-color                : var(--fs-color-neutral-6);
   --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-color-neutral-3);
   --fs-list-orders-table-row-hover-bg              : #efeaf54d; // var(--fs-color-accent-0) with 30% opacity
-  --fs-list-orders-table-image-width               : 3.625rem;
-  --fs-list-orders-table-image-height              : 3.625rem;
-  --fs-list-orders-table-image-border-radius       : var(--fs-border-radius-medium);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -64,21 +61,6 @@
       justify-content: flex-end;
       width: var(--fs-list-orders-table-first-child-width-mobile);
     }
-  }
-
-  [data-fs-list-orders-table-cell]:first-child {
-    display: flex;
-    gap: var(--fs-list-orders-table-gap);
-    align-items: flex-start;
-
-    @include media("<notebook") {
-      flex-direction: column;
-    }
-  }
-
-  [data-fs-list-orders-table-image-container], [data-fs-list-orders-table-product-info] {
-    display: flex;
-    flex-direction: column;
   }
 
   [data-fs-list-orders-table-product-info-order-id], [data-fs-list-orders-table-product-info-order-date], [data-fs-list-orders-table-product-info-order-total] {
@@ -125,25 +107,6 @@
 
   [data-fs-list-orders-table-body-row]:hover, [data-fs-list-orders-table-body-row]:focus {
     background-color: var(--fs-list-orders-table-row-hover-bg);
-  }
-
-  [data-fs-list-orders-table-image-container] {
-    position: relative;
-
-    [data-fs-list-orders-table-product-image] {
-      flex-shrink: 0;
-      width: var(--fs-list-orders-table-image-width);
-      height: var(--fs-list-orders-table-image-height);
-      border-radius: var(--fs-list-orders-table-image-border-radius);
-    }
-
-    [data-fs-badge-counter="true"] {
-      position: absolute;
-      top: unset;
-      right: .375rem;
-      bottom: .375rem;
-      left: unset;
-    }
   }
 }
 

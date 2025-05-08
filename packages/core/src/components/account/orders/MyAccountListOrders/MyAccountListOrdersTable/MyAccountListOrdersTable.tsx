@@ -3,9 +3,7 @@ import { useCallback } from 'react'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
 
-import Image from 'next/image'
-
-import { Badge, Button } from '@faststore/ui'
+import { Button } from '@faststore/ui'
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
@@ -108,21 +106,6 @@ export default function MyAccountListOrdersTable({
               role="button"
             >
               <td data-fs-list-orders-table-cell>
-                <div data-fs-list-orders-table-image-container>
-                  <Image
-                    data-fs-list-orders-table-product-image
-                    src="/my_account_placeholder.png"
-                    alt={item.items?.[0]?.description || 'Product image'}
-                    width={64}
-                    height={64}
-                    onError={(e) => {
-                      e.currentTarget.src = '/my_account_placeholder.png'
-                    }}
-                  />
-                  {item.totalItems > 0 && (
-                    <Badge counter>{item.totalItems}</Badge>
-                  )}
-                </div>
                 <div data-fs-list-orders-table-product-info>
                   <p data-fs-list-orders-table-product-info-order-id>
                     {item.orderId || '-'}
