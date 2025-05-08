@@ -50,10 +50,11 @@ export default function useRegion(): UseRegionValues {
         // Check product availability for specific postal code
         const productCount = await getProductCount()
         if (productCount === 0) {
+          const errorFallback = `There are no products available for ${postalCode}.`
           const noProductsAvailableError =
             noProductsAvailableErrorMessage?.replace(/%s/g, () => postalCode)
 
-          setRegionError(noProductsAvailableError)
+          setRegionError(noProductsAvailableError ?? errorFallback)
           setLoading(false)
           return
         }

@@ -2230,7 +2230,7 @@
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
               "type": "string",
-              "default": "There are no products available for %s",
+              "default": "There are no products available for %s.",
               "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
@@ -2311,7 +2311,7 @@
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
               "type": "string",
-              "default": "There are no products available for %s",
+              "default": "There are no products available for %s.",
               "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
