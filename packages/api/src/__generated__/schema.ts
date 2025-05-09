@@ -564,6 +564,17 @@ export type QueryCollectionArgs = {
 };
 
 
+export type QueryListUserOrdersArgs = {
+  clientEmail?: Maybe<Scalars['String']>;
+  dateFinal?: Maybe<Scalars['String']>;
+  dateInitial?: Maybe<Scalars['String']>;
+  page?: Maybe<Scalars['Int']>;
+  perPage?: Maybe<Scalars['Int']>;
+  status?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text?: Maybe<Scalars['String']>;
+};
+
+
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
 };
