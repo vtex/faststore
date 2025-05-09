@@ -3,6 +3,11 @@
   flex-flow: row wrap;
   align-items: center;
 
+  [data-fs-order-details-header-actions-cancel] {
+    --fs-button-secondary-text-color: var(--fs-color-danger-text);
+    --fs-button-secondary-bkg-color-hover: var(--fs-button-secondary-text-color);
+  }
+
   @include media("<=tablet") {
     position: fixed;
     right: 0;
