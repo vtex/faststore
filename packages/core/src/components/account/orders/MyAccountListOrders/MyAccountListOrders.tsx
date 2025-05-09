@@ -18,9 +18,10 @@ import {
   type SelectedFacet,
 } from 'src/sdk/search/useMyAccountFilter'
 import MyAccountListOrdersTable from './MyAccountListOrdersTable/MyAccountListOrdersTable'
+import SelectedFiltersTags from './MyAccountSelectedTags/MyAccountSelectedTags'
 import styles from './styles.module.scss'
 
-type MyAccountListOrdersProps = {
+export type MyAccountListOrdersProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
   total: number
   perPage: number
@@ -245,6 +246,44 @@ export default function MyAccountListOrders({
           Filters
         </Button>
       </div>
+
+      <SelectedFiltersTags
+        filters={{
+          status: filters.status,
+          dateInitial: filters.dateInitial,
+          dateFinal: filters.dateFinal,
+        }}
+        onClearAll={() => {
+          router.push({
+            pathname: '/account/orders',
+            query: {},
+          })
+        }}
+        onRemoveFilter={(key, value) => {
+          const { page, clientEmail, ...updatedFilters } = { ...filters }
+
+          if (key === 'status' && Array.isArray(updatedFilters[key])) {
+            updatedFilters[key] = updatedFilters[key].filter((v) => v !== value)
+          } else if (key === 'dateInitial' || key === 'dateFinal') {
+            delete updatedFilters.dateInitial
+            delete updatedFilters.dateFinal
+          } else {
+            delete updatedFilters[key]
+          }
+
+          // Remove filters with no values
+          const filteredQuery = Object.fromEntries(
+            Object.entries(updatedFilters).filter(([, v]) =>
+              Array.isArray(v) ? v.length > 0 : Boolean(v)
+            )
+          )
+
+          router.push({
+            pathname: '/account/orders',
+            query: filteredQuery,
+          })
+        }}
+      />
 
       {displayFilter && (
         <MyAccountFilterSlider
