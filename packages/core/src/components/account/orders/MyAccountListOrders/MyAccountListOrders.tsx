@@ -17,7 +17,10 @@ import {
   type MyAccountFilter_FacetsFragment,
   type SelectedFacet,
 } from 'src/sdk/search/useMyAccountFilter'
-import MyAccountListOrdersTable from './MyAccountListOrdersTable/MyAccountListOrdersTable'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
+import MyAccountListOrdersTable, {
+  Pagination,
+} from './MyAccountListOrdersTable/MyAccountListOrdersTable'
 import styles from './styles.module.scss'
 
 type MyAccountListOrdersProps = {
@@ -154,6 +157,7 @@ export default function MyAccountListOrders({
   filters,
 }: MyAccountListOrdersProps) {
   const router = useRouter()
+  const { isDesktop } = useScreenResize()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
 
   // Set the initial value of the search input field based on server values
@@ -204,46 +208,50 @@ export default function MyAccountListOrders({
   return (
     <div className={styles.page}>
       <h1 data-fs-list-orders-title>Orders</h1>
-
-      <div data-fs-list-orders-search-filters>
-        <SearchInputField
-          ref={searchInputRef}
-          data-fs-search-input-field-list-orders
-          placeholder="Search"
-          onBlur={(_) => {
-            handleSearchChange(searchInputRef.current.inputRef.value)
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+      <div data-fs-list-orders-header>
+        <div data-fs-list-orders-search-filters>
+          <SearchInputField
+            ref={searchInputRef}
+            data-fs-search-input-field-list-orders
+            placeholder="Search"
+            onBlur={(_) => {
               handleSearchChange(searchInputRef.current.inputRef.value)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearchChange(searchInputRef.current.inputRef.value)
+              }
+            }}
+            onSubmit={(_) => {
+              handleSearchChange(searchInputRef.current.inputRef.value)
+            }}
+          />
+          <Button
+            data-fs-list-orders-search-filters-button
+            variant="tertiary"
+            icon={
+              <Icon
+                width={16}
+                height={16}
+                name="FadersHorizontal"
+                aria-label="Open Filters"
+              />
             }
-          }}
-          onSubmit={(_) => {
-            handleSearchChange(searchInputRef.current.inputRef.value)
-          }}
-        />
-        <Button
-          data-fs-list-orders-search-filters-button
-          variant="tertiary"
-          icon={
-            <Icon
-              width={16}
-              height={16}
-              name="FadersHorizontal"
-              aria-label="Open Filters"
-            />
-          }
-          iconPosition="left"
-          onClick={() => {
-            filter.dispatch({
-              type: 'selectFacets',
-              payload: getSelectedFacets({ filters }),
-            })
-            openFilter()
-          }}
-        >
-          Filters
-        </Button>
+            iconPosition="left"
+            onClick={() => {
+              filter.dispatch({
+                type: 'selectFacets',
+                payload: getSelectedFacets({ filters }),
+              })
+              openFilter()
+            }}
+          >
+            Filters
+          </Button>
+        </div>
+        {isDesktop && (
+          <Pagination page={filters.page} total={total} perPage={perPage} />
+        )}
       </div>
 
       {displayFilter && (

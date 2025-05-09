@@ -36,6 +36,12 @@
     font-weight: var(--fs-list-orders-title-font-weight);
   }
 
+  [data-fs-list-orders-header] {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
   [data-fs-list-orders-search-filters] {
     display: flex;
     align-items: center;
