@@ -1,10 +1,13 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode, InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import Label from '../../atoms/Label'
 import Radio from '../../atoms/Radio'
 
-export interface RadioFieldProps extends HTMLAttributes<HTMLDivElement> {
+type EnhancedRadioFieldProps = HTMLAttributes<HTMLDivElement> &
+  Pick<InputHTMLAttributes<HTMLInputElement>, 'checked'>
+
+export interface RadioFieldProps extends EnhancedRadioFieldProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
