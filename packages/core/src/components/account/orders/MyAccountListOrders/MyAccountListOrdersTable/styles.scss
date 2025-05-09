@@ -9,7 +9,7 @@
   --fs-list-orders-table-header-line-height        : var(--fs-text-size-1);
   --fs-list-orders-table-header-color              : var(--fs-color-neutral-6);
   --fs-list-orders-table-first-child-width         : 20%;
-  --fs-list-orders-table-first-child-width-mobile  : 50%;
+  --fs-list-orders-table-first-child-width-mobile  : 30%;
   --fs-list-orders-table-last-child-width          : 10%;
   --fs-list-orders-table-gap                       : 1.2rem;
   --fs-list-orders-table-product-info-text-size    : var(--fs-text-size-base);
@@ -34,6 +34,10 @@
   border: none;
 
   [data-fs-list-orders-table-header] [data-fs-list-orders-table-header-cell] {
+    @include media("<notebook") {
+      padding: 0;
+    }
+
     padding: var(--fs-list-orders-table-header-padding);
     font-weight: var(--fs-list-orders-table-header-font-weight);
     line-height: var(--fs-list-orders-table-header-line-height);
@@ -46,6 +50,7 @@
 
     @include media("<notebook") {
       display: flex;
+      align-items: center;
       width: var(--fs-list-orders-table-first-child-width-mobile);
     }
   }
@@ -59,7 +64,7 @@
       gap: var(--fs-list-orders-table-gap);
       align-items: flex-end;
       justify-content: flex-end;
-      width: var(--fs-list-orders-table-first-child-width-mobile);
+      width: auto;
     }
   }
 
