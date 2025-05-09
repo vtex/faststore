@@ -2,7 +2,14 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type { StoreMarketingData } from '../../../..'
+import type {
+  IUserOrderCancel,
+  QueryListUserOrdersArgs,
+  StoreMarketingData,
+  UserOrder,
+  UserOrderCancel,
+  UserOrderListResult,
+} from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
 import { getStoreCookie, getWithCookie } from '../../utils/cookies'
@@ -351,6 +358,29 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      cancelOrder: ({
+        orderId,
+        customerEmail,
+        reason,
+      }: IUserOrderCancel): Promise<UserOrderCancel> | undefined => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orders/${orderId}/user-cancel-request`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              customerEmail,
+              reason,
+            }),
+          },
+          {}
+        )
+      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
@@ -403,6 +433,63 @@ export const VtexCommerce = (
         return fetchAPI(
           `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
           { headers },
+          { storeCookies }
+        )
+      },
+    },
+    oms: {
+      userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/oms/user/orders/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+      listUserOrders: ({
+        page,
+        status,
+        dateInitial,
+        dateFinal,
+        text,
+        clientEmail,
+        perPage,
+      }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
+        const params = new URLSearchParams()
+
+        if (text) params.append('text', text)
+        if (status && status.length > 0) {
+          status.forEach((s) =>
+            s && s.length > 0 ? params.append('status', s) : null
+          )
+        }
+        if (dateInitial) params.append('creation_date', dateInitial)
+        if (dateFinal) params.append('creation_date', dateFinal)
+        if (clientEmail) params.append('clientEmail', clientEmail)
+        if (page) params.append('page', page.toString())
+        if (perPage) params.append('per_page', perPage.toString())
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const url = `${base}/api/oms/user/orders?${params.toString()}`
+        console.log('🚀 ~ url:', url)
+
+        return fetchAPI(
+          url,
+          {
+            method: 'GET',
+            headers,
+          },
           { storeCookies }
         )
       },

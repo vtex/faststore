@@ -2,12 +2,14 @@ import type {
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
+  QueryListUserOrdersArgs,
   QueryProductArgs,
   QueryProfileArgs,
   QueryRedirectArgs,
   QuerySearchArgs,
   QuerySellersArgs,
   QueryShippingArgs,
+  QueryUserOrderArgs,
 } from '../../../__generated__/schema'
 import { BadRequestError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -360,5 +362,38 @@ export const Query = {
     const parsedAddresses = mapAddressesToList(addresses)
 
     return { addresses: parsedAddresses }
+  },
+  userOrder: async (
+    _: unknown,
+    { orderId }: QueryUserOrderArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+    if (!orderId) {
+      throw new BadRequestError('Missing orderId')
+    }
+
+    const order = await commerce.oms.userOrder({ orderId })
+
+    if (!order) {
+      throw new NotFoundError(`No order found for id ${orderId}`)
+    }
+
+    return order
+  },
+  listUserOrders: async (
+    _: unknown,
+    filters: QueryListUserOrdersArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const orders = await commerce.oms.listUserOrders(filters)
+
+    return orders
   },
 }
