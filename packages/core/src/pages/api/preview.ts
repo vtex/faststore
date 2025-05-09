@@ -1,8 +1,9 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
-import type { Locator } from '@vtex/client-cms'
 
-import { clientCMS } from 'src/server/cms'
 import { previewRedirects } from '../../../discovery.config'
+import { contentService } from 'src/server/content/service'
+import { isLocator } from 'src/server/cms'
+import { isContentPlatformSource } from 'src/server/content/utils'
 
 type Settings = {
   seo: {
@@ -22,17 +23,29 @@ class StatusError extends Error {
 
 const pickParam = (req: NextApiRequest, parameter: string) => {
   const maybeParam = req.query[parameter]
+  return typeof maybeParam === 'string' ? maybeParam : undefined
+}
 
-  if (typeof maybeParam !== 'string') {
-    return undefined
-  }
-
-  return maybeParam
+const setPreviewAndRedirect = (
+  res: any,
+  previewData: Record<string, string>,
+  redirectPath: string
+) => {
+  res.setPreviewData(previewData, {
+    maxAge: 3600,
+    path: redirectPath,
+  })
+  res.redirect(redirectPath)
 }
 
 // TODO: Improve security by disabling CMS preview in production
 const handler: NextApiHandler = async (req, res) => {
   try {
+    let slug = pickParam(req, 'slug')
+    if (slug && !slug.startsWith('/')) {
+      slug = `/${slug}`
+    }
+
     const locator = [
       'contentType',
       'documentId',
@@ -65,8 +78,19 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
+    if (!isLocator(locator)) {
+      throw new StatusError('Invalid locator object', 400)
+    }
+
     // Fetch CMS to check if the provided `locator` exists
-    const page = await clientCMS.getCMSPage(locator as Locator)
+    const page = await contentService.getSingleContent({
+      contentType: locator.contentType,
+      previewData: locator,
+      slug,
+      documentId: locator.documentId,
+      versionId: locator.versionId,
+      releaseId: locator.releaseId,
+    })
 
     // If the content doesn't exist prevent preview mode from being enabled
     if (!page) {
@@ -76,25 +100,26 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    // Enable Preview Mode by setting the cookies
-    res.setPreviewData(locator, {
-      maxAge: 3600,
-      path: (page.settings as Settings)?.seo?.slug,
-    })
+    if (
+      isContentPlatformSource() &&
+      slug &&
+      ['landingPage', 'plp', 'pdp'].includes(locator.contentType)
+    ) {
+      return setPreviewAndRedirect(res, locator, slug)
+    }
 
     // Redirect to the path from the fetched locator
     const redirects = previewRedirects as Record<string, string>
     if (redirects[locator.contentType]) {
-      res.redirect(redirects[locator.contentType])
-      return
+      return setPreviewAndRedirect(res, locator, redirects[locator.contentType])
     }
 
     if (locator.contentType === 'landingPage') {
-      res.redirect(`${(page.settings as Settings)?.seo.slug}`)
-      return
+      slug = (page.settings as Settings)?.seo?.slug
+      return setPreviewAndRedirect(res, locator, slug)
     }
 
-    res.redirect('/')
+    return setPreviewAndRedirect(res, locator, '/')
   } catch (error) {
     if (error instanceof StatusError) {
       res.status(error.status).end(error.message)
