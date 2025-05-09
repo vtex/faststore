@@ -1,10 +1,9 @@
-import { useCallback } from 'react'
-
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
 
 import { Button } from '@faststore/ui'
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
+import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
@@ -37,21 +36,9 @@ export default function MyAccountListOrdersTable({
   filters,
 }: MyAccountListOrdersTableProps) {
   const router = useRouter()
-
   const { isDesktop } = useScreenResize()
-
   const { locale } = useSession()
-
-  const formatPrice = useCallback(
-    (value: number, currencyCode: string) => {
-      return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency: currencyCode,
-        minimumFractionDigits: 2,
-      }).format(value / 100)
-    },
-    [locale]
-  )
+  const formatPrice = useFormatPrice()
 
   const handlePageChange = (newPage: number) => {
     const { page, ...rest } = router.query
