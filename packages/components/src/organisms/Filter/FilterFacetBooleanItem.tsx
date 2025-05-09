@@ -79,6 +79,7 @@ function FilterFacetBooleanItem({
           id={id}
           name={facetKey}
           value={value}
+          checked={selected}
           onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
           data-fs-filter-list-item-radio
           data-testid={`${testId}-accordion-panel-radio`}

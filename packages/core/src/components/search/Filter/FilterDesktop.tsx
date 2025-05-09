@@ -37,6 +37,7 @@ function FilterDesktop({
   const deliveryLabel = deliverySettings?.title ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
+  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
   const filteredFacets = deliveryPromise.enabled
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
@@ -50,110 +51,105 @@ function FilterDesktop({
         dispatch({ type: 'toggleExpanded', payload: idx })
       }
     >
-      {filteredFacets.map((facet, index) => {
+      {shouldDisplayDeliveryButton && (
+        <UIFilterFacets
+          key={`${testId}-delivery-unset`}
+          testId={testId}
+          index={0}
+          type=""
+          label={deliveryLabel}
+          description={deliverySettings?.description}
+        >
+          <UIButton
+            data-fs-filter-list-delivery-button
+            variant="secondary"
+            onClick={() => {
+              // TODO: open edit local slideOver
+            }}
+            icon={<UIIcon name="MapPin" />}
+          >
+            {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
+          </UIButton>
+        </UIFilterFacets>
+      )}
+      {filteredFacets.map((facet, idx) => {
+        const index = shouldDisplayDeliveryButton ? idx + 1 : idx
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         const isDeliveryFacet = facet.key === 'shipping'
 
         return (
-          <>
-            {deliveryPromise.enabled && !postalCode && (
-              <UIFilterFacets
-                key={`${testId}-delivery-unset`}
-                testId={testId}
-                index={index - 1}
-                type=""
-                label={deliveryLabel}
-                description={deliverySettings?.description}
-              >
-                <UIButton
-                  data-fs-filter-list-delivery-button
-                  variant="secondary"
-                  onClick={() => {
-                    // TODO: open edit local slideOver
-                  }}
-                  icon={<UIIcon name="MapPin" />}
-                >
-                  {deliverySettings?.setLocationButtonLabel}
-                </UIButton>
-              </UIFilterFacets>
+          <UIFilterFacets
+            key={`${testId}-${label}-${index}`}
+            testId={testId}
+            index={index}
+            type={type}
+            label={isDeliveryFacet ? deliveryLabel : label}
+            description={
+              isDeliveryFacet ? deliverySettings.description : undefined
+            }
+          >
+            {type === 'StoreFacetBoolean' && isExpanded && (
+              <UIFilterFacetBoolean>
+                {facet.values.map((item) => (
+                  <UIFilterFacetBooleanItem
+                    key={`${testId}-${facet.label}-${item.label}`}
+                    id={`${testId}-${facet.label}-${item.label}`}
+                    testId={testId}
+                    onFacetChange={(facet) => {
+                      setState({
+                        ...state,
+                        selectedFacets: toggleFacet(
+                          state.selectedFacets,
+                          facet,
+                          true
+                        ),
+                        page: 0,
+                      })
+                      resetInfiniteScroll(0)
+                    }}
+                    selected={item.selected}
+                    value={item.value}
+                    quantity={item.quantity}
+                    facetKey={facet.key}
+                    label={
+                      isDeliveryFacet ? (
+                        <FilterDeliveryOption
+                          item={item}
+                          deliveryCustomLabels={
+                            deliverySettings.deliveryCustomLabels
+                          }
+                        />
+                      ) : (
+                        item.label
+                      )
+                    }
+                    type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                  />
+                ))}
+              </UIFilterFacetBoolean>
             )}
-
-            <UIFilterFacets
-              key={`${testId}-${label}-${index}`}
-              testId={testId}
-              index={index}
-              type={type}
-              label={isDeliveryFacet ? deliveryLabel : label}
-              description={
-                isDeliveryFacet ? deliverySettings.description : undefined
-              }
-            >
-              {type === 'StoreFacetBoolean' && isExpanded && (
-                <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={testId}
-                      onFacetChange={(facet) => {
-                        setState({
-                          ...state,
-                          selectedFacets: toggleFacet(
-                            state.selectedFacets,
-                            facet
-                          ),
-                          page: 0,
-                        })
-                        resetInfiniteScroll(0)
-                      }}
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={
-                        isDeliveryFacet ? (
-                          <FilterDeliveryOption
-                            item={item}
-                            deliveryCustomLabels={
-                              deliverySettings.deliveryCustomLabels
-                            }
-                          />
-                        ) : (
-                          item.label
-                        )
-                      }
-                      type={isDeliveryFacet ? 'radio' : 'checkbox'}
-                    />
-                  ))}
-                </UIFilterFacetBoolean>
-              )}
-              {type === 'StoreFacetRange' && isExpanded && (
-                <UIFilterFacetRange
-                  facetKey={facet.key}
-                  min={facet.min}
-                  max={facet.max}
-                  formatter={
-                    facet.key.toLowerCase() === 'price'
-                      ? useFormattedPrice
-                      : undefined
-                  }
-                  onFacetChange={(facet) => {
-                    setState({
-                      ...state,
-                      selectedFacets: setFacet(
-                        state.selectedFacets,
-                        facet,
-                        true
-                      ),
-                      page: 0,
-                    })
-                    resetInfiniteScroll(0)
-                  }}
-                />
-              )}
-            </UIFilterFacets>
-          </>
+            {type === 'StoreFacetRange' && isExpanded && (
+              <UIFilterFacetRange
+                facetKey={facet.key}
+                min={facet.min}
+                max={facet.max}
+                formatter={
+                  facet.key.toLowerCase() === 'price'
+                    ? useFormattedPrice
+                    : undefined
+                }
+                onFacetChange={(facet) => {
+                  setState({
+                    ...state,
+                    selectedFacets: setFacet(state.selectedFacets, facet, true),
+                    page: 0,
+                  })
+                  resetInfiniteScroll(0)
+                }}
+              />
+            )}
+          </UIFilterFacets>
         )
       })}
     </UIFilter>
