@@ -113,6 +113,7 @@ function FilterSlider({
   const deliveryLabel = deliverySettings?.title ?? 'Delivery'
   const { postalCode } = sessionStore.read()
 
+  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
   const filteredFacets = deliveryPromise.enabled
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
@@ -157,96 +158,94 @@ function FilterSlider({
           dispatch({ type: 'toggleExpanded', payload: index })
         }
       >
-        {filteredFacets.map((facet, index) => {
+        {shouldDisplayDeliveryButton && (
+          <UIFilterFacets
+            key={`${testId}-delivery-0`}
+            testId={testId}
+            index={0}
+            type=""
+            label={deliveryLabel}
+            description={deliverySettings?.description}
+          >
+            <UIButton
+              data-fs-filter-list-delivery-button
+              variant="secondary"
+              onClick={() => {
+                // TODO: open edit local slideOver
+              }}
+              icon={<UIIcon name="MapPin" />}
+            >
+              {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
+            </UIButton>
+          </UIFilterFacets>
+        )}
+        {filteredFacets.map((facet, idx) => {
+          const index = shouldDisplayDeliveryButton ? idx + 1 : idx
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
           const isDeliveryFacet = facet.key === 'shipping'
 
           return (
-            <>
-              {deliveryPromise.enabled && !postalCode && (
-                <UIFilterFacets
-                  key={`${testId}-delivery-unset`}
-                  testId={testId}
-                  index={index - 1}
-                  type=""
-                  label={deliveryLabel}
-                  description={deliverySettings?.description}
-                >
-                  <UIButton
-                    data-fs-filter-list-delivery-button
-                    variant="secondary"
-                    onClick={() => {
-                      // TODO: open edit local slideOver
-                    }}
-                    icon={<UIIcon name="MapPin" />}
-                  >
-                    {deliverySettings?.setLocationButtonLabel}
-                  </UIButton>
-                </UIFilterFacets>
+            <UIFilterFacets
+              key={`${testId}-${label}-${index}`}
+              testId={`mobile-${testId}`}
+              index={index}
+              type={type}
+              label={isDeliveryFacet ? deliveryLabel : label}
+              description={
+                isDeliveryFacet ? deliverySettings?.description : undefined
+              }
+            >
+              {type === 'StoreFacetBoolean' && isExpanded && (
+                <UIFilterFacetBoolean>
+                  {facet.values.map((item) => (
+                    <UIFilterFacetBooleanItem
+                      key={`${testId}-${facet.label}-${item.label}`}
+                      id={`${testId}-${facet.label}-${item.label}`}
+                      testId={`mobile-${testId}`}
+                      onFacetChange={(facet) =>
+                        dispatch({ type: 'toggleFacet', payload: facet })
+                      }
+                      selected={item.selected}
+                      value={item.value}
+                      quantity={item.quantity}
+                      facetKey={facet.key}
+                      label={
+                        isDeliveryFacet ? (
+                          <FilterDeliveryOption
+                            item={item}
+                            deliveryCustomLabels={
+                              deliverySettings?.deliveryCustomLabels
+                            }
+                          />
+                        ) : (
+                          item.label
+                        )
+                      }
+                      type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                    />
+                  ))}
+                </UIFilterFacetBoolean>
               )}
-
-              <UIFilterFacets
-                key={`${testId}-${label}-${index}`}
-                testId={`mobile-${testId}`}
-                index={index}
-                type={type}
-                label={isDeliveryFacet ? deliveryLabel : label}
-                description={
-                  isDeliveryFacet ? deliverySettings?.description : undefined
-                }
-              >
-                {type === 'StoreFacetBoolean' && isExpanded && (
-                  <UIFilterFacetBoolean>
-                    {facet.values.map((item) => (
-                      <UIFilterFacetBooleanItem
-                        key={`${testId}-${facet.label}-${item.label}`}
-                        id={`${testId}-${facet.label}-${item.label}`}
-                        testId={`mobile-${testId}`}
-                        onFacetChange={(facet) =>
-                          dispatch({ type: 'toggleFacet', payload: facet })
-                        }
-                        selected={item.selected}
-                        value={item.value}
-                        quantity={item.quantity}
-                        facetKey={facet.key}
-                        label={
-                          isDeliveryFacet ? (
-                            <FilterDeliveryOption
-                              item={item}
-                              deliveryCustomLabels={
-                                deliverySettings?.deliveryCustomLabels
-                              }
-                            />
-                          ) : (
-                            item.label
-                          )
-                        }
-                        type={isDeliveryFacet ? 'radio' : 'checkbox'}
-                      />
-                    ))}
-                  </UIFilterFacetBoolean>
-                )}
-                {type === 'StoreFacetRange' && isExpanded && (
-                  <UIFilterFacetRange
-                    facetKey={facet.key}
-                    min={facet.min}
-                    max={facet.max}
-                    formatter={
-                      facet.key.toLowerCase() === 'price'
-                        ? useFormattedPrice
-                        : undefined
-                    }
-                    onFacetChange={(facet) =>
-                      dispatch({
-                        type: 'setFacet',
-                        payload: { facet, unique: true },
-                      })
-                    }
-                  />
-                )}
-              </UIFilterFacets>
-            </>
+              {type === 'StoreFacetRange' && isExpanded && (
+                <UIFilterFacetRange
+                  facetKey={facet.key}
+                  min={facet.min}
+                  max={facet.max}
+                  formatter={
+                    facet.key.toLowerCase() === 'price'
+                      ? useFormattedPrice
+                      : undefined
+                  }
+                  onFacetChange={(facet) =>
+                    dispatch({
+                      type: 'setFacet',
+                      payload: { facet, unique: true },
+                    })
+                  }
+                />
+              )}
+            </UIFilterFacets>
           )
         })}
       </UIFilter>
