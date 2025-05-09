@@ -20,7 +20,8 @@ export type ModalChildrenProps = {
 
 type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
 
-export interface ModalProps extends Omit<ModalContentProps, 'children'> {
+export interface ModalProps
+  extends Omit<ModalContentProps, 'children' | 'onEntered'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -31,21 +32,29 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    */
   'aria-labelledby'?: AriaAttributes['aria-label']
   /**
-   * A boolean value that represents the state of the Modal
+   * A boolean value that represents the state of the Modal.
    */
   isOpen?: boolean
   /**
-   * Event emitted when the modal is closed
+   * Event emitted when the modal is closed.
    */
   onDismiss?: () => void
   /**
-   * Props forwarded to the `Overlay` component
+   * Callback function when the modal is opened.
+   */
+  onEntered?: () => void
+  /**
+   * Props forwarded to the `Overlay` component.
    */
   overlayProps?: OverlayProps
   /**
-   * Children or function as a children
+   * Children or function as a children.
    */
   children: ModalChildrenFunction | ReactNode
+  /**
+   * Disable being closed using the Escape key.
+   */
+  disableEscapeKeyDown?: boolean
 }
 
 /*
@@ -60,13 +69,15 @@ const Modal = ({
   isOpen = true,
   onDismiss,
   overlayProps,
+  disableEscapeKeyDown = false,
+  onEntered,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
   const { fade, fadeOut, fadeIn } = useFadeEffect()
 
   const handleBackdropClick = (event: MouseEvent) => {
-    if (event.defaultPrevented) {
+    if (disableEscapeKeyDown || event.defaultPrevented) {
       return
     }
 
@@ -76,7 +87,11 @@ const Modal = ({
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    if (event.key !== 'Escape' || event.defaultPrevented) {
+    if (
+      disableEscapeKeyDown ||
+      event.key !== 'Escape' ||
+      event.defaultPrevented
+    ) {
       return
     }
 
@@ -93,7 +108,13 @@ const Modal = ({
           {...overlayProps}
         >
           <ModalContent
-            onTransitionEnd={() => fade === 'out' && closeModal()}
+            onTransitionEnd={() => {
+              if (fade === 'out') {
+                closeModal()
+              } else if (fade === 'in' && onEntered) {
+                onEntered()
+              }
+            }}
             data-fs-modal
             data-fs-modal-state={fade}
             testId={testId}

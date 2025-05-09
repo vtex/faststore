@@ -8,6 +8,7 @@ import type {
   QuerySearchArgs,
   QuerySellersArgs,
   QueryShippingArgs,
+  QueryProductCountArgs,
 } from '../../../__generated__/schema'
 import { BadRequestError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -360,5 +361,20 @@ export const Query = {
     const parsedAddresses = mapAddressesToList(addresses)
 
     return { addresses: parsedAddresses }
+  },
+  productCount: async (
+    _: unknown,
+    { term }: QueryProductCountArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    const result = await search.productCount({
+      query: term ?? undefined,
+    })
+
+    return result
   },
 }

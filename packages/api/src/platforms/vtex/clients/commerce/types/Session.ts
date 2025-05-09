@@ -36,6 +36,7 @@ export interface Profile {
 
 export interface Checkout {
   orderFormId?: Value
+  regionId?: Value
 }
 
 export interface Public {

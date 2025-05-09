@@ -10,6 +10,7 @@ import type {
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
+import { getSavedAddress } from '../profile'
 import { createValidationStore, useStore } from '../useStore'
 
 export const mutation = gql(`
@@ -20,6 +21,7 @@ export const mutation = gql(`
       country
       addressType
       postalCode
+      city
       deliveryMode {
         deliveryChannel
         deliveryMethod
@@ -58,6 +60,41 @@ export const mutation = gql(`
 `)
 
 export const validateSession = async (session: Session) => {
+  // If deliveryPromise is enabled and there is no postalCode in the session
+  if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
+    const isLoggedIn = !!session.person?.id
+
+    // If user is logged try to get the location (postalCode / geoCoordinates / country) from the user's address
+    if (isLoggedIn) {
+      const userId = session.person?.id
+      const address = await getSavedAddress(userId)
+
+      // Save the location in the session
+      if (address) {
+        sessionStore.set({
+          ...session,
+          city: address?.city,
+          postalCode: address?.postalCode,
+          geoCoordinates: {
+            // the values come in the reverse expected order
+            latitude: address?.geoCoordinate ? address?.geoCoordinate[1] : null,
+            longitude: address?.geoCoordinate
+              ? address?.geoCoordinate[0]
+              : null,
+          },
+          country: address?.country,
+        })
+      }
+    } else {
+      // Use the initial postalCode defined in discovery.config.js
+      const initialPostalCode = defaultStore.readInitial().postalCode
+
+      if (!!initialPostalCode) {
+        sessionStore.set({ ...session, postalCode: initialPostalCode })
+      }
+    }
+  }
+
   const data = await request<
     ValidateSessionMutation,
     ValidateSessionMutationVariables
