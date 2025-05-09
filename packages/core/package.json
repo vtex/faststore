@@ -62,7 +62,7 @@
     "@parcel/watcher": "^2.4.0",
     "@types/react": "^18.2.42",
     "@vtex/client-cms": "^0.2.12",
-    "@vtex/client-cp": "0.2.1",
+    "@vtex/client-cp": "0.2.2",
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
     "css-loader": "^6.7.1",
