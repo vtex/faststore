@@ -14,6 +14,7 @@ import MyAccountOrderActions from './MyAccountOrderActions'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import router from 'next/router'
 import styles from './section.module.scss'
+import { useRouter } from 'next/router'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -22,6 +23,16 @@ export interface MyAccountOrderDetailsProps {
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
+  const router = useRouter()
+
+  const handleBack = () => {
+    if (window.history.length > 2) {
+      router.back()
+    } else {
+      router.push('/account/orders')
+    }
+  }
+
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
@@ -32,6 +43,7 @@ export default function MyAccountOrderDetails({
             aria-label="Go back"
             icon={<UIIcon height={24} width={24} name="ArrowLeft" />}
             type="button"
+            onClick={handleBack}
           />
           <div data-fs-order-details-header-title-wrapper>
             <h1 data-fs-order-details-header-title-text>
