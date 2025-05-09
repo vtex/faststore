@@ -31,17 +31,17 @@
   border-radius: var(--fs-my-account-badge-border-radius);
 }
 
-[data-fs-my-account-badge][data-fs-my-account-badge-variant="Success"] {
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="success"] {
   background-color: var(--fs-my-account-badge-success-bg);
   border-color: var(--fs-my-account-badge-success-border);
 }
 
-[data-fs-my-account-badge][data-fs-my-account-badge-variant="Warning"] {
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="warning"] {
   background-color: var(--fs-my-account-badge-warning-bg);
   border-color: var(--fs-my-account-badge-warning-border);
 }
 
-[data-fs-my-account-badge][data-fs-my-account-badge-variant="Neutral"] {
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="neutral"] {
   background-color: var(--fs-my-account-badge-neutral-bg);
   border-color: var(--fs-my-account-badge-neutral-border);
 }
