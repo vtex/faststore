@@ -464,14 +464,43 @@ export const VtexCommerce = (
       }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
         const params = new URLSearchParams()
 
+        if (dateInitial) {
+          const dateInitialTimestamp = new Date(dateInitial).setHours(
+            0,
+            0,
+            0,
+            0
+          )
+          dateInitial = new Date(dateInitialTimestamp).toISOString()
+        }
+        if (dateFinal) {
+          const dateFinalTimestamp = new Date(dateFinal).setHours(
+            23,
+            59,
+            59,
+            999
+          )
+          dateFinal = new Date(dateFinalTimestamp).toISOString()
+        }
+
         if (text) params.append('text', text)
         if (status && status.length > 0) {
           status.forEach((s) =>
             s && s.length > 0 ? params.append('status', s) : null
           )
         }
-        if (dateInitial) params.append('creation_date', dateInitial)
-        if (dateFinal) params.append('creation_date', dateFinal)
+
+        if (dateInitial && dateFinal) {
+          params.append(
+            'creation_date',
+            `creationDate:[${dateInitial} TO ${dateFinal}]`
+          )
+        } else if (dateInitial) {
+          params.append('creation_date', `creationDate:[${dateInitial} TO *]`)
+        } else if (dateFinal) {
+          params.append('creation_date', `creationDate:[* TO ${dateFinal}]`)
+        }
+
         if (clientEmail) params.append('clientEmail', clientEmail)
         if (page) params.append('page', page.toString())
         if (perPage) params.append('per_page', perPage.toString())
@@ -481,11 +510,8 @@ export const VtexCommerce = (
           'X-FORWARDED-HOST': forwardedHost,
         })
 
-        const url = `${base}/api/oms/user/orders?${params.toString()}`
-        console.log('🚀 ~ url:', url)
-
         return fetchAPI(
-          url,
+          `${base}/api/oms/user/orders?${params.toString()}`,
           {
             method: 'GET',
             headers,
