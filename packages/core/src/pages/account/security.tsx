@@ -72,6 +72,16 @@ export const getServerSideProps: GetServerSideProps<
       globalSectionsFooterPromise,
     ])
 
+  // TODO handle 404 when security request is made
+  // if (security.errors) {
+  //   return {
+  //     redirect: {
+  //       destination: '/account/404',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,

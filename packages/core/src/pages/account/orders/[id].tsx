@@ -361,6 +361,7 @@ const query = gql(`
             additionalInfo
             address {
               addressType
+              receiverName
               addressId
               versionId
               entityId
@@ -726,7 +727,10 @@ export const getServerSideProps: GetServerSideProps<
 
   if (orderDetails.errors) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/account/404',
+        permanent: false,
+      },
     }
   }
 
