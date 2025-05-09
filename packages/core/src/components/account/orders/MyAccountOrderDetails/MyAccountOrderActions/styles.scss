@@ -1,0 +1,33 @@
+[data-fs-order-details-header-actions] {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  [data-fs-order-details-header-actions-cancel] {
+    --fs-button-secondary-text-color: var(--fs-color-danger-text);
+    --fs-button-secondary-bkg-color-hover: var(--fs-button-secondary-text-color);
+  }
+
+  @include media("<=tablet") {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--fs-z-index-top);
+    gap: var(--fs-spacing-1);
+    justify-content: flex-end;
+    padding: 1.25rem;
+    background: var(--fs-color-body-bkg);
+    border-top: var(--fs-border-width) solid var(--fs-color-neutral-2);
+    box-shadow: 0 -1px 15px 0 rgb(0 0 0 / 10.2%);
+
+    [data-fs-order-details-header-actions-cancel] {
+      margin-right: auto;
+    }
+  }
+
+  @include media(">tablet") {
+    flex-flow: row;
+    flex-shrink: 0;
+  }
+}
