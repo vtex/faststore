@@ -12,7 +12,7 @@
   --fs-list-orders-table-first-child-width-mobile  : 50%;
   --fs-list-orders-table-last-child-width          : 10%;
   --fs-list-orders-table-gap                       : 1.2rem;
-  --fs-list-orders-table-product-info-font-size    : var(--fs-text-size-base);
+  --fs-list-orders-table-product-info-text-size    : var(--fs-text-size-base);
   --fs-list-orders-table-product-info-font-weight  : var(--fs-text-weight-semibold);
   --fs-list-orders-table-product-info-margin-top   : var(--fs-spacing-1);
   --fs-list-orders-table-product-info-line-height  : var(--fs-text-size-1);
@@ -70,7 +70,7 @@
   }
 
   [data-fs-list-orders-table-product-info-order-id] {
-    font-size: var(--fs-list-orders-table-product-info-font-size);
+    font-size: var(--fs-list-orders-table-product-info-text-size);
     font-weight: var(--fs-list-orders-table-product-info-font-weight);
     vertical-align: middle;
   }
@@ -111,34 +111,21 @@
 }
 
 [data-fs-list-orders-table-pagination] {
-  // Pagination
-  --fs-list-orders-table-pagination-margin-top                    : var(--fs-spacing-3);
-  --fs-list-orders-table-pagination-button-margin-right           : var(--fs-spacing-0);
-  --fs-list-orders-table-pagination-button-border-radius          : var(--fs-border-radius-medium);
-  --fs-list-orders-table-pagination-button-hover-bg               : #efeaf54d; // var(--fs-color-accent-0) with 30% opacity
-  --fs-list-orders-table-pagination-button-active-font-weight     : var(--fs-text-weight-bold);
-  --fs-list-orders-table-pagination-button-active-color           : var(--fs-color-text-inverse);
-  --fs-list-orders-table-pagination-button-active-bg              : var(--fs-color-link);
-  --fs-list-orders-table-pagination-button-transition-property    : background-color;
-  --fs-list-orders-table-pagination-button-transition-timing      : var(--fs-transition-timing);
-  --fs-list-orders-table-pagination-button-transition-function    : var(--fs-transition-function);
+  --fs-list-orders-table-pagination-text-size      : .8rem;
 
   display: flex;
-  margin-top: var(--fs-list-orders-table-pagination-margin-top);
+  align-items: center;
+  justify-content: end;
+  font-size: var(--fs-list-orders-table-pagination-text-size);
 
   [data-fs-button] {
-    margin-right: var(--fs-list-orders-table-pagination-button-margin-right);
-    cursor: pointer;
-    border-radius: var(--fs-list-orders-table-pagination-button-border-radius);
-  }
+    [data-fs-button-wrapper] {
+      background-color: transparent;
+      transition: unset;
 
-  [data-fs-button]:not([data-fs-list-orders-table-pagination-button-active="true"]):hover {
-    background-color: var(--fs-list-orders-table-pagination-button-hover-bg);
-    transition: var(--fs-list-orders-table-pagination-button-transition-property) var(--fs-list-orders-table-pagination-button-transition-timing) var(--fs-list-orders-table-pagination-button-transition-function);
-  }
-
-  [data-fs-list-orders-table-pagination-button-active="true"] {
-    color: var(--fs-list-orders-table-pagination-button-active-color);
-    background-color: var(--fs-list-orders-table-pagination-button-active-bg);
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }

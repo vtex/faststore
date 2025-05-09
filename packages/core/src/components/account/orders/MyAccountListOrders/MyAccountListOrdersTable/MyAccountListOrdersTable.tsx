@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
 
-import { Button } from '@faststore/ui'
+import { Button, Icon } from '@faststore/ui'
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
@@ -30,28 +30,23 @@ type MyAccountListOrdersTableProps = {
   }
 }
 
-export default function MyAccountListOrdersTable({
-  listOrders,
+export function Pagination({
+  page,
   total,
   perPage,
-  filters,
-}: MyAccountListOrdersTableProps) {
+}: {
+  page: number
+  total: number
+  perPage: number
+}) {
   const router = useRouter()
 
-  const { isDesktop } = useScreenResize()
-
-  const { locale } = useSession()
-
-  const formatPrice = useCallback(
-    (value: number, currencyCode: string) => {
-      return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency: currencyCode,
-        minimumFractionDigits: 2,
-      }).format(value / 100)
-    },
-    [locale]
-  )
+  const totalPages = Math.ceil(total / perPage)
+  const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
+  const lastIndexLabel =
+    total > firstIndexLabel + perPage - 1
+      ? firstIndexLabel + perPage - 1
+      : total
 
   const handlePageChange = (newPage: number) => {
     const { page, ...rest } = router.query
@@ -65,15 +60,75 @@ export default function MyAccountListOrdersTable({
     })
   }
 
+  return (
+    <div data-fs-list-orders-table-pagination>
+      <p>{`${firstIndexLabel} — ${lastIndexLabel} of ${total}`}</p>
+      <Button
+        size="small"
+        variant="tertiary"
+        disabled={page === 1}
+        onClick={() => handlePageChange(page - 1)}
+        icon={
+          <Icon
+            width={16}
+            height={16}
+            name="CaretLeft"
+            aria-label="Previous Page"
+          />
+        }
+        iconPosition="left"
+      ></Button>
+      <Button
+        size="small"
+        variant="tertiary"
+        disabled={page === totalPages}
+        onClick={() => handlePageChange(page + 1)}
+        icon={
+          <Icon
+            width={16}
+            height={16}
+            name="CaretRight"
+            aria-label="Next Page"
+          />
+        }
+        iconPosition="left"
+      ></Button>
+    </div>
+  )
+}
+
+export default function MyAccountListOrdersTable({
+  listOrders,
+  total,
+  perPage,
+  filters,
+}: MyAccountListOrdersTableProps) {
+  const router = useRouter()
+  const { isDesktop } = useScreenResize()
+  const { locale } = useSession()
+
+  const formatPrice = useCallback(
+    (value: number, currencyCode: string) => {
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currencyCode,
+        minimumFractionDigits: 2,
+      }).format(value / 100)
+    },
+    [locale]
+  )
+
   const handleOrderDetail = ({ orderId }: { orderId: string }) => {
     router.push({
       pathname: `/account/orders/${orderId}`,
     })
   }
 
-  const totalPages = Math.ceil(total / perPage)
   return (
     <>
+      {!isDesktop && (
+        <Pagination page={filters.page} total={total} perPage={perPage} />
+      )}
       <table data-fs-list-orders-table>
         <thead data-fs-list-orders-table-header>
           <tr
@@ -162,22 +217,7 @@ export default function MyAccountListOrdersTable({
           ))}
         </tbody>
       </table>
-
-      <div data-fs-list-orders-table-pagination>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <Button
-            size="small"
-            data-fs-list-orders-table-pagination-button
-            key={i}
-            data-fs-list-orders-table-pagination-button-active={
-              i + 1 === filters?.page ? 'true' : ''
-            }
-            onClick={() => handlePageChange(i + 1)}
-          >
-            {i + 1}
-          </Button>
-        ))}
-      </div>
+      <Pagination page={filters.page} total={total} perPage={perPage} />
     </>
   )
 }
