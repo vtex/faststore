@@ -26,18 +26,19 @@ export default function MyAccountOrderDetails({
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
         <div data-fs-order-details-header-title>
-          <div data-fs-order-details-header-title-content>
-            <UIIconButton
-              size="small"
-              aria-label="Go back"
-              icon={<UIIcon name="ArrowLeft" />}
-              type="button"
-            />
+          <UIIconButton
+            data-fs-order-details-header-back-button
+            size="small"
+            aria-label="Go back"
+            icon={<UIIcon height={24} width={24} name="ArrowLeft" />}
+            type="button"
+          />
+          <div data-fs-order-details-header-title-wrapper>
             <h1 data-fs-order-details-header-title-text>
               Order #{order.orderId}
             </h1>
+            <UIBadge variant="warning">Pending approval</UIBadge>
           </div>
-          <UIBadge variant="warning">Pending approval</UIBadge>
         </div>
         <MyAccountOrderActions
           orderId={order.orderId}

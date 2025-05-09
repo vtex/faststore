@@ -60,19 +60,25 @@
 
     [data-fs-order-details-header-title] {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: var(--fs-spacing-1);
       align-items: flex-start;
 
-      @include media(">tablet") {
-        flex-flow: row wrap;
-        align-items: center;
+      [data-fs-order-details-header-back-button] {
+        flex-shrink: 0;
+        margin-top: -8px;
       }
 
-      [data-fs-order-details-header-title-content] {
+      [data-fs-order-details-header-title-wrapper] {
         display: flex;
+        flex-direction: column;
         gap: var(--fs-spacing-1);
-        align-items: center;
+        align-items: flex-start;
+
+        @include media(">tablet") {
+          flex-flow: row wrap;
+          align-items: center;
+        }
       }
 
       [data-fs-order-details-header-title-text] {
