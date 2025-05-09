@@ -115,7 +115,7 @@
   --fs-list-orders-table-pagination-margin-top                    : var(--fs-spacing-3);
   --fs-list-orders-table-pagination-button-margin-right           : var(--fs-spacing-0);
   --fs-list-orders-table-pagination-button-border-radius          : var(--fs-border-radius-medium);
-  --fs-list-orders-table-pagination-button-hover-bg               : #efeaf54d; // var(--fs-color-accent-0) with 30% opacity
+  --fs-list-orders-table-pagination-button-hover-bg               : rgba(var(--fs-color-accent-0), 0.3);
   --fs-list-orders-table-pagination-button-active-font-weight     : var(--fs-text-weight-bold);
   --fs-list-orders-table-pagination-button-active-color           : var(--fs-color-text-inverse);
   --fs-list-orders-table-pagination-button-active-bg              : var(--fs-color-link);
