@@ -20,13 +20,16 @@ export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
 }
 
+// This constant is used to determine if we should go back in history or redirect to the orders page
+const MIN_HISTORY_LENGTH_TO_GO_BACK = 2
+
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
   const router = useRouter()
 
   const handleBack = () => {
-    if (window.history.length > 2) {
+    if (window.history.length > MIN_HISTORY_LENGTH_TO_GO_BACK) {
       router.back()
     } else {
       router.push('/account/orders')
