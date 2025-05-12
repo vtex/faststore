@@ -94,6 +94,8 @@ function NavbarSection({
   )
 }
 
+NavbarSection.$componentKey = 'Navbar'
+
 const OverridableNavbar = getOverridableSection<typeof NavbarSection>(
   'Navbar',
   NavbarSection,

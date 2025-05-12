@@ -90,4 +90,6 @@ const Footer = ({
   )
 }
 
+Footer.$componentKey = 'Footer'
+
 export default Footer
