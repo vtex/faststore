@@ -1,0 +1,153 @@
+[data-fs-list-orders-table] {
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  --fs-list-orders-table-font-size                 : var(--fs-text-size-tiny);
+  --fs-list-orders-table-header-padding            : var(--fs-spacing-4) var(--fs-spacing-2) var(--fs-spacing-3);
+  --fs-list-orders-table-header-font-weight        : var(--fs-text-weight-medium);
+  --fs-list-orders-table-header-line-height        : var(--fs-text-size-1);
+  --fs-list-orders-table-header-color              : var(--fs-color-neutral-6);
+  --fs-list-orders-table-first-child-width         : 20%;
+  --fs-list-orders-table-first-child-width-mobile  : 30%;
+  --fs-list-orders-table-last-child-width          : 10%;
+  --fs-list-orders-table-gap                       : 1.2rem;
+  --fs-list-orders-table-product-info-text-size    : var(--fs-text-size-base);
+  --fs-list-orders-table-product-info-font-weight  : var(--fs-text-weight-semibold);
+  --fs-list-orders-table-product-info-margin-top   : var(--fs-spacing-1);
+  --fs-list-orders-table-product-info-line-height  : var(--fs-text-size-1);
+  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2);
+  --fs-list-orders-table-cell-padding-mobile       : var(--fs-spacing-3) var(--fs-spacing-1);
+  --fs-list-orders-table-cell-color                : var(--fs-color-neutral-6);
+  --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-color-neutral-3);
+  --fs-list-orders-table-row-hover-bg              : color-mix(in srgb, var(--fs-color-accent-0) 30%, transparent);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: 100%;
+  margin: 0 auto;
+  font-size: var(--fs-list-orders-table-font-size);
+  vertical-align: middle;
+  border-collapse: collapse;
+  border: none;
+
+  [data-fs-list-orders-table-header] [data-fs-list-orders-table-header-cell] {
+    @include media("<notebook") {
+      padding: 0;
+    }
+
+    padding: var(--fs-list-orders-table-header-padding);
+    font-weight: var(--fs-list-orders-table-header-font-weight);
+    line-height: var(--fs-list-orders-table-header-line-height);
+    color: var(--fs-list-orders-table-header-color);
+    cursor: default;
+  }
+
+  [data-fs-list-orders-table-header-cell]:first-child, [data-fs-list-orders-table-cell]:first-child {
+    width: var(--fs-list-orders-table-first-child-width);
+
+    @include media("<notebook") {
+      display: flex;
+      align-items: center;
+      width: var(--fs-list-orders-table-first-child-width-mobile);
+    }
+  }
+
+  [data-fs-list-orders-table-header-cell]:last-child,[data-fs-list-orders-table-cell]:last-child {
+    width: var(--fs-list-orders-table-last-child-width);
+
+    @include media("<notebook") {
+      display: flex;
+      flex-direction: column;
+      gap: var(--fs-list-orders-table-gap);
+      align-items: flex-end;
+      justify-content: flex-end;
+      width: auto;
+    }
+  }
+
+  [data-fs-list-orders-table-product-info-order-id], [data-fs-list-orders-table-product-info-order-date], [data-fs-list-orders-table-product-info-order-total] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-list-orders-table-product-info-order-id] {
+    font-size: var(--fs-list-orders-table-product-info-text-size);
+    font-weight: var(--fs-list-orders-table-product-info-font-weight);
+    vertical-align: middle;
+  }
+
+  [data-fs-list-orders-table-product-info-order-date] {
+    margin-top: var(--fs-list-orders-table-product-info-margin-top);
+    line-height: var(--fs-list-orders-table-product-info-line-height);
+  }
+
+  [data-fs-list-orders-table-header-cell], [data-fs-list-orders-table-cell] {
+    padding: var(--fs-list-orders-table-cell-padding);
+    text-align: left;
+    border: none;
+
+    @include media("<notebook") {
+      padding: var(--fs-list-orders-table-cell-padding-mobile);
+    }
+  }
+
+  [data-fs-list-orders-table-cell]:not(:first-child):not(:last-child) {
+    color: var(--fs-list-orders-table-cell-color);
+  }
+
+  [data-fs-list-orders-table-row] {
+    cursor: pointer;
+    border-bottom: var(--fs-list-orders-table-row-border-bottom);
+    transition: background-color 0.5s ease;
+
+    @include media("<notebook") {
+      display: flex;
+      justify-content: space-between;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  [data-fs-list-orders-table-body-row]:hover, [data-fs-list-orders-table-body-row]:focus {
+    background-color: var(--fs-list-orders-table-row-hover-bg);
+  }
+}
+
+[data-fs-list-orders-table-pagination] {
+  --fs-list-orders-table-pagination-text-size   : .8rem;
+  --fs-list-orders-table-pagination-box-shadow  : 0 -4px 8px rgb(0 0 0 / 5%);
+  --fs-list-orders-table-pagination-bkg-color   : var(--fs-body-bkg);
+  --fs-list-orders-table-pagination-padding     : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-0);
+
+  @include media("<notebook") {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--fs-list-orders-table-pagination-padding);
+    background-color: var(--fs-list-orders-table-pagination-bkg-color);
+    box-shadow: var(--fs-list-orders-table-pagination-box-shadow);
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: var(--fs-list-orders-table-pagination-text-size);
+
+  [data-fs-button] {
+    [data-fs-button-wrapper] {
+      background-color: transparent;
+      transition: unset;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}
