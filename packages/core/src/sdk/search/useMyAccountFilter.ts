@@ -140,8 +140,10 @@ export const useMyAccountFilter = ({
             ...facet,
             values: facet.values.map(({ value, ...rest }) => ({
               ...rest,
-              value,
-              selected: Boolean(selectedMap.get(facet.key)?.has(value)),
+              value: value.toLowerCase(),
+              selected: Boolean(
+                selectedMap.get(facet.key)?.has(value.toLowerCase())
+              ),
             })),
           }
         }

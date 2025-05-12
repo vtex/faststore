@@ -1,6 +1,6 @@
 import { Button } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
-import { type OrderStatusKey, orderStatusMap } from 'src/utils/userOrderStatus'
+import { FastStoreOrderStatusWithLabels } from 'src/utils/userOrderStatus'
 
 type MyAccountSelectedTagsProps = {
   filters: {
@@ -59,7 +59,11 @@ function Tags({
 
   const statusTags = (status || []).map((value) => (
     <div key={`status-${value}`} data-fs-list-orders-selected-tag>
-      <span>{orderStatusMap[value as OrderStatusKey]?.label || value}</span>
+      <span>
+        {FastStoreOrderStatusWithLabels[
+          value.toLowerCase() as keyof typeof FastStoreOrderStatusWithLabels
+        ] || value}
+      </span>
       <button
         data-fs-list-orders-selected-tag-clear
         onClick={() => onRemoveFilter('status', value)}

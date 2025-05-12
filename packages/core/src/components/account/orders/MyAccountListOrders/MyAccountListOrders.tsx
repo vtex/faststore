@@ -18,6 +18,7 @@ import {
   type MyAccountFilter_FacetsFragment,
   type SelectedFacet,
 } from 'src/sdk/search/useMyAccountFilter'
+import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
 import MyAccountListOrdersTable from './MyAccountListOrdersTable/MyAccountListOrdersTable'
 import SelectedFiltersTags from './MyAccountSelectedTags/MyAccountSelectedTags'
 import styles from './styles.module.scss'
@@ -54,7 +55,7 @@ function getSelectedFacets({
       acc.push(
         ...status.map((statusValue) => ({
           key: 'status',
-          value: statusValue,
+          value: statusValue.toLowerCase(),
         }))
       )
     } else if (filter === 'dateInitial' && value) {
@@ -73,7 +74,6 @@ function getSelectedFacets({
   }, [] as SelectedFacet[])
 }
 
-// TODO: map all the statuses from API to the facets
 function getAllFacets({
   filters,
 }: {
@@ -84,38 +84,12 @@ function getAllFacets({
       __typename: 'StoreFacetBoolean',
       key: 'status',
       label: 'Status',
-      values: [
-        {
-          label: 'Order placed',
-          quantity: 0,
-          selected: false,
-          value: 'order-placed',
-        },
-        {
-          label: 'Pending approval',
-          quantity: 0,
-          selected: false,
-          value: 'pending-approval',
-        },
-        {
-          label: 'Payment authorized',
-          quantity: 0,
-          selected: false,
-          value: 'payment-authorized',
-        },
-        {
-          label: 'Handling',
-          quantity: 0,
-          selected: false,
-          value: 'handling',
-        },
-        {
-          label: 'Shipping',
-          quantity: 0,
-          selected: false,
-          value: 'shipping',
-        },
-      ],
+      values: FastStoreOrderStatus.map((status) => ({
+        label: status,
+        quantity: 0,
+        selected: false,
+        value: status.toLowerCase(),
+      })),
     },
     {
       __typename: 'StoreFacetRange',
@@ -242,7 +216,9 @@ export default function MyAccountListOrders({
           const { page, clientEmail, ...updatedFilters } = { ...filters }
 
           if (key === 'status' && Array.isArray(updatedFilters[key])) {
-            updatedFilters[key] = updatedFilters[key].filter((v) => v !== value)
+            updatedFilters[key] = updatedFilters[key].filter(
+              (v) => v.toLowerCase() !== value.toLowerCase()
+            )
           } else if (key === 'dateInitial' || key === 'dateFinal') {
             delete updatedFilters.dateInitial
             delete updatedFilters.dateFinal
