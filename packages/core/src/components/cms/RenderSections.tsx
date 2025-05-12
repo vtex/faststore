@@ -96,7 +96,7 @@ export const RenderSectionsBase = ({
   return (
     <>
       {sections.map(({ name, data = {}, $componentKey }, index) => {
-        const key = $componentKey ?? name // Changes need to made here:
+        const key = $componentKey ?? name
         const Component = components[key]
 
         if (!Component) {
