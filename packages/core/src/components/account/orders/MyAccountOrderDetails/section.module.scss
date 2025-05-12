@@ -4,13 +4,12 @@
   @import "@faststore/ui/src/components/atoms/Button/styles.scss";
   @import "@faststore/ui/src/components/molecules/Card/styles.scss";
   @import "../../components/MyAccountCard/styles.scss";
+  @import "../../components/MyAccountAccordion/styles.scss";
   @import "./MyAccountSummaryCard/styles.scss";
   @import "./MyAccountOrderedByCard/styles.scss";
+  @import "./MyAccountDeliveryCard/styles.scss";
   @import "./MyAccountPaymentCard/styles.scss";
-
-  // TODO create components styles
-  // @import "./MyAccountDeliveryCard/styles.scss";
-  // @import "./MyAccountStatusCard/styles.scss";
+  @import "./MyAccountDeliveryOptionAccordion/styles.scss";
 
   // --------------------------------------------------------
   // Design Tokens
@@ -96,6 +95,10 @@
     }
 
     [data-fs-order-status-card] {
+      grid-column: span 2;
+    }
+
+    [data-fs-delivery-option-accordion] {
       grid-column: span 2;
     }
   }

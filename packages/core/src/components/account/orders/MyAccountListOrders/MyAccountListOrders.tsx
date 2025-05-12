@@ -10,8 +10,9 @@ import {
   useUI,
   type SearchInputFieldRef,
 } from '@faststore/ui'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import MyAccountFilterSlider from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider'
+import { useDebounce } from 'src/sdk/account/useDebounce'
 import {
   useMyAccountFilter,
   type MyAccountFilter_FacetsFragment,
@@ -33,28 +34,6 @@ export type MyAccountListOrdersProps = {
     text: string
     clientEmail: string
   }
-}
-
-const useDebounce = (
-  callback: (value: string) => void,
-  delay: number,
-  initialValue: string
-) => {
-  const [debouncedValue, setDebouncedValue] = useState<string>(initialValue)
-
-  useEffect(() => {
-    if (debouncedValue === initialValue) return
-
-    const handler = setTimeout(() => {
-      callback(debouncedValue)
-    }, delay)
-
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [debouncedValue])
-
-  return setDebouncedValue
 }
 
 function getSelectedFacets({

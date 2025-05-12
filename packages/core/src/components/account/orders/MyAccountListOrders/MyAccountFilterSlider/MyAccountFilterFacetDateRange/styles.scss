@@ -18,9 +18,9 @@
     [data-fs-input-field] {
       width: var(--fs-list-orders-filters-date-range-input-width);
 
-      input:hover,
-      input:focus-visible,
-      input:focus {
+      [data-fs-input]:hover,
+      [data-fs-input]:focus-visible,
+      [data-fs-input]:focus {
         z-index: 1;
         + label { z-index: 1; }
       }
@@ -28,13 +28,13 @@
       &:first-of-type {
         margin-right: -1px;
 
-        input {
+        [data-fs-input] {
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
         }
       }
 
-      &:last-of-type input {
+      &:last-of-type [data-fs-input] {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }

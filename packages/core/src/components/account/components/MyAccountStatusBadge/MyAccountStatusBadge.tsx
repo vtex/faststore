@@ -5,11 +5,10 @@ import {
 } from 'src/utils/userOrderStatus'
 
 function getStatusVariant({ status }: { status: string }) {
-  const variant =
+  return (
     (orderStatusMap[status as OrderStatusKey] as OrderStatusMapValue)
       ?.variant || 'neutral'
-
-  return variant.charAt(0).toUpperCase() + variant.slice(1)
+  )
 }
 
 function MyAccountStatusBadge({
