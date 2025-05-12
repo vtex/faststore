@@ -23,8 +23,6 @@ export class ContentService {
   constructor() {
     this.clientCP = new ClientCP({
       tenant: config.api.storeId,
-      controlPlaneBaseUrl: config.contentSource.controlPlaneApiUrl,
-      dataPlaneBaseUrl: config.contentSource.dataPlaneApiUrl,
     })
   }
 

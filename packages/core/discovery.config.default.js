@@ -126,8 +126,6 @@ module.exports = {
 
   contentSource: {
     type: 'CMS',
-    controlPlaneApiUrl: null,
-    dataPlaneApiUrl: null,
   },
 
   experimental: {
