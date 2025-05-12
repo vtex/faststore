@@ -187,107 +187,114 @@ export default function MyAccountListOrders({
 
   return (
     <div className={styles.page}>
-      <h1 data-fs-list-orders-title>Orders</h1>
-      <div data-fs-list-orders-header>
-        <div data-fs-list-orders-search-filters>
-          <SearchInputField
-            ref={searchInputRef}
-            data-fs-search-input-field-list-orders
-            placeholder="Search"
-            onBlur={(_) => {
-              handleSearchChange(searchInputRef.current.inputRef.value)
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+      <div data-fs-list-orders>
+        <h1 data-fs-list-orders-title>Orders</h1>
+        <div data-fs-list-orders-header>
+          <div data-fs-list-orders-search-filters>
+            <SearchInputField
+              ref={searchInputRef}
+              data-fs-search-input-field-list-orders
+              placeholder="Search"
+              onBlur={(_) => {
                 handleSearchChange(searchInputRef.current.inputRef.value)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearchChange(searchInputRef.current.inputRef.value)
+                }
+              }}
+              onSubmit={(_) => {
+                handleSearchChange(searchInputRef.current.inputRef.value)
+              }}
+            />
+            <Button
+              data-fs-list-orders-search-filters-button
+              variant="tertiary"
+              icon={
+                <Icon
+                  width={16}
+                  height={16}
+                  name="FadersHorizontal"
+                  aria-label="Open Filters"
+                />
               }
-            }}
-            onSubmit={(_) => {
-              handleSearchChange(searchInputRef.current.inputRef.value)
-            }}
-          />
-          <Button
-            data-fs-list-orders-search-filters-button
-            variant="tertiary"
-            icon={
-              <Icon
-                width={16}
-                height={16}
-                name="FadersHorizontal"
-                aria-label="Open Filters"
-              />
-            }
-            iconPosition="left"
-            onClick={() => {
-              filter.dispatch({
-                type: 'selectFacets',
-                payload: getSelectedFacets({ filters }),
-              })
-              openFilter()
-            }}
-          >
-            Filters
-          </Button>
+              iconPosition="left"
+              onClick={() => {
+                filter.dispatch({
+                  type: 'selectFacets',
+                  payload: getSelectedFacets({ filters }),
+                })
+                openFilter()
+              }}
+            >
+              Filters
+            </Button>
+          </div>
+          {isDesktop && (
+            <Pagination page={filters.page} total={total} perPage={perPage} />
+          )}
         </div>
-        {isDesktop && (
-          <Pagination page={filters.page} total={total} perPage={perPage} />
-        )}
-      </div>
 
-      <SelectedFiltersTags
-        filters={{
-          status: filters.status,
-          dateInitial: filters.dateInitial,
-          dateFinal: filters.dateFinal,
-        }}
-        onClearAll={() => {
-          router.push({
-            pathname: '/account/orders',
-            query: {},
-          })
-        }}
-        onRemoveFilter={(key, value) => {
-          const { page, clientEmail, ...updatedFilters } = { ...filters }
+        <SelectedFiltersTags
+          filters={{
+            status: filters.status,
+            dateInitial: filters.dateInitial,
+            dateFinal: filters.dateFinal,
+          }}
+          onClearAll={() => {
+            router.push({
+              pathname: '/account/orders',
+              query: {},
+            })
+          }}
+          onRemoveFilter={(key, value) => {
+            const { page, clientEmail, ...updatedFilters } = { ...filters }
 
-          if (key === 'status' && Array.isArray(updatedFilters[key])) {
-            updatedFilters[key] = updatedFilters[key].filter((v) => v !== value)
-          } else if (key === 'dateInitial' || key === 'dateFinal') {
-            delete updatedFilters.dateInitial
-            delete updatedFilters.dateFinal
-          } else {
-            delete updatedFilters[key]
-          }
+            if (key === 'status' && Array.isArray(updatedFilters[key])) {
+              updatedFilters[key] = updatedFilters[key].filter(
+                (v) => v !== value
+              )
+            } else if (key === 'dateInitial' || key === 'dateFinal') {
+              delete updatedFilters.dateInitial
+              delete updatedFilters.dateFinal
+            } else {
+              delete updatedFilters[key]
+            }
 
-          // Remove filters with no values
-          const filteredQuery = Object.fromEntries(
-            Object.entries(updatedFilters).filter(([, v]) =>
-              Array.isArray(v) ? v.length > 0 : Boolean(v)
+            // Remove filters with no values
+            const filteredQuery = Object.fromEntries(
+              Object.entries(updatedFilters).filter(([, v]) =>
+                Array.isArray(v) ? v.length > 0 : Boolean(v)
+              )
             )
-          )
 
-          router.push({
-            pathname: '/account/orders',
-            query: filteredQuery,
-          })
-        }}
-      />
-
-      {displayFilter && (
-        <MyAccountFilterSlider
-          {...filter}
-          title="Filters"
-          clearButtonLabel="Clear All"
-          applyButtonLabel="View Results"
-          searchInputRef={searchInputRef}
+            router.push({
+              pathname: '/account/orders',
+              query: filteredQuery,
+            })
+          }}
         />
-      )}
 
-      <MyAccountListOrdersTable
-        listOrders={listOrders}
-        total={total}
-        perPage={perPage}
-        filters={filters}
-      />
+        {displayFilter && (
+          <MyAccountFilterSlider
+            {...filter}
+            title="Filters"
+            clearButtonLabel="Clear All"
+            applyButtonLabel="View Results"
+            searchInputRef={searchInputRef}
+          />
+        )}
+
+        <MyAccountListOrdersTable
+          listOrders={listOrders}
+          total={total}
+          perPage={perPage}
+          filters={filters}
+        />
+      </div>
+      {!isDesktop && (
+        <Pagination page={filters.page} total={total} perPage={perPage} />
+      )}
     </div>
   )
 }

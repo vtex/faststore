@@ -29,7 +29,13 @@
   --fs-list-orders-filter-button-height               : 2.375rem;
   --fs-list-orders-filter-button-margin-left          : 0.6rem;
 
-  padding: var(--fs-list-orders-padding);
+  [data-fs-list-orders] {
+    padding: var(--fs-list-orders-padding);
+
+    @include media("<notebook") {
+      padding-bottom: 0;
+    }
+  }
 
   [data-fs-list-orders-title] {
     margin-bottom: var(--fs-list-orders-title-margin-bottom);

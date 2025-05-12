@@ -132,13 +132,6 @@ export default function MyAccountListOrdersTable({
             )}
             <th data-fs-list-orders-table-header-cell>
               {isDesktop && <>Status</>}
-              {!isDesktop && (
-                <Pagination
-                  page={filters.page}
-                  total={total}
-                  perPage={perPage}
-                />
-              )}
             </th>
           </tr>
         </thead>
@@ -209,7 +202,9 @@ export default function MyAccountListOrdersTable({
           ))}
         </tbody>
       </table>
-      <Pagination page={filters.page} total={total} perPage={perPage} />
+      {isDesktop && (
+        <Pagination page={filters.page} total={total} perPage={perPage} />
+      )}
     </>
   )
 }

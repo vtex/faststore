@@ -107,6 +107,10 @@
     @include media("<notebook") {
       display: flex;
       justify-content: space-between;
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 
@@ -116,7 +120,20 @@
 }
 
 [data-fs-list-orders-table-pagination] {
-  --fs-list-orders-table-pagination-text-size      : .8rem;
+  --fs-list-orders-table-pagination-text-size   : .8rem;
+  --fs-list-orders-table-pagination-box-shadow  : 0 -4px 8px rgb(0 0 0 / 5%);
+  --fs-list-orders-table-pagination-bkg-color   : var(--fs-body-bkg);
+  --fs-list-orders-table-pagination-padding     : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-0);
+
+  @include media("<notebook") {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--fs-list-orders-table-pagination-padding);
+    background-color: var(--fs-list-orders-table-pagination-bkg-color);
+    box-shadow: var(--fs-list-orders-table-pagination-box-shadow);
+  }
 
   display: flex;
   align-items: center;
