@@ -1,9 +1,8 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
-import RenderSections, {
-  getComponentKey,
-} from 'src/components/cms/RenderSections'
+import RenderSections from 'src/components/cms/RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'

@@ -7,9 +7,8 @@ import {
 } from 'src/components/cms/GlobalSections'
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections, {
-  getComponentKey,
-} from 'src/components/cms/RenderSections'
+import RenderSections from 'src/components/cms/RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'

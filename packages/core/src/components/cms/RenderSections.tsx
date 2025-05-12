@@ -21,15 +21,6 @@ interface Props {
   isInteractive?: boolean
 }
 
-export type ComponentTypeWithComponentKey<T> = ComponentType<T> & {
-  $componentKey?: string
-}
-
-export const getComponentKey = (
-  Component: ComponentTypeWithComponentKey<any>,
-  name: string
-) => Component.$componentKey ?? name
-
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
 
 const Toast = dynamic(
