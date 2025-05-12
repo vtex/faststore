@@ -11,9 +11,8 @@ import type {
   ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections, {
-  getComponentKey,
-} from 'src/components/cms/RenderSections'
+import RenderSections from 'src/components/cms/RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'

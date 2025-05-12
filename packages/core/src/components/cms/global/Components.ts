@@ -8,8 +8,7 @@ import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-
-import { getComponentKey } from '../RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 
 const CartSidebar = dynamic(
   () =>
