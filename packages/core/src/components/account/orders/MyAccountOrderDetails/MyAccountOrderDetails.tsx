@@ -1,18 +1,18 @@
 import {
-  Badge as UIBadge,
   Button as UIButton,
   Icon as UIIcon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
+import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
-import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import router from 'next/router'
+import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import styles from './section.module.scss'
 
 export interface MyAccountOrderDetailsProps {
@@ -35,7 +35,10 @@ export default function MyAccountOrderDetails({
           <h1 data-fs-order-details-header-title-text>
             Order #{order.orderId}
           </h1>
-          <UIBadge variant="warning">Pending approval</UIBadge>
+          <MyAccountStatusBadge
+            status={order.status}
+            statusFallback={order.statusDescription}
+          />
         </div>
         <div data-fs-order-details-header-actions>
           <UIButton variant="secondary" size="small">
