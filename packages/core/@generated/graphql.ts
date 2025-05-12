@@ -3836,7 +3836,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'ccfd2fa59ee18399b9cdb47b8d4667b526cecd6f',
+    operationHash: 'd5be27211cd5919c341c860a81dd85dfe305d752',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
