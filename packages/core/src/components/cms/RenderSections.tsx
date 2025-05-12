@@ -25,15 +25,6 @@ interface Props {
 
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal', 'RegionSlider']
 
-export type ComponentTypeWithComponentKey<T> = ComponentType<T> & {
-  $componentKey?: string
-}
-
-export const getComponentKey = (
-  Component: ComponentTypeWithComponentKey<any>,
-  name: string
-) => Component.$componentKey ?? name
-
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
   { ssr: false }

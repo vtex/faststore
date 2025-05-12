@@ -7,7 +7,7 @@ import { OverriddenDefaultProductGallery as ProductGallery } from 'src/component
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
-import { getComponentKey } from '../RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 
 const BannerText = dynamic(
   () =>
