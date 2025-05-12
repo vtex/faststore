@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.43.0](https://github.com/vtex/faststore/compare/v3.42.0...v3.43.0) (2025-05-12)
+
+### Features
+
+- [CP-432] [CP-433] Adding CP integration as a data source alternative to hCMS ([#2807](https://github.com/vtex/faststore/issues/2807)) ([122e2d9](https://github.com/vtex/faststore/commit/122e2d94cb94a6edc9726a3be8d83e62fa44a51e)), closes [/github.com/vtex/faststore/pull/2807/files#diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR141](https://github.com//github.com/vtex/faststore/pull/2807/files/issues/diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR141) [/github.com/vtex/faststore/pull/2807/files#diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608R91](https://github.com//github.com/vtex/faststore/pull/2807/files/issues/diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608R91) [/github.com/vtex/faststore/pull/2807/files#diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR24](https://github.com//github.com/vtex/faststore/pull/2807/files/issues/diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR24)
+
 # [3.42.0](https://github.com/vtex/faststore/compare/v3.41.9...v3.42.0) (2025-05-08)
 
 ### Features
