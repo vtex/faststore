@@ -1,10 +1,9 @@
-import { useCallback } from 'react'
-
+import { Button, Icon } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
 
-import { Button, Icon } from '@faststore/ui'
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
+import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
@@ -40,7 +39,6 @@ export function Pagination({
   perPage: number
 }) {
   const router = useRouter()
-
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
   const lastIndexLabel =
@@ -106,17 +104,7 @@ export default function MyAccountListOrdersTable({
   const router = useRouter()
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
-
-  const formatPrice = useCallback(
-    (value: number, currencyCode: string) => {
-      return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency: currencyCode,
-        minimumFractionDigits: 2,
-      }).format(value / 100)
-    },
-    [locale]
-  )
+  const formatPrice = useFormatPrice()
 
   const handleOrderDetail = ({ orderId }: { orderId: string }) => {
     router.push({

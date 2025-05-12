@@ -3,17 +3,22 @@
   // Design Tokens
   // --------------------------------------------------------
 
+  // SITUATIONS
+  --fs-color-success-bkg: #e9fce3;
+  --fs-color-warning-bkg: #ffedcd;
+  --fs-color-neutral-bkg: #f5f5f5;
+
   --fs-my-account-badge-padding                                  : var(--fs-spacing-0) var(--fs-spacing-2);
   --fs-my-account-badge-line-height                              : 1;
   --fs-my-account-badge-color                                    : var(--fs-color-text);
   --fs-my-account-badge-border                                   : 1px none transparent;
   --fs-my-account-badge-border-radius                            : var(--fs-border-radius-pill);
-  --fs-my-account-badge-success-bg                               : #e9fce3;
-  --fs-my-account-badge-success-border                           : #e9fce3;
-  --fs-my-account-badge-warning-bg                               : #ffedcd;
-  --fs-my-account-badge-warning-border                           : #ffedcd;
-  --fs-my-account-badge-neutral-bg                               : #f5f5f5;
-  --fs-my-account-badge-neutral-border                           : #f5f5f5;
+  --fs-my-account-badge-success-bkg                              : var(--fs-color-success-bkg);
+  --fs-my-account-badge-success-border                           : var(--fs-color-success-bkg);
+  --fs-my-account-badge-warning-bkg                              : var(--fs-color-warning-bkg);
+  --fs-my-account-badge-warning-border                           : var(--fs-color-warning-bkg);
+  --fs-my-account-badge-neutral-bkg                              : var(--fs-color-neutral-bkg);
+  --fs-my-account-badge-neutral-border                           : var(--fs-color-neutral-bkg);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -31,17 +36,17 @@
   border-radius: var(--fs-my-account-badge-border-radius);
 }
 
-[data-fs-my-account-badge][data-fs-my-account-badge-variant="Success"] {
-  background-color: var(--fs-my-account-badge-success-bg);
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="success"] {
+  background-color: var(--fs-my-account-badge-success-bkg);
   border-color: var(--fs-my-account-badge-success-border);
 }
 
-[data-fs-my-account-badge][data-fs-my-account-badge-variant="Warning"] {
-  background-color: var(--fs-my-account-badge-warning-bg);
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="warning"] {
+  background-color: var(--fs-my-account-badge-warning-bkg);
   border-color: var(--fs-my-account-badge-warning-border);
 }
 
-[data-fs-my-account-badge][data-fs-my-account-badge-variant="Neutral"] {
-  background-color: var(--fs-my-account-badge-neutral-bg);
+[data-fs-my-account-badge][data-fs-my-account-badge-variant="neutral"] {
+  background-color: var(--fs-my-account-badge-neutral-bkg);
   border-color: var(--fs-my-account-badge-neutral-border);
 }
