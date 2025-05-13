@@ -33,7 +33,6 @@ if (packageJson.devDependencies[packageToResolve]) {
   console.info(
     `${packageToResolve} is not a dependence of the specified project`
   )
-  // process.exit(0)
 }
 
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
