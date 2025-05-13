@@ -13,7 +13,8 @@
   border-collapse: collapse;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 0.5rem;
   text-align: left;
   border: 1px solid #ccc;
@@ -32,12 +33,4 @@
   font-weight: bold;
   color: white;
   background-color: #0070f3;
-}
-
-.title {
-  font-size: var(--fs-text-size-3);
-  font-weight: var(--fs-text-weight-semibold);
-  line-height: var(--fs-spacing-5);
-  color: black;
-  letter-spacing: -4%;
 }

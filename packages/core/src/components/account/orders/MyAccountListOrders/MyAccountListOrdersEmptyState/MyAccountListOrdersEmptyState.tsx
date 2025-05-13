@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import { Icon } from '@faststore/ui'
 
 import styles from './styles.module.scss'
-import { Icon } from '@faststore/ui'
 
 export default function MyAccountListOrdersEmptyState() {
   return (
