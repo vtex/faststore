@@ -29,12 +29,24 @@
   --fs-list-orders-filter-button-height               : 2.375rem;
   --fs-list-orders-filter-button-margin-left          : 0.6rem;
 
-  padding: var(--fs-list-orders-padding);
+  [data-fs-list-orders] {
+    padding: var(--fs-list-orders-padding);
+
+    @include media("<notebook") {
+      padding-bottom: 0;
+    }
+  }
 
   [data-fs-list-orders-title] {
     margin-bottom: var(--fs-list-orders-title-margin-bottom);
     font-size: var(--fs-list-orders-title-font-size);
     font-weight: var(--fs-list-orders-title-font-weight);
+  }
+
+  [data-fs-list-orders-header] {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
   }
 
   [data-fs-list-orders-search-filters] {

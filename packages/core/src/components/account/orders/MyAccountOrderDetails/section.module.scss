@@ -11,6 +11,7 @@
   @import "./MyAccountDeliveryCard/styles.scss";
   @import "./MyAccountPaymentCard/styles.scss";
   @import "./MyAccountDeliveryOptionAccordion/styles.scss";
+  @import "./MyAccountOrderActions/styles.scss";
 
   // --------------------------------------------------------
   // Design Tokens
@@ -49,24 +50,36 @@
     padding: var(--fs-order-details-header-padding);
     margin-bottom: var(--fs-order-details-header-margin-bottom);
 
-    @include media (">=notebook") {
+    @include media (">tablet") {
       --fs-order-details-header-gap                 : var(--fs-spacing-2);
       --fs-order-details-header-margin-bottom       : 0;
       --fs-order-details-header-padding             : var(--fs-spacing-6) 0;
 
-      flex-flow: row wrap;
-      align-items: center;
+      flex-flow: row;
+      align-items: flex-start;
     }
 
     [data-fs-order-details-header-title] {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: var(--fs-spacing-1);
       align-items: flex-start;
 
-      @include media(">=tablet") {
-        flex-flow: row wrap;
-        align-items: center;
+      [data-fs-order-details-header-back-button] {
+        flex-shrink: 0;
+        margin-top: -8px;
+      }
+
+      [data-fs-order-details-header-title-wrapper] {
+        display: flex;
+        flex-direction: column;
+        gap: var(--fs-spacing-1);
+        align-items: flex-start;
+
+        @include media(">tablet") {
+          flex-flow: row wrap;
+          align-items: center;
+        }
       }
 
       [data-fs-order-details-header-title-text] {
@@ -74,14 +87,8 @@
         font-weight: var(--fs-order-details-header-weight);
         line-height: var(--fs-order-details-header-line-height);
 
-        @include truncate-title;
+        @include truncate-title(1);
       }
-    }
-
-    [data-fs-order-details-header-actions] {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
     }
   }
 

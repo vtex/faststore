@@ -1,17 +1,14 @@
-import {
-  Button as UIButton,
-  Icon as UIIcon,
-  IconButton as UIIconButton,
-} from '@faststore/ui'
+import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
+import MyAccountOrderActions from './MyAccountOrderActions'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import styles from './section.module.scss'
 
@@ -19,18 +16,33 @@ export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
 }
 
+// This constant is used to determine if we should go back in history or redirect to the orders page
+const MIN_HISTORY_LENGTH_TO_GO_BACK = 2
+
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
+  const router = useRouter()
+
+  const handleBack = () => {
+    if (window.history.length > MIN_HISTORY_LENGTH_TO_GO_BACK) {
+      router.back()
+    } else {
+      router.push('/account/orders')
+    }
+  }
+
   return (
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
         <div data-fs-order-details-header-title>
           <UIIconButton
+            data-fs-order-details-header-back-button
             size="small"
             aria-label="Go back"
-            icon={<UIIcon name="ArrowLeft" />}
-            onClick={() => router.push('/account/orders')}
+            icon={<UIIcon height={24} width={24} name="ArrowLeft" />}
+            type="button"
+            onClick={handleBack}
           />
           <h1 data-fs-order-details-header-title-text>
             Order #{order.orderId}
@@ -40,25 +52,10 @@ export default function MyAccountOrderDetails({
             statusFallback={order.statusDescription}
           />
         </div>
-        <div data-fs-order-details-header-actions>
-          <UIButton variant="secondary" size="small">
-            Cancel order
-          </UIButton>
-          <UIButton
-            variant="secondary"
-            size="small"
-            icon={<UIIcon name="XCircle" />}
-          >
-            Reject
-          </UIButton>
-          <UIButton
-            variant="primary"
-            size="small"
-            icon={<UIIcon name="CircleCheck" />}
-          >
-            Approve
-          </UIButton>
-        </div>
+        <MyAccountOrderActions
+          orderId={order.orderId}
+          customerEmail={order.clientProfileData?.email}
+        />
       </header>
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />

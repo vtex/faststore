@@ -9,10 +9,10 @@
   --fs-list-orders-table-header-line-height        : var(--fs-text-size-1);
   --fs-list-orders-table-header-color              : var(--fs-color-neutral-6);
   --fs-list-orders-table-first-child-width         : 20%;
-  --fs-list-orders-table-first-child-width-mobile  : 50%;
+  --fs-list-orders-table-first-child-width-mobile  : 30%;
   --fs-list-orders-table-last-child-width          : 10%;
   --fs-list-orders-table-gap                       : 1.2rem;
-  --fs-list-orders-table-product-info-font-size    : var(--fs-text-size-base);
+  --fs-list-orders-table-product-info-text-size    : var(--fs-text-size-base);
   --fs-list-orders-table-product-info-font-weight  : var(--fs-text-weight-semibold);
   --fs-list-orders-table-product-info-margin-top   : var(--fs-spacing-1);
   --fs-list-orders-table-product-info-line-height  : var(--fs-text-size-1);
@@ -20,7 +20,7 @@
   --fs-list-orders-table-cell-padding-mobile       : var(--fs-spacing-3) var(--fs-spacing-1);
   --fs-list-orders-table-cell-color                : var(--fs-color-neutral-6);
   --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-color-neutral-3);
-  --fs-list-orders-table-row-hover-bg              : #efeaf54d; // var(--fs-color-accent-0) with 30% opacity
+  --fs-list-orders-table-row-hover-bg              : color-mix(in srgb, var(--fs-color-accent-0) 30%, transparent);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -34,6 +34,10 @@
   border: none;
 
   [data-fs-list-orders-table-header] [data-fs-list-orders-table-header-cell] {
+    @include media("<notebook") {
+      padding: 0;
+    }
+
     padding: var(--fs-list-orders-table-header-padding);
     font-weight: var(--fs-list-orders-table-header-font-weight);
     line-height: var(--fs-list-orders-table-header-line-height);
@@ -46,6 +50,7 @@
 
     @include media("<notebook") {
       display: flex;
+      align-items: center;
       width: var(--fs-list-orders-table-first-child-width-mobile);
     }
   }
@@ -59,7 +64,7 @@
       gap: var(--fs-list-orders-table-gap);
       align-items: flex-end;
       justify-content: flex-end;
-      width: var(--fs-list-orders-table-first-child-width-mobile);
+      width: auto;
     }
   }
 
@@ -70,7 +75,7 @@
   }
 
   [data-fs-list-orders-table-product-info-order-id] {
-    font-size: var(--fs-list-orders-table-product-info-font-size);
+    font-size: var(--fs-list-orders-table-product-info-text-size);
     font-weight: var(--fs-list-orders-table-product-info-font-weight);
     vertical-align: middle;
   }
@@ -102,6 +107,10 @@
     @include media("<notebook") {
       display: flex;
       justify-content: space-between;
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 
@@ -111,34 +120,34 @@
 }
 
 [data-fs-list-orders-table-pagination] {
-  // Pagination
-  --fs-list-orders-table-pagination-margin-top                    : var(--fs-spacing-3);
-  --fs-list-orders-table-pagination-button-margin-right           : var(--fs-spacing-0);
-  --fs-list-orders-table-pagination-button-border-radius          : var(--fs-border-radius-medium);
-  --fs-list-orders-table-pagination-button-hover-bg               : #efeaf54d; // var(--fs-color-accent-0) with 30% opacity
-  --fs-list-orders-table-pagination-button-active-font-weight     : var(--fs-text-weight-bold);
-  --fs-list-orders-table-pagination-button-active-color           : var(--fs-color-text-inverse);
-  --fs-list-orders-table-pagination-button-active-bg              : var(--fs-color-link);
-  --fs-list-orders-table-pagination-button-transition-property    : background-color;
-  --fs-list-orders-table-pagination-button-transition-timing      : var(--fs-transition-timing);
-  --fs-list-orders-table-pagination-button-transition-function    : var(--fs-transition-function);
+  --fs-list-orders-table-pagination-text-size   : .8rem;
+  --fs-list-orders-table-pagination-box-shadow  : 0 -4px 8px rgb(0 0 0 / 5%);
+  --fs-list-orders-table-pagination-bkg-color   : var(--fs-body-bkg);
+  --fs-list-orders-table-pagination-padding     : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-0);
+
+  @include media("<notebook") {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--fs-list-orders-table-pagination-padding);
+    background-color: var(--fs-list-orders-table-pagination-bkg-color);
+    box-shadow: var(--fs-list-orders-table-pagination-box-shadow);
+  }
 
   display: flex;
-  margin-top: var(--fs-list-orders-table-pagination-margin-top);
+  align-items: center;
+  justify-content: flex-end;
+  font-size: var(--fs-list-orders-table-pagination-text-size);
 
   [data-fs-button] {
-    margin-right: var(--fs-list-orders-table-pagination-button-margin-right);
-    cursor: pointer;
-    border-radius: var(--fs-list-orders-table-pagination-button-border-radius);
-  }
+    [data-fs-button-wrapper] {
+      background-color: transparent;
+      transition: unset;
 
-  [data-fs-button]:not([data-fs-list-orders-table-pagination-button-active="true"]):hover {
-    background-color: var(--fs-list-orders-table-pagination-button-hover-bg);
-    transition: var(--fs-list-orders-table-pagination-button-transition-property) var(--fs-list-orders-table-pagination-button-transition-timing) var(--fs-list-orders-table-pagination-button-transition-function);
-  }
-
-  [data-fs-list-orders-table-pagination-button-active="true"] {
-    color: var(--fs-list-orders-table-pagination-button-active-color);
-    background-color: var(--fs-list-orders-table-pagination-button-active-bg);
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }
