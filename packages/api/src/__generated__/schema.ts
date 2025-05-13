@@ -306,6 +306,8 @@ export type IStoreSession = {
   b2b?: Maybe<IStoreB2B>;
   /** Session input channel. */
   channel?: Maybe<Scalars['String']>;
+  /** Session input city. */
+  city?: Maybe<Scalars['String']>;
   /** Session input country. */
   country: Scalars['String'];
   /** Session input currency. */
@@ -466,6 +468,12 @@ export type PickupStoreInfo = {
   isPickupStore?: Maybe<Scalars['Boolean']>;
 };
 
+export type ProductCountResult = {
+  __typename?: 'ProductCountResult';
+  /** Total product count. */
+  total: Scalars['Int'];
+};
+
 export type Profile = {
   __typename?: 'Profile';
   /** Collection of user's address */
@@ -512,6 +520,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
+  /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
+  productCount?: Maybe<ProductCountResult>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
@@ -544,6 +554,11 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
+};
+
+
+export type QueryProductCountArgs = {
+  term?: Maybe<Scalars['String']>;
 };
 
 
@@ -1198,6 +1213,8 @@ export type StoreSession = {
   b2b?: Maybe<StoreB2B>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
+  /** Session city. */
+  city?: Maybe<Scalars['String']>;
   /** Session country. */
   country: Scalars['String'];
   /** Session currency. */
