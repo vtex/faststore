@@ -187,7 +187,11 @@ export default function MyAccountListOrders({
   const { openFilter, filter: displayFilter } = useUI()
 
   if (listOrders.list.length === 0) {
-    return <MyAccountListOrdersEmptyState />
+    return (
+      <div className={styles.page}>
+        <MyAccountListOrdersEmptyState />
+      </div>
+    )
   }
 
   return (
