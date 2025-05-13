@@ -14,8 +14,6 @@ import type {
   ServerListOrdersQueryQuery,
   ServerListOrdersQueryQueryVariables,
 } from '@generated/graphql'
-import { useRouter } from 'next/router'
-import MyAccountListOrdersEmptyState from 'src/components/account/orders/MyAccountListOrders'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
@@ -23,7 +21,7 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
-import styles from './styles.module.scss'
+import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -52,78 +50,6 @@ export default function ListOrdersPage({
   perPage,
   filters,
 }: ListOrdersPageProps) {
-  const router = useRouter()
-  console.log('🚀 ~ listOrders:', listOrders.list)
-
-  const handleFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ): void => {
-    const { name, value } = e.target
-
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...router.query,
-        [name]: value,
-        page: 1,
-      },
-    })
-  }
-
-  const handleStatusChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    const { value } = e.target
-    if (value === '' || value === 'all') {
-      const { status: emptyStatus, page, ...rest } = router.query
-      router.push({
-        pathname: '/account/orders',
-        query: {
-          ...rest,
-        },
-      })
-      return
-    }
-
-    const selectedOptions = Array.from(
-      (e.target as HTMLSelectElement).selectedOptions
-    )
-
-    const { page, status, ...rest } = router.query
-    const selectedValues = selectedOptions.map((option) => option.value)
-
-    const previousStatus = (
-      Array.isArray(status) ? status : [status]
-    ) as string[]
-
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...rest,
-        status: [...previousStatus, ...selectedValues].filter(Boolean),
-      },
-    })
-  }
-
-  const handlePageChange = (newPage: number) => {
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...router.query,
-        page: newPage,
-      },
-    })
-  }
-
-  const handleOrderDetail = ({ orderId }: { orderId: string }) => {
-    console.log('🚀 ~ orderId:', orderId)
-    router.push({
-      pathname: `/account/orders/${orderId}`,
-    })
-  }
-
-  const totalPages = Math.ceil(total / perPage)
-
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -133,99 +59,12 @@ export default function ListOrdersPage({
 
       <MyAccountLayout>
         <BeforeSection />
-        {listOrders.list.length > 0 ? (
-          <div className={styles.container}>
-            <h1>Orders</h1>
-
-            <div className={styles.filters}>
-              <select
-                title="Status"
-                name="status"
-                multiple={true}
-                value={
-                  Array.isArray(filters.status)
-                    ? filters.status
-                    : ([filters.status] as any)
-                }
-                onChange={handleStatusChange}
-              >
-                <option value="">All</option>
-                <option value="ready-for-handling">ready-for-handling</option>
-                <option value="canceled">canceled</option>
-                <option value="shipped">shipped</option>
-              </select>
-              <input
-                title="Data Inicial"
-                name="dateInitial"
-                type="date"
-                value={filters.dateInitial || ''}
-                onChange={handleFilterChange}
-              />
-              <input
-                title="Data Final"
-                name="dateFinal"
-                type="date"
-                value={filters.dateFinal || ''}
-                onChange={handleFilterChange}
-              />
-            </div>
-
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Data</th>
-                  <th>Client</th>
-                  <th>Total</th>
-                  <th>Payment</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {listOrders.list.map((item) => (
-                  // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-                  <tr
-                    key={item.orderId}
-                    onClick={() => handleOrderDetail({ orderId: item.orderId })}
-                    role="button"
-                  >
-                    <td>{item.orderId || '-'}</td>
-                    <td>
-                      {item.creationDate
-                        ? new Date(item.creationDate).toLocaleDateString()
-                        : '-'}
-                    </td>
-                    <td>{item.clientName || '-'}</td>
-                    <td>
-                      {item.totalValue != null
-                        ? `R$ ${(item.totalValue / 100).toFixed(2)}`
-                        : '-'}
-                    </td>
-                    <td>{item.paymentNames || '-'}</td>
-                    <td>{item.statusDescription || '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div className={styles.pagination}>
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  className={i + 1 === filters?.page ? styles.active : ''}
-                  onClick={() => handlePageChange(i + 1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <>
-            <h1 className={styles.title}>Orders</h1>
-            <MyAccountListOrdersEmptyState />
-          </>
-        )}
+        <MyAccountListOrders
+          listOrders={listOrders}
+          filters={filters}
+          perPage={perPage}
+          total={total}
+        />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
@@ -334,7 +173,6 @@ export const getServerSideProps: GetServerSideProps<
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
   })
-  console.log('🚀 ~ context.query:', context.query)
 
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }

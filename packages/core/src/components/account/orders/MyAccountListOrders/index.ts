@@ -1,1 +1,1 @@
-export { default } from './MyAccountListOrdersEmptyState'
+export { default as MyAccountListOrders } from './MyAccountListOrders'
