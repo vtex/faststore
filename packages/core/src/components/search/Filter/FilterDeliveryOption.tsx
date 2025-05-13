@@ -21,7 +21,7 @@ interface FilterDeliveryOptionProps {
   deliveryCustomLabels: DeliveryCustomLabels
 }
 
-export function FilterDeliveryOption({
+export default function FilterDeliveryOption({
   item,
   deliveryCustomLabels,
 }: FilterDeliveryOptionProps) {
@@ -73,4 +73,3 @@ export function FilterDeliveryOption({
 
   return <>{mapDeliveryCustomLabel[item.value]}</>
 }
-export default FilterDeliveryOption

@@ -13,10 +13,10 @@ import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config.default'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { FilterDeliveryOption } from './FilterDeliveryOption'
 import type { FilterSliderProps } from './FilterSlider'
 
 import { sessionStore } from 'src/sdk/session'
+import FilterDeliveryOption from './FilterDeliveryOption'
 
 interface FilterDesktopProps
   extends Omit<
