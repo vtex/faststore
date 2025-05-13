@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-4);
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--fs-spacing-5) 0;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: var(--fs-text-size-3);
+  font-weight: var(--fs-text-weight-semibold);
+  line-height: var(--fs-spacing-5);
+  color: var(--fs-color-disabled-text);
+  letter-spacing: -4%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 170px;
+  height: 38px;
+  font-size: var(--fs-text-size-2);
+  font-weight: var(--fs-text-weight-semibold);
+  line-height: var(--fs-spacing-4);
+  color: var(--fs-color-secondary-text);
+  text-decoration: none;
+  border: var(--fs-border-width) solid var(--fs-border-color-light);
+  border-radius: var(--fs-border-radius-pill);
+
+  &:hover {
+    color: var(--fs-color-secondary-bkg-active);
+  }
+}

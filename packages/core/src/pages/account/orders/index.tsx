@@ -15,6 +15,7 @@ import type {
   ServerListOrdersQueryQueryVariables,
 } from '@generated/graphql'
 import { useRouter } from 'next/router'
+import MyAccountListOrdersEmptyState from 'src/components/account/orders/MyAccountListOrders'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
@@ -122,6 +123,7 @@ export default function ListOrdersPage({
   }
 
   const totalPages = Math.ceil(total / perPage)
+
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -131,92 +133,99 @@ export default function ListOrdersPage({
 
       <MyAccountLayout>
         <BeforeSection />
-        <div className={styles.container}>
-          <h1>Orders</h1>
+        {listOrders.list.length > 0 ? (
+          <div className={styles.container}>
+            <h1>Orders</h1>
 
-          <div className={styles.filters}>
-            <select
-              title="Status"
-              name="status"
-              multiple={true}
-              value={
-                Array.isArray(filters.status)
-                  ? filters.status
-                  : [filters.status]
-              }
-              onChange={handleStatusChange}
-            >
-              <option value="">All</option>
-              <option value="ready-for-handling">ready-for-handling</option>
-              <option value="canceled">canceled</option>
-              <option value="shipped">shipped</option>
-            </select>
-            <input
-              title="Data Inicial"
-              name="dateInitial"
-              type="date"
-              value={filters.dateInitial || ''}
-              onChange={handleFilterChange}
-            />
-            <input
-              title="Data Final"
-              name="dateFinal"
-              type="date"
-              value={filters.dateFinal || ''}
-              onChange={handleFilterChange}
-            />
-          </div>
-
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Data</th>
-                <th>Client</th>
-                <th>Total</th>
-                <th>Payment</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listOrders.list.map((item) => (
-                // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-                <tr
-                  key={item.orderId}
-                  onClick={() => handleOrderDetail({ orderId: item.orderId })}
-                  role="button"
-                >
-                  <td>{item.orderId || '-'}</td>
-                  <td>
-                    {item.creationDate
-                      ? new Date(item.creationDate).toLocaleDateString()
-                      : '-'}
-                  </td>
-                  <td>{item.clientName || '-'}</td>
-                  <td>
-                    {item.totalValue != null
-                      ? `R$ ${(item.totalValue / 100).toFixed(2)}`
-                      : '-'}
-                  </td>
-                  <td>{item.paymentNames || '-'}</td>
-                  <td>{item.statusDescription || '-'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div className={styles.pagination}>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                className={i + 1 === filters?.page ? styles.active : ''}
-                onClick={() => handlePageChange(i + 1)}
+            <div className={styles.filters}>
+              <select
+                title="Status"
+                name="status"
+                multiple={true}
+                value={
+                  Array.isArray(filters.status)
+                    ? filters.status
+                    : ([filters.status] as any)
+                }
+                onChange={handleStatusChange}
               >
-                {i + 1}
-              </button>
-            ))}
+                <option value="">All</option>
+                <option value="ready-for-handling">ready-for-handling</option>
+                <option value="canceled">canceled</option>
+                <option value="shipped">shipped</option>
+              </select>
+              <input
+                title="Data Inicial"
+                name="dateInitial"
+                type="date"
+                value={filters.dateInitial || ''}
+                onChange={handleFilterChange}
+              />
+              <input
+                title="Data Final"
+                name="dateFinal"
+                type="date"
+                value={filters.dateFinal || ''}
+                onChange={handleFilterChange}
+              />
+            </div>
+
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Data</th>
+                  <th>Client</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listOrders.list.map((item) => (
+                  // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+                  <tr
+                    key={item.orderId}
+                    onClick={() => handleOrderDetail({ orderId: item.orderId })}
+                    role="button"
+                  >
+                    <td>{item.orderId || '-'}</td>
+                    <td>
+                      {item.creationDate
+                        ? new Date(item.creationDate).toLocaleDateString()
+                        : '-'}
+                    </td>
+                    <td>{item.clientName || '-'}</td>
+                    <td>
+                      {item.totalValue != null
+                        ? `R$ ${(item.totalValue / 100).toFixed(2)}`
+                        : '-'}
+                    </td>
+                    <td>{item.paymentNames || '-'}</td>
+                    <td>{item.statusDescription || '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className={styles.pagination}>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={i + 1 === filters?.page ? styles.active : ''}
+                  onClick={() => handlePageChange(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <>
+            <h1 className={styles.title}>Orders</h1>
+            <MyAccountListOrdersEmptyState />
+          </>
+        )}
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
