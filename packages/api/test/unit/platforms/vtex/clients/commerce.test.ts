@@ -3,7 +3,6 @@ import {
   getContextFactory,
 } from '../../../../../src/platforms/vtex'
 import * as clients from '../../../../../src/platforms/vtex/clients'
-// import type { Clients } from '../../../../../src/platforms/vtex/clients'
 
 const apiOptions = {
   platform: 'vtex',
@@ -21,10 +20,8 @@ const apiOptions = {
 
 const contextFactory = getContextFactory(apiOptions)
 const context = contextFactory({})
-// const getClients = clients.getClients
 
 const fetchAPIMocked = jest.fn()
-// const pickupPointsMocked = jest.fn()
 
 jest.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
