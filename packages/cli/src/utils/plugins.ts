@@ -8,6 +8,7 @@ import {
 import { withBasePath } from './directory'
 import path from 'path'
 import { logger } from './logger'
+import chalk from 'chalk'
 
 export type PageConfig = {
   path: string
@@ -291,7 +292,6 @@ const getPluginAPIFileContent = (pluginName: string, apiName: string) => `
 // GENERATED FILE
 // @ts-nocheck
 import apiHandle from 'src/plugins/${pluginName}/apis/${apiName}'
-import { NextApiRequest, NextApiResponse } from "next/types"
 
 export default function handle(req: NextApiRequest, res: NextApiResponse) {
   return apiHandle(req, res)
@@ -342,6 +342,30 @@ const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
   })
 }
 
+const copyPluginsCypressFiles = async (basePath: string, plugins: Plugin[]) => {
+  const { tmpDir, getPackagePath } = withBasePath(basePath)
+
+  logger.log('Copyng plugin cypress files')
+
+  plugins.forEach(async (plugin) => {
+    const pluginName = getPluginName(plugin)
+    const pluginPackagePath = getPackagePath(pluginName)
+
+    console.log(`${pluginPackagePath}/cypress`)
+
+    if (existsSync(`${pluginPackagePath}/cypress`)) {
+      copySync(`${pluginPackagePath}/cypress`, `${tmpDir}/cypress`, {
+        overwrite: true,
+        dereference: true,
+      })
+
+      logger.log(
+        `${chalk.green('success')} - Cypress test files copied from ${pluginName}`
+      )
+    }
+  })
+}
+
 export const installPlugins = async (basePath: string) => {
   const plugins = await getPluginsList(basePath)
 
@@ -352,4 +376,5 @@ export const installPlugins = async (basePath: string) => {
   addPluginsSections(basePath, plugins)
   addPluginsOverrides(basePath, plugins)
   addPluginsTheme(basePath, plugins)
+  copyPluginsCypressFiles(basePath, plugins)
 }
