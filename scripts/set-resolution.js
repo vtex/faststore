@@ -20,14 +20,15 @@ if (!fs.existsSync(packageJsonPath)) {
 
 const packageJson = require(packageJsonPath)
 
-packageJson.resolutions = packageJson.resolutions ?? {}
+packageJson.resolutions = {
+  ...packageJson.resolutions,
+  [packageToResolve]: versionResolution,
+}
 
 if (packageJson.devDependencies[packageToResolve]) {
   packageJson.devDependencies[packageToResolve] = versionResolution
-  packageJson.resolutions[packageToResolve] = versionResolution
 } else if (packageJson.dependencies[packageToResolve]) {
   packageJson.dependencies[packageToResolve] = versionResolution
-  packageJson.resolutions[packageToResolve] = versionResolution
 } else {
   console.info(
     `${packageToResolve} is not a dependence of the specified project`
