@@ -4,9 +4,8 @@
 import type { AnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvents } from '../../types'
 
-import { getBaseDomain } from 'src/utils/getBaseDomain'
-import { getCookie } from 'src/utils/getCookie'
 import config from '../../../../../discovery.config'
+import { getCookie } from '../../../../utils/getCookie'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
@@ -22,8 +21,7 @@ const createOrRefreshCookie = (key: string, expiresSecond: number) => {
   const urlDomain =
     process.env.NODE_ENV === 'development'
       ? '.localhost'
-      : getBaseDomain([config.storeUrl, config.secureSubdomain]) ||
-        `.${new URL(config.storeUrl).hostname}`
+      : `.${new URL(config.storeUrl).hostname}`
 
   return () => {
     let currentValue = getCookie(key)
