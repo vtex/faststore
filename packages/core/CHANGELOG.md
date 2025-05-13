@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.1](https://github.com/vtex/faststore/compare/v3.44.0...v3.44.1) (2025-05-13)
+
+### Bug Fixes
+
+- Revert "fix: Sets domain search cookies" ([#2840](https://github.com/vtex/faststore/issues/2840)) ([44ae6bf](https://github.com/vtex/faststore/commit/44ae6bff88b5113c75faae466286b435b0d0ff5b)), closes [vtex/faststore#2811](https://github.com/vtex/faststore/issues/2811)
+
 # [3.44.0](https://github.com/vtex/faststore/compare/v3.43.0...v3.44.0) (2025-05-13)
 
 ### Features
