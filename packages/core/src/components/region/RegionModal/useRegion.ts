@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 import type { Session } from '@faststore/sdk'
 import { deliveryPromise } from 'discovery.config'
