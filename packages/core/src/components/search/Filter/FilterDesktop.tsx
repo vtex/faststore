@@ -10,7 +10,7 @@ import {
   Icon as UIIcon,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
-import { deliveryPromise } from 'discovery.config.default'
+import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'

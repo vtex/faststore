@@ -10,7 +10,7 @@ import type {
   FilterSliderProps as UIFilterSliderProps,
   IconProps as UIIconProps,
 } from '@faststore/ui'
-import { deliveryPromise } from 'discovery.config.default'
+import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
