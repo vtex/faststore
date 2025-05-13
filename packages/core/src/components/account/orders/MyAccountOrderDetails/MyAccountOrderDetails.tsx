@@ -44,6 +44,7 @@ export default function MyAccountOrderDetails({
             type="button"
             onClick={handleBack}
           />
+        <div data-fs-order-details-header-title-wrapper>
           <h1 data-fs-order-details-header-title-text>
             Order #{order.orderId}
           </h1>
@@ -51,6 +52,7 @@ export default function MyAccountOrderDetails({
             status={order.status}
             statusFallback={order.statusDescription}
           />
+        </div>
         </div>
         <MyAccountOrderActions
           orderId={order.orderId}
