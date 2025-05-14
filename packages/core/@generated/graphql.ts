@@ -559,6 +559,16 @@ export type QueryCollectionArgs = {
   slug: Scalars['String']['input']
 }
 
+export type QueryListUserOrdersArgs = {
+  clientEmail: InputMaybe<Scalars['String']['input']>
+  dateFinal: InputMaybe<Scalars['String']['input']>
+  dateInitial: InputMaybe<Scalars['String']['input']>
+  page: InputMaybe<Scalars['Int']['input']>
+  perPage: InputMaybe<Scalars['Int']['input']>
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  text: InputMaybe<Scalars['String']['input']>
+}
+
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
 }
@@ -2435,6 +2445,7 @@ export type ServerOrderDetailsQueryQuery = {
           isPickupStore: boolean | null
           address: {
             addressType: string | null
+            receiverName: string | null
             addressId: string | null
             versionId: string | null
             entityId: string | null
@@ -2764,7 +2775,16 @@ export type ServerOrderDetailsQueryQuery = {
 }
 
 export type ServerListOrdersQueryQueryVariables = Exact<{
-  [key: string]: never
+  page: InputMaybe<Scalars['Int']['input']>
+  perPage: InputMaybe<Scalars['Int']['input']>
+  status: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >
+  dateInitial: InputMaybe<Scalars['String']['input']>
+  dateFinal: InputMaybe<Scalars['String']['input']>
+  text: InputMaybe<Scalars['String']['input']>
+  clientEmail: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ServerListOrdersQueryQuery = {
@@ -3816,7 +3836,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'ccfd2fa59ee18399b9cdb47b8d4667b526cecd6f',
+    operationHash: 'd5be27211cd5919c341c860a81dd85dfe305d752',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3825,7 +3845,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'aea44ba46b7b82192da9e8e6d4a28add288f11d1',
+    operationHash: 'b88154468340d7d0dac6b3df8641bf6f54a554b7',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,

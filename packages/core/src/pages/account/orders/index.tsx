@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
@@ -23,6 +20,9 @@ import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
+
+import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -32,11 +32,24 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type ListOrdersPageProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
+  total: number
+  perPage: number
+  filters: {
+    page: number
+    status: string[]
+    dateInitial: string
+    dateFinal: string
+    text: string
+    clientEmail: string
+  }
 } & MyAccountProps
 
-export default function ListOrders({
+export default function ListOrdersPage({
   globalSections,
   listOrders,
+  total,
+  perPage,
+  filters,
 }: ListOrdersPageProps) {
   return (
     <RenderSections
@@ -47,11 +60,12 @@ export default function ListOrders({
 
       <MyAccountLayout>
         <BeforeSection />
-        <div>
-          <h1>List Orders</h1>
-          <p>Orders: {JSON.stringify(listOrders, null, 2)}</p>
-          <p>Orders count: {listOrders?.list?.length}</p>
-        </div>
+        <MyAccountListOrders
+          listOrders={listOrders}
+          filters={filters}
+          perPage={perPage}
+          total={total}
+        />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
@@ -59,8 +73,8 @@ export default function ListOrders({
 }
 
 const query = gql(`
-  query ServerListOrdersQuery {
-    listUserOrders {
+  query ServerListOrdersQuery ($page: Int,$perPage: Int, $status: [String], $dateInitial: String, $dateFinal: String, $text: String, $clientEmail: String) {
+    listUserOrders (page: $page, perPage: $perPage, status: $status, dateInitial: $dateInitial, dateFinal: $dateFinal, text: $text, clientEmail: $clientEmail) {
       list {
         orderId
         creationDate
@@ -171,6 +185,34 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
 
+  const page = Number(context.query.page as string | undefined) || 1
+  const perPage = 10 // TODO: make this configurable
+  const status =
+    (Array.isArray(context.query.status)
+      ? context.query.status
+      : [context.query.status]
+    ).filter(Boolean) || []
+  const dateInitial = (context.query.dateInitial as string | undefined) || ''
+  const dateFinal = (context.query.dateFinal as string | undefined) || ''
+  const text = (context.query.text as string | undefined) || ''
+  const clientEmail = (context.query.clientEmail as string | undefined) || ''
+
+  // Map labels from FastStore status to API status
+  const groupedStatus = groupOrderStatusByLabel()
+  const allStatuses =
+    status
+      .reduce((acc, item) => {
+        const statusGroup = Object.entries(groupedStatus).find(
+          ([key]) => key.toLowerCase() === item.toLowerCase()
+        )
+        if (statusGroup) {
+          const [, statusValues] = statusGroup
+          return [...acc, ...statusValues]
+        }
+        return acc
+      }, [] as string[])
+      .filter(Boolean) || []
+
   const [
     listOrders,
     globalSections,
@@ -179,7 +221,15 @@ export const getServerSideProps: GetServerSideProps<
   ] = await Promise.all([
     execute<ServerListOrdersQueryQueryVariables, ServerListOrdersQueryQuery>(
       {
-        variables: {},
+        variables: {
+          page,
+          perPage,
+          status: allStatuses,
+          dateInitial,
+          dateFinal,
+          text,
+          clientEmail,
+        },
         operation: query,
       },
       { headers: { ...context.req.headers } }
@@ -191,19 +241,12 @@ export const getServerSideProps: GetServerSideProps<
 
   if (listOrders.errors) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/account/404',
+        permanent: false,
+      },
     }
   }
-
-  // TODO handle 404 when listOrders request is made
-  // if (listOrders.errors) {
-  //   return {
-  //     redirect: {
-  //       destination: '/account/404',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -215,6 +258,16 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       listOrders: listOrders.data.listUserOrders,
+      total: listOrders.data.listUserOrders.paging.total,
+      perPage: listOrders.data.listUserOrders.paging.perPage,
+      filters: {
+        page: listOrders.data.listUserOrders.paging.currentPage ?? page,
+        status,
+        dateInitial,
+        dateFinal,
+        text,
+        clientEmail,
+      },
     },
   }
 }

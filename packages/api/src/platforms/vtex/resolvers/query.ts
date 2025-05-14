@@ -2,6 +2,7 @@ import type {
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
+  QueryListUserOrdersArgs,
   QueryProductArgs,
   QueryProfileArgs,
   QueryRedirectArgs,
@@ -381,12 +382,16 @@ export const Query = {
 
     return order
   },
-  listUserOrders: async (_: unknown, __: unknown, ctx: Context) => {
+  listUserOrders: async (
+    _: unknown,
+    filters: QueryListUserOrdersArgs,
+    ctx: Context
+  ) => {
     const {
       clients: { commerce },
     } = ctx
 
-    const orders = await commerce.oms.listUserOrders()
+    const orders = await commerce.oms.listUserOrders(filters)
 
     return orders
   },
