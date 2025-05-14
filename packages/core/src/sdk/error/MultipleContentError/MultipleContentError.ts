@@ -1,6 +1,6 @@
-import type { Options } from 'src/server/cms'
 import type { EntryPathParams } from '@vtex/client-cp'
-import { contentSource } from 'discovery.config.default'
+import { contentSource } from 'discovery.config'
+import type { Options } from 'src/server/cms'
 
 export default class MultipleContentError extends Error {
   constructor(params: Options | EntryPathParams) {
