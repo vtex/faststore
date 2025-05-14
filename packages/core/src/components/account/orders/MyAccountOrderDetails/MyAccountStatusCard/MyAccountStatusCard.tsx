@@ -1,6 +1,6 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import React from 'react'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
+import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
 
 export type StepStatus = 'completed' | 'loading' | 'not-started' | 'failed'
 export type StepKey =
@@ -8,10 +8,7 @@ export type StepKey =
   | 'approval'
   | 'payment'
   | 'processing'
-  | 'delivery'
   | 'shipping'
-
-export type ApiOrderStatus = keyof typeof STATUS_MAPPING
 
 interface Step {
   label: string
@@ -20,105 +17,84 @@ interface Step {
 }
 
 interface MyAccountStatusCardProps {
-  status: ApiOrderStatus
+  status: OrderStatusKey
 }
 
-const APPROVAL_LABELS: Record<StepStatus, string> = {
-  completed: 'Order approved',
-  loading: 'Approval pending',
-  'not-started': 'Approval pending',
-  failed: 'Order denied',
+// Define custom labels for each step based on their status
+// This allows us to show different text for the same step depending on its current state
+const STEP_LABELS: Record<StepKey, Record<StepStatus, string>> = {
+  order: {
+    completed: 'Order Placed',
+    loading: 'Order Placed',
+    'not-started': 'Order Placed',
+    failed: 'Order Placed',
+  },
+  approval: {
+    completed: 'Approved', // Custom
+    loading: 'Approval Pending', // Use from orderStatusMap
+    'not-started': 'Approval Pending',
+    failed: 'Denied', // Custom
+  },
+  payment: {
+    completed: 'Payment Approved', // Use from orderStatusMap
+    loading: 'Payment Pending', // Use from orderStatusMap
+    'not-started': 'Payment authorization', // Custom
+    failed: 'Payment Denied', // Use from orderStatusMap
+  },
+  processing: {
+    completed: 'Ready for Delivery', // Use from orderStatusMap
+    loading: 'Handling order', // Custom
+    'not-started': 'Handling order', // Custom
+    failed: 'Canceled', // Use from orderStatusMap
+  },
+  shipping: {
+    completed: 'Invoiced', // Use from orderStatusMap
+    loading: 'Shipping order', // Custom
+    'not-started': 'Ship order', // Custom
+    failed: 'Canceled', // Use from orderStatusMap
+  },
 }
 
-const PAYMENT_LABELS: Record<StepStatus, string> = {
-  completed: 'Payment approved',
-  loading: 'Payment pending',
-  'not-started': 'Payment authorization',
-  failed: 'Payment denied',
-}
-
-const PROCESSING_LABELS: Record<StepStatus, string> = {
-  completed: 'Ready for shipping',
-  loading: 'Handling order',
-  'not-started': 'Handling order',
-  failed: 'Order canceled',
-}
-
-const SHIPPING_LABELS: Record<StepStatus, string> = {
-  completed: 'Invoiced',
-  loading: 'Shipping order',
-  'not-started': 'Ship order',
-  failed: 'Order canceled',
-}
-
+// Define the visual progression of order steps from start to finish
 const VISUAL_STEPS = [
   {
-    label: (stepStatus: StepStatus) => APPROVAL_LABELS[stepStatus],
+    label: (stepStatus: StepStatus) => STEP_LABELS.order[stepStatus],
+    key: 'order',
+  },
+  {
+    label: (stepStatus: StepStatus) => STEP_LABELS.approval[stepStatus],
     key: 'approval',
   },
-  { label: (_: StepStatus) => 'Order Placed', key: 'order' },
   {
-    label: (stepStatus: StepStatus) => PAYMENT_LABELS[stepStatus],
+    label: (stepStatus: StepStatus) => STEP_LABELS.payment[stepStatus],
     key: 'payment',
   },
   {
-    label: (stepStatus: StepStatus) => PROCESSING_LABELS[stepStatus],
+    label: (stepStatus: StepStatus) => STEP_LABELS.processing[stepStatus],
     key: 'processing',
   },
   {
-    label: (stepStatus: StepStatus) => SHIPPING_LABELS[stepStatus],
+    label: (stepStatus: StepStatus) => STEP_LABELS.shipping[stepStatus],
     key: 'shipping',
   },
 ] as const
 
-const STATUS_MAPPING = {
-  // Approval steps
-  null: 'approval',
-  'pending-approval': 'approval',
-  denied: 'approval',
-  cancel: 'approval',
+// Map labels from userOrderStatus.ts to step keys
+const LABEL_TO_STEP_MAPPING: Record<string, StepKey> = {
+  'Order Placed': 'order',
+  'Approval Pending': 'approval',
+  'Payment Pending': 'payment',
+  'Payment Approved': 'processing',
+  'Payment Denied': 'payment',
+  'Ready for Delivery': 'processing',
+  Invoiced: 'shipping',
+  'Cancellation Requested': 'processing', // I think it can be request in any step
+  Canceled: 'processing', // I think it can be request in any step
+}
 
-  // Order steps
-  'order-created': 'order',
-  'order-accepted': 'order',
-
-  // Payment steps
-  'payment-pending': 'payment',
-  'payment-denied': 'payment',
-  'window-to-change-payment': 'payment',
-
-  // Processing steps
-  'payment-approved': 'processing',
-  'ready-for-handling': 'processing',
-  'ready-for-packing': 'processing',
-  'start-handling': 'processing',
-  'authorize-fulfillment': 'processing',
-  handling: 'processing',
-  canceled: 'processing',
-  'verifying-invoice': 'processing',
-  canceling: 'processing',
-  'request-cancel': 'processing',
-  'on-order-completed': 'processing',
-  'on-order-completed-ffm': 'processing',
-  'cancellation-requested': 'processing',
-
-  // Shipping steps
-  'shipping-in-progress': 'shipping',
-  'ready-for-invoicing': 'shipping',
-  'ready-for-picking': 'shipping',
-  shipped: 'shipping',
-  invoice: 'processing',
-  invoiced: 'processing',
-} as const
-
-const FAILED_STATUSES = [
-  'denied',
-  'request-cancel',
-  'canceling',
-  'canceled',
-  'cancellation-requested',
-  'payment-denied',
-] as const
+// Define which order status labels indicate a failed/canceled state
+// These are used to determine if we should show the appropriate step as 'failed'
+const FAILED_LABELS = ['Payment Denied', 'Cancellation Requested', 'Canceled']
 
 const formatDate = (date: string) => {
   return new Intl.DateTimeFormat('en-US', {
@@ -159,40 +135,55 @@ const StepIcon = ({ status }: { status: StepStatus }) => {
   return <div data-fs-shipping-step-icon />
 }
 
+// Determine the visual status (completed, loading, not-started, or failed) of a specific step based on the current order status
 const getStepStatus = (
   stepKey: StepKey,
-  currentStatus: ApiOrderStatus,
+  currentStatus: OrderStatusKey,
   isCanceled: boolean
 ): StepStatus => {
-  if (isCanceled && stepKey === STATUS_MAPPING[currentStatus]) {
+  // Get the label for the current status from userOrderStatus.ts
+  const currentStatusLabel = orderStatusMap[currentStatus]?.label
+
+  // Get the step key for the current status
+  const currentStepKey = currentStatusLabel
+    ? LABEL_TO_STEP_MAPPING[currentStatusLabel]
+    : undefined
+
+  if (isCanceled && stepKey === currentStepKey) {
     return 'failed'
   }
 
   const currentStepIndex = VISUAL_STEPS.findIndex(
-    (step) => step.key === STATUS_MAPPING[currentStatus]
+    (step) => step.key === currentStepKey
   )
 
   const thisStepIndex = VISUAL_STEPS.findIndex((step) => step.key === stepKey)
 
+  // If we couldn't find the current step in our mapping
   if (currentStepIndex === -1) {
+    // If this is the first step, it should be loading (order is in progress)
     if (thisStepIndex === 0) {
       return 'loading'
     }
 
+    // All other steps haven't started yet
     return 'not-started'
   }
 
+  // If this is the current step, show it as loading/in progress
   if (thisStepIndex === currentStepIndex) {
     return 'loading'
   }
-
+  // Steps before the current step are completed, steps after are not started
   return thisStepIndex < currentStepIndex ? 'completed' : 'not-started'
 }
 
 function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
-  const isCanceled = FAILED_STATUSES.includes(
-    status as (typeof FAILED_STATUSES)[number]
-  )
+  // Get the label for the current status and check if it's a failed status
+  const currentStatusLabel = orderStatusMap[status]?.label
+  const isCanceled = currentStatusLabel
+    ? FAILED_LABELS.includes(currentStatusLabel)
+    : false
 
   const steps: Step[] = VISUAL_STEPS.map((step) => {
     const stepStatus = getStepStatus(step.key, status, isCanceled)
