@@ -12,17 +12,16 @@ import {
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
 } from '@faststore/ui'
-
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
-import type { useFilter } from 'src/sdk/search/useFilter'
 import {
-  useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
+  useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
+import type { useFilter } from 'src/sdk/search/useFilter'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import styles from './section.module.scss'
@@ -83,6 +82,15 @@ export interface FilterSliderProps {
    * CMS defined label for the apply button component.
    */
   applyButtonLabel?: string
+  /**
+   * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
+   */
+  deliverySettings?: {
+    title?: string
+    description?: string
+    setLocationButtonLabel?: string
+    deliveryCustomLabels?: DeliveryCustomLabels
+  }
 }
 
 function FilterSlider({
@@ -94,6 +102,7 @@ function FilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
+  deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
   const { openRegionSlider } = useUI()

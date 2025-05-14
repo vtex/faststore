@@ -18,8 +18,8 @@ import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import {
-  useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
+  useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
