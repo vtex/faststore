@@ -154,6 +154,14 @@ function FilterDesktop({
     })
   }
 
+  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
+  const { postalCode } = sessionStore.read()
+
+  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
+  const filteredFacets = deliveryPromise.enabled
+    ? facets
+    : facets.filter((facet) => facet.key !== 'shipping')
+
   return (
     <>
       <UIFilter
