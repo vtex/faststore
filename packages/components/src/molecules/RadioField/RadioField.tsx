@@ -1,10 +1,13 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode, InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import Label from '../../atoms/Label'
 import Radio from '../../atoms/Radio'
 
-export interface RadioFieldProps extends HTMLAttributes<HTMLDivElement> {
+type EnhancedRadioFieldProps = HTMLAttributes<HTMLDivElement> &
+  Pick<InputHTMLAttributes<HTMLInputElement>, 'checked'>
+
+export interface RadioFieldProps extends EnhancedRadioFieldProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -14,9 +17,9 @@ export interface RadioFieldProps extends HTMLAttributes<HTMLDivElement> {
    */
   id: string
   /**
-   * The text displayed to identify the input radio.
+   * The text or component displayed to identify the input radio.
    */
-  label: string
+  label: string | ReactNode
   /**
    * The value to identify the input radio.
    */
@@ -34,7 +37,12 @@ const RadioField = forwardRef<HTMLDivElement, RadioFieldProps>(
   ) {
     return (
       <div ref={ref} data-fs-radio-field data-testid={testId}>
-        <Radio id={id} value={value ?? label} name={name} {...otherProps} />
+        <Radio
+          id={id}
+          value={typeof label === 'string' ? label : value}
+          name={name}
+          {...otherProps}
+        />
         <Label htmlFor={id}>{label}</Label>
       </div>
     )
