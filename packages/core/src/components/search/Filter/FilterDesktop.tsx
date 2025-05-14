@@ -1,33 +1,28 @@
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import {
+  Button as UIButton,
   Filter as UIFilter,
   FilterFacetBoolean as UIFilterFacetBoolean,
   FilterFacetBooleanItem as UIFilterFacetBooleanItem,
   FilterFacetRange as UIFilterFacetRange,
   FilterFacets as UIFilterFacets,
+  Icon as UIIcon,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { deliveryPromise } from 'discovery.config'
+import type { FilterSliderProps } from './FilterSlider'
 
-interface Props {
-  /**
-   * The array that represents the details of every facet.
-   */
-  facets: Filter_FacetsFragment[]
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
-  /**
-   * Title for the `FilterDesktop` component.
-   */
-  title?: string
-}
+import { sessionStore } from 'src/sdk/session'
+import FilterDeliveryOption from './FilterDeliveryOption'
+
+interface FilterDesktopProps
+  extends Omit<
+    FilterSliderProps,
+    'onClose' | 'size' | 'direction' | 'applyBtnProps' | 'clearBtnProps'
+  > {}
 
 function FilterDesktop({
   facets,
@@ -35,9 +30,14 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
-}: Props & ReturnType<typeof useFilter>) {
+  deliverySettings,
+}: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
+  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
+  const { postalCode } = sessionStore.read()
+
+  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
   const filteredFacets = deliveryPromise.enabled
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
@@ -51,16 +51,43 @@ function FilterDesktop({
         dispatch({ type: 'toggleExpanded', payload: idx })
       }
     >
-      {filteredFacets.map((facet, index) => {
+      {shouldDisplayDeliveryButton && (
+        <UIFilterFacets
+          key={`${testId}-delivery-unset`}
+          testId={testId}
+          index={0}
+          type=""
+          label={deliveryLabel}
+          description={deliverySettings?.description}
+        >
+          <UIButton
+            data-fs-filter-list-delivery-button
+            variant="secondary"
+            onClick={() => {
+              // TODO: open edit local slideOver
+            }}
+            icon={<UIIcon name="MapPin" />}
+          >
+            {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
+          </UIButton>
+        </UIFilterFacets>
+      )}
+      {filteredFacets.map((facet, idx) => {
+        const index = shouldDisplayDeliveryButton ? idx + 1 : idx
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
+        const isDeliveryFacet = facet.key === 'shipping'
+
         return (
           <UIFilterFacets
             key={`${testId}-${label}-${index}`}
             testId={testId}
             index={index}
             type={type}
-            label={label}
+            label={isDeliveryFacet ? deliveryLabel : label}
+            description={
+              isDeliveryFacet ? deliverySettings.description : undefined
+            }
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
               <UIFilterFacetBoolean>
@@ -74,7 +101,8 @@ function FilterDesktop({
                         ...state,
                         selectedFacets: toggleFacet(
                           state.selectedFacets,
-                          facet
+                          facet,
+                          true
                         ),
                         page: 0,
                       })
@@ -84,7 +112,19 @@ function FilterDesktop({
                     value={item.value}
                     quantity={item.quantity}
                     facetKey={facet.key}
-                    label={item.label}
+                    label={
+                      isDeliveryFacet ? (
+                        <FilterDeliveryOption
+                          item={item}
+                          deliveryCustomLabels={
+                            deliverySettings.deliveryCustomLabels
+                          }
+                        />
+                      ) : (
+                        item.label
+                      )
+                    }
+                    type={isDeliveryFacet ? 'radio' : 'checkbox'}
                   />
                 ))}
               </UIFilterFacetBoolean>
