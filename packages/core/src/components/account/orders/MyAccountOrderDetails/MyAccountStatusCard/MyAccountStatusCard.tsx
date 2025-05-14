@@ -1,6 +1,8 @@
 import { Icon as UIIcon } from '@faststore/ui'
+import { useEffect, useRef } from 'react'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
+import { useConnectorPositioning } from './useConnectorPositioning'
 
 export type StepStatus = 'completed' | 'loading' | 'not-started' | 'failed'
 export type StepKey =
@@ -111,7 +113,7 @@ const StepIcon = ({ status }: { status: StepStatus }) => {
   if (status === 'completed') {
     return (
       <div data-fs-shipping-step-icon data-fs-shipping-step-completed>
-        <UIIcon name="Checked" height={20} width={20} />
+        <UIIcon name="Checked" height={16} width={16} />
       </div>
     )
   }
@@ -119,7 +121,7 @@ const StepIcon = ({ status }: { status: StepStatus }) => {
   if (status === 'loading') {
     return (
       <div data-fs-shipping-step-icon data-fs-shipping-step-loading>
-        <UIIcon name="DotsThree" height={20} width={20} />
+        <UIIcon name="DotsThree" height={16} width={16} />
       </div>
     )
   }
@@ -127,7 +129,7 @@ const StepIcon = ({ status }: { status: StepStatus }) => {
   if (status === 'failed') {
     return (
       <div data-fs-shipping-step-icon data-fs-shipping-step-failed>
-        <UIIcon name="X" height={20} width={20} />
+        <UIIcon name="X" height={16} width={16} />
       </div>
     )
   }
@@ -179,6 +181,10 @@ const getStepStatus = (
 }
 
 function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useConnectorPositioning(containerRef)
+
   // Get the label for the current status and check if it's a failed status
   const currentStatusLabel = orderStatusMap[status]?.label
   const isCanceled = currentStatusLabel
@@ -196,7 +202,7 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
 
   return (
     <MyAccountCard title="Status" data-fs-order-status-card>
-      <div data-fs-order-status-content>
+      <div data-fs-order-status-content ref={containerRef}>
         {steps.map((step, index) => (
           <div
             key={`${step.label}-${index}`}
@@ -228,5 +234,3 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
     </MyAccountCard>
   )
 }
-
-export default MyAccountStatusCard

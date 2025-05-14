@@ -177,20 +177,6 @@
       &[data-fs-shipping-connector-status="completed"] {
         background-color: var(--fs-order-status-connector-completed-color);
       }
-
-      @include media("<notebook") {
-        top: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-connector-spacing));
-        left: calc(var(--fs-spacing-2) + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-step-icon-margin));
-        width: var(--fs-border-width);
-        height: calc((50% - var(--fs-order-status-step-icon-half-size)) + var(--fs-order-status-card-gap) + (50% - var(--fs-order-status-step-icon-half-size)) - (var(--fs-order-status-connector-spacing) * 2));
-      }
-
-      @include media(">=notebook") {
-        top: calc(1rem + var(--fs-order-status-step-icon-half-size));
-        left: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-connector-desktop-spacing) + var(--fs-order-status-step-icon-margin));
-        width: calc((50% - var(--fs-order-status-step-icon-half-size)) + var(--fs-order-status-card-gap) + (50% - var(--fs-order-status-step-icon-half-size)) - (var(--fs-order-status-connector-desktop-spacing) * 2));
-        height: var(--fs-border-width);
-      }
     }
   }
 
