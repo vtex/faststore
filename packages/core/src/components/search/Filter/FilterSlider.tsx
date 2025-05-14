@@ -19,7 +19,7 @@ import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import { deliveryPromise } from 'discovery.config'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
+import FilterDeliveryOption from './FilterDeliveryOption'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { sessionStore } from 'src/sdk/session'
@@ -29,7 +29,7 @@ import {
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
+import RegionSlider from 'src/components/region/RegionSlider'
 
 import styles from './section.module.scss'
 
@@ -338,7 +338,7 @@ function FilterSlider({
                             facetKey={facet.key}
                             label={
                               isDeliveryFacet ? (
-                                <FilterDeliveryMethodFacet
+                                <FilterDeliveryOption
                                   item={item}
                                   deliveryMethods={
                                     deliverySettings?.deliveryMethods
