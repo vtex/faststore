@@ -3,8 +3,9 @@
   @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
   @import "@faststore/ui/src/components/atoms/Button/styles.scss";
   @import "@faststore/ui/src/components/molecules/Card/styles.scss";
-  @import "../../components/MyAccountCard/styles.scss";
   @import "../../components/MyAccountAccordion/styles.scss";
+  @import "../../components/MyAccountCard/styles.scss";
+  @import "../../components/MyAccountStatusBadge/styles.scss";
   @import "./MyAccountSummaryCard/styles.scss";
   @import "./MyAccountOrderedByCard/styles.scss";
   @import "./MyAccountDeliveryCard/styles.scss";
@@ -55,25 +56,24 @@
       --fs-order-details-header-padding             : var(--fs-spacing-6) 0;
 
       flex-flow: row;
-      align-items: flex-start;
+      align-items: center;
     }
 
     [data-fs-order-details-header-title] {
       display: flex;
       flex-direction: row;
       gap: var(--fs-spacing-1);
-      align-items: flex-start;
+      align-items: center;
 
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
-        margin-top: -8px;
       }
 
       [data-fs-order-details-header-title-wrapper] {
         display: flex;
         flex-direction: column;
         gap: var(--fs-spacing-1);
-        align-items: flex-start;
+        align-items: center;
 
         @include media(">tablet") {
           flex-flow: row wrap;

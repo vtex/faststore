@@ -20,6 +20,7 @@ import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 
@@ -196,6 +197,22 @@ export const getServerSideProps: GetServerSideProps<
   const text = (context.query.text as string | undefined) || ''
   const clientEmail = (context.query.clientEmail as string | undefined) || ''
 
+  // Map labels from FastStore status to API status
+  const groupedStatus = groupOrderStatusByLabel()
+  const allStatuses =
+    status
+      .reduce((acc, item) => {
+        const statusGroup = Object.entries(groupedStatus).find(
+          ([key]) => key.toLowerCase() === item.toLowerCase()
+        )
+        if (statusGroup) {
+          const [, statusValues] = statusGroup
+          return [...acc, ...statusValues]
+        }
+        return acc
+      }, [] as string[])
+      .filter(Boolean) || []
+
   const [
     listOrders,
     globalSections,
@@ -207,7 +224,7 @@ export const getServerSideProps: GetServerSideProps<
         variables: {
           page,
           perPage,
-          status,
+          status: allStatuses,
           dateInitial,
           dateFinal,
           text,

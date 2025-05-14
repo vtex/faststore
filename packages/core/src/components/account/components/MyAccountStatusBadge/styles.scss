@@ -26,6 +26,8 @@
 
   display: inline-block;
   width: fit-content;
+  min-width: -webkit-fill-available;
+  min-width: fit-content;
   height: fit-content;
   padding: var(--fs-my-account-badge-padding);
   overflow: hidden;
