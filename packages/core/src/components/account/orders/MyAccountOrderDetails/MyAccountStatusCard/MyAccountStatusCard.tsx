@@ -234,3 +234,5 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
     </MyAccountCard>
   )
 }
+
+export default MyAccountStatusCard
