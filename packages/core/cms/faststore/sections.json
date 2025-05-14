@@ -1917,6 +1917,7 @@
             "deliverySettings": {
               "title": "Delivery Settings",
               "type": "object",
+              "required": ["title", "description"],
               "properties": {
                 "title": {
                   "title": "Delivery section title",
