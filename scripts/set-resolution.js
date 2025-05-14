@@ -31,7 +31,7 @@ if (packageJson.devDependencies[packageToResolve]) {
   packageJson.dependencies[packageToResolve] = versionResolution
 } else {
   console.info(
-    `${packageToResolve} is not a dependence of the specified project`
+    `${packageToResolve} is not a dependency of the specified project`
   )
 }
 
