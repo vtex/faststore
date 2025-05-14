@@ -22,8 +22,8 @@ import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import { useFilter } from 'src/sdk/search/useFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
-import styles from '../../sections/ProductGallery/section.module.scss'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import styles from '../../sections/ProductGallery/section.module.scss'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
@@ -55,6 +55,7 @@ export interface ProductGalleryProps {
       clearButtonLabel: FilterSliderProps['clearButtonLabel']
       applyButtonLabel: FilterSliderProps['applyButtonLabel']
     }
+    deliverySettings?: FilterSliderProps['deliverySettings']
   }
   previousPageButton?: {
     label?: string
@@ -174,6 +175,7 @@ function ProductGallery({
                       {...FilterDesktop.props}
                       {...filter}
                       title={filterCmsData?.title}
+                      deliverySettings={filterCmsData?.deliverySettings}
                     />
                   </div>
                 )}
@@ -188,6 +190,7 @@ function ProductGallery({
                 title={filterCmsData?.title}
                 clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
                 applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
+                deliverySettings={filterCmsData?.deliverySettings}
               />
             </div>
           )}
