@@ -73,6 +73,7 @@
         font-size: var(--fs-filter-accordion-button-text-size);
         font-weight: var(--fs-filter-accordion-button-text-weight);
         line-height: var(--fs-filter-accordion-button-line-height);
+
         @include media(">=notebook") {
           padding-right: var(--fs-filter-accordion-button-padding-right-notebook);
           padding-left: var(--fs-filter-accordion-button-padding-left-notebook);
@@ -87,6 +88,13 @@
         padding-right: var(--fs-filter-accordion-item-panel-padding-right-notebook);
         padding-left: var(--fs-filter-accordion-item-panel-padding-left-notebook);
       }
+    }
+
+    [data-fs-filter-accordion-item-description] {
+      display: flex;
+      margin-bottom: var(--fs-spacing-4);
+      font-size: var(--fs-text-size-legend);
+      line-height: 1.42;
     }
   }
 
@@ -120,5 +128,29 @@
 
   [data-fs-filter-list-item-badge] {
     margin-left: var(--fs-filter-list-item-badge-margin-left);
+  }
+
+  [data-fs-filter-list-item-radio] {
+    + [data-fs-label] {
+      display: inline-flex;
+      flex-wrap: wrap;
+      column-gap: var(--fs-spacing-0);
+      align-items: center;
+    }
+  }
+
+  [data-fs-filter-list-item-button] {
+    min-height: fit-content;
+    padding: 0;
+    color: var(--fs-color-link);
+
+    [data-fs-button-wrapper] {
+      padding: 0;
+      font-weight: var(--fs-text-weight-medium);
+    }
+  }
+
+  [data-fs-filter-list-delivery-button] {
+    width: 100%;
   }
 }
