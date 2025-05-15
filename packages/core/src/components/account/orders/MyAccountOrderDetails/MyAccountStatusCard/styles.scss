@@ -77,6 +77,7 @@
     padding: var(--fs-order-status-card-padding);
 
     &[data-fs-shipping-status="loading"] {
+      z-index: -1;
       background-color: var(--fs-order-status-card-bkg-color);
       border-radius: var(--fs-order-status-card-border-radius);
     }
@@ -95,7 +96,6 @@
 
     [data-fs-shipping-step-icon] {
       position: relative;
-      z-index: 1;
       display: flex;
       flex-shrink: 0;
       align-items: center;
@@ -171,7 +171,6 @@
 
     [data-fs-shipping-connector] {
       position: absolute;
-      z-index: 1;
       background-color: var(--fs-order-status-connector-color);
 
       &[data-fs-shipping-connector-status="completed"] {
