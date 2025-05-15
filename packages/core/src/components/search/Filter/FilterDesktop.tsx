@@ -42,8 +42,8 @@ function FilterDesktop({
 
   const context = usePage<SearchPageContext | PLPContext>()
   const globalDeliverySettingsData =
-    context?.globalSectionsSettings?.regionalization?.deliverySettings
-  const cmsData = deepmerge(globalDeliverySettingsData, deliverySettings)
+    context?.globalSectionsSettings?.regionalization?.deliverySettings ?? {}
+  const cmsData = deepmerge(globalDeliverySettingsData, deliverySettings ?? {})
   const deliveryLabel = cmsData?.title ?? 'Delivery'
 
   const { postalCode } = sessionStore.read()
