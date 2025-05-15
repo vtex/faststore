@@ -1,6 +1,7 @@
 .page {
   @import "./MyAccountListOrdersTable/styles.scss";
   @import "./MyAccountSelectedTags/styles.scss";
+  @import "./MyAccountListOrdersEmptyState/styles.scss";
   @import "../../components/MyAccountStatusBadge/styles.scss";
 
   // --------------------------------------------------------
@@ -9,6 +10,7 @@
 
   // Default properties
   --fs-list-orders-padding                            : var(--fs-spacing-5);
+  --fs-page-height                                    : 100%;
 
   // Title
   --fs-list-orders-title-margin-bottom                : var(--fs-spacing-5);
@@ -28,6 +30,8 @@
   --fs-list-orders-filter-button-border-radius        : var(--fs-border-radius-pill);
   --fs-list-orders-filter-button-height               : 2.375rem;
   --fs-list-orders-filter-button-margin-left          : 0.6rem;
+
+  height: var(--fs-page-height);
 
   [data-fs-list-orders] {
     padding: var(--fs-list-orders-padding);

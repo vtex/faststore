@@ -25,6 +25,7 @@ import MyAccountListOrdersTable, {
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'
 import SelectedFiltersTags from './MyAccountSelectedTags/MyAccountSelectedTags'
 import styles from './styles.module.scss'
+import MyAccountListOrdersEmptyState from './MyAccountListOrdersEmptyState'
 
 export type MyAccountListOrdersProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
@@ -158,6 +159,14 @@ export default function MyAccountListOrders({
   })
 
   const { openFilter, filter: displayFilter } = useUI()
+
+  if (listOrders.list.length === 0) {
+    return (
+      <div className={styles.page}>
+        <MyAccountListOrdersEmptyState />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.page}>
