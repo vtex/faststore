@@ -9,9 +9,7 @@ import {
 
 import { MyAccountLayout } from 'src/components/account'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import RenderSections, {
-  RenderSectionsBase,
-} from 'src/components/cms/RenderSections'
+import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
@@ -28,11 +26,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type Props = {
-  page: PageContentType
   globalSections: GlobalSectionsData
 }
 
-function Page({ page: { sections }, globalSections }: Props) {
+function Page({ globalSections }: Props) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -87,8 +84,8 @@ export const getStaticProps: GetStaticProps<
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
       getPage<PageContentType>({
-        ...(previewData?.contentType === '404' && previewData),
-        contentType: '404',
+        ...(previewData?.contentType === '403' && previewData),
+        contentType: '403',
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
@@ -102,7 +99,11 @@ export const getStaticProps: GetStaticProps<
   })
 
   return {
-    props: { page, globalSections: globalSectionsResult },
+    props: {
+      // The sections from the CMS page are not utilized here for the My Account page.
+      // page,
+      globalSections: globalSectionsResult,
+    },
   }
 }
 

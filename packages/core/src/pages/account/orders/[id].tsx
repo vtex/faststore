@@ -729,7 +729,7 @@ export const getServerSideProps: GetServerSideProps<
     const statusCode: number = (orderDetails.errors[0] as any)?.extensions
       ?.status
     const destination: string =
-      statusCode === 403 ? '/account/orders/403' : '/account/404'
+      statusCode === 403 ? '/account/403' : '/account/404'
 
     return {
       redirect: {
