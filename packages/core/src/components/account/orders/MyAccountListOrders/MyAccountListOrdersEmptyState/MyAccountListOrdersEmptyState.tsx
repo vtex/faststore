@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { Icon } from '@faststore/ui'
+import { Icon, LinkButton } from '@faststore/ui'
 
 export default function MyAccountListOrdersEmptyState() {
   return (
@@ -9,9 +8,13 @@ export default function MyAccountListOrdersEmptyState() {
         <h2 data-fs-list-orders-empty-state-title>You don’t have any orders</h2>
       </div>
 
-      <Link data-fs-list-orders-empty-state-link href="/">
+      <LinkButton
+        data-fs-list-orders-empty-state-link
+        href="/"
+        variant="secondary"
+      >
         Start shopping
-      </Link>
+      </LinkButton>
     </div>
   )
 }

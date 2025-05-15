@@ -4,17 +4,23 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-list-orders-empty-state-gap                      : var(--fs-spacing-4);
+  --fs-list-orders-empty-state-gap: var(--fs-spacing-4);
 
   // Title
-  --fs-list-orders-empty-state-title-font-size          : var(--fs-text-size-3);
-  --fs-list-orders-empty-state-title-font-weight        : var(--fs-text-weight-semibold);
+  --fs-list-orders-empty-state-title-font-size: var(--fs-text-size-3);
+  --fs-list-orders-empty-state-title-font-weight:
+    var(
+      --fs-text-weight-semibold
+    );
 
   // Button link
-  --fs-list-orders-empty-state-button-link-width        : 170px;
-  --fs-list-orders-empty-state-button-link-height       : 38px;
-  --fs-list-orders-empty-state-button-link-font-size    : var(--fs-text-size-2);
-  --fs-list-orders-empty-state-button-link-font-weight  : var(--fs-text-weight-semibold);
+  --fs-list-orders-empty-state-button-link-width: 170px;
+  --fs-list-orders-empty-state-button-link-height: 38px;
+  --fs-list-orders-empty-state-button-link-font-size: var(--fs-text-size-2);
+  --fs-list-orders-empty-state-button-link-font-weight:
+    var(
+      --fs-text-weight-semibold
+    );
 
   display: flex;
   flex-direction: column;
@@ -41,21 +47,6 @@
   }
 
   [data-fs-list-orders-empty-state-link] {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--fs-list-orders-empty-state-button-link-width);
-    height: var(--fs-list-orders-empty-state-button-link-height);
-    font-size: var(--fs-list-orders-empty-state-button-link-font-size);
-    font-weight: var(--fs-list-orders-empty-state-button-link-font-weight);
-    line-height: var(--fs-spacing-4);
-    color: var(--fs-color-secondary-text);
     text-decoration: none;
-    border: var(--fs-border-width) solid var(--fs-border-color-light);
-    border-radius: var(--fs-border-radius-pill);
-
-    &:hover {
-      color: var(--fs-color-secondary-bkg-active);
-    }
   }
 }
