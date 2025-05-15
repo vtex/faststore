@@ -15,6 +15,12 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
+import deepmerge from 'deepmerge'
+import {
+  type PLPContext,
+  type SearchPageContext,
+  usePage,
+} from 'src/sdk/overrides/PageProvider'
 import { sessionStore } from 'src/sdk/session'
 import FilterDeliveryOption from './FilterDeliveryOption'
 
@@ -34,9 +40,13 @@ function FilterDesktop({
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
-  const { postalCode } = sessionStore.read()
+  const context = usePage<SearchPageContext | PLPContext>()
+  const globalDeliverySettingsData =
+    context?.globalSectionsSettings?.regionalization?.deliverySettings
+  const cmsData = deepmerge(globalDeliverySettingsData, deliverySettings)
+  const deliveryLabel = cmsData?.title ?? 'Delivery'
 
+  const { postalCode } = sessionStore.read()
   const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
   const filteredFacets = deliveryPromise.enabled
     ? facets
@@ -58,7 +68,7 @@ function FilterDesktop({
           index={0}
           type=""
           label={deliveryLabel}
-          description={deliverySettings?.description}
+          description={cmsData?.description}
         >
           <UIButton
             data-fs-filter-list-delivery-button
@@ -68,7 +78,7 @@ function FilterDesktop({
             }}
             icon={<UIIcon name="MapPin" />}
           >
-            {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
+            {cmsData?.setLocationButtonLabel ?? 'Set Location'}
           </UIButton>
         </UIFilterFacets>
       )}
@@ -85,9 +95,7 @@ function FilterDesktop({
             index={index}
             type={type}
             label={isDeliveryFacet ? deliveryLabel : label}
-            description={
-              isDeliveryFacet ? deliverySettings.description : undefined
-            }
+            description={isDeliveryFacet ? cmsData.description : undefined}
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
               <UIFilterFacetBoolean>
@@ -116,9 +124,7 @@ function FilterDesktop({
                       isDeliveryFacet ? (
                         <FilterDeliveryOption
                           item={item}
-                          deliveryCustomLabels={
-                            deliverySettings.deliveryCustomLabels
-                          }
+                          deliveryCustomLabels={cmsData.deliveryCustomLabels}
                         />
                       ) : (
                         item.label
