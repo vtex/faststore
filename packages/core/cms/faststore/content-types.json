@@ -3,7 +3,131 @@
     "id": "globalSections",
     "name": "Global Sections",
     "scopes": ["global"],
-    "configurationSchemaSets": [],
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "regionalization",
+            "schema": {
+              "title": "Regionalization",
+              "description": "Regionalization options",
+              "type": "object",
+              "properties": {
+                "inputField": {
+                  "title": "Postal Code Input Field",
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Postal Code"
+                    },
+                    "errorMessage": {
+                      "title": "Error message",
+                      "type": "string",
+                      "default": "You entered an invalid Postal Code"
+                    },
+                    "noProductsAvailableErrorMessage": {
+                      "title": "Error message for the scenario of no products available for a given location",
+                      "type": "string",
+                      "default": "There are no products available for %s.",
+                      "description": "The '%s' will be replaced by the postal code value."
+                    },
+                    "buttonActionText": {
+                      "title": "Action label to apply the postal code",
+                      "type": "string",
+                      "default": "Apply"
+                    }
+                  }
+                },
+                "idkPostalCodeLink": {
+                  "title": "I don't know my postal code link",
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "title": "Link Text",
+                      "default": "I don't know my Postal Code"
+                    },
+                    "to": {
+                      "type": "string",
+                      "title": "Action link"
+                    },
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["Arrow Square Out"],
+                          "enum": ["ArrowSquareOut"],
+                          "default": "ArrowSquareOut"
+                        },
+                        "alt": {
+                          "title": "Alternative Label",
+                          "type": "string",
+                          "default": "Arrow Square Out icon"
+                        }
+                      }
+                    }
+                  }
+                },
+                "deliverySettings": {
+                  "title": "PLP/Search Filter: Delivery Settings",
+                  "type": "object",
+                  "required": ["title", "description"],
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Delivery"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "type": "string",
+                      "default": "Offers and delivery options vary based on region."
+                    },
+                    "setLocationButtonLabel": {
+                      "title": "Call to Action label",
+                      "type": "string",
+                      "default": "Set Location"
+                    },
+                    "deliveryCustomLabels": {
+                      "title": "Filter options labels",
+                      "type": "object",
+                      "properties": {
+                        "delivery": {
+                          "title": "Shipping label",
+                          "type": "string",
+                          "default": "Shipping to"
+                        },
+                        "pickupInPoint": {
+                          "title": "Pickup in point label",
+                          "type": "string",
+                          "default": "Pickup at"
+                        },
+                        "pickupNearby": {
+                          "title": "Pickup Nearby label",
+                          "type": "string",
+                          "default": "Pickup Nearby"
+                        },
+                        "pickupAll": {
+                          "title": "Pickup Anywhere label",
+                          "type": "string",
+                          "default": "Pickup Anywhere"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
     "isSingleton": true
   },
   {
