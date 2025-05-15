@@ -1,5 +1,5 @@
-import { Icon as UIIcon } from '@faststore/ui'
-import { useEffect, useRef } from 'react'
+import { Skeleton as UISkeleton, Icon as UIIcon } from '@faststore/ui'
+import { type ReactNode, useEffect, useRef } from 'react'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
@@ -13,7 +13,7 @@ export type StepKey =
   | 'shipping'
 
 interface Step {
-  label: string
+  label: ReactNode
   status: StepStatus
   completedAt?: string
 }
@@ -90,13 +90,13 @@ const LABEL_TO_STEP_MAPPING: Record<string, StepKey> = {
   'Payment Denied': 'payment',
   'Ready for Delivery': 'processing',
   Invoiced: 'shipping',
-  'Cancellation Requested': 'processing', // I think it can be request in any step
-  Canceled: 'processing', // I think it can be request in any step
 }
 
-// Define which order status labels indicate a failed/canceled state
-// These are used to determine if we should show the appropriate step as 'failed'
-const FAILED_LABELS = ['Payment Denied', 'Cancellation Requested', 'Canceled']
+// Define which order status labels indicate a canceled state
+const CANCELED_LABELS = ['Cancellation Requested', 'Canceled']
+
+// Define which order status labels indicate a failed state
+const FAILED_LABELS = ['Payment Denied']
 
 const formatDate = (date: string) => {
   return new Intl.DateTimeFormat('en-US', {
@@ -138,20 +138,36 @@ const StepIcon = ({ status }: { status: StepStatus }) => {
 }
 
 // Determine the visual status (completed, loading, not-started, or failed) of a specific step based on the current order status
-const getStepStatus = (
-  stepKey: StepKey,
-  currentStatus: OrderStatusKey,
+const getStepStatus = ({
+  stepKey,
+  currentStatus,
+  isCanceled,
+  isFailed,
+}: {
+  stepKey: StepKey
+  currentStatus: OrderStatusKey
   isCanceled: boolean
-): StepStatus => {
+  isFailed: boolean
+}): StepStatus => {
   // Get the label for the current status from userOrderStatus.ts
   const currentStatusLabel = orderStatusMap[currentStatus]?.label
+
+  // If order is canceled, handle it specially
+  if (isCanceled) {
+    // For canceled orders, only the middle step (payment) will be marked as failed and the rest as not-started
+    if (stepKey === 'payment') {
+      return 'failed'
+    }
+
+    return 'not-started'
+  }
 
   // Get the step key for the current status
   const currentStepKey = currentStatusLabel
     ? LABEL_TO_STEP_MAPPING[currentStatusLabel]
     : undefined
 
-  if (isCanceled && stepKey === currentStepKey) {
+  if (isFailed && stepKey === currentStepKey) {
     return 'failed'
   }
 
@@ -188,14 +204,36 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
   // Get the label for the current status and check if it's a failed status
   const currentStatusLabel = orderStatusMap[status]?.label
   const isCanceled = currentStatusLabel
+    ? CANCELED_LABELS.includes(currentStatusLabel)
+    : false
+  const isFailed = currentStatusLabel
     ? FAILED_LABELS.includes(currentStatusLabel)
     : false
 
   const steps: Step[] = VISUAL_STEPS.map((step) => {
-    const stepStatus = getStepStatus(step.key, status, isCanceled)
+    const stepStatus = getStepStatus({
+      stepKey: step.key,
+      currentStatus: status,
+      isCanceled,
+      isFailed,
+    })
+
+    const stepLabel = isCanceled ? (
+      step.key === 'payment' ? (
+        currentStatusLabel
+      ) : (
+        <UISkeleton
+          key={step.key}
+          size={{ width: '100px', height: '14px' }}
+          shimmer={false}
+        />
+      )
+    ) : (
+      step.label(stepStatus)
+    )
 
     return {
-      label: step.label(stepStatus),
+      label: stepLabel,
       status: stepStatus,
     }
   })
