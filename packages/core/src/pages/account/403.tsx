@@ -16,7 +16,7 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { Button } from '@faststore/components'
+import { LinkButton } from '@faststore/components'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -44,16 +44,9 @@ function Page({ globalSections }: Props) {
           subtitle="You don't have permission to access this page."
           showLoader={false}
         >
-          <Button
-            variant="secondary"
-            inverse={false}
-            size="regular"
-            onClick={() => {
-              window.location.href = '/account/orders'
-            }}
-          >
-            Back to Orders
-          </Button>
+          <LinkButton variant="secondary" href="/account">
+            Back to Account
+          </LinkButton>
         </EmptyState>
       </MyAccountLayout>
     </RenderSections>
