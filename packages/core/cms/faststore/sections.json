@@ -1920,17 +1920,17 @@
               "properties": {
                 "title": {
                   "title": "Delivery section title",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string"
                 },
                 "description": {
                   "title": "Delivery section description",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string"
                 },
                 "setLocationButtonLabel": {
                   "title": "Call to Action label",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string"
                 },
                 "deliveryCustomLabels": {
@@ -1939,22 +1939,22 @@
                   "properties": {
                     "delivery": {
                       "title": "Shipping label",
-                      "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                       "type": "string"
                     },
                     "pickupInPoint": {
                       "title": "Pickup in point label",
-                      "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                       "type": "string"
                     },
                     "pickupNearby": {
                       "title": "Pickup Nearby label",
-                      "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                       "type": "string"
                     },
                     "pickupAll": {
                       "title": "Pickup Anywhere label",
-                      "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                       "type": "string"
                     }
                   }
@@ -2266,22 +2266,22 @@
           "properties": {
             "label": {
               "title": "Input field label",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string"
             },
             "errorMessage": {
               "title": "Input field error message",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used. The '%s' is replaced by the postal code value.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
               "type": "string"
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string"
             }
           }
@@ -2293,12 +2293,12 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used."
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "to": {
               "type": "string",
               "title": "Action link",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used."
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "icon": {
               "title": "Icon",
@@ -2306,14 +2306,14 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
                   "enum": ["ArrowSquareOut"]
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string"
                 }
               }
@@ -2347,22 +2347,22 @@
           "properties": {
             "label": {
               "title": "Input field label",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string"
             },
             "errorMessage": {
               "title": "Input field error message",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used. The '%s' is replaced by the postal code value.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
               "type": "string"
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string"
             }
           }
@@ -2391,12 +2391,12 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used."
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "to": {
               "type": "string",
               "title": "Action link",
-              "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used."
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "icon": {
               "title": "Icon",
@@ -2404,14 +2404,14 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
                   "enum": ["ArrowSquareOut"]
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "description": "[DEPRECATED] Use the Settings tab in the Global Sections to configure this message. This field will be removed in the future. Leave it blank so the one in Global Sections Settings tab is used.",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string"
                 }
               }
