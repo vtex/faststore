@@ -78,7 +78,9 @@ jobs:
         run: |
           cd starter
           for package in ../packed-packages/*.tgz; do
-            yarn add "$package"
+            ARR=(${package//-/ })
+            NAME=@faststore\/${ARR[2]}
+            ../scripts/set-resolution.js . $NAME $package
           done
 
       - name: Install dependencies in starter
