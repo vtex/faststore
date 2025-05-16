@@ -1,0 +1,14 @@
+{
+  "search": {
+    "$singleton": true,
+    "title": "Search Page",
+    "properties": {
+      "productGalery": {
+        "$ref": "#/components/SEO"
+      },
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    }
+  }
+}
