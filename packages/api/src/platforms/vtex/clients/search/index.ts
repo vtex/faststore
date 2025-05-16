@@ -52,6 +52,7 @@ const POLICY_KEY = 'trade-policy'
 const REGION_KEY = 'region-id'
 const FUZZY_KEY = 'fuzzy'
 const OPERATOR_KEY = 'operator'
+const SHIPPING_KEY = 'shipping'
 
 const EXTRA_FACETS_KEYS = new Set([
   POLICY_KEY,
@@ -148,12 +149,28 @@ export const IntelligentSearch = (
     const regionFacet =
       facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
 
+    const shippingFacet = facets.find(({ key }) => key === SHIPPING_KEY)
+
     if (policyFacet !== null) {
       withDefaultFacets.push(policyFacet)
     }
 
     if (regionFacet !== null) {
       withDefaultFacets.push(regionFacet)
+    }
+
+    if (shippingFacet) {
+      const isPickupInPoint = shippingFacet.value === 'pickup-in-point'
+
+      if (isPickupInPoint) {
+        // Required additional parameter for the pickup-in-point method
+        withDefaultFacets.push({
+          ...shippingFacet,
+          value: `${shippingFacet.value}/pickupPoint`,
+        })
+      } else {
+        withDefaultFacets.push(shippingFacet)
+      }
     }
 
     return withDefaultFacets
