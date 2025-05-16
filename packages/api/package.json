@@ -18,9 +18,9 @@
       "default": "./dist/esm/src/index.js"
     }
   },
-  "browserslist": "node 18",
+  "browserslist": "node 20",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "dev": "concurrently \"pnpm run generate -w\" \"tsc --watch\" \"pnpm run dev:graphql\"",
