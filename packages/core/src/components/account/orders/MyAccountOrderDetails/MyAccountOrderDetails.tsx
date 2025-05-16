@@ -1,9 +1,7 @@
-import {
-  Badge as UIBadge,
-  Icon as UIIcon,
-  IconButton as UIIconButton,
-} from '@faststore/ui'
-import MyAccountStatusCard, {} from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
+import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
+import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
 import MyAccountOrderActions from './MyAccountOrderActions'
@@ -11,7 +9,6 @@ import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import styles from './section.module.scss'
