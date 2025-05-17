@@ -86,6 +86,7 @@ export const UserOrder: Record<string, Resolver<Root>> = {
 
         if (acc[groupKey]) {
           acc[groupKey].items?.push({
+            id: item?.id || '',
             name: item?.name || '',
             quantity: item?.quantity || 0,
             price: item?.price || 0,
@@ -120,5 +121,79 @@ export const UserOrder: Record<string, Resolver<Root>> = {
       deliveryOptions,
       contact,
     }
+  },
+  customFields: (root) => {
+    const customFields = root?.customData?.customFields || []
+    return Object.values(
+      (customFields as Array<any>).reduce(
+        (
+          acc: Record<string, { type: string; id: string; fields: any[] }>,
+          entry: any
+        ) => {
+          const type = entry.linkedEntity?.type || ''
+          const id = entry.linkedEntity?.id || ''
+          const key = `${type}|${id || ''}`
+          if (!acc[key]) {
+            acc[key] = { type, id, fields: [] }
+          }
+          acc[key].fields.push(...(entry.fields || []))
+          return acc
+        },
+        {}
+      )
+    )
+    // Example of custom fields
+    //   return [
+    //     {
+    //       type: 'item',
+    //       id: '9009169',
+    //       fields: [
+    //         {
+    //           name: 'costCenter',
+    //           value: 'CC1',
+    //           refId: 'externalId',
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       type: 'item',
+    //       id: 'ECEAC03EBA2B4BBFA7E899CD4CA5121B',
+    //       fields: [
+    //         {
+    //           name: 'costCenter',
+    //           value: 'CC2',
+    //           refId: 'externalId',
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       type: 'address',
+    //       id: 'work-A1',
+    //       fields: [
+    //         {
+    //           name: 'desktop',
+    //           value: 'A1',
+    //           refId: 'externalId',
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       type: 'order',
+    //       id: '',
+    //       fields: [
+    //         {
+    //           name: 'poNumber',
+    //           value: '111222333',
+    //           refId: 'externalId',
+    //         },
+    //         {
+    //           name: 'release',
+    //           value: '123',
+    //           refId: 'externalId',
+    //         },
+    //       ],
+    //     },
+    //   ]
+    // },
   },
 }
