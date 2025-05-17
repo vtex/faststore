@@ -3280,7 +3280,17 @@ export type ValidateSessionMutation = {
       givenName: string
       familyName: string
     } | null
-    b2b: { customerId: string } | null
+    b2b: {
+      customerId: string
+      isRepresentative: boolean | null
+      unitName: string | null
+      unitId: string | null
+      isCorporate: boolean | null
+      corporateName: string | null
+      firstName: string | null
+      lastName: string | null
+      userName: string | null
+    } | null
     marketingData: {
       utmCampaign: string | null
       utmMedium: string | null
@@ -3951,7 +3961,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '2c6e94b978eb50647873082daebcc5b332154cb1',
+    operationHash: 'c44c210ffbfa188b5e8c278d6039f54c42746f94',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
