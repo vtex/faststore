@@ -19,20 +19,20 @@ type ContractSwitchDrawerProps = {
   onCloseDrawer?: () => void
 }
 
-// TODO: Remove mock
+// TODO: Remove mock when integrating with the backend
 const options = [
   'Finance Solutions',
-  'Stellar Innovations',
+  'Green Innovations',
   'Blue Horizon Corp',
   'Prime Finance Group',
-  'Stellar Ventures',
+  'John Ventures',
   'Evergreen Holdings',
   'Finance Pro Consulting',
-  'Stellar Strategies',
-  'Pioneer Technologies',
+  'John Strategies',
+  'A Technologies',
   'Global Finance Advisors',
-  'TechWave Solutions',
-  'Stellar Capital Partners',
+  'Tech Solutions',
+  'Capital Partners',
 ].map((name, index) => ({ name, id: `id-${index}` }))
 
 export const ContractSwitchDrawer = ({
