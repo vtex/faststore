@@ -1,12 +1,12 @@
 import {
   Button,
+  Icon,
   SlideOver,
   SlideOverHeader,
   Icon as UIIcon,
   useFadeEffect,
 } from '@faststore/ui'
 import { useMemo, useState } from 'react'
-import { Icon } from '../Icon'
 import type { CustomerSwitchOptionData } from './CustomerSwitchOption'
 import { CustomerSwitchOptionsList } from './CustomerSwitchOptionsList'
 import { CustomerSwitchSearch } from './CustomerSwitchSearch'
