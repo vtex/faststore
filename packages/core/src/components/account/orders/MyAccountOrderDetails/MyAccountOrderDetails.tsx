@@ -70,6 +70,9 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
+          fields={
+            order.customFields.find((field) => field.type === 'address')?.fields
+          }
         />
         <MyAccountStatusCard status={order.status as OrderStatusKey} />
         <MyAccountPaymentCard
