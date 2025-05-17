@@ -183,7 +183,15 @@ export type IShippingItem = {
 }
 
 export type IStoreB2B = {
+  corporateName: InputMaybe<Scalars['String']['input']>
   customerId: Scalars['String']['input']
+  firstName: InputMaybe<Scalars['String']['input']>
+  isCorporate: InputMaybe<Scalars['Boolean']['input']>
+  isRepresentative: InputMaybe<Scalars['Boolean']['input']>
+  lastName: InputMaybe<Scalars['String']['input']>
+  unitId: InputMaybe<Scalars['String']['input']>
+  unitName: InputMaybe<Scalars['String']['input']>
+  userName: InputMaybe<Scalars['String']['input']>
 }
 
 /** Shopping cart input. */
@@ -747,7 +755,15 @@ export type StoreAuthor = {
 }
 
 export type StoreB2B = {
+  corporateName: Maybe<Scalars['String']['output']>
   customerId: Scalars['String']['output']
+  firstName: Maybe<Scalars['String']['output']>
+  isCorporate: Maybe<Scalars['Boolean']['output']>
+  isRepresentative: Maybe<Scalars['Boolean']['output']>
+  lastName: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+  unitName: Maybe<Scalars['String']['output']>
+  userName: Maybe<Scalars['String']['output']>
 }
 
 /** Brand of a given product. */
