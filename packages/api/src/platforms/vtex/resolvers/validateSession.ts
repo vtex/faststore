@@ -1,17 +1,19 @@
 import deepEquals from 'fast-deep-equal'
 
-import ChannelMarshal from '../utils/channel'
+import { parse } from 'cookie'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
   StoreMarketingData,
   StoreSession,
 } from '../../../__generated__/schema'
+import ChannelMarshal from '../utils/channel'
+import { parseJwt } from '../utils/cookies'
 
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context
+  { clients, headers, account }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
@@ -36,17 +38,48 @@ export const validateSession = async (
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
-  const [regionData, sessionData] = await Promise.all([
-    postalCode || geoCoordinates
-      ? clients.commerce.checkout.region({
-          postalCode,
-          geoCoordinates,
-          country,
-          salesChannel,
-        })
-      : Promise.resolve(null),
-    clients.commerce.session(params.toString()).catch(() => null),
-  ])
+  const authCookie = parse(headers?.cookie ?? '')?.[
+    'VtexIdclientAutCookie_' + account
+  ]
+  const jwt = parseJwt(authCookie)
+
+  const isRepresentative = jwt?.isRepresentative
+  const userId = jwt?.userId
+  const customerId = jwt?.customerId
+
+  const [regionData, sessionData, vtexid, unit, contract, user] =
+    await Promise.all([
+      postalCode || geoCoordinates
+        ? clients.commerce.checkout.region({
+            postalCode,
+            geoCoordinates,
+            country,
+            salesChannel,
+          })
+        : Promise.resolve(null),
+
+      clients.commerce.session(params.toString()).catch(() => null),
+
+      isRepresentative
+        ? clients.commerce.vtexid.validate().catch(() => null)
+        : Promise.resolve(null),
+
+      isRepresentative
+        ? clients.commerce.units.getUnitByUserId({ userId }).catch(() => null)
+        : Promise.resolve(null),
+
+      isRepresentative
+        ? clients.commerce.masterData
+            .getContractById({ contractId: customerId })
+            .catch(() => null)
+        : Promise.resolve(null),
+
+      isRepresentative
+        ? clients.commerce.licenseManager
+            .getUserById({ userId })
+            .catch(() => null)
+        : Promise.resolve(null),
+    ])
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
@@ -68,9 +101,24 @@ export const validateSession = async (
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
-    b2b: {
-      customerId: authentication?.customerId?.value ?? '',
-    },
+    b2b: isRepresentative
+      ? {
+          customerId:
+            authentication?.customerId?.value ??
+            vtexid?.customerId ??
+            customerId ??
+            '',
+          isRepresentative:
+            vtexid?.isRepresentative ?? isRepresentative ?? false,
+          unitName: vtexid?.unitName ?? '',
+          unitId: unit?.id ?? '',
+          isCorporate: contract?.isCorporate ?? false,
+          corporateName: contract?.corporateName ?? '',
+          firstName: contract?.firstName ?? '',
+          lastName: contract?.lastName ?? '',
+          userName: user?.name ?? '',
+        }
+      : null,
     marketingData,
     person: profile?.id
       ? {
