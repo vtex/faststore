@@ -13,6 +13,7 @@ import type {
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
 import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
@@ -29,6 +30,8 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type { ScopesByUnit, UnitResponse } from './types/Unit'
+import type { VtexIdResponse } from './types/VtexId'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -387,17 +390,19 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,'
+        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,checkout.regionId,'
       )
 
       const headers: HeadersInit = withCookie({
         'content-type': 'application/json',
       })
 
+      const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
+
       return fetchAPI(
         `${base}/api/sessions?${params.toString()}`,
         {
-          method: 'POST',
+          method: sessionCookie ? 'PATCH' : 'POST',
           headers,
           body: '{}',
         },
@@ -515,6 +520,150 @@ export const VtexCommerce = (
           {
             method: 'GET',
             headers,
+          },
+          { storeCookies }
+        )
+      },
+    },
+    units: {
+      getUnitByUserId: ({
+        userId,
+      }: { userId: string }): Promise<UnitResponse> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+        return fetchAPI(
+          `${base}/api/units/v1/${userId}/unit`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getOrgUnitById: ({
+        orgUnitId,
+      }: { orgUnitId: string }): Promise<UnitResponse> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+        return fetchAPI(
+          `${base}/api/units/v1/${orgUnitId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getScopesByOrgUnit: ({
+        orgUnitId,
+      }: { orgUnitId: string }): Promise<ScopesByUnit> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+        return fetchAPI(
+          `${base}/api/units/v1/${orgUnitId}/scopes`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
+    licenseManager: {
+      getUserById: ({
+        userId,
+      }: { userId: string }): Promise<{
+        id: string
+        name: string
+        email: string
+      }> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+        return fetchAPI(
+          `${base}/api/license-manager/users/${userId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
+    masterData: {
+      getContractById: ({
+        contractId,
+      }: { contractId: string }): Promise<ContractResponse> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+        return fetchAPI(
+          `${base}/api/dataentities/CL/documents/${contractId}?_fields=_all`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
+    vtexid: {
+      validate: (): Promise<VtexIdResponse> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+
+        return fetchAPI(
+          `${base}/api/vtexid/credential/validate`,
+          {
+            headers,
+            body: JSON.stringify({
+              token: VtexIdclientAutCookie,
+            }),
+            method: 'POST',
           },
           { storeCookies }
         )

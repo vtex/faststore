@@ -64,6 +64,7 @@ export interface Context {
     cookies: Map<string, Record<string, string>>
   }
   headers: Record<string, string>
+  account: string
 }
 
 export type Resolver<R = unknown, A = unknown, Return = any> = (
@@ -107,6 +108,7 @@ export const getContextFactory =
     }
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
+    ctx.account = options.account
 
     return ctx
   }

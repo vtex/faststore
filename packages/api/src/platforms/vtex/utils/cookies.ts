@@ -124,3 +124,10 @@ export const updatesCookieValueByKey = (
   // add new storage cookie to the original list of cookies
   return `${existingCookies};${storageCookieKey}=${storageCookieValue}`
 }
+
+export function parseJwt(token: string) {
+  if (!token) {
+    return null
+  }
+  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+}

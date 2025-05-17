@@ -182,10 +182,26 @@ type StoreSession {
 
 type StoreB2B {
   customerId: String!
+  isRepresentative: Boolean
+  unitName: String
+  unitId: String
+  isCorporate: Boolean
+  corporateName: String
+  firstName: String
+  lastName: String
+  userName: String
 }
 
 input IStoreB2B {
   customerId: String!
+  isRepresentative: Boolean
+  unitName: String
+  unitId: String
+  isCorporate: Boolean
+  corporateName: String
+  firstName: String
+  lastName: String
+  userName: String
 }
 
 """
