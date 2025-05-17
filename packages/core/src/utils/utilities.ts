@@ -42,3 +42,18 @@ export function textToTitleCase(text: string | undefined): string {
 
   return titleCased
 }
+
+/**
+ * @description Converts a camel case string to title case.
+ * @param str - The camel case string to convert.
+ * @returns The string in title case.
+ * @example
+ * ```ts
+ * camelCaseToTitle("exampleText") // Example Text
+ * ```
+ */
+export function camelCaseToTitle(str: string): string {
+  if (!str) return ''
+  const withSpaces = str.replace(/([a-z])([A-Z])/g, '$1 $2')
+  return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1)
+}
