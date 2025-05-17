@@ -1,15 +1,18 @@
 import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
+import storeConfig from 'discovery.config'
+import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import Logo from 'src/components/ui/Logo'
 
 import type { NavbarProps } from '../Navbar'
 
-import styles from './section.module.scss'
+import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useSession } from 'src/sdk/session'
+import styles from './section.module.scss'
 
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
@@ -36,6 +39,14 @@ function NavbarSlider({
 
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
+  const { b2b } = useSession()
+
+  const isFaststoreMyAccountEnabled =
+    storeConfig.experimental?.enableFaststoreMyAccount
+
+  const isRepresentative = b2b?.isRepresentative
+
+  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
 
   return (
     <NavbarSliderWrapper.Component
@@ -65,7 +76,11 @@ function NavbarSlider({
       </NavbarSliderContent.Component>
       <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
-          <ButtonSignIn.Component {...signInButton} />
+          {isOrganizationEnabled ? (
+            <OrganizationSignInButton icon={signInButton.icon} />
+          ) : (
+            <ButtonSignIn.Component {...signInButton} />
+          )}
         </Suspense>
       </NavbarSliderFooter.Component>
     </NavbarSliderWrapper.Component>
