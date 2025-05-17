@@ -89,6 +89,9 @@ export default function MyAccountOrderDetails({
             deliveryOption={option}
             contact={order.deliveryOptionsData.contact}
             currencyCode={order.storePreferencesData.currencyCode}
+            customFields={order.customFields.filter(
+              (field) => field.type === 'item'
+            )}
           />
         ))}
         {moreInformationCustomFields?.length > 0 && (
