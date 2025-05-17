@@ -1,0 +1,82 @@
+import { SlideOver, useFadeEffect } from '@faststore/ui'
+
+// import storeConfig from 'discovery.config'
+// import { CustomerSwitchDrawer } from '../CustomerSwitch'
+import { useSession } from 'src/sdk/session'
+import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
+import { OrganizationDrawerBody } from './OrganizationDrawerBody'
+import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
+import styles from './section.module.scss'
+
+type OrganizationDrawerProps = {
+  isOpen: boolean
+  closeDrawer: () => void
+}
+
+export const doLogout = () => {
+  // TODO we should proxy a call to vtexid logout endpoint
+  // window.location.assign(
+  //   `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
+  // )
+}
+
+export const OrganizationDrawer = ({
+  isOpen,
+  closeDrawer,
+}: OrganizationDrawerProps) => {
+  const { fade, fadeOut } = useFadeEffect()
+  // Switch contract is not available for now
+  // const [openCustomerDrawer, setOpenCustomerDrawer] = useState(false)
+  const { b2b, person } = useSession()
+
+  const contractName =
+    b2b?.isCorporate !== null && b2b?.isCorporate !== undefined
+      ? b2b.isCorporate && b2b?.corporateName
+        ? b2b?.corporateName
+        : `${b2b?.firstName ?? ''} ${b2b.lastName ?? ''}`
+      : `${person?.givenName ?? ''} ${person.familyName ?? ''}`
+
+  return (
+    <>
+      <SlideOver
+        data-fs-organization-drawer
+        fade={fade}
+        onDismiss={fadeOut}
+        onTransitionEnd={() => fade === 'out' && closeDrawer()}
+        isOpen={isOpen}
+        size="partial"
+        direction="rightSide"
+        overlayProps={{
+          className: `section ${styles.section} section-organization-drawer`,
+        }}
+      >
+        <OrganizationDrawerHeader
+          onCloseDrawer={closeDrawer}
+          // onSwitchButtonClick={() => setOpenCustomerDrawer(true)}
+          contractName={contractName}
+          contractUrl="/buyer-portal"
+        />
+        <OrganizationDrawerBody />
+        <footer data-fs-organization-drawer-footer-wrapper>
+          <ProfileSummary
+            showManageLink
+            bordered={true}
+            onLogoutClick={doLogout}
+            person={{
+              name: b2b?.userName ?? '',
+              role: 'Admin',
+            }}
+            orgName={b2b?.unitName ?? ''}
+          />
+        </footer>
+      </SlideOver>
+      {/* TODO // Switch contract is not available for now */}
+      {/* {openCustomerDrawer && (
+        <CustomerSwitchDrawer
+          isOpen={openCustomerDrawer}
+          onCloseDrawer={() => setOpenCustomerDrawer(false)}
+        />
+      )} */}
+    </>
+  )
+}
