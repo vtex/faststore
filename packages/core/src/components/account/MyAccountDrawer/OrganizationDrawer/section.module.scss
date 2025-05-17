@@ -21,6 +21,11 @@
     @import "../ContractSwitch/contract-switch.scss";
 
     [data-fs-organization-drawer] {
+      --fs-organization-drawer-header-contract-color             : #cbe9ff;
+
+      --fs-organization-drawer-header-switch-button-border-color : #e0e0e0;
+      --fs-organization-drawer-body-link-color                   : #f5f5f5;
+
       display: flex;
       flex-direction: column;
 
@@ -71,7 +76,7 @@
         height: calc(var(--fs-spacing-8) + var(--fs-spacing-0));
         overflow: hidden;
         color: var(--fs-border-color-active);
-        background-color: #cbe9ff;
+        background-color: var(--fs-organization-drawer-header-contract-color);
         border: var(--fs-border-width-thick) solid white;
         border-radius: var(--fs-border-radius-pill);
 
@@ -84,7 +89,7 @@
       [data-fs-organization-drawer-header-switch-button] {
         [data-fs-button-wrapper] {
           padding: calc(var(--fs-spacing-2) - var(--fs-spacing-0)) 1.375rem;
-          border: var(--fs-border-radius-small) solid #e0e0e0;
+          border: var(--fs-border-radius-small) solid var(--fs-organization-drawer-header-switch-button-border-color);
           border-radius: var(--fs-border-radius-pill);
         }
       }
@@ -112,7 +117,7 @@
 
           [data-fs-organization-drawer-body-link]:hover {
             text-decoration: none;
-            background-color: #f5f5f5;
+            background-color: var(--fs-organization-drawer-body-link-color);
             transition: all 0.5s ease;
           }
         }
