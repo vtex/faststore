@@ -1,14 +1,14 @@
 import { useRef, type FormEvent } from 'react'
 
-import { Input, IconButton, Icon as UIIcon } from '@faststore/ui'
+import { IconButton, Input, Icon as UIIcon } from '@faststore/ui'
 
-export type CustomerSwitchSearchProps = {
+export type ContractSwitchSearchProps = {
   onSearch?: (term: string) => void
 }
 
-export const CustomerSwitchSearch = ({
+export const ContractSwitchSearch = ({
   onSearch,
-}: CustomerSwitchSearchProps) => {
+}: ContractSwitchSearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -18,16 +18,16 @@ export const CustomerSwitchSearch = ({
   }
 
   return (
-    <form data-fs-customer-switch-search onSubmit={handleSubmit} role="search">
+    <form data-fs-contract-switch-search onSubmit={handleSubmit} role="search">
       <IconButton
-        data-fs-customer-switch-search-button
+        data-fs-contract-switch-search-button
         type="submit"
         aria-label="Submit Search"
         icon={<UIIcon name="MagnifyingGlass" height={17} width={17} />}
         size="small"
       />
       <Input
-        data-fs-customer-switch-search-input
+        data-fs-contract-switch-search-input
         placeholder="Search"
         ref={inputRef}
       />

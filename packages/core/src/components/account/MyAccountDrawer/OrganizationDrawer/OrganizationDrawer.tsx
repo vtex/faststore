@@ -1,7 +1,7 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
 
 // import storeConfig from 'discovery.config'
-// import { CustomerSwitchDrawer } from '../CustomerSwitch'
+// import { ContractSwitchDrawer } from '../ContractSwitch'
 import { useSession } from 'src/sdk/session'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
@@ -26,7 +26,7 @@ export const OrganizationDrawer = ({
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
   // Switch contract is not available for now
-  // const [openCustomerDrawer, setOpenCustomerDrawer] = useState(false)
+  // const [openContractDrawer, setOpenContractDrawer] = useState(false)
   const { b2b, person } = useSession()
 
   const contractName =
@@ -52,7 +52,7 @@ export const OrganizationDrawer = ({
       >
         <OrganizationDrawerHeader
           onCloseDrawer={closeDrawer}
-          // onSwitchButtonClick={() => setOpenCustomerDrawer(true)}
+          // onSwitchButtonClick={() => setOpenContractDrawer(true)}
           contractName={contractName}
           contractUrl="/buyer-portal"
         />
@@ -71,10 +71,10 @@ export const OrganizationDrawer = ({
         </footer>
       </SlideOver>
       {/* TODO // Switch contract is not available for now */}
-      {/* {openCustomerDrawer && (
-        <CustomerSwitchDrawer
-          isOpen={openCustomerDrawer}
-          onCloseDrawer={() => setOpenCustomerDrawer(false)}
+      {/* {openContractDrawer && (
+        <ContractSwitchDrawer
+          isOpen={openContractDrawer}
+          onCloseDrawer={() => setOpenContractDrawer(false)}
         />
       )} */}
     </>

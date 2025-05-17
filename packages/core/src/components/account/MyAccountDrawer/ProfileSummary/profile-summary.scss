@@ -1,16 +1,16 @@
-[data-fs-self-profile-summary] {
+[data-fs-profile-summary] {
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: white;
 
-  &[data-fs-self-profile-summary-bordered="true"] {
+  &[data-fs-profile-summary-bordered="true"] {
     border: var(--fs-border-width) solid #e0e0e0;
     border-radius: var(--fs-border-radius);
   }
 }
 
-[data-fs-self-profile-summary-header] {
+[data-fs-profile-summary-header] {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,13 +19,13 @@
   font-weight: var(--fs-text-weight-semibold);
   border-bottom: var(--fs-border-width) solid #e0e0e0;
 
-  [data-fs-self-profile-summary-org-name] {
+  [data-fs-profile-summary-org-name] {
     font-size: var(--fs-text-size-1);
     font-weight: var(--fs-text-weight-medium);
     color: black;
   }
 
-  [data-fs-self-profile-summary-org-link] {
+  [data-fs-profile-summary-org-link] {
     display: flex;
     gap: var(--fs-spacing-1);
     align-items: center;
@@ -41,12 +41,12 @@
   }
 }
 
-[data-fs-self-profile-summary-person-actions] {
+[data-fs-profile-summary-person-actions] {
   display: flex;
   justify-content: space-between;
   padding: calc(var(--fs-spacing-3) + var(--fs-spacing-0));
 
-  [data-fs-self-profile-summary-person-image] {
+  [data-fs-profile-summary-person-image] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,25 +59,25 @@
     border-radius: var(--fs-border-radius-pill);
   }
 
-  [data-fs-self-profile-summary-person-data] {
+  [data-fs-profile-summary-person-data] {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: var(--fs-spacing-0);
     font-size: var(--fs-text-size-legend);
 
-    [data-fs-self-profile-summary-person-name] {
+    [data-fs-profile-summary-person-name] {
       font-weight: var(--fs-text-weight-medium);
       color: var(--fs-color-text);
     }
 
-    [data-fs-self-profile-summary-person-role] {
+    [data-fs-profile-summary-person-role] {
       font-weight: var(--fs-text-weight-semibold);
       color: var(--fs-color-text-light);
     }
   }
 
-  [data-fs-self-profile-summary-logout-button] {
+  [data-fs-profile-summary-logout-button] {
     --fs-button-tertiary-text-color-hover: var(--fs-color-danger-text);
     --fs-button-tertiary-text-color-active: var(--fs-color-danger-text);
 

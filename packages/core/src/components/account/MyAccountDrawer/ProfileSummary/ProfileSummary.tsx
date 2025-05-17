@@ -26,15 +26,15 @@ export const ProfileSummary = ({
   const { b2b } = useSession()
   return (
     <section
-      data-fs-self-profile-summary
-      data-fs-self-profile-summary-bordered={bordered}
+      data-fs-profile-summary
+      data-fs-profile-summary-bordered={bordered}
       {...otherProps}
     >
-      <div data-fs-self-profile-summary-header>
-        <h2 data-fs-self-profile-summary-org-name>{orgName}</h2>
+      <div data-fs-profile-summary-header>
+        <h2 data-fs-profile-summary-org-name>{orgName}</h2>
         {showManageLink && (
           <Link
-            data-fs-self-profile-summary-org-link
+            data-fs-profile-summary-org-link
             href={
               b2b?.unitId
                 ? `/buyer-portal/org-unit/${b2b?.unitId}`
@@ -45,16 +45,16 @@ export const ProfileSummary = ({
           </Link>
         )}
       </div>
-      <div data-fs-self-profile-summary-person-actions>
-        <div data-fs-self-profile-summary-person-image>
+      <div data-fs-profile-summary-person-actions>
+        <div data-fs-profile-summary-person-image>
           {image ?? <Icon name="Profile" width={14} height={14} />}
         </div>
-        <div data-fs-self-profile-summary-person-data>
-          <p data-fs-self-profile-summary-person-name>{name}</p>
-          {role && <p data-fs-self-profile-summary-person-role>{role}</p>}
+        <div data-fs-profile-summary-person-data>
+          <p data-fs-profile-summary-person-name>{name}</p>
+          {role && <p data-fs-profile-summary-person-role>{role}</p>}
         </div>
         <Button
-          data-fs-self-profile-summary-logout-button
+          data-fs-profile-summary-logout-button
           onClick={onLogoutClick}
           variant="tertiary"
           size="small"
