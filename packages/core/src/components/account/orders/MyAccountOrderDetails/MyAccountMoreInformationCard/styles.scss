@@ -1,0 +1,22 @@
+[data-fs-order-more-information-card] {
+  // --------------------------------------------------------
+  // Design Tokens for More Information Card
+  // --------------------------------------------------------
+
+  grid-column: span 2;
+
+  [data-fs-order-more-information-card-content] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+
+    @include media("<tablet") {
+      grid-template-columns: 1fr;
+    }
+
+    [data-fs-order-more-information-card-title] {
+      font-size: 0.875rem;
+      color: var(--fs-color-text-light);
+    }
+  }
+}

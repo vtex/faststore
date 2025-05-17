@@ -10,9 +10,10 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import { useRouter } from 'next/router'
-import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
-import styles from './section.module.scss'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
+import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
+import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
+import styles from './section.module.scss'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -33,6 +34,10 @@ export default function MyAccountOrderDetails({
       router.push('/account/orders')
     }
   }
+
+  const moreInformationCustomFields = order?.customFields.find(
+    (field) => field.type === 'order'
+  )?.fields
 
   return (
     <div className={styles.page} data-fs-order-details>
@@ -86,6 +91,9 @@ export default function MyAccountOrderDetails({
             currencyCode={order.storePreferencesData.currencyCode}
           />
         ))}
+        {moreInformationCustomFields?.length > 0 && (
+          <MyAccountMoreInformationCard fields={moreInformationCustomFields} />
+        )}
       </main>
     </div>
   )
