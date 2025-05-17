@@ -1,0 +1,157 @@
+[data-fs-customer-switch-drawer] {
+  display: flex;
+  flex-direction: column;
+
+  [data-fs-slide-over-header] {
+    --fs-slide-over-header-padding: var(--fs-spacing-2) var(--fs-spacing-0);
+
+    margin-right: var(--fs-spacing-1);
+
+    &[data-fs-customer-switch-drawer-header] {
+      flex-direction: row;
+      margin-bottom: var(--fs-spacing-2);
+      background-color: transparent;
+    }
+
+    [data-fs-customer-switch-drawer-header-content] {
+      display: flex;
+      align-items: center;
+    }
+
+    [data-fs-customer-switch-drawer-title] {
+      font-size: var(--fs-text-size-title-section);
+      font-weight: var(--fs-text-weight-semibold);
+      color: black;
+      text-transform: capitalize;
+    }
+
+    @include media("<notebook") {
+      border-bottom: var(--fs-border-width) solid #ebebeb;
+    }
+  }
+
+  [data-fs-customer-switch-drawer-body] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 0 var(--fs-spacing-8);
+    overflow-y: scroll;
+
+    @include media("<notebook") {
+      padding: 0 var(--fs-spacing-6);
+    }
+
+    [data-fs-customer-switch-drawer-title] {
+      padding: var(--fs-spacing-4) 0;
+      font-size: var(--fs-text-size-title-section);
+      font-weight: var(--fs-text-weight-semibold);
+      color: black;
+      text-transform: capitalize;
+    }
+
+    [data-fs-customer-switch-search] {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      width: 100%;
+      border: var(--fs-border-width) solid #ebebeb;
+      border-radius: var(--fs-border-radius);
+
+      [data-fs-customer-switch-search-button] {
+        margin-left: var(--fs-spacing-1);
+      }
+
+      [data-fs-customer-switch-search-input] {
+        width: 100%;
+        padding-left: var(--fs-spacing-2);
+        font-size: var(--fs-text-size-1);
+        font-weight: var(--fs-text-weight-medium);
+        color: #707070;
+        border: 0;
+        outline: 0;
+      }
+    }
+
+    [data-fs-customer-options-list] {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      margin-top: var(--fs-spacing-3);
+      overflow-y: scroll;
+
+      [data-fs-customer-switch-option-input] {
+        display: none;
+      }
+
+      [data-fs-customer-switch-option] {
+        display: flex;
+        align-items: center;
+        padding: var(--fs-spacing-3);
+        margin-top: var(--fs-spacing-1);
+        cursor: pointer;
+        border: var(--fs-border-width) solid #ebebeb;
+        border-radius: var(--fs-border-radius-medium);
+
+        [data-fs-customer-switch-option-profile] {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: var(--fs-spacing-4);
+          aspect-ratio: 1;
+          margin-right: var(--fs-spacing-2);
+          font-size: var(--fs-text-size-tiny);
+          font-weight: var(--fs-text-weight-semibold);
+          text-transform: capitalize;
+          background-color: #cbe9ff;
+          border-radius: var(--fs-border-radius-circle);
+        }
+
+        [data-fs-customer-switch-option-name] {
+          width: 100%;
+          overflow: hidden;
+          font-size: var(--fs-text-size-legend);
+          font-weight: var(--fs-text-weight-medium);
+          text-overflow: ellipsis;
+          text-transform: capitalize;
+          white-space: nowrap;
+        }
+      }
+
+      [data-fs-customer-switch-option-input]:checked + [data-fs-customer-switch-option] {
+        background-color: rgb(203 233 255 / 30%);
+        border-color: var(--fs-color-primary-bkg);
+      }
+
+      [data-fs-customer-switch-option]:first-of-type {
+        margin-top: 0;
+      }
+
+      [data-fs-customer-switch-option]:last-of-type {
+        margin-bottom: var(--fs-spacing-1);
+      }
+    }
+  }
+
+  [data-fs-customer-switch-drawer-footer] {
+    display: flex;
+    padding: var(--fs-spacing-2) var(--fs-spacing-2) var(--fs-spacing-4) var(--fs-spacing-2);
+    border-top: var(--fs-border-width) solid #ebebeb;
+
+    [data-fs-customer-switch-drawer-button] {
+      flex: 1;
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-semibold);
+      color: var(--fs-color-text-inverse);
+
+      [data-fs-button-wrapper] {
+        padding: var(--fs-spacing-2) 1.375rem;
+        border: var(--fs-border-radius-small) solid #e0e0e0;
+        border-radius: var(--fs-border-radius-pill);
+      }
+
+      &:disabled [data-fs-button-wrapper] {
+        background-color: var(--fs-color-disabled-bkg);
+      }
+    }
+  }
+}
