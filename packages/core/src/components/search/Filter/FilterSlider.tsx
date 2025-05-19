@@ -62,7 +62,6 @@ import {
   getRegionalizationSettings,
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
-import { filterFacets } from './FilterDesktop'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -116,10 +115,12 @@ function FilterSlider({
 
   const { postalCode } = sessionStore.read()
   const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = filterFacets(
-    facets,
+  const filteredFacets = deliveryPromise.enabled
+    ? facets
+    : facets.filter((facet) => facet.key !== 'shipping')
+
+  const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
-  )
 
   return (
     <UIFilterSlider
@@ -204,32 +205,37 @@ function FilterSlider({
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
                 <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
-                        dispatch({ type: 'toggleFacet', payload: facet })
-                      }
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={
-                        isDeliveryFacet ? (
-                          <FilterDeliveryOption
-                            item={item}
-                            deliveryMethods={deliverySettings?.deliveryMethods}
-                            cmsData={regionalizationData}
-                          />
-                        ) : (
-                          item.label
-                        )
-                      }
-                      type={isDeliveryFacet ? 'radio' : 'checkbox'}
-                    />
-                  ))}
+                  {facet.values.map(
+                    (item) =>
+                      (item.value !== 'pickup-all' || isPickupAllEnabled) && (
+                        <UIFilterFacetBooleanItem
+                          key={`${testId}-${facet.label}-${item.label}`}
+                          id={`${testId}-${facet.label}-${item.label}`}
+                          testId={`mobile-${testId}`}
+                          onFacetChange={(facet) =>
+                            dispatch({ type: 'toggleFacet', payload: facet })
+                          }
+                          selected={item.selected}
+                          value={item.value}
+                          quantity={item.quantity}
+                          facetKey={facet.key}
+                          label={
+                            isDeliveryFacet ? (
+                              <FilterDeliveryOption
+                                item={item}
+                                deliveryMethods={
+                                  deliverySettings?.deliveryMethods
+                                }
+                                cmsData={regionalizationData}
+                              />
+                            ) : (
+                              item.label
+                            )
+                          }
+                          type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                        />
+                      )
+                  )}
                 </UIFilterFacetBoolean>
               )}
               {type === 'StoreFacetRange' && isExpanded && (
