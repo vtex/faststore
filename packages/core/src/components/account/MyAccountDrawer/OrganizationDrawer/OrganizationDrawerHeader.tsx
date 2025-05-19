@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 
 export type OrganizationDrawerHeaderProps = {
   onCloseDrawer?: () => void
-  // onSwitchButtonClick?: () => void
   contractImage?: ReactNode
   contractName: string
   contractUrl: string
@@ -14,7 +13,6 @@ export const OrganizationDrawerHeader = ({
   contractName,
   contractImage,
   onCloseDrawer,
-  // onSwitchButtonClick,
 }: OrganizationDrawerHeaderProps) => {
   return (
     <>

@@ -23,8 +23,6 @@ export const OrganizationDrawer = ({
   closeDrawer,
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
-  // Switch contract is not available for now
-  // const [openContractDrawer, setOpenContractDrawer] = useState(false)
   const { b2b, person } = useSession()
 
   const contractName =
@@ -50,7 +48,6 @@ export const OrganizationDrawer = ({
       >
         <OrganizationDrawerHeader
           onCloseDrawer={closeDrawer}
-          // onSwitchButtonClick={() => setOpenContractDrawer(true)}
           contractName={contractName}
           contractUrl="/buyer-portal"
         />
