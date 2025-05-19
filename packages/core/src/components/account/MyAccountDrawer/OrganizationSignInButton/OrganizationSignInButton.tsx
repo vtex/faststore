@@ -1,4 +1,4 @@
-import { Icon, LinkButton } from '@faststore/ui'
+import { Button, Icon } from '@faststore/ui'
 import { useState, type MouseEvent } from 'react'
 import { useSession } from 'src/sdk/session'
 import { OrganizationDrawer } from '../OrganizationDrawer/OrganizationDrawer'
@@ -30,9 +30,8 @@ export const OrganizationSignInButton = ({
 
   return (
     <>
-      <LinkButton
+      <Button
         data-fs-button-signin-link
-        // href={person?.id ? `/account` : `/login`}
         onClick={(event) => openDrawer(event)}
         className="text__title-mini"
         aria-label={alt}
@@ -41,7 +40,7 @@ export const OrganizationSignInButton = ({
         iconPosition="left"
       >
         {person?.id ? 'Company' : 'Contract'}
-      </LinkButton>
+      </Button>
 
       {isOpen && (
         <OrganizationDrawer isOpen={isOpen} closeDrawer={closeDrawer} />
