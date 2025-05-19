@@ -1,7 +1,5 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
 
-// import storeConfig from 'discovery.config'
-// import { ContractSwitchDrawer } from '../ContractSwitch'
 import { useSession } from 'src/sdk/session'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
@@ -70,13 +68,6 @@ export const OrganizationDrawer = ({
           />
         </footer>
       </SlideOver>
-      {/* TODO // Switch contract is not available for now */}
-      {/* {openContractDrawer && (
-        <ContractSwitchDrawer
-          isOpen={openContractDrawer}
-          onCloseDrawer={() => setOpenContractDrawer(false)}
-        />
-      )} */}
     </>
   )
 }
