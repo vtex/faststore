@@ -17,7 +17,6 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
-import RegionSlider from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
@@ -37,10 +36,7 @@ function FilterDesktop({
   deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
+  const { openRegionSlider } = useUI()
 
   const onFacetChange = (facet: { key: string; value: string }) => {
     let unique = isRadioFacets(facet.key)
@@ -104,9 +100,7 @@ function FilterDesktop({
             <UIButton
               data-fs-filter-list-delivery-button
               variant="secondary"
-              onClick={() => {
-                openRegionSlider(regionSliderTypes.setLocation)
-              }}
+              onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
               icon={<UIIcon name="MapPin" />}
             >
               {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
@@ -194,10 +188,6 @@ function FilterDesktop({
           )
         })}
       </UIFilter>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
     </>
   )
 }
