@@ -129,9 +129,7 @@ function FilterDesktop({
                       isDeliveryFacet ? (
                         <FilterDeliveryOption
                           item={item}
-                          deliveryCustomLabels={
-                            deliverySettingsData.deliveryCustomLabels
-                          }
+                          deliveryMethods={deliverySettingsData.deliveryMethods}
                           cmsData={regionalizationData}
                         />
                       ) : (

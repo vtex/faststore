@@ -218,9 +218,7 @@ function FilterSlider({
                         isDeliveryFacet ? (
                           <FilterDeliveryOption
                             item={item}
-                            deliveryCustomLabels={
-                              deliverySettings?.deliveryCustomLabels
-                            }
+                            deliveryMethods={deliverySettings?.deliveryMethods}
                             cmsData={regionalizationData}
                           />
                         ) : (
