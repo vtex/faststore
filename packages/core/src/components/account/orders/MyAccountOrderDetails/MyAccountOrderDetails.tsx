@@ -1,3 +1,5 @@
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
@@ -7,9 +9,10 @@ import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
+import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
+import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
 import styles from './section.module.scss'
 
 export interface MyAccountOrderDetailsProps {
@@ -31,6 +34,10 @@ export default function MyAccountOrderDetails({
       router.push('/account/orders')
     }
   }
+
+  const moreInformationCustomFields = order?.customFields.find(
+    (field) => field.type === 'order'
+  )?.fields
 
   return (
     <div className={styles.page} data-fs-order-details>
@@ -63,8 +70,11 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
+          fields={
+            order.customFields.find((field) => field.type === 'address')?.fields
+          }
         />
-        <MyAccountStatusCard />
+        <MyAccountStatusCard status={order.status as OrderStatusKey} />
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
           paymentData={order.paymentData}
@@ -82,8 +92,14 @@ export default function MyAccountOrderDetails({
             deliveryOption={option}
             contact={order.deliveryOptionsData.contact}
             currencyCode={order.storePreferencesData.currencyCode}
+            customFields={order.customFields.filter(
+              (field) => field.type === 'item'
+            )}
           />
         ))}
+        {moreInformationCustomFields?.length > 0 && (
+          <MyAccountMoreInformationCard fields={moreInformationCustomFields} />
+        )}
       </main>
     </div>
   )

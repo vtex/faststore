@@ -20,6 +20,7 @@ import {
 } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
+import MyAccountListOrdersEmptyState from './MyAccountListOrdersEmptyState'
 import MyAccountListOrdersTable, {
   Pagination,
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'
@@ -116,7 +117,9 @@ export default function MyAccountListOrders({
 
   // Set the initial value of the search input field based on server values
   useEffect(() => {
-    if (filters?.text && searchInputRef.current) {
+    if (!searchInputRef.current?.inputRef) return
+
+    if (filters?.text && searchInputRef.current?.inputRef) {
       searchInputRef.current.inputRef.value = filters.text
     } else {
       searchInputRef.current.inputRef.value = ''
@@ -158,6 +161,14 @@ export default function MyAccountListOrders({
   })
 
   const { openFilter, filter: displayFilter } = useUI()
+
+  if (listOrders.list.length === 0) {
+    return (
+      <div className={styles.page}>
+        <MyAccountListOrdersEmptyState />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.page}>

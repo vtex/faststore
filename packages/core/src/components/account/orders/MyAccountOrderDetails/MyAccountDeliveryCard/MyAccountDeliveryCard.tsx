@@ -1,12 +1,19 @@
-import MyAccountCard from '../../../components/MyAccountCard'
 import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
+import { camelCaseToTitle } from 'src/utils/utilities'
+import MyAccountCard from '../../../components/MyAccountCard'
 
 interface MyAccountDeliveryCardProps {
   deliveryOptionsData?: UserOrderDeliveryOptionsData
+  fields?: Array<{
+    name: string
+    value: string
+    refId?: string
+  }>
 }
 
 export default function MyAccountDeliveryCard({
   deliveryOptionsData,
+  fields,
 }: MyAccountDeliveryCardProps) {
   return (
     <MyAccountCard title="Delivery" data-fs-order-delivery-card>
@@ -26,6 +33,11 @@ export default function MyAccountDeliveryCard({
           {deliveryOptionsData.contact.phone && (
             <p data-fs-delivery-contact-phone>
               {deliveryOptionsData.contact.phone}
+            </p>
+          )}
+          {fields?.length > 0 && (
+            <p data-fs-delivery-contact-fields>
+              {`${camelCaseToTitle(fields[0]?.name)}: ${fields[0]?.value}`}
             </p>
           )}
         </div>

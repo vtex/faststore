@@ -1,31 +1,41 @@
-import { useState } from 'react'
 import type {
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsContact,
 } from '@generated/graphql'
-import MyAccountDeliveryOptionAccordionDeliveryInfo from './MyAccountDeliveryOptionAccordionDeliveryInfo'
-import {
-  MyAccountDeliveryOptionAccordionProducts,
-  MyAccountDeliveryOptionAccordionProduct,
-} from './MyAccountDeliveryOptionAccordionProducts'
+import { useState } from 'react'
 import {
   MyAccountAccordion,
-  MyAccountAccordionItem,
   MyAccountAccordionButton,
+  MyAccountAccordionItem,
   MyAccountAccordionPanel,
 } from '../../../components/MyAccountAccordion'
 import { useFormatPrice } from '../../../utils/useFormatPrice'
+import MyAccountDeliveryOptionAccordionDeliveryInfo from './MyAccountDeliveryOptionAccordionDeliveryInfo'
+import {
+  MyAccountDeliveryOptionAccordionProduct,
+  MyAccountDeliveryOptionAccordionProducts,
+} from './MyAccountDeliveryOptionAccordionProducts'
 
 interface MyAccountDeliveryOptionAccordionProps {
   deliveryOption: UserOrderDeliveryOption
   contact?: UserOrderDeliveryOptionsContact | null
   currencyCode: string
+  customFields?: Array<{
+    type: string
+    id: string
+    fields?: Array<{
+      name: string
+      value: string
+      refId?: string
+    }>
+  }>
 }
 
 function MyAccountDeliveryOptionAccordion({
   deliveryOption,
   contact,
   currencyCode,
+  customFields,
 }: MyAccountDeliveryOptionAccordionProps) {
   const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
     new Set([])
@@ -65,8 +75,9 @@ function MyAccountDeliveryOptionAccordion({
                 image={item.imageUrl || ''}
                 quantity={item.quantity}
                 name={item.name}
-                // TODO: custom field
-                // costCenter={item.costCenter}
+                field={customFields
+                  ?.find((cf) => cf.id === item.id)
+                  ?.fields?.find((f) => f.name === 'costCenter')}
                 price={formatPrice(item.price ?? 0, currencyCode)}
                 tax={formatPrice(item.tax ?? 0, currencyCode)}
                 total={formatPrice(item.total ?? 0, currencyCode)}

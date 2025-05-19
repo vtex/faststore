@@ -1261,6 +1261,7 @@ export type UserOrder = {
   commercialConditionData: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   customData: Maybe<UserOrderCustomData>
+  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
   deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
   followUpEmail: Maybe<Scalars['String']['output']>
   giftRegistryData: Maybe<Scalars['String']['output']>
@@ -1435,6 +1436,29 @@ export type UserOrderCustomApp = {
 
 export type UserOrderCustomData = {
   customApps: Maybe<Array<Maybe<UserOrderCustomApp>>>
+  customFields: Maybe<Array<Maybe<UserOrderCustomField>>>
+}
+
+export type UserOrderCustomField = {
+  fields: Array<UserOrderCustomFieldField>
+  linkedEntity: UserOrderCustomFieldLinkedEntity
+}
+
+export type UserOrderCustomFieldField = {
+  name: Scalars['String']['output']
+  refId: Maybe<Scalars['String']['output']>
+  value: Scalars['String']['output']
+}
+
+export type UserOrderCustomFieldLinkedEntity = {
+  id: Maybe<Scalars['String']['output']>
+  type: Scalars['String']['output']
+}
+
+export type UserOrderCustomFieldsGrouped = {
+  fields: Maybe<Array<Maybe<UserOrderCustomFieldField>>>
+  id: Maybe<Scalars['String']['output']>
+  type: Scalars['String']['output']
 }
 
 export type UserOrderDeliveryChannels = {
@@ -1481,6 +1505,7 @@ export type UserOrderDeliveryOptionsData = {
 }
 
 export type UserOrderDeliveryOptionsItems = {
+  id: Maybe<Scalars['String']['output']>
   imageUrl: Maybe<Scalars['String']['output']>
   name: Maybe<Scalars['String']['output']>
   price: Maybe<Scalars['Float']['output']>
@@ -2773,6 +2798,7 @@ export type ServerOrderDetailsQueryQuery = {
           } | null
         } | null
         items: Array<{
+          id: string | null
           name: string | null
           quantity: number | null
           price: number | null
@@ -2787,6 +2813,15 @@ export type ServerOrderDetailsQueryQuery = {
         name: string | null
       } | null
     } | null
+    customFields: Array<{
+      type: string
+      id: string | null
+      fields: Array<{
+        name: string
+        value: string
+        refId: string | null
+      } | null> | null
+    } | null> | null
   } | null
 }
 
@@ -3862,7 +3897,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'd5be27211cd5919c341c860a81dd85dfe305d752',
+    operationHash: 'ff6bfc13b2150964c1988ba7e127eda8828a08d0',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

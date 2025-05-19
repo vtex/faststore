@@ -1332,6 +1332,7 @@ export type UserOrder = {
   commercialConditionData?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   customData?: Maybe<UserOrderCustomData>;
+  customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
   followUpEmail?: Maybe<Scalars['String']>;
   giftRegistryData?: Maybe<Scalars['String']>;
@@ -1522,6 +1523,33 @@ export type UserOrderCustomApp = {
 export type UserOrderCustomData = {
   __typename?: 'UserOrderCustomData';
   customApps?: Maybe<Array<Maybe<UserOrderCustomApp>>>;
+  customFields?: Maybe<Array<Maybe<UserOrderCustomField>>>;
+};
+
+export type UserOrderCustomField = {
+  __typename?: 'UserOrderCustomField';
+  fields: Array<UserOrderCustomFieldField>;
+  linkedEntity: UserOrderCustomFieldLinkedEntity;
+};
+
+export type UserOrderCustomFieldField = {
+  __typename?: 'UserOrderCustomFieldField';
+  name: Scalars['String'];
+  refId?: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+};
+
+export type UserOrderCustomFieldLinkedEntity = {
+  __typename?: 'UserOrderCustomFieldLinkedEntity';
+  id?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+};
+
+export type UserOrderCustomFieldsGrouped = {
+  __typename?: 'UserOrderCustomFieldsGrouped';
+  fields?: Maybe<Array<Maybe<UserOrderCustomFieldField>>>;
+  id?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
 };
 
 export type UserOrderDeliveryChannels = {
@@ -1574,6 +1602,7 @@ export type UserOrderDeliveryOptionsData = {
 
 export type UserOrderDeliveryOptionsItems = {
   __typename?: 'UserOrderDeliveryOptionsItems';
+  id?: Maybe<Scalars['String']>;
   imageUrl?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;

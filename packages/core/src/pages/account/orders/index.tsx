@@ -186,7 +186,7 @@ export const getServerSideProps: GetServerSideProps<
   ] = getGlobalSectionsData(previewData)
 
   const page = Number(context.query.page as string | undefined) || 1
-  const perPage = 10 // TODO: make this configurable
+  const perPage = 25 // TODO: make this configurable
   const status =
     (Array.isArray(context.query.status)
       ? context.query.status
