@@ -1,5 +1,9 @@
 import type { Resolver } from '..'
-import type { UserOrderDeliveryOption } from '../../..'
+import type {
+  Maybe,
+  UserOrderCustomField,
+  UserOrderDeliveryOption,
+} from '../../..'
 import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
 import { getLocalizedEstimates } from './shippingSLA'
@@ -125,18 +129,21 @@ export const UserOrder: Record<string, Resolver<Root>> = {
   customFields: (root) => {
     const customFields = root?.customData?.customFields || []
     return Object.values(
-      (customFields as Array<any>).reduce(
+      customFields.reduce(
         (
-          acc: Record<string, { type: string; id: string; fields: any[] }>,
-          entry: any
+          acc: Record<
+            string,
+            { type: string; id: string; fields: UserOrderCustomField['fields'] }
+          >,
+          entry: Maybe<UserOrderCustomField>
         ) => {
-          const type = entry.linkedEntity?.type || ''
-          const id = entry.linkedEntity?.id || ''
+          const type = entry?.linkedEntity?.type || ''
+          const id = entry?.linkedEntity?.id || ''
           const key = `${type}|${id || ''}`
           if (!acc[key]) {
             acc[key] = { type, id, fields: [] }
           }
-          acc[key].fields.push(...(entry.fields || []))
+          acc[key].fields.push(...(entry?.fields || []))
           return acc
         },
         {}
@@ -194,6 +201,5 @@ export const UserOrder: Record<string, Resolver<Root>> = {
     //       ],
     //     },
     //   ]
-    // },
   },
 }
