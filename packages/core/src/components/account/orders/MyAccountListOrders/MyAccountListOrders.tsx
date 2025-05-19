@@ -20,12 +20,12 @@ import {
 } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
+import MyAccountListOrdersEmptyState from './MyAccountListOrdersEmptyState'
 import MyAccountListOrdersTable, {
   Pagination,
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'
 import SelectedFiltersTags from './MyAccountSelectedTags/MyAccountSelectedTags'
 import styles from './styles.module.scss'
-import MyAccountListOrdersEmptyState from './MyAccountListOrdersEmptyState'
 
 export type MyAccountListOrdersProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
@@ -117,7 +117,9 @@ export default function MyAccountListOrders({
 
   // Set the initial value of the search input field based on server values
   useEffect(() => {
-    if (filters?.text && searchInputRef.current) {
+    if (!searchInputRef.current?.inputRef) return
+
+    if (filters?.text && searchInputRef.current?.inputRef) {
       searchInputRef.current.inputRef.value = filters.text
     } else {
       searchInputRef.current.inputRef.value = ''

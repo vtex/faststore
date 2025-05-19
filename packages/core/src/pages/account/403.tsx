@@ -7,6 +7,7 @@ import {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 
+import { LinkButton } from '@faststore/ui'
 import { MyAccountLayout } from 'src/components/account'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
@@ -16,7 +17,6 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { LinkButton } from '@faststore/components'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

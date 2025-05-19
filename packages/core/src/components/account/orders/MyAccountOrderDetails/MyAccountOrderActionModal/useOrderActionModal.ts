@@ -1,4 +1,4 @@
-import { useFadeEffect } from '@faststore/components'
+import { useFadeEffect } from '@faststore/ui'
 import { useCallback, useState } from 'react'
 import type { OrderActionType } from './MyAccountOrderActionModal'
 

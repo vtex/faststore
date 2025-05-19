@@ -1,3 +1,4 @@
+import { parse } from 'cookie'
 import type { Context } from '../index'
 
 export interface ContextForCookies {
@@ -95,6 +96,23 @@ export const getWithCookie = (ctx: ContextForCookies) =>
       cookie: updatedCookie,
     }
   }
+
+export const getWithAutCookie = (ctx: ContextForCookies) => {
+  const withCookie = getWithCookie(ctx)
+
+  return function withAutCookie(forwardedHost: string, account: string) {
+    const headers: HeadersInit = withCookie({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': forwardedHost,
+    })
+
+    const cookies = parse(ctx?.headers?.cookie ?? '')
+    const VtexIdclientAutCookie = cookies[`VtexIdclientAutCookie_${account}`]
+    headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+    return headers
+  }
+}
 
 /**
  * This function updates the cookie value based on its key
