@@ -10,9 +10,10 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import { useRouter } from 'next/router'
-import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
-import styles from './section.module.scss'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
+import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
+import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
+import styles from './section.module.scss'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -33,6 +34,10 @@ export default function MyAccountOrderDetails({
       router.push('/account/orders')
     }
   }
+
+  const moreInformationCustomFields = order?.customFields.find(
+    (field) => field.type === 'order'
+  )?.fields
 
   return (
     <div className={styles.page} data-fs-order-details>
@@ -65,6 +70,9 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
+          fields={
+            order.customFields.find((field) => field.type === 'address')?.fields
+          }
         />
         <MyAccountStatusCard status={order.status as OrderStatusKey} />
         <MyAccountPaymentCard
@@ -84,8 +92,14 @@ export default function MyAccountOrderDetails({
             deliveryOption={option}
             contact={order.deliveryOptionsData.contact}
             currencyCode={order.storePreferencesData.currencyCode}
+            customFields={order.customFields.filter(
+              (field) => field.type === 'item'
+            )}
           />
         ))}
+        {moreInformationCustomFields?.length > 0 && (
+          <MyAccountMoreInformationCard fields={moreInformationCustomFields} />
+        )}
       </main>
     </div>
   )

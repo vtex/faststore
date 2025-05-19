@@ -661,6 +661,7 @@ const query = gql(`
           quantityOfDifferentItems
           total
           items {
+            id
             name
             quantity
             price
@@ -673,6 +674,15 @@ const query = gql(`
           email
           phone
           name
+        }
+      }
+      customFields {
+        type
+        id
+        fields {
+          name
+          value
+          refId
         }
       }
     }

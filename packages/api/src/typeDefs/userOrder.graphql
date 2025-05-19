@@ -56,6 +56,7 @@ type UserOrder {
   items: [UserOrderItems]
   totals: [UserOrderTotals]
   deliveryOptionsData: UserOrderDeliveryOptionsData
+  customFields: [UserOrderCustomFieldsGrouped]
 }
 
 type UserOrderListResult {
@@ -136,6 +137,7 @@ type UserOrderFromList {
 
 type UserOrderCustomData {
   customApps: [UserOrderCustomApp]
+  customFields: [UserOrderCustomField]
 }
 
 type UserOrderCustomApp {
@@ -633,6 +635,7 @@ type UserOrderDeliveryOption {
 }
 
 type UserOrderDeliveryOptionsItems {
+  id: String
   name: String
   quantity: Int
   price: Float
@@ -686,4 +689,26 @@ type UserOrderCancellationRequest {
   deniedBySeller: Boolean
   deniedBySellerReason: String
   cancellationRequestDenyDate: String
+}
+
+type UserOrderCustomField {
+  linkedEntity: UserOrderCustomFieldLinkedEntity!
+  fields: [UserOrderCustomFieldField!]!
+}
+
+type UserOrderCustomFieldLinkedEntity {
+  type: String!
+  id: String
+}
+
+type UserOrderCustomFieldField {
+  name: String!
+  value: String!
+  refId: String
+}
+
+type UserOrderCustomFieldsGrouped {
+  type: String!
+  id: String
+  fields: [UserOrderCustomFieldField]
 }

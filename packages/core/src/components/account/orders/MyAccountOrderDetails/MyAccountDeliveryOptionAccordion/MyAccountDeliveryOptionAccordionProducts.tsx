@@ -1,10 +1,15 @@
 import type { ReactNode } from 'react'
+import { camelCaseToTitle } from 'src/utils/utilities'
 
 interface MyAccountDeliveryOptionAccordionProductProps {
   image: string
   quantity: number
   name: string
-  costCenter?: string
+  field?: {
+    name: string
+    value: string
+    refId?: string
+  }
   price: string
   tax: string
   total: string
@@ -14,7 +19,7 @@ function MyAccountDeliveryOptionAccordionProduct({
   image,
   quantity,
   name,
-  costCenter,
+  field,
   price,
   tax,
   total,
@@ -30,7 +35,9 @@ function MyAccountDeliveryOptionAccordionProduct({
         </div>
         <div data-fs-delivery-option-accordion-product-details>
           <p>{name}</p>
-          {costCenter && <span>{costCenter}</span>}
+          {field && (
+            <span>{`${camelCaseToTitle(field.name)}: ${field.value ?? ''}`}</span>
+          )}
         </div>
       </div>
       <div data-fs-delivery-option-accordion-product-bottom>
