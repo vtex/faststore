@@ -94,6 +94,22 @@
                       "type": "string",
                       "default": "Set Location"
                     },
+                    "postalCodeEditSlider": {
+                      "title": "Postal Code Edit SlideOver",
+                      "type": "object",
+                      "properties": {
+                        "chooseDeliveryMethod": {
+                          "title": "Choose delivery method label",
+                          "type": "string",
+                          "default": "Choose a delivery method"
+                        },
+                        "changeLocation": {
+                          "title": "Change Postal Code",
+                          "type": "string",
+                          "default": "Change location"
+                        }
+                      }
+                    },
                     "deliveryCustomLabels": {
                       "title": "Filter options labels",
                       "type": "object",

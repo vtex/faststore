@@ -8,6 +8,7 @@ import {
   FilterFacetRange as UIFilterFacetRange,
   FilterFacets as UIFilterFacets,
   Icon as UIIcon,
+  useUI,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
@@ -17,6 +18,7 @@ import type { FilterSliderProps } from './FilterSlider'
 
 import { sessionStore } from 'src/sdk/session'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import RegionSlider from '../../region/RegionSlider/RegionSlider'
 import FilterDeliveryOption from './FilterDeliveryOption'
 
 interface FilterDesktopProps
@@ -34,9 +36,13 @@ function FilterDesktop({
   deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
+  const {
+    regionSlider: { type: regionSliderType },
+    openRegionSlider,
+  } = useUI()
 
-  const { deliverySettings: deliverySettingsData } =
-    getRegionalizationSettings(deliverySettings)
+  const regionalizationData = getRegionalizationSettings(deliverySettings)
+  const { deliverySettings: deliverySettingsData } = regionalizationData
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
 
   const { postalCode } = sessionStore.read()
@@ -44,6 +50,8 @@ function FilterDesktop({
   const filteredFacets = deliveryPromise.enabled
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
+
+  const setLocation = 'setLocation'
 
   return (
     <UIFilter
@@ -67,13 +75,16 @@ function FilterDesktop({
             data-fs-filter-list-delivery-button
             variant="secondary"
             onClick={() => {
-              // TODO: open edit local slideOver
+              openRegionSlider(setLocation)
             }}
             icon={<UIIcon name="MapPin" />}
           >
             {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
           </UIButton>
         </UIFilterFacets>
+      )}
+      {regionSliderType === setLocation && (
+        <RegionSlider cmsData={regionalizationData} />
       )}
       {filteredFacets.map((facet, idx) => {
         const index = shouldDisplayDeliveryButton ? idx + 1 : idx
@@ -122,6 +133,7 @@ function FilterDesktop({
                           deliveryCustomLabels={
                             deliverySettingsData.deliveryCustomLabels
                           }
+                          cmsData={regionalizationData}
                         />
                       ) : (
                         item.label

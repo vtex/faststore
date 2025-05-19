@@ -1,4 +1,5 @@
-import { Button as UIButton } from '@faststore/ui'
+import { Button as UIButton, useUI } from '@faststore/ui'
+import { RegionSlider } from 'src/components/region/RegionSlider'
 import { sessionStore } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 
@@ -19,15 +20,21 @@ interface FacetValue {
 interface FilterDeliveryOptionProps {
   item: FacetValue
   deliveryCustomLabels: DeliveryCustomLabels
+  cmsData: Record<string, any>
 }
 
 export default function FilterDeliveryOption({
   item,
   deliveryCustomLabels,
+  cmsData,
 }: FilterDeliveryOptionProps) {
   const { city, postalCode } = sessionStore.read()
-  const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
+  const {
+    regionSlider: { type: regionSliderType },
+    openRegionSlider,
+  } = useUI()
 
+  const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
   const mapDeliveryCustomLabel: Record<string, string> = {
     delivery: deliveryCustomLabels?.delivery ?? 'Shipping to',
     'pickup-in-point': deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
@@ -35,6 +42,7 @@ export default function FilterDeliveryOption({
     'pickup-all': deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
   }
 
+  const changeLocation = 'changeLocation'
   if (item.value === 'delivery') {
     return (
       <>
@@ -43,12 +51,14 @@ export default function FilterDeliveryOption({
           data-fs-filter-list-item-button
           size="small"
           onClick={() => {
-            // TODO: open edit local slideOver
-            window.alert('Open Modal')
+            openRegionSlider(changeLocation)
           }}
         >
           {location}
         </UIButton>
+        {regionSliderType === changeLocation && (
+          <RegionSlider cmsData={cmsData} />
+        )}
       </>
     )
   }

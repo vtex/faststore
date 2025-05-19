@@ -1,14 +1,15 @@
 import dynamic from 'next/dynamic'
 
 import { useSearch } from '@faststore/sdk'
-import type {
-  ButtonProps as UIButtonProps,
-  FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
-  FilterFacetRangeProps as UIFilterFacetRangeProps,
-  FilterFacetsProps as UIFilterFacetsProps,
-  FilterProps as UIFilterProps,
-  FilterSliderProps as UIFilterSliderProps,
-  IconProps as UIIconProps,
+import {
+  useUI,
+  type ButtonProps as UIButtonProps,
+  type FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
+  type FilterFacetRangeProps as UIFilterFacetRangeProps,
+  type FilterFacetsProps as UIFilterFacetsProps,
+  type FilterProps as UIFilterProps,
+  type FilterSliderProps as UIFilterSliderProps,
+  type IconProps as UIIconProps,
 } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
@@ -55,14 +56,12 @@ import FilterDeliveryOption from './FilterDeliveryOption'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { sessionStore } from 'src/sdk/session'
 
+import RegionSlider from 'src/components/region/RegionSlider/RegionSlider'
+import {
+  getRegionalizationSettings,
+  type RegionalizationCmsData,
+} from 'src/utils/globalSettings'
 import styles from './section.module.scss'
-
-interface DeliveryCustomLabels {
-  delivery?: string
-  pickupInPoint?: string
-  pickupNearby?: string
-  pickupAll?: string
-}
 
 export interface FilterSliderProps {
   /**
@@ -89,12 +88,7 @@ export interface FilterSliderProps {
   /**
    * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
    */
-  deliverySettings?: {
-    title?: string
-    description?: string
-    setLocationButtonLabel?: string
-    deliveryCustomLabels?: DeliveryCustomLabels
-  }
+  deliverySettings?: RegionalizationCmsData['deliverySettings']
 }
 
 function FilterSlider({
@@ -109,14 +103,22 @@ function FilterSlider({
   deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
+  const {
+    regionSlider: { type: regionSliderType },
+    openRegionSlider,
+  } = useUI()
 
-  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
+  const { reginalizationMergedData, deliverySettingsData } =
+    getRegionalizationSettings(deliverySettings)
+  const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
+
   const { postalCode } = sessionStore.read()
-
   const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
   const filteredFacets = deliveryPromise.enabled
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
+
+  const setLocation = 'setLocation'
 
   return (
     <UIFilterSlider
@@ -171,13 +173,16 @@ function FilterSlider({
               data-fs-filter-list-delivery-button
               variant="secondary"
               onClick={() => {
-                // TODO: open edit local slideOver
+                openRegionSlider(setLocation)
               }}
               icon={<UIIcon name="MapPin" />}
             >
               {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
             </UIButton>
           </UIFilterFacets>
+        )}
+        {regionSliderType === setLocation && (
+          <RegionSlider cmsData={reginalizationMergedData} />
         )}
         {filteredFacets.map((facet, idx) => {
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
@@ -217,6 +222,7 @@ function FilterSlider({
                             deliveryCustomLabels={
                               deliverySettings?.deliveryCustomLabels
                             }
+                            cmsData={reginalizationMergedData}
                           />
                         ) : (
                           item.label
