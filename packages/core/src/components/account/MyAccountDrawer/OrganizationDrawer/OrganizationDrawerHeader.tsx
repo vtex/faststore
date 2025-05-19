@@ -18,8 +18,7 @@ export const OrganizationDrawerHeader = ({
 }: OrganizationDrawerHeaderProps) => {
   return (
     <>
-      {/* biome-ignore lint/correctness/noChildrenProp: <explanation> */}
-      <SlideOverHeader onClose={() => onCloseDrawer?.()} children={null} />
+      <SlideOverHeader onClose={() => onCloseDrawer?.()} />
       <div data-fs-organization-drawer-header>
         <Link
           data-fs-organization-drawer-header-contract-link
@@ -36,16 +35,6 @@ export const OrganizationDrawerHeader = ({
             {contractName}
           </h1>
         </Link>
-        {/* // Switch contract is not available for now */}
-        {/* <Button
-          data-fs-organization-drawer-header-switch-button
-          iconPosition="left"
-          onClick={() => onSwitchButtonClick?.()}
-          variant="tertiary"
-          size="small"
-        >
-          Switch
-        </Button> */}
       </div>
     </>
   )
