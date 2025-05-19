@@ -16,6 +16,7 @@ import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import { sessionStore } from 'src/sdk/session'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import FilterDeliveryOption from './FilterDeliveryOption'
 
 interface FilterDesktopProps
@@ -34,9 +35,11 @@ function FilterDesktop({
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
-  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
-  const { postalCode } = sessionStore.read()
+  const { deliverySettings: deliverySettingsData } =
+    getRegionalizationSettings(deliverySettings)
+  const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
 
+  const { postalCode } = sessionStore.read()
   const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
   const filteredFacets = deliveryPromise.enabled
     ? facets
@@ -58,7 +61,7 @@ function FilterDesktop({
           index={0}
           type=""
           label={deliveryLabel}
-          description={deliverySettings?.description}
+          description={deliverySettingsData?.description}
         >
           <UIButton
             data-fs-filter-list-delivery-button
@@ -68,7 +71,7 @@ function FilterDesktop({
             }}
             icon={<UIIcon name="MapPin" />}
           >
-            {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
+            {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
           </UIButton>
         </UIFilterFacets>
       )}
@@ -86,7 +89,7 @@ function FilterDesktop({
             type={type}
             label={isDeliveryFacet ? deliveryLabel : label}
             description={
-              isDeliveryFacet ? deliverySettings.description : undefined
+              isDeliveryFacet ? deliverySettingsData.description : undefined
             }
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
@@ -117,7 +120,7 @@ function FilterDesktop({
                         <FilterDeliveryOption
                           item={item}
                           deliveryCustomLabels={
-                            deliverySettings.deliveryCustomLabels
+                            deliverySettingsData.deliveryCustomLabels
                           }
                         />
                       ) : (
