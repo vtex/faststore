@@ -10,6 +10,7 @@ export const GLOBAL_SECTIONS_FOOTER_CONTENT_TYPE = 'globalFooterSections'
 
 export type GlobalSectionsData = {
   sections: Section[]
+  settings?: Record<string, unknown>
 }
 
 export const getGlobalSectionsByType = async (

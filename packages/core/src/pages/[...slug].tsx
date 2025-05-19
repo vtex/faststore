@@ -28,10 +28,10 @@ import { getRedirect } from 'src/sdk/redirects'
 import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PLPContentType } from 'src/server/cms/plp'
-import { getDynamicContent } from 'src/utils/dynamicContent'
-import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getDynamicContent } from 'src/utils/dynamicContent'
+import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -63,12 +63,14 @@ function Page({ globalSections, type, ...otherProps }: Props) {
       {type === 'plp' && (
         <ProductListingPage
           globalSections={globalSections.sections}
+          globalSectionsSettings={globalSections.settings}
           {...(otherProps as ProductListingPageProps)}
         />
       )}
       {type === 'page' && (
         <LandingPage
           globalSections={globalSections.sections}
+          globalSectionsSettings={globalSections.settings}
           {...(otherProps as LandingPageProps)}
         />
       )}
