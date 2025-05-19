@@ -108,8 +108,8 @@ function FilterSlider({
     openRegionSlider,
   } = useUI()
 
-  const { reginalizationMergedData, deliverySettingsData } =
-    getRegionalizationSettings(deliverySettings)
+  const regionalizationData = getRegionalizationSettings(deliverySettings)
+  const { deliverySettings: deliverySettingsData } = regionalizationData
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
 
   const { postalCode } = sessionStore.read()
@@ -182,7 +182,7 @@ function FilterSlider({
           </UIFilterFacets>
         )}
         {regionSliderType === setLocation && (
-          <RegionSlider cmsData={reginalizationMergedData} />
+          <RegionSlider cmsData={regionalizationData} />
         )}
         {filteredFacets.map((facet, idx) => {
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
@@ -222,7 +222,7 @@ function FilterSlider({
                             deliveryCustomLabels={
                               deliverySettings?.deliveryCustomLabels
                             }
-                            cmsData={reginalizationMergedData}
+                            cmsData={regionalizationData}
                           />
                         ) : (
                           item.label
