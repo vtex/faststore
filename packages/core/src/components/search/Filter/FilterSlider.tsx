@@ -62,6 +62,7 @@ import {
   getRegionalizationSettings,
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
+import { filterFacets } from './FilterDesktop'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -115,9 +116,10 @@ function FilterSlider({
 
   const { postalCode } = sessionStore.read()
   const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
+  const filteredFacets = filterFacets(
+    facets,
+    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  )
 
   return (
     <UIFilterSlider

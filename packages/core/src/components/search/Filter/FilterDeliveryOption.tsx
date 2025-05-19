@@ -74,9 +74,5 @@ export default function FilterDeliveryOption({
     )
   }
 
-  if (item.value === 'pickup-all' && !deliveryMethods?.pickupAll?.enabled) {
-    return null
-  }
-
   return <>{mapDeliveryMethodLabel[item.value]}</>
 }
