@@ -68,9 +68,9 @@ const QUERIES = [
   'redirect',
   'sellers',
   'profile',
+  'productCount',
   'userOrder',
   'listUserOrders',
-  'productCount',
 ]
 
 const MUTATIONS = [
