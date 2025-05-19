@@ -12,7 +12,11 @@ import type {
 } from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import {
+  getStoreCookie,
+  getWithAutCookie,
+  getWithCookie,
+} from '../../utils/cookies'
 import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
@@ -49,6 +53,7 @@ export const VtexCommerce = (
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
+  const withAutCookie = getWithAutCookie(ctx)
 
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
@@ -425,15 +430,7 @@ export const VtexCommerce = (
     },
     profile: {
       addresses: async (userId: string): Promise<Record<string, string>> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
@@ -529,15 +526,7 @@ export const VtexCommerce = (
       getUnitByUserId: ({
         userId,
       }: { userId: string }): Promise<UnitResponse> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/units/v1/${userId}/unit`,
@@ -551,15 +540,7 @@ export const VtexCommerce = (
       getOrgUnitById: ({
         orgUnitId,
       }: { orgUnitId: string }): Promise<UnitResponse> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}`,
@@ -573,15 +554,7 @@ export const VtexCommerce = (
       getScopesByOrgUnit: ({
         orgUnitId,
       }: { orgUnitId: string }): Promise<ScopesByUnit> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}/scopes`,
@@ -601,15 +574,7 @@ export const VtexCommerce = (
         name: string
         email: string
       }> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/license-manager/users/${userId}`,
@@ -625,15 +590,7 @@ export const VtexCommerce = (
       getContractById: ({
         contractId,
       }: { contractId: string }): Promise<ContractResponse> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/dataentities/CL/documents/${contractId}?_fields=_all`,
@@ -647,21 +604,14 @@ export const VtexCommerce = (
     },
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/vtexid/credential/validate`,
           {
             headers,
             body: JSON.stringify({
-              token: VtexIdclientAutCookie,
+              token: headers['VtexIdclientAutCookie'],
             }),
             method: 'POST',
           },

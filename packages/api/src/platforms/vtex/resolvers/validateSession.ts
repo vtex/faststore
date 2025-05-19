@@ -110,7 +110,7 @@ export const validateSession = async (
             '',
           isRepresentative:
             vtexid?.isRepresentative ?? isRepresentative ?? false,
-          unitName: vtexid?.unitName ?? '',
+          unitName: unit?.name ?? vtexid?.unitName ?? '',
           unitId: unit?.id ?? '',
           isCorporate: contract?.isCorporate ?? false,
           corporateName: contract?.corporateName ?? '',
