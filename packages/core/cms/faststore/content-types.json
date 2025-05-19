@@ -141,7 +141,7 @@
                             "enabled": {
                               "title": "Display filter",
                               "description": "Display the pickup all filter in the PLP/Search page. This is recommended only for B2B stores.",
-                              "type": "boolead",
+                              "type": "boolean",
                               "default": false
                             }
                           }
