@@ -33,38 +33,36 @@ export const OrganizationDrawer = ({
       : `${person?.givenName ?? ''} ${person.familyName ?? ''}`
 
   return (
-    <>
-      <SlideOver
-        data-fs-organization-drawer
-        fade={fade}
-        onDismiss={fadeOut}
-        onTransitionEnd={() => fade === 'out' && closeDrawer()}
-        isOpen={isOpen}
-        size="partial"
-        direction="rightSide"
-        overlayProps={{
-          className: `section ${styles.section} section-organization-drawer`,
-        }}
-      >
-        <OrganizationDrawerHeader
-          onCloseDrawer={closeDrawer}
-          contractName={contractName}
-          contractUrl="/buyer-portal"
+    <SlideOver
+      data-fs-organization-drawer
+      fade={fade}
+      onDismiss={fadeOut}
+      onTransitionEnd={() => fade === 'out' && closeDrawer()}
+      isOpen={isOpen}
+      size="partial"
+      direction="rightSide"
+      overlayProps={{
+        className: `section ${styles.section} section-organization-drawer`,
+      }}
+    >
+      <OrganizationDrawerHeader
+        onCloseDrawer={closeDrawer}
+        contractName={contractName}
+        contractUrl="/buyer-portal"
+      />
+      <OrganizationDrawerBody />
+      <footer data-fs-organization-drawer-footer-wrapper>
+        <ProfileSummary
+          showManageLink
+          bordered={true}
+          onLogoutClick={doLogout}
+          person={{
+            name: b2b?.userName ?? '',
+            role: 'Admin',
+          }}
+          orgName={b2b?.unitName ?? ''}
         />
-        <OrganizationDrawerBody />
-        <footer data-fs-organization-drawer-footer-wrapper>
-          <ProfileSummary
-            showManageLink
-            bordered={true}
-            onLogoutClick={doLogout}
-            person={{
-              name: b2b?.userName ?? '',
-              role: 'Admin',
-            }}
-            orgName={b2b?.unitName ?? ''}
-          />
-        </footer>
-      </SlideOver>
-    </>
+      </footer>
+    </SlideOver>
   )
 }
