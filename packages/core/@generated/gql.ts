@@ -12,7 +12,7 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\n    isVariantOf {\n      productGroupID\n      name\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n':
+  '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\t\tunitMultiplier\n\n    isVariantOf {\n      productGroupID\n      name\n\t\t\tskuVariants {\n\t\t\t\tallVariantsByName\n\t\t\t\tactiveVariations\n\t\t\t\tslugsMap\n\t\t\t\tavailableVariations\n\t\t\t}\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n\t\t\t\tpriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n':
     types.ProductSummary_ProductFragmentDoc,
   '\n  fragment Filter_facets on StoreFacet {\n    ... on StoreFacetRange {\n      key\n      label\n\n      min {\n        selected\n        absolute\n      }\n\n      max {\n        selected\n        absolute\n      }\n\n      __typename\n    }\n    ... on StoreFacetBoolean {\n      key\n      label\n      values {\n        label\n        value\n        selected\n        quantity\n      }\n\n      __typename\n    }\n  }\n':
     types.Filter_FacetsFragmentDoc,
@@ -52,6 +52,8 @@ const documents = {
     types.ValidateCartMutationDocument,
   '\n  mutation SubscribeToNewsletter($data: IPersonNewsletter!) {\n    subscribeToNewsletter(data: $data) {\n      id\n    }\n  }\n':
     types.SubscribeToNewsletterDocument,
+  '\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n':
+    types.ClientProductCountQueryDocument,
   '\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n':
     types.ClientAllVariantProductsQueryDocument,
   '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
@@ -60,11 +62,13 @@ const documents = {
     types.ClientProductGalleryQueryDocument,
   '\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n':
     types.ClientProductQueryDocument,
+  '\n  query ClientProfileQuery($id: String!) {\n    profile(id: $id) {\n      addresses {\n        country\n        postalCode\n        geoCoordinate\n        city\n      }\n    }\n  }\n':
+    types.ClientProfileQueryDocument,
   '\n  query ClientSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n        products {\n          ...ProductSummary_product\n        }\n      }\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n':
     types.ClientSearchSuggestionsQueryDocument,
   '\n  query ClientTopSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientTopSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n      }\n    }\n  }\n':
     types.ClientTopSearchSuggestionsQueryDocument,
-  '\n  mutation ValidateSession($session: IStoreSession!, $search: String!) {\n    validateSession(session: $session, search: $search) {\n      locale\n      channel\n      country\n      addressType\n      postalCode\n      deliveryMode {\n        deliveryChannel\n        deliveryMethod\n        deliveryWindow {\n          startDate\n          endDate\n        }\n      }\n      geoCoordinates {\n        latitude\n        longitude\n      }\n      currency {\n        code\n        symbol\n      }\n      person {\n        id\n        email\n        givenName\n        familyName\n      }\n      b2b {\n        customerId\n        isRepresentative\n        unitName\n        unitId\n        isCorporate\n        corporateName\n        firstName\n        lastName\n        userName\n      }\n      marketingData {\n        utmCampaign\n        utmMedium\n        utmSource\n        utmiCampaign\n        utmiPage\n        utmiPart\n      }\n    }\n  }\n':
+  '\n  mutation ValidateSession($session: IStoreSession!, $search: String!) {\n    validateSession(session: $session, search: $search) {\n      locale\n      channel\n      country\n      addressType\n      postalCode\n      city\n      deliveryMode {\n        deliveryChannel\n        deliveryMethod\n        deliveryWindow {\n          startDate\n          endDate\n        }\n      }\n      geoCoordinates {\n        latitude\n        longitude\n      }\n      currency {\n        code\n        symbol\n      }\n      person {\n        id\n        email\n        givenName\n        familyName\n      }\n      b2b {\n        customerId\n        isRepresentative\n        unitName\n        unitId\n        isCorporate\n        corporateName\n        firstName\n        lastName\n        userName\n      }\n      marketingData {\n        utmCampaign\n        utmMedium\n        utmSource\n        utmiCampaign\n        utmiPage\n        utmiPart\n      }\n    }\n  }\n':
     types.ValidateSessionDocument,
   '\n  query ClientShippingSimulationQuery(\n    $postalCode: String!\n    $country: String!\n    $items: [IShippingItem!]!\n  ) {\n    ...ClientShippingSimulation\n    shipping(items: $items, postalCode: $postalCode, country: $country) {\n      logisticsInfo {\n        slas {\n          carrier\n          price\n          availableDeliveryWindows {\n            startDateUtc\n            endDateUtc\n            price\n            listPrice\n          }\n          shippingEstimate\n          localizedEstimates\n          deliveryChannel\n        }\n      }\n      address {\n        city\n        neighborhood\n        state\n      }\n    }\n  }\n':
     types.ClientShippingSimulationQueryDocument,
@@ -76,7 +80,7 @@ const documents = {
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\n    isVariantOf {\n      productGroupID\n      name\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n'
+  source: '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\t\tunitMultiplier\n\n    isVariantOf {\n      productGroupID\n      name\n\t\t\tskuVariants {\n\t\t\t\tallVariantsByName\n\t\t\t\tactiveVariations\n\t\t\t\tslugsMap\n\t\t\t\tavailableVariations\n\t\t\t}\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n\t\t\t\tpriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n'
 ): typeof import('./graphql').ProductSummary_ProductFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -196,6 +200,12 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
+  source: '\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n'
+): typeof import('./graphql').ClientProductCountQueryDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
   source: '\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n'
 ): typeof import('./graphql').ClientAllVariantProductsQueryDocument
 /**
@@ -220,6 +230,12 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
+  source: '\n  query ClientProfileQuery($id: String!) {\n    profile(id: $id) {\n      addresses {\n        country\n        postalCode\n        geoCoordinate\n        city\n      }\n    }\n  }\n'
+): typeof import('./graphql').ClientProfileQueryDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
   source: '\n  query ClientSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n        products {\n          ...ProductSummary_product\n        }\n      }\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientSearchSuggestionsQueryDocument
 /**
@@ -232,7 +248,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  mutation ValidateSession($session: IStoreSession!, $search: String!) {\n    validateSession(session: $session, search: $search) {\n      locale\n      channel\n      country\n      addressType\n      postalCode\n      deliveryMode {\n        deliveryChannel\n        deliveryMethod\n        deliveryWindow {\n          startDate\n          endDate\n        }\n      }\n      geoCoordinates {\n        latitude\n        longitude\n      }\n      currency {\n        code\n        symbol\n      }\n      person {\n        id\n        email\n        givenName\n        familyName\n      }\n      b2b {\n        customerId\n        isRepresentative\n        unitName\n        unitId\n        isCorporate\n        corporateName\n        firstName\n        lastName\n        userName\n      }\n      marketingData {\n        utmCampaign\n        utmMedium\n        utmSource\n        utmiCampaign\n        utmiPage\n        utmiPart\n      }\n    }\n  }\n'
+  source: '\n  mutation ValidateSession($session: IStoreSession!, $search: String!) {\n    validateSession(session: $session, search: $search) {\n      locale\n      channel\n      country\n      addressType\n      postalCode\n      city\n      deliveryMode {\n        deliveryChannel\n        deliveryMethod\n        deliveryWindow {\n          startDate\n          endDate\n        }\n      }\n      geoCoordinates {\n        latitude\n        longitude\n      }\n      currency {\n        code\n        symbol\n      }\n      person {\n        id\n        email\n        givenName\n        familyName\n      }\n      b2b {\n        customerId\n        isRepresentative\n        unitName\n        unitId\n        isCorporate\n        corporateName\n        firstName\n        lastName\n        userName\n      }\n      marketingData {\n        utmCampaign\n        utmMedium\n        utmSource\n        utmiCampaign\n        utmiPage\n        utmiPart\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ValidateSessionDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

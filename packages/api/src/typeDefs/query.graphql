@@ -199,6 +199,13 @@ input IGeoCoordinates {
   longitude: Float!
 }
 
+type ProductCountResult {
+  """
+  Total product count.
+  """
+  total: Int!
+}
+
 type Query {
   """
   Returns the details of a product based on the specified locator.
@@ -351,6 +358,17 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
+  Returns the total product count information based on a specific location accessible through the VTEX segment cookie.
+  """
+  productCount(
+    """
+    Search term.
+    """
+    term: String
+  ): ProductCountResult
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
   Returns information about the Details of an User Order.
   """
   userOrder(
@@ -360,6 +378,7 @@ type Query {
     orderId: String!
   ): UserOrder
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
   """
   Returns information about the list of Orders that the User can view.
   """

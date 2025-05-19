@@ -23,6 +23,8 @@ import {
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import { useApplySearchState } from 'src/sdk/search/state'
+import { useRouter } from 'next/router'
+import { isContentPlatformSource } from 'src/server/content/utils'
 
 const ScrollToTopButton = dynamic(
   () =>
@@ -49,6 +51,7 @@ export default function ProductListing({
   serverManyProductsVariables,
   globalSections,
 }: ProductListingPageProps) {
+  const router = useRouter()
   const { state } = useSearch()
   const { sort, term, selectedFacets } = state
 
@@ -56,7 +59,9 @@ export default function ProductListing({
 
   const applySearchState = useApplySearchState()
   useEffect(() => {
-    applySearchState(formatSearchState(state))
+    if (!isContentPlatformSource() || !router.isPreview) {
+      applySearchState(formatSearchState(state))
+    }
   }, [])
 
   const { data: pageProductGalleryData } = useProductGalleryQuery({

@@ -16,6 +16,7 @@ import type {
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
+import type { ProductCountResult } from './types/ProductCountResult'
 
 export type Sort =
   | 'price:desc'
@@ -39,6 +40,7 @@ export interface SearchArgs {
   showInvisibleItems?: boolean
   showSponsored?: boolean
   sponsoredCount?: number
+  allowRedirect?: boolean
 }
 
 export interface ProductLocator {
@@ -183,6 +185,7 @@ export const IntelligentSearch = (
     showInvisibleItems,
     sponsoredCount,
     hideUnavailableItems: searchHideUnavailableItems,
+    allowRedirect = false,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -216,6 +219,10 @@ export const IntelligentSearch = (
 
     if (sponsoredCount !== undefined) {
       params.append('sponsoredCount', sponsoredCount.toString())
+    }
+
+    if (allowRedirect !== undefined) {
+      params.append('allowRedirect', allowRedirect.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)
@@ -259,10 +266,26 @@ export const IntelligentSearch = (
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
+  const productCount = (
+    args: Pick<SearchArgs, 'query'>
+  ): Promise<ProductCountResult> => {
+    const params = new URLSearchParams()
+
+    if (args?.query) {
+      params.append('query', args.query.toString())
+    }
+
+    return fetchAPI(
+      `${base}/_v/api/intelligent-search/catalog_count?${params.toString()}`,
+      { headers }
+    )
+  }
+
   return {
     facets,
     products,
     suggestedTerms,
     topSearches,
+    productCount,
   }
 }

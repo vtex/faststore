@@ -52,6 +52,7 @@ module.exports = {
     country: 'USA',
     deliveryMode: null,
     addressType: null,
+    city: null,
     postalCode: null,
     geoCoordinates: null,
     b2b: null,
@@ -75,11 +76,12 @@ module.exports = {
   },
 
   // Production URLs
-  storeUrl: 'https://vtexfaststore.com',
-  secureSubdomain: 'https://secure.vtexfaststore.com',
-  checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
-  loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
-  accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
+  // secureSubdomain is the same as storeUrl because we are using single domain approach for this account
+  storeUrl: 'https://homebrewqa.fast.store',
+  secureSubdomain: 'https://homebrewqa.fast.store',
+  checkoutUrl: 'https://homebrewqa.fast.store/checkout',
+  loginUrl: 'https://homebrewqa.fast.store/api/io/login',
+  accountUrl: 'https://homebrewqa.fast.store/api/io/account',
 
   // Preview redirects
   previewRedirects: {
@@ -87,6 +89,8 @@ module.exports = {
     plp: '/office',
     search: '/s?q=headphone',
     pdp: '/apple-magic-mouse/p',
+    500: '/500',
+    404: '/404',
   },
 
   // Lighthouse CI
@@ -119,6 +123,15 @@ module.exports = {
 
   cms: {
     data: process.env.CMS_DATA,
+  },
+
+  contentSource: {
+    type: 'CMS',
+  },
+
+  deliveryPromise: {
+    enabled: false,
+    mandatory: false,
   },
 
   experimental: {

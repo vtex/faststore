@@ -4,6 +4,7 @@ import type {
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
   QueryProductArgs,
+  QueryProductCountArgs,
   QueryProfileArgs,
   QueryRedirectArgs,
   QuerySearchArgs,
@@ -310,6 +311,7 @@ export const Query = {
       count: 1,
       query: term ?? undefined,
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      allowRedirect: true,
     })
 
     return {
@@ -361,6 +363,21 @@ export const Query = {
     const parsedAddresses = mapAddressesToList(addresses)
 
     return { addresses: parsedAddresses }
+  },
+  productCount: async (
+    _: unknown,
+    { term }: QueryProductCountArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    const result = await search.productCount({
+      query: term ?? undefined,
+    })
+
+    return result
   },
   userOrder: async (
     _: unknown,

@@ -26,21 +26,15 @@ export function textToKebabCase(text: string): string {
  * @returns The string in title case.
  * @example
  * ```ts
- * textToTitleCase("example text!") // Example Text
+ * textToTitleCase("EXAMPLE text!") // Example Text!
  * ```
  */
 export function textToTitleCase(text: string | undefined): string {
   if (!text) return ''
-
-  // Split the text into words
-  const words = text.split(' ')
-
-  // Capitalize the first letter of each word
-  const titleCased = words
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
-
-  return titleCased
+  return text.replace(
+    /\S+/g,
+    (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  )
 }
 
 /**
