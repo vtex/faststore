@@ -148,8 +148,13 @@ function Page({
           title: seoData.title,
           searchTerm: searchTerm ?? searchParams.term ?? undefined,
         }}
+<<<<<<< HEAD
         globalSections={globalSections}
         globalSettings={globalSettings}
+=======
+        globalSections={globalSections.sections}
+        globalSectionsSettings={globalSections.settings}
+>>>>>>> ac9905123 (feat: Create Global Sections Settings tab (#2845))
       />
     </SearchProvider>
   )
