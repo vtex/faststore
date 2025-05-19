@@ -23,6 +23,7 @@ export interface PLPContext extends PageGlobalContext {
     ClientProductGalleryQueryQuery & {
       pages: ClientManyProductsQueryQuery[]
     }
+  globalSectionsSettings?: Record<string, any>
 }
 
 export interface SearchPageContext extends PageGlobalContext {
@@ -30,6 +31,7 @@ export interface SearchPageContext extends PageGlobalContext {
     ClientProductGalleryQueryQuery & {
       pages: ClientManyProductsQueryQuery[]
     }
+  globalSectionsSettings?: Record<string, any>
 }
 
 export interface DynamicContent<T> extends PageGlobalContext {
