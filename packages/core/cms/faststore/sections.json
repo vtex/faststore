@@ -1917,22 +1917,21 @@
             "deliverySettings": {
               "title": "Delivery Settings",
               "type": "object",
-              "required": ["title", "description"],
               "properties": {
                 "title": {
                   "title": "Delivery section title",
-                  "type": "string",
-                  "default": "Delivery"
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 },
                 "description": {
                   "title": "Delivery section description",
-                  "type": "string",
-                  "default": "Offers and delivery options vary based on region."
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 },
                 "setLocationButtonLabel": {
                   "title": "Call to Action label",
-                  "type": "string",
-                  "default": "Set Location"
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 },
                 "deliveryCustomLabels": {
                   "title": "Delivery Custom labels",
@@ -1940,23 +1939,23 @@
                   "properties": {
                     "delivery": {
                       "title": "Shipping label",
-                      "type": "string",
-                      "default": "Shipping to"
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                      "type": "string"
                     },
                     "pickupInPoint": {
                       "title": "Pickup in point label",
-                      "type": "string",
-                      "default": "Pickup at"
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                      "type": "string"
                     },
                     "pickupNearby": {
                       "title": "Pickup Nearby label",
-                      "type": "string",
-                      "default": "Pickup Nearby"
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                      "type": "string"
                     },
                     "pickupAll": {
                       "title": "Pickup Anywhere label",
-                      "type": "string",
-                      "default": "Pickup Anywhere"
+                      "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                      "type": "string"
                     }
                   }
                 }
