@@ -1,4 +1,5 @@
 import {
+  regionSliderTypes,
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
@@ -39,16 +40,14 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
     regionSlider: { type: regionSliderType },
     closeRegionSlider,
   } = useUI()
-  const { isValidating, ...session } = useSession()
   const inputRef = useRef<HTMLInputElement>(null)
-
-  const inputField = cmsData?.inputField
-
-  const idkPostalCodeLink = cmsData?.idkPostalCodeLink
+  const { isValidating, ...session } = useSession()
+  const { loading, setRegion, regionError, setRegionError } = useRegion()
 
   const [input, setInput] = useState<string>('')
 
-  const { loading, setRegion, regionError, setRegionError } = useRegion()
+  const inputField = cmsData?.inputField
+  const idkPostalCodeLink = cmsData?.idkPostalCodeLink
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -93,7 +92,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
       }}
       title={
         cmsData?.deliverySettings?.postalCodeEditSlider?.[
-          regionSliderType === 'setLocation'
+          regionSliderType === regionSliderTypes.setLocation
             ? 'chooseDeliveryMethod'
             : 'changeLocation'
         ]
@@ -107,7 +106,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
         {cmsData?.deliverySettings?.description}
       </span>
       <UIInputField
-        id={'region-slideover-input-field'}
+        id="region-slider-input-field"
         inputRef={inputRef}
         label={inputField?.label}
         actionable

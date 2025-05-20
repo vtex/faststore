@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 
 import { useSearch } from '@faststore/sdk'
 import {
+  regionSliderTypes,
   useUI,
   type ButtonProps as UIButtonProps,
   type FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
@@ -118,8 +119,6 @@ function FilterSlider({
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
 
-  const setLocation = 'setLocation'
-
   return (
     <UIFilterSlider
       overlayProps={{
@@ -173,7 +172,7 @@ function FilterSlider({
               data-fs-filter-list-delivery-button
               variant="secondary"
               onClick={() => {
-                openRegionSlider(setLocation)
+                openRegionSlider(regionSliderTypes.setLocation)
               }}
               icon={<UIIcon name="MapPin" />}
             >
@@ -181,7 +180,7 @@ function FilterSlider({
             </UIButton>
           </UIFilterFacets>
         )}
-        {regionSliderType === setLocation && (
+        {regionSliderType === regionSliderTypes.setLocation && (
           <RegionSlider cmsData={regionalizationData} />
         )}
         {filteredFacets.map((facet, idx) => {

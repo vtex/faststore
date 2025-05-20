@@ -1,6 +1,7 @@
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import {
+  regionSliderTypes,
   Button as UIButton,
   Filter as UIFilter,
   FilterFacetBoolean as UIFilterFacetBoolean,
@@ -51,8 +52,6 @@ function FilterDesktop({
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
 
-  const setLocation = 'setLocation'
-
   return (
     <UIFilter
       testId={`desktop-${testId}`}
@@ -75,7 +74,7 @@ function FilterDesktop({
             data-fs-filter-list-delivery-button
             variant="secondary"
             onClick={() => {
-              openRegionSlider(setLocation)
+              openRegionSlider(regionSliderTypes.setLocation)
             }}
             icon={<UIIcon name="MapPin" />}
           >
@@ -83,7 +82,7 @@ function FilterDesktop({
           </UIButton>
         </UIFilterFacets>
       )}
-      {regionSliderType === setLocation && (
+      {regionSliderType === regionSliderTypes.setLocation && (
         <RegionSlider cmsData={regionalizationData} />
       )}
       {filteredFacets.map((facet, idx) => {

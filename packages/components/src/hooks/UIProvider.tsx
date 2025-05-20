@@ -13,7 +13,13 @@ export interface Popover {
   triggerRef?: RefObject<HTMLElement>
 }
 
-type RegionSliderType = 'setLocation' | 'changeLocation'
+export const regionSliderTypes = {
+  setLocation: 'setLocation',
+  changeLocation: 'changeLocation',
+} as const
+
+type RegionSliderType =
+  (typeof regionSliderTypes)[keyof typeof regionSliderTypes]
 
 export type RegionSlider = {
   type: RegionSliderType | 'none'

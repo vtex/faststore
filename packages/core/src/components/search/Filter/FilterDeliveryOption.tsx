@@ -1,4 +1,4 @@
-import { Button as UIButton, useUI } from '@faststore/ui'
+import { Button as UIButton, useUI, regionSliderTypes } from '@faststore/ui'
 import { RegionSlider } from 'src/components/region/RegionSlider'
 import { sessionStore } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
@@ -42,7 +42,6 @@ export default function FilterDeliveryOption({
     'pickup-all': deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
   }
 
-  const changeLocation = 'changeLocation'
   if (item.value === 'delivery') {
     return (
       <>
@@ -51,12 +50,12 @@ export default function FilterDeliveryOption({
           data-fs-filter-list-item-button
           size="small"
           onClick={() => {
-            openRegionSlider(changeLocation)
+            openRegionSlider(regionSliderTypes.changeLocation)
           }}
         >
           {location}
         </UIButton>
-        {regionSliderType === changeLocation && (
+        {regionSliderType === regionSliderTypes.changeLocation && (
           <RegionSlider cmsData={cmsData} />
         )}
       </>
