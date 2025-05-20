@@ -31,6 +31,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type ListOrdersPageProps = {
+  accountName: ServerListOrdersQueryQuery['accountName']
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
   total: number
   perPage: number
@@ -46,6 +47,7 @@ type ListOrdersPageProps = {
 
 export default function ListOrdersPage({
   globalSections,
+  accountName,
   listOrders,
   total,
   perPage,
@@ -58,7 +60,7 @@ export default function ListOrdersPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout>
+      <MyAccountLayout accountName={accountName}>
         <BeforeSection />
         <MyAccountListOrders
           listOrders={listOrders}
@@ -159,6 +161,7 @@ const query = gql(`
       facets
       reportRecordsLimit
     }
+    accountName
   }
 `)
 
@@ -257,6 +260,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
+      accountName: listOrders.data.accountName,
       listOrders: listOrders.data.listUserOrders,
       total: listOrders.data.listUserOrders.paging.total,
       perPage: listOrders.data.listUserOrders.paging.perPage,

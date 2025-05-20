@@ -3,20 +3,17 @@ import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import MyAccountMenu from '../MyAccountMenu'
 import styles from '../section.module.scss'
 
-export type MyAccountLayoutProps = {}
-
-/* ######################################### */
-/* Mocked Data until development is finished */
-const mockedUserName = 'Mocked Username'
-
-/* ######################################### */
+export type MyAccountLayoutProps = {
+  accountName: string
+}
 
 const MyAccountLayout = ({
   children,
+  accountName,
 }: PropsWithChildren<MyAccountLayoutProps>) => {
   return (
     <div className={styles.layout}>
-      <MyAccountMenu accountName={mockedUserName} items={menuRoutes} />
+      <MyAccountMenu accountName={accountName} items={menuRoutes} />
       <section>{children}</section>
     </div>
   )
