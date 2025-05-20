@@ -2238,6 +2238,12 @@ export type ServerProductQueryQuery = {
   }
 }
 
+export type ServerAccountErrorQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerAccountErrorQueryQuery = { accountName: string | null }
+
 export type UserOrderItemsFragmentFragment = {
   id: string | null
   name: string | null
@@ -3476,6 +3482,15 @@ export const ServerProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables
+>
+export const ServerAccountErrorQueryDocument = {
+  __meta__: {
+    operationName: 'ServerAccountErrorQuery',
+    operationHash: 'f6be83ca7a0115ea337590722b00e48f36217c66',
+  },
+} as unknown as TypedDocumentString<
+  ServerAccountErrorQueryQuery,
+  ServerAccountErrorQueryQueryVariables
 >
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
