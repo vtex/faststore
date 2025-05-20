@@ -432,4 +432,22 @@ export const Query = {
 
     return orders
   },
+  accountName: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const { user, isRepresentative, customerId } =
+      await commerce.vtexid.validate()
+
+    if (isRepresentative && customerId) {
+      const contract = await commerce.masterData.getContractById({
+        contractId: customerId,
+      })
+
+      return `${contract.firstName} ${contract.lastName}`
+    }
+
+    return user
+  },
 }
