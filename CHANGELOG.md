@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.45.0 (2025-05-20)
+
+### Features
+
+- my account release 2 ([#2786](https://github.com/vtex/faststore/issues/2786)) ([2a6339c](https://github.com/vtex/faststore/commit/2a6339ce060ff2707a6734f5c4fdae8b4f4c4480))
+
 ## [3.44.3](https://github.com/vtex/faststore/compare/v3.44.2...v3.44.3) (2025-05-16)
 
 **Note:** Version bump only for package faststore
