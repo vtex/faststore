@@ -24,6 +24,7 @@ import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
 import { ShippingSLA } from './resolvers/shippingSLA'
 import { SkuVariants } from './resolvers/skuVariations'
+import { UserOrder } from './resolvers/userOrder'
 import type { Channel } from './utils/channel'
 import ChannelMarshal from './utils/channel'
 
@@ -63,6 +64,7 @@ export interface Context {
     cookies: Map<string, Record<string, string>>
   }
   headers: Record<string, string>
+  account: string
 }
 
 export type Resolver<R = unknown, A = unknown, Return = any> = (
@@ -89,6 +91,7 @@ const Resolvers = {
   StorePropertyValue,
   SkuVariants,
   ShippingSLA,
+  UserOrder,
   ObjectOrString,
   Query,
   Mutation,
@@ -105,6 +108,7 @@ export const getContextFactory =
     }
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
+    ctx.account = options.account
 
     return ctx
   }

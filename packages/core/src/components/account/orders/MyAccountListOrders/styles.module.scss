@@ -1,0 +1,100 @@
+.page {
+  @import "./MyAccountListOrdersTable/styles.scss";
+  @import "./MyAccountSelectedTags/styles.scss";
+  @import "./MyAccountListOrdersEmptyState/styles.scss";
+  @import "../../components/MyAccountStatusBadge/styles.scss";
+
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-list-orders-padding                            : var(--fs-spacing-5);
+  --fs-page-height                                    : 100%;
+
+  // Title
+  --fs-list-orders-title-margin-bottom                : var(--fs-spacing-5);
+  --fs-list-orders-title-font-size                    : var(--fs-spacing-4);
+  --fs-list-orders-title-font-weight                  : var(--fs-text-weight-semibold);
+
+  // Search Filters
+  --fs-list-orders-filter-width                       : 55%;
+  --fs-list-orders-filter-margin-bottom               : var(--fs-spacing-3);
+  --fs-list-orders-filter-gap-mobile                  : var(--fs-grid-gap-0);
+  --fs-list-orders-filter-width-mobile                : 100%;
+  --fs-list-orders-filter-margin-bottom-mobile        : 0;
+
+  --fs-list-orders-filter-input-border-color-hover    : var(--fs-input-border-color-hover);
+  --fs-list-orders-filter-input-shadow-hover          : var(--fs-input-box-shadow-hover);
+
+  --fs-list-orders-filter-button-border-radius        : var(--fs-border-radius-pill);
+  --fs-list-orders-filter-button-height               : 2.375rem;
+  --fs-list-orders-filter-button-margin-left          : 0.6rem;
+
+  height: var(--fs-page-height);
+
+  [data-fs-list-orders] {
+    padding: var(--fs-list-orders-padding);
+
+    @include media("<notebook") {
+      padding-bottom: 0;
+    }
+  }
+
+  [data-fs-list-orders-title] {
+    margin-bottom: var(--fs-list-orders-title-margin-bottom);
+    font-size: var(--fs-list-orders-title-font-size);
+    font-weight: var(--fs-list-orders-title-font-weight);
+  }
+
+  [data-fs-list-orders-header] {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  [data-fs-list-orders-search-filters] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--fs-list-orders-filter-width);
+    margin-bottom: var(--fs-list-orders-filter-margin-bottom);
+
+    @include media("<notebook") {
+      flex-direction: column;
+      gap: var(--fs-list-orders-filter-gap-mobile);
+      align-items: flex-end;
+      width: var(--fs-list-orders-filter-width-mobile);
+      margin-bottom: var(--fs-list-orders-filter-margin-bottom-mobile);
+    }
+
+    [data-fs-search-input-field] {
+      [data-fs-search-input-field-input] {
+        @include media("<notebook") {
+          border: var(--fs-input-border-width) solid var(--fs-input-border-color);
+
+          @include input-focus-ring;
+
+          &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+            border-color: var(--fs-list-orders-filter-input-border-color-hover);
+            box-shadow: var(--fs-list-orders-filter-input-shadow-hover);
+          }
+        }
+      }
+
+      [data-fs-icon-button][data-fs-button-variant] {
+        @include media("<notebook") {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
+    [data-fs-list-orders-search-filters-button] {
+      --fs-button-border-radius   : var(--fs-list-orders-filter-button-border-radius);
+      --fs-button-height          : var(--fs-list-orders-filter-button-height);
+
+      margin-left: var(--fs-list-orders-filter-button-margin-left);
+    }
+  }
+}

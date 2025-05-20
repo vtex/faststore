@@ -2,15 +2,17 @@ import type {
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
+  QueryListUserOrdersArgs,
   QueryProductArgs,
+  QueryProductCountArgs,
   QueryProfileArgs,
   QueryRedirectArgs,
   QuerySearchArgs,
   QuerySellersArgs,
   QueryShippingArgs,
-  QueryProductCountArgs,
+  QueryUserOrderArgs,
 } from '../../../__generated__/schema'
-import { BadRequestError, NotFoundError } from '../../errors'
+import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
@@ -376,5 +378,58 @@ export const Query = {
     })
 
     return result
+  },
+  userOrder: async (
+    _: unknown,
+    { orderId }: QueryUserOrderArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+    if (!orderId) {
+      throw new BadRequestError('Missing orderId')
+    }
+
+    try {
+      const order = await commerce.oms.userOrder({ orderId })
+
+      if (!order) {
+        throw new NotFoundError(`No order found for id ${orderId}`)
+      }
+
+      return order
+    } catch (error) {
+      const { message } = JSON.parse((error as Error).message).error as {
+        code: string
+        message: string
+        exception: any
+      }
+
+      if (message.toLowerCase().includes('order not found')) {
+        throw new NotFoundError(`No order found for id ${orderId}`)
+      }
+
+      if (message.toLowerCase().includes('acesso negado')) {
+        throw new ForbiddenError(
+          `You are forbidden to interact with order with id ${orderId}`
+        )
+      }
+
+      throw error
+    }
+  },
+  listUserOrders: async (
+    _: unknown,
+    filters: QueryListUserOrdersArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const orders = await commerce.oms.listUserOrders(filters)
+
+    return orders
   },
 }

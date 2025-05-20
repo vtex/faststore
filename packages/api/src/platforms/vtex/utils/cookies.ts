@@ -1,3 +1,4 @@
+import { parse } from 'cookie'
 import type { Context } from '../index'
 
 export interface ContextForCookies {
@@ -96,6 +97,23 @@ export const getWithCookie = (ctx: ContextForCookies) =>
     }
   }
 
+export const getWithAutCookie = (ctx: ContextForCookies) => {
+  const withCookie = getWithCookie(ctx)
+
+  return function withAutCookie(forwardedHost: string, account: string) {
+    const headers: HeadersInit = withCookie({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': forwardedHost,
+    })
+
+    const cookies = parse(ctx?.headers?.cookie ?? '')
+    const VtexIdclientAutCookie = cookies[`VtexIdclientAutCookie_${account}`]
+    headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+    return headers
+  }
+}
+
 /**
  * This function updates the cookie value based on its key
  *
@@ -123,4 +141,11 @@ export const updatesCookieValueByKey = (
 
   // add new storage cookie to the original list of cookies
   return `${existingCookies};${storageCookieKey}=${storageCookieValue}`
+}
+
+export function parseJwt(token: string) {
+  if (!token) {
+    return null
+  }
+  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
 }

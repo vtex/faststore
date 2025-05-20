@@ -1,5 +1,10 @@
 .layout {
+  @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
   @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Input/styles.scss";
+  @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
   @import "../MyAccountMenu/styles.scss";
 
   display: grid;
@@ -8,10 +13,9 @@
 
   @include media(">=notebook") {
     grid-template-rows: none;
-    grid-template-columns: max(300px) auto;
-    gap: var(--fs-spacing-8);
-    max-width: var(--fs-grid-max-width);
-    padding: 0;
+    grid-template-columns: max(300px) 1fr;
+    gap: var(--fs-spacing-3);
+    max-width: var(--fs-grid-breakpoint-desktop);
     margin: 0 auto;
   }
 }
