@@ -535,6 +535,8 @@ export type ProfileAddress = {
 }
 
 export type Query = {
+  /** Returns the account name of the current user or the B2B contract name if applicable. */
+  accountName: Maybe<Scalars['String']['output']>
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
   /** Returns information about all products. */
