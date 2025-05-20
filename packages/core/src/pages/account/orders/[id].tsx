@@ -28,11 +28,13 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type OrderDetailsPageProps = {
   order: ServerOrderDetailsQueryQuery['userOrder']
+  accountName: ServerOrderDetailsQueryQuery['accountName']
 } & MyAccountProps
 
 export default function OrderDetailsPage({
   globalSections,
   order,
+  accountName,
 }: OrderDetailsPageProps) {
   return (
     <RenderSections
@@ -41,7 +43,7 @@ export default function OrderDetailsPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout>
+      <MyAccountLayout accountName={accountName}>
         <BeforeSection />
         <MyAccountOrderDetails order={order} />
         <AfterSection />
@@ -193,6 +195,7 @@ const query = gql(`
         value
       }
     }
+    accountName
   }
 `)
 
@@ -266,6 +269,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       order: orderDetails.data.userOrder,
+      accountName: orderDetails.data.accountName,
     },
   }
 }
