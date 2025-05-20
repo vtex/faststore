@@ -1,5 +1,5 @@
 import type { Locator } from '@vtex/client-cms'
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import {
@@ -17,6 +17,12 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { gql } from '@generated/gql'
+import { execute } from 'src/server'
+import type {
+  ServerAccountErrorQueryQuery,
+  ServerAccountErrorQueryQueryVariables,
+} from '@generated/graphql'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -27,9 +33,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type Props = {
   globalSections: GlobalSectionsData
+  accountName: ServerAccountErrorQueryQuery['accountName']
 }
 
-function Page({ globalSections }: Props) {
+function Page({ globalSections, accountName }: Props) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -37,7 +44,7 @@ function Page({ globalSections }: Props) {
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout>
+      <MyAccountLayout accountName={accountName}>
         <EmptyState
           title="Unauthorized Access"
           titleIcon={{ icon: 'ShoppingCart', alt: 'Shopping Cart' }}
@@ -53,15 +60,21 @@ function Page({ globalSections }: Props) {
   )
 }
 
-export const getStaticProps: GetStaticProps<
+const query = gql(`
+  query ServerAccountErrorQuery {
+    accountName
+  }
+`)
+
+export const getServerSideProps: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async (context) => {
   // TODO validate permissions here
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query: {},
+    query: context.query,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -72,18 +85,33 @@ export const getStaticProps: GetStaticProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(context.previewData)
 
-  const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      getPage<PageContentType>({
-        ...(previewData?.contentType === '403' && previewData),
-        contentType: '403',
-      }),
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    page,
+    account,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    getPage<PageContentType>({
+      ...(context.previewData?.contentType === '403' && context.previewData),
+      contentType: '403',
+    }),
+    execute<
+      ServerAccountErrorQueryQueryVariables,
+      ServerAccountErrorQueryQuery
+    >(
+      {
+        variables: {},
+        operation: query,
+      },
+      { headers: { ...context.req.headers } }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -96,6 +124,7 @@ export const getStaticProps: GetStaticProps<
       // The sections from the CMS page are not utilized here for the My Account page.
       // page,
       globalSections: globalSectionsResult,
+      accountName: account.data.accountName,
     },
   }
 }
