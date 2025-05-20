@@ -87,7 +87,7 @@
                     "description": {
                       "title": "Description",
                       "type": "string",
-                      "default": "Offers and delivery options vary based on region."
+                      "default": "Offers and availability vary by location"
                     },
                     "setLocationButtonLabel": {
                       "title": "Call to Action label",
@@ -98,15 +98,15 @@
                       "title": "Postal Code Edit SlideOver",
                       "type": "object",
                       "properties": {
-                        "chooseDeliveryMethod": {
-                          "title": "Choose delivery method label",
+                        "setLocation": {
+                          "title": "Set Location label",
                           "type": "string",
-                          "default": "Choose a delivery method"
+                          "default": "Set Location"
                         },
                         "changeLocation": {
                           "title": "Change Postal Code",
                           "type": "string",
-                          "default": "Change location"
+                          "default": "Change Location"
                         }
                       }
                     },

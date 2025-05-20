@@ -1,5 +1,4 @@
 import {
-  regionSliderTypes,
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
@@ -91,11 +90,9 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
         className: `section ${styles.section} section-filter-slider`,
       }}
       title={
-        cmsData?.deliverySettings?.postalCodeEditSlider?.[
-          regionSliderType === regionSliderTypes.setLocation
-            ? 'chooseDeliveryMethod'
-            : 'changeLocation'
-        ]
+        regionSliderType !== 'none'
+          ? cmsData?.deliverySettings?.postalCodeEditSlider?.[regionSliderType]
+          : ''
       }
       size="partial"
       direction="rightSide"
