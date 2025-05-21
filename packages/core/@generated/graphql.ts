@@ -1557,6 +1557,7 @@ export type UserOrderFromList = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
+  customFields: Maybe<UserOrderFromListCustomFields>
   deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
   giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
   hostname: Maybe<Scalars['String']['output']>
@@ -1585,6 +1586,13 @@ export type UserOrderFromList = {
   totalValue: Maybe<Scalars['Float']['output']>
   workflowInErrorState: Maybe<Scalars['Boolean']['output']>
   workflowInRetry: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderFromListCustomFields = {
+  costCenter: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  desktop: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  poNumber: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  release: Maybe<Array<Maybe<Scalars['String']['output']>>>
 }
 
 export type UserOrderInvoiceType = 'Input' | 'Output'
@@ -2916,6 +2924,12 @@ export type ServerListOrdersQueryQuery = {
         sellingPrice: number | null
         price: number | null
       } | null> | null
+      customFields: {
+        costCenter: Array<string | null> | null
+        poNumber: Array<string | null> | null
+        release: Array<string | null> | null
+        desktop: Array<string | null> | null
+      } | null
     } | null> | null
     paging: {
       total: number | null
@@ -3997,7 +4011,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'b88154468340d7d0dac6b3df8641bf6f54a554b7',
+    operationHash: '3aa6f2fa6e8383314226ab905c5b5d95c3339c0e',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,

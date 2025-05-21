@@ -1660,6 +1660,7 @@ export type UserOrderFromList = {
   clientName?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   currencyCode?: Maybe<Scalars['String']>;
+  customFields?: Maybe<UserOrderFromListCustomFields>;
   deliveryDates?: Maybe<Array<Maybe<Scalars['String']>>>;
   giftCardProviders?: Maybe<Array<Maybe<Scalars['String']>>>;
   hostname?: Maybe<Scalars['String']>;
@@ -1688,6 +1689,14 @@ export type UserOrderFromList = {
   totalValue?: Maybe<Scalars['Float']>;
   workflowInErrorState?: Maybe<Scalars['Boolean']>;
   workflowInRetry?: Maybe<Scalars['Boolean']>;
+};
+
+export type UserOrderFromListCustomFields = {
+  __typename?: 'UserOrderFromListCustomFields';
+  costCenter?: Maybe<Array<Maybe<Scalars['String']>>>;
+  desktop?: Maybe<Array<Maybe<Scalars['String']>>>;
+  poNumber?: Maybe<Array<Maybe<Scalars['String']>>>;
+  release?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export const enum UserOrderInvoiceType {
