@@ -23,14 +23,9 @@ export const OrganizationDrawer = ({
   closeDrawer,
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b, person } = useSession()
+  const { b2b } = useSession()
 
-  const contractName =
-    b2b?.isCorporate !== null && b2b?.isCorporate !== undefined
-      ? b2b.isCorporate && b2b?.corporateName
-        ? b2b?.corporateName
-        : `${b2b?.firstName ?? ''} ${b2b.lastName ?? ''}`
-      : `${person?.givenName ?? ''} ${person.familyName ?? ''}`
+  const contractName = b2b?.firstName ?? ''
 
   return (
     <SlideOver

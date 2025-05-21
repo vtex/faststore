@@ -13,6 +13,10 @@ export interface Namespaces {
 
 export interface Authentication {
   customerId: Value
+  storeUserId: Value
+  storeUserEmail: Value
+  unitName: Value
+  unitId: Value
 }
 
 export interface Value {

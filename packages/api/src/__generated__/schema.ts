@@ -169,10 +169,8 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
-  corporateName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
@@ -794,10 +792,8 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
-  corporateName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
