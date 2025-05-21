@@ -31,7 +31,6 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type ListOrdersPageProps = {
-  accountName: ServerListOrdersQueryQuery['accountName']
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
   total: number
   perPage: number

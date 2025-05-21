@@ -31,14 +31,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type MyAccountUserDetailsPageProps = {
-  accountName: ServerUserDetailsQueryQuery['accountName']
-} & MyAccountProps
-
 export default function UserDetails({
   globalSections,
   accountName,
-}: MyAccountUserDetailsPageProps) {
+}: MyAccountProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
