@@ -69,539 +69,28 @@ const query = gql(`
   query ServerOrderDetailsQuery($orderId: String!) {
     userOrder(orderId: $orderId) {
       orderId
-      sequence
-      marketplaceOrderId
-      marketplaceServicesEndpoint
-      sellerOrderId
-      origin
-      affiliateId
-      salesChannel
-      merchantName
       status
-      workflowIsInError
       statusDescription
-      value
-      creationDate
-      lastChange
-      orderGroup
-      giftRegistryData
-      marketingData
-      callCenterOperatorData
-      followUpEmail
-      lastMessage
-      hostname
-      invoiceData
-      changesAttachment
-      openTextField
-      roundingError
-      orderFormId
-      commercialConditionData
-      isCompleted
-      customData {
-        customApps {
-          fields {
-            cartEtag
-          }
-          id
-          major
-        }
-      }
       allowCancellation
-      allowEdition
-      isCheckedIn
-      authorizedDate
-      invoicedDate
-      cancelReason
-      subscriptionData
-      taxData
-      checkedInPickupPointId
-      cancellationData {
-        RequestedByUser
-        RequestedBySystem
-        RequestedBySellerNotification
-        RequestedByPaymentNotification
-        Reason
-        CancellationDate
-      }
-      cancellationRequests {
-        id
-        reason
-        cancellationRequestDate
-        requestedByUser
-        deniedBySeller
-        deniedBySellerReason
-        cancellationRequestDenyDate
-      }
-      clientPreferencesData {
-        locale
-        optinNewsLetter
-      }
-      itemMetadata {
-        Items {
-          Id
-          Seller
-          Name
-          SkuName
-          ProductId
-          RefId
-          Ean
-          ImageUrl
-          DetailUrl
-          AssemblyOptions {
-            Id
-            Name
-            Required
-          }
-        }
-      }
-      marketplace {
-        baseURL
-        isCertified
-        name
-      }
       storePreferencesData {
-        countryCode
         currencyCode
-        currencyLocale
-        currencySymbol
-        timeZone
-        currencyFormatInfo {
-          CurrencyDecimalDigits
-          CurrencyDecimalSeparator
-          CurrencyGroupSeparator
-          CurrencyGroupSize
-          StartsWithCurrencySymbol
-        }
-      }
-      sellers {
-        id
-        name
-        logo
-        fulfillmentEndpoint
-      }
-      packageAttachment {
-        packages {
-          courier
-          courierStatus {
-            data {
-              city
-              description
-              lastChange
-              state
-            }
-            finished
-            status
-          }
-          invoiceNumber
-          invoiceUrl
-          invoiceValue
-          extraValue
-          issuanceDate
-          items {
-            description
-            itemIndex
-            price
-            quantity
-          }
-          trackingNumber
-          trackingUrl
-          invoiceKey
-          type
-          restitutions {
-            Refund {
-              value
-              items {
-                useFreight
-                isCompensation
-                compensationValue
-                itemIndex
-                id
-                quantity
-                price
-                description
-                unitMultiplier
-              }
-            }
-            GiftCard {
-              value
-              items {
-                useFreight
-                isCompensation
-                compensationValue
-                itemIndex
-                id
-                quantity
-                price
-                description
-                unitMultiplier
-              }
-            }
-          }
-        }
-      }
-      paymentData {
-        transactions {
-          isActive
-          transactionId
-          merchantName
-          payments {
-            id
-            paymentSystem
-            paymentSystemName
-            value
-            installments
-            referenceValue
-            cardHolder
-            cardNumber
-            firstDigits
-            lastDigits
-            cvv2
-            expireMonth
-            expireYear
-            url
-            giftCardId
-            giftCardName
-            giftCardCaption
-            redemptionCode
-            group
-            tid
-            dueDate
-            connectorResponses {
-              Message
-              ReturnCode
-              Tid
-              authId
-            }
-            giftCardProvider
-            giftCardAsDiscount
-            koinUrl
-            accountId
-            parentAccountId
-            bankIssuedInvoiceIdentificationNumber
-            bankIssuedInvoiceIdentificationNumberFormatted
-            bankIssuedInvoiceBarCodeNumber
-            bankIssuedInvoiceBarCodeType
-            billingAddress
-            paymentOrigin
-          }
-        }
-        giftCards
-      }
-      shippingData {
-        id
-        trackingHints
-        contactInformation {
-          id
-          email
-          firstName
-          lastName
-          document
-          documentType
-          phone
-        }
-        availableAddresses {
-          addressId
-          versionId
-          entityId
-          addressType
-          receiverName
-          street
-          number
-          complement
-          neighborhood
-          postalCode
-          city
-          state
-          country
-          reference
-          geoCoordinates
-        }
-        selectedAddresses {
-          addressId
-          versionId
-          entityId
-          addressType
-          receiverName
-          street
-          number
-          complement
-          neighborhood
-          postalCode
-          city
-          state
-          country
-          reference
-          geoCoordinates
-        }
-        logisticsInfo {
-          itemIndex
-          itemId
-          selectedDeliveryChannel
-          selectedSla
-          lockTTL
-          price
-          listPrice
-          sellingPrice
-          deliveryWindow {
-            startDateUtc
-            endDateUtc
-            price
-          }
-          deliveryCompany
-          shippingEstimate
-          shippingEstimateDate
-          deliveryChannel
-          addressId
-          versionId
-          entityId
-          polygonName
-          pickupPointId
-          transitTime
-          pickupStoreInfo {
-            additionalInfo
-            address {
-              addressType
-              receiverName
-              addressId
-              versionId
-              entityId
-              postalCode
-              city
-              state
-              country
-              street
-              number
-              neighborhood
-              complement
-              reference
-              geoCoordinates
-            }
-            dockId
-            friendlyName
-            isPickupStore
-          }
-          deliveryChannels {
-            id
-            stockBalance
-          }
-          deliveryIds {
-            courierId
-            courierName
-            dockId
-            quantity
-            warehouseId
-            accountCarrierName
-            kitItemDetails
-          }
-          shipsTo
-          slas {
-            id
-            name
-            shippingEstimate
-            shippingEstimateDate
-            deliveryWindow {
-              startDateUtc
-              endDateUtc
-              price
-            }
-            listPrice
-            price
-            deliveryChannel
-            polygonName
-            lockTTL
-            pickupPointId
-            transitTime
-            pickupDistance
-            pickupStoreInfo {
-              additionalInfo
-              address {
-                addressType
-                receiverName
-                addressId
-                versionId
-                entityId
-                postalCode
-                city
-                state
-                country
-                street
-                number
-                neighborhood
-                complement
-                reference
-                geoCoordinates
-              }
-              dockId
-              friendlyName
-              isPickupStore
-            }
-            deliveryIds {
-              courierId
-              courierName
-              dockId
-              quantity
-              warehouseId
-              accountCarrierName
-              kitItemDetails
-            }
-            availableDeliveryWindows {
-              startDateUtc
-              endDateUtc
-              price
-            }
-          }
-        }
-        address {
-          addressType
-          receiverName
-          addressId
-          versionId
-          entityId
-          postalCode
-          city
-          state
-          country
-          street
-          number
-          neighborhood
-          complement
-          reference
-          geoCoordinates
-        }
-      }
-      ratesAndBenefitsData {
-        id
-        rateAndBenefitsIdentifiers {
-          id
-          additionalInfo
-          description
-          featured
-          name
-        }
       }
       clientProfileData {
-        id
-        email
         firstName
         lastName
-        documentType
-        document
+        email
         phone
         corporateName
-        tradeName
-        corporateDocument
-        stateInscription
-        corporatePhone
         isCorporate
-        userProfileId
-        userProfileVersion
-        customerClass
-        customerCode
       }
-      items {
-        uniqueId
+      customFields {
+        type
         id
-        productId
-        ean
-        lockId
-        quantity
-        seller
-        name
-        refId
-        price
-        listPrice
-        manualPrice
-        manualPriceAppliedBy
-        imageUrl
-        detailUrl
-        sellerSku
-        priceValidUntil
-        commission
-        tax
-        preSaleDate
-        measurementUnit
-        unitMultiplier
-        sellingPrice
-        isGift
-        shippingPrice
-        rewardValue
-        freightCommission
-        taxCode
-        parentItemIndex
-        parentAssemblyBinding
-        callCenterOperator
-        serialNumbers
-        costPrice
-        assemblies
-        priceDefinition {
-          calculatedSellingPrice
-          total
-          reason
-          sellingPrices {
-            value
-            quantity
-          }
-        }
-        additionalInfo {
-          brandName
-          brandId
-          categoriesIds
-          productClusterId
-          commercialConditionId
-          offeringInfo
-          offeringType
-          offeringTypeId
-          dimension {
-            cubicweight
-            height
-            length
-            weight
-            width
-          }
-          categories {
-            id
-            name
-          }
-        }
-        attachmentOfferings {
-          name
-          required
-        }
-        offerings {
-          type
-          id
-          name
-          price
-        }
-        params
-        bundleItems {
-          ...UserOrderItemsFragment
-          attachments {
-            name
-            content
-          }
-        }
-        components {
-          ...UserOrderItemsFragment
-        }
-        priceTags {
+        fields {
           name
           value
-          rawValue
-          isPercentual
+          refId
         }
-        attachments {
-          name
-          content
-        }
-        itemAttachment {
-          name
-        }
-      }
-      totals {
-        id
-        name
-        value
       }
       deliveryOptionsData {
         deliveryOptions {
@@ -676,14 +165,31 @@ const query = gql(`
           name
         }
       }
-      customFields {
-        type
-        id
-        fields {
-          name
-          value
-          refId
+      paymentData {
+        transactions {
+          isActive
+          payments {
+            id
+            paymentSystemName
+            value
+            installments
+            referenceValue
+            lastDigits
+            url
+            group
+            tid
+            connectorResponses {
+              authId
+            }
+            bankIssuedInvoiceIdentificationNumber
+            redemptionCode
+          }
         }
+      }
+      totals {
+        id
+        name
+        value
       }
     }
   }

@@ -559,7 +559,7 @@ export type Query = {
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
   /** Returns information about the Details of an User Order. */
-  userOrder: Maybe<UserOrder>
+  userOrder: Maybe<UserOrderResult>
 }
 
 export type QueryAllCollectionsArgs = {
@@ -1913,6 +1913,22 @@ export type UserOrderRestitutions = {
   Refund: Maybe<UserOrderRestitutionOption>
 }
 
+export type UserOrderResult = {
+  allowCancellation: Maybe<Scalars['Boolean']['output']>
+  clientProfileData: Maybe<UserOrderClientProfileData>
+  customData: Maybe<UserOrderCustomData>
+  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
+  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
+  items: Maybe<Array<Maybe<UserOrderItems>>>
+  orderId: Maybe<Scalars['String']['output']>
+  paymentData: Maybe<UserOrderPaymentData>
+  shippingData: Maybe<UserOrderShippingData>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  storePreferencesData: Maybe<UserOrderStorePreferencesData>
+  totals: Maybe<Array<Maybe<UserOrderTotals>>>
+}
+
 export type UserOrderSellingPrices = {
   quantity: Maybe<Scalars['Int']['output']>
   value: Maybe<Scalars['Float']['output']>
@@ -2244,553 +2260,26 @@ export type ServerOrderDetailsQueryQueryVariables = Exact<{
 export type ServerOrderDetailsQueryQuery = {
   userOrder: {
     orderId: string | null
-    sequence: string | null
-    marketplaceOrderId: string | null
-    marketplaceServicesEndpoint: string | null
-    sellerOrderId: string | null
-    origin: string | null
-    affiliateId: string | null
-    salesChannel: string | null
-    merchantName: string | null
     status: string | null
-    workflowIsInError: boolean | null
     statusDescription: string | null
-    value: number | null
-    creationDate: string | null
-    lastChange: string | null
-    orderGroup: string | null
-    giftRegistryData: string | null
-    marketingData: string | null
-    callCenterOperatorData: string | null
-    followUpEmail: string | null
-    lastMessage: string | null
-    hostname: string | null
-    invoiceData: string | null
-    changesAttachment: string | null
-    openTextField: string | null
-    roundingError: number | null
-    orderFormId: string | null
-    commercialConditionData: string | null
-    isCompleted: boolean | null
     allowCancellation: boolean | null
-    allowEdition: boolean | null
-    isCheckedIn: boolean | null
-    authorizedDate: string | null
-    invoicedDate: string | null
-    cancelReason: string | null
-    subscriptionData: string | null
-    taxData: string | null
-    checkedInPickupPointId: string | null
-    customData: {
-      customApps: Array<{
-        id: string | null
-        major: number | null
-        fields: { cartEtag: string | null } | null
-      } | null> | null
-    } | null
-    cancellationData: {
-      RequestedByUser: boolean | null
-      RequestedBySystem: boolean | null
-      RequestedBySellerNotification: boolean | null
-      RequestedByPaymentNotification: boolean | null
-      Reason: string | null
-      CancellationDate: string | null
-    } | null
-    cancellationRequests: Array<{
-      id: string | null
-      reason: string | null
-      cancellationRequestDate: string | null
-      requestedByUser: boolean | null
-      deniedBySeller: boolean | null
-      deniedBySellerReason: string | null
-      cancellationRequestDenyDate: string | null
-    } | null> | null
-    clientPreferencesData: {
-      locale: string | null
-      optinNewsLetter: boolean | null
-    } | null
-    itemMetadata: {
-      Items: Array<{
-        Id: string | null
-        Seller: string | null
-        Name: string | null
-        SkuName: string | null
-        ProductId: string | null
-        RefId: string | null
-        Ean: string | null
-        ImageUrl: string | null
-        DetailUrl: string | null
-        AssemblyOptions: Array<{
-          Id: string | null
-          Name: string | null
-          Required: boolean | null
-        } | null> | null
-      } | null> | null
-    } | null
-    marketplace: {
-      baseURL: string | null
-      isCertified: string | null
-      name: string | null
-    } | null
-    storePreferencesData: {
-      countryCode: string | null
-      currencyCode: string | null
-      currencyLocale: number | null
-      currencySymbol: string | null
-      timeZone: string | null
-      currencyFormatInfo: {
-        CurrencyDecimalDigits: number | null
-        CurrencyDecimalSeparator: string | null
-        CurrencyGroupSeparator: string | null
-        CurrencyGroupSize: number | null
-        StartsWithCurrencySymbol: boolean | null
-      } | null
-    } | null
-    sellers: Array<{
-      id: string | null
-      name: string | null
-      logo: string | null
-      fulfillmentEndpoint: string | null
-    } | null> | null
-    packageAttachment: {
-      packages: Array<{
-        courier: string | null
-        invoiceNumber: string
-        invoiceUrl: string | null
-        invoiceValue: number
-        extraValue: number | null
-        issuanceDate: string | null
-        trackingNumber: string | null
-        trackingUrl: string | null
-        invoiceKey: string | null
-        type: UserOrderInvoiceType | null
-        courierStatus: {
-          finished: boolean | null
-          status: string | null
-          data: Array<{
-            city: string | null
-            description: string | null
-            lastChange: string | null
-            state: string | null
-          }> | null
-        } | null
-        items: Array<{
-          description: string | null
-          itemIndex: number | null
-          price: number | null
-          quantity: number | null
-        }> | null
-        restitutions: {
-          Refund: {
-            value: number | null
-            items: Array<{
-              useFreight: boolean | null
-              isCompensation: boolean | null
-              compensationValue: number | null
-              itemIndex: number | null
-              id: string | null
-              quantity: number | null
-              price: number | null
-              description: string | null
-              unitMultiplier: number | null
-            }> | null
-          } | null
-          GiftCard: {
-            value: number | null
-            items: Array<{
-              useFreight: boolean | null
-              isCompensation: boolean | null
-              compensationValue: number | null
-              itemIndex: number | null
-              id: string | null
-              quantity: number | null
-              price: number | null
-              description: string | null
-              unitMultiplier: number | null
-            }> | null
-          } | null
-        } | null
-      } | null> | null
-    } | null
-    paymentData: {
-      giftCards: Array<string | null> | null
-      transactions: Array<{
-        isActive: boolean | null
-        transactionId: string | null
-        merchantName: string | null
-        payments: Array<{
-          id: string | null
-          paymentSystem: string | null
-          paymentSystemName: string | null
-          value: number | null
-          installments: number | null
-          referenceValue: number | null
-          cardHolder: string | null
-          cardNumber: string | null
-          firstDigits: string | null
-          lastDigits: string | null
-          cvv2: string | null
-          expireMonth: string | null
-          expireYear: string | null
-          url: string | null
-          giftCardId: string | null
-          giftCardName: string | null
-          giftCardCaption: string | null
-          redemptionCode: string | null
-          group: string | null
-          tid: string | null
-          dueDate: string | null
-          giftCardProvider: string | null
-          giftCardAsDiscount: string | null
-          koinUrl: string | null
-          accountId: string | null
-          parentAccountId: string | null
-          bankIssuedInvoiceIdentificationNumber: string | null
-          bankIssuedInvoiceIdentificationNumberFormatted: string | null
-          bankIssuedInvoiceBarCodeNumber: string | null
-          bankIssuedInvoiceBarCodeType: string | null
-          billingAddress: string | null
-          paymentOrigin: string | null
-          connectorResponses: {
-            Message: string | null
-            ReturnCode: string | null
-            Tid: string | null
-            authId: string | null
-          } | null
-        } | null> | null
-      } | null> | null
-    } | null
-    shippingData: {
-      id: string | null
-      trackingHints: string | null
-      contactInformation: Array<{
-        id: string
-        email: string | null
-        firstName: string | null
-        lastName: string | null
-        document: string | null
-        documentType: string | null
-        phone: string | null
-      } | null> | null
-      availableAddresses: Array<{
-        addressId: string | null
-        versionId: string | null
-        entityId: string | null
-        addressType: string | null
-        receiverName: string | null
-        street: string | null
-        number: string | null
-        complement: string | null
-        neighborhood: string | null
-        postalCode: string | null
-        city: string | null
-        state: string | null
-        country: string | null
-        reference: string | null
-        geoCoordinates: Array<number | null> | null
-      } | null> | null
-      selectedAddresses: Array<{
-        addressId: string | null
-        versionId: string | null
-        entityId: string | null
-        addressType: string | null
-        receiverName: string | null
-        street: string | null
-        number: string | null
-        complement: string | null
-        neighborhood: string | null
-        postalCode: string | null
-        city: string | null
-        state: string | null
-        country: string | null
-        reference: string | null
-        geoCoordinates: Array<number | null> | null
-      } | null> | null
-      logisticsInfo: Array<{
-        itemIndex: number | null
-        itemId: string | null
-        selectedDeliveryChannel: string | null
-        selectedSla: string | null
-        lockTTL: string | null
-        price: number | null
-        listPrice: number | null
-        sellingPrice: number | null
-        deliveryCompany: string | null
-        shippingEstimate: string | null
-        shippingEstimateDate: string | null
-        deliveryChannel: string | null
-        addressId: string | null
-        versionId: string | null
-        entityId: string | null
-        polygonName: string | null
-        pickupPointId: string | null
-        transitTime: string | null
-        shipsTo: Array<string | null> | null
-        deliveryWindow: {
-          startDateUtc: string | null
-          endDateUtc: string | null
-          price: number | null
-        } | null
-        pickupStoreInfo: {
-          additionalInfo: string | null
-          dockId: string | null
-          friendlyName: string | null
-          isPickupStore: boolean | null
-          address: {
-            addressType: string | null
-            receiverName: string | null
-            addressId: string | null
-            versionId: string | null
-            entityId: string | null
-            postalCode: string | null
-            city: string | null
-            state: string | null
-            country: string | null
-            street: string | null
-            number: string | null
-            neighborhood: string | null
-            complement: string | null
-            reference: string | null
-            geoCoordinates: Array<number | null> | null
-          } | null
-        } | null
-        deliveryChannels: Array<{
-          id: string | null
-          stockBalance: number | null
-        } | null> | null
-        deliveryIds: Array<{
-          courierId: string | null
-          courierName: string | null
-          dockId: string | null
-          quantity: number | null
-          warehouseId: string | null
-          accountCarrierName: string | null
-          kitItemDetails: Array<string | null> | null
-        } | null> | null
-        slas: Array<{
-          id: string | null
-          name: string | null
-          shippingEstimate: string | null
-          shippingEstimateDate: string | null
-          listPrice: number | null
-          price: number | null
-          deliveryChannel: string | null
-          polygonName: string | null
-          lockTTL: string | null
-          pickupPointId: string | null
-          transitTime: string | null
-          pickupDistance: number | null
-          deliveryWindow: {
-            startDateUtc: string | null
-            endDateUtc: string | null
-            price: number | null
-          } | null
-          pickupStoreInfo: {
-            additionalInfo: string | null
-            dockId: string | null
-            friendlyName: string | null
-            isPickupStore: boolean | null
-            address: {
-              addressType: string | null
-              receiverName: string | null
-              addressId: string | null
-              versionId: string | null
-              entityId: string | null
-              postalCode: string | null
-              city: string | null
-              state: string | null
-              country: string | null
-              street: string | null
-              number: string | null
-              neighborhood: string | null
-              complement: string | null
-              reference: string | null
-              geoCoordinates: Array<number | null> | null
-            } | null
-          } | null
-          deliveryIds: Array<{
-            courierId: string | null
-            courierName: string | null
-            dockId: string | null
-            quantity: number | null
-            warehouseId: string | null
-            accountCarrierName: string | null
-            kitItemDetails: Array<string | null> | null
-          } | null> | null
-          availableDeliveryWindows: Array<{
-            startDateUtc: string | null
-            endDateUtc: string | null
-            price: number | null
-          } | null> | null
-        } | null> | null
-      } | null> | null
-      address: {
-        addressType: string | null
-        receiverName: string | null
-        addressId: string | null
-        versionId: string | null
-        entityId: string | null
-        postalCode: string | null
-        city: string | null
-        state: string | null
-        country: string | null
-        street: string | null
-        number: string | null
-        neighborhood: string | null
-        complement: string | null
-        reference: string | null
-        geoCoordinates: Array<number | null> | null
-      } | null
-    } | null
-    ratesAndBenefitsData: {
-      id: string | null
-      rateAndBenefitsIdentifiers: Array<{
-        id: string | null
-        additionalInfo: string | null
-        description: string | null
-        featured: boolean | null
-        name: string | null
-      } | null> | null
-    } | null
+    storePreferencesData: { currencyCode: string | null } | null
     clientProfileData: {
-      id: string | null
-      email: string | null
       firstName: string | null
       lastName: string | null
-      documentType: string | null
-      document: string | null
+      email: string | null
       phone: string | null
       corporateName: string | null
-      tradeName: string | null
-      corporateDocument: string | null
-      stateInscription: string | null
-      corporatePhone: string | null
       isCorporate: boolean | null
-      userProfileId: string | null
-      userProfileVersion: string | null
-      customerClass: string | null
-      customerCode: string | null
     } | null
-    items: Array<{
-      uniqueId: string | null
+    customFields: Array<{
+      type: string
       id: string | null
-      productId: string | null
-      ean: string | null
-      lockId: string | null
-      quantity: number | null
-      seller: string | null
-      name: string | null
-      refId: string | null
-      price: number | null
-      listPrice: number | null
-      manualPrice: string | null
-      manualPriceAppliedBy: string | null
-      imageUrl: string | null
-      detailUrl: string | null
-      sellerSku: string | null
-      priceValidUntil: string | null
-      commission: number | null
-      tax: number | null
-      preSaleDate: string | null
-      measurementUnit: string | null
-      unitMultiplier: number | null
-      sellingPrice: number | null
-      isGift: boolean | null
-      shippingPrice: string | null
-      rewardValue: number | null
-      freightCommission: number | null
-      taxCode: string | null
-      parentItemIndex: string | null
-      parentAssemblyBinding: string | null
-      callCenterOperator: string | null
-      serialNumbers: string | null
-      costPrice: number | null
-      assemblies: Array<string | null> | null
-      params: Array<string | null> | null
-      priceDefinition: {
-        calculatedSellingPrice: number | null
-        total: number | null
-        reason: string | null
-        sellingPrices: Array<{
-          value: number | null
-          quantity: number | null
-        } | null> | null
-      } | null
-      additionalInfo: {
-        brandName: string | null
-        brandId: string | null
-        categoriesIds: string | null
-        productClusterId: string | null
-        commercialConditionId: string | null
-        offeringInfo: string | null
-        offeringType: string | null
-        offeringTypeId: string | null
-        dimension: {
-          cubicweight: number | null
-          height: number | null
-          length: number | null
-          weight: number | null
-          width: number | null
-        } | null
-        categories: Array<{
-          id: number | null
-          name: string | null
-        } | null> | null
-      } | null
-      attachmentOfferings: Array<{
-        name: string | null
-        required: boolean | null
-      } | null> | null
-      offerings: Array<{
-        type: string | null
-        id: string | null
-        name: string | null
-        price: number | null
-      } | null> | null
-      bundleItems: Array<{
-        id: string | null
-        name: string | null
-        quantity: number | null
-        sellingPrice: number | null
-        unitMultiplier: number | null
-        measurementUnit: string | null
-        imageUrl: string | null
-        detailUrl: string | null
-        refId: string | null
-        rewardValue: number | null
-        attachments: Array<{
-          name: string | null
-          content: any | null
-        } | null> | null
-      } | null> | null
-      components: Array<{
-        id: string | null
-        name: string | null
-        quantity: number | null
-        sellingPrice: number | null
-        unitMultiplier: number | null
-        measurementUnit: string | null
-        imageUrl: string | null
-        detailUrl: string | null
-        refId: string | null
-        rewardValue: number | null
-      } | null> | null
-      priceTags: Array<{
+      fields: Array<{
         name: string
-        value: number | null
-        rawValue: number
-        isPercentual: boolean | null
+        value: string
+        refId: string | null
       } | null> | null
-      attachments: Array<{
-        name: string | null
-        content: any | null
-      } | null> | null
-      itemAttachment: { name: string | null } | null
-    } | null> | null
-    totals: Array<{
-      id: string | null
-      name: string | null
-      value: number | null
     } | null> | null
     deliveryOptionsData: {
       deliveryOptions: Array<{
@@ -2865,14 +2354,29 @@ export type ServerOrderDetailsQueryQuery = {
         name: string | null
       } | null
     } | null
-    customFields: Array<{
-      type: string
-      id: string | null
-      fields: Array<{
-        name: string
-        value: string
-        refId: string | null
+    paymentData: {
+      transactions: Array<{
+        isActive: boolean | null
+        payments: Array<{
+          id: string | null
+          paymentSystemName: string | null
+          value: number | null
+          installments: number | null
+          referenceValue: number | null
+          lastDigits: string | null
+          url: string | null
+          group: string | null
+          tid: string | null
+          bankIssuedInvoiceIdentificationNumber: string | null
+          redemptionCode: string | null
+          connectorResponses: { authId: string | null } | null
+        } | null> | null
       } | null> | null
+    } | null
+    totals: Array<{
+      id: string | null
+      name: string | null
+      value: number | null
     } | null> | null
   } | null
 }
@@ -3964,7 +3468,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'ff6bfc13b2150964c1988ba7e127eda8828a08d0',
+    operationHash: '8bb6d24447e007a9088891db91b7ccfedf9719f2',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
