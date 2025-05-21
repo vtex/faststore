@@ -561,7 +561,7 @@ export type Query = {
   /** Returns information about shipping simulation. */
   shipping?: Maybe<ShippingData>;
   /** Returns information about the Details of an User Order. */
-  userOrder?: Maybe<UserOrder>;
+  userOrder?: Maybe<UserOrderResult>;
 };
 
 
@@ -2043,6 +2043,23 @@ export type UserOrderRestitutions = {
   __typename?: 'UserOrderRestitutions';
   GiftCard?: Maybe<UserOrderRestitutionOption>;
   Refund?: Maybe<UserOrderRestitutionOption>;
+};
+
+export type UserOrderResult = {
+  __typename?: 'UserOrderResult';
+  allowCancellation?: Maybe<Scalars['Boolean']>;
+  clientProfileData?: Maybe<UserOrderClientProfileData>;
+  customData?: Maybe<UserOrderCustomData>;
+  customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
+  deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
+  items?: Maybe<Array<Maybe<UserOrderItems>>>;
+  orderId?: Maybe<Scalars['String']>;
+  paymentData?: Maybe<UserOrderPaymentData>;
+  shippingData?: Maybe<UserOrderShippingData>;
+  status?: Maybe<Scalars['String']>;
+  statusDescription?: Maybe<Scalars['String']>;
+  storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
+  totals?: Maybe<Array<Maybe<UserOrderTotals>>>;
 };
 
 export type UserOrderSellingPrices = {

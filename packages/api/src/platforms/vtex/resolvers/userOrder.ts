@@ -20,12 +20,7 @@ const deliveryChannelsMapping = {
   ['']: '',
 } as const
 
-export const UserOrder: Record<string, Resolver<Root>> = {
-  orderId: ({ orderId }) => orderId,
-  totals: ({ totals }) => totals,
-  items: ({ items }) => items,
-  shippingData: ({ shippingData }) => shippingData,
-  paymentData: ({ paymentData }) => paymentData,
+export const UserOrderResult: Record<string, Resolver<Root>> = {
   deliveryOptionsData: (root) => {
     const { shippingData, items } = root
     const logisticsInfo = shippingData?.logisticsInfo || []
@@ -128,26 +123,32 @@ export const UserOrder: Record<string, Resolver<Root>> = {
   },
   customFields: (root) => {
     const customFields = root?.customData?.customFields || []
-    return Object.values(
-      customFields.reduce(
-        (
-          acc: Record<
-            string,
-            { type: string; id: string; fields: UserOrderCustomField['fields'] }
-          >,
-          entry: Maybe<UserOrderCustomField>
-        ) => {
-          const type = entry?.linkedEntity?.type || ''
-          const id = entry?.linkedEntity?.id || ''
-          const key = `${type}|${id || ''}`
-          if (!acc[key]) {
-            acc[key] = { type, id, fields: [] }
-          }
-          acc[key].fields.push(...(entry?.fields || []))
-          return acc
-        },
-        {}
-      )
+    return (
+      Object.values(
+        customFields.reduce(
+          (
+            acc: Record<
+              string,
+              {
+                type: string
+                id: string
+                fields: UserOrderCustomField['fields']
+              }
+            >,
+            entry: Maybe<UserOrderCustomField>
+          ) => {
+            const type = entry?.linkedEntity?.type || ''
+            const id = entry?.linkedEntity?.id || ''
+            const key = `${type}|${id || ''}`
+            if (!acc[key]) {
+              acc[key] = { type, id, fields: [] }
+            }
+            acc[key].fields.push(...(entry?.fields || []))
+            return acc
+          },
+          {}
+        )
+      ) || []
     )
     // Example of custom fields
     //   return [

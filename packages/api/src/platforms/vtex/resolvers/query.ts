@@ -398,7 +398,19 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      return order
+      return {
+        orderId: order.orderId,
+        totals: order.totals,
+        items: order.items,
+        shippingData: order.shippingData,
+        paymentData: order.paymentData,
+        customData: order.customData,
+        status: order.status,
+        statusDescription: order.statusDescription,
+        allowCancellation: order.allowCancellation,
+        storePreferencesData: order.storePreferencesData,
+        clientProfileData: order.clientProfileData,
+      }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
         code: string
