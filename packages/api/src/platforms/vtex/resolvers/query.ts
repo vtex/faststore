@@ -470,7 +470,11 @@ export const Query = {
         contractId: customerId,
       })
 
-      return `${contract.firstName} ${contract.lastName}`
+      if (contract?.isCorporate && contract.corporateName) {
+        return contract.corporateName
+      }
+
+      return `${contract?.firstName ?? ''}${contract?.lastName ? ` ${contract.lastName}` : ''}`
     }
 
     return user
