@@ -28,7 +28,6 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type OrderDetailsPageProps = {
   order: ServerOrderDetailsQueryQuery['userOrder']
-  accountName: ServerOrderDetailsQueryQuery['accountName']
 } & MyAccountProps
 
 export default function OrderDetailsPage({

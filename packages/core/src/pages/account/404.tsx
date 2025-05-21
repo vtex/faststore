@@ -21,8 +21,8 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { gql } from '@generated/gql'
 import { execute } from 'src/server'
 import type {
-  ServerAccountErrorQueryQuery,
-  ServerAccountErrorQueryQueryVariables,
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables,
 } from '@generated/graphql'
 
 /* A list of components that can be used in the CMS. */
@@ -36,7 +36,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
-  accountName: ServerAccountErrorQueryQuery['accountName']
+  accountName: ServerAccountPageQueryQuery['accountName']
 }
 
 function Page({ page: { sections }, globalSections, accountName }: Props) {
@@ -57,7 +57,7 @@ function Page({ page: { sections }, globalSections, accountName }: Props) {
 }
 
 const query = gql(`
-  query ServerAccountErrorQuery {
+  query ServerAccountPageQuery {
     accountName
   }
 `)
@@ -94,10 +94,7 @@ export const getServerSideProps: GetServerSideProps<
       ...(context.previewData?.contentType === '404' && context.previewData),
       contentType: '404',
     }),
-    execute<
-      ServerAccountErrorQueryQueryVariables,
-      ServerAccountErrorQueryQuery
-    >(
+    execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
       {
         variables: {},
         operation: query,
