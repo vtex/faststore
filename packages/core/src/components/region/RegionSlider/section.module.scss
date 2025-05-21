@@ -8,33 +8,45 @@
   @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
 
-  [data-fs-filter-region-slider] [data-fs-filter-slider-content] {
-    @include media(">=notebook") {
-      padding-right: var(--fs-spacing-6);
-      padding-left: var(--fs-spacing-6);
+  [data-fs-filter-region-slider] {
+    [data-fs-filter-slider-title] {
+      font-size: var(--fs-text-size-3);
+      font-weight: var(--fs-text-weight-semibold);
     }
 
     [data-fs-slide-over-header] {
-      padding: 0;
+      @include media(">=notebook") {
+        padding-right: var(--fs-spacing-6);
+        padding-left: var(--fs-spacing-6);
+      }
     }
-  }
 
-  [data-fs-filter-region-slider-description] {
-    display: flex;
-    padding: var(--fs-spacing-2) 0;
-    font-size: var(--fs-text-size-2);
-    line-height: 1.25;
-  }
+    [data-fs-filter-region-slider-content] {
+      padding: 0 var(--fs-spacing-3);
 
-  // Duplicate from data-fs-region-modal-link
-  [data-fs-filter-delivery-link] {
-    display: flex;
-    flex-direction: row;
-    column-gap: var(--fs-filter-link-column-gap);
-    align-content: flex-start;
-    align-items: center;
-    justify-content: flex-start;
-    padding: var(--fs-filter-link-padding);
-    color: var(--fs-filter-link-color);
+      @include media(">=notebook") {
+        padding: 0 var(--fs-spacing-6);
+      }
+    }
+
+    [data-fs-filter-region-slider-description] {
+      display: flex;
+      padding: var(--fs-spacing-4) 0;
+      font-size: var(--fs-text-size-2);
+      line-height: 1.25;
+    }
+
+    // Duplicate from data-fs-region-modal-link
+    [data-fs-filter-delivery-link] {
+      display: flex;
+      flex-direction: row;
+      column-gap: var(--fs-filter-link-column-gap);
+      align-content: flex-start;
+      align-items: center;
+      justify-content: flex-start;
+      padding: var(--fs-filter-link-padding);
+      margin-top: var(--fs-spacing-2);
+      color: var(--fs-filter-link-color);
+    }
   }
 }

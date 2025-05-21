@@ -99,32 +99,34 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
       onClose={() => {}}
       footer={false}
     >
-      <span data-fs-filter-region-slider-description>
-        {cmsData?.deliverySettings?.description}
-      </span>
-      <UIInputField
-        id="region-slider-input-field"
-        inputRef={inputRef}
-        label={inputField?.label}
-        actionable
-        value={input}
-        buttonActionText={loading ? '...' : inputField?.buttonActionText}
-        onInput={(e) => {
-          regionError !== '' && setRegionError('')
-          setInput(e.currentTarget.value)
-        }}
-        onSubmit={() => {
-          handleSubmit()
-        }}
-        onClear={() => {
-          setInput('')
-          setRegionError('')
-        }}
-        error={regionError}
-      />
-      {idkPostalCodeLink?.to && (
-        <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
-      )}
+      <div data-fs-filter-region-slider-content>
+        <span data-fs-filter-region-slider-description>
+          {cmsData?.deliverySettings?.description}
+        </span>
+        <UIInputField
+          id="region-slider-input-field"
+          inputRef={inputRef}
+          label={inputField?.label}
+          actionable
+          value={input}
+          buttonActionText={loading ? '...' : inputField?.buttonActionText}
+          onInput={(e) => {
+            regionError !== '' && setRegionError('')
+            setInput(e.currentTarget.value)
+          }}
+          onSubmit={() => {
+            handleSubmit()
+          }}
+          onClear={() => {
+            setInput('')
+            setRegionError('')
+          }}
+          error={regionError}
+        />
+        {idkPostalCodeLink?.to && (
+          <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
+        )}
+      </div>
     </UIFilterSlider>
   )
 }
