@@ -173,12 +173,17 @@ export default function MyAccountListOrdersTable({
                         ? formatShippingDate(item.creationDate, locale)
                         : '-'}
                     </p>
-                    <p data-fs-list-orders-table-product-info-order-delivery>
-                      Delivery by{' '}
-                      {item.ShippingEstimatedDate
-                        ? formatShippingDate(item.ShippingEstimatedDate, locale)
-                        : '-'}
-                    </p>
+                    {isDesktop && (
+                      <p data-fs-list-orders-table-product-info-order-delivery>
+                        Delivery by{' '}
+                        {item.ShippingEstimatedDate
+                          ? formatShippingDate(
+                              item.ShippingEstimatedDate,
+                              locale
+                            )
+                          : '-'}
+                      </p>
+                    )}
 
                     <p data-fs-list-orders-table-product-info-order-total>
                       Total: {formatPrice(item.totalValue, item.currencyCode)}
