@@ -11,13 +11,13 @@ export type ProfileSummaryProps = {
   person: {
     image?: ReactNode
     name: string
-    role?: string
+    email?: string
   }
 }
 
 export const ProfileSummary = ({
   onLogoutClick,
-  person: { image, name, role },
+  person: { image, name, email },
   orgName,
   bordered = false,
   showManageLink = false,
@@ -46,12 +46,14 @@ export const ProfileSummary = ({
         )}
       </div>
       <div data-fs-profile-summary-person-actions>
-        <div data-fs-profile-summary-person-image>
-          {image ?? <Icon name="Profile" width={14} height={14} />}
-        </div>
-        <div data-fs-profile-summary-person-data>
-          <p data-fs-profile-summary-person-name>{name}</p>
-          {role && <p data-fs-profile-summary-person-role>{role}</p>}
+        <div data-fs-profile-summary-person-info>
+          <div data-fs-profile-summary-person-image>
+            {image ?? <Icon name="Profile" width={14} height={14} />}
+          </div>
+          <div data-fs-profile-summary-person-data>
+            <p data-fs-profile-summary-person-name>{name}</p>
+            {email && <p data-fs-profile-summary-person-email>{email}</p>}
+          </div>
         </div>
         <Button
           data-fs-profile-summary-logout-button
