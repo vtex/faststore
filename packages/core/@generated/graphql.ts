@@ -191,6 +191,7 @@ export type IStoreB2B = {
   lastName: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
   unitName: InputMaybe<Scalars['String']['input']>
+  userEmail: InputMaybe<Scalars['String']['input']>
   userName: InputMaybe<Scalars['String']['input']>
 }
 
@@ -776,6 +777,7 @@ export type StoreB2B = {
   lastName: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
   unitName: Maybe<Scalars['String']['output']>
+  userEmail: Maybe<Scalars['String']['output']>
   userName: Maybe<Scalars['String']['output']>
 }
 
@@ -3397,6 +3399,7 @@ export type ValidateSessionMutation = {
       firstName: string | null
       lastName: string | null
       userName: string | null
+      userEmail: string | null
     } | null
     marketingData: {
       utmCampaign: string | null
@@ -4105,7 +4108,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '976ded3e2194ebb88c12764b9fc77eb880a33f04',
+    operationHash: 'd8eac720a2de6a517384127a199e27a623653394',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

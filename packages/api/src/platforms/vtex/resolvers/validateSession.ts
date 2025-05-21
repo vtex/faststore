@@ -170,6 +170,7 @@ export const validateSession = async (
           firstName: contract?.firstName ?? '',
           lastName: contract?.lastName ?? '',
           userName: user?.name ?? '',
+          userEmail: user?.email ?? '',
         }
       : null,
     marketingData,

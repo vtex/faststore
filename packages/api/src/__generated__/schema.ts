@@ -177,6 +177,7 @@ export type IStoreB2B = {
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
+  userEmail?: Maybe<Scalars['String']>;
   userName?: Maybe<Scalars['String']>;
 };
 
@@ -802,6 +803,7 @@ export type StoreB2B = {
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
+  userEmail?: Maybe<Scalars['String']>;
   userName?: Maybe<Scalars['String']>;
 };
 
