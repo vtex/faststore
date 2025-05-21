@@ -123,6 +123,12 @@ const query = gql(`
         paymentApprovedDate
         readyForHandlingDate
         deliveryDates
+        customFields {
+          costCenter
+          poNumber
+          release
+          desktop
+        }
       }
       paging {
         total

@@ -166,13 +166,19 @@ export default function MyAccountListOrdersTable({
                 <>
                   <td data-fs-list-orders-table-cell>{item?.clientName}</td>
                   <td data-fs-list-orders-table-cell>
-                    <p>(Cost Center)</p>
+                    {item?.customFields?.costCenter?.map((field) => (
+                      <p key={field}>{field}</p>
+                    ))}
                   </td>
                   <td data-fs-list-orders-table-cell>
-                    <p>(Release)</p>
+                    {item?.customFields?.release?.map((field) => (
+                      <p key={field}>{field}</p>
+                    ))}
                   </td>
                   <td data-fs-list-orders-table-cell>
-                    <p>(PO Number)</p>
+                    {item?.customFields?.poNumber?.map((field) => (
+                      <p key={field}>{field}</p>
+                    ))}
                   </td>
                   <td data-fs-list-orders-table-cell>
                     {item.ShippingEstimatedDate
