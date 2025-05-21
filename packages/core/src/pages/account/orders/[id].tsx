@@ -183,6 +183,7 @@ const query = gql(`
             }
             bankIssuedInvoiceIdentificationNumber
             redemptionCode
+            paymentOrigin
           }
         }
       }

@@ -2369,6 +2369,7 @@ export type ServerOrderDetailsQueryQuery = {
           tid: string | null
           bankIssuedInvoiceIdentificationNumber: string | null
           redemptionCode: string | null
+          paymentOrigin: string | null
           connectorResponses: { authId: string | null } | null
         } | null> | null
       } | null> | null
@@ -3468,7 +3469,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '8bb6d24447e007a9088891db91b7ccfedf9719f2',
+    operationHash: '8b9b9c7703b0b9af12f47cb86dd3d2e8eb40c8fd',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
