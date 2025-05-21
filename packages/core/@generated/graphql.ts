@@ -2169,6 +2169,12 @@ export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductFragment = { product: { id: string } }
 
+export type ServerAccountPageQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerAccountPageQueryQuery = { accountName: string | null }
+
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
@@ -2237,12 +2243,6 @@ export type ServerProductQueryQuery = {
     }>
   }
 }
-
-export type ServerAccountPageQueryQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type ServerAccountPageQueryQuery = { accountName: string | null }
 
 export type UserOrderItemsFragmentFragment = {
   id: string | null
@@ -3465,6 +3465,15 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'SearchEvent_metadata' }
 ) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>
+export const ServerAccountPageQueryDocument = {
+  __meta__: {
+    operationName: 'ServerAccountPageQuery',
+    operationHash: '47315a3cd26ddd9c7fa963778988464341b8193f',
+  },
+} as unknown as TypedDocumentString<
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables
+>
 export const ServerCollectionPageQueryDocument = {
   __meta__: {
     operationName: 'ServerCollectionPageQuery',
@@ -3482,15 +3491,6 @@ export const ServerProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables
->
-export const ServerAccountPageQueryDocument = {
-  __meta__: {
-    operationName: 'ServerAccountPageQuery',
-    operationHash: '47315a3cd26ddd9c7fa963778988464341b8193f',
-  },
-} as unknown as TypedDocumentString<
-  ServerAccountPageQueryQuery,
-  ServerAccountPageQueryQueryVariables
 >
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
