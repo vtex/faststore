@@ -429,7 +429,20 @@ export const Query = {
     } = ctx
 
     const orders = await commerce.oms.listUserOrders(filters)
-
-    return orders
+    return {
+      list: orders.list?.map((order: any) => ({
+        orderId: order.orderId,
+        creationDate: order.creationDate,
+        clientName: order.clientName,
+        items: order.items,
+        totalValue: order.totalValue,
+        status: order.status,
+        statusDescription: order.statusDescription,
+        ShippingEstimatedDate: order.ShippingEstimatedDate,
+        customFields: order.customFields,
+        currencyCode: order.currencyCode,
+      })),
+      paging: orders.paging,
+    }
   },
 }

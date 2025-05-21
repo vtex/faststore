@@ -543,7 +543,7 @@ export type Query = {
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection
   /** Returns information about the list of Orders that the User can view. */
-  listUserOrders: Maybe<UserOrderListResult>
+  listUserOrders: Maybe<UserOrderListMinimalResult>
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -1595,6 +1595,19 @@ export type UserOrderFromListCustomFields = {
   release: Maybe<Array<Maybe<Scalars['String']['output']>>>
 }
 
+export type UserOrderFromListMinimal = {
+  ShippingEstimatedDate: Maybe<Scalars['String']['output']>
+  clientName: Maybe<Scalars['String']['output']>
+  creationDate: Maybe<Scalars['String']['output']>
+  currencyCode: Maybe<Scalars['String']['output']>
+  customFields: Maybe<UserOrderFromListCustomFields>
+  items: Maybe<Array<Maybe<UserOrderItemsSummarized>>>
+  orderId: Maybe<Scalars['String']['output']>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  totalValue: Maybe<Scalars['Float']['output']>
+}
+
 export type UserOrderInvoiceType = 'Input' | 'Output'
 
 export type UserOrderItemAttachment = {
@@ -1675,6 +1688,11 @@ export type UserOrderItemsSummarized = {
   refId: Maybe<Scalars['String']['output']>
   seller: Maybe<Scalars['String']['output']>
   sellingPrice: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderListMinimalResult = {
+  list: Maybe<Array<Maybe<UserOrderFromListMinimal>>>
+  paging: Maybe<UserOrderListPaging>
 }
 
 export type UserOrderListPaging = {
@@ -2874,45 +2892,15 @@ export type ServerListOrdersQueryQueryVariables = Exact<{
 
 export type ServerListOrdersQueryQuery = {
   listUserOrders: {
-    facets: Array<string | null> | null
-    reportRecordsLimit: number | null
     list: Array<{
       orderId: string | null
       creationDate: string | null
       clientName: string | null
       totalValue: number | null
-      paymentNames: string | null
       status: string | null
       statusDescription: string | null
-      marketPlaceOrderId: string | null
-      sequence: string | null
-      salesChannel: string | null
-      affiliateId: string | null
-      origin: string | null
-      workflowInErrorState: boolean | null
-      workflowInRetry: boolean | null
-      lastMessageUnread: string | null
       ShippingEstimatedDate: string | null
-      ShippingEstimatedDateMax: string | null
-      ShippingEstimatedDateMin: string | null
-      orderIsComplete: boolean | null
-      listId: string | null
-      listType: string | null
-      authorizedDate: string | null
-      callCenterOperatorName: string | null
-      totalItems: number | null
       currencyCode: string | null
-      hostname: string | null
-      invoiceOutput: Array<string | null> | null
-      invoiceInput: Array<string | null> | null
-      lastChange: string | null
-      isAllDelivered: boolean | null
-      isAnyDelivered: boolean | null
-      giftCardProviders: Array<string | null> | null
-      orderFormId: string | null
-      paymentApprovedDate: string | null
-      readyForHandlingDate: string | null
-      deliveryDates: Array<string | null> | null
       items: Array<{
         seller: string | null
         quantity: number | null
@@ -2936,32 +2924,6 @@ export type ServerListOrdersQueryQuery = {
       pages: number | null
       currentPage: number | null
       perPage: number | null
-    } | null
-    stats: {
-      stats: {
-        totalValue: {
-          Count: number | null
-          Max: number | null
-          Mean: number | null
-          Min: number | null
-          Missing: number | null
-          StdDev: number | null
-          Sum: number | null
-          SumOfSquares: number | null
-          Facets: any | null
-        } | null
-        totalItems: {
-          Count: number | null
-          Max: number | null
-          Mean: number | null
-          Min: number | null
-          Missing: number | null
-          StdDev: number | null
-          Sum: number | null
-          SumOfSquares: number | null
-          Facets: any | null
-        } | null
-      } | null
     } | null
   } | null
 }
@@ -4011,7 +3973,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '3aa6f2fa6e8383314226ab905c5b5d95c3339c0e',
+    operationHash: '7fba0a7d767fceed07b268597d68e5577d952b43',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,

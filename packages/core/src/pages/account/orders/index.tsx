@@ -91,44 +91,16 @@ const query = gql(`
           price
         }
         totalValue
-        paymentNames
         status
         statusDescription
-        marketPlaceOrderId
-        sequence
-        salesChannel
-        affiliateId
-        origin
-        workflowInErrorState
-        workflowInRetry
-        lastMessageUnread
         ShippingEstimatedDate
-        ShippingEstimatedDateMax
-        ShippingEstimatedDateMin
-        orderIsComplete
-        listId
-        listType
-        authorizedDate
-        callCenterOperatorName
-        totalItems
-        currencyCode
-        hostname
-        invoiceOutput
-        invoiceInput
-        lastChange
-        isAllDelivered
-        isAnyDelivered
-        giftCardProviders
-        orderFormId
-        paymentApprovedDate
-        readyForHandlingDate
-        deliveryDates
         customFields {
           costCenter
           poNumber
           release
           desktop
         }
+        currencyCode
       }
       paging {
         total
@@ -136,34 +108,6 @@ const query = gql(`
         currentPage
         perPage
       }
-      stats {
-        stats {
-          totalValue {
-            Count
-            Max
-            Mean
-            Min
-            Missing
-            StdDev
-            Sum
-            SumOfSquares
-            Facets
-          }
-          totalItems {
-            Count
-            Max
-            Mean
-            Min
-            Missing
-            StdDev
-            Sum
-            SumOfSquares
-            Facets
-          }
-        }
-      }
-      facets
-      reportRecordsLimit
     }
   }
 `)

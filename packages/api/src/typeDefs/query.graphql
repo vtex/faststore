@@ -411,7 +411,7 @@ type Query {
     Client email used to filter of the list of orders.
     """
     clientEmail: String
-  ): UserOrderListResult
+  ): UserOrderListMinimalResult
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
@@ -456,4 +456,22 @@ type SellerInfo {
   Logo of the seller
   """
   logo: String
+}
+
+type UserOrderListMinimalResult {
+  list: [UserOrderFromListMinimal]
+  paging: UserOrderListPaging
+}
+
+type UserOrderFromListMinimal {
+  orderId: String
+  creationDate: String
+  clientName: String
+  items: [UserOrderItemsSummarized]
+  totalValue: Float
+  status: String
+  statusDescription: String
+  ShippingEstimatedDate: String
+  customFields: UserOrderFromListCustomFields
+  currencyCode: String
 }

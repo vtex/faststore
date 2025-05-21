@@ -545,7 +545,7 @@ export type Query = {
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
   /** Returns information about the list of Orders that the User can view. */
-  listUserOrders?: Maybe<UserOrderListResult>;
+  listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -1699,6 +1699,20 @@ export type UserOrderFromListCustomFields = {
   release?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
+export type UserOrderFromListMinimal = {
+  __typename?: 'UserOrderFromListMinimal';
+  ShippingEstimatedDate?: Maybe<Scalars['String']>;
+  clientName?: Maybe<Scalars['String']>;
+  creationDate?: Maybe<Scalars['String']>;
+  currencyCode?: Maybe<Scalars['String']>;
+  customFields?: Maybe<UserOrderFromListCustomFields>;
+  items?: Maybe<Array<Maybe<UserOrderItemsSummarized>>>;
+  orderId?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  statusDescription?: Maybe<Scalars['String']>;
+  totalValue?: Maybe<Scalars['Float']>;
+};
+
 export const enum UserOrderInvoiceType {
   Input = 'Input',
   Output = 'Output'
@@ -1787,6 +1801,12 @@ export type UserOrderItemsSummarized = {
   refId?: Maybe<Scalars['String']>;
   seller?: Maybe<Scalars['String']>;
   sellingPrice?: Maybe<Scalars['Float']>;
+};
+
+export type UserOrderListMinimalResult = {
+  __typename?: 'UserOrderListMinimalResult';
+  list?: Maybe<Array<Maybe<UserOrderFromListMinimal>>>;
+  paging?: Maybe<UserOrderListPaging>;
 };
 
 export type UserOrderListPaging = {
