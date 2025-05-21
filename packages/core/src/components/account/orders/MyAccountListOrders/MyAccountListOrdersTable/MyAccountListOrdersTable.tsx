@@ -1,11 +1,14 @@
 import { Button, Icon } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+
+const MAX_COST_CENTERS = 5
 
 function formatShippingDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale, {
@@ -105,11 +108,19 @@ export default function MyAccountListOrdersTable({
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
+  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
 
   const handleOrderDetail = ({ orderId }: { orderId: string }) => {
     router.push({
       pathname: `/account/orders/${orderId}`,
     })
+  }
+
+  const handleToggleExpand = (orderId: string) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [orderId]: !prev[orderId],
+    }))
   }
 
   return (
@@ -120,14 +131,13 @@ export default function MyAccountListOrdersTable({
             data-fs-list-orders-table-header-row
             data-fs-list-orders-table-row
           >
-            <th data-fs-list-orders-table-header-cell>Order</th>
             {isDesktop && (
               <>
+                <th data-fs-list-orders-table-header-cell>Order</th>
                 <th data-fs-list-orders-table-header-cell>Ordered by</th>
-                <th data-fs-list-orders-table-header-cell>Cost Center</th>
                 <th data-fs-list-orders-table-header-cell>Release</th>
                 <th data-fs-list-orders-table-header-cell>PO number</th>
-                <th data-fs-list-orders-table-header-cell>Delivery by</th>
+                <th data-fs-list-orders-table-header-cell>Cost Center</th>
               </>
             )}
             <th data-fs-list-orders-table-header-cell>
@@ -136,76 +146,118 @@ export default function MyAccountListOrdersTable({
           </tr>
         </thead>
         <tbody data-fs-list-orders-table-body>
-          {listOrders.list.map((item) => (
-            // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-            <tr
-              data-fs-list-orders-table-body-row
-              data-fs-list-orders-table-row
-              key={item.orderId}
-              onClick={() => handleOrderDetail({ orderId: item.orderId })}
-              role="button"
-            >
-              <td data-fs-list-orders-table-cell>
-                <div data-fs-list-orders-table-product-info>
-                  <p data-fs-list-orders-table-product-info-order-id>
-                    {item.orderId || '-'}
-                  </p>
-                  <p data-fs-list-orders-table-product-info-order-date>
-                    Placed on{' '}
-                    {item.creationDate
-                      ? formatShippingDate(item.creationDate, locale)
-                      : '-'}
-                  </p>
-                  <p data-fs-list-orders-table-product-info-order-total>
-                    Total: {formatPrice(item.totalValue, item.currencyCode)}
-                  </p>
-                </div>
-              </td>
+          {listOrders.list.map((item) => {
+            const costCenters = item?.customFields?.costCenter || []
+            const isExpanded = expandedRows[item.orderId]
+            const shouldShowButton = costCenters.length > MAX_COST_CENTERS
+            const displayedCostCenters = isExpanded
+              ? costCenters
+              : costCenters.slice(0, 5)
+            return (
+              // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+              <tr
+                data-fs-list-orders-table-body-row
+                data-fs-list-orders-table-row
+                key={item.orderId}
+                onClick={() => handleOrderDetail({ orderId: item.orderId })}
+                role="button"
+              >
+                <td data-fs-list-orders-table-cell>
+                  <div data-fs-list-orders-table-product-info>
+                    <p data-fs-list-orders-table-product-info-order-id>
+                      {item.orderId || '-'}
+                    </p>
+                    <p data-fs-list-orders-table-product-info-order-date>
+                      Placed on{' '}
+                      {item.creationDate
+                        ? formatShippingDate(item.creationDate, locale)
+                        : '-'}
+                    </p>
+                    <p data-fs-list-orders-table-product-info-order-delivery>
+                      Delivery by{' '}
+                      {item.ShippingEstimatedDate
+                        ? formatShippingDate(item.ShippingEstimatedDate, locale)
+                        : '-'}
+                    </p>
 
-              {isDesktop && (
-                <>
-                  <td data-fs-list-orders-table-cell>{item?.clientName}</td>
-                  <td data-fs-list-orders-table-cell>
-                    {item?.customFields?.costCenter?.map((field) => (
-                      <p key={field}>{field}</p>
-                    ))}
-                  </td>
-                  <td data-fs-list-orders-table-cell>
-                    {item?.customFields?.release?.map((field) => (
-                      <p key={field}>{field}</p>
-                    ))}
-                  </td>
-                  <td data-fs-list-orders-table-cell>
-                    {item?.customFields?.poNumber?.map((field) => (
-                      <p key={field}>{field}</p>
-                    ))}
-                  </td>
-                  <td data-fs-list-orders-table-cell>
-                    {item.ShippingEstimatedDate
-                      ? formatShippingDate(item.ShippingEstimatedDate, locale)
-                      : '-'}
-                  </td>
-                </>
-              )}
+                    <p data-fs-list-orders-table-product-info-order-total>
+                      Total: {formatPrice(item.totalValue, item.currencyCode)}
+                    </p>
+                  </div>
+                </td>
 
-              <td data-fs-list-orders-table-cell>
-                <MyAccountStatusBadge
-                  status={item.status}
-                  statusFallback={item.statusDescription}
-                />
-                {!isDesktop && (
-                  <p>
-                    {item.ShippingEstimatedDate
-                      ? `Delivery by ${formatShippingDate(
-                          item.ShippingEstimatedDate,
-                          locale
-                        )}`
-                      : ''}
-                  </p>
+                {isDesktop && (
+                  <>
+                    <td data-fs-list-orders-table-cell>{item?.clientName}</td>
+                    <td data-fs-list-orders-table-cell>
+                      {item?.customFields?.release?.map((field) => (
+                        <p key={field}>{field}</p>
+                      ))}
+                    </td>
+                    <td data-fs-list-orders-table-cell>
+                      {item?.customFields?.poNumber?.map((field) => (
+                        <p key={field}>{field}</p>
+                      ))}
+                    </td>
+                    <td data-fs-list-orders-table-cell>
+                      {displayedCostCenters.map((field) => (
+                        <p key={field}>{field}</p>
+                      ))}
+                      {shouldShowButton && (
+                        <Button
+                          data-fs-list-orders-table-expand-button
+                          size="small"
+                          variant="primary"
+                          inverse
+                          iconPosition="right"
+                          icon={
+                            isExpanded ? (
+                              <Icon
+                                width={16}
+                                height={16}
+                                name="CaretUp"
+                                aria-label="Collapse"
+                              />
+                            ) : (
+                              <Icon
+                                width={16}
+                                height={16}
+                                name="CaretDown"
+                                aria-label="Expand"
+                              />
+                            )
+                          }
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleToggleExpand(item.orderId)
+                          }}
+                        >
+                          {isExpanded ? 'View less' : 'View all'}
+                        </Button>
+                      )}
+                    </td>
+                  </>
                 )}
-              </td>
-            </tr>
-          ))}
+
+                <td data-fs-list-orders-table-cell>
+                  <MyAccountStatusBadge
+                    status={item.status}
+                    statusFallback={item.statusDescription}
+                  />
+                  {!isDesktop && (
+                    <p>
+                      {item.ShippingEstimatedDate
+                        ? `Delivery by ${formatShippingDate(
+                            item.ShippingEstimatedDate,
+                            locale
+                          )}`
+                        : ''}
+                    </p>
+                  )}
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
       {isDesktop && (

@@ -16,7 +16,7 @@
   --fs-list-orders-table-product-info-font-weight  : var(--fs-text-weight-semibold);
   --fs-list-orders-table-product-info-margin-top   : var(--fs-spacing-1);
   --fs-list-orders-table-product-info-line-height  : var(--fs-text-size-1);
-  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2);
+  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2) var(--fs-spacing-3);
   --fs-list-orders-table-cell-padding-mobile       : var(--fs-spacing-3) var(--fs-spacing-1);
   --fs-list-orders-table-cell-color                : var(--fs-color-neutral-6);
   --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-color-neutral-3);
@@ -57,6 +57,7 @@
 
   [data-fs-list-orders-table-header-cell]:last-child,[data-fs-list-orders-table-cell]:last-child {
     width: var(--fs-list-orders-table-last-child-width);
+    text-align: end;
 
     @include media("<notebook") {
       display: flex;
@@ -68,7 +69,7 @@
     }
   }
 
-  [data-fs-list-orders-table-product-info-order-id], [data-fs-list-orders-table-product-info-order-date], [data-fs-list-orders-table-product-info-order-total] {
+  [data-fs-list-orders-table-product-info-order-id], [data-fs-list-orders-table-product-info-order-date], [data-fs-list-orders-table-product-info-order-delivery], [data-fs-list-orders-table-product-info-order-total] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -80,7 +81,7 @@
     vertical-align: middle;
   }
 
-  [data-fs-list-orders-table-product-info-order-date] {
+  [data-fs-list-orders-table-product-info-order-date], [data-fs-list-orders-table-product-info-order-total] {
     margin-top: var(--fs-list-orders-table-product-info-margin-top);
     line-height: var(--fs-list-orders-table-product-info-line-height);
   }
@@ -88,6 +89,7 @@
   [data-fs-list-orders-table-header-cell], [data-fs-list-orders-table-cell] {
     padding: var(--fs-list-orders-table-cell-padding);
     text-align: left;
+    vertical-align: top;
     border: none;
 
     @include media("<notebook") {
@@ -96,6 +98,7 @@
   }
 
   [data-fs-list-orders-table-cell]:not(:first-child):not(:last-child) {
+    padding-top: calc(var(--fs-spacing-4) + var(--fs-spacing-0));
     color: var(--fs-list-orders-table-cell-color);
   }
 
@@ -116,6 +119,25 @@
 
   [data-fs-list-orders-table-body-row]:hover, [data-fs-list-orders-table-body-row]:focus {
     background-color: var(--fs-list-orders-table-row-hover-bg);
+  }
+
+  [data-fs-list-orders-table-expand-button] {
+    --fs-list-orders-table-expand-margin-top: -0.75rem;
+    --fs-list-orders-table-expand-margin-left: -1.0625rem; // 17px to rem;
+
+    margin-top: var(--fs-list-orders-table-expand-margin-top);
+
+    [data-fs-button-wrapper] {
+      width: max-content;
+      margin-left: var(--fs-list-orders-table-expand-margin-left);
+      font-size: var(--fs-text-size-tiny);
+      background-color: transparent;
+      transition: unset;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }
 
