@@ -60,6 +60,9 @@ function FilterDesktop({
     deliveryPromiseSettings,
   })
 
+  const isPickupAllEnabled =
+    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+
   return (
     <>
       <UIFilter

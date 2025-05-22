@@ -85,12 +85,7 @@ export interface FilterSliderProps {
   /**
    * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
    */
-  deliverySettings?: {
-    title?: string
-    description?: string
-    setLocationButtonLabel?: string
-    deliveryCustomLabels?: DeliveryCustomLabels
-  }
+  deliverySettings?: RegionalizationCmsData['deliverySettings']
 }
 
 function FilterSlider({
@@ -124,6 +119,9 @@ function FilterSlider({
     allFacets: facets,
     deliveryPromiseSettings,
   })
+
+  const isPickupAllEnabled =
+    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
 
   return (
     <>
