@@ -87,15 +87,31 @@
                     "description": {
                       "title": "Description",
                       "type": "string",
-                      "default": "Offers and delivery options vary based on region."
+                      "default": "Offers and availability vary by location."
                     },
                     "setLocationButtonLabel": {
                       "title": "Call to Action label",
                       "type": "string",
                       "default": "Set Location"
                     },
-                    "deliveryCustomLabels": {
-                      "title": "Filter options labels",
+                    "postalCodeEditSlider": {
+                      "title": "Postal Code Edit SlideOver",
+                      "type": "object",
+                      "properties": {
+                        "setLocation": {
+                          "title": "Set Location label",
+                          "type": "string",
+                          "default": "Set Location"
+                        },
+                        "changeLocation": {
+                          "title": "Change Postal Code",
+                          "type": "string",
+                          "default": "Change Location"
+                        }
+                      }
+                    },
+                    "deliveryMethods": {
+                      "title": "Delivery methods filter",
                       "type": "object",
                       "properties": {
                         "delivery": {
@@ -114,9 +130,21 @@
                           "default": "Pickup Nearby"
                         },
                         "pickupAll": {
-                          "title": "Pickup Anywhere label",
-                          "type": "string",
-                          "default": "Pickup Anywhere"
+                          "title": "Pickup All",
+                          "type": "object",
+                          "properties": {
+                            "enabled": {
+                              "title": "Display pickup all filter",
+                              "description": "Display the pickup all filter in the PLP/Search page. This is recommended only for B2B stores.",
+                              "type": "boolean",
+                              "default": false
+                            },
+                            "label": {
+                              "title": "Label",
+                              "type": "string",
+                              "default": "Pickup Anywhere"
+                            }
+                          }
                         }
                       }
                     }
