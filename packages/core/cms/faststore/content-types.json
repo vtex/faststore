@@ -110,8 +110,8 @@
                         }
                       }
                     },
-                    "deliveryCustomLabels": {
-                      "title": "Filter options labels",
+                    "deliveryMethods": {
+                      "title": "Delivery methods filter",
                       "type": "object",
                       "properties": {
                         "delivery": {
@@ -130,9 +130,21 @@
                           "default": "Pickup Nearby"
                         },
                         "pickupAll": {
-                          "title": "Pickup Anywhere label",
-                          "type": "string",
-                          "default": "Pickup Anywhere"
+                          "title": "Pickup All",
+                          "type": "object",
+                          "properties": {
+                            "enabled": {
+                              "title": "Display pickup all filter",
+                              "description": "Display the pickup all filter in the PLP/Search page. This is recommended only for B2B stores.",
+                              "type": "boolean",
+                              "default": false
+                            },
+                            "label": {
+                              "title": "Label",
+                              "type": "string",
+                              "default": "Pickup Anywhere"
+                            },
+                          }
                         }
                       }
                     }

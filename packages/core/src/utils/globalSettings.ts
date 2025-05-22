@@ -28,11 +28,14 @@ export type RegionalizationCmsData = {
       setLocation?: string
       changeLocation?: string
     }
-    deliveryCustomLabels?: {
+    deliveryMethods?: {
       delivery?: string
       pickupInPoint?: string
       pickupNearby?: string
-      pickupAll?: string
+      pickupAll?: {
+        label?: string
+        enabled?: boolean
+      }
     }
   }
 }

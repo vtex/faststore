@@ -119,6 +119,9 @@ function FilterSlider({
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
 
+  const isPickupAllEnabled =
+    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+
   return (
     <UIFilterSlider
       overlayProps={{
@@ -202,34 +205,37 @@ function FilterSlider({
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
                 <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
-                        dispatch({ type: 'toggleFacet', payload: facet })
-                      }
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={
-                        isDeliveryFacet ? (
-                          <FilterDeliveryOption
-                            item={item}
-                            deliveryCustomLabels={
-                              deliverySettings?.deliveryCustomLabels
-                            }
-                            cmsData={regionalizationData}
-                          />
-                        ) : (
-                          item.label
-                        )
-                      }
-                      type={isDeliveryFacet ? 'radio' : 'checkbox'}
-                    />
-                  ))}
+                  {facet.values.map(
+                    (item) =>
+                      (item.value !== 'pickup-all' || isPickupAllEnabled) && (
+                        <UIFilterFacetBooleanItem
+                          key={`${testId}-${facet.label}-${item.label}`}
+                          id={`${testId}-${facet.label}-${item.label}`}
+                          testId={`mobile-${testId}`}
+                          onFacetChange={(facet) =>
+                            dispatch({ type: 'toggleFacet', payload: facet })
+                          }
+                          selected={item.selected}
+                          value={item.value}
+                          quantity={item.quantity}
+                          facetKey={facet.key}
+                          label={
+                            isDeliveryFacet ? (
+                              <FilterDeliveryOption
+                                item={item}
+                                deliveryMethods={
+                                  deliverySettings?.deliveryMethods
+                                }
+                                cmsData={regionalizationData}
+                              />
+                            ) : (
+                              item.label
+                            )
+                          }
+                          type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                        />
+                      )
+                  )}
                 </UIFilterFacetBoolean>
               )}
               {type === 'StoreFacetRange' && isExpanded && (

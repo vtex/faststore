@@ -1,14 +1,8 @@
-import { Button as UIButton, useUI, regionSliderTypes } from '@faststore/ui'
+import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
 import { RegionSlider } from 'src/components/region/RegionSlider'
 import { sessionStore } from 'src/sdk/session'
+import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
-
-interface DeliveryCustomLabels {
-  delivery?: string
-  pickupInPoint?: string
-  pickupNearby?: string
-  pickupAll?: string
-}
 
 interface FacetValue {
   value: string
@@ -19,13 +13,13 @@ interface FacetValue {
 
 interface FilterDeliveryOptionProps {
   item: FacetValue
-  deliveryCustomLabels: DeliveryCustomLabels
+  deliveryMethods: RegionalizationCmsData['deliverySettings']['deliveryMethods']
   cmsData: Record<string, any>
 }
 
 export default function FilterDeliveryOption({
   item,
-  deliveryCustomLabels,
+  deliveryMethods,
   cmsData,
 }: FilterDeliveryOptionProps) {
   const { city, postalCode } = sessionStore.read()
@@ -35,17 +29,17 @@ export default function FilterDeliveryOption({
   } = useUI()
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
-  const mapDeliveryCustomLabel: Record<string, string> = {
-    delivery: deliveryCustomLabels?.delivery ?? 'Shipping to',
-    'pickup-in-point': deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
-    'pickup-nearby': deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
-    'pickup-all': deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
+  const mapDeliveryMethodLabel: Record<string, string> = {
+    delivery: deliveryMethods?.delivery ?? 'Shipping to',
+    'pickup-in-point': deliveryMethods?.pickupInPoint ?? 'Pickup at',
+    'pickup-nearby': deliveryMethods?.pickupNearby ?? 'Pickup Nearby',
+    'pickup-all': deliveryMethods?.pickupAll?.label ?? 'Pickup Anywhere',
   }
 
   if (item.value === 'delivery') {
     return (
       <>
-        {mapDeliveryCustomLabel[item.value]}
+        {mapDeliveryMethodLabel[item.value]}
         <UIButton
           data-fs-filter-list-item-button
           size="small"
@@ -65,7 +59,7 @@ export default function FilterDeliveryOption({
   if (item.value === 'pickup-in-point') {
     return (
       <>
-        {mapDeliveryCustomLabel[item.value]}
+        {mapDeliveryMethodLabel[item.value]}
         <UIButton
           data-fs-filter-list-item-button
           size="small"
@@ -80,5 +74,5 @@ export default function FilterDeliveryOption({
     )
   }
 
-  return <>{mapDeliveryCustomLabel[item.value]}</>
+  return <>{mapDeliveryMethodLabel[item.value]}</>
 }

@@ -52,6 +52,9 @@ function FilterDesktop({
     ? facets
     : facets.filter((facet) => facet.key !== 'shipping')
 
+  const isPickupAllEnabled =
+    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+
   return (
     <UIFilter
       testId={`desktop-${testId}`}
@@ -104,43 +107,46 @@ function FilterDesktop({
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
               <UIFilterFacetBoolean>
-                {facet.values.map((item) => (
-                  <UIFilterFacetBooleanItem
-                    key={`${testId}-${facet.label}-${item.label}`}
-                    id={`${testId}-${facet.label}-${item.label}`}
-                    testId={testId}
-                    onFacetChange={(facet) => {
-                      setState({
-                        ...state,
-                        selectedFacets: toggleFacet(
-                          state.selectedFacets,
-                          facet,
-                          true
-                        ),
-                        page: 0,
-                      })
-                      resetInfiniteScroll(0)
-                    }}
-                    selected={item.selected}
-                    value={item.value}
-                    quantity={item.quantity}
-                    facetKey={facet.key}
-                    label={
-                      isDeliveryFacet ? (
-                        <FilterDeliveryOption
-                          item={item}
-                          deliveryCustomLabels={
-                            deliverySettingsData.deliveryCustomLabels
-                          }
-                          cmsData={regionalizationData}
-                        />
-                      ) : (
-                        item.label
-                      )
-                    }
-                    type={isDeliveryFacet ? 'radio' : 'checkbox'}
-                  />
-                ))}
+                {facet.values.map(
+                  (item) =>
+                    (item.value !== 'pickup-all' || isPickupAllEnabled) && (
+                      <UIFilterFacetBooleanItem
+                        key={`${testId}-${facet.label}-${item.label}`}
+                        id={`${testId}-${facet.label}-${item.label}`}
+                        testId={testId}
+                        onFacetChange={(facet) => {
+                          setState({
+                            ...state,
+                            selectedFacets: toggleFacet(
+                              state.selectedFacets,
+                              facet,
+                              true
+                            ),
+                            page: 0,
+                          })
+                          resetInfiniteScroll(0)
+                        }}
+                        selected={item.selected}
+                        value={item.value}
+                        quantity={item.quantity}
+                        facetKey={facet.key}
+                        label={
+                          isDeliveryFacet ? (
+                            <FilterDeliveryOption
+                              item={item}
+                              deliveryMethods={
+                                deliverySettingsData.deliveryMethods
+                              }
+                              cmsData={regionalizationData}
+                            />
+                          ) : (
+                            item.label
+                          )
+                        }
+                        type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                      />
+                    )
+                )}
               </UIFilterFacetBoolean>
             )}
             {type === 'StoreFacetRange' && isExpanded && (
