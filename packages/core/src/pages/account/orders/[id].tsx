@@ -71,6 +71,7 @@ const query = gql(`
       orderId
       sequence
       marketplaceOrderId
+      canRequesterAuthorizeOrder
       marketplaceServicesEndpoint
       sellerOrderId
       origin

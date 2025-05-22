@@ -30,11 +30,13 @@ const TOASTS_CONFIG = {
 interface MyAccountOrderActionsProps {
   orderId: string
   customerEmail?: string
+  canRequesterAuthorizeOrder?: boolean
 }
 
 export default function MyAccountOrderActions({
   orderId,
   customerEmail,
+  canRequesterAuthorizeOrder = false,
 }: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
   const { isOpen, actionType, fade, openDialog, closeDialog } =
@@ -101,43 +103,53 @@ export default function MyAccountOrderActions({
         >
           Cancel order
         </UIButton>
-        {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Reject"
-            icon={<UIIcon name="XCircle" />}
-            variant="tertiary"
-            type="button"
-            onClick={() => openDialog('reject')}
-          />
-        ) : (
-          <UIButton
-            variant="secondary"
-            size="small"
-            icon={<UIIcon name="XCircle" />}
-            type="button"
-            onClick={() => openDialog('reject')}
-          >
-            Reject
-          </UIButton>
+
+        {canRequesterAuthorizeOrder && (
+          <>
+            {isMobile || isTablet ? (
+              <UIIconButton
+                aria-label="Reject"
+                icon={<UIIcon name="XCircle" />}
+                variant="tertiary"
+                type="button"
+                onClick={() => openDialog('reject')}
+              />
+            ) : (
+              <UIButton
+                variant="secondary"
+                size="small"
+                icon={<UIIcon name="XCircle" />}
+                type="button"
+                onClick={() => openDialog('reject')}
+              >
+                Reject
+              </UIButton>
+            )}
+          </>
         )}
-        {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Approve"
-            icon={<UIIcon name="CircleCheck" />}
-            variant="primary"
-            type="button"
-            onClick={() => openDialog('approve')}
-          />
-        ) : (
-          <UIButton
-            variant="primary"
-            size="small"
-            icon={<UIIcon name="CircleCheck" />}
-            type="button"
-            onClick={() => openDialog('approve')}
-          >
-            Approve
-          </UIButton>
+
+        {canRequesterAuthorizeOrder && (
+          <>
+            {isMobile || isTablet ? (
+              <UIIconButton
+                aria-label="Approve"
+                icon={<UIIcon name="CircleCheck" />}
+                variant="primary"
+                type="button"
+                onClick={() => openDialog('approve')}
+              />
+            ) : (
+              <UIButton
+                variant="primary"
+                size="small"
+                icon={<UIIcon name="CircleCheck" />}
+                type="button"
+                onClick={() => openDialog('approve')}
+              >
+                Approve
+              </UIButton>
+            )}
+          </>
         )}
       </div>
 

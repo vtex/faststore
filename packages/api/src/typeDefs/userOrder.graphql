@@ -57,6 +57,7 @@ type UserOrder {
   totals: [UserOrderTotals]
   deliveryOptionsData: UserOrderDeliveryOptionsData
   customFields: [UserOrderCustomFieldsGrouped]
+  canRequesterAuthorizeOrder: Boolean
 }
 
 type UserOrderListResult {
