@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.47.1](https://github.com/vtex/faststore/compare/v3.47.0...v3.47.1) (2025-05-22)
+
+### Bug Fixes
+
+- search product styles tokens ([#2860](https://github.com/vtex/faststore/issues/2860)) ([e9c672e](https://github.com/vtex/faststore/commit/e9c672ed8697a48931bf6e17af10b79c250d595b))
+
 # [3.47.0](https://github.com/vtex/faststore/compare/v3.46.0...v3.47.0) (2025-05-22)
 
 ### Features
