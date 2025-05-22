@@ -87,7 +87,7 @@
                     "description": {
                       "title": "Description",
                       "type": "string",
-                      "default": "Offers and availability vary by location"
+                      "default": "Offers and availability vary by location."
                     },
                     "setLocationButtonLabel": {
                       "title": "Call to Action label",
