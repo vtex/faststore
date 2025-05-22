@@ -451,7 +451,7 @@ export const Query = {
         status: order.status,
         statusDescription: order.statusDescription,
         ShippingEstimatedDate: order.ShippingEstimatedDate,
-        // customFields: order.customFields,
+        customFields: order.customFields,
         currencyCode: order.currencyCode,
       })),
       paging: orders.paging,

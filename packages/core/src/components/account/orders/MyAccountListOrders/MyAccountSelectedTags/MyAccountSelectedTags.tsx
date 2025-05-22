@@ -97,19 +97,15 @@ function MyAccountSelectedTags({
     <>
       {hasFilters && (
         <div data-fs-list-orders-selected-tags>
-          <div data-fs-list-orders-selected-tags-pills>
-            <Tags filters={filters} onRemoveFilter={onRemoveFilter} />
-          </div>
-          <div data-fs-list-orders-selected-tags-clear-all>
-            <Button
-              variant="tertiary"
-              size="small"
-              data-fs-list-orders-selected-tags-clear-all-button
-              onClick={onClearAll}
-            >
-              Clear All
-            </Button>
-          </div>
+          <Tags filters={filters} onRemoveFilter={onRemoveFilter} />
+          <Button
+            variant="tertiary"
+            size="small"
+            data-fs-list-orders-selected-tags-clear-all-button
+            onClick={onClearAll}
+          >
+            Clear All
+          </Button>
         </div>
       )}
     </>

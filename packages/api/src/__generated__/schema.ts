@@ -1662,6 +1662,7 @@ export type UserOrderFromList = {
   clientName?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   currencyCode?: Maybe<Scalars['String']>;
+  customFields?: Maybe<UserOrderFromListCustomFields>;
   deliveryDates?: Maybe<Array<Maybe<Scalars['String']>>>;
   giftCardProviders?: Maybe<Array<Maybe<Scalars['String']>>>;
   hostname?: Maybe<Scalars['String']>;

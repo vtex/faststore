@@ -75,9 +75,9 @@ function MyAccountDeliveryOptionAccordion({
                 image={item.imageUrl || ''}
                 quantity={item.quantity}
                 name={item.name}
-                field={customFields
-                  ?.find((cf) => cf.id === item.id)
-                  ?.fields?.find((f) => f.name === 'costCenter')}
+                field={
+                  customFields?.find((cf) => cf.id === item.id)?.fields?.[0]
+                }
                 price={formatPrice(item.price ?? 0, currencyCode)}
                 tax={formatPrice(item.tax ?? 0, currencyCode)}
                 total={formatPrice(item.total ?? 0, currencyCode)}

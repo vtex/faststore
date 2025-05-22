@@ -20,21 +20,11 @@
 
   --fs-list-orders-selected-tags-clear-all-min-width : 102px;
 
-  // --------------------------------------------------------
-  // Structural Styles
-  // --------------------------------------------------------
-
   display: flex;
+  flex-wrap: wrap;
   gap: var(--fs-list-orders-selected-tags-gap);
-  align-items: baseline;
-  min-height: var(--fs-list-orders-selected-tags-min-height);
+  margin-top: var(--fs-list-orders-selected-tags-gap);
   font-size: var(--fs-list-orders-selected-tags-text-size);
-
-  [data-fs-list-orders-selected-tags-pills] {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--fs-list-orders-selected-tags-gap);
-  }
 
   [data-fs-list-orders-selected-tag] {
     display: flex;
@@ -59,11 +49,20 @@
     cursor: pointer;
   }
 
-  [data-fs-list-orders-selected-tags-clear-all] {
-    min-width: var(--fs-list-orders-selected-tags-clear-all-min-width);
-  }
-
   [data-fs-list-orders-selected-tags-clear-all-button] {
     --fs-button-height: 1.5rem;
+
+    --fs-list-orders-selected-tags-clear-all-button-margin-left: -0.5rem;
+
+    [data-fs-button-wrapper] {
+      width: max-content;
+      margin-top: var(--fs-list-orders-selected-tags-clear-all-button-margin-left);
+      background-color: transparent;
+      transition: unset;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }
