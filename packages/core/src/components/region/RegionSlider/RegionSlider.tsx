@@ -5,7 +5,7 @@ import {
   type InputFieldProps as UIInputFieldProps,
 } from '@faststore/ui'
 import dynamic from 'next/dynamic'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import { useSession } from 'src/sdk/session'
 import type { RegionalizationCmsData } from 'src/utils/globalSettings'
@@ -82,6 +82,10 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
       </>
     ),
   }
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   return (
     <UIFilterSlider
