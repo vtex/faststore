@@ -24,11 +24,18 @@ export type RegionalizationCmsData = {
     title?: string
     description?: string
     setLocationButtonLabel?: string
-    deliveryCustomLabels?: {
+    postalCodeEditSlider?: {
+      setLocation?: string
+      changeLocation?: string
+    }
+    deliveryMethods?: {
       delivery?: string
       pickupInPoint?: string
       pickupNearby?: string
-      pickupAll?: string
+      pickupAll?: {
+        label?: string
+        enabled?: boolean
+      }
     }
   }
 }
