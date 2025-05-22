@@ -376,7 +376,7 @@ type Query {
     Identifier for the order.
     """
     orderId: String!
-  ): UserOrder
+  ): UserOrderResult
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
@@ -411,7 +411,7 @@ type Query {
     Client email used to filter of the list of orders.
     """
     clientEmail: String
-  ): UserOrderListResult
+  ): UserOrderListMinimalResult
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
