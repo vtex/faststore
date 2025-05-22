@@ -47,7 +47,7 @@ export default function MyAccountOrderDetails({
             data-fs-order-details-header-back-button
             size="small"
             aria-label="Go back"
-            icon={<UIIcon height={24} width={24} name="ArrowLeft" />}
+            icon={<UIIcon height={20} width={20} name="ArrowLeft" />}
             type="button"
             onClick={handleBack}
           />
