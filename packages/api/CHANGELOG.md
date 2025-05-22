@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.47.0](https://github.com/vtex/faststore/compare/v3.46.0...v3.47.0) (2025-05-22)
+
+### Features
+
+- clean up GraphQL types and queries for user orders SFS-2516 ([#2858](https://github.com/vtex/faststore/issues/2858)) ([8ed42d5](https://github.com/vtex/faststore/commit/8ed42d590d0e0557f99ae1fc015f70d71a88a743))
+
 # [3.46.0](https://github.com/vtex/faststore/compare/v3.45.0...v3.46.0) (2025-05-21)
 
 ### Features
