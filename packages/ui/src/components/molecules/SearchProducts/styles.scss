@@ -41,6 +41,7 @@
 
   // Item Control
   --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
+  --fs-search-product-item-control-input-width            : 4.625rem;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -129,7 +130,7 @@
   }
 
   [data-fs-product-item-control-input] {
-    width: 4.625rem;
+    width: var(--fs-search-product-item-control-input-width);
     height: 100%;
     text-align: center;
   }
