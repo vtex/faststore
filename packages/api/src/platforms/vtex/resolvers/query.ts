@@ -412,7 +412,6 @@ export const Query = {
         clientProfileData: order.clientProfileData,
       }
     } catch (error) {
-      console.log('🚀 ~ error:', error)
       const { message } = JSON.parse((error as Error).message).error as {
         code: string
         message: string
