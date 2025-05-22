@@ -84,15 +84,6 @@ export interface FilterSliderProps {
    * CMS defined label for the apply button component.
    */
   applyButtonLabel?: string
-  /**
-   * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
-   */
-  deliverySettings?: {
-    title?: string
-    description?: string
-    setLocationButtonLabel?: string
-    deliveryCustomLabels?: DeliveryCustomLabels
-  }
 }
 
 function FilterSlider({
@@ -104,7 +95,6 @@ function FilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
-  deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
   const { openRegionSlider } = useUI()
