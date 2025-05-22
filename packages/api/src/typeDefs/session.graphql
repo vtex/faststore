@@ -194,6 +194,7 @@ type StoreB2B {
   firstName: String
   lastName: String
   userName: String
+  userEmail: String
 }
 
 input IStoreB2B {
@@ -206,6 +207,7 @@ input IStoreB2B {
   firstName: String
   lastName: String
   userName: String
+  userEmail: String
 }
 
 """

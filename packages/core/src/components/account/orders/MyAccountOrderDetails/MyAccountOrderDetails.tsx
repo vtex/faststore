@@ -35,7 +35,7 @@ export default function MyAccountOrderDetails({
     }
   }
 
-  const moreInformationCustomFields = order?.customFields.find(
+  const moreInformationCustomFields = order?.customFields?.find(
     (field) => field.type === 'order'
   )?.fields
 
@@ -71,7 +71,8 @@ export default function MyAccountOrderDetails({
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
           fields={
-            order.customFields.find((field) => field.type === 'address')?.fields
+            order?.customFields?.find((field) => field.type === 'address')
+              ?.fields || []
           }
         />
         <MyAccountStatusCard status={order.status as OrderStatusKey} />
