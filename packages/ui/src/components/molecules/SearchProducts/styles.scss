@@ -38,9 +38,6 @@
 
   // Item Price
   --fs-search-product-item-price-size                     : var(--fs-text-size-base);
-  
-  // Item Control
-  --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
 
   // Item Control
   --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
@@ -59,6 +56,7 @@
     justify-content: space-between;
     min-height: var(--fs-search-products-min-height);
     padding: var(--fs-search-products-header-padding-top) var(--fs-search-products-padding-right) var(--fs-search-products-header-padding-bottom) var(--fs-search-products-padding-left);
+
     [data-fs-button] {
       white-space: nowrap;
     }
@@ -71,9 +69,9 @@
   }
 
   [data-fs-search-product-item] {
-    width: 100%;
     display: flex;
     align-items: center;
+    width: 100%;
     transition: var(--fs-search-products-transition-property) var(--fs-search-products-transition-timing) var(--fs-search-products-transition-function);
 
     &:hover {
@@ -85,12 +83,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    text-decoration: none;
     width: 100%;
-    padding-top: var(--fs-search-product-item-padding-top);
-    padding-bottom: var(--fs-search-product-item-padding-bottom);
-    padding-left: var(--fs-search-products-padding-left);
-    padding-right: var(--fs-search-products-padding-right);
+    padding: var(--fs-search-product-item-padding-top) var(--fs-search-products-padding-right) var(--fs-search-product-item-padding-bottom) var(--fs-search-products-padding-left);
+    text-decoration: none;
   }
 
   [data-fs-search-product-item-content] {
@@ -134,15 +129,15 @@
   }
 
   [data-fs-product-item-control-input] {
-      width: 4.625rem;
-      height: 100%;
-      text-align: center;
+    width: 4.625rem;
+    height: 100%;
+    text-align: center;
   }
 
- [data-fs-search-product-item-control-badge] {
+  [data-fs-search-product-item-control-badge] {
     margin-bottom: var(--fs-spacing-0);
 
-    & + [data-fs-search-product-item-title] {
+    + [data-fs-search-product-item-title] {
       font-weight: var(--fs-text-weight-medium);
       color: var(--fs-color-text-light);
     }
@@ -150,18 +145,18 @@
 
   [data-fs-search-product-item-control-actions] {
     display: flex;
-    margin-left: auto;
     gap: var(--fs-search-product-item-control-actions-gap);
+    margin-left: auto;
   }
 
   [data-fs-search-product-item-control-actions-desktop] {
     display: none;
-    
+
     @include media(">tablet") {
       display: block;
     }
   }
-  
+
   [data-fs-search-product-item-control-actions-mobile] {
     display: block;
 
