@@ -68,6 +68,7 @@ export type Scalars = {
    * ```
    */
   FormattedVariants: { input: any; output: any }
+  JSONObject: { input: any; output: any }
   ObjectOrString: { input: any; output: any }
   /**
    * Example:
@@ -182,7 +183,16 @@ export type IShippingItem = {
 }
 
 export type IStoreB2B = {
+  corporateName: InputMaybe<Scalars['String']['input']>
   customerId: Scalars['String']['input']
+  firstName: InputMaybe<Scalars['String']['input']>
+  isCorporate: InputMaybe<Scalars['Boolean']['input']>
+  isRepresentative: InputMaybe<Scalars['Boolean']['input']>
+  lastName: InputMaybe<Scalars['String']['input']>
+  unitId: InputMaybe<Scalars['String']['input']>
+  unitName: InputMaybe<Scalars['String']['input']>
+  userEmail: InputMaybe<Scalars['String']['input']>
+  userName: InputMaybe<Scalars['String']['input']>
 }
 
 /** Shopping cart input. */
@@ -340,6 +350,16 @@ export type IStoreSession = {
   postalCode: InputMaybe<Scalars['String']['input']>
 }
 
+/** Input to the cancel order API. */
+export type IUserOrderCancel = {
+  /** Customer's email. */
+  customerEmail: InputMaybe<Scalars['String']['input']>
+  /** Person's name. */
+  orderId: Scalars['String']['input']
+  /** Reason. */
+  reason: InputMaybe<Scalars['String']['input']>
+}
+
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -401,12 +421,18 @@ export type MessageInfo = {
 }
 
 export type Mutation = {
+  /** Cancels user order */
+  cancelOrder: Maybe<UserOrderCancel>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart: Maybe<StoreCart>
   /** Updates a web session with the specified values. */
   validateSession: Maybe<StoreSession>
+}
+
+export type MutationCancelOrderArgs = {
+  data: IUserOrderCancel
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -517,6 +543,8 @@ export type Query = {
   allProducts: StoreProductConnection
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection
+  /** Returns information about the list of Orders that the User can view. */
+  listUserOrders: Maybe<UserOrderListMinimalResult>
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -531,6 +559,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the Details of an User Order. */
+  userOrder: Maybe<UserOrderResult>
 }
 
 export type QueryAllCollectionsArgs = {
@@ -545,6 +575,16 @@ export type QueryAllProductsArgs = {
 
 export type QueryCollectionArgs = {
   slug: Scalars['String']['input']
+}
+
+export type QueryListUserOrdersArgs = {
+  clientEmail: InputMaybe<Scalars['String']['input']>
+  dateFinal: InputMaybe<Scalars['String']['input']>
+  dateInitial: InputMaybe<Scalars['String']['input']>
+  page: InputMaybe<Scalars['Int']['input']>
+  perPage: InputMaybe<Scalars['Int']['input']>
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  text: InputMaybe<Scalars['String']['input']>
 }
 
 export type QueryProductArgs = {
@@ -584,6 +624,10 @@ export type QueryShippingArgs = {
   country: Scalars['String']['input']
   items: Array<IShippingItem>
   postalCode: Scalars['String']['input']
+}
+
+export type QueryUserOrderArgs = {
+  orderId: Scalars['String']['input']
 }
 
 /** Search result. */
@@ -725,7 +769,16 @@ export type StoreAuthor = {
 }
 
 export type StoreB2B = {
+  corporateName: Maybe<Scalars['String']['output']>
   customerId: Scalars['String']['output']
+  firstName: Maybe<Scalars['String']['output']>
+  isCorporate: Maybe<Scalars['Boolean']['output']>
+  isRepresentative: Maybe<Scalars['Boolean']['output']>
+  lastName: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+  unitName: Maybe<Scalars['String']['output']>
+  userEmail: Maybe<Scalars['String']['output']>
+  userName: Maybe<Scalars['String']['output']>
 }
 
 /** Brand of a given product. */
@@ -1209,6 +1262,744 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
+export type UserOrder = {
+  affiliateId: Maybe<Scalars['String']['output']>
+  allowCancellation: Maybe<Scalars['Boolean']['output']>
+  allowEdition: Maybe<Scalars['Boolean']['output']>
+  authorizedDate: Maybe<Scalars['String']['output']>
+  callCenterOperatorData: Maybe<Scalars['String']['output']>
+  cancelReason: Maybe<Scalars['String']['output']>
+  cancellationData: Maybe<UserOrderCancellationData>
+  cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
+  changesAttachment: Maybe<Scalars['String']['output']>
+  checkedInPickupPointId: Maybe<Scalars['String']['output']>
+  clientPreferencesData: Maybe<UserOrderClientPreferencesData>
+  clientProfileData: Maybe<UserOrderClientProfileData>
+  commercialConditionData: Maybe<Scalars['String']['output']>
+  creationDate: Maybe<Scalars['String']['output']>
+  customData: Maybe<UserOrderCustomData>
+  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
+  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
+  followUpEmail: Maybe<Scalars['String']['output']>
+  giftRegistryData: Maybe<Scalars['String']['output']>
+  hostname: Maybe<Scalars['String']['output']>
+  invoiceData: Maybe<Scalars['String']['output']>
+  invoicedDate: Maybe<Scalars['String']['output']>
+  isCheckedIn: Maybe<Scalars['Boolean']['output']>
+  isCompleted: Maybe<Scalars['Boolean']['output']>
+  itemMetadata: Maybe<UserOrderItemMetadata>
+  items: Maybe<Array<Maybe<UserOrderItems>>>
+  lastChange: Maybe<Scalars['String']['output']>
+  lastMessage: Maybe<Scalars['String']['output']>
+  marketingData: Maybe<Scalars['String']['output']>
+  marketplace: Maybe<UserOrderMarketplace>
+  marketplaceItems: Maybe<Array<Maybe<UserOrderItems>>>
+  marketplaceOrderId: Maybe<Scalars['String']['output']>
+  marketplaceServicesEndpoint: Maybe<Scalars['String']['output']>
+  merchantName: Maybe<Scalars['String']['output']>
+  openTextField: Maybe<Scalars['String']['output']>
+  orderFormId: Maybe<Scalars['String']['output']>
+  orderGroup: Maybe<Scalars['String']['output']>
+  orderId: Maybe<Scalars['String']['output']>
+  origin: Maybe<Scalars['String']['output']>
+  packageAttachment: Maybe<UserOrderPackageAttachment>
+  paymentData: Maybe<UserOrderPaymentData>
+  ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>
+  roundingError: Maybe<Scalars['Int']['output']>
+  salesChannel: Maybe<Scalars['String']['output']>
+  sellerOrderId: Maybe<Scalars['String']['output']>
+  sellers: Maybe<Array<Maybe<UserOrderStoreSellers>>>
+  sequence: Maybe<Scalars['String']['output']>
+  shippingData: Maybe<UserOrderShippingData>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  storePreferencesData: Maybe<UserOrderStorePreferencesData>
+  subscriptionData: Maybe<Scalars['String']['output']>
+  taxData: Maybe<Scalars['String']['output']>
+  totals: Maybe<Array<Maybe<UserOrderTotals>>>
+  value: Maybe<Scalars['Float']['output']>
+  workflowIsInError: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderAdditionalInfo = {
+  brandId: Maybe<Scalars['String']['output']>
+  brandName: Maybe<Scalars['String']['output']>
+  categories: Maybe<Array<Maybe<UserOrderCategories>>>
+  categoriesIds: Maybe<Scalars['String']['output']>
+  commercialConditionId: Maybe<Scalars['String']['output']>
+  dimension: Maybe<UserOrderDimension>
+  offeringInfo: Maybe<Scalars['String']['output']>
+  offeringType: Maybe<Scalars['String']['output']>
+  offeringTypeId: Maybe<Scalars['String']['output']>
+  productClusterId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderAddress = {
+  addressId: Maybe<Scalars['String']['output']>
+  addressType: Maybe<Scalars['String']['output']>
+  city: Maybe<Scalars['String']['output']>
+  complement: Maybe<Scalars['String']['output']>
+  country: Maybe<Scalars['String']['output']>
+  entityId: Maybe<Scalars['String']['output']>
+  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']['output']>>>
+  neighborhood: Maybe<Scalars['String']['output']>
+  number: Maybe<Scalars['String']['output']>
+  postalCode: Maybe<Scalars['String']['output']>
+  receiverName: Maybe<Scalars['String']['output']>
+  reference: Maybe<Scalars['String']['output']>
+  state: Maybe<Scalars['String']['output']>
+  street: Maybe<Scalars['String']['output']>
+  versionId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderAssemblyOptions = {
+  Id: Maybe<Scalars['String']['output']>
+  Name: Maybe<Scalars['String']['output']>
+  Required: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderAttachmentOfferings = {
+  name: Maybe<Scalars['String']['output']>
+  required: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderAttachments = {
+  content: Maybe<Scalars['JSONObject']['output']>
+  name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCancel = {
+  data: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCancellationData = {
+  CancellationDate: Maybe<Scalars['String']['output']>
+  Reason: Maybe<Scalars['String']['output']>
+  RequestedByPaymentNotification: Maybe<Scalars['Boolean']['output']>
+  RequestedBySellerNotification: Maybe<Scalars['Boolean']['output']>
+  RequestedBySystem: Maybe<Scalars['Boolean']['output']>
+  RequestedByUser: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderCancellationRequest = {
+  cancellationRequestDate: Maybe<Scalars['String']['output']>
+  cancellationRequestDenyDate: Maybe<Scalars['String']['output']>
+  deniedBySeller: Maybe<Scalars['Boolean']['output']>
+  deniedBySellerReason: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  reason: Maybe<Scalars['String']['output']>
+  requestedByUser: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderCategories = {
+  id: Maybe<Scalars['Int']['output']>
+  name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderClientPreferencesData = {
+  locale: Maybe<Scalars['String']['output']>
+  optinNewsLetter: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderClientProfileData = {
+  corporateDocument: Maybe<Scalars['String']['output']>
+  corporateName: Maybe<Scalars['String']['output']>
+  corporatePhone: Maybe<Scalars['String']['output']>
+  customerClass: Maybe<Scalars['String']['output']>
+  customerCode: Maybe<Scalars['String']['output']>
+  document: Maybe<Scalars['String']['output']>
+  documentType: Maybe<Scalars['String']['output']>
+  email: Maybe<Scalars['String']['output']>
+  firstName: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  isCorporate: Maybe<Scalars['Boolean']['output']>
+  lastName: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
+  stateInscription: Maybe<Scalars['String']['output']>
+  tradeName: Maybe<Scalars['String']['output']>
+  userProfileId: Maybe<Scalars['String']['output']>
+  userProfileVersion: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderContactInformation = {
+  document: Maybe<Scalars['String']['output']>
+  documentType: Maybe<Scalars['String']['output']>
+  email: Maybe<Scalars['String']['output']>
+  firstName: Maybe<Scalars['String']['output']>
+  id: Scalars['ID']['output']
+  lastName: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCourierStatus = {
+  data: Maybe<Array<UserOrderTrackingInformation>>
+  finished: Maybe<Scalars['Boolean']['output']>
+  status: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderCurrencyFormatInfo = {
+  CurrencyDecimalDigits: Maybe<Scalars['Int']['output']>
+  CurrencyDecimalSeparator: Maybe<Scalars['String']['output']>
+  CurrencyGroupSeparator: Maybe<Scalars['String']['output']>
+  CurrencyGroupSize: Maybe<Scalars['Int']['output']>
+  StartsWithCurrencySymbol: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderCustomApp = {
+  fields: Maybe<UserOrderFields>
+  id: Maybe<Scalars['String']['output']>
+  major: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderCustomData = {
+  customApps: Maybe<Array<Maybe<UserOrderCustomApp>>>
+  customFields: Maybe<Array<Maybe<UserOrderCustomField>>>
+}
+
+export type UserOrderCustomField = {
+  fields: Array<UserOrderCustomFieldField>
+  linkedEntity: UserOrderCustomFieldLinkedEntity
+}
+
+export type UserOrderCustomFieldField = {
+  name: Scalars['String']['output']
+  refId: Maybe<Scalars['String']['output']>
+  value: Scalars['String']['output']
+}
+
+export type UserOrderCustomFieldLinkedEntity = {
+  id: Maybe<Scalars['String']['output']>
+  type: Scalars['String']['output']
+}
+
+export type UserOrderCustomFieldsGrouped = {
+  fields: Maybe<Array<Maybe<UserOrderCustomFieldField>>>
+  id: Maybe<Scalars['String']['output']>
+  type: Scalars['String']['output']
+}
+
+export type UserOrderDeliveryChannels = {
+  id: Maybe<Scalars['String']['output']>
+  stockBalance: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderDeliveryIds = {
+  accountCarrierName: Maybe<Scalars['String']['output']>
+  courierId: Maybe<Scalars['String']['output']>
+  courierName: Maybe<Scalars['String']['output']>
+  dockId: Maybe<Scalars['String']['output']>
+  kitItemDetails: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  quantity: Maybe<Scalars['Int']['output']>
+  warehouseId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderDeliveryOption = {
+  address: Maybe<UserOrderAddress>
+  deliveryChannel: Maybe<Scalars['String']['output']>
+  deliveryCompany: Maybe<Scalars['String']['output']>
+  deliveryWindow: Maybe<UserOrderDeliveryWindow>
+  friendlyDeliveryOptionName: Maybe<Scalars['String']['output']>
+  friendlyShippingEstimate: Maybe<Scalars['String']['output']>
+  items: Maybe<Array<Maybe<UserOrderDeliveryOptionsItems>>>
+  pickupStoreInfo: Maybe<UserOrderPickupStoreInfo>
+  quantityOfDifferentItems: Maybe<Scalars['Int']['output']>
+  selectedSla: Maybe<Scalars['String']['output']>
+  seller: Maybe<Scalars['String']['output']>
+  shippingEstimate: Maybe<Scalars['String']['output']>
+  shippingEstimateDate: Maybe<Scalars['String']['output']>
+  total: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderDeliveryOptionsContact = {
+  email: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderDeliveryOptionsData = {
+  contact: Maybe<UserOrderDeliveryOptionsContact>
+  deliveryOptions: Maybe<Array<Maybe<UserOrderDeliveryOption>>>
+}
+
+export type UserOrderDeliveryOptionsItems = {
+  id: Maybe<Scalars['String']['output']>
+  imageUrl: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  tax: Maybe<Scalars['Float']['output']>
+  total: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderDeliveryWindow = {
+  endDateUtc: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  startDateUtc: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderDimension = {
+  cubicweight: Maybe<Scalars['Float']['output']>
+  height: Maybe<Scalars['Int']['output']>
+  length: Maybe<Scalars['Int']['output']>
+  weight: Maybe<Scalars['Int']['output']>
+  width: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderFields = {
+  cartEtag: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderFromList = {
+  ShippingEstimatedDate: Maybe<Scalars['String']['output']>
+  ShippingEstimatedDateMax: Maybe<Scalars['String']['output']>
+  ShippingEstimatedDateMin: Maybe<Scalars['String']['output']>
+  affiliateId: Maybe<Scalars['String']['output']>
+  authorizedDate: Maybe<Scalars['String']['output']>
+  callCenterOperatorName: Maybe<Scalars['String']['output']>
+  clientName: Maybe<Scalars['String']['output']>
+  creationDate: Maybe<Scalars['String']['output']>
+  currencyCode: Maybe<Scalars['String']['output']>
+  deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  hostname: Maybe<Scalars['String']['output']>
+  invoiceInput: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  invoiceOutput: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  isAllDelivered: Maybe<Scalars['Boolean']['output']>
+  isAnyDelivered: Maybe<Scalars['Boolean']['output']>
+  items: Maybe<Array<Maybe<UserOrderItemsSummarized>>>
+  lastChange: Maybe<Scalars['String']['output']>
+  lastMessageUnread: Maybe<Scalars['String']['output']>
+  listId: Maybe<Scalars['String']['output']>
+  listType: Maybe<Scalars['String']['output']>
+  marketPlaceOrderId: Maybe<Scalars['String']['output']>
+  orderFormId: Maybe<Scalars['String']['output']>
+  orderId: Maybe<Scalars['String']['output']>
+  orderIsComplete: Maybe<Scalars['Boolean']['output']>
+  origin: Maybe<Scalars['String']['output']>
+  paymentApprovedDate: Maybe<Scalars['String']['output']>
+  paymentNames: Maybe<Scalars['String']['output']>
+  readyForHandlingDate: Maybe<Scalars['String']['output']>
+  salesChannel: Maybe<Scalars['String']['output']>
+  sequence: Maybe<Scalars['String']['output']>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  totalItems: Maybe<Scalars['Int']['output']>
+  totalValue: Maybe<Scalars['Float']['output']>
+  workflowInErrorState: Maybe<Scalars['Boolean']['output']>
+  workflowInRetry: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderFromListCustomFields = {
+  costCenter: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  desktop: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  poNumber: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  release: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
+export type UserOrderFromListMinimal = {
+  ShippingEstimatedDate: Maybe<Scalars['String']['output']>
+  clientName: Maybe<Scalars['String']['output']>
+  creationDate: Maybe<Scalars['String']['output']>
+  currencyCode: Maybe<Scalars['String']['output']>
+  customFields: Maybe<UserOrderFromListCustomFields>
+  items: Maybe<Array<Maybe<UserOrderItemsSummarized>>>
+  orderId: Maybe<Scalars['String']['output']>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  totalValue: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderInvoiceType = 'Input' | 'Output'
+
+export type UserOrderItemAttachment = {
+  name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderItemMetadata = {
+  Items: Maybe<Array<Maybe<UserOrderItemMetadataItem>>>
+}
+
+export type UserOrderItemMetadataItem = {
+  AssemblyOptions: Maybe<Array<Maybe<UserOrderAssemblyOptions>>>
+  DetailUrl: Maybe<Scalars['String']['output']>
+  Ean: Maybe<Scalars['String']['output']>
+  Id: Maybe<Scalars['String']['output']>
+  ImageUrl: Maybe<Scalars['String']['output']>
+  Name: Maybe<Scalars['String']['output']>
+  ProductId: Maybe<Scalars['String']['output']>
+  RefId: Maybe<Scalars['String']['output']>
+  Seller: Maybe<Scalars['String']['output']>
+  SkuName: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderItems = {
+  additionalInfo: Maybe<UserOrderAdditionalInfo>
+  assemblies: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  attachmentOfferings: Maybe<Array<Maybe<UserOrderAttachmentOfferings>>>
+  attachments: Maybe<Array<Maybe<UserOrderAttachments>>>
+  bundleItems: Maybe<Array<Maybe<UserOrderItems>>>
+  callCenterOperator: Maybe<Scalars['String']['output']>
+  commission: Maybe<Scalars['Float']['output']>
+  components: Maybe<Array<Maybe<UserOrderItems>>>
+  costPrice: Maybe<Scalars['Float']['output']>
+  detailUrl: Maybe<Scalars['String']['output']>
+  ean: Maybe<Scalars['String']['output']>
+  freightCommission: Maybe<Scalars['Float']['output']>
+  id: Maybe<Scalars['String']['output']>
+  imageUrl: Maybe<Scalars['String']['output']>
+  isGift: Maybe<Scalars['Boolean']['output']>
+  itemAttachment: Maybe<UserOrderItemAttachment>
+  listPrice: Maybe<Scalars['Float']['output']>
+  lockId: Maybe<Scalars['String']['output']>
+  manualPrice: Maybe<Scalars['String']['output']>
+  manualPriceAppliedBy: Maybe<Scalars['String']['output']>
+  measurementUnit: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  offerings: Maybe<Array<Maybe<UserOrderOfferings>>>
+  params: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  parentAssemblyBinding: Maybe<Scalars['String']['output']>
+  parentItemIndex: Maybe<Scalars['String']['output']>
+  preSaleDate: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  priceDefinition: Maybe<UserOrderPriceDefinition>
+  priceTags: Maybe<Array<Maybe<UserOrderPriceTag>>>
+  priceValidUntil: Maybe<Scalars['String']['output']>
+  productId: Maybe<Scalars['String']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  refId: Maybe<Scalars['String']['output']>
+  rewardValue: Maybe<Scalars['Float']['output']>
+  seller: Maybe<Scalars['String']['output']>
+  sellerSku: Maybe<Scalars['String']['output']>
+  sellingPrice: Maybe<Scalars['Float']['output']>
+  serialNumbers: Maybe<Scalars['String']['output']>
+  shippingPrice: Maybe<Scalars['String']['output']>
+  tax: Maybe<Scalars['Float']['output']>
+  taxCode: Maybe<Scalars['String']['output']>
+  uniqueId: Maybe<Scalars['String']['output']>
+  unitMultiplier: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderItemsSummarized = {
+  description: Maybe<Scalars['String']['output']>
+  ean: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  productId: Maybe<Scalars['String']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  refId: Maybe<Scalars['String']['output']>
+  seller: Maybe<Scalars['String']['output']>
+  sellingPrice: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderListMinimalResult = {
+  list: Maybe<Array<Maybe<UserOrderFromListMinimal>>>
+  paging: Maybe<UserOrderListPaging>
+}
+
+export type UserOrderListPaging = {
+  currentPage: Maybe<Scalars['Int']['output']>
+  pages: Maybe<Scalars['Int']['output']>
+  perPage: Maybe<Scalars['Int']['output']>
+  total: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderListResult = {
+  facets: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  list: Maybe<Array<Maybe<UserOrderFromList>>>
+  paging: Maybe<UserOrderListPaging>
+  reportRecordsLimit: Maybe<Scalars['Int']['output']>
+  stats: Maybe<UserOrderListStats>
+}
+
+export type UserOrderListStats = {
+  stats: Maybe<UserOrderListStatsData>
+}
+
+export type UserOrderListStatsData = {
+  totalItems: Maybe<UserOrderListStatsValue>
+  totalValue: Maybe<UserOrderListStatsValue>
+}
+
+export type UserOrderListStatsValue = {
+  Count: Maybe<Scalars['Int']['output']>
+  Facets: Maybe<Scalars['JSONObject']['output']>
+  Max: Maybe<Scalars['Float']['output']>
+  Mean: Maybe<Scalars['Float']['output']>
+  Min: Maybe<Scalars['Float']['output']>
+  Missing: Maybe<Scalars['Int']['output']>
+  StdDev: Maybe<Scalars['Float']['output']>
+  Sum: Maybe<Scalars['Float']['output']>
+  SumOfSquares: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderLogisticsInfo = {
+  addressId: Maybe<Scalars['String']['output']>
+  deliveryChannel: Maybe<Scalars['String']['output']>
+  deliveryChannels: Maybe<Array<Maybe<UserOrderDeliveryChannels>>>
+  deliveryCompany: Maybe<Scalars['String']['output']>
+  deliveryIds: Maybe<Array<Maybe<UserOrderDeliveryIds>>>
+  deliveryWindow: Maybe<UserOrderDeliveryWindow>
+  entityId: Maybe<Scalars['String']['output']>
+  itemId: Maybe<Scalars['String']['output']>
+  itemIndex: Maybe<Scalars['Int']['output']>
+  listPrice: Maybe<Scalars['Float']['output']>
+  lockTTL: Maybe<Scalars['String']['output']>
+  pickupPointId: Maybe<Scalars['String']['output']>
+  pickupStoreInfo: Maybe<UserOrderPickupStoreInfo>
+  polygonName: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  selectedDeliveryChannel: Maybe<Scalars['String']['output']>
+  selectedSla: Maybe<Scalars['String']['output']>
+  sellingPrice: Maybe<Scalars['Float']['output']>
+  shippingEstimate: Maybe<Scalars['String']['output']>
+  shippingEstimateDate: Maybe<Scalars['String']['output']>
+  shipsTo: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  slas: Maybe<Array<Maybe<UserOrderSlas>>>
+  transitTime: Maybe<Scalars['String']['output']>
+  versionId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderMarketplace = {
+  baseURL: Maybe<Scalars['String']['output']>
+  isCertified: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderOfferings = {
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  type: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderPackage = {
+  courier: Maybe<Scalars['String']['output']>
+  courierStatus: Maybe<UserOrderCourierStatus>
+  extraValue: Maybe<Scalars['Float']['output']>
+  invoiceKey: Maybe<Scalars['String']['output']>
+  invoiceNumber: Scalars['String']['output']
+  invoiceUrl: Maybe<Scalars['String']['output']>
+  invoiceValue: Scalars['Float']['output']
+  issuanceDate: Maybe<Scalars['String']['output']>
+  items: Maybe<Array<UserOrderPackageItem>>
+  restitutions: Maybe<UserOrderRestitutions>
+  trackingNumber: Maybe<Scalars['String']['output']>
+  trackingUrl: Maybe<Scalars['String']['output']>
+  type: Maybe<UserOrderInvoiceType>
+}
+
+export type UserOrderPackageAttachment = {
+  packages: Maybe<Array<Maybe<UserOrderPackage>>>
+}
+
+export type UserOrderPackageItem = {
+  description: Maybe<Scalars['String']['output']>
+  itemIndex: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Int']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderPaymentConnectorResponses = {
+  Message: Maybe<Scalars['String']['output']>
+  ReturnCode: Maybe<Scalars['String']['output']>
+  Tid: Maybe<Scalars['String']['output']>
+  authId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderPaymentData = {
+  giftCards: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  transactions: Maybe<Array<Maybe<UserOrderTransactions>>>
+}
+
+export type UserOrderPayments = {
+  accountId: Maybe<Scalars['String']['output']>
+  bankIssuedInvoiceBarCodeNumber: Maybe<Scalars['String']['output']>
+  bankIssuedInvoiceBarCodeType: Maybe<Scalars['String']['output']>
+  bankIssuedInvoiceIdentificationNumber: Maybe<Scalars['String']['output']>
+  bankIssuedInvoiceIdentificationNumberFormatted: Maybe<
+    Scalars['String']['output']
+  >
+  billingAddress: Maybe<Scalars['String']['output']>
+  cardHolder: Maybe<Scalars['String']['output']>
+  cardNumber: Maybe<Scalars['String']['output']>
+  connectorResponses: Maybe<UserOrderPaymentConnectorResponses>
+  cvv2: Maybe<Scalars['String']['output']>
+  dueDate: Maybe<Scalars['String']['output']>
+  expireMonth: Maybe<Scalars['String']['output']>
+  expireYear: Maybe<Scalars['String']['output']>
+  firstDigits: Maybe<Scalars['String']['output']>
+  giftCardAsDiscount: Maybe<Scalars['String']['output']>
+  giftCardCaption: Maybe<Scalars['String']['output']>
+  giftCardId: Maybe<Scalars['String']['output']>
+  giftCardName: Maybe<Scalars['String']['output']>
+  giftCardProvider: Maybe<Scalars['String']['output']>
+  group: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  installments: Maybe<Scalars['Int']['output']>
+  koinUrl: Maybe<Scalars['String']['output']>
+  lastDigits: Maybe<Scalars['String']['output']>
+  parentAccountId: Maybe<Scalars['String']['output']>
+  paymentOrigin: Maybe<Scalars['String']['output']>
+  paymentSystem: Maybe<Scalars['String']['output']>
+  paymentSystemName: Maybe<Scalars['String']['output']>
+  redemptionCode: Maybe<Scalars['String']['output']>
+  referenceValue: Maybe<Scalars['Int']['output']>
+  tid: Maybe<Scalars['String']['output']>
+  url: Maybe<Scalars['String']['output']>
+  value: Maybe<Scalars['Int']['output']>
+}
+
+export type UserOrderPickupStoreInfo = {
+  additionalInfo: Maybe<Scalars['String']['output']>
+  address: Maybe<UserOrderAddress>
+  dockId: Maybe<Scalars['String']['output']>
+  friendlyName: Maybe<Scalars['String']['output']>
+  isPickupStore: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderPriceDefinition = {
+  calculatedSellingPrice: Maybe<Scalars['Float']['output']>
+  reason: Maybe<Scalars['String']['output']>
+  sellingPrices: Maybe<Array<Maybe<UserOrderSellingPrices>>>
+  total: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderPriceTag = {
+  identifier: Maybe<Scalars['String']['output']>
+  isPercentual: Maybe<Scalars['Boolean']['output']>
+  jurisCode: Maybe<Scalars['String']['output']>
+  jurisName: Maybe<Scalars['String']['output']>
+  jurisType: Maybe<Scalars['String']['output']>
+  name: Scalars['String']['output']
+  owner: Maybe<Scalars['String']['output']>
+  rate: Maybe<Scalars['Float']['output']>
+  rawValue: Scalars['Float']['output']
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderRateAndBenefitsIdentifier = {
+  additionalInfo: Maybe<Scalars['String']['output']>
+  description: Maybe<Scalars['String']['output']>
+  featured: Maybe<Scalars['Boolean']['output']>
+  id: Maybe<Scalars['ID']['output']>
+  name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderRatesAndBenefitsData = {
+  id: Maybe<Scalars['String']['output']>
+  rateAndBenefitsIdentifiers: Maybe<
+    Array<Maybe<UserOrderRateAndBenefitsIdentifier>>
+  >
+}
+
+export type UserOrderRestitutionItem = {
+  compensationValue: Maybe<Scalars['Float']['output']>
+  description: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['ID']['output']>
+  isCompensation: Maybe<Scalars['Boolean']['output']>
+  itemIndex: Maybe<Scalars['Int']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  quantity: Maybe<Scalars['Int']['output']>
+  unitMultiplier: Maybe<Scalars['Float']['output']>
+  useFreight: Maybe<Scalars['Boolean']['output']>
+}
+
+export type UserOrderRestitutionOption = {
+  items: Maybe<Array<UserOrderRestitutionItem>>
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderRestitutions = {
+  GiftCard: Maybe<UserOrderRestitutionOption>
+  Refund: Maybe<UserOrderRestitutionOption>
+}
+
+export type UserOrderResult = {
+  allowCancellation: Maybe<Scalars['Boolean']['output']>
+  clientProfileData: Maybe<UserOrderClientProfileData>
+  customData: Maybe<UserOrderCustomData>
+  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
+  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
+  items: Maybe<Array<Maybe<UserOrderItems>>>
+  orderId: Maybe<Scalars['String']['output']>
+  paymentData: Maybe<UserOrderPaymentData>
+  shippingData: Maybe<UserOrderShippingData>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  storePreferencesData: Maybe<UserOrderStorePreferencesData>
+  totals: Maybe<Array<Maybe<UserOrderTotals>>>
+}
+
+export type UserOrderSellingPrices = {
+  quantity: Maybe<Scalars['Int']['output']>
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderShippingData = {
+  address: Maybe<UserOrderAddress>
+  availableAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
+  contactInformation: Maybe<Array<Maybe<UserOrderContactInformation>>>
+  id: Maybe<Scalars['String']['output']>
+  logisticsInfo: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>
+  selectedAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
+  trackingHints: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderSlas = {
+  availableDeliveryWindows: Maybe<Array<Maybe<UserOrderDeliveryWindow>>>
+  deliveryChannel: Maybe<Scalars['String']['output']>
+  deliveryIds: Maybe<Array<Maybe<UserOrderDeliveryIds>>>
+  deliveryWindow: Maybe<UserOrderDeliveryWindow>
+  id: Maybe<Scalars['String']['output']>
+  listPrice: Maybe<Scalars['Float']['output']>
+  lockTTL: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  pickupDistance: Maybe<Scalars['Int']['output']>
+  pickupPointId: Maybe<Scalars['String']['output']>
+  pickupStoreInfo: Maybe<UserOrderPickupStoreInfo>
+  polygonName: Maybe<Scalars['String']['output']>
+  price: Maybe<Scalars['Float']['output']>
+  shippingEstimate: Maybe<Scalars['String']['output']>
+  shippingEstimateDate: Maybe<Scalars['String']['output']>
+  transitTime: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderStorePreferencesData = {
+  countryCode: Maybe<Scalars['String']['output']>
+  currencyCode: Maybe<Scalars['String']['output']>
+  currencyFormatInfo: Maybe<UserOrderCurrencyFormatInfo>
+  currencyLocale: Maybe<Scalars['Int']['output']>
+  currencySymbol: Maybe<Scalars['String']['output']>
+  timeZone: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderStoreSellers = {
+  fulfillmentEndpoint: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  logo: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderTotals = {
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  value: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderTrackingInformation = {
+  city: Maybe<Scalars['String']['output']>
+  description: Maybe<Scalars['String']['output']>
+  lastChange: Maybe<Scalars['String']['output']>
+  state: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderTransactions = {
+  isActive: Maybe<Scalars['Boolean']['output']>
+  merchantName: Maybe<Scalars['String']['output']>
+  payments: Maybe<Array<Maybe<UserOrderPayments>>>
+  transactionId: Maybe<Scalars['String']['output']>
+}
+
 export type ProductSummary_ProductFragment = {
   slug: string
   sku: string
@@ -1448,6 +2239,201 @@ export type ServerProductQueryQuery = {
       valueReference: any
     }>
   }
+}
+
+export type UserOrderItemsFragmentFragment = {
+  id: string | null
+  name: string | null
+  quantity: number | null
+  sellingPrice: number | null
+  unitMultiplier: number | null
+  measurementUnit: string | null
+  imageUrl: string | null
+  detailUrl: string | null
+  refId: string | null
+  rewardValue: number | null
+}
+
+export type ServerOrderDetailsQueryQueryVariables = Exact<{
+  orderId: Scalars['String']['input']
+}>
+
+export type ServerOrderDetailsQueryQuery = {
+  userOrder: {
+    orderId: string | null
+    status: string | null
+    statusDescription: string | null
+    allowCancellation: boolean | null
+    storePreferencesData: { currencyCode: string | null } | null
+    clientProfileData: {
+      firstName: string | null
+      lastName: string | null
+      email: string | null
+      phone: string | null
+      corporateName: string | null
+      isCorporate: boolean | null
+    } | null
+    customFields: Array<{
+      type: string
+      id: string | null
+      fields: Array<{
+        name: string
+        value: string
+        refId: string | null
+      } | null> | null
+    } | null> | null
+    deliveryOptionsData: {
+      deliveryOptions: Array<{
+        selectedSla: string | null
+        deliveryChannel: string | null
+        deliveryCompany: string | null
+        shippingEstimate: string | null
+        shippingEstimateDate: string | null
+        friendlyShippingEstimate: string | null
+        friendlyDeliveryOptionName: string | null
+        seller: string | null
+        quantityOfDifferentItems: number | null
+        total: number | null
+        deliveryWindow: {
+          startDateUtc: string | null
+          endDateUtc: string | null
+          price: number | null
+        } | null
+        address: {
+          addressType: string | null
+          receiverName: string | null
+          addressId: string | null
+          versionId: string | null
+          entityId: string | null
+          postalCode: string | null
+          city: string | null
+          state: string | null
+          country: string | null
+          street: string | null
+          number: string | null
+          neighborhood: string | null
+          complement: string | null
+          reference: string | null
+          geoCoordinates: Array<number | null> | null
+        } | null
+        pickupStoreInfo: {
+          additionalInfo: string | null
+          dockId: string | null
+          friendlyName: string | null
+          isPickupStore: boolean | null
+          address: {
+            addressType: string | null
+            receiverName: string | null
+            addressId: string | null
+            versionId: string | null
+            entityId: string | null
+            postalCode: string | null
+            city: string | null
+            state: string | null
+            country: string | null
+            street: string | null
+            number: string | null
+            neighborhood: string | null
+            complement: string | null
+            reference: string | null
+            geoCoordinates: Array<number | null> | null
+          } | null
+        } | null
+        items: Array<{
+          id: string | null
+          name: string | null
+          quantity: number | null
+          price: number | null
+          imageUrl: string | null
+          tax: number | null
+          total: number | null
+        } | null> | null
+      } | null> | null
+      contact: {
+        email: string | null
+        phone: string | null
+        name: string | null
+      } | null
+    } | null
+    paymentData: {
+      transactions: Array<{
+        isActive: boolean | null
+        payments: Array<{
+          id: string | null
+          paymentSystemName: string | null
+          value: number | null
+          installments: number | null
+          referenceValue: number | null
+          lastDigits: string | null
+          url: string | null
+          group: string | null
+          tid: string | null
+          bankIssuedInvoiceIdentificationNumber: string | null
+          redemptionCode: string | null
+          paymentOrigin: string | null
+          connectorResponses: { authId: string | null } | null
+        } | null> | null
+      } | null> | null
+    } | null
+    totals: Array<{
+      id: string | null
+      name: string | null
+      value: number | null
+    } | null> | null
+  } | null
+}
+
+export type ServerListOrdersQueryQueryVariables = Exact<{
+  page: InputMaybe<Scalars['Int']['input']>
+  perPage: InputMaybe<Scalars['Int']['input']>
+  status: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >
+  dateInitial: InputMaybe<Scalars['String']['input']>
+  dateFinal: InputMaybe<Scalars['String']['input']>
+  text: InputMaybe<Scalars['String']['input']>
+  clientEmail: InputMaybe<Scalars['String']['input']>
+}>
+
+export type ServerListOrdersQueryQuery = {
+  listUserOrders: {
+    list: Array<{
+      orderId: string | null
+      creationDate: string | null
+      clientName: string | null
+      totalValue: number | null
+      status: string | null
+      statusDescription: string | null
+      ShippingEstimatedDate: string | null
+      currencyCode: string | null
+      items: Array<{
+        seller: string | null
+        quantity: number | null
+        description: string | null
+        ean: string | null
+        refId: string | null
+        id: string | null
+        productId: string | null
+        sellingPrice: number | null
+        price: number | null
+      } | null> | null
+    } | null> | null
+    paging: {
+      total: number | null
+      pages: number | null
+      currentPage: number | null
+      perPage: number | null
+    } | null
+  } | null
+}
+
+export type CancelOrderMutationMutationVariables = Exact<{
+  data: IUserOrderCancel
+}>
+
+export type CancelOrderMutationMutation = {
+  cancelOrder: { data: string | null } | null
 }
 
 export type ValidateCartMutationMutationVariables = Exact<{
@@ -1877,7 +2863,18 @@ export type ValidateSessionMutation = {
       givenName: string
       familyName: string
     } | null
-    b2b: { customerId: string } | null
+    b2b: {
+      customerId: string
+      isRepresentative: boolean | null
+      unitName: string | null
+      unitId: string | null
+      isCorporate: boolean | null
+      corporateName: string | null
+      firstName: string | null
+      lastName: string | null
+      userName: string | null
+      userEmail: string | null
+    } | null
     marketingData: {
       utmCampaign: string | null
       utmMedium: string | null
@@ -2366,6 +3363,23 @@ export const ServerProductFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'ServerProduct' }
 ) as unknown as TypedDocumentString<ServerProductFragment, unknown>
+export const UserOrderItemsFragmentFragmentDoc = new TypedDocumentString(
+  `
+    fragment UserOrderItemsFragment on UserOrderItems {
+  id
+  name
+  quantity
+  sellingPrice
+  unitMultiplier
+  measurementUnit
+  imageUrl
+  detailUrl
+  refId
+  rewardValue
+}
+    `,
+  { fragmentName: 'UserOrderItemsFragment' }
+) as unknown as TypedDocumentString<UserOrderItemsFragmentFragment, unknown>
 export const CartMessageFragmentDoc = new TypedDocumentString(
   `
     fragment CartMessage on StoreCartMessage {
@@ -2447,6 +3461,33 @@ export const ServerProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables
+>
+export const ServerOrderDetailsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerOrderDetailsQuery',
+    operationHash: '8b9b9c7703b0b9af12f47cb86dd3d2e8eb40c8fd',
+  },
+} as unknown as TypedDocumentString<
+  ServerOrderDetailsQueryQuery,
+  ServerOrderDetailsQueryQueryVariables
+>
+export const ServerListOrdersQueryDocument = {
+  __meta__: {
+    operationName: 'ServerListOrdersQuery',
+    operationHash: '9f48d9d4c1b6e6b32ac1f1c1b7b3819ac826dfe7',
+  },
+} as unknown as TypedDocumentString<
+  ServerListOrdersQueryQuery,
+  ServerListOrdersQueryQueryVariables
+>
+export const CancelOrderMutationDocument = {
+  __meta__: {
+    operationName: 'CancelOrderMutation',
+    operationHash: 'e2b06da6840614d3c72768e56579b9d3b8e80802',
+  },
+} as unknown as TypedDocumentString<
+  CancelOrderMutationMutation,
+  CancelOrderMutationMutationVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
@@ -2541,7 +3582,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '6189ed611a20d9d5fe8ebebf61c87c9c29a5cef4',
+    operationHash: 'd8eac720a2de6a517384127a199e27a623653394',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

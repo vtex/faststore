@@ -2,10 +2,22 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type { StoreMarketingData } from '../../../..'
+import type {
+  IUserOrderCancel,
+  QueryListUserOrdersArgs,
+  StoreMarketingData,
+  UserOrder,
+  UserOrderCancel,
+  UserOrderListResult,
+} from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import {
+  getStoreCookie,
+  getWithAutCookie,
+  getWithCookie,
+} from '../../utils/cookies'
+import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
@@ -23,6 +35,8 @@ import type {
   SimulationOptions,
 } from './types/Simulation'
 import type { PickupPointsInput, PickupPoints } from './types/PickupPoints'
+import type { ScopesByUnit, UnitResponse } from './types/Unit'
+import type { VtexIdResponse } from './types/VtexId'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -40,6 +54,7 @@ export const VtexCommerce = (
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
+  const withAutCookie = getWithAutCookie(ctx)
 
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
@@ -385,6 +400,29 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      cancelOrder: ({
+        orderId,
+        customerEmail,
+        reason,
+      }: IUserOrderCancel): Promise<UserOrderCancel> | undefined => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orders/${orderId}/user-cancel-request`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              customerEmail,
+              reason,
+            }),
+          },
+          {}
+        )
+      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
@@ -426,19 +464,191 @@ export const VtexCommerce = (
     },
     profile: {
       addresses: async (userId: string): Promise<Record<string, string>> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
+          { headers },
+          { storeCookies }
+        )
+      },
+    },
+    oms: {
+      userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
 
-        const cookies = parse(ctx?.headers?.cookie ?? '')
-        const VtexIdclientAutCookie =
-          cookies['VtexIdclientAutCookie_' + account]
-        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        return fetchAPI(
+          `${base}/api/oms/user/orders/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+      listUserOrders: ({
+        page,
+        status,
+        dateInitial,
+        dateFinal,
+        text,
+        clientEmail,
+        perPage,
+      }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
+        const params = new URLSearchParams()
+
+        if (dateInitial) {
+          const dateInitialTimestamp = new Date(dateInitial).setHours(
+            0,
+            0,
+            0,
+            0
+          )
+          dateInitial = new Date(dateInitialTimestamp).toISOString()
+        }
+        if (dateFinal) {
+          const dateFinalTimestamp = new Date(dateFinal).setHours(
+            23,
+            59,
+            59,
+            999
+          )
+          dateFinal = new Date(dateFinalTimestamp).toISOString()
+        }
+
+        if (text) params.append('text', text)
+        if (status && status.length > 0) {
+          status.forEach((s) =>
+            s && s.length > 0 ? params.append('status', s) : null
+          )
+        }
+
+        if (dateInitial && dateFinal) {
+          params.append(
+            'creation_date',
+            `creationDate:[${dateInitial} TO ${dateFinal}]`
+          )
+        } else if (dateInitial) {
+          params.append('creation_date', `creationDate:[${dateInitial} TO *]`)
+        } else if (dateFinal) {
+          params.append('creation_date', `creationDate:[* TO ${dateFinal}]`)
+        }
+
+        if (clientEmail) params.append('clientEmail', clientEmail)
+        if (page) params.append('page', page.toString())
+        if (perPage) params.append('per_page', perPage.toString())
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
-          `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
-          { headers },
+          `${base}/api/oms/user/orders?${params.toString()}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+    },
+    units: {
+      getUnitByUserId: ({
+        userId,
+      }: { userId: string }): Promise<UnitResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/units/v1/${userId}/unit`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getOrgUnitById: ({
+        orgUnitId,
+      }: { orgUnitId: string }): Promise<UnitResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/units/v1/${orgUnitId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getScopesByOrgUnit: ({
+        orgUnitId,
+      }: { orgUnitId: string }): Promise<ScopesByUnit> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/units/v1/${orgUnitId}/scopes`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
+    licenseManager: {
+      getUserById: ({
+        userId,
+      }: { userId: string }): Promise<{
+        id: string
+        name: string
+        email: string
+      }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/license-manager/users/${userId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
+    masterData: {
+      getContractById: ({
+        contractId,
+      }: { contractId: string }): Promise<ContractResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/dataentities/CL/documents/${contractId}?_fields=_all`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
+    vtexid: {
+      validate: (): Promise<VtexIdResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/vtexid/credential/validate`,
+          {
+            headers,
+            body: JSON.stringify({
+              token: headers['VtexIdclientAutCookie'],
+            }),
+            method: 'POST',
+          },
           { storeCookies }
         )
       },
