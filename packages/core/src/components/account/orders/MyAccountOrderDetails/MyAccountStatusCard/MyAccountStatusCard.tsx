@@ -109,7 +109,22 @@ const formatDate = (date: string) => {
   }).format(new Date(date))
 }
 
-const StepIcon = ({ status }: { status: StepStatus }) => {
+const StepIcon = ({
+  status,
+  isCanceled,
+}: { status: StepStatus; isCanceled: boolean }) => {
+  if (status === 'failed') {
+    return (
+      <div data-fs-shipping-step-icon data-fs-shipping-step-failed>
+        <UIIcon name="X" height={16} width={16} />
+      </div>
+    )
+  }
+
+  if (isCanceled) {
+    return <div data-fs-shipping-step-icon data-fs-shipping-step-canceled />
+  }
+
   if (status === 'completed') {
     return (
       <div data-fs-shipping-step-icon data-fs-shipping-step-completed>
@@ -122,14 +137,6 @@ const StepIcon = ({ status }: { status: StepStatus }) => {
     return (
       <div data-fs-shipping-step-icon data-fs-shipping-step-loading>
         <UIIcon name="DotsThree" height={16} width={16} />
-      </div>
-    )
-  }
-
-  if (status === 'failed') {
-    return (
-      <div data-fs-shipping-step-icon data-fs-shipping-step-failed>
-        <UIIcon name="X" height={16} width={16} />
       </div>
     )
   }
@@ -247,7 +254,7 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
             data-fs-shipping-step
             data-fs-shipping-status={step.status}
           >
-            <StepIcon status={step.status} />
+            <StepIcon status={step.status} isCanceled={isCanceled} />
             <div data-fs-shipping-step-content>
               <p data-fs-shipping-step-label>{step.label}</p>
               {step.completedAt && (
