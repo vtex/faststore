@@ -462,21 +462,10 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    const { user, isRepresentative, customerId } =
-      await commerce.vtexid.validate()
+    const { namespaces } = await commerce.session('')
 
-    if (isRepresentative && customerId) {
-      const contract = await commerce.masterData.getContractById({
-        contractId: customerId,
-      })
+    const { profile } = namespaces
 
-      if (contract?.isCorporate && contract.corporateName) {
-        return contract.corporateName
-      }
-
-      return `${contract?.firstName ?? ''}${contract?.lastName ? ` ${contract.lastName}` : ''}`
-    }
-
-    return user
+    return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
   },
 }
