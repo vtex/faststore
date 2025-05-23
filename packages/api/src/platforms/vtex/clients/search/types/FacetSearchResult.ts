@@ -1,4 +1,4 @@
-type FilterType = 'PRICERANGE' | 'TEXT' | 'NUMBER' | 'CATEGORYTREE'
+type FilterType = 'PRICERANGE' | 'TEXT' | 'NUMBER' | 'CATEGORYTREE' | 'DELIVERY'
 export interface FacetSearchResult {
   facets: Facet[]
   breadcrumb: Breadcrumb

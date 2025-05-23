@@ -1,32 +1,32 @@
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import {
+  regionSliderTypes,
+  Button as UIButton,
   Filter as UIFilter,
   FilterFacetBoolean as UIFilterFacetBoolean,
   FilterFacetBooleanItem as UIFilterFacetBooleanItem,
   FilterFacetRange as UIFilterFacetRange,
   FilterFacets as UIFilterFacets,
+  Icon as UIIcon,
+  useUI,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
+import type { FilterSliderProps } from './FilterSlider'
 
-interface Props {
-  /**
-   * The array that represents the details of every facet.
-   */
-  facets: Filter_FacetsFragment[]
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
-  /**
-   * Title for the `FilterDesktop` component.
-   */
-  title?: string
-}
+import { sessionStore } from 'src/sdk/session'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import RegionSlider from '../../region/RegionSlider/RegionSlider'
+import FilterDeliveryOption from './FilterDeliveryOption'
+
+interface FilterDesktopProps
+  extends Omit<
+    FilterSliderProps,
+    'onClose' | 'size' | 'direction' | 'applyBtnProps' | 'clearBtnProps'
+  > {}
 
 function FilterDesktop({
   facets,
@@ -34,8 +34,26 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
-}: Props & ReturnType<typeof useFilter>) {
+  deliverySettings,
+}: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
+  const {
+    regionSlider: { type: regionSliderType },
+    openRegionSlider,
+  } = useUI()
+
+  const regionalizationData = getRegionalizationSettings(deliverySettings)
+  const { deliverySettings: deliverySettingsData } = regionalizationData
+  const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
+
+  const { postalCode } = sessionStore.read()
+  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
+  const filteredFacets = deliveryPromise.enabled
+    ? facets
+    : facets.filter((facet) => facet.key !== 'shipping')
+
+  const isPickupAllEnabled =
+    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
 
   return (
     <UIFilter
@@ -46,42 +64,89 @@ function FilterDesktop({
         dispatch({ type: 'toggleExpanded', payload: idx })
       }
     >
-      {facets.map((facet, index) => {
+      {shouldDisplayDeliveryButton && (
+        <UIFilterFacets
+          key={`${testId}-delivery-unset`}
+          testId={testId}
+          index={0}
+          type=""
+          label={deliveryLabel}
+          description={deliverySettingsData?.description}
+        >
+          <UIButton
+            data-fs-filter-list-delivery-button
+            variant="secondary"
+            onClick={() => {
+              openRegionSlider(regionSliderTypes.setLocation)
+            }}
+            icon={<UIIcon name="MapPin" />}
+          >
+            {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
+          </UIButton>
+        </UIFilterFacets>
+      )}
+      {regionSliderType === regionSliderTypes.setLocation && (
+        <RegionSlider cmsData={regionalizationData} />
+      )}
+      {filteredFacets.map((facet, idx) => {
+        const index = shouldDisplayDeliveryButton ? idx + 1 : idx
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
+        const isDeliveryFacet = facet.key === 'shipping'
+
         return (
           <UIFilterFacets
             key={`${testId}-${label}-${index}`}
             testId={testId}
             index={index}
             type={type}
-            label={label}
+            label={isDeliveryFacet ? deliveryLabel : label}
+            description={
+              isDeliveryFacet ? deliverySettingsData.description : undefined
+            }
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
               <UIFilterFacetBoolean>
-                {facet.values.map((item) => (
-                  <UIFilterFacetBooleanItem
-                    key={`${testId}-${facet.label}-${item.label}`}
-                    id={`${testId}-${facet.label}-${item.label}`}
-                    testId={testId}
-                    onFacetChange={(facet) => {
-                      setState({
-                        ...state,
-                        selectedFacets: toggleFacet(
-                          state.selectedFacets,
-                          facet
-                        ),
-                        page: 0,
-                      })
-                      resetInfiniteScroll(0)
-                    }}
-                    selected={item.selected}
-                    value={item.value}
-                    quantity={item.quantity}
-                    facetKey={facet.key}
-                    label={item.label}
-                  />
-                ))}
+                {facet.values.map(
+                  (item) =>
+                    (item.value !== 'pickup-all' || isPickupAllEnabled) && (
+                      <UIFilterFacetBooleanItem
+                        key={`${testId}-${facet.label}-${item.label}`}
+                        id={`${testId}-${facet.label}-${item.label}`}
+                        testId={testId}
+                        onFacetChange={(facet) => {
+                          setState({
+                            ...state,
+                            selectedFacets: toggleFacet(
+                              state.selectedFacets,
+                              facet,
+                              true
+                            ),
+                            page: 0,
+                          })
+                          resetInfiniteScroll(0)
+                        }}
+                        selected={item.selected}
+                        value={item.value}
+                        quantity={item.quantity}
+                        facetKey={facet.key}
+                        label={
+                          isDeliveryFacet ? (
+                            <FilterDeliveryOption
+                              item={item}
+                              deliveryMethods={
+                                deliverySettingsData.deliveryMethods
+                              }
+                              cmsData={regionalizationData}
+                            />
+                          ) : (
+                            item.label
+                          )
+                        }
+                        type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                      />
+                    )
+                )}
               </UIFilterFacetBoolean>
             )}
             {type === 'StoreFacetRange' && isExpanded && (

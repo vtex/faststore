@@ -1,5 +1,6 @@
+import type { ReactNode } from 'react'
 import React from 'react'
-import { Badge, Checkbox, Label } from '../..'
+import { Badge, Checkbox, Label, RadioField } from '../..'
 import type { OnFacetChange } from './Filter'
 
 export interface FilterFacetBooleanItemProps {
@@ -10,7 +11,7 @@ export interface FilterFacetBooleanItemProps {
   /**
    * The text displayed to identify the Boolean Facet Item.
    */
-  label: string
+  label: string | ReactNode
   /**
    * Value to be emitted when Checkbox is clicked.
    */
@@ -22,7 +23,7 @@ export interface FilterFacetBooleanItemProps {
   /**
    * Counter badge shown besides the Facet Item.
    */
-  quantity: number
+  quantity?: number
   /**
    * ID to identify the Checkbox and corresponding label.
    */
@@ -35,6 +36,10 @@ export interface FilterFacetBooleanItemProps {
    * This function is called when `Checkbox` from the facet changes.
    */
   onFacetChange: OnFacetChange
+  /**
+   * Type of the Facet Item.
+   */
+  type?: 'checkbox' | 'radio'
 }
 
 function FilterFacetBooleanItem({
@@ -45,26 +50,43 @@ function FilterFacetBooleanItem({
   quantity,
   facetKey,
   label,
+  type = 'checkbox',
   onFacetChange,
 }: FilterFacetBooleanItemProps) {
   return (
     <li key={id} data-fs-filter-list-item>
-      <Checkbox
-        id={id}
-        checked={selected}
-        onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
-        data-fs-filter-list-item-checkbox
-        data-testid={`${testId}-accordion-panel-checkbox`}
-        data-value={value}
-        data-quantity={quantity}
-      />
-      <Label
-        htmlFor={id}
-        className="text__title-mini-alt"
-        data-fs-filter-list-item-label
-      >
-        {label} <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
-      </Label>
+      {type === 'checkbox' ? (
+        <>
+          <Checkbox
+            id={id}
+            checked={selected}
+            onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
+            data-fs-filter-list-item-checkbox
+            data-testid={`${testId}-accordion-panel-checkbox`}
+            data-value={value}
+            data-quantity={quantity}
+          />
+          <Label
+            htmlFor={id}
+            className="text__title-mini-alt"
+            data-fs-filter-list-item-label
+          >
+            {label} <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
+          </Label>
+        </>
+      ) : (
+        <RadioField
+          id={id}
+          name={facetKey}
+          value={value}
+          checked={selected}
+          onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
+          data-fs-filter-list-item-radio
+          data-testid={`${testId}-accordion-panel-radio`}
+          data-value={value}
+          label={label}
+        />
+      )}
     </li>
   )
 }
