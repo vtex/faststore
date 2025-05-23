@@ -1,12 +1,12 @@
-interface GeoCoordinatesInput {
+interface GeoCoordinates {
   latitude: number
   longitude: number
 }
 
 export interface PickupPointsInput {
-  country?: string
-  geoCoordinates?: GeoCoordinatesInput
-  postalCode?: string
+  country?: string | null
+  geoCoordinates?: GeoCoordinates | null
+  postalCode?: string | null
 }
 
 interface Address {
