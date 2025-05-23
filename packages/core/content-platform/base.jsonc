@@ -1,0 +1,269 @@
+{
+  // This should be automatically updated and point to Schema Registry.
+  "$id": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore",
+  // This should always point to CP's meta-schema for Stores.
+  // "$schema": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/meta-schema",
+  "title": "FastStore Schema",
+  "description": "Collection of default schemas for FastStore.",
+  "contexts": {},
+  "components": {
+    // `Children` is not assigned to any specific React component.
+    // Instead, it's used as a "splitter" to orient the rendering process.
+    "Children": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "Children",
+      "$componentTitle": "Children",
+      "description": "Children",
+      "type": "object",
+      "properties": {}
+    },
+    // `SEO` is also not assigned to any specific React component.
+    // It serves as a way to define SEO options for a given page.
+    "SEO": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "SEO",
+      "$componentTitle": "SEO",
+      "type": "object",
+      "properties": {
+        "options": {
+          "type": "string",
+          "enum": ["index", "noindex"]
+        },
+        "cacheExpiresIn": {
+          "type": "number"
+        },
+        "icon": {
+          "title": "Icon",
+          "enum": ["MagnifyingGlass", "LockKeyOpen", "Megaphone", "MapPin"],
+          "type": "string",
+          "default": "MagnifyingGlass"
+        },
+        "mediaGallery": {
+          "widget": {
+            "ui:widget": "media-gallery"
+          },
+          "title": "Media",
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "title": {
+              "title": "Default page title",
+
+              "type": "string",
+              "description": "Display this title when no other tile is available",
+              "default": "FastStore Starter"
+            },
+            "description": {
+              "title": "Meta tag description",
+
+              "type": "string",
+              "default": "A beautifully designed store"
+            },
+            "canonical": {
+              "title": "Canonical url for the page",
+
+              "type": "string"
+            }
+          },
+          "required": ["title", "description"],
+          "type": "object"
+        }
+      }
+    },
+    // `Search` serves as a configuration holder.
+    "Search": {
+      "$componentKey": "Search",
+      "$componentTitle": "Search Bar Configuration",
+      "$extends": ["#/$defs/base-component"],
+      "description": "Search Bar Configuration",
+      "type": "object",
+      "properties": {
+        "searchInput": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "placeholder": {
+              "title": "Placeholder",
+              "type": "string",
+              "default": "Search Everything at the Store"
+            },
+            "icon": {
+              "title": "Search Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"],
+                  "default": "MagnifyingGlass"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "Magnifying Glass"
+                }
+              }
+            }
+          }
+        },
+        "searchHistory": {
+          "title": "Search History",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "History"
+            },
+            "clearButtonLabel": {
+              "type": "string",
+              "title": "Clear Button Label",
+              "default": "Clear History"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Clock Clockwise"],
+                  "enum": ["ClockClockwise"],
+                  "default": "ClockClockwise"
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "History"
+                }
+              }
+            },
+            "maxItems": {
+              "title": "Maximum Number of History Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "searchTop": {
+          "title": "Top Search",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Top Search"
+            },
+            "maxItems": {
+              "title": "Maximum Number of Top Search Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "searchAutocomplete": {
+          "title": "Autocomplete",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Magnifying Glass"
+                }
+              }
+            },
+            "maxItems": {
+              "title": "Maximum Number of Autocomplete Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "searchProducts": {
+          "title": "Suggested Products",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Suggested Products"
+            },
+            "maxItems": {
+              "title": "Maximum Number of Suggested Products",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        }
+      },
+      "required": [
+        "searchInput",
+        "searchHistory",
+        "searchTop",
+        "searchAutocomplete"
+      ]
+    }
+  },
+  "content-types": {
+    "globalSections": {
+      "title": "Global Sections",
+      "$extends": ["#/$defs/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    "globalHeaderSections": {
+      "title": "Global Header Sections",
+      "$singleton": true,
+      "$extends": ["#/$defs/base-page-template"],
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    "globalFooterSections": {
+      "title": "Global Footer Sections",
+      "$singleton": true,
+      "$extends": ["#/$defs/base-page-template"],
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "base-component": {},
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    // This is a special property that allows all components to be used in the
+    // `sections` property of a content-type. Its content will be generated
+    // before this schema is sent to CP's registry.
+    "$ALLOW_ALL_COMPONENTS": {}
+  }
+}
