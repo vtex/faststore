@@ -166,7 +166,7 @@ async function checkDeps(basePath: string): Promise<string[]> {
     return invalidPackages
   } catch (err) {
     console.log(
-      `${chalk.yellow('warning')} - unable to check dependencies. Error: ${err}`
+      `${chalk.yellow('warning')} - unable to check @faststore dependencies: ${err}`
     )
 
     return []
