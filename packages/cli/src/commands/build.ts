@@ -129,33 +129,46 @@ async function copyResources(basePath: string) {
   }
 }
 
-async function checkDeps(basePath: string): Promise<Array<string>> {
+async function checkDeps(basePath: string): Promise<string[]> {
   const packageJsonPath = `${basePath}/package.json`
-  if (!existsSync(packageJsonPath))
-    throw new Error(`package.json not found at ${packageJsonPath}`)
+  if (!existsSync(packageJsonPath)) {
+    console.log(
+      `${chalk.yellow(
+        'warning'
+      )} - package.json not found at ${packageJsonPath}`
+    )
+  }
 
-  const {
-    devDependencies = {},
-    dependencies = {},
-    peerDependencies = {},
-  } = await import(packageJsonPath)
+  try {
+    const {
+      devDependencies = {},
+      dependencies = {},
+      peerDependencies = {},
+    } = await import(packageJsonPath)
 
-  const allDeps: Record<string, string> = Object.assign(
-    {},
-    peerDependencies,
-    devDependencies,
-    dependencies
-  )
+    const allDeps: Record<string, string> = Object.assign(
+      {},
+      peerDependencies,
+      devDependencies,
+      dependencies
+    )
 
-  const invalidPackages: Array<string> = []
+    const invalidPackages: Array<string> = []
 
-  Object.entries(allDeps).forEach(([pkg, version]) => {
-    if (/^@faststore\/.+/i.test(pkg) === false) return
+    Object.entries(allDeps).forEach(([pkg, version]) => {
+      if (/^@faststore\/.+/i.test(pkg) === false) return
 
-    if (version && /^(http|https|git):.+/.test(version) === true) {
-      invalidPackages.push(pkg)
-    }
-  })
+      if (version && /^(http|https|git):.+/.test(version) === true) {
+        invalidPackages.push(pkg)
+      }
+    })
 
-  return invalidPackages
+    return invalidPackages
+  } catch (err) {
+    console.log(
+      `${chalk.yellow('warning')} - unable to check dependencies. Error: ${err}`
+    )
+
+    return []
+  }
 }
