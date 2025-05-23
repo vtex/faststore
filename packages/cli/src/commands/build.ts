@@ -129,7 +129,7 @@ async function copyResources(basePath: string) {
   }
 }
 
-async function checkDeps(basePath: string): Promise<string[]> {
+async function checkDeps(basePath: string): Promise<Array<string>> {
   const packageJsonPath = `${basePath}/package.json`
   if (!existsSync(packageJsonPath)) {
     console.log(
