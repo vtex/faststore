@@ -11,6 +11,7 @@ import MyAccountOrderActionModal, {
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 import { useApproveOrder } from 'src/sdk/account/useApproveOrder'
 import { useRejectOrder } from 'src/sdk/account/useRejectOrder'
+import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 
 const TOASTS_CONFIG = {
   cancel: {
@@ -29,12 +30,16 @@ const TOASTS_CONFIG = {
 
 interface MyAccountOrderActionsProps {
   orderId: string
+  orderStatus?: OrderStatusKey
   customerEmail?: string
+  canRequesterAuthorizeOrder?: boolean
 }
 
 export default function MyAccountOrderActions({
   orderId,
+  orderStatus,
   customerEmail,
+  canRequesterAuthorizeOrder = false,
 }: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
   const { isOpen, actionType, fade, openDialog, closeDialog } =
@@ -98,46 +103,64 @@ export default function MyAccountOrderActions({
           size={isMobile || isTablet ? 'regular' : 'small'}
           type="button"
           onClick={() => openDialog('cancel')}
+          disabled={
+            orderStatus !== 'payment-approved' &&
+            orderStatus !== 'approve-payment'
+          }
         >
           Cancel order
         </UIButton>
-        {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Reject"
-            icon={<UIIcon name="XCircle" />}
-            variant="tertiary"
-            type="button"
-            onClick={() => openDialog('reject')}
-          />
-        ) : (
-          <UIButton
-            variant="secondary"
-            size="small"
-            icon={<UIIcon name="XCircle" />}
-            type="button"
-            onClick={() => openDialog('reject')}
-          >
-            Reject
-          </UIButton>
+
+        {canRequesterAuthorizeOrder && (
+          <>
+            {isMobile || isTablet ? (
+              <UIIconButton
+                aria-label="Reject"
+                icon={<UIIcon name="XCircle" />}
+                variant="tertiary"
+                type="button"
+                onClick={() => openDialog('reject')}
+                disabled={orderStatus !== 'waiting-for-confirmation'}
+              />
+            ) : (
+              <UIButton
+                variant="secondary"
+                size="small"
+                icon={<UIIcon name="XCircle" />}
+                type="button"
+                onClick={() => openDialog('reject')}
+                disabled={orderStatus !== 'waiting-for-confirmation'}
+              >
+                Reject
+              </UIButton>
+            )}
+          </>
         )}
-        {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Approve"
-            icon={<UIIcon name="CircleCheck" />}
-            variant="primary"
-            type="button"
-            onClick={() => openDialog('approve')}
-          />
-        ) : (
-          <UIButton
-            variant="primary"
-            size="small"
-            icon={<UIIcon name="CircleCheck" />}
-            type="button"
-            onClick={() => openDialog('approve')}
-          >
-            Approve
-          </UIButton>
+
+        {canRequesterAuthorizeOrder && (
+          <>
+            {isMobile || isTablet ? (
+              <UIIconButton
+                aria-label="Approve"
+                icon={<UIIcon name="CircleCheck" />}
+                variant="primary"
+                type="button"
+                onClick={() => openDialog('approve')}
+                disabled={orderStatus !== 'waiting-for-confirmation'}
+              />
+            ) : (
+              <UIButton
+                variant="primary"
+                size="small"
+                icon={<UIIcon name="CircleCheck" />}
+                type="button"
+                onClick={() => openDialog('approve')}
+                disabled={orderStatus !== 'waiting-for-confirmation'}
+              >
+                Approve
+              </UIButton>
+            )}
+          </>
         )}
       </div>
 

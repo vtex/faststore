@@ -393,12 +393,14 @@ export const Query = {
 
     try {
       const order = await commerce.oms.userOrder({ orderId })
+      const { canRequesterAuthorizeOrder } =
+        await commerce.oms.getAuthorizationByOrderId({ orderId })
 
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      return order
+      return { ...order, canRequesterAuthorizeOrder }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
         code: string
