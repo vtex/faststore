@@ -228,7 +228,7 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
-    console.log('~~~~~~~~~> URL', pathname)
+
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       { headers }
