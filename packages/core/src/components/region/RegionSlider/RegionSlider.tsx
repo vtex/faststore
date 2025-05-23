@@ -43,7 +43,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
   const { isValidating, ...session } = useSession()
   const { loading, setRegion, regionError, setRegionError } = useRegion()
 
-  const [input, setInput] = useState<string>('')
+  const [input, setInput] = useState<string>(session.postalCode ?? '')
 
   const inputField = cmsData?.inputField
   const idkPostalCodeLink = cmsData?.idkPostalCodeLink
