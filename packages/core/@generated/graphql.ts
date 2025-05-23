@@ -359,13 +359,6 @@ export type IStoreSession = {
   postalCode: InputMaybe<Scalars['String']['input']>
 }
 
-export type Item = {
-  /** Pickup point distance. */
-  distance: Maybe<Scalars['Float']['output']>
-  /** Pickup point. */
-  pickupPoint: Maybe<PickupPoint>
-};
-
 /** Input to the cancel order API. */
 export type IUserOrderCancel = {
   /** Customer's email. */
@@ -374,7 +367,14 @@ export type IUserOrderCancel = {
   orderId: Scalars['String']['input']
   /** Reason. */
   reason: InputMaybe<Scalars['String']['input']>
-};
+}
+
+export type Item = {
+  /** Pickup point distance. */
+  distance: Maybe<Scalars['Float']['output']>
+  /** Pickup point. */
+  pickupPoint: Maybe<PickupPoint>
+}
 
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
@@ -665,7 +665,7 @@ export type QueryListUserOrdersArgs = {
   perPage: InputMaybe<Scalars['Int']['input']>
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   text: InputMaybe<Scalars['String']['input']>
-};
+}
 
 export type QueryPickupPointsArgs = {
   country: InputMaybe<Scalars['String']['input']>
