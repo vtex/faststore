@@ -50,9 +50,9 @@ export const usePickupPoints = () => {
   >(
     query,
     {
-      country: country,
-      geoCoordinates: undefined, //geoCoordinates ?? undefined,
-      postalCode: postalCode,
+      country: hasGeoCoordinates ? undefined : country,
+      geoCoordinates: geoCoordinates ?? undefined,
+      postalCode: hasGeoCoordinates ? undefined : postalCode,
     },
     { fallbackData: null, suspense: true, doNotRun: isValidating }
   )
@@ -60,7 +60,7 @@ export const usePickupPoints = () => {
   if (!data) {
     return null
   }
-  console.log('pickupPoints', data)
+
   const pickupPoints = data.pickupPoints.items.map((item) => ({
     id: item.pickupPoint?.id,
     addressStreet: item.pickupPoint?.address?.street,
