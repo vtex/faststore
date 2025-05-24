@@ -29,7 +29,7 @@ export function StoreCard({ store }: StoreCardProps) {
             {store.city} - {store.state}
           </span>
         </p>
-        <span data-fs-store-card-distance>{store.distance}</span>
+        <span data-fs-store-card-distance>{store.distance} km</span>
       </div>
     </div>
   )

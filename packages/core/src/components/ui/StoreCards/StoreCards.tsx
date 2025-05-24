@@ -25,7 +25,7 @@ function StoreCards() {
   }
 
   return (
-    <UIList as="ol" data-fs-store-card-list>
+    <UIList as="ol" data-fs-store-cards>
       <UIRadioGroup
         name="radio-group"
         onChange={(v) => {
@@ -33,12 +33,12 @@ function StoreCards() {
         }}
         selectedValue={option}
       >
-        <li data-fs-store-card-list-item>
+        <li data-fs-store-cards-item>
           <UIRadioOption value="radio-1" label="Radio 1">
             <StoreCard store={store} />
           </UIRadioOption>
         </li>
-        <li data-fs-store-card-list-item>
+        <li data-fs-store-cards-item>
           <UIRadioOption value="radio-2" label="Radio 2">
             <StoreCard store={store} />
           </UIRadioOption>
