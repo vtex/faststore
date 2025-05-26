@@ -2047,6 +2047,7 @@ export type UserOrderRestitutions = {
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
   allowCancellation?: Maybe<Scalars['Boolean']>;
+  canManageOrder?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;

@@ -63,6 +63,7 @@ type UserOrder {
 type UserOrderResult {
   orderId: String
   status: String
+  canManageOrder: Boolean
   statusDescription: String
   allowCancellation: Boolean
   storePreferencesData: UserOrderStorePreferencesData

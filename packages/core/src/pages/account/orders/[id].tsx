@@ -70,6 +70,7 @@ const query = gql(`
     userOrder(orderId: $orderId) {
       orderId
       status
+      canManageOrder
       statusDescription
       allowCancellation
       storePreferencesData {
