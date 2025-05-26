@@ -49,4 +49,4 @@ function MyComponent {
 
 ## Docs
 
-For more information, please refer to our documentation: https://www.faststore.dev/components
+For more information, please refer to our FastStore UI documentation:https://developers.vtex.com/docs/guides/faststore/components-index
