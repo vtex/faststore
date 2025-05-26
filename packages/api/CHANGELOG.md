@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.48.0](https://github.com/vtex/faststore/compare/v3.47.2...v3.48.0) (2025-05-26)
+
+### Features
+
+- list orders custom fields + design improvements SFS-2513 SFS-2515 ([#2854](https://github.com/vtex/faststore/issues/2854)) ([20d5471](https://github.com/vtex/faststore/commit/20d547178f2e2a6ae1a7dde4d4e1b5dcbae5e4d6))
+
 # [3.47.0](https://github.com/vtex/faststore/compare/v3.46.0...v3.47.0) (2025-05-22)
 
 ### Features
