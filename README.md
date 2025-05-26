@@ -23,7 +23,7 @@
 
 ## Getting started
 
-[Check out the docs](https://www.faststore.dev/quickstart) to quickstart from our official starter and start creating.
+[Check out the docs](https://developers.vtex.com/docs/guides/faststore/getting-started-overview) to quickstart from our official starter and start creating.
 
 ## Official Starter
 
@@ -31,7 +31,7 @@
 
 ## Learn
 
-Check out our [Overview](https://www.faststore.dev/docs/getting-started-overview), [How-to Guides](https://www.faststore.dev/tutorials/gatsby/6), [API References](https://www.faststore.dev/reference) and [Glossary](https://www.faststore.dev/glossary) to deep dive in the world of building FastStores.
+Check out our [FastStore Docs](https://developers.vtex.com/docs/guides/faststore/getting-started-overview) to deep dive in the world of building FastStores.
 
 ## Contributing
 
