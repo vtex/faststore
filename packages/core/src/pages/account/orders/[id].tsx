@@ -1,5 +1,4 @@
 import type { Locator } from '@vtex/client-cms'
-import { parse } from 'cookie'
 
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
@@ -21,9 +20,7 @@ import { default as AfterSection } from 'src/customizations/src/myAccount/extens
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
-import { parseJwt } from 'src/utils/getCookie'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import storeConfig from '../../../../discovery.config'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -37,7 +34,6 @@ type OrderDetailsPageProps = {
 export default function OrderDetailsPage({
   globalSections,
   order,
-  isRepresentative,
 }: OrderDetailsPageProps) {
   return (
     <RenderSections
@@ -46,7 +42,7 @@ export default function OrderDetailsPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout isRepresentative={isRepresentative}>
+      <MyAccountLayout>
         <BeforeSection />
         <MyAccountOrderDetails order={order} />
         <AfterSection />
@@ -207,15 +203,6 @@ export const getServerSideProps: GetServerSideProps<
   Locator
 > = async (context) => {
   // TODO validate permissions here
-  const headers = context.req.headers
-
-  const authCookie = parse(headers?.cookie ?? '')?.[
-    'VtexIdclientAutCookie_' + storeConfig.api.storeId
-  ]
-  const jwt = parseJwt(authCookie)
-
-  const isRepresentative = jwt?.isRepresentative
-  console.log('🚀 ~ isRepresentative:', isRepresentative)
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -280,7 +267,6 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       order: orderDetails.data.userOrder,
-      isRepresentative,
     },
   }
 }
