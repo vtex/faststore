@@ -37,25 +37,27 @@ export const usePickupPoints = () => {
     return null
   }
 
-  const { country, postalCode, geoCoordinates, isValidating } = useSession()
+  const { country, postalCode, geoCoordinates } = useSession()
 
   if (!geoCoordinates && (!postalCode || !country)) {
     return null
   }
 
-  const hasGeoCoordinates = !!geoCoordinates
+  const variables = useMemo(
+    () => ({
+      country: !!geoCoordinates ? undefined : country,
+      geoCoordinates: geoCoordinates ?? undefined,
+      postalCode: !!geoCoordinates ? undefined : postalCode,
+    }),
+    [country, geoCoordinates, postalCode]
+  )
+
   const { data } = useQuery<
     ClientPickupPointsQueryQuery,
     ClientPickupPointsQueryQueryVariables
-  >(
-    query,
-    {
-      country: hasGeoCoordinates ? undefined : country,
-      geoCoordinates: geoCoordinates ?? undefined,
-      postalCode: hasGeoCoordinates ? undefined : postalCode,
-    },
-    { fallbackData: null, suspense: true, doNotRun: isValidating }
-  )
+  >(query, variables, {
+    fallbackData: null,
+  })
 
   if (!data) {
     return null
