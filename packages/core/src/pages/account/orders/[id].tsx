@@ -1,5 +1,4 @@
 import type { Locator } from '@vtex/client-cms'
-
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
