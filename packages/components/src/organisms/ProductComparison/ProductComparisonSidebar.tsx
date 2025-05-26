@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { useFadeEffect, useProductComparison } from '../../hooks'
 import SlideOver, { SlideOverHeader, type SlideOverProps } from '../SlideOver'
-import type { IProductComparison } from './provider/ProductComparisonProvider'
+import type { IProductComparison } from '.'
 
 import {
   Table,
