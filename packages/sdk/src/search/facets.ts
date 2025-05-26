@@ -55,5 +55,8 @@ export const toggleFacet = (facets: Facet[], item: Facet, unique?: boolean) => {
   return setFacet(facets, item, unique)
 }
 
-export const toggleFacets = (facets: Facet[], items: Facet[]) =>
-  items.reduce((acc, curr) => toggleFacet(acc, curr), facets)
+export const toggleFacets = (
+  facets: Facet[],
+  items: Facet[],
+  unique?: boolean
+) => items.reduce((acc, curr) => toggleFacet(acc, curr, unique), facets)
