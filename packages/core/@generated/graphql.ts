@@ -1559,6 +1559,7 @@ export type UserOrderFromList = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
+  customFields: Maybe<UserOrderFromListCustomFields>
   deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
   giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
   hostname: Maybe<Scalars['String']['output']>
@@ -2418,6 +2419,12 @@ export type ServerListOrdersQueryQuery = {
         sellingPrice: number | null
         price: number | null
       } | null> | null
+      customFields: {
+        costCenter: Array<string | null> | null
+        poNumber: Array<string | null> | null
+        release: Array<string | null> | null
+        desktop: Array<string | null> | null
+      } | null
     } | null> | null
     paging: {
       total: number | null
@@ -3474,7 +3481,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '9f48d9d4c1b6e6b32ac1f1c1b7b3819ac826dfe7',
+    operationHash: '7fba0a7d767fceed07b268597d68e5577d952b43',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
