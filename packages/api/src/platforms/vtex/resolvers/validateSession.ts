@@ -106,10 +106,8 @@ export const validateSession = async (
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
-  console.log('🚀 ~ profile:', profile)
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
-  console.log('🚀 ~ authentication:', authentication)
 
   // Set seller only if it's inside a region
   let seller
@@ -145,8 +143,9 @@ export const validateSession = async (
           unitId: authentication?.unitId?.value ?? unitId ?? '', // organization id
           firstName: profile?.firstName?.value ?? '', // contract name for b2b
           lastName: profile?.lastName?.value ?? '',
-          userName: `${profile?.firstName?.value} ${profile?.lastName?.value}`, // shopper
-          userEmail: authentication?.storeUserEmail ?? '',
+          userName:
+            `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim(), // shopper
+          userEmail: authentication?.storeUserEmail.value ?? '',
         }
       : null,
     marketingData,

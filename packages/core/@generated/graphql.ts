@@ -3597,7 +3597,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: 'e07e470b4053aa0450c352cf61d62a8ec1bf9641',
+    operationHash: '6f6d66826c836c3633a8dc3d2fe8220c386584d6',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
