@@ -400,7 +400,7 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      return { ...order, canRequesterAuthorizeOrder }
+      return { ...order, canManageOrder: canRequesterAuthorizeOrder }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
         code: string

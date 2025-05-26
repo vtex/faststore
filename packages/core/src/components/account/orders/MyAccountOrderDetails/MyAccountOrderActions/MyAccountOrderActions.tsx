@@ -32,14 +32,14 @@ interface MyAccountOrderActionsProps {
   orderId: string
   orderStatus?: OrderStatusKey
   customerEmail?: string
-  canRequesterAuthorizeOrder?: boolean
+  canManageOrder?: boolean
 }
 
 export default function MyAccountOrderActions({
   orderId,
   orderStatus,
   customerEmail,
-  canRequesterAuthorizeOrder = false,
+  canManageOrder = false,
 }: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
   const { isOpen, actionType, fade, openDialog, closeDialog } =
@@ -111,7 +111,7 @@ export default function MyAccountOrderActions({
           Cancel order
         </UIButton>
 
-        {canRequesterAuthorizeOrder && (
+        {canManageOrder && (
           <>
             {isMobile || isTablet ? (
               <UIIconButton
@@ -137,7 +137,7 @@ export default function MyAccountOrderActions({
           </>
         )}
 
-        {canRequesterAuthorizeOrder && (
+        {canManageOrder && (
           <>
             {isMobile || isTablet ? (
               <UIIconButton

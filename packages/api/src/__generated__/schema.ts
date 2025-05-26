@@ -1339,7 +1339,7 @@ export type UserOrder = {
   allowEdition?: Maybe<Scalars['Boolean']>;
   authorizedDate?: Maybe<Scalars['String']>;
   callCenterOperatorData?: Maybe<Scalars['String']>;
-  canRequesterAuthorizeOrder?: Maybe<Scalars['Boolean']>;
+  canManageOrder?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;

@@ -65,7 +65,7 @@ export default function MyAccountOrderDetails({
           orderId={order.orderId}
           orderStatus={order.status as OrderStatusKey}
           customerEmail={order.clientProfileData?.email}
-          canRequesterAuthorizeOrder={order.canRequesterAuthorizeOrder}
+          canManageOrder={order.canManageOrder}
         />
       </header>
       <main data-fs-order-details-content>
