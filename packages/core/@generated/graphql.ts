@@ -1258,18 +1258,6 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
-/** User details information. */
-export type StoreUserDetails = {
-  /** User's email. */
-  email: Scalars['String']['output']
-  /** User's name. */
-  name: Scalars['String']['output']
-  /** User's organizational unit. */
-  orgUnit: Maybe<Scalars['String']['output']>
-  /** User's role. */
-  role: Scalars['String']['output']
-}
-
 export type UserOrder = {
   affiliateId: Maybe<Scalars['String']['output']>
   allowCancellation: Maybe<Scalars['Boolean']['output']>

@@ -1330,19 +1330,6 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>;
 };
 
-/** User details information. */
-export type StoreUserDetails = {
-  __typename?: 'StoreUserDetails';
-  /** User's email. */
-  email: Scalars['String'];
-  /** User's name. */
-  name: Scalars['String'];
-  /** User's organizational unit. */
-  orgUnit?: Maybe<Scalars['String']>;
-  /** User's role. */
-  role: Scalars['String'];
-};
-
 export type UserOrder = {
   __typename?: 'UserOrder';
   affiliateId?: Maybe<Scalars['String']>;
