@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
 
 import {
   regionSliderTypes,
@@ -14,6 +14,7 @@ import {
 import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
@@ -41,19 +42,46 @@ function FilterDesktop({
     regionSlider: { type: regionSliderType },
     openRegionSlider,
   } = useUI()
+  const pickupPoints = usePickupPoints()
+  const { postalCode } = sessionStore.read()
 
+  // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
   const { deliverySettings: deliverySettingsData } = regionalizationData
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-
-  const { postalCode } = sessionStore.read()
-  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
-
+  const isDeliveryPromiseEnabled = deliveryPromise.enabled
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
+  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+  const pickupInPointFacet =
+    isDeliveryPromiseEnabled && defaultPickupPoint
+      ? {
+          value: 'pickup-in-point',
+          label: defaultPickupPoint?.name ?? defaultPickupPoint?.addressStreet,
+          selected: !!state.selectedFacets.find(
+            ({ value }) => value === 'pickup-in-point'
+          ),
+          quantity: defaultPickupPoint?.totalItems,
+        }
+      : undefined
+
+  let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
+  if (isDeliveryPromiseEnabled) {
+    // Prevent multiple pickup-in-point facet
+    filteredFacets = facets.map((facet) => {
+      if (
+        defaultPickupPoint &&
+        facet.key === 'shipping' &&
+        facet.__typename === 'StoreFacetBoolean'
+      ) {
+        !facet.values.some((item) => item?.value === 'pickup-in-point') &&
+          facet.values.push(pickupInPointFacet)
+      }
+
+      return facet
+    })
+  }
 
   return (
     <UIFilter
@@ -115,15 +143,37 @@ function FilterDesktop({
                         id={`${testId}-${facet.label}-${item.label}`}
                         testId={testId}
                         onFacetChange={(facet) => {
-                          setState({
-                            ...state,
-                            selectedFacets: toggleFacet(
-                              state.selectedFacets,
-                              facet,
-                              true
-                            ),
-                            page: 0,
-                          })
+                          if (facet.value === 'pickup-in-point') {
+                            setState({
+                              ...state,
+                              selectedFacets: toggleFacets(
+                                state.selectedFacets,
+                                [
+                                  facet,
+                                  {
+                                    key: 'pickupPoint',
+                                    value: defaultPickupPoint?.id,
+                                  },
+                                ],
+                                true
+                              ),
+                              page: 0,
+                            })
+                          } else {
+                            setState({
+                              ...state,
+                              selectedFacets: toggleFacet(
+                                // Case added, filter 'pickupPoint' facet to remove it from search params
+                                state.selectedFacets.filter(
+                                  ({ key }) => key !== 'pickupPoint'
+                                ),
+                                facet,
+                                true
+                              ),
+                              page: 0,
+                            })
+                          }
+
                           resetInfiniteScroll(0)
                         }}
                         selected={item.selected}

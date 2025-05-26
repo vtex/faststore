@@ -14,6 +14,7 @@ import {
 } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -108,19 +109,44 @@ function FilterSlider({
     regionSlider: { type: regionSliderType },
     openRegionSlider,
   } = useUI()
+  const pickupPoints = usePickupPoints()
+  const { postalCode } = sessionStore.read()
 
+  // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
   const { deliverySettings: deliverySettingsData } = regionalizationData
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-
-  const { postalCode } = sessionStore.read()
-  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
-
+  const isDeliveryPromiseEnabled = deliveryPromise.enabled
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
+  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+  const pickupInPointFacet =
+    isDeliveryPromiseEnabled && defaultPickupPoint
+      ? {
+          value: 'pickup-in-point',
+          label: defaultPickupPoint?.name ?? defaultPickupPoint?.addressStreet,
+          selected: !!selected.find(({ value }) => value === 'pickup-in-point'),
+          quantity: defaultPickupPoint?.totalItems,
+        }
+      : undefined
+
+  let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
+  if (isDeliveryPromiseEnabled) {
+    // Prevent multiple pickup-in-point facet
+    filteredFacets = facets.map((facet) => {
+      if (
+        defaultPickupPoint &&
+        facet.key === 'shipping' &&
+        facet.__typename === 'StoreFacetBoolean'
+      ) {
+        !facet.values.some((item) => item?.value === 'pickup-in-point') &&
+          facet.values.push(pickupInPointFacet)
+      }
+
+      return facet
+    })
+  }
 
   return (
     <UIFilterSlider
@@ -140,9 +166,19 @@ function FilterSlider({
         onClick: () => {
           resetInfiniteScroll(0)
 
+          const noPickupInPointShippingFacet = selected.find(
+            ({ key, value }) =>
+              key === 'shipping' && value !== 'pickup-in-point'
+          )
+          const withoutPickupPointFacet = selected.filter(
+            ({ key }) => key !== 'pickupPoint'
+          )
+
           setState({
             ...state,
-            selectedFacets: selected,
+            selectedFacets: noPickupInPointShippingFacet
+              ? withoutPickupPointFacet
+              : selected,
             page: 0,
           })
         },
@@ -212,9 +248,36 @@ function FilterSlider({
                           key={`${testId}-${facet.label}-${item.label}`}
                           id={`${testId}-${facet.label}-${item.label}`}
                           testId={`mobile-${testId}`}
-                          onFacetChange={(facet) =>
-                            dispatch({ type: 'toggleFacet', payload: facet })
-                          }
+                          onFacetChange={(facet) => {
+                            if (facet.value === 'pickup-in-point') {
+                              dispatch({
+                                type: 'toggleFacets',
+                                payload: {
+                                  facets: [
+                                    facet,
+                                    {
+                                      key: 'pickupPoint',
+                                      value: defaultPickupPoint?.id,
+                                    },
+                                  ],
+                                  unique: true,
+                                },
+                              })
+                            } else {
+                              dispatch({
+                                type: 'toggleFacets',
+                                payload: {
+                                  facets: [
+                                    ...selected.filter(
+                                      ({ key }) => key === 'pickupPoint'
+                                    ),
+                                    facet,
+                                  ],
+                                  unique: true,
+                                },
+                              })
+                            }
+                          }}
                           selected={item.selected}
                           value={item.value}
                           quantity={item.quantity}
