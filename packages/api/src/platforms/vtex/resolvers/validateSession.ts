@@ -96,7 +96,6 @@ export const validateSession = async (
   const jwt = parseJwt(authCookie)
 
   const isRepresentative = jwt?.isRepresentative
-  // const userId = jwt?.userId
   const customerId = jwt?.customerId
   const unitId = jwt?.unitId
 

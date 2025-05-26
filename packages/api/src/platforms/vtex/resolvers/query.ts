@@ -457,43 +457,4 @@ export const Query = {
       paging: orders.paging,
     }
   },
-  // only b2b users
-  // userDetails: async (_: unknown, ctx: Context) => {
-  //   const {
-  //     clients: { commerce },
-  //     headers,
-  //     account,
-  //   } = ctx
-
-  //   const authCookie = parse(headers?.cookie ?? '')?.[
-  //     'VtexIdclientAutCookie_' + account
-  //   ]
-  //   const jwt = parseJwt(authCookie)
-
-  //   // const isRepresentative = jwt?.isRepresentative
-  //   const userId = jwt?.userId
-
-  //   const params = new URLSearchParams()
-  //   const [sessionData, user, orgUnit] = await Promise.all([
-  //     commerce.session(params.toString()).catch(() => null),
-
-  //     commerce.licenseManager.getUserById({ userId }).catch(() => null),
-
-  //     commerce.units
-  //       .getUnitByUserId({ userId: String(userId) })
-  //       .catch(() => null),
-  //   ])
-
-  //   const profile = sessionData?.namespaces.profile ?? null
-  //   const authentication = sessionData?.namespaces.authentication ?? null
-
-  //   return {
-  //     name:
-  //       user?.name ??
-  //       `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim(), // shopper
-  //     email: authentication?.storeUserEmail ?? user?.email ?? '',
-  //     role: 'Admin', // TODO change when implemented roles,
-  //     orgUnit: authentication?.unitName?.value ?? (orgUnit ? orgUnit.name : ''),
-  //   }
-  // },
 }
