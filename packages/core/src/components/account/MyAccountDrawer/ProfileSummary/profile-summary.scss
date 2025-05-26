@@ -116,13 +116,10 @@
 
     [data-fs-button-wrapper] {
       padding: calc(var(--fs-spacing-2) - var(--fs-spacing-0)) 1.375rem;
+      font-size: var(--fs-text-size-tiny);
       color: var(--fs-color-danger-text);
       border: var(--fs-border-width) solid var(--fs-border-color-light);
       border-radius: var(--fs-border-radius-pill);
-
-      @include media("<=tablet") {
-        font-size: var(--fs-text-size-tiny);
-      }
     }
   }
 }
