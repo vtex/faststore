@@ -96,24 +96,20 @@ export const validateSession = async (
   const jwt = parseJwt(authCookie)
 
   const isRepresentative = jwt?.isRepresentative
-  const userId = jwt?.userId
+  // const userId = jwt?.userId
   const customerId = jwt?.customerId
   const unitId = jwt?.unitId
 
-  const [sessionData, user] = await Promise.all([
-    clients.commerce.session(params.toString()).catch(() => null),
-
-    isRepresentative
-      ? clients.commerce.licenseManager
-          .getUserById({ userId })
-          .catch(() => null)
-      : Promise.resolve(null),
-  ])
+  const sessionData = await clients.commerce
+    .session(params.toString())
+    .catch(() => null)
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
+  console.log('🚀 ~ profile:', profile)
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
+  console.log('🚀 ~ authentication:', authentication)
 
   // Set seller only if it's inside a region
   let seller
@@ -149,8 +145,8 @@ export const validateSession = async (
           unitId: authentication?.unitId?.value ?? unitId ?? '', // organization id
           firstName: profile?.firstName?.value ?? '', // contract name for b2b
           lastName: profile?.lastName?.value ?? '',
-          userName: user?.name ?? '', // shopper
-          // userEmail: authentication?.storeUserEmail ?? '',
+          userName: `${profile?.firstName?.value} ${profile?.lastName?.value}`, // shopper
+          userEmail: authentication?.storeUserEmail ?? '',
         }
       : null,
     marketingData,

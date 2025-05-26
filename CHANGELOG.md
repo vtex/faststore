@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.48.0](https://github.com/vtex/faststore/compare/v3.47.2...v3.48.0) (2025-05-26)
+
+### Features
+
+- list orders custom fields + design improvements SFS-2513 SFS-2515 ([#2854](https://github.com/vtex/faststore/issues/2854)) ([20d5471](https://github.com/vtex/faststore/commit/20d547178f2e2a6ae1a7dde4d4e1b5dcbae5e4d6))
+
+## [3.47.2](https://github.com/vtex/faststore/compare/v3.47.1...v3.47.2) (2025-05-23)
+
+### Bug Fixes
+
+- Prevent `checkDeps` error ([#2864](https://github.com/vtex/faststore/issues/2864)) ([228a56f](https://github.com/vtex/faststore/commit/228a56ffa85bb7eb0663841aa74efe60d0531171))
+
+## [3.47.1](https://github.com/vtex/faststore/compare/v3.47.0...v3.47.1) (2025-05-22)
+
+### Bug Fixes
+
+- search product styles tokens ([#2860](https://github.com/vtex/faststore/issues/2860)) ([e9c672e](https://github.com/vtex/faststore/commit/e9c672ed8697a48931bf6e17af10b79c250d595b))
+
+# [3.47.0](https://github.com/vtex/faststore/compare/v3.46.0...v3.47.0) (2025-05-22)
+
+### Features
+
+- clean up GraphQL types and queries for user orders SFS-2516 ([#2858](https://github.com/vtex/faststore/issues/2858)) ([8ed42d5](https://github.com/vtex/faststore/commit/8ed42d590d0e0557f99ae1fc015f70d71a88a743))
+
+# [3.46.0](https://github.com/vtex/faststore/compare/v3.45.0...v3.46.0) (2025-05-21)
+
+### Features
+
+- userEmail instead of roles in Drawer SFS-2514 ([#2853](https://github.com/vtex/faststore/issues/2853)) ([56f36ba](https://github.com/vtex/faststore/commit/56f36bab29c39b530f5ddc3e734077f69c682e4a))
+
 # 3.45.0 (2025-05-20)
 
 ### Features

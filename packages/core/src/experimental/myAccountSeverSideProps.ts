@@ -11,6 +11,7 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
+  isRepresentative?: boolean
 }
 
 export const getServerSideProps: GetServerSideProps<

@@ -53,7 +53,7 @@ export const OrganizationDrawer = ({
           onLogoutClick={doLogout}
           person={{
             name: b2b?.userName ?? '',
-            role: 'Admin',
+            email: b2b?.userEmail ?? '',
           }}
           orgName={b2b?.unitName ?? ''}
         />

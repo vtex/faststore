@@ -413,6 +413,11 @@ type Query {
     clientEmail: String
   ): UserOrderListMinimalResult
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the current user details.
+  """
+  userDetails: StoreUserDetails!
 }
 
 """
@@ -456,4 +461,26 @@ type SellerInfo {
   Logo of the seller
   """
   logo: String
+}
+
+"""
+User details information.
+"""
+type StoreUserDetails {
+  """
+  User's name.
+  """
+  name: String!
+  """
+  User's email.
+  """
+  email: String!
+  """
+  User's role.
+  """
+  role: String!
+  """
+  User's organizational unit.
+  """
+  orgUnit: String
 }

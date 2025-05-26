@@ -189,6 +189,7 @@ export type IStoreB2B = {
   lastName: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
   unitName: InputMaybe<Scalars['String']['input']>
+  userEmail: InputMaybe<Scalars['String']['input']>
   userName: InputMaybe<Scalars['String']['input']>
 }
 
@@ -556,6 +557,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
 }
@@ -772,6 +775,7 @@ export type StoreB2B = {
   lastName: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
   unitName: Maybe<Scalars['String']['output']>
+  userEmail: Maybe<Scalars['String']['output']>
   userName: Maybe<Scalars['String']['output']>
 }
 
@@ -1254,6 +1258,18 @@ export type StoreSuggestions = {
   products: Array<StoreProduct>
   /** Array with suggestion terms. */
   terms: Array<StoreSuggestionTerm>
+}
+
+/** User details information. */
+export type StoreUserDetails = {
+  /** User's email. */
+  email: Scalars['String']['output']
+  /** User's name. */
+  name: Scalars['String']['output']
+  /** User's organizational unit. */
+  orgUnit: Maybe<Scalars['String']['output']>
+  /** User's role. */
+  role: Scalars['String']['output']
 }
 
 export type UserOrder = {
@@ -2872,6 +2888,7 @@ export type ValidateSessionMutation = {
       firstName: string | null
       lastName: string | null
       userName: string | null
+      userEmail: string | null
     } | null
     marketingData: {
       utmCampaign: string | null
