@@ -169,14 +169,13 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
-  corporateName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
+  userEmail?: Maybe<Scalars['String']>;
   userName?: Maybe<Scalars['String']>;
 };
 
@@ -545,7 +544,7 @@ export type Query = {
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
   /** Returns information about the list of Orders that the User can view. */
-  listUserOrders?: Maybe<UserOrderListResult>;
+  listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -561,7 +560,7 @@ export type Query = {
   /** Returns information about shipping simulation. */
   shipping?: Maybe<ShippingData>;
   /** Returns information about the Details of an User Order. */
-  userOrder?: Maybe<UserOrder>;
+  userOrder?: Maybe<UserOrderResult>;
 };
 
 
@@ -794,14 +793,13 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
-  corporateName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
+  userEmail?: Maybe<Scalars['String']>;
   userName?: Maybe<Scalars['String']>;
 };
 
@@ -1661,6 +1659,7 @@ export type UserOrderFromList = {
   clientName?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   currencyCode?: Maybe<Scalars['String']>;
+  customFields?: Maybe<UserOrderFromListCustomFields>;
   deliveryDates?: Maybe<Array<Maybe<Scalars['String']>>>;
   giftCardProviders?: Maybe<Array<Maybe<Scalars['String']>>>;
   hostname?: Maybe<Scalars['String']>;
@@ -1689,6 +1688,28 @@ export type UserOrderFromList = {
   totalValue?: Maybe<Scalars['Float']>;
   workflowInErrorState?: Maybe<Scalars['Boolean']>;
   workflowInRetry?: Maybe<Scalars['Boolean']>;
+};
+
+export type UserOrderFromListCustomFields = {
+  __typename?: 'UserOrderFromListCustomFields';
+  costCenter?: Maybe<Array<Maybe<Scalars['String']>>>;
+  desktop?: Maybe<Array<Maybe<Scalars['String']>>>;
+  poNumber?: Maybe<Array<Maybe<Scalars['String']>>>;
+  release?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type UserOrderFromListMinimal = {
+  __typename?: 'UserOrderFromListMinimal';
+  ShippingEstimatedDate?: Maybe<Scalars['String']>;
+  clientName?: Maybe<Scalars['String']>;
+  creationDate?: Maybe<Scalars['String']>;
+  currencyCode?: Maybe<Scalars['String']>;
+  customFields?: Maybe<UserOrderFromListCustomFields>;
+  items?: Maybe<Array<Maybe<UserOrderItemsSummarized>>>;
+  orderId?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  statusDescription?: Maybe<Scalars['String']>;
+  totalValue?: Maybe<Scalars['Float']>;
 };
 
 export const enum UserOrderInvoiceType {
@@ -1779,6 +1800,12 @@ export type UserOrderItemsSummarized = {
   refId?: Maybe<Scalars['String']>;
   seller?: Maybe<Scalars['String']>;
   sellingPrice?: Maybe<Scalars['Float']>;
+};
+
+export type UserOrderListMinimalResult = {
+  __typename?: 'UserOrderListMinimalResult';
+  list?: Maybe<Array<Maybe<UserOrderFromListMinimal>>>;
+  paging?: Maybe<UserOrderListPaging>;
 };
 
 export type UserOrderListPaging = {
@@ -2015,6 +2042,23 @@ export type UserOrderRestitutions = {
   __typename?: 'UserOrderRestitutions';
   GiftCard?: Maybe<UserOrderRestitutionOption>;
   Refund?: Maybe<UserOrderRestitutionOption>;
+};
+
+export type UserOrderResult = {
+  __typename?: 'UserOrderResult';
+  allowCancellation?: Maybe<Scalars['Boolean']>;
+  clientProfileData?: Maybe<UserOrderClientProfileData>;
+  customData?: Maybe<UserOrderCustomData>;
+  customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
+  deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
+  items?: Maybe<Array<Maybe<UserOrderItems>>>;
+  orderId?: Maybe<Scalars['String']>;
+  paymentData?: Maybe<UserOrderPaymentData>;
+  shippingData?: Maybe<UserOrderShippingData>;
+  status?: Maybe<Scalars['String']>;
+  statusDescription?: Maybe<Scalars['String']>;
+  storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
+  totals?: Maybe<Array<Maybe<UserOrderTotals>>>;
 };
 
 export type UserOrderSellingPrices = {

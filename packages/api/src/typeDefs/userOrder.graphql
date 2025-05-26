@@ -60,6 +60,22 @@ type UserOrder {
   canManageOrder: Boolean
 }
 
+type UserOrderResult {
+  orderId: String
+  status: String
+  statusDescription: String
+  allowCancellation: Boolean
+  storePreferencesData: UserOrderStorePreferencesData
+  clientProfileData: UserOrderClientProfileData
+  customData: UserOrderCustomData
+  customFields: [UserOrderCustomFieldsGrouped]
+  deliveryOptionsData: UserOrderDeliveryOptionsData
+  paymentData: UserOrderPaymentData
+  totals: [UserOrderTotals]
+  shippingData: UserOrderShippingData
+  items: [UserOrderItems]
+}
+
 type UserOrderListResult {
   list: [UserOrderFromList]
   paging: UserOrderListPaging
@@ -134,6 +150,7 @@ type UserOrderFromList {
   paymentApprovedDate: String
   readyForHandlingDate: String
   deliveryDates: [String]
+  customFields: UserOrderFromListCustomFields
 }
 
 type UserOrderCustomData {
@@ -712,4 +729,29 @@ type UserOrderCustomFieldsGrouped {
   type: String!
   id: String
   fields: [UserOrderCustomFieldField]
+}
+
+type UserOrderFromListCustomFields {
+  costCenter: [String]
+  poNumber: [String]
+  release: [String]
+  desktop: [String]
+}
+
+type UserOrderListMinimalResult {
+  list: [UserOrderFromListMinimal]
+  paging: UserOrderListPaging
+}
+
+type UserOrderFromListMinimal {
+  orderId: String
+  creationDate: String
+  clientName: String
+  items: [UserOrderItemsSummarized]
+  totalValue: Float
+  status: String
+  statusDescription: String
+  ShippingEstimatedDate: String
+  customFields: UserOrderFromListCustomFields
+  currencyCode: String
 }

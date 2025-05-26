@@ -49,11 +49,10 @@ export const mutation = gql(`
         isRepresentative
         unitName
         unitId
-        isCorporate
-        corporateName
         firstName
         lastName
         userName
+        userEmail
       }
       marketingData {
         utmCampaign

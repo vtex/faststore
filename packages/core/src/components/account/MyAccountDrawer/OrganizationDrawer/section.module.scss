@@ -115,6 +115,10 @@
       // Footer
       [data-fs-organization-drawer-footer-wrapper] {
         padding: var(--fs-spacing-6) var(--fs-spacing-5);
+
+        @include media("<tablet") {
+          padding: var(--fs-spacing-2);
+        }
       }
     }
   }

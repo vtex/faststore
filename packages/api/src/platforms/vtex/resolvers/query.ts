@@ -400,7 +400,20 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      return { ...order, canManageOrder: canRequesterAuthorizeOrder }
+      return {
+        orderId: order.orderId,
+        totals: order.totals,
+        items: order.items,
+        shippingData: order.shippingData,
+        paymentData: order.paymentData,
+        customData: order.customData,
+        status: order.status,
+        statusDescription: order.statusDescription,
+        allowCancellation: order.allowCancellation,
+        storePreferencesData: order.storePreferencesData,
+        clientProfileData: order.clientProfileData,
+        canManageOrder: canRequesterAuthorizeOrder,
+      }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
         code: string
@@ -408,11 +421,11 @@ export const Query = {
         exception: any
       }
 
-      if (message.toLowerCase().includes('order not found')) {
+      if (message?.toLowerCase()?.includes('order not found')) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      if (message.toLowerCase().includes('acesso negado')) {
+      if (message?.toLowerCase()?.includes('acesso negado')) {
         throw new ForbiddenError(
           `You are forbidden to interact with order with id ${orderId}`
         )
@@ -431,7 +444,20 @@ export const Query = {
     } = ctx
 
     const orders = await commerce.oms.listUserOrders(filters)
-
-    return orders
+    return {
+      list: orders.list?.map((order: any) => ({
+        orderId: order.orderId,
+        creationDate: order.creationDate,
+        clientName: order.clientName,
+        items: order.items,
+        totalValue: order.totalValue,
+        status: order.status,
+        statusDescription: order.statusDescription,
+        ShippingEstimatedDate: order.ShippingEstimatedDate,
+        customFields: order.customFields,
+        currencyCode: order.currencyCode,
+      })),
+      paging: orders.paging,
+    }
   },
 }

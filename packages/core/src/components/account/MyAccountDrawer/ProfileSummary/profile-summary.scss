@@ -43,37 +43,70 @@
 
 [data-fs-profile-summary-person-actions] {
   display: flex;
-  justify-content: space-between;
+  min-width: min-content;
   padding: calc(var(--fs-spacing-3) + var(--fs-spacing-0));
+
+  @include media("<notebook") {
+    justify-content: space-between;
+  }
+
+  @include media("<tablet") {
+    padding: calc(var(--fs-spacing-0) + var(--fs-spacing-0));
+  }
+
+  [data-fs-profile-summary-person-info] {
+    display: flex;
+    align-items: center;
+
+    @include media(">=notebook") {
+      width: 60%;
+    }
+  }
 
   [data-fs-profile-summary-person-image] {
     display: flex;
     align-items: center;
     justify-content: center;
     width: var(--fs-spacing-6);
+    min-width: var(--fs-spacing-6);
     height: var(--fs-spacing-6);
     margin-right: var(--fs-spacing-3);
     overflow: hidden;
     color: var(--fs-border-color-active);
     background-color: #cbe9ff;
     border-radius: var(--fs-border-radius-pill);
+
+    @include media("<=tablet") {
+      margin-right: var(--fs-spacing-1);
+    }
   }
 
   [data-fs-profile-summary-person-data] {
     display: flex;
-    flex: 1;
     flex-direction: column;
     gap: var(--fs-spacing-0);
     font-size: var(--fs-text-size-legend);
+
+    @include media(">=notebook") {
+      width: 75%;
+    }
+
+    @include media("<=tablet") {
+      font-size: var(--fs-text-size-tiny);
+    }
 
     [data-fs-profile-summary-person-name] {
       font-weight: var(--fs-text-weight-medium);
       color: var(--fs-color-text);
     }
 
-    [data-fs-profile-summary-person-role] {
+    [data-fs-profile-summary-person-email] {
+      width: 100%;
+      overflow: hidden;
       font-weight: var(--fs-text-weight-semibold);
       color: var(--fs-color-text-light);
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
@@ -83,6 +116,7 @@
 
     [data-fs-button-wrapper] {
       padding: calc(var(--fs-spacing-2) - var(--fs-spacing-0)) 1.375rem;
+      font-size: var(--fs-text-size-tiny);
       color: var(--fs-color-danger-text);
       border: var(--fs-border-width) solid var(--fs-border-color-light);
       border-radius: var(--fs-border-radius-pill);

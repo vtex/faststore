@@ -96,32 +96,12 @@ export const validateSession = async (
   const jwt = parseJwt(authCookie)
 
   const isRepresentative = jwt?.isRepresentative
-  const userId = jwt?.userId
   const customerId = jwt?.customerId
+  const unitId = jwt?.unitId
 
-  const [sessionData, vtexid, unit, contract, user] = await Promise.all([
-    clients.commerce.session(params.toString()).catch(() => null),
-
-    isRepresentative
-      ? clients.commerce.vtexid.validate().catch(() => null)
-      : Promise.resolve(null),
-
-    isRepresentative
-      ? clients.commerce.units.getUnitByUserId({ userId }).catch(() => null)
-      : Promise.resolve(null),
-
-    isRepresentative
-      ? clients.commerce.masterData
-          .getContractById({ contractId: customerId })
-          .catch(() => null)
-      : Promise.resolve(null),
-
-    isRepresentative
-      ? clients.commerce.licenseManager
-          .getUserById({ userId })
-          .catch(() => null)
-      : Promise.resolve(null),
-  ])
+  const sessionData = await clients.commerce
+    .session(params.toString())
+    .catch(() => null)
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
@@ -156,20 +136,15 @@ export const validateSession = async (
     }),
     b2b: isRepresentative
       ? {
-          customerId:
-            authentication?.customerId?.value ??
-            vtexid?.customerId ??
-            customerId ??
-            '',
-          isRepresentative:
-            vtexid?.isRepresentative ?? isRepresentative ?? false,
-          unitName: unit?.name ?? vtexid?.unitName ?? '',
-          unitId: unit?.id ?? '',
-          isCorporate: contract?.isCorporate ?? false,
-          corporateName: contract?.corporateName ?? '',
-          firstName: contract?.firstName ?? '',
-          lastName: contract?.lastName ?? '',
-          userName: user?.name ?? '',
+          isRepresentative: isRepresentative ?? false,
+          customerId: authentication?.customerId?.value ?? customerId ?? '', //contract
+          unitName: authentication?.unitName?.value ?? '', // organization name
+          unitId: authentication?.unitId?.value ?? unitId ?? '', // organization id
+          firstName: profile?.firstName?.value ?? '', // contract name for b2b
+          lastName: profile?.lastName?.value ?? '',
+          userName:
+            `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim(), // shopper
+          userEmail: authentication?.storeUserEmail.value ?? '',
         }
       : null,
     marketingData,

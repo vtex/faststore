@@ -42,11 +42,10 @@ export interface B2bInfo {
   isRepresentative: boolean
   unitName: string
   unitId: string
-  isCorporate: boolean
-  corporateName: string
   firstName: string
   lastName: string
   userName: string
+  userEmail: string
 }
 
 export interface Session {
