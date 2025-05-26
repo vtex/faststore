@@ -3013,10 +3013,17 @@ export type ClientPickupPointsQueryQuery = {
   pickupPoints: {
     paging: { total: number | null } | null
     items: Array<{
+      distance: number | null
       pickupPoint: {
         id: string | null
         friendlyName: string | null
-        address: { street: string | null } | null
+        address: {
+          street: string | null
+          number: string | null
+          postalCode: string | null
+          city: string | null
+          state: string | null
+        } | null
       } | null
     } | null> | null
   } | null
@@ -3705,7 +3712,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ClientPickupPointsQueryDocument = {
   __meta__: {
     operationName: 'ClientPickupPointsQuery',
-    operationHash: '0267c77a87cb0592dfd9a73bad8f632c1801541b',
+    operationHash: '66d8a051fb16b0ce0c6177ab85387b8b05518e21',
   },
 } as unknown as TypedDocumentString<
   ClientPickupPointsQueryQuery,

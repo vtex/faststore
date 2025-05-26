@@ -4,6 +4,7 @@ import {
   RadioOption as UIRadioOption,
 } from '@faststore/ui'
 import { useState } from 'react'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import { StoreCard } from './StoreCard'
 
 function StoreCards() {
@@ -11,17 +12,16 @@ function StoreCards() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOption(event.target.value)
+    // TODO: Handle the change event as needed
     console.log(event.target.value)
   }
 
-  const store = {
-    name: 'Botafogo',
-    postalCode: '22250-040',
-    address: 'Av. Brigadeiro Faria Lima',
-    number: '4440',
-    city: 'São Paulo',
-    state: 'SP',
-    distance: 125.0,
+  const pickupPoints = usePickupPoints()
+  console.log(pickupPoints)
+
+  if (pickupPoints?.length === 0) {
+    // TODO: Adjust this according prototype
+    return <p>no stores</p>
   }
 
   return (
@@ -33,16 +33,23 @@ function StoreCards() {
         }}
         selectedValue={option}
       >
-        <li data-fs-store-cards-item>
-          <UIRadioOption value="radio-1" label="Radio 1">
-            <StoreCard store={store} />
-          </UIRadioOption>
-        </li>
-        <li data-fs-store-cards-item>
-          <UIRadioOption value="radio-2" label="Radio 2">
-            <StoreCard store={store} />
-          </UIRadioOption>
-        </li>
+        {pickupPoints?.map((item) => (
+          <li data-fs-store-cards-item key={item.id}>
+            <UIRadioOption value={item.id} label={item.name}>
+              <StoreCard
+                store={{
+                  name: item.name,
+                  address: item.addressStreet,
+                  number: item.addressNumber,
+                  city: item.addressCity,
+                  state: item.addressState,
+                  postalCode: item.addressPostalCode,
+                  distance: item.distance,
+                }}
+              />
+            </UIRadioOption>
+          </li>
+        ))}
       </UIRadioGroup>
     </UIList>
   )

@@ -12,6 +12,11 @@ export type StoreCardProps = {
   }
 }
 
+function formatDistance(distance: number) {
+  //TODO: check this
+  return `${distance.toFixed(1).replace('.', ',')}km`
+}
+
 export function StoreCard({ store }: StoreCardProps) {
   return (
     <div data-fs-store-card>
@@ -29,7 +34,9 @@ export function StoreCard({ store }: StoreCardProps) {
             {store.city} - {store.state}
           </span>
         </p>
-        <span data-fs-store-card-distance>{store.distance} km</span>
+        <span data-fs-store-card-distance>
+          {formatDistance(store.distance)}
+        </span>
       </div>
     </div>
   )
