@@ -33,11 +33,13 @@ export default function MyAccountUserDetails({
 
         <div data-fs-user-details-row>
           <span data-fs-user-details-row-label>Role</span>
-          {role.map((r) => (
-            <span key={r} data-fs-user-details-row-value>
-              <Tag>{r}</Tag>
-            </span>
-          ))}
+          <div data-fs-user-details-row-tags>
+            {role.map((r) => (
+              <span key={r} data-fs-user-details-row-value>
+                <Tag>{r}</Tag>
+              </span>
+            ))}
+          </div>
         </div>
 
         <hr data-fs-user-details-divider />
