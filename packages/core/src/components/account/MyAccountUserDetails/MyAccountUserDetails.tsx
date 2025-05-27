@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import Tag from '../components/MyAccountTag'
 import styles from './styles.module.scss'
 
 type MyAccountUserDetailsProps = {
@@ -50,13 +50,3 @@ export default function MyAccountUserDetails({
     </section>
   )
 }
-
-export type TagProps = {
-  children: ReactNode
-}
-
-export const Tag = ({ children, ...otherProps }: TagProps) => (
-  <span data-fs-tag {...otherProps}>
-    {children}
-  </span>
-)
