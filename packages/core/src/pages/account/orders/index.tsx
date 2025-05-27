@@ -127,6 +127,8 @@ export const getServerSideProps: GetServerSideProps<
     account: storeConfig.account,
   })
 
+  console.log('🚀 ~ isRepresentative:', isRepresentative)
+
   const { previewData } = context
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
