@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
@@ -13,11 +10,20 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
+import { gql } from '@generated/gql'
+import type {
+  ServerUserDetailsQueryQuery,
+  ServerUserDetailsQueryQueryVariables,
+} from '@generated/graphql'
+import MyAccountUserDetails from 'src/components/account/MyAccountUserDetails/MyAccountUserDetails'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -25,7 +31,20 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-export default function Page({ globalSections }: MyAccountProps) {
+type UserDetailsPagePros = {
+  userDetails: {
+    name: string
+    email: string
+    role: string[]
+    orgUnit: string
+  }
+} & MyAccountProps
+
+export default function Page({
+  globalSections,
+  isRepresentative,
+  userDetails,
+}: UserDetailsPagePros) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -33,26 +52,41 @@ export default function Page({ globalSections }: MyAccountProps) {
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout>
+      <MyAccountLayout isRepresentative={isRepresentative}>
         <BeforeSection />
-        <div>
-          <h1>User Details</h1>
-        </div>
+        <MyAccountUserDetails userDetails={userDetails} />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
   )
 }
 
+const query = gql(`
+  query ServerUserDetailsQuery {
+    userDetails {
+      name
+      email
+      role
+      orgUnit
+    }
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
-> = async ({ previewData, query }) => {
+> = async (context) => {
+  const { previewData, query: queryParams } = context
   // TODO validate permissions here
 
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.account,
+  })
+
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query,
+    query: queryParams,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -65,22 +99,34 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
 
-  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    userDetails,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    execute<ServerUserDetailsQueryQueryVariables, ServerUserDetailsQueryQuery>(
+      {
+        variables: {},
+        operation: query,
+      },
+      {
+        headers: { ...context.req.headers },
+      }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
 
-  // TODO handle 404 when userDetails request is made
-  // if (userDetails.errors) {
-  //   return {
-  //     redirect: {
-  //       destination: '/account/404',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  if (userDetails?.errors) {
+    return {
+      redirect: {
+        destination: '/account/404',
+        permanent: false,
+      },
+    }
+  }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -89,6 +135,10 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult },
+    props: {
+      userDetails: userDetails.data?.userDetails ?? {},
+      globalSections: globalSectionsResult,
+      isRepresentative,
+    },
   }
 }
