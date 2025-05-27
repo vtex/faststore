@@ -11,9 +11,11 @@ import {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { execute } from 'src/server'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import storeConfig from '../../discovery.config'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -32,7 +34,14 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
+  const { previewData, query } = context
+
   // TODO validate permissions here
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.account,
+  })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -75,6 +84,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: account.data.accountName,
+      isRepresentative,
     },
   }
 }
