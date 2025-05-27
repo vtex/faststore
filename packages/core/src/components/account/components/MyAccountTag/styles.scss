@@ -1,11 +1,22 @@
 [data-fs-tag] {
-  padding: var(--fs-spacing-0) var(--fs-spacing-2);
-  margin-right: var(--fs-spacing-0);
-  font-size: var(--fs-text-size-0);
-  font-weight: var(--fs-text-weight-regular);
-  line-height: var(--fs-spacing-3);
-  color: black;
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  --fs-tag-padding       : var(--fs-spacing-0) var(--fs-spacing-2);
+  --fs-tag-font-size     : var(--fs-text-size-0);
+  --fs-tag-font-weight   : var(--fs-text-weight-regular);
+  --fs-tag-line-height   : var(--fs-spacing-3);
+  --fs-tag-color         : black;
+  --fs-tag-bkg-color     : #f5f5f5;
+  --fs-tag-radius        : var(--fs-border-radius-pill);
+
+  padding: var(--fs-tag-padding);
+  font-size: var(--fs-tag-font-size);
+  font-weight: var(--fs-tag-font-weight);
+  line-height: var(--fs-tag-line-height);
+  color: var(--fs-tag-color);
   white-space: nowrap;
-  background-color: #f5f5f5;
-  border-radius: var(--fs-border-radius-pill);
+  background-color: var(--fs-tag-bkg-color);
+  border-radius: var(--fs-tag-radius);
 }
