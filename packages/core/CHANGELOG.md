@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.50.0](https://github.com/vtex/faststore/compare/v3.49.2...v3.50.0) (2025-05-27)
+
+### Features
+
+- sfs 2278 sfs 2518 account order design adjusts ([#2861](https://github.com/vtex/faststore/issues/2861)) ([20dc56c](https://github.com/vtex/faststore/commit/20dc56cd118b942d5ed384f395eaa8fd1365f4e4))
+
 ## [3.49.2](https://github.com/vtex/faststore/compare/v3.49.1...v3.49.2) (2025-05-27)
 
 ### Reverts
