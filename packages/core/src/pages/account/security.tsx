@@ -16,8 +16,10 @@ import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -25,7 +27,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-export default function Page({ globalSections }: MyAccountProps) {
+export default function Page({
+  globalSections,
+  isRepresentative,
+}: MyAccountProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -33,7 +38,7 @@ export default function Page({ globalSections }: MyAccountProps) {
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout>
+      <MyAccountLayout isRepresentative={isRepresentative}>
         <BeforeSection />
         <div>
           <h1>Security</h1>
@@ -48,8 +53,14 @@ export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
-> = async ({ previewData, query }) => {
+> = async (context) => {
+  const { previewData, query } = context
   // TODO validate permissions here
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.account,
+  })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query,
@@ -89,6 +100,6 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult },
+    props: { globalSections: globalSectionsResult, isRepresentative },
   }
 }
