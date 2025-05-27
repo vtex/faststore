@@ -124,7 +124,17 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  if (userDetails.errors) {
+  // If the user is not a representative (b2b), redirect them to the account home page
+  if (!isRepresentative) {
+    return {
+      redirect: {
+        destination: '/account',
+        permanent: false,
+      },
+    }
+  }
+
+  if (userDetails?.errors) {
     const statusCode: number = (userDetails.errors[0] as any)?.extensions
       ?.status
     const destination: string =
