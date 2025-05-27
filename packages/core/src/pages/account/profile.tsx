@@ -18,12 +18,15 @@ import { default as BeforeSection } from 'src/customizations/src/myAccount/exten
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+<<<<<<< HEAD
 import { gql } from '@generated/gql'
 import { execute } from 'src/server'
 import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
 } from '@generated/graphql'
+=======
+>>>>>>> cb203381e (chore: accept PR suggestions)
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

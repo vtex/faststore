@@ -1,6 +1,18 @@
-import { useCallback, useMemo } from 'react'
 import { strings } from './i18n'
 import styles from './profile.module.scss'
+import { useDateFormatter } from './use-date-formatter'
+
+interface UserProfile {
+  name: string
+  email: string
+  id: string
+  createdDate: string
+}
+
+export interface ProfileSectionProps {
+  profile?: UserProfile
+  locale?: string
+}
 
 /*
  * Renders the /account/profile section
@@ -20,7 +32,7 @@ export function ProfileSection(props: ProfileSectionProps) {
   const { formatStringDate } = useDateFormatter(locale)
 
   return (
-    <div data-fs-account-profile-section className={styles.profileSection}>
+    <div data-fs-account-profile-section className={styles.section}>
       <header data-fs-account-profile-header>
         <h1 data-fs-account-profile-title>{strings.profile}</h1>
       </header>
@@ -54,40 +66,4 @@ export function ProfileSection(props: ProfileSectionProps) {
       </section>
     </div>
   )
-}
-
-function useDateFormatter(locale: string) {
-  const dateFormatter = useMemo(
-    () =>
-      new Intl.DateTimeFormat(locale, {
-        dateStyle: 'medium',
-      }),
-    [locale]
-  )
-
-  const formatStringDate = useCallback(
-    (dateString: string) => {
-      const date = new Date(dateString)
-      const formattedDate = dateFormatter.format(date)
-      return formattedDate
-    },
-    [dateFormatter]
-  )
-
-  return {
-    dateFormatter,
-    formatStringDate,
-  }
-}
-
-interface UserProfile {
-  name: string
-  email: string
-  id: string
-  createdDate: string
-}
-
-export interface ProfileSectionProps {
-  profile?: UserProfile
-  locale?: string
 }
