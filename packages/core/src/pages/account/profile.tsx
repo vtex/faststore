@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const { previewData, queryParams } = context
+  const { previewData, query: queryParams } = context
   // TODO validate permissions here
 
   const isRepresentative = getIsRepresentative({

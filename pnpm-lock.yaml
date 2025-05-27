@@ -143,7 +143,7 @@ importers:
         version: 0.21.12
       "@faststore/core":
         specifier: ^3.48.0
-        version: 3.49.0(@babel/core@7.26.7)(@faststore/components@packages+components)(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(typescript@5.4.5)(webpack@5.97.1)
+        version: 3.49.0(@babel/core@7.26.7)(@faststore/components@3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.4.5)(webpack@5.97.1)
       "@inquirer/prompts":
         specifier: ^5.1.2
         version: 5.1.2
@@ -294,8 +294,8 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: ^3.48.0
-        version: 3.49.0(encoding@0.1.13)(graphql@15.8.0)(rollup@2.79.2)
+        specifier: 3.48.0
+        version: link:../api
       "@faststore/graphql-utils":
         specifier: ^3.45.0
         version: link:../graphql-utils
@@ -303,8 +303,8 @@ importers:
         specifier: ^3.45.0
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: ^3.46.0
-        version: 3.49.0(react@18.3.1)
+        specifier: 3.46.0
+        version: link:../sdk
       "@faststore/ui":
         specifier: ^3.47.1
         version: link:../ui
@@ -535,7 +535,7 @@ importers:
     dependencies:
       "@faststore/components":
         specifier: ^3.45.0
-        version: link:../components
+        version: 3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       "@faststore/ui":
         specifier: ^3.47.1
         version: link:../ui
@@ -589,7 +589,7 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.45.0
+        specifier: 3.45.0
         version: link:../components
       include-media:
         specifier: ^1.4.10
@@ -2321,6 +2321,15 @@ packages:
     engines: { node: ">=18" }
     peerDependencies:
       graphql: ^15.6.0
+
+  "@faststore/components@3.49.1":
+    resolution:
+      {
+        integrity: sha512-xBBtgrt71R1YdIdbqBvCww8mP7Aib5uqVRAcAGnQJHJt6fJKg+DH9mZCv/auRTUXIpbzE9ikSj951isZX9r7/Q==,
+      }
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
 
   "@faststore/core@3.49.0":
     resolution:
@@ -18974,7 +18983,15 @@ snapshots:
       - encoding
       - rollup
 
-  "@faststore/core@3.49.0(@babel/core@7.26.7)(@faststore/components@packages+components)(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(typescript@5.4.5)(webpack@5.97.1)":
+  "@faststore/components@3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)":
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-intersection-observer: 8.34.0(react@18.3.1)
+      react-swipeable: 7.0.0(react@18.3.1)
+      tabbable: 5.3.3
+
+  "@faststore/core@3.49.0(@babel/core@7.26.7)(@faststore/components@3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.4.5)(webpack@5.97.1)":
     dependencies:
       "@antfu/ni": 0.21.12
       "@builder.io/partytown": 0.6.4
@@ -18986,7 +19003,7 @@ snapshots:
       "@faststore/graphql-utils": 3.45.0(graphql@15.8.0)
       "@faststore/lighthouse": 3.45.0
       "@faststore/sdk": 3.49.0(react@18.3.1)
-      "@faststore/ui": 3.47.1(@faststore/components@packages+components)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      "@faststore/ui": 3.47.1(@faststore/components@3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       "@graphql-codegen/cli": 5.0.2(@parcel/watcher@2.5.1)(@types/node@16.18.57)(encoding@0.1.13)(graphql@15.8.0)(typescript@5.4.5)
       "@graphql-codegen/client-preset": 4.2.6(encoding@0.1.13)(graphql@15.8.0)
       "@graphql-codegen/typescript": 4.0.7(encoding@0.1.13)(graphql@15.8.0)
@@ -19055,9 +19072,9 @@ snapshots:
       idb-keyval: 5.1.5
       react: 18.3.1
 
-  "@faststore/ui@3.47.1(@faststore/components@packages+components)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)":
+  "@faststore/ui@3.47.1(@faststore/components@3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)":
     dependencies:
-      "@faststore/components": link:packages/components
+      "@faststore/components": 3.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       include-media: 1.4.10
       modern-normalize: 1.1.0
       react: 18.3.1
