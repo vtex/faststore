@@ -82,7 +82,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const { previewData, query: queryParams } = context
   // TODO validate permissions here
 
   const isRepresentative = getIsRepresentative({
@@ -91,7 +90,7 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query: queryParams,
+    query: context.query,
   })
 
   if (!isFaststoreMyAccountEnabled) {
