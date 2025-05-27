@@ -559,6 +559,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
 }
@@ -1258,6 +1260,18 @@ export type StoreSuggestions = {
   products: Array<StoreProduct>
   /** Array with suggestion terms. */
   terms: Array<StoreSuggestionTerm>
+}
+
+/** User details information. */
+export type StoreUserDetails = {
+  /** User's email. */
+  email: Maybe<Scalars['String']['output']>
+  /** User's name. */
+  name: Maybe<Scalars['String']['output']>
+  /** User's organizational unit. */
+  orgUnit: Maybe<Scalars['String']['output']>
+  /** User's role. */
+  role: Maybe<Array<Maybe<Scalars['String']['output']>>>
 }
 
 export type UserOrder = {
