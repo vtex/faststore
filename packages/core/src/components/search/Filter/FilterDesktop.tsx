@@ -130,7 +130,7 @@ function FilterDesktop({
             type={type}
             label={isDeliveryFacet ? deliveryLabel : label}
             description={
-              isDeliveryFacet ? deliverySettingsData.description : undefined
+              isDeliveryFacet ? deliverySettingsData?.description : undefined
             }
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
@@ -185,7 +185,7 @@ function FilterDesktop({
                             <FilterDeliveryOption
                               item={item}
                               deliveryMethods={
-                                deliverySettingsData.deliveryMethods
+                                deliverySettingsData?.deliveryMethods
                               }
                               cmsData={regionalizationData}
                             />
