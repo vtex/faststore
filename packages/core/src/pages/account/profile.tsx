@@ -12,10 +12,16 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
+import { gql } from '@generated/gql'
+import type {
+  ServerProfileQueryQuery,
+  ServerProfileQueryQueryVariables,
+} from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import storeConfig from '../../../discovery.config'
@@ -29,6 +35,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 export default function Profile({
   globalSections,
   isRepresentative,
+  accountName,
 }: MyAccountProps) {
   return (
     <RenderSections
@@ -37,7 +44,10 @@ export default function Profile({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout isRepresentative={isRepresentative}>
+      <MyAccountLayout
+        accountName={accountName}
+        isRepresentative={isRepresentative}
+      >
         <BeforeSection />
         <div>
           <h1>Profile</h1>
@@ -48,12 +58,18 @@ export default function Profile({
   )
 }
 
+const query = gql(`
+  query ServerProfileQuery {
+    accountName
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const { previewData, query } = context
+  const { previewData, queryParams } = context
   // TODO validate permissions here
 
   const isRepresentative = getIsRepresentative({
@@ -62,7 +78,7 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query,
+    query: queryParams,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -75,22 +91,32 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
 
-  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
+  const [profile, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
+      execute<ServerProfileQueryQueryVariables, ServerProfileQueryQuery>(
+        {
+          variables: {},
+          operation: query,
+        },
+        { headers: { ...context.req.headers } }
+      ),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,
     ])
 
-  // TODO handle 404 when profile request is made
-  // if (profile.errors) {
-  //   return {
-  //     redirect: {
-  //       destination: '/account/404',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  if (profile.errors) {
+    const statusCode: number = (profile.errors[0] as any)?.extensions?.status
+    const destination: string =
+      statusCode === 403 ? '/account/403' : '/account/404'
+
+    return {
+      redirect: {
+        destination,
+        permanent: false,
+      },
+    }
+  }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -99,6 +125,10 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult, isRepresentative },
+    props: {
+      globalSections: globalSectionsResult,
+      accountName: profile.data.accountName,
+      isRepresentative,
+    },
   }
 }

@@ -36,6 +36,7 @@ export default function OrderDetailsPage({
   globalSections,
   order,
   isRepresentative,
+  accountName,
 }: OrderDetailsPageProps) {
   return (
     <RenderSections
@@ -44,7 +45,10 @@ export default function OrderDetailsPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout isRepresentative={isRepresentative}>
+      <MyAccountLayout
+        accountName={accountName}
+        isRepresentative={isRepresentative}
+      >
         <BeforeSection />
         <MyAccountOrderDetails order={order} />
         <AfterSection />
@@ -196,6 +200,7 @@ const query = gql(`
         value
       }
     }
+    accountName
   }
 `)
 
@@ -275,6 +280,7 @@ export const getServerSideProps: GetServerSideProps<
       globalSections: globalSectionsResult,
       order: orderDetails.data.userOrder,
       isRepresentative,
+      accountName: orderDetails.data.accountName,
     },
   }
 }

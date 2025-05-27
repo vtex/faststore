@@ -476,4 +476,15 @@ export const Query = {
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
+  // only b2b users
+  accountName: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+    const { namespaces } = await commerce.session('')
+
+    const { profile } = namespaces
+
+    return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
+  },
 }

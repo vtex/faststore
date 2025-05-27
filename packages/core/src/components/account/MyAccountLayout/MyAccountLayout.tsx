@@ -5,20 +5,16 @@ import MyAccountMenu from '../MyAccountMenu'
 import styles from '../section.module.scss'
 
 export type MyAccountLayoutProps = {
+  accountName: string
   isRepresentative?: boolean
 }
-
-/* ######################################### */
-/* Mocked Data until development is finished */
-const mockedUserName = 'Mocked Username'
-
-/* ######################################### */
 
 const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
 
 const MyAccountLayout = ({
   children,
   isRepresentative = true,
+  accountName,
 }: PropsWithChildren<MyAccountLayoutProps>) => {
   const routes = isRepresentative
     ? menuRoutes
@@ -28,7 +24,7 @@ const MyAccountLayout = ({
 
   return (
     <div className={styles.layout}>
-      <MyAccountMenu accountName={mockedUserName} items={routes} />
+      <MyAccountMenu accountName={accountName} items={routes} />
       <section>{children}</section>
     </div>
   )

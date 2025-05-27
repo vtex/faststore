@@ -48,6 +48,7 @@ type ListOrdersPageProps = {
 
 export default function ListOrdersPage({
   globalSections,
+  accountName,
   listOrders,
   total,
   perPage,
@@ -61,7 +62,10 @@ export default function ListOrdersPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout isRepresentative={isRepresentative}>
+      <MyAccountLayout
+        accountName={accountName}
+        isRepresentative={isRepresentative}
+      >
         <BeforeSection />
         <MyAccountListOrders
           listOrders={listOrders}
@@ -112,6 +116,7 @@ const query = gql(`
         perPage
       }
     }
+    accountName
   }
 `)
 
@@ -126,8 +131,6 @@ export const getServerSideProps: GetServerSideProps<
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
-
-  console.log('🚀 ~ isRepresentative:', isRepresentative)
 
   const { previewData } = context
 
@@ -217,6 +220,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
+      accountName: listOrders.data.accountName,
       listOrders: listOrders.data.listUserOrders,
       total: listOrders.data.listUserOrders.paging.total,
       perPage: listOrders.data.listUserOrders.paging.perPage,

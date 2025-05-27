@@ -44,6 +44,7 @@ export default function Page({
   globalSections,
   isRepresentative,
   userDetails,
+  accountName,
 }: UserDetailsPagePros) {
   return (
     <RenderSections
@@ -52,7 +53,10 @@ export default function Page({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout isRepresentative={isRepresentative}>
+      <MyAccountLayout
+        accountName={accountName}
+        isRepresentative={isRepresentative}
+      >
         <BeforeSection />
         <MyAccountUserDetails userDetails={userDetails} />
         <AfterSection />
@@ -69,6 +73,7 @@ const query = gql(`
       role
       orgUnit
     }
+    accountName
   }
 `)
 
@@ -120,9 +125,14 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (userDetails?.errors || !isRepresentative) {
+    const statusCode: number = (userDetails.errors[0] as any)?.extensions
+      ?.status
+    const destination: string =
+      statusCode === 403 ? '/account/403' : '/account/404'
+
     return {
       redirect: {
-        destination: '/account/404',
+        destination,
         permanent: false,
       },
     }
@@ -138,6 +148,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       userDetails: userDetails.data?.userDetails ?? {},
       globalSections: globalSectionsResult,
+      accountName: userDetails.data.accountName,
       isRepresentative,
     },
   }

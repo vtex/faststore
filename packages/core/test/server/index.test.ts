@@ -76,6 +76,8 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'accountName',
+  'userDetails',
 ]
 
 const MUTATIONS = [

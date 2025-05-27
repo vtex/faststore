@@ -1,3 +1,8 @@
+import { gql } from '@generated/gql'
+import type {
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables,
+} from '@generated/graphql'
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
@@ -6,6 +11,7 @@ import {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { execute } from 'src/server'
 
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
@@ -14,7 +20,14 @@ import storeConfig from '../../discovery.config'
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
   isRepresentative?: boolean
+  accountName: string
 }
+
+const query = gql(`
+  query ServerAccountPageQuery {
+    accountName
+  }
+`)
 
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
@@ -31,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query,
+    query: context.query,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -44,8 +57,18 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
 
-  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
+  const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
+      execute<
+        ServerAccountPageQueryQueryVariables,
+        ServerAccountPageQueryQuery
+      >(
+        {
+          variables: {},
+          operation: query,
+        },
+        { headers: { ...context.req.headers } }
+      ),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,
@@ -58,6 +81,10 @@ export const getServerSideProps: GetServerSideProps<
   })
 
   return {
-    props: { globalSections: globalSectionsResult, isRepresentative },
+    props: {
+      globalSections: globalSectionsResult,
+      accountName: account.data.accountName,
+      isRepresentative,
+    },
   }
 }
