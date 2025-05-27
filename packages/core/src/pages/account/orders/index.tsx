@@ -23,6 +23,8 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import storeConfig from '../../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -51,6 +53,7 @@ export default function ListOrdersPage({
   total,
   perPage,
   filters,
+  isRepresentative,
 }: ListOrdersPageProps) {
   return (
     <RenderSections
@@ -59,7 +62,10 @@ export default function ListOrdersPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
+      <MyAccountLayout
+        isRepresentative={isRepresentative}
+        accountName={accountName}
+      >
         <BeforeSection />
         <MyAccountListOrders
           listOrders={listOrders}
@@ -118,6 +124,11 @@ export const getServerSideProps: GetServerSideProps<
   Locator
 > = async (context) => {
   // TODO validate permissions here
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.account,
+  })
 
   const { previewData } = context
 
@@ -219,6 +230,7 @@ export const getServerSideProps: GetServerSideProps<
         text,
         clientEmail,
       },
+      isRepresentative,
     },
   }
 }
