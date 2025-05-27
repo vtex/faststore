@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  if (userDetails?.errors) {
+  if (userDetails?.errors || !isRepresentative) {
     return {
       redirect: {
         destination: '/account/404',
