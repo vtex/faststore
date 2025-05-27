@@ -56,6 +56,11 @@
     font-weight: var(--fs-user-details-row-weight);
     line-height: var(--fs-user-details-row-line-height);
 
+    @include media("<tablet") {
+      flex-direction: column;
+      gap: .5rem;
+    }
+
     [data-fs-user-details-row-label] {
       width: var(--fs-user-details-row-label-width);
       font-size: var(--fs-user-details-row-label-size);
@@ -67,6 +72,16 @@
       font-size: var(--fs-user-details-row-value-size);
       font-weight: var(--fs-user-details-row-value-weight);
       color: var(--fs-user-details-row-value-color);
+    }
+
+    [data-fs-user-details-row-tags] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--fs-spacing-0);
+
+      [data-fs-user-details-row-value] {
+        margin-top: var(--fs-spacing-0);
+      }
     }
   }
 }
