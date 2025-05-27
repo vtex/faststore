@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.50.2](https://github.com/vtex/faststore/compare/v3.50.1...v3.50.2) (2025-05-27)
+
+### Bug Fixes
+
+- theme styles import ([#2868](https://github.com/vtex/faststore/issues/2868)) ([91724d7](https://github.com/vtex/faststore/commit/91724d78ee71a000957716e6ebc06ee105d1c024))
+
 ## [3.50.1](https://github.com/vtex/faststore/compare/v3.50.0...v3.50.1) (2025-05-27)
 
 **Note:** Version bump only for package @faststore/cli
