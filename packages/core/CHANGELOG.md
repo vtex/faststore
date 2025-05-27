@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.49.2](https://github.com/vtex/faststore/compare/v3.49.1...v3.49.2) (2025-05-27)
+
+### Reverts
+
+- Revert "chore: updates next from 13.5.8 to 13.5.9" ([f7c199c](https://github.com/vtex/faststore/commit/f7c199c912272412bdbc855ea805f5f2ee56b161))
+
 ## 3.49.1 (2025-05-27)
 
 **Note:** Version bump only for package @faststore/core
