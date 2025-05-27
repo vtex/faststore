@@ -5,6 +5,7 @@ import styles from '../section.module.scss'
 
 export type MyAccountLayoutProps = {
   accountName: string
+  isRepresentative?: boolean
 }
 
 const MyAccountLayout = ({

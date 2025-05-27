@@ -2469,7 +2469,15 @@ export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
 }>
 
-export type ServerUserDetailsQueryQuery = { accountName: string | null }
+export type ServerUserDetailsQueryQuery = {
+  accountName: string | null
+  userDetails: {
+    name: string | null
+    email: string | null
+    role: Array<string | null> | null
+    orgUnit: string | null
+  }
+}
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
@@ -3551,7 +3559,7 @@ export const ServerSecurityQueryDocument = {
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerUserDetailsQuery',
-    operationHash: '92d9db34aa133d60d474c6d4cdcdd2fc19041a5e',
+    operationHash: '522e5feeb80e67cee931bc98eac9d08ea75c75d2',
   },
 } as unknown as TypedDocumentString<
   ServerUserDetailsQueryQuery,

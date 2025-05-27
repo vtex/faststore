@@ -18,6 +18,7 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
   accountName: string
+  isRepresentative?: boolean
 }
 
 const query = gql(`
