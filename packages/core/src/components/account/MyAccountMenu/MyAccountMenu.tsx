@@ -53,7 +53,7 @@ const MyAccountMenu = ({
             {avatarImageUrl ? (
               <img className={styles.avatar} src={avatarImageUrl} />
             ) : (
-              <span className={styles.avatar}>{accountName[0]}</span>
+              <span className={styles.avatar}>{accountName?.[0]}</span>
             )}
             <h2>{accountName}</h2>
           </div>

@@ -459,4 +459,15 @@ export const Query = {
       paging: orders.paging,
     }
   },
+  accountName: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const { namespaces } = await commerce.session('')
+
+    const { profile } = namespaces
+
+    return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
+  },
 }
