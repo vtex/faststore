@@ -71,7 +71,6 @@ const query = gql(`
     userOrder(orderId: $orderId) {
       orderId
       status
-      canManageOrder
       canCancelOrder
       canApproveOrRejectOrder
       statusDescription

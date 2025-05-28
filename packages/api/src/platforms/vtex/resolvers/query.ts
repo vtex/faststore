@@ -414,8 +414,6 @@ export const Query = {
           order.status === 'payment-approved' ||
           order.status === 'approve-payment',
         canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
-        // TODO: Mocked data, remove this when OMS API is fixed
-        canManageOrder: true,
       }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {

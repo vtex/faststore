@@ -64,7 +64,6 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderActions
           orderId={order.orderId}
           customerEmail={order.clientProfileData?.email}
-          canManageOrder={order.canManageOrder}
           canCancelOrder={order.canCancelOrder}
           canApproveOrRejectOrder={order.canApproveOrRejectOrder}
         />

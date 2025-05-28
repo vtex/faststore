@@ -1341,7 +1341,6 @@ export type UserOrder = {
   callCenterOperatorData?: Maybe<Scalars['String']>;
   canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
   canCancelOrder?: Maybe<Scalars['Boolean']>;
-  canManageOrder?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
@@ -2053,7 +2052,6 @@ export type UserOrderResult = {
   allowCancellation?: Maybe<Scalars['Boolean']>;
   canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
   canCancelOrder?: Maybe<Scalars['Boolean']>;
-  canManageOrder?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;

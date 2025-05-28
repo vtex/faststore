@@ -29,7 +29,6 @@ const TOASTS_CONFIG = {
 
 interface MyAccountOrderActionsProps {
   orderId: string
-  canManageOrder: boolean
   canCancelOrder: boolean
   canApproveOrRejectOrder: boolean
   customerEmail?: string
@@ -37,7 +36,6 @@ interface MyAccountOrderActionsProps {
 
 export default function MyAccountOrderActions({
   orderId,
-  canManageOrder,
   canCancelOrder,
   canApproveOrRejectOrder,
   customerEmail,
@@ -110,7 +108,7 @@ export default function MyAccountOrderActions({
           </UIButton>
         )}
 
-        {canManageOrder && canApproveOrRejectOrder && (
+        {canApproveOrRejectOrder && (
           <>
             {isMobile || isTablet ? (
               <>
