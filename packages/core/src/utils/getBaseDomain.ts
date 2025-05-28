@@ -13,7 +13,7 @@ export const getBaseDomain = (urls: string[]) => {
       // Remove subdomain prefixes
       // e.g. 'www.', 'shop.', 'loja.' from the hostname
       const prefixRegex = new RegExp(
-        `^(${['wwww', ...subDomainPrefixes].join('|')})\\.`
+        `^(${['www', ...subDomainPrefixes].join('|')})\\.`
       )
 
       console.log('Extracted hostname:', hostname.replace(prefixRegex, ''))
