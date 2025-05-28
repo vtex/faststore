@@ -393,8 +393,6 @@ export const Query = {
 
     try {
       const order = await commerce.oms.userOrder({ orderId })
-      const { canRequesterAuthorizeOrder } =
-        await commerce.oms.getAuthorizationByOrderId({ orderId })
 
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
@@ -412,7 +410,8 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
-        canManageOrder: canRequesterAuthorizeOrder,
+        // TODO: Mocked data, remove this when OMS API is fixed
+        canManageOrder: true,
       }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
