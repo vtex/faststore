@@ -410,6 +410,10 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
+        canCancelOrder:
+          order.status === 'payment-approved' ||
+          order.status === 'approve-payment',
+        canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
         // TODO: Mocked data, remove this when OMS API is fixed
         canManageOrder: true,
       }

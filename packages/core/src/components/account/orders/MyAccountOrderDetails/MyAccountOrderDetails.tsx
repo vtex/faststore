@@ -63,9 +63,10 @@ export default function MyAccountOrderDetails({
         </div>
         <MyAccountOrderActions
           orderId={order.orderId}
-          orderStatus={order.status as OrderStatusKey}
           customerEmail={order.clientProfileData?.email}
           canManageOrder={order.canManageOrder}
+          canCancelOrder={order.canCancelOrder}
+          canApproveOrRejectOrder={order.canApproveOrRejectOrder}
         />
       </header>
       <main data-fs-order-details-content>

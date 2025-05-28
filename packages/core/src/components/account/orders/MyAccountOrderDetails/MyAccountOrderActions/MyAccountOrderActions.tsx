@@ -11,7 +11,6 @@ import MyAccountOrderActionModal, {
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 import { useApproveOrder } from 'src/sdk/account/useApproveOrder'
 import { useRejectOrder } from 'src/sdk/account/useRejectOrder'
-import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 
 const TOASTS_CONFIG = {
   cancel: {
@@ -30,16 +29,18 @@ const TOASTS_CONFIG = {
 
 interface MyAccountOrderActionsProps {
   orderId: string
-  orderStatus?: OrderStatusKey
+  canManageOrder: boolean
+  canCancelOrder: boolean
+  canApproveOrRejectOrder: boolean
   customerEmail?: string
-  canManageOrder?: boolean
 }
 
 export default function MyAccountOrderActions({
   orderId,
-  orderStatus,
+  canManageOrder,
+  canCancelOrder,
+  canApproveOrRejectOrder,
   customerEmail,
-  canManageOrder = false,
 }: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
   const { isOpen, actionType, fade, openDialog, closeDialog } =
@@ -97,8 +98,7 @@ export default function MyAccountOrderActions({
   return (
     <>
       <div data-fs-order-details-header-actions>
-        {(orderStatus === 'payment-approved' ||
-          orderStatus === 'approve-payment') && (
+        {canCancelOrder && (
           <UIButton
             variant="secondary"
             data-fs-order-details-header-actions-cancel
@@ -110,50 +110,46 @@ export default function MyAccountOrderActions({
           </UIButton>
         )}
 
-        {canManageOrder && orderStatus === 'waiting-for-confirmation' && (
+        {canManageOrder && canApproveOrRejectOrder && (
           <>
             {isMobile || isTablet ? (
-              <UIIconButton
-                aria-label="Reject"
-                icon={<UIIcon name="XCircle" />}
-                variant="tertiary"
-                type="button"
-                onClick={() => openDialog('reject')}
-              />
+              <>
+                <UIIconButton
+                  aria-label="Reject"
+                  icon={<UIIcon name="XCircle" />}
+                  variant="tertiary"
+                  type="button"
+                  onClick={() => openDialog('reject')}
+                />
+                <UIIconButton
+                  aria-label="Approve"
+                  icon={<UIIcon name="CircleCheck" />}
+                  variant="primary"
+                  type="button"
+                  onClick={() => openDialog('approve')}
+                />
+              </>
             ) : (
-              <UIButton
-                variant="secondary"
-                size="small"
-                icon={<UIIcon name="XCircle" />}
-                type="button"
-                onClick={() => openDialog('reject')}
-              >
-                Reject
-              </UIButton>
-            )}
-          </>
-        )}
-
-        {canManageOrder && orderStatus === 'waiting-for-confirmation' && (
-          <>
-            {isMobile || isTablet ? (
-              <UIIconButton
-                aria-label="Approve"
-                icon={<UIIcon name="CircleCheck" />}
-                variant="primary"
-                type="button"
-                onClick={() => openDialog('approve')}
-              />
-            ) : (
-              <UIButton
-                variant="primary"
-                size="small"
-                icon={<UIIcon name="CircleCheck" />}
-                type="button"
-                onClick={() => openDialog('approve')}
-              >
-                Approve
-              </UIButton>
+              <>
+                <UIButton
+                  variant="secondary"
+                  size="small"
+                  icon={<UIIcon name="XCircle" />}
+                  type="button"
+                  onClick={() => openDialog('reject')}
+                >
+                  Reject
+                </UIButton>
+                <UIButton
+                  variant="primary"
+                  size="small"
+                  icon={<UIIcon name="CircleCheck" />}
+                  type="button"
+                  onClick={() => openDialog('approve')}
+                >
+                  Approve
+                </UIButton>
+              </>
             )}
           </>
         )}
