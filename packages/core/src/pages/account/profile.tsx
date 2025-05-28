@@ -9,6 +9,7 @@ import { MyAccountLayout } from 'src/components/account'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { ProfileSection } from 'src/components/account/profile'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
@@ -43,9 +44,7 @@ export default function Profile({
 
       <MyAccountLayout accountName={accountName}>
         <BeforeSection />
-        <div>
-          <h1>Profile</h1>
-        </div>
+        <ProfileSection />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
