@@ -37,6 +37,10 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
+    notAvailableAtLocation?: {
+      label?: string
+      description?: string
+    }
   }
 }
 

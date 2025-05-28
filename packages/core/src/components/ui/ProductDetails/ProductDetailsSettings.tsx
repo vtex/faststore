@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
@@ -11,6 +11,9 @@ import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import { Icon as UIIcon, Label as UILabel, useUI } from '@faststore/ui'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getProductCount } from 'src/sdk/product'
+import { deliveryPromise } from 'discovery.config'
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -47,8 +50,17 @@ function ProductDetailsSettings({
     ProductPrice,
     QuantitySelector,
     __experimentalNotAvailableButton: NotAvailableButton,
+    __experimentalNotAvailableAtLocation: NotAvailableAtLocation,
   } = useOverrideComponents<'ProductDetails'>()
+  const { deliverySettings } = getRegionalizationSettings()
+  const [productCountAtLocation, setProductCountAtLocation] = useState(0)
 
+  useEffect(() => {
+    deliveryPromise.enabled &&
+      getProductCount().then((productCount) => {
+        setProductCountAtLocation(productCount)
+      })
+  }, [])
   const { pushToast } = useUI()
 
   const {
@@ -101,59 +113,103 @@ function ProductDetailsSettings({
     [availability]
   )
 
+  // Add to cart button
+  let ProductAction = (
+    <BuyButton.Component
+      {...BuyButton.props}
+      icon={
+        <Icon.Component
+          {...Icon.props}
+          name={buyButtonIconName ?? Icon.props.name}
+          aria-label={buyButtonIconAlt ?? Icon.props['aria-label']}
+        />
+      }
+      {...buyProps}
+    >
+      {buyButtonTitle || 'Add to Cart'}
+    </BuyButton.Component>
+  )
+
+  // Product out of stock
+  if (outOfStock) {
+    ProductAction = (
+      // TODO: Adds <OutOfStock /> when component is ready to use
+      <NotAvailableButton.Component>
+        {notAvailableButtonTitle}
+      </NotAvailableButton.Component>
+    )
+  }
+
+  // // Product not available at location
+  if (deliveryPromise.enabled && productCountAtLocation < 1) {
+    ProductAction = (
+      <NotAvailableAtLocation.Component
+        label={
+          deliverySettings?.notAvailableAtLocation?.label ??
+          'Unavailable in Your Location'
+        }
+        description={
+          deliverySettings?.notAvailableAtLocation?.description ??
+          'Item cannot be delivered to the selected location.'
+        }
+      />
+    )
+  }
+
   return (
     <>
-      {!outOfStock && (
-        <section data-fs-product-details-values>
-          <div data-fs-product-details-values-wrapper>
-            <ProductPrice.Component
-              data-fs-product-details-prices
-              value={
-                (taxesConfiguration?.usePriceWithTaxes
-                  ? priceWithTaxes
-                  : price) * (unitMultiplier ?? 1)
-              }
-              listPrice={
-                (taxesConfiguration?.usePriceWithTaxes
-                  ? listPriceWithTaxes
-                  : listPrice) * (unitMultiplier ?? 1)
-              }
-              formatter={useFormattedPrice}
-              {...ProductPrice.props}
+      {!outOfStock &&
+        (!deliveryPromise.enabled || productCountAtLocation > 0) && (
+          <section data-fs-product-details-values>
+            <div data-fs-product-details-values-wrapper>
+              <ProductPrice.Component
+                data-fs-product-details-prices
+                value={
+                  (taxesConfiguration?.usePriceWithTaxes
+                    ? priceWithTaxes
+                    : price) * (unitMultiplier ?? 1)
+                }
+                listPrice={
+                  (taxesConfiguration?.usePriceWithTaxes
+                    ? listPriceWithTaxes
+                    : listPrice) * (unitMultiplier ?? 1)
+                }
+                formatter={useFormattedPrice}
+                {...ProductPrice.props}
+              />
+              {taxesConfiguration?.usePriceWithTaxes && (
+                <UILabel data-fs-product-details-taxes-label>
+                  {taxesConfiguration?.taxesLabel}
+                </UILabel>
+              )}
+            </div>
+            <QuantitySelector.Component
+              min={1}
+              max={10}
+              unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
+              useUnitMultiplier={useUnitMultiplier}
+              {...QuantitySelector.props}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              onChange={setQuantity}
+              // TODO: we should get the Toast values from the hCMS
+              onValidateBlur={(
+                min: number,
+                maxValue: number,
+                quantity: number
+              ) => {
+                pushToast({
+                  title: 'Invalid quantity!',
+                  message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                  status: 'INFO',
+                  icon: (
+                    <UIIcon name="CircleWavyWarning" width={30} height={30} />
+                  ),
+                })
+              }}
             />
-            {taxesConfiguration?.usePriceWithTaxes && (
-              <UILabel data-fs-product-details-taxes-label>
-                {taxesConfiguration?.taxesLabel}
-              </UILabel>
-            )}
-          </div>
-          <QuantitySelector.Component
-            min={1}
-            max={10}
-            unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
-            useUnitMultiplier={useUnitMultiplier}
-            {...QuantitySelector.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            onChange={setQuantity}
-            // TODO: we should get the Toast values from the hCMS
-            onValidateBlur={(
-              min: number,
-              maxValue: number,
-              quantity: number
-            ) => {
-              pushToast({
-                title: 'Invalid quantity!',
-                message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
-                status: 'INFO',
-                icon: (
-                  <UIIcon name="CircleWavyWarning" width={30} height={30} />
-                ),
-              })
-            }}
-          />
-        </section>
-      )}
+          </section>
+        )}
       {skuVariants && (
         <Selectors
           slugsMap={skuVariants.slugsMap}
@@ -169,25 +225,8 @@ function ProductDetailsSettings({
           background color when changing from its initial disabled to active state.
           See full explanation on commit https://git.io/JyXV5. */
         <AddToCartLoadingSkeleton />
-      ) : outOfStock ? (
-        // TODO: Adds <OutOfStock /> when component is ready to use
-        <NotAvailableButton.Component>
-          {notAvailableButtonTitle}
-        </NotAvailableButton.Component>
       ) : (
-        <BuyButton.Component
-          {...BuyButton.props}
-          icon={
-            <Icon.Component
-              {...Icon.props}
-              name={buyButtonIconName ?? Icon.props.name}
-              aria-label={buyButtonIconAlt ?? Icon.props['aria-label']}
-            />
-          }
-          {...buyProps}
-        >
-          {buyButtonTitle || 'Add to Cart'}
-        </BuyButton.Component>
+        ProductAction
       )}
     </>
   )

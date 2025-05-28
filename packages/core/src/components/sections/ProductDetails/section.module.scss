@@ -1,13 +1,13 @@
 @layer components {
   .section {
     // Taxes label
-    --fs-product-details-taxes-label-color      : var(--fs-color-info-text);
-    --fs-product-details-taxes-text-size        : var(--fs-text-size-tiny);
-    --fs-product-details-taxes-text-weight      : var(--fs-text-weight-regular);
+    --fs-product-details-taxes-label-color: var(--fs-color-info-text);
+    --fs-product-details-taxes-text-size: var(--fs-text-size-tiny);
+    --fs-product-details-taxes-text-weight: var(--fs-text-weight-regular);
 
     // Separator colors
-    --fs-product-details-separator-color        : var(--fs-color-neutral-2);
-    --fs-product-details-separator-color-text   : var(--fs-color-text-light);
+    --fs-product-details-separator-color: var(--fs-color-neutral-2);
+    --fs-product-details-separator-color-text: var(--fs-color-text-light);
 
     margin-top: 0;
 
@@ -67,8 +67,27 @@
     }
 
     [data-fs-sku-matrix] {
-      > [data-fs-button] {
+      >[data-fs-button] {
         width: 100%;
+      }
+    }
+
+    [data-fs-product-not-available-at-location] {
+      display: flex;
+      flex-direction: column;
+
+      [data-not-available-at-location-label] {
+        font-size: var(--fs-text-size-3);
+        font-weight: var(--fs-text-weight-medium);
+        line-height: 28px;
+        letter-spacing: -4%;
+      }
+
+      [data-not-available-at-location-description] {
+        font-size: var(--fs-text-size-1);
+        font-weight: var(--fs-text-weight-regular);
+        line-height: 20px;
+        letter-spacing: -1%;
       }
     }
   }

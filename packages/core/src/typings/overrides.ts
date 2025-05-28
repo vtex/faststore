@@ -291,6 +291,10 @@ export type SectionsOverrides = {
         any,
         any
       >
+      __experimentalNotAvailableAtLocation: ComponentOverrideDefinition<
+        any,
+        any
+      >
     }
   }
   ProductGallery: {

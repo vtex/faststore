@@ -147,6 +147,22 @@
                           }
                         }
                       }
+                    },
+                    "notAvailableAtLocation": {
+                      "title": "Item unavailable in current location",
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "title": "Label",
+                          "type": "string",
+                          "default": "Unavailable in Your Location"
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "Item cannot be delivered to the selected location."
+                        }
+                      }
                     }
                   }
                 }
