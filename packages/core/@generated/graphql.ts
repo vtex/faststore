@@ -1555,7 +1555,7 @@ export type UserOrderFromList = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
-  customFields: Maybe<UserOrderFromListCustomFields>
+  customFields: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>
   deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
   giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
   hostname: Maybe<Scalars['String']['output']>
@@ -1587,10 +1587,8 @@ export type UserOrderFromList = {
 }
 
 export type UserOrderFromListCustomFields = {
-  costCenter: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  desktop: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  poNumber: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  release: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  type: Maybe<Scalars['String']['output']>
+  value: Maybe<Array<Maybe<Scalars['String']['output']>>>
 }
 
 export type UserOrderFromListMinimal = {
@@ -1598,7 +1596,7 @@ export type UserOrderFromListMinimal = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
-  customFields: Maybe<UserOrderFromListCustomFields>
+  customFields: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>
   items: Maybe<Array<Maybe<UserOrderItemsSummarized>>>
   orderId: Maybe<Scalars['String']['output']>
   status: Maybe<Scalars['String']['output']>
@@ -1702,7 +1700,7 @@ export type UserOrderListPaging = {
 
 export type UserOrderListResult = {
   facets: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  list: Maybe<Array<Maybe<UserOrderFromList>>>
+  list: Maybe<Array<UserOrderFromList>>
   paging: Maybe<UserOrderListPaging>
   reportRecordsLimit: Maybe<Scalars['Int']['output']>
   stats: Maybe<UserOrderListStats>
@@ -2415,12 +2413,10 @@ export type ServerListOrdersQueryQuery = {
         sellingPrice: number | null
         price: number | null
       } | null> | null
-      customFields: {
-        costCenter: Array<string | null> | null
-        poNumber: Array<string | null> | null
-        release: Array<string | null> | null
-        desktop: Array<string | null> | null
-      } | null
+      customFields: Array<{
+        type: string | null
+        value: Array<string | null> | null
+      } | null> | null
     } | null> | null
     paging: {
       total: number | null
@@ -3475,7 +3471,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '7fba0a7d767fceed07b268597d68e5577d952b43',
+    operationHash: '867fff060c5b7726220ed8a10a115b1484762fcf',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
