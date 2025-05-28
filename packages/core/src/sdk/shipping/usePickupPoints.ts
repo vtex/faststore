@@ -76,7 +76,7 @@ export const usePickupPoints = () => {
     addressPostalCode: item.pickupPoint?.address?.postalCode,
     addressCity: item.pickupPoint?.address?.city,
     addressState: item.pickupPoint?.address?.state,
-    distance: data.pickupPoints.items[0].distance,
+    distance: item.distance,
   }))
 
   return pickupPoints
