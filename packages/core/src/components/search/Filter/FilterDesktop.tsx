@@ -45,6 +45,33 @@ function FilterDesktop({
   const pickupPoints = usePickupPoints()
   const { postalCode } = sessionStore.read()
 
+  const toggleFilterFacet = (facet: { key: string; value: string }) => {
+    setState({
+      ...state,
+      selectedFacets: toggleFacet(
+        // Case added, filter 'pickupPoint' facet to remove it from search params
+        state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
+        facet,
+        true
+      ),
+      page: 0,
+    })
+  }
+
+  const togglePickupInPointFacet = (
+    pickupInPointFacets: { key: string; value: string }[]
+  ) => {
+    setState({
+      ...state,
+      selectedFacets: toggleFacets(
+        state.selectedFacets,
+        pickupInPointFacets,
+        true
+      ),
+      page: 0,
+    })
+  }
+
   // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
   const { deliverySettings: deliverySettingsData } = regionalizationData
@@ -68,15 +95,47 @@ function FilterDesktop({
 
   let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
   if (isDeliveryPromiseEnabled) {
-    // Prevent multiple pickup-in-point facet
     filteredFacets = facets.map((facet) => {
       if (
-        defaultPickupPoint &&
         facet.key === 'shipping' &&
         facet.__typename === 'StoreFacetBoolean'
       ) {
-        !facet.values.some((item) => item?.value === 'pickup-in-point') &&
+        const pickupInPointFacetIndex = facet.values.findIndex(
+          (item) => item?.value === 'pickup-in-point'
+        )
+
+        // Remove old pickup `pickup in point` facet from list and search state
+        if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
+          if (state.selectedFacets.some(({ key }) => key === 'shipping')) {
+            const selectedShippingFacet = state.selectedFacets.find(
+              ({ key }) => key === 'shipping'
+            )
+            const selectedPickupInPointFacets = state.selectedFacets.filter(
+              ({ key, value }) =>
+                value === 'pickup-in-point' || key === 'pickupPoint'
+            )
+
+            selectedPickupInPointFacets.length !== 0
+              ? togglePickupInPointFacet(selectedPickupInPointFacets)
+              : toggleFilterFacet(selectedShippingFacet)
+          }
+
+          facet.values = facet.values.filter(
+            (_, index) => index !== pickupInPointFacetIndex
+          )
+        }
+        // Prevent multiple `pickup in point` facet
+        else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
           facet.values.push(pickupInPointFacet)
+        }
+        // Replace current `pickup-in-point` facet by a updated one
+        else if (
+          facet.values[pickupInPointFacetIndex] &&
+          facet.values[pickupInPointFacetIndex]?.label !==
+            pickupInPointFacet.label
+        ) {
+          facet.values[pickupInPointFacetIndex] = pickupInPointFacet
+        }
       }
 
       return facet
@@ -144,34 +203,15 @@ function FilterDesktop({
                         testId={testId}
                         onFacetChange={(facet) => {
                           if (facet.value === 'pickup-in-point') {
-                            setState({
-                              ...state,
-                              selectedFacets: toggleFacets(
-                                state.selectedFacets,
-                                [
-                                  facet,
-                                  {
-                                    key: 'pickupPoint',
-                                    value: defaultPickupPoint?.id,
-                                  },
-                                ],
-                                true
-                              ),
-                              page: 0,
-                            })
+                            togglePickupInPointFacet([
+                              facet,
+                              {
+                                key: 'pickupPoint',
+                                value: defaultPickupPoint?.id,
+                              },
+                            ])
                           } else {
-                            setState({
-                              ...state,
-                              selectedFacets: toggleFacet(
-                                // Case added, filter 'pickupPoint' facet to remove it from search params
-                                state.selectedFacets.filter(
-                                  ({ key }) => key !== 'pickupPoint'
-                                ),
-                                facet,
-                                true
-                              ),
-                              page: 0,
-                            })
+                            toggleFilterFacet(facet)
                           }
 
                           resetInfiniteScroll(0)
