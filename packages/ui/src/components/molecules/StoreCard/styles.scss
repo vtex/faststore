@@ -44,6 +44,8 @@
 
   [data-fs-store-card-header-title] {
     font-weight: var(--fs-store-card-header-title-font-weight);
+
+    @include truncate-title(1);
   }
 
   [data-fs-store-card-header-zipcode] {
@@ -70,5 +72,9 @@
     flex-direction: column;
     justify-content: left;
     font-size: var(--fs-store-card-distance-font-size);
+
+    > span {
+      @include truncate-title(3);
+    }
   }
 }
