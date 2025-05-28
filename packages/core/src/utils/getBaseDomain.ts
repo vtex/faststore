@@ -1,16 +1,22 @@
 import config from '../../discovery.config'
 
 export const getBaseDomain = (urls: string[]) => {
+  // Check if all hostnames are the same (unified domain scenario)
+  if (urls[0] === urls[1]) {
+    return `${new URL(config.storeUrl).hostname}`
+  }
+
   const extractHostname = (url: string) => {
     try {
       const hostname = new URL(url).hostname
-      const subDomainPrefixes = config.api.subDomainPrefix || []
-
+      const subDomainPrefixes = (config.api as any).subDomainPrefix || []
       // Remove subdomain prefixes
       // e.g. 'www.', 'shop.', 'loja.' from the hostname
       const prefixRegex = new RegExp(
-        `^(${['www', ...subDomainPrefixes].join('|')})\\.`
+        `^(${['wwww', ...subDomainPrefixes].join('|')})\\.`
       )
+
+      console.log('Extracted hostname:', hostname.replace(prefixRegex, ''))
 
       return hostname.replace(prefixRegex, '')
     } catch {
