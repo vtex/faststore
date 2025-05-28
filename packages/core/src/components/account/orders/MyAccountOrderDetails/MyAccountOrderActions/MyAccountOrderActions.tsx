@@ -97,21 +97,20 @@ export default function MyAccountOrderActions({
   return (
     <>
       <div data-fs-order-details-header-actions>
-        <UIButton
-          variant="secondary"
-          data-fs-order-details-header-actions-cancel
-          size={isMobile || isTablet ? 'regular' : 'small'}
-          type="button"
-          onClick={() => openDialog('cancel')}
-          disabled={
-            orderStatus !== 'payment-approved' &&
-            orderStatus !== 'approve-payment'
-          }
-        >
-          Cancel order
-        </UIButton>
+        {(orderStatus === 'payment-approved' ||
+          orderStatus === 'approve-payment') && (
+          <UIButton
+            variant="secondary"
+            data-fs-order-details-header-actions-cancel
+            size={isMobile || isTablet ? 'regular' : 'small'}
+            type="button"
+            onClick={() => openDialog('cancel')}
+          >
+            Cancel order
+          </UIButton>
+        )}
 
-        {canManageOrder && (
+        {canManageOrder && orderStatus === 'waiting-for-confirmation' && (
           <>
             {isMobile || isTablet ? (
               <UIIconButton
@@ -120,7 +119,6 @@ export default function MyAccountOrderActions({
                 variant="tertiary"
                 type="button"
                 onClick={() => openDialog('reject')}
-                disabled={orderStatus !== 'waiting-for-confirmation'}
               />
             ) : (
               <UIButton
@@ -129,7 +127,6 @@ export default function MyAccountOrderActions({
                 icon={<UIIcon name="XCircle" />}
                 type="button"
                 onClick={() => openDialog('reject')}
-                disabled={orderStatus !== 'waiting-for-confirmation'}
               >
                 Reject
               </UIButton>
@@ -137,7 +134,7 @@ export default function MyAccountOrderActions({
           </>
         )}
 
-        {canManageOrder && (
+        {canManageOrder && orderStatus === 'waiting-for-confirmation' && (
           <>
             {isMobile || isTablet ? (
               <UIIconButton
@@ -146,7 +143,6 @@ export default function MyAccountOrderActions({
                 variant="primary"
                 type="button"
                 onClick={() => openDialog('approve')}
-                disabled={orderStatus !== 'waiting-for-confirmation'}
               />
             ) : (
               <UIButton
@@ -155,7 +151,6 @@ export default function MyAccountOrderActions({
                 icon={<UIIcon name="CircleCheck" />}
                 type="button"
                 onClick={() => openDialog('approve')}
-                disabled={orderStatus !== 'waiting-for-confirmation'}
               >
                 Approve
               </UIButton>
