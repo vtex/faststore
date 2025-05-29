@@ -412,6 +412,7 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
+        canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
       }
     } catch (error) {
       const result = JSON.parse((error as Error).message).error as {

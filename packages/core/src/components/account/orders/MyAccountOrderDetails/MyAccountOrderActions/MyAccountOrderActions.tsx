@@ -1,4 +1,9 @@
-import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
+import {
+  Button as UIButton,
+  Icon as UIIcon,
+  useUI,
+  IconButton as UIIconButton,
+} from '@faststore/ui'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import MyAccountOrderActionModal, {
   useOrderActionModal,
@@ -25,12 +30,14 @@ const TOASTS_CONFIG = {
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean
   orderId: string
+  canApproveOrRejectOrder: boolean
   customerEmail?: string
 }
 
 export default function MyAccountOrderActions({
   allowCancellation,
   orderId,
+  canApproveOrRejectOrder,
   customerEmail,
 }: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
@@ -100,45 +107,50 @@ export default function MyAccountOrderActions({
             Cancel order
           </UIButton>
         )}
-        {/* TODO: This will be replaced for approval flow with buying policies */}
-        {/* {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Reject"
-            icon={<UIIcon name="XCircle" />}
-            variant="tertiary"
-            type="button"
-            onClick={() => openDialog('reject')}
-          />
-        ) : (
-          <UIButton
-            variant="secondary"
-            size="small"
-            icon={<UIIcon name="XCircle" />}
-            type="button"
-            onClick={() => openDialog('reject')}
-          >
-            Reject
-          </UIButton>
+
+        {canApproveOrRejectOrder && (
+          <>
+            {isMobile || isTablet ? (
+              <>
+                <UIIconButton
+                  aria-label="Reject"
+                  icon={<UIIcon name="XCircle" />}
+                  variant="tertiary"
+                  type="button"
+                  onClick={() => openDialog('reject')}
+                />
+                <UIIconButton
+                  aria-label="Approve"
+                  icon={<UIIcon name="CircleCheck" />}
+                  variant="primary"
+                  type="button"
+                  onClick={() => openDialog('approve')}
+                />
+              </>
+            ) : (
+              <>
+                <UIButton
+                  variant="secondary"
+                  size="small"
+                  icon={<UIIcon name="XCircle" />}
+                  type="button"
+                  onClick={() => openDialog('reject')}
+                >
+                  Reject
+                </UIButton>
+                <UIButton
+                  variant="primary"
+                  size="small"
+                  icon={<UIIcon name="CircleCheck" />}
+                  type="button"
+                  onClick={() => openDialog('approve')}
+                >
+                  Approve
+                </UIButton>
+              </>
+            )}
+          </>
         )}
-        {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Approve"
-            icon={<UIIcon name="CircleCheck" />}
-            variant="primary"
-            type="button"
-            onClick={() => openDialog('approve')}
-          />
-        ) : (
-          <UIButton
-            variant="primary"
-            size="small"
-            icon={<UIIcon name="CircleCheck" />}
-            type="button"
-            onClick={() => openDialog('approve')}
-          >
-            Approve
-          </UIButton>
-        )} */}
       </div>
 
       <MyAccountOrderActionModal

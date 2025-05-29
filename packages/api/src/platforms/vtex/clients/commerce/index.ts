@@ -520,6 +520,25 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      getAuthorizationByOrderId: ({
+        orderId,
+      }: {
+        orderId: string
+      }): Promise<{
+        canRequesterAuthorizeOrder: boolean
+      }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          // TODO: This endpoint will be changed in the future, do not use it
+          `${base}/api/${account}/commercial-authorizations/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
     },
     units: {
       getUnitByUserId: ({

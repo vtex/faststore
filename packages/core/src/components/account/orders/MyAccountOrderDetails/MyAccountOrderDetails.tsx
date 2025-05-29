@@ -55,6 +55,7 @@ export default function MyAccountOrderDetails({
           allowCancellation={order.allowCancellation}
           orderId={order.orderId}
           customerEmail={order.clientProfileData?.email}
+          canApproveOrRejectOrder={order.canApproveOrRejectOrder}
         />
       </header>
       <main data-fs-order-details-content>
