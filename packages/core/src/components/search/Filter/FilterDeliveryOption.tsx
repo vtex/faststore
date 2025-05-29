@@ -64,12 +64,14 @@ export default function FilterDeliveryOption({
           data-fs-filter-list-item-button
           size="small"
           onClick={() => {
-            // TODO: open edit local slideOver
-            window.alert('Open Modal')
+            openRegionSlider(regionSliderTypes.changeStore)
           }}
         >
           {item.label}
         </UIButton>
+        {regionSliderType === regionSliderTypes.changeStore && (
+          <RegionSlider cmsData={cmsData} />
+        )}
       </>
     )
   }
