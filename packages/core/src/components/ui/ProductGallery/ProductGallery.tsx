@@ -133,6 +133,7 @@ function ProductGallery({
         {isDesktop && (
           <div data-fs-product-listing-filters>
             <FilterSkeleton loading={!hasFacetsLoaded}>
+              <div>O novo componente vai ficar aqui (versão desktop)</div>
               {hasFacetsLoaded && facets?.length > 0 && (
                 <div className="hidden-mobile">
                   <FilterDesktop.Component
@@ -153,7 +154,9 @@ function ProductGallery({
               title={filterCmsData?.title}
               clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
               applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
-            />
+            >
+              <div>O novo componente vai ficar aqui também (versão mobile)</div>
+            </FilterSlider.Component>
           </div>
         )}
         <div data-fs-product-listing-results-count data-count={totalCount}>

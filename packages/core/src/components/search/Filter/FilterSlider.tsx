@@ -66,6 +66,11 @@ export interface FilterSliderProps {
    * CMS defined label for the apply button component.
    */
   applyButtonLabel?: string
+
+  /**
+   * Optional content before filters.
+   */
+  children?: React.ReactNode
 }
 
 function FilterSlider({
@@ -77,6 +82,7 @@ function FilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
+  children,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
 
@@ -113,6 +119,7 @@ function FilterSlider({
         })
       }}
     >
+      {children}
       <UIFilter
         testId={`mobile-${testId}`}
         indicesExpanded={expanded}
