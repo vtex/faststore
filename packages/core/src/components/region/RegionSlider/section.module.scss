@@ -16,6 +16,12 @@
       font-weight: var(--fs-text-weight-semibold);
     }
 
+    [data-fs-filter-slider-footer] {
+      [data-fs-filter-slider-footer-button-apply] {
+        width: 100%;
+      }
+    }
+
     [data-fs-slide-over-header] {
       @include media(">=notebook") {
         padding-right: var(--fs-spacing-6);

@@ -57,8 +57,10 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
     await setRegion({
       session,
       onSuccess: () => {
-        setInput('')
-        closeRegionSlider()
+        if (regionSliderType !== 'changeStore') {
+          setInput('')
+          closeRegionSlider()
+        }
       },
       postalCode: input,
       errorMessage: inputField?.errorMessage,
@@ -91,6 +93,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
   return (
     <UIFilterSlider
       data-fs-filter-region-slider
+      testId="fs-region-slider"
       overlayProps={{
         className: `section ${styles.section} section-filter-slider`,
       }}
@@ -102,7 +105,15 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
       size="partial"
       direction="rightSide"
       onClose={() => {}}
-      footer={false}
+      footer={regionSliderType === 'changeStore' ? true : false}
+      applyBtnProps={
+        regionSliderType === 'changeStore'
+          ? {
+              variant: 'primary',
+              children: 'Update',
+            }
+          : undefined
+      }
     >
       <div data-fs-filter-region-slider-content>
         <span data-fs-filter-region-slider-description>
