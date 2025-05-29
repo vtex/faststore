@@ -411,6 +411,10 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
+        canCancelOrder:
+          order.status === 'payment-approved' ||
+          order.status === 'approve-payment',
+        canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
       }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
