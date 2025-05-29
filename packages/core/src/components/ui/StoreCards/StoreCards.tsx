@@ -3,21 +3,23 @@ import {
   RadioGroup as UIRadioGroup,
   RadioOption as UIRadioOption,
 } from '@faststore/ui'
-import { useState } from 'react'
+import type { ChangeEventHandler } from 'react'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import { StoreCard } from './StoreCard'
 
-function StoreCards() {
-  const [option, setOption] = useState<string | number>('')
+export interface StoreCardsProps {
+  /**
+   * Selected option value.
+   */
+  selectedOption?: string
+  /**
+   * Function that is triggered when any option is selected.
+   */
+  onChange?: ChangeEventHandler<HTMLInputElement>
+}
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOption(event.target.value)
-    // TODO: Handle the change event as needed
-    console.log(event.target.value)
-  }
-
+function StoreCards({ selectedOption, onChange }: StoreCardsProps) {
   const pickupPoints = usePickupPoints()
-  console.log(pickupPoints)
 
   if (pickupPoints?.length === 0) {
     // TODO: Adjust this according prototype
@@ -28,10 +30,8 @@ function StoreCards() {
     <UIList as="ol" data-fs-store-cards>
       <UIRadioGroup
         name="radio-group"
-        onChange={(v) => {
-          handleChange(v)
-        }}
-        selectedValue={option}
+        onChange={onChange}
+        selectedValue={selectedOption}
       >
         {pickupPoints?.map((item) => (
           <li data-fs-store-cards-item key={item.id}>

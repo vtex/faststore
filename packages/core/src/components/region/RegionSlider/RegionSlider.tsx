@@ -1,3 +1,4 @@
+import { useSearch } from '@faststore/sdk'
 import {
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
@@ -86,6 +87,24 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
     ),
   }
 
+  const { state } = useSearch()
+
+  const pickupPointSelected = state.selectedFacets.find(
+    (facet) => facet.key === 'pickupPoint'
+  )?.value
+
+  console.log('RegionSlider state:', state)
+
+  const [pickupPointOption, setPickupPointOption] = useState<string | null>(
+    pickupPointSelected ?? null
+  )
+  const handlePickupPointChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPickupPointOption(event.target.value)
+    console.log('Selected pickup point:', event.target.value)
+  }
+
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
@@ -143,7 +162,12 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
           <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
         )}
 
-        {regionSliderType === 'changeStore' && <StoreCards />}
+        {regionSliderType === 'changeStore' && (
+          <StoreCards
+            selectedOption={pickupPointOption}
+            onChange={handlePickupPointChange}
+          />
+        )}
       </div>
     </UIFilterSlider>
   )
