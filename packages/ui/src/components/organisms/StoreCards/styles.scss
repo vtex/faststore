@@ -19,11 +19,7 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--fs-store-cards-row-gap);
-  margin: var(--fs-spacing-3);
-
-  @include media(">=notebook") {
-    margin: var(--fs-spacing-6);
-  }
+  margin: var(--fs-spacing-3) 0;
 
   [data-fs-store-cards-item] {
     [data-fs-radio-option-item] {

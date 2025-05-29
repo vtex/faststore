@@ -276,6 +276,7 @@ function FilterSlider({
         {regionSliderType === regionSliderTypes.setLocation && (
           <RegionSlider cmsData={regionalizationData} />
         )}
+
         {filteredFacets.map((facet, idx) => {
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
           const { __typename: type, label } = facet
