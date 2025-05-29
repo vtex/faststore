@@ -5,8 +5,10 @@ import { OrganizationDrawer } from '../OrganizationDrawer/OrganizationDrawer'
 
 export const OrganizationSignInButton = ({
   icon: { alt, icon },
+  isRepresentative,
 }: {
   icon: { alt: string; icon: string }
+  isRepresentative?: boolean
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -43,7 +45,11 @@ export const OrganizationSignInButton = ({
       </Button>
 
       {isOpen && (
-        <OrganizationDrawer isOpen={isOpen} closeDrawer={closeDrawer} />
+        <OrganizationDrawer
+          isOpen={isOpen}
+          closeDrawer={closeDrawer}
+          isRepresentative={isRepresentative}
+        />
       )}
     </>
   )

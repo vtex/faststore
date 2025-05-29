@@ -77,7 +77,10 @@ function NavbarSlider({
       <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
           {isOrganizationEnabled ? (
-            <OrganizationSignInButton icon={signInButton.icon} />
+            <OrganizationSignInButton
+              icon={signInButton.icon}
+              isRepresentative={isRepresentative}
+            />
           ) : (
             <ButtonSignIn.Component {...signInButton} />
           )}

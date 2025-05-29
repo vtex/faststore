@@ -13,17 +13,19 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { execute } from 'src/server'
 import { gql } from '@generated/gql'
 import type {
   ServerSecurityQueryQuery,
   ServerSecurityQueryQueryVariables,
 } from '@generated/graphql'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { execute } from 'src/server'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -31,14 +33,11 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type SecurityPageProps = {
-  accountName: string
-} & MyAccountProps
-
 export default function Page({
   globalSections,
   accountName,
-}: SecurityPageProps) {
+  isRepresentative,
+}: MyAccountProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -46,7 +45,10 @@ export default function Page({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
+      <MyAccountLayout
+        accountName={accountName}
+        isRepresentative={isRepresentative}
+      >
         <BeforeSection />
         <div>
           <h1>Security</h1>
@@ -68,10 +70,16 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
+  const { previewData, query: queryParams } = context
   // TODO validate permissions here
 
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
+
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query: context.query,
+    query: queryParams,
   })
 
   if (!isFaststoreMyAccountEnabled) {
@@ -82,7 +90,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(previewData)
 
   const [security, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
@@ -121,6 +129,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: security.data.accountName,
+      isRepresentative,
     },
   }
 }

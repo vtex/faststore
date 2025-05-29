@@ -9,6 +9,7 @@ import styles from './section.module.scss'
 type OrganizationDrawerProps = {
   isOpen: boolean
   closeDrawer: () => void
+  isRepresentative: boolean
 }
 
 export const doLogout = () => {
@@ -21,6 +22,7 @@ export const doLogout = () => {
 export const OrganizationDrawer = ({
   isOpen,
   closeDrawer,
+  isRepresentative,
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
   const { b2b } = useSession()
@@ -45,7 +47,7 @@ export const OrganizationDrawer = ({
         contractName={contractName}
         contractUrl="/buyer-portal"
       />
-      <OrganizationDrawerBody />
+      <OrganizationDrawerBody isRepresentative={isRepresentative} />
       <footer data-fs-organization-drawer-footer-wrapper>
         <ProfileSummary
           showManageLink
