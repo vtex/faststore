@@ -595,6 +595,14 @@ export type IUserOrderCancel = {
   reason?: Maybe<Scalars['String']>;
 };
 
+export type Item = {
+  __typename?: 'Item';
+  /** Pickup point distance. */
+  distance?: Maybe<Scalars['Float']>;
+  /** Pickup point. */
+  pickupPoint?: Maybe<PickupPoint>;
+};
+
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
@@ -698,6 +706,18 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String'];
   session: IStoreSession;
+};
+
+export type Paging = {
+  __typename?: 'Paging';
+  /** Current page. */
+  page?: Maybe<Scalars['Int']>;
+  /** Number of items per page. */
+  pageSize?: Maybe<Scalars['Int']>;
+  /** Total number of pages. */
+  pages?: Maybe<Scalars['Int']>;
+  /** Total number of items. */
+  total?: Maybe<Scalars['Int']>;
 };
 
 /** Newsletter information. */
