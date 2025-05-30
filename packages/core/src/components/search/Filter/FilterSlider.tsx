@@ -143,10 +143,10 @@ function FilterSlider({
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
 
   const selectedPickupPointId = state.selectedFacets.find(
-    (facet) => facet.key === 'pickupPoint'
+    ({ key }) => key === 'pickupPoint'
   )?.value
   const defaultPickupPoint =
-    pickupPoints?.find((point) => point.id === selectedPickupPointId) ??
+    pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
     pickupPoints?.[0] ??
     undefined
   const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
