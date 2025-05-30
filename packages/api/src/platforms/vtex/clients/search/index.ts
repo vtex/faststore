@@ -12,11 +12,11 @@ import type {
   FacetSearchResult,
   FacetValueBoolean,
 } from './types/FacetSearchResult'
+import type { ProductCountResult } from './types/ProductCountResult'
 import type {
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
-import type { ProductCountResult } from './types/ProductCountResult'
 
 export type Sort =
   | 'price:desc'
