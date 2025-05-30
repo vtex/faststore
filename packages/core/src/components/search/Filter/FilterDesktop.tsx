@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
 
 import {
   regionSliderTypes,
@@ -14,6 +14,7 @@ import {
 import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
@@ -41,19 +42,105 @@ function FilterDesktop({
     regionSlider: { type: regionSliderType },
     openRegionSlider,
   } = useUI()
+  const pickupPoints = usePickupPoints()
+  const { postalCode } = sessionStore.read()
 
+  const toggleFilterFacet = (facet: { key: string; value: string }) => {
+    setState({
+      ...state,
+      selectedFacets: toggleFacet(
+        // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
+        state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
+        facet,
+        true
+      ),
+      page: 0,
+    })
+  }
+
+  const togglePickupInPointFacet = (
+    pickupInPointFacets: { key: string; value: string }[]
+  ) => {
+    setState({
+      ...state,
+      selectedFacets: toggleFacets(
+        state.selectedFacets,
+        pickupInPointFacets,
+        true
+      ),
+      page: 0,
+    })
+  }
+
+  // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
   const { deliverySettings: deliverySettingsData } = regionalizationData
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-
-  const { postalCode } = sessionStore.read()
-  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
-
+  const isDeliveryPromiseEnabled = deliveryPromise.enabled
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
+  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+  const pickupInPointFacet =
+    isDeliveryPromiseEnabled && defaultPickupPoint
+      ? {
+          value: 'pickup-in-point',
+          label: defaultPickupPoint?.name ?? defaultPickupPoint?.addressStreet,
+          selected: !!state.selectedFacets.find(
+            ({ value }) => value === 'pickup-in-point'
+          ),
+          quantity: defaultPickupPoint?.totalItems ?? 0,
+        }
+      : undefined
+
+  let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
+  if (isDeliveryPromiseEnabled) {
+    filteredFacets = facets.map((facet) => {
+      if (
+        facet.key === 'shipping' &&
+        facet.__typename === 'StoreFacetBoolean'
+      ) {
+        const pickupInPointFacetIndex = facet.values.findIndex(
+          (item) => item?.value === 'pickup-in-point'
+        )
+
+        // Remove old pickup `pickup in point` facet from list and search state
+        if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
+          if (state.selectedFacets.some(({ key }) => key === 'shipping')) {
+            const selectedShippingFacet = state.selectedFacets.find(
+              ({ key }) => key === 'shipping'
+            )
+            const selectedPickupInPointFacets = state.selectedFacets.filter(
+              ({ key, value }) =>
+                value === 'pickup-in-point' || key === 'pickupPoint'
+            )
+
+            selectedPickupInPointFacets.length !== 0
+              ? togglePickupInPointFacet(selectedPickupInPointFacets)
+              : toggleFilterFacet(selectedShippingFacet)
+          }
+
+          facet.values = facet.values.filter(
+            (_, index) => index !== pickupInPointFacetIndex
+          )
+        }
+        // Prevent multiple `pickup in point` facet
+        else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
+          facet.values.push(pickupInPointFacet)
+        }
+        // Replace current `pickup-in-point` facet with the updated one
+        else if (
+          facet.values[pickupInPointFacetIndex] &&
+          facet.values[pickupInPointFacetIndex]?.label !==
+            pickupInPointFacet.label
+        ) {
+          facet.values[pickupInPointFacetIndex] = pickupInPointFacet
+        }
+      }
+
+      return facet
+    })
+  }
 
   return (
     <UIFilter
@@ -102,7 +189,7 @@ function FilterDesktop({
             type={type}
             label={isDeliveryFacet ? deliveryLabel : label}
             description={
-              isDeliveryFacet ? deliverySettingsData.description : undefined
+              isDeliveryFacet ? deliverySettingsData?.description : undefined
             }
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
@@ -115,15 +202,18 @@ function FilterDesktop({
                         id={`${testId}-${facet.label}-${item.label}`}
                         testId={testId}
                         onFacetChange={(facet) => {
-                          setState({
-                            ...state,
-                            selectedFacets: toggleFacet(
-                              state.selectedFacets,
+                          if (facet.value === 'pickup-in-point') {
+                            togglePickupInPointFacet([
                               facet,
-                              true
-                            ),
-                            page: 0,
-                          })
+                              {
+                                key: 'pickupPoint',
+                                value: defaultPickupPoint?.id,
+                              },
+                            ])
+                          } else {
+                            toggleFilterFacet(facet)
+                          }
+
                           resetInfiniteScroll(0)
                         }}
                         selected={item.selected}
@@ -135,7 +225,7 @@ function FilterDesktop({
                             <FilterDeliveryOption
                               item={item}
                               deliveryMethods={
-                                deliverySettingsData.deliveryMethods
+                                deliverySettingsData?.deliveryMethods
                               }
                               cmsData={regionalizationData}
                             />

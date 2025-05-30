@@ -12,6 +12,7 @@ import type {
   QueryShippingArgs,
   QueryUserOrderArgs,
   UserOrderFromList,
+  QueryPickupPointsArgs,
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -494,5 +495,22 @@ export const Query = {
       .catch(() => null)
 
     return user?.name || ''
+  },
+  pickupPoints: async (
+    _: unknown,
+    { country, postalCode, geoCoordinates }: QueryPickupPointsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.checkout.pickupPoints({
+      country,
+      postalCode,
+      geoCoordinates,
+    })
+
+    return result
   },
 }
