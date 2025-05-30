@@ -16,6 +16,7 @@ export interface Popover {
 export const regionSliderTypes = {
   setLocation: 'setLocation',
   changeLocation: 'changeLocation',
+  changeStore: 'changeStore',
 } as const
 
 type RegionSliderType =

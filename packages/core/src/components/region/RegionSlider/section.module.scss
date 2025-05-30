@@ -5,13 +5,21 @@
   @import "@faststore/ui/src/components/atoms/Link/styles.scss";
   @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
   @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
+  @import "@faststore/ui/src/components/molecules/StoreCard/styles.scss";
   @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+  @import "@faststore/ui/src/components/organisms/StoreCards/styles.scss";
 
   [data-fs-filter-region-slider] {
     [data-fs-filter-slider-title] {
       font-size: var(--fs-text-size-3);
       font-weight: var(--fs-text-weight-semibold);
+    }
+
+    [data-fs-filter-slider-footer] {
+      [data-fs-filter-slider-footer-button-apply] {
+        width: 100%;
+      }
     }
 
     [data-fs-slide-over-header] {

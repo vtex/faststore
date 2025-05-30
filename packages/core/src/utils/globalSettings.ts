@@ -27,6 +27,7 @@ export type RegionalizationCmsData = {
     postalCodeEditSlider?: {
       setLocation?: string
       changeLocation?: string
+      changeStore?: string
     }
     deliveryMethods?: {
       delivery?: string

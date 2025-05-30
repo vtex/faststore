@@ -107,6 +107,11 @@
                           "title": "Change Postal Code",
                           "type": "string",
                           "default": "Change Location"
+                        },
+                        "changeStore": {
+                          "title": "Change Pickup Store",
+                          "type": "string",
+                          "default": "Change Store"
                         }
                       }
                     },
