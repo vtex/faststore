@@ -108,7 +108,9 @@ const Modal = ({
           {...overlayProps}
         >
           <ModalContent
-            onTransitionEnd={() => {
+            onTransitionEnd={(ev) => {
+              // Checks if the event wast triggered by this modal or is a bubble event
+              if ((ev.target as HTMLElement)?.dataset?.testid !== testId) return
               if (fade === 'out') {
                 closeModal()
               } else if (fade === 'in' && onEntered) {
