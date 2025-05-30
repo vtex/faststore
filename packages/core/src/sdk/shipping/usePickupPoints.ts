@@ -3,6 +3,7 @@ import type {
   ClientPickupPointsQueryQuery,
   ClientPickupPointsQueryQueryVariables,
 } from '@generated/graphql'
+import { useMemo } from 'react'
 
 import { deliveryPromise } from 'discovery.config'
 import { useQuery } from 'src/sdk/graphql/useQuery'
