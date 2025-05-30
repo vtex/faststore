@@ -25,8 +25,6 @@ import {
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
 
-import RegionSlider from 'src/components/region/RegionSlider'
-
 import styles from './section.module.scss'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
@@ -104,10 +102,7 @@ function FilterSlider({
   deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
+  const { openRegionSlider } = useUI()
 
   const onFacetChange = (facet: { key: string; value: string }) => {
     let unique = isRadioFacets(facet.key)
@@ -213,9 +208,7 @@ function FilterSlider({
               <UIButton
                 data-fs-filter-list-delivery-button
                 variant="secondary"
-                onClick={() => {
-                  openRegionSlider(regionSliderTypes.setLocation)
-                }}
+                onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
                 icon={<UIIcon name="MapPin" />}
               >
                 {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
@@ -297,10 +290,6 @@ function FilterSlider({
           })}
         </UIFilter>
       </UIFilterSlider>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
     </>
   )
 }
