@@ -437,6 +437,25 @@ type Query {
   """
   validateUser: ValidateUserData
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+   Returns a list of pickup points near to the given geo coordinates or postal code + country code.
+  """
+  pickupPoints(
+    """
+    Geo coordinates input.
+    """
+    geoCoordinates: IStoreGeoCoordinates
+    """
+    Postal code input.
+    """
+    postalCode: String
+    """
+    Country input.
+    """
+    country: String
+  ): PickupPoints
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
 type ValidateUserData {

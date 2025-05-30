@@ -4,6 +4,7 @@ import type {
   QueryAllProductsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
+  QueryPickupPointsArgs,
   QueryProductArgs,
   QueryProductCountArgs,
   QueryProfileArgs,
@@ -19,6 +20,7 @@ import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
+import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku } from '../utils/enhanceSku'
@@ -33,7 +35,6 @@ import {
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
-import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { StoreCollection } from './collection'
 
 export const Query = {
@@ -600,5 +601,22 @@ export const Query = {
       id: user?.id || '',
       // createdAt: '',
     }
+  },
+  pickupPoints: async (
+    _: unknown,
+    { country, postalCode, geoCoordinates }: QueryPickupPointsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.checkout.pickupPoints({
+      country,
+      postalCode,
+      geoCoordinates,
+    })
+
+    return result
   },
 }

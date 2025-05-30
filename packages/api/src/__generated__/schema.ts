@@ -321,6 +321,16 @@ export const enum CommercialAuthorizationStatus {
   Denied = 'denied',
   /** Authorization is pending. */
   Pending = 'pending'
+}
+
+export type BusinessHour = {
+  __typename?: 'BusinessHour';
+  /** Business hour closing time. */
+  ClosingTime?: Maybe<Scalars['String']>;
+  /** Number that represents the day of the week. */
+  DayOfWeek?: Maybe<Scalars['Int']>;
+  /** Business hour opening time. */
+  OpeningTime?: Maybe<Scalars['String']>;
 };
 
 export type DeliveryIds = {
@@ -571,6 +581,14 @@ export type IUserOrderCancel = {
   reason?: Maybe<Scalars['String']>;
 };
 
+export type Item = {
+  __typename?: 'Item';
+  /** Pickup point distance. */
+  distance?: Maybe<Scalars['Float']>;
+  /** Pickup point. */
+  pickupPoint?: Maybe<PickupPoint>;
+};
+
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
@@ -686,6 +704,18 @@ export type MutationValidateSessionArgs = {
   session: IStoreSession;
 };
 
+export type Paging = {
+  __typename?: 'Paging';
+  /** Current page. */
+  page?: Maybe<Scalars['Int']>;
+  /** Number of items per page. */
+  pageSize?: Maybe<Scalars['Int']>;
+  /** Total number of pages. */
+  pages?: Maybe<Scalars['Int']>;
+  /** Total number of items. */
+  total?: Maybe<Scalars['Int']>;
+};
+
 /** Newsletter information. */
 export type PersonNewsletter = {
   __typename?: 'PersonNewsletter';
@@ -721,6 +751,60 @@ export type PickupAddress = {
   state?: Maybe<Scalars['String']>;
   /** PickupAddress street. */
   street?: Maybe<Scalars['String']>;
+};
+
+export type PickupPoint = {
+  __typename?: 'PickupPoint';
+  /** Pickup point additional info. */
+  additionalInfo?: Maybe<Scalars['String']>;
+  /** Pickup point address. */
+  address?: Maybe<PickupPointAddress>;
+  /** Pickup point business hours. */
+  businessHours?: Maybe<BusinessHour>;
+  /** Pickup point friendly name. */
+  friendlyName?: Maybe<Scalars['String']>;
+  /** Pickup point id. */
+  id?: Maybe<Scalars['String']>;
+};
+
+export type PickupPointAddress = {
+  __typename?: 'PickupPointAddress';
+  /** Address id. */
+  addressId?: Maybe<Scalars['String']>;
+  /** Address type. */
+  addressType?: Maybe<Scalars['String']>;
+  /** Address city. */
+  city?: Maybe<Scalars['String']>;
+  /** Address complement */
+  complement?: Maybe<Scalars['String']>;
+  /** Address country. */
+  country?: Maybe<Scalars['String']>;
+  /** Address geo coordinates. */
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  /** Inform whether the address is disposable. */
+  isDisposable?: Maybe<Scalars['Boolean']>;
+  /** Address neighborhood. */
+  neighborhood?: Maybe<Scalars['String']>;
+  /** Address number. */
+  number?: Maybe<Scalars['String']>;
+  /** Address postal code. */
+  postalCode?: Maybe<Scalars['String']>;
+  /** Address receiver name. */
+  receiverName?: Maybe<Scalars['String']>;
+  /** Address reference. */
+  reference?: Maybe<Scalars['String']>;
+  /** Address state. */
+  state?: Maybe<Scalars['String']>;
+  /** Address street. */
+  street?: Maybe<Scalars['String']>;
+};
+
+export type PickupPoints = {
+  __typename?: 'PickupPoints';
+  /** List of pickup points of the given location. */
+  items?: Maybe<Array<Maybe<Item>>>;
+  /** Pagination details. */
+  paging?: Maybe<Paging>;
 };
 
 export type PickupStoreInfo = {
@@ -813,6 +897,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns information about the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
+  /** Returns a list of pickup points near to the given geo coordinates or postal code + country code. */
+  pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -861,6 +947,13 @@ export type QueryListUserOrdersArgs = {
   perPage?: Maybe<Scalars['Int']>;
   status?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPickupPointsArgs = {
+  country?: Maybe<Scalars['String']>;
+  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 
