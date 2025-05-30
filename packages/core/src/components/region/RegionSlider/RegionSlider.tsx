@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { toggleFacets, useSearch } from '@faststore/sdk'
 import {
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
@@ -87,22 +87,31 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
     ),
   }
 
-  const { state } = useSearch()
+  const { state, setState } = useSearch()
 
-  const pickupPointSelected = state.selectedFacets.find(
+  const selectedPickupPoint = state.selectedFacets.find(
     (facet) => facet.key === 'pickupPoint'
   )?.value
 
-  console.log('RegionSlider state:', state)
-
   const [pickupPointOption, setPickupPointOption] = useState<string | null>(
-    pickupPointSelected ?? null
+    selectedPickupPoint ?? null
   )
-  const handlePickupPointChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+  const handlePickupPointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPickupPointOption(e.target.value)
+  }
+
+  const togglePickupInPointFacet = (
+    pickupInPointFacets: { key: string; value: string }[]
   ) => {
-    setPickupPointOption(event.target.value)
-    console.log('Selected pickup point:', event.target.value)
+    setState({
+      ...state,
+      selectedFacets: toggleFacets(
+        state.selectedFacets,
+        pickupInPointFacets,
+        true
+      ),
+      page: 0,
+    })
   }
 
   useEffect(() => {
@@ -130,6 +139,12 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
           ? {
               variant: 'primary',
               children: 'Update',
+              disabled: loading || input === '' || pickupPointOption === null,
+              onClick: () => {
+                togglePickupInPointFacet([
+                  { key: 'pickupPoint', value: pickupPointOption },
+                ])
+              },
             }
           : undefined
       }
