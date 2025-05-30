@@ -6,6 +6,7 @@ import {
   type InputFieldProps as UIInputFieldProps,
 } from '@faststore/ui'
 import dynamic from 'next/dynamic'
+import type { ChangeEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import StoreCards from 'src/components/ui/StoreCards'
@@ -96,22 +97,38 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
   const [pickupPointOption, setPickupPointOption] = useState<string | null>(
     selectedPickupPoint ?? null
   )
-  const handlePickupPointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePickupPointOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPickupPointOption(e.target.value)
   }
 
-  const togglePickupInPointFacet = (
-    pickupInPointFacets: { key: string; value: string }[]
-  ) => {
-    setState({
-      ...state,
-      selectedFacets: toggleFacets(
-        state.selectedFacets,
-        pickupInPointFacets,
-        true
-      ),
-      page: 0,
-    })
+  const handlePickupPointUpdate = () => {
+    const shippingFacet = state.selectedFacets.find(
+      (facet) => facet.key === 'shipping'
+    )
+
+    // If shipping is not 'pickup-in-point', we need to toggle it
+    const facetsToToggle = []
+
+    if (!shippingFacet || shippingFacet.value !== 'pickup-in-point') {
+      facetsToToggle.push({ key: 'shipping', value: 'pickup-in-point' })
+    }
+
+    // Add/update the pickupPoint facet
+    if (pickupPointOption) {
+      facetsToToggle.push({ key: 'pickupPoint', value: pickupPointOption })
+    }
+
+    if (facetsToToggle.length > 0) {
+      setState({
+        ...state,
+        selectedFacets: toggleFacets(
+          state.selectedFacets,
+          facetsToToggle,
+          true
+        ),
+        page: 0,
+      })
+    }
   }
 
   useEffect(() => {
@@ -139,11 +156,13 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
           ? {
               variant: 'primary',
               children: 'Update',
-              disabled: loading || input === '' || pickupPointOption === null,
+              disabled:
+                loading ||
+                input === '' ||
+                pickupPointOption === null ||
+                pickupPointOption === selectedPickupPoint,
               onClick: () => {
-                togglePickupInPointFacet([
-                  { key: 'pickupPoint', value: pickupPointOption },
-                ])
+                handlePickupPointUpdate()
               },
             }
           : undefined
@@ -180,7 +199,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
         {regionSliderType === 'changeStore' && (
           <StoreCards
             selectedOption={pickupPointOption}
-            onChange={handlePickupPointChange}
+            onChange={handlePickupPointOnChange}
           />
         )}
       </div>
