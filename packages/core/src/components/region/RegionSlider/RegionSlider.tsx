@@ -74,23 +74,6 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     })
   }
 
-  const idkPostalCodeLinkProps = {
-    href: idkPostalCodeLink?.to,
-    children: (
-      <>
-        {idkPostalCodeLink?.text}
-        {!!idkPostalCodeLink?.icon?.icon && (
-          <UIIcon
-            name={idkPostalCodeLink?.icon?.icon}
-            aria-label={idkPostalCodeLink?.icon?.alt}
-            width={20}
-            height={20}
-          />
-        )}
-      </>
-    ),
-  }
-
   const { state, setState } = useSearch()
 
   const selectedPickupPoint = state.selectedFacets.find(
@@ -133,6 +116,23 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
         page: 0,
       })
     }
+  }
+
+  const idkPostalCodeLinkProps = {
+    href: idkPostalCodeLink?.to,
+    children: (
+      <>
+        {idkPostalCodeLink?.text}
+        {!!idkPostalCodeLink?.icon?.icon && (
+          <UIIcon
+            name={idkPostalCodeLink?.icon?.icon}
+            aria-label={idkPostalCodeLink?.icon?.alt}
+            width={20}
+            height={20}
+          />
+        )}
+      </>
+    ),
   }
 
   useEffect(() => {

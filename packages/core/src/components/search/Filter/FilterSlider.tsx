@@ -17,7 +17,21 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 
 import { deliveryPromise } from 'discovery.config'
+
+import type { Filter_FacetsFragment } from '@generated/graphql'
+import FilterDeliveryOption from './FilterDeliveryOption'
+
+import type { useFilter } from 'src/sdk/search/useFilter'
+import { sessionStore } from 'src/sdk/session'
+
+import {
+  getRegionalizationSettings,
+  type RegionalizationCmsData,
+} from 'src/utils/globalSettings'
+
 import { RegionSlider } from 'src/components/region/RegionSlider'
+
+import styles from './section.module.scss'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -45,7 +59,6 @@ const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
   /* webpackChunkName: "UIFilterSlider" */
   import('@faststore/ui').then((mod) => mod.FilterSlider)
 )
-
 const UIButton = dynamic<UIButtonProps>(() =>
   /* webpackChunkName: "UIButton" */
   import('@faststore/ui').then((mod) => mod.Button)
@@ -54,19 +67,6 @@ const UIIcon = dynamic<UIIconProps>(() =>
   /* webpackChunkName: "UIIcon" */
   import('@faststore/ui').then((mod) => mod.Icon)
 )
-
-import type { Filter_FacetsFragment } from '@generated/graphql'
-import FilterDeliveryOption from './FilterDeliveryOption'
-
-import type { useFilter } from 'src/sdk/search/useFilter'
-import { sessionStore } from 'src/sdk/session'
-
-import {
-  getRegionalizationSettings,
-  type RegionalizationCmsData,
-} from 'src/utils/globalSettings'
-import styles from './section.module.scss'
-
 export interface FilterSliderProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
