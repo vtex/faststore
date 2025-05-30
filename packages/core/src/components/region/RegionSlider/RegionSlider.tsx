@@ -35,9 +35,12 @@ const UILink = dynamic(() =>
 
 type RegionSliderProps = {
   cmsData: RegionalizationCmsData
+  open: boolean
 }
 
-function RegionSlider({ cmsData }: RegionSliderProps) {
+function RegionSlider({ cmsData, open }: RegionSliderProps) {
+  if (!open) return null
+
   const {
     regionSlider: { type: regionSliderType },
     closeRegionSlider,
@@ -97,6 +100,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
   const [pickupPointOption, setPickupPointOption] = useState<string | null>(
     selectedPickupPoint ?? null
   )
+
   const handlePickupPointOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPickupPointOption(e.target.value)
   }

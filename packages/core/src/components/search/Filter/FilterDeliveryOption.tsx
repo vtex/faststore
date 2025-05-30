@@ -1,5 +1,4 @@
 import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
-import { RegionSlider } from 'src/components/region/RegionSlider'
 import { sessionStore } from 'src/sdk/session'
 import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
@@ -49,9 +48,6 @@ export default function FilterDeliveryOption({
         >
           {location}
         </UIButton>
-        {regionSliderType === regionSliderTypes.changeLocation && (
-          <RegionSlider cmsData={cmsData} />
-        )}
       </>
     )
   }
@@ -69,9 +65,6 @@ export default function FilterDeliveryOption({
         >
           {item.label}
         </UIButton>
-        {regionSliderType === regionSliderTypes.changeStore && (
-          <RegionSlider cmsData={cmsData} />
-        )}
       </>
     )
   }
