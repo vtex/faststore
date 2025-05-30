@@ -49,7 +49,7 @@ function FilterDesktop({
     setState({
       ...state,
       selectedFacets: toggleFacet(
-        // Case added, filter 'pickupPoint' facet to remove it from search params
+        // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
         state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
         facet,
         true
@@ -89,7 +89,7 @@ function FilterDesktop({
           selected: !!state.selectedFacets.find(
             ({ value }) => value === 'pickup-in-point'
           ),
-          quantity: defaultPickupPoint?.totalItems,
+          quantity: defaultPickupPoint?.totalItems ?? 0,
         }
       : undefined
 
@@ -128,7 +128,7 @@ function FilterDesktop({
         else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
           facet.values.push(pickupInPointFacet)
         }
-        // Replace current `pickup-in-point` facet by a updated one
+        // Replace current `pickup-in-point` facet with the updated one
         else if (
           facet.values[pickupInPointFacetIndex] &&
           facet.values[pickupInPointFacetIndex]?.label !==

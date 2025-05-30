@@ -188,7 +188,7 @@ function FilterSlider({
         else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
           facet.values.push(pickupInPointFacet)
         }
-        // Replace current `pickup-in-point` facet by a updated one
+        // Replace current `pickup-in-point` facet with the updated one
         else if (
           facet.values[pickupInPointFacetIndex] &&
           facet.values[pickupInPointFacetIndex]?.label !==
@@ -220,18 +220,18 @@ function FilterSlider({
         onClick: () => {
           resetInfiniteScroll(0)
 
-          const noPickupInPointShippingFacet = selected.find(
+          const isOtherShippingFacetSelected = selected.find(
             ({ key, value }) =>
               key === 'shipping' && value !== 'pickup-in-point'
           )
-          const withoutPickupPointFacet = selected.filter(
+          const removePickupPointFacet = selected.filter(
             ({ key }) => key !== 'pickupPoint'
           )
 
           setState({
             ...state,
-            selectedFacets: noPickupInPointShippingFacet
-              ? withoutPickupPointFacet
+            selectedFacets: isOtherShippingFacetSelected
+              ? removePickupPointFacet
               : selected,
             page: 0,
           })
