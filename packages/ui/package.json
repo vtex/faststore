@@ -31,7 +31,7 @@
     "src"
   ],
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "tsc --module esnext --outDir dist/esm --watch",
     "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
     "size": "size-limit",
     "analyze": "size-limit --why"

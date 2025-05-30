@@ -61,6 +61,11 @@ export interface ProductCardProps {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+
+  /**
+   * Determines if a shipping badge should be displayed.
+   */
+  showShippingBadge?: boolean
 }
 
 function ProductCard({
@@ -76,6 +81,7 @@ function ProductCard({
   showDiscountBadge = true,
   taxesConfiguration,
   sponsoredLabel,
+  showShippingBadge,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -155,6 +161,7 @@ function ProductCard({
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
         sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
+        showShippingBadge={showShippingBadge}
       />
     </UIProductCard>
   )

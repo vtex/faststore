@@ -73,6 +73,10 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * Determines if a shipping badge should be displayed.
+   */
+  showShippingBadge?: boolean
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -93,6 +97,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       includeTaxesLabel = 'Tax included',
       sponsored = false,
       sponsoredLabel = 'Sponsored',
+      showShippingBadge = false,
       ...otherProps
     },
     ref
@@ -136,6 +141,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+        {showShippingBadge && <div>O componente deve ficar aqui!</div>}
         {onButtonClick && !outOfStock && (
           <div data-fs-product-card-actions>
             <Button

@@ -30,7 +30,11 @@ interface Props {
    */
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'sponsoredLabel'
+    | 'showDiscountBadge'
+    | 'bordered'
+    | 'taxesConfiguration'
+    | 'sponsoredLabel'
+    | 'showShippingBadge'
   >
   /**
    * Determine if the current page is the first page.
@@ -51,6 +55,7 @@ function ProductGrid({
     bordered,
     taxesConfiguration,
     sponsoredLabel,
+    showShippingBadge,
   } = {},
   firstPage,
   title,
@@ -96,6 +101,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
+                    showShippingBadge={showShippingBadge}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
@@ -126,6 +132,7 @@ function ProductGrid({
                       index={pageSize * page + idx + 1}
                       taxesConfiguration={taxesConfiguration}
                       sponsoredLabel={sponsoredLabel}
+                      showShippingBadge={showShippingBadge}
                     />
                   </ProductSentinel>
                 </UIProductGridItem>
@@ -159,6 +166,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
+                    showShippingBadge={showShippingBadge}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
