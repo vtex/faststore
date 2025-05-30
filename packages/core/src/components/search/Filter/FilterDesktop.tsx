@@ -1,5 +1,4 @@
 import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
-
 import {
   regionSliderTypes,
   Button as UIButton,
@@ -11,17 +10,18 @@ import {
   Icon as UIIcon,
   useUI,
 } from '@faststore/ui'
+
 import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
+
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
-import type { FilterSliderProps } from './FilterSlider'
-
 import { sessionStore } from 'src/sdk/session'
+import RegionSlider from 'src/components/region/RegionSlider'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
+import type { FilterSliderProps } from './FilterSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 interface FilterDesktopProps
