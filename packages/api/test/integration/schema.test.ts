@@ -71,6 +71,7 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'pickupPoints',
 ]
 
 const MUTATIONS = [
