@@ -58,7 +58,7 @@ export default function FilterDeliveryOption({
             openRegionSlider(regionSliderTypes.changePickupPoint)
           }}
         >
-          Robson St
+          {item.label}
         </UIButton>
       </>
     )
