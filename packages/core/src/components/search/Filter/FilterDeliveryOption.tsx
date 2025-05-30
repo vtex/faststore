@@ -68,7 +68,7 @@ export default function FilterDeliveryOption({
             window.alert('Open Modal')
           }}
         >
-          Robson St
+          {item.label}
         </UIButton>
       </>
     )
