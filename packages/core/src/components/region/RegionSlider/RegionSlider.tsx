@@ -159,7 +159,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
               disabled:
                 loading ||
                 input === '' ||
-                pickupPointOption === null ||
+                !pickupPointOption ||
                 pickupPointOption === selectedPickupPoint,
               onClick: () => {
                 handlePickupPointUpdate()
