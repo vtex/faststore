@@ -13,6 +13,7 @@ import {
   type IconProps as UIIconProps,
 } from '@faststore/ui'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
@@ -122,6 +123,66 @@ function FilterSlider({
 
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
+  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+  const pickupInPointFacet =
+    isDeliveryPromiseEnabled && defaultPickupPoint
+      ? {
+          value: 'pickup-in-point',
+          label: defaultPickupPoint?.name ?? defaultPickupPoint?.addressStreet,
+          selected: !!selected.find(({ value }) => value === 'pickup-in-point'),
+          quantity: defaultPickupPoint?.totalItems,
+        }
+      : undefined
+
+  let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
+  if (isDeliveryPromiseEnabled) {
+    filteredFacets = facets.map((facet) => {
+      if (
+        facet.key === 'shipping' &&
+        facet.__typename === 'StoreFacetBoolean'
+      ) {
+        const pickupInPointFacetIndex = facet.values.findIndex(
+          (item) => item?.value === 'pickup-in-point'
+        )
+
+        // Remove old pickup `pickup in point` facet from list and search state
+        if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
+          if (selected.some(({ key }) => key === 'shipping')) {
+            const selectedShippingFacet = selected.find(
+              ({ key }) => key === 'shipping'
+            )
+            const selectedPickupInPointFacets = selected.filter(
+              ({ key, value }) =>
+                value === 'pickup-in-point' || key === 'pickupPoint'
+            )
+
+            selectedPickupInPointFacets.length !== 0
+              ? togglePickupInPointFacet(selectedPickupInPointFacets)
+              : toggleFilterFacets([selectedShippingFacet])
+          }
+
+          facet.values = facet.values.filter(
+            (_, index) => index !== pickupInPointFacetIndex
+          )
+        }
+        // Prevent multiple `pickup in point` facet
+        else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
+          facet.values.push(pickupInPointFacet)
+        }
+        // Replace current `pickup-in-point` facet with the updated one
+        else if (
+          facet.values[pickupInPointFacetIndex] &&
+          facet.values[pickupInPointFacetIndex]?.label !==
+            pickupInPointFacet.label
+        ) {
+          facet.values[pickupInPointFacetIndex] = pickupInPointFacet
+        }
+      }
+
+      return facet
+    })
+  }
 
   return (
     <>
