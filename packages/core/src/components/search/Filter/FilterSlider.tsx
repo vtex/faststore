@@ -14,11 +14,7 @@ import {
 } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
-
-import { deliveryPromise } from 'discovery.config'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
@@ -216,14 +212,6 @@ function FilterSlider({
       return facet
     })
   }
-
-  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
-  const { postalCode } = sessionStore.read()
-
-  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
 
   return (
     <>

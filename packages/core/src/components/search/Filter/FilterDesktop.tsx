@@ -14,8 +14,8 @@ import {
 import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import type { useFilter } from 'src/sdk/search/useFilter'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import { sessionStore } from 'src/sdk/session'
@@ -153,14 +153,6 @@ function FilterDesktop({
       return facet
     })
   }
-
-  const deliveryLabel = deliverySettings?.title ?? 'Delivery'
-  const { postalCode } = sessionStore.read()
-
-  const shouldDisplayDeliveryButton = deliveryPromise.enabled && !postalCode
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
 
   return (
     <>
