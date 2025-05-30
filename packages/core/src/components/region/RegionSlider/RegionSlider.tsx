@@ -91,7 +91,7 @@ function RegionSlider({ cmsData }: RegionSliderProps) {
   const { state, setState } = useSearch()
 
   const selectedPickupPoint = state.selectedFacets.find(
-    (facet) => facet.key === 'pickupPoint'
+    ({ key }) => key === 'pickupPoint'
   )?.value
 
   const [pickupPointOption, setPickupPointOption] = useState<string | null>(
