@@ -73,6 +73,14 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * Determines if a shipping badge should be displayed.
+   */
+  showShippingBadge?: boolean
+  /**
+   * Delivery promises badges
+   */
+  deliveryPromisesBadges?: string[]
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -93,12 +101,18 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       includeTaxesLabel = 'Tax included',
       sponsored = false,
       sponsoredLabel = 'Sponsored',
+      showShippingBadge = false,
+      deliveryPromisesBadges,
       ...otherProps
     },
     ref
   ) {
     const listingPrice = price?.listPrice ? price.listPrice : 0
     const sellingPrice = price?.value ? price.value : 0
+    const deliveryAvailable = deliveryPromisesBadges?.includes('delivery')
+    const pickupAvailable = deliveryPromisesBadges?.some((badge) =>
+      badge.includes('pickup-in-point')
+    )
 
     return (
       <section
@@ -136,6 +150,22 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+        {showShippingBadge && !!deliveryPromisesBadges && (
+          <div data-fs-product-card-shipping-badges>
+            <div
+              data-fs-shipping-badge
+              data-fs-shipping-badge-available={deliveryAvailable}
+            >
+              Delivery {deliveryAvailable ? 'available' : 'unavailable'}
+            </div>
+            <div
+              data-fs-shipping-badge
+              data-fs-shipping-badge-available={pickupAvailable}
+            >
+              Pickup {pickupAvailable ? 'available' : 'unavailable'}
+            </div>
+          </div>
+        )}
         {onButtonClick && !outOfStock && (
           <div data-fs-product-card-actions>
             <Button

@@ -1930,6 +1930,11 @@
               "type": "boolean",
               "default": true
             },
+            "showShippingBadge": {
+              "title": "Show shipping badge?",
+              "type": "boolean",
+              "default": false
+            },
             "taxesConfiguration": {
               "title": "Taxes Configuration",
               "type": "object",

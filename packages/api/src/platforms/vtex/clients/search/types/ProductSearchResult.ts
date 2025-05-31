@@ -95,6 +95,7 @@ export interface Product {
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
   advertisement?: Advertisement
+  deliveryPromisesBadges?: string[]
 }
 
 interface Image {
