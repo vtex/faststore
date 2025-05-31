@@ -165,8 +165,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               data-fs-shipping-badge
               data-fs-shipping-badge-available={pickupAvailable}
             >
-              Pickup {pickupAvailable ? 'available' : 'unavailable'} -{' '}
-              {pickupPoint}
+              Pickup {pickupAvailable ? 'available' : 'unavailable'}
+              {pickupPoint && ` - ${pickupPoint}`}
             </div>
           </div>
         )}
