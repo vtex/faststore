@@ -61,6 +61,10 @@ export interface ProductCardProps {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * Determines if a shipping badge should be displayed.
+   */
+  showShippingBadge?: boolean
 }
 
 function ProductCard({
@@ -76,6 +80,7 @@ function ProductCard({
   showDiscountBadge = true,
   taxesConfiguration,
   sponsoredLabel,
+  showShippingBadge,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -88,6 +93,7 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    deliveryPromisesBadges,
   } = product
 
   const linkProps = {
@@ -155,6 +161,8 @@ function ProductCard({
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
         sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
+        showShippingBadge={showShippingBadge}
+        deliveryPromisesBadges={deliveryPromisesBadges}
       />
     </UIProductCard>
   )
@@ -219,6 +227,7 @@ export const fragment = gql(`
       adId
       adResponseId
     }
+    deliveryPromisesBadges
   }
 `)
 
