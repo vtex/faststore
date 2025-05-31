@@ -110,12 +110,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
     const listingPrice = price?.listPrice ? price.listPrice : 0
     const sellingPrice = price?.value ? price.value : 0
     const deliveryAvailable = deliveryPromisesBadges?.includes('delivery')
-    const pickupPointBadge = deliveryPromisesBadges?.find((badge) =>
+    const pickupAvailable = deliveryPromisesBadges?.some((badge) =>
       badge.includes('pickup-in-point')
     )
-
-    const pickupAvailable = !!pickupPointBadge
-    const [, pickupPoint] = pickupPointBadge?.split(':') ?? []
 
     return (
       <section
@@ -166,7 +163,6 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               data-fs-shipping-badge-available={pickupAvailable}
             >
               Pickup {pickupAvailable ? 'available' : 'unavailable'}
-              {pickupPoint && ` - ${pickupPoint}`}
             </div>
           </div>
         )}
