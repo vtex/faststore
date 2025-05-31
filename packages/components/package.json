@@ -15,7 +15,7 @@
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc --module esnext --outDir dist/esm --watch",
+    "dev": "tsc --watch",
     "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
     "test": "jest"
   },

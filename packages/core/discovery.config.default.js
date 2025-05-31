@@ -31,7 +31,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'cubostecnologia',
+    storeId: 'storeframework',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
@@ -130,7 +130,7 @@ module.exports = {
   },
 
   deliveryPromise: {
-    enabled: true,
+    enabled: false,
     mandatory: false,
   },
 

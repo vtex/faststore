@@ -101,7 +101,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       includeTaxesLabel = 'Tax included',
       sponsored = false,
       sponsoredLabel = 'Sponsored',
-      showShippingBadge = false,
+      showShippingBadge = true,
       deliveryPromisesBadges,
       ...otherProps
     },
@@ -153,14 +153,12 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             <div
               data-fs-shipping-badge
               data-fs-shipping-badge-available={deliveryAvailable}
-              data-fs-shipping-badge-unavailable={!deliveryAvailable}
             >
               Delivery {deliveryAvailable ? 'available' : 'unavailable'}
             </div>
             <div
               data-fs-shipping-badge
               data-fs-shipping-badge-available={pickupAvailable}
-              data-fs-shipping-badge-unavailable={!pickupAvailable}
             >
               Pickup {pickupAvailable ? 'available' : 'unavailable'}
             </div>

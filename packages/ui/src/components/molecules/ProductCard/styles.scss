@@ -198,11 +198,11 @@
       border-radius: 50%;
     }
 
-    [data-fs-shipping-badge-available]::before {
+    [data-fs-shipping-badge-available="true"]::before {
       background-color: var(--fs-product-card-shipping-badge-available-bkg-color);
     }
 
-    [data-fs-shipping-badge-unavailable]::before {
+    [data-fs-shipping-badge-available="false"]::before {
       background-color: var(--fs-product-card-shipping-badge-unavailable-bkg-color);
     }
   }
