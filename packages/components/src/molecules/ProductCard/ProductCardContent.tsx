@@ -150,7 +150,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
-        {showShippingBadge && (
+        {showShippingBadge && !!deliveryPromisesBadges && (
           <div data-fs-product-card-shipping-badges>
             <div
               data-fs-shipping-badge
