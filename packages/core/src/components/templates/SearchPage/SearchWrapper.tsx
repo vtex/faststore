@@ -15,7 +15,6 @@ export type SearchWrapperProps = {
   searchContentType: SearchContentType
   serverData: SearchPageContextType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
 }
 
 export default function SearchWrapper({
@@ -23,7 +22,6 @@ export default function SearchWrapper({
   searchContentType,
   serverData,
   globalSections,
-  globalSectionsSettings,
 }: SearchWrapperProps) {
   const router = useRouter()
   const {
@@ -83,7 +81,6 @@ export default function SearchWrapper({
       page={searchContentType}
       data={{ ...serverData, ...pageProductGalleryData }}
       globalSections={globalSections}
-      globalSectionsSettings={globalSectionsSettings}
     />
   )
 }

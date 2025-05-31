@@ -37,11 +37,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
 ) {
   const childrenWithIndex = React.Children.map(
     children as ReactElement,
-    (child, index) => {
-      if (!child) return
-
-      return cloneElement(child, { index: child.props.index ?? index })
-    }
+    (child, index) => cloneElement(child, { index: child.props.index ?? index })
   )
 
   const context = {

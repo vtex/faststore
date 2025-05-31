@@ -15,14 +15,12 @@ export type SearchPageProps = {
   data: SearchPageContextType & ClientProductGalleryQuery
   page: SearchContentType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
 }
 
 function SearchPage({
   page: { sections },
   data: serverData,
   globalSections,
-  globalSectionsSettings,
 }: SearchPageProps) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
@@ -31,7 +29,6 @@ function SearchPage({
       ...serverData,
       pages,
     },
-    globalSectionsSettings,
   } as SearchPageContext
 
   return (

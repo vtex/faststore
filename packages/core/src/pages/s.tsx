@@ -147,7 +147,6 @@ function Page({
           searchTerm: searchTerm ?? searchParams.term ?? undefined,
         }}
         globalSections={globalSections.sections}
-        globalSectionsSettings={globalSections.settings}
       />
     </SearchProvider>
   )

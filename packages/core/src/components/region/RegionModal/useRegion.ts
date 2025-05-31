@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import type { Session } from '@faststore/sdk'
-import { deliveryPromise } from 'discovery.config'
-import { getProductCount } from 'src/sdk/product'
 import { sessionStore, validateSession } from 'src/sdk/session'
+import { getProductCount } from 'src/sdk/product'
+import { deliveryPromise } from 'discovery.config'
 
 type SetRegionProps = {
   session: Session

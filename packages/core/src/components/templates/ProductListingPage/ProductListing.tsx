@@ -15,7 +15,6 @@ import RenderSections, {
 } from 'src/components/cms/RenderSections'
 import type { PLPContentType } from 'src/server/cms/plp'
 
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import PageProvider, { type PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
@@ -24,6 +23,7 @@ import {
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import { useApplySearchState } from 'src/sdk/search/state'
+import { useRouter } from 'next/router'
 import { isContentPlatformSource } from 'src/server/content/utils'
 
 const ScrollToTopButton = dynamic(
@@ -39,7 +39,6 @@ export type ProductListingPageProps = {
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -51,7 +50,6 @@ export default function ProductListing({
   data: server,
   serverManyProductsVariables,
   globalSections,
-  globalSectionsSettings,
 }: ProductListingPageProps) {
   const router = useRouter()
   const { state } = useSearch()
@@ -88,7 +86,6 @@ export default function ProductListing({
       ),
       pages,
     },
-    globalSectionsSettings,
   } as PLPContext
 
   return (

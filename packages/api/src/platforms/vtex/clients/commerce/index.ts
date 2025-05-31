@@ -34,7 +34,6 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { PickupPointsInput, PickupPoints } from './types/PickupPoints'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
 
@@ -364,39 +363,6 @@ export const VtexCommerce = (
           {
             headers,
           },
-          { storeCookies }
-        )
-      },
-      pickupPoints: ({
-        geoCoordinates,
-        postalCode,
-        country,
-      }: PickupPointsInput): Promise<PickupPoints> => {
-        if (!geoCoordinates && (!postalCode || !country)) {
-          throw new Error(
-            'Missing required parameters for listing pickup points.'
-          )
-        }
-
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
-        const params = new URLSearchParams()
-
-        if (geoCoordinates) {
-          params.append(
-            'geoCoordinates',
-            `${geoCoordinates.longitude};${geoCoordinates.latitude}`
-          )
-        } else {
-          params.append('countryCode', country as string)
-          params.append('postalCode', postalCode as string)
-        }
-
-        return fetchAPI(
-          `${base}/api/checkout/pub/pickup-points?${params.toString()}`,
-          { headers },
           { storeCookies }
         )
       },

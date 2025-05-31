@@ -19,7 +19,6 @@ export interface PLPContext {
     ClientProductGalleryQueryQuery & {
       pages: ClientManyProductsQueryQuery[]
     }
-  globalSectionsSettings?: Record<string, any>
 }
 
 export interface SearchPageContext {
@@ -27,7 +26,6 @@ export interface SearchPageContext {
     ClientProductGalleryQueryQuery & {
       pages: ClientManyProductsQueryQuery[]
     }
-  globalSectionsSettings?: Record<string, any>
 }
 
 export interface DynamicContent<T> {

@@ -18,10 +18,6 @@ export interface FilterFacetsProps {
    * The text displayed to identify the Facet.
    */
   label: string
-  /**
-   * The description displayed to identify the Facet.
-   */
-  description?: string
 }
 
 function FilterFacets({
@@ -30,7 +26,6 @@ function FilterFacets({
   index,
   children,
   type,
-  description,
 }: PropsWithChildren<FilterFacetsProps>) {
   return (
     <AccordionItem
@@ -44,12 +39,7 @@ function FilterFacets({
       <AccordionButton testId={`${testId}-accordion-button`}>
         {label}
       </AccordionButton>
-      <AccordionPanel>
-        {description && (
-          <span data-fs-filter-accordion-item-description>{description}</span>
-        )}
-        {children}
-      </AccordionPanel>
+      <AccordionPanel>{children}</AccordionPanel>
     </AccordionItem>
   )
 }

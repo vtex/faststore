@@ -1,22 +1,18 @@
-import type { Resolver } from '..'
-import type {
-  Facet,
-  FacetValueBoolean,
-  FacetValueRange,
-} from '../clients/search/types/FacetSearchResult'
 import { parseRange } from '../utils/facets'
 import { min } from '../utils/orderStatistics'
+import type {
+  FacetValueBoolean,
+  Facet,
+  FacetValueRange,
+} from '../clients/search/types/FacetSearchResult'
+import type { Resolver } from '..'
 
 export type Root = Facet
 
 export const StoreFacet: Record<string, Resolver<Root>> = {
   __resolveType: ({ type, values }) => {
-    if (type !== 'TEXT' && type !== 'DELIVERY') {
+    if (type !== 'TEXT') {
       return 'StoreFacetRange'
-    }
-
-    if (!values || values.length === 0) {
-      return 'StoreFacetBoolean'
     }
 
     if (values.every((value) => (value as FacetValueRange).range)) {
@@ -55,7 +51,7 @@ export const StoreFacetRange: Record<
     )
 
     const facet = min(values, (a, b) => a.range.from - b.range.from)
-    const globalMin = facet?.range?.from ?? 0
+    const globalMin = facet?.range.from ?? 0
 
     return {
       selected: selectedRange?.[0] ?? globalMin,
@@ -75,7 +71,7 @@ export const StoreFacetRange: Record<
     )
 
     const facet = min(values, (a, b) => b.range.to - a.range.to)
-    const globalMax = facet?.range?.to ?? 0
+    const globalMax = facet?.range.to ?? 0
 
     return {
       selected: selectedRange?.[1] ?? globalMax,

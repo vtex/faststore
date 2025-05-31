@@ -2224,23 +2224,24 @@
           "properties": {
             "label": {
               "title": "Input field label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
+              "type": "string",
+              "default": "Postal Code"
             },
             "errorMessage": {
               "title": "Input field error message",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
+              "type": "string",
+              "default": "You entered an invalid Postal Code"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
-              "type": "string"
+              "type": "string",
+              "default": "There are no products available for %s.",
+              "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
+              "type": "string",
+              "default": "Apply"
             }
           }
         },
@@ -2251,12 +2252,11 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "default": "I don't know my Postal Code"
             },
             "to": {
               "type": "string",
-              "title": "Action link",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "title": "Action link"
             },
             "icon": {
               "title": "Icon",
@@ -2264,15 +2264,15 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"]
+                  "enum": ["ArrowSquareOut"],
+                  "default": "ArrowSquareOut"
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Arrow Square Out icon"
                 }
               }
             }
@@ -2305,23 +2305,24 @@
           "properties": {
             "label": {
               "title": "Input field label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
+              "type": "string",
+              "default": "Postal Code"
             },
             "errorMessage": {
               "title": "Input field error message",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
+              "type": "string",
+              "default": "You entered an invalid Postal Code"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
-              "type": "string"
+              "type": "string",
+              "default": "There are no products available for %s.",
+              "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
+              "type": "string",
+              "default": "Apply"
             }
           }
         },
@@ -2349,12 +2350,11 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "default": "I don't know my Postal Code"
             },
             "to": {
               "type": "string",
-              "title": "Action link",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "title": "Action link"
             },
             "icon": {
               "title": "Icon",
@@ -2362,15 +2362,15 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"]
+                  "enum": ["ArrowSquareOut"],
+                  "default": "ArrowSquareOut"
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Arrow Square Out icon"
                 }
               }
             }

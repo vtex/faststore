@@ -26,7 +26,6 @@ export type ProductListingPageProps = {
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
 }
 
 type UseSearchParams = {
@@ -77,7 +76,6 @@ export default function ProductListingPage({
   data: server,
   serverManyProductsVariables,
   globalSections,
-  globalSectionsSettings,
 }: ProductListingPageProps) {
   const { settings } = plpContentType
   const collection = server.collection
@@ -136,7 +134,6 @@ export default function ProductListingPage({
 
       <ProductListing
         globalSections={globalSections}
-        globalSectionsSettings={globalSectionsSettings}
         page={plpContentType}
         data={server}
         serverManyProductsVariables={serverManyProductsVariables}

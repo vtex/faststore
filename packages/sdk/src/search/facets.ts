@@ -43,7 +43,7 @@ export const setFacet = (
   return [...facets, facet]
 }
 
-export const toggleFacet = (facets: Facet[], item: Facet, unique?: boolean) => {
+export const toggleFacet = (facets: Facet[], item: Facet) => {
   const found = facets.find(
     (facet) => facet.key === item.key && facet.value === item.value
   )
@@ -52,11 +52,8 @@ export const toggleFacet = (facets: Facet[], item: Facet, unique?: boolean) => {
     return removeFacet(facets, item)
   }
 
-  return setFacet(facets, item, unique)
+  return setFacet(facets, item, false)
 }
 
-export const toggleFacets = (
-  facets: Facet[],
-  items: Facet[],
-  unique?: boolean
-) => items.reduce((acc, curr) => toggleFacet(acc, curr, unique), facets)
+export const toggleFacets = (facets: Facet[], items: Facet[]) =>
+  items.reduce((acc, curr) => toggleFacet(acc, curr), facets)
