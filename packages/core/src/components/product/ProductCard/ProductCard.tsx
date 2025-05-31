@@ -94,6 +94,7 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    deliveryPromisesBadges,
   } = product
 
   const linkProps = {
@@ -162,6 +163,7 @@ function ProductCard({
         sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
         showShippingBadge={showShippingBadge}
+        deliveryPromisesBadges={deliveryPromisesBadges}
       />
     </UIProductCard>
   )
@@ -226,6 +228,7 @@ export const fragment = gql(`
       adId
       adResponseId
     }
+    deliveryPromisesBadges
   }
 `)
 

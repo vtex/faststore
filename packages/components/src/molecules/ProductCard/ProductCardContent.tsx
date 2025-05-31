@@ -77,6 +77,10 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Determines if a shipping badge should be displayed.
    */
   showShippingBadge?: boolean
+  /**
+   * Delivery promises badges
+   */
+  deliveryPromisesBadges?: string[]
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -98,12 +102,15 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       sponsored = false,
       sponsoredLabel = 'Sponsored',
       showShippingBadge = false,
+      deliveryPromisesBadges,
       ...otherProps
     },
     ref
   ) {
     const listingPrice = price?.listPrice ? price.listPrice : 0
     const sellingPrice = price?.value ? price.value : 0
+    const deliveryAvailable = deliveryPromisesBadges?.includes('delivery')
+    const pickupAvailable = deliveryPromisesBadges?.includes('pickup')
 
     return (
       <section
@@ -141,7 +148,24 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
-        {showShippingBadge && <div>O componente deve ficar aqui!</div>}
+        {showShippingBadge && (
+          <div data-fs-product-card-shipping-badges>
+            <div
+              data-fs-shipping-badge
+              data-fs-shipping-badge-available={deliveryAvailable}
+              data-fs-shipping-badge-unavailable={!deliveryAvailable}
+            >
+              Delivery {deliveryAvailable ? 'available' : 'unavailable'}
+            </div>
+            <div
+              data-fs-shipping-badge
+              data-fs-shipping-badge-available={pickupAvailable}
+              data-fs-shipping-badge-unavailable={!pickupAvailable}
+            >
+              Pickup {pickupAvailable ? 'available' : 'unavailable'}
+            </div>
+          </div>
+        )}
         {onButtonClick && !outOfStock && (
           <div data-fs-product-card-actions>
             <Button

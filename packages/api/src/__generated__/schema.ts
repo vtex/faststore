@@ -1117,6 +1117,8 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /** Delivery promises badges */
+  deliveryPromisesBadges?: Maybe<Array<Scalars['String']>>;
   /** Product description. */
   description: Scalars['String'];
   /** Global Trade Item Number. */

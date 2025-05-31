@@ -1063,6 +1063,8 @@ export type StoreProduct = {
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
+  /** Deliery promises badges */
+  deliveryPromisesBadges: Maybe<Array<Scalars['String']['output']>>
   /** Product description. */
   description: Scalars['String']['output']
   /** Global Trade Item Number. */
@@ -2003,6 +2005,7 @@ export type ProductSummary_ProductFragment = {
   name: string
   gtin: string
   unitMultiplier: number | null
+  deliveryPromisesBadges: Array<string> | null
   id: string
   brand: { name: string; brandName: string }
   isVariantOf: {
@@ -2628,6 +2631,7 @@ export type ClientManyProductsQueryQuery = {
           name: string
           gtin: string
           unitMultiplier: number | null
+          deliveryPromisesBadges: Array<string> | null
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: {
@@ -2787,6 +2791,7 @@ export type ClientSearchSuggestionsQueryQuery = {
         name: string
         gtin: string
         unitMultiplier: number | null
+        deliveryPromisesBadges: Array<string> | null
         id: string
         brand: { name: string; brandName: string }
         isVariantOf: {
@@ -2938,6 +2943,7 @@ export type ServerManyProductsQueryQuery = {
           name: string
           gtin: string
           unitMultiplier: number | null
+          deliveryPromisesBadges: Array<string> | null
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: {
@@ -3050,6 +3056,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     adId
     adResponseId
   }
+  deliveryPromisesBadges
 }
     `,
   { fragmentName: 'ProductSummary_product' }
@@ -3529,7 +3536,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '1adc93c70f16173540c50f725ee09a2d67cb85ab',
+    operationHash: '4ae4e56f8cb265865c072c12ad55fd29645b117b',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -3565,7 +3572,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'b548281d477a173be7b6960434604d69769a97e7',
+    operationHash: '168cdc6adda75089565662570834b0b772394c6d',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -3601,7 +3608,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '5c2181dde311ca80b72e0cc76ac0855d8aa8b51e',
+    operationHash: 'd631627fb31051dbb3806540527edd9a760099dd',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,
