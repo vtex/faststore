@@ -13,6 +13,19 @@ export interface Popover {
   triggerRef?: RefObject<HTMLElement>
 }
 
+export const regionSliderTypes = {
+  setLocation: 'setLocation',
+  changeLocation: 'changeLocation',
+  changeStore: 'changeStore',
+} as const
+
+type RegionSliderType =
+  (typeof regionSliderTypes)[keyof typeof regionSliderTypes]
+
+export type RegionSlider = {
+  type: RegionSliderType | 'none'
+}
+
 interface State {
   /** Cart sidebar */
   cart: boolean
@@ -26,6 +39,8 @@ interface State {
   toasts: Toast[]
   /** Region Popover */
   popover: Popover
+  /** Region slider */
+  regionSlider: RegionSlider
 }
 
 type UIElement = 'navbar' | 'cart' | 'modal' | 'filter'
@@ -55,6 +70,13 @@ type Action =
     }
   | {
       type: 'closePopover'
+    }
+  | {
+      type: 'openRegionSlider'
+      payload: RegionSliderType
+    }
+  | {
+      type: 'closeRegionSlider'
     }
 
 const reducer = (state: State, action: Action): State => {
@@ -127,6 +149,22 @@ const reducer = (state: State, action: Action): State => {
       }
     }
 
+    case 'openRegionSlider': {
+      return {
+        ...state,
+        regionSlider: {
+          type: action.payload,
+        },
+      }
+    }
+    case 'closeRegionSlider':
+      return {
+        ...state,
+        regionSlider: {
+          type: 'none',
+        },
+      }
+
     default:
       throw new Error(`Action ${type} not implemented`)
   }
@@ -141,6 +179,9 @@ const initializer = (): State => ({
   popover: {
     isOpen: false,
     triggerRef: undefined,
+  },
+  regionSlider: {
+    type: 'none',
   },
 })
 
@@ -157,6 +198,8 @@ interface Context extends State {
   popToast: () => void
   openPopover: (popover: Popover) => void
   closePopover: () => void
+  openRegionSlider: (type: RegionSliderType) => void
+  closeRegionSlider: () => void
 }
 
 const UIContext = createContext<Context | undefined>(undefined)
@@ -180,6 +223,9 @@ function UIProvider({ children }: PropsWithChildren<unknown>) {
       openPopover: (popover: Popover) =>
         dispatch({ type: 'openPopover', payload: popover }),
       closePopover: () => dispatch({ type: 'closePopover' }),
+      openRegionSlider: (type: RegionSliderType) =>
+        dispatch({ type: 'openRegionSlider', payload: type }),
+      closeRegionSlider: () => dispatch({ type: 'closeRegionSlider' }),
     }),
     []
   )
