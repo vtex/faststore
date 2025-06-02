@@ -160,7 +160,9 @@ const reducer = (state: State, action: Action): State => {
       }
     }
     case 'closeRegionSlider':
-      document.body.classList.remove('no-scroll')
+      if (!state.filter) {
+        document.body.classList.remove('no-scroll')
+      }
 
       return {
         ...state,
