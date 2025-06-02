@@ -48,11 +48,11 @@ export function getRegionalizationSettings(
   const regionalizationData =
     context?.globalSectionsSettings?.regionalization ?? {}
 
-  if (deliverySettings !== undefined) {
-    return deepmerge(regionalizationData, {
-      deliverySettings,
-    })
+  if (deliverySettings === undefined) {
+    return regionalizationData
   }
 
-  return regionalizationData
+  return deepmerge(regionalizationData, {
+    deliverySettings,
+  })
 }
