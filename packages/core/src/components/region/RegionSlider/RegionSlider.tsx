@@ -159,7 +159,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
         regionSliderType === 'changeStore'
           ? {
               variant: 'primary',
-              children: 'Update',
+              children:
+                cmsData?.deliverySettings?.postalCodeEditSlider
+                  ?.changeStoreApplyButtonLabel,
               disabled:
                 loading ||
                 input === '' ||

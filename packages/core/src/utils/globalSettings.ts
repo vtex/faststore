@@ -28,6 +28,7 @@ export type RegionalizationCmsData = {
       setLocation?: string
       changeLocation?: string
       changeStore?: string
+      changeStoreApplyButtonLabel?: string
     }
     deliveryMethods?: {
       delivery?: string
