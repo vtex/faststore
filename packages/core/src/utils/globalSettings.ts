@@ -47,6 +47,11 @@ export function getRegionalizationSettings(
   const context = usePage<SearchPageContext | PLPContext>()
   const regionalizationData =
     context?.globalSectionsSettings?.regionalization ?? {}
+
+  if (deliverySettings === undefined) {
+    return regionalizationData
+  }
+
   return deepmerge(regionalizationData, {
     deliverySettings,
   })
