@@ -150,6 +150,8 @@ const reducer = (state: State, action: Action): State => {
     }
 
     case 'openRegionSlider': {
+      document.body.classList.add('no-scroll')
+
       return {
         ...state,
         regionSlider: {
@@ -158,6 +160,8 @@ const reducer = (state: State, action: Action): State => {
       }
     }
     case 'closeRegionSlider':
+      document.body.classList.remove('no-scroll')
+
       return {
         ...state,
         regionSlider: {
