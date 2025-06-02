@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package faststore
+
 ## [3.50.2](https://github.com/vtex/faststore/compare/v3.50.1...v3.50.2) (2025-05-27)
 
 ### Bug Fixes
