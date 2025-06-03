@@ -166,7 +166,8 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
                 loading ||
                 input === '' ||
                 !pickupPointOption ||
-                pickupPointOption === selectedPickupPoint,
+                pickupPointOption === selectedPickupPoint ||
+                regionError !== '',
               onClick: () => handlePickupPointUpdate(),
             }
           : undefined
