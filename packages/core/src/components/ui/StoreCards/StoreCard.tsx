@@ -13,7 +13,6 @@ export type StoreCardProps = {
 }
 
 function formatDistance(distance: number) {
-  //TODO: check this
   return `${distance.toFixed(1).replace('.', ',')}km`
 }
 
