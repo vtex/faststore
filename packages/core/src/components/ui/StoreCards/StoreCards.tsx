@@ -22,14 +22,33 @@ export interface StoreCardsProps {
    * Message to be displayed when no stores are available.
    */
   noStoresAvailableMessage?: string
+  /**
+   * Message to be displayed when there is an error when setting the location.
+   */
+  regionErrorMessage?: string
 }
 
 function StoreCards({
   selectedOption,
   onChange,
   noStoresAvailableMessage,
+  regionErrorMessage,
 }: StoreCardsProps) {
   const pickupPoints = usePickupPoints()
+
+  if (regionErrorMessage) {
+    return (
+      <UIEmptyState
+        title={regionErrorMessage ?? 'Error fetching stores near location.'}
+        titleIcon={
+          <UIIcon name="MapPin" width={56} height={56} weight="thin" />
+        }
+        bkgColor="light"
+      >
+        <span>Try using a different postal code.</span>
+      </UIEmptyState>
+    )
+  }
 
   if (pickupPoints?.length === 0) {
     return (
