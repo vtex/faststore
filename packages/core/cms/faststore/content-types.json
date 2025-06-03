@@ -113,16 +113,6 @@
                           "title": "Change Postal Code",
                           "type": "string",
                           "default": "Change Location"
-                        },
-                        "changePickupPoint": {
-                          "title": "Change Pickup Store",
-                          "type": "string",
-                          "default": "Change Store"
-                        },
-                        "changePickupPointApplyButtonLabel": {
-                          "title": "Change Pickup Store apply button label",
-                          "type": "string",
-                          "default": "Update"
                         }
                       }
                     },
@@ -164,15 +154,31 @@
                         }
                       }
                     },
-                    "choosePickupPointAriaLabel": {
-                      "title": "Choose Store aria-label (radio group)",
-                      "type": "string",
-                      "default": "Choose a store"
-                    },
-                    "noStoresAvailableInLocation": {
-                      "title": "No stores available near location message",
-                      "type": "string",
-                      "default": "No stores near location."
+                    "pickupPointsSlider": {
+                      "title": "Pickup Points SlideOver",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Change pickup store title",
+                          "type": "string",
+                          "default": "Change Store"
+                        },
+                        "changePickupPointApplyButtonLabel": {
+                          "title": "Change Pickup Store apply button label",
+                          "type": "string",
+                          "default": "Update"
+                        },
+                        "choosePickupPointAriaLabel": {
+                          "title": "Choose Store aria-label (radio group)",
+                          "type": "string",
+                          "default": "Choose a store"
+                        },
+                        "noStoresAvailableInLocation": {
+                          "title": "No stores available near location message",
+                          "type": "string",
+                          "default": "No stores near location."
+                        }
+                      }
                     }
                   }
                 }

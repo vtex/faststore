@@ -147,9 +147,13 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
         className: `section ${styles.section} section-filter-slider`,
       }}
       title={
-        regionSliderType !== 'none'
-          ? cmsData?.deliverySettings?.postalCodeEditSlider?.[regionSliderType]
-          : ''
+        regionSliderType === 'changePickupPoint'
+          ? cmsData?.deliverySettings?.pickupPointsSlider?.title
+          : regionSliderType !== 'none'
+            ? cmsData?.deliverySettings?.postalCodeEditSlider?.[
+                regionSliderType
+              ]
+            : ''
       }
       size="partial"
       direction="rightSide"
@@ -160,7 +164,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           ? {
               variant: 'primary',
               children:
-                cmsData?.deliverySettings?.postalCodeEditSlider
+                cmsData?.deliverySettings?.pickupPointsSlider
                   ?.changePickupPointApplyButtonLabel,
               disabled:
                 loading ||
@@ -206,12 +210,14 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
             selectedOption={pickupPointOption}
             onChange={handlePickupPointOnChange}
             noStoresAvailableMessage={
-              cmsData.deliverySettings?.noStoresAvailableInLocation
+              cmsData.deliverySettings?.pickupPointsSlider
+                ?.noStoresAvailableInLocation
             }
             regionErrorMessage={regionError ?? regionError}
             regionErrorHelperMessage={cmsData?.inputField?.errorMessageHelper}
-            chooseStoreAriaLabel={
-              cmsData?.deliverySettings?.choosePickupPointAriaLabel
+            choosePickupPointAriaLabel={
+              cmsData?.deliverySettings?.pickupPointsSlider
+                ?.choosePickupPointAriaLabel
             }
           />
         )}

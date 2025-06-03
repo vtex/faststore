@@ -28,8 +28,6 @@ export type RegionalizationCmsData = {
     postalCodeEditSlider?: {
       setLocation?: string
       changeLocation?: string
-      changePickupPoint?: string
-      changePickupPointApplyButtonLabel?: string
     }
     deliveryMethods?: {
       delivery?: string
@@ -40,8 +38,12 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
-    choosePickupPointAriaLabel?: string
-    noStoresAvailableInLocation?: string
+    pickupPointsSlider?: {
+      title?: string
+      changePickupPointApplyButtonLabel?: string
+      choosePickupPointAriaLabel?: string
+      noStoresAvailableInLocation?: string
+    }
   }
 }
 
