@@ -60,7 +60,7 @@ export default function FilterDeliveryOption({
           data-fs-filter-list-item-button
           size="small"
           onClick={() => {
-            openRegionSlider(regionSliderTypes.changeStore)
+            openRegionSlider(regionSliderTypes.changePickupPoint)
           }}
         >
           {item.label}

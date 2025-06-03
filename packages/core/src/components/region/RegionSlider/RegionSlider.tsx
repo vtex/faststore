@@ -62,7 +62,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     await setRegion({
       session,
       onSuccess: () => {
-        if (regionSliderType !== 'changeStore') {
+        if (regionSliderType !== 'changePickupPoint') {
           setInput('')
           closeRegionSlider()
         }
@@ -154,14 +154,14 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
       size="partial"
       direction="rightSide"
       onClose={() => {}}
-      footer={regionSliderType === 'changeStore' ? true : false}
+      footer={regionSliderType === 'changePickupPoint' ? true : false}
       applyBtnProps={
-        regionSliderType === 'changeStore'
+        regionSliderType === 'changePickupPoint'
           ? {
               variant: 'primary',
               children:
                 cmsData?.deliverySettings?.postalCodeEditSlider
-                  ?.changeStoreApplyButtonLabel,
+                  ?.changePickupPointApplyButtonLabel,
               disabled:
                 loading ||
                 input === '' ||
@@ -201,7 +201,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
         )}
 
-        {regionSliderType === 'changeStore' && (
+        {regionSliderType === 'changePickupPoint' && (
           <StoreCards
             selectedOption={pickupPointOption}
             onChange={handlePickupPointOnChange}

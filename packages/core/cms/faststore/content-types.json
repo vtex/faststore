@@ -114,12 +114,12 @@
                           "type": "string",
                           "default": "Change Location"
                         },
-                        "changeStore": {
+                        "changePickupPoint": {
                           "title": "Change Pickup Store",
                           "type": "string",
                           "default": "Change Store"
                         },
-                        "changeStoreApplyButtonLabel": {
+                        "changePickupPointApplyButtonLabel": {
                           "title": "Change Pickup Store apply button label",
                           "type": "string",
                           "default": "Update"

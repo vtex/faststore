@@ -28,8 +28,8 @@ export type RegionalizationCmsData = {
     postalCodeEditSlider?: {
       setLocation?: string
       changeLocation?: string
-      changeStore?: string
-      changeStoreApplyButtonLabel?: string
+      changePickupPoint?: string
+      changePickupPointApplyButtonLabel?: string
     }
     deliveryMethods?: {
       delivery?: string
