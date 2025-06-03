@@ -40,7 +40,7 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
-    chooseStoreArialLabel?: string
+    choosePickupPointAriaLabel?: string
     noStoresAvailableInLocation?: string
   }
 }

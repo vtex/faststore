@@ -164,7 +164,7 @@
                         }
                       }
                     },
-                    "chooseStoreArialLabel": {
+                    "choosePickupPointAriaLabel": {
                       "title": "Choose Store aria-label (radio group)",
                       "type": "string",
                       "default": "Choose a store"
