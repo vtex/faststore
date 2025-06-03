@@ -1,6 +1,6 @@
 import { Icon as UIIcon } from '@faststore/ui'
 
-export type StoreCardProps = {
+export type PickupPointCardProps = {
   store: {
     name: string
     postalCode: string
@@ -16,7 +16,7 @@ function formatDistance(distance: number) {
   return `${distance.toFixed(1).replace('.', ',')}km`
 }
 
-export function StoreCard({ store }: StoreCardProps) {
+export function PickupPointCard({ store }: PickupPointCardProps) {
   return (
     <div data-fs-store-card>
       <header data-fs-store-card-header>

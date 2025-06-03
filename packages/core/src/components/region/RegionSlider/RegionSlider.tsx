@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import type { ChangeEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
-import StoreCards from 'src/components/ui/StoreCards'
+import PickupPointCards from 'src/components/ui/PickupPoints/PickupPointCards'
 import { useSession } from 'src/sdk/session'
 import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
@@ -202,7 +202,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
         )}
 
         {regionSliderType === 'changePickupPoint' && (
-          <StoreCards
+          <PickupPointCards
             selectedOption={pickupPointOption}
             onChange={handlePickupPointOnChange}
             noStoresAvailableMessage={

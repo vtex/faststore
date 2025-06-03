@@ -5,11 +5,11 @@
   @import "@faststore/ui/src/components/atoms/Link/styles.scss";
   @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
   @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
-  @import "@faststore/ui/src/components/molecules/StoreCard/styles.scss";
+  @import "@faststore/ui/src/components/molecules/PickupPointCard/styles.scss";
   @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
   @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
+  @import "@faststore/ui/src/components/organisms/PickupPointCards/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
-  @import "@faststore/ui/src/components/organisms/StoreCards/styles.scss";
 
   [data-fs-filter-region-slider] {
     [data-fs-filter-slider-title] {
