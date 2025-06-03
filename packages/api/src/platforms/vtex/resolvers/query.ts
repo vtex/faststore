@@ -393,10 +393,22 @@ export const Query = {
 
     try {
       const order = await commerce.oms.userOrder({ orderId })
+      const commercialAuth =
+        await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
 
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
+
+      const generalStatusIsPending = commercialAuth.status === 'pending'
+
+      const firstPendingDimension = commercialAuth.dimensionStatus.find(
+        (dimension) => dimension.status === 'pending'
+      )
+
+      const firstPendingRule = firstPendingDimension?.ruleCollection.find(
+        (rule) => rule.status === 'pending'
+      )
 
       return {
         orderId: order.orderId,
@@ -410,10 +422,16 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
+        orderPendingApproval:
+          generalStatusIsPending &&
+          !!firstPendingDimension &&
+          !!firstPendingRule,
         canCancelOrder:
           order.status === 'payment-approved' ||
           order.status === 'approve-payment',
-        canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
+        canApproveOrRejectOrder:
+          order.status === 'waiting-for-confirmation' &&
+          !!firstPendingRule?.isUserNextAuthorizer,
       }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {

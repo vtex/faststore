@@ -1374,6 +1374,7 @@ export type UserOrder = {
   orderFormId?: Maybe<Scalars['String']>;
   orderGroup?: Maybe<Scalars['String']>;
   orderId?: Maybe<Scalars['String']>;
+  orderPendingApproval?: Maybe<Scalars['Boolean']>;
   origin?: Maybe<Scalars['String']>;
   packageAttachment?: Maybe<UserOrderPackageAttachment>;
   paymentData?: Maybe<UserOrderPaymentData>;
@@ -2058,6 +2059,7 @@ export type UserOrderResult = {
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
   items?: Maybe<Array<Maybe<UserOrderItems>>>;
   orderId?: Maybe<Scalars['String']>;
+  orderPendingApproval?: Maybe<Scalars['Boolean']>;
   paymentData?: Maybe<UserOrderPaymentData>;
   shippingData?: Maybe<UserOrderShippingData>;
   status?: Maybe<Scalars['String']>;
