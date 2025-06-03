@@ -209,6 +209,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
             }
             regionErrorMessage={regionError ?? regionError}
             regionErrorHelperMessage={cmsData?.inputField?.errorMessageHelper}
+            chooseStoreAriaLabel={
+              cmsData?.deliverySettings?.chooseStoreArialLabel
+            }
           />
         )}
       </div>

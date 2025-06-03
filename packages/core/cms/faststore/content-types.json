@@ -164,6 +164,11 @@
                         }
                       }
                     },
+                    "chooseStoreArialLabel": {
+                      "title": "Choose Store aria-label (radio group)",
+                      "type": "string",
+                      "default": "Choose a store"
+                    },
                     "noStoresAvailableInLocation": {
                       "title": "No stores available near location message",
                       "type": "string",

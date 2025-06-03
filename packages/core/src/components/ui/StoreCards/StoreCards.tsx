@@ -30,6 +30,10 @@ export interface StoreCardsProps {
    * Helper message to be displayed when there is an error when setting the location.
    */
   regionErrorHelperMessage?: string
+  /**
+   * Aria label for the radio group.
+   */
+  chooseStoreAriaLabel?: string
 }
 
 function StoreCards({
@@ -38,6 +42,7 @@ function StoreCards({
   noStoresAvailableMessage,
   regionErrorMessage,
   regionErrorHelperMessage,
+  chooseStoreAriaLabel = 'Select a store',
 }: StoreCardsProps) {
   const pickupPoints = usePickupPoints()
 
@@ -70,9 +75,10 @@ function StoreCards({
   return (
     <UIList as="ol" data-fs-store-cards>
       <UIRadioGroup
-        name="radio-group"
+        name="stores-radio-group"
         onChange={onChange}
         selectedValue={selectedOption}
+        aria-label={chooseStoreAriaLabel}
       >
         {pickupPoints?.map((item) => (
           <li data-fs-store-cards-item key={item.id}>
