@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 
 import { useSearch } from '@faststore/sdk'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { deliveryPromise } from 'discovery.config'
 
 import type {
   FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
@@ -80,6 +81,10 @@ function FilterSlider({
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
 
+  const filteredFacets = deliveryPromise.enabled
+    ? facets
+    : facets.filter((facet) => facet.key !== 'shipping')
+
   return (
     <UIFilterSlider
       overlayProps={{
@@ -120,7 +125,7 @@ function FilterSlider({
           dispatch({ type: 'toggleExpanded', payload: index })
         }
       >
-        {facets.map((facet, index) => {
+        {filteredFacets.map((facet, index) => {
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
           return (
