@@ -18,14 +18,14 @@ function formatDistance(distance: number) {
 
 export function PickupPointCard({ store }: PickupPointCardProps) {
   return (
-    <div data-fs-store-card>
-      <header data-fs-store-card-header>
+    <div data-fs-pickup-point-card>
+      <header data-fs-pickup-point-card-header>
         <UIIcon name="Storefront" />
-        <h3 data-fs-store-card-header-title>{store.name}</h3>
-        <span data-fs-store-card-header-zipcode>{store.postalCode}</span>
+        <h3 data-fs-pickup-point-card-header-title>{store.name}</h3>
+        <span data-fs-pickup-point-card-header-zipcode>{store.postalCode}</span>
       </header>
-      <div data-fs-store-card-header-content>
-        <p data-fs-store-card-address>
+      <div data-fs-pickup-point-card-header-content>
+        <p data-fs-pickup-point-card-address>
           <span>
             {store.address}, {store.number}
           </span>
@@ -33,7 +33,7 @@ export function PickupPointCard({ store }: PickupPointCardProps) {
             {store.city} - {store.state}
           </span>
         </p>
-        <span data-fs-store-card-distance>
+        <span data-fs-pickup-point-card-distance>
           {formatDistance(store.distance)}
         </span>
       </div>

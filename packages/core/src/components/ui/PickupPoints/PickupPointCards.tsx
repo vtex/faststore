@@ -73,7 +73,7 @@ function PickupPointCards({
   }
 
   return (
-    <UIList as="ol" data-fs-store-cards>
+    <UIList as="ol" data-fs-pickup-point-cards>
       <UIRadioGroup
         name="stores-radio-group"
         onChange={onChange}
@@ -81,7 +81,7 @@ function PickupPointCards({
         aria-label={chooseStoreAriaLabel}
       >
         {pickupPoints?.map((item) => (
-          <li data-fs-store-cards-item key={item.id}>
+          <li data-fs-pickup-point-cards-item key={item.id}>
             <UIRadioOption value={item.id} label={item.name}>
               <PickupPointCard
                 store={{

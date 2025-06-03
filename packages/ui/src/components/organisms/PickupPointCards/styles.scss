@@ -1,16 +1,16 @@
-[data-fs-store-cards] {
+[data-fs-pickup-point-cards] {
   // --------------------------------------------------------
-  // Design Tokens for Store Cards
+  // Design Tokens for Pickup Point Cards
   // --------------------------------------------------------
 
   // Default properties
-  --fs-store-cards-row-gap                     : var(--fs-grid-gap-2);
+  --fs-pickup-point-cards-row-gap                      : var(--fs-grid-gap-2);
 
   // Store Card Item
-  --fs-store-cards-item-border-color-selected  : var(--fs-border-color-active);
-  --fs-store-cards-item-border-width-selected  : var(--fs-border-width-thick);
+  --fs-pickup-point-cards-item-border-color-selected   : var(--fs-border-color-active);
+  --fs-pickup-point-cards-item-border-width-selected   : var(--fs-border-width-thick);
 
-  --fs-store-cards-item-bkg-color-hover        : var(--fs-color-neutral-bkg);
+  --fs-pickup-point-cards-item-bkg-color-hover         : var(--fs-color-neutral-bkg);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -18,26 +18,26 @@
 
   display: flex;
   flex-direction: column;
-  row-gap: var(--fs-store-cards-row-gap);
+  row-gap: var(--fs-pickup-point-cards-row-gap);
   margin: var(--fs-spacing-3) 0;
 
-  [data-fs-store-cards-item] {
+  [data-fs-pickup-point-cards-item] {
     [data-fs-radio-option-item] {
       position: absolute;
       opacity: 0;
     }
 
-    input:checked + [data-fs-store-card] {
-      border-color: var(--fs-store-cards-item-border-color-selected);
-      border-width: var(--fs-store-cards-item-border-width-selected);
+    input:checked + [data-fs-pickup-point-card] {
+      border-color: var(--fs-pickup-point-cards-item-border-color-selected);
+      border-width: var(--fs-pickup-point-cards-item-border-width-selected);
 
       [data-fs-icon] {
-        color: var(--fs-store-cards-item-border-color-selected);
+        color: var(--fs-pickup-point-cards-item-border-color-selected);
       }
     }
 
-    input:hover + [data-fs-store-card] {
-      background-color: var(--fs-store-cards-item-bkg-color-hover);
+    input:hover + [data-fs-pickup-point-card] {
+      background-color: var(--fs-pickup-point-cards-item-bkg-color-hover);
     }
   }
 }
