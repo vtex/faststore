@@ -27,13 +27,13 @@ export interface RuleCollection {
     deny: number
   }
   /**
-   * Indica que o usuário está listado como um dos possíveis aprovadores,
-   * mas não necessariamente significa que ele é o próximo da cadeia a aprovar.
+   * Indicates that the user is listed as one of the possible approvers,
+   * but does not necessarily mean that he or she is the next in the chain to approve.
    */
   isUserAuthorized: boolean
   /**
-   * Indica que o usuário é o próximo na cadeia de aprovação.
-   * Isso significa que ele deve tomar uma ação de aprovação ou rejeição.
+   * Indicates that the user is next in the approval chain.
+   * This means that they must take an approval or rejection action.
    */
   isUserNextAuthorizer: boolean
 }
