@@ -39,6 +39,7 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
+    noStoresAvailableInLocation?: string
   }
 }
 

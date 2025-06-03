@@ -204,6 +204,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           <StoreCards
             selectedOption={pickupPointOption}
             onChange={handlePickupPointOnChange}
+            noStoresAvailableMessage={
+              cmsData.deliverySettings?.noStoresAvailableInLocation
+            }
           />
         )}
       </div>

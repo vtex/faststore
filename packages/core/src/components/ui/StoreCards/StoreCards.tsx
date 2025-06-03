@@ -1,4 +1,6 @@
 import {
+  EmptyState as UIEmptyState,
+  Icon as UIIcon,
   List as UIList,
   RadioGroup as UIRadioGroup,
   RadioOption as UIRadioOption,
@@ -16,14 +18,29 @@ export interface StoreCardsProps {
    * Function that is triggered when any option is selected.
    */
   onChange?: ChangeEventHandler<HTMLInputElement>
+  /**
+   * Message to be displayed when no stores are available.
+   */
+  noStoresAvailableMessage?: string
 }
 
-function StoreCards({ selectedOption, onChange }: StoreCardsProps) {
+function StoreCards({
+  selectedOption,
+  onChange,
+  noStoresAvailableMessage,
+}: StoreCardsProps) {
   const pickupPoints = usePickupPoints()
 
   if (pickupPoints?.length === 0) {
-    // TODO: Adjust this according prototype
-    return <p>no stores</p>
+    return (
+      <UIEmptyState
+        title={noStoresAvailableMessage ?? 'No available stores near location.'}
+        titleIcon={
+          <UIIcon name="Storefront" width={56} height={56} weight="thin" />
+        }
+        bkgColor="light"
+      />
+    )
   }
 
   return (

@@ -6,6 +6,7 @@
   @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
   @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
   @import "@faststore/ui/src/components/molecules/StoreCard/styles.scss";
+  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
   @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
   @import "@faststore/ui/src/components/organisms/StoreCards/styles.scss";
@@ -30,10 +31,17 @@
     }
 
     [data-fs-filter-region-slider-content] {
+      height: 100%;
       padding: 0 var(--fs-spacing-3);
 
       @include media(">=notebook") {
         padding: 0 var(--fs-spacing-6);
+      }
+
+      [data-fs-empty-state] {
+        height: calc(90% - var(--fs-filter-slider-footer-height));
+        padding: 0;
+        color: var(--fs-empty-state-title-color);
       }
     }
 

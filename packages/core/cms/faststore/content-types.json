@@ -157,6 +157,11 @@
                           }
                         }
                       }
+                    },
+                    "noStoresAvailableInLocation": {
+                      "title": "No stores available near location message",
+                      "type": "string",
+                      "default": "No stores near location."
                     }
                   }
                 }
