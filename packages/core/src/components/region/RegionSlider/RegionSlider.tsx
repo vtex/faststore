@@ -208,6 +208,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
               cmsData.deliverySettings?.noStoresAvailableInLocation
             }
             regionErrorMessage={regionError ?? regionError}
+            regionErrorHelperMessage={cmsData?.inputField?.errorMessageHelper}
           />
         )}
       </div>

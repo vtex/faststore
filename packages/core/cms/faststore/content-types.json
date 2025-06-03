@@ -38,6 +38,12 @@
                       "title": "Action label to apply the postal code",
                       "type": "string",
                       "default": "Apply"
+                    },
+                    "errorMessageHelper": {
+                      "title": "Error message helper",
+                      "type": "string",
+                      "default": "Try using a different postal code.",
+                      "description": "This message will guide user in case of an error."
                     }
                   }
                 },

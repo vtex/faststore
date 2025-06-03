@@ -11,6 +11,7 @@ export type RegionalizationCmsData = {
     errorMessage?: string
     noProductsAvailableErrorMessage?: string
     buttonActionText?: string
+    errorMessageHelper?: string
   }
   idkPostalCodeLink?: {
     text?: string
