@@ -1,15 +1,8 @@
 import { Icon as UIIcon } from '@faststore/ui'
+import type { PickupPoint } from './PickupPointCards'
 
 export type PickupPointCardProps = {
-  store: {
-    name: string
-    postalCode: string
-    address: string
-    number: string
-    city: string
-    state: string
-    distance: number
-  }
+  store: PickupPoint
 }
 
 function formatDistance(distance: number) {
@@ -27,10 +20,10 @@ export function PickupPointCard({ store }: PickupPointCardProps) {
       <div data-fs-pickup-point-card-header-content>
         <p data-fs-pickup-point-card-address>
           <span>
-            {store.address}, {store.number}
+            {store.addressStreet}, {store.addressNumber}
           </span>
           <span>
-            {store.city} - {store.state}
+            {store.addressCity} - {store.addressState}
           </span>
         </p>
         <span data-fs-pickup-point-card-distance>

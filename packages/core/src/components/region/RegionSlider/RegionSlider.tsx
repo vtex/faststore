@@ -14,6 +14,8 @@ import { useSession } from 'src/sdk/session'
 import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
     /* webpackChunkName: "UIFilterSlider" */
@@ -50,11 +52,14 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
   const { loading, setRegion, regionError, setRegionError } = useRegion()
 
   const [input, setInput] = useState<string>(session.postalCode ?? '')
+  const [appliedInput, setAppliedInput] = useState(session.postalCode ?? '')
 
   const inputField = cmsData?.inputField
   const idkPostalCodeLink = cmsData?.idkPostalCodeLink
 
   const handleSubmit = async () => {
+    setAppliedInput(input)
+
     if (isValidating) {
       return
     }
@@ -75,6 +80,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
   }
 
   const { state, setState } = useSearch()
+  const pickupPoints = usePickupPoints()
 
   const selectedPickupPoint = state.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
@@ -171,7 +177,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
                 input === '' ||
                 !pickupPointOption ||
                 pickupPointOption === selectedPickupPoint ||
-                regionError !== '',
+                regionError !== '' ||
+                input !== appliedInput ||
+                pickupPoints?.length === 0,
               onClick: () => handlePickupPointUpdate(),
             }
           : undefined
@@ -189,8 +197,8 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           value={input}
           buttonActionText={loading ? '...' : inputField?.buttonActionText}
           onInput={(e) => {
-            regionError !== '' && setRegionError('')
             setInput(e.currentTarget.value)
+            regionError !== '' && setRegionError('')
           }}
           onSubmit={() => {
             handleSubmit()
@@ -205,22 +213,26 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
         )}
 
-        {regionSliderType === 'changePickupPoint' && (
-          <PickupPointCards
-            selectedOption={pickupPointOption}
-            onChange={handlePickupPointOnChange}
-            noStoresAvailableMessage={
-              cmsData.deliverySettings?.pickupPointsSlider
-                ?.noStoresAvailableInLocation
-            }
-            regionErrorMessage={regionError ?? regionError}
-            regionErrorHelperMessage={cmsData?.inputField?.errorMessageHelper}
-            choosePickupPointAriaLabel={
-              cmsData?.deliverySettings?.pickupPointsSlider
-                ?.choosePickupPointAriaLabel
-            }
-          />
-        )}
+        {regionSliderType === 'changePickupPoint' &&
+          input !== '' &&
+          input === appliedInput &&
+          !loading && (
+            <PickupPointCards
+              pickupPoints={regionError ? [] : pickupPoints}
+              selectedOption={pickupPointOption}
+              onChange={handlePickupPointOnChange}
+              noStoresAvailableMessage={
+                cmsData.deliverySettings?.pickupPointsSlider
+                  ?.noStoresAvailableInLocation
+              }
+              regionErrorMessage={regionError ?? regionError}
+              regionErrorHelperMessage={cmsData?.inputField?.errorMessageHelper}
+              choosePickupPointAriaLabel={
+                cmsData?.deliverySettings?.pickupPointsSlider
+                  ?.choosePickupPointAriaLabel
+              }
+            />
+          )}
       </div>
     </UIFilterSlider>
   )

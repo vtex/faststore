@@ -6,8 +6,19 @@ import {
   RadioOption as UIRadioOption,
 } from '@faststore/ui'
 import type { ChangeEventHandler } from 'react'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import { PickupPointCard } from './PickupPointCard'
+
+export type PickupPoint = {
+  id: string
+  name: string
+  addressStreet: string
+  addressNumber: string
+  addressCity: string
+  addressState: string
+  addressPostalCode: string
+  distance: number
+  totalItems?: number
+}
 
 export interface PickupPointCardsProps {
   /**
@@ -34,6 +45,10 @@ export interface PickupPointCardsProps {
    * Aria label for the radio group.
    */
   choosePickupPointAriaLabel?: string
+  /**
+   * List of pickup points to be displayed.
+   */
+  pickupPoints?: PickupPoint[]
 }
 
 function PickupPointCards({
@@ -43,9 +58,8 @@ function PickupPointCards({
   regionErrorMessage,
   regionErrorHelperMessage,
   choosePickupPointAriaLabel = 'Select a store',
+  pickupPoints,
 }: PickupPointCardsProps) {
-  const pickupPoints = usePickupPoints()
-
   if (regionErrorMessage) {
     return (
       <UIEmptyState
@@ -83,17 +97,7 @@ function PickupPointCards({
         {pickupPoints?.map((item) => (
           <li data-fs-pickup-point-cards-item key={item.id}>
             <UIRadioOption value={item.id} label={item.name}>
-              <PickupPointCard
-                store={{
-                  name: item.name,
-                  address: item.addressStreet,
-                  number: item.addressNumber,
-                  city: item.addressCity,
-                  state: item.addressState,
-                  postalCode: item.addressPostalCode,
-                  distance: item.distance,
-                }}
-              />
+              <PickupPointCard store={item} />
             </UIRadioOption>
           </li>
         ))}
