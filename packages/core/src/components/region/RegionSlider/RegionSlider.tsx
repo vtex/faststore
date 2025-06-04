@@ -52,7 +52,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
   const { loading, setRegion, regionError, setRegionError } = useRegion()
 
   const [input, setInput] = useState<string>(session.postalCode ?? '')
-  const [appliedInput, setAppliedInput] = useState(session.postalCode ?? '')
+  const [appliedInput, setAppliedInput] = useState<string>(
+    session.postalCode ?? ''
+  )
 
   const inputField = cmsData?.inputField
   const idkPostalCodeLink = cmsData?.idkPostalCodeLink
@@ -222,11 +224,15 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
               selectedOption={pickupPointOption}
               onChange={handlePickupPointOnChange}
               noStoresAvailableMessage={
-                cmsData.deliverySettings?.pickupPointsSlider
-                  ?.noStoresAvailableInLocation
+                pickupPoints?.length === 0
+                  ? cmsData.deliverySettings?.pickupPointsSlider
+                      ?.noStoresAvailableInLocation
+                  : undefined
               }
-              regionErrorMessage={regionError ?? regionError}
-              regionErrorHelperMessage={cmsData?.inputField?.errorMessageHelper}
+              errorMessage={{
+                title: regionError,
+                description: cmsData?.inputField?.errorMessageHelper,
+              }}
               choosePickupPointAriaLabel={
                 cmsData?.deliverySettings?.pickupPointsSlider
                   ?.choosePickupPointAriaLabel

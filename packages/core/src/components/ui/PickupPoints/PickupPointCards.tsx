@@ -36,11 +36,10 @@ export interface PickupPointCardsProps {
   /**
    * Message to be displayed when there is an error when setting the location.
    */
-  regionErrorMessage?: string
-  /**
-   * Helper message to be displayed when there is an error when setting the location.
-   */
-  regionErrorHelperMessage?: string
+  errorMessage?: {
+    title?: string
+    description?: string
+  }
   /**
    * Aria label for the radio group.
    */
@@ -48,17 +47,19 @@ export interface PickupPointCardsProps {
   /**
    * List of pickup points to be displayed.
    */
-  pickupPoints?: PickupPoint[]
+  pickupPoints: PickupPoint[]
 }
 
 function PickupPointCards({
+  pickupPoints,
   selectedOption,
   onChange,
   noStoresAvailableMessage,
-  regionErrorMessage,
-  regionErrorHelperMessage,
+  errorMessage: {
+    title: regionErrorMessage,
+    description: regionErrorHelperMessage,
+  },
   choosePickupPointAriaLabel = 'Select a store',
-  pickupPoints,
 }: PickupPointCardsProps) {
   if (regionErrorMessage) {
     return (
@@ -74,7 +75,7 @@ function PickupPointCards({
     )
   }
 
-  if (pickupPoints?.length === 0) {
+  if (noStoresAvailableMessage) {
     return (
       <UIEmptyState
         title={noStoresAvailableMessage ?? 'No available stores near location.'}
