@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.51.0](https://github.com/vtex/faststore/compare/v3.50.4...v3.51.0) (2025-06-04)
+
+### Features
+
+- list orders custom fields new structure and layout ([#2871](https://github.com/vtex/faststore/issues/2871)) ([6842899](https://github.com/vtex/faststore/commit/68428999e0651a5754164bca41f03e7c1c7d2ed3))
+
 ## [3.50.4](https://github.com/vtex/faststore/compare/v3.50.3...v3.50.4) (2025-06-03)
 
 ### Bug Fixes
