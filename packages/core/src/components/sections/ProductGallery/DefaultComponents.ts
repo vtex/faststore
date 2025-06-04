@@ -3,6 +3,10 @@ import {
   Icon as UIIcon,
   LinkButton as UILinkButton,
   Skeleton as UISkeleton,
+  ToggleField as UIToggleField,
+  ProductComparison as UIProductComparison,
+  ProductComparisonSidebar as UIProductComparisonSidebar,
+  ProductComparisonToolbar as UIProductComparisonToolbar,
 } from '@faststore/ui'
 
 import dynamic from 'next/dynamic'
@@ -28,6 +32,11 @@ const FilterSlider = dynamic(
     /* webpackChunkName: "FilterSlider" */
     import('src/components/search/Filter/FilterSlider')
 )
+const LocalProductComparisonSidebar = dynamic(
+  () =>
+    /* webpackChunkName: "ProductComparisonSidebar" */
+    import('src/components/ui/ProductComparison/ProductComparisonSidebar')
+)
 
 export const ProductGalleryDefaultComponents = {
   MobileFilterButton: UIButton,
@@ -38,8 +47,13 @@ export const ProductGalleryDefaultComponents = {
   FilterButtonSkeleton: UISkeleton,
   LinkButtonPrev: UILinkButton,
   LinkButtonNext: UILinkButton,
+  ToggleField: UIToggleField,
+  ProductComparison: UIProductComparison,
+  ProductComparisonSidebar: UIProductComparisonSidebar,
+  ProductComparisonToolbar: UIProductComparisonToolbar,
   __experimentalFilterDesktop: FilterDesktop,
   __experimentalFilterSlider: FilterSlider,
   __experimentalProductCard: ProductCard,
   __experimentalEmptyGallery: EmptyGallery,
+  __experimentalProductComparisonSidebar: LocalProductComparisonSidebar,
 } as const
