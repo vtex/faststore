@@ -382,19 +382,19 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
-function updateNextConfig(basePath: string) {
-  const { tmpDir } = withBasePath(basePath)
+// function updateNextConfig(basePath: string) {
+//   const { tmpDir } = withBasePath(basePath)
 
-  const nextConfigPath = path.join(tmpDir, 'next.config.js')
+//   const nextConfigPath = path.join(tmpDir, 'next.config.js')
 
-  let nextConfigData = String(readFileSync(nextConfigPath))
-  nextConfigData = nextConfigData.replace(
-    /outputFileTracingRoot\:\s+(.*),/,
-    `outputFileTracingRoot: '${process.cwd()}',`
-  )
+//   let nextConfigData = String(readFileSync(nextConfigPath))
+//   nextConfigData = nextConfigData.replace(
+//     /outputFileTracingRoot\:\s+(.*),/,
+//     `outputFileTracingRoot: '${process.cwd()}',`
+//   )
 
-  writeFileSync(nextConfigPath, nextConfigData)
-}
+//   writeFileSync(nextConfigPath, nextConfigData)
+// }
 
 // returns new (discovery.config.js) or legacy (faststore.config.js) store config file
 function getCurrentUserStoreConfigFile(basePath: string) {
@@ -539,7 +539,7 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    updateNextConfig(basePath),
+    // updateNextConfig(basePath),
     enableRedirectsMiddleware(basePath),
 
     installPlugins(basePath),
