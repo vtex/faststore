@@ -30,9 +30,9 @@ export interface PickupPointCardsProps {
    */
   onChange?: ChangeEventHandler<HTMLInputElement>
   /**
-   * Message to be displayed when no stores are available.
+   * Message to be displayed when no pickup points are available.
    */
-  noStoresAvailableMessage?: string
+  noPickupPointsAvailableMessage?: string
   /**
    * Message to be displayed when there is an error when setting the location.
    */
@@ -54,7 +54,7 @@ function PickupPointCards({
   pickupPoints,
   selectedOption,
   onChange,
-  noStoresAvailableMessage,
+  noPickupPointsAvailableMessage,
   errorMessage: {
     title: regionErrorMessage,
     description: regionErrorHelperMessage,
@@ -75,10 +75,12 @@ function PickupPointCards({
     )
   }
 
-  if (noStoresAvailableMessage) {
+  if (noPickupPointsAvailableMessage) {
     return (
       <UIEmptyState
-        title={noStoresAvailableMessage ?? 'No available stores near location.'}
+        title={
+          noPickupPointsAvailableMessage ?? 'No available stores near location.'
+        }
         titleIcon={
           <UIIcon name="Storefront" width={56} height={56} weight="thin" />
         }

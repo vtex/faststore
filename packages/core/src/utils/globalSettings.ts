@@ -42,7 +42,7 @@ export type RegionalizationCmsData = {
       title?: string
       changePickupPointApplyButtonLabel?: string
       choosePickupPointAriaLabel?: string
-      noStoresAvailableInLocation?: string
+      noPickupPointsAvailableInLocation?: string
     }
   }
 }

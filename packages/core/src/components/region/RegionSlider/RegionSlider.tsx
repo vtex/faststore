@@ -223,10 +223,10 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
               pickupPoints={regionError ? [] : pickupPoints}
               selectedOption={pickupPointOption}
               onChange={handlePickupPointOnChange}
-              noStoresAvailableMessage={
+              noPickupPointsAvailableMessage={
                 pickupPoints?.length === 0
                   ? cmsData.deliverySettings?.pickupPointsSlider
-                      ?.noStoresAvailableInLocation
+                      ?.noPickupPointsAvailableInLocation
                   : undefined
               }
               errorMessage={{

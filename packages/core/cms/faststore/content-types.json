@@ -159,21 +159,21 @@
                       "type": "object",
                       "properties": {
                         "title": {
-                          "title": "Change pickup store title",
+                          "title": "Change Pickup Point title",
                           "type": "string",
                           "default": "Change Store"
                         },
                         "changePickupPointApplyButtonLabel": {
-                          "title": "Change Pickup Store apply button label",
+                          "title": "Change Pickup Point apply button label",
                           "type": "string",
                           "default": "Update"
                         },
                         "choosePickupPointAriaLabel": {
-                          "title": "Choose Store aria-label (radio group)",
+                          "title": "Choose Pickup Point aria-label (radio group)",
                           "type": "string",
                           "default": "Choose a store"
                         },
-                        "noStoresAvailableInLocation": {
+                        "noPickupPointsAvailableInLocation": {
                           "title": "No stores available near location message",
                           "type": "string",
                           "default": "No stores near location."
