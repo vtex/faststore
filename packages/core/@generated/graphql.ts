@@ -144,6 +144,15 @@ export type AvailableDeliveryWindows = {
   tax: Maybe<Scalars['Int']['output']>
 }
 
+export type BusinessHour = {
+  /** Business hour closing time. */
+  ClosingTime: Maybe<Scalars['String']['output']>
+  /** Number that represents the day of the week. */
+  DayOfWeek: Maybe<Scalars['Int']['output']>
+  /** Business hour opening time. */
+  OpeningTime: Maybe<Scalars['String']['output']>
+}
+
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']['output']>
@@ -183,10 +192,8 @@ export type IShippingItem = {
 }
 
 export type IStoreB2B = {
-  corporateName: InputMaybe<Scalars['String']['input']>
   customerId: Scalars['String']['input']
   firstName: InputMaybe<Scalars['String']['input']>
-  isCorporate: InputMaybe<Scalars['Boolean']['input']>
   isRepresentative: InputMaybe<Scalars['Boolean']['input']>
   lastName: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
@@ -360,6 +367,13 @@ export type IUserOrderCancel = {
   reason: InputMaybe<Scalars['String']['input']>
 }
 
+export type Item = {
+  /** Pickup point distance. */
+  distance: Maybe<Scalars['Float']['output']>
+  /** Pickup point. */
+  pickupPoint: Maybe<PickupPoint>
+}
+
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -449,6 +463,17 @@ export type MutationValidateSessionArgs = {
   session: IStoreSession
 }
 
+export type Paging = {
+  /** Current page. */
+  page: Maybe<Scalars['Int']['output']>
+  /** Number of items per page. */
+  pageSize: Maybe<Scalars['Int']['output']>
+  /** Total number of pages. */
+  pages: Maybe<Scalars['Int']['output']>
+  /** Total number of items. */
+  total: Maybe<Scalars['Int']['output']>
+}
+
 /** Newsletter information. */
 export type PersonNewsletter = {
   /** Person's ID in the newsletter list. */
@@ -482,6 +507,57 @@ export type PickupAddress = {
   state: Maybe<Scalars['String']['output']>
   /** PickupAddress street. */
   street: Maybe<Scalars['String']['output']>
+}
+
+export type PickupPoint = {
+  /** Pickup point additional info. */
+  additionalInfo: Maybe<Scalars['String']['output']>
+  /** Pickup point address. */
+  address: Maybe<PickupPointAddress>
+  /** Pickup point business hours. */
+  businessHours: Maybe<BusinessHour>
+  /** Pickup point friendly name. */
+  friendlyName: Maybe<Scalars['String']['output']>
+  /** Pickup point id. */
+  id: Maybe<Scalars['String']['output']>
+}
+
+export type PickupPointAddress = {
+  /** Address id. */
+  addressId: Maybe<Scalars['String']['output']>
+  /** Address type. */
+  addressType: Maybe<Scalars['String']['output']>
+  /** Address city. */
+  city: Maybe<Scalars['String']['output']>
+  /** Address complement */
+  complement: Maybe<Scalars['String']['output']>
+  /** Address country. */
+  country: Maybe<Scalars['String']['output']>
+  /** Address geo coordinates. */
+  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']['output']>>>
+  /** Inform whether the address is disposable. */
+  isDisposable: Maybe<Scalars['Boolean']['output']>
+  /** Address neighborhood. */
+  neighborhood: Maybe<Scalars['String']['output']>
+  /** Address number. */
+  number: Maybe<Scalars['String']['output']>
+  /** Address postal code. */
+  postalCode: Maybe<Scalars['String']['output']>
+  /** Address receiver name. */
+  receiverName: Maybe<Scalars['String']['output']>
+  /** Address reference. */
+  reference: Maybe<Scalars['String']['output']>
+  /** Address state. */
+  state: Maybe<Scalars['String']['output']>
+  /** Address street. */
+  street: Maybe<Scalars['String']['output']>
+}
+
+export type PickupPoints = {
+  /** List of pickup points of the given location. */
+  items: Maybe<Array<Maybe<Item>>>
+  /** Pagination details. */
+  paging: Maybe<Paging>
 }
 
 export type PickupStoreInfo = {
@@ -545,6 +621,8 @@ export type Query = {
   collection: StoreCollection
   /** Returns information about the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>
+  /** Returns a list of pickup points near to the given geo coordinates or postal code + country code. */
+  pickupPoints: Maybe<PickupPoints>
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -585,6 +663,12 @@ export type QueryListUserOrdersArgs = {
   perPage: InputMaybe<Scalars['Int']['input']>
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   text: InputMaybe<Scalars['String']['input']>
+}
+
+export type QueryPickupPointsArgs = {
+  country: InputMaybe<Scalars['String']['input']>
+  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']['input']>
 }
 
 export type QueryProductArgs = {
@@ -769,10 +853,8 @@ export type StoreAuthor = {
 }
 
 export type StoreB2B = {
-  corporateName: Maybe<Scalars['String']['output']>
   customerId: Scalars['String']['output']
   firstName: Maybe<Scalars['String']['output']>
-  isCorporate: Maybe<Scalars['Boolean']['output']>
   isRepresentative: Maybe<Scalars['Boolean']['output']>
   lastName: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
@@ -1559,6 +1641,7 @@ export type UserOrderFromList = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
+  customFields: Maybe<UserOrderFromListCustomFields>
   deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
   giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
   hostname: Maybe<Scalars['String']['output']>
@@ -2418,6 +2501,12 @@ export type ServerListOrdersQueryQuery = {
         sellingPrice: number | null
         price: number | null
       } | null> | null
+      customFields: {
+        costCenter: Array<string | null> | null
+        poNumber: Array<string | null> | null
+        release: Array<string | null> | null
+        desktop: Array<string | null> | null
+      } | null
     } | null> | null
     paging: {
       total: number | null
@@ -2868,8 +2957,6 @@ export type ValidateSessionMutation = {
       isRepresentative: boolean | null
       unitName: string | null
       unitId: string | null
-      isCorporate: boolean | null
-      corporateName: string | null
       firstName: string | null
       lastName: string | null
       userName: string | null
@@ -2914,6 +3001,25 @@ export type ClientShippingSimulationQueryQuery = {
       neighborhood: string | null
       state: string | null
     } | null
+  } | null
+}
+
+export type ClientPickupPointsQueryQueryVariables = Exact<{
+  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']['input']>
+  country: InputMaybe<Scalars['String']['input']>
+}>
+
+export type ClientPickupPointsQueryQuery = {
+  pickupPoints: {
+    paging: { total: number | null } | null
+    items: Array<{
+      pickupPoint: {
+        id: string | null
+        friendlyName: string | null
+        address: { street: string | null } | null
+      } | null
+    } | null> | null
   } | null
 }
 
@@ -3474,7 +3580,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '9f48d9d4c1b6e6b32ac1f1c1b7b3819ac826dfe7',
+    operationHash: '7fba0a7d767fceed07b268597d68e5577d952b43',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
@@ -3582,7 +3688,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: 'd8eac720a2de6a517384127a199e27a623653394',
+    operationHash: '6f6d66826c836c3633a8dc3d2fe8220c386584d6',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
@@ -3596,6 +3702,15 @@ export const ClientShippingSimulationQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientShippingSimulationQueryQuery,
   ClientShippingSimulationQueryQueryVariables
+>
+export const ClientPickupPointsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientPickupPointsQuery',
+    operationHash: '0267c77a87cb0592dfd9a73bad8f632c1801541b',
+  },
+} as unknown as TypedDocumentString<
+  ClientPickupPointsQueryQuery,
+  ClientPickupPointsQueryQueryVariables
 >
 export const ServerManyProductsQueryDocument = {
   __meta__: {

@@ -189,8 +189,6 @@ type StoreB2B {
   isRepresentative: Boolean
   unitName: String
   unitId: String
-  isCorporate: Boolean
-  corporateName: String
   firstName: String
   lastName: String
   userName: String
@@ -202,8 +200,6 @@ input IStoreB2B {
   isRepresentative: Boolean
   unitName: String
   unitId: String
-  isCorporate: Boolean
-  corporateName: String
   firstName: String
   lastName: String
   userName: String
