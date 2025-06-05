@@ -14,6 +14,8 @@ interface Props {
   >
   itemsPerPage: number
   firstPage: number
+  shouldShowComparison?: boolean
+  compareLabel?: string
 }
 
 function ProductGalleryPage({
@@ -22,6 +24,8 @@ function ProductGalleryPage({
   productCard,
   itemsPerPage,
   firstPage,
+  shouldShowComparison,
+  compareLabel,
 }: Props) {
   const { data } = useGalleryPage(page)
 
@@ -41,6 +45,8 @@ function ProductGalleryPage({
         productCard={productCard}
         firstPage={firstPage}
         title={title}
+        shouldShowComparison={shouldShowComparison}
+        compareLabel={compareLabel}
       />
     </Sentinel>
   )

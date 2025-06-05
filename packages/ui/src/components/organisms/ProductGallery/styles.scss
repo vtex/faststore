@@ -69,7 +69,7 @@
     }
 
     @include media(">=notebook") {
-      grid-column: 6 / span 7;
+      grid-column: 7 / span 7;
       justify-content: flex-end;
       order: unset;
       min-height: initial;
@@ -94,16 +94,19 @@
     padding: var(--fs-spacing-2) var(--fs-spacing-3);
 
     @include media("<notebook") {
+      justify-content: space-between;
       background-color: var(--fs-color-neutral-bkg);
     }
 
     @include media(">=notebook") {
       grid-column: 4 /span 2;
+      gap: var(--fs-spacing-3);
       justify-content: left;
       order: unset;
       min-height: initial;
       padding: 0;
       background-color: unset;
+      inline-size: max-content;
     }
 
     [data-fs-product-listing-results-count-skeleton] {
@@ -111,11 +114,18 @@
     }
   }
 
+  [data-fs-product-comparison-enabled] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   [data-fs-product-listing-results] {
     --padding: var(--fs-spacing-1);
 
     order: 3;
     padding: 0 var(--padding);
+    border-top: 1.5px solid var(--fs-color-neutral-bkg);
 
     @include media("<notebook") {
       background-color: var(--fs-color-neutral-bkg);
