@@ -2,7 +2,7 @@ import type { ContentData, Locator } from '@vtex/client-cms'
 import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
-import type { ContentOptions, ContentParams } from './types'
+import type { ContentOptions, ContentParams, PreviewData } from './types'
 import config from '../../../discovery.config'
 import { getPLP, type PLPContentType } from '../cms/plp'
 import {
@@ -37,22 +37,21 @@ export class ContentService {
     return getPage(options.cmsOptions)
   }
 
-  async getContent(params: ContentParams) {
+  async getMultipleContent(params: ContentParams): Promise<{ data: any[] }> {
     const options = this.createContentOptions(params)
 
     if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
-      const { entries } = await this.clientCP.listEntries(serviceParams)
-      const data = await Promise.all(
-        entries.map(async (entry) => {
-          const entryData = await this.getSingleEntry(
-            { ...serviceParams, entryId: entry.id },
-            !!options.isPreview
-          )
-          return this.mergeEntryWithData(entry, entryData)
-        })
-      )
-      return { data }
+      const isBranchPreview = !!serviceParams.branchId && options.isPreview
+      let { entries } = await this.clientCP.listEntries(serviceParams)
+
+      if (!entries || (entries.length === 0 && isBranchPreview)) {
+        ;({ entries } = await this.clientCP.listEntries(
+          this.getPublishedParams(serviceParams)
+        ))
+      }
+
+      return this.fillEntriesWithData(entries, serviceParams, options.isPreview)
     }
     return getCMSPage(options.cmsOptions)
   }
@@ -65,7 +64,7 @@ export class ContentService {
     const options = this.createContentOptions(plpParams)
 
     if (isContentPlatformSource()) {
-      const pages = (await this.getContent(plpParams)).data
+      const pages = (await this.getMultipleContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
         pages,
@@ -84,7 +83,7 @@ export class ContentService {
     const options = this.createContentOptions(pdpParams)
 
     if (isContentPlatformSource()) {
-      const pages = (await this.getContent(pdpParams)).data
+      const pages = (await this.getMultipleContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
       return findBestPDPTemplate(pages, product) as PDPContentType
     }
@@ -95,65 +94,110 @@ export class ContentService {
     options: ContentOptions
   ): Promise<T> {
     const params = this.convertOptionsToParams(options)
-    try {
-      const entry: PageContentType =
-        params.entryId || params.slug
-          ? await this.getSingleEntry(params, !!options.isPreview)
-          : await this.fetchFirstEntry(params, !!options.isPreview)
+    const isBranchPreview = !!params.branchId && options.isPreview
 
-      return entry as T
-    } catch (err: unknown) {
-      if (isNotFoundError(err)) console.error('Content not found', err)
-      else throw err
+    const tryFetch = async (
+      fetchParams: EntryPathParams,
+      isPreview: boolean
+    ): Promise<T | null> => {
+      try {
+        const entry = await this.getEntry(fetchParams, isPreview)
+        return this.isEmptyEntry(entry) ? null : (entry as T)
+      } catch (err: unknown) {
+        return isNotFoundError(err) ? null : Promise.reject(err)
+      }
     }
+
+    const primaryEntry = await tryFetch(params, !!options.isPreview)
+    if (primaryEntry !== null) return primaryEntry
+
+    if (isBranchPreview) {
+      const publishedEntry = await tryFetch(
+        this.getPublishedParams(params),
+        false
+      )
+      if (publishedEntry !== null) return publishedEntry
+    }
+
+    console.warn('Content not found for:', { params, options })
+    return {} as T
   }
 
-  private async getSingleEntry(
+  private async fillEntriesWithData(
+    entries: ContentEntry[],
+    serviceParams: EntryPathParams,
+    isPreview: boolean
+  ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
+    const data = await Promise.all(
+      entries.map(async (entry) => {
+        const entryData = await this.getEntryData(
+          { ...serviceParams, entryId: entry.id },
+          isPreview
+        )
+        return this.mergeEntryWithData(entry, entryData)
+      })
+    )
+    return { data }
+  }
+
+  private async getEntry(
     params: EntryPathParams,
     isPreview: boolean
   ): Promise<PageContentType> {
-    if (isPreview) {
-      if (params.entryId)
-        return this.clientCP.previewEntryById(
-          params
-        ) as Promise<PageContentType>
-      if (params.slug)
-        return this.clientCP.previewEntryBySlug(
-          params
-        ) as Promise<PageContentType>
-      throw new Error('Preview requires entryId or slug')
-    }
-    if (params.entryId)
-      return this.clientCP.getEntry(params) as Promise<PageContentType>
-    if (params.slug)
-      return this.clientCP.getEntryBySlug(params) as Promise<PageContentType>
-    throw new Error('getEntry requires entryId or slug')
+    return params.entryId || params.slug
+      ? await this.getEntryData(params, isPreview)
+      : await this.fetchFirstEntryFromList(params, isPreview)
   }
 
-  private async fetchFirstEntry(
+  private async getEntryData(
+    params: EntryPathParams,
+    isPreview: boolean
+  ): Promise<PageContentType> {
+    if (!params.entryId && !params.slug) {
+      const operation = isPreview ? 'Preview' : 'getEntry'
+      throw new Error(`${operation} requires entryId or slug`)
+    }
+
+    if (isPreview) {
+      return params.entryId
+        ? (this.clientCP.previewEntryById(params) as Promise<PageContentType>)
+        : (this.clientCP.previewEntryBySlug(params) as Promise<PageContentType>)
+    }
+
+    return params.entryId
+      ? (this.clientCP.getEntry(params) as Promise<PageContentType>)
+      : (this.clientCP.getEntryBySlug(params) as Promise<PageContentType>)
+  }
+
+  private async fetchFirstEntryFromList(
     params: EntryPathParams,
     isPreview: boolean
   ): Promise<PageContentType> {
     const { entries } = await this.clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
-      console.error('No entries found for params', params)
+      console.warn('No entries found for params', params)
       return {} as PageContentType
     }
     if (entries.length > 1) {
       throw new MultipleContentError(params)
     }
-    return this.getSingleEntry({ ...params, entryId: entries[0].id }, isPreview)
+    return this.getEntryData({ ...params, entryId: entries[0].id }, isPreview)
   }
 
-  private mergeEntryWithData(
-    entry: ContentEntry,
-    data: PageContentType
-  ): ContentEntry & PageContentType {
+  private createContentOptions(params: ContentParams): ContentOptions {
+    const { contentType, previewData, slug } = params
+
+    const isContentPreview = previewData?.contentType === contentType
+    const isBranchPreview = this.isBranchPreview(previewData)
+
     return {
-      ...entry,
-      ...data,
-      id: entry.id,
-      name: entry.name || '',
+      cmsOptions: this.buildCmsOptions(
+        params,
+        isContentPreview,
+        isBranchPreview
+      ),
+      ...(slug !== undefined && { slug }),
+      isPreview: isContentPreview || isBranchPreview,
     }
   }
 
@@ -164,6 +208,7 @@ export class ContentService {
       storeId: 'faststore',
       contentType: cmsOptions.contentType,
       slug: options.slug,
+      branchId: 'main',
     }
 
     if ('documentId' in cmsOptions && cmsOptions.documentId) {
@@ -187,34 +232,64 @@ export class ContentService {
     return params as EntryPathParams
   }
 
-  private createContentOptions(params: ContentParams): ContentOptions {
+  private buildCmsOptions(
+    params: ContentParams,
+    isContentPreview: boolean,
+    isBranchPreview: boolean
+  ) {
     const {
       contentType,
       previewData,
-      slug,
       documentId,
       versionId,
       releaseId,
       filters,
     } = params
-
-    const isPreview = previewData?.contentType === contentType
     const { slug: _, ...previewLocator } = previewData || {}
 
-    const cmsOptions = {
+    return {
       contentType,
-      ...(isPreview ? previewLocator : {}),
+      ...(isContentPreview ? previewLocator : {}),
+      ...(isBranchPreview && {
+        versionId: previewData?.versionId,
+        releaseId: previewData?.releaseId,
+      }),
       ...(documentId !== undefined && { documentId }),
       ...(versionId !== undefined && { versionId }),
       ...(releaseId !== undefined && { releaseId }),
       ...(filters && { filters }),
     }
+  }
 
+  private mergeEntryWithData(
+    entry: ContentEntry,
+    data: PageContentType
+  ): ContentEntry & PageContentType {
     return {
-      cmsOptions,
-      ...(slug !== undefined && { slug }),
-      isPreview,
+      ...entry,
+      ...data,
+      id: entry.id,
+      name: entry.name || '',
     }
+  }
+
+  private isBranchPreview(
+    previewData: PreviewData | null | undefined
+  ): boolean {
+    return (
+      isContentPlatformSource() &&
+      !!(previewData?.versionId || previewData?.releaseId)
+    )
+  }
+
+  private isEmptyEntry(entry: PageContentType): boolean {
+    return !entry || Object.keys(entry).length === 0
+  }
+
+  private getPublishedParams(serviceParams: EntryPathParams): EntryPathParams {
+    const publishedParams = { ...serviceParams }
+    delete publishedParams.branchId
+    return publishedParams
   }
 }
 

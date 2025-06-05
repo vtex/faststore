@@ -33,7 +33,6 @@ const setPreviewAndRedirect = (
 ) => {
   res.setPreviewData(previewData, {
     maxAge: 3600,
-    path: redirectPath,
   })
   res.redirect(redirectPath)
 }
@@ -41,6 +40,13 @@ const setPreviewAndRedirect = (
 // TODO: Improve security by disabling CMS preview in production
 const handler: NextApiHandler = async (req, res) => {
   try {
+    if (pickParam(req, 'action') === 'clear') {
+      res.clearPreviewData()
+      const redirectTo = pickParam(req, 'redirect') || '/'
+      res.redirect(redirectTo)
+      return
+    }
+
     let slug = pickParam(req, 'slug')
     if (slug && !slug.startsWith('/')) {
       slug = `/${slug}`

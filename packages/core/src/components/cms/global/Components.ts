@@ -5,6 +5,7 @@ import RegionPopover from 'src/components/region/RegionPopover'
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
+import PreviewTag from 'src/components/common/PreviewTag'
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
@@ -34,6 +35,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Navbar,
   RegionBar,
   RegionPopover,
+  PreviewTag,
   CartSidebar, // out of viewport
   RegionModal, // out of viewport
   Footer, // out of viewport
