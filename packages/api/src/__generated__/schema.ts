@@ -1341,6 +1341,7 @@ export type UserOrder = {
   callCenterOperatorData?: Maybe<Scalars['String']>;
   canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
   canCancelOrder?: Maybe<Scalars['Boolean']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
@@ -1374,7 +1375,6 @@ export type UserOrder = {
   orderFormId?: Maybe<Scalars['String']>;
   orderGroup?: Maybe<Scalars['String']>;
   orderId?: Maybe<Scalars['String']>;
-  orderPendingApproval?: Maybe<Scalars['Boolean']>;
   origin?: Maybe<Scalars['String']>;
   packageAttachment?: Maybe<UserOrderPackageAttachment>;
   paymentData?: Maybe<UserOrderPaymentData>;
@@ -2053,13 +2053,13 @@ export type UserOrderResult = {
   allowCancellation?: Maybe<Scalars['Boolean']>;
   canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
   canCancelOrder?: Maybe<Scalars['Boolean']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
   items?: Maybe<Array<Maybe<UserOrderItems>>>;
   orderId?: Maybe<Scalars['String']>;
-  orderPendingApproval?: Maybe<Scalars['Boolean']>;
   paymentData?: Maybe<UserOrderPaymentData>;
   shippingData?: Maybe<UserOrderShippingData>;
   status?: Maybe<Scalars['String']>;

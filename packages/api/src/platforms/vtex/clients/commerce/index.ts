@@ -530,7 +530,7 @@ export const VtexCommerce = (
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
-          `${base}/${account}/commercial-authorizations/${orderId}`,
+          `${base}/${account}/commercial-authorizations/order/${orderId}`,
           {
             method: 'GET',
             headers,
@@ -538,24 +538,27 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
-      approveOrRejectOrder: async ({
+      processOrderAuthorization: async ({
         orderAuthorizationId,
         dimensionId,
         ruleId,
-        action,
+        approved,
       }: {
         orderAuthorizationId: string
         ruleId: string
         dimensionId: string
-        action: 'approveOrder' | 'rejectOrder'
+        approved: boolean
       }): Promise<CommercialAuthorizationResponse> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        const APPROVAL_SCORE = 100
+        const REJECTION_SCORE = 0
 
         const body = {
           params: {
             ruleId,
             dimensionId,
-            score: action === 'approveOrder' ? 100 : 0,
+            score: approved ? APPROVAL_SCORE : REJECTION_SCORE,
           },
         }
 

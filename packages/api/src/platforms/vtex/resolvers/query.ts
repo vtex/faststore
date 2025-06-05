@@ -393,11 +393,16 @@ export const Query = {
 
     try {
       const order = await commerce.oms.userOrder({ orderId })
-      const commercialAuth =
-        await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
 
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
+      }
+
+      const commercialAuth =
+        await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
+
+      if (!commercialAuth) {
+        throw new NotFoundError(`OrderAuth for ${orderId} not found`)
       }
 
       const generalStatusIsPending = commercialAuth.status === 'pending'
@@ -422,7 +427,7 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
-        orderPendingApproval:
+        canProcessOrderAuthorization:
           generalStatusIsPending &&
           !!firstPendingDimension &&
           !!firstPendingRule,

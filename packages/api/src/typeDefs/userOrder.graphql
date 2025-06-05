@@ -59,7 +59,7 @@ type UserOrder {
   customFields: [UserOrderCustomFieldsGrouped]
   canCancelOrder: Boolean
   canApproveOrRejectOrder: Boolean
-  orderPendingApproval: Boolean
+  canProcessOrderAuthorization: Boolean
 }
 
 type UserOrderResult {
@@ -67,7 +67,7 @@ type UserOrderResult {
   status: String
   canCancelOrder: Boolean
   canApproveOrRejectOrder: Boolean
-  orderPendingApproval: Boolean
+  canProcessOrderAuthorization: Boolean
   statusDescription: String
   allowCancellation: Boolean
   storePreferencesData: UserOrderStorePreferencesData
