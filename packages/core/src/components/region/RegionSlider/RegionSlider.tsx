@@ -155,13 +155,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
         className: `section ${styles.section} section-filter-slider`,
       }}
       title={
-        regionSliderType === 'changePickupPoint'
-          ? cmsData?.deliverySettings?.pickupPointsSlider?.title
-          : regionSliderType !== 'none'
-            ? cmsData?.deliverySettings?.postalCodeEditSlider?.[
-                regionSliderType
-              ]
-            : ''
+        regionSliderType !== 'none'
+          ? cmsData?.deliverySettings?.regionSlider?.title?.[regionSliderType]
+          : ''
       }
       size="partial"
       direction="rightSide"
@@ -172,8 +168,8 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           ? {
               variant: 'primary',
               children:
-                cmsData?.deliverySettings?.pickupPointsSlider
-                  ?.changePickupPointApplyButtonLabel,
+                cmsData?.deliverySettings?.regionSlider
+                  ?.pickupPointChangeApplyButtonLabel,
               disabled:
                 loading ||
                 input === '' ||
@@ -225,17 +221,17 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
               onChange={handlePickupPointOnChange}
               noPickupPointsAvailableMessage={
                 pickupPoints?.length === 0
-                  ? cmsData.deliverySettings?.pickupPointsSlider
-                      ?.noPickupPointsAvailableInLocation
+                  ? cmsData.deliverySettings?.regionSlider
+                      ?.pickupPointUnavailableInLocationLabel
                   : undefined
               }
               errorMessage={{
                 title: regionError,
                 description: cmsData?.inputField?.errorMessageHelper,
               }}
-              choosePickupPointAriaLabel={
-                cmsData?.deliverySettings?.pickupPointsSlider
-                  ?.choosePickupPointAriaLabel
+              pickupPointChooseAriaLabel={
+                cmsData?.deliverySettings?.regionSlider
+                  ?.pickupPointChooseAriaLabel
               }
             />
           )}

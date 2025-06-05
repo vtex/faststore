@@ -43,7 +43,7 @@ export interface PickupPointCardsProps {
   /**
    * Aria label for the radio group.
    */
-  choosePickupPointAriaLabel?: string
+  pickupPointChooseAriaLabel?: string
   /**
    * List of pickup points to be displayed.
    */
@@ -59,7 +59,7 @@ function PickupPointCards({
     title: regionErrorMessage,
     description: regionErrorHelperMessage,
   },
-  choosePickupPointAriaLabel = 'Select a store',
+  pickupPointChooseAriaLabel = 'Select a store',
 }: PickupPointCardsProps) {
   if (regionErrorMessage) {
     return (
@@ -95,7 +95,7 @@ function PickupPointCards({
         name="stores-radio-group"
         onChange={onChange}
         selectedValue={selectedOption}
-        aria-label={choosePickupPointAriaLabel}
+        aria-label={pickupPointChooseAriaLabel}
       >
         {pickupPoints?.map((item) => (
           <li data-fs-pickup-point-cards-item key={item.id}>

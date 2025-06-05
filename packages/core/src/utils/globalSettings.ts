@@ -25,10 +25,6 @@ export type RegionalizationCmsData = {
     title?: string
     description?: string
     setLocationButtonLabel?: string
-    postalCodeEditSlider?: {
-      setLocation?: string
-      changeLocation?: string
-    }
     deliveryMethods?: {
       delivery?: string
       pickupInPoint?: string
@@ -38,11 +34,15 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
-    pickupPointsSlider?: {
-      title?: string
-      changePickupPointApplyButtonLabel?: string
-      choosePickupPointAriaLabel?: string
-      noPickupPointsAvailableInLocation?: string
+    regionSlider?: {
+      title?: {
+        setLocation?: string
+        changeLocation?: string
+        changePickupPoint?: string
+      }
+      pickupPointChangeApplyButtonLabel?: string
+      pickupPointChooseAriaLabel?: string
+      pickupPointUnavailableInLocationLabel?: string
     }
   }
 }
