@@ -80,23 +80,28 @@ function FilterDesktop({
   const isDeliveryPromiseEnabled = deliveryPromise.enabled
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+
+  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
   const selectedPickupPointId = state.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
   )?.value
-  const defaultPickupPoint =
+
+  // If no pickup point is previous selected, use the first one as default
+  const selectedPickupPoint =
     pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
-    pickupPoints?.[0] ??
-    undefined
-  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+    defaultPickupPoint
+
   const pickupInPointFacet =
-    isDeliveryPromiseEnabled && defaultPickupPoint
+    isDeliveryPromiseEnabled && selectedPickupPoint
       ? {
           value: 'pickup-in-point',
-          label: defaultPickupPoint?.name ?? defaultPickupPoint?.addressStreet,
+          label:
+            selectedPickupPoint?.name ?? selectedPickupPoint?.addressStreet,
           selected: !!state.selectedFacets.find(
             ({ value }) => value === 'pickup-in-point'
           ),
-          quantity: defaultPickupPoint?.totalItems ?? 0,
+          quantity: selectedPickupPoint?.totalItems ?? 0,
         }
       : undefined
 
@@ -112,7 +117,7 @@ function FilterDesktop({
         )
 
         // Remove old pickup `pickup in point` facet from list and search state
-        if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
+        if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
           if (state.selectedFacets.some(({ key }) => key === 'shipping')) {
             const selectedShippingFacet = state.selectedFacets.find(
               ({ key }) => key === 'shipping'
@@ -132,7 +137,7 @@ function FilterDesktop({
           )
         }
         // Prevent multiple `pickup in point` facet
-        else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
+        else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
           facet.values.push(pickupInPointFacet)
         }
         // Replace current `pickup-in-point` facet with the updated one
@@ -213,7 +218,7 @@ function FilterDesktop({
                                 facet,
                                 {
                                   key: 'pickupPoint',
-                                  value: defaultPickupPoint?.id,
+                                  value: selectedPickupPoint?.id,
                                 },
                               ])
                             } else {

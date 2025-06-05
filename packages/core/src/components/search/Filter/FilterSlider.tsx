@@ -143,22 +143,26 @@ function FilterSlider({
   const isDeliveryPromiseEnabled = deliveryPromise.enabled
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
+  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
 
+  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
   const selectedPickupPointId = state.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
   )?.value
-  const defaultPickupPoint =
+
+  // If no pickup point is selected, use the first one as default
+  const selectedPickupPoint =
     pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
-    pickupPoints?.[0] ??
-    undefined
-  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+    defaultPickupPoint
+
   const pickupInPointFacet =
-    isDeliveryPromiseEnabled && defaultPickupPoint
+    isDeliveryPromiseEnabled && selectedPickupPoint
       ? {
           value: 'pickup-in-point',
-          label: defaultPickupPoint?.name ?? defaultPickupPoint?.addressStreet,
+          label:
+            selectedPickupPoint?.name ?? selectedPickupPoint?.addressStreet,
           selected: !!selected.find(({ value }) => value === 'pickup-in-point'),
-          quantity: defaultPickupPoint?.totalItems,
+          quantity: selectedPickupPoint?.totalItems,
         }
       : undefined
 
@@ -174,7 +178,7 @@ function FilterSlider({
         )
 
         // Remove old pickup `pickup in point` facet from list and search state
-        if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
+        if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
           if (selected.some(({ key }) => key === 'shipping')) {
             const selectedShippingFacet = selected.find(
               ({ key }) => key === 'shipping'
@@ -194,7 +198,7 @@ function FilterSlider({
           )
         }
         // Prevent multiple `pickup in point` facet
-        else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
+        else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
           facet.values.push(pickupInPointFacet)
         }
         // Replace current `pickup-in-point` facet with the updated one
@@ -316,7 +320,7 @@ function FilterSlider({
                                   facet,
                                   {
                                     key: 'pickupPoint',
-                                    value: defaultPickupPoint?.id,
+                                    value: selectedPickupPoint?.id,
                                   },
                                 ])
                               } else {
