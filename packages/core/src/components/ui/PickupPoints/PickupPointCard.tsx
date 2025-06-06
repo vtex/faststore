@@ -14,22 +14,22 @@ export function PickupPointCard({ store }: PickupPointCardProps) {
     <div data-fs-pickup-point-card>
       <header data-fs-pickup-point-card-header>
         <UIIcon name="Storefront" />
-        <h3 data-fs-pickup-point-card-header-title>{store.name}</h3>
+        <h3 data-fs-pickup-point-card-header-title>{store?.name}</h3>
         <span data-fs-pickup-point-card-header-postal-code>
-          {store.address.postalCode}
+          {store?.address?.postalCode}
         </span>
       </header>
       <div data-fs-pickup-point-card-header-content>
         <p data-fs-pickup-point-card-address>
           <span>
-            {store.address.street}, {store.address.number}
+            {store?.address?.street}, {store?.address?.number}
           </span>
           <span>
-            {store.address.city} - {store.address.state}
+            {store?.address?.city} - {store?.address?.state}
           </span>
         </p>
         <span data-fs-pickup-point-card-distance>
-          {formatDistance(store.distance)}
+          {store?.distance !== undefined ? formatDistance(store.distance) : ''}
         </span>
       </div>
     </div>
