@@ -3510,7 +3510,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4',
+    operationHash: '699eef23d163f234cbf34e2db42466ea63228b08',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
