@@ -15,7 +15,7 @@ export function PickupPointCard({ store }: PickupPointCardProps) {
       <header data-fs-pickup-point-card-header>
         <UIIcon name="Storefront" />
         <h3 data-fs-pickup-point-card-header-title>{store.name}</h3>
-        <span data-fs-pickup-point-card-header-zipcode>
+        <span data-fs-pickup-point-card-postal-code>
           {store.addressPostalCode}
         </span>
       </header>

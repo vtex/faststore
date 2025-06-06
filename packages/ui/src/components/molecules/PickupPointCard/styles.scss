@@ -50,11 +50,11 @@
     @include truncate-title(1);
   }
 
-  [data-fs-pickup-point-card-header-zipcode] {
+  [data-fs-pickup-point-card-header-postal-code] {
     margin-left: auto;
   }
 
-  [data-fs-pickup-point-card-header-zipcode],
+  [data-fs-pickup-point-card-header-postal-code],
   [data-fs-pickup-point-card-distance] {
     font-size: var(--fs-pickup-point-card-distance-font-size);
     color: var(--fs-pickup-point-card-distance-color);
