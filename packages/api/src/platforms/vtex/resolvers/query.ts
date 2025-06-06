@@ -32,7 +32,6 @@ import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
-import { getAuthCookie, parseJwt } from '../utils/cookies'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -466,21 +465,9 @@ export const Query = {
   accountName: async (_: unknown, __: unknown, ctx: Context) => {
     const {
       clients: { commerce },
-      headers,
-      account,
     } = ctx
 
     const { namespaces } = await commerce.session('')
-
-    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
-
-    if (jwt?.userId && !jwt?.isRepresentative) {
-      const user = await commerce.licenseManager.getUserById({
-        userId: jwt.userId,
-      })
-
-      return user?.name
-    }
 
     const { profile } = namespaces
 
