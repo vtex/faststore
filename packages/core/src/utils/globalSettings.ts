@@ -41,8 +41,8 @@ export type RegionalizationCmsData = {
         changePickupPoint?: string
       }
       pickupPointChangeApplyButtonLabel?: string
-      pickupPointChooseAriaLabel?: string
-      pickupPointUnavailableInLocationLabel?: string
+      choosePickupPointAriaLabel?: string
+      noPickupPointsAvailableInLocation?: string
     }
   }
 }

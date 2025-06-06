@@ -168,13 +168,13 @@
                           "type": "string",
                           "default": "Update"
                         },
-                        "pickupPointChooseAriaLabel": {
+                        "choosePickupPointAriaLabel": {
                           "title": "Choose Pickup Point aria-label (radio group)",
                           "type": "string",
                           "default": "Choose a store"
                         },
-                        "pickupPointUnavailableInLocationLabel": {
-                          "title": "No stores available near location message",
+                        "noPickupPointsAvailableInLocation": {
+                          "title": "No Pickup Point available near location message",
                           "type": "string",
                           "default": "No stores near location."
                         }

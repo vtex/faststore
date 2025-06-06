@@ -222,16 +222,16 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
               noPickupPointsAvailableMessage={
                 pickupPoints?.length === 0
                   ? cmsData.deliverySettings?.regionSlider
-                      ?.pickupPointUnavailableInLocationLabel
+                      ?.noPickupPointsAvailableInLocation
                   : undefined
               }
               errorMessage={{
                 title: regionError,
                 description: cmsData?.inputField?.errorMessageHelper,
               }}
-              pickupPointChooseAriaLabel={
+              choosePickupPointAriaLabel={
                 cmsData?.deliverySettings?.regionSlider
-                  ?.pickupPointChooseAriaLabel
+                  ?.choosePickupPointAriaLabel
               }
             />
           )}
