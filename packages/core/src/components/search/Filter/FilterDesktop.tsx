@@ -87,7 +87,7 @@ function FilterDesktop({
     ({ key }) => key === 'pickupPoint'
   )?.value
 
-  // If no pickup point is previous selected, use the first one as default
+  // If no pickup point was previously selected, use the first one as default
   const selectedPickupPoint =
     pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
     defaultPickupPoint
