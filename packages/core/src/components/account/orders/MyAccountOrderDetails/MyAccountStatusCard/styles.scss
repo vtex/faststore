@@ -19,6 +19,7 @@
   // Step Icon States
   --fs-order-status-step-icon-completed-color   : #08a822;
   --fs-order-status-step-icon-failed-color      : #5c5c5c;
+  --fs-order-status-step-icon-canceled-color     : var(--fs-color-neutral-1);
   --fs-order-status-step-icon-loading-color     : var(--fs-color-neutral-4);
   --fs-order-status-step-icon-text-color        : var(--fs-color-neutral-0);
 
@@ -126,6 +127,10 @@
         }
       }
 
+      &[data-fs-shipping-step-canceled] {
+        background-color: var(--fs-order-status-step-icon-canceled-color);
+      }
+
       &[data-fs-shipping-step-loading] {
         background-color: var(--fs-order-status-step-icon-loading-color);
         border-radius: var(--fs-order-status-step-icon-border-radius);
@@ -157,6 +162,10 @@
       font-weight: var(--fs-order-status-step-label-weight);
       line-height: var(--fs-order-status-step-label-line-height);
       color: var(--fs-color-text);
+    }
+
+    [data-fs-skeleton] {
+      background-color: var(--fs-color-neutral-1);
     }
 
     [data-fs-shipping-step-details] {

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [3.49.0](https://github.com/vtex/faststore/compare/v3.48.0...v3.49.0) (2025-05-26)
+
+### Features
+
+- improve validate session requests SFS-2517 ([#2857](https://github.com/vtex/faststore/issues/2857)) ([42a4131](https://github.com/vtex/faststore/commit/42a41319dd5b98d257f0f2121caaf74f1a399f12))
+
 # [3.46.0](https://github.com/vtex/faststore/compare/v3.45.0...v3.46.0) (2025-05-21)
 
 ### Features

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/graphql-utils
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/graphql-utils
+
 # 3.45.0 (2025-05-20)
 
 **Note:** Version bump only for package @faststore/graphql-utils
