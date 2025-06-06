@@ -1,13 +1,13 @@
-import { useMemo } from 'react'
 import { gql } from '@generated'
 import type {
   ClientPickupPointsQueryQuery,
   ClientPickupPointsQueryQueryVariables,
 } from '@generated/graphql'
+import { useMemo } from 'react'
 
 import { deliveryPromise } from 'discovery.config'
-import { useSession } from 'src/sdk/session'
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useSession } from 'src/sdk/session'
 
 export const query = gql(`
   query ClientPickupPointsQuery(
@@ -24,9 +24,14 @@ export const query = gql(`
           id
           address {
             street
+            number
+            postalCode
+            city
+            state
           }
           friendlyName
         }
+        distance
       }
     }
   }
@@ -65,9 +70,16 @@ export const usePickupPoints = () => {
 
   const pickupPoints = data.pickupPoints.items.map((item) => ({
     id: item.pickupPoint?.id,
-    addressStreet: item.pickupPoint?.address?.street,
     name: item.pickupPoint?.friendlyName,
     totalItems: data.pickupPoints.paging.total,
+    address: {
+      street: item.pickupPoint?.address?.street,
+      number: item.pickupPoint?.address?.number,
+      postalCode: item.pickupPoint?.address?.postalCode,
+      city: item.pickupPoint?.address?.city,
+      state: item.pickupPoint?.address?.state,
+    },
+    distance: item.distance,
   }))
 
   return pickupPoints

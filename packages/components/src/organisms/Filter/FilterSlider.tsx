@@ -15,6 +15,11 @@ import type { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
   /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
+  /**
    * Title for the FilterSlider component.
    */
   title?: string
@@ -50,6 +55,7 @@ export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 function FilterSlider({
+  testId = 'fs-filter-slider',
   title,
   size,
   direction,
@@ -78,6 +84,7 @@ function FilterSlider({
           closeRegionSlider()
         }
       }}
+      testId={testId}
       overlayProps={overlayProps}
       {...otherProps}
     >
@@ -94,19 +101,23 @@ function FilterSlider({
       </div>
       {footer && (
         <footer data-fs-filter-slider-footer>
-          <Button
-            data-fs-filter-slider-footer-button-clear
-            {...clearBtnProps}
-          />
-          <Button
-            data-fs-filter-slider-footer-button-apply
-            data-testid="filter-slider-button-apply"
-            {...applyBtnProps}
-            onClick={(e) => {
-              applyBtnProps?.onClick?.(e)
-              fadeOut()
-            }}
-          />
+          {clearBtnProps && (
+            <Button
+              data-fs-filter-slider-footer-button-clear
+              {...clearBtnProps}
+            />
+          )}
+          {applyBtnProps && (
+            <Button
+              data-fs-filter-slider-footer-button-apply
+              testId={`${testId}-button-apply`}
+              {...applyBtnProps}
+              onClick={(e) => {
+                applyBtnProps?.onClick?.(e)
+                fadeOut()
+              }}
+            />
+          )}
         </footer>
       )}
     </SlideOver>

@@ -11,6 +11,7 @@ export type RegionalizationCmsData = {
     errorMessage?: string
     noProductsAvailableErrorMessage?: string
     buttonActionText?: string
+    errorMessageHelper?: string
   }
   idkPostalCodeLink?: {
     text?: string
@@ -24,10 +25,6 @@ export type RegionalizationCmsData = {
     title?: string
     description?: string
     setLocationButtonLabel?: string
-    postalCodeEditSlider?: {
-      setLocation?: string
-      changeLocation?: string
-    }
     deliveryMethods?: {
       delivery?: string
       pickupInPoint?: string
@@ -36,6 +33,16 @@ export type RegionalizationCmsData = {
         label?: string
         enabled?: boolean
       }
+    }
+    regionSlider?: {
+      title?: {
+        setLocation?: string
+        changeLocation?: string
+        changePickupPoint?: string
+      }
+      pickupPointChangeApplyButtonLabel?: string
+      choosePickupPointAriaLabel?: string
+      noPickupPointsAvailableInLocation?: string
     }
   }
 }
@@ -46,6 +53,11 @@ export function getRegionalizationSettings(
   const context = usePage<SearchPageContext | PLPContext>()
   const regionalizationData =
     context?.globalSectionsSettings?.regionalization ?? {}
+
+  if (deliverySettings === undefined) {
+    return regionalizationData
+  }
+
   return deepmerge(regionalizationData, {
     deliverySettings,
   })
