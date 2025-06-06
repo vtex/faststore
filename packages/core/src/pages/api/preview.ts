@@ -31,16 +31,31 @@ const setPreviewAndRedirect = (
   previewData: Record<string, string>,
   redirectPath: string
 ) => {
-  res.setPreviewData(previewData, {
+  const isBranchPreview =
+    isContentPlatformSource() &&
+    !!(previewData?.versionId || previewData?.releaseId)
+  const options: any = {
     maxAge: 3600,
-    path: redirectPath,
-  })
+  }
+
+  if (!isBranchPreview) {
+    options.path = redirectPath
+  }
+
+  res.setPreviewData(previewData, options)
   res.redirect(redirectPath)
 }
 
 // TODO: Improve security by disabling CMS preview in production
 const handler: NextApiHandler = async (req, res) => {
   try {
+    if (pickParam(req, 'action') === 'clear') {
+      res.clearPreviewData()
+      const redirectTo = pickParam(req, 'redirect') || '/'
+      res.redirect(redirectTo)
+      return
+    }
+
     let slug = pickParam(req, 'slug')
     if (slug && !slug.startsWith('/')) {
       slug = `/${slug}`
