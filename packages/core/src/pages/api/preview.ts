@@ -31,9 +31,18 @@ const setPreviewAndRedirect = (
   previewData: Record<string, string>,
   redirectPath: string
 ) => {
-  res.setPreviewData(previewData, {
+  const isBranchPreview =
+    isContentPlatformSource() &&
+    !!(previewData?.versionId || previewData?.releaseId)
+  const options: any = {
     maxAge: 3600,
-  })
+  }
+
+  if (!isBranchPreview) {
+    options.path = redirectPath
+  }
+
+  res.setPreviewData(previewData, options)
   res.redirect(redirectPath)
 }
 
