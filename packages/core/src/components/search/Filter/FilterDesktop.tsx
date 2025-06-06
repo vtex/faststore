@@ -238,7 +238,6 @@ function FilterDesktop({
                                 deliveryMethods={
                                   deliverySettingsData?.deliveryMethods
                                 }
-                                cmsData={regionalizationData}
                               />
                             ) : (
                               item.label

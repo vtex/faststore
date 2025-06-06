@@ -343,7 +343,6 @@ function FilterSlider({
                                   deliveryMethods={
                                     deliverySettings?.deliveryMethods
                                   }
-                                  cmsData={regionalizationData}
                                 />
                               ) : (
                                 item.label

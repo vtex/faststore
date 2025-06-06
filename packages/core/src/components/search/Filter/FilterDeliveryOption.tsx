@@ -13,19 +13,14 @@ interface FacetValue {
 interface FilterDeliveryOptionProps {
   item: FacetValue
   deliveryMethods: RegionalizationCmsData['deliverySettings']['deliveryMethods']
-  cmsData: Record<string, any>
 }
 
 export default function FilterDeliveryOption({
   item,
   deliveryMethods,
-  cmsData,
 }: FilterDeliveryOptionProps) {
   const { city, postalCode } = sessionStore.read()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
+  const { openRegionSlider } = useUI()
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
   const mapDeliveryMethodLabel: Record<string, string> = {
