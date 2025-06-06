@@ -72,11 +72,13 @@ export const usePickupPoints = () => {
     id: item.pickupPoint?.id,
     name: item.pickupPoint?.friendlyName,
     totalItems: data.pickupPoints.paging.total,
-    addressStreet: item.pickupPoint?.address?.street,
-    addressNumber: item.pickupPoint?.address?.number,
-    addressPostalCode: item.pickupPoint?.address?.postalCode,
-    addressCity: item.pickupPoint?.address?.city,
-    addressState: item.pickupPoint?.address?.state,
+    address: {
+      street: item.pickupPoint?.address?.street,
+      number: item.pickupPoint?.address?.number,
+      postalCode: item.pickupPoint?.address?.postalCode,
+      city: item.pickupPoint?.address?.city,
+      state: item.pickupPoint?.address?.state,
+    },
     distance: item.distance,
   }))
 

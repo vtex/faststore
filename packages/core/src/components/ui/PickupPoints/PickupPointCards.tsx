@@ -11,11 +11,13 @@ import { PickupPointCard } from './PickupPointCard'
 export type PickupPoint = {
   id: string
   name: string
-  addressStreet: string
-  addressNumber: string
-  addressCity: string
-  addressState: string
-  addressPostalCode: string
+  address: {
+    street: string
+    number: string
+    postalCode: string
+    city: string
+    state: string
+  }
   distance: number
   totalItems?: number
 }

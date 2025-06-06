@@ -160,7 +160,7 @@ function FilterSlider({
       ? {
           value: 'pickup-in-point',
           label:
-            selectedPickupPoint?.name ?? selectedPickupPoint?.addressStreet,
+            selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
           selected: !!selected.find(({ value }) => value === 'pickup-in-point'),
           quantity: selectedPickupPoint?.totalItems,
         }

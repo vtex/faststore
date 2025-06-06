@@ -97,7 +97,7 @@ function FilterDesktop({
       ? {
           value: 'pickup-in-point',
           label:
-            selectedPickupPoint?.name ?? selectedPickupPoint?.addressStreet,
+            selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
           selected: !!state.selectedFacets.find(
             ({ value }) => value === 'pickup-in-point'
           ),
