@@ -411,6 +411,10 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
+        canCancelOrder:
+          order.status === 'payment-approved' ||
+          order.status === 'approve-payment',
+        canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
       }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
@@ -457,5 +461,16 @@ export const Query = {
       })),
       paging: orders.paging,
     }
+  },
+  accountName: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const { namespaces } = await commerce.session('')
+
+    const { profile } = namespaces
+
+    return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
   },
 }

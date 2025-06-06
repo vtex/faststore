@@ -537,6 +537,8 @@ export type ProfileAddress = {
 
 export type Query = {
   __typename?: 'Query';
+  /** Returns the account name of the current user or the B2B contract name if applicable. */
+  accountName?: Maybe<Scalars['String']>;
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
@@ -1337,6 +1339,8 @@ export type UserOrder = {
   allowEdition?: Maybe<Scalars['Boolean']>;
   authorizedDate?: Maybe<Scalars['String']>;
   callCenterOperatorData?: Maybe<Scalars['String']>;
+  canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
+  canCancelOrder?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
@@ -2044,6 +2048,8 @@ export type UserOrderRestitutions = {
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
   allowCancellation?: Maybe<Scalars['Boolean']>;
+  canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
+  canCancelOrder?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
