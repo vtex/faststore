@@ -36,6 +36,7 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import type { CommercialAuthorizationResponse } from './types/CommercialAuthorization'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -521,21 +522,52 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
-      getAuthorizationByOrderId: ({
+      getCommercialAuthorizationsByOrderId: ({
         orderId,
       }: {
         orderId: string
-      }): Promise<{
-        canRequesterAuthorizeOrder: boolean
-      }> => {
+      }): Promise<CommercialAuthorizationResponse> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
-          // TODO: This endpoint will be changed in the future, do not use it
-          `${base}/api/${account}/commercial-authorizations/${orderId}`,
+          `${base}/${account}/commercial-authorizations/order/${orderId}`,
           {
             method: 'GET',
             headers,
+          },
+          { storeCookies }
+        )
+      },
+      processOrderAuthorization: async ({
+        orderAuthorizationId,
+        dimensionId,
+        ruleId,
+        approved,
+      }: {
+        orderAuthorizationId: string
+        ruleId: string
+        dimensionId: string
+        approved: boolean
+      }): Promise<CommercialAuthorizationResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        const APPROVAL_SCORE = 100
+        const REJECTION_SCORE = 0
+
+        const body = {
+          params: {
+            ruleId,
+            dimensionId,
+            score: approved ? APPROVAL_SCORE : REJECTION_SCORE,
+          },
+        }
+
+        return fetchAPI(
+          `/${account}/commercial-authorizations/${orderAuthorizationId}/callback`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(body),
           },
           { storeCookies }
         )
