@@ -440,15 +440,12 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
-        canProcessOrderAuthorization:
-          generalStatusIsPending &&
-          !!firstPendingDimension &&
-          !!firstPendingRule,
         canCancelOrder:
           order.status === 'payment-approved' ||
           order.status === 'approve-payment',
-        canApproveOrRejectOrder:
+        canProcessOrderAuthorization:
           order.status === 'waiting-for-confirmation' &&
+          generalStatusIsPending &&
           !!firstPendingRule?.isUserNextAuthorizer,
       }
     } catch (error) {

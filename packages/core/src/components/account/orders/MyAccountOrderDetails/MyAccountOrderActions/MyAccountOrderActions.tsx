@@ -30,14 +30,14 @@ const TOASTS_CONFIG = {
 interface MyAccountOrderActionsProps {
   orderId: string
   canCancelOrder: boolean
-  canApproveOrRejectOrder: boolean
+  canProcessOrderAuthorization: boolean
   customerEmail?: string
 }
 
 export default function MyAccountOrderActions({
   orderId,
   canCancelOrder,
-  canApproveOrRejectOrder,
+  canProcessOrderAuthorization,
   customerEmail,
 }: MyAccountOrderActionsProps) {
   const { isMobile, isTablet } = useScreenResize()
@@ -108,7 +108,7 @@ export default function MyAccountOrderActions({
           </UIButton>
         )}
 
-        {canApproveOrRejectOrder && (
+        {canProcessOrderAuthorization && (
           <>
             {isMobile || isTablet ? (
               <>

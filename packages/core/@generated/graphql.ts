@@ -1266,8 +1266,8 @@ export type UserOrder = {
   allowEdition: Maybe<Scalars['Boolean']['output']>
   authorizedDate: Maybe<Scalars['String']['output']>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
-  canApproveOrRejectOrder: Maybe<Scalars['Boolean']['output']>
   canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
   cancellationData: Maybe<UserOrderCancellationData>
   cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
@@ -1915,8 +1915,8 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
-  canApproveOrRejectOrder: Maybe<Scalars['Boolean']['output']>
   canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
@@ -2271,7 +2271,7 @@ export type ServerOrderDetailsQueryQuery = {
     orderId: string | null
     status: string | null
     canCancelOrder: boolean | null
-    canApproveOrRejectOrder: boolean | null
+    canProcessOrderAuthorization: boolean | null
     statusDescription: string | null
     allowCancellation: boolean | null
     storePreferencesData: { currencyCode: string | null } | null
@@ -3501,7 +3501,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '244a8b2950d17829175c426b29505d15738fe95e',
+    operationHash: '33a6e9de8e973fcf1f83b37b08ee5639f0d9ac34',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3510,7 +3510,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '699eef23d163f234cbf34e2db42466ea63228b08',
+    operationHash: 'ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
