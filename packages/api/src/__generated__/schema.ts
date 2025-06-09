@@ -1339,8 +1339,8 @@ export type UserOrder = {
   allowEdition?: Maybe<Scalars['Boolean']>;
   authorizedDate?: Maybe<Scalars['String']>;
   callCenterOperatorData?: Maybe<Scalars['String']>;
-  canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
   canCancelOrder?: Maybe<Scalars['Boolean']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
@@ -2048,8 +2048,8 @@ export type UserOrderRestitutions = {
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
   allowCancellation?: Maybe<Scalars['Boolean']>;
-  canApproveOrRejectOrder?: Maybe<Scalars['Boolean']>;
   canCancelOrder?: Maybe<Scalars['Boolean']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;

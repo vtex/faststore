@@ -72,7 +72,7 @@ const query = gql(`
       orderId
       status
       canCancelOrder
-      canApproveOrRejectOrder
+      canProcessOrderAuthorization
       statusDescription
       allowCancellation
       storePreferencesData {

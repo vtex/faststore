@@ -15,6 +15,7 @@ import type {
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { CommercialAuthorizationResponse } from '../clients/commerce/types/CommercialAuthorization'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
@@ -399,6 +400,34 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
+      let commercialAuth: CommercialAuthorizationResponse | null = null
+
+      try {
+        /**
+         * This endpoint could return a 404 error if has not an authorization
+         * for the order, so we catch the error and return null
+         * instead of throwing an error.
+         */
+        commercialAuth =
+          await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
+      } catch (err: any) {
+        if (err.response?.status !== 404) {
+          throw err
+        }
+
+        commercialAuth = null
+      }
+
+      const generalStatusIsPending = commercialAuth?.status === 'pending'
+
+      const firstPendingDimension = commercialAuth?.dimensionStatus.find(
+        (dimension) => dimension.status === 'pending'
+      )
+
+      const firstPendingRule = firstPendingDimension?.ruleCollection.find(
+        (rule) => rule.status === 'pending'
+      )
+
       return {
         orderId: order.orderId,
         totals: order.totals,
@@ -414,7 +443,10 @@ export const Query = {
         canCancelOrder:
           order.status === 'payment-approved' ||
           order.status === 'approve-payment',
-        canApproveOrRejectOrder: order.status === 'waiting-for-confirmation',
+        canProcessOrderAuthorization:
+          order.status === 'waiting-for-confirmation' &&
+          generalStatusIsPending &&
+          !!firstPendingRule?.isUserNextAuthorizer,
       }
     } catch (error) {
       const result = JSON.parse((error as Error).message).error as {
