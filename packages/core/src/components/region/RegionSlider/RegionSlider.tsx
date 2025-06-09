@@ -43,8 +43,6 @@ type RegionSliderProps = {
 function RegionSlider({ cmsData, open }: RegionSliderProps) {
   if (!open) return null
 
-  console.log(cmsData, 'cmsData in RegionSlider')
-
   const {
     regionSlider: { type: regionSliderType },
     closeRegionSlider,
