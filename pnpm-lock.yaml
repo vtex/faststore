@@ -5092,6 +5092,12 @@ packages:
         integrity: sha512-qjd88DrCxupx/kJD5yQgZdcYKZKSIGBVDIBE1/LTGcNm3d2Np/jxojkdePDdfnBHJc5W7vSMpbJ1aB7p/Py69A==,
       }
 
+  "@types/node@16.18.126":
+    resolution:
+      {
+        integrity: sha512-OTcgaiwfGFBKacvfwuHzzn1KLxH/er8mluiy8/uM3sGXHaRe73RrSIj01jow9t4kJEW633Ov+cOexXeiApTyAw==,
+      }
+
   "@types/node@16.18.57":
     resolution:
       {
@@ -21708,6 +21714,8 @@ snapshots:
 
   "@types/node@15.14.9": {}
 
+  "@types/node@16.18.126": {}
+
   "@types/node@16.18.57": {}
 
   "@types/node@18.19.74":
@@ -21778,7 +21786,7 @@ snapshots:
   "@types/vinyl@2.0.12":
     dependencies:
       "@types/expect": 1.20.4
-      "@types/node": 18.19.74
+      "@types/node": 16.18.126
 
   "@types/wrap-ansi@3.0.0": {}
 
