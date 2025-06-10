@@ -215,10 +215,6 @@ function FilterSlider({
     })
   }
 
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
-
   return (
     <>
       <UIFilterSlider
