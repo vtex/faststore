@@ -7,6 +7,8 @@ import {
   regionSliderTypes,
 } from '@faststore/ui'
 
+import { useDelivery } from 'src/sdk/delivery'
+
 type RegionFilterButtonProps = {
   filterByPickupPoint?: {
     enabled?: boolean
@@ -25,6 +27,7 @@ function RegionFilterButton({
   } = {},
 }: RegionFilterButtonProps) {
   const { openRegionSlider } = useUI()
+  const { selectedPickupPoint } = useDelivery()
   const regionFilterButtonRef = useRef<HTMLButtonElement>(null)
 
   return (
@@ -46,7 +49,9 @@ function RegionFilterButton({
       }
       ref={regionFilterButtonRef}
     >
-      {filterByPickupPointLabel}
+      {selectedPickupPoint
+        ? selectedPickupPoint.name
+        : filterByPickupPointLabel}
     </UIButton>
   )
 }

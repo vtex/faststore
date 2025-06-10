@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useCallback } from 'react'
 
 import { useSearch } from '@faststore/sdk'
 import {
@@ -17,7 +18,7 @@ import { deliveryPromise } from 'discovery.config'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { sessionStore } from 'src/sdk/session'
 
@@ -105,34 +106,35 @@ function FilterSlider({
   deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
-  const pickupPoints = usePickupPoints()
+  const { openRegionSlider } = useUI()
+  const { pickupPoints } = useDeliveryPromise()
   const { postalCode } = sessionStore.read()
 
-  const toggleFilterFacets = (facets: { key: string; value: string }[]) => {
-    dispatch({
-      type: 'toggleFacets',
-      payload: {
-        facets,
-        unique: true,
-      },
-    })
-  }
+  const toggleFilterFacets = useCallback(
+    (facets: { key: string; value: string }[]) => {
+      dispatch({
+        type: 'toggleFacets',
+        payload: {
+          facets,
+          unique: true,
+        },
+      })
+    },
+    []
+  )
 
-  const togglePickupInPointFacet = (
-    pickupInPointFacets: { key: string; value: string }[]
-  ) => {
-    dispatch({
-      type: 'toggleFacets',
-      payload: {
-        facets: pickupInPointFacets,
-        unique: true,
-      },
-    })
-  }
+  const togglePickupInPointFacet = useCallback(
+    (pickupInPointFacets: { key: string; value: string }[]) => {
+      dispatch({
+        type: 'toggleFacets',
+        payload: {
+          facets: pickupInPointFacets,
+          unique: true,
+        },
+      })
+    },
+    []
+  )
 
   // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
@@ -375,10 +377,6 @@ function FilterSlider({
           })}
         </UIFilter>
       </UIFilterSlider>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
     </>
   )
 }

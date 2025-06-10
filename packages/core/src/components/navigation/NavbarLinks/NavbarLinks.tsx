@@ -13,6 +13,7 @@ import RegionFilterButton from 'src/components/region/RegionFilterButton'
 import Link from 'src/components/ui/Link'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { useDelivery } from 'src/sdk/delivery'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
@@ -35,9 +36,13 @@ function NavbarLinks({
   const router = useRouter()
   const { postalCode } = useSession()
   const { filterByPickupPoint } = getRegionalizationSettings()
+  const { pickupPoints } = useDelivery()
 
   const shouldDisplayGlobalFilter =
-    deliveryPromise.enabled && !!postalCode && filterByPickupPoint?.enabled
+    deliveryPromise.enabled &&
+    !!postalCode &&
+    pickupPoints.length !== 0 &&
+    filterByPickupPoint?.enabled
 
   return (
     <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
