@@ -179,10 +179,8 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
-  corporateName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
@@ -888,10 +886,8 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
-  corporateName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
@@ -1755,6 +1751,7 @@ export type UserOrderFromList = {
   clientName?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   currencyCode?: Maybe<Scalars['String']>;
+  customFields?: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>;
   deliveryDates?: Maybe<Array<Maybe<Scalars['String']>>>;
   giftCardProviders?: Maybe<Array<Maybe<Scalars['String']>>>;
   hostname?: Maybe<Scalars['String']>;
@@ -1787,10 +1784,8 @@ export type UserOrderFromList = {
 
 export type UserOrderFromListCustomFields = {
   __typename?: 'UserOrderFromListCustomFields';
-  costCenter?: Maybe<Array<Maybe<Scalars['String']>>>;
-  desktop?: Maybe<Array<Maybe<Scalars['String']>>>;
-  poNumber?: Maybe<Array<Maybe<Scalars['String']>>>;
-  release?: Maybe<Array<Maybe<Scalars['String']>>>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type UserOrderFromListMinimal = {
@@ -1799,7 +1794,7 @@ export type UserOrderFromListMinimal = {
   clientName?: Maybe<Scalars['String']>;
   creationDate?: Maybe<Scalars['String']>;
   currencyCode?: Maybe<Scalars['String']>;
-  customFields?: Maybe<UserOrderFromListCustomFields>;
+  customFields?: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>;
   items?: Maybe<Array<Maybe<UserOrderItemsSummarized>>>;
   orderId?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
@@ -1914,7 +1909,7 @@ export type UserOrderListPaging = {
 export type UserOrderListResult = {
   __typename?: 'UserOrderListResult';
   facets?: Maybe<Array<Maybe<Scalars['String']>>>;
-  list?: Maybe<Array<Maybe<UserOrderFromList>>>;
+  list?: Maybe<Array<UserOrderFromList>>;
   paging?: Maybe<UserOrderListPaging>;
   reportRecordsLimit?: Maybe<Scalars['Int']>;
   stats?: Maybe<UserOrderListStats>;

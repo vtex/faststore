@@ -95,6 +95,10 @@ const query = gql(`
         statusDescription
         ShippingEstimatedDate
         currencyCode
+        customFields {
+          type
+          value
+        }
       }
       paging {
         total

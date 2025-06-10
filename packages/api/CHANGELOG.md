@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.51.0](https://github.com/vtex/faststore/compare/v3.50.4...v3.51.0) (2025-06-04)
+
+### Features
+
+- list orders custom fields new structure and layout ([#2871](https://github.com/vtex/faststore/issues/2871)) ([6842899](https://github.com/vtex/faststore/commit/68428999e0651a5754164bca41f03e7c1c7d2ed3))
+
+## [3.50.4](https://github.com/vtex/faststore/compare/v3.50.3...v3.50.4) (2025-06-03)
+
+### Bug Fixes
+
+- Add support for `shipping` facet ([#2878](https://github.com/vtex/faststore/issues/2878)) ([dc5f859](https://github.com/vtex/faststore/commit/dc5f859e91f76d3b366e2e8d751d99fdd13bd74e)), closes [vtex-sites/faststoreqa.store#820](https://github.com/vtex-sites/faststoreqa.store/issues/820)
+
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/api
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/api
+
+# [3.49.0](https://github.com/vtex/faststore/compare/v3.48.0...v3.49.0) (2025-05-26)
+
+### Features
+
+- improve validate session requests SFS-2517 ([#2857](https://github.com/vtex/faststore/issues/2857)) ([42a4131](https://github.com/vtex/faststore/commit/42a41319dd5b98d257f0f2121caaf74f1a399f12))
+
+# [3.48.0](https://github.com/vtex/faststore/compare/v3.47.2...v3.48.0) (2025-05-26)
+
+### Features
+
+- list orders custom fields + design improvements SFS-2513 SFS-2515 ([#2854](https://github.com/vtex/faststore/issues/2854)) ([20d5471](https://github.com/vtex/faststore/commit/20d547178f2e2a6ae1a7dde4d4e1b5dcbae5e4d6))
+
 # [3.47.0](https://github.com/vtex/faststore/compare/v3.46.0...v3.47.0) (2025-05-22)
 
 ### Features

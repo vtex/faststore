@@ -192,10 +192,8 @@ export type IShippingItem = {
 }
 
 export type IStoreB2B = {
-  corporateName: InputMaybe<Scalars['String']['input']>
   customerId: Scalars['String']['input']
   firstName: InputMaybe<Scalars['String']['input']>
-  isCorporate: InputMaybe<Scalars['Boolean']['input']>
   isRepresentative: InputMaybe<Scalars['Boolean']['input']>
   lastName: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
@@ -855,10 +853,8 @@ export type StoreAuthor = {
 }
 
 export type StoreB2B = {
-  corporateName: Maybe<Scalars['String']['output']>
   customerId: Scalars['String']['output']
   firstName: Maybe<Scalars['String']['output']>
-  isCorporate: Maybe<Scalars['Boolean']['output']>
   isRepresentative: Maybe<Scalars['Boolean']['output']>
   lastName: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
@@ -1645,6 +1641,7 @@ export type UserOrderFromList = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
+  customFields: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>
   deliveryDates: Maybe<Array<Maybe<Scalars['String']['output']>>>
   giftCardProviders: Maybe<Array<Maybe<Scalars['String']['output']>>>
   hostname: Maybe<Scalars['String']['output']>
@@ -1676,10 +1673,8 @@ export type UserOrderFromList = {
 }
 
 export type UserOrderFromListCustomFields = {
-  costCenter: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  desktop: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  poNumber: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  release: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  type: Maybe<Scalars['String']['output']>
+  value: Maybe<Array<Maybe<Scalars['String']['output']>>>
 }
 
 export type UserOrderFromListMinimal = {
@@ -1687,7 +1682,7 @@ export type UserOrderFromListMinimal = {
   clientName: Maybe<Scalars['String']['output']>
   creationDate: Maybe<Scalars['String']['output']>
   currencyCode: Maybe<Scalars['String']['output']>
-  customFields: Maybe<UserOrderFromListCustomFields>
+  customFields: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>
   items: Maybe<Array<Maybe<UserOrderItemsSummarized>>>
   orderId: Maybe<Scalars['String']['output']>
   status: Maybe<Scalars['String']['output']>
@@ -1791,7 +1786,7 @@ export type UserOrderListPaging = {
 
 export type UserOrderListResult = {
   facets: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  list: Maybe<Array<Maybe<UserOrderFromList>>>
+  list: Maybe<Array<UserOrderFromList>>
   paging: Maybe<UserOrderListPaging>
   reportRecordsLimit: Maybe<Scalars['Int']['output']>
   stats: Maybe<UserOrderListStats>
@@ -2504,6 +2499,10 @@ export type ServerListOrdersQueryQuery = {
         sellingPrice: number | null
         price: number | null
       } | null> | null
+      customFields: Array<{
+        type: string | null
+        value: Array<string | null> | null
+      } | null> | null
     } | null> | null
     paging: {
       total: number | null
@@ -2954,8 +2953,6 @@ export type ValidateSessionMutation = {
       isRepresentative: boolean | null
       unitName: string | null
       unitId: string | null
-      isCorporate: boolean | null
-      corporateName: string | null
       firstName: string | null
       lastName: string | null
       userName: string | null
@@ -3586,7 +3583,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '9f48d9d4c1b6e6b32ac1f1c1b7b3819ac826dfe7',
+    operationHash: '867fff060c5b7726220ed8a10a115b1484762fcf',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
@@ -3694,7 +3691,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: 'd8eac720a2de6a517384127a199e27a623653394',
+    operationHash: '6f6d66826c836c3633a8dc3d2fe8220c386584d6',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

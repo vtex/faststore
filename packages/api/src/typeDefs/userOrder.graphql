@@ -76,7 +76,7 @@ type UserOrderResult {
 }
 
 type UserOrderListResult {
-  list: [UserOrderFromList]
+  list: [UserOrderFromList!]
   paging: UserOrderListPaging
   stats: UserOrderListStats
   facets: [String]
@@ -149,6 +149,7 @@ type UserOrderFromList {
   paymentApprovedDate: String
   readyForHandlingDate: String
   deliveryDates: [String]
+  customFields: [UserOrderFromListCustomFields]
 }
 
 type UserOrderCustomData {
@@ -730,10 +731,8 @@ type UserOrderCustomFieldsGrouped {
 }
 
 type UserOrderFromListCustomFields {
-  costCenter: [String]
-  poNumber: [String]
-  release: [String]
-  desktop: [String]
+  type: String
+  value: [String]
 }
 
 type UserOrderListMinimalResult {
@@ -750,6 +749,6 @@ type UserOrderFromListMinimal {
   status: String
   statusDescription: String
   ShippingEstimatedDate: String
-  customFields: UserOrderFromListCustomFields
+  customFields: [UserOrderFromListCustomFields]
   currencyCode: String
 }

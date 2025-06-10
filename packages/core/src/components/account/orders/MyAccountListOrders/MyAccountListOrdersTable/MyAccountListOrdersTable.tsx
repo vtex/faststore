@@ -1,11 +1,14 @@
 import { Button, Icon } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+
+const MAX_COST_CENTERS = 5
 
 function formatShippingDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale, {
@@ -101,10 +104,19 @@ export default function MyAccountListOrdersTable({
   perPage,
   filters,
 }: MyAccountListOrdersTableProps) {
+  const hasOrderOrItemCustomFields =
+    listOrders?.list?.some(
+      (order) =>
+        order?.customFields
+          ?.filter((field) => field.type === 'order' || field.type === 'item')
+          .flatMap((field) => field.value).length > 0
+    ) || false
+
   const router = useRouter()
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
+  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
 
   const handleOrderDetail = ({ orderId }: { orderId: string }) => {
     router.push({
@@ -112,94 +124,202 @@ export default function MyAccountListOrdersTable({
     })
   }
 
+  const handleToggleExpand = (orderId: string) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [orderId]: !prev[orderId],
+    }))
+  }
+
   return (
     <>
       <table data-fs-list-orders-table>
-        <thead data-fs-list-orders-table-header>
-          <tr
-            data-fs-list-orders-table-header-row
-            data-fs-list-orders-table-row
-          >
-            <th data-fs-list-orders-table-header-cell>Order</th>
-            {isDesktop && (
-              <>
-                <th data-fs-list-orders-table-header-cell>Ordered by</th>
-                <th data-fs-list-orders-table-header-cell>Cost Center</th>
-                <th data-fs-list-orders-table-header-cell>Release</th>
-                <th data-fs-list-orders-table-header-cell>PO number</th>
-                <th data-fs-list-orders-table-header-cell>Delivery by</th>
-              </>
-            )}
-            <th data-fs-list-orders-table-header-cell>
-              {isDesktop && <>Status</>}
-            </th>
-          </tr>
-        </thead>
         <tbody data-fs-list-orders-table-body>
-          {listOrders.list.map((item) => (
-            // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-            <tr
-              data-fs-list-orders-table-body-row
-              data-fs-list-orders-table-row
-              key={item.orderId}
-              onClick={() => handleOrderDetail({ orderId: item.orderId })}
-              role="button"
-            >
-              <td data-fs-list-orders-table-cell>
-                <div data-fs-list-orders-table-product-info>
-                  <p data-fs-list-orders-table-product-info-order-id>
-                    {item.orderId || '-'}
-                  </p>
-                  <p data-fs-list-orders-table-product-info-order-date>
-                    Placed on{' '}
-                    {item.creationDate
-                      ? formatShippingDate(item.creationDate, locale)
-                      : '-'}
-                  </p>
-                  <p data-fs-list-orders-table-product-info-order-total>
-                    Total: {formatPrice(item.totalValue, item.currencyCode)}
-                  </p>
-                </div>
-              </td>
+          {listOrders.list.map((item) => {
+            const itemLevel =
+              item?.customFields?.find(({ type }) => type === 'item')?.value ||
+              []
+            const isExpanded = expandedRows[item.orderId]
+            const shouldShowButton = itemLevel.length > MAX_COST_CENTERS
+            const displayedItemLevel = isExpanded
+              ? itemLevel
+              : itemLevel.slice(0, 5)
+            return (
+              // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+              <tr
+                data-fs-list-orders-table-body-row
+                data-fs-list-orders-table-row
+                key={item.orderId}
+                onClick={() => handleOrderDetail({ orderId: item.orderId })}
+                role="button"
+              >
+                <td data-fs-list-orders-table-cell>
+                  <div data-fs-list-orders-table-product-info-main>
+                    <p data-fs-list-orders-table-product-info-order-id>
+                      {item.orderId || '-'}
+                    </p>
+                    <p data-fs-list-orders-table-product-info-order-total>
+                      Total: {formatPrice(item.totalValue, item.currencyCode)}
+                    </p>
+                  </div>
+                </td>
 
-              {isDesktop && (
-                <>
-                  <td data-fs-list-orders-table-cell>{item?.clientName}</td>
-                  <td data-fs-list-orders-table-cell>
-                    <p>(Cost Center)</p>
-                  </td>
-                  <td data-fs-list-orders-table-cell>
-                    <p>(Release)</p>
-                  </td>
-                  <td data-fs-list-orders-table-cell>
-                    <p>(PO Number)</p>
-                  </td>
-                  <td data-fs-list-orders-table-cell>
-                    {item.ShippingEstimatedDate
-                      ? formatShippingDate(item.ShippingEstimatedDate, locale)
-                      : '-'}
-                  </td>
-                </>
-              )}
-
-              <td data-fs-list-orders-table-cell>
-                <MyAccountStatusBadge
-                  status={item.status}
-                  statusFallback={item.statusDescription}
-                />
-                {!isDesktop && (
-                  <p>
-                    {item.ShippingEstimatedDate
-                      ? `Delivery by ${formatShippingDate(
-                          item.ShippingEstimatedDate,
-                          locale
-                        )}`
-                      : ''}
-                  </p>
+                {isDesktop && (
+                  <>
+                    <td data-fs-list-orders-table-cell>
+                      <div data-fs-list-orders-table-product-info>
+                        <p data-fs-list-orders-table-product-info-label>
+                          Placed on
+                        </p>
+                        <p data-fs-list-orders-table-product-info-value>
+                          {item.creationDate
+                            ? formatShippingDate(item.creationDate, locale)
+                            : '-'}
+                        </p>
+                      </div>
+                      {hasOrderOrItemCustomFields && (
+                        <>
+                          <div data-fs-list-orders-table-product-info>
+                            <p data-fs-list-orders-table-product-info-label>
+                              Delivery by
+                            </p>
+                            <p data-fs-list-orders-table-product-info-value>
+                              {item.ShippingEstimatedDate
+                                ? formatShippingDate(
+                                    item.ShippingEstimatedDate,
+                                    locale
+                                  )
+                                : '-'}
+                            </p>
+                          </div>
+                          <div data-fs-list-orders-table-product-info>
+                            <p data-fs-list-orders-table-product-info-label>
+                              Placed by
+                            </p>
+                            <p data-fs-list-orders-table-product-info-value>
+                              {item?.clientName}
+                            </p>
+                            <p data-fs-list-orders-table-product-info-value>
+                              {/* {item?.clientOrgName} */}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                    </td>
+                    {!hasOrderOrItemCustomFields && (
+                      <>
+                        <td data-fs-list-orders-table-cell>
+                          <div data-fs-list-orders-table-product-info>
+                            <p data-fs-list-orders-table-product-info-label>
+                              Delivery by
+                            </p>
+                            <p data-fs-list-orders-table-product-info-value>
+                              {item.ShippingEstimatedDate
+                                ? formatShippingDate(
+                                    item.ShippingEstimatedDate,
+                                    locale
+                                  )
+                                : '-'}
+                            </p>
+                          </div>
+                        </td>
+                        <td data-fs-list-orders-table-cell>
+                          <div data-fs-list-orders-table-product-info>
+                            <p data-fs-list-orders-table-product-info-label>
+                              Placed by
+                            </p>
+                            <p data-fs-list-orders-table-product-info-value>
+                              {item?.clientName}
+                            </p>
+                            <p data-fs-list-orders-table-product-info-value>
+                              {/* {item?.clientOrgName} */}
+                            </p>
+                          </div>
+                        </td>
+                      </>
+                    )}
+                    {hasOrderOrItemCustomFields && (
+                      <>
+                        <td data-fs-list-orders-table-cell>
+                          {item?.customFields
+                            ?.find(({ type }) => type === 'order')
+                            ?.value?.map((field: string, idx: number) => (
+                              <p
+                                key={field + idx}
+                                data-fs-list-orders-table-product-info-order
+                              >
+                                {field}
+                              </p>
+                            ))}
+                        </td>
+                        <td data-fs-list-orders-table-cell>
+                          {displayedItemLevel.map(
+                            (field: string, idx: number) => (
+                              <p
+                                key={field + idx}
+                                data-fs-list-orders-table-product-info-item
+                              >
+                                {field}
+                              </p>
+                            )
+                          )}
+                          {shouldShowButton && (
+                            <Button
+                              data-fs-list-orders-table-expand-button
+                              size="small"
+                              variant="primary"
+                              inverse
+                              iconPosition="right"
+                              icon={
+                                isExpanded ? (
+                                  <Icon
+                                    width={16}
+                                    height={16}
+                                    name="CaretUp"
+                                    aria-label="Collapse"
+                                  />
+                                ) : (
+                                  <Icon
+                                    width={16}
+                                    height={16}
+                                    name="CaretDown"
+                                    aria-label="Expand"
+                                  />
+                                )
+                              }
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleToggleExpand(item.orderId)
+                              }}
+                            >
+                              {isExpanded ? 'View less' : 'View all'}
+                            </Button>
+                          )}
+                        </td>
+                      </>
+                    )}
+                  </>
                 )}
-              </td>
-            </tr>
-          ))}
+
+                <td data-fs-list-orders-table-cell>
+                  <MyAccountStatusBadge
+                    status={item.status}
+                    statusFallback={item.statusDescription}
+                  />
+                  {!isDesktop && (
+                    <p>
+                      {item.ShippingEstimatedDate
+                        ? `Delivery by ${formatShippingDate(
+                            item.ShippingEstimatedDate,
+                            locale
+                          )}`
+                        : ''}
+                    </p>
+                  )}
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
       {isDesktop && (

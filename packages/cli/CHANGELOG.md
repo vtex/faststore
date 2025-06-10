@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.51.0](https://github.com/vtex/faststore/compare/v3.50.4...v3.51.0) (2025-06-04)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.50.4](https://github.com/vtex/faststore/compare/v3.50.3...v3.50.4) (2025-06-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.50.2](https://github.com/vtex/faststore/compare/v3.50.1...v3.50.2) (2025-05-27)
+
+### Bug Fixes
+
+- theme styles import ([#2868](https://github.com/vtex/faststore/issues/2868)) ([91724d7](https://github.com/vtex/faststore/commit/91724d78ee71a000957716e6ebc06ee105d1c024))
+
+## [3.50.1](https://github.com/vtex/faststore/compare/v3.50.0...v3.50.1) (2025-05-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.50.0](https://github.com/vtex/faststore/compare/v3.49.2...v3.50.0) (2025-05-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.49.2](https://github.com/vtex/faststore/compare/v3.49.1...v3.49.2) (2025-05-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.49.0](https://github.com/vtex/faststore/compare/v3.48.0...v3.49.0) (2025-05-26)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.48.0](https://github.com/vtex/faststore/compare/v3.47.2...v3.48.0) (2025-05-26)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.47.2](https://github.com/vtex/faststore/compare/v3.47.1...v3.47.2) (2025-05-23)
+
+### Bug Fixes
+
+- Prevent `checkDeps` error ([#2864](https://github.com/vtex/faststore/issues/2864)) ([228a56f](https://github.com/vtex/faststore/commit/228a56ffa85bb7eb0663841aa74efe60d0531171))
+
 ## [3.47.1](https://github.com/vtex/faststore/compare/v3.47.0...v3.47.1) (2025-05-22)
 
 **Note:** Version bump only for package @faststore/cli

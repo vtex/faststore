@@ -12,6 +12,7 @@ import type {
   QueryShippingArgs,
   QueryUserOrderArgs,
   QueryPickupPointsArgs,
+  UserOrderFromList,
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -443,7 +444,7 @@ export const Query = {
 
     const orders = await commerce.oms.listUserOrders(filters)
     return {
-      list: orders.list?.map((order: any) => ({
+      list: orders.list?.map((order: UserOrderFromList) => ({
         orderId: order.orderId,
         creationDate: order.creationDate,
         clientName: order.clientName,
@@ -452,7 +453,7 @@ export const Query = {
         status: order.status,
         statusDescription: order.statusDescription,
         ShippingEstimatedDate: order.ShippingEstimatedDate,
-        // customFields: order.customFields,
+        customFields: order.customFields,
         currencyCode: order.currencyCode,
       })),
       paging: orders.paging,
