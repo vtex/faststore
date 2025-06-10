@@ -13,7 +13,7 @@ export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
 
 export const Context = createContext<SearchContext | undefined>(undefined)
 
-type Props = SearchState & {
+export type SearchProviderProps = SearchState & {
   onChange: (url: URL) => void
   itemsPerPage: number
 }
@@ -23,7 +23,7 @@ export const Provider = ({
   itemsPerPage,
   onChange,
   ...rest
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<SearchProviderProps>) => {
   const { state, ...searchActions } = useSearchState(rest, onChange)
   const { pages, ...infiniteActions } = useSearchInfiniteState(state.page)
 
