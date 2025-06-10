@@ -22,7 +22,7 @@ import { sessionStore } from 'src/sdk/session'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 import { RegionSlider } from 'src/components/region/RegionSlider'
-import FilterDeliveryOption from './FilterDeliveryOption'
+import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 interface FilterDesktopProps
   extends Omit<
@@ -233,7 +233,7 @@ function FilterDesktop({
                           facetKey={facet.key}
                           label={
                             isDeliveryFacet ? (
-                              <FilterDeliveryOption
+                              <FilterDeliveryMethodFacet
                                 item={item}
                                 deliveryMethods={
                                   deliverySettingsData?.deliveryMethods
