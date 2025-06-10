@@ -20,12 +20,14 @@ interface NavbarSliderProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
+  filterByStore: NavbarProps['filterByStore']
 }
 
 function NavbarSlider({
   logo,
   links,
   region,
+  filterByStore,
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
@@ -72,7 +74,12 @@ function NavbarSlider({
         </Link>
       </NavbarSliderHeader.Component>
       <NavbarSliderContent.Component {...NavbarSliderContent.props}>
-        <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
+        <NavbarLinks
+          onClickLink={fadeOut}
+          links={links}
+          region={region}
+          filterByStore={filterByStore}
+        />
       </NavbarSliderContent.Component>
       <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
