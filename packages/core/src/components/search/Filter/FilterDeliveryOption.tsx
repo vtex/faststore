@@ -1,13 +1,7 @@
-import { Button as UIButton } from '@faststore/ui'
+import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
 import { sessionStore } from 'src/sdk/session'
+import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
-
-interface DeliveryCustomLabels {
-  delivery?: string
-  pickupInPoint?: string
-  pickupNearby?: string
-  pickupAll?: string
-}
 
 interface FacetValue {
   value: string
@@ -18,21 +12,23 @@ interface FacetValue {
 
 interface FilterDeliveryOptionProps {
   item: FacetValue
-  deliveryCustomLabels: DeliveryCustomLabels
+  deliveryMethods: RegionalizationCmsData['deliverySettings']['deliveryMethods']
 }
 
 export default function FilterDeliveryOption({
   item,
-  deliveryCustomLabels,
+  deliveryMethods,
 }: FilterDeliveryOptionProps) {
   const { city, postalCode } = sessionStore.read()
+  const { openRegionSlider } = useUI()
+
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
   const mapDeliveryCustomLabel: Record<string, string> = {
-    delivery: deliveryCustomLabels?.delivery ?? 'Shipping to',
-    'pickup-in-point': deliveryCustomLabels?.pickupInPoint ?? 'Pickup at',
-    'pickup-nearby': deliveryCustomLabels?.pickupNearby ?? 'Pickup Nearby',
-    'pickup-all': deliveryCustomLabels?.pickupAll ?? 'Pickup Anywhere',
+    delivery: deliveryMethods?.delivery ?? 'Shipping to',
+    'pickup-in-point': deliveryMethods?.pickupInPoint ?? 'Pickup at',
+    'pickup-nearby': deliveryMethods?.pickupNearby ?? 'Pickup Nearby',
+    'pickup-all': deliveryMethods?.pickupAll ?? 'Pickup Anywhere',
   }
 
   if (item.value === 'delivery') {
@@ -61,8 +57,7 @@ export default function FilterDeliveryOption({
           data-fs-filter-list-item-button
           size="small"
           onClick={() => {
-            // TODO: open edit local slideOver
-            window.alert('Open Modal')
+            openRegionSlider(regionSliderTypes.changePickupPoint)
           }}
         >
           {item.label}
