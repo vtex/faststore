@@ -19,7 +19,7 @@ import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import { deliveryPromise } from 'discovery.config'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import FilterDeliveryOption from './FilterDeliveryOption'
+import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { sessionStore } from 'src/sdk/session'
@@ -338,7 +338,7 @@ function FilterSlider({
                             facetKey={facet.key}
                             label={
                               isDeliveryFacet ? (
-                                <FilterDeliveryOption
+                                <FilterDeliveryMethodFacet
                                   item={item}
                                   deliveryMethods={
                                     deliverySettings?.deliveryMethods
