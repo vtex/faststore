@@ -16,6 +16,7 @@ interface PageGlobalContext {
 export interface PDPContext extends PageGlobalContext {
   data?: ServerProductQueryQuery &
     ClientProductQueryQuery['product'] & { isValidating?: boolean }
+  globalSectionsSettings?: Record<string, any>
 }
 
 export interface PLPContext extends PageGlobalContext {
@@ -36,6 +37,7 @@ export interface SearchPageContext extends PageGlobalContext {
 
 export interface DynamicContent<T> extends PageGlobalContext {
   data?: T
+  globalSectionsSettings?: Record<string, any>
 }
 
 export interface PageProviderContextValue {

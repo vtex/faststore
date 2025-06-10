@@ -36,6 +36,7 @@ export type RegionalizationCmsData = {
         setLocation?: string
         changeLocation?: string
         changePickupPoint?: string
+        globalChangePickupPoint?: string
       }
       pickupPointChangeApplyButtonLabel?: string
       choosePickupPointAriaLabel?: string
