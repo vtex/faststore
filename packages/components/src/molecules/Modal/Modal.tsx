@@ -108,6 +108,12 @@ const Modal = ({
           {...overlayProps}
         >
           <ModalContent
+            // TODO:
+            // Using onTransitionEnd can lead to unexpected behavior. Since ModalContentPure uses the useTrapFocus hook,
+            // focus is automatically moved to the first focusable element inside the modal—typically the Close Button.
+            // This causes the onTransitionEnd event listener to attach to the Close Button instead of the ModalContent.
+            // As a result, we may end up listening to the transition of the button (e.g., its focus animation) rather than
+            // the intended transform transition of the modal content, which can introduce bugs during modal animations.
             onTransitionEnd={() => {
               if (fade === 'out') {
                 closeModal()
