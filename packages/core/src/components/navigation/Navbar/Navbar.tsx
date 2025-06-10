@@ -62,6 +62,10 @@ export interface NavbarProps {
     shouldDisplayRegion: boolean
   }
   /**
+   * Global filter by store.
+   */
+  filterByStore: SectionNavbarProps['navigation']['filterByStore']
+  /**
    * Page links.
    */
   links: SectionNavbarProps['navigation']['pageLinks']
@@ -83,6 +87,7 @@ function Navbar({
   links,
   signIn,
   region,
+  filterByStore,
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
@@ -197,7 +202,13 @@ function Navbar({
         </NavbarRow.Component>
       </NavbarHeader.Component>
 
-      {isDesktop && <NavbarLinks links={links} region={region} />}
+      {isDesktop && (
+        <NavbarLinks
+          links={links}
+          region={region}
+          filterByStore={filterByStore}
+        />
+      )}
 
       {displayNavbar && (
         <NavbarSlider
@@ -206,6 +217,7 @@ function Navbar({
           links={links}
           signIn={signIn}
           region={region}
+          filterByStore={filterByStore}
         />
       )}
     </NavbarWrapper.Component>
