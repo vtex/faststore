@@ -12,6 +12,7 @@ import type { SearchPageContextType } from 'src/pages/s'
 export interface PDPContext {
   data?: ServerProductQueryQuery &
     ClientProductQueryQuery['product'] & { isValidating?: boolean }
+  globalSectionsSettings?: Record<string, any>
 }
 
 export interface PLPContext {
@@ -32,6 +33,7 @@ export interface SearchPageContext {
 
 export interface DynamicContent<T> {
   data?: T
+  globalSectionsSettings?: Record<string, any>
 }
 
 export interface PageProviderContextValue {

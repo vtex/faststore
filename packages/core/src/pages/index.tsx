@@ -1,9 +1,9 @@
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
-import RenderSections from 'src/components/cms/RenderSections'
-import type { PageContentType } from 'src/server/cms'
+import { SearchProvider, type SearchProviderProps } from '@faststore/sdk'
 
+import RenderSections from 'src/components/cms/RenderSections'
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
@@ -11,10 +11,13 @@ import {
 import COMPONENTS from 'src/components/cms/home/Components'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { injectGlobalSections } from 'src/server/cms/global'
+import type { PageContentType } from 'src/server/cms'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { useApplySearchState } from 'src/sdk/search/state'
+import { ITEMS_PER_PAGE } from 'src/constants'
 
 type Props = {
   page: PageContentType
@@ -27,12 +30,23 @@ function Page({
   globalSections,
   serverData,
 }: Props) {
-  const context = {
-    data: serverData,
+  const applySearchState = useApplySearchState()
+  const searchParams: SearchProviderProps = {
+    base: '/',
+    page: 0,
+    sort: 'score_desc',
+    passThrough: new URLSearchParams(),
+    selectedFacets: [],
+    term: '',
+    onChange: applySearchState,
+    itemsPerPage: ITEMS_PER_PAGE,
   }
 
+  const context = {
+    data: serverData,
+    globalSectionsSettings: globalSections?.settings,
+  }
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
-
   const organizationAddress = Object.entries(
     settings?.seo?.organization?.address ?? {}
   ).reduce(
@@ -133,11 +147,13 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections
-          globalSections={globalSections.sections}
-          sections={sections}
-          components={COMPONENTS}
-        />
+        <SearchProvider {...searchParams}>
+          <RenderSections
+            globalSections={globalSections.sections}
+            sections={sections}
+            components={COMPONENTS}
+          />
+        </SearchProvider>
       </PageProvider>
     </>
   )
