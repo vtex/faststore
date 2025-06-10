@@ -1,7 +1,6 @@
 import deepmerge from 'deepmerge'
 import {
-  type PLPContext,
-  type SearchPageContext,
+  type PageProviderContextValue,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 
@@ -40,6 +39,7 @@ export type RegionalizationCmsData = {
         setLocation?: string
         changeLocation?: string
         changePickupPoint?: string
+        globalChangePickupPoint?: string
       }
       pickupPointChangeApplyButtonLabel?: string
       choosePickupPointAriaLabel?: string
@@ -51,7 +51,7 @@ export type RegionalizationCmsData = {
 export function getRegionalizationSettings(
   deliverySettings?: RegionalizationCmsData['deliverySettings']
 ): RegionalizationCmsData {
-  const context = usePage<SearchPageContext | PLPContext>()
+  const context = usePage<PageProviderContextValue['context']>()
   const regionalizationData =
     context?.globalSectionsSettings?.regionalization ?? {}
 
