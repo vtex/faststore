@@ -20,6 +20,8 @@ import { sessionStore, useSession } from 'src/sdk/session'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
     /* webpackChunkName: "UIFilterSlider" */
@@ -117,6 +119,8 @@ function RegionSlider() {
   const idkPostalCodeLink = cmsData?.regionalization?.idkPostalCodeLink
 
   const handleSubmit = async () => {
+    setAppliedInput(input)
+
     if (isValidating) {
       return
     }
