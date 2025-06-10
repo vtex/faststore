@@ -38,6 +38,12 @@
                       "title": "Action label to apply the postal code",
                       "type": "string",
                       "default": "Apply"
+                    },
+                    "errorMessageHelper": {
+                      "title": "Error message helper",
+                      "type": "string",
+                      "default": "Try using a different postal code.",
+                      "description": "This message will guide user in case of an error."
                     }
                   }
                 },
@@ -94,22 +100,6 @@
                       "type": "string",
                       "default": "Set Location"
                     },
-                    "postalCodeEditSlider": {
-                      "title": "Postal Code Edit SlideOver",
-                      "type": "object",
-                      "properties": {
-                        "setLocation": {
-                          "title": "Set Location label",
-                          "type": "string",
-                          "default": "Set Location"
-                        },
-                        "changeLocation": {
-                          "title": "Change Postal Code",
-                          "type": "string",
-                          "default": "Change Location"
-                        }
-                      }
-                    },
                     "deliveryMethods": {
                       "title": "Delivery methods filter",
                       "type": "object",
@@ -145,6 +135,48 @@
                               "default": "Pickup Anywhere"
                             }
                           }
+                        }
+                      }
+                    },
+                    "regionSlider": {
+                      "title": "RegionSlider SlideOver",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "RegionSlider title",
+                          "type": "object",
+                          "properties": {
+                            "setLocation": {
+                              "title": "Set Location title",
+                              "type": "string",
+                              "default": "Set Location"
+                            },
+                            "changeLocation": {
+                              "title": "Change Postal Code title",
+                              "type": "string",
+                              "default": "Change Location"
+                            },
+                            "changePickupPoint": {
+                              "title": "Change Pickup Point location title",
+                              "type": "string",
+                              "default": "Change Store"
+                            }
+                          }
+                        },
+                        "pickupPointChangeApplyButtonLabel": {
+                          "title": "Change Pickup Point apply button label",
+                          "type": "string",
+                          "default": "Update"
+                        },
+                        "choosePickupPointAriaLabel": {
+                          "title": "Choose Pickup Point aria-label (radio group)",
+                          "type": "string",
+                          "default": "Choose a store"
+                        },
+                        "noPickupPointsAvailableInLocation": {
+                          "title": "No Pickup Point available near location message",
+                          "type": "string",
+                          "default": "No stores near location."
                         }
                       }
                     }
