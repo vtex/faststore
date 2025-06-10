@@ -15,7 +15,6 @@ import type {
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { CommercialAuthorizationResponse } from '../clients/commerce/types/CommercialAuthorization'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
@@ -32,6 +31,10 @@ import {
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import {
+  extractRuleForAuthorization,
+  type RuleForAuthorization,
+} from '../utils/commercialAuth'
 import { StoreCollection } from './collection'
 
 export const Query = {
@@ -400,7 +403,7 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      let commercialAuth: CommercialAuthorizationResponse | null = null
+      let ruleForAuthorization: RuleForAuthorization | null = null
 
       try {
         /**
@@ -408,25 +411,15 @@ export const Query = {
          * for the order, so we catch the error and return null
          * instead of throwing an error.
          */
-        commercialAuth =
+        const commercialAuth =
           await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
+
+        ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
       } catch (err: any) {
         if (err.response?.status !== 404) {
           throw err
         }
-
-        commercialAuth = null
       }
-
-      const generalStatusIsPending = commercialAuth?.status === 'pending'
-
-      const firstPendingDimension = commercialAuth?.dimensionStatus.find(
-        (dimension) => dimension.status === 'pending'
-      )
-
-      const firstPendingRule = firstPendingDimension?.ruleCollection.find(
-        (rule) => rule.status === 'pending'
-      )
 
       return {
         orderId: order.orderId,
@@ -444,9 +437,10 @@ export const Query = {
           order.status === 'payment-approved' ||
           order.status === 'approve-payment',
         canProcessOrderAuthorization:
-          order.status === 'waiting-for-confirmation' &&
-          generalStatusIsPending &&
-          !!firstPendingRule?.isUserNextAuthorizer,
+          // TODO: Check if still needs to check for order.status === 'waiting-for-approval'
+          order.status === 'waiting-for-confirmation' && !!ruleForAuthorization,
+        // TODO: Add this to graphql schema
+        ruleForAuthorization,
       }
     } catch (error) {
       const { message } = JSON.parse((error as Error).message).error as {
