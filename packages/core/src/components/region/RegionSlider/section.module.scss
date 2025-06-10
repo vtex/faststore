@@ -5,13 +5,22 @@
   @import "@faststore/ui/src/components/atoms/Link/styles.scss";
   @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
   @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
+  @import "@faststore/ui/src/components/molecules/PickupPointCard/styles.scss";
+  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
   @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
+  @import "@faststore/ui/src/components/organisms/PickupPointCards/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
 
   [data-fs-filter-region-slider] {
     [data-fs-filter-slider-title] {
       font-size: var(--fs-text-size-3);
       font-weight: var(--fs-text-weight-semibold);
+    }
+
+    [data-fs-filter-slider-footer] {
+      [data-fs-filter-slider-footer-button-apply] {
+        width: 100%;
+      }
     }
 
     [data-fs-slide-over-header] {
@@ -22,10 +31,17 @@
     }
 
     [data-fs-filter-region-slider-content] {
+      height: 100%;
       padding: 0 var(--fs-spacing-3);
 
       @include media(">=notebook") {
         padding: 0 var(--fs-spacing-6);
+      }
+
+      [data-fs-empty-state] {
+        height: calc(90% - var(--fs-filter-slider-footer-height));
+        padding: 0;
+        color: var(--fs-empty-state-title-color);
       }
     }
 

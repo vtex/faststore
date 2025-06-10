@@ -16,6 +16,7 @@ export interface Popover {
 export const regionSliderTypes = {
   setLocation: 'setLocation',
   changeLocation: 'changeLocation',
+  changePickupPoint: 'changePickupPoint',
 } as const
 
 type RegionSliderType =
@@ -149,6 +150,8 @@ const reducer = (state: State, action: Action): State => {
     }
 
     case 'openRegionSlider': {
+      document.body.classList.add('no-scroll')
+
       return {
         ...state,
         regionSlider: {
@@ -157,6 +160,10 @@ const reducer = (state: State, action: Action): State => {
       }
     }
     case 'closeRegionSlider':
+      if (!state.filter) {
+        document.body.classList.remove('no-scroll')
+      }
+
       return {
         ...state,
         regionSlider: {
