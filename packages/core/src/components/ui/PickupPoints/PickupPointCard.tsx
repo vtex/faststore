@@ -1,5 +1,5 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import type { PickupPoint } from './PickupPointCards'
+import type { PickupPoint } from '.'
 
 export type PickupPointCardProps = {
   store: PickupPoint
@@ -9,7 +9,7 @@ function formatDistance(distance: number) {
   return `${distance.toFixed(1).replace('.', ',')}km`
 }
 
-export function PickupPointCard({ store }: PickupPointCardProps) {
+function PickupPointCard({ store }: PickupPointCardProps) {
   return (
     <div data-fs-pickup-point-card>
       <header data-fs-pickup-point-card-header>
@@ -35,3 +35,5 @@ export function PickupPointCard({ store }: PickupPointCardProps) {
     </div>
   )
 }
+
+export default PickupPointCard

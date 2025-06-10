@@ -6,6 +6,7 @@ import { Icon, useUI } from '@faststore/ui'
 
 import { deliveryPromise } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
+import { useDelivery } from 'src/sdk/delivery'
 
 import useRegion from './useRegion'
 
@@ -70,6 +71,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
   const [input, setInput] = useState<string>('')
 
   const { loading, setRegion, regionError, setRegionError } = useRegion()
+  const { dispatchDeliveryAction } = useDelivery()
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -79,6 +81,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
     await setRegion({
       session,
       onSuccess: () => {
+        dispatchDeliveryAction({ type: 'onPostalCodeChange' })
         setInput('')
         closeModal()
       },

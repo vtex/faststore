@@ -13,6 +13,7 @@ import useRegion from '../RegionModal/useRegion'
 import { sessionStore, useSession } from 'src/sdk/session'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
+
 import styles from './section.module.scss'
 
 interface RegionPopoverProps {
@@ -85,6 +86,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
   const [input, setInput] = useState<string>('')
 
   const { loading, setRegion, regionError, setRegionError } = useRegion()
+  // const { dispatchDeliveryAction } = useDelivery()
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -94,6 +96,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
     await setRegion({
       session,
       onSuccess: () => {
+        // dispatchDeliveryAction({ type: 'onPostalCodeChange' })
         setInput('')
         closePopover()
       },

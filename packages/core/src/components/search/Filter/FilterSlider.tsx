@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useCallback } from 'react'
 
 import { useSearch } from '@faststore/sdk'
 import {

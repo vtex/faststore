@@ -6,7 +6,7 @@ import {
   RadioOption as UIRadioOption,
 } from '@faststore/ui'
 import type { ChangeEventHandler } from 'react'
-import { PickupPointCard } from './PickupPointCard'
+import { PickupPointCard } from '.'
 
 export type PickupPoint = {
   id: string
