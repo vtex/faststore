@@ -1,0 +1,72 @@
+[data-fs-buying-policy-alert] {
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-buying-policy-card-padding           : var(--fs-spacing-3);
+  --fs-buying-policy-card-gap               : var(--fs-spacing-0);
+  --fs-buying-policy-card-border-radius     : var(--fs-border-radius);
+  --fs-buying-policy-card-bkg               : #fdf5e9;
+
+  // Message
+  --fs-buying-policy-title-size             : var(--fs-text-size-2);
+  --fs-buying-policy-title-weight           : var(--fs-text-weight-semibold);
+  --fs-buying-policy-title-line-height      : 1.5;
+  --fs-buying-policy-description-size       : var(--fs-text-size-1);
+  --fs-buying-policy-description-line-height: 1.43;
+  --fs-buying-policy-description-color      : var(--fs-color-text-light);
+
+  // Pending policies alert
+  --fs-pending-policies-alert-bkg           : #e1f3ff;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--fs-buying-policy-card-gap);
+  justify-content: space-between;
+  padding: var(--fs-buying-policy-card-padding);
+  background: var(--fs-buying-policy-card-bkg);
+  border-radius: var(--fs-buying-policy-card-border-radius);
+
+  [data-fs-button-icon] {
+    flex-shrink: 0;
+  }
+
+  [data-fs-buying-policy-message] {
+    [data-fs-buying-policy-title] {
+      font-size: var(--fs-buying-policy-title-size);
+      font-weight: var(--fs-buying-policy-title-weight);
+      line-height: var(--fs-buying-policy-title-line-height);
+      color: var(--fs-color-text);
+    }
+
+    [data-fs-buying-policy-description] {
+      font-size: var(--fs-buying-policy-description-size);
+      line-height: var(--fs-buying-policy-description-line-height);
+      color: var(--fs-buying-policy-description-color);
+    }
+  }
+
+  [data-fs-buying-policy-actions] {
+    display: flex;
+    align-items: flex-start;
+
+    [data-fs-buying-policy-action-reject] {
+      --fs-button-secondary-text-color: var(--fs-color-danger-text);
+      --fs-button-secondary-bkg-color-hover: var(--fs-button-secondary-text-color);
+    }
+  }
+
+  [data-fs-buying-policy-alert] {
+    grid-column: span 2;
+  }
+
+  [data-fs-pending-policies-alert] {
+    grid-column: span 2;
+    background: var(--fs-pending-policies-alert-bkg);
+  }
+}
