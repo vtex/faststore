@@ -1,5 +1,6 @@
-import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import { useCallback } from 'react'
 
+import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
 import {
   regionSliderTypes,
   Button as UIButton,
@@ -15,13 +16,12 @@ import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import { useDelivery } from 'src/sdk/delivery'
 import type { FilterSliderProps } from './FilterSlider'
 
 import { sessionStore } from 'src/sdk/session'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
-import RegionSlider from 'src/components/region/RegionSlider'
 import FilterDeliveryOption from './FilterDeliveryOption'
 
 interface FilterDesktopProps
@@ -39,39 +39,40 @@ function FilterDesktop({
   deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
-  const pickupPoints = usePickupPoints()
+  const { openRegionSlider } = useUI()
+  const { pickupPoints, selectedPickupPoint: globalPickupPoint } = useDelivery()
   const { postalCode } = sessionStore.read()
 
-  const toggleFilterFacet = (facet: { key: string; value: string }) => {
-    setState({
-      ...state,
-      selectedFacets: toggleFacet(
-        // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
-        state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
-        facet,
-        true
-      ),
-      page: 0,
-    })
-  }
+  const toggleFilterFacet = useCallback(
+    (facet: { key: string; value: string }) => {
+      setState({
+        ...state,
+        selectedFacets: toggleFacet(
+          // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
+          state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
+          facet,
+          true
+        ),
+        page: 0,
+      })
+    },
+    []
+  )
 
-  const togglePickupInPointFacet = (
-    pickupInPointFacets: { key: string; value: string }[]
-  ) => {
-    setState({
-      ...state,
-      selectedFacets: toggleFacets(
-        state.selectedFacets,
-        pickupInPointFacets,
-        true
-      ),
-      page: 0,
-    })
-  }
+  const togglePickupInPointFacet = useCallback(
+    (pickupInPointFacets: { key: string; value: string }[]) => {
+      setState({
+        ...state,
+        selectedFacets: toggleFacets(
+          state.selectedFacets,
+          pickupInPointFacets,
+          true
+        ),
+        page: 0,
+      })
+    },
+    []
+  )
 
   // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
@@ -89,6 +90,7 @@ function FilterDesktop({
 
   // If no pickup point was previously selected, use the first one as default
   const selectedPickupPoint =
+    globalPickupPoint ??
     pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
     defaultPickupPoint
 
@@ -98,7 +100,7 @@ function FilterDesktop({
           value: 'pickup-in-point',
           label:
             selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
-          selected: !!state.selectedFacets.find(
+          selected: state.selectedFacets.some(
             ({ value }) => value === 'pickup-in-point'
           ),
           quantity: selectedPickupPoint?.totalItems ?? 0,
@@ -277,10 +279,6 @@ function FilterDesktop({
           )
         })}
       </UIFilter>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
     </>
   )
 }

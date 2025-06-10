@@ -12,6 +12,7 @@ import Link from 'src/components/ui/Link'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { useDelivery } from 'src/sdk/delivery'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
@@ -38,9 +39,13 @@ function NavbarLinks({
     useOverrideComponents<'Navbar'>()
   const router = useRouter()
   const { postalCode } = useSession()
+  const { pickupPoints } = useDelivery()
 
   const shouldDisplayGlobalFilter =
-    shouldDisplayFilterByStore && deliveryPromise.enabled && postalCode
+    shouldDisplayFilterByStore &&
+    deliveryPromise.enabled &&
+    postalCode &&
+    pickupPoints.length !== 0
 
   return (
     <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
