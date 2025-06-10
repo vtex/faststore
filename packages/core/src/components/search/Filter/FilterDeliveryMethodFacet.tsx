@@ -10,15 +10,15 @@ interface FacetValue {
   quantity: number
 }
 
-interface FilterDeliveryOptionProps {
+interface FilterDeliveryMethodFacetProps {
   item: FacetValue
   deliveryMethods: RegionalizationCmsData['deliverySettings']['deliveryMethods']
 }
 
-export default function FilterDeliveryOption({
+export default function FilterDeliveryMethodFacet({
   item,
   deliveryMethods,
-}: FilterDeliveryOptionProps) {
+}: FilterDeliveryMethodFacetProps) {
   const { city, postalCode } = sessionStore.read()
   const { openRegionSlider } = useUI()
 
