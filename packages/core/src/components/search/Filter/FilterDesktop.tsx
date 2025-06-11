@@ -21,7 +21,7 @@ import type { FilterSliderProps } from './FilterSlider'
 import { sessionStore } from 'src/sdk/session'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
+import RegionSlider from 'src/components/region/RegionSlider'
 import FilterDeliveryOption from './FilterDeliveryOption'
 
 interface FilterDesktopProps
