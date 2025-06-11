@@ -64,7 +64,7 @@ export interface NavbarProps {
   /**
    * Global filter by store.
    */
-  filterByStore: SectionNavbarProps['navigation']['filterByStore']
+  filterByStore?: SectionNavbarProps['navigation']['filterByStore']
   /**
    * Page links.
    */

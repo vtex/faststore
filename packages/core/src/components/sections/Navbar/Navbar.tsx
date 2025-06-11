@@ -61,12 +61,13 @@ export interface NavbarProps {
       }
       label: string
     }
-    filterByStore: {
-      icon: {
+    filterByStore?: {
+      icon?: {
         alt: string
         icon: string
       }
-      label: string
+      label?: string
+      shouldDisplay?: boolean
     }
     pageLinks: PageLinks[]
     menu: {
