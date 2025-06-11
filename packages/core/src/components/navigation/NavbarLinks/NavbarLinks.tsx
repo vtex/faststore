@@ -18,7 +18,7 @@ import { getRegionalizationSettings } from 'src/utils/globalSettings'
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
-  filterByStore: NavbarProps['filterByStore']
+  filterByStore?: NavbarProps['filterByStore']
   /**
    * Callback function when a link is clicked.
    */
@@ -29,7 +29,6 @@ function NavbarLinks({
   links,
   onClickLink,
   region: { icon: regionIcon, label: regionLabel, shouldDisplayRegion },
-  filterByStore: { label: filterByStoreLabel, icon: filterByStoreIcon },
   ...otherProps
 }: NavbarLinksProps) {
   const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } =

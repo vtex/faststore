@@ -20,7 +20,7 @@ interface NavbarSliderProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
-  filterByStore: NavbarProps['filterByStore']
+  filterByStore?: NavbarProps['filterByStore']
 }
 
 function NavbarSlider({
