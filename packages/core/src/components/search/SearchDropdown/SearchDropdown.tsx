@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react'
 import {
   SearchProducts,
   SearchAutoComplete as UISearchAutoComplete,
@@ -6,6 +5,7 @@ import {
   SearchDropdown as UISearchDropdown,
   useSearch,
 } from '@faststore/ui'
+import type { Dispatch, SetStateAction } from 'react'
 
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
@@ -13,12 +13,12 @@ import { SearchTop } from '../SearchTop'
 import type { SearchState } from '@faststore/sdk'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import type { NavbarProps } from 'src/components/sections/Navbar'
 import type {
   IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteClickParams,
 } from 'src/sdk/analytics/types'
-import type { NavbarProps } from 'src/components/sections/Navbar'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
@@ -68,11 +68,11 @@ function SearchDropdown({
               }),
               onClick: () => {
                 onSearchSelection?.(
-                  suggestion,
-                  formatSearchPath({ term: suggestion, sort })
+                  term,
+                  formatSearchPath({ term: term, sort })
                 )
                 sendAutocompleteClickEvent({
-                  term: suggestion,
+                  term: term,
                   url: window.location.href,
                 })
               },
