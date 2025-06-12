@@ -368,7 +368,7 @@ export type SectionsOverrides = {
       >
       LocationIcon: ComponentOverrideDefinition<IconProps, IconProps>
       ButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
-      FilterIcon: ComponentOverrideDefinition<IconProps, IconProps>
+      FilterButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
     }
   }
 }

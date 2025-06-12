@@ -40,26 +40,31 @@ export interface RegionBarProps
    */
   shouldDisplayPostalCode?: boolean
   /**
-   * Function called when filter button is clicked.
+   * Properties of the global filter button.
    */
-  onFilterButtonClick?: () => void
-  /**
-   * A React component that will be rendered as the filter icon.
-   */
-  filterIcon?: ReactNode
-  /**
-   * Specifies a label for the filter text.
-   */
-  filterLabel?: string
-  /**
-   * The current selected filter name.
-   */
-  selectedFilter?: string
-  /**
-   * Boolean to control whether the filter button should be visible or not.
-   * @default false
-   */
-  shouldDisplayFilterButton?: boolean
+  filterButton?: {
+    /**
+     * A React component that will be rendered as the filter icon.
+     */
+    icon?: ReactNode
+    /**
+     * Specifies a label for the filter text.
+     */
+    label?: string
+    /**
+     * The current selected filter name.
+     */
+    selectedFilter?: string
+    /**
+     * Boolean to control whether the filter button should be visible or not.
+     * @default false
+     */
+    shouldDisplayFilterButton?: boolean
+    /**
+     * Function called when filter button is clicked.
+     */
+    onClick?: () => void
+  }
 }
 
 const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
@@ -71,12 +76,14 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
     editLabel,
     buttonIcon,
     onButtonClick: onLocationButtonClick,
-    filterIcon,
-    filterLabel,
-    onFilterButtonClick,
-    selectedFilter,
     shouldDisplayPostalCode = true,
-    shouldDisplayFilterButton = false,
+    filterButton: {
+      icon: filterIcon,
+      label: filterLabel,
+      selectedFilter,
+      shouldDisplayFilterButton = false,
+      onClick: onFilterButtonClick,
+    } = {},
     ...otherProps
   },
   ref

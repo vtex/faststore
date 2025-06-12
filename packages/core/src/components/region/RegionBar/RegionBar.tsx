@@ -43,7 +43,7 @@ export interface RegionBarProps {
   /**
    * Specifies a label for the global filter text.
    */
-  filterLabel?: UIRegionBarProps['filterLabel']
+  filterLabel?: UIRegionBarProps['filterButton']['label']
 }
 
 function RegionBar({
@@ -62,7 +62,7 @@ function RegionBar({
     RegionBar: RegionBarWrapper,
     LocationIcon,
     ButtonIcon,
-    FilterIcon,
+    FilterButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
   const { openModal, openPopover } = useUI()
@@ -112,25 +112,27 @@ function RegionBar({
           />
         ) : undefined
       }
-      filterIcon={
-        <FilterIcon.Component
-          {...FilterIcon.props}
-          name={'Storefront'}
-          aria-label={filterIconAlt ?? FilterIcon.props['aria-label']}
-        />
-      }
+      filterButton={{
+        label: filterLabel,
+        icon: (
+          <FilterButtonIcon.Component
+            {...FilterButtonIcon.props}
+            name={filterIcon ?? FilterButtonIcon.props.name}
+            aria-label={filterIconAlt ?? FilterButtonIcon.props['aria-label']}
+          />
+        ),
+        selectedFilter: undefined, // TODO: specify selected pickup point
+        shouldDisplayFilterButton: false, // TODO: specify if should display filter button
+        onClick: () => console.log('TODO: open RegionSlider'),
+      }}
       {...RegionBarWrapper.props}
       label={locationLabel ?? RegionBarWrapper.props.label}
-      editLabel={editLabel ?? RegionBarWrapper.props.editLabel ?? undefined}
-      filterLabel={'Filter by Store'}
+      editLabel={editLabel ?? RegionBarWrapper.props.editLabel}
       // Dynamic props shouldn't be overridable
       // This decision can be reviewed later if needed
       onButtonClick={openModal}
-      onFilterButtonClick={() => console.log('TODO: open RegionSlider')}
       postalCode={postalCode}
       city={textToTitleCase(city ?? '')}
-      shouldDisplayFilterButton={false} // TODO: specify if should display filter button
-      selectedFilter={undefined} // TODO: specify selected pickup point
       {...otherProps}
       ref={regionBarRef}
     />
