@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button, Icon } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
@@ -112,17 +113,10 @@ export default function MyAccountListOrdersTable({
           .flatMap((field) => field.value).length > 0
     ) || false
 
-  const router = useRouter()
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
-
-  const handleOrderDetail = ({ orderId }: { orderId: string }) => {
-    router.push({
-      pathname: `/account/orders/${orderId}`,
-    })
-  }
 
   const handleToggleExpand = (orderId: string) => {
     setExpandedRows((prev) => ({
@@ -150,18 +144,18 @@ export default function MyAccountListOrdersTable({
                 data-fs-list-orders-table-body-row
                 data-fs-list-orders-table-row
                 key={item.orderId}
-                onClick={() => handleOrderDetail({ orderId: item.orderId })}
-                role="button"
               >
                 <td data-fs-list-orders-table-cell>
-                  <div data-fs-list-orders-table-product-info-main>
-                    <p data-fs-list-orders-table-product-info-order-id>
-                      {item.orderId || '-'}
-                    </p>
-                    <p data-fs-list-orders-table-product-info-order-total>
-                      Total: {formatPrice(item.totalValue, item.currencyCode)}
-                    </p>
-                  </div>
+                  <Link href={`/account/orders/${item.orderId}`}>
+                    <div data-fs-list-orders-table-product-info-main>
+                      <p data-fs-list-orders-table-product-info-order-id>
+                        {item.orderId || '-'}
+                      </p>
+                      <p data-fs-list-orders-table-product-info-order-total>
+                        Total: {formatPrice(item.totalValue, item.currencyCode)}
+                      </p>
+                    </div>
+                  </Link>
                 </td>
 
                 {isDesktop && (
