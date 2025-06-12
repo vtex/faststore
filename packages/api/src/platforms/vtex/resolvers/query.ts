@@ -11,6 +11,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  QueryPickupPointsArgs,
   UserOrderFromList,
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
@@ -457,5 +458,22 @@ export const Query = {
       })),
       paging: orders.paging,
     }
+  },
+  pickupPoints: async (
+    _: unknown,
+    { country, postalCode, geoCoordinates }: QueryPickupPointsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.checkout.pickupPoints({
+      country,
+      postalCode,
+      geoCoordinates,
+    })
+
+    return result
   },
 }

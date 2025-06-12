@@ -1,11 +1,11 @@
-import { parseRange } from '../utils/facets'
-import { min } from '../utils/orderStatistics'
+import type { Resolver } from '..'
 import type {
-  FacetValueBoolean,
   Facet,
+  FacetValueBoolean,
   FacetValueRange,
 } from '../clients/search/types/FacetSearchResult'
-import type { Resolver } from '..'
+import { parseRange } from '../utils/facets'
+import { min } from '../utils/orderStatistics'
 
 export type Root = Facet
 
