@@ -31,7 +31,7 @@ function NavbarLinks({
     label: filterByStoreLabel,
     icon: filterByStoreIcon,
     shouldDisplay: shouldDisplayFilterByStore,
-  },
+  } = {},
   ...otherProps
 }: NavbarLinksProps) {
   const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } =
