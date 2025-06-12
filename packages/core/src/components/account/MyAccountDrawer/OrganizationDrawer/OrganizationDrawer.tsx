@@ -5,6 +5,7 @@ import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import styles from './section.module.scss'
+import storeConfig from '../../../../../discovery.config'
 
 type OrganizationDrawerProps = {
   isOpen: boolean
@@ -13,9 +14,10 @@ type OrganizationDrawerProps = {
 
 export const doLogout = () => {
   // TODO we should proxy a call to vtexid logout endpoint
-  // window.location.assign(
-  //   `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
-  // )
+  if (!storeConfig) return
+  window.location.assign(
+    `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
+  )
 }
 
 export const OrganizationDrawer = ({
