@@ -101,16 +101,6 @@ function Page({
   const {
     seo: { pdp: pdpSeo, ...storeSeo },
   } = storeConfig
-  const searchParams: SearchProviderProps = {
-    base: '/',
-    page: 0,
-    sort: 'score_desc',
-    passThrough: new URLSearchParams(),
-    selectedFacets: [],
-    term: '',
-    onChange: applySearchState,
-    itemsPerPage: ITEMS_PER_PAGE,
-  }
 
   // SEO data
   const title = meta?.title ?? storeSeo.title
@@ -228,13 +218,11 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <SearchProvider {...searchParams}>
-          <RenderSections
-            sections={sections}
-            globalSections={globalSections.sections}
-            components={COMPONENTS}
-          />
-        </SearchProvider>
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections.sections}
+          components={COMPONENTS}
+        />
       </PageProvider>
     </>
   )

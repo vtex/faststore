@@ -38,38 +38,32 @@ function FilterDesktop({
   title,
   deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, state, setState } = useSearch()
+  const { resetInfiniteScroll, state: searchState } = useSearch()
   const { openRegionSlider } = useUI()
   const { pickupPoints, selectedPickupPoint: globalPickupPoint } = useDelivery()
   const { postalCode } = sessionStore.read()
 
   const toggleFilterFacet = useCallback(
     (facet: { key: string; value: string }) => {
-      setState({
-        ...state,
-        selectedFacets: toggleFacet(
+      searchState.setSelectedFacets(
+        toggleFacet(
           // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
-          state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
+          searchState.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
           facet,
           true
-        ),
-        page: 0,
-      })
+        )
+      )
+      searchState.setPage(0)
     },
     []
   )
 
   const togglePickupInPointFacet = useCallback(
     (pickupInPointFacets: { key: string; value: string }[]) => {
-      setState({
-        ...state,
-        selectedFacets: toggleFacets(
-          state.selectedFacets,
-          pickupInPointFacets,
-          true
-        ),
-        page: 0,
-      })
+      searchState.setSelectedFacets(
+        toggleFacets(searchState.selectedFacets, pickupInPointFacets, true)
+      )
+      searchState.setPage(0)
     },
     []
   )
@@ -84,7 +78,7 @@ function FilterDesktop({
   const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
 
   const defaultPickupPoint = pickupPoints?.[0] ?? undefined
-  const selectedPickupPointId = state.selectedFacets.find(
+  const selectedPickupPointId = searchState.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
   )?.value
 
@@ -100,7 +94,7 @@ function FilterDesktop({
           value: 'pickup-in-point',
           label:
             selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
-          selected: state.selectedFacets.some(
+          selected: !!searchState.selectedFacets.some(
             ({ value }) => value === 'pickup-in-point'
           ),
           quantity: selectedPickupPoint?.totalItems ?? 0,
@@ -120,14 +114,17 @@ function FilterDesktop({
 
         // Remove old pickup `pickup in point` facet from list and search state
         if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
-          if (state.selectedFacets.some(({ key }) => key === 'shipping')) {
-            const selectedShippingFacet = state.selectedFacets.find(
+          if (
+            searchState.selectedFacets.some(({ key }) => key === 'shipping')
+          ) {
+            const selectedShippingFacet = searchState.selectedFacets.find(
               ({ key }) => key === 'shipping'
             )
-            const selectedPickupInPointFacets = state.selectedFacets.filter(
-              ({ key, value }) =>
-                value === 'pickup-in-point' || key === 'pickupPoint'
-            )
+            const selectedPickupInPointFacets =
+              searchState.selectedFacets.filter(
+                ({ key, value }) =>
+                  value === 'pickup-in-point' || key === 'pickupPoint'
+              )
 
             selectedPickupInPointFacets.length !== 0
               ? togglePickupInPointFacet(selectedPickupInPointFacets)
@@ -262,15 +259,11 @@ function FilterDesktop({
                       : undefined
                   }
                   onFacetChange={(facet) => {
-                    setState({
-                      ...state,
-                      selectedFacets: setFacet(
-                        state.selectedFacets,
-                        facet,
-                        true
-                      ),
-                      page: 0,
-                    })
+                    searchState.setSelectedFacets(
+                      setFacet(searchState.selectedFacets, facet, true)
+                    )
+                    searchState.setPage(0)
+
                     resetInfiniteScroll(0)
                   }}
                 />

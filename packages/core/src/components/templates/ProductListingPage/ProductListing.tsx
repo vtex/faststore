@@ -59,10 +59,10 @@ export default function ProductListing({
 
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
-  const applySearchState = useApplySearchState()
+  // const applySearchState = useApplySearchState()
   useEffect(() => {
     if (!isContentPlatformSource() || !router.isPreview) {
-      applySearchState(formatSearchState(state))
+      // applySearchState(formatSearchState(state))
     }
   }, [])
 

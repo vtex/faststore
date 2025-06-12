@@ -99,8 +99,13 @@ function ProductGallery({
   } = useOverrideComponents<'ProductGallery'>()
 
   const { openFilter, filter: displayFilter } = useUI()
-  const { pages, addNextPage, addPrevPage, itemsPerPage, setState, state } =
-    useSearch()
+  const {
+    pages,
+    addNextPage,
+    addPrevPage,
+    itemsPerPage,
+    state: searchState,
+  } = useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
@@ -115,13 +120,14 @@ function ProductGallery({
   useEffect(() => {
     const shouldSelectGlobalPickupPoint =
       !!globalPickupPoint &&
-      !state.selectedFacets.some(({ value }) => value === 'pickup-in-point')
+      !searchState.selectedFacets.some(
+        ({ value }) => value === 'pickup-in-point'
+      )
 
     if (shouldSelectGlobalPickupPoint) {
-      setState({
-        ...state,
-        selectedFacets: toggleFacets(
-          state.selectedFacets,
+      searchState.setSelectedFacets(
+        toggleFacets(
+          searchState.selectedFacets,
           [
             { key: 'shipping', value: 'pickup-in-point' },
             {
@@ -130,9 +136,9 @@ function ProductGallery({
             },
           ],
           true
-        ),
-        page: 0,
-      })
+        )
+      )
+      searchState.setPage(0)
     }
   }, [globalPickupPoint])
 

@@ -30,7 +30,7 @@ export interface SortProps {
 type SortOptionKeys = keyof SortProps['options']
 
 function Sort({ label = 'Sort by', options = OptionsMap }: SortProps) {
-  const { state, setState } = useSearch()
+  const { state: searchState } = useSearch()
 
   const optionsMap = Object.keys(options).reduce(
     (acc, currentKey: SortOptionKeys) => {
@@ -49,13 +49,10 @@ function Sort({ label = 'Sort by', options = OptionsMap }: SortProps) {
       onChange={(e) => {
         const sort = keys[e.target.selectedIndex]
 
-        setState({
-          ...state,
-          sort,
-          page: 0,
-        })
+        searchState.setSort(sort)
+        searchState.setPage(0)
       }}
-      value={state.sort}
+      value={searchState.sort}
       testId="search-sort"
     />
   )

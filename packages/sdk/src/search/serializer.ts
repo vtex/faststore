@@ -29,7 +29,7 @@ export const parse = ({ pathname, searchParams }: URL): State => {
     page: Number(searchParams.get('page') ?? 0),
   })
 
-  if (!isSearchSort(state.sort)) {
+  if (state.sort && !isSearchSort(state.sort)) {
     throw new SDKError(`Uknown sorting option ${state.sort}`)
   }
 

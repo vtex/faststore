@@ -105,7 +105,7 @@ function FilterSlider({
   applyButtonLabel,
   deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, setState, state } = useSearch()
+  const { resetInfiniteScroll, state: searchState } = useSearch()
   const { openRegionSlider } = useUI()
   const { pickupPoints } = useDelivery()
   const { postalCode } = sessionStore.read()
@@ -146,7 +146,7 @@ function FilterSlider({
   const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
 
   const defaultPickupPoint = pickupPoints?.[0] ?? undefined
-  const selectedPickupPointId = state.selectedFacets.find(
+  const selectedPickupPointId = searchState.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
   )?.value
 
@@ -242,20 +242,17 @@ function FilterSlider({
               ({ key }) => key !== 'pickupPoint'
             )
 
-            setState({
-              ...state,
-              selectedFacets: isOtherShippingFacetSelected
-                ? removePickupPointFacet
-                : selected,
-              page: 0,
-            })
+            searchState.setSelectedFacets(
+              isOtherShippingFacetSelected ? removePickupPointFacet : selected
+            )
+            searchState.setPage(0)
           },
           children: applyButtonLabel ?? 'Apply',
         }}
         onClose={() => {
           dispatch({
             type: 'selectFacets',
-            payload: state.selectedFacets,
+            payload: searchState.selectedFacets,
           })
         }}
       >

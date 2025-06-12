@@ -1,11 +1,14 @@
 import type { PropsWithChildren } from 'react'
-import React, { createContext, useMemo } from 'react'
+import React, {
+  createContext,
+  //  useMemo
+} from 'react'
 
 import type { State as SearchState } from '../types'
 import type { UseSearchInfiniteState } from './useInfiniteSearchState'
-import { useSearchInfiniteState } from './useInfiniteSearchState'
+// import { useSearchInfiniteState } from './useInfiniteSearchState'
 import type { UseSearchState } from './useSearchState'
-import { useSearchState } from './useSearchState'
+// import { useSearchState } from './useSearchState'
 
 export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
   itemsPerPage: number
@@ -20,23 +23,23 @@ export type SearchProviderProps = SearchState & {
 
 export const Provider = ({
   children,
-  itemsPerPage,
-  onChange,
-  ...rest
+  // itemsPerPage,
+  // onChange,
+  // ...rest
 }: PropsWithChildren<SearchProviderProps>) => {
-  const { state, ...searchActions } = useSearchState(rest, onChange)
-  const { pages, ...infiniteActions } = useSearchInfiniteState(state.page)
+  // const { state, ...searchActions } = useSearchState(rest, onChange)
+  // const { pages, ...infiniteActions } = useSearchInfiniteState(state.page)
 
-  const value = useMemo(
-    (): SearchContext => ({
-      state,
-      ...searchActions,
-      pages,
-      ...infiniteActions,
-      itemsPerPage,
-    }),
-    [infiniteActions, itemsPerPage, pages, searchActions, state]
-  )
+  // const value = useMemo(
+  //   (): SearchContext => ({
+  //     state,
+  //     ...searchActions,
+  //     pages,
+  //     ...infiniteActions,
+  //     itemsPerPage,
+  //   }),
+  //   [infiniteActions, itemsPerPage, pages, searchActions, state]
+  // )
 
-  return <Context.Provider value={value}>{children}</Context.Provider>
+  return <Context.Provider value={undefined}>{children}</Context.Provider>
 }

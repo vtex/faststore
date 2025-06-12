@@ -19,7 +19,7 @@ const format = (params: State): URL => {
     url.searchParams.set('facets', Array.from(facets).join(','))
   }
 
-  url.searchParams.set('sort', sort)
+  sort && url.searchParams.set('sort', sort)
   url.searchParams.set('page', page.toString())
 
   if (passThrough) {

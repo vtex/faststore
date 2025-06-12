@@ -139,7 +139,7 @@ export const useProductGalleryQuery = ({
   itemsPerPage,
 }: ProductGalleryQueryOptions) => {
   const { locale } = useSession()
-  const { state, setState } = useSearch()
+  const { state: searchState } = useSearch()
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',
@@ -182,12 +182,35 @@ export const useProductGalleryQuery = ({
       }
 
       // Update the Search state (and URL) only if the values from fuzzy and operator changes
+      const setState = (state: SearchState) => {
+        for (const [key, value] of Object.entries(state)) {
+          const captilize = (str: string): string =>
+            `${str.charAt(0)?.toUpperCase()}${str.slice(1)}`
+          const updateMethod: string = `set${captilize(key)}`
+          if (
+            typeof searchState === 'object' &&
+            updateMethod in searchState &&
+            typeof (searchState as unknown as Record<string, unknown>)[
+              updateMethod
+            ] === 'function'
+          ) {
+            ;(searchState as any)[updateMethod]?.(value)
+          } else {
+            console.error(
+              '[Error]: trying to update unknown searchState property'
+            )
+          }
+        }
+      }
+
+      // searchState.setSelectedFacets(selectedFacets)
+      // searchState.set(selectedFacets)
       updateSearchParamsState({
         selectedFacets,
         updatedFuzzyFacetValue,
         updatedOperatorFacetValue,
         setState,
-        state,
+        state: searchState,
       })
     },
   })

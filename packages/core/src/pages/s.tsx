@@ -11,7 +11,7 @@ import {
 import { SROnly as UISROnly } from '@faststore/ui'
 
 import { ITEMS_PER_PAGE } from 'src/constants'
-import { useApplySearchState } from 'src/sdk/search/state'
+// import { useApplySearchState } from 'src/sdk/search/state'
 
 import storeConfig from 'discovery.config'
 
@@ -101,7 +101,7 @@ function Page({
   searchTerm,
 }: SearchPageProps) {
   const { settings } = searchContentType
-  const applySearchState = useApplySearchState()
+  // const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
@@ -118,11 +118,12 @@ function Page({
   )
 
   return (
-    <SearchProvider
+    <>
+      {/* <SearchProvider
       onChange={applySearchState}
       itemsPerPage={itemsPerPage}
       {...searchParams}
-    >
+    > */}
       {/* SEO */}
       <NextSeo noindex={noindex} nofollow={nofollow} {...seoData} />
 
@@ -149,7 +150,8 @@ function Page({
         globalSections={globalSections.sections}
         globalSectionsSettings={globalSections.settings}
       />
-    </SearchProvider>
+      {/* </SearchProvider> */}
+    </>
   )
 }
 

@@ -3,6 +3,7 @@ import {
   formatSearchState,
   parseSearchState,
   SearchProvider,
+  useSearch,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -34,44 +35,6 @@ type UseSearchParams = {
   sort: SearchState['sort']
   serverData?: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
 }
-const useSearchParams = ({
-  collection,
-  sort,
-  serverData,
-}: UseSearchParams): SearchState => {
-  const selectedFacets = [
-    ...collection?.meta.selectedFacets,
-    {
-      key: 'fuzzy',
-      value: serverData?.search?.metadata?.fuzzy ?? 'auto',
-    },
-    {
-      key: 'operator',
-      value: serverData?.search?.metadata?.logicalOperator ?? 'and',
-    },
-  ]
-  const { asPath } = useRouter()
-
-  const hrefState = useMemo(() => {
-    const url = new URL(asPath, 'http://localhost')
-
-    const shouldUpdateDefaultSort = sort && !url.searchParams.has('sort')
-    if (shouldUpdateDefaultSort) {
-      url.searchParams.set('sort', sort)
-    }
-
-    const newState = parseSearchState(url)
-    // In case we are in an incomplete url
-    if (newState.selectedFacets.length === 0) {
-      newState.selectedFacets = selectedFacets
-    }
-
-    return formatSearchState(newState).href
-  }, [asPath, selectedFacets, sort])
-
-  return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
-}
-
 export default function ProductListingPage({
   page: plpContentType,
   data: server,
@@ -82,12 +45,27 @@ export default function ProductListingPage({
   const { settings } = plpContentType
   const collection = server.collection
   const router = useRouter()
-  const applySearchState = useApplySearchState()
-  const searchParams = useSearchParams({
-    collection,
-    sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
-    serverData: server,
-  })
+  const { state } = useSearch()
+  useApplySearchState()
+
+  if (state.selectedFacets.length === 0) {
+    state.setSelectedFacets([
+      ...collection?.meta.selectedFacets,
+      {
+        key: 'fuzzy',
+        value: server?.search?.metadata?.fuzzy ?? 'auto',
+      },
+      {
+        key: 'operator',
+        value: server?.search?.metadata?.logicalOperator ?? 'and',
+      },
+    ])
+  }
+
+  const sort = settings?.productGallery?.sortBySelection as SearchState['sort']
+  if (sort && !state.sort) {
+    state.setSort(sort)
+  }
 
   const {
     seo: { plp: plpSeo, ...storeSeo },
@@ -101,7 +79,9 @@ export default function ProductListingPage({
 
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
-  const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+  state.setItemsPerPage(
+    settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+  )
 
   let itemListElements = collection?.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
@@ -115,11 +95,7 @@ export default function ProductListingPage({
   }
 
   return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={itemsPerPage}
-      {...searchParams}
-    >
+    <>
       {/* SEO */}
       <NextSeo
         title={title}
@@ -141,6 +117,6 @@ export default function ProductListingPage({
         data={server}
         serverManyProductsVariables={serverManyProductsVariables}
       />
-    </SearchProvider>
+    </>
   )
 }

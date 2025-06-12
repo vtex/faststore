@@ -17,7 +17,6 @@ import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
 import { useApplySearchState } from 'src/sdk/search/state'
-import { ITEMS_PER_PAGE } from 'src/constants'
 
 type Props = {
   page: PageContentType
@@ -30,17 +29,7 @@ function Page({
   globalSections,
   serverData,
 }: Props) {
-  const applySearchState = useApplySearchState()
-  const searchParams: SearchProviderProps = {
-    base: '/',
-    page: 0,
-    sort: 'score_desc',
-    passThrough: new URLSearchParams(),
-    selectedFacets: [],
-    term: '',
-    onChange: applySearchState,
-    itemsPerPage: ITEMS_PER_PAGE,
-  }
+  useApplySearchState()
 
   const context = {
     data: serverData,
@@ -147,13 +136,11 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <SearchProvider {...searchParams}>
-          <RenderSections
-            globalSections={globalSections.sections}
-            sections={sections}
-            components={COMPONENTS}
-          />
-        </SearchProvider>
+        <RenderSections
+          globalSections={globalSections.sections}
+          sections={sections}
+          components={COMPONENTS}
+        />
       </PageProvider>
     </>
   )

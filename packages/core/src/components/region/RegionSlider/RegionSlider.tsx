@@ -47,7 +47,7 @@ function RegionSlider() {
   const { isValidating, ...session } = useSession()
   const { loading, setRegion, regionError, setRegionError } = useRegion()
   const { pickupPoints, dispatchDeliveryAction } = useDelivery()
-  const { state, setState } = useSearch()
+  const { state: searchState } = useSearch()
 
   const [input, setInput] = useState<string>(session.postalCode ?? '')
   const [appliedInput, setAppliedInput] = useState<string>(
@@ -85,7 +85,7 @@ function RegionSlider() {
     })
   }
 
-  const selectedPickupPointFacet = state.selectedFacets.find(
+  const selectedPickupPointFacet = searchState.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
   )?.value
 
@@ -98,7 +98,7 @@ function RegionSlider() {
   }
 
   const handlePickupPointUpdate = () => {
-    const shippingFacet = state.selectedFacets.find(
+    const shippingFacet = searchState.selectedFacets.find(
       (facet) => facet.key === 'shipping'
     )
 
@@ -125,15 +125,10 @@ function RegionSlider() {
       regionSliderType !== 'globalChangePickupPoint' &&
       facetsToToggle.length > 0
     ) {
-      setState({
-        ...state,
-        selectedFacets: toggleFacets(
-          state.selectedFacets,
-          facetsToToggle,
-          true
-        ),
-        page: 0,
-      })
+      searchState.setSelectedFacets(
+        toggleFacets(searchState.selectedFacets, facetsToToggle, true)
+      )
+      searchState.setPage(0)
     }
   }
 

@@ -8,7 +8,10 @@ import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 import { DeliveryProvider } from 'src/sdk/delivery'
-
+import { ITEMS_PER_PAGE } from 'src/constants'
+import { useRouter } from 'next/router'
+import { useSearch } from '@faststore/sdk'
+import { useEffect } from 'react'
 import SEO from 'next-seo.config'
 
 // FastStore UI's base styles
@@ -16,6 +19,21 @@ import '../styles/main.scss'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
+  const router = useRouter()
+  const { state: searchState } = useSearch()
+  searchState.start(router.asPath)
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      // update state on navigation
+      searchState.parseURL(new URL(url, window.location.origin))
+    }
+
+    router.events.on('routeChangeStart', handleRouteChange)
+    searchState.setItemsPerPage(ITEMS_PER_PAGE)
+
+    return () => router.events.off('routeChangeStart', handleRouteChange)
+  }, [])
 
   return (
     <ErrorBoundary>

@@ -15,7 +15,7 @@ export interface Facet {
 
 export interface State {
   /** @description search sorting criteria */
-  sort: SearchSort
+  sort: SearchSort | null
   /**
    * @description selected facets
    * */
@@ -34,4 +34,6 @@ export interface State {
    * @description params from other sources to preserve when building URLs
    */
   passThrough: URLSearchParams
+
+  itemsPerPage: number
 }
