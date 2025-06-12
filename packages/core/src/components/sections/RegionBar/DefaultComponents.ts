@@ -4,4 +4,5 @@ export const RegionBarDefaultComponents = {
   RegionBar: UIRegionBar,
   LocationIcon: UIIcon,
   ButtonIcon: UIIcon,
+  FilterIcon: UIIcon,
 } as const

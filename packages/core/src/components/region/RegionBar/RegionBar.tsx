@@ -12,7 +12,7 @@ import { useRegionModal } from '../RegionModal/useRegionModal'
 
 export interface RegionBarProps {
   /**
-   * A React component that will be rendered as an icon.
+   * A React component that will be rendered as the location icon.
    */
   icon?: {
     icon: string
@@ -33,19 +33,36 @@ export interface RegionBarProps {
     icon: string
     alt: string
   }
+  /**
+   * A React component that will be rendered as the global filter icon.
+   */
+  filterIcon?: {
+    icon: string
+    alt: string
+  }
+  /**
+   * Specifies a label for the global filter text.
+   */
+  filterLabel?: UIRegionBarProps['filterLabel']
 }
 
 function RegionBar({
   icon: { icon: locationIcon, alt: locationIconAlt },
-  buttonIcon: { icon: buttonIcon, alt: buttonIconAlt },
-  label,
-  editLabel,
+  buttonIcon = undefined,
+  label: locationLabel,
+  editLabel = undefined,
+  filterIcon: { icon: filterIcon, alt: filterIconAlt } = {
+    icon: undefined,
+    alt: undefined,
+  },
+  filterLabel,
   ...otherProps
 }: RegionBarProps) {
   const {
     RegionBar: RegionBarWrapper,
     LocationIcon,
     ButtonIcon,
+    FilterIcon,
   } = useOverrideComponents<'RegionBar'>()
 
   const { openModal, openPopover } = useUI()
@@ -87,20 +104,33 @@ function RegionBar({
         />
       }
       buttonIcon={
-        <ButtonIcon.Component
-          {...ButtonIcon.props}
-          name={buttonIcon ?? ButtonIcon.props.name}
-          aria-label={buttonIconAlt ?? ButtonIcon.props['aria-label']}
+        buttonIcon?.icon ? (
+          <ButtonIcon.Component
+            {...ButtonIcon.props}
+            name={buttonIcon?.icon ?? ButtonIcon.props.name}
+            aria-label={buttonIcon?.alt ?? ButtonIcon.props['aria-label']}
+          />
+        ) : undefined
+      }
+      filterIcon={
+        <FilterIcon.Component
+          {...FilterIcon.props}
+          name={'Storefront'}
+          aria-label={filterIconAlt ?? FilterIcon.props['aria-label']}
         />
       }
       {...RegionBarWrapper.props}
-      label={label ?? RegionBarWrapper.props.label}
-      editLabel={editLabel ?? RegionBarWrapper.props.editLabel}
+      label={locationLabel ?? RegionBarWrapper.props.label}
+      editLabel={editLabel ?? RegionBarWrapper.props.editLabel ?? undefined}
+      filterLabel={'Filter by Store'}
       // Dynamic props shouldn't be overridable
       // This decision can be reviewed later if needed
       onButtonClick={openModal}
+      onFilterButtonClick={() => console.log('TODO: open RegionSlider')}
       postalCode={postalCode}
       city={textToTitleCase(city ?? '')}
+      shouldDisplayFilterButton={false} // TODO: specify if should display filter button
+      selectedFilter={undefined} // TODO: specify selected pickup point
       {...otherProps}
       ref={regionBarRef}
     />

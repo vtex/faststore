@@ -2176,7 +2176,7 @@
       "required": ["label"],
       "properties": {
         "icon": {
-          "title": "Location Icon",
+          "title": "Location icon",
           "type": "object",
           "properties": {
             "icon": {
@@ -2187,7 +2187,7 @@
               "default": "MapPin"
             },
             "alt": {
-              "title": "Alternative Label",
+              "title": "Alternative label",
               "type": "string",
               "default": "Map Pin icon"
             }
@@ -2200,8 +2200,8 @@
         },
         "editLabel": {
           "title": "Location edit label",
-          "type": "string",
-          "default": "Edit"
+          "default": "",
+          "type": "string"
         },
         "buttonIcon": {
           "title": "Button Icon",
@@ -2210,16 +2210,40 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Caret Right"],
-              "enum": ["CaretRight"],
-              "default": "CaretRight"
+              "enumNames": ["", "Caret Right"],
+              "enum": ["", "CaretRight"],
+              "default": ""
             },
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": "Caret Right icon"
+              "default": ""
             }
           }
+        },
+        "filterIcon": {
+          "title": "Global filter icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Storefront"],
+              "enum": ["Storefront"],
+              "default": "Storefront"
+            },
+            "alt": {
+              "title": "Alternative label",
+              "type": "string",
+              "default": "Storefront icon"
+            }
+          }
+        },
+        "filterLabel": {
+          "title": "Global filter label",
+          "type": "string",
+          "description": "Keep the '%s', it will be replaced by the global filter method (by delivery or by store) if applicable.",
+          "default": "Filter by %"
         }
       }
     }

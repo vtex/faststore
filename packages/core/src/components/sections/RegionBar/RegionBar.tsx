@@ -13,7 +13,7 @@ type RegionBarSectionProps = {
    */
   className?: string
   /**
-   * A React component that will be rendered as an icon.
+   * A React component that will be rendered as the location icon.
    */
   icon: RegionBarProps['icon']
   /**
@@ -28,6 +28,14 @@ type RegionBarSectionProps = {
    * A React component that will be rendered as an icon.
    */
   buttonIcon?: RegionBarProps['buttonIcon']
+  /**
+   * A React component that will be rendered as the global filter icon.
+   */
+  filterIcon: RegionBarProps['filterIcon']
+  /**
+   * Specifies a label for the global filter text.
+   */
+  filterLabel: RegionBarProps['filterLabel']
 }
 
 function RegionBarSection({ ...otherProps }: RegionBarSectionProps) {

@@ -361,10 +361,14 @@ export type SectionsOverrides = {
     components: {
       RegionBar: ComponentOverrideDefinition<
         RegionBarProps,
-        Omit<RegionBarProps, 'onButtonClick' | 'postalCode'>
+        Omit<
+          RegionBarProps,
+          'onButtonClick' | 'onFilterButtonClick' | 'postalCode' | 'city'
+        >
       >
       LocationIcon: ComponentOverrideDefinition<IconProps, IconProps>
       ButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
+      FilterIcon: ComponentOverrideDefinition<IconProps, IconProps>
     }
   }
 }
