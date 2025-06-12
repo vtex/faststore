@@ -7,7 +7,7 @@ import {
   regionSliderTypes,
 } from '@faststore/ui'
 
-type RegionFilterProps = {
+type RegionFilterButtonProps = {
   label: string
   icon: {
     alt: string
@@ -15,9 +15,12 @@ type RegionFilterProps = {
   }
 }
 
-function RegionFilter({ label, icon: { icon, alt } }: RegionFilterProps) {
+function RegionFilterButton({
+  label,
+  icon: { icon, alt },
+}: RegionFilterButtonProps) {
   const { openRegionSlider } = useUI()
-  const regionFilterRef = useRef<HTMLButtonElement>(null)
+  const regionFilterButtonRef = useRef<HTMLButtonElement>(null)
 
   return (
     <UIButton
@@ -36,11 +39,11 @@ function RegionFilter({ label, icon: { icon, alt } }: RegionFilterProps) {
       onClick={() =>
         openRegionSlider(regionSliderTypes.globalChangePickupPoint)
       }
-      ref={regionFilterRef}
+      ref={regionFilterButtonRef}
     >
       {label}
     </UIButton>
   )
 }
 
-export default RegionFilter
+export default RegionFilterButton

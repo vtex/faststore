@@ -7,7 +7,7 @@ import { NavbarLinksListItem as UINavbarLinksListItem } from '@faststore/ui'
 import { deliveryPromise } from 'discovery.config'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
 import RegionButton from 'src/components/region/RegionButton'
-import RegionFilter from 'src/components/region/RegionFilter'
+import RegionFilterButton from 'src/components/region/RegionFilterButton'
 import Link from 'src/components/ui/Link'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -49,7 +49,10 @@ function NavbarLinks({
           <RegionButton icon={regionIcon} label={regionLabel} />
         )}
         {shouldDisplayGlobalFilter && (
-          <RegionFilter label={filterByStoreLabel} icon={filterByStoreIcon} />
+          <RegionFilterButton
+            label={filterByStoreLabel}
+            icon={filterByStoreIcon}
+          />
         )}
         <NavbarLinksList.Component {...NavbarLinksList.props}>
           {links.map(({ url, text }) => (
