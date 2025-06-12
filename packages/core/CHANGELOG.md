@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.52.0](https://github.com/vtex/faststore/compare/v3.51.0...v3.52.0) (2025-06-12)
+
+### Features
+
+- **core:** implement my account logout ([#2893](https://github.com/vtex/faststore/issues/2893)) ([797f4a5](https://github.com/vtex/faststore/commit/797f4a5fa66561972531650c87ae9d743c798ab9))
+
 # [3.51.0](https://github.com/vtex/faststore/compare/v3.50.4...v3.51.0) (2025-06-04)
 
 ### Features
