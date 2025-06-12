@@ -13,7 +13,6 @@ type OrganizationDrawerProps = {
 }
 
 export const doLogout = () => {
-  // TODO we should proxy a call to vtexid logout endpoint
   if (!storeConfig) return
   window.location.assign(
     `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
