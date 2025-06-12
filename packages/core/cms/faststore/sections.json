@@ -2221,6 +2221,30 @@
               "default": "Caret Right icon"
             }
           }
+        },
+        "filterIcon": {
+          "title": "Global filter icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Storefront"],
+              "enum": ["Storefront"],
+              "default": "Storefront"
+            },
+            "alt": {
+              "title": "Alternative label",
+              "type": "string",
+              "default": "Storefront icon"
+            }
+          }
+        },
+        "filterLabel": {
+          "title": "Global filter label",
+          "type": "string",
+          "description": "Keep the '%s', it will be replaced by the global filter method (by delivery or by store) if applicable.",
+          "default": "Filter by %"
         }
       }
     }
