@@ -5,7 +5,7 @@
 
   // Default properties
   --fs-region-bar-width                    : 100%;
-  --fs-region-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-region-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-1) var(--fs-spacing-2);
 
   --fs-region-bar-text-color               : var(--fs-color-text-display);
 
@@ -27,13 +27,17 @@
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-
+  
+  display: flex;
   width: var(--fs-region-bar-width);
-
   [data-fs-button] {
-    width: var(--fs-region-bar-width);
+    flex: 1 1 50%;
+    max-width: 50%;
 
-    [data-fs-button-wrapper]{
+    [data-fs-button-wrapper] {
+      display: flex;
+      gap: 0;
+      justify-content: flex-start;
       padding: var(--fs-region-bar-padding);
       color: var(--fs-region-bar-text-color);
       background-color: var(--fs-region-bar-bkg-color);
@@ -44,6 +48,35 @@
         display: contents;
       }
     }
+
+    &:only-child {
+      flex: 1 1 100%;
+      max-width: 100%;
+
+      [data-fs-region-bar-postal-code] {
+        flex: none;
+        margin-right: 0;
+      }
+    }
+  }
+
+  [data-fs-icon] {
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+  }
+
+  [data-fs-region-bar-postal-code] {
+    flex: 1;
+    margin-right: var(--fs-region-bar-postal-code-margin-right);
+    overflow: hidden;
+    font-weight: var(--fs-text-weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-location-postal-code] {
+    font-weight: var(--fs-text-weight-semibold);
+    line-height: 1.2;
   }
 
   [data-fs-region-bar-cta] {
@@ -51,13 +84,21 @@
     text-decoration: var(--fs-region-bar-cta-text-decoration);
   }
 
-  [data-fs-region-bar-postal-code] {
-    margin-right: var(--fs-region-bar-postal-code-margin-right);
-    font-weight: var(--fs-text-weight-regular);
-  }
-
   [data-fs-region-bar-message] {
     margin-right: var(--fs-region-bar-message-margin-right);
-    font-weight: var(--fs-text-weight-regular);
+    font-weight: var(--fs-text-weight-semibold);
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-filter],
+  [data-fs-region-bar-filter-message] {
+    overflow: hidden;
+    font-weight: var(--fs-text-weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-filter] {
+    line-height: 1.2;
   }
 }

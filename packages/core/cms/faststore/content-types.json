@@ -181,6 +181,40 @@
                       }
                     }
                   }
+                },
+                "filterByPickupPoint": {
+                  "title": "Global filter by store",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should enable global filter by store?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "label": {
+                      "title": "Filter label",
+                      "type": "string",
+                      "default": "Filter by Store"
+                    },
+                    "icon": {
+                      "title": "Filter icon",
+                      "type": "object",
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["Storefront"],
+                          "enum": ["Storefront"],
+                          "default": "Storefront"
+                        },
+                        "alt": {
+                          "title": "Alternative Label",
+                          "type": "string",
+                          "default": "Storefront icon"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
