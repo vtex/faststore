@@ -69,11 +69,10 @@ export const mutation = gql(`
 export const validateSession = async (session: Session) => {
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
-    const isLoggedIn = !!session.person?.id
+    const userId = session.b2b?.customerId ?? session.person?.id
 
-    // If user is logged try to get the location (postalCode / geoCoordinates / country) from the user's address
-    if (isLoggedIn) {
-      const userId = session.person?.id
+    // If user is logged in try to get the location (postalCode, geoCoordinates and country) from the user's address
+    if (userId) {
       const address = await getSavedAddress(userId)
 
       // Save the location in the session
