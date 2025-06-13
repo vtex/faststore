@@ -61,14 +61,6 @@ export interface NavbarProps {
       }
       label: string
     }
-    filterByStore?: {
-      icon?: {
-        alt: string
-        icon: string
-      }
-      label?: string
-      shouldDisplay?: boolean
-    }
     pageLinks: PageLinks[]
     menu: {
       icon: {
@@ -91,7 +83,6 @@ function NavbarSection({
     menu,
     home,
     pageLinks,
-    filterByStore,
     regionalization: {
       label: regionLabel,
       icon: { icon: regionIcon },
@@ -114,7 +105,6 @@ function NavbarSection({
           label: regionLabel,
           shouldDisplayRegion,
         }}
-        filterByStore={filterByStore}
       />
     </Section>
   )
