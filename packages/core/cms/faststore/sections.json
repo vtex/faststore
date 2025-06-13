@@ -399,40 +399,6 @@
                 }
               }
             },
-            "filterByStore": {
-              "title": "Global filter by store",
-              "type": "object",
-              "properties": {
-                "shouldDisplay": {
-                  "title": "Should enable global filter by store?",
-                  "type": "boolean",
-                  "default": false
-                },
-                "label": {
-                  "title": "Label",
-                  "type": "string",
-                  "default": "Filter by Store"
-                },
-                "icon": {
-                  "title": "Icon",
-                  "type": "object",
-                  "properties": {
-                    "icon": {
-                      "title": "Icon",
-                      "type": "string",
-                      "enumNames": ["Storefront"],
-                      "enum": ["Storefront"],
-                      "default": "Storefront"
-                    },
-                    "alt": {
-                      "title": "Alternative Label",
-                      "type": "string",
-                      "default": "Storefront icon"
-                    }
-                  }
-                }
-              }
-            },
             "pageLinks": {
               "title": "Links",
               "type": "array",
@@ -2220,30 +2186,6 @@
               "default": ""
             }
           }
-        },
-        "filterIcon": {
-          "title": "Global filter icon",
-          "type": "object",
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "string",
-              "enumNames": ["Storefront"],
-              "enum": ["Storefront"],
-              "default": "Storefront"
-            },
-            "alt": {
-              "title": "Alternative label",
-              "type": "string",
-              "default": "Storefront icon"
-            }
-          }
-        },
-        "filterLabel": {
-          "title": "Global filter label",
-          "type": "string",
-          "description": "Keep the '%s', it will be replaced by the global filter method (by delivery or by store) if applicable.",
-          "default": "Filter by %"
         }
       }
     }
