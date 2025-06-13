@@ -24,8 +24,6 @@
   // Postal Code
   --fs-region-bar-postal-code-margin-right : auto;
 
-  display: flex;
-
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -33,11 +31,13 @@
   width: var(--fs-region-bar-width);
 
   [data-fs-button] {
-    display: flex;
+    flex: 1 1 50%;
+    max-width: 50%;
 
     [data-fs-button-wrapper] {
       display: flex;
       gap: 0;
+      justify-content: flex-start;
       padding: var(--fs-region-bar-padding);
       color: var(--fs-region-bar-text-color);
       background-color: var(--fs-region-bar-bkg-color);
@@ -49,12 +49,14 @@
       }
     }
 
-    &:nth-child(n) {
-      max-width: 50%;
-    }
-
     &:only-child {
+      flex: 1 1 100%;
       max-width: 100%;
+
+      [data-fs-region-bar-postal-code] {
+        flex: none;
+        margin-right: 0;
+      }
     }
   }
 
@@ -88,18 +90,15 @@
     white-space: nowrap;
   }
 
-  [data-fs-region-bar-filter] {
-    overflow: hidden;
-    font-weight: var(--fs-text-weight-semibold);
-    line-height: 1.2;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
+  [data-fs-region-bar-filter],
   [data-fs-region-bar-filter-message] {
     overflow: hidden;
     font-weight: var(--fs-text-weight-semibold);
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  [data-fs-region-bar-filter] {
+    line-height: 1.2;
   }
 }

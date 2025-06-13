@@ -7,6 +7,7 @@ import { useSession } from 'src/sdk/session'
 import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { textToTitleCase } from 'src/utils/utilities'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 import { useRegionModal } from '../RegionModal/useRegionModal'
 
@@ -33,17 +34,6 @@ export interface RegionBarProps {
     icon: string
     alt: string
   }
-  /**
-   * A React component that will be rendered as the global filter icon.
-   */
-  filterIcon?: {
-    icon: string
-    alt: string
-  }
-  /**
-   * Specifies a label for the global filter text.
-   */
-  filterLabel?: UIRegionBarProps['filterButton']['label']
 }
 
 function RegionBar({
@@ -51,11 +41,6 @@ function RegionBar({
   buttonIcon = undefined,
   label: locationLabel,
   editLabel = undefined,
-  filterIcon: { icon: filterIcon, alt: filterIconAlt } = {
-    icon: undefined,
-    alt: undefined,
-  },
-  filterLabel,
   ...otherProps
 }: RegionBarProps) {
   const {
@@ -68,6 +53,7 @@ function RegionBar({
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
   const { isValidationComplete } = useRegionModal()
+  const { filterByPickupPoint } = getRegionalizationSettings()
   const regionBarRef = useRef<HTMLDivElement>(null)
 
   const defaultPostalCode =
@@ -113,16 +99,21 @@ function RegionBar({
         ) : undefined
       }
       filterButton={{
-        label: filterLabel,
+        label: filterByPickupPoint?.label,
         icon: (
           <FilterButtonIcon.Component
             {...FilterButtonIcon.props}
-            name={filterIcon ?? FilterButtonIcon.props.name}
-            aria-label={filterIconAlt ?? FilterButtonIcon.props['aria-label']}
+            name={
+              filterByPickupPoint?.icon?.icon ?? FilterButtonIcon.props.name
+            }
+            aria-label={
+              filterByPickupPoint?.icon?.alt ??
+              FilterButtonIcon.props['aria-label']
+            }
           />
         ),
         selectedFilter: undefined, // TODO: specify selected pickup point
-        shouldDisplayFilterButton: false, // TODO: specify if should display filter button
+        shouldDisplayFilterButton: filterByPickupPoint?.enabled,
         onClick: () => console.log('TODO: open RegionSlider'),
       }}
       {...RegionBarWrapper.props}
