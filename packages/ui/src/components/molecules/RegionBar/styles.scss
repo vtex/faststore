@@ -24,14 +24,12 @@
   // Postal Code
   --fs-region-bar-postal-code-margin-right : auto;
 
-  display: flex;
-
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-
+  
+  display: flex;
   width: var(--fs-region-bar-width);
-
   [data-fs-button] {
     flex: 1 1 50%;
     max-width: 50%;
