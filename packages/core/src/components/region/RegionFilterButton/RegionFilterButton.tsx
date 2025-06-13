@@ -8,16 +8,22 @@ import {
 } from '@faststore/ui'
 
 type RegionFilterButtonProps = {
-  label: string
-  icon: {
-    alt: string
-    icon: string
+  filterByPickupPoint?: {
+    enabled?: boolean
+    label?: string
+    icon?: {
+      icon?: string
+      alt?: string
+    }
   }
 }
 
 function RegionFilterButton({
-  label,
-  icon: { icon, alt },
+  filterByPickupPoint: {
+    enabled: filterByPickupPointEnabled,
+    label: filterByPickupPointLabel,
+    icon: { icon: filterByPickupPointIcon, alt: filterByPickupPointAlt },
+  } = {},
 }: RegionFilterButtonProps) {
   const { openRegionSlider } = useUI()
   const regionFilterButtonRef = useRef<HTMLButtonElement>(null)
@@ -28,11 +34,11 @@ function RegionFilterButton({
       size="small"
       icon={
         <UIIcon
-          name={icon}
+          name={filterByPickupPointIcon}
           width={18}
           height={18}
           weight="bold"
-          aria-label={alt}
+          aria-label={filterByPickupPointAlt}
         />
       }
       iconPosition="left"
@@ -41,7 +47,7 @@ function RegionFilterButton({
       }
       ref={regionFilterButtonRef}
     >
-      {label}
+      {filterByPickupPointLabel}
     </UIButton>
   )
 }
