@@ -1,14 +1,12 @@
-import { useSearch } from '@faststore/sdk'
+import dynamic from 'next/dynamic'
 import { NextSeo } from 'next-seo'
-import type { MouseEvent } from 'react'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, type MouseEvent } from 'react'
 
 import { useUI } from '@faststore/ui'
+import { useSearch, toggleFacets } from '@faststore/sdk'
+
 import Sort from 'src/components/search/Sort'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-
-import dynamic from 'next/dynamic'
-
 import type { ProductCardProps } from 'src/components/product/ProductCard'
 import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import type { SortProps } from 'src/components/search/Sort/Sort'
@@ -23,6 +21,7 @@ import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import { useFilter } from 'src/sdk/search/useFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+import { useDelivery } from 'src/sdk/delivery'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
@@ -100,16 +99,42 @@ function ProductGallery({
   } = useOverrideComponents<'ProductGallery'>()
 
   const { openFilter, filter: displayFilter } = useUI()
-  const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
+  const { pages, addNextPage, addPrevPage, itemsPerPage, setState, state } =
+    useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
-
+  const { selectedPickupPoint: globalPickupPoint } = useDelivery()
   const { isDesktop } = useScreenResize()
 
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
+
+  // Validate if should select the global pickup point facet
+  useEffect(() => {
+    const shouldSelectGlobalPickupPoint =
+      !!globalPickupPoint &&
+      !state.selectedFacets.some(({ value }) => value === 'pickup-in-point')
+
+    if (shouldSelectGlobalPickupPoint) {
+      setState({
+        ...state,
+        selectedFacets: toggleFacets(
+          state.selectedFacets,
+          [
+            { key: 'shipping', value: 'pickup-in-point' },
+            {
+              key: 'pickupPoint',
+              value: globalPickupPoint.id,
+            },
+          ],
+          true
+        ),
+        page: 0,
+      })
+    }
+  }, [globalPickupPoint])
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)

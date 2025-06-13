@@ -9,12 +9,12 @@ import dynamic from 'next/dynamic'
 import type { ChangeEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
-import PickupPointCards from 'src/components/ui/PickupPoints/PickupPointCards'
+import { PickupPointCards } from 'src/components/ui/PickupPoints'
 import { useSession } from 'src/sdk/session'
-import type { RegionalizationCmsData } from 'src/utils/globalSettings'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import { useDelivery } from 'src/sdk/delivery'
 
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
@@ -35,27 +35,26 @@ const UILink = dynamic(() =>
   import('@faststore/ui').then((mod) => mod.Link)
 )
 
-type RegionSliderProps = {
-  cmsData: RegionalizationCmsData
-  open: boolean
-}
-
-function RegionSlider({ cmsData, open }: RegionSliderProps) {
-  if (!open) return null
-
+function RegionSlider() {
   const {
-    regionSlider: { type: regionSliderType },
+    regionSlider: { type: regionSliderType, isOpen },
     closeRegionSlider,
   } = useUI()
+
+  if (!isOpen) return null
+
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const { loading, setRegion, regionError, setRegionError } = useRegion()
+  const { pickupPoints, dispatchDeliveryAction } = useDelivery()
+  const { state, setState } = useSearch()
 
   const [input, setInput] = useState<string>(session.postalCode ?? '')
   const [appliedInput, setAppliedInput] = useState<string>(
     session.postalCode ?? ''
   )
 
+  const cmsData = getRegionalizationSettings()
   const inputField = cmsData?.inputField
   const idkPostalCodeLink = cmsData?.idkPostalCodeLink
 
@@ -69,7 +68,12 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     await setRegion({
       session,
       onSuccess: () => {
-        if (regionSliderType !== 'changePickupPoint') {
+        dispatchDeliveryAction({ type: 'onPostalCodeChange' })
+
+        if (
+          regionSliderType !== 'changePickupPoint' &&
+          regionSliderType !== 'globalChangePickupPoint'
+        ) {
           setInput('')
           closeRegionSlider()
         }
@@ -81,15 +85,12 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     })
   }
 
-  const { state, setState } = useSearch()
-  const pickupPoints = usePickupPoints()
-
-  const selectedPickupPoint = state.selectedFacets.find(
+  const selectedPickupPointFacet = state.selectedFacets.find(
     ({ key }) => key === 'pickupPoint'
   )?.value
 
   const [pickupPointOption, setPickupPointOption] = useState<string | null>(
-    selectedPickupPoint ?? null
+    selectedPickupPointFacet ?? null
   )
 
   const handlePickupPointOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -111,9 +112,19 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     // Add/update the pickupPoint facet
     if (pickupPointOption) {
       facetsToToggle.push({ key: 'pickupPoint', value: pickupPointOption })
+      dispatchDeliveryAction({
+        type: 'changePickupPoint',
+        payload: pickupPoints.find(
+          (pickupPoint) => pickupPoint.id === pickupPointOption
+        ),
+      })
     }
 
-    if (facetsToToggle.length > 0) {
+    // We don't want to toggle facets when shopper is global filtering
+    if (
+      regionSliderType !== 'globalChangePickupPoint' &&
+      facetsToToggle.length > 0
+    ) {
       setState({
         ...state,
         selectedFacets: toggleFacets(
@@ -162,9 +173,17 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
       size="partial"
       direction="rightSide"
       onClose={() => {}}
-      footer={regionSliderType === 'changePickupPoint' ? true : false}
+      footer={
+        ['changePickupPoint', 'globalChangePickupPoint'].includes(
+          regionSliderType
+        )
+          ? true
+          : false
+      }
       applyBtnProps={
-        regionSliderType === 'changePickupPoint'
+        ['changePickupPoint', 'globalChangePickupPoint'].includes(
+          regionSliderType
+        )
           ? {
               variant: 'primary',
               children:
@@ -174,7 +193,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
                 loading ||
                 input === '' ||
                 !pickupPointOption ||
-                pickupPointOption === selectedPickupPoint ||
+                pickupPointOption === selectedPickupPointFacet ||
                 regionError !== '' ||
                 input !== appliedInput ||
                 pickupPoints?.length === 0,
@@ -211,7 +230,9 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
         )}
 
-        {regionSliderType === 'changePickupPoint' &&
+        {['changePickupPoint', 'globalChangePickupPoint'].includes(
+          regionSliderType
+        ) &&
           input !== '' &&
           input === appliedInput &&
           !loading && (
