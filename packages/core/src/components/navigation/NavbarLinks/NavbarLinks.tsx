@@ -18,7 +18,6 @@ import { getRegionalizationSettings } from 'src/utils/globalSettings'
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
-  filterByStore?: NavbarProps['filterByStore']
   /**
    * Callback function when a link is clicked.
    */
