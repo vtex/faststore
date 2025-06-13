@@ -37,8 +37,8 @@
   // Structural Styles
   // --------------------------------------------------------
 
+  display: flex;
   width: var(--fs-region-bar-width);
-
   [data-fs-button] {
     width: var(--fs-region-bar-width);
 
