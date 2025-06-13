@@ -3,6 +3,7 @@ import config from '../../discovery.config'
 export const getBaseDomain = (urls: string[]) => {
   // Check if all hostnames are the same (unified domain scenario)
   if (urls[0] === urls[1]) {
+    console.log('Unified domain detected:', urls[0])
     return `.${new URL(config.storeUrl).hostname}`
   }
 

@@ -26,7 +26,7 @@ const createOrRefreshCookie = (key: string, expiresSecond: number) => {
         ? getBaseDomain([config.storeUrl, config.secureSubdomain])
         : `.${new URL(config.storeUrl).hostname}`
 
-  console.log(urlDomain)
+  console.log('urlDomain:', urlDomain)
 
   return () => {
     let currentValue = getCookie(key)
