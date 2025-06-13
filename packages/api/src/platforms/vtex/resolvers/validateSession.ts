@@ -1,5 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
+import { parse } from 'cookie'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
@@ -7,6 +8,7 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
+import { parseJwt } from '../utils/cookies'
 
 async function getPreciseLocationData(
   clients: Context['clients'],
@@ -33,7 +35,7 @@ async function getPreciseLocationData(
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context
+  { clients, headers, account }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
@@ -88,6 +90,15 @@ export const validateSession = async (
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
+  const authCookie = parse(headers?.cookie ?? '')?.[
+    'VtexIdclientAutCookie_' + account
+  ]
+  const jwt = parseJwt(authCookie)
+
+  const isRepresentative = jwt?.isRepresentative
+  const customerId = jwt?.customerId
+  const unitId = jwt?.unitId
+
   const sessionData = await clients.commerce
     .session(params.toString())
     .catch(() => null)
@@ -123,8 +134,18 @@ export const validateSession = async (
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
-    b2b: authentication?.customerId?.value
-      ? { customerId: authentication.customerId.value }
+    b2b: isRepresentative
+      ? {
+          isRepresentative: isRepresentative ?? false,
+          customerId: authentication?.customerId?.value ?? customerId ?? '', //contract
+          unitName: authentication?.unitName?.value ?? '', // organization name
+          unitId: authentication?.unitId?.value ?? unitId ?? '', // organization id
+          firstName: profile?.firstName?.value ?? '', // contract name for b2b
+          lastName: profile?.lastName?.value ?? '',
+          userName:
+            `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim(), // shopper
+          userEmail: authentication?.storeUserEmail.value ?? '',
+        }
       : null,
     marketingData,
     person: profile?.id

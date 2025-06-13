@@ -46,6 +46,13 @@ export const mutation = gql(`
       }
       b2b {
         customerId
+        isRepresentative
+        unitName
+        unitId
+        firstName
+        lastName
+        userName
+        userEmail
       }
       marketingData {
         utmCampaign

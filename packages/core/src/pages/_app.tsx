@@ -7,9 +7,7 @@ import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 import SEO from '../../next-seo.config'
 
 // FastStore UI's base styles
-import '../customizations/src/themes/index.scss'
-import '../plugins/index.scss'
-import '../styles/global/index.scss'
+import '../styles/main.scss'
 
 import { DefaultSeo } from 'next-seo'
 

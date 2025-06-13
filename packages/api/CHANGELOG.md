@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.51.0](https://github.com/vtex/faststore/compare/v3.50.4...v3.51.0) (2025-06-04)
+
+### Features
+
+- list orders custom fields new structure and layout ([#2871](https://github.com/vtex/faststore/issues/2871)) ([6842899](https://github.com/vtex/faststore/commit/68428999e0651a5754164bca41f03e7c1c7d2ed3))
+
+## [3.50.4](https://github.com/vtex/faststore/compare/v3.50.3...v3.50.4) (2025-06-03)
+
+### Bug Fixes
+
+- Add support for `shipping` facet ([#2878](https://github.com/vtex/faststore/issues/2878)) ([dc5f859](https://github.com/vtex/faststore/commit/dc5f859e91f76d3b366e2e8d751d99fdd13bd74e)), closes [vtex-sites/faststoreqa.store#820](https://github.com/vtex-sites/faststoreqa.store/issues/820)
+
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/api
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/api
+
+# [3.49.0](https://github.com/vtex/faststore/compare/v3.48.0...v3.49.0) (2025-05-26)
+
+### Features
+
+- improve validate session requests SFS-2517 ([#2857](https://github.com/vtex/faststore/issues/2857)) ([42a4131](https://github.com/vtex/faststore/commit/42a41319dd5b98d257f0f2121caaf74f1a399f12))
+
+# [3.48.0](https://github.com/vtex/faststore/compare/v3.47.2...v3.48.0) (2025-05-26)
+
+### Features
+
+- list orders custom fields + design improvements SFS-2513 SFS-2515 ([#2854](https://github.com/vtex/faststore/issues/2854)) ([20d5471](https://github.com/vtex/faststore/commit/20d547178f2e2a6ae1a7dde4d4e1b5dcbae5e4d6))
+
+# [3.47.0](https://github.com/vtex/faststore/compare/v3.46.0...v3.47.0) (2025-05-22)
+
+### Features
+
+- clean up GraphQL types and queries for user orders SFS-2516 ([#2858](https://github.com/vtex/faststore/issues/2858)) ([8ed42d5](https://github.com/vtex/faststore/commit/8ed42d590d0e0557f99ae1fc015f70d71a88a743))
+
+# [3.46.0](https://github.com/vtex/faststore/compare/v3.45.0...v3.46.0) (2025-05-21)
+
+### Features
+
+- userEmail instead of roles in Drawer SFS-2514 ([#2853](https://github.com/vtex/faststore/issues/2853)) ([56f36ba](https://github.com/vtex/faststore/commit/56f36bab29c39b530f5ddc3e734077f69c682e4a))
+
+# 3.45.0 (2025-05-20)
+
+### Features
+
+- my account release 2 ([#2786](https://github.com/vtex/faststore/issues/2786)) ([2a6339c](https://github.com/vtex/faststore/commit/2a6339ce060ff2707a6734f5c4fdae8b4f4c4480))
+
 # [3.44.0](https://github.com/vtex/faststore/compare/v3.43.0...v3.44.0) (2025-05-13)
 
 ### Features
