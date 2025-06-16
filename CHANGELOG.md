@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.52.1](https://github.com/vtex/faststore/compare/v3.52.0...v3.52.1) (2025-06-16)
+
+### Bug Fixes
+
+- Search events params to track conversion ([#2891](https://github.com/vtex/faststore/issues/2891)) ([17510c9](https://github.com/vtex/faststore/commit/17510c942a2b1cbdeeb2cd6a7e39dba43fe73345))
+
 # [3.52.0](https://github.com/vtex/faststore/compare/v3.51.0...v3.52.0) (2025-06-12)
 
 ### Features
