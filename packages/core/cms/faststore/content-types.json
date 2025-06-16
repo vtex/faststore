@@ -183,7 +183,7 @@
                   }
                 },
                 "filterByPickupPoint": {
-                  "title": "Global filter by store",
+                  "title": "Global Filter by Store",
                   "type": "object",
                   "properties": {
                     "enabled": {

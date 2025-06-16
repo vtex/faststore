@@ -2166,8 +2166,8 @@
         },
         "editLabel": {
           "title": "Location edit label",
-          "default": "",
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         "buttonIcon": {
           "title": "Button Icon",
