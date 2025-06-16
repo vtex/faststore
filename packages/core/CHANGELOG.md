@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.53.0](https://github.com/vtex/faststore/compare/v3.52.1...v3.53.0) (2025-06-16)
+
+### Features
+
+- sfs 2523 contract name main menu ([#2895](https://github.com/vtex/faststore/issues/2895)) ([60adc92](https://github.com/vtex/faststore/commit/60adc92721a4a9eef6db66d1f7c3b563474b554d))
+
 ## [3.52.1](https://github.com/vtex/faststore/compare/v3.52.0...v3.52.1) (2025-06-16)
 
 ### Bug Fixes
