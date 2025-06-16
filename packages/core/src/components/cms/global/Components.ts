@@ -7,6 +7,7 @@ import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
+import { getComponentKey } from 'src/utils/cms'
 
 const CartSidebar = dynamic(
   () =>
@@ -29,12 +30,12 @@ const Footer = dynamic(
 )
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
-  Alert,
-  Navbar,
-  RegionBar,
-  CartSidebar, // out of viewport
-  RegionModal, // out of viewport
-  Footer, // out of viewport
+  [getComponentKey(Alert, 'Alert')]: Alert,
+  [getComponentKey(Navbar, 'Navbar')]: Navbar,
+  [getComponentKey(RegionBar, 'RegionBar')]: RegionBar,
+  [getComponentKey(CartSidebar, 'CartSidebar')]: CartSidebar, // out of viewport
+  [getComponentKey(RegionModal, 'RegionModal')]: RegionModal, // out of viewport
+  [getComponentKey(Footer, 'Footer')]: Footer, // out of viewport
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
