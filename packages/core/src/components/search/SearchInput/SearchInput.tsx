@@ -106,7 +106,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       addToSearchHistory({ term, path })
       sendAnalytics(term)
       setSearchDropdownVisible(false)
-      setSearchQuery(term)
     }
 
     useOnClickOutside(searchRef, () =>
