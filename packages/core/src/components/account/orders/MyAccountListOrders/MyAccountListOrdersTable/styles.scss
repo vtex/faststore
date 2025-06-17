@@ -93,6 +93,11 @@
     vertical-align: top;
     border: none;
 
+    a {
+      color: var(--fs-color-neutral-7);
+      text-decoration: none;
+    }
+
     @include media("<notebook") {
       padding: var(--fs-list-orders-table-cell-padding-mobile);
     }
