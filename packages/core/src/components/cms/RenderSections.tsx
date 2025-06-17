@@ -146,11 +146,11 @@ function RenderSections({
   const { isInteractive } = useTTI()
   const router = useRouter()
 
-  const shouldShowPreviewTag = isContentPlatformSource() && router.isPreview
+  const shouldDisplayPreviewTag = isContentPlatformSource() && router.isPreview
 
   return (
     <>
-      {shouldShowPreviewTag && (
+      {shouldDisplayPreviewTag && (
         <LazyLoadingSection
           sectionName="PreviewTag"
           isInteractive={isInteractive}
