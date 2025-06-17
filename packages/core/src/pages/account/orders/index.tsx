@@ -130,7 +130,6 @@ export const getServerSideProps: GetServerSideProps<
     account: storeConfig.api.storeId,
   })
 
-  console.log('🚀 ~ isRepresentative:', isRepresentative)
 
   const { previewData } = context
 
