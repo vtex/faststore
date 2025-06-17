@@ -13,6 +13,8 @@ import { gql } from '@generated/gql'
 import type {
   ServerListOrdersQueryQuery,
   ServerListOrdersQueryQueryVariables,
+  ValidateUserQuery,
+  ValidateUserQueryVariables,
 } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
@@ -113,12 +115,42 @@ const query = gql(`
   }
 `)
 
+const validateUserQuery = gql(`
+  query ValidateUser {
+    validateUser {
+      isValid
+    }
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const validateUserResult = await execute<
+    ValidateUserQueryVariables,
+    ValidateUserQuery
+  >(
+    {
+      variables: {},
+      operation: validateUserQuery,
+    },
+    {
+      headers: { ...context.req.headers },
+    }
+  )
+
+  const isValid = validateUserResult?.data?.validateUser?.isValid
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { previewData } = context
 

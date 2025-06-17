@@ -14,6 +14,10 @@ import { execute } from 'src/server'
 
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import type {
+  ValidateUserQuery,
+  ValidateUserQueryVariables,
+} from '@generated/graphql'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -26,12 +30,42 @@ const query = gql(`
   }
 `)
 
+const validateUserQuery = gql(`
+  query ValidateUser {
+    validateUser {
+      isValid
+    }
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const validateUserResult = await execute<
+    ValidateUserQueryVariables,
+    ValidateUserQuery
+  >(
+    {
+      variables: {},
+      operation: validateUserQuery,
+    },
+    {
+      headers: { ...context.req.headers },
+    }
+  )
+
+  const isValid = validateUserResult?.data?.validateUser?.isValid
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,

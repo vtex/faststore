@@ -13,6 +13,8 @@ import { gql } from '@generated'
 import type {
   ServerOrderDetailsQueryQuery,
   ServerOrderDetailsQueryQueryVariables,
+  ValidateUserQuery,
+  ValidateUserQueryVariables,
 } from '@generated/graphql'
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
@@ -199,12 +201,42 @@ const query = gql(`
   }
 `)
 
+const validateUserQuery = gql(`
+  query ValidateUser {
+    validateUser {
+      isValid
+    }
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   OrderDetailsPageProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const validateUserResult = await execute<
+    ValidateUserQueryVariables,
+    ValidateUserQuery
+  >(
+    {
+      variables: {},
+      operation: validateUserQuery,
+    },
+    {
+      headers: { ...context.req.headers },
+    }
+  )
+
+  const isValid = validateUserResult?.data?.validateUser?.isValid
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,

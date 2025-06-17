@@ -561,6 +561,8 @@ export type Query = {
   shipping: Maybe<ShippingData>
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
+  /** Returns information about the user validation. */
+  validateUser: Maybe<ValidateUserData>
 }
 
 export type QueryAllCollectionsArgs = {
@@ -1997,6 +1999,11 @@ export type UserOrderTransactions = {
   transactionId: Maybe<Scalars['String']['output']>
 }
 
+export type ValidateUserData = {
+  /** Indicates if the user is valid. */
+  isValid: Scalars['Boolean']['output']
+}
+
 export type ProductSummary_ProductFragment = {
   slug: string
   sku: string
@@ -2169,12 +2176,6 @@ export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductFragment = { product: { id: string } }
 
-export type ServerAccountPageQueryQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type ServerAccountPageQueryQuery = { accountName: string | null }
-
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
@@ -2243,6 +2244,16 @@ export type ServerProductQueryQuery = {
     }>
   }
 }
+
+export type ServerAccountPageQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerAccountPageQueryQuery = { accountName: string | null }
+
+export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
 
 export type UserOrderItemsFragmentFragment = {
   id: string | null
@@ -3465,15 +3476,6 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'SearchEvent_metadata' }
 ) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>
-export const ServerAccountPageQueryDocument = {
-  __meta__: {
-    operationName: 'ServerAccountPageQuery',
-    operationHash: '47315a3cd26ddd9c7fa963778988464341b8193f',
-  },
-} as unknown as TypedDocumentString<
-  ServerAccountPageQueryQuery,
-  ServerAccountPageQueryQueryVariables
->
 export const ServerCollectionPageQueryDocument = {
   __meta__: {
     operationName: 'ServerCollectionPageQuery',
@@ -3491,6 +3493,24 @@ export const ServerProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables
+>
+export const ServerAccountPageQueryDocument = {
+  __meta__: {
+    operationName: 'ServerAccountPageQuery',
+    operationHash: '47315a3cd26ddd9c7fa963778988464341b8193f',
+  },
+} as unknown as TypedDocumentString<
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables
+>
+export const ValidateUserDocument = {
+  __meta__: {
+    operationName: 'ValidateUser',
+    operationHash: '32f99c73c3de958b64d6bece1afe800469f54548',
+  },
+} as unknown as TypedDocumentString<
+  ValidateUserQuery,
+  ValidateUserQueryVariables
 >
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {

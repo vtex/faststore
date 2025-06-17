@@ -22,6 +22,8 @@ import { execute } from 'src/server'
 import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
+  ValidateUserQuery,
+  ValidateUserQueryVariables,
 } from '@generated/graphql'
 
 /* A list of components that can be used in the CMS. */
@@ -58,12 +60,42 @@ const query = gql(`
   }
 `)
 
+const validateUserQuery = gql(`
+  query ValidateUser {
+    validateUser {
+      isValid
+    }
+  }
+`)
+
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const validateUserResult = await execute<
+    ValidateUserQueryVariables,
+    ValidateUserQuery
+  >(
+    {
+      variables: {},
+      operation: validateUserQuery,
+    },
+    {
+      headers: { ...context.req.headers },
+    }
+  )
+
+  const isValid = validateUserResult?.data?.validateUser?.isValid
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,

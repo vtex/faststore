@@ -495,4 +495,22 @@ export const Query = {
 
     return user?.name || ''
   },
+  validateUser: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    // This resolver is used to validate if the user is logged in
+    // and has access to the account area.
+    // If the user is not logged in, it will throw an error.
+    // If the user is logged in, it will return true.
+    try {
+      const response = await commerce.vtexid.validate()
+      return {
+        isValid: response.authStatus === 'authenticated',
+      }
+    } catch (error) {
+      throw new ForbiddenError('You are not allowed to access this resource')
+    }
+  },
 }
