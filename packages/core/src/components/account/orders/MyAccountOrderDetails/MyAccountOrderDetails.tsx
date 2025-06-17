@@ -1,5 +1,3 @@
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
@@ -14,8 +12,8 @@ import { useRouter } from 'next/router'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
-import { useCommercialAuthorization } from './MyAccountBuyingPolicyAlert/useCommercialAuthorizationMock'
 import styles from './section.module.scss'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -27,10 +25,6 @@ export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
   const router = useRouter()
-
-  // TODO: Remove this mock when the backend is ready
-  // MOCK: Hook para gerenciar buying policies
-  const { currentRule } = useCommercialAuthorization(order.orderId)
 
   const handleBack = () => {
     if (window.history.length > MIN_HISTORY_LENGTH_TO_GO_BACK) {
@@ -75,13 +69,11 @@ export default function MyAccountOrderDetails({
       </header>
 
       <main data-fs-order-details-content>
-        <MyAccountBuyingPolicyAlert
-          rule={{
-            ...currentRule,
-            orderAuthorizationId: '1',
-            dimensionId: '2',
-          }}
-        />
+        {order.ruleForAuthorization && (
+          <MyAccountBuyingPolicyAlert
+            ruleForAuthorization={order.ruleForAuthorization}
+          />
+        )}
 
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
 

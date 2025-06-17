@@ -1,12 +1,7 @@
 import type {
   CommercialAuthorizationResponse,
-  CommercialAuthorizationRule,
-} from '../clients/commerce/types/CommercialAuthorization'
-
-export interface RuleForAuthorization extends CommercialAuthorizationRule {
-  orderAuthorizationId: string
-  dimensionId: string
-}
+  ProcessOrderAuthorizationRule,
+} from '../../../__generated__/schema'
 
 /**
  * Extracts the first pending rule for authorization where the user is the next authorizer.
@@ -14,7 +9,7 @@ export interface RuleForAuthorization extends CommercialAuthorizationRule {
  */
 export function extractRuleForAuthorization(
   commercialAuth: CommercialAuthorizationResponse | null | undefined
-): RuleForAuthorization | null {
+): ProcessOrderAuthorizationRule | null {
   if (!commercialAuth || commercialAuth.status !== 'pending') {
     return null
   }
@@ -25,12 +20,12 @@ export function extractRuleForAuthorization(
     }
 
     const pendingRule = dimension.ruleCollection.find(
-      (rule) => rule.status === 'pending'
+      (rule) => rule.status === 'pending' && rule.isUserNextAuthorizer
     )
 
-    if (pendingRule && pendingRule.isUserNextAuthorizer) {
+    if (pendingRule) {
       return {
-        ...pendingRule,
+        rule: pendingRule,
         orderAuthorizationId: commercialAuth.id,
         dimensionId: dimension.id,
       }

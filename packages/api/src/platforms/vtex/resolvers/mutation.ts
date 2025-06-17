@@ -1,4 +1,5 @@
 import { cancelOrder } from './cancelOrder'
+import { processOrderAuthorization } from './processOrderAuthorization'
 import { subscribeToNewsletter } from './subscribeToNewsletter'
 import { validateCart } from './validateCart'
 import { validateSession } from './validateSession'
@@ -8,4 +9,5 @@ export const Mutation = {
   validateSession,
   subscribeToNewsletter,
   cancelOrder,
+  processOrderAuthorization,
 }

@@ -1,4 +1,5 @@
 import type {
+  ProcessOrderAuthorizationRule,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
@@ -31,10 +32,7 @@ import {
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
-import {
-  extractRuleForAuthorization,
-  type RuleForAuthorization,
-} from '../utils/commercialAuth'
+import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { StoreCollection } from './collection'
 
 export const Query = {
@@ -399,11 +397,16 @@ export const Query = {
     try {
       const order = await commerce.oms.userOrder({ orderId })
 
+      console.log('✅ Order userOrder executed:', {
+        orderId: order.orderId,
+        order,
+      })
+
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      let ruleForAuthorization: RuleForAuthorization | null = null
+      let ruleForAuthorization: ProcessOrderAuthorizationRule | null = null
 
       try {
         /**
@@ -417,7 +420,7 @@ export const Query = {
         ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
       } catch (err: any) {
         if (err.response?.status !== 404) {
-          throw err
+          // throw err
         }
       }
 
@@ -439,7 +442,6 @@ export const Query = {
         canProcessOrderAuthorization:
           // TODO: Check if still needs to check for order.status === 'waiting-for-approval'
           order.status === 'waiting-for-confirmation' && !!ruleForAuthorization,
-        // TODO: Add this to graphql schema
         ruleForAuthorization,
       }
     } catch (error) {
