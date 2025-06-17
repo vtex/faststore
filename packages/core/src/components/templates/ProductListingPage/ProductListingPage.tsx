@@ -1,13 +1,8 @@
 import type { SearchState } from '@faststore/sdk'
-import {
-  formatSearchState,
-  parseSearchState,
-  SearchProvider,
-  useSearch,
-} from '@faststore/sdk'
+import { useSearch } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useEffect } from 'react'
 
 import type {
   ServerCollectionPageQueryQuery,
@@ -48,24 +43,26 @@ export default function ProductListingPage({
   const { state } = useSearch()
   useApplySearchState()
 
-  if (state.selectedFacets.length === 0) {
-    state.setSelectedFacets([
-      ...collection?.meta.selectedFacets,
-      {
-        key: 'fuzzy',
-        value: server?.search?.metadata?.fuzzy ?? 'auto',
-      },
-      {
-        key: 'operator',
-        value: server?.search?.metadata?.logicalOperator ?? 'and',
-      },
-    ])
-  }
-
-  const sort = settings?.productGallery?.sortBySelection as SearchState['sort']
-  if (sort && !state.sort) {
-    state.setSort(sort)
-  }
+  useEffect(() => {
+    if (state.selectedFacets.length === 0) {
+      state.setSelectedFacets([
+        ...server.collection?.meta.selectedFacets,
+        {
+          key: 'fuzzy',
+          value: server?.search?.metadata?.fuzzy ?? 'auto',
+        },
+        {
+          key: 'operator',
+          value: server?.search?.metadata?.logicalOperator ?? 'and',
+        },
+      ])
+    }
+    const sort = plpContentType.settings?.productGallery
+      ?.sortBySelection as SearchState['sort']
+    if (sort && !state.sort) {
+      state.setSort(sort)
+    }
+  }, [state.selectedFacets, state.sort, server, plpContentType])
 
   const {
     seo: { plp: plpSeo, ...storeSeo },

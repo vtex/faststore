@@ -69,7 +69,7 @@ type UpdateSearchParamsType = {
   selectedFacets: Facet[]
   updatedFuzzyFacetValue?: string | null
   updatedOperatorFacetValue?: string | null
-  setState: (newState: SearchState) => false | void
+  setState: (newState: Partial<SearchState>) => void
   state: SearchState
 }
 
@@ -108,7 +108,6 @@ function updateSearchParamsState({
       (facet) => facet.key !== 'fuzzy' && facet.key !== 'operator'
     )
     setState({
-      ...state,
       selectedFacets: [
         ...filteredFacets,
         {
@@ -181,35 +180,11 @@ export const useProductGalleryQuery = ({
         })
       }
 
-      // Update the Search state (and URL) only if the values from fuzzy and operator changes
-      const setState = (state: SearchState) => {
-        for (const [key, value] of Object.entries(state)) {
-          const captilize = (str: string): string =>
-            `${str.charAt(0)?.toUpperCase()}${str.slice(1)}`
-          const updateMethod: string = `set${captilize(key)}`
-          if (
-            typeof searchState === 'object' &&
-            updateMethod in searchState &&
-            typeof (searchState as unknown as Record<string, unknown>)[
-              updateMethod
-            ] === 'function'
-          ) {
-            ;(searchState as any)[updateMethod]?.(value)
-          } else {
-            console.error(
-              '[Error]: trying to update unknown searchState property'
-            )
-          }
-        }
-      }
-
-      // searchState.setSelectedFacets(selectedFacets)
-      // searchState.set(selectedFacets)
       updateSearchParamsState({
         selectedFacets,
         updatedFuzzyFacetValue,
         updatedOperatorFacetValue,
-        setState,
+        setState: searchState.setState,
         state: searchState,
       })
     },

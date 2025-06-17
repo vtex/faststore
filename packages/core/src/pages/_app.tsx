@@ -25,14 +25,22 @@ function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
+      const currentState = searchState.serializedState()
+      const newState = new URL(url, window.location.origin)
+      for (const [key, value] of Array.from(
+        currentState.searchParams.entries()
+      )) {
+        if (newState.searchParams.has(key) === false)
+          newState.searchParams.set(key, value)
+      }
       // update state on navigation
-      searchState.parseURL(new URL(url, window.location.origin))
+      searchState.parseURL(newState)
     }
 
-    router.events.on('routeChangeStart', handleRouteChange)
+    router.events.on('beforeHistoryChange', handleRouteChange)
     searchState.setItemsPerPage(ITEMS_PER_PAGE)
 
-    return () => router.events.off('routeChangeStart', handleRouteChange)
+    return () => router.events.off('beforeHistoryChange', handleRouteChange)
   }, [])
 
   return (

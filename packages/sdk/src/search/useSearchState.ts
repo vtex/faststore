@@ -49,6 +49,7 @@ export type UseSearchState = State &
     serializedState: () => URL
     initialized: boolean
     start: (asPath: string) => void
+    setState: (state: Partial<State>) => void
   }
 
 const stateBase = create<UseSearchState>((set, get) => ({
@@ -60,6 +61,7 @@ const stateBase = create<UseSearchState>((set, get) => ({
   setPage: (page) => set({ page }),
   setPassThrough: (passThrough) => set({ passThrough }),
   setItemsPerPage: (itemsPerPage) => ({ itemsPerPage }),
+  setState: (state: Partial<State>) => set(state),
   parseURL: (url: URL) => {
     const newState = parse(url)
     const oldState = format(get())
