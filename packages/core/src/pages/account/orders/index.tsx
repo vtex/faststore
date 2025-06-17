@@ -130,7 +130,6 @@ export const getServerSideProps: GetServerSideProps<
     account: storeConfig.api.storeId,
   })
 
-
   const { previewData } = context
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
