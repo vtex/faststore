@@ -15,6 +15,7 @@ import type {
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { CommercialAuthorizationResponse } from '../clients/commerce/types/CommercialAuthorization'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
@@ -399,6 +400,34 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
+      let commercialAuth: CommercialAuthorizationResponse | null = null
+
+      try {
+        /**
+         * This endpoint could return a 404 error if has not an authorization
+         * for the order, so we catch the error and return null
+         * instead of throwing an error.
+         */
+        commercialAuth =
+          await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
+      } catch (err: any) {
+        if (err.response?.status !== 404) {
+          throw err
+        }
+
+        commercialAuth = null
+      }
+
+      const generalStatusIsPending = commercialAuth?.status === 'pending'
+
+      const firstPendingDimension = commercialAuth?.dimensionStatus.find(
+        (dimension) => dimension.status === 'pending'
+      )
+
+      const firstPendingRule = firstPendingDimension?.ruleCollection.find(
+        (rule) => rule.status === 'pending'
+      )
+
       return {
         orderId: order.orderId,
         totals: order.totals,
@@ -411,6 +440,13 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
+        canCancelOrder:
+          order.status === 'payment-approved' ||
+          order.status === 'approve-payment',
+        canProcessOrderAuthorization:
+          order.status === 'waiting-for-confirmation' &&
+          generalStatusIsPending &&
+          !!firstPendingRule?.isUserNextAuthorizer,
       }
     } catch (error) {
       const result = JSON.parse((error as Error).message).error as {
@@ -468,5 +504,24 @@ export const Query = {
     const { profile } = namespaces
 
     return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
+  },
+  // only b2b users
+  userDetails: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    // const params = new URLSearchParams()
+    const sessionData = await commerce.session('').catch(() => null)
+
+    const profile = sessionData?.namespaces.profile ?? null
+    const authentication = sessionData?.namespaces.authentication ?? null
+
+    return {
+      name: `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim(), // TODO change when implemented shopper from MD
+      email: authentication?.storeUserEmail.value ?? '',
+      role: ['Admin'], // TODO change when implemented roles,
+      orgUnit: authentication?.unitName?.value ?? '',
+    }
   },
 }

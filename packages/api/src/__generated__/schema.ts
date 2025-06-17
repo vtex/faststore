@@ -561,6 +561,8 @@ export type Query = {
   sellers?: Maybe<SellersData>;
   /** Returns information about shipping simulation. */
   shipping?: Maybe<ShippingData>;
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails;
   /** Returns information about the Details of an User Order. */
   userOrder?: Maybe<UserOrderResult>;
 };
@@ -1332,6 +1334,19 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>;
 };
 
+/** User details information. */
+export type StoreUserDetails = {
+  __typename?: 'StoreUserDetails';
+  /** User's email. */
+  email?: Maybe<Scalars['String']>;
+  /** User's name. */
+  name?: Maybe<Scalars['String']>;
+  /** User's organizational unit. */
+  orgUnit?: Maybe<Scalars['String']>;
+  /** User's role. */
+  role?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
 export type UserOrder = {
   __typename?: 'UserOrder';
   affiliateId?: Maybe<Scalars['String']>;
@@ -1339,6 +1354,8 @@ export type UserOrder = {
   allowEdition?: Maybe<Scalars['Boolean']>;
   authorizedDate?: Maybe<Scalars['String']>;
   callCenterOperatorData?: Maybe<Scalars['String']>;
+  canCancelOrder?: Maybe<Scalars['Boolean']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
@@ -2046,6 +2063,8 @@ export type UserOrderRestitutions = {
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
   allowCancellation?: Maybe<Scalars['Boolean']>;
+  canCancelOrder?: Maybe<Scalars['Boolean']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;

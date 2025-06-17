@@ -97,6 +97,12 @@ export const getWithCookie = (ctx: ContextForCookies) =>
     }
   }
 
+export const getAuthCookie = (cookies: string, account: string) => {
+  const parsedCookies = parse(cookies)
+  const authCookie = parsedCookies[`VtexIdclientAutCookie_${account}`]
+  return authCookie || ''
+}
+
 export const getWithAutCookie = (ctx: ContextForCookies) => {
   const withCookie = getWithCookie(ctx)
 
@@ -106,8 +112,10 @@ export const getWithAutCookie = (ctx: ContextForCookies) => {
       'X-FORWARDED-HOST': forwardedHost,
     })
 
-    const cookies = parse(ctx?.headers?.cookie ?? '')
-    const VtexIdclientAutCookie = cookies[`VtexIdclientAutCookie_${account}`]
+    const VtexIdclientAutCookie = getAuthCookie(
+      ctx?.headers?.cookie ?? '',
+      account
+    )
     headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
 
     return headers

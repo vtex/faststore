@@ -559,6 +559,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
 }
@@ -1260,12 +1262,26 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
+/** User details information. */
+export type StoreUserDetails = {
+  /** User's email. */
+  email: Maybe<Scalars['String']['output']>
+  /** User's name. */
+  name: Maybe<Scalars['String']['output']>
+  /** User's organizational unit. */
+  orgUnit: Maybe<Scalars['String']['output']>
+  /** User's role. */
+  role: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
 export type UserOrder = {
   affiliateId: Maybe<Scalars['String']['output']>
   allowCancellation: Maybe<Scalars['Boolean']['output']>
   allowEdition: Maybe<Scalars['Boolean']['output']>
   authorizedDate: Maybe<Scalars['String']['output']>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
+  canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
   cancellationData: Maybe<UserOrderCancellationData>
   cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
@@ -1913,6 +1929,8 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
+  canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
@@ -2266,6 +2284,8 @@ export type ServerOrderDetailsQueryQuery = {
   userOrder: {
     orderId: string | null
     status: string | null
+    canCancelOrder: boolean | null
+    canProcessOrderAuthorization: boolean | null
     statusDescription: string | null
     allowCancellation: boolean | null
     storePreferencesData: { currencyCode: string | null } | null
@@ -2449,7 +2469,15 @@ export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
 }>
 
-export type ServerUserDetailsQueryQuery = { accountName: string | null }
+export type ServerUserDetailsQueryQuery = {
+  accountName: string | null
+  userDetails: {
+    name: string | null
+    email: string | null
+    role: Array<string | null> | null
+    orgUnit: string | null
+  }
+}
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
@@ -3495,7 +3523,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'c957b142e7f211126246f91a42db6d76c519da77',
+    operationHash: '33a6e9de8e973fcf1f83b37b08ee5639f0d9ac34',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3531,7 +3559,7 @@ export const ServerSecurityQueryDocument = {
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerUserDetailsQuery',
-    operationHash: '92d9db34aa133d60d474c6d4cdcdd2fc19041a5e',
+    operationHash: '522e5feeb80e67cee931bc98eac9d08ea75c75d2',
   },
 } as unknown as TypedDocumentString<
   ServerUserDetailsQueryQuery,

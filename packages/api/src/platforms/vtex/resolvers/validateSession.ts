@@ -1,6 +1,5 @@
 import deepEquals from 'fast-deep-equal'
 
-import { parse } from 'cookie'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
@@ -8,7 +7,7 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
-import { parseJwt } from '../utils/cookies'
+import { getAuthCookie, parseJwt } from '../utils/cookies'
 
 async function getPreciseLocationData(
   clients: Context['clients'],
@@ -90,10 +89,7 @@ export const validateSession = async (
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
-  const authCookie = parse(headers?.cookie ?? '')?.[
-    'VtexIdclientAutCookie_' + account
-  ]
-  const jwt = parseJwt(authCookie)
+  const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
 
   const isRepresentative = jwt?.isRepresentative
   const customerId = jwt?.customerId

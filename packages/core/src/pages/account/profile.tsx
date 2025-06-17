@@ -9,12 +9,14 @@ import { MyAccountLayout } from 'src/components/account'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { ProfileSection } from 'src/components/account/profile'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { gql } from '@generated/gql'
@@ -23,6 +25,7 @@ import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
 } from '@generated/graphql'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -33,6 +36,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 export default function Profile({
   globalSections,
   accountName,
+  isRepresentative,
 }: MyAccountProps) {
   return (
     <RenderSections
@@ -41,11 +45,12 @@ export default function Profile({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
+      <MyAccountLayout
+        isRepresentative={isRepresentative}
+        accountName={accountName}
+      >
         <BeforeSection />
-        <div>
-          <h1>Profile</h1>
-        </div>
+        <ProfileSection />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
@@ -64,6 +69,11 @@ export const getServerSideProps: GetServerSideProps<
   Locator
 > = async (context) => {
   // TODO validate permissions here
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -116,6 +126,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: profile.data.accountName,
+      isRepresentative,
     },
   }
 }
