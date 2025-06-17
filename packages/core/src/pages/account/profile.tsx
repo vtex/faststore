@@ -16,6 +16,7 @@ import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { gql } from '@generated/gql'
@@ -25,6 +26,7 @@ import type {
   ServerProfileQueryQueryVariables,
 } from '@generated/graphql'
 import { validateUser } from 'src/sdk/account/validateUser'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -35,6 +37,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 export default function Profile({
   globalSections,
   accountName,
+  isRepresentative,
 }: MyAccountProps) {
   return (
     <RenderSections
@@ -43,7 +46,10 @@ export default function Profile({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
+      <MyAccountLayout
+        isRepresentative={isRepresentative}
+        accountName={accountName}
+      >
         <BeforeSection />
         <ProfileSection />
         <AfterSection />
@@ -73,6 +79,11 @@ export const getServerSideProps: GetServerSideProps<
       },
     }
   }
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -125,6 +136,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: profile.data.accountName,
+      isRepresentative,
     },
   }
 }

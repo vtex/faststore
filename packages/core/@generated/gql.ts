@@ -52,7 +52,7 @@ const documents = {
     types.ServerProfileQueryDocument,
   '\n  query ServerSecurityQuery {\n    accountName\n  }\n':
     types.ServerSecurityQueryDocument,
-  '\n  query ServerUserDetailsQuery {\n    accountName\n  }\n':
+  '\n  query ServerUserDetailsQuery {\n    accountName\n    userDetails {\n      name\n      email\n      role\n      orgUnit\n    }\n  }\n':
     types.ServerUserDetailsQueryDocument,
   '\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n':
     types.CancelOrderMutationDocument,
@@ -210,7 +210,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ServerUserDetailsQuery {\n    accountName\n  }\n'
+  source: '\n  query ServerUserDetailsQuery {\n    accountName\n    userDetails {\n      name\n      email\n      role\n      orgUnit\n    }\n  }\n'
 ): typeof import('./graphql').ServerUserDetailsQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

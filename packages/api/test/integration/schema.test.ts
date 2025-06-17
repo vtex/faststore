@@ -71,6 +71,7 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'userDetails',
   'accountName',
   'validateUser',
 ]
