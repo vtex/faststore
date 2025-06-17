@@ -30,6 +30,11 @@ const Toast = dynamic(
   { ssr: false }
 )
 
+const PreviewTag = dynamic(
+  () => import(/* webpackChunkName: "PreviewTag" */ '../common/PreviewTag'),
+  { ssr: false }
+)
+
 const useDividedSections = (sections: Section[]) => {
   return useMemo(() => {
     const indexChildren = sections.findIndex(({ name }) => name === 'Children')
@@ -150,7 +155,7 @@ function RenderSections({
           sectionName="PreviewTag"
           isInteractive={isInteractive}
         >
-          {components.PreviewTag && <components.PreviewTag />}
+          <PreviewTag />
         </LazyLoadingSection>
       )}
       {firstSections && (

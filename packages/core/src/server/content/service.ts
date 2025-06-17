@@ -1,6 +1,9 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
-import ClientCP from '@vtex/client-cp'
-import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
+import ClientCP from '../../../../../../content-management-packages/packages/client-cp'
+import type {
+  ContentEntry,
+  EntryPathParams,
+} from '../../../../../../content-management-packages/packages/client-cp'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
 import type { ContentOptions, ContentParams, PreviewData } from './types'
 import config from '../../../discovery.config'
@@ -15,7 +18,7 @@ import MissingContentError from 'src/sdk/error/MissingContentError'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import type { ServerProductQueryQuery } from '@generated/graphql'
-import { isContentPlatformSource } from './utils'
+import { isBranchPreview, isContentPlatformSource } from './utils'
 
 export class ContentService {
   private clientCP: ClientCP
@@ -162,17 +165,17 @@ export class ContentService {
   private createContentOptions(params: ContentParams): ContentOptions {
     const { contentType, previewData, slug } = params
 
-    const isContentPreview = previewData?.contentType === contentType
-    const isBranchPreview = this.isBranchPreview(previewData)
+    const contentPreviewEnabled = previewData?.contentType === contentType
+    const branchPreviewEnabled = isBranchPreview(previewData)
 
     return {
       cmsOptions: this.buildCmsOptions(
         params,
-        isContentPreview,
-        isBranchPreview
+        contentPreviewEnabled,
+        branchPreviewEnabled
       ),
       ...(slug !== undefined && { slug }),
-      isPreview: isContentPreview || isBranchPreview,
+      isPreview: contentPreviewEnabled || branchPreviewEnabled,
     }
   }
 
@@ -245,15 +248,6 @@ export class ContentService {
       id: entry.id,
       name: entry.name || '',
     }
-  }
-
-  private isBranchPreview(
-    previewData: PreviewData | null | undefined
-  ): boolean {
-    return (
-      isContentPlatformSource() &&
-      !!(previewData?.versionId || previewData?.releaseId)
-    )
   }
 }
 

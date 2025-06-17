@@ -3,7 +3,11 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import { previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import { isLocator } from 'src/server/cms'
-import { isContentPlatformSource } from 'src/server/content/utils'
+import {
+  isBranchPreview,
+  isContentPlatformSource,
+} from 'src/server/content/utils'
+import type { PreviewData } from 'src/server/content/types'
 
 type Settings = {
   seo: {
@@ -31,14 +35,11 @@ const setPreviewAndRedirect = (
   previewData: Record<string, string>,
   redirectPath: string
 ) => {
-  const isBranchPreview =
-    isContentPlatformSource() &&
-    !!(previewData?.versionId || previewData?.releaseId)
   const options: any = {
     maxAge: 3600,
   }
 
-  if (!isBranchPreview) {
+  if (!isBranchPreview(previewData as PreviewData)) {
     options.path = redirectPath
   }
 
