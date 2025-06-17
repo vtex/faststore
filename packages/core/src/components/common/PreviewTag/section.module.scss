@@ -4,7 +4,7 @@
     @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
     @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
 
-    .preview-tag[data-fs-tag] {
+    [data-fs-preview-tag] {
       box-shadow: var(--fs-shadow-darker);
       backdrop-filter: blur(var(--fs-spacing-1));
     }

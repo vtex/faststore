@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { Tag } from '@faststore/ui'
-import { isContentPlatformSource } from 'src/server/content/utils'
+import { Tag as UITag } from '@faststore/ui'
 import Section from 'src/components/sections/Section/Section'
 
 import styles from './section.module.scss'
@@ -13,10 +12,6 @@ export interface PreviewTagProps {
 
 function PreviewTag({ text = 'Preview', exitUrl }: PreviewTagProps) {
   const router = useRouter()
-
-  if (!isContentPlatformSource() || !router.isPreview) {
-    return null
-  }
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -42,9 +37,9 @@ function PreviewTag({ text = 'Preview', exitUrl }: PreviewTagProps) {
 
   return (
     <Section className={`${styles.section} section-preview-tag`}>
-      <Tag
-        className="preview-tag"
-        data-testid="fs-preview-tag"
+      <UITag
+        data-fs-preview-tag
+        testId="fs-preview-tag"
         variant="danger"
         label={text}
         iconButtonLabel="Exit preview"
