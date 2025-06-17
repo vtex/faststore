@@ -3,10 +3,10 @@ import styles from './profile.module.scss'
 import { useDateFormatter } from './use-date-formatter'
 
 interface UserProfile {
-  name: string
-  email: string
-  id: string
-  createdDate: string
+  name: string | null
+  email: string | null
+  id: string | null
+  createdDate?: string | null
 }
 
 export interface ProfileSectionProps {
@@ -18,17 +18,10 @@ export interface ProfileSectionProps {
  * Renders the /account/profile section
  * TODO: Remove mocked values
  */
-export function ProfileSection(props: ProfileSectionProps) {
-  const {
-    locale = 'en-US',
-    profile = {
-      name: 'Mr Raccoon',
-      email: 'mr@raccoon.com',
-      id: 'SC-31441-5279',
-      createdDate: '12-01-2010',
-    },
-  } = props
-
+export function ProfileSection({
+  profile,
+  locale = 'en-US',
+}: ProfileSectionProps) {
   const { formatStringDate } = useDateFormatter(locale)
 
   return (
@@ -41,24 +34,24 @@ export function ProfileSection(props: ProfileSectionProps) {
           <tbody data-fs-account-profile-table-body>
             <tr data-fs-account-profile-table-row>
               <th data-fs-account-profile-table-heading>{strings.name}</th>
-              <td data-fs-account-profile-table-data>{profile.name}</td>
+              <td data-fs-account-profile-table-data>{profile?.name}</td>
             </tr>
             <tr data-fs-account-profile-table-row>
               <th data-fs-account-profile-table-heading>{strings.email}</th>
               <td data-fs-account-profile-table-data>
-                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                <a href={`mailto:${profile?.email}`}>{profile?.email}</a>
               </td>
             </tr>
             <tr data-fs-account-profile-table-row>
               <th data-fs-account-profile-table-heading>{strings.id}</th>
-              <td data-fs-account-profile-table-data>{profile.id}</td>
+              <td data-fs-account-profile-table-data>{profile?.id}</td>
             </tr>
             <tr data-fs-account-profile-table-row>
               <th data-fs-account-profile-table-heading>
                 {strings.createdDate}
               </th>
               <td data-fs-account-profile-table-data>
-                {formatStringDate(profile.createdDate)}
+                {profile.createdDate && formatStringDate(profile.createdDate)}
               </td>
             </tr>
           </tbody>
