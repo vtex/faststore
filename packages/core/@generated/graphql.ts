@@ -559,6 +559,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
 }
@@ -1258,6 +1260,18 @@ export type StoreSuggestions = {
   products: Array<StoreProduct>
   /** Array with suggestion terms. */
   terms: Array<StoreSuggestionTerm>
+}
+
+/** User details information. */
+export type StoreUserDetails = {
+  /** User's email. */
+  email: Maybe<Scalars['String']['output']>
+  /** User's name. */
+  name: Maybe<Scalars['String']['output']>
+  /** User's organizational unit. */
+  orgUnit: Maybe<Scalars['String']['output']>
+  /** User's role. */
+  role: Maybe<Array<Maybe<Scalars['String']['output']>>>
 }
 
 export type UserOrder = {
@@ -2455,7 +2469,15 @@ export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
 }>
 
-export type ServerUserDetailsQueryQuery = { accountName: string | null }
+export type ServerUserDetailsQueryQuery = {
+  accountName: string | null
+  userDetails: {
+    name: string | null
+    email: string | null
+    role: Array<string | null> | null
+    orgUnit: string | null
+  }
+}
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
@@ -3537,7 +3559,7 @@ export const ServerSecurityQueryDocument = {
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerUserDetailsQuery',
-    operationHash: '92d9db34aa133d60d474c6d4cdcdd2fc19041a5e',
+    operationHash: '522e5feeb80e67cee931bc98eac9d08ea75c75d2',
   },
 } as unknown as TypedDocumentString<
   ServerUserDetailsQueryQuery,

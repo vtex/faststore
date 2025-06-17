@@ -16,6 +16,7 @@ import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { execute } from 'src/server'
@@ -24,6 +25,7 @@ import type {
   ServerSecurityQueryQuery,
   ServerSecurityQueryQueryVariables,
 } from '@generated/graphql'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -38,6 +40,7 @@ type SecurityPageProps = {
 export default function Page({
   globalSections,
   accountName,
+  isRepresentative,
 }: SecurityPageProps) {
   return (
     <RenderSections
@@ -46,7 +49,10 @@ export default function Page({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
+      <MyAccountLayout
+        isRepresentative={isRepresentative}
+        accountName={accountName}
+      >
         <BeforeSection />
         <div>
           <h1>Security</h1>
@@ -69,6 +75,11 @@ export const getServerSideProps: GetServerSideProps<
   Locator
 > = async (context) => {
   // TODO validate permissions here
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -121,6 +132,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: security.data.accountName,
+      isRepresentative,
     },
   }
 }

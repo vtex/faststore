@@ -505,4 +505,23 @@ export const Query = {
 
     return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
   },
+  // only b2b users
+  userDetails: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    // const params = new URLSearchParams()
+    const sessionData = await commerce.session('').catch(() => null)
+
+    const profile = sessionData?.namespaces.profile ?? null
+    const authentication = sessionData?.namespaces.authentication ?? null
+
+    return {
+      name: `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim(), // TODO change when implemented shopper from MD
+      email: authentication?.storeUserEmail.value ?? '',
+      role: ['Admin'], // TODO change when implemented roles,
+      orgUnit: authentication?.unitName?.value ?? '',
+    }
+  },
 }
