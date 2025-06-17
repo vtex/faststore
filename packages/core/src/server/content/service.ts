@@ -1,9 +1,6 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
-import ClientCP from '../../../../../../content-management-packages/packages/client-cp'
-import type {
-  ContentEntry,
-  EntryPathParams,
-} from '../../../../../../content-management-packages/packages/client-cp'
+import ClientCP from '@vtex/client-cp'
+import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
 import type { ContentOptions, ContentParams, PreviewData } from './types'
 import config from '../../../discovery.config'
