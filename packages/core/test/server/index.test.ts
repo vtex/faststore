@@ -87,6 +87,7 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'cancelOrder',
+  'processOrderAuthorization',
 ]
 
 describe('FastStore GraphQL Layer', () => {

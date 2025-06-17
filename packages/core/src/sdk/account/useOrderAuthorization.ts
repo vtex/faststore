@@ -1,61 +1,78 @@
-import { useState } from 'react'
+import { gql } from '@generated'
+import { useLazyQuery } from '../graphql/useLazyQuery'
+import type {
+  MutationProcessOrderAuthorizationArgs as Variables,
+  ProcessOrderAuthorizationMutationMutation,
+} from '@generated/graphql'
 
-interface ProcessOrderAuthorizationVariables {
-  data: {
-    orderAuthorizationId: string
-    ruleId: string
-    dimensionId: string
-    approved: boolean
+export const mutation = gql(`
+  mutation ProcessOrderAuthorizationMutation($data: IProcessOrderAuthorization!) {
+    processOrderAuthorization(data: $data) {
+      isPendingForOtherAuthorizer
+      ruleForAuthorization {
+        orderAuthorizationId
+        dimensionId
+        rule {
+          id
+          name
+          status
+          doId
+          authorizedEmails
+          priority
+          trigger {
+            condition {
+              conditionType
+              description
+              lessThan
+              greatherThan
+              expression
+            }
+            effect {
+              description
+              effectType
+              funcPath
+            }
+          }
+          timeout
+          notification
+          scoreInterval {
+            accept
+            deny
+          }
+          authorizationData {
+            requireAllApprovals
+            authorizers {
+              id
+              email
+              type
+              authorizationDate
+            }
+          }
+          isUserAuthorized
+          isUserNextAuthorizer
+        }
+      }
+    }
   }
-}
+`)
 
 export const useOrderAuthorization = () => {
-  const [data, setData] = useState<{
-    data: {
-      isPendingForOtherAuthorizer: boolean
-      hasNextRuleForAuthorization: boolean
-    }
-  }>(null)
-  const [error, setError] = useState<Error | null>(null)
-  const [loading, setLoading] = useState(false)
-
-  const processOrderAuthorization = async (
-    variables: ProcessOrderAuthorizationVariables
-  ) => {
-    setLoading(true)
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 800))
-
-      const shouldSucceed = Math.random() > 0.9
-
-      if (!shouldSucceed) {
-        throw new Error('Failed to process order')
-      }
-
-      const mockResponse = {
+  const [processOrderAuthorization, { data, error, isValidating: loading }] =
+    useLazyQuery<ProcessOrderAuthorizationMutationMutation, Variables>(
+      mutation,
+      {
         data: {
-          isPendingForOtherAuthorizer: false,
-          hasNextRuleForAuthorization: false,
+          orderAuthorizationId: '',
+          ruleId: '',
+          dimensionId: '',
+          approved: false,
         },
       }
-
-      setData(mockResponse)
-      setLoading(false)
-
-      return mockResponse
-    } catch (err) {
-      const error =
-        err instanceof Error ? err : new Error('Failed to process order')
-      setError(error)
-      setLoading(false)
-      throw error
-    }
-  }
+    )
 
   return {
     processOrderAuthorization,
-    data,
+    data: data?.processOrderAuthorization || null,
     error,
     loading,
   }
