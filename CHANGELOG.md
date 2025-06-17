@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.54.0](https://github.com/vtex/faststore/compare/v3.53.0...v3.54.0) (2025-06-17)
+
+### Features
+
+- add link to order details in MyAccountListOrdersTable ([#2896](https://github.com/vtex/faststore/issues/2896)) ([3186a91](https://github.com/vtex/faststore/commit/3186a91440a889a75a0b702ddc1248caf013156a))
+
 # [3.53.0](https://github.com/vtex/faststore/compare/v3.52.1...v3.53.0) (2025-06-16)
 
 ### Features
