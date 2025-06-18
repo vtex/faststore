@@ -1,6 +1,6 @@
 import { useMemo, useReducer } from 'react'
 
-import { SDKError } from '../utils/error'
+import { SDKError } from '../../utils/error'
 
 type State = number[]
 

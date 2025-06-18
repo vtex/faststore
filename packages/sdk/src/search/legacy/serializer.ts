@@ -1,7 +1,9 @@
-import { SDKError } from '../utils/error'
-import { isSearchSort, setFacet } from './facets'
+import { SDKError } from '../../utils/error'
+import { isSearchSort, setFacet } from '../facets'
 import { initialize } from './useSearchState'
-import type { SearchSort, State } from '../types'
+import type { State } from './state'
+
+type SearchSort = State['sort']
 
 function getPassThroughSearchParams(
   params: URLSearchParams,
@@ -21,6 +23,10 @@ function getPassThroughSearchParams(
   return passthroughParams
 }
 
+/**
+ * @deprecated This serializer is deprecated because it uses an old search state. \
+ * Use the one at sdk/src/search/global-state/serializer instead
+ */
 export const parse = ({ pathname, searchParams }: URL): State => {
   const state = initialize({
     base: pathname,
@@ -29,7 +35,7 @@ export const parse = ({ pathname, searchParams }: URL): State => {
     page: Number(searchParams.get('page') ?? 0),
   })
 
-  if (state.sort && !isSearchSort(state.sort)) {
+  if (!isSearchSort(state.sort)) {
     throw new SDKError(`Uknown sorting option ${state.sort}`)
   }
 

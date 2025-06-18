@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import type { StoreApi, UseBoundStore } from 'zustand'
-import type { State } from '../types'
+import type { State } from '../../types'
 import { parse } from './serializer'
-import format from '../utils/format'
+import format from '../../utils/format'
 
 type WithSelectors<S> = S extends { getState: () => infer T }
   ? S & { use: { [K in keyof T]: () => T[K] } }

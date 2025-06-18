@@ -82,11 +82,17 @@ export { sendAnalyticsEvent } from './analytics/sendAnalyticsEvent'
 export { useAnalyticsEvent } from './analytics/useAnalyticsEvent'
 
 // Faceted Search
-export { parse as parseSearchState } from './search/serializer'
+// legacy
+export {
+  parseSearchState,
+  SearchState,
+  initSearchState,
+  usePagination,
+  SearchProvider,
+  formatSearchState,
+  useSearch,
+} from './search/legacy'
 
-export { default as formatSearchState } from './utils/format'
-
-export { initialize as initSearchState } from './search/useSearchState'
 export {
   isSearchSort,
   removeFacet,
@@ -94,13 +100,16 @@ export {
   toggleFacet,
   toggleFacets,
 } from './search/facets'
+
 export {
-  Provider as SearchProvider,
-  type SearchProviderProps,
-} from './search/Provider'
-export { useSearch } from './search/useSearch'
-export { usePagination } from './search/usePagination'
-export type { State as SearchState } from './types'
+  parse as parseSearchGlobalState,
+  initialize as initSearchGlobalState,
+  usePagination as useGlobalStatePagination,
+  useSearch as useGlobalStateSearch,
+} from './search/global-state'
+
+export { default as formatSearchGlobalState } from './utils/format'
+export { State as SearchGlobalState } from './types'
 
 // UI
 export { Context as UIContext, Provider as UIProvider } from './ui/Provider'

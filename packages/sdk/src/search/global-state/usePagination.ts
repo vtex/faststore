@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
-import type { State as SearchState } from '../types'
-import format from '../utils/format'
+import type { State as SearchState } from '../../types'
+import format from '../../utils/format'
 import { useSearch } from './useSearch'
 
 const getLink = (state: SearchState) => {
