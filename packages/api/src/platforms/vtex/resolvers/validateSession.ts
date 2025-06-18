@@ -74,7 +74,7 @@ export const validateSession = async (
   if (!!geoCoordinates) {
     params.set(
       'geoCoordinates',
-      `${geoCoordinates.latitude},${geoCoordinates.longitude}`
+      `${geoCoordinates.longitude},${geoCoordinates.latitude}` // long,lat is the format expected
     )
   }
 
