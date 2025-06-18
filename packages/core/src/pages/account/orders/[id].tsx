@@ -1,7 +1,7 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
-import type { ComponentType } from 'react'
+import { useEffect, type ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
 import MyAccountOrderDetails from 'src/components/account/orders/MyAccountOrderDetails'
 import RenderSections from 'src/components/cms/RenderSections'
@@ -21,6 +21,7 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
+import storeConfig from '../../../../discovery.config'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -29,13 +30,85 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type OrderDetailsPageProps = {
   order: ServerOrderDetailsQueryQuery['userOrder']
+  debugInfo?: any
 } & MyAccountProps
 
 export default function OrderDetailsPage({
   globalSections,
   order,
   accountName,
+  debugInfo,
 }: OrderDetailsPageProps) {
+  // Log debug info no console do browser
+  useEffect(() => {
+    if (debugInfo) {
+      console.log('🐛 Order Details Debug Info:', debugInfo)
+    }
+  }, [debugInfo])
+
+  // Se estiver em modo debug, mostrar informações na tela
+  if (debugInfo.errors) {
+    return (
+      <div
+        style={{ padding: '20px', fontFamily: 'monospace', fontSize: '12px' }}
+      >
+        <h1>🐛 Debug Mode - Order Details Error</h1>
+        <div
+          style={{
+            background: '#f5f5f5',
+            padding: '10px',
+            marginBottom: '20px',
+          }}
+        >
+          <h3>Request Info:</h3>
+          <pre>{JSON.stringify(debugInfo, null, 2)}</pre>
+        </div>
+
+        {debugInfo.errors && (
+          <div
+            style={{
+              background: '#ffe6e6',
+              padding: '10px',
+              marginBottom: '20px',
+            }}
+          >
+            <h3>GraphQL Errors:</h3>
+            <pre>{JSON.stringify(debugInfo.errors, null, 2)}</pre>
+          </div>
+        )}
+
+        <div style={{ background: '#e6f3ff', padding: '10px' }}>
+          <h3>Navigation Context:</h3>
+          <p>
+            <strong>Referer:</strong> {debugInfo.referer || 'None'}
+          </p>
+          <p>
+            <strong>Has Cookies:</strong> {debugInfo.hasCookie ? 'Yes' : 'No'}
+          </p>
+          <p>
+            <strong>Cookie Count:</strong> {debugInfo.cookieCount}
+          </p>
+          <p>
+            <strong>Timestamp:</strong> {debugInfo.timestamp}
+          </p>
+          <p>
+            <strong>Environment:</strong> {debugInfo.environment}
+          </p>
+        </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <button onClick={() => window.history.back()}>← Go Back</button>
+          <button
+            onClick={() => window.location.reload()}
+            style={{ marginLeft: '10px' }}
+          >
+            🔄 Reload
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -218,6 +291,33 @@ export const getServerSideProps: GetServerSideProps<
     previewData,
     params: { id },
   } = context
+
+  // Coletar informações de debug
+  const debugInfo = {
+    timestamp: new Date().toISOString(),
+    orderId: id,
+    referer: context.req.headers.referer,
+    userAgent: context.req.headers['user-agent'],
+    hasCookie: !!context.req.headers.cookie,
+    VtexIdclientAutCookie: context.req.headers.cookie?.includes(
+      `VtexIdclientAutCookie_${storeConfig.api.storeId}`
+    )
+      ? context.req.headers.cookie
+          .split(';')
+          .find((cookie) =>
+            cookie
+              .trim()
+              .startsWith(`VtexIdclientAutCookie_${storeConfig.api.storeId}`)
+          )
+      : undefined,
+    cookieCount: context.req.headers.cookie?.split(';').length || 0,
+    method: context.req.method,
+    url: context.req.url,
+    host: context.req.headers.host,
+    environment: process.env.NODE_ENV,
+    headers: context.req.headers,
+  }
+
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -246,15 +346,36 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (orderDetails.errors) {
-    const status = extractStatusFromError(orderDetails.errors[0])
-    const isForbidden = status === 403 || status === 401
-
-    return {
-      redirect: {
-        destination: isForbidden ? '/account/403' : '/account/404',
-        permanent: false,
+    const errorDebugInfo = {
+      ...debugInfo,
+      errors: orderDetails.errors,
+      graphqlResponse: {
+        hasData: !!orderDetails.data,
+        dataKeys: orderDetails.data ? Object.keys(orderDetails.data) : [],
+        data: orderDetails.data,
       },
     }
+
+    const status = extractStatusFromError(orderDetails.errors?.[0])
+
+    // Se estiver em debug mode, não fazer redirect
+    return {
+      props: {
+        globalSections: { sections: [] },
+        order: null,
+        accountName: '',
+        debugInfo: errorDebugInfo,
+      },
+    }
+
+    // const isForbidden = status === 403 || status === 401
+
+    // return {
+    //   redirect: {
+    //     destination: isForbidden ? '/account/403' : '/account/404',
+    //     permanent: false,
+    //   },
+    // }
   }
 
   const globalSectionsResult = injectGlobalSections({
@@ -268,6 +389,13 @@ export const getServerSideProps: GetServerSideProps<
       globalSections: globalSectionsResult,
       order: orderDetails.data.userOrder,
       accountName: orderDetails.data.accountName,
+      // Sempre passar debug info em produção para console logs
+      debugInfo: {
+        ...debugInfo,
+        success: true,
+        hasOrder: !!orderDetails.data.userOrder,
+        hasAccountName: !!orderDetails.data.accountName,
+      },
     },
   }
 }
