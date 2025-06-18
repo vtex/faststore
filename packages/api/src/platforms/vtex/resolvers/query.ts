@@ -514,11 +514,11 @@ export const Query = {
     // const params = new URLSearchParams()
     const sessionData = await commerce.session('').catch(() => null)
 
-    const profile = sessionData?.namespaces.profile ?? null
+    const shopper = sessionData?.namespaces.shopper ?? null
     const authentication = sessionData?.namespaces.authentication ?? null
 
     return {
-      name: `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim(), // TODO change when implemented shopper from MD
+      name: shopper?.firstName?.value ?? '',
       email: authentication?.storeUserEmail.value ?? '',
       role: ['Admin'], // TODO change when implemented roles,
       orgUnit: authentication?.unitName?.value ?? '',
