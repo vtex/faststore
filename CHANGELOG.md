@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.55.1](https://github.com/vtex/faststore/compare/v3.55.0...v3.55.1) (2025-06-18)
+
+### Bug Fixes
+
+- sends geoCoordinates long/lat format to session ([#2904](https://github.com/vtex/faststore/issues/2904)) ([7f2e8e1](https://github.com/vtex/faststore/commit/7f2e8e17b15c188999342df1d5e04342b7aeaa4b))
+
 # [3.55.0](https://github.com/vtex/faststore/compare/v3.54.0...v3.55.0) (2025-06-18)
 
 ### Features
