@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.55.0](https://github.com/vtex/faststore/compare/v3.54.0...v3.55.0) (2025-06-18)
+
+### Features
+
+- extract error status handling and improve error messages ([#2903](https://github.com/vtex/faststore/issues/2903)) ([26c1eea](https://github.com/vtex/faststore/commit/26c1eea2278ce2364d8bcc45bf8d261e97cb3fa8))
+
 # [3.54.0](https://github.com/vtex/faststore/compare/v3.53.0...v3.54.0) (2025-06-17)
 
 ### Features
