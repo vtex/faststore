@@ -21,7 +21,7 @@ import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import { useFilter } from 'src/sdk/search/useFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import { useDelivery } from 'src/sdk/delivery'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
@@ -105,7 +105,7 @@ function ProductGallery({
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
-  const { selectedPickupPoint: globalPickupPoint } = useDelivery()
+  const { selectedPickupPoint: globalPickupPoint } = useDeliveryPromise()
   const { isDesktop } = useScreenResize()
 
   useProductsPrefetch(prev ? prev.cursor : null)

@@ -86,7 +86,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
   const [input, setInput] = useState<string>('')
 
   const { loading, setRegion, regionError, setRegionError } = useRegion()
-  // const { dispatchDeliveryAction } = useDelivery()
+  // const { dispatchDeliveryPromiseAction } = useDeliveryPromise()
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -96,7 +96,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
     await setRegion({
       session,
       onSuccess: () => {
-        // dispatchDeliveryAction({ type: 'onPostalCodeChange' })
+        // dispatchDeliveryPromiseAction({ type: 'onPostalCodeChange' })
         setInput('')
         closePopover()
       },
