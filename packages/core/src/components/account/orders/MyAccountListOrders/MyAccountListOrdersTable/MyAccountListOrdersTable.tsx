@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Button, Icon } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useRouter } from 'next/router'
@@ -146,7 +145,7 @@ export default function MyAccountListOrdersTable({
                 key={item.orderId}
               >
                 <td data-fs-list-orders-table-cell>
-                  <Link href={`/account/orders/${item.orderId}`}>
+                  <a href={`/account/orders/${item.orderId}`}>
                     <div data-fs-list-orders-table-product-info-main>
                       <p data-fs-list-orders-table-product-info-order-id>
                         {item.orderId || '-'}
@@ -155,7 +154,7 @@ export default function MyAccountListOrdersTable({
                         Total: {formatPrice(item.totalValue, item.currencyCode)}
                       </p>
                     </div>
-                  </Link>
+                  </a>
                 </td>
 
                 {isDesktop && (
