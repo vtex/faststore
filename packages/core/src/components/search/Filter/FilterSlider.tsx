@@ -21,9 +21,6 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { sessionStore } from 'src/sdk/session'
-
-import RegionSlider from 'src/components/region/RegionSlider'
-
 import {
   getRegionalizationSettings,
   type RegionalizationCmsData,

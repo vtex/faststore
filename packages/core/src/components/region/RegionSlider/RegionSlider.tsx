@@ -14,7 +14,7 @@ import { useSession } from 'src/sdk/session'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
-import { useDelivery } from 'src/sdk/delivery'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
@@ -46,7 +46,7 @@ function RegionSlider() {
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const { loading, setRegion, regionError, setRegionError } = useRegion()
-  const { pickupPoints, dispatchDeliveryAction } = useDelivery()
+  const { pickupPoints, dispatchDeliveryPromiseAction } = useDeliveryPromise()
   const { state, setState } = useSearch()
 
   const [input, setInput] = useState<string>(session.postalCode ?? '')
@@ -68,7 +68,7 @@ function RegionSlider() {
     await setRegion({
       session,
       onSuccess: () => {
-        dispatchDeliveryAction({ type: 'onPostalCodeChange' })
+        dispatchDeliveryPromiseAction({ type: 'onPostalCodeChange' })
 
         if (
           regionSliderType !== 'changePickupPoint' &&
@@ -112,7 +112,7 @@ function RegionSlider() {
     // Add/update the pickupPoint facet
     if (pickupPointOption) {
       facetsToToggle.push({ key: 'pickupPoint', value: pickupPointOption })
-      dispatchDeliveryAction({
+      dispatchDeliveryPromiseAction({
         type: 'changePickupPoint',
         payload: pickupPoints.find(
           (pickupPoint) => pickupPoint.id === pickupPointOption

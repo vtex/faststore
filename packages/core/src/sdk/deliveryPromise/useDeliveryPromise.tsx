@@ -44,7 +44,7 @@ type Action =
       type: 'onPostalCodeChange'
     }
   | {
-      type: 'clearDeliveryState'
+      type: 'clearDeliveryPromiseState'
       payload: State
     }
 
@@ -88,7 +88,7 @@ const reducer = (state: State, action: Action): State => {
       }
     }
 
-    case 'clearDeliveryState': {
+    case 'clearDeliveryPromiseState': {
       return createInitialState()
     }
 
@@ -98,12 +98,14 @@ const reducer = (state: State, action: Action): State => {
 }
 
 type Context = State & {
-  dispatchDeliveryAction: Dispatch<Action>
+  dispatchDeliveryPromiseAction: Dispatch<Action>
 }
 
-const DeliveryContext = createContext<Context | undefined>(undefined)
+const DeliveryPromiseContext = createContext<Context | undefined>(undefined)
 
-export function DeliveryProvider({ children }: PropsWithChildren<unknown>) {
+export function DeliveryPromiseProvider({
+  children,
+}: PropsWithChildren<unknown>) {
   const { country, postalCode, geoCoordinates } = useSession()
   const [state, dispatch] = useReducer(reducer, null, createInitialState)
 
@@ -135,23 +137,23 @@ export function DeliveryProvider({ children }: PropsWithChildren<unknown>) {
   const value = useMemo(
     () => ({
       ...state,
-      dispatchDeliveryAction: dispatch,
+      dispatchDeliveryPromiseAction: dispatch,
     }),
     [state]
   )
 
   return (
-    <DeliveryContext.Provider value={value}>
+    <DeliveryPromiseContext.Provider value={value}>
       {children}
-    </DeliveryContext.Provider>
+    </DeliveryPromiseContext.Provider>
   )
 }
 
-export function useDelivery() {
-  const context = useContext(DeliveryContext)
+export function useDeliveryPromise() {
+  const context = useContext(DeliveryPromiseContext)
 
   if (context === undefined) {
-    throw new Error('Missing Delivery context on React tree')
+    throw new Error('Missing Delivery Promise context on React tree')
   }
 
   return context
