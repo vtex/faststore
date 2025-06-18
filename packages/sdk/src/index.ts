@@ -109,7 +109,7 @@ export {
 } from './search/global-state'
 
 export { default as formatSearchGlobalState } from './utils/format'
-export { State as SearchGlobalState } from './types'
+export { State as SearchGlobalState, Facet, SearchSort } from './types'
 
 // UI
 export { Context as UIContext, Provider as UIProvider } from './ui/Provider'

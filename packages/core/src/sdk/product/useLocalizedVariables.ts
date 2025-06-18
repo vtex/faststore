@@ -1,11 +1,12 @@
 import { useMemo } from 'react'
 import deepmerge from 'deepmerge'
 
-import { useSearch } from '@faststore/sdk'
+import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
 import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 
 import { useSession } from 'src/sdk/session'
-import type { Facet } from 'src/sdk/search/store'
+import type { Facet } from '@faststore/sdk'
+
 import { ITEMS_PER_SECTION } from 'src/constants'
 
 const toArray = <T>(x: T[] | T | undefined) =>

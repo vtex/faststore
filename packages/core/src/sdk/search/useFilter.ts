@@ -1,4 +1,9 @@
-import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import {
+  setFacet,
+  toggleFacet,
+  toggleFacets,
+  useGlobalStateSearch as useSearch,
+} from '@faststore/sdk'
 import { useEffect, useMemo, useReducer } from 'react'
 import type { IStoreSelectedFacet } from '@faststore/api'
 

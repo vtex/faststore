@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo'
 import { Suspense, lazy, useEffect, type MouseEvent } from 'react'
 
 import { useUI } from '@faststore/ui'
-import { useSearch, toggleFacets } from '@faststore/sdk'
+import { useGlobalStateSearch as useSearch, toggleFacets } from '@faststore/sdk'
 
 import Sort from 'src/components/search/Sort'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'

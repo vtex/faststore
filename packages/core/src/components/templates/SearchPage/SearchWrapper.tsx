@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
 import type { SearchPageContextType } from 'src/pages/s'

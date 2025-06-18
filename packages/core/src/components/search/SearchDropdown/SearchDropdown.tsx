@@ -10,7 +10,7 @@ import {
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
-import type { SearchState } from '@faststore/sdk'
+import type { SearchGlobalState as SearchState } from '@faststore/sdk'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'

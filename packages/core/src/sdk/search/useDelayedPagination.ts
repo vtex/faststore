@@ -1,4 +1,4 @@
-import { usePagination as usePaginationSDK } from '@faststore/sdk'
+import { useGlobalStatePagination as usePaginationSDK } from '@faststore/sdk'
 import { useEffect, useState } from 'react'
 
 export const useDelayedPagination = (totalCount: number) => {

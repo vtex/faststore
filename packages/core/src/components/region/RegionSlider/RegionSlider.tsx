@@ -1,4 +1,4 @@
-import { toggleFacets, useSearch } from '@faststore/sdk'
+import { toggleFacets, useGlobalStateSearch as useSearch } from '@faststore/sdk'
 import {
   useUI,
   type FilterSliderProps as UIFilterSliderProps,

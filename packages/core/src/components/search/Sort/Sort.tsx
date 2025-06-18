@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
 import { SelectField } from '@faststore/ui'
 
 const OptionsMap = {

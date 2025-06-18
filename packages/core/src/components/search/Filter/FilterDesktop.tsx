@@ -1,6 +1,11 @@
 import { useCallback } from 'react'
 
-import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import {
+  setFacet,
+  toggleFacet,
+  toggleFacets,
+  useGlobalStateSearch as useSearch,
+} from '@faststore/sdk'
 import {
   regionSliderTypes,
   Button as UIButton,

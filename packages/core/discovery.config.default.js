@@ -31,7 +31,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'storeframework',
+    storeId: 'vendemo',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
@@ -43,13 +43,13 @@ module.exports = {
   // Default session
   session: {
     currency: {
-      code: 'USD',
-      symbol: '$',
+      code: 'BRL',
+      symbol: 'R$',
     },
-    locale: 'en-US',
+    locale: 'pt-BR',
     channel:
       '{"salesChannel":"1","regionId":"","hasOnlyDefaultSalesChannel":"true"}',
-    country: 'USA',
+    country: 'BRA',
     deliveryMode: null,
     addressType: null,
     city: null,
@@ -130,7 +130,7 @@ module.exports = {
   },
 
   deliveryPromise: {
-    enabled: false,
+    enabled: true,
     mandatory: false,
   },
 

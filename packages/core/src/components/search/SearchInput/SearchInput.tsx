@@ -12,7 +12,10 @@ import {
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import type { SearchEvent, SearchState } from '@faststore/sdk'
+import type {
+  SearchEvent,
+  SearchGlobalState as SearchState,
+} from '@faststore/sdk'
 
 import {
   Icon as UIIcon,

@@ -10,7 +10,7 @@ import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 import { DeliveryProvider } from 'src/sdk/delivery'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useRouter } from 'next/router'
-import { useSearch } from '@faststore/sdk'
+import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
 import { useEffect } from 'react'
 import SEO from 'next-seo.config'
 
