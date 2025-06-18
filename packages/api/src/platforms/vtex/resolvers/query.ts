@@ -414,17 +414,17 @@ export const Query = {
         clientProfileData: order.clientProfileData,
       }
     } catch (error) {
-      const { message } = JSON.parse((error as Error).message).error as {
+      const result = JSON.parse((error as Error).message).error as {
         code: string
         message: string
         exception: any
       }
 
-      if (message?.toLowerCase()?.includes('order not found')) {
+      if (result?.message?.toLowerCase()?.includes('order not found')) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      if (message?.toLowerCase()?.includes('acesso negado')) {
+      if (result?.message?.toLowerCase()?.includes('acesso negado')) {
         throw new ForbiddenError(
           `You are forbidden to interact with order with id ${orderId}`
         )
@@ -458,6 +458,17 @@ export const Query = {
       })),
       paging: orders.paging,
     }
+  },
+  accountName: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const { namespaces } = await commerce.session('')
+
+    const { profile } = namespaces
+
+    return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
   },
   pickupPoints: async (
     _: unknown,

@@ -23,6 +23,7 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
+import { extractStatusFromError } from 'src/utils/utilities'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -46,6 +47,7 @@ type ListOrdersPageProps = {
 
 export default function ListOrdersPage({
   globalSections,
+  accountName,
   listOrders,
   total,
   perPage,
@@ -58,7 +60,7 @@ export default function ListOrdersPage({
     >
       <NextSeo noindex nofollow />
 
-      <MyAccountLayout>
+      <MyAccountLayout accountName={accountName}>
         <BeforeSection />
         <MyAccountListOrders
           listOrders={listOrders}
@@ -107,6 +109,7 @@ const query = gql(`
         perPage
       }
     }
+    accountName
   }
 `)
 
@@ -188,9 +191,12 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (listOrders.errors) {
+    const status = extractStatusFromError(listOrders.errors[0])
+    const isForbidden = status === 403 || status === 401
+
     return {
       redirect: {
-        destination: '/account/404',
+        destination: isForbidden ? '/account/403' : '/account/404',
         permanent: false,
       },
     }
@@ -205,6 +211,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
+      accountName: listOrders.data.accountName,
       listOrders: listOrders.data.listUserOrders,
       total: listOrders.data.listUserOrders.paging.total,
       perPage: listOrders.data.listUserOrders.paging.perPage,

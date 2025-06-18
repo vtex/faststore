@@ -613,6 +613,8 @@ export type ProfileAddress = {
 }
 
 export type Query = {
+  /** Returns the account name of the current user or the B2B contract name if applicable. */
+  accountName: Maybe<Scalars['String']['output']>
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
   /** Returns information about all products. */
@@ -2253,6 +2255,12 @@ export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductFragment = { product: { id: string } }
 
+export type ServerAccountPageQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerAccountPageQueryQuery = { accountName: string | null }
+
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
@@ -2340,6 +2348,7 @@ export type ServerOrderDetailsQueryQueryVariables = Exact<{
 }>
 
 export type ServerOrderDetailsQueryQuery = {
+  accountName: string | null
   userOrder: {
     orderId: string | null
     status: string | null
@@ -2478,6 +2487,7 @@ export type ServerListOrdersQueryQueryVariables = Exact<{
 }>
 
 export type ServerListOrdersQueryQuery = {
+  accountName: string | null
   listUserOrders: {
     list: Array<{
       orderId: string | null
@@ -2512,6 +2522,20 @@ export type ServerListOrdersQueryQuery = {
     } | null
   } | null
 }
+
+export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never }>
+
+export type ServerProfileQueryQuery = { accountName: string | null }
+
+export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
+
+export type ServerSecurityQueryQuery = { accountName: string | null }
+
+export type ServerUserDetailsQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerUserDetailsQueryQuery = { accountName: string | null }
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
@@ -3553,6 +3577,15 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'SearchEvent_metadata' }
 ) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>
+export const ServerAccountPageQueryDocument = {
+  __meta__: {
+    operationName: 'ServerAccountPageQuery',
+    operationHash: '47315a3cd26ddd9c7fa963778988464341b8193f',
+  },
+} as unknown as TypedDocumentString<
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables
+>
 export const ServerCollectionPageQueryDocument = {
   __meta__: {
     operationName: 'ServerCollectionPageQuery',
@@ -3574,7 +3607,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '8b9b9c7703b0b9af12f47cb86dd3d2e8eb40c8fd',
+    operationHash: 'c957b142e7f211126246f91a42db6d76c519da77',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3583,11 +3616,38 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: '867fff060c5b7726220ed8a10a115b1484762fcf',
+    operationHash: 'ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
   ServerListOrdersQueryQueryVariables
+>
+export const ServerProfileQueryDocument = {
+  __meta__: {
+    operationName: 'ServerProfileQuery',
+    operationHash: 'c4191223fe0b642eee3aaaa2c56563da7d163265',
+  },
+} as unknown as TypedDocumentString<
+  ServerProfileQueryQuery,
+  ServerProfileQueryQueryVariables
+>
+export const ServerSecurityQueryDocument = {
+  __meta__: {
+    operationName: 'ServerSecurityQuery',
+    operationHash: '9f24767f16e6e05c168336701a6c6c7b6b5dc1c6',
+  },
+} as unknown as TypedDocumentString<
+  ServerSecurityQueryQuery,
+  ServerSecurityQueryQueryVariables
+>
+export const ServerUserDetailsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerUserDetailsQuery',
+    operationHash: '92d9db34aa133d60d474c6d4cdcdd2fc19041a5e',
+  },
+} as unknown as TypedDocumentString<
+  ServerUserDetailsQueryQuery,
+  ServerUserDetailsQueryQueryVariables
 >
 export const CancelOrderMutationDocument = {
   __meta__: {

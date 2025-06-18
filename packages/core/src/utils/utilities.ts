@@ -51,3 +51,27 @@ export function camelCaseToTitle(str: string): string {
   const withSpaces = str.replace(/([a-z])([A-Z])/g, '$1 $2')
   return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1)
 }
+
+export function extractStatusFromError(error: any): number | undefined {
+  if (!error?.message) return undefined
+
+  const match = error.message.match(/{.*}$/)
+  if (!match) return undefined
+
+  try {
+    const parsed = JSON.parse(match[0])
+
+    if (parsed.status) {
+      return parsed.status
+    }
+
+    if (parsed.message) {
+      const inner = JSON.parse(parsed.message)
+      return inner.status
+    }
+  } catch {
+    console.error('Failed to parse error message:', match[0])
+  }
+
+  return undefined
+}

@@ -72,6 +72,7 @@ const QUERIES = [
   'userOrder',
   'listUserOrders',
   'pickupPoints',
+  'accountName',
 ]
 
 const MUTATIONS = [
