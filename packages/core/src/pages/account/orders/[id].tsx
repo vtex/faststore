@@ -29,13 +29,21 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type OrderDetailsPageProps = {
   order: ServerOrderDetailsQueryQuery['userOrder']
-} & MyAccountProps
+} & MyAccountProps & {
+    errors?: any
+  }
 
 export default function OrderDetailsPage({
   globalSections,
   order,
   accountName,
+  errors,
 }: OrderDetailsPageProps) {
+  console.log('errors', errors)
+  console.log('globalSections', globalSections)
+  console.log('order', order)
+  console.log('accountName', accountName)
+
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -245,17 +253,17 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  if (orderDetails.errors) {
-    const status = extractStatusFromError(orderDetails.errors[0])
-    const isForbidden = status === 403 || status === 401
+  // if (orderDetails.errors) {
+  //   const status = extractStatusFromError(orderDetails.errors[0])
+  //   const isForbidden = status === 403 || status === 401
 
-    return {
-      redirect: {
-        destination: isForbidden ? '/account/403' : '/account/404',
-        permanent: false,
-      },
-    }
-  }
+  //   return {
+  //     redirect: {
+  //       destination: isForbidden ? '/account/403' : '/account/404',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -263,11 +271,14 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooter,
   })
 
+  // console.log(globalSectionsResult)
+
   return {
     props: {
       globalSections: globalSectionsResult,
-      order: orderDetails.data.userOrder,
-      accountName: orderDetails.data.accountName,
+      order: orderDetails?.data?.userOrder,
+      accountName: orderDetails?.data?.accountName ?? '',
+      errors: orderDetails?.errors ?? { errors: 'no error' },
     },
   }
 }

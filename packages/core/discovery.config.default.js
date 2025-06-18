@@ -31,7 +31,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'storeframework',
+    storeId: 'b2bfaststoredev',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
@@ -77,11 +77,16 @@ module.exports = {
 
   // Production URLs
   // secureSubdomain is the same as storeUrl because we are using single domain approach for this account
-  storeUrl: 'https://homebrewqa.fast.store',
-  secureSubdomain: 'https://homebrewqa.fast.store',
-  checkoutUrl: 'https://homebrewqa.fast.store/checkout',
-  loginUrl: 'https://homebrewqa.fast.store/api/io/login',
-  accountUrl: 'https://homebrewqa.fast.store/api/io/account',
+  // storeUrl: 'https://homebrewqa.fast.store',
+  // secureSubdomain: 'https://homebrewqa.fast.store',
+  // checkoutUrl: 'https://homebrewqa.fast.store/checkout',
+  // loginUrl: 'https://homebrewqa.fast.store/api/io/login',
+  // accountUrl: 'https://homebrewqa.fast.store/api/io/account',
+  storeUrl: 'https://b2bfaststore.vtexfaststore.com',
+  secureSubdomain: 'https://b2bfaststore.vtexfaststore.com',
+  checkoutUrl: 'https://b2bfaststore.vtexfaststore.com/checkout',
+  loginUrl: 'https://b2bfaststore.vtexfaststore.com/api/io/login',
+  accountUrl: 'https://b2bfaststore.vtexfaststore.com/api/io/account',
 
   // Preview redirects
   previewRedirects: {
