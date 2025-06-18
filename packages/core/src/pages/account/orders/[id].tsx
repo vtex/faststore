@@ -20,6 +20,7 @@ import { default as BeforeSection } from 'src/customizations/src/myAccount/exten
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { extractStatusFromError } from 'src/utils/utilities'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -245,14 +246,12 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (orderDetails.errors) {
-    const statusCode: number = (orderDetails.errors[0] as any)?.extensions
-      ?.status
-    const destination: string =
-      statusCode === 403 ? '/account/403' : '/account/404'
+    const status = extractStatusFromError(orderDetails.errors[0])
+    const isForbidden = status === 403 || status === 401
 
     return {
       redirect: {
-        destination,
+        destination: isForbidden ? '/account/403' : '/account/404',
         permanent: false,
       },
     }
