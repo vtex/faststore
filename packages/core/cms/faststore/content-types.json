@@ -183,11 +183,11 @@
                   }
                 },
                 "filterByPickupPoint": {
-                  "title": "Global Filter by Store",
+                  "title": "Global Filter by Pickup Point",
                   "type": "object",
                   "properties": {
                     "enabled": {
-                      "title": "Should enable global filter by store?",
+                      "title": "Should enable global filter by pickup point?",
                       "type": "boolean",
                       "default": true
                     },

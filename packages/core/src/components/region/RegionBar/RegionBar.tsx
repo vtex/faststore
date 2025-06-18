@@ -58,6 +58,8 @@ function RegionBar({
 
   const defaultPostalCode =
     !!initialSession?.postalCode && postalCode === initialSession.postalCode
+  const shouldDisplayGlobalFilter =
+    deliveryPromise.enabled && !!postalCode && filterByPickupPoint?.enabled
 
   // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
   const displayRegionPopover =
@@ -113,7 +115,7 @@ function RegionBar({
           />
         ),
         selectedFilter: undefined, // TODO: specify selected pickup point
-        shouldDisplayFilterButton: filterByPickupPoint?.enabled,
+        shouldDisplayFilterButton: shouldDisplayGlobalFilter,
         onClick: () => console.log('TODO: open RegionSlider'),
       }}
       {...RegionBarWrapper.props}

@@ -37,7 +37,7 @@ function NavbarLinks({
   const { filterByPickupPoint } = getRegionalizationSettings()
 
   const shouldDisplayGlobalFilter =
-    deliveryPromise.enabled && postalCode && filterByPickupPoint?.enabled
+    deliveryPromise.enabled && !!postalCode && filterByPickupPoint?.enabled
 
   return (
     <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>

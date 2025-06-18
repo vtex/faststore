@@ -20,9 +20,8 @@ type RegionFilterButtonProps = {
 
 function RegionFilterButton({
   filterByPickupPoint: {
-    enabled: filterByPickupPointEnabled,
     label: filterByPickupPointLabel,
-    icon: { icon: filterByPickupPointIcon, alt: filterByPickupPointAlt },
+    icon: { icon: filterByPickupPointIcon, alt: filterByPickupPointAlt } = {},
   } = {},
 }: RegionFilterButtonProps) {
   const { openRegionSlider } = useUI()

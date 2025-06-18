@@ -27,21 +27,18 @@
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-  
-  display: flex;
+
   width: var(--fs-region-bar-width);
+
   [data-fs-button] {
-    flex: 1 1 50%;
-    max-width: 50%;
+    min-width: 100%;
 
     [data-fs-button-wrapper] {
-      display: flex;
       gap: 0;
       justify-content: flex-start;
       padding: var(--fs-region-bar-padding);
       color: var(--fs-region-bar-text-color);
       background-color: var(--fs-region-bar-bkg-color);
-      border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
       border-radius: 0;
 
       > span {
@@ -49,14 +46,13 @@
       }
     }
 
-    &:only-child {
-      flex: 1 1 100%;
-      max-width: 100%;
+    &:last-child {
+      border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
+    }
 
-      [data-fs-region-bar-postal-code] {
-        flex: none;
-        margin-right: 0;
-      }
+    [data-fs-region-bar-postal-code] {
+      flex: none;
+      margin-right: 0;
     }
   }
 
