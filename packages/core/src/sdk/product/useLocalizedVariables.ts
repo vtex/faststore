@@ -1,7 +1,12 @@
-import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 import { useMemo } from 'react'
+import deepmerge from 'deepmerge'
+
+import { useSearch } from '@faststore/sdk'
+import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
+
+import { useSession } from 'src/sdk/session'
+import type { Facet } from 'src/sdk/search/store'
 import { ITEMS_PER_SECTION } from 'src/constants'
-import { useSession } from '../session'
 
 const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
@@ -15,9 +20,12 @@ export const useLocalizedVariables = ({
   sponsoredCount,
 }: Partial<ClientManyProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
+  const { state: searchState } = useSearch()
 
   return useMemo(() => {
-    const facets = toArray(selectedFacets)
+    const facets = toArray(
+      deepmerge(selectedFacets as Facet[], searchState.selectedFacets)
+    )
 
     return {
       first: first ?? ITEMS_PER_SECTION,

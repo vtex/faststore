@@ -5,7 +5,6 @@ import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import deepmerge from 'deepmerge'
 
 import { isNotFoundError } from '@faststore/api'
-import { SearchProvider, type SearchProviderProps } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import type {
@@ -36,12 +35,10 @@ import {
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import { useApplySearchState } from 'src/sdk/search/state'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { ITEMS_PER_PAGE } from 'src/constants'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -95,7 +92,6 @@ function Page({
   meta,
 }: Props) {
   const { currency } = useSession()
-  const applySearchState = useApplySearchState()
 
   const { product } = server
   const {

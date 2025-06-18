@@ -1,8 +1,6 @@
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
-import { SearchProvider, type SearchProviderProps } from '@faststore/sdk'
-
 import RenderSections from 'src/components/cms/RenderSections'
 import {
   type GlobalSectionsData,

@@ -20,13 +20,13 @@ const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(
   return store
 }
 export const initialize = ({
-  sort = 'score_desc',
+  sort = null,
   selectedFacets = [],
   term = null,
-  base = '/',
-  page = 0,
+  base = '',
+  page = null,
   passThrough = new URLSearchParams(),
-  itemsPerPage = 12,
+  itemsPerPage = null,
 }: Partial<State> | undefined = {}) => ({
   sort,
   selectedFacets,
@@ -48,7 +48,7 @@ export type UseSearchState = State &
     parseURL: (url: URL) => void
     serializedState: () => URL
     initialized: boolean
-    start: (asPath: string) => void
+    start: (asPath: string, initialState: Partial<State>) => void
     setState: (state: Partial<State>) => void
   }
 
@@ -61,7 +61,8 @@ const stateBase = create<UseSearchState>((set, get) => ({
   setPage: (page) => set({ page }),
   setPassThrough: (passThrough) => set({ passThrough }),
   setItemsPerPage: (itemsPerPage) => ({ itemsPerPage }),
-  setState: (state: Partial<State>) => set(state),
+  setState: (state: Partial<State>) =>
+    set((currentState) => ({ ...currentState, ...state })),
   parseURL: (url: URL) => {
     const newState = parse(url)
     const oldState = format(get())
@@ -72,9 +73,13 @@ const stateBase = create<UseSearchState>((set, get) => ({
   },
   serializedState: () => format(get()),
   initialized: false,
-  start: (asPath: string) => {
+  start: (asPath: string, state: Partial<State>) => {
     if (!get().initialized) {
-      set({ initialized: true, ...parse(new URL(asPath, 'http://localhost')) })
+      set({
+        initialized: true,
+        ...state,
+        ...parse(new URL(asPath, 'http://localhost')),
+      })
     }
   },
 }))

@@ -21,7 +21,9 @@ function App({ Component, pageProps }: AppProps) {
   useGeolocation()
   const router = useRouter()
   const { state: searchState } = useSearch()
-  searchState.start(router.asPath)
+
+  // Initialize global Search state
+  searchState.start(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -38,7 +40,6 @@ function App({ Component, pageProps }: AppProps) {
     }
 
     router.events.on('beforeHistoryChange', handleRouteChange)
-    searchState.setItemsPerPage(ITEMS_PER_PAGE)
 
     return () => router.events.off('beforeHistoryChange', handleRouteChange)
   }, [])

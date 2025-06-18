@@ -35,8 +35,8 @@ export const useApplySearchState = () => {
       const url = searchState.serializedState()
       const newUrl = `${url.pathname}${url.search}`
       url.searchParams.has('fuzzy') && url.searchParams.has('operator')
-        ? router.replace(newUrl)
-        : router.push(newUrl)
+        ? router.replace(newUrl, null, { shallow: true })
+        : router.push(newUrl, null, { shallow: true })
     }
   }, [searchState])
 }

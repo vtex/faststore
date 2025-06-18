@@ -13,7 +13,7 @@ export const useSearch = () => {
   const state = useSearchState((state) => state)
   const itemsPerPage = useSearchState.use.itemsPerPage()
 
-  const infiniteState = useSearchInfiniteState(state.page)
+  const infiniteState = useSearchInfiniteState(state.page ?? 0)
 
   return useMemo(() => {
     const { pages, ...infiniteActions } = infiniteState

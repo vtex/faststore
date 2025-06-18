@@ -20,7 +20,7 @@ const format = (params: State): URL => {
   }
 
   sort && url.searchParams.set('sort', sort)
-  url.searchParams.set('page', page.toString())
+  url.searchParams.set('page', (page ?? 0).toString())
 
   if (passThrough) {
     for (const [key, value] of passThrough.entries()) {

@@ -13,7 +13,7 @@ const getLink = (state: SearchState) => {
 export const usePagination = (totalItems: number) => {
   const { pages, itemsPerPage, state } = useSearch()
 
-  const total = Math.ceil(totalItems / itemsPerPage)
+  const total = Math.ceil(totalItems / (itemsPerPage ?? 1))
   const next = Number(pages[pages.length - 1]) + 1
   const prev = pages[0] - 1
 
