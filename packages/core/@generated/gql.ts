@@ -36,14 +36,14 @@ const documents = {
     types.ServerCollectionPageFragmentDoc,
   '\n  fragment ServerProduct on Query {\n    product(locator: $locator) {\n      id: productID\n    }\n  }\n':
     types.ServerProductFragmentDoc,
-  '\n  query ServerCollectionPageQuery($slug: String!) {\n    ...ServerCollectionPage\n    collection(slug: $slug) {\n      seo {\n        title\n        description\n      }\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n      meta {\n        selectedFacets {\n          key\n          value\n        }\n      }\n    }\n  }\n':
-    types.ServerCollectionPageQueryDocument,
-  '\n  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ServerProduct\n    product(locator: $locator) {\n      id: productID\n\n      seo {\n        title\n        description\n        canonical\n      }\n\n      brand {\n        name\n      }\n\n      sku\n      gtin\n      name\n      description\n      releaseDate\n\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n\n      image {\n        url\n        alternateName\n      }\n\n      offers {\n        lowPrice\n        highPrice\n        lowPriceWithTaxes\n        priceCurrency\n        offers {\n          availability\n          price\n          priceValidUntil\n          priceCurrency\n          itemCondition\n          seller {\n            identifier\n          }\n        }\n      }\n\n      isVariantOf {\n        productGroupID\n      }\n\n      ...ProductDetailsFragment_product\n    }\n  }\n':
-    types.ServerProductQueryDocument,
   '\n  query ServerAccountPageQuery {\n    accountName\n  }\n':
     types.ServerAccountPageQueryDocument,
   '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n':
     types.ValidateUserDocument,
+  '\n  query ServerCollectionPageQuery($slug: String!) {\n    ...ServerCollectionPage\n    collection(slug: $slug) {\n      seo {\n        title\n        description\n      }\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n      meta {\n        selectedFacets {\n          key\n          value\n        }\n      }\n    }\n  }\n':
+    types.ServerCollectionPageQueryDocument,
+  '\n  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ServerProduct\n    product(locator: $locator) {\n      id: productID\n\n      seo {\n        title\n        description\n        canonical\n      }\n\n      brand {\n        name\n      }\n\n      sku\n      gtin\n      name\n      description\n      releaseDate\n\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n\n      image {\n        url\n        alternateName\n      }\n\n      offers {\n        lowPrice\n        highPrice\n        lowPriceWithTaxes\n        priceCurrency\n        offers {\n          availability\n          price\n          priceValidUntil\n          priceCurrency\n          itemCondition\n          seller {\n            identifier\n          }\n        }\n      }\n\n      isVariantOf {\n        productGroupID\n      }\n\n      ...ProductDetailsFragment_product\n    }\n  }\n':
+    types.ServerProductQueryDocument,
   '\n  fragment UserOrderItemsFragment on UserOrderItems {\n    id\n    name\n    quantity\n    sellingPrice\n    unitMultiplier\n    measurementUnit\n    imageUrl\n    detailUrl\n    refId\n    rewardValue\n  }\n':
     types.UserOrderItemsFragmentFragmentDoc,
   '\n  query ServerOrderDetailsQuery($orderId: String!) {\n    userOrder(orderId: $orderId) {\n      orderId\n      status\n      statusDescription\n      allowCancellation\n      storePreferencesData {\n        currencyCode\n      }\n      clientProfileData {\n        firstName\n        lastName\n        email\n        phone\n        corporateName\n        isCorporate\n      }\n      customFields {\n        type\n        id\n        fields {\n          name\n          value\n          refId\n        }\n      }\n      deliveryOptionsData {\n        deliveryOptions {\n          selectedSla\n          deliveryChannel\n          deliveryCompany\n          deliveryWindow {\n            startDateUtc\n            endDateUtc\n            price\n          }\n          shippingEstimate\n          shippingEstimateDate\n          friendlyShippingEstimate\n          friendlyDeliveryOptionName\n          seller\n          address {\n            addressType\n            receiverName\n            addressId\n            versionId\n            entityId\n            postalCode\n            city\n            state\n            country\n            street\n            number\n            neighborhood\n            complement\n            reference\n            geoCoordinates\n          }\n          pickupStoreInfo {\n            additionalInfo\n            address {\n              addressType\n              receiverName\n              addressId\n              versionId\n              entityId\n              postalCode\n              city\n              state\n              country\n              street\n              number\n              neighborhood\n              complement\n              reference\n              geoCoordinates\n            }\n            dockId\n            friendlyName\n            isPickupStore\n          }\n          quantityOfDifferentItems\n          total\n          items {\n            id\n            name\n            quantity\n            price\n            imageUrl\n            tax\n            total\n          }\n        }\n        contact {\n          email\n          phone\n          name\n        }\n      }\n      paymentData {\n        transactions {\n          isActive\n          payments {\n            id\n            paymentSystemName\n            value\n            installments\n            referenceValue\n            lastDigits\n            url\n            group\n            tid\n            connectorResponses {\n              authId\n            }\n            bankIssuedInvoiceIdentificationNumber\n            redemptionCode\n            paymentOrigin\n          }\n        }\n      }\n      totals {\n        id\n        name\n        value\n      }\n    }\n    accountName\n  }\n':
@@ -162,18 +162,6 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ServerCollectionPageQuery($slug: String!) {\n    ...ServerCollectionPage\n    collection(slug: $slug) {\n      seo {\n        title\n        description\n      }\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n      meta {\n        selectedFacets {\n          key\n          value\n        }\n      }\n    }\n  }\n'
-): typeof import('./graphql').ServerCollectionPageQueryDocument
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
-  source: '\n  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ServerProduct\n    product(locator: $locator) {\n      id: productID\n\n      seo {\n        title\n        description\n        canonical\n      }\n\n      brand {\n        name\n      }\n\n      sku\n      gtin\n      name\n      description\n      releaseDate\n\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n\n      image {\n        url\n        alternateName\n      }\n\n      offers {\n        lowPrice\n        highPrice\n        lowPriceWithTaxes\n        priceCurrency\n        offers {\n          availability\n          price\n          priceValidUntil\n          priceCurrency\n          itemCondition\n          seller {\n            identifier\n          }\n        }\n      }\n\n      isVariantOf {\n        productGroupID\n      }\n\n      ...ProductDetailsFragment_product\n    }\n  }\n'
-): typeof import('./graphql').ServerProductQueryDocument
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
   source: '\n  query ServerAccountPageQuery {\n    accountName\n  }\n'
 ): typeof import('./graphql').ServerAccountPageQueryDocument
 /**
@@ -182,6 +170,18 @@ export function gql(
 export function gql(
   source: '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n'
 ): typeof import('./graphql').ValidateUserDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ServerCollectionPageQuery($slug: String!) {\n    ...ServerCollectionPage\n    collection(slug: $slug) {\n      seo {\n        title\n        description\n      }\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n      meta {\n        selectedFacets {\n          key\n          value\n        }\n      }\n    }\n  }\n'
+): typeof import('./graphql').ServerCollectionPageQueryDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ServerProduct\n    product(locator: $locator) {\n      id: productID\n\n      seo {\n        title\n        description\n        canonical\n      }\n\n      brand {\n        name\n      }\n\n      sku\n      gtin\n      name\n      description\n      releaseDate\n\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n\n      image {\n        url\n        alternateName\n      }\n\n      offers {\n        lowPrice\n        highPrice\n        lowPriceWithTaxes\n        priceCurrency\n        offers {\n          availability\n          price\n          priceValidUntil\n          priceCurrency\n          itemCondition\n          seller {\n            identifier\n          }\n        }\n      }\n\n      isVariantOf {\n        productGroupID\n      }\n\n      ...ProductDetailsFragment_product\n    }\n  }\n'
+): typeof import('./graphql').ServerProductQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -22,9 +22,8 @@ import { execute } from 'src/server'
 import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
-  ValidateUserQuery,
-  ValidateUserQueryVariables,
 } from '@generated/graphql'
+import { validateUser } from 'src/sdk/account/validateUser'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -60,33 +59,12 @@ const query = gql(`
   }
 `)
 
-const validateUserQuery = gql(`
-  query ValidateUser {
-    validateUser {
-      isValid
-    }
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const validateUserResult = await execute<
-    ValidateUserQueryVariables,
-    ValidateUserQuery
-  >(
-    {
-      variables: {},
-      operation: validateUserQuery,
-    },
-    {
-      headers: { ...context.req.headers },
-    }
-  )
-
-  const isValid = validateUserResult?.data?.validateUser?.isValid
+  const isValid = await validateUser(context)
 
   if (!isValid) {
     return {

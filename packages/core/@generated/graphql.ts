@@ -2176,6 +2176,16 @@ export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductFragment = { product: { id: string } }
 
+export type ServerAccountPageQueryQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ServerAccountPageQueryQuery = { accountName: string | null }
+
+export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
+
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
@@ -2244,16 +2254,6 @@ export type ServerProductQueryQuery = {
     }>
   }
 }
-
-export type ServerAccountPageQueryQueryVariables = Exact<{
-  [key: string]: never
-}>
-
-export type ServerAccountPageQueryQuery = { accountName: string | null }
-
-export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
-
-export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
 
 export type UserOrderItemsFragmentFragment = {
   id: string | null
@@ -3476,24 +3476,6 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'SearchEvent_metadata' }
 ) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>
-export const ServerCollectionPageQueryDocument = {
-  __meta__: {
-    operationName: 'ServerCollectionPageQuery',
-    operationHash: '4b33c5c07f440dc7489e55619dc2211a13786e72',
-  },
-} as unknown as TypedDocumentString<
-  ServerCollectionPageQueryQuery,
-  ServerCollectionPageQueryQueryVariables
->
-export const ServerProductQueryDocument = {
-  __meta__: {
-    operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
-  },
-} as unknown as TypedDocumentString<
-  ServerProductQueryQuery,
-  ServerProductQueryQueryVariables
->
 export const ServerAccountPageQueryDocument = {
   __meta__: {
     operationName: 'ServerAccountPageQuery',
@@ -3511,6 +3493,24 @@ export const ValidateUserDocument = {
 } as unknown as TypedDocumentString<
   ValidateUserQuery,
   ValidateUserQueryVariables
+>
+export const ServerCollectionPageQueryDocument = {
+  __meta__: {
+    operationName: 'ServerCollectionPageQuery',
+    operationHash: '4b33c5c07f440dc7489e55619dc2211a13786e72',
+  },
+} as unknown as TypedDocumentString<
+  ServerCollectionPageQueryQuery,
+  ServerCollectionPageQueryQueryVariables
+>
+export const ServerProductQueryDocument = {
+  __meta__: {
+    operationName: 'ServerProductQuery',
+    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+  },
+} as unknown as TypedDocumentString<
+  ServerProductQueryQuery,
+  ServerProductQueryQueryVariables
 >
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
