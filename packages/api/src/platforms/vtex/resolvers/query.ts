@@ -506,8 +506,9 @@ export const Query = {
     // If the user is logged in, it will return true.
     try {
       const response = await commerce.vtexid.validate()
+
       return {
-        isValid: response.authStatus === 'authenticated',
+        isValid: response.authStatus === 'Success',
       }
     } catch (error) {
       throw new ForbiddenError('You are not allowed to access this resource')
