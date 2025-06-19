@@ -16,7 +16,6 @@ export interface ProfileSectionProps {
 
 /*
  * Renders the /account/profile section
- * TODO: Remove mocked values
  */
 export function ProfileSection({
   profile,
@@ -46,14 +45,16 @@ export function ProfileSection({
               <th data-fs-account-profile-table-heading>{strings.id}</th>
               <td data-fs-account-profile-table-data>{profile?.id}</td>
             </tr>
-            <tr data-fs-account-profile-table-row>
-              <th data-fs-account-profile-table-heading>
-                {strings.createdDate}
-              </th>
-              <td data-fs-account-profile-table-data>
-                {profile.createdDate && formatStringDate(profile.createdDate)}
-              </td>
-            </tr>
+            {profile.createdDate && (
+              <tr data-fs-account-profile-table-row>
+                <th data-fs-account-profile-table-heading>
+                  {strings.createdDate}
+                </th>
+                <td data-fs-account-profile-table-data>
+                  {formatStringDate(profile.createdDate)}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>
