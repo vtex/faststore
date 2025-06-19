@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.56.2](https://github.com/vtex/faststore/compare/v3.56.1...v3.56.2) (2025-06-19)
+
+### Bug Fixes
+
+- use window.location.href to apply filters ([#2911](https://github.com/vtex/faststore/issues/2911)) ([3e71577](https://github.com/vtex/faststore/commit/3e71577ac9728ad8911dcbfaea241a0a4bb815ba))
+
 ## 3.56.1 (2025-06-19)
 
 ### Bug Fixes
