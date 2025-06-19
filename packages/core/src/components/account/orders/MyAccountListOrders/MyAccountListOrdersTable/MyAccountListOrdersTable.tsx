@@ -137,24 +137,38 @@ export default function MyAccountListOrdersTable({
             const displayedItemLevel = isExpanded
               ? itemLevel
               : itemLevel.slice(0, 5)
+            const orderUrl = `/account/orders/${item.orderId}`
+
+            const handleRowClick = () => {
+              window.location.href = orderUrl
+            }
+
+            const handleRowKeyDown = (e: React.KeyboardEvent) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                window.location.href = orderUrl
+              }
+            }
+
             return (
-              // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
               <tr
                 data-fs-list-orders-table-body-row
                 data-fs-list-orders-table-row
                 key={item.orderId}
+                onClick={handleRowClick}
+                onKeyDown={handleRowKeyDown}
+                tabIndex={0}
+                aria-label={`View order ${item.orderId} details`}
               >
                 <td data-fs-list-orders-table-cell>
-                  <a href={`/account/orders/${item.orderId}`}>
-                    <div data-fs-list-orders-table-product-info-main>
-                      <p data-fs-list-orders-table-product-info-order-id>
-                        {item.orderId || '-'}
-                      </p>
-                      <p data-fs-list-orders-table-product-info-order-total>
-                        Total: {formatPrice(item.totalValue, item.currencyCode)}
-                      </p>
-                    </div>
-                  </a>
+                  <div data-fs-list-orders-table-product-info-main>
+                    <p data-fs-list-orders-table-product-info-order-id>
+                      {item.orderId || '-'}
+                    </p>
+                    <p data-fs-list-orders-table-product-info-order-total>
+                      Total: {formatPrice(item.totalValue, item.currencyCode)}
+                    </p>
+                  </div>
                 </td>
 
                 {isDesktop && (
@@ -281,6 +295,7 @@ export default function MyAccountListOrdersTable({
                                 )
                               }
                               onClick={(e) => {
+                                e.preventDefault()
                                 e.stopPropagation()
                                 handleToggleExpand(item.orderId)
                               }}
