@@ -26,6 +26,7 @@ export type RegionalizationCmsData = {
     description?: string
     setLocationButtonLabel?: string
     deliveryMethods?: {
+      allDeliveryMethods?: string
       delivery?: string
       pickupInPoint?: string
       pickupNearby?: string
