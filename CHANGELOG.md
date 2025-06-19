@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.56.0](https://github.com/vtex/faststore/compare/v3.55.1...v3.56.0) (2025-06-19)
+
+### Features
+
+- add shopper first name to userName in b2b object in session ([#2902](https://github.com/vtex/faststore/issues/2902)) ([4542b5f](https://github.com/vtex/faststore/commit/4542b5f814b2d36f65b922ff594f5e24c913b89d))
+
 ## [3.55.1](https://github.com/vtex/faststore/compare/v3.55.0...v3.55.1) (2025-06-18)
 
 ### Bug Fixes
