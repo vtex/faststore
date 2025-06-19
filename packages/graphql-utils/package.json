@@ -1,6 +1,6 @@
 {
   "name": "@faststore/graphql-utils",
-  "version": "3.50.3",
+  "version": "3.56.1",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",

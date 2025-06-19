@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- account name ([#2908](https://github.com/vtex/faststore/issues/2908)) ([98e5877](https://github.com/vtex/faststore/commit/98e587770d9b5b2a2250c84377ec3d4a6e14087b))
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
 # [3.56.0](https://github.com/vtex/faststore/compare/v3.55.1...v3.56.0) (2025-06-19)
 
 ### Features
