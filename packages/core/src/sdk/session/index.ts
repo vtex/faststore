@@ -69,7 +69,8 @@ export const mutation = gql(`
 export const validateSession = async (session: Session) => {
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
-    const userId = session.b2b?.customerId ?? session.person?.id
+    // Do not use the session's person id if the user is a B2B customer
+    const userId = session.b2b ? null : session.person?.id
 
     // If user is logged in try to get the location (postalCode, geoCoordinates and country) from the user's address
     if (userId) {
