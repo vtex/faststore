@@ -139,13 +139,16 @@ export default function MyAccountListOrders({
 
       if (searchInputValueChanged) {
         const { text, page, ...rest } = router.query
-        router.push({
-          pathname: '/account/orders',
-          query: {
-            ...rest,
-            ...(value ? { text: value } : {}),
-          },
-        })
+
+        const params = new URLSearchParams(window.location.search)
+        params.delete('text')
+        params.delete('page')
+
+        if (value) {
+          params.set('text', value)
+        }
+
+        window.location.href = `/account/orders?${params.toString()}`
       }
     },
     300,
@@ -227,10 +230,7 @@ export default function MyAccountListOrders({
             dateFinal: filters.dateFinal,
           }}
           onClearAll={() => {
-            router.push({
-              pathname: '/account/orders',
-              query: {},
-            })
+            window.location.href = '/account/orders'
           }}
           onRemoveFilter={(key, value) => {
             const { page, clientEmail, ...updatedFilters } = { ...filters }
@@ -264,10 +264,10 @@ export default function MyAccountListOrders({
               )
             )
 
-            router.push({
-              pathname: '/account/orders',
-              query: filteredQuery,
-            })
+            const params = new URLSearchParams(
+              filteredQuery as Record<string, string>
+            )
+            window.location.href = `/account/orders?${params.toString()}`
           }}
         />
 
