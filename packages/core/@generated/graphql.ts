@@ -537,6 +537,8 @@ export type ProfileAddress = {
 export type Query = {
   /** Returns the account name of the current user or the B2B contract name if applicable. */
   accountName: Maybe<Scalars['String']['output']>
+  /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
+  accountProfile: StoreAccountProfile
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
   /** Returns information about all products. */
@@ -738,6 +740,13 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName: InputMaybe<Scalars['String']['input']>
+}
+
+/** Account profile information. */
+export type StoreAccountProfile = {
+  email: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
 }
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
@@ -2459,7 +2468,14 @@ export type ServerListOrdersQueryQuery = {
 
 export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerProfileQueryQuery = { accountName: string | null }
+export type ServerProfileQueryQuery = {
+  accountName: string | null
+  accountProfile: {
+    name: string | null
+    email: string | null
+    id: string | null
+  }
+}
 
 export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
 
@@ -3541,7 +3557,7 @@ export const ServerListOrdersQueryDocument = {
 export const ServerProfileQueryDocument = {
   __meta__: {
     operationName: 'ServerProfileQuery',
-    operationHash: 'c4191223fe0b642eee3aaaa2c56563da7d163265',
+    operationHash: '0ed4b5db8fed122d8418195d01fb91b30261d587',
   },
 } as unknown as TypedDocumentString<
   ServerProfileQueryQuery,
