@@ -138,8 +138,6 @@ export default function MyAccountListOrders({
         router.query.text?.toString().trim().toLowerCase()
 
       if (searchInputValueChanged) {
-        const { text, page, ...rest } = router.query
-
         const params = new URLSearchParams(window.location.search)
         params.delete('text')
         params.delete('page')
