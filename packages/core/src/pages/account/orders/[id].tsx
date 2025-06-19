@@ -218,6 +218,7 @@ export const getServerSideProps: GetServerSideProps<
     previewData,
     params: { id },
   } = context
+
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -246,7 +247,8 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (orderDetails.errors) {
-    const status = extractStatusFromError(orderDetails.errors[0])
+    const status = extractStatusFromError(orderDetails.errors?.[0])
+
     const isForbidden = status === 403 || status === 401
 
     return {

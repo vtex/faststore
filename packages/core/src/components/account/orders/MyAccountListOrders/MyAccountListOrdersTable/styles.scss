@@ -93,11 +93,6 @@
     vertical-align: top;
     border: none;
 
-    a {
-      color: var(--fs-color-neutral-7);
-      text-decoration: none;
-    }
-
     @include media("<notebook") {
       padding: var(--fs-list-orders-table-cell-padding-mobile);
     }
@@ -128,10 +123,16 @@
         border-bottom: none;
       }
     }
-  }
 
-  [data-fs-list-orders-table-body-row]:hover, [data-fs-list-orders-table-body-row]:focus {
-    background-color: var(--fs-list-orders-table-row-hover-bg);
+    &:focus-visible {
+      outline: 3px solid var(--fs-color-focus-ring);
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: var(--fs-list-orders-table-row-hover-bg);
+    }
   }
 
   [data-fs-list-orders-table-expand-button] {
