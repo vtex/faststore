@@ -380,6 +380,7 @@ export const VtexCommerce = (
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
+
         return fetchAPI(
           `${base}/api/checkout/pub/orders/${orderId}/user-cancel-request`,
           {
