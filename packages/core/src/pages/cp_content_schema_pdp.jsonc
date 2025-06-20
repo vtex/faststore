@@ -1,0 +1,18 @@
+{
+  "pdp": {
+    "$singleton": false,
+    "title": "Product Page",
+    "properties": {
+      "slug": {
+        "title": "Slug",
+        "widget": {
+          "ui:widget": "slug"
+        },
+        "type": "string"
+      },
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    }
+  }
+}
