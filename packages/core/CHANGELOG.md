@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.57.0](https://github.com/vtex/faststore/compare/v3.56.3...v3.57.0) (2025-06-20)
+
+### Features
+
+- show empty state instead of table ([#2913](https://github.com/vtex/faststore/issues/2913)) ([5803953](https://github.com/vtex/faststore/commit/580395323bde2f9f1ca5da222c75dc359ac695a5))
+
 ## [3.56.3](https://github.com/vtex/faststore/compare/v3.56.2...v3.56.3) (2025-06-20)
 
 **Note:** Version bump only for package @faststore/core
