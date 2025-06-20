@@ -12,9 +12,11 @@ import {
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
 } from '@faststore/ui'
-import { deliveryPromise } from 'discovery.config'
+
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+
+import { deliveryPromise } from 'discovery.config'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
