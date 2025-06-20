@@ -154,9 +154,9 @@ export const validateSession = async (
       : null,
     geoCoordinates,
     city,
-    postalCode: isRepresentative // case b2b - use postalCode if available
-      ? sessionData?.namespaces.public?.postalCode?.value
-      : null,
+    postalCode: isRepresentative
+      ? sessionData?.namespaces.public?.postalCode?.value // case b2b with use postalCode
+      : postalCode,
   }
 
   if (deepEquals(oldSession, newSession)) {
