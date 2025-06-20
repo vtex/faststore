@@ -5,6 +5,7 @@ export interface Session {
 
 export interface Namespaces {
   profile?: Profile
+  shopper?: Shopper
   store?: Store
   checkout?: Checkout
   public?: Public
@@ -13,6 +14,10 @@ export interface Namespaces {
 
 export interface Authentication {
   customerId: Value
+  storeUserId: Value
+  storeUserEmail: Value
+  unitName: Value
+  unitId: Value
 }
 
 export interface Value {
@@ -34,8 +39,13 @@ export interface Profile {
   lastName?: Value
 }
 
+export interface Shopper {
+  firstName?: Value
+}
+
 export interface Checkout {
   orderFormId?: Value
+  regionId?: Value
 }
 
 export interface Public {

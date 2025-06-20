@@ -1,0 +1,68 @@
+[data-fs-list-orders-selected-tags] {
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  --fs-list-orders-selected-tags-gap                 : var(--fs-spacing-0);
+  --fs-list-orders-selected-tags-min-height          : 3rem;
+  --fs-list-orders-selected-tags-text-size           : var(--fs-text-size-1);
+
+  --fs-list-orders-selected-tags-height              : 1.6rem;
+  --fs-list-orders-selected-tags-padding             : var(--fs-spacing-0) 0 var(--fs-spacing-0) var(--fs-spacing-1);
+  --fs-list-orders-selected-tags-color               : var(--fs-color-text);
+  --fs-list-orders-selected-tags-bkg-color           : #e0e0e0;
+  --fs-list-orders-selected-tags-border              : 1px none transparent;
+  --fs-list-orders-selected-tags-border-radius       : var(--fs-border-radius-pill);
+  --fs-list-orders-selected-tags-label-padding       : var(--fs-spacing-0);
+
+  --fs-list-orders-selected-tags-clear-margin-bottom : 2px;
+  --fs-list-orders-selected-tags-clear-text-size     : 1.2rem;
+
+  --fs-list-orders-selected-tags-clear-all-min-width : 102px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fs-list-orders-selected-tags-gap);
+  margin-top: var(--fs-list-orders-selected-tags-gap);
+  font-size: var(--fs-list-orders-selected-tags-text-size);
+
+  [data-fs-list-orders-selected-tag] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--fs-list-orders-selected-tags-height);
+    padding: var(--fs-list-orders-selected-tags-padding);
+    color: var(--fs-list-orders-selected-tags-color);
+    background-color: var(--fs-list-orders-selected-tags-bkg-color);
+    border: var(--fs-list-orders-selected-tags-border);
+    border-radius: var(--fs-list-orders-selected-tags-border-radius);
+  }
+
+  [data-fs-list-orders-selected-tag-label] {
+    padding: var(--fs-list-orders-selected-tags-label-padding);
+  }
+
+  [data-fs-list-orders-selected-tag-clear] {
+    margin-bottom: var(--fs-list-orders-selected-tags-clear-margin-bottom);
+    font-size: var(--fs-list-orders-selected-tags-clear-text-size);
+    color: var(--fs-list-orders-selected-tags-color);
+    cursor: pointer;
+  }
+
+  [data-fs-list-orders-selected-tags-clear-all-button] {
+    --fs-button-height: 1.5rem;
+
+    --fs-list-orders-selected-tags-clear-all-button-margin-left: -0.5rem;
+
+    [data-fs-button-wrapper] {
+      width: max-content;
+      margin-top: var(--fs-list-orders-selected-tags-clear-all-button-margin-left);
+      background-color: transparent;
+      transition: unset;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}

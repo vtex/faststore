@@ -11,6 +11,7 @@ import { gql } from '@generated/gql'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
+import { deliveryPromise } from 'discovery.config'
 
 interface Props {
   /**
@@ -37,6 +38,10 @@ function FilterDesktop({
 }: Props & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
 
+  const filteredFacets = deliveryPromise.enabled
+    ? facets
+    : facets.filter((facet) => facet.key !== 'shipping')
+
   return (
     <UIFilter
       testId={`desktop-${testId}`}
@@ -46,7 +51,7 @@ function FilterDesktop({
         dispatch({ type: 'toggleExpanded', payload: idx })
       }
     >
-      {facets.map((facet, index) => {
+      {filteredFacets.map((facet, index) => {
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (

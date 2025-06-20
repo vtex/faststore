@@ -199,6 +199,13 @@ input IGeoCoordinates {
   longitude: Float!
 }
 
+type ProductCountResult {
+  """
+  Total product count.
+  """
+  total: Int!
+}
+
 type Query {
   """
   Returns the details of a product based on the specified locator.
@@ -356,6 +363,69 @@ type Query {
     """
     id: String!
   ): Profile
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns the total product count information based on a specific location accessible through the VTEX segment cookie.
+  """
+  productCount(
+    """
+    Search term.
+    """
+    term: String
+  ): ProductCountResult
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the Details of an User Order.
+  """
+  userOrder(
+    """
+    Identifier for the order.
+    """
+    orderId: String!
+  ): UserOrderResult
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the list of Orders that the User can view.
+  """
+  listUserOrders(
+    """
+    Page number of the list of orders.
+    """
+    page: Int
+    """
+    Quantity of items per page of the list of orders.
+    """
+    perPage: Int
+    """
+    Status of the list of orders.
+    """
+    status: [String]
+    """
+    Initial date of the list of orders.
+    """
+    dateInitial: String
+    """
+    Final date of the list of orders.
+    """
+    dateFinal: String
+    """
+    Text used to full text filter of the list of orders.
+    """
+    text: String
+    """
+    Client email used to filter of the list of orders.
+    """
+    clientEmail: String
+  ): UserOrderListMinimalResult
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns the account name of the current user or the B2B contract name if applicable.
+  """
+  accountName: String
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 

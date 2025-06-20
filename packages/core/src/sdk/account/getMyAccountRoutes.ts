@@ -10,23 +10,24 @@ interface GetMyAccountRouteParams {
   routes: Route[]
 }
 
+// This is the default route list for My Account, we should add then as the feature is implemented
 const DEFAULT_ROUTES: Route[] = [
-  {
-    title: 'Profile',
-    route: '/account/profile',
-  },
+  // {
+  //   title: 'Profile',
+  //   route: '/account/profile',
+  // },
   {
     title: 'Orders',
     route: '/account/orders',
   },
-  {
-    title: 'User Details',
-    route: '/account/user-details',
-  },
-  {
-    title: 'Security',
-    route: '/account/security',
-  },
+  // {
+  //   title: 'User Details',
+  //   route: '/account/user-details',
+  // },
+  // {
+  //   title: 'Security',
+  //   route: '/account/security',
+  // },
 ]
 
 export function getMyAccountRoutes({ routes }: GetMyAccountRouteParams) {

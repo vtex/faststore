@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @fatstore/storybook
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @fatstore/storybook
+
+## [3.47.1](https://github.com/vtex/faststore/compare/v3.47.0...v3.47.1) (2025-05-22)
+
+**Note:** Version bump only for package @fatstore/storybook
+
+# 3.45.0 (2025-05-20)
+
+**Note:** Version bump only for package @fatstore/storybook
+
+# [3.44.0](https://github.com/vtex/faststore/compare/v3.43.0...v3.44.0) (2025-05-13)
+
+**Note:** Version bump only for package @fatstore/storybook
+
+# [3.42.0](https://github.com/vtex/faststore/compare/v3.41.9...v3.42.0) (2025-05-08)
+
+**Note:** Version bump only for package @fatstore/storybook
+
+## [3.41.5](https://github.com/vtex/faststore/compare/v3.41.4...v3.41.5) (2025-04-22)
+
+### Bug Fixes
+
+- Tooltip positions ([#2799](https://github.com/vtex/faststore/issues/2799)) ([2044412](https://github.com/vtex/faststore/commit/20444128fbc609941793aec4472f498233878e6d))
+
 ## [3.41.3](https://github.com/vtex/faststore/compare/v3.41.2...v3.41.3) (2025-04-16)
 
 **Note:** Version bump only for package @fatstore/storybook

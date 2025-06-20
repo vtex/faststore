@@ -314,7 +314,7 @@ async function copyTheme(basePath: string) {
           storeConfig.theme
         } theme was added to the config file but the ${
           storeConfig.theme
-        }.scss file does not exist in the themes folder. Read more: https://www.faststore.dev/docs/themes/overview`
+        }.scss file does not exist in the themes folder. Read more: https://developers.vtex.com/docs/guides/faststore/themes-overview`
       )
     }
   } else if (

@@ -1,4 +1,3 @@
-import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
@@ -12,8 +11,10 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { type PageContentType, getPage } from 'src/server/cms'
+import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -56,7 +57,7 @@ function Page({ page: { sections }, globalSections }: Props) {
 export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
-  Locator
+  PreviewData
 > = async ({ previewData }) => {
   const [
     globalSectionsPromise,
@@ -66,9 +67,9 @@ export const getStaticProps: GetStaticProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      getPage<PageContentType>({
-        ...(previewData?.contentType === '500' && previewData),
+      contentService.getSingleContent<PageContentType>({
         contentType: '500',
+        previewData,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,

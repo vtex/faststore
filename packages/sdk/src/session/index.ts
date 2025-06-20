@@ -39,6 +39,13 @@ export interface Person {
 
 export interface B2bInfo {
   customerId: string
+  isRepresentative: boolean
+  unitName: string
+  unitId: string
+  firstName: string
+  lastName: string
+  userName: string
+  userEmail: string
 }
 
 export interface Session {
@@ -48,6 +55,7 @@ export interface Session {
   channel: string | null
   deliveryMode: DeliveryMode | null
   addressType: string | null
+  city: string | null
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null
   person: Person | null

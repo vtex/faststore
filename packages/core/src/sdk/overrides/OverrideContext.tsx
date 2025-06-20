@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 
-import type { OverriddenComponents } from '../../typings/overridesDefinition'
 import type { SectionsOverrides } from '../../typings/overrides'
+import type { OverriddenComponents } from '../../typings/overridesDefinition'
 
 type OverrideContextType<
   SectionName extends keyof SectionsOverrides = keyof SectionsOverrides,
@@ -10,7 +10,7 @@ type OverrideContextType<
   components: OverriddenComponents<SectionName>
 }
 
-const OverrideContext = createContext<OverrideContextType>(null)
+const OverrideContext = createContext<OverrideContextType>({ components: {} })
 
 export const OverrideProvider = OverrideContext.Provider
 
