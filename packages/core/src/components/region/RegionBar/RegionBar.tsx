@@ -7,12 +7,13 @@ import { useSession } from 'src/sdk/session'
 import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { textToTitleCase } from 'src/utils/utilities'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 import { useRegionModal } from '../RegionModal/useRegionModal'
 
 export interface RegionBarProps {
   /**
-   * A React component that will be rendered as an icon.
+   * A React component that will be rendered as the location icon.
    */
   icon?: {
     icon: string
@@ -37,24 +38,28 @@ export interface RegionBarProps {
 
 function RegionBar({
   icon: { icon: locationIcon, alt: locationIconAlt },
-  buttonIcon: { icon: buttonIcon, alt: buttonIconAlt },
-  label,
-  editLabel,
+  buttonIcon = undefined,
+  label: locationLabel,
+  editLabel = undefined,
   ...otherProps
 }: RegionBarProps) {
   const {
     RegionBar: RegionBarWrapper,
     LocationIcon,
     ButtonIcon,
+    FilterButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
   const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
   const { isValidationComplete } = useRegionModal()
+  const { filterByPickupPoint } = getRegionalizationSettings()
   const regionBarRef = useRef<HTMLDivElement>(null)
 
   const defaultPostalCode =
     !!initialSession?.postalCode && postalCode === initialSession.postalCode
+  const shouldDisplayGlobalFilter =
+    deliveryPromise.enabled && !!postalCode && filterByPickupPoint?.enabled
 
   // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
   const displayRegionPopover =
@@ -87,14 +92,34 @@ function RegionBar({
         />
       }
       buttonIcon={
-        <ButtonIcon.Component
-          {...ButtonIcon.props}
-          name={buttonIcon ?? ButtonIcon.props.name}
-          aria-label={buttonIconAlt ?? ButtonIcon.props['aria-label']}
-        />
+        buttonIcon?.icon ? (
+          <ButtonIcon.Component
+            {...ButtonIcon.props}
+            name={buttonIcon?.icon ?? ButtonIcon.props.name}
+            aria-label={buttonIcon?.alt ?? ButtonIcon.props['aria-label']}
+          />
+        ) : undefined
       }
+      filterButton={{
+        label: filterByPickupPoint?.label,
+        icon: (
+          <FilterButtonIcon.Component
+            {...FilterButtonIcon.props}
+            name={
+              filterByPickupPoint?.icon?.icon ?? FilterButtonIcon.props.name
+            }
+            aria-label={
+              filterByPickupPoint?.icon?.alt ??
+              FilterButtonIcon.props['aria-label']
+            }
+          />
+        ),
+        selectedFilter: undefined, // TODO: specify selected pickup point
+        shouldDisplayFilterButton: shouldDisplayGlobalFilter,
+        onClick: () => console.log('TODO: open RegionSlider'),
+      }}
       {...RegionBarWrapper.props}
-      label={label ?? RegionBarWrapper.props.label}
+      label={locationLabel ?? RegionBarWrapper.props.label}
       editLabel={editLabel ?? RegionBarWrapper.props.editLabel}
       // Dynamic props shouldn't be overridable
       // This decision can be reviewed later if needed

@@ -48,6 +48,14 @@ type DeliveryPromiseCmsData = {
     choosePickupPointAriaLabel?: string
     noPickupPointsAvailableInLocation?: string
   }
+  filterByPickupPoint?: {
+    enabled?: boolean
+    label?: string
+    icon?: {
+      icon?: string
+      alt?: string
+    }
+  }
 }
 
 export function getGlobalSettings(
