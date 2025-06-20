@@ -57,11 +57,13 @@ type UserOrder {
   totals: [UserOrderTotals]
   deliveryOptionsData: UserOrderDeliveryOptionsData
   customFields: [UserOrderCustomFieldsGrouped]
+  canCancelOrder: Boolean
 }
 
 type UserOrderResult {
   orderId: String
   status: String
+  canCancelOrder: Boolean
   statusDescription: String
   allowCancellation: Boolean
   storePreferencesData: UserOrderStorePreferencesData
