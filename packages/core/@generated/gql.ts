@@ -38,8 +38,6 @@ const documents = {
     types.ServerProductFragmentDoc,
   '\n  query ServerAccountPageQuery {\n    accountName\n  }\n':
     types.ServerAccountPageQueryDocument,
-  '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n':
-    types.ValidateUserDocument,
   '\n  query ServerCollectionPageQuery($slug: String!) {\n    ...ServerCollectionPage\n    collection(slug: $slug) {\n      seo {\n        title\n        description\n      }\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n      meta {\n        selectedFacets {\n          key\n          value\n        }\n      }\n    }\n  }\n':
     types.ServerCollectionPageQueryDocument,
   '\n  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ServerProduct\n    product(locator: $locator) {\n      id: productID\n\n      seo {\n        title\n        description\n        canonical\n      }\n\n      brand {\n        name\n      }\n\n      sku\n      gtin\n      name\n      description\n      releaseDate\n\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n\n      image {\n        url\n        alternateName\n      }\n\n      offers {\n        lowPrice\n        highPrice\n        lowPriceWithTaxes\n        priceCurrency\n        offers {\n          availability\n          price\n          priceValidUntil\n          priceCurrency\n          itemCondition\n          seller {\n            identifier\n          }\n        }\n      }\n\n      isVariantOf {\n        productGroupID\n      }\n\n      ...ProductDetailsFragment_product\n    }\n  }\n':
@@ -58,6 +56,8 @@ const documents = {
     types.ServerUserDetailsQueryDocument,
   '\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n':
     types.CancelOrderMutationDocument,
+  '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n':
+    types.ValidateUserDocument,
   '\n  mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {\n    validateCart(cart: $cart, session: $session) {\n      order {\n        orderNumber\n        acceptedOffer {\n          ...CartItem\n        }\n        shouldSplitItem\n      }\n      messages {\n        ...CartMessage\n      }\n    }\n  }\n\n  fragment CartMessage on StoreCartMessage {\n    text\n    status\n  }\n\n  fragment CartItem on StoreOffer {\n    seller {\n      identifier\n    }\n    quantity\n    price\n    priceWithTaxes\n    listPrice\n    listPriceWithTaxes\n    itemOffered {\n      ...CartProductItem\n    }\n  }\n\n  fragment CartProductItem on StoreProduct {\n    sku\n    name\n    unitMultiplier\n    image {\n      url\n      alternateName\n    }\n    brand {\n      name\n    }\n    isVariantOf {\n      productGroupID\n      name\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n      }\n    }\n    gtin\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n  }\n':
     types.ValidateCartMutationDocument,
   '\n  mutation SubscribeToNewsletter($data: IPersonNewsletter!) {\n    subscribeToNewsletter(data: $data) {\n      id\n    }\n  }\n':
@@ -168,12 +168,6 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n'
-): typeof import('./graphql').ValidateUserDocument
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
   source: '\n  query ServerCollectionPageQuery($slug: String!) {\n    ...ServerCollectionPage\n    collection(slug: $slug) {\n      seo {\n        title\n        description\n      }\n      breadcrumbList {\n        itemListElement {\n          item\n          name\n          position\n        }\n      }\n      meta {\n        selectedFacets {\n          key\n          value\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ServerCollectionPageQueryDocument
 /**
@@ -224,6 +218,12 @@ export function gql(
 export function gql(
   source: '\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n'
 ): typeof import('./graphql').CancelOrderMutationDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n'
+): typeof import('./graphql').ValidateUserDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

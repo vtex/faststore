@@ -2182,10 +2182,6 @@ export type ServerAccountPageQueryQueryVariables = Exact<{
 
 export type ServerAccountPageQueryQuery = { accountName: string | null }
 
-export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
-
-export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
-
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input']
 }>
@@ -2469,6 +2465,10 @@ export type CancelOrderMutationMutationVariables = Exact<{
 export type CancelOrderMutationMutation = {
   cancelOrder: { data: string | null } | null
 }
+
+export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
@@ -3485,15 +3485,6 @@ export const ServerAccountPageQueryDocument = {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables
 >
-export const ValidateUserDocument = {
-  __meta__: {
-    operationName: 'ValidateUser',
-    operationHash: '32f99c73c3de958b64d6bece1afe800469f54548',
-  },
-} as unknown as TypedDocumentString<
-  ValidateUserQuery,
-  ValidateUserQueryVariables
->
 export const ServerCollectionPageQueryDocument = {
   __meta__: {
     operationName: 'ServerCollectionPageQuery',
@@ -3565,6 +3556,15 @@ export const CancelOrderMutationDocument = {
 } as unknown as TypedDocumentString<
   CancelOrderMutationMutation,
   CancelOrderMutationMutationVariables
+>
+export const ValidateUserDocument = {
+  __meta__: {
+    operationName: 'ValidateUser',
+    operationHash: '32f99c73c3de958b64d6bece1afe800469f54548',
+  },
+} as unknown as TypedDocumentString<
+  ValidateUserQuery,
+  ValidateUserQueryVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
