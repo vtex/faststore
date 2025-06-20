@@ -11,7 +11,9 @@ import { useRef, useState } from 'react'
 import useRegion from '../RegionModal/useRegion'
 
 import { sessionStore, useSession } from 'src/sdk/session'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { textToTitleCase } from 'src/utils/utilities'
+
 import styles from './section.module.scss'
 
 interface RegionPopoverProps {
@@ -72,6 +74,7 @@ function RegionPopover({
   const [input, setInput] = useState<string>('')
 
   const { loading, setRegion, regionError, setRegionError } = useRegion()
+  const { dispatchDeliveryPromiseAction } = useDeliveryPromise()
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -81,6 +84,7 @@ function RegionPopover({
     await setRegion({
       session,
       onSuccess: () => {
+        dispatchDeliveryPromiseAction({ type: 'onPostalCodeChange' })
         setInput('')
         closePopover()
       },
