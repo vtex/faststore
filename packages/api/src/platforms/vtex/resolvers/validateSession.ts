@@ -155,7 +155,7 @@ export const validateSession = async (
     geoCoordinates,
     city,
     postalCode: isRepresentative
-      ? sessionData?.namespaces.public?.postalCode?.value // case b2b with use postalCode
+      ? sessionData?.namespaces.public?.postalCode?.value // case b2b: when postalCode available in session
       : postalCode,
   }
 
