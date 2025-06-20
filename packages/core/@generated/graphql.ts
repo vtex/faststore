@@ -1268,6 +1268,7 @@ export type UserOrder = {
   allowEdition: Maybe<Scalars['Boolean']['output']>
   authorizedDate: Maybe<Scalars['String']['output']>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
+  canCancelOrder: Maybe<Scalars['Boolean']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
   cancellationData: Maybe<UserOrderCancellationData>
   cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
@@ -1915,6 +1916,7 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
+  canCancelOrder: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
@@ -2273,6 +2275,7 @@ export type ServerOrderDetailsQueryQuery = {
   userOrder: {
     orderId: string | null
     status: string | null
+    canCancelOrder: boolean | null
     statusDescription: string | null
     allowCancellation: boolean | null
     storePreferencesData: { currencyCode: string | null } | null
@@ -3506,7 +3509,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'c957b142e7f211126246f91a42db6d76c519da77',
+    operationHash: 'e0fbde45eca1af0aeda0314c5d1c37e8fe520312',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

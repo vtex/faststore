@@ -1,9 +1,4 @@
-import {
-  Button as UIButton,
-  Icon as UIIcon,
-  IconButton as UIIconButton,
-  useUI,
-} from '@faststore/ui'
+import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import MyAccountOrderActionModal, {
   useOrderActionModal,
@@ -28,11 +23,13 @@ const TOASTS_CONFIG = {
 }
 
 interface MyAccountOrderActionsProps {
+  canCancelOrder: boolean
   orderId: string
   customerEmail?: string
 }
 
 export default function MyAccountOrderActions({
+  canCancelOrder,
   orderId,
   customerEmail,
 }: MyAccountOrderActionsProps) {
@@ -92,16 +89,19 @@ export default function MyAccountOrderActions({
   return (
     <>
       <div data-fs-order-details-header-actions>
-        <UIButton
-          variant="secondary"
-          data-fs-order-details-header-actions-cancel
-          size={isMobile || isTablet ? 'regular' : 'small'}
-          type="button"
-          onClick={() => openDialog('cancel')}
-        >
-          Cancel order
-        </UIButton>
-        {isMobile || isTablet ? (
+        {canCancelOrder && (
+          <UIButton
+            variant="secondary"
+            data-fs-order-details-header-actions-cancel
+            size={isMobile || isTablet ? 'regular' : 'small'}
+            type="button"
+            onClick={() => openDialog('cancel')}
+          >
+            Cancel order
+          </UIButton>
+        )}
+        {/* TODO: This will be replaced for approval flow with buying policies */}
+        {/* {isMobile || isTablet ? (
           <UIIconButton
             aria-label="Reject"
             icon={<UIIcon name="XCircle" />}
@@ -138,7 +138,7 @@ export default function MyAccountOrderActions({
           >
             Approve
           </UIButton>
-        )}
+        )} */}
       </div>
 
       <MyAccountOrderActionModal
