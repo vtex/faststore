@@ -1913,54 +1913,6 @@
                   "default": "Apply"
                 }
               }
-            },
-            "deliverySettings": {
-              "title": "Delivery Settings",
-              "type": "object",
-              "required": ["title", "description"],
-              "properties": {
-                "title": {
-                  "title": "Delivery section title",
-                  "type": "string",
-                  "default": "Delivery"
-                },
-                "description": {
-                  "title": "Delivery section description",
-                  "type": "string",
-                  "default": "Offers and delivery options vary based on region."
-                },
-                "setLocationButtonLabel": {
-                  "title": "Call to Action label",
-                  "type": "string",
-                  "default": "Set Location"
-                },
-                "deliveryCustomLabels": {
-                  "title": "Delivery Custom labels",
-                  "type": "object",
-                  "properties": {
-                    "delivery": {
-                      "title": "Shipping label",
-                      "type": "string",
-                      "default": "Shipping to"
-                    },
-                    "pickupInPoint": {
-                      "title": "Pickup in point label",
-                      "type": "string",
-                      "default": "Pickup at"
-                    },
-                    "pickupNearby": {
-                      "title": "Pickup Nearby label",
-                      "type": "string",
-                      "default": "Pickup Nearby"
-                    },
-                    "pickupAll": {
-                      "title": "Pickup Anywhere label",
-                      "type": "string",
-                      "default": "Pickup Anywhere"
-                    }
-                  }
-                }
-              }
             }
           }
         },
