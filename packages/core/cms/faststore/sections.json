@@ -2190,7 +2190,7 @@
       "required": ["label"],
       "properties": {
         "icon": {
-          "title": "Location Icon",
+          "title": "Location icon",
           "type": "object",
           "properties": {
             "icon": {
@@ -2201,7 +2201,7 @@
               "default": "MapPin"
             },
             "alt": {
-              "title": "Alternative Label",
+              "title": "Alternative label",
               "type": "string",
               "default": "Map Pin icon"
             }
@@ -2215,7 +2215,7 @@
         "editLabel": {
           "title": "Location edit label",
           "type": "string",
-          "default": "Edit"
+          "default": ""
         },
         "buttonIcon": {
           "title": "Button Icon",
@@ -2224,14 +2224,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Caret Right"],
-              "enum": ["CaretRight"],
-              "default": "CaretRight"
+              "enumNames": ["", "Caret Right"],
+              "enum": ["", "CaretRight"],
+              "default": ""
             },
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": "Caret Right icon"
+              "default": ""
             }
           }
         }

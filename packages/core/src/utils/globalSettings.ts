@@ -46,6 +46,14 @@ export type RegionalizationCmsData = {
       noPickupPointsAvailableInLocation?: string
     }
   }
+  filterByPickupPoint?: {
+    enabled?: boolean
+    label?: string
+    icon?: {
+      icon?: string
+      alt?: string
+    }
+  }
 }
 
 export function getRegionalizationSettings(
