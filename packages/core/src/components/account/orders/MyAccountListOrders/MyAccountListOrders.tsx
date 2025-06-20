@@ -5,7 +5,9 @@ import { useRouter } from 'next/router'
 
 import {
   Button,
-  Icon,
+  EmptyState,
+  Icon as UIIcon,
+  LinkButton,
   SearchInputField,
   useUI,
   type SearchInputFieldRef,
@@ -20,7 +22,6 @@ import {
 } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
-import MyAccountListOrdersEmptyState from './MyAccountListOrdersEmptyState'
 import MyAccountListOrdersTable, {
   Pagination,
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'
@@ -105,6 +106,17 @@ function getAllFacets({
   ]
 }
 
+function hasActiveFilters(
+  filters: MyAccountListOrdersProps['filters']
+): boolean {
+  return (
+    filters.status.length > 0 ||
+    Boolean(filters.dateInitial) ||
+    Boolean(filters.dateFinal) ||
+    Boolean(filters.text)
+  )
+}
+
 export default function MyAccountListOrders({
   listOrders,
   total,
@@ -163,13 +175,8 @@ export default function MyAccountListOrders({
 
   const { openFilter, filter: displayFilter } = useUI()
 
-  if (listOrders.list.length === 0) {
-    return (
-      <div className={styles.page}>
-        <MyAccountListOrdersEmptyState />
-      </div>
-    )
-  }
+  const hasFilters = hasActiveFilters(filters)
+  const isEmpty = listOrders.list.length === 0
 
   return (
     <div className={styles.page}>
@@ -197,7 +204,7 @@ export default function MyAccountListOrders({
               data-fs-list-orders-search-filters-button
               variant="tertiary"
               icon={
-                <Icon
+                <UIIcon
                   width={16}
                   height={16}
                   name="FadersHorizontal"
@@ -279,12 +286,39 @@ export default function MyAccountListOrders({
           />
         )}
 
-        <MyAccountListOrdersTable
-          listOrders={listOrders}
-          total={total}
-          perPage={perPage}
-          filters={filters}
-        />
+        {isEmpty ? (
+          <EmptyState
+            titleIcon={
+              <UIIcon
+                name={hasFilters ? 'MagnifyingGlass' : 'Bag2'}
+                width={56}
+                height={56}
+                weight="thin"
+              />
+            }
+            title={
+              hasFilters ? 'No results found' : "You don't have any orders"
+            }
+            bkgColor="light"
+          >
+            {!hasFilters && (
+              <LinkButton
+                data-fs-list-orders-empty-state-link
+                href="/"
+                variant="secondary"
+              >
+                Start shopping
+              </LinkButton>
+            )}
+          </EmptyState>
+        ) : (
+          <MyAccountListOrdersTable
+            listOrders={listOrders}
+            total={total}
+            perPage={perPage}
+            filters={filters}
+          />
+        )}
       </div>
       {!isDesktop && (
         <Pagination page={filters.page} total={total} perPage={perPage} />

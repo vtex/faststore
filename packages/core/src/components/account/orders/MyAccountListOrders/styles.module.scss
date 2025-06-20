@@ -1,8 +1,8 @@
 .page {
   @import "./MyAccountListOrdersTable/styles.scss";
   @import "./MyAccountSelectedTags/styles.scss";
-  @import "./MyAccountListOrdersEmptyState/styles.scss";
   @import "../../components/MyAccountStatusBadge/styles.scss";
+  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
 
   // --------------------------------------------------------
   // Design Tokens
