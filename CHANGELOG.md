@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.59.0](https://github.com/vtex/faststore/compare/v3.58.0...v3.59.0) (2025-06-20)
+
+### Features
+
+- add canCancelOrder flag ([#2914](https://github.com/vtex/faststore/issues/2914)) ([033aadc](https://github.com/vtex/faststore/commit/033aadcf50adadc1a101664533d3e1cbc72017e0))
+
 # [3.58.0](https://github.com/vtex/faststore/compare/v3.57.0...v3.58.0) (2025-06-20)
 
 ### Features
