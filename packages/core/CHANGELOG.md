@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.58.0](https://github.com/vtex/faststore/compare/v3.57.0...v3.58.0) (2025-06-20)
+
+### Features
+
+- add user validation query and implement access control in MyAccount ([#2899](https://github.com/vtex/faststore/issues/2899)) ([48978bf](https://github.com/vtex/faststore/commit/48978bf90e486b5eaa38ee230e7d8f9a269fb910))
+
 # [3.57.0](https://github.com/vtex/faststore/compare/v3.56.3...v3.57.0) (2025-06-20)
 
 ### Features
