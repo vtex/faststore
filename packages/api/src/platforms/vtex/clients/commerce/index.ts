@@ -486,10 +486,9 @@ export const VtexCommerce = (
         }
 
         if (text) params.append('text', text)
+
         if (status && status.length > 0) {
-          status.forEach((s) =>
-            s && s.length > 0 ? params.append('status', s) : null
-          )
+          params.append('status', status.filter(Boolean).join(','))
         }
 
         if (dateInitial && dateFinal) {
