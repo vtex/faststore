@@ -2225,14 +2225,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Caret Right"],
-              "enum": ["CaretRight"],
-              "default": "CaretRight"
+              "enumNames": ["", "Caret Right"],
+              "enum": ["", "CaretRight"],
+              "default": ""
             },
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": "Caret Right icon"
+              "default": ""
             }
           }
         }

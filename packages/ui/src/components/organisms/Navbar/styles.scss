@@ -12,8 +12,6 @@
   --fs-navbar-transition-timing                          : var(--fs-transition-timing);
   --fs-navbar-transition-function                        : var(--fs-transition-function);
 
-  --fs-navbar-box-shadow                                 : 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
-
   // Header
   --fs-navbar-header-padding                             : 0 var(--fs-spacing-0);
 
@@ -31,8 +29,6 @@
 
   // Logo
   --fs-navbar-logo-width                                 : var(--fs-logo-width);
-  --fs-navbar-logo-border-left-width                     : var(--fs-border-width);
-  --fs-navbar-logo-border-left-color                     : var(--fs-border-color-light);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -42,7 +38,6 @@
   flex-direction: column;
   justify-content: center;
   padding: 0;
-  box-shadow: var(--fs-navbar-box-shadow);
   transition: top var(--fs-navbar-transition-timing) var(--fs-navbar-transition-function);
 
   @include media("<notebook") {
@@ -200,7 +195,6 @@
       padding: var(--fs-spacing-1) 0 var(--fs-spacing-1) var(--fs-spacing-3);
       margin-right: auto;
       margin-left: var(--fs-spacing-0);
-      border-left: var(--fs-navbar-logo-border-left-width) solid var(--fs-navbar-logo-border-left-color);
     }
 
     [data-fs-logo] {

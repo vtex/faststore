@@ -40,7 +40,7 @@
   width: var(--fs-region-bar-width);
 
   [data-fs-button] {
-    width: var(--fs-region-bar-width);
+    min-width: 100%;
 
     [data-fs-button-wrapper] {
       gap: 0;
@@ -85,7 +85,20 @@
   // @deprecated
   [data-fs-region-bar-message] {
     margin-right: var(--fs-region-bar-message-margin-right);
-    font-weight: var(--fs-text-weight-regular);
+    font-weight: var(--fs-text-weight-semibold);
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-filter],
+  [data-fs-region-bar-filter-message] {
+    overflow: hidden;
+    font-weight: var(--fs-text-weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-filter] {
+    line-height: 1.2;
   }
 
   [data-fs-region-bar-location] {
