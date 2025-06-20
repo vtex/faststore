@@ -14,10 +14,7 @@ import { execute } from 'src/server'
 
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import type {
-  ValidateUserQuery,
-  ValidateUserQueryVariables,
-} from '@generated/graphql'
+import { validateUser } from 'src/sdk/account/validateUser'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -30,33 +27,12 @@ const query = gql(`
   }
 `)
 
-const validateUserQuery = gql(`
-  query ValidateUser {
-    validateUser {
-      isValid
-    }
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const validateUserResult = await execute<
-    ValidateUserQueryVariables,
-    ValidateUserQuery
-  >(
-    {
-      variables: {},
-      operation: validateUserQuery,
-    },
-    {
-      headers: { ...context.req.headers },
-    }
-  )
-
-  const isValid = validateUserResult?.data?.validateUser?.isValid
+  const isValid = await validateUser(context)
 
   if (!isValid) {
     return {
