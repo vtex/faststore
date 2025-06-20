@@ -64,5 +64,5 @@ export default function FilterDeliveryMethodFacet({
     )
   }
 
-  return <>{mapDeliveryMethodLabel[item.value]}</>
+  return <>{mapDeliveryMethodLabel[item.value] ?? item.label}</>
 }
