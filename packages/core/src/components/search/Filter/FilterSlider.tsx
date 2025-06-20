@@ -13,24 +13,22 @@ import {
   type IconProps as UIIconProps,
 } from '@faststore/ui'
 
+import { deliveryPromise } from 'discovery.config'
+import type { Filter_FacetsFragment } from '@generated/graphql'
+
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
-
-import { deliveryPromise } from 'discovery.config'
-
-import type { Filter_FacetsFragment } from '@generated/graphql'
-import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
-
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { sessionStore } from 'src/sdk/session'
+
+import RegionSlider from 'src/components/region/RegionSlider'
 
 import {
   getRegionalizationSettings,
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
-
+import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import styles from './section.module.scss'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
