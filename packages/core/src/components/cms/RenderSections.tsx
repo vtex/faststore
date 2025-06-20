@@ -9,7 +9,9 @@ import {
 import { useUI } from '@faststore/ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import useTTI from 'src/sdk/performance/useTTI'
+import { isContentPlatformSource } from 'src/server/content/utils'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
 import COMPONENTS from './global/Components'
@@ -25,6 +27,11 @@ const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
 
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
+  { ssr: false }
+)
+
+const PreviewTag = dynamic(
+  () => import(/* webpackChunkName: "PreviewTag" */ '../common/PreviewTag'),
   { ssr: false }
 )
 
@@ -137,9 +144,20 @@ function RenderSections({
   )
 
   const { isInteractive } = useTTI()
+  const router = useRouter()
+
+  const shouldDisplayPreviewTag = isContentPlatformSource() && router.isPreview
 
   return (
     <>
+      {shouldDisplayPreviewTag && (
+        <LazyLoadingSection
+          sectionName="PreviewTag"
+          isInteractive={isInteractive}
+        >
+          <PreviewTag />
+        </LazyLoadingSection>
+      )}
       {firstSections && (
         <RenderSectionsBase
           sections={firstSections}
