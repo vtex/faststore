@@ -1,10 +1,8 @@
-import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
 
 import {
   type GlobalSectionsData,
@@ -15,6 +13,8 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 type Props = {
   page: PageContentType
@@ -146,14 +146,13 @@ function Page({
 export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
-  Locator
+  PreviewData
 > = async ({ previewData }) => {
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
-
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   let cmsPage = null
@@ -161,15 +160,18 @@ export const getStaticProps: GetStaticProps<
     const cmsData = JSON.parse(storeConfig.cms.data)
     cmsPage = cmsData['home'][0]
   }
+
   const pagePromise = cmsPage
-    ? getPage<PageContentType>({
+    ? contentService.getSingleContent<PageContentType>({
         contentType: 'home',
+        previewData,
         documentId: cmsPage.documentId,
         versionId: cmsPage.versionId,
+        releaseId: cmsPage.releaseId,
       })
-    : getPage<PageContentType>({
-        ...(previewData?.contentType === 'home' && previewData),
+    : contentService.getSingleContent<PageContentType>({
         contentType: 'home',
+        previewData,
       })
 
   const [

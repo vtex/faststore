@@ -1,6 +1,6 @@
 export { default as UIProvider, Toast as ToastProps, useUI } from './UIProvider'
 export { useFadeEffect } from './useFadeEffect'
-export { useTrapFocus } from './useTrapFocus'
+export { useOnClickOutside } from './useOnClickOutside'
 export { useSearch } from './useSearch'
 export { useSKUMatrix } from './useSKUMatrix'
 export { useScrollDirection } from './useScrollDirection'
@@ -13,3 +13,4 @@ export type {
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
 export { useProductComparison } from './useProductComparison'
+export { useTrapFocus } from './useTrapFocus'

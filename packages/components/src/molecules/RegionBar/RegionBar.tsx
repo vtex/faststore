@@ -1,11 +1,17 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode, RefAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { Button } from '../../'
 
-export interface RegionBarProps extends HTMLAttributes<HTMLDivElement> {
+export interface RegionBarProps
+  extends HTMLAttributes<HTMLDivElement>,
+    RefAttributes<HTMLDivElement> {
   /**
-   * Postal code string to be display in the component
+   * City to be displayed in the component.
+   */
+  city?: string
+  /**
+   * Postal code string to be display in the component.
    */
   postalCode?: string
   /**
@@ -28,16 +34,23 @@ export interface RegionBarProps extends HTMLAttributes<HTMLDivElement> {
    * A React component that will be rendered as an icon.
    */
   buttonIcon?: ReactNode
+  /**
+   * Boolean to control whether postal code should be visible or not.
+   * @default true
+   */
+  shouldDisplayPostalCode?: boolean
 }
 
 const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
   {
+    city,
     postalCode,
     icon,
     label,
     editLabel,
     buttonIcon,
     onButtonClick,
+    shouldDisplayPostalCode = true,
     ...otherProps
   },
   ref
@@ -51,9 +64,12 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
         icon={buttonIcon}
       >
         {!!icon && icon}
-        {postalCode ? (
+        {city && postalCode ? (
           <>
-            <span data-fs-region-bar-postal-code>{postalCode}</span>
+            <span data-fs-region-bar-postal-code>
+              {city}
+              {shouldDisplayPostalCode && `, ${postalCode}`}
+            </span>
             {!!editLabel && <span data-fs-region-bar-cta>{editLabel}</span>}
           </>
         ) : (

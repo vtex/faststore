@@ -3,16 +3,18 @@ import type { AppProps } from 'next/app'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
+import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 import SEO from '../../next-seo.config'
 
 // FastStore UI's base styles
-import '../styles/global/index.scss'
-import '../plugins/index.scss'
-import '../customizations/src/themes/index.scss'
+import '../styles/main.scss'
 
 import { DefaultSeo } from 'next-seo'
 
 function App({ Component, pageProps }: AppProps) {
+  const { key } = pageProps
+  useGeolocation()
+
   return (
     <ErrorBoundary>
       <DefaultSeo {...SEO} />
@@ -21,7 +23,7 @@ function App({ Component, pageProps }: AppProps) {
 
       <UIProvider>
         <Layout>
-          <Component {...pageProps} />
+          <Component {...pageProps} key={key} />
         </Layout>
       </UIProvider>
     </ErrorBoundary>

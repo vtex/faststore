@@ -1,32 +1,24 @@
-import storeConfig from 'discovery.config'
-
 import type { GetServerSideProps, NextPage } from 'next'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 const MyAccountRedirectPage: NextPage = () => {
   return null
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  if (storeConfig.experimental.enableFaststoreMyAccount) {
-    return {
-      redirect: {
-        destination: '/account/profile',
-        permanent: false,
-      },
-    }
-  }
+  // TODO validate permissions here
 
-  const searchParams = new URLSearchParams()
+  const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
+    query,
+  })
 
-  for (const key in query) {
-    const value = query[key]
-    const values = Array.isArray(value) ? value : [value]
-    values.forEach((v) => v && searchParams.append(key, v))
+  if (!isFaststoreMyAccountEnabled) {
+    return { redirect }
   }
 
   return {
     redirect: {
-      destination: `${storeConfig.accountUrl}?${searchParams.toString()}`,
+      destination: '/account/profile',
       permanent: false,
     },
   }

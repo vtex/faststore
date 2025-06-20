@@ -1,12 +1,13 @@
-import type { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
 import type { GetStaticProps } from 'next'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { getPage, type SearchContentType } from 'src/server/cms'
+import type { SearchContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 export type SearchPageProps = {
   page: SearchContentType
@@ -21,10 +22,9 @@ export type SearchPageProps = {
 export const getStaticProps: GetStaticProps<
   SearchPageProps,
   Record<string, string>,
-  Locator
+  PreviewData
 > = async (context) => {
   const { previewData } = context
-
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -42,10 +42,12 @@ export const getStaticProps: GetStaticProps<
         globalSectionsHeader,
         globalSectionsFooter,
       ] = await Promise.all([
-        getPage<SearchContentType>({
+        contentService.getSingleContent<SearchContentType>({
           contentType: 'search',
+          previewData,
           documentId: page.documentId,
           versionId: page.versionId,
+          releaseId: page.releaseId,
         }),
         globalSectionsPromise,
         globalSectionsHeaderPromise,
@@ -66,9 +68,9 @@ export const getStaticProps: GetStaticProps<
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      getPage<SearchContentType>({
-        ...(previewData?.contentType === 'search' ? previewData : null),
+      contentService.getSingleContent<SearchContentType>({
         contentType: 'search',
+        previewData,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,

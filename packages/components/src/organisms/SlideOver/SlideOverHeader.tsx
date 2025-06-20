@@ -7,7 +7,7 @@ export interface SlideOverHeaderProps
   /**
    * A react component to be used as the title in the header.
    */
-  children: ReactNode
+  children?: ReactNode
   /**
    * Props for the Close Button component.
    */
