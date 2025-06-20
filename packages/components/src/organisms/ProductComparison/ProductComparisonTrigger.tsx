@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import type { IProductComparison } from './provider/ProductComparisonProvider'
+import type { IProductComparison } from '.'
 import CheckboxField, {
   type CheckboxFieldProps,
 } from '../../molecules/CheckboxField'
