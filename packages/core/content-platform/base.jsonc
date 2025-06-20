@@ -1,8 +1,7 @@
 {
   // This should be automatically updated and point to Schema Registry.
   "$id": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore",
-  // This should always point to CP's meta-schema for Stores.
-  // "$schema": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/meta-schema",
+  // TODO: Add a reference to the latest version of CMS' meta schema once it's available.
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
   "contexts": {},
