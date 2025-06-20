@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.56.3](https://github.com/vtex/faststore/compare/v3.56.2...v3.56.3) (2025-06-20)
+
+### Bug Fixes
+
+- send all status in only one param ([#2912](https://github.com/vtex/faststore/issues/2912)) ([c9b03e3](https://github.com/vtex/faststore/commit/c9b03e3037ec0d6c6fc247bccad5bc98a9955c6e))
+
 ## [3.56.2](https://github.com/vtex/faststore/compare/v3.56.1...v3.56.2) (2025-06-19)
 
 ### Bug Fixes
