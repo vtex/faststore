@@ -14,8 +14,8 @@ import {
 import { gql } from '@generated/gql'
 import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { useFilter } from 'src/sdk/search/useFilter'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { FilterSliderProps } from './FilterSlider'
 
 import { sessionStore } from 'src/sdk/session'
