@@ -13,6 +13,7 @@ const initialSession: Session = {
   channel: 'test-channel',
   deliveryMode: null,
   addressType: null,
+  city: null,
   postalCode: null,
   geoCoordinates: null,
   person: null,

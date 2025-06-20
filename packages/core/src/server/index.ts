@@ -48,7 +48,7 @@ const customFormatError: MaskError = (err) => {
 
   console.error(err)
 
-  return new GraphQLError('Sorry, something went wrong.')
+  return new GraphQLError(`Sorry, something went wrong. ${err}`)
 }
 
 function loadGeneratedSchema(): TypeSource {

@@ -104,7 +104,7 @@ function SKUMatrixSidebar({
 
   function resetQuantityItems() {
     setAllVariantProducts((prev) =>
-      prev.map((item) => ({ ...item, quantity: 0 }))
+      prev.map((item) => ({ ...item, selectedCount: 0 }))
     )
   }
 

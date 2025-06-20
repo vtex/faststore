@@ -37,6 +37,12 @@ const UINavbarSliderFooter = dynamic(() =>
   )
 )
 
+const SKUMatrixSidebar = dynamic(() =>
+  import(
+    /* webpackChunkName: "UISKUMatrixSidebar" */ 'src/components/ui/SKUMatrix/SKUMatrixSidebar'
+  ).then((module) => module.default)
+)
+
 export const NavbarDefaultComponents = {
   Navbar: UINavbar,
   NavbarLinks: UINavbarLinks,
@@ -50,4 +56,5 @@ export const NavbarDefaultComponents = {
   NavbarButtons: UINavbarButtons,
   IconButton: UIIconButton,
   _experimentalButtonSignIn: ButtonSignIn,
+  __experimentalSKUMatrixSidebar: SKUMatrixSidebar,
 } as const

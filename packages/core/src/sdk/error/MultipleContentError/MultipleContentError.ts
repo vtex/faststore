@@ -1,12 +1,14 @@
+import type { EntryPathParams } from '@vtex/client-cp'
+import { contentSource } from 'discovery.config'
 import type { Options } from 'src/server/cms'
 
 export default class MultipleContentError extends Error {
-  constructor(options: Options) {
+  constructor(params: Options | EntryPathParams) {
     super(
-      `Multiple content defined on the CMS for content type ${
-        options.contentType
+      `Multiple content defined on the ${contentSource.type} for content type ${
+        params.contentType
       }. Remove duplicated content before proceeding. Context: ${JSON.stringify(
-        options,
+        params,
         null,
         2
       )}`

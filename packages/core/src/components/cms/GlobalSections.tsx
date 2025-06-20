@@ -1,6 +1,8 @@
-import type { Locator, Section } from '@vtex/client-cms'
+import type { Section } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
-import { type PageContentType, getPage } from 'src/server/cms'
+import type { PageContentType } from 'src/server/cms'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 export const GLOBAL_SECTIONS_HEADER_CONTENT_TYPE = 'globalHeaderSections'
@@ -11,7 +13,7 @@ export type GlobalSectionsData = {
 }
 
 export const getGlobalSectionsByType = async (
-  previewData: Locator,
+  previewData: PreviewData,
   contentType: string
 ): Promise<GlobalSectionsData> => {
   if (storeConfig.cms.data) {
@@ -19,26 +21,28 @@ export const getGlobalSectionsByType = async (
     const page = cmsData[contentType][0]
 
     if (page) {
-      const pageData = getPage<PageContentType>({
-        contentType: contentType,
+      const pageData = contentService.getSingleContent<PageContentType>({
+        contentType,
+        previewData,
         documentId: page.documentId,
         versionId: page.versionId,
+        releaseId: page.releaseId,
       })
 
       return pageData
     }
   }
 
-  const pageData = getPage<PageContentType>({
-    ...(previewData?.contentType === contentType && previewData),
-    contentType: contentType,
+  const pageData = contentService.getSingleContent<PageContentType>({
+    contentType,
+    previewData,
   })
 
   return pageData
 }
 
 export const getGlobalSectionsData = (
-  previewData: Locator
+  previewData: PreviewData
 ): Promise<GlobalSectionsData>[] => {
   const globalSections = getGlobalSectionsByType(
     previewData,

@@ -197,6 +197,7 @@ export type SectionsOverrides = {
         IconButtonProps,
         Omit<IconButtonProps, 'onClick'>
       >
+      __experimentalSKUMatrixSidebar: ComponentOverrideDefinition<any, any>
       _experimentalButtonSignIn: ComponentOverrideDefinition<any, any>
     }
   }

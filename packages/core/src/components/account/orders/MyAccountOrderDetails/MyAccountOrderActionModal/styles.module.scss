@@ -1,0 +1,40 @@
+@layer components {
+  .orderActionsModal {
+    @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
+    @import "src/components/account/components/BottomSheet/styles.scss";
+
+    [data-fs-order-details-action-modal] {
+      [data-fs-modal-body] {
+        [data-fs-order-details-action-modal-message] {
+          font-size: var(--fs-text-size-body);
+          line-height: 1.5;
+          color: var(--fs-color-text);
+        }
+      }
+
+      [data-fs-modal-footer] {
+        @include media("<=tablet") {
+          padding: var(--fs-spacing-3) 0 var(--fs-spacing-3);
+
+          [data-fs-modal-footer-actions] {
+            display: flex;
+            flex-flow: row wrap;
+            gap: var(--fs-spacing-3);
+            align-items: center;
+            justify-content: flex-end;
+            max-width: 25rem;
+            padding: var(--fs-spacing-1) var(--fs-spacing-4);
+            margin-left: auto;
+
+            > * {
+              flex-grow: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -52,6 +52,7 @@ module.exports = {
     country: 'USA',
     deliveryMode: null,
     addressType: null,
+    city: null,
     postalCode: null,
     geoCoordinates: null,
     b2b: null,
@@ -88,6 +89,8 @@ module.exports = {
     plp: '/office',
     search: '/s?q=headphone',
     pdp: '/apple-magic-mouse/p',
+    500: '/500',
+    404: '/404',
   },
 
   // Lighthouse CI
@@ -122,6 +125,15 @@ module.exports = {
     data: process.env.CMS_DATA,
   },
 
+  contentSource: {
+    type: 'CMS',
+  },
+
+  deliveryPromise: {
+    enabled: false,
+    mandatory: false,
+  },
+
   experimental: {
     cypressVersion: 12,
     enableCypressExtension: false,
@@ -131,7 +143,7 @@ module.exports = {
     preact: false,
     enableRedirects: false,
     enableSearchSSR: false,
-    enableFaststoreMyAccount: false,
+    enableFaststoreMyAccount: true,
     enableVtexAssetsLoader: false,
     graphqlCacheControl: {
       maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes

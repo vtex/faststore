@@ -1,8 +1,8 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 
-import { getContextFactory, getSchema } from '../src'
 import type { Options } from '../src'
+import { getContextFactory, getSchema } from '../src'
 
 const serverPort = '4000'
 
@@ -23,12 +23,14 @@ app.use(express.json())
 
 app.use(
   '/graphql',
-  graphqlHTTP(async () => {
+  graphqlHTTP(async (req) => {
     const schema = await getSchema(apiOptions)
 
     return {
       schema,
-      context: graphQLContext({}),
+      context: graphQLContext({
+        headers: req.headers,
+      }),
       graphiql: true,
       pretty: true,
     }
