@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/components
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/components
+
+# 3.45.0 (2025-05-20)
+
+### Features
+
+- my account release 2 ([#2786](https://github.com/vtex/faststore/issues/2786)) ([2a6339c](https://github.com/vtex/faststore/commit/2a6339ce060ff2707a6734f5c4fdae8b4f4c4480))
+
+# [3.44.0](https://github.com/vtex/faststore/compare/v3.43.0...v3.44.0) (2025-05-13)
+
+### Features
+
+- Delivery Promise - navigation based on shopper location ([#2716](https://github.com/vtex/faststore/issues/2716)) ([d683080](https://github.com/vtex/faststore/commit/d683080b9806bf7587be5ef84d403e30d3969e51)), closes [#2708](https://github.com/vtex/faststore/issues/2708) [#2728](https://github.com/vtex/faststore/issues/2728) [#2739](https://github.com/vtex/faststore/issues/2739) [#2745](https://github.com/vtex/faststore/issues/2745) [#2749](https://github.com/vtex/faststore/issues/2749) [#2750](https://github.com/vtex/faststore/issues/2750) [#2768](https://github.com/vtex/faststore/issues/2768) [#2772](https://github.com/vtex/faststore/issues/2772) [#2775](https://github.com/vtex/faststore/issues/2775) [#2809](https://github.com/vtex/faststore/issues/2809) [#2817](https://github.com/vtex/faststore/issues/2817) [#2824](https://github.com/vtex/faststore/issues/2824) [#2835](https://github.com/vtex/faststore/issues/2835)
+
+# [3.42.0](https://github.com/vtex/faststore/compare/v3.41.9...v3.42.0) (2025-05-08)
+
+### Features
+
+- Quick Order feature ([#2831](https://github.com/vtex/faststore/issues/2831)) ([875c6f4](https://github.com/vtex/faststore/commit/875c6f4ad4eb780cfa6f8a7aad445db5b3da2ee6))
+
 ## [3.41.3](https://github.com/vtex/faststore/compare/v3.41.2...v3.41.3) (2025-04-16)
 
 ### Bug Fixes

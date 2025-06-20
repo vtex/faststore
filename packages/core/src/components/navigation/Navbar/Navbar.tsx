@@ -10,7 +10,10 @@ import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
+import storeConfig from 'discovery.config'
 import dynamic from 'next/dynamic'
+import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
+import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
@@ -98,9 +101,16 @@ function Navbar({
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const { isDesktop, isMobile } = useScreenResize()
+  const { person, b2b } = useSession()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
+  const isFaststoreMyAccountEnabled =
+    storeConfig.experimental?.enableFaststoreMyAccount
+
+  const isRepresentative = b2b?.isRepresentative
+
+  const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
 
   const handlerExpandSearch = useCallback(() => {
     setSearchExpanded(true)
@@ -143,6 +153,7 @@ function Navbar({
             <SearchInput
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
+              quickOrderSettings={searchInput?.quickOrderSettings}
             />
           )}
 
@@ -170,11 +181,17 @@ function Navbar({
                 buttonTestId="store-input-mobile-button"
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
+                quickOrderSettings={searchInput?.quickOrderSettings}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />
             )}
-            {!isMobile && <ButtonSignIn.Component {...signInButton} />}
+            {!isMobile &&
+              (isOrganizationEnabled ? (
+                <OrganizationSignInButton icon={signInButton.icon} />
+              ) : (
+                <ButtonSignIn.Component {...signInButton} />
+              ))}
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>

@@ -1,0 +1,125 @@
+@layer components {
+  .section {
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+    @import "@faststore/ui/src/components/atoms/List/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Price/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Alert/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
+    @import "@faststore/ui/src/components/molecules/CartItem/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Gift/styles.scss";
+    @import "@faststore/ui/src/components/molecules/QuantitySelector/styles.scss";
+    @import "@faststore/ui/src/components/molecules/OrderSummary/styles.scss";
+    @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
+    @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
+    @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+    @import "@faststore/ui/src/components/organisms/CartSidebar/styles.scss";
+    @import "../ProfileSummary/profile-summary.scss";
+
+    [data-fs-organization-drawer] {
+      --fs-organization-drawer-header-contract-color             : #cbe9ff;
+      --fs-organization-drawer-body-link-color                   : #f5f5f5;
+
+      display: flex;
+      flex-direction: column;
+
+      // Header
+      [data-fs-slide-over-header] {
+        --fs-slide-over-header-height: 6.25rem;
+        --fs-slide-over-header-bkg: #f5f5f5;
+
+        flex-direction: row;
+        align-items: start;
+        justify-content: end;
+        height: var(--fs-slide-over-header-height);
+        padding: var(--fs-spacing-2);
+        background-color: var(--fs-slide-over-header-bkg);
+      }
+
+      [data-fs-organization-drawer-header] {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 0 var(--fs-spacing-6) 0 var(--fs-spacing-8);
+      }
+
+      [data-fs-organization-drawer-header-contract-link] {
+        margin-top: calc(-1 * var(--fs-spacing-6));
+        text-decoration: none;
+      }
+
+      [data-fs-organization-drawer-header-contract-name] {
+        padding: var(--fs-spacing-3) 0 0 0;
+        font-size: var(--fs-text-size-3);
+        font-weight: var(--fs-text-weight-bold);
+        color: var(--fs-color-text);
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: all 1s ease;
+      }
+
+      [data-fs-organization-drawer-header-contract-name]:hover {
+        text-decoration: underline;
+      }
+
+      [data-fs-organization-drawer-header-contract-image] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(var(--fs-spacing-8) + var(--fs-spacing-0));
+        height: calc(var(--fs-spacing-8) + var(--fs-spacing-0));
+        overflow: hidden;
+        color: var(--fs-border-color-active);
+        background-color: var(--fs-organization-drawer-header-contract-color);
+        border: var(--fs-border-width-thick) solid white;
+        border-radius: var(--fs-border-radius-pill);
+
+        [data-fs-organization-drawer-header-contract-image-fallback] {
+          font-size: var(--fs-text-size-4);
+          font-weight: var(--fs-text-weight-medium);
+        }
+      }
+
+      // Body
+      [data-fs-organization-drawer-body] {
+        flex: 1;
+        padding: var(--fs-spacing-2) var(--fs-spacing-6) var(--fs-spacing-5);
+
+        [data-fs-organization-drawer-body-contents] {
+          display: grid;
+          width: 100%;
+
+          [data-fs-organization-drawer-body-link] {
+            padding:
+              var(--fs-spacing-2)
+              calc(var(--fs-spacing-3) + var(--fs-spacing-0));
+            font-size: var(--fs-text-size-1);
+            font-weight: var(--fs-text-weight-semibold);
+            line-height: calc(var(--fs-spacing-3) + var(--fs-spacing-0));
+            color: var(--fs-color-neutral-7);
+            text-decoration: none;
+            border-radius: var(--fs-border-radius-pill);
+          }
+
+          [data-fs-organization-drawer-body-link]:hover {
+            text-decoration: none;
+            background-color: var(--fs-organization-drawer-body-link-color);
+            transition: all 0.5s ease;
+          }
+        }
+      }
+
+      // Footer
+      [data-fs-organization-drawer-footer-wrapper] {
+        padding: var(--fs-spacing-6) var(--fs-spacing-5);
+
+        @include media("<tablet") {
+          padding: var(--fs-spacing-2);
+        }
+      }
+    }
+  }
+}

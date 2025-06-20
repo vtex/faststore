@@ -1,4 +1,3 @@
-import type { Locator } from '@vtex/client-cms'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
@@ -17,9 +16,10 @@ import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Componen
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
 
 import storeConfig from 'discovery.config'
+import type { PreviewData } from 'src/server/content/types'
+import { contentService } from 'src/server/content/service'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -105,7 +105,7 @@ export default function LandingPage({
 
 export const getLandingPageBySlug = async (
   slug: string,
-  previewData: Locator
+  previewData: PreviewData
 ) => {
   try {
     if (storeConfig.cms.data) {
@@ -115,26 +115,30 @@ export const getLandingPageBySlug = async (
       })
 
       if (pageBySlug) {
-        const landingPageData = await getPage<PageContentType>({
-          contentType: 'landingPage',
-          documentId: pageBySlug.documentId,
-          versionId: pageBySlug.versionId,
-        })
+        const landingPageData =
+          await contentService.getSingleContent<PageContentType>({
+            contentType: 'landingPage',
+            previewData,
+            documentId: pageBySlug.documentId,
+            versionId: pageBySlug.versionId,
+            releaseId: pageBySlug.releaseId,
+            slug: pageBySlug.settings?.seo?.slug,
+          })
 
         return landingPageData
       }
     }
 
-    const landingPageData = await getPage<PageContentType>({
-      ...(previewData?.contentType === 'landingPage'
-        ? previewData
-        : {
-            filters: {
-              filters: { 'settings.seo.slug': `/${slug}` },
-            },
-          }),
-      contentType: 'landingPage',
-    })
+    const landingPageData =
+      await contentService.getSingleContent<PageContentType>({
+        contentType: 'landingPage',
+        previewData,
+        slug,
+        filters:
+          previewData?.contentType !== 'landingPage'
+            ? { filters: { 'settings.seo.slug': `/${slug}` } }
+            : undefined,
+      })
     return landingPageData
   } catch (error) {
     if (error instanceof MissingContentError) {

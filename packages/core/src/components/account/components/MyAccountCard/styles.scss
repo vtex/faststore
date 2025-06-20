@@ -1,0 +1,23 @@
+[data-fs-card][data-fs-my-account-card] {
+  --fs-card-border-radius                           : var(--fs-spacing-0);
+
+  [data-fs-card-header] {
+    --fs-card-header-padding                        : 20px var(--fs-spacing-4);
+    --fs-card-header-bkg-color                      : var(--fs-color-body-bkg);
+    --fs-card-header-font-weight                    : var(--fs-text-weight-semibold);
+
+    font-size: var(--fs-text-size-3);
+
+    [data-fs-card-title] {
+      display: flex;
+      gap: var(--fs-spacing-3);
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  [data-fs-card-body] {
+    --fs-card-body-padding                          : var(--fs-spacing-1) var(--fs-spacing-4) var(--fs-spacing-4);
+  }
+}

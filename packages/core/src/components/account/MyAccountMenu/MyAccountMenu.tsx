@@ -26,7 +26,7 @@ const Nav = ({ items }: Pick<MyAccountMenuProps, 'items'>) => {
       {items.map(({ route, title }) => (
         <li
           className={styles.navItem}
-          data-is-selected={currentRoute === route}
+          data-is-selected={currentRoute.includes(route)}
           key={route}
         >
           <Link href={route} tabIndex={0}>
@@ -53,7 +53,7 @@ const MyAccountMenu = ({
             {avatarImageUrl ? (
               <img className={styles.avatar} src={avatarImageUrl} />
             ) : (
-              <span className={styles.avatar}>{accountName[0]}</span>
+              <span className={styles.avatar}>{accountName?.[0]}</span>
             )}
             <h2>{accountName}</h2>
           </div>

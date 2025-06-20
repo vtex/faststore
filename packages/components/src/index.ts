@@ -131,6 +131,8 @@ export type {
 } from './molecules/NavbarLinks'
 export { default as OrderSummary } from './molecules/OrderSummary'
 export type { OrderSummaryProps } from './molecules/OrderSummary'
+export { default as Popover } from './molecules/Popover'
+export type { PopoverProps } from './molecules/Popover'
 export {
   default as ProductCard,
   ProductCardImage,
@@ -380,3 +382,17 @@ export type {
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
+
+export {
+  default as ProductComparison,
+  ProductComparisonTrigger,
+  ProductComparisonToolbar,
+  ProductComparisonSidebar,
+} from './organisms/ProductComparison'
+export type {
+  IProductComparison,
+  ProductComparisonProps,
+  ProductComparisonTriggerProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonSidebarProps,
+} from './organisms/ProductComparison'
