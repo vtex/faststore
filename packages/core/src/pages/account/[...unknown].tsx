@@ -13,8 +13,6 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async () => {
-  // TODO validate permissions here
-
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: {},
   })

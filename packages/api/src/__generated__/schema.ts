@@ -563,6 +563,8 @@ export type Query = {
   shipping?: Maybe<ShippingData>;
   /** Returns information about the Details of an User Order. */
   userOrder?: Maybe<UserOrderResult>;
+  /** Returns information about the user validation. */
+  validateUser?: Maybe<ValidateUserData>;
 };
 
 
@@ -2136,4 +2138,10 @@ export type UserOrderTransactions = {
   merchantName?: Maybe<Scalars['String']>;
   payments?: Maybe<Array<Maybe<UserOrderPayments>>>;
   transactionId?: Maybe<Scalars['String']>;
+};
+
+export type ValidateUserData = {
+  __typename?: 'ValidateUserData';
+  /** Indicates if the user is valid. */
+  isValid: Scalars['Boolean'];
 };

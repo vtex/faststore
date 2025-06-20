@@ -14,6 +14,7 @@ import { execute } from 'src/server'
 
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { validateUser } from 'src/sdk/account/validateUser'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -31,7 +32,16 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const isValid = await validateUser(context)
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,

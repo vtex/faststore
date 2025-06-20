@@ -8,6 +8,7 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { validateUser } from 'src/sdk/account/validateUser'
 
 import { gql } from '@generated'
 import type {
@@ -204,7 +205,16 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const isValid = await validateUser(context)
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,

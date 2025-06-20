@@ -24,6 +24,7 @@ import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 import { extractStatusFromError } from 'src/utils/utilities'
+import { validateUser } from 'src/sdk/account/validateUser'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -118,7 +119,16 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  // TODO validate permissions here
+  const isValid = await validateUser(context)
+
+  if (!isValid) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   const { previewData } = context
 

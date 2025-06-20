@@ -561,6 +561,8 @@ export type Query = {
   shipping: Maybe<ShippingData>
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
+  /** Returns information about the user validation. */
+  validateUser: Maybe<ValidateUserData>
 }
 
 export type QueryAllCollectionsArgs = {
@@ -1997,6 +1999,11 @@ export type UserOrderTransactions = {
   transactionId: Maybe<Scalars['String']['output']>
 }
 
+export type ValidateUserData = {
+  /** Indicates if the user is valid. */
+  isValid: Scalars['Boolean']['output']
+}
+
 export type ProductSummary_ProductFragment = {
   slug: string
   sku: string
@@ -2458,6 +2465,10 @@ export type CancelOrderMutationMutationVariables = Exact<{
 export type CancelOrderMutationMutation = {
   cancelOrder: { data: string | null } | null
 }
+
+export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
@@ -3545,6 +3556,15 @@ export const CancelOrderMutationDocument = {
 } as unknown as TypedDocumentString<
   CancelOrderMutationMutation,
   CancelOrderMutationMutationVariables
+>
+export const ValidateUserDocument = {
+  __meta__: {
+    operationName: 'ValidateUser',
+    operationHash: '32f99c73c3de958b64d6bece1afe800469f54548',
+  },
+} as unknown as TypedDocumentString<
+  ValidateUserQuery,
+  ValidateUserQueryVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
