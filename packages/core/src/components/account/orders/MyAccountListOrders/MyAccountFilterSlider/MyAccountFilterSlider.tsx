@@ -7,7 +7,6 @@ import {
   FilterSlider as UIFilterSlider,
 } from '@faststore/ui'
 
-import router from 'next/router'
 import { type MutableRefObject, useRef, useState } from 'react'
 import type {
   MyAccountFilter_FacetsFragment,
@@ -97,13 +96,21 @@ function MyAccountFilterSlider({
       {} as Record<string, string | string[]>
     )
 
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...(text ? { text } : {}),
-        ...facets,
-      },
+    const params = new URLSearchParams()
+
+    if (text) {
+      params.set('text', text)
+    }
+
+    Object.entries(facets).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((v) => params.append(key, v))
+      } else {
+        params.set(key, value)
+      }
     })
+
+    window.location.href = `/account/orders?${params.toString()}`
   }
 
   return (

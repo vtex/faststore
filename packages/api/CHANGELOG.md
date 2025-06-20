@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- account name ([#2908](https://github.com/vtex/faststore/issues/2908)) ([98e5877](https://github.com/vtex/faststore/commit/98e587770d9b5b2a2250c84377ec3d4a6e14087b))
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
+# [3.56.0](https://github.com/vtex/faststore/compare/v3.55.1...v3.56.0) (2025-06-19)
+
+### Features
+
+- add shopper first name to userName in b2b object in session ([#2902](https://github.com/vtex/faststore/issues/2902)) ([4542b5f](https://github.com/vtex/faststore/commit/4542b5f814b2d36f65b922ff594f5e24c913b89d))
+
+## [3.55.1](https://github.com/vtex/faststore/compare/v3.55.0...v3.55.1) (2025-06-18)
+
+### Bug Fixes
+
+- sends geoCoordinates long/lat format to session ([#2904](https://github.com/vtex/faststore/issues/2904)) ([7f2e8e1](https://github.com/vtex/faststore/commit/7f2e8e17b15c188999342df1d5e04342b7aeaa4b))
+
+# [3.54.0](https://github.com/vtex/faststore/compare/v3.53.0...v3.54.0) (2025-06-17)
+
+### Features
+
+- add link to order details in MyAccountListOrdersTable ([#2896](https://github.com/vtex/faststore/issues/2896)) ([3186a91](https://github.com/vtex/faststore/commit/3186a91440a889a75a0b702ddc1248caf013156a))
+
+# [3.53.0](https://github.com/vtex/faststore/compare/v3.52.1...v3.53.0) (2025-06-16)
+
+### Features
+
+- sfs 2523 contract name main menu ([#2895](https://github.com/vtex/faststore/issues/2895)) ([60adc92](https://github.com/vtex/faststore/commit/60adc92721a4a9eef6db66d1f7c3b563474b554d))
+
 # [3.51.0](https://github.com/vtex/faststore/compare/v3.50.4...v3.51.0) (2025-06-04)
 
 ### Features

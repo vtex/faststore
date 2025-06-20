@@ -1,6 +1,5 @@
 import deepEquals from 'fast-deep-equal'
 
-import { parse } from 'cookie'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
@@ -8,7 +7,7 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
-import { parseJwt } from '../utils/cookies'
+import { getAuthCookie, parseJwt } from '../utils/cookies'
 
 async function getPreciseLocationData(
   clients: Context['clients'],
@@ -74,7 +73,7 @@ export const validateSession = async (
   if (!!geoCoordinates) {
     params.set(
       'geoCoordinates',
-      `${geoCoordinates.latitude},${geoCoordinates.longitude}`
+      `${geoCoordinates.longitude},${geoCoordinates.latitude}` // long,lat is the format expected
     )
   }
 
@@ -90,10 +89,7 @@ export const validateSession = async (
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
-  const authCookie = parse(headers?.cookie ?? '')?.[
-    'VtexIdclientAutCookie_' + account
-  ]
-  const jwt = parseJwt(authCookie)
+  const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
 
   const isRepresentative = jwt?.isRepresentative
   const customerId = jwt?.customerId
@@ -104,6 +100,7 @@ export const validateSession = async (
     .catch(() => null)
 
   const profile = sessionData?.namespaces.profile ?? null
+  const shopper = sessionData?.namespaces.shopper ?? null
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
@@ -142,8 +139,7 @@ export const validateSession = async (
           unitId: authentication?.unitId?.value ?? unitId ?? '', // organization id
           firstName: profile?.firstName?.value ?? '', // contract name for b2b
           lastName: profile?.lastName?.value ?? '',
-          userName:
-            `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim(), // shopper
+          userName: shopper?.firstName?.value ?? '', // shopper
           userEmail: authentication?.storeUserEmail.value ?? '',
         }
       : null,

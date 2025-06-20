@@ -21,14 +21,14 @@ export const myAccountPageTemplate = (pagePath: string) => `
     ...CUSTOM_COMPONENTS,
   }
 
-  function Page({ globalSections }: MyAccountProps) {
+  function Page({ globalSections, accountName }: MyAccountProps) {
 
     return (
       <RenderSections
         globalSections={globalSections.sections}
         components={COMPONENTS}
       >
-        <MyAccountLayout>
+        <MyAccountLayout accountName={accountName}>
           <DynamicPage />
         </MyAccountLayout>
       </RenderSections>

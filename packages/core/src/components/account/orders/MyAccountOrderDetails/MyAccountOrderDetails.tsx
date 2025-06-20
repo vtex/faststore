@@ -9,7 +9,6 @@ import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
-import { useRouter } from 'next/router'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
@@ -25,16 +24,6 @@ const MIN_HISTORY_LENGTH_TO_GO_BACK = 2
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
-  const router = useRouter()
-
-  const handleBack = () => {
-    if (window.history.length > MIN_HISTORY_LENGTH_TO_GO_BACK) {
-      router.back()
-    } else {
-      router.push('/account/orders')
-    }
-  }
-
   const moreInformationCustomFields = order?.customFields?.find(
     (field) => field.type === 'order'
   )?.fields
@@ -43,14 +32,15 @@ export default function MyAccountOrderDetails({
     <div className={styles.page} data-fs-order-details>
       <header data-fs-order-details-header>
         <div data-fs-order-details-header-title>
-          <UIIconButton
-            data-fs-order-details-header-back-button
-            size="small"
-            aria-label="Go back"
-            icon={<UIIcon height={20} width={20} name="ArrowLeft" />}
-            type="button"
-            onClick={handleBack}
-          />
+          <a href="/account/orders">
+            <UIIconButton
+              data-fs-order-details-header-back-button
+              size="small"
+              aria-label="Go back"
+              icon={<UIIcon height={20} width={20} name="ArrowLeft" />}
+              type="button"
+            />
+          </a>
           <div data-fs-order-details-header-title-wrapper>
             <h1 data-fs-order-details-header-title-text>
               Order #{order.orderId}

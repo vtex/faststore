@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.56.2](https://github.com/vtex/faststore/compare/v3.56.1...v3.56.2) (2025-06-19)
+
+### Bug Fixes
+
+- use window.location.href to apply filters ([#2911](https://github.com/vtex/faststore/issues/2911)) ([3e71577](https://github.com/vtex/faststore/commit/3e71577ac9728ad8911dcbfaea241a0a4bb815ba))
+
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
+# [3.56.0](https://github.com/vtex/faststore/compare/v3.55.1...v3.56.0) (2025-06-19)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.55.1](https://github.com/vtex/faststore/compare/v3.55.0...v3.55.1) (2025-06-18)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.55.0](https://github.com/vtex/faststore/compare/v3.54.0...v3.55.0) (2025-06-18)
+
+### Features
+
+- extract error status handling and improve error messages ([#2903](https://github.com/vtex/faststore/issues/2903)) ([26c1eea](https://github.com/vtex/faststore/commit/26c1eea2278ce2364d8bcc45bf8d261e97cb3fa8))
+
+# [3.54.0](https://github.com/vtex/faststore/compare/v3.53.0...v3.54.0) (2025-06-17)
+
+### Features
+
+- add link to order details in MyAccountListOrdersTable ([#2896](https://github.com/vtex/faststore/issues/2896)) ([3186a91](https://github.com/vtex/faststore/commit/3186a91440a889a75a0b702ddc1248caf013156a))
+
+# [3.53.0](https://github.com/vtex/faststore/compare/v3.52.1...v3.53.0) (2025-06-16)
+
+### Features
+
+- sfs 2523 contract name main menu ([#2895](https://github.com/vtex/faststore/issues/2895)) ([60adc92](https://github.com/vtex/faststore/commit/60adc92721a4a9eef6db66d1f7c3b563474b554d))
+
+## [3.52.1](https://github.com/vtex/faststore/compare/v3.52.0...v3.52.1) (2025-06-16)
+
+### Bug Fixes
+
+- Search events params to track conversion ([#2891](https://github.com/vtex/faststore/issues/2891)) ([17510c9](https://github.com/vtex/faststore/commit/17510c942a2b1cbdeeb2cd6a7e39dba43fe73345))
+
 # [3.52.0](https://github.com/vtex/faststore/compare/v3.51.0...v3.52.0) (2025-06-12)
 
 ### Features

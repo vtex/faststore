@@ -1,4 +1,3 @@
-import { type Dispatch, type SetStateAction, useMemo, useState } from 'react'
 import {
   Icon,
   SearchProductItem as UISearchProductItem,
@@ -9,15 +8,16 @@ import {
   useSearch,
   useUI,
 } from '@faststore/ui'
+import { type Dispatch, type SetStateAction, useMemo, useState } from 'react'
 
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import type { NavbarProps } from 'src/components/sections/Navbar'
 import { Image } from 'src/components/ui/Image'
+import { useBuyButton } from 'src/sdk/cart/useBuyButton'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
-import type { NavbarProps } from 'src/components/sections/Navbar'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import styles from 'src/components/sections/Navbar/section.module.scss'
 
@@ -48,7 +48,7 @@ function SearchProductItem({
   ...otherProps
 }: SearchProductItemProps) {
   const {
-    values: { onSearchSelection },
+    values: { term, onSearchSelection },
   } = useSearch()
   const { pushToast } = useUI()
 
@@ -96,7 +96,7 @@ function SearchProductItem({
       onSearchSelection?.(name, href)
       sendAutocompleteClickEvent({
         url: href,
-        term: name,
+        term: term,
         position: index,
         productId: product.isVariantOf.productGroupID ?? product.sku,
       })

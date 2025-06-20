@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.56.2](https://github.com/vtex/faststore/compare/v3.56.1...v3.56.2) (2025-06-19)
+
+**Note:** Version bump only for package @faststore/cli
+
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
+# [3.56.0](https://github.com/vtex/faststore/compare/v3.55.1...v3.56.0) (2025-06-19)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.55.1](https://github.com/vtex/faststore/compare/v3.55.0...v3.55.1) (2025-06-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.55.0](https://github.com/vtex/faststore/compare/v3.54.0...v3.55.0) (2025-06-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.54.0](https://github.com/vtex/faststore/compare/v3.53.0...v3.54.0) (2025-06-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.53.0](https://github.com/vtex/faststore/compare/v3.52.1...v3.53.0) (2025-06-16)
+
+### Features
+
+- sfs 2523 contract name main menu ([#2895](https://github.com/vtex/faststore/issues/2895)) ([60adc92](https://github.com/vtex/faststore/commit/60adc92721a4a9eef6db66d1f7c3b563474b554d))
+
+## [3.52.1](https://github.com/vtex/faststore/compare/v3.52.0...v3.52.1) (2025-06-16)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [3.52.0](https://github.com/vtex/faststore/compare/v3.51.0...v3.52.0) (2025-06-12)
 
 **Note:** Version bump only for package @faststore/cli
