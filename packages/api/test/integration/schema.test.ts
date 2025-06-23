@@ -68,9 +68,19 @@ const QUERIES = [
   'redirect',
   'sellers',
   'profile',
+  'productCount',
+  'userOrder',
+  'listUserOrders',
+  'accountName',
+  'validateUser',
 ]
 
-const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
+const MUTATIONS = [
+  'validateCart',
+  'validateSession',
+  'subscribeToNewsletter',
+  'cancelOrder',
+]
 
 let schema: GraphQLSchema
 

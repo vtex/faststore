@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.56.1 (2025-06-19)
+
+### Bug Fixes
+
+- redirect order details ([#2910](https://github.com/vtex/faststore/issues/2910)) ([a9b1f59](https://github.com/vtex/faststore/commit/a9b1f59952aff8084f47f6d85fc6d4c3356f5017))
+
+## 3.50.3 (2025-06-02)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## 3.49.1 (2025-05-27)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+# 3.45.0 (2025-05-20)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
 ## 3.38.3 (2025-04-11)
 
 ### Bug Fixes

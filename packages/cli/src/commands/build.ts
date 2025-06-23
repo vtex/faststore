@@ -1,4 +1,4 @@
-import { Command } from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
@@ -7,6 +7,7 @@ import { getPreferredPackageManager } from '../utils/commands'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
+import { logger } from '../utils/logger'
 
 export default class Build extends Command {
   static args = [
@@ -22,13 +23,31 @@ export default class Build extends Command {
     },
   ]
 
+  static flags = {
+    ['no-verify']: Flags.boolean({
+      description:
+        'Skips verification of faststore dependencies version string to prevent usage of packages outside npm registry.',
+    }),
+  }
+
   async run() {
-    const { args } = await this.parse(Build)
+    const { args, flags } = await this.parse(Build)
 
     const basePath = args.path ?? process.cwd()
 
     // Check for deprecated secret files
     checkDeprecatedSecretFiles(basePath)
+
+    if (!flags['no-verify']) {
+      const invalidPackages = await checkDeps(basePath)
+      invalidPackages.forEach((pkg) =>
+        logger.warn(
+          `${chalk.yellow(
+            'warning'
+          )} - Dependency ${pkg} has invalid version signature. Please use a semver like ^1.0.0 (check the official releases on https://github.com/vtex/faststore)`
+        )
+      )
+    }
 
     const { tmpDir } = withBasePath(basePath)
 
@@ -111,5 +130,49 @@ async function copyResources(basePath: string) {
       `${userDir}/lighthouserc.js`
     )
     await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+  }
+}
+
+async function checkDeps(basePath: string): Promise<Array<string>> {
+  const packageJsonPath = `${basePath}/package.json`
+  if (!existsSync(packageJsonPath)) {
+    console.log(
+      `${chalk.yellow(
+        'warning'
+      )} - package.json not found at ${packageJsonPath}`
+    )
+  }
+
+  try {
+    const {
+      devDependencies = {},
+      dependencies = {},
+      peerDependencies = {},
+    } = await import(packageJsonPath)
+
+    const allDeps: Record<string, string> = Object.assign(
+      {},
+      peerDependencies,
+      devDependencies,
+      dependencies
+    )
+
+    const invalidPackages: Array<string> = []
+
+    Object.entries(allDeps).forEach(([pkg, version]) => {
+      if (/^@faststore\/.+/i.test(pkg) === false) return
+
+      if (version && /^(http|https|git):.+/.test(version) === true) {
+        invalidPackages.push(pkg)
+      }
+    })
+
+    return invalidPackages
+  } catch (err) {
+    console.log(
+      `${chalk.yellow('warning')} - unable to check @faststore dependencies: ${err}`
+    )
+
+    return []
   }
 }

@@ -52,6 +52,7 @@
   &:hover,
   &[data-is-selected="true"] {
     background-color: var(--fs-color-tertiary-bkg-hover);
+    transition: background-color 0.5s ease;
   }
 
   &:active {
@@ -89,8 +90,8 @@
 @include media(">=notebook") {
   grid-template-rows: none;
   grid-template-columns: max(300px) 80%;
-  gap: var(--fs-spacing-8);
-  padding: 0 var(--fs-spacing-8);
+  gap: var(--fs-spacing-3);
+  padding: 0 var(--fs-spacing-3) 0 var(--fs-spacing-6);
 
   .menu {
     padding: 0;

@@ -1,4 +1,8 @@
-type ErrorType = 'BadRequestError' | 'NotFoundError' | 'RedirectError'
+type ErrorType =
+  | 'BadRequestError'
+  | 'NotFoundError'
+  | 'RedirectError'
+  | 'ForbiddenError'
 
 interface Extension {
   type: ErrorType
@@ -27,6 +31,12 @@ export class NotFoundError extends FastStoreError {
   }
 }
 
+export class ForbiddenError extends FastStoreError {
+  constructor(message?: string) {
+    super({ status: 403, type: 'ForbiddenError' }, message)
+  }
+}
+
 export const isFastStoreError = (error: any): error is FastStoreError =>
   error?.name === 'FastStoreError'
 
@@ -35,3 +45,6 @@ export const isNotFoundError = (error: any): error is NotFoundError =>
 
 export const isBadRequestError = (error: any): error is BadRequestError =>
   error?.extensions?.type === 'BadRequestError'
+
+export const isForbiddenError = (error: any): error is ForbiddenError =>
+  error?.extensions?.type === 'ForbiddenError'

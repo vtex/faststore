@@ -1,13 +1,14 @@
-import {
-  Icon,
-  type RegionModalProps as UIRegionModalProps,
-  useUI,
-} from '@faststore/ui'
+import dynamic from 'next/dynamic'
 import { useRef, useState } from 'react'
 
-import { sessionStore, useSession, validateSession } from 'src/sdk/session'
+import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
+import { Icon, useUI } from '@faststore/ui'
 
-import dynamic from 'next/dynamic'
+import { deliveryPromise } from 'discovery.config'
+import { useSession } from 'src/sdk/session'
+
+import useRegion from './useRegion'
+
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
@@ -17,7 +18,6 @@ const UIRegionModal = dynamic<UIRegionModalProps>(
     ),
   { ssr: false }
 )
-
 interface RegionModalProps {
   title?: UIRegionModalProps['title']
   description?: UIRegionModalProps['description']
@@ -25,6 +25,8 @@ interface RegionModalProps {
   inputField?: {
     label?: UIRegionModalProps['inputLabel']
     errorMessage?: UIRegionModalProps['errorMessage']
+    noProductsAvailableErrorMessage?: UIRegionModalProps['errorMessage']
+    buttonActionText?: UIRegionModalProps['inputButtonActionText']
   }
   idkPostalCodeLink?: {
     text?: string
@@ -40,7 +42,12 @@ function RegionModal({
   title,
   description,
   closeButtonAriaLabel,
-  inputField: { label: inputFieldLabel, errorMessage: inputFieldErrorMessage },
+  inputField: {
+    label: inputFieldLabel,
+    errorMessage: inputFieldErrorMessage,
+    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
+    buttonActionText: inputButtonActionText,
+  },
   idkPostalCodeLink: {
     text: idkPostalCodeLinkText,
     to: idkPostalCodeLinkTo,
@@ -49,35 +56,33 @@ function RegionModal({
 }: RegionModalProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const { modal: displayModal, closeModal } = useUI()
+
   const [input, setInput] = useState<string>('')
-  const { modal: displayModal } = useUI()
+
+  const { loading, setRegion, regionError, setRegionError } = useRegion()
 
   const handleSubmit = async () => {
-    const postalCode = inputRef.current?.value
-
-    if (typeof postalCode !== 'string') {
+    if (isValidating) {
       return
     }
 
-    setErrorMessage('')
-
-    try {
-      const newSession = {
-        ...session,
-        postalCode,
-      }
-
-      const validatedSession = await validateSession(newSession)
-
-      sessionStore.set(validatedSession ?? newSession)
-    } catch (error) {
-      setErrorMessage(inputFieldErrorMessage)
-    }
+    await setRegion({
+      session,
+      onSuccess: () => {
+        setInput('')
+        closeModal()
+      },
+      postalCode: input,
+      errorMessage: inputFieldErrorMessage,
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage,
+    })
   }
 
+  const isDismissible = !!(!deliveryPromise?.mandatory || session.postalCode)
   const idkPostalCodeLinkProps: UIRegionModalProps['idkPostalCodeLinkProps'] = {
-    href: idkPostalCodeLinkTo ?? '#',
+    href: idkPostalCodeLinkTo,
     children: (
       <>
         {idkPostalCodeLinkText}
@@ -106,15 +111,22 @@ function RegionModal({
           inputRef={inputRef}
           inputValue={input}
           inputLabel={inputFieldLabel}
-          errorMessage={errorMessage}
-          idkPostalCodeLinkProps={idkPostalCodeLinkProps}
+          errorMessage={regionError}
+          idkPostalCodeLinkProps={
+            idkPostalCodeLinkTo ? idkPostalCodeLinkProps : null
+          }
           onInput={(e) => {
-            errorMessage !== '' && setErrorMessage('')
+            regionError !== '' && setRegionError('')
             setInput(e.currentTarget.value)
           }}
           onSubmit={handleSubmit}
-          fadeOutOnSubmit={true}
-          onClear={() => setInput('')}
+          fadeOutOnSubmit={false}
+          onClear={() => {
+            setInput('')
+            setRegionError('')
+          }}
+          inputButtonActionText={loading ? '...' : inputButtonActionText}
+          dismissible={isDismissible}
         />
       )}
     </>
