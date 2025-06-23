@@ -25,7 +25,7 @@ export function checkDeprecatedSecretFiles(basePath: string) {
     logger.warn(
       `${chalk.yellow('warning')} - Deprecated secret files detected: ${chalk.bold(filesFound)}\n` +
         `Note: 'vtex.env' should only be used for local development and not in production.\n` +
-        `For production environments, please configure your secrets directly in the FastStore UI Settings page.`
+        `For production environments, please configure your secrets directly in the FastStore WebOps Settings page.`
     )
     logger.log('') // Add empty line for better readability
   }
