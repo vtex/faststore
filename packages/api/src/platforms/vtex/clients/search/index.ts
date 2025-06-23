@@ -179,7 +179,7 @@ export const IntelligentSearch = (
     }
 
     if (pickupPointFacet) {
-      params.append(PICKUP_POINT_KEY, `${account}_${pickupPointFacet.value}`)
+      params.append(PICKUP_POINT_KEY, pickupPointFacet.value)
     }
   }
 
