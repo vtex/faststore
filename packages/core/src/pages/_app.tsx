@@ -9,7 +9,7 @@ import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
-import { DeliveryProvider } from 'src/sdk/delivery'
+import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 
 import SEO from 'next-seo.config'
 
@@ -33,11 +33,11 @@ function App({ Component, pageProps }: AppProps) {
       <AnalyticsHandler />
 
       <UIProvider>
-        <DeliveryProvider>
+        <DeliveryPromiseProvider>
           <Layout>
             <Component {...pageProps} key={pageProps?.key} />
           </Layout>
-        </DeliveryProvider>
+        </DeliveryPromiseProvider>
       </UIProvider>
     </ErrorBoundary>
   )
