@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.60.0](https://github.com/vtex/faststore/compare/v3.59.0...v3.60.0) (2025-06-23)
+
+### Features
+
+- add check for deprecated secret files in build and dev commands ([#2797](https://github.com/vtex/faststore/issues/2797)) ([88f6870](https://github.com/vtex/faststore/commit/88f687080ab7d1f6781e076591ef082f9cfc197a)), closes [/#diff-3b0340e6f408eb23ee2bdd40008c9ca70e2f115de9f8369097574ab4c0b67c2fR9](https://github.com///issues/diff-3b0340e6f408eb23ee2bdd40008c9ca70e2f115de9f8369097574ab4c0b67c2fR9) [/#diff-3b0340e6f408eb23ee2bdd40008c9ca70e2f115de9f8369097574ab4c0b67c2fR30-R32](https://github.com///issues/diff-3b0340e6f408eb23ee2bdd40008c9ca70e2f115de9f8369097574ab4c0b67c2fR30-R32) [/#diff-d107b455dc30a6f411ae4210b2d8e1297f4116ffac62f8c4e4081bebc5a21eddL7-R14](https://github.com///issues/diff-d107b455dc30a6f411ae4210b2d8e1297f4116ffac62f8c4e4081bebc5a21eddL7-R14) [/#diff-d107b455dc30a6f411ae4210b2d8e1297f4116ffac62f8c4e4081bebc5a21eddR148-R149](https://github.com///issues/diff-d107b455dc30a6f411ae4210b2d8e1297f4116ffac62f8c4e4081bebc5a21eddR148-R149)
+
 # [3.59.0](https://github.com/vtex/faststore/compare/v3.58.0...v3.59.0) (2025-06-20)
 
 ### Features
