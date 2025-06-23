@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import type { SearchGlobalState as SearchState } from '@faststore/sdk'
+import type { GlobalSearchState as SearchState } from '@faststore/sdk'
 import {
   formatSearchState,
   parseSearchState,

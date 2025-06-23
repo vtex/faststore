@@ -1,7 +1,7 @@
-import type { SearchGlobalState as SearchState } from '@faststore/sdk'
+import type { GlobalSearchState as SearchState } from '@faststore/sdk'
 import {
-  formatSearchState,
-  initSearchGlobalState as initSearchState,
+  formatGlobalSearchState as formatSearchState,
+  initGlobalSearchState as initSearchState,
 } from '@faststore/sdk'
 
 type FormatSearchPath = {

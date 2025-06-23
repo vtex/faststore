@@ -1,4 +1,4 @@
-import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
+import { useGlobalSearchState as useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
   ClientManyProductsQueryQuery,

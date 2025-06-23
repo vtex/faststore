@@ -1,6 +1,6 @@
 import {
   formatSearchState,
-  useGlobalStateSearch as useSearch,
+  useGlobalSearchState as useSearch,
 } from '@faststore/sdk'
 import type {
   ServerCollectionPageQueryQuery,

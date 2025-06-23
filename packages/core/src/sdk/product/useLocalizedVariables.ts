@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import deepmerge from 'deepmerge'
 
-import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
+import { useGlobalSearchState as useSearch } from '@faststore/sdk'
 import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 
 import { useSession } from 'src/sdk/session'

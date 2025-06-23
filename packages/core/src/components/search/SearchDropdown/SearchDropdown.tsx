@@ -10,7 +10,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
-import type { SearchGlobalState as SearchState } from '@faststore/sdk'
+import type { GlobalSearchState as SearchState } from '@faststore/sdk'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import type { NavbarProps } from 'src/components/sections/Navbar'

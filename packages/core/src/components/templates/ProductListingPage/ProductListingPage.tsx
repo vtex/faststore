@@ -1,5 +1,5 @@
-import type { SearchGlobalState as SearchState } from '@faststore/sdk'
-import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
+import type { GlobalSearchState as SearchState } from '@faststore/sdk'
+import { useGlobalSearchState as useSearch } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'

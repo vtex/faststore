@@ -4,8 +4,8 @@ import { useSession } from 'src/sdk/session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 import {
-  type SearchState,
-  useGlobalStateSearch as useSearch,
+  type GlobalSearchState as SearchState,
+  useGlobalSearchState as useSearch,
 } from '@faststore/sdk'
 import type { Facet } from '@faststore/sdk/dist/types'
 import type {

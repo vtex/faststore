@@ -1,4 +1,4 @@
-import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
+import { useGlobalSearchState as useSearch } from '@faststore/sdk'
 import { useEffect, type PropsWithChildren } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { NextRouter } from 'next/router'

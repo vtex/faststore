@@ -11,7 +11,7 @@ import type {
 } from '@generated/graphql'
 import { execute } from 'src/server'
 
-import type { SearchGlobalState as SearchState } from '@faststore/sdk'
+import type { GlobalSearchState as SearchState } from '@faststore/sdk'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,

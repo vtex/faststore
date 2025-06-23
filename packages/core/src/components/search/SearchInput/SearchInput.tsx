@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 
 import type {
   SearchEvent,
-  SearchGlobalState as SearchState,
+  GlobalSearchState as SearchState,
 } from '@faststore/sdk'
 
 import {

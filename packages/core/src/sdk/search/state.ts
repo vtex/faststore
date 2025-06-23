@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { useGlobalStateSearch as useSearch } from '@faststore/sdk'
+import { useGlobalSearchState as useSearch } from '@faststore/sdk'
 
 export const useApplySearchState = () => {
   const { state: searchState } = useSearch()

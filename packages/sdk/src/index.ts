@@ -102,14 +102,14 @@ export {
 } from './search/facets'
 
 export {
-  parse as parseSearchGlobalState,
-  initialize as initSearchGlobalState,
-  usePagination as useGlobalStatePagination,
-  useSearch as useGlobalStateSearch,
+  parse as parseGlobalSearchState,
+  initialize as initGlobalSearchState,
+  usePagination as useGlobalPaginationState,
+  useSearch as useGlobalSearchState,
 } from './search/global-state'
 
-export { default as formatSearchGlobalState } from './utils/format'
-export { State as SearchGlobalState, Facet, SearchSort } from './types'
+export { default as formatGlobalSearchState } from './utils/format'
+export { State as GlobalSearchState, Facet, SearchSort } from './types'
 
 // UI
 export { Context as UIContext, Provider as UIProvider } from './ui/Provider'
