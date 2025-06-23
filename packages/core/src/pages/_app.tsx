@@ -10,10 +10,18 @@ import SEO from '../../next-seo.config'
 import '../styles/main.scss'
 
 import { DefaultSeo } from 'next-seo'
+import { useRouter } from 'next/router'
+import { useSearch } from '@faststore/sdk'
+import { ITEMS_PER_PAGE } from 'src/constants'
 
 function App({ Component, pageProps }: AppProps) {
   const { key } = pageProps
   useGeolocation()
+  const router = useRouter()
+  const { start: startGlobalSearchState } = useSearch()
+
+  // Initialize global Search state
+  startGlobalSearchState(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
 
   return (
     <ErrorBoundary>
