@@ -6,6 +6,7 @@ import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { logger } from '../utils/logger'
 
 export default class Build extends Command {
@@ -33,6 +34,9 @@ export default class Build extends Command {
     const { args, flags } = await this.parse(Build)
 
     const basePath = args.path ?? process.cwd()
+
+    // Check for deprecated secret files
+    checkDeprecatedSecretFiles(basePath)
 
     if (!flags['no-verify']) {
       const invalidPackages = await checkDeps(basePath)
