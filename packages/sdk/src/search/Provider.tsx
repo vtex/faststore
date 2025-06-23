@@ -1,22 +1,23 @@
 import type { PropsWithChildren } from 'react'
-import React, { createContext, useMemo } from 'react'
+import { createContext, useEffect } from 'react'
 
 import type { State as SearchState } from '../types'
-import type { UseSearchInfiniteState } from './useInfiniteSearchState'
-import { useSearchInfiniteState } from './useInfiniteSearchState'
-import type { UseSearchState } from './useSearchState'
-import { useSearchState } from './useSearchState'
+import {
+  useSearchState,
+  type UseSearchState,
+} from './global-state/useSearchState'
 
-export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
-  itemsPerPage: number
-}
+export interface SearchContext extends UseSearchState {}
 
 export const Context = createContext<SearchContext | undefined>(undefined)
 
-type Props = SearchState & {
-  onChange: (url: URL) => void
-  itemsPerPage: number
-}
+type Props = Partial<
+  SearchState & {
+    /** @description: Dont use this hook to look/set url changes */
+    onChange?: (url: URL) => void
+    itemsPerPage?: number
+  }
+>
 
 export const Provider = ({
   children,
@@ -24,19 +25,28 @@ export const Provider = ({
   onChange,
   ...rest
 }: PropsWithChildren<Props>) => {
-  const { state, ...searchActions } = useSearchState(rest, onChange)
-  const { pages, ...infiniteActions } = useSearchInfiniteState(state.page)
+  const globalSearchStateValue = useSearchState()
 
-  const value = useMemo(
-    (): SearchContext => ({
-      state,
-      ...searchActions,
-      pages,
-      ...infiniteActions,
-      itemsPerPage,
-    }),
-    [infiniteActions, itemsPerPage, pages, searchActions, state]
-  )
+  useEffect(() => {
+    const { itemsPerPage: stateItemsPerPage } = useSearchState.getState()
+    itemsPerPage &&
+      itemsPerPage !== stateItemsPerPage &&
+      globalSearchStateValue.setItemsPerPage(itemsPerPage)
+  }, [itemsPerPage])
 
-  return <Context.Provider value={value}>{children}</Context.Provider>
+  useEffect(() => {
+    globalSearchStateValue.setState(rest)
+  }, [])
+
+  useEffect(() => {
+    const unsubscribe = useSearchState.subscribe(() => {
+      onChange?.(globalSearchStateValue.serializedState())
+    })
+
+    onChange?.(globalSearchStateValue.serializedState())
+
+    return unsubscribe
+  }, [onChange])
+
+  return children
 }
