@@ -105,7 +105,7 @@ function FilterDesktop({
         }
       : undefined
 
-  const allDeliveryMethodsFacetValue = {
+  const allDeliveryMethodsFacet = {
     value: 'all-delivery-methods',
     label:
       deliverySettingsData?.deliveryMethods?.allDeliveryMethods ??
@@ -125,10 +125,10 @@ function FilterDesktop({
         facet.__typename === 'StoreFacetBoolean'
       ) {
         const hasAllDeliveryMethodsFacet = facet.values.some(
-          (item) => item.value === allDeliveryMethodsFacetValue.value
+          (item) => item.value === allDeliveryMethodsFacet.value
         )
         if (!hasAllDeliveryMethodsFacet) {
-          facet.values = [allDeliveryMethodsFacetValue, ...facet.values]
+          facet.values = [allDeliveryMethodsFacet, ...facet.values]
         }
 
         const pickupInPointFacetIndex = facet.values.findIndex(
