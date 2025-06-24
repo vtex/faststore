@@ -25,6 +25,7 @@ export interface RegionBarProps {
   label: UIRegionBarProps['label']
   /**
    * Specifies a label for the edit text.
+   * @deprecated
    */
   editLabel?: UIRegionBarProps['editLabel']
   /**

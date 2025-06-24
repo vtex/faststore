@@ -2167,7 +2167,8 @@
         "editLabel": {
           "title": "Location edit label",
           "type": "string",
-          "default": ""
+          "default": "",
+          "description": "[Deprecated] This label should not be used anymore."
         },
         "buttonIcon": {
           "title": "Button Icon",
@@ -2176,14 +2177,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["", "Caret Right"],
-              "enum": ["", "CaretRight"],
-              "default": ""
+              "enumNames": ["Caret Right"],
+              "enum": ["CaretRight"],
+              "default": "CaretRight"
             },
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": ""
+              "default": "Caret Right icon"
             }
           }
         }
