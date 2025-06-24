@@ -28,6 +28,7 @@ export interface RegionBarProps
   label: string
   /**
    * Specifies a label for the edit location text.
+   * @deprecated
    */
   editLabel?: string
   /**
@@ -73,7 +74,6 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
     postalCode,
     icon: locationIcon,
     label: locationLabel,
-    editLabel,
     buttonIcon,
     onButtonClick: onLocationButtonClick,
     shouldDisplayPostalCode = true,
@@ -98,19 +98,30 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
       >
         {!!locationIcon && locationIcon}
         {city && postalCode ? (
-          <>
-            <span data-fs-region-bar-postal-code>{city}</span>
+          <div data-fs-region-bar-location>
+            <span
+              data-fs-region-bar-postal-code
+              data-fs-region-bar-location-city
+            >
+              {city}
+            </span>
             <span data-fs-region-bar-location-postal-code>
               {shouldDisplayPostalCode && `, ${postalCode}`}
             </span>
-            {!!editLabel && <span data-fs-region-bar-cta>{editLabel}</span>}
-          </>
+          </div>
         ) : (
-          <span data-fs-region-bar-message>{locationLabel}</span>
+          <span data-fs-region-bar-message data-fs-region-bar-location-message>
+            {locationLabel}
+          </span>
         )}
       </Button>
       {shouldDisplayFilterButton && (
-        <Button variant="tertiary" onClick={onFilterButtonClick}>
+        <Button
+          variant="tertiary"
+          iconPosition={buttonIcon ? 'right' : undefined}
+          onClick={onFilterButtonClick}
+          icon={buttonIcon ?? undefined}
+        >
           {!!filterIcon && filterIcon}
           {selectedFilter ? (
             <span data-fs-region-bar-filter>{selectedFilter}</span>
