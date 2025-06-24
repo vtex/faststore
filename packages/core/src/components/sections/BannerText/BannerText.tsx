@@ -57,6 +57,8 @@ function BannerText({
   )
 }
 
+BannerText.$componentKey = 'BannerText'
+
 const OverridableBannerText = getOverridableSection<typeof BannerText>(
   'BannerText',
   BannerText,
