@@ -22,6 +22,7 @@ type RegionBarSectionProps = {
   label: RegionBarProps['label']
   /**
    * Specifies a label for the edit text.
+   * @deprecated
    */
   editLabel?: RegionBarProps['editLabel']
   /**
