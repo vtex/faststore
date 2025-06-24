@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.60.1](https://github.com/vtex/faststore/compare/v3.60.0...v3.60.1) (2025-06-24)
+
+### Bug Fixes
+
+- search cookie domain ([#2870](https://github.com/vtex/faststore/issues/2870)) ([4bfe976](https://github.com/vtex/faststore/commit/4bfe976324cee3b056af75dbe993900366bc779f))
+
 # [3.59.0](https://github.com/vtex/faststore/compare/v3.58.0...v3.59.0) (2025-06-20)
 
 ### Features
