@@ -53,6 +53,7 @@ const REGION_KEY = 'region-id'
 const FUZZY_KEY = 'fuzzy'
 const OPERATOR_KEY = 'operator'
 const PICKUP_POINT_KEY = 'pickupPoint'
+const SHIPPING_KEY = 'shipping'
 
 const EXTRA_FACETS_KEYS = new Set([
   POLICY_KEY,
@@ -60,6 +61,7 @@ const EXTRA_FACETS_KEYS = new Set([
   FUZZY_KEY,
   OPERATOR_KEY,
   PICKUP_POINT_KEY,
+  SHIPPING_KEY,
 ])
 
 export const isFacetBoolean = (
@@ -144,11 +146,21 @@ export const IntelligentSearch = (
       ({ key }) => !EXTRA_FACETS_KEYS.has(key)
     )
 
+    const shippingFacet =
+      facets.find(
+        ({ key, value }) =>
+          key === SHIPPING_KEY && value !== 'all-delivery-methods'
+      ) ?? null
+
     const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
     const regionFacet =
       facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
+
+    if (shippingFacet !== null) {
+      withDefaultFacets.push(shippingFacet)
+    }
 
     if (policyFacet !== null) {
       withDefaultFacets.push(policyFacet)
