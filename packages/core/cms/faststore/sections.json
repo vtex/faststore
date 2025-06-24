@@ -2177,14 +2177,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["", "Caret Right"],
-              "enum": ["", "CaretRight"],
-              "default": ""
+              "enumNames": ["Caret Right"],
+              "enum": ["CaretRight"],
+              "default": "CaretRight"
             },
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": ""
+              "default": "Caret Right icon"
             }
           }
         }

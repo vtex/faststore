@@ -40,7 +40,8 @@
   width: var(--fs-region-bar-width);
 
   [data-fs-button] {
-    min-width: 100%;
+    min-width: var(--fs-region-bar-width);
+    max-width: var(--fs-region-bar-width);
 
     [data-fs-button-wrapper] {
       gap: 0;
@@ -91,14 +92,7 @@
 
   [data-fs-region-bar-filter],
   [data-fs-region-bar-filter-message] {
-    overflow: hidden;
-    font-weight: var(--fs-text-weight-semibold);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  [data-fs-region-bar-filter] {
-    line-height: 1.2;
+    max-width: 80%;
   }
 
   [data-fs-region-bar-location] {
