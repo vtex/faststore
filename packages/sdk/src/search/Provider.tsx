@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import { createContext, useEffect } from 'react'
+import React, { createContext, useEffect } from 'react'
 
 import type { State as SearchState } from '../types'
 import {
@@ -45,5 +45,5 @@ export const Provider = ({
     globalSearchStateValue.resetInfiniteScroll(rest.page ?? 0)
   }, [])
 
-  return children
+  return <>{children}</>
 }
