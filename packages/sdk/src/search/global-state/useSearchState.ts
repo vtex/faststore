@@ -3,7 +3,7 @@ import type { Facet, State } from '../../types'
 import { parse } from '../serializer'
 import format from '../../utils/format'
 import { withSelectors } from '../../utils/withSelectors'
-import isEqual from 'lodash.isequal'
+import deepEquals from 'fast-deep-equal'
 
 export const initialize = ({
   sort = 'score_desc',
@@ -46,8 +46,8 @@ const stateBase = create<UseSearchState>((set, get) => ({
   state: initialize(),
   setState: (state: Partial<State>) => {
     const oldState = get().state
-    const newState = { ...get().state, ...state }
-    if (isEqual(oldState, newState) === false) set({ state: newState })
+    const newState = { ...oldState, ...state }
+    if (deepEquals(oldState, newState) === false) set({ state: newState })
   },
   appendFacet: (facets: Facet[]) =>
     set((curr) => ({

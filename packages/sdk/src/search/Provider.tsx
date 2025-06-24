@@ -13,7 +13,6 @@ export const Context = createContext<SearchContext | undefined>(undefined)
 
 type Props = Partial<
   SearchState & {
-    /** @description: Dont use this hook to look/set url changes */
     onChange?: (url: URL) => void
     itemsPerPage?: number
   }
