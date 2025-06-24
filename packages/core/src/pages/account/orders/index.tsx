@@ -55,10 +55,7 @@ export default function ListOrdersPage({
   filters,
 }: ListOrdersPageProps) {
   return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
+    <RenderSections globalSections={globalSections} components={COMPONENTS}>
       <NextSeo noindex nofollow />
 
       <MyAccountLayout accountName={accountName}>

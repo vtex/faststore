@@ -18,6 +18,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 
 import storeConfig from 'discovery.config'
+import type { GlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
 
@@ -40,8 +41,7 @@ export type LandingPageProps = {
   page: PageContentType
   slug?: string
   serverData?: unknown
-  globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
+  globalSections?: Array<{ name: string; data: any }> | GlobalSectionsData
 }
 
 export default function LandingPage({
@@ -49,11 +49,9 @@ export default function LandingPage({
   slug,
   serverData,
   globalSections,
-  globalSectionsSettings,
 }: LandingPageProps) {
   const context = {
     data: serverData,
-    globalSectionsSettings,
   }
 
   return (

@@ -36,10 +36,7 @@ export default function Profile({
   accountName,
 }: MyAccountProps) {
   return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
+    <RenderSections globalSections={globalSections} components={COMPONENTS}>
       <NextSeo noindex nofollow />
 
       <MyAccountLayout accountName={accountName}>

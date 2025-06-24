@@ -38,10 +38,7 @@ export default function OrderDetailsPage({
   accountName,
 }: OrderDetailsPageProps) {
   return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
+    <RenderSections globalSections={globalSections} components={COMPONENTS}>
       <NextSeo noindex nofollow />
 
       <MyAccountLayout accountName={accountName}>

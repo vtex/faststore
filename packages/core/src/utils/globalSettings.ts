@@ -1,9 +1,5 @@
 import deepmerge from 'deepmerge'
-import {
-  type PLPContext,
-  type SearchPageContext,
-  usePage,
-} from 'src/sdk/overrides/PageProvider'
+import { usePage } from 'src/sdk/overrides/PageProvider'
 
 export type RegionalizationCmsData = {
   inputField?: {
@@ -48,17 +44,16 @@ export type RegionalizationCmsData = {
 }
 
 export function getRegionalizationSettings(
-  deliverySettings?: RegionalizationCmsData['deliverySettings']
+  sectionRegionalizationData?: RegionalizationCmsData['deliverySettings']
 ): RegionalizationCmsData {
-  const context = usePage<SearchPageContext | PLPContext>()
-  const regionalizationData =
-    context?.globalSectionsSettings?.regionalization ?? {}
+  const context = usePage()
+  const globalRegionalizationData =
+    context?.globalSettings?.regionalization ?? {}
 
-  if (deliverySettings === undefined) {
-    return regionalizationData
+  if (sectionRegionalizationData === undefined) {
+    return globalRegionalizationData
   }
-
-  return deepmerge(regionalizationData, {
-    deliverySettings,
+  return deepmerge(globalRegionalizationData, {
+    deliverySettings: sectionRegionalizationData,
   })
 }

@@ -23,8 +23,8 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { useSession } from 'src/sdk/session'
 import { getRedirect } from 'src/sdk/redirects'
+import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
@@ -215,7 +215,7 @@ function Page({
       <PageProvider context={context}>
         <RenderSections
           sections={sections}
-          globalSections={globalSections.sections}
+          globalSections={globalSections}
           components={COMPONENTS}
         />
       </PageProvider>

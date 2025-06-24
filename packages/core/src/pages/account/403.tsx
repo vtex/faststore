@@ -39,10 +39,7 @@ type Props = {
 
 function Page({ globalSections, accountName }: Props) {
   return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
+    <RenderSections globalSections={globalSections} components={COMPONENTS}>
       <NextSeo noindex nofollow />
 
       <MyAccountLayout accountName={accountName}>

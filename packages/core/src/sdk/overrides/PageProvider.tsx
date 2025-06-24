@@ -9,28 +9,30 @@ import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
 import type { SearchPageContextType } from 'src/pages/s'
 
-export interface PDPContext {
+interface WithGlobalSettings {
+  globalSettings?: Record<string, any>
+}
+
+export interface PDPContext extends WithGlobalSettings {
   data?: ServerProductQueryQuery &
     ClientProductQueryQuery['product'] & { isValidating?: boolean }
 }
 
-export interface PLPContext {
+export interface PLPContext extends WithGlobalSettings {
   data?: ServerCollectionPageQueryQuery &
     ClientProductGalleryQueryQuery & {
       pages: ClientManyProductsQueryQuery[]
     }
-  globalSectionsSettings?: Record<string, any>
 }
 
-export interface SearchPageContext {
+export interface SearchPageContext extends WithGlobalSettings {
   data?: SearchPageContextType &
     ClientProductGalleryQueryQuery & {
       pages: ClientManyProductsQueryQuery[]
     }
-  globalSectionsSettings?: Record<string, any>
 }
 
-export interface DynamicContent<T> {
+export interface DynamicContent<T> extends WithGlobalSettings {
   data?: T
 }
 

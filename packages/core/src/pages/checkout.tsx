@@ -31,10 +31,7 @@ function Page({ globalSections }: Props) {
   }, [])
 
   return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
+    <RenderSections globalSections={globalSections} components={COMPONENTS}>
       <NextSeo noindex nofollow />
 
       <div>loading...</div>

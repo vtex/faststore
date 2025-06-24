@@ -25,7 +25,7 @@ export const myAccountPageTemplate = (pagePath: string) => `
 
     return (
       <RenderSections
-        globalSections={globalSections.sections}
+        globalSections={globalSections}
         components={COMPONENTS}
       >
         <MyAccountLayout accountName={accountName}>

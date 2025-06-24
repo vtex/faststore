@@ -47,7 +47,7 @@ function Page({ page: { sections }, globalSections }: Props) {
       */}
       <RenderSections
         sections={sections}
-        globalSections={globalSections.sections}
+        globalSections={globalSections}
         components={COMPONENTS}
       />
     </>

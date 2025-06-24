@@ -62,15 +62,13 @@ function Page({ globalSections, type, ...otherProps }: Props) {
     <>
       {type === 'plp' && (
         <ProductListingPage
-          globalSections={globalSections.sections}
-          globalSectionsSettings={globalSections.settings}
+          globalSections={globalSections}
           {...(otherProps as ProductListingPageProps)}
         />
       )}
       {type === 'page' && (
         <LandingPage
-          globalSections={globalSections.sections}
-          globalSectionsSettings={globalSections.settings}
+          globalSections={globalSections}
           {...(otherProps as LandingPageProps)}
         />
       )}

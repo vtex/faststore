@@ -9,13 +9,13 @@ import storeConfig from 'discovery.config'
 import RenderSections from 'src/components/cms/RenderSections'
 import EmptySearch from './EmptySearch'
 import SearchPage from './SearchPage'
+import type { GlobalSectionsData } from 'src/components/cms/GlobalSections'
 
 export type SearchWrapperProps = {
   itemsPerPage: number
   searchContentType: SearchContentType
   serverData: SearchPageContextType
-  globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
+  globalSections?: Array<{ name: string; data: any }> | GlobalSectionsData
 }
 
 export default function SearchWrapper({
@@ -23,7 +23,6 @@ export default function SearchWrapper({
   searchContentType,
   serverData,
   globalSections,
-  globalSectionsSettings,
 }: SearchWrapperProps) {
   const router = useRouter()
   const {
@@ -83,7 +82,6 @@ export default function SearchWrapper({
       page={searchContentType}
       data={{ ...serverData, ...pageProductGalleryData }}
       globalSections={globalSections}
-      globalSectionsSettings={globalSectionsSettings}
     />
   )
 }

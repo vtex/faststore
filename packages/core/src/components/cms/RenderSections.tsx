@@ -9,14 +9,16 @@ import {
 import { useUI } from '@faststore/ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
+import PageProvider, { usePage } from 'src/sdk/overrides/PageProvider'
 import useTTI from 'src/sdk/performance/useTTI'
+import COMPONENTS from './global/Components'
+import type { GlobalSectionsData } from './GlobalSections'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
-import COMPONENTS from './global/Components'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
-  globalSections?: Array<{ name: string; data: any }>
+  globalSections?: Array<{ name: string; data: any }> | GlobalSectionsData
   sections?: Array<{ name: string; data: any }>
   isInteractive?: boolean
 }
@@ -128,18 +130,34 @@ export const RenderSectionsBase = ({
 
 function RenderSections({
   children,
-  globalSections,
+  globalSections: global,
   sections,
   components = COMPONENTS,
 }: PropsWithChildren<Props>) {
+  const [globalSections, globalSettings] = Array.isArray(global)
+    ? [global, {}]
+    : [global?.sections ?? [], global?.settings ?? {}]
   const { firstSections, lastSections } = useDividedSections(
     globalSections ?? sections
   )
+  const outerContext = (() => {
+    try {
+      return usePage()
+    } catch {
+      // if there is no outer context (usePage throws an error), fallback to an empty object
+      return {}
+    }
+  })()
 
   const { isInteractive } = useTTI()
 
   return (
-    <>
+    <PageProvider
+      context={{
+        ...outerContext,
+        globalSettings,
+      }}
+    >
       {firstSections && (
         <RenderSectionsBase
           sections={firstSections}
@@ -166,7 +184,7 @@ function RenderSections({
           isInteractive={isInteractive}
         />
       )}
-    </>
+    </PageProvider>
   )
 }
 
