@@ -137,7 +137,7 @@ function FilterSlider({
   }
 
   // Delivery Promise consts
-  const regionalizationData = getRegionalizationSettings(deliverySettings)
+  const regionalizationData = getRegionalizationSettings({ deliverySettings })
   const { deliverySettings: deliverySettingsData } = regionalizationData
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
   const isDeliveryPromiseEnabled = deliveryPromise.enabled

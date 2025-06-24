@@ -9,6 +9,7 @@ import { useSession } from 'src/sdk/session'
 
 import useRegion from './useRegion'
 
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
@@ -38,22 +39,27 @@ interface RegionModalProps {
   }
 }
 
-function RegionModal({
-  title,
-  description,
-  closeButtonAriaLabel,
-  inputField: {
-    label: inputFieldLabel,
-    errorMessage: inputFieldErrorMessage,
-    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
-    buttonActionText: inputButtonActionText,
-  },
-  idkPostalCodeLink: {
-    text: idkPostalCodeLinkText,
-    to: idkPostalCodeLinkTo,
-    icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
-  },
-}: RegionModalProps) {
+function RegionModal(regionModalProps: RegionModalProps) {
+  const { title, description, closeButtonAriaLabel, ...otherRegionModalProps } =
+    regionModalProps
+  const regionalizationSettings = getRegionalizationSettings(
+    otherRegionModalProps
+  )
+  const {
+    inputField: {
+      label: inputFieldLabel,
+      errorMessage: inputFieldErrorMessage,
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage,
+      buttonActionText: inputButtonActionText,
+    },
+    idkPostalCodeLink: {
+      text: idkPostalCodeLinkText,
+      to: idkPostalCodeLinkTo,
+      icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
+    },
+  } = regionalizationSettings
+
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const { modal: displayModal, closeModal } = useUI()

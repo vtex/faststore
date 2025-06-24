@@ -44,7 +44,7 @@ export type RegionalizationCmsData = {
 }
 
 export function getRegionalizationSettings(
-  sectionRegionalizationData?: RegionalizationCmsData['deliverySettings']
+  sectionRegionalizationData?: RegionalizationCmsData
 ): RegionalizationCmsData {
   const context = usePage()
   const globalRegionalizationData =
@@ -53,7 +53,5 @@ export function getRegionalizationSettings(
   if (sectionRegionalizationData === undefined) {
     return globalRegionalizationData
   }
-  return deepmerge(globalRegionalizationData, {
-    deliverySettings: sectionRegionalizationData,
-  })
+  return deepmerge(globalRegionalizationData, sectionRegionalizationData)
 }
