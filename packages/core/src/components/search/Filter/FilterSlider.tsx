@@ -146,6 +146,18 @@ function FilterSlider({
         }
       : undefined
 
+  const allDeliveryMethodsFacet = {
+    value: 'all-delivery-methods',
+    label:
+      deliverySettingsData?.deliveryMethods?.allDeliveryMethods ??
+      'All delivery methods',
+    selected: !selected.some(
+      (facet) =>
+        facet.key === 'shipping' && facet.value !== 'all-delivery-methods'
+    ),
+    quantity: 0,
+  }
+
   let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
   if (isDeliveryPromiseEnabled) {
     filteredFacets = facets.map((facet) => {
@@ -153,6 +165,13 @@ function FilterSlider({
         facet.key === 'shipping' &&
         facet.__typename === 'StoreFacetBoolean'
       ) {
+        const hasAllDeliveryMethodsFacet = facet.values.some(
+          (item) => item.value === allDeliveryMethodsFacet.value
+        )
+        if (!hasAllDeliveryMethodsFacet) {
+          facet.values = [allDeliveryMethodsFacet, ...facet.values]
+        }
+
         const pickupInPointFacetIndex = facet.values.findIndex(
           (item) => item?.value === 'pickup-in-point'
         )
