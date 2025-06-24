@@ -28,6 +28,12 @@ export const Provider = ({
   const globalSearchStateValue = useSearchState()
 
   useEffect(() => {
+    return useSearchState.subscribe(() => {
+      onChange?.(globalSearchStateValue.serializedState())
+    })
+  }, [onChange])
+
+  useEffect(() => {
     const { itemsPerPage: stateItemsPerPage } = useSearchState.getState()
     itemsPerPage &&
       itemsPerPage !== stateItemsPerPage &&
@@ -36,17 +42,8 @@ export const Provider = ({
 
   useEffect(() => {
     globalSearchStateValue.setState(rest)
+    globalSearchStateValue.resetInfiniteScroll(rest.page ?? 0)
   }, [])
-
-  useEffect(() => {
-    const unsubscribe = useSearchState.subscribe(() => {
-      onChange?.(globalSearchStateValue.serializedState())
-    })
-
-    onChange?.(globalSearchStateValue.serializedState())
-
-    return unsubscribe
-  }, [onChange])
 
   return children
 }

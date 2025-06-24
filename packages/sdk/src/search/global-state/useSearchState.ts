@@ -3,6 +3,7 @@ import type { Facet, State } from '../../types'
 import { parse } from '../serializer'
 import format from '../../utils/format'
 import { withSelectors } from '../../utils/withSelectors'
+import isEqual from 'lodash.isequal'
 
 export const initialize = ({
   sort = 'score_desc',
@@ -43,8 +44,11 @@ export type UseSearchState = {
 
 const stateBase = create<UseSearchState>((set, get) => ({
   state: initialize(),
-  setState: (state: Partial<State>) =>
-    set((currentState) => ({ state: { ...currentState.state, ...state } })),
+  setState: (state: Partial<State>) => {
+    const oldState = get().state
+    const newState = { ...get().state, ...state }
+    if (isEqual(oldState, newState) === false) set({ state: newState })
+  },
   appendFacet: (facets: Facet[]) =>
     set((curr) => ({
       state: {
@@ -60,7 +64,7 @@ const stateBase = create<UseSearchState>((set, get) => ({
     })),
 
   itemsPerPage: 0,
-  setItemsPerPage: (itemsPerPage: number) => ({ itemsPerPage }),
+  setItemsPerPage: (itemsPerPage: number) => set({ itemsPerPage }),
 
   pages: getPagesFromSessionStorage() ?? [0],
   addPrevPage: () => {

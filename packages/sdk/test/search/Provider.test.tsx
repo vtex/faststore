@@ -63,13 +63,14 @@ test('SearchProvider: Set full text term', async () => {
 
   expect(result.current.state.term).toBeNull()
 
+  const lastNumberOfCalls = mock.mock.calls.length
   act(() => {
     result.current.setState({
       ...result.current.state,
       term: null,
     })
   })
-  expect(mock).not.toHaveBeenCalled()
+  expect(mock).toHaveBeenCalledTimes(lastNumberOfCalls)
 
   act(() => {
     result.current.setState({
@@ -185,6 +186,7 @@ test('SearchProvider: Facet uniqueness', async () => {
     ),
   })
 
+  const numberOfCalls = mock.mock.calls.length
   act(() => {
     result.current.setState({
       ...result.current.state,
@@ -195,7 +197,7 @@ test('SearchProvider: Facet uniqueness', async () => {
       ),
     })
   })
-  expect(mock).not.toHaveBeenCalled()
+  expect(mock).toHaveBeenCalledTimes(numberOfCalls)
 
   act(() => {
     result.current.setState({
@@ -203,7 +205,7 @@ test('SearchProvider: Facet uniqueness', async () => {
       selectedFacets: setFacet(result.current.state.selectedFacets, facet1),
     })
   })
-  expect(mock).toBeCalledWith(
+  expect(mock).toHaveBeenLastCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet2, facet1] })
   )
 })
@@ -269,7 +271,13 @@ test('SearchProvider: Remove initial facet', async () => {
       selectedFacets: removeFacet(result.current.state.selectedFacets, facet1),
     })
   })
-  expect(mock).toHaveBeenCalledTimes(1)
+
+  expect(mock).toHaveBeenLastCalledWith(
+    formatSearchState({
+      ...state,
+      selectedFacets: removeFacet(state.selectedFacets, facet1),
+    })
+  )
 })
 
 test('SearchProvider: Toggle Facet', async () => {
@@ -307,7 +315,13 @@ test('SearchProvider: Toggle Facet', async () => {
       selectedFacets: toggleFacet(result.current.state.selectedFacets, facet1),
     })
   })
-  expect(mock).toHaveBeenCalledTimes(1)
+  expect(mock).toHaveBeenLastCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet2] })
+  )
+
+  act(() => {
+    result.current.setState(state)
+  })
 
   act(() => {
     result.current.setState({
@@ -315,9 +329,13 @@ test('SearchProvider: Toggle Facet', async () => {
       selectedFacets: toggleFacet(result.current.state.selectedFacets, facet2),
     })
   })
-  expect(mock).toBeCalledWith(
+  expect(mock).toHaveBeenLastCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1] })
   )
+
+  act(() => {
+    result.current.setState(state)
+  })
 
   act(() => {
     result.current.setState({
@@ -325,7 +343,7 @@ test('SearchProvider: Toggle Facet', async () => {
       selectedFacets: toggleFacet(result.current.state.selectedFacets, facet3),
     })
   })
-  expect(mock).toBeCalledWith(
+  expect(mock).toHaveBeenLastCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1, facet2, facet3] })
   )
 })
@@ -404,14 +422,20 @@ test('SearchProvider: onChange is called', async () => {
     wrapper: (props: Props) => <Wrapper {...props} onChange={mock} />,
   })
 
-  expect(mock).toHaveBeenCalledTimes(0)
-
   act(() => {
     result.current.setState({
       ...result.current.state,
       sort: 'name_asc',
     })
   })
+
+  expect(mock).lastCalledWith(
+    formatSearchState({
+      ...initSearchState(),
+      sort: 'name_asc',
+    })
+  )
+
   act(() => {
     result.current.setState({
       ...result.current.state,
@@ -421,11 +445,38 @@ test('SearchProvider: onChange is called', async () => {
       }),
     })
   })
+
+  expect(mock).lastCalledWith(
+    formatSearchState({
+      ...initSearchState(),
+      sort: 'name_asc',
+      selectedFacets: [
+        {
+          key: 'size',
+          value: 'xm',
+        },
+      ],
+    })
+  )
+
   act(() => {
     result.current.setState({
       ...result.current.state,
       page: 10,
     })
   })
-  expect(mock).toHaveBeenCalledTimes(3)
+
+  expect(mock).lastCalledWith(
+    formatSearchState({
+      ...initSearchState(),
+      sort: 'name_asc',
+      page: 10,
+      selectedFacets: [
+        {
+          key: 'size',
+          value: 'xm',
+        },
+      ],
+    })
+  )
 })
