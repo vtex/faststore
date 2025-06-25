@@ -40,6 +40,14 @@ interface Props {
    * Title for the `ProductGrid` component that will be send to GA events.
    */
   title?: string
+  /**
+   * Determine whether to show the comparison checkbox.
+   */
+  shouldShowComparison?: boolean
+  /**
+   * Label for comparison text.
+   */
+  compareLabel?: string
 }
 
 function ProductGrid({
@@ -54,6 +62,8 @@ function ProductGrid({
   } = {},
   firstPage,
   title,
+  shouldShowComparison,
+  compareLabel,
 }: Props) {
   const { isMobile } = useScreenResize()
   const { __experimentalProductCard: ProductCard } =
@@ -96,6 +106,8 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
+                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
@@ -126,6 +138,8 @@ function ProductGrid({
                       index={pageSize * page + idx + 1}
                       taxesConfiguration={taxesConfiguration}
                       sponsoredLabel={sponsoredLabel}
+                      enableCompareCheckboxOnDisplay={shouldShowComparison}
+                      compareLabel={compareLabel}
                     />
                   </ProductSentinel>
                 </UIProductGridItem>
@@ -159,6 +173,8 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
+                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
