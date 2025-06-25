@@ -86,7 +86,7 @@ export { parse as parseSearchState } from './search/serializer'
 
 export { default as formatSearchState } from './utils/format'
 
-export { initialize as initSearchState } from './search/global-state/useSearchState'
+export { initialize as initSearchState } from './search/globalState/useSearchState'
 export {
   isSearchSort,
   removeFacet,

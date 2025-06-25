@@ -5,7 +5,7 @@ import type { State as SearchState } from '../types'
 import {
   useSearchState,
   type UseSearchState,
-} from './global-state/useSearchState'
+} from './globalState/useSearchState'
 
 export interface SearchContext extends UseSearchState {}
 

@@ -1,5 +1,5 @@
 import type { SearchContext } from './Provider'
-import { useSearchState } from './global-state/useSearchState'
+import { useSearchState } from './globalState/useSearchState'
 
 export const useSearch = (): SearchContext => {
   const value = useSearchState()
