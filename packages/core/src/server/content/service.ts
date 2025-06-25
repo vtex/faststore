@@ -17,6 +17,8 @@ import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import type { ServerProductQueryQuery } from '@generated/graphql'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
+type ContentResult = ContentData | (ContentEntry & PageContentType)
+
 export class ContentService {
   private clientCP: ClientCP
 
@@ -37,7 +39,9 @@ export class ContentService {
     return getPage(options.cmsOptions)
   }
 
-  async getMultipleContent(params: ContentParams): Promise<{ data: any[] }> {
+  async getMultipleContent(
+    params: ContentParams
+  ): Promise<{ data: ContentResult[] }> {
     const options = this.createContentOptions(params)
 
     if (isContentPlatformSource()) {
@@ -59,7 +63,7 @@ export class ContentService {
       const pages = (await this.getMultipleContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
-        pages,
+        pages as Partial<PLPContentType>[],
         options.slug,
         rewrites
       ) as PLPContentType
@@ -77,7 +81,10 @@ export class ContentService {
     if (isContentPlatformSource()) {
       const pages = (await this.getMultipleContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
-      return findBestPDPTemplate(pages, product) as PDPContentType
+      return findBestPDPTemplate(
+        pages as Partial<PDPContentType>[],
+        product
+      ) as PDPContentType
     }
     return getPDP(product, options.cmsOptions as Locator)
   }
@@ -195,8 +202,10 @@ export class ContentService {
       params.branchId = cmsOptions.releaseId
     }
     if ('filters' in cmsOptions && cmsOptions.filters) {
-      const nested = cmsOptions.filters.filters as Record<string, any>
-      if (nested['settings.seo.slug']) {
+      const nested = (
+        cmsOptions.filters as { filters?: Record<string, unknown> }
+      ).filters as Record<string, unknown>
+      if (nested && nested['settings.seo.slug']) {
         const seo = nested['settings.seo.slug'] as string
         params.slug = seo.replace(/^\//, '')
       }
