@@ -1,4 +1,4 @@
-import type { NextApiHandler, NextApiRequest } from 'next'
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
@@ -31,11 +31,11 @@ const pickParam = (req: NextApiRequest, parameter: string) => {
 }
 
 const setPreviewAndRedirect = (
-  res: any,
+  res: NextApiResponse,
   previewData: Record<string, string>,
   redirectPath: string
 ) => {
-  const options: any = {
+  const options: { maxAge: number; path?: string } = {
     maxAge: 3600,
   }
 
