@@ -40,8 +40,7 @@
   width: var(--fs-region-bar-width);
 
   [data-fs-button] {
-    min-width: var(--fs-region-bar-width);
-    max-width: var(--fs-region-bar-width);
+    width: var(--fs-region-bar-width);
 
     [data-fs-button-wrapper] {
       gap: 0;
