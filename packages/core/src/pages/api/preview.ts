@@ -1,9 +1,13 @@
-import type { NextApiHandler, NextApiRequest } from 'next'
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { previewRedirects } from '../../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import { isLocator } from 'src/server/cms'
-import { isContentPlatformSource } from 'src/server/content/utils'
+import {
+  isBranchPreview,
+  isContentPlatformSource,
+} from 'src/server/content/utils'
+import type { PreviewData } from 'src/server/content/types'
 
 type Settings = {
   seo: {
@@ -27,20 +31,32 @@ const pickParam = (req: NextApiRequest, parameter: string) => {
 }
 
 const setPreviewAndRedirect = (
-  res: any,
+  res: NextApiResponse,
   previewData: Record<string, string>,
   redirectPath: string
 ) => {
-  res.setPreviewData(previewData, {
+  const options: { maxAge: number; path?: string } = {
     maxAge: 3600,
-    path: redirectPath,
-  })
+  }
+
+  if (!isBranchPreview(previewData as PreviewData)) {
+    options.path = redirectPath
+  }
+
+  res.setPreviewData(previewData, options)
   res.redirect(redirectPath)
 }
 
 // TODO: Improve security by disabling CMS preview in production
 const handler: NextApiHandler = async (req, res) => {
   try {
+    if (pickParam(req, 'action') === 'clear') {
+      res.clearPreviewData()
+      const redirectTo = pickParam(req, 'redirect') || '/'
+      res.redirect(redirectTo)
+      return
+    }
+
     let slug = pickParam(req, 'slug')
     if (slug && !slug.startsWith('/')) {
       slug = `/${slug}`

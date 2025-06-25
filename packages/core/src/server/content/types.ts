@@ -16,7 +16,7 @@ export interface ContentParams {
   documentId?: string
   versionId?: string
   releaseId?: string
-  filters?: Record<string, any>
+  filters?: Record<string, unknown>
 }
 
 export interface ContentOptions {
