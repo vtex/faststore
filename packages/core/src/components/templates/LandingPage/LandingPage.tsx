@@ -41,7 +41,7 @@ export type LandingPageProps = {
   slug?: string
   serverData?: unknown
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
+  globalSettings?: Record<string, unknown>
 }
 
 export default function LandingPage({
@@ -49,11 +49,11 @@ export default function LandingPage({
   slug,
   serverData,
   globalSections,
-  globalSectionsSettings,
+  globalSettings,
 }: LandingPageProps) {
   const context = {
     data: serverData,
-    globalSectionsSettings,
+    globalSettings,
   }
 
   return (

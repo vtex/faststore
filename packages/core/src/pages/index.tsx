@@ -11,10 +11,10 @@ import {
 import COMPONENTS from 'src/components/cms/home/Components'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { injectGlobalSections } from 'src/server/cms/global'
-import { getDynamicContent } from 'src/utils/dynamicContent'
-import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getDynamicContent } from 'src/utils/dynamicContent'
+import storeConfig from '../../discovery.config'
 
 type Props = {
   page: PageContentType
@@ -24,11 +24,12 @@ type Props = {
 
 function Page({
   page: { sections, settings },
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   serverData,
 }: Props) {
   const context = {
     data: serverData,
+    globalSettings,
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
@@ -134,7 +135,7 @@ function Page({
       */}
       <PageProvider context={context}>
         <RenderSections
-          globalSections={globalSections.sections}
+          globalSections={globalSections}
           sections={sections}
           components={COMPONENTS}
         />
