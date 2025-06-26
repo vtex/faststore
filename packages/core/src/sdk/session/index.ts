@@ -72,7 +72,7 @@ export const validateSession = async (session: Session) => {
     // Do not use the session's person id if the user is a B2B customer
     const userId = session.b2b ? null : session.person?.id
 
-    // If user is logged in try to get the location (postalCode, geoCoordinates and country) from the user's address
+    // If the B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
     if (userId) {
       const address = await getSavedAddress(userId)
 
