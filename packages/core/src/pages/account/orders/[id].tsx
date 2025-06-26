@@ -18,6 +18,7 @@ import type {
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
@@ -33,20 +34,22 @@ type OrderDetailsPageProps = {
 } & MyAccountProps
 
 export default function OrderDetailsPage({
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   order,
   accountName,
 }: OrderDetailsPageProps) {
   return (
-    <RenderSections globalSections={globalSections} components={COMPONENTS}>
-      <NextSeo noindex nofollow />
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
-        <BeforeSection />
-        <MyAccountOrderDetails order={order} />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+        <MyAccountLayout accountName={accountName}>
+          <BeforeSection />
+          <MyAccountOrderDetails order={order} />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

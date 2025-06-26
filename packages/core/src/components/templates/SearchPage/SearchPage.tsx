@@ -1,5 +1,4 @@
 import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
-import type { GlobalSectionsData } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'
 import COMPONENTS from 'src/components/cms/search/Components'
 import type { SearchPageContextType } from 'src/pages/s'
@@ -15,13 +14,15 @@ import type { SearchContentType } from 'src/server/cms'
 export type SearchPageProps = {
   data: SearchPageContextType & ClientProductGalleryQuery
   page: SearchContentType
-  globalSections?: Array<{ name: string; data: any }> | GlobalSectionsData
+  globalSections?: Array<{ name: string; data: any }>
+  globalSettings?: Record<string, unknown>
 }
 
 function SearchPage({
   page: { sections },
   data: serverData,
   globalSections,
+  globalSettings,
 }: SearchPageProps) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
@@ -30,6 +31,7 @@ function SearchPage({
       ...serverData,
       pages,
     },
+    globalSettings,
   } as SearchPageContext
 
   return (

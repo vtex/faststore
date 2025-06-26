@@ -24,11 +24,12 @@ type Props = {
 
 function Page({
   page: { sections, settings },
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   serverData,
 }: Props) {
   const context = {
     data: serverData,
+    globalSettings,
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId

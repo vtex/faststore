@@ -13,18 +13,19 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { execute } from 'src/server'
 import { gql } from '@generated/gql'
 import type {
   ServerSecurityQueryQuery,
   ServerSecurityQueryQueryVariables,
 } from '@generated/graphql'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { execute } from 'src/server'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -37,21 +38,23 @@ type SecurityPageProps = {
 } & MyAccountProps
 
 export default function Page({
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   accountName,
 }: SecurityPageProps) {
   return (
-    <RenderSections globalSections={globalSections} components={COMPONENTS}>
-      <NextSeo noindex nofollow />
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
-        <BeforeSection />
-        <div>
-          <h1>Security</h1>
-        </div>
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+        <MyAccountLayout accountName={accountName}>
+          <BeforeSection />
+          <div>
+            <h1>Security</h1>
+          </div>
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

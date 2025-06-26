@@ -23,8 +23,9 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
-import { extractStatusFromError } from 'src/utils/utilities'
 import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { extractStatusFromError } from 'src/utils/utilities'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -47,7 +48,7 @@ type ListOrdersPageProps = {
 } & MyAccountProps
 
 export default function ListOrdersPage({
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   accountName,
   listOrders,
   total,
@@ -55,20 +56,22 @@ export default function ListOrdersPage({
   filters,
 }: ListOrdersPageProps) {
   return (
-    <RenderSections globalSections={globalSections} components={COMPONENTS}>
-      <NextSeo noindex nofollow />
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
-        <BeforeSection />
-        <MyAccountListOrders
-          listOrders={listOrders}
-          filters={filters}
-          perPage={perPage}
-          total={total}
-        />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+        <MyAccountLayout accountName={accountName}>
+          <BeforeSection />
+          <MyAccountListOrders
+            listOrders={listOrders}
+            filters={filters}
+            perPage={perPage}
+            total={total}
+          />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

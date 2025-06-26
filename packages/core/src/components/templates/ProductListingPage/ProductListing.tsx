@@ -17,7 +17,6 @@ import type { PLPContentType } from 'src/server/cms/plp'
 
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import type { GlobalSectionsData } from 'src/components/cms/GlobalSections'
 import PageProvider, { type PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
@@ -39,7 +38,8 @@ export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
-  globalSections?: Array<{ name: string; data: any }> | GlobalSectionsData
+  globalSections?: Array<{ name: string; data: any }>
+  globalSettings?: Record<string, unknown>
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -51,6 +51,7 @@ export default function ProductListing({
   data: server,
   serverManyProductsVariables,
   globalSections,
+  globalSettings,
 }: ProductListingPageProps) {
   const router = useRouter()
   const { state } = useSearch()
@@ -87,6 +88,7 @@ export default function ProductListing({
       ),
       pages,
     },
+    globalSettings,
   } as PLPContext
 
   return (

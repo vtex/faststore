@@ -20,13 +20,13 @@ import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
-import type { GlobalSectionsData } from 'src/components/cms/GlobalSections'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
-  globalSections?: Array<{ name: string; data: any }> | GlobalSectionsData
+  globalSections?: Array<{ name: string; data: any }>
+  globalSettings?: Record<string, unknown>
 }
 
 type UseSearchParams = {
@@ -77,6 +77,7 @@ export default function ProductListingPage({
   data: server,
   serverManyProductsVariables,
   globalSections,
+  globalSettings,
 }: ProductListingPageProps) {
   const { settings } = plpContentType
   const collection = server.collection
@@ -135,6 +136,7 @@ export default function ProductListingPage({
 
       <ProductListing
         globalSections={globalSections}
+        globalSettings={globalSettings}
         page={plpContentType}
         data={server}
         serverManyProductsVariables={serverManyProductsVariables}

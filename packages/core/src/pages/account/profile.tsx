@@ -12,18 +12,19 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { gql } from '@generated/gql'
-import { execute } from 'src/server'
 import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
 } from '@generated/graphql'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { execute } from 'src/server'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -32,21 +33,23 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 export default function Profile({
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   accountName,
 }: MyAccountProps) {
   return (
-    <RenderSections globalSections={globalSections} components={COMPONENTS}>
-      <NextSeo noindex nofollow />
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
 
-      <MyAccountLayout accountName={accountName}>
-        <BeforeSection />
-        <div>
-          <h1>Profile</h1>
-        </div>
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+        <MyAccountLayout accountName={accountName}>
+          <BeforeSection />
+          <div>
+            <h1>Profile</h1>
+          </div>
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

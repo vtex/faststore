@@ -97,7 +97,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
 
 function Page({
   page: searchContentType,
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   searchTerm,
 }: SearchPageProps) {
   const { settings } = searchContentType
@@ -147,6 +147,7 @@ function Page({
           searchTerm: searchTerm ?? searchParams.term ?? undefined,
         }}
         globalSections={globalSections}
+        globalSettings={globalSettings}
       />
     </SearchProvider>
   )

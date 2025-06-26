@@ -87,7 +87,7 @@ function Page({
   data: server,
   sections,
   settings,
-  globalSections,
+  globalSections: { sections: globalSections, settings: globalSettings },
   offers,
   meta,
 }: Props) {
@@ -140,6 +140,7 @@ function Page({
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
       isValidating,
     },
+    globalSettings,
   } as PDPContext
 
   return (
