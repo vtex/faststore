@@ -104,6 +104,7 @@ export const validateSession = async (
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
+  const publicData = sessionData?.namespaces.public ?? null
 
   // Set seller only if it's inside a region
   let seller
@@ -155,7 +156,7 @@ export const validateSession = async (
     geoCoordinates,
     city,
     postalCode: isRepresentative
-      ? sessionData?.namespaces.public?.postalCode?.value // case b2b: when postalCode available in session
+      ? publicData?.postalCode?.value // case b2b: when postalCode available in session
       : postalCode,
   }
 
