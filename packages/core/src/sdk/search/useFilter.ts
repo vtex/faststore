@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
 import { useEffect, useMemo, useReducer } from 'react'
 import type { IStoreSelectedFacet } from '@faststore/api'
 
@@ -21,6 +21,10 @@ type Action =
   | {
       type: 'toggleFacet'
       payload: IStoreSelectedFacet
+    }
+  | {
+      type: 'toggleFacets'
+      payload: { facets: IStoreSelectedFacet[]; unique?: boolean }
     }
   | {
       type: 'setFacet'
@@ -60,6 +64,13 @@ const reducer = (state: State, action: Action) => {
       return {
         ...state,
         selected: toggleFacet(state.selected, payload),
+      }
+    }
+
+    case 'toggleFacets': {
+      return {
+        ...state,
+        selected: toggleFacets(state.selected, payload.facets, payload.unique),
       }
     }
 

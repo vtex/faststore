@@ -1,0 +1,43 @@
+[data-fs-pickup-point-cards] {
+  // --------------------------------------------------------
+  // Design Tokens for Pickup Point Cards
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-pickup-point-cards-row-gap                      : var(--fs-grid-gap-2);
+
+  // Pickup Point Card Item
+  --fs-pickup-point-cards-item-border-color-selected   : var(--fs-border-color-active);
+  --fs-pickup-point-cards-item-border-width-selected   : var(--fs-border-width-thick);
+
+  --fs-pickup-point-cards-item-bkg-color-hover         : var(--fs-color-neutral-bkg);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-pickup-point-cards-row-gap);
+  margin: var(--fs-spacing-3) 0;
+
+  [data-fs-pickup-point-cards-item] {
+    [data-fs-radio-option-item] {
+      position: absolute;
+      opacity: 0;
+    }
+
+    input:checked + [data-fs-pickup-point-card] {
+      border-color: var(--fs-pickup-point-cards-item-border-color-selected);
+      border-width: var(--fs-pickup-point-cards-item-border-width-selected);
+
+      [data-fs-icon] {
+        color: var(--fs-pickup-point-cards-item-border-color-selected);
+      }
+    }
+
+    input:hover + [data-fs-pickup-point-card] {
+      background-color: var(--fs-pickup-point-cards-item-bkg-color-hover);
+    }
+  }
+}
