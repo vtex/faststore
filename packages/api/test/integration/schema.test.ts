@@ -72,8 +72,8 @@ const QUERIES = [
   'userOrder',
   'listUserOrders',
   'userDetails',
-  'accountName',
   'accountProfile',
+  'accountName',
 ]
 
 const MUTATIONS = [
