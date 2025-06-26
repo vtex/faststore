@@ -20,6 +20,7 @@ import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
+import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
   findChannel,
@@ -496,14 +497,39 @@ export const Query = {
   },
   accountName: async (_: unknown, __: unknown, ctx: Context) => {
     const {
+      account,
+      headers,
       clients: { commerce },
     } = ctx
 
-    const { namespaces } = await commerce.session('')
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
 
-    const { profile } = namespaces
+    if (!jwt?.userId) {
+      return null
+    }
 
-    return `${profile?.firstName?.value ?? ''} ${profile?.lastName?.value ?? ''}`.trim()
+    if (jwt?.isRepresentative) {
+      const sessionData = await commerce.session('').catch(() => null)
+
+      if (!sessionData) {
+        return null
+      }
+
+      const profile = sessionData.namespaces.profile ?? null
+
+      return (
+        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
+        ''
+      )
+    }
+
+    const user = await commerce.licenseManager
+      .getUserById({
+        userId: jwt?.userId,
+      })
+      .catch(() => null)
+
+    return user?.name || ''
   },
   // only b2b users
   userDetails: async (_: unknown, __: unknown, ctx: Context) => {
@@ -522,6 +548,53 @@ export const Query = {
       email: authentication?.storeUserEmail.value ?? '',
       role: ['Admin'], // TODO change when implemented roles,
       orgUnit: authentication?.unitName?.value ?? '',
+    }
+  },
+  // If isRepresentative, return b2b information.
+  // If not, return b2c user information
+  accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+
+    if (!jwt?.userId) {
+      return null
+    }
+
+    if (jwt?.isRepresentative) {
+      const sessionData = await commerce.session('').catch(() => null)
+
+      if (!sessionData) {
+        return null
+      }
+
+      const profile = sessionData.namespaces.profile ?? null
+
+      return {
+        name:
+          `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
+          '',
+        email: profile?.email?.value || '',
+        id: profile?.id?.value || '',
+        // createdAt: '',
+      }
+    }
+
+    const user = await commerce.licenseManager
+      .getUserById({
+        userId: jwt?.userId,
+      })
+      .catch(() => null)
+
+    return {
+      name: user?.name || '',
+      email: user?.email || '',
+      id: user?.id || '',
+      // createdAt: '',
     }
   },
 }

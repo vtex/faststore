@@ -539,6 +539,8 @@ export type Query = {
   __typename?: 'Query';
   /** Returns the account name of the current user or the B2B contract name if applicable. */
   accountName?: Maybe<Scalars['String']>;
+  /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
+  accountProfile: StoreAccountProfile;
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
@@ -760,6 +762,14 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName?: Maybe<Scalars['String']>;
+};
+
+/** Account profile information. */
+export type StoreAccountProfile = {
+  __typename?: 'StoreAccountProfile';
+  email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
