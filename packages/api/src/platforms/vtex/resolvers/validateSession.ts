@@ -156,7 +156,7 @@ export const validateSession = async (
     geoCoordinates,
     city,
     postalCode: isRepresentative
-      ? publicData?.postalCode?.value // case b2b: when postalCode available in session
+      ? publicData?.postalCode?.value // Case B2B: When a B2B user is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
       : postalCode,
   }
 
