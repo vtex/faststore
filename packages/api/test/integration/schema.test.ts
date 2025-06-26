@@ -73,6 +73,7 @@ const QUERIES = [
   'listUserOrders',
   'userDetails',
   'accountName',
+  'accountProfile',
 ]
 
 const MUTATIONS = [
@@ -80,7 +81,6 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'cancelOrder',
-  'accountProfile',
 ]
 
 let schema: GraphQLSchema
