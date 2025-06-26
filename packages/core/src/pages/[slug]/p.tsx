@@ -1,15 +1,18 @@
-import { isNotFoundError } from '@faststore/api'
-import deepmerge from 'deepmerge'
+import type { ComponentType } from 'react'
+import Head from 'next/head'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
-import Head from 'next/head'
-import type { ComponentType } from 'react'
+import deepmerge from 'deepmerge'
+
+import { isNotFoundError } from '@faststore/api'
+import { SearchProvider, type SearchProviderProps } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import type {
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables,
 } from '@generated/graphql'
+import storeConfig from 'discovery.config'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
@@ -26,8 +29,6 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
 import { getRedirect } from 'src/sdk/redirects'
 import { execute } from 'src/server'
-
-import storeConfig from 'discovery.config'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
@@ -35,10 +36,12 @@ import {
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import { useApplySearchState } from 'src/sdk/search/state'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { ITEMS_PER_PAGE } from 'src/constants'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -92,11 +95,22 @@ function Page({
   meta,
 }: Props) {
   const { currency } = useSession()
+  const applySearchState = useApplySearchState()
 
   const { product } = server
   const {
     seo: { pdp: pdpSeo, ...storeSeo },
   } = storeConfig
+  const searchParams: SearchProviderProps = {
+    base: '/',
+    page: 0,
+    sort: 'score_desc',
+    passThrough: new URLSearchParams(),
+    selectedFacets: [],
+    term: '',
+    onChange: applySearchState,
+    itemsPerPage: ITEMS_PER_PAGE,
+  }
 
   // SEO data
   const title = meta?.title ?? storeSeo.title
@@ -140,6 +154,7 @@ function Page({
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
       isValidating,
     },
+    globalSectionsSettings: globalSections?.settings,
   } as PDPContext
 
   return (
@@ -213,11 +228,13 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections
-          sections={sections}
-          globalSections={globalSections.sections}
-          components={COMPONENTS}
-        />
+        <SearchProvider {...searchParams}>
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections.sections}
+            components={COMPONENTS}
+          />
+        </SearchProvider>
       </PageProvider>
     </>
   )

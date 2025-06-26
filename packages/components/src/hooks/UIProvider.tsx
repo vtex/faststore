@@ -17,6 +17,7 @@ export const regionSliderTypes = {
   setLocation: 'setLocation',
   changeLocation: 'changeLocation',
   changePickupPoint: 'changePickupPoint',
+  globalChangePickupPoint: 'globalChangePickupPoint',
 } as const
 
 type RegionSliderType =
@@ -24,6 +25,7 @@ type RegionSliderType =
 
 export type RegionSlider = {
   type: RegionSliderType | 'none'
+  isOpen: boolean
 }
 
 interface State {
@@ -156,6 +158,7 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         regionSlider: {
           type: action.payload,
+          isOpen: true,
         },
       }
     }
@@ -168,6 +171,7 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         regionSlider: {
           type: 'none',
+          isOpen: false,
         },
       }
 
@@ -188,6 +192,7 @@ const initializer = (): State => ({
   },
   regionSlider: {
     type: 'none',
+    isOpen: false,
   },
 })
 
