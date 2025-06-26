@@ -80,6 +80,7 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'cancelOrder',
+  'accountProfile',
 ]
 
 let schema: GraphQLSchema
