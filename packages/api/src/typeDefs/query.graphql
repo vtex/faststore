@@ -421,6 +421,12 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
+  Returns the account profile information for the current authenticated user (b2b or b2c user).
+  """
+  accountProfile: StoreAccountProfile!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
   Returns the account name of the current user or the B2B contract name if applicable.
   """
   accountName: String
@@ -503,4 +509,13 @@ type StoreUserDetails {
   User's organizational unit.
   """
   orgUnit: String
+}
+
+"""
+Account profile information.
+"""
+type StoreAccountProfile {
+  name: String
+  email: String
+  id: String
 }

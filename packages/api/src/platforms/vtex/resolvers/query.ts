@@ -566,4 +566,51 @@ export const Query = {
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
+  // If isRepresentative, return b2b information.
+  // If not, return b2c user information
+  accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+
+    if (!jwt?.userId) {
+      return null
+    }
+
+    if (jwt?.isRepresentative) {
+      const sessionData = await commerce.session('').catch(() => null)
+
+      if (!sessionData) {
+        return null
+      }
+
+      const profile = sessionData.namespaces.profile ?? null
+
+      return {
+        name:
+          `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
+          '',
+        email: profile?.email?.value || '',
+        id: profile?.id?.value || '',
+        // createdAt: '',
+      }
+    }
+
+    const user = await commerce.licenseManager
+      .getUserById({
+        userId: jwt?.userId,
+      })
+      .catch(() => null)
+
+    return {
+      name: user?.name || '',
+      email: user?.email || '',
+      id: user?.id || '',
+      // createdAt: '',
+    }
+  },
 }

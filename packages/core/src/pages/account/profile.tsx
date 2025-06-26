@@ -34,11 +34,20 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
+type ProfilePagePros = {
+  accountProfile: {
+    name: string | null
+    email: string | null
+    id: string | null
+  }
+} & MyAccountProps
+
 export default function Profile({
   globalSections,
   accountName,
+  accountProfile,
   isRepresentative,
-}: MyAccountProps) {
+}: ProfilePagePros) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -51,7 +60,7 @@ export default function Profile({
         accountName={accountName}
       >
         <BeforeSection />
-        <ProfileSection />
+        <ProfileSection profile={accountProfile} />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
@@ -61,6 +70,11 @@ export default function Profile({
 const query = gql(`
   query ServerProfileQuery {
     accountName
+    accountProfile {
+      name
+      email
+      id
+    }
   }
 `)
 
@@ -136,6 +150,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       accountName: profile.data.accountName,
+      accountProfile: profile.data.accountProfile,
       isRepresentative,
     },
   }

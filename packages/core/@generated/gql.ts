@@ -48,7 +48,7 @@ const documents = {
     types.ServerOrderDetailsQueryDocument,
   '\n  query ServerListOrdersQuery ($page: Int,$perPage: Int, $status: [String], $dateInitial: String, $dateFinal: String, $text: String, $clientEmail: String) {\n    listUserOrders (page: $page, perPage: $perPage, status: $status, dateInitial: $dateInitial, dateFinal: $dateFinal, text: $text, clientEmail: $clientEmail) {\n      list {\n        orderId\n        creationDate\n        clientName\n        items {\n          seller\n          quantity\n          description\n          ean\n          refId\n          id\n          productId\n          sellingPrice\n          price\n        }\n        totalValue\n        status\n        statusDescription\n        ShippingEstimatedDate\n        currencyCode\n        customFields {\n          type\n          value\n        }\n      }\n      paging {\n        total\n        pages\n        currentPage\n        perPage\n      }\n    }\n    accountName\n  }\n':
     types.ServerListOrdersQueryDocument,
-  '\n  query ServerProfileQuery {\n    accountName\n  }\n':
+  '\n  query ServerProfileQuery {\n    accountName\n    accountProfile {\n      name\n      email\n      id\n    }\n  }\n':
     types.ServerProfileQueryDocument,
   '\n  query ServerSecurityQuery {\n    accountName\n  }\n':
     types.ServerSecurityQueryDocument,
@@ -198,7 +198,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ServerProfileQuery {\n    accountName\n  }\n'
+  source: '\n  query ServerProfileQuery {\n    accountName\n    accountProfile {\n      name\n      email\n      id\n    }\n  }\n'
 ): typeof import('./graphql').ServerProfileQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

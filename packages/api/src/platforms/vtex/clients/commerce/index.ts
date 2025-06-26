@@ -635,6 +635,24 @@ export const VtexCommerce = (
           {}
         )
       },
+      getUserByEmail: ({
+        email,
+      }: { email: string }): Promise<{
+        id: string
+        name: string
+        email: string
+      }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/license-manager/pvt/users/${email}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
     },
     masterData: {
       getContractById: ({

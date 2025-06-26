@@ -72,6 +72,7 @@ const QUERIES = [
   'userOrder',
   'listUserOrders',
   'userDetails',
+  'accountProfile',
   'accountName',
   'validateUser',
 ]
