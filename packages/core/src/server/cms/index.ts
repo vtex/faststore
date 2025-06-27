@@ -2,6 +2,7 @@ import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
+import { sanitizeHost } from 'src/utils/utilities'
 import config from '../../../discovery.config'
 
 export type Options =
@@ -65,6 +66,7 @@ export const isLocator = (x: any): x is Locator =>
 export const clientCMS = new ClientCMS({
   workspace: config.api.workspace,
   tenant: config.api.storeId,
+  host: sanitizeHost(config.storeUrl),
 })
 
 export const getCMSPage = async (
