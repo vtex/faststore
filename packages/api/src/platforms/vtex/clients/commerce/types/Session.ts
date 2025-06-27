@@ -52,6 +52,4 @@ export interface Public {
   orderFormId?: Value
   items?: Value
   postalCode?: Value
-  geoCoordinates?: Value
-  country?: Value
 }
