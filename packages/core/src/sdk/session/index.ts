@@ -53,6 +53,7 @@ export const mutation = gql(`
         lastName
         userName
         userEmail
+        defaultPostalCode
       }
       marketingData {
         utmCampaign
@@ -70,11 +71,19 @@ export const validateSession = async (session: Session) => {
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
     // Do not use the session's person id if the user is a B2B customer
-    const userId = session.b2b ? null : session.person?.id
+    const b2cUserId = session.b2b ? null : session.person?.id
 
-    // If the B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
-    if (userId) {
-      const address = await getSavedAddress(userId)
+    // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
+    if (session.b2b && session.b2b?.defaultPostalCode) {
+      sessionStore.set({
+        ...session,
+        postalCode: session.b2b.defaultPostalCode,
+      })
+    }
+
+    // Case B2C: If a B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
+    if (b2cUserId) {
+      const address = await getSavedAddress(b2cUserId)
 
       // Save the location in the session
       if (address) {
