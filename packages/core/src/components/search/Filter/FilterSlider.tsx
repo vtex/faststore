@@ -14,15 +14,11 @@ import {
 } from '@faststore/ui'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
-
-import { deliveryPromise } from 'discovery.config'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { sessionStore } from 'src/sdk/session'
 
 import {
   getRegionalizationSettings,
@@ -32,6 +28,7 @@ import {
 import { RegionSlider } from 'src/components/region/RegionSlider'
 
 import styles from './section.module.scss'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -111,10 +108,8 @@ function FilterSlider({
     regionSlider: { type: regionSliderType },
     openRegionSlider,
   } = useUI()
-  const pickupPoints = usePickupPoints()
-  const { postalCode } = sessionStore.read()
 
-  const toggleFilterFacets = (facets: { key: string; value: string }[]) => {
+  function toggleFilterFacets(facets: { key: string; value: string }[]) {
     dispatch({
       type: 'toggleFacets',
       payload: {
@@ -139,100 +134,24 @@ function FilterSlider({
   // Delivery Promise consts
   const regionalizationData = getRegionalizationSettings(deliverySettings)
   const { deliverySettings: deliverySettingsData } = regionalizationData
+  const {
+    selectedPickupPoint,
+    postalCode,
+    isEnabled: isDeliveryPromiseEnabled,
+    facets: filteredFacets,
+  } = useDeliveryPromise({
+    fallbackToFirst: true,
+    selectedFacets: selected,
+    allFacets: facets,
+    deliverySettings: deliverySettingsData,
+    toggleFilterFacets,
+    togglePickupInPointFacet,
+  })
+
   const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-  const isDeliveryPromiseEnabled = deliveryPromise.enabled
   const isPickupAllEnabled =
     deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
   const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
-
-  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
-  const selectedPickupPointId = state.selectedFacets.find(
-    ({ key }) => key === 'pickupPoint'
-  )?.value
-
-  // If no pickup point was previously selected, use the first one as default
-  const selectedPickupPoint =
-    pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
-    defaultPickupPoint
-
-  const pickupInPointFacet =
-    isDeliveryPromiseEnabled && selectedPickupPoint
-      ? {
-          value: 'pickup-in-point',
-          label:
-            selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
-          selected: !!selected.find(({ value }) => value === 'pickup-in-point'),
-          quantity: selectedPickupPoint?.totalItems,
-        }
-      : undefined
-
-  const allDeliveryMethodsFacet = {
-    value: 'all-delivery-methods',
-    label:
-      deliverySettingsData?.deliveryMethods?.allDeliveryMethods ??
-      'All delivery methods',
-    selected: !selected.some(
-      (facet) =>
-        facet.key === 'shipping' && facet.value !== 'all-delivery-methods'
-    ),
-    quantity: 0,
-  }
-
-  let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
-  if (isDeliveryPromiseEnabled) {
-    filteredFacets = facets.map((facet) => {
-      if (
-        facet.key === 'shipping' &&
-        facet.__typename === 'StoreFacetBoolean'
-      ) {
-        const hasAllDeliveryMethodsFacet = facet.values.some(
-          (item) => item.value === allDeliveryMethodsFacet.value
-        )
-        if (!hasAllDeliveryMethodsFacet) {
-          facet.values = [allDeliveryMethodsFacet, ...facet.values]
-        }
-
-        const pickupInPointFacetIndex = facet.values.findIndex(
-          (item) => item?.value === 'pickup-in-point'
-        )
-
-        // Remove old pickup `pickup in point` facet from list and search state
-        if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
-          if (selected.some(({ key }) => key === 'shipping')) {
-            const selectedShippingFacet = selected.find(
-              ({ key }) => key === 'shipping'
-            )
-            const selectedPickupInPointFacets = selected.filter(
-              ({ key, value }) =>
-                value === 'pickup-in-point' || key === 'pickupPoint'
-            )
-
-            selectedPickupInPointFacets.length !== 0
-              ? togglePickupInPointFacet(selectedPickupInPointFacets)
-              : toggleFilterFacets([selectedShippingFacet])
-          }
-
-          facet.values = facet.values.filter(
-            (_, index) => index !== pickupInPointFacetIndex
-          )
-        }
-        // Prevent multiple `pickup in point` facet
-        else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
-          facet.values.push(pickupInPointFacet)
-        }
-        // Replace current `pickup-in-point` facet with the updated one
-        else if (
-          facet.values[pickupInPointFacetIndex] &&
-          facet.values[pickupInPointFacetIndex]?.label !==
-            pickupInPointFacet.label
-        ) {
-          facet.values[pickupInPointFacetIndex] = pickupInPointFacet
-        }
-      }
-
-      return facet
-    })
-  }
 
   return (
     <>
