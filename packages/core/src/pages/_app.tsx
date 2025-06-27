@@ -13,15 +13,36 @@ import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
 import { ITEMS_PER_PAGE } from 'src/constants'
+import { useEffect } from 'react'
 
 function App({ Component, pageProps }: AppProps) {
   const { key } = pageProps
   useGeolocation()
   const router = useRouter()
-  const { start: startGlobalSearchState } = useSearch()
+  const {
+    start: startGlobalSearchState,
+    reset: resetSearchState,
+    serializedState,
+  } = useSearch()
 
   // Initialize global Search state
   startGlobalSearchState(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
+
+  // checks wether the
+  useEffect(() => {
+    const routeChangeComplete = (url: string) => {
+      if (
+        new URL(url, 'http://localhost:3000').pathname !==
+        serializedState().pathname
+      ) {
+        resetSearchState()
+      }
+    }
+
+    router.events.on('routeChangeComplete', routeChangeComplete)
+
+    return () => router.events.off('routeChangeComplete', routeChangeComplete)
+  }, [router])
 
   return (
     <ErrorBoundary>

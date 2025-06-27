@@ -33,6 +33,7 @@ export type UseSearchState = {
   addPrevPage: () => void
   addNextPage: () => void
   resetInfiniteScroll: (page: number) => void
+  reset: () => void
   initialized: boolean
   start: (
     asPath: string,
@@ -97,6 +98,9 @@ const stateBase = create<UseSearchState>((set, get) => ({
   },
   serializedState: () => format(get().state),
   initialized: false,
+  reset: () => {
+    set({ state: initialize() })
+  },
   start: (
     asPath: string,
     state: Partial<State & Pick<UseSearchState, 'itemsPerPage' | 'pages'>>
