@@ -51,4 +51,5 @@ export interface Checkout {
 export interface Public {
   orderFormId?: Value
   items?: Value
+  postalCode?: Value
 }
