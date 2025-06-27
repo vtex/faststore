@@ -8,7 +8,7 @@ import type { useFilter } from '../search/useFilter'
 import type { IStoreSelectedFacet } from '@faststore/api'
 import type { RegionalizationCmsData } from '../../utils/globalSettings'
 
-const FacetKey = 'pickupPoint' as const
+const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
 
 type DeliveryPromiseStore = {
@@ -83,7 +83,9 @@ export function useDeliveryPromise({
   )
 
   const selectedPickupPointId = useMemo(
-    () => searchState.selectedFacets.find(({ key }) => key === FacetKey)?.value,
+    () =>
+      searchState.selectedFacets.find(({ key }) => key === PickupPointFacetKey)
+        ?.value,
     [searchState]
   )
 
@@ -100,7 +102,8 @@ export function useDeliveryPromise({
         'All delivery methods',
       selected: !selectedFacets.some(
         (facet) =>
-          facet.key === 'shipping' && facet.value !== 'all-delivery-methods'
+          facet.key === ShippingFacetKey &&
+          facet.value !== 'all-delivery-methods'
       ),
       quantity: 0,
     }),
@@ -142,7 +145,7 @@ export function useDeliveryPromise({
             if (selectedShippingFacet) {
               const selectedPickupInPointFacets = selectedFacets.filter(
                 ({ key, value }) =>
-                  value === 'pickup-in-point' || key === 'pickupPoint'
+                  value === 'pickup-in-point' || key === PickupPointFacetKey
               )
 
               selectedPickupInPointFacets.length
