@@ -46,7 +46,7 @@ export interface B2bInfo {
   lastName: string
   userName: string
   userEmail: string
-  defaultPostalCode?: string
+  defaultPostalCode: string
 }
 
 export interface Session {
