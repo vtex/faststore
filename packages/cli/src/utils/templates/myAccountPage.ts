@@ -22,7 +22,8 @@ export const myAccountPageTemplate = (pagePath: string) => `
     ...CUSTOM_COMPONENTS,
   }
 
-  function Page({ globalSections: { sections: globalSections, settings: globalSettings }, accountName }: MyAccountProps) {
+  function Page({ globalSections: globalSectionsProp, accountName }: MyAccountProps) {
+    const { sections: globalSections, settings: globalSettings } = globalSectionsProp ?? {}
 
     return (
      <PageProvider context={{ globalSettings }}>

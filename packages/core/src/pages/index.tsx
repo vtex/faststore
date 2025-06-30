@@ -24,9 +24,11 @@ type Props = {
 
 function Page({
   page: { sections, settings },
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
   serverData,
 }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
   const context = {
     data: serverData,
     globalSettings,

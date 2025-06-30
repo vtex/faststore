@@ -38,10 +38,10 @@ type Props = {
   accountName: ServerAccountPageQueryQuery['accountName']
 }
 
-function Page({
-  globalSections: { sections: globalSections, settings: globalSettings },
-  accountName,
-}: Props) {
+function Page({ globalSections: globalSectionsProp, accountName }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>

@@ -26,9 +26,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-function Page({
-  globalSections: { sections: globalSections, settings: globalSettings },
-}: Props) {
+function Page({ globalSections: globalSectionsProp }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   useEffect(() => {
     window.location.href = storeConfig.checkoutUrl
   }, [])

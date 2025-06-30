@@ -58,10 +58,13 @@ type Props = BaseProps &
   )
 
 function Page({
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
   type,
   ...otherProps
 }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <>
       {type === 'plp' && (

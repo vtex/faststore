@@ -34,8 +34,11 @@ type Props = {
 
 function Page({
   page: { sections },
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
 }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   useEffect(() => {
     const loginUrl = new URL(storeConfig.loginUrl)
     const incomingParams = new URLSearchParams(window.location.search)

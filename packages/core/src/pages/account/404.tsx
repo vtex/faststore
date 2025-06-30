@@ -43,9 +43,12 @@ type Props = {
 
 function Page({
   page: { sections },
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
   accountName,
 }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>

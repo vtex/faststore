@@ -34,9 +34,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 export default function UserDetails({
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
   accountName,
 }: MyAccountProps) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>

@@ -60,18 +60,21 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
   )
   const {
     inputField: {
-      label: inputFieldLabel,
-      errorMessage: inputFieldErrorMessage,
+      label: inputFieldLabel = '',
+      errorMessage: inputFieldErrorMessage = '',
       noProductsAvailableErrorMessage:
-        inputFieldNoProductsAvailableErrorMessage,
-      buttonActionText: inputButtonActionText,
-    },
+        inputFieldNoProductsAvailableErrorMessage = '',
+      buttonActionText: inputButtonActionText = '',
+    } = {},
     idkPostalCodeLink: {
-      text: idkPostalCodeLinkText,
-      to: idkPostalCodeLinkTo,
-      icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
-    },
-  } = regionalizationSettings
+      text: idkPostalCodeLinkText = '',
+      to: idkPostalCodeLinkTo = '',
+      icon: {
+        icon: idkPostalCodeLinkIcon = '',
+        alt: idkPostalCodeLinkIconAlt = '',
+      } = {},
+    } = {},
+  } = regionalizationSettings ?? {}
 
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()

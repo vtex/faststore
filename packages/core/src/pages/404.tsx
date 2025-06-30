@@ -32,8 +32,11 @@ type Props = {
 
 function Page({
   page: { sections },
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
 }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <>
       <NextSeo noindex nofollow />

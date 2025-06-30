@@ -34,10 +34,13 @@ type OrderDetailsPageProps = {
 } & MyAccountProps
 
 export default function OrderDetailsPage({
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
   order,
   accountName,
 }: OrderDetailsPageProps) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>

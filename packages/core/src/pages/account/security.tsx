@@ -38,9 +38,12 @@ type SecurityPageProps = {
 } & MyAccountProps
 
 export default function Page({
-  globalSections: { sections: globalSections, settings: globalSettings },
+  globalSections: globalSectionsProp,
   accountName,
 }: SecurityPageProps) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
