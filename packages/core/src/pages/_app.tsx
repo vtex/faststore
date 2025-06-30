@@ -28,7 +28,7 @@ function App({ Component, pageProps }: AppProps) {
   // Initialize global Search state
   startGlobalSearchState(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
 
-  // checks wether the
+  // checks wether the route changed to clear the searchState.
   useEffect(() => {
     const routeChangeComplete = (url: string) => {
       if (
@@ -39,9 +39,9 @@ function App({ Component, pageProps }: AppProps) {
       }
     }
 
-    router.events.on('routeChangeComplete', routeChangeComplete)
+    router.events.on('beforeHistoryChange', routeChangeComplete)
 
-    return () => router.events.off('routeChangeComplete', routeChangeComplete)
+    return () => router.events.off('beforeHistoryChange', routeChangeComplete)
   }, [router])
 
   return (

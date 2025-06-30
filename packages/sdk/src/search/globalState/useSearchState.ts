@@ -99,7 +99,13 @@ const stateBase = create<UseSearchState>((set, get) => ({
   serializedState: () => format(get().state),
   initialized: false,
   reset: () => {
-    set({ state: initialize() })
+    set({
+      state: {
+        ...initialize({
+          base: get().state.base,
+        }),
+      },
+    })
   },
   start: (
     asPath: string,
