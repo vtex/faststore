@@ -68,11 +68,13 @@ export const mutation = gql(`
 `)
 
 export const validateSession = async (session: Session) => {
-  // If deliveryPromise is enabled and there is no postalCode in the session
-  if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
-    // Do not use the session's person id if the user is a B2B customer
-    const b2cUserId = session.b2b ? null : session.person?.id
+  const initialPostalCode = defaultStore.readInitial().postalCode
 
+  // If deliveryPromise is enabled and there is no postalCode in the session
+  if (
+    storeConfig.deliveryPromise?.enabled &&
+    (!session.postalCode || session.postalCode === initialPostalCode)
+  ) {
     // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
     if (session.b2b && session.b2b?.defaultPostalCode) {
       sessionStore.set({
@@ -82,8 +84,8 @@ export const validateSession = async (session: Session) => {
     }
 
     // Case B2C: If a B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
-    if (b2cUserId) {
-      const address = await getSavedAddress(b2cUserId)
+    else if (session.person?.id) {
+      const address = await getSavedAddress(session.person?.id)
 
       // Save the location in the session
       if (address) {
@@ -102,8 +104,7 @@ export const validateSession = async (session: Session) => {
         })
       }
     } else {
-      // Use the initial postalCode defined in discovery.config.js
-      const initialPostalCode = defaultStore.readInitial().postalCode
+      // Fallback: use the initial postalCode defined in discovery.config.js
 
       if (!!initialPostalCode) {
         sessionStore.set({ ...session, postalCode: initialPostalCode })
