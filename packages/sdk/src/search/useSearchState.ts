@@ -1,7 +1,22 @@
-import { useSearchState as useGlobalSearchState } from './globalState/useSearchState'
+import { useEffect } from 'react'
+import {
+  useSearchState as useGlobalSearchState,
+  type UseSearchState,
+} from './globalState/useSearchState'
 
-export function useSearchState() {
-  const { state, setState } = useGlobalSearchState()
+export function useSearchState(
+  initialState: Partial<UseSearchState['state']>,
+  onChange?: (url: URL) => void
+) {
+  const { state, setState, serializedState } = useGlobalSearchState()
+
+  useEffect(() => {
+    setState(initialState)
+  }, [initialState])
+
+  useEffect(() => {
+    return useGlobalSearchState.subscribe(() => onChange?.(serializedState()))
+  }, [])
 
   return { state, setState }
 }
