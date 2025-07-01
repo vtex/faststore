@@ -6,6 +6,9 @@ import {
 
 export { initialize } from './globalState/useSearchState'
 
+/**
+ * @deprecated Use the `useSearchState` from sdk/src/search/globalState instead
+ */
 export function useSearchState(
   initialState: Partial<GlobalUseSearchState['state']>,
   onChange?: (url: URL) => void
