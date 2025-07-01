@@ -184,10 +184,10 @@ export type IShippingItem = {
 
 export type IStoreB2B = {
   customerId: Scalars['String']['input']
-  defaultPostalCode: InputMaybe<Scalars['String']['input']>
   firstName: InputMaybe<Scalars['String']['input']>
   isRepresentative: InputMaybe<Scalars['Boolean']['input']>
   lastName: InputMaybe<Scalars['String']['input']>
+  savedPostalCode: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
   unitName: InputMaybe<Scalars['String']['input']>
   userEmail: InputMaybe<Scalars['String']['input']>
@@ -773,10 +773,10 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   customerId: Scalars['String']['output']
-  defaultPostalCode: Maybe<Scalars['String']['output']>
   firstName: Maybe<Scalars['String']['output']>
   isRepresentative: Maybe<Scalars['Boolean']['output']>
   lastName: Maybe<Scalars['String']['output']>
+  savedPostalCode: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
   unitName: Maybe<Scalars['String']['output']>
   userEmail: Maybe<Scalars['String']['output']>
@@ -2911,7 +2911,7 @@ export type ValidateSessionMutation = {
       lastName: string | null
       userName: string | null
       userEmail: string | null
-      defaultPostalCode: string | null
+      savedPostalCode: string | null
     } | null
     marketingData: {
       utmCampaign: string | null
@@ -3665,7 +3665,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '3b59bd4a5e1172919630ca06f3d2bc73d4da0e71',
+    operationHash: '259dd10b1c65ce4b20c9181feb7bec85ecb402e6',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

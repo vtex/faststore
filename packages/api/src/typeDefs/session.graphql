@@ -193,7 +193,7 @@ type StoreB2B {
   lastName: String
   userName: String
   userEmail: String
-  defaultPostalCode: String
+  savedPostalCode: String
 }
 
 input IStoreB2B {
@@ -205,7 +205,7 @@ input IStoreB2B {
   lastName: String
   userName: String
   userEmail: String
-  defaultPostalCode: String
+  savedPostalCode: String
 }
 
 """

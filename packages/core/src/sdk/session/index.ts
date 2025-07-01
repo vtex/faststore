@@ -53,7 +53,7 @@ export const mutation = gql(`
         lastName
         userName
         userEmail
-        defaultPostalCode
+        savedPostalCode
       }
       marketingData {
         utmCampaign

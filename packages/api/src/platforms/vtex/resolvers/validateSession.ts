@@ -142,7 +142,7 @@ export const validateSession = async (
           lastName: profile?.lastName?.value ?? '',
           userName: shopper?.firstName?.value ?? '', // shopper
           userEmail: authentication?.storeUserEmail.value ?? '',
-          defaultPostalCode: publicData?.postalCode?.value ?? '',
+          savedPostalCode: publicData?.postalCode?.value ?? '',
         }
       : null,
     marketingData,

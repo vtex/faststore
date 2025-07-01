@@ -170,10 +170,10 @@ export type IShippingItem = {
 
 export type IStoreB2B = {
   customerId: Scalars['String'];
-  defaultPostalCode?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
+  savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
   userEmail?: Maybe<Scalars['String']>;
@@ -799,10 +799,10 @@ export type StoreAuthor = {
 export type StoreB2B = {
   __typename?: 'StoreB2B';
   customerId: Scalars['String'];
-  defaultPostalCode?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
+  savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
   userEmail?: Maybe<Scalars['String']>;
