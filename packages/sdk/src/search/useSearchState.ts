@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import {
   useSearchState as useGlobalSearchState,
-  type UseSearchState,
+  type UseSearchState as GlobalUseSearchState,
 } from './globalState/useSearchState'
 
+export { initialize } from './globalState/useSearchState'
+
 export function useSearchState(
-  initialState: Partial<UseSearchState['state']>,
+  initialState: Partial<GlobalUseSearchState['state']>,
   onChange?: (url: URL) => void
 ) {
   const { state, setState, serializedState } = useGlobalSearchState()
@@ -20,3 +22,5 @@ export function useSearchState(
 
   return { state, setState }
 }
+
+export type UseSearchState = ReturnType<typeof useSearchState>
