@@ -104,6 +104,11 @@
                       "title": "Delivery methods filter",
                       "type": "object",
                       "properties": {
+                        "title": {
+                          "title": "Delivery Methods title",
+                          "type": "string",
+                          "default": "Delivery Method"
+                        },
                         "allDeliveryMethods": {
                           "title": "All delivery methods label",
                           "type": "string",
@@ -140,6 +145,32 @@
                               "default": "Pickup Anywhere"
                             }
                           }
+                        }
+                      }
+                    },
+                    "deliveryOptions": {
+                      "title": "Delivery options filter",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Delivery Options title",
+                          "type": "string",
+                          "default": "Delivery Option"
+                        },
+                        "allDeliveryOptions": {
+                          "title": "All delivery options label",
+                          "type": "string",
+                          "default": "All delivery options"
+                        },
+                        "expressDelivery": {
+                          "title": "Express delivery label",
+                          "type": "string",
+                          "default": "Express"
+                        },
+                        "standardDelivery": {
+                          "title": "Standard delivery label",
+                          "type": "string",
+                          "default": "Standard"
                         }
                       }
                     },
