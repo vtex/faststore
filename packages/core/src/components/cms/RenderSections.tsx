@@ -12,9 +12,9 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import useTTI from 'src/sdk/performance/useTTI'
 import { isContentPlatformSource } from 'src/server/content/utils'
+import COMPONENTS from './global/Components'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
-import COMPONENTS from './global/Components'
 
 interface Props {
   components?: Record<string, ComponentType<any>>

@@ -39,7 +39,7 @@ export type ProductListingPageProps = {
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
+  globalSettings?: Record<string, unknown>
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -51,7 +51,7 @@ export default function ProductListing({
   data: server,
   serverManyProductsVariables,
   globalSections,
-  globalSectionsSettings,
+  globalSettings,
 }: ProductListingPageProps) {
   const router = useRouter()
   const { state, serializedState } = useSearch()
@@ -88,7 +88,7 @@ export default function ProductListing({
       ),
       pages,
     },
-    globalSectionsSettings,
+    globalSettings,
   } as PLPContext
 
   return (
