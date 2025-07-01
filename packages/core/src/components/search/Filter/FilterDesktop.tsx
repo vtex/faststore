@@ -46,14 +46,17 @@ function FilterDesktop({
   const pickupPoints = usePickupPoints()
   const { postalCode } = sessionStore.read()
 
-  const toggleFilterFacet = (facet: { key: string; value: string }) => {
+  const toggleFilterFacet = (
+    facet: { key: string; value: string },
+    unique?: boolean
+  ) => {
     setState({
       ...state,
       selectedFacets: toggleFacet(
         // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
         state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
         facet,
-        true
+        unique
       ),
       page: 0,
     })

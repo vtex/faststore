@@ -114,13 +114,13 @@ function FilterSlider({
   const pickupPoints = usePickupPoints()
   const { postalCode } = sessionStore.read()
 
-  const toggleFilterFacets = (facets: { key: string; value: string }[]) => {
+  const toggleFilterFacets = (
+    facets: { key: string; value: string }[],
+    unique?: boolean
+  ) => {
     dispatch({
       type: 'toggleFacets',
-      payload: {
-        facets,
-        unique: true,
-      },
+      payload: { facets, unique },
     })
   }
 
