@@ -22,6 +22,7 @@ export type RegionalizationCmsData = {
     description?: string
     setLocationButtonLabel?: string
     deliveryMethods?: {
+      title?: string
       allDeliveryMethods?: string
       delivery?: string
       pickupInPoint?: string
@@ -30,6 +31,12 @@ export type RegionalizationCmsData = {
         label?: string
         enabled?: boolean
       }
+    }
+    deliveryOptions?: {
+      title?: string
+      allDeliveryOptions?: string
+      expressDelivery?: string
+      standardDelivery?: string
     }
     regionSlider?: {
       title?: {
