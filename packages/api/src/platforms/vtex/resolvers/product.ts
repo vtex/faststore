@@ -190,4 +190,10 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   },
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
+  hasSpecifications: ({ isVariantOf }) =>
+    Boolean(isVariantOf.skuSpecifications?.length),
+  skuSpecifications: ({ isVariantOf: { skuSpecifications } }) =>
+    skuSpecifications ?? [],
+  specificationGroups: ({ isVariantOf: { specificationGroups } }) =>
+    specificationGroups,
 }

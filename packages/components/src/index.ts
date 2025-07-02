@@ -334,6 +334,20 @@ export type { OutOfStockProps } from './organisms/OutOfStock'
 export { default as PaymentMethods } from './organisms/PaymentMethods'
 export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 
+export {
+  default as ProductComparison,
+  ProductComparisonTrigger,
+  ProductComparisonToolbar,
+  ProductComparisonSidebar,
+} from './organisms/ProductComparison'
+export type {
+  IProductComparison,
+  ProductComparisonProps,
+  ProductComparisonTriggerProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonSidebarProps,
+} from './organisms/ProductComparison'
+
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
