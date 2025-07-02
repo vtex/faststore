@@ -151,7 +151,7 @@ function FilterDesktop({
 
             selectedPickupInPointFacets.length !== 0
               ? togglePickupInPointFacet(selectedPickupInPointFacets)
-              : toggleFilterFacet(selectedShippingFacet)
+              : toggleFilterFacet(selectedShippingFacet, true)
           }
 
           facet.values = facet.values.filter(
@@ -244,7 +244,7 @@ function FilterDesktop({
                                 },
                               ])
                             } else {
-                              toggleFilterFacet(facet)
+                              toggleFilterFacet(facet, isDeliveryFacet)
                             }
 
                             resetInfiniteScroll(0)

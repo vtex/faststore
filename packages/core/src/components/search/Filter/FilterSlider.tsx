@@ -209,7 +209,7 @@ function FilterSlider({
 
             selectedPickupInPointFacets.length !== 0
               ? togglePickupInPointFacet(selectedPickupInPointFacets)
-              : toggleFilterFacets([selectedShippingFacet])
+              : toggleFilterFacets([selectedShippingFacet], true)
           }
 
           facet.values = facet.values.filter(
@@ -343,12 +343,15 @@ function FilterSlider({
                                   },
                                 ])
                               } else {
-                                toggleFilterFacets([
-                                  ...selected.filter(
-                                    ({ key }) => key === 'pickupPoint'
-                                  ),
-                                  facet,
-                                ])
+                                toggleFilterFacets(
+                                  [
+                                    ...selected.filter(
+                                      ({ key }) => key === 'pickupPoint'
+                                    ),
+                                    facet,
+                                  ],
+                                  isDeliveryFacet
+                                )
                               }
                             }}
                             selected={item.selected}
