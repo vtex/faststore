@@ -231,6 +231,10 @@ export function useDeliveryPromise({
     facets,
     selectedFacets,
     deliveryLabel: deliverySettings?.title ?? 'Delivery',
+    deliveryMethodsLabel:
+      deliverySettings?.deliveryMethods?.title ?? 'Delivery Method',
+    deliveryOptionsLabel:
+      deliverySettings?.deliveryOptions?.title ?? 'Delivery Option',
     isPickupAllEnabled:
       deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
