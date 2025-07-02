@@ -26,21 +26,22 @@
   --fs-table-bordered-border-width      : var(--fs-border-width);
   --fs-table-bordered-border-color      : var(--fs-border-color-light);
 
+  display: block;
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
   width: 100%;
-  display: block;
   overflow-x: auto;
   white-space: nowrap;
 
   [data-fs-table-cell="header"],
   [data-fs-table-cell="data"] {
-    text-align: center;
-    padding-left: var(--fs-table-cell-padding-x);
     padding-right: var(--fs-table-cell-padding-x);
+    padding-left: var(--fs-table-cell-padding-x);
+    overflow-x: auto;
+    text-align: center;
     &[data-fs-table-cell-align="left"] { text-align: left; }
     &[data-fs-table-cell-align="center"] { text-align: center; }
     &[data-fs-table-cell-align="right"] { text-align: right; }
@@ -82,15 +83,16 @@
   }
 
   [data-fs-table-content] {
-    width: 100%;
     display: table;
+    width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
   }
 
   [data-fs-icon] {
-    margin-right: var(--fs-spacing-2);
     width: var(--fs-spacing-3);
     height: var(--fs-spacing-3);
+    margin-right: var(--fs-spacing-2);
   }
 
   // --------------------------------------------------------
@@ -121,5 +123,4 @@
       border-bottom: var(--fs-table-bordered-border-width) solid var(--fs-table-bordered-border-color);
     }
   }
-
 }
