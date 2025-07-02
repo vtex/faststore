@@ -104,6 +104,7 @@ export const validateSession = async (
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
+  const publicData = sessionData?.namespaces.public ?? null
 
   // Set seller only if it's inside a region
   let seller
@@ -124,7 +125,7 @@ export const validateSession = async (
       code: store?.currencyCode?.value ?? oldSession.currency.code,
       symbol: store?.currencySymbol?.value ?? oldSession.currency.symbol,
     },
-    country: store?.countryCode?.value ?? oldSession.country,
+    country: store?.countryCode?.value ?? country,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: checkout?.regionId?.value ?? channel.regionId,
@@ -141,6 +142,7 @@ export const validateSession = async (
           lastName: profile?.lastName?.value ?? '',
           userName: shopper?.firstName?.value ?? '', // shopper
           userEmail: authentication?.storeUserEmail.value ?? '',
+          savedPostalCode: publicData?.postalCode?.value ?? '',
         }
       : null,
     marketingData,
