@@ -20,6 +20,7 @@ import { RegionSlider } from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import FilterDeliveryOptionFacet from './FilterDeliveryOptionFacet'
 
 interface FilterDesktopProps
   extends Omit<
@@ -66,6 +67,8 @@ function FilterDesktop({
     selectedPickupPoint,
     facets: filteredFacets,
     deliveryLabel,
+    deliveryMethodsLabel,
+    deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
   } = useDeliveryPromise({
@@ -117,17 +120,27 @@ function FilterDesktop({
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
-          const isDeliveryFacet = facet.key === 'shipping'
+          const isDeliveryMethodFacet = facet.key === 'shipping'
+          const isDeliveryOptionFacet = facet.key === 'delivery-options'
+
+          let sectionLabel = label
+          if (isDeliveryMethodFacet) {
+            sectionLabel = deliveryMethodsLabel
+          } else if (isDeliveryOptionFacet) {
+            sectionLabel = deliveryOptionsLabel
+          }
 
           return (
             <UIFilterFacets
-              key={`${testId}-${label}-${index}`}
+              key={`${testId}-${sectionLabel}-${index}`}
               testId={testId}
               index={index}
               type={type}
-              label={isDeliveryFacet ? deliveryLabel : label}
+              label={sectionLabel}
               description={
-                isDeliveryFacet ? deliverySettingsData?.description : undefined
+                isDeliveryMethodFacet
+                  ? deliverySettingsData?.description
+                  : undefined
               }
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
@@ -148,18 +161,29 @@ function FilterDesktop({
                           quantity={item.quantity}
                           facetKey={facet.key}
                           label={
-                            isDeliveryFacet ? (
+                            isDeliveryMethodFacet ? (
                               <FilterDeliveryMethodFacet
                                 item={item}
                                 deliveryMethods={
                                   deliverySettingsData?.deliveryMethods
                                 }
                               />
+                            ) : isDeliveryOptionFacet ? (
+                              <FilterDeliveryOptionFacet
+                                item={item}
+                                deliveryOptions={
+                                  deliverySettingsData?.deliveryOptions
+                                }
+                              />
                             ) : (
                               item.label
                             )
                           }
-                          type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                          type={
+                            isDeliveryMethodFacet || isDeliveryOptionFacet
+                              ? 'radio'
+                              : 'checkbox'
+                          }
                         />
                       )
                   )}
