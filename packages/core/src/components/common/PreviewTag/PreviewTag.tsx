@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Tag as UITag } from '@faststore/ui'
 import Section from 'src/components/sections/Section/Section'
@@ -11,7 +10,6 @@ export interface PreviewTagProps {
 }
 
 function PreviewTag({ text = 'Preview', exitUrl }: PreviewTagProps) {
-  const router = useRouter()
 
   useEffect(() => {
     const handleBeforeUnload = () => {
