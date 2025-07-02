@@ -42,12 +42,6 @@ function PreviewTag({ text = 'Preview', exitUrl }: PreviewTagProps) {
         label={text}
         iconButtonLabel="Exit preview"
         onClose={handleExitPreview}
-        style={{
-          position: 'fixed',
-          top: '1rem',
-          right: '1rem',
-          zIndex: 10000,
-        }}
       />
     </Section>
   )
