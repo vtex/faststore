@@ -19,6 +19,7 @@ import type { FilterSliderProps } from './FilterSlider'
 import { RegionSlider } from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 interface FilterDesktopProps
   extends Omit<
@@ -41,7 +42,7 @@ function FilterDesktop({
   } = useUI()
 
   const onFacetChange = (facet: { key: string; value: string }) => {
-    let unique = ['shipping', 'pickupPoint'].includes(facet.key)
+    let unique = isRadioFacets(facet.key)
     let selected = state.selectedFacets
     const facets = [facet]
     if (facet.value === 'pickup-in-point') {
@@ -57,13 +58,13 @@ function FilterDesktop({
     setState({
       ...state,
       selectedFacets: toggleFacets(selected, facets, unique),
+      page: 0,
     })
   }
 
   const {
     selectedPickupPoint,
     facets: filteredFacets,
-    regionalizationData,
     deliveryLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
@@ -75,6 +76,9 @@ function FilterDesktop({
     deliverySettings,
   })
 
+  const regionalizationData = getRegionalizationSettings({
+    deliverySettings,
+  })
   const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
@@ -229,5 +233,12 @@ export const fragment = gql(`
     }
   }
 `)
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+  if (typeof str !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === str)
+}
 
 export default FilterDesktop

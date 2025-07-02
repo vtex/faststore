@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import config from '../../../discovery.config'
 import { sessionStore } from 'src/sdk/session'
 import { createStore, type SearchState } from '@faststore/sdk'
-import { default as useRegion } from 'src/components/region/RegionModal/useRegion'
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import {
@@ -51,8 +50,6 @@ export function useDeliveryPromise({
   })
   const { deliverySettings } = regionalizationData
 
-  const { loading, regionError, setRegion, setRegionError } = useRegion()
-
   const pickupPoints = usePickupPoints()
   const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
   const [postalCode, setPostalCode] = useState(sessionStore.read().postalCode)
@@ -60,7 +57,7 @@ export function useDeliveryPromise({
     sessionStore.read().geoCoordinates
   )
 
-  const isEnabled = config.deliveryPromise.enabled
+  const isDeliveryPromiseEnabled = config.deliveryPromise.enabled
 
   useEffect(() => {
     const unsubscribers = [
@@ -132,7 +129,7 @@ export function useDeliveryPromise({
   )
 
   const facets = useMemo(() => {
-    return !isEnabled
+    return !isDeliveryPromiseEnabled
       ? allFacets.filter(({ key }) => key !== ShippingFacetKey)
       : allFacets.map((facet) => {
           if (
@@ -195,24 +192,20 @@ export function useDeliveryPromise({
 
   return {
     mandatory: config.deliveryPromise.mandatory,
-    isEnabled,
-    setRegion,
-    isLoading: Boolean(isLoading || loading),
+    isEnabled: isDeliveryPromiseEnabled,
+    isLoading,
     geoCoordinates,
     postalCode,
-    regionError,
-    clearRegionError: () => setRegionError(null),
     pickupPoints,
     selectedPickupPointId,
     selectedPickupPoint,
     pickupPointByID,
     facets,
     selectedFacets,
-    regionalizationData,
     deliveryLabel: deliverySettings?.title ?? 'Delivery',
     isPickupAllEnabled:
       deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
-    shouldDisplayDeliveryButton: isEnabled && !postalCode,
+    shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
   }
 }
 

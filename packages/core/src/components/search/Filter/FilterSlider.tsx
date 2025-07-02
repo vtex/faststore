@@ -110,7 +110,7 @@ function FilterSlider({
   } = useUI()
 
   const onFacetChange = (facet: { key: string; value: string }) => {
-    let unique = ['shipping', 'pickupPoint'].includes(facet.key)
+    let unique = isRadioFacets(facet.key)
     const facets = [facet]
     if (facet.value === 'pickup-in-point') {
       unique = true
@@ -137,7 +137,6 @@ function FilterSlider({
     deliveryLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
-    regionalizationData,
   } = useDeliveryPromise({
     selectedFacets: selected,
     toggleFacet: onFacetChange,
@@ -146,6 +145,9 @@ function FilterSlider({
     deliverySettings,
   })
 
+  const regionalizationData = getRegionalizationSettings({
+    deliverySettings,
+  })
   const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
@@ -301,6 +303,13 @@ function FilterSlider({
       />
     </>
   )
+}
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+  if (typeof str !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === str)
 }
 
 export default FilterSlider
