@@ -48,7 +48,9 @@ export function useDeliveryPromise({
   selectedFacets = [],
   toggleFacet,
 }: Props) {
-  const regionalizationData = getRegionalizationSettings(deliverySettingsData)
+  const regionalizationData = getRegionalizationSettings({
+    deliverySettings: deliverySettingsData,
+  })
   const { deliverySettings } = regionalizationData
 
   const { loading, regionError, setRegion, setRegionError } = useRegion()
