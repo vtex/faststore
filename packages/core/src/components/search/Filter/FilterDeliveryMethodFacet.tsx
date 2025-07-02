@@ -1,17 +1,11 @@
 import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
+import type { StoreFacetValueBoolean } from '@generated/graphql'
 import { sessionStore } from 'src/sdk/session'
 import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
 
-interface FacetValue {
-  value: string
-  label: string
-  selected: boolean
-  quantity: number
-}
-
 interface FilterDeliveryMethodFacetProps {
-  item: FacetValue
+  item: StoreFacetValueBoolean
   deliveryMethods: RegionalizationCmsData['deliverySettings']['deliveryMethods']
 }
 
