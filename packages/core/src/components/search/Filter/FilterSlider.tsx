@@ -17,6 +17,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
+import FilterDeliveryOptionFacet from './FilterDeliveryOptionFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
@@ -235,6 +236,13 @@ function FilterSlider({
                                   item={item}
                                   deliveryMethods={
                                     deliveryPromiseSettings?.deliveryMethods
+                                  }
+                                />
+                              ) : isDeliveryOptionFacet ? (
+                                <FilterDeliveryOptionFacet
+                                  item={item}
+                                  deliveryOptions={
+                                    deliveryPromiseSettings?.deliveryOptions
                                   }
                                 />
                               ) : (
