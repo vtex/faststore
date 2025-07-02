@@ -10,7 +10,6 @@ export interface PreviewTagProps {
 }
 
 function PreviewTag({ text = 'Preview', exitUrl }: PreviewTagProps) {
-
   useEffect(() => {
     const handleBeforeUnload = () => {
       navigator.sendBeacon('/api/preview?action=clear')
