@@ -1,40 +1,29 @@
-import { useMemo } from 'react'
+import { useEffect } from 'react'
+import {
+  useSearchState as useGlobalSearchState,
+  type UseSearchState as GlobalUseSearchState,
+} from './globalState/useSearchState'
 
-import format from '../utils/format'
-import type { State } from '../types'
+export { initialize } from './globalState/useSearchState'
 
-export const initialize = ({
-  sort = 'score_desc',
-  selectedFacets = [],
-  term = null,
-  base = '/',
-  page = 0,
-  passThrough = new URLSearchParams(),
-}: Partial<State> | undefined = {}) => ({
-  sort,
-  selectedFacets,
-  term,
-  base,
-  page,
-  passThrough,
-})
+/**
+ * @deprecated Use the `useSearchState` from sdk/src/search/globalState instead
+ */
+export function useSearchState(
+  initialState: Partial<GlobalUseSearchState['state']>,
+  onChange?: (url: URL) => void
+) {
+  const { state, setState, serializedState } = useGlobalSearchState()
 
-const equals = (s1: State, s2: State) => format(s1).href === format(s2).href
+  useEffect(() => {
+    setState(initialState)
+  }, [initialState])
 
-export const useSearchState = (
-  initialState: Partial<State>,
-  onChange: (url: URL) => void
-) => {
-  const state = useMemo(() => initialize(initialState), [initialState])
+  useEffect(() => {
+    return useGlobalSearchState.subscribe(() => onChange?.(serializedState()))
+  }, [])
 
-  return useMemo(
-    () => ({
-      state,
-      setState: (newState: State) =>
-        !equals(newState, state) && onChange(format(newState)),
-    }),
-    [onChange, state]
-  )
+  return { state, setState }
 }
 
 export type UseSearchState = ReturnType<typeof useSearchState>
