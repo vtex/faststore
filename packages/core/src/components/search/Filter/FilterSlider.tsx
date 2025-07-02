@@ -143,8 +143,10 @@ function FilterSlider({
     toggleFacet: onFacetChange,
     fallbackToFirst: true,
     allFacets: facets,
-    deliverySettings: deliverySettings,
+    deliverySettings,
   })
+
+  const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
     <>
@@ -204,7 +206,7 @@ function FilterSlider({
               index={0}
               type=""
               label={deliveryLabel}
-              description={deliverySettings?.description}
+              description={deliverySettingsData?.description}
             >
               <UIButton
                 data-fs-filter-list-delivery-button
@@ -214,7 +216,7 @@ function FilterSlider({
                 }}
                 icon={<UIIcon name="MapPin" />}
               >
-                {deliverySettings?.setLocationButtonLabel ?? 'Set Location'}
+                {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
               </UIButton>
             </UIFilterFacets>
           )}
@@ -233,7 +235,9 @@ function FilterSlider({
                 type={type}
                 label={isDeliveryFacet ? deliveryLabel : label}
                 description={
-                  isDeliveryFacet ? deliverySettings?.description : undefined
+                  isDeliveryFacet
+                    ? deliverySettingsData?.description
+                    : undefined
                 }
               >
                 {type === 'StoreFacetBoolean' && isExpanded && (
@@ -255,7 +259,7 @@ function FilterSlider({
                                 <FilterDeliveryMethodFacet
                                   item={item}
                                   deliveryMethods={
-                                    deliverySettings?.deliveryMethods
+                                    deliverySettingsData?.deliveryMethods
                                   }
                                 />
                               ) : (

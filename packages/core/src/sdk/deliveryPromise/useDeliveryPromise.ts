@@ -36,10 +36,8 @@ type Props = {
 }
 
 /**
- *
- * @description The `fallbackToFirst` boolean toggle is related to the pickUpPoints, \
- * where in case of none selected it will fallback to the first one found \
- * to use as a pickUpPoint facet.
+ * @param fallbackToFirst When true, the first available pickup point will be used as the pickup-in-point facet
+ * when the shopper has not yet explicitly chosen a pickup point.
  */
 export function useDeliveryPromise({
   allFacets,
