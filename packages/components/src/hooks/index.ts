@@ -13,3 +13,4 @@ export type {
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
 export { useTrapFocus } from './useTrapFocus'
+export { useProductComparison } from './useProductComparison'
