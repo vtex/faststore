@@ -46,6 +46,7 @@ export interface B2bInfo {
   lastName: string
   userName: string
   userEmail: string
+  savedPostalCode: string
 }
 
 export interface Session {

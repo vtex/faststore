@@ -15,23 +15,27 @@ export const myAccountPageTemplate = (pagePath: string) => `
     type MyAccountProps,
   } from 'src/experimental/myAccountSeverSideProps'
   import DynamicPage from '${pagePath}';
+  import PageProvider from 'src/sdk/overrides/PageProvider'
   /* A list of components that can be used in the CMS. */
   const COMPONENTS: Record<string, ComponentType<any>> = {
     ...GLOBAL_COMPONENTS,
     ...CUSTOM_COMPONENTS,
   }
 
-  function Page({ globalSections, accountName }: MyAccountProps) {
+  function Page({ globalSections: globalSectionsProp, accountName }: MyAccountProps) {
+    const { sections: globalSections, settings: globalSettings } = globalSectionsProp ?? {}
 
     return (
-      <RenderSections
-        globalSections={globalSections.sections}
-        components={COMPONENTS}
-      >
-        <MyAccountLayout accountName={accountName}>
-          <DynamicPage />
-        </MyAccountLayout>
-      </RenderSections>
+     <PageProvider context={{ globalSettings }}>
+        <RenderSections
+          globalSections={globalSections}
+          components={COMPONENTS}
+        >
+          <MyAccountLayout accountName={accountName}>
+            <DynamicPage />
+          </MyAccountLayout>
+        </RenderSections>
+      </PageProvider>
     )
   }
 

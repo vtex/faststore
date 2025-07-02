@@ -39,7 +39,7 @@ export type ProductListingPageProps = {
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
+  globalSettings?: Record<string, unknown>
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -51,10 +51,10 @@ export default function ProductListing({
   data: server,
   serverManyProductsVariables,
   globalSections,
-  globalSectionsSettings,
+  globalSettings,
 }: ProductListingPageProps) {
   const router = useRouter()
-  const { state } = useSearch()
+  const { state, serializedState } = useSearch()
   const { sort, term, selectedFacets } = state
 
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
@@ -62,7 +62,7 @@ export default function ProductListing({
   const applySearchState = useApplySearchState()
   useEffect(() => {
     if (!isContentPlatformSource() || !router.isPreview) {
-      applySearchState(formatSearchState(state))
+      applySearchState(serializedState())
     }
   }, [])
 
@@ -88,7 +88,7 @@ export default function ProductListing({
       ),
       pages,
     },
-    globalSectionsSettings,
+    globalSettings,
   } as PLPContext
 
   return (

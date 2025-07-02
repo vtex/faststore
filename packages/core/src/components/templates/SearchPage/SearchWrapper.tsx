@@ -1,12 +1,13 @@
 import { useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
+import storeConfig from 'discovery.config'
 import type { SearchPageContextType } from 'src/pages/s'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import type { SearchContentType } from 'src/server/cms'
-import storeConfig from 'discovery.config'
 
 import RenderSections from 'src/components/cms/RenderSections'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import EmptySearch from './EmptySearch'
 import SearchPage from './SearchPage'
 
@@ -15,7 +16,7 @@ export type SearchWrapperProps = {
   searchContentType: SearchContentType
   serverData: SearchPageContextType
   globalSections?: Array<{ name: string; data: any }>
-  globalSectionsSettings?: Record<string, any>
+  globalSettings?: Record<string, unknown>
 }
 
 export default function SearchWrapper({
@@ -23,7 +24,7 @@ export default function SearchWrapper({
   searchContentType,
   serverData,
   globalSections,
-  globalSectionsSettings,
+  globalSettings,
 }: SearchWrapperProps) {
   const router = useRouter()
   const {
@@ -48,9 +49,11 @@ export default function SearchWrapper({
 
   if (!pageProductGalleryData) {
     return (
-      <RenderSections globalSections={globalSections}>
-        <EmptySearch {...emptySearchProps} />
-      </RenderSections>
+      <PageProvider context={{ globalSettings }}>
+        <RenderSections globalSections={globalSections}>
+          <EmptySearch {...emptySearchProps} />
+        </RenderSections>
+      </PageProvider>
     )
   }
 
@@ -61,9 +64,11 @@ export default function SearchWrapper({
     })
 
     return (
-      <RenderSections globalSections={globalSections}>
-        <EmptySearch {...emptySearchProps} />
-      </RenderSections>
+      <PageProvider context={{ globalSettings }}>
+        <RenderSections globalSections={globalSections}>
+          <EmptySearch {...emptySearchProps} />
+        </RenderSections>
+      </PageProvider>
     )
   }
 
@@ -83,7 +88,7 @@ export default function SearchWrapper({
       page={searchContentType}
       data={{ ...serverData, ...pageProductGalleryData }}
       globalSections={globalSections}
-      globalSectionsSettings={globalSectionsSettings}
+      globalSettings={globalSettings}
     />
   )
 }
