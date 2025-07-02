@@ -12,6 +12,7 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 
 const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
+const DeliveryOptionsFacetKey = 'delivery-options' as const
 const PickUpPointFacetValue = 'pickup-in-point' as const
 
 type Facet = SearchState['selectedFacets'][number]
@@ -116,6 +117,19 @@ export function useDeliveryPromise({
     [selectedFacets, deliverySettings]
   )
 
+  const allDeliveryOptionsFacet = {
+    value: 'all-delivery-options',
+    label:
+      deliverySettings?.deliveryOptions?.allDeliveryOptions ??
+      'All delivery options',
+    selected: !selectedFacets.some(
+      (facet) =>
+        facet.key === DeliveryOptionsFacetKey &&
+        facet.value !== 'all-delivery-options'
+    ),
+    quantity: 0,
+  }
+
   const pickupInPointFacet = useMemo(
     () => ({
       value: PickUpPointFacetValue,
@@ -130,57 +144,83 @@ export function useDeliveryPromise({
 
   const facets = useMemo(() => {
     return !isDeliveryPromiseEnabled
-      ? allFacets.filter(({ key }) => key !== ShippingFacetKey)
-      : allFacets.map((facet) => {
-          if (
-            facet.key !== ShippingFacetKey ||
-            facet.__typename !== 'StoreFacetBoolean'
-          )
-            return facet
-
-          facet.values = withUniqueFacet(facet.values, allDeliveryMethodsFacet)
-          const pickupInPointFacetIndex = facet.values.findIndex(
-            (item) => item?.value === PickUpPointFacetValue
-          )
-
-          // Remove old pickup `pickup in point` facet from list and search state
-          if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
-            const selectedShippingFacet = selectedFacets.find(
-              ({ key }) => key === ShippingFacetKey
+      ? allFacets.filter(
+          ({ key }) =>
+            key !== ShippingFacetKey && key !== DeliveryOptionsFacetKey
+        )
+      : allFacets
+          .map((facet) => {
+            if (
+              facet.key !== ShippingFacetKey ||
+              facet.__typename !== 'StoreFacetBoolean'
             )
-            if (selectedShippingFacet) {
-              const selectedPickupInPointFacets = selectedFacets.filter(
-                ({ key, value }) =>
-                  value === PickUpPointFacetValue || key === PickupPointFacetKey
-              )
+              return facet
 
-              selectedPickupInPointFacets.length
-                ? selectedPickupInPointFacets.forEach(toggleFacet)
-                : toggleFacet(selectedShippingFacet)
+            facet.values = withUniqueFacet(
+              facet.values,
+              allDeliveryMethodsFacet
+            )
+            const pickupInPointFacetIndex = facet.values.findIndex(
+              (item) => item?.value === PickUpPointFacetValue
+            )
+
+            // Remove old pickup `pickup in point` facet from list and search state
+            if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
+              const selectedShippingFacet = selectedFacets.find(
+                ({ key }) => key === ShippingFacetKey
+              )
+              if (selectedShippingFacet) {
+                const selectedPickupInPointFacets = selectedFacets.filter(
+                  ({ key, value }) =>
+                    value === PickUpPointFacetValue ||
+                    key === PickupPointFacetKey
+                )
+
+                selectedPickupInPointFacets.length
+                  ? selectedPickupInPointFacets.forEach(toggleFacet)
+                  : toggleFacet(selectedShippingFacet)
+              }
+
+              // removes pickupInPointIndex from array
+              facet.values.splice(pickupInPointFacetIndex, 1)
+            }
+            // Prevent multiple `pickup in point` facet
+            else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
+              facet.values = withUniqueFacet(facet.values, pickupInPointFacet)
+            }
+            // Replace current `pickup-in-point` facet with the updated one
+            else if (
+              facet.values[pickupInPointFacetIndex] &&
+              facet.values[pickupInPointFacetIndex]?.label !==
+                pickupInPointFacet.label
+            ) {
+              facet.values[pickupInPointFacetIndex] = pickupInPointFacet
             }
 
-            // removes pickupInPointIndex from array
-            facet.values.splice(pickupInPointFacetIndex, 1)
-          }
-          // Prevent multiple `pickup in point` facet
-          else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
-            facet.values = withUniqueFacet(facet.values, pickupInPointFacet)
-          }
-          // Replace current `pickup-in-point` facet with the updated one
-          else if (
-            facet.values[pickupInPointFacetIndex] &&
-            facet.values[pickupInPointFacetIndex]?.label !==
-              pickupInPointFacet.label
-          ) {
-            facet.values[pickupInPointFacetIndex] = pickupInPointFacet
-          }
+            facet.values = facet.values.sort((a, b) =>
+              (a.value ?? '').localeCompare(b.value ?? '')
+            )
 
-          facet.values = facet.values.sort((a, b) =>
-            (a.value ?? '').localeCompare(b.value ?? '')
-          )
+            return facet
+          })
+          .map((facet) => {
+            if (
+              facet.key !== DeliveryOptionsFacetKey ||
+              facet.__typename !== 'StoreFacetBoolean'
+            )
+              return facet
 
-          return facet
-        })
+            facet.values = withUniqueFacet(
+              facet.values,
+              allDeliveryOptionsFacet
+            )
+
+            facet.values = facet.values.sort((a, b) =>
+              (a.value ?? '').localeCompare(b.value ?? '')
+            )
+
+            return facet
+          })
   }, [
     allDeliveryMethodsFacet,
     pickupInPointFacet,
@@ -202,6 +242,10 @@ export function useDeliveryPromise({
     facets,
     selectedFacets,
     deliveryLabel: deliverySettings?.title ?? 'Delivery',
+    deliveryMethodsLabel:
+      deliverySettings?.deliveryMethods?.title ?? 'Delivery Method',
+    deliveryOptionsLabel:
+      deliverySettings?.deliveryOptions?.title ?? 'Delivery Option',
     isPickupAllEnabled:
       deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
