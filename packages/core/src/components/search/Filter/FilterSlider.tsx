@@ -15,7 +15,10 @@ import {
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type {
+  Filter_FacetsFragment,
+  IStoreSelectedFacet,
+} from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import FilterDeliveryOptionFacet from './FilterDeliveryOptionFacet'
 
@@ -140,6 +143,8 @@ function FilterSlider({
     deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
+    // TODO: Remove this prop when the api is ready to provide postal code
+    postalCode,
   } = useDeliveryPromise({
     selectedFacets: selected,
     toggleFacet: onFacetChange,
@@ -147,6 +152,61 @@ function FilterSlider({
     allFacets: facets,
     deliverySettings,
   })
+
+  // TODO: Remove this when the api is ready to provide delivery options facet
+  const createMockDeliveryOptionsFacet = (
+    selectedFacets?: IStoreSelectedFacet[]
+  ): Filter_FacetsFragment => {
+    const selectedDeliveryOptions = selectedFacets.filter(
+      ({ key }) => key === 'delivery-options'
+    )
+    console.log('createMockDeliveryOptionsFacet', {
+      selected: selectedFacets,
+      selectedDeliveryOptions,
+    })
+
+    return {
+      __typename: 'StoreFacetBoolean',
+      key: 'delivery-options',
+      label: 'Delivery Options',
+      values: [
+        {
+          label: 'All delivery options',
+          value: 'all-delivery-options',
+          selected:
+            selectedDeliveryOptions.length === 0 ||
+            selectedDeliveryOptions.some(
+              (facet) => facet.value === 'all-delivery-options'
+            ),
+          quantity: 150,
+        },
+        {
+          label: 'Express Delivery',
+          value: 'express',
+          selected: selectedDeliveryOptions.some(
+            (facet) => facet.value === 'express'
+          ),
+          quantity: 75,
+        },
+        {
+          label: 'Standard Delivery',
+          value: 'standard',
+          selected: selectedDeliveryOptions.some(
+            (facet) => facet.value === 'standard'
+          ),
+          quantity: 90,
+        },
+      ],
+    }
+  }
+
+  // TODO: Remove this when the api is ready to provide delivery options facet
+  // Sort facets to prioritize shipping, then delivery-options
+  facets = [
+    ...facets.filter((facet) => facet.key === 'shipping'),
+    ...(postalCode ? [createMockDeliveryOptionsFacet(selected)] : []),
+    ...facets.filter((facet) => facet.key !== 'shipping'),
+  ]
 
   const regionalizationData = getRegionalizationSettings({
     deliverySettings,
