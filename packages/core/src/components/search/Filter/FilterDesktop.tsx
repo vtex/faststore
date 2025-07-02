@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacets, useSearch } from '@faststore/sdk'
 
 import {
   regionSliderTypes,
@@ -15,8 +15,6 @@ import { gql } from '@generated/gql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
-
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 import { RegionSlider } from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
@@ -42,56 +40,42 @@ function FilterDesktop({
     openRegionSlider,
   } = useUI()
 
-  const toggleFilterFacet = (facet: { key: string; value: string }) => {
+  const onFacetChange = (facet: { key: string; value: string }) => {
+    let unique = ['shipping', 'pickupPoint'].includes(facet.key)
+    let selected = state.selectedFacets
+    const facets = [facet]
+    if (facet.value === 'pickup-in-point') {
+      unique = true
+      facets.push({
+        key: 'pickupPoint',
+        value: selectedPickupPoint?.id,
+      })
+    } else {
+      selected = selected.filter((el) => el.key !== 'pickupPoint')
+    }
+
     setState({
       ...state,
-      selectedFacets: toggleFacet(
-        // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
-        state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
-        facet,
-        true
-      ),
-      page: 0,
+      selectedFacets: toggleFacets(selected, facets, unique),
     })
   }
-
-  const togglePickupInPointFacet = (
-    pickupInPointFacets: { key: string; value: string }[]
-  ) => {
-    setState({
-      ...state,
-      selectedFacets: toggleFacets(
-        state.selectedFacets,
-        pickupInPointFacets,
-        true
-      ),
-      page: 0,
-    })
-  }
-
-  const regionalizationData = getRegionalizationSettings(deliverySettings)
-  const { deliverySettings: deliverySettingsData } = regionalizationData
 
   const {
     selectedPickupPoint,
-    postalCode,
-    isEnabled: isDeliveryPromiseEnabled,
     facets: filteredFacets,
+    regionalizationData,
+    deliveryLabel,
+    isPickupAllEnabled,
+    shouldDisplayDeliveryButton,
   } = useDeliveryPromise({
-    fallbackToFirst: true,
     selectedFacets: state.selectedFacets,
+    toggleFacet: onFacetChange,
+    fallbackToFirst: true,
     allFacets: facets,
-    deliverySettings: deliverySettingsData,
-    togglePickupInPointFacet,
-    toggleFilterFacets(facets) {
-      facets.forEach(toggleFilterFacet)
-    },
+    deliverySettings,
   })
 
-  const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-  const isPickupAllEnabled =
-    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
-  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
+  const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
     <>
@@ -148,22 +132,11 @@ function FilterDesktop({
                     (item) =>
                       (item.value !== 'pickup-all' || isPickupAllEnabled) && (
                         <UIFilterFacetBooleanItem
-                          key={`${testId}-${facet.label}-${item.label}`}
-                          id={`${testId}-${facet.label}-${item.label}`}
+                          key={`${testId}-${facet.label}-${item.value}`}
+                          id={`${testId}-${facet.label}-${item.value}`}
                           testId={testId}
                           onFacetChange={(facet) => {
-                            if (facet.value === 'pickup-in-point') {
-                              togglePickupInPointFacet([
-                                facet,
-                                {
-                                  key: 'pickupPoint',
-                                  value: selectedPickupPoint?.id,
-                                },
-                              ])
-                            } else {
-                              toggleFilterFacet(facet)
-                            }
-
+                            onFacetChange(facet)
                             resetInfiniteScroll(0)
                           }}
                           selected={item.selected}

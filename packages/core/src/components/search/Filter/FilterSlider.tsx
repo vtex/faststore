@@ -28,7 +28,7 @@ import {
 import { RegionSlider } from 'src/components/region/RegionSlider'
 
 import styles from './section.module.scss'
-import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -109,49 +109,42 @@ function FilterSlider({
     openRegionSlider,
   } = useUI()
 
-  function toggleFilterFacets(facets: { key: string; value: string }[]) {
+  const onFacetChange = (facet: { key: string; value: string }) => {
+    let unique = ['shipping', 'pickupPoint'].includes(facet.key)
+    const facets = [facet]
+    if (facet.value === 'pickup-in-point') {
+      unique = true
+      facets.push({
+        key: 'pickupPoint',
+        value: selectedPickupPoint?.id,
+      })
+    } else {
+      facets.concat(selected.filter((el) => el.key === 'pickupPoint'))
+    }
+
     dispatch({
       type: 'toggleFacets',
       payload: {
+        unique,
         facets,
-        unique: true,
       },
     })
   }
 
-  const togglePickupInPointFacet = (
-    pickupInPointFacets: { key: string; value: string }[]
-  ) => {
-    dispatch({
-      type: 'toggleFacets',
-      payload: {
-        facets: pickupInPointFacets,
-        unique: true,
-      },
-    })
-  }
-
-  // Delivery Promise consts
-  const regionalizationData = getRegionalizationSettings(deliverySettings)
-  const { deliverySettings: deliverySettingsData } = regionalizationData
   const {
     selectedPickupPoint,
-    postalCode,
-    isEnabled: isDeliveryPromiseEnabled,
     facets: filteredFacets,
+    deliveryLabel,
+    isPickupAllEnabled,
+    shouldDisplayDeliveryButton,
+    regionalizationData,
   } = useDeliveryPromise({
-    fallbackToFirst: true,
     selectedFacets: selected,
+    toggleFacet: onFacetChange,
+    fallbackToFirst: true,
     allFacets: facets,
-    deliverySettings: deliverySettingsData,
-    toggleFilterFacets,
-    togglePickupInPointFacet,
+    deliverySettings: deliverySettings,
   })
-
-  const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-  const isPickupAllEnabled =
-    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
-  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
 
   return (
     <>
@@ -249,27 +242,10 @@ function FilterSlider({
                       (item) =>
                         (item.value !== 'pickup-all' || isPickupAllEnabled) && (
                           <UIFilterFacetBooleanItem
-                            key={`${testId}-${facet.label}-${item.label}`}
-                            id={`${testId}-${facet.label}-${item.label}`}
+                            key={`${testId}-${facet.label}-${item.value}`}
+                            id={`${testId}-${facet.label}-${item.value}`}
                             testId={`mobile-${testId}`}
-                            onFacetChange={(facet) => {
-                              if (facet.value === 'pickup-in-point') {
-                                togglePickupInPointFacet([
-                                  facet,
-                                  {
-                                    key: 'pickupPoint',
-                                    value: selectedPickupPoint?.id,
-                                  },
-                                ])
-                              } else {
-                                toggleFilterFacets([
-                                  ...selected.filter(
-                                    ({ key }) => key === 'pickupPoint'
-                                  ),
-                                  facet,
-                                ])
-                              }
-                            }}
+                            onFacetChange={onFacetChange}
                             selected={item.selected}
                             value={item.value}
                             quantity={item.quantity}

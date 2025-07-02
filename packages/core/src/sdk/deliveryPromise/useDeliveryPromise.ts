@@ -1,16 +1,21 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import config from '../../../discovery.config'
-import { sessionStore } from '../session'
-import { createStore, useSearch } from '@faststore/sdk'
-import { default as useRegion } from '../../components/region/RegionModal/useRegion'
-import { usePickupPoints } from '../shipping/usePickupPoints'
-import type { useFilter } from '../search/useFilter'
-import type { IStoreSelectedFacet } from '@faststore/api'
-import type { RegionalizationCmsData } from '../../utils/globalSettings'
+import { sessionStore } from 'src/sdk/session'
+import { createStore, type SearchState } from '@faststore/sdk'
+import { default as useRegion } from 'src/components/region/RegionModal/useRegion'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import type { useFilter } from 'src/sdk/search/useFilter'
+import {
+  getRegionalizationSettings,
+  type RegionalizationCmsData,
+} from 'src/utils/globalSettings'
+import type { Filter_FacetsFragment } from '@generated/graphql'
 
 const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
+const PickUpPointFacetValue = 'pickup-in-point' as const
 
+type Facet = SearchState['selectedFacets'][number]
 type DeliveryPromiseStore = {
   isLoading: boolean
 }
@@ -23,26 +28,30 @@ const deliveryPromise = createStore<DeliveryPromiseStore>(
 )
 
 type Props = {
-  selectedFacets: Array<IStoreSelectedFacet>
   deliverySettings: RegionalizationCmsData['deliverySettings']
   allFacets: ReturnType<typeof useFilter>['facets']
   fallbackToFirst: boolean
-  toggleFilterFacets: (facets: Array<{ key: string; value: string }>) => void
-  togglePickupInPointFacet: (
-    facets: Array<{ key: string; value: string }>
-  ) => void
+  toggleFacet?: (facets: Facet) => void
+  selectedFacets: Array<Facet>
 }
 
+/**
+ *
+ * @description The `fallbackToFirst` boolean toggle is related to the pickUpPoints, \
+ * where in case of none selected it will fallback to the first one found \
+ * to use as a pickUpPoint facet.
+ */
 export function useDeliveryPromise({
-  selectedFacets,
   allFacets,
-  deliverySettings,
+  deliverySettings: deliverySettingsData,
   fallbackToFirst = true,
-  toggleFilterFacets,
-  togglePickupInPointFacet,
+  selectedFacets = [],
+  toggleFacet,
 }: Props) {
+  const regionalizationData = getRegionalizationSettings(deliverySettingsData)
+  const { deliverySettings } = regionalizationData
+
   const { loading, regionError, setRegion, setRegionError } = useRegion()
-  const { state: searchState } = useSearch()
 
   const pickupPoints = usePickupPoints()
   const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
@@ -83,10 +92,8 @@ export function useDeliveryPromise({
   )
 
   const selectedPickupPointId = useMemo(
-    () =>
-      searchState.selectedFacets.find(({ key }) => key === PickupPointFacetKey)
-        ?.value,
-    [searchState]
+    () => selectedFacets.find(({ key }) => key === PickupPointFacetKey)?.value,
+    [selectedFacets]
   )
 
   const selectedPickupPoint = useMemo(
@@ -100,11 +107,13 @@ export function useDeliveryPromise({
       label:
         deliverySettings?.deliveryMethods?.allDeliveryMethods ??
         'All delivery methods',
-      selected: !selectedFacets.some(
-        (facet) =>
-          facet.key === ShippingFacetKey &&
-          facet.value !== 'all-delivery-methods'
-      ),
+      selected:
+        !selectedFacets.find((facet) => facet.key === ShippingFacetKey) ||
+        selectedFacets?.some(
+          (facet) =>
+            facet.key === ShippingFacetKey &&
+            facet.value === 'all-delivery-methods'
+        ),
       quantity: 0,
     }),
     [selectedFacets, deliverySettings]
@@ -112,10 +121,10 @@ export function useDeliveryPromise({
 
   const pickupInPointFacet = useMemo(
     () => ({
-      value: 'pickup-in-point',
+      value: PickUpPointFacetValue,
       label: selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
-      selected: !!selectedFacets.find(
-        ({ value }) => value === 'pickup-in-point'
+      selected: selectedFacets?.some(
+        ({ value }) => value === PickUpPointFacetValue
       ),
       quantity: selectedPickupPoint?.totalItems,
     }),
@@ -124,7 +133,7 @@ export function useDeliveryPromise({
 
   const facets = useMemo(() => {
     return !isEnabled
-      ? allFacets.filter(({ key }) => key === ShippingFacetKey)
+      ? allFacets.filter(({ key }) => key !== ShippingFacetKey)
       : allFacets.map((facet) => {
           if (
             facet.key !== ShippingFacetKey ||
@@ -134,7 +143,7 @@ export function useDeliveryPromise({
 
           facet.values = withUniqueFacet(facet.values, allDeliveryMethodsFacet)
           const pickupInPointFacetIndex = facet.values.findIndex(
-            (item) => item?.value === 'pickup-in-point'
+            (item) => item?.value === PickUpPointFacetValue
           )
 
           // Remove old pickup `pickup in point` facet from list and search state
@@ -145,12 +154,12 @@ export function useDeliveryPromise({
             if (selectedShippingFacet) {
               const selectedPickupInPointFacets = selectedFacets.filter(
                 ({ key, value }) =>
-                  value === 'pickup-in-point' || key === PickupPointFacetKey
+                  value === PickUpPointFacetValue || key === PickupPointFacetKey
               )
 
               selectedPickupInPointFacets.length
-                ? togglePickupInPointFacet(selectedPickupInPointFacets)
-                : toggleFilterFacets([selectedShippingFacet])
+                ? selectedPickupInPointFacets.forEach(toggleFacet)
+                : toggleFacet(selectedShippingFacet)
             }
 
             // removes pickupInPointIndex from array
@@ -158,7 +167,7 @@ export function useDeliveryPromise({
           }
           // Prevent multiple `pickup in point` facet
           else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
-            facet.values.push(pickupInPointFacet)
+            facet.values = withUniqueFacet(facet.values, pickupInPointFacet)
           }
           // Replace current `pickup-in-point` facet with the updated one
           else if (
@@ -169,22 +178,26 @@ export function useDeliveryPromise({
             facet.values[pickupInPointFacetIndex] = pickupInPointFacet
           }
 
+          facet.values = facet.values.sort((a, b) =>
+            (a.value ?? '').localeCompare(b.value ?? '')
+          )
+
           return facet
         })
   }, [
-    selectedPickupPoint,
+    allDeliveryMethodsFacet,
     pickupInPointFacet,
-    toggleFilterFacets,
-    togglePickupInPointFacet,
     allFacets,
     selectedFacets,
+    selectedPickupPoint,
+    toggleFacet,
   ])
 
   return {
     mandatory: config.deliveryPromise.mandatory,
     isEnabled,
     setRegion,
-    isLoading: isLoading || loading,
+    isLoading: Boolean(isLoading || loading),
     geoCoordinates,
     postalCode,
     regionError,
@@ -194,17 +207,20 @@ export function useDeliveryPromise({
     selectedPickupPoint,
     pickupPointByID,
     facets,
+    selectedFacets,
+    regionalizationData,
+    deliveryLabel: deliverySettings?.title ?? 'Delivery',
+    isPickupAllEnabled:
+      deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
+    shouldDisplayDeliveryButton: isEnabled && !postalCode,
   }
 }
 
-type Values = Extract<
-  Props['allFacets'][number],
+type BoleanFacet = Extract<
+  Filter_FacetsFragment,
   { __typename: 'StoreFacetBoolean' }
->['values']
-function withUniqueFacet(values: Values, facet: Values[number]) {
-  if (!values.some((item) => item.value === facet.value)) {
-    return [facet, ...values]
-  }
+>['values'][number]
 
-  return values
+function withUniqueFacet(facets: Array<BoleanFacet>, facet: BoleanFacet) {
+  return facets.filter((item) => item.value !== facet.value).concat([facet])
 }
