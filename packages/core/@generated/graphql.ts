@@ -2843,6 +2843,73 @@ export type ClientProductQueryQuery = {
   }
 }
 
+export type ClientManyProductsSelectedQueryQueryVariables = Exact<{
+  productIds: Array<Scalars['String']['input']> | Scalars['String']['input']
+}>
+
+export type ClientManyProductsSelectedQueryQuery = {
+  products: Array<{
+    sku: string
+    slug: string
+    name: string
+    gtin: string
+    description: string
+    unitMultiplier: number | null
+    hasSpecifications: boolean | null
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
+      } | null
+    }
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    offers: {
+      lowPrice: number
+      lowPriceWithTaxes: number
+      offers: Array<{
+        availability: string
+        price: number
+        priceWithTaxes: number
+        listPrice: number
+        quantity: number
+        listPriceWithTaxes: number
+        seller: { identifier: string }
+      }>
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+    advertisement: { adId: string; adResponseId: string } | null
+    skuSpecifications: Array<{
+      field: { id: string | null; name: string; originalName: string | null }
+      values: Array<{
+        name: string
+        id: string | null
+        fieldId: string | null
+        originalName: string | null
+      }>
+    }>
+    specificationGroups: Array<{
+      name: string
+      originalName: string
+      specifications: Array<{
+        name: string
+        originalName: string
+        values: Array<string>
+      }>
+    }>
+  }>
+}
+
 export type ClientProfileQueryQueryVariables = Exact<{
   id: Scalars['String']['input']
 }>
@@ -3707,6 +3774,15 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const ClientManyProductsSelectedQueryDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsSelectedQuery',
+    operationHash: 'b668777678c137b8c7004297df4d8b8f2b29ee06',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsSelectedQueryQuery,
+  ClientManyProductsSelectedQueryQueryVariables
 >
 export const ClientProfileQueryDocument = {
   __meta__: {
