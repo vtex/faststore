@@ -37,6 +37,14 @@ interface Props {
    */
   firstPage?: number
   /**
+   * Determine whether to show the comparison checkbox.
+   */
+  shouldShowComparison?: boolean
+  /**
+   * Label for comparison text.
+   */
+  compareLabel?: string
+  /**
    * Title for the `ProductGrid` component that will be send to GA events.
    */
   title?: string
@@ -53,6 +61,8 @@ function ProductGrid({
     sponsoredLabel,
   } = {},
   firstPage,
+  shouldShowComparison,
+  compareLabel,
   title,
 }: Props) {
   const { isMobile } = useScreenResize()
@@ -80,6 +90,8 @@ function ProductGrid({
                   pageSize={pageSize}
                 >
                   <ProductCard.Component
+                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
                       width: 150,
@@ -110,6 +122,8 @@ function ProductGrid({
                     pageSize={pageSize}
                   >
                     <ProductCard.Component
+                      enableCompareCheckboxOnDisplay={shouldShowComparison}
+                      compareLabel={compareLabel}
                       aspectRatio={aspectRatio}
                       imgProps={{
                         width: 150,
@@ -143,6 +157,8 @@ function ProductGrid({
                   pageSize={pageSize}
                 >
                   <ProductCard.Component
+                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
                       width: 150,

@@ -36,10 +36,15 @@ import type {
   RegionBarProps,
   ShippingSimulationProps,
   SkeletonProps,
+  SkuSelectorProps,
+  ToggleFieldProps,
+  ProductComparisonProps,
+  ProductComparisonSidebarProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonTriggerProps,
   SKUMatrixProps,
   SKUMatrixSidebarProps,
   SKUMatrixTriggerProps,
-  SkuSelectorProps,
 } from '@faststore/ui'
 import type { PropsWithChildren } from 'react'
 
@@ -322,10 +327,34 @@ export type SectionsOverrides = {
         LinkButtonProps,
         Omit<LinkButtonProps, 'onClick' | 'href'>
       >
+      ToggleField: ComponentOverrideDefinition<
+        ToggleFieldProps,
+        ToggleFieldProps
+      >
+      ProductComparison: ComponentOverrideDefinition<
+        ProductComparisonProps,
+        ProductComparisonProps
+      >
+      ProductComparisonSidebar: ComponentOverrideDefinition<
+        ProductComparisonSidebarProps,
+        ProductComparisonSidebarProps
+      >
+      ProductComparisonToolbar: ComponentOverrideDefinition<
+        ProductComparisonToolbarProps,
+        ProductComparisonToolbarProps
+      >
+      ProductComparisonTrigger: ComponentOverrideDefinition<
+        ProductComparisonTriggerProps,
+        ProductComparisonTriggerProps
+      >
       __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
       __experimentalFilterSlider: ComponentOverrideDefinition<any, any>
       __experimentalProductCard: ComponentOverrideDefinition<any, any>
       __experimentalEmptyGallery: ComponentOverrideDefinition<any, any>
+      __experimentalProductComparisonSidebar: ComponentOverrideDefinition<
+        any,
+        any
+      >
     }
   }
   ProductShelf: {
