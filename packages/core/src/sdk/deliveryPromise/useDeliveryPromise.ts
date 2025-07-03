@@ -50,7 +50,7 @@ export function useDeliveryPromise({
   const regionalizationData = getRegionalizationSettings({
     deliverySettings: deliverySettingsData,
   })
-  const { deliverySettings } = regionalizationData
+  const { deliverySettings, deliveryOptions } = regionalizationData
 
   const pickupPoints = usePickupPoints()
   const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
@@ -118,9 +118,7 @@ export function useDeliveryPromise({
       },
       {
         value: 'all-delivery-options',
-        label:
-          deliverySettings?.deliveryMethods?.allDeliveryOptions ??
-          'All delivery options',
+        label: deliveryOptions?.allDeliveryOptions ?? 'All delivery options',
         selected:
           !selectedFacets.find(
             (facet) => facet.key === DeliveryOptionsFacetKey
