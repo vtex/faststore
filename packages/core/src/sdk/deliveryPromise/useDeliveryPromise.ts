@@ -1,17 +1,19 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import config from '../../../discovery.config'
-import { sessionStore } from 'src/sdk/session'
 import { createStore, type SearchState } from '@faststore/sdk'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import type { Filter_FacetsFragment } from '@generated/graphql'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { useFilter } from 'src/sdk/search/useFilter'
+import { sessionStore } from 'src/sdk/session'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import {
   getRegionalizationSettings,
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import config from '../../../discovery.config'
 
 const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
+const DeliveryOptionsFacetKey = 'delivery-options' as const
+const DynamicEstimateFacetKey = 'dynamic-estimate' as const
 const PickUpPointFacetValue = 'pickup-in-point' as const
 
 type Facet = SearchState['selectedFacets'][number]
@@ -48,7 +50,7 @@ export function useDeliveryPromise({
   const regionalizationData = getRegionalizationSettings({
     deliverySettings: deliverySettingsData,
   })
-  const { deliverySettings } = regionalizationData
+  const { deliverySettings, deliveryOptions } = regionalizationData
 
   const pickupPoints = usePickupPoints()
   const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
@@ -98,21 +100,37 @@ export function useDeliveryPromise({
     [pickupPointByID, selectedPickupPointId]
   )
 
-  const allDeliveryMethodsFacet = useMemo(
-    () => ({
-      value: 'all-delivery-methods',
-      label:
-        deliverySettings?.deliveryMethods?.allDeliveryMethods ??
-        'All delivery methods',
-      selected:
-        !selectedFacets.find((facet) => facet.key === ShippingFacetKey) ||
-        selectedFacets?.some(
-          (facet) =>
-            facet.key === ShippingFacetKey &&
-            facet.value === 'all-delivery-methods'
-        ),
-      quantity: 0,
-    }),
+  const [allDeliveryMethodsFacet, allDeliveryOptionsFacet] = useMemo(
+    () => [
+      {
+        value: 'all-delivery-methods',
+        label:
+          deliverySettings?.deliveryMethods?.allDeliveryMethods ??
+          'All delivery methods',
+        selected:
+          !selectedFacets.find((facet) => facet.key === ShippingFacetKey) ||
+          selectedFacets?.some(
+            (facet) =>
+              facet.key === ShippingFacetKey &&
+              facet.value === 'all-delivery-methods'
+          ),
+        quantity: 0,
+      },
+      {
+        value: 'all-delivery-options',
+        label: deliveryOptions?.allDeliveryOptions ?? 'All delivery options',
+        selected:
+          !selectedFacets.find(
+            (facet) => facet.key === DeliveryOptionsFacetKey
+          ) ||
+          selectedFacets?.some(
+            (facet) =>
+              facet.key === DeliveryOptionsFacetKey &&
+              facet.value === 'all-delivery-options'
+          ),
+        quantity: 0,
+      },
+    ],
     [selectedFacets, deliverySettings]
   )
 
@@ -130,13 +148,24 @@ export function useDeliveryPromise({
 
   const facets = useMemo(() => {
     return !isDeliveryPromiseEnabled
-      ? allFacets.filter(({ key }) => key !== ShippingFacetKey)
+      ? allFacets.filter(
+          ({ key }) =>
+            key !== ShippingFacetKey &&
+            key !== DeliveryOptionsFacetKey &&
+            key !== DynamicEstimateFacetKey
+        )
       : allFacets.map((facet) => {
-          if (
-            facet.key !== ShippingFacetKey ||
-            facet.__typename !== 'StoreFacetBoolean'
-          )
+          if (facet.__typename !== 'StoreFacetBoolean') return facet
+
+          if (facet.key === DeliveryOptionsFacetKey) {
+            facet.values = withUniqueFacet(
+              facet.values,
+              allDeliveryOptionsFacet
+            )
             return facet
+          }
+
+          if (facet.key !== ShippingFacetKey) return facet
 
           facet.values = withUniqueFacet(facet.values, allDeliveryMethodsFacet)
           const pickupInPointFacetIndex = facet.values.findIndex(
@@ -214,5 +243,5 @@ type BoleanFacet = Extract<
 >['values'][number]
 
 function withUniqueFacet(facets: Array<BoleanFacet>, facet: BoleanFacet) {
-  return facets.filter((item) => item.value !== facet.value).concat([facet])
+  return [facet, ...facets.filter((item) => item.value !== facet.value)]
 }

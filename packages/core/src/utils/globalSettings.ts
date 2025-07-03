@@ -42,6 +42,9 @@ export type RegionalizationCmsData = {
       noPickupPointsAvailableInLocation?: string
     }
   }
+  deliveryOptions?: {
+    allDeliveryOptions?: string
+  }
 }
 
 export function getRegionalizationSettings(
