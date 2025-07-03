@@ -42,6 +42,8 @@ function RegionBarSection({ ...otherProps }: RegionBarSectionProps) {
   )
 }
 
+RegionBarSection.$componentKey = 'RegionBar'
+
 const OverridableRegionBar = getOverridableSection<typeof RegionBarSection>(
   'RegionBar',
   RegionBarSection,
