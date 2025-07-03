@@ -1,16 +1,34 @@
 import dynamic from 'next/dynamic'
 
 import { useSearch } from '@faststore/sdk'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { deliveryPromise } from 'discovery.config'
-
-import type {
-  FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
-  FilterFacetRangeProps as UIFilterFacetRangeProps,
-  FilterFacetsProps as UIFilterFacetsProps,
-  FilterProps as UIFilterProps,
-  FilterSliderProps as UIFilterSliderProps,
+import {
+  regionSliderTypes,
+  useUI,
+  type ButtonProps as UIButtonProps,
+  type FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
+  type FilterFacetRangeProps as UIFilterFacetRangeProps,
+  type FilterFacetsProps as UIFilterFacetsProps,
+  type FilterProps as UIFilterProps,
+  type FilterSliderProps as UIFilterSliderProps,
+  type IconProps as UIIconProps,
 } from '@faststore/ui'
+
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+
+import type { Filter_FacetsFragment } from '@generated/graphql'
+import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
+
+import type { useFilter } from 'src/sdk/search/useFilter'
+
+import {
+  getRegionalizationSettings,
+  type RegionalizationCmsData,
+} from 'src/utils/globalSettings'
+
+import { RegionSlider } from 'src/components/region/RegionSlider'
+
+import styles from './section.module.scss'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -38,13 +56,14 @@ const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
   /* webpackChunkName: "UIFilterSlider" */
   import('@faststore/ui').then((mod) => mod.FilterSlider)
 )
-
-import type { Filter_FacetsFragment } from '@generated/graphql'
-
-import type { useFilter } from 'src/sdk/search/useFilter'
-
-import styles from './section.module.scss'
-
+const UIButton = dynamic<UIButtonProps>(() =>
+  /* webpackChunkName: "UIButton" */
+  import('@faststore/ui').then((mod) => mod.Button)
+)
+const UIIcon = dynamic<UIIconProps>(() =>
+  /* webpackChunkName: "UIIcon" */
+  import('@faststore/ui').then((mod) => mod.Icon)
+)
 export interface FilterSliderProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -67,6 +86,10 @@ export interface FilterSliderProps {
    * CMS defined label for the apply button component.
    */
   applyButtonLabel?: string
+  /**
+   * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
+   */
+  deliverySettings?: RegionalizationCmsData['deliverySettings']
 }
 
 function FilterSlider({
@@ -78,107 +101,215 @@ function FilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
+  deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
+  const {
+    regionSlider: { type: regionSliderType },
+    openRegionSlider,
+  } = useUI()
 
-  const filteredFacets = deliveryPromise.enabled
-    ? facets
-    : facets.filter((facet) => facet.key !== 'shipping')
+  const onFacetChange = (facet: { key: string; value: string }) => {
+    let unique = isRadioFacets(facet.key)
+    const facets = [facet]
+    if (facet.value === 'pickup-in-point') {
+      unique = true
+      facets.push({
+        key: 'pickupPoint',
+        value: selectedPickupPoint?.id,
+      })
+    } else {
+      facets.concat(selected.filter((el) => el.key === 'pickupPoint'))
+    }
+
+    dispatch({
+      type: 'toggleFacets',
+      payload: {
+        unique,
+        facets,
+      },
+    })
+  }
+
+  const {
+    selectedPickupPoint,
+    facets: filteredFacets,
+    deliveryLabel,
+    isPickupAllEnabled,
+    shouldDisplayDeliveryButton,
+  } = useDeliveryPromise({
+    selectedFacets: selected,
+    toggleFacet: onFacetChange,
+    fallbackToFirst: true,
+    allFacets: facets,
+    deliverySettings,
+  })
+
+  const regionalizationData = getRegionalizationSettings({
+    deliverySettings,
+  })
+  const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
-    <UIFilterSlider
-      overlayProps={{
-        className: `section ${styles.section} section-filter-slider`,
-      }}
-      title={title}
-      size="partial"
-      direction="rightSide"
-      clearBtnProps={{
-        variant: 'secondary',
-        onClick: () => dispatch({ type: 'selectFacets', payload: [] }),
-        children: clearButtonLabel ?? 'Clear All',
-      }}
-      applyBtnProps={{
-        variant: 'primary',
-        onClick: () => {
-          resetInfiniteScroll(0)
+    <>
+      <UIFilterSlider
+        overlayProps={{
+          className: `section ${styles.section} section-filter-slider`,
+        }}
+        title={title}
+        size="partial"
+        direction="rightSide"
+        clearBtnProps={{
+          variant: 'secondary',
+          onClick: () => dispatch({ type: 'selectFacets', payload: [] }),
+          children: clearButtonLabel ?? 'Clear All',
+        }}
+        applyBtnProps={{
+          variant: 'primary',
+          onClick: () => {
+            resetInfiniteScroll(0)
 
-          setState({
-            ...state,
-            selectedFacets: selected,
-            page: 0,
+            const isOtherShippingFacetSelected = selected.find(
+              ({ key, value }) =>
+                key === 'shipping' && value !== 'pickup-in-point'
+            )
+            const removePickupPointFacet = selected.filter(
+              ({ key }) => key !== 'pickupPoint'
+            )
+
+            setState({
+              ...state,
+              selectedFacets: isOtherShippingFacetSelected
+                ? removePickupPointFacet
+                : selected,
+              page: 0,
+            })
+          },
+          children: applyButtonLabel ?? 'Apply',
+        }}
+        onClose={() => {
+          dispatch({
+            type: 'selectFacets',
+            payload: state.selectedFacets,
           })
-        },
-        children: applyButtonLabel ?? 'Apply',
-      }}
-      onClose={() => {
-        dispatch({
-          type: 'selectFacets',
-          payload: state.selectedFacets,
-        })
-      }}
-    >
-      <UIFilter
-        testId={`mobile-${testId}`}
-        indicesExpanded={expanded}
-        onAccordionChange={(index: number) =>
-          dispatch({ type: 'toggleExpanded', payload: index })
-        }
+        }}
       >
-        {filteredFacets.map((facet, index) => {
-          const { __typename: type, label } = facet
-          const isExpanded = expanded.has(index)
-          return (
+        <UIFilter
+          testId={`mobile-${testId}`}
+          indicesExpanded={expanded}
+          onAccordionChange={(index: number) =>
+            dispatch({ type: 'toggleExpanded', payload: index })
+          }
+        >
+          {shouldDisplayDeliveryButton && (
             <UIFilterFacets
-              key={`${testId}-${label}-${index}`}
-              testId={`mobile-${testId}`}
-              index={index}
-              type={type}
-              label={label}
+              key={`${testId}-delivery-0`}
+              testId={testId}
+              index={0}
+              type=""
+              label={deliveryLabel}
+              description={deliverySettingsData?.description}
             >
-              {type === 'StoreFacetBoolean' && isExpanded && (
-                <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
-                        dispatch({ type: 'toggleFacet', payload: facet })
-                      }
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={item.label}
-                    />
-                  ))}
-                </UIFilterFacetBoolean>
-              )}
-              {type === 'StoreFacetRange' && isExpanded && (
-                <UIFilterFacetRange
-                  facetKey={facet.key}
-                  min={facet.min}
-                  max={facet.max}
-                  formatter={
-                    facet.key.toLowerCase() === 'price'
-                      ? useFormattedPrice
-                      : undefined
-                  }
-                  onFacetChange={(facet) =>
-                    dispatch({
-                      type: 'setFacet',
-                      payload: { facet, unique: true },
-                    })
-                  }
-                />
-              )}
+              <UIButton
+                data-fs-filter-list-delivery-button
+                variant="secondary"
+                onClick={() => {
+                  openRegionSlider(regionSliderTypes.setLocation)
+                }}
+                icon={<UIIcon name="MapPin" />}
+              >
+                {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
+              </UIButton>
             </UIFilterFacets>
-          )
-        })}
-      </UIFilter>
-    </UIFilterSlider>
+          )}
+
+          {filteredFacets.map((facet, idx) => {
+            const index = shouldDisplayDeliveryButton ? idx + 1 : idx
+            const { __typename: type, label } = facet
+            const isExpanded = expanded.has(index)
+            const isDeliveryFacet = facet.key === 'shipping'
+
+            return (
+              <UIFilterFacets
+                key={`${testId}-${label}-${index}`}
+                testId={`mobile-${testId}`}
+                index={index}
+                type={type}
+                label={isDeliveryFacet ? deliveryLabel : label}
+                description={
+                  isDeliveryFacet
+                    ? deliverySettingsData?.description
+                    : undefined
+                }
+              >
+                {type === 'StoreFacetBoolean' && isExpanded && (
+                  <UIFilterFacetBoolean>
+                    {facet.values.map(
+                      (item) =>
+                        (item.value !== 'pickup-all' || isPickupAllEnabled) && (
+                          <UIFilterFacetBooleanItem
+                            key={`${testId}-${facet.label}-${item.value}`}
+                            id={`${testId}-${facet.label}-${item.value}`}
+                            testId={`mobile-${testId}`}
+                            onFacetChange={onFacetChange}
+                            selected={item.selected}
+                            value={item.value}
+                            quantity={item.quantity}
+                            facetKey={facet.key}
+                            label={
+                              isDeliveryFacet ? (
+                                <FilterDeliveryMethodFacet
+                                  item={item}
+                                  deliveryMethods={
+                                    deliverySettingsData?.deliveryMethods
+                                  }
+                                />
+                              ) : (
+                                item.label
+                              )
+                            }
+                            type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                          />
+                        )
+                    )}
+                  </UIFilterFacetBoolean>
+                )}
+                {type === 'StoreFacetRange' && isExpanded && (
+                  <UIFilterFacetRange
+                    facetKey={facet.key}
+                    min={facet.min}
+                    max={facet.max}
+                    formatter={
+                      facet.key.toLowerCase() === 'price'
+                        ? useFormattedPrice
+                        : undefined
+                    }
+                    onFacetChange={(facet) =>
+                      dispatch({
+                        type: 'setFacet',
+                        payload: { facet, unique: true },
+                      })
+                    }
+                  />
+                )}
+              </UIFilterFacets>
+            )
+          })}
+        </UIFilter>
+      </UIFilterSlider>
+      <RegionSlider
+        cmsData={regionalizationData}
+        open={regionSliderType !== 'none'}
+      />
+    </>
   )
+}
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+  if (typeof str !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === str)
 }
 
 export default FilterSlider

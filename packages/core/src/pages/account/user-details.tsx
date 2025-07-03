@@ -13,18 +13,19 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { gql } from '@generated/gql'
-import { execute } from 'src/server'
 import type {
   ServerUserDetailsQueryQuery,
   ServerUserDetailsQueryQueryVariables,
 } from '@generated/graphql'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { execute } from 'src/server'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -33,24 +34,26 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 export default function UserDetails({
-  globalSections,
+  globalSections: globalSectionsProp,
   accountName,
 }: MyAccountProps) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout accountName={accountName}>
-        <BeforeSection />
-        <div>
-          <h1>User Details</h1>
-        </div>
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout accountName={accountName}>
+          <BeforeSection />
+          <div>
+            <h1>User Details</h1>
+          </div>
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 
