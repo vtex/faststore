@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacets, useSearch } from '@faststore/sdk'
 
 import {
   regionSliderTypes,
@@ -12,17 +12,14 @@ import {
   useUI,
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
-import { deliveryPromise } from 'discovery.config'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { FilterSliderProps } from './FilterSlider'
-
-import { sessionStore } from 'src/sdk/session'
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 import { RegionSlider } from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 interface FilterDesktopProps
   extends Omit<
@@ -43,135 +40,46 @@ function FilterDesktop({
     regionSlider: { type: regionSliderType },
     openRegionSlider,
   } = useUI()
-  const pickupPoints = usePickupPoints()
-  const { postalCode } = sessionStore.read()
 
-  const toggleFilterFacet = (facet: { key: string; value: string }) => {
+  const onFacetChange = (facet: { key: string; value: string }) => {
+    let unique = isRadioFacets(facet.key)
+    let selected = state.selectedFacets
+    const facets = [facet]
+    if (facet.value === 'pickup-in-point') {
+      unique = true
+      facets.push({
+        key: 'pickupPoint',
+        value: selectedPickupPoint?.id,
+      })
+    } else {
+      selected = selected.filter((el) => el.key !== 'pickupPoint')
+    }
+
     setState({
       ...state,
-      selectedFacets: toggleFacet(
-        // In case a new facet is added, filter out existing 'pickupPoint' facet to remove it from the search params
-        state.selectedFacets.filter(({ key }) => key !== 'pickupPoint'),
-        facet,
-        true
-      ),
+      selectedFacets: toggleFacets(selected, facets, unique),
       page: 0,
     })
   }
 
-  const togglePickupInPointFacet = (
-    pickupInPointFacets: { key: string; value: string }[]
-  ) => {
-    setState({
-      ...state,
-      selectedFacets: toggleFacets(
-        state.selectedFacets,
-        pickupInPointFacets,
-        true
-      ),
-      page: 0,
-    })
-  }
+  const {
+    selectedPickupPoint,
+    facets: filteredFacets,
+    deliveryLabel,
+    isPickupAllEnabled,
+    shouldDisplayDeliveryButton,
+  } = useDeliveryPromise({
+    selectedFacets: state.selectedFacets,
+    toggleFacet: onFacetChange,
+    fallbackToFirst: true,
+    allFacets: facets,
+    deliverySettings,
+  })
 
-  // Delivery Promise consts
-  const regionalizationData = getRegionalizationSettings({ deliverySettings })
+  const regionalizationData = getRegionalizationSettings({
+    deliverySettings,
+  })
   const { deliverySettings: deliverySettingsData } = regionalizationData
-  const deliveryLabel = deliverySettingsData?.title ?? 'Delivery'
-  const isDeliveryPromiseEnabled = deliveryPromise.enabled
-  const isPickupAllEnabled =
-    deliverySettingsData?.deliveryMethods?.pickupAll?.enabled ?? false
-  const shouldDisplayDeliveryButton = isDeliveryPromiseEnabled && !postalCode
-
-  const defaultPickupPoint = pickupPoints?.[0] ?? undefined
-  const selectedPickupPointId = state.selectedFacets.find(
-    ({ key }) => key === 'pickupPoint'
-  )?.value
-
-  // If no pickup point was previously selected, use the first one as default
-  const selectedPickupPoint =
-    pickupPoints?.find(({ id }) => id === selectedPickupPointId) ??
-    defaultPickupPoint
-
-  const pickupInPointFacet =
-    isDeliveryPromiseEnabled && selectedPickupPoint
-      ? {
-          value: 'pickup-in-point',
-          label:
-            selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
-          selected: !!state.selectedFacets.find(
-            ({ value }) => value === 'pickup-in-point'
-          ),
-          quantity: selectedPickupPoint?.totalItems ?? 0,
-        }
-      : undefined
-
-  const allDeliveryMethodsFacet = {
-    value: 'all-delivery-methods',
-    label:
-      deliverySettingsData?.deliveryMethods?.allDeliveryMethods ??
-      'All delivery methods',
-    selected: !state.selectedFacets.some(
-      (facet) =>
-        facet.key === 'shipping' && facet.value !== 'all-delivery-methods'
-    ),
-    quantity: 0,
-  }
-
-  let filteredFacets = facets.filter((facet) => facet.key !== 'shipping')
-  if (isDeliveryPromiseEnabled) {
-    filteredFacets = facets.map((facet) => {
-      if (
-        facet.key === 'shipping' &&
-        facet.__typename === 'StoreFacetBoolean'
-      ) {
-        const hasAllDeliveryMethodsFacet = facet.values.some(
-          (item) => item.value === allDeliveryMethodsFacet.value
-        )
-        if (!hasAllDeliveryMethodsFacet) {
-          facet.values = [allDeliveryMethodsFacet, ...facet.values]
-        }
-
-        const pickupInPointFacetIndex = facet.values.findIndex(
-          (item) => item?.value === 'pickup-in-point'
-        )
-
-        // Remove old pickup `pickup in point` facet from list and search state
-        if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
-          if (state.selectedFacets.some(({ key }) => key === 'shipping')) {
-            const selectedShippingFacet = state.selectedFacets.find(
-              ({ key }) => key === 'shipping'
-            )
-            const selectedPickupInPointFacets = state.selectedFacets.filter(
-              ({ key, value }) =>
-                value === 'pickup-in-point' || key === 'pickupPoint'
-            )
-
-            selectedPickupInPointFacets.length !== 0
-              ? togglePickupInPointFacet(selectedPickupInPointFacets)
-              : toggleFilterFacet(selectedShippingFacet)
-          }
-
-          facet.values = facet.values.filter(
-            (_, index) => index !== pickupInPointFacetIndex
-          )
-        }
-        // Prevent multiple `pickup in point` facet
-        else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
-          facet.values.push(pickupInPointFacet)
-        }
-        // Replace current `pickup-in-point` facet with the updated one
-        else if (
-          facet.values[pickupInPointFacetIndex] &&
-          facet.values[pickupInPointFacetIndex]?.label !==
-            pickupInPointFacet.label
-        ) {
-          facet.values[pickupInPointFacetIndex] = pickupInPointFacet
-        }
-      }
-
-      return facet
-    })
-  }
 
   return (
     <>
@@ -228,22 +136,11 @@ function FilterDesktop({
                     (item) =>
                       (item.value !== 'pickup-all' || isPickupAllEnabled) && (
                         <UIFilterFacetBooleanItem
-                          key={`${testId}-${facet.label}-${item.label}`}
-                          id={`${testId}-${facet.label}-${item.label}`}
+                          key={`${testId}-${facet.label}-${item.value}`}
+                          id={`${testId}-${facet.label}-${item.value}`}
                           testId={testId}
                           onFacetChange={(facet) => {
-                            if (facet.value === 'pickup-in-point') {
-                              togglePickupInPointFacet([
-                                facet,
-                                {
-                                  key: 'pickupPoint',
-                                  value: selectedPickupPoint?.id,
-                                },
-                              ])
-                            } else {
-                              toggleFilterFacet(facet)
-                            }
-
+                            onFacetChange(facet)
                             resetInfiniteScroll(0)
                           }}
                           selected={item.selected}
@@ -336,5 +233,12 @@ export const fragment = gql(`
     }
   }
 `)
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+  if (typeof str !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === str)
+}
 
 export default FilterDesktop
