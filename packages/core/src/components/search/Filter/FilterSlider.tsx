@@ -26,6 +26,7 @@ import type { useFilter } from 'src/sdk/search/useFilter'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import styles from './section.module.scss'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -408,6 +409,13 @@ function FilterSlider({
       </UIFilterSlider>
     </>
   )
+}
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+  if (typeof str !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === str)
 }
 
 export default FilterSlider

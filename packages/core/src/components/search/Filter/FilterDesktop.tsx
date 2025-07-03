@@ -15,7 +15,6 @@ import {
 import { gql } from '@generated/gql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
 import type { FilterSliderProps } from './FilterSlider'
 
 import {
@@ -24,6 +23,8 @@ import {
 } from 'src/sdk/deliveryPromise'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 interface FilterDesktopProps
   extends Omit<
@@ -340,5 +341,12 @@ export const fragment = gql(`
     }
   }
 `)
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+  if (typeof str !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === str)
+}
 
 export default FilterDesktop
