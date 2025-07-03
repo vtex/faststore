@@ -17,7 +17,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
+import RegionSlider from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
