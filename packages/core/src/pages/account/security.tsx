@@ -26,6 +26,7 @@ import type {
   ServerSecurityQueryQueryVariables,
 } from '@generated/graphql'
 import storeConfig from '../../../discovery.config'
+import { SecuritySection } from 'src/components/account/security'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -54,9 +55,7 @@ export default function Page({
         accountName={accountName}
       >
         <BeforeSection />
-        <div>
-          <h1>Security</h1>
-        </div>
+        <SecuritySection />
         <AfterSection />
       </MyAccountLayout>
     </RenderSections>
