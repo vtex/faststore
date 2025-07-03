@@ -26,12 +26,11 @@
   --fs-table-bordered-border-width      : var(--fs-border-width);
   --fs-table-bordered-border-color      : var(--fs-border-color-light);
 
-  display: block;
-
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
+  display: block;
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
