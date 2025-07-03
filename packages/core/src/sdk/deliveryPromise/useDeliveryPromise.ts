@@ -118,9 +118,7 @@ export function useDeliveryPromise({
       },
       {
         value: 'all-delivery-options',
-        label:
-          deliverySettings?.deliveryMethods?.allDeliveryOptions ??
-          'All delivery options',
+        label: deliveryOptions?.allDeliveryOptions ?? 'All delivery options',
         selected:
           !selectedFacets.find(
             (facet) => facet.key === DeliveryOptionsFacetKey

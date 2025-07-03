@@ -140,11 +140,6 @@
                               "default": "Pickup Anywhere"
                             }
                           }
-                        },
-                        "allDeliveryOptions": {
-                          "title": "All delivery options label",
-                          "type": "string",
-                          "default": "All delivery options"
                         }
                       }
                     },
@@ -200,6 +195,11 @@
                       "title": "Delivery Options title",
                       "type": "string",
                       "default": "Delivery Option"
+                    },
+                    "allDeliveryOptions": {
+                      "title": "All delivery options label",
+                      "type": "string",
+                      "default": "All delivery options"
                     }
                   }
                 }
