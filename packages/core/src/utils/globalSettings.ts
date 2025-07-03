@@ -36,10 +36,19 @@ export type RegionalizationCmsData = {
         setLocation?: string
         changeLocation?: string
         changePickupPoint?: string
+        globalChangePickupPoint?: string
       }
       pickupPointChangeApplyButtonLabel?: string
       choosePickupPointAriaLabel?: string
       noPickupPointsAvailableInLocation?: string
+    }
+  }
+  filterByPickupPoint?: {
+    enabled?: boolean
+    label?: string
+    icon?: {
+      icon?: string
+      alt?: string
     }
   }
 }

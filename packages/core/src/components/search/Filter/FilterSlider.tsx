@@ -25,7 +25,7 @@ import {
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
+import RegionSlider from 'src/components/region/RegionSlider'
 
 import styles from './section.module.scss'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'

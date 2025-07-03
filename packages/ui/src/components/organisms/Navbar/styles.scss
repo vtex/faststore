@@ -92,7 +92,11 @@
     }
 
     [data-fs-navbar-button-menu] {
-      @include media(">=notebook") { display: none; }
+      @include media(">=notebook") {
+        display: none;
+      }
+
+      margin: 0 var(--fs-spacing-1);
     }
   }
 

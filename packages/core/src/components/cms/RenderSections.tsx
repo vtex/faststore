@@ -60,12 +60,16 @@ export const LazyLoadingSection = ({
   debug?: boolean
   isInteractive?: boolean
 }) => {
-  const { cart: displayCart, modal: displayModal } = useUI()
+  const { cart: displayCart, modal: displayModal, regionSlider } = useUI()
+
   if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
     const shouldLoad =
       isInteractive ||
       (sectionName === 'CartSidebar' && displayCart) ||
-      (sectionName === 'RegionModal' && displayModal)
+      (sectionName === 'RegionModal' && displayModal) ||
+      (sectionName === 'RegionSlider' &&
+        regionSlider.isOpen &&
+        regionSlider.type !== 'none')
 
     if (debug) {
       console.log(
