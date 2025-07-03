@@ -78,6 +78,7 @@ const QUERIES = [
   'listUserOrders',
   'accountName',
   'validateUser',
+  'pickupPoints',
 ]
 
 const MUTATIONS = [

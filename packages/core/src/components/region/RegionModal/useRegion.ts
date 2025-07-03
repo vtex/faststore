@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 import type { Session } from '@faststore/sdk'
-import { sessionStore, validateSession } from 'src/sdk/session'
-import { getProductCount } from 'src/sdk/product'
 import { deliveryPromise } from 'discovery.config'
+import { getProductCount } from 'src/sdk/product'
+import { sessionStore, validateSession } from 'src/sdk/session'
 
 type SetRegionProps = {
   session: Session
@@ -50,11 +50,10 @@ export default function useRegion(): UseRegionValues {
         // Check product availability for specific postal code
         const productCount = await getProductCount()
         if (productCount === 0) {
-          const errorFallback = `There are no products available for ${postalCode}.`
-          const noProductsAvailableError =
-            noProductsAvailableErrorMessage?.replace(/%s/g, () => postalCode)
-
-          setRegionError(noProductsAvailableError ?? errorFallback)
+          setRegionError(
+            noProductsAvailableErrorMessage?.replace(/%s/g, postalCode) ??
+              `There are no products available for ${postalCode}.`
+          )
           setLoading(false)
           return
         }

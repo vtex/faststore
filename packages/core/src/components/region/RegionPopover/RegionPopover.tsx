@@ -11,6 +11,7 @@ import { useRef, useState } from 'react'
 import useRegion from '../RegionModal/useRegion'
 
 import { sessionStore, useSession } from 'src/sdk/session'
+import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
 import styles from './section.module.scss'
 
@@ -41,28 +42,40 @@ interface RegionPopoverProps {
   placement?: UIPopoverProps['placement']
 }
 
-function RegionPopover({
-  title = 'Set your location',
-  closeButtonAriaLabel,
-  inputField: {
-    label: inputFieldLabel,
-    errorMessage: inputFieldErrorMessage,
-    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
-    buttonActionText: inputButtonActionText,
-  },
-  idkPostalCodeLink: {
-    text: idkPostalCodeLinkText,
-    to: idkPostalCodeLinkTo,
-    icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
-  },
-  textBeforeLocation = 'Your current location is:',
-  textAfterLocation = 'Use the field below to change it.',
-  description = 'Offers and availability vary by location.',
-  triggerRef,
-  offsetTop = 6,
-  offsetLeft,
-  placement = 'bottom-start',
-}: RegionPopoverProps) {
+function RegionPopover(regionPopoverProps: RegionPopoverProps) {
+  const {
+    title = 'Set your location',
+    closeButtonAriaLabel,
+    textBeforeLocation = 'Your current location is:',
+    textAfterLocation = 'Use the field below to change it.',
+    description = 'Offers and availability vary by location.',
+    triggerRef,
+    offsetTop = 6,
+    offsetLeft,
+    placement = 'bottom-start',
+    ...otherRegionPopoverProps
+  } = regionPopoverProps
+  const regionalizationSettings = getRegionalizationSettings(
+    otherRegionPopoverProps
+  )
+  const {
+    inputField: {
+      label: inputFieldLabel = '',
+      errorMessage: inputFieldErrorMessage = '',
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage = '',
+      buttonActionText: inputButtonActionText = '',
+    } = {},
+    idkPostalCodeLink: {
+      text: idkPostalCodeLinkText = '',
+      to: idkPostalCodeLinkTo = '',
+      icon: {
+        icon: idkPostalCodeLinkIcon = '',
+        alt: idkPostalCodeLinkIconAlt = '',
+      } = {},
+    } = {},
+  } = regionalizationSettings ?? {}
+
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const { popover: displayPopover, closePopover } = useUI()
