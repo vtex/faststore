@@ -197,7 +197,6 @@ export function useDeliveryPromise({
     geoCoordinates,
     postalCode,
     pickupPoints,
-    selectedPickupPointId,
     selectedPickupPoint,
     pickupPointByID,
     facets,
