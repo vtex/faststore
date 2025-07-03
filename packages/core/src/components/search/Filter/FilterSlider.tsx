@@ -22,7 +22,7 @@ import type { useFilter } from 'src/sdk/search/useFilter'
 
 import { getGlobalSettings } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
+import RegionSlider from 'src/components/region/RegionSlider'
 
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import styles from './section.module.scss'
