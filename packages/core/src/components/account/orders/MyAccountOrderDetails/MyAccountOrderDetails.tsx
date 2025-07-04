@@ -1,5 +1,3 @@
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
@@ -8,18 +6,19 @@ import MyAccountOrderActions from './MyAccountOrderActions'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
+import MyAccountBuyingPolicyAlert from './MyAccountBuyingPolicyAlert'
 
 import { useRouter } from 'next/router'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
 import styles from './section.module.scss'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
 }
 
-// This constant is used to determine if we should go back in history or redirect to the orders page
 const MIN_HISTORY_LENGTH_TO_GO_BACK = 2
 
 export default function MyAccountOrderDetails({
@@ -61,15 +60,23 @@ export default function MyAccountOrderDetails({
             />
           </div>
         </div>
+
         <MyAccountOrderActions
           orderId={order.orderId}
           customerEmail={order.clientProfileData?.email}
           canCancelOrder={order.canCancelOrder}
-          canProcessOrderAuthorization={order.canProcessOrderAuthorization}
         />
       </header>
+
       <main data-fs-order-details-content>
+        {order.ruleForAuthorization && (
+          <MyAccountBuyingPolicyAlert
+            ruleForAuthorization={order.ruleForAuthorization}
+          />
+        )}
+
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
+
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
           fields={
@@ -77,12 +84,15 @@ export default function MyAccountOrderDetails({
               ?.fields || []
           }
         />
+
         <MyAccountStatusCard status={order.status as OrderStatusKey} />
+
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
           paymentData={order.paymentData}
           allowCancellation={order.allowCancellation}
         />
+
         <MyAccountSummaryCard
           totals={order.totals}
           currencyCode={order.storePreferencesData.currencyCode}
@@ -100,6 +110,7 @@ export default function MyAccountOrderDetails({
             )}
           />
         ))}
+
         {moreInformationCustomFields?.length > 0 && (
           <MyAccountMoreInformationCard fields={moreInformationCustomFields} />
         )}

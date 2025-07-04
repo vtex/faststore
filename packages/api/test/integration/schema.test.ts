@@ -81,6 +81,7 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'cancelOrder',
+  'processOrderAuthorization',
 ]
 
 let schema: GraphQLSchema

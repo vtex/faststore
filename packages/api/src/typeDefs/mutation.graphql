@@ -15,4 +15,10 @@ type Mutation {
   Cancels user order
   """
   cancelOrder(data: IUserOrderCancel!): UserOrderCancel
+  """
+  Process Order Authorization
+  """
+  processOrderAuthorization(
+    data: IProcessOrderAuthorization!
+  ): ProcessOrderAuthorizationResponse
 }
