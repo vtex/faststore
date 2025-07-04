@@ -105,7 +105,7 @@ function ProductGallery({
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
-  const { selectedPickupPoint: globalPickupPoint } = useDeliveryPromise()
+  const { globalPickupPoint } = useDeliveryPromise()
   const { isDesktop } = useScreenResize()
 
   useProductsPrefetch(prev ? prev.cursor : null)

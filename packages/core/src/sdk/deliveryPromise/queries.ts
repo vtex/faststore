@@ -50,11 +50,11 @@ export const getPickupPoints = async ({
   geoCoordinates,
 }: GetPickupPointsProps) => {
   if (!deliveryPromise.enabled) {
-    return null
+    return []
   }
 
   if (!geoCoordinates && (!postalCode || !country)) {
-    return null
+    return []
   }
 
   const variables = {
@@ -69,7 +69,7 @@ export const getPickupPoints = async ({
   >(pickupPointsQuery, variables)
 
   if (!data) {
-    return null
+    return []
   }
 
   const pickupPoints = data.pickupPoints.items.map((item) => ({

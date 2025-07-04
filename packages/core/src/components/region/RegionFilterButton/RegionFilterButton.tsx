@@ -27,7 +27,7 @@ function RegionFilterButton({
   } = {},
 }: RegionFilterButtonProps) {
   const { openRegionSlider } = useUI()
-  const { selectedPickupPoint } = useDeliveryPromise()
+  const { globalPickupPoint } = useDeliveryPromise()
   const regionFilterButtonRef = useRef<HTMLButtonElement>(null)
 
   return (
@@ -49,9 +49,7 @@ function RegionFilterButton({
       }
       ref={regionFilterButtonRef}
     >
-      {selectedPickupPoint
-        ? selectedPickupPoint.name
-        : filterByPickupPointLabel}
+      {globalPickupPoint ? globalPickupPoint.name : filterByPickupPointLabel}
     </UIButton>
   )
 }

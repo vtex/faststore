@@ -41,6 +41,7 @@ interface RegionModalProps {
 }
 
 function RegionModal(regionModalProps: RegionModalProps) {
+  const { onPostalCodeChange } = useDeliveryPromise()
   const { title, description, closeButtonAriaLabel, ...otherRegionModalProps } =
     regionModalProps
   const regionalizationSettings = getRegionalizationSettings(
@@ -71,7 +72,6 @@ function RegionModal(regionModalProps: RegionModalProps) {
   const [input, setInput] = useState<string>('')
 
   const { loading, setRegion, regionError, setRegionError } = useRegion()
-  const { dispatchDeliveryPromiseAction } = useDeliveryPromise()
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -81,7 +81,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
     await setRegion({
       session,
       onSuccess: () => {
-        dispatchDeliveryPromiseAction({ type: 'onPostalCodeChange' })
+        onPostalCodeChange()
         setInput('')
         closeModal()
       },
