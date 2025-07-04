@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { useCallback } from 'react'
 
 import { useSearch } from '@faststore/sdk'
 import {
@@ -105,38 +104,14 @@ function FilterSlider({
   const { resetInfiniteScroll, setState, state } = useSearch()
   const { openRegionSlider } = useUI()
 
-  const onFacetChange = (facet: { key: string; value: string }) => {
-    let unique = isRadioFacets(facet.key)
-    const facets = [facet]
-    if (facet.value === 'pickup-in-point') {
-      unique = true
-      facets.push({
-        key: 'pickupPoint',
-        value: selectedPickupPoint?.id,
-      })
-    } else {
-      facets.concat(selected.filter((el) => el.key === 'pickupPoint'))
-    }
-
-    dispatch({
-      type: 'toggleFacets',
-      payload: {
-        unique,
-        facets,
-      },
-    })
-  }
-
   const {
-    selectedPickupPoint,
     facets: filteredFacets,
     deliveryLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
+    onDeliveryFacetChange,
   } = useDeliveryPromise({
-    selectedFacets: selected,
-    toggleFacet: onFacetChange,
-    fallbackToFirst: true,
+    selectedFilterFacets: selected,
     allFacets: facets,
     deliverySettings,
   })
@@ -165,7 +140,7 @@ function FilterSlider({
           onClick: () => {
             resetInfiniteScroll(0)
 
-            const isOtherShippingFacetSelected = selected.find(
+            const isOtherShippingFacetSelected = selected.some(
               ({ key, value }) =>
                 key === 'shipping' && value !== 'pickup-in-point'
             )
@@ -245,7 +220,12 @@ function FilterSlider({
                             key={`${testId}-${facet.label}-${item.value}`}
                             id={`${testId}-${facet.label}-${item.value}`}
                             testId={`mobile-${testId}`}
-                            onFacetChange={onFacetChange}
+                            onFacetChange={(facet) => {
+                              onDeliveryFacetChange({
+                                facet,
+                                filterDispatch: dispatch,
+                              })
+                            }}
                             selected={item.selected}
                             value={item.value}
                             quantity={item.quantity}
@@ -293,13 +273,6 @@ function FilterSlider({
       </UIFilterSlider>
     </>
   )
-}
-
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
-function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
-  if (typeof str !== 'string') return false
-
-  return RADIO_FACETS.some((el) => el === str)
 }
 
 export default FilterSlider

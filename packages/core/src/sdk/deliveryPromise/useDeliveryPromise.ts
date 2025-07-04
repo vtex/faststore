@@ -1,37 +1,85 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import config from '../../../discovery.config'
-import { sessionStore } from 'src/sdk/session'
-import { createStore, type SearchState } from '@faststore/sdk'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import { useCallback, useEffect, useMemo } from 'react'
+import deepEquals from 'fast-deep-equal'
+
+import {
+  createStore,
+  useSearch,
+  toggleFacets,
+  type SearchState,
+  type Session,
+} from '@faststore/sdk'
+import type { Filter_FacetsFragment } from '@generated/graphql'
+
+import { useSession } from 'src/sdk/session'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import {
   getRegionalizationSettings,
   type RegionalizationCmsData,
 } from 'src/utils/globalSettings'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+
+import { deliveryPromise as deliveryPromiseConfig } from 'discovery.config'
+import {
+  useDeliveryPromiseContext,
+  initialPickupPointsSimulation,
+  type PickupPointsSimulation,
+} from '.'
 
 const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
-const PickUpPointFacetValue = 'pickup-in-point' as const
+const PickupInPointFacetValue = 'pickup-in-point' as const
 
 type Facet = SearchState['selectedFacets'][number]
-type DeliveryPromiseStore = {
-  isLoading: boolean
+
+export type PickupPoint = {
+  id: string
+  name?: string
+  address?: {
+    street?: string
+    number?: string
+    postalCode?: string
+    city?: string
+    state?: string
+  }
+  distance?: number
+  totalItems?: number
 }
 
-const deliveryPromise = createStore<DeliveryPromiseStore>(
+export type DeliveryPromiseStore = {
+  pickupPoints?: PickupPoint[]
+  selectedPickupPoint?: PickupPoint | null
+  globalPickupPoint?: PickupPoint | null
+  shouldUpdatePickupPoints?: boolean
+  simulatePickupPoints?: boolean
+  pickupPointsSimulation?: PickupPointsSimulation
+}
+
+const baseStore = createStore<DeliveryPromiseStore>(
   {
-    isLoading: false,
+    pickupPoints: [],
+    selectedPickupPoint: null,
+    globalPickupPoint: null,
+    shouldUpdatePickupPoints: true,
   },
-  'useDeliveryPromise'
+  'fs::deliveryPromise'
 )
 
+export const deliveryPromiseStore = {
+  ...baseStore,
+  set: (state: Partial<DeliveryPromiseStore>) => {
+    const oldState = baseStore.read()
+    const newState = { ...oldState, ...state }
+
+    if (!deepEquals(oldState, newState)) {
+      baseStore.set(newState)
+    }
+  },
+}
+
 type Props = {
-  deliverySettings: RegionalizationCmsData['deliverySettings']
-  allFacets: ReturnType<typeof useFilter>['facets']
-  fallbackToFirst: boolean
-  toggleFacet?: (facets: Facet) => void
-  selectedFacets: Array<Facet>
+  deliverySettings?: RegionalizationCmsData['deliverySettings']
+  allFacets?: ReturnType<typeof useFilter>['facets']
+  fallbackToFirst?: boolean
+  selectedFilterFacets?: Facet[]
 }
 
 /**
@@ -40,33 +88,42 @@ type Props = {
  */
 export function useDeliveryPromise({
   allFacets,
+  selectedFilterFacets = [],
   deliverySettings: deliverySettingsData,
   fallbackToFirst = true,
-  selectedFacets = [],
-  toggleFacet,
-}: Props) {
-  const regionalizationData = getRegionalizationSettings({
+}: Props = {}) {
+  const { postalCode } = useSession()
+  const {
+    pickupPoints,
+    selectedPickupPoint,
+    globalPickupPoint,
+    pickupPointsSimulation,
+    dispatchDeliveryPromiseAction,
+    ...deliveryPromiseContext
+  } = useDeliveryPromiseContext()
+  const { state: searchState, setState: setSearchState } = useSearch()
+
+  const { deliverySettings } = getRegionalizationSettings({
     deliverySettings: deliverySettingsData,
   })
-  const { deliverySettings } = regionalizationData
-
-  const pickupPoints = usePickupPoints()
-  const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
-  const [postalCode, setPostalCode] = useState(sessionStore.read().postalCode)
-  const [geoCoordinates, setGeoCoordinates] = useState(
-    sessionStore.read().geoCoordinates
+  const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
+  const selectedPickupPointFacet = useMemo(
+    () =>
+      searchState.selectedFacets.find(({ key }) => key === PickupPointFacetKey)
+        ?.value,
+    [searchState.selectedFacets]
   )
-
-  const isDeliveryPromiseEnabled = config.deliveryPromise.enabled
 
   useEffect(() => {
     const unsubscribers = [
-      deliveryPromise.subscribe((storeValue) => {
-        setIsLoading(storeValue.isLoading)
-      }),
-      sessionStore.subscribe((newSession) => {
-        setPostalCode(newSession.postalCode)
-        setGeoCoordinates(newSession.geoCoordinates)
+      deliveryPromiseStore.subscribe((storeValue) => {
+        dispatchDeliveryPromiseAction({
+          type: 'updateDeliveryPromiseState',
+          payload: {
+            ...deliveryPromiseContext,
+            ...storeValue,
+          },
+        })
       }),
     ]
 
@@ -74,6 +131,14 @@ export function useDeliveryPromise({
       unsubscribers.forEach((unsub) => unsub())
     }
   }, [])
+
+  useEffect(() => {
+    if (pickupPoints.length === 0) return
+
+    deliveryPromiseStore.set({
+      selectedPickupPoint: pickupPointByID(selectedPickupPointFacet),
+    })
+  }, [pickupPoints])
 
   const pickupPointByID = useCallback(
     (id: string) => {
@@ -88,16 +153,6 @@ export function useDeliveryPromise({
     [pickupPoints]
   )
 
-  const selectedPickupPointId = useMemo(
-    () => selectedFacets.find(({ key }) => key === PickupPointFacetKey)?.value,
-    [selectedFacets]
-  )
-
-  const selectedPickupPoint = useMemo(
-    () => pickupPointByID(selectedPickupPointId),
-    [pickupPointByID, selectedPickupPointId]
-  )
-
   const allDeliveryMethodsFacet = useMemo(
     () => ({
       value: 'all-delivery-methods',
@@ -105,30 +160,87 @@ export function useDeliveryPromise({
         deliverySettings?.deliveryMethods?.allDeliveryMethods ??
         'All delivery methods',
       selected:
-        !selectedFacets.find((facet) => facet.key === ShippingFacetKey) ||
-        selectedFacets?.some(
+        !searchState.selectedFacets.find(
+          (facet) => facet.key === ShippingFacetKey
+        ) ||
+        searchState.selectedFacets?.some(
           (facet) =>
             facet.key === ShippingFacetKey &&
             facet.value === 'all-delivery-methods'
         ),
       quantity: 0,
     }),
-    [selectedFacets, deliverySettings]
+    [searchState.selectedFacets, deliverySettings]
   )
 
   const pickupInPointFacet = useMemo(
     () => ({
-      value: PickUpPointFacetValue,
+      value: PickupInPointFacetValue,
       label: selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
-      selected: selectedFacets?.some(
-        ({ value }) => value === PickUpPointFacetValue
+      selected: searchState.selectedFacets?.some(
+        ({ value }) => value === PickupInPointFacetValue
       ),
       quantity: selectedPickupPoint?.totalItems,
     }),
-    [selectedPickupPoint, selectedFacets]
+    [selectedPickupPoint, searchState.selectedFacets]
+  )
+
+  const onDeliveryFacetChange = useCallback(
+    ({
+      facet = null,
+      facets = [],
+      filterDispatch,
+    }: {
+      facet?: Facet
+      facets?: Facet[]
+      filterDispatch?: ReturnType<typeof useFilter>['dispatch']
+    }) => {
+      let unique = true
+      const facetsToToggle: Facet[] = facets?.length !== 0 ? facets : [facet]
+      let currentSelectedFacets = filterDispatch
+        ? selectedFilterFacets
+        : searchState.selectedFacets
+
+      // Toggle `pickup-in-point` and `pickupPoint` facets
+      if (facet.value === PickupInPointFacetValue) {
+        facetsToToggle.push({
+          key: PickupPointFacetKey,
+          value: selectedPickupPoint?.id,
+        })
+      } else {
+        // Toggle previously selected pickupPoint facet
+        unique = isRadioFacet(facet.key)
+        currentSelectedFacets = currentSelectedFacets.filter(
+          ({ key }) => key !== PickupPointFacetKey
+        )
+        facetsToToggle.concat(currentSelectedFacets)
+      }
+
+      // Filter Slider should dispatch filter actions
+      if (filterDispatch) {
+        filterDispatch({
+          type: 'toggleFacets',
+          payload: { unique, facets: facetsToToggle },
+        })
+
+        return
+      }
+      setSearchState({
+        ...searchState,
+        selectedFacets: toggleFacets(
+          currentSelectedFacets,
+          facetsToToggle,
+          unique
+        ),
+        page: 0,
+      })
+    },
+    [selectedFilterFacets, searchState.selectedFacets, selectedPickupPoint]
   )
 
   const facets = useMemo(() => {
+    if (!allFacets) return []
+
     return !isDeliveryPromiseEnabled
       ? allFacets.filter(({ key }) => key !== ShippingFacetKey)
       : allFacets.map((facet) => {
@@ -140,26 +252,29 @@ export function useDeliveryPromise({
 
           facet.values = withUniqueFacet(facet.values, allDeliveryMethodsFacet)
           const pickupInPointFacetIndex = facet.values.findIndex(
-            (item) => item?.value === PickUpPointFacetValue
+            (item) => item?.value === PickupInPointFacetValue
           )
 
           // Remove old pickup `pickup in point` facet from list and search state
           if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
-            const selectedShippingFacet = selectedFacets.find(
+            const selectedShippingFacet = searchState.selectedFacets.find(
               ({ key }) => key === ShippingFacetKey
             )
+
             if (selectedShippingFacet) {
-              const selectedPickupInPointFacets = selectedFacets.filter(
-                ({ key, value }) =>
-                  value === PickUpPointFacetValue || key === PickupPointFacetKey
-              )
+              const selectedPickupInPointFacets =
+                searchState.selectedFacets.filter(
+                  ({ key, value }) =>
+                    value === PickupInPointFacetValue ||
+                    key === PickupPointFacetKey
+                )
 
               selectedPickupInPointFacets.length
-                ? selectedPickupInPointFacets.forEach(toggleFacet)
-                : toggleFacet(selectedShippingFacet)
+                ? onDeliveryFacetChange({ facets: selectedPickupInPointFacets })
+                : onDeliveryFacetChange({ facet: selectedShippingFacet })
             }
 
-            // removes pickupInPointIndex from array
+            // Removes pickupInPointIndex from array
             facet.values.splice(pickupInPointFacetIndex, 1)
           }
           // Prevent multiple `pickup in point` facet
@@ -185,22 +300,64 @@ export function useDeliveryPromise({
     allDeliveryMethodsFacet,
     pickupInPointFacet,
     allFacets,
-    selectedFacets,
+    searchState.selectedFacets,
     selectedPickupPoint,
-    toggleFacet,
+    pickupPoints,
   ])
 
+  const onPostalCodeChange = useCallback(
+    ({
+      simulatePickupPoints = false,
+      validatedSession = null,
+    }: { simulatePickupPoints?: boolean; validatedSession?: Session } = {}) => {
+      const partialSession = {
+        country: validatedSession?.country,
+        postalCode: validatedSession?.postalCode,
+        geoCoordinates: validatedSession?.geoCoordinates,
+      }
+
+      dispatchDeliveryPromiseAction({
+        type: 'onPostalCodeChange',
+        ...(simulatePickupPoints
+          ? {
+              payload: {
+                simulatePickupPoints,
+                validatedSession: { ...partialSession },
+              },
+            }
+          : {}),
+      })
+    },
+    []
+  )
+
+  const clearPickupPointsSimulation = useCallback(
+    () =>
+      deliveryPromiseStore.set({
+        pickupPointsSimulation: initialPickupPointsSimulation,
+      }),
+    []
+  )
+
   return {
-    mandatory: config.deliveryPromise.mandatory,
+    mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
-    isLoading,
-    geoCoordinates,
-    postalCode,
     pickupPoints,
     selectedPickupPoint,
+    selectedPickupPointFacet,
+    pickupPointsSimulation,
+    clearPickupPointsSimulation,
+    changePickupPoint: (pickupPoint: PickupPoint) => {
+      deliveryPromiseStore.set({ selectedPickupPoint: pickupPoint })
+    },
+    globalPickupPoint,
+    changeGlobalPickupPoint: (pickupPoint: PickupPoint) => {
+      deliveryPromiseStore.set({ globalPickupPoint: pickupPoint })
+    },
     pickupPointByID,
     facets,
-    selectedFacets,
+    onPostalCodeChange,
+    onDeliveryFacetChange,
     deliveryLabel: deliverySettings?.title ?? 'Delivery',
     isPickupAllEnabled:
       deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
@@ -215,4 +372,11 @@ type BoleanFacet = Extract<
 
 function withUniqueFacet(facets: Array<BoleanFacet>, facet: BoleanFacet) {
   return facets.filter((item) => item.value !== facet.value).concat([facet])
+}
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacet(facet: unknown): facet is (typeof RADIO_FACETS)[number] {
+  if (typeof facet !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === facet)
 }
