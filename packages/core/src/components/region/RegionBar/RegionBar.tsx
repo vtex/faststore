@@ -1,8 +1,12 @@
-import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
+import {
+  regionSliderTypes,
+  type RegionBarProps as UIRegionBarProps,
+} from '@faststore/ui'
 import { useEffect, useRef } from 'react'
 
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -51,9 +55,10 @@ function RegionBar({
     FilterButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
-  const { openModal, openPopover } = useUI()
+  const { openModal, openPopover, openRegionSlider } = useUI()
   const { city, postalCode } = useSession()
   const { isValidationComplete } = useRegionModal()
+  const { globalPickupPoint } = useDeliveryPromise()
   const { filterByPickupPoint } = getRegionalizationSettings()
   const regionBarRef = useRef<HTMLDivElement>(null)
 
@@ -115,9 +120,12 @@ function RegionBar({
             }
           />
         ),
-        selectedFilter: undefined, // TODO: specify selected pickup point
+        selectedFilter:
+          (globalPickupPoint?.name || globalPickupPoint?.address?.street) ??
+          undefined,
         shouldDisplayFilterButton: shouldDisplayGlobalFilter,
-        onClick: () => console.log('TODO: open RegionSlider'),
+        onClick: () =>
+          openRegionSlider(regionSliderTypes.globalChangePickupPoint),
       }}
       {...RegionBarWrapper.props}
       label={locationLabel ?? RegionBarWrapper.props.label}

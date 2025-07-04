@@ -1,4 +1,4 @@
-import { setFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import { setFacet, useSearch } from '@faststore/sdk'
 
 import {
   regionSliderTypes,
@@ -17,7 +17,6 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
-import RegionSlider from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
@@ -37,42 +36,14 @@ function FilterDesktop({
   deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
+  const { openRegionSlider } = useUI()
   const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
-
-  const onFacetChange = (facet: { key: string; value: string }) => {
-    let unique = isRadioFacets(facet.key)
-    let selected = state.selectedFacets
-    const facets = [facet]
-    if (facet.value === 'pickup-in-point') {
-      unique = true
-      facets.push({
-        key: 'pickupPoint',
-        value: selectedPickupPoint?.id,
-      })
-    } else {
-      selected = selected.filter((el) => el.key !== 'pickupPoint')
-    }
-
-    setState({
-      ...state,
-      selectedFacets: toggleFacets(selected, facets, unique),
-      page: 0,
-    })
-  }
-
-  const {
-    selectedPickupPoint,
     facets: filteredFacets,
     deliveryLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
+    onDeliveryFacetChange,
   } = useDeliveryPromise({
-    selectedFacets: state.selectedFacets,
-    toggleFacet: onFacetChange,
-    fallbackToFirst: true,
     allFacets: facets,
     deliverySettings,
   })
@@ -104,9 +75,7 @@ function FilterDesktop({
             <UIButton
               data-fs-filter-list-delivery-button
               variant="secondary"
-              onClick={() => {
-                openRegionSlider(regionSliderTypes.setLocation)
-              }}
+              onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
               icon={<UIIcon name="MapPin" />}
             >
               {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
@@ -141,7 +110,7 @@ function FilterDesktop({
                           id={`${testId}-${facet.label}-${item.value}`}
                           testId={testId}
                           onFacetChange={(facet) => {
-                            onFacetChange(facet)
+                            onDeliveryFacetChange({ facet })
                             resetInfiniteScroll(0)
                           }}
                           selected={item.selected}
@@ -194,10 +163,6 @@ function FilterDesktop({
           )
         })}
       </UIFilter>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
     </>
   )
 }
@@ -235,11 +200,11 @@ export const fragment = gql(`
   }
 `)
 
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
-function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
-  if (typeof str !== 'string') return false
+// const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+// function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
+//   if (typeof str !== 'string') return false
 
-  return RADIO_FACETS.some((el) => el === str)
-}
+//   return RADIO_FACETS.some((el) => el === str)
+// }
 
 export default FilterDesktop
