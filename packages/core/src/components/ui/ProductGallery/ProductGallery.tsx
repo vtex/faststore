@@ -74,7 +74,12 @@ export interface ProductGalleryProps {
       sidebarComponent: {
         title: string
         sortLabel: string
+        filterLabel: string
+        productNameFilterLabel: string
+        preferencesLabel: string
+        toggleFieldLabel: string
         cartButtonLabel: string
+        priceLabel: string
         priceWithTaxLabel: string
       }
       technicalInformation: {
@@ -356,13 +361,14 @@ function ProductGallery({
             <ProductComparisonSidebar.Component
               direction="rightSide"
               size="partial"
-              formatter={useFormattedPrice}
+              priceFormatter={useFormattedPrice}
               technicalInformation={{
                 title: productComparison.labels.technicalInformation.title,
                 description:
                   productComparison.labels.technicalInformation.description,
               }}
               overlayProps={{ className: styles.section }}
+              {...productComparison.labels.sidebarComponent}
             />
             <ProductComparisonToolbar.Component
               selectionWarningLabel={

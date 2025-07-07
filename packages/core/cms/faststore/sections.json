@@ -2043,15 +2043,40 @@
                       "type": "string",
                       "default": "Compare Products"
                     },
+                    "filterLabel": {
+                      "title": "Filter text",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "productNameFilterLabel": {
+                      "title": "Filter by product name text",
+                      "type": "string",
+                      "default": "Product name"
+                    },
                     "sortLabel": {
-                      "title": "Sort text",
+                      "title": "Sort filter text",
                       "type": "string",
                       "default": "Sort by"
+                    },
+                    "toggleFieldLabel": {
+                      "title": "Toggle filter text",
+                      "type": "string",
+                      "default": "Show only differences"
+                    },
+                    "preferencesLabel": {
+                      "title": "Preferences text",
+                      "type": "string",
+                      "default": "Preferences"
                     },
                     "cartButtonLabel": {
                       "title": "Add to cart button",
                       "type": "string",
                       "default": "Add to cart"
+                    },
+                    "priceLabel": {
+                      "title": "Price text",
+                      "type": "string",
+                      "default": "Price"
                     },
                     "priceWithTaxLabel": {
                       "title": "Price with taxes text",

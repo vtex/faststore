@@ -84,6 +84,7 @@ function ProductCard({
   onButtonClick,
   showDiscountBadge = true,
   taxesConfiguration,
+  sponsoredLabel,
   enableCompareCheckboxOnDisplay = false,
   compareLabel,
   ...otherProps
@@ -172,6 +173,8 @@ function ProductCard({
           showDiscountBadge={hasDiscount && showDiscountBadge}
           includeTaxes={taxesConfiguration?.usePriceWithTaxes}
           includeTaxesLabel={taxesConfiguration?.taxesLabel}
+          sponsored={!!advertisement}
+          sponsoredLabel={sponsoredLabel}
         />
       </UIProductCard>
     </div>
