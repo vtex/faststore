@@ -34,9 +34,6 @@ export type RegionalizationCmsData = {
     }
     deliveryOptions?: {
       title?: string
-      allDeliveryOptions?: string
-      expressDelivery?: string
-      standardDelivery?: string
     }
     regionSlider?: {
       title?: {

@@ -12,7 +12,6 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 
 const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
-const DeliveryOptionsFacetKey = 'delivery-options' as const
 const PickUpPointFacetValue = 'pickup-in-point' as const
 
 type Facet = SearchState['selectedFacets'][number]
@@ -117,19 +116,6 @@ export function useDeliveryPromise({
     [selectedFacets, deliverySettings]
   )
 
-  const allDeliveryOptionsFacet = {
-    value: 'all-delivery-options',
-    label:
-      deliverySettings?.deliveryOptions?.allDeliveryOptions ??
-      'All delivery options',
-    selected: !selectedFacets.some(
-      (facet) =>
-        facet.key === DeliveryOptionsFacetKey &&
-        facet.value !== 'all-delivery-options'
-    ),
-    quantity: 0,
-  }
-
   const pickupInPointFacet = useMemo(
     () => ({
       value: PickUpPointFacetValue,
@@ -144,27 +130,8 @@ export function useDeliveryPromise({
 
   const facets = useMemo(() => {
     return !isDeliveryPromiseEnabled
-      ? allFacets.filter(
-          ({ key }) =>
-            key !== ShippingFacetKey && key !== DeliveryOptionsFacetKey
-        )
+      ? allFacets.filter(({ key }) => key !== ShippingFacetKey)
       : allFacets.map((facet) => {
-          if (
-            facet.key === DeliveryOptionsFacetKey &&
-            facet.__typename === 'StoreFacetBoolean'
-          ) {
-            facet.values = withUniqueFacet(
-              facet.values,
-              allDeliveryOptionsFacet
-            )
-
-            facet.values = facet.values.sort((a, b) =>
-              (a.value ?? '').localeCompare(b.value ?? '')
-            )
-
-            return facet
-          }
-
           if (
             facet.key !== ShippingFacetKey ||
             facet.__typename !== 'StoreFacetBoolean'
