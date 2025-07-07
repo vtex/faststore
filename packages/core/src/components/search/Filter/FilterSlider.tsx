@@ -137,7 +137,8 @@ function FilterSlider({
 
   const {
     selectedPickupPoint,
-    facets: filteredFacets,
+    // TODO: Rename this prop when the api is ready to provide postalCode
+    facets: _filteredFacets,
     deliveryLabel,
     deliveryMethodsLabel,
     deliveryOptionsLabel,
@@ -202,10 +203,10 @@ function FilterSlider({
 
   // TODO: Remove this when the api is ready to provide delivery options facet
   // Sort facets to prioritize shipping, then delivery-options
-  facets = [
-    ...facets.filter((facet) => facet.key === 'shipping'),
+  const filteredFacets = [
+    ..._filteredFacets.filter((facet) => facet.key === 'shipping'),
     ...(postalCode ? [createMockDeliveryOptionsFacet(selected)] : []),
-    ...facets.filter((facet) => facet.key !== 'shipping'),
+    ..._filteredFacets.filter((facet) => facet.key !== 'shipping'),
   ]
 
   const regionalizationData = getRegionalizationSettings({
