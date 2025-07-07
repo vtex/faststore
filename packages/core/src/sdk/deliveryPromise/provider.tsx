@@ -32,7 +32,7 @@ export function DeliveryPromiseProvider({
   const { country, postalCode, geoCoordinates } = useSession()
   const [state, dispatch] = useReducer(
     deliveryPromiseReducer,
-    null,
+    undefined,
     initializeDeliveryPromiseState
   )
 
@@ -54,17 +54,9 @@ export function DeliveryPromiseProvider({
           : postalCode,
       })
 
-      // Prevent reseting store if there's already data
-      if (
-        !state.shouldUpdatePickupPoints &&
-        deepEquals(state.pickupPoints, newPickupPoints)
-      ) {
-        return
-      }
-
       // Pickup points simulation
       if (state.simulatePickupPoints) {
-        return deliveryPromiseStore.set({
+        deliveryPromiseStore.set({
           pickupPointsSimulation: {
             ...state.pickupPointsSimulation,
             pickupPoints: newPickupPoints,
@@ -72,6 +64,16 @@ export function DeliveryPromiseProvider({
           shouldUpdatePickupPoints: false,
           simulatePickupPoints: false,
         })
+
+        return
+      }
+
+      // Prevent reset store after reloading the page
+      if (
+        state.pickupPoints.length !== 0 &&
+        deepEquals(state.pickupPoints, newPickupPoints)
+      ) {
+        return
       }
 
       deliveryPromiseStore.set({

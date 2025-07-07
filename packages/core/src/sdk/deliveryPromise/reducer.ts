@@ -55,11 +55,10 @@ export type DeliveryPromiseReducerAction =
 
 export const initializeDeliveryPromiseState =
   (): DeliveryPromiseReducerState => ({
-    pickupPoints: deliveryPromiseStore.read().pickupPoints ?? [],
-    selectedPickupPoint:
-      deliveryPromiseStore.read().selectedPickupPoint ?? null,
-    globalPickupPoint: deliveryPromiseStore.read().globalPickupPoint ?? null,
-    shouldUpdatePickupPoints: true,
+    pickupPoints: [],
+    selectedPickupPoint: null,
+    globalPickupPoint: null,
+    shouldUpdatePickupPoints: false,
     simulatePickupPoints: false,
     pickupPointsSimulation: initialPickupPointsSimulation,
   })

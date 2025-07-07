@@ -11,7 +11,12 @@ import { useEffect, useRef, useState, useMemo } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import { PickupPointCards } from 'src/components/ui/PickupPoints'
 import { useSession, sessionStore } from 'src/sdk/session'
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import {
+  useDeliveryPromise,
+  SHIPPING_FACET_KEY,
+  PICKUP_IN_POINT_FACET_VALUE,
+  PICKUP_POINT_FACET_KEY,
+} from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
@@ -41,6 +46,7 @@ function RegionSlider() {
     closeRegionSlider,
   } = useUI()
   const { isValidating, ...session } = useSession()
+  const { state: searchState, setState: setSearchState } = useSearch()
   const { loading, setRegion, regionError, setRegionError } = useRegion()
   const {
     pickupPoints: statePickupPoints,
@@ -51,11 +57,17 @@ function RegionSlider() {
     pickupPointsSimulation,
     clearPickupPointsSimulation,
   } = useDeliveryPromise()
-  const { state: searchState, setState: setSearchState } = useSearch()
 
+  const isChangingPickupPoint = useMemo(
+    () =>
+      ['changePickupPoint', 'globalChangePickupPoint'].includes(
+        regionSliderType
+      ),
+    [regionSliderType]
+  )
   const pickupPoints = useMemo(
     () =>
-      pickupPointsSimulation.pickupPoints.length !== 0
+      pickupPointsSimulation && pickupPointsSimulation.pickupPoints.length !== 0
         ? pickupPointsSimulation.pickupPoints
         : statePickupPoints,
     [statePickupPoints, pickupPointsSimulation]
@@ -96,10 +108,7 @@ function RegionSlider() {
         setValidatedSession(validatedSession)
         onPostalCodeChange({ simulatePickupPoints: true, validatedSession })
 
-        if (
-          regionSliderType !== 'changePickupPoint' &&
-          regionSliderType !== 'globalChangePickupPoint'
-        ) {
+        if (!isChangingPickupPoint) {
           setInput('')
           closeRegionSlider()
         }
@@ -117,28 +126,29 @@ function RegionSlider() {
 
   const handlePickupPointUpdate = () => {
     const shippingFacet = searchState.selectedFacets.find(
-      (facet) => facet.key === 'shipping'
+      (facet) => facet.key === SHIPPING_FACET_KEY
     )
 
-    if (
-      validatedSession &&
-      ['changePickupPoint', 'globalChangePickupPoint'].includes(
-        regionSliderType
-      )
-    ) {
+    if (validatedSession && isChangingPickupPoint) {
       sessionStore.set(validatedSession)
     }
 
     // If shipping is not 'pickup-in-point', we need to toggle it
     const facetsToToggle = []
 
-    if (!shippingFacet || shippingFacet.value !== 'pickup-in-point') {
-      facetsToToggle.push({ key: 'shipping', value: 'pickup-in-point' })
+    if (!shippingFacet || shippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE) {
+      facetsToToggle.push({
+        key: SHIPPING_FACET_KEY,
+        value: PICKUP_IN_POINT_FACET_VALUE,
+      })
     }
 
     // Add/update the pickupPoint facet
     if (pickupPointOption) {
-      facetsToToggle.push({ key: 'pickupPoint', value: pickupPointOption })
+      facetsToToggle.push({
+        key: PICKUP_POINT_FACET_KEY,
+        value: pickupPointOption,
+      })
       const pickupPointFacet = pickupPoints.find(
         (pickupPoint) => pickupPoint.id === pickupPointOption
       )
@@ -204,17 +214,9 @@ function RegionSlider() {
         setValidatedSession(undefined)
         clearPickupPointsSimulation()
       }}
-      footer={
-        ['changePickupPoint', 'globalChangePickupPoint'].includes(
-          regionSliderType
-        )
-          ? true
-          : false
-      }
+      footer={isChangingPickupPoint ? true : false}
       applyBtnProps={
-        ['changePickupPoint', 'globalChangePickupPoint'].includes(
-          regionSliderType
-        )
+        isChangingPickupPoint
           ? {
               variant: 'primary',
               children:
@@ -261,9 +263,7 @@ function RegionSlider() {
           <UILink data-fs-filter-delivery-link {...idkPostalCodeLinkProps} />
         )}
 
-        {['changePickupPoint', 'globalChangePickupPoint'].includes(
-          regionSliderType
-        ) &&
+        {isChangingPickupPoint &&
           input !== '' &&
           input === appliedInput &&
           !loading && (
