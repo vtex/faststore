@@ -296,7 +296,7 @@ export const fragment = gql(`
   }
 `)
 
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+const RADIO_FACETS = ['shipping', 'pickupPoint', 'delivery-options'] as const
 function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
   if (typeof str !== 'string') return false
 
