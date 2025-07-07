@@ -45,6 +45,7 @@ function FilterDesktop({
     onDeliveryFacetChange,
   } = useDeliveryPromise({
     allFacets: facets,
+    selectedFilterFacets: state.selectedFacets,
     deliverySettings,
   })
 

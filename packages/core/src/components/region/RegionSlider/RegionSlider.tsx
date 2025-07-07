@@ -6,7 +6,7 @@ import {
   type InputFieldProps as UIInputFieldProps,
 } from '@faststore/ui'
 import dynamic from 'next/dynamic'
-import type { ChangeEvent } from 'react'
+import type { MouseEvent } from 'react'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import { PickupPointCards } from 'src/components/ui/PickupPoints'
@@ -120,8 +120,12 @@ function RegionSlider() {
     })
   }
 
-  const handlePickupPointOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPickupPointOption(e.target.value)
+  const handlePickupPointOnChange = (e: MouseEvent<HTMLInputElement>) => {
+    if (pickupPointOption === e.currentTarget.value) {
+      return setPickupPointOption(null)
+    }
+
+    setPickupPointOption(e.currentTarget.value)
   }
 
   const handlePickupPointUpdate = () => {
@@ -155,6 +159,7 @@ function RegionSlider() {
 
       if (regionSliderType === 'changePickupPoint') {
         changePickupPoint(pickupPointFacet)
+        changeGlobalPickupPoint(null)
       }
 
       if (regionSliderType === 'globalChangePickupPoint') {
