@@ -66,15 +66,12 @@ function FilterDesktop({
 
   const {
     selectedPickupPoint,
-    // TODO: Rename this prop when the api is ready to provide postalCode
-    facets: _filteredFacets,
+    facets: filteredFacets,
     deliveryLabel,
     deliveryMethodsLabel,
     deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
-    // TODO: Remove this prop when the api is ready to provide postalCode
-    postalCode,
   } = useDeliveryPromise({
     selectedFacets: state.selectedFacets,
     toggleFacet: onFacetChange,
@@ -82,41 +79,6 @@ function FilterDesktop({
     allFacets: facets,
     deliverySettings,
   })
-
-  // TODO: Remove this when the api is ready to provide delivery options facet
-  const mockDeliveryOptionsFacet: Filter_FacetsFragment = {
-    __typename: 'StoreFacetBoolean',
-    key: 'delivery-options',
-    label: 'Delivery Options',
-    values: [
-      {
-        label: 'All delivery options',
-        value: 'all-delivery-options',
-        selected: true,
-        quantity: 150,
-      },
-      {
-        label: 'Express Delivery',
-        value: 'express-delivery',
-        selected: false,
-        quantity: 75,
-      },
-      {
-        label: 'Standard Delivery',
-        value: 'standard-delivery',
-        selected: false,
-        quantity: 90,
-      },
-    ],
-  }
-
-  // TODO: Remove this when the api is ready to provide delivery options facet
-  // Sort facets to prioritize shipping, then delivery-options
-  const filteredFacets = [
-    ..._filteredFacets.filter((facet) => facet.key === 'shipping'),
-    ...(postalCode ? [mockDeliveryOptionsFacet] : []),
-    ..._filteredFacets.filter((facet) => facet.key !== 'shipping'),
-  ]
 
   const regionalizationData = getRegionalizationSettings({
     deliverySettings,
