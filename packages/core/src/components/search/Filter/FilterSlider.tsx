@@ -15,12 +15,8 @@ import {
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
-import type {
-  Filter_FacetsFragment,
-  IStoreSelectedFacet,
-} from '@generated/graphql'
+import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
-import FilterDeliveryOptionFacet from './FilterDeliveryOptionFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 
@@ -276,13 +272,6 @@ function FilterSlider({
                                   item={item}
                                   deliveryMethods={
                                     deliverySettingsData?.deliveryMethods
-                                  }
-                                />
-                              ) : isDeliveryOptionFacet ? (
-                                <FilterDeliveryOptionFacet
-                                  item={item}
-                                  deliveryOptions={
-                                    deliverySettings?.deliveryOptions
                                   }
                                 />
                               ) : (
