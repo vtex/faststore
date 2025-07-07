@@ -20,8 +20,6 @@ import { RegionSlider } from 'src/components/region/RegionSlider'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
-import FilterDeliveryOptionFacet from './FilterDeliveryOptionFacet'
-import type { Filter_FacetsFragment } from '@generated/graphql'
 
 interface FilterDesktopProps
   extends Omit<
@@ -167,13 +165,6 @@ function FilterDesktop({
                                 item={item}
                                 deliveryMethods={
                                   deliverySettingsData?.deliveryMethods
-                                }
-                              />
-                            ) : isDeliveryOptionFacet ? (
-                              <FilterDeliveryOptionFacet
-                                item={item}
-                                deliveryOptions={
-                                  deliverySettingsData?.deliveryOptions
                                 }
                               />
                             ) : (
