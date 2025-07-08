@@ -66,7 +66,6 @@ function FilterDesktop({
     selectedPickupPoint,
     facets: filteredFacets,
     deliveryLabel,
-    deliveryMethodsLabel,
     deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
@@ -122,12 +121,11 @@ function FilterDesktop({
           const isDeliveryMethodFacet = facet.key === 'shipping'
           const isDeliveryOptionFacet = facet.key === 'delivery-options'
 
-          let sectionLabel = label
-          if (isDeliveryMethodFacet) {
-            sectionLabel = deliveryMethodsLabel
-          } else if (isDeliveryOptionFacet) {
-            sectionLabel = deliveryOptionsLabel
-          }
+          const sectionLabel = isDeliveryMethodFacet
+            ? deliveryLabel
+            : isDeliveryOptionFacet
+              ? deliveryOptionsLabel
+              : label
 
           return (
             <UIFilterFacets
