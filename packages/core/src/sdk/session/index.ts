@@ -10,7 +10,6 @@ import type {
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { getSavedAddress } from '../profile'
 import { createValidationStore, useStore } from '../useStore'
 
 export const mutation = gql(`
@@ -77,42 +76,19 @@ export const validateSession = async (session: Session) => {
         postalCode: session.b2b.savedPostalCode,
       })
     }
-
-    // Case B2C: If a B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
-    else if (session.person?.id) {
-      const address = await getSavedAddress(session.person?.id)
-
-      // Save the location in the session
-      if (address) {
-        sessionStore.set({
-          ...session,
-          city: address?.city,
-          postalCode: address?.postalCode,
-          geoCoordinates: {
-            // the values come in the reverse expected order
-            latitude: address?.geoCoordinate ? address?.geoCoordinate[1] : null,
-            longitude: address?.geoCoordinate
-              ? address?.geoCoordinate[0]
-              : null,
-          },
-          country: address?.country,
-        })
-      }
-    } else {
-      // Fallback: use the initial postalCode defined in discovery.config.js
-      const initialPostalCode = defaultStore.readInitial().postalCode
-
-      !!initialPostalCode &&
-        sessionStore.set({ ...session, postalCode: initialPostalCode })
-    }
   }
+
+  // The mutation doesn't expect this value on the query, that's why we delete before validating
+  delete session.ready
 
   const data = await request<
     ValidateSessionMutation,
     ValidateSessionMutationVariables
   >(mutation, { session, search: window.location.search })
 
-  return data.validateSession
+  return (
+    (data.validateSession && { ...data.validateSession, ready: true }) || null
+  )
 }
 
 const [validationStore, onValidate] = createValidationStore(validateSession)

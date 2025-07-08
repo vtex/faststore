@@ -4,6 +4,7 @@ import type { Session } from '@faststore/sdk'
 import { sessionStore, validateSession } from 'src/sdk/session'
 import { getProductCount } from 'src/sdk/product'
 import { deliveryPromise } from 'discovery.config'
+import { geolocationStore } from 'src/sdk/geolocation/useGeolocation'
 
 type SetRegionProps = {
   session: Session
@@ -61,6 +62,7 @@ export default function useRegion(): UseRegionValues {
       }
 
       sessionStore.set(validatedSession ?? newSession)
+      geolocationStore.set({ popupState: 'closed' })
       setRegionError('')
       onSuccess?.() // Execute the post-validation action (close modal, etc.)
     } catch (error) {
