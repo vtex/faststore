@@ -246,7 +246,7 @@ function FilterSlider({
                 label={sectionLabel}
                 description={
                   isDeliveryMethodFacet
-                    ? deliverySettings?.description
+                    ? deliverySettingsData?.description
                     : undefined
                 }
               >
