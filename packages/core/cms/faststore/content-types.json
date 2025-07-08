@@ -104,11 +104,6 @@
                       "title": "Delivery methods filter",
                       "type": "object",
                       "properties": {
-                        "title": {
-                          "title": "Delivery Methods title",
-                          "type": "string",
-                          "default": "Delivery Method"
-                        },
                         "allDeliveryMethods": {
                           "title": "All delivery methods label",
                           "type": "string",
