@@ -31,9 +31,6 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
-    deliveryOptions?: {
-      title?: string
-    }
     regionSlider?: {
       title?: {
         setLocation?: string
@@ -44,6 +41,9 @@ export type RegionalizationCmsData = {
       choosePickupPointAriaLabel?: string
       noPickupPointsAvailableInLocation?: string
     }
+  }
+  deliveryOptions?: {
+    title?: string
   }
 }
 

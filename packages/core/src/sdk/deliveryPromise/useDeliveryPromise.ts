@@ -48,7 +48,7 @@ export function useDeliveryPromise({
   const regionalizationData = getRegionalizationSettings({
     deliverySettings: deliverySettingsData,
   })
-  const { deliverySettings } = regionalizationData
+  const { deliverySettings, deliveryOptions } = regionalizationData
 
   const pickupPoints = usePickupPoints()
   const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
@@ -202,9 +202,7 @@ export function useDeliveryPromise({
     facets,
     selectedFacets,
     deliveryLabel: deliverySettings?.title ?? 'Delivery',
-
-    deliveryOptionsLabel:
-      deliverySettings?.deliveryOptions?.title ?? 'Delivery Option',
+    deliveryOptionsLabel: deliveryOptions?.title ?? 'Delivery Option',
     isPickupAllEnabled:
       deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
