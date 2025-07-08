@@ -1,11 +1,13 @@
 import {
   BadRequestError,
+  UnauthorizedError,
   isFastStoreError,
   stringifyCacheControl,
 } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
+import { getJWTAutCookie } from 'src/utils/getCookie'
 import { execute } from '../../server'
 
 const ONE_MINUTE = 60
@@ -65,6 +67,13 @@ const parseRequest = (request: NextApiRequest) => {
   }
 }
 
+function isTokenExpired(exp: number): boolean {
+  const now = Math.floor(Date.now() / 1000)
+  return exp < now
+}
+
+// let firstTokenCheck = true
+
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
     response.status(405).end()
@@ -74,6 +83,35 @@ const handler: NextApiHandler = async (request, response) => {
 
   try {
     const { operation, variables, query } = parseRequest(request)
+
+    if (
+      operation.__meta__.operationName === 'ValidateSession' &&
+      discoveryConfig.experimental?.refreshToken
+    ) {
+      const jwt = getJWTAutCookie({
+        headers: request.headers,
+        account: discoveryConfig.api.storeId,
+      })
+      console.log('🚀 ~ jwt:', jwt)
+
+      const tokenExpired = jwt && isTokenExpired(jwt?.exp)
+      console.log('🚀 ~ tokenExpired:', tokenExpired)
+      if (tokenExpired) {
+        throw new UnauthorizedError(
+          'Unauthorized: Token expired. Please login again or refresh the page.'
+        )
+      }
+    }
+
+    // Prevents to call ValidateSession or ValidateCartMutation without session (required) and get GraphQLError
+    const doNotRun =
+      (operation.__meta__.operationName === 'ValidateSession' ||
+        operation.__meta__.operationName === 'ValidateCartMutation') &&
+      !variables?.session
+
+    if (doNotRun) {
+      return
+    }
 
     const { data, errors, extensions } = await execute(
       {
@@ -138,7 +176,13 @@ const handler: NextApiHandler = async (request, response) => {
       return
     }
 
+    if (err instanceof UnauthorizedError) {
+      response.status(401).end()
+      return
+    }
+
     response.status(500).end()
+    return
   }
 }
 
