@@ -163,6 +163,7 @@ function RegionSlider() {
       }
 
       if (regionSliderType === 'globalChangePickupPoint') {
+        changePickupPoint(pickupPointFacet)
         changeGlobalPickupPoint(pickupPointFacet)
       }
     }
