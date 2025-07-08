@@ -31,9 +31,6 @@ export type RegionalizationCmsData = {
         enabled?: boolean
       }
     }
-    deliveryOptions?: {
-      title?: string
-    }
     regionSlider?: {
       title?: {
         setLocation?: string
@@ -46,6 +43,7 @@ export type RegionalizationCmsData = {
     }
   }
   deliveryOptions?: {
+    title?: string
     allDeliveryOptions?: string
   }
 }

@@ -143,17 +143,6 @@
                         }
                       }
                     },
-                    "deliveryOptions": {
-                      "title": "PLP/Search Filter: Delivery Options",
-                      "type": "object",
-                      "properties": {
-                        "title": {
-                          "title": "Delivery Options title",
-                          "type": "string",
-                          "default": "Delivery Option"
-                        }
-                      }
-                    },
                     "regionSlider": {
                       "title": "RegionSlider SlideOver",
                       "type": "object",
@@ -202,6 +191,11 @@
                   "title": "PLP/Search Filter: Delivery Options",
                   "type": "object",
                   "properties": {
+                    "title": {
+                      "title": "Delivery Options title",
+                      "type": "string",
+                      "default": "Delivery Option"
+                    },
                     "allDeliveryOptions": {
                       "title": "All delivery options label",
                       "type": "string",
