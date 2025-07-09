@@ -132,7 +132,7 @@ export const validateSession = async (session: Session) => {
     if (shouldRefreshToken) {
       // TODO call refresh route
       const headers: HeadersInit = {
-        // 'content-type': 'application/json',
+        'content-type': 'application/json',
         Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
         // Host: `${storeConfig.api.storeId}.myvtex.com`,
         // Host: request.headers?.host,
