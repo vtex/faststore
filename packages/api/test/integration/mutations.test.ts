@@ -29,6 +29,7 @@ const apiOptions = {
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
+    enableUnavailableItemsOnCart: false,
   },
 } as Options
 

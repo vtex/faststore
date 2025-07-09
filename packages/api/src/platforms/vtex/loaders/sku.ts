@@ -6,7 +6,7 @@ import type { EnhancedSku } from '../utils/enhanceSku'
 import type { Options } from '..'
 import type { Clients } from '../clients'
 
-export const getSkuLoader = (_: Options, clients: Clients) => {
+export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
   const loader = async (keys: readonly string[]) => {
     const skuIds = keys.map((key) => key.split('-')[0])
     const showInvisibleItems = keys.some(
@@ -18,6 +18,9 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       page: 0,
       count: skuIds.length,
       showInvisibleItems,
+      ...(flags?.enableUnavailableItemsOnCart && {
+        hideUnavailableItems: false,
+      }),
     })
 
     const skuBySkuId = products.reduce(

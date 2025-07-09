@@ -97,6 +97,7 @@ beforeAll(async () => {
     showSponsored: false,
     flags: {
       enableOrderFormSync: true,
+      enableUnavailableItemsOnCart: false,
     },
   })
 })
