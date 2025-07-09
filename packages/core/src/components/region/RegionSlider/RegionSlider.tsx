@@ -6,7 +6,7 @@ import {
   type InputFieldProps as UIInputFieldProps,
 } from '@faststore/ui'
 import dynamic from 'next/dynamic'
-import type { MouseEvent } from 'react'
+import type { MouseEvent, ChangeEvent } from 'react'
 import { useEffect, useRef, useState, useMemo } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import { PickupPointCards } from 'src/components/ui/PickupPoints'
@@ -67,7 +67,7 @@ function RegionSlider() {
   )
   const pickupPoints = useMemo(
     () =>
-      pickupPointsSimulation && pickupPointsSimulation.pickupPoints.length !== 0
+      pickupPointsSimulation?.postalCode
         ? pickupPointsSimulation.pickupPoints
         : statePickupPoints,
     [statePickupPoints, pickupPointsSimulation]
@@ -81,9 +81,7 @@ function RegionSlider() {
   )
   const [validatedSession, setValidatedSession] = useState<Session>(undefined)
 
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [])
+  useEffect(() => inputRef.current?.focus(), [])
 
   useEffect(() => {
     setInput(session.postalCode)
@@ -103,10 +101,18 @@ function RegionSlider() {
 
     await setRegion({
       session,
-      preview: true,
-      onSuccess: (validatedSession) => {
-        setValidatedSession(validatedSession)
-        onPostalCodeChange({ simulatePickupPoints: true, validatedSession })
+      simulation: isChangingPickupPoint,
+      onSuccess: (newSession) => {
+        // Pickup points simulation
+        if (newSession) {
+          setValidatedSession(newSession)
+          onPostalCodeChange({
+            simulatePickupPoints: true,
+            validatedSession: newSession,
+          })
+        } else {
+          onPostalCodeChange()
+        }
 
         if (!isChangingPickupPoint) {
           setInput('')
@@ -120,7 +126,9 @@ function RegionSlider() {
     })
   }
 
-  const handlePickupPointOnChange = (e: MouseEvent<HTMLInputElement>) => {
+  const handlePickupPointOnChange = (
+    e: ChangeEvent<HTMLInputElement> & MouseEvent<HTMLInputElement>
+  ) => {
     if (pickupPointOption === e.currentTarget.value) {
       return setPickupPointOption(null)
     }
@@ -129,16 +137,15 @@ function RegionSlider() {
   }
 
   const handlePickupPointUpdate = () => {
-    const shippingFacet = searchState.selectedFacets.find(
-      (facet) => facet.key === SHIPPING_FACET_KEY
-    )
-
     if (validatedSession && isChangingPickupPoint) {
       sessionStore.set(validatedSession)
     }
 
     // If shipping is not 'pickup-in-point', we need to toggle it
     const facetsToToggle = []
+    const shippingFacet = searchState.selectedFacets.find(
+      (facet) => facet.key === SHIPPING_FACET_KEY
+    )
 
     if (!shippingFacet || shippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE) {
       facetsToToggle.push({
@@ -158,19 +165,17 @@ function RegionSlider() {
       )
 
       if (regionSliderType === 'changePickupPoint') {
-        changePickupPoint(pickupPointFacet)
-        changeGlobalPickupPoint(null)
+        onPostalCodeChange()
       }
 
       if (regionSliderType === 'globalChangePickupPoint') {
-        changePickupPoint(pickupPointFacet)
+        onPostalCodeChange()
         changeGlobalPickupPoint(pickupPointFacet)
       }
     }
 
     if (facetsToToggle.length > 0) {
       setSearchState({
-        ...searchState,
         selectedFacets: toggleFacets(
           searchState.selectedFacets,
           facetsToToggle,
@@ -179,6 +184,13 @@ function RegionSlider() {
         page: 0,
       })
     }
+  }
+
+  const onDismissSlider = () => {
+    setInput(session.postalCode)
+    setAppliedInput(session.postalCode)
+    setValidatedSession(undefined)
+    clearPickupPointsSimulation()
   }
 
   const idkPostalCodeLinkProps = {
@@ -214,12 +226,8 @@ function RegionSlider() {
       }
       size="partial"
       direction="rightSide"
-      onClose={() => {
-        setInput(session.postalCode)
-        setAppliedInput(session.postalCode)
-        setValidatedSession(undefined)
-        clearPickupPointsSimulation()
-      }}
+      onClose={() => onDismissSlider()}
+      onDismiss={() => onDismissSlider()}
       footer={isChangingPickupPoint ? true : false}
       applyBtnProps={
         isChangingPickupPoint
@@ -256,9 +264,7 @@ function RegionSlider() {
             setInput(e.currentTarget.value)
             regionError !== '' && setRegionError('')
           }}
-          onSubmit={() => {
-            handleSubmit()
-          }}
+          onSubmit={() => handleSubmit()}
           onClear={() => {
             setInput('')
             setRegionError('')

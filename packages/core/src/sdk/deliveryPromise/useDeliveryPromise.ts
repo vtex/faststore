@@ -47,7 +47,7 @@ export type PickupPoint = {
 
 export type DeliveryPromiseStore = {
   pickupPoints?: PickupPoint[]
-  selectedPickupPoint?: PickupPoint | null
+  defaultPickupPoint?: PickupPoint | null
   globalPickupPoint?: PickupPoint | null
   shouldUpdatePickupPoints?: boolean
   simulatePickupPoints?: boolean
@@ -57,7 +57,7 @@ export type DeliveryPromiseStore = {
 const baseStore = createStore<DeliveryPromiseStore>(
   {
     pickupPoints: [],
-    selectedPickupPoint: null,
+    defaultPickupPoint: null,
     globalPickupPoint: null,
     shouldUpdatePickupPoints: false,
     pickupPointsSimulation: undefined,
@@ -99,7 +99,7 @@ export function useDeliveryPromise({
   const { state: searchState, setState: setSearchState } = useSearch()
   const {
     pickupPoints,
-    selectedPickupPoint,
+    defaultPickupPoint,
     globalPickupPoint,
     pickupPointsSimulation,
     dispatchDeliveryPromiseAction,
@@ -142,9 +142,9 @@ export function useDeliveryPromise({
     if (pickupPoints.length === 0) return
 
     deliveryPromiseStore.set({
-      selectedPickupPoint: pickupPointByID(selectedPickupPointFacet),
+      defaultPickupPoint: pickupPointByID(selectedPickupPointFacet),
     })
-  }, [pickupPoints])
+  }, [pickupPoints, selectedPickupPointFacet])
 
   const pickupPointByID = useCallback(
     (id: string) => {
@@ -182,13 +182,13 @@ export function useDeliveryPromise({
   const pickupInPointFacet = useMemo(
     () => ({
       value: PICKUP_IN_POINT_FACET_VALUE,
-      label: selectedPickupPoint?.name ?? selectedPickupPoint?.address.street,
+      label: defaultPickupPoint?.name ?? defaultPickupPoint?.address.street,
       selected: selectedFilterFacets?.some(
         ({ value }) => value === PICKUP_IN_POINT_FACET_VALUE
       ),
-      quantity: selectedPickupPoint?.totalItems,
+      quantity: defaultPickupPoint?.totalItems,
     }),
-    [selectedPickupPoint, selectedFilterFacets]
+    [pickupPoints, defaultPickupPoint, selectedFilterFacets]
   )
 
   const onDeliveryFacetChange = useCallback(
@@ -209,7 +209,7 @@ export function useDeliveryPromise({
       if (facet?.value === PICKUP_IN_POINT_FACET_VALUE) {
         facetsToToggle.push({
           key: PICKUP_POINT_FACET_KEY,
-          value: selectedPickupPoint?.id,
+          value: defaultPickupPoint?.id,
         })
       } else {
         // Toggle previously selected pickupPoint facet
@@ -240,13 +240,13 @@ export function useDeliveryPromise({
         page: 0,
       })
     },
-    [selectedFilterFacets, selectedPickupPoint]
+    [selectedFilterFacets, defaultPickupPoint]
   )
 
   const facets = useMemo(() => {
     if (!allFacets) return []
 
-    return !isDeliveryPromiseEnabled
+    return !isDeliveryPromiseEnabled || !postalCode
       ? allFacets.filter(({ key }) => key !== SHIPPING_FACET_KEY)
       : allFacets.map((facet) => {
           if (
@@ -261,7 +261,7 @@ export function useDeliveryPromise({
           )
 
           // Remove old pickup `pickup in point` facet from list and search state
-          if (pickupInPointFacetIndex !== -1 && !selectedPickupPoint) {
+          if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
             const selectedShippingFacet = selectedFilterFacets.find(
               ({ key }) => key === SHIPPING_FACET_KEY
             )
@@ -282,7 +282,7 @@ export function useDeliveryPromise({
             facet.values.splice(pickupInPointFacetIndex, 1)
           }
           // Prevent multiple `pickup in point` facet
-          else if (pickupInPointFacetIndex === -1 && selectedPickupPoint) {
+          else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
             facet.values = withUniqueFacet(facet.values, pickupInPointFacet)
           }
           // Replace current `pickup-in-point` facet with the updated one
@@ -304,9 +304,10 @@ export function useDeliveryPromise({
     allDeliveryMethodsFacet,
     pickupInPointFacet,
     allFacets,
-    selectedPickupPoint,
+    defaultPickupPoint,
     pickupPoints,
     selectedFilterFacets,
+    onDeliveryFacetChange,
   ])
 
   const onPostalCodeChange = useCallback(
@@ -329,7 +330,7 @@ export function useDeliveryPromise({
                 validatedSession: { ...partialSession },
               },
             }
-          : {}),
+          : undefined),
       })
     },
     []
@@ -347,12 +348,12 @@ export function useDeliveryPromise({
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
     pickupPoints,
-    selectedPickupPoint,
+    defaultPickupPoint,
     selectedPickupPointFacet,
     pickupPointsSimulation,
     clearPickupPointsSimulation,
     changePickupPoint: (pickupPoint: PickupPoint) => {
-      deliveryPromiseStore.set({ selectedPickupPoint: pickupPoint })
+      deliveryPromiseStore.set({ defaultPickupPoint: pickupPoint })
     },
     globalPickupPoint,
     changeGlobalPickupPoint: (pickupPoint: PickupPoint) => {

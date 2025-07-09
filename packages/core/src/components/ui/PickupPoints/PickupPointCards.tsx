@@ -5,7 +5,7 @@ import {
   RadioGroup as UIRadioGroup,
   RadioOption as UIRadioOption,
 } from '@faststore/ui'
-import type { MouseEventHandler } from 'react'
+import type { ChangeEventHandler, MouseEventHandler } from 'react'
 import { PickupPointCard } from '.'
 
 export type PickupPoint = {
@@ -30,7 +30,8 @@ export interface PickupPointCardsProps {
   /**
    * Function that is triggered when any option is selected.
    */
-  onChange?: MouseEventHandler<HTMLInputElement>
+  onChange?: MouseEventHandler<HTMLInputElement> &
+    ChangeEventHandler<HTMLInputElement>
   /**
    * Message to be displayed when no pickup points are available.
    */
@@ -96,6 +97,7 @@ function PickupPointCards({
       <UIRadioGroup
         name="stores-radio-group"
         selectedValue={selectedOption}
+        onChange={onChange}
         aria-label={choosePickupPointAriaLabel}
       >
         {pickupPoints?.map((item) => (

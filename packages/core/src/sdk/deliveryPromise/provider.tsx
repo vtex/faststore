@@ -78,7 +78,7 @@ export function DeliveryPromiseProvider({
 
       deliveryPromiseStore.set({
         globalPickupPoint: null,
-        selectedPickupPoint: null,
+        defaultPickupPoint: null,
         pickupPoints: newPickupPoints,
         pickupPointsSimulation: initialPickupPointsSimulation,
         simulatePickupPoints: false,

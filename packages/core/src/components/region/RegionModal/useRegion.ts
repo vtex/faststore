@@ -11,7 +11,7 @@ type SetRegionProps = {
   onSuccess?: (validatedSession?: Session) => void
   errorMessage: string
   noProductsAvailableErrorMessage?: string
-  preview?: boolean
+  simulation?: boolean
 }
 
 type UseRegionValues = {
@@ -31,7 +31,7 @@ export default function useRegion(): UseRegionValues {
     session,
     onSuccess,
     noProductsAvailableErrorMessage,
-    preview = false,
+    simulation = false,
   }: SetRegionProps) => {
     if (typeof postalCode !== 'string') {
       return
@@ -61,9 +61,9 @@ export default function useRegion(): UseRegionValues {
         }
       }
 
-      !preview && sessionStore.set(validatedSession ?? newSession)
+      !simulation && sessionStore.set(validatedSession ?? newSession)
       setRegionError('')
-      onSuccess?.(preview ? validatedSession : undefined) // Execute the post-validation action (close modal, etc.)
+      onSuccess?.(simulation ? validatedSession : undefined) // Execute the post-validation action (close modal, etc.)
     } catch (error) {
       setRegionError(errorMessage)
     } finally {

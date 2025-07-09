@@ -18,7 +18,7 @@ export const initialPickupPointsSimulation: PickupPointsSimulation = {
 
 export type DeliveryPromiseReducerState = {
   pickupPoints?: PickupPoint[]
-  selectedPickupPoint?: PickupPoint
+  defaultPickupPoint?: PickupPoint
   globalPickupPoint?: PickupPoint
   shouldUpdatePickupPoints?: boolean
   simulatePickupPoints?: boolean
@@ -32,7 +32,7 @@ export type DeliveryPromiseReducerAction =
     }
   | {
       type: 'changePickupPoint'
-      payload: DeliveryPromiseReducerState['selectedPickupPoint']
+      payload: DeliveryPromiseReducerState['defaultPickupPoint']
     }
   | {
       type: 'changeGlobalPickupPoint'
@@ -56,7 +56,7 @@ export type DeliveryPromiseReducerAction =
 export const initializeDeliveryPromiseState =
   (): DeliveryPromiseReducerState => ({
     pickupPoints: [],
-    selectedPickupPoint: null,
+    defaultPickupPoint: null,
     globalPickupPoint: null,
     shouldUpdatePickupPoints: false,
     simulatePickupPoints: false,
@@ -75,7 +75,7 @@ export const deliveryPromiseReducer = (
 
       return {
         ...state,
-        selectedPickupPoint: null,
+        defaultPickupPoint: null,
         globalPickupPoint: null,
         pickupPoints: payload.pickupPoints,
         shouldUpdatePickupPoints: payload.shouldUpdatePickupPoints,
@@ -103,7 +103,7 @@ export const deliveryPromiseReducer = (
 
       return {
         ...state,
-        selectedPickupPoint: null,
+        defaultPickupPoint: null,
         globalPickupPoint: null,
         pickupPointsSimulation: initialPickupPointsSimulation,
         shouldUpdatePickupPoints: true,
@@ -113,7 +113,7 @@ export const deliveryPromiseReducer = (
     case 'changePickupPoint': {
       const { payload } = action
 
-      return { ...state, selectedPickupPoint: payload }
+      return { ...state, defaultPickupPoint: payload }
     }
 
     case 'changeGlobalPickupPoint': {
