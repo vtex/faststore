@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import config from '../../../discovery.config'
-import { sessionStore } from 'src/sdk/session'
 import { createStore, type SearchState } from '@faststore/sdk'
-import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
-import type { useFilter } from 'src/sdk/search/useFilter'
-import {
-  getRegionalizationSettings,
-  type RegionalizationCmsData,
-} from 'src/utils/globalSettings'
 import type { Filter_FacetsFragment } from '@generated/graphql'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import type { useFilter } from 'src/sdk/search/useFilter'
+import { sessionStore } from 'src/sdk/session'
+import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import type { GlobalCmsData } from 'src/utils/globalSettings'
+import config from '../../../discovery.config'
 
 const PickupPointFacetKey = 'pickupPoint' as const
 const ShippingFacetKey = 'shipping' as const
@@ -27,7 +24,7 @@ const deliveryPromise = createStore<DeliveryPromiseStore>(
 )
 
 type Props = {
-  deliverySettings: RegionalizationCmsData['deliverySettings']
+  deliveryPromiseSettings: GlobalCmsData['deliveryPromise']
   allFacets: ReturnType<typeof useFilter>['facets']
   fallbackToFirst: boolean
   toggleFacet?: (facets: Facet) => void
@@ -40,16 +37,11 @@ type Props = {
  */
 export function useDeliveryPromise({
   allFacets,
-  deliverySettings: deliverySettingsData,
+  deliveryPromiseSettings,
   fallbackToFirst = true,
   selectedFacets = [],
   toggleFacet,
 }: Props) {
-  const regionalizationData = getRegionalizationSettings({
-    deliverySettings: deliverySettingsData,
-  })
-  const { deliverySettings } = regionalizationData
-
   const pickupPoints = usePickupPoints()
   const [isLoading, setIsLoading] = useState(deliveryPromise.read().isLoading)
   const [postalCode, setPostalCode] = useState(sessionStore.read().postalCode)
@@ -102,7 +94,7 @@ export function useDeliveryPromise({
     () => ({
       value: 'all-delivery-methods',
       label:
-        deliverySettings?.deliveryMethods?.allDeliveryMethods ??
+        deliveryPromiseSettings?.deliveryMethods?.allDeliveryMethods ??
         'All delivery methods',
       selected:
         !selectedFacets.find((facet) => facet.key === ShippingFacetKey) ||
@@ -113,7 +105,7 @@ export function useDeliveryPromise({
         ),
       quantity: 0,
     }),
-    [selectedFacets, deliverySettings]
+    [selectedFacets, deliveryPromiseSettings]
   )
 
   const pickupInPointFacet = useMemo(
@@ -201,9 +193,10 @@ export function useDeliveryPromise({
     pickupPointByID,
     facets,
     selectedFacets,
-    deliveryLabel: deliverySettings?.title ?? 'Delivery',
+    deliveryLabel:
+      deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
     isPickupAllEnabled:
-      deliverySettings?.deliveryMethods?.pickupAll?.enabled ?? false,
+      deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false,
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
   }
 }
