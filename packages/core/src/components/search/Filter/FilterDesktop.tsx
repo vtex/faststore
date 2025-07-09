@@ -33,7 +33,6 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
-  deliveryPromiseSettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
   const {
@@ -62,6 +61,9 @@ function FilterDesktop({
     })
   }
 
+  const cmsData = getGlobalSettings()
+  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+
   const {
     selectedPickupPoint,
     facets: filteredFacets,
@@ -75,9 +77,6 @@ function FilterDesktop({
     allFacets: facets,
     deliveryPromiseSettings,
   })
-
-  const cmsData = getGlobalSettings()
-  const { deliveryMethods } = cmsData?.deliveryPromise ?? {}
 
   return (
     <>
@@ -96,7 +95,7 @@ function FilterDesktop({
             index={0}
             type=""
             label={deliveryLabel}
-            description={deliveryMethods?.description}
+            description={deliveryPromiseSettings?.deliveryMethods?.description}
           >
             <UIButton
               data-fs-filter-list-delivery-button
@@ -106,7 +105,8 @@ function FilterDesktop({
               }}
               icon={<UIIcon name="MapPin" />}
             >
-              {deliveryMethods?.setLocationButtonLabel ?? 'Set Location'}
+              {deliveryPromiseSettings?.deliveryMethods
+                ?.setLocationButtonLabel ?? 'Set Location'}
             </UIButton>
           </UIFilterFacets>
         )}
@@ -125,7 +125,9 @@ function FilterDesktop({
               type={type}
               label={isDeliveryFacet ? deliveryLabel : label}
               description={
-                isDeliveryFacet ? deliveryMethods?.description : undefined
+                isDeliveryFacet
+                  ? deliveryPromiseSettings?.deliveryMethods?.description
+                  : undefined
               }
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
@@ -149,7 +151,9 @@ function FilterDesktop({
                             isDeliveryFacet ? (
                               <FilterDeliveryMethodFacet
                                 item={item}
-                                deliveryMethods={deliveryMethods}
+                                deliveryMethods={
+                                  deliveryPromiseSettings?.deliveryMethods
+                                }
                               />
                             ) : (
                               item.label

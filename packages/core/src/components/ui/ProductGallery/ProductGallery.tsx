@@ -54,7 +54,6 @@ export interface ProductGalleryProps {
       clearButtonLabel: FilterSliderProps['clearButtonLabel']
       applyButtonLabel: FilterSliderProps['applyButtonLabel']
     }
-    deliveryPromiseSettings?: FilterSliderProps['deliveryPromiseSettings']
   }
   previousPageButton?: {
     label?: string
@@ -140,9 +139,6 @@ function ProductGallery({
                     {...FilterDesktop.props}
                     {...filter}
                     title={filterCmsData?.title}
-                    deliveryPromiseSettings={
-                      filterCmsData?.deliveryPromiseSettings
-                    }
                   />
                 </div>
               )}
@@ -157,7 +153,6 @@ function ProductGallery({
               title={filterCmsData?.title}
               clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
               applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
-              deliveryPromiseSettings={filterCmsData?.deliveryPromiseSettings}
             />
           </div>
         )}

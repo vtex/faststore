@@ -20,7 +20,7 @@ import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 
-import { getGlobalSettings, type GlobalCmsData } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import { RegionSlider } from 'src/components/region/RegionSlider'
 
@@ -83,10 +83,6 @@ export interface FilterSliderProps {
    * CMS defined label for the apply button component.
    */
   applyButtonLabel?: string
-  /**
-   * CMS settings for values related to delivery promise (e.g., custom name for title, shipping, pickup, pickup-nearby).
-   */
-  deliveryPromiseSettings?: GlobalCmsData['deliveryPromise']
 }
 
 function FilterSlider({
@@ -98,7 +94,6 @@ function FilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
-  deliveryPromiseSettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
   const {
@@ -128,6 +123,9 @@ function FilterSlider({
     })
   }
 
+  const cmsData = getGlobalSettings()
+  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+
   const {
     selectedPickupPoint,
     facets: filteredFacets,
@@ -141,9 +139,6 @@ function FilterSlider({
     allFacets: facets,
     deliveryPromiseSettings,
   })
-
-  const cmsData = getGlobalSettings()
-  const { deliveryMethods } = cmsData?.deliveryPromise ?? {}
 
   return (
     <>
@@ -203,7 +198,9 @@ function FilterSlider({
               index={0}
               type=""
               label={deliveryLabel}
-              description={deliveryMethods?.description}
+              description={
+                deliveryPromiseSettings?.deliveryMethods?.description
+              }
             >
               <UIButton
                 data-fs-filter-list-delivery-button
@@ -213,7 +210,8 @@ function FilterSlider({
                 }}
                 icon={<UIIcon name="MapPin" />}
               >
-                {deliveryMethods?.setLocationButtonLabel ?? 'Set Location'}
+                {deliveryPromiseSettings?.deliveryMethods
+                  ?.setLocationButtonLabel ?? 'Set Location'}
               </UIButton>
             </UIFilterFacets>
           )}
@@ -232,7 +230,9 @@ function FilterSlider({
                 type={type}
                 label={isDeliveryFacet ? deliveryLabel : label}
                 description={
-                  isDeliveryFacet ? deliveryMethods?.description : undefined
+                  isDeliveryFacet
+                    ? deliveryPromiseSettings?.deliveryMethods?.description
+                    : undefined
                 }
               >
                 {type === 'StoreFacetBoolean' && isExpanded && (
@@ -253,7 +253,9 @@ function FilterSlider({
                               isDeliveryFacet ? (
                                 <FilterDeliveryMethodFacet
                                   item={item}
-                                  deliveryMethods={deliveryMethods}
+                                  deliveryMethods={
+                                    deliveryPromiseSettings?.deliveryMethods
+                                  }
                                 />
                               ) : (
                                 item.label
