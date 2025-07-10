@@ -67,12 +67,11 @@ export const STORE_EVENT_PREFIX = 'store:'
 export const ANALYTICS_EVENT_TYPE = 'AnalyticsEvent'
 
 export const wrap = <T extends UnknownEvent>(
-  event: T,
-  isEcommerceEvent: boolean
+  event: T
 ): WrappedAnalyticsEvent<T> =>
   ({
     name: ANALYTICS_EVENT_TYPE,
-    nested: isEcommerceEvent,
+    isEcommerceEvent: event.isEcommerceEvent ?? true,
     params: {
       ...event,
       name: `${STORE_EVENT_PREFIX}${event.name}`,
@@ -80,12 +79,11 @@ export const wrap = <T extends UnknownEvent>(
   }) as unknown as WrappedAnalyticsEvent<T>
 
 export const unwrap = <T extends UnknownEvent>(
-  event: WrappedAnalyticsEvent<T>,
-  isEcommerceEvent?: boolean
+  event: WrappedAnalyticsEvent<T>
 ): T => {
   return {
     ...event.params,
-    isEcommerceEvent: isEcommerceEvent,
+    isEcommerceEvent: event.isEcommerceEvent ?? true,
     name: event.params.name.slice(
       STORE_EVENT_PREFIX.length,
       event.params.name.length

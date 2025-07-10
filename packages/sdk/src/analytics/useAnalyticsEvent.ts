@@ -13,7 +13,7 @@ export const useAnalyticsEvent = <T extends UnknownEvent = UnknownEvent>(
           return
         }
 
-        handler(unwrap(message.data, message.data.isEcommerceEvent))
+        handler(unwrap(message.data))
       } catch (err) {
         console.error('Something went wrong while running Analytics handler')
       }

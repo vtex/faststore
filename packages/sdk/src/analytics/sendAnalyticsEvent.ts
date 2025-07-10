@@ -6,11 +6,10 @@ export const sendAnalyticsEvent = <
   /** This generic is here so users get the IntelliSense for event type options from AnalyticsEvent */
   T extends K = K,
 >(
-  event: T,
-  isEcommerceEvent?: boolean
+  event: T
 ) => {
   try {
-    window.postMessage(wrap(event, isEcommerceEvent ?? true), window.origin)
+    window.postMessage(wrap(event), window.origin)
   } catch (e) {
     // IE and Edge have a bug on postMessage inside promises.
     // Ignoring for now, will try to find a workaround that
