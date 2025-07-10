@@ -67,12 +67,10 @@ const parseRequest = (request: NextApiRequest) => {
   }
 }
 
-function isTokenExpired(exp: number): boolean {
+function isExpired(exp: number): boolean {
   const now = Math.floor(Date.now() / 1000)
-  return exp < now
+  return now > exp
 }
-
-// let firstTokenCheck = true
 
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
