@@ -19,6 +19,8 @@ const AnalyticsHandler = (): null => {
 
     // source: https://developers.google.com/tag-manager/ecommerce-ga4?hl=pt-br#clearing_the_ecommerce_object
 
+    window.dataLayer.push({ ecommerce: null })
+
     const payload = event.isEcommerceEvent
       ? { event: event.name, ecommerce: event.params }
       : { event: event.name, ...event.params }
