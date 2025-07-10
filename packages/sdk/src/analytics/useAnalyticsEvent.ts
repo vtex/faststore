@@ -4,7 +4,7 @@ import { ANALYTICS_EVENT_TYPE, unwrap } from './wrap'
 import type { UnknownEvent } from './wrap'
 
 export const useAnalyticsEvent = <T extends UnknownEvent = UnknownEvent>(
-  handler: (event: T, isEcommerceEvent?: boolean) => unknown
+  handler: (event: T) => unknown
 ) => {
   const callback = useCallback(
     (message: MessageEvent) => {
