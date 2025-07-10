@@ -205,24 +205,45 @@ function RegionSlider() {
     clearPickupPointsSimulation()
   }
 
-  const idkPostalCodeLinkProps = {
-    href: idkPostalCodeLink?.to,
-    children: (
-      <>
-        {idkPostalCodeLink?.text}
-        {!!idkPostalCodeLink?.icon?.icon && (
-          <UIIcon
-            name={idkPostalCodeLink?.icon?.icon}
-            aria-label={idkPostalCodeLink?.icon?.alt}
-            width={20}
-            height={20}
-          />
-        )}
-      </>
-    ),
-  }
+  const idkPostalCodeLinkProps = useMemo(
+    () => ({
+      href: idkPostalCodeLink?.to,
+      children: (
+        <>
+          {idkPostalCodeLink?.text}
+          {!!idkPostalCodeLink?.icon?.icon && (
+            <UIIcon
+              name={idkPostalCodeLink?.icon?.icon}
+              aria-label={idkPostalCodeLink?.icon?.alt}
+              width={20}
+              height={20}
+            />
+          )}
+        </>
+      ),
+    }),
+    [idkPostalCodeLink]
+  )
 
   if (!isOpen) return null
+
+  const isSameSelectedPickupPoint =
+    regionSliderType === 'changePickupPoint' &&
+    selectedPickupPointFacet &&
+    pickupPointOption === selectedPickupPointFacet
+  const isSameGlobalPickupPoint =
+    regionSliderType === 'globalChangePickupPoint' &&
+    globalPickupPoint &&
+    pickupPointOption === globalPickupPoint.id
+  const shouldDisableUpdateButton =
+    loading ||
+    input === '' ||
+    input !== appliedInput ||
+    pickupPoints?.length === 0 ||
+    !pickupPointOption ||
+    isSameSelectedPickupPoint ||
+    isSameGlobalPickupPoint ||
+    regionError !== ''
 
   return (
     <UIFilterSlider
@@ -248,14 +269,7 @@ function RegionSlider() {
               children:
                 cmsData?.deliverySettings?.regionSlider
                   ?.pickupPointChangeApplyButtonLabel,
-              disabled:
-                loading ||
-                input === '' ||
-                !pickupPointOption ||
-                pickupPointOption === selectedPickupPointFacet ||
-                regionError !== '' ||
-                input !== appliedInput ||
-                pickupPoints?.length === 0,
+              disabled: shouldDisableUpdateButton,
               onClick: () => handlePickupPointUpdate(),
             }
           : undefined

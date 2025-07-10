@@ -115,7 +115,7 @@ export function useDeliveryPromise({
       searchState.selectedFacets.find(
         ({ key }) => key === PICKUP_POINT_FACET_KEY
       )?.value,
-    [searchState.selectedFacets]
+    [searchState.selectedFacets, pickupPoints, defaultPickupPoint]
   )
 
   // Update Delivery Promise global state after store changes
