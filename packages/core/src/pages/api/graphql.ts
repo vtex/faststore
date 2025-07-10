@@ -90,11 +90,19 @@ const handler: NextApiHandler = async (request, response) => {
         headers: request.headers,
         account: discoveryConfig.api.storeId,
       })
-      console.log('🚀 ~ jwt:', jwt)
+      console.log('🚀 ~ API GRAPHQL - jwt:', jwt)
 
-      const tokenExpired = jwt && isTokenExpired(jwt?.exp)
-      console.log('🚀 ~ tokenExpired:', tokenExpired)
-      if (tokenExpired) {
+      const tokenExpired = jwt && isExpired(Number(jwt?.exp))
+      console.log('🚀 ~ API GRAPHQL - tokenExpired:', tokenExpired)
+
+      const refreshAfterExist = !!variables?.session?.refreshAfter
+      const refreshAfterExpired =
+        refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
+
+      const shouldRefreshToken =
+        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
+
+      if (shouldRefreshToken) {
         throw new UnauthorizedError(
           'Unauthorized: Token expired. Please login again or refresh the page.'
         )

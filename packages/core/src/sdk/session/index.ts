@@ -130,15 +130,14 @@ export const validateSession = async (session: Session) => {
       error?.status === 401 && storeConfig.experimental?.refreshToken
     // && process.env.NODE_ENV === 'production'
 
+    console.log('🚀 ~ shouldRefreshToken:', shouldRefreshToken)
+
     if (shouldRefreshToken) {
-      // TODO call refresh route
       const headers: HeadersInit = {
         'content-type': 'application/json',
         Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
-        // Host: `${storeConfig.api.storeId}.myvtex.com`,
-        // Host: request.headers?.host,
-        // Cookie: request.headers.cookie,
       }
+
       console.log('🚀 ~ headers:', headers)
       const result = await fetchWithRetry(REFRESH_TOKEN_URL, {
         credentials: 'include',
@@ -148,6 +147,28 @@ export const validateSession = async (session: Session) => {
       })
 
       console.log('🚀 ~ REFRESH TOKEN result:', result)
+
+      if (result?.status?.toLowerCase?.() === 'success') {
+        const refreshAfter = String(
+          Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+        )
+
+        sessionStore.set({
+          ...session,
+          refreshAfter,
+        })
+
+        // Revalidate the session after refreshing the token
+        // validateSession(sessionStore.read())
+      } else {
+        // If the refresh token fails 3x, set the refreshAfter to now + 6 hours
+        // so that we can postpone refreshToken request and continue the ValidateSession request
+        sessionStore.set({
+          ...session,
+          refreshAfter: String(Math.floor(Date.now() / 1000) + 6 * 60 * 60), // now + 6 hours
+        })
+        console.log('🚀 ~ sessionStore.read():', sessionStore.read())
+      }
     }
   }
 }
