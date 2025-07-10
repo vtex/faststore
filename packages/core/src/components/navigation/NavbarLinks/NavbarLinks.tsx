@@ -39,10 +39,7 @@ function NavbarLinks({
     useDeliveryPromise()
 
   const shouldDisplayGlobalFilter =
-    isDeliveryPromiseEnabled &&
-    !!postalCode &&
-    pickupPoints.length !== 0 &&
-    filterByPickupPoint?.enabled
+    isDeliveryPromiseEnabled && !!postalCode && filterByPickupPoint?.enabled
 
   return (
     <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
