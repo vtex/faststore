@@ -24,7 +24,7 @@ export const SecuritySection = () => {
               <tr data-fs-security-table-row>
                 <th data-fs-security-table-heading>Password</th>
                 <td data-fs-security-table-data>
-                  <span>••••••••••</span>
+                  <span data-fs-security-table-data-text>••••••••••</span>
                   <Button
                     variant="tertiary"
                     data-fs-security-table-action-button

@@ -194,7 +194,7 @@
       padding-inline: var(--fs-spacing-1);
       border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
 
-      > span {
+      [data-fs-security-table-data-text] {
         padding-block: var(--fs-spacing-4);
         padding-inline: var(--fs-spacing-1);
         font-family: var(--fs-text-face-body);
