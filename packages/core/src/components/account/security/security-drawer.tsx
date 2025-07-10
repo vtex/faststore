@@ -4,7 +4,6 @@ import {
   Icon,
   IconButton,
   Input,
-  LinkButton,
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
@@ -17,36 +16,55 @@ type SecurityDrawerProps = {
   onClose: () => void
 }
 
+const ERROR_COLOR = '#940303'
+const SUCCESS_COLOR = '#015132'
+
+const RULES = [
+  { label: '8 characters', test: (v: string) => v.length >= 8 },
+  { label: '1 uppercase letter', test: (v: string) => /[A-Z]/.test(v) },
+  { label: '1 lowercase letter', test: (v: string) => /[a-z]/.test(v) },
+  { label: '1 number', test: (v: string) => /\d/.test(v) },
+]
+
+const initialRules = RULES.map((rule) => ({
+  label: rule.label,
+  color: ERROR_COLOR,
+}))
+
 export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
 
-  const [inputCode, setInputCode] = useState('')
-  const [inputCodeError, setInputCodeError] = useState<string | undefined>()
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false)
+
   const [newPassword, setNewPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+  const [showNewPassword, setShowNewPassword] = useState(false)
+  const [newPasswordRules, setNewPasswordRules] = useState(initialRules)
 
-  const onChangeInputCode = (value: string) => {
-    setInputCode(value)
-
-    if (value.length === 0) {
-      setInputCodeError(undefined)
-    } else if (value.length < 6) {
-      setInputCodeError('Verification code must be at least 6 characters long')
-    } else {
-      setInputCodeError(undefined)
-    }
+  const onChangeCurrentPassword = (value: string) => {
+    setCurrentPassword(value)
   }
 
   const onChangeNewPassword = (value: string) => {
     setNewPassword(value)
 
-    if (value.length === 0) {
-      setInputCodeError(undefined)
-    } else if (value.length < 8) {
-      setInputCodeError('Password must be at least 8 characters long')
-    } else {
-      setInputCodeError(undefined)
-    }
+    const updatedRules = RULES.map((rule) => ({
+      label: rule.label,
+      color: rule.test(value) ? SUCCESS_COLOR : ERROR_COLOR,
+    }))
+
+    setNewPasswordRules(updatedRules)
+  }
+
+  const handleClose = () => {
+    setCurrentPassword('')
+    setShowCurrentPassword(false)
+
+    setNewPassword('')
+    setShowNewPassword(false)
+
+    setNewPasswordRules(initialRules)
+    onClose()
   }
 
   if (!isOpen) {
@@ -70,39 +88,30 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
 
       <div data-fs-security-drawer-body>
         <div data-fs-security-drawer-body-form>
-          <p data-fs-security-drawer-body-text>
-            A verification code was sent to your <strong>email address</strong>.
-            Enter the code below and set the new password.
-          </p>
-
-          <div data-fs-security-drawer-body-first-input>
+          <div data-fs-security-drawer-body-current-password>
             <Input
               data-fs-security-drawer-input
-              id="security-drawer-input-code"
-              placeholder="Code"
-              type="text"
+              id="security-drawer-input-current-password"
+              type={showCurrentPassword ? 'text' : 'password'}
+              placeholder="Current Password"
               inputMode="text"
-              value={inputCode}
-              onChange={(e) => onChangeInputCode(e.target.value)}
+              value={currentPassword}
+              onChange={(e) => onChangeCurrentPassword(e.target.value)}
             />
-
-            <div data-fs-security-drawer-body-info>
-              <span>Didn't receive the code? </span>
-              <LinkButton
-                data-fs-security-drawer-resend
-                variant="tertiary"
-                onClick={onClose}
-              >
-                Resend code
-              </LinkButton>
-            </div>
+            <IconButton
+              data-fs-security-drawer-input-password-toggle
+              size="small"
+              aria-label="Show Password"
+              icon={showCurrentPassword ? <EyeSlash /> : <Eye />}
+              onClick={() => setShowCurrentPassword((prev) => !prev)}
+            />
           </div>
 
           <div data-fs-security-drawer-body-new-password>
             <Input
               data-fs-security-drawer-input
               id="security-drawer-input-new-password"
-              type={showPassword ? 'text' : 'password'}
+              type={showNewPassword ? 'text' : 'password'}
               placeholder="New Password"
               inputMode="text"
               value={newPassword}
@@ -112,23 +121,54 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
               data-fs-security-drawer-input-password-toggle
               size="small"
               aria-label="Show Password"
-              icon={showPassword ? <EyeSlash /> : <Eye />}
-              onClick={() => setShowPassword((prev) => !prev)}
+              icon={showNewPassword ? <EyeSlash /> : <Eye />}
+              onClick={() => setShowNewPassword((prev) => !prev)}
             />
+          </div>
+
+          <div data-fs-security-drawer-input-password-rules-container>
+            <p data-fs-security-drawer-input-password-rules-title>
+              Your password must have at least:
+            </p>
+
+            <ul data-fs-security-drawer-input-password-rules-list>
+              {newPasswordRules.map((rule, index) => (
+                <li
+                  key={index}
+                  data-fs-security-drawer-input-password-rule-item
+                  style={{ color: rule.color }}
+                >
+                  <Icon
+                    name={rule.color === SUCCESS_COLOR ? 'Checked' : 'XCircle'}
+                    width={20}
+                    height={20}
+                  />
+                  {rule.label}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
 
       <footer data-fs-security-drawer-footer>
-        <Button variant="tertiary" onClick={onClose}>
+        <Button variant="tertiary" onClick={handleClose}>
           Cancel
         </Button>
 
         <Button
           data-fs-security-drawer-footer-button
           variant="primary"
-          onClick={onClose}
-          disabled={!inputCode || !newPassword}
+          disabled={
+            !currentPassword ||
+            !newPassword ||
+            newPasswordRules.some((rule) => rule.color === ERROR_COLOR)
+          }
+          onClick={() => {
+            // TODO: Handle password save logic here
+            console.log('Saving new password')
+            handleClose()
+          }}
         >
           Save Password
         </Button>
