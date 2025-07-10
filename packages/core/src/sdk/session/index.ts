@@ -1,5 +1,6 @@
 import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
+import fetch from 'isomorphic-unfetch'
 import { useMemo } from 'react'
 
 import { gql } from '@generated'
@@ -7,11 +8,15 @@ import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
+import discoveryConfig from 'discovery.config'
+import { sanitizeHost } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { getSavedAddress } from '../profile'
 import { createValidationStore, useStore } from '../useStore'
+
+const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
 export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
@@ -63,6 +68,7 @@ export const mutation = gql(`
         utmiPage
         utmiPart
       }
+      refreshAfter
     }
   }
 `)
@@ -107,12 +113,64 @@ export const validateSession = async (session: Session) => {
     }
   }
 
-  const data = await request<
-    ValidateSessionMutation,
-    ValidateSessionMutationVariables
-  >(mutation, { session, search: window.location.search })
+  try {
+    // Prevents to call ValidateSession without session (required) and get Error
+    if (!session) {
+      return null
+    }
 
-  return data.validateSession
+    const data = await request<
+      ValidateSessionMutation,
+      ValidateSessionMutationVariables
+    >(mutation, { session, search: window.location.search })
+
+    return data.validateSession
+  } catch (error) {
+    const shouldRefreshToken =
+      error?.status === 401 && storeConfig.experimental?.refreshToken
+    // && process.env.NODE_ENV === 'production'
+
+    console.log('🚀 ~ shouldRefreshToken:', shouldRefreshToken)
+
+    if (shouldRefreshToken) {
+      const headers: HeadersInit = {
+        'content-type': 'application/json',
+        Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
+      }
+
+      console.log('🚀 ~ headers:', headers)
+      const result = await fetchWithRetry(REFRESH_TOKEN_URL, {
+        credentials: 'include',
+        headers,
+        body: JSON.stringify({}),
+        method: 'POST',
+      })
+
+      console.log('🚀 ~ REFRESH TOKEN result:', result)
+
+      if (result?.status?.toLowerCase?.() === 'success') {
+        const refreshAfter = String(
+          Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+        )
+
+        sessionStore.set({
+          ...session,
+          refreshAfter,
+        })
+
+        // Revalidate the session after refreshing the token
+        // validateSession(sessionStore.read())
+      } else {
+        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
+        // so that we can postpone refreshToken request and continue the ValidateSession request
+        sessionStore.set({
+          ...session,
+          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
+        })
+        console.log('🚀 ~ sessionStore.read():', sessionStore.read())
+      }
+    }
+  }
 }
 
 const [validationStore, onValidate] = createValidationStore(validateSession)
@@ -145,8 +203,10 @@ interface SessionOptions {
  */
 
 export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
-  let { channel, ...session } = useStore(sessionStore)
+  const currentSessionStore = sessionStore.read() ?? sessionStore.readInitial()
+  const resultSessionStore = useStore(sessionStore)
   const isValidating = useStore(validationStore)
+  let { channel, ...session } = resultSessionStore ?? currentSessionStore
 
   if (filter) {
     const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
@@ -162,4 +222,26 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
     }),
     [isValidating, session, channel]
   )
+}
+
+async function fetchWithRetry(
+  url: RequestInfo | URL,
+  init?: RequestInit,
+  maxRetries = 3
+) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const res = await fetch(url, init)
+      console.log('🚀 ~ res:', res)
+      if (res.status !== 200) continue
+
+      const data = await res.json()
+      console.log('🚀 ~ data:', data)
+      if (data.status?.toLowerCase?.() === 'success') {
+        return data
+      }
+    } catch {}
+  }
+
+  return
 }

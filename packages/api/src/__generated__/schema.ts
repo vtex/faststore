@@ -333,6 +333,8 @@ export type IStoreSession = {
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Refresh token after Information. */
+  refreshAfter?: Maybe<Scalars['String']>;
 };
 
 /** Input to the cancel order API. */
@@ -1289,6 +1291,8 @@ export type StoreSession = {
   person?: Maybe<StorePerson>;
   /** Session postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Refresh token after Information. */
+  refreshAfter?: Maybe<Scalars['String']>;
 };
 
 /** Product search results sorting options. */
