@@ -161,11 +161,11 @@ export const validateSession = async (session: Session) => {
         // Revalidate the session after refreshing the token
         // validateSession(sessionStore.read())
       } else {
-        // If the refresh token fails 3x, set the refreshAfter to now + 6 hours
+        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
         // so that we can postpone refreshToken request and continue the ValidateSession request
         sessionStore.set({
           ...session,
-          refreshAfter: String(Math.floor(Date.now() / 1000) + 6 * 60 * 60), // now + 6 hours
+          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
         })
         console.log('🚀 ~ sessionStore.read():', sessionStore.read())
       }
