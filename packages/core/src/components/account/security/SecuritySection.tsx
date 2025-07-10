@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Button } from '@faststore/ui'
 
-import { SecurityDrawer } from './security-drawer'
-import styles from './security.module.scss'
+import { SecurityDrawer } from './SecurityDrawer'
+import styles from './styles.module.scss'
 
 export const SecuritySection = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)

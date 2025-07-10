@@ -1,1 +1,2 @@
-export * from './security-section'
+export * from './SecuritySection'
+export * from './SecurityDrawer'
