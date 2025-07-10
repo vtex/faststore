@@ -193,16 +193,19 @@ function RegionSlider() {
       })
     }
 
-    // Clear state when leaving Region slider after setting a pickup point
-    onDismissSlider()
+    // Clear local state when leaving the component after setting a pickup point,
+    // but `onPostalCodeChange` already clear the pickup points simulation
+    onDismissSlider({ shouldClearPickupPointsSimulation: false })
   }
 
-  const onDismissSlider = () => {
+  const onDismissSlider = ({
+    shouldClearPickupPointsSimulation = true,
+  }: { shouldClearPickupPointsSimulation?: boolean } = {}) => {
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
     setValidatedSession(undefined)
     setPickupPointOption(undefined)
-    clearPickupPointsSimulation()
+    shouldClearPickupPointsSimulation && clearPickupPointsSimulation()
   }
 
   const idkPostalCodeLinkProps = useMemo(

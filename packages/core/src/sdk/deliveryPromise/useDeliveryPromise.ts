@@ -115,7 +115,7 @@ export function useDeliveryPromise({
       searchState.selectedFacets.find(
         ({ key }) => key === PICKUP_POINT_FACET_KEY
       )?.value,
-    [searchState.selectedFacets, pickupPoints, defaultPickupPoint]
+    [searchState.selectedFacets, pickupPoints]
   )
 
   // Update Delivery Promise global state after store changes
@@ -333,7 +333,7 @@ export function useDeliveryPromise({
           : undefined),
       })
     },
-    []
+    [postalCode]
   )
 
   const clearPickupPointsSimulation = useCallback(
