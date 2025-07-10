@@ -65,6 +65,7 @@ module.exports = {
       utmiPart: '',
       utmiPage: '',
     },
+    refreshAfter: null, // timestamp in seconds e.g. '1743042990'
   },
 
   // Default cart

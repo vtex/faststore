@@ -68,6 +68,7 @@ export const mutation = gql(`
         utmiPage
         utmiPart
       }
+      refreshAfter
     }
   }
 `)
