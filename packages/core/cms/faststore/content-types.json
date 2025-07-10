@@ -234,6 +234,17 @@
                       }
                     }
                   }
+                },
+                "deliveryOptions": {
+                  "title": "PLP/Search Filter: Delivery Options",
+                  "type": "object",
+                  "properties": {
+                    "allDeliveryOptions": {
+                      "title": "All delivery options label",
+                      "type": "string",
+                      "default": "All delivery options"
+                    }
+                  }
                 }
               }
             }
