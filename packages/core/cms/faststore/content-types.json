@@ -167,7 +167,7 @@
                               "default": "Change Store"
                             },
                             "globalChangePickupPoint": {
-                              "title": "Change global Pickup Point location title",
+                              "title": "Change Global Pickup Point location title",
                               "type": "string",
                               "default": "Change Store"
                             }

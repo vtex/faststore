@@ -52,10 +52,10 @@ function RegionSlider() {
     pickupPoints: statePickupPoints,
     onPostalCodeChange,
     changeGlobalPickupPoint,
-    changePickupPoint,
     selectedPickupPointFacet,
     pickupPointsSimulation,
     clearPickupPointsSimulation,
+    globalPickupPoint,
   } = useDeliveryPromise()
 
   const isChangingPickupPoint = useMemo(
@@ -77,16 +77,24 @@ function RegionSlider() {
     session.postalCode ?? ''
   )
   const [pickupPointOption, setPickupPointOption] = useState<string | null>(
-    selectedPickupPointFacet ?? null
+    regionSliderType === 'globalChangePickupPoint'
+      ? (globalPickupPoint?.id ?? null)
+      : (selectedPickupPointFacet ?? null)
   )
   const [validatedSession, setValidatedSession] = useState<Session>(undefined)
 
   useEffect(() => inputRef.current?.focus(), [])
 
+  // We should set default state values based on each `regionSliderType` or when postal code changes
   useEffect(() => {
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
-  }, [session.postalCode])
+    setPickupPointOption(
+      regionSliderType === 'globalChangePickupPoint'
+        ? (globalPickupPoint?.id ?? null)
+        : (selectedPickupPointFacet ?? null)
+    )
+  }, [session.postalCode, regionSliderType])
 
   const cmsData = getRegionalizationSettings()
   const inputField = cmsData?.inputField
@@ -184,12 +192,16 @@ function RegionSlider() {
         page: 0,
       })
     }
+
+    // Clear state when leaving Region slider after setting a pickup point
+    onDismissSlider()
   }
 
   const onDismissSlider = () => {
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
     setValidatedSession(undefined)
+    setPickupPointOption(undefined)
     clearPickupPointsSimulation()
   }
 
