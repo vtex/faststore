@@ -18,12 +18,6 @@ import type { ViewItemEvent } from './events/view_item'
 import type { ViewItemListEvent } from './events/view_item_list'
 import type { PageViewEvent } from './events/page_view'
 
-export interface UnknownEvent {
-  name: string
-  isEcommerceEvent?: boolean
-  params: Record<string, any>
-}
-
 /**
  * All these events are based on the official GA4 docs. https://developers.google.com/gtagjs/reference/ga4-events
  */
@@ -47,6 +41,12 @@ export type AnalyticsEvent =
   | SignupEvent
   | ShareEvent
   | PageViewEvent
+
+export interface UnknownEvent {
+  name: string
+  isEcommerceEvent?: boolean
+  params: Record<string, any>
+}
 
 export type WrappedAnalyticsEventParams<T extends UnknownEvent> = Omit<
   T,
@@ -76,7 +76,7 @@ export const wrap = <T extends UnknownEvent>(
       ...event,
       name: `${STORE_EVENT_PREFIX}${event.name}`,
     },
-  }) as unknown as WrappedAnalyticsEvent<T>
+  }) as WrappedAnalyticsEvent<T>
 
 export const unwrap = <T extends UnknownEvent>(
   event: WrappedAnalyticsEvent<T>
