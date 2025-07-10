@@ -43,6 +43,7 @@ export type RegionalizationCmsData = {
     }
   }
   deliveryOptions?: {
+    title?: string
     allDeliveryOptions?: string
   }
 }

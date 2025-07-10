@@ -135,6 +135,7 @@ function FilterSlider({
     selectedPickupPoint,
     facets: filteredFacets,
     deliveryLabel,
+    deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
   } = useDeliveryPromise({
@@ -227,17 +228,24 @@ function FilterSlider({
             const index = shouldDisplayDeliveryButton ? idx + 1 : idx
             const { __typename: type, label } = facet
             const isExpanded = expanded.has(index)
-            const isDeliveryFacet = facet.key === 'shipping'
+            const isDeliveryMethodFacet = facet.key === 'shipping'
+            const isDeliveryOptionFacet = facet.key === 'delivery-options'
+
+            const sectionLabel = isDeliveryMethodFacet
+              ? deliveryLabel
+              : isDeliveryOptionFacet
+                ? deliveryOptionsLabel
+                : label
 
             return (
               <UIFilterFacets
-                key={`${testId}-${label}-${index}`}
+                key={`${testId}-${sectionLabel}-${index}`}
                 testId={`mobile-${testId}`}
                 index={index}
                 type={type}
-                label={isDeliveryFacet ? deliveryLabel : label}
+                label={sectionLabel}
                 description={
-                  isDeliveryFacet
+                  isDeliveryMethodFacet
                     ? deliverySettingsData?.description
                     : undefined
                 }
@@ -257,7 +265,7 @@ function FilterSlider({
                             quantity={item.quantity}
                             facetKey={facet.key}
                             label={
-                              isDeliveryFacet ? (
+                              isDeliveryMethodFacet ? (
                                 <FilterDeliveryMethodFacet
                                   item={item}
                                   deliveryMethods={
@@ -268,7 +276,11 @@ function FilterSlider({
                                 item.label
                               )
                             }
-                            type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                            type={
+                              isDeliveryMethodFacet || isDeliveryOptionFacet
+                                ? 'radio'
+                                : 'checkbox'
+                            }
                           />
                         )
                     )}
@@ -305,7 +317,7 @@ function FilterSlider({
   )
 }
 
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+const RADIO_FACETS = ['shipping', 'pickupPoint', 'delivery-options'] as const
 function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
   if (typeof str !== 'string') return false
 
