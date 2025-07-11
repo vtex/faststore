@@ -55,7 +55,6 @@ export interface ProductGalleryProps {
       clearButtonLabel: FilterSliderProps['clearButtonLabel']
       applyButtonLabel: FilterSliderProps['applyButtonLabel']
     }
-    deliverySettings?: FilterSliderProps['deliverySettings']
   }
   previousPageButton?: {
     label?: string
