@@ -20,7 +20,7 @@
             "placeholder": {
               "title": "Placeholder",
               "type": "string",
-              "default": "Search Everything at the Store"
+              "default": "Search all products"
             },
             "icon": {
               "title": "Search Icon",
@@ -36,7 +36,7 @@
                 "alt": {
                   "title": "Alternative Label",
                   "type": "string",
-                  "default": "Magnifying Glass"
+                  "default": "Magnifying glass"
                 }
               }
             }
@@ -54,7 +54,7 @@
             "clearButtonLabel": {
               "type": "string",
               "title": "Clear Button Label",
-              "default": "Clear History"
+              "default": "Clear history"
             },
             "icon": {
               "title": "Icon",
@@ -88,7 +88,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Top Search"
+              "default": "Top search"
             },
             "maxItems": {
               "title": "Maximum Number of Top Search Items",
@@ -114,7 +114,7 @@
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Magnifying Glass"
+                  "default": "Magnifying glass"
                 }
               }
             },
@@ -132,7 +132,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Suggested Products"
+              "default": "Recommended products"
             },
             "maxItems": {
               "title": "Maximum Number of Suggested Products",
@@ -195,10 +195,10 @@
             "placeholder": {
               "title": "Placeholder for Search Bar",
               "type": "string",
-              "default": "Search everything at the store"
+              "default": "Search all products"
             },
             "sort": {
-              "title": "Results default sort value",
+              "title": "Default sort value for results",
               "type": "string",
               "default": "score_desc",
               "enumNames": [
@@ -249,12 +249,12 @@
             "label": {
               "title": "Call to Action",
               "type": "string",
-              "default": "Sign In"
+              "default": "Sign in"
             },
             "myAccountLabel": {
               "title": "My Account Label",
               "type": "string",
-              "default": "My Account"
+              "default": "My account"
             }
           }
         },
@@ -272,7 +272,7 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": "Shopping Cart"
+              "default": "Shopping cart"
             }
           }
         },
@@ -310,7 +310,7 @@
                 "label": {
                   "title": "Call to Action",
                   "type": "string",
-                  "default": "Set Location"
+                  "default": "Set your location"
                 }
               }
             },
@@ -521,7 +521,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Follow Us"
+              "default": "Follow us"
             },
             "socialLinks": {
               "title": "Social Media",
@@ -617,7 +617,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Payment Methods"
+              "default": "Payment methods"
             },
             "paymentMethods": {
               "title": "Payment Methods",
@@ -941,7 +941,7 @@
             "taxesLabel": {
               "title": "Tax label to be displayed",
               "type": "string",
-              "default": "Tax included"
+              "default": "Surcharge included"
             }
           }
         },
@@ -1013,7 +1013,7 @@
               "default": "Write the first review"
             },
             "defaultText": {
-              "title": "Default Text",
+              "title": "Default text",
               "type": "string",
               "default": "Write a review"
             }
@@ -1032,7 +1032,7 @@
             "closeButtonAriaLabel": {
               "title": "Close modal aria-label",
               "type": "string",
-              "default": "Close Review Modal"
+              "default": "Close"
             },
             "ratingField": {
               "title": "Rating input field",
@@ -1046,7 +1046,7 @@
                 "requiredErrorMessage": {
                   "title": "Input field error message",
                   "type": "string",
-                  "default": "This field is required"
+                  "default": "Required field"
                 }
               }
             },
@@ -1057,12 +1057,12 @@
                 "label": {
                   "title": "Review title input field label",
                   "type": "string",
-                  "default": "Review headline"
+                  "default": "Review title"
                 },
                 "requiredErrorMessage": {
                   "title": "Review title field error message",
                   "type": "string",
-                  "default": "This field is required"
+                  "default": "Required field"
                 }
               }
             },
@@ -1078,7 +1078,7 @@
                 "requiredErrorMessage": {
                   "title": "Reviewer name field error message",
                   "type": "string",
-                  "default": "This field is required"
+                  "default": "Required field"
                 }
               }
             },
@@ -1094,7 +1094,7 @@
                 "requiredErrorMessage": {
                   "title": "Reviewer text field error message",
                   "type": "string",
-                  "default": "This field is required"
+                  "default": "Required field"
                 }
               }
             },
@@ -1105,12 +1105,12 @@
                 "label": {
                   "title": "Privacy policy checkbox field label",
                   "type": "string",
-                  "default": "I confirm that I agree to the Privacy Policy, Terms of Use, and Terms of Service. I acknowledge that my review may be used for marketing purposes by the company or its partners. I understand that my rating and review may be visible publicly, may include a \"Verified buyer\" badge, and that my data may be associated with my review."
+                  "default": "I agree to the Privacy Policy, Terms of Use, and Terms of Service. I understand that my review and rating may be public, include a \"Verified buyer\" badge, and be used for marketing purposes by the company or its partners. I also acknowledge that my personal data may be associated with my review."
                 },
                 "requiredErrorMessage": {
                   "title": "Privacy policy checkbox field error message",
                   "type": "string",
-                  "default": "This field is required"
+                  "default": "Required field"
                 }
               }
             },
@@ -1122,7 +1122,7 @@
             "submitButtonLabel": {
               "title": "Submit review button label",
               "type": "string",
-              "default": "Submit your review"
+              "default": "Submit review"
             },
             "successTitle": {
               "title": "Success title",
@@ -1132,7 +1132,7 @@
             "successSubtitle": {
               "title": "Success subtitle",
               "type": "string",
-              "default": "Your review has been submitted."
+              "default": "Your review has been submitted"
             },
             "successButtonLabel": {
               "title": "Success button label",
@@ -1142,7 +1142,7 @@
             "authErrorMessage": {
               "title": "Authentication error message",
               "type": "string",
-              "default": "You need to be logged in to submit a review. Please sign in and try again."
+              "default": "You must be logged in to submit a review. Sign in and try again."
             }
           }
         },
@@ -1213,23 +1213,22 @@
                     "reviewDateTime_desc": {
                       "title": "Most Recent",
                       "type": "string",
-                      "default": "Most Recent"
+                      "default": "Most recent"
                     },
                     "reviewDateTime_asc": {
                       "title": "Oldest",
                       "type": "string",
                       "default": "Oldest"
                     },
-
                     "rating_desc": {
                       "title": "Highest Rated",
                       "type": "string",
-                      "default": "Highest Rated"
+                      "default": "Highest rated"
                     },
                     "rating_asc": {
                       "title": "Lowest Rated",
                       "type": "string",
-                      "default": "Lowest Rated"
+                      "default": "Lowest rated"
                     }
                   }
                 }
@@ -1242,17 +1241,17 @@
                 "title": {
                   "title": "Title",
                   "type": "string",
-                  "default": "No reviews found for this filter"
+                  "default": "No reviews found for the selected filter"
                 },
                 "subtitle": {
                   "title": "Subtitle",
                   "type": "string",
-                  "default": "Try adjusting your selection and check again"
+                  "default": "Adjust your selection and try again"
                 },
                 "buttonLabel": {
                   "title": "Button Label",
                   "type": "string",
-                  "default": "See all reviews"
+                  "default": "View all reviews"
                 }
               }
             },
@@ -1263,12 +1262,12 @@
                 "title": {
                   "title": "Title",
                   "type": "string",
-                  "default": "There are no reviews for this item yet"
+                  "default": "No reviews for this item yet"
                 },
                 "subtitle": {
                   "title": "Subtitle",
                   "type": "string",
-                  "default": "Be the first one to do it"
+                  "default": "Be the first to share your thoughts"
                 },
                 "buttonLabel": {
                   "title": "Button Label",
@@ -1310,7 +1309,7 @@
         "kind": {
           "title": "Kind",
           "description": "Change cross selling types",
-          "default": "buy",
+          "default": "Buy",
           "enum": ["buy", "view"],
           "enumNames": ["Who bought also bought", "Who saw also saw"]
         },
@@ -1326,7 +1325,7 @@
             "taxesLabel": {
               "title": "Tax label to be displayed",
               "type": "string",
-              "default": "Tax included"
+              "default": "Surcharge included"
             }
           }
         }
@@ -1422,7 +1421,7 @@
             "taxesLabel": {
               "title": "Tax label to be displayed",
               "type": "string",
-              "default": "Tax included"
+              "default": "Surcharge included"
             }
           }
         }
@@ -1459,12 +1458,12 @@
         "title": {
           "title": "Title",
           "type": "string",
-          "default": "Get News and Special Offers!"
+          "default": "Don't miss out on updates and deals"
         },
         "description": {
           "title": "Description",
           "type": "string",
-          "default": "Receive our news and promotions in advance"
+          "default": "Receive the latest updates and offers"
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
@@ -1476,7 +1475,7 @@
         "emailInputLabel": {
           "title": "Email input label",
           "type": "string",
-          "default": "Your Email"
+          "default": "Your email"
         },
         "displayNameInput": {
           "title": "Request name?",
@@ -1486,7 +1485,7 @@
         "nameInputLabel": {
           "title": "Name input label",
           "type": "string",
-          "default": "Your Name"
+          "default": "Your name"
         },
         "subscribeButtonLabel": {
           "title": "Subscribe button label",
@@ -1518,13 +1517,13 @@
               "title": "Title",
               "description": "Message Title",
               "type": "string",
-              "default": "Hooray!"
+              "default": "You're in!"
             },
             "message": {
               "title": "Message",
               "description": "Message",
               "type": "string",
-              "default": "Thank for your subscription."
+              "default": "Thanks for subscribing"
             },
             "icon": {
               "title": "Icon",
@@ -1543,13 +1542,13 @@
               "title": "Title",
               "description": "Message Title",
               "type": "string",
-              "default": "Oops."
+              "default": "Oops!"
             },
             "message": {
               "title": "Message",
               "description": "Message",
               "type": "string",
-              "default": "Something went wrong. Please Try again."
+              "default": "Something went wrong. Try again."
             },
             "icon": {
               "title": "Icon",
@@ -1588,12 +1587,12 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get to Know Our Next Release"
+              "default": "Discover our next release"
             },
             "caption": {
               "title": "Caption",
               "type": "string",
-              "default": "Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!"
+              "default": "Explore cutting-edge technology, advanced features, and a seamless experience. Get ready for the future."
             },
             "link": {
               "title": "Call to Action",
@@ -1654,12 +1653,12 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get News and Special Offers!"
+              "default": "Don't miss out on updates and deals"
             },
             "description": {
               "title": "Description",
               "type": "string",
-              "default": "Receive our news and promotions in advance"
+              "default": "Receive the latest updates and offers"
             },
             "privacyPolicy": {
               "title": "Privacy Policy Disclaimer",
@@ -1671,7 +1670,7 @@
             "emailInputLabel": {
               "title": "Email input label",
               "type": "string",
-              "default": "Your Email"
+              "default": "Your email"
             },
             "displayNameInput": {
               "title": "Request name?",
@@ -1681,7 +1680,7 @@
             "nameInputLabel": {
               "title": "Name input label",
               "type": "string",
-              "default": "Your Name"
+              "default": "Your name"
             },
             "subscribeButtonLabel": {
               "title": "Subscribe button label",
@@ -1708,13 +1707,13 @@
                   "title": "Title",
                   "description": "Message Title",
                   "type": "string",
-                  "default": "Hooray!"
+                  "default": "You're in!"
                 },
                 "message": {
                   "title": "Message",
                   "description": "Message",
                   "type": "string",
-                  "default": "Thank for your subscription."
+                  "default": "Thank you for your subscription"
                 },
                 "icon": {
                   "title": "Icon",
@@ -1733,13 +1732,13 @@
                   "title": "Title",
                   "description": "Message Title",
                   "type": "string",
-                  "default": "Oops."
+                  "default": "Oops!"
                 },
                 "message": {
                   "title": "Message",
                   "description": "Message",
                   "type": "string",
-                  "default": "Something went wrong. Please Try again."
+                  "default": "Something went wrong. Try again."
                 },
                 "icon": {
                   "title": "Icon",
@@ -1823,12 +1822,12 @@
                 "multipleReviewsText": {
                   "title": "Multiple reviews text",
                   "type": "string",
-                  "default": "reviews"
+                  "default": "Reviews"
                 },
                 "singleReviewText": {
                   "title": "Single review text",
                   "type": "string",
-                  "default": "review"
+                  "default": "Review"
                 }
               }
             }
@@ -1841,7 +1840,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Add to Cart"
+              "default": "Add to cart"
             },
             "icon": {
               "title": "Icon",
@@ -1856,7 +1855,7 @@
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Shopping Cart"
+                  "default": "Shopping cart"
                 }
               }
             }
@@ -1870,7 +1869,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Not Available"
+              "default": "Not available"
             }
           }
         },
@@ -1886,7 +1885,7 @@
             "inputLabel": {
               "title": "Input Label",
               "type": "string",
-              "default": "Postal Code"
+              "default": "Postal code"
             },
             "link": {
               "title": "Postal Code Discovery",
@@ -1895,7 +1894,7 @@
                 "text": {
                   "title": "Link Text",
                   "type": "string",
-                  "default": "I don't know my Postal Code"
+                  "default": "I don't know my postal code"
                 },
                 "to": {
                   "title": "URL",
@@ -1954,7 +1953,7 @@
             "taxesLabel": {
               "title": "Tax label to be displayed",
               "type": "string",
-              "default": "Tax included"
+              "default": "Surcharge included"
             }
           }
         },
@@ -2090,7 +2089,7 @@
             "label": {
               "title": "Previous page button",
               "type": "string",
-              "default": "Previous Page"
+              "default": "Previous page"
             }
           }
         },
@@ -2150,7 +2149,7 @@
                         "alt": {
                           "title": "Alternative label",
                           "type": "string",
-                          "default": "Open Filters"
+                          "default": "Open filters"
                         }
                       }
                     }
@@ -2159,7 +2158,7 @@
                 "clearButtonLabel": {
                   "title": "Clear button label",
                   "type": "string",
-                  "default": "Clear All"
+                  "default": "Clear all"
                 },
                 "applyButtonLabel": {
                   "title": "Apply button label",
@@ -2196,7 +2195,7 @@
                 "taxesLabel": {
                   "title": "Tax label to be displayed",
                   "type": "string",
-                  "default": "Tax included"
+                  "default": "Surcharge included"
                 }
               }
             },
@@ -2214,7 +2213,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Nothing matches with your search"
+              "default": "No results found"
             },
             "firstButton": {
               "title": "First Button",
@@ -2223,7 +2222,7 @@
                 "label": {
                   "type": "string",
                   "title": "Label",
-                  "default": "Browse Offers"
+                  "default": "Explore offers"
                 },
                 "url": {
                   "type": "string",
@@ -2244,7 +2243,7 @@
                 "label": {
                   "type": "string",
                   "title": "Label",
-                  "default": "Just Arrived"
+                  "default": "Just arrived"
                 },
                 "url": {
                   "type": "string",
@@ -2274,7 +2273,7 @@
         "title": {
           "title": "Title text",
           "type": "string",
-          "default": "Your Cart"
+          "default": "Your cart"
         },
         "alert": {
           "title": "Alert",
@@ -2379,7 +2378,7 @@
             "taxesLabel": {
               "title": "Tax label to be displayed",
               "type": "string",
-              "default": "Tax included"
+              "default": "Surcharge included"
             }
           }
         }
@@ -2460,12 +2459,12 @@
         "description": {
           "title": "Description",
           "type": "string",
-          "default": "Prices, offers and availability may vary according to your location."
+          "default": "Prices, offers, and availability may vary based on your location"
         },
         "closeButtonAriaLabel": {
           "title": "Close modal aria-label",
           "type": "string",
-          "default": "Close Region Modal"
+          "default": "Close"
         },
         "inputField": {
           "title": "Input Field",
@@ -2474,12 +2473,12 @@
             "label": {
               "title": "Input field label",
               "type": "string",
-              "default": "Postal Code"
+              "default": "Postal code"
             },
             "errorMessage": {
               "title": "Input field error message",
               "type": "string",
-              "default": "You entered an invalid Postal Code"
+              "default": "You entered an invalid postal code"
             }
           }
         },
@@ -2490,7 +2489,7 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "default": "I don't know my Postal Code"
+              "default": "I don't know my postal code"
             },
             "to": {
               "type": "string",
