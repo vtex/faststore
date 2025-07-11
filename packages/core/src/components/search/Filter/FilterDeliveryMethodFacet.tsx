@@ -1,6 +1,6 @@
 import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
 import { sessionStore } from 'src/sdk/session'
-import type { RegionalizationCmsData } from 'src/utils/globalSettings'
+import type { GlobalCmsData } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
 
 interface FacetValue {
@@ -12,7 +12,7 @@ interface FacetValue {
 
 interface FilterDeliveryMethodFacetProps {
   item: FacetValue
-  deliveryMethods: RegionalizationCmsData['deliverySettings']['deliveryMethods']
+  deliveryMethods: GlobalCmsData['deliveryPromise']['deliveryMethods']
 }
 
 export default function FilterDeliveryMethodFacet({

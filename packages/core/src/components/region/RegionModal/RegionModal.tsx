@@ -9,7 +9,7 @@ import { useSession } from 'src/sdk/session'
 
 import useRegion from './useRegion'
 
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
@@ -42,9 +42,7 @@ interface RegionModalProps {
 function RegionModal(regionModalProps: RegionModalProps) {
   const { title, description, closeButtonAriaLabel, ...otherRegionModalProps } =
     regionModalProps
-  const regionalizationSettings = getRegionalizationSettings(
-    otherRegionModalProps
-  )
+  const cmsData = getGlobalSettings(otherRegionModalProps)
   const {
     inputField: {
       label: inputFieldLabel = '',
@@ -61,7 +59,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
         alt: idkPostalCodeLinkIconAlt = '',
       } = {},
     } = {},
-  } = regionalizationSettings ?? {}
+  } = cmsData?.regionalization ?? {}
 
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()

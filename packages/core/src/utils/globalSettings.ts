@@ -1,7 +1,12 @@
 import deepmerge from 'deepmerge'
 import { usePage } from 'src/sdk/overrides/PageProvider'
 
-export type RegionalizationCmsData = {
+export type GlobalCmsData = {
+  regionalization?: RegionalizationCmsData
+  deliveryPromise?: DeliveryPromiseCmsData
+}
+
+type RegionalizationCmsData = {
   inputField?: {
     label?: string
     errorMessage?: string
@@ -17,42 +22,43 @@ export type RegionalizationCmsData = {
       alt?: string
     }
   }
-  deliverySettings?: {
+}
+
+type DeliveryPromiseCmsData = {
+  deliveryMethods?: {
     title?: string
     description?: string
     setLocationButtonLabel?: string
-    deliveryMethods?: {
-      allDeliveryMethods?: string
-      delivery?: string
-      pickupInPoint?: string
-      pickupNearby?: string
-      pickupAll?: {
-        label?: string
-        enabled?: boolean
-      }
+    allDeliveryMethods?: string
+    delivery?: string
+    pickupInPoint?: string
+    pickupNearby?: string
+    pickupAll?: {
+      label?: string
+      enabled?: boolean
     }
-    regionSlider?: {
-      title?: {
-        setLocation?: string
-        changeLocation?: string
-        changePickupPoint?: string
-      }
-      pickupPointChangeApplyButtonLabel?: string
-      choosePickupPointAriaLabel?: string
-      noPickupPointsAvailableInLocation?: string
+  }
+  regionSlider?: {
+    title?: {
+      setLocation?: string
+      changeLocation?: string
+      changePickupPoint?: string
     }
+    pickupPointChangeApplyButtonLabel?: string
+    choosePickupPointAriaLabel?: string
+    noPickupPointsAvailableInLocation?: string
   }
 }
 
-export function getRegionalizationSettings(
-  sectionRegionalizationData?: RegionalizationCmsData
-): RegionalizationCmsData {
+export function getGlobalSettings(
+  sectionRegionalizationData?: GlobalCmsData['regionalization']
+): GlobalCmsData {
   const context = usePage()
-  const globalRegionalizationData =
-    context?.globalSettings?.regionalization ?? {}
+  const globalData: GlobalCmsData = context?.globalSettings ?? {}
 
   if (sectionRegionalizationData === undefined) {
-    return globalRegionalizationData
+    return globalData
   }
-  return deepmerge(globalRegionalizationData, sectionRegionalizationData)
+
+  return deepmerge(globalData, { regionalization: sectionRegionalizationData })
 }

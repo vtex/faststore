@@ -11,10 +11,10 @@ import { useEffect, useRef, useState } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import PickupPointCards from 'src/components/ui/PickupPoints/PickupPointCards'
 import { useSession } from 'src/sdk/session'
-import type { RegionalizationCmsData } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import type { GlobalCmsData } from 'src/utils/globalSettings'
 
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
@@ -36,7 +36,7 @@ const UILink = dynamic(() =>
 )
 
 type RegionSliderProps = {
-  cmsData: RegionalizationCmsData
+  cmsData: GlobalCmsData
   open: boolean
 }
 
@@ -56,8 +56,8 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     session.postalCode ?? ''
   )
 
-  const inputField = cmsData?.inputField
-  const idkPostalCodeLink = cmsData?.idkPostalCodeLink
+  const inputField = cmsData?.regionalization?.inputField
+  const idkPostalCodeLink = cmsData?.regionalization?.idkPostalCodeLink
 
   const handleSubmit = async () => {
     setAppliedInput(input)
@@ -156,7 +156,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
       }}
       title={
         regionSliderType !== 'none'
-          ? cmsData?.deliverySettings?.regionSlider?.title?.[regionSliderType]
+          ? cmsData?.deliveryPromise?.regionSlider?.title?.[regionSliderType]
           : ''
       }
       size="partial"
@@ -168,7 +168,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
           ? {
               variant: 'primary',
               children:
-                cmsData?.deliverySettings?.regionSlider
+                cmsData?.deliveryPromise?.regionSlider
                   ?.pickupPointChangeApplyButtonLabel,
               disabled:
                 loading ||
@@ -185,7 +185,7 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
     >
       <div data-fs-filter-region-slider-content>
         <span data-fs-filter-region-slider-description>
-          {cmsData?.deliverySettings?.description}
+          {cmsData?.deliveryPromise?.deliveryMethods?.description}
         </span>
         <UIInputField
           id="region-slider-input-field"
@@ -221,16 +221,17 @@ function RegionSlider({ cmsData, open }: RegionSliderProps) {
               onChange={handlePickupPointOnChange}
               noPickupPointsAvailableMessage={
                 pickupPoints?.length === 0
-                  ? cmsData.deliverySettings?.regionSlider
+                  ? cmsData.deliveryPromise?.regionSlider
                       ?.noPickupPointsAvailableInLocation
                   : undefined
               }
               errorMessage={{
                 title: regionError,
-                description: cmsData?.inputField?.errorMessageHelper,
+                description:
+                  cmsData?.regionalization?.inputField?.errorMessageHelper,
               }}
               choosePickupPointAriaLabel={
-                cmsData?.deliverySettings?.regionSlider
+                cmsData?.deliveryPromise?.regionSlider
                   ?.choosePickupPointAriaLabel
               }
             />
