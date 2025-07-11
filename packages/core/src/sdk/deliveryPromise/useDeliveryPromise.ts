@@ -12,7 +12,6 @@ import type {
   DeliveryPromiseBadge,
   Filter_FacetsFragment,
 } from '@generated/graphql'
-
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
 
