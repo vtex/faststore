@@ -19,7 +19,7 @@ This starter ships the main FastStore configuration files to get your store up a
 Install dependencies with pnpm
 
 ```shell
-pnpm i 
+pnpm i
 ```
 
 2. **Start developing**
@@ -52,8 +52,6 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
     ├── .stylelintignore
     ├── .gitignore
     ├── codegen.ts
-    ├── cypress
-    ├── cypress.config.ts
     ├── discovery.config.default.js
     ├── discovery.config.js
     ├── index.ts
@@ -89,13 +87,9 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
 
 9.  **`@generated`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
 
-10. **`cypress`**: End to End(e2e) tests using Cypress. Most of the scenarios are covered here. Add your custom flows to avoid regressions
+10. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
 
-11. **`cypress.config.ts`**: [Cypress configuration file](https://docs.cypress.io/guides/references/configuration)
-
-12. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
-
-13. **`.prettierignore`**: Ignore listed files when applying prettier rules
+11. **`.prettierignore`**: Ignore listed files when applying prettier rules
 
 ## 💻 Code Structure
 
