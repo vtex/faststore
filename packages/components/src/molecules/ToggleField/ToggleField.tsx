@@ -3,7 +3,7 @@ import { Label, SROnly, Toggle, type ToggleProps } from './../../'
 
 export interface ToggleFieldProps extends ToggleProps {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
   /**
