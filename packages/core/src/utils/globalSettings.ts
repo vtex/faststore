@@ -57,16 +57,6 @@ type DeliveryPromiseCmsData = {
       icon?: string
       alt?: string
     }
-    regionSlider?: {
-      title?: {
-        setLocation?: string
-        changeLocation?: string
-        changePickupPoint?: string
-      }
-      pickupPointChangeApplyButtonLabel?: string
-      choosePickupPointAriaLabel?: string
-      noPickupPointsAvailableInLocation?: string
-    }
   }
   deliveryOptions?: {
     enabled?: boolean
