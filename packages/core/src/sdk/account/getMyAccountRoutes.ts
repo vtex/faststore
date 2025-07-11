@@ -12,6 +12,7 @@ interface GetMyAccountRouteParams {
 
 export const USER_DETAILS_ROUTE = '/account/user-details'
 export const ORDERS_ROUTE = '/account/orders'
+export const SECURITY_ROUTE = '/account/security'
 
 // This is the default route list for My Account, we should add then as the feature is implemented
 const DEFAULT_ROUTES: Route[] = [
@@ -27,10 +28,10 @@ const DEFAULT_ROUTES: Route[] = [
     title: 'User Details',
     route: USER_DETAILS_ROUTE,
   },
-  // {
-  //   title: 'Security',
-  //   route: '/account/security',
-  // },
+  {
+    title: 'Security',
+    route: SECURITY_ROUTE,
+  },
 ]
 
 export function getMyAccountRoutes({ routes }: GetMyAccountRouteParams) {
