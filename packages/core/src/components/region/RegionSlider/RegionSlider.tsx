@@ -62,7 +62,7 @@ function RegionSlider() {
     clearPickupPointsSimulation,
     globalPickupPoint,
     fetchingPickupPoints,
-  } = useDeliveryPromise()
+  } = useDeliveryPromise({ selectedFilterFacets: searchState.selectedFacets })
 
   const isChangingPickupPoint = useMemo(
     () =>
@@ -206,11 +206,12 @@ function RegionSlider() {
       })
     }
 
-    // Clear local state when leaving the component after setting a pickup point,
-    // but `onPostalCodeChange` already clear the pickup points simulation
+    // Clear local state when leaving the component after setting a pickup point.
+    // Pickup points simulation data are reset by the `onPostalCodeChange` callback.
     onDismissSlider({ shouldClearPickupPointsSimulation: false })
   }
 
+  // The `shouldClearPickupPointsSimulation` param prevent triggering store update more than once.
   const onDismissSlider = ({
     shouldClearPickupPointsSimulation = true,
   }: { shouldClearPickupPointsSimulation?: boolean } = {}) => {

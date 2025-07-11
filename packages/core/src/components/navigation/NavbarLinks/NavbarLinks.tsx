@@ -35,8 +35,7 @@ function NavbarLinks({
   const router = useRouter()
   const { postalCode } = useSession()
   const { filterByPickupPoint } = getRegionalizationSettings()
-  const { pickupPoints, isEnabled: isDeliveryPromiseEnabled } =
-    useDeliveryPromise()
+  const { isEnabled: isDeliveryPromiseEnabled } = useDeliveryPromise()
 
   const shouldDisplayGlobalFilter =
     isDeliveryPromiseEnabled && !!postalCode && filterByPickupPoint?.enabled

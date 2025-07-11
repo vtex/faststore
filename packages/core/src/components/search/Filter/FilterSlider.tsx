@@ -149,7 +149,6 @@ function FilterSlider({
             )
 
             setState({
-              ...state,
               selectedFacets: isOtherShippingFacetSelected
                 ? removePickupPointFacet
                 : selected,

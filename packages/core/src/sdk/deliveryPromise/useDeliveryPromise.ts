@@ -91,7 +91,7 @@ type Props = {
  */
 export function useDeliveryPromise({
   allFacets,
-  selectedFilterFacets = [],
+  selectedFilterFacets = undefined,
   deliverySettings: deliverySettingsData,
   fallbackToFirstPickupPoint = true,
 }: Props = {}) {
@@ -111,12 +111,15 @@ export function useDeliveryPromise({
   const { deliverySettings } = getRegionalizationSettings({
     deliverySettings: deliverySettingsData,
   })
+
+  const selectedFacets = useMemo(
+    () => selectedFilterFacets ?? searchState.selectedFacets,
+    [selectedFilterFacets, searchState.selectedFacets]
+  )
   const selectedPickupPointFacet = useMemo(
     () =>
-      searchState.selectedFacets.find(
-        ({ key }) => key === PICKUP_POINT_FACET_KEY
-      )?.value,
-    [searchState.selectedFacets, pickupPoints]
+      selectedFacets.find(({ key }) => key === PICKUP_POINT_FACET_KEY)?.value,
+    [selectedFacets]
   )
 
   // Update Delivery Promise global state after store changes
@@ -147,17 +150,48 @@ export function useDeliveryPromise({
     })
   }, [pickupPoints, selectedPickupPointFacet])
 
+  // Validate if should select the global pickup point facet in the first load
+  useEffect(() => {
+    const hasShippingFacetSelected = selectedFacets.some(
+      ({ key }) => key === SHIPPING_FACET_KEY
+    )
+    const shouldSelectGlobalPickupPoint =
+      !!globalPickupPoint && !hasShippingFacetSelected
+
+    if (shouldSelectGlobalPickupPoint) {
+      setSearchState({
+        selectedFacets: toggleFacets(
+          selectedFacets,
+          [
+            { key: SHIPPING_FACET_KEY, value: PICKUP_IN_POINT_FACET_VALUE },
+            {
+              key: PICKUP_POINT_FACET_KEY,
+              value: globalPickupPoint.id,
+            },
+          ],
+          true
+        ),
+        page: 0,
+      })
+    }
+  }, [])
+
   const pickupPointByID = useCallback(
-    (id: string) => {
+    (pickupPointId: string) => {
       if (!pickupPoints?.length) return
 
-      const value = pickupPoints.find((el) => el.id === id)
+      const preferredPickupPoint =
+        pickupPoints?.find(({ id }) => id === pickupPointId) ??
+        defaultPickupPoint ??
+        globalPickupPoint
 
-      if (fallbackToFirstPickupPoint && !value) return pickupPoints[0]
+      if (fallbackToFirstPickupPoint && !preferredPickupPoint) {
+        return pickupPoints[0]
+      }
 
-      return value
+      return preferredPickupPoint
     },
-    [pickupPoints]
+    [pickupPoints, defaultPickupPoint, globalPickupPoint]
   )
 
   const allDeliveryMethodsFacet = useMemo(
@@ -167,29 +201,27 @@ export function useDeliveryPromise({
         deliverySettings?.deliveryMethods?.allDeliveryMethods ??
         'All delivery methods',
       selected:
-        !selectedFilterFacets.some(
-          (facet) => facet.key === SHIPPING_FACET_KEY
-        ) ||
-        selectedFilterFacets?.some(
+        !selectedFacets.some((facet) => facet.key === SHIPPING_FACET_KEY) ||
+        selectedFacets?.some(
           (facet) =>
             facet.key === SHIPPING_FACET_KEY &&
             facet.value === ALL_DELIVERY_METHODS_FACET_VALUE
         ),
       quantity: 0,
     }),
-    [selectedFilterFacets, deliverySettings]
+    [selectedFacets, deliverySettings]
   )
 
   const pickupInPointFacet = useMemo(
     () => ({
       value: PICKUP_IN_POINT_FACET_VALUE,
       label: defaultPickupPoint?.name ?? defaultPickupPoint?.address.street,
-      selected: selectedFilterFacets?.some(
+      selected: selectedFacets?.some(
         ({ value }) => value === PICKUP_IN_POINT_FACET_VALUE
       ),
       quantity: defaultPickupPoint?.totalItems,
     }),
-    [pickupPoints, defaultPickupPoint, selectedFilterFacets]
+    [pickupPoints, defaultPickupPoint, selectedFacets]
   )
 
   const onDeliveryFacetChange = useCallback(
@@ -204,7 +236,7 @@ export function useDeliveryPromise({
     }) => {
       let unique = true
       const facetsToToggle: Facet[] = facets?.length !== 0 ? facets : [facet]
-      let currentSelectedFacets = selectedFilterFacets
+      let currentSelectedFacets = selectedFacets
 
       // Toggle `pickup-in-point` and `pickupPoint` facets
       if (facet?.value === PICKUP_IN_POINT_FACET_VALUE) {
@@ -232,7 +264,6 @@ export function useDeliveryPromise({
       }
 
       setSearchState({
-        ...searchState,
         selectedFacets: toggleFacets(
           currentSelectedFacets,
           facetsToToggle,
@@ -241,7 +272,7 @@ export function useDeliveryPromise({
         page: 0,
       })
     },
-    [selectedFilterFacets, defaultPickupPoint]
+    [selectedFacets, defaultPickupPoint]
   )
 
   const facets = useMemo(() => {
@@ -263,12 +294,12 @@ export function useDeliveryPromise({
 
           // Remove old pickup `pickup in point` facet from list and search state
           if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
-            const selectedShippingFacet = selectedFilterFacets.find(
+            const selectedShippingFacet = selectedFacets.find(
               ({ key }) => key === SHIPPING_FACET_KEY
             )
 
             if (selectedShippingFacet) {
-              const selectedPickupInPointFacets = selectedFilterFacets.filter(
+              const selectedPickupInPointFacets = selectedFacets.filter(
                 ({ key, value }) =>
                   value === PICKUP_IN_POINT_FACET_VALUE ||
                   key === PICKUP_POINT_FACET_KEY
@@ -307,7 +338,7 @@ export function useDeliveryPromise({
     allFacets,
     defaultPickupPoint,
     pickupPoints,
-    selectedFilterFacets,
+    selectedFacets,
     onDeliveryFacetChange,
   ])
 

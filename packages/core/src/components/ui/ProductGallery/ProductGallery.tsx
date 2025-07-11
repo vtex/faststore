@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic'
 import { NextSeo } from 'next-seo'
-import { Suspense, lazy, useEffect, type MouseEvent } from 'react'
+import { Suspense, lazy, type MouseEvent } from 'react'
 
 import { useUI } from '@faststore/ui'
-import { useSearch, toggleFacets } from '@faststore/sdk'
+import { useSearch } from '@faststore/sdk'
 
 import Sort from 'src/components/search/Sort'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
@@ -99,42 +99,15 @@ function ProductGallery({
   } = useOverrideComponents<'ProductGallery'>()
 
   const { openFilter, filter: displayFilter } = useUI()
-  const { pages, addNextPage, addPrevPage, itemsPerPage, setState, state } =
-    useSearch()
+  const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
-  const { globalPickupPoint } = useDeliveryPromise()
   const { isDesktop } = useScreenResize()
 
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
-
-  // Validate if should select the global pickup point facet
-  useEffect(() => {
-    const shouldSelectGlobalPickupPoint =
-      !!globalPickupPoint &&
-      !state.selectedFacets.some(({ value }) => value === 'pickup-in-point')
-
-    if (shouldSelectGlobalPickupPoint) {
-      setState({
-        ...state,
-        selectedFacets: toggleFacets(
-          state.selectedFacets,
-          [
-            { key: 'shipping', value: 'pickup-in-point' },
-            {
-              key: 'pickupPoint',
-              value: globalPickupPoint.id,
-            },
-          ],
-          true
-        ),
-        page: 0,
-      })
-    }
-  }, [globalPickupPoint])
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)

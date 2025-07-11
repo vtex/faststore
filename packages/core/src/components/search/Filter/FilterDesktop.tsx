@@ -35,7 +35,11 @@ function FilterDesktop({
   title,
   deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, state, setState } = useSearch()
+  const {
+    resetInfiniteScroll,
+    state: searchState,
+    setState: setSearchState,
+  } = useSearch()
   const { openRegionSlider } = useUI()
   const {
     facets: filteredFacets,
@@ -45,7 +49,7 @@ function FilterDesktop({
     onDeliveryFacetChange,
   } = useDeliveryPromise({
     allFacets: facets,
-    selectedFilterFacets: state.selectedFacets,
+    selectedFilterFacets: searchState.selectedFacets,
     deliverySettings,
   })
 
@@ -147,10 +151,9 @@ function FilterDesktop({
                       : undefined
                   }
                   onFacetChange={(facet) => {
-                    setState({
-                      ...state,
+                    setSearchState({
                       selectedFacets: setFacet(
-                        state.selectedFacets,
+                        searchState.selectedFacets,
                         facet,
                         true
                       ),
