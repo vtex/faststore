@@ -11,7 +11,6 @@ import {
   Icon as UIIcon,
   useUI,
 } from '@faststore/ui'
-
 import { gql } from '@generated/gql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
@@ -29,6 +28,7 @@ interface FilterDesktopProps
     FilterSliderProps,
     'onClose' | 'size' | 'direction' | 'applyBtnProps' | 'clearBtnProps'
   > {}
+
 
 function FilterDesktop({
   facets,
