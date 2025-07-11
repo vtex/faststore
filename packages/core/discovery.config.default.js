@@ -105,19 +105,6 @@ module.exports = {
     },
   },
 
-  // E2E CI
-  cypress: {
-    pages: {
-      home: '/',
-      pdp: '/4k-philips-monitor-99988213/p',
-      collection: '/office',
-      collection_2: '/technology',
-      collection_filtered:
-        '/office/?category-1=office&marca=acer&facets=category-1%2Cmarca',
-      search: '/s?q=orange',
-    },
-  },
-
   analytics: {
     // https://developers.google.com/tag-platform/tag-manager/web#standard_web_page_installation,
     gtmContainerId: 'GTM-PGHZ95N',
