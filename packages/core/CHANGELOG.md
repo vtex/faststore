@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.62.0](https://github.com/vtex/faststore/compare/v3.61.0...v3.62.0) (2025-07-11)
+
+### Features
+
+- Allow unavailable items on cart ([#2938](https://github.com/vtex/faststore/issues/2938)) ([309e014](https://github.com/vtex/faststore/commit/309e014f50a0e2d5293b08e6b1b6b0fe6bcfd6b2)), closes [vtex-sites/faststoreqa.store#837](https://github.com/vtex-sites/faststoreqa.store/issues/837)
+
 # [3.61.0](https://github.com/vtex/faststore/compare/v3.60.4...v3.61.0) (2025-07-04)
 
 ### Features
