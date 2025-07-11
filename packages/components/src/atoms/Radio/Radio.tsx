@@ -4,7 +4,7 @@ import type { InputHTMLAttributes } from 'react'
 export interface RadioProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }

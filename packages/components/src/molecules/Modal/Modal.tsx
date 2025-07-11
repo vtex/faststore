@@ -23,7 +23,7 @@ type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
 export interface ModalProps
   extends Omit<ModalContentProps, 'children' | 'onEntered'> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
   /**

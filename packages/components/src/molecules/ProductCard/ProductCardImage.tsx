@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 
 export interface ProductCardImageProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
   /**

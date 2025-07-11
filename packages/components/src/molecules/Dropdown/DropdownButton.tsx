@@ -8,7 +8,7 @@ import { useDropdownTrigger } from './hooks/useDropdownTrigger'
 export interface DropdownButtonProps
   extends Omit<ButtonProps, 'variant' | 'inverse' | 'icon' | 'iconPosition'> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
   /**
