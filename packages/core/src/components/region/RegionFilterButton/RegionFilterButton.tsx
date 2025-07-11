@@ -49,7 +49,7 @@ function RegionFilterButton({
       }
       ref={regionFilterButtonRef}
     >
-      {globalPickupPoint ? globalPickupPoint.name : filterByPickupPointLabel}
+      {globalPickupPoint?.name ?? filterByPickupPointLabel}
     </UIButton>
   )
 }

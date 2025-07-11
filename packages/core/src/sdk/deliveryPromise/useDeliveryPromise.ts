@@ -104,7 +104,6 @@ export function useDeliveryPromise({
     pickupPointsSimulation,
     dispatchDeliveryPromiseAction,
     shouldUpdatePickupPoints,
-    ...deliveryPromiseContext
   } = useDeliveryPromiseContext()
 
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
@@ -128,10 +127,7 @@ export function useDeliveryPromise({
       deliveryPromiseStore.subscribe((storeValue) => {
         dispatchDeliveryPromiseAction({
           type: 'updateDeliveryPromiseState',
-          payload: {
-            ...deliveryPromiseContext,
-            ...storeValue,
-          },
+          payload: storeValue,
         })
       }),
     ]
@@ -365,7 +361,7 @@ export function useDeliveryPromise({
           : undefined),
       })
     },
-    [postalCode]
+    []
   )
 
   const clearPickupPointsSimulation = useCallback(
@@ -385,12 +381,18 @@ export function useDeliveryPromise({
     pickupPointsSimulation,
     clearPickupPointsSimulation,
     fetchingPickupPoints: shouldUpdatePickupPoints,
-    changePickupPoint: (pickupPoint: PickupPoint) => {
-      deliveryPromiseStore.set({ defaultPickupPoint: pickupPoint })
+    changePickupPoint: async (pickupPoint: PickupPoint) => {
+      dispatchDeliveryPromiseAction({
+        type: 'changePickupPoint',
+        payload: pickupPoint,
+      })
     },
     globalPickupPoint,
     changeGlobalPickupPoint: (pickupPoint: PickupPoint) => {
-      deliveryPromiseStore.set({ globalPickupPoint: pickupPoint })
+      dispatchDeliveryPromiseAction({
+        type: 'changeGlobalPickupPoint',
+        payload: pickupPoint,
+      })
     },
     pickupPointByID,
     facets,

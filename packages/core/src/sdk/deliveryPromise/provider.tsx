@@ -76,8 +76,15 @@ export function DeliveryPromiseProvider({
         return
       }
 
+      // Check if `changeGlobalPickupPoint` action was already triggered
+      const isGlobalPickupPointUpdated = newPickupPoints.some(
+        ({ id }) => id === state.globalPickupPoint?.id
+      )
+
       deliveryPromiseStore.set({
-        globalPickupPoint: null,
+        globalPickupPoint: isGlobalPickupPointUpdated
+          ? state.globalPickupPoint
+          : null,
         defaultPickupPoint: null,
         pickupPoints: newPickupPoints,
         pickupPointsSimulation: initialPickupPointsSimulation,
@@ -87,7 +94,7 @@ export function DeliveryPromiseProvider({
     }
 
     fetchPickupPoints()
-  }, [state.pickupPoints, state.shouldUpdatePickupPoints, postalCode])
+  }, [state.shouldUpdatePickupPoints, postalCode])
 
   const value = useMemo(
     () => ({
