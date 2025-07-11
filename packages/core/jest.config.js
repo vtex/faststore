@@ -4,7 +4,7 @@ const { compilerOptions } = require('./tsconfig')
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   ...require('../../jest.config.js'),
-  testPathIgnorePatterns: ['/node_modules/', 'cypress/'],
+  testPathIgnorePatterns: ['/node_modules/'],
 
   /** Support importing from src/ or @generated/ folders (TS path imports) */
   modulePaths: [compilerOptions.baseUrl], // <-- This will be set to 'baseUrl' value
