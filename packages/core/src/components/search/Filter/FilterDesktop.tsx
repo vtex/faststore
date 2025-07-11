@@ -24,7 +24,8 @@ import {
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
+import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 interface FilterDesktopProps
   extends Omit<

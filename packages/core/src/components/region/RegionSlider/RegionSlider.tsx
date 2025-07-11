@@ -21,6 +21,7 @@ import { getGlobalSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
 import { usePickupPoints } from 'src/sdk/shipping/usePickupPoints'
+import type { GlobalCmsData } from 'src/utils/globalSettings'
 
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
