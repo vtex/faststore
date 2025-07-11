@@ -24,7 +24,7 @@ const validations = [
 ]
 
 export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
-  const { fade, fadeIn, fadeOut } = useFadeEffect()
+  const { fade, fadeOut } = useFadeEffect()
 
   const [currentPassword, setCurrentPassword] = useState('')
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
@@ -45,14 +45,6 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
     setNewPassword('')
     setShowNewPassword(false)
     onClose()
-  }
-
-  useEffect(() => {
-    if (isOpen) fadeIn()
-  }, [isOpen])
-
-  if (!isOpen) {
-    return null
   }
 
   return (

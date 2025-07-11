@@ -8,10 +8,12 @@ export const SecuritySection = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <>
-      <SecurityDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-      />
+      {isDrawerOpen && (
+        <SecurityDrawer
+          isOpen={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+        />
+      )}
 
       <section data-fs-securiry-section className={styles.section}>
         <header data-fs-security-header>
