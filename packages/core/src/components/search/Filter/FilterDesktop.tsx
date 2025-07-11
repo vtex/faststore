@@ -17,9 +17,9 @@ import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import { RegionSlider } from 'src/components/region/RegionSlider'
-import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
+import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 interface FilterDesktopProps
   extends Omit<
@@ -33,7 +33,6 @@ function FilterDesktop({
   dispatch,
   expanded,
   title,
-  deliverySettings,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, state, setState } = useSearch()
   const {
@@ -62,6 +61,9 @@ function FilterDesktop({
     })
   }
 
+  const cmsData = getGlobalSettings()
+  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+
   const {
     selectedPickupPoint,
     facets: filteredFacets,
@@ -73,13 +75,8 @@ function FilterDesktop({
     toggleFacet: onFacetChange,
     fallbackToFirst: true,
     allFacets: facets,
-    deliverySettings,
+    deliveryPromiseSettings,
   })
-
-  const regionalizationData = getRegionalizationSettings({
-    deliverySettings,
-  })
-  const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
     <>
@@ -98,7 +95,7 @@ function FilterDesktop({
             index={0}
             type=""
             label={deliveryLabel}
-            description={deliverySettingsData?.description}
+            description={deliveryPromiseSettings?.deliveryMethods?.description}
           >
             <UIButton
               data-fs-filter-list-delivery-button
@@ -108,7 +105,8 @@ function FilterDesktop({
               }}
               icon={<UIIcon name="MapPin" />}
             >
-              {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
+              {deliveryPromiseSettings?.deliveryMethods
+                ?.setLocationButtonLabel ?? 'Set Location'}
             </UIButton>
           </UIFilterFacets>
         )}
@@ -127,7 +125,9 @@ function FilterDesktop({
               type={type}
               label={isDeliveryFacet ? deliveryLabel : label}
               description={
-                isDeliveryFacet ? deliverySettingsData?.description : undefined
+                isDeliveryFacet
+                  ? deliveryPromiseSettings?.deliveryMethods?.description
+                  : undefined
               }
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
@@ -152,7 +152,7 @@ function FilterDesktop({
                               <FilterDeliveryMethodFacet
                                 item={item}
                                 deliveryMethods={
-                                  deliverySettingsData?.deliveryMethods
+                                  deliveryPromiseSettings?.deliveryMethods
                                 }
                               />
                             ) : (
@@ -193,10 +193,7 @@ function FilterDesktop({
           )
         })}
       </UIFilter>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
+      <RegionSlider cmsData={cmsData} open={regionSliderType !== 'none'} />
     </>
   )
 }

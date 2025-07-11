@@ -79,16 +79,26 @@
                       }
                     }
                   }
-                },
-                "deliverySettings": {
-                  "title": "PLP/Search Filter: Delivery Settings",
+                }
+              }
+            }
+          },
+          {
+            "name": "deliveryPromise",
+            "schema": {
+              "title": "Delivery Promise",
+              "description": "Delivery Promise configurations",
+              "type": "object",
+              "properties": {
+                "deliveryMethods": {
+                  "title": "PLP/Search Filter: Delivery Methods",
                   "type": "object",
                   "required": ["title", "description"],
                   "properties": {
                     "title": {
                       "title": "Title",
                       "type": "string",
-                      "default": "Delivery"
+                      "default": "Delivery Methods"
                     },
                     "description": {
                       "title": "Description",
@@ -100,90 +110,84 @@
                       "type": "string",
                       "default": "Set Location"
                     },
-                    "deliveryMethods": {
-                      "title": "Delivery methods filter",
+                    "allDeliveryMethods": {
+                      "title": "All delivery methods label",
+                      "type": "string",
+                      "default": "All delivery methods"
+                    },
+                    "delivery": {
+                      "title": "Shipping label",
+                      "type": "string",
+                      "default": "Shipping to"
+                    },
+                    "pickupInPoint": {
+                      "title": "Pickup in point label",
+                      "type": "string",
+                      "default": "Pickup at"
+                    },
+                    "pickupNearby": {
+                      "title": "Pickup Nearby label",
+                      "type": "string",
+                      "default": "Pickup Nearby"
+                    },
+                    "pickupAll": {
+                      "title": "Pickup All",
                       "type": "object",
                       "properties": {
-                        "allDeliveryMethods": {
-                          "title": "All delivery methods label",
-                          "type": "string",
-                          "default": "All delivery methods"
+                        "enabled": {
+                          "title": "Display pickup all filter",
+                          "description": "Display the pickup all filter in the PLP/Search page. This is recommended only for B2B stores.",
+                          "type": "boolean",
+                          "default": false
                         },
-                        "delivery": {
-                          "title": "Shipping label",
+                        "label": {
+                          "title": "Label",
                           "type": "string",
-                          "default": "Shipping to"
-                        },
-                        "pickupInPoint": {
-                          "title": "Pickup in point label",
+                          "default": "Pickup Anywhere"
+                        }
+                      }
+                    }
+                  }
+                },
+                "regionSlider": {
+                  "title": "RegionSlider SlideOver",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "RegionSlider title",
+                      "type": "object",
+                      "properties": {
+                        "setLocation": {
+                          "title": "Set Location title",
                           "type": "string",
-                          "default": "Pickup at"
+                          "default": "Set Location"
                         },
-                        "pickupNearby": {
-                          "title": "Pickup Nearby label",
+                        "changeLocation": {
+                          "title": "Change Postal Code title",
                           "type": "string",
-                          "default": "Pickup Nearby"
+                          "default": "Change Location"
                         },
-                        "pickupAll": {
-                          "title": "Pickup All",
-                          "type": "object",
-                          "properties": {
-                            "enabled": {
-                              "title": "Display pickup all filter",
-                              "description": "Display the pickup all filter in the PLP/Search page. This is recommended only for B2B stores.",
-                              "type": "boolean",
-                              "default": false
-                            },
-                            "label": {
-                              "title": "Label",
-                              "type": "string",
-                              "default": "Pickup Anywhere"
-                            }
-                          }
+                        "changePickupPoint": {
+                          "title": "Change Pickup Point location title",
+                          "type": "string",
+                          "default": "Change Store"
                         }
                       }
                     },
-                    "regionSlider": {
-                      "title": "RegionSlider SlideOver",
-                      "type": "object",
-                      "properties": {
-                        "title": {
-                          "title": "RegionSlider title",
-                          "type": "object",
-                          "properties": {
-                            "setLocation": {
-                              "title": "Set Location title",
-                              "type": "string",
-                              "default": "Set Location"
-                            },
-                            "changeLocation": {
-                              "title": "Change Postal Code title",
-                              "type": "string",
-                              "default": "Change Location"
-                            },
-                            "changePickupPoint": {
-                              "title": "Change Pickup Point location title",
-                              "type": "string",
-                              "default": "Change Store"
-                            }
-                          }
-                        },
-                        "pickupPointChangeApplyButtonLabel": {
-                          "title": "Change Pickup Point apply button label",
-                          "type": "string",
-                          "default": "Update"
-                        },
-                        "choosePickupPointAriaLabel": {
-                          "title": "Choose Pickup Point aria-label (radio group)",
-                          "type": "string",
-                          "default": "Choose a store"
-                        },
-                        "noPickupPointsAvailableInLocation": {
-                          "title": "No Pickup Point available near location message",
-                          "type": "string",
-                          "default": "No stores near location."
-                        }
-                      }
+                    "pickupPointChangeApplyButtonLabel": {
+                      "title": "Change Pickup Point apply button label",
+                      "type": "string",
+                      "default": "Update"
+                    },
+                    "choosePickupPointAriaLabel": {
+                      "title": "Choose Pickup Point aria-label (radio group)",
+                      "type": "string",
+                      "default": "Choose a store"
+                    },
+                    "noPickupPointsAvailableInLocation": {
+                      "title": "No Pickup Point available near location message",
+                      "type": "string",
+                      "default": "No stores near location."
                     }
                   }
                 }

@@ -11,7 +11,7 @@ import { useRef, useState } from 'react'
 import useRegion from '../RegionModal/useRegion'
 
 import { sessionStore, useSession } from 'src/sdk/session'
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
 import styles from './section.module.scss'
 
@@ -55,9 +55,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
     placement = 'bottom-start',
     ...otherRegionPopoverProps
   } = regionPopoverProps
-  const regionalizationSettings = getRegionalizationSettings(
-    otherRegionPopoverProps
-  )
+  const cmsData = getGlobalSettings(otherRegionPopoverProps)
   const {
     inputField: {
       label: inputFieldLabel = '',
@@ -74,7 +72,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
         alt: idkPostalCodeLinkIconAlt = '',
       } = {},
     } = {},
-  } = regionalizationSettings ?? {}
+  } = cmsData?.regionalization ?? {}
 
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()

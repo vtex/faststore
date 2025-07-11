@@ -20,15 +20,12 @@ import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 
-import {
-  getRegionalizationSettings,
-  type RegionalizationCmsData,
-} from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import { RegionSlider } from 'src/components/region/RegionSlider'
 
-import styles from './section.module.scss'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import styles from './section.module.scss'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
@@ -86,10 +83,6 @@ export interface FilterSliderProps {
    * CMS defined label for the apply button component.
    */
   applyButtonLabel?: string
-  /**
-   * CMS settings for values related to delivery (e.g., custom name for title, shipping, pickup, pickup-nearby).
-   */
-  deliverySettings?: RegionalizationCmsData['deliverySettings']
 }
 
 function FilterSlider({
@@ -101,7 +94,6 @@ function FilterSlider({
   title,
   clearButtonLabel,
   applyButtonLabel,
-  deliverySettings,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
   const {
@@ -131,6 +123,9 @@ function FilterSlider({
     })
   }
 
+  const cmsData = getGlobalSettings()
+  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+
   const {
     selectedPickupPoint,
     facets: filteredFacets,
@@ -142,13 +137,8 @@ function FilterSlider({
     toggleFacet: onFacetChange,
     fallbackToFirst: true,
     allFacets: facets,
-    deliverySettings,
+    deliveryPromiseSettings,
   })
-
-  const regionalizationData = getRegionalizationSettings({
-    deliverySettings,
-  })
-  const { deliverySettings: deliverySettingsData } = regionalizationData
 
   return (
     <>
@@ -208,7 +198,9 @@ function FilterSlider({
               index={0}
               type=""
               label={deliveryLabel}
-              description={deliverySettingsData?.description}
+              description={
+                deliveryPromiseSettings?.deliveryMethods?.description
+              }
             >
               <UIButton
                 data-fs-filter-list-delivery-button
@@ -218,7 +210,8 @@ function FilterSlider({
                 }}
                 icon={<UIIcon name="MapPin" />}
               >
-                {deliverySettingsData?.setLocationButtonLabel ?? 'Set Location'}
+                {deliveryPromiseSettings?.deliveryMethods
+                  ?.setLocationButtonLabel ?? 'Set Location'}
               </UIButton>
             </UIFilterFacets>
           )}
@@ -238,7 +231,7 @@ function FilterSlider({
                 label={isDeliveryFacet ? deliveryLabel : label}
                 description={
                   isDeliveryFacet
-                    ? deliverySettingsData?.description
+                    ? deliveryPromiseSettings?.deliveryMethods?.description
                     : undefined
                 }
               >
@@ -261,7 +254,7 @@ function FilterSlider({
                                 <FilterDeliveryMethodFacet
                                   item={item}
                                   deliveryMethods={
-                                    deliverySettingsData?.deliveryMethods
+                                    deliveryPromiseSettings?.deliveryMethods
                                   }
                                 />
                               ) : (
@@ -297,10 +290,7 @@ function FilterSlider({
           })}
         </UIFilter>
       </UIFilterSlider>
-      <RegionSlider
-        cmsData={regionalizationData}
-        open={regionSliderType !== 'none'}
-      />
+      <RegionSlider cmsData={cmsData} open={regionSliderType !== 'none'} />
     </>
   )
 }
