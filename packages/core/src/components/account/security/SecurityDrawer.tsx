@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Button,
   Icon,
@@ -24,7 +24,7 @@ const validations = [
 ]
 
 export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
-  const { fade, fadeOut } = useFadeEffect()
+  const { fade, fadeIn, fadeOut } = useFadeEffect()
 
   const [currentPassword, setCurrentPassword] = useState('')
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
@@ -47,6 +47,10 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
     onClose()
   }
 
+  useEffect(() => {
+    if (isOpen) fadeIn()
+  }, [isOpen])
+
   if (!isOpen) {
     return null
   }
@@ -60,7 +64,7 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
       isOpen={isOpen}
       size="partial"
       direction="rightSide"
-      overlayProps={{ className: `section ${styles.section}` }}
+      overlayProps={{ className: styles.section }}
     >
       <SlideOverHeader data-fs-security-drawer-header onClose={handleClose}>
         <h1 data-fs-security-drawer-header-title>Reset password</h1>
@@ -114,28 +118,30 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
             />
           </div>
 
-          <div data-fs-security-drawer-input-password-rules-container>
-            <p data-fs-security-drawer-input-password-rules-title>
-              Your password must have at least:
-            </p>
+          {newPassword.length > 0 && (
+            <div data-fs-security-drawer-input-password-rules-container>
+              <p data-fs-security-drawer-input-password-rules-title>
+                Your password must have at least:
+              </p>
 
-            <ul data-fs-security-drawer-input-password-rules-list>
-              {newPasswordValidations.map((rule, index) => (
-                <li
-                  key={index}
-                  data-fs-security-drawer-input-password-rule-item
-                  data-status={rule.isValid ? 'success' : 'error'}
-                >
-                  <Icon
-                    name={rule.isValid ? 'Checked' : 'XCircle'}
-                    width={20}
-                    height={20}
-                  />
-                  {rule.label}
-                </li>
-              ))}
-            </ul>
-          </div>
+              <ul data-fs-security-drawer-input-password-rules-list>
+                {newPasswordValidations.map((rule, index) => (
+                  <li
+                    key={index}
+                    data-fs-security-drawer-input-password-rule-item
+                    data-status={rule.isValid ? 'success' : 'error'}
+                  >
+                    <Icon
+                      name={rule.isValid ? 'Checked' : 'XCircle'}
+                      width={20}
+                      height={20}
+                    />
+                    {rule.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
 
