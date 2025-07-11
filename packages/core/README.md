@@ -191,7 +191,7 @@ Looking for more guidance? Full documentation for FastStore lives [on this GitHu
 
 ## ⚡ Performance & QA
 
-This project has strict performance budgets. Right out of the box, this project performs around 95 on Google's Page Speed Insights website, which usually is way more strict than your laptop's chrome lighthouse. Every time you commit to the repository, our QA bots will run and evaluate your code quality. We recommend you NEVER put in production a code that breaks any of the bots. If a bot breaks and still you need to put the code into production, change the bot config (`lighthouserc.js`, `cypress.config.ts`) to make it pass and merge. This way you ensure your website will keep performing well during the years to come.
+This project has strict performance budgets. Right out of the box, this project performs around 95 on Google's Page Speed Insights website, which usually is way more strict than your laptop's chrome lighthouse. Every time you commit to the repository, our QA bots will run and evaluate your code quality. We recommend you NEVER put in production a code that breaks any of the bots. If a bot breaks and still you need to put the code into production, change the bot config (`lighthouserc.js`) to make it pass and merge. This way you ensure your website will keep performing well during the years to come.
 
 ## Adding third party scripts
 
