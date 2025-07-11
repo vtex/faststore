@@ -103,6 +103,7 @@ export function useDeliveryPromise({
     globalPickupPoint,
     pickupPointsSimulation,
     dispatchDeliveryPromiseAction,
+    shouldUpdatePickupPoints,
     ...deliveryPromiseContext
   } = useDeliveryPromiseContext()
 
@@ -352,6 +353,7 @@ export function useDeliveryPromise({
     selectedPickupPointFacet,
     pickupPointsSimulation,
     clearPickupPointsSimulation,
+    fetchingPickupPoints: shouldUpdatePickupPoints,
     changePickupPoint: (pickupPoint: PickupPoint) => {
       deliveryPromiseStore.set({ defaultPickupPoint: pickupPoint })
     },

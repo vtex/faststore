@@ -47,7 +47,12 @@ function RegionSlider() {
   } = useUI()
   const { isValidating, ...session } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
-  const { loading, setRegion, regionError, setRegionError } = useRegion()
+  const {
+    loading: loadingRegion,
+    setRegion,
+    regionError,
+    setRegionError,
+  } = useRegion()
   const {
     pickupPoints: statePickupPoints,
     onPostalCodeChange,
@@ -56,6 +61,7 @@ function RegionSlider() {
     pickupPointsSimulation,
     clearPickupPointsSimulation,
     globalPickupPoint,
+    fetchingPickupPoints,
   } = useDeliveryPromise()
 
   const isChangingPickupPoint = useMemo(
@@ -72,6 +78,10 @@ function RegionSlider() {
         : statePickupPoints,
     [statePickupPoints, pickupPointsSimulation]
   )
+
+  const [dataLoading, setDataLoading] = useState(
+    loadingRegion || fetchingPickupPoints
+  )
   const [input, setInput] = useState<string>(session.postalCode ?? '')
   const [appliedInput, setAppliedInput] = useState<string>(
     session.postalCode ?? ''
@@ -84,6 +94,8 @@ function RegionSlider() {
   const [validatedSession, setValidatedSession] = useState<Session>(undefined)
 
   useEffect(() => inputRef.current?.focus(), [])
+
+  useEffect(() => setDataLoading(fetchingPickupPoints), [fetchingPickupPoints])
 
   // We should set default state values based on each `regionSliderType` or when postal code changes
   useEffect(() => {
@@ -101,6 +113,7 @@ function RegionSlider() {
   const idkPostalCodeLink = cmsData?.idkPostalCodeLink
 
   const handleSubmit = async () => {
+    setDataLoading(true)
     setAppliedInput(input)
 
     if (isValidating) {
@@ -201,6 +214,7 @@ function RegionSlider() {
   const onDismissSlider = ({
     shouldClearPickupPointsSimulation = true,
   }: { shouldClearPickupPointsSimulation?: boolean } = {}) => {
+    setDataLoading(false)
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
     setValidatedSession(undefined)
@@ -239,7 +253,7 @@ function RegionSlider() {
     globalPickupPoint &&
     pickupPointOption === globalPickupPoint.id
   const shouldDisableUpdateButton =
-    loading ||
+    dataLoading ||
     input === '' ||
     input !== appliedInput ||
     pickupPoints?.length === 0 ||
@@ -288,7 +302,7 @@ function RegionSlider() {
           label={inputField?.label}
           actionable
           value={input}
-          buttonActionText={loading ? '...' : inputField?.buttonActionText}
+          buttonActionText={dataLoading ? '...' : inputField?.buttonActionText}
           onInput={(e) => {
             setInput(e.currentTarget.value)
             regionError !== '' && setRegionError('')
@@ -307,7 +321,7 @@ function RegionSlider() {
         {isChangingPickupPoint &&
           input !== '' &&
           input === appliedInput &&
-          !loading && (
+          !dataLoading && (
             <PickupPointCards
               pickupPoints={regionError ? [] : pickupPoints}
               selectedOption={pickupPointOption}
