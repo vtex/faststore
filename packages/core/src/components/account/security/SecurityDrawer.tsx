@@ -124,7 +124,7 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
                     data-status={rule.isValid ? 'success' : 'error'}
                   >
                     <Icon
-                      name={rule.isValid ? 'Checked' : 'XCircle'}
+                      name={rule.isValid ? 'CheckCircle' : 'XCircle'}
                       width={20}
                       height={20}
                     />
