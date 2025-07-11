@@ -6,6 +6,18 @@
     @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
     @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
 
+    // --------------------------------------------------------
+    // Design Tokens
+    // --------------------------------------------------------
+
+    // Default properties
+    --fs-security-drawer-color-error: #940303;
+    --fs-security-drawer-color-success: #015132;
+
+    // --------------------------------------------------------
+    // Structural Styles
+    // --------------------------------------------------------
+
     [data-fs-security-drawer] {
       display: flex;
       flex-direction: column;
@@ -85,6 +97,14 @@
       font-size: var(--fs-text-size-1);
       font-weight: var(--fs-text-weight-regular);
       color: var(--fs-color-danger-text);
+    }
+
+    [data-fs-security-drawer-input-password-rule-item][data-status="success"] {
+      color: var(--fs-security-drawer-color-success);
+    }
+
+    [data-fs-security-drawer-input-password-rule-item][data-status="error"] {
+      color: var(--fs-security-drawer-color-error);
     }
 
     [data-fs-security-drawer-body-info] {

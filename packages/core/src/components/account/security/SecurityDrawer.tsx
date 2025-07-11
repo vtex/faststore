@@ -16,10 +16,7 @@ type SecurityDrawerProps = {
   onClose: () => void
 }
 
-const ERROR_COLOR = '#940303'
-const SUCCESS_COLOR = '#015132'
-
-const RULES = [
+const validations = [
   { label: '8 characters', test: (v: string) => v.length >= 8 },
   { label: '1 uppercase letter', test: (v: string) => /[A-Z]/.test(v) },
   { label: '1 lowercase letter', test: (v: string) => /[a-z]/.test(v) },
@@ -35,20 +32,12 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
   const [newPassword, setNewPassword] = useState('')
   const [showNewPassword, setShowNewPassword] = useState(false)
 
-  const newPasswordValidations = RULES.map((rule) => ({
+  const newPasswordValidations = validations.map((rule) => ({
     label: rule.label,
     isValid: rule.test(newPassword),
   }))
 
   const allValid = newPasswordValidations.every((r) => r.isValid)
-
-  const onChangeCurrentPassword = (value: string) => {
-    setCurrentPassword(value)
-  }
-
-  const onChangeNewPassword = (value: string) => {
-    setNewPassword(value)
-  }
 
   const handleClose = () => {
     setCurrentPassword('')
@@ -87,12 +76,13 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
               placeholder="Current Password"
               inputMode="text"
               value={currentPassword}
-              onChange={(e) => onChangeCurrentPassword(e.target.value)}
+              onChange={(e) => setCurrentPassword(e.target.value)}
             />
             <IconButton
               data-fs-security-drawer-input-password-toggle
               size="small"
               aria-label="Show Password"
+              onClick={() => setShowCurrentPassword((prev) => !prev)}
               icon={
                 showCurrentPassword ? (
                   <Icon name="EyeSlash" />
@@ -100,7 +90,6 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
                   <Icon name="Eye" />
                 )
               }
-              onClick={() => setShowCurrentPassword((prev) => !prev)}
             />
           </div>
 
@@ -112,16 +101,16 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
               placeholder="New Password"
               inputMode="text"
               value={newPassword}
-              onChange={(e) => onChangeNewPassword(e.target.value)}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
             <IconButton
               data-fs-security-drawer-input-password-toggle
               size="small"
               aria-label="Show Password"
+              onClick={() => setShowNewPassword((prev) => !prev)}
               icon={
                 showNewPassword ? <Icon name="EyeSlash" /> : <Icon name="Eye" />
               }
-              onClick={() => setShowNewPassword((prev) => !prev)}
             />
           </div>
 
@@ -135,7 +124,7 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
                 <li
                   key={index}
                   data-fs-security-drawer-input-password-rule-item
-                  style={{ color: rule.isValid ? SUCCESS_COLOR : ERROR_COLOR }}
+                  data-status={rule.isValid ? 'success' : 'error'}
                 >
                   <Icon
                     name={rule.isValid ? 'Checked' : 'XCircle'}
