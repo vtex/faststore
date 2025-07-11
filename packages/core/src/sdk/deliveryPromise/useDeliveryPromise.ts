@@ -9,10 +9,10 @@ import {
   type Session,
 } from '@faststore/sdk'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { useSession } from 'src/sdk/session'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
+
+import { useSession } from 'src/sdk/session'
 
 import { deliveryPromise as deliveryPromiseConfig } from 'discovery.config'
 import {
