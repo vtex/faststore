@@ -160,7 +160,6 @@ function RegionSlider() {
   const handlePickupPointUpdate = () => {
     if (validatedSession && isChangingPickupPoint) {
       sessionStore.set(validatedSession)
-      onPostalCodeChange()
     }
 
     // If shipping is not 'pickup-in-point', we need to toggle it
@@ -186,8 +185,10 @@ function RegionSlider() {
         (pickupPoint) => pickupPoint.id === pickupPointOption
       )
 
-      if (regionSliderType === 'globalChangePickupPoint') {
-        changeGlobalPickupPoint(pickupPointFacet)
+      if (isChangingPickupPoint) {
+        onPostalCodeChange()
+        regionSliderType === 'globalChangePickupPoint' &&
+          changeGlobalPickupPoint(pickupPointFacet)
       }
     }
 
