@@ -48,6 +48,10 @@ export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
    */
   onClose: () => void
   /**
+   * This function is called whenever the user clicks outside the slider content.
+   */
+  onDismiss?: () => void
+  /**
    * Display FilterSlider footer with buttons.
    * @default true
    */
@@ -64,6 +68,7 @@ function FilterSlider({
   clearBtnProps,
   overlayProps,
   onClose,
+  onDismiss,
   footer = true,
   ...otherProps
 }: PropsWithChildren<FilterSliderProps>) {
@@ -75,7 +80,10 @@ function FilterSlider({
       data-fs-filter-slider
       isOpen
       fade={fade}
-      onDismiss={fadeOut}
+      onDismiss={() => {
+        fadeOut()
+        onDismiss?.()
+      }}
       size={size}
       direction={direction}
       onTransitionEnd={() => {

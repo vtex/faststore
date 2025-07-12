@@ -8,9 +8,10 @@ import { sessionStore, validateSession } from 'src/sdk/session'
 type SetRegionProps = {
   session: Session
   postalCode: string | undefined
-  onSuccess?: () => void
+  onSuccess?: (validatedSession?: Session) => void
   errorMessage: string
   noProductsAvailableErrorMessage?: string
+  simulation?: boolean
 }
 
 type UseRegionValues = {
@@ -30,6 +31,7 @@ export default function useRegion(): UseRegionValues {
     session,
     onSuccess,
     noProductsAvailableErrorMessage,
+    simulation = false,
   }: SetRegionProps) => {
     if (typeof postalCode !== 'string') {
       return
@@ -59,9 +61,9 @@ export default function useRegion(): UseRegionValues {
         }
       }
 
-      sessionStore.set(validatedSession ?? newSession)
+      !simulation && sessionStore.set(validatedSession ?? newSession)
       setRegionError('')
-      onSuccess?.() // Execute the post-validation action (close modal, etc.)
+      onSuccess?.(simulation ? validatedSession : undefined) // Execute the post-validation action (close modal, etc.)
     } catch (error) {
       setRegionError(errorMessage)
     } finally {

@@ -74,6 +74,7 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
     postalCode,
     icon: locationIcon,
     label: locationLabel,
+    editLabel: _ = undefined,
     buttonIcon,
     onButtonClick: onLocationButtonClick,
     shouldDisplayPostalCode = true,

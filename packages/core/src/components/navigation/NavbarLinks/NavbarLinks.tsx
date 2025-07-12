@@ -6,13 +6,13 @@ import {
   type NavbarLinksProps as UINavbarLinksProps,
 } from '@faststore/ui'
 
-import { deliveryPromise } from 'discovery.config'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
 import RegionButton from 'src/components/region/RegionButton'
 import RegionFilterButton from 'src/components/region/RegionFilterButton'
 import Link from 'src/components/ui/Link'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getRegionalizationSettings } from 'src/utils/globalSettings'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
@@ -35,9 +35,10 @@ function NavbarLinks({
   const router = useRouter()
   const { postalCode } = useSession()
   const { filterByPickupPoint } = getRegionalizationSettings()
+  const { isEnabled: isDeliveryPromiseEnabled } = useDeliveryPromise()
 
   const shouldDisplayGlobalFilter =
-    deliveryPromise.enabled && !!postalCode && filterByPickupPoint?.enabled
+    isDeliveryPromiseEnabled && !!postalCode && filterByPickupPoint?.enabled
 
   return (
     <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
