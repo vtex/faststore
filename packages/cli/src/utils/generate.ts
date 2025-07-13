@@ -383,14 +383,17 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
 }
 
 function updateNextConfig(basePath: string) {
-  const { tmpDir } = withBasePath(basePath)
+  // outputFileTracingRoot is used  on next.js/packages/next/src/build/utils.ts:1917
+  // this makes the generated path be under packages/discovery/etc on the generated. I'll attempt
+  // to change this to userDir (from process.cwd())
+  const { tmpDir, userDir } = withBasePath(basePath)
 
   const nextConfigPath = path.join(tmpDir, 'next.config.js')
 
   let nextConfigData = String(readFileSync(nextConfigPath))
   nextConfigData = nextConfigData.replace(
     /outputFileTracingRoot\:\s+(.*),/,
-    `outputFileTracingRoot: '${process.cwd()}',`
+    `outputFileTracingRoot: '${userDir}',`
   )
 
   writeFileSync(nextConfigPath, nextConfigData)
