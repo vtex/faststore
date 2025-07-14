@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.63.0](https://github.com/vtex/faststore/compare/v3.62.0...v3.63.0) (2025-07-14)
+
+### Features
+
+- add param for custom event ([#2927](https://github.com/vtex/faststore/issues/2927)) ([b73d4da](https://github.com/vtex/faststore/commit/b73d4dad8d22a9eb498e020af6db24a8e8cd16f7)), closes [#parameter_2](https://github.com/vtex/faststore/issues/parameter_2) [#parameter_3](https://github.com/vtex/faststore/issues/parameter_3) [#parameter_2](https://github.com/vtex/faststore/issues/parameter_2) [#parameter_3](https://github.com/vtex/faststore/issues/parameter_3)
+
 # [3.62.0](https://github.com/vtex/faststore/compare/v3.61.0...v3.62.0) (2025-07-11)
 
 ### Features
