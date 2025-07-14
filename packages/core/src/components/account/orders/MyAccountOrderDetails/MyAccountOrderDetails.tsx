@@ -63,6 +63,7 @@ export default function MyAccountOrderDetails({
         {order.ruleForAuthorization && (
           <MyAccountBuyingPolicyAlert
             ruleForAuthorization={order.ruleForAuthorization}
+            onAuthorizationComplete={() => window.location.reload()}
           />
         )}
 
