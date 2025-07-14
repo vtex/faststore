@@ -62,7 +62,6 @@ function RegionSlider() {
     clearPickupPointsSimulation,
     globalPickupPoint,
     fetchingPickupPoints,
-    changePickupPoint,
   } = useDeliveryPromise({ selectedFilterFacets: searchState.selectedFacets })
 
   const isChangingPickupPoint = useMemo(
@@ -215,41 +214,6 @@ function RegionSlider() {
     setValidatedSession(undefined)
     setPickupPointOption(undefined)
     shouldClearPickupPointsSimulation && clearPickupPointsSimulation()
-  }
-
-  const clearFilter = () => {
-    if (!pickupPointOption) return
-
-    const facetsToToggle = []
-    const shippingFacet = searchState.selectedFacets.find(
-      (facet) => facet.key === SHIPPING_FACET_KEY
-    )
-
-    if (!shippingFacet || shippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE) {
-      return setPickupPointOption(undefined)
-    }
-
-    facetsToToggle.push([
-      {
-        key: SHIPPING_FACET_KEY,
-        value: PICKUP_IN_POINT_FACET_VALUE,
-      },
-      {
-        key: PICKUP_POINT_FACET_KEY,
-        value: pickupPointOption,
-      },
-    ])
-
-    if (regionSliderType === 'changePickupPoint') {
-      changePickupPoint(null)
-    }
-
-    if (regionSliderType === 'globalChangePickupPoint') {
-      changeGlobalPickupPoint(null)
-    }
-
-    onDismissSlider()
-    closeRegionSlider()
   }
 
   const idkPostalCodeLinkProps = useMemo(
