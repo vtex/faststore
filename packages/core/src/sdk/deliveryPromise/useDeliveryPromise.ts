@@ -76,7 +76,7 @@ export const deliveryPromiseStore = {
 }
 
 type Props = {
-  deliveryPromiseSettings: GlobalCmsData['deliveryPromise']
+  deliveryPromiseSettings?: GlobalCmsData['deliveryPromise']
   allFacets?: ReturnType<typeof useFilter>['facets']
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]

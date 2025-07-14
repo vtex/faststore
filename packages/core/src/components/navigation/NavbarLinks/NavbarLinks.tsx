@@ -13,7 +13,7 @@ import Link from 'src/components/ui/Link'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
@@ -34,7 +34,9 @@ function NavbarLinks({
     useOverrideComponents<'Navbar'>()
   const router = useRouter()
   const { postalCode } = useSession()
-  const { filterByPickupPoint } = getRegionalizationSettings()
+  const {
+    deliveryPromise: { filterByPickupPoint } = {},
+  } = getGlobalSettings()
   const { isEnabled: isDeliveryPromiseEnabled } = useDeliveryPromise()
 
   const shouldDisplayGlobalFilter =

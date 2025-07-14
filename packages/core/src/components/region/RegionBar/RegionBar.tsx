@@ -11,7 +11,7 @@ import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { deliveryPromise, session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { textToTitleCase } from 'src/utils/utilities'
-import { getRegionalizationSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import { useRegionModal } from '../RegionModal/useRegionModal'
 
@@ -59,7 +59,9 @@ function RegionBar({
   const { city, postalCode } = useSession()
   const { isValidationComplete } = useRegionModal()
   const { globalPickupPoint } = useDeliveryPromise()
-  const { filterByPickupPoint } = getRegionalizationSettings()
+  const {
+    deliveryPromise: { filterByPickupPoint } = {},
+  } = getGlobalSettings()
   const regionBarRef = useRef<HTMLDivElement>(null)
 
   const defaultPostalCode =

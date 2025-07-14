@@ -43,6 +43,7 @@ type DeliveryPromiseCmsData = {
       setLocation?: string
       changeLocation?: string
       changePickupPoint?: string
+      globalChangePickupPoint?: string
     }
     pickupPointChangeApplyButtonLabel?: string
     choosePickupPointAriaLabel?: string
