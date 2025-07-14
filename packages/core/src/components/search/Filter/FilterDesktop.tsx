@@ -1,4 +1,4 @@
-import { setFacet, toggleFacets, useSearch } from '@faststore/sdk'
+import { setFacet, useSearch } from '@faststore/sdk'
 
 import {
   regionSliderTypes,
@@ -17,7 +17,6 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
-import RegionSlider from 'src/components/region/RegionSlider'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
@@ -35,47 +34,23 @@ function FilterDesktop({
   expanded,
   title,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, state, setState } = useSearch()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
-
-  const onFacetChange = (facet: { key: string; value: string }) => {
-    let unique = isRadioFacets(facet.key)
-    let selected = state.selectedFacets
-    const facets = [facet]
-    if (facet.value === 'pickup-in-point') {
-      unique = true
-      facets.push({
-        key: 'pickupPoint',
-        value: selectedPickupPoint?.id,
-      })
-    } else {
-      selected = selected.filter((el) => el.key !== 'pickupPoint')
-    }
-
-    setState({
-      ...state,
-      selectedFacets: toggleFacets(selected, facets, unique),
-      page: 0,
-    })
-  }
-
   const cmsData = getGlobalSettings()
   const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
-
   const {
-    selectedPickupPoint,
+    resetInfiniteScroll,
+    state: searchState,
+    setState: setSearchState,
+  } = useSearch()
+  const { openRegionSlider } = useUI()
+  const {
     facets: filteredFacets,
     deliveryLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
+    onDeliveryFacetChange,
   } = useDeliveryPromise({
-    selectedFacets: state.selectedFacets,
-    toggleFacet: onFacetChange,
-    fallbackToFirst: true,
     allFacets: facets,
+    selectedFilterFacets: searchState.selectedFacets,
     deliveryPromiseSettings,
   })
 
@@ -101,9 +76,7 @@ function FilterDesktop({
             <UIButton
               data-fs-filter-list-delivery-button
               variant="secondary"
-              onClick={() => {
-                openRegionSlider(regionSliderTypes.setLocation)
-              }}
+              onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
               icon={<UIIcon name="MapPin" />}
             >
               {deliveryPromiseSettings?.deliveryMethods
@@ -141,7 +114,7 @@ function FilterDesktop({
                           id={`${testId}-${facet.label}-${item.value}`}
                           testId={testId}
                           onFacetChange={(facet) => {
-                            onFacetChange(facet)
+                            onDeliveryFacetChange({ facet })
                             resetInfiniteScroll(0)
                           }}
                           selected={item.selected}
@@ -177,10 +150,9 @@ function FilterDesktop({
                       : undefined
                   }
                   onFacetChange={(facet) => {
-                    setState({
-                      ...state,
+                    setSearchState({
                       selectedFacets: setFacet(
-                        state.selectedFacets,
+                        searchState.selectedFacets,
                         facet,
                         true
                       ),
@@ -194,7 +166,6 @@ function FilterDesktop({
           )
         })}
       </UIFilter>
-      <RegionSlider cmsData={cmsData} open={regionSliderType !== 'none'} />
     </>
   )
 }
@@ -231,12 +202,5 @@ export const fragment = gql(`
     }
   }
 `)
-
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
-function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
-  if (typeof str !== 'string') return false
-
-  return RADIO_FACETS.some((el) => el === str)
-}
 
 export default FilterDesktop

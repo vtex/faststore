@@ -171,6 +171,11 @@
                           "title": "Change Pickup Point location title",
                           "type": "string",
                           "default": "Change Store"
+                        },
+                        "globalChangePickupPoint": {
+                          "title": "Change Global Pickup Point location title",
+                          "type": "string",
+                          "default": "Change Store"
                         }
                       }
                     },
@@ -217,7 +222,7 @@
                           "default": "Storefront"
                         },
                         "alt": {
-                          "title": "Alternative Label",
+                          "title": "Alternative label",
                           "type": "string",
                           "default": "Storefront icon"
                         }
