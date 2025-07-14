@@ -77,6 +77,7 @@ export function DeliveryPromiseProvider({
       }
 
       // Check if `changeGlobalPickupPoint` action was already triggered
+      // for cases where shopper is changing both postal code and global pickup point
       const isGlobalPickupPointUpdated = newPickupPoints.some(
         ({ id }) => id === state.globalPickupPoint?.id
       )
