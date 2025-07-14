@@ -1,5 +1,5 @@
-import type { UnknownEvent } from '@faststore/sdk'
-import { useAnalyticsEvent } from '@faststore/sdk'
+import type { AnalyticsEvent } from '@faststore/sdk'
+import { useAnalyticsEvent, type UnknownEvent } from '@faststore/sdk'
 
 import storeConfig from '../../../discovery.config'
 
@@ -22,7 +22,10 @@ const AnalyticsHandler = (): null => {
     window.dataLayer.push({ ecommerce: null })
 
     const payload = event.isEcommerceEvent
-      ? { event: event.name, ecommerce: event.params }
+      ? ({ event: event.name, ecommerce: event.params } as {
+          event: AnalyticsEvent['name']
+          ecommerce: AnalyticsEvent['params']
+        })
       : { event: event.name, ...event.params }
 
     window.dataLayer.push(payload)
