@@ -201,6 +201,10 @@ function RegionSlider() {
         page: 0,
       })
     }
+
+    // Clear local state when leaving the component after setting a pickup point.
+    // Pickup points simulation data are reset by the `onPostalCodeChange` callback.
+    onDismissSlider({ shouldClearPickupPointsSimulation: false })
   }
 
   // The `shouldClearPickupPointsSimulation` param prevent triggering store update more than once.

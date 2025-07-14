@@ -94,10 +94,7 @@ export {
   toggleFacet,
   toggleFacets,
 } from './search/facets'
-export {
-  Provider as SearchProvider,
-  type SearchProviderProps,
-} from './search/Provider'
+export { Provider as SearchProvider } from './search/Provider'
 export { useSearch } from './search/useSearch'
 export { usePagination } from './search/usePagination'
 export type { State as SearchState } from './types'
