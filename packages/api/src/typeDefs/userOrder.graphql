@@ -653,6 +653,7 @@ type UserOrderDeliveryOption {
 
 type UserOrderDeliveryOptionsItems {
   id: String
+  uniqueId: String
   name: String
   quantity: Int
   price: Float

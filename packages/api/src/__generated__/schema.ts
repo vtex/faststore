@@ -1630,6 +1630,7 @@ export type UserOrderDeliveryOptionsItems = {
   quantity?: Maybe<Scalars['Int']>;
   tax?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
+  uniqueId?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderDeliveryWindow = {
