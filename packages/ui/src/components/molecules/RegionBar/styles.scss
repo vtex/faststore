@@ -85,13 +85,7 @@
   // @deprecated
   [data-fs-region-bar-message] {
     margin-right: var(--fs-region-bar-message-margin-right);
-    font-weight: var(--fs-text-weight-semibold);
-    white-space: nowrap;
-  }
-
-  [data-fs-region-bar-filter],
-  [data-fs-region-bar-filter-message] {
-    max-width: 80%;
+    font-weight: var(--fs-text-weight-regular);
   }
 
   [data-fs-region-bar-location] {
