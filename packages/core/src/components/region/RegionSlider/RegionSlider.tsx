@@ -169,13 +169,6 @@ function RegionSlider() {
       (facet) => facet.key === SHIPPING_FACET_KEY
     )
 
-    if (!shippingFacet || shippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE) {
-      facetsToToggle.push({
-        key: SHIPPING_FACET_KEY,
-        value: PICKUP_IN_POINT_FACET_VALUE,
-      })
-    }
-
     // Add/update the pickupPoint facet
     if (pickupPointOption) {
       facetsToToggle.push({
@@ -192,6 +185,15 @@ function RegionSlider() {
       }
     }
 
+    if (!shippingFacet || shippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE) {
+      facetsToToggle.push({
+        key: SHIPPING_FACET_KEY,
+        value: PICKUP_IN_POINT_FACET_VALUE,
+      })
+    }
+
+    isChangingPickupPoint && onPostalCodeChange()
+
     if (facetsToToggle.length > 0) {
       setSearchState({
         selectedFacets: toggleFacets(
@@ -205,7 +207,7 @@ function RegionSlider() {
   }
 
   // The `shouldClearPickupPointsSimulation` param prevent triggering store update more than once.
-  const onDismissSlider = ({
+  const onDismissSlider = async ({
     shouldClearPickupPointsSimulation = true,
   }: { shouldClearPickupPointsSimulation?: boolean } = {}) => {
     setDataLoading(false)
@@ -217,42 +219,25 @@ function RegionSlider() {
   }
 
   const clearFilter = async () => {
-    const selectedShippingFacet = searchState.selectedFacets.find(
-      (facet) => facet.key === SHIPPING_FACET_KEY
+    const selectedPickupInPointFacets = searchState.selectedFacets.filter(
+      ({ key, value }) =>
+        value === PICKUP_IN_POINT_FACET_VALUE || key === PICKUP_POINT_FACET_KEY
     )
 
-    if (
-      !selectedShippingFacet ||
-      selectedShippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE
-    ) {
-      return onDismissSlider()
-    }
-
-    const facetsToToggle = []
-    facetsToToggle.push(
-      {
-        key: SHIPPING_FACET_KEY,
-        value: PICKUP_IN_POINT_FACET_VALUE,
-      },
-      {
-        key: PICKUP_POINT_FACET_KEY,
-        value: pickupPointOption,
-      }
-    )
+    changePickupPoint(null)
+    changeGlobalPickupPoint(null)
 
     setSearchState({
       selectedFacets: toggleFacets(
         searchState.selectedFacets,
-        facetsToToggle,
+        selectedPickupInPointFacets,
         true
       ),
       page: 0,
     })
 
-    await changePickupPoint(null)
-    await changeGlobalPickupPoint(null)
-
-    onDismissSlider()
+    await onDismissSlider()
+    closeRegionSlider()
   }
 
   const idkPostalCodeLinkProps = useMemo(
@@ -322,11 +307,12 @@ function RegionSlider() {
               disabled: shouldDisableUpdateButton,
               onClick: async () => {
                 await handlePickupPointUpdate()
-                isChangingPickupPoint && onPostalCodeChange()
 
                 // Clear local state when leaving the component after setting a pickup point.
                 // Pickup points simulation data are reset by the `onPostalCodeChange` callback.
-                onDismissSlider({ shouldClearPickupPointsSimulation: false })
+                await onDismissSlider({
+                  shouldClearPickupPointsSimulation: false,
+                })
               },
             }
           : undefined

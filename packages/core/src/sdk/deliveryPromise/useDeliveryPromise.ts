@@ -184,6 +184,20 @@ export function useDeliveryPromise({
     [pickupPoints, defaultPickupPoint, globalPickupPoint]
   )
 
+  const pickupInPointFacet = useMemo(
+    () => ({
+      value: PICKUP_IN_POINT_FACET_VALUE,
+      label: defaultPickupPoint?.name ?? defaultPickupPoint?.address.street,
+      selected: selectedFacets?.some(
+        ({ key, value }) =>
+          value === PICKUP_IN_POINT_FACET_VALUE ||
+          key === PICKUP_POINT_FACET_KEY
+      ),
+      quantity: defaultPickupPoint?.totalItems,
+    }),
+    [defaultPickupPoint, selectedFacets]
+  )
+
   const allDeliveryMethodsFacet = useMemo(
     () => ({
       value: ALL_DELIVERY_METHODS_FACET_VALUE,
@@ -199,19 +213,7 @@ export function useDeliveryPromise({
         ),
       quantity: 0,
     }),
-    [selectedFacets, deliveryPromiseSettings]
-  )
-
-  const pickupInPointFacet = useMemo(
-    () => ({
-      value: PICKUP_IN_POINT_FACET_VALUE,
-      label: defaultPickupPoint?.name ?? defaultPickupPoint?.address.street,
-      selected: selectedFacets?.some(
-        ({ value }) => value === PICKUP_IN_POINT_FACET_VALUE
-      ),
-      quantity: defaultPickupPoint?.totalItems,
-    }),
-    [pickupPoints, defaultPickupPoint, selectedFacets]
+    [selectedFacets, deliveryPromiseSettings, pickupInPointFacet]
   )
 
   const onDeliveryFacetChange = useCallback(
@@ -295,13 +297,15 @@ export function useDeliveryPromise({
                   key === PICKUP_POINT_FACET_KEY
               )
 
-              selectedPickupInPointFacets.length
+              selectedPickupInPointFacets.length !== 0
                 ? onDeliveryFacetChange({ facets: selectedPickupInPointFacets })
                 : onDeliveryFacetChange({ facet: selectedShippingFacet })
             }
 
             // Removes pickupInPointIndex from array
-            facet.values.splice(pickupInPointFacetIndex, 1)
+            facet.values = facet.values.filter(
+              (_, index) => index !== pickupInPointFacetIndex
+            )
           }
           // Prevent multiple `pickup in point` facet
           else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
@@ -375,11 +379,11 @@ export function useDeliveryPromise({
     pickupPointsSimulation,
     clearPickupPointsSimulation,
     fetchingPickupPoints: shouldUpdatePickupPoints,
-    changePickupPoint: async (pickupPoint: PickupPoint) => {
+    changePickupPoint: (pickupPoint: PickupPoint) => {
       deliveryPromiseStore.set({ defaultPickupPoint: pickupPoint })
     },
     globalPickupPoint,
-    changeGlobalPickupPoint: async (pickupPoint: PickupPoint) => {
+    changeGlobalPickupPoint: (pickupPoint: PickupPoint) => {
       deliveryPromiseStore.set({ globalPickupPoint: pickupPoint })
     },
     pickupPointByID,
