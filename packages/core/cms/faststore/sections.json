@@ -2142,7 +2142,7 @@
       "required": ["label"],
       "properties": {
         "icon": {
-          "title": "Location Icon",
+          "title": "Location icon",
           "type": "object",
           "properties": {
             "icon": {
@@ -2153,7 +2153,7 @@
               "default": "MapPin"
             },
             "alt": {
-              "title": "Alternative Label",
+              "title": "Alternative label",
               "type": "string",
               "default": "Map Pin icon"
             }
@@ -2167,7 +2167,8 @@
         "editLabel": {
           "title": "Location edit label",
           "type": "string",
-          "default": "Edit"
+          "default": "",
+          "description": "[Deprecated] This label should not be used anymore."
         },
         "buttonIcon": {
           "title": "Button Icon",
@@ -2370,6 +2371,22 @@
               }
             }
           }
+        }
+      }
+    }
+  },
+  {
+    "name": "RegionSlider",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Region Slider",
+      "type": "object",
+      "description": "Region Slider configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Should enable Region Slider?",
+          "default": true
         }
       }
     }
