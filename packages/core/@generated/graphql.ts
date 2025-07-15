@@ -2828,6 +2828,10 @@ export type ProcessOrderAuthorizationMutationMutation = {
   } | null
 }
 
+export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type ValidateUserQuery = { validateUser: { isValid: boolean } | null }
+
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
   session: IStoreSession
@@ -3865,7 +3869,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '1f44594aa25a8a2b47c6194dd591172e0d3c095e',
+    operationHash: '4758ccbf776bfa5d9b9f15f92bee6ecb78706b20',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3924,6 +3928,15 @@ export const ProcessOrderAuthorizationMutationDocument = {
 } as unknown as TypedDocumentString<
   ProcessOrderAuthorizationMutationMutation,
   ProcessOrderAuthorizationMutationMutationVariables
+>
+export const ValidateUserDocument = {
+  __meta__: {
+    operationName: 'ValidateUser',
+    operationHash: '32f99c73c3de958b64d6bece1afe800469f54548',
+  },
+} as unknown as TypedDocumentString<
+  ValidateUserQuery,
+  ValidateUserQueryVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
