@@ -3444,32 +3444,6 @@ export type ClientShippingSimulationQueryQuery = {
   } | null
 }
 
-export type ClientPickupPointsQueryQueryVariables = Exact<{
-  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
-  postalCode: InputMaybe<Scalars['String']['input']>
-  country: InputMaybe<Scalars['String']['input']>
-}>
-
-export type ClientPickupPointsQueryQuery = {
-  pickupPoints: {
-    paging: { total: number | null } | null
-    items: Array<{
-      distance: number | null
-      pickupPoint: {
-        id: string | null
-        friendlyName: string | null
-        address: {
-          street: string | null
-          number: string | null
-          postalCode: string | null
-          city: string | null
-          state: string | null
-        } | null
-      } | null
-    } | null> | null
-  } | null
-}
-
 export type ServerManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input']
   after: InputMaybe<Scalars['String']['input']>
@@ -4212,15 +4186,6 @@ export const ClientShippingSimulationQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientShippingSimulationQueryQuery,
   ClientShippingSimulationQueryQueryVariables
->
-export const ClientPickupPointsQueryDocument = {
-  __meta__: {
-    operationName: 'ClientPickupPointsQuery',
-    operationHash: '66d8a051fb16b0ce0c6177ab85387b8b05518e21',
-  },
-} as unknown as TypedDocumentString<
-  ClientPickupPointsQueryQuery,
-  ClientPickupPointsQueryQueryVariables
 >
 export const ServerManyProductsQueryDocument = {
   __meta__: {

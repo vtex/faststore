@@ -502,3 +502,10 @@ function isRadioFacet(facet: unknown): facet is (typeof RADIO_FACETS)[number] {
 
   return RADIO_FACETS.some((el) => el === facet)
 }
+
+const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
+function isRadioFacet(facet: unknown): facet is (typeof RADIO_FACETS)[number] {
+  if (typeof facet !== 'string') return false
+
+  return RADIO_FACETS.some((el) => el === facet)
+}
