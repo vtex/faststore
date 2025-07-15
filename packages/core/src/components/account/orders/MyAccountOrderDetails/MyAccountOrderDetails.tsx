@@ -52,7 +52,7 @@ export default function MyAccountOrderDetails({
           </div>
         </div>
         <MyAccountOrderActions
-          canCancelOrder={order.canCancelOrder}
+          allowCancellation={order.allowCancellation}
           orderId={order.orderId}
           customerEmail={order.clientProfileData?.email}
         />
