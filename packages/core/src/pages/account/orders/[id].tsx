@@ -155,6 +155,7 @@ const query = gql(`
           total
           items {
             id
+            uniqueId
             name
             quantity
             price

@@ -1532,6 +1532,7 @@ export type UserOrderDeliveryOptionsItems = {
   quantity: Maybe<Scalars['Int']['output']>
   tax: Maybe<Scalars['Float']['output']>
   total: Maybe<Scalars['Float']['output']>
+  uniqueId: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderDeliveryWindow = {
@@ -2357,6 +2358,7 @@ export type ServerOrderDetailsQueryQuery = {
         } | null
         items: Array<{
           id: string | null
+          uniqueId: string | null
           name: string | null
           quantity: number | null
           price: number | null
@@ -3512,7 +3514,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'e0fbde45eca1af0aeda0314c5d1c37e8fe520312',
+    operationHash: 'd99f71d9b8dadb42c2a230216267842039b8dc4b',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
