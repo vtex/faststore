@@ -1,1 +1,1 @@
-export { default as RegionSlider } from './RegionSlider'
+export { default } from './RegionSlider'

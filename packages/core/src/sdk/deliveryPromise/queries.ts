@@ -1,15 +1,13 @@
 import { gql } from '@generated'
 import type {
-  ClientPickupPointsQueryQuery,
-  ClientPickupPointsQueryQueryVariables,
+  ClientPickupPointsQueryQuery as ClientPickupPointsQuery,
+  ClientPickupPointsQueryQueryVariables as ClientPickupPointsQueryVariables,
 } from '@generated/graphql'
-import { useMemo } from 'react'
 
 import { deliveryPromise } from 'discovery.config'
-import { useQuery } from 'src/sdk/graphql/useQuery'
-import { useSession } from 'src/sdk/session'
+import { request } from 'src/sdk/graphql/request'
 
-export const query = gql(`
+const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(
     $geoCoordinates: IStoreGeoCoordinates
     $postalCode: String
@@ -37,35 +35,41 @@ export const query = gql(`
   }
 `)
 
-export const usePickupPoints = () => {
-  if (!deliveryPromise.enabled) {
-    return null
-  }
+type GetPickupPointsProps = {
+  country: string | null
+  postalCode: string | null
+  geoCoordinates: {
+    latitude: number
+    longitude: number
+  } | null
+}
 
-  const { country, postalCode, geoCoordinates } = useSession()
+export const getPickupPoints = async ({
+  country,
+  postalCode,
+  geoCoordinates,
+}: GetPickupPointsProps) => {
+  if (!deliveryPromise.enabled) {
+    return []
+  }
 
   if (!geoCoordinates && (!postalCode || !country)) {
-    return null
+    return []
   }
 
-  const variables = useMemo(
-    () => ({
-      country: !!geoCoordinates ? undefined : country,
-      geoCoordinates: geoCoordinates ?? undefined,
-      postalCode: !!geoCoordinates ? undefined : postalCode,
-    }),
-    [country, geoCoordinates, postalCode]
-  )
+  const variables = {
+    country: !!geoCoordinates ? undefined : country,
+    geoCoordinates: geoCoordinates ?? undefined,
+    postalCode: !!geoCoordinates ? undefined : postalCode,
+  }
 
-  const { data } = useQuery<
-    ClientPickupPointsQueryQuery,
-    ClientPickupPointsQueryQueryVariables
-  >(query, variables, {
-    fallbackData: null,
-  })
+  const data = await request<
+    ClientPickupPointsQuery,
+    ClientPickupPointsQueryVariables
+  >(pickupPointsQuery, variables)
 
   if (!data) {
-    return null
+    return []
   }
 
   const pickupPoints = data.pickupPoints.items.map((item) => ({

@@ -6,6 +6,7 @@ import { Icon, useUI } from '@faststore/ui'
 
 import { deliveryPromise } from 'discovery.config'
 import { useSession } from 'src/sdk/session'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 import useRegion from './useRegion'
 
@@ -40,6 +41,7 @@ interface RegionModalProps {
 }
 
 function RegionModal(regionModalProps: RegionModalProps) {
+  const { onPostalCodeChange } = useDeliveryPromise()
   const { title, description, closeButtonAriaLabel, ...otherRegionModalProps } =
     regionModalProps
   const cmsData = getGlobalSettings(otherRegionModalProps)
@@ -77,6 +79,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
     await setRegion({
       session,
       onSuccess: () => {
+        onPostalCodeChange()
         setInput('')
         closeModal()
       },

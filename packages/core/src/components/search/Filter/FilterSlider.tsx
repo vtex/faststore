@@ -19,12 +19,9 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
-
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 
-import { RegionSlider } from 'src/components/region/RegionSlider'
-
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import styles from './section.module.scss'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
@@ -96,46 +93,19 @@ function FilterSlider({
   applyButtonLabel,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
-  const {
-    regionSlider: { type: regionSliderType },
-    openRegionSlider,
-  } = useUI()
-
-  const onFacetChange = (facet: { key: string; value: string }) => {
-    let unique = isRadioFacets(facet.key)
-    const facets = [facet]
-    if (facet.value === 'pickup-in-point') {
-      unique = true
-      facets.push({
-        key: 'pickupPoint',
-        value: selectedPickupPoint?.id,
-      })
-    } else {
-      facets.concat(selected.filter((el) => el.key === 'pickupPoint'))
-    }
-
-    dispatch({
-      type: 'toggleFacets',
-      payload: {
-        unique,
-        facets,
-      },
-    })
-  }
+  const { openRegionSlider } = useUI()
 
   const cmsData = getGlobalSettings()
   const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
 
   const {
-    selectedPickupPoint,
     facets: filteredFacets,
     deliveryLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
+    onDeliveryFacetChange,
   } = useDeliveryPromise({
-    selectedFacets: selected,
-    toggleFacet: onFacetChange,
-    fallbackToFirst: true,
+    selectedFilterFacets: selected,
     allFacets: facets,
     deliveryPromiseSettings,
   })
@@ -159,7 +129,7 @@ function FilterSlider({
           onClick: () => {
             resetInfiniteScroll(0)
 
-            const isOtherShippingFacetSelected = selected.find(
+            const isOtherShippingFacetSelected = selected.some(
               ({ key, value }) =>
                 key === 'shipping' && value !== 'pickup-in-point'
             )
@@ -168,7 +138,6 @@ function FilterSlider({
             )
 
             setState({
-              ...state,
               selectedFacets: isOtherShippingFacetSelected
                 ? removePickupPointFacet
                 : selected,
@@ -205,9 +174,7 @@ function FilterSlider({
               <UIButton
                 data-fs-filter-list-delivery-button
                 variant="secondary"
-                onClick={() => {
-                  openRegionSlider(regionSliderTypes.setLocation)
-                }}
+                onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
                 icon={<UIIcon name="MapPin" />}
               >
                 {deliveryPromiseSettings?.deliveryMethods
@@ -244,7 +211,12 @@ function FilterSlider({
                             key={`${testId}-${facet.label}-${item.value}`}
                             id={`${testId}-${facet.label}-${item.value}`}
                             testId={`mobile-${testId}`}
-                            onFacetChange={onFacetChange}
+                            onFacetChange={(facet) => {
+                              onDeliveryFacetChange({
+                                facet,
+                                filterDispatch: dispatch,
+                              })
+                            }}
                             selected={item.selected}
                             value={item.value}
                             quantity={item.quantity}
@@ -290,16 +262,8 @@ function FilterSlider({
           })}
         </UIFilter>
       </UIFilterSlider>
-      <RegionSlider cmsData={cmsData} open={regionSliderType !== 'none'} />
     </>
   )
-}
-
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
-function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
-  if (typeof str !== 'string') return false
-
-  return RADIO_FACETS.some((el) => el === str)
 }
 
 export default FilterSlider
