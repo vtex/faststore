@@ -62,6 +62,7 @@ function RegionSlider() {
     clearPickupPointsSimulation,
     globalPickupPoint,
     fetchingPickupPoints,
+    changePickupPoint,
   } = useDeliveryPromise({ selectedFilterFacets: searchState.selectedFacets })
 
   const isChangingPickupPoint = useMemo(
@@ -211,8 +212,47 @@ function RegionSlider() {
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
     setValidatedSession(undefined)
-    setPickupPointOption(undefined)
+    setPickupPointOption(null)
     shouldClearPickupPointsSimulation && clearPickupPointsSimulation()
+  }
+
+  const clearFilter = async () => {
+    const selectedShippingFacet = searchState.selectedFacets.find(
+      (facet) => facet.key === SHIPPING_FACET_KEY
+    )
+
+    if (
+      !selectedShippingFacet ||
+      selectedShippingFacet.value !== PICKUP_IN_POINT_FACET_VALUE
+    ) {
+      return onDismissSlider()
+    }
+
+    const facetsToToggle = []
+    facetsToToggle.push(
+      {
+        key: SHIPPING_FACET_KEY,
+        value: PICKUP_IN_POINT_FACET_VALUE,
+      },
+      {
+        key: PICKUP_POINT_FACET_KEY,
+        value: pickupPointOption,
+      }
+    )
+
+    setSearchState({
+      selectedFacets: toggleFacets(
+        searchState.selectedFacets,
+        facetsToToggle,
+        true
+      ),
+      page: 0,
+    })
+
+    await changePickupPoint(null)
+    await changeGlobalPickupPoint(null)
+
+    onDismissSlider()
   }
 
   const idkPostalCodeLinkProps = useMemo(
@@ -288,6 +328,18 @@ function RegionSlider() {
                 // Pickup points simulation data are reset by the `onPostalCodeChange` callback.
                 onDismissSlider({ shouldClearPickupPointsSimulation: false })
               },
+            }
+          : undefined
+      }
+      clearBtnProps={
+        isChangingPickupPoint
+          ? {
+              variant: 'secondary',
+              disabled: !pickupPointOption,
+              onClick: () => clearFilter(),
+              children:
+                cmsData?.deliveryPromise?.regionSlider
+                  ?.pickupPointClearFilterButtonLabel ?? 'Clear filter',
             }
           : undefined
       }

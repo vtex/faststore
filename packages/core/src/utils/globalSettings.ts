@@ -46,6 +46,7 @@ type DeliveryPromiseCmsData = {
       globalChangePickupPoint?: string
     }
     pickupPointChangeApplyButtonLabel?: string
+    pickupPointClearFilterButtonLabel?: string
     choosePickupPointAriaLabel?: string
     noPickupPointsAvailableInLocation?: string
   }
