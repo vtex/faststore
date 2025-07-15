@@ -2475,6 +2475,22 @@
     }
   },
   {
+    "name": "RegionSlider",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Region Slider",
+      "type": "object",
+      "description": "Region Slider configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Should enable Region Slider?",
+          "default": true
+        }
+      }
+    }
+  },
+  {
     "name": "EmptyState",
     "schema": {
       "title": "Empty State",

@@ -280,11 +280,4 @@ function FilterSlider({
   )
 }
 
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
-function isRadioFacets(str: unknown): str is (typeof RADIO_FACETS)[number] {
-  if (typeof str !== 'string') return false
-
-  return RADIO_FACETS.some((el) => el === str)
-}
-
 export default FilterSlider
