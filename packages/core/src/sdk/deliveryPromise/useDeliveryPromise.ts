@@ -164,7 +164,7 @@ export function useDeliveryPromise({
         page: 0,
       })
     }
-  }, [])
+  }, [globalPickupPoint])
 
   const pickupPointByID = useCallback(
     (pickupPointId: string) => {
@@ -376,17 +376,11 @@ export function useDeliveryPromise({
     clearPickupPointsSimulation,
     fetchingPickupPoints: shouldUpdatePickupPoints,
     changePickupPoint: async (pickupPoint: PickupPoint) => {
-      dispatchDeliveryPromiseAction({
-        type: 'changePickupPoint',
-        payload: pickupPoint,
-      })
+      deliveryPromiseStore.set({ defaultPickupPoint: pickupPoint })
     },
     globalPickupPoint,
-    changeGlobalPickupPoint: (pickupPoint: PickupPoint) => {
-      dispatchDeliveryPromiseAction({
-        type: 'changeGlobalPickupPoint',
-        payload: pickupPoint,
-      })
+    changeGlobalPickupPoint: async (pickupPoint: PickupPoint) => {
+      deliveryPromiseStore.set({ globalPickupPoint: pickupPoint })
     },
     pickupPointByID,
     facets,

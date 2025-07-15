@@ -160,7 +160,6 @@ function RegionSlider() {
   const handlePickupPointUpdate = async () => {
     if (validatedSession && isChangingPickupPoint) {
       sessionStore.set(validatedSession)
-      onPostalCodeChange()
     }
 
     // If shipping is not 'pickup-in-point', we need to toggle it
@@ -182,14 +181,12 @@ function RegionSlider() {
         key: PICKUP_POINT_FACET_KEY,
         value: pickupPointOption,
       })
-      const pickupPointFacet = pickupPoints.find(
-        (pickupPoint) => pickupPoint.id === pickupPointOption
-      )
 
-      if (
-        isChangingPickupPoint &&
-        regionSliderType === 'globalChangePickupPoint'
-      ) {
+      if (regionSliderType === 'globalChangePickupPoint') {
+        const pickupPointFacet = pickupPoints.find(
+          (pickupPoint) => pickupPoint.id === pickupPointOption
+        )
+
         changeGlobalPickupPoint(pickupPointFacet)
       }
     }
@@ -285,6 +282,7 @@ function RegionSlider() {
               disabled: shouldDisableUpdateButton,
               onClick: async () => {
                 await handlePickupPointUpdate()
+                isChangingPickupPoint && onPostalCodeChange()
 
                 // Clear local state when leaving the component after setting a pickup point.
                 // Pickup points simulation data are reset by the `onPostalCodeChange` callback.
