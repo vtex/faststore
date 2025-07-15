@@ -160,7 +160,6 @@ function RegionSlider() {
   const handlePickupPointUpdate = async () => {
     if (validatedSession && isChangingPickupPoint) {
       sessionStore.set(validatedSession)
-      onPostalCodeChange()
     }
 
     // If shipping is not 'pickup-in-point', we need to toggle it
