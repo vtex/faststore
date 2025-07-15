@@ -23,13 +23,13 @@ const TOASTS_CONFIG = {
 }
 
 interface MyAccountOrderActionsProps {
-  canCancelOrder: boolean
+  allowCancellation: boolean
   orderId: string
   customerEmail?: string
 }
 
 export default function MyAccountOrderActions({
-  canCancelOrder,
+  allowCancellation,
   orderId,
   customerEmail,
 }: MyAccountOrderActionsProps) {
@@ -89,7 +89,7 @@ export default function MyAccountOrderActions({
   return (
     <>
       <div data-fs-order-details-header-actions>
-        {canCancelOrder && (
+        {allowCancellation && (
           <UIButton
             variant="secondary"
             data-fs-order-details-header-actions-cancel
