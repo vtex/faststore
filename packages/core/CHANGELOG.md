@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.63.1](https://github.com/vtex/faststore/compare/v3.63.0...v3.63.1) (2025-07-15)
+
+### Bug Fixes
+
+- use allowCancellation to validate cancel order button ([#2942](https://github.com/vtex/faststore/issues/2942)) ([1f0f6a9](https://github.com/vtex/faststore/commit/1f0f6a9dc27436b6de63e2aff58a1086d4b2ae2a)), closes [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx#L116](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx/issues/L116) [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx#L41](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx/issues/L41)
+
 # [3.63.0](https://github.com/vtex/faststore/compare/v3.62.0...v3.63.0) (2025-07-14)
 
 ### Features
