@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
+
+### Features
+
+- add uniqueId field to UserOrder items and update related components ([#2945](https://github.com/vtex/faststore/issues/2945)) ([d48ea5a](https://github.com/vtex/faststore/commit/d48ea5af35a538f7e07c14cf90330b87cf27178a))
+
 ## [3.63.1](https://github.com/vtex/faststore/compare/v3.63.0...v3.63.1) (2025-07-15)
 
 ### Bug Fixes
