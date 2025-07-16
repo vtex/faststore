@@ -1,26 +1,15 @@
-import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
-import MyAccountOrderActionModal, {
-  useOrderActionModal,
-} from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+  Icon as UIIcon,
+  useUI,
+  IconButton as UIIconButton,
+} from '@faststore/ui'
+import { useState } from 'react'
+import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
-import { useApproveOrder } from 'src/sdk/account/useApproveOrder'
-import { useRejectOrder } from 'src/sdk/account/useRejectOrder'
-
-const TOASTS_CONFIG = {
-  cancel: {
-    success: 'Order canceled successfully',
-    error: "Order couldn't be canceled due to a technical issue. Try again.",
-  },
-  approve: {
-    success: 'Order approved successfully',
-    error: "Order couldn't be approved due to a technical issue. Try again.",
-  },
-  reject: {
-    success: 'Order rejected successfully',
-    error: "Order couldn't be rejected due to a technical issue. Try again.",
-  },
-}
 
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean
@@ -33,21 +22,12 @@ export default function MyAccountOrderActions({
   orderId,
   customerEmail,
 }: MyAccountOrderActionsProps) {
-  const { isMobile, isTablet } = useScreenResize()
-  const { isOpen, actionType, fade, openDialog, closeDialog } =
-    useOrderActionModal()
+  const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false)
   const { pushToast } = useUI()
 
-  const { cancelOrder, loading: cancelLoading } = useCancelOrder()
-  const { approveOrder, loading: approveLoading } = useApproveOrder()
-  const { rejectOrder, loading: rejectLoading } = useRejectOrder()
+  const { cancelOrder, loading } = useCancelOrder()
 
-  const loading =
-    (actionType === 'cancel' && cancelLoading) ||
-    (actionType === 'approve' && approveLoading) ||
-    (actionType === 'reject' && rejectLoading)
-
-  const handleConfirm = async (type: string) => {
+  const handleCancel = async () => {
     const data = {
       orderId,
       customerEmail,
@@ -55,99 +35,66 @@ export default function MyAccountOrderActions({
       reason: '',
     }
 
-    const actions = {
-      cancel: cancelOrder,
-      approve: approveOrder,
-      reject: rejectOrder,
-    }
-
     try {
-      const action = actions[type as keyof typeof actions]
+      await cancelOrder({ data: data })
 
-      if (!action) {
-        throw new Error(`Invalid action type: ${type}`)
-      }
-
-      // Execute the action
-      await action({ data: data })
-
-      closeDialog()
+      setIsCancelOpen(false)
       pushToast({
         status: 'INFO',
-        message: TOASTS_CONFIG[type as keyof typeof TOASTS_CONFIG].success,
+        message: 'Order canceled successfully',
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: TOASTS_CONFIG[type as keyof typeof TOASTS_CONFIG].error,
+        message: "Order couldn't be canceled due to a technical issue.",
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
   }
 
+  // Don't render if no actions are available
+  if (!allowCancellation) {
+    return null
+  }
+
   return (
     <>
-      <div data-fs-order-details-header-actions>
-        {allowCancellation && (
-          <UIButton
-            variant="secondary"
-            data-fs-order-details-header-actions-cancel
-            size={isMobile || isTablet ? 'regular' : 'small'}
-            type="button"
-            onClick={() => openDialog('cancel')}
-          >
-            Cancel order
-          </UIButton>
-        )}
-        {/* TODO: This will be replaced for approval flow with buying policies */}
-        {/* {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Reject"
-            icon={<UIIcon name="XCircle" />}
-            variant="tertiary"
-            type="button"
-            onClick={() => openDialog('reject')}
-          />
-        ) : (
-          <UIButton
-            variant="secondary"
-            size="small"
-            icon={<UIIcon name="XCircle" />}
-            type="button"
-            onClick={() => openDialog('reject')}
-          >
-            Reject
-          </UIButton>
-        )}
-        {isMobile || isTablet ? (
-          <UIIconButton
-            aria-label="Approve"
-            icon={<UIIcon name="CircleCheck" />}
-            variant="primary"
-            type="button"
-            onClick={() => openDialog('approve')}
-          />
-        ) : (
-          <UIButton
-            variant="primary"
-            size="small"
-            icon={<UIIcon name="CircleCheck" />}
-            type="button"
-            onClick={() => openDialog('approve')}
-          >
-            Approve
-          </UIButton>
-        )} */}
+      <div data-fs-order-actions>
+        <Dropdown>
+          <DropdownButton aria-label="View More" data-fs-dropdown-button>
+            <UIIcon
+              name="DotsThree"
+              width={20}
+              height={20}
+              data-fs-dropdown-icon
+            />
+          </DropdownButton>
+          <DropdownMenu align="right">
+            {allowCancellation && (
+              <DropdownItem
+                type="button"
+                onClick={() => setIsCancelOpen(true)}
+                style={{
+                  color: 'var(--fs-color-text)',
+                }}
+              >
+                Cancel order
+              </DropdownItem>
+            )}
+          </DropdownMenu>
+        </Dropdown>
       </div>
 
       <MyAccountOrderActionModal
-        isOpen={isOpen}
+        isOpen={isCancelOpen}
         loading={loading}
-        fade={fade}
-        actionType={actionType}
-        onClose={closeDialog}
-        onConfirm={handleConfirm}
+        title="Cancel order"
+        message="Are you sure you want to cancel this order? This action can't be undone."
+        confirmText="Cancel order"
+        danger
+        onClose={() => setIsCancelOpen(false)}
+        onConfirm={handleCancel}
       />
     </>
   )

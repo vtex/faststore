@@ -12,6 +12,10 @@ export const orderStatusMap = {
   },
 
   // Approval Pending
+  'waiting-for-authorization': {
+    variant: 'warning',
+    label: 'Approval Pending',
+  },
   'waiting-for-confirmation': { variant: 'warning', label: 'Approval Pending' },
 
   // Payment Pending

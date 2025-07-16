@@ -57,11 +57,14 @@ type UserOrder {
   totals: [UserOrderTotals]
   deliveryOptionsData: UserOrderDeliveryOptionsData
   customFields: [UserOrderCustomFieldsGrouped]
+  canProcessOrderAuthorization: Boolean
+  ruleForAuthorization: ProcessOrderAuthorizationRule
 }
 
 type UserOrderResult {
   orderId: String
   status: String
+  canProcessOrderAuthorization: Boolean
   statusDescription: String
   allowCancellation: Boolean
   storePreferencesData: UserOrderStorePreferencesData
@@ -73,6 +76,7 @@ type UserOrderResult {
   totals: [UserOrderTotals]
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
+  ruleForAuthorization: ProcessOrderAuthorizationRule
 }
 
 type UserOrderListResult {
