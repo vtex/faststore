@@ -312,13 +312,6 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  console.log('➡️ Order Details server side:', {
-    orderId: id,
-    userOrder: orderDetails.data?.userOrder,
-    errors: orderDetails.errors,
-    accountName: orderDetails.data?.accountName,
-  })
-
   if (orderDetails.errors) {
     const status = extractStatusFromError(orderDetails.errors?.[0])
 

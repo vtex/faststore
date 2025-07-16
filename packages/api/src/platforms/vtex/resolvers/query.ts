@@ -398,11 +398,6 @@ export const Query = {
     try {
       const order = await commerce.oms.userOrder({ orderId })
 
-      console.log('✅ Order userOrder executed:', {
-        orderId: order.orderId,
-        order,
-      })
-
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
@@ -419,11 +414,7 @@ export const Query = {
           await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
 
         ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
-      } catch (err: any) {
-        if (err.response?.status !== 404) {
-          // throw err
-        }
-      }
+      } catch (err: any) {}
 
       return {
         orderId: order.orderId,
