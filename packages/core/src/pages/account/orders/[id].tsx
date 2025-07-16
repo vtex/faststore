@@ -11,10 +11,6 @@ import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { validateUser } from 'src/sdk/account/validateUser'
 
 import { gql } from '@generated'
-import type {
-  ServerOrderDetailsQueryQuery,
-  ServerOrderDetailsQueryQueryVariables,
-} from '@generated/graphql'
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
@@ -24,6 +20,10 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
 import storeConfig from '../../../../discovery.config'
+import type {
+  ServerOrderDetailsQueryQuery,
+  ServerOrderDetailsQueryQueryVariables,
+} from '@generated/graphql'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -82,6 +82,49 @@ const query = gql(`
       canProcessOrderAuthorization
       statusDescription
       allowCancellation
+      ruleForAuthorization {
+        orderAuthorizationId
+        dimensionId
+        rule {
+          id
+          name
+          status
+          doId
+          authorizedEmails
+          priority
+          trigger {
+            condition {
+              conditionType
+              description
+              lessThan
+              greatherThan
+              expression
+            }
+            effect {
+              description
+              effectType
+              funcPath
+            }
+          }
+          timeout
+          notification
+          scoreInterval {
+            accept
+            deny
+          }
+          authorizationData {
+            requireAllApprovals
+            authorizers {
+              id
+              email
+              type
+              authorizationDate
+            }
+          }
+          isUserAuthorized
+          isUserNextAuthorizer
+        }
+      }
       storePreferencesData {
         currencyCode
       }

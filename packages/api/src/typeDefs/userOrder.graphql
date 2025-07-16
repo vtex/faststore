@@ -58,6 +58,7 @@ type UserOrder {
   deliveryOptionsData: UserOrderDeliveryOptionsData
   customFields: [UserOrderCustomFieldsGrouped]
   canProcessOrderAuthorization: Boolean
+  ruleForAuthorization: ProcessOrderAuthorizationRule
 }
 
 type UserOrderResult {
@@ -75,6 +76,7 @@ type UserOrderResult {
   totals: [UserOrderTotals]
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
+  ruleForAuthorization: ProcessOrderAuthorizationRule
 }
 
 type UserOrderListResult {

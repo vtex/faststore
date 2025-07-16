@@ -1,8 +1,11 @@
 .page {
   @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
   @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
   @import "@faststore/ui/src/components/atoms/Button/styles.scss";
   @import "@faststore/ui/src/components/molecules/Card/styles.scss";
+  @import "@faststore/ui/src/components/molecules/Alert/styles.scss";
+  @import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
   @import "../../components/MyAccountAccordion/styles.scss";
   @import "../../components/MyAccountCard/styles.scss";
   @import "../../components/MyAccountStatusBadge/styles.scss";
@@ -14,6 +17,7 @@
   @import "./MyAccountOrderActions/styles.scss";
   @import "./MyAccountStatusCard/styles.scss";
   @import "./MyAccountMoreInformationCard/styles.scss";
+  @import "./MyAccountBuyingPolicyAlert/styles.scss";
 
   // --------------------------------------------------------
   // Design Tokens
@@ -44,7 +48,7 @@
 
   [data-fs-order-details-header] {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--fs-order-details-header-gap);
     align-items: flex-start;
     justify-content: space-between;
@@ -53,7 +57,6 @@
     @include media (">=tablet") {
       --fs-order-details-header-gap                 : var(--fs-spacing-2);
 
-      flex-flow: row;
       align-items: center;
     }
 
@@ -109,6 +112,14 @@
     }
 
     [data-fs-order-status-card] {
+      grid-column: span 2;
+    }
+
+    [data-fs-buying-policy-alert] {
+      grid-column: span 2;
+    }
+
+    [data-fs-pending-policies-alert] {
       grid-column: span 2;
     }
 

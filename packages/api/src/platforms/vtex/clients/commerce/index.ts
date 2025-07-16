@@ -3,6 +3,9 @@ import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
 import type {
+  CommercialAuthorizationResponse,
+  ICommercialAuthorizationByOrderId,
+  IProcessOrderAuthorization,
   IUserOrderCancel,
   QueryListUserOrdersArgs,
   StoreMarketingData,
@@ -36,7 +39,6 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
-import type { CommercialAuthorizationResponse } from './types/CommercialAuthorization'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -442,10 +444,7 @@ export const VtexCommerce = (
     },
     oms: {
       userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
@@ -523,9 +522,7 @@ export const VtexCommerce = (
       },
       getCommercialAuthorizationsByOrderId: ({
         orderId,
-      }: {
-        orderId: string
-      }): Promise<CommercialAuthorizationResponse> => {
+      }: ICommercialAuthorizationByOrderId): Promise<CommercialAuthorizationResponse> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
@@ -542,12 +539,7 @@ export const VtexCommerce = (
         dimensionId,
         ruleId,
         approved,
-      }: {
-        orderAuthorizationId: string
-        ruleId: string
-        dimensionId: string
-        approved: boolean
-      }): Promise<CommercialAuthorizationResponse> => {
+      }: IProcessOrderAuthorization): Promise<CommercialAuthorizationResponse> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         const APPROVAL_SCORE = 100
@@ -562,7 +554,7 @@ export const VtexCommerce = (
         }
 
         return fetchAPI(
-          `/${account}/commercial-authorizations/${orderAuthorizationId}/callback`,
+          `${base}/${account}/commercial-authorizations/${orderAuthorizationId}/callback`,
           {
             method: 'POST',
             headers,

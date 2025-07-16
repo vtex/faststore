@@ -7,34 +7,47 @@
     @import "src/components/account/components/BottomSheet/styles.scss";
 
     [data-fs-order-details-action-modal] {
+      [data-fs-modal-header] {
+        [data-fs-modal-header-title] {
+          margin: 0;
+          font-size: var(--fs-text-size-lead);
+          font-weight: var(--fs-text-weight-medium);
+          line-height: 1.56;
+        }
+      }
+
       [data-fs-modal-body] {
         [data-fs-order-details-action-modal-message] {
-          font-size: var(--fs-text-size-body);
-          line-height: 1.5;
+          font-size: var(--fs-text-size-2);
+          line-height: 1.25;
           color: var(--fs-color-text);
         }
       }
 
       [data-fs-modal-footer] {
-        @include media("<=tablet") {
-          padding: var(--fs-spacing-3) 0 var(--fs-spacing-3);
+        padding: var(--fs-spacing-3) var(--fs-spacing-4);
 
-          [data-fs-modal-footer-actions] {
-            display: flex;
-            flex-flow: row wrap;
-            gap: var(--fs-spacing-3);
-            align-items: center;
-            justify-content: flex-end;
-            max-width: 25rem;
-            padding: var(--fs-spacing-1) var(--fs-spacing-4);
-            margin-left: auto;
+        [data-fs-modal-footer-actions] {
+          display: flex;
+          flex-flow: row wrap;
+          gap: var(--fs-spacing-3);
+          align-items: center;
+          padding: 0;
 
-            > * {
-              flex-grow: 1;
-            }
+          > * {
+            flex-grow: 1;
           }
         }
       }
+    }
+
+    [data-fs-button-danger] {
+      --fs-button-secondary-text-color: var(--fs-color-danger-text);
+      --fs-button-secondary-bkg-color-hover: var(--fs-button-secondary-text-color);
+      --fs-button-tertiary-text-color: var(--fs-color-danger-text);
+      --fs-button-primary-bkg-color: var(--fs-color-danger-text);
+      --fs-button-primary-bkg-color-hover: var(--fs-button-primary-bkg-color);
+      --fs-button-primary-bkg-color-active: var(--fs-button-primary-bkg-color);
     }
   }
 }
