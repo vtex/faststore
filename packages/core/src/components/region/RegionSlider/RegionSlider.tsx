@@ -100,6 +100,8 @@ function RegionSlider() {
 
   // We should set default state values based on each `regionSliderType` or when postal code changes
   useEffect(() => {
+    if (regionSliderType === 'none') return
+
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
     setPickupPointOption(
@@ -226,6 +228,12 @@ function RegionSlider() {
     )
 
     if (selectedPickupInPointFacets.length === 0) {
+      if (regionSliderType === 'globalChangePickupPoint') {
+        changeGlobalPickupPoint(null)
+        await onDismissSlider()
+        return closeRegionSlider()
+      }
+
       return onDismissSlider()
     }
 
@@ -287,6 +295,8 @@ function RegionSlider() {
     isSameSelectedPickupPoint ||
     isSameGlobalPickupPoint ||
     regionError !== ''
+  const shouldDisableClearButton =
+    !dataLoading && !pickupPointOption && !selectedPickupPointFacet
 
   return (
     <UIFilterSlider
@@ -329,7 +339,7 @@ function RegionSlider() {
         isChangingPickupPoint
           ? {
               variant: 'secondary',
-              disabled: !pickupPointOption || !selectedPickupPointFacet,
+              disabled: shouldDisableClearButton,
               onClick: () => clearFilter(),
               children:
                 cmsData?.deliveryPromise?.regionSlider
