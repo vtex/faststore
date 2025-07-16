@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.64.1](https://github.com/vtex/faststore/compare/v3.64.0...v3.64.1) (2025-07-16)
+
+### Bug Fixes
+
+- format date manually on MyAccountSelectedTags to work with user timezone ([#2946](https://github.com/vtex/faststore/issues/2946)) ([3f001ff](https://github.com/vtex/faststore/commit/3f001ff55d4369589428cb569caa205d4d87e1af))
+
 # [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
 
 ### Features
