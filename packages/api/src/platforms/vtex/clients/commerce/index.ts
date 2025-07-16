@@ -553,7 +553,7 @@ export const VtexCommerce = (
           },
         }
 
-        const res = await fetchAPI(
+        return fetchAPI(
           `${base}/${account}/commercial-authorizations/${orderAuthorizationId}/callback`,
           {
             method: 'POST',
