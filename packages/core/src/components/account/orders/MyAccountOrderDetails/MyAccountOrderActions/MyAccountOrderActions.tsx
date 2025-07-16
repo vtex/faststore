@@ -49,8 +49,7 @@ export default function MyAccountOrderActions({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message:
-          "Order couldn't be canceled due to a technical issue. Try again.",
+        message: "Order couldn't be canceled due to a technical issue.",
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }

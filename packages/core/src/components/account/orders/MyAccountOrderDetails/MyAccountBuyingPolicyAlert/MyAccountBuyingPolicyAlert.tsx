@@ -46,8 +46,7 @@ export default function MyAccountBuyingPolicyAlert({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message:
-          "Policy couldn't be approved due to a technical issue. Try again.",
+        message: "Policy couldn't be approved due to a technical issue.",
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -75,8 +74,7 @@ export default function MyAccountBuyingPolicyAlert({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message:
-          "Policy couldn't be rejected due to a technical issue. Try again.",
+        message: "Policy couldn't be rejected due to a technical issue.",
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
