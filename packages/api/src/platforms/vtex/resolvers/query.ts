@@ -438,8 +438,9 @@ export const Query = {
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
         canProcessOrderAuthorization:
-          // TODO: Check if still needs to check for order.status === 'waiting-for-approval'
-          order.status === 'waiting-for-confirmation' && !!ruleForAuthorization,
+          (order.status === 'waiting-for-confirmation' ||
+            order.status === 'waiting-for-authorization') &&
+          !!ruleForAuthorization,
         ruleForAuthorization,
       }
     } catch (error) {
