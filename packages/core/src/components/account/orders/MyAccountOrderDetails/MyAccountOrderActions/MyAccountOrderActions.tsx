@@ -14,14 +14,12 @@ import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean
   orderId: string
-  canProcessOrderAuthorization: boolean
   customerEmail?: string
 }
 
 export default function MyAccountOrderActions({
   allowCancellation,
   orderId,
-  canProcessOrderAuthorization,
   customerEmail,
 }: MyAccountOrderActionsProps) {
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false)

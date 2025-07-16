@@ -55,7 +55,6 @@ export default function MyAccountOrderDetails({
           allowCancellation={order.allowCancellation}
           orderId={order.orderId}
           customerEmail={order.clientProfileData?.email}
-          canProcessOrderAuthorization={order.canProcessOrderAuthorization}
         />
       </header>
 
