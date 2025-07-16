@@ -3,7 +3,7 @@
     "$singleton": true,
     "title": "Search Page",
     "properties": {
-      "productGalery": {
+      "productGallery": {
         "$ref": "#/components/SEO"
       },
       "sections": {
