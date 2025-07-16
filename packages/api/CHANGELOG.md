@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+### Features
+
+- my account release 3 ([#2883](https://github.com/vtex/faststore/issues/2883)) ([be2c32a](https://github.com/vtex/faststore/commit/be2c32ae5cb0d892e34a96c2d73b06d31f8af137))
+
 # [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
 
 ### Features
