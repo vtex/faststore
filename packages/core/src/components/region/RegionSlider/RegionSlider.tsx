@@ -224,8 +224,13 @@ function RegionSlider() {
         value === PICKUP_IN_POINT_FACET_VALUE || key === PICKUP_POINT_FACET_KEY
     )
 
-    changePickupPoint(null)
-    changeGlobalPickupPoint(null)
+    if (selectedPickupInPointFacets.length === 0) {
+      return onDismissSlider()
+    }
+
+    regionSliderType === 'changePickupPoint' && changePickupPoint(null)
+    regionSliderType === 'globalChangePickupPoint' &&
+      changeGlobalPickupPoint(null)
 
     setSearchState({
       selectedFacets: toggleFacets(
@@ -321,7 +326,7 @@ function RegionSlider() {
         isChangingPickupPoint
           ? {
               variant: 'secondary',
-              disabled: !pickupPointOption,
+              disabled: !pickupPointOption || !selectedPickupPointFacet,
               onClick: () => clearFilter(),
               children:
                 cmsData?.deliveryPromise?.regionSlider
