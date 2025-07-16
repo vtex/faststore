@@ -103,7 +103,6 @@ export const deliveryPromiseReducer = (
 
       return {
         ...state,
-        defaultPickupPoint: null,
         pickupPointsSimulation: initialPickupPointsSimulation,
         shouldUpdatePickupPoints: true,
       }

@@ -107,6 +107,7 @@ function RegionSlider() {
         ? (globalPickupPoint?.id ?? null)
         : (selectedPickupPointFacet ?? null)
     )
+    setDataLoading(false)
   }, [session.postalCode, regionSliderType])
 
   const cmsData = getGlobalSettings()
@@ -210,7 +211,7 @@ function RegionSlider() {
   const onDismissSlider = async ({
     shouldClearPickupPointsSimulation = true,
   }: { shouldClearPickupPointsSimulation?: boolean } = {}) => {
-    setDataLoading(false)
+    setDataLoading(true)
     setInput(session.postalCode)
     setAppliedInput(session.postalCode)
     setValidatedSession(undefined)
@@ -228,9 +229,11 @@ function RegionSlider() {
       return onDismissSlider()
     }
 
-    regionSliderType === 'changePickupPoint' && changePickupPoint(null)
-    regionSliderType === 'globalChangePickupPoint' &&
-      changeGlobalPickupPoint(null)
+    if (isChangingPickupPoint) {
+      changePickupPoint(null)
+      regionSliderType === 'globalChangePickupPoint' &&
+        changeGlobalPickupPoint(null)
+    }
 
     setSearchState({
       selectedFacets: toggleFacets(

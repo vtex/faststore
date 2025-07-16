@@ -164,7 +164,7 @@ export function useDeliveryPromise({
         page: 0,
       })
     }
-  }, [globalPickupPoint])
+  }, [])
 
   const pickupPointByID = useCallback(
     (pickupPointId: string) => {
@@ -297,7 +297,7 @@ export function useDeliveryPromise({
                   key === PICKUP_POINT_FACET_KEY
               )
 
-              selectedPickupInPointFacets.length !== 0
+              selectedPickupInPointFacets.length
                 ? onDeliveryFacetChange({ facets: selectedPickupInPointFacets })
                 : onDeliveryFacetChange({ facet: selectedShippingFacet })
             }
@@ -309,7 +309,7 @@ export function useDeliveryPromise({
           }
           // Prevent multiple `pickup in point` facet
           else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
-            facet.values = withUniqueFacet(facet.values, pickupInPointFacet)
+            facet.values.push(pickupInPointFacet)
           }
           // Replace current `pickup-in-point` facet with the updated one
           else if (
@@ -331,9 +331,11 @@ export function useDeliveryPromise({
     pickupInPointFacet,
     allFacets,
     defaultPickupPoint,
+    globalPickupPoint,
     pickupPoints,
     selectedFacets,
     onDeliveryFacetChange,
+    selectedPickupPointFacet,
   ])
 
   const onPostalCodeChange = useCallback(
