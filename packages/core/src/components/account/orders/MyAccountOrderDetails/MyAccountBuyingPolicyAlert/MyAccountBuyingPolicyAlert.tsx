@@ -41,7 +41,6 @@ export default function MyAccountBuyingPolicyAlert({
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
 
-      setIsAuthorizationOpen(false)
       onAuthorizationComplete?.()
     } catch (error) {
       pushToast({
