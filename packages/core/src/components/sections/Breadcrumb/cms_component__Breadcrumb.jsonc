@@ -1,8 +1,9 @@
 {
   "$extends": ["#/$defs/base-component"],
-  "description": "Configure the breadcrumb icon and depth",
   "$componentKey": "Breadcrumb",
   "$componentTitle": "Breadcrumb",
+  "description": "Configure the breadcrumb icon and depth",
+  "required": ["icon", "alt"],
   "properties": {
     "icon": {
       "title": "Icon",

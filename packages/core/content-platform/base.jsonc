@@ -73,8 +73,14 @@
     // `Search` serves as a configuration holder.
     "Search": {
       "$componentKey": "Search",
-      "$componentTitle": "Search Bar Configuration",
+      "$componentTitle": "Search Bar",
       "$extends": ["#/$defs/base-component"],
+      "required": [
+        "searchInput",
+        "searchHistory",
+        "searchTop",
+        "searchAutocomplete"
+      ],
       "description": "Search Bar Configuration",
       "type": "object",
       "properties": {
@@ -206,13 +212,7 @@
             }
           }
         }
-      },
-      "required": [
-        "searchInput",
-        "searchHistory",
-        "searchTop",
-        "searchAutocomplete"
-      ]
+      }
     }
   },
   "content-types": {

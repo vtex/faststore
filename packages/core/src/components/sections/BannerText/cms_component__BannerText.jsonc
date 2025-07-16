@@ -1,9 +1,10 @@
 {
   "$extends": ["#/$defs/base-component"],
   "$componentKey": "BannerText",
-  "$componentTitle": "Text Banner",
+  "$componentTitle": "Banner Text",
+  "required": ["title", "caption", "link"],
   "type": "object",
-  "description": "Text Banner Component",
+  "description": "Add a quick promotion with a text/action pair",
   "properties": {
     "title": {
       "title": "Title",
