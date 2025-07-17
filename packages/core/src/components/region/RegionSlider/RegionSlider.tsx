@@ -117,9 +117,6 @@ function RegionSlider() {
   const idkPostalCodeLink = cmsData?.regionalization?.idkPostalCodeLink
 
   const handleSubmit = async () => {
-    setDataLoading(true)
-    setAppliedInput(input)
-
     if (isValidating) {
       return
     }
