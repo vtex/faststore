@@ -98,7 +98,7 @@ function RegionSlider() {
 
   useEffect(() => setDataLoading(fetchingPickupPoints), [fetchingPickupPoints])
 
-  // We should set default state values based on each `regionSliderType` or when postal code changes
+  // Sets default state values based on the `regionSliderType` and when the postal code changes
   useEffect(() => {
     if (regionSliderType === 'none') return
 
@@ -117,12 +117,12 @@ function RegionSlider() {
   const idkPostalCodeLink = cmsData?.regionalization?.idkPostalCodeLink
 
   const handleSubmit = async () => {
-    setDataLoading(true)
-    setAppliedInput(input)
-
     if (isValidating) {
       return
     }
+
+    setDataLoading(true)
+    setAppliedInput(input)
 
     await setRegion({
       session,
