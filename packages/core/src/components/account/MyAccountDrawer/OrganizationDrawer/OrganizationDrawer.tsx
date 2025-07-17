@@ -55,8 +55,8 @@ export const OrganizationDrawer = ({
           bordered={true}
           onLogoutClick={doLogout}
           person={{
-            name: person?.givenName ?? '',
-            email: person?.email ?? '',
+            name: b2b?.userName ?? '',
+            email: b2b?.userEmail ?? '',
           }}
           orgName={b2b?.unitName ?? ''}
         />
