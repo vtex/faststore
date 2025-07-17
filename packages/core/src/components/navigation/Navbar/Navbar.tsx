@@ -101,7 +101,7 @@ function Navbar({
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const { isDesktop, isMobile } = useScreenResize()
-  const { person, b2b } = useSession()
+  const { b2b } = useSession()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
