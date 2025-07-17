@@ -1,6 +1,6 @@
 import type { Session } from '@faststore/sdk'
 
-import { deliveryPromiseStore, type PickupPoint } from '.'
+import type { PickupPoint } from '.'
 
 export type PickupPointsSimulation = {
   pickupPoints?: PickupPoint[]
@@ -103,7 +103,6 @@ export const deliveryPromiseReducer = (
 
       return {
         ...state,
-        defaultPickupPoint: null,
         pickupPointsSimulation: initialPickupPointsSimulation,
         shouldUpdatePickupPoints: true,
       }
