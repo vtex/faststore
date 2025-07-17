@@ -1,14 +1,12 @@
-import { useSearch } from '@faststore/sdk'
+import dynamic from 'next/dynamic'
 import { NextSeo } from 'next-seo'
-import type { MouseEvent } from 'react'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, type MouseEvent } from 'react'
 
 import { useUI } from '@faststore/ui'
+import { useSearch } from '@faststore/sdk'
+
 import Sort from 'src/components/search/Sort'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-
-import dynamic from 'next/dynamic'
-
 import type { ProductCardProps } from 'src/components/product/ProductCard'
 import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import type { SortProps } from 'src/components/search/Sort/Sort'
@@ -104,7 +102,6 @@ function ProductGallery({
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
-
   const { isDesktop } = useScreenResize()
 
   useProductsPrefetch(prev ? prev.cursor : null)

@@ -20,11 +20,12 @@ import { default as AfterSection } from 'src/customizations/src/myAccount/extens
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import storeConfig from '../../../discovery.config'
-import { validateUser } from 'src/sdk/account/validateUser'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -42,27 +43,29 @@ type UserDetailsPagePros = {
 } & MyAccountProps
 
 export default function Page({
-  globalSections,
+  globalSections: globalSectionsProp,
   accountName,
   isRepresentative,
   userDetails,
 }: UserDetailsPagePros) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout
-        isRepresentative={isRepresentative}
-        accountName={accountName}
-      >
-        <BeforeSection />
-        <MyAccountUserDetails userDetails={userDetails} />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
+          <BeforeSection />
+          <MyAccountUserDetails userDetails={userDetails} />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

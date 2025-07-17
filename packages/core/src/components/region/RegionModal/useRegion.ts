@@ -1,16 +1,17 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 import type { Session } from '@faststore/sdk'
-import { sessionStore, validateSession } from 'src/sdk/session'
-import { getProductCount } from 'src/sdk/product'
 import { deliveryPromise } from 'discovery.config'
+import { getProductCount } from 'src/sdk/product'
+import { sessionStore, validateSession } from 'src/sdk/session'
 
 type SetRegionProps = {
   session: Session
   postalCode: string | undefined
-  onSuccess?: () => void
+  onSuccess?: (validatedSession?: Session) => void
   errorMessage: string
   noProductsAvailableErrorMessage?: string
+  simulation?: boolean
 }
 
 type UseRegionValues = {
@@ -30,6 +31,7 @@ export default function useRegion(): UseRegionValues {
     session,
     onSuccess,
     noProductsAvailableErrorMessage,
+    simulation = false,
   }: SetRegionProps) => {
     if (typeof postalCode !== 'string') {
       return
@@ -50,19 +52,18 @@ export default function useRegion(): UseRegionValues {
         // Check product availability for specific postal code
         const productCount = await getProductCount()
         if (productCount === 0) {
-          const errorFallback = `There are no products available for ${postalCode}.`
-          const noProductsAvailableError =
-            noProductsAvailableErrorMessage?.replace(/%s/g, () => postalCode)
-
-          setRegionError(noProductsAvailableError ?? errorFallback)
+          setRegionError(
+            noProductsAvailableErrorMessage?.replace(/%s/g, postalCode) ??
+              `There are no products available for ${postalCode}.`
+          )
           setLoading(false)
           return
         }
       }
 
-      sessionStore.set(validatedSession ?? newSession)
+      !simulation && sessionStore.set(validatedSession ?? newSession)
       setRegionError('')
-      onSuccess?.() // Execute the post-validation action (close modal, etc.)
+      onSuccess?.(simulation ? validatedSession : undefined) // Execute the post-validation action (close modal, etc.)
     } catch (error) {
       setRegionError(errorMessage)
     } finally {

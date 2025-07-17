@@ -15,11 +15,11 @@ export interface RegionBarProps
    */
   postalCode?: string
   /**
-   * Function called when button is clicked.
+   * Function called when location button is clicked.
    */
   onButtonClick?: () => void
   /**
-   * A React component that will be rendered as an icon.
+   * A React component that will be rendered as the location icon.
    */
   icon?: ReactNode
   /**
@@ -27,7 +27,8 @@ export interface RegionBarProps
    */
   label: string
   /**
-   * Specifies a label for the edit text.
+   * Specifies a label for the edit location text.
+   * @deprecated
    */
   editLabel?: string
   /**
@@ -39,18 +40,51 @@ export interface RegionBarProps
    * @default true
    */
   shouldDisplayPostalCode?: boolean
+  /**
+   * Properties of the global filter button.
+   */
+  filterButton?: {
+    /**
+     * A React component that will be rendered as the filter icon.
+     */
+    icon?: ReactNode
+    /**
+     * Specifies a label for the filter text.
+     */
+    label?: string
+    /**
+     * The current selected filter name.
+     */
+    selectedFilter?: string
+    /**
+     * Boolean to control whether the filter button should be visible or not.
+     * @default false
+     */
+    shouldDisplayFilterButton?: boolean
+    /**
+     * Function called when filter button is clicked.
+     */
+    onClick?: () => void
+  }
 }
 
 const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
   {
     city,
     postalCode,
-    icon,
-    label,
-    editLabel,
+    icon: locationIcon,
+    label: locationLabel,
+    editLabel: _ = undefined,
     buttonIcon,
-    onButtonClick,
+    onButtonClick: onLocationButtonClick,
     shouldDisplayPostalCode = true,
+    filterButton: {
+      icon: filterIcon,
+      label: filterLabel,
+      selectedFilter,
+      shouldDisplayFilterButton = false,
+      onClick: onFilterButtonClick,
+    } = {},
     ...otherProps
   },
   ref
@@ -59,23 +93,44 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
     <div ref={ref} data-fs-region-bar {...otherProps}>
       <Button
         variant="tertiary"
-        iconPosition="right"
-        onClick={onButtonClick}
-        icon={buttonIcon}
+        iconPosition={buttonIcon ? 'right' : undefined}
+        onClick={onLocationButtonClick}
+        icon={buttonIcon ?? undefined}
       >
-        {!!icon && icon}
+        {!!locationIcon && locationIcon}
         {city && postalCode ? (
-          <>
-            <span data-fs-region-bar-postal-code>
+          <div data-fs-region-bar-location>
+            <span
+              data-fs-region-bar-postal-code
+              data-fs-region-bar-location-city
+            >
               {city}
+            </span>
+            <span data-fs-region-bar-location-postal-code>
               {shouldDisplayPostalCode && `, ${postalCode}`}
             </span>
-            {!!editLabel && <span data-fs-region-bar-cta>{editLabel}</span>}
-          </>
+          </div>
         ) : (
-          <span data-fs-region-bar-message>{label}</span>
+          <span data-fs-region-bar-message data-fs-region-bar-location-message>
+            {locationLabel}
+          </span>
         )}
       </Button>
+      {shouldDisplayFilterButton && (
+        <Button
+          variant="tertiary"
+          iconPosition={buttonIcon ? 'right' : undefined}
+          onClick={onFilterButtonClick}
+          icon={buttonIcon ?? undefined}
+        >
+          {!!filterIcon && filterIcon}
+          {selectedFilter ? (
+            <span data-fs-region-bar-filter>{selectedFilter}</span>
+          ) : (
+            <span data-fs-region-bar-filter-message>{filterLabel}</span>
+          )}
+        </Button>
+      )}
     </div>
   )
 })

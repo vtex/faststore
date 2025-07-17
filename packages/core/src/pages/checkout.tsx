@@ -12,6 +12,7 @@ import {
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from 'src/components/cms/RenderSections'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 
@@ -25,20 +26,22 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-function Page({ globalSections }: Props) {
+function Page({ globalSections: globalSectionsProp }: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   useEffect(() => {
     window.location.href = storeConfig.checkoutUrl
   }, [])
 
   return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
 
-      <div>loading...</div>
-    </RenderSections>
+        <div>loading...</div>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

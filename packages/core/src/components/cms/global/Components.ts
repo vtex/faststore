@@ -28,6 +28,13 @@ const Footer = dynamic(
     import(/* webpackChunkName: "Footer" */ 'src/components/sections/Footer'),
   { ssr: false }
 )
+const RegionSlider = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "RegionSlider" */ 'src/components/region/RegionSlider'
+    ),
+  { ssr: false }
+)
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
@@ -36,6 +43,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   RegionPopover,
   CartSidebar, // out of viewport
   RegionModal, // out of viewport
+  RegionSlider, // out of viewport
   Footer, // out of viewport
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,

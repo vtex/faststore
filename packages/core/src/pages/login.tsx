@@ -12,11 +12,12 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
-import storeConfig from '../../discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import storeConfig from '../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -31,7 +32,13 @@ type Props = {
   globalSections: GlobalSectionsData
 }
 
-function Page({ page: { sections }, globalSections }: Props) {
+function Page({
+  page: { sections },
+  globalSections: globalSectionsProp,
+}: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   useEffect(() => {
     const loginUrl = new URL(storeConfig.loginUrl)
     const incomingParams = new URLSearchParams(window.location.search)
@@ -57,11 +64,13 @@ function Page({ page: { sections }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections
-        sections={sections}
-        globalSections={globalSections.sections}
-        components={COMPONENTS}
-      />
+      <PageProvider context={{ globalSettings }}>
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections}
+          components={COMPONENTS}
+        />
+      </PageProvider>
     </>
   )
 }
