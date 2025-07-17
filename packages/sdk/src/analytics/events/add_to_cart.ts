@@ -8,5 +8,6 @@ export interface AddToCartParams<T extends Item = Item> {
 
 export interface AddToCartEvent<T extends Item = Item> {
   name: 'add_to_cart'
+  isEcommerceEvent?: boolean
   params: AddToCartParams<T>
 }

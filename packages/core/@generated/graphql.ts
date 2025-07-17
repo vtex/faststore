@@ -153,6 +153,189 @@ export type BusinessHour = {
   OpeningTime: Maybe<Scalars['String']['output']>
 }
 
+/** Commercial Authorization dimension status. */
+export type CommercialAuthorizationDimensionStatus = {
+  /** Creation date. */
+  creationDate: Scalars['String']['output']
+  /** Creation environment. */
+  creationEnvironment: Scalars['String']['output']
+  /** Creation version. */
+  creationVersion: Scalars['String']['output']
+  /** Dimension status ID. */
+  id: Scalars['String']['output']
+  /** Dimension status name. */
+  name: Scalars['String']['output']
+  /** Priority level. */
+  priority: Scalars['Int']['output']
+  /** Indicates if all rules acceptance is required. */
+  requireAllRulesAcceptance: Scalars['Boolean']['output']
+  /** Collection of rules for this dimension. */
+  ruleCollection: Array<CommercialAuthorizationRule>
+  /** Dimension score. */
+  score: Scalars['Float']['output']
+  /** Indicates if simulation should be performed. */
+  shouldSimulate: Scalars['Boolean']['output']
+  /** Current status of the dimension. */
+  status: CommercialAuthorizationStatus
+  /** Unit ID, if applicable. */
+  unitId: Maybe<Scalars['String']['output']>
+}
+
+/** Commercial Authorization item. */
+export type CommercialAuthorizationItem = {
+  /** Additional information as key-value pairs. */
+  additionalInfo: Scalars['JSONObject']['output']
+  /** Item ID. */
+  id: Scalars['String']['output']
+  /** Item price. */
+  price: Scalars['Float']['output']
+  /** Item quantity. */
+  quantity: Scalars['Int']['output']
+  /** Item SKU. */
+  sku: Scalars['String']['output']
+  /** Total manual discount applied. */
+  totalManualDiscount: Scalars['Float']['output']
+  /** Total system discount applied. */
+  totalSystemDiscount: Scalars['Float']['output']
+}
+
+/** Commercial Authorization response. */
+export type CommercialAuthorizationResponse = {
+  /** Additional information as key-value pairs. */
+  additionalInfo: Scalars['JSONObject']['output']
+  /** Callback endpoint URL. */
+  callbackEndpoint: Scalars['String']['output']
+  /** Creation environment. */
+  creationEnvironment: Scalars['String']['output']
+  /** Creation version. */
+  creationVersion: Scalars['String']['output']
+  /** Dimension status information. */
+  dimensionStatus: Array<CommercialAuthorizationDimensionStatus>
+  /** Commercial Authorization ID. */
+  id: Scalars['String']['output']
+  /** Collection of items in the commercial authorization. */
+  itemCollection: Array<CommercialAuthorizationItem>
+  /** Marketplace payment value. */
+  marketPlacePaymentValue: Scalars['Float']['output']
+  /** Order ID associated with the commercial authorization. */
+  orderId: Scalars['String']['output']
+  /** Current status of the commercial authorization. */
+  status: CommercialAuthorizationStatus
+  /** Total order value desired by the seller. */
+  totalOrderValueDesiredBySeller: Scalars['Float']['output']
+  /** List of units. */
+  units: Array<Scalars['String']['output']>
+  /** User profile ID. */
+  userProfileId: Scalars['String']['output']
+  /** Workflow instance ID. */
+  workflowInstanceId: Scalars['String']['output']
+}
+
+/** Commercial Authorization rule. */
+export type CommercialAuthorizationRule = {
+  /** Authorization data, if available. */
+  authorizationData: Maybe<CommercialAuthorizationRuleAuthorizationData>
+  /** List of authorized email addresses. */
+  authorizedEmails: Array<Scalars['String']['output']>
+  /** DO ID, if applicable. */
+  doId: Maybe<Scalars['String']['output']>
+  /** Rule ID. */
+  id: Scalars['String']['output']
+  /**
+   * Indicates that the user is listed as one of the possible approvers,
+   * but does not necessarily mean that he or she is the next in the chain to approve.
+   */
+  isUserAuthorized: Scalars['Boolean']['output']
+  /**
+   * Indicates that the user is next in the approval chain.
+   * This means that they must take an approval or rejection action.
+   */
+  isUserNextAuthorizer: Scalars['Boolean']['output']
+  /** Rule name. */
+  name: Scalars['String']['output']
+  /** Indicates if notification is enabled. */
+  notification: Scalars['Boolean']['output']
+  /** Rule priority. */
+  priority: Scalars['Int']['output']
+  /** Score interval configuration. */
+  scoreInterval: CommercialAuthorizationRuleScoreInterval
+  /** Current status of the rule. */
+  status: CommercialAuthorizationStatus
+  /** Timeout value. */
+  timeout: Scalars['Int']['output']
+  /** Rule trigger configuration. */
+  trigger: CommercialAuthorizationRuleTrigger
+}
+
+/** Commercial Authorization rule authorization data. */
+export type CommercialAuthorizationRuleAuthorizationData = {
+  /** List of authorizers. */
+  authorizers: Array<CommercialAuthorizationRuleAuthorizer>
+  /** Indicates if all approvals are required. */
+  requireAllApprovals: Scalars['Boolean']['output']
+}
+
+/** Commercial Authorization rule authorizer. */
+export type CommercialAuthorizationRuleAuthorizer = {
+  /** Authorization date. */
+  authorizationDate: Maybe<Scalars['String']['output']>
+  /** Authorizer email. */
+  email: Maybe<Scalars['String']['output']>
+  /** Authorizer ID. */
+  id: Scalars['String']['output']
+  /** Authorizer type. */
+  type: Scalars['String']['output']
+}
+
+/** Commercial Authorization rule score interval. */
+export type CommercialAuthorizationRuleScoreInterval = {
+  /** Accept score threshold. */
+  accept: Scalars['Float']['output']
+  /** Deny score threshold. */
+  deny: Scalars['Float']['output']
+}
+
+/** Commercial Authorization rule trigger. */
+export type CommercialAuthorizationRuleTrigger = {
+  /** Trigger condition. */
+  condition: CommercialAuthorizationRuleTriggerCondition
+  /** Trigger effect. */
+  effect: CommercialAuthorizationRuleTriggerEffect
+}
+
+/** Commercial Authorization rule trigger condition. */
+export type CommercialAuthorizationRuleTriggerCondition = {
+  /** Condition type. */
+  conditionType: Scalars['Int']['output']
+  /** Condition description. */
+  description: Maybe<Scalars['String']['output']>
+  /** Condition expression. */
+  expression: Maybe<Scalars['String']['output']>
+  /** Greater than value. */
+  greatherThan: Maybe<Scalars['Float']['output']>
+  /** Less than value. */
+  lessThan: Maybe<Scalars['Float']['output']>
+}
+
+/** Commercial Authorization rule trigger effect. */
+export type CommercialAuthorizationRuleTriggerEffect = {
+  /** Effect description. */
+  description: Maybe<Scalars['String']['output']>
+  /** Effect type. */
+  effectType: Scalars['Int']['output']
+  /** Function path. */
+  funcPath: Maybe<Scalars['String']['output']>
+}
+
+/** Commercial Authorization status. */
+export type CommercialAuthorizationStatus =
+  /** Authorization has been accepted. */
+  | 'accepted'
+  /** Authorization has been denied. */
+  | 'denied'
+  /** Authorization is pending. */
+  | 'pending'
+
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']['output']>
@@ -164,6 +347,12 @@ export type DeliveryIds = {
   quantity: Maybe<Scalars['Int']['output']>
   /** DeliveryIds warehouse id */
   warehouseId: Maybe<Scalars['String']['output']>
+}
+
+/** Input to get commercial authorizations by order ID. */
+export type ICommercialAuthorizationByOrderId = {
+  /** Order ID to get commercial authorizations for. */
+  orderId: Scalars['String']['input']
 }
 
 export type IGeoCoordinates = {
@@ -179,6 +368,18 @@ export type IPersonNewsletter = {
   email: Scalars['String']['input']
   /** Person's name. */
   name: Scalars['String']['input']
+}
+
+/** Input to process order authorization (approve or reject). */
+export type IProcessOrderAuthorization = {
+  /** Whether the authorization is approved (true) or rejected (false). */
+  approved: Scalars['Boolean']['input']
+  /** Dimension ID associated with the authorization. */
+  dimensionId: Scalars['String']['input']
+  /** Order authorization ID. */
+  orderAuthorizationId: Scalars['String']['input']
+  /** Rule ID associated with the authorization. */
+  ruleId: Scalars['String']['input']
 }
 
 /** Shipping Simulation item input. */
@@ -438,6 +639,8 @@ export type MessageInfo = {
 export type Mutation = {
   /** Cancels user order */
   cancelOrder: Maybe<UserOrderCancel>
+  /** Process Order Authorization */
+  processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -448,6 +651,10 @@ export type Mutation = {
 
 export type MutationCancelOrderArgs = {
   data: IUserOrderCancel
+}
+
+export type MutationProcessOrderAuthorizationArgs = {
+  data: IProcessOrderAuthorization
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -574,6 +781,24 @@ export type PickupStoreInfo = {
   isPickupStore: Maybe<Scalars['Boolean']['output']>
 }
 
+/** Process Order Authorization response. */
+export type ProcessOrderAuthorizationResponse = {
+  /** Indicates if authorization is pending for other authorizers. */
+  isPendingForOtherAuthorizer: Scalars['Boolean']['output']
+  /** The updated rule for authorization, if any. */
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
+}
+
+/** Extended Commercial Authorization rule with additional process context. */
+export type ProcessOrderAuthorizationRule = {
+  /** Dimension ID. */
+  dimensionId: Scalars['String']['output']
+  /** Order authorization ID. */
+  orderAuthorizationId: Scalars['String']['output']
+  /** Base rule information. */
+  rule: CommercialAuthorizationRule
+}
+
 export type ProductCountResult = {
   /** Total product count. */
   total: Scalars['Int']['output']
@@ -616,6 +841,8 @@ export type ProfileAddress = {
 export type Query = {
   /** Returns the account name of the current user or the B2B contract name if applicable. */
   accountName: Maybe<Scalars['String']['output']>
+  /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
+  accountProfile: StoreAccountProfile
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
   /** Returns information about all products. */
@@ -640,6 +867,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
   /** Returns information about the user validation. */
@@ -825,6 +1054,13 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName: InputMaybe<Scalars['String']['input']>
+}
+
+/** Account profile information. */
+export type StoreAccountProfile = {
+  email: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
 }
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
@@ -1350,13 +1586,25 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
+/** User details information. */
+export type StoreUserDetails = {
+  /** User's email. */
+  email: Maybe<Scalars['String']['output']>
+  /** User's name. */
+  name: Maybe<Scalars['String']['output']>
+  /** User's organizational unit. */
+  orgUnit: Maybe<Scalars['String']['output']>
+  /** User's role. */
+  role: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
 export type UserOrder = {
   affiliateId: Maybe<Scalars['String']['output']>
   allowCancellation: Maybe<Scalars['Boolean']['output']>
   allowEdition: Maybe<Scalars['Boolean']['output']>
   authorizedDate: Maybe<Scalars['String']['output']>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
-  canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
   cancellationData: Maybe<UserOrderCancellationData>
   cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
@@ -1395,6 +1643,7 @@ export type UserOrder = {
   paymentData: Maybe<UserOrderPaymentData>
   ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>
   roundingError: Maybe<Scalars['Int']['output']>
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   salesChannel: Maybe<Scalars['String']['output']>
   sellerOrderId: Maybe<Scalars['String']['output']>
   sellers: Maybe<Array<Maybe<UserOrderStoreSellers>>>
@@ -1618,6 +1867,7 @@ export type UserOrderDeliveryOptionsItems = {
   quantity: Maybe<Scalars['Int']['output']>
   tax: Maybe<Scalars['Float']['output']>
   total: Maybe<Scalars['Float']['output']>
+  uniqueId: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderDeliveryWindow = {
@@ -2004,7 +2254,7 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
-  canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
@@ -2012,6 +2262,7 @@ export type UserOrderResult = {
   items: Maybe<Array<Maybe<UserOrderItems>>>
   orderId: Maybe<Scalars['String']['output']>
   paymentData: Maybe<UserOrderPaymentData>
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   shippingData: Maybe<UserOrderShippingData>
   status: Maybe<Scalars['String']['output']>
   statusDescription: Maybe<Scalars['String']['output']>
@@ -2363,9 +2614,49 @@ export type ServerOrderDetailsQueryQuery = {
   userOrder: {
     orderId: string | null
     status: string | null
-    canCancelOrder: boolean | null
+    canProcessOrderAuthorization: boolean | null
     statusDescription: string | null
     allowCancellation: boolean | null
+    ruleForAuthorization: {
+      orderAuthorizationId: string
+      dimensionId: string
+      rule: {
+        id: string
+        name: string
+        status: CommercialAuthorizationStatus
+        doId: string | null
+        authorizedEmails: Array<string>
+        priority: number
+        timeout: number
+        notification: boolean
+        isUserAuthorized: boolean
+        isUserNextAuthorizer: boolean
+        trigger: {
+          condition: {
+            conditionType: number
+            description: string | null
+            lessThan: number | null
+            greatherThan: number | null
+            expression: string | null
+          }
+          effect: {
+            description: string | null
+            effectType: number
+            funcPath: string | null
+          }
+        }
+        scoreInterval: { accept: number; deny: number }
+        authorizationData: {
+          requireAllApprovals: boolean
+          authorizers: Array<{
+            id: string
+            email: string | null
+            type: string
+            authorizationDate: string | null
+          }>
+        } | null
+      }
+    } | null
     storePreferencesData: { currencyCode: string | null } | null
     clientProfileData: {
       firstName: string | null
@@ -2443,6 +2734,7 @@ export type ServerOrderDetailsQueryQuery = {
         } | null
         items: Array<{
           id: string | null
+          uniqueId: string | null
           name: string | null
           quantity: number | null
           price: number | null
@@ -2537,7 +2829,14 @@ export type ServerListOrdersQueryQuery = {
 
 export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerProfileQueryQuery = { accountName: string | null }
+export type ServerProfileQueryQuery = {
+  accountName: string | null
+  accountProfile: {
+    name: string | null
+    email: string | null
+    id: string | null
+  }
+}
 
 export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
 
@@ -2547,7 +2846,15 @@ export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
 }>
 
-export type ServerUserDetailsQueryQuery = { accountName: string | null }
+export type ServerUserDetailsQueryQuery = {
+  accountName: string | null
+  userDetails: {
+    name: string | null
+    email: string | null
+    role: Array<string | null> | null
+    orgUnit: string | null
+  }
+}
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
@@ -2555,6 +2862,56 @@ export type CancelOrderMutationMutationVariables = Exact<{
 
 export type CancelOrderMutationMutation = {
   cancelOrder: { data: string | null } | null
+}
+
+export type ProcessOrderAuthorizationMutationMutationVariables = Exact<{
+  data: IProcessOrderAuthorization
+}>
+
+export type ProcessOrderAuthorizationMutationMutation = {
+  processOrderAuthorization: {
+    isPendingForOtherAuthorizer: boolean
+    ruleForAuthorization: {
+      orderAuthorizationId: string
+      dimensionId: string
+      rule: {
+        id: string
+        name: string
+        status: CommercialAuthorizationStatus
+        doId: string | null
+        authorizedEmails: Array<string>
+        priority: number
+        timeout: number
+        notification: boolean
+        isUserAuthorized: boolean
+        isUserNextAuthorizer: boolean
+        trigger: {
+          condition: {
+            conditionType: number
+            description: string | null
+            lessThan: number | null
+            greatherThan: number | null
+            expression: string | null
+          }
+          effect: {
+            description: string | null
+            effectType: number
+            funcPath: string | null
+          }
+        }
+        scoreInterval: { accept: number; deny: number }
+        authorizationData: {
+          requireAllApprovals: boolean
+          authorizers: Array<{
+            id: string
+            email: string | null
+            type: string
+            authorizationDate: string | null
+          }>
+        } | null
+      }
+    } | null
+  } | null
 }
 
 export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
@@ -3624,7 +3981,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'e0fbde45eca1af0aeda0314c5d1c37e8fe520312',
+    operationHash: '4758ccbf776bfa5d9b9f15f92bee6ecb78706b20',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3642,7 +3999,7 @@ export const ServerListOrdersQueryDocument = {
 export const ServerProfileQueryDocument = {
   __meta__: {
     operationName: 'ServerProfileQuery',
-    operationHash: 'c4191223fe0b642eee3aaaa2c56563da7d163265',
+    operationHash: '0ed4b5db8fed122d8418195d01fb91b30261d587',
   },
 } as unknown as TypedDocumentString<
   ServerProfileQueryQuery,
@@ -3660,7 +4017,7 @@ export const ServerSecurityQueryDocument = {
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerUserDetailsQuery',
-    operationHash: '92d9db34aa133d60d474c6d4cdcdd2fc19041a5e',
+    operationHash: '522e5feeb80e67cee931bc98eac9d08ea75c75d2',
   },
 } as unknown as TypedDocumentString<
   ServerUserDetailsQueryQuery,
@@ -3674,6 +4031,15 @@ export const CancelOrderMutationDocument = {
 } as unknown as TypedDocumentString<
   CancelOrderMutationMutation,
   CancelOrderMutationMutationVariables
+>
+export const ProcessOrderAuthorizationMutationDocument = {
+  __meta__: {
+    operationName: 'ProcessOrderAuthorizationMutation',
+    operationHash: '8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d',
+  },
+} as unknown as TypedDocumentString<
+  ProcessOrderAuthorizationMutationMutation,
+  ProcessOrderAuthorizationMutationMutationVariables
 >
 export const ValidateUserDocument = {
   __meta__: {

@@ -3,6 +3,9 @@ import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
 import type {
+  CommercialAuthorizationResponse,
+  ICommercialAuthorizationByOrderId,
+  IProcessOrderAuthorization,
   IUserOrderCancel,
   QueryListUserOrdersArgs,
   StoreMarketingData,
@@ -475,10 +478,7 @@ export const VtexCommerce = (
     },
     oms: {
       userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
@@ -554,6 +554,49 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      getCommercialAuthorizationsByOrderId: ({
+        orderId,
+      }: ICommercialAuthorizationByOrderId): Promise<CommercialAuthorizationResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/${account}/commercial-authorizations/order/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+      processOrderAuthorization: async ({
+        orderAuthorizationId,
+        dimensionId,
+        ruleId,
+        approved,
+      }: IProcessOrderAuthorization): Promise<CommercialAuthorizationResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        const APPROVAL_SCORE = 100
+        const REJECTION_SCORE = 0
+
+        const body = {
+          params: {
+            ruleId,
+            dimensionId,
+            score: approved ? APPROVAL_SCORE : REJECTION_SCORE,
+          },
+        }
+
+        return fetchAPI(
+          `${base}/${account}/commercial-authorizations/${orderAuthorizationId}/callback`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(body),
+          },
+          { storeCookies }
+        )
+      },
     },
     units: {
       getUnitByUserId: ({
@@ -611,6 +654,24 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/license-manager/users/${userId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getUserByEmail: ({
+        email,
+      }: { email: string }): Promise<{
+        id: string
+        name: string
+        email: string
+      }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/license-manager/pvt/users/${email}`,
           {
             method: 'GET',
             headers,

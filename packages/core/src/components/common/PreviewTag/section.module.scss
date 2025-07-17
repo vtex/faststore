@@ -1,0 +1,16 @@
+@layer components {
+  .section {
+    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
+
+    [data-fs-preview-tag] {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10000;
+      box-shadow: var(--fs-shadow-darker);
+      backdrop-filter: blur(var(--fs-spacing-1));
+    }
+  }
+}

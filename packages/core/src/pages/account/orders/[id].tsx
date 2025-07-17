@@ -18,11 +18,13 @@ import type {
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
+import storeConfig from '../../../../discovery.config'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -37,6 +39,7 @@ export default function OrderDetailsPage({
   globalSections: globalSectionsProp,
   order,
   accountName,
+  isRepresentative,
 }: OrderDetailsPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -46,7 +49,10 @@ export default function OrderDetailsPage({
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout accountName={accountName}>
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
           <BeforeSection />
           <MyAccountOrderDetails order={order} />
           <AfterSection />
@@ -76,9 +82,52 @@ const query = gql(`
     userOrder(orderId: $orderId) {
       orderId
       status
-      canCancelOrder
+      canProcessOrderAuthorization
       statusDescription
       allowCancellation
+      ruleForAuthorization {
+        orderAuthorizationId
+        dimensionId
+        rule {
+          id
+          name
+          status
+          doId
+          authorizedEmails
+          priority
+          trigger {
+            condition {
+              conditionType
+              description
+              lessThan
+              greatherThan
+              expression
+            }
+            effect {
+              description
+              effectType
+              funcPath
+            }
+          }
+          timeout
+          notification
+          scoreInterval {
+            accept
+            deny
+          }
+          authorizationData {
+            requireAllApprovals
+            authorizers {
+              id
+              email
+              type
+              authorizationDate
+            }
+          }
+          isUserAuthorized
+          isUserNextAuthorizer
+        }
+      }
       storePreferencesData {
         currencyCode
       }
@@ -158,6 +207,7 @@ const query = gql(`
           total
           items {
             id
+            uniqueId
             name
             quantity
             price
@@ -219,6 +269,11 @@ export const getServerSideProps: GetServerSideProps<
       },
     }
   }
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -284,6 +339,7 @@ export const getServerSideProps: GetServerSideProps<
       globalSections: globalSectionsResult,
       order: orderDetails.data.userOrder,
       accountName: orderDetails.data.accountName,
+      isRepresentative,
     },
   }
 }

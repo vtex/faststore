@@ -1,5 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
+import { parse } from 'cookie'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -7,7 +8,6 @@ import {
   getPropertyId,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
-import { parse } from 'cookie'
 
 import type { Context } from '..'
 import type {
@@ -23,10 +23,10 @@ import type {
   OrderFormInputItem,
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
-import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
-import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
+import { getAddressOrderForm } from '../utils/getAddressOrderForm'
+import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 
 type Indexed<T> = T & { index?: number }
 
@@ -453,9 +453,14 @@ export const validateCart = async (
     // update marketingData
     .then((form: OrderForm) => {
       if (session?.marketingData) {
+        const updatedMarketingData = {
+          ...form.marketingData,
+          ...session.marketingData,
+        }
+
         return commerce.checkout.marketingData({
           id: orderForm.orderFormId,
-          marketingData: session.marketingData,
+          marketingData: updatedMarketingData,
         })
       }
 
