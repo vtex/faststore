@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.65.1](https://github.com/vtex/faststore/compare/v3.65.0...v3.65.1) (2025-07-17)
+
+### Bug Fixes
+
+- validate cart should consider coupon in marketingData ([#2948](https://github.com/vtex/faststore/issues/2948)) ([ed063f4](https://github.com/vtex/faststore/commit/ed063f4df26178206a91892b59255c8332e65795))
+
 # [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
 
 ### Features
