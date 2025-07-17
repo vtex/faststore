@@ -184,6 +184,11 @@
                       "type": "string",
                       "default": "Update"
                     },
+                    "pickupPointClearFilterButtonLabel": {
+                      "title": "Clear Pickup Point filter button label",
+                      "type": "string",
+                      "default": "Clear filter"
+                    },
                     "choosePickupPointAriaLabel": {
                       "title": "Choose Pickup Point aria-label (radio group)",
                       "type": "string",

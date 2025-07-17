@@ -21,7 +21,6 @@ import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import { useFilter } from 'src/sdk/search/useFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
