@@ -370,6 +370,20 @@ export type IProcessOrderAuthorization = {
   ruleId: Scalars['String'];
 };
 
+/** Input type for setting a new password. */
+export type ISetPassword = {
+  /** Optional access key for the user, used in some authentication flows. */
+  accesskey?: Maybe<Scalars['String']>;
+  /** The current password of the user, required for verification before changing to the new password. */
+  currentPassword: Scalars['String'];
+  /** The email of the user for whom the password is being set. */
+  email: Scalars['String'];
+  /** The new password to be set for the user. */
+  newPassword: Scalars['String'];
+  /** Optional reCAPTCHA token for security verification. */
+  recaptcha?: Maybe<Scalars['String']>;
+};
+
 /** Shipping Simulation item input. */
 export type IShippingItem = {
   /** ShippingItem ID / Sku. */
@@ -627,6 +641,11 @@ export type Mutation = {
   cancelOrder?: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
+  /**
+   * Sets a new password for the user.
+   * This mutation is used to change the user's password, typically after a password reset or when the user wants to update their password.
+   */
+  setPassword?: Maybe<SetPasswordResponse>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -643,6 +662,11 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
+};
+
+
+export type MutationSetPasswordArgs = {
+  data: ISetPassword;
 };
 
 
@@ -919,6 +943,15 @@ export type SellersData = {
   id?: Maybe<Scalars['String']>;
   /** List of sellers. */
   sellers?: Maybe<Array<Maybe<SellerInfo>>>;
+};
+
+/** Response type for setting a new password. */
+export type SetPasswordResponse = {
+  __typename?: 'SetPasswordResponse';
+  /** Message providing additional information about the operation. */
+  message?: Maybe<Scalars['String']>;
+  /** Indicates whether the password was successfully set. */
+  success: Scalars['Boolean'];
 };
 
 /** Shipping Simulation information. */
