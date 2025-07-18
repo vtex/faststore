@@ -25,6 +25,7 @@ export const PICKUP_POINT_FACET_KEY = 'pickupPoint' as const
 export const SHIPPING_FACET_KEY = 'shipping' as const
 export const PICKUP_IN_POINT_FACET_VALUE = 'pickup-in-point' as const
 export const ALL_DELIVERY_METHODS_FACET_VALUE = 'all-delivery-methods' as const
+export const PICKUP_ALL_FACET_VALUE = 'pickup-all' as const
 
 type Facet = SearchState['selectedFacets'][number]
 
@@ -395,7 +396,8 @@ export function useDeliveryPromise({
     deliveryLabel:
       deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
     isPickupAllEnabled:
-      deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false,
+      pickupPoints?.length > 0 &&
+      (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
   }
 }
