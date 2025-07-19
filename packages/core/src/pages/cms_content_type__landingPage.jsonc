@@ -1,0 +1,47 @@
+{
+  "landingPage": {
+    "$singleton": false,
+    "title": "Landing Page",
+    "type": "object",
+    "properties": {
+      "slug": {
+        "$componentKey": "Slug",
+        "$componentTitle": "Slug",
+        "widget": {
+          "ui:widget": "slug"
+        },
+        "type": "string"
+      },
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      },
+      "seo": {
+        "$componentKey": "SEO",
+        "$componentTitle": "SEO",
+        "type": "object",
+        "properties": {
+          "slug": {
+            "title": "Path",
+            "type": "string",
+            "default": "/"
+          },
+          "title": {
+            "title": "Default page title",
+            "description": "Display this title when no other tile is available.",
+            "type": "string",
+            "default": "FastStore Starter"
+          },
+          "description": {
+            "title": "Meta tag description",
+            "type": "string",
+            "default": "A beautifully designed store"
+          },
+          "canonical": {
+            "title": "Canonical url for the page",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
