@@ -3,15 +3,54 @@
     "$singleton": false,
     "title": "Product List Page",
     "properties": {
-      "slug": {
-        "title": "Slug",
-        "widget": {
-          "ui:widget": "slug"
-        },
-        "type": "string"
-      },
       "sections": {
         "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      },
+      "template": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "PLP template value (e.g. Slug: /department/category/subcategory)",
+            "type": "string",
+            "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is left empty, the generic PLP template will be applied."
+          }
+        }
+      },
+      "productGallery": {
+        "$componentTitle": "Product Gallery",
+        "type": "object",
+        "properties": {
+          "itemsPerPage": {
+            "title": "Number of ProductCards per page",
+            "type": "integer",
+            "default": 12
+          },
+          "sortBySelection": {
+            "title": "Default sort by value",
+            "type": "string",
+            "default": "score_desc",
+            "enumNames": [
+              "Price, descending",
+              "Price, ascending",
+              "Top sales",
+              "Name, A-Z",
+              "Name, Z-A",
+              "Release date",
+              "Discount",
+              "Relevance"
+            ],
+            "enum": [
+              "price_desc",
+              "price_asc",
+              "orders_desc",
+              "name_asc",
+              "name_desc",
+              "release_desc",
+              "discount_desc",
+              "score_desc"
+            ]
+          }
+        }
       }
     }
   }

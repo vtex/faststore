@@ -4,9 +4,6 @@
     "title": "Login",
     "type": "object",
     "properties": {
-      "seo": {
-        "$ref": "#/components/SEO"
-      },
       "sections": {
         "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
       }

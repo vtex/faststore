@@ -3,11 +3,44 @@
     "$singleton": true,
     "title": "Search Page",
     "properties": {
-      "productGallery": {
-        "$ref": "#/components/SEO"
-      },
       "sections": {
         "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      },
+      "productGallery": {
+        "$componentTitle": "Product Gallery",
+        "type": "object",
+        "properties": {
+          "itemsPerPage": {
+            "title": "Number of ProductCards per page",
+            "type": "integer",
+            "default": 12
+          },
+          "sortBySelection": {
+            "title": "Default sort by value",
+            "type": "string",
+            "default": "score_desc",
+            "enumNames": [
+              "Price, descending",
+              "Price, ascending",
+              "Top sales",
+              "Name, A-Z",
+              "Name, Z-A",
+              "Release date",
+              "Discount",
+              "Relevance"
+            ],
+            "enum": [
+              "price_desc",
+              "price_asc",
+              "orders_desc",
+              "name_asc",
+              "name_desc",
+              "release_desc",
+              "discount_desc",
+              "score_desc"
+            ]
+          }
+        }
       }
     }
   }
