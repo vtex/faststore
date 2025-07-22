@@ -301,14 +301,27 @@ export function useDeliveryPromise({
     if (!allFacets) return []
 
     return !isDeliveryPromiseEnabled || !postalCode
-      ? allFacets.filter(({ key }) => key !== SHIPPING_FACET_KEY)
+      ? allFacets.filter(
+          ({ key }) =>
+            key !== SHIPPING_FACET_KEY &&
+            key !== DELIVERY_OPTIONS_FACET_KEY &&
+            key !== DYNAMIC_ESTIMATE_FACET_KEY
+        )
       : allFacets
+          .filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY) // TODO: remove this filter when dynamic estimate is implemented
           .map((facet) => {
-            if (
-              facet.key !== SHIPPING_FACET_KEY ||
-              facet.__typename !== 'StoreFacetBoolean'
-            )
+            if (facet.__typename !== 'StoreFacetBoolean') return facet
+
+            if (facet.key === DELIVERY_OPTIONS_FACET_KEY) {
+              facet.values = withUniqueFacet(
+                facet.values,
+                allDeliveryOptionsFacet
+              )
+
               return facet
+            }
+
+            if (facet.key !== SHIPPING_FACET_KEY) return facet
 
             facet.values = withUniqueFacet(
               facet.values,
