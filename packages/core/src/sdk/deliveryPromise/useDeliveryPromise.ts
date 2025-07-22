@@ -302,11 +302,18 @@ export function useDeliveryPromise({
       ? allFacets.filter(({ key }) => key !== SHIPPING_FACET_KEY)
       : allFacets
           .map((facet) => {
-            if (
-              facet.key !== SHIPPING_FACET_KEY ||
-              facet.__typename !== 'StoreFacetBoolean'
-            )
+            if (facet.__typename !== 'StoreFacetBoolean') return facet
+
+            if (facet.key === DELIVERY_OPTIONS_FACET_KEY) {
+              facet.values = withUniqueFacet(
+                facet.values,
+                allDeliveryOptionsFacet
+              )
+
               return facet
+            }
+
+            if (facet.key !== SHIPPING_FACET_KEY) return facet
 
             facet.values = withUniqueFacet(
               facet.values,
