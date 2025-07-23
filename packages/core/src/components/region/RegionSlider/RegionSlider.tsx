@@ -6,17 +6,17 @@ import {
   type InputFieldProps as UIInputFieldProps,
 } from '@faststore/ui'
 import dynamic from 'next/dynamic'
-import type { MouseEvent, ChangeEvent } from 'react'
-import { useEffect, useRef, useState, useMemo } from 'react'
+import type { ChangeEvent, MouseEvent } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useRegion from 'src/components/region/RegionModal/useRegion'
 import { PickupPointCards } from 'src/components/ui/PickupPoints'
-import { useSession, sessionStore } from 'src/sdk/session'
 import {
-  useDeliveryPromise,
-  SHIPPING_FACET_KEY,
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
+  SHIPPING_FACET_KEY,
+  useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
+import { sessionStore, useSession } from 'src/sdk/session'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
@@ -74,7 +74,7 @@ function RegionSlider() {
   )
   const pickupPoints = useMemo(
     () =>
-      pickupPointsSimulation?.postalCode
+      pickupPointsSimulation?.geoCoordinates
         ? pickupPointsSimulation.pickupPoints
         : statePickupPoints,
     [statePickupPoints, pickupPointsSimulation]

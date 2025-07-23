@@ -1,5 +1,5 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import type { PickupPoint } from '.'
+import type { PickupPoint } from 'src/sdk/deliveryPromise'
 
 export type PickupPointCardProps = {
   store: PickupPoint
@@ -24,9 +24,7 @@ function PickupPointCard({ store }: PickupPointCardProps) {
           <span>
             {store?.address?.street}, {store?.address?.number}
           </span>
-          <span>
-            {store?.address?.city} - {store?.address?.state}
-          </span>
+          <span>{store?.address?.city}</span>
         </p>
         <span data-fs-pickup-point-card-distance>
           {store?.distance !== undefined ? formatDistance(store.distance) : ''}

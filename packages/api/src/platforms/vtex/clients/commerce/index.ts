@@ -26,6 +26,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -39,7 +40,6 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
-import type { PickupPointsInput, PickupPoints } from './types/PickupPoints'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -395,12 +395,10 @@ export const VtexCommerce = (
       },
       pickupPoints: ({
         geoCoordinates,
-        postalCode,
-        country,
       }: PickupPointsInput): Promise<PickupPoints> => {
-        if (!geoCoordinates && (!postalCode || !country)) {
+        if (!geoCoordinates) {
           throw new Error(
-            'Missing required parameters for listing pickup points.'
+            'Missing required parameter for listing pickup points.'
           )
         }
 
@@ -408,21 +406,14 @@ export const VtexCommerce = (
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
-        const params = new URLSearchParams()
-
-        if (geoCoordinates) {
-          params.append(
-            'geoCoordinates',
-            `${geoCoordinates.longitude};${geoCoordinates.latitude}`
-          )
-        } else {
-          params.append('countryCode', country as string)
-          params.append('postalCode', postalCode as string)
-        }
 
         return fetchAPI(
-          `${base}/api/checkout/pub/pickup-points?${params.toString()}`,
-          { headers },
+          `${base}/api/logistics-shipping/pickuppoints/_search`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ coordinate: geoCoordinates }),
+          },
           { storeCookies }
         )
       },

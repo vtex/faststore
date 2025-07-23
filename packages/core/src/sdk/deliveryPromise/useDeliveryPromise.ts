@@ -1,23 +1,23 @@
-import { useCallback, useEffect, useMemo } from 'react'
 import deepEquals from 'fast-deep-equal'
+import { useCallback, useEffect, useMemo } from 'react'
 
 import {
   createStore,
-  useSearch,
   toggleFacets,
+  useSearch,
   type SearchState,
   type Session,
 } from '@faststore/sdk'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 
-import { useSession } from 'src/sdk/session'
 import type { useFilter } from 'src/sdk/search/useFilter'
+import { useSession } from 'src/sdk/session'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
 
 import { deliveryPromise as deliveryPromiseConfig } from 'discovery.config'
 import {
-  useDeliveryPromiseContext,
   initialPickupPointsSimulation,
+  useDeliveryPromiseContext,
   type PickupPointsSimulation,
 } from '.'
 
@@ -36,7 +36,6 @@ export type PickupPoint = {
     number?: string
     postalCode?: string
     city?: string
-    state?: string
   }
   distance?: number
   totalItems?: number

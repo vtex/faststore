@@ -1,23 +1,23 @@
+import deepEquals from 'fast-deep-equal'
 import type { Dispatch, PropsWithChildren } from 'react'
 import {
-  useEffect,
-  useReducer,
-  useMemo,
   createContext,
   useContext,
+  useEffect,
+  useMemo,
+  useReducer,
 } from 'react'
-import deepEquals from 'fast-deep-equal'
 
 import { useSession } from 'src/sdk/session'
 
 import {
-  getPickupPoints,
-  deliveryPromiseStore,
   deliveryPromiseReducer,
+  deliveryPromiseStore,
+  getPickupPoints,
   initialPickupPointsSimulation,
   initializeDeliveryPromiseState,
-  type DeliveryPromiseReducerState,
   type DeliveryPromiseReducerAction,
+  type DeliveryPromiseReducerState,
 } from '.'
 
 type Context = DeliveryPromiseReducerState & {
@@ -29,7 +29,7 @@ const DeliveryPromiseContext = createContext<Context | undefined>(undefined)
 export function DeliveryPromiseProvider({
   children,
 }: PropsWithChildren<unknown>) {
-  const { country, postalCode, geoCoordinates } = useSession()
+  const { postalCode, geoCoordinates } = useSession()
   const [state, dispatch] = useReducer(
     deliveryPromiseReducer,
     undefined,
@@ -43,15 +43,11 @@ export function DeliveryPromiseProvider({
 
     async function fetchPickupPoints() {
       const newPickupPoints = await getPickupPoints({
-        country: state.simulatePickupPoints
-          ? state.pickupPointsSimulation.country
-          : country,
-        geoCoordinates: state.simulatePickupPoints
-          ? state.pickupPointsSimulation.geoCoordinates
-          : geoCoordinates,
-        postalCode: state.simulatePickupPoints
-          ? state.pickupPointsSimulation.postalCode
-          : postalCode,
+        geoCoordinates:
+          state.simulatePickupPoints &&
+          state.pickupPointsSimulation?.geoCoordinates
+            ? state.pickupPointsSimulation.geoCoordinates
+            : geoCoordinates,
       })
 
       // Pickup points simulation

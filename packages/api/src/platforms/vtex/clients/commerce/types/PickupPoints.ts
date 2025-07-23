@@ -10,49 +10,30 @@ export interface PickupPointsInput {
 }
 
 interface Address {
-  addressId: string | null
-  addressType: string
   city: string
-  complement: string | null
-  country: string
   geoCoordinates: [number, number] // [longitude, latitude]
-  isDisposable: boolean
   neighborhood: string
   number: string
   postalCode: string
-  receiverName: string
-  reference: string
-  state: string
   street: string
 }
 
 interface BusinessHour {
-  DayOfWeek: number
-  OpeningTime: string
-  ClosingTime: string
+  dayOfWeek: number
+  openingTime: string
+  closingTime: string
 }
 
-interface PickupPoint {
-  additionalInfo: string
-  address: Address
-  businessHours: BusinessHour
-  friendlyName: string
-  id: string
-}
-
-interface Item {
+interface PickupPointDistance {
+  pickupId: string
   distance: number
-  pickupPoint: PickupPoint
-}
-
-interface Paging {
-  page: number
-  pages: number
-  pageSize: number
-  total: number
+  pickupName: string
+  isActive: boolean
+  address: Address
+  businessHours: BusinessHour[]
 }
 
 export interface PickupPoints {
-  items: Item[]
-  paging: Paging
+  pickupPointDistances: PickupPointDistance[]
+  pickupPointsHash: string
 }

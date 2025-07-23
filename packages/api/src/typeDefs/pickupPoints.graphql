@@ -1,32 +1,8 @@
 type PickupPointAddress {
   """
-  Address id.
-  """
-  addressId: String
-  """
-  Address type.
-  """
-  addressType: String
-  """
   Address city.
   """
   city: String
-  """
-  Address complement
-  """
-  complement: String
-  """
-  Address country.
-  """
-  country: String
-  """
-  Address geo coordinates.
-  """
-  geoCoordinates: [Float]
-  """
-  Inform whether the address is disposable.
-  """
-  isDisposable: Boolean
   """
   Address neighborhood.
   """
@@ -40,18 +16,6 @@ type PickupPointAddress {
   """
   postalCode: String
   """
-  Address receiver name.
-  """
-  receiverName: String
-  """
-  Address reference.
-  """
-  reference: String
-  """
-  Address state.
-  """
-  state: String
-  """
   Address street.
   """
   street: String
@@ -61,22 +25,34 @@ type BusinessHour {
   """
   Number that represents the day of the week.
   """
-  DayOfWeek: Int
+  dayOfWeek: Int
   """
   Business hour opening time.
   """
-  OpeningTime: String
+  openingTime: String
   """
   Business hour closing time.
   """
-  ClosingTime: String
+  closingTime: String
 }
 
-type PickupPoint {
+type PickupPointDistance {
   """
-  Pickup point additional info.
+  Pickup point ID.
   """
-  additionalInfo: String
+  pickupId: String
+  """
+  Pickup point distance.
+  """
+  distance: Float
+  """
+  Pickup point name.
+  """
+  pickupName: String
+  """
+  Whether the pickup point is active.
+  """
+  isActive: Boolean
   """
   Pickup point address.
   """
@@ -84,54 +60,16 @@ type PickupPoint {
   """
   Pickup point business hours.
   """
-  businessHours: BusinessHour
-  """
-  Pickup point friendly name.
-  """
-  friendlyName: String
-  """
-  Pickup point id.
-  """
-  id: String
-}
-
-type Item {
-  """
-  Pickup point distance.
-  """
-  distance: Float
-  """
-  Pickup point.
-  """
-  pickupPoint: PickupPoint
-}
-
-type Paging {
-  """
-  Current page.
-  """
-  page: Int
-  """
-  Total number of pages.
-  """
-  pages: Int
-  """
-  Number of items per page.
-  """
-  pageSize: Int
-  """
-  Total number of items.
-  """
-  total: Int
+  businessHours: [BusinessHour]
 }
 
 type PickupPoints {
   """
-  List of pickup points of the given location.
+  List of pickup point distances for the given location.
   """
-  items: [Item]
+  pickupPointDistances: [PickupPointDistance]
   """
-  Pagination details.
+  Hash of the pickup points data.
   """
-  paging: Paging
+  pickupPointsHash: String
 }

@@ -146,11 +146,11 @@ export type AvailableDeliveryWindows = {
 
 export type BusinessHour = {
   /** Business hour closing time. */
-  ClosingTime: Maybe<Scalars['String']['output']>
+  closingTime: Maybe<Scalars['String']['output']>
   /** Number that represents the day of the week. */
-  DayOfWeek: Maybe<Scalars['Int']['output']>
+  dayOfWeek: Maybe<Scalars['Int']['output']>
   /** Business hour opening time. */
-  OpeningTime: Maybe<Scalars['String']['output']>
+  openingTime: Maybe<Scalars['String']['output']>
 }
 
 /** Commercial Authorization dimension status. */
@@ -569,13 +569,6 @@ export type IUserOrderCancel = {
   reason: InputMaybe<Scalars['String']['input']>
 }
 
-export type Item = {
-  /** Pickup point distance. */
-  distance: Maybe<Scalars['Float']['output']>
-  /** Pickup point. */
-  pickupPoint: Maybe<PickupPoint>
-}
-
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -671,17 +664,6 @@ export type MutationValidateSessionArgs = {
   session: IStoreSession
 }
 
-export type Paging = {
-  /** Current page. */
-  page: Maybe<Scalars['Int']['output']>
-  /** Number of items per page. */
-  pageSize: Maybe<Scalars['Int']['output']>
-  /** Total number of pages. */
-  pages: Maybe<Scalars['Int']['output']>
-  /** Total number of items. */
-  total: Maybe<Scalars['Int']['output']>
-}
-
 /** Newsletter information. */
 export type PersonNewsletter = {
   /** Person's ID in the newsletter list. */
@@ -717,55 +699,39 @@ export type PickupAddress = {
   street: Maybe<Scalars['String']['output']>
 }
 
-export type PickupPoint = {
-  /** Pickup point additional info. */
-  additionalInfo: Maybe<Scalars['String']['output']>
-  /** Pickup point address. */
-  address: Maybe<PickupPointAddress>
-  /** Pickup point business hours. */
-  businessHours: Maybe<BusinessHour>
-  /** Pickup point friendly name. */
-  friendlyName: Maybe<Scalars['String']['output']>
-  /** Pickup point id. */
-  id: Maybe<Scalars['String']['output']>
-}
-
 export type PickupPointAddress = {
-  /** Address id. */
-  addressId: Maybe<Scalars['String']['output']>
-  /** Address type. */
-  addressType: Maybe<Scalars['String']['output']>
   /** Address city. */
   city: Maybe<Scalars['String']['output']>
-  /** Address complement */
-  complement: Maybe<Scalars['String']['output']>
-  /** Address country. */
-  country: Maybe<Scalars['String']['output']>
-  /** Address geo coordinates. */
-  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']['output']>>>
-  /** Inform whether the address is disposable. */
-  isDisposable: Maybe<Scalars['Boolean']['output']>
   /** Address neighborhood. */
   neighborhood: Maybe<Scalars['String']['output']>
   /** Address number. */
   number: Maybe<Scalars['String']['output']>
   /** Address postal code. */
   postalCode: Maybe<Scalars['String']['output']>
-  /** Address receiver name. */
-  receiverName: Maybe<Scalars['String']['output']>
-  /** Address reference. */
-  reference: Maybe<Scalars['String']['output']>
-  /** Address state. */
-  state: Maybe<Scalars['String']['output']>
   /** Address street. */
   street: Maybe<Scalars['String']['output']>
 }
 
+export type PickupPointDistance = {
+  /** Pickup point address. */
+  address: Maybe<PickupPointAddress>
+  /** Pickup point business hours. */
+  businessHours: Maybe<Array<Maybe<BusinessHour>>>
+  /** Pickup point distance. */
+  distance: Maybe<Scalars['Float']['output']>
+  /** Whether the pickup point is active. */
+  isActive: Maybe<Scalars['Boolean']['output']>
+  /** Pickup point ID. */
+  pickupId: Maybe<Scalars['String']['output']>
+  /** Pickup point name. */
+  pickupName: Maybe<Scalars['String']['output']>
+}
+
 export type PickupPoints = {
-  /** List of pickup points of the given location. */
-  items: Maybe<Array<Maybe<Item>>>
-  /** Pagination details. */
-  paging: Maybe<Paging>
+  /** List of pickup point distances for the given location. */
+  pickupPointDistances: Maybe<Array<Maybe<PickupPointDistance>>>
+  /** Hash of the pickup points data. */
+  pickupPointsHash: Maybe<Scalars['String']['output']>
 }
 
 export type PickupStoreInfo = {
@@ -900,9 +866,7 @@ export type QueryListUserOrdersArgs = {
 }
 
 export type QueryPickupPointsArgs = {
-  country: InputMaybe<Scalars['String']['input']>
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>
-  postalCode: InputMaybe<Scalars['String']['input']>
 }
 
 export type QueryProductArgs = {
@@ -3024,25 +2988,21 @@ export type CartProductItemFragment = {
 
 export type ClientPickupPointsQueryQueryVariables = Exact<{
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>
-  postalCode: InputMaybe<Scalars['String']['input']>
-  country: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientPickupPointsQueryQuery = {
   pickupPoints: {
-    paging: { total: number | null } | null
-    items: Array<{
+    pickupPointDistances: Array<{
+      pickupId: string | null
       distance: number | null
-      pickupPoint: {
-        id: string | null
-        friendlyName: string | null
-        address: {
-          street: string | null
-          number: string | null
-          postalCode: string | null
-          city: string | null
-          state: string | null
-        } | null
+      pickupName: string | null
+      isActive: boolean | null
+      address: {
+        city: string | null
+        neighborhood: string | null
+        number: string | null
+        postalCode: string | null
+        street: string | null
       } | null
     } | null> | null
   } | null
@@ -4062,7 +4022,7 @@ export const ValidateCartMutationDocument = {
 export const ClientPickupPointsQueryDocument = {
   __meta__: {
     operationName: 'ClientPickupPointsQuery',
-    operationHash: '66d8a051fb16b0ce0c6177ab85387b8b05518e21',
+    operationHash: 'ac88d873e8671bf345cdf3d468dd569cb8006660',
   },
 } as unknown as TypedDocumentString<
   ClientPickupPointsQueryQuery,
