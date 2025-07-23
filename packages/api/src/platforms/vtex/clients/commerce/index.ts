@@ -39,6 +39,7 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import { buildFormData } from '../../utils/buildFormData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -677,6 +678,47 @@ export const VtexCommerce = (
           },
           { storeCookies }
         )
+      },
+      setPassword: async ({
+        email,
+        newPassword,
+        currentPassword,
+        accesskey,
+        recaptcha,
+      }: {
+        email: string
+        newPassword: string
+        currentPassword: string
+        accesskey?: string
+        recaptcha?: string
+      }): Promise<{ success: boolean; message?: string }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        const body = buildFormData({
+          login: email,
+          newPassword,
+          currentPassword,
+          accesskey,
+          recaptcha,
+        })
+
+        const result = await fetchAPI(
+          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
+          {
+            method: 'POST',
+            headers,
+            body,
+          },
+          { storeCookies }
+        )
+
+        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
+          return { success: true }
+        }
+        return {
+          success: false,
+          message: result?.authStatus ?? 'Unknown error',
+        }
       },
     },
   }

@@ -373,6 +373,20 @@ export type IProcessOrderAuthorization = {
   ruleId: Scalars['String']['input']
 }
 
+/** Input type for setting a new password. */
+export type ISetPassword = {
+  /** Optional access key for the user, used in some authentication flows. */
+  accesskey: InputMaybe<Scalars['String']['input']>
+  /** The current password of the user, required for verification before changing to the new password. */
+  currentPassword: Scalars['String']['input']
+  /** The email of the user for whom the password is being set. */
+  email: Scalars['String']['input']
+  /** The new password to be set for the user. */
+  newPassword: Scalars['String']['input']
+  /** Optional reCAPTCHA token for security verification. */
+  recaptcha: InputMaybe<Scalars['String']['input']>
+}
+
 /** Shipping Simulation item input. */
 export type IShippingItem = {
   /** ShippingItem ID / Sku. */
@@ -625,6 +639,11 @@ export type Mutation = {
   cancelOrder: Maybe<UserOrderCancel>
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>
+  /**
+   * Sets a new password for the user.
+   * This mutation is used to change the user's password, typically after a password reset or when the user wants to update their password.
+   */
+  setPassword: Maybe<SetPasswordResponse>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -639,6 +658,10 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization
+}
+
+export type MutationSetPasswordArgs = {
+  data: ISetPassword
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -888,6 +911,14 @@ export type SellersData = {
   id: Maybe<Scalars['String']['output']>
   /** List of sellers. */
   sellers: Maybe<Array<Maybe<SellerInfo>>>
+}
+
+/** Response type for setting a new password. */
+export type SetPasswordResponse = {
+  /** Message providing additional information about the operation. */
+  message: Maybe<Scalars['String']['output']>
+  /** Indicates whether the password was successfully set. */
+  success: Scalars['Boolean']['output']
 }
 
 /** Shipping Simulation information. */
