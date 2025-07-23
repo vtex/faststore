@@ -2999,7 +2999,6 @@ export type ClientPickupPointsQueryQuery = {
       isActive: boolean | null
       address: {
         city: string | null
-        neighborhood: string | null
         number: string | null
         postalCode: string | null
         street: string | null
@@ -4022,7 +4021,7 @@ export const ValidateCartMutationDocument = {
 export const ClientPickupPointsQueryDocument = {
   __meta__: {
     operationName: 'ClientPickupPointsQuery',
-    operationHash: 'ac88d873e8671bf345cdf3d468dd569cb8006660',
+    operationHash: '1ea72f41b367e482251e186b4128a4a91f3a4d56',
   },
 } as unknown as TypedDocumentString<
   ClientPickupPointsQueryQuery,
