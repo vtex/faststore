@@ -20,7 +20,7 @@
             "placeholder": {
               "title": "Placeholder",
               "type": "string",
-              "default": "Search Everything at the Store"
+              "default": "Search everything in the store"
             },
             "icon": {
               "title": "Search Icon",
@@ -36,7 +36,7 @@
                 "alt": {
                   "title": "Alternative Label",
                   "type": "string",
-                  "default": "Magnifying Glass"
+                  "default": "Magnifying glass"
                 }
               }
             }
@@ -54,7 +54,7 @@
             "clearButtonLabel": {
               "type": "string",
               "title": "Clear Button Label",
-              "default": "Clear History"
+              "default": "Clear history"
             },
             "icon": {
               "title": "Icon",
@@ -88,7 +88,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Top Search"
+              "default": "Top search"
             },
             "maxItems": {
               "title": "Maximum Number of Top Search Items",
@@ -114,7 +114,7 @@
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Magnifying Glass"
+                  "default": "Magnifying glass"
                 }
               }
             },
@@ -132,7 +132,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Suggested Products"
+              "default": "Suggested products"
             },
             "maxItems": {
               "title": "Maximum Number of Suggested Products",
@@ -195,7 +195,7 @@
             "placeholder": {
               "title": "Placeholder for Search Bar",
               "type": "string",
-              "default": "Search everything at the store"
+              "default": "Search everything in the store"
             },
             "sort": {
               "title": "Results default sort value",
@@ -334,12 +334,12 @@
             "label": {
               "title": "Call to Action",
               "type": "string",
-              "default": "Sign In"
+              "default": "Sign in"
             },
             "myAccountLabel": {
               "title": "My Account Label",
               "type": "string",
-              "default": "My Account"
+              "default": "My account"
             }
           }
         },
@@ -357,7 +357,7 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": "Shopping Cart"
+              "default": "Shopping cart"
             }
           }
         },
@@ -606,7 +606,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Follow Us"
+              "default": "Follow us"
             },
             "socialLinks": {
               "title": "Social Media",
@@ -702,7 +702,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Payment Methods"
+              "default": "Payment methods"
             },
             "paymentMethods": {
               "title": "Payment Methods",
@@ -1077,7 +1077,7 @@
         "kind": {
           "title": "Kind",
           "description": "Change cross selling types",
-          "default": "buy",
+          "default": "Buy",
           "enum": ["buy", "view"],
           "enumNames": ["Who bought also bought", "Who saw also saw"]
         },
@@ -1226,12 +1226,12 @@
         "title": {
           "title": "Title",
           "type": "string",
-          "default": "Get News and Special Offers!"
+          "default": "Get news and special offers!"
         },
         "description": {
           "title": "Description",
           "type": "string",
-          "default": "Receive our news and promotions in advance"
+          "default": "Get news and special offers in advance"
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
@@ -1243,7 +1243,7 @@
         "emailInputLabel": {
           "title": "Email input label",
           "type": "string",
-          "default": "Your Email"
+          "default": "Email"
         },
         "displayNameInput": {
           "title": "Request name?",
@@ -1253,7 +1253,7 @@
         "nameInputLabel": {
           "title": "Name input label",
           "type": "string",
-          "default": "Your Name"
+          "default": "Name"
         },
         "subscribeButtonLabel": {
           "title": "Subscribe button label",
@@ -1291,7 +1291,7 @@
               "title": "Message",
               "description": "Message",
               "type": "string",
-              "default": "Thank for your subscription."
+              "default": "Thanks for your subscription."
             },
             "icon": {
               "title": "Icon",
@@ -1310,13 +1310,13 @@
               "title": "Title",
               "description": "Message Title",
               "type": "string",
-              "default": "Oops."
+              "default": "Oops!"
             },
             "message": {
               "title": "Message",
               "description": "Message",
               "type": "string",
-              "default": "Something went wrong. Please Try again."
+              "default": "Something went wrong. Please try again."
             },
             "icon": {
               "title": "Icon",
@@ -1355,7 +1355,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get to Know Our Next Release"
+              "default": "Check out our next release"
             },
             "caption": {
               "title": "Caption",
@@ -1421,12 +1421,12 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get News and Special Offers!"
+              "default": "Get news and special offers!"
             },
             "description": {
               "title": "Description",
               "type": "string",
-              "default": "Receive our news and promotions in advance"
+              "default": "Get news and special offers in advance"
             },
             "privacyPolicy": {
               "title": "Privacy Policy Disclaimer",
@@ -1438,7 +1438,7 @@
             "emailInputLabel": {
               "title": "Email input label",
               "type": "string",
-              "default": "Your Email"
+              "default": "Email"
             },
             "displayNameInput": {
               "title": "Request name?",
@@ -1448,7 +1448,7 @@
             "nameInputLabel": {
               "title": "Name input label",
               "type": "string",
-              "default": "Your Name"
+              "default": "Name"
             },
             "subscribeButtonLabel": {
               "title": "Subscribe button label",
@@ -1481,7 +1481,7 @@
                   "title": "Message",
                   "description": "Message",
                   "type": "string",
-                  "default": "Thank for your subscription."
+                  "default": "Thanks for your subscription."
                 },
                 "icon": {
                   "title": "Icon",
@@ -1500,13 +1500,13 @@
                   "title": "Title",
                   "description": "Message Title",
                   "type": "string",
-                  "default": "Oops."
+                  "default": "Oops!"
                 },
                 "message": {
                   "title": "Message",
                   "description": "Message",
                   "type": "string",
-                  "default": "Something went wrong. Please Try again."
+                  "default": "Something went wrong. Please try again."
                 },
                 "icon": {
                   "title": "Icon",
@@ -1587,7 +1587,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Add to Cart"
+              "default": "Add to cart"
             },
             "icon": {
               "title": "Icon",
@@ -1602,7 +1602,7 @@
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Shopping Cart"
+                  "default": "Shopping cart"
                 }
               }
             }
@@ -1616,7 +1616,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Not Available"
+              "default": "Unavailable"
             }
           }
         },
@@ -1632,7 +1632,7 @@
             "inputLabel": {
               "title": "Input Label",
               "type": "string",
-              "default": "Postal Code"
+              "default": "Postal code"
             },
             "link": {
               "title": "Postal Code Discovery",
@@ -1641,7 +1641,7 @@
                 "text": {
                   "title": "Link Text",
                   "type": "string",
-                  "default": "I don't know my Postal Code"
+                  "default": "I don't know my postal code"
                 },
                 "to": {
                   "title": "URL",
@@ -1836,7 +1836,7 @@
             "label": {
               "title": "Previous page button",
               "type": "string",
-              "default": "Previous Page"
+              "default": "Previous page"
             }
           }
         },
@@ -1896,7 +1896,7 @@
                         "alt": {
                           "title": "Alternative label",
                           "type": "string",
-                          "default": "Open Filters"
+                          "default": "Open filters"
                         }
                       }
                     }
@@ -1905,7 +1905,7 @@
                 "clearButtonLabel": {
                   "title": "Clear button label",
                   "type": "string",
-                  "default": "Clear All"
+                  "default": "Clear all"
                 },
                 "applyButtonLabel": {
                   "title": "Apply button label",
@@ -1960,7 +1960,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Nothing matches with your search"
+              "default": "Nothing matches your search"
             },
             "firstButton": {
               "title": "First Button",
@@ -1969,7 +1969,7 @@
                 "label": {
                   "type": "string",
                   "title": "Label",
-                  "default": "Browse Offers"
+                  "default": "Browse offers"
                 },
                 "url": {
                   "type": "string",
@@ -1990,7 +1990,7 @@
                 "label": {
                   "type": "string",
                   "title": "Label",
-                  "default": "Just Arrived"
+                  "default": "Just arrived"
                 },
                 "url": {
                   "type": "string",
@@ -2020,7 +2020,7 @@
         "title": {
           "title": "Title text",
           "type": "string",
-          "default": "Your Cart"
+          "default": "Your cart"
         },
         "alert": {
           "title": "Alert",
@@ -2062,7 +2062,7 @@
             "text": {
               "type": "string",
               "title": "Text",
-              "default": "Free shipping starts at $300"
+              "default": "Free shipping on orders $300+"
             }
           }
         },
@@ -2220,17 +2220,17 @@
             "label": {
               "title": "Input field label",
               "type": "string",
-              "default": "Postal Code"
+              "default": "Postal code"
             },
             "errorMessage": {
               "title": "Input field error message",
               "type": "string",
-              "default": "You entered an invalid Postal Code"
+              "default": "Invalid postal code"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
               "type": "string",
-              "default": "There are no products available for %s.",
+              "default": "No products available for %s.",
               "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
@@ -2247,7 +2247,7 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "default": "I don't know my Postal Code"
+              "default": "I don't know my postal code"
             },
             "to": {
               "type": "string",
@@ -2301,17 +2301,17 @@
             "label": {
               "title": "Input field label",
               "type": "string",
-              "default": "Postal Code"
+              "default": "Postal code"
             },
             "errorMessage": {
               "title": "Input field error message",
               "type": "string",
-              "default": "You entered an invalid Postal Code"
+              "default": "Invalid postal code"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
               "type": "string",
-              "default": "There are no products available for %s.",
+              "default": "No products available for %s.",
               "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
@@ -2345,7 +2345,7 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "default": "I don't know my Postal Code"
+              "default": "I don't know my postal code"
             },
             "to": {
               "type": "string",
