@@ -32,7 +32,7 @@ interface FilterDesktopProps
 
 function FilterDesktop({
   facets,
-  testId,
+  testId = 'filter-desktop',
   dispatch,
   expanded,
   title,
@@ -57,6 +57,15 @@ function FilterDesktop({
     selectedFilterFacets: searchState.selectedFacets,
     deliveryPromiseSettings,
   })
+
+  // the highlighted facet is the one that will appear in the top of the filter list
+  const highlightedFacet = filteredFacets.find(
+    (facet) => facet.key === 'dynamic-estimate'
+  )
+
+  const facetsWithoutHighlightedFacet = filteredFacets.filter(
+    (facet) => facet.key !== 'dynamic-estimate'
+  )
 
   return (
     <>
@@ -89,7 +98,36 @@ function FilterDesktop({
           </UIFilterFacets>
         )}
 
-        {filteredFacets.map((facet, idx) => {
+        {highlightedFacet &&
+          highlightedFacet.__typename === 'StoreFacetBoolean' && (
+            <UIFilterFacets
+              key={`${testId}-dynamic-estimate`}
+              testId={testId}
+              highlighted
+              type={highlightedFacet.__typename}
+              index={undefined}
+              label={highlightedFacet.label}
+            >
+              {highlightedFacet.values.map((item) => (
+                <UIFilterFacetBooleanItem
+                  key={`${testId}-${highlightedFacet.label}-${item.value}`}
+                  id={`${testId}-${highlightedFacet.label}-${item.value}`}
+                  testId={testId}
+                  onFacetChange={(facet) => {
+                    onDeliveryFacetChange({ facet })
+                    resetInfiniteScroll(0)
+                  }}
+                  selected={item.selected}
+                  value={item.value}
+                  facetKey={highlightedFacet.key}
+                  label={item.label}
+                  type="toggle"
+                />
+              ))}
+            </UIFilterFacets>
+          )}
+
+        {facetsWithoutHighlightedFacet.map((facet, idx) => {
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
