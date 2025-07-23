@@ -17,7 +17,10 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import {
+  useDeliveryPromise,
+  PICKUP_ALL_FACET_VALUE,
+} from 'src/sdk/deliveryPromise'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
@@ -108,7 +111,8 @@ function FilterDesktop({
                 <UIFilterFacetBoolean>
                   {facet.values.map(
                     (item) =>
-                      (item.value !== 'pickup-all' || isPickupAllEnabled) && (
+                      (item.value !== PICKUP_ALL_FACET_VALUE ||
+                        isPickupAllEnabled) && (
                         <UIFilterFacetBooleanItem
                           key={`${testId}-${facet.label}-${item.value}`}
                           id={`${testId}-${facet.label}-${item.value}`}
