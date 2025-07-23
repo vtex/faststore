@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.66.0](https://github.com/vtex/faststore/compare/v3.65.2...v3.66.0) (2025-07-23)
+
+### Features
+
+- add mutation to set new password ([#2949](https://github.com/vtex/faststore/issues/2949)) ([f2f3beb](https://github.com/vtex/faststore/commit/f2f3bebfafd9500e3eb2f9d98220f7400ea9fd0e))
+
+## [3.65.2](https://github.com/vtex/faststore/compare/v3.65.1...v3.65.2) (2025-07-22)
+
+### Bug Fixes
+
+- duplicated meta tags ([#2947](https://github.com/vtex/faststore/issues/2947)) ([4934609](https://github.com/vtex/faststore/commit/4934609cca34b1e5e7c843a4bd61fb851e954f03))
+
+## [3.65.1](https://github.com/vtex/faststore/compare/v3.65.0...v3.65.1) (2025-07-17)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+### Features
+
+- my account release 3 ([#2883](https://github.com/vtex/faststore/issues/2883)) ([be2c32a](https://github.com/vtex/faststore/commit/be2c32ae5cb0d892e34a96c2d73b06d31f8af137))
+
+## [3.64.1](https://github.com/vtex/faststore/compare/v3.64.0...v3.64.1) (2025-07-16)
+
+### Bug Fixes
+
+- format date manually on MyAccountSelectedTags to work with user timezone ([#2946](https://github.com/vtex/faststore/issues/2946)) ([3f001ff](https://github.com/vtex/faststore/commit/3f001ff55d4369589428cb569caa205d4d87e1af))
+
+# [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
+
+### Features
+
+- add uniqueId field to UserOrder items and update related components ([#2945](https://github.com/vtex/faststore/issues/2945)) ([d48ea5a](https://github.com/vtex/faststore/commit/d48ea5af35a538f7e07c14cf90330b87cf27178a))
+
+## [3.63.1](https://github.com/vtex/faststore/compare/v3.63.0...v3.63.1) (2025-07-15)
+
+### Bug Fixes
+
+- use allowCancellation to validate cancel order button ([#2942](https://github.com/vtex/faststore/issues/2942)) ([1f0f6a9](https://github.com/vtex/faststore/commit/1f0f6a9dc27436b6de63e2aff58a1086d4b2ae2a)), closes [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx#L116](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx/issues/L116) [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx#L41](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx/issues/L41)
+
+# [3.63.0](https://github.com/vtex/faststore/compare/v3.62.0...v3.63.0) (2025-07-14)
+
+### Features
+
+- add param for custom event ([#2927](https://github.com/vtex/faststore/issues/2927)) ([b73d4da](https://github.com/vtex/faststore/commit/b73d4dad8d22a9eb498e020af6db24a8e8cd16f7)), closes [#parameter_2](https://github.com/vtex/faststore/issues/parameter_2) [#parameter_3](https://github.com/vtex/faststore/issues/parameter_3) [#parameter_2](https://github.com/vtex/faststore/issues/parameter_2) [#parameter_3](https://github.com/vtex/faststore/issues/parameter_3)
+
+# [3.62.0](https://github.com/vtex/faststore/compare/v3.61.0...v3.62.0) (2025-07-11)
+
+### Features
+
+- Allow unavailable items on cart ([#2938](https://github.com/vtex/faststore/issues/2938)) ([309e014](https://github.com/vtex/faststore/commit/309e014f50a0e2d5293b08e6b1b6b0fe6bcfd6b2)), closes [vtex-sites/faststoreqa.store#837](https://github.com/vtex-sites/faststoreqa.store/issues/837)
+
+# [3.61.0](https://github.com/vtex/faststore/compare/v3.60.4...v3.61.0) (2025-07-04)
+
+### Features
+
+- implement CP branch preview support ([#2885](https://github.com/vtex/faststore/issues/2885)) ([a55fe24](https://github.com/vtex/faststore/commit/a55fe24dac70ccfedc6296001bd5c18225affeda)), closes [/github.com/vtex/faststore/pull/2885/files#diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR40](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR40) [/github.com/vtex/faststore/pull/2885/files#diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR250](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR250) [/github.com/vtex/faststore/pull/2885/files#diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608L36](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608L36) [/github.com/vtex/faststore/pull/2885/files#diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR14](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR14) [/github.com/vtex/faststore/pull/2885/files#diff-7c7bcf90ece929b012c8fa7a7b62eac4ab72ca06aa5684add108af699bd62f50R38](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-7c7bcf90ece929b012c8fa7a7b62eac4ab72ca06aa5684add108af699bd62f50R38) [/github.com/vtex/faststore/pull/2885/files#diff-b45ed72491ecc419d59ca49fa8b4fc7a45deb55758a6a401f3c8401c11114227R148](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-b45ed72491ecc419d59ca49fa8b4fc7a45deb55758a6a401f3c8401c11114227R148) [/github.com/vtex/faststore/pull/2885/files#diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608R52](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608R52) [/github.com/vtex/faststore/pull/2885/files#diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR22](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR22) [/github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js#L128](https://github.com//github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js/issues/L128) [/github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js#L128](https://github.com//github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js/issues/L128)
+
+## [3.60.4](https://github.com/vtex/faststore/compare/v3.60.3...v3.60.4) (2025-07-04)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.60.3](https://github.com/vtex/faststore/compare/v3.60.2...v3.60.3) (2025-07-02)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.60.2](https://github.com/vtex/faststore/compare/v3.60.1...v3.60.2) (2025-07-02)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [3.60.1](https://github.com/vtex/faststore/compare/v3.60.0...v3.60.1) (2025-06-24)
 
 ### Bug Fixes

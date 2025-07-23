@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.66.0](https://github.com/vtex/faststore/compare/v3.65.2...v3.66.0) (2025-07-23)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.65.2](https://github.com/vtex/faststore/compare/v3.65.1...v3.65.2) (2025-07-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.65.1](https://github.com/vtex/faststore/compare/v3.65.0...v3.65.1) (2025-07-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+### Features
+
+- my account release 3 ([#2883](https://github.com/vtex/faststore/issues/2883)) ([be2c32a](https://github.com/vtex/faststore/commit/be2c32ae5cb0d892e34a96c2d73b06d31f8af137))
+
+## [3.64.1](https://github.com/vtex/faststore/compare/v3.64.0...v3.64.1) (2025-07-16)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.63.1](https://github.com/vtex/faststore/compare/v3.63.0...v3.63.1) (2025-07-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.63.0](https://github.com/vtex/faststore/compare/v3.62.0...v3.63.0) (2025-07-14)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.62.0](https://github.com/vtex/faststore/compare/v3.61.0...v3.62.0) (2025-07-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.61.0](https://github.com/vtex/faststore/compare/v3.60.4...v3.61.0) (2025-07-04)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.60.4](https://github.com/vtex/faststore/compare/v3.60.3...v3.60.4) (2025-07-04)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.60.3](https://github.com/vtex/faststore/compare/v3.60.2...v3.60.3) (2025-07-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.60.2](https://github.com/vtex/faststore/compare/v3.60.1...v3.60.2) (2025-07-02)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## [3.60.1](https://github.com/vtex/faststore/compare/v3.60.0...v3.60.1) (2025-06-24)
 
 **Note:** Version bump only for package @faststore/cli

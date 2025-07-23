@@ -1,6 +1,6 @@
 import { SDKError } from '../utils/error'
 import { isSearchSort, setFacet } from './facets'
-import { initialize } from './useSearchState'
+import { initialize } from './globalState/useSearchState'
 import type { SearchSort, State } from '../types'
 
 function getPassThroughSearchParams(

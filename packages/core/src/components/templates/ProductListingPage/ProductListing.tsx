@@ -52,7 +52,7 @@ export default function ProductListing({
   globalSections,
 }: ProductListingPageProps) {
   const router = useRouter()
-  const { state } = useSearch()
+  const { state, serializedState } = useSearch()
   const { sort, term, selectedFacets } = state
 
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
@@ -60,7 +60,7 @@ export default function ProductListing({
   const applySearchState = useApplySearchState()
   useEffect(() => {
     if (!isContentPlatformSource() || !router.isPreview) {
-      applySearchState(formatSearchState(state))
+      applySearchState(serializedState())
     }
   }, [])
 

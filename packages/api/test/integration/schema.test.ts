@@ -71,6 +71,8 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'userDetails',
+  'accountProfile',
   'accountName',
   'validateUser',
 ]
@@ -80,6 +82,8 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'cancelOrder',
+  'processOrderAuthorization',
+  'setPassword',
 ]
 
 let schema: GraphQLSchema
@@ -97,6 +101,7 @@ beforeAll(async () => {
     showSponsored: false,
     flags: {
       enableOrderFormSync: true,
+      enableUnavailableItemsOnCart: false,
     },
   })
 })

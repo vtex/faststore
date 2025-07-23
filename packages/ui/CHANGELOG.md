@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+**Note:** Version bump only for package @faststore/ui
+
+## [3.60.4](https://github.com/vtex/faststore/compare/v3.60.3...v3.60.4) (2025-07-04)
+
+### Bug Fixes
+
+- Shipping Simulation table style ([#2925](https://github.com/vtex/faststore/issues/2925)) ([a291826](https://github.com/vtex/faststore/commit/a291826f3806ef906f3a6bf7c3f8d9edec61a661))
+
 ## 3.56.1 (2025-06-19)
 
 ### Bug Fixes
