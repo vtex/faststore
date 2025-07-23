@@ -14,6 +14,9 @@
   --fs-filter-accordion-border-color-notebook             : var(--fs-border-color-light);
   --fs-filter-accordion-border-radius-notebook            : var(--fs-border-radius);
 
+  // Accordion Item
+  --fs-filter-accordion-item-highlighted-bkg-color        : var(--fs-color-primary-bkg-light);
+
   // Accordion Item Button
   --fs-filter-accordion-button-text-size                  : var(--fs-text-size-lead);
   --fs-filter-accordion-button-text-weight                : var(--fs-text-weight-regular);
@@ -95,6 +98,17 @@
       margin-bottom: var(--fs-spacing-4);
       font-size: var(--fs-text-size-legend);
       line-height: 1.42;
+    }
+
+    &[data-fs-filter-accordion-item-highlighted="true"] {
+      padding-top: var(--fs-spacing-3);
+      padding-bottom: var(--fs-spacing-3);
+      background-color: var(--fs-filter-accordion-item-highlighted-bkg-color);
+
+      @include media(">=notebook") {
+        padding-right: var(--fs-filter-accordion-item-panel-padding-right-notebook);
+        padding-left: var(--fs-filter-accordion-item-panel-padding-left-notebook);
+      }
     }
   }
 
