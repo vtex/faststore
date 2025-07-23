@@ -14,7 +14,7 @@ export const setPassword = async (
     throw new BadRequestError('Missing email')
   }
 
-  const response = await commerce.setPassword({
+  const response = await commerce.vtexid.setPassword({
     email: data.email,
     newPassword: data.newPassword,
     currentPassword: data.currentPassword,

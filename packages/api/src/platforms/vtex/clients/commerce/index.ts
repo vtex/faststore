@@ -679,44 +679,47 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
-    },
-    setPassword: async ({
-      email,
-      newPassword,
-      currentPassword,
-      accesskey,
-      recaptcha,
-    }: {
-      email: string
-      newPassword: string
-      currentPassword: string
-      accesskey?: string
-      recaptcha?: string
-    }): Promise<{ success: boolean; message?: string }> => {
-      const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
-      const body = buildFormData({
-        login: email,
+      setPassword: async ({
+        email,
         newPassword,
         currentPassword,
         accesskey,
         recaptcha,
-      })
+      }: {
+        email: string
+        newPassword: string
+        currentPassword: string
+        accesskey?: string
+        recaptcha?: string
+      }): Promise<{ success: boolean; message?: string }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
-      const result = await fetchAPI(
-        `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
-        {
-          method: 'POST',
-          headers,
-          body,
-        },
-        { storeCookies }
-      )
+        const body = buildFormData({
+          login: email,
+          newPassword,
+          currentPassword,
+          accesskey,
+          recaptcha,
+        })
 
-      if ((result?.authStatus ?? '').toLowerCase() === 'success') {
-        return { success: true }
-      }
-      return { success: false, message: result?.authStatus ?? 'Unknown error' }
+        const result = await fetchAPI(
+          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
+          {
+            method: 'POST',
+            headers,
+            body,
+          },
+          { storeCookies }
+        )
+
+        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
+          return { success: true }
+        }
+        return {
+          success: false,
+          message: result?.authStatus ?? 'Unknown error',
+        }
+      },
     },
   }
 }
