@@ -77,6 +77,8 @@ const Hero = ({
   )
 }
 
+Hero.$componentKey = 'Hero'
+
 const OverridableHero = getOverridableSection<typeof Hero>(
   'Hero',
   Hero,
