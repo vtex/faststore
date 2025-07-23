@@ -132,15 +132,22 @@ export const validateSession = async (
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
+    /**
+     * B2B data structure in Session:
+     * - Logged user data (shopper): `shopper` namespace
+     * - Unit data: `authentication` namespace
+     * - Contract data: `profile` namespace (those info will be available inside Faststore's Session `person` object)
+     */
     b2b: isRepresentative
       ? {
           isRepresentative: isRepresentative ?? false,
-          customerId: authentication?.customerId?.value ?? customerId ?? '', //contract
-          unitName: authentication?.unitName?.value ?? '', // organization name
-          unitId: authentication?.unitId?.value ?? unitId ?? '', // organization id
-          firstName: profile?.firstName?.value ?? '', // contract name for b2b
-          lastName: profile?.lastName?.value ?? '',
-          userName: shopper?.firstName?.value ?? '', // shopper
+          customerId: authentication?.customerId?.value ?? customerId ?? '',
+          unitName: authentication?.unitName?.value ?? '',
+          unitId: authentication?.unitId?.value ?? unitId ?? '',
+          firstName: shopper?.firstName?.value ?? '',
+          lastName: shopper?.lastName?.value ?? '',
+          userName:
+            `${shopper?.firstName?.value ?? ''} ${shopper?.lastName?.value ?? ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
         }
