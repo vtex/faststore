@@ -86,8 +86,6 @@ const documents = {
     types.ValidateSessionDocument,
   '\n  query ClientShippingSimulationQuery(\n    $postalCode: String!\n    $country: String!\n    $items: [IShippingItem!]!\n  ) {\n    ...ClientShippingSimulation\n    shipping(items: $items, postalCode: $postalCode, country: $country) {\n      logisticsInfo {\n        slas {\n          carrier\n          price\n          availableDeliveryWindows {\n            startDateUtc\n            endDateUtc\n            price\n            listPrice\n          }\n          shippingEstimate\n          localizedEstimates\n          deliveryChannel\n        }\n      }\n      address {\n        city\n        neighborhood\n        state\n      }\n    }\n  }\n':
     types.ClientShippingSimulationQueryDocument,
-  '\n  query ClientPickupPointsQuery(\n    $geoCoordinates: IStoreGeoCoordinates\n    $postalCode: String\n    $country: String\n  ) {\n    pickupPoints(geoCoordinates: $geoCoordinates, postalCode: $postalCode, country: $country) {\n      paging {\n        total\n      }\n      items {\n        pickupPoint {\n          id\n          address {\n            street\n          }\n          friendlyName\n        }\n      }\n    }\n  }\n':
-    types.ClientPickupPointsQueryDocument,
   '\n  query ServerManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n':
     types.ServerManyProductsQueryDocument,
 }
@@ -314,12 +312,6 @@ export function gql(
 export function gql(
   source: '\n  query ClientShippingSimulationQuery(\n    $postalCode: String!\n    $country: String!\n    $items: [IShippingItem!]!\n  ) {\n    ...ClientShippingSimulation\n    shipping(items: $items, postalCode: $postalCode, country: $country) {\n      logisticsInfo {\n        slas {\n          carrier\n          price\n          availableDeliveryWindows {\n            startDateUtc\n            endDateUtc\n            price\n            listPrice\n          }\n          shippingEstimate\n          localizedEstimates\n          deliveryChannel\n        }\n      }\n      address {\n        city\n        neighborhood\n        state\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientShippingSimulationQueryDocument
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
-  source: '\n  query ClientPickupPointsQuery(\n    $geoCoordinates: IStoreGeoCoordinates\n    $postalCode: String\n    $country: String\n  ) {\n    pickupPoints(geoCoordinates: $geoCoordinates, postalCode: $postalCode, country: $country) {\n      paging {\n        total\n      }\n      items {\n        pickupPoint {\n          id\n          address {\n            street\n          }\n          friendlyName\n        }\n      }\n    }\n  }\n'
-): typeof import('./graphql').ClientPickupPointsQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
