@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   Button,
   Icon,
@@ -7,11 +7,14 @@ import {
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
+  useUI,
 } from '@faststore/ui'
 
+import { useSetPassword } from 'src/sdk/account/useSetPassword'
 import styles from './styles.module.scss'
 
 type SecurityDrawerProps = {
+  userEmail: string
   isOpen: boolean
   onClose: () => void
 }
@@ -23,14 +26,21 @@ const validations = [
   { label: '1 number', test: (v: string) => /\d/.test(v) },
 ]
 
-export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
+export const SecurityDrawer = ({
+  userEmail,
+  isOpen,
+  onClose,
+}: SecurityDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
+  const { pushToast } = useUI()
 
   const [currentPassword, setCurrentPassword] = useState('')
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
 
   const [newPassword, setNewPassword] = useState('')
   const [showNewPassword, setShowNewPassword] = useState(false)
+
+  const { setPassword, loading } = useSetPassword()
 
   const newPasswordValidations = validations.map((rule) => ({
     label: rule.label,
@@ -45,6 +55,44 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
     setNewPassword('')
     setShowNewPassword(false)
     onClose()
+  }
+
+  const handleSetPassword = async () => {
+    if (!userEmail || !newPassword || !currentPassword) {
+      pushToast({
+        status: 'ERROR',
+        message: 'All fields are required to set a new password.',
+        icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+      })
+
+      return
+    }
+
+    try {
+      await setPassword({
+        data: {
+          email: userEmail,
+          newPassword,
+          currentPassword,
+          accesskey: '', // Accesskey is optional
+          recaptcha: '', // Recaptcha is optional
+        },
+      })
+
+      pushToast({
+        status: 'INFO',
+        message: 'Password updated successfully',
+        icon: <Icon width={30} height={30} name="CircleWavyCheck" />,
+      })
+    } catch (error) {
+      pushToast({
+        status: 'ERROR',
+        message: 'Failed to set password. Please try again.',
+        icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+      })
+    } finally {
+      handleClose()
+    }
   }
 
   return (
@@ -145,12 +193,9 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
         <Button
           data-fs-security-drawer-footer-button
           variant="primary"
+          loading={loading}
           disabled={!currentPassword || !newPassword || !allValid}
-          onClick={() => {
-            // TODO: Handle password save logic here
-            console.log('Saving new password')
-            handleClose()
-          }}
+          onClick={handleSetPassword}
         >
           Save Password
         </Button>
