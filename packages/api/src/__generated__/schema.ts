@@ -331,16 +331,6 @@ export const enum CommercialAuthorizationStatus {
   Denied = 'denied',
   /** Authorization is pending. */
   Pending = 'pending'
-}
-
-export type BusinessHour = {
-  __typename?: 'BusinessHour';
-  /** Business hour closing time. */
-  ClosingTime?: Maybe<Scalars['String']>;
-  /** Number that represents the day of the week. */
-  DayOfWeek?: Maybe<Scalars['Int']>;
-  /** Business hour opening time. */
-  OpeningTime?: Maybe<Scalars['String']>;
 };
 
 export type DeliveryIds = {
@@ -591,14 +581,6 @@ export type IUserOrderCancel = {
   reason?: Maybe<Scalars['String']>;
 };
 
-export type Item = {
-  __typename?: 'Item';
-  /** Pickup point distance. */
-  distance?: Maybe<Scalars['Float']>;
-  /** Pickup point. */
-  pickupPoint?: Maybe<PickupPoint>;
-};
-
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
@@ -712,18 +694,6 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String'];
   session: IStoreSession;
-};
-
-export type Paging = {
-  __typename?: 'Paging';
-  /** Current page. */
-  page?: Maybe<Scalars['Int']>;
-  /** Number of items per page. */
-  pageSize?: Maybe<Scalars['Int']>;
-  /** Total number of pages. */
-  pages?: Maybe<Scalars['Int']>;
-  /** Total number of items. */
-  total?: Maybe<Scalars['Int']>;
 };
 
 /** Newsletter information. */

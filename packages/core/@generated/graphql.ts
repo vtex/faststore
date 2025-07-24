@@ -336,15 +336,6 @@ export type CommercialAuthorizationStatus =
   /** Authorization is pending. */
   | 'pending'
 
-export type BusinessHour = {
-  /** Business hour closing time. */
-  ClosingTime: Maybe<Scalars['String']['output']>
-  /** Number that represents the day of the week. */
-  DayOfWeek: Maybe<Scalars['Int']['output']>
-  /** Business hour opening time. */
-  OpeningTime: Maybe<Scalars['String']['output']>
-}
-
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']['output']>
@@ -592,13 +583,6 @@ export type IUserOrderCancel = {
   reason: InputMaybe<Scalars['String']['input']>
 }
 
-export type Item = {
-  /** Pickup point distance. */
-  distance: Maybe<Scalars['Float']['output']>
-  /** Pickup point. */
-  pickupPoint: Maybe<PickupPoint>
-}
-
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -701,17 +685,6 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input']
   session: IStoreSession
-}
-
-export type Paging = {
-  /** Current page. */
-  page: Maybe<Scalars['Int']['output']>
-  /** Number of items per page. */
-  pageSize: Maybe<Scalars['Int']['output']>
-  /** Total number of pages. */
-  pages: Maybe<Scalars['Int']['output']>
-  /** Total number of items. */
-  total: Maybe<Scalars['Int']['output']>
 }
 
 /** Newsletter information. */
