@@ -14,7 +14,8 @@
   --fs-filter-accordion-border-color-notebook             : var(--fs-border-color-light);
   --fs-filter-accordion-border-radius-notebook            : var(--fs-border-radius);
 
-  // Accordion Item
+  // Accordion Item Highlighted
+  --fs-filter-accordion-item-highlighted-border-radius    : var(--fs-border-radius);
   --fs-filter-accordion-item-highlighted-bkg-color        : var(--fs-color-primary-bkg-light);
 
   // Accordion Item Button
@@ -104,6 +105,11 @@
       padding: var(--fs-filter-list-padding-bottom);
       margin: var(--fs-filter-list-padding-bottom) 0;
       background-color: var(--fs-filter-accordion-item-highlighted-bkg-color);
+      border-bottom: none;
+
+      @include media("<=notebook") {
+        border-radius: var(--fs-filter-accordion-item-highlighted-border-radius);
+      }
 
       @include media(">=notebook") {
         padding-right: var(--fs-filter-accordion-item-panel-padding-right-notebook);
