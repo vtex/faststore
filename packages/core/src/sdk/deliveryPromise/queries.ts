@@ -10,34 +10,25 @@ import { request } from 'src/sdk/graphql/request'
 const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(
     $geoCoordinates: IStoreGeoCoordinates
-    $postalCode: String
-    $country: String
   ) {
-    pickupPoints(geoCoordinates: $geoCoordinates, postalCode: $postalCode, country: $country) {
-      paging {
-        total
-      }
-      items {
-        pickupPoint {
-          id
-          address {
-            street
-            number
-            postalCode
-            city
-            state
-          }
-          friendlyName
-        }
+    pickupPoints(geoCoordinates: $geoCoordinates) {
+      pickupPointDistances {
+        pickupId
         distance
+        pickupName
+        isActive
+        address {
+          city
+          number
+          postalCode
+          street
+        }
       }
     }
   }
 `)
 
 type GetPickupPointsProps = {
-  country: string | null
-  postalCode: string | null
   geoCoordinates: {
     latitude: number
     longitude: number
@@ -45,22 +36,18 @@ type GetPickupPointsProps = {
 }
 
 export const getPickupPoints = async ({
-  country,
-  postalCode,
   geoCoordinates,
 }: GetPickupPointsProps) => {
   if (!deliveryPromise.enabled) {
     return []
   }
 
-  if (!geoCoordinates && (!postalCode || !country)) {
+  if (!geoCoordinates) {
     return []
   }
 
   const variables = {
-    country: !!geoCoordinates ? undefined : country,
     geoCoordinates: geoCoordinates ?? undefined,
-    postalCode: !!geoCoordinates ? undefined : postalCode,
   }
 
   const data = await request<
@@ -72,19 +59,20 @@ export const getPickupPoints = async ({
     return []
   }
 
-  const pickupPoints = data.pickupPoints.items.map((item) => ({
-    id: item.pickupPoint?.id,
-    name: item.pickupPoint?.friendlyName,
-    totalItems: data.pickupPoints.paging.total,
-    address: {
-      street: item.pickupPoint?.address?.street,
-      number: item.pickupPoint?.address?.number,
-      postalCode: item.pickupPoint?.address?.postalCode,
-      city: item.pickupPoint?.address?.city,
-      state: item.pickupPoint?.address?.state,
-    },
-    distance: item.distance,
-  }))
+  const pickupPoints = data.pickupPoints?.pickupPointDistances
+    ?.filter((pickupPoint) => pickupPoint.isActive)
+    .map((pickupPoint) => ({
+      id: pickupPoint?.pickupId,
+      name: pickupPoint?.pickupName,
+      totalItems: data.pickupPoints?.pickupPointDistances?.length ?? 0,
+      address: {
+        street: pickupPoint?.address?.street,
+        number: pickupPoint?.address?.number,
+        postalCode: pickupPoint?.address?.postalCode,
+        city: pickupPoint?.address?.city,
+      },
+      distance: pickupPoint?.distance,
+    }))
 
   return pickupPoints
 }

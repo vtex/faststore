@@ -604,7 +604,7 @@ export const Query = {
   },
   pickupPoints: async (
     _: unknown,
-    { country, postalCode, geoCoordinates }: QueryPickupPointsArgs,
+    { geoCoordinates }: QueryPickupPointsArgs,
     ctx: Context
   ) => {
     const {
@@ -612,8 +612,6 @@ export const Query = {
     } = ctx
 
     const result = await commerce.checkout.pickupPoints({
-      country,
-      postalCode,
       geoCoordinates,
     })
 

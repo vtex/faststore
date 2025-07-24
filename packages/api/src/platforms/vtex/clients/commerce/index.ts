@@ -396,12 +396,10 @@ export const VtexCommerce = (
       },
       pickupPoints: ({
         geoCoordinates,
-        postalCode,
-        country,
       }: PickupPointsInput): Promise<PickupPoints> => {
-        if (!geoCoordinates && (!postalCode || !country)) {
+        if (!geoCoordinates) {
           throw new Error(
-            'Missing required parameters for listing pickup points.'
+            'Missing required parameter for listing pickup points.'
           )
         }
 
@@ -409,21 +407,14 @@ export const VtexCommerce = (
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
-        const params = new URLSearchParams()
-
-        if (geoCoordinates) {
-          params.append(
-            'geoCoordinates',
-            `${geoCoordinates.longitude};${geoCoordinates.latitude}`
-          )
-        } else {
-          params.append('countryCode', country as string)
-          params.append('postalCode', postalCode as string)
-        }
 
         return fetchAPI(
-          `${base}/api/checkout/pub/pickup-points?${params.toString()}`,
-          { headers },
+          `${base}/api/logistics-shipping/pickuppoints/_search`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ coordinate: geoCoordinates }),
+          },
           { storeCookies }
         )
       },

@@ -39,7 +39,10 @@ describe('VTEX Commerce', () => {
   describe('Checkout', () => {
     describe('Pickup points', () => {
       it('should succeed with valid geo coordinates', async () => {
-        const validResponse = { paging: {}, items: [] }
+        const validResponse = {
+          pickupPointDistances: [],
+          pickupPointsHash: '',
+        }
         const geoCoordinates = {
           latitude: 123,
           longitude: 456,
@@ -56,50 +59,13 @@ describe('VTEX Commerce', () => {
         expect(result).toEqual(validResponse)
       })
 
-      it('should succeed with valid postal code and country', async () => {
-        const country = 'BRA'
-        const postalCode = '123456'
-        const validResponse = { paging: {}, items: [] }
-
-        fetchAPIMocked.mockResolvedValueOnce(validResponse)
-
-        const { commerce } = clients.getClients(apiOptions, context)
-        const result = await commerce.checkout.pickupPoints({
-          country,
-          postalCode,
-        })
-
-        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
-        expect(result).toEqual(validResponse)
-      })
-
       it('should throw an error when no params', async () => {
         const { commerce } = clients.getClients(apiOptions, context)
 
         expect(() => commerce.checkout.pickupPoints({})).toThrow(Error)
         expect(() =>
           commerce.checkout.pickupPoints({
-            country: undefined,
             geoCoordinates: undefined,
-            postalCode: undefined,
-          })
-        ).toThrow(Error)
-        expect(fetchAPIMocked).not.toHaveBeenCalled()
-      })
-
-      it('should throw an error when postal code or country is missing', async () => {
-        const { commerce } = clients.getClients(apiOptions, context)
-
-        expect(() =>
-          commerce.checkout.pickupPoints({
-            country: 'BRA',
-            postalCode: undefined,
-          })
-        ).toThrow(Error)
-        expect(() =>
-          commerce.checkout.pickupPoints({
-            country: undefined,
-            postalCode: '123456',
           })
         ).toThrow(Error)
         expect(fetchAPIMocked).not.toHaveBeenCalled()
