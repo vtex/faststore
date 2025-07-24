@@ -14,9 +14,8 @@ import type {
 } from '@generated/graphql'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
-import type { GlobalCmsData } from 'src/utils/globalSettings'
-
 import { useSession } from 'src/sdk/session'
+import type { GlobalCmsData } from 'src/utils/globalSettings'
 
 import { deliveryPromise as deliveryPromiseConfig } from 'discovery.config'
 import {
@@ -45,7 +44,6 @@ export type PickupPoint = {
     number?: string
     postalCode?: string
     city?: string
-    state?: string
   }
   distance?: number
   totalItems?: number
