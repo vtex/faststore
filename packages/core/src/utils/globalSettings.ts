@@ -62,6 +62,10 @@ type DeliveryPromiseCmsData = {
     title?: string
     allDeliveryOptions?: string
   }
+  dynamicEstimate?: {
+    sameDay?: string
+    nextDay?: string
+  }
 }
 
 export function getGlobalSettings(

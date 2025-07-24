@@ -58,6 +58,13 @@ function FilterDesktop({
     deliveryPromiseSettings,
   })
 
+  const mapDynamicEstimateLabel: Record<string, string> = {
+    'next-day':
+      deliveryPromiseSettings?.dynamicEstimate?.nextDay ?? 'Receive Today',
+    'same-day':
+      deliveryPromiseSettings?.dynamicEstimate?.sameDay ?? 'Receive Tomorrow',
+  }
+
   // the highlighted facet is the one that will appear in the top of the filter list
   const highlightedFacet = filteredFacets.find(
     (facet) => facet.key === 'dynamic-estimate'
@@ -106,7 +113,7 @@ function FilterDesktop({
               highlighted
               type={highlightedFacet.__typename}
               index={undefined}
-              label={highlightedFacet.label}
+              label="Dynamic Estimate"
             >
               {highlightedFacet.values.map((item) => (
                 <UIFilterFacetBooleanItem
@@ -120,7 +127,7 @@ function FilterDesktop({
                   selected={item.selected}
                   value={item.value}
                   facetKey={highlightedFacet.key}
-                  label={item.label}
+                  label={mapDynamicEstimateLabel[item.value] ?? item.label}
                   type="toggle"
                 />
               ))}
