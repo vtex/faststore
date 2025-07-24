@@ -1,21 +1,21 @@
 export {
-  useDeliveryPromise,
   deliveryPromiseStore,
+  PICKUP_ALL_FACET_VALUE,
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
   SHIPPING_FACET_KEY,
-  PICKUP_ALL_FACET_VALUE,
+  useDeliveryPromise,
 } from './useDeliveryPromise'
-export type { PickupPoint, DeliveryPromiseStore } from './useDeliveryPromise'
+export type { DeliveryPromiseStore, PickupPoint } from './useDeliveryPromise'
 
 export { getPickupPoints } from './queries'
 
 export {
   deliveryPromiseReducer,
-  initialPickupPointsSimulation,
   initializeDeliveryPromiseState,
-  type DeliveryPromiseReducerState,
+  initialPickupPointsSimulation,
   type DeliveryPromiseReducerAction,
+  type DeliveryPromiseReducerState,
   type PickupPointsSimulation,
 } from './reducer'
 

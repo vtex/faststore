@@ -861,7 +861,7 @@ export type Query = {
   collection: StoreCollection;
   /** Returns information about the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
-  /** Returns a list of pickup points near to the given geo coordinates or postal code + country code. */
+  /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;

@@ -1,20 +1,20 @@
-import dynamic from 'next/dynamic'
 import { NextSeo } from 'next-seo'
+import dynamic from 'next/dynamic'
 import { Suspense, lazy, type MouseEvent } from 'react'
 
-import { useUI } from '@faststore/ui'
 import { useSearch } from '@faststore/sdk'
+import { useUI } from '@faststore/ui'
 
-import Sort from 'src/components/search/Sort'
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import type { ProductCardProps } from 'src/components/product/ProductCard'
 import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
+import Sort from 'src/components/search/Sort'
 import type { SortProps } from 'src/components/search/Sort/Sort'
+import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import {
+  usePage,
   type PLPContext,
   type SearchPageContext,
-  usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
 import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'

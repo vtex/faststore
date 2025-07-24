@@ -5,8 +5,8 @@ import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
 import { Icon, useUI } from '@faststore/ui'
 
 import { deliveryPromise } from 'discovery.config'
-import { useSession } from 'src/sdk/session'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { useSession } from 'src/sdk/session'
 
 import useRegion from './useRegion'
 
