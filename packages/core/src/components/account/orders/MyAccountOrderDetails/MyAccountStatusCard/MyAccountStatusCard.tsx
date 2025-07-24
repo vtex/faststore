@@ -1,5 +1,5 @@
-import { Skeleton as UISkeleton, Icon as UIIcon } from '@faststore/ui'
-import { type ReactNode, useEffect, useRef } from 'react'
+import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
+import { useRef, type ReactNode } from 'react'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
@@ -225,19 +225,11 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
       isFailed,
     })
 
-    const stepLabel = isCanceled ? (
-      step.key === 'payment' ? (
-        currentStatusLabel
-      ) : (
-        <UISkeleton
-          key={step.key}
-          size={{ width: '100px', height: '14px' }}
-          shimmer={false}
-        />
-      )
-    ) : (
-      step.label(stepStatus)
-    )
+    const stepLabel = isCanceled
+      ? step.key === 'payment'
+        ? currentStatusLabel
+        : '—' // prevent hydration mismatch
+      : step.label(stepStatus)
 
     return {
       label: stepLabel,
@@ -250,13 +242,21 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
       <div data-fs-order-status-content ref={containerRef}>
         {steps.map((step, index) => (
           <div
-            key={`${step.label}-${index}`}
+            key={`step-${index}`}
             data-fs-shipping-step
             data-fs-shipping-status={step.status}
           >
             <StepIcon status={step.status} isCanceled={isCanceled} />
             <div data-fs-shipping-step-content>
-              <p data-fs-shipping-step-label>{step.label}</p>
+              {step.label === '—' ? (
+                <UISkeleton
+                  key={`skeleton-${index}`}
+                  size={{ width: '100px', height: '14px' }}
+                  shimmer={false}
+                />
+              ) : (
+                <p data-fs-shipping-step-label>{step.label}</p>
+              )}
               {step.completedAt && (
                 <div data-fs-shipping-step-details>
                   <span data-fs-shipping-step-date>
