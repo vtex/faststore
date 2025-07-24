@@ -23,7 +23,7 @@ interface Props {
   isInteractive?: boolean
 }
 
-const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal', 'RegionSlider']
 
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
