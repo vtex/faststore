@@ -60,7 +60,7 @@ export const getPickupPoints = async ({
   }
 
   const pickupPoints = data.pickupPoints?.pickupPointDistances
-    ?.filter((pickupPoint) => pickupPoint.isActive !== false)
+    ?.filter((pickupPoint) => pickupPoint.isActive)
     .map((pickupPoint) => ({
       id: pickupPoint?.pickupId,
       name: pickupPoint?.pickupName,
