@@ -24,9 +24,7 @@ function PickupPointCard({ store }: PickupPointCardProps) {
           <span>
             {store?.address?.street}, {store?.address?.number}
           </span>
-          <span>
-            {store?.address?.city} - {store?.address?.state}
-          </span>
+          <span>{store?.address?.city}</span>
         </p>
         <span data-fs-pickup-point-card-distance>
           {store?.distance !== undefined ? formatDistance(store.distance) : ''}
