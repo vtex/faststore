@@ -101,7 +101,7 @@
     }
 
     &[data-fs-filter-accordion-item-highlighted="true"] {
-      padding: var(--fs-filter-accordion-item-panel-padding-right-notebook) var(--fs-filter-list-padding-bottom);
+      padding: var(--fs-filter-list-padding-bottom);
       margin: var(--fs-filter-list-padding-bottom) 0;
       background-color: var(--fs-filter-accordion-item-highlighted-bkg-color);
 
