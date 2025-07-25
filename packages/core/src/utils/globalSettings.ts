@@ -63,6 +63,7 @@ type DeliveryPromiseCmsData = {
     allDeliveryOptions?: string
   }
   dynamicEstimate?: {
+    enabled?: boolean
     sameDay?: string
     nextDay?: string
   }
