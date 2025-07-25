@@ -15,6 +15,5 @@ export const cancelOrder = async (
   }
 
   const response = await commerce.checkout.cancelOrder(data)
-
   return { data: response?.data }
 }

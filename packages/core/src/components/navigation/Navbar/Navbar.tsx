@@ -188,7 +188,10 @@ function Navbar({
             )}
             {!isMobile &&
               (isOrganizationEnabled ? (
-                <OrganizationSignInButton icon={signInButton.icon} />
+                <OrganizationSignInButton
+                  icon={signInButton.icon}
+                  isRepresentative={isRepresentative}
+                />
               ) : (
                 <ButtonSignIn.Component {...signInButton} />
               ))}

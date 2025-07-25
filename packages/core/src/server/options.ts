@@ -16,5 +16,7 @@ export const apiOptions: APIOptions = {
   locale: storeConfig.session.locale,
   flags: {
     enableOrderFormSync: true,
+    enableUnavailableItemsOnCart:
+      storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
 }

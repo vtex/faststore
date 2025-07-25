@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.66.0](https://github.com/vtex/faststore/compare/v3.65.2...v3.66.0) (2025-07-23)
+
+### Features
+
+- add mutation to set new password ([#2949](https://github.com/vtex/faststore/issues/2949)) ([f2f3beb](https://github.com/vtex/faststore/commit/f2f3bebfafd9500e3eb2f9d98220f7400ea9fd0e))
+
+## [3.65.1](https://github.com/vtex/faststore/compare/v3.65.0...v3.65.1) (2025-07-17)
+
+### Bug Fixes
+
+- validate cart should consider coupon in marketingData ([#2948](https://github.com/vtex/faststore/issues/2948)) ([ed063f4](https://github.com/vtex/faststore/commit/ed063f4df26178206a91892b59255c8332e65795))
+
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+### Features
+
+- my account release 3 ([#2883](https://github.com/vtex/faststore/issues/2883)) ([be2c32a](https://github.com/vtex/faststore/commit/be2c32ae5cb0d892e34a96c2d73b06d31f8af137))
+
+# [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
+
+### Features
+
+- add uniqueId field to UserOrder items and update related components ([#2945](https://github.com/vtex/faststore/issues/2945)) ([d48ea5a](https://github.com/vtex/faststore/commit/d48ea5af35a538f7e07c14cf90330b87cf27178a))
+
+## [3.63.1](https://github.com/vtex/faststore/compare/v3.63.0...v3.63.1) (2025-07-15)
+
+### Bug Fixes
+
+- use allowCancellation to validate cancel order button ([#2942](https://github.com/vtex/faststore/issues/2942)) ([1f0f6a9](https://github.com/vtex/faststore/commit/1f0f6a9dc27436b6de63e2aff58a1086d4b2ae2a)), closes [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx#L116](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx/issues/L116) [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx#L41](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx/issues/L41)
+
+# [3.62.0](https://github.com/vtex/faststore/compare/v3.61.0...v3.62.0) (2025-07-11)
+
+### Features
+
+- Allow unavailable items on cart ([#2938](https://github.com/vtex/faststore/issues/2938)) ([309e014](https://github.com/vtex/faststore/commit/309e014f50a0e2d5293b08e6b1b6b0fe6bcfd6b2)), closes [vtex-sites/faststoreqa.store#837](https://github.com/vtex-sites/faststoreqa.store/issues/837)
+
 ## [3.60.3](https://github.com/vtex/faststore/compare/v3.60.2...v3.60.3) (2025-07-02)
 
 **Note:** Version bump only for package @faststore/api

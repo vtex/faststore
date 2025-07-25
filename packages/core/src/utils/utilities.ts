@@ -75,3 +75,8 @@ export function extractStatusFromError(error: any): number | undefined {
 
   return undefined
 }
+
+export function sanitizeHost(url: string): string {
+  if (!url) return ''
+  return url.replace(/^https?:\/\//, '')
+}

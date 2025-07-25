@@ -44,7 +44,8 @@ export type AnalyticsEvent =
 
 export interface UnknownEvent {
   name: string
-  params: unknown
+  isEcommerceEvent?: boolean
+  params: Record<string, any>
 }
 
 export type WrappedAnalyticsEventParams<T extends UnknownEvent> = Omit<
@@ -58,6 +59,7 @@ export type WrappedAnalyticsEventParams<T extends UnknownEvent> = Omit<
 
 export interface WrappedAnalyticsEvent<T extends UnknownEvent> {
   name: 'AnalyticsEvent'
+  isEcommerceEvent: boolean
   params: WrappedAnalyticsEventParams<T>
 }
 
@@ -69,6 +71,7 @@ export const wrap = <T extends UnknownEvent>(
 ): WrappedAnalyticsEvent<T> =>
   ({
     name: ANALYTICS_EVENT_TYPE,
+    isEcommerceEvent: event.isEcommerceEvent ?? true,
     params: {
       ...event,
       name: `${STORE_EVENT_PREFIX}${event.name}`,
@@ -80,6 +83,7 @@ export const unwrap = <T extends UnknownEvent>(
 ): T => {
   return {
     ...event.params,
+    isEcommerceEvent: event.isEcommerceEvent ?? true,
     name: event.params.name.slice(
       STORE_EVENT_PREFIX.length,
       event.params.name.length

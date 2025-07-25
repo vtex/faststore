@@ -57,13 +57,14 @@ type UserOrder {
   totals: [UserOrderTotals]
   deliveryOptionsData: UserOrderDeliveryOptionsData
   customFields: [UserOrderCustomFieldsGrouped]
-  canCancelOrder: Boolean
+  canProcessOrderAuthorization: Boolean
+  ruleForAuthorization: ProcessOrderAuthorizationRule
 }
 
 type UserOrderResult {
   orderId: String
   status: String
-  canCancelOrder: Boolean
+  canProcessOrderAuthorization: Boolean
   statusDescription: String
   allowCancellation: Boolean
   storePreferencesData: UserOrderStorePreferencesData
@@ -75,6 +76,7 @@ type UserOrderResult {
   totals: [UserOrderTotals]
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
+  ruleForAuthorization: ProcessOrderAuthorizationRule
 }
 
 type UserOrderListResult {
@@ -655,6 +657,7 @@ type UserOrderDeliveryOption {
 
 type UserOrderDeliveryOptionsItems {
   id: String
+  uniqueId: String
   name: String
   quantity: Int
   price: Float

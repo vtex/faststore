@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.61.0
+        specifier: ^3.67.0
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -294,7 +294,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: ^3.60.3
+        specifier: ^3.66.0
         version: link:../api
       "@faststore/graphql-utils":
         specifier: ^3.56.1
@@ -303,10 +303,10 @@ importers:
         specifier: ^3.56.1
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: ^3.60.3
+        specifier: ^3.63.0
         version: link:../sdk
       "@faststore/ui":
-        specifier: ^3.60.4
+        specifier: ^3.65.0
         version: link:../ui
       "@graphql-codegen/cli":
         specifier: 5.0.2
@@ -342,8 +342,8 @@ importers:
         specifier: ^18.2.42
         version: 18.2.42
       "@vtex/client-cms":
-        specifier: ^0.2.12
-        version: 0.2.12(encoding@0.1.13)
+        specifier: ^0.2.16
+        version: 0.2.16(encoding@0.1.13)
       "@vtex/client-cp":
         specifier: 0.3.0
         version: 0.3.0
@@ -353,6 +353,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.0
         version: 10.4.13(postcss@8.5.1)
+      cookie:
+        specifier: ^0.7.0
+        version: 0.7.2
       css-loader:
         specifier: ^6.7.1
         version: 6.11.0(webpack@5.97.1)
@@ -429,6 +432,9 @@ importers:
       "@testing-library/cypress":
         specifier: ^10.0.1
         version: 10.0.1(cypress@12.17.4)
+      "@types/cookie":
+        specifier: ^0.6.0
+        version: 0.6.0
       "@types/cypress":
         specifier: ^1.1.3
         version: 1.1.3
@@ -534,10 +540,10 @@ importers:
   packages/storybook:
     dependencies:
       "@faststore/components":
-        specifier: ^3.56.1
+        specifier: ^3.65.0
         version: link:../components
       "@faststore/ui":
-        specifier: ^3.60.4
+        specifier: ^3.65.0
         version: link:../ui
       next:
         specifier: ^15.1.6
@@ -589,7 +595,7 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.56.1
+        specifier: ^3.65.0
         version: link:../components
       include-media:
         specifier: ^1.4.10
@@ -5302,10 +5308,10 @@ packages:
         integrity: sha512-dwSoui6djdwbfFmIgbIjX2ZhIoG7Ex/+xpxyiEgIGzjliY8xGkcpITKTlp6B4MgtGkF2ilvm97cPM96XZaAgcA==,
       }
 
-  "@vtex/client-cms@0.2.12":
+  "@vtex/client-cms@0.2.16":
     resolution:
       {
-        integrity: sha512-Eg5AWsWZzz8ddhSnpI4dQrXzsf+DUbfxERbiKS5mssb/nlBEXoVAeabWzlJrkMjdHQiQn7BSllNLeocoRkXJBA==,
+        integrity: sha512-mK5OiaaGHItVuispyy8yXLILnMx4aOJj7HkamOmAL12+KbnkiKKpO1vJEb3hRB16lK1rHtl7Q5H3aTFsMqrf0w==,
       }
 
   "@vtex/client-cp@0.3.0":
@@ -21896,7 +21902,7 @@ snapshots:
       loupe: 3.1.3
       tinyrainbow: 1.2.0
 
-  "@vtex/client-cms@0.2.12(encoding@0.1.13)":
+  "@vtex/client-cms@0.2.16(encoding@0.1.13)":
     dependencies:
       fetch-retry: 4.1.1
       isomorphic-unfetch: 3.1.0(encoding@0.1.13)

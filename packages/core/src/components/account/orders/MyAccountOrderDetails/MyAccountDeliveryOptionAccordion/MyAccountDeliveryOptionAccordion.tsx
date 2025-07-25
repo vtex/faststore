@@ -76,7 +76,8 @@ function MyAccountDeliveryOptionAccordion({
                 quantity={item.quantity}
                 name={item.name}
                 field={
-                  customFields?.find((cf) => cf.id === item.id)?.fields?.[0]
+                  customFields?.find((cf) => cf.id === item.uniqueId)
+                    ?.fields?.[0]
                 }
                 price={formatPrice(item.price ?? 0, currencyCode)}
                 tax={formatPrice(item.tax ?? 0, currencyCode)}
