@@ -19,6 +19,7 @@ const pickupPointsQuery = gql(`
         isActive
         address {
           city
+          state
           number
           postalCode
           street
@@ -70,6 +71,7 @@ export const getPickupPoints = async ({
         number: pickupPoint?.address?.number,
         postalCode: pickupPoint?.address?.postalCode,
         city: pickupPoint?.address?.city,
+        state: pickupPoint?.address?.state,
       },
       distance: pickupPoint?.distance,
     }))
