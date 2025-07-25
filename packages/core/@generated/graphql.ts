@@ -731,6 +731,8 @@ export type PickupPointAddress = {
   number: Maybe<Scalars['String']['output']>
   /** Address postal code. */
   postalCode: Maybe<Scalars['String']['output']>
+  /** Address state. */
+  state: Maybe<Scalars['String']['output']>
   /** Address street. */
   street: Maybe<Scalars['String']['output']>
 }
@@ -3030,6 +3032,7 @@ export type ClientPickupPointsQueryQuery = {
       isActive: boolean | null
       address: {
         city: string | null
+        state: string | null
         number: string | null
         postalCode: string | null
         street: string | null
@@ -4052,7 +4055,7 @@ export const ValidateCartMutationDocument = {
 export const ClientPickupPointsQueryDocument = {
   __meta__: {
     operationName: 'ClientPickupPointsQuery',
-    operationHash: '1ea72f41b367e482251e186b4128a4a91f3a4d56',
+    operationHash: '3fa04e88c811fcb5ece7206fd5aa745bdbc143a8',
   },
 } as unknown as TypedDocumentString<
   ClientPickupPointsQueryQuery,

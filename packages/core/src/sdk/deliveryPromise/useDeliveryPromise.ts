@@ -37,6 +37,7 @@ export type PickupPoint = {
     number?: string
     postalCode?: string
     city?: string
+    state?: string
   }
   distance?: number
   totalItems?: number

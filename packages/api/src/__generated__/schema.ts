@@ -743,6 +743,8 @@ export type PickupPointAddress = {
   number?: Maybe<Scalars['String']>;
   /** Address postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Address state. */
+  state?: Maybe<Scalars['String']>;
   /** Address street. */
   street?: Maybe<Scalars['String']>;
 };

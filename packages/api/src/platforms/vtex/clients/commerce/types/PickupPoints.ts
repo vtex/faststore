@@ -16,6 +16,7 @@ interface Address {
   number: string
   postalCode: string
   street: string
+  state: string
 }
 
 interface BusinessHour {
