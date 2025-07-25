@@ -1,13 +1,11 @@
 import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { textToTitleCase } from 'src/utils/utilities'
-
-import { geolocationStore } from 'src/sdk/geolocation/useGeolocation'
 
 export interface RegionBarProps {
   /**
@@ -47,28 +45,9 @@ function RegionBar({
     ButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
-  const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
   const regionBarRef = useRef<HTMLDivElement>(null)
-
-  const [popupState, setPopupState] = useState(
-    geolocationStore.read().popupState
-  )
-
-  useEffect(() => {
-    return geolocationStore.subscribe(({ popupState }) =>
-      setPopupState(popupState)
-    )
-  }, [])
-
-  useEffect(() => {
-    if (popupState === 'open' && regionBarRef) {
-      openPopover({
-        isOpen: true,
-        triggerRef: regionBarRef,
-      })
-    }
-  }, [popupState, regionBarRef])
+  const { openModal } = useUI()
 
   return (
     <RegionBarWrapper.Component

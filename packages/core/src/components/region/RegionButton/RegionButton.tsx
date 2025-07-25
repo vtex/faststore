@@ -1,32 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
-import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
+import { Button as UIButton, Icon as UIIcon } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
-import { geolocationStore } from 'src/sdk/geolocation/useGeolocation'
+import { useCheckRegionState } from 'src/sdk/userLocation'
 
 function RegionButton({ icon, label }: { icon: string; label: string }) {
-  const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
   const regionButtonRef = useRef<HTMLButtonElement>(null)
-  const [popupState, setPopupState] = useState(
-    geolocationStore.read().popupState
-  )
-
-  useEffect(() => {
-    return geolocationStore.subscribe(({ popupState }) =>
-      setPopupState(popupState)
-    )
-  }, [])
-
-  useEffect(() => {
-    if (popupState === 'open' && regionButtonRef) {
-      openPopover({
-        isOpen: true,
-        triggerRef: regionButtonRef,
-      })
-    }
-  }, [popupState, regionButtonRef])
+  const { openModal } = useCheckRegionState(regionButtonRef)
 
   return (
     <UIButton

@@ -11,6 +11,8 @@ import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
+import { getPostalCode } from '../userLocation/index'
+import deepEqual from 'fast-deep-equal'
 
 export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
@@ -76,19 +78,17 @@ export const validateSession = async (session: Session) => {
         postalCode: session.b2b.savedPostalCode,
       })
     }
-  }
 
-  // The mutation doesn't expect this value on the query, that's why we delete before validating
-  delete session.ready
+    const sessionWithLocation = await getPostalCode(session)
+    sessionStore.set(sessionWithLocation)
+  }
 
   const data = await request<
     ValidateSessionMutation,
     ValidateSessionMutationVariables
   >(mutation, { session, search: window.location.search })
 
-  return (
-    (data.validateSession && { ...data.validateSession, ready: true }) || null
-  )
+  return data.validateSession
 }
 
 const [validationStore, onValidate] = createValidationStore(validateSession)
@@ -98,6 +98,8 @@ const defaultStore = createSessionStore(storeConfig.session, onValidate)
 export const sessionStore = {
   ...defaultStore,
   set: (val: Session) => {
+    if (deepEqual(val, defaultStore.read()) === true) return
+
     defaultStore.set(val)
 
     // Trigger cart revalidation when session changes
