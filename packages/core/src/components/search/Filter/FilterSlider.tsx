@@ -102,33 +102,20 @@ function FilterSlider({
   const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
 
   const {
-    facets: filteredFacets,
+    highlightedFacet,
+    facetsWithoutHighlightedFacet,
     deliveryLabel,
     deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
     onDeliveryFacetChange,
+    getDynamicEstimateLabel,
   } = useDeliveryPromise({
     selectedFilterFacets: selected,
     allFacets: facets,
     deliveryPromiseSettings,
   })
 
-  const mapDynamicEstimateLabel: Record<string, string> = {
-    'next-day':
-      deliveryPromiseSettings?.dynamicEstimate?.nextDay ?? 'Receive Today',
-    'same-day':
-      deliveryPromiseSettings?.dynamicEstimate?.sameDay ?? 'Receive Tomorrow',
-  }
-
-  // the highlighted facet is the one that will appear in the top of the filter list
-  const highlightedFacet = filteredFacets.find(
-    (facet) => facet.key === 'dynamic-estimate'
-  )
-
-  const facetsWithoutHighlightedFacet = filteredFacets.filter(
-    (facet) => facet.key !== 'dynamic-estimate'
-  )
   return (
     <>
       <UIFilterSlider
@@ -224,7 +211,7 @@ function FilterSlider({
                     selected={item.selected}
                     value={item.value}
                     facetKey={highlightedFacet.key}
-                    label={mapDynamicEstimateLabel[item.value] ?? item.label}
+                    label={getDynamicEstimateLabel(item.value) ?? item.label}
                     type="toggle"
                   />
                 ))}

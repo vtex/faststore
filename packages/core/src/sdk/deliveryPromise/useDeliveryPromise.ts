@@ -378,6 +378,35 @@ export function useDeliveryPromise({
     selectedPickupPointFacet,
   ])
 
+  // the highlighted facet is the one that should appear in the top of the filter list
+  const highlightedFacet = useMemo(() => {
+    if (!isDynamicEstimateEnabled) return undefined
+
+    return facets.find((facet) => facet.key === DYNAMIC_ESTIMATE_FACET_KEY)
+  }, [facets, isDynamicEstimateEnabled])
+
+  const facetsWithoutHighlightedFacet = useMemo(
+    () =>
+      highlightedFacet
+        ? facets.filter((facet) => facet.key !== DYNAMIC_ESTIMATE_FACET_KEY)
+        : facets,
+    [facets, highlightedFacet]
+  )
+
+  function getDynamicEstimateLabel(value: string) {
+    if (value === 'next-day') {
+      return (
+        deliveryPromiseSettings?.dynamicEstimate?.nextDay ?? 'Receive Today'
+      )
+    }
+    if (value === 'same-day') {
+      return (
+        deliveryPromiseSettings?.dynamicEstimate?.sameDay ?? 'Receive Tomorrow'
+      )
+    }
+    return value
+  }
+
   const onPostalCodeChange = useCallback(
     ({
       simulatePickupPoints = false,
@@ -440,6 +469,9 @@ export function useDeliveryPromise({
       pickupPoints?.length > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
+    highlightedFacet,
+    facetsWithoutHighlightedFacet,
+    getDynamicEstimateLabel,
   }
 }
 
