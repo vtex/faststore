@@ -2376,15 +2376,6 @@
     }
   },
   {
-    "name": "RegionSlider",
-    "schema": {
-      "title": "Region Slider",
-      "type": "object",
-      "description": "Region Slider configuration",
-      "properties": {}
-    }
-  },
-  {
     "name": "EmptyState",
     "schema": {
       "title": "Empty State",
