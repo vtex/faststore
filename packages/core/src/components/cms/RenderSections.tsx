@@ -12,9 +12,9 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import useTTI from 'src/sdk/performance/useTTI'
 import { isContentPlatformSource } from 'src/server/content/utils'
+import COMPONENTS from './global/Components'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
-import COMPONENTS from './global/Components'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
@@ -23,7 +23,7 @@ interface Props {
   isInteractive?: boolean
 }
 
-const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal', 'RegionSlider']
 
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
@@ -67,12 +67,16 @@ export const LazyLoadingSection = ({
   debug?: boolean
   isInteractive?: boolean
 }) => {
-  const { cart: displayCart, modal: displayModal } = useUI()
+  const { cart: displayCart, modal: displayModal, regionSlider } = useUI()
+
   if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
     const shouldLoad =
       isInteractive ||
       (sectionName === 'CartSidebar' && displayCart) ||
-      (sectionName === 'RegionModal' && displayModal)
+      (sectionName === 'RegionModal' && displayModal) ||
+      (sectionName === 'RegionSlider' &&
+        regionSlider.isOpen &&
+        regionSlider.type !== 'none')
 
     if (debug) {
       console.log(

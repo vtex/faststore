@@ -5,10 +5,12 @@ import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
 import { Icon, useUI } from '@faststore/ui'
 
 import { deliveryPromise } from 'discovery.config'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { useSession } from 'src/sdk/session'
 
 import useRegion from './useRegion'
 
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
@@ -38,22 +40,29 @@ interface RegionModalProps {
   }
 }
 
-function RegionModal({
-  title,
-  description,
-  closeButtonAriaLabel,
-  inputField: {
-    label: inputFieldLabel,
-    errorMessage: inputFieldErrorMessage,
-    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
-    buttonActionText: inputButtonActionText,
-  },
-  idkPostalCodeLink: {
-    text: idkPostalCodeLinkText,
-    to: idkPostalCodeLinkTo,
-    icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
-  },
-}: RegionModalProps) {
+function RegionModal(regionModalProps: RegionModalProps) {
+  const { onPostalCodeChange } = useDeliveryPromise()
+  const { title, description, closeButtonAriaLabel, ...otherRegionModalProps } =
+    regionModalProps
+  const cmsData = getGlobalSettings(otherRegionModalProps)
+  const {
+    inputField: {
+      label: inputFieldLabel = '',
+      errorMessage: inputFieldErrorMessage = '',
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage = '',
+      buttonActionText: inputButtonActionText = '',
+    } = {},
+    idkPostalCodeLink: {
+      text: idkPostalCodeLinkText = '',
+      to: idkPostalCodeLinkTo = '',
+      icon: {
+        icon: idkPostalCodeLinkIcon = '',
+        alt: idkPostalCodeLinkIconAlt = '',
+      } = {},
+    } = {},
+  } = cmsData?.regionalization ?? {}
+
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const { modal: displayModal, closeModal } = useUI()
@@ -70,6 +79,7 @@ function RegionModal({
     await setRegion({
       session,
       onSuccess: () => {
+        onPostalCodeChange()
         setInput('')
         closeModal()
       },

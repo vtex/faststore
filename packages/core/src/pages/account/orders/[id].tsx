@@ -11,19 +11,20 @@ import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { validateUser } from 'src/sdk/account/validateUser'
 
 import { gql } from '@generated'
+import type {
+  ServerOrderDetailsQueryQuery,
+  ServerOrderDetailsQueryQueryVariables,
+} from '@generated/graphql'
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/[id]/before'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
 import storeConfig from '../../../../discovery.config'
-import type {
-  ServerOrderDetailsQueryQuery,
-  ServerOrderDetailsQueryQueryVariables,
-} from '@generated/graphql'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -35,27 +36,29 @@ type OrderDetailsPageProps = {
 } & MyAccountProps
 
 export default function OrderDetailsPage({
-  globalSections,
+  globalSections: globalSectionsProp,
   order,
   accountName,
   isRepresentative,
 }: OrderDetailsPageProps) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout
-        isRepresentative={isRepresentative}
-        accountName={accountName}
-      >
-        <BeforeSection />
-        <MyAccountOrderDetails order={order} />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
+          <BeforeSection />
+          <MyAccountOrderDetails order={order} />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

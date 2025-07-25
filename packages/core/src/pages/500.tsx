@@ -11,6 +11,7 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { contentService } from 'src/server/content/service'
@@ -29,7 +30,13 @@ type Props = {
   globalSections: GlobalSectionsData
 }
 
-function Page({ page: { sections }, globalSections }: Props) {
+function Page({
+  page: { sections },
+  globalSections: globalSectionsProp,
+}: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <>
       <NextSeo noindex nofollow />
@@ -45,11 +52,13 @@ function Page({ page: { sections }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections
-        sections={sections}
-        globalSections={globalSections.sections}
-        components={COMPONENTS}
-      />
+      <PageProvider context={{ globalSettings }}>
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections}
+          components={COMPONENTS}
+        />
+      </PageProvider>
     </>
   )
 }

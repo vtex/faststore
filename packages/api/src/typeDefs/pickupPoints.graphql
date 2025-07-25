@@ -1,0 +1,79 @@
+type PickupPointAddress {
+  """
+  Address city.
+  """
+  city: String
+  """
+  Address neighborhood.
+  """
+  neighborhood: String
+  """
+  Address number.
+  """
+  number: String
+  """
+  Address postal code.
+  """
+  postalCode: String
+  """
+  Address street.
+  """
+  street: String
+  """
+  Address state.
+  """
+  state: String
+}
+
+type BusinessHour {
+  """
+  Number that represents the day of the week.
+  """
+  dayOfWeek: Int
+  """
+  Business hour opening time.
+  """
+  openingTime: String
+  """
+  Business hour closing time.
+  """
+  closingTime: String
+}
+
+type PickupPointDistance {
+  """
+  Pickup point ID.
+  """
+  pickupId: String
+  """
+  Pickup point distance.
+  """
+  distance: Float
+  """
+  Pickup point name.
+  """
+  pickupName: String
+  """
+  Whether the pickup point is active.
+  """
+  isActive: Boolean
+  """
+  Pickup point address.
+  """
+  address: PickupPointAddress
+  """
+  Pickup point business hours.
+  """
+  businessHours: [BusinessHour]
+}
+
+type PickupPoints {
+  """
+  List of pickup point distances for the given location.
+  """
+  pickupPointDistances: [PickupPointDistance]
+  """
+  Hash of the pickup points data.
+  """
+  pickupPointsHash: String
+}

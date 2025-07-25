@@ -26,3 +26,12 @@ export { default as ProductGallerySection } from './src/components/sections/Prod
 export { default as ProductShelfSection } from './src/components/sections/ProductShelf'
 export { default as RegionBarSection } from './src/components/sections/RegionBar'
 export { default as Section } from './src/components/sections/Section'
+
+// Delivery Promise
+export {
+  PICKUP_IN_POINT_FACET_VALUE,
+  PICKUP_POINT_FACET_KEY,
+  SHIPPING_FACET_KEY,
+  PICKUP_ALL_FACET_VALUE,
+  getPickupPoints,
+} from './src/sdk/deliveryPromise'

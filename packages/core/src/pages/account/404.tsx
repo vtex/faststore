@@ -7,6 +7,11 @@ import {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 
+import { gql } from '@generated/gql'
+import type {
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables,
+} from '@generated/graphql'
 import { MyAccountLayout } from 'src/components/account'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections, {
@@ -15,16 +20,12 @@ import RenderSections, {
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
+import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { gql } from '@generated/gql'
-import { execute } from 'src/server'
-import type {
-  ServerAccountPageQueryQuery,
-  ServerAccountPageQueryQueryVariables,
-} from '@generated/graphql'
-import { validateUser } from 'src/sdk/account/validateUser'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -40,20 +41,26 @@ type Props = {
   accountName: ServerAccountPageQueryQuery['accountName']
 }
 
-function Page({ page: { sections }, globalSections, accountName }: Props) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+function Page({
+  page: { sections },
+  globalSections: globalSectionsProp,
+  accountName,
+}: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout accountName={accountName}>
-        {sections && sections.length > 0 && (
-          <RenderSectionsBase sections={sections} components={COMPONENTS} />
-        )}
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout accountName={accountName}>
+          {sections && sections.length > 0 && (
+            <RenderSectionsBase sections={sections} components={COMPONENTS} />
+          )}
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

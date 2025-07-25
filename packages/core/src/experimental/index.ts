@@ -45,3 +45,9 @@ export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/compone
 export { ButtonSignIn as ButtonSignIn_unstable } from '../../src/components/ui/Button'
 export { Image as Image_unstable } from '../../src/components/ui/Image'
 export { default as Selectors_unstable } from '../../src/components/ui/SkuSelector'
+
+// Delivery Promise
+export {
+  useDeliveryPromise as useDeliveryPromise_unstable,
+  deliveryPromiseStore as deliveryPromiseStore_unstable,
+} from 'src/sdk/deliveryPromise'
