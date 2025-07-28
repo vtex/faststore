@@ -19,6 +19,7 @@ export const CUSTOM_EVENT_SAMPLE: CustomEvent = {
 
 export const WRAPPED_CUSTOM_EVENT_SAMPLE: WrappedAnalyticsEvent<CustomEvent> = {
   name: 'AnalyticsEvent',
+  isEcommerceEvent: true,
   params: {
     name: 'store:custom_event',
     params: {
@@ -30,6 +31,7 @@ export const WRAPPED_CUSTOM_EVENT_SAMPLE: WrappedAnalyticsEvent<CustomEvent> = {
 
 export const ADD_TO_CART_SAMPLE: AddToCartEvent = {
   name: 'add_to_cart',
+  isEcommerceEvent: true,
   params: {
     items: [{ item_id: 'PRODUCT_ID' }],
   },
@@ -38,7 +40,9 @@ export const ADD_TO_CART_SAMPLE: AddToCartEvent = {
 export const WRAPPED_ADD_TO_CART_SAMPLE: WrappedAnalyticsEvent<AddToCartEvent> =
   {
     name: 'AnalyticsEvent',
+    isEcommerceEvent: true,
     params: {
+      isEcommerceEvent: true,
       name: 'store:add_to_cart',
       params: {
         items: [{ item_id: 'PRODUCT_ID' }],

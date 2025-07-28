@@ -38,6 +38,7 @@ module.exports = {
     hideUnavailableItems: false,
     showSponsored: false,
     incrementAddress: true,
+    enableUnavailableItemsOnCart: false,
   },
 
   // Default session

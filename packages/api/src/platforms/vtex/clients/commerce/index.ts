@@ -3,6 +3,9 @@ import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
 import type {
+  CommercialAuthorizationResponse,
+  ICommercialAuthorizationByOrderId,
+  IProcessOrderAuthorization,
   IUserOrderCancel,
   QueryListUserOrdersArgs,
   StoreMarketingData,
@@ -11,6 +14,7 @@ import type {
   UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
+import { buildFormData } from '../../utils/buildFormData'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
@@ -23,6 +27,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -389,6 +394,30 @@ export const VtexCommerce = (
           {}
         )
       },
+      pickupPoints: ({
+        geoCoordinates,
+      }: PickupPointsInput): Promise<PickupPoints> => {
+        if (!geoCoordinates) {
+          throw new Error(
+            'Missing required parameter for listing pickup points.'
+          )
+        }
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/logistics-shipping/pickuppoints/_search`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ coordinate: geoCoordinates }),
+          },
+          { storeCookies }
+        )
+      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
@@ -441,10 +470,7 @@ export const VtexCommerce = (
     },
     oms: {
       userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
-        const headers: HeadersInit = withCookie({
-          'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
-        })
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
@@ -520,6 +546,49 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      getCommercialAuthorizationsByOrderId: ({
+        orderId,
+      }: ICommercialAuthorizationByOrderId): Promise<CommercialAuthorizationResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/${account}/commercial-authorizations/order/${orderId}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
+        )
+      },
+      processOrderAuthorization: async ({
+        orderAuthorizationId,
+        dimensionId,
+        ruleId,
+        approved,
+      }: IProcessOrderAuthorization): Promise<CommercialAuthorizationResponse> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        const APPROVAL_SCORE = 100
+        const REJECTION_SCORE = 0
+
+        const body = {
+          params: {
+            ruleId,
+            dimensionId,
+            score: approved ? APPROVAL_SCORE : REJECTION_SCORE,
+          },
+        }
+
+        return fetchAPI(
+          `${base}/${account}/commercial-authorizations/${orderAuthorizationId}/callback`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(body),
+          },
+          { storeCookies }
+        )
+      },
     },
     units: {
       getUnitByUserId: ({
@@ -584,6 +653,24 @@ export const VtexCommerce = (
           {}
         )
       },
+      getUserByEmail: ({
+        email,
+      }: { email: string }): Promise<{
+        id: string
+        name: string
+        email: string
+      }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/license-manager/pvt/users/${email}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
     },
     masterData: {
       getContractById: ({
@@ -616,6 +703,47 @@ export const VtexCommerce = (
           },
           { storeCookies }
         )
+      },
+      setPassword: async ({
+        email,
+        newPassword,
+        currentPassword,
+        accesskey,
+        recaptcha,
+      }: {
+        email: string
+        newPassword: string
+        currentPassword: string
+        accesskey?: string
+        recaptcha?: string
+      }): Promise<{ success: boolean; message?: string }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        const body = buildFormData({
+          login: email,
+          newPassword,
+          currentPassword,
+          accesskey,
+          recaptcha,
+        })
+
+        const result = await fetchAPI(
+          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
+          {
+            method: 'POST',
+            headers,
+            body,
+          },
+          { storeCookies }
+        )
+
+        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
+          return { success: true }
+        }
+        return {
+          success: false,
+          message: result?.authStatus ?? 'Unknown error',
+        }
       },
     },
   }

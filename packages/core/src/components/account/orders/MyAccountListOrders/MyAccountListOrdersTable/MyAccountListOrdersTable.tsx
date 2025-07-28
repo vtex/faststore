@@ -10,7 +10,7 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 const MAX_COST_CENTERS = 5
 
-function formatShippingDate(date: string, locale: string) {
+function formatOrderDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale, {
     year: 'numeric',
     month: '2-digit',
@@ -180,7 +180,7 @@ export default function MyAccountListOrdersTable({
                         </p>
                         <p data-fs-list-orders-table-product-info-value>
                           {item.creationDate
-                            ? formatShippingDate(item.creationDate, locale)
+                            ? formatOrderDate(item.creationDate, locale)
                             : '-'}
                         </p>
                       </div>
@@ -192,7 +192,7 @@ export default function MyAccountListOrdersTable({
                             </p>
                             <p data-fs-list-orders-table-product-info-value>
                               {item.ShippingEstimatedDate
-                                ? formatShippingDate(
+                                ? formatOrderDate(
                                     item.ShippingEstimatedDate,
                                     locale
                                   )
@@ -222,7 +222,7 @@ export default function MyAccountListOrdersTable({
                             </p>
                             <p data-fs-list-orders-table-product-info-value>
                               {item.ShippingEstimatedDate
-                                ? formatShippingDate(
+                                ? formatOrderDate(
                                     item.ShippingEstimatedDate,
                                     locale
                                   )
@@ -317,7 +317,7 @@ export default function MyAccountListOrdersTable({
                   {!isDesktop && (
                     <p>
                       {item.ShippingEstimatedDate
-                        ? `Delivery by ${formatShippingDate(
+                        ? `Delivery by ${formatOrderDate(
                             item.ShippingEstimatedDate,
                             locale
                           )}`
