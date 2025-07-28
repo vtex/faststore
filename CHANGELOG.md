@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.67.0](https://github.com/vtex/faststore/compare/v3.66.0...v3.67.0) (2025-07-23)
+
+### Features
+
+- add the host to the client-cms request. SFS-2610 ([#2920](https://github.com/vtex/faststore/issues/2920)) ([119aa88](https://github.com/vtex/faststore/commit/119aa8884c639235b8bd24694e33b28fa14d243f))
+
 # [3.66.0](https://github.com/vtex/faststore/compare/v3.65.2...v3.66.0) (2025-07-23)
 
 ### Features
