@@ -1,6 +1,7 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
+import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
@@ -10,16 +11,15 @@ import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 
 import storeConfig from 'discovery.config'
-import type { PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -41,6 +41,7 @@ export type LandingPageProps = {
   slug?: string
   serverData?: unknown
   globalSections?: Array<{ name: string; data: any }>
+  globalSettings?: Record<string, unknown>
 }
 
 export default function LandingPage({
@@ -48,9 +49,11 @@ export default function LandingPage({
   slug,
   serverData,
   globalSections,
+  globalSettings,
 }: LandingPageProps) {
   const context = {
     data: serverData,
+    globalSettings,
   }
 
   return (

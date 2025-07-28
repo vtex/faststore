@@ -6,26 +6,28 @@ import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
+import { ProfileSection } from 'src/components/account/profile'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { ProfileSection } from 'src/components/account/profile'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { gql } from '@generated/gql'
-import { execute } from 'src/server'
 import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
 } from '@generated/graphql'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
+import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { validateUser } from 'src/sdk/account/validateUser'
+import { injectGlobalSections } from 'src/server/cms/global'
+import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { execute } from 'src/server'
 import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
@@ -43,27 +45,29 @@ type ProfilePagePros = {
 } & MyAccountProps
 
 export default function Profile({
-  globalSections,
+  globalSections: globalSectionsProp,
   accountName,
   accountProfile,
   isRepresentative,
 }: ProfilePagePros) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout
-        isRepresentative={isRepresentative}
-        accountName={accountName}
-      >
-        <BeforeSection />
-        <ProfileSection profile={accountProfile} />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
+          <BeforeSection />
+          <ProfileSection profile={accountProfile} />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

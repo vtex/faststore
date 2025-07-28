@@ -14,6 +14,7 @@ import type {
   UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
+import { buildFormData } from '../../utils/buildFormData'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
@@ -26,6 +27,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -39,7 +41,6 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
-import { buildFormData } from '../../utils/buildFormData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -391,6 +392,30 @@ export const VtexCommerce = (
             }),
           },
           {}
+        )
+      },
+      pickupPoints: ({
+        geoCoordinates,
+      }: PickupPointsInput): Promise<PickupPoints> => {
+        if (!geoCoordinates) {
+          throw new Error(
+            'Missing required parameter for listing pickup points.'
+          )
+        }
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/logistics-shipping/pickuppoints/_search`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ coordinate: geoCoordinates }),
+          },
+          { storeCookies }
         )
       },
     },
