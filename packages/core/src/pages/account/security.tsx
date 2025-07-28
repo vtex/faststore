@@ -24,8 +24,6 @@ import { gql } from '@generated/gql'
 import type {
   ServerSecurityQueryQuery,
   ServerSecurityQueryQueryVariables,
-  ServerUserEmailQuery,
-  ServerUserEmailQueryVariables,
 } from '@generated/graphql'
 import { validateUser } from 'src/sdk/account/validateUser'
 import storeConfig from '../../../discovery.config'
@@ -67,15 +65,10 @@ export default function Page({
   )
 }
 
-const securityQuery = gql(`
+const query = gql(`
   query ServerSecurityQuery {
     accountName
-  }
-`)
-
-const userDetailsQuery = gql(`
-  query ServerUserEmail {
-    userDetails {
+    accountProfile {
       email
     }
   }
@@ -116,31 +109,19 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(context.previewData)
 
-  const [
-    security,
-    userDetails,
-    globalSections,
-    globalSectionsHeader,
-    globalSectionsFooter,
-  ] = await Promise.all([
-    execute<ServerSecurityQueryQueryVariables, ServerSecurityQueryQuery>(
-      {
-        variables: {},
-        operation: securityQuery,
-      },
-      { headers: { ...context.req.headers } }
-    ),
-    execute<ServerUserEmailQueryVariables, ServerUserEmailQuery>(
-      {
-        variables: {},
-        operation: userDetailsQuery,
-      },
-      { headers: { ...context.req.headers } }
-    ),
-    globalSectionsPromise,
-    globalSectionsHeaderPromise,
-    globalSectionsFooterPromise,
-  ])
+  const [security, globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      execute<ServerSecurityQueryQueryVariables, ServerSecurityQueryQuery>(
+        {
+          variables: {},
+          operation: query,
+        },
+        { headers: { ...context.req.headers } }
+      ),
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
 
   if (security.errors) {
     const statusCode: number = (security.errors[0] as any)?.extensions?.status
@@ -163,9 +144,9 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      userEmail: userDetails.data.userDetails.email || '',
-      globalSections: globalSectionsResult,
       accountName: security.data.accountName,
+      userEmail: security.data?.accountProfile.email || '',
+      globalSections: globalSectionsResult,
       isRepresentative,
     },
   }

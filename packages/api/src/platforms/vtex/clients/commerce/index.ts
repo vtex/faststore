@@ -39,7 +39,6 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
-import { buildFormData } from '../../utils/buildFormData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -694,30 +693,57 @@ export const VtexCommerce = (
       }): Promise<{ success: boolean; message?: string }> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
-        const body = buildFormData({
+        const body = {
           login: email,
-          newPassword,
           currentPassword,
-          accesskey,
-          recaptcha,
-        })
-
-        const result = await fetchAPI(
-          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
-          {
-            method: 'POST',
-            headers,
-            body,
-          },
-          { storeCookies }
-        )
-
-        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
-          return { success: true }
+          newPassword,
+          accesskey: accesskey ?? null,
+          recaptcha: recaptcha ?? null,
         }
-        return {
-          success: false,
-          message: result?.authStatus ?? 'Unknown error',
+
+        const url = `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`
+
+        try {
+          const result = await fetchAPI(
+            url,
+            {
+              headers,
+              method: 'POST',
+              body: JSON.stringify(body),
+            },
+            { storeCookies }
+          )
+
+          const authStatus: string = result?.authStatus ?? ''
+
+          if (authStatus.toLowerCase() === 'success') {
+            return { success: true }
+          }
+
+          return {
+            success: false,
+            message: 'Unexpected error while setting password',
+          }
+        } catch (err) {
+          console.error('Error setting password:', err)
+
+          const error =
+            err instanceof Error
+              ? (JSON.parse(err.message) as { authStatus?: string })
+              : { authStatus: 'Unexpected error' }
+
+          const authStatus: string = error?.authStatus ?? ''
+
+          const isInvalidCredentials =
+            authStatus.toLowerCase().includes('invalidemail') ||
+            authStatus.toLowerCase().includes('invalidpassword')
+
+          return {
+            success: false,
+            message: isInvalidCredentials
+              ? 'Invalid email or password'
+              : 'Unexpected error while setting password',
+          }
         }
       },
     },

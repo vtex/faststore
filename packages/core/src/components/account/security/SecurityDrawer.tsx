@@ -40,7 +40,7 @@ export const SecurityDrawer = ({
   const [newPassword, setNewPassword] = useState('')
   const [showNewPassword, setShowNewPassword] = useState(false)
 
-  const { setPassword, loading } = useSetPassword()
+  const { setPassword, loading, error } = useSetPassword()
 
   const newPasswordValidations = validations.map((rule) => ({
     label: rule.label,
@@ -58,8 +58,20 @@ export const SecurityDrawer = ({
   }
 
   const handleSetPassword = async () => {
-    if (!userEmail || !newPassword || !currentPassword) {
+    if (!userEmail) {
       pushToast({
+        title: 'Error setting password',
+        status: 'ERROR',
+        message: 'Email is required to set a new password.',
+        icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+      })
+
+      return
+    }
+
+    if (!newPassword || !currentPassword) {
+      pushToast({
+        title: 'Error setting password',
         status: 'ERROR',
         message: 'All fields are required to set a new password.',
         icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
@@ -68,26 +80,53 @@ export const SecurityDrawer = ({
       return
     }
 
+    if (newPassword === currentPassword) {
+      pushToast({
+        title: 'Error setting password',
+        status: 'ERROR',
+        message: 'New password cannot be the same as the current password.',
+        icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+      })
+
+      return
+    }
+
     try {
-      await setPassword({
+      console.log({ userEmail })
+      const { setPassword: data } = await setPassword({
         data: {
           email: userEmail,
           newPassword,
           currentPassword,
-          accesskey: '', // Accesskey is optional
-          recaptcha: '', // Recaptcha is optional
+          accesskey: undefined, // Accesskey is optional
+          recaptcha: undefined, // Recaptcha is optional
         },
       })
 
-      pushToast({
-        status: 'INFO',
-        message: 'Password updated successfully',
-        icon: <Icon width={30} height={30} name="CircleWavyCheck" />,
-      })
+      if (!!error || data.success === false) {
+        pushToast({
+          title: 'Error setting password',
+          status: 'ERROR',
+          message: `Failed to set password: ${error?.message || data.message}`,
+          icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+        })
+
+        return
+      }
+
+      if (data.success) {
+        pushToast({
+          title: 'Success setting password',
+          status: 'INFO',
+          message: 'Password updated successfully',
+          icon: <Icon width={30} height={30} name="CircleWavyCheck" />,
+        })
+      }
     } catch (error) {
       pushToast({
+        title: 'Error setting password',
         status: 'ERROR',
-        message: 'Failed to set password. Please try again.',
+        message: `Failed to set password: ${error?.message}`,
         icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
       })
     } finally {

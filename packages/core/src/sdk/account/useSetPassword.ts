@@ -16,7 +16,7 @@ export const mutation = gql(`
 `)
 
 export const useSetPassword = () => {
-  const [setPassword, { data, error, isValidating: loading }] = useLazyQuery<
+  const [setPassword, { data, error, isValidating, isLoading }] = useLazyQuery<
     Mutation,
     Variables
   >(mutation, {
@@ -24,8 +24,8 @@ export const useSetPassword = () => {
       email: '',
       newPassword: '',
       currentPassword: '',
-      accesskey: '',
-      recaptcha: '',
+      accesskey: undefined,
+      recaptcha: undefined,
     },
   })
 
@@ -33,6 +33,6 @@ export const useSetPassword = () => {
     setPassword,
     data,
     error,
-    loading,
+    loading: isLoading || isValidating,
   }
 }

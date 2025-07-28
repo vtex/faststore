@@ -2785,11 +2785,10 @@ export type ServerProfileQueryQuery = {
 
 export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerSecurityQueryQuery = { accountName: string | null }
-
-export type ServerUserEmailQueryVariables = Exact<{ [key: string]: never }>
-
-export type ServerUserEmailQuery = { userDetails: { email: string | null } }
+export type ServerSecurityQueryQuery = {
+  accountName: string | null
+  accountProfile: { email: string | null }
+}
 
 export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
@@ -3939,20 +3938,11 @@ export const ServerProfileQueryDocument = {
 export const ServerSecurityQueryDocument = {
   __meta__: {
     operationName: 'ServerSecurityQuery',
-    operationHash: '9f24767f16e6e05c168336701a6c6c7b6b5dc1c6',
+    operationHash: '8ea72e6b38ceab209f9bf18e6988ad0811c398e3',
   },
 } as unknown as TypedDocumentString<
   ServerSecurityQueryQuery,
   ServerSecurityQueryQueryVariables
->
-export const ServerUserEmailDocument = {
-  __meta__: {
-    operationName: 'ServerUserEmail',
-    operationHash: '3933660b02df72fbf4d8bc70ce465c5eb3f30c29',
-  },
-} as unknown as TypedDocumentString<
-  ServerUserEmailQuery,
-  ServerUserEmailQueryVariables
 >
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
