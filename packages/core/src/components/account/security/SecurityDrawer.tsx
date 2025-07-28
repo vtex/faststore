@@ -92,7 +92,6 @@ export const SecurityDrawer = ({
     }
 
     try {
-      console.log({ userEmail })
       const { setPassword: data } = await setPassword({
         data: {
           email: userEmail,
