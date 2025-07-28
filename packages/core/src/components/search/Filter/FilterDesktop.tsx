@@ -94,12 +94,11 @@ function FilterDesktop({
         {highlightedFacet &&
           highlightedFacet.__typename === 'StoreFacetBoolean' && (
             <UIFilterFacets
-              key={`${testId}-dynamic-estimate`}
+              key={`${testId}-${highlightedFacet.key}`}
               testId={testId}
               highlighted
               type={highlightedFacet.__typename}
               index={undefined}
-              label="Dynamic Estimate"
             >
               {highlightedFacet.values.map((item) => (
                 <UIFilterFacetBooleanItem

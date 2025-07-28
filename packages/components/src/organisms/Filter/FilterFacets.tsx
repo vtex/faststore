@@ -17,7 +17,7 @@ export interface FilterFacetsProps {
   /**
    * The text displayed to identify the Facet.
    */
-  label: string
+  label?: string
   /**
    * The description displayed to identify the Facet.
    */
