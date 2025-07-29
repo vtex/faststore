@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.68.1](https://github.com/vtex/faststore/compare/v3.68.0...v3.68.1) (2025-07-29)
+
+### Bug Fixes
+
+- B2B session info ([#2950](https://github.com/vtex/faststore/issues/2950)) ([6dcaa88](https://github.com/vtex/faststore/commit/6dcaa880e3b86b44c13402a558e008eddbebe724))
+
 # [3.68.0](https://github.com/vtex/faststore/compare/v3.67.0...v3.68.0) (2025-07-28)
 
 ### Features
