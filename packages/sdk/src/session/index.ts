@@ -62,8 +62,6 @@ export interface Session {
   person: Person | null
   b2b: B2bInfo | null
   marketingData: MarketingData | null
-  /** Tells if the store has finished hydratation and initialization */
-  ready?: boolean
 }
 
 export const createSessionStore = (

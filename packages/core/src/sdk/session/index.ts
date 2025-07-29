@@ -77,10 +77,10 @@ export const validateSession = async (session: Session) => {
         ...session,
         postalCode: session.b2b.savedPostalCode,
       })
+    } else {
+      const sessionWithLocation = await getPostalCode(session)
+      sessionStore.set(sessionWithLocation)
     }
-
-    const sessionWithLocation = await getPostalCode(session)
-    sessionStore.set(sessionWithLocation)
   }
 
   const data = await request<
