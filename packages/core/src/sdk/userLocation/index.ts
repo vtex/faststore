@@ -11,18 +11,18 @@ const set = (session: Session, data: Partial<Session>) => {
   return { ...session, ...data }
 }
 
-let useAddress: Partial<
+let userAddress: Partial<
   Pick<Session, 'city' | 'country' | 'geoCoordinates' | 'postalCode'>
 > = undefined
 const getUserSavedAddress = async (session: Session): Promise<Session> => {
-  if (!!useAddress) return set(session, useAddress)
+  if (!!userAddress) return set(session, userAddress)
   const user = session?.person
   if (!user?.id) return Promise.resolve(session)
 
   const { city, country, geoCoordinate, postalCode } =
     (await getSavedAddress(user.id)) ?? {}
 
-  useAddress = {
+  userAddress = {
     city,
     country,
     geoCoordinates: {
@@ -32,7 +32,7 @@ const getUserSavedAddress = async (session: Session): Promise<Session> => {
     postalCode,
   }
 
-  return set(session, useAddress)
+  return set(session, userAddress)
 }
 
 let geoCoordinates: Session['geoCoordinates'] = undefined
