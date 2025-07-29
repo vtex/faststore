@@ -374,7 +374,10 @@ export const VtexCommerce = (
         customerEmail,
         reason,
       }: IUserOrderCancel): Promise<UserOrderCancel> | undefined => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orders/${orderId}/user-cancel-request`,
