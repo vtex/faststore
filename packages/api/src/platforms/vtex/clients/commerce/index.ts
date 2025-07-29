@@ -14,7 +14,6 @@ import type {
   UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
-import { buildFormData } from '../../utils/buildFormData'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
