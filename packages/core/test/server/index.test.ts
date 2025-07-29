@@ -80,6 +80,7 @@ const QUERIES = [
   'accountProfile',
   'accountName',
   'validateUser',
+  'pickupPoints',
 ]
 
 const MUTATIONS = [

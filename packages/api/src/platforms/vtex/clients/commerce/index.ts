@@ -14,6 +14,7 @@ import type {
   UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
+import { buildFormData } from '../../utils/buildFormData'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
@@ -26,6 +27,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -392,13 +394,37 @@ export const VtexCommerce = (
           {}
         )
       },
+      pickupPoints: ({
+        geoCoordinates,
+      }: PickupPointsInput): Promise<PickupPoints> => {
+        if (!geoCoordinates) {
+          throw new Error(
+            'Missing required parameter for listing pickup points.'
+          )
+        }
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/logistics-shipping/pickuppoints/_search`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ coordinate: geoCoordinates }),
+          },
+          { storeCookies }
+        )
+      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,shopper.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({

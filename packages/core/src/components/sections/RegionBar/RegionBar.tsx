@@ -13,7 +13,7 @@ type RegionBarSectionProps = {
    */
   className?: string
   /**
-   * A React component that will be rendered as an icon.
+   * A React component that will be rendered as the location icon.
    */
   icon: RegionBarProps['icon']
   /**
@@ -22,6 +22,7 @@ type RegionBarSectionProps = {
   label: RegionBarProps['label']
   /**
    * Specifies a label for the edit text.
+   * @deprecated
    */
   editLabel?: RegionBarProps['editLabel']
   /**

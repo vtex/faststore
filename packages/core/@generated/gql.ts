@@ -64,6 +64,8 @@ const documents = {
     types.ValidateUserDocument,
   '\n  mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {\n    validateCart(cart: $cart, session: $session) {\n      order {\n        orderNumber\n        acceptedOffer {\n          ...CartItem\n        }\n        shouldSplitItem\n      }\n      messages {\n        ...CartMessage\n      }\n    }\n  }\n\n  fragment CartMessage on StoreCartMessage {\n    text\n    status\n  }\n\n  fragment CartItem on StoreOffer {\n    seller {\n      identifier\n    }\n    quantity\n    price\n    priceWithTaxes\n    listPrice\n    listPriceWithTaxes\n    itemOffered {\n      ...CartProductItem\n    }\n  }\n\n  fragment CartProductItem on StoreProduct {\n    sku\n    name\n    unitMultiplier\n    image {\n      url\n      alternateName\n    }\n    brand {\n      name\n    }\n    isVariantOf {\n      productGroupID\n      name\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n      }\n    }\n    gtin\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n  }\n':
     types.ValidateCartMutationDocument,
+  '\n  query ClientPickupPointsQuery(\n    $geoCoordinates: IStoreGeoCoordinates\n  ) {\n    pickupPoints(geoCoordinates: $geoCoordinates) {\n      pickupPointDistances {\n        pickupId\n        distance\n        pickupName\n        isActive\n        address {\n          city\n          state\n          number\n          postalCode\n          street\n        }\n      }\n    }\n  }\n':
+    types.ClientPickupPointsQueryDocument,
   '\n  mutation SubscribeToNewsletter($data: IPersonNewsletter!) {\n    subscribeToNewsletter(data: $data) {\n      id\n    }\n  }\n':
     types.SubscribeToNewsletterDocument,
   '\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n':
@@ -246,6 +248,12 @@ export function gql(
 export function gql(
   source: '\n  mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {\n    validateCart(cart: $cart, session: $session) {\n      order {\n        orderNumber\n        acceptedOffer {\n          ...CartItem\n        }\n        shouldSplitItem\n      }\n      messages {\n        ...CartMessage\n      }\n    }\n  }\n\n  fragment CartMessage on StoreCartMessage {\n    text\n    status\n  }\n\n  fragment CartItem on StoreOffer {\n    seller {\n      identifier\n    }\n    quantity\n    price\n    priceWithTaxes\n    listPrice\n    listPriceWithTaxes\n    itemOffered {\n      ...CartProductItem\n    }\n  }\n\n  fragment CartProductItem on StoreProduct {\n    sku\n    name\n    unitMultiplier\n    image {\n      url\n      alternateName\n    }\n    brand {\n      name\n    }\n    isVariantOf {\n      productGroupID\n      name\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n      }\n    }\n    gtin\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n  }\n'
 ): typeof import('./graphql').ValidateCartMutationDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ClientPickupPointsQuery(\n    $geoCoordinates: IStoreGeoCoordinates\n  ) {\n    pickupPoints(geoCoordinates: $geoCoordinates) {\n      pickupPointDistances {\n        pickupId\n        distance\n        pickupName\n        isActive\n        address {\n          city\n          state\n          number\n          postalCode\n          street\n        }\n      }\n    }\n  }\n'
+): typeof import('./graphql').ClientPickupPointsQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
