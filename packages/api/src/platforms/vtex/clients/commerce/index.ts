@@ -40,6 +40,7 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import { buildFormData } from '../../utils/buildFormData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -734,7 +735,7 @@ export const VtexCommerce = (
             {
               headers,
               method: 'POST',
-              body: JSON.stringify(body),
+              body: buildFormData(body),
             },
             { storeCookies }
           )
@@ -752,12 +753,18 @@ export const VtexCommerce = (
         } catch (err) {
           console.error('Error setting password:', err)
 
-          const error =
-            err instanceof Error
-              ? (JSON.parse(err.message) as { authStatus?: string })
-              : { authStatus: 'Unexpected error' }
+          let authStatus = ''
 
-          const authStatus: string = error?.authStatus ?? ''
+          try {
+            if (err instanceof Error) {
+              const error = JSON.parse(err.message) as { authStatus?: string }
+              authStatus = error?.authStatus ?? ''
+            } else {
+              authStatus = 'Unexpected error'
+            }
+          } catch (error) {
+            authStatus = 'Unexpected error while setting password'
+          }
 
           const isInvalidCredentials =
             authStatus.toLowerCase().includes('invalidemail') ||
