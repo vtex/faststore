@@ -120,6 +120,8 @@ export const SecurityDrawer = ({
           message: 'Password updated successfully',
           icon: <Icon width={30} height={30} name="CircleWavyCheck" />,
         })
+
+        handleClose()
       }
     } catch (error) {
       pushToast({
@@ -128,8 +130,6 @@ export const SecurityDrawer = ({
         message: `Failed to set password: ${error?.message}`,
         icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
       })
-    } finally {
-      handleClose()
     }
   }
 
