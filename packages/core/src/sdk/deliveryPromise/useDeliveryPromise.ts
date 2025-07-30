@@ -302,91 +302,79 @@ export function useDeliveryPromise({
   const facets = useMemo(() => {
     if (!allFacets) return []
 
-    return !isDeliveryPromiseEnabled || !postalCode
-      ? allFacets.filter(
-          ({ key }) =>
-            key !== SHIPPING_FACET_KEY &&
-            key !== DELIVERY_OPTIONS_FACET_KEY &&
-            key !== DYNAMIC_ESTIMATE_FACET_KEY
-        )
+    if (!isDeliveryPromiseEnabled || !postalCode) {
+      return allFacets.filter(
+        ({ key }) =>
+          key !== SHIPPING_FACET_KEY &&
+          key !== DELIVERY_OPTIONS_FACET_KEY &&
+          key !== DYNAMIC_ESTIMATE_FACET_KEY
+      )
+    }
+
+    const filteredFacets = !isDynamicEstimateEnabled
+      ? allFacets.filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY)
       : allFacets
-          .filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY) // TODO: remove this filter when dynamic estimate is implemented
-          .map((facet) => {
-            if (facet.__typename !== 'StoreFacetBoolean') return facet
 
-            if (facet.key === DELIVERY_OPTIONS_FACET_KEY) {
-              facet.values = withUniqueFacet(
-                facet.values,
-                allDeliveryOptionsFacet
-              )
+    return filteredFacets.map((facet) => {
+      if (facet.__typename !== 'StoreFacetBoolean') return facet
 
-              return facet
-            }
+      if (facet.key === DELIVERY_OPTIONS_FACET_KEY) {
+        facet.values = withUniqueFacet(facet.values, allDeliveryOptionsFacet)
 
-            if (facet.key !== SHIPPING_FACET_KEY) return facet
+        return facet
+      }
 
-            facet.values = withUniqueFacet(
-              facet.values,
-              allDeliveryMethodsFacet
-            )
-            const pickupInPointFacetIndex = facet.values.findIndex(
-              (item) => item?.value === PICKUP_IN_POINT_FACET_VALUE
-            )
+      if (facet.key !== SHIPPING_FACET_KEY) return facet
 
-            // Remove old pickup `pickup in point` facet from list and search state
-            if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
-              const selectedShippingFacet = selectedFacets.find(
-                ({ key }) => key === SHIPPING_FACET_KEY
-              )
+      facet.values = withUniqueFacet(facet.values, allDeliveryMethodsFacet)
+      const pickupInPointFacetIndex = facet.values.findIndex(
+        (item) => item?.value === PICKUP_IN_POINT_FACET_VALUE
+      )
 
-              if (selectedShippingFacet) {
-                const selectedPickupInPointFacets = selectedFacets.filter(
-                  ({ key, value }) =>
-                    value === PICKUP_IN_POINT_FACET_VALUE ||
-                    key === PICKUP_POINT_FACET_KEY
-                )
+      // Remove old pickup `pickup in point` facet from list and search state
+      if (pickupInPointFacetIndex !== -1 && !defaultPickupPoint) {
+        const selectedShippingFacet = selectedFacets.find(
+          ({ key }) => key === SHIPPING_FACET_KEY
+        )
 
-                selectedPickupInPointFacets.length
-                  ? onDeliveryFacetChange({
-                      facets: selectedPickupInPointFacets,
-                    })
-                  : onDeliveryFacetChange({ facet: selectedShippingFacet })
-              }
+        if (selectedShippingFacet) {
+          const selectedPickupInPointFacets = selectedFacets.filter(
+            ({ key, value }) =>
+              value === PICKUP_IN_POINT_FACET_VALUE ||
+              key === PICKUP_POINT_FACET_KEY
+          )
 
-              // Removes pickupInPointIndex from array
-              facet.values = facet.values.filter(
-                (_, index) => index !== pickupInPointFacetIndex
-              )
-            }
-            // Prevent multiple `pickup in point` facet
-            else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
-              facet.values.push(pickupInPointFacet)
-            }
-            // Replace current `pickup-in-point` facet with the updated one
-            else if (
-              facet.values[pickupInPointFacetIndex] &&
-              facet.values[pickupInPointFacetIndex]?.label !==
-                pickupInPointFacet.label
-            ) {
-              facet.values[pickupInPointFacetIndex] = pickupInPointFacet
-            }
+          selectedPickupInPointFacets.length
+            ? onDeliveryFacetChange({
+                facets: selectedPickupInPointFacets,
+              })
+            : onDeliveryFacetChange({ facet: selectedShippingFacet })
+        }
 
-            facet.values = facet.values.sort((a, b) =>
-              (a.value ?? '').localeCompare(b.value ?? '')
-            )
+        // Removes pickupInPointIndex from array
+        facet.values = facet.values.filter(
+          (_, index) => index !== pickupInPointFacetIndex
+        )
+      }
+      // Prevent multiple `pickup in point` facet
+      else if (pickupInPointFacetIndex === -1 && defaultPickupPoint) {
+        facet.values.push(pickupInPointFacet)
+      }
+      // Replace current `pickup-in-point` facet with the updated one
+      else if (
+        facet.values[pickupInPointFacetIndex] &&
+        facet.values[pickupInPointFacetIndex]?.label !==
+          pickupInPointFacet.label
+      ) {
+        facet.values[pickupInPointFacetIndex] = pickupInPointFacet
+      }
 
-            return facet
-          })
-          .sort((a, b) => {
-            // Define priority order: shipping (0), delivery-options (1), others (2)
-            const getPriority = (key: string) => {
-              if (key === SHIPPING_FACET_KEY) return 0
-              if (key === DELIVERY_OPTIONS_FACET_KEY) return 1
-              return 2
-            }
+      facet.values = facet.values.sort((a, b) =>
+        (a.value ?? '').localeCompare(b.value ?? '')
+      )
 
-            return getPriority(a.key) - getPriority(b.key)
-          })
+      return facet
+    })
   }, [
     allDeliveryMethodsFacet,
     pickupInPointFacet,
