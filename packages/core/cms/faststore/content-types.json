@@ -250,6 +250,27 @@
                       "default": "All delivery options"
                     }
                   }
+                },
+                "dynamicEstimate": {
+                  "title": "PLP/Search Filter: Dynamic Estimate",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should display Dynamic Estimate?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "sameDay": {
+                      "title": "Same Day label",
+                      "type": "string",
+                      "default": "Receive Today"
+                    },
+                    "nextDay": {
+                      "title": "Next Day label",
+                      "type": "string",
+                      "default": "Receive Tomorrow"
+                    }
+                  }
                 }
               }
             }
