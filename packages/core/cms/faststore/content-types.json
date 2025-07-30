@@ -232,21 +232,6 @@
                           "default": "Storefront icon"
                         }
                       }
-                    },
-                    "pickupPointChangeApplyButtonLabel": {
-                      "title": "Change Pickup Point apply button label",
-                      "type": "string",
-                      "default": "Update"
-                    },
-                    "choosePickupPointAriaLabel": {
-                      "title": "Choose Pickup Point aria-label (radio group)",
-                      "type": "string",
-                      "default": "Choose a store"
-                    },
-                    "noPickupPointsAvailableInLocation": {
-                      "title": "No Pickup Point available near location message",
-                      "type": "string",
-                      "default": "No stores near location."
                     }
                   }
                 },
