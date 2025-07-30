@@ -110,3 +110,7 @@ packages/core/@generated/persisted-documents.json
 oclif.manifest.json
 
 *storybook.log
+
+# FastStore development files
+.faststore/
+packages/*/.husky/_/
