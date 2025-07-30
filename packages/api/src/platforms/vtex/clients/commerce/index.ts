@@ -687,6 +687,25 @@ export const VtexCommerce = (
           {}
         )
       },
+      getShopperNameById: ({ userId }: { userId: string }): Promise<any> => {
+        console.log('🚀 ~ userId:', userId)
+        if (!userId) {
+          throw new Error('Missing userId to fetch shopper name')
+        }
+
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const url = `${base}/api/dataentities/shopper/documents/${userId}?_fields=_all`
+        console.log('🚀 ~ url:', url)
+
+        return fetchAPI(
+          url,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
     },
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {

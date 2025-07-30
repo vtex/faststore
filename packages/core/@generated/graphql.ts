@@ -1638,6 +1638,7 @@ export type UserOrder = {
   origin: Maybe<Scalars['String']['output']>
   packageAttachment: Maybe<UserOrderPackageAttachment>
   paymentData: Maybe<UserOrderPaymentData>
+  purchaseAgentData: Maybe<UserOrderPurchaseAgentData>
   ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>
   roundingError: Maybe<Scalars['Int']['output']>
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
@@ -2212,6 +2213,17 @@ export type UserOrderPriceTag = {
   value: Maybe<Scalars['Float']['output']>
 }
 
+export type UserOrderPurchaseAgent = {
+  persona: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+  userId: Maybe<Scalars['String']['output']>
+  versionId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderPurchaseAgentData = {
+  purchaseAgents: Maybe<Array<Maybe<UserOrderPurchaseAgent>>>
+}
+
 export type UserOrderRateAndBenefitsIdentifier = {
   additionalInfo: Maybe<Scalars['String']['output']>
   description: Maybe<Scalars['String']['output']>
@@ -2261,6 +2273,7 @@ export type UserOrderResult = {
   paymentData: Maybe<UserOrderPaymentData>
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   shippingData: Maybe<UserOrderShippingData>
+  shopperName: Maybe<UserOrderShopperName>
   status: Maybe<Scalars['String']['output']>
   statusDescription: Maybe<Scalars['String']['output']>
   storePreferencesData: Maybe<UserOrderStorePreferencesData>
@@ -2280,6 +2293,11 @@ export type UserOrderShippingData = {
   logisticsInfo: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>
   selectedAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
   trackingHints: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderShopperName = {
+  firstName: Maybe<Scalars['String']['output']>
+  lastName: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderSlas = {
@@ -2771,6 +2789,7 @@ export type ServerOrderDetailsQueryQuery = {
       name: string | null
       value: number | null
     } | null> | null
+    shopperName: { firstName: string | null; lastName: string | null } | null
   } | null
 }
 
@@ -3974,7 +3993,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '4758ccbf776bfa5d9b9f15f92bee6ecb78706b20',
+    operationHash: 'a1c862006d31528cb33bae9d21254d49239c2abb',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

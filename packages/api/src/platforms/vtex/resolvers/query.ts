@@ -417,6 +417,16 @@ export const Query = {
         ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
       } catch (err: any) {}
 
+      console.log(
+        '🚀 ~ order.purchaseAgentData:',
+        order.purchaseAgentData?.purchaseAgents?.[0]?.userId
+      )
+
+      const shopper = await commerce.masterData.getShopperNameById({
+        userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
+      })
+      console.log('🚀 ~ shopper:', shopper)
+
       return {
         orderId: order.orderId,
         totals: order.totals,
@@ -434,8 +444,13 @@ export const Query = {
             order.status === 'waiting-for-authorization') &&
           !!ruleForAuthorization,
         ruleForAuthorization,
+        shopperName: {
+          firstName: shopper?.firstName || '',
+          lastName: shopper?.lastName || '',
+        },
       }
     } catch (error) {
+      console.log('🚀 ~ error:', error)
       const result = JSON.parse((error as Error).message).error as {
         code: string
         message: string
