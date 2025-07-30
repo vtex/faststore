@@ -191,7 +191,7 @@ function Page({
         mainEntityOfPage={`${meta.canonical}${
           settings?.seo?.mainEntityOfPage ?? ''
         }`}
-        productName={product.name}
+        productName={meta.title}
         description={product.description}
         brand={product.brand.name}
         sku={product.sku}
