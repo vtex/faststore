@@ -417,15 +417,11 @@ export const Query = {
         ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
       } catch (err: any) {}
 
-      console.log(
-        '🚀 ~ order.purchaseAgentData:',
-        order.purchaseAgentData?.purchaseAgents?.[0]?.userId
-      )
-
-      const shopper = await commerce.masterData.getShopperNameById({
-        userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
-      })
-      console.log('🚀 ~ shopper:', shopper)
+      const shopperSearch =
+        (await commerce.masterData.getShopperNameById({
+          userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
+        })) ?? []
+      const shopper = shopperSearch[0] ?? {}
 
       return {
         orderId: order.orderId,

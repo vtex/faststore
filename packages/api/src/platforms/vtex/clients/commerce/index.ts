@@ -687,18 +687,24 @@ export const VtexCommerce = (
           {}
         )
       },
-      getShopperNameById: ({ userId }: { userId: string }): Promise<any> => {
-        console.log('🚀 ~ userId:', userId)
+      getShopperNameById: ({
+        userId,
+      }: { userId: string }): Promise<
+        Array<{
+          firstName: string
+          lastName: string
+        }>
+      > => {
         if (!userId) {
           throw new Error('Missing userId to fetch shopper name')
         }
 
+        const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
+
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
-        const url = `${base}/api/dataentities/shopper/documents/${userId}?_fields=_all`
-        console.log('🚀 ~ url:', url)
 
         return fetchAPI(
-          url,
+          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&an=b2bfaststoredev&_fields=_all&_schema=v1`,
           {
             method: 'GET',
             headers,
