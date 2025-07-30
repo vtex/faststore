@@ -446,7 +446,6 @@ export const Query = {
         },
       }
     } catch (error) {
-      console.log('🚀 ~ error:', error)
       const result = JSON.parse((error as Error).message).error as {
         code: string
         message: string
