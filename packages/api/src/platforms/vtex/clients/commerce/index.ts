@@ -704,7 +704,7 @@ export const VtexCommerce = (
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
-          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&an=b2bfaststoredev&_fields=_all&_schema=v1`,
+          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
           {
             method: 'GET',
             headers,
