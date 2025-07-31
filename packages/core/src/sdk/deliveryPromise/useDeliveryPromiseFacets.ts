@@ -4,7 +4,7 @@ export function useDeliveryPromiseFacets() {
   const { state: searchState } = useSearch()
 
   return {
-    allFacets: searchState.selectedFacets.filter(
+    deliveryFacets: searchState.selectedFacets.filter(
       pickByKey(['shipping', 'pickupPoint'])
     ),
     shipping: searchState.selectedFacets.filter(pickByKey(['shipping']))?.[0],

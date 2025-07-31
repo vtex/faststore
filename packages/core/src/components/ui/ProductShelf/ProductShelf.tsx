@@ -63,11 +63,11 @@ function ProductShelf({
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const { allFacets } = useDeliveryPromiseFacets()
+  const { deliveryFacets } = useDeliveryPromiseFacets()
 
   const data = useProductsQuery({
     first: numberOfItems,
-    selectedFacets: deepmerge(otherProps.selectedFacets, allFacets, {
+    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
       arrayMerge: overwriteMerge,
     }),
     ...otherProps,
