@@ -192,7 +192,7 @@ function Page({
           settings?.seo?.mainEntityOfPage ?? ''
         }`}
         productName={meta.title}
-        description={product.description}
+        description={meta.description}
         brand={product.brand.name}
         sku={product.sku}
         gtin={product.gtin}
