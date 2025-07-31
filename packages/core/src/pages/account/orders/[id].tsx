@@ -249,6 +249,10 @@ const query = gql(`
         name
         value
       }
+      shopperName {
+        firstName
+        lastName
+      }
     }
     accountName
   }
