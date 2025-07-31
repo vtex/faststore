@@ -1,5 +1,3 @@
-import { useSearch } from '@faststore/sdk'
-import deepmerge from 'deepmerge'
 import dynamic from 'next/dynamic'
 import { useEffect, useId, useRef } from 'react'
 
@@ -7,6 +5,8 @@ import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEve
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
+import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
+import deepmerge from 'deepmerge'
 
 const ProductShelfSkeleton = dynamic(
   () =>
@@ -63,18 +63,13 @@ function ProductShelf({
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const { state: searchState } = useSearch()
-  const filteredSelectedFacets = deepmerge(
-    otherProps.selectedFacets,
-    searchState.selectedFacets,
-    {
-      arrayMerge: overwriteMerge,
-    }
-  ).filter(filterByKey('category-'))
+  const { allFacets } = useDeliveryPromiseFacets()
 
   const data = useProductsQuery({
     first: numberOfItems,
-    selectedFacets: filteredSelectedFacets,
+    selectedFacets: deepmerge(otherProps.selectedFacets, allFacets, {
+      arrayMerge: overwriteMerge,
+    }),
     ...otherProps,
   })
 
@@ -147,8 +142,3 @@ export default ProductShelf
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
 const overwriteMerge = (_: any[], clientArray: any[]) => clientArray
-
-const filterByKey =
-  (filteredKey: string) =>
-  ({ key }: { key: string }) =>
-    !key.startsWith(filteredKey)
