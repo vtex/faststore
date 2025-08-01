@@ -87,8 +87,8 @@ const { deliveryPromise, session: defaultSession } = DiscoveryConfig
 export const useCheckRegionState = (popoverRef?: RefObject<HTMLElement>) => {
   const [regionPopoverState, setRegionPopoverState] = useState<
     'open' | 'closed'
-  >(getPopoverState(sessionStore.read()))
-  const { openModal, openPopover, modal: modalOpen } = useUI()
+  >('closed')
+  const { openModal, openPopover, modal: modalOpen, closePopover } = useUI()
 
   function getPopoverState(session: Session) {
     const isDefaultPostalCode =
@@ -120,7 +120,12 @@ export const useCheckRegionState = (popoverRef?: RefObject<HTMLElement>) => {
   }, [modalOpen])
 
   useEffect(() => {
-    if (popoverRef && regionPopoverState === 'open') {
+    if (regionPopoverState === 'closed') {
+      closePopover()
+      return
+    }
+
+    if (popoverRef) {
       openPopover({
         isOpen: true,
         triggerRef: popoverRef,

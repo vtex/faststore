@@ -70,7 +70,11 @@ export const mutation = gql(`
 
 export const validateSession = async (session: Session) => {
   // If deliveryPromise is enabled and there is no postalCode in the session
-  if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
+  if (
+    storeConfig.deliveryPromise?.enabled &&
+    (!session.postalCode ||
+      session.postalCode === storeConfig.session.postalCode)
+  ) {
     // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
     if (session.b2b && session.b2b?.savedPostalCode) {
       sessionStore.set({
