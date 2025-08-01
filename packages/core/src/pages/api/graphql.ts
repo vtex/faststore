@@ -112,15 +112,33 @@ const handler: NextApiHandler = async (request, response) => {
         refreshAfterExpired
       )
 
-      const firstRefreshTokenRequest = !!jwt && !refreshAfterExist
+      const tokenExistAndIsFirstRefreshTokenRequest =
+        !!jwt && !refreshAfterExist
       console.log(
-        '🚀 ~ API GRAPHQL - firstRefreshTokenRequest:',
-        firstRefreshTokenRequest
+        '🚀 ~ API GRAPHQL - tokenExistAndIsFirstRefreshTokenRequest:',
+        tokenExistAndIsFirstRefreshTokenRequest
+      )
+
+      // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
+      const tokenNotExistAndRefreshAfterExistAndIsExpired =
+        !jwt && !!refreshAfterExist && refreshAfterExpired
+
+      console.log(
+        '🚀 ~ API GRAPHQL - tokenNotExistAndRefreshAfterExistAndIsExpired:',
+        tokenNotExistAndRefreshAfterExistAndIsExpired
+      )
+
+      const tokenExpiredAndRefreshAfterIsNullOrExpired =
+        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
+      console.log(
+        '🚀 ~ tokenExpiredAndRefreshAfterIsNullOrExpired:',
+        tokenExpiredAndRefreshAfterIsNullOrExpired
       )
 
       const shouldRefreshToken =
-        firstRefreshTokenRequest ||
-        (tokenExpired && (!refreshAfterExist || refreshAfterExpired))
+        tokenExistAndIsFirstRefreshTokenRequest ||
+        tokenNotExistAndRefreshAfterExistAndIsExpired ||
+        tokenExpiredAndRefreshAfterIsNullOrExpired
       console.log('🚀 ~ API GRAPHQL - shouldRefreshToken:', shouldRefreshToken)
 
       if (shouldRefreshToken) {
