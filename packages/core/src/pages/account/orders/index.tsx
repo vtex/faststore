@@ -24,9 +24,10 @@ import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
-import storeConfig from '../../../../discovery.config'
 import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { extractStatusFromError } from 'src/utils/utilities'
+import storeConfig from '../../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -49,7 +50,7 @@ type ListOrdersPageProps = {
 } & MyAccountProps
 
 export default function ListOrdersPage({
-  globalSections,
+  globalSections: globalSectionsProp,
   accountName,
   listOrders,
   total,
@@ -57,27 +58,29 @@ export default function ListOrdersPage({
   filters,
   isRepresentative,
 }: ListOrdersPageProps) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout
-        isRepresentative={isRepresentative}
-        accountName={accountName}
-      >
-        <BeforeSection />
-        <MyAccountListOrders
-          listOrders={listOrders}
-          filters={filters}
-          perPage={perPage}
-          total={total}
-        />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
+          <BeforeSection />
+          <MyAccountListOrders
+            listOrders={listOrders}
+            filters={filters}
+            perPage={perPage}
+            total={total}
+          />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 

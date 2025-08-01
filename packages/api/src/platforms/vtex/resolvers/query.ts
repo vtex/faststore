@@ -4,6 +4,7 @@ import type {
   QueryAllProductsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
+  QueryPickupPointsArgs,
   QueryProductArgs,
   QueryProductCountArgs,
   QueryProfileArgs,
@@ -19,6 +20,7 @@ import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
+import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku } from '../utils/enhanceSku'
@@ -33,7 +35,6 @@ import {
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
-import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { StoreCollection } from './collection'
 
 export const Query = {
@@ -416,6 +417,12 @@ export const Query = {
         ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
       } catch (err: any) {}
 
+      const shopperSearch =
+        (await commerce.masterData.getShopperNameById({
+          userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
+        })) ?? []
+      const shopper = shopperSearch[0] ?? {}
+
       return {
         orderId: order.orderId,
         totals: order.totals,
@@ -433,6 +440,10 @@ export const Query = {
             order.status === 'waiting-for-authorization') &&
           !!ruleForAuthorization,
         ruleForAuthorization,
+        shopperName: {
+          firstName: shopper?.firstName || '',
+          lastName: shopper?.lastName || '',
+        },
       }
     } catch (error) {
       const result = JSON.parse((error as Error).message).error as {
@@ -600,5 +611,20 @@ export const Query = {
       id: user?.id || '',
       // createdAt: '',
     }
+  },
+  pickupPoints: async (
+    _: unknown,
+    { geoCoordinates }: QueryPickupPointsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.checkout.pickupPoints({
+      geoCoordinates,
+    })
+
+    return result
   },
 }

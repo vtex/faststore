@@ -5,6 +5,8 @@ import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEve
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
+import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
+import deepmerge from 'deepmerge'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
@@ -65,11 +67,18 @@ function ProductShelf(props: ProductShelfProps) {
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
+
+  const { deliveryFacets } = useDeliveryPromiseFacets()
+
   const data = useProductsQuery({
     first: numberOfItems,
+    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
+      arrayMerge: overwriteMerge,
+    }),
     ...otherProps,
     after: otherProps.after?.toString(),
   })
+
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
@@ -143,3 +152,6 @@ function ProductShelf(props: ProductShelfProps) {
 }
 
 export default ProductShelf
+
+// Array merging strategy from deepmerge that makes client arrays overwrite server array
+const overwriteMerge = (_: any[], clientArray: any[]) => clientArray

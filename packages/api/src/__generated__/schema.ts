@@ -129,6 +129,16 @@ export type AvailableDeliveryWindows = {
   tax?: Maybe<Scalars['Int']>;
 };
 
+export type BusinessHour = {
+  __typename?: 'BusinessHour';
+  /** Business hour closing time. */
+  closingTime?: Maybe<Scalars['String']>;
+  /** Number that represents the day of the week. */
+  dayOfWeek?: Maybe<Scalars['Int']>;
+  /** Business hour opening time. */
+  openingTime?: Maybe<Scalars['String']>;
+};
+
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   __typename?: 'CommercialAuthorizationDimensionStatus';
@@ -723,6 +733,46 @@ export type PickupAddress = {
   street?: Maybe<Scalars['String']>;
 };
 
+export type PickupPointAddress = {
+  __typename?: 'PickupPointAddress';
+  /** Address city. */
+  city?: Maybe<Scalars['String']>;
+  /** Address neighborhood. */
+  neighborhood?: Maybe<Scalars['String']>;
+  /** Address number. */
+  number?: Maybe<Scalars['String']>;
+  /** Address postal code. */
+  postalCode?: Maybe<Scalars['String']>;
+  /** Address state. */
+  state?: Maybe<Scalars['String']>;
+  /** Address street. */
+  street?: Maybe<Scalars['String']>;
+};
+
+export type PickupPointDistance = {
+  __typename?: 'PickupPointDistance';
+  /** Pickup point address. */
+  address?: Maybe<PickupPointAddress>;
+  /** Pickup point business hours. */
+  businessHours?: Maybe<Array<Maybe<BusinessHour>>>;
+  /** Pickup point distance. */
+  distance?: Maybe<Scalars['Float']>;
+  /** Whether the pickup point is active. */
+  isActive?: Maybe<Scalars['Boolean']>;
+  /** Pickup point ID. */
+  pickupId?: Maybe<Scalars['String']>;
+  /** Pickup point name. */
+  pickupName?: Maybe<Scalars['String']>;
+};
+
+export type PickupPoints = {
+  __typename?: 'PickupPoints';
+  /** List of pickup point distances for the given location. */
+  pickupPointDistances?: Maybe<Array<Maybe<PickupPointDistance>>>;
+  /** Hash of the pickup points data. */
+  pickupPointsHash?: Maybe<Scalars['String']>;
+};
+
 export type PickupStoreInfo = {
   __typename?: 'PickupStoreInfo';
   /** PickupStoreInfo additional information. */
@@ -813,6 +863,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns information about the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
+  /** Returns a list of pickup points near to the given geo coordinates. */
+  pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
@@ -861,6 +913,11 @@ export type QueryListUserOrdersArgs = {
   perPage?: Maybe<Scalars['Int']>;
   status?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPickupPointsArgs = {
+  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
 };
 
 
@@ -1677,6 +1734,7 @@ export type UserOrder = {
   origin?: Maybe<Scalars['String']>;
   packageAttachment?: Maybe<UserOrderPackageAttachment>;
   paymentData?: Maybe<UserOrderPaymentData>;
+  purchaseAgentData?: Maybe<UserOrderPurchaseAgentData>;
   ratesAndBenefitsData?: Maybe<UserOrderRatesAndBenefitsData>;
   roundingError?: Maybe<Scalars['Int']>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
@@ -2307,6 +2365,19 @@ export type UserOrderPriceTag = {
   value?: Maybe<Scalars['Float']>;
 };
 
+export type UserOrderPurchaseAgent = {
+  __typename?: 'UserOrderPurchaseAgent';
+  persona?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  versionId?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderPurchaseAgentData = {
+  __typename?: 'UserOrderPurchaseAgentData';
+  purchaseAgents?: Maybe<Array<Maybe<UserOrderPurchaseAgent>>>;
+};
+
 export type UserOrderRateAndBenefitsIdentifier = {
   __typename?: 'UserOrderRateAndBenefitsIdentifier';
   additionalInfo?: Maybe<Scalars['String']>;
@@ -2360,6 +2431,7 @@ export type UserOrderResult = {
   paymentData?: Maybe<UserOrderPaymentData>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
+  shopperName?: Maybe<UserOrderShopperName>;
   status?: Maybe<Scalars['String']>;
   statusDescription?: Maybe<Scalars['String']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
@@ -2381,6 +2453,12 @@ export type UserOrderShippingData = {
   logisticsInfo?: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>;
   selectedAddresses?: Maybe<Array<Maybe<UserOrderAddress>>>;
   trackingHints?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderShopperName = {
+  __typename?: 'UserOrderShopperName';
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderSlas = {

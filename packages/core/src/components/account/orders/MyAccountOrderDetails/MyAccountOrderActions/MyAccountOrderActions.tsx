@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   Icon as UIIcon,
   useUI,
-  IconButton as UIIconButton,
 } from '@faststore/ui'
 import { useState } from 'react'
 import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
@@ -44,6 +43,8 @@ export default function MyAccountOrderActions({
         message: 'Order canceled successfully',
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
+
+      window.location.reload()
     } catch (error) {
       pushToast({
         status: 'ERROR',
