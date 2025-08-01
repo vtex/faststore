@@ -10,9 +10,6 @@ import { ITEMS_PER_SECTION } from 'src/constants'
 const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
 
-// Array merging strategy from deepmerge that makes client arrays overwrite server array
-const overwriteMerge = (_: any[], clientArray: any[]) => clientArray
-
 export const useLocalizedVariables = ({
   first,
   after,
@@ -22,15 +19,6 @@ export const useLocalizedVariables = ({
   sponsoredCount,
 }: Partial<ClientManyProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
-  const { state: searchState } = useSearch()
-
-  const mergedSelectedFacets = deepmerge(
-    selectedFacets as SearchState['selectedFacets'],
-    searchState.selectedFacets,
-    {
-      arrayMerge: overwriteMerge,
-    }
-  )
 
   return useMemo(() => {
     return {
@@ -39,14 +27,14 @@ export const useLocalizedVariables = ({
       sort: sort ?? ('score_desc' as const),
       term: term ?? '',
       selectedFacets: [
-        ...mergedSelectedFacets,
+        ...toArray(selectedFacets),
         { key: 'channel', value: channel ?? '' },
         { key: 'locale', value: locale },
       ],
       sponsoredCount: sponsoredCount ?? 3,
     }
   }, [
-    mergedSelectedFacets,
+    selectedFacets,
     first,
     after,
     sort,
