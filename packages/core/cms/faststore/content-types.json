@@ -232,21 +232,6 @@
                           "default": "Storefront icon"
                         }
                       }
-                    },
-                    "pickupPointChangeApplyButtonLabel": {
-                      "title": "Change Pickup Point apply button label",
-                      "type": "string",
-                      "default": "Update"
-                    },
-                    "choosePickupPointAriaLabel": {
-                      "title": "Choose Pickup Point aria-label (radio group)",
-                      "type": "string",
-                      "default": "Choose a store"
-                    },
-                    "noPickupPointsAvailableInLocation": {
-                      "title": "No Pickup Point available near location message",
-                      "type": "string",
-                      "default": "No stores near location."
                     }
                   }
                 },
@@ -287,14 +272,43 @@
                     }
                   }
                 },
-                "deliveryOptions": {
-                  "title": "PLP/Search Filter: Delivery Options",
+                "tags": {
+                  "title": "Delivery Promise tags",
                   "type": "object",
+                  "description": "The tag specified in this section will be displayed in product cards. Only one tag can be displayed.",
                   "properties": {
-                    "allDeliveryOptions": {
-                      "title": "All delivery options label",
-                      "type": "string",
-                      "default": "All delivery options"
+                    "enabled": {
+                      "title": "Should enable tags?",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "deliveryOptionTag": {
+                      "title": "Delivery Option tag",
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "title": "Should enable Delivery Option tag?",
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "deliveryOptionId": {
+                          "title": "Delivery Option ID",
+                          "type": "string",
+                          "default": "",
+                          "description": "The unique ID that represents the desired Delivery Option to be displayed as tag on product cards."
+                        }
+                      }
+                    },
+                    "dynamicEstimateTag": {
+                      "title": "Dynamic Estimate tag",
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "title": "Should enable Dynamic Estimate tag?",
+                          "type": "boolean",
+                          "default": false
+                        }
+                      }
                     }
                   }
                 }

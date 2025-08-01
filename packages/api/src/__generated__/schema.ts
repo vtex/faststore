@@ -581,14 +581,6 @@ export type IUserOrderCancel = {
   reason?: Maybe<Scalars['String']>;
 };
 
-export type Item = {
-  __typename?: 'Item';
-  /** Pickup point distance. */
-  distance?: Maybe<Scalars['Float']>;
-  /** Pickup point. */
-  pickupPoint?: Maybe<PickupPoint>;
-};
-
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
@@ -702,18 +694,6 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String'];
   session: IStoreSession;
-};
-
-export type Paging = {
-  __typename?: 'Paging';
-  /** Current page. */
-  page?: Maybe<Scalars['Int']>;
-  /** Number of items per page. */
-  pageSize?: Maybe<Scalars['Int']>;
-  /** Total number of pages. */
-  pages?: Maybe<Scalars['Int']>;
-  /** Total number of items. */
-  total?: Maybe<Scalars['Int']>;
 };
 
 /** Newsletter information. */
@@ -1508,6 +1488,8 @@ export type StoreProduct = {
   sku: Scalars['String'];
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String'];
+  /** Delivery Promise product's tags. */
+  tags?: Maybe<Array<Maybe<Tag>>>;
   /** Sku Unit Multiplier */
   unitMultiplier?: Maybe<Scalars['Float']>;
 };
@@ -1708,6 +1690,17 @@ export type StoreUserDetails = {
   orgUnit?: Maybe<Scalars['String']>;
   /** User's role. */
   role?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+/** Delivery Promise tag. */
+export type Tag = {
+  __typename?: 'Tag';
+  /** Tag name. */
+  name?: Maybe<Scalars['String']>;
+  /** Tag type. */
+  typeName?: Maybe<Scalars['String']>;
+  /** Tag value. */
+  value?: Maybe<Scalars['String']>;
 };
 
 export type UserOrder = {

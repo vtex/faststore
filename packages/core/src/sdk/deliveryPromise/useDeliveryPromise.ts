@@ -10,7 +10,6 @@ import {
 } from '@faststore/sdk'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { useSession } from 'src/sdk/session'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
 
 import { useSession } from 'src/sdk/session'
@@ -41,6 +40,7 @@ export type PickupPoint = {
     number?: string
     postalCode?: string
     city?: string
+    state?: string
   }
   distance?: number
   totalItems?: number
@@ -497,13 +497,6 @@ function withUniqueFacet(facets: Array<BoleanFacet>, facet: BoleanFacet) {
 }
 
 const RADIO_FACETS = ['shipping', 'pickupPoint', 'delivery-options'] as const
-function isRadioFacet(facet: unknown): facet is (typeof RADIO_FACETS)[number] {
-  if (typeof facet !== 'string') return false
-
-  return RADIO_FACETS.some((el) => el === facet)
-}
-
-const RADIO_FACETS = ['shipping', 'pickupPoint'] as const
 function isRadioFacet(facet: unknown): facet is (typeof RADIO_FACETS)[number] {
   if (typeof facet !== 'string') return false
 

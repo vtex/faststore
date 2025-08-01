@@ -583,13 +583,6 @@ export type IUserOrderCancel = {
   reason: InputMaybe<Scalars['String']['input']>
 }
 
-export type Item = {
-  /** Pickup point distance. */
-  distance: Maybe<Scalars['Float']['output']>
-  /** Pickup point. */
-  pickupPoint: Maybe<PickupPoint>
-}
-
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>
@@ -692,17 +685,6 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input']
   session: IStoreSession
-}
-
-export type Paging = {
-  /** Current page. */
-  page: Maybe<Scalars['Int']['output']>
-  /** Number of items per page. */
-  pageSize: Maybe<Scalars['Int']['output']>
-  /** Total number of pages. */
-  pages: Maybe<Scalars['Int']['output']>
-  /** Total number of items. */
-  total: Maybe<Scalars['Int']['output']>
 }
 
 /** Newsletter information. */
@@ -3462,25 +3444,6 @@ export type ClientShippingSimulationQueryQuery = {
   } | null
 }
 
-export type ClientPickupPointsQueryQueryVariables = Exact<{
-  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
-  postalCode: InputMaybe<Scalars['String']['input']>
-  country: InputMaybe<Scalars['String']['input']>
-}>
-
-export type ClientPickupPointsQueryQuery = {
-  pickupPoints: {
-    paging: { total: number | null } | null
-    items: Array<{
-      pickupPoint: {
-        id: string | null
-        friendlyName: string | null
-        address: { street: string | null } | null
-      } | null
-    } | null> | null
-  } | null
-}
-
 export type ServerManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input']
   after: InputMaybe<Scalars['String']['input']>
@@ -4233,15 +4196,6 @@ export const ClientShippingSimulationQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientShippingSimulationQueryQuery,
   ClientShippingSimulationQueryQueryVariables
->
-export const ClientPickupPointsQueryDocument = {
-  __meta__: {
-    operationName: 'ClientPickupPointsQuery',
-    operationHash: '0267c77a87cb0592dfd9a73bad8f632c1801541b',
-  },
-} as unknown as TypedDocumentString<
-  ClientPickupPointsQueryQuery,
-  ClientPickupPointsQueryQueryVariables
 >
 export const ServerManyProductsQueryDocument = {
   __meta__: {
