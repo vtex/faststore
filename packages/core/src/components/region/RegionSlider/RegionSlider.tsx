@@ -404,4 +404,6 @@ function RegionSlider() {
   )
 }
 
+RegionSlider.$componentKey = 'RegionSlider'
+
 export default RegionSlider

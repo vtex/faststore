@@ -143,4 +143,6 @@ function RegionModal(regionModalProps: RegionModalProps) {
   )
 }
 
+RegionModal.$componentKey = 'RegionModal'
+
 export default RegionModal

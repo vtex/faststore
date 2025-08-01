@@ -186,4 +186,6 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
   )
 }
 
+RegionPopover.$componentKey = 'RegionPopover'
+
 export default RegionPopover
