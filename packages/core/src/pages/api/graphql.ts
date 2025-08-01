@@ -1,11 +1,13 @@
 import {
   BadRequestError,
+  UnauthorizedError,
   isFastStoreError,
   stringifyCacheControl,
 } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
+import { getJWTAutCookie } from 'src/utils/getCookie'
 import { execute } from '../../server'
 
 const ONE_MINUTE = 60
@@ -65,6 +67,14 @@ const parseRequest = (request: NextApiRequest) => {
   }
 }
 
+function isExpired(exp: number): boolean {
+  const now = Math.floor(Date.now() / 1000)
+  console.log('🚀 ~ now:', now)
+  console.log('🚀 ~ exp:', exp)
+  console.log('🚀 ~ now > exp:', now > exp)
+  return now > exp
+}
+
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
     response.status(405).end()
@@ -74,6 +84,79 @@ const handler: NextApiHandler = async (request, response) => {
 
   try {
     const { operation, variables, query } = parseRequest(request)
+
+    if (
+      operation.__meta__.operationName === 'ValidateSession' &&
+      discoveryConfig.experimental?.refreshToken
+    ) {
+      const jwt = getJWTAutCookie({
+        headers: request.headers,
+        account: discoveryConfig.api.storeId,
+      })
+      console.log('🚀 ~ API GRAPHQL - jwt:', jwt)
+
+      const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
+      console.log('🚀 ~ API GRAPHQL - tokenExpired:', tokenExpired)
+
+      const refreshAfterExist = !!variables?.session?.refreshAfter
+      console.log(
+        '🚀 ~ API GRAPHQL - variables?.session?.refreshAfter:',
+        variables?.session?.refreshAfter
+      )
+      console.log('🚀 ~ API GRAPHQL - refreshAfterExist:', refreshAfterExist)
+
+      const refreshAfterExpired =
+        refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
+      console.log(
+        '🚀 ~ API GRAPHQL - refreshAfterExpired:',
+        refreshAfterExpired
+      )
+
+      const tokenExistAndIsFirstRefreshTokenRequest =
+        !!jwt && !refreshAfterExist
+      console.log(
+        '🚀 ~ API GRAPHQL - tokenExistAndIsFirstRefreshTokenRequest:',
+        tokenExistAndIsFirstRefreshTokenRequest
+      )
+
+      // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
+      const tokenNotExistAndRefreshAfterExistAndIsExpired =
+        !jwt && !!refreshAfterExist && refreshAfterExpired
+
+      console.log(
+        '🚀 ~ API GRAPHQL - tokenNotExistAndRefreshAfterExistAndIsExpired:',
+        tokenNotExistAndRefreshAfterExistAndIsExpired
+      )
+
+      const tokenExpiredAndRefreshAfterIsNullOrExpired =
+        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
+      console.log(
+        '🚀 ~ tokenExpiredAndRefreshAfterIsNullOrExpired:',
+        tokenExpiredAndRefreshAfterIsNullOrExpired
+      )
+
+      const shouldRefreshToken =
+        tokenExistAndIsFirstRefreshTokenRequest ||
+        tokenNotExistAndRefreshAfterExistAndIsExpired ||
+        tokenExpiredAndRefreshAfterIsNullOrExpired
+      console.log('🚀 ~ API GRAPHQL - shouldRefreshToken:', shouldRefreshToken)
+
+      if (shouldRefreshToken) {
+        throw new UnauthorizedError(
+          'Unauthorized: Token expired. Please login again or refresh the page.'
+        )
+      }
+    }
+
+    // Prevents to call ValidateSession or ValidateCartMutation without session (required) and get GraphQLError
+    const doNotRun =
+      (operation.__meta__.operationName === 'ValidateSession' ||
+        operation.__meta__.operationName === 'ValidateCartMutation') &&
+      !variables?.session
+
+    if (doNotRun) {
+      return
+    }
 
     const { data, errors, extensions } = await execute(
       {
@@ -138,7 +221,13 @@ const handler: NextApiHandler = async (request, response) => {
       return
     }
 
+    if (err instanceof UnauthorizedError) {
+      response.status(401).end()
+      return
+    }
+
     response.status(500).end()
+    return
   }
 }
 
