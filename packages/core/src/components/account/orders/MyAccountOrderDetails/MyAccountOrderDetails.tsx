@@ -79,7 +79,10 @@ export default function MyAccountOrderDetails({
           }
         />
 
-        <MyAccountStatusCard status={order.status as OrderStatusKey} />
+        <MyAccountStatusCard
+          status={order.status as OrderStatusKey}
+          creationDate={order.creationDate}
+        />
 
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
