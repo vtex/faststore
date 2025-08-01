@@ -2423,6 +2423,7 @@ export type UserOrderResult = {
   allowCancellation?: Maybe<Scalars['Boolean']>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
+  creationDate?: Maybe<Scalars['String']>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
