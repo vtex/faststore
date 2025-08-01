@@ -8,6 +8,8 @@ import { textToKebabCase } from 'src/utils/utilities'
 import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
 import deepmerge from 'deepmerge'
 
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+
 const ProductShelfSkeleton = dynamic(
   () =>
     /* webpackChunkName: "ProductShelfSkeleton" */
@@ -44,17 +46,19 @@ export type ProductShelfProps = {
     bordered?: boolean
   }
   inView: boolean
+  products?: ProductSummary_ProductFragment[]
 }
 
-function ProductShelf({
-  title,
-  inView,
-  productCardConfiguration: { bordered, showDiscountBadge } = {},
-  numberOfItems,
-  itemsPerPage = 5,
-  taxesConfiguration = {},
-  ...otherProps
-}: ProductShelfProps) {
+function ProductShelf(props: ProductShelfProps) {
+  const {
+    title,
+    inView,
+    productCardConfiguration: { bordered, showDiscountBadge } = {},
+    numberOfItems,
+    itemsPerPage = 5,
+    taxesConfiguration = {},
+    ...otherProps
+  } = props
   const {
     ProductShelf: ProductShelfWrapper,
     __experimentalCarousel: Carousel,
@@ -63,6 +67,7 @@ function ProductShelf({
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
+
   const { deliveryFacets } = useDeliveryPromiseFacets()
 
   const data = useProductsQuery({
@@ -71,6 +76,7 @@ function ProductShelf({
       arrayMerge: overwriteMerge,
     }),
     ...otherProps,
+    after: otherProps.after?.toString(),
   })
 
   const products = data?.search?.products
@@ -96,15 +102,22 @@ function ProductShelf({
     return null
   }
 
+  const productShelfAttributes: ProductShelfProps = {
+    ...props,
+    products: productEdges.map((edge) => edge.node),
+  }
+
   return (
     <>
-      <h2 className="text__title-section layout__content">{title}</h2>
       <ProductShelfSkeleton
         aspectRatio={aspectRatio}
         loading={products === undefined}
         itemsPerPage={itemsPerPage}
       >
-        <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
+        <ProductShelfWrapper.Component
+          {...productShelfAttributes}
+          {...ProductShelfWrapper.props}
+        >
           <Carousel.Component
             id={titleId || id}
             itemsPerPage={itemsPerPage}
