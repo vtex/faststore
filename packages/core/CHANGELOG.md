@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.70.0](https://github.com/vtex/faststore/compare/v3.69.1...v3.70.0) (2025-08-01)
+
+### Features
+
+- [CP-407] Add support for rendering components based on their $componentKey ([#2915](https://github.com/vtex/faststore/issues/2915)) ([7e679c4](https://github.com/vtex/faststore/commit/7e679c43976ab7f874b73b53e59bfaf0a4e99483))
+
 ## [3.69.1](https://github.com/vtex/faststore/compare/v3.69.0...v3.69.1) (2025-08-01)
 
 ### Bug Fixes
