@@ -271,6 +271,46 @@
                       "default": "Receive Tomorrow"
                     }
                   }
+                },
+                "tags": {
+                  "title": "Delivery Promise tags",
+                  "type": "object",
+                  "description": "The tag specified in this section will be displayed in product cards. Only one tag can be displayed.",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should enable tags?",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "deliveryOptionTag": {
+                      "title": "Delivery Option tag",
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "title": "Should enable Delivery Option tag?",
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "deliveryOptionId": {
+                          "title": "Delivery Option ID",
+                          "type": "string",
+                          "default": "",
+                          "description": "The unique ID that represents the desired Delivery Option to be displayed as tag on product cards."
+                        }
+                      }
+                    },
+                    "dynamicEstimateTag": {
+                      "title": "Dynamic Estimate tag",
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "title": "Should enable Dynamic Estimate tag?",
+                          "type": "boolean",
+                          "default": false
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

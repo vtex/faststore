@@ -2,6 +2,7 @@ import {
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
+  Badge as UIBadge,
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
@@ -12,6 +13,12 @@ import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import {
+  useDeliveryPromise,
+  DYNAMIC_ESTIMATE_FACET_KEY,
+  DELIVERY_OPTIONS_FACET_KEY,
+} from 'src/sdk/deliveryPromise'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 type Variant = 'wide' | 'default'
 
@@ -79,6 +86,18 @@ function ProductCard({
   ...otherProps
 }: ProductCardProps) {
   const {
+    deliveryPromise: {
+      tags: {
+        enabled: isDeliveryPromiseTagsEnabled,
+        deliveryOptionTag,
+        dynamicEstimateTag,
+      } = {},
+    } = {},
+  } = getGlobalSettings()
+  const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
+    useDeliveryPromise()
+
+  const {
     sku,
     isVariantOf: { name },
     image: [img],
@@ -88,7 +107,20 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    tags: productTags,
   } = product
+
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled &&
+    isDeliveryPromiseTagsEnabled &&
+    (deliveryOptionTag?.enabled || dynamicEstimateTag?.enabled)
+  const productDOTag = productTags.find(
+    ({ typeName }) => typeName === DELIVERY_OPTIONS_FACET_KEY
+  )?.name
+  const productDETag = getDynamicEstimateLabel(
+    productTags.find(({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY)
+      ?.value
+  )
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
@@ -130,6 +162,11 @@ function ProductCard({
       {...otherProps}
     >
       <UIProductCardImage aspectRatio={aspectRatio}>
+        {!shouldDisplayDeliveryPromiseTags && (
+          <UIBadge variant="highlighted">
+            {productDOTag ?? productDETag}
+          </UIBadge>
+        )}
         <Image
           src={img.url}
           alt={img.alternateName}
@@ -218,6 +255,12 @@ export const fragment = gql(`
     advertisement {
       adId
       adResponseId
+    }
+
+    tags {
+      typeName
+      value
+      name
     }
   }
 `)

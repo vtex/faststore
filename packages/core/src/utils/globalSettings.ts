@@ -67,6 +67,16 @@ type DeliveryPromiseCmsData = {
     sameDay?: string
     nextDay?: string
   }
+  tags?: {
+    enabled?: boolean
+    deliveryOptionTag?: {
+      enabled?: boolean
+      deliveryOptionId?: string
+    }
+    dynamicEstimateTag?: {
+      enabled?: boolean
+    }
+  }
 }
 
 export function getGlobalSettings(

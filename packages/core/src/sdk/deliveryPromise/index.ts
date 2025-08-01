@@ -4,6 +4,8 @@ export {
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
   SHIPPING_FACET_KEY,
+  DELIVERY_OPTIONS_FACET_KEY,
+  DYNAMIC_ESTIMATE_FACET_KEY,
   useDeliveryPromise,
 } from './useDeliveryPromise'
 export type { DeliveryPromiseStore, PickupPoint } from './useDeliveryPromise'

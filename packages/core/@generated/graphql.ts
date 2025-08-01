@@ -1412,6 +1412,8 @@ export type StoreProduct = {
   sku: Scalars['String']['output']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
+  /** Delivery Promise product's tags. */
+  tags: Maybe<Array<Maybe<Tag>>>
   /** Sku Unit Multiplier */
   unitMultiplier: Maybe<Scalars['Float']['output']>
 }
@@ -1593,6 +1595,16 @@ export type StoreUserDetails = {
   orgUnit: Maybe<Scalars['String']['output']>
   /** User's role. */
   role: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
+/** Delivery Promise tag. */
+export type Tag = {
+  /** Tag name. */
+  name: Maybe<Scalars['String']['output']>
+  /** Tag type. */
+  typeName: Maybe<Scalars['String']['output']>
+  /** Tag value. */
+  value: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrder = {
@@ -2381,6 +2393,11 @@ export type ProductSummary_ProductFragment = {
     valueReference: any
   }>
   advertisement: { adId: string; adResponseId: string } | null
+  tags: Array<{
+    typeName: string | null
+    value: string | null
+    name: string | null
+  } | null> | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -3159,6 +3176,11 @@ export type ClientManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          tags: Array<{
+            typeName: string | null
+            value: string | null
+            name: string | null
+          } | null> | null
         }
       }>
     }
@@ -3318,6 +3340,11 @@ export type ClientSearchSuggestionsQueryQuery = {
           valueReference: any
         }>
         advertisement: { adId: string; adResponseId: string } | null
+        tags: Array<{
+          typeName: string | null
+          value: string | null
+          name: string | null
+        } | null> | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -3470,6 +3497,11 @@ export type ServerManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          tags: Array<{
+            typeName: string | null
+            value: string | null
+            name: string | null
+          } | null> | null
         }
       }>
     }
@@ -3548,6 +3580,11 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   advertisement {
     adId
     adResponseId
+  }
+  tags {
+    typeName
+    value
+    name
   }
 }
     `,
@@ -4091,7 +4128,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '1adc93c70f16173540c50f725ee09a2d67cb85ab',
+    operationHash: 'acb7c7c61cd2932132882c568c92377d51da637b',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -4127,7 +4164,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'b548281d477a173be7b6960434604d69769a97e7',
+    operationHash: 'cb4ec5f0fb1cde3d91371bff189c23d07c500b9d',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -4163,7 +4200,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '5c2181dde311ca80b72e0cc76ac0855d8aa8b51e',
+    operationHash: 'a79681cab707b0fb41ab1ed32a59645720bf368a',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

@@ -1,0 +1,17 @@
+"""
+Delivery Promise tag.
+"""
+type Tag {
+  """
+  Tag type.
+  """
+  typeName: String
+  """
+  Tag value.
+  """
+  value: String
+  """
+  Tag name.
+  """
+  name: String
+}
