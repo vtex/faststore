@@ -40,12 +40,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type SecurityPageProps = {
   accountName: string
+  userEmail: string
 } & MyAccountProps
 
 export default function Page({
   globalSections: globalSectionsProp,
   accountName,
   isRepresentative,
+  userEmail,
 }: SecurityPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -60,7 +62,7 @@ export default function Page({
           accountName={accountName}
         >
           <BeforeSection />
-          <SecuritySection />
+          <SecuritySection userEmail={userEmail} />
           <AfterSection />
         </MyAccountLayout>
       </RenderSections>
@@ -71,6 +73,9 @@ export default function Page({
 const query = gql(`
   query ServerSecurityQuery {
     accountName
+    accountProfile {
+      email
+    }
   }
 `)
 
@@ -144,8 +149,9 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      globalSections: globalSectionsResult,
       accountName: security.data.accountName,
+      userEmail: security.data?.accountProfile.email || '',
+      globalSections: globalSectionsResult,
       isRepresentative,
     },
   }

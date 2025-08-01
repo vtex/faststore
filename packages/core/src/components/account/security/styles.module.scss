@@ -231,6 +231,21 @@
       padding-inline: var(--fs-spacing-1);
     }
 
+    [data-fs-security-drawer-error] {
+      display: flex;
+      gap: var(--fs-spacing-1);
+      align-items: center;
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-regular);
+      color: var(--fs-color-danger-text);
+      background-color: var(--fs-color-danger-background);
+      border-radius: var(--fs-border-radius);
+    }
+
+    [data-fs-security-drawer-error-icon] {
+      flex-shrink: 0;
+    }
+
     @include media("<notebook") {
       [data-fs-security-header] {
         padding-inline: var(--fs-spacing-4);

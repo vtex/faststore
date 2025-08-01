@@ -4,12 +4,13 @@ import { Button } from '@faststore/ui'
 import { SecurityDrawer } from './SecurityDrawer'
 import styles from './styles.module.scss'
 
-export const SecuritySection = () => {
+export const SecuritySection = ({ userEmail }: { userEmail: string }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <>
       {isDrawerOpen && (
         <SecurityDrawer
+          userEmail={userEmail}
           isOpen={isDrawerOpen}
           onClose={() => setIsDrawerOpen(false)}
         />

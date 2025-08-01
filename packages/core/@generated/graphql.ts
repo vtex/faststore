@@ -2856,7 +2856,10 @@ export type ServerProfileQueryQuery = {
 
 export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerSecurityQueryQuery = { accountName: string | null }
+export type ServerSecurityQueryQuery = {
+  accountName: string | null
+  accountProfile: { email: string | null }
+}
 
 export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
@@ -2928,6 +2931,14 @@ export type ProcessOrderAuthorizationMutationMutation = {
       }
     } | null
   } | null
+}
+
+export type SetPasswordMutationVariables = Exact<{
+  data: ISetPassword
+}>
+
+export type SetPasswordMutation = {
+  setPassword: { success: boolean; message: string | null } | null
 }
 
 export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
@@ -4020,7 +4031,7 @@ export const ServerProfileQueryDocument = {
 export const ServerSecurityQueryDocument = {
   __meta__: {
     operationName: 'ServerSecurityQuery',
-    operationHash: '9f24767f16e6e05c168336701a6c6c7b6b5dc1c6',
+    operationHash: '8ea72e6b38ceab209f9bf18e6988ad0811c398e3',
   },
 } as unknown as TypedDocumentString<
   ServerSecurityQueryQuery,
@@ -4052,6 +4063,15 @@ export const ProcessOrderAuthorizationMutationDocument = {
 } as unknown as TypedDocumentString<
   ProcessOrderAuthorizationMutationMutation,
   ProcessOrderAuthorizationMutationMutationVariables
+>
+export const SetPasswordDocument = {
+  __meta__: {
+    operationName: 'SetPassword',
+    operationHash: 'dba55ead0dd71e69688d4ed3f6d0d6c9078b591a',
+  },
+} as unknown as TypedDocumentString<
+  SetPasswordMutation,
+  SetPasswordMutationVariables
 >
 export const ValidateUserDocument = {
   __meta__: {
