@@ -69,6 +69,9 @@ const parseRequest = (request: NextApiRequest) => {
 
 function isExpired(exp: number): boolean {
   const now = Math.floor(Date.now() / 1000)
+  console.log('🚀 ~ now:', now)
+  console.log('🚀 ~ exp:', exp)
+  console.log('🚀 ~ now > exp:', now > exp)
   return now > exp
 }
 
@@ -92,15 +95,33 @@ const handler: NextApiHandler = async (request, response) => {
       })
       console.log('🚀 ~ API GRAPHQL - jwt:', jwt)
 
-      const tokenExpired = jwt && isExpired(Number(jwt?.exp))
+      const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
       console.log('🚀 ~ API GRAPHQL - tokenExpired:', tokenExpired)
 
       const refreshAfterExist = !!variables?.session?.refreshAfter
+      console.log(
+        '🚀 ~ API GRAPHQL - variables?.session?.refreshAfter:',
+        variables?.session?.refreshAfter
+      )
+      console.log('🚀 ~ API GRAPHQL - refreshAfterExist:', refreshAfterExist)
+
       const refreshAfterExpired =
         refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
+      console.log(
+        '🚀 ~ API GRAPHQL - refreshAfterExpired:',
+        refreshAfterExpired
+      )
+
+      const firstRefreshTokenRequest = !!jwt && !refreshAfterExist
+      console.log(
+        '🚀 ~ API GRAPHQL - firstRefreshTokenRequest:',
+        firstRefreshTokenRequest
+      )
 
       const shouldRefreshToken =
-        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
+        firstRefreshTokenRequest ||
+        (tokenExpired && (!refreshAfterExist || refreshAfterExpired))
+      console.log('🚀 ~ API GRAPHQL - shouldRefreshToken:', shouldRefreshToken)
 
       if (shouldRefreshToken) {
         throw new UnauthorizedError(
