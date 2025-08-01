@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.69.1](https://github.com/vtex/faststore/compare/v3.69.0...v3.69.1) (2025-08-01)
+
+### Bug Fixes
+
+- removing unwanted facets on product shelf to prevent duplication… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
+
 # [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
 
 ### Features
