@@ -69,9 +69,6 @@ const parseRequest = (request: NextApiRequest) => {
 
 function isExpired(exp: number): boolean {
   const now = Math.floor(Date.now() / 1000)
-  console.log('🚀 ~ now:', now)
-  console.log('🚀 ~ exp:', exp)
-  console.log('🚀 ~ now > exp:', now > exp)
   return now > exp
 }
 
@@ -93,53 +90,28 @@ const handler: NextApiHandler = async (request, response) => {
         headers: request.headers,
         account: discoveryConfig.api.storeId,
       })
-      console.log('🚀 ~ API GRAPHQL - jwt:', jwt)
 
       const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
-      console.log('🚀 ~ API GRAPHQL - tokenExpired:', tokenExpired)
 
       const refreshAfterExist = !!variables?.session?.refreshAfter
-      console.log(
-        '🚀 ~ API GRAPHQL - variables?.session?.refreshAfter:',
-        variables?.session?.refreshAfter
-      )
-      console.log('🚀 ~ API GRAPHQL - refreshAfterExist:', refreshAfterExist)
 
       const refreshAfterExpired =
         refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
-      console.log(
-        '🚀 ~ API GRAPHQL - refreshAfterExpired:',
-        refreshAfterExpired
-      )
 
       const tokenExistAndIsFirstRefreshTokenRequest =
         !!jwt && !refreshAfterExist
-      console.log(
-        '🚀 ~ API GRAPHQL - tokenExistAndIsFirstRefreshTokenRequest:',
-        tokenExistAndIsFirstRefreshTokenRequest
-      )
 
       // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
       const tokenNotExistAndRefreshAfterExistAndIsExpired =
         !jwt && !!refreshAfterExist && refreshAfterExpired
 
-      console.log(
-        '🚀 ~ API GRAPHQL - tokenNotExistAndRefreshAfterExistAndIsExpired:',
-        tokenNotExistAndRefreshAfterExistAndIsExpired
-      )
-
       const tokenExpiredAndRefreshAfterIsNullOrExpired =
         tokenExpired && (!refreshAfterExist || refreshAfterExpired)
-      console.log(
-        '🚀 ~ tokenExpiredAndRefreshAfterIsNullOrExpired:',
-        tokenExpiredAndRefreshAfterIsNullOrExpired
-      )
 
       const shouldRefreshToken =
         tokenExistAndIsFirstRefreshTokenRequest ||
         tokenNotExistAndRefreshAfterExistAndIsExpired ||
         tokenExpiredAndRefreshAfterIsNullOrExpired
-      console.log('🚀 ~ API GRAPHQL - shouldRefreshToken:', shouldRefreshToken)
 
       if (shouldRefreshToken) {
         throw new UnauthorizedError(

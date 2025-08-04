@@ -130,23 +130,18 @@ export const validateSession = async (session: Session) => {
       error?.status === 401 && storeConfig.experimental?.refreshToken
     // && process.env.NODE_ENV === 'production'
 
-    console.log('🚀 ~ shouldRefreshToken:', shouldRefreshToken)
-
     if (shouldRefreshToken) {
       const headers: HeadersInit = {
         'content-type': 'application/json',
         Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
       }
 
-      console.log('🚀 ~ headers:', headers)
       const result = await fetchWithRetry(REFRESH_TOKEN_URL, {
         credentials: 'include',
         headers,
         body: JSON.stringify({}),
         method: 'POST',
       })
-
-      console.log('🚀 ~ REFRESH TOKEN result:', result)
 
       if (result?.status?.toLowerCase?.() === 'success') {
         const refreshAfter = String(
@@ -167,7 +162,6 @@ export const validateSession = async (session: Session) => {
           ...session,
           refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
         })
-        console.log('🚀 ~ sessionStore.read():', sessionStore.read())
       }
     }
   }
@@ -232,11 +226,9 @@ async function fetchWithRetry(
   for (let i = 0; i < maxRetries; i++) {
     try {
       const res = await fetch(url, init)
-      console.log('🚀 ~ res:', res)
       if (res.status !== 200) continue
 
       const data = await res.json()
-      console.log('🚀 ~ data:', data)
       if (data.status?.toLowerCase?.() === 'success') {
         return data
       }
