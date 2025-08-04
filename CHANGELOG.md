@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.70.1](https://github.com/vtex/faststore/compare/v3.70.0...v3.70.1) (2025-08-04)
+
+### Bug Fixes
+
+- Using SEO product name and description input if available ([#2969](https://github.com/vtex/faststore/issues/2969)) ([590000d](https://github.com/vtex/faststore/commit/590000d63539e0ce476018027a7ed2fdd2589c45)), closes [#2701](https://github.com/vtex/faststore/issues/2701)
+
 # [3.70.0](https://github.com/vtex/faststore/compare/v3.69.1...v3.70.0) (2025-08-01)
 
 ### Features
