@@ -20,8 +20,8 @@ interface VariationProductColumn {
     label: string
     stockDisplaySettings: 'showStockQuantity' | 'showAvailability'
   }
-  price: number
-  quantitySelector: number
+  price: string
+  quantitySelector: string
 }
 
 const ImageComponentFallback: SKUMatrixSidebarProps['ImageComponent'] = ({
