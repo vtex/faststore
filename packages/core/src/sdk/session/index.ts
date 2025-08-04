@@ -128,7 +128,6 @@ export const validateSession = async (session: Session) => {
   } catch (error) {
     const shouldRefreshToken =
       error?.status === 401 && storeConfig.experimental?.refreshToken
-    // && process.env.NODE_ENV === 'production'
 
     if (shouldRefreshToken) {
       const headers: HeadersInit = {
@@ -152,9 +151,6 @@ export const validateSession = async (session: Session) => {
           ...session,
           refreshAfter,
         })
-
-        // Revalidate the session after refreshing the token
-        // validateSession(sessionStore.read())
       } else {
         // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
         // so that we can postpone refreshToken request and continue the ValidateSession request
