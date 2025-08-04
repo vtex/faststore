@@ -1255,7 +1255,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String']['output']
   /** Number of items with this facet. */
-  quantity: Scalars['Int']['output']
+  quantity: Maybe<Scalars['Int']['output']>
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean']['output']
   /** Facet value. */
@@ -2409,7 +2409,7 @@ type Filter_Facets_StoreFacetBoolean_Fragment = {
     label: string
     value: string
     selected: boolean
-    quantity: number
+    quantity: number | null
   }>
 }
 
@@ -3205,7 +3205,7 @@ export type ClientProductGalleryQueryQuery = {
             label: string
             value: string
             selected: boolean
-            quantity: number
+            quantity: number | null
           }>
         }
       | {
