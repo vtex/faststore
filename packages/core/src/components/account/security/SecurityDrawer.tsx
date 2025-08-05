@@ -15,9 +15,9 @@ import styles from './styles.module.scss'
 
 type SecurityDrawerProps = {
   userEmail: string
-  accountName: string
   isOpen: boolean
   onClose: () => void
+  accountName?: string
 }
 
 const validations = [

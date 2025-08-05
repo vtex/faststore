@@ -68,7 +68,7 @@ export default function Page({
             accountName={accountName}
           >
             <BeforeSection />
-            <SecuritySection userEmail={userEmail} accountName={accountName} />
+            <SecuritySection userEmail={userEmail} />
             <AfterSection />
           </MyAccountLayout>
         </RenderSections>

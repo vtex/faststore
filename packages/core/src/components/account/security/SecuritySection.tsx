@@ -4,7 +4,7 @@ import { Button } from '@faststore/ui'
 import { SecurityDrawer } from './SecurityDrawer'
 import styles from './styles.module.scss'
 
-type SecuritySectionProps = { userEmail: string; accountName: string }
+type SecuritySectionProps = { userEmail: string; accountName?: string }
 
 export const SecuritySection = ({
   userEmail,
