@@ -44,7 +44,7 @@ export const SecurityDrawer = ({
 
   const [formError, setFormError] = useState<string | null>(null)
 
-  const { setPassword, data, loading, error } = useSetPassword(accountName)
+  const { setPassword, loading, error } = useSetPassword(accountName)
 
   const newPasswordValidations = validations.map((rule) => ({
     label: rule.label,
@@ -79,13 +79,17 @@ export const SecurityDrawer = ({
     }
 
     try {
-      await setPassword({ userEmail, currentPassword, newPassword })
+      const data = await setPassword({
+        userEmail,
+        currentPassword,
+        newPassword,
+      })
 
-      if (!!error || !data?.success) {
+      if (!data.success) {
         pushToast({
           title: 'Error setting password',
           status: 'ERROR',
-          message: `Failed to set password: ${error?.message || data.message}`,
+          message: `Failed to set password: ${data.message}`,
           icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
         })
 
@@ -103,10 +107,11 @@ export const SecurityDrawer = ({
         handleClose()
       }
     } catch (error) {
+      console.error('Error setting password:', error)
       pushToast({
         title: 'Error setting password',
         status: 'ERROR',
-        message: `Failed to set password: ${error?.message}`,
+        message: `Failed to set password.`,
         icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
