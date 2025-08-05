@@ -170,11 +170,24 @@
 
     [data-fs-shipping-step-details] {
       display: flex;
+      flex-direction: row;
+      gap: var(--fs-spacing-1);
       font-size: var(--fs-order-status-step-details-size);
       color: var(--fs-color-text-light);
 
       @include media(">=notebook") {
         flex-direction: column;
+        gap: var(--fs-spacing-0);
+      }
+
+      [data-fs-shipping-step-date] {
+        font-size: var(--fs-order-status-step-details-size);
+        color: var(--fs-color-text-light);
+      }
+
+      [data-fs-shipping-step-time] {
+        font-size: var(--fs-order-status-step-details-size);
+        color: var(--fs-color-text-light);
       }
     }
 

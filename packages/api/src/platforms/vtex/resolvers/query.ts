@@ -425,6 +425,7 @@ export const Query = {
 
       return {
         orderId: order.orderId,
+        creationDate: order.creationDate,
         totals: order.totals,
         items: order.items,
         shippingData: order.shippingData,
