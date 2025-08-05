@@ -687,6 +687,31 @@ export const VtexCommerce = (
           {}
         )
       },
+      getShopperNameById: ({
+        userId,
+      }: { userId: string }): Promise<
+        Array<{
+          firstName: string
+          lastName: string
+        }>
+      > => {
+        if (!userId) {
+          throw new Error('Missing userId to fetch shopper name')
+        }
+
+        const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
+
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
     },
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {

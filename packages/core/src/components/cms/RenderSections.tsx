@@ -19,7 +19,7 @@ import ViewportObserver from './ViewportObserver'
 interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
-  sections?: Array<{ name: string; data: any }>
+  sections?: Array<{ name: string; data: any; $componentKey?: string }>
   isInteractive?: boolean
 }
 
@@ -106,13 +106,14 @@ export const RenderSectionsBase = ({
 }: Props) => {
   return (
     <>
-      {sections.map(({ name, data = {} }, index) => {
-        const Component = components[name]
+      {sections.map(({ name, data = {}, $componentKey }, index) => {
+        const key = $componentKey ?? name
+        const Component = components[key]
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
           console.warn(
-            `${name} not found. Add a new component for this section or remove it from the CMS`
+            `${key} not found. Add a new component for this section or remove it from the CMS`
           )
 
           return null

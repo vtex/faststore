@@ -5,6 +5,8 @@ import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEve
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
+import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
+import deepmerge from 'deepmerge'
 
 const ProductShelfSkeleton = dynamic(
   () =>
@@ -61,7 +63,16 @@ function ProductShelf({
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const data = useProductsQuery({ first: numberOfItems, ...otherProps })
+  const { deliveryFacets } = useDeliveryPromiseFacets()
+
+  const data = useProductsQuery({
+    first: numberOfItems,
+    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
+      arrayMerge: overwriteMerge,
+    }),
+    ...otherProps,
+  })
+
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
@@ -128,3 +139,6 @@ function ProductShelf({
 }
 
 export default ProductShelf
+
+// Array merging strategy from deepmerge that makes client arrays overwrite server array
+const overwriteMerge = (_: any[], clientArray: any[]) => clientArray

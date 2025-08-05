@@ -81,6 +81,7 @@ const query = gql(`
   query ServerOrderDetailsQuery($orderId: String!) {
     userOrder(orderId: $orderId) {
       orderId
+      creationDate
       status
       canProcessOrderAuthorization
       statusDescription
@@ -248,6 +249,10 @@ const query = gql(`
         id
         name
         value
+      }
+      shopperName {
+        firstName
+        lastName
       }
     }
     accountName

@@ -1734,6 +1734,7 @@ export type UserOrder = {
   origin?: Maybe<Scalars['String']>;
   packageAttachment?: Maybe<UserOrderPackageAttachment>;
   paymentData?: Maybe<UserOrderPaymentData>;
+  purchaseAgentData?: Maybe<UserOrderPurchaseAgentData>;
   ratesAndBenefitsData?: Maybe<UserOrderRatesAndBenefitsData>;
   roundingError?: Maybe<Scalars['Int']>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
@@ -2364,6 +2365,19 @@ export type UserOrderPriceTag = {
   value?: Maybe<Scalars['Float']>;
 };
 
+export type UserOrderPurchaseAgent = {
+  __typename?: 'UserOrderPurchaseAgent';
+  persona?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+  versionId?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderPurchaseAgentData = {
+  __typename?: 'UserOrderPurchaseAgentData';
+  purchaseAgents?: Maybe<Array<Maybe<UserOrderPurchaseAgent>>>;
+};
+
 export type UserOrderRateAndBenefitsIdentifier = {
   __typename?: 'UserOrderRateAndBenefitsIdentifier';
   additionalInfo?: Maybe<Scalars['String']>;
@@ -2409,6 +2423,7 @@ export type UserOrderResult = {
   allowCancellation?: Maybe<Scalars['Boolean']>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
+  creationDate?: Maybe<Scalars['String']>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
@@ -2417,6 +2432,7 @@ export type UserOrderResult = {
   paymentData?: Maybe<UserOrderPaymentData>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
+  shopperName?: Maybe<UserOrderShopperName>;
   status?: Maybe<Scalars['String']>;
   statusDescription?: Maybe<Scalars['String']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
@@ -2438,6 +2454,12 @@ export type UserOrderShippingData = {
   logisticsInfo?: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>;
   selectedAddresses?: Maybe<Array<Maybe<UserOrderAddress>>>;
   trackingHints?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderShopperName = {
+  __typename?: 'UserOrderShopperName';
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderSlas = {

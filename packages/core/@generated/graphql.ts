@@ -2629,6 +2629,7 @@ export type ServerOrderDetailsQueryQuery = {
   accountName: string | null
   userOrder: {
     orderId: string | null
+    creationDate: string | null
     status: string | null
     canProcessOrderAuthorization: boolean | null
     statusDescription: string | null
@@ -2790,6 +2791,7 @@ export type ServerOrderDetailsQueryQuery = {
       name: string | null
       value: number | null
     } | null> | null
+    shopperName: { firstName: string | null; lastName: string | null } | null
   } | null
 }
 
@@ -3996,7 +3998,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '4758ccbf776bfa5d9b9f15f92bee6ecb78706b20',
+    operationHash: 'ba4e1865d9840cb386fa6d646a51f275cd991bfa',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

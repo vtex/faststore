@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.71.0](https://github.com/vtex/faststore/compare/v3.70.2...v3.71.0) (2025-08-05)
+
+### Features
+
+- show creation date for first step in status card ([#2971](https://github.com/vtex/faststore/issues/2971)) ([e9a79ac](https://github.com/vtex/faststore/commit/e9a79acf14c7a518cc7e587a8e36eec332e72a08))
+
+## [3.70.2](https://github.com/vtex/faststore/compare/v3.70.1...v3.70.2) (2025-08-05)
+
+### Bug Fixes
+
+- Quick Order typings ([#2974](https://github.com/vtex/faststore/issues/2974)) ([e28c523](https://github.com/vtex/faststore/commit/e28c523bdc83273ad7cbb7d08cfdeb99ad676ede))
+
+## [3.70.1](https://github.com/vtex/faststore/compare/v3.70.0...v3.70.1) (2025-08-04)
+
+### Bug Fixes
+
+- Using SEO product name and description input if available ([#2969](https://github.com/vtex/faststore/issues/2969)) ([590000d](https://github.com/vtex/faststore/commit/590000d63539e0ce476018027a7ed2fdd2589c45)), closes [#2701](https://github.com/vtex/faststore/issues/2701)
+
+# [3.70.0](https://github.com/vtex/faststore/compare/v3.69.1...v3.70.0) (2025-08-01)
+
+### Features
+
+- [CP-407] Add support for rendering components based on their $componentKey ([#2915](https://github.com/vtex/faststore/issues/2915)) ([7e679c4](https://github.com/vtex/faststore/commit/7e679c43976ab7f874b73b53e59bfaf0a4e99483))
+
+## [3.69.1](https://github.com/vtex/faststore/compare/v3.69.0...v3.69.1) (2025-08-01)
+
+### Bug Fixes
+
+- removing unwanted facets on product shelf to prevent duplication… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
+
+# [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
+
+### Features
+
+- add shopper name data to user order page ([#2967](https://github.com/vtex/faststore/issues/2967)) ([6b2eb05](https://github.com/vtex/faststore/commit/6b2eb05e6590363c1a91ff1e802784606a0b1917))
+
+## [3.68.2](https://github.com/vtex/faststore/compare/v3.68.1...v3.68.2) (2025-07-29)
+
+### Bug Fixes
+
+- cancel order withAutCookie SFS-2684 ([#2954](https://github.com/vtex/faststore/issues/2954)) ([f0e4cca](https://github.com/vtex/faststore/commit/f0e4cca07932d02b884993a7fa7db83489f91ef2))
+
 ## [3.68.1](https://github.com/vtex/faststore/compare/v3.68.0...v3.68.1) (2025-07-29)
 
 ### Bug Fixes

@@ -59,10 +59,23 @@ type UserOrder {
   customFields: [UserOrderCustomFieldsGrouped]
   canProcessOrderAuthorization: Boolean
   ruleForAuthorization: ProcessOrderAuthorizationRule
+  purchaseAgentData: UserOrderPurchaseAgentData
+}
+
+type UserOrderPurchaseAgentData {
+  purchaseAgents: [UserOrderPurchaseAgent]
+}
+
+type UserOrderPurchaseAgent {
+  userId: String
+  versionId: String
+  persona: String
+  unitId: String
 }
 
 type UserOrderResult {
   orderId: String
+  creationDate: String
   status: String
   canProcessOrderAuthorization: Boolean
   statusDescription: String
@@ -77,6 +90,12 @@ type UserOrderResult {
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
   ruleForAuthorization: ProcessOrderAuthorizationRule
+  shopperName: UserOrderShopperName
+}
+
+type UserOrderShopperName {
+  firstName: String
+  lastName: String
 }
 
 type UserOrderListResult {
