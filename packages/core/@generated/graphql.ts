@@ -571,6 +571,8 @@ export type IStoreSession = {
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
   postalCode: InputMaybe<Scalars['String']['input']>
+  /** Refresh token after Information. */
+  refreshAfter: InputMaybe<Scalars['String']['input']>
 }
 
 /** Input to the cancel order API. */
@@ -1543,6 +1545,8 @@ export type StoreSession = {
   person: Maybe<StorePerson>
   /** Session postal code. */
   postalCode: Maybe<Scalars['String']['output']>
+  /** Refresh token after Information. */
+  refreshAfter: Maybe<Scalars['String']['output']>
 }
 
 /** Product search results sorting options. */
@@ -3372,6 +3376,7 @@ export type ValidateSessionMutation = {
     addressType: string | null
     postalCode: string | null
     city: string | null
+    refreshAfter: string | null
     deliveryMode: {
       deliveryChannel: string
       deliveryMethod: string
@@ -4166,7 +4171,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '259dd10b1c65ce4b20c9181feb7bec85ecb402e6',
+    operationHash: '5da2700f5a69ee8835b1cb6c69e14f4b6e12c4df',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

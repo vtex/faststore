@@ -19,6 +19,7 @@ const initialSession: Session = {
   person: null,
   b2b: null,
   marketingData: null,
+  refreshAfter: null,
 }
 
 test('Session Provider: Set initial session values', async () => {
