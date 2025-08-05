@@ -111,7 +111,7 @@ export function useDeliveryPromise({
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
   const isDynamicEstimateEnabled =
     deliveryPromiseSettings?.dynamicEstimate?.enabled ?? false
-  const isInStockEnabled = deliveryPromiseSettings?.inStock?.enabled ?? true
+  const isInStockEnabled = deliveryPromiseSettings?.inStock?.enabled ?? false
 
   const selectedFacets = useMemo(
     () => selectedFilterFacets ?? searchState.selectedFacets,
