@@ -1638,6 +1638,7 @@ export type UserOrder = {
   origin: Maybe<Scalars['String']['output']>
   packageAttachment: Maybe<UserOrderPackageAttachment>
   paymentData: Maybe<UserOrderPaymentData>
+  purchaseAgentData: Maybe<UserOrderPurchaseAgentData>
   ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>
   roundingError: Maybe<Scalars['Int']['output']>
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
@@ -2212,6 +2213,17 @@ export type UserOrderPriceTag = {
   value: Maybe<Scalars['Float']['output']>
 }
 
+export type UserOrderPurchaseAgent = {
+  persona: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+  userId: Maybe<Scalars['String']['output']>
+  versionId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderPurchaseAgentData = {
+  purchaseAgents: Maybe<Array<Maybe<UserOrderPurchaseAgent>>>
+}
+
 export type UserOrderRateAndBenefitsIdentifier = {
   additionalInfo: Maybe<Scalars['String']['output']>
   description: Maybe<Scalars['String']['output']>
@@ -2253,6 +2265,7 @@ export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
   canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
+  creationDate: Maybe<Scalars['String']['output']>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
   deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
@@ -2261,6 +2274,7 @@ export type UserOrderResult = {
   paymentData: Maybe<UserOrderPaymentData>
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   shippingData: Maybe<UserOrderShippingData>
+  shopperName: Maybe<UserOrderShopperName>
   status: Maybe<Scalars['String']['output']>
   statusDescription: Maybe<Scalars['String']['output']>
   storePreferencesData: Maybe<UserOrderStorePreferencesData>
@@ -2280,6 +2294,11 @@ export type UserOrderShippingData = {
   logisticsInfo: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>
   selectedAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
   trackingHints: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderShopperName = {
+  firstName: Maybe<Scalars['String']['output']>
+  lastName: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderSlas = {
@@ -2835,11 +2854,11 @@ export type ServerProfileQueryQuery = {
   }
 }
 
-export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
+export type ServerSecurityQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerSecurityQueryQuery = {
+export type ServerSecurityQuery = {
   accountName: string | null
-  accountProfile: { email: string | null }
+  userDetails: { email: string | null }
 }
 
 export type ServerUserDetailsQueryQueryVariables = Exact<{
@@ -2912,14 +2931,6 @@ export type ProcessOrderAuthorizationMutationMutation = {
       }
     } | null
   } | null
-}
-
-export type SetPasswordMutationVariables = Exact<{
-  data: ISetPassword
-}>
-
-export type SetPasswordMutation = {
-  setPassword: { success: boolean; message: string | null } | null
 }
 
 export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
@@ -4009,14 +4020,14 @@ export const ServerProfileQueryDocument = {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables
 >
-export const ServerSecurityQueryDocument = {
+export const ServerSecurityDocument = {
   __meta__: {
-    operationName: 'ServerSecurityQuery',
-    operationHash: '8ea72e6b38ceab209f9bf18e6988ad0811c398e3',
+    operationName: 'ServerSecurity',
+    operationHash: '63c6eadbe8b77c0c3c91406589755accba5cf155',
   },
 } as unknown as TypedDocumentString<
-  ServerSecurityQueryQuery,
-  ServerSecurityQueryQueryVariables
+  ServerSecurityQuery,
+  ServerSecurityQueryVariables
 >
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
@@ -4044,15 +4055,6 @@ export const ProcessOrderAuthorizationMutationDocument = {
 } as unknown as TypedDocumentString<
   ProcessOrderAuthorizationMutationMutation,
   ProcessOrderAuthorizationMutationMutationVariables
->
-export const SetPasswordDocument = {
-  __meta__: {
-    operationName: 'SetPassword',
-    operationHash: 'dba55ead0dd71e69688d4ed3f6d0d6c9078b591a',
-  },
-} as unknown as TypedDocumentString<
-  SetPasswordMutation,
-  SetPasswordMutationVariables
 >
 export const ValidateUserDocument = {
   __meta__: {

@@ -1,6 +1,7 @@
 /* ######################################### */
 /* Mocked Page until development is finished, it will be removed after */
 
+import Head from 'next/head'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
@@ -15,8 +16,8 @@ import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
 import { gql } from '@generated/gql'
 import type {
-  ServerSecurityQueryQuery,
-  ServerSecurityQueryQueryVariables,
+  ServerSecurityQuery,
+  ServerSecurityQueryVariables,
 } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
@@ -53,27 +54,33 @@ export default function Page({
     globalSectionsProp ?? {}
 
   return (
-    <PageProvider context={{ globalSettings }}>
-      <RenderSections globalSections={globalSections} components={COMPONENTS}>
-        <NextSeo noindex nofollow />
+    <>
+      <Head>
+        <title>Security | {accountName}</title>
+      </Head>
 
-        <MyAccountLayout
-          isRepresentative={isRepresentative}
-          accountName={accountName}
-        >
-          <BeforeSection />
-          <SecuritySection userEmail={userEmail} />
-          <AfterSection />
-        </MyAccountLayout>
-      </RenderSections>
-    </PageProvider>
+      <PageProvider context={{ globalSettings }}>
+        <RenderSections globalSections={globalSections} components={COMPONENTS}>
+          <NextSeo noindex nofollow />
+
+          <MyAccountLayout
+            isRepresentative={isRepresentative}
+            accountName={accountName}
+          >
+            <BeforeSection />
+            <SecuritySection userEmail={userEmail} accountName={accountName} />
+            <AfterSection />
+          </MyAccountLayout>
+        </RenderSections>
+      </PageProvider>
+    </>
   )
 }
 
 const query = gql(`
-  query ServerSecurityQuery {
+  query ServerSecurity {
     accountName
-    accountProfile {
+    userDetails {
       email
     }
   }
@@ -116,7 +123,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const [security, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      execute<ServerSecurityQueryQueryVariables, ServerSecurityQueryQuery>(
+      execute<ServerSecurityQueryVariables, ServerSecurityQuery>(
         {
           variables: {},
           operation: query,
@@ -150,7 +157,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       accountName: security.data.accountName,
-      userEmail: security.data?.accountProfile.email || '',
+      userEmail: security.data?.userDetails.email || '',
       globalSections: globalSectionsResult,
       isRepresentative,
     },

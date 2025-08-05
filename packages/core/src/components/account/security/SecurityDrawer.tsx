@@ -15,6 +15,7 @@ import styles from './styles.module.scss'
 
 type SecurityDrawerProps = {
   userEmail: string
+  accountName: string
   isOpen: boolean
   onClose: () => void
 }
@@ -28,6 +29,7 @@ const validations = [
 
 export const SecurityDrawer = ({
   userEmail,
+  accountName,
   isOpen,
   onClose,
 }: SecurityDrawerProps) => {
@@ -42,7 +44,7 @@ export const SecurityDrawer = ({
 
   const [formError, setFormError] = useState<string | null>(null)
 
-  const { setPassword, loading, error } = useSetPassword()
+  const { setPassword, data, loading, error } = useSetPassword(accountName)
 
   const newPasswordValidations = validations.map((rule) => ({
     label: rule.label,
@@ -77,17 +79,9 @@ export const SecurityDrawer = ({
     }
 
     try {
-      const { setPassword: data } = await setPassword({
-        data: {
-          email: userEmail,
-          newPassword,
-          currentPassword,
-          accesskey: undefined, // Accesskey is optional
-          recaptcha: undefined, // Recaptcha is optional
-        },
-      })
+      await setPassword({ userEmail, currentPassword, newPassword })
 
-      if (!!error || data.success === false) {
+      if (error && error instanceof Error) {
         pushToast({
           title: 'Error setting password',
           status: 'ERROR',
@@ -235,7 +229,7 @@ export const SecurityDrawer = ({
           data-fs-security-drawer-footer-button
           variant="primary"
           loading={loading}
-          disabled={!currentPassword || !newPassword || !allValid}
+          disabled={loading || !currentPassword || !newPassword || !allValid}
           onClick={handleSetPassword}
         >
           Save Password

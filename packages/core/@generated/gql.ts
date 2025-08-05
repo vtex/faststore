@@ -50,16 +50,14 @@ const documents = {
     types.ServerListOrdersQueryDocument,
   '\n  query ServerProfileQuery {\n    accountName\n    accountProfile {\n      name\n      email\n      id\n    }\n  }\n':
     types.ServerProfileQueryDocument,
-  '\n  query ServerSecurityQuery {\n    accountName\n    accountProfile {\n      email\n    }\n  }\n':
-    types.ServerSecurityQueryDocument,
+  '\n  query ServerSecurity {\n    accountName\n    userDetails {\n      email\n    }\n  }\n':
+    types.ServerSecurityDocument,
   '\n  query ServerUserDetailsQuery {\n    accountName\n    userDetails {\n      name\n      email\n      role\n      orgUnit\n    }\n  }\n':
     types.ServerUserDetailsQueryDocument,
   '\n  mutation CancelOrderMutation($data: IUserOrderCancel!) {\n    cancelOrder(data: $data) {\n      data\n    }\n  }\n':
     types.CancelOrderMutationDocument,
   '\n  mutation ProcessOrderAuthorizationMutation($data: IProcessOrderAuthorization!) {\n    processOrderAuthorization(data: $data) {\n      isPendingForOtherAuthorizer\n      ruleForAuthorization {\n        orderAuthorizationId\n        dimensionId\n        rule {\n          id\n          name\n          status\n          doId\n          authorizedEmails\n          priority\n          trigger {\n            condition {\n              conditionType\n              description\n              lessThan\n              greatherThan\n              expression\n            }\n            effect {\n              description\n              effectType\n              funcPath\n            }\n          }\n          timeout\n          notification\n          scoreInterval {\n            accept\n            deny\n          }\n          authorizationData {\n            requireAllApprovals\n            authorizers {\n              id\n              email\n              type\n              authorizationDate\n            }\n          }\n          isUserAuthorized\n          isUserNextAuthorizer\n        }\n      }\n    }\n  }\n':
     types.ProcessOrderAuthorizationMutationDocument,
-  '\n  mutation SetPassword($data: ISetPassword!) {\n    setPassword(data: $data) {\n      success\n      message\n    }\n  }\n':
-    types.SetPasswordDocument,
   '\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n':
     types.ValidateUserDocument,
   '\n  mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {\n    validateCart(cart: $cart, session: $session) {\n      order {\n        orderNumber\n        acceptedOffer {\n          ...CartItem\n        }\n        shouldSplitItem\n      }\n      messages {\n        ...CartMessage\n      }\n    }\n  }\n\n  fragment CartMessage on StoreCartMessage {\n    text\n    status\n  }\n\n  fragment CartItem on StoreOffer {\n    seller {\n      identifier\n    }\n    quantity\n    price\n    priceWithTaxes\n    listPrice\n    listPriceWithTaxes\n    itemOffered {\n      ...CartProductItem\n    }\n  }\n\n  fragment CartProductItem on StoreProduct {\n    sku\n    name\n    unitMultiplier\n    image {\n      url\n      alternateName\n    }\n    brand {\n      name\n    }\n    isVariantOf {\n      productGroupID\n      name\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n      }\n    }\n    gtin\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n  }\n':
@@ -210,8 +208,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ServerSecurityQuery {\n    accountName\n    accountProfile {\n      email\n    }\n  }\n'
-): typeof import('./graphql').ServerSecurityQueryDocument
+  source: '\n  query ServerSecurity {\n    accountName\n    userDetails {\n      email\n    }\n  }\n'
+): typeof import('./graphql').ServerSecurityDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -230,12 +228,6 @@ export function gql(
 export function gql(
   source: '\n  mutation ProcessOrderAuthorizationMutation($data: IProcessOrderAuthorization!) {\n    processOrderAuthorization(data: $data) {\n      isPendingForOtherAuthorizer\n      ruleForAuthorization {\n        orderAuthorizationId\n        dimensionId\n        rule {\n          id\n          name\n          status\n          doId\n          authorizedEmails\n          priority\n          trigger {\n            condition {\n              conditionType\n              description\n              lessThan\n              greatherThan\n              expression\n            }\n            effect {\n              description\n              effectType\n              funcPath\n            }\n          }\n          timeout\n          notification\n          scoreInterval {\n            accept\n            deny\n          }\n          authorizationData {\n            requireAllApprovals\n            authorizers {\n              id\n              email\n              type\n              authorizationDate\n            }\n          }\n          isUserAuthorized\n          isUserNextAuthorizer\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ProcessOrderAuthorizationMutationDocument
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
-  source: '\n  mutation SetPassword($data: ISetPassword!) {\n    setPassword(data: $data) {\n      success\n      message\n    }\n  }\n'
-): typeof import('./graphql').SetPasswordDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
