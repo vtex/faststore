@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.70.2](https://github.com/vtex/faststore/compare/v3.70.1...v3.70.2) (2025-08-05)
+
+### Bug Fixes
+
+- Quick Order typings ([#2974](https://github.com/vtex/faststore/issues/2974)) ([e28c523](https://github.com/vtex/faststore/commit/e28c523bdc83273ad7cbb7d08cfdeb99ad676ede))
+
 ## [3.70.1](https://github.com/vtex/faststore/compare/v3.70.0...v3.70.1) (2025-08-04)
 
 ### Bug Fixes
