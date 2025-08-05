@@ -114,11 +114,11 @@ function ProductCard({
     isDeliveryPromiseEnabled &&
     isDeliveryPromiseTagsEnabled &&
     (deliveryOptionTag?.enabled || dynamicEstimateTag?.enabled)
-  const productDOTag = productTags.find(
+  const productDOTag = productTags?.find(
     ({ typeName }) => typeName === DELIVERY_OPTIONS_FACET_KEY
   )?.name
   const productDETag = getDynamicEstimateLabel(
-    productTags.find(({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY)
+    productTags?.find(({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY)
       ?.value
   )
 

@@ -275,7 +275,7 @@
                 "tags": {
                   "title": "Delivery Promise tags",
                   "type": "object",
-                  "description": "The tag specified in this section will be displayed in product cards. Only one tag can be displayed.",
+                  "description": "The tag specified in this section will be displayed in product cards. Only one can be displayed at a time (Delivery Option or Delivery Estimate)",
                   "properties": {
                     "enabled": {
                       "title": "Should enable tags?",
