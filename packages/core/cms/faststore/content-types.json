@@ -275,40 +275,24 @@
                 "tags": {
                   "title": "Delivery Promise tags",
                   "type": "object",
-                  "description": "The tag specified in this section will be displayed in product cards. Only one can be displayed at a time (Delivery Option or Delivery Estimate)",
+                  "description": "The tag specified in this section will be displayed in product cards. Only one can be displayed at a time (Delivery Option or Dynamic Estimate).",
                   "properties": {
-                    "enabled": {
-                      "title": "Should enable tags?",
-                      "type": "boolean",
-                      "default": false
+                    "option": {
+                      "title": "Control which tag should be displayed.",
+                      "type": "string",
+                      "default": "none",
+                      "enumNames": [
+                        "None",
+                        "Delivery Option",
+                        "Dynamic Estimate"
+                      ],
+                      "enum": ["none", "delivery_option", "dynamic_estimate"]
                     },
-                    "deliveryOptionTag": {
-                      "title": "Delivery Option tag",
-                      "type": "object",
-                      "properties": {
-                        "enabled": {
-                          "title": "Should enable Delivery Option tag?",
-                          "type": "boolean",
-                          "default": false
-                        },
-                        "deliveryOptionId": {
-                          "title": "Delivery Option ID",
-                          "type": "string",
-                          "default": "",
-                          "description": "The unique ID that represents the desired Delivery Option to be displayed as tag on product cards."
-                        }
-                      }
-                    },
-                    "dynamicEstimateTag": {
-                      "title": "Dynamic Estimate tag",
-                      "type": "object",
-                      "properties": {
-                        "enabled": {
-                          "title": "Should enable Dynamic Estimate tag?",
-                          "type": "boolean",
-                          "default": false
-                        }
-                      }
+                    "deliveryOptionId": {
+                      "title": "Delivery Option ID",
+                      "type": "string",
+                      "default": "",
+                      "description": "In case Delivery Option tag is chosen, this is the unique ID that represents the desired Delivery Option to be displayed as tag on product cards."
                     }
                   }
                 }

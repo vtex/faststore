@@ -68,14 +68,8 @@ type DeliveryPromiseCmsData = {
     nextDay?: string
   }
   tags?: {
-    enabled?: boolean
-    deliveryOptionTag?: {
-      enabled?: boolean
-      deliveryOptionId?: string
-    }
-    dynamicEstimateTag?: {
-      enabled?: boolean
-    }
+    option?: 'none' | 'delivery_option' | 'dynamic_estimate'
+    deliveryOptionId?: string
   }
 }
 

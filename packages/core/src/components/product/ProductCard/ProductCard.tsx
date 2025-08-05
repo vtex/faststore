@@ -87,11 +87,7 @@ function ProductCard({
 }: ProductCardProps) {
   const {
     deliveryPromise: {
-      tags: {
-        enabled: isDeliveryPromiseTagsEnabled,
-        deliveryOptionTag,
-        dynamicEstimateTag,
-      } = {},
+      tags: { option: deliveryPromiseTag } = {},
     } = {},
   } = getGlobalSettings()
   const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
@@ -111,9 +107,7 @@ function ProductCard({
   } = product
 
   const shouldDisplayDeliveryPromiseTags =
-    isDeliveryPromiseEnabled &&
-    isDeliveryPromiseTagsEnabled &&
-    (deliveryOptionTag?.enabled || dynamicEstimateTag?.enabled)
+    isDeliveryPromiseEnabled && deliveryPromiseTag !== 'none'
   const productDOTag = productTags?.find(
     ({ typeName }) => typeName === DELIVERY_OPTIONS_FACET_KEY
   )?.name
