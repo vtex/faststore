@@ -6,6 +6,8 @@ type Params = {
   account: string
 }
 
+const MILLISECONDS_PER_SECOND = 1000
+
 export function getCookie(name: string): string | undefined {
   const cookieString = decodeURIComponent(document.cookie)
   const cookies = cookieString.split(';')
@@ -36,6 +38,6 @@ export function getJWTAutCookie({ headers, account }: Params) {
 }
 
 export function isExpired(exp: number): boolean {
-  const now = Math.floor(Date.now() / 1000)
+  const now = Math.floor(Date.now() / MILLISECONDS_PER_SECOND)
   return now > exp
 }
