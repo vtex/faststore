@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
+
+### Features
+
+- add shopper name data to user order page ([#2967](https://github.com/vtex/faststore/issues/2967)) ([6b2eb05](https://github.com/vtex/faststore/commit/6b2eb05e6590363c1a91ff1e802784606a0b1917))
+
 ## [3.68.1](https://github.com/vtex/faststore/compare/v3.68.0...v3.68.1) (2025-07-29)
 
 ### Bug Fixes

@@ -9,6 +9,7 @@ import {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
@@ -22,7 +23,7 @@ import storeConfig from '../../discovery.config'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  EmptyState,
+  [getComponentKey(EmptyState, 'EmptyState')]: EmptyState,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }

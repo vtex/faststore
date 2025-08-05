@@ -408,12 +408,12 @@ export function useDeliveryPromise({
   function getDynamicEstimateLabel(value: string) {
     if (value === 'next-day') {
       return (
-        deliveryPromiseSettings?.dynamicEstimate?.nextDay ?? 'Receive Today'
+        deliveryPromiseSettings?.dynamicEstimate?.nextDay ?? 'Receive Tomorrow'
       )
     }
     if (value === 'same-day') {
       return (
-        deliveryPromiseSettings?.dynamicEstimate?.sameDay ?? 'Receive Tomorrow'
+        deliveryPromiseSettings?.dynamicEstimate?.sameDay ?? 'Receive Today'
       )
     }
     return value
