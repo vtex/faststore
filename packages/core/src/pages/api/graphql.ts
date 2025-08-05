@@ -7,7 +7,7 @@ import {
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
-import { getJWTAutCookie } from 'src/utils/getCookie'
+import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
 import { execute } from '../../server'
 
 const ONE_MINUTE = 60
@@ -65,11 +65,6 @@ const parseRequest = (request: NextApiRequest) => {
       `Invalid request. Please check the request. ${error}`
     )
   }
-}
-
-function isExpired(exp: number): boolean {
-  const now = Math.floor(Date.now() / 1000)
-  return now > exp
 }
 
 const handler: NextApiHandler = async (request, response) => {

@@ -34,3 +34,8 @@ export function getJWTAutCookie({ headers, account }: Params) {
   ]
   return parseJwt(authCookie)
 }
+
+export function isExpired(exp: number): boolean {
+  const now = Math.floor(Date.now() / 1000)
+  return now > exp
+}
