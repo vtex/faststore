@@ -162,7 +162,7 @@ function ProductCard({
       {...otherProps}
     >
       <UIProductCardImage aspectRatio={aspectRatio}>
-        {!shouldDisplayDeliveryPromiseTags && (
+        {shouldDisplayDeliveryPromiseTags && (
           <UIBadge variant="highlighted">
             {productDOTag ?? productDETag}
           </UIBadge>
