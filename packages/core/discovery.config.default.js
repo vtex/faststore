@@ -66,6 +66,7 @@ module.exports = {
       utmiPart: '',
       utmiPage: '',
     },
+    refreshAfter: null, // timestamp in seconds e.g. '1743042990'
   },
 
   // Default cart
@@ -150,5 +151,6 @@ module.exports = {
       maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
       staleWhileRevalidate: 60,
     },
+    refreshToken: false,
   },
 }
