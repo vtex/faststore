@@ -151,6 +151,6 @@ module.exports = {
       maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
       staleWhileRevalidate: 60,
     },
-    refreshToken: true,
+    refreshToken: false,
   },
 }
