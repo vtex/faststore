@@ -52,17 +52,25 @@ export const useSetPassword = (accountName: string) => {
 
       const response = await fetch(setPasswordUrl, {
         method: 'POST',
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
         body: buildFormData(body),
         credentials: 'include',
       })
 
+      if (!response.ok) {
+        throw new Error(
+          `Failed to set password: ${response.status} ${response.statusText}`
+        )
+      }
+
       const result: SetPasswordResultType = await response.json()
 
-      if (!response.ok) {
-        throw new Error(result?.message || 'Failed to set password')
+      if (!result) {
+        setState({
+          data: null,
+          loading: false,
+          error: new Error('No response from set password API'),
+        })
+        return
       }
 
       setState({
@@ -76,18 +84,10 @@ export const useSetPassword = (accountName: string) => {
     } catch (err) {
       console.error('Error setting password:', err?.message || err)
 
-      let authStatus = ''
-
-      try {
-        if (err?.message) {
-          const error = JSON.parse(err.message) as { authStatus?: string }
-          authStatus = error?.authStatus ?? ''
-        } else {
-          authStatus = 'Unexpected error'
-        }
-      } catch (error) {
-        authStatus = 'Unexpected error while setting password'
-      }
+      const authStatus =
+        typeof err === 'object' && err !== null && 'authStatus' in err
+          ? String(err.authStatus)
+          : 'Unexpected error'
 
       const isInvalidCredentials =
         authStatus.toLowerCase().includes('invalidemail') ||
@@ -125,9 +125,6 @@ const startLogin = async ({
     const response = await fetch(`/api/vtexid/pub/authentication/startlogin`, {
       method: 'POST',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
       body: buildFormData({
         user: email,
         scope: accountName,

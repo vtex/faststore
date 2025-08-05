@@ -81,7 +81,7 @@ export const SecurityDrawer = ({
     try {
       await setPassword({ userEmail, currentPassword, newPassword })
 
-      if (error && error instanceof Error) {
+      if (!!error || !data?.success) {
         pushToast({
           title: 'Error setting password',
           status: 'ERROR',
