@@ -295,7 +295,7 @@
                     "enabled": {
                       "title": "Should display In Stock filter?",
                       "type": "boolean",
-                      "default": true
+                      "default": false
                     },
                     "title": {
                       "title": "In Stock title",
