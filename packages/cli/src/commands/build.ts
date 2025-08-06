@@ -9,6 +9,8 @@ import { generate } from '../utils/generate'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { logger } from '../utils/logger'
 
+import path from 'path'
+
 export default class Build extends Command {
   static args = [
     {
@@ -33,7 +35,7 @@ export default class Build extends Command {
   async run() {
     const { args, flags } = await this.parse(Build)
 
-    const basePath = args.path ?? process.cwd()
+    const basePath = args.path ? path.resolve(args.path) : process.cwd()
 
     // Check for deprecated secret files
     checkDeprecatedSecretFiles(basePath)
