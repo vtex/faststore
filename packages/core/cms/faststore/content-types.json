@@ -294,7 +294,7 @@
                   "properties": {
                     "enabled": {
                       "title": "Should display In Stock filter?",
-                      "description": "Allow shoppers to filter only products that are currently in stock. When enabling, ensure that the `hideUnavailableItems` property is set to `false` in the store's `discovery.config.js` file.",
+                      "description": "Allow shoppers to filter only products that are currently in stock. Note: When enabling, ensure that the `hideUnavailableItems` property is set to `false` in the store's `discovery.config.js` file.",
                       "type": "boolean",
                       "default": false
                     },
