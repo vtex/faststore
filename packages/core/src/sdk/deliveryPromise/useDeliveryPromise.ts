@@ -467,6 +467,15 @@ export function useDeliveryPromise({
     []
   )
 
+  const labelsMap = {
+    [SHIPPING_FACET_KEY]:
+      deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
+    [DELIVERY_OPTIONS_FACET_KEY]:
+      deliveryPromiseSettings?.deliveryOptions?.title ?? 'Delivery Option',
+    [IN_STOCK_FACET_KEY]:
+      deliveryPromiseSettings?.inStock?.title ?? 'Availability',
+  }
+
   function getBadgeLabel(value: DeliveryType, isAvailable: boolean) {
     const labelMap: Record<
       DeliveryType,
@@ -565,14 +574,7 @@ export function useDeliveryPromise({
     facets,
     onPostalCodeChange,
     onDeliveryFacetChange,
-    labelsMap: {
-      [SHIPPING_FACET_KEY]:
-        deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
-      [DELIVERY_OPTIONS_FACET_KEY]:
-        deliveryPromiseSettings?.deliveryOptions?.title ?? 'Delivery Option',
-      [IN_STOCK_FACET_KEY]:
-        deliveryPromiseSettings?.inStock?.title ?? 'Availability',
-    },
+    labelsMap,
     isPickupAllEnabled:
       pickupPoints?.length > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
