@@ -63,21 +63,22 @@
   // --------------------------------------------------------
 
   position: relative;
-  min-width: var(--fs-product-card-min-width);
-  height: 100%;
   display: flex;
   flex-direction: column;
   row-gap: var(--fs-product-card-gap);
+  min-width: var(--fs-product-card-min-width);
+  height: 100%;
   padding: var(--fs-product-card-padding);
+  overflow: hidden;
   background-color: var(--fs-product-card-bkg-color);
   border: var(--fs-product-card-border-width) solid transparent;
   border-radius: var(--fs-product-card-border-radius);
-  overflow: hidden;
   box-shadow: var(--fs-product-card-shadow);
   transition: var(--fs-product-card-transition-property) var(--fs-product-card-transition-timing) var(--fs-product-card-transition-function);
 
   &:focus-within {
     @include focus-ring;
+
     background-color: var(--fs-product-card-bkg-color-focus);
   }
 
@@ -98,9 +99,16 @@
     position: relative;
     display: flex;
     justify-content: center;
-    overflow: hidden;
     width: 100%;
     aspect-ratio: var(--fs-product-card-image-aspect-ratio);
+    overflow: hidden;
+
+    [data-fs-badge] {
+      position: absolute;
+      left: 0;
+      z-index: var(--fs-z-index-highest);
+      padding: var(--fs-spacing-0) var(--fs-spacing-1);
+    }
 
     img {
       width: 100%;
@@ -116,9 +124,9 @@
     row-gap: var(--fs-product-card-gap);
 
     [data-fs-product-card-taxes-label] {
-      color: var(--fs-product-card-taxes-label-color);
       font-size: var(--fs-product-card-taxes-text-size);
       font-weight: var(--fs-product-card-taxes-text-weight);
+      color: var(--fs-product-card-taxes-label-color);
     }
 
     [data-fs-link] {
@@ -144,8 +152,8 @@
 
   [data-fs-product-card-sponsored-label] {
     font-size: var(--fs-product-card-sponsored-label-size);
-    color: var(--fs-product-card-sponsored-label-color);
     line-height: 1.33;
+    color: var(--fs-product-card-sponsored-label-color);
   }
 
   [data-fs-product-card-title] {
@@ -183,7 +191,6 @@
     --fs-product-card-border-color    : var(--fs-product-card-out-of-stock-border-color);
 
     [data-fs-product-card-image] { opacity: var(--fs-product-card-out-of-stock-img-opacity); }
-
   }
 
   &[data-fs-product-card-bordered="true"] {
@@ -210,8 +217,8 @@
     padding-bottom: var(--fs-product-card-wide-content-padding);
 
     [data-fs-product-card-content] {
-      padding-left: var(--fs-product-card-wide-content-padding);
       padding-right: var(--fs-product-card-wide-content-padding);
+      padding-left: var(--fs-product-card-wide-content-padding);
 
       [data-fs-link] > span { @include truncate-title(2); }
 
