@@ -271,6 +271,30 @@
                       "default": "Receive Tomorrow"
                     }
                   }
+                },
+                "tags": {
+                  "title": "Delivery Promise tags",
+                  "type": "object",
+                  "description": "The tag specified in this section will be displayed in product cards. Only one can be displayed at a time (Delivery Option or Dynamic Estimate).",
+                  "properties": {
+                    "option": {
+                      "title": "Control which tag should be displayed.",
+                      "type": "string",
+                      "default": "none",
+                      "enumNames": [
+                        "None",
+                        "Delivery Option",
+                        "Dynamic Estimate"
+                      ],
+                      "enum": ["none", "delivery_option", "dynamic_estimate"]
+                    },
+                    "deliveryOptionId": {
+                      "title": "Delivery Option ID",
+                      "type": "string",
+                      "default": "",
+                      "description": "In case Delivery Option tag is chosen, this is the unique ID that represents the desired Delivery Option to be displayed as tag on product cards."
+                    }
+                  }
                 }
               }
             }
