@@ -55,6 +55,7 @@ const OPERATOR_KEY = 'operator'
 const PICKUP_POINT_KEY = 'pickupPoint'
 const SHIPPING_KEY = 'shipping'
 const DELIVERY_OPTIONS_KEY = 'delivery-options'
+const IN_STOCK_KEY = 'in-stock'
 
 const EXTRA_FACETS_KEYS = new Set([
   POLICY_KEY,
@@ -64,6 +65,7 @@ const EXTRA_FACETS_KEYS = new Set([
   PICKUP_POINT_KEY,
   SHIPPING_KEY,
   DELIVERY_OPTIONS_KEY,
+  IN_STOCK_KEY,
 ])
 
 export const isFacetBoolean = (
@@ -234,11 +236,15 @@ export const IntelligentSearch = (
     }
 
     if (hideUnavailableItems !== undefined) {
-      params.append(
-        'hideUnavailableItems',
-        searchHideUnavailableItems?.toString() ??
-          hideUnavailableItems.toString()
+      const inStockFacet = selectedFacets.find(
+        ({ key }) => key === IN_STOCK_KEY
       )
+      const shouldHideUnavailableItems = inStockFacet
+        ? inStockFacet.value
+        : (searchHideUnavailableItems?.toString() ??
+          hideUnavailableItems.toString())
+
+      params.append('hideUnavailableItems', shouldHideUnavailableItems)
     }
 
     if (simulationBehavior !== undefined) {

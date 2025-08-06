@@ -29,6 +29,7 @@ export const PICKUP_ALL_FACET_VALUE = 'pickup-all' as const
 export const ALL_DELIVERY_OPTIONS_FACET_VALUE = 'all-delivery-options' as const
 export const DELIVERY_OPTIONS_FACET_KEY = 'delivery-options' as const
 export const DYNAMIC_ESTIMATE_FACET_KEY = 'dynamic-estimate' as const
+export const IN_STOCK_FACET_KEY = 'in-stock' as const
 
 type Facet = SearchState['selectedFacets'][number]
 
@@ -110,6 +111,7 @@ export function useDeliveryPromise({
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
   const isDynamicEstimateEnabled =
     deliveryPromiseSettings?.dynamicEstimate?.enabled ?? false
+  const isInStockEnabled = deliveryPromiseSettings?.inStock?.enabled ?? false
 
   const selectedFacets = useMemo(
     () => selectedFilterFacets ?? searchState.selectedFacets,
@@ -202,6 +204,25 @@ export function useDeliveryPromise({
       quantity: defaultPickupPoint?.totalItems,
     }),
     [defaultPickupPoint, selectedFacets]
+  )
+
+  const inStockFacet = useMemo(
+    (): Filter_FacetsFragment => ({
+      key: IN_STOCK_FACET_KEY,
+      label: IN_STOCK_FACET_KEY,
+      __typename: 'StoreFacetBoolean',
+      values: [
+        {
+          value: 'true',
+          label: deliveryPromiseSettings?.inStock?.label ?? 'In-stock only',
+          selected: selectedFacets.some(
+            ({ key, value }) => key === IN_STOCK_FACET_KEY && value === 'true'
+          ),
+          quantity: null,
+        },
+      ],
+    }),
+    [deliveryPromiseSettings, selectedFacets]
   )
 
   const [allDeliveryMethodsFacet, allDeliveryOptionsFacet] = useMemo(
@@ -307,6 +328,14 @@ export function useDeliveryPromise({
       ? allFacets.filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY)
       : allFacets
 
+    if (
+      isInStockEnabled &&
+      !filteredFacets.find(({ key }) => key === IN_STOCK_FACET_KEY) &&
+      filteredFacets.find(({ key }) => key === SHIPPING_FACET_KEY) // Avoid adding in-stock facet if IS doesn't return any shipping facet
+    ) {
+      filteredFacets.push(inStockFacet)
+    }
+
     return filteredFacets
       .map((facet) => {
         if (facet.__typename !== 'StoreFacetBoolean') return facet
@@ -369,11 +398,12 @@ export function useDeliveryPromise({
         return facet
       })
       .sort((a, b) => {
-        // Define priority order: shipping (0), delivery-options (1), others (2)
+        // Define priority order: shipping (0), delivery-options (1), in-stock (2), others (3)
         const getPriority = (key: string) => {
           if (key === SHIPPING_FACET_KEY) return 0
           if (key === DELIVERY_OPTIONS_FACET_KEY) return 1
-          return 2
+          if (key === IN_STOCK_FACET_KEY) return 2
+          return 3
         }
 
         return getPriority(a.key) - getPriority(b.key)
@@ -453,6 +483,15 @@ export function useDeliveryPromise({
     []
   )
 
+  const labelsMap = {
+    [SHIPPING_FACET_KEY]:
+      deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
+    [DELIVERY_OPTIONS_FACET_KEY]:
+      deliveryPromiseSettings?.deliveryOptions?.title ?? 'Delivery Option',
+    [IN_STOCK_FACET_KEY]:
+      deliveryPromiseSettings?.inStock?.title ?? 'Availability',
+  }
+
   return {
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
@@ -473,10 +512,7 @@ export function useDeliveryPromise({
     facets,
     onPostalCodeChange,
     onDeliveryFacetChange,
-    deliveryLabel:
-      deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
-    deliveryOptionsLabel:
-      deliveryPromiseSettings?.deliveryOptions?.title ?? 'Delivery Option',
+    labelsMap,
     isPickupAllEnabled:
       pickupPoints?.length > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
@@ -487,12 +523,12 @@ export function useDeliveryPromise({
   }
 }
 
-type BoleanFacet = Extract<
+type BooleanFacet = Extract<
   Filter_FacetsFragment,
   { __typename: 'StoreFacetBoolean' }
 >['values'][number]
 
-function withUniqueFacet(facets: Array<BoleanFacet>, facet: BoleanFacet) {
+function withUniqueFacet(facets: Array<BooleanFacet>, facet: BooleanFacet) {
   return [facet, ...facets.filter((item) => item.value !== facet.value)]
 }
 
