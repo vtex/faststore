@@ -88,7 +88,10 @@ const reducer = (state: State, action: Action) => {
   return state
 }
 
-export const useFilter = (allFacets: Filter_FacetsFragment[]) => {
+export const useFilter = (
+  allFacets: Filter_FacetsFragment[],
+  initiallySelectedFacets?: IStoreSelectedFacet[]
+) => {
   const {
     state: { selectedFacets },
   } = useSearch()
@@ -133,6 +136,16 @@ export const useFilter = (allFacets: Filter_FacetsFragment[]) => {
       }),
     [allFacets, selectedMap]
   )
+
+  // Prevent PLPs lose their specific facets (e.g. { key: category-n, value: 'electronics' }) after clearing filters
+  useEffect(() => {
+    if (initiallySelectedFacets && selected.length === 0) {
+      dispatch({
+        type: 'selectFacets',
+        payload: initiallySelectedFacets,
+      })
+    }
+  }, [initiallySelectedFacets, selected])
 
   useEffect(() => {
     dispatch({
