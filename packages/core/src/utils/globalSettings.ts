@@ -80,6 +80,10 @@ type DeliveryPromiseCmsData = {
     title?: string
     label?: string
   }
+  tags?: {
+    option?: 'none' | 'delivery_option' | 'dynamic_estimate'
+    deliveryOptionId?: string
+  }
 }
 
 export function getGlobalSettings(

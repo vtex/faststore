@@ -3,6 +3,7 @@ import {
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
   ProductComparisonTrigger as UIProductComparisonTrigger,
+  Badge as UIBadge,
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
@@ -15,6 +16,10 @@ import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { getGlobalSettings } from 'src/utils/globalSettings'
+import {
+  DYNAMIC_ESTIMATE_FACET_KEY,
+  DELIVERY_OPTIONS_FACET_KEY,
+} from 'src/sdk/deliveryPromise'
 
 type Variant = 'wide' | 'default'
 
@@ -92,6 +97,14 @@ function ProductCard({
   ...otherProps
 }: ProductCardProps) {
   const {
+    deliveryPromise: {
+      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
+    } = {},
+  } = getGlobalSettings()
+  const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
+    useDeliveryPromise()
+
+  const {
     sku,
     isVariantOf: { name },
     image: [img],
@@ -102,6 +115,7 @@ function ProductCard({
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
     deliveryPromiseBadges,
+    tags: productTags,
   } = product
 
   const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
@@ -109,6 +123,23 @@ function ProductCard({
     deliveryPromiseBadges,
     deliveryPromiseSettings,
   })
+
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+            )?.value
+          )
+        : undefined
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled && !!productTag
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
@@ -159,6 +190,9 @@ function ProductCard({
         {...otherProps}
       >
         <UIProductCardImage aspectRatio={aspectRatio}>
+          {shouldDisplayDeliveryPromiseTags && (
+            <UIBadge variant="highlighted">{productTag}</UIBadge>
+          )}
           <Image
             src={img.url}
             alt={img.alternateName}
@@ -271,6 +305,12 @@ export const fragment = gql(`
 
     deliveryPromiseBadges {
       typeName
+    }
+
+    tags {
+      typeName
+      value
+      name
     }
   }
 `)

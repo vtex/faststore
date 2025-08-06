@@ -90,6 +90,10 @@ type StoreProduct {
   Delivery Promise product's badge.
   """
   deliveryPromiseBadges: [DeliveryPromiseBadge]
+  """
+  Delivery Promise product's tags.
+  """
+  tags: [Tag]
 }
 
 type SkuSpecification {

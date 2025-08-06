@@ -198,4 +198,5 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
+  tags: ({ isVariantOf: { tags } }) => tags,
 }
