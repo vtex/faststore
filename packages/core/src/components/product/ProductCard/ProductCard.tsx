@@ -87,7 +87,7 @@ function ProductCard({
 }: ProductCardProps) {
   const {
     deliveryPromise: {
-      tags: { option: deliveryPromiseTag } = {},
+      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
     } = {},
   } = getGlobalSettings()
   const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
@@ -106,15 +106,22 @@ function ProductCard({
     tags: productTags,
   } = product
 
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+            )?.value
+          )
+        : undefined
   const shouldDisplayDeliveryPromiseTags =
-    isDeliveryPromiseEnabled && deliveryPromiseTag !== 'none'
-  const productDOTag = productTags?.find(
-    ({ typeName }) => typeName === DELIVERY_OPTIONS_FACET_KEY
-  )?.name
-  const productDETag = getDynamicEstimateLabel(
-    productTags?.find(({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY)
-      ?.value
-  )
+    isDeliveryPromiseEnabled && !!productTag
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
@@ -157,9 +164,7 @@ function ProductCard({
     >
       <UIProductCardImage aspectRatio={aspectRatio}>
         {shouldDisplayDeliveryPromiseTags && (
-          <UIBadge variant="highlighted">
-            {productDOTag ?? productDETag}
-          </UIBadge>
+          <UIBadge variant="highlighted">{productTag}</UIBadge>
         )}
         <Image
           src={img.url}
