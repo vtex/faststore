@@ -85,6 +85,10 @@ export const SecurityDrawer = ({
         newPassword,
       })
 
+      if (error) {
+        throw error
+      }
+
       if (!data.success) {
         pushToast({
           title: 'Error setting password',
@@ -111,7 +115,7 @@ export const SecurityDrawer = ({
       pushToast({
         title: 'Error setting password',
         status: 'ERROR',
-        message: `Failed to set password.`,
+        message: 'Failed to set password.',
         icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
       })
     }

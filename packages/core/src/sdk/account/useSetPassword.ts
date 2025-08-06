@@ -11,13 +11,7 @@ type SetPasswordInput = {
   recaptcha?: string
 }
 
-type SetPasswordResult = {
-  success: boolean
-  message?: string
-}
-
 type SetPasswordState = {
-  data: SetPasswordResult | null
   error: Error | null
   loading: boolean
 }
@@ -29,7 +23,6 @@ type SetPasswordResultType = {
 
 export const useSetPassword = (accountName?: string) => {
   const [state, setState] = useState<SetPasswordState>({
-    data: null,
     error: null,
     loading: false,
   })
@@ -48,13 +41,14 @@ export const useSetPassword = (accountName?: string) => {
         recaptcha: !input.recaptcha ? null : input.recaptcha,
       }
 
-      const setPasswordUrl = `/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`
-
-      const response = await fetch(setPasswordUrl, {
-        method: 'POST',
-        body: buildFormData(body),
-        credentials: 'include',
-      })
+      const response = await fetch(
+        `/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
+        {
+          method: 'POST',
+          body: buildFormData(body),
+          credentials: 'include',
+        }
+      )
 
       if (!response.ok) {
         throw new Error(
@@ -73,23 +67,12 @@ export const useSetPassword = (accountName?: string) => {
           message: 'No response from set password API',
         }
 
-        setState({
-          data: fallback,
-          loading: false,
-          error: new Error(fallback.message),
-        })
+        setState({ loading: false, error: new Error(fallback.message) })
 
         return fallback
       }
 
-      setState({
-        data: {
-          success: result?.authStatus?.toLowerCase() === 'success',
-          message: 'Password set successfully',
-        },
-        error: null,
-        loading: false,
-      })
+      setState({ error: null, loading: false })
 
       return {
         success: result?.authStatus
@@ -116,12 +99,7 @@ export const useSetPassword = (accountName?: string) => {
           : 'Unexpected error while setting password',
       }
 
-      setState({
-        data: errorResult,
-        error: new Error('Failed to set password'),
-        loading: false,
-      })
-
+      setState({ error: new Error('Failed to set password'), loading: false })
       return errorResult
     } finally {
       setState((prev) => ({ ...prev, loading: false }))
@@ -131,7 +109,6 @@ export const useSetPassword = (accountName?: string) => {
   return {
     setPassword,
     error: state.error,
-    data: state.data,
     loading: state.loading,
   }
 }
