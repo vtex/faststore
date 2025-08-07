@@ -140,7 +140,7 @@ export default class Dev extends Command {
 
   async run() {
     const { args } = await this.parse(Dev)
-    const basePath = args.path ?? process.cwd()
+    const basePath = args.path ? path.resolve(args.path) : process.cwd()
     const port = args.port ?? 3000
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)

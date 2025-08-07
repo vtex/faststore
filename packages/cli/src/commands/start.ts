@@ -3,6 +3,7 @@ import { spawn } from 'child_process'
 import { existsSync } from 'fs-extra'
 import { withBasePath } from '../utils/directory'
 import { getPreferredPackageManager } from '../utils/commands'
+import path from 'path'
 
 export default class Start extends Command {
   static args = [
@@ -24,7 +25,7 @@ export default class Start extends Command {
 
   async run() {
     const { args } = await this.parse(Start)
-    const basePath = args.path ?? process.cwd()
+    const basePath = args.path ? path.resolve(args.path) : process.cwd()
     const port = args.port ?? 3000
     const { tmpDir } = withBasePath(basePath)
     const packageManager = getPreferredPackageManager()

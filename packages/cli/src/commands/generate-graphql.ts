@@ -6,6 +6,7 @@ import { withBasePath } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
 import { getPreferredPackageManager } from '../utils/commands'
 import { logger } from '../utils/logger'
+import path from 'path'
 
 export default class GenerateGraphql extends Command {
   static flags = {
@@ -23,7 +24,7 @@ export default class GenerateGraphql extends Command {
   async run() {
     const { flags, args } = await this.parse(GenerateGraphql)
 
-    const basePath = args.path ?? process.cwd()
+    const basePath = args.path ? path.resolve(args.path) : process.cwd()
     const { tmpDir, coreDir } = withBasePath(basePath)
 
     const isCore = flags.core ?? false

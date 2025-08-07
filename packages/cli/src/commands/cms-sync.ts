@@ -3,6 +3,7 @@ import { spawn } from 'child_process'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
+import path from 'path'
 
 export default class CmsSync extends Command {
   static flags = {
@@ -20,7 +21,7 @@ export default class CmsSync extends Command {
   async run() {
     const { flags, args } = await this.parse(CmsSync)
 
-    const basePath = args.path ?? process.cwd()
+    const basePath = args.path ? path.resolve(args.path) : process.cwd()
     const { tmpDir } = withBasePath(basePath)
 
     await generate({ setup: true, basePath })
