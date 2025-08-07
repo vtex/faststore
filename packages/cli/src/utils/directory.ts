@@ -44,24 +44,24 @@ export const withBasePath = (basepath: string) => {
     throw `Could not find @node_modules on ${basepath} or any of its parents until ${attemptedPath}`
   }
 
-  // TODO: Create a customizationsDir = getRoot() and stop calling getRoot()
-
-  // Changes from: const tmpDir = path.join(getRoot(), tmpFolderName)
-  // because we want to write the .faststore to the cwd (where the node_modules is)
+  const customizationsDir = getRoot()
   const tmpDir = path.join(process.cwd(), tmpFolderName)
-  const userSrcDir = path.join(getRoot(), 'src')
+  const userSrcDir = path.join(customizationsDir, 'src')
   const getPackagePath = (...packagePath: string[]) =>
-    path.join(getRoot(), 'node_modules', ...packagePath)
+    path.join(customizationsDir, 'node_modules', ...packagePath)
 
   return {
     getRoot,
     getPackagePath,
-    userDir: getRoot(),
+    userDir: customizationsDir,
     userSrcDir,
     userThemesFileDir: path.join(userSrcDir, 'themes'),
-    userCMSDir: path.join(getRoot(), 'cms', 'faststore'),
-    userLegacyStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
-    userStoreConfigFile: path.join(getRoot(), 'discovery.config.js'),
+    userCMSDir: path.join(customizationsDir, 'cms', 'faststore'),
+    userLegacyStoreConfigFile: path.join(
+      customizationsDir,
+      'faststore.config.js'
+    ),
+    userStoreConfigFile: path.join(customizationsDir, 'discovery.config.js'),
 
     tmpSeoConfig: path.join(tmpDir, 'next-seo.config.ts'),
     tmpFolderName,
