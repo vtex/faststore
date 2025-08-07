@@ -11,9 +11,10 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import type { ImageProps } from 'next/image'
 import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
-import { useDeliveryPromiseTags } from 'src/sdk/deliveryPromise/useDeliveryPromiseTags'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 type Variant = 'wide' | 'default'
 
@@ -93,8 +94,9 @@ function ProductCard({
     tags: productTags,
   } = product
 
-  const { productTag, shouldDisplayDeliveryPromiseTags } =
-    useDeliveryPromiseTags(productTags)
+  const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
+    productTags: productTags,
+  })
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),

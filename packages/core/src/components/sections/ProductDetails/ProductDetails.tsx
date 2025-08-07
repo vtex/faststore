@@ -14,7 +14,7 @@ import styles from './section.module.scss'
 import { Badge as UIBadge } from '@faststore/ui'
 
 import storeConfig from 'discovery.config'
-import { useDeliveryPromiseTags } from 'src/sdk/deliveryPromise/useDeliveryPromiseTags'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
@@ -150,8 +150,9 @@ function ProductDetails({
     tags: productTags,
   } = product
 
-  const { productTag, shouldDisplayDeliveryPromiseTags } =
-    useDeliveryPromiseTags(productTags)
+  const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
+    productTags: productTags,
+  })
 
   useEffect(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {

@@ -21,6 +21,8 @@ import {
   type PickupPointsSimulation,
 } from '.'
 
+import { getGlobalSettings } from 'src/utils/globalSettings'
+
 export const PICKUP_POINT_FACET_KEY = 'pickupPoint' as const
 export const SHIPPING_FACET_KEY = 'shipping' as const
 export const PICKUP_IN_POINT_FACET_VALUE = 'pickup-in-point' as const
@@ -31,6 +33,12 @@ export const DELIVERY_OPTIONS_FACET_KEY = 'delivery-options' as const
 export const DYNAMIC_ESTIMATE_FACET_KEY = 'dynamic-estimate' as const
 
 type Facet = SearchState['selectedFacets'][number]
+
+type Tag = {
+  name: string | null
+  typeName: string
+  value: string
+}
 
 export type PickupPoint = {
   id: string
@@ -84,6 +92,7 @@ type Props = {
   allFacets?: ReturnType<typeof useFilter>['facets']
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
+  productTags?: Tag[]
 }
 
 /**
@@ -95,6 +104,7 @@ export function useDeliveryPromise({
   selectedFilterFacets = undefined,
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
+  productTags,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -453,6 +463,30 @@ export function useDeliveryPromise({
     []
   )
 
+  const {
+    deliveryPromise: {
+      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
+    } = {},
+  } = getGlobalSettings()
+
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+            )?.value
+          )
+        : undefined
+
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled && !!productTag
+
   return {
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
@@ -484,6 +518,8 @@ export function useDeliveryPromise({
     highlightedFacet,
     facetsWithoutHighlightedFacet,
     getDynamicEstimateLabel,
+    shouldDisplayDeliveryPromiseTags,
+    productTag,
   }
 }
 
