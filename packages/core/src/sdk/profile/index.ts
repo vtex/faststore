@@ -1,9 +1,9 @@
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 
 import type {
   ClientProfileQueryQuery as Query,
   ClientProfileQueryQueryVariables as Variables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import { request } from '../graphql/request'
 
 export const query = gql(`

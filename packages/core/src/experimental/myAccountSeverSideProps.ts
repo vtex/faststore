@@ -1,8 +1,8 @@
-import { gql } from '@generated/gql'
+import { gql } from '../../@generated/gql'
 import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../@generated/graphql'
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
@@ -10,7 +10,7 @@ import {
   type GlobalSectionsData,
   getGlobalSectionsData,
 } from '../components/cms/GlobalSections'
-import { execute } from 'src/server'
+import { execute } from '../server'
 import { getIsRepresentative } from '../sdk/account/getIsRepresentative'
 
 import { injectGlobalSections } from '../server/cms/global'

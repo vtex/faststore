@@ -12,7 +12,7 @@ import {
   useUI,
 } from '@faststore/ui'
 
-import { gql } from '@generated/gql'
+import { gql } from '../../../../@generated/gql'
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 import type { useFilter } from '../../../sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
@@ -20,7 +20,7 @@ import type { FilterSliderProps } from './FilterSlider'
 import {
   useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
-} from 'src/sdk/deliveryPromise'
+} from '../../../sdk/deliveryPromise'
 import { getGlobalSettings } from '../../../utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 

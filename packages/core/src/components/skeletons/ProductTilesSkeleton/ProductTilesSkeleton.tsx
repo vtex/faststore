@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 
-import Tiles, { Tile } from 'src/components/ui/Tiles'
+import Tiles, { Tile } from '../../ui/Tiles'
 
 import { ProductTileSkeleton } from '.'
 

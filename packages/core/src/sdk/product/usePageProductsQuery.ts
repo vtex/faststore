@@ -1,9 +1,9 @@
 import { useSearch } from '@faststore/sdk'
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import deepEquals from 'fast-deep-equal'
 import {
   createContext,

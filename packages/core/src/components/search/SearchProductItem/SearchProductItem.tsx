@@ -10,16 +10,16 @@ import {
 } from '@faststore/ui'
 import { type Dispatch, type SetStateAction, useMemo, useState } from 'react'
 
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import type { NavbarProps } from 'src/components/sections/Navbar'
-import { Image } from 'src/components/ui/Image'
+import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
+import type { NavbarProps } from '../../sections/Navbar'
+import { Image } from '../../ui/Image'
 import { useBuyButton } from '../../../sdk/cart/useBuyButton'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 import { useProductLink } from '../../../sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 
-import styles from 'src/components/sections/Navbar/section.module.scss'
+import styles from '../../sections/Navbar/section.module.scss'
 
 type SearchProductItemProps = {
   /**

@@ -2,27 +2,27 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
+import { MyAccountLayout } from '../../../components/account'
 import RenderSections from '../../../components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from '../../../components/cms/global/Components'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import CUSTOM_COMPONENTS from '../../../customizations/src/components'
 
 import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
 
-import { gql } from '@generated/gql'
+import { gql } from '../../../../@generated/gql'
 import type {
   ServerListOrdersQueryQuery,
   ServerListOrdersQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../../@generated/graphql'
 import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from '../../../customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from '../../../experimental/myAccountSeverSideProps'
-import { execute } from 'src/server'
+import { execute } from '../../../server'
 import { injectGlobalSections } from '../../../server/cms/global'
 import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from '../../../utils/userOrderStatus'
 
-import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
+import { MyAccountListOrders } from '../../../components/account/orders/MyAccountListOrders'
 import { getIsRepresentative } from '../../../sdk/account/getIsRepresentative'
 import { validateUser } from '../../../sdk/account/validateUser'
 import PageProvider from '../../../sdk/overrides/PageProvider'

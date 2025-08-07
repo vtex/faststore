@@ -7,13 +7,13 @@ const UIProductShelf = dynamic(() =>
 const Carousel = dynamic(
   () =>
     /* webpackChunkName: "Carousel" */
-    import('src/components/ui/Carousel')
+    import('../../ui/Carousel')
 )
 
 const ProductCard = dynamic(
   () =>
     /* webpackChunkName: "ProductCard" */
-    import('src/components/product/ProductCard')
+    import('../../product/ProductCard')
 )
 
 export const ProductShelfDefaultComponents = {

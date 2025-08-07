@@ -1,5 +1,5 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
-import MissingContentError from 'src/sdk/error/MissingContentError'
+import MissingContentError from '../../sdk/error/MissingContentError'
 import {
   type Rewrite,
   type RewritesConfig,

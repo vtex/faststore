@@ -2,8 +2,8 @@ import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
-import type { ClientManyProductsQueryQuery } from '@generated/graphql'
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
+import type { ClientManyProductsQueryQuery } from '../../../../@generated/graphql'
+import ProductGridSkeleton from '../../skeletons/ProductGridSkeleton'
 import type { ProductCardProps } from '../ProductCard'
 
 import { memo } from 'react'

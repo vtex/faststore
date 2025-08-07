@@ -8,18 +8,8 @@
     "resolveJsonModule": true,
     "module": "esnext",
     "rootDir": "./",
-    "baseUrl": "./",
     "noEmit": true,
     "allowJs": true,
-    "paths": {
-      "@generated/*": ["@generated/*"],
-      "@faststore/core": ["index.ts"],
-      "@faststore/core/api": ["api/index.ts"],
-      "@faststore/core/experimental": ["src/experimental/index.ts"],
-      "@faststore/core/experimental/server": [
-        "src/experimental/server/index.ts"
-      ]
-    },
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "incremental": true,

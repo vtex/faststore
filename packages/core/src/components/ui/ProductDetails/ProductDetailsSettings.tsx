@@ -1,12 +1,12 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { useMemo } from 'react'
 
-import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
+import type { ProductDetailsFragment_ProductFragment } from '../../../../@generated/graphql'
 
 import { useBuyButton } from '../../../sdk/cart/useBuyButton'
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
-import Selectors from 'src/components/ui/SkuSelector'
+import Selectors from '../SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import { Icon as UIIcon, Label as UILabel, useUI } from '@faststore/ui'

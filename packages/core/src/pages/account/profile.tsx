@@ -5,19 +5,19 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
-import { ProfileSection } from 'src/components/account/profile'
+import { MyAccountLayout } from '../../components/account'
+import { ProfileSection } from '../../components/account/profile'
 import RenderSections from '../../components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import CUSTOM_COMPONENTS from '../../customizations/src/components'
 
 import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
 
-import { gql } from '@generated/gql'
+import { gql } from '../../../@generated/gql'
 import type {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import { default as AfterSection } from '../../customizations/src/myAccount/extensions/profile/after'
 import { default as BeforeSection } from '../../customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from '../../experimental/myAccountSeverSideProps'
@@ -27,7 +27,7 @@ import { injectGlobalSections } from '../../server/cms/global'
 import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
 
 import PageProvider from '../../sdk/overrides/PageProvider'
-import { execute } from 'src/server'
+import { execute } from '../../server'
 import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */

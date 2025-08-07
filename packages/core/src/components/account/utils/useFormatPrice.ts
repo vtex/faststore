@@ -1,4 +1,4 @@
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../../../sdk/session'
 import { useCallback } from 'react'
 
 // Format price values according to the specified currency (converts cents to standard units)

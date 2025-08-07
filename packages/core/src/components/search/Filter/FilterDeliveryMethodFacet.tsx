@@ -1,5 +1,5 @@
 import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
-import { sessionStore } from 'src/sdk/session'
+import { sessionStore } from '../../../sdk/session'
 import type { GlobalCmsData } from '../../../utils/globalSettings'
 import { textToTitleCase } from '../../../utils/utilities'
 

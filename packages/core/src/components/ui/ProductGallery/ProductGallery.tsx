@@ -5,11 +5,11 @@ import { Suspense, lazy, type MouseEvent } from 'react'
 import { useSearch } from '@faststore/sdk'
 import { useUI } from '@faststore/ui'
 
-import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { ProductCardProps } from '../../product/ProductCard'
 import type { FilterSliderProps } from '../../search/Filter/FilterSlider'
-import Sort from 'src/components/search/Sort'
+import Sort from '../../search/Sort'
 import type { SortProps } from '../../search/Sort/Sort'
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
+import ProductGridSkeleton from '../../skeletons/ProductGridSkeleton'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import {
   usePage,
@@ -27,7 +27,7 @@ const FilterSkeleton = dynamic(
   () =>
     import(
       /* webpackChunkName: "FilterSkeleton" */
-      'src/components/skeletons/FilterSkeleton'
+      '../../skeletons/FilterSkeleton'
     )
 )
 

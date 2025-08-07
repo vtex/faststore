@@ -1,8 +1,8 @@
-import ProductGrid from 'src/components/product/ProductGrid'
+import ProductGrid from '../../product/ProductGrid'
 import Sentinel from '../../../sdk/search/Sentinel'
 
 import { memo } from 'react'
-import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { ProductCardProps } from '../../product/ProductCard'
 import { useGalleryPage } from '../../../sdk/product/usePageProductsQuery'
 
 interface Props {

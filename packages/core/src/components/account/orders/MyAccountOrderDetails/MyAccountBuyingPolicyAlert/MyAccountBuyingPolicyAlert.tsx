@@ -7,7 +7,7 @@ import {
 import { useState } from 'react'
 import MyAccountOrderActionModal from '../MyAccountOrderActionModal'
 import { useOrderAuthorization } from '../../../../../sdk/account/useOrderAuthorization'
-import type { ProcessOrderAuthorizationRule } from '@generated/graphql'
+import type { ProcessOrderAuthorizationRule } from '../../../../../../@generated/graphql'
 
 interface MyAccountBuyingPolicyAlertProps {
   ruleForAuthorization: ProcessOrderAuthorizationRule

@@ -1,10 +1,10 @@
 import type { IShippingItem } from '@faststore/api'
 
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientShippingSimulationQueryQuery as Query,
   ClientShippingSimulationQueryQueryVariables as Variables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 import { request } from '../graphql/request'
 

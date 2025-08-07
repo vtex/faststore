@@ -2,7 +2,7 @@ import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from '../components/cms/RenderSections'
-import type { PageContentType } from 'src/server/cms'
+import type { PageContentType } from '../server/cms'
 
 import {
   type GlobalSectionsData,

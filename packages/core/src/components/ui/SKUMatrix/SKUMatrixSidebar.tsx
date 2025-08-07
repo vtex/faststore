@@ -4,8 +4,8 @@ import {
   SKUMatrixSidebar as UISKUMatrixSidebar,
   useSKUMatrix,
 } from '@faststore/ui'
-import { gql } from '@generated/gql'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { gql } from '../../../../@generated/gql'
+import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
 import { useBuyButton } from '../../../sdk/cart/useBuyButton'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { useAllVariantProducts } from '../../../sdk/product/useAllVariantProducts'

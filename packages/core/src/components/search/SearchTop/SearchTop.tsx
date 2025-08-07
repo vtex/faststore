@@ -6,7 +6,7 @@ import {
 import type { HTMLAttributes } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
-import type { StoreSuggestionTerm } from '@generated/graphql'
+import type { StoreSuggestionTerm } from '../../../../@generated/graphql'
 import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
 import useTopSearch from '../../../sdk/search/useTopSearch'
 

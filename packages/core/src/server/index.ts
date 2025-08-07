@@ -23,7 +23,7 @@ import * as GraphQLJS from 'graphql'
 import { GraphQLError } from 'graphql'
 import path from 'path'
 
-import persisted from '@generated/persisted-documents.json'
+import persisted from '../../@generated/persisted-documents.json'
 
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'

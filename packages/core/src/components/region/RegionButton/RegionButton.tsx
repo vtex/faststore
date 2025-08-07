@@ -5,7 +5,7 @@ import {
   deliveryPromise,
   session as initialSession,
 } from '../../../../discovery.config'
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../../../sdk/session'
 import { textToTitleCase } from '../../../utils/utilities'
 
 import { useRegionModal } from '../RegionModal/useRegionModal'

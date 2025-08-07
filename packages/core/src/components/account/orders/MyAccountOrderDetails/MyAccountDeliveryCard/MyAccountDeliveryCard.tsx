@@ -1,4 +1,4 @@
-import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
+import type { UserOrderDeliveryOptionsData } from '../../../../../../@generated/graphql'
 import { camelCaseToTitle } from '../../../../../utils/utilities'
 import MyAccountCard from '../../../components/MyAccountCard'
 

@@ -5,11 +5,11 @@ import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
 import type { ComponentType } from 'react'
 
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
 import RenderSections from '../../components/cms/RenderSections'
 import { getComponentKey } from '../../utils/cms'
@@ -21,19 +21,19 @@ import { OverriddenDefaultHero as Hero } from '../../components/sections/Hero/Ov
 import { OverriddenDefaultNewsletter as Newsletter } from '../../components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductDetails as ProductDetails } from '../../components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from '../../components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import PLUGINS_COMPONENTS from 'src/plugins'
-import { getRedirect } from 'src/sdk/redirects'
-import { useSession } from 'src/sdk/session'
-import { execute } from 'src/server'
+import ProductTiles from '../../components/sections/ProductTiles'
+import CUSTOM_COMPONENTS from '../../customizations/src/components'
+import PLUGINS_COMPONENTS from '../../plugins'
+import { getRedirect } from '../../sdk/redirects'
+import { useSession } from '../../sdk/session'
+import { execute } from '../../server'
 
 import storeConfig from '../../../discovery.config'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from '../../components/cms/GlobalSections'
-import { getOfferUrl, useOffer } from 'src/sdk/offer'
+import { getOfferUrl, useOffer } from '../../sdk/offer'
 import PageProvider, { type PDPContext } from '../../sdk/overrides/PageProvider'
 import { useProductQuery } from '../../sdk/product/useProductQuery'
 import { injectGlobalSections } from '../../server/cms/global'

@@ -9,7 +9,7 @@ import {
   type GlobalSectionsData,
   getGlobalSectionsData,
 } from '../components/cms/GlobalSections'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import CUSTOM_COMPONENTS from '../customizations/src/components'
 
 import RenderSections from '../components/cms/RenderSections'
 import PageProvider from '../sdk/overrides/PageProvider'

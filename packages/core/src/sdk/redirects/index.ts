@@ -1,5 +1,5 @@
 import storeConfig from '../../../discovery.config'
-import { matcher } from 'src/customizations/src/redirects'
+import { matcher } from '../../customizations/src/redirects'
 
 type GetRedirectArgs = {
   pathname: string

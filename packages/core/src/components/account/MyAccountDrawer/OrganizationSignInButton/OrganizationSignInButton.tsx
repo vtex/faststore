@@ -1,6 +1,6 @@
 import { Button, Icon } from '@faststore/ui'
 import { useState, type MouseEvent } from 'react'
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../../../../sdk/session'
 import { OrganizationDrawer } from '../OrganizationDrawer/OrganizationDrawer'
 
 export const OrganizationSignInButton = ({

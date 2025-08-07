@@ -12,7 +12,7 @@ import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../../@generated/graphql'
 import { ITEMS_PER_PAGE } from '../../../constants'
 import { useApplySearchState } from '../../../sdk/search/state'
 

@@ -3,7 +3,7 @@ import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../../@generated/graphql'
 import deepmerge from 'deepmerge'
 import { ITEMS_PER_PAGE } from '../../../constants'
 
@@ -30,7 +30,7 @@ const ScrollToTopButton = dynamic(
   () =>
     import(
       /* webpackChunkName: "ScrollToTopButton" */
-      'src/components/sections/ScrollToTopButton'
+      '../../sections/ScrollToTopButton'
     )
 )
 

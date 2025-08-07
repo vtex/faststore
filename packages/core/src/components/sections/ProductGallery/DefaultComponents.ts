@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic'
 const ProductCard = dynamic(
   () =>
     /* webpackChunkName: "ProductCard" */
-    import('src/components/product/ProductCard')
+    import('../../product/ProductCard')
 )
 const EmptyGallery = dynamic(
   () =>
@@ -21,12 +21,12 @@ const EmptyGallery = dynamic(
 const FilterDesktop = dynamic(
   () =>
     /* webpackChunkName: "FilterDesktop" */
-    import('src/components/search/Filter/FilterDesktop')
+    import('../../search/Filter/FilterDesktop')
 )
 const FilterSlider = dynamic(
   () =>
     /* webpackChunkName: "FilterSlider" */
-    import('src/components/search/Filter/FilterSlider')
+    import('../../search/Filter/FilterSlider')
 )
 
 export const ProductGalleryDefaultComponents = {

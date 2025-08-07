@@ -1,4 +1,4 @@
-import type { ServerProductQueryQuery } from '@generated/graphql'
+import type { ServerProductQueryQuery } from '../../@generated/graphql'
 import type { PDPContentType } from '../server/cms/pdp'
 import type { PLPContentType } from '../server/cms/plp'
 

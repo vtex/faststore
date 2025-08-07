@@ -8,10 +8,10 @@ import {
   type SearchState,
   type Session,
 } from '@faststore/sdk'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type { Filter_FacetsFragment } from '../../../@generated/graphql'
 
 import type { useFilter } from '../search/useFilter'
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../session'
 import type { GlobalCmsData } from '../../utils/globalSettings'
 
 import { deliveryPromise as deliveryPromiseConfig } from '../../../discovery.config'

@@ -1,5 +1,5 @@
 import type { GlobalSectionsData } from '../../components/cms/GlobalSections'
-import ChildrenSectionNotFoundError from 'src/sdk/error/ChildrenSectionNotFoundError'
+import ChildrenSectionNotFoundError from '../../sdk/error/ChildrenSectionNotFoundError'
 
 type InjectGlobalSectionsProps = {
   globalSections: GlobalSectionsData

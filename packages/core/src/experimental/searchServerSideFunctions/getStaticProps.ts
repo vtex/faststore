@@ -4,7 +4,7 @@ import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from '../../components/cms/GlobalSections'
-import type { SearchContentType } from 'src/server/cms'
+import type { SearchContentType } from '../../server/cms'
 import { injectGlobalSections } from '../../server/cms/global'
 import { contentService } from '../../server/content/service'
 import type { PreviewData } from '../../server/content/types'

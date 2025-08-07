@@ -1,39 +1,31 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
-import RegionPopover from 'src/components/region/RegionPopover'
+import RegionPopover from '../../region/RegionPopover'
 import { OverriddenDefaultAlert as Alert } from '../../sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from '../../sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from '../../sections/RegionBar/OverriddenDefaultRegionBar'
 
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import PLUGINS_COMPONENTS from 'src/plugins'
+import CUSTOM_COMPONENTS from '../../../customizations/src/components'
+import PLUGINS_COMPONENTS from '../../../plugins'
 import { getComponentKey } from '../../../utils/cms'
 
 const CartSidebar = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "CartSidebar" */ 'src/components/cart/CartSidebar'
-    ),
+  () => import(/* webpackChunkName: "CartSidebar" */ '../../cart/CartSidebar'),
   { ssr: false }
 )
 const RegionModal = dynamic(
   () =>
-    import(
-      /* webpackChunkName: "RegionModal" */ 'src/components/region/RegionModal'
-    ),
+    import(/* webpackChunkName: "RegionModal" */ '../../region/RegionModal'),
   { ssr: false }
 )
 const Footer = dynamic(
-  () =>
-    import(/* webpackChunkName: "Footer" */ 'src/components/sections/Footer'),
+  () => import(/* webpackChunkName: "Footer" */ '../../sections/Footer'),
   { ssr: false }
 )
 const RegionSlider = dynamic(
   () =>
-    import(
-      /* webpackChunkName: "RegionSlider" */ 'src/components/region/RegionSlider'
-    ),
+    import(/* webpackChunkName: "RegionSlider" */ '../../region/RegionSlider'),
   { ssr: false }
 )
 

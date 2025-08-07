@@ -9,14 +9,14 @@ import dynamic from 'next/dynamic'
 import type { ChangeEvent, MouseEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useRegion from '../RegionModal/useRegion'
-import { PickupPointCards } from 'src/components/ui/PickupPoints'
+import { PickupPointCards } from '../../ui/PickupPoints'
 import {
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
   SHIPPING_FACET_KEY,
   useDeliveryPromise,
-} from 'src/sdk/deliveryPromise'
-import { sessionStore, useSession } from 'src/sdk/session'
+} from '../../../sdk/deliveryPromise'
+import { sessionStore, useSession } from '../../../sdk/session'
 import { getGlobalSettings } from '../../../utils/globalSettings'
 import styles from './section.module.scss'
 

@@ -1,7 +1,7 @@
 import type {
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsContact,
-} from '@generated/graphql'
+} from '../../../../../../@generated/graphql'
 import { useState } from 'react'
 import {
   MyAccountAccordion,

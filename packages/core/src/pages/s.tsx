@@ -15,11 +15,11 @@ import { useApplySearchState } from '../sdk/search/state'
 
 import storeConfig from '../../discovery.config'
 
-import { SearchWrapper } from 'src/components/templates/SearchPage'
+import { SearchWrapper } from '../components/templates/SearchPage'
 import {
   getStaticProps,
   type SearchPageProps,
-} from 'src/experimental/searchServerSideFunctions'
+} from '../experimental/searchServerSideFunctions'
 
 export interface SearchPageContextType {
   title: string

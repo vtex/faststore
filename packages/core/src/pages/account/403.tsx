@@ -8,21 +8,21 @@ import {
 } from '../../components/cms/GlobalSections'
 
 import { LinkButton } from '@faststore/ui'
-import { gql } from '@generated/gql'
+import { gql } from '../../../@generated/gql'
 import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
-} from '@generated/graphql'
-import { MyAccountLayout } from 'src/components/account'
+} from '../../../@generated/graphql'
+import { MyAccountLayout } from '../../components/account'
 import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
 import RenderSections from '../../components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from '../../components/sections/EmptyState/OverriddenDefaultEmptyState'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import PLUGINS_COMPONENTS from 'src/plugins'
+import CUSTOM_COMPONENTS from '../../customizations/src/components'
+import PLUGINS_COMPONENTS from '../../plugins'
 import { validateUser } from '../../sdk/account/validateUser'
 import PageProvider from '../../sdk/overrides/PageProvider'
-import { execute } from 'src/server'
-import { type PageContentType, getPage } from 'src/server/cms'
+import { execute } from '../../server'
+import { type PageContentType, getPage } from '../../server/cms'
 import { injectGlobalSections } from '../../server/cms/global'
 import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
 

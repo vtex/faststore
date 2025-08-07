@@ -1,6 +1,6 @@
 import { useRef, type MutableRefObject } from 'react'
 
-import type { ServerListOrdersQueryQuery } from '@generated/graphql'
+import type { ServerListOrdersQueryQuery } from '../../../../../@generated/graphql'
 import { useRouter } from 'next/router'
 
 import {
@@ -13,7 +13,7 @@ import {
   type SearchInputFieldRef,
 } from '@faststore/ui'
 import { useEffect } from 'react'
-import MyAccountFilterSlider from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider'
+import MyAccountFilterSlider from './MyAccountFilterSlider'
 import { useDebounce } from '../../../../sdk/account/useDebounce'
 import {
   useMyAccountFilter,

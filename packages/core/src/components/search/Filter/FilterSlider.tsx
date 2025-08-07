@@ -15,14 +15,14 @@ import {
 
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type { Filter_FacetsFragment } from '../../../../@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import type { useFilter } from '../../../sdk/search/useFilter'
 import {
   useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
-} from 'src/sdk/deliveryPromise'
+} from '../../../sdk/deliveryPromise'
 import { getGlobalSettings } from '../../../utils/globalSettings'
 
 import styles from './section.module.scss'

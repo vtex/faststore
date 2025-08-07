@@ -1,7 +1,7 @@
 import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
-import MultipleContentError from 'src/sdk/error/MultipleContentError'
+import MultipleContentError from '../../sdk/error/MultipleContentError'
 import { sanitizeHost } from '../../utils/utilities'
 import config from '../../../discovery.config'
 

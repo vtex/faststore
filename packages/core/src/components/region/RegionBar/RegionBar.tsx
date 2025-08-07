@@ -5,8 +5,8 @@ import {
 import { useEffect, useRef } from 'react'
 
 import { useUI } from '@faststore/ui'
-import { useSession } from 'src/sdk/session'
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { useSession } from '../../../sdk/session'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
 import {
   deliveryPromise,

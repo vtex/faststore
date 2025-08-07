@@ -6,13 +6,13 @@ import {
   type NavbarLinksProps as UINavbarLinksProps,
 } from '@faststore/ui'
 
-import type { NavbarProps } from 'src/components/navigation/Navbar'
-import RegionButton from 'src/components/region/RegionButton'
-import RegionFilterButton from 'src/components/region/RegionFilterButton'
-import Link from 'src/components/ui/Link'
+import type { NavbarProps } from '../Navbar'
+import RegionButton from '../../region/RegionButton'
+import RegionFilterButton from '../../region/RegionFilterButton'
+import Link from '../../ui/Link'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { useSession } from 'src/sdk/session'
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { useSession } from '../../../sdk/session'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 import { getGlobalSettings } from '../../../utils/globalSettings'
 
 interface NavbarLinksProps extends UINavbarLinksProps {

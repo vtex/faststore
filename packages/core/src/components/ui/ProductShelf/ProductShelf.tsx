@@ -11,7 +11,7 @@ import deepmerge from 'deepmerge'
 const ProductShelfSkeleton = dynamic(
   () =>
     /* webpackChunkName: "ProductShelfSkeleton" */
-    import('src/components/skeletons/ProductShelfSkeleton')
+    import('../../skeletons/ProductShelfSkeleton')
 )
 
 type Sort =

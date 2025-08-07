@@ -1,4 +1,4 @@
-import type { Incentive } from 'src/components/ui/Incentives'
+import type { Incentive } from '../../ui/Incentives'
 import UIIncentives from '../../ui/Incentives/Incentives'
 
 import Section from '../Section'

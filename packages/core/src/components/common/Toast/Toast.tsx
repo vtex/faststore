@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 
 import { useUI } from '@faststore/ui'
 import Section from '../../sections/Section/Section'
-import { useCart } from 'src/sdk/cart'
+import { useCart } from '../../../sdk/cart'
 import styles from './section.module.scss'
 
 const UIToast = dynamic(

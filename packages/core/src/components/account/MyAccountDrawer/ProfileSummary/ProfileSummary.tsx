@@ -1,7 +1,7 @@
 import { Button, Icon } from '@faststore/ui'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../../../../sdk/session'
 
 export type ProfileSummaryProps = {
   onLogoutClick?: (storeConfig: unknown) => void
