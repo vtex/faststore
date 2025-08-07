@@ -109,7 +109,7 @@ function ProductGallery({
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)
-  const initiallySelectedFacets =
+  const initialSelectedFacets =
     (data as PLPContext['data'])?.collection?.meta?.selectedFacets ?? []
   const filter = useFilter(facets, initiallySelectedFacets)
 

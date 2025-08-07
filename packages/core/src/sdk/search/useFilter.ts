@@ -137,7 +137,7 @@ export const useFilter = (
     [allFacets, selectedMap]
   )
 
-  // Prevent PLPs lose their specific facets (e.g. { key: category-n, value: 'electronics' }) after clearing filters
+  // Restore initial PLP facets after clearing filters (e.g. { key: category-n, value: 'electronics' })
   useEffect(() => {
     if (initiallySelectedFacets && selected.length === 0) {
       dispatch({
