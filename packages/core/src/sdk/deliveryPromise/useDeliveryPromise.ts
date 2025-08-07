@@ -21,8 +21,6 @@ import {
   type PickupPointsSimulation,
 } from '.'
 
-import { getGlobalSettings } from 'src/utils/globalSettings'
-
 export const PICKUP_POINT_FACET_KEY = 'pickupPoint' as const
 export const SHIPPING_FACET_KEY = 'shipping' as const
 export const PICKUP_IN_POINT_FACET_VALUE = 'pickup-in-point' as const
@@ -463,11 +461,8 @@ export function useDeliveryPromise({
     []
   )
 
-  const {
-    deliveryPromise: {
-      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
-    } = {},
-  } = getGlobalSettings()
+  const deliveryPromiseTag = deliveryPromiseSettings?.tags?.option
+  const deliveryOptionId = deliveryPromiseSettings?.tags?.deliveryOptionId
 
   const productTag =
     deliveryPromiseTag === 'delivery_option'

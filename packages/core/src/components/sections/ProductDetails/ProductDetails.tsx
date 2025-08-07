@@ -15,6 +15,7 @@ import { Badge as UIBadge } from '@faststore/ui'
 
 import storeConfig from 'discovery.config'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
@@ -150,8 +151,11 @@ function ProductDetails({
     tags: productTags,
   } = product
 
+  const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
+
   const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
     productTags: productTags,
+    deliveryPromiseSettings,
   })
 
   useEffect(() => {

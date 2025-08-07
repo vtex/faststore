@@ -15,6 +15,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 type Variant = 'wide' | 'default'
 
@@ -94,8 +95,11 @@ function ProductCard({
     tags: productTags,
   } = product
 
+  const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
+
   const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
     productTags: productTags,
+    deliveryPromiseSettings,
   })
 
   const linkProps = {
