@@ -90,7 +90,7 @@ const reducer = (state: State, action: Action) => {
 
 export const useFilter = (
   allFacets: Filter_FacetsFragment[],
-  initiallySelectedFacets?: IStoreSelectedFacet[]
+  initialSelectedFacets?: IStoreSelectedFacet[]
 ) => {
   const {
     state: { selectedFacets },
@@ -139,13 +139,13 @@ export const useFilter = (
 
   // Restore initial PLP facets after clearing filters (e.g. { key: category-n, value: 'electronics' })
   useEffect(() => {
-    if (initiallySelectedFacets && selected.length === 0) {
+    if (initialSelectedFacets && selected.length === 0) {
       dispatch({
         type: 'selectFacets',
-        payload: initiallySelectedFacets,
+        payload: initialSelectedFacets,
       })
     }
-  }, [initiallySelectedFacets, selected])
+  }, [initialSelectedFacets, selected])
 
   useEffect(() => {
     dispatch({
