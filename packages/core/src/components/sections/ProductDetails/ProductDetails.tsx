@@ -14,12 +14,7 @@ import styles from './section.module.scss'
 import { Badge as UIBadge } from '@faststore/ui'
 
 import storeConfig from 'discovery.config'
-import {
-  DELIVERY_OPTIONS_FACET_KEY,
-  DYNAMIC_ESTIMATE_FACET_KEY,
-  useDeliveryPromise,
-} from 'src/sdk/deliveryPromise'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { useDeliveryPromiseTags } from 'src/sdk/deliveryPromise/useDeliveryPromiseTags'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
@@ -134,14 +129,6 @@ function ProductDetails({
   }
 
   const {
-    deliveryPromise: {
-      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
-    } = {},
-  } = getGlobalSettings()
-  const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
-    useDeliveryPromise()
-
-  const {
     id,
     sku,
     gtin,
@@ -163,22 +150,8 @@ function ProductDetails({
     tags: productTags,
   } = product
 
-  const productTag =
-    deliveryPromiseTag === 'delivery_option'
-      ? productTags?.find(
-          ({ typeName, value }) =>
-            typeName === DELIVERY_OPTIONS_FACET_KEY &&
-            value === deliveryOptionId
-        )?.name
-      : deliveryPromiseTag === 'dynamic_estimate'
-        ? getDynamicEstimateLabel(
-            productTags?.find(
-              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
-            )?.value
-          )
-        : undefined
-  const shouldDisplayDeliveryPromiseTags =
-    isDeliveryPromiseEnabled && !!productTag
+  const { productTag, shouldDisplayDeliveryPromiseTags } =
+    useDeliveryPromiseTags(productTags)
 
   useEffect(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {

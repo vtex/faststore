@@ -1,8 +1,8 @@
 import {
+  Badge as UIBadge,
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
-  Badge as UIBadge,
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
@@ -11,14 +11,9 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import type { ImageProps } from 'next/image'
 import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
+import { useDeliveryPromiseTags } from 'src/sdk/deliveryPromise/useDeliveryPromiseTags'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
-import {
-  useDeliveryPromise,
-  DYNAMIC_ESTIMATE_FACET_KEY,
-  DELIVERY_OPTIONS_FACET_KEY,
-} from 'src/sdk/deliveryPromise'
-import { getGlobalSettings } from 'src/utils/globalSettings'
 
 type Variant = 'wide' | 'default'
 
@@ -86,14 +81,6 @@ function ProductCard({
   ...otherProps
 }: ProductCardProps) {
   const {
-    deliveryPromise: {
-      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
-    } = {},
-  } = getGlobalSettings()
-  const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
-    useDeliveryPromise()
-
-  const {
     sku,
     isVariantOf: { name },
     image: [img],
@@ -106,22 +93,8 @@ function ProductCard({
     tags: productTags,
   } = product
 
-  const productTag =
-    deliveryPromiseTag === 'delivery_option'
-      ? productTags?.find(
-          ({ typeName, value }) =>
-            typeName === DELIVERY_OPTIONS_FACET_KEY &&
-            value === deliveryOptionId
-        )?.name
-      : deliveryPromiseTag === 'dynamic_estimate'
-        ? getDynamicEstimateLabel(
-            productTags?.find(
-              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
-            )?.value
-          )
-        : undefined
-  const shouldDisplayDeliveryPromiseTags =
-    isDeliveryPromiseEnabled && !!productTag
+  const { productTag, shouldDisplayDeliveryPromiseTags } =
+    useDeliveryPromiseTags(productTags)
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
