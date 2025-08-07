@@ -1,5 +1,5 @@
-import React, { forwardRef, type HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
+import React, { forwardRef, type HTMLAttributes } from 'react'
 
 import { Rating } from '../../'
 
@@ -53,7 +53,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       >
         <div data-fs-product-title-header>
           {title}
-          {!!label && label}
+          <div data-fs-product-title-label>{!!label && label}</div>
         </div>
 
         {(refNumber || ratingValue) && (

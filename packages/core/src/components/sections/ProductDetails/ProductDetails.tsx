@@ -11,7 +11,15 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
+import { Badge as UIBadge } from '@faststore/ui'
+
 import storeConfig from 'discovery.config'
+import {
+  DELIVERY_OPTIONS_FACET_KEY,
+  DYNAMIC_ESTIMATE_FACET_KEY,
+  useDeliveryPromise,
+} from 'src/sdk/deliveryPromise'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
@@ -126,6 +134,14 @@ function ProductDetails({
   }
 
   const {
+    deliveryPromise: {
+      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
+    } = {},
+  } = getGlobalSettings()
+  const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
+    useDeliveryPromise()
+
+  const {
     id,
     sku,
     gtin,
@@ -144,7 +160,25 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
+    tags: productTags,
   } = product
+
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+            )?.value
+          )
+        : undefined
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled && !!productTag
 
   useEffect(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
@@ -198,28 +232,34 @@ function ProductDetails({
               title={<h1>{name}</h1>}
               {...ProductTitle.props}
               label={
-                showDiscountBadge && (
-                  <DiscountBadge.Component
-                    {...DiscountBadge.props}
-                    size={discountBadgeSize ?? DiscountBadge.props.size}
-                    // Dynamic props shouldn't be overridable
-                    // This decision can be reviewed later if needed
-                    listPrice={
-                      taxesConfiguration?.usePriceWithTaxes
-                        ? listPriceWithTaxes
-                        : listPrice
-                    }
-                    spotPrice={
-                      taxesConfiguration?.usePriceWithTaxes
-                        ? lowPriceWithTaxes
-                        : lowPrice
-                    }
-                  />
-                )
+                <>
+                  {showDiscountBadge && (
+                    <DiscountBadge.Component
+                      {...DiscountBadge.props}
+                      size={discountBadgeSize ?? DiscountBadge.props.size}
+                      // Dynamic props shouldn't be overridable
+                      // This decision can be reviewed later if needed
+                      listPrice={
+                        taxesConfiguration?.usePriceWithTaxes
+                          ? listPriceWithTaxes
+                          : listPrice
+                      }
+                      spotPrice={
+                        taxesConfiguration?.usePriceWithTaxes
+                          ? lowPriceWithTaxes
+                          : lowPrice
+                      }
+                    />
+                  )}
+                  {shouldDisplayDeliveryPromiseTags && (
+                    <UIBadge variant="highlighted">{productTag}</UIBadge>
+                  )}
+                </>
               }
               refNumber={showRefNumber && productId}
             />
           </header>
+
           <ImageGallery.Component
             data-fs-product-details-gallery
             {...ImageGallery.props}
