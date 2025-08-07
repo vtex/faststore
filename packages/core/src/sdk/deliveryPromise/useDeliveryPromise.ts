@@ -108,6 +108,8 @@ export function useDeliveryPromise({
   } = useDeliveryPromiseContext()
 
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
+  const isDeliveryOptionsEnabled =
+    deliveryPromiseSettings?.deliveryOptions?.enabled ?? false
 
   const selectedFacets = useMemo(
     () => selectedFilterFacets ?? searchState.selectedFacets,
