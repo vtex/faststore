@@ -1,5 +1,5 @@
 import { useUI } from '@faststore/ui'
-import { deliveryPromise } from 'discovery.config'
+import { deliveryPromise } from '../../../../discovery.config'
 import { useEffect, useRef, useState } from 'react'
 import { sessionStore, useSession } from 'src/sdk/session'
 

@@ -8,7 +8,7 @@ import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
-import discoveryConfig from 'discovery.config'
+import discoveryConfig from '../../../discovery.config'
 import { sanitizeHost } from '../../utils/utilities'
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'

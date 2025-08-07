@@ -1,4 +1,4 @@
-import storeConfig from 'discovery.config'
+import storeConfig from '../../discovery.config'
 import type { ParsedUrlQuery } from 'querystring'
 
 /**

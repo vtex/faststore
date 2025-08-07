@@ -4,7 +4,7 @@ import type {
   ClientPickupPointsQueryQueryVariables as ClientPickupPointsQueryVariables,
 } from '@generated/graphql'
 
-import { deliveryPromise } from 'discovery.config'
+import { deliveryPromise } from '../../../discovery.config'
 import { request } from '../graphql/request'
 
 const pickupPointsQuery = gql(`

@@ -11,7 +11,7 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import storeConfig from 'discovery.config'
+import storeConfig from '../../../../discovery.config'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'

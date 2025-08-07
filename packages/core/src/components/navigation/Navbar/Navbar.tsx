@@ -13,7 +13,7 @@ import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from '../../../sdk/ui/useScreenResize'
 
-import storeConfig from 'discovery.config'
+import storeConfig from '../../../../discovery.config'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
 const NavbarLinks = dynamic(
