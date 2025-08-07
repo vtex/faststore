@@ -16,7 +16,7 @@ import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
+} from '../components/cms/GlobalSections'
 import {
   getLandingPageBySlug,
   type LandingPageProps,
@@ -26,12 +26,12 @@ import ProductListingPage, {
 } from 'src/components/templates/ProductListingPage'
 import { getRedirect } from 'src/sdk/redirects'
 import type { PageContentType } from 'src/server/cms'
-import { injectGlobalSections } from 'src/server/cms/global'
-import type { PLPContentType } from 'src/server/cms/plp'
-import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
-import { getDynamicContent } from 'src/utils/dynamicContent'
-import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
+import { injectGlobalSections } from '../server/cms/global'
+import type { PLPContentType } from '../server/cms/plp'
+import { contentService } from '../server/content/service'
+import type { PreviewData } from '../server/content/types'
+import { getDynamicContent } from '../utils/dynamicContent'
+import { fetchServerManyProducts } from '../utils/fetchProductGallerySSR'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')

@@ -6,9 +6,9 @@ import {
 } from '@faststore/ui'
 import { gql } from '@generated/gql'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
-import { usePDP } from 'src/sdk/overrides/PageProvider'
-import { useAllVariantProducts } from 'src/sdk/product/useAllVariantProducts'
+import { useBuyButton } from '../../../sdk/cart/useBuyButton'
+import { usePDP } from '../../../sdk/overrides/PageProvider'
+import { useAllVariantProducts } from '../../../sdk/product/useAllVariantProducts'
 import { Image } from '../Image'
 
 interface SKUMatrixProps extends UISKUMatrixSidebarProps {

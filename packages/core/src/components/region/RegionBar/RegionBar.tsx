@@ -9,9 +9,9 @@ import { useSession } from 'src/sdk/session'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 
 import { deliveryPromise, session as initialSession } from 'discovery.config'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { textToTitleCase } from 'src/utils/utilities'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { textToTitleCase } from '../../../utils/utilities'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 
 import { useRegionModal } from '../RegionModal/useRegionModal'
 

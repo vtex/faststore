@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import styles from '../section.module.scss'
 
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import useScreenResize from '../../../sdk/ui/useScreenResize'
 
 interface NavItem {
   title: string

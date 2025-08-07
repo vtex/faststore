@@ -4,30 +4,30 @@
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
-import RenderSections from 'src/components/cms/RenderSections'
-import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
+import RenderSections from '../../components/cms/RenderSections'
+import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
-import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
+import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
 
 import { gql } from '@generated/gql'
 import type {
   ServerSecurityQueryQuery,
   ServerSecurityQueryQueryVariables,
 } from '@generated/graphql'
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { default as AfterSection } from '../../customizations/src/myAccount/extensions/security/after'
+import { default as BeforeSection } from '../../customizations/src/myAccount/extensions/security/before'
+import type { MyAccountProps } from '../../experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from '../../sdk/account/getIsRepresentative'
 import { execute } from 'src/server'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { injectGlobalSections } from '../../server/cms/global'
+import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
 
-import { validateUser } from 'src/sdk/account/validateUser'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import { validateUser } from '../../sdk/account/validateUser'
+import PageProvider from '../../sdk/overrides/PageProvider'
 
 import { SecuritySection } from 'src/components/account/security'
 import storeConfig from '../../../discovery.config'

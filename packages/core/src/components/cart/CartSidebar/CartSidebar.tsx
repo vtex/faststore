@@ -9,7 +9,7 @@ import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
 import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
-import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
+import { useCheckoutButton } from '../../../sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
 
 const UIButton = dynamic<ButtonProps>(

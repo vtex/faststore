@@ -13,17 +13,17 @@ import {
   type IconProps as UIIconProps,
 } from '@faststore/ui'
 
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
-import type { useFilter } from 'src/sdk/search/useFilter'
+import type { useFilter } from '../../../sdk/search/useFilter'
 import {
   useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
 } from 'src/sdk/deliveryPromise'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 
 import styles from './section.module.scss'
 

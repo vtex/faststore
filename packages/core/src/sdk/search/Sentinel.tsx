@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import useScreenResize from '../ui/useScreenResize'
 
 interface SentinelProps {
   page: number

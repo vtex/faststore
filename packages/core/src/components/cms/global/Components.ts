@@ -2,13 +2,13 @@ import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
 import RegionPopover from 'src/components/region/RegionPopover'
-import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
-import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
-import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
+import { OverriddenDefaultAlert as Alert } from '../../sections/Alert/OverriddenDefaultAlert'
+import { OverriddenDefaultNavbar as Navbar } from '../../sections/Navbar/OverriddenDefaultNavbar'
+import { OverriddenDefaultRegionBar as RegionBar } from '../../sections/RegionBar/OverriddenDefaultRegionBar'
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { getComponentKey } from 'src/utils/cms'
+import { getComponentKey } from '../../../utils/cms'
 
 const CartSidebar = dynamic(
   () =>

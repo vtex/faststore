@@ -1,19 +1,19 @@
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections from '../components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
 
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
-import COMPONENTS from 'src/components/cms/home/Components'
-import PageProvider from 'src/sdk/overrides/PageProvider'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
-import { getDynamicContent } from 'src/utils/dynamicContent'
+} from '../components/cms/GlobalSections'
+import COMPONENTS from '../components/cms/home/Components'
+import PageProvider from '../sdk/overrides/PageProvider'
+import { injectGlobalSections } from '../server/cms/global'
+import { contentService } from '../server/content/service'
+import type { PreviewData } from '../server/content/types'
+import { getDynamicContent } from '../utils/dynamicContent'
 import storeConfig from '../../discovery.config'
 
 type Props = {

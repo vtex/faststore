@@ -17,8 +17,8 @@ import type { NavbarProps } from 'src/components/sections/Navbar'
 import type {
   IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteClickParams,
-} from 'src/sdk/analytics/types'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+} from '../../../sdk/analytics/types'
+import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']

@@ -8,7 +8,7 @@ import {
 
 import { Image } from 'src/components/ui/Image'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
 export type Props = GiftProps & {
   /**

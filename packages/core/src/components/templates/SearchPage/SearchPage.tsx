@@ -1,14 +1,14 @@
 import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
-import RenderSections from 'src/components/cms/RenderSections'
-import COMPONENTS from 'src/components/cms/search/Components'
-import type { SearchPageContextType } from 'src/pages/s'
+import RenderSections from '../../cms/RenderSections'
+import COMPONENTS from '../../cms/search/Components'
+import type { SearchPageContextType } from '../../../pages/s'
 import PageProvider, {
   type SearchPageContext,
-} from 'src/sdk/overrides/PageProvider'
+} from '../../../sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
-} from 'src/sdk/product/usePageProductsQuery'
+} from '../../../sdk/product/usePageProductsQuery'
 import type { SearchContentType } from 'src/server/cms'
 
 export type SearchPageProps = {

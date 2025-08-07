@@ -10,10 +10,10 @@ import type { NavbarProps } from 'src/components/navigation/Navbar'
 import RegionButton from 'src/components/region/RegionButton'
 import RegionFilterButton from 'src/components/region/RegionFilterButton'
 import Link from 'src/components/ui/Link'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']

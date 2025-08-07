@@ -4,16 +4,16 @@ import { useEffect } from 'react'
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import type { ComponentType } from 'react'
-import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
+import { default as GLOBAL_COMPONENTS } from '../components/cms/global/Components'
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
+} from '../components/cms/GlobalSections'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
-import RenderSections from 'src/components/cms/RenderSections'
-import PageProvider from 'src/sdk/overrides/PageProvider'
-import { injectGlobalSections } from 'src/server/cms/global'
+import RenderSections from '../components/cms/RenderSections'
+import PageProvider from '../sdk/overrides/PageProvider'
+import { injectGlobalSections } from '../server/cms/global'
 import storeConfig from '../../discovery.config'
 
 type Props = {

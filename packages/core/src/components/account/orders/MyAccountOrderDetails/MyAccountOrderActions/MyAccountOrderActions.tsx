@@ -8,7 +8,7 @@ import {
 } from '@faststore/ui'
 import { useState } from 'react'
 import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
-import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
+import { useCancelOrder } from '../../../../../sdk/account/useCancelOrder'
 
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean

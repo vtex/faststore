@@ -5,7 +5,7 @@ import type {
 } from '@generated/graphql'
 
 import { deliveryPromise } from 'discovery.config'
-import { request } from 'src/sdk/graphql/request'
+import { request } from '../graphql/request'
 
 const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(

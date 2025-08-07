@@ -9,13 +9,13 @@ import type { GetServerSideProps } from 'next'
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
+} from '../components/cms/GlobalSections'
 import { execute } from 'src/server'
-import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { getIsRepresentative } from '../sdk/account/getIsRepresentative'
 
-import { injectGlobalSections } from 'src/server/cms/global'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { validateUser } from 'src/sdk/account/validateUser'
+import { injectGlobalSections } from '../server/cms/global'
+import { getMyAccountRedirect } from '../utils/myAccountRedirect'
+import { validateUser } from '../sdk/account/validateUser'
 import storeConfig from '../../discovery.config'
 
 export type MyAccountProps = {

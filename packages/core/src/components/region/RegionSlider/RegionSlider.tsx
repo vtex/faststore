@@ -8,7 +8,7 @@ import {
 import dynamic from 'next/dynamic'
 import type { ChangeEvent, MouseEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import useRegion from 'src/components/region/RegionModal/useRegion'
+import useRegion from '../RegionModal/useRegion'
 import { PickupPointCards } from 'src/components/ui/PickupPoints'
 import {
   PICKUP_IN_POINT_FACET_VALUE,
@@ -17,7 +17,7 @@ import {
   useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
 import { sessionStore, useSession } from 'src/sdk/session'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 import styles from './section.module.scss'
 
 const UIFilterSlider = dynamic<UIFilterSliderProps>(

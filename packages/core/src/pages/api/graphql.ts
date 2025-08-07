@@ -7,7 +7,7 @@ import {
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
-import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
+import { getJWTAutCookie, isExpired } from '../../utils/getCookie'
 import { execute } from '../../server'
 
 const ONE_MINUTE = 60

@@ -1,13 +1,13 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
-import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
+import { OverriddenDefaultBreadcrumb as Breadcrumb } from '../../sections/Breadcrumb/OverriddenDefaultBreadcrumb'
+import { OverriddenDefaultHero as Hero } from '../../sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultProductGallery as ProductGallery } from '../../sections/ProductGallery/OverriddenDefaultProductGallery'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
-import { getComponentKey } from 'src/utils/cms'
+import { getComponentKey } from '../../../utils/cms'
 
 const BannerText = dynamic(
   () =>

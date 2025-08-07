@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
-import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
+import { useFormatPrice } from '../../../utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import useScreenResize from '../../../../../sdk/ui/useScreenResize'
 
 const MAX_COST_CENTERS = 5
 

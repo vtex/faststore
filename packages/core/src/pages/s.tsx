@@ -10,8 +10,8 @@ import {
 } from '@faststore/sdk'
 import { SROnly as UISROnly } from '@faststore/ui'
 
-import { ITEMS_PER_PAGE } from 'src/constants'
-import { useApplySearchState } from 'src/sdk/search/state'
+import { ITEMS_PER_PAGE } from '../constants'
+import { useApplySearchState } from '../sdk/search/state'
 
 import storeConfig from 'discovery.config'
 

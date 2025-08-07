@@ -1,7 +1,10 @@
 import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
 import { useRef, type ReactNode } from 'react'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
-import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
+import {
+  orderStatusMap,
+  type OrderStatusKey,
+} from '../../../../../utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 

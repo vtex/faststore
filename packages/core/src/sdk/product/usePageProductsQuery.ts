@@ -14,7 +14,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from '../graphql/useQuery'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'

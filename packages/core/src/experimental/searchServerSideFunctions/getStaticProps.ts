@@ -3,11 +3,11 @@ import type { GetStaticProps } from 'next'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
+} from '../../components/cms/GlobalSections'
 import type { SearchContentType } from 'src/server/cms'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
+import { injectGlobalSections } from '../../server/cms/global'
+import { contentService } from '../../server/content/service'
+import type { PreviewData } from '../../server/content/types'
 
 export type SearchPageProps = {
   page: SearchContentType

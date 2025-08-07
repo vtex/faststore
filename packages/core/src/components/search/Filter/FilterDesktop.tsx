@@ -13,15 +13,15 @@ import {
 } from '@faststore/ui'
 
 import { gql } from '@generated/gql'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import type { useFilter } from 'src/sdk/search/useFilter'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
+import type { useFilter } from '../../../sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import {
   useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
 } from 'src/sdk/deliveryPromise'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 interface FilterDesktopProps

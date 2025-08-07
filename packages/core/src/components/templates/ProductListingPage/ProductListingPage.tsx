@@ -13,10 +13,10 @@ import type {
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
 } from '@generated/graphql'
-import { ITEMS_PER_PAGE } from 'src/constants'
-import { useApplySearchState } from 'src/sdk/search/state'
+import { ITEMS_PER_PAGE } from '../../../constants'
+import { useApplySearchState } from '../../../sdk/search/state'
 
-import type { PLPContentType } from 'src/server/cms/plp'
+import type { PLPContentType } from '../../../server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'

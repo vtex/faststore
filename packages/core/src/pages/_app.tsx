@@ -7,18 +7,18 @@ import { useSearch } from '@faststore/sdk'
 import { UIProvider } from '@faststore/ui'
 
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
-import Layout from 'src/Layout'
+import Layout from '../Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
-import useGeolocation from 'src/sdk/geolocation/useGeolocation'
+import useGeolocation from '../sdk/geolocation/useGeolocation'
 
 import SEO from 'next-seo.config'
 
 // FastStore UI's base styles
 import '../styles/main.scss'
 
-import { ITEMS_PER_PAGE } from 'src/constants'
+import { ITEMS_PER_PAGE } from '../constants'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()

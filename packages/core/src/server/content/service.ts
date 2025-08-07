@@ -10,7 +10,7 @@ import {
   findBestPLPTemplate,
   type Rewrite,
   type RewritesConfig,
-} from 'src/utils/multipleTemplates'
+} from '../../utils/multipleTemplates'
 import MissingContentError from 'src/sdk/error/MissingContentError'
 import { getPDP, type PDPContentType } from '../cms/pdp'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'

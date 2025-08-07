@@ -5,8 +5,8 @@ import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 import ProductCard from 'src/components/product/ProductCard'
 import ProductTilesSkeleton from 'src/components/skeletons/ProductTilesSkeleton'
 import Tiles, { Tile } from 'src/components/ui/Tiles'
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
+import { useViewItemListEvent } from '../../../sdk/analytics/hooks/useViewItemListEvent'
+import { useProductsQuery } from '../../../sdk/product/useProductsQuery'
 
 import Section from '../Section'
 

@@ -4,7 +4,7 @@ import {
   type Rewrite,
   type RewritesConfig,
   findBestPLPTemplate,
-} from 'src/utils/multipleTemplates'
+} from '../../utils/multipleTemplates'
 import config from '../../../discovery.config'
 import { type Options, getCMSPage, getPage } from '../cms'
 

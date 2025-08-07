@@ -11,11 +11,11 @@ import {
 import { useCallback, useMemo } from 'react'
 
 import { Image } from 'src/components/ui/Image'
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import type { AnalyticsItem } from '../../../sdk/analytics/types'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
 import { cartStore } from 'src/sdk/cart'
-import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useRemoveButton } from '../../../sdk/cart/useRemoveButton'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
 function useCartItemEvent() {

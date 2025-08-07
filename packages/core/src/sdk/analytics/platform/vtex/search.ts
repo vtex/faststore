@@ -4,8 +4,8 @@
 import type { AnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvents } from '../../types'
 
-import { getBaseDomain } from 'src/utils/getBaseDomain'
-import { getCookie } from 'src/utils/getCookie'
+import { getBaseDomain } from '../../../../utils/getBaseDomain'
+import { getCookie } from '../../../../utils/getCookie'
 import config from '../../../../../discovery.config'
 
 const THIRTY_MINUTES_S = 30 * 60

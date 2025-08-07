@@ -2,11 +2,11 @@ import type { GetServerSideProps } from 'next'
 import type { SearchPageProps } from './getStaticProps'
 
 import storeConfig from 'discovery.config'
-import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
+import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
 import { type SearchContentType, getPage } from 'src/server/cms'
-import { injectGlobalSections } from 'src/server/cms/global'
-import type { PreviewData } from 'src/server/content/types'
-import { contentService } from 'src/server/content/service'
+import { injectGlobalSections } from '../../server/cms/global'
+import type { PreviewData } from '../../server/content/types'
+import { contentService } from '../../server/content/service'
 
 export const getServerSideProps: GetServerSideProps<
   SearchPageProps,

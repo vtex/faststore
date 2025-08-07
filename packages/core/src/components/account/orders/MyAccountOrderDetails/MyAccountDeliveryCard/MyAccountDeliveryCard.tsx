@@ -1,5 +1,5 @@
 import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
-import { camelCaseToTitle } from 'src/utils/utilities'
+import { camelCaseToTitle } from '../../../../../utils/utilities'
 import MyAccountCard from '../../../components/MyAccountCard'
 
 interface MyAccountDeliveryCardProps {

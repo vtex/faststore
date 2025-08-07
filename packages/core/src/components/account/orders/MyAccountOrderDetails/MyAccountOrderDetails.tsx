@@ -9,7 +9,7 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-import type { OrderStatusKey } from 'src/utils/userOrderStatus'
+import type { OrderStatusKey } from '../../../../utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
 import styles from './section.module.scss'

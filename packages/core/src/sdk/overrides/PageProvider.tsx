@@ -7,7 +7,7 @@ import type {
 } from '@generated/graphql'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
-import type { SearchPageContextType } from 'src/pages/s'
+import type { SearchPageContextType } from '../../pages/s'
 
 interface PageGlobalContext {
   globalSettings?: Record<string, unknown>

@@ -10,8 +10,8 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import type { ImageProps } from 'next/image'
 import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useProductLink } from 'src/sdk/product/useProductLink'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
+import { useProductLink } from '../../../sdk/product/useProductLink'
 
 type Variant = 'wide' | 'default'
 

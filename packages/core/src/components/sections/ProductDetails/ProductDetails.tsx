@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from 'react'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 
 import { gql } from '@generated'
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import type { AnalyticsItem } from '../../../sdk/analytics/types'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
 import Section from '../Section'

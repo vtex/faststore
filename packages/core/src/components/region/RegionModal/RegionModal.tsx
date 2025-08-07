@@ -10,7 +10,7 @@ import { useSession } from 'src/sdk/session'
 
 import useRegion from './useRegion'
 
-import { getGlobalSettings } from 'src/utils/globalSettings'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(

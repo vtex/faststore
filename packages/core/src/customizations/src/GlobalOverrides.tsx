@@ -1,8 +1,8 @@
-import WebFontsOverrides from 'src/customizations/src/components/overrides/WebFonts'
-import { default as CoreWebFonts } from 'src/fonts/WebFonts'
-import ThirdPartyScriptsOverrides from 'src/customizations/src/components/overrides/ThirdPartyScripts'
-import ThirdPartyScriptsPluginsOverrides from 'src/plugins/overrides/ThirdPartyScripts'
-import WebFontsOverridesPlugins from 'src/plugins/overrides/WebFonts'
+import WebFontsOverrides from './components/overrides/WebFonts'
+import { default as CoreWebFonts } from '../../fonts/WebFonts'
+import ThirdPartyScriptsOverrides from './components/overrides/ThirdPartyScripts'
+import ThirdPartyScriptsPluginsOverrides from '../../plugins/overrides/ThirdPartyScripts'
+import WebFontsOverridesPlugins from '../../plugins/overrides/WebFonts'
 
 const Components = {
   WebFonts: CoreWebFonts,

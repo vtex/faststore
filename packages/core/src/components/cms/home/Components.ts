@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultHero as Hero } from '../../sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
-import { getComponentKey } from 'src/utils/cms'
+import { getComponentKey } from '../../../utils/cms'
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'

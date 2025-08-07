@@ -10,7 +10,7 @@ import Logo from 'src/components/ui/Logo'
 import type { NavbarProps } from '../Navbar'
 
 import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
 import styles from './section.module.scss'
 

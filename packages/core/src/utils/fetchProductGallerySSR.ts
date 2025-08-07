@@ -4,7 +4,7 @@ import type {
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
 } from '@generated/graphql'
-import { ITEMS_PER_PAGE } from 'src/constants'
+import { ITEMS_PER_PAGE } from '../constants'
 import { execute } from 'src/server'
 import storeConfig from '../../discovery.config'
 

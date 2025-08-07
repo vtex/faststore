@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 
-import { ITEMS_PER_PAGE } from 'src/constants'
+import { ITEMS_PER_PAGE } from '../../../constants'
 
 import ProductCardSkeleton from '../ProductCardSkeleton'
 

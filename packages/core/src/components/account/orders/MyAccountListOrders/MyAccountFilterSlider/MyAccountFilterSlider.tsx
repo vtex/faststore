@@ -11,7 +11,7 @@ import { type MutableRefObject, useRef, useState } from 'react'
 import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
-} from 'src/sdk/search/useMyAccountFilter'
+} from '../../../../../sdk/search/useMyAccountFilter'
 import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
 import styles from './section.module.scss'
 

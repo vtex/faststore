@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from '../graphql/useQuery'
 
 import { gql } from '@generated'
 import type {

@@ -1,8 +1,8 @@
 import type { Section } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
 import type { PageContentType } from 'src/server/cms'
-import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
+import { contentService } from '../../server/content/service'
+import type { PreviewData } from '../../server/content/types'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 export const GLOBAL_SECTIONS_HEADER_CONTENT_TYPE = 'globalHeaderSections'
