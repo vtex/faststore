@@ -1,4 +1,4 @@
-import { Command } from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import { spawn } from 'child_process'
 import chalk from 'chalk'
 import chokidar from 'chokidar'
@@ -27,11 +27,15 @@ const defaultIgnored = [
   'README.md',
   '.gitignore',
   'package.json',
-  'node_modules/**',
-  '**/node_modules/**',
   '.git/**',
   '.faststore/**',
   '**/.faststore/**',
+]
+
+const defaultNodeModulesIgnored = ['node_modules/**', '**/node_modules/**']
+
+const defaultNodeModulesIgnoredExceptVtexPackages = [
+  '**/node_modules/!(@vtex)/**',
 ]
 
 const devAbortController = new AbortController()
@@ -138,10 +142,18 @@ export default class Dev extends Command {
     },
   ]
 
+  static flags = {
+    'watch-plugins': Flags.boolean({
+      description: 'Enable watching for plugin changes',
+      default: false,
+    }),
+  }
+
   async run() {
-    const { args } = await this.parse(Dev)
+    const { args, flags } = await this.parse(Dev)
     const basePath = args.path ? path.resolve(args.path) : process.cwd()
     const port = args.port ?? 3000
+    const watchPlugins = flags['watch-plugins']
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
 
@@ -158,7 +170,12 @@ export default class Dev extends Command {
       },
       cwd: getRoot(),
       ignoreInitial: true,
-      ignored: defaultIgnored,
+      ignored: [
+        ...defaultIgnored,
+        ...(watchPlugins
+          ? defaultNodeModulesIgnoredExceptVtexPackages
+          : defaultNodeModulesIgnored),
+      ],
       persistent: true,
       usePolling: process.platform === 'win32',
     })

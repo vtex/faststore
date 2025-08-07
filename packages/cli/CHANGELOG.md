@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.74.0](https://github.com/vtex/faststore/compare/v3.73.0...v3.74.0) (2025-08-07)
+
+### Features
+
+- add flag --watch-plugins on dev command ([#2880](https://github.com/vtex/faststore/issues/2880)) ([5816538](https://github.com/vtex/faststore/commit/5816538786aff756c8a3f035096dfb35c6530d60)), closes [#2563](https://github.com/vtex/faststore/issues/2563)
+
+# [3.73.0](https://github.com/vtex/faststore/compare/v3.72.1...v3.73.0) (2025-08-07)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.72.1](https://github.com/vtex/faststore/compare/v3.72.0...v3.72.1) (2025-08-07)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [3.72.0](https://github.com/vtex/faststore/compare/v3.71.0...v3.72.0) (2025-08-05)
 
 **Note:** Version bump only for package @faststore/cli
