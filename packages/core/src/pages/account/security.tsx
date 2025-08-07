@@ -1,7 +1,6 @@
 /* ######################################### */
 /* Mocked Page until development is finished, it will be removed after */
 
-import Head from 'next/head'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
@@ -54,26 +53,20 @@ export default function Page({
     globalSectionsProp ?? {}
 
   return (
-    <>
-      <Head>
-        <title>Security | {accountName}</title>
-      </Head>
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
 
-      <PageProvider context={{ globalSettings }}>
-        <RenderSections globalSections={globalSections} components={COMPONENTS}>
-          <NextSeo noindex nofollow />
-
-          <MyAccountLayout
-            isRepresentative={isRepresentative}
-            accountName={accountName}
-          >
-            <BeforeSection />
-            <SecuritySection userEmail={userEmail} />
-            <AfterSection />
-          </MyAccountLayout>
-        </RenderSections>
-      </PageProvider>
-    </>
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
+          <BeforeSection />
+          <SecuritySection userEmail={userEmail} />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 
