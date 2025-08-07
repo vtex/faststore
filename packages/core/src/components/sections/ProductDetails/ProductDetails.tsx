@@ -387,6 +387,12 @@ export const fragment = gql(`
       valueReference
     }
 
+    tags {
+      typeName
+      value
+      name
+    }
+
     # Contains necessary info to add this item to cart
     ...CartProductItem
   }
