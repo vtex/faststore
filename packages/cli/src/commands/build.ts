@@ -114,9 +114,6 @@ async function normalizeStandaloneBuildDir(basePath: string) {
 async function copyResources(basePath: string) {
   const { tmpDir, userDir } = withBasePath(basePath)
 
-  // To be clear, the generate copies the public files from the srcDir to tmpDir, so when we copy everything back on the
-  // build we are including the customizations
-
   if (process.env.BUILD_CONTEXT === 'vercel') {
     const toDir = process.cwd()
 
