@@ -1,6 +1,5 @@
 const defaultConfig = require('./discovery.config.default')
 const starterConfig = require('./src/customizations/discovery.config')
-
 const deepmerge = require('deepmerge')
 
 /**

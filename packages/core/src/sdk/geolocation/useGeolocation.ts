@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { deliveryPromise } from '../../../discovery.config'
+import { deliveryPromise } from 'faststore-config'
 import { TIME_TO_VALIDATE_SESSION } from '../../constants'
 import { sessionStore, validateSession } from '../session'
 

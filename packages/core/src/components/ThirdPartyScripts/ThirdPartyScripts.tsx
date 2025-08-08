@@ -1,5 +1,5 @@
 import { Partytown } from '@builder.io/partytown/react'
-import storeConfig from '../../../discovery.config'
+import storeConfig from 'faststore-config'
 import OverrideComponents from '../../customizations/src/GlobalOverrides'
 import GoogleTagManager, { GTM_DEBUG_QUERY_STRING } from './GoogleTagManager'
 import VTEX from './vtex'
