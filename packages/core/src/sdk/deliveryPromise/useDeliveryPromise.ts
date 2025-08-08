@@ -109,7 +109,9 @@ export function useDeliveryPromise({
 
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
   const isDynamicEstimateEnabled =
-    deliveryPromiseSettings?.dynamicEstimate?.enabled ?? false
+    deliveryPromiseSettings?.dynamicEstimate?.enabled ?? true
+  const isDeliveryOptionsEnabled =
+    deliveryPromiseSettings?.deliveryOptions?.enabled ?? true
 
   const selectedFacets = useMemo(
     () => selectedFilterFacets ?? searchState.selectedFacets,
@@ -303,9 +305,17 @@ export function useDeliveryPromise({
       )
     }
 
-    const filteredFacets = !isDynamicEstimateEnabled
-      ? allFacets.filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY)
-      : allFacets
+    const filteredFacets = allFacets.filter(({ key }) => {
+      if (!isDeliveryOptionsEnabled && key === DELIVERY_OPTIONS_FACET_KEY) {
+        return false
+      }
+
+      if (!isDynamicEstimateEnabled && key === DYNAMIC_ESTIMATE_FACET_KEY) {
+        return false
+      }
+
+      return true
+    })
 
     return filteredFacets
       .map((facet) => {
