@@ -1,4 +1,4 @@
-import config from '../../discovery.config'
+import config from 'faststore-config'
 
 export const getBaseDomain = (urls: string[]) => {
   // Check if all hostnames are the same (unified domain scenario)
