@@ -1,0 +1,12 @@
+{
+  "login": {
+    "$singleton": true,
+    "title": "Login",
+    "type": "object",
+    "properties": {
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    }
+  }
+}
