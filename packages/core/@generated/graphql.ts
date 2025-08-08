@@ -2478,6 +2478,11 @@ export type ProductDetailsFragment_ProductFragment = {
     value: any
     valueReference: any
   }>
+  tags: Array<{
+    typeName: string | null
+    value: string | null
+    name: string | null
+  } | null> | null
 }
 
 export type ProductSkuMatrixSidebarFragment_ProductFragment = {
@@ -2621,6 +2626,11 @@ export type ServerProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    tags: Array<{
+      typeName: string | null
+      value: string | null
+      name: string | null
+    } | null> | null
   }
 }
 
@@ -3293,6 +3303,11 @@ export type ClientProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    tags: Array<{
+      typeName: string | null
+      value: string | null
+      name: string | null
+    } | null> | null
   }
 }
 
@@ -3719,6 +3734,11 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     value
     valueReference
   }
+  tags {
+    typeName
+    value
+    name
+  }
   ...CartProductItem
 }
     fragment CartProductItem on StoreProduct {
@@ -4021,7 +4041,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: '1174d1e2a4c014b64c67a8316585258b5f5b0a51',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -4165,7 +4185,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: '943ba9474cda51489c1b4308d474dfa9d574e698',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
