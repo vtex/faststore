@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
 import { Icon, useUI } from '@faststore/ui'
 
-import { deliveryPromise } from '../../../../discovery.config'
+import { deliveryPromise } from 'faststore-config'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 import { useSession } from '../../../sdk/session'
 

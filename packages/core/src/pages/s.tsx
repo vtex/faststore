@@ -13,7 +13,7 @@ import { SROnly as UISROnly } from '@faststore/ui'
 import { ITEMS_PER_PAGE } from '../constants'
 import { useApplySearchState } from '../sdk/search/state'
 
-import storeConfig from '../../discovery.config'
+import storeConfig from 'faststore-config'
 
 import { SearchWrapper } from '../components/templates/SearchPage'
 import {
