@@ -1,4 +1,4 @@
-import { formatSearchState, useSearch } from '@faststore/sdk'
+import { useSearch } from '@faststore/sdk'
 import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,
