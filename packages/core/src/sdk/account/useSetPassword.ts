@@ -11,24 +11,36 @@ type SetPasswordInput = {
   recaptcha?: string
 }
 
-type SetPasswordState = {
-  error: Error | null
-  loading: boolean
-}
-
 type SetPasswordResultType = {
   authStatus?: string
   message?: string
 }
 
+const AUTH_STATUS = {
+  SUCCESS: 'success',
+  INVALID_EMAIL: 'invalidemail',
+  INVALID_PASSWORD: 'invalidpassword',
+  WRONG_CREDENTIALS: 'wrongcredentials',
+  UNEXPECTED_ERROR: 'unexpectederror',
+  NO_RESPONSE: 'noresponse',
+  FAILED: 'failed',
+}
+
+const authMessage = {
+  [AUTH_STATUS.SUCCESS]: 'Password set successfully',
+  [AUTH_STATUS.INVALID_EMAIL]: 'Invalid email or password',
+  [AUTH_STATUS.INVALID_PASSWORD]: 'Invalid email or password',
+  [AUTH_STATUS.WRONG_CREDENTIALS]: 'Wrong credentials',
+  [AUTH_STATUS.UNEXPECTED_ERROR]: 'Unexpected error. Please try again later.',
+  [AUTH_STATUS.NO_RESPONSE]: 'No response from set password API',
+  [AUTH_STATUS.FAILED]: 'Failed to set password',
+}
+
 export const useSetPassword = (accountName?: string) => {
-  const [state, setState] = useState<SetPasswordState>({
-    error: null,
-    loading: false,
-  })
+  const [loading, setLoading] = useState<boolean>(false)
 
   const setPassword = useCallback(async (input: SetPasswordInput) => {
-    setState((prev) => ({ ...prev, loading: true, error: null }))
+    setLoading(true)
 
     try {
       await startLogin({ email: input.userEmail, accountName })
@@ -51,66 +63,51 @@ export const useSetPassword = (accountName?: string) => {
       )
 
       if (!response.ok) {
-        throw new Error(
-          `Failed to set password: ${response.status} ${response.statusText}`
-        )
+        setLoading(false)
+
+        return {
+          success: false,
+          message: authMessage[AUTH_STATUS.UNEXPECTED_ERROR],
+        }
       }
 
-      const result: SetPasswordResultType = (await response.json()) ?? {
-        authStatus: 'Unexpected error',
-        message: 'Unexpected error while setting password',
-      }
+      const result: SetPasswordResultType = await response.json()
 
       if (!result) {
-        const fallback = {
+        setLoading(false)
+
+        return {
           success: false,
-          message: 'No response from set password API',
+          message: authMessage[AUTH_STATUS.NO_RESPONSE],
         }
-
-        setState({ loading: false, error: new Error(fallback.message) })
-
-        return fallback
       }
 
-      setState({ error: null, loading: false })
+      const authStatus = result?.authStatus
+        ? result.authStatus.toLowerCase()
+        : AUTH_STATUS.UNEXPECTED_ERROR
 
       return {
-        success: result?.authStatus
-          ? result?.authStatus.toLowerCase() === 'success'
-          : false,
-        message: 'Password set successfully',
+        success: authStatus === AUTH_STATUS.SUCCESS,
+        message: authMessage[authStatus] || 'Unexpected error occurred',
       }
     } catch (err) {
       console.error('Error setting password:', err)
 
       const authStatus =
         typeof err === 'object' && err !== null && 'authStatus' in err
-          ? String(err.authStatus)
-          : 'Unexpected error'
+          ? String(err.authStatus).toLowerCase()
+          : AUTH_STATUS.UNEXPECTED_ERROR
 
-      const isInvalidCredentials =
-        authStatus.toLowerCase().includes('invalidemail') ||
-        authStatus.toLowerCase().includes('invalidpassword')
-
-      const errorResult = {
+      return {
         success: false,
-        message: isInvalidCredentials
-          ? 'Invalid email or password'
-          : 'Unexpected error while setting password',
+        message: authMessage[authStatus] || 'Unexpected error occurred',
       }
-
-      setState({ error: new Error('Failed to set password'), loading: false })
-      return errorResult
     } finally {
-      setState((prev) => ({ ...prev, loading: false }))
+      setLoading(false)
     }
   }, [])
 
-  return {
-    setPassword,
-    error: state.error,
-    loading: state.loading,
-  }
+  return { setPassword, loading }
 }
 
 const startLogin = async ({
@@ -136,7 +133,10 @@ const startLogin = async ({
 
     if (!response.ok) {
       throw {
-        response: {},
+        response: {
+          status: response.status,
+          statusText: response.statusText,
+        },
       }
     }
   } catch (error) {
