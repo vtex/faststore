@@ -65,9 +65,22 @@ export const useSetPassword = (accountName?: string) => {
       if (!response.ok) {
         setLoading(false)
 
+        console.error('Set password request failed:', response.statusText)
+
+        let errorStatus = AUTH_STATUS.UNEXPECTED_ERROR
+
+        try {
+          const errorBody = await response.json()
+          if (errorBody?.authStatus) {
+            errorStatus = String(errorBody.authStatus).toLowerCase().trim()
+          }
+        } catch {
+          // Keep the default error
+        }
+
         return {
           success: false,
-          message: authMessage[AUTH_STATUS.UNEXPECTED_ERROR],
+          message: authMessage[errorStatus],
         }
       }
 
@@ -82,9 +95,7 @@ export const useSetPassword = (accountName?: string) => {
         }
       }
 
-      const authStatus = result?.authStatus
-        ? result.authStatus.toLowerCase()
-        : AUTH_STATUS.UNEXPECTED_ERROR
+      const authStatus = result?.authStatus?.toLowerCase().trim() ?? ''
 
       return {
         success: authStatus === AUTH_STATUS.SUCCESS,
@@ -95,7 +106,7 @@ export const useSetPassword = (accountName?: string) => {
 
       const authStatus =
         typeof err === 'object' && err !== null && 'authStatus' in err
-          ? String(err.authStatus).toLowerCase()
+          ? String(err.authStatus).toLowerCase().trim()
           : AUTH_STATUS.UNEXPECTED_ERROR
 
       return {
