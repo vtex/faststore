@@ -15,8 +15,8 @@ import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
 
 import { gql } from '../../../@generated/gql'
 import type {
-  ServerSecurityQueryQuery,
-  ServerSecurityQueryQueryVariables,
+  ServerSecurityQuery,
+  ServerSecurityQueryVariables,
 } from '../../../@generated/graphql'
 import { default as AfterSection } from '../../customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from '../../customizations/src/myAccount/extensions/security/before'
@@ -40,12 +40,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type SecurityPageProps = {
   accountName: string
+  userEmail: string
 } & MyAccountProps
 
 export default function Page({
   globalSections: globalSectionsProp,
   accountName,
   isRepresentative,
+  userEmail,
 }: SecurityPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -60,7 +62,7 @@ export default function Page({
           accountName={accountName}
         >
           <BeforeSection />
-          <SecuritySection />
+          <SecuritySection userEmail={userEmail} />
           <AfterSection />
         </MyAccountLayout>
       </RenderSections>
@@ -69,8 +71,11 @@ export default function Page({
 }
 
 const query = gql(`
-  query ServerSecurityQuery {
+  query ServerSecurity {
     accountName
+    userDetails {
+      email
+    }
   }
 `)
 
@@ -111,7 +116,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const [security, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      execute<ServerSecurityQueryQueryVariables, ServerSecurityQueryQuery>(
+      execute<ServerSecurityQueryVariables, ServerSecurityQuery>(
         {
           variables: {},
           operation: query,
@@ -144,8 +149,9 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      globalSections: globalSectionsResult,
       accountName: security.data.accountName,
+      userEmail: security.data?.userDetails.email || '',
+      globalSections: globalSectionsResult,
       isRepresentative,
     },
   }

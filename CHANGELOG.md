@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.75.1](https://github.com/vtex/faststore/compare/v3.75.0...v3.75.1) (2025-08-08)
+
+**Note:** Version bump only for package faststore
+
+# [3.75.0](https://github.com/vtex/faststore/compare/v3.74.0...v3.75.0) (2025-08-07)
+
+### Features
+
+- remove client name and placed by from order list - SFS-2795 ([#2981](https://github.com/vtex/faststore/issues/2981)) ([5368859](https://github.com/vtex/faststore/commit/5368859dc5f0dd742e628c20e427a75e388f2126))
+
+# [3.74.0](https://github.com/vtex/faststore/compare/v3.73.0...v3.74.0) (2025-08-07)
+
+### Features
+
+- add flag --watch-plugins on dev command ([#2880](https://github.com/vtex/faststore/issues/2880)) ([5816538](https://github.com/vtex/faststore/commit/5816538786aff756c8a3f035096dfb35c6530d60)), closes [#2563](https://github.com/vtex/faststore/issues/2563)
+
+# [3.73.0](https://github.com/vtex/faststore/compare/v3.72.1...v3.73.0) (2025-08-07)
+
+### Features
+
+- implement password setting functionality and user email retrieval ([#2957](https://github.com/vtex/faststore/issues/2957)) ([a49aa1b](https://github.com/vtex/faststore/commit/a49aa1b6d55310a64639459b9082530f4a955731))
+
+## [3.72.1](https://github.com/vtex/faststore/compare/v3.72.0...v3.72.1) (2025-08-07)
+
+### Bug Fixes
+
+- Prevent PLPs' specific facets being cleared ([#2977](https://github.com/vtex/faststore/issues/2977)) ([e15ec3e](https://github.com/vtex/faststore/commit/e15ec3e851269d768a632da8683b5345937b66ca)), closes [vtex-sites/faststoreqa.store#853](https://github.com/vtex-sites/faststoreqa.store/issues/853)
+
 # [3.72.0](https://github.com/vtex/faststore/compare/v3.71.0...v3.72.0) (2025-08-05)
 
 ### Features

@@ -14,7 +14,6 @@ import type {
   UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
-import { buildFormData } from '../../utils/buildFormData'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
@@ -728,47 +727,6 @@ export const VtexCommerce = (
           },
           { storeCookies }
         )
-      },
-      setPassword: async ({
-        email,
-        newPassword,
-        currentPassword,
-        accesskey,
-        recaptcha,
-      }: {
-        email: string
-        newPassword: string
-        currentPassword: string
-        accesskey?: string
-        recaptcha?: string
-      }): Promise<{ success: boolean; message?: string }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
-        const body = buildFormData({
-          login: email,
-          newPassword,
-          currentPassword,
-          accesskey,
-          recaptcha,
-        })
-
-        const result = await fetchAPI(
-          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
-          {
-            method: 'POST',
-            headers,
-            body,
-          },
-          { storeCookies }
-        )
-
-        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
-          return { success: true }
-        }
-        return {
-          success: false,
-          message: result?.authStatus ?? 'Unknown error',
-        }
       },
     },
   }
