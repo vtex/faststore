@@ -1,5 +1,13 @@
-import path from 'path'
 import fs from 'node:fs'
+import path from 'node:path'
+
+export const getBasePath = (basePath?: string) => {
+  if (basePath) {
+    return path.resolve(basePath)
+  }
+
+  return process.cwd()
+}
 
 export const withBasePath = (basepath: string) => {
   const tmpFolderName = '.faststore'
