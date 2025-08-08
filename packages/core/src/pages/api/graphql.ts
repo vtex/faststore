@@ -6,7 +6,7 @@ import {
 } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
-import discoveryConfig from '../../../discovery.config'
+import discoveryConfig from 'faststore-config'
 import { getJWTAutCookie, isExpired } from '../../utils/getCookie'
 import { execute } from '../../server'
 
