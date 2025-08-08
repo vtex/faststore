@@ -98,7 +98,7 @@ function ProductCard({
   const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
 
   const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
-    productTags: productTags,
+    productTags,
     deliveryPromiseSettings,
   })
 

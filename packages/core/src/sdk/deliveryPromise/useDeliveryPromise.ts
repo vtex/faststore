@@ -8,7 +8,7 @@ import {
   type SearchState,
   type Session,
 } from '@faststore/sdk'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type { Filter_FacetsFragment, Tag } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
 
@@ -31,12 +31,6 @@ export const DELIVERY_OPTIONS_FACET_KEY = 'delivery-options' as const
 export const DYNAMIC_ESTIMATE_FACET_KEY = 'dynamic-estimate' as const
 
 type Facet = SearchState['selectedFacets'][number]
-
-type Tag = {
-  name: string | null
-  typeName: string
-  value: string
-}
 
 export type PickupPoint = {
   id: string
