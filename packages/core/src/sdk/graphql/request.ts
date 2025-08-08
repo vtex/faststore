@@ -1,3 +1,5 @@
+import persistedDocuments from '@generated/persisted-documents.json'
+
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
 export type Operation = {
   __meta__?: Record<string, any>
@@ -19,6 +21,10 @@ const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
     'Content-Type': 'application/json',
   },
 }
+
+const mutationNames = Object.values(persistedDocuments)
+  .flatMap((str) => Array.from(str.matchAll(/mutation\s+([^( {]+)/g)))
+  .map((match) => match[1])
 
 export const request = async <Query = unknown, Variables = unknown>(
   operation: Operation,
@@ -50,9 +56,9 @@ const baseRequest = async <V = any, D = any>(
   const method =
     fetchOptions?.method !== undefined
       ? fetchOptions.method.toUpperCase()
-      : operationName.endsWith('Query')
-        ? 'GET'
-        : 'POST'
+      : mutationNames.includes(operationName)
+        ? 'POST'
+        : 'GET'
 
   const params = new URLSearchParams({
     operationName,
