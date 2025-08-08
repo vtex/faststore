@@ -1,5 +1,5 @@
 import type { Locator } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetStaticPaths } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import {
@@ -135,6 +135,13 @@ export const getServerSideProps: GetServerSideProps<
       globalSections: globalSectionsResult,
       accountName: account.data.accountName,
     },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
 

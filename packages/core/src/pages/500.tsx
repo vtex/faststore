@@ -1,4 +1,4 @@
-import type { GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import {
@@ -94,6 +94,13 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: { page, globalSections: globalSectionsResult },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
 

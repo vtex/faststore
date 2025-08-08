@@ -1,4 +1,4 @@
-import type { GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
@@ -199,6 +199,13 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: { page, globalSections: globalSectionsResult, serverData },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
 

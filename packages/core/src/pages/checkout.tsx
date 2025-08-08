@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
 import type { Locator } from '@vtex/client-cms'
-import type { GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import type { ComponentType } from 'react'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import {
@@ -71,6 +71,13 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: { globalSections: globalSectionsResult },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
 

@@ -18,6 +18,7 @@ import storeConfig from 'discovery.config'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
 import {
   getStaticProps,
+  getStaticPaths,
   type SearchPageProps,
 } from 'src/experimental/searchServerSideFunctions'
 
@@ -155,6 +156,6 @@ function Page({
   )
 }
 
-export { getStaticProps }
+export { getStaticProps, getStaticPaths }
 
 export default Page

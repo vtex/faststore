@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { useEffect } from 'react'
 
-import type { GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import {
   type GlobalSectionsData,
@@ -106,6 +106,13 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: { page, globalSections: globalSectionsResult },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
 
