@@ -68,6 +68,11 @@ type DeliveryPromiseCmsData = {
     sameDay?: string
     nextDay?: string
   }
+  inStock?: {
+    enabled?: boolean
+    title?: string
+    label?: string
+  }
 }
 
 export function getGlobalSettings(
