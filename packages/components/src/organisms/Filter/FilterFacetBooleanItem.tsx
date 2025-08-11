@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import React from 'react'
-import { Badge, Checkbox, Label, RadioField } from '../..'
+import { Badge, Checkbox, Label, RadioField, ToggleField } from '../..'
 import type { OnFacetChange } from './Filter'
 
 export interface FilterFacetBooleanItemProps {
@@ -39,7 +39,7 @@ export interface FilterFacetBooleanItemProps {
   /**
    * Type of the Facet Item.
    */
-  type?: 'checkbox' | 'radio'
+  type?: 'checkbox' | 'radio' | 'toggle'
 }
 
 function FilterFacetBooleanItem({
@@ -53,28 +53,32 @@ function FilterFacetBooleanItem({
   type = 'checkbox',
   onFacetChange,
 }: FilterFacetBooleanItemProps) {
-  return (
-    <li key={id} data-fs-filter-list-item>
-      {type === 'checkbox' ? (
-        <>
-          <Checkbox
-            id={id}
-            checked={selected}
-            onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
-            data-fs-filter-list-item-checkbox
-            data-testid={`${testId}-accordion-panel-checkbox`}
-            data-value={value}
-            data-quantity={quantity}
-          />
-          <Label
-            htmlFor={id}
-            className="text__title-mini-alt"
-            data-fs-filter-list-item-label
-          >
-            {label} <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
-          </Label>
-        </>
-      ) : (
+  if (type === 'checkbox') {
+    return (
+      <li key={id} data-fs-filter-list-item>
+        <Checkbox
+          id={id}
+          checked={selected}
+          onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
+          data-fs-filter-list-item-checkbox
+          data-testid={`${testId}-accordion-panel-checkbox`}
+          data-value={value}
+          data-quantity={quantity}
+        />
+        <Label
+          htmlFor={id}
+          className="text__title-mini-alt"
+          data-fs-filter-list-item-label
+        >
+          {label} <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
+        </Label>
+      </li>
+    )
+  }
+
+  if (type === 'radio') {
+    return (
+      <li key={id} data-fs-filter-list-item>
         <RadioField
           id={id}
           name={facetKey}
@@ -86,9 +90,25 @@ function FilterFacetBooleanItem({
           data-value={value}
           label={label}
         />
-      )}
-    </li>
-  )
+      </li>
+    )
+  }
+
+  if (type === 'toggle') {
+    return (
+      <li key={id} data-fs-filter-list-item>
+        <ToggleField
+          id={id}
+          label={label as string}
+          checked={selected}
+          onChange={() => onFacetChange({ key: facetKey, value }, 'BOOLEAN')}
+          testId={`${testId}-accordion-panel-toggle-field`}
+        />
+      </li>
+    )
+  }
+
+  return null
 }
 
 export default FilterFacetBooleanItem
