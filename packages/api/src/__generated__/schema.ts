@@ -569,6 +569,8 @@ export type IStoreSession = {
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Refresh token after Information. */
+  refreshAfter?: Maybe<Scalars['String']>;
 };
 
 /** Input to the cancel order API. */
@@ -651,11 +653,6 @@ export type Mutation = {
   cancelOrder?: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
-  /**
-   * Sets a new password for the user.
-   * This mutation is used to change the user's password, typically after a password reset or when the user wants to update their password.
-   */
-  setPassword?: Maybe<SetPasswordResponse>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -672,11 +669,6 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
-};
-
-
-export type MutationSetPasswordArgs = {
-  data: ISetPassword;
 };
 
 
@@ -1632,6 +1624,8 @@ export type StoreSession = {
   person?: Maybe<StorePerson>;
   /** Session postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Refresh token after Information. */
+  refreshAfter?: Maybe<Scalars['String']>;
 };
 
 /** Product search results sorting options. */
@@ -2436,6 +2430,7 @@ export type UserOrderResult = {
   allowCancellation?: Maybe<Scalars['Boolean']>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
+  creationDate?: Maybe<Scalars['String']>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;

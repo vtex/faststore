@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.73.0](https://github.com/vtex/faststore/compare/v3.72.1...v3.73.0) (2025-08-07)
+
+### Features
+
+- implement password setting functionality and user email retrieval ([#2957](https://github.com/vtex/faststore/issues/2957)) ([a49aa1b](https://github.com/vtex/faststore/commit/a49aa1b6d55310a64639459b9082530f4a955731))
+
+# [3.72.0](https://github.com/vtex/faststore/compare/v3.71.0...v3.72.0) (2025-08-05)
+
+### Features
+
+- refresh token - SFS-2462 ([#2936](https://github.com/vtex/faststore/issues/2936)) ([0fc856f](https://github.com/vtex/faststore/commit/0fc856f46ffe800debccd90078564e9ff524e727)), closes [#1](https://github.com/vtex/faststore/issues/1) [#2](https://github.com/vtex/faststore/issues/2)
+
+# [3.71.0](https://github.com/vtex/faststore/compare/v3.70.2...v3.71.0) (2025-08-05)
+
+### Features
+
+- show creation date for first step in status card ([#2971](https://github.com/vtex/faststore/issues/2971)) ([e9a79ac](https://github.com/vtex/faststore/commit/e9a79acf14c7a518cc7e587a8e36eec332e72a08))
+
 # [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
 
 ### Features

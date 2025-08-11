@@ -571,6 +571,8 @@ export type IStoreSession = {
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
   postalCode: InputMaybe<Scalars['String']['input']>
+  /** Refresh token after Information. */
+  refreshAfter: InputMaybe<Scalars['String']['input']>
 }
 
 /** Input to the cancel order API. */
@@ -648,11 +650,6 @@ export type Mutation = {
   cancelOrder: Maybe<UserOrderCancel>
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>
-  /**
-   * Sets a new password for the user.
-   * This mutation is used to change the user's password, typically after a password reset or when the user wants to update their password.
-   */
-  setPassword: Maybe<SetPasswordResponse>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -667,10 +664,6 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization
-}
-
-export type MutationSetPasswordArgs = {
-  data: ISetPassword
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -1545,6 +1538,8 @@ export type StoreSession = {
   person: Maybe<StorePerson>
   /** Session postal code. */
   postalCode: Maybe<Scalars['String']['output']>
+  /** Refresh token after Information. */
+  refreshAfter: Maybe<Scalars['String']['output']>
 }
 
 /** Product search results sorting options. */
@@ -2277,6 +2272,7 @@ export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
   canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
+  creationDate: Maybe<Scalars['String']['output']>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
   deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
@@ -2655,6 +2651,7 @@ export type ServerOrderDetailsQueryQuery = {
   accountName: string | null
   userOrder: {
     orderId: string | null
+    creationDate: string | null
     status: string | null
     canProcessOrderAuthorization: boolean | null
     statusDescription: string | null
@@ -2881,9 +2878,12 @@ export type ServerProfileQueryQuery = {
   }
 }
 
-export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
+export type ServerSecurityQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerSecurityQueryQuery = { accountName: string | null }
+export type ServerSecurityQuery = {
+  accountName: string | null
+  userDetails: { email: string | null }
+}
 
 export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
@@ -3412,6 +3412,7 @@ export type ValidateSessionMutation = {
     addressType: string | null
     postalCode: string | null
     city: string | null
+    refreshAfter: string | null
     deliveryMode: {
       deliveryChannel: string
       deliveryMethod: string
@@ -4050,7 +4051,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'a1c862006d31528cb33bae9d21254d49239c2abb',
+    operationHash: 'ba4e1865d9840cb386fa6d646a51f275cd991bfa',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -4074,14 +4075,14 @@ export const ServerProfileQueryDocument = {
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables
 >
-export const ServerSecurityQueryDocument = {
+export const ServerSecurityDocument = {
   __meta__: {
-    operationName: 'ServerSecurityQuery',
-    operationHash: '9f24767f16e6e05c168336701a6c6c7b6b5dc1c6',
+    operationName: 'ServerSecurity',
+    operationHash: '63c6eadbe8b77c0c3c91406589755accba5cf155',
   },
 } as unknown as TypedDocumentString<
-  ServerSecurityQueryQuery,
-  ServerSecurityQueryQueryVariables
+  ServerSecurityQuery,
+  ServerSecurityQueryVariables
 >
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
@@ -4221,7 +4222,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '259dd10b1c65ce4b20c9181feb7bec85ecb402e6',
+    operationHash: '5da2700f5a69ee8835b1cb6c69e14f4b6e12c4df',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

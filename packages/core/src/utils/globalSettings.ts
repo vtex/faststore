@@ -59,6 +59,7 @@ type DeliveryPromiseCmsData = {
     }
   }
   deliveryOptions?: {
+    enabled?: boolean
     title?: string
     allDeliveryOptions?: string
   }

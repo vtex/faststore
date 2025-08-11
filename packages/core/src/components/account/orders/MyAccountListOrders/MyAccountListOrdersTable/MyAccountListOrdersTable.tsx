@@ -199,17 +199,6 @@ export default function MyAccountListOrdersTable({
                                 : '-'}
                             </p>
                           </div>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Placed by
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item?.clientName}
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {/* {item?.clientOrgName} */}
-                            </p>
-                          </div>
                         </>
                       )}
                     </td>
@@ -227,19 +216,6 @@ export default function MyAccountListOrdersTable({
                                     locale
                                   )
                                 : '-'}
-                            </p>
-                          </div>
-                        </td>
-                        <td data-fs-list-orders-table-cell>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Placed by
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item?.clientName}
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {/* {item?.clientOrgName} */}
                             </p>
                           </div>
                         </td>

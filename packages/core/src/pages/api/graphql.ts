@@ -1,11 +1,13 @@
 import {
   BadRequestError,
+  UnauthorizedError,
   isFastStoreError,
   stringifyCacheControl,
 } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
+import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
 import { execute } from '../../server'
 
 const ONE_MINUTE = 60
@@ -75,6 +77,54 @@ const handler: NextApiHandler = async (request, response) => {
   try {
     const { operation, variables, query } = parseRequest(request)
 
+    if (
+      operation.__meta__.operationName === 'ValidateSession' &&
+      discoveryConfig.experimental?.refreshToken
+    ) {
+      const jwt = getJWTAutCookie({
+        headers: request.headers,
+        account: discoveryConfig.api.storeId,
+      })
+
+      const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
+
+      const refreshAfterExist = !!variables?.session?.refreshAfter
+
+      const refreshAfterExpired =
+        refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
+
+      const tokenExistAndIsFirstRefreshTokenRequest =
+        !!jwt && !refreshAfterExist
+
+      // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
+      const tokenNotExistAndRefreshAfterExistAndIsExpired =
+        !jwt && !!refreshAfterExist && refreshAfterExpired
+
+      const tokenExpiredAndRefreshAfterIsNullOrExpired =
+        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
+
+      const shouldRefreshToken =
+        tokenExistAndIsFirstRefreshTokenRequest ||
+        tokenNotExistAndRefreshAfterExistAndIsExpired ||
+        tokenExpiredAndRefreshAfterIsNullOrExpired
+
+      if (shouldRefreshToken) {
+        throw new UnauthorizedError(
+          'Unauthorized: Token expired. Please login again or refresh the page.'
+        )
+      }
+    }
+
+    // Prevents to call ValidateSession or ValidateCartMutation without session (required) and get GraphQLError
+    const doNotRun =
+      (operation.__meta__.operationName === 'ValidateSession' ||
+        operation.__meta__.operationName === 'ValidateCartMutation') &&
+      !variables?.session
+
+    if (doNotRun) {
+      return
+    }
+
     const { data, errors, extensions } = await execute(
       {
         operation,
@@ -138,7 +188,13 @@ const handler: NextApiHandler = async (request, response) => {
       return
     }
 
+    if (err instanceof UnauthorizedError) {
+      response.status(401).end()
+      return
+    }
+
     response.status(500).end()
+    return
   }
 }
 

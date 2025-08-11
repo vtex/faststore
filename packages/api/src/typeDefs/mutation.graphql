@@ -21,9 +21,4 @@ type Mutation {
   processOrderAuthorization(
     data: IProcessOrderAuthorization!
   ): ProcessOrderAuthorizationResponse
-  """
-  Sets a new password for the user.
-  This mutation is used to change the user's password, typically after a password reset or when the user wants to update their password.
-  """
-  setPassword(data: ISetPassword!): SetPasswordResponse
 }

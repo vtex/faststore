@@ -23,15 +23,15 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
-    quickOrderSettings: {
+    quickOrderSettings?: {
       quickOrder: boolean
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
           name: string
           additionalColumns: Array<{ label: string; value: string }>
-          price: number
-          quantitySelector: number
+          price: string
+          quantitySelector: string
           availability: {
             label: string
             stockDisplaySettings: 'showAvailability' | 'showStockQuantity'

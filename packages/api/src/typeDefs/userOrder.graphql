@@ -75,6 +75,7 @@ type UserOrderPurchaseAgent {
 
 type UserOrderResult {
   orderId: String
+  creationDate: String
   status: String
   canProcessOrderAuthorization: Boolean
   statusDescription: String
