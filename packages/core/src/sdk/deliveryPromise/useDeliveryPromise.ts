@@ -13,8 +13,9 @@ import type {
   Filter_FacetsFragment,
 } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { useSession } from 'src/sdk/session'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
+
+import { useSession } from 'src/sdk/session'
 
 import { deliveryPromise as deliveryPromiseConfig } from 'discovery.config'
 import {
@@ -116,6 +117,8 @@ export function useDeliveryPromise({
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
   const isDeliveryOptionsEnabled =
     deliveryPromiseSettings?.deliveryOptions?.enabled ?? true
+  const isDynamicEstimateEnabled =
+    deliveryPromiseSettings?.dynamicEstimate?.enabled ?? true
   const isInStockEnabled = deliveryPromiseSettings?.inStock?.enabled ?? false
 
   const selectedFacets = useMemo(
@@ -329,15 +332,17 @@ export function useDeliveryPromise({
       )
     }
 
-    const filteredFacets = allFacets
-      .filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY) // TODO: remove this filter when dynamic estimate is implemented
-      .filter(({ key }) => {
-        if (!isDeliveryOptionsEnabled && key === DELIVERY_OPTIONS_FACET_KEY) {
-          return false
-        }
+    const filteredFacets = allFacets.filter(({ key }) => {
+      if (!isDeliveryOptionsEnabled && key === DELIVERY_OPTIONS_FACET_KEY) {
+        return false
+      }
 
-        return true
-      })
+      if (!isDynamicEstimateEnabled && key === DYNAMIC_ESTIMATE_FACET_KEY) {
+        return false
+      }
+
+      return true
+    })
 
     if (
       isInStockEnabled &&
@@ -430,6 +435,35 @@ export function useDeliveryPromise({
     onDeliveryFacetChange,
     selectedPickupPointFacet,
   ])
+
+  // the highlighted facet is the one that should appear in the top of the filter list
+  const highlightedFacet = useMemo(() => {
+    if (!isDynamicEstimateEnabled) return undefined
+
+    return facets.find((facet) => facet.key === DYNAMIC_ESTIMATE_FACET_KEY)
+  }, [facets, isDynamicEstimateEnabled])
+
+  const facetsWithoutHighlightedFacet = useMemo(
+    () =>
+      highlightedFacet
+        ? facets.filter((facet) => facet.key !== DYNAMIC_ESTIMATE_FACET_KEY)
+        : facets,
+    [facets, highlightedFacet]
+  )
+
+  function getDynamicEstimateLabel(value: string) {
+    if (value === 'next-day') {
+      return (
+        deliveryPromiseSettings?.dynamicEstimate?.nextDay ?? 'Receive Tomorrow'
+      )
+    }
+    if (value === 'same-day') {
+      return (
+        deliveryPromiseSettings?.dynamicEstimate?.sameDay ?? 'Receive Today'
+      )
+    }
+    return value
+  }
 
   const onPostalCodeChange = useCallback(
     ({
@@ -577,6 +611,9 @@ export function useDeliveryPromise({
       pickupPoints?.length > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
+    highlightedFacet,
+    facetsWithoutHighlightedFacet,
+    getDynamicEstimateLabel,
     shouldDisplayDeliveryPromiseBadges,
     badges,
   }
