@@ -306,7 +306,7 @@ export function useDeliveryPromise({
           key !== DYNAMIC_ESTIMATE_FACET_KEY
       )
     }
-    
+
     const filteredFacets = allFacets.filter(({ key }) => {
       if (!isDeliveryOptionsEnabled && key === DELIVERY_OPTIONS_FACET_KEY) {
         return false
