@@ -1,3 +1,4 @@
+import type { ChangeEventHandler } from 'react'
 import React, { forwardRef } from 'react'
 import { Label, SROnly, Toggle, type ToggleProps } from './../../'
 
@@ -26,6 +27,14 @@ export interface ToggleFieldProps extends ToggleProps {
    * Controls the component's direction.
    */
   variant?: 'horizontal' | 'vertical'
+  /**
+   * Specifies if the input is checked or not.
+   */
+  checked?: boolean
+  /**
+   * Function that is triggered when any children is checked.
+   */
+  onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 const ToggleField = forwardRef<HTMLDivElement, ToggleFieldProps>(
@@ -43,7 +52,13 @@ const ToggleField = forwardRef<HTMLDivElement, ToggleFieldProps>(
   ) {
     return (
       <div ref={ref} data-fs-toggle-field data-testid={testId}>
-        <Toggle id={id} variant={variant} disabled={disabled} {...otherProps} />
+        <Toggle
+          id={id}
+          variant={variant}
+          disabled={disabled}
+          data-testid={`${testId}-toggle`}
+          {...otherProps}
+        />
         {displayLabel ? (
           <Label data-fs-toggle-field-label htmlFor={id}>
             {label}
