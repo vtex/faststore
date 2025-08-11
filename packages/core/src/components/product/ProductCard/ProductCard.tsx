@@ -1,4 +1,5 @@
 import {
+  Badge as UIBadge,
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
@@ -12,6 +13,9 @@ import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 type Variant = 'wide' | 'default'
 
@@ -88,7 +92,15 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    tags: productTags,
   } = product
+
+  const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
+
+  const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
+    productTags,
+    deliveryPromiseSettings,
+  })
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
@@ -130,6 +142,9 @@ function ProductCard({
       {...otherProps}
     >
       <UIProductCardImage aspectRatio={aspectRatio}>
+        {shouldDisplayDeliveryPromiseTags && (
+          <UIBadge variant="highlighted">{productTag}</UIBadge>
+        )}
         <Image
           src={img.url}
           alt={img.alternateName}
@@ -218,6 +233,12 @@ export const fragment = gql(`
     advertisement {
       adId
       adResponseId
+    }
+
+    tags {
+      typeName
+      value
+      name
     }
   }
 `)

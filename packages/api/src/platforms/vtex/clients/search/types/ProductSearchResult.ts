@@ -95,6 +95,7 @@ export interface Product {
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
   advertisement?: Advertisement
+  tags?: Tag[]
 }
 
 interface Image {
@@ -232,4 +233,10 @@ export interface Attribute {
   name: string
   value: string
   visible: boolean
+}
+
+interface Tag {
+  typeName: string | null
+  value: string | null
+  name: string | null
 }

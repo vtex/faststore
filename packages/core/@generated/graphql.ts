@@ -1405,6 +1405,8 @@ export type StoreProduct = {
   sku: Scalars['String']['output']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
+  /** Delivery Promise product's tags. */
+  tags: Maybe<Array<Maybe<Tag>>>
   /** Sku Unit Multiplier */
   unitMultiplier: Maybe<Scalars['Float']['output']>
 }
@@ -1588,6 +1590,16 @@ export type StoreUserDetails = {
   orgUnit: Maybe<Scalars['String']['output']>
   /** User's role. */
   role: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
+/** Delivery Promise tag. */
+export type Tag = {
+  /** Tag name. */
+  name: Maybe<Scalars['String']['output']>
+  /** Tag type. */
+  typeName: Maybe<Scalars['String']['output']>
+  /** Tag value. */
+  value: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrder = {
@@ -2395,6 +2407,11 @@ export type ProductSummary_ProductFragment = {
     valueReference: any
   }>
   advertisement: { adId: string; adResponseId: string } | null
+  tags: Array<{
+    typeName: string | null
+    value: string | null
+    name: string | null
+  } | null> | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -2457,6 +2474,11 @@ export type ProductDetailsFragment_ProductFragment = {
     value: any
     valueReference: any
   }>
+  tags: Array<{
+    typeName: string | null
+    value: string | null
+    name: string | null
+  } | null> | null
 }
 
 export type ProductSkuMatrixSidebarFragment_ProductFragment = {
@@ -2600,6 +2622,11 @@ export type ServerProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    tags: Array<{
+      typeName: string | null
+      value: string | null
+      name: string | null
+    } | null> | null
   }
 }
 
@@ -3178,6 +3205,11 @@ export type ClientManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          tags: Array<{
+            typeName: string | null
+            value: string | null
+            name: string | null
+          } | null> | null
         }
       }>
     }
@@ -3271,6 +3303,11 @@ export type ClientProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    tags: Array<{
+      typeName: string | null
+      value: string | null
+      name: string | null
+    } | null> | null
   }
 }
 
@@ -3337,6 +3374,11 @@ export type ClientSearchSuggestionsQueryQuery = {
           valueReference: any
         }>
         advertisement: { adId: string; adResponseId: string } | null
+        tags: Array<{
+          typeName: string | null
+          value: string | null
+          name: string | null
+        } | null> | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -3490,6 +3532,11 @@ export type ServerManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          tags: Array<{
+            typeName: string | null
+            value: string | null
+            name: string | null
+          } | null> | null
         }
       }>
     }
@@ -3568,6 +3615,11 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   advertisement {
     adId
     adResponseId
+  }
+  tags {
+    typeName
+    value
+    name
   }
 }
     `,
@@ -3682,6 +3734,11 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     name
     value
     valueReference
+  }
+  tags {
+    typeName
+    value
+    name
   }
   ...CartProductItem
 }
@@ -3985,7 +4042,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: '1174d1e2a4c014b64c67a8316585258b5f5b0a51',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -4111,7 +4168,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '1adc93c70f16173540c50f725ee09a2d67cb85ab',
+    operationHash: 'acb7c7c61cd2932132882c568c92377d51da637b',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -4129,7 +4186,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: '943ba9474cda51489c1b4308d474dfa9d574e698',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -4147,7 +4204,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'b548281d477a173be7b6960434604d69769a97e7',
+    operationHash: 'cb4ec5f0fb1cde3d91371bff189c23d07c500b9d',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -4183,7 +4240,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '5c2181dde311ca80b72e0cc76ac0855d8aa8b51e',
+    operationHash: 'a79681cab707b0fb41ab1ed32a59645720bf368a',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

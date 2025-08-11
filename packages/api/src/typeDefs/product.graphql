@@ -74,6 +74,10 @@ type StoreProduct {
   Advertisement information about the product.
   """
   advertisement: Advertisement
+  """
+  Delivery Promise product's tags.
+  """
+  tags: [Tag]
 }
 
 """

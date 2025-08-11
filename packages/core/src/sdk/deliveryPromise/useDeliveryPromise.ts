@@ -8,7 +8,7 @@ import {
   type SearchState,
   type Session,
 } from '@faststore/sdk'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type { Filter_FacetsFragment, Tag } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
 
@@ -84,6 +84,7 @@ type Props = {
   allFacets?: ReturnType<typeof useFilter>['facets']
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
+  productTags?: Tag[]
 }
 
 /**
@@ -95,6 +96,7 @@ export function useDeliveryPromise({
   selectedFilterFacets = undefined,
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
+  productTags,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -463,6 +465,27 @@ export function useDeliveryPromise({
     []
   )
 
+  const deliveryPromiseTag = deliveryPromiseSettings?.tags?.option
+  const deliveryOptionId = deliveryPromiseSettings?.tags?.deliveryOptionId
+
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+            )?.value
+          )
+        : undefined
+
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled && !!productTag
+
   return {
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
@@ -494,6 +517,8 @@ export function useDeliveryPromise({
     highlightedFacet,
     facetsWithoutHighlightedFacet,
     getDynamicEstimateLabel,
+    shouldDisplayDeliveryPromiseTags,
+    productTag,
   }
 }
 
