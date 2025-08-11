@@ -239,6 +239,11 @@
                   "title": "PLP/Search Filter: Delivery Options",
                   "type": "object",
                   "properties": {
+                    "enabled": {
+                      "title": "Should enable Delivery Options?",
+                      "type": "boolean",
+                      "default": true
+                    },
                     "title": {
                       "title": "Delivery Options title",
                       "type": "string",
@@ -248,6 +253,27 @@
                       "title": "All delivery options label",
                       "type": "string",
                       "default": "All delivery options"
+                    }
+                  }
+                },
+                "dynamicEstimate": {
+                  "title": "PLP/Search Filter: Dynamic Estimate",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should display Dynamic Estimate?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "sameDay": {
+                      "title": "Same Day label",
+                      "type": "string",
+                      "default": "Receive Today"
+                    },
+                    "nextDay": {
+                      "title": "Next Day label",
+                      "type": "string",
+                      "default": "Receive Tomorrow"
                     }
                   }
                 }
