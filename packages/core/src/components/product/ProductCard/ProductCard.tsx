@@ -1,9 +1,9 @@
 import {
+  Badge as UIBadge,
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
   ProductComparisonTrigger as UIProductComparisonTrigger,
-  Badge as UIBadge,
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
@@ -97,14 +97,6 @@ function ProductCard({
   ...otherProps
 }: ProductCardProps) {
   const {
-    deliveryPromise: {
-      tags: { option: deliveryPromiseTag, deliveryOptionId } = {},
-    } = {},
-  } = getGlobalSettings()
-  const { isEnabled: isDeliveryPromiseEnabled, getDynamicEstimateLabel } =
-    useDeliveryPromise()
-
-  const {
     sku,
     isVariantOf: { name },
     image: [img],
@@ -123,23 +115,10 @@ function ProductCard({
     deliveryPromiseBadges,
     deliveryPromiseSettings,
   })
-
-  const productTag =
-    deliveryPromiseTag === 'delivery_option'
-      ? productTags?.find(
-          ({ typeName, value }) =>
-            typeName === DELIVERY_OPTIONS_FACET_KEY &&
-            value === deliveryOptionId
-        )?.name
-      : deliveryPromiseTag === 'dynamic_estimate'
-        ? getDynamicEstimateLabel(
-            productTags?.find(
-              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
-            )?.value
-          )
-        : undefined
-  const shouldDisplayDeliveryPromiseTags =
-    isDeliveryPromiseEnabled && !!productTag
+  const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
+    productTags,
+    deliveryPromiseSettings,
+  })
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),

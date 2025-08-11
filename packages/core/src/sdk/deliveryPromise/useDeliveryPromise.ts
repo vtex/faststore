@@ -11,6 +11,7 @@ import {
 import type {
   DeliveryPromiseBadge,
   Filter_FacetsFragment,
+  Tag,
 } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
@@ -89,6 +90,7 @@ type Props = {
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
   deliveryPromiseBadges?: DeliveryPromiseBadge[]
+  productTags?: Tag[]
 }
 
 /**
@@ -101,6 +103,7 @@ export function useDeliveryPromise({
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
   deliveryPromiseBadges,
+  productTags,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -539,6 +542,27 @@ export function useDeliveryPromise({
     (deliveryPromiseSettings?.deliveryPromiseBadges?.enabled ?? true) &&
     badges.length > 0
 
+  const deliveryPromiseTag = deliveryPromiseSettings?.tags?.option
+  const deliveryOptionId = deliveryPromiseSettings?.tags?.deliveryOptionId
+
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+            )?.value
+          )
+        : undefined
+
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled && !!productTag
+
   return {
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
@@ -572,6 +596,8 @@ export function useDeliveryPromise({
     getDynamicEstimateLabel,
     shouldDisplayDeliveryPromiseBadges,
     badges,
+    shouldDisplayDeliveryPromiseTags,
+    productTag,
   }
 }
 

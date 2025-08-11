@@ -361,6 +361,19 @@ export type ICommercialAuthorizationByOrderId = {
   orderId: Scalars['String']['input']
 }
 
+export type ICreateProductReview = {
+  /** Product ID. */
+  productId: Scalars['String']['input']
+  /** Review rating. */
+  rating: Scalars['Int']['input']
+  /** Review author name. */
+  reviewerName: Scalars['String']['input']
+  /** Review content. */
+  text: Scalars['String']['input']
+  /** Review title. */
+  title: Scalars['String']['input']
+}
+
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
   latitude: Scalars['Float']['input']
@@ -1511,6 +1524,77 @@ export type StoreProductGroup = {
   skuVariants: Maybe<SkuVariants>
 }
 
+export type StoreProductListReviewsRange = {
+  /** Index of the first review */
+  from: Scalars['Int']['output']
+  /** Index of the last review */
+  to: Scalars['Int']['output']
+  /** Total number of reviews. */
+  total: Scalars['Int']['output']
+}
+
+export type StoreProductListReviewsResult = {
+  /** Array of product reviews. */
+  data: Array<StoreProductReview>
+  range: StoreProductListReviewsRange
+}
+
+export type StoreProductListReviewsSort =
+  /** Sort by review rating, from lowest to highest. */
+  | 'rating_asc'
+  /** Sort by review rating, from highest to lowest. */
+  | 'rating_desc'
+  /** Sort by review creation date, from oldest to newest. */
+  | 'reviewDateTime_asc'
+  /** Sort by review creation date, from newest to oldest. */
+  | 'reviewDateTime_desc'
+
+export type StoreProductRating = {
+  /** Product average rating. */
+  average: Scalars['Float']['output']
+  /** Product rating distribution in percentages. */
+  distribution: StoreProductRatingDistribution
+  /** Product amount of ratings received. */
+  totalCount: Scalars['Int']['output']
+}
+
+/** Product rating distribution in percentages. */
+export type StoreProductRatingDistribution = {
+  /** 5 star rating percentage. */
+  starsFive: Scalars['Int']['output']
+  /** 4 star rating percentage. */
+  starsFour: Scalars['Int']['output']
+  /** 1 star rating percentage. */
+  starsOne: Scalars['Int']['output']
+  /** 3 star rating percentage. */
+  starsThree: Scalars['Int']['output']
+  /** 2 star rating percentage. */
+  starsTwo: Scalars['Int']['output']
+}
+
+export type StoreProductReview = {
+  /** Indicates if the review was approved by the store owner. */
+  approved: Scalars['Boolean']['output']
+  /** Review ID. */
+  id: Scalars['String']['output']
+  /** Product ID. */
+  productId: Scalars['String']['output']
+  /** Review rating. */
+  rating: Scalars['Int']['output']
+  /** Review creation date. */
+  reviewDateTime: Scalars['String']['output']
+  /** Review author name. */
+  reviewerName: Maybe<Scalars['String']['output']>
+  /** Review author ID. */
+  shopperId: Scalars['String']['output']
+  /** Review content. */
+  text: Scalars['String']['output']
+  /** Review title. */
+  title: Scalars['String']['output']
+  /** Indicates if the review was made by a verified purchaser. */
+  verifiedPurchaser: Scalars['Boolean']['output']
+}
+
 /** Properties that can be associated with products and products groups. */
 export type StorePropertyValue = {
   /** Property name. */
@@ -2540,6 +2624,11 @@ export type ProductDetailsFragment_ProductFragment = {
     value: any
     valueReference: any
   }>
+  tags: Array<{
+    typeName: string | null
+    value: string | null
+    name: string | null
+  } | null> | null
 }
 
 export type ProductComparisonFragment_ProductFragment = {
@@ -2745,6 +2834,11 @@ export type ServerProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    tags: Array<{
+      typeName: string | null
+      value: string | null
+      name: string | null
+    } | null> | null
   }
 }
 
@@ -3435,6 +3529,11 @@ export type ClientProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    tags: Array<{
+      typeName: string | null
+      value: string | null
+      name: string | null
+    } | null> | null
   }
 }
 
@@ -3966,6 +4065,11 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     value
     valueReference
   }
+  tags {
+    typeName
+    value
+    name
+  }
   ...CartProductItem
 }
     fragment CartProductItem on StoreProduct {
@@ -4354,7 +4458,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'e855903879c6504e90269e6e010549bc6de933eb',
+    operationHash: 'e44b22c5f9d76e2a793c6b458e413df77cb994ca',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -4480,7 +4584,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'acb7c7c61cd2932132882c568c92377d51da637b',
+    operationHash: '98fd98aa8f01fec43caa38edb25acdb51a5e3284',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -4498,7 +4602,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '47aa22eb750cb2c529e5eeafb921bfeadb67db71',
+    operationHash: 'f6ba376af21671bf335c0d29aafa4613eff64c22',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -4525,7 +4629,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'cb4ec5f0fb1cde3d91371bff189c23d07c500b9d',
+    operationHash: '6a86749413979c8d2b79596d1d591ddb7d45984c',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -4561,7 +4665,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: 'a79681cab707b0fb41ab1ed32a59645720bf368a',
+    operationHash: 'fc42af39b9aa685c0d952c641fa4cbd2c4a11397',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

@@ -11,7 +11,11 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
+import { Badge as UIBadge } from '@faststore/ui'
+
 import storeConfig from 'discovery.config'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
@@ -144,7 +148,15 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
+    tags: productTags,
   } = product
+
+  const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
+
+  const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
+    productTags,
+    deliveryPromiseSettings,
+  })
 
   useEffect(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
@@ -198,28 +210,34 @@ function ProductDetails({
               title={<h1>{name}</h1>}
               {...ProductTitle.props}
               label={
-                showDiscountBadge && (
-                  <DiscountBadge.Component
-                    {...DiscountBadge.props}
-                    size={discountBadgeSize ?? DiscountBadge.props.size}
-                    // Dynamic props shouldn't be overridable
-                    // This decision can be reviewed later if needed
-                    listPrice={
-                      taxesConfiguration?.usePriceWithTaxes
-                        ? listPriceWithTaxes
-                        : listPrice
-                    }
-                    spotPrice={
-                      taxesConfiguration?.usePriceWithTaxes
-                        ? lowPriceWithTaxes
-                        : lowPrice
-                    }
-                  />
-                )
+                <>
+                  {showDiscountBadge && (
+                    <DiscountBadge.Component
+                      {...DiscountBadge.props}
+                      size={discountBadgeSize ?? DiscountBadge.props.size}
+                      // Dynamic props shouldn't be overridable
+                      // This decision can be reviewed later if needed
+                      listPrice={
+                        taxesConfiguration?.usePriceWithTaxes
+                          ? listPriceWithTaxes
+                          : listPrice
+                      }
+                      spotPrice={
+                        taxesConfiguration?.usePriceWithTaxes
+                          ? lowPriceWithTaxes
+                          : lowPrice
+                      }
+                    />
+                  )}
+                  {shouldDisplayDeliveryPromiseTags && (
+                    <UIBadge variant="highlighted">{productTag}</UIBadge>
+                  )}
+                </>
               }
               refNumber={showRefNumber && productId}
             />
           </header>
+
           <ImageGallery.Component
             data-fs-product-details-gallery
             {...ImageGallery.props}
@@ -389,6 +407,12 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    tags {
+      typeName
+      value
+      name
     }
 
     # Contains necessary info to add this item to cart
