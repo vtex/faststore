@@ -14,8 +14,9 @@ import type {
   Tag,
 } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
-import { useSession } from 'src/sdk/session'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
+
+import { useSession } from 'src/sdk/session'
 
 import { deliveryPromise as deliveryPromiseConfig } from 'discovery.config'
 import {
@@ -313,9 +314,17 @@ export function useDeliveryPromise({
       )
     }
 
-    const filteredFacets = !isDynamicEstimateEnabled
-      ? allFacets.filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY)
-      : allFacets
+    const filteredFacets = allFacets.filter(({ key }) => {
+      if (!isDeliveryOptionsEnabled && key === DELIVERY_OPTIONS_FACET_KEY) {
+        return false
+      }
+
+      if (!isDynamicEstimateEnabled && key === DYNAMIC_ESTIMATE_FACET_KEY) {
+        return false
+      }
+
+      return true
+    })
 
     return filteredFacets
       .map((facet) => {
