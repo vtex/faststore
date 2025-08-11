@@ -1,0 +1,66 @@
+[data-fs-list-orders-filters-placed-by] {
+  --fs-list-orders-filters-placed-by-dropdown-bkg                               : var(--fs-color-neutral-0);
+  --fs-list-orders-filters-placed-by-dropdown-border                            : 1px solid var(--fs-border-color-light);
+  --fs-list-orders-filters-placed-by-dropdown-radius                            : var(--fs-border-radius);
+  --fs-list-orders-filters-placed-by-option-padding                             : var(--fs-spacing-2) var(--fs-spacing-3);
+  --fs-list-orders-filters-placed-by-selected-height                            : var(--fs-control-height);
+  --fs-list-orders-filters-placed-by-selected-padding                           : 0 var(--fs-spacing-3);
+  --fs-list-orders-filters-placed-by-selected-border                            : var(--fs-input-border-width) solid var(--fs-input-border-color);
+  --fs-list-orders-filters-placed-by-selected-radius                            : var(--fs-input-border-radius);
+
+  position: relative;
+
+  // Clear icon inside input when actionable
+  [data-fs-list-orders-filters-placed-by-input] {
+    position: relative;
+
+    [data-fs-input] {
+      width: 100%;
+    }
+
+    [data-fs-icon-button] {
+      position: absolute;
+      top: 50%;
+      right: var(--fs-spacing-2);
+      transform: translateY(-50%);
+    }
+  }
+
+  [data-fs-list-orders-filters-placed-by-dropdown] {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    margin-top: var(--fs-spacing-1);
+    background: var(--fs-list-orders-filters-placed-by-dropdown-bkg);
+    border: var(--fs-list-orders-filters-placed-by-dropdown-border);
+    border-radius: var(--fs-list-orders-filters-placed-by-dropdown-radius);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+
+    ul {
+      max-height: 220px;
+      padding: 0;
+      margin: 0;
+      overflow: auto;
+      list-style: none;
+    }
+
+    [data-fs-list-orders-filters-placed-by-option] {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      padding: var(--fs-list-orders-filters-placed-by-option-padding);
+      text-align: left;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+
+      &:hover, &:focus {
+        background: var(--fs-color-neutral-bkg);
+      }
+
+      [data-fs-list-orders-filters-placed-by-option-name] {
+        font-weight: var(--fs-text-weight-regular);
+      }
+    }
+  }
+}

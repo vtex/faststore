@@ -46,6 +46,7 @@ type ListOrdersPageProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    purchaseAgentId?: string
   }
 } & MyAccountProps
 
@@ -171,6 +172,8 @@ export const getServerSideProps: GetServerSideProps<
   const dateFinal = (context.query.dateFinal as string | undefined) || ''
   const text = (context.query.text as string | undefined) || ''
   const clientEmail = (context.query.clientEmail as string | undefined) || ''
+  const purchaseAgentId =
+    (context.query.purchaseAgentId as string | undefined) || ''
 
   // Map labels from FastStore status to API status
   const groupedStatus = groupOrderStatusByLabel()
@@ -246,6 +249,7 @@ export const getServerSideProps: GetServerSideProps<
         dateFinal,
         text,
         clientEmail,
+        purchaseAgentId,
       },
       isRepresentative,
     },
