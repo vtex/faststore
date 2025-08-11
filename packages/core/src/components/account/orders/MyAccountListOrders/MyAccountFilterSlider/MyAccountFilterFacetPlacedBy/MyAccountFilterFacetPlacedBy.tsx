@@ -26,6 +26,9 @@ export interface MyAccountFilterFacetPlacedByProps {
   dispatch: (action: { type: 'toggleFacet' | 'setFacet'; payload: any }) => void
 }
 
+// TODO: Integration: Replace `mockShoppers` with an API call to the entity "shopper"
+// filtering by firstName OR lastName, restricted to the current user's unit. Also
+// debounced as the user types to reduce requests.
 const mockShoppers: Shopper[] = [
   {
     purchase_agent_id: '1',
