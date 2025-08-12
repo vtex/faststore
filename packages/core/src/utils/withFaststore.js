@@ -134,22 +134,7 @@ module.exports = {
 
 /** @typedef {(next: import('next').NextConfig['webpack']) => import('next').NextConfig['webpack']} AnotateWebpack */
 
-function addRule(rule) {
-  return (userConfig) => (baseConfig, _context) => {
-    const config = Object.assign(
-      {},
-      baseConfig,
-      userConfig?.(baseConfig, _context) ?? {}
-    )
-
-    config.module.rules.push(rule)
-
-    return config
-  }
-}
-
 function createConfigFile(fileContent) {
-  // const cacheFolder = path.resolve(root, 'node_modules/.faststore-cache')
   const fileLocation = path.resolve(__filename, '../../../discovery.config.js')
   // if (!fs.existsSync(cacheFolder)) {
   //   fs.mkdirSync(cacheFolder)
