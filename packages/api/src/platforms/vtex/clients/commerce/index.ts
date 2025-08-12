@@ -488,6 +488,7 @@ export const VtexCommerce = (
         text,
         clientEmail,
         perPage,
+        purchaseAgentIds,
       }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
         const params = new URLSearchParams()
 
@@ -530,6 +531,12 @@ export const VtexCommerce = (
         if (clientEmail) params.append('clientEmail', clientEmail)
         if (page) params.append('page', page.toString())
         if (perPage) params.append('per_page', perPage.toString())
+
+        if (purchaseAgentIds && purchaseAgentIds.length > 0) {
+          purchaseAgentIds.forEach((id) => {
+            if (id) params.append('purchase_agent_id', id)
+          })
+        }
 
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',

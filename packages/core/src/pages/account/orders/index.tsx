@@ -46,6 +46,7 @@ type ListOrdersPageProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    purchaseAgentIds: string[]
   }
 } & MyAccountProps
 
@@ -85,8 +86,26 @@ export default function ListOrdersPage({
 }
 
 const query = gql(`
-  query ServerListOrdersQuery ($page: Int,$perPage: Int, $status: [String], $dateInitial: String, $dateFinal: String, $text: String, $clientEmail: String) {
-    listUserOrders (page: $page, perPage: $perPage, status: $status, dateInitial: $dateInitial, dateFinal: $dateFinal, text: $text, clientEmail: $clientEmail) {
+  query ServerListOrdersQuery (
+    $page: Int,
+    $perPage: Int,
+    $status: [String],
+    $dateInitial: String,
+    $dateFinal: String,
+    $text: String,
+    $clientEmail: String,
+    $purchaseAgentIds: [String]
+  ) {
+    listUserOrders (
+      page: $page,
+      perPage: $perPage,
+      status: $status,
+      dateInitial: $dateInitial,
+      dateFinal: $dateFinal,
+      text: $text,
+      clientEmail: $clientEmail,
+      purchaseAgentIds: $purchaseAgentIds
+    ) {
       list {
         orderId
         creationDate
@@ -188,6 +207,13 @@ export const getServerSideProps: GetServerSideProps<
       }, [] as string[])
       .filter(Boolean) || []
 
+  // TODO adapts the logic to obtain purchaseAgentIds from the context/query as needed
+  const purchaseAgentIds = Array.isArray(context.query.purchaseAgentIds)
+    ? context.query.purchaseAgentIds.filter(Boolean)
+    : context.query.purchaseAgentIds
+      ? [context.query.purchaseAgentIds].filter(Boolean)
+      : []
+
   const [
     listOrders,
     globalSections,
@@ -204,6 +230,7 @@ export const getServerSideProps: GetServerSideProps<
           dateFinal,
           text,
           clientEmail,
+          purchaseAgentIds,
         },
         operation: query,
       },
