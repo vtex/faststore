@@ -10,6 +10,7 @@ import type {
   QueryProfileArgs,
   QueryRedirectArgs,
   QuerySearchArgs,
+  QuerySearchShopperArgs,
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
@@ -418,7 +419,7 @@ export const Query = {
       } catch (err: any) {}
 
       const shopperSearch =
-        (await commerce.masterData.getShopperNameById({
+        (await commerce.masterData.searchShopper({
           userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
         })) ?? []
       const shopper = shopperSearch[0] ?? {}
@@ -491,6 +492,18 @@ export const Query = {
       })),
       paging: orders.paging,
     }
+  },
+  searchShopper: async (
+    _: unknown,
+    filters: QuerySearchShopperArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+    const shopperSearch =
+      (await commerce.masterData.searchShopper(filters)) ?? []
+    return shopperSearch ?? []
   },
   accountName: async (_: unknown, __: unknown, ctx: Context) => {
     const {

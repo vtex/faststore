@@ -413,6 +413,19 @@ type Query {
     clientEmail: String
   ): UserOrderListMinimalResult
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+  """
+  Returns information about the Shoppers.
+  """
+  searchShopper(
+    """
+    Shopper's userId.
+    """
+    userId: String
+    """
+    Shopper's name.
+    """
+    name: String
+  ): SearchShopperResult
 
   """
   Returns information about the current user details.

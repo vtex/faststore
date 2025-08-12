@@ -1,0 +1,8 @@
+"""
+SearchShopperResult information.
+"""
+type SearchShopperResult {
+  userId: String
+  firstName: String
+  lastName: String
+}

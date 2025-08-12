@@ -8,6 +8,7 @@ import type {
   IProcessOrderAuthorization,
   IUserOrderCancel,
   QueryListUserOrdersArgs,
+  QuerySearchShopperArgs,
   StoreMarketingData,
   UserOrder,
   UserOrderCancel,
@@ -686,24 +687,36 @@ export const VtexCommerce = (
           {}
         )
       },
-      getShopperNameById: ({
+      searchShopper: ({
         userId,
-      }: { userId: string }): Promise<
+        name,
+      }: QuerySearchShopperArgs): Promise<
         Array<{
           firstName: string
           lastName: string
+          userId: string
         }>
       > => {
-        if (!userId) {
-          throw new Error('Missing userId to fetch shopper name')
+        if (!userId && !name) {
+          throw new Error('You must provide userId or name to search shopper')
         }
-
-        const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
 
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
+        // Normalize userId by removing hyphens if present
+        const userIdNormalized = userId ? userId.replace(/-/g, '') : undefined
+
+        const whereParts = []
+        if (userIdNormalized) {
+          whereParts.push(`userId=${userIdNormalized}`)
+        }
+        if (name) {
+          whereParts.push(`(firstName=${name}* OR lastName=${name}*)`)
+        }
+        const where = whereParts.join(' AND ')
+
         return fetchAPI(
-          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
+          `${base}/api/dataentities/shopper/search?_where=(${encodeURIComponent(where)})&_fields=_all&_schema=v1`,
           {
             method: 'GET',
             headers,
