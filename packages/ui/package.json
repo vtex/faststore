@@ -55,15 +55,17 @@
   },
   "peerDependencies": {
     "@faststore/components": "3.x",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
     "@types/node": "^18.11.16",
-    "@types/react": "^18.2.42",
+    "@types/react": "^18.3.23",
     "@types/tabbable": "^3.1.1",
     "babel-loader": "^8.2.5",
+    "react": "^18",
+    "react-dom": "^18",
     "size-limit": "^7.0.8",
     "tslib": "^2.3.1"
   },

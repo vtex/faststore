@@ -87,7 +87,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli':
         specifier: 2.2.0
-        version: 2.2.0(@babel/core@7.26.7)(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
+        version: 2.2.0(@babel/core@7.26.7)(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-codegen/typescript':
         specifier: 2.2.2
         version: 2.2.2(encoding@0.1.13)(graphql@15.8.0)
@@ -126,13 +126,13 @@ importers:
         version: 2.12.6(graphql@15.8.0)
       jest:
         specifier: ^29.7.0
-        version: 29.7.0(@types/node@18.19.74)(ts-node@10.9.1(@types/node@18.19.74)(typescript@5.8.2))
+        version: 29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.8.2))
       nodemon:
         specifier: ^3.0.2
         version: 3.0.2
       ts-jest:
         specifier: 29.1.1
-        version: 29.1.1(@babel/core@7.26.7)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.7))(jest@29.7.0(@types/node@18.19.74)(ts-node@10.9.1(@types/node@18.19.74)(typescript@5.8.2)))(typescript@5.8.2)
+        version: 29.1.1(@babel/core@7.26.7)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.7))(jest@29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.8.2)))(typescript@5.8.2)
       tslib:
         specifier: ^2.3.1
         version: 2.8.1
@@ -221,12 +221,6 @@ importers:
 
   packages/components:
     dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
       react-intersection-observer:
         specifier: ^8.32.5
         version: 8.34.0(react@18.3.1)
@@ -253,8 +247,8 @@ importers:
         specifier: ^3.5.9
         version: 3.5.9
       '@types/react':
-        specifier: ^18.2.42
-        version: 18.2.42
+        specifier: ^18.3.23
+        version: 18.3.23
       '@types/react-dom':
         specifier: ^18.2.17
         version: 18.2.21
@@ -270,6 +264,12 @@ importers:
       jest-environment-jsdom:
         specifier: ^29.7.0
         version: 29.7.0
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
       ts-jest:
         specifier: ^29.1.2
         version: 29.1.2(@babel/core@7.26.7)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.7))(jest@29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.8.2)))(typescript@5.8.2)
@@ -345,9 +345,6 @@ importers:
       '@parcel/watcher':
         specifier: ^2.4.0
         version: 2.5.1
-      '@types/react':
-        specifier: ^18.2.42
-        version: 18.2.42
       '@vtex/client-cms':
         specifier: ^0.2.16
         version: 0.2.16(encoding@0.1.13)
@@ -399,6 +396,12 @@ importers:
       prettier:
         specifier: ^2.2.0
         version: 2.8.3
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
       react-intersection-observer:
         specifier: ^8.32.5
         version: 8.34.0(react@18.3.1)
@@ -448,6 +451,9 @@ importers:
       '@types/jest':
         specifier: 29.1.0
         version: 29.1.0
+      '@types/react':
+        specifier: 18.3.23
+        version: 18.3.23
       axe-core:
         specifier: ^4.8.1
         version: 4.9.1
@@ -469,12 +475,6 @@ importers:
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.3.2))
-      react:
-        specifier: ^18
-        version: 18.3.1
-      react-dom:
-        specifier: ^18
-        version: 18.3.1(react@18.3.1)
       ts-jest:
         specifier: 29.1.1
         version: 29.1.1(@babel/core@7.26.7)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.7))(jest@29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.3.2)))(typescript@5.3.2)
@@ -537,9 +537,6 @@ importers:
 
   packages/sdk:
     dependencies:
-      '@types/react':
-        specifier: ^18.2.42
-        version: 18.2.42
       fast-deep-equal:
         specifier: ^3.1.3
         version: 3.1.3
@@ -548,7 +545,7 @@ importers:
         version: 5.1.5
       zustand:
         specifier: ^5.0.5
-        version: 5.0.6(@types/react@18.2.42)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
+        version: 5.0.6(@types/react@18.3.23)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     devDependencies:
       '@size-limit/preset-small-lib':
         specifier: ^7.0.8
@@ -562,6 +559,9 @@ importers:
       '@types/node':
         specifier: ^18.11.16
         version: 18.19.74
+      '@types/react':
+        specifier: ^18.3.23
+        version: 18.3.23
       fake-indexeddb:
         specifier: ^3.1.3
         version: 3.1.8
@@ -572,7 +572,7 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
       react:
-        specifier: ^18.2.0
+        specifier: ^18.3.1
         version: 18.3.1
       size-limit:
         specifier: ^7.0.8
@@ -650,12 +650,6 @@ importers:
       modern-normalize:
         specifier: ^1.1.0
         version: 1.1.0
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
       react-swipeable:
         specifier: ^7.0.0
         version: 7.0.0(react@18.3.1)
@@ -670,14 +664,20 @@ importers:
         specifier: ^18.11.16
         version: 18.19.74
       '@types/react':
-        specifier: ^18.2.42
-        version: 18.2.42
+        specifier: ^18.3.23
+        version: 18.3.23
       '@types/tabbable':
         specifier: ^3.1.1
         version: 3.1.2
       babel-loader:
         specifier: ^8.2.5
         version: 8.3.0(@babel/core@7.26.7)(webpack@5.101.0)
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
       size-limit:
         specifier: ^7.0.8
         version: 7.0.8
@@ -3888,8 +3888,8 @@ packages:
   '@types/react@18.2.21':
     resolution: {integrity: sha512-neFKG/sBAwGxHgXiIxnbm3/AAVQ/cMRS93hvBpg8xYRbeQSPVABp9U2bRnPf0iI4+Ucdv3plSxKK+3CW2ENJxA==}
 
-  '@types/react@18.2.42':
-    resolution: {integrity: sha512-c1zEr96MjakLYus/wPnuWDo1/zErfdU9rNsIGmE+NV71nx88FG9Ttgo5dqorXTu/LImX2f63WBP986gJkMPNbA==}
+  '@types/react@18.3.23':
+    resolution: {integrity: sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==}
 
   '@types/resolve@1.20.6':
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
@@ -12570,19 +12570,19 @@ snapshots:
       graphql: 15.8.0
       tslib: 2.6.3
 
-  '@graphql-codegen/cli@2.2.0(@babel/core@7.26.7)(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)':
+  '@graphql-codegen/cli@2.2.0(@babel/core@7.26.7)(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)':
     dependencies:
       '@graphql-codegen/core': 2.1.0(graphql@15.8.0)
       '@graphql-codegen/plugin-helpers': 2.7.2(graphql@15.8.0)
       '@graphql-tools/apollo-engine-loader': 7.3.26(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-tools/code-file-loader': 7.3.23(@babel/core@7.26.7)(graphql@15.8.0)
       '@graphql-tools/git-loader': 7.3.0(@babel/core@7.26.7)(graphql@15.8.0)
-      '@graphql-tools/github-loader': 7.3.28(@babel/core@7.26.7)(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
+      '@graphql-tools/github-loader': 7.3.28(@babel/core@7.26.7)(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-tools/graphql-file-loader': 7.5.17(graphql@15.8.0)
       '@graphql-tools/json-file-loader': 7.4.18(graphql@15.8.0)
       '@graphql-tools/load': 7.8.14(graphql@15.8.0)
-      '@graphql-tools/prisma-loader': 7.2.72(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
-      '@graphql-tools/url-loader': 7.17.18(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
+      '@graphql-tools/prisma-loader': 7.2.72(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
+      '@graphql-tools/url-loader': 7.17.18(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-tools/utils': 8.13.1(graphql@15.8.0)
       ansi-escapes: 4.3.2
       chalk: 4.1.2
@@ -12596,7 +12596,7 @@ snapshots:
       glob: 7.2.3
       globby: 11.1.0
       graphql: 15.8.0
-      graphql-config: 4.5.0(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
+      graphql-config: 4.5.0(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
       inquirer: 7.3.3
       is-glob: 4.0.3
       json-to-pretty-yaml: 1.2.2
@@ -12982,7 +12982,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@graphql-tools/executor-http@0.1.10(@types/node@18.19.74)(graphql@15.8.0)':
+  '@graphql-tools/executor-http@0.1.10(@types/node@24.2.1)(graphql@15.8.0)':
     dependencies:
       '@graphql-tools/utils': 9.2.1(graphql@15.8.0)
       '@repeaterjs/repeater': 3.0.4
@@ -12990,7 +12990,7 @@ snapshots:
       dset: 3.1.4
       extract-files: 11.0.0
       graphql: 15.8.0
-      meros: 1.2.1(@types/node@18.19.74)
+      meros: 1.2.1(@types/node@24.2.1)
       tslib: 2.8.1
       value-or-promise: 1.0.12
     transitivePeerDependencies:
@@ -13076,10 +13076,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@graphql-tools/github-loader@7.3.28(@babel/core@7.26.7)(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)':
+  '@graphql-tools/github-loader@7.3.28(@babel/core@7.26.7)(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)':
     dependencies:
       '@ardatan/sync-fetch': 0.0.1(encoding@0.1.13)
-      '@graphql-tools/executor-http': 0.1.10(@types/node@18.19.74)(graphql@15.8.0)
+      '@graphql-tools/executor-http': 0.1.10(@types/node@24.2.1)(graphql@15.8.0)
       '@graphql-tools/graphql-tag-pluck': 7.5.2(@babel/core@7.26.7)(graphql@15.8.0)
       '@graphql-tools/utils': 9.2.1(graphql@15.8.0)
       '@whatwg-node/fetch': 0.8.8
@@ -13238,9 +13238,9 @@ snapshots:
       graphql: 15.8.0
       tslib: 2.8.1
 
-  '@graphql-tools/prisma-loader@7.2.72(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)':
+  '@graphql-tools/prisma-loader@7.2.72(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)':
     dependencies:
-      '@graphql-tools/url-loader': 7.17.18(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
+      '@graphql-tools/url-loader': 7.17.18(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-tools/utils': 9.2.1(graphql@15.8.0)
       '@types/js-yaml': 4.0.5
       '@types/json-stable-stringify': 1.2.0
@@ -13343,12 +13343,12 @@ snapshots:
       tslib: 2.8.1
       value-or-promise: 1.0.12
 
-  '@graphql-tools/url-loader@7.17.18(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)':
+  '@graphql-tools/url-loader@7.17.18(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)':
     dependencies:
       '@ardatan/sync-fetch': 0.0.1(encoding@0.1.13)
       '@graphql-tools/delegate': 9.0.35(graphql@15.8.0)
       '@graphql-tools/executor-graphql-ws': 0.0.14(graphql@15.8.0)
-      '@graphql-tools/executor-http': 0.1.10(@types/node@18.19.74)(graphql@15.8.0)
+      '@graphql-tools/executor-http': 0.1.10(@types/node@24.2.1)(graphql@15.8.0)
       '@graphql-tools/executor-legacy-ws': 0.0.11(graphql@15.8.0)
       '@graphql-tools/utils': 9.2.1(graphql@15.8.0)
       '@graphql-tools/wrap': 9.4.2(graphql@15.8.0)
@@ -15581,7 +15581,7 @@ snapshots:
 
   '@types/react-dom@18.2.21':
     dependencies:
-      '@types/react': 18.2.42
+      '@types/react': 18.3.23
 
   '@types/react@18.2.21':
     dependencies:
@@ -15589,10 +15589,9 @@ snapshots:
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
 
-  '@types/react@18.2.42':
+  '@types/react@18.3.23':
     dependencies:
       '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
       csstype: 3.1.1
 
   '@types/resolve@1.20.6': {}
@@ -18821,13 +18820,13 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  graphql-config@4.5.0(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0):
+  graphql-config@4.5.0(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0):
     dependencies:
       '@graphql-tools/graphql-file-loader': 7.5.17(graphql@15.8.0)
       '@graphql-tools/json-file-loader': 7.4.18(graphql@15.8.0)
       '@graphql-tools/load': 7.8.14(graphql@15.8.0)
       '@graphql-tools/merge': 8.4.2(graphql@15.8.0)
-      '@graphql-tools/url-loader': 7.17.18(@types/node@18.19.74)(encoding@0.1.13)(graphql@15.8.0)
+      '@graphql-tools/url-loader': 7.17.18(@types/node@24.2.1)(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-tools/utils': 9.2.1(graphql@15.8.0)
       cosmiconfig: 8.0.0
       graphql: 15.8.0
@@ -21029,10 +21028,6 @@ snapshots:
   merge-stream@2.0.0: {}
 
   merge2@1.4.1: {}
-
-  meros@1.2.1(@types/node@18.19.74):
-    optionalDependencies:
-      '@types/node': 18.19.74
 
   meros@1.2.1(@types/node@24.2.1):
     optionalDependencies:
@@ -23769,6 +23764,23 @@ snapshots:
       '@jest/types': 29.6.3
       babel-jest: 29.7.0(@babel/core@7.26.7)
 
+  ts-jest@29.1.1(@babel/core@7.26.7)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.7))(jest@29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.8.2)))(typescript@5.8.2):
+    dependencies:
+      bs-logger: 0.2.6
+      fast-json-stable-stringify: 2.1.0
+      jest: 29.7.0(@types/node@24.2.1)(ts-node@10.9.1(@types/node@24.2.1)(typescript@5.8.2))
+      jest-util: 29.7.0
+      json5: 2.2.3
+      lodash.memoize: 4.1.2
+      make-error: 1.3.6
+      semver: 7.7.1
+      typescript: 5.8.2
+      yargs-parser: 21.1.1
+    optionalDependencies:
+      '@babel/core': 7.26.7
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.26.7)
+
   ts-jest@29.1.2(@babel/core@7.26.7)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.7))(jest@29.7.0(@types/node@16.18.57)(ts-node@10.9.1(@types/node@16.18.57)(typescript@5.8.2)))(typescript@5.8.2):
     dependencies:
       bs-logger: 0.2.6
@@ -24720,8 +24732,8 @@ snapshots:
       taketalk: 1.0.0
       wrap-ansi: 2.1.0
 
-  zustand@5.0.6(@types/react@18.2.42)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1)):
+  zustand@5.0.6(@types/react@18.3.23)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1)):
     optionalDependencies:
-      '@types/react': 18.2.42
+      '@types/react': 18.3.23
       react: 18.3.1
       use-sync-external-store: 1.4.0(react@18.3.1)

@@ -88,6 +88,9 @@ packages/gatsby-**/**/*.json
 packages/core/@generated/schema.graphql
 packages/core/@generated/persisted-documents.json
 
+packages/core/discovery.config.js
+
+
 # lighthouse CI autogen files
 .lighthouseci
 
@@ -110,4 +113,3 @@ packages/core/@generated/persisted-documents.json
 oclif.manifest.json
 
 *storybook.log
-discovery.config.js

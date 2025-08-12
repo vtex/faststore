@@ -76,7 +76,6 @@ module.exports = {
    * @param {import('next').NextConfig} config
    */
   withFastStore(config) {
-    console.log('\n\n\n\n', root, '\n\n\n\n')
     // const withVirtualConfig = withVirtualPlugin(finalConfig)
     const finalConfig = mergeConfig()
     createConfigFile(finalConfig);
