@@ -411,6 +411,10 @@ type Query {
     Client email used to filter of the list of orders.
     """
     clientEmail: String
+    """
+    purchaseAgentIds used to filter of the list of orders.
+    """
+    purchaseAgentIds: [String]
   ): UserOrderListMinimalResult
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 

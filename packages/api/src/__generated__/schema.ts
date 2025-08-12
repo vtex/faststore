@@ -903,6 +903,7 @@ export type QueryListUserOrdersArgs = {
   dateInitial?: Maybe<Scalars['String']>;
   page?: Maybe<Scalars['Int']>;
   perPage?: Maybe<Scalars['Int']>;
+  purchaseAgentIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   status?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;
 };
