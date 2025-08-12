@@ -160,3 +160,43 @@ function mergeConfig() {
 }
 
 /** @typedef {(next: import('next').NextConfig['webpack']) => import('next').NextConfig['webpack']} AnotateWebpack */
+
+function addRule(rule) {
+  return (userConfig) => (baseConfig, _context) => {
+    const config = Object.assign(
+      {},
+      baseConfig,
+      userConfig?.(baseConfig, _context) ?? {}
+    )
+
+    config.module.rules.push(rule)
+
+    return config
+  }
+}
+
+function createConfigFile(fileContent) {
+  // const cacheFolder = path.resolve(root, 'node_modules/.faststore-cache')
+  const fileLocation = path.resolve(__filename, '../../../discovery.config.js')
+  // if (!fs.existsSync(cacheFolder)) {
+  //   fs.mkdirSync(cacheFolder)
+  // }
+
+  // const fileLocation = path.resolve(cacheFolder, 'faststore-config.js')
+  fs.writeFileSync(
+    fileLocation,
+    `module.exports = ${JSON.stringify(fileContent)};`
+  )
+  return fileLocation
+}
+
+function mergeConfig() {
+  const faststoreConfig = require(
+    path.relative(
+      path.dirname(__filename),
+      path.resolve(root, 'discovery.config.js')
+    )
+  )
+
+  return deepmerge(baseDiscoveryConfig, faststoreConfig)
+}

@@ -1,5 +1,5 @@
 import type { ProductSearchResult } from '@faststore/api'
-import { api, storeUrl } from 'faststore-config'
+import { api, storeUrl } from '../../../discovery.config'
 
 const IS_PROD = process.env.NODE_ENV === 'production'
 

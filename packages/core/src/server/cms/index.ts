@@ -3,7 +3,7 @@ import ClientCMS from '@vtex/client-cms'
 
 import MultipleContentError from '../../sdk/error/MultipleContentError'
 import { sanitizeHost } from '../../utils/utilities'
-import config from 'faststore-config'
+import config from '../../../discovery.config'
 
 export type Options =
   | Locator

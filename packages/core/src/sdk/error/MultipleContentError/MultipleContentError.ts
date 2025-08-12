@@ -1,5 +1,5 @@
 import type { EntryPathParams } from '@vtex/client-cp'
-import { contentSource } from 'faststore-config'
+import { contentSource } from '../../../../discovery.config'
 import type { Options } from '../../../server/cms'
 
 export default class MultipleContentError extends Error {

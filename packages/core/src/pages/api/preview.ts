@@ -1,6 +1,6 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-import { previewRedirects } from 'faststore-config'
+import { previewRedirects } from '../../../discovery.config'
 import { contentService } from '../../server/content/service'
 import { isLocator } from '../../server/cms'
 import {

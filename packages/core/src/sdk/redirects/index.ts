@@ -1,4 +1,4 @@
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 import { matcher } from '../../customizations/src/redirects'
 
 type GetRedirectArgs = {

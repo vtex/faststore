@@ -6,7 +6,7 @@ import type { SearchEvents } from '../../types'
 
 import { getBaseDomain } from '../../../../utils/getBaseDomain'
 import { getCookie } from '../../../../utils/getCookie'
-import config from 'faststore-config'
+import config from '../../../../../discovery.config'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600

@@ -30,7 +30,7 @@ import { validateUser } from '../../sdk/account/validateUser'
 import PageProvider from '../../sdk/overrides/PageProvider'
 
 import { SecuritySection } from '../../components/account/security'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

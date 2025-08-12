@@ -25,7 +25,7 @@ import PageProvider from '../../sdk/overrides/PageProvider'
 import { execute } from '../../server'
 import { injectGlobalSections } from '../../server/cms/global'
 import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

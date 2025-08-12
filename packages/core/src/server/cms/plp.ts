@@ -5,7 +5,7 @@ import {
   type RewritesConfig,
   findBestPLPTemplate,
 } from '../../utils/multipleTemplates'
-import config from 'faststore-config'
+import config from '../../../discovery.config'
 import { type Options, getCMSPage, getPage } from '../cms'
 
 type PLPSettings = {

@@ -1,5 +1,5 @@
 import type { Section } from '@vtex/client-cms'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 import type { PageContentType } from '../../server/cms'
 import { contentService } from '../../server/content/service'
 import type { PreviewData } from '../../server/content/types'
