@@ -6,7 +6,7 @@ import type {
 } from '../../@generated/graphql'
 import { ITEMS_PER_PAGE } from '../constants'
 import { execute } from '../server'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../discovery.config'
 
 export const query = gql(`
   query ServerManyProductsQuery(

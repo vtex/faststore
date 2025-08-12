@@ -8,9 +8,9 @@ import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '../../../@generated/graphql'
-import discoveryConfig from 'faststore-config'
+import discoveryConfig from '../../../discovery.config'
 import { sanitizeHost } from '../../utils/utilities'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'

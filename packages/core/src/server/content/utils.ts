@@ -1,4 +1,4 @@
-import { contentSource } from 'faststore-config'
+import { contentSource } from '../../../discovery.config'
 import { ContentSourceType, type PreviewData } from './types'
 
 export function isContentPlatformSource(): boolean {

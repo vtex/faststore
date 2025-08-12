@@ -18,7 +18,7 @@ import MissingContentError from '../../../sdk/error/MissingContentError/MissingC
 import PageProvider from '../../../sdk/overrides/PageProvider'
 import type { PageContentType } from '../../../server/cms'
 
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../../discovery.config'
 import { contentService } from '../../../server/content/service'
 import type { PreviewData } from '../../../server/content/types'
 

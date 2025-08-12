@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from 'next'
 import type { SearchPageProps } from './getStaticProps'
 
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
 import { type SearchContentType, getPage } from '../../server/cms'
 import { injectGlobalSections } from '../../server/cms/global'

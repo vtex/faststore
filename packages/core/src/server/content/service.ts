@@ -3,7 +3,7 @@ import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from '../cms'
 import type { ContentOptions, ContentParams, PreviewData } from './types'
-import config from 'faststore-config'
+import config from '../../../discovery.config'
 import { getPLP, type PLPContentType } from '../cms/plp'
 import {
   findBestPDPTemplate,

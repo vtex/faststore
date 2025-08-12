@@ -14,7 +14,7 @@ import type { useFilter } from '../search/useFilter'
 import { useSession } from '../session'
 import type { GlobalCmsData } from '../../utils/globalSettings'
 
-import { deliveryPromise as deliveryPromiseConfig } from 'faststore-config'
+import { deliveryPromise as deliveryPromiseConfig } from '../../../discovery.config'
 import {
   initialPickupPointsSimulation,
   useDeliveryPromiseContext,
