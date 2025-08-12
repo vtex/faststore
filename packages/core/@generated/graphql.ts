@@ -879,6 +879,7 @@ export type QueryListUserOrdersArgs = {
   dateInitial: InputMaybe<Scalars['String']['input']>
   page: InputMaybe<Scalars['Int']['input']>
   perPage: InputMaybe<Scalars['Int']['input']>
+  purchaseAgentIds: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   text: InputMaybe<Scalars['String']['input']>
 }
@@ -2801,6 +2802,10 @@ export type ServerListOrdersQueryQueryVariables = Exact<{
   dateFinal: InputMaybe<Scalars['String']['input']>
   text: InputMaybe<Scalars['String']['input']>
   clientEmail: InputMaybe<Scalars['String']['input']>
+  purchaseAgentIds: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >
 }>
 
 export type ServerListOrdersQueryQuery = {
@@ -4003,7 +4008,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4',
+    operationHash: '15b25f41a5716eaf45736f0ecb29db6f8909cb46',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
