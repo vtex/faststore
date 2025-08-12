@@ -24,7 +24,7 @@ import { execute } from '../../../server'
 import { injectGlobalSections } from '../../../server/cms/global'
 import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 import { extractStatusFromError } from '../../../utils/utilities'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../../discovery.config'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,

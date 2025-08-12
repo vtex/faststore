@@ -18,7 +18,7 @@ import { useApplySearchState } from '../../../sdk/search/state'
 
 import type { PLPContentType } from '../../../server/cms/plp'
 
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
 
 export type ProductListingPageProps = {

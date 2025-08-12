@@ -18,7 +18,7 @@ import type { PageContentType } from '../server/cms'
 import { injectGlobalSections } from '../server/cms/global'
 import { contentService } from '../server/content/service'
 import type { PreviewData } from '../server/content/types'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
