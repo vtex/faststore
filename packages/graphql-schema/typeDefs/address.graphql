@@ -3,7 +3,7 @@ Address information.
 """
 type Address {
   """
-  Address postal code
+  Address postal code!
   """
   postalCode: String
   """

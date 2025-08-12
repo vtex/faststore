@@ -4,7 +4,7 @@ import {
   getContextFactory as getContextFactoryVTEX,
   getResolvers as getResolversVTEX,
 } from './platforms/vtex'
-import { typeDefs } from './typeDefs'
+import { typeDefs } from '@faststore/graphql-schema'
 import cacheControlDirective from './directives/cacheControl'
 import type { Directive } from './directives'
 import type { Options as OptionsVTEX } from './platforms/vtex'
@@ -23,7 +23,7 @@ const platforms = {
   },
 }
 
-const directives: Directive[] = [cacheControlDirective]
+export const directives: Directive[] = [cacheControlDirective]
 
 export const getTypeDefs = () => [
   typeDefs,

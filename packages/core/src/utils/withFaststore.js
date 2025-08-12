@@ -147,13 +147,7 @@ function addRule(rule) {
 }
 
 function createConfigFile(fileContent) {
-  // const cacheFolder = path.resolve(root, 'node_modules/.faststore-cache')
   const fileLocation = path.resolve(__filename, '../../../discovery.config.js')
-  // if (!fs.existsSync(cacheFolder)) {
-  //   fs.mkdirSync(cacheFolder)
-  // }
-
-  // const fileLocation = path.resolve(cacheFolder, 'faststore-config.js')
   fs.writeFileSync(fileLocation, `module.exports = ${JSON.stringify(fileContent)};`)
   return fileLocation
 }

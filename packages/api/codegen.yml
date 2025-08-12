@@ -1,5 +1,5 @@
 overwrite: true
-schema: "./src/**/*.graphql"
+schema: "./node_modules/@faststore/graphql-schema/dist/schema.graphql"
 documents: null
 generates:
   src/__generated__/schema.ts:

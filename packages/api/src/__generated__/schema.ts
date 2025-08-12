@@ -90,7 +90,7 @@ export type Address = {
   neighborhood?: Maybe<Scalars['String']>;
   /** Address number */
   number?: Maybe<Scalars['String']>;
-  /** Address postal code */
+  /** Address postal code! */
   postalCode?: Maybe<Scalars['String']>;
   /** Address reference */
   reference?: Maybe<Scalars['String']>;
