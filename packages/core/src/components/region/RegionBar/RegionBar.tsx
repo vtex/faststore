@@ -8,7 +8,7 @@ import { useUI } from '@faststore/ui'
 import { useSession } from '../../../sdk/session'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
-import { deliveryPromise, session as initialSession } from 'faststore-config'
+import { deliveryPromise, session as initialSession } from '../../../../discovery.config'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { textToTitleCase } from '../../../utils/utilities'
 import { getGlobalSettings } from '../../../utils/globalSettings'

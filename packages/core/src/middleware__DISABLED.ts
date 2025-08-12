@@ -9,7 +9,7 @@
 
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import storeConfig from 'faststore-config'
+import storeConfig from '../discovery.config'
 
 type Redirect = {
   from: string

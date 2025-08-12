@@ -35,5 +35,3 @@ export {
   PICKUP_ALL_FACET_VALUE,
   getPickupPoints,
 } from './src/sdk/deliveryPromise'
-
-export type { FaststoreConfig } from './src/typings/config'

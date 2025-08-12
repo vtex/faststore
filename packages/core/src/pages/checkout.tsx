@@ -14,7 +14,7 @@ import CUSTOM_COMPONENTS from '../customizations/src/components'
 import RenderSections from '../components/cms/RenderSections'
 import PageProvider from '../sdk/overrides/PageProvider'
 import { injectGlobalSections } from '../server/cms/global'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../discovery.config'
 
 type Props = {
   globalSections: GlobalSectionsData

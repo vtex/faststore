@@ -16,7 +16,7 @@ import { getIsRepresentative } from '../sdk/account/getIsRepresentative'
 import { injectGlobalSections } from '../server/cms/global'
 import { getMyAccountRedirect } from '../utils/myAccountRedirect'
 import { validateUser } from '../sdk/account/validateUser'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../discovery.config'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData

@@ -2,7 +2,7 @@ import path from 'path'
 import { writeFileSync } from 'fs-extra'
 import { getTypeDefs } from '@faststore/api'
 import { printSchemaWithDirectives } from '@graphql-tools/utils'
-import { loadFilesSync } from '@graphql-tools/load-files'
+// import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { buildASTSchema } from 'graphql'
 import type { GraphQLSchema } from 'graphql'
@@ -15,14 +15,15 @@ export function getTypeDefsFromFolder(
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
-  return (
-    loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
-      extensions: ['graphql'],
-    }) ??
-    loadFilesSync([...basePath, ...pathArray, 'typedefs'], {
-      extensions: ['graphql'],
-    })
-  )
+  return ''
+  // return (
+  //   loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
+  //     extensions: ['graphql'],
+  //   }) ??
+  //   loadFilesSync([...basePath, ...pathArray, 'typedefs'], {
+  //     extensions: ['graphql'],
+  //   })
+  // )
 }
 
 export function getCustomSchema(typeDefs: TypeSource[]) {

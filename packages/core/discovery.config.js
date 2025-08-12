@@ -1,3 +1,5 @@
+// Do not change this file, it's generated at run-time with merged config
+
 const defaultConfig = require('./discovery.config.default')
 const starterConfig = require('./src/customizations/discovery.config')
 const deepmerge = require('deepmerge')

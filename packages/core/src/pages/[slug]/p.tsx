@@ -28,7 +28,7 @@ import { getRedirect } from '../../sdk/redirects'
 import { useSession } from '../../sdk/session'
 import { execute } from '../../server'
 
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../discovery.config'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,

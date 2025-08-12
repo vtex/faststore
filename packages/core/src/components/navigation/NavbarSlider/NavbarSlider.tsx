@@ -1,7 +1,7 @@
 import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
-import storeConfig from 'faststore-config'
+import storeConfig from '../../../../discovery.config'
 import NavbarLinks from '../NavbarLinks'
 import { ButtonSignInFallback } from '../../ui/Button'
 import Link from '../../ui/Link'

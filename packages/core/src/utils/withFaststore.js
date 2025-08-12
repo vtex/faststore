@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const baseDiscoveryConfig = require('../../discovery.config')
 const deepmerge = require('deepmerge')
 const VirtualModulePlugin = require('webpack-virtual-modules')
@@ -7,15 +8,14 @@ const root = process.env.PWD ?? process.cwd()
 
 /**
  * @type {AnotateWebpack}
+ * https://github.com/vercel/next.js/discussions/78170 - Do not use webpack aliases
  */
-const aliasWebpack = (userConfig) => (baseConfig, _context) => {
+const withAliases = (aliases) => (userConfig) => (baseConfig, _context) => {
   const config = { ...baseConfig, ...userConfig?.(baseConfig, _context) }
-  // https://github.com/vercel/next.js/issues/50391
-  config.resolve.alias['react'] = path.resolve(root, 'node_modules/react')
-  config.resolve.alias['starter-config'] = path.resolve(
-    root,
-    'discovery.config.js'
-  )
+
+  Object.entries(aliases).forEach(([k, v]) => {
+    config.resolve.alias[k] = v
+  })
 
   return config
 }
@@ -23,7 +23,7 @@ const aliasWebpack = (userConfig) => (baseConfig, _context) => {
 /**
  * @type {AnotateWebpack}
  */
-const camelCaseCss = (userConfig) => (baseConfig, _context) => {
+const withCamelCaseCss = (userConfig) => (baseConfig, _context) => {
   const config = { ...baseConfig, ...userConfig?.(baseConfig, _context) }
   config.module.rules
     .find(({ oneOf }) => !!oneOf)
@@ -44,22 +44,22 @@ const camelCaseCss = (userConfig) => (baseConfig, _context) => {
  */
 const withVirtualPlugin =
   (finalConfig = {}) =>
-  (userConfig) =>
-  (baseConfig, _context) => {
-    const config = { ...baseConfig, ...userConfig?.(baseConfig, _context) }
-    ;(config.plugins ?? []).push(
-      new VirtualModulePlugin({
-        'faststore-config': `module.exports = ${JSON.stringify(finalConfig)};`,
-      })
-    )
+    (userConfig) =>
+      (baseConfig, _context) => {
+        const config = { ...baseConfig, ...userConfig?.(baseConfig, _context) }
+          ; (config.plugins ?? []).push(
+            new VirtualModulePlugin({
+              'faststore-config': `module.exports = ${JSON.stringify(finalConfig)};`,
+            })
+          )
 
-    return config
-  }
+        return config
+      }
 
 /**
  * @type {AnotateWebpack}
  */
-const optimization = (userConfig) => (baseConfig, _context) => {
+const withOptimizations = (userConfig) => (baseConfig, _context) => {
   const { isServer, dev } = _context
   const config = { ...baseConfig, ...userConfig?.(baseConfig, _context) }
   // Reduce the number of chunks so we ship a smaller first bundle.
@@ -76,14 +76,21 @@ module.exports = {
    * @param {import('next').NextConfig} config
    */
   withFastStore(config) {
-    const faststoreConfig = require(
-      path.relative(
-        path.dirname(__filename),
-        path.resolve(root, 'discovery.config.js')
-      )
-    )
-    const finalConfig = deepmerge(baseDiscoveryConfig, faststoreConfig)
-    const withVirtualConfig = withVirtualPlugin(finalConfig)
+    console.log('\n\n\n\n', root, '\n\n\n\n')
+    // const withVirtualConfig = withVirtualPlugin(finalConfig)
+    const finalConfig = mergeConfig()
+    createConfigFile(finalConfig);
+
+    const withGraphqlLoader = addRule({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: '@graphql-tools/webpack-loader'
+    })
+
+    const addAliases = withAliases({
+      // https://github.com/vercel/next.js/issues/50391
+      'react': path.resolve(root, 'node_modules/react'),
+    })
 
     return {
       ...config,
@@ -109,8 +116,14 @@ module.exports = {
       eslint: {
         ignoreDuringBuilds: true,
       },
-      webpack: optimization(
-        camelCaseCss(withVirtualConfig(aliasWebpack(config.webpack)))
+      webpack: withGraphqlLoader(
+        withOptimizations(
+          withCamelCaseCss(
+            // withVirtualConfig(
+            addAliases(config.webpack)
+            // )
+          )
+        )
       ),
       transpilePackages: [
         '@faststore/core',
@@ -121,3 +134,37 @@ module.exports = {
 }
 
 /** @typedef {(next: import('next').NextConfig['webpack']) => import('next').NextConfig['webpack']} AnotateWebpack */
+
+
+function addRule(rule) {
+  return (userConfig) => (baseConfig, _context) => {
+    const config = Object.assign({}, baseConfig, userConfig?.(baseConfig, _context) ?? {})
+
+    config.module.rules.push(rule)
+
+    return config
+  }
+}
+
+function createConfigFile(fileContent) {
+  // const cacheFolder = path.resolve(root, 'node_modules/.faststore-cache')
+  const fileLocation = path.resolve(__filename, '../../../discovery.config.js')
+  // if (!fs.existsSync(cacheFolder)) {
+  //   fs.mkdirSync(cacheFolder)
+  // }
+
+  // const fileLocation = path.resolve(cacheFolder, 'faststore-config.js')
+  fs.writeFileSync(fileLocation, `module.exports = ${JSON.stringify(fileContent)};`)
+  return fileLocation
+}
+
+function mergeConfig() {
+  const faststoreConfig = require(
+    path.relative(
+      path.dirname(__filename),
+      path.resolve(root, 'discovery.config.js')
+    )
+  )
+
+  return deepmerge(baseDiscoveryConfig, faststoreConfig)
+}

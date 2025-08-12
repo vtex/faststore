@@ -14,14 +14,16 @@ import {
   BadRequestError,
   getContextFactory,
   getResolvers,
+  getTypeDefs,
   isFastStoreError,
+  directives,
 } from '@faststore/api'
-import { loadFilesSync } from '@graphql-tools/load-files'
+// import defs from '../../@generated/schema.graphql'
+// import { mergedTypeDefs as defs } from '@faststore/graphql-schema'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
 import * as GraphQLJS from 'graphql'
 import { GraphQLError } from 'graphql'
-import path from 'path'
 
 import persisted from '../../@generated/persisted-documents.json'
 
@@ -52,9 +54,7 @@ const customFormatError: MaskError = (err) => {
 }
 
 function loadGeneratedSchema(): TypeSource {
-  return loadFilesSync(path.join(process.cwd(), '@generated'), {
-    extensions: ['graphql'],
-  })
+  return getTypeDefs()
 }
 
 function getFinalAPISchema() {

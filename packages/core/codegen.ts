@@ -1,6 +1,8 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 import { Kind, type DocumentNode } from 'graphql'
 
+const schemaFileLocation = require.resolve("@faststore/graphql-schema/schema.graphql")
+
 /* Extracts operationName from queries. Example: ServerProductQuery */
 const getOperationName = (document: DocumentNode) => {
   for (const definition of document.definitions) {
@@ -15,12 +17,13 @@ const getOperationName = (document: DocumentNode) => {
   return 'UnknownOperation'
 }
 
+
 const config: CodegenConfig = {
   overwrite: true,
   errorsOnly: false,
   debug: true,
   verbose: true,
-  schema: './@generated/schema.graphql',
+  schema: schemaFileLocation,
   documents: ['./src/**/*.{ts,tsx}'],
   generates: {
     './@generated/': {

@@ -14,7 +14,7 @@ import { injectGlobalSections } from '../server/cms/global'
 import { contentService } from '../server/content/service'
 import type { PreviewData } from '../server/content/types'
 import { getDynamicContent } from '../utils/dynamicContent'
-import storeConfig from 'faststore-config'
+import storeConfig from '../../discovery.config'
 
 type Props = {
   page: PageContentType
