@@ -1,11 +1,4 @@
-import {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Input, IconButton, Icon, Loader } from '@faststore/ui'
 import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
 import useShopperSuggestions from 'src/sdk/account/useShopperSuggestions'
@@ -22,12 +15,10 @@ export interface MyAccountFilterFacetPlacedByProps {
   dispatch: (action: { type: 'toggleFacet' | 'setFacet'; payload: any }) => void
 }
 
-const MyAccountFilterFacetPlacedBy = forwardRef<
-  {
-    clear: () => void
-  },
-  MyAccountFilterFacetPlacedByProps
->(function MyAccountFilterFacetPlacedBy({ selected, dispatch }, ref) {
+function MyAccountFilterFacetPlacedBy({
+  selected,
+  dispatch,
+}: MyAccountFilterFacetPlacedByProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
   const [selectedShopper, setSelectedShopper] = useState<Shopper | null>(null)
@@ -69,18 +60,6 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
     [isLoading, query, filteredShoppers]
   )
 
-  useImperativeHandle(ref, () => ({
-    clear: () => {
-      clearAll()
-      if (selectedId) {
-        dispatch({
-          type: 'toggleFacet',
-          payload: { key: 'purchaseAgentId', value: selectedId },
-        })
-      }
-    },
-  }))
-
   function handleSelect(shopper: Shopper) {
     setSelectedShopper(shopper)
     setIsOpen(false)
@@ -95,6 +74,8 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
 
   function handleClearTag() {
     if (selectedShopper) {
+      // Using toggleFacet here removes the purchaseAgentId from selected facets
+      // because toggleFacet will remove the facet if it already exists in the selected facets
       dispatch({
         type: 'toggleFacet',
         payload: {
@@ -186,6 +167,6 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
       )}
     </div>
   )
-})
+}
 
 export default MyAccountFilterFacetPlacedBy
