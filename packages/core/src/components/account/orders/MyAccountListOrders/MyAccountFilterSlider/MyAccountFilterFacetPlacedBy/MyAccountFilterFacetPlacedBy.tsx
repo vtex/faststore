@@ -6,14 +6,10 @@ import {
   useRef,
   useState,
 } from 'react'
-import { Input, IconButton, Icon } from '@faststore/ui'
+import { Input, IconButton, Icon, Loader } from '@faststore/ui'
 import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
-
-type Shopper = {
-  purchase_agent_id: string
-  name: string
-  email: string
-}
+import useShopperSuggestions from 'src/sdk/account/useShopperSuggestions'
+import type { Shopper } from 'src/sdk/account/useShopperSuggestions'
 
 export interface MyAccountFilterFacetPlacedByProps {
   /**
@@ -26,32 +22,6 @@ export interface MyAccountFilterFacetPlacedByProps {
   dispatch: (action: { type: 'toggleFacet' | 'setFacet'; payload: any }) => void
 }
 
-// TODO: Integration: Replace `mockShoppers` with an API call to the entity "shopper"
-// filtering by firstName OR lastName, restricted to the current user's unit. Also
-// debounced as the user types to reduce requests.
-const mockShoppers: Shopper[] = [
-  {
-    purchase_agent_id: '1',
-    name: 'Robert Fox',
-    email: 'robert.fox@example.com',
-  },
-  {
-    purchase_agent_id: '2',
-    name: 'Ronald Wilson',
-    email: 'ronald.wilson@example.com',
-  },
-  {
-    purchase_agent_id: '3',
-    name: 'Cameron Williamson',
-    email: 'cameron.williamson@example.com',
-  },
-  {
-    purchase_agent_id: '4',
-    name: 'Brooklyn Simmons',
-    email: 'brooklyn.simmons@example.com',
-  },
-]
-
 const MyAccountFilterFacetPlacedBy = forwardRef<
   {
     clear: () => void
@@ -63,41 +33,45 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
   const [selectedShopper, setSelectedShopper] = useState<Shopper | null>(null)
   const [isOpen, setIsOpen] = useState(false)
 
+  // Use the new hook for shoppers suggestions
+  const { data, isLoading, findShopperById } = useShopperSuggestions(query)
+
+  // Get the filtered shoppers from hook data
+  const filteredShoppers = data?.shoppers || []
+
   const selectedId = useMemo(
     () => selected.find((f) => f.key === 'purchaseAgentId')?.value,
     [selected]
   )
 
+  const clearAll = () => {
+    setQuery('')
+    setSelectedShopper(null)
+    if (inputRef.current) inputRef.current.value = ''
+  }
+
   useEffect(() => {
-    if (selectedId) {
-      if (!selectedShopper) {
-        const found = mockShoppers.find(
-          (s) => s.purchase_agent_id === selectedId
-        )
-        if (found) setSelectedShopper(found)
-      }
-    } else {
-      // Clear local when global selected cleared (e.g., Clear All)
-      setSelectedShopper(null)
-      setQuery('')
-      if (inputRef.current) inputRef.current.value = ''
+    if (selectedId && !selectedShopper) {
+      const found = findShopperById(selectedId)
+      if (found) setSelectedShopper(found)
+    } else if (!selectedId) {
+      clearAll()
     }
   }, [selectedId, selectedShopper])
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return mockShoppers
-    return mockShoppers.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) || s.email.toLowerCase().includes(q)
-    )
-  }, [query])
+  function handleSearchOnChange(value: string) {
+    setQuery(value)
+    setIsOpen(true)
+  }
+
+  const isSearchEmpty = useMemo(
+    () => !isLoading && query && filteredShoppers.length === 0,
+    [isLoading, query, filteredShoppers]
+  )
 
   useImperativeHandle(ref, () => ({
     clear: () => {
-      setQuery('')
-      setSelectedShopper(null)
-      if (inputRef.current) inputRef.current.value = ''
+      clearAll()
       if (selectedId) {
         dispatch({
           type: 'toggleFacet',
@@ -129,9 +103,7 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
         },
       })
     }
-    setSelectedShopper(null)
-    setQuery('')
-    if (inputRef.current) inputRef.current.value = ''
+    clearAll()
   }
 
   return (
@@ -148,8 +120,7 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
           }}
           onChange={(e) => {
             if (selectedShopper) return
-            setQuery(e.target.value)
-            setIsOpen(true)
+            handleSearchOnChange(e.target.value)
           }}
           onBlur={() => {
             // delay close to allow click selection
@@ -164,6 +135,11 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
           type="text"
           inputMode="text"
         />
+        {isLoading && (
+          <div data-fs-list-orders-filters-placed-by-loader>
+            <Loader />
+          </div>
+        )}
         {selectedShopper && (
           <IconButton
             size="small"
@@ -175,14 +151,25 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
         )}
       </div>
 
-      {isOpen && filtered.length > 0 && (
+      {isOpen && isSearchEmpty && (
+        <div
+          data-fs-list-orders-filters-placed-by-dropdown
+          data-fs-list-orders-filters-placed-by-empty
+          role="listbox"
+          tabIndex={0}
+        >
+          <p>No shoppers found with "{query}"</p>
+        </div>
+      )}
+
+      {isOpen && filteredShoppers.length > 0 && (
         <div
           data-fs-list-orders-filters-placed-by-dropdown
           role="listbox"
           tabIndex={0}
         >
           <ul>
-            {filtered.map((s) => (
+            {filteredShoppers.map((s) => (
               <li key={s.purchase_agent_id}>
                 <button
                   type="button"
