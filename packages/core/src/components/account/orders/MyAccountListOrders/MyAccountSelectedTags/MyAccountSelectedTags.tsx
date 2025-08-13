@@ -100,9 +100,9 @@ function Tags({
 
   return (
     <>
+      {placedByTag}
       {dateTag}
       {statusTags}
-      {placedByTag}
     </>
   )
 }
