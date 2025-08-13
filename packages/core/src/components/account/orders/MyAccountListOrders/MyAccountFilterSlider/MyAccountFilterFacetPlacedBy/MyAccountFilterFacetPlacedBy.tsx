@@ -155,8 +155,7 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
         <div
           data-fs-list-orders-filters-placed-by-dropdown
           data-fs-list-orders-filters-placed-by-empty
-          role="listbox"
-          tabIndex={0}
+          aria-label="No shoppers found with query"
         >
           <p>No shoppers found with "{query}"</p>
         </div>
@@ -165,8 +164,7 @@ const MyAccountFilterFacetPlacedBy = forwardRef<
       {isOpen && filteredShoppers.length > 0 && (
         <div
           data-fs-list-orders-filters-placed-by-dropdown
-          role="listbox"
-          tabIndex={0}
+          aria-label="Shopper selection dropdown"
         >
           <ul>
             {filteredShoppers.map((s) => (
