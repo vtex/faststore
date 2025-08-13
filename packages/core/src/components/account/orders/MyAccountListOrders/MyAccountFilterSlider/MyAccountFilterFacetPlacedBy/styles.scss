@@ -9,6 +9,7 @@
   --fs-list-orders-filters-placed-by-selected-radius                            : var(--fs-input-border-radius);
   --fs-list-orders-filters-placed-by-empty-text-color                           : var(--fs-color-text-light);
   --fs-list-orders-filters-placed-by-loader-size                                : 1.25rem;
+  --fs-list-orders-filters-placed-by-dropdown-shadow                            : 0 2px 8px rgb(0 0 0 / 10%);
 
   position: relative;
 
@@ -51,7 +52,7 @@
     background: var(--fs-list-orders-filters-placed-by-dropdown-bkg);
     border: var(--fs-list-orders-filters-placed-by-dropdown-border);
     border-radius: var(--fs-list-orders-filters-placed-by-dropdown-radius);
-    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    box-shadow: var(--fs-list-orders-filters-placed-by-dropdown-shadow);
 
     &[data-fs-list-orders-filters-placed-by-empty] {
       padding: var(--fs-spacing-3);
