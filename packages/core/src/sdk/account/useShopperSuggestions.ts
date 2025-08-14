@@ -48,7 +48,6 @@ export function useShopperSuggestions(
     error,
     isLoading,
   } = useSearchShopperQuery({ name: searchTerm })
-  console.log('🚀 ~ queryData:', queryData)
 
   const data = useMemo(() => {
     if (!queryData?.searchShopper?.shoppers) return { shoppers: [] }

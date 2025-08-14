@@ -704,7 +704,6 @@ export const VtexCommerce = (
         }
 
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
-        console.log('🚀 ~ headers:', headers)
 
         // Normalize userId by removing hyphens if present
         const userIdNormalized = userId ? userId.replace(/-/g, '') : undefined
@@ -720,10 +719,8 @@ export const VtexCommerce = (
 
           if (customerId) whereParts.push(`(contractIds=${customerId})`)
         }
+
         const where = whereParts.join(' AND ')
-        console.log('🚀 ~ where:', where)
-        const result = `${base}/api/dataentities/shopper/search?_where=(${encodeURIComponent(where)})&_fields=_all&_schema=v1`
-        console.log('🚀 ~ result:', result)
 
         return fetchAPI(
           `${base}/api/dataentities/shopper/search?_where=(${encodeURIComponent(where)})&_fields=_all&_schema=v1`,
