@@ -152,7 +152,7 @@ export default class Dev extends Command {
   async run() {
     const { args, flags } = await this.parse(Dev)
     const basePath = args.path ?? process.cwd()
-    const port = args.port ?? 3000
+    const port = args.port ?? process.env.PORT ?? 3000
     const watchPlugins = flags['watch-plugins']
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
