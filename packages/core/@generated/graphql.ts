@@ -349,6 +349,12 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']['output']>
 }
 
+/** Delivery Promise badge. */
+export type DeliveryPromiseBadge = {
+  /** Badge type. */
+  typeName: Maybe<Scalars['String']['output']>
+}
+
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
@@ -1381,6 +1387,8 @@ export type StoreProduct = {
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
+  /** Delivery Promise product's badge. */
+  deliveryPromisesBadges: Maybe<Array<Maybe<DeliveryPromiseBadge>>>
   /** Product description. */
   description: Scalars['String']['output']
   /** Global Trade Item Number. */

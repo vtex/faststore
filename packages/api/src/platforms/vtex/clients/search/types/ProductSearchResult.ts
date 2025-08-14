@@ -95,6 +95,7 @@ export interface Product {
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
   advertisement?: Advertisement
+  deliveryPromisesBadges?: DeliveryPromisesBadge[]
 }
 
 interface Image {
@@ -232,4 +233,7 @@ export interface Attribute {
   name: string
   value: string
   visible: boolean
+}
+interface DeliveryPromisesBadge {
+  typeName: string
 }
