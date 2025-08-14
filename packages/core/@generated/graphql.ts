@@ -847,6 +847,8 @@ export type Query = {
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
+  /** Returns information about the Shoppers. */
+  searchShopper: Maybe<SearchShopperResult>
   /** Returns a list of sellers available for a specific localization. */
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
@@ -913,6 +915,11 @@ export type QuerySearchArgs = {
   term?: InputMaybe<Scalars['String']['input']>
 }
 
+export type QuerySearchShopperArgs = {
+  name: InputMaybe<Scalars['String']['input']>
+  userId: InputMaybe<Scalars['String']['input']>
+}
+
 export type QuerySellersArgs = {
   country: Scalars['String']['input']
   geoCoordinates: InputMaybe<IGeoCoordinates>
@@ -938,6 +945,17 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']['output']
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']['output']
+}
+
+export type SearchShopper = {
+  firstName: Maybe<Scalars['String']['output']>
+  lastName: Maybe<Scalars['String']['output']>
+  userId: Maybe<Scalars['String']['output']>
+}
+
+/** SearchShopperResult information. */
+export type SearchShopperResult = {
+  shoppers: Maybe<Array<Maybe<SearchShopper>>>
 }
 
 /** Information of sellers. */
@@ -3274,6 +3292,21 @@ export type ClientProductQueryQuery = {
   }
 }
 
+export type ClientSearchShopperQueryQueryVariables = Exact<{
+  userId: InputMaybe<Scalars['String']['input']>
+  name: InputMaybe<Scalars['String']['input']>
+}>
+
+export type ClientSearchShopperQueryQuery = {
+  searchShopper: {
+    shoppers: Array<{
+      userId: string | null
+      firstName: string | null
+      lastName: string | null
+    } | null> | null
+  } | null
+}
+
 export type ClientProfileQueryQueryVariables = Exact<{
   id: Scalars['String']['input']
 }>
@@ -4134,6 +4167,15 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const ClientSearchShopperQueryDocument = {
+  __meta__: {
+    operationName: 'ClientSearchShopperQuery',
+    operationHash: '4d969ae32862567dcfc063e1ae4dfe6873c127d2',
+  },
+} as unknown as TypedDocumentString<
+  ClientSearchShopperQueryQuery,
+  ClientSearchShopperQueryQueryVariables
 >
 export const ClientProfileQueryDocument = {
   __meta__: {

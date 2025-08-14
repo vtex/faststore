@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Input, IconButton, Icon, Loader } from '@faststore/ui'
-import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
-import useShopperSuggestions from 'src/sdk/account/useShopperSuggestions'
+import { Icon, IconButton, Input, Loader } from '@faststore/ui'
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import type { Shopper } from 'src/sdk/account/useShopperSuggestions'
+import useShopperSuggestions from 'src/sdk/account/useShopperSuggestions'
+import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
 
 export interface MyAccountFilterFacetPlacedByProps {
   /**
@@ -23,11 +23,11 @@ function MyAccountFilterFacetPlacedBy({
   const [query, setQuery] = useState('')
   const [selectedShopper, setSelectedShopper] = useState<Shopper | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const searchQueryDeferred = useDeferredValue(query)
 
-  // Use the new hook for shoppers suggestions
-  const { data, isLoading, findShopperById } = useShopperSuggestions(query)
+  const { data, isLoading, findShopperById } =
+    useShopperSuggestions(searchQueryDeferred)
 
-  // Get the filtered shoppers from hook data
   const filteredShoppers = data?.shoppers || []
 
   const selectedId = useMemo(
@@ -66,7 +66,7 @@ function MyAccountFilterFacetPlacedBy({
     dispatch({
       type: 'setFacet',
       payload: {
-        facet: { key: 'purchaseAgentId', value: shopper.purchase_agent_id },
+        facet: { key: 'purchaseAgentId', value: shopper.userId },
         unique: true,
       },
     })
@@ -80,7 +80,7 @@ function MyAccountFilterFacetPlacedBy({
         type: 'toggleFacet',
         payload: {
           key: 'purchaseAgentId',
-          value: selectedShopper.purchase_agent_id,
+          value: selectedShopper.userId,
         },
       })
     }
@@ -94,7 +94,11 @@ function MyAccountFilterFacetPlacedBy({
           id="placed-by-input"
           placeholder="Enter the shopper's name..."
           ref={inputRef}
-          value={selectedShopper ? selectedShopper.name : query}
+          value={
+            selectedShopper
+              ? `${selectedShopper.firstName} ${selectedShopper.lastName}`
+              : query
+          }
           readOnly={Boolean(selectedShopper)}
           onFocus={() => {
             if (!selectedShopper) setIsOpen(true)
@@ -149,7 +153,7 @@ function MyAccountFilterFacetPlacedBy({
         >
           <ul>
             {filteredShoppers.map((s) => (
-              <li key={s.purchase_agent_id}>
+              <li key={s.userId}>
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
@@ -157,7 +161,7 @@ function MyAccountFilterFacetPlacedBy({
                   data-fs-list-orders-filters-placed-by-option
                 >
                   <span data-fs-list-orders-filters-placed-by-option-name>
-                    {s.name}
+                    {s.firstName} {s.lastName}
                   </span>
                 </button>
               </li>
