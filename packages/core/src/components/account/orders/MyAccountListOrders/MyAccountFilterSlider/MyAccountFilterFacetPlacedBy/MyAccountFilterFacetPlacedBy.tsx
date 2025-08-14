@@ -31,7 +31,7 @@ function MyAccountFilterFacetPlacedBy({
   const filteredShoppers = data?.shoppers || []
 
   const selectedId = useMemo(
-    () => selected.find((f) => f.key === 'purchaseAgentId')?.value,
+    () => selected.find((f) => f.key === 'purchaseAgentIds')?.value,
     [selected]
   )
 
@@ -66,7 +66,7 @@ function MyAccountFilterFacetPlacedBy({
     dispatch({
       type: 'setFacet',
       payload: {
-        facet: { key: 'purchaseAgentId', value: shopper.userId },
+        facet: { key: 'purchaseAgentIds', value: shopper.userId },
         unique: true,
       },
     })
@@ -74,12 +74,12 @@ function MyAccountFilterFacetPlacedBy({
 
   function handleClearTag() {
     if (selectedShopper) {
-      // Using toggleFacet here removes the purchaseAgentId from selected facets
+      // Using toggleFacet here removes the purchaseAgentIds from selected facets
       // because toggleFacet will remove the facet if it already exists in the selected facets
       dispatch({
         type: 'toggleFacet',
         payload: {
-          key: 'purchaseAgentId',
+          key: 'purchaseAgentIds',
           value: selectedShopper.userId,
         },
       })
