@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.76.0](https://github.com/vtex/faststore/compare/v3.75.1...v3.76.0) (2025-08-14)
+
+### Features
+
+- order list placed by filter-SFS-2702 ([#2988](https://github.com/vtex/faststore/issues/2988)) ([1c9b557](https://github.com/vtex/faststore/commit/1c9b557a3fd2310ca4d1ffb7fd4135f60a44109d))
+
 ## [3.75.1](https://github.com/vtex/faststore/compare/v3.75.0...v3.75.1) (2025-08-08)
 
 **Note:** Version bump only for package faststore
