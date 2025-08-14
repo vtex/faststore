@@ -503,7 +503,14 @@ export const Query = {
     } = ctx
     const shopperSearch =
       (await commerce.masterData.searchShopper(filters)) ?? []
-    return shopperSearch ?? []
+    return {
+      shoppers:
+        shopperSearch?.map((shopper) => ({
+          userId: shopper.userId,
+          firstName: shopper.firstName,
+          lastName: shopper.lastName,
+        })) ?? [],
+    }
   },
   accountName: async (_: unknown, __: unknown, ctx: Context) => {
     const {

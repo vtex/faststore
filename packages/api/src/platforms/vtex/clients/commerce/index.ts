@@ -17,9 +17,11 @@ import type {
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
 import {
+  getAuthCookie,
   getStoreCookie,
   getWithAutCookie,
   getWithCookie,
+  parseJwt,
 } from '../../utils/cookies'
 import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
@@ -702,6 +704,7 @@ export const VtexCommerce = (
         }
 
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        console.log('🚀 ~ headers:', headers)
 
         // Normalize userId by removing hyphens if present
         const userIdNormalized = userId ? userId.replace(/-/g, '') : undefined
@@ -711,9 +714,16 @@ export const VtexCommerce = (
           whereParts.push(`userId=${userIdNormalized}`)
         }
         if (name) {
+          const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+          const customerId = jwt?.customerId
           whereParts.push(`(firstName=${name}* OR lastName=${name}*)`)
+
+          if (customerId) whereParts.push(`(contractIds=${customerId})`)
         }
         const where = whereParts.join(' AND ')
+        console.log('🚀 ~ where:', where)
+        const result = `${base}/api/dataentities/shopper/search?_where=(${encodeURIComponent(where)})&_fields=_all&_schema=v1`
+        console.log('🚀 ~ result:', result)
 
         return fetchAPI(
           `${base}/api/dataentities/shopper/search?_where=(${encodeURIComponent(where)})&_fields=_all&_schema=v1`,

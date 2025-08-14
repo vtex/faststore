@@ -982,12 +982,17 @@ export type SearchMetadata = {
   logicalOperator: Scalars['String'];
 };
 
-/** SearchShopperResult information. */
-export type SearchShopperResult = {
-  __typename?: 'SearchShopperResult';
+export type SearchShopper = {
+  __typename?: 'SearchShopper';
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['String']>;
+};
+
+/** SearchShopperResult information. */
+export type SearchShopperResult = {
+  __typename?: 'SearchShopperResult';
+  shoppers?: Maybe<Array<Maybe<SearchShopper>>>;
 };
 
 /** Information of sellers. */

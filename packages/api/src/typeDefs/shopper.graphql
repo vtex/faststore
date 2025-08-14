@@ -2,6 +2,10 @@
 SearchShopperResult information.
 """
 type SearchShopperResult {
+  shoppers: [SearchShopper]
+}
+
+type SearchShopper {
   userId: String
   firstName: String
   lastName: String
