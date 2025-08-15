@@ -88,6 +88,7 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    deliveryPromisesBadges,
   } = product
 
   const linkProps = {
@@ -119,6 +120,8 @@ function ProductCard({
         'data-van-prod-name': name,
       }
     : {}
+
+  const deliveryBadges = deliveryPromisesBadges.map((badge) => badge.typeName)
 
   return (
     <UIProductCard
@@ -155,6 +158,7 @@ function ProductCard({
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
         sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
+        deliveryBadges={deliveryBadges}
       />
     </UIProductCard>
   )
@@ -218,6 +222,10 @@ export const fragment = gql(`
     advertisement {
       adId
       adResponseId
+    }
+
+    deliveryPromisesBadges {
+      typeName
     }
   }
 `)

@@ -73,6 +73,10 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * Lists the delivery badges, if enabled and available.
+   */
+  deliveryBadges?: string[]
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -93,6 +97,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       includeTaxesLabel = 'Tax included',
       sponsored = false,
       sponsoredLabel = 'Sponsored',
+      deliveryBadges,
       ...otherProps
     },
     ref
@@ -136,6 +141,14 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+        {deliveryBadges && (
+          <div data-fs-product-card-delivery-badges>
+            {deliveryBadges.map((badge: string) => (
+              <span key={badge}>{badge}</span>
+            ))}
+          </div>
+        )}
+
         {onButtonClick && !outOfStock && (
           <div data-fs-product-card-actions>
             <Button
