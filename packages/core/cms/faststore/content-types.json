@@ -234,6 +234,28 @@
                       }
                     }
                   }
+                },
+                "deliveryPromisesBadges": {
+                  "title": "Delivery Promise badges",
+                  "type": "object",
+                  "description": "The badges will be displayed in product cards indicating the delivery methods currently available for the product.",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should display Delivery Promise badges?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "delivery": {
+                      "title": "Shipping available label",
+                      "type": "string",
+                      "default": "Shipping available"
+                    },
+                    "pickupInPoint": {
+                      "title": "Pickup available label",
+                      "type": "string",
+                      "default": "Pickup available"
+                    }
+                  }
                 }
               }
             }
