@@ -985,6 +985,7 @@ export type SearchMetadata = {
 export type SearchShopper = {
   __typename?: 'SearchShopper';
   firstName?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['String']>;
 };
@@ -2474,6 +2475,7 @@ export type UserOrderShippingData = {
 export type UserOrderShopperName = {
   __typename?: 'UserOrderShopperName';
   firstName?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
 };
 

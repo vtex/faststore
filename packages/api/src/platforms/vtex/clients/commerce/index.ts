@@ -696,6 +696,7 @@ export const VtexCommerce = (
         Array<{
           firstName: string
           lastName: string
+          fullName: string
           userId: string
         }>
       > => {
@@ -715,7 +716,7 @@ export const VtexCommerce = (
         if (name) {
           const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
           const customerId = jwt?.customerId
-          whereParts.push(`(firstName=${name}* OR lastName=${name}*)`)
+          whereParts.push(`(fullName = *${name}*)`)
 
           if (customerId) whereParts.push(`(contractIds=${customerId})`)
         }

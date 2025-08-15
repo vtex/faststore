@@ -9,4 +9,5 @@ type SearchShopper {
   userId: String
   firstName: String
   lastName: String
+  fullName: String
 }

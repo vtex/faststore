@@ -445,6 +445,7 @@ export const Query = {
         shopperName: {
           firstName: shopper?.firstName || '',
           lastName: shopper?.lastName || '',
+          fullName: shopper?.fullName || '',
         },
       }
     } catch (error) {
@@ -506,9 +507,10 @@ export const Query = {
     return {
       shoppers:
         shopperSearch?.map((shopper) => ({
-          userId: shopper.userId,
-          firstName: shopper.firstName,
-          lastName: shopper.lastName,
+          userId: shopper?.userId,
+          firstName: shopper?.firstName || '',
+          lastName: shopper?.lastName || '',
+          fullName: shopper?.fullName || '',
         })) ?? [],
     }
   },
