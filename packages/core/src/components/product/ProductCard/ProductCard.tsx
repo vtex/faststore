@@ -10,8 +10,10 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import type { ImageProps } from 'next/image'
 import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 type Variant = 'wide' | 'default'
 
@@ -91,6 +93,12 @@ function ProductCard({
     deliveryPromisesBadges,
   } = product
 
+  const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
+  const { badges, shouldDisplayDeliveryPromiseBadges } = useDeliveryPromise({
+    deliveryPromisesBadges,
+    deliveryPromiseSettings,
+  })
+
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
     as: NextLink,
@@ -120,8 +128,6 @@ function ProductCard({
         'data-van-prod-name': name,
       }
     : {}
-
-  const deliveryBadges = deliveryPromisesBadges.map((badge) => badge.typeName)
 
   return (
     <UIProductCard
@@ -158,7 +164,7 @@ function ProductCard({
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
         sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
-        deliveryBadges={deliveryBadges}
+        deliveryBadges={badges}
       />
     </UIProductCard>
   )

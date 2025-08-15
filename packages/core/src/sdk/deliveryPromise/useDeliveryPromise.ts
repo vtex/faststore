@@ -8,7 +8,10 @@ import {
   type SearchState,
   type Session,
 } from '@faststore/sdk'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type {
+  DeliveryPromiseBadge,
+  Filter_FacetsFragment,
+} from '@generated/graphql'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { useSession } from 'src/sdk/session'
@@ -81,6 +84,7 @@ type Props = {
   allFacets?: ReturnType<typeof useFilter>['facets']
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
+  deliveryPromisesBadges?: DeliveryPromiseBadge[]
 }
 
 /**
@@ -92,6 +96,7 @@ export function useDeliveryPromise({
   selectedFilterFacets = undefined,
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
+  deliveryPromisesBadges,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -373,6 +378,31 @@ export function useDeliveryPromise({
     []
   )
 
+  function getBadgesLabel(value: string) {
+    if (value === 'delivery') {
+      return (
+        deliveryPromiseSettings?.deliveryPromisesBadges?.delivery ??
+        'Shipping available'
+      )
+    }
+    if (value === 'pickup-in-point') {
+      return (
+        deliveryPromiseSettings?.deliveryPromisesBadges?.pickupInPoint ??
+        'Pickup available'
+      )
+    }
+    return value
+  }
+
+  const badges = deliveryPromisesBadges?.map((badge) =>
+    getBadgesLabel(badge.typeName)
+  )
+
+  const shouldDisplayDeliveryPromiseBadges =
+    isDeliveryPromiseEnabled &&
+    deliveryPromiseSettings?.deliveryPromisesBadges?.enabled &&
+    !!badges
+
   return {
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
@@ -399,6 +429,8 @@ export function useDeliveryPromise({
       pickupPoints?.length > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
+    shouldDisplayDeliveryPromiseBadges,
+    badges,
   }
 }
 
