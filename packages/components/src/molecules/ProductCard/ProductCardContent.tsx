@@ -74,7 +74,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   sponsoredLabel?: string
   /**
-   * Lists the delivery badges, if enabled and available.
+   * List delivery badges, if enabled and available.
    */
   deliveryBadges?: string[]
 }
