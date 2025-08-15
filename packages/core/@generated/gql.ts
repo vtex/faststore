@@ -76,7 +76,7 @@ const documents = {
     types.ClientProductGalleryQueryDocument,
   '\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n':
     types.ClientProductQueryDocument,
-  '\n  query ClientSearchShopperQuery($userId: String, $name: String) {\n    searchShopper(userId: $userId, name: $name) {\n      shoppers {\n        userId\n        firstName\n        lastName\n      }\n    }\n  }\n':
+  '\n  query ClientSearchShopperQuery($userId: String, $name: String) {\n    searchShopper(userId: $userId, name: $name) {\n      shoppers {\n        userId\n        firstName\n        lastName\n        fullName\n      }\n    }\n  }\n':
     types.ClientSearchShopperQueryDocument,
   '\n  query ClientProfileQuery($id: String!) {\n    profile(id: $id) {\n      addresses {\n        country\n        postalCode\n        geoCoordinate\n        city\n      }\n    }\n  }\n':
     types.ClientProfileQueryDocument,
@@ -288,7 +288,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ClientSearchShopperQuery($userId: String, $name: String) {\n    searchShopper(userId: $userId, name: $name) {\n      shoppers {\n        userId\n        firstName\n        lastName\n      }\n    }\n  }\n'
+  source: '\n  query ClientSearchShopperQuery($userId: String, $name: String) {\n    searchShopper(userId: $userId, name: $name) {\n      shoppers {\n        userId\n        firstName\n        lastName\n        fullName\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientSearchShopperQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

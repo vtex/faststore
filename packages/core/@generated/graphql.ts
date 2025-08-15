@@ -949,6 +949,7 @@ export type SearchMetadata = {
 
 export type SearchShopper = {
   firstName: Maybe<Scalars['String']['output']>
+  fullName: Maybe<Scalars['String']['output']>
   lastName: Maybe<Scalars['String']['output']>
   userId: Maybe<Scalars['String']['output']>
 }
@@ -2311,6 +2312,7 @@ export type UserOrderShippingData = {
 
 export type UserOrderShopperName = {
   firstName: Maybe<Scalars['String']['output']>
+  fullName: Maybe<Scalars['String']['output']>
   lastName: Maybe<Scalars['String']['output']>
 }
 
@@ -3303,6 +3305,7 @@ export type ClientSearchShopperQueryQuery = {
       userId: string | null
       firstName: string | null
       lastName: string | null
+      fullName: string | null
     } | null> | null
   } | null
 }
@@ -4171,7 +4174,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchShopperQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchShopperQuery',
-    operationHash: '4d969ae32862567dcfc063e1ae4dfe6873c127d2',
+    operationHash: '4dc1daf8ceb850279427dd59f35193ebe490b3c1',
   },
 } as unknown as TypedDocumentString<
   ClientSearchShopperQueryQuery,

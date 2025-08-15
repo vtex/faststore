@@ -57,6 +57,7 @@ export function useShopperSuggestions(
         userId: shopper.userId,
         firstName: shopper.firstName,
         lastName: shopper.lastName,
+        fullName: shopper.fullName,
       })),
     }
   }, [queryData])
