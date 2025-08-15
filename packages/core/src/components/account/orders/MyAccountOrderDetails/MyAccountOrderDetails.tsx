@@ -1,18 +1,18 @@
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
+import MyAccountBuyingPolicyAlert from './MyAccountBuyingPolicyAlert'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
 import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
 import MyAccountOrderActions from './MyAccountOrderActions'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
-import MyAccountBuyingPolicyAlert from './MyAccountBuyingPolicyAlert'
 
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
 import styles from './section.module.scss'
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -66,7 +66,10 @@ export default function MyAccountOrderDetails({
           />
         )}
 
-        <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
+        <MyAccountOrderedByCard
+          clientProfileData={order.clientProfileData}
+          shopperName={order.shopperName}
+        />
 
         <MyAccountDeliveryCard
           deliveryOptionsData={order.deliveryOptionsData}
@@ -76,7 +79,10 @@ export default function MyAccountOrderDetails({
           }
         />
 
-        <MyAccountStatusCard status={order.status as OrderStatusKey} />
+        <MyAccountStatusCard
+          status={order.status as OrderStatusKey}
+          creationDate={order.creationDate}
+        />
 
         <MyAccountPaymentCard
           currencyCode={order.storePreferencesData.currencyCode}

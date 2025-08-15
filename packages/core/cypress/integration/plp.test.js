@@ -3,8 +3,8 @@
  * Cypress tests for PLP
  */
 
-import { options } from '../global'
 import { cypress } from '../../discovery.config'
+import { options } from '../global'
 
 const { pages } = cypress
 
@@ -33,7 +33,7 @@ describe('Search page Filters and Sorting options', () => {
         const value = $checkbox.attr('data-value')
         // const quantity = $checkbox.attr('data-quantity')
 
-        cy.getById('filter-slider-button-apply')
+        cy.getById('fs-filter-slider-button-apply')
           .click()
 
           .then(() => {

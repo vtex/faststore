@@ -41,6 +41,7 @@ export interface Profile {
 
 export interface Shopper {
   firstName?: Value
+  lastName?: Value
 }
 
 export interface Checkout {

@@ -5,7 +5,7 @@
 
   // Default properties
   --fs-region-bar-width                    : 100%;
-  --fs-region-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-region-bar-padding                  : var(--fs-spacing-0) 0 var(--fs-spacing-0) var(--fs-spacing-2);
 
   --fs-region-bar-text-color               : var(--fs-color-text-display);
 
@@ -15,14 +15,23 @@
   --fs-region-bar-border-bottom-color      : var(--fs-border-color-light);
 
   // CTA
+  // @deprecated
   --fs-region-bar-cta-margin-left          : auto;
   --fs-region-bar-cta-text-decoration      : underline;
 
   // Message
+  // @deprecated
   --fs-region-bar-message-margin-right     : auto;
 
   // Postal Code
+  // @deprecated
   --fs-region-bar-postal-code-margin-right : auto;
+
+  // Icon
+  --fs-region-bar-icon-margin-right        : var(--fs-spacing-1);
+
+  // Location
+  --fs-region-bar-location-height          : var(--fs-spacing-4);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -33,31 +42,84 @@
   [data-fs-button] {
     width: var(--fs-region-bar-width);
 
-    [data-fs-button-wrapper]{
+    [data-fs-button-wrapper] {
+      gap: 0;
+      justify-content: flex-start;
       padding: var(--fs-region-bar-padding);
       color: var(--fs-region-bar-text-color);
       background-color: var(--fs-region-bar-bkg-color);
-      border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
       border-radius: 0;
 
       > span {
         display: contents;
       }
     }
+
+    &:last-child {
+      border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
+    }
   }
 
+  [data-fs-icon] {
+    flex-shrink: 0;
+    margin-right: var(--fs-region-bar-icon-margin-right);
+
+    &:last-child {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  // @deprecated
   [data-fs-region-bar-cta] {
     margin-left: var(--fs-region-bar-cta-margin-left);
     text-decoration: var(--fs-region-bar-cta-text-decoration);
   }
 
+  // @deprecated
   [data-fs-region-bar-postal-code] {
     margin-right: var(--fs-region-bar-postal-code-margin-right);
     font-weight: var(--fs-text-weight-regular);
   }
 
+  // @deprecated
   [data-fs-region-bar-message] {
     margin-right: var(--fs-region-bar-message-margin-right);
     font-weight: var(--fs-text-weight-regular);
+  }
+
+  [data-fs-region-bar-location] {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
+    max-width: 80%;
+  }
+
+  [data-fs-region-bar-location-city],
+  [data-fs-region-bar-location-message],
+  [data-fs-region-bar-filter],
+  [data-fs-region-bar-filter-message] {
+    align-content: center;
+    height: var(--fs-region-bar-location-height);
+    overflow: hidden;
+    font-weight: var(--fs-text-weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-location-city] {
+    flex: 1 1 auto;
+  }
+
+  [data-fs-region-bar-location-postal-code] {
+    flex-shrink: 0;
+    font-weight: var(--fs-text-weight-semibold);
+    white-space: nowrap;
+  }
+
+  [data-fs-region-bar-filter],
+  [data-fs-region-bar-filter-message] {
+    max-width: 80%;
   }
 }

@@ -107,6 +107,8 @@ function EmptyState({
   )
 }
 
+EmptyState.$componentKey = 'EmptyState'
+
 const OverridableEmptyState = getOverridableSection<typeof EmptyState>(
   'EmptyState',
   EmptyState,

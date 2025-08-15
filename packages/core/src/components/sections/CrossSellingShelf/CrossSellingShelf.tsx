@@ -51,6 +51,8 @@ const CrossSellingShelf = ({
   )
 }
 
+CrossSellingShelf.$componentKey = 'CrossSellingShelf'
+
 const OverridableCrossSellingShelf = getOverridableSection<
   typeof CrossSellingShelf
 >('CrossSellingShelf', CrossSellingShelf, CrossSellingShelfDefaultComponents)

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   Button,
   Icon,
@@ -7,13 +7,17 @@ import {
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
+  useUI,
 } from '@faststore/ui'
 
+import { useSetPassword } from 'src/sdk/account/useSetPassword'
 import styles from './styles.module.scss'
 
 type SecurityDrawerProps = {
+  userEmail: string
   isOpen: boolean
   onClose: () => void
+  accountName?: string
 }
 
 const validations = [
@@ -23,14 +27,24 @@ const validations = [
   { label: '1 number', test: (v: string) => /\d/.test(v) },
 ]
 
-export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
+export const SecurityDrawer = ({
+  userEmail,
+  accountName,
+  isOpen,
+  onClose,
+}: SecurityDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
+  const { pushToast } = useUI()
 
   const [currentPassword, setCurrentPassword] = useState('')
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
 
   const [newPassword, setNewPassword] = useState('')
   const [showNewPassword, setShowNewPassword] = useState(false)
+
+  const [formError, setFormError] = useState<string | null>(null)
+
+  const { setPassword, loading } = useSetPassword(accountName)
 
   const newPasswordValidations = validations.map((rule) => ({
     label: rule.label,
@@ -40,11 +54,67 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
   const allValid = newPasswordValidations.every((r) => r.isValid)
 
   const handleClose = () => {
+    setFormError(null)
     setCurrentPassword('')
     setShowCurrentPassword(false)
     setNewPassword('')
     setShowNewPassword(false)
     onClose()
+  }
+
+  const handleSetPassword = async () => {
+    if (!userEmail) {
+      setFormError('Email is required to set a new password.')
+      return
+    }
+
+    if (!newPassword || !currentPassword) {
+      setFormError('All fields are required to set a new password.')
+      return
+    }
+
+    if (newPassword === currentPassword) {
+      setFormError('New password cannot be the same as the current password.')
+      return
+    }
+
+    try {
+      const data = await setPassword({
+        userEmail,
+        currentPassword,
+        newPassword,
+      })
+
+      if (!data.success) {
+        pushToast({
+          title: 'Error setting password',
+          status: 'ERROR',
+          message: data.message,
+          icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+        })
+
+        return
+      }
+
+      if (data.success) {
+        pushToast({
+          title: 'Success setting password',
+          status: 'INFO',
+          message: 'Password updated successfully',
+          icon: <Icon width={30} height={30} name="CircleWavyCheck" />,
+        })
+
+        handleClose()
+      }
+    } catch (error) {
+      console.error('Error setting password:', error)
+      pushToast({
+        title: 'Error setting password',
+        status: 'ERROR',
+        message: 'Failed to set password.',
+        icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
+      })
+    }
   }
 
   return (
@@ -72,7 +142,10 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
               placeholder="Current Password"
               inputMode="text"
               value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
+              onChange={(e) => {
+                setFormError(null)
+                setCurrentPassword(e.target.value)
+              }}
             />
             <IconButton
               data-fs-security-drawer-input-password-toggle
@@ -97,7 +170,10 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
               placeholder="New Password"
               inputMode="text"
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => {
+                setFormError(null)
+                setNewPassword(e.target.value)
+              }}
             />
             <IconButton
               data-fs-security-drawer-input-password-toggle
@@ -109,6 +185,18 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
               }
             />
           </div>
+
+          {formError && (
+            <div data-fs-security-drawer-error>
+              <Icon
+                width={20}
+                height={20}
+                name="CircleWavyWarning"
+                data-fs-security-drawer-error-icon
+              />
+              <span>{formError}</span>
+            </div>
+          )}
 
           {newPassword.length > 0 && (
             <div data-fs-security-drawer-input-password-rules-container>
@@ -145,12 +233,9 @@ export const SecurityDrawer = ({ isOpen, onClose }: SecurityDrawerProps) => {
         <Button
           data-fs-security-drawer-footer-button
           variant="primary"
-          disabled={!currentPassword || !newPassword || !allValid}
-          onClick={() => {
-            // TODO: Handle password save logic here
-            console.log('Saving new password')
-            handleClose()
-          }}
+          loading={loading}
+          disabled={loading || !currentPassword || !newPassword || !allValid}
+          onClick={handleSetPassword}
         >
           Save Password
         </Button>

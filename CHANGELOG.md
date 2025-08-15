@@ -3,6 +3,100 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.76.0](https://github.com/vtex/faststore/compare/v3.75.1...v3.76.0) (2025-08-14)
+
+### Features
+
+- order list placed by filter-SFS-2702 ([#2988](https://github.com/vtex/faststore/issues/2988)) ([1c9b557](https://github.com/vtex/faststore/commit/1c9b557a3fd2310ca4d1ffb7fd4135f60a44109d))
+
+## [3.75.1](https://github.com/vtex/faststore/compare/v3.75.0...v3.75.1) (2025-08-08)
+
+**Note:** Version bump only for package faststore
+
+# [3.75.0](https://github.com/vtex/faststore/compare/v3.74.0...v3.75.0) (2025-08-07)
+
+### Features
+
+- remove client name and placed by from order list - SFS-2795 ([#2981](https://github.com/vtex/faststore/issues/2981)) ([5368859](https://github.com/vtex/faststore/commit/5368859dc5f0dd742e628c20e427a75e388f2126))
+
+# [3.74.0](https://github.com/vtex/faststore/compare/v3.73.0...v3.74.0) (2025-08-07)
+
+### Features
+
+- add flag --watch-plugins on dev command ([#2880](https://github.com/vtex/faststore/issues/2880)) ([5816538](https://github.com/vtex/faststore/commit/5816538786aff756c8a3f035096dfb35c6530d60)), closes [#2563](https://github.com/vtex/faststore/issues/2563)
+
+# [3.73.0](https://github.com/vtex/faststore/compare/v3.72.1...v3.73.0) (2025-08-07)
+
+### Features
+
+- implement password setting functionality and user email retrieval ([#2957](https://github.com/vtex/faststore/issues/2957)) ([a49aa1b](https://github.com/vtex/faststore/commit/a49aa1b6d55310a64639459b9082530f4a955731))
+
+## [3.72.1](https://github.com/vtex/faststore/compare/v3.72.0...v3.72.1) (2025-08-07)
+
+### Bug Fixes
+
+- Prevent PLPs' specific facets being cleared ([#2977](https://github.com/vtex/faststore/issues/2977)) ([e15ec3e](https://github.com/vtex/faststore/commit/e15ec3e851269d768a632da8683b5345937b66ca)), closes [vtex-sites/faststoreqa.store#853](https://github.com/vtex-sites/faststoreqa.store/issues/853)
+
+# [3.72.0](https://github.com/vtex/faststore/compare/v3.71.0...v3.72.0) (2025-08-05)
+
+### Features
+
+- refresh token - SFS-2462 ([#2936](https://github.com/vtex/faststore/issues/2936)) ([0fc856f](https://github.com/vtex/faststore/commit/0fc856f46ffe800debccd90078564e9ff524e727)), closes [#1](https://github.com/vtex/faststore/issues/1) [#2](https://github.com/vtex/faststore/issues/2)
+
+# [3.71.0](https://github.com/vtex/faststore/compare/v3.70.2...v3.71.0) (2025-08-05)
+
+### Features
+
+- show creation date for first step in status card ([#2971](https://github.com/vtex/faststore/issues/2971)) ([e9a79ac](https://github.com/vtex/faststore/commit/e9a79acf14c7a518cc7e587a8e36eec332e72a08))
+
+## [3.70.2](https://github.com/vtex/faststore/compare/v3.70.1...v3.70.2) (2025-08-05)
+
+### Bug Fixes
+
+- Quick Order typings ([#2974](https://github.com/vtex/faststore/issues/2974)) ([e28c523](https://github.com/vtex/faststore/commit/e28c523bdc83273ad7cbb7d08cfdeb99ad676ede))
+
+## [3.70.1](https://github.com/vtex/faststore/compare/v3.70.0...v3.70.1) (2025-08-04)
+
+### Bug Fixes
+
+- Using SEO product name and description input if available ([#2969](https://github.com/vtex/faststore/issues/2969)) ([590000d](https://github.com/vtex/faststore/commit/590000d63539e0ce476018027a7ed2fdd2589c45)), closes [#2701](https://github.com/vtex/faststore/issues/2701)
+
+# [3.70.0](https://github.com/vtex/faststore/compare/v3.69.1...v3.70.0) (2025-08-01)
+
+### Features
+
+- [CP-407] Add support for rendering components based on their $componentKey ([#2915](https://github.com/vtex/faststore/issues/2915)) ([7e679c4](https://github.com/vtex/faststore/commit/7e679c43976ab7f874b73b53e59bfaf0a4e99483))
+
+## [3.69.1](https://github.com/vtex/faststore/compare/v3.69.0...v3.69.1) (2025-08-01)
+
+### Bug Fixes
+
+- removing unwanted facets on product shelf to prevent duplication… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
+
+# [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
+
+### Features
+
+- add shopper name data to user order page ([#2967](https://github.com/vtex/faststore/issues/2967)) ([6b2eb05](https://github.com/vtex/faststore/commit/6b2eb05e6590363c1a91ff1e802784606a0b1917))
+
+## [3.68.2](https://github.com/vtex/faststore/compare/v3.68.1...v3.68.2) (2025-07-29)
+
+### Bug Fixes
+
+- cancel order withAutCookie SFS-2684 ([#2954](https://github.com/vtex/faststore/issues/2954)) ([f0e4cca](https://github.com/vtex/faststore/commit/f0e4cca07932d02b884993a7fa7db83489f91ef2))
+
+## [3.68.1](https://github.com/vtex/faststore/compare/v3.68.0...v3.68.1) (2025-07-29)
+
+### Bug Fixes
+
+- B2B session info ([#2950](https://github.com/vtex/faststore/issues/2950)) ([6dcaa88](https://github.com/vtex/faststore/commit/6dcaa880e3b86b44c13402a558e008eddbebe724))
+
+# [3.68.0](https://github.com/vtex/faststore/compare/v3.67.0...v3.68.0) (2025-07-28)
+
+### Features
+
+- Delivery Promise 1.2 - filters by shipping method ([#2784](https://github.com/vtex/faststore/issues/2784)) ([dacf843](https://github.com/vtex/faststore/commit/dacf843c81f19984a01f7a97ff25e3801e41ed07)), closes [#2803](https://github.com/vtex/faststore/issues/2803) [#2826](https://github.com/vtex/faststore/issues/2826) [#2845](https://github.com/vtex/faststore/issues/2845) [#2847](https://github.com/vtex/faststore/issues/2847) [#2851](https://github.com/vtex/faststore/issues/2851) [#2852](https://github.com/vtex/faststore/issues/2852) [#2847](https://github.com/vtex/faststore/issues/2847) [#2872](https://github.com/vtex/faststore/issues/2872) [#2886](https://github.com/vtex/faststore/issues/2886) [#2909](https://github.com/vtex/faststore/issues/2909) [#2916](https://github.com/vtex/faststore/issues/2916) [#2918](https://github.com/vtex/faststore/issues/2918) [#2922](https://github.com/vtex/faststore/issues/2922) [#2887](https://github.com/vtex/faststore/issues/2887) [#2944](https://github.com/vtex/faststore/issues/2944) [#2953](https://github.com/vtex/faststore/issues/2953) [#2956](https://github.com/vtex/faststore/issues/2956) [#2955](https://github.com/vtex/faststore/issues/2955) [#2961](https://github.com/vtex/faststore/issues/2961) [#2962](https://github.com/vtex/faststore/issues/2962)
+
 # [3.67.0](https://github.com/vtex/faststore/compare/v3.66.0...v3.67.0) (2025-07-23)
 
 ### Features

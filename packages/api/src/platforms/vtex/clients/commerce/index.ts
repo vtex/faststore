@@ -26,6 +26,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -39,7 +40,6 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
-import { buildFormData } from '../../utils/buildFormData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -393,13 +393,37 @@ export const VtexCommerce = (
           {}
         )
       },
+      pickupPoints: ({
+        geoCoordinates,
+      }: PickupPointsInput): Promise<PickupPoints> => {
+        if (!geoCoordinates) {
+          throw new Error(
+            'Missing required parameter for listing pickup points.'
+          )
+        }
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/logistics-shipping/pickuppoints/_search`,
+          {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ coordinate: geoCoordinates }),
+          },
+          { storeCookies }
+        )
+      },
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,shopper.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -662,6 +686,31 @@ export const VtexCommerce = (
           {}
         )
       },
+      getShopperNameById: ({
+        userId,
+      }: { userId: string }): Promise<
+        Array<{
+          firstName: string
+          lastName: string
+        }>
+      > => {
+        if (!userId) {
+          throw new Error('Missing userId to fetch shopper name')
+        }
+
+        const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
+
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
     },
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {
@@ -678,47 +727,6 @@ export const VtexCommerce = (
           },
           { storeCookies }
         )
-      },
-      setPassword: async ({
-        email,
-        newPassword,
-        currentPassword,
-        accesskey,
-        recaptcha,
-      }: {
-        email: string
-        newPassword: string
-        currentPassword: string
-        accesskey?: string
-        recaptcha?: string
-      }): Promise<{ success: boolean; message?: string }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
-        const body = buildFormData({
-          login: email,
-          newPassword,
-          currentPassword,
-          accesskey,
-          recaptcha,
-        })
-
-        const result = await fetchAPI(
-          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
-          {
-            method: 'POST',
-            headers,
-            body,
-          },
-          { storeCookies }
-        )
-
-        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
-          return { success: true }
-        }
-        return {
-          success: false,
-          message: result?.authStatus ?? 'Unknown error',
-        }
       },
     },
   }

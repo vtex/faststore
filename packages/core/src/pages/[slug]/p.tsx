@@ -12,6 +12,7 @@ import type {
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
+import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -23,8 +24,8 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { useSession } from 'src/sdk/session'
 import { getRedirect } from 'src/sdk/redirects'
+import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
@@ -53,15 +54,15 @@ type StoreConfig = typeof storeConfig & {
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
-  Breadcrumb,
-  BannerNewsletter,
-  Newsletter,
-  BannerText,
-  Hero,
-  ProductDetails,
-  ProductShelf,
-  ProductTiles,
-  CrossSellingShelf,
+  [getComponentKey(Breadcrumb, 'Breadcrumb')]: Breadcrumb,
+  [getComponentKey(BannerNewsletter, 'BannerNewsletter')]: BannerNewsletter,
+  [getComponentKey(Newsletter, 'Newsletter')]: Newsletter,
+  [getComponentKey(BannerText, 'BannerText')]: BannerText,
+  [getComponentKey(Hero, 'Hero')]: Hero,
+  [getComponentKey(ProductDetails, 'ProductDetails')]: ProductDetails,
+  [getComponentKey(ProductShelf, 'ProductShelf')]: ProductShelf,
+  [getComponentKey(ProductTiles, 'ProductTiles')]: ProductTiles,
+  [getComponentKey(CrossSellingShelf, 'CrossSellingShelf')]: CrossSellingShelf,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
@@ -87,7 +88,7 @@ function Page({
   data: server,
   sections,
   settings,
-  globalSections,
+  globalSections: globalSectionsProp,
   offers,
   meta,
 }: Props) {
@@ -135,11 +136,14 @@ function Page({
         }
       })()
 
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
       isValidating,
     },
+    globalSettings,
   } as PDPContext
 
   return (
@@ -188,8 +192,8 @@ function Page({
         mainEntityOfPage={`${meta.canonical}${
           settings?.seo?.mainEntityOfPage ?? ''
         }`}
-        productName={product.name}
-        description={product.description}
+        productName={title}
+        description={description}
         brand={product.brand.name}
         sku={product.sku}
         gtin={product.gtin}
@@ -215,7 +219,7 @@ function Page({
       <PageProvider context={context}>
         <RenderSections
           sections={sections}
-          globalSections={globalSections.sections}
+          globalSections={globalSections}
           components={COMPONENTS}
         />
       </PageProvider>
