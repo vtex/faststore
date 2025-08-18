@@ -382,13 +382,13 @@ export function useDeliveryPromise({
     if (value === 'delivery') {
       return (
         deliveryPromiseSettings?.deliveryPromisesBadges?.delivery ??
-        'Shipping available'
+        'Available for delivery'
       )
     }
     if (value === 'pickup-in-point') {
       return (
         deliveryPromiseSettings?.deliveryPromisesBadges?.pickupInPoint ??
-        'Pickup available'
+        'Available for pickup'
       )
     }
     return value
@@ -412,14 +412,14 @@ export function useDeliveryPromise({
     if (!hasDelivery) {
       const deliveryUnavailableLabel =
         deliveryPromiseSettings?.deliveryPromisesBadges?.deliveryUnavailable ??
-        'Shipping unavailable'
+        'Unavailable for delivery'
       badges.push(deliveryUnavailableLabel)
     }
 
     if (!hasPickupPoint) {
       const pickupInPointUnavailableLabel =
         deliveryPromiseSettings?.deliveryPromisesBadges
-          ?.pickupInPointUnavailable ?? 'Pickup unavailable'
+          ?.pickupInPointUnavailable ?? 'Unavailable for pickup'
       badges.push(pickupInPointUnavailableLabel)
     }
 

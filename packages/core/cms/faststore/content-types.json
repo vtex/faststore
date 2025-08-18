@@ -246,24 +246,24 @@
                       "default": true
                     },
                     "delivery": {
-                      "title": "Shipping available label",
+                      "title": "Delivery available label",
                       "type": "string",
-                      "default": "Shipping available"
+                      "default": "Available for delivery"
                     },
                     "deliveryUnavailable": {
-                      "title": "Shipping unavailable label",
+                      "title": "Delivery unavailable label",
                       "type": "string",
-                      "default": "Shipping unavailable"
+                      "default": "Unavailable for delivery"
                     },
                     "pickupInPoint": {
                       "title": "Pickup available label",
                       "type": "string",
-                      "default": "Pickup available"
+                      "default": "Available for pickup"
                     },
                     "pickupInPointUnavailable": {
                       "title": "Pickup unavailable label",
                       "type": "string",
-                      "default": "Pickup unavailable"
+                      "default": "Unavailable for pickup"
                     }
                   }
                 }
