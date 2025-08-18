@@ -429,8 +429,9 @@ export function useDeliveryPromise({
   const badges = deliveryPromisesBadges ? getDeliveryPromiseBadges() : []
 
   const shouldDisplayDeliveryPromiseBadges =
+    !!postalCode &&
     isDeliveryPromiseEnabled &&
-    deliveryPromiseSettings?.deliveryPromisesBadges?.enabled &&
+    (deliveryPromiseSettings?.deliveryPromisesBadges?.enabled ?? true) &&
     badges.length > 0
 
   return {
