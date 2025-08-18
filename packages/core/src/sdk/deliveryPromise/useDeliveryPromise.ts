@@ -394,14 +394,44 @@ export function useDeliveryPromise({
     return value
   }
 
-  const badges = deliveryPromisesBadges?.map((badge) =>
-    getBadgesLabel(badge.typeName)
-  )
+  function getDeliveryPromiseBadges() {
+    const badges: string[] = []
+    const availableTypeNames = deliveryPromisesBadges?.map(
+      (badge) => badge.typeName
+    )
+
+    // Add badges for available delivery methods
+    availableTypeNames?.forEach((typeName) => {
+      badges.push(getBadgesLabel(typeName))
+    })
+
+    const hasDelivery = availableTypeNames?.includes('delivery')
+    const hasPickupPoint = availableTypeNames?.includes('pickup-in-point')
+
+    // Only add unavailable badges if at least one delivery method is available
+    if (!hasDelivery) {
+      const deliveryUnavailableLabel =
+        deliveryPromiseSettings?.deliveryPromisesBadges?.deliveryUnavailable ??
+        'Shipping unavailable'
+      badges.push(deliveryUnavailableLabel)
+    }
+
+    if (!hasPickupPoint) {
+      const pickupInPointUnavailableLabel =
+        deliveryPromiseSettings?.deliveryPromisesBadges
+          ?.pickupInPointUnavailable ?? 'Pickup unavailable'
+      badges.push(pickupInPointUnavailableLabel)
+    }
+
+    return badges
+  }
+
+  const badges = deliveryPromisesBadges ? getDeliveryPromiseBadges() : []
 
   const shouldDisplayDeliveryPromiseBadges =
     isDeliveryPromiseEnabled &&
     deliveryPromiseSettings?.deliveryPromisesBadges?.enabled &&
-    !!badges
+    badges.length > 0
 
   return {
     mandatory: deliveryPromiseConfig.mandatory,

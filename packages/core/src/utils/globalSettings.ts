@@ -61,7 +61,9 @@ type DeliveryPromiseCmsData = {
   deliveryPromisesBadges?: {
     enabled?: boolean
     delivery?: string
+    deliveryUnavailable?: string
     pickupInPoint?: string
+    pickupInPointUnavailable?: string
   }
 }
 

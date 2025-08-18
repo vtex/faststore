@@ -238,7 +238,7 @@
                 "deliveryPromisesBadges": {
                   "title": "Delivery Promise badges",
                   "type": "object",
-                  "description": "The badges will be displayed in product cards indicating the delivery methods currently available for the product.",
+                  "description": "The badges will be displayed in product cards indicating the delivery methods (available/unavailable) for the product.",
                   "properties": {
                     "enabled": {
                       "title": "Should display Delivery Promise badges?",
@@ -250,10 +250,20 @@
                       "type": "string",
                       "default": "Shipping available"
                     },
+                    "deliveryUnavailable": {
+                      "title": "Shipping unavailable label",
+                      "type": "string",
+                      "default": "Shipping unavailable"
+                    },
                     "pickupInPoint": {
                       "title": "Pickup available label",
                       "type": "string",
                       "default": "Pickup available"
+                    },
+                    "pickupInPointUnavailable": {
+                      "title": "Pickup unavailable label",
+                      "type": "string",
+                      "default": "Pickup unavailable"
                     }
                   }
                 }
