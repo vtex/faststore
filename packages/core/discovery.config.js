@@ -1,12 +1,16 @@
-// Do not change this file, it's generated at run-time with merged config
-
-const defaultConfig = require('./discovery.config.default')
-const starterConfig = require('./src/customizations/discovery.config')
+const defaultConfig = require('./discovery.config.default.js')
 const deepmerge = require('deepmerge')
 
 /**
  * @type {typeof defaultConfig & Record<string, any>}
  * */
-const finalConfig = deepmerge(defaultConfig, starterConfig)
+let finalConfig = deepmerge({}, defaultConfig)
+
+finalConfig.extendsConfig = function (config) {
+  finalConfig = deepmerge(finalConfig, config)
+
+  return finalConfig
+}
+
 
 module.exports = finalConfig

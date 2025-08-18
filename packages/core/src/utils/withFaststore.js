@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const baseDiscoveryConfig = require('../../discovery.config')
-const deepmerge = require('deepmerge')
+const configuration = require('../../discovery.config')
 const VirtualModulePlugin = require('webpack-virtual-modules')
 
 const root = process.env.PWD ?? process.cwd()
@@ -77,8 +76,7 @@ module.exports = {
    */
   withFastStore(config) {
     // const withVirtualConfig = withVirtualPlugin(finalConfig)
-    const finalConfig = mergeConfig()
-    createConfigFile(finalConfig);
+    const finalConfig = configuration.extendsConfig(getUserConfig())
 
     const withGraphqlLoader = addRule({
       test: /\.(graphql|gql)$/,
@@ -145,19 +143,13 @@ function addRule(rule) {
   }
 }
 
-function createConfigFile(fileContent) {
-  const fileLocation = path.resolve(__filename, '../../../discovery.config.js')
-  fs.writeFileSync(fileLocation, `module.exports = ${JSON.stringify(fileContent)};`)
-  return fileLocation
-}
-
-function mergeConfig() {
-  const faststoreConfig = require(
+function getUserConfig() {
+  const finalConfig = require(
     path.relative(
       path.dirname(__filename),
       path.resolve(root, 'discovery.config.js')
     )
   )
 
-  return deepmerge(baseDiscoveryConfig, faststoreConfig)
+  return finalConfig?.default ?? finalConfig
 }
