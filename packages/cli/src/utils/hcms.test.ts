@@ -23,6 +23,10 @@ jest.mock('fs-extra', () => ({
   writeFileSync: jest.fn(),
 }))
 
+jest.mock('./plugins', () => ({
+  getPluginsList: jest.fn(),
+}))
+
 describe('mergeCMSFile', () => {
   it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
     const { readFileSync, existsSync, writeFileSync } = require('fs-extra')
@@ -30,6 +34,9 @@ describe('mergeCMSFile', () => {
 
     existsSync.mockReturnValueOnce(false)
     readFileSync.mockReturnValueOnce(JSON.stringify(coreContentTypes))
+
+    const { getPluginsList } = require('./plugins')
+    getPluginsList.mockResolvedValue([])
 
     await mergeCMSFile('content-types.json', '.')
 
