@@ -395,32 +395,43 @@ export function useDeliveryPromise({
   }
 
   function getDeliveryPromiseBadges() {
-    const badges: string[] = []
+    const badges: Array<{ label: string; availability: boolean }> = []
     const availableTypeNames = deliveryPromisesBadges?.map(
       (badge) => badge.typeName
     )
-
-    // Add badges for available delivery methods
-    availableTypeNames?.forEach((typeName) => {
-      badges.push(getBadgesLabel(typeName))
-    })
 
     const hasDelivery = availableTypeNames?.includes('delivery')
     const hasPickupPoint = availableTypeNames?.includes('pickup-in-point')
 
     // Only add unavailable badges if at least one delivery method is available
-    if (!hasDelivery) {
+    if (hasDelivery) {
+      badges.push({
+        label: getBadgesLabel('delivery'),
+        availability: true,
+      })
+    } else {
       const deliveryUnavailableLabel =
         deliveryPromiseSettings?.deliveryPromisesBadges?.deliveryUnavailable ??
         'Unavailable for delivery'
-      badges.push(deliveryUnavailableLabel)
+      badges.push({
+        label: deliveryUnavailableLabel,
+        availability: false,
+      })
     }
 
-    if (!hasPickupPoint) {
+    if (hasPickupPoint) {
+      badges.push({
+        label: getBadgesLabel('pickup-in-point'),
+        availability: true,
+      })
+    } else {
       const pickupInPointUnavailableLabel =
         deliveryPromiseSettings?.deliveryPromisesBadges
           ?.pickupInPointUnavailable ?? 'Unavailable for pickup'
-      badges.push(pickupInPointUnavailableLabel)
+      badges.push({
+        label: pickupInPointUnavailableLabel,
+        availability: false,
+      })
     }
 
     return badges

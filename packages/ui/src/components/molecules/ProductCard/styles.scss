@@ -175,10 +175,31 @@
     height: fit-content;
   }
 
+
   [data-fs-product-card-delivery-badges] {
     display: flex;
     flex-direction: column;
     row-gap: var(--fs-spacing-0);
+    font-size: var(--fs-text-size-0);
+
+    [data-fs-product-card-delivery-badge] {
+      &::before {
+        display: inline-block;
+        width: var(--fs-spacing-1);
+        height: var(--fs-spacing-1);
+        margin-right: var(--fs-spacing-1);
+        content: "";
+        border-radius: var(--fs-border-radius-circle);
+      }
+
+      &[data-fs-product-card-delivery-badge-availability="true"]::before {
+        background-color: var(--fs-color-success-bkg);
+      }
+
+      &[data-fs-product-card-delivery-badge-availability="false"]::before {
+        background-color: var(--fs-color-neutral-bkg);
+      }
+    }
   }
 
   // --------------------------------------------------------

@@ -16,6 +16,10 @@ import {
   Rating,
 } from '../../'
 
+type DeliveryBadge = {
+  label: string
+  availability: boolean
+}
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
@@ -76,7 +80,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * List delivery badges, if enabled and available.
    */
-  deliveryBadges?: string[]
+  deliveryBadges?: DeliveryBadge[]
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -143,8 +147,16 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
         {deliveryBadges && (
           <div data-fs-product-card-delivery-badges>
-            {deliveryBadges.map((badge: string) => (
-              <span key={badge}>{badge}</span>
+            {deliveryBadges.map((badge: DeliveryBadge) => (
+              <span
+                data-fs-product-card-delivery-badge
+                data-fs-product-card-delivery-badge-availability={
+                  badge.availability
+                }
+                key={badge.label}
+              >
+                {badge.label}
+              </span>
             ))}
           </div>
         )}
