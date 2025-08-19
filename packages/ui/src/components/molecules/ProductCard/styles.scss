@@ -4,59 +4,68 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-product-card-padding                  : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1);
-  --fs-product-card-min-width                : 10rem;
-  --fs-product-card-gap                      : var(--fs-spacing-2);
+  --fs-product-card-padding                            : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1);
+  --fs-product-card-min-width                          : 10rem;
+  --fs-product-card-gap                                : var(--fs-spacing-2);
 
-  --fs-product-card-shadow                   : var(--fs-shadow);
-  --fs-product-card-shadow-hover             : var(--fs-shadow-hover);
+  --fs-product-card-shadow                             : var(--fs-shadow);
+  --fs-product-card-shadow-hover                       : var(--fs-shadow-hover);
 
-  --fs-product-card-bkg-color                : var(--fs-color-body-bkg);
-  --fs-product-card-bkg-color-hover          : var(--fs-product-card-bkg-color);
-  --fs-product-card-bkg-color-focus          : var(--fs-product-card-bkg-color-hover);
+  --fs-product-card-bkg-color                          : var(--fs-color-body-bkg);
+  --fs-product-card-bkg-color-hover                    : var(--fs-product-card-bkg-color);
+  --fs-product-card-bkg-color-focus                    : var(--fs-product-card-bkg-color-hover);
 
-  --fs-product-card-border-radius            : var(--fs-border-radius);
-  --fs-product-card-border-width             : var(--fs-border-width);
-  --fs-product-card-border-color             : var(--fs-border-color-light);
-  --fs-product-card-border-color-hover       : var(--fs-border-color-hover);
+  --fs-product-card-border-radius                      : var(--fs-border-radius);
+  --fs-product-card-border-width                       : var(--fs-border-width);
+  --fs-product-card-border-color                       : var(--fs-border-color-light);
+  --fs-product-card-border-color-hover                 : var(--fs-border-color-hover);
 
-  --fs-product-card-transition-function      : var(--fs-transition-function);
-  --fs-product-card-transition-property      : var(--fs-transition-property);
-  --fs-product-card-transition-timing        : var(--fs-transition-timing);
+  --fs-product-card-transition-function                : var(--fs-transition-function);
+  --fs-product-card-transition-property                : var(--fs-transition-property);
+  --fs-product-card-transition-timing                  : var(--fs-transition-timing);
 
   // Image
-  --fs-product-card-img-radius               : var(--fs-product-card-border-radius);
-  --fs-product-card-img-scale-hover          : 1;
+  --fs-product-card-img-radius                         : var(--fs-product-card-border-radius);
+  --fs-product-card-img-scale-hover                    : 1;
 
   // Title
-  --fs-product-card-title-color              : var(--fs-color-text);
-  --fs-product-card-title-size               : var(--fs-text-size-base);
-  --fs-product-card-title-weight             : var(--fs-text-weight-regular);
-  --fs-product-card-title-max-lines          : var(--fs-text-max-lines);
+  --fs-product-card-title-color                        : var(--fs-color-text);
+  --fs-product-card-title-size                         : var(--fs-text-size-base);
+  --fs-product-card-title-weight                       : var(--fs-text-weight-regular);
+  --fs-product-card-title-max-lines                    : var(--fs-text-max-lines);
 
   // Price
-  --fs-product-card-price-color              : var(--fs-color-text);
-  --fs-product-card-price-size               : var(--fs-text-size-base);
+  --fs-product-card-price-color                        : var(--fs-color-text);
+  --fs-product-card-price-size                         : var(--fs-text-size-base);
 
   // Out Of Stock
-  --fs-product-card-out-of-stock-bkg-color   : transparent;
-  --fs-product-card-out-of-stock-border-color: var(--fs-color-neutral-1);
-  --fs-product-card-out-of-stock-img-opacity : .5;
+  --fs-product-card-out-of-stock-bkg-color             : transparent;
+  --fs-product-card-out-of-stock-border-color          : var(--fs-color-neutral-1);
+  --fs-product-card-out-of-stock-img-opacity           : .5;
 
   // Taxes label
-  --fs-product-card-taxes-label-color        : var(--fs-color-info-text);
-  --fs-product-card-taxes-text-size          : var(--fs-text-size-tiny);
-  --fs-product-card-taxes-text-weight        : var(--fs-text-weight-regular);
+  --fs-product-card-taxes-label-color                  : var(--fs-color-info-text);
+  --fs-product-card-taxes-text-size                    : var(--fs-text-size-tiny);
+  --fs-product-card-taxes-text-weight                  : var(--fs-text-weight-regular);
 
   // Wide
-  --fs-product-card-wide-padding             : 0;
-  --fs-product-card-wide-content-padding     : var(--fs-spacing-2);
-  --fs-product-card-wide-bkg-color           : var(--fs-color-neutral-bkg);
-  --fs-product-card-wide-min-width           : 9rem;
+  --fs-product-card-wide-padding                       : 0;
+  --fs-product-card-wide-content-padding               : var(--fs-spacing-2);
+  --fs-product-card-wide-bkg-color                     : var(--fs-color-neutral-bkg);
+  --fs-product-card-wide-min-width                     : 9rem;
 
   // Sponsored Label
-  --fs-product-card-sponsored-label-size     : var(--fs-text-size-tiny);
-  --fs-product-card-sponsored-label-color    : var(--fs-color-text-light);
+  --fs-product-card-sponsored-label-size               : var(--fs-text-size-tiny);
+  --fs-product-card-sponsored-label-color              : var(--fs-color-text-light);
+
+  // Delivery Badges
+  --fs-product-card-delivery-badge-text-size           : var(--fs-text-size-tiny);
+  --fs-product-card-delivery-badge-status-width        : var(--fs-spacing-1);
+  --fs-product-card-delivery-badge-status-border-radius: var(--fs-border-radius-circle);
+
+  --fs-product-card-delivery-badge-status-available    : var(--fs-color-success-bkg);
+  --fs-product-card-delivery-badge-status-unavailable  : var(--fs-color-neutral-bkg);
+
 
   // --------------------------------------------------------
   // Structural Styles
@@ -175,29 +184,28 @@
     height: fit-content;
   }
 
-
   [data-fs-product-card-delivery-badges] {
     display: flex;
     flex-direction: column;
     row-gap: var(--fs-spacing-0);
-    font-size: var(--fs-text-size-0);
+    font-size: var(--fs-product-card-delivery-badge-text-size);
 
     [data-fs-product-card-delivery-badge] {
       &::before {
         display: inline-block;
-        width: var(--fs-spacing-1);
-        height: var(--fs-spacing-1);
+        width: var(--fs-product-card-delivery-badge-status-width);
+        height: var(--fs-product-card-delivery-badge-status-width);
         margin-right: var(--fs-spacing-1);
         content: "";
-        border-radius: var(--fs-border-radius-circle);
+        border-radius: var(--fs-product-card-delivery-badge-status-border-radius);
       }
 
       &[data-fs-product-card-delivery-badge-availability="true"]::before {
-        background-color: var(--fs-color-success-bkg);
+        background-color: var(--fs-product-card-delivery-badge-status-available);
       }
 
       &[data-fs-product-card-delivery-badge-availability="false"]::before {
-        background-color: var(--fs-color-neutral-bkg);
+        background-color: var(--fs-product-card-delivery-badge-status-unavailable);
       }
     }
   }
