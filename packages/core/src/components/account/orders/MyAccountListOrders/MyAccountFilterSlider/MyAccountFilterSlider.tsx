@@ -137,23 +137,20 @@ function MyAccountFilterSlider({
       applyBtnProps={{
         variant: 'primary',
         onClick: () => {
-          const dateRangeFacet = dateRangeInputRef.current?.getDataRangeFacet()
+          const dateRangeFacet =
+            dateRangeInputRef.current?.getDataRangeFacet?.()
+          const dateFrom = dateRangeFacet?.value?.from?.trim?.()
+          const dateTo = dateRangeFacet?.value?.to?.trim?.()
 
-          const selectedFacets = [
-            ...selected,
-            dateRangeFacet.value.from.trim()
-              ? {
-                  key: 'dateInitial',
-                  value: dateRangeFacet.value.from,
-                }
-              : undefined,
-            dateRangeFacet.value.to.trim()
-              ? {
-                  key: 'dateFinal',
-                  value: dateRangeFacet.value.to,
-                }
-              : undefined,
-          ].filter(Boolean)
+          const dateFacets = []
+          if (dateFrom) {
+            dateFacets.push({ key: 'dateInitial', value: dateFrom })
+          }
+          if (dateTo) {
+            dateFacets.push({ key: 'dateFinal', value: dateTo })
+          }
+
+          const selectedFacets = [...selected, ...dateFacets]
 
           handleFilterChange({
             selectedFacets,
