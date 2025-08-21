@@ -23,7 +23,9 @@ export const optimistic = <T>(onValidate: Validator<T> = trivial) => {
         }
       }
 
-      queue = queue.then(handler)
+      queue = queue.then(handler).catch((_) => {
+        console.error('Error in optimistic validation:', _)
+      })
 
       return () => {
         cancel = true
