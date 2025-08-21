@@ -21,7 +21,7 @@ function MyAccountFilterFacetPlacedBy({
 }: MyAccountFilterFacetPlacedByProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
-  const [selectedShopper, setSelectedShopper] = useState<Shopper | null>(null)
+  const [selectedShoppers, setSelectedShoppers] = useState<Shopper[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const searchQueryDeferred = useDeferredValue(query)
 
@@ -37,18 +37,18 @@ function MyAccountFilterFacetPlacedBy({
 
   const clearAll = () => {
     setQuery('')
-    setSelectedShopper(null)
+    setSelectedShoppers([])
     if (inputRef.current) inputRef.current.value = ''
   }
 
   useEffect(() => {
-    if (selectedId && !selectedShopper) {
+    if (selectedId && selectedShoppers.length === 0) {
       const found = findShopperById(selectedId)
-      if (found) setSelectedShopper(found)
+      if (found) setSelectedShoppers((prev) => [...prev, found])
     } else if (!selectedId) {
       clearAll()
     }
-  }, [selectedId, selectedShopper])
+  }, [selectedId, selectedShoppers])
 
   function handleSearchOnChange(value: string) {
     setQuery(value)
@@ -60,9 +60,20 @@ function MyAccountFilterFacetPlacedBy({
     [isLoading, query, filteredShoppers]
   )
 
+  const allSelected = useMemo(
+    () => selectedShoppers.length === filteredShoppers.length,
+    [selectedShoppers, filteredShoppers]
+  )
+
   function handleSelect(shopper: Shopper) {
-    setSelectedShopper(shopper)
+    if (selectedShoppers.some((s) => s.userId === shopper.userId)) {
+      return
+    }
+
+    // At the moment, only 1 shopper can be selected
+    setSelectedShoppers([shopper])
     setIsOpen(false)
+
     dispatch({
       type: 'setFacet',
       payload: {
@@ -72,20 +83,26 @@ function MyAccountFilterFacetPlacedBy({
     })
   }
 
-  function handleClearTag() {
-    if (selectedShopper) {
+  function handleClearTag(userId: string) {
+    if (selectedShoppers.length > 0) {
+      setSelectedShoppers((prev) => prev.filter((s) => s.userId !== userId))
+
       // Using toggleFacet here removes the purchaseAgentIds from selected facets
       // because toggleFacet will remove the facet if it already exists in the selected facets
       dispatch({
         type: 'toggleFacet',
         payload: {
           key: 'purchaseAgentIds',
-          value: selectedShopper.userId,
+          value: userId,
         },
       })
     }
-    clearAll()
   }
+
+  const hasSelectedShoppers = useMemo(
+    () => selectedShoppers.length > 0,
+    [selectedShoppers]
+  )
 
   return (
     <div data-fs-list-orders-filters-placed-by>
@@ -95,23 +112,27 @@ function MyAccountFilterFacetPlacedBy({
           placeholder="Enter the shopper's name..."
           ref={inputRef}
           value={
-            selectedShopper
-              ? `${selectedShopper.firstName} ${selectedShopper.lastName}`
+            hasSelectedShoppers
+              ? selectedShoppers
+                  .map((s) => `${s.firstName} ${s.lastName}`)
+                  .join(', ')
               : query
           }
-          readOnly={Boolean(selectedShopper)}
+          readOnly={hasSelectedShoppers}
           onFocus={() => {
-            if (!selectedShopper) setIsOpen(true)
+            if (!allSelected) {
+              setIsOpen(true)
+            }
           }}
           onChange={(e) => {
-            if (selectedShopper) return
+            if (allSelected) return
             handleSearchOnChange(e.target.value)
           }}
           onBlur={() => {
             // delay close to allow click selection
             setTimeout(() => {
               setIsOpen(false)
-              if (!selectedShopper) {
+              if (!hasSelectedShoppers) {
                 setQuery('')
                 if (inputRef.current) inputRef.current.value = ''
               }
@@ -125,16 +146,48 @@ function MyAccountFilterFacetPlacedBy({
             <Loader />
           </div>
         )}
-        {selectedShopper && (
+        {hasSelectedShoppers && (
           <IconButton
             size="small"
             aria-label="Clear shopper"
             data-fs-list-orders-filters-placed-by-clear
             icon={<Icon name="X" />}
-            onClick={handleClearTag}
+            onClick={clearAll}
           />
         )}
       </div>
+
+      {hasSelectedShoppers && (
+        <ul data-fs-list-orders-filters-placed-by-tag>
+          {selectedShoppers.map((s) => {
+            const maxLength = 20
+            const fullName = `${s.firstName} ${s.lastName}`
+
+            return (
+              <li key={s.userId} data-fs-list-orders-filters-placed-by-tag-item>
+                <p
+                  title={fullName}
+                  aria-label={`Selected shopper: ${fullName}`}
+                  data-fs-list-orders-filters-placed-by-tag-name
+                >
+                  {fullName.length < maxLength
+                    ? fullName
+                    : `${fullName.slice(0, maxLength)}...`}
+                </p>
+
+                <IconButton
+                  size="small"
+                  aria-label="Clear shopper"
+                  title="Clear shopper"
+                  data-fs-list-orders-filters-placed-by-tag-clear
+                  icon={<Icon name="X" width={16} height={16} color="#000" />}
+                  onClick={() => handleClearTag(s.userId)}
+                />
+              </li>
+            )
+          })}
+        </ul>
+      )}
 
       {isOpen && isSearchEmpty && (
         <div
@@ -152,20 +205,24 @@ function MyAccountFilterFacetPlacedBy({
           aria-label="Shopper selection dropdown"
         >
           <ul>
-            {filteredShoppers.map((s) => (
-              <li key={s.userId}>
-                <button
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => handleSelect(s)}
-                  data-fs-list-orders-filters-placed-by-option
-                >
-                  <span data-fs-list-orders-filters-placed-by-option-name>
-                    {s.firstName} {s.lastName}
-                  </span>
-                </button>
-              </li>
-            ))}
+            {filteredShoppers
+              .filter(
+                (s) => !selectedShoppers.some((ss) => ss.userId === s.userId)
+              )
+              .map((s) => (
+                <li key={s.userId}>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => handleSelect(s)}
+                    data-fs-list-orders-filters-placed-by-option
+                  >
+                    <span data-fs-list-orders-filters-placed-by-option-name>
+                      {s.firstName} {s.lastName}
+                    </span>
+                  </button>
+                </li>
+              ))}
           </ul>
         </div>
       )}
