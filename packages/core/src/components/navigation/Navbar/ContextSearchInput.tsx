@@ -1,6 +1,26 @@
 import React, { useState, useRef, useCallback } from 'react'
 import type { FormEvent } from 'react'
 
+const toggleStyles = {
+  width: '60px',
+  height: '34px',
+  borderRadius: '34px',
+  backgroundColor: 'black',
+  // position: 'relative',
+  cursor: 'pointer',
+}
+
+const circleStyles = {
+  height: '26px',
+  width: '26px',
+  backgroundColor: 'white',
+  borderRadius: '50%',
+  // margin: '4px 0 0 4px',
+  // position: 'absolute',
+  top: '14px',
+  left: '30px',
+}
+
 interface ContextSearchNavbarProps {
   placeholder?: string
   buttonText?: string
@@ -30,8 +50,9 @@ const ContextSearchInput = ({
         }),
       })
       const jsonRes = await response.json()
+      const parsedRes = JSON.parse(jsonRes.response)
 
-      localStorage.setItem('searchTerm', JSON.stringify(jsonRes))
+      localStorage.setItem('searchTerm', JSON.stringify(parsedRes))
 
       window.location.href = '/s'
     } catch (error) {
@@ -51,11 +72,24 @@ const ContextSearchInput = ({
           placeholder={placeholder}
           aria-label={ariaLabel}
           className="search-input"
+          style={{
+            padding: '10px',
+            minWidth: '450px',
+            borderColor: '#ccc',
+            borderWidth: '1px',
+            borderRadius: '4px',
+          }}
         />
-        <button type="submit" onClick={handleSubmit} className="search-button">
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="search-button"
+          style={{ cursor: 'pointer' }}
+        >
           {buttonText}
         </button>
       </div>
+      {/* <div><input type='checkbox' />AI Search</div> */}
     </div>
   )
 }
