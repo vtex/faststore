@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.77.2](https://github.com/vtex/faststore/compare/v3.77.1...v3.77.2) (2025-08-21)
+
+### Bug Fixes
+
+- validate mutations after offline network ([#2998](https://github.com/vtex/faststore/issues/2998)) ([659605f](https://github.com/vtex/faststore/commit/659605f45ccf53cfb7a6959fe9f9f0fe3f1a6c93))
+
 ## [3.77.1](https://github.com/vtex/faststore/compare/v3.77.0...v3.77.1) (2025-08-20)
 
 ### Bug Fixes
