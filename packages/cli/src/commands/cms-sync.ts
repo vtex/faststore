@@ -25,7 +25,7 @@ export default class CmsSync extends Command {
     const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
 
     const userStoreConfig = await import(path.resolve(userStoreConfigFile))
-    const builderId = userStoreConfig.cms.builderId
+    const builderId = userStoreConfig.contentSource.project
 
     await generate({ setup: true, basePath })
     await mergeCMSFiles(basePath)
