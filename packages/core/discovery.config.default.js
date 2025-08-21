@@ -125,6 +125,7 @@ module.exports = {
 
   cms: {
     data: process.env.CMS_DATA,
+    builderId: 'faststore',
   },
 
   contentSource: {
