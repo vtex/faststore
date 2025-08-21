@@ -1,7 +1,7 @@
 import path from 'path'
 import chalk from 'chalk'
 import { CliUx } from '@oclif/core'
-import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
+import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'fs-extra'
 
 import { withBasePath } from './directory'
 import { getPluginName, getPluginsList } from './plugins'
@@ -112,8 +112,16 @@ async function confirmUserChoice(
 }
 
 export async function mergeCMSFile(fileName: string, basePath: string) {
-  const { coreCMSDir, userCMSDir, tmpCMSDir, getPackagePath } =
-    withBasePath(basePath)
+  const {
+    coreCMSDir,
+    userCMSDir,
+    tmpCMSDir,
+    getPackagePath,
+    userStoreConfigFile,
+  } = withBasePath(basePath)
+
+  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+  const builderId = userStoreConfig.cms.builderId
 
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
@@ -179,7 +187,13 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
   }
 
   try {
-    writeFileSync(path.join(tmpCMSDir, fileName), JSON.stringify(output))
+    if (!existsSync(tmpCMSDir(builderId))) {
+      mkdirSync(tmpCMSDir(builderId))
+    }
+    writeFileSync(
+      path.join(tmpCMSDir(builderId), fileName),
+      JSON.stringify(output)
+    )
     console.log(
       `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
     )

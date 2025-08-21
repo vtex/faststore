@@ -30,10 +30,20 @@ jest.mock('./plugins', () => ({
 describe('mergeCMSFile', () => {
   it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
     const { readFileSync, existsSync, writeFileSync } = require('fs-extra')
-    const { tmpCMSDir } = withBasePath('.')
+    const { tmpCMSDir, userStoreConfigFile } = withBasePath('.')
 
     existsSync.mockReturnValueOnce(false)
     readFileSync.mockReturnValueOnce(JSON.stringify(coreContentTypes))
+
+    jest.mock(
+      path.resolve(userStoreConfigFile),
+      () => ({
+        cms: {
+          builderId: 'faststore-3',
+        },
+      }),
+      { virtual: true }
+    )
 
     const { getPluginsList } = require('./plugins')
     getPluginsList.mockResolvedValue([])
@@ -41,7 +51,7 @@ describe('mergeCMSFile', () => {
     await mergeCMSFile('content-types.json', '.')
 
     expect(writeFileSync).toHaveBeenCalledWith(
-      path.join(tmpCMSDir, 'content-types.json'),
+      path.join(tmpCMSDir('faststore-3'), 'content-types.json'),
       JSON.stringify(coreContentTypes)
     )
 
@@ -51,7 +61,7 @@ describe('mergeCMSFile', () => {
     await mergeCMSFile('sections.json', '.')
 
     expect(writeFileSync).toHaveBeenCalledWith(
-      path.join(tmpCMSDir, 'sections.json'),
+      path.join(tmpCMSDir('faststore-3'), 'sections.json'),
       JSON.stringify(coreSections)
     )
   })
