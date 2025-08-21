@@ -83,19 +83,7 @@ type SearchEvent =
       type: 'search.autocomplete.click'
     }
 
-const sendEvent = (options: SearchEvent & { url?: string }) =>
-  fetch(`https://sp.vtex.com/event-api/v1/${config.api.storeId}/event`, {
-    method: 'POST',
-    body: JSON.stringify({
-      ...options,
-      userAgent: navigator.userAgent,
-      anonymous: user.anonymous(),
-      session: user.session(),
-    }),
-    headers: {
-      'content-type': 'application/json',
-    },
-  })
+const sendEvent = (options: SearchEvent & { url?: string }) => true
 
 const isFullTextSearch = (url: URL) =>
   typeof url.searchParams.get('q') === 'string' &&

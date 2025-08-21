@@ -168,18 +168,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               value={searchQuery}
               {...otherProps}
             />
-
-            {searchDropdownVisible && (
-              <Suspense fallback={null}>
-                <SearchDropdown
-                  sort={sort as SearchState['sort']}
-                  quickOrderSettings={quickOrderSettings}
-                  onChangeCustomSearchDropdownVisible={
-                    setCustomSearchDropdownVisibleCondition
-                  }
-                />
-              </Suspense>
-            )}
           </UISearchInput>
         )}
       </>

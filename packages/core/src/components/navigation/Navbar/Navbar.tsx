@@ -15,6 +15,7 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import storeConfig from 'discovery.config'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+import ContextSearchInput from './ContextSearchInput'
 
 const NavbarLinks = dynamic(
   () =>
@@ -149,11 +150,7 @@ function Navbar({
           )}
 
           {isDesktop && (
-            <SearchInput
-              placeholder={searchInput?.placeholder}
-              sort={searchInput?.sort}
-              quickOrderSettings={searchInput?.quickOrderSettings}
-            />
+            <ContextSearchInput placeholder={searchInput?.placeholder} />
           )}
 
           <NavbarButtons.Component
@@ -173,17 +170,7 @@ function Navbar({
             )}
 
             {!isDesktop && (
-              <SearchInput
-                placeholder=""
-                ref={searchMobileRef}
-                testId="store-input-mobile"
-                buttonTestId="store-input-mobile-button"
-                onSearchClick={handlerExpandSearch}
-                sort={searchInput?.sort}
-                quickOrderSettings={searchInput?.quickOrderSettings}
-                hidden={!searchExpanded}
-                aria-hidden={!searchExpanded}
-              />
+              <ContextSearchInput placeholder={searchInput?.placeholder} />
             )}
             {!isMobile &&
               (isOrganizationEnabled ? (

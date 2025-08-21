@@ -5,14 +5,7 @@ import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
 
 import styles from './section.module.scss'
-import {
-  type PLPContext,
-  type SearchPageContext,
-  isPLP,
-  isSearchPage,
-  usePage,
-} from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { ProductGalleryDefaultComponents } from './DefaultComponents'
 
@@ -28,42 +21,74 @@ export interface ProductGallerySectionProps {
   emptyGallery?: EmptyGalleryProps
 }
 
-function ProductGallerySection({
-  emptyGallery,
-  ...otherProps
-}: ProductGallerySectionProps) {
-  const { __experimentalEmptyGallery: EmptyGallery } =
-    useOverrideComponents<'ProductGallery'>()
+function AddToCartBtn() {
+  return (
+    <button
+      type="button"
+      style={{
+        background: '#00419e',
+        color: 'white',
+        padding: '4px 6px',
+        borderRadius: '12px',
+        fontSize: '10px',
+        margin: '4px 0',
+        cursor: 'pointer',
+      }}
+    >
+      Add to cart
+    </button>
+  )
+}
 
-  const context = usePage<SearchPageContext | PLPContext>()
-  const [title, searchTerm] = isSearchPage(context)
-    ? [context?.data?.title, context?.data?.searchTerm]
-    : isPLP(context)
-      ? [context?.data?.collection?.seo?.title]
-      : ['']
+function ProductCard({ item }: { item: any }) {
+  return (
+    <div
+      style={{
+        border: '1px solid #eee',
+        padding: '16px',
+        borderRadius: '8px',
+        width: '300px',
+        height: '400px',
+        float: 'left',
+        margin: '0 10px 20px 10px',
+      }}
+    >
+      <img src={item.image} alt={item.name} width={250} />
+      <p key={item.id} style={{ fontSize: '12px' }}>
+        {item.name}
+      </p>
+      <p>R$ {item.price}</p>
+      <AddToCartBtn />
+    </div>
+  )
+}
 
-  const totalCount = context?.data?.search?.products?.pageInfo?.totalCount ?? 0
-
-  if (context?.data?.search?.products && totalCount === 0) {
-    return (
-      <Section className={`${styles.section} section-product-gallery`}>
-        <section data-testid="product-gallery" data-fs-product-listing>
-          <EmptyGallery.Component {...emptyGallery} />
-        </section>
-      </Section>
-    )
-  }
+function ProductGallerySection() {
+  const storage = JSON.parse(localStorage.getItem('searchTerm'))
 
   return (
     <Section
       className={`${styles.section} section-product-gallery layout__section`}
     >
-      <ProductGallery
-        title={title}
-        searchTerm={searchTerm}
-        totalCount={totalCount}
-        {...otherProps}
-      />
+      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <button
+          type="button"
+          style={{
+            background: '#00419e',
+            color: 'white',
+            padding: '6px 12px',
+            borderRadius: '12px',
+          }}
+        >
+          Add all to cart
+        </button>
+      </div>
+      <div style={{ padding: '0 0 0 10%' }}>
+        {storage.products.map((item: any) => (
+          <ProductCard key={item.id} item={item} />
+        ))}
+        <div style={{ content: '', display: 'table', clear: 'both' }} />
+      </div>
     </Section>
   )
 }
