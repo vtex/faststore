@@ -25,7 +25,7 @@ export default class CmsSync extends Command {
     const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
 
     const userStoreConfig = await import(path.resolve(userStoreConfigFile))
-    const builderId = userStoreConfig.contentSource.project
+    const cmsProjectName = userStoreConfig.contentSource.project
 
     await generate({ setup: true, basePath })
     await mergeCMSFiles(basePath)
@@ -34,7 +34,7 @@ export default class CmsSync extends Command {
       return
     }
 
-    return spawn(`vtex cms sync ${builderId}`, {
+    return spawn(`vtex cms sync ${cmsProjectName}`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',

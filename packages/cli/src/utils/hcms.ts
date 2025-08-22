@@ -121,7 +121,7 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
   } = withBasePath(basePath)
 
   const userStoreConfig = await import(path.resolve(userStoreConfigFile))
-  const builderId = userStoreConfig.contentSource.project
+  const cmsProjectName = userStoreConfig.contentSource.project
 
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
@@ -187,11 +187,11 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
   }
 
   try {
-    if (!existsSync(tmpCMSDir(builderId))) {
-      mkdirSync(tmpCMSDir(builderId))
+    if (!existsSync(tmpCMSDir(cmsProjectName))) {
+      mkdirSync(tmpCMSDir(cmsProjectName))
     }
     writeFileSync(
-      path.join(tmpCMSDir(builderId), fileName),
+      path.join(tmpCMSDir(cmsProjectName), fileName),
       JSON.stringify(output)
     )
     console.log(

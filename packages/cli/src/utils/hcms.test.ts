@@ -18,6 +18,7 @@ import {
 import { withBasePath } from './directory'
 
 jest.mock('fs-extra', () => ({
+  mkdirSync: jest.fn(),
   readFileSync: jest.fn(),
   existsSync: jest.fn(),
   writeFileSync: jest.fn(),
@@ -38,8 +39,8 @@ describe('mergeCMSFile', () => {
     jest.mock(
       path.resolve(userStoreConfigFile),
       () => ({
-        cms: {
-          builderId: 'faststore-3',
+        contentSource: {
+          project: 'faststore-3',
         },
       }),
       { virtual: true }
