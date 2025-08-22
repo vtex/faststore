@@ -1,5 +1,12 @@
 import { Icon, IconButton, Input, Loader } from '@faststore/ui'
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import type { Shopper } from 'src/sdk/account/useShopperSuggestions'
 import useShopperSuggestions from 'src/sdk/account/useShopperSuggestions'
 import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
@@ -35,20 +42,25 @@ function MyAccountFilterFacetPlacedBy({
     [selected]
   )
 
-  const clearAll = () => {
+  const clearAll = useCallback(() => {
     setQuery('')
     setSelectedShoppers([])
     if (inputRef.current) inputRef.current.value = ''
-  }
+  }, [])
+
+  const hasSelectedShoppers = useMemo(
+    () => selectedShoppers.length > 0,
+    [selectedShoppers]
+  )
 
   useEffect(() => {
-    if (selectedId && selectedShoppers.length === 0) {
+    if (selectedId && !hasSelectedShoppers) {
       const found = findShopperById(selectedId)
       if (found) setSelectedShoppers((prev) => [...prev, found])
     } else if (!selectedId) {
       clearAll()
     }
-  }, [selectedId, selectedShoppers])
+  }, [selectedId, hasSelectedShoppers, clearAll])
 
   function handleSearchOnChange(value: string) {
     setQuery(value)
@@ -98,11 +110,6 @@ function MyAccountFilterFacetPlacedBy({
       })
     }
   }
-
-  const hasSelectedShoppers = useMemo(
-    () => selectedShoppers.length > 0,
-    [selectedShoppers]
-  )
 
   return (
     <div data-fs-list-orders-filters-placed-by>
