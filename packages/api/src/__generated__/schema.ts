@@ -867,6 +867,8 @@ export type Query = {
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult;
+  /** Returns information about the Shoppers. */
+  searchShopper?: Maybe<SearchShopperResult>;
   /** Returns a list of sellers available for a specific localization. */
   sellers?: Maybe<SellersData>;
   /** Returns information about shipping simulation. */
@@ -944,6 +946,12 @@ export type QuerySearchArgs = {
 };
 
 
+export type QuerySearchShopperArgs = {
+  name?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+
 export type QuerySellersArgs = {
   country: Scalars['String'];
   geoCoordinates?: Maybe<IGeoCoordinates>;
@@ -972,6 +980,20 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean'];
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String'];
+};
+
+export type SearchShopper = {
+  __typename?: 'SearchShopper';
+  firstName?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+/** SearchShopperResult information. */
+export type SearchShopperResult = {
+  __typename?: 'SearchShopperResult';
+  shoppers?: Maybe<Array<Maybe<SearchShopper>>>;
 };
 
 /** Information of sellers. */
@@ -2453,6 +2475,7 @@ export type UserOrderShippingData = {
 export type UserOrderShopperName = {
   __typename?: 'UserOrderShopperName';
   firstName?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
 };
 

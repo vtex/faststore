@@ -8,6 +8,7 @@ import type {
   IProcessOrderAuthorization,
   IUserOrderCancel,
   QueryListUserOrdersArgs,
+  QuerySearchShopperArgs,
   StoreMarketingData,
   UserOrder,
   UserOrderCancel,
@@ -16,9 +17,11 @@ import type {
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
 import {
+  getAuthCookie,
   getStoreCookie,
   getWithAutCookie,
   getWithCookie,
+  parseJwt,
 } from '../../utils/cookies'
 import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
@@ -686,24 +689,42 @@ export const VtexCommerce = (
           {}
         )
       },
-      getShopperNameById: ({
+      searchShopper: ({
         userId,
-      }: { userId: string }): Promise<
+        name,
+      }: QuerySearchShopperArgs): Promise<
         Array<{
           firstName: string
           lastName: string
+          fullName: string
+          userId: string
         }>
       > => {
-        if (!userId) {
-          throw new Error('Missing userId to fetch shopper name')
+        if (!userId && !name) {
+          throw new Error('You must provide userId or name to search shopper')
         }
-
-        const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
 
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
+        // Normalize userId by removing hyphens if present
+        const userIdNormalized = userId ? userId.replace(/-/g, '') : undefined
+
+        const whereParts = []
+        if (userIdNormalized) {
+          whereParts.push(`userId=${userIdNormalized}`)
+        }
+        if (name) {
+          const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+          const customerId = jwt?.customerId
+          whereParts.push(`(fullName = *${name}*)`)
+
+          if (customerId) whereParts.push(`(contractIds=${customerId})`)
+        }
+
+        const where = whereParts.join(' AND ')
+
         return fetchAPI(
-          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
+          `${base}/api/dataentities/shopper/search?_where=(${encodeURIComponent(where)})&_fields=_all&_schema=v1`,
           {
             method: 'GET',
             headers,
