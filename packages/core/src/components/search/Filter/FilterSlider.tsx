@@ -12,17 +12,16 @@ import {
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
 } from '@faststore/ui'
-
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
-import type { useFilter } from 'src/sdk/search/useFilter'
 import {
-  useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
+  useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
+import type { useFilter } from 'src/sdk/search/useFilter'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import styles from './section.module.scss'
@@ -102,11 +101,14 @@ function FilterSlider({
   const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
 
   const {
-    facets: filteredFacets,
+    highlightedFacet,
+    facetsWithoutHighlightedFacet,
     deliveryLabel,
+    deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
     onDeliveryFacetChange,
+    getDynamicEstimateLabel,
   } = useDeliveryPromise({
     selectedFilterFacets: selected,
     allFacets: facets,
@@ -186,21 +188,56 @@ function FilterSlider({
             </UIFilterFacets>
           )}
 
-          {filteredFacets.map((facet, idx) => {
+          {highlightedFacet &&
+            highlightedFacet.__typename === 'StoreFacetBoolean' && (
+              <UIFilterFacets
+                key={`${testId}-${highlightedFacet.key}`}
+                testId={testId}
+                highlighted
+                type={highlightedFacet.__typename}
+                index={undefined}
+              >
+                {highlightedFacet.values.map((item) => (
+                  <UIFilterFacetBooleanItem
+                    key={`${testId}-${highlightedFacet.label}-${item.value}`}
+                    id={`${testId}-${highlightedFacet.label}-${item.value}`}
+                    testId={testId}
+                    onFacetChange={(facet) => {
+                      onDeliveryFacetChange({ facet })
+                      resetInfiniteScroll(0)
+                    }}
+                    selected={item.selected}
+                    value={item.value}
+                    facetKey={highlightedFacet.key}
+                    label={getDynamicEstimateLabel(item.value) ?? item.label}
+                    type="toggle"
+                  />
+                ))}
+              </UIFilterFacets>
+            )}
+
+          {facetsWithoutHighlightedFacet.map((facet, idx) => {
             const index = shouldDisplayDeliveryButton ? idx + 1 : idx
             const { __typename: type, label } = facet
             const isExpanded = expanded.has(index)
-            const isDeliveryFacet = facet.key === 'shipping'
+            const isDeliveryMethodFacet = facet.key === 'shipping'
+            const isDeliveryOptionFacet = facet.key === 'delivery-options'
+
+            const sectionLabel = isDeliveryMethodFacet
+              ? deliveryLabel
+              : isDeliveryOptionFacet
+                ? deliveryOptionsLabel
+                : label
 
             return (
               <UIFilterFacets
-                key={`${testId}-${label}-${index}`}
+                key={`${testId}-${sectionLabel}-${index}`}
                 testId={`mobile-${testId}`}
                 index={index}
                 type={type}
-                label={isDeliveryFacet ? deliveryLabel : label}
+                label={sectionLabel}
                 description={
-                  isDeliveryFacet
+                  isDeliveryMethodFacet
                     ? deliveryPromiseSettings?.deliveryMethods?.description
                     : undefined
                 }
@@ -226,7 +263,7 @@ function FilterSlider({
                             quantity={item.quantity}
                             facetKey={facet.key}
                             label={
-                              isDeliveryFacet ? (
+                              isDeliveryMethodFacet ? (
                                 <FilterDeliveryMethodFacet
                                   item={item}
                                   deliveryMethods={
@@ -237,7 +274,11 @@ function FilterSlider({
                                 item.label
                               )
                             }
-                            type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                            type={
+                              isDeliveryMethodFacet || isDeliveryOptionFacet
+                                ? 'radio'
+                                : 'checkbox'
+                            }
                           />
                         )
                     )}
