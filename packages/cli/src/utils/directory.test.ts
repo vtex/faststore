@@ -76,7 +76,7 @@ describe('withBasePath as the current dir `.`', () => {
       const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
 
       expect(
-        pathsToMatch(tmpCMSDirWithBase, './.faststore/cms/faststore')
+        pathsToMatch(tmpCMSDirWithBase(), './.faststore/cms/faststore')
       ).toBe(true)
     })
   })
@@ -235,7 +235,18 @@ describe('withBasePath as an arbitrary dir', () => {
       const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
 
       expect(
-        pathsToMatch(tmpCMSDirWithBase, './.faststore/cms/faststore')
+        pathsToMatch(tmpCMSDirWithBase(), './.faststore/cms/faststore')
+      ).toBe(true)
+    })
+
+    it('returns the path of the CMS dir with the builderId on the .faststore dir', () => {
+      const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
+
+      expect(
+        pathsToMatch(
+          tmpCMSDirWithBase('another-builder'),
+          './.faststore/cms/another-builder'
+        )
       ).toBe(true)
     })
   })
