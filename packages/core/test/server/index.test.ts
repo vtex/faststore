@@ -76,6 +76,7 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'searchShopper',
   'userDetails',
   'accountProfile',
   'accountName',

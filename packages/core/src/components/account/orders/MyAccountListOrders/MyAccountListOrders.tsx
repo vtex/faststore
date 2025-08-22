@@ -6,9 +6,9 @@ import { useRouter } from 'next/router'
 import {
   Button,
   EmptyState,
-  Icon as UIIcon,
   LinkButton,
   SearchInputField,
+  Icon as UIIcon,
   useUI,
   type SearchInputFieldRef,
 } from '@faststore/ui'
@@ -39,7 +39,7 @@ export type MyAccountListOrdersProps = {
     dateFinal: string
     text: string
     clientEmail: string
-    purchaseAgentId?: string
+    purchaseAgentIds?: string
   }
 }
 
@@ -74,9 +74,9 @@ function getSelectedFacets({
         key: 'dateFinal',
         value: String(value),
       })
-    } else if (filter === 'purchaseAgentId' && value) {
+    } else if (filter === 'purchaseAgentIds' && value) {
       acc.push({
-        key: 'purchaseAgentId',
+        key: 'purchaseAgentIds',
         value: String(value),
       })
     }
@@ -104,7 +104,7 @@ function getAllFacets({
     },
     {
       __typename: 'StoreFacetPlacedBy',
-      key: 'purchaseAgentId',
+      key: 'purchaseAgentIds',
       label: 'Placed by',
     } as any,
     {
@@ -244,7 +244,7 @@ export default function MyAccountListOrders({
             status: filters.status,
             dateInitial: filters.dateInitial,
             dateFinal: filters.dateFinal,
-            purchaseAgentId: filters.purchaseAgentId,
+            purchaseAgentIds: filters.purchaseAgentIds,
           }}
           onClearAll={() => {
             window.location.href = '/account/orders'
@@ -259,8 +259,8 @@ export default function MyAccountListOrders({
             } else if (key === 'dateInitial' || key === 'dateFinal') {
               delete updatedFilters.dateInitial
               delete updatedFilters.dateFinal
-            } else if (key === 'purchaseAgentId') {
-              delete updatedFilters.purchaseAgentId
+            } else if (key === 'purchaseAgentIds') {
+              delete updatedFilters.purchaseAgentIds
             } else {
               delete updatedFilters[key]
             }
@@ -272,8 +272,8 @@ export default function MyAccountListOrders({
             } else if (key === 'dateInitial' || key === 'dateFinal') {
               delete updatedFilters.dateInitial
               delete updatedFilters.dateFinal
-            } else if (key === 'purchaseAgentId') {
-              delete updatedFilters.purchaseAgentId
+            } else if (key === 'purchaseAgentIds') {
+              delete updatedFilters.purchaseAgentIds
             } else {
               delete updatedFilters[key]
             }

@@ -96,6 +96,7 @@ type UserOrderResult {
 type UserOrderShopperName {
   firstName: String
   lastName: String
+  fullName: String
 }
 
 type UserOrderListResult {

@@ -46,7 +46,7 @@ type ListOrdersPageProps = {
     dateFinal: string
     text: string
     clientEmail: string
-    purchaseAgentId?: string
+    purchaseAgentIds?: string
   }
 } & MyAccountProps
 
@@ -172,10 +172,10 @@ export const getServerSideProps: GetServerSideProps<
   const dateFinal = (context.query.dateFinal as string | undefined) || ''
   const text = (context.query.text as string | undefined) || ''
   const clientEmail = (context.query.clientEmail as string | undefined) || ''
-  // TODO: Integration: ensure `purchaseAgentId` is mapped to `purchase_agent_id`
+  // TODO: Integration: ensure `purchaseAgentIds` is mapped to `purchase_agent_id`
   // when calling the OMS API. Keep camelCase across the frontend.
-  const purchaseAgentId =
-    (context.query.purchaseAgentId as string | undefined) || ''
+  const purchaseAgentIds =
+    (context.query.purchaseAgentIds as string | undefined) || ''
 
   // Map labels from FastStore status to API status
   const groupedStatus = groupOrderStatusByLabel()
@@ -251,7 +251,7 @@ export const getServerSideProps: GetServerSideProps<
         dateFinal,
         text,
         clientEmail,
-        purchaseAgentId,
+        purchaseAgentIds,
       },
       isRepresentative,
     },
