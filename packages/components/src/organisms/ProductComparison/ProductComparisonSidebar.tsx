@@ -32,6 +32,7 @@ import Dropdown, {
   DropdownItem,
 } from '../../molecules/Dropdown'
 import Icon from '../../atoms/Icon'
+import IconButton from '../../molecules/IconButton'
 
 const SPECIFICATION = 'SPECIFICATION'
 
@@ -65,7 +66,15 @@ export interface ProductComparisonSidebarProps
   /**
    * Defines the product name label.
    */
-  productNameLabel: string
+  productNameFilterLabel: string
+  /**
+   * Defines the toggle field label.
+   */
+  toggleFieldLabel: string
+  /**
+   * Defines the price label.
+   */
+  priceLabel: string
   /**
    * Defines the preference label.
    */
@@ -130,7 +139,9 @@ function ProductComparisonSidebar({
   sortLabel,
   filterLabel,
   preferencesLabel,
-  productNameLabel,
+  productNameFilterLabel,
+  toggleFieldLabel,
+  priceLabel,
   cartButtonLabel,
   priceWithTaxLabel,
   technicalInformation,
@@ -145,6 +156,7 @@ function ProductComparisonSidebar({
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
   const { isOpen, setIsOpen, products } = useProductComparison()
+  const [showTechnicalInfo, setShowTechnicalInfo] = useState<boolean>(true)
 
   const [selectedFilter, setSelectedFilter] =
     useState<SortOptions['value']>('productByName')
@@ -195,6 +207,10 @@ function ProductComparisonSidebar({
     [sortOptions]
   )
 
+  function toggleInfo() {
+    setShowTechnicalInfo(!showTechnicalInfo)
+  }
+
   return (
     <SlideOver
       data-fs-product-comparison-sidebar
@@ -206,15 +222,17 @@ function ProductComparisonSidebar({
       {...otherProps}
     >
       <SlideOverHeader onClose={() => setIsOpen(false)}>
-        <h2>{title}</h2>
-        <Badge size="big" variant="neutral">
-          {products.length}
-        </Badge>
+        <div>
+          <h2 data-fs-product-comparison-sidebar-header-title>{title}</h2>
+          <Badge size="big" variant="neutral">
+            {products.length}
+          </Badge>
+        </div>
       </SlideOverHeader>
 
       <div data-fs-product-comparison-filters>
-        <div>
-          <p>{sortLabel}</p>
+        <div data-fs-product-comparison-container>
+          <p data-fs-product-comparison-filters-sort-label>{sortLabel}</p>
           <Select
             id="product-comparison-sort-by"
             options={options}
@@ -226,60 +244,72 @@ function ProductComparisonSidebar({
         </div>
         <ToggleField
           id="product-comparison-show-differences"
-          label="Show only differences"
+          label={toggleFieldLabel}
           checked={showOnlyDifferences}
-          onChange={() => setShowOnlyDifferences((prev) => !prev)}
+          onChange={() => setShowOnlyDifferences(!showOnlyDifferences)}
         />
       </div>
 
       <Suspense>
         <Dropdown>
-          <DropdownButton>{filterLabel}</DropdownButton>
-          <DropdownMenu
-            style={{
-              zIndex: 1000,
-            }}
-            className={overlayProps?.className}
-          >
-            <DropdownItem dismissOnClick={false}>
-              <label>{preferencesLabel}</label>
-            </DropdownItem>
+          <DropdownButton data-fs-product-comparison-dropdown-button>
+            {filterLabel}
+          </DropdownButton>
+          <DropdownMenu className={overlayProps?.className}>
+            <div data-fs-product-comparison-dropdown-menu-content>
+              <DropdownItem
+                data-fs-product-comparison-dropdown-item-filter-type
+                dismissOnClick={false}
+              >
+                <span data-fs-product-comparison-dropdown-filter-type-text>
+                  {preferencesLabel}
+                </span>
+              </DropdownItem>
 
-            <DropdownItem dismissOnClick={false}>
-              <ToggleField
-                id="product-comparison-show-differences"
-                label="Show only differences"
-                checked={showOnlyDifferences}
-                onChange={() => setShowOnlyDifferences((prev) => !prev)}
-              />
-            </DropdownItem>
-            <DropdownItem dismissOnClick={false}>
-              <label>{sortLabel}</label>
-            </DropdownItem>
-            <DropdownItem
-              dismissOnClick={false}
-              onClick={() => setSelectedFilter('productByName')}
-              data-fs-dropdown-filter-selected={
-                selectedFilter === 'productByName' ? true : undefined
-              }
-            >
-              {selectedFilter === 'productByName' && (
-                <Icon name="Checked" width={16} height={16} />
-              )}
-              <p>{productNameLabel}</p>
-            </DropdownItem>
-            <DropdownItem
-              dismissOnClick={false}
-              onClick={() => setSelectedFilter('productByPrice')}
-              data-fs-dropdown-filter-selected={
-                selectedFilter === 'productByPrice' ? true : undefined
-              }
-            >
-              {selectedFilter === 'productByPrice' && (
-                <Icon name="Checked" width={16} height={16} />
-              )}
-              <p>Price</p>
-            </DropdownItem>
+              <DropdownItem
+                data-fs-product-comparison-toggle-field-mobile
+                dismissOnClick={false}
+              >
+                <ToggleField
+                  id="product-comparison-show-differences"
+                  label={toggleFieldLabel}
+                  checked={showOnlyDifferences}
+                  onChange={() => setShowOnlyDifferences(!showOnlyDifferences)}
+                />
+              </DropdownItem>
+              <DropdownItem
+                data-fs-product-comparison-dropdown-item-filter-type
+                dismissOnClick={false}
+              >
+                <span data-fs-product-comparison-dropdown-filter-type-text>
+                  {sortLabel}
+                </span>
+              </DropdownItem>
+              <DropdownItem
+                dismissOnClick={false}
+                onClick={() => setSelectedFilter('productByName')}
+                data-fs-dropdown-filter-selected={
+                  selectedFilter === 'productByName' ? true : undefined
+                }
+              >
+                {selectedFilter === 'productByName' && (
+                  <Icon name="Checked" width={16} height={16} />
+                )}
+                <p>{productNameFilterLabel}</p>
+              </DropdownItem>
+              <DropdownItem
+                dismissOnClick={false}
+                onClick={() => setSelectedFilter('productByPrice')}
+                data-fs-dropdown-filter-selected={
+                  selectedFilter === 'productByPrice' ? true : undefined
+                }
+              >
+                {selectedFilter === 'productByPrice' && (
+                  <Icon name="Checked" width={16} height={16} />
+                )}
+                <p>{priceLabel}</p>
+              </DropdownItem>
+            </div>
           </DropdownMenu>
         </Dropdown>
       </Suspense>
@@ -327,59 +357,84 @@ function ProductComparisonSidebar({
         </TableHead>
 
         <TableBody>
-          <TableRow>
+          <TableRow data-fs-product-comparison-row-header>
             <TableCell>
-              <h2>{technicalInformation?.title}</h2>
-              <h3>{technicalInformation?.description}</h3>
+              <h2 data-fs-product-comparison-row-header-title>
+                {technicalInformation?.title}
+                <IconButton
+                  aria-label="Toggle thecnical information"
+                  size="small"
+                  icon={
+                    <Icon
+                      name={showTechnicalInfo ? 'CaretUp' : 'CaretDown'}
+                      onClick={toggleInfo}
+                    />
+                  }
+                />
+              </h2>
+              <h3 data-fs-product-comparison-row-description>
+                {technicalInformation?.description}
+              </h3>
             </TableCell>
           </TableRow>
 
-          <TableRow>
-            {productSorted.map((product) => (
-              <TableCell key={product.id}>
-                <h3>{priceWithTaxLabel}</h3>
-                <Price
-                  formatter={priceFormatter}
-                  value={product.offers.lowPriceWithTaxes}
-                  variant="selling"
-                />
-              </TableCell>
-            ))}
-          </TableRow>
+          {showTechnicalInfo && (
+            <>
+              <TableRow>
+                {productSorted.map((product) => (
+                  <TableCell key={product.id}>
+                    <span data-fs-product-comparison-row-label>
+                      {priceWithTaxLabel}
+                    </span>
+                    <Price
+                      data-fs-product-comparison-row-text
+                      formatter={priceFormatter}
+                      value={product.offers.lowPriceWithTaxes}
+                      variant="selling"
+                    />
+                  </TableCell>
+                ))}
+              </TableRow>
 
-          {showOnlyDifferences
-            ? diffSpecs?.map((spec) => (
-                <TableRow key={spec}>
-                  {productSorted.map((product) => (
-                    <TableCell key={product.id}>
-                      <h3>{spec}</h3>
-                      <p>
-                        {product.additionalProperty.find(
-                          (property) =>
-                            property.name === spec &&
-                            property.valueReference === SPECIFICATION
-                        )?.value || '-'}
-                      </p>
-                    </TableCell>
+              {showOnlyDifferences
+                ? diffSpecs?.map((spec) => (
+                    <TableRow key={spec}>
+                      {productSorted.map((product) => (
+                        <TableCell key={product.id}>
+                          <span data-fs-product-comparison-row-label>
+                            {spec}
+                          </span>
+                          <p data-fs-product-comparison-row-text>
+                            {product.additionalProperty.find(
+                              (property) =>
+                                property.name === spec &&
+                                property.valueReference === SPECIFICATION
+                            )?.value || '-'}
+                          </p>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                : allSpecs?.map((spec) => (
+                    <TableRow key={spec}>
+                      {productSorted.map((product) => (
+                        <TableCell key={product.id}>
+                          <span data-fs-product-comparison-row-label>
+                            {spec}
+                          </span>
+                          <p data-fs-product-comparison-row-text>
+                            {product.additionalProperty.find(
+                              (property) =>
+                                property.name === spec &&
+                                property.valueReference === SPECIFICATION
+                            )?.value || '-'}
+                          </p>
+                        </TableCell>
+                      ))}
+                    </TableRow>
                   ))}
-                </TableRow>
-              ))
-            : allSpecs?.map((spec) => (
-                <TableRow key={spec}>
-                  {productSorted.map((product) => (
-                    <TableCell key={product.id}>
-                      <h3>{spec}</h3>
-                      <p>
-                        {product.additionalProperty.find(
-                          (property) =>
-                            property.name === spec &&
-                            property.valueReference === SPECIFICATION
-                        )?.value || '-'}
-                      </p>
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
+            </>
+          )}
         </TableBody>
       </Table>
     </SlideOver>

@@ -338,6 +338,20 @@ export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
 export {
+  default as ProductComparison,
+  ProductComparisonTrigger,
+  ProductComparisonToolbar,
+  ProductComparisonSidebar,
+} from './organisms/ProductComparison'
+export type {
+  IProductComparison,
+  ProductComparisonProps,
+  ProductComparisonTriggerProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonSidebarProps,
+} from './organisms/ProductComparison'
+
+export {
   default as ProductGrid,
   ProductGridItem,
 } from './organisms/ProductGrid'
@@ -382,17 +396,3 @@ export type {
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
-
-export {
-  default as ProductComparison,
-  ProductComparisonTrigger,
-  ProductComparisonToolbar,
-  ProductComparisonSidebar,
-} from './organisms/ProductComparison'
-export type {
-  IProductComparison,
-  ProductComparisonProps,
-  ProductComparisonTriggerProps,
-  ProductComparisonToolbarProps,
-  ProductComparisonSidebarProps,
-} from './organisms/ProductComparison'
