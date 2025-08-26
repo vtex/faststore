@@ -53,8 +53,8 @@ export interface IProductComparison {
 
 export interface ProductComparisonProviderContextValue {
   /*
-    A boolean value that indicates if the modal is open.
-  */
+   * A boolean value that indicates if the modal is open.
+   */
   isOpen: boolean
   /*
     Function to set the modal is open.
