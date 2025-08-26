@@ -67,11 +67,11 @@ export interface ProductGalleryProps {
   }
   productComparison?: {
     enabled?: boolean
-    labels: {
+    labels?: {
       compareButton: string
       clearSelectionButton: string
       selectionWarning: string
-      sidebarComponent: {
+      sidebarComponent?: {
         title: string
         sortLabel: string
         filterLabel: string
@@ -82,7 +82,7 @@ export interface ProductGalleryProps {
         priceLabel: string
         priceWithTaxLabel: string
       }
-      technicalInformation: {
+      technicalInformation?: {
         title: string
         description: string
       }
@@ -209,10 +209,7 @@ function ProductGallery({
                 id="toggle-field-comparison"
                 label={productComparison?.labels?.compareButton}
                 checked={showComparisonProducts}
-                onChange={() => {
-                  setShowComparisonProducts((prev) => !prev)
-                  console.log('Comparison is enabled', showComparisonProducts)
-                }}
+                onChange={() => setShowComparisonProducts((prev) => !prev)}
                 {...ToggleField.props}
               />
             )}

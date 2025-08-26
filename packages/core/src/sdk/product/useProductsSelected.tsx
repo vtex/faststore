@@ -12,12 +12,10 @@ const query = gql(`
   query ClientManyProductsSelectedQuery(
     $productIds: [String!]!
   ) {
-    products(
-      productIds: $productIds
-    ) {
-        ...ProductComparisonFragment_product
-      }
+    products(productIds: $productIds) {
+      ...ProductComparisonFragment_product
     }
+  }
 `)
 
 export const useProductsSelected = (

@@ -132,7 +132,7 @@ function ProductCard({
     : {}
 
   return (
-    <div>
+    <>
       {enableCompareCheckboxOnDisplay && (
         <UIProductComparisonTrigger
           label={compareLabel}
@@ -177,7 +177,7 @@ function ProductCard({
           sponsoredLabel={sponsoredLabel}
         />
       </UIProductCard>
-    </div>
+    </>
   )
 }
 

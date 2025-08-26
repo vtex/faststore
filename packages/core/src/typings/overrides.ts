@@ -29,6 +29,10 @@ import type {
   NewsletterFormProps,
   NewsletterHeaderProps,
   NewsletterProps,
+  ProductComparisonProps,
+  ProductComparisonSidebarProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonTriggerProps,
   ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
@@ -38,10 +42,6 @@ import type {
   SkeletonProps,
   SkuSelectorProps,
   ToggleFieldProps,
-  ProductComparisonProps,
-  ProductComparisonSidebarProps,
-  ProductComparisonToolbarProps,
-  ProductComparisonTriggerProps,
   SKUMatrixProps,
   SKUMatrixSidebarProps,
   SKUMatrixTriggerProps,
@@ -327,10 +327,6 @@ export type SectionsOverrides = {
         LinkButtonProps,
         Omit<LinkButtonProps, 'onClick' | 'href'>
       >
-      ToggleField: ComponentOverrideDefinition<
-        ToggleFieldProps,
-        ToggleFieldProps
-      >
       ProductComparison: ComponentOverrideDefinition<
         ProductComparisonProps,
         ProductComparisonProps
@@ -346,6 +342,10 @@ export type SectionsOverrides = {
       ProductComparisonTrigger: ComponentOverrideDefinition<
         ProductComparisonTriggerProps,
         ProductComparisonTriggerProps
+      >
+      ToggleField: ComponentOverrideDefinition<
+        ToggleFieldProps,
+        ToggleFieldProps
       >
       __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
       __experimentalFilterSlider: ComponentOverrideDefinition<any, any>

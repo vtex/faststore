@@ -29,10 +29,7 @@ const sortOptions = [
 
 export type SortOptions = (typeof sortOptions)[number]
 
-interface ProductComparisonSidebarProps
-  extends UIProductComparisonSidebarProps {}
-
-function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
+function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
   const { productIds, products, isOpen, handleProductsComparison } =
     useProductComparison()
   const [productIdToBuy, setProductIdToBuy] = React.useState<string | null>(
