@@ -156,7 +156,7 @@ function ProductComparisonSidebar({
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
   const { isOpen, setIsOpen, products } = useProductComparison()
-  const [showThecnicalInfo, setShowThecnicalInfo] = useState<boolean>(true)
+  const [showTechnicalInfo, setShowTechnicalInfo] = useState<boolean>(true)
 
   const [selectedFilter, setSelectedFilter] =
     useState<SortOptions['value']>('productByName')
@@ -208,7 +208,7 @@ function ProductComparisonSidebar({
   )
 
   function toggleInfo() {
-    setShowThecnicalInfo((curr) => !curr)
+    setShowTechnicalInfo(!showTechnicalInfo)
   }
 
   return (
@@ -246,7 +246,7 @@ function ProductComparisonSidebar({
           id="product-comparison-show-differences"
           label={toggleFieldLabel}
           checked={showOnlyDifferences}
-          onChange={() => setShowOnlyDifferences((prev) => !prev)}
+          onChange={() => setShowOnlyDifferences(!showOnlyDifferences)}
         />
       </div>
 
@@ -255,12 +255,7 @@ function ProductComparisonSidebar({
           <DropdownButton data-fs-product-comparison-dropdown-button>
             {filterLabel}
           </DropdownButton>
-          <DropdownMenu
-            style={{
-              zIndex: 1000,
-            }}
-            className={overlayProps?.className}
-          >
+          <DropdownMenu className={overlayProps?.className}>
             <div data-fs-product-comparison-dropdown-menu-content>
               <DropdownItem
                 data-fs-product-comparison-dropdown-item-filter-type
@@ -279,7 +274,7 @@ function ProductComparisonSidebar({
                   id="product-comparison-show-differences"
                   label={toggleFieldLabel}
                   checked={showOnlyDifferences}
-                  onChange={() => setShowOnlyDifferences((prev) => !prev)}
+                  onChange={() => setShowOnlyDifferences(!showOnlyDifferences)}
                 />
               </DropdownItem>
               <DropdownItem
@@ -371,7 +366,7 @@ function ProductComparisonSidebar({
                   size="small"
                   icon={
                     <Icon
-                      name={showThecnicalInfo ? 'CaretUp' : 'CaretDown'}
+                      name={showTechnicalInfo ? 'CaretUp' : 'CaretDown'}
                       onClick={toggleInfo}
                     />
                   }
@@ -383,7 +378,7 @@ function ProductComparisonSidebar({
             </TableCell>
           </TableRow>
 
-          {showThecnicalInfo && (
+          {showTechnicalInfo && (
             <>
               <TableRow>
                 {productSorted.map((product) => (

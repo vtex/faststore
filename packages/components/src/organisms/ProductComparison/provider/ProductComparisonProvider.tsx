@@ -57,7 +57,7 @@ export interface ProductComparisonProviderContextValue {
   */
   isOpen: boolean
   /*
-    function to set the modal is open
+    Function to set the modal is open.
   */
   setIsOpen: (isOpen: boolean) => void
   /*
