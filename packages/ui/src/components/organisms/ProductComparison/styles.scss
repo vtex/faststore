@@ -5,6 +5,8 @@
 }
 
 [data-fs-product-comparison-dropdown-menu-content] {
+  z-index: var(--fs-z-index-highest);
+
   [data-fs-dropdown-item] {
     position: relative;
     gap: var(--fs-spacing-2);
