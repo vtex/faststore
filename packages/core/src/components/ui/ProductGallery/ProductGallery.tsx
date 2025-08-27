@@ -209,7 +209,9 @@ function ProductGallery({
                 id="toggle-field-comparison"
                 label={productComparison?.labels?.compareButton}
                 checked={showComparisonProducts}
-                onChange={() => setShowComparisonProducts((prev) => !prev)}
+                onChange={() =>
+                  setShowComparisonProducts(!showComparisonProducts)
+                }
                 {...ToggleField.props}
               />
             )}

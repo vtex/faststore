@@ -2032,7 +2032,7 @@
                 "selectionWarning": {
                   "title": "Selection Warning",
                   "type": "string",
-                  "default": "Select at least"
+                  "default": "Select at least 2"
                 },
                 "sidebarComponent": {
                   "title": "Sidebar component",
