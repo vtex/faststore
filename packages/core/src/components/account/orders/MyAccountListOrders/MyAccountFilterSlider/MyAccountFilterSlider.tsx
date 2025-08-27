@@ -14,6 +14,7 @@ import type {
 } from 'src/sdk/search/useMyAccountFilter'
 import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
 import FilterFacetPlacedBy from './MyAccountFilterFacetPlacedBy'
+import FilterFacetPendingApproval from './MyAccountFilterFacetPendingApproval'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -94,6 +95,10 @@ function MyAccountFilterSlider({
 
         if (key === 'purchaseAgentId') {
           acc['purchaseAgentId'] = value
+        }
+
+        if (key === 'pendingApproval') {
+          acc['pendingApproval'] = value
         }
 
         return acc
@@ -198,6 +203,12 @@ function MyAccountFilterSlider({
                     />
                   ))}
                 </UIFilterFacetBoolean>
+              )}
+              {type === 'StoreFacetPendingApproval' && isExpanded && (
+                <FilterFacetPendingApproval
+                  selected={selected}
+                  dispatch={dispatch}
+                />
               )}
               {type === 'StoreFacetPlacedBy' && isExpanded && (
                 <FilterFacetPlacedBy selected={selected} dispatch={dispatch} />

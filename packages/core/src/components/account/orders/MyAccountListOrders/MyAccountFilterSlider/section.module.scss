@@ -8,6 +8,7 @@
   @import "@faststore/ui/src/components/atoms/Link/styles.scss";
   @import "@faststore/ui/src/components/atoms/List/styles.scss";
   @import "@faststore/ui/src/components/atoms/Slider/styles.scss";
+  @import "@faststore/ui/src/components/molecules/Toggle/styles.scss";
   @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
   @import "@faststore/ui/src/components/molecules/Accordion/styles.scss";
   @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
@@ -18,6 +19,7 @@
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
   @import "./MyAccountFilterFacetDateRange/styles.scss";
   @import "./MyAccountFilterFacetPlacedBy/styles.scss";
+  @import "./MyAccountFilterFacetPendingApproval/styles.scss";
 
   [data-fs-badge] {
     display: none;

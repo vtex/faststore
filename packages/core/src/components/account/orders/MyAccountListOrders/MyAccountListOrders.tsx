@@ -40,6 +40,7 @@ export type MyAccountListOrdersProps = {
     text: string
     clientEmail: string
     purchaseAgentId?: string
+    pendingApproval?: string
   }
 }
 
@@ -79,6 +80,11 @@ function getSelectedFacets({
         key: 'purchaseAgentId',
         value: String(value),
       })
+    } else if (filter === 'pendingApproval' && value) {
+      acc.push({
+        key: 'pendingApproval',
+        value: String(value),
+      })
     }
 
     return acc
@@ -91,6 +97,11 @@ function getAllFacets({
   filters: MyAccountListOrdersProps['filters']
 }): MyAccountFilter_FacetsFragment[] {
   return [
+    {
+      __typename: 'StoreFacetPendingApproval',
+      key: 'pendingApproval',
+      label: 'Pending Approval',
+    } as any,
     {
       __typename: 'StoreFacetBoolean',
       key: 'status',
@@ -124,7 +135,8 @@ function hasActiveFilters(
     filters.status.length > 0 ||
     Boolean(filters.dateInitial) ||
     Boolean(filters.dateFinal) ||
-    Boolean(filters.text)
+    Boolean(filters.text) ||
+    Boolean(filters.pendingApproval)
   )
 }
 
@@ -240,12 +252,7 @@ export default function MyAccountListOrders({
         </div>
 
         <SelectedFiltersTags
-          filters={{
-            status: filters.status,
-            dateInitial: filters.dateInitial,
-            dateFinal: filters.dateFinal,
-            purchaseAgentId: filters.purchaseAgentId,
-          }}
+          filters={filters}
           onClearAll={() => {
             window.location.href = '/account/orders'
           }}
