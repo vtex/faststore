@@ -161,9 +161,9 @@
   --fs-product-comparison-padding:                               var(--fs-spacing-8);
 
   // Partial
-  --fs-product-comparison-slide-over-partial-gap: calc(2 * var(--fs-grid-padding));
-  --fs-product-comparison-slide-over-partial-width-mobile: calc(100vw - var(--fs-slide-over-partial-gap));
-  --fs-product-comparison-slide-over-partial-width-notebook: calc(100% / 3);
+  --fs-product-comparison-slide-over-partial-gap:                calc(2 * var(--fs-grid-padding));
+  --fs-product-comparison-slide-over-partial-width-mobile:       calc(100vw - var(--fs-slide-over-partial-gap));
+  --fs-product-comparison-slide-over-partial-width-notebook:     calc(100% / 3);
   --fs-product-comparison-slide-over-partial-max-width-notebook: calc(var(--fs-grid-breakpoint-notebook) / 3);
 
   // --------------------------------------------------------
