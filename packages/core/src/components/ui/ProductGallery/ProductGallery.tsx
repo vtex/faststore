@@ -88,7 +88,6 @@ export interface ProductGalleryProps {
       }
     }
   }
-  shouldShowComparison?: boolean
   itemsPerPage?: number
   loadMorePageButton?: {
     label?: string
