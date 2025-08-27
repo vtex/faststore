@@ -10,8 +10,11 @@ import { useRef, useState } from 'react'
 
 import useRegion from '../RegionModal/useRegion'
 
+import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { sessionStore, useSession } from 'src/sdk/session'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import { textToTitleCase } from 'src/utils/utilities'
+
 import styles from './section.module.scss'
 
 interface RegionPopoverProps {
@@ -41,31 +44,42 @@ interface RegionPopoverProps {
   placement?: UIPopoverProps['placement']
 }
 
-function RegionPopover({
-  title = 'Set your location',
-  closeButtonAriaLabel,
-  inputField: {
-    label: inputFieldLabel,
-    errorMessage: inputFieldErrorMessage,
-    noProductsAvailableErrorMessage: inputFieldNoProductsAvailableErrorMessage,
-    buttonActionText: inputButtonActionText,
-  },
-  idkPostalCodeLink: {
-    text: idkPostalCodeLinkText,
-    to: idkPostalCodeLinkTo,
-    icon: { icon: idkPostalCodeLinkIcon, alt: idkPostalCodeLinkIconAlt },
-  },
-  textBeforeLocation = 'Your current location is:',
-  textAfterLocation = 'Use the field below to change it.',
-  description = 'Offers and availability vary by location.',
-  triggerRef,
-  offsetTop = 6,
-  offsetLeft,
-  placement = 'bottom-start',
-}: RegionPopoverProps) {
+function RegionPopover(regionPopoverProps: RegionPopoverProps) {
+  const {
+    title = 'Set your location',
+    closeButtonAriaLabel,
+    textBeforeLocation = 'Your current location is:',
+    textAfterLocation = 'Use the field below to change it.',
+    description = 'Offers and availability vary by location.',
+    triggerRef,
+    offsetTop = 6,
+    offsetLeft,
+    placement = 'bottom-start',
+    ...otherRegionPopoverProps
+  } = regionPopoverProps
+  const cmsData = getGlobalSettings(otherRegionPopoverProps)
+  const {
+    inputField: {
+      label: inputFieldLabel = '',
+      errorMessage: inputFieldErrorMessage = '',
+      noProductsAvailableErrorMessage:
+        inputFieldNoProductsAvailableErrorMessage = '',
+      buttonActionText: inputButtonActionText = '',
+    } = {},
+    idkPostalCodeLink: {
+      text: idkPostalCodeLinkText = '',
+      to: idkPostalCodeLinkTo = '',
+      icon: {
+        icon: idkPostalCodeLinkIcon = '',
+        alt: idkPostalCodeLinkIconAlt = '',
+      } = {},
+    } = {},
+  } = cmsData?.regionalization ?? {}
+
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const { popover: displayPopover, closePopover } = useUI()
+  const { onPostalCodeChange } = useDeliveryPromise()
   const { city, postalCode } = sessionStore.read()
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
 
@@ -81,6 +95,7 @@ function RegionPopover({
     await setRegion({
       session,
       onSuccess: () => {
+        onPostalCodeChange()
         setInput('')
         closePopover()
       },
@@ -170,5 +185,7 @@ function RegionPopover({
     </>
   )
 }
+
+RegionPopover.$componentKey = 'RegionPopover'
 
 export default RegionPopover

@@ -7,16 +7,29 @@ type MyAccountSelectedTagsProps = {
     status?: string[]
     dateInitial?: string
     dateFinal?: string
+    purchaseAgentId?: string
   }
   onClearAll: () => void
   onRemoveFilter: (
-    key: 'status' | 'dateInitial' | 'dateFinal',
+    key: 'status' | 'dateInitial' | 'dateFinal' | 'purchaseAgentId',
     value: string
   ) => void
 }
 
-function formatShippingDate(date: string, locale: string) {
-  return new Date(date).toLocaleDateString(locale, {
+/**
+ * This function formats the shipping date to a localized string. To avoid timezone issues, it parses the date string manually.
+ * @param date - Example date input: "2023-10-01" (YYYY-MM-DD)
+ * @param locale - The locale to format the date string, e.g., 'en-US', 'pt-BR'.
+ * @returns Formatted date string in the format "MM/DD/YYYY" or "DD/MM/YYYY" depending on the locale.
+ */
+function formatFilterDate(date: string, locale: string) {
+  // Parse the date string manually to avoid timezone issues
+  const [year, month, day] = date.split('-').map(Number)
+
+  // Create date object using local timezone (not UTC)
+  const dateObj = new Date(year, month - 1, day)
+
+  return dateObj.toLocaleDateString(locale, {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
@@ -28,12 +41,12 @@ function Tags({
   onRemoveFilter,
 }: Pick<MyAccountSelectedTagsProps, 'filters' | 'onRemoveFilter'>) {
   const { locale } = useSession()
-  const { dateInitial, dateFinal, status } = filters
+  const { dateInitial, dateFinal, status, purchaseAgentId } = filters
   const formattedDateInitial = dateInitial
-    ? formatShippingDate(dateInitial, locale)
+    ? formatFilterDate(dateInitial, locale)
     : ''
   const formattedDateFinal = dateFinal
-    ? formatShippingDate(dateFinal, locale)
+    ? formatFilterDate(dateFinal, locale)
     : ''
 
   const dateTag = (dateInitial || dateFinal) && (
@@ -73,8 +86,21 @@ function Tags({
     </div>
   ))
 
+  const placedByTag = purchaseAgentId && (
+    <div key={`placed-by-${purchaseAgentId}`} data-fs-list-orders-selected-tag>
+      <span>Placed by: {purchaseAgentId}</span>
+      <button
+        data-fs-list-orders-selected-tag-clear
+        onClick={() => onRemoveFilter('purchaseAgentId', purchaseAgentId)}
+      >
+        &times;
+      </button>
+    </div>
+  )
+
   return (
     <>
+      {placedByTag}
       {dateTag}
       {statusTags}
     </>
@@ -88,7 +114,10 @@ function MyAccountSelectedTags({
 }: MyAccountSelectedTagsProps) {
   const hasFilters = Object.entries(filters).some(
     ([key, values]) =>
-      (key === 'status' || key === 'dateInitial' || key === 'dateFinal') &&
+      (key === 'status' ||
+        key === 'dateInitial' ||
+        key === 'dateFinal' ||
+        key === 'purchaseAgentId') &&
       values &&
       (Array.isArray(values) ? values.length > 0 : true)
   )

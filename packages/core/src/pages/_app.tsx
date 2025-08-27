@@ -1,21 +1,26 @@
-import { UIProvider } from '@faststore/ui'
+import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+
+import { useSearch } from '@faststore/sdk'
+import { UIProvider } from '@faststore/ui'
+
+import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
+import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
-import SEO from '../../next-seo.config'
+
+import SEO from 'next-seo.config'
 
 // FastStore UI's base styles
 import '../styles/main.scss'
 
-import { DefaultSeo } from 'next-seo'
-import { useRouter } from 'next/router'
-import { useSearch } from '@faststore/sdk'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
 function App({ Component, pageProps }: AppProps) {
-  const { key } = pageProps
   useGeolocation()
   const router = useRouter()
   const { start: startGlobalSearchState } = useSearch()
@@ -25,14 +30,17 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary>
+      <Head> {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</Head>
       <DefaultSeo {...SEO} />
 
       <AnalyticsHandler />
 
       <UIProvider>
-        <Layout>
-          <Component {...pageProps} key={key} />
-        </Layout>
+        <DeliveryPromiseProvider>
+          <Layout>
+            <Component {...pageProps} key={pageProps?.key} />
+          </Layout>
+        </DeliveryPromiseProvider>
       </UIProvider>
     </ErrorBoundary>
   )

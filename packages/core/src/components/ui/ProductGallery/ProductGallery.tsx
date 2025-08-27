@@ -1,22 +1,20 @@
-import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
-import type { MouseEvent } from 'react'
-import { Suspense, lazy, useState } from 'react'
-
-import { useUI } from '@faststore/ui'
-import Sort from 'src/components/search/Sort'
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-
 import dynamic from 'next/dynamic'
+import { Suspense, lazy, useState, type MouseEvent } from 'react'
+
+import { useSearch } from '@faststore/sdk'
+import { useUI } from '@faststore/ui'
 
 import type { ProductCardProps } from 'src/components/product/ProductCard'
 import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
+import Sort from 'src/components/search/Sort'
 import type { SortProps } from 'src/components/search/Sort/Sort'
+import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import {
+  usePage,
   type PLPContext,
   type SearchPageContext,
-  usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
 import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
@@ -138,6 +136,7 @@ function ProductGallery({
 
   const [showComparisonProducts, setShowComparisonProducts] =
     useState<boolean>(false)
+
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 
@@ -145,7 +144,9 @@ function ProductGallery({
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)
-  const filter = useFilter(facets)
+  const initialSelectedFacets =
+    (data as PLPContext['data'])?.collection?.meta?.selectedFacets ?? []
+  const filter = useFilter(facets, initialSelectedFacets)
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>

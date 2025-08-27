@@ -1,0 +1,399 @@
+"""
+Commercial Authorization response.
+"""
+type CommercialAuthorizationResponse {
+  """
+  Commercial Authorization ID.
+  """
+  id: String!
+  """
+  Order ID associated with the commercial authorization.
+  """
+  orderId: String!
+  """
+  Workflow instance ID.
+  """
+  workflowInstanceId: String!
+  """
+  Current status of the commercial authorization.
+  """
+  status: CommercialAuthorizationStatus!
+  """
+  List of units.
+  """
+  units: [String!]!
+  """
+  Callback endpoint URL.
+  """
+  callbackEndpoint: String!
+  """
+  Total order value desired by the seller.
+  """
+  totalOrderValueDesiredBySeller: Float!
+  """
+  Marketplace payment value.
+  """
+  marketPlacePaymentValue: Float!
+  """
+  Collection of items in the commercial authorization.
+  """
+  itemCollection: [CommercialAuthorizationItem!]!
+  """
+  Additional information as key-value pairs.
+  """
+  additionalInfo: JSONObject!
+  """
+  Dimension status information.
+  """
+  dimensionStatus: [CommercialAuthorizationDimensionStatus!]!
+  """
+  Creation version.
+  """
+  creationVersion: String!
+  """
+  Creation environment.
+  """
+  creationEnvironment: String!
+  """
+  User profile ID.
+  """
+  userProfileId: String!
+}
+
+"""
+Commercial Authorization status.
+"""
+enum CommercialAuthorizationStatus {
+  """
+  Authorization is pending.
+  """
+  pending
+  """
+  Authorization has been accepted.
+  """
+  accepted
+  """
+  Authorization has been denied.
+  """
+  denied
+}
+
+"""
+Commercial Authorization item.
+"""
+type CommercialAuthorizationItem {
+  """
+  Item ID.
+  """
+  id: String!
+  """
+  Item SKU.
+  """
+  sku: String!
+  """
+  Item price.
+  """
+  price: Float!
+  """
+  Total system discount applied.
+  """
+  totalSystemDiscount: Float!
+  """
+  Total manual discount applied.
+  """
+  totalManualDiscount: Float!
+  """
+  Item quantity.
+  """
+  quantity: Int!
+  """
+  Additional information as key-value pairs.
+  """
+  additionalInfo: JSONObject!
+}
+
+"""
+Commercial Authorization dimension status.
+"""
+type CommercialAuthorizationDimensionStatus {
+  """
+  Dimension status ID.
+  """
+  id: String!
+  """
+  Dimension status name.
+  """
+  name: String!
+  """
+  Unit ID, if applicable.
+  """
+  unitId: String
+  """
+  Current status of the dimension.
+  """
+  status: CommercialAuthorizationStatus!
+  """
+  Dimension score.
+  """
+  score: Float!
+  """
+  Priority level.
+  """
+  priority: Int!
+  """
+  Indicates if simulation should be performed.
+  """
+  shouldSimulate: Boolean!
+  """
+  Collection of rules for this dimension.
+  """
+  ruleCollection: [CommercialAuthorizationRule!]!
+  """
+  Creation date.
+  """
+  creationDate: String!
+  """
+  Creation version.
+  """
+  creationVersion: String!
+  """
+  Creation environment.
+  """
+  creationEnvironment: String!
+  """
+  Indicates if all rules acceptance is required.
+  """
+  requireAllRulesAcceptance: Boolean!
+}
+
+"""
+Commercial Authorization rule.
+"""
+type CommercialAuthorizationRule {
+  """
+  Rule ID.
+  """
+  id: String!
+  """
+  Rule name.
+  """
+  name: String!
+  """
+  Current status of the rule.
+  """
+  status: CommercialAuthorizationStatus!
+  """
+  DO ID, if applicable.
+  """
+  doId: String
+  """
+  List of authorized email addresses.
+  """
+  authorizedEmails: [String!]!
+  """
+  Rule priority.
+  """
+  priority: Int!
+  """
+  Rule trigger configuration.
+  """
+  trigger: CommercialAuthorizationRuleTrigger!
+  """
+  Timeout value.
+  """
+  timeout: Int!
+  """
+  Indicates if notification is enabled.
+  """
+  notification: Boolean!
+  """
+  Score interval configuration.
+  """
+  scoreInterval: CommercialAuthorizationRuleScoreInterval!
+  """
+  Authorization data, if available.
+  """
+  authorizationData: CommercialAuthorizationRuleAuthorizationData
+  """
+  Indicates that the user is listed as one of the possible approvers,
+  but does not necessarily mean that he or she is the next in the chain to approve.
+  """
+  isUserAuthorized: Boolean!
+  """
+  Indicates that the user is next in the approval chain.
+  This means that they must take an approval or rejection action.
+  """
+  isUserNextAuthorizer: Boolean!
+}
+
+"""
+Commercial Authorization rule trigger.
+"""
+type CommercialAuthorizationRuleTrigger {
+  """
+  Trigger condition.
+  """
+  condition: CommercialAuthorizationRuleTriggerCondition!
+  """
+  Trigger effect.
+  """
+  effect: CommercialAuthorizationRuleTriggerEffect!
+}
+
+"""
+Commercial Authorization rule trigger condition.
+"""
+type CommercialAuthorizationRuleTriggerCondition {
+  """
+  Condition type.
+  """
+  conditionType: Int!
+  """
+  Condition description.
+  """
+  description: String
+  """
+  Less than value.
+  """
+  lessThan: Float
+  """
+  Greater than value.
+  """
+  greatherThan: Float
+  """
+  Condition expression.
+  """
+  expression: String
+}
+
+"""
+Commercial Authorization rule trigger effect.
+"""
+type CommercialAuthorizationRuleTriggerEffect {
+  """
+  Effect description.
+  """
+  description: String
+  """
+  Effect type.
+  """
+  effectType: Int!
+  """
+  Function path.
+  """
+  funcPath: String
+}
+
+"""
+Commercial Authorization rule score interval.
+"""
+type CommercialAuthorizationRuleScoreInterval {
+  """
+  Accept score threshold.
+  """
+  accept: Float!
+  """
+  Deny score threshold.
+  """
+  deny: Float!
+}
+
+"""
+Commercial Authorization rule authorization data.
+"""
+type CommercialAuthorizationRuleAuthorizationData {
+  """
+  Indicates if all approvals are required.
+  """
+  requireAllApprovals: Boolean!
+  """
+  List of authorizers.
+  """
+  authorizers: [CommercialAuthorizationRuleAuthorizer!]!
+}
+
+"""
+Commercial Authorization rule authorizer.
+"""
+type CommercialAuthorizationRuleAuthorizer {
+  """
+  Authorizer ID.
+  """
+  id: String!
+  """
+  Authorizer email.
+  """
+  email: String
+  """
+  Authorizer type.
+  """
+  type: String!
+  """
+  Authorization date.
+  """
+  authorizationDate: String
+}
+
+"""
+Input to get commercial authorizations by order ID.
+"""
+input ICommercialAuthorizationByOrderId {
+  """
+  Order ID to get commercial authorizations for.
+  """
+  orderId: String!
+}
+
+"""
+Input to process order authorization (approve or reject).
+"""
+input IProcessOrderAuthorization {
+  """
+  Order authorization ID.
+  """
+  orderAuthorizationId: String!
+  """
+  Rule ID associated with the authorization.
+  """
+  ruleId: String!
+  """
+  Dimension ID associated with the authorization.
+  """
+  dimensionId: String!
+  """
+  Whether the authorization is approved (true) or rejected (false).
+  """
+  approved: Boolean!
+}
+
+"""
+Process Order Authorization response.
+"""
+type ProcessOrderAuthorizationResponse {
+  """
+  Indicates if authorization is pending for other authorizers.
+  """
+  isPendingForOtherAuthorizer: Boolean!
+  """
+  The updated rule for authorization, if any.
+  """
+  ruleForAuthorization: ProcessOrderAuthorizationRule
+}
+
+"""
+Extended Commercial Authorization rule with additional process context.
+"""
+type ProcessOrderAuthorizationRule {
+  """
+  Order authorization ID.
+  """
+  orderAuthorizationId: String!
+  """
+  Dimension ID.
+  """
+  dimensionId: String!
+  """
+  Base rule information.
+  """
+  rule: CommercialAuthorizationRule!
+}

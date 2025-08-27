@@ -1,15 +1,16 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
 
 import { useSession } from 'src/sdk/session'
+import storeConfig from '../../../../../discovery.config'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import styles from './section.module.scss'
-import storeConfig from '../../../../../discovery.config'
 
 type OrganizationDrawerProps = {
   isOpen: boolean
   closeDrawer: () => void
+  isRepresentative: boolean
 }
 
 export const doLogout = () => {
@@ -22,11 +23,12 @@ export const doLogout = () => {
 export const OrganizationDrawer = ({
   isOpen,
   closeDrawer,
+  isRepresentative,
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b } = useSession()
+  const { b2b, person } = useSession()
 
-  const contractName = b2b?.firstName ?? ''
+  const contractName = person?.givenName ?? ''
 
   return (
     <SlideOver
@@ -46,7 +48,7 @@ export const OrganizationDrawer = ({
         contractName={contractName}
         contractUrl="/buyer-portal"
       />
-      <OrganizationDrawerBody />
+      <OrganizationDrawerBody isRepresentative={isRepresentative} />
       <footer data-fs-organization-drawer-footer-wrapper>
         <ProfileSummary
           showManageLink

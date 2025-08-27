@@ -3,7 +3,244 @@
     "id": "globalSections",
     "name": "Global Sections",
     "scopes": ["global"],
-    "configurationSchemaSets": [],
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "regionalization",
+            "schema": {
+              "title": "Regionalization",
+              "description": "Regionalization options",
+              "type": "object",
+              "properties": {
+                "inputField": {
+                  "title": "Postal Code Input Field",
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Postal Code"
+                    },
+                    "errorMessage": {
+                      "title": "Error message",
+                      "type": "string",
+                      "default": "You entered an invalid Postal Code"
+                    },
+                    "noProductsAvailableErrorMessage": {
+                      "title": "Error message for the scenario of no products available for a given location",
+                      "type": "string",
+                      "default": "There are no products available for %s.",
+                      "description": "The '%s' will be replaced by the postal code value."
+                    },
+                    "buttonActionText": {
+                      "title": "Action label to apply the postal code",
+                      "type": "string",
+                      "default": "Apply"
+                    },
+                    "errorMessageHelper": {
+                      "title": "Error message helper",
+                      "type": "string",
+                      "default": "Try using a different postal code.",
+                      "description": "This message will guide user in case of an error."
+                    }
+                  }
+                },
+                "idkPostalCodeLink": {
+                  "title": "I don't know my postal code link",
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "title": "Link Text",
+                      "default": "I don't know my Postal Code"
+                    },
+                    "to": {
+                      "type": "string",
+                      "title": "Action link"
+                    },
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["Arrow Square Out"],
+                          "enum": ["ArrowSquareOut"],
+                          "default": "ArrowSquareOut"
+                        },
+                        "alt": {
+                          "title": "Alternative Label",
+                          "type": "string",
+                          "default": "Arrow Square Out icon"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "deliveryPromise",
+            "schema": {
+              "title": "Delivery Promise",
+              "description": "Delivery Promise configurations",
+              "type": "object",
+              "properties": {
+                "deliveryMethods": {
+                  "title": "PLP/Search Filter: Delivery Methods",
+                  "type": "object",
+                  "required": ["title", "description"],
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Delivery Methods"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "type": "string",
+                      "default": "Offers and availability vary by location."
+                    },
+                    "setLocationButtonLabel": {
+                      "title": "Call to Action label",
+                      "type": "string",
+                      "default": "Set Location"
+                    },
+                    "allDeliveryMethods": {
+                      "title": "All delivery methods label",
+                      "type": "string",
+                      "default": "All delivery methods"
+                    },
+                    "delivery": {
+                      "title": "Shipping label",
+                      "type": "string",
+                      "default": "Shipping to"
+                    },
+                    "pickupInPoint": {
+                      "title": "Pickup in point label",
+                      "type": "string",
+                      "default": "Pickup at"
+                    },
+                    "pickupNearby": {
+                      "title": "Pickup Nearby label",
+                      "type": "string",
+                      "default": "Pickup Nearby"
+                    },
+                    "pickupAll": {
+                      "title": "Pickup All",
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "title": "Display pickup all filter",
+                          "description": "Display the pickup all filter in the PLP/Search page. This is recommended only for B2B stores.",
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "label": {
+                          "title": "Label",
+                          "type": "string",
+                          "default": "Pickup Anywhere"
+                        }
+                      }
+                    }
+                  }
+                },
+                "regionSlider": {
+                  "title": "RegionSlider SlideOver",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "RegionSlider title",
+                      "type": "object",
+                      "properties": {
+                        "setLocation": {
+                          "title": "Set Location title",
+                          "type": "string",
+                          "default": "Set Location"
+                        },
+                        "changeLocation": {
+                          "title": "Change Postal Code title",
+                          "type": "string",
+                          "default": "Change Location"
+                        },
+                        "changePickupPoint": {
+                          "title": "Change Pickup Point location title",
+                          "type": "string",
+                          "default": "Change Store"
+                        },
+                        "globalChangePickupPoint": {
+                          "title": "Change Global Pickup Point location title",
+                          "type": "string",
+                          "default": "Change Store"
+                        }
+                      }
+                    },
+                    "pickupPointChangeApplyButtonLabel": {
+                      "title": "Change Pickup Point apply button label",
+                      "type": "string",
+                      "default": "Update"
+                    },
+                    "pickupPointClearFilterButtonLabel": {
+                      "title": "Clear Pickup Point filter button label",
+                      "type": "string",
+                      "default": "Clear filter"
+                    },
+                    "choosePickupPointAriaLabel": {
+                      "title": "Choose Pickup Point aria-label (radio group)",
+                      "type": "string",
+                      "default": "Choose a store"
+                    },
+                    "noPickupPointsAvailableInLocation": {
+                      "title": "No Pickup Point available near location message",
+                      "type": "string",
+                      "default": "No stores near location."
+                    }
+                  }
+                },
+                "filterByPickupPoint": {
+                  "title": "Global Filter by Pickup Point",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should enable global filter by pickup point?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "label": {
+                      "title": "Filter label",
+                      "type": "string",
+                      "default": "Filter by Store"
+                    },
+                    "icon": {
+                      "title": "Filter icon",
+                      "type": "object",
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["Storefront"],
+                          "enum": ["Storefront"],
+                          "default": "Storefront"
+                        },
+                        "alt": {
+                          "title": "Alternative label",
+                          "type": "string",
+                          "default": "Storefront icon"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
     "isSingleton": true
   },
   {

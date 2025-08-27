@@ -2241,7 +2241,7 @@
       "required": ["label"],
       "properties": {
         "icon": {
-          "title": "Location Icon",
+          "title": "Location icon",
           "type": "object",
           "properties": {
             "icon": {
@@ -2252,7 +2252,7 @@
               "default": "MapPin"
             },
             "alt": {
-              "title": "Alternative Label",
+              "title": "Alternative label",
               "type": "string",
               "default": "Map Pin icon"
             }
@@ -2266,7 +2266,8 @@
         "editLabel": {
           "title": "Location edit label",
           "type": "string",
-          "default": "Edit"
+          "default": "",
+          "description": "[Deprecated] This label should not be used anymore."
         },
         "buttonIcon": {
           "title": "Button Icon",
@@ -2318,24 +2319,23 @@
           "properties": {
             "label": {
               "title": "Input field label",
-              "type": "string",
-              "default": "Postal Code"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             },
             "errorMessage": {
               "title": "Input field error message",
-              "type": "string",
-              "default": "You entered an invalid Postal Code"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "type": "string",
-              "default": "There are no products available for %s.",
-              "description": "The '%s' will be replaced by the postal code value."
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
+              "type": "string"
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "type": "string",
-              "default": "Apply"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             }
           }
         },
@@ -2346,11 +2346,12 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "default": "I don't know my Postal Code"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "to": {
               "type": "string",
-              "title": "Action link"
+              "title": "Action link",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "icon": {
               "title": "Icon",
@@ -2358,15 +2359,15 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"],
-                  "default": "ArrowSquareOut"
+                  "enum": ["ArrowSquareOut"]
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "type": "string",
-                  "default": "Arrow Square Out icon"
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 }
               }
             }
@@ -2399,24 +2400,23 @@
           "properties": {
             "label": {
               "title": "Input field label",
-              "type": "string",
-              "default": "Postal Code"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             },
             "errorMessage": {
               "title": "Input field error message",
-              "type": "string",
-              "default": "You entered an invalid Postal Code"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "type": "string",
-              "default": "There are no products available for %s.",
-              "description": "The '%s' will be replaced by the postal code value."
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
+              "type": "string"
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "type": "string",
-              "default": "Apply"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             }
           }
         },
@@ -2444,11 +2444,12 @@
             "text": {
               "type": "string",
               "title": "Link Text",
-              "default": "I don't know my Postal Code"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "to": {
               "type": "string",
-              "title": "Action link"
+              "title": "Action link",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "icon": {
               "title": "Icon",
@@ -2456,15 +2457,15 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"],
-                  "default": "ArrowSquareOut"
+                  "enum": ["ArrowSquareOut"]
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "type": "string",
-                  "default": "Arrow Square Out icon"
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 }
               }
             }

@@ -69,6 +69,8 @@ function ProductGallerySection({
   )
 }
 
+ProductGallerySection.$componentKey = 'ProductGallery'
+
 const OverridableProductGallery = getOverridableSection<
   typeof ProductGallerySection
 >('ProductGallery', ProductGallerySection, ProductGalleryDefaultComponents)
