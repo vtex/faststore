@@ -37,53 +37,51 @@ function ProductComparisonToolbar({
 
   const selectedProductsDisplay = products.slice(0, 3)
 
+  if (!products.length && isOpen) return null
+
   return (
-    <>
-      {products.length >= 1 && !isOpen ? (
-        <footer data-fs-product-comparison-toolbar>
-          <div data-fs-product-comparison-toolbar-image>
-            {selectedProductsDisplay.map((product) => (
-              <ImageComponent
-                key={product.id}
-                src={product.image[0].url}
-                alt={product.name}
-                width={60}
-                height={60}
-              />
-            ))}
+    <footer data-fs-product-comparison-toolbar>
+      <div data-fs-product-comparison-toolbar-image>
+        {selectedProductsDisplay.map((product) => (
+          <ImageComponent
+            key={product.id}
+            src={product.image[0].url}
+            alt={product.name}
+            width={60}
+            height={60}
+          />
+        ))}
 
-            {products.length > 3 && (
-              <div data-fs-product-comparison-toolbar-image-more>
-                <p>{`+${products.length - 3}`}</p>
-              </div>
-            )}
-
-            {products.length === 1 && (
-              <SelectField
-                disabled
-                label={selectionWarningLabel as string}
-                value={''}
-                id={''}
-                options={{}}
-              />
-            )}
+        {products.length > 3 && (
+          <div data-fs-product-comparison-toolbar-image-more>
+            <p>{`+${products.length - 3}`}</p>
           </div>
+        )}
 
-          <Button variant="tertiary" onClick={() => clearProducts()}>
-            {clearSelectionButtonLabel}
-          </Button>
-          <Button
-            variant="primary"
-            disabled={products.length < 2}
-            onClick={() => setIsOpen(true)}
-          >
-            {products.length > 1
-              ? `${compareButtonLabel} ${products.length}`
-              : compareButtonLabel}
-          </Button>
-        </footer>
-      ) : null}
-    </>
+        {products.length === 1 && (
+          <SelectField
+            disabled
+            label={selectionWarningLabel as string}
+            value={''}
+            id={''}
+            options={{}}
+          />
+        )}
+      </div>
+
+      <Button variant="tertiary" onClick={() => clearProducts()}>
+        {clearSelectionButtonLabel}
+      </Button>
+      <Button
+        variant="primary"
+        disabled={products.length < 2}
+        onClick={() => setIsOpen(true)}
+      >
+        {products.length > 1
+          ? `${compareButtonLabel} ${products.length}`
+          : compareButtonLabel}
+      </Button>
+    </footer>
   )
 }
 

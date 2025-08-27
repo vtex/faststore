@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.61.0](https://github.com/vtex/faststore/compare/v3.60.4...v3.61.0) (2025-07-04)
+
+### Features
+
+- implement CP branch preview support ([#2885](https://github.com/vtex/faststore/issues/2885)) ([a55fe24](https://github.com/vtex/faststore/commit/a55fe24dac70ccfedc6296001bd5c18225affeda)), closes [/github.com/vtex/faststore/pull/2885/files#diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR40](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR40) [/github.com/vtex/faststore/pull/2885/files#diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR250](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-63a7f8cba93bce2eb5ed6be3a1bcf1fbde76d643b165ae2a1a44cc8765dfb73fR250) [/github.com/vtex/faststore/pull/2885/files#diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608L36](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608L36) [/github.com/vtex/faststore/pull/2885/files#diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR14](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR14) [/github.com/vtex/faststore/pull/2885/files#diff-7c7bcf90ece929b012c8fa7a7b62eac4ab72ca06aa5684add108af699bd62f50R38](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-7c7bcf90ece929b012c8fa7a7b62eac4ab72ca06aa5684add108af699bd62f50R38) [/github.com/vtex/faststore/pull/2885/files#diff-b45ed72491ecc419d59ca49fa8b4fc7a45deb55758a6a401f3c8401c11114227R148](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-b45ed72491ecc419d59ca49fa8b4fc7a45deb55758a6a401f3c8401c11114227R148) [/github.com/vtex/faststore/pull/2885/files#diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608R52](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-8dd0ec358e808043c69af593825ff65e9afe1dd776dad04f15480a45b57a2608R52) [/github.com/vtex/faststore/pull/2885/files#diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR22](https://github.com//github.com/vtex/faststore/pull/2885/files/issues/diff-6728e613609d08999bccf3fc982a6a61c19d6d8eb08eb4d7adb66f4a6924843dR22) [/github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js#L128](https://github.com//github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js/issues/L128) [/github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js#L128](https://github.com//github.com/vtex/faststore/blob/main/packages/core/discovery.config.default.js/issues/L128)
+
+## [3.60.4](https://github.com/vtex/faststore/compare/v3.60.3...v3.60.4) (2025-07-04)
+
+### Bug Fixes
+
+- Shipping Simulation table style ([#2925](https://github.com/vtex/faststore/issues/2925)) ([a291826](https://github.com/vtex/faststore/commit/a291826f3806ef906f3a6bf7c3f8d9edec61a661))
+
+## [3.60.3](https://github.com/vtex/faststore/compare/v3.60.2...v3.60.3) (2025-07-02)
+
+**Note:** Version bump only for package faststore
+
 ## [3.60.2](https://github.com/vtex/faststore/compare/v3.60.1...v3.60.2) (2025-07-02)
 
 **Note:** Version bump only for package faststore
