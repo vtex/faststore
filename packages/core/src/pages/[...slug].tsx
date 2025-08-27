@@ -119,7 +119,7 @@ export const getStaticProps: GetStaticProps<
 
   const landingPage = await landingPagePromise
 
-  if (landingPage) {
+  if (landingPage && Object.keys(landingPage).length > 0) {
     const [
       serverData,
       globalSections,
