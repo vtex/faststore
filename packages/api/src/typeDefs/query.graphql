@@ -278,11 +278,8 @@ type Query {
   """
   Returns information about selected products.
   """
-  products(
-    productIds: [String!]!
-
-  ): [StoreProduct!]!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600) 
+  products(productIds: [String!]!): [StoreProduct!]!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about all collections.
