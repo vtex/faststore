@@ -39,6 +39,7 @@ export type MyAccountListOrdersProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    purchaseAgentId?: string
   }
 }
 
@@ -73,6 +74,11 @@ function getSelectedFacets({
         key: 'dateFinal',
         value: String(value),
       })
+    } else if (filter === 'purchaseAgentId' && value) {
+      acc.push({
+        key: 'purchaseAgentId',
+        value: String(value),
+      })
     }
 
     return acc
@@ -96,6 +102,11 @@ function getAllFacets({
         value: status.toLowerCase(),
       })),
     },
+    {
+      __typename: 'StoreFacetPlacedBy',
+      key: 'purchaseAgentId',
+      label: 'Placed by',
+    } as any,
     {
       __typename: 'StoreFacetRange',
       key: 'dateRange',
@@ -233,6 +244,7 @@ export default function MyAccountListOrders({
             status: filters.status,
             dateInitial: filters.dateInitial,
             dateFinal: filters.dateFinal,
+            purchaseAgentId: filters.purchaseAgentId,
           }}
           onClearAll={() => {
             window.location.href = '/account/orders'
@@ -247,6 +259,8 @@ export default function MyAccountListOrders({
             } else if (key === 'dateInitial' || key === 'dateFinal') {
               delete updatedFilters.dateInitial
               delete updatedFilters.dateFinal
+            } else if (key === 'purchaseAgentId') {
+              delete updatedFilters.purchaseAgentId
             } else {
               delete updatedFilters[key]
             }
@@ -258,6 +272,8 @@ export default function MyAccountListOrders({
             } else if (key === 'dateInitial' || key === 'dateFinal') {
               delete updatedFilters.dateInitial
               delete updatedFilters.dateFinal
+            } else if (key === 'purchaseAgentId') {
+              delete updatedFilters.purchaseAgentId
             } else {
               delete updatedFilters[key]
             }

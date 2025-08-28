@@ -1,6 +1,6 @@
 import { Command, Flags } from '@oclif/core'
 import { spawn } from 'child_process'
-import { withBasePath } from '../utils/directory'
+import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
 
@@ -20,7 +20,7 @@ export default class CmsSync extends Command {
   async run() {
     const { flags, args } = await this.parse(CmsSync)
 
-    const basePath = args.path ?? process.cwd()
+    const basePath = getBasePath(args.path)
     const { tmpDir } = withBasePath(basePath)
 
     await generate({ setup: true, basePath })

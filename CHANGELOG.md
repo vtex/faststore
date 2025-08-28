@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.77.2](https://github.com/vtex/faststore/compare/v3.77.1...v3.77.2) (2025-08-21)
+
+### Bug Fixes
+
+- validate mutations after offline network ([#2998](https://github.com/vtex/faststore/issues/2998)) ([659605f](https://github.com/vtex/faststore/commit/659605f45ccf53cfb7a6959fe9f9f0fe3f1a6c93))
+
+## [3.77.1](https://github.com/vtex/faststore/compare/v3.77.0...v3.77.1) (2025-08-20)
+
+### Bug Fixes
+
+- use ? operator to get dateRangeFacet ([#2996](https://github.com/vtex/faststore/issues/2996)) ([e67d63d](https://github.com/vtex/faststore/commit/e67d63d1624aba4a5baf880d525487ff482db0c7))
+
+# [3.77.0](https://github.com/vtex/faststore/compare/v3.76.0...v3.77.0) (2025-08-18)
+
+### Features
+
+- Better monorepo support ([#2978](https://github.com/vtex/faststore/issues/2978)) ([c32b23b](https://github.com/vtex/faststore/commit/c32b23baaed5269527661beee7bcde0db9887c36))
+
+# [3.76.0](https://github.com/vtex/faststore/compare/v3.75.1...v3.76.0) (2025-08-14)
+
+### Features
+
+- order list placed by filter-SFS-2702 ([#2988](https://github.com/vtex/faststore/issues/2988)) ([1c9b557](https://github.com/vtex/faststore/commit/1c9b557a3fd2310ca4d1ffb7fd4135f60a44109d))
+
 ## [3.75.1](https://github.com/vtex/faststore/compare/v3.75.0...v3.75.1) (2025-08-08)
 
 **Note:** Version bump only for package faststore
