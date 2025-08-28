@@ -7,8 +7,10 @@ import MyAccountStatusBadge from 'src/components/account/components/MyAccountSta
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+import { ExpandButton } from './ExpandButton/ExpandButton'
 
-const MAX_COST_CENTERS = 5
+const MAX_ITEM_FIELDS = 5
+const MAX_ORDER_FIELDS = 5
 
 function formatOrderDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale, {
@@ -104,24 +106,29 @@ export default function MyAccountListOrdersTable({
   perPage,
   filters,
 }: MyAccountListOrdersTableProps) {
-  const hasOrderOrItemCustomFields =
-    listOrders?.list?.some(
-      (order) =>
-        order?.customFields
-          ?.filter((field) => field.type === 'order' || field.type === 'item')
-          .flatMap((field) => field.value).length > 0
-    ) || false
-
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
-  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
 
-  const handleToggleExpand = (orderId: string) => {
-    setExpandedRows((prev) => ({
-      ...prev,
-      [orderId]: !prev[orderId],
-    }))
+  const [expandedItemFieldsRows, setExpandedItemFieldsRows] = useState<
+    Record<string, boolean>
+  >({})
+  const [expandedOrderFieldsRows, setExpandedOrderFieldsRows] = useState<
+    Record<string, boolean>
+  >({})
+
+  const handleToggle = (orderId: string, type: 'item' | 'order') => {
+    if (type === 'item') {
+      setExpandedItemFieldsRows((prev) => ({
+        ...prev,
+        [orderId]: !prev[orderId],
+      }))
+    } else {
+      setExpandedOrderFieldsRows((prev) => ({
+        ...prev,
+        [orderId]: !prev[orderId],
+      }))
+    }
   }
 
   return (
@@ -129,15 +136,35 @@ export default function MyAccountListOrdersTable({
       <table data-fs-list-orders-table>
         <tbody data-fs-list-orders-table-body>
           {listOrders.list.map((item) => {
+            const orderLevel =
+              item?.customFields?.find(({ type }) => type === 'order')?.value ||
+              []
             const itemLevel =
               item?.customFields?.find(({ type }) => type === 'item')?.value ||
               []
-            const isExpanded = expandedRows[item.orderId]
-            const shouldShowButton = itemLevel.length > MAX_COST_CENTERS
-            const displayedItemLevel = isExpanded
-              ? itemLevel
-              : itemLevel.slice(0, 5)
+
+            const hasOrderOrItemCustomFields =
+              (orderLevel && orderLevel.length > 0) ||
+              (itemLevel && itemLevel.length > 0)
+
+            const isItemFieldsExpanded = expandedItemFieldsRows[item.orderId]
+            const isOrderFieldsExpanded = expandedOrderFieldsRows[item.orderId]
+
+            const [displayedItemLevel, shouldShowViewMoreButtonToItemsFields] =
+              getLevel(itemLevel, isItemFieldsExpanded, MAX_ITEM_FIELDS)
+
+            const [displayedOrderLevel, shouldShowViewMoreButtonToOrderFields] =
+              getLevel(orderLevel, isOrderFieldsExpanded, MAX_ORDER_FIELDS)
+
             const orderUrl = `/account/orders/${item.orderId}`
+            const shippingEstimatedDate = item.ShippingEstimatedDate
+              ? formatOrderDate(item.ShippingEstimatedDate, locale)
+              : '-'
+            const creationDate = item.creationDate
+              ? formatOrderDate(item.creationDate, locale)
+              : '-'
+            const clientName = item.clientName ? item.clientName : '-'
+            const totalPrice = formatPrice(item.totalValue, item.currencyCode)
 
             const handleRowClick = () => {
               window.location.href = orderUrl
@@ -162,11 +189,17 @@ export default function MyAccountListOrdersTable({
               >
                 <td data-fs-list-orders-table-cell>
                   <div data-fs-list-orders-table-product-info-main>
-                    <p data-fs-list-orders-table-product-info-order-id>
+                    <p
+                      data-fs-list-orders-table-product-info-order-id
+                      title={`ID: ${item.orderId || '-'}`}
+                    >
                       {item.orderId || '-'}
                     </p>
-                    <p data-fs-list-orders-table-product-info-order-total>
-                      Total: {formatPrice(item.totalValue, item.currencyCode)}
+                    <p
+                      data-fs-list-orders-table-product-info-order-total
+                      title={`Total: ${totalPrice}`}
+                    >
+                      Total: {totalPrice}
                     </p>
                   </div>
                 </td>
@@ -178,10 +211,11 @@ export default function MyAccountListOrdersTable({
                         <p data-fs-list-orders-table-product-info-label>
                           Placed on
                         </p>
-                        <p data-fs-list-orders-table-product-info-value>
-                          {item.creationDate
-                            ? formatOrderDate(item.creationDate, locale)
-                            : '-'}
+                        <p
+                          data-fs-list-orders-table-product-info-value
+                          title={creationDate}
+                        >
+                          {creationDate}
                         </p>
                       </div>
                       {hasOrderOrItemCustomFields && (
@@ -190,13 +224,22 @@ export default function MyAccountListOrdersTable({
                             <p data-fs-list-orders-table-product-info-label>
                               Delivery by
                             </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item.ShippingEstimatedDate
-                                ? formatOrderDate(
-                                    item.ShippingEstimatedDate,
-                                    locale
-                                  )
-                                : '-'}
+                            <p
+                              data-fs-list-orders-table-product-info-value
+                              title={shippingEstimatedDate}
+                            >
+                              {shippingEstimatedDate}
+                            </p>
+                          </div>
+                          <div data-fs-list-orders-table-product-info>
+                            <p data-fs-list-orders-table-product-info-label>
+                              Placed by
+                            </p>
+                            <p
+                              data-fs-list-orders-table-product-info-value
+                              title={clientName}
+                            >
+                              {clientName}
                             </p>
                           </div>
                         </>
@@ -209,13 +252,24 @@ export default function MyAccountListOrdersTable({
                             <p data-fs-list-orders-table-product-info-label>
                               Delivery by
                             </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item.ShippingEstimatedDate
-                                ? formatOrderDate(
-                                    item.ShippingEstimatedDate,
-                                    locale
-                                  )
-                                : '-'}
+                            <p
+                              data-fs-list-orders-table-product-info-value
+                              title={shippingEstimatedDate}
+                            >
+                              {shippingEstimatedDate}
+                            </p>
+                          </div>
+                        </td>
+                        <td data-fs-list-orders-table-cell>
+                          <div data-fs-list-orders-table-product-info>
+                            <p data-fs-list-orders-table-product-info-label>
+                              Placed by
+                            </p>
+                            <p
+                              data-fs-list-orders-table-product-info-value
+                              title={clientName}
+                            >
+                              {clientName}
                             </p>
                           </div>
                         </td>
@@ -224,60 +278,57 @@ export default function MyAccountListOrdersTable({
                     {hasOrderOrItemCustomFields && (
                       <>
                         <td data-fs-list-orders-table-cell>
-                          {item?.customFields
-                            ?.find(({ type }) => type === 'order')
-                            ?.value?.map((field: string, idx: number) => (
-                              <p
-                                key={field + idx}
-                                data-fs-list-orders-table-product-info-order
-                              >
-                                {field}
-                              </p>
-                            ))}
-                        </td>
-                        <td data-fs-list-orders-table-cell>
-                          {displayedItemLevel.map(
+                          {displayedOrderLevel.length > 0 && (
+                            <p data-fs-list-orders-table-product-info-label>
+                              Order fields
+                            </p>
+                          )}
+                          {displayedOrderLevel.map(
                             (field: string, idx: number) => (
                               <p
                                 key={field + idx}
-                                data-fs-list-orders-table-product-info-item
+                                data-fs-list-orders-table-product-info-order
+                                title={field}
                               >
                                 {field}
                               </p>
                             )
                           )}
-                          {shouldShowButton && (
-                            <Button
-                              data-fs-list-orders-table-expand-button
-                              size="small"
-                              variant="primary"
-                              inverse
-                              iconPosition="right"
-                              icon={
-                                isExpanded ? (
-                                  <Icon
-                                    width={16}
-                                    height={16}
-                                    name="CaretUp"
-                                    aria-label="Collapse"
-                                  />
-                                ) : (
-                                  <Icon
-                                    width={16}
-                                    height={16}
-                                    name="CaretDown"
-                                    aria-label="Expand"
-                                  />
-                                )
+                          {shouldShowViewMoreButtonToOrderFields && (
+                            <ExpandButton
+                              isExpanded={expandedOrderFieldsRows[item.orderId]}
+                              count={orderLevel.length - MAX_ORDER_FIELDS}
+                              onToggle={() =>
+                                handleToggle(item.orderId, 'order')
                               }
-                              onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                handleToggleExpand(item.orderId)
-                              }}
-                            >
-                              {isExpanded ? 'View less' : 'View all'}
-                            </Button>
+                            />
+                          )}
+                        </td>
+                        <td data-fs-list-orders-table-cell>
+                          {displayedItemLevel.length > 0 && (
+                            <p data-fs-list-orders-table-product-info-label>
+                              Item fields
+                            </p>
+                          )}
+                          {displayedItemLevel.map(
+                            (field: string, idx: number) => (
+                              <p
+                                key={field + idx}
+                                data-fs-list-orders-table-product-info-item
+                                title={field}
+                              >
+                                {field}
+                              </p>
+                            )
+                          )}
+                          {shouldShowViewMoreButtonToItemsFields && (
+                            <ExpandButton
+                              isExpanded={isItemFieldsExpanded}
+                              count={itemLevel.length - MAX_ITEM_FIELDS}
+                              onToggle={() =>
+                                handleToggle(item.orderId, 'item')
+                              }
+                            />
                           )}
                         </td>
                       </>
@@ -311,4 +362,19 @@ export default function MyAccountListOrdersTable({
       )}
     </>
   )
+}
+
+function getLevel(level: string[], isExpanded: boolean, max: number) {
+  // const orderLevel =
+  //   item?.customFields?.find(({ type }) => type === 'order')?.value || []
+  // const itemLevel =
+  //   item?.customFields?.find(({ type }) => type === 'item')?.value || []
+
+  // const isExpanded = expandedItemFieldsRows[item.orderId]
+
+  const shouldShowButton = level.length > max
+
+  const displayedLevel = isExpanded ? level : level.slice(0, max)
+
+  return [displayedLevel, shouldShowButton] as const
 }

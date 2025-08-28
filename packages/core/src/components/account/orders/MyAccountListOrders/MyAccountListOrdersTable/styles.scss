@@ -68,6 +68,13 @@
     margin-top: var(--fs-list-orders-table-product-info-margin-top-first);
   }
 
+  [data-fs-list-orders-table-product-info-value] {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   [data-fs-list-orders-table-product-info-label] {
     font-weight: var(--fs-list-orders-table-product-info-font-weight);
   }
@@ -99,6 +106,7 @@
   }
 
   [data-fs-list-orders-table-product-info-order], [data-fs-list-orders-table-product-info-item] {
+    max-width: 170px;
     margin-top: var(--fs-list-orders-table-product-info-margin-top-first);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -136,7 +144,7 @@
   }
 
   [data-fs-list-orders-table-expand-button] {
-    --fs-list-orders-table-expand-width: 6.25rem; // 100px
+    --fs-list-orders-table-expand-width: 8rem; // 128px to rem;
     --fs-list-orders-table-expand-margin-top: -0.75rem;
     --fs-list-orders-table-expand-margin-left: -1.0625rem; // 17px to rem;
 
