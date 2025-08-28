@@ -1128,7 +1128,7 @@ export type SpecificationGroup = {
   name: Scalars['String'];
   originalName: Scalars['String'];
   specifications: Array<Specification>;
-}
+};
 
 /** Account profile information. */
 export type StoreAccountProfile = {
