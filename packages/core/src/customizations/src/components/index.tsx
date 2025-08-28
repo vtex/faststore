@@ -1,3 +1,3 @@
-let Customizations: Record<string, any> = {};
+const Customizations: Record<string, any> = {}
 
 export default Customizations

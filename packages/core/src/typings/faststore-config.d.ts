@@ -153,6 +153,6 @@ declare module 'discovery-config' {
     }
   }
 
-  const config: FaststoreConfig;
+  const config: FaststoreConfig
   export default config
 }
