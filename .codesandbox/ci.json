@@ -11,5 +11,5 @@
     "packages/components"
   ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
-  "node": "20.19"
+  "node": "20.19.4"
 }
