@@ -88,19 +88,19 @@ type StoreProduct {
   specificationGroups: [SpecificationGroup!]!
 }
 
-type SkuSpecification  {
+type SkuSpecification {
   field: SKUSpecificationField!
   values: [SKUSpecificationValue!]!
 }
 
-type SKUSpecificationValue  {
+type SKUSpecificationValue {
   name: String!
   id: String
   fieldId: String
   originalName: String
 }
 
-type SKUSpecificationField  {
+type SKUSpecificationField {
   name: String!
   originalName: String
   id: String
@@ -113,9 +113,9 @@ type SpecificationGroup {
 }
 
 type Specification {
-   name: String!
-   originalName: String!
-   values: [String!]!
+  name: String!
+  originalName: String!
+  values: [String!]!
 }
 
 """
