@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
-import { generate } from '@graphql-codegen/cli'
+const { defineConfig } = require('vite')
+const dts = require('vite-plugin-dts').default
+const { generate } = require('@graphql-codegen/cli')
 
-export default (async () => {
+module.exports = (async () => {
   await generate(
     {
       overwrite: true,
