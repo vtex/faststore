@@ -40,10 +40,10 @@
     "partytown": "partytown copylib ./public/~partytown"
   },
   "engines": {
-    "node": ">=20.19"
+    "node": ">=22"
   },
   "volta": {
-    "node": "^20.19.0",
+    "node": "^22",
     "pnpm": "9.15.1",
     "yarn": "1.22.22"
   },
@@ -103,7 +103,7 @@
     "@types/cypress": "^1.1.3",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "29.1.0",
-    "@types/react": "18.3.23",
+    "@types/react": "catalog:",
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.8.1",
     "cypress": "12.17.4",
@@ -113,7 +113,7 @@
     "is-ci": "^3.0.0",
     "jest": "^29.7.0",
     "ts-jest": "29.1.1",
-    "typescript": "5.3.2",
+    "typescript": "catalog:",
     "webpack-virtual-modules": "^0.6.2"
   },
   "peerDependencies": {

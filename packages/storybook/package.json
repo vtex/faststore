@@ -11,13 +11,13 @@
     "@storybook/nextjs": "^8.5.2",
     "@storybook/react": "^8.5.2",
     "@storybook/test": "^8.5.2",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.21",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "sass": "^1.83.4",
     "storybook": "^8.5.2"
   },
   "volta": {
-    "node": "^20.19.0",
+    "node": "^22",
     "pnpm": "9.15.1"
   },
   "scripts": {
@@ -27,8 +27,8 @@
   "dependencies": {
     "@faststore/components": "^3.70.2",
     "@faststore/ui": "^3.70.2",
-    "next": "^15.1.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }
