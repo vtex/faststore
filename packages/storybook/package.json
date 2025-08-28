@@ -17,7 +17,7 @@
     "storybook": "^8.5.2"
   },
   "volta": {
-    "node": "^22",
+    "node": "^20",
     "pnpm": "9.15.1"
   },
   "scripts": {

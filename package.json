@@ -35,7 +35,7 @@
   },
   "version": "0.0.0",
   "volta": {
-    "node": "^22",
+    "node": "^20",
     "pnpm": "9.15.5"
   },
   "packageManager": "pnpm@10.15.0",

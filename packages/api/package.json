@@ -2,9 +2,9 @@
   "name": "@faststore/api",
   "version": "3.73.0",
   "license": "MIT",
-  "typings": "dist/esm/src/index.d.ts",
-  "module": "dist/esm/src/index.js",
   "repository": "vtex/faststore",
+  "typings": "dist/src/index.d.ts",
+  "module": "dist/es/index.mjs",
   "types": "./dist/src/index.d.ts",
   "main": "./dist/cjs/index.js",
   "files": [
@@ -19,20 +19,20 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "browserslist": "node 22",
+  "browserslist": "node 20",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "graphql-codegen && vite build --watch",
     "dev:server": "echo '\n\n -> need to fix this ##tsx --no-cache ./local/server.ts'",
-    "build": "vite build",
+    "build": "graphql-codegen && vite build",
     "test:int": "jest --projects jest.int.config.js",
     "test:intc": "jest --projects jest.int.config.js --coverage",
     "test:unit": "jest --projects jest.unit.config.js --silent",
     "test:unitc": "jest --projects jest.unit.config.js --silent --coverage",
     "test": "pnpm run test:unit && pnpm run test:int",
-    "generate": "vite build"
+    "generate": "graphql-codegen && vite build"
   },
   "dependencies": {
     "@graphql-tools/schema": "^9.0.0",
