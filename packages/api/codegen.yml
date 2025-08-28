@@ -1,9 +1,0 @@
-overwrite: true
-schema: "./node_modules/@faststore/graphql-schema/dist/schema.graphql"
-documents: null
-generates:
-  src/__generated__/schema.ts:
-    plugins:
-      - "typescript"
-    config:
-      constEnums: true

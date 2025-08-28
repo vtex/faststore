@@ -199,3 +199,5 @@ function mergeConfig() {
 
   return deepmerge(baseDiscoveryConfig, faststoreConfig)
 }
+
+/** @typedef {(next: import('next').NextConfig['webpack']) => import('next').NextConfig['webpack']} AnotateWebpack */
