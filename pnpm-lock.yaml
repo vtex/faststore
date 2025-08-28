@@ -12655,7 +12655,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@lerna/create@8.2.3(@types/node@24.3.1)(encoding@0.1.13)(typescript@5.3.2)':
+  '@lerna/create@8.2.3(@types/node@24.3.1)(encoding@0.1.13)(typescript@5.8.2)':
     dependencies:
       '@npmcli/arborist': 7.5.4
       '@npmcli/package-json': 5.2.0
@@ -12673,7 +12673,7 @@ snapshots:
       console-control-strings: 1.1.0
       conventional-changelog-core: 5.0.1
       conventional-recommended-bump: 7.0.1
-      cosmiconfig: 9.0.0(typescript@5.3.2)
+      cosmiconfig: 9.0.0(typescript@5.8.2)
       dedent: 1.5.3
       execa: 5.0.0
       fs-extra: 11.3.1
@@ -15898,6 +15898,15 @@ snapshots:
     optionalDependencies:
       typescript: 5.3.2
 
+  cosmiconfig@9.0.0(typescript@5.8.2):
+    dependencies:
+      env-paths: 2.2.1
+      import-fresh: 3.3.1
+      js-yaml: 4.1.0
+      parse-json: 5.2.0
+    optionalDependencies:
+      typescript: 5.8.2
+
   create-ecdh@4.0.4:
     dependencies:
       bn.js: 4.12.2
@@ -18558,7 +18567,7 @@ snapshots:
 
   lerna@8.2.3(@types/node@24.3.1)(encoding@0.1.13):
     dependencies:
-      '@lerna/create': 8.2.3(@types/node@24.3.1)(encoding@0.1.13)(typescript@5.3.2)
+      '@lerna/create': 8.2.3(@types/node@24.3.1)(encoding@0.1.13)(typescript@5.8.2)
       '@npmcli/arborist': 7.5.4
       '@npmcli/package-json': 5.2.0
       '@npmcli/run-script': 8.1.0
@@ -18576,7 +18585,7 @@ snapshots:
       conventional-changelog-angular: 7.0.0
       conventional-changelog-core: 5.0.1
       conventional-recommended-bump: 7.0.1
-      cosmiconfig: 9.0.0(typescript@5.3.2)
+      cosmiconfig: 9.0.0(typescript@5.8.2)
       dedent: 1.5.3
       envinfo: 7.13.0
       execa: 5.0.0
@@ -18628,7 +18637,7 @@ snapshots:
       temp-dir: 1.0.0
       through: 2.3.8
       tinyglobby: 0.2.12
-      typescript: 5.3.2
+      typescript: 5.8.2
       upath: 2.0.1
       uuid: 10.0.0
       validate-npm-package-license: 3.0.4
