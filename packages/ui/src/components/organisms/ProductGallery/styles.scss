@@ -119,7 +119,7 @@
 
     order: 3;
     padding: 0 var(--padding);
-    border-top: 1.5px solid var(--fs-color-neutral-bkg);
+    border-top: var(--fs-border-radius-small) solid var(--fs-color-neutral-bkg);
 
     @include media("<notebook") {
       background-color: var(--fs-color-neutral-bkg);

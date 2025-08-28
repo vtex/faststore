@@ -257,18 +257,20 @@ function ProductComparisonSidebar({
           </DropdownButton>
           <DropdownMenu className={overlayProps?.className}>
             <div data-fs-product-comparison-dropdown-menu-content>
-              <DropdownItem
-                data-fs-product-comparison-dropdown-item-filter-type
-                dismissOnClick={false}
-              >
-                <span data-fs-product-comparison-dropdown-filter-type-text>
-                  {preferencesLabel}
-                </span>
+              <DropdownItem asChild dismissOnClick={false}>
+                <div data-fs-product-comparison-dropdown-item-filter-type>
+                  <span
+                    data-fs-product-comparison-dropdown-item-filter-type-text
+                  >
+                    {preferencesLabel}
+                  </span>
+                </div>
               </DropdownItem>
 
               <DropdownItem
-                data-fs-product-comparison-toggle-field-mobile
                 dismissOnClick={false}
+                asChild
+                data-fs-product-comparison-toggle-field-mobile
               >
                 <ToggleField
                   id="product-comparison-show-differences"
@@ -277,13 +279,14 @@ function ProductComparisonSidebar({
                   onChange={() => setShowOnlyDifferences(!showOnlyDifferences)}
                 />
               </DropdownItem>
-              <DropdownItem
-                data-fs-product-comparison-dropdown-item-filter-type
-                dismissOnClick={false}
-              >
-                <span data-fs-product-comparison-dropdown-filter-type-text>
-                  {sortLabel}
-                </span>
+              <DropdownItem asChild dismissOnClick={false}>
+                <div data-fs-product-comparison-dropdown-item-filter-type>
+                  <span
+                    data-fs-product-comparison-dropdown-item-filter-type-text
+                  >
+                    {sortLabel}
+                  </span>
+                </div>
               </DropdownItem>
               <DropdownItem
                 dismissOnClick={false}
