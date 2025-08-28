@@ -12,7 +12,7 @@
   "module": "dist/lighthouse.esm.js",
   "typings": "dist/index.d.ts",
   "engines": {
-    "node": ">=10"
+    "node": ">=20.19"
   },
   "files": [
     "dist",

@@ -13,7 +13,7 @@
   "typings": "dist/index.d.ts",
   "sideEffects": false,
   "engines": {
-    "node": ">=10"
+    "node": ">=20.19"
   },
   "files": [
     "dist",

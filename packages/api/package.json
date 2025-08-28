@@ -19,9 +19,9 @@
       "require": "./dist/cjs/index.js"
     }
   },
-  "browserslist": "node 18",
+  "browserslist": "node 20.19",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "dev": "vite build --watch",
