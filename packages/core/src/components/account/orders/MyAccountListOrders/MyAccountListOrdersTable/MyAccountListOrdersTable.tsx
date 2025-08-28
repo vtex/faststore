@@ -365,15 +365,7 @@ export default function MyAccountListOrdersTable({
 }
 
 function getLevel(level: string[], isExpanded: boolean, max: number) {
-  // const orderLevel =
-  //   item?.customFields?.find(({ type }) => type === 'order')?.value || []
-  // const itemLevel =
-  //   item?.customFields?.find(({ type }) => type === 'item')?.value || []
-
-  // const isExpanded = expandedItemFieldsRows[item.orderId]
-
   const shouldShowButton = level.length > max
-
   const displayedLevel = isExpanded ? level : level.slice(0, max)
 
   return [displayedLevel, shouldShowButton] as const
