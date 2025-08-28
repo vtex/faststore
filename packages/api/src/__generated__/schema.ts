@@ -1,14 +1,17 @@
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
   /**
    * Example:
    *
@@ -18,7 +21,7 @@ export type Scalars = {
    * }
    * ```
    */
-  ActiveVariations: any;
+  ActiveVariations: { input: any; output: any; }
   /**
    * Example:
    *
@@ -49,9 +52,9 @@ export type Scalars = {
    * }
    * ```
    */
-  FormattedVariants: any;
-  JSONObject: any;
-  ObjectOrString: any;
+  FormattedVariants: { input: any; output: any; }
+  JSONObject: { input: any; output: any; }
+  ObjectOrString: { input: any; output: any; }
   /**
    * Example:
    *
@@ -61,7 +64,7 @@ export type Scalars = {
    * }
    * ```
    */
-  SlugsMap: any;
+  SlugsMap: { input: any; output: any; }
   /**
    * Example:
    *
@@ -72,152 +75,152 @@ export type Scalars = {
    * }
    * ```
    */
-  VariantsByName: any;
+  VariantsByName: { input: any; output: any; }
 };
 
 /** Address information. */
 export type Address = {
   __typename?: 'Address';
   /** Address city */
-  city?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
   /** Address complement */
-  complement?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']['output']>;
   /** Address country */
-  country?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']['output']>;
   /** Address geoCoordinates */
-  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   /** Address neighborhood */
-  neighborhood?: Maybe<Scalars['String']>;
+  neighborhood?: Maybe<Scalars['String']['output']>;
   /** Address number */
-  number?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']['output']>;
   /** Address postal code! */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   /** Address reference */
-  reference?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']['output']>;
   /** Address state */
-  state?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']['output']>;
   /** Address street */
-  street?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']['output']>;
 };
 
 /** Advertisement information about a specific product in a campaign */
 export type Advertisement = {
   __typename?: 'Advertisement';
   /** Cost of the action, usually Cost Per Click. */
-  actionCost: Scalars['Float'];
+  actionCost: Scalars['Float']['output'];
   /** Advertiser ID of the product. */
-  adId: Scalars['String'];
+  adId: Scalars['String']['output'];
   /** Advertiser Request ID. */
-  adRequestId: Scalars['String'];
+  adRequestId: Scalars['String']['output'];
   /** Advertiser Response ID. */
-  adResponseId: Scalars['String'];
+  adResponseId: Scalars['String']['output'];
   /** Campaign ID. */
-  campaignId: Scalars['String'];
+  campaignId: Scalars['String']['output'];
 };
 
 export type AvailableDeliveryWindows = {
   __typename?: 'AvailableDeliveryWindows';
   /** Available delivery window end date in UTC */
-  endDateUtc?: Maybe<Scalars['String']>;
+  endDateUtc?: Maybe<Scalars['String']['output']>;
   /** Available delivery window list price */
-  listPrice?: Maybe<Scalars['Int']>;
+  listPrice?: Maybe<Scalars['Int']['output']>;
   /** Available delivery window price */
-  price?: Maybe<Scalars['Int']>;
+  price?: Maybe<Scalars['Int']['output']>;
   /** Available delivery window start date in UTC */
-  startDateUtc?: Maybe<Scalars['String']>;
+  startDateUtc?: Maybe<Scalars['String']['output']>;
   /** Available delivery window tax */
-  tax?: Maybe<Scalars['Int']>;
+  tax?: Maybe<Scalars['Int']['output']>;
 };
 
 export type BusinessHour = {
   __typename?: 'BusinessHour';
   /** Business hour closing time. */
-  closingTime?: Maybe<Scalars['String']>;
+  closingTime?: Maybe<Scalars['String']['output']>;
   /** Number that represents the day of the week. */
-  dayOfWeek?: Maybe<Scalars['Int']>;
+  dayOfWeek?: Maybe<Scalars['Int']['output']>;
   /** Business hour opening time. */
-  openingTime?: Maybe<Scalars['String']>;
+  openingTime?: Maybe<Scalars['String']['output']>;
 };
 
 /** Commercial Authorization dimension status. */
 export type CommercialAuthorizationDimensionStatus = {
   __typename?: 'CommercialAuthorizationDimensionStatus';
   /** Creation date. */
-  creationDate: Scalars['String'];
+  creationDate: Scalars['String']['output'];
   /** Creation environment. */
-  creationEnvironment: Scalars['String'];
+  creationEnvironment: Scalars['String']['output'];
   /** Creation version. */
-  creationVersion: Scalars['String'];
+  creationVersion: Scalars['String']['output'];
   /** Dimension status ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   /** Dimension status name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Priority level. */
-  priority: Scalars['Int'];
+  priority: Scalars['Int']['output'];
   /** Indicates if all rules acceptance is required. */
-  requireAllRulesAcceptance: Scalars['Boolean'];
+  requireAllRulesAcceptance: Scalars['Boolean']['output'];
   /** Collection of rules for this dimension. */
   ruleCollection: Array<CommercialAuthorizationRule>;
   /** Dimension score. */
-  score: Scalars['Float'];
+  score: Scalars['Float']['output'];
   /** Indicates if simulation should be performed. */
-  shouldSimulate: Scalars['Boolean'];
+  shouldSimulate: Scalars['Boolean']['output'];
   /** Current status of the dimension. */
   status: CommercialAuthorizationStatus;
   /** Unit ID, if applicable. */
-  unitId?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']['output']>;
 };
 
 /** Commercial Authorization item. */
 export type CommercialAuthorizationItem = {
   __typename?: 'CommercialAuthorizationItem';
   /** Additional information as key-value pairs. */
-  additionalInfo: Scalars['JSONObject'];
+  additionalInfo: Scalars['JSONObject']['output'];
   /** Item ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   /** Item price. */
-  price: Scalars['Float'];
+  price: Scalars['Float']['output'];
   /** Item quantity. */
-  quantity: Scalars['Int'];
+  quantity: Scalars['Int']['output'];
   /** Item SKU. */
-  sku: Scalars['String'];
+  sku: Scalars['String']['output'];
   /** Total manual discount applied. */
-  totalManualDiscount: Scalars['Float'];
+  totalManualDiscount: Scalars['Float']['output'];
   /** Total system discount applied. */
-  totalSystemDiscount: Scalars['Float'];
+  totalSystemDiscount: Scalars['Float']['output'];
 };
 
 /** Commercial Authorization response. */
 export type CommercialAuthorizationResponse = {
   __typename?: 'CommercialAuthorizationResponse';
   /** Additional information as key-value pairs. */
-  additionalInfo: Scalars['JSONObject'];
+  additionalInfo: Scalars['JSONObject']['output'];
   /** Callback endpoint URL. */
-  callbackEndpoint: Scalars['String'];
+  callbackEndpoint: Scalars['String']['output'];
   /** Creation environment. */
-  creationEnvironment: Scalars['String'];
+  creationEnvironment: Scalars['String']['output'];
   /** Creation version. */
-  creationVersion: Scalars['String'];
+  creationVersion: Scalars['String']['output'];
   /** Dimension status information. */
   dimensionStatus: Array<CommercialAuthorizationDimensionStatus>;
   /** Commercial Authorization ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   /** Collection of items in the commercial authorization. */
   itemCollection: Array<CommercialAuthorizationItem>;
   /** Marketplace payment value. */
-  marketPlacePaymentValue: Scalars['Float'];
+  marketPlacePaymentValue: Scalars['Float']['output'];
   /** Order ID associated with the commercial authorization. */
-  orderId: Scalars['String'];
+  orderId: Scalars['String']['output'];
   /** Current status of the commercial authorization. */
   status: CommercialAuthorizationStatus;
   /** Total order value desired by the seller. */
-  totalOrderValueDesiredBySeller: Scalars['Float'];
+  totalOrderValueDesiredBySeller: Scalars['Float']['output'];
   /** List of units. */
-  units: Array<Scalars['String']>;
+  units: Array<Scalars['String']['output']>;
   /** User profile ID. */
-  userProfileId: Scalars['String'];
+  userProfileId: Scalars['String']['output'];
   /** Workflow instance ID. */
-  workflowInstanceId: Scalars['String'];
+  workflowInstanceId: Scalars['String']['output'];
 };
 
 /** Commercial Authorization rule. */
@@ -226,33 +229,33 @@ export type CommercialAuthorizationRule = {
   /** Authorization data, if available. */
   authorizationData?: Maybe<CommercialAuthorizationRuleAuthorizationData>;
   /** List of authorized email addresses. */
-  authorizedEmails: Array<Scalars['String']>;
+  authorizedEmails: Array<Scalars['String']['output']>;
   /** DO ID, if applicable. */
-  doId?: Maybe<Scalars['String']>;
+  doId?: Maybe<Scalars['String']['output']>;
   /** Rule ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   /**
    * Indicates that the user is listed as one of the possible approvers,
    * but does not necessarily mean that he or she is the next in the chain to approve.
    */
-  isUserAuthorized: Scalars['Boolean'];
+  isUserAuthorized: Scalars['Boolean']['output'];
   /**
    * Indicates that the user is next in the approval chain.
    * This means that they must take an approval or rejection action.
    */
-  isUserNextAuthorizer: Scalars['Boolean'];
+  isUserNextAuthorizer: Scalars['Boolean']['output'];
   /** Rule name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Indicates if notification is enabled. */
-  notification: Scalars['Boolean'];
+  notification: Scalars['Boolean']['output'];
   /** Rule priority. */
-  priority: Scalars['Int'];
+  priority: Scalars['Int']['output'];
   /** Score interval configuration. */
   scoreInterval: CommercialAuthorizationRuleScoreInterval;
   /** Current status of the rule. */
   status: CommercialAuthorizationStatus;
   /** Timeout value. */
-  timeout: Scalars['Int'];
+  timeout: Scalars['Int']['output'];
   /** Rule trigger configuration. */
   trigger: CommercialAuthorizationRuleTrigger;
 };
@@ -263,29 +266,29 @@ export type CommercialAuthorizationRuleAuthorizationData = {
   /** List of authorizers. */
   authorizers: Array<CommercialAuthorizationRuleAuthorizer>;
   /** Indicates if all approvals are required. */
-  requireAllApprovals: Scalars['Boolean'];
+  requireAllApprovals: Scalars['Boolean']['output'];
 };
 
 /** Commercial Authorization rule authorizer. */
 export type CommercialAuthorizationRuleAuthorizer = {
   __typename?: 'CommercialAuthorizationRuleAuthorizer';
   /** Authorization date. */
-  authorizationDate?: Maybe<Scalars['String']>;
+  authorizationDate?: Maybe<Scalars['String']['output']>;
   /** Authorizer email. */
-  email?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
   /** Authorizer ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   /** Authorizer type. */
-  type: Scalars['String'];
+  type: Scalars['String']['output'];
 };
 
 /** Commercial Authorization rule score interval. */
 export type CommercialAuthorizationRuleScoreInterval = {
   __typename?: 'CommercialAuthorizationRuleScoreInterval';
   /** Accept score threshold. */
-  accept: Scalars['Float'];
+  accept: Scalars['Float']['output'];
   /** Deny score threshold. */
-  deny: Scalars['Float'];
+  deny: Scalars['Float']['output'];
 };
 
 /** Commercial Authorization rule trigger. */
@@ -301,26 +304,26 @@ export type CommercialAuthorizationRuleTrigger = {
 export type CommercialAuthorizationRuleTriggerCondition = {
   __typename?: 'CommercialAuthorizationRuleTriggerCondition';
   /** Condition type. */
-  conditionType: Scalars['Int'];
+  conditionType: Scalars['Int']['output'];
   /** Condition description. */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /** Condition expression. */
-  expression?: Maybe<Scalars['String']>;
+  expression?: Maybe<Scalars['String']['output']>;
   /** Greater than value. */
-  greatherThan?: Maybe<Scalars['Float']>;
+  greatherThan?: Maybe<Scalars['Float']['output']>;
   /** Less than value. */
-  lessThan?: Maybe<Scalars['Float']>;
+  lessThan?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Commercial Authorization rule trigger effect. */
 export type CommercialAuthorizationRuleTriggerEffect = {
   __typename?: 'CommercialAuthorizationRuleTriggerEffect';
   /** Effect description. */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /** Effect type. */
-  effectType: Scalars['Int'];
+  effectType: Scalars['Int']['output'];
   /** Function path. */
-  funcPath?: Maybe<Scalars['String']>;
+  funcPath?: Maybe<Scalars['String']['output']>;
 };
 
 /** Commercial Authorization status. */
@@ -336,84 +339,84 @@ export const enum CommercialAuthorizationStatus {
 export type DeliveryIds = {
   __typename?: 'DeliveryIds';
   /** DeliveryIds courier id */
-  courierId?: Maybe<Scalars['String']>;
+  courierId?: Maybe<Scalars['String']['output']>;
   /** DeliveryIds courier name */
-  courierName?: Maybe<Scalars['String']>;
+  courierName?: Maybe<Scalars['String']['output']>;
   /** DeliveryIds dock id */
-  dockId?: Maybe<Scalars['String']>;
+  dockId?: Maybe<Scalars['String']['output']>;
   /** DeliveryIds quantity */
-  quantity?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
   /** DeliveryIds warehouse id */
-  warehouseId?: Maybe<Scalars['String']>;
+  warehouseId?: Maybe<Scalars['String']['output']>;
 };
 
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
-  orderId: Scalars['String'];
+  orderId: Scalars['String']['input'];
 };
 
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
-  latitude: Scalars['Float'];
+  latitude: Scalars['Float']['input'];
   /** The longitude of the geographic coordinates. */
-  longitude: Scalars['Float'];
+  longitude: Scalars['Float']['input'];
 };
 
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
   /** Person's name. */
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
 };
 
 /** Input to process order authorization (approve or reject). */
 export type IProcessOrderAuthorization = {
   /** Whether the authorization is approved (true) or rejected (false). */
-  approved: Scalars['Boolean'];
+  approved: Scalars['Boolean']['input'];
   /** Dimension ID associated with the authorization. */
-  dimensionId: Scalars['String'];
+  dimensionId: Scalars['String']['input'];
   /** Order authorization ID. */
-  orderAuthorizationId: Scalars['String'];
+  orderAuthorizationId: Scalars['String']['input'];
   /** Rule ID associated with the authorization. */
-  ruleId: Scalars['String'];
+  ruleId: Scalars['String']['input'];
 };
 
 /** Input type for setting a new password. */
 export type ISetPassword = {
   /** Optional access key for the user, used in some authentication flows. */
-  accesskey?: Maybe<Scalars['String']>;
+  accesskey?: InputMaybe<Scalars['String']['input']>;
   /** The current password of the user, required for verification before changing to the new password. */
-  currentPassword: Scalars['String'];
+  currentPassword: Scalars['String']['input'];
   /** The email of the user for whom the password is being set. */
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
   /** The new password to be set for the user. */
-  newPassword: Scalars['String'];
+  newPassword: Scalars['String']['input'];
   /** Optional reCAPTCHA token for security verification. */
-  recaptcha?: Maybe<Scalars['String']>;
+  recaptcha?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Shipping Simulation item input. */
 export type IShippingItem = {
   /** ShippingItem ID / Sku. */
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
   /** Number of items. */
-  quantity: Scalars['Int'];
+  quantity: Scalars['Int']['input'];
   /** Seller responsible for the ShippingItem. */
-  seller: Scalars['String'];
+  seller: Scalars['String']['input'];
 };
 
 export type IStoreB2B = {
-  customerId: Scalars['String'];
-  firstName?: Maybe<Scalars['String']>;
-  isRepresentative?: Maybe<Scalars['Boolean']>;
-  lastName?: Maybe<Scalars['String']>;
-  savedPostalCode?: Maybe<Scalars['String']>;
-  unitId?: Maybe<Scalars['String']>;
-  unitName?: Maybe<Scalars['String']>;
-  userEmail?: Maybe<Scalars['String']>;
-  userName?: Maybe<Scalars['String']>;
+  customerId: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  isRepresentative?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  savedPostalCode?: InputMaybe<Scalars['String']['input']>;
+  unitId?: InputMaybe<Scalars['String']['input']>;
+  unitName?: InputMaybe<Scalars['String']['input']>;
+  userEmail?: InputMaybe<Scalars['String']['input']>;
+  userName?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Shopping cart input. */
@@ -424,50 +427,50 @@ export type IStoreCart = {
 
 export type IStoreCurrency = {
   /** Currency code (e.g: USD). */
-  code: Scalars['String'];
+  code: Scalars['String']['input'];
   /** Currency symbol (e.g: $). */
-  symbol: Scalars['String'];
+  symbol: Scalars['String']['input'];
 };
 
 export type IStoreDeliveryMode = {
   /** The delivery channel information of the session. */
-  deliveryChannel: Scalars['String'];
+  deliveryChannel: Scalars['String']['input'];
   /** The delivery method information of the session. */
-  deliveryMethod: Scalars['String'];
+  deliveryMethod: Scalars['String']['input'];
   /** The delivery window information of the session. */
-  deliveryWindow?: Maybe<IStoreDeliveryWindow>;
+  deliveryWindow?: InputMaybe<IStoreDeliveryWindow>;
 };
 
 /** Delivery window information. */
 export type IStoreDeliveryWindow = {
   /** The delivery window end date information. */
-  endDate: Scalars['String'];
+  endDate: Scalars['String']['input'];
   /** The delivery window start date information. */
-  startDate: Scalars['String'];
+  startDate: Scalars['String']['input'];
 };
 
 export type IStoreGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
-  latitude: Scalars['Float'];
+  latitude: Scalars['Float']['input'];
   /** The longitude of the geographic coordinates. */
-  longitude: Scalars['Float'];
+  longitude: Scalars['Float']['input'];
 };
 
 /** Image input. */
 export type IStoreImage = {
   /** Alias for the input image. */
-  alternateName: Scalars['String'];
+  alternateName: Scalars['String']['input'];
   /** Image input URL. */
-  url: Scalars['String'];
+  url: Scalars['String']['input'];
 };
 
 export type IStoreMarketingData = {
-  utmCampaign?: Maybe<Scalars['String']>;
-  utmMedium?: Maybe<Scalars['String']>;
-  utmSource?: Maybe<Scalars['String']>;
-  utmiCampaign?: Maybe<Scalars['String']>;
-  utmiPage?: Maybe<Scalars['String']>;
-  utmiPart?: Maybe<Scalars['String']>;
+  utmCampaign?: InputMaybe<Scalars['String']['input']>;
+  utmMedium?: InputMaybe<Scalars['String']['input']>;
+  utmSource?: InputMaybe<Scalars['String']['input']>;
+  utmiCampaign?: InputMaybe<Scalars['String']['input']>;
+  utmiPage?: InputMaybe<Scalars['String']['input']>;
+  utmiPart?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Offer input. */
@@ -475,11 +478,11 @@ export type IStoreOffer = {
   /** Information on the item being offered. */
   itemOffered: IStoreProduct;
   /** This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf. */
-  listPrice: Scalars['Float'];
+  listPrice: Scalars['Float']['input'];
   /** Also known as spot price. */
-  price: Scalars['Float'];
+  price: Scalars['Float']['input'];
   /** Number of items offered. */
-  quantity: Scalars['Int'];
+  quantity: Scalars['Int']['input'];
   /** Seller responsible for the offer. */
   seller: IStoreOrganization;
 };
@@ -489,106 +492,106 @@ export type IStoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<IStoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
-  orderNumber: Scalars['String'];
+  orderNumber: Scalars['String']['input'];
   /** Indicates whether or not items with attachments should be split. */
-  shouldSplitItem?: Maybe<Scalars['Boolean']>;
+  shouldSplitItem?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Organization input. */
 export type IStoreOrganization = {
   /** Organization ID. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 /** Client profile data. */
 export type IStorePerson = {
   /** Client email. */
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
   /** Client last name. */
-  familyName: Scalars['String'];
+  familyName: Scalars['String']['input'];
   /** Client first name. */
-  givenName: Scalars['String'];
+  givenName: Scalars['String']['input'];
   /** Client ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 };
 
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Custom Product Additional Properties. */
-  additionalProperty?: Maybe<Array<IStorePropertyValue>>;
+  additionalProperty?: InputMaybe<Array<IStorePropertyValue>>;
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
-  sku: Scalars['String'];
+  sku: Scalars['String']['input'];
 };
 
 export type IStorePropertyValue = {
   /** Property name. */
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
   /** Property id. This propert changes according to the content of the object. */
-  propertyID?: Maybe<Scalars['String']>;
+  propertyID?: InputMaybe<Scalars['String']['input']>;
   /** Property value. May hold a string or the string representation of an object. */
-  value: Scalars['ObjectOrString'];
+  value: Scalars['ObjectOrString']['input'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['ObjectOrString'];
+  valueReference: Scalars['ObjectOrString']['input'];
 };
 
 /** Selected search facet input. */
 export type IStoreSelectedFacet = {
   /** Selected search facet key. */
-  key: Scalars['String'];
+  key: Scalars['String']['input'];
   /** Selected search facet value. */
-  value: Scalars['String'];
+  value: Scalars['String']['input'];
 };
 
 /** Session input. */
 export type IStoreSession = {
   /** Session input address type. */
-  addressType?: Maybe<Scalars['String']>;
+  addressType?: InputMaybe<Scalars['String']['input']>;
   /** Session input b2b. */
-  b2b?: Maybe<IStoreB2B>;
+  b2b?: InputMaybe<IStoreB2B>;
   /** Session input channel. */
-  channel?: Maybe<Scalars['String']>;
+  channel?: InputMaybe<Scalars['String']['input']>;
   /** Session input city. */
-  city?: Maybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']['input']>;
   /** Session input country. */
-  country: Scalars['String'];
+  country: Scalars['String']['input'];
   /** Session input currency. */
   currency: IStoreCurrency;
   /** Session input delivery mode. */
-  deliveryMode?: Maybe<IStoreDeliveryMode>;
+  deliveryMode?: InputMaybe<IStoreDeliveryMode>;
   /** Session input geoCoordinates. */
-  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
+  geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
   /** Session input locale. */
-  locale: Scalars['String'];
+  locale: Scalars['String']['input'];
   /** Marketing information input. */
-  marketingData?: Maybe<IStoreMarketingData>;
+  marketingData?: InputMaybe<IStoreMarketingData>;
   /** Session input person. */
-  person?: Maybe<IStorePerson>;
+  person?: InputMaybe<IStorePerson>;
   /** Session input postal code. */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
   /** Refresh token after Information. */
-  refreshAfter?: Maybe<Scalars['String']>;
+  refreshAfter?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Input to the cancel order API. */
 export type IUserOrderCancel = {
   /** Customer's email. */
-  customerEmail?: Maybe<Scalars['String']>;
+  customerEmail?: InputMaybe<Scalars['String']['input']>;
   /** Person's name. */
-  orderId: Scalars['String'];
+  orderId: Scalars['String']['input'];
   /** Reason. */
-  reason?: Maybe<Scalars['String']>;
+  reason?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
-  itemIndex?: Maybe<Scalars['String']>;
+  itemIndex?: Maybe<Scalars['String']['output']>;
   /** LogisticsInfo selectedSla. */
-  selectedSla?: Maybe<Scalars['String']>;
+  selectedSla?: Maybe<Scalars['String']['output']>;
   /** List of LogisticsInfo ShippingSLA. */
   slas?: Maybe<Array<Maybe<ShippingSla>>>;
 };
@@ -597,54 +600,54 @@ export type LogisticsInfo = {
 export type LogisticsItem = {
   __typename?: 'LogisticsItem';
   /** LogisticsItem availability. */
-  availability?: Maybe<Scalars['String']>;
+  availability?: Maybe<Scalars['String']['output']>;
   /** LogisticsItem ID / Sku. */
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
   /** LogisticsItem listPrice. */
-  listPrice?: Maybe<Scalars['Int']>;
+  listPrice?: Maybe<Scalars['Int']['output']>;
   /** LogisticsItem measurementUnit. */
-  measurementUnit?: Maybe<Scalars['String']>;
+  measurementUnit?: Maybe<Scalars['String']['output']>;
   /** LogisticsItem price. */
-  price?: Maybe<Scalars['Int']>;
+  price?: Maybe<Scalars['Int']['output']>;
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
-  priceValidUntil?: Maybe<Scalars['String']>;
+  priceValidUntil?: Maybe<Scalars['String']['output']>;
   /** Number of items. */
-  quantity?: Maybe<Scalars['Int']>;
-  requestIndex?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  requestIndex?: Maybe<Scalars['Int']['output']>;
   /** LogisticsItem rewardValue. */
-  rewardValue?: Maybe<Scalars['Int']>;
+  rewardValue?: Maybe<Scalars['Int']['output']>;
   /** Seller responsible for the ShippingItem. */
-  seller?: Maybe<Scalars['String']>;
+  seller?: Maybe<Scalars['String']['output']>;
   /** List of Sellers. */
-  sellerChain?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sellerChain?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** LogisticsItem sellingPrice. */
-  sellingPrice?: Maybe<Scalars['Int']>;
+  sellingPrice?: Maybe<Scalars['Int']['output']>;
   /** LogisticsItem tax. */
-  tax?: Maybe<Scalars['Int']>;
+  tax?: Maybe<Scalars['Int']['output']>;
   /** LogisticsItem unitMultiplier. */
-  unitMultiplier?: Maybe<Scalars['Int']>;
+  unitMultiplier?: Maybe<Scalars['Int']['output']>;
 };
 
 export type MessageFields = {
   __typename?: 'MessageFields';
   /** MessageFields ean. */
-  ean?: Maybe<Scalars['String']>;
+  ean?: Maybe<Scalars['String']['output']>;
   /** MessageFields item index. */
-  itemIndex?: Maybe<Scalars['String']>;
+  itemIndex?: Maybe<Scalars['String']['output']>;
   /** MessageFields sku name. */
-  skuName?: Maybe<Scalars['String']>;
+  skuName?: Maybe<Scalars['String']['output']>;
 };
 
 export type MessageInfo = {
   __typename?: 'MessageInfo';
   /** MessageInfo code. */
-  code?: Maybe<Scalars['String']>;
+  code?: Maybe<Scalars['String']['output']>;
   /** MessageInfo fields. */
   fields?: Maybe<MessageFields>;
   /** MessageInfo status. */
-  status?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']['output']>;
   /** MessageInfo text. */
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
@@ -679,12 +682,12 @@ export type MutationSubscribeToNewsletterArgs = {
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
-  session?: Maybe<IStoreSession>;
+  session?: InputMaybe<IStoreSession>;
 };
 
 
 export type MutationValidateSessionArgs = {
-  search: Scalars['String'];
+  search: Scalars['String']['input'];
   session: IStoreSession;
 };
 
@@ -692,53 +695,53 @@ export type MutationValidateSessionArgs = {
 export type PersonNewsletter = {
   __typename?: 'PersonNewsletter';
   /** Person's ID in the newsletter list. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
 };
 
 export type PickupAddress = {
   __typename?: 'PickupAddress';
   /** PickupAddress address id. */
-  addressId?: Maybe<Scalars['String']>;
+  addressId?: Maybe<Scalars['String']['output']>;
   /** PickupAddress address type. */
-  addressType?: Maybe<Scalars['String']>;
+  addressType?: Maybe<Scalars['String']['output']>;
   /** PickupAddress city. */
-  city?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
   /** PickupAddress complement. */
-  complement?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']['output']>;
   /** PickupAddress country. */
-  country?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']['output']>;
   /** PickupAddress geo coordinates. */
-  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   /** PickupAddress neighborhood. */
-  neighborhood?: Maybe<Scalars['String']>;
+  neighborhood?: Maybe<Scalars['String']['output']>;
   /** PickupAddress number. */
-  number?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']['output']>;
   /** PickupAddress postal code. */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   /** PickupAddress receiver name. */
-  receiverName?: Maybe<Scalars['String']>;
+  receiverName?: Maybe<Scalars['String']['output']>;
   /** PickupAddress reference. */
-  reference?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']['output']>;
   /** PickupAddress state. */
-  state?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']['output']>;
   /** PickupAddress street. */
-  street?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']['output']>;
 };
 
 export type PickupPointAddress = {
   __typename?: 'PickupPointAddress';
   /** Address city. */
-  city?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
   /** Address neighborhood. */
-  neighborhood?: Maybe<Scalars['String']>;
+  neighborhood?: Maybe<Scalars['String']['output']>;
   /** Address number. */
-  number?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']['output']>;
   /** Address postal code. */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   /** Address state. */
-  state?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']['output']>;
   /** Address street. */
-  street?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']['output']>;
 };
 
 export type PickupPointDistance = {
@@ -748,13 +751,13 @@ export type PickupPointDistance = {
   /** Pickup point business hours. */
   businessHours?: Maybe<Array<Maybe<BusinessHour>>>;
   /** Pickup point distance. */
-  distance?: Maybe<Scalars['Float']>;
+  distance?: Maybe<Scalars['Float']['output']>;
   /** Whether the pickup point is active. */
-  isActive?: Maybe<Scalars['Boolean']>;
+  isActive?: Maybe<Scalars['Boolean']['output']>;
   /** Pickup point ID. */
-  pickupId?: Maybe<Scalars['String']>;
+  pickupId?: Maybe<Scalars['String']['output']>;
   /** Pickup point name. */
-  pickupName?: Maybe<Scalars['String']>;
+  pickupName?: Maybe<Scalars['String']['output']>;
 };
 
 export type PickupPoints = {
@@ -762,28 +765,28 @@ export type PickupPoints = {
   /** List of pickup point distances for the given location. */
   pickupPointDistances?: Maybe<Array<Maybe<PickupPointDistance>>>;
   /** Hash of the pickup points data. */
-  pickupPointsHash?: Maybe<Scalars['String']>;
+  pickupPointsHash?: Maybe<Scalars['String']['output']>;
 };
 
 export type PickupStoreInfo = {
   __typename?: 'PickupStoreInfo';
   /** PickupStoreInfo additional information. */
-  additionalInfo?: Maybe<Scalars['String']>;
+  additionalInfo?: Maybe<Scalars['String']['output']>;
   /** PickupStoreInfo address. */
   address?: Maybe<PickupAddress>;
   /** PickupStoreInfo dock id. */
-  dockId?: Maybe<Scalars['String']>;
+  dockId?: Maybe<Scalars['String']['output']>;
   /** PickupStoreInfo friendly name. */
-  friendlyName?: Maybe<Scalars['String']>;
+  friendlyName?: Maybe<Scalars['String']['output']>;
   /** Information if the store has pickup enable. */
-  isPickupStore?: Maybe<Scalars['Boolean']>;
+  isPickupStore?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Process Order Authorization response. */
 export type ProcessOrderAuthorizationResponse = {
   __typename?: 'ProcessOrderAuthorizationResponse';
   /** Indicates if authorization is pending for other authorizers. */
-  isPendingForOtherAuthorizer: Scalars['Boolean'];
+  isPendingForOtherAuthorizer: Scalars['Boolean']['output'];
   /** The updated rule for authorization, if any. */
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
 };
@@ -792,9 +795,9 @@ export type ProcessOrderAuthorizationResponse = {
 export type ProcessOrderAuthorizationRule = {
   __typename?: 'ProcessOrderAuthorizationRule';
   /** Dimension ID. */
-  dimensionId: Scalars['String'];
+  dimensionId: Scalars['String']['output'];
   /** Order authorization ID. */
-  orderAuthorizationId: Scalars['String'];
+  orderAuthorizationId: Scalars['String']['output'];
   /** Base rule information. */
   rule: CommercialAuthorizationRule;
 };
@@ -802,7 +805,7 @@ export type ProcessOrderAuthorizationRule = {
 export type ProductCountResult = {
   __typename?: 'ProductCountResult';
   /** Total product count. */
-  total: Scalars['Int'];
+  total: Scalars['Int']['output'];
 };
 
 export type Profile = {
@@ -814,37 +817,37 @@ export type Profile = {
 export type ProfileAddress = {
   __typename?: 'ProfileAddress';
   /** ProfileAddress address name/id. */
-  addressName?: Maybe<Scalars['String']>;
+  addressName?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress address type. */
-  addressType?: Maybe<Scalars['String']>;
+  addressType?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress city. */
-  city?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress complement. */
-  complement?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress country. */
-  country?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress geo coordinate. */
-  geoCoordinate?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  geoCoordinate?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   /** ProfileAddress neighborhood. */
-  neighborhood?: Maybe<Scalars['String']>;
+  neighborhood?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress number. */
-  number?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress postal code. */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress receiver name. */
-  receiverName?: Maybe<Scalars['String']>;
+  receiverName?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress reference. */
-  reference?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress state. */
-  state?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']['output']>;
   /** ProfileAddress street. */
-  street?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']['output']>;
 };
 
 export type Query = {
   __typename?: 'Query';
   /** Returns the account name of the current user or the B2B contract name if applicable. */
-  accountName?: Maybe<Scalars['String']>;
+  accountName?: Maybe<Scalars['String']['output']>;
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
   accountProfile: StoreAccountProfile;
   /** Returns information about all collections. */
@@ -881,35 +884,35 @@ export type Query = {
 
 
 export type QueryAllCollectionsArgs = {
-  after?: Maybe<Scalars['String']>;
-  first: Scalars['Int'];
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
 };
 
 
 export type QueryAllProductsArgs = {
-  after?: Maybe<Scalars['String']>;
-  first: Scalars['Int'];
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
 };
 
 
 export type QueryCollectionArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 export type QueryListUserOrdersArgs = {
-  clientEmail?: Maybe<Scalars['String']>;
-  dateFinal?: Maybe<Scalars['String']>;
-  dateInitial?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  perPage?: Maybe<Scalars['Int']>;
-  status?: Maybe<Array<Maybe<Scalars['String']>>>;
-  text?: Maybe<Scalars['String']>;
+  clientEmail?: InputMaybe<Scalars['String']['input']>;
+  dateFinal?: InputMaybe<Scalars['String']['input']>;
+  dateInitial?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryPickupPointsArgs = {
-  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
+  geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
 };
 
 
@@ -919,77 +922,77 @@ export type QueryProductArgs = {
 
 
 export type QueryProductCountArgs = {
-  term?: Maybe<Scalars['String']>;
+  term?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryProfileArgs = {
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 };
 
 
 export type QueryRedirectArgs = {
-  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
-  term?: Maybe<Scalars['String']>;
+  selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
+  term?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QuerySearchArgs = {
-  after?: Maybe<Scalars['String']>;
-  first: Scalars['Int'];
-  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
-  sort?: Maybe<StoreSort>;
-  sponsoredCount?: Maybe<Scalars['Int']>;
-  term?: Maybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
+  selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
+  sort?: InputMaybe<StoreSort>;
+  sponsoredCount?: InputMaybe<Scalars['Int']['input']>;
+  term?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QuerySellersArgs = {
-  country: Scalars['String'];
-  geoCoordinates?: Maybe<IGeoCoordinates>;
-  postalCode?: Maybe<Scalars['String']>;
-  salesChannel?: Maybe<Scalars['String']>;
+  country: Scalars['String']['input'];
+  geoCoordinates?: InputMaybe<IGeoCoordinates>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
+  salesChannel?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryShippingArgs = {
-  country: Scalars['String'];
+  country: Scalars['String']['input'];
   items: Array<IShippingItem>;
-  postalCode: Scalars['String'];
+  postalCode: Scalars['String']['input'];
 };
 
 
 export type QueryUserOrderArgs = {
-  orderId: Scalars['String'];
+  orderId: Scalars['String']['input'];
 };
 
 /** Search result. */
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
   /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
-  fuzzy?: Maybe<Scalars['String']>;
+  fuzzy?: Maybe<Scalars['String']['output']>;
   /** Indicates if the search term was misspelled. */
-  isTermMisspelled: Scalars['Boolean'];
+  isTermMisspelled: Scalars['Boolean']['output'];
   /** Logical operator used to run the search. */
-  logicalOperator: Scalars['String'];
+  logicalOperator: Scalars['String']['output'];
 };
 
 /** Information of sellers. */
 export type SellerInfo = {
   __typename?: 'SellerInfo';
   /** Identification of the seller */
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
   /** Logo of the seller */
-  logo?: Maybe<Scalars['String']>;
+  logo?: Maybe<Scalars['String']['output']>;
   /** Name of the seller */
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 /** Regionalization with sellers information. */
 export type SellersData = {
   __typename?: 'SellersData';
   /** Identification of region. */
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
   /** List of sellers. */
   sellers?: Maybe<Array<Maybe<SellerInfo>>>;
 };
@@ -998,9 +1001,9 @@ export type SellersData = {
 export type SetPasswordResponse = {
   __typename?: 'SetPasswordResponse';
   /** Message providing additional information about the operation. */
-  message?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']['output']>;
   /** Indicates whether the password was successfully set. */
-  success: Scalars['Boolean'];
+  success: Scalars['Boolean']['output'];
 };
 
 /** Shipping Simulation information. */
@@ -1021,44 +1024,44 @@ export type ShippingSla = {
   /** ShippingSLA available delivery windows. */
   availableDeliveryWindows?: Maybe<Array<Maybe<AvailableDeliveryWindows>>>;
   /** ShippingSLA carrier. */
-  carrier?: Maybe<Scalars['String']>;
+  carrier?: Maybe<Scalars['String']['output']>;
   /** ShippingSLA delivery channel. */
-  deliveryChannel?: Maybe<Scalars['String']>;
+  deliveryChannel?: Maybe<Scalars['String']['output']>;
   /** List of ShippingSLA delivery ids. */
   deliveryIds?: Maybe<Array<Maybe<DeliveryIds>>>;
   /** ShippingSLA friendly name. */
-  friendlyName?: Maybe<Scalars['String']>;
+  friendlyName?: Maybe<Scalars['String']['output']>;
   /** ShippingSLA id. */
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
   /**
    * ShippingSLA localized shipping estimate.
    * Note: this will always return a localized string for locale `en-US`.
    */
-  localizedEstimates?: Maybe<Scalars['String']>;
+  localizedEstimates?: Maybe<Scalars['String']['output']>;
   /** ShippingSLA name. */
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
   /** ShippingSLA pickup distance. */
-  pickupDistance?: Maybe<Scalars['Float']>;
+  pickupDistance?: Maybe<Scalars['Float']['output']>;
   /** ShippingSLA pickup point id. */
-  pickupPointId?: Maybe<Scalars['String']>;
+  pickupPointId?: Maybe<Scalars['String']['output']>;
   /** ShippingSLA pickup store info. */
   pickupStoreInfo?: Maybe<PickupStoreInfo>;
   /** ShippingSLA price. */
-  price?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']['output']>;
   /** ShippingSLA shipping estimate. */
-  shippingEstimate?: Maybe<Scalars['String']>;
+  shippingEstimate?: Maybe<Scalars['String']['output']>;
   /** ShippingSLA shipping estimate date. */
-  shippingEstimateDate?: Maybe<Scalars['String']>;
+  shippingEstimateDate?: Maybe<Scalars['String']['output']>;
 };
 
 export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
-  activeVariations?: Maybe<Scalars['ActiveVariations']>;
+  activeVariations?: Maybe<Scalars['ActiveVariations']['output']>;
   /** All possible variant combinations of the current product. It also includes the data for each variant. */
   allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */
-  allVariantsByName?: Maybe<Scalars['VariantsByName']>;
+  allVariantsByName?: Maybe<Scalars['VariantsByName']['output']>;
   /**
    * Available options for each varying SKU property, taking into account the
    * `dominantVariantName` property. Returns all available options for the
@@ -1067,7 +1070,7 @@ export type SkuVariants = {
    * If `dominantVariantName` is not present, the first variant will be
    * considered the dominant one.
    */
-  availableVariations?: Maybe<Scalars['FormattedVariants']>;
+  availableVariations?: Maybe<Scalars['FormattedVariants']['output']>;
   /**
    * Maps property value combinations to their respective SKU's slug. Enables
    * us to retrieve the slug for the SKU that matches the currently selected
@@ -1075,78 +1078,78 @@ export type SkuVariants = {
    * If `dominantVariantName` is not present, the first variant will be
    * considered the dominant one.
    */
-  slugsMap?: Maybe<Scalars['SlugsMap']>;
+  slugsMap?: Maybe<Scalars['SlugsMap']['output']>;
 };
 
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName?: Maybe<Scalars['String']>;
+  dominantVariantName?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName?: Maybe<Scalars['String']>;
+  dominantVariantName?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Account profile information. */
 export type StoreAccountProfile = {
   __typename?: 'StoreAccountProfile';
-  email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
 export type StoreAggregateOffer = {
   __typename?: 'StoreAggregateOffer';
   /** Highest price among all sellers. */
-  highPrice: Scalars['Float'];
+  highPrice: Scalars['Float']['output'];
   /** Lowest price among all sellers. */
-  lowPrice: Scalars['Float'];
+  lowPrice: Scalars['Float']['output'];
   /** Lowest price among all sellers with current taxes. */
-  lowPriceWithTaxes: Scalars['Float'];
+  lowPriceWithTaxes: Scalars['Float']['output'];
   /** Number of sellers selling this SKU. */
-  offerCount: Scalars['Int'];
+  offerCount: Scalars['Int']['output'];
   /** Array with information on each available offer. */
   offers: Array<StoreOffer>;
   /** ISO code of the currency used for the offer prices. */
-  priceCurrency: Scalars['String'];
+  priceCurrency: Scalars['String']['output'];
 };
 
 /** Average rating, based on multiple ratings or reviews. */
 export type StoreAggregateRating = {
   __typename?: 'StoreAggregateRating';
   /** Value of the aggregate rating. */
-  ratingValue: Scalars['Float'];
+  ratingValue: Scalars['Float']['output'];
   /** Total number of ratings. */
-  reviewCount: Scalars['Int'];
+  reviewCount: Scalars['Int']['output'];
 };
 
 /** information about the author of a product review or rating. */
 export type StoreAuthor = {
   __typename?: 'StoreAuthor';
   /** Author name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
 };
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
-  customerId: Scalars['String'];
-  firstName?: Maybe<Scalars['String']>;
-  isRepresentative?: Maybe<Scalars['Boolean']>;
-  lastName?: Maybe<Scalars['String']>;
-  savedPostalCode?: Maybe<Scalars['String']>;
-  unitId?: Maybe<Scalars['String']>;
-  unitName?: Maybe<Scalars['String']>;
-  userEmail?: Maybe<Scalars['String']>;
-  userName?: Maybe<Scalars['String']>;
+  customerId: Scalars['String']['output'];
+  firstName?: Maybe<Scalars['String']['output']>;
+  isRepresentative?: Maybe<Scalars['Boolean']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  savedPostalCode?: Maybe<Scalars['String']['output']>;
+  unitId?: Maybe<Scalars['String']['output']>;
+  unitName?: Maybe<Scalars['String']['output']>;
+  userEmail?: Maybe<Scalars['String']['output']>;
+  userName?: Maybe<Scalars['String']['output']>;
 };
 
 /** Brand of a given product. */
 export type StoreBrand = {
   __typename?: 'StoreBrand';
   /** Brand name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
 };
 
 /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -1155,7 +1158,7 @@ export type StoreBreadcrumbList = {
   /** Array with breadcrumb elements. */
   itemListElement: Array<StoreListItem>;
   /** Number of breadcrumbs in the list. */
-  numberOfItems: Scalars['Int'];
+  numberOfItems: Scalars['Int']['output'];
 };
 
 /** Shopping cart information. */
@@ -1173,7 +1176,7 @@ export type StoreCartMessage = {
   /** Shopping cart message status, which can be `INFO`, `WARNING` or `ERROR`. */
   status: StoreStatus;
   /** Shopping cart message text. */
-  text: Scalars['String'];
+  text: Scalars['String']['output'];
 };
 
 /** Product collection information. */
@@ -1182,13 +1185,13 @@ export type StoreCollection = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
   /** Collection ID. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
-  slug: Scalars['String'];
+  slug: Scalars['String']['output'];
   /** Collection type. */
   type: StoreCollectionType;
 };
@@ -1206,7 +1209,7 @@ export type StoreCollectionConnection = {
 export type StoreCollectionEdge = {
   __typename?: 'StoreCollectionEdge';
   /** Collection cursor. Used as pagination reference. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** Each collection node contains the information of a product collection returned by the query. */
   node: StoreCollection;
 };
@@ -1215,9 +1218,9 @@ export type StoreCollectionEdge = {
 export type StoreCollectionFacet = {
   __typename?: 'StoreCollectionFacet';
   /** Facet key. */
-  key: Scalars['String'];
+  key: Scalars['String']['output'];
   /** Facet value. */
-  value: Scalars['String'];
+  value: Scalars['String']['output'];
 };
 
 /** Collection meta information. Used for search. */
@@ -1247,18 +1250,18 @@ export const enum StoreCollectionType {
 export type StoreCurrency = {
   __typename?: 'StoreCurrency';
   /** Currency code (e.g: USD). */
-  code: Scalars['String'];
+  code: Scalars['String']['output'];
   /** Currency symbol (e.g: $). */
-  symbol: Scalars['String'];
+  symbol: Scalars['String']['output'];
 };
 
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
   __typename?: 'StoreDeliveryMode';
   /** The delivery channel information of the session. */
-  deliveryChannel: Scalars['String'];
+  deliveryChannel: Scalars['String']['output'];
   /** The delivery method information of the session. */
-  deliveryMethod: Scalars['String'];
+  deliveryMethod: Scalars['String']['output'];
   /** The delivery window information of the session. */
   deliveryWindow?: Maybe<StoreDeliveryWindow>;
 };
@@ -1267,9 +1270,9 @@ export type StoreDeliveryMode = {
 export type StoreDeliveryWindow = {
   __typename?: 'StoreDeliveryWindow';
   /** The delivery window end date information. */
-  endDate: Scalars['String'];
+  endDate: Scalars['String']['output'];
   /** The delivery window start date information. */
-  startDate: Scalars['String'];
+  startDate: Scalars['String']['output'];
 };
 
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange;
@@ -1278,9 +1281,9 @@ export type StoreFacet = StoreFacetBoolean | StoreFacetRange;
 export type StoreFacetBoolean = {
   __typename?: 'StoreFacetBoolean';
   /** Facet key. */
-  key: Scalars['String'];
+  key: Scalars['String']['output'];
   /** Facet label. */
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /** Array with information on each facet value. */
   values: Array<StoreFacetValueBoolean>;
 };
@@ -1289,9 +1292,9 @@ export type StoreFacetBoolean = {
 export type StoreFacetRange = {
   __typename?: 'StoreFacetRange';
   /** Facet key. */
-  key: Scalars['String'];
+  key: Scalars['String']['output'];
   /** Facet label. */
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /** Maximum facet range value. */
   max: StoreFacetValueRange;
   /** Minimum facet range value. */
@@ -1310,91 +1313,91 @@ export const enum StoreFacetType {
 export type StoreFacetValueBoolean = {
   __typename?: 'StoreFacetValueBoolean';
   /** Facet value label. */
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /** Number of items with this facet. */
-  quantity: Scalars['Int'];
+  quantity: Scalars['Int']['output'];
   /** Indicates whether facet is selected. */
-  selected: Scalars['Boolean'];
+  selected: Scalars['Boolean']['output'];
   /** Facet value. */
-  value: Scalars['String'];
+  value: Scalars['String']['output'];
 };
 
 /** Search facet range value information. Used for minimum and maximum range values. */
 export type StoreFacetValueRange = {
   __typename?: 'StoreFacetValueRange';
   /** Search facet range absolute value. */
-  absolute: Scalars['Float'];
+  absolute: Scalars['Float']['output'];
   /** Search facet range selected value. */
-  selected: Scalars['Float'];
+  selected: Scalars['Float']['output'];
 };
 
 /** Geographic coordinates information. */
 export type StoreGeoCoordinates = {
   __typename?: 'StoreGeoCoordinates';
   /** The latitude of the geographic coordinates. */
-  latitude: Scalars['Float'];
+  latitude: Scalars['Float']['output'];
   /** The longitude of the geographic coordinates. */
-  longitude: Scalars['Float'];
+  longitude: Scalars['Float']['output'];
 };
 
 /** Image. */
 export type StoreImage = {
   __typename?: 'StoreImage';
   /** Alias for the image. */
-  alternateName: Scalars['String'];
+  alternateName: Scalars['String']['output'];
   /** Image URL. */
-  url: Scalars['String'];
+  url: Scalars['String']['output'];
 };
 
 /** Item of a list. */
 export type StoreListItem = {
   __typename?: 'StoreListItem';
   /** List item value. */
-  item: Scalars['String'];
+  item: Scalars['String']['output'];
   /** Name of the list item. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Position of the item in the list. */
-  position: Scalars['Int'];
+  position: Scalars['Int']['output'];
 };
 
 /** Marketing information. */
 export type StoreMarketingData = {
   __typename?: 'StoreMarketingData';
-  utmCampaign?: Maybe<Scalars['String']>;
-  utmMedium?: Maybe<Scalars['String']>;
-  utmSource?: Maybe<Scalars['String']>;
-  utmiCampaign?: Maybe<Scalars['String']>;
-  utmiPage?: Maybe<Scalars['String']>;
-  utmiPart?: Maybe<Scalars['String']>;
+  utmCampaign?: Maybe<Scalars['String']['output']>;
+  utmMedium?: Maybe<Scalars['String']['output']>;
+  utmSource?: Maybe<Scalars['String']['output']>;
+  utmiCampaign?: Maybe<Scalars['String']['output']>;
+  utmiPage?: Maybe<Scalars['String']['output']>;
+  utmiPart?: Maybe<Scalars['String']['output']>;
 };
 
 /** Offer information. */
 export type StoreOffer = {
   __typename?: 'StoreOffer';
   /** Offer item availability. */
-  availability: Scalars['String'];
+  availability: Scalars['String']['output'];
   /** Offer item condition. */
-  itemCondition: Scalars['String'];
+  itemCondition: Scalars['String']['output'];
   /** Information on the item being offered. */
   itemOffered: StoreProduct;
   /** This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf. */
-  listPrice: Scalars['Float'];
+  listPrice: Scalars['Float']['output'];
   /** List price among with current taxes. */
-  listPriceWithTaxes: Scalars['Float'];
+  listPriceWithTaxes: Scalars['Float']['output'];
   /** Also known as spot price. */
-  price: Scalars['Float'];
+  price: Scalars['Float']['output'];
   /** ISO code of the currency used for the offer prices. */
-  priceCurrency: Scalars['String'];
+  priceCurrency: Scalars['String']['output'];
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
-  priceValidUntil: Scalars['String'];
+  priceValidUntil: Scalars['String']['output'];
   /** Also known as spot price with taxes. */
-  priceWithTaxes: Scalars['Float'];
+  priceWithTaxes: Scalars['Float']['output'];
   /** Number of items offered. */
-  quantity: Scalars['Int'];
+  quantity: Scalars['Int']['output'];
   /** Seller responsible for the offer. */
   seller: StoreOrganization;
   /** Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf. */
-  sellingPrice: Scalars['Float'];
+  sellingPrice: Scalars['Float']['output'];
 };
 
 /** Information of a specific order. */
@@ -1403,44 +1406,44 @@ export type StoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<StoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
-  orderNumber: Scalars['String'];
+  orderNumber: Scalars['String']['output'];
   /** Indicates whether or not items with attachments should be split. */
-  shouldSplitItem?: Maybe<Scalars['Boolean']>;
+  shouldSplitItem?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Organization. */
 export type StoreOrganization = {
   __typename?: 'StoreOrganization';
   /** Organization ID. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
 };
 
 /** Whenever you make a query that allows for pagination, such as `allProducts` or `allCollections`, you can check `StorePageInfo` to learn more about the complete set of items and use it to paginate your queries. */
 export type StorePageInfo = {
   __typename?: 'StorePageInfo';
   /** Cursor corresponding to the last possible item. */
-  endCursor: Scalars['String'];
+  endCursor: Scalars['String']['output'];
   /** Indicates whether there is at least one more page with items after the ones returned in the current query. */
-  hasNextPage: Scalars['Boolean'];
+  hasNextPage: Scalars['Boolean']['output'];
   /** Indicates whether there is at least one more page with items before the ones returned in the current query. */
-  hasPreviousPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean']['output'];
   /** Cursor corresponding to the first possible item. */
-  startCursor: Scalars['String'];
+  startCursor: Scalars['String']['output'];
   /** Total number of items (products or collections), not pages. */
-  totalCount: Scalars['Int'];
+  totalCount: Scalars['Int']['output'];
 };
 
 /** Client profile data. */
 export type StorePerson = {
   __typename?: 'StorePerson';
   /** Client email. */
-  email: Scalars['String'];
+  email: Scalars['String']['output'];
   /** Client last name. */
-  familyName: Scalars['String'];
+  familyName: Scalars['String']['output'];
   /** Client first name. */
-  givenName: Scalars['String'];
+  givenName: Scalars['String']['output'];
   /** Client ID. */
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
 };
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -1457,38 +1460,38 @@ export type StoreProduct = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
   /** Product description. */
-  description: Scalars['String'];
+  description: Scalars['String']['output'];
   /** Global Trade Item Number. */
-  gtin: Scalars['String'];
+  gtin: Scalars['String']['output'];
   /** Array of images. */
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */
   isVariantOf: StoreProductGroup;
   /** Product name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
-  productID: Scalars['String'];
+  productID: Scalars['String']['output'];
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
-  releaseDate: Scalars['String'];
+  releaseDate: Scalars['String']['output'];
   /** Array with review information. */
   review: Array<StoreReview>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
-  sku: Scalars['String'];
+  sku: Scalars['String']['output'];
   /** Corresponding collection URL slug, with which to retrieve this entity. */
-  slug: Scalars['String'];
+  slug: Scalars['String']['output'];
   /** Sku Unit Multiplier */
-  unitMultiplier?: Maybe<Scalars['Float']>;
+  unitMultiplier?: Maybe<Scalars['Float']['output']>;
 };
 
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type StoreProductImageArgs = {
-  context?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  context?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Product connections, including pagination information and products returned by the query. */
@@ -1504,7 +1507,7 @@ export type StoreProductConnection = {
 export type StoreProductEdge = {
   __typename?: 'StoreProductEdge';
   /** Product cursor. Used as pagination reference. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** Each product node contains the information of a product returned by the query. */
   node: StoreProduct;
 };
@@ -1517,9 +1520,9 @@ export type StoreProductGroup = {
   /** Array of variants related to product group. Variants are equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). */
   hasVariant: Array<StoreProduct>;
   /** Product group name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Product group ID. */
-  productGroupID: Scalars['String'];
+  productGroupID: Scalars['String']['output'];
   /**
    * Object containing data structures to facilitate handling different SKU
    * variant properties. Specially useful for implementing SKU selection
@@ -1532,13 +1535,13 @@ export type StoreProductGroup = {
 export type StorePropertyValue = {
   __typename?: 'StorePropertyValue';
   /** Property name. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Property id. This propert changes according to the content of the object. */
-  propertyID: Scalars['String'];
+  propertyID: Scalars['String']['output'];
   /** Property value. May hold a string or the string representation of an object. */
-  value: Scalars['ObjectOrString'];
+  value: Scalars['ObjectOrString']['output'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['ObjectOrString'];
+  valueReference: Scalars['ObjectOrString']['output'];
 };
 
 /**
@@ -1548,7 +1551,7 @@ export type StorePropertyValue = {
 export type StoreRedirect = {
   __typename?: 'StoreRedirect';
   /** URL to redirect */
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** Information of a given review. */
@@ -1564,9 +1567,9 @@ export type StoreReview = {
 export type StoreReviewRating = {
   __typename?: 'StoreReviewRating';
   /** Best rating value. */
-  bestRating: Scalars['Float'];
+  bestRating: Scalars['Float']['output'];
   /** Rating value. */
-  ratingValue: Scalars['Float'];
+  ratingValue: Scalars['Float']['output'];
 };
 
 /** Search result. */
@@ -1586,28 +1589,28 @@ export type StoreSearchResult = {
 export type StoreSeo = {
   __typename?: 'StoreSeo';
   /** Canonical tag. */
-  canonical: Scalars['String'];
+  canonical: Scalars['String']['output'];
   /** Description tag. */
-  description: Scalars['String'];
+  description: Scalars['String']['output'];
   /** Title tag. */
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
   /** Title template tag. */
-  titleTemplate: Scalars['String'];
+  titleTemplate: Scalars['String']['output'];
 };
 
 /** Session information. */
 export type StoreSession = {
   __typename?: 'StoreSession';
   /** Session address type. */
-  addressType?: Maybe<Scalars['String']>;
+  addressType?: Maybe<Scalars['String']['output']>;
   /** B2B Information. */
   b2b?: Maybe<StoreB2B>;
   /** Session channel. */
-  channel?: Maybe<Scalars['String']>;
+  channel?: Maybe<Scalars['String']['output']>;
   /** Session city. */
-  city?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
   /** Session country. */
-  country: Scalars['String'];
+  country: Scalars['String']['output'];
   /** Session currency. */
   currency: StoreCurrency;
   /** Session delivery mode. */
@@ -1615,15 +1618,15 @@ export type StoreSession = {
   /** Session input geoCoordinates. */
   geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */
-  locale: Scalars['String'];
+  locale: Scalars['String']['output'];
   /** Marketing information. */
   marketingData?: Maybe<StoreMarketingData>;
   /** Session input person. */
   person?: Maybe<StorePerson>;
   /** Session postal code. */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   /** Refresh token after Information. */
-  refreshAfter?: Maybe<Scalars['String']>;
+  refreshAfter?: Maybe<Scalars['String']['output']>;
 };
 
 /** Product search results sorting options. */
@@ -1657,9 +1660,9 @@ export const enum StoreStatus {
 export type StoreSuggestionTerm = {
   __typename?: 'StoreSuggestionTerm';
   /** Its occurrences count. */
-  count: Scalars['Int'];
+  count: Scalars['Int']['output'];
   /** The term. */
-  value: Scalars['String'];
+  value: Scalars['String']['output'];
 };
 
 /** Suggestions information. */
@@ -1675,221 +1678,221 @@ export type StoreSuggestions = {
 export type StoreUserDetails = {
   __typename?: 'StoreUserDetails';
   /** User's email. */
-  email?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
   /** User's name. */
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
   /** User's organizational unit. */
-  orgUnit?: Maybe<Scalars['String']>;
+  orgUnit?: Maybe<Scalars['String']['output']>;
   /** User's role. */
-  role?: Maybe<Array<Maybe<Scalars['String']>>>;
+  role?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
 export type UserOrder = {
   __typename?: 'UserOrder';
-  affiliateId?: Maybe<Scalars['String']>;
-  allowCancellation?: Maybe<Scalars['Boolean']>;
-  allowEdition?: Maybe<Scalars['Boolean']>;
-  authorizedDate?: Maybe<Scalars['String']>;
-  callCenterOperatorData?: Maybe<Scalars['String']>;
-  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
-  cancelReason?: Maybe<Scalars['String']>;
+  affiliateId?: Maybe<Scalars['String']['output']>;
+  allowCancellation?: Maybe<Scalars['Boolean']['output']>;
+  allowEdition?: Maybe<Scalars['Boolean']['output']>;
+  authorizedDate?: Maybe<Scalars['String']['output']>;
+  callCenterOperatorData?: Maybe<Scalars['String']['output']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']['output']>;
+  cancelReason?: Maybe<Scalars['String']['output']>;
   cancellationData?: Maybe<UserOrderCancellationData>;
   cancellationRequests?: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
-  changesAttachment?: Maybe<Scalars['String']>;
-  checkedInPickupPointId?: Maybe<Scalars['String']>;
+  changesAttachment?: Maybe<Scalars['String']['output']>;
+  checkedInPickupPointId?: Maybe<Scalars['String']['output']>;
   clientPreferencesData?: Maybe<UserOrderClientPreferencesData>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
-  commercialConditionData?: Maybe<Scalars['String']>;
-  creationDate?: Maybe<Scalars['String']>;
+  commercialConditionData?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
-  followUpEmail?: Maybe<Scalars['String']>;
-  giftRegistryData?: Maybe<Scalars['String']>;
-  hostname?: Maybe<Scalars['String']>;
-  invoiceData?: Maybe<Scalars['String']>;
-  invoicedDate?: Maybe<Scalars['String']>;
-  isCheckedIn?: Maybe<Scalars['Boolean']>;
-  isCompleted?: Maybe<Scalars['Boolean']>;
+  followUpEmail?: Maybe<Scalars['String']['output']>;
+  giftRegistryData?: Maybe<Scalars['String']['output']>;
+  hostname?: Maybe<Scalars['String']['output']>;
+  invoiceData?: Maybe<Scalars['String']['output']>;
+  invoicedDate?: Maybe<Scalars['String']['output']>;
+  isCheckedIn?: Maybe<Scalars['Boolean']['output']>;
+  isCompleted?: Maybe<Scalars['Boolean']['output']>;
   itemMetadata?: Maybe<UserOrderItemMetadata>;
   items?: Maybe<Array<Maybe<UserOrderItems>>>;
-  lastChange?: Maybe<Scalars['String']>;
-  lastMessage?: Maybe<Scalars['String']>;
-  marketingData?: Maybe<Scalars['String']>;
+  lastChange?: Maybe<Scalars['String']['output']>;
+  lastMessage?: Maybe<Scalars['String']['output']>;
+  marketingData?: Maybe<Scalars['String']['output']>;
   marketplace?: Maybe<UserOrderMarketplace>;
   marketplaceItems?: Maybe<Array<Maybe<UserOrderItems>>>;
-  marketplaceOrderId?: Maybe<Scalars['String']>;
-  marketplaceServicesEndpoint?: Maybe<Scalars['String']>;
-  merchantName?: Maybe<Scalars['String']>;
-  openTextField?: Maybe<Scalars['String']>;
-  orderFormId?: Maybe<Scalars['String']>;
-  orderGroup?: Maybe<Scalars['String']>;
-  orderId?: Maybe<Scalars['String']>;
-  origin?: Maybe<Scalars['String']>;
+  marketplaceOrderId?: Maybe<Scalars['String']['output']>;
+  marketplaceServicesEndpoint?: Maybe<Scalars['String']['output']>;
+  merchantName?: Maybe<Scalars['String']['output']>;
+  openTextField?: Maybe<Scalars['String']['output']>;
+  orderFormId?: Maybe<Scalars['String']['output']>;
+  orderGroup?: Maybe<Scalars['String']['output']>;
+  orderId?: Maybe<Scalars['String']['output']>;
+  origin?: Maybe<Scalars['String']['output']>;
   packageAttachment?: Maybe<UserOrderPackageAttachment>;
   paymentData?: Maybe<UserOrderPaymentData>;
   purchaseAgentData?: Maybe<UserOrderPurchaseAgentData>;
   ratesAndBenefitsData?: Maybe<UserOrderRatesAndBenefitsData>;
-  roundingError?: Maybe<Scalars['Int']>;
+  roundingError?: Maybe<Scalars['Int']['output']>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
-  salesChannel?: Maybe<Scalars['String']>;
-  sellerOrderId?: Maybe<Scalars['String']>;
+  salesChannel?: Maybe<Scalars['String']['output']>;
+  sellerOrderId?: Maybe<Scalars['String']['output']>;
   sellers?: Maybe<Array<Maybe<UserOrderStoreSellers>>>;
-  sequence?: Maybe<Scalars['String']>;
+  sequence?: Maybe<Scalars['String']['output']>;
   shippingData?: Maybe<UserOrderShippingData>;
-  status?: Maybe<Scalars['String']>;
-  statusDescription?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']['output']>;
+  statusDescription?: Maybe<Scalars['String']['output']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
-  subscriptionData?: Maybe<Scalars['String']>;
-  taxData?: Maybe<Scalars['String']>;
+  subscriptionData?: Maybe<Scalars['String']['output']>;
+  taxData?: Maybe<Scalars['String']['output']>;
   totals?: Maybe<Array<Maybe<UserOrderTotals>>>;
-  value?: Maybe<Scalars['Float']>;
-  workflowIsInError?: Maybe<Scalars['Boolean']>;
+  value?: Maybe<Scalars['Float']['output']>;
+  workflowIsInError?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderAdditionalInfo = {
   __typename?: 'UserOrderAdditionalInfo';
-  brandId?: Maybe<Scalars['String']>;
-  brandName?: Maybe<Scalars['String']>;
+  brandId?: Maybe<Scalars['String']['output']>;
+  brandName?: Maybe<Scalars['String']['output']>;
   categories?: Maybe<Array<Maybe<UserOrderCategories>>>;
-  categoriesIds?: Maybe<Scalars['String']>;
-  commercialConditionId?: Maybe<Scalars['String']>;
+  categoriesIds?: Maybe<Scalars['String']['output']>;
+  commercialConditionId?: Maybe<Scalars['String']['output']>;
   dimension?: Maybe<UserOrderDimension>;
-  offeringInfo?: Maybe<Scalars['String']>;
-  offeringType?: Maybe<Scalars['String']>;
-  offeringTypeId?: Maybe<Scalars['String']>;
-  productClusterId?: Maybe<Scalars['String']>;
+  offeringInfo?: Maybe<Scalars['String']['output']>;
+  offeringType?: Maybe<Scalars['String']['output']>;
+  offeringTypeId?: Maybe<Scalars['String']['output']>;
+  productClusterId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderAddress = {
   __typename?: 'UserOrderAddress';
-  addressId?: Maybe<Scalars['String']>;
-  addressType?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  complement?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  entityId?: Maybe<Scalars['String']>;
-  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  neighborhood?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  receiverName?: Maybe<Scalars['String']>;
-  reference?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  versionId?: Maybe<Scalars['String']>;
+  addressId?: Maybe<Scalars['String']['output']>;
+  addressType?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  complement?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  entityId?: Maybe<Scalars['String']['output']>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  neighborhood?: Maybe<Scalars['String']['output']>;
+  number?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  receiverName?: Maybe<Scalars['String']['output']>;
+  reference?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
+  street?: Maybe<Scalars['String']['output']>;
+  versionId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderAssemblyOptions = {
   __typename?: 'UserOrderAssemblyOptions';
-  Id?: Maybe<Scalars['String']>;
-  Name?: Maybe<Scalars['String']>;
-  Required?: Maybe<Scalars['Boolean']>;
+  Id?: Maybe<Scalars['String']['output']>;
+  Name?: Maybe<Scalars['String']['output']>;
+  Required?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderAttachmentOfferings = {
   __typename?: 'UserOrderAttachmentOfferings';
-  name?: Maybe<Scalars['String']>;
-  required?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']['output']>;
+  required?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderAttachments = {
   __typename?: 'UserOrderAttachments';
-  content?: Maybe<Scalars['JSONObject']>;
-  name?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['JSONObject']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderCancel = {
   __typename?: 'UserOrderCancel';
-  data?: Maybe<Scalars['String']>;
+  data?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderCancellationData = {
   __typename?: 'UserOrderCancellationData';
-  CancellationDate?: Maybe<Scalars['String']>;
-  Reason?: Maybe<Scalars['String']>;
-  RequestedByPaymentNotification?: Maybe<Scalars['Boolean']>;
-  RequestedBySellerNotification?: Maybe<Scalars['Boolean']>;
-  RequestedBySystem?: Maybe<Scalars['Boolean']>;
-  RequestedByUser?: Maybe<Scalars['Boolean']>;
+  CancellationDate?: Maybe<Scalars['String']['output']>;
+  Reason?: Maybe<Scalars['String']['output']>;
+  RequestedByPaymentNotification?: Maybe<Scalars['Boolean']['output']>;
+  RequestedBySellerNotification?: Maybe<Scalars['Boolean']['output']>;
+  RequestedBySystem?: Maybe<Scalars['Boolean']['output']>;
+  RequestedByUser?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderCancellationRequest = {
   __typename?: 'UserOrderCancellationRequest';
-  cancellationRequestDate?: Maybe<Scalars['String']>;
-  cancellationRequestDenyDate?: Maybe<Scalars['String']>;
-  deniedBySeller?: Maybe<Scalars['Boolean']>;
-  deniedBySellerReason?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  reason?: Maybe<Scalars['String']>;
-  requestedByUser?: Maybe<Scalars['Boolean']>;
+  cancellationRequestDate?: Maybe<Scalars['String']['output']>;
+  cancellationRequestDenyDate?: Maybe<Scalars['String']['output']>;
+  deniedBySeller?: Maybe<Scalars['Boolean']['output']>;
+  deniedBySellerReason?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  reason?: Maybe<Scalars['String']['output']>;
+  requestedByUser?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderCategories = {
   __typename?: 'UserOrderCategories';
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderClientPreferencesData = {
   __typename?: 'UserOrderClientPreferencesData';
-  locale?: Maybe<Scalars['String']>;
-  optinNewsLetter?: Maybe<Scalars['Boolean']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  optinNewsLetter?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderClientProfileData = {
   __typename?: 'UserOrderClientProfileData';
-  corporateDocument?: Maybe<Scalars['String']>;
-  corporateName?: Maybe<Scalars['String']>;
-  corporatePhone?: Maybe<Scalars['String']>;
-  customerClass?: Maybe<Scalars['String']>;
-  customerCode?: Maybe<Scalars['String']>;
-  document?: Maybe<Scalars['String']>;
-  documentType?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  isCorporate?: Maybe<Scalars['Boolean']>;
-  lastName?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  stateInscription?: Maybe<Scalars['String']>;
-  tradeName?: Maybe<Scalars['String']>;
-  userProfileId?: Maybe<Scalars['String']>;
-  userProfileVersion?: Maybe<Scalars['String']>;
+  corporateDocument?: Maybe<Scalars['String']['output']>;
+  corporateName?: Maybe<Scalars['String']['output']>;
+  corporatePhone?: Maybe<Scalars['String']['output']>;
+  customerClass?: Maybe<Scalars['String']['output']>;
+  customerCode?: Maybe<Scalars['String']['output']>;
+  document?: Maybe<Scalars['String']['output']>;
+  documentType?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  isCorporate?: Maybe<Scalars['Boolean']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  stateInscription?: Maybe<Scalars['String']['output']>;
+  tradeName?: Maybe<Scalars['String']['output']>;
+  userProfileId?: Maybe<Scalars['String']['output']>;
+  userProfileVersion?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderContactInformation = {
   __typename?: 'UserOrderContactInformation';
-  document?: Maybe<Scalars['String']>;
-  documentType?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  lastName?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
+  document?: Maybe<Scalars['String']['output']>;
+  documentType?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  lastName?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderCourierStatus = {
   __typename?: 'UserOrderCourierStatus';
   data?: Maybe<Array<UserOrderTrackingInformation>>;
-  finished?: Maybe<Scalars['Boolean']>;
-  status?: Maybe<Scalars['String']>;
+  finished?: Maybe<Scalars['Boolean']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderCurrencyFormatInfo = {
   __typename?: 'UserOrderCurrencyFormatInfo';
-  CurrencyDecimalDigits?: Maybe<Scalars['Int']>;
-  CurrencyDecimalSeparator?: Maybe<Scalars['String']>;
-  CurrencyGroupSeparator?: Maybe<Scalars['String']>;
-  CurrencyGroupSize?: Maybe<Scalars['Int']>;
-  StartsWithCurrencySymbol?: Maybe<Scalars['Boolean']>;
+  CurrencyDecimalDigits?: Maybe<Scalars['Int']['output']>;
+  CurrencyDecimalSeparator?: Maybe<Scalars['String']['output']>;
+  CurrencyGroupSeparator?: Maybe<Scalars['String']['output']>;
+  CurrencyGroupSize?: Maybe<Scalars['Int']['output']>;
+  StartsWithCurrencySymbol?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderCustomApp = {
   __typename?: 'UserOrderCustomApp';
   fields?: Maybe<UserOrderFields>;
-  id?: Maybe<Scalars['String']>;
-  major?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['String']['output']>;
+  major?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderCustomData = {
@@ -1906,64 +1909,64 @@ export type UserOrderCustomField = {
 
 export type UserOrderCustomFieldField = {
   __typename?: 'UserOrderCustomFieldField';
-  name: Scalars['String'];
-  refId?: Maybe<Scalars['String']>;
-  value: Scalars['String'];
+  name: Scalars['String']['output'];
+  refId?: Maybe<Scalars['String']['output']>;
+  value: Scalars['String']['output'];
 };
 
 export type UserOrderCustomFieldLinkedEntity = {
   __typename?: 'UserOrderCustomFieldLinkedEntity';
-  id?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
+  id?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
 };
 
 export type UserOrderCustomFieldsGrouped = {
   __typename?: 'UserOrderCustomFieldsGrouped';
   fields?: Maybe<Array<Maybe<UserOrderCustomFieldField>>>;
-  id?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
+  id?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
 };
 
 export type UserOrderDeliveryChannels = {
   __typename?: 'UserOrderDeliveryChannels';
-  id?: Maybe<Scalars['String']>;
-  stockBalance?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['String']['output']>;
+  stockBalance?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderDeliveryIds = {
   __typename?: 'UserOrderDeliveryIds';
-  accountCarrierName?: Maybe<Scalars['String']>;
-  courierId?: Maybe<Scalars['String']>;
-  courierName?: Maybe<Scalars['String']>;
-  dockId?: Maybe<Scalars['String']>;
-  kitItemDetails?: Maybe<Array<Maybe<Scalars['String']>>>;
-  quantity?: Maybe<Scalars['Int']>;
-  warehouseId?: Maybe<Scalars['String']>;
+  accountCarrierName?: Maybe<Scalars['String']['output']>;
+  courierId?: Maybe<Scalars['String']['output']>;
+  courierName?: Maybe<Scalars['String']['output']>;
+  dockId?: Maybe<Scalars['String']['output']>;
+  kitItemDetails?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  warehouseId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderDeliveryOption = {
   __typename?: 'UserOrderDeliveryOption';
   address?: Maybe<UserOrderAddress>;
-  deliveryChannel?: Maybe<Scalars['String']>;
-  deliveryCompany?: Maybe<Scalars['String']>;
+  deliveryChannel?: Maybe<Scalars['String']['output']>;
+  deliveryCompany?: Maybe<Scalars['String']['output']>;
   deliveryWindow?: Maybe<UserOrderDeliveryWindow>;
-  friendlyDeliveryOptionName?: Maybe<Scalars['String']>;
-  friendlyShippingEstimate?: Maybe<Scalars['String']>;
+  friendlyDeliveryOptionName?: Maybe<Scalars['String']['output']>;
+  friendlyShippingEstimate?: Maybe<Scalars['String']['output']>;
   items?: Maybe<Array<Maybe<UserOrderDeliveryOptionsItems>>>;
   pickupStoreInfo?: Maybe<UserOrderPickupStoreInfo>;
-  quantityOfDifferentItems?: Maybe<Scalars['Int']>;
-  selectedSla?: Maybe<Scalars['String']>;
-  seller?: Maybe<Scalars['String']>;
-  shippingEstimate?: Maybe<Scalars['String']>;
-  shippingEstimateDate?: Maybe<Scalars['String']>;
-  total?: Maybe<Scalars['Int']>;
+  quantityOfDifferentItems?: Maybe<Scalars['Int']['output']>;
+  selectedSla?: Maybe<Scalars['String']['output']>;
+  seller?: Maybe<Scalars['String']['output']>;
+  shippingEstimate?: Maybe<Scalars['String']['output']>;
+  shippingEstimateDate?: Maybe<Scalars['String']['output']>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderDeliveryOptionsContact = {
   __typename?: 'UserOrderDeliveryOptionsContact';
-  email?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderDeliveryOptionsData = {
@@ -1974,97 +1977,97 @@ export type UserOrderDeliveryOptionsData = {
 
 export type UserOrderDeliveryOptionsItems = {
   __typename?: 'UserOrderDeliveryOptionsItems';
-  id?: Maybe<Scalars['String']>;
-  imageUrl?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
-  quantity?: Maybe<Scalars['Int']>;
-  tax?: Maybe<Scalars['Float']>;
-  total?: Maybe<Scalars['Float']>;
-  uniqueId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  tax?: Maybe<Scalars['Float']['output']>;
+  total?: Maybe<Scalars['Float']['output']>;
+  uniqueId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderDeliveryWindow = {
   __typename?: 'UserOrderDeliveryWindow';
-  endDateUtc?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
-  startDateUtc?: Maybe<Scalars['String']>;
+  endDateUtc?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  startDateUtc?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderDimension = {
   __typename?: 'UserOrderDimension';
-  cubicweight?: Maybe<Scalars['Float']>;
-  height?: Maybe<Scalars['Int']>;
-  length?: Maybe<Scalars['Int']>;
-  weight?: Maybe<Scalars['Int']>;
-  width?: Maybe<Scalars['Int']>;
+  cubicweight?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
+  length?: Maybe<Scalars['Int']['output']>;
+  weight?: Maybe<Scalars['Int']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderFields = {
   __typename?: 'UserOrderFields';
-  cartEtag?: Maybe<Scalars['String']>;
+  cartEtag?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderFromList = {
   __typename?: 'UserOrderFromList';
-  ShippingEstimatedDate?: Maybe<Scalars['String']>;
-  ShippingEstimatedDateMax?: Maybe<Scalars['String']>;
-  ShippingEstimatedDateMin?: Maybe<Scalars['String']>;
-  affiliateId?: Maybe<Scalars['String']>;
-  authorizedDate?: Maybe<Scalars['String']>;
-  callCenterOperatorName?: Maybe<Scalars['String']>;
-  clientName?: Maybe<Scalars['String']>;
-  creationDate?: Maybe<Scalars['String']>;
-  currencyCode?: Maybe<Scalars['String']>;
+  ShippingEstimatedDate?: Maybe<Scalars['String']['output']>;
+  ShippingEstimatedDateMax?: Maybe<Scalars['String']['output']>;
+  ShippingEstimatedDateMin?: Maybe<Scalars['String']['output']>;
+  affiliateId?: Maybe<Scalars['String']['output']>;
+  authorizedDate?: Maybe<Scalars['String']['output']>;
+  callCenterOperatorName?: Maybe<Scalars['String']['output']>;
+  clientName?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  currencyCode?: Maybe<Scalars['String']['output']>;
   customFields?: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>;
-  deliveryDates?: Maybe<Array<Maybe<Scalars['String']>>>;
-  giftCardProviders?: Maybe<Array<Maybe<Scalars['String']>>>;
-  hostname?: Maybe<Scalars['String']>;
-  invoiceInput?: Maybe<Array<Maybe<Scalars['String']>>>;
-  invoiceOutput?: Maybe<Array<Maybe<Scalars['String']>>>;
-  isAllDelivered?: Maybe<Scalars['Boolean']>;
-  isAnyDelivered?: Maybe<Scalars['Boolean']>;
+  deliveryDates?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  giftCardProviders?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  hostname?: Maybe<Scalars['String']['output']>;
+  invoiceInput?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  invoiceOutput?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  isAllDelivered?: Maybe<Scalars['Boolean']['output']>;
+  isAnyDelivered?: Maybe<Scalars['Boolean']['output']>;
   items?: Maybe<Array<Maybe<UserOrderItemsSummarized>>>;
-  lastChange?: Maybe<Scalars['String']>;
-  lastMessageUnread?: Maybe<Scalars['String']>;
-  listId?: Maybe<Scalars['String']>;
-  listType?: Maybe<Scalars['String']>;
-  marketPlaceOrderId?: Maybe<Scalars['String']>;
-  orderFormId?: Maybe<Scalars['String']>;
-  orderId?: Maybe<Scalars['String']>;
-  orderIsComplete?: Maybe<Scalars['Boolean']>;
-  origin?: Maybe<Scalars['String']>;
-  paymentApprovedDate?: Maybe<Scalars['String']>;
-  paymentNames?: Maybe<Scalars['String']>;
-  readyForHandlingDate?: Maybe<Scalars['String']>;
-  salesChannel?: Maybe<Scalars['String']>;
-  sequence?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  statusDescription?: Maybe<Scalars['String']>;
-  totalItems?: Maybe<Scalars['Int']>;
-  totalValue?: Maybe<Scalars['Float']>;
-  workflowInErrorState?: Maybe<Scalars['Boolean']>;
-  workflowInRetry?: Maybe<Scalars['Boolean']>;
+  lastChange?: Maybe<Scalars['String']['output']>;
+  lastMessageUnread?: Maybe<Scalars['String']['output']>;
+  listId?: Maybe<Scalars['String']['output']>;
+  listType?: Maybe<Scalars['String']['output']>;
+  marketPlaceOrderId?: Maybe<Scalars['String']['output']>;
+  orderFormId?: Maybe<Scalars['String']['output']>;
+  orderId?: Maybe<Scalars['String']['output']>;
+  orderIsComplete?: Maybe<Scalars['Boolean']['output']>;
+  origin?: Maybe<Scalars['String']['output']>;
+  paymentApprovedDate?: Maybe<Scalars['String']['output']>;
+  paymentNames?: Maybe<Scalars['String']['output']>;
+  readyForHandlingDate?: Maybe<Scalars['String']['output']>;
+  salesChannel?: Maybe<Scalars['String']['output']>;
+  sequence?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+  statusDescription?: Maybe<Scalars['String']['output']>;
+  totalItems?: Maybe<Scalars['Int']['output']>;
+  totalValue?: Maybe<Scalars['Float']['output']>;
+  workflowInErrorState?: Maybe<Scalars['Boolean']['output']>;
+  workflowInRetry?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderFromListCustomFields = {
   __typename?: 'UserOrderFromListCustomFields';
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Array<Maybe<Scalars['String']>>>;
+  type?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
 export type UserOrderFromListMinimal = {
   __typename?: 'UserOrderFromListMinimal';
-  ShippingEstimatedDate?: Maybe<Scalars['String']>;
-  clientName?: Maybe<Scalars['String']>;
-  creationDate?: Maybe<Scalars['String']>;
-  currencyCode?: Maybe<Scalars['String']>;
+  ShippingEstimatedDate?: Maybe<Scalars['String']['output']>;
+  clientName?: Maybe<Scalars['String']['output']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
+  currencyCode?: Maybe<Scalars['String']['output']>;
   customFields?: Maybe<Array<Maybe<UserOrderFromListCustomFields>>>;
   items?: Maybe<Array<Maybe<UserOrderItemsSummarized>>>;
-  orderId?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  statusDescription?: Maybe<Scalars['String']>;
-  totalValue?: Maybe<Scalars['Float']>;
+  orderId?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+  statusDescription?: Maybe<Scalars['String']['output']>;
+  totalValue?: Maybe<Scalars['Float']['output']>;
 };
 
 export const enum UserOrderInvoiceType {
@@ -2074,7 +2077,7 @@ export const enum UserOrderInvoiceType {
 
 export type UserOrderItemAttachment = {
   __typename?: 'UserOrderItemAttachment';
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderItemMetadata = {
@@ -2085,76 +2088,76 @@ export type UserOrderItemMetadata = {
 export type UserOrderItemMetadataItem = {
   __typename?: 'UserOrderItemMetadataItem';
   AssemblyOptions?: Maybe<Array<Maybe<UserOrderAssemblyOptions>>>;
-  DetailUrl?: Maybe<Scalars['String']>;
-  Ean?: Maybe<Scalars['String']>;
-  Id?: Maybe<Scalars['String']>;
-  ImageUrl?: Maybe<Scalars['String']>;
-  Name?: Maybe<Scalars['String']>;
-  ProductId?: Maybe<Scalars['String']>;
-  RefId?: Maybe<Scalars['String']>;
-  Seller?: Maybe<Scalars['String']>;
-  SkuName?: Maybe<Scalars['String']>;
+  DetailUrl?: Maybe<Scalars['String']['output']>;
+  Ean?: Maybe<Scalars['String']['output']>;
+  Id?: Maybe<Scalars['String']['output']>;
+  ImageUrl?: Maybe<Scalars['String']['output']>;
+  Name?: Maybe<Scalars['String']['output']>;
+  ProductId?: Maybe<Scalars['String']['output']>;
+  RefId?: Maybe<Scalars['String']['output']>;
+  Seller?: Maybe<Scalars['String']['output']>;
+  SkuName?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderItems = {
   __typename?: 'UserOrderItems';
   additionalInfo?: Maybe<UserOrderAdditionalInfo>;
-  assemblies?: Maybe<Array<Maybe<Scalars['String']>>>;
+  assemblies?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   attachmentOfferings?: Maybe<Array<Maybe<UserOrderAttachmentOfferings>>>;
   attachments?: Maybe<Array<Maybe<UserOrderAttachments>>>;
   bundleItems?: Maybe<Array<Maybe<UserOrderItems>>>;
-  callCenterOperator?: Maybe<Scalars['String']>;
-  commission?: Maybe<Scalars['Float']>;
+  callCenterOperator?: Maybe<Scalars['String']['output']>;
+  commission?: Maybe<Scalars['Float']['output']>;
   components?: Maybe<Array<Maybe<UserOrderItems>>>;
-  costPrice?: Maybe<Scalars['Float']>;
-  detailUrl?: Maybe<Scalars['String']>;
-  ean?: Maybe<Scalars['String']>;
-  freightCommission?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['String']>;
-  imageUrl?: Maybe<Scalars['String']>;
-  isGift?: Maybe<Scalars['Boolean']>;
+  costPrice?: Maybe<Scalars['Float']['output']>;
+  detailUrl?: Maybe<Scalars['String']['output']>;
+  ean?: Maybe<Scalars['String']['output']>;
+  freightCommission?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  isGift?: Maybe<Scalars['Boolean']['output']>;
   itemAttachment?: Maybe<UserOrderItemAttachment>;
-  listPrice?: Maybe<Scalars['Float']>;
-  lockId?: Maybe<Scalars['String']>;
-  manualPrice?: Maybe<Scalars['String']>;
-  manualPriceAppliedBy?: Maybe<Scalars['String']>;
-  measurementUnit?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  listPrice?: Maybe<Scalars['Float']['output']>;
+  lockId?: Maybe<Scalars['String']['output']>;
+  manualPrice?: Maybe<Scalars['String']['output']>;
+  manualPriceAppliedBy?: Maybe<Scalars['String']['output']>;
+  measurementUnit?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
   offerings?: Maybe<Array<Maybe<UserOrderOfferings>>>;
-  params?: Maybe<Array<Maybe<Scalars['String']>>>;
-  parentAssemblyBinding?: Maybe<Scalars['String']>;
-  parentItemIndex?: Maybe<Scalars['String']>;
-  preSaleDate?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
+  params?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  parentAssemblyBinding?: Maybe<Scalars['String']['output']>;
+  parentItemIndex?: Maybe<Scalars['String']['output']>;
+  preSaleDate?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
   priceDefinition?: Maybe<UserOrderPriceDefinition>;
   priceTags?: Maybe<Array<Maybe<UserOrderPriceTag>>>;
-  priceValidUntil?: Maybe<Scalars['String']>;
-  productId?: Maybe<Scalars['String']>;
-  quantity?: Maybe<Scalars['Int']>;
-  refId?: Maybe<Scalars['String']>;
-  rewardValue?: Maybe<Scalars['Float']>;
-  seller?: Maybe<Scalars['String']>;
-  sellerSku?: Maybe<Scalars['String']>;
-  sellingPrice?: Maybe<Scalars['Float']>;
-  serialNumbers?: Maybe<Scalars['String']>;
-  shippingPrice?: Maybe<Scalars['String']>;
-  tax?: Maybe<Scalars['Float']>;
-  taxCode?: Maybe<Scalars['String']>;
-  uniqueId?: Maybe<Scalars['String']>;
-  unitMultiplier?: Maybe<Scalars['Float']>;
+  priceValidUntil?: Maybe<Scalars['String']['output']>;
+  productId?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  refId?: Maybe<Scalars['String']['output']>;
+  rewardValue?: Maybe<Scalars['Float']['output']>;
+  seller?: Maybe<Scalars['String']['output']>;
+  sellerSku?: Maybe<Scalars['String']['output']>;
+  sellingPrice?: Maybe<Scalars['Float']['output']>;
+  serialNumbers?: Maybe<Scalars['String']['output']>;
+  shippingPrice?: Maybe<Scalars['String']['output']>;
+  tax?: Maybe<Scalars['Float']['output']>;
+  taxCode?: Maybe<Scalars['String']['output']>;
+  uniqueId?: Maybe<Scalars['String']['output']>;
+  unitMultiplier?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderItemsSummarized = {
   __typename?: 'UserOrderItemsSummarized';
-  description?: Maybe<Scalars['String']>;
-  ean?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
-  productId?: Maybe<Scalars['String']>;
-  quantity?: Maybe<Scalars['Int']>;
-  refId?: Maybe<Scalars['String']>;
-  seller?: Maybe<Scalars['String']>;
-  sellingPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']['output']>;
+  ean?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  productId?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  refId?: Maybe<Scalars['String']['output']>;
+  seller?: Maybe<Scalars['String']['output']>;
+  sellingPrice?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderListMinimalResult = {
@@ -2165,18 +2168,18 @@ export type UserOrderListMinimalResult = {
 
 export type UserOrderListPaging = {
   __typename?: 'UserOrderListPaging';
-  currentPage?: Maybe<Scalars['Int']>;
-  pages?: Maybe<Scalars['Int']>;
-  perPage?: Maybe<Scalars['Int']>;
-  total?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']['output']>;
+  pages?: Maybe<Scalars['Int']['output']>;
+  perPage?: Maybe<Scalars['Int']['output']>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderListResult = {
   __typename?: 'UserOrderListResult';
-  facets?: Maybe<Array<Maybe<Scalars['String']>>>;
+  facets?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   list?: Maybe<Array<UserOrderFromList>>;
   paging?: Maybe<UserOrderListPaging>;
-  reportRecordsLimit?: Maybe<Scalars['Int']>;
+  reportRecordsLimit?: Maybe<Scalars['Int']['output']>;
   stats?: Maybe<UserOrderListStats>;
 };
 
@@ -2193,74 +2196,74 @@ export type UserOrderListStatsData = {
 
 export type UserOrderListStatsValue = {
   __typename?: 'UserOrderListStatsValue';
-  Count?: Maybe<Scalars['Int']>;
-  Facets?: Maybe<Scalars['JSONObject']>;
-  Max?: Maybe<Scalars['Float']>;
-  Mean?: Maybe<Scalars['Float']>;
-  Min?: Maybe<Scalars['Float']>;
-  Missing?: Maybe<Scalars['Int']>;
-  StdDev?: Maybe<Scalars['Float']>;
-  Sum?: Maybe<Scalars['Float']>;
-  SumOfSquares?: Maybe<Scalars['Float']>;
+  Count?: Maybe<Scalars['Int']['output']>;
+  Facets?: Maybe<Scalars['JSONObject']['output']>;
+  Max?: Maybe<Scalars['Float']['output']>;
+  Mean?: Maybe<Scalars['Float']['output']>;
+  Min?: Maybe<Scalars['Float']['output']>;
+  Missing?: Maybe<Scalars['Int']['output']>;
+  StdDev?: Maybe<Scalars['Float']['output']>;
+  Sum?: Maybe<Scalars['Float']['output']>;
+  SumOfSquares?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderLogisticsInfo = {
   __typename?: 'UserOrderLogisticsInfo';
-  addressId?: Maybe<Scalars['String']>;
-  deliveryChannel?: Maybe<Scalars['String']>;
+  addressId?: Maybe<Scalars['String']['output']>;
+  deliveryChannel?: Maybe<Scalars['String']['output']>;
   deliveryChannels?: Maybe<Array<Maybe<UserOrderDeliveryChannels>>>;
-  deliveryCompany?: Maybe<Scalars['String']>;
+  deliveryCompany?: Maybe<Scalars['String']['output']>;
   deliveryIds?: Maybe<Array<Maybe<UserOrderDeliveryIds>>>;
   deliveryWindow?: Maybe<UserOrderDeliveryWindow>;
-  entityId?: Maybe<Scalars['String']>;
-  itemId?: Maybe<Scalars['String']>;
-  itemIndex?: Maybe<Scalars['Int']>;
-  listPrice?: Maybe<Scalars['Float']>;
-  lockTTL?: Maybe<Scalars['String']>;
-  pickupPointId?: Maybe<Scalars['String']>;
+  entityId?: Maybe<Scalars['String']['output']>;
+  itemId?: Maybe<Scalars['String']['output']>;
+  itemIndex?: Maybe<Scalars['Int']['output']>;
+  listPrice?: Maybe<Scalars['Float']['output']>;
+  lockTTL?: Maybe<Scalars['String']['output']>;
+  pickupPointId?: Maybe<Scalars['String']['output']>;
   pickupStoreInfo?: Maybe<UserOrderPickupStoreInfo>;
-  polygonName?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
-  selectedDeliveryChannel?: Maybe<Scalars['String']>;
-  selectedSla?: Maybe<Scalars['String']>;
-  sellingPrice?: Maybe<Scalars['Float']>;
-  shippingEstimate?: Maybe<Scalars['String']>;
-  shippingEstimateDate?: Maybe<Scalars['String']>;
-  shipsTo?: Maybe<Array<Maybe<Scalars['String']>>>;
+  polygonName?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  selectedDeliveryChannel?: Maybe<Scalars['String']['output']>;
+  selectedSla?: Maybe<Scalars['String']['output']>;
+  sellingPrice?: Maybe<Scalars['Float']['output']>;
+  shippingEstimate?: Maybe<Scalars['String']['output']>;
+  shippingEstimateDate?: Maybe<Scalars['String']['output']>;
+  shipsTo?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   slas?: Maybe<Array<Maybe<UserOrderSlas>>>;
-  transitTime?: Maybe<Scalars['String']>;
-  versionId?: Maybe<Scalars['String']>;
+  transitTime?: Maybe<Scalars['String']['output']>;
+  versionId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderMarketplace = {
   __typename?: 'UserOrderMarketplace';
-  baseURL?: Maybe<Scalars['String']>;
-  isCertified?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  baseURL?: Maybe<Scalars['String']['output']>;
+  isCertified?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderOfferings = {
   __typename?: 'UserOrderOfferings';
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
-  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderPackage = {
   __typename?: 'UserOrderPackage';
-  courier?: Maybe<Scalars['String']>;
+  courier?: Maybe<Scalars['String']['output']>;
   courierStatus?: Maybe<UserOrderCourierStatus>;
-  extraValue?: Maybe<Scalars['Float']>;
-  invoiceKey?: Maybe<Scalars['String']>;
-  invoiceNumber: Scalars['String'];
-  invoiceUrl?: Maybe<Scalars['String']>;
-  invoiceValue: Scalars['Float'];
-  issuanceDate?: Maybe<Scalars['String']>;
+  extraValue?: Maybe<Scalars['Float']['output']>;
+  invoiceKey?: Maybe<Scalars['String']['output']>;
+  invoiceNumber: Scalars['String']['output'];
+  invoiceUrl?: Maybe<Scalars['String']['output']>;
+  invoiceValue: Scalars['Float']['output'];
+  issuanceDate?: Maybe<Scalars['String']['output']>;
   items?: Maybe<Array<UserOrderPackageItem>>;
   restitutions?: Maybe<UserOrderRestitutions>;
-  trackingNumber?: Maybe<Scalars['String']>;
-  trackingUrl?: Maybe<Scalars['String']>;
+  trackingNumber?: Maybe<Scalars['String']['output']>;
+  trackingUrl?: Maybe<Scalars['String']['output']>;
   type?: Maybe<UserOrderInvoiceType>;
 };
 
@@ -2271,100 +2274,100 @@ export type UserOrderPackageAttachment = {
 
 export type UserOrderPackageItem = {
   __typename?: 'UserOrderPackageItem';
-  description?: Maybe<Scalars['String']>;
-  itemIndex?: Maybe<Scalars['Int']>;
-  price?: Maybe<Scalars['Int']>;
-  quantity?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']['output']>;
+  itemIndex?: Maybe<Scalars['Int']['output']>;
+  price?: Maybe<Scalars['Int']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderPaymentConnectorResponses = {
   __typename?: 'UserOrderPaymentConnectorResponses';
-  Message?: Maybe<Scalars['String']>;
-  ReturnCode?: Maybe<Scalars['String']>;
-  Tid?: Maybe<Scalars['String']>;
-  authId?: Maybe<Scalars['String']>;
+  Message?: Maybe<Scalars['String']['output']>;
+  ReturnCode?: Maybe<Scalars['String']['output']>;
+  Tid?: Maybe<Scalars['String']['output']>;
+  authId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderPaymentData = {
   __typename?: 'UserOrderPaymentData';
-  giftCards?: Maybe<Array<Maybe<Scalars['String']>>>;
+  giftCards?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   transactions?: Maybe<Array<Maybe<UserOrderTransactions>>>;
 };
 
 export type UserOrderPayments = {
   __typename?: 'UserOrderPayments';
-  accountId?: Maybe<Scalars['String']>;
-  bankIssuedInvoiceBarCodeNumber?: Maybe<Scalars['String']>;
-  bankIssuedInvoiceBarCodeType?: Maybe<Scalars['String']>;
-  bankIssuedInvoiceIdentificationNumber?: Maybe<Scalars['String']>;
-  bankIssuedInvoiceIdentificationNumberFormatted?: Maybe<Scalars['String']>;
-  billingAddress?: Maybe<Scalars['String']>;
-  cardHolder?: Maybe<Scalars['String']>;
-  cardNumber?: Maybe<Scalars['String']>;
+  accountId?: Maybe<Scalars['String']['output']>;
+  bankIssuedInvoiceBarCodeNumber?: Maybe<Scalars['String']['output']>;
+  bankIssuedInvoiceBarCodeType?: Maybe<Scalars['String']['output']>;
+  bankIssuedInvoiceIdentificationNumber?: Maybe<Scalars['String']['output']>;
+  bankIssuedInvoiceIdentificationNumberFormatted?: Maybe<Scalars['String']['output']>;
+  billingAddress?: Maybe<Scalars['String']['output']>;
+  cardHolder?: Maybe<Scalars['String']['output']>;
+  cardNumber?: Maybe<Scalars['String']['output']>;
   connectorResponses?: Maybe<UserOrderPaymentConnectorResponses>;
-  cvv2?: Maybe<Scalars['String']>;
-  dueDate?: Maybe<Scalars['String']>;
-  expireMonth?: Maybe<Scalars['String']>;
-  expireYear?: Maybe<Scalars['String']>;
-  firstDigits?: Maybe<Scalars['String']>;
-  giftCardAsDiscount?: Maybe<Scalars['String']>;
-  giftCardCaption?: Maybe<Scalars['String']>;
-  giftCardId?: Maybe<Scalars['String']>;
-  giftCardName?: Maybe<Scalars['String']>;
-  giftCardProvider?: Maybe<Scalars['String']>;
-  group?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  installments?: Maybe<Scalars['Int']>;
-  koinUrl?: Maybe<Scalars['String']>;
-  lastDigits?: Maybe<Scalars['String']>;
-  parentAccountId?: Maybe<Scalars['String']>;
-  paymentOrigin?: Maybe<Scalars['String']>;
-  paymentSystem?: Maybe<Scalars['String']>;
-  paymentSystemName?: Maybe<Scalars['String']>;
-  redemptionCode?: Maybe<Scalars['String']>;
-  referenceValue?: Maybe<Scalars['Int']>;
-  tid?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['Int']>;
+  cvv2?: Maybe<Scalars['String']['output']>;
+  dueDate?: Maybe<Scalars['String']['output']>;
+  expireMonth?: Maybe<Scalars['String']['output']>;
+  expireYear?: Maybe<Scalars['String']['output']>;
+  firstDigits?: Maybe<Scalars['String']['output']>;
+  giftCardAsDiscount?: Maybe<Scalars['String']['output']>;
+  giftCardCaption?: Maybe<Scalars['String']['output']>;
+  giftCardId?: Maybe<Scalars['String']['output']>;
+  giftCardName?: Maybe<Scalars['String']['output']>;
+  giftCardProvider?: Maybe<Scalars['String']['output']>;
+  group?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  installments?: Maybe<Scalars['Int']['output']>;
+  koinUrl?: Maybe<Scalars['String']['output']>;
+  lastDigits?: Maybe<Scalars['String']['output']>;
+  parentAccountId?: Maybe<Scalars['String']['output']>;
+  paymentOrigin?: Maybe<Scalars['String']['output']>;
+  paymentSystem?: Maybe<Scalars['String']['output']>;
+  paymentSystemName?: Maybe<Scalars['String']['output']>;
+  redemptionCode?: Maybe<Scalars['String']['output']>;
+  referenceValue?: Maybe<Scalars['Int']['output']>;
+  tid?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserOrderPickupStoreInfo = {
   __typename?: 'UserOrderPickupStoreInfo';
-  additionalInfo?: Maybe<Scalars['String']>;
+  additionalInfo?: Maybe<Scalars['String']['output']>;
   address?: Maybe<UserOrderAddress>;
-  dockId?: Maybe<Scalars['String']>;
-  friendlyName?: Maybe<Scalars['String']>;
-  isPickupStore?: Maybe<Scalars['Boolean']>;
+  dockId?: Maybe<Scalars['String']['output']>;
+  friendlyName?: Maybe<Scalars['String']['output']>;
+  isPickupStore?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderPriceDefinition = {
   __typename?: 'UserOrderPriceDefinition';
-  calculatedSellingPrice?: Maybe<Scalars['Float']>;
-  reason?: Maybe<Scalars['String']>;
+  calculatedSellingPrice?: Maybe<Scalars['Float']['output']>;
+  reason?: Maybe<Scalars['String']['output']>;
   sellingPrices?: Maybe<Array<Maybe<UserOrderSellingPrices>>>;
-  total?: Maybe<Scalars['Float']>;
+  total?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderPriceTag = {
   __typename?: 'UserOrderPriceTag';
-  identifier?: Maybe<Scalars['String']>;
-  isPercentual?: Maybe<Scalars['Boolean']>;
-  jurisCode?: Maybe<Scalars['String']>;
-  jurisName?: Maybe<Scalars['String']>;
-  jurisType?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
-  owner?: Maybe<Scalars['String']>;
-  rate?: Maybe<Scalars['Float']>;
-  rawValue: Scalars['Float'];
-  value?: Maybe<Scalars['Float']>;
+  identifier?: Maybe<Scalars['String']['output']>;
+  isPercentual?: Maybe<Scalars['Boolean']['output']>;
+  jurisCode?: Maybe<Scalars['String']['output']>;
+  jurisName?: Maybe<Scalars['String']['output']>;
+  jurisType?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  owner?: Maybe<Scalars['String']['output']>;
+  rate?: Maybe<Scalars['Float']['output']>;
+  rawValue: Scalars['Float']['output'];
+  value?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderPurchaseAgent = {
   __typename?: 'UserOrderPurchaseAgent';
-  persona?: Maybe<Scalars['String']>;
-  unitId?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['String']>;
-  versionId?: Maybe<Scalars['String']>;
+  persona?: Maybe<Scalars['String']['output']>;
+  unitId?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+  versionId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderPurchaseAgentData = {
@@ -2374,36 +2377,36 @@ export type UserOrderPurchaseAgentData = {
 
 export type UserOrderRateAndBenefitsIdentifier = {
   __typename?: 'UserOrderRateAndBenefitsIdentifier';
-  additionalInfo?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  featured?: Maybe<Scalars['Boolean']>;
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
+  additionalInfo?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  featured?: Maybe<Scalars['Boolean']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderRatesAndBenefitsData = {
   __typename?: 'UserOrderRatesAndBenefitsData';
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
   rateAndBenefitsIdentifiers?: Maybe<Array<Maybe<UserOrderRateAndBenefitsIdentifier>>>;
 };
 
 export type UserOrderRestitutionItem = {
   __typename?: 'UserOrderRestitutionItem';
-  compensationValue?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['ID']>;
-  isCompensation?: Maybe<Scalars['Boolean']>;
-  itemIndex?: Maybe<Scalars['Int']>;
-  price?: Maybe<Scalars['Float']>;
-  quantity?: Maybe<Scalars['Int']>;
-  unitMultiplier?: Maybe<Scalars['Float']>;
-  useFreight?: Maybe<Scalars['Boolean']>;
+  compensationValue?: Maybe<Scalars['Float']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  isCompensation?: Maybe<Scalars['Boolean']['output']>;
+  itemIndex?: Maybe<Scalars['Int']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  unitMultiplier?: Maybe<Scalars['Float']['output']>;
+  useFreight?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserOrderRestitutionOption = {
   __typename?: 'UserOrderRestitutionOption';
   items?: Maybe<Array<UserOrderRestitutionItem>>;
-  value?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderRestitutions = {
@@ -2414,29 +2417,29 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
-  allowCancellation?: Maybe<Scalars['Boolean']>;
-  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
+  allowCancellation?: Maybe<Scalars['Boolean']['output']>;
+  canProcessOrderAuthorization?: Maybe<Scalars['Boolean']['output']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
-  creationDate?: Maybe<Scalars['String']>;
+  creationDate?: Maybe<Scalars['String']['output']>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
   items?: Maybe<Array<Maybe<UserOrderItems>>>;
-  orderId?: Maybe<Scalars['String']>;
+  orderId?: Maybe<Scalars['String']['output']>;
   paymentData?: Maybe<UserOrderPaymentData>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
   shopperName?: Maybe<UserOrderShopperName>;
-  status?: Maybe<Scalars['String']>;
-  statusDescription?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']['output']>;
+  statusDescription?: Maybe<Scalars['String']['output']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
   totals?: Maybe<Array<Maybe<UserOrderTotals>>>;
 };
 
 export type UserOrderSellingPrices = {
   __typename?: 'UserOrderSellingPrices';
-  quantity?: Maybe<Scalars['Int']>;
-  value?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  value?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderShippingData = {
@@ -2444,81 +2447,81 @@ export type UserOrderShippingData = {
   address?: Maybe<UserOrderAddress>;
   availableAddresses?: Maybe<Array<Maybe<UserOrderAddress>>>;
   contactInformation?: Maybe<Array<Maybe<UserOrderContactInformation>>>;
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
   logisticsInfo?: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>;
   selectedAddresses?: Maybe<Array<Maybe<UserOrderAddress>>>;
-  trackingHints?: Maybe<Scalars['String']>;
+  trackingHints?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderShopperName = {
   __typename?: 'UserOrderShopperName';
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderSlas = {
   __typename?: 'UserOrderSlas';
   availableDeliveryWindows?: Maybe<Array<Maybe<UserOrderDeliveryWindow>>>;
-  deliveryChannel?: Maybe<Scalars['String']>;
+  deliveryChannel?: Maybe<Scalars['String']['output']>;
   deliveryIds?: Maybe<Array<Maybe<UserOrderDeliveryIds>>>;
   deliveryWindow?: Maybe<UserOrderDeliveryWindow>;
-  id?: Maybe<Scalars['String']>;
-  listPrice?: Maybe<Scalars['Float']>;
-  lockTTL?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  pickupDistance?: Maybe<Scalars['Int']>;
-  pickupPointId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
+  listPrice?: Maybe<Scalars['Float']['output']>;
+  lockTTL?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  pickupDistance?: Maybe<Scalars['Int']['output']>;
+  pickupPointId?: Maybe<Scalars['String']['output']>;
   pickupStoreInfo?: Maybe<UserOrderPickupStoreInfo>;
-  polygonName?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
-  shippingEstimate?: Maybe<Scalars['String']>;
-  shippingEstimateDate?: Maybe<Scalars['String']>;
-  transitTime?: Maybe<Scalars['String']>;
+  polygonName?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  shippingEstimate?: Maybe<Scalars['String']['output']>;
+  shippingEstimateDate?: Maybe<Scalars['String']['output']>;
+  transitTime?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderStorePreferencesData = {
   __typename?: 'UserOrderStorePreferencesData';
-  countryCode?: Maybe<Scalars['String']>;
-  currencyCode?: Maybe<Scalars['String']>;
+  countryCode?: Maybe<Scalars['String']['output']>;
+  currencyCode?: Maybe<Scalars['String']['output']>;
   currencyFormatInfo?: Maybe<UserOrderCurrencyFormatInfo>;
-  currencyLocale?: Maybe<Scalars['Int']>;
-  currencySymbol?: Maybe<Scalars['String']>;
-  timeZone?: Maybe<Scalars['String']>;
+  currencyLocale?: Maybe<Scalars['Int']['output']>;
+  currencySymbol?: Maybe<Scalars['String']['output']>;
+  timeZone?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderStoreSellers = {
   __typename?: 'UserOrderStoreSellers';
-  fulfillmentEndpoint?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  logo?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  fulfillmentEndpoint?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderTotals = {
   __typename?: 'UserOrderTotals';
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserOrderTrackingInformation = {
   __typename?: 'UserOrderTrackingInformation';
-  city?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  lastChange?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  lastChange?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderTransactions = {
   __typename?: 'UserOrderTransactions';
-  isActive?: Maybe<Scalars['Boolean']>;
-  merchantName?: Maybe<Scalars['String']>;
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  merchantName?: Maybe<Scalars['String']['output']>;
   payments?: Maybe<Array<Maybe<UserOrderPayments>>>;
-  transactionId?: Maybe<Scalars['String']>;
+  transactionId?: Maybe<Scalars['String']['output']>;
 };
 
 export type ValidateUserData = {
   __typename?: 'ValidateUserData';
   /** Indicates if the user is valid. */
-  isValid: Scalars['Boolean'];
+  isValid: Scalars['Boolean']['output'];
 };

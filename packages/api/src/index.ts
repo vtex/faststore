@@ -4,7 +4,7 @@ import {
   getContextFactory as getContextFactoryVTEX,
   getResolvers as getResolversVTEX,
 } from './platforms/vtex'
-import { typeDefs } from '@faststore/graphql-schema'
+import { typeDefs } from './typeDefs'
 import cacheControlDirective from './directives/cacheControl'
 import type { Directive } from './directives'
 import type { Options as OptionsVTEX } from './platforms/vtex'

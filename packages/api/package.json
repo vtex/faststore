@@ -5,14 +5,18 @@
   "typings": "dist/esm/src/index.d.ts",
   "module": "dist/esm/src/index.js",
   "repository": "vtex/faststore",
+  "types": "./dist/src/index.d.ts",
+  "main": "./dist/cjs/index.js",
   "files": [
     "dist",
     "src"
   ],
   "exports": {
+    "./*": "./dist/*",
     ".": {
-      "types": "./dist/esm/src/index.d.ts",
-      "default": "./dist/esm/src/index.js"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
     }
   },
   "browserslist": "node 18",
@@ -20,34 +24,32 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "concurrently \"pnpm run generate -w\" \"tsc --watch\" \"pnpm run dev:graphql\"",
-    "dev:graphql": "faststore-schema ./dist/schema.graphql --watch=true ",
-    "dev:server": "tsx --no-cache ./local/server.ts",
-    "build": "pnpm run generate && (pnpm build:esm)",
-    "build:esm": "tsc",
+    "dev": "vite build --watch",
+    "dev:server": "echo '\n\n -> need to fix this ##tsx --no-cache ./local/server.ts'",
+    "build": "vite build",
     "test:int": "jest --projects jest.int.config.js",
     "test:intc": "jest --projects jest.int.config.js --coverage",
     "test:unit": "jest --projects jest.unit.config.js --silent",
     "test:unitc": "jest --projects jest.unit.config.js --silent --coverage",
     "test": "pnpm run test:unit && pnpm run test:int",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "vite build"
   },
   "dependencies": {
-    "@faststore/graphql-schema": "workspace:^",
     "@graphql-tools/schema": "^9.0.0",
     "@graphql-tools/utils": "^10.2.0",
     "@rollup/plugin-graphql": "^1.0.0",
+    "@types/crypto-js": "^4.2.2",
     "cookie": "^0.7.0",
+    "crypto-js": "^4.2.0",
     "dataloader": "^2.1.0",
     "fast-deep-equal": "^3.1.3",
-    "isomorphic-unfetch": "^3.1.0",
     "p-limit": "^3.1.0",
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.2.0",
-    "@graphql-codegen/typescript": "2.2.2",
-    "@graphql-tools/merge": "^9.0.4",
+    "@graphql-codegen/cli": "5.0.2",
+    "@graphql-codegen/typescript": "4.0.7",
+    "@graphql-tools/merge": "^9.1.1",
     "@parcel/watcher": "^2.4.0",
     "@types/cookie": "^0.6.0",
     "@types/express": "^4.17.16",
@@ -62,7 +64,9 @@
     "nodemon": "^3.0.2",
     "ts-jest": "29.1.1",
     "tslib": "^2.3.1",
-    "tsx": "^4.6.2"
+    "tsx": "^4.6.2",
+    "vite": "^7.1.2",
+    "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
     "graphql": "^15.6.0"

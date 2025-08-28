@@ -7,22 +7,28 @@
   "exports": {
     ".": "./index.ts",
     "./ui": "./src/components/ui/index.ts",
-    "./pages": "./output/pages.ts",
-    "./handlers": "./output/handlers.ts",
+    "./pages/*": "./src/pages/*.tsx",
+    "./handlers/*": "./src/pages/api/*.ts",
+    "./generated/*": "./@generated/*.ts",
     "./with-faststore": "./src/utils/withFaststore.js",
     "./config": "./discovery.config.js",
     "./typings/*": "./src/typings/*.d.ts",
+    "./src/tsx/*": "./src/*.tsx",
+    "./src/ts/*": "./src/*.ts",
     "./api": "./api/index.ts",
     "./experimental": "./src/experimental/index.ts",
     "./experimental/server": "./src/experimental/server/index.ts"
   },
+  "bin": {
+    "faststore-core": "./bin/generate-types.js"
+  },
   "scripts": {
-    "generate:codegen": "graphql-codegen",
     "format:generated": "prettier --write \"@generated/**/*.{ts,js,tsx,jsx,json}\" --loglevel error",
-    "generate": "na run generate:codegen && na run format:generated",
+    "generate": "node ./bin/generate-types.js true && na run format:generated",
+    "prepack": "na run partytown && na run generate",
     "prebuild": "na run partytown && na run generate",
-    "build": "next build",
     "predev": "na run partytown && na run generate",
+    "build": "next build",
     "dev": "next dev",
     "dev-only": "next dev",
     "clean": "rm -r .next",
@@ -50,7 +56,6 @@
     "@envelop/parser-cache": "^6.0.2",
     "@envelop/validation-cache": "^6.0.2",
     "@faststore/api": "workspace:^",
-    "@faststore/graphql-schema": "workspace:^",
     "@faststore/graphql-utils": "^3.56.1",
     "@faststore/lighthouse": "^3.56.1",
     "@faststore/sdk": "^3.72.0",
@@ -75,10 +80,8 @@
     "draftjs-to-html": "^0.9.1",
     "fast-deep-equal": "^3.1.3",
     "fs-extra": "^10.1.0",
-    "graphql": "^15.6.0",
     "include-media": "^1.4.10",
     "isomorphic-unfetch": "^3.1.0",
-    "next": "^13.5.9",
     "next-seo": "^6.6.0",
     "postcss": "^8.4.4",
     "prettier": "^2.2.0",
@@ -115,6 +118,8 @@
   },
   "peerDependencies": {
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "next": "^13.5.9",
+    "graphql": "^15.6.0"
   }
 }

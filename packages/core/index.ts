@@ -37,3 +37,4 @@ export {
 } from './src/sdk/deliveryPromise'
 
 export { registerCustomization } from './src/utils/registerCustomization'
+export { gql } from './@generated/index'

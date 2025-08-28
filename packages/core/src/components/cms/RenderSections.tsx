@@ -109,7 +109,7 @@ export const RenderSectionsBase = ({
     <>
       {sections.map(({ name, data = {}, $componentKey }, index) => {
         const key = $componentKey ?? name
-        const Component = ({ ...components, ...CUSTOM_COMPONENTS })[key]
+        const Component = { ...components, ...CUSTOM_COMPONENTS }[key]
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
