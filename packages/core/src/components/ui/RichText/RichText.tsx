@@ -58,6 +58,43 @@ function getLinkElementAsString(url: string, text: string) {
     >${text}</a>`
 }
 
+function replaceLinkElements(html: string): string {
+  return html.replace(
+    /<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/g,
+    (match, url, text) => getLinkElementAsString(url, text)
+  )
+}
+
+function replaceLists(html: string): string {
+  return html
+    .replace(
+      /<ol([^>]*)>/g,
+      '<ol$1 data-fs-rich-text-list="true" data-fs-list-type="ordered">'
+    )
+    .replace(
+      /<ul([^>]*)>/g,
+      '<ul$1 data-fs-rich-text-list="true" data-fs-list-type="unordered">'
+    )
+}
+
+function fixNestedListStructure(html: string): string {
+  let result = html
+
+  // Remove completely empty list items
+  result = result.replace(/<li[^>]*>\s*<\/li>/g, '')
+
+  // Fix empty <li> elements that directly contain nested lists
+  result = result.replace(/<li([^>]*)>\s*(<(?:ul|ol)[^>]*>)/g, '$2')
+
+  // Fix closing tags: </ul></li> should become </ul>
+  result = result.replace(/(<\/(?:ul|ol)>)\s*<\/li>/g, '$1')
+
+  // Clean up remaining structural issues
+  result = result.replace(/\s*<li[^>]*>\s*(?=<(?:ul|ol))/g, '')
+
+  return result
+}
+
 function lexicalToHtml(content: string) {
   if (!content) {
     return ''
@@ -108,38 +145,9 @@ function lexicalToHtml(content: string) {
     html = $generateHtmlFromNodes(editor, null)
   })
 
-  html = html
-    .replace(/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/g, (match, url, text) =>
-      getLinkElementAsString(url, text)
-    )
-    .replace(
-      /<ol([^>]*)>/g,
-      '<ol$1 data-fs-rich-text-list="true" data-fs-list-type="ordered">'
-    )
-    .replace(
-      /<ul([^>]*)>/g,
-      '<ul$1 data-fs-rich-text-list="true" data-fs-list-type="unordered">'
-    )
-
-  return fixNestedListStructure(html)
-}
-
-function fixNestedListStructure(html: string): string {
-  let result = html
-
-  // Remove completely empty list items
-  result = result.replace(/<li[^>]*>\s*<\/li>/g, '')
-
-  // Fix empty <li> elements that directly contain nested lists
-  result = result.replace(/<li([^>]*)>\s*(<(?:ul|ol)[^>]*>)/g, '$2')
-
-  // Fix closing tags: </ul></li> should become </ul>
-  result = result.replace(/(<\/(?:ul|ol)>)\s*<\/li>/g, '$1')
-
-  // Clean up remaining structural issues
-  result = result.replace(/\s*<li[^>]*>\s*(?=<(?:ul|ol))/g, '')
-
-  return result
+  const withLinks = replaceLinkElements(html)
+  const withLists = replaceLists(withLinks)
+  return fixNestedListStructure(withLists)
 }
 
 function cmsToHtml(content: string) {
