@@ -24,7 +24,7 @@ import {
   RootNode,
   type SerializedEditorState,
 } from 'lexical'
-import { RichText as UIRichText } from '@faststore/components'
+import { RichText as UIRichText } from '@faststore/ui'
 import { isContentPlatformSource } from '../../../server/content/utils'
 
 export interface RichTextProps {
