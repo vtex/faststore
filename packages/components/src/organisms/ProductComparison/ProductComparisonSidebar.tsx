@@ -42,7 +42,7 @@ export interface SortOptions {
   onChange: (productComparison: IProductComparison[]) => IProductComparison[]
 }
 
-type ImageComponentType = FunctionComponent<{
+export type ImageComponentType = FunctionComponent<{
   src: string
   alt: string
   width?: number

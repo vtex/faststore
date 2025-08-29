@@ -65,7 +65,7 @@ export interface ProductCardProps {
   /**
    * Enable the compare checkbox on display.
    */
-  enableCompareCheckboxOnDisplay?: boolean
+  enableCompareCheckbox?: boolean
   /**
    * Label for the compare checkbox.
    */
@@ -85,7 +85,7 @@ function ProductCard({
   showDiscountBadge = true,
   taxesConfiguration,
   sponsoredLabel,
-  enableCompareCheckboxOnDisplay = false,
+  enableCompareCheckbox = false,
   compareLabel,
   ...otherProps
 }: ProductCardProps) {
@@ -133,7 +133,7 @@ function ProductCard({
 
   return (
     <>
-      {enableCompareCheckboxOnDisplay && (
+      {enableCompareCheckbox && (
         <UIProductComparisonTrigger
           label={compareLabel}
           product={product}

@@ -1,14 +1,9 @@
-import React, { type FunctionComponent } from 'react'
+import React from 'react'
 import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
 import SelectField from '../../molecules/SelectField'
+import type { ImageComponentType } from './ProductComparisonSidebar'
 
-type ImageComponentType = FunctionComponent<{
-  src: string
-  alt: string
-  width?: number
-  height?: number
-}>
 export interface ProductComparisonToolbarProps {
   /*
    * Set the label for the warning message when products are selected.

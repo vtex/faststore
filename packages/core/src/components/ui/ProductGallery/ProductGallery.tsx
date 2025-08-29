@@ -362,9 +362,9 @@ function ProductGallery({
               size="partial"
               priceFormatter={useFormattedPrice}
               technicalInformation={{
-                title: productComparison.labels.technicalInformation.title,
+                title: productComparison?.labels?.technicalInformation?.title,
                 description:
-                  productComparison.labels.technicalInformation.description,
+                  productComparison?.labels?.technicalInformation?.description,
               }}
               overlayProps={{ className: styles.section }}
               {...productComparison.labels.sidebarComponent}

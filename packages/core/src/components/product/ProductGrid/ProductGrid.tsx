@@ -90,7 +90,7 @@ function ProductGrid({
                   pageSize={pageSize}
                 >
                   <ProductCard.Component
-                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    enableCompareCheckbox={shouldShowComparison}
                     compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
@@ -122,7 +122,7 @@ function ProductGrid({
                     pageSize={pageSize}
                   >
                     <ProductCard.Component
-                      enableCompareCheckboxOnDisplay={shouldShowComparison}
+                      enableCompareCheckbox={shouldShowComparison}
                       compareLabel={compareLabel}
                       aspectRatio={aspectRatio}
                       imgProps={{
@@ -157,7 +157,7 @@ function ProductGrid({
                   pageSize={pageSize}
                 >
                   <ProductCard.Component
-                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    enableCompareCheckbox={shouldShowComparison}
                     compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
