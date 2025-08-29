@@ -5,15 +5,15 @@
   // Default properties
 
   // Shadow
-  --fs-product-comparison-box-shadow: var(--fs-shadow-darker);
+  --fs-product-comparison-box-shadow:        var(--fs-shadow-darker);
 
   // Background
-  --fs-product-comparison-bkg-color: var(--fs-color-body-bkg);
+  --fs-product-comparison-bkg-color:         var(--fs-color-body-bkg);
   --fs-product-comparison-bkg-color-neutral: var(--fs-color-neutral-1);
 
   // Text
-  --fs-product-comparison-text-weight: var(--fs-text-weight-light);
-  --fs-product-comparison-text-color: var(--fs-border-color-light);
+  --fs-product-comparison-text-weight:       var(--fs-text-weight-light);
+  --fs-product-comparison-text-color:        var(--fs-border-color-light);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -90,19 +90,19 @@
   // Default properties
 
   // Background
-  --fs-product-comparison-bkg-color: var(--fs-color-body-bkg);
+  --fs-product-comparison-bkg-color:                             var(--fs-color-body-bkg);
 
   // Title
-  --fs-product-comparison-title-size: var(--fs-text-size-6);
-  --fs-product-comparison-title-weight: var(--fs-text-weight-semibold);
+  --fs-product-comparison-title-size:                            var(--fs-text-size-6);
+  --fs-product-comparison-title-weight:                          var(--fs-text-weight-semibold);
 
   // Spacing
-  --fs-product-comparison-padding: var(--fs-spacing-8);
+  --fs-product-comparison-padding:                               var(--fs-spacing-8);
 
   // Partial
-  --fs-product-comparison-slide-over-partial-gap: calc(2 * var(--fs-grid-padding));
-  --fs-product-comparison-slide-over-partial-width-mobile: calc(100vw - var(--fs-slide-over-partial-gap));
-  --fs-product-comparison-slide-over-partial-width-notebook: calc(100% / 3);
+  --fs-product-comparison-slide-over-partial-gap:                calc(2 * var(--fs-grid-padding));
+  --fs-product-comparison-slide-over-partial-width-mobile:       calc(100vw - var(--fs-slide-over-partial-gap));
+  --fs-product-comparison-slide-over-partial-width-notebook:     calc(100% / 3);
   --fs-product-comparison-slide-over-partial-max-width-notebook: calc(var(--fs-grid-breakpoint-notebook) / 3);
 
   // --------------------------------------------------------
