@@ -35,6 +35,8 @@ export type { SelectProps } from './atoms/Select'
 export { default as Slider } from './atoms/Slider'
 export type { SliderProps } from './atoms/Slider'
 export { default as SROnly } from './atoms/SROnly'
+export { default as RichText } from './atoms/RichText'
+export type { RichTextProps } from './atoms/RichText'
 
 // Molecules
 export {
