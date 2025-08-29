@@ -9,7 +9,7 @@ export interface NewsletterAddendumProps
    */
   addendum?: string
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
   testId?: string
 }
