@@ -1077,7 +1077,7 @@
         "kind": {
           "title": "Kind",
           "description": "Change cross selling types",
-          "default": "Buy",
+          "default": "buy",
           "enum": ["buy", "view"],
           "enumNames": ["Who bought also bought", "Who saw also saw"]
         },
@@ -1226,12 +1226,12 @@
         "title": {
           "title": "Title",
           "type": "string",
-          "default": "Get news and special offers!"
+          "default": "Subscribe to the newsletter"
         },
         "description": {
           "title": "Description",
           "type": "string",
-          "default": "Get news and special offers in advance"
+          "default": "Get news and special offers!"
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
@@ -1421,12 +1421,12 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get news and special offers!"
+              "default": "Subscribe to the newsletter"
             },
             "description": {
               "title": "Description",
               "type": "string",
-              "default": "Get news and special offers in advance"
+              "default": "Get news and special offers!"
             },
             "privacyPolicy": {
               "title": "Privacy Policy Disclaimer",
