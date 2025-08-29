@@ -10,7 +10,7 @@ import {
   useUI,
 } from '@faststore/ui'
 
-import { useSetPassword } from 'src/sdk/account/useSetPassword'
+import { useSetPassword } from '../../../sdk/account/useSetPassword'
 import styles from './styles.module.scss'
 
 type SecurityDrawerProps = {

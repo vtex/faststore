@@ -69,7 +69,7 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
-    "graphql": "^15.6.0"
+    "graphql": "catalog:"
   },
   "volta": {
     "extends": "../../package.json"

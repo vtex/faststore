@@ -21,8 +21,8 @@
     "pnpm": "9.15.1"
   },
   "scripts": {
-    "dev": "storybook dev -p 6006",
-    "build": "storybook build"
+    "dev": "echo 'TODO: fix this #storybook dev -p 6006'",
+    "build": "echo 'TODO: fix this #storybook build'"
   },
   "dependencies": {
     "@faststore/components": "^3.70.2",

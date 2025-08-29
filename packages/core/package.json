@@ -28,11 +28,11 @@
     "prepack": "na run partytown && na run generate",
     "prebuild": "na run partytown && na run generate",
     "predev": "na run partytown && na run generate",
-    "build": "next build",
-    "dev": "next dev",
-    "dev-only": "next dev",
+    "build": "echo '[@faststore/core] - bundling must be done on starter store side'",
+    "dev": "echo '[@faststore/core] - DevServer is throug starter store'",
+    "dev-only": "na run dev",
     "clean": "rm -r .next",
-    "serve": "next start",
+    "serve": "echo '[@faststore/core] - Starter devServer is throug starter store'",
     "test:e2e": "cypress open",
     "test": "jest",
     "lhci": "lhci autorun",
@@ -113,13 +113,12 @@
     "is-ci": "^3.0.0",
     "jest": "^29.7.0",
     "ts-jest": "29.1.1",
-    "typescript": "catalog:",
-    "webpack-virtual-modules": "^0.6.2"
+    "typescript": "catalog:"
   },
   "peerDependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "^13.5.9",
-    "graphql": "^15.6.0"
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "next": "catalog:",
+    "graphql": "catalog:"
   }
 }
