@@ -32,7 +32,6 @@ import Dropdown, {
   DropdownItem,
 } from '../../molecules/Dropdown'
 import Icon from '../../atoms/Icon'
-import IconButton from '../../molecules/IconButton'
 
 const SPECIFICATION = 'SPECIFICATION'
 
@@ -362,7 +361,7 @@ function ProductComparisonSidebar({
         <TableBody>
           <TableRow data-fs-product-comparison-row-header>
             <TableCell>
-              <IconButton
+              <Button
                 data-fs-product-comparison-row-header-button
                 aria-label="Toggle technical information"
                 size="small"
@@ -378,7 +377,7 @@ function ProductComparisonSidebar({
                 <h3 data-fs-product-comparison-row-header-button-description>
                   {technicalInformation?.description}
                 </h3>
-              </IconButton>
+              </Button>
             </TableCell>
           </TableRow>
 
