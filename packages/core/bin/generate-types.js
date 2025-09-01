@@ -56,10 +56,14 @@ function generateSchemaTSTypes(local = false) {
     )
 
     // remove customization from core folder
-    Array.from(notDocs.values()).forEach((el) => documents.push(`!${el}`))
+    Array.from(notDocs.keys()).forEach((el) =>
+      documents.push(`!${path.resolve(__dirname, '..', el)}`)
+    )
     // Add root customizations to replace from core folder
-    documents.push(`root/**/*.{ts,tsx}`)
+    documents.push(`${root}/**/*.{ts,tsx}`)
   }
+
+  console.log(documents)
 
   /** @type {import('@graphql-codegen/cli').CodegenConfig} */
   const config = {

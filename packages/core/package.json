@@ -6,7 +6,14 @@
   "browserslist": "supports es6-module and not dead",
   "main": "./index.ts",
   "files": [
-    "src"
+    "src",
+    "@generated",
+    "api",
+    "cms",
+    "discovery.config.js",
+    "discovery.config.default.js",
+    "discovery.config.user.js",
+    "next-seo.config.ts"
   ],
   "exports": {
     ".": "./index.ts",
