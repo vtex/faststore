@@ -1,7 +1,6 @@
 import React from 'react'
-import Button from '../../atoms/Button'
+import { Button, Label } from '../..'
 import { useProductComparison } from '../../hooks/useProductComparison'
-import SelectField from '../../molecules/SelectField'
 import type { ImageComponentType } from './ProductComparisonSidebar'
 
 export interface ProductComparisonToolbarProps {
@@ -54,13 +53,9 @@ function ProductComparisonToolbar({
         )}
 
         {products.length === 1 && (
-          <SelectField
-            disabled
-            label={selectionWarningLabel as string}
-            value={''}
-            id={''}
-            options={{}}
-          />
+          <Label data-fs-product-comparison-selection-warning-label>
+            {selectionWarningLabel}
+          </Label>
         )}
       </div>
 

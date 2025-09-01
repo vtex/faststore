@@ -179,7 +179,7 @@ function ProductComparisonSidebar({
     [selectedFilter, products]
   )
 
-  const { allSpecs, diffSpecs } = useProductSpecifications(
+  const { specsToShow } = useProductSpecifications(
     products,
     productSorted,
     showOnlyDifferences
@@ -362,22 +362,23 @@ function ProductComparisonSidebar({
         <TableBody>
           <TableRow data-fs-product-comparison-row-header>
             <TableCell>
-              <h2 data-fs-product-comparison-row-header-title>
-                {technicalInformation?.title}
-                <IconButton
-                  aria-label="Toggle thecnical information"
-                  size="small"
-                  icon={
-                    <Icon
-                      name={showTechnicalInfo ? 'CaretUp' : 'CaretDown'}
-                      onClick={toggleInfo}
-                    />
-                  }
-                />
-              </h2>
-              <h3 data-fs-product-comparison-row-description>
-                {technicalInformation?.description}
-              </h3>
+              <IconButton
+                data-fs-product-comparison-row-header-button
+                aria-label="Toggle technical information"
+                size="small"
+                iconPosition="right"
+                icon={
+                  <Icon name={showTechnicalInfo ? 'CaretUp' : 'CaretDown'} />
+                }
+                onClick={toggleInfo}
+              >
+                <h2 data-fs-product-comparison-row-header-button-title>
+                  {technicalInformation?.title}
+                </h2>
+                <h3 data-fs-product-comparison-row-header-button-description>
+                  {technicalInformation?.description}
+                </h3>
+              </IconButton>
             </TableCell>
           </TableRow>
 
@@ -399,43 +400,22 @@ function ProductComparisonSidebar({
                 ))}
               </TableRow>
 
-              {showOnlyDifferences
-                ? diffSpecs?.map((spec) => (
-                    <TableRow key={spec}>
-                      {productSorted.map((product) => (
-                        <TableCell key={product.id}>
-                          <span data-fs-product-comparison-row-label>
-                            {spec}
-                          </span>
-                          <p data-fs-product-comparison-row-text>
-                            {product.additionalProperty.find(
-                              (property) =>
-                                property.name === spec &&
-                                property.valueReference === SPECIFICATION
-                            )?.value || '-'}
-                          </p>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                : allSpecs?.map((spec) => (
-                    <TableRow key={spec}>
-                      {productSorted.map((product) => (
-                        <TableCell key={product.id}>
-                          <span data-fs-product-comparison-row-label>
-                            {spec}
-                          </span>
-                          <p data-fs-product-comparison-row-text>
-                            {product.additionalProperty.find(
-                              (property) =>
-                                property.name === spec &&
-                                property.valueReference === SPECIFICATION
-                            )?.value || '-'}
-                          </p>
-                        </TableCell>
-                      ))}
-                    </TableRow>
+              {specsToShow?.map((spec) => (
+                <TableRow key={spec}>
+                  {productSorted.map((product) => (
+                    <TableCell key={product.id}>
+                      <span data-fs-product-comparison-row-label>{spec}</span>
+                      <p data-fs-product-comparison-row-text>
+                        {product.additionalProperty.find(
+                          (property) =>
+                            property.name === spec &&
+                            property.valueReference === SPECIFICATION
+                        )?.value || '-'}
+                      </p>
+                    </TableCell>
                   ))}
+                </TableRow>
+              ))}
             </>
           )}
         </TableBody>
