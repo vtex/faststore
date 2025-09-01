@@ -698,8 +698,8 @@ export const VtexCommerce = (
           throw new Error('Missing userId to fetch shopper name')
         }
 
-        const appkey = process.env.FS_DISCOVERY_APP_KEY
-        const apptoken = process.env.FS_DISCOVERY_APP_TOKEN
+        const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
+        const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
 
         console.log('🚀 ~ FS API process.env.FS_DISCOVERY_APP_KEY:', appkey)
         console.log('🚀 ~ FS API process.env.FS_DISCOVERY_APP_TOKEN:', apptoken)

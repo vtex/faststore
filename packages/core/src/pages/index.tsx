@@ -157,8 +157,8 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   PreviewData
 > = async ({ previewData }) => {
-  const appkey = process.env.FS_DISCOVERY_APP_KEY
-  const apptoken = process.env.FS_DISCOVERY_APP_TOKEN
+  const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
+  const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
 
   console.log('🚀 ~ getStaticProps process.env.FS_DISCOVERY_APP_KEY:', appkey)
   console.log(
