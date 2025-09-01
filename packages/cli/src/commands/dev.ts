@@ -1,17 +1,17 @@
 import { Command, Flags } from '@oclif/core'
-import { spawn } from 'child_process'
 import chalk from 'chalk'
+import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
-import { readFileSync, cpSync, existsSync } from 'fs'
+import { cpSync, existsSync, readFileSync } from 'fs'
 import path from 'path'
-import { withBasePath } from '../utils/directory'
-import { generate } from '../utils/generate'
 import { getPreferredPackageManager } from '../utils/commands'
+import { checkDeprecatedSecretFiles } from '../utils/deprecations'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
-import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 
 /**
  * Taken from toolbelt
@@ -151,8 +151,9 @@ export default class Dev extends Command {
 
   async run() {
     const { args, flags } = await this.parse(Dev)
-    const basePath = args.path ?? process.cwd()
+    const basePath = getBasePath(args.path)
     const port = args.port ?? process.env.PORT ?? 3000
+    
     const watchPlugins = flags['watch-plugins']
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)

@@ -2,9 +2,9 @@ import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
-import { generate } from '../utils/generate'
-import { withBasePath } from '../utils/directory'
 import { getPreferredPackageManager } from '../utils/commands'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { generate } from '../utils/generate'
 
 /**
  * Taken from toolbelt
@@ -55,7 +55,7 @@ export default class Test extends Command {
 
   async run() {
     const { args } = await this.parse(Test)
-    const basePath = args.path ?? process.cwd()
+    const basePath = getBasePath(args.path)
     const { getRoot, tmpDir } = withBasePath(basePath)
 
     const watcher = chokidar.watch([...defaultPatterns], {
