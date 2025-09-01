@@ -44,23 +44,29 @@ function getUserConfig() {
 }
 
 function generateSchemaTSTypes(local = false) {
-  let documents = MapSRCFolder(path.resolve(__dirname, '../src'))
+  // let documents = MapSRCFolder(path.resolve(__dirname, '../src'))
+  // glob to include all ts/tsx files
+  const documents = [`${path.resolve(__dirname, '../src')}/**/*.{ts,tsx}`]
   if (local === false) {
-    const normalize = (str) =>
-      `src/customizations/${/^.+?(src.*)$/.exec(str)?.[1]}`
-    /**
-     * @description This function gets all ts, tsx files from repo and overwrite the src/customizations
-     * from core with user repo to prevent duplicated code declaration
-     */
-    documents = MapSRCFolder(root, documents, normalize)
+    // Find customizations
+    const notDocs = MapSRCFolder(
+      root,
+      undefined,
+      (str) => `src/customizations/${/^.+?(src.*)$/.exec(str)?.[1]}`
+    )
+
+    // remove customization from core folder
+    Array.from(notDocs.values()).forEach((el) => documents.push(`!${el}`))
+    // Add root customizations to replace from core folder
+    documents.push(`root/**/*.{ts,tsx}`)
   }
 
   /** @type {import('@graphql-codegen/cli').CodegenConfig} */
   const config = {
-    documents: Array.from(documents.values()).filter(hasGql),
+    documents,
     overwrite: true,
     errorsOnly: false,
-    debug: process.env.NODE_ENV !== 'production',
+    debug: false,
     verbose: true,
     schema: path.resolve(__dirname, '../@generated/schema.graphql'),
     generates: {
@@ -183,9 +189,9 @@ function MapSRCFolder(
   return mapped
 }
 
-function hasGql(file) {
-  return /gql\(?`/.exec(fs.readFileSync(file, 'utf-8'))
-}
+// function hasGql(file) {
+//   return /gql\(?`/.exec(fs.readFileSync(file, 'utf-8'))
+// }
 
 async function main() {
   const isLocal = (process.argv[2] ?? 'false') === 'true'
@@ -195,7 +201,9 @@ async function main() {
 
   if (!isLocal) {
     // removes next cached bundle
-    fs.unlinkSync(path.resolve(root, '.next'))
+    const _nextFolderPath = path.resolve(root, '.next')
+    fs.existsSync(_nextFolderPath) &&
+      fs.rmdirSync(_nextFolderPath, { recursive: true })
     const finalConfig = extendsConfig(getUserConfig())
     saveConfigFile(
       `module.exports = ${JSON.stringify(finalConfig, undefined, 2)}`

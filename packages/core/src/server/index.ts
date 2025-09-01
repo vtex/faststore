@@ -93,8 +93,11 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     cookies: Map<string, Record<string, string>> | null
   }
 }> => {
+  if (!options?.operation?.['__meta__'])
+    console.log('Invalid query:', JSON.stringify(options))
+
   const { operation, variables, query: maybeQuery } = options
-  const { operationHash, operationName } = operation['__meta__']
+  const { operationHash, operationName } = operation?.['__meta__'] ?? {}
 
   const query = maybeQuery ?? persistedQueries.get(operationHash)
 

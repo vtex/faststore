@@ -4,6 +4,10 @@
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
+  "main": "./index.ts",
+  "files": [
+    "src"
+  ],
   "exports": {
     ".": "./index.ts",
     "./ui": "./src/components/ui/index.ts",
