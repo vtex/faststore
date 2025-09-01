@@ -1,35 +1,11 @@
-import { useMemo, useState, useCallback, useEffect } from 'react'
+import { useMemo } from 'react'
+import { useSearchShopperQuery } from '../product/useSearchShopperQuery'
 
-// This will be replaced with an imported type from a GraphQL schema in the future
 export type Shopper = {
-  purchase_agent_id: string
-  name: string
-  email: string
+  userId: string
+  firstName: string
+  lastName: string
 }
-
-// Mock data for now, will be fetched from API in the future
-const MOCK_SHOPPERS: Shopper[] = [
-  {
-    purchase_agent_id: '1',
-    name: 'Robert Fox',
-    email: 'robert.fox@example.com',
-  },
-  {
-    purchase_agent_id: '2',
-    name: 'Ronald Wilson',
-    email: 'ronald.wilson@example.com',
-  },
-  {
-    purchase_agent_id: '3',
-    name: 'Cameron Williamson',
-    email: 'cameron.williamson@example.com',
-  },
-  {
-    purchase_agent_id: '4',
-    name: 'Brooklyn Simmons',
-    email: 'brooklyn.simmons@example.com',
-  },
-]
 
 interface ShopperSuggestionsData {
   /**
@@ -67,82 +43,34 @@ interface ShopperSuggestionsResult {
 export function useShopperSuggestions(
   searchTerm = ''
 ): ShopperSuggestionsResult {
-  const [data, setData] = useState<ShopperSuggestionsData | null>({
-    shoppers: MOCK_SHOPPERS,
-  })
-  const [error, setError] = useState<Error | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const {
+    data: queryData,
+    error,
+    isLoading,
+  } = useSearchShopperQuery({ name: searchTerm })
 
-  // Function to search for shoppers
-  const searchShoppers = useCallback(
-    async (term: string) => {
-      // Don't search if term is empty or null
-      if (!term?.trim()) {
-        setData({ shoppers: MOCK_SHOPPERS })
-        setIsLoading(false)
-        return
-      }
+  const data = useMemo(() => {
+    if (!queryData?.searchShopper?.shoppers) return { shoppers: [] }
 
-      setIsLoading(true)
-      setError(null)
-
-      try {
-        // Simulate API call with timeout
-        const results = await new Promise<Shopper[]>((resolve) => {
-          setTimeout(() => {
-            // Filter logic to simulate server-side filtering
-            const q = term.trim().toLowerCase()
-            const filtered = MOCK_SHOPPERS.filter(
-              (shopper) =>
-                shopper.name.toLowerCase().includes(q) ||
-                shopper.email.toLowerCase().includes(q)
-            )
-            resolve(filtered)
-          }, 300) // Simulate network delay
-        })
-
-        setData({ shoppers: results })
-      } catch (err) {
-        setError(
-          err instanceof Error
-            ? err
-            : new Error('Failed to search for shoppers')
-        )
-        setData({ shoppers: [] })
-      } finally {
-        setIsLoading(false)
-      }
-    },
-    [] // No dependencies needed for this mock implementation
-  )
-
-  // Setup debouncing for the search term
-  useEffect(() => {
-    // Don't run search if term is empty and we already have null data
-    if (!searchTerm && data === null) return
-
-    const handler = setTimeout(() => {
-      searchShoppers(searchTerm)
-    }, 300)
-
-    return () => {
-      clearTimeout(handler)
+    return {
+      shoppers: queryData.searchShopper?.shoppers?.map((shopper) => ({
+        userId: shopper.userId,
+        firstName: shopper.firstName,
+        lastName: shopper.lastName,
+        fullName: shopper.fullName,
+      })),
     }
-  }, [searchTerm])
+  }, [queryData])
 
-  // Helper function to find a shopper by ID
-  // We use useMemo instead of useCallback to ensure this function has a stable reference
-  // and doesn't cause infinite loops in dependencies of other hooks
   const findShopperById = useMemo(() => {
-    // Return a stable function that won't change between renders
     return (id: string): Shopper | undefined => {
-      return data?.shoppers.find((s) => s.purchase_agent_id === id)
+      return data?.shoppers.find((s: Shopper) => s.userId === id)
     }
-  }, [])
+  }, [data])
 
   return {
     data,
-    error,
+    error: error ?? null,
     isLoading,
     findShopperById,
   }

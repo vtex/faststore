@@ -92,8 +92,8 @@ function MyAccountFilterSlider({
             : [value]
         }
 
-        if (key === 'purchaseAgentId') {
-          acc['purchaseAgentId'] = value
+        if (key === 'purchaseAgentIds') {
+          acc['purchaseAgentIds'] = value
         }
 
         return acc
