@@ -94,16 +94,19 @@
     padding: var(--fs-spacing-2) var(--fs-spacing-3);
 
     @include media("<notebook") {
+      justify-content: space-between;
       background-color: var(--fs-color-neutral-bkg);
     }
 
     @include media(">=notebook") {
       grid-column: 4 /span 2;
+      gap: var(--fs-spacing-3);
       justify-content: left;
       order: unset;
       min-height: initial;
       padding: 0;
       background-color: unset;
+      inline-size: max-content;
     }
 
     [data-fs-product-listing-results-count-skeleton] {
@@ -116,6 +119,7 @@
 
     order: 3;
     padding: 0 var(--padding);
+    border-top: var(--fs-border-radius-small) solid var(--fs-color-neutral-bkg);
 
     @include media("<notebook") {
       background-color: var(--fs-color-neutral-bkg);

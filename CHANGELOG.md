@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
+
+### Features
+
+- Product Comparison ([#3000](https://github.com/vtex/faststore/issues/3000)) ([2150bee](https://github.com/vtex/faststore/commit/2150bee82e570205421859e14de8416d5e34c545))
+
+## [3.77.3](https://github.com/vtex/faststore/compare/v3.77.2...v3.77.3) (2025-09-01)
+
+### Bug Fixes
+
+- Update search page when changing terms ([#2992](https://github.com/vtex/faststore/issues/2992)) ([90be90f](https://github.com/vtex/faststore/commit/90be90ff8aa29127dbe89d4a9b8512f6d1427f38)), closes [dp-faststore-org/vendemo-dp#74](https://github.com/dp-faststore-org/vendemo-dp/issues/74) [vtex-sites/faststoreqa.store#857](https://github.com/vtex-sites/faststoreqa.store/issues/857)
+
+## [3.77.2](https://github.com/vtex/faststore/compare/v3.77.1...v3.77.2) (2025-08-21)
+
+### Bug Fixes
+
+- validate mutations after offline network ([#2998](https://github.com/vtex/faststore/issues/2998)) ([659605f](https://github.com/vtex/faststore/commit/659605f45ccf53cfb7a6959fe9f9f0fe3f1a6c93))
+
+## [3.77.1](https://github.com/vtex/faststore/compare/v3.77.0...v3.77.1) (2025-08-20)
+
+### Bug Fixes
+
+- use ? operator to get dateRangeFacet ([#2996](https://github.com/vtex/faststore/issues/2996)) ([e67d63d](https://github.com/vtex/faststore/commit/e67d63d1624aba4a5baf880d525487ff482db0c7))
+
+# [3.77.0](https://github.com/vtex/faststore/compare/v3.76.0...v3.77.0) (2025-08-18)
+
+### Features
+
+- Better monorepo support ([#2978](https://github.com/vtex/faststore/issues/2978)) ([c32b23b](https://github.com/vtex/faststore/commit/c32b23baaed5269527661beee7bcde0db9887c36))
+
 # [3.76.0](https://github.com/vtex/faststore/compare/v3.75.1...v3.76.0) (2025-08-14)
 
 ### Features

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.77.3](https://github.com/vtex/faststore/compare/v3.77.2...v3.77.3) (2025-09-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.77.2](https://github.com/vtex/faststore/compare/v3.77.1...v3.77.2) (2025-08-21)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.77.1](https://github.com/vtex/faststore/compare/v3.77.0...v3.77.1) (2025-08-20)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.77.0](https://github.com/vtex/faststore/compare/v3.76.0...v3.77.0) (2025-08-18)
+
+### Features
+
+- Better monorepo support ([#2978](https://github.com/vtex/faststore/issues/2978)) ([c32b23b](https://github.com/vtex/faststore/commit/c32b23baaed5269527661beee7bcde0db9887c36))
+
 # [3.76.0](https://github.com/vtex/faststore/compare/v3.75.1...v3.76.0) (2025-08-14)
 
 **Note:** Version bump only for package @faststore/cli

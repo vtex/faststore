@@ -26,6 +26,7 @@ export interface ProductGallerySectionProps {
   sortBySelector?: ProductGalleryProps['sortBySelector']
   productCard?: ProductGalleryProps['productCard']
   emptyGallery?: EmptyGalleryProps
+  productComparison?: ProductGalleryProps['productComparison']
 }
 
 function ProductGallerySection({
