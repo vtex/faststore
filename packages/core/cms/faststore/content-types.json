@@ -239,6 +239,11 @@
                   "title": "PLP/Search Filter: Delivery Options",
                   "type": "object",
                   "properties": {
+                    "enabled": {
+                      "title": "Should enable Delivery Options?",
+                      "type": "boolean",
+                      "default": true
+                    },
                     "title": {
                       "title": "Delivery Options title",
                       "type": "string",

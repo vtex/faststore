@@ -108,6 +108,8 @@ export function useDeliveryPromise({
   } = useDeliveryPromiseContext()
 
   const isDeliveryPromiseEnabled = deliveryPromiseConfig.enabled
+  const isDeliveryOptionsEnabled =
+    deliveryPromiseSettings?.deliveryOptions?.enabled ?? true
 
   const selectedFacets = useMemo(
     () => selectedFilterFacets ?? searchState.selectedFacets,
@@ -301,6 +303,16 @@ export function useDeliveryPromise({
         )
       : allFacets
           .filter(({ key }) => key !== DYNAMIC_ESTIMATE_FACET_KEY) // TODO: remove this filter when dynamic estimate is implemented
+          .filter(({ key }) => {
+            if (
+              !isDeliveryOptionsEnabled &&
+              key === DELIVERY_OPTIONS_FACET_KEY
+            ) {
+              return false
+            }
+
+            return true
+          })
           .map((facet) => {
             if (facet.__typename !== 'StoreFacetBoolean') return facet
 
