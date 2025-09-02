@@ -90,12 +90,12 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
-    deliveryPromisesBadges,
+    deliveryPromiseBadges,
   } = product
 
   const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
   const { badges, shouldDisplayDeliveryPromiseBadges } = useDeliveryPromise({
-    deliveryPromisesBadges,
+    deliveryPromiseBadges,
     deliveryPromiseSettings,
   })
 
@@ -230,7 +230,7 @@ export const fragment = gql(`
       adResponseId
     }
 
-    deliveryPromisesBadges {
+    deliveryPromiseBadges {
       typeName
     }
   }

@@ -235,7 +235,7 @@
                     }
                   }
                 },
-                "deliveryPromisesBadges": {
+                "deliveryPromiseBadges": {
                   "title": "Delivery Promise badges",
                   "type": "object",
                   "description": "The badges will be displayed in product cards indicating the delivery methods availability for the product.",

@@ -1464,7 +1464,7 @@ export type StoreProduct = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
   /** Delivery Promise product's badge. */
-  deliveryPromisesBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
+  deliveryPromiseBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
   description: Scalars['String'];
   /** Global Trade Item Number. */

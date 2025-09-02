@@ -58,7 +58,7 @@ type DeliveryPromiseCmsData = {
       alt?: string
     }
   }
-  deliveryPromisesBadges?: {
+  deliveryPromiseBadges?: {
     enabled?: boolean
     delivery?: string
     deliveryUnavailable?: string

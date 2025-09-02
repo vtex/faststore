@@ -84,7 +84,7 @@ type Props = {
   allFacets?: ReturnType<typeof useFilter>['facets']
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
-  deliveryPromisesBadges?: DeliveryPromiseBadge[]
+  deliveryPromiseBadges?: DeliveryPromiseBadge[]
 }
 
 /**
@@ -96,7 +96,7 @@ export function useDeliveryPromise({
   selectedFilterFacets = undefined,
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
-  deliveryPromisesBadges,
+  deliveryPromiseBadges,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -381,13 +381,13 @@ export function useDeliveryPromise({
   function getBadgesLabel(value: string) {
     if (value === 'delivery') {
       return (
-        deliveryPromiseSettings?.deliveryPromisesBadges?.delivery ??
+        deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ??
         'Available for delivery'
       )
     }
     if (value === 'pickup-in-point') {
       return (
-        deliveryPromiseSettings?.deliveryPromisesBadges?.pickupInPoint ??
+        deliveryPromiseSettings?.deliveryPromiseBadges?.pickupInPoint ??
         'Available for pickup'
       )
     }
@@ -396,7 +396,7 @@ export function useDeliveryPromise({
 
   function getDeliveryPromiseBadges() {
     const badges: Array<{ label: string; availability: boolean }> = []
-    const availableTypeNames = deliveryPromisesBadges?.map(
+    const availableTypeNames = deliveryPromiseBadges?.map(
       (badge) => badge.typeName
     )
 
@@ -411,7 +411,7 @@ export function useDeliveryPromise({
       })
     } else {
       const deliveryUnavailableLabel =
-        deliveryPromiseSettings?.deliveryPromisesBadges?.deliveryUnavailable ??
+        deliveryPromiseSettings?.deliveryPromiseBadges?.deliveryUnavailable ??
         'Unavailable for delivery'
       badges.push({
         label: deliveryUnavailableLabel,
@@ -426,7 +426,7 @@ export function useDeliveryPromise({
       })
     } else {
       const pickupInPointUnavailableLabel =
-        deliveryPromiseSettings?.deliveryPromisesBadges
+        deliveryPromiseSettings?.deliveryPromiseBadges
           ?.pickupInPointUnavailable ?? 'Unavailable for pickup'
       badges.push({
         label: pickupInPointUnavailableLabel,
@@ -437,12 +437,12 @@ export function useDeliveryPromise({
     return badges
   }
 
-  const badges = deliveryPromisesBadges ? getDeliveryPromiseBadges() : []
+  const badges = deliveryPromiseBadges ? getDeliveryPromiseBadges() : []
 
   const shouldDisplayDeliveryPromiseBadges =
     !!postalCode &&
     isDeliveryPromiseEnabled &&
-    (deliveryPromiseSettings?.deliveryPromisesBadges?.enabled ?? true) &&
+    (deliveryPromiseSettings?.deliveryPromiseBadges?.enabled ?? true) &&
     badges.length > 0
 
   return {
