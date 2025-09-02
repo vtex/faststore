@@ -701,12 +701,22 @@ export const VtexCommerce = (
         const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
         const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
 
+        if (!appkey || !apptoken) {
+          throw new Error('No authentication AppKey and AppToken passed.')
+        }
+
+        const headers: HeadersInit = {
+          Accept: 'application/json',
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+          'X-VTEX-API-AppKey': appkey,
+          'X-VTEX-API-AppToken': apptoken,
+        }
+
         console.log('🚀 ~ FS API process.env.FS_DISCOVERY_APP_KEY:', appkey)
         console.log('🚀 ~ FS API process.env.FS_DISCOVERY_APP_TOKEN:', apptoken)
 
         const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
-
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
           `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
