@@ -713,9 +713,6 @@ export const VtexCommerce = (
           'X-VTEX-API-AppToken': apptoken,
         }
 
-        console.log('🚀 ~ FS API process.env.FS_DISCOVERY_APP_KEY:', appkey)
-        console.log('🚀 ~ FS API process.env.FS_DISCOVERY_APP_TOKEN:', apptoken)
-
         const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
 
         return fetchAPI(

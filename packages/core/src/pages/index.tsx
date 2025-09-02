@@ -20,19 +20,13 @@ type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
   serverData?: unknown
-  appkey?: string
-  apptoken?: string
 }
 
 function Page({
   page: { sections, settings },
   globalSections: globalSectionsProp,
   serverData,
-  appkey,
-  apptoken,
 }: Props) {
-  console.log('🚀 ~ PAGE appkey:', appkey)
-  console.log('🚀 ~ PAGE apptoken:', apptoken)
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const context = {
@@ -157,15 +151,6 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   PreviewData
 > = async ({ previewData }) => {
-  const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
-  const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
-
-  console.log('🚀 ~ getStaticProps process.env.FS_DISCOVERY_APP_KEY:', appkey)
-  console.log(
-    '🚀 ~ getStaticProps process.env.FS_DISCOVERY_APP_TOKEN:',
-    apptoken
-  )
-
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -217,8 +202,6 @@ export const getStaticProps: GetStaticProps<
       page,
       globalSections: globalSectionsResult,
       serverData,
-      appkey,
-      apptoken,
     },
   }
 }
