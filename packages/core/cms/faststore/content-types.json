@@ -238,7 +238,7 @@
                 "deliveryPromisesBadges": {
                   "title": "Delivery Promise badges",
                   "type": "object",
-                  "description": "The badges will be displayed in product cards indicating the delivery methods (available/unavailable) for the product.",
+                  "description": "The badges will be displayed in product cards indicating the delivery methods availability for the product.",
                   "properties": {
                     "enabled": {
                       "title": "Should display Delivery Promise badges?",
