@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
+
+### Features
+
+- Product Comparison ([#3000](https://github.com/vtex/faststore/issues/3000)) ([2150bee](https://github.com/vtex/faststore/commit/2150bee82e570205421859e14de8416d5e34c545))
+
 ## [3.70.2](https://github.com/vtex/faststore/compare/v3.70.1...v3.70.2) (2025-08-05)
 
 **Note:** Version bump only for package @faststore/ui
