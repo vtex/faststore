@@ -379,6 +379,16 @@ export function useDeliveryPromise({
 
             return facet
           })
+          .sort((a, b) => {
+            // Define priority order: shipping (0), delivery-options (1), others (2)
+            const getPriority = (key: string) => {
+              if (key === SHIPPING_FACET_KEY) return 0
+              if (key === DELIVERY_OPTIONS_FACET_KEY) return 1
+              return 2
+            }
+
+            return getPriority(a.key) - getPriority(b.key)
+          })
   }, [
     allDeliveryMethodsFacet,
     pickupInPointFacet,
