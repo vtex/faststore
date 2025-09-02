@@ -302,6 +302,16 @@ export function useDeliveryPromise({
     return !isDeliveryPromiseEnabled || !postalCode
       ? allFacets.filter(({ key }) => key !== SHIPPING_FACET_KEY)
       : allFacets
+          .filter(({ key }) => {
+            if (
+              !isDeliveryOptionsEnabled &&
+              key === DELIVERY_OPTIONS_FACET_KEY
+            ) {
+              return false
+            }
+
+            return true
+          })
           .map((facet) => {
             if (facet.__typename !== 'StoreFacetBoolean') return facet
 
