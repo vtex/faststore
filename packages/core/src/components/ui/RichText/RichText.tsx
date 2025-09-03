@@ -25,7 +25,7 @@ import {
   type SerializedEditorState,
 } from 'lexical'
 import { RichText as UIRichText } from '@faststore/ui'
-import { isContentPlatformSource } from '../../../server/content/utils'
+import { isContentPlatformSource } from 'src/server/content/utils'
 
 export interface RichTextProps {
   /**
@@ -96,10 +96,6 @@ function fixNestedListStructure(html: string): string {
 }
 
 function lexicalToHtml(content: string) {
-  if (!content) {
-    return ''
-  }
-
   let lexicalState: SerializedEditorState | null = null
 
   try {
@@ -151,10 +147,6 @@ function lexicalToHtml(content: string) {
 }
 
 function cmsToHtml(content: string) {
-  if (!content) {
-    return ''
-  }
-
   let rawDraftContentState: any = null
 
   try {
