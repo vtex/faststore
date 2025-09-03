@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
-import type { PriceFormatter } from '../../atoms/Price'
 import { Price } from '../../'
+import type { PriceFormatter } from '../../atoms/Price'
 
 export interface ProductPriceProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -37,20 +37,20 @@ const ProductPrice = forwardRef<HTMLDivElement, ProductPriceProps>(
         {sellingPrice !== listingPrice && listingPrice !== 0 ? (
           <>
             <Price
-              value={listingPrice}
-              formatter={formatter}
-              testId="list-price"
-              data-value={listingPrice}
-              variant="listing"
-              SRText="Original price:"
-            />
-            <Price
               value={sellingPrice}
               formatter={formatter}
               testId="price"
               data-value={sellingPrice}
               variant="spot"
               SRText="Price:"
+            />
+            <Price
+              value={listingPrice}
+              formatter={formatter}
+              testId="list-price"
+              data-value={listingPrice}
+              variant="listing"
+              SRText="Original price:"
             />
           </>
         ) : (
