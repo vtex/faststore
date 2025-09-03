@@ -98,8 +98,9 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
 function Page({
   page: searchContentType,
   globalSections: globalSectionsProp,
-  searchTerm,
+  searchTerm: serverSearchTerm,
 }: SearchPageProps) {
+  const router = useRouter()
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
   const { settings } = searchContentType
@@ -109,6 +110,11 @@ function Page({
   })
 
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+  const searchTerm =
+    serverSearchTerm ??
+    (router.query?.q as string) ??
+    searchParams.term ??
+    undefined
 
   if (!searchParams) {
     return null
@@ -144,10 +150,7 @@ function Page({
       <SearchWrapper
         itemsPerPage={itemsPerPage}
         searchContentType={searchContentType}
-        serverData={{
-          title: seoData.title,
-          searchTerm: searchTerm ?? searchParams.term ?? undefined,
-        }}
+        serverData={{ title: seoData.title, searchTerm }}
         globalSections={globalSections}
         globalSettings={globalSettings}
       />

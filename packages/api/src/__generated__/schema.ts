@@ -864,6 +864,8 @@ export type Query = {
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
   productCount?: Maybe<ProductCountResult>;
+  /** Returns information about selected products. */
+  products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
@@ -926,6 +928,11 @@ export type QueryProductCountArgs = {
 };
 
 
+export type QueryProductsArgs = {
+  productIds: Array<Scalars['String']['input']>;
+};
+
+
 export type QueryProfileArgs = {
   id: Scalars['String']['input'];
 };
@@ -964,6 +971,21 @@ export type QueryShippingArgs = {
 
 export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
+};
+
+export type SkuSpecificationField = {
+  __typename?: 'SKUSpecificationField';
+  id?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  originalName?: Maybe<Scalars['String']['output']>;
+};
+
+export type SkuSpecificationValue = {
+  __typename?: 'SKUSpecificationValue';
+  fieldId?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  originalName?: Maybe<Scalars['String']['output']>;
 };
 
 /** Search result. */
@@ -1054,11 +1076,17 @@ export type ShippingSla = {
   shippingEstimateDate?: Maybe<Scalars['String']['output']>;
 };
 
+export type SkuSpecification = {
+  __typename?: 'SkuSpecification';
+  field: SkuSpecificationField;
+  values: Array<SkuSpecificationValue>;
+};
+
 export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
   activeVariations?: Maybe<Scalars['ActiveVariations']['output']>;
-  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName?: Maybe<Scalars['VariantsByName']['output']>;
@@ -1089,6 +1117,20 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Specification = {
+  __typename?: 'Specification';
+  name: Scalars['String']['output'];
+  originalName: Scalars['String']['output'];
+  values: Array<Scalars['String']['output']>;
+};
+
+export type SpecificationGroup = {
+  __typename?: 'SpecificationGroup';
+  name: Scalars['String']['output'];
+  originalName: Scalars['String']['output'];
+  specifications: Array<Specification>;
 };
 
 /** Account profile information. */
@@ -1463,6 +1505,8 @@ export type StoreProduct = {
   description: Scalars['String']['output'];
   /** Global Trade Item Number. */
   gtin: Scalars['String']['output'];
+  /** Indicates whether the product has specifications. */
+  hasSpecifications?: Maybe<Scalars['Boolean']['output']>;
   /** Array of images. */
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */
@@ -1481,8 +1525,12 @@ export type StoreProduct = {
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String']['output'];
+  /** Indicate the specifications of a product. */
+  skuSpecifications: Array<SkuSpecification>;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output'];
+  /** Indicate the specifications of a group of SKUs. */
+  specificationGroups: Array<SpecificationGroup>;
   /** Sku Unit Multiplier */
   unitMultiplier?: Maybe<Scalars['Float']['output']>;
 };
