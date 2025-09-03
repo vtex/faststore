@@ -23,7 +23,7 @@ import { useFilter } from '../../../sdk/search/useFilter'
 import useScreenResize from '../../../sdk/ui/useScreenResize'
 
 import styles from '../../sections/ProductGallery/section.module.scss'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(

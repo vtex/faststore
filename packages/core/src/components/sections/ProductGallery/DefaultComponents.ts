@@ -36,7 +36,7 @@ const FilterSlider = dynamic(
 const ProductComparisonSidebar = dynamic(
   () =>
     /* webpackChunkName: "ProductComparisonSidebar" */
-    import('src/components/ui/ProductComparison')
+    import('../../../components/ui/ProductComparison')
 )
 
 export const ProductGalleryDefaultComponents = {

@@ -18,7 +18,7 @@ import { useQuery } from '../graphql/useQuery'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../session'
 
 export const UseGalleryPageContext = createContext<
   ReturnType<typeof useCreateUseGalleryPage>['useGalleryPage']
