@@ -15,7 +15,7 @@ export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
 export interface PriceProps
   extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
   /**

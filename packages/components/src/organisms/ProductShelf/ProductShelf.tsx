@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 
 export interface ProductShelfProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
+   * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
   testId?: string
 }
