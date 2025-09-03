@@ -716,7 +716,7 @@ export const VtexCommerce = (
         const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
 
         return fetchAPI(
-          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
+          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized} OR userId=${userId})&_fields=_all&_schema=v1`,
           {
             method: 'GET',
             headers,
