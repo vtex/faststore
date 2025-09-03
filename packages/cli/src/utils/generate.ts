@@ -26,7 +26,7 @@ interface GenerateOptions {
 }
 
 // package.json is copied manually after filtering its content
-const ignorePaths = ['package.json', 'node_modules', 'cypress.config.ts']
+const ignorePaths = ['package.json', 'node_modules']
 
 function createTmpFolder(basePath: string) {
   const { tmpDir, tmpFolderName } = withBasePath(basePath)
@@ -133,65 +133,6 @@ function copyPublicFiles(basePath: string) {
         },
       })
       logger.log(`${chalk.green('success')} - Public files copied`)
-    }
-  } catch (e) {
-    logger.error(e)
-  }
-}
-
-async function copyCypressFiles(basePath: string) {
-  const { userDir, userStoreConfigFile, userLegacyStoreConfigFile, tmpDir } =
-    withBasePath(basePath)
-
-  try {
-    // Cypress 9.x config file
-    if (existsSync(`${userDir}/cypress.json`)) {
-      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`, {
-        dereference: true,
-      })
-    }
-
-    // Cypress 12.x config file
-    if (existsSync(`${userDir}/cypress.config.ts`)) {
-      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`, {
-        dereference: true,
-      })
-    }
-
-    let userStoreConfig
-
-    if (existsSync(userStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userStoreConfigFile))
-    } else if (existsSync(userLegacyStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
-    } else {
-      logger.info(
-        `${chalk.blue(
-          'info'
-        )} - No store config file was found in the root directory`
-      )
-    }
-
-    // Copy custom Cypress folder and files
-    if (
-      existsSync(`${userDir}/cypress`) &&
-      userStoreConfig?.experimental?.enableCypressExtension
-    ) {
-      copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
-        overwrite: true,
-        dereference: true,
-      })
-
-      logger.log(`${chalk.green('success')} - Cypress test files copied`)
-    }
-
-    // Create default Cypress 12.x (or superior) support file
-    if (userStoreConfig?.experimental?.cypressVersion > 9) {
-      copySync(
-        `${tmpDir}/cypress/support/index.js`,
-        `${tmpDir}/cypress/support/e2e.js`,
-        { overwrite: false }
-      )
     }
   } catch (e) {
     logger.error(e)
@@ -526,7 +467,6 @@ export async function generate(options: GenerateOptions) {
     setupPromise = Promise.all([
       createTmpFolder(basePath),
       copyCoreFiles(basePath),
-      copyCypressFiles(basePath),
       copyPublicFiles(basePath),
     ])
   }
