@@ -1,17 +1,17 @@
 import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
-import storeConfig from 'discovery.config'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import { ButtonSignInFallback } from 'src/components/ui/Button'
-import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
+import storeConfig from '../../../../discovery.config'
+import NavbarLinks from '../NavbarLinks'
+import { ButtonSignInFallback } from '../../ui/Button'
+import Link from '../../ui/Link'
+import Logo from '../../ui/Logo'
 
 import type { NavbarProps } from '../Navbar'
 
-import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { useSession } from 'src/sdk/session'
+import { OrganizationSignInButton } from '../../account/MyAccountDrawer/OrganizationSignInButton'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { useSession } from '../../../sdk/session'
 import styles from './section.module.scss'
 
 interface NavbarSliderProps {

@@ -1,6 +1,6 @@
-import EmptyState from 'src/components/sections/EmptyState'
-import ProductGalleryStyles from 'src/components/sections/ProductGallery/section.module.scss'
-import Section from 'src/components/sections/Section'
+import EmptyState from '../../sections/EmptyState'
+import ProductGalleryStyles from '../../sections/ProductGallery/section.module.scss'
+import Section from '../../sections/Section'
 
 export type EmptySearchProps = {
   title?: string

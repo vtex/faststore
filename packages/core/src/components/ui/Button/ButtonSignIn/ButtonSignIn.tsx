@@ -1,6 +1,6 @@
 import { Icon, LinkButton } from '@faststore/ui'
 
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../../../../sdk/session'
 
 const ButtonSignIn = ({
   label,

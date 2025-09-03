@@ -1,17 +1,17 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useId, useRef } from 'react'
 
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
-import { textToKebabCase } from 'src/utils/utilities'
-import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
+import { useViewItemListEvent } from '../../../sdk/analytics/hooks/useViewItemListEvent'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { useProductsQuery } from '../../../sdk/product/useProductsQuery'
+import { textToKebabCase } from '../../../utils/utilities'
+import { useDeliveryPromiseFacets } from '../../../sdk/deliveryPromise/useDeliveryPromiseFacets'
 import deepmerge from 'deepmerge'
 
 const ProductShelfSkeleton = dynamic(
   () =>
     /* webpackChunkName: "ProductShelfSkeleton" */
-    import('src/components/skeletons/ProductShelfSkeleton')
+    import('../../skeletons/ProductShelfSkeleton')
 )
 
 type Sort =

@@ -1,4 +1,4 @@
-import dynamicContent from 'src/customizations/src/dynamicContent'
+import dynamicContent from '../customizations/src/dynamicContent'
 
 export async function getDynamicContent({ pageType }: { pageType: string }) {
   try {

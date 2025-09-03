@@ -1,7 +1,7 @@
 import type { CurrencyCode, RemoveFromCartEvent } from '@faststore/sdk'
 import { useCallback } from 'react'
 
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import type { AnalyticsItem } from '../analytics/types'
 
 import type { CartItem } from '.'
 import { useSession } from '../session'

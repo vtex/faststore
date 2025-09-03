@@ -1,4 +1,4 @@
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import type { ServerOrderDetailsQueryQuery } from '../../../../../../@generated/graphql'
 import MyAccountCard from '../../../components/MyAccountCard'
 
 interface MyAccountOrderedByCardProps {

@@ -1,9 +1,9 @@
-import { useQuery } from 'src/sdk/graphql/useQuery'
-import { gql } from '@generated'
+import { useQuery } from '../graphql/useQuery'
+import { gql } from '../../../@generated'
 import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 import { useSession } from '../session'
 

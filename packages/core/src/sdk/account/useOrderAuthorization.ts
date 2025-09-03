@@ -1,9 +1,9 @@
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import { useLazyQuery } from '../graphql/useLazyQuery'
 import type {
   MutationProcessOrderAuthorizationArgs as Variables,
   ProcessOrderAuthorizationMutationMutation,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 export const mutation = gql(`
   mutation ProcessOrderAuthorizationMutation($data: IProcessOrderAuthorization!) {

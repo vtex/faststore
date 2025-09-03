@@ -1,4 +1,4 @@
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import type { ProductSummary_ProductFragment } from '../../../@generated/graphql'
 
 const sentItems = new Set<string>()
 let pendingItems: { node: ProductSummary_ProductFragment }[] = []

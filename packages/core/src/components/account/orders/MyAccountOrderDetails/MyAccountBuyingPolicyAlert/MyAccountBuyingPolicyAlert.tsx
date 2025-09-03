@@ -6,8 +6,8 @@ import {
 } from '@faststore/ui'
 import { useState } from 'react'
 import MyAccountOrderActionModal from '../MyAccountOrderActionModal'
-import { useOrderAuthorization } from 'src/sdk/account/useOrderAuthorization'
-import type { ProcessOrderAuthorizationRule } from '@generated/graphql'
+import { useOrderAuthorization } from '../../../../../sdk/account/useOrderAuthorization'
+import type { ProcessOrderAuthorizationRule } from '../../../../../../@generated/graphql'
 
 interface MyAccountBuyingPolicyAlertProps {
   ruleForAuthorization: ProcessOrderAuthorizationRule

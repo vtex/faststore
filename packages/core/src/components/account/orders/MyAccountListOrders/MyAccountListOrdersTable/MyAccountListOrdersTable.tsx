@@ -1,12 +1,12 @@
 import { Button, Icon } from '@faststore/ui'
-import type { ServerListOrdersQueryQuery } from '@generated/graphql'
+import type { ServerListOrdersQueryQuery } from '../../../../../../@generated/graphql'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
-import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
-import { useSession } from 'src/sdk/session'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import MyAccountStatusBadge from '../../../components/MyAccountStatusBadge'
+import { useFormatPrice } from '../../../utils/useFormatPrice'
+import { useSession } from '../../../../../sdk/session'
+import useScreenResize from '../../../../../sdk/ui/useScreenResize'
 
 const MAX_COST_CENTERS = 5
 

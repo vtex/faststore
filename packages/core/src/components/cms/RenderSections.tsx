@@ -10,9 +10,10 @@ import { useUI } from '@faststore/ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import useTTI from 'src/sdk/performance/useTTI'
-import { isContentPlatformSource } from 'src/server/content/utils'
+import useTTI from '../../sdk/performance/useTTI'
+import { isContentPlatformSource } from '../../server/content/utils'
 import COMPONENTS from './global/Components'
+import CUSTOM_COMPONENTS from '../../customizations/src/components'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
 
@@ -108,7 +109,7 @@ export const RenderSectionsBase = ({
     <>
       {sections.map(({ name, data = {}, $componentKey }, index) => {
         const key = $componentKey ?? name
-        const Component = components[key]
+        const Component = { ...components, ...CUSTOM_COMPONENTS }[key]
 
         if (!Component) {
           // TODO: add a documentation link to help to do this

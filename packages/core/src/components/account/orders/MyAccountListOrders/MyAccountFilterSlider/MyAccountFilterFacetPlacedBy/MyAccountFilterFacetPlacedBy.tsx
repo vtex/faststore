@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Input, IconButton, Icon, Loader } from '@faststore/ui'
-import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
-import useShopperSuggestions from 'src/sdk/account/useShopperSuggestions'
-import type { Shopper } from 'src/sdk/account/useShopperSuggestions'
+import type { SelectedFacet } from '../../../../../../sdk/search/useMyAccountFilter'
+import useShopperSuggestions from '../../../../../../sdk/account/useShopperSuggestions'
+import type { Shopper } from '../../../../../../sdk/account/useShopperSuggestions'
 
 export interface MyAccountFilterFacetPlacedByProps {
   /**

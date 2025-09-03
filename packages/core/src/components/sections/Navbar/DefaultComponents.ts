@@ -11,9 +11,9 @@ import {
 import dynamic from 'next/dynamic'
 
 const ButtonSignIn = dynamic(() =>
-  import(
-    /* webpackChunkName: "ButtonSignIn" */ 'src/components/ui/Button'
-  ).then((module) => module.ButtonSignIn)
+  import(/* webpackChunkName: "ButtonSignIn" */ '../../ui/Button').then(
+    (module) => module.ButtonSignIn
+  )
 )
 
 const UINavbarSlider = dynamic(() =>
@@ -39,7 +39,7 @@ const UINavbarSliderFooter = dynamic(() =>
 
 const SKUMatrixSidebar = dynamic(() =>
   import(
-    /* webpackChunkName: "UISKUMatrixSidebar" */ 'src/components/ui/SKUMatrix/SKUMatrixSidebar'
+    /* webpackChunkName: "UISKUMatrixSidebar" */ '../../ui/SKUMatrix/SKUMatrixSidebar'
   ).then((module) => module.default)
 )
 

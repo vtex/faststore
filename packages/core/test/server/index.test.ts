@@ -1,6 +1,6 @@
 import { assertValidSchema } from 'graphql'
 
-import storeConfig from '../../discovery.config'
+import storeConfig from 'faststore-config'
 import { execute, getEnvelop } from '../../src/server'
 import {
   getMergedSchema,

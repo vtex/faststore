@@ -1,4 +1,4 @@
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import useScreenResize from '../../../sdk/ui/useScreenResize'
 import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 import RegionBar, {
   type RegionBarProps,

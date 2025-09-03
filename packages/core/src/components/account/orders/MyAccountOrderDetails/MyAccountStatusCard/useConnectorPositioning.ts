@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import useScreenResize from '../../../../../sdk/ui/useScreenResize'
 
 export function useConnectorPositioning(
   containerRef: React.RefObject<HTMLDivElement>

@@ -8,7 +8,7 @@ import {
   NewsletterHeader as UINewsletterHeader,
 } from '@faststore/ui'
 
-import { NewsletterAddendum as UINewsletterAddendum } from 'src/components/ui/Newsletter'
+import { NewsletterAddendum as UINewsletterAddendum } from '../../ui/Newsletter'
 
 export const NewsletterDefaultComponents = {
   Button: UIButton,

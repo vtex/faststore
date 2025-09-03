@@ -1,6 +1,6 @@
-import { validateUser } from 'src/sdk/account/validateUser'
+import { validateUser } from '../../sdk/account/validateUser'
 import type { GetServerSideProps, NextPage } from 'next'
-import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
 
 const MyAccountRedirectPage: NextPage = () => {
   return null

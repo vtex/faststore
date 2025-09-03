@@ -1,6 +1,6 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
 
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../../../../sdk/session'
 import storeConfig from '../../../../../discovery.config'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'

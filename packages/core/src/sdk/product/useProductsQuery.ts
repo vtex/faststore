@@ -1,8 +1,8 @@
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 import type { QueryOptions } from '../graphql/useQuery'
 import { useQuery } from '../graphql/useQuery'

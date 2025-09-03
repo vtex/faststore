@@ -1,13 +1,13 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { previewRedirects } from '../../../discovery.config'
-import { contentService } from 'src/server/content/service'
-import { isLocator } from 'src/server/cms'
+import { contentService } from '../../server/content/service'
+import { isLocator } from '../../server/cms'
 import {
   isBranchPreview,
   isContentPlatformSource,
-} from 'src/server/content/utils'
-import type { PreviewData } from 'src/server/content/types'
+} from '../../server/content/utils'
+import type { PreviewData } from '../../server/content/types'
 
 type Settings = {
   seo: {

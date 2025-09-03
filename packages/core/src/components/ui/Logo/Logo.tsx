@@ -1,5 +1,5 @@
-import { Image } from 'src/components/ui/Image'
-import type { ImageProps } from 'src/components/ui/Image'
+import { Image } from '../Image'
+import type { ImageProps } from '../Image'
 
 interface LogoProps {
   alt: string

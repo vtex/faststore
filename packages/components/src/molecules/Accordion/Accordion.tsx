@@ -35,7 +35,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   ref
 ) {
   const childrenWithIndex = React.Children.map(
-    children as ReactElement,
+    children as ReactElement<{ index?: string | number }>,
     (child, index) => {
       if (!child) return
 

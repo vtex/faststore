@@ -1,7 +1,7 @@
 import { Head, Html, Main, NextScript } from 'next/document'
 import storeConfig from '../../discovery.config'
 
-import { WebFonts } from 'src/customizations/src/GlobalOverrides'
+import { WebFonts } from '../customizations/src/GlobalOverrides'
 
 function Document() {
   return (

@@ -40,7 +40,7 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
     const itemProps = useDropdownItem({ ref, onClick, dismissOnClick })
 
     const asChildrenItem = React.isValidElement(children)
-      ? cloneElement(children, { ...itemProps, ...children.props })
+      ? cloneElement(children, { ...itemProps, ...(children.props ?? {}) })
       : children
 
     return (

@@ -50,6 +50,25 @@ If you find any issues on the project you would like to report, please create an
 | @faststore/sdk  | Exports basic logic hooks for creating your custom ecommerce                                                                                                                     | [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk) [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![tree shaking](https://badgen.net/bundlephobia/tree-shaking/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![tree shaking](https://badgen.net/bundlephobia/dependency-count/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) |
 | @faststore/api  | Connect your site to your ecommerce provider                                                                                                                                     |                                                                                                                                                                                             [![npm version](https://badge.fury.io/js/%40faststore%2Fapi.svg)](https://bundlephobia.com/package/@faststore/api)                                                                                                                                                                                              |
 
+```mermaid
+flowchart TD;
+    CLI("@faststore/cli");
+    CORE("@faststore/core");
+    UI("@faststore/ui");
+    COMPONENTS("@faststore/components");
+    SDK("@faststore/sdk");
+    API("@faststore/api");
+    LIGHT("@faststore/lighthouse");
+    GUTILS("@faststore/graphql-utils");
+    CLI --> CORE;
+    CORE --> UI;
+    CORE --> SDK;
+    CORE --> API;
+    CORE --> LIGHT;
+    CORE --> GUTILS;
+    UI --> COMPONENTS;
+```
+
 ## License
 
 Licensed under the [MIT license](https://github.com/vtex/faststore/blob/master/LICENSE)

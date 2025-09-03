@@ -3,34 +3,34 @@ import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../../@generated/graphql'
 import deepmerge from 'deepmerge'
-import { ITEMS_PER_PAGE } from 'src/constants'
+import { ITEMS_PER_PAGE } from '../../../constants'
 
 import dynamic from 'next/dynamic'
-import COMPONENTS from 'src/components/cms/plp/Components'
+import COMPONENTS from '../../cms/plp/Components'
 
-import RenderSections, {
-  LazyLoadingSection,
-} from 'src/components/cms/RenderSections'
-import type { PLPContentType } from 'src/server/cms/plp'
+import RenderSections, { LazyLoadingSection } from '../../cms/RenderSections'
+import type { PLPContentType } from '../../../server/cms/plp'
 
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import PageProvider, { type PLPContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider, {
+  type PLPContext,
+} from '../../../sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
-} from 'src/sdk/product/usePageProductsQuery'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import { useApplySearchState } from 'src/sdk/search/state'
-import { isContentPlatformSource } from 'src/server/content/utils'
+} from '../../../sdk/product/usePageProductsQuery'
+import { useProductGalleryQuery } from '../../../sdk/product/useProductGalleryQuery'
+import { useApplySearchState } from '../../../sdk/search/state'
+import { isContentPlatformSource } from '../../../server/content/utils'
 
 const ScrollToTopButton = dynamic(
   () =>
     import(
       /* webpackChunkName: "ScrollToTopButton" */
-      'src/components/sections/ScrollToTopButton'
+      '../../sections/ScrollToTopButton'
     )
 )
 

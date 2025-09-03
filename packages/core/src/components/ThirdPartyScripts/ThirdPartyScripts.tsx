@@ -1,6 +1,6 @@
 import { Partytown } from '@builder.io/partytown/react'
-import storeConfig from 'discovery.config'
-import OverrideComponents from 'src/customizations/src/GlobalOverrides'
+import storeConfig from '../../../discovery.config'
+import OverrideComponents from '../../customizations/src/GlobalOverrides'
 import GoogleTagManager, { GTM_DEBUG_QUERY_STRING } from './GoogleTagManager'
 import VTEX from './vtex'
 

@@ -10,16 +10,16 @@ import {
 } from '@faststore/sdk'
 import { SROnly as UISROnly } from '@faststore/ui'
 
-import { ITEMS_PER_PAGE } from 'src/constants'
-import { useApplySearchState } from 'src/sdk/search/state'
+import { ITEMS_PER_PAGE } from '../constants'
+import { useApplySearchState } from '../sdk/search/state'
 
-import storeConfig from 'discovery.config'
+import storeConfig from '../../discovery.config'
 
-import { SearchWrapper } from 'src/components/templates/SearchPage'
+import { SearchWrapper } from '../components/templates/SearchPage'
 import {
   getStaticProps,
   type SearchPageProps,
-} from 'src/experimental/searchServerSideFunctions'
+} from '../experimental/searchServerSideFunctions'
 
 export interface SearchPageContextType {
   title: string

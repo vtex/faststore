@@ -1,4 +1,4 @@
-import { default as ThirdPartyScripts } from 'src/customizations/src/scripts/ThirdPartyScripts'
+import { default as ThirdPartyScripts } from '../../scripts/ThirdPartyScripts'
 
 const overrides = {
   components: {

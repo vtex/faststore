@@ -1,11 +1,32 @@
-const defaultConfig = require('./discovery.config.default')
-const starterConfig = require('./src/customizations/discovery.config')
-
-const deepmerge = require('deepmerge')
+import defaultConfig from './discovery.config.default.js'
+import userConfig from './discovery.config.user.js'
+import deepmerge from 'deepmerge'
 
 /**
  * @type {typeof defaultConfig & Record<string, any>}
  * */
-const finalConfig = deepmerge(defaultConfig, starterConfig)
+const finalConfig = deepmerge(defaultConfig, userConfig)
 
-module.exports = finalConfig
+export default finalConfig
+
+export const {
+  seo,
+  accountUrl,
+  analytics,
+  api,
+  cart,
+  checkoutUrl,
+  cms,
+  contentSource,
+  cypress,
+  deliveryPromise,
+  experimental,
+  lighthouse,
+  loginUrl,
+  platform,
+  previewRedirects,
+  secureSubdomain,
+  session,
+  storeUrl,
+  theme,
+} = finalConfig

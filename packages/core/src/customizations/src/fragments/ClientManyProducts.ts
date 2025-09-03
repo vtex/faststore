@@ -1,4 +1,4 @@
-import { gql } from '@generated'
+import { gql } from '../../../../@generated'
 
 export const fragment = gql(`
   fragment ClientManyProducts on Query {

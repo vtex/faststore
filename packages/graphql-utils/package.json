@@ -17,7 +17,7 @@
     "dev": "tsc --watch"
   },
   "peerDependencies": {
-    "graphql": "^15.6.1"
+    "graphql": "catalog:"
   },
   "devDependencies": {
     "cross-env": "^7.0.2"

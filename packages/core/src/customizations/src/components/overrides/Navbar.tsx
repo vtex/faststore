@@ -1,6 +1,6 @@
 // This is an example of how it can be used on the starter.
 
-import type { SectionOverride } from 'src/typings/overrides'
+import type { SectionOverride } from '../../../../typings/overrides'
 
 const SECTION = 'Navbar' as const
 

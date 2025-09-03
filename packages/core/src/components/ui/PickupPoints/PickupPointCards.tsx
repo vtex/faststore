@@ -6,7 +6,7 @@ import {
   RadioOption as UIRadioOption,
 } from '@faststore/ui'
 import type { ChangeEventHandler, MouseEventHandler } from 'react'
-import type { PickupPoint } from 'src/sdk/deliveryPromise'
+import type { PickupPoint } from '../../../sdk/deliveryPromise'
 import { PickupPointCard } from '.'
 
 export interface PickupPointCardsProps {

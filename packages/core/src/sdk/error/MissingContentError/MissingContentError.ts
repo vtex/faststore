@@ -1,6 +1,6 @@
 import type { EntryPathParams } from '@vtex/client-cp'
-import { contentSource } from 'discovery.config'
-import type { Options } from 'src/server/cms'
+import { contentSource } from '../../../../discovery.config'
+import type { Options } from '../../../server/cms'
 
 export default class MissingContentError extends Error {
   constructor(params: Options | EntryPathParams) {

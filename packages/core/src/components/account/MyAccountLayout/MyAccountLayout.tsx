@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
-import menuRoutes from 'src/customizations/src/myAccount/navigation'
-import { USER_DETAILS_ROUTE } from 'src/sdk/account/getMyAccountRoutes'
+import menuRoutes from '../../../customizations/src/myAccount/navigation'
+import { USER_DETAILS_ROUTE } from '../../../sdk/account/getMyAccountRoutes'
 import MyAccountMenu from '../MyAccountMenu'
 import styles from '../section.module.scss'
 

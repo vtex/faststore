@@ -2,16 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 
-import { gql } from '@generated'
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useSession } from 'src/sdk/session'
+import { gql } from '../../../../@generated'
+import type { AnalyticsItem } from '../../../sdk/analytics/types'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
+import { useSession } from '../../../sdk/session'
 
 import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import storeConfig from 'discovery.config'
+import storeConfig from '../../../../discovery.config'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'

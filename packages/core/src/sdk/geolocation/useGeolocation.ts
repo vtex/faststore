@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { deliveryPromise } from 'discovery.config'
-import { TIME_TO_VALIDATE_SESSION } from 'src/constants'
-import { sessionStore, validateSession } from 'src/sdk/session'
+import { deliveryPromise } from '../../../discovery.config'
+import { TIME_TO_VALIDATE_SESSION } from '../../constants'
+import { sessionStore, validateSession } from '../session'
 
 async function askGeolocationConsent() {
   const { postalCode: stalePostalCode, geoCoordinates: staleGeoCoordinates } =

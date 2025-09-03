@@ -7,7 +7,7 @@ import {
   regionSliderTypes,
 } from '@faststore/ui'
 
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
 type RegionFilterButtonProps = {
   filterByPickupPoint?: {

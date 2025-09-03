@@ -1,7 +1,7 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
 import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
-import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
+import { getCMSPage, getPage, type PageContentType } from '../cms'
 import type { ContentOptions, ContentParams, PreviewData } from './types'
 import config from '../../../discovery.config'
 import { getPLP, type PLPContentType } from '../cms/plp'
@@ -10,11 +10,11 @@ import {
   findBestPLPTemplate,
   type Rewrite,
   type RewritesConfig,
-} from 'src/utils/multipleTemplates'
-import MissingContentError from 'src/sdk/error/MissingContentError'
+} from '../../utils/multipleTemplates'
+import MissingContentError from '../../sdk/error/MissingContentError'
 import { getPDP, type PDPContentType } from '../cms/pdp'
-import MultipleContentError from 'src/sdk/error/MultipleContentError'
-import type { ServerProductQueryQuery } from '@generated/graphql'
+import MultipleContentError from '../../sdk/error/MultipleContentError'
+import type { ServerProductQueryQuery } from '../../../@generated/graphql'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)

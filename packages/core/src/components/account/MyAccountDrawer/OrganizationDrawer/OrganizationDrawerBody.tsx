@@ -1,7 +1,7 @@
 import { Link } from '@faststore/ui'
 
-import menuRoutes from 'src/customizations/src/myAccount/navigation'
-import { USER_DETAILS_ROUTE } from 'src/sdk/account/getMyAccountRoutes'
+import menuRoutes from '../../../../customizations/src/myAccount/navigation'
+import { USER_DETAILS_ROUTE } from '../../../../sdk/account/getMyAccountRoutes'
 
 const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
 

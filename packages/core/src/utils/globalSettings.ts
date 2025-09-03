@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import { usePage } from 'src/sdk/overrides/PageProvider'
+import { usePage } from '../sdk/overrides/PageProvider'
 
 export type GlobalCmsData = {
   regionalization?: RegionalizationCmsData

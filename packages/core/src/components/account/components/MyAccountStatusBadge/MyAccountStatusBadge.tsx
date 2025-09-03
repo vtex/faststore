@@ -2,7 +2,7 @@ import {
   orderStatusMap,
   type OrderStatusKey,
   type OrderStatusMapValue,
-} from 'src/utils/userOrderStatus'
+} from '../../../../utils/userOrderStatus'
 
 function getStatusVariant({ status }: { status: string }) {
   return (

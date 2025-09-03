@@ -1,9 +1,9 @@
 import { useSearch } from '@faststore/sdk'
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import deepEquals from 'fast-deep-equal'
 import {
   createContext,
@@ -14,11 +14,11 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from '../graphql/useQuery'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../session'
 
 export const UseGalleryPageContext = createContext<
   ReturnType<typeof useCreateUseGalleryPage>['useGalleryPage']

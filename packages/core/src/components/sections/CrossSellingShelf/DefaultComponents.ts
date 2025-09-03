@@ -1,6 +1,6 @@
 import { ProductShelf as UIProductShelf } from '@faststore/ui'
-import ProductCard from 'src/components/product/ProductCard'
-import Carousel from 'src/components/ui/Carousel'
+import ProductCard from '../../product/ProductCard'
+import Carousel from '../../ui/Carousel'
 
 export const CrossSellingShelfDefaultComponents = {
   ProductShelf: UIProductShelf,

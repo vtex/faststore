@@ -10,10 +10,10 @@ import { useRef, useState } from 'react'
 
 import useRegion from '../RegionModal/useRegion'
 
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
-import { sessionStore, useSession } from 'src/sdk/session'
-import { getGlobalSettings } from 'src/utils/globalSettings'
-import { textToTitleCase } from 'src/utils/utilities'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
+import { sessionStore, useSession } from '../../../sdk/session'
+import { getGlobalSettings } from '../../../utils/globalSettings'
+import { textToTitleCase } from '../../../utils/utilities'
 
 import styles from './section.module.scss'
 

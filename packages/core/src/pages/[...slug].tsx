@@ -1,41 +1,39 @@
 import { isNotFoundError } from '@faststore/api'
-import storeConfig from 'discovery.config'
+import storeConfig from '../../discovery.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
-import { gql } from '@generated'
+import { gql } from '../../@generated'
 import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
-} from '@generated/graphql'
-import { execute } from 'src/server'
+} from '../../@generated/graphql'
+import { execute } from '../server'
 
 import type { SearchState } from '@faststore/sdk'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
+} from '../components/cms/GlobalSections'
 import {
   getLandingPageBySlug,
   type LandingPageProps,
-} from 'src/components/templates/LandingPage'
+} from '../components/templates/LandingPage'
 import ProductListingPage, {
   type ProductListingPageProps,
-} from 'src/components/templates/ProductListingPage'
-import { getRedirect } from 'src/sdk/redirects'
-import type { PageContentType } from 'src/server/cms'
-import { injectGlobalSections } from 'src/server/cms/global'
-import type { PLPContentType } from 'src/server/cms/plp'
-import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
-import { getDynamicContent } from 'src/utils/dynamicContent'
-import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
+} from '../components/templates/ProductListingPage'
+import { getRedirect } from '../sdk/redirects'
+import type { PageContentType } from '../server/cms'
+import { injectGlobalSections } from '../server/cms/global'
+import type { PLPContentType } from '../server/cms/plp'
+import { contentService } from '../server/content/service'
+import type { PreviewData } from '../server/content/types'
+import { getDynamicContent } from '../utils/dynamicContent'
+import { fetchServerManyProducts } from '../utils/fetchProductGallerySSR'
 
-const LandingPage = dynamic(
-  () => import('src/components/templates/LandingPage')
-)
+const LandingPage = dynamic(() => import('../components/templates/LandingPage'))
 
 type BaseProps = {
   globalSections: GlobalSectionsData

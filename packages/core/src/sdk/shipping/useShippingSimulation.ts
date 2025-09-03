@@ -1,4 +1,4 @@
-import type { ClientShippingSimulationQueryQuery } from '@generated/graphql'
+import type { ClientShippingSimulationQueryQuery } from '../../../@generated/graphql'
 import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useReducer, useRef } from 'react'
 import getShippingSimulation from '.'

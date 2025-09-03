@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type {
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsContact,
-} from '@generated/graphql'
+} from '../../../../../../@generated/graphql'
 
 interface InfoContainerProps {
   title: string

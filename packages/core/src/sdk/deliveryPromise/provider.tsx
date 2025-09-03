@@ -8,7 +8,7 @@ import {
   useReducer,
 } from 'react'
 
-import { useSession } from 'src/sdk/session'
+import { useSession } from '../session'
 
 import {
   deliveryPromiseReducer,

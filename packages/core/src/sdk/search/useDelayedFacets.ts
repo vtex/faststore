@@ -3,7 +3,7 @@ import { useMemo, useRef } from 'react'
 import type {
   ClientProductGalleryQueryQuery,
   Filter_FacetsFragment,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 export const useDelayedFacets = (data?: ClientProductGalleryQueryQuery) => {
   const facets = useRef<Filter_FacetsFragment[]>([])

@@ -1,5 +1,5 @@
 import { parse } from 'cookie'
-import { parseJwt } from 'src/utils/getCookie'
+import { parseJwt } from '../../utils/getCookie'
 
 type GetIsRepresentativeParams = {
   headers?: Record<string, string>

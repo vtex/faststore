@@ -1,8 +1,8 @@
 import { useCallback, useRef } from 'react'
 import type { CurrencyCode, ViewItemListEvent } from '@faststore/sdk'
 
-import { useSession } from 'src/sdk/session'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { useSession } from '../../session'
+import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
 
 import type { AnalyticsItem } from '../types'
 

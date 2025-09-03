@@ -1,7 +1,7 @@
-import { override } from 'src/customizations/src/components/overrides/Navbar'
-import { override as overridePlugin } from 'src/plugins/overrides/Navbar'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import { override } from '../../../customizations/src/components/overrides/Navbar'
+import { override as overridePlugin } from '../../../plugins/overrides/Navbar'
+import { getOverriddenSection } from '../../../sdk/overrides/getOverriddenSection'
+import type { SectionOverrideDefinitionV1 } from '../../../typings/overridesDefinition'
 import Navbar from './Navbar'
 
 /**

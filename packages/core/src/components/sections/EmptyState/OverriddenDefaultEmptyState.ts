@@ -1,8 +1,8 @@
-import { override } from 'src/customizations/src/components/overrides/EmptyState'
-import { override as overridePlugin } from 'src/plugins/overrides/EmptyState'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import { override } from '../../../customizations/src/components/overrides/EmptyState'
+import { override as overridePlugin } from '../../../plugins/overrides/EmptyState'
+import { getOverriddenSection } from '../../../sdk/overrides/getOverriddenSection'
 
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import type { SectionOverrideDefinitionV1 } from '../../../typings/overridesDefinition'
 import EmptyState from './EmptyState'
 
 /**

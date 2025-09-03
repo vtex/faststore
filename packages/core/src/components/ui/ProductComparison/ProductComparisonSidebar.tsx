@@ -6,11 +6,11 @@ import {
   useProductComparison,
 } from '@faststore/ui'
 
-import { gql } from '@generated/gql'
-import type { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
+import { gql } from '@faststore/core'
+import type { ClientManyProductsSelectedQueryQuery } from '../../../../@generated/graphql'
 
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
-import { useProductsSelected } from 'src/sdk/product/useProductsSelected'
+import { useBuyButton } from '../../../sdk/cart/useBuyButton'
+import { useProductsSelected } from '../../../sdk/product/useProductsSelected'
 
 const sortOptions = [
   {

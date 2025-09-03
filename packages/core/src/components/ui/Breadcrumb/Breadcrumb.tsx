@@ -2,8 +2,8 @@ import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
 import { Breadcrumb as UIBreadcrumb } from '@faststore/ui'
 import { memo } from 'react'
 
-import Link from 'src/components/ui/Link'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import Link from '../Link'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string
   alt: string
