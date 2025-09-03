@@ -56,6 +56,7 @@ const filterWarnings = (userConfig) => (baseConfig, _context) => {
   config.ignoreWarnings = [
     ...(config?.ignoreWarnings ?? []),
     { message: /autoprefixer:/ },
+    { message: /Deprecation Warning/ },
   ]
   return config
 }
@@ -79,7 +80,6 @@ async function withFastStore(config) {
 
   return {
     ...config,
-    swcMinify: true,
     images: {
       domains: [`${finalConfig.api.storeId}.vtexassets.com`],
       deviceSizes: [360, 412, 540, 768, 1280, 1440],
@@ -92,9 +92,9 @@ async function withFastStore(config) {
     sassOptions: {
       additionalData: `@import "@faststore/ui/src/styles/base/utilities.scss";`,
     },
+    outputFileTracingRoot: path.join(__dirname, '../'),
     experimental: {
       scrollRestoration: true,
-      outputFileTracingRoot: path.join(__dirname, '../'),
     },
     redirects: finalConfig.redirects,
     rewrites: finalConfig.rewrites,

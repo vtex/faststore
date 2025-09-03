@@ -5,7 +5,7 @@ import { useUI } from '../../hooks'
 function Toast() {
   const { toasts, popToast } = useUI()
   const toast = toasts[toasts.length - 1]
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<NodeJS.Timeout>(null)
 
   const [visible, setVisible] = useState(false)
 
@@ -22,7 +22,9 @@ function Toast() {
   useEffect(() => {
     timeoutRef.current = setTimeout(() => setVisible(false), 6e3)
 
-    return () => timeoutRef.current && clearTimeout(timeoutRef.current)
+    return () => {
+      timeoutRef.current && clearTimeout(timeoutRef.current)
+    }
   }, [toast])
 
   if (toast === undefined) {

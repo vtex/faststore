@@ -47,14 +47,13 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^3.70.2",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",
     "tabbable": "catalog:"
   },
   "peerDependencies": {
-    "@faststore/components": "3.x",
+    "@faststore/components": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

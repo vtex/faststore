@@ -19,7 +19,7 @@ export const useDropdownItem = <E extends HTMLElement = HTMLElement>({
   >()
 
   const [dropdownItemIndex, setDropdownItemIndex] = useState(0)
-  const dropdownItemRef = useRef<E>()
+  const dropdownItemRef = useRef<E>(null)
 
   const addToRefs = (el: E) => {
     if (el && !dropdownItemsRef?.current.includes(el)) {
