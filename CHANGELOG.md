@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.79.0](https://github.com/vtex/faststore/compare/v3.78.0...v3.79.0) (2025-09-03)
+
+### Features
+
+- Add appkey and apptoken to VtexCommerce and Page components ([#3008](https://github.com/vtex/faststore/issues/3008)) ([e99a132](https://github.com/vtex/faststore/commit/e99a1321ea27ed9baadd87fbce4fd5798a9d0d25))
+
 # [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
 
 ### Features
