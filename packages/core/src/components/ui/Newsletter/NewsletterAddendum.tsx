@@ -24,10 +24,6 @@ export function NewsletterAddendum({
   testId = 'fs-newsletter-addendum',
   ...otherProps
 }: Readonly<NewsletterAddendumProps>) {
-  if (!addendum) {
-    return null
-  }
-
   return (
     <RichText
       as="span"

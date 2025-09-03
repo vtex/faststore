@@ -28,6 +28,8 @@ export { default as Price } from './atoms/Price'
 export type { PriceProps } from './atoms/Price'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
+export { default as RichText } from './atoms/RichText'
+export type { RichTextProps } from './atoms/RichText'
 export { default as Skeleton } from './atoms/Skeleton'
 export type { SkeletonProps } from './atoms/Skeleton'
 export { default as Select } from './atoms/Select'
@@ -35,8 +37,6 @@ export type { SelectProps } from './atoms/Select'
 export { default as Slider } from './atoms/Slider'
 export type { SliderProps } from './atoms/Slider'
 export { default as SROnly } from './atoms/SROnly'
-export { default as RichText } from './atoms/RichText'
-export type { RichTextProps } from './atoms/RichText'
 
 // Molecules
 export {
