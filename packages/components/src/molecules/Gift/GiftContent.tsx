@@ -7,7 +7,7 @@ import type { PriceDefinition } from '../../typings/PriceDefinition'
 
 export interface GiftContentProps extends HTMLAttributes<HTMLElement> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
   /**

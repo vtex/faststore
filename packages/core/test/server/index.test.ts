@@ -154,7 +154,7 @@ describe('FastStore GraphQL Layer', () => {
 
     it('should handle options and execute', async () => {
       const result = await execute({
-        variables: { slug: storeConfig.cypress.pages.collection.slice(1) },
+        variables: { slug: storeConfig.lighthouse.pages.collection.slice(1) },
         operation: {
           __meta__: {
             operationName: 'ServerCollectionPageQuery',
