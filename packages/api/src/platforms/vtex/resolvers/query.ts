@@ -447,7 +447,7 @@ export const Query = {
       } catch (err: any) {}
 
       const shopperSearch =
-        (await commerce.masterData.getShopperNameById({
+        (await commerce.masterData.getShopperById({
           userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
         })) ?? []
       const shopper = shopperSearch[0] ?? {}
@@ -470,9 +470,11 @@ export const Query = {
             order.status === 'waiting-for-authorization') &&
           !!ruleForAuthorization,
         ruleForAuthorization,
-        shopperName: {
+        shopper: {
           firstName: shopper?.firstName || '',
           lastName: shopper?.lastName || '',
+          email: shopper?.email || '',
+          phone: shopper?.phone || '',
         },
       }
     } catch (error) {

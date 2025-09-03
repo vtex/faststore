@@ -686,12 +686,14 @@ export const VtexCommerce = (
           {}
         )
       },
-      getShopperNameById: ({
+      getShopperById: ({
         userId,
       }: { userId: string }): Promise<
         Array<{
           firstName: string
           lastName: string
+          email: string
+          phone: string
         }>
       > => {
         if (!userId) {
