@@ -68,6 +68,7 @@ const QUERIES = [
   'collection',
   'search',
   'allProducts',
+  'products',
   'allCollections',
   'shipping',
   'redirect',
@@ -76,8 +77,11 @@ const QUERIES = [
   'productCount',
   'userOrder',
   'listUserOrders',
+  'userDetails',
+  'accountProfile',
   'accountName',
   'validateUser',
+  'pickupPoints',
 ]
 
 const MUTATIONS = [
@@ -85,6 +89,7 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'cancelOrder',
+  'processOrderAuthorization',
 ]
 
 describe('FastStore GraphQL Layer', () => {

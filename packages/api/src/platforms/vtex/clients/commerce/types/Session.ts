@@ -41,6 +41,7 @@ export interface Profile {
 
 export interface Shopper {
   firstName?: Value
+  lastName?: Value
 }
 
 export interface Checkout {
@@ -51,4 +52,5 @@ export interface Checkout {
 export interface Public {
   orderFormId?: Value
   items?: Value
+  postalCode?: Value
 }

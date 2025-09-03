@@ -45,6 +45,7 @@ export interface Options {
 
 interface FeatureFlags {
   enableOrderFormSync?: boolean
+  enableUnavailableItemsOnCart?: boolean
 }
 
 export interface Context {

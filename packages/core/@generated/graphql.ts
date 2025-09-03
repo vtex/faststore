@@ -144,6 +144,198 @@ export type AvailableDeliveryWindows = {
   tax: Maybe<Scalars['Int']['output']>
 }
 
+export type BusinessHour = {
+  /** Business hour closing time. */
+  closingTime: Maybe<Scalars['String']['output']>
+  /** Number that represents the day of the week. */
+  dayOfWeek: Maybe<Scalars['Int']['output']>
+  /** Business hour opening time. */
+  openingTime: Maybe<Scalars['String']['output']>
+}
+
+/** Commercial Authorization dimension status. */
+export type CommercialAuthorizationDimensionStatus = {
+  /** Creation date. */
+  creationDate: Scalars['String']['output']
+  /** Creation environment. */
+  creationEnvironment: Scalars['String']['output']
+  /** Creation version. */
+  creationVersion: Scalars['String']['output']
+  /** Dimension status ID. */
+  id: Scalars['String']['output']
+  /** Dimension status name. */
+  name: Scalars['String']['output']
+  /** Priority level. */
+  priority: Scalars['Int']['output']
+  /** Indicates if all rules acceptance is required. */
+  requireAllRulesAcceptance: Scalars['Boolean']['output']
+  /** Collection of rules for this dimension. */
+  ruleCollection: Array<CommercialAuthorizationRule>
+  /** Dimension score. */
+  score: Scalars['Float']['output']
+  /** Indicates if simulation should be performed. */
+  shouldSimulate: Scalars['Boolean']['output']
+  /** Current status of the dimension. */
+  status: CommercialAuthorizationStatus
+  /** Unit ID, if applicable. */
+  unitId: Maybe<Scalars['String']['output']>
+}
+
+/** Commercial Authorization item. */
+export type CommercialAuthorizationItem = {
+  /** Additional information as key-value pairs. */
+  additionalInfo: Scalars['JSONObject']['output']
+  /** Item ID. */
+  id: Scalars['String']['output']
+  /** Item price. */
+  price: Scalars['Float']['output']
+  /** Item quantity. */
+  quantity: Scalars['Int']['output']
+  /** Item SKU. */
+  sku: Scalars['String']['output']
+  /** Total manual discount applied. */
+  totalManualDiscount: Scalars['Float']['output']
+  /** Total system discount applied. */
+  totalSystemDiscount: Scalars['Float']['output']
+}
+
+/** Commercial Authorization response. */
+export type CommercialAuthorizationResponse = {
+  /** Additional information as key-value pairs. */
+  additionalInfo: Scalars['JSONObject']['output']
+  /** Callback endpoint URL. */
+  callbackEndpoint: Scalars['String']['output']
+  /** Creation environment. */
+  creationEnvironment: Scalars['String']['output']
+  /** Creation version. */
+  creationVersion: Scalars['String']['output']
+  /** Dimension status information. */
+  dimensionStatus: Array<CommercialAuthorizationDimensionStatus>
+  /** Commercial Authorization ID. */
+  id: Scalars['String']['output']
+  /** Collection of items in the commercial authorization. */
+  itemCollection: Array<CommercialAuthorizationItem>
+  /** Marketplace payment value. */
+  marketPlacePaymentValue: Scalars['Float']['output']
+  /** Order ID associated with the commercial authorization. */
+  orderId: Scalars['String']['output']
+  /** Current status of the commercial authorization. */
+  status: CommercialAuthorizationStatus
+  /** Total order value desired by the seller. */
+  totalOrderValueDesiredBySeller: Scalars['Float']['output']
+  /** List of units. */
+  units: Array<Scalars['String']['output']>
+  /** User profile ID. */
+  userProfileId: Scalars['String']['output']
+  /** Workflow instance ID. */
+  workflowInstanceId: Scalars['String']['output']
+}
+
+/** Commercial Authorization rule. */
+export type CommercialAuthorizationRule = {
+  /** Authorization data, if available. */
+  authorizationData: Maybe<CommercialAuthorizationRuleAuthorizationData>
+  /** List of authorized email addresses. */
+  authorizedEmails: Array<Scalars['String']['output']>
+  /** DO ID, if applicable. */
+  doId: Maybe<Scalars['String']['output']>
+  /** Rule ID. */
+  id: Scalars['String']['output']
+  /**
+   * Indicates that the user is listed as one of the possible approvers,
+   * but does not necessarily mean that he or she is the next in the chain to approve.
+   */
+  isUserAuthorized: Scalars['Boolean']['output']
+  /**
+   * Indicates that the user is next in the approval chain.
+   * This means that they must take an approval or rejection action.
+   */
+  isUserNextAuthorizer: Scalars['Boolean']['output']
+  /** Rule name. */
+  name: Scalars['String']['output']
+  /** Indicates if notification is enabled. */
+  notification: Scalars['Boolean']['output']
+  /** Rule priority. */
+  priority: Scalars['Int']['output']
+  /** Score interval configuration. */
+  scoreInterval: CommercialAuthorizationRuleScoreInterval
+  /** Current status of the rule. */
+  status: CommercialAuthorizationStatus
+  /** Timeout value. */
+  timeout: Scalars['Int']['output']
+  /** Rule trigger configuration. */
+  trigger: CommercialAuthorizationRuleTrigger
+}
+
+/** Commercial Authorization rule authorization data. */
+export type CommercialAuthorizationRuleAuthorizationData = {
+  /** List of authorizers. */
+  authorizers: Array<CommercialAuthorizationRuleAuthorizer>
+  /** Indicates if all approvals are required. */
+  requireAllApprovals: Scalars['Boolean']['output']
+}
+
+/** Commercial Authorization rule authorizer. */
+export type CommercialAuthorizationRuleAuthorizer = {
+  /** Authorization date. */
+  authorizationDate: Maybe<Scalars['String']['output']>
+  /** Authorizer email. */
+  email: Maybe<Scalars['String']['output']>
+  /** Authorizer ID. */
+  id: Scalars['String']['output']
+  /** Authorizer type. */
+  type: Scalars['String']['output']
+}
+
+/** Commercial Authorization rule score interval. */
+export type CommercialAuthorizationRuleScoreInterval = {
+  /** Accept score threshold. */
+  accept: Scalars['Float']['output']
+  /** Deny score threshold. */
+  deny: Scalars['Float']['output']
+}
+
+/** Commercial Authorization rule trigger. */
+export type CommercialAuthorizationRuleTrigger = {
+  /** Trigger condition. */
+  condition: CommercialAuthorizationRuleTriggerCondition
+  /** Trigger effect. */
+  effect: CommercialAuthorizationRuleTriggerEffect
+}
+
+/** Commercial Authorization rule trigger condition. */
+export type CommercialAuthorizationRuleTriggerCondition = {
+  /** Condition type. */
+  conditionType: Scalars['Int']['output']
+  /** Condition description. */
+  description: Maybe<Scalars['String']['output']>
+  /** Condition expression. */
+  expression: Maybe<Scalars['String']['output']>
+  /** Greater than value. */
+  greatherThan: Maybe<Scalars['Float']['output']>
+  /** Less than value. */
+  lessThan: Maybe<Scalars['Float']['output']>
+}
+
+/** Commercial Authorization rule trigger effect. */
+export type CommercialAuthorizationRuleTriggerEffect = {
+  /** Effect description. */
+  description: Maybe<Scalars['String']['output']>
+  /** Effect type. */
+  effectType: Scalars['Int']['output']
+  /** Function path. */
+  funcPath: Maybe<Scalars['String']['output']>
+}
+
+/** Commercial Authorization status. */
+export type CommercialAuthorizationStatus =
+  /** Authorization has been accepted. */
+  | 'accepted'
+  /** Authorization has been denied. */
+  | 'denied'
+  /** Authorization is pending. */
+  | 'pending'
+
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']['output']>
@@ -155,6 +347,12 @@ export type DeliveryIds = {
   quantity: Maybe<Scalars['Int']['output']>
   /** DeliveryIds warehouse id */
   warehouseId: Maybe<Scalars['String']['output']>
+}
+
+/** Input to get commercial authorizations by order ID. */
+export type ICommercialAuthorizationByOrderId = {
+  /** Order ID to get commercial authorizations for. */
+  orderId: Scalars['String']['input']
 }
 
 export type IGeoCoordinates = {
@@ -172,6 +370,32 @@ export type IPersonNewsletter = {
   name: Scalars['String']['input']
 }
 
+/** Input to process order authorization (approve or reject). */
+export type IProcessOrderAuthorization = {
+  /** Whether the authorization is approved (true) or rejected (false). */
+  approved: Scalars['Boolean']['input']
+  /** Dimension ID associated with the authorization. */
+  dimensionId: Scalars['String']['input']
+  /** Order authorization ID. */
+  orderAuthorizationId: Scalars['String']['input']
+  /** Rule ID associated with the authorization. */
+  ruleId: Scalars['String']['input']
+}
+
+/** Input type for setting a new password. */
+export type ISetPassword = {
+  /** Optional access key for the user, used in some authentication flows. */
+  accesskey: InputMaybe<Scalars['String']['input']>
+  /** The current password of the user, required for verification before changing to the new password. */
+  currentPassword: Scalars['String']['input']
+  /** The email of the user for whom the password is being set. */
+  email: Scalars['String']['input']
+  /** The new password to be set for the user. */
+  newPassword: Scalars['String']['input']
+  /** Optional reCAPTCHA token for security verification. */
+  recaptcha: InputMaybe<Scalars['String']['input']>
+}
+
 /** Shipping Simulation item input. */
 export type IShippingItem = {
   /** ShippingItem ID / Sku. */
@@ -187,6 +411,7 @@ export type IStoreB2B = {
   firstName: InputMaybe<Scalars['String']['input']>
   isRepresentative: InputMaybe<Scalars['Boolean']['input']>
   lastName: InputMaybe<Scalars['String']['input']>
+  savedPostalCode: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
   unitName: InputMaybe<Scalars['String']['input']>
   userEmail: InputMaybe<Scalars['String']['input']>
@@ -346,6 +571,8 @@ export type IStoreSession = {
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
   postalCode: InputMaybe<Scalars['String']['input']>
+  /** Refresh token after Information. */
+  refreshAfter: InputMaybe<Scalars['String']['input']>
 }
 
 /** Input to the cancel order API. */
@@ -421,6 +648,8 @@ export type MessageInfo = {
 export type Mutation = {
   /** Cancels user order */
   cancelOrder: Maybe<UserOrderCancel>
+  /** Process Order Authorization */
+  processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -431,6 +660,10 @@ export type Mutation = {
 
 export type MutationCancelOrderArgs = {
   data: IUserOrderCancel
+}
+
+export type MutationProcessOrderAuthorizationArgs = {
+  data: IProcessOrderAuthorization
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -482,6 +715,43 @@ export type PickupAddress = {
   street: Maybe<Scalars['String']['output']>
 }
 
+export type PickupPointAddress = {
+  /** Address city. */
+  city: Maybe<Scalars['String']['output']>
+  /** Address neighborhood. */
+  neighborhood: Maybe<Scalars['String']['output']>
+  /** Address number. */
+  number: Maybe<Scalars['String']['output']>
+  /** Address postal code. */
+  postalCode: Maybe<Scalars['String']['output']>
+  /** Address state. */
+  state: Maybe<Scalars['String']['output']>
+  /** Address street. */
+  street: Maybe<Scalars['String']['output']>
+}
+
+export type PickupPointDistance = {
+  /** Pickup point address. */
+  address: Maybe<PickupPointAddress>
+  /** Pickup point business hours. */
+  businessHours: Maybe<Array<Maybe<BusinessHour>>>
+  /** Pickup point distance. */
+  distance: Maybe<Scalars['Float']['output']>
+  /** Whether the pickup point is active. */
+  isActive: Maybe<Scalars['Boolean']['output']>
+  /** Pickup point ID. */
+  pickupId: Maybe<Scalars['String']['output']>
+  /** Pickup point name. */
+  pickupName: Maybe<Scalars['String']['output']>
+}
+
+export type PickupPoints = {
+  /** List of pickup point distances for the given location. */
+  pickupPointDistances: Maybe<Array<Maybe<PickupPointDistance>>>
+  /** Hash of the pickup points data. */
+  pickupPointsHash: Maybe<Scalars['String']['output']>
+}
+
 export type PickupStoreInfo = {
   /** PickupStoreInfo additional information. */
   additionalInfo: Maybe<Scalars['String']['output']>
@@ -493,6 +763,24 @@ export type PickupStoreInfo = {
   friendlyName: Maybe<Scalars['String']['output']>
   /** Information if the store has pickup enable. */
   isPickupStore: Maybe<Scalars['Boolean']['output']>
+}
+
+/** Process Order Authorization response. */
+export type ProcessOrderAuthorizationResponse = {
+  /** Indicates if authorization is pending for other authorizers. */
+  isPendingForOtherAuthorizer: Scalars['Boolean']['output']
+  /** The updated rule for authorization, if any. */
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
+}
+
+/** Extended Commercial Authorization rule with additional process context. */
+export type ProcessOrderAuthorizationRule = {
+  /** Dimension ID. */
+  dimensionId: Scalars['String']['output']
+  /** Order authorization ID. */
+  orderAuthorizationId: Scalars['String']['output']
+  /** Base rule information. */
+  rule: CommercialAuthorizationRule
 }
 
 export type ProductCountResult = {
@@ -537,6 +825,8 @@ export type ProfileAddress = {
 export type Query = {
   /** Returns the account name of the current user or the B2B contract name if applicable. */
   accountName: Maybe<Scalars['String']['output']>
+  /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
+  accountProfile: StoreAccountProfile
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
   /** Returns information about all products. */
@@ -545,10 +835,14 @@ export type Query = {
   collection: StoreCollection
   /** Returns information about the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>
+  /** Returns a list of pickup points near to the given geo coordinates. */
+  pickupPoints: Maybe<PickupPoints>
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
   productCount: Maybe<ProductCountResult>
+  /** Returns information about selected products. */
+  products: Array<StoreProduct>
   /** Returns information about the profile. */
   profile: Maybe<Profile>
   /** Returns if there's a redirect for a search. */
@@ -559,6 +853,8 @@ export type Query = {
   sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
+  /** Returns information about the current user details. */
+  userDetails: StoreUserDetails
   /** Returns information about the Details of an User Order. */
   userOrder: Maybe<UserOrderResult>
   /** Returns information about the user validation. */
@@ -589,12 +885,20 @@ export type QueryListUserOrdersArgs = {
   text: InputMaybe<Scalars['String']['input']>
 }
 
+export type QueryPickupPointsArgs = {
+  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
+}
+
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
 }
 
 export type QueryProductCountArgs = {
   term: InputMaybe<Scalars['String']['input']>
+}
+
+export type QueryProductsArgs = {
+  productIds: Array<Scalars['String']['input']>
 }
 
 export type QueryProfileArgs = {
@@ -632,6 +936,19 @@ export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input']
 }
 
+export type SkuSpecificationField = {
+  id: Maybe<Scalars['String']['output']>
+  name: Scalars['String']['output']
+  originalName: Maybe<Scalars['String']['output']>
+}
+
+export type SkuSpecificationValue = {
+  fieldId: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  name: Scalars['String']['output']
+  originalName: Maybe<Scalars['String']['output']>
+}
+
 /** Search result. */
 export type SearchMetadata = {
   /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
@@ -658,6 +975,14 @@ export type SellersData = {
   id: Maybe<Scalars['String']['output']>
   /** List of sellers. */
   sellers: Maybe<Array<Maybe<SellerInfo>>>
+}
+
+/** Response type for setting a new password. */
+export type SetPasswordResponse = {
+  /** Message providing additional information about the operation. */
+  message: Maybe<Scalars['String']['output']>
+  /** Indicates whether the password was successfully set. */
+  success: Scalars['Boolean']['output']
 }
 
 /** Shipping Simulation information. */
@@ -706,10 +1031,15 @@ export type ShippingSla = {
   shippingEstimateDate: Maybe<Scalars['String']['output']>
 }
 
+export type SkuSpecification = {
+  field: SkuSpecificationField
+  values: Array<SkuSpecificationValue>
+}
+
 export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
-  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantProducts: Maybe<Array<StoreProduct>>
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
@@ -738,6 +1068,25 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName: InputMaybe<Scalars['String']['input']>
+}
+
+export type Specification = {
+  name: Scalars['String']['output']
+  originalName: Scalars['String']['output']
+  values: Array<Scalars['String']['output']>
+}
+
+export type SpecificationGroup = {
+  name: Scalars['String']['output']
+  originalName: Scalars['String']['output']
+  specifications: Array<Specification>
+}
+
+/** Account profile information. */
+export type StoreAccountProfile = {
+  email: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
 }
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
@@ -775,6 +1124,7 @@ export type StoreB2B = {
   firstName: Maybe<Scalars['String']['output']>
   isRepresentative: Maybe<Scalars['Boolean']['output']>
   lastName: Maybe<Scalars['String']['output']>
+  savedPostalCode: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
   unitName: Maybe<Scalars['String']['output']>
   userEmail: Maybe<Scalars['String']['output']>
@@ -1071,6 +1421,8 @@ export type StoreProduct = {
   description: Scalars['String']['output']
   /** Global Trade Item Number. */
   gtin: Scalars['String']['output']
+  /** Indicates whether the product has specifications. */
+  hasSpecifications: Maybe<Scalars['Boolean']['output']>
   /** Array of images. */
   image: Array<StoreImage>
   /** Indicates product group related to this product. */
@@ -1089,8 +1441,12 @@ export type StoreProduct = {
   seo: StoreSeo
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String']['output']
+  /** Indicate the specifications of a product. */
+  skuSpecifications: Array<SkuSpecification>
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
+  /** Indicate the specifications of a group of SKUs. */
+  specificationGroups: Array<SpecificationGroup>
   /** Sku Unit Multiplier */
   unitMultiplier: Maybe<Scalars['Float']['output']>
 }
@@ -1222,6 +1578,8 @@ export type StoreSession = {
   person: Maybe<StorePerson>
   /** Session postal code. */
   postalCode: Maybe<Scalars['String']['output']>
+  /** Refresh token after Information. */
+  refreshAfter: Maybe<Scalars['String']['output']>
 }
 
 /** Product search results sorting options. */
@@ -1262,13 +1620,25 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
+/** User details information. */
+export type StoreUserDetails = {
+  /** User's email. */
+  email: Maybe<Scalars['String']['output']>
+  /** User's name. */
+  name: Maybe<Scalars['String']['output']>
+  /** User's organizational unit. */
+  orgUnit: Maybe<Scalars['String']['output']>
+  /** User's role. */
+  role: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
 export type UserOrder = {
   affiliateId: Maybe<Scalars['String']['output']>
   allowCancellation: Maybe<Scalars['Boolean']['output']>
   allowEdition: Maybe<Scalars['Boolean']['output']>
   authorizedDate: Maybe<Scalars['String']['output']>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
-  canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
   cancellationData: Maybe<UserOrderCancellationData>
   cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
@@ -1305,8 +1675,10 @@ export type UserOrder = {
   origin: Maybe<Scalars['String']['output']>
   packageAttachment: Maybe<UserOrderPackageAttachment>
   paymentData: Maybe<UserOrderPaymentData>
+  purchaseAgentData: Maybe<UserOrderPurchaseAgentData>
   ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>
   roundingError: Maybe<Scalars['Int']['output']>
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   salesChannel: Maybe<Scalars['String']['output']>
   sellerOrderId: Maybe<Scalars['String']['output']>
   sellers: Maybe<Array<Maybe<UserOrderStoreSellers>>>
@@ -1530,6 +1902,7 @@ export type UserOrderDeliveryOptionsItems = {
   quantity: Maybe<Scalars['Int']['output']>
   tax: Maybe<Scalars['Float']['output']>
   total: Maybe<Scalars['Float']['output']>
+  uniqueId: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderDeliveryWindow = {
@@ -1877,6 +2250,17 @@ export type UserOrderPriceTag = {
   value: Maybe<Scalars['Float']['output']>
 }
 
+export type UserOrderPurchaseAgent = {
+  persona: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+  userId: Maybe<Scalars['String']['output']>
+  versionId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderPurchaseAgentData = {
+  purchaseAgents: Maybe<Array<Maybe<UserOrderPurchaseAgent>>>
+}
+
 export type UserOrderRateAndBenefitsIdentifier = {
   additionalInfo: Maybe<Scalars['String']['output']>
   description: Maybe<Scalars['String']['output']>
@@ -1916,15 +2300,18 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
-  canCancelOrder: Maybe<Scalars['Boolean']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
+  creationDate: Maybe<Scalars['String']['output']>
   customData: Maybe<UserOrderCustomData>
   customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
   deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
   items: Maybe<Array<Maybe<UserOrderItems>>>
   orderId: Maybe<Scalars['String']['output']>
   paymentData: Maybe<UserOrderPaymentData>
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   shippingData: Maybe<UserOrderShippingData>
+  shopperName: Maybe<UserOrderShopperName>
   status: Maybe<Scalars['String']['output']>
   statusDescription: Maybe<Scalars['String']['output']>
   storePreferencesData: Maybe<UserOrderStorePreferencesData>
@@ -1944,6 +2331,11 @@ export type UserOrderShippingData = {
   logisticsInfo: Maybe<Array<Maybe<UserOrderLogisticsInfo>>>
   selectedAddresses: Maybe<Array<Maybe<UserOrderAddress>>>
   trackingHints: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderShopperName = {
+  firstName: Maybe<Scalars['String']['output']>
+  lastName: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderSlas = {
@@ -2012,6 +2404,7 @@ export type ProductSummary_ProductFragment = {
   name: string
   gtin: string
   unitMultiplier: number | null
+  hasSpecifications: boolean | null
   id: string
   brand: { name: string; brandName: string }
   isVariantOf: {
@@ -2022,6 +2415,7 @@ export type ProductSummary_ProductFragment = {
       activeVariations: any | null
       slugsMap: any | null
       availableVariations: any | null
+      allVariantProducts: Array<{ name: string; productID: string }> | null
     } | null
   }
   image: Array<{ url: string; alternateName: string }>
@@ -2085,6 +2479,7 @@ export type ProductDetailsFragment_ProductFragment = {
       activeVariations: any | null
       slugsMap: any | null
       availableVariations: any | null
+      allVariantProducts: Array<{ name: string; productID: string }> | null
     } | null
   }
   image: Array<{ url: string; alternateName: string }>
@@ -2106,6 +2501,67 @@ export type ProductDetailsFragment_ProductFragment = {
     name: string
     value: any
     valueReference: any
+  }>
+}
+
+export type ProductComparisonFragment_ProductFragment = {
+  sku: string
+  slug: string
+  name: string
+  gtin: string
+  description: string
+  unitMultiplier: number | null
+  hasSpecifications: boolean | null
+  id: string
+  isVariantOf: {
+    name: string
+    productGroupID: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+      allVariantProducts: Array<{ name: string; productID: string }> | null
+    } | null
+  }
+  image: Array<{ url: string; alternateName: string }>
+  brand: { name: string }
+  offers: {
+    lowPrice: number
+    lowPriceWithTaxes: number
+    offers: Array<{
+      availability: string
+      price: number
+      priceWithTaxes: number
+      listPrice: number
+      quantity: number
+      listPriceWithTaxes: number
+      seller: { identifier: string }
+    }>
+  }
+  additionalProperty: Array<{
+    propertyID: string
+    name: string
+    value: any
+    valueReference: any
+  }>
+  advertisement: { adId: string; adResponseId: string } | null
+  skuSpecifications: Array<{
+    field: { id: string | null; name: string; originalName: string | null }
+    values: Array<{
+      name: string
+      id: string | null
+      fieldId: string | null
+      originalName: string | null
+    }>
+  }>
+  specificationGroups: Array<{
+    name: string
+    originalName: string
+    specifications: Array<{
+      name: string
+      originalName: string
+      values: Array<string>
+    }>
   }>
 }
 
@@ -2242,6 +2698,7 @@ export type ServerProductQueryQuery = {
         activeVariations: any | null
         slugsMap: any | null
         availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
       } | null
     }
     additionalProperty: Array<{
@@ -2274,10 +2731,51 @@ export type ServerOrderDetailsQueryQuery = {
   accountName: string | null
   userOrder: {
     orderId: string | null
+    creationDate: string | null
     status: string | null
-    canCancelOrder: boolean | null
+    canProcessOrderAuthorization: boolean | null
     statusDescription: string | null
     allowCancellation: boolean | null
+    ruleForAuthorization: {
+      orderAuthorizationId: string
+      dimensionId: string
+      rule: {
+        id: string
+        name: string
+        status: CommercialAuthorizationStatus
+        doId: string | null
+        authorizedEmails: Array<string>
+        priority: number
+        timeout: number
+        notification: boolean
+        isUserAuthorized: boolean
+        isUserNextAuthorizer: boolean
+        trigger: {
+          condition: {
+            conditionType: number
+            description: string | null
+            lessThan: number | null
+            greatherThan: number | null
+            expression: string | null
+          }
+          effect: {
+            description: string | null
+            effectType: number
+            funcPath: string | null
+          }
+        }
+        scoreInterval: { accept: number; deny: number }
+        authorizationData: {
+          requireAllApprovals: boolean
+          authorizers: Array<{
+            id: string
+            email: string | null
+            type: string
+            authorizationDate: string | null
+          }>
+        } | null
+      }
+    } | null
     storePreferencesData: { currencyCode: string | null } | null
     clientProfileData: {
       firstName: string | null
@@ -2355,6 +2853,7 @@ export type ServerOrderDetailsQueryQuery = {
         } | null
         items: Array<{
           id: string | null
+          uniqueId: string | null
           name: string | null
           quantity: number | null
           price: number | null
@@ -2394,6 +2893,7 @@ export type ServerOrderDetailsQueryQuery = {
       name: string | null
       value: number | null
     } | null> | null
+    shopperName: { firstName: string | null; lastName: string | null } | null
   } | null
 }
 
@@ -2449,17 +2949,35 @@ export type ServerListOrdersQueryQuery = {
 
 export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerProfileQueryQuery = { accountName: string | null }
+export type ServerProfileQueryQuery = {
+  accountName: string | null
+  accountProfile: {
+    name: string | null
+    email: string | null
+    id: string | null
+  }
+}
 
-export type ServerSecurityQueryQueryVariables = Exact<{ [key: string]: never }>
+export type ServerSecurityQueryVariables = Exact<{ [key: string]: never }>
 
-export type ServerSecurityQueryQuery = { accountName: string | null }
+export type ServerSecurityQuery = {
+  accountName: string | null
+  userDetails: { email: string | null }
+}
 
 export type ServerUserDetailsQueryQueryVariables = Exact<{
   [key: string]: never
 }>
 
-export type ServerUserDetailsQueryQuery = { accountName: string | null }
+export type ServerUserDetailsQueryQuery = {
+  accountName: string | null
+  userDetails: {
+    name: string | null
+    email: string | null
+    role: Array<string | null> | null
+    orgUnit: string | null
+  }
+}
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel
@@ -2467,6 +2985,56 @@ export type CancelOrderMutationMutationVariables = Exact<{
 
 export type CancelOrderMutationMutation = {
   cancelOrder: { data: string | null } | null
+}
+
+export type ProcessOrderAuthorizationMutationMutationVariables = Exact<{
+  data: IProcessOrderAuthorization
+}>
+
+export type ProcessOrderAuthorizationMutationMutation = {
+  processOrderAuthorization: {
+    isPendingForOtherAuthorizer: boolean
+    ruleForAuthorization: {
+      orderAuthorizationId: string
+      dimensionId: string
+      rule: {
+        id: string
+        name: string
+        status: CommercialAuthorizationStatus
+        doId: string | null
+        authorizedEmails: Array<string>
+        priority: number
+        timeout: number
+        notification: boolean
+        isUserAuthorized: boolean
+        isUserNextAuthorizer: boolean
+        trigger: {
+          condition: {
+            conditionType: number
+            description: string | null
+            lessThan: number | null
+            greatherThan: number | null
+            expression: string | null
+          }
+          effect: {
+            description: string | null
+            effectType: number
+            funcPath: string | null
+          }
+        }
+        scoreInterval: { accept: number; deny: number }
+        authorizationData: {
+          requireAllApprovals: boolean
+          authorizers: Array<{
+            id: string
+            email: string | null
+            type: string
+            authorizationDate: string | null
+          }>
+        } | null
+      }
+    } | null
+  } | null
 }
 
 export type ValidateUserQueryVariables = Exact<{ [key: string]: never }>
@@ -2577,6 +3145,28 @@ export type CartProductItemFragment = {
   }>
 }
 
+export type ClientPickupPointsQueryQueryVariables = Exact<{
+  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
+}>
+
+export type ClientPickupPointsQueryQuery = {
+  pickupPoints: {
+    pickupPointDistances: Array<{
+      pickupId: string | null
+      distance: number | null
+      pickupName: string | null
+      isActive: boolean | null
+      address: {
+        city: string | null
+        state: string | null
+        number: string | null
+        postalCode: string | null
+        street: string | null
+      } | null
+    } | null> | null
+  } | null
+}
+
 export type SubscribeToNewsletterMutationVariables = Exact<{
   data: IPersonNewsletter
 }>
@@ -2662,6 +3252,7 @@ export type ClientManyProductsQueryQuery = {
           name: string
           gtin: string
           unitMultiplier: number | null
+          hasSpecifications: boolean | null
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: {
@@ -2672,6 +3263,10 @@ export type ClientManyProductsQueryQuery = {
               activeVariations: any | null
               slugsMap: any | null
               availableVariations: any | null
+              allVariantProducts: Array<{
+                name: string
+                productID: string
+              }> | null
             } | null
           }
           image: Array<{ url: string; alternateName: string }>
@@ -2766,6 +3361,7 @@ export type ClientProductQueryQuery = {
         activeVariations: any | null
         slugsMap: any | null
         availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
       } | null
     }
     image: Array<{ url: string; alternateName: string }>
@@ -2789,6 +3385,73 @@ export type ClientProductQueryQuery = {
       valueReference: any
     }>
   }
+}
+
+export type ClientManyProductsSelectedQueryQueryVariables = Exact<{
+  productIds: Array<Scalars['String']['input']> | Scalars['String']['input']
+}>
+
+export type ClientManyProductsSelectedQueryQuery = {
+  products: Array<{
+    sku: string
+    slug: string
+    name: string
+    gtin: string
+    description: string
+    unitMultiplier: number | null
+    hasSpecifications: boolean | null
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
+      } | null
+    }
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    offers: {
+      lowPrice: number
+      lowPriceWithTaxes: number
+      offers: Array<{
+        availability: string
+        price: number
+        priceWithTaxes: number
+        listPrice: number
+        quantity: number
+        listPriceWithTaxes: number
+        seller: { identifier: string }
+      }>
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+    advertisement: { adId: string; adResponseId: string } | null
+    skuSpecifications: Array<{
+      field: { id: string | null; name: string; originalName: string | null }
+      values: Array<{
+        name: string
+        id: string | null
+        fieldId: string | null
+        originalName: string | null
+      }>
+    }>
+    specificationGroups: Array<{
+      name: string
+      originalName: string
+      specifications: Array<{
+        name: string
+        originalName: string
+        values: Array<string>
+      }>
+    }>
+  }>
 }
 
 export type ClientProfileQueryQueryVariables = Exact<{
@@ -2821,6 +3484,7 @@ export type ClientSearchSuggestionsQueryQuery = {
         name: string
         gtin: string
         unitMultiplier: number | null
+        hasSpecifications: boolean | null
         id: string
         brand: { name: string; brandName: string }
         isVariantOf: {
@@ -2831,6 +3495,10 @@ export type ClientSearchSuggestionsQueryQuery = {
             activeVariations: any | null
             slugsMap: any | null
             availableVariations: any | null
+            allVariantProducts: Array<{
+              name: string
+              productID: string
+            }> | null
           } | null
         }
         image: Array<{ url: string; alternateName: string }>
@@ -2887,6 +3555,7 @@ export type ValidateSessionMutation = {
     addressType: string | null
     postalCode: string | null
     city: string | null
+    refreshAfter: string | null
     deliveryMode: {
       deliveryChannel: string
       deliveryMethod: string
@@ -2909,6 +3578,7 @@ export type ValidateSessionMutation = {
       lastName: string | null
       userName: string | null
       userEmail: string | null
+      savedPostalCode: string | null
     } | null
     marketingData: {
       utmCampaign: string | null
@@ -2972,6 +3642,7 @@ export type ServerManyProductsQueryQuery = {
           name: string
           gtin: string
           unitMultiplier: number | null
+          hasSpecifications: boolean | null
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: {
@@ -2982,6 +3653,10 @@ export type ServerManyProductsQueryQuery = {
               activeVariations: any | null
               slugsMap: any | null
               availableVariations: any | null
+              allVariantProducts: Array<{
+                name: string
+                productID: string
+              }> | null
             } | null
           }
           image: Array<{ url: string; alternateName: string }>
@@ -3080,6 +3755,21 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     value
     valueReference
   }
+  hasSpecifications
+  unitMultiplier
+  isVariantOf {
+    productGroupID
+    name
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+      allVariantProducts {
+        name
+        productID
+      }
+    }
+  }
   advertisement {
     adId
     adResponseId
@@ -3169,6 +3859,10 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       activeVariations
       slugsMap
       availableVariations
+      allVariantProducts {
+        name
+        productID
+      }
     }
   }
   image {
@@ -3231,6 +3925,92 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     { fragmentName: 'ProductDetailsFragment_product' }
   ) as unknown as TypedDocumentString<
     ProductDetailsFragment_ProductFragment,
+    unknown
+  >
+export const ProductComparisonFragment_ProductFragmentDoc =
+  new TypedDocumentString(
+    `
+    fragment ProductComparisonFragment_product on StoreProduct {
+  id: productID
+  sku
+  slug
+  name
+  gtin
+  description
+  unitMultiplier
+  isVariantOf {
+    name
+    productGroupID
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+      allVariantProducts {
+        name
+        productID
+      }
+    }
+  }
+  image {
+    url
+    alternateName
+  }
+  brand {
+    name
+  }
+  offers {
+    lowPrice
+    lowPriceWithTaxes
+    offers {
+      availability
+      price
+      priceWithTaxes
+      listPrice
+      quantity
+      listPriceWithTaxes
+      seller {
+        identifier
+      }
+    }
+  }
+  additionalProperty {
+    propertyID
+    name
+    value
+    valueReference
+  }
+  advertisement {
+    adId
+    adResponseId
+  }
+  hasSpecifications
+  skuSpecifications {
+    field {
+      id
+      name
+      originalName
+    }
+    values {
+      name
+      id
+      fieldId
+      originalName
+    }
+  }
+  specificationGroups {
+    name
+    originalName
+    specifications {
+      name
+      originalName
+      values
+    }
+  }
+}
+    `,
+    { fragmentName: 'ProductComparisonFragment_product' }
+  ) as unknown as TypedDocumentString<
+    ProductComparisonFragment_ProductFragment,
     unknown
   >
 export const ProductSkuMatrixSidebarFragment_ProductFragmentDoc =
@@ -3500,7 +4280,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: 'e855903879c6504e90269e6e010549bc6de933eb',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -3509,7 +4289,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'e0fbde45eca1af0aeda0314c5d1c37e8fe520312',
+    operationHash: 'ba4e1865d9840cb386fa6d646a51f275cd991bfa',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -3527,25 +4307,25 @@ export const ServerListOrdersQueryDocument = {
 export const ServerProfileQueryDocument = {
   __meta__: {
     operationName: 'ServerProfileQuery',
-    operationHash: 'c4191223fe0b642eee3aaaa2c56563da7d163265',
+    operationHash: '0ed4b5db8fed122d8418195d01fb91b30261d587',
   },
 } as unknown as TypedDocumentString<
   ServerProfileQueryQuery,
   ServerProfileQueryQueryVariables
 >
-export const ServerSecurityQueryDocument = {
+export const ServerSecurityDocument = {
   __meta__: {
-    operationName: 'ServerSecurityQuery',
-    operationHash: '9f24767f16e6e05c168336701a6c6c7b6b5dc1c6',
+    operationName: 'ServerSecurity',
+    operationHash: '63c6eadbe8b77c0c3c91406589755accba5cf155',
   },
 } as unknown as TypedDocumentString<
-  ServerSecurityQueryQuery,
-  ServerSecurityQueryQueryVariables
+  ServerSecurityQuery,
+  ServerSecurityQueryVariables
 >
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerUserDetailsQuery',
-    operationHash: '92d9db34aa133d60d474c6d4cdcdd2fc19041a5e',
+    operationHash: '522e5feeb80e67cee931bc98eac9d08ea75c75d2',
   },
 } as unknown as TypedDocumentString<
   ServerUserDetailsQueryQuery,
@@ -3559,6 +4339,15 @@ export const CancelOrderMutationDocument = {
 } as unknown as TypedDocumentString<
   CancelOrderMutationMutation,
   CancelOrderMutationMutationVariables
+>
+export const ProcessOrderAuthorizationMutationDocument = {
+  __meta__: {
+    operationName: 'ProcessOrderAuthorizationMutation',
+    operationHash: '8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d',
+  },
+} as unknown as TypedDocumentString<
+  ProcessOrderAuthorizationMutationMutation,
+  ProcessOrderAuthorizationMutationMutationVariables
 >
 export const ValidateUserDocument = {
   __meta__: {
@@ -3577,6 +4366,15 @@ export const ValidateCartMutationDocument = {
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
   ValidateCartMutationMutationVariables
+>
+export const ClientPickupPointsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientPickupPointsQuery',
+    operationHash: '3fa04e88c811fcb5ece7206fd5aa745bdbc143a8',
+  },
+} as unknown as TypedDocumentString<
+  ClientPickupPointsQueryQuery,
+  ClientPickupPointsQueryQueryVariables
 >
 export const SubscribeToNewsletterDocument = {
   __meta__: {
@@ -3608,7 +4406,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '1adc93c70f16173540c50f725ee09a2d67cb85ab',
+    operationHash: 'a4d0dbbeaafcf323c0850f282d4beaa2969ababa',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -3626,11 +4424,20 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: '47aa22eb750cb2c529e5eeafb921bfeadb67db71',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const ClientManyProductsSelectedQueryDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsSelectedQuery',
+    operationHash: 'b668777678c137b8c7004297df4d8b8f2b29ee06',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsSelectedQueryQuery,
+  ClientManyProductsSelectedQueryQueryVariables
 >
 export const ClientProfileQueryDocument = {
   __meta__: {
@@ -3644,7 +4451,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'b548281d477a173be7b6960434604d69769a97e7',
+    operationHash: '3df0026ed7d06f74ef470ecb6e4d2e7c70882451',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -3662,7 +4469,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '6f6d66826c836c3633a8dc3d2fe8220c386584d6',
+    operationHash: '5da2700f5a69ee8835b1cb6c69e14f4b6e12c4df',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
@@ -3680,7 +4487,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '5c2181dde311ca80b72e0cc76ac0855d8aa8b51e',
+    operationHash: '59ff9a09e138da0f0d5e7ab553c4889a6d4bc432',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

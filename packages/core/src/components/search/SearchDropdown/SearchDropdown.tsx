@@ -24,7 +24,7 @@ interface SearchDropdownProps {
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
-  onChangeCustomSearchDropdownVisible: Dispatch<SetStateAction<boolean>>
+  onChangeCustomSearchDropdownVisible?: Dispatch<SetStateAction<boolean>>
 }
 
 export function sendAutocompleteClickEvent({

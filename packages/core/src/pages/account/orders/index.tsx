@@ -23,8 +23,11 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
-import { extractStatusFromError } from 'src/utils/utilities'
+import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { extractStatusFromError } from 'src/utils/utilities'
+import storeConfig from '../../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -43,35 +46,42 @@ type ListOrdersPageProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    purchaseAgentId?: string
   }
 } & MyAccountProps
 
 export default function ListOrdersPage({
-  globalSections,
+  globalSections: globalSectionsProp,
   accountName,
   listOrders,
   total,
   perPage,
   filters,
+  isRepresentative,
 }: ListOrdersPageProps) {
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
 
-      <MyAccountLayout accountName={accountName}>
-        <BeforeSection />
-        <MyAccountListOrders
-          listOrders={listOrders}
-          filters={filters}
-          perPage={perPage}
-          total={total}
-        />
-        <AfterSection />
-      </MyAccountLayout>
-    </RenderSections>
+  return (
+    <PageProvider context={{ globalSettings }}>
+      <RenderSections globalSections={globalSections} components={COMPONENTS}>
+        <NextSeo noindex nofollow />
+
+        <MyAccountLayout
+          isRepresentative={isRepresentative}
+          accountName={accountName}
+        >
+          <BeforeSection />
+          <MyAccountListOrders
+            listOrders={listOrders}
+            filters={filters}
+            perPage={perPage}
+            total={total}
+          />
+          <AfterSection />
+        </MyAccountLayout>
+      </RenderSections>
+    </PageProvider>
   )
 }
 
@@ -130,6 +140,11 @@ export const getServerSideProps: GetServerSideProps<
     }
   }
 
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
+
   const { previewData } = context
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
@@ -157,6 +172,10 @@ export const getServerSideProps: GetServerSideProps<
   const dateFinal = (context.query.dateFinal as string | undefined) || ''
   const text = (context.query.text as string | undefined) || ''
   const clientEmail = (context.query.clientEmail as string | undefined) || ''
+  // TODO: Integration: ensure `purchaseAgentId` is mapped to `purchase_agent_id`
+  // when calling the OMS API. Keep camelCase across the frontend.
+  const purchaseAgentId =
+    (context.query.purchaseAgentId as string | undefined) || ''
 
   // Map labels from FastStore status to API status
   const groupedStatus = groupOrderStatusByLabel()
@@ -232,7 +251,9 @@ export const getServerSideProps: GetServerSideProps<
         dateFinal,
         text,
         clientEmail,
+        purchaseAgentId,
       },
+      isRepresentative,
     },
   }
 }

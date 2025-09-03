@@ -3,6 +3,88 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
+
+### Features
+
+- Product Comparison ([#3000](https://github.com/vtex/faststore/issues/3000)) ([2150bee](https://github.com/vtex/faststore/commit/2150bee82e570205421859e14de8416d5e34c545))
+
+# [3.73.0](https://github.com/vtex/faststore/compare/v3.72.1...v3.73.0) (2025-08-07)
+
+### Features
+
+- implement password setting functionality and user email retrieval ([#2957](https://github.com/vtex/faststore/issues/2957)) ([a49aa1b](https://github.com/vtex/faststore/commit/a49aa1b6d55310a64639459b9082530f4a955731))
+
+# [3.72.0](https://github.com/vtex/faststore/compare/v3.71.0...v3.72.0) (2025-08-05)
+
+### Features
+
+- refresh token - SFS-2462 ([#2936](https://github.com/vtex/faststore/issues/2936)) ([0fc856f](https://github.com/vtex/faststore/commit/0fc856f46ffe800debccd90078564e9ff524e727)), closes [#1](https://github.com/vtex/faststore/issues/1) [#2](https://github.com/vtex/faststore/issues/2)
+
+# [3.71.0](https://github.com/vtex/faststore/compare/v3.70.2...v3.71.0) (2025-08-05)
+
+### Features
+
+- show creation date for first step in status card ([#2971](https://github.com/vtex/faststore/issues/2971)) ([e9a79ac](https://github.com/vtex/faststore/commit/e9a79acf14c7a518cc7e587a8e36eec332e72a08))
+
+# [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
+
+### Features
+
+- add shopper name data to user order page ([#2967](https://github.com/vtex/faststore/issues/2967)) ([6b2eb05](https://github.com/vtex/faststore/commit/6b2eb05e6590363c1a91ff1e802784606a0b1917))
+
+## [3.68.1](https://github.com/vtex/faststore/compare/v3.68.0...v3.68.1) (2025-07-29)
+
+### Bug Fixes
+
+- B2B session info ([#2950](https://github.com/vtex/faststore/issues/2950)) ([6dcaa88](https://github.com/vtex/faststore/commit/6dcaa880e3b86b44c13402a558e008eddbebe724))
+
+# [3.68.0](https://github.com/vtex/faststore/compare/v3.67.0...v3.68.0) (2025-07-28)
+
+### Features
+
+- Delivery Promise 1.2 - filters by shipping method ([#2784](https://github.com/vtex/faststore/issues/2784)) ([dacf843](https://github.com/vtex/faststore/commit/dacf843c81f19984a01f7a97ff25e3801e41ed07)), closes [#2803](https://github.com/vtex/faststore/issues/2803) [#2826](https://github.com/vtex/faststore/issues/2826) [#2845](https://github.com/vtex/faststore/issues/2845) [#2847](https://github.com/vtex/faststore/issues/2847) [#2851](https://github.com/vtex/faststore/issues/2851) [#2852](https://github.com/vtex/faststore/issues/2852) [#2847](https://github.com/vtex/faststore/issues/2847) [#2872](https://github.com/vtex/faststore/issues/2872) [#2886](https://github.com/vtex/faststore/issues/2886) [#2909](https://github.com/vtex/faststore/issues/2909) [#2916](https://github.com/vtex/faststore/issues/2916) [#2918](https://github.com/vtex/faststore/issues/2918) [#2922](https://github.com/vtex/faststore/issues/2922) [#2887](https://github.com/vtex/faststore/issues/2887) [#2944](https://github.com/vtex/faststore/issues/2944) [#2953](https://github.com/vtex/faststore/issues/2953) [#2956](https://github.com/vtex/faststore/issues/2956) [#2955](https://github.com/vtex/faststore/issues/2955) [#2961](https://github.com/vtex/faststore/issues/2961) [#2962](https://github.com/vtex/faststore/issues/2962)
+
+# [3.66.0](https://github.com/vtex/faststore/compare/v3.65.2...v3.66.0) (2025-07-23)
+
+### Features
+
+- add mutation to set new password ([#2949](https://github.com/vtex/faststore/issues/2949)) ([f2f3beb](https://github.com/vtex/faststore/commit/f2f3bebfafd9500e3eb2f9d98220f7400ea9fd0e))
+
+## [3.65.1](https://github.com/vtex/faststore/compare/v3.65.0...v3.65.1) (2025-07-17)
+
+### Bug Fixes
+
+- validate cart should consider coupon in marketingData ([#2948](https://github.com/vtex/faststore/issues/2948)) ([ed063f4](https://github.com/vtex/faststore/commit/ed063f4df26178206a91892b59255c8332e65795))
+
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+### Features
+
+- my account release 3 ([#2883](https://github.com/vtex/faststore/issues/2883)) ([be2c32a](https://github.com/vtex/faststore/commit/be2c32ae5cb0d892e34a96c2d73b06d31f8af137))
+
+# [3.64.0](https://github.com/vtex/faststore/compare/v3.63.1...v3.64.0) (2025-07-15)
+
+### Features
+
+- add uniqueId field to UserOrder items and update related components ([#2945](https://github.com/vtex/faststore/issues/2945)) ([d48ea5a](https://github.com/vtex/faststore/commit/d48ea5af35a538f7e07c14cf90330b87cf27178a))
+
+## [3.63.1](https://github.com/vtex/faststore/compare/v3.63.0...v3.63.1) (2025-07-15)
+
+### Bug Fixes
+
+- use allowCancellation to validate cancel order button ([#2942](https://github.com/vtex/faststore/issues/2942)) ([1f0f6a9](https://github.com/vtex/faststore/commit/1f0f6a9dc27436b6de63e2aff58a1086d4b2ae2a)), closes [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx#L116](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/pages/CancelOrder.jsx/issues/L116) [/github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx#L41](https://github.com//github.com/vtex/my-orders/blob/ff400736a4b6ea8eb70298c2de26a6e974489fc3/react/components/Order/OrderActions.jsx/issues/L41)
+
+# [3.62.0](https://github.com/vtex/faststore/compare/v3.61.0...v3.62.0) (2025-07-11)
+
+### Features
+
+- Allow unavailable items on cart ([#2938](https://github.com/vtex/faststore/issues/2938)) ([309e014](https://github.com/vtex/faststore/commit/309e014f50a0e2d5293b08e6b1b6b0fe6bcfd6b2)), closes [vtex-sites/faststoreqa.store#837](https://github.com/vtex-sites/faststoreqa.store/issues/837)
+
+## [3.60.3](https://github.com/vtex/faststore/compare/v3.60.2...v3.60.3) (2025-07-02)
+
+**Note:** Version bump only for package @faststore/api
+
 # [3.59.0](https://github.com/vtex/faststore/compare/v3.58.0...v3.59.0) (2025-06-20)
 
 ### Features

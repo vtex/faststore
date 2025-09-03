@@ -86,6 +86,7 @@ export const UserOrderResult: Record<string, Resolver<Root>> = {
         if (acc[groupKey]) {
           acc[groupKey].items?.push({
             id: item?.id || '',
+            uniqueId: item?.uniqueId || '',
             name: item?.name || '',
             quantity: item?.quantity || 0,
             price: item?.price || 0,

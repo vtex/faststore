@@ -1,10 +1,8 @@
-import { useSession } from 'src/sdk/session'
 import MyAccountCard from '../../../components/MyAccountCard'
 import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
-import { useCallback } from 'react'
 import { Link } from '@faststore/ui'
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import { useFormatPrice } from '../../../utils/useFormatPrice'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
 export type OrderPaymentData =
   ServerOrderDetailsQueryQuery['userOrder']['paymentData']

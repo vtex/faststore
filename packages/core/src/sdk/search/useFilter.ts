@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, toggleFacets, useSearch } from '@faststore/sdk'
 import { useEffect, useMemo, useReducer } from 'react'
 import type { IStoreSelectedFacet } from '@faststore/api'
 
@@ -21,6 +21,10 @@ type Action =
   | {
       type: 'toggleFacet'
       payload: IStoreSelectedFacet
+    }
+  | {
+      type: 'toggleFacets'
+      payload: { facets: IStoreSelectedFacet[]; unique?: boolean }
     }
   | {
       type: 'setFacet'
@@ -63,6 +67,13 @@ const reducer = (state: State, action: Action) => {
       }
     }
 
+    case 'toggleFacets': {
+      return {
+        ...state,
+        selected: toggleFacets(state.selected, payload.facets, payload.unique),
+      }
+    }
+
     case 'setFacet': {
       return {
         ...state,
@@ -77,7 +88,10 @@ const reducer = (state: State, action: Action) => {
   return state
 }
 
-export const useFilter = (allFacets: Filter_FacetsFragment[]) => {
+export const useFilter = (
+  allFacets: Filter_FacetsFragment[],
+  initialSelectedFacets?: IStoreSelectedFacet[]
+) => {
   const {
     state: { selectedFacets },
   } = useSearch()
@@ -122,6 +136,16 @@ export const useFilter = (allFacets: Filter_FacetsFragment[]) => {
       }),
     [allFacets, selectedMap]
   )
+
+  // Restore initial PLP facets after clearing filters (e.g. { key: category-n, value: 'electronics' })
+  useEffect(() => {
+    if (initialSelectedFacets && selected.length === 0) {
+      dispatch({
+        type: 'selectFacets',
+        payload: initialSelectedFacets,
+      })
+    }
+  }, [initialSelectedFacets, selected])
 
   useEffect(() => {
     dispatch({

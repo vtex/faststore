@@ -1,20 +1,19 @@
 import { useCallback, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
-
 import CartToggle from 'src/components/cart/CartToggle'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-
-import storeConfig from 'discovery.config'
-import dynamic from 'next/dynamic'
 import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+
+import storeConfig from 'discovery.config'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
 const NavbarLinks = dynamic(
@@ -101,7 +100,7 @@ function Navbar({
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const { isDesktop, isMobile } = useScreenResize()
-  const { person, b2b } = useSession()
+  const { b2b } = useSession()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -188,7 +187,10 @@ function Navbar({
             )}
             {!isMobile &&
               (isOrganizationEnabled ? (
-                <OrganizationSignInButton icon={signInButton.icon} />
+                <OrganizationSignInButton
+                  icon={signInButton.icon}
+                  isRepresentative={isRepresentative}
+                />
               ) : (
                 <ButtonSignIn.Component {...signInButton} />
               ))}

@@ -2005,6 +2005,105 @@
               }
             }
           }
+        },
+        "productComparison": {
+          "title": "Product Comparison",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "title": "Enable Product Comparison",
+              "type": "boolean",
+              "default": false
+            },
+            "labels": {
+              "title": "Labels",
+              "type": "object",
+              "properties": {
+                "compareButton": {
+                  "title": "Compare Button",
+                  "type": "string",
+                  "default": "Compare"
+                },
+                "clearSelectionButton": {
+                  "title": "Clear Selection Button",
+                  "type": "string",
+                  "default": "Clear Selection"
+                },
+                "selectionWarning": {
+                  "title": "Selection Warning",
+                  "type": "string",
+                  "default": "Select at least 2"
+                },
+                "sidebarComponent": {
+                  "title": "Sidebar component",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Compare Products"
+                    },
+                    "filterLabel": {
+                      "title": "Filter text",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "productNameFilterLabel": {
+                      "title": "Filter by product name text",
+                      "type": "string",
+                      "default": "Product name"
+                    },
+                    "sortLabel": {
+                      "title": "Sort filter text",
+                      "type": "string",
+                      "default": "Sort by"
+                    },
+                    "toggleFieldLabel": {
+                      "title": "Toggle filter text",
+                      "type": "string",
+                      "default": "Show only differences"
+                    },
+                    "preferencesLabel": {
+                      "title": "Preferences text",
+                      "type": "string",
+                      "default": "Preferences"
+                    },
+                    "cartButtonLabel": {
+                      "title": "Add to cart button",
+                      "type": "string",
+                      "default": "Add to cart"
+                    },
+                    "priceLabel": {
+                      "title": "Price text",
+                      "type": "string",
+                      "default": "Price"
+                    },
+                    "priceWithTaxLabel": {
+                      "title": "Price with taxes text",
+                      "type": "string",
+                      "default": "Price with taxes"
+                    }
+                  }
+                },
+                "technicalInformation": {
+                  "title": "Technical Information",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Technical Information"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "type": "string",
+                      "default": "Technical facts and information about the product."
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -2142,7 +2241,7 @@
       "required": ["label"],
       "properties": {
         "icon": {
-          "title": "Location Icon",
+          "title": "Location icon",
           "type": "object",
           "properties": {
             "icon": {
@@ -2153,7 +2252,7 @@
               "default": "MapPin"
             },
             "alt": {
-              "title": "Alternative Label",
+              "title": "Alternative label",
               "type": "string",
               "default": "Map Pin icon"
             }
@@ -2167,7 +2266,8 @@
         "editLabel": {
           "title": "Location edit label",
           "type": "string",
-          "default": "Edit"
+          "default": "",
+          "description": "[Deprecated] This label should not be used anymore."
         },
         "buttonIcon": {
           "title": "Button Icon",
@@ -2219,24 +2319,26 @@
           "properties": {
             "label": {
               "title": "Input field label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
               "default": "Postal code"
             },
             "errorMessage": {
               "title": "Input field error message",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
               "default": "Invalid postal code"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
               "type": "string",
               "default": "No products available for %s.",
-              "description": "The '%s' will be replaced by the postal code value."
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "type": "string",
-              "default": "Apply"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             }
           }
         },
@@ -2245,13 +2347,15 @@
           "type": "object",
           "properties": {
             "text": {
-              "type": "string",
               "title": "Link Text",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "type": "string",
               "default": "I don't know my postal code"
             },
             "to": {
               "type": "string",
-              "title": "Action link"
+              "title": "Action link",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "icon": {
               "title": "Icon",
@@ -2259,15 +2363,15 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"],
-                  "default": "ArrowSquareOut"
+                  "enum": ["ArrowSquareOut"]
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "type": "string",
-                  "default": "Arrow Square Out icon"
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 }
               }
             }
@@ -2300,24 +2404,36 @@
           "properties": {
             "label": {
               "title": "Input field label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
               "default": "Postal code"
             },
             "errorMessage": {
               "title": "Input field error message",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
               "default": "Invalid postal code"
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
               "type": "string",
               "default": "No products available for %s.",
               "description": "The '%s' will be replaced by the postal code value."
+              "type": "string"
+            },
+            "errorMessage": {
+              "title": "Input field error message",
+              "type": "string"
+            },
+            "noProductsAvailableErrorMessage": {
+              "title": "Input field error message for the scenario of no products available for a given location",
+              "type": "string"
             },
             "buttonActionText": {
               "title": "Input field action button label",
-              "type": "string",
-              "default": "Apply"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             }
           }
         },
@@ -2343,13 +2459,15 @@
           "type": "object",
           "properties": {
             "text": {
-              "type": "string",
               "title": "Link Text",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "type": "string",
               "default": "I don't know my postal code"
             },
             "to": {
               "type": "string",
-              "title": "Action link"
+              "title": "Action link",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
             },
             "icon": {
               "title": "Icon",
@@ -2357,15 +2475,15 @@
               "properties": {
                 "icon": {
                   "title": "Icon",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"],
-                  "default": "ArrowSquareOut"
+                  "enum": ["ArrowSquareOut"]
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "type": "string",
-                  "default": "Arrow Square Out icon"
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
                 }
               }
             }

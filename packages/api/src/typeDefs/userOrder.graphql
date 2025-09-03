@@ -57,13 +57,27 @@ type UserOrder {
   totals: [UserOrderTotals]
   deliveryOptionsData: UserOrderDeliveryOptionsData
   customFields: [UserOrderCustomFieldsGrouped]
-  canCancelOrder: Boolean
+  canProcessOrderAuthorization: Boolean
+  ruleForAuthorization: ProcessOrderAuthorizationRule
+  purchaseAgentData: UserOrderPurchaseAgentData
+}
+
+type UserOrderPurchaseAgentData {
+  purchaseAgents: [UserOrderPurchaseAgent]
+}
+
+type UserOrderPurchaseAgent {
+  userId: String
+  versionId: String
+  persona: String
+  unitId: String
 }
 
 type UserOrderResult {
   orderId: String
+  creationDate: String
   status: String
-  canCancelOrder: Boolean
+  canProcessOrderAuthorization: Boolean
   statusDescription: String
   allowCancellation: Boolean
   storePreferencesData: UserOrderStorePreferencesData
@@ -75,6 +89,13 @@ type UserOrderResult {
   totals: [UserOrderTotals]
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
+  ruleForAuthorization: ProcessOrderAuthorizationRule
+  shopperName: UserOrderShopperName
+}
+
+type UserOrderShopperName {
+  firstName: String
+  lastName: String
 }
 
 type UserOrderListResult {
@@ -655,6 +676,7 @@ type UserOrderDeliveryOption {
 
 type UserOrderDeliveryOptionsItems {
   id: String
+  uniqueId: String
   name: String
   quantity: Int
   price: Float

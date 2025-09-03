@@ -11,13 +11,18 @@ interface MyAccountOrderedByCardProps {
     | 'corporateName'
     | 'isCorporate'
   >
+  shopperName: {
+    firstName: string
+    lastName: string
+  }
 }
 
 function MyAccountOrderedByCard({
   clientProfileData,
+  shopperName,
 }: MyAccountOrderedByCardProps) {
-  const firstName = clientProfileData?.firstName
-  const lastName = clientProfileData?.lastName
+  const firstName = shopperName?.firstName ?? clientProfileData?.firstName ?? ''
+  const lastName = shopperName?.lastName ?? clientProfileData?.lastName ?? ''
   const email = clientProfileData?.email
   const phone = clientProfileData?.phone
   const corporateName = clientProfileData?.corporateName

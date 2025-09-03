@@ -1,22 +1,22 @@
 import type { PropsWithChildren } from 'react'
-import React, { createContext, useMemo } from 'react'
+import React, { createContext, useEffect } from 'react'
 
 import type { State as SearchState } from '../types'
-import type { UseSearchInfiniteState } from './useInfiniteSearchState'
-import { useSearchInfiniteState } from './useInfiniteSearchState'
-import type { UseSearchState } from './useSearchState'
-import { useSearchState } from './useSearchState'
+import {
+  useSearchState,
+  type UseSearchState,
+} from './globalState/useSearchState'
 
-export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
-  itemsPerPage: number
-}
+export interface SearchContext extends UseSearchState {}
 
 export const Context = createContext<SearchContext | undefined>(undefined)
 
-type Props = SearchState & {
-  onChange: (url: URL) => void
-  itemsPerPage: number
-}
+type Props = Partial<
+  SearchState & {
+    onChange?: (url: URL) => void
+    itemsPerPage?: number
+  }
+>
 
 export const Provider = ({
   children,
@@ -24,19 +24,25 @@ export const Provider = ({
   onChange,
   ...rest
 }: PropsWithChildren<Props>) => {
-  const { state, ...searchActions } = useSearchState(rest, onChange)
-  const { pages, ...infiniteActions } = useSearchInfiniteState(state.page)
+  const globalSearchStateValue = useSearchState()
 
-  const value = useMemo(
-    (): SearchContext => ({
-      state,
-      ...searchActions,
-      pages,
-      ...infiniteActions,
-      itemsPerPage,
-    }),
-    [infiniteActions, itemsPerPage, pages, searchActions, state]
-  )
+  useEffect(() => {
+    return useSearchState.subscribe(() => {
+      onChange?.(globalSearchStateValue.serializedState())
+    })
+  }, [onChange])
 
-  return <Context.Provider value={value}>{children}</Context.Provider>
+  useEffect(() => {
+    const { itemsPerPage: stateItemsPerPage } = useSearchState.getState()
+    itemsPerPage &&
+      itemsPerPage !== stateItemsPerPage &&
+      globalSearchStateValue.setItemsPerPage(itemsPerPage)
+  }, [itemsPerPage])
+
+  useEffect(() => {
+    globalSearchStateValue.setState(rest)
+    globalSearchStateValue.resetInfiniteScroll(rest.page ?? 0)
+  }, [])
+
+  return <>{children}</>
 }

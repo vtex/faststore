@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
+
+### Features
+
+- Product Comparison ([#3000](https://github.com/vtex/faststore/issues/3000)) ([2150bee](https://github.com/vtex/faststore/commit/2150bee82e570205421859e14de8416d5e34c545))
+
+## [3.70.2](https://github.com/vtex/faststore/compare/v3.70.1...v3.70.2) (2025-08-05)
+
+### Bug Fixes
+
+- Quick Order typings ([#2974](https://github.com/vtex/faststore/issues/2974)) ([e28c523](https://github.com/vtex/faststore/commit/e28c523bdc83273ad7cbb7d08cfdeb99ad676ede))
+
+# [3.68.0](https://github.com/vtex/faststore/compare/v3.67.0...v3.68.0) (2025-07-28)
+
+### Features
+
+- Delivery Promise 1.2 - filters by shipping method ([#2784](https://github.com/vtex/faststore/issues/2784)) ([dacf843](https://github.com/vtex/faststore/commit/dacf843c81f19984a01f7a97ff25e3801e41ed07)), closes [#2803](https://github.com/vtex/faststore/issues/2803) [#2826](https://github.com/vtex/faststore/issues/2826) [#2845](https://github.com/vtex/faststore/issues/2845) [#2847](https://github.com/vtex/faststore/issues/2847) [#2851](https://github.com/vtex/faststore/issues/2851) [#2852](https://github.com/vtex/faststore/issues/2852) [#2847](https://github.com/vtex/faststore/issues/2847) [#2872](https://github.com/vtex/faststore/issues/2872) [#2886](https://github.com/vtex/faststore/issues/2886) [#2909](https://github.com/vtex/faststore/issues/2909) [#2916](https://github.com/vtex/faststore/issues/2916) [#2918](https://github.com/vtex/faststore/issues/2918) [#2922](https://github.com/vtex/faststore/issues/2922) [#2887](https://github.com/vtex/faststore/issues/2887) [#2944](https://github.com/vtex/faststore/issues/2944) [#2953](https://github.com/vtex/faststore/issues/2953) [#2956](https://github.com/vtex/faststore/issues/2956) [#2955](https://github.com/vtex/faststore/issues/2955) [#2961](https://github.com/vtex/faststore/issues/2961) [#2962](https://github.com/vtex/faststore/issues/2962)
+
+# [3.65.0](https://github.com/vtex/faststore/compare/v3.64.1...v3.65.0) (2025-07-16)
+
+### Features
+
+- my account release 3 ([#2883](https://github.com/vtex/faststore/issues/2883)) ([be2c32a](https://github.com/vtex/faststore/commit/be2c32ae5cb0d892e34a96c2d73b06d31f8af137))
+
 ## 3.56.1 (2025-06-19)
 
 ### Bug Fixes

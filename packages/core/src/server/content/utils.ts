@@ -1,8 +1,17 @@
 import { contentSource } from '../../../discovery.config'
-import { ContentSourceType } from './types'
+import { ContentSourceType, type PreviewData } from './types'
 
 export function isContentPlatformSource(): boolean {
   return (
     contentSource.type.toLocaleLowerCase() === ContentSourceType.ContentPlatform
+  )
+}
+
+export function isBranchPreview(
+  previewData: PreviewData | null | undefined
+): boolean {
+  return (
+    isContentPlatformSource() &&
+    !!(previewData?.versionId || previewData?.releaseId)
   )
 }

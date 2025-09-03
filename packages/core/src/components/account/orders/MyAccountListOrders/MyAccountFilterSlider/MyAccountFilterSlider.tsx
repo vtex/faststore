@@ -13,6 +13,7 @@ import type {
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
 import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
+import FilterFacetPlacedBy from './MyAccountFilterFacetPlacedBy'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -91,6 +92,10 @@ function MyAccountFilterSlider({
             : [value]
         }
 
+        if (key === 'purchaseAgentId') {
+          acc['purchaseAgentId'] = value
+        }
+
         return acc
       },
       {} as Record<string, string | string[]>
@@ -132,23 +137,20 @@ function MyAccountFilterSlider({
       applyBtnProps={{
         variant: 'primary',
         onClick: () => {
-          const dateRangeFacet = dateRangeInputRef.current?.getDataRangeFacet()
+          const dateRangeFacet =
+            dateRangeInputRef.current?.getDataRangeFacet?.()
+          const dateFrom = dateRangeFacet?.value?.from?.trim?.()
+          const dateTo = dateRangeFacet?.value?.to?.trim?.()
 
-          const selectedFacets = [
-            ...selected,
-            dateRangeFacet.value.from.trim()
-              ? {
-                  key: 'dateInitial',
-                  value: dateRangeFacet.value.from,
-                }
-              : undefined,
-            dateRangeFacet.value.to.trim()
-              ? {
-                  key: 'dateFinal',
-                  value: dateRangeFacet.value.to,
-                }
-              : undefined,
-          ].filter(Boolean)
+          const dateFacets = []
+          if (dateFrom) {
+            dateFacets.push({ key: 'dateInitial', value: dateFrom })
+          }
+          if (dateTo) {
+            dateFacets.push({ key: 'dateFinal', value: dateTo })
+          }
+
+          const selectedFacets = [...selected, ...dateFacets]
 
           handleFilterChange({
             selectedFacets,
@@ -196,6 +198,9 @@ function MyAccountFilterSlider({
                     />
                   ))}
                 </UIFilterFacetBoolean>
+              )}
+              {type === 'StoreFacetPlacedBy' && isExpanded && (
+                <FilterFacetPlacedBy selected={selected} dispatch={dispatch} />
               )}
               {type === 'StoreFacetRange' && isExpanded && (
                 <FilterFacetDateRange

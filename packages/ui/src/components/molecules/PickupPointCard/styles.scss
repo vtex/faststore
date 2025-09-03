@@ -1,0 +1,82 @@
+[data-fs-pickup-point-card] {
+  // --------------------------------------------------------
+  // Design Tokens for Pickup Point Card
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-pickup-point-card-height                          : 140px;
+  --fs-pickup-point-card-row-gap                         : var(--fs-grid-gap-2);
+  --fs-pickup-point-card-padding                         : var(--fs-spacing-3);
+  --fs-pickup-point-card-border-width                    : var(--fs-border-width);
+  --fs-pickup-point-card-border-color                    : var(--fs-border-color-light);
+  --fs-pickup-point-card-border-radius                   : var(--fs-border-radius);
+
+  // Header
+  --fs-pickup-point-card-header-icon-color               : var(--fs-border-color-disabled);
+  --fs-pickup-point-card-header-title-font-weight        : var(--fs-text-weight-medium);
+
+  // Distance
+  --fs-pickup-point-card-distance-color                  : var(--fs-color-text-light);
+  --fs-pickup-point-card-distance-font-size              : var(--fs-text-size-legend);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-pickup-point-card-row-gap);
+  justify-content: space-between;
+  height: var(--fs-pickup-point-card-height);
+  padding: var(--fs-pickup-point-card-padding);
+  border:
+    var(--fs-pickup-point-card-border-width) solid
+    var(--fs-pickup-point-card-border-color);
+  border-radius: var(--fs-pickup-point-card-border-radius);
+
+  [data-fs-pickup-point-card-header] {
+    display: flex;
+    column-gap: var(--fs-grid-gap-1);
+    align-items: center;
+
+    [data-fs-icon] {
+      color: var(--fs-pickup-point-card-header-icon-color);
+    }
+  }
+
+  [data-fs-pickup-point-card-header-title] {
+    font-weight: var(--fs-pickup-point-card-header-title-font-weight);
+
+    @include truncate-title(1);
+  }
+
+  [data-fs-pickup-point-card-header-postal-code] {
+    margin-left: auto;
+  }
+
+  [data-fs-pickup-point-card-header-postal-code],
+  [data-fs-pickup-point-card-distance] {
+    font-size: var(--fs-pickup-point-card-distance-font-size);
+    color: var(--fs-pickup-point-card-distance-color);
+    white-space: nowrap;
+  }
+
+  [data-fs-pickup-point-card-header-content] {
+    display: flex;
+    flex-direction: row;
+    column-gap: var(--fs-grid-gap-1);
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  [data-fs-pickup-point-card-address] {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    font-size: var(--fs-pickup-point-card-distance-font-size);
+
+    > span {
+      @include truncate-title(3);
+    }
+  }
+}

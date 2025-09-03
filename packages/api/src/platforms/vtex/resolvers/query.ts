@@ -1,8 +1,10 @@
 import type {
+  ProcessOrderAuthorizationRule,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
+  QueryPickupPointsArgs,
   QueryProductArgs,
   QueryProductCountArgs,
   QueryProfileArgs,
@@ -12,12 +14,14 @@ import type {
   QueryShippingArgs,
   QueryUserOrderArgs,
   UserOrderFromList,
+  QueryProductsArgs,
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
+import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku } from '../utils/enhanceSku'
@@ -219,6 +223,34 @@ export const Query = {
       })),
     }
   },
+  products: async (
+    _: unknown,
+    { productIds }: QueryProductsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    if (!productIds.length) {
+      return []
+    }
+
+    const query = `id:${productIds.join(';')}`
+    const products = await search.products({
+      page: 0,
+      count: productIds.length,
+      query,
+    })
+
+    return products.products
+      .flatMap((product) =>
+        product.items.map((sku) => enhanceSku(sku, product))
+      )
+      .filter(
+        (sku) => productIds.includes(sku.itemId) && sku.sellers.length > 0
+      )
+  },
   allCollections: async (
     _: unknown,
     { first, after: maybeAfter }: QueryAllCollectionsArgs,
@@ -400,8 +432,29 @@ export const Query = {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
+      let ruleForAuthorization: ProcessOrderAuthorizationRule | null = null
+
+      try {
+        /**
+         * This endpoint could return a 404 error if has not an authorization
+         * for the order, so we catch the error and return null
+         * instead of throwing an error.
+         */
+        const commercialAuth =
+          await commerce.oms.getCommercialAuthorizationsByOrderId({ orderId })
+
+        ruleForAuthorization = extractRuleForAuthorization(commercialAuth)
+      } catch (err: any) {}
+
+      const shopperSearch =
+        (await commerce.masterData.getShopperNameById({
+          userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
+        })) ?? []
+      const shopper = shopperSearch[0] ?? {}
+
       return {
         orderId: order.orderId,
+        creationDate: order.creationDate,
         totals: order.totals,
         items: order.items,
         shippingData: order.shippingData,
@@ -412,9 +465,15 @@ export const Query = {
         allowCancellation: order.allowCancellation,
         storePreferencesData: order.storePreferencesData,
         clientProfileData: order.clientProfileData,
-        canCancelOrder:
-          order.status === 'payment-approved' ||
-          order.status === 'approve-payment',
+        canProcessOrderAuthorization:
+          (order.status === 'waiting-for-confirmation' ||
+            order.status === 'waiting-for-authorization') &&
+          !!ruleForAuthorization,
+        ruleForAuthorization,
+        shopperName: {
+          firstName: shopper?.firstName || '',
+          lastName: shopper?.lastName || '',
+        },
       }
     } catch (error) {
       const result = JSON.parse((error as Error).message).error as {
@@ -516,5 +575,86 @@ export const Query = {
     } catch (error) {
       throw new ForbiddenError('You are not allowed to access this resource')
     }
+  },
+  // only b2b users
+  userDetails: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    // const params = new URLSearchParams()
+    const sessionData = await commerce.session('').catch(() => null)
+
+    const shopper = sessionData?.namespaces.shopper ?? null
+    const authentication = sessionData?.namespaces.authentication ?? null
+
+    return {
+      name: shopper?.firstName?.value ?? '',
+      email: authentication?.storeUserEmail.value ?? '',
+      role: ['Admin'], // TODO change when implemented roles,
+      orgUnit: authentication?.unitName?.value ?? '',
+    }
+  },
+  // If isRepresentative, return b2b information.
+  // If not, return b2c user information
+  accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+
+    if (!jwt?.userId) {
+      return null
+    }
+
+    if (jwt?.isRepresentative) {
+      const sessionData = await commerce.session('').catch(() => null)
+
+      if (!sessionData) {
+        return null
+      }
+
+      const profile = sessionData.namespaces.profile ?? null
+
+      return {
+        name:
+          `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
+          '',
+        email: profile?.email?.value || '',
+        id: profile?.id?.value || '',
+        // createdAt: '',
+      }
+    }
+
+    const user = await commerce.licenseManager
+      .getUserById({
+        userId: jwt?.userId,
+      })
+      .catch(() => null)
+
+    return {
+      name: user?.name || '',
+      email: user?.email || '',
+      id: user?.id || '',
+      // createdAt: '',
+    }
+  },
+  pickupPoints: async (
+    _: unknown,
+    { geoCoordinates }: QueryPickupPointsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.checkout.pickupPoints({
+      geoCoordinates,
+    })
+
+    return result
   },
 }

@@ -28,10 +28,10 @@ import { getRedirect } from 'src/sdk/redirects'
 import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import type { PLPContentType } from 'src/server/cms/plp'
-import { getDynamicContent } from 'src/utils/dynamicContent'
-import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getDynamicContent } from 'src/utils/dynamicContent'
+import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -57,18 +57,27 @@ type Props = BaseProps &
       }
   )
 
-function Page({ globalSections, type, ...otherProps }: Props) {
+function Page({
+  globalSections: globalSectionsProp,
+  type,
+  ...otherProps
+}: Props) {
+  const { sections: globalSections, settings: globalSettings } =
+    globalSectionsProp ?? {}
+
   return (
     <>
       {type === 'plp' && (
         <ProductListingPage
-          globalSections={globalSections.sections}
+          globalSections={globalSections}
+          globalSettings={globalSettings}
           {...(otherProps as ProductListingPageProps)}
         />
       )}
       {type === 'page' && (
         <LandingPage
-          globalSections={globalSections.sections}
+          globalSections={globalSections}
+          globalSettings={globalSettings}
           {...(otherProps as LandingPageProps)}
         />
       )}
@@ -119,7 +128,7 @@ export const getStaticProps: GetStaticProps<
 
   const landingPage = await landingPagePromise
 
-  if (landingPage) {
+  if (landingPage && Object.keys(landingPage).length > 0) {
     const [
       serverData,
       globalSections,

@@ -9,22 +9,29 @@ import {
 import { useUI } from '@faststore/ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import useTTI from 'src/sdk/performance/useTTI'
+import { isContentPlatformSource } from 'src/server/content/utils'
+import COMPONENTS from './global/Components'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
-import COMPONENTS from './global/Components'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
-  sections?: Array<{ name: string; data: any }>
+  sections?: Array<{ name: string; data: any; $componentKey?: string }>
   isInteractive?: boolean
 }
 
-const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal', 'RegionSlider']
 
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
+  { ssr: false }
+)
+
+const PreviewTag = dynamic(
+  () => import(/* webpackChunkName: "PreviewTag" */ '../common/PreviewTag'),
   { ssr: false }
 )
 
@@ -60,12 +67,16 @@ export const LazyLoadingSection = ({
   debug?: boolean
   isInteractive?: boolean
 }) => {
-  const { cart: displayCart, modal: displayModal } = useUI()
+  const { cart: displayCart, modal: displayModal, regionSlider } = useUI()
+
   if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
     const shouldLoad =
       isInteractive ||
       (sectionName === 'CartSidebar' && displayCart) ||
-      (sectionName === 'RegionModal' && displayModal)
+      (sectionName === 'RegionModal' && displayModal) ||
+      (sectionName === 'RegionSlider' &&
+        regionSlider.isOpen &&
+        regionSlider.type !== 'none')
 
     if (debug) {
       console.log(
@@ -95,13 +106,14 @@ export const RenderSectionsBase = ({
 }: Props) => {
   return (
     <>
-      {sections.map(({ name, data = {} }, index) => {
-        const Component = components[name]
+      {sections.map(({ name, data = {}, $componentKey }, index) => {
+        const key = $componentKey ?? name
+        const Component = components[key]
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
           console.warn(
-            `${name} not found. Add a new component for this section or remove it from the CMS`
+            `${key} not found. Add a new component for this section or remove it from the CMS`
           )
 
           return null
@@ -137,9 +149,20 @@ function RenderSections({
   )
 
   const { isInteractive } = useTTI()
+  const router = useRouter()
+
+  const shouldDisplayPreviewTag = isContentPlatformSource() && router.isPreview
 
   return (
     <>
+      {shouldDisplayPreviewTag && (
+        <LazyLoadingSection
+          sectionName="PreviewTag"
+          isInteractive={isInteractive}
+        >
+          <PreviewTag />
+        </LazyLoadingSection>
+      )}
       {firstSections && (
         <RenderSectionsBase
           sections={firstSections}

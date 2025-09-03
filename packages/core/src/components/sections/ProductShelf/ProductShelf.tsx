@@ -23,6 +23,8 @@ function ProductShelfSection({
   )
 }
 
+ProductShelfSection.$componentKey = 'ProductShelf'
+
 const OverridableProductShelf = getOverridableSection<typeof ProductShelf>(
   'ProductShelf',
   ProductShelfSection,

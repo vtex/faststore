@@ -336,6 +336,8 @@ function ProductDetails({
   )
 }
 
+ProductDetails.$componentKey = 'ProductDetails'
+
 export const fragment = gql(`
   fragment ProductDetailsFragment_product on StoreProduct {
     id: productID
@@ -351,6 +353,10 @@ export const fragment = gql(`
         activeVariations
         slugsMap
         availableVariations
+        allVariantProducts {
+          name
+          productID
+        }
       }
     }
 

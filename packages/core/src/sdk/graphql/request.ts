@@ -81,5 +81,18 @@ const baseRequest = async <V = any, D = any>(
     },
   })
 
+  if (!response.ok) {
+    const statusText = response.statusText
+    return {
+      errors: [
+        {
+          status: response.status,
+          message: statusText,
+        },
+      ],
+      data: undefined,
+    } as GraphQLResponse<D>
+  }
+
   return response.json()
 }
