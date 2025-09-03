@@ -2333,7 +2333,7 @@
               "title": "Input field error message for the scenario of no products available for a given location",
               "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
               "type": "string",
-              "default": "No products available for %s.",
+              "default": "No products available for %s."
             },
             "buttonActionText": {
               "title": "Input field action button label",
@@ -2348,7 +2348,7 @@
           "properties": {
             "text": {
               "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
               "default": "I don't know my postal code"
             },
@@ -2418,17 +2418,7 @@
               "title": "Input field error message for the scenario of no products available for a given location",
               "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
               "type": "string",
-              "default": "No products available for %s.",
-              "description": "The '%s' will be replaced by the postal code value."
-              "type": "string"
-            },
-            "errorMessage": {
-              "title": "Input field error message",
-              "type": "string"
-            },
-            "noProductsAvailableErrorMessage": {
-              "title": "Input field error message for the scenario of no products available for a given location",
-              "type": "string"
+              "default": "No products available for %s."
             },
             "buttonActionText": {
               "title": "Input field action button label",
@@ -2460,7 +2450,7 @@
           "properties": {
             "text": {
               "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
               "default": "I don't know my postal code"
             },
