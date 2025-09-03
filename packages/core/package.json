@@ -115,7 +115,6 @@
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.8.1",
     "dotenv": "^16.4.5",
-    "is-ci": "^3.0.0",
     "jest": "catalog:",
     "ts-jest": "catalog:",
     "typescript": "catalog:"
