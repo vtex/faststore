@@ -29,7 +29,6 @@ interface FilterDesktopProps
     'onClose' | 'size' | 'direction' | 'applyBtnProps' | 'clearBtnProps'
   > {}
 
-
 function FilterDesktop({
   facets,
   testId,
