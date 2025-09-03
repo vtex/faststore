@@ -13,6 +13,7 @@
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --yes && lerna publish from-git --yes",
     "clean": "turbo run clean && rm -rf node_modules",

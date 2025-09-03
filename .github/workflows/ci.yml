@@ -46,14 +46,10 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
+      - name: Test E2E
+        run: pnpm test:e2e
 
-      - name: Run Playwright E2E Tests
-        run: cd packages/core && pnpm test:e2e
-        timeout-minutes: 10
-
-      - name: Upload Playwright Report
+      - name: Upload E2E Report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
