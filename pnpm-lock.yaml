@@ -144,7 +144,7 @@ importers:
         version: 0.21.12
       '@faststore/core':
         specifier: ^3.82.3
-        version: 3.82.4(@babel/core@7.28.4)(@faststore/components@packages+components)(@types/node@16.18.126)(encoding@0.1.13)(rollup@4.50.1)(typescript@5.3.2)(use-sync-external-store@1.5.0(react@18.3.1))(webpack@5.101.3)
+        version: 3.82.4(@babel/core@7.28.4)(@faststore/components@packages+components)(@types/node@16.18.126)(encoding@0.1.13)(typescript@5.3.2)(use-sync-external-store@1.5.0(react@18.3.1))(webpack@5.101.3)
       '@inquirer/prompts':
         specifier: ^5.1.2
         version: 5.5.0
@@ -12006,7 +12006,7 @@ snapshots:
       - encoding
       - rollup
 
-  '@faststore/core@3.82.4(@babel/core@7.28.4)(@faststore/components@packages+components)(@types/node@16.18.126)(encoding@0.1.13)(rollup@4.50.1)(typescript@5.3.2)(use-sync-external-store@1.5.0(react@18.3.1))(webpack@5.101.3)':
+  '@faststore/core@3.82.4(@babel/core@7.28.4)(@faststore/components@packages+components)(@types/node@16.18.126)(encoding@0.1.13)(typescript@5.3.2)(use-sync-external-store@1.5.0(react@18.3.1))(webpack@5.101.3)':
     dependencies:
       '@antfu/ni': 0.21.12
       '@builder.io/partytown': 0.6.4
