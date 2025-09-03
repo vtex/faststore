@@ -97,8 +97,8 @@ function MyAccountFilterSlider({
           acc['purchaseAgentId'] = value
         }
 
-        if (key === 'pendingApproval') {
-          acc['pendingApproval'] = value
+        if (key === 'pendingMyApproval') {
+          acc['pendingMyApproval'] = value
         }
 
         return acc

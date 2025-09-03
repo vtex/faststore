@@ -853,7 +853,7 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
-  /** Returns information about the list of Orders that the User can view. */
+  /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
@@ -902,6 +902,7 @@ export type QueryListUserOrdersArgs = {
   dateFinal?: Maybe<Scalars['String']>;
   dateInitial?: Maybe<Scalars['String']>;
   page?: Maybe<Scalars['Int']>;
+  pendingMyApproval?: Maybe<Scalars['Boolean']>;
   perPage?: Maybe<Scalars['Int']>;
   status?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;

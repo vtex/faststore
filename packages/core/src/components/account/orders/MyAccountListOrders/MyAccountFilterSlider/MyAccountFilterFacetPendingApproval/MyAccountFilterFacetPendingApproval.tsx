@@ -19,7 +19,7 @@ function MyAccountFilterFacetPendingApproval({
 }: MyAccountFilterFacetPendingApprovalProps) {
   const isSelected = useMemo(
     () =>
-      selected.some((f) => f.key === 'pendingApproval' && f.value === 'true'),
+      selected.some((f) => f.key === 'pendingMyApproval' && f.value === 'true'),
     [selected]
   )
 
@@ -30,7 +30,7 @@ function MyAccountFilterFacetPendingApproval({
       dispatch({
         type: 'setFacet',
         payload: {
-          facet: { key: 'pendingApproval', value: 'true' },
+          facet: { key: 'pendingMyApproval', value: 'true' },
           unique: true,
         },
       })
@@ -38,7 +38,7 @@ function MyAccountFilterFacetPendingApproval({
       dispatch({
         type: 'toggleFacet',
         payload: {
-          key: 'pendingApproval',
+          key: 'pendingMyApproval',
           value: 'true',
         },
       })

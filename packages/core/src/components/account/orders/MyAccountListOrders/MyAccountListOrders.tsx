@@ -40,7 +40,7 @@ export type MyAccountListOrdersProps = {
     text: string
     clientEmail: string
     purchaseAgentId?: string
-    pendingApproval?: string
+    pendingMyApproval?: boolean
   }
 }
 
@@ -80,9 +80,9 @@ function getSelectedFacets({
         key: 'purchaseAgentId',
         value: String(value),
       })
-    } else if (filter === 'pendingApproval' && value) {
+    } else if (filter === 'pendingMyApproval' && value) {
       acc.push({
-        key: 'pendingApproval',
+        key: 'pendingMyApproval',
         value: String(value),
       })
     }
@@ -99,7 +99,7 @@ function getAllFacets({
   return [
     {
       __typename: 'StoreFacetPendingApproval',
-      key: 'pendingApproval',
+      key: 'pendingMyApproval',
       label: 'Pending Approval',
     } as any,
     {
@@ -136,7 +136,7 @@ function hasActiveFilters(
     Boolean(filters.dateInitial) ||
     Boolean(filters.dateFinal) ||
     Boolean(filters.text) ||
-    Boolean(filters.pendingApproval)
+    Boolean(filters.pendingMyApproval)
   )
 }
 
@@ -274,7 +274,7 @@ export default function MyAccountListOrders({
 
             if (key === 'status' && Array.isArray(updatedFilters[key])) {
               updatedFilters[key] = updatedFilters[key].filter(
-                (v) => v.toLowerCase() !== value.toLowerCase()
+                (v) => v.toLowerCase() !== value.toString().toLowerCase()
               )
             } else if (key === 'dateInitial' || key === 'dateFinal') {
               delete updatedFilters.dateInitial
