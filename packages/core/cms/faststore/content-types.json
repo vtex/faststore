@@ -246,14 +246,14 @@
                       "default": true
                     },
                     "delivery": {
-                      "title": "Delivery available label",
+                      "title": "Shipping available label",
                       "type": "string",
-                      "default": "Available for delivery"
+                      "default": "Available for shipping"
                     },
                     "deliveryUnavailable": {
-                      "title": "Delivery unavailable label",
+                      "title": "Shipping unavailable label",
                       "type": "string",
-                      "default": "Unavailable for delivery"
+                      "default": "Unavailable for shipping"
                     },
                     "pickupInPoint": {
                       "title": "Pickup available label",

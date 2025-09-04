@@ -382,7 +382,7 @@ export function useDeliveryPromise({
     if (value === 'delivery') {
       return (
         deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ??
-        'Available for delivery'
+        'Available for shipping'
       )
     }
     if (value === 'pickup-in-point') {
@@ -412,7 +412,7 @@ export function useDeliveryPromise({
     } else {
       const deliveryUnavailableLabel =
         deliveryPromiseSettings?.deliveryPromiseBadges?.deliveryUnavailable ??
-        'Unavailable for delivery'
+        'Unavailable for shipping'
       badges.push({
         label: deliveryUnavailableLabel,
         availability: false,
