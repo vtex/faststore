@@ -57,6 +57,7 @@ function ProductShelf(props: ProductShelfProps) {
     numberOfItems,
     itemsPerPage = 5,
     taxesConfiguration = {},
+    products: cmsProducts,
     ...otherProps
   } = props
   const {
@@ -70,14 +71,17 @@ function ProductShelf(props: ProductShelfProps) {
 
   const { deliveryFacets } = useDeliveryPromiseFacets()
 
-  const data = useProductsQuery({
-    first: numberOfItems,
-    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
-      arrayMerge: overwriteMerge,
-    }),
-    ...otherProps,
-    after: otherProps.after?.toString(),
-  })
+  const data = useProductsQuery(
+    {
+      first: numberOfItems,
+      selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
+        arrayMerge: overwriteMerge,
+      }),
+      ...otherProps,
+      after: otherProps.after?.toString(),
+    },
+    { suspense: false }
+  )
 
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
@@ -98,13 +102,16 @@ function ProductShelf(props: ProductShelfProps) {
     }
   }, [inView, productEdges.length, sendViewItemListEvent])
 
-  if (products?.edges.length === 0) {
+  if (
+    products?.edges.length === 0 &&
+    (!cmsProducts || cmsProducts.length === 0)
+  ) {
     return null
   }
 
   const productShelfAttributes: ProductShelfProps = {
     ...props,
-    products: productEdges.map((edge) => edge.node),
+    products: cmsProducts.concat(productEdges.map((edge) => edge.node)),
   }
 
   return (
