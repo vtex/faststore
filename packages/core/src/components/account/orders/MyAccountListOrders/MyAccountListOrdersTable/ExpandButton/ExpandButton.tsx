@@ -5,15 +5,19 @@ type ExpandButtonProps = {
   onToggle: (e: React.MouseEvent<HTMLButtonElement>) => void
   count: number
   label?: string
+  ariaControls?: string
 }
 
 export function ExpandButton({
   isExpanded,
   onToggle,
   label,
+  ariaControls,
 }: ExpandButtonProps) {
   return (
     <Button
+      aria-expanded={isExpanded}
+      aria-controls={ariaControls}
       data-fs-list-orders-table-expand-button
       size="small"
       variant="primary"

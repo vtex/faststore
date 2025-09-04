@@ -110,25 +110,18 @@ export default function MyAccountListOrdersTable({
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
 
-  const [expandedItemFieldsRows, setExpandedItemFieldsRows] = useState<
-    Record<string, boolean>
-  >({})
-  const [expandedOrderFieldsRows, setExpandedOrderFieldsRows] = useState<
-    Record<string, boolean>
+  const [expandedRows, setExpandedRows] = useState<
+    Record<string, { item: boolean; order: boolean }>
   >({})
 
   const handleToggle = (orderId: string, type: 'item' | 'order') => {
-    if (type === 'item') {
-      setExpandedItemFieldsRows((prev) => ({
-        ...prev,
-        [orderId]: !prev[orderId],
-      }))
-    } else {
-      setExpandedOrderFieldsRows((prev) => ({
-        ...prev,
-        [orderId]: !prev[orderId],
-      }))
-    }
+    setExpandedRows((prev) => ({
+      ...prev,
+      [orderId]: {
+        ...prev[orderId],
+        [type]: !prev[orderId]?.[type],
+      },
+    }))
   }
 
   return (
@@ -147,14 +140,28 @@ export default function MyAccountListOrdersTable({
               (orderLevel && orderLevel.length > 0) ||
               (itemLevel && itemLevel.length > 0)
 
-            const isItemFieldsExpanded = expandedItemFieldsRows[item.orderId]
-            const isOrderFieldsExpanded = expandedOrderFieldsRows[item.orderId]
+            const isItemFieldsExpanded =
+              expandedRows[item.orderId]?.item || false
+            const isOrderFieldsExpanded =
+              expandedRows[item.orderId]?.order || false
 
-            const [displayedItemLevel, shouldShowViewMoreButtonToItemsFields] =
-              getLevel(itemLevel, isItemFieldsExpanded, MAX_ITEM_FIELDS)
+            const {
+              displayed: displayedItemLevel,
+              shouldShowButton: shouldShowViewMoreButtonToItemsFields,
+            } = getLevel({
+              level: itemLevel,
+              isExpanded: isItemFieldsExpanded,
+              max: MAX_ITEM_FIELDS,
+            })
 
-            const [displayedOrderLevel, shouldShowViewMoreButtonToOrderFields] =
-              getLevel(orderLevel, isOrderFieldsExpanded, MAX_ORDER_FIELDS)
+            const {
+              displayed: displayedOrderLevel,
+              shouldShowButton: shouldShowViewMoreButtonToOrderFields,
+            } = getLevel({
+              level: orderLevel,
+              isExpanded: isOrderFieldsExpanded,
+              max: MAX_ORDER_FIELDS,
+            })
 
             const orderUrl = `/account/orders/${item.orderId}`
             const shippingEstimatedDate = item.ShippingEstimatedDate
@@ -165,6 +172,15 @@ export default function MyAccountListOrdersTable({
               : '-'
             const clientName = item.clientName ? item.clientName : '-'
             const totalPrice = formatPrice(item.totalValue, item.currencyCode)
+            const deliveryBy = item.ShippingEstimatedDate
+              ? `Delivery by ${formatOrderDate(
+                  item.ShippingEstimatedDate,
+                  locale
+                )}`
+              : '-'
+
+            const additionalInfoIdOrder = `additional-info-${item.orderId}-order`
+            const additionalInfoIdItem = `additional-info-${item.orderId}-item`
 
             const handleRowClick = () => {
               window.location.href = orderUrl
@@ -279,7 +295,10 @@ export default function MyAccountListOrdersTable({
                       <>
                         <td data-fs-list-orders-table-cell>
                           {displayedOrderLevel.length > 0 && (
-                            <p data-fs-list-orders-table-product-info-label>
+                            <p
+                              data-fs-list-orders-table-product-info-label
+                              id={additionalInfoIdOrder}
+                            >
                               Order fields
                             </p>
                           )}
@@ -289,6 +308,7 @@ export default function MyAccountListOrdersTable({
                                 key={field + idx}
                                 data-fs-list-orders-table-product-info-order
                                 title={field}
+                                aria-owns={additionalInfoIdOrder}
                               >
                                 {field}
                               </p>
@@ -296,7 +316,8 @@ export default function MyAccountListOrdersTable({
                           )}
                           {shouldShowViewMoreButtonToOrderFields && (
                             <ExpandButton
-                              isExpanded={expandedOrderFieldsRows[item.orderId]}
+                              ariaControls={additionalInfoIdOrder}
+                              isExpanded={isOrderFieldsExpanded}
                               count={orderLevel.length - MAX_ORDER_FIELDS}
                               onToggle={() =>
                                 handleToggle(item.orderId, 'order')
@@ -306,7 +327,10 @@ export default function MyAccountListOrdersTable({
                         </td>
                         <td data-fs-list-orders-table-cell>
                           {displayedItemLevel.length > 0 && (
-                            <p data-fs-list-orders-table-product-info-label>
+                            <p
+                              data-fs-list-orders-table-product-info-label
+                              id={additionalInfoIdItem}
+                            >
                               Item fields
                             </p>
                           )}
@@ -316,6 +340,7 @@ export default function MyAccountListOrdersTable({
                                 key={field + idx}
                                 data-fs-list-orders-table-product-info-item
                                 title={field}
+                                aria-owns={additionalInfoIdItem}
                               >
                                 {field}
                               </p>
@@ -323,6 +348,7 @@ export default function MyAccountListOrdersTable({
                           )}
                           {shouldShowViewMoreButtonToItemsFields && (
                             <ExpandButton
+                              ariaControls={additionalInfoIdItem}
                               isExpanded={isItemFieldsExpanded}
                               count={itemLevel.length - MAX_ITEM_FIELDS}
                               onToggle={() =>
@@ -341,16 +367,7 @@ export default function MyAccountListOrdersTable({
                     status={item.status}
                     statusFallback={item.statusDescription}
                   />
-                  {!isDesktop && (
-                    <p>
-                      {item.ShippingEstimatedDate
-                        ? `Delivery by ${formatOrderDate(
-                            item.ShippingEstimatedDate,
-                            locale
-                          )}`
-                        : ''}
-                    </p>
-                  )}
+                  {!isDesktop && <p>{deliveryBy}</p>}
                 </td>
               </tr>
             )
@@ -364,9 +381,17 @@ export default function MyAccountListOrdersTable({
   )
 }
 
-function getLevel(level: string[], isExpanded: boolean, max: number) {
+function getLevel({
+  level,
+  isExpanded,
+  max,
+}: {
+  level: string[]
+  isExpanded?: boolean
+  max: number
+}) {
   const shouldShowButton = level.length > max
-  const displayedLevel = isExpanded ? level : level.slice(0, max)
+  const displayed = isExpanded ? level : level.slice(0, max)
 
-  return [displayedLevel, shouldShowButton] as const
+  return { displayed, shouldShowButton }
 }
