@@ -2474,7 +2474,7 @@ export type UserOrderResult = {
   paymentData?: Maybe<UserOrderPaymentData>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
-  shopperName?: Maybe<UserOrderShopperName>;
+  shopper?: Maybe<UserOrderShopper>;
   status?: Maybe<Scalars['String']>;
   statusDescription?: Maybe<Scalars['String']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
@@ -2498,10 +2498,12 @@ export type UserOrderShippingData = {
   trackingHints?: Maybe<Scalars['String']>;
 };
 
-export type UserOrderShopperName = {
-  __typename?: 'UserOrderShopperName';
+export type UserOrderShopper = {
+  __typename?: 'UserOrderShopper';
+  email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderSlas = {
