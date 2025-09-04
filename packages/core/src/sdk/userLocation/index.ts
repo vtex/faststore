@@ -93,10 +93,11 @@ export const useCheckRegionState = (popoverRef?: RefObject<HTMLElement>) => {
   function getPopoverState(session: Session) {
     const isDefaultPostalCode =
       !!defaultSession.postalCode &&
-      defaultSession.postalCode === session.postalCode
+      defaultSession.postalCode === session?.postalCode
 
     const newPopoverState =
-      isDefaultPostalCode || (!session.postalCode && !deliveryPromise.mandatory)
+      isDefaultPostalCode ||
+      (!session?.postalCode && !deliveryPromise.mandatory)
         ? 'open'
         : 'closed'
 
@@ -107,7 +108,7 @@ export const useCheckRegionState = (popoverRef?: RefObject<HTMLElement>) => {
     if (!deliveryPromise.enabled) return
 
     const handle = (session: Session) => {
-      if (deliveryPromise.mandatory && !session.postalCode && !modalOpen)
+      if (deliveryPromise.mandatory && !session?.postalCode && !modalOpen)
         return openModal()
 
       setRegionPopoverState((state) => {
