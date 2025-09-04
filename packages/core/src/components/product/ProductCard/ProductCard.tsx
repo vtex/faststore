@@ -164,7 +164,7 @@ function ProductCard({
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
         sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
-        deliveryBadges={shouldDisplayDeliveryPromiseBadges && badges}
+        deliveryPromiseBadges={shouldDisplayDeliveryPromiseBadges && badges}
       />
     </UIProductCard>
   )

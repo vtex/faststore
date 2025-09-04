@@ -16,7 +16,7 @@ import {
   Rating,
 } from '../../'
 
-type DeliveryBadge = {
+type DeliveryPromiseBadge = {
   label: string
   availability: boolean
 }
@@ -80,7 +80,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * List delivery badges, if enabled and available.
    */
-  deliveryBadges?: DeliveryBadge[]
+  deliveryPromiseBadges?: DeliveryPromiseBadge[]
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -101,7 +101,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       includeTaxesLabel = 'Tax included',
       sponsored = false,
       sponsoredLabel = 'Sponsored',
-      deliveryBadges,
+      deliveryPromiseBadges,
       ...otherProps
     },
     ref
@@ -145,9 +145,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
-        {deliveryBadges && (
+        {deliveryPromiseBadges && (
           <div data-fs-product-card-delivery-badges>
-            {deliveryBadges.map((badge: DeliveryBadge) => (
+            {deliveryPromiseBadges.map((badge: DeliveryPromiseBadge) => (
               <span
                 data-fs-product-card-delivery-badge
                 data-fs-product-card-delivery-badge-availability={
