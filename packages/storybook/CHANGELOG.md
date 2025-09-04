@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.80.0 (2025-09-04)
+
+### Features
+
+- add shopper phone and email in ordered by card ([#3014](https://github.com/vtex/faststore/issues/3014)) ([31bf49b](https://github.com/vtex/faststore/commit/31bf49bb717f740ad6ff741ce2ae77322ec3f5a6))
+
 # [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
 
 **Note:** Version bump only for package @fatstore/storybook
