@@ -68,7 +68,7 @@ export default function MyAccountOrderDetails({
 
         <MyAccountOrderedByCard
           clientProfileData={order.clientProfileData}
-          shopperName={order.shopperName}
+          shopper={order.shopper}
         />
 
         <MyAccountDeliveryCard
