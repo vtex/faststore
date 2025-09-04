@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.80.0 (2025-09-04)
+
+### Bug Fixes
+
+- remove SearchShopperResult type definition ([#3017](https://github.com/vtex/faststore/issues/3017)) ([3d914b0](https://github.com/vtex/faststore/commit/3d914b0ab80ce8c06d48b5c95ccc7124bdd2d62e))
+
+### Features
+
+- add shopper phone and email in ordered by card ([#3014](https://github.com/vtex/faststore/issues/3014)) ([31bf49b](https://github.com/vtex/faststore/commit/31bf49bb717f740ad6ff741ce2ae77322ec3f5a6))
+
 ## [3.79.1](https://github.com/vtex/faststore/compare/v3.79.0...v3.79.1) (2025-09-04)
 
 **Note:** Version bump only for package @faststore/core
