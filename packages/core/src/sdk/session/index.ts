@@ -89,7 +89,7 @@ export const validateSession = async (session: Session) => {
       })
     } else {
       const sessionWithLocation = await getPostalCode(session)
-      sessionStore.set(sessionWithLocation)
+      !!sessionWithLocation && sessionStore.set(sessionWithLocation)
     }
   }
 
