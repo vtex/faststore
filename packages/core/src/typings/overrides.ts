@@ -286,6 +286,7 @@ export type SectionsOverrides = {
         SKUMatrixSidebarProps,
         SKUMatrixSidebarProps
       >
+      ProductDetailsPresentational: ComponentOverrideDefinition<any, any>
       __experimentalImageGalleryImage: ComponentOverrideDefinition<any, any>
       __experimentalImageGallery: ComponentOverrideDefinition<any, any>
       __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
