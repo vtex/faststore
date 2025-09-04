@@ -55,10 +55,17 @@ export type MyAccountFilter_Facets_StoreFacetPlacedBy_Fragment = {
   label: string
 }
 
+export type MyAccountFilter_Facets_StoreFacetPendingApproval_Fragment = {
+  __typename: 'StoreFacetPendingApproval'
+  key: string
+  label: string
+}
+
 export type MyAccountFilter_FacetsFragment =
   | MyAccountFilter_Facets_StoreFacetBoolean_Fragment
   | MyAccountFilter_Facets_StoreFacetRange_Fragment
   | MyAccountFilter_Facets_StoreFacetPlacedBy_Fragment
+  | MyAccountFilter_Facets_StoreFacetPendingApproval_Fragment
 
 const reducer = (state: State, action: Action) => {
   const { expanded, selected } = state

@@ -47,6 +47,7 @@ type ListOrdersPageProps = {
     text: string
     clientEmail: string
     purchaseAgentId?: string
+    pendingMyApproval?: boolean
   }
 } & MyAccountProps
 
@@ -176,6 +177,7 @@ export const getServerSideProps: GetServerSideProps<
   // when calling the OMS API. Keep camelCase across the frontend.
   const purchaseAgentId =
     (context.query.purchaseAgentId as string | undefined) || ''
+  const pendingMyApproval = context.query.pendingMyApproval === 'true'
 
   // Map labels from FastStore status to API status
   const groupedStatus = groupOrderStatusByLabel()
@@ -252,6 +254,7 @@ export const getServerSideProps: GetServerSideProps<
         text,
         clientEmail,
         purchaseAgentId,
+        pendingMyApproval,
       },
       isRepresentative,
     },
