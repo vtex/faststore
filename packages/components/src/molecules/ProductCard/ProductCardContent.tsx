@@ -146,7 +146,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
         {deliveryPromiseBadges && (
-          <div data-fs-product-card-delivery-badges>
+          <div data-fs-product-card-delivery-promise-badges>
             {deliveryPromiseBadges.map((badge: DeliveryPromiseBadge) => (
               <span
                 data-fs-product-card-delivery-badge
