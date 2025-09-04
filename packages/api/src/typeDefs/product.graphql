@@ -77,7 +77,7 @@ type StoreProduct {
   """
   Delivery Promise product's badge.
   """
-  deliveryPromiseBadges: [DeliveryPromiseBadge]
+  deliveryPromisesBadges: [DeliveryPromiseBadge]
 }
 
 """
