@@ -959,6 +959,13 @@ export type SearchMetadata = {
   logicalOperator: Scalars['String']['output']
 }
 
+/** SearchShopperResult information. */
+export type SearchShopperResult = {
+  firstName: Maybe<Scalars['String']['output']>
+  lastName: Maybe<Scalars['String']['output']>
+  userId: Maybe<Scalars['String']['output']>
+}
+
 /** Information of sellers. */
 export type SellerInfo = {
   /** Identification of the seller */
@@ -2344,6 +2351,7 @@ export type UserOrderShopper = {
 export type UserOrderShopperName = {
   firstName: Maybe<Scalars['String']['output']>
   lastName: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderSlas = {
