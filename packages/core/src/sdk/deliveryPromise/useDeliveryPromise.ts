@@ -31,6 +31,7 @@ export const ALL_DELIVERY_METHODS_FACET_VALUE = 'all-delivery-methods' as const
 export const PICKUP_ALL_FACET_VALUE = 'pickup-all' as const
 
 type Facet = SearchState['selectedFacets'][number]
+type DeliveryType = 'delivery' | 'pickup-in-point'
 
 export type PickupPoint = {
   id: string
@@ -378,24 +379,41 @@ export function useDeliveryPromise({
     []
   )
 
-  function getBadgesLabel(value: string) {
-    if (value === 'delivery') {
-      return (
-        deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ??
-        'Available for shipping'
-      )
+  function getBadgeLabel(value: DeliveryType, isAvailable: boolean) {
+    const labelMap: Record<
+      DeliveryType,
+      { available: string; unavailable: string }
+    > = {
+      delivery: {
+        available:
+          deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ??
+          'Available for shipping',
+        unavailable:
+          deliveryPromiseSettings?.deliveryPromiseBadges?.deliveryUnavailable ??
+          'Unavailable for shipping',
+      },
+      'pickup-in-point': {
+        available:
+          deliveryPromiseSettings?.deliveryPromiseBadges?.pickupInPoint ??
+          'Available for pickup',
+        unavailable:
+          deliveryPromiseSettings?.deliveryPromiseBadges
+            ?.pickupInPointUnavailable ?? 'Unavailable for pickup',
+      },
     }
-    if (value === 'pickup-in-point') {
-      return (
-        deliveryPromiseSettings?.deliveryPromiseBadges?.pickupInPoint ??
-        'Available for pickup'
-      )
-    }
-    return value
+
+    return labelMap[value]
+      ? isAvailable
+        ? labelMap[value].available
+        : labelMap[value].unavailable
+      : value
   }
 
   function getDeliveryPromiseBadges() {
+    if (!deliveryPromiseBadges) return []
+
     const badges: Array<{ label: string; availability: boolean }> = []
+
     const availableTypeNames = deliveryPromiseBadges?.map(
       (badge) => badge.typeName
     )
@@ -406,30 +424,24 @@ export function useDeliveryPromise({
     // Only add unavailable badges if at least one delivery method is available
     if (hasDelivery) {
       badges.push({
-        label: getBadgesLabel('delivery'),
+        label: getBadgeLabel('delivery', true),
         availability: true,
       })
     } else {
-      const deliveryUnavailableLabel =
-        deliveryPromiseSettings?.deliveryPromiseBadges?.deliveryUnavailable ??
-        'Unavailable for shipping'
       badges.push({
-        label: deliveryUnavailableLabel,
+        label: getBadgeLabel('delivery', false),
         availability: false,
       })
     }
 
     if (hasPickupPoint) {
       badges.push({
-        label: getBadgesLabel('pickup-in-point'),
+        label: getBadgeLabel('pickup-in-point', true),
         availability: true,
       })
     } else {
-      const pickupInPointUnavailableLabel =
-        deliveryPromiseSettings?.deliveryPromiseBadges
-          ?.pickupInPointUnavailable ?? 'Unavailable for pickup'
       badges.push({
-        label: pickupInPointUnavailableLabel,
+        label: getBadgeLabel('pickup-in-point', false),
         availability: false,
       })
     }
