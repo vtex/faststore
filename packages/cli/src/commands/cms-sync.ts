@@ -3,6 +3,7 @@ import { spawn } from 'child_process'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
+import path from 'node:path'
 
 export default class CmsSync extends Command {
   static flags = {
@@ -21,7 +22,10 @@ export default class CmsSync extends Command {
     const { flags, args } = await this.parse(CmsSync)
 
     const basePath = getBasePath(args.path)
-    const { tmpDir } = withBasePath(basePath)
+    const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
+
+    const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    const cmsProjectName = userStoreConfig.contentSource.project
 
     await generate({ setup: true, basePath })
     await mergeCMSFiles(basePath)
@@ -30,7 +34,7 @@ export default class CmsSync extends Command {
       return
     }
 
-    return spawn(`vtex cms sync faststore`, {
+    return spawn(`vtex cms sync ${cmsProjectName}`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
