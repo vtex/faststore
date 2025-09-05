@@ -63,6 +63,7 @@ const QUERIES = [
   'collection',
   'search',
   'allProducts',
+  'products',
   'allCollections',
   'shipping',
   'redirect',

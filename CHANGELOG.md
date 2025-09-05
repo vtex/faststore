@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.82.0](https://github.com/vtex/faststore/compare/v3.81.0...v3.82.0) (2025-09-05)
+
+### Features
+
+- Delivery Promise 2.1 - filters by Delivery Option ([#2926](https://github.com/vtex/faststore/issues/2926)) ([d365a5e](https://github.com/vtex/faststore/commit/d365a5ea0da451a58c87fd6bcfd7f49df2c96158)), closes [#2928](https://github.com/vtex/faststore/issues/2928) [#2930](https://github.com/vtex/faststore/issues/2930) [#2937](https://github.com/vtex/faststore/issues/2937)
+
+# 3.81.0 (2025-09-05)
+
+### Bug Fixes
+
+- avoid unnecessary server restarts by moving updateNextConfig to setup only ([#2983](https://github.com/vtex/faststore/issues/2983)) ([b26238e](https://github.com/vtex/faststore/commit/b26238e9484108196b067f135e29e3360eecdaeb)), closes [#2500](https://github.com/vtex/faststore/issues/2500)
+
+### Features
+
+- Allow users to select which CMS builder to use ([#2997](https://github.com/vtex/faststore/issues/2997)) ([3862832](https://github.com/vtex/faststore/commit/3862832aaf366453b8a26844e2c452647a534b4d))
+
+# 3.80.0 (2025-09-04)
+
+### Bug Fixes
+
+- remove SearchShopperResult type definition ([#3017](https://github.com/vtex/faststore/issues/3017)) ([3d914b0](https://github.com/vtex/faststore/commit/3d914b0ab80ce8c06d48b5c95ccc7124bdd2d62e))
+
+### Features
+
+- add shopper phone and email in ordered by card ([#3014](https://github.com/vtex/faststore/issues/3014)) ([31bf49b](https://github.com/vtex/faststore/commit/31bf49bb717f740ad6ff741ce2ae77322ec3f5a6))
+
+## [3.79.1](https://github.com/vtex/faststore/compare/v3.79.0...v3.79.1) (2025-09-04)
+
+**Note:** Version bump only for package faststore
+
+# [3.79.0](https://github.com/vtex/faststore/compare/v3.78.0...v3.79.0) (2025-09-03)
+
+### Features
+
+- Add appkey and apptoken to VtexCommerce and Page components ([#3008](https://github.com/vtex/faststore/issues/3008)) ([e99a132](https://github.com/vtex/faststore/commit/e99a1321ea27ed9baadd87fbce4fd5798a9d0d25))
+
+# [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
+
+### Features
+
+- Product Comparison ([#3000](https://github.com/vtex/faststore/issues/3000)) ([2150bee](https://github.com/vtex/faststore/commit/2150bee82e570205421859e14de8416d5e34c545))
+
+## [3.77.3](https://github.com/vtex/faststore/compare/v3.77.2...v3.77.3) (2025-09-01)
+
+### Bug Fixes
+
+- Update search page when changing terms ([#2992](https://github.com/vtex/faststore/issues/2992)) ([90be90f](https://github.com/vtex/faststore/commit/90be90ff8aa29127dbe89d4a9b8512f6d1427f38)), closes [dp-faststore-org/vendemo-dp#74](https://github.com/dp-faststore-org/vendemo-dp/issues/74) [vtex-sites/faststoreqa.store#857](https://github.com/vtex-sites/faststoreqa.store/issues/857)
+
+## [3.77.2](https://github.com/vtex/faststore/compare/v3.77.1...v3.77.2) (2025-08-21)
+
+### Bug Fixes
+
+- validate mutations after offline network ([#2998](https://github.com/vtex/faststore/issues/2998)) ([659605f](https://github.com/vtex/faststore/commit/659605f45ccf53cfb7a6959fe9f9f0fe3f1a6c93))
+
+## [3.77.1](https://github.com/vtex/faststore/compare/v3.77.0...v3.77.1) (2025-08-20)
+
+### Bug Fixes
+
+- use ? operator to get dateRangeFacet ([#2996](https://github.com/vtex/faststore/issues/2996)) ([e67d63d](https://github.com/vtex/faststore/commit/e67d63d1624aba4a5baf880d525487ff482db0c7))
+
+# [3.77.0](https://github.com/vtex/faststore/compare/v3.76.0...v3.77.0) (2025-08-18)
+
+### Features
+
+- Better monorepo support ([#2978](https://github.com/vtex/faststore/issues/2978)) ([c32b23b](https://github.com/vtex/faststore/commit/c32b23baaed5269527661beee7bcde0db9887c36))
+
 # [3.76.0](https://github.com/vtex/faststore/compare/v3.75.1...v3.76.0) (2025-08-14)
 
 ### Features

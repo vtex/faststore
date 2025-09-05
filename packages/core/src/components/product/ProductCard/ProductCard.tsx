@@ -2,6 +2,7 @@ import {
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
+  ProductComparisonTrigger as UIProductComparisonTrigger,
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
@@ -63,6 +64,14 @@ export interface ProductCardProps {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * Enable the compare checkbox on display.
+   */
+  enableCompareCheckbox?: boolean
+  /**
+   * Label for the compare checkbox.
+   */
+  compareLabel?: string
 }
 
 function ProductCard({
@@ -78,6 +87,8 @@ function ProductCard({
   showDiscountBadge = true,
   taxesConfiguration,
   sponsoredLabel,
+  enableCompareCheckbox = false,
+  compareLabel,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -130,43 +141,53 @@ function ProductCard({
     : {}
 
   return (
-    <UIProductCard
-      outOfStock={outOfStock}
-      bordered={bordered}
-      variant={variant}
-      data-fs-product-card-sku={sku}
-      {...advertisementDataAttributes}
-      {...otherProps}
-    >
-      <UIProductCardImage aspectRatio={aspectRatio}>
-        <Image
-          src={img.url}
-          alt={img.alternateName}
-          sizes={`${imgProps?.sizes ?? '(max-width: 768px) 40vw, 30vw'}`}
-          width={imgProps?.width ?? 360}
-          height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
-          loading={imgProps?.loading}
+    <>
+      {enableCompareCheckbox && (
+        <UIProductComparisonTrigger
+          label={compareLabel}
+          product={product}
+          id={product.id}
         />
-      </UIProductCardImage>
-      <UIProductCardContent
-        title={name}
-        price={{
-          value: spotPrice,
-          listPrice: listPrice,
-          formatter: useFormattedPrice,
-        }}
-        ratingValue={ratingValue}
+      )}
+
+      <UIProductCard
         outOfStock={outOfStock}
-        onButtonClick={onButtonClick}
-        linkProps={linkProps}
-        showDiscountBadge={hasDiscount && showDiscountBadge}
-        includeTaxes={taxesConfiguration?.usePriceWithTaxes}
-        includeTaxesLabel={taxesConfiguration?.taxesLabel}
-        sponsored={!!advertisement}
-        sponsoredLabel={sponsoredLabel}
-        deliveryPromiseBadges={shouldDisplayDeliveryPromiseBadges && badges}
-      />
-    </UIProductCard>
+        bordered={bordered}
+        variant={variant}
+        data-fs-product-card-sku={sku}
+        {...advertisementDataAttributes}
+        {...otherProps}
+      >
+        <UIProductCardImage aspectRatio={aspectRatio}>
+          <Image
+            src={img.url}
+            alt={img.alternateName}
+            sizes={`${imgProps?.sizes ?? '(max-width: 768px) 40vw, 30vw'}`}
+            width={imgProps?.width ?? 360}
+            height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
+            loading={imgProps?.loading}
+          />
+        </UIProductCardImage>
+        <UIProductCardContent
+          title={name}
+          price={{
+            value: spotPrice,
+            listPrice: listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={ratingValue}
+          outOfStock={outOfStock}
+          onButtonClick={onButtonClick}
+          linkProps={linkProps}
+          showDiscountBadge={hasDiscount && showDiscountBadge}
+          includeTaxes={taxesConfiguration?.usePriceWithTaxes}
+          includeTaxesLabel={taxesConfiguration?.taxesLabel}
+          sponsored={!!advertisement}
+          sponsoredLabel={sponsoredLabel}
+          deliveryPromiseBadges={shouldDisplayDeliveryPromiseBadges && badges}
+        />
+      </UIProductCard>
+    </>
   )
 }
 
@@ -210,7 +231,7 @@ export const fragment = gql(`
         price
         listPrice
         listPriceWithTaxes
-				priceWithTaxes
+        priceWithTaxes
         quantity
         seller {
           identifier
@@ -223,6 +244,24 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    hasSpecifications
+
+    unitMultiplier
+
+    isVariantOf {
+      productGroupID
+      name
+      skuVariants {
+        activeVariations
+        slugsMap
+        availableVariations
+        allVariantProducts {
+          name
+          productID
+        }
+      }
     }
 
     advertisement {

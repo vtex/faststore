@@ -14,6 +14,7 @@ import type {
   QueryShippingArgs,
   QueryUserOrderArgs,
   UserOrderFromList,
+  QueryProductsArgs,
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -222,6 +223,34 @@ export const Query = {
       })),
     }
   },
+  products: async (
+    _: unknown,
+    { productIds }: QueryProductsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    if (!productIds.length) {
+      return []
+    }
+
+    const query = `id:${productIds.join(';')}`
+    const products = await search.products({
+      page: 0,
+      count: productIds.length,
+      query,
+    })
+
+    return products.products
+      .flatMap((product) =>
+        product.items.map((sku) => enhanceSku(sku, product))
+      )
+      .filter(
+        (sku) => productIds.includes(sku.itemId) && sku.sellers.length > 0
+      )
+  },
   allCollections: async (
     _: unknown,
     { first, after: maybeAfter }: QueryAllCollectionsArgs,
@@ -418,7 +447,7 @@ export const Query = {
       } catch (err: any) {}
 
       const shopperSearch =
-        (await commerce.masterData.getShopperNameById({
+        (await commerce.masterData.getShopperById({
           userId: order.purchaseAgentData?.purchaseAgents?.[0]?.userId ?? '',
         })) ?? []
       const shopper = shopperSearch[0] ?? {}
@@ -441,9 +470,11 @@ export const Query = {
             order.status === 'waiting-for-authorization') &&
           !!ruleForAuthorization,
         ruleForAuthorization,
-        shopperName: {
+        shopper: {
           firstName: shopper?.firstName || '',
           lastName: shopper?.lastName || '',
+          email: shopper?.email || '',
+          phone: shopper?.phone || '',
         },
       }
     } catch (error) {

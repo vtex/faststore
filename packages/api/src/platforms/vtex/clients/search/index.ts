@@ -12,11 +12,11 @@ import type {
   FacetSearchResult,
   FacetValueBoolean,
 } from './types/FacetSearchResult'
+import type { ProductCountResult } from './types/ProductCountResult'
 import type {
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
-import type { ProductCountResult } from './types/ProductCountResult'
 
 export type Sort =
   | 'price:desc'
@@ -54,6 +54,7 @@ const FUZZY_KEY = 'fuzzy'
 const OPERATOR_KEY = 'operator'
 const PICKUP_POINT_KEY = 'pickupPoint'
 const SHIPPING_KEY = 'shipping'
+const DELIVERY_OPTIONS_KEY = 'delivery-options'
 
 const EXTRA_FACETS_KEYS = new Set([
   POLICY_KEY,
@@ -62,6 +63,7 @@ const EXTRA_FACETS_KEYS = new Set([
   OPERATOR_KEY,
   PICKUP_POINT_KEY,
   SHIPPING_KEY,
+  DELIVERY_OPTIONS_KEY,
 ])
 
 export const isFacetBoolean = (
@@ -152,6 +154,12 @@ export const IntelligentSearch = (
           key === SHIPPING_KEY && value !== 'all-delivery-methods'
       ) ?? null
 
+    const deliveryOptionsFacet =
+      facets.find(
+        ({ key, value }) =>
+          key === DELIVERY_OPTIONS_KEY && value !== 'all-delivery-options'
+      ) ?? null
+
     const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
@@ -160,6 +168,10 @@ export const IntelligentSearch = (
 
     if (shippingFacet !== null) {
       withDefaultFacets.push(shippingFacet)
+    }
+
+    if (deliveryOptionsFacet !== null) {
+      withDefaultFacets.push(deliveryOptionsFacet)
     }
 
     if (policyFacet !== null) {

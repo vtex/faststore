@@ -868,6 +868,8 @@ export type Query = {
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
   productCount?: Maybe<ProductCountResult>;
+  /** Returns information about selected products. */
+  products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
@@ -930,6 +932,11 @@ export type QueryProductCountArgs = {
 };
 
 
+export type QueryProductsArgs = {
+  productIds: Array<Scalars['String']>;
+};
+
+
 export type QueryProfileArgs = {
   id: Scalars['String'];
 };
@@ -968,6 +975,21 @@ export type QueryShippingArgs = {
 
 export type QueryUserOrderArgs = {
   orderId: Scalars['String'];
+};
+
+export type SkuSpecificationField = {
+  __typename?: 'SKUSpecificationField';
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  originalName?: Maybe<Scalars['String']>;
+};
+
+export type SkuSpecificationValue = {
+  __typename?: 'SKUSpecificationValue';
+  fieldId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  originalName?: Maybe<Scalars['String']>;
 };
 
 /** Search result. */
@@ -1058,11 +1080,17 @@ export type ShippingSla = {
   shippingEstimateDate?: Maybe<Scalars['String']>;
 };
 
+export type SkuSpecification = {
+  __typename?: 'SkuSpecification';
+  field: SkuSpecificationField;
+  values: Array<SkuSpecificationValue>;
+};
+
 export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
   activeVariations?: Maybe<Scalars['ActiveVariations']>;
-  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName?: Maybe<Scalars['VariantsByName']>;
@@ -1093,6 +1121,20 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName?: Maybe<Scalars['String']>;
+};
+
+export type Specification = {
+  __typename?: 'Specification';
+  name: Scalars['String'];
+  originalName: Scalars['String'];
+  values: Array<Scalars['String']>;
+};
+
+export type SpecificationGroup = {
+  __typename?: 'SpecificationGroup';
+  name: Scalars['String'];
+  originalName: Scalars['String'];
+  specifications: Array<Specification>;
 };
 
 /** Account profile information. */
@@ -1469,6 +1511,8 @@ export type StoreProduct = {
   description: Scalars['String'];
   /** Global Trade Item Number. */
   gtin: Scalars['String'];
+  /** Indicates whether the product has specifications. */
+  hasSpecifications?: Maybe<Scalars['Boolean']>;
   /** Array of images. */
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */
@@ -1487,8 +1531,12 @@ export type StoreProduct = {
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String'];
+  /** Indicate the specifications of a product. */
+  skuSpecifications: Array<SkuSpecification>;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String'];
+  /** Indicate the specifications of a group of SKUs. */
+  specificationGroups: Array<SpecificationGroup>;
   /** Sku Unit Multiplier */
   unitMultiplier?: Maybe<Scalars['Float']>;
 };
@@ -2435,7 +2483,7 @@ export type UserOrderResult = {
   paymentData?: Maybe<UserOrderPaymentData>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
-  shopperName?: Maybe<UserOrderShopperName>;
+  shopper?: Maybe<UserOrderShopper>;
   status?: Maybe<Scalars['String']>;
   statusDescription?: Maybe<Scalars['String']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
@@ -2459,10 +2507,12 @@ export type UserOrderShippingData = {
   trackingHints?: Maybe<Scalars['String']>;
 };
 
-export type UserOrderShopperName = {
-  __typename?: 'UserOrderShopperName';
+export type UserOrderShopper = {
+  __typename?: 'UserOrderShopper';
+  email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderSlas = {
