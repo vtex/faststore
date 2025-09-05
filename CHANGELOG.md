@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.81.0 (2025-09-05)
+
+### Bug Fixes
+
+- avoid unnecessary server restarts by moving updateNextConfig to setup only ([#2983](https://github.com/vtex/faststore/issues/2983)) ([b26238e](https://github.com/vtex/faststore/commit/b26238e9484108196b067f135e29e3360eecdaeb)), closes [#2500](https://github.com/vtex/faststore/issues/2500)
+
+### Features
+
+- Allow users to select which CMS builder to use ([#2997](https://github.com/vtex/faststore/issues/2997)) ([3862832](https://github.com/vtex/faststore/commit/3862832aaf366453b8a26844e2c452647a534b4d))
+
 # 3.80.0 (2025-09-04)
 
 ### Bug Fixes
