@@ -269,7 +269,7 @@ export const fragment = gql(`
       adResponseId
     }
 
-    deliveryPromisesBadges {
+    deliveryPromiseBadges {
       typeName
     }
   }
