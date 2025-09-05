@@ -21,7 +21,7 @@
     "./pages/*": "./src/pages/*.tsx",
     "./handlers/*": "./src/pages/api/*.ts",
     "./generated/*": "./@generated/*.ts",
-    "./with-faststore": "./src/utils/withFaststore.js",
+    "./with-faststore": "./src/utils/withFaststore.ts",
     "./config": "./discovery.config.js",
     "./typings/*": "./src/typings/*.d.ts",
     "./src/tsx/*": "./src/*.tsx",
