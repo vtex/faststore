@@ -511,7 +511,7 @@ export function useDeliveryPromise({
     return badges
   }
 
-  const badges = deliveryPromiseBadges ? getDeliveryPromiseBadges() : []
+  const badges = getDeliveryPromiseBadges()
 
   const shouldDisplayDeliveryPromiseBadges =
     !!postalCode &&
