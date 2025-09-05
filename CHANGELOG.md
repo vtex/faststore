@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.82.0](https://github.com/vtex/faststore/compare/v3.81.0...v3.82.0) (2025-09-05)
+
+### Features
+
+- Delivery Promise 2.1 - filters by Delivery Option ([#2926](https://github.com/vtex/faststore/issues/2926)) ([d365a5e](https://github.com/vtex/faststore/commit/d365a5ea0da451a58c87fd6bcfd7f49df2c96158)), closes [#2928](https://github.com/vtex/faststore/issues/2928) [#2930](https://github.com/vtex/faststore/issues/2930) [#2937](https://github.com/vtex/faststore/issues/2937)
+
 # 3.81.0 (2025-09-05)
 
 ### Bug Fixes
