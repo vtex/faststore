@@ -196,6 +196,6 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     specificationGroups,
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
-  deliveryPromisesBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
+  deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
 }
