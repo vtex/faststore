@@ -12,17 +12,16 @@ import {
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
 } from '@faststore/ui'
-
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
-import type { useFilter } from 'src/sdk/search/useFilter'
 import {
-  useDeliveryPromise,
   PICKUP_ALL_FACET_VALUE,
+  useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
+import type { useFilter } from 'src/sdk/search/useFilter'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import styles from './section.module.scss'
@@ -104,6 +103,7 @@ function FilterSlider({
   const {
     facets: filteredFacets,
     deliveryLabel,
+    deliveryOptionsLabel,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
     onDeliveryFacetChange,
@@ -190,17 +190,24 @@ function FilterSlider({
             const index = shouldDisplayDeliveryButton ? idx + 1 : idx
             const { __typename: type, label } = facet
             const isExpanded = expanded.has(index)
-            const isDeliveryFacet = facet.key === 'shipping'
+            const isDeliveryMethodFacet = facet.key === 'shipping'
+            const isDeliveryOptionFacet = facet.key === 'delivery-options'
+
+            const sectionLabel = isDeliveryMethodFacet
+              ? deliveryLabel
+              : isDeliveryOptionFacet
+                ? deliveryOptionsLabel
+                : label
 
             return (
               <UIFilterFacets
-                key={`${testId}-${label}-${index}`}
+                key={`${testId}-${sectionLabel}-${index}`}
                 testId={`mobile-${testId}`}
                 index={index}
                 type={type}
-                label={isDeliveryFacet ? deliveryLabel : label}
+                label={sectionLabel}
                 description={
-                  isDeliveryFacet
+                  isDeliveryMethodFacet
                     ? deliveryPromiseSettings?.deliveryMethods?.description
                     : undefined
                 }
@@ -226,7 +233,7 @@ function FilterSlider({
                             quantity={item.quantity}
                             facetKey={facet.key}
                             label={
-                              isDeliveryFacet ? (
+                              isDeliveryMethodFacet ? (
                                 <FilterDeliveryMethodFacet
                                   item={item}
                                   deliveryMethods={
@@ -237,7 +244,11 @@ function FilterSlider({
                                 item.label
                               )
                             }
-                            type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                            type={
+                              isDeliveryMethodFacet || isDeliveryOptionFacet
+                                ? 'radio'
+                                : 'checkbox'
+                            }
                           />
                         )
                     )}
