@@ -88,7 +88,7 @@ packages/gatsby-**/**/*.json
 packages/core/@generated/schema.graphql
 packages/core/@generated/persisted-documents.json
 
-packages/core/discovery.config.js
+packages/core/discovery.config.user.js
 
 
 # lighthouse CI autogen files
