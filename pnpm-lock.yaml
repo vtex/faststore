@@ -665,11 +665,11 @@ importers:
   packages/storybook:
     dependencies:
       '@faststore/components':
-        specifier: ^3.70.2
-        version: 3.81.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: workspace:*
+        version: link:../components
       '@faststore/ui':
-        specifier: ^3.70.2
-        version: 3.81.0(@faststore/components@3.81.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: workspace:*
+        version: link:../ui
       next:
         specifier: 'catalog:'
         version: 15.5.2(@babel/core@7.28.4)(@playwright/test@1.55.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.92.1)
@@ -1733,20 +1733,6 @@ packages:
 
   '@fastify/merge-json-schemas@0.1.1':
     resolution: {integrity: sha512-fERDVz7topgNjtXsJTTW1JKLy0rhuLRcquYqNR9rF7OcVpCa2OVW49ZPDIhaRRCaUuvVxI+N416xUoF76HNSXA==}
-
-  '@faststore/components@3.81.0':
-    resolution: {integrity: sha512-OHAdN0HEQh5Xk+UAlPe/IqLUQ8vh8TqIMQdD84REBlbeWNUF2fi5d4khfpf4pGKBVBdgRrZE9SmLKoarmWFdDw==}
-    peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
-
-  '@faststore/ui@3.81.0':
-    resolution: {integrity: sha512-pXa6SdZL7MSLvLjBzR5ZnciSzUQKmb47FtRg5G4MizFPAotryrjIEYxXSFPkJdHLRb5FruIiS3bEJohCiF3urA==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      '@faststore/components': 3.x
-      react: ^18.2.0
-      react-dom: ^18.2.0
 
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -12083,24 +12069,6 @@ snapshots:
   '@fastify/merge-json-schemas@0.1.1':
     dependencies:
       fast-deep-equal: 3.1.3
-
-  '@faststore/components@3.81.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
-    dependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      react-intersection-observer: 8.34.0(react@19.1.1)
-      react-swipeable: 7.0.2(react@19.1.1)
-      tabbable: 5.3.3
-
-  '@faststore/ui@3.81.0(@faststore/components@3.81.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
-    dependencies:
-      '@faststore/components': 3.81.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      include-media: 1.4.10
-      modern-normalize: 1.1.0
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      react-swipeable: 7.0.2(react@19.1.1)
-      tabbable: 5.3.3
 
   '@gar/promisify@1.1.3': {}
 
