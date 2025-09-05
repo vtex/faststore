@@ -86,6 +86,10 @@ type StoreProduct {
   Indicate the specifications of a group of SKUs.
   """
   specificationGroups: [SpecificationGroup!]!
+  """
+  Delivery Promise product's badge.
+  """
+  deliveryPromiseBadges: [DeliveryPromiseBadge]
 }
 
 type SkuSpecification {

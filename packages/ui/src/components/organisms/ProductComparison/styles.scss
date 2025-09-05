@@ -5,15 +5,15 @@
   // Default properties
 
   // Shadow
-  --fs-product-comparison-box-shadow:        var(--fs-shadow-darker);
+  --fs-product-comparison-box-shadow: var(--fs-shadow-darker);
 
   // Background
-  --fs-product-comparison-bkg-color:         var(--fs-color-body-bkg);
+  --fs-product-comparison-bkg-color: var(--fs-color-body-bkg);
   --fs-product-comparison-bkg-color-neutral: var(--fs-color-neutral-1);
 
   // Text
-  --fs-product-comparison-text-weight:       var(--fs-text-weight-light);
-  --fs-product-comparison-text-color:        var(--fs-border-color-light);
+  --fs-product-comparison-text-weight: var(--fs-text-weight-light);
+  --fs-product-comparison-text-color: var(--fs-border-color-light);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -96,19 +96,19 @@
   // Default properties
 
   // Background
-  --fs-product-comparison-bkg-color:                             var(--fs-color-body-bkg);
+  --fs-product-comparison-bkg-color: var(--fs-color-body-bkg);
 
   // Title
-  --fs-product-comparison-title-size:                            var(--fs-text-size-6);
-  --fs-product-comparison-title-weight:                          var(--fs-text-weight-semibold);
+  --fs-product-comparison-title-size: var(--fs-text-size-6);
+  --fs-product-comparison-title-weight: var(--fs-text-weight-semibold);
 
   // Spacing
-  --fs-product-comparison-padding:                               var(--fs-spacing-8);
+  --fs-product-comparison-padding: var(--fs-spacing-8);
 
   // Partial
-  --fs-product-comparison-slide-over-partial-gap:                calc(2 * var(--fs-grid-padding));
-  --fs-product-comparison-slide-over-partial-width-mobile:       calc(100vw - var(--fs-slide-over-partial-gap));
-  --fs-product-comparison-slide-over-partial-width-notebook:     calc(100% / 3);
+  --fs-product-comparison-slide-over-partial-gap: calc(2 * var(--fs-grid-padding));
+  --fs-product-comparison-slide-over-partial-width-mobile: calc(100vw - var(--fs-slide-over-partial-gap));
+  --fs-product-comparison-slide-over-partial-width-notebook: calc(100% / 3);
   --fs-product-comparison-slide-over-partial-max-width-notebook: calc(var(--fs-grid-breakpoint-notebook) / 3);
 
   // --------------------------------------------------------
@@ -195,33 +195,32 @@
               align-items: center;
               justify-content: space-between;
               width: 100%;
-              margin-bottom: var(--fs-spacing-0);
               padding: 0;
+              margin-bottom: var(--fs-spacing-0);
 
               [data-fs-button-wrapper] {
-                width: 100%;
                 display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
+                flex-flow: row wrap;
                 justify-content: space-between;
-                text-align: start;
+                width: 100%;
                 padding: 0;
                 padding-right: var(--fs-spacing-1);
+                text-align: start;
               }
             }
 
             [data-fs-product-comparison-row-header-button-title] {
               font-size: var(--fs-text-size-3);
               font-weight: var(--fs-text-weight-medium);
-              color: var(--fs-color-text);
               line-height: 1.7;
+              color: var(--fs-color-text);
             }
 
             [data-fs-product-comparison-row-header-button-description] {
               font-size: var(--fs-text-size-2);
               font-weight: var(--fs-text-weight-regular);
-              color: var(--fs-color-text-light);
               line-height: 1.25;
+              color: var(--fs-color-text-light);
             }
 
             [data-fs-product-comparison-row-label] {
