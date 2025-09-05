@@ -2311,7 +2311,7 @@ export type UserOrderResult = {
   paymentData: Maybe<UserOrderPaymentData>
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
   shippingData: Maybe<UserOrderShippingData>
-  shopperName: Maybe<UserOrderShopperName>
+  shopper: Maybe<UserOrderShopper>
   status: Maybe<Scalars['String']['output']>
   statusDescription: Maybe<Scalars['String']['output']>
   storePreferencesData: Maybe<UserOrderStorePreferencesData>
@@ -2333,9 +2333,11 @@ export type UserOrderShippingData = {
   trackingHints: Maybe<Scalars['String']['output']>
 }
 
-export type UserOrderShopperName = {
+export type UserOrderShopper = {
+  email: Maybe<Scalars['String']['output']>
   firstName: Maybe<Scalars['String']['output']>
   lastName: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderSlas = {
@@ -2893,7 +2895,12 @@ export type ServerOrderDetailsQueryQuery = {
       name: string | null
       value: number | null
     } | null> | null
-    shopperName: { firstName: string | null; lastName: string | null } | null
+    shopper: {
+      firstName: string | null
+      lastName: string | null
+      email: string | null
+      phone: string | null
+    } | null
   } | null
 }
 
@@ -4289,7 +4296,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'ba4e1865d9840cb386fa6d646a51f275cd991bfa',
+    operationHash: '2c5dca039e0aa4924e9e583f5afbe522758ca7c4',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

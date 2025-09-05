@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.82.0](https://github.com/vtex/faststore/compare/v3.81.0...v3.82.0) (2025-09-05)
+
+### Features
+
+- Delivery Promise 2.1 - filters by Delivery Option ([#2926](https://github.com/vtex/faststore/issues/2926)) ([d365a5e](https://github.com/vtex/faststore/commit/d365a5ea0da451a58c87fd6bcfd7f49df2c96158)), closes [#2928](https://github.com/vtex/faststore/issues/2928) [#2930](https://github.com/vtex/faststore/issues/2930) [#2937](https://github.com/vtex/faststore/issues/2937)
+
+# 3.81.0 (2025-09-05)
+
+### Features
+
+- Allow users to select which CMS builder to use ([#2997](https://github.com/vtex/faststore/issues/2997)) ([3862832](https://github.com/vtex/faststore/commit/3862832aaf366453b8a26844e2c452647a534b4d))
+
+# 3.80.0 (2025-09-04)
+
+### Bug Fixes
+
+- remove SearchShopperResult type definition ([#3017](https://github.com/vtex/faststore/issues/3017)) ([3d914b0](https://github.com/vtex/faststore/commit/3d914b0ab80ce8c06d48b5c95ccc7124bdd2d62e))
+
+### Features
+
+- add shopper phone and email in ordered by card ([#3014](https://github.com/vtex/faststore/issues/3014)) ([31bf49b](https://github.com/vtex/faststore/commit/31bf49bb717f740ad6ff741ce2ae77322ec3f5a6))
+
+## [3.79.1](https://github.com/vtex/faststore/compare/v3.79.0...v3.79.1) (2025-09-04)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.79.0](https://github.com/vtex/faststore/compare/v3.78.0...v3.79.0) (2025-09-03)
+
+### Features
+
+- Add appkey and apptoken to VtexCommerce and Page components ([#3008](https://github.com/vtex/faststore/issues/3008)) ([e99a132](https://github.com/vtex/faststore/commit/e99a1321ea27ed9baadd87fbce4fd5798a9d0d25))
+
 # [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
 
 ### Features

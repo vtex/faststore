@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.82.1](https://github.com/vtex/faststore/compare/v3.82.0...v3.82.1) (2025-09-05)
+
+### Bug Fixes
+
+- CMS Sync with default contentSource.project ([#3021](https://github.com/vtex/faststore/issues/3021)) ([f223738](https://github.com/vtex/faststore/commit/f2237388b38a527d64b07cd4d5ba4e9c9efd6b8f))
+
+# [3.82.0](https://github.com/vtex/faststore/compare/v3.81.0...v3.82.0) (2025-09-05)
+
+**Note:** Version bump only for package @faststore/cli
+
+# 3.81.0 (2025-09-05)
+
+### Bug Fixes
+
+- avoid unnecessary server restarts by moving updateNextConfig to setup only ([#2983](https://github.com/vtex/faststore/issues/2983)) ([b26238e](https://github.com/vtex/faststore/commit/b26238e9484108196b067f135e29e3360eecdaeb)), closes [#2500](https://github.com/vtex/faststore/issues/2500)
+
+### Features
+
+- Allow users to select which CMS builder to use ([#2997](https://github.com/vtex/faststore/issues/2997)) ([3862832](https://github.com/vtex/faststore/commit/3862832aaf366453b8a26844e2c452647a534b4d))
+
+# 3.80.0 (2025-09-04)
+
+### Features
+
+- add shopper phone and email in ordered by card ([#3014](https://github.com/vtex/faststore/issues/3014)) ([31bf49b](https://github.com/vtex/faststore/commit/31bf49bb717f740ad6ff741ce2ae77322ec3f5a6))
+
+## [3.79.1](https://github.com/vtex/faststore/compare/v3.79.0...v3.79.1) (2025-09-04)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.79.0](https://github.com/vtex/faststore/compare/v3.78.0...v3.79.0) (2025-09-03)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [3.78.0](https://github.com/vtex/faststore/compare/v3.77.3...v3.78.0) (2025-09-02)
 
 **Note:** Version bump only for package @faststore/cli

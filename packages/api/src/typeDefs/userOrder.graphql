@@ -90,12 +90,14 @@ type UserOrderResult {
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
   ruleForAuthorization: ProcessOrderAuthorizationRule
-  shopperName: UserOrderShopperName
+  shopper: UserOrderShopper
 }
 
-type UserOrderShopperName {
+type UserOrderShopper {
   firstName: String
   lastName: String
+  email: String
+  phone: String
 }
 
 type UserOrderListResult {
