@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.82.1](https://github.com/vtex/faststore/compare/v3.82.0...v3.82.1) (2025-09-05)
+
+### Bug Fixes
+
+- CMS Sync with default contentSource.project ([#3021](https://github.com/vtex/faststore/issues/3021)) ([f223738](https://github.com/vtex/faststore/commit/f2237388b38a527d64b07cd4d5ba4e9c9efd6b8f))
+
 # [3.82.0](https://github.com/vtex/faststore/compare/v3.81.0...v3.82.0) (2025-09-05)
 
 ### Features
