@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "3.82.0",
+  "version": "3.82.2",
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
