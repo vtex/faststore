@@ -472,7 +472,8 @@ export function useDeliveryPromise({
   }
 
   function getDeliveryPromiseBadges() {
-    if (!deliveryPromiseBadges) return []
+    // Only add unavailable badges if at least one delivery method is available
+    if (!deliveryPromiseBadges || deliveryPromiseBadges.length === 0) return []
 
     const badges: Array<{ label: string; availability: boolean }> = []
 
