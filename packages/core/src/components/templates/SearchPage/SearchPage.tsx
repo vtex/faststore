@@ -24,9 +24,7 @@ function SearchPage({
   globalSections,
   globalSettings,
 }: SearchPageProps) {
-  const { pages, useGalleryPage } = useCreateUseGalleryPage({
-    searchTerm: serverData?.searchTerm,
-  })
+  const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
     data: {

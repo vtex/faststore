@@ -18,7 +18,6 @@ import { useQuery } from 'src/sdk/graphql/useQuery'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
-import { useSession } from 'src/sdk/session'
 
 export const UseGalleryPageContext = createContext<
   ReturnType<typeof useCreateUseGalleryPage>['useGalleryPage']
@@ -69,9 +68,8 @@ export const query = gql(`
 const getKey = (object: any) => JSON.stringify(object)
 
 interface UseCreateUseGalleryPageProps {
-  initialPages?: ClientManyProductsQueryQuery
-  serverManyProductsVariables?: ClientManyProductsQueryQueryVariables
-  searchTerm?: string
+  initialPages: ClientManyProductsQueryQuery
+  serverManyProductsVariables: ClientManyProductsQueryQueryVariables
 }
 
 /**
@@ -80,7 +78,6 @@ interface UseCreateUseGalleryPageProps {
 export const useCreateUseGalleryPage = (
   params?: UseCreateUseGalleryPageProps
 ) => {
-  const { postalCode: sessionPostalCode } = useSession()
   const initialPages = params?.initialPages?.search ? [params.initialPages] : []
   const initialVariables = params?.serverManyProductsVariables
     ? [getKey(params.serverManyProductsVariables)]
@@ -91,86 +88,73 @@ export const useCreateUseGalleryPage = (
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
   const pagesRef = useRef<ClientManyProductsQueryQuery[]>(initialPages)
   const pagesCache = useRef<string[]>(initialVariables)
-  const postalCodeRef = useRef<string>(sessionPostalCode)
 
-  const useGalleryPage = useCallback(
-    function useGalleryPage(page: number) {
-      const {
-        state: { sort, term, selectedFacets },
-        itemsPerPage,
-      } = useSearch()
+  const useGalleryPage = useCallback(function useGalleryPage(page: number) {
+    const {
+      state: { sort, term, selectedFacets },
+      itemsPerPage,
+    } = useSearch()
 
-      const localizedVariables = useLocalizedVariables({
-        first: itemsPerPage,
-        after: (itemsPerPage * page).toString(),
-        sort,
-        term: params?.searchTerm ?? term ?? '',
-        selectedFacets,
-      })
+    const localizedVariables = useLocalizedVariables({
+      first: itemsPerPage,
+      after: (itemsPerPage * page).toString(),
+      sort,
+      term: term ?? '',
+      selectedFacets,
+    })
 
-      const hasSameVariables = deepEquals(
-        pagesCache.current[page],
-        getKey(localizedVariables)
-      )
+    const hasSameVariables = deepEquals(
+      pagesCache.current[page],
+      getKey(localizedVariables)
+    )
 
-      const shouldFetchFirstPage = useShouldFetchFirstPage({
-        page,
-        generatedBuildTime,
-      })
+    const shouldFetchFirstPage = useShouldFetchFirstPage({
+      page,
+      generatedBuildTime,
+    })
 
-      const shouldFetch =
-        !hasSameVariables || shouldFetchFirstPage || !!sessionPostalCode
+    const shouldFetch = !hasSameVariables || shouldFetchFirstPage
 
-      const { data, mutate } = useQuery<
-        ClientManyProductsQueryQuery,
-        ClientManyProductsQueryQueryVariables
-      >(query, localizedVariables, {
-        fallbackData: null,
-        suspense: true,
-        doNotRun: !shouldFetch,
-      })
+    const { data } = useQuery<
+      ClientManyProductsQueryQuery,
+      ClientManyProductsQueryQueryVariables
+    >(query, localizedVariables, {
+      fallbackData: null,
+      suspense: true,
+      doNotRun: !shouldFetch,
+    })
 
-      const shouldUpdatePages = data !== null
+    const shouldUpdatePages = data !== null
 
+    if (shouldUpdatePages) {
+      pagesCache.current[page] = getKey(localizedVariables)
+
+      // Update refs
+      const newPages = [...pagesRef.current]
+      newPages[page] = data
+      pagesRef.current = newPages
+    }
+
+    // Prevents error: Cannot update a component (`ProductListing`) while rendering a different component (`ProductGalleryPage`).
+    useEffect(() => {
       if (shouldUpdatePages) {
-        pagesCache.current[page] = getKey(localizedVariables)
+        // Update state
+        setPages((oldPages) => {
+          const newPages = [...oldPages]
+          newPages[page] = data
+          return newPages
+        })
+      }
+    }, [data, page, shouldUpdatePages])
 
-        // Update refs
-        const newPages = [...pagesRef.current]
-        newPages[page] = data
-        pagesRef.current = newPages
+    return useMemo(() => {
+      if (hasSameVariables) {
+        return { data: pagesRef.current[page] }
       }
 
-      // Prevents error: Cannot update a component (`ProductListing`) while rendering a different component (`ProductGalleryPage`).
-      useEffect(() => {
-        if (shouldUpdatePages) {
-          // Update state
-          setPages((oldPages) => {
-            const newPages = [...oldPages]
-            newPages[page] = data
-            return newPages
-          })
-        }
-      }, [data, page, shouldUpdatePages])
-
-      // Refetch query with updated regionId
-      useEffect(() => {
-        if (sessionPostalCode !== postalCodeRef.current) {
-          mutate()
-          postalCodeRef.current = sessionPostalCode
-        }
-      }, [sessionPostalCode])
-
-      return useMemo(() => {
-        if (hasSameVariables) {
-          return { data: pagesRef.current[page] }
-        }
-
-        return { data }
-      }, [hasSameVariables, data, page])
-    },
-    [params?.searchTerm, sessionPostalCode]
-  )
+      return { data }
+    }, [hasSameVariables, data, page])
+  }, [])
 
   return useMemo(
     () => ({
