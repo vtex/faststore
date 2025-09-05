@@ -89,7 +89,7 @@ type StoreProduct {
   """
   Delivery Promise product's badge.
   """
-  deliveryPromisesBadges: [DeliveryPromiseBadge]
+  deliveryPromiseBadges: [DeliveryPromiseBadge]
 }
 
 type SkuSpecification {
