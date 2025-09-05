@@ -143,8 +143,8 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       '@faststore/core':
-        specifier: ^3.80.0
-        version: 3.82.4(@babel/core@7.28.4)(@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/node@16.18.126)(encoding@0.1.13)(typescript@5.3.2)(webpack@5.101.3)
+        specifier: ^3.81.0
+        version: 3.82.4(@babel/core@7.28.4)(@faststore/components@packages+components)(@types/node@16.18.126)(encoding@0.1.13)(typescript@5.3.2)(use-sync-external-store@1.5.0(react@18.3.1))(webpack@5.101.3)
       '@inquirer/prompts':
         specifier: ^5.1.2
         version: 5.5.0
@@ -295,20 +295,20 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.3.1)(graphql@15.10.1)
       '@faststore/api':
-        specifier: ^3.80.0
+        specifier: ^3.81.0
         version: 3.82.4(encoding@0.1.13)(graphql@15.10.1)(rollup@4.50.1)
       '@faststore/graphql-utils':
-        specifier: ^3.80.0
-        version: 3.81.0(graphql@15.10.1)
+        specifier: ^3.81.0
+        version: link:../graphql-utils
       '@faststore/lighthouse':
-        specifier: ^3.80.0
-        version: 3.81.0
+        specifier: ^3.81.0
+        version: link:../lighthouse
       '@faststore/sdk':
-        specifier: ^3.80.0
-        version: 3.81.0(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
+        specifier: ^3.81.0
+        version: link:../sdk
       '@faststore/ui':
-        specifier: ^3.80.0
-        version: 3.81.0(@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.81.0
+        version: link:../ui
       '@graphql-codegen/cli':
         specifier: 5.0.2
         version: 5.0.2(@parcel/watcher@2.5.1)(@types/node@24.3.1)(encoding@0.1.13)(enquirer@2.4.1)(graphql@15.10.1)(typescript@5.3.2)
@@ -547,11 +547,11 @@ importers:
   packages/storybook:
     dependencies:
       '@faststore/components':
-        specifier: ^3.80.0
-        version: 3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.81.0
+        version: link:../components
       '@faststore/ui':
-        specifier: ^3.80.0
-        version: 3.81.0(@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.81.0
+        version: link:../ui
       next:
         specifier: ^15.1.6
         version: 15.5.2(@babel/core@7.28.4)(@playwright/test@1.55.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.92.1)
@@ -602,8 +602,8 @@ importers:
   packages/ui:
     dependencies:
       '@faststore/components':
-        specifier: ^3.80.0
-        version: 3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.81.0
+        version: link:../components
       include-media:
         specifier: ^1.4.10
         version: 1.4.10
@@ -1629,12 +1629,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       graphql: ^15.6.0
-
-  '@faststore/components@3.81.0':
-    resolution: {integrity: sha512-OHAdN0HEQh5Xk+UAlPe/IqLUQ8vh8TqIMQdD84REBlbeWNUF2fi5d4khfpf4pGKBVBdgRrZE9SmLKoarmWFdDw==}
-    peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
 
   '@faststore/core@3.82.4':
     resolution: {integrity: sha512-OR18bHt9bUxiBil1gE5gne3LqobXFR+6xjRD8qY6JNtx5uvZWEvWagtkDVu4SjiI8NMe8iGwbvyruwp5pJzFAQ==}
@@ -12012,15 +12006,7 @@ snapshots:
       - encoding
       - rollup
 
-  '@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-intersection-observer: 8.34.0(react@18.3.1)
-      react-swipeable: 7.0.2(react@18.3.1)
-      tabbable: 5.3.3
-
-  '@faststore/core@3.82.4(@babel/core@7.28.4)(@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/node@16.18.126)(encoding@0.1.13)(typescript@5.3.2)(webpack@5.101.3)':
+  '@faststore/core@3.82.4(@babel/core@7.28.4)(@faststore/components@packages+components)(@types/node@16.18.126)(encoding@0.1.13)(typescript@5.3.2)(use-sync-external-store@1.5.0(react@18.3.1))(webpack@5.101.3)':
     dependencies:
       '@antfu/ni': 0.21.12
       '@builder.io/partytown': 0.6.4
@@ -12032,7 +12018,7 @@ snapshots:
       '@faststore/graphql-utils': 3.81.0(graphql@15.10.1)
       '@faststore/lighthouse': 3.81.0
       '@faststore/sdk': 3.81.0(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
-      '@faststore/ui': 3.81.0(@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@faststore/ui': 3.81.0(@faststore/components@packages+components)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@graphql-codegen/cli': 5.0.2(@parcel/watcher@2.5.1)(@types/node@16.18.126)(encoding@0.1.13)(graphql@15.10.1)(typescript@5.3.2)
       '@graphql-codegen/client-preset': 4.2.6(encoding@0.1.13)(graphql@15.10.1)
       '@graphql-codegen/typescript': 4.0.7(encoding@0.1.13)(graphql@15.10.1)
@@ -12114,9 +12100,9 @@ snapshots:
       - immer
       - use-sync-external-store
 
-  '@faststore/ui@3.81.0(@faststore/components@3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@faststore/ui@3.81.0(@faststore/components@packages+components)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@faststore/components': 3.81.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@faststore/components': link:packages/components
       include-media: 1.4.10
       modern-normalize: 1.1.0
       react: 18.3.1
