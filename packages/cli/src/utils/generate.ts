@@ -468,6 +468,7 @@ export async function generate(options: GenerateOptions) {
       createTmpFolder(basePath),
       copyCoreFiles(basePath),
       copyPublicFiles(basePath),
+      updateNextConfig(basePath),
     ])
   }
 
@@ -479,7 +480,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    updateNextConfig(basePath),
     enableRedirectsMiddleware(basePath),
 
     installPlugins(basePath),
