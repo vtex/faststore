@@ -58,6 +58,11 @@ type DeliveryPromiseCmsData = {
       alt?: string
     }
   }
+  deliveryOptions?: {
+    enabled?: boolean
+    title?: string
+    allDeliveryOptions?: string
+  }
 }
 
 export function getGlobalSettings(
