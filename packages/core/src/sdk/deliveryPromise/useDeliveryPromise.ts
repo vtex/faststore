@@ -484,7 +484,6 @@ export function useDeliveryPromise({
     const hasDelivery = availableTypeNames?.includes('delivery')
     const hasPickupPoint = availableTypeNames?.includes('pickup-in-point')
 
-    // Only add unavailable badges if at least one delivery method is available
     if (hasDelivery) {
       badges.push({
         label: getBadgeLabel('delivery', true),
