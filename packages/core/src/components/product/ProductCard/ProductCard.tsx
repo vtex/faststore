@@ -101,7 +101,7 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
-    deliveryPromisesBadges: deliveryPromiseBadges,
+    deliveryPromiseBadges,
   } = product
 
   const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
