@@ -161,7 +161,11 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
-    geoCoordinates,
+    geoCoordinates:
+      (geoCoordinates?.latitude &&
+        geoCoordinates?.longitude &&
+        geoCoordinates) ||
+      null,
     city,
   }
 
