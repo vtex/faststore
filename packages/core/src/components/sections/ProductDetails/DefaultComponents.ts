@@ -20,7 +20,10 @@ import { Image } from 'src/components/ui/Image'
 import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 import LocalSKUMatrixSidebar from 'src/components/ui/SKUMatrix/SKUMatrixSidebar'
 import LocalProductDescription from 'src/components/ui/ProductDescription/ProductDescription'
-import { ProductDetailsSettings as LocalProductDetailsSettings } from 'src/components/ui/ProductDetails'
+import {
+  ProductDetailsSettings as LocalProductDetailsSettings,
+  ProductDetailsPresentational,
+} from 'src/components/ui/ProductDetails'
 
 export const ProductDetailsDefaultComponents = {
   ProductTitle: UIProductTitle,
@@ -36,6 +39,7 @@ export const ProductDetailsDefaultComponents = {
   SKUMatrix: UISKUMatrix,
   SKUMatrixTrigger: UISKUMatrixTrigger,
   SKUMatrixSidebar: UISKUMatrixSidebar,
+  ProductDetailsPresentational: ProductDetailsPresentational,
   __experimentalImageGalleryImage: Image,
   __experimentalImageGallery: LocalImageGallery,
   __experimentalShippingSimulation: LocalShippingSimulation,
