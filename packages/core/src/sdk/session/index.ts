@@ -13,8 +13,9 @@ import { sanitizeHost } from '../../utils/utilities'
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { getSavedAddress } from '../profile'
 import { createValidationStore, useStore } from '../useStore'
+import { getPostalCode } from '../userLocation/index'
+import deepEqual from 'fast-deep-equal'
 
 const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
@@ -75,41 +76,20 @@ export const mutation = gql(`
 
 export const validateSession = async (session: Session) => {
   // If deliveryPromise is enabled and there is no postalCode in the session
-  if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
+  if (
+    storeConfig.deliveryPromise?.enabled &&
+    (!session.postalCode ||
+      session.postalCode === storeConfig.session.postalCode)
+  ) {
     // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
     if (session.b2b && session.b2b?.savedPostalCode) {
       sessionStore.set({
         ...session,
         postalCode: session.b2b.savedPostalCode,
       })
-    }
-
-    // Case B2C: If a B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
-    else if (session.person?.id) {
-      const address = await getSavedAddress(session.person?.id)
-
-      // Save the location in the session
-      if (address) {
-        sessionStore.set({
-          ...session,
-          city: address?.city,
-          postalCode: address?.postalCode,
-          geoCoordinates: {
-            // the values come in the reverse expected order
-            latitude: address?.geoCoordinate ? address?.geoCoordinate[1] : null,
-            longitude: address?.geoCoordinate
-              ? address?.geoCoordinate[0]
-              : null,
-          },
-          country: address?.country,
-        })
-      }
     } else {
-      // Fallback: use the initial postalCode defined in discovery.config.js
-      const initialPostalCode = defaultStore.readInitial().postalCode
-
-      !!initialPostalCode &&
-        sessionStore.set({ ...session, postalCode: initialPostalCode })
+      const sessionWithLocation = await getPostalCode(session)
+      !!sessionWithLocation && sessionStore.set(sessionWithLocation)
     }
   }
 
@@ -170,6 +150,8 @@ const defaultStore = createSessionStore(storeConfig.session, onValidate)
 export const sessionStore = {
   ...defaultStore,
   set: (val: Session) => {
+    if (deepEqual(val, defaultStore.read()) === true) return
+
     defaultStore.set(val)
 
     // Trigger cart revalidation when session changes

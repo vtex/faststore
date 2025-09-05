@@ -1,11 +1,8 @@
-import {
-  regionSliderTypes,
-  type RegionBarProps as UIRegionBarProps,
-} from '@faststore/ui'
+import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useEffect, useRef } from 'react'
 
-import { useUI } from '@faststore/ui'
-import { useSession } from '../../../sdk/session'
+import { useUI, regionSliderTypes } from '@faststore/ui'
+import { useSession, sessionStore } from '../../../sdk/session'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
 import {
@@ -15,8 +12,7 @@ import {
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { textToTitleCase } from '../../../utils/utilities'
 import { getGlobalSettings } from '../../../utils/globalSettings'
-
-import { useRegionModal } from '../RegionModal/useRegionModal'
+import { useCheckRegionState } from '../../../sdk/userLocation'
 
 export interface RegionBarProps {
   /**
@@ -58,40 +54,38 @@ function RegionBar({
     FilterButtonIcon,
   } = useOverrideComponents<'RegionBar'>()
 
-  const { openModal, openPopover, openRegionSlider } = useUI()
   const { city, postalCode } = useSession()
-  const { isValidationComplete } = useRegionModal()
+  const regionBarRef = useRef<HTMLDivElement>(null)
+  const { openPopover, openRegionSlider } = useUI()
+  const { openModal } = useCheckRegionState(regionBarRef)
   const { globalPickupPoint } = useDeliveryPromise()
   const {
     deliveryPromise: { filterByPickupPoint } = {},
   } = getGlobalSettings()
-  const regionBarRef = useRef<HTMLDivElement>(null)
+  const initialSession = sessionStore.readInitial()
 
-  const defaultPostalCode =
-    !!initialSession?.postalCode && postalCode === initialSession.postalCode
   const shouldDisplayGlobalFilter =
     deliveryPromise.enabled && !!postalCode && filterByPickupPoint?.enabled
-
-  // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
-  const displayRegionPopover =
-    defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
 
   useEffect(() => {
     if (!deliveryPromise.enabled) {
       return
     }
 
-    if (!isValidationComplete) {
-      return
-    }
+    const defaultPostalCode =
+      !!initialSession?.postalCode && postalCode === initialSession.postalCode
 
-    if (isValidationComplete && displayRegionPopover && regionBarRef.current) {
+    // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
+    const displayRegionPopover =
+      defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
+
+    if (displayRegionPopover && regionBarRef.current) {
       openPopover({
         isOpen: true,
         triggerRef: regionBarRef,
       })
     }
-  }, [isValidationComplete])
+  }, [])
 
   return (
     <RegionBarWrapper.Component

@@ -1,48 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
-import {
-  deliveryPromise,
-  session as initialSession,
-} from '../../../../discovery.config'
 import { useSession } from '../../../sdk/session'
 import { textToTitleCase } from '../../../utils/utilities'
-
-import { useRegionModal } from '../RegionModal/useRegionModal'
+import { useCheckRegionState } from '../../../sdk/userLocation'
 
 function RegionButton({ icon, label }: { icon: string; label: string }) {
-  const { openModal, openPopover } = useUI()
   const { city, postalCode } = useSession()
-  const { isValidationComplete } = useRegionModal()
   const regionButtonRef = useRef<HTMLButtonElement>(null)
-
-  const defaultPostalCode =
-    !!initialSession?.postalCode && postalCode === initialSession.postalCode
-
-  // If location is not mandatory, and default zipCode is provided or if the user has not set a zipCode, show the popover.
-  const displayRegionPopover =
-    defaultPostalCode || (!postalCode && !deliveryPromise.mandatory)
-
-  useEffect(() => {
-    if (!deliveryPromise.enabled) {
-      return
-    }
-
-    if (!isValidationComplete) {
-      return
-    }
-
-    if (
-      isValidationComplete &&
-      displayRegionPopover &&
-      regionButtonRef.current
-    ) {
-      openPopover({
-        isOpen: true,
-        triggerRef: regionButtonRef,
-      })
-    }
-  }, [isValidationComplete])
+  const { openModal } = useCheckRegionState(regionButtonRef)
 
   return (
     <UIButton
