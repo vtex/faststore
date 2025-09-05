@@ -1424,7 +1424,7 @@ export type StoreProduct = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
   /** Delivery Promise product's badge. */
-  deliveryPromisesBadges: Maybe<Array<Maybe<DeliveryPromiseBadge>>>
+  deliveryPromiseBadges: Maybe<Array<Maybe<DeliveryPromiseBadge>>>
   /** Product description. */
   description: Scalars['String']['output']
   /** Global Trade Item Number. */
@@ -2449,7 +2449,7 @@ export type ProductSummary_ProductFragment = {
     valueReference: any
   }>
   advertisement: { adId: string; adResponseId: string } | null
-  deliveryPromisesBadges: Array<{ typeName: string | null } | null> | null
+  deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -3306,7 +3306,7 @@ export type ClientManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
-          deliveryPromisesBadges: Array<{
+          deliveryPromiseBadges: Array<{
             typeName: string | null
           } | null> | null
         }
@@ -3541,7 +3541,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           valueReference: any
         }>
         advertisement: { adId: string; adResponseId: string } | null
-        deliveryPromisesBadges: Array<{ typeName: string | null } | null> | null
+        deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -3700,7 +3700,7 @@ export type ServerManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
-          deliveryPromisesBadges: Array<{
+          deliveryPromiseBadges: Array<{
             typeName: string | null
           } | null> | null
         }
@@ -3797,7 +3797,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     adId
     adResponseId
   }
-  deliveryPromisesBadges {
+  deliveryPromiseBadges {
     typeName
   }
 }
@@ -4432,7 +4432,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'f05e5d2c690f620ae03581885e532f67a03641bb',
+    operationHash: 'e49027bc29aa10cbf7bbb0ed62239af8de1653f0',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -4477,7 +4477,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'd6cebf71296088a5f924fa956c6fda762ead5238',
+    operationHash: 'bbaa2ed75c4fb04842189e8d53a1d65481154e2b',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -4513,7 +4513,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '4a8df6fc8c9331728ed402ae6430692c2dc04c63',
+    operationHash: '4b769cda49004c85d0d427c601eba36c37a52224',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,
