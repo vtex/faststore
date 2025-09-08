@@ -93,3 +93,21 @@ export const buildFormData = (
 
   return form
 }
+/**
+ * Converts a value to an array. If the value is already an array, returns it as-is.
+ * If the value is undefined or null, returns an empty array.
+ * Otherwise, wraps the value in an array.
+ *
+ * @param x - The value to convert to an array
+ * @returns An array containing the value(s)
+ */
+
+export const toArray = <T>(x: T[] | T | undefined) =>
+  Array.isArray(x) ? x : x ? [x] : []
+
+/**
+ * Array merging strategy from deepmerge that makes source arrays overwrite destination array
+ *
+ * @see https://www.npmjs.com/package/deepmerge
+ */
+export const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray

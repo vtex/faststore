@@ -165,7 +165,7 @@ export function useDeliveryPromise({
         page: 0,
       })
     }
-  }, [])
+  }, [globalPickupPoint])
 
   const pickupPointByID = useCallback(
     (pickupPointId: string) => {

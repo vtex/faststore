@@ -1,14 +1,10 @@
 import { useMemo } from 'react'
-import deepmerge from 'deepmerge'
 
-import { useSearch, type SearchState } from '@faststore/sdk'
 import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 
-import { useSession } from 'src/sdk/session'
 import { ITEMS_PER_SECTION } from 'src/constants'
-
-const toArray = <T>(x: T[] | T | undefined) =>
-  Array.isArray(x) ? x : x ? [x] : []
+import { useSession } from 'src/sdk/session'
+import { toArray } from 'src/utils/utilities'
 
 export const useLocalizedVariables = ({
   first,

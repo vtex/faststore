@@ -10,6 +10,9 @@ import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import Section from '../Section'
 
+import deepmerge from 'deepmerge'
+import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
+import { overwriteMerge, toArray } from 'src/utils/utilities'
 import styles from './section.module.scss'
 
 interface ProductTilesProps
@@ -65,7 +68,18 @@ const ProductTiles = ({
 }: ProductTilesProps) => {
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
-  const data = useProductsQuery(variables)
+  const { deliveryFacets } = useDeliveryPromiseFacets()
+
+  const data = useProductsQuery({
+    ...variables,
+    selectedFacets: deepmerge(
+      toArray(variables.selectedFacets),
+      deliveryFacets,
+      {
+        arrayMerge: overwriteMerge,
+      }
+    ),
+  })
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
 
