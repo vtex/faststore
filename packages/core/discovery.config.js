@@ -18,7 +18,6 @@ export const {
   checkoutUrl,
   cms,
   contentSource,
-  cypress,
   deliveryPromise,
   experimental,
   lighthouse,
