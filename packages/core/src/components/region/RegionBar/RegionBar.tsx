@@ -5,10 +5,7 @@ import { useUI, regionSliderTypes } from '@faststore/ui'
 import { useSession, sessionStore } from '../../../sdk/session'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
-import {
-  deliveryPromise,
-  session as initialSession,
-} from '../../../../discovery.config'
+import { deliveryPromise } from '../../../../discovery.config'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { textToTitleCase } from '../../../utils/utilities'
 import { getGlobalSettings } from '../../../utils/globalSettings'

@@ -2344,6 +2344,7 @@ export type UserOrderShopper = {
 export type UserOrderShopperName = {
   firstName: Maybe<Scalars['String']['output']>
   lastName: Maybe<Scalars['String']['output']>
+  phone: Maybe<Scalars['String']['output']>
 }
 
 export type UserOrderSlas = {
