@@ -189,7 +189,7 @@
     row-gap: var(--fs-spacing-0);
     font-size: var(--fs-product-card-delivery-promise-badge-text-size);
 
-    [data-fs-product-card-delivery-badge] {
+    [data-fs-product-card-delivery-promise-badge] {
       &::before {
         display: inline-block;
         width: var(--fs-product-card-delivery-promise-badge-status-width);
@@ -199,11 +199,11 @@
         border-radius: var(--fs-product-card-delivery-promise-badge-status-border-radius);
       }
 
-      &[data-fs-product-card-delivery-badge-availability="true"]::before {
+      &[data-fs-product-card-delivery-promise-badge-availability="true"]::before {
         background-color: var(--fs-product-card-delivery-promise-badge-status-available);
       }
 
-      &[data-fs-product-card-delivery-badge-availability="false"]::before {
+      &[data-fs-product-card-delivery-promise-badge-availability="false"]::before {
         background-color: var(--fs-product-card-delivery-promise-badge-status-unavailable);
       }
     }

@@ -149,8 +149,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <div data-fs-product-card-delivery-promise-badges>
             {deliveryPromiseBadges.map((badge: DeliveryPromiseBadge) => (
               <span
-                data-fs-product-card-delivery-badge
-                data-fs-product-card-delivery-badge-availability={
+                data-fs-product-card-delivery-promise-badge
+                data-fs-product-card-delivery-promise-badge-availability={
                   badge.availability
                 }
                 key={badge.label}
