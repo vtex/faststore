@@ -1,0 +1,9 @@
+overwrite: true
+schema: "./src/**/*.graphql"
+documents: null
+generates:
+  src/__generated__/schema.ts:
+    plugins:
+      - "typescript"
+    config:
+      constEnums: true
