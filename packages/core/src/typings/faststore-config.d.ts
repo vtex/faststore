@@ -105,18 +105,6 @@ declare module 'discovery-config' {
       }
     }
 
-    // E2E CI
-    cypress: {
-      pages: {
-        home: string
-        pdp: string
-        collection: string
-        collection_2: string
-        collection_filtered: string
-        search: string
-      }
-    }
-
     analytics: {
       gtmContainerId: string
     }
@@ -135,8 +123,6 @@ declare module 'discovery-config' {
     }
 
     experimental: {
-      cypressVersion: number
-      enableCypressExtension: boolean
       noRobots: boolean
       noindex: boolean
       nofollow: boolean
