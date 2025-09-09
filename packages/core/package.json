@@ -51,12 +51,7 @@
     "partytown": "partytown copylib ./public/~partytown"
   },
   "engines": {
-    "node": ">=20"
-  },
-  "volta": {
-    "node": "^20",
-    "pnpm": "9.15.1",
-    "yarn": "1.22.22"
+    "node": "22.19.0"
   },
   "sideEffects": false,
   "dependencies": {

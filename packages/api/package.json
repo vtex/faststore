@@ -21,7 +21,7 @@
   },
   "browserslist": "node 20",
   "engines": {
-    "node": ">=20"
+    "node": "22.19.0"
   },
   "scripts": {
     "dev": "graphql-codegen && vite build --watch",
@@ -69,8 +69,5 @@
   },
   "peerDependencies": {
     "graphql": "catalog:"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

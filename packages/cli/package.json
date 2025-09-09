@@ -45,9 +45,6 @@
     "ts-node": "^10.9.1",
     "tslib": "catalog:"
   },
-  "volta": {
-    "extends": "../../package.json"
-  },
   "oclif": {
     "bin": "faststore",
     "dirname": "faststore",

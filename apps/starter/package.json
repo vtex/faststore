@@ -25,9 +25,5 @@
     "@lhci/cli": "^0.9.0",
     "typescript": "catalog:"
   },
-  "volta": {
-    "node": "18.19.0",
-    "yarn": "1.19.1"
-  },
   "author": "VTEX"
 }

@@ -24,7 +24,7 @@
   },
   "sideEffects": false,
   "engines": {
-    "node": ">=20"
+    "node": "22.19.0"
   },
   "files": [
     "dist",
@@ -67,8 +67,5 @@
     "react-dom": "catalog:",
     "size-limit": "^7.0.8",
     "tslib": "catalog:"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

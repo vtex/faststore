@@ -54,8 +54,5 @@
     "react-dom": "catalog:",
     "ts-jest": "catalog:",
     "tslib": "catalog:"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

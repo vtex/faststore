@@ -35,10 +35,6 @@
     "typescript": "catalog:"
   },
   "version": "0.0.0",
-  "volta": {
-    "node": "^20",
-    "pnpm": "9.15.5"
-  },
   "packageManager": "pnpm@10.15.0",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",

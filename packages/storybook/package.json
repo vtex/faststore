@@ -16,10 +16,6 @@
     "sass": "^1.83.4",
     "storybook": "^8.5.2"
   },
-  "volta": {
-    "node": "^20",
-    "pnpm": "9.15.1"
-  },
   "scripts": {
     "dev": "echo 'TODO: fix this #storybook dev -p 6006'",
     "build": "echo 'TODO: fix this #storybook build'"
