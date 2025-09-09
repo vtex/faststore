@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
+
+### Features
+
+- Adds delivery promise badges to product card ([#2994](https://github.com/vtex/faststore/issues/2994)) ([87279c8](https://github.com/vtex/faststore/commit/87279c82a0ba83c9dffc5872b94cead98189dd23))
+
 ## [3.83.1](https://github.com/vtex/faststore/compare/v3.83.0...v3.83.1) (2025-09-09)
 
 ### Bug Fixes
