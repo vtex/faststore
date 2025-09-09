@@ -137,6 +137,16 @@ declare module 'discovery-config' {
       }
       refreshToken: boolean
     }
+
+    rewrites?: Promise<Array<{ source: string; destination: string }>>
+    redirects: Promise<
+      Array<{
+        source: string
+        destination: string
+        permanent?: boolean
+        has?: Array<{ type: string; key: string; value: string }>
+      }>
+    >
   }
 
   const config: FaststoreConfig

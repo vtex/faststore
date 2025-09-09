@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-// import { generate } from '@graphql-codegen/cli'
 
 export default defineConfig({
   plugins: [dts()],
