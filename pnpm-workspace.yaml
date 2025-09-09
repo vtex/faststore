@@ -12,7 +12,7 @@ catalog:
   "@jest/globals": "29.7.0"
   "@testing-library/react": "^14.3.0"
   "@types/jest": "29.1.0"
-  "@types/node": "^18.11.16"
+  "@types/node": "^20"
   "@types/react-dom": "^19"
   "@types/react": "^19"
   "@types/tabbable": "^3.1.1"
