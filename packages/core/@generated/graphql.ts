@@ -349,6 +349,12 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']['output']>
 }
 
+/** Delivery Promise badge. */
+export type DeliveryPromiseBadge = {
+  /** Badge type. */
+  typeName: Maybe<Scalars['String']['output']>
+}
+
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
@@ -1417,6 +1423,8 @@ export type StoreProduct = {
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
+  /** Delivery Promise product's badge. */
+  deliveryPromiseBadges: Maybe<Array<Maybe<DeliveryPromiseBadge>>>
   /** Product description. */
   description: Scalars['String']['output']
   /** Global Trade Item Number. */
@@ -2441,6 +2449,7 @@ export type ProductSummary_ProductFragment = {
     valueReference: any
   }>
   advertisement: { adId: string; adResponseId: string } | null
+  deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -3297,6 +3306,9 @@ export type ClientManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          deliveryPromiseBadges: Array<{
+            typeName: string | null
+          } | null> | null
         }
       }>
     }
@@ -3529,6 +3541,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           valueReference: any
         }>
         advertisement: { adId: string; adResponseId: string } | null
+        deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -3687,6 +3700,9 @@ export type ServerManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          deliveryPromiseBadges: Array<{
+            typeName: string | null
+          } | null> | null
         }
       }>
     }
@@ -3780,6 +3796,9 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   advertisement {
     adId
     adResponseId
+  }
+  deliveryPromiseBadges {
+    typeName
   }
 }
     `,
@@ -4413,7 +4432,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'a4d0dbbeaafcf323c0850f282d4beaa2969ababa',
+    operationHash: 'e49027bc29aa10cbf7bbb0ed62239af8de1653f0',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -4458,7 +4477,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '3df0026ed7d06f74ef470ecb6e4d2e7c70882451',
+    operationHash: 'bbaa2ed75c4fb04842189e8d53a1d65481154e2b',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -4494,7 +4513,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '59ff9a09e138da0f0d5e7ab553c4889a6d4bc432',
+    operationHash: '4b769cda49004c85d0d427c601eba36c37a52224',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

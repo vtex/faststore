@@ -8,7 +8,10 @@ import {
   type SearchState,
   type Session,
 } from '@faststore/sdk'
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import type {
+  DeliveryPromiseBadge,
+  Filter_FacetsFragment,
+} from '@generated/graphql'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 import { useSession } from 'src/sdk/session'
@@ -31,6 +34,7 @@ export const DELIVERY_OPTIONS_FACET_KEY = 'delivery-options' as const
 export const DYNAMIC_ESTIMATE_FACET_KEY = 'dynamic-estimate' as const
 
 type Facet = SearchState['selectedFacets'][number]
+type DeliveryType = 'delivery' | 'pickup-in-point'
 
 export type PickupPoint = {
   id: string
@@ -84,6 +88,7 @@ type Props = {
   allFacets?: ReturnType<typeof useFilter>['facets']
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
+  deliveryPromiseBadges?: DeliveryPromiseBadge[]
 }
 
 /**
@@ -95,6 +100,7 @@ export function useDeliveryPromise({
   selectedFilterFacets = undefined,
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
+  deliveryPromiseBadges,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -435,6 +441,84 @@ export function useDeliveryPromise({
     []
   )
 
+  function getBadgeLabel(value: DeliveryType, isAvailable: boolean) {
+    const labelMap: Record<
+      DeliveryType,
+      { available: string; unavailable: string }
+    > = {
+      delivery: {
+        available:
+          deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ??
+          'Available for shipping',
+        unavailable:
+          deliveryPromiseSettings?.deliveryPromiseBadges?.deliveryUnavailable ??
+          'Unavailable for shipping',
+      },
+      'pickup-in-point': {
+        available:
+          deliveryPromiseSettings?.deliveryPromiseBadges?.pickupInPoint ??
+          'Available for pickup',
+        unavailable:
+          deliveryPromiseSettings?.deliveryPromiseBadges
+            ?.pickupInPointUnavailable ?? 'Unavailable for pickup',
+      },
+    }
+
+    return labelMap[value]
+      ? isAvailable
+        ? labelMap[value].available
+        : labelMap[value].unavailable
+      : value
+  }
+
+  function getDeliveryPromiseBadges() {
+    // Only add unavailable badges if at least one delivery method is available
+    if (!deliveryPromiseBadges || deliveryPromiseBadges.length === 0) return []
+
+    const badges: Array<{ label: string; availability: boolean }> = []
+
+    const availableTypeNames = deliveryPromiseBadges?.map(
+      (badge) => badge.typeName
+    )
+
+    const hasDelivery = availableTypeNames?.includes('delivery')
+    const hasPickupPoint = availableTypeNames?.includes('pickup-in-point')
+
+    if (hasDelivery) {
+      badges.push({
+        label: getBadgeLabel('delivery', true),
+        availability: true,
+      })
+    } else {
+      badges.push({
+        label: getBadgeLabel('delivery', false),
+        availability: false,
+      })
+    }
+
+    if (hasPickupPoint) {
+      badges.push({
+        label: getBadgeLabel('pickup-in-point', true),
+        availability: true,
+      })
+    } else {
+      badges.push({
+        label: getBadgeLabel('pickup-in-point', false),
+        availability: false,
+      })
+    }
+
+    return badges
+  }
+
+  const badges = getDeliveryPromiseBadges()
+
+  const shouldDisplayDeliveryPromiseBadges =
+    !!postalCode &&
+    isDeliveryPromiseEnabled &&
+    (deliveryPromiseSettings?.deliveryPromiseBadges?.enabled ?? true) &&
+    badges.length > 0
+
   return {
     mandatory: deliveryPromiseConfig.mandatory,
     isEnabled: isDeliveryPromiseEnabled,
@@ -463,6 +547,8 @@ export function useDeliveryPromise({
       pickupPoints?.length > 0 &&
       (deliveryPromiseSettings?.deliveryMethods?.pickupAll?.enabled ?? false),
     shouldDisplayDeliveryButton: isDeliveryPromiseEnabled && !postalCode,
+    shouldDisplayDeliveryPromiseBadges,
+    badges,
   }
 }
 

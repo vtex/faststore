@@ -4,80 +4,89 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-product-card-padding                  : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1);
-  --fs-product-card-min-width                : 10rem;
-  --fs-product-card-gap                      : var(--fs-spacing-2);
+  --fs-product-card-padding                                    : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1);
+  --fs-product-card-min-width                                  : 10rem;
+  --fs-product-card-gap                                        : var(--fs-spacing-2);
 
-  --fs-product-card-shadow                   : var(--fs-shadow);
-  --fs-product-card-shadow-hover             : var(--fs-shadow-hover);
+  --fs-product-card-shadow                                     : var(--fs-shadow);
+  --fs-product-card-shadow-hover                               : var(--fs-shadow-hover);
 
-  --fs-product-card-bkg-color                : var(--fs-color-body-bkg);
-  --fs-product-card-bkg-color-hover          : var(--fs-product-card-bkg-color);
-  --fs-product-card-bkg-color-focus          : var(--fs-product-card-bkg-color-hover);
+  --fs-product-card-bkg-color                                  : var(--fs-color-body-bkg);
+  --fs-product-card-bkg-color-hover                            : var(--fs-product-card-bkg-color);
+  --fs-product-card-bkg-color-focus                            : var(--fs-product-card-bkg-color-hover);
 
-  --fs-product-card-border-radius            : var(--fs-border-radius);
-  --fs-product-card-border-width             : var(--fs-border-width);
-  --fs-product-card-border-color             : var(--fs-border-color-light);
-  --fs-product-card-border-color-hover       : var(--fs-border-color-hover);
+  --fs-product-card-border-radius                              : var(--fs-border-radius);
+  --fs-product-card-border-width                               : var(--fs-border-width);
+  --fs-product-card-border-color                               : var(--fs-border-color-light);
+  --fs-product-card-border-color-hover                         : var(--fs-border-color-hover);
 
-  --fs-product-card-transition-function      : var(--fs-transition-function);
-  --fs-product-card-transition-property      : var(--fs-transition-property);
-  --fs-product-card-transition-timing        : var(--fs-transition-timing);
+  --fs-product-card-transition-function                        : var(--fs-transition-function);
+  --fs-product-card-transition-property                        : var(--fs-transition-property);
+  --fs-product-card-transition-timing                          : var(--fs-transition-timing);
 
   // Image
-  --fs-product-card-img-radius               : var(--fs-product-card-border-radius);
-  --fs-product-card-img-scale-hover          : 1;
+  --fs-product-card-img-radius                                 : var(--fs-product-card-border-radius);
+  --fs-product-card-img-scale-hover                            : 1;
 
   // Title
-  --fs-product-card-title-color              : var(--fs-color-text);
-  --fs-product-card-title-size               : var(--fs-text-size-base);
-  --fs-product-card-title-weight             : var(--fs-text-weight-regular);
-  --fs-product-card-title-max-lines          : var(--fs-text-max-lines);
+  --fs-product-card-title-color                                : var(--fs-color-text);
+  --fs-product-card-title-size                                 : var(--fs-text-size-base);
+  --fs-product-card-title-weight                               : var(--fs-text-weight-regular);
+  --fs-product-card-title-max-lines                            : var(--fs-text-max-lines);
 
   // Price
-  --fs-product-card-price-color              : var(--fs-color-text);
-  --fs-product-card-price-size               : var(--fs-text-size-base);
+  --fs-product-card-price-color                                : var(--fs-color-text);
+  --fs-product-card-price-size                                 : var(--fs-text-size-base);
 
   // Out Of Stock
-  --fs-product-card-out-of-stock-bkg-color   : transparent;
-  --fs-product-card-out-of-stock-border-color: var(--fs-color-neutral-1);
-  --fs-product-card-out-of-stock-img-opacity : .5;
+  --fs-product-card-out-of-stock-bkg-color                     : transparent;
+  --fs-product-card-out-of-stock-border-color                  : var(--fs-color-neutral-1);
+  --fs-product-card-out-of-stock-img-opacity                   : .5;
 
   // Taxes label
-  --fs-product-card-taxes-label-color        : var(--fs-color-info-text);
-  --fs-product-card-taxes-text-size          : var(--fs-text-size-tiny);
-  --fs-product-card-taxes-text-weight        : var(--fs-text-weight-regular);
+  --fs-product-card-taxes-label-color                          : var(--fs-color-info-text);
+  --fs-product-card-taxes-text-size                            : var(--fs-text-size-tiny);
+  --fs-product-card-taxes-text-weight                          : var(--fs-text-weight-regular);
 
   // Wide
-  --fs-product-card-wide-padding             : 0;
-  --fs-product-card-wide-content-padding     : var(--fs-spacing-2);
-  --fs-product-card-wide-bkg-color           : var(--fs-color-neutral-bkg);
-  --fs-product-card-wide-min-width           : 9rem;
+  --fs-product-card-wide-padding                               : 0;
+  --fs-product-card-wide-content-padding                       : var(--fs-spacing-2);
+  --fs-product-card-wide-bkg-color                             : var(--fs-color-neutral-bkg);
+  --fs-product-card-wide-min-width                             : 9rem;
 
   // Sponsored Label
-  --fs-product-card-sponsored-label-size     : var(--fs-text-size-tiny);
-  --fs-product-card-sponsored-label-color    : var(--fs-color-text-light);
+  --fs-product-card-sponsored-label-size                       : var(--fs-text-size-tiny);
+  --fs-product-card-sponsored-label-color                      : var(--fs-color-text-light);
+
+  // Delivery Promise Badges
+  --fs-product-card-delivery-promise-badge-text-size           : var(--fs-text-size-tiny);
+  --fs-product-card-delivery-promise-badge-status-width        : var(--fs-spacing-1);
+  --fs-product-card-delivery-promise-badge-status-border-radius: var(--fs-border-radius-circle);
+
+  --fs-product-card-delivery-promise-badge-status-available    : var(--fs-color-success-2);
+  --fs-product-card-delivery-promise-badge-status-unavailable  : var(--fs-color-neutral-bkg);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
   position: relative;
-  min-width: var(--fs-product-card-min-width);
-  height: 100%;
   display: flex;
   flex-direction: column;
   row-gap: var(--fs-product-card-gap);
+  min-width: var(--fs-product-card-min-width);
+  height: 100%;
   padding: var(--fs-product-card-padding);
+  overflow: hidden;
   background-color: var(--fs-product-card-bkg-color);
   border: var(--fs-product-card-border-width) solid transparent;
   border-radius: var(--fs-product-card-border-radius);
-  overflow: hidden;
   box-shadow: var(--fs-product-card-shadow);
   transition: var(--fs-product-card-transition-property) var(--fs-product-card-transition-timing) var(--fs-product-card-transition-function);
 
   &:focus-within {
     @include focus-ring;
+
     background-color: var(--fs-product-card-bkg-color-focus);
   }
 
@@ -98,9 +107,9 @@
     position: relative;
     display: flex;
     justify-content: center;
-    overflow: hidden;
     width: 100%;
     aspect-ratio: var(--fs-product-card-image-aspect-ratio);
+    overflow: hidden;
 
     img {
       width: 100%;
@@ -116,9 +125,9 @@
     row-gap: var(--fs-product-card-gap);
 
     [data-fs-product-card-taxes-label] {
-      color: var(--fs-product-card-taxes-label-color);
       font-size: var(--fs-product-card-taxes-text-size);
       font-weight: var(--fs-product-card-taxes-text-weight);
+      color: var(--fs-product-card-taxes-label-color);
     }
 
     [data-fs-link] {
@@ -144,8 +153,8 @@
 
   [data-fs-product-card-sponsored-label] {
     font-size: var(--fs-product-card-sponsored-label-size);
-    color: var(--fs-product-card-sponsored-label-color);
     line-height: 1.33;
+    color: var(--fs-product-card-sponsored-label-color);
   }
 
   [data-fs-product-card-title] {
@@ -174,6 +183,32 @@
     height: fit-content;
   }
 
+  [data-fs-product-card-delivery-promise-badges] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-spacing-0);
+    font-size: var(--fs-product-card-delivery-promise-badge-text-size);
+
+    [data-fs-product-card-delivery-promise-badge] {
+      &::before {
+        display: inline-block;
+        width: var(--fs-product-card-delivery-promise-badge-status-width);
+        height: var(--fs-product-card-delivery-promise-badge-status-width);
+        margin-right: var(--fs-spacing-1);
+        content: "";
+        border-radius: var(--fs-product-card-delivery-promise-badge-status-border-radius);
+      }
+
+      &[data-fs-product-card-delivery-promise-badge-availability="true"]::before {
+        background-color: var(--fs-product-card-delivery-promise-badge-status-available);
+      }
+
+      &[data-fs-product-card-delivery-promise-badge-availability="false"]::before {
+        background-color: var(--fs-product-card-delivery-promise-badge-status-unavailable);
+      }
+    }
+  }
+
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
@@ -183,7 +218,6 @@
     --fs-product-card-border-color    : var(--fs-product-card-out-of-stock-border-color);
 
     [data-fs-product-card-image] { opacity: var(--fs-product-card-out-of-stock-img-opacity); }
-
   }
 
   &[data-fs-product-card-bordered="true"] {
@@ -210,8 +244,8 @@
     padding-bottom: var(--fs-product-card-wide-content-padding);
 
     [data-fs-product-card-content] {
-      padding-left: var(--fs-product-card-wide-content-padding);
       padding-right: var(--fs-product-card-wide-content-padding);
+      padding-left: var(--fs-product-card-wide-content-padding);
 
       [data-fs-link] > span { @include truncate-title(2); }
 

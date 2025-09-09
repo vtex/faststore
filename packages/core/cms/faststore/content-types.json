@@ -255,6 +255,38 @@
                       "default": "All delivery options"
                     }
                   }
+                },
+                "deliveryPromiseBadges": {
+                  "title": "Delivery Promise badges",
+                  "type": "object",
+                  "description": "The badges will be displayed in product cards indicating the delivery methods availability for the product.",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should display Delivery Promise badges?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "delivery": {
+                      "title": "Shipping available label",
+                      "type": "string",
+                      "default": "Available for shipping"
+                    },
+                    "deliveryUnavailable": {
+                      "title": "Shipping unavailable label",
+                      "type": "string",
+                      "default": "Unavailable for shipping"
+                    },
+                    "pickupInPoint": {
+                      "title": "Pickup available label",
+                      "type": "string",
+                      "default": "Available for pickup"
+                    },
+                    "pickupInPointUnavailable": {
+                      "title": "Pickup unavailable label",
+                      "type": "string",
+                      "default": "Unavailable for pickup"
+                    }
+                  }
                 }
               }
             }
