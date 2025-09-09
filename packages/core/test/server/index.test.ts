@@ -1,11 +1,11 @@
 import { assertValidSchema } from 'graphql'
 
-import storeConfig from 'faststore-config'
+import storeConfig from '../../discovery.config'
 import { execute, getEnvelop } from '../../src/server'
 import {
   getMergedSchema,
   getTypeDefsFromFolder,
-} from '../../src/server/generator/schema'
+} from '../../bin/generate-types'
 
 const TYPES = [
   'StoreAggregateOffer',

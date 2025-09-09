@@ -150,7 +150,7 @@ const getMergedSchema = () => {
       ].filter(Boolean)
     )
 
-    return printSchemaWithDirectives(buildASTSchema(mergedTypeDefs))
+    return buildASTSchema(mergedTypeDefs)
   } catch (e) {
     console.error(
       'An error occurred while attempting to merge the GraphQL Schema Extensions. Check the custom typeDefs and resolvers located in the "customizations/graphql/" directory. The changes since the last successful schema merge will be ignored.'
@@ -200,7 +200,7 @@ function MapSRCFolder(
 async function main() {
   const isLocal = (process.argv[2] ?? 'false') === 'true'
 
-  saveSchemaFile(getMergedSchema())
+  saveSchemaFile(printSchemaWithDirectives(getMergedSchema()))
   await generateSchemaTSTypes(isLocal)
 
   if (!isLocal) {
@@ -216,3 +216,5 @@ async function main() {
 }
 
 main()
+
+module.exports = { getMergedSchema, getTypeDefsFromFolder }
