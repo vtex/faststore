@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.83.1](https://github.com/vtex/faststore/compare/v3.83.0...v3.83.1) (2025-09-09)
+
+### Bug Fixes
+
+- search update ([#3015](https://github.com/vtex/faststore/issues/3015)) ([74d3261](https://github.com/vtex/faststore/commit/74d3261267e111801b6e9fd46086c8d289a83d1e))
+
 # 3.81.0 (2025-09-05)
 
 ### Features
