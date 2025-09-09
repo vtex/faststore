@@ -8,6 +8,8 @@ import { textToKebabCase } from 'src/utils/utilities'
 import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
 import deepmerge from 'deepmerge'
 
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+
 const ProductShelfSkeleton = dynamic(
   () =>
     /* webpackChunkName: "ProductShelfSkeleton" */
@@ -44,17 +46,20 @@ export type ProductShelfProps = {
     bordered?: boolean
   }
   inView: boolean
+  products?: ProductSummary_ProductFragment[]
 }
 
-function ProductShelf({
-  title,
-  inView,
-  productCardConfiguration: { bordered, showDiscountBadge } = {},
-  numberOfItems,
-  itemsPerPage = 5,
-  taxesConfiguration = {},
-  ...otherProps
-}: ProductShelfProps) {
+function ProductShelf(props: ProductShelfProps) {
+  const {
+    title,
+    inView,
+    productCardConfiguration: { bordered, showDiscountBadge } = {},
+    numberOfItems,
+    itemsPerPage = 5,
+    taxesConfiguration = {},
+    products: cmsProducts = [],
+    ...otherProps
+  } = props
   const {
     ProductShelf: ProductShelfWrapper,
     __experimentalCarousel: Carousel,
@@ -65,13 +70,17 @@ function ProductShelf({
   const viewedOnce = useRef(false)
   const { deliveryFacets } = useDeliveryPromiseFacets()
 
-  const data = useProductsQuery({
-    first: numberOfItems,
-    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
-      arrayMerge: overwriteMerge,
-    }),
-    ...otherProps,
-  })
+  const data = useProductsQuery(
+    {
+      first: numberOfItems,
+      selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
+        arrayMerge: overwriteMerge,
+      }),
+      ...otherProps,
+      after: otherProps.after?.toString(),
+    },
+    { suspense: false }
+  )
 
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
@@ -92,49 +101,57 @@ function ProductShelf({
     }
   }, [inView, productEdges.length, sendViewItemListEvent])
 
-  if (products?.edges.length === 0) {
+  if (
+    products?.edges.length === 0 &&
+    (!cmsProducts || cmsProducts.length === 0)
+  ) {
     return null
   }
 
+  const productShelfAttributes: ProductShelfProps = {
+    ...props,
+    products: cmsProducts.concat(productEdges.map((edge) => edge.node)),
+  }
+
   return (
-    <>
-      <h2 className="text__title-section layout__content">{title}</h2>
-      <ProductShelfSkeleton
-        aspectRatio={aspectRatio}
-        loading={products === undefined}
-        itemsPerPage={itemsPerPage}
+    <ProductShelfSkeleton
+      aspectRatio={aspectRatio}
+      loading={products === undefined}
+      itemsPerPage={itemsPerPage}
+    >
+      <ProductShelfWrapper.Component
+        {...productShelfAttributes}
+        {...ProductShelfWrapper.props}
       >
-        <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
-          <Carousel.Component
-            id={titleId || id}
-            itemsPerPage={itemsPerPage}
-            {...Carousel.props}
-          >
-            {productEdges.map((product, idx) => (
-              <ProductCard.Component
-                aspectRatio={aspectRatio}
-                imgProps={{
-                  width: 216,
-                  height: 216,
-                  sizes: '(max-width: 768px) 42vw, 30vw',
-                }}
-                {...ProductCard.props}
-                bordered={bordered ?? ProductCard.props.bordered}
-                showDiscountBadge={
-                  showDiscountBadge ?? ProductCard.props.showDiscountBadge
-                }
-                taxesConfiguration={taxesConfiguration}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                key={`${product.node.id}`}
-                product={product.node}
-                index={idx + 1}
-              />
-            ))}
-          </Carousel.Component>
-        </ProductShelfWrapper.Component>
-      </ProductShelfSkeleton>
-    </>
+        <Carousel.Component
+          id={titleId || id}
+          itemsPerPage={itemsPerPage}
+          {...Carousel.props}
+        >
+          {productEdges.map((product, idx) => (
+            <ProductCard.Component
+              aspectRatio={aspectRatio}
+              imgProps={{
+                width: 216,
+                height: 216,
+                sizes: '(max-width: 768px) 42vw, 30vw',
+              }}
+              {...ProductCard.props}
+              bordered={bordered ?? ProductCard.props.bordered}
+              showDiscountBadge={
+                showDiscountBadge ?? ProductCard.props.showDiscountBadge
+              }
+              taxesConfiguration={taxesConfiguration}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              key={`${product.node.id}`}
+              product={product.node}
+              index={idx + 1}
+            />
+          ))}
+        </Carousel.Component>
+      </ProductShelfWrapper.Component>
+    </ProductShelfSkeleton>
   )
 }
 
