@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+const { format } = require('prettier')
+const prettierConfig = require('@vtex/prettier-config')
 const deepmerge = require('deepmerge')
 const defaultConfig = require('../discovery.config.default')
 const path = require('path')
@@ -193,10 +195,6 @@ function MapSRCFolder(
   return mapped
 }
 
-// function hasGql(file) {
-//   return /gql\(?`/.exec(fs.readFileSync(file, 'utf-8'))
-// }
-
 async function main() {
   const isLocal = (process.argv[2] ?? 'false') === 'true'
 
@@ -210,7 +208,11 @@ async function main() {
       fs.rmdirSync(_nextFolderPath, { recursive: true })
     const finalConfig = extendsConfig(getUserConfig())
     saveConfigFile(
-      `module.exports = ${JSON.stringify(finalConfig, undefined, 2)}`
+      format(`module.exports = ${JSON.stringify(finalConfig, undefined, 2)}`, {
+        ...prettierConfig,
+        parser: 'typescript',
+        quoteProps: 'as-needed',
+      })
     )
   }
 }
