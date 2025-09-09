@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.83.0](https://github.com/vtex/faststore/compare/v3.82.4...v3.83.0) (2025-09-09)
+
+### Features
+
+- adjust Custom Fields in MyAccountListOrdersTable ([#3003](https://github.com/vtex/faststore/issues/3003)) ([5e3fcf1](https://github.com/vtex/faststore/commit/5e3fcf18f3ce50f7a93d78f0f5f92c447dcdf31a))
+
 ## [3.82.4](https://github.com/vtex/faststore/compare/v3.82.3...v3.82.4) (2025-09-08)
 
 ### Bug Fixes
