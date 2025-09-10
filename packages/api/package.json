@@ -31,7 +31,6 @@
     "test:unit": "jest --projects jest.unit.config.js --silent",
     "test:unitc": "jest --projects jest.unit.config.js --silent --coverage",
     "test": "pnpm run test:unit && pnpm run test:int",
-    "pretest": "pnpm run build",
     "generate": "graphql-codegen && vite build"
   },
   "dependencies": {

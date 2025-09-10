@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "cms-sync": "echo faststore cms-sync",
-    "test": "echo faststore test"
+    "test": "echo faststore test",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@faststore/api": "workspace:*",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@builder.io/partytown": "^0.6.4",
     "@lhci/cli": "^0.9.0",
+    "@playwright/test": "catalog:",
     "typescript": "catalog:"
   },
   "author": "VTEX"
