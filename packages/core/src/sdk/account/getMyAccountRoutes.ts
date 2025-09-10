@@ -35,5 +35,14 @@ const DEFAULT_ROUTES: Route[] = [
 ]
 
 export function getMyAccountRoutes({ routes }: GetMyAccountRouteParams) {
+  // Validate that all routes have the /pvt prefix
+  routes.forEach(({ route }) => {
+    if (!route.startsWith('/pvt')) {
+      throw new Error(
+        `Invalid route "${route}". All My Account routes must start with "/pvt" prefix.`
+      )
+    }
+  })
+
   return [...DEFAULT_ROUTES, ...routes]
 }
