@@ -3,10 +3,10 @@
   "version": "3.82.0",
   "license": "MIT",
   "repository": "vtex/faststore",
-  "typings": "dist/src/index.d.ts",
+  "typings": "./dist/src/index.d.ts",
   "module": "dist/es/index.mjs",
+  "main": "dist/cjs/index.js",
   "types": "./dist/src/index.d.ts",
-  "main": "./dist/cjs/index.js",
   "files": [
     "dist",
     "src"
@@ -24,17 +24,18 @@
     "node": "22.19.0"
   },
   "scripts": {
-    "dev": "graphql-codegen && vite build --watch",
-    "dev:server": "echo '\n\n -> need to fix this ##tsx --no-cache ./local/server.ts'",
-    "build": "graphql-codegen && vite build",
+    "dev": "vite build --watch",
+    "build": "vite build",
     "test:int": "jest --projects jest.int.config.js",
     "test:intc": "jest --projects jest.int.config.js --coverage",
     "test:unit": "jest --projects jest.unit.config.js --silent",
     "test:unitc": "jest --projects jest.unit.config.js --silent --coverage",
     "test": "pnpm run test:unit && pnpm run test:int",
+    "pretest": "pnpm run build",
     "generate": "graphql-codegen && vite build"
   },
   "dependencies": {
+    "@faststore/graphql-schema": "workspace:*",
     "@graphql-tools/schema": "^10.0.3",
     "@graphql-tools/utils": "catalog:",
     "@rollup/plugin-graphql": "^1.0.0",

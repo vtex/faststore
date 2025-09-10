@@ -40,6 +40,9 @@ import {
 import type { Options } from '../../src'
 import { getContextFactory, getSchema } from '../../src'
 
+jest.useFakeTimers({ advanceTimers: true })
+const mockedFetch = jest.fn()
+
 const apiOptions = {
   platform: 'vtex',
   account: 'storeframework',
@@ -56,8 +59,6 @@ const apiOptions = {
     enableUnavailableItemsOnCart: false,
   },
 } as Options
-
-const mockedFetch = jest.fn()
 
 const createRunner = () => {
   const schemaPromise = getSchema(apiOptions)

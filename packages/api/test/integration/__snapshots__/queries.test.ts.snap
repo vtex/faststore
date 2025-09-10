@@ -187,7 +187,7 @@ exports[`\`allProducts\` query 1`] = `
           "cursor": "0",
           "node": {
             "additionalProperty": [],
-            "description": "4k Philips Monitor 27\"",
+            "description": "4k Philips Monitor 27"",
             "gtin": "1504",
             "image": [
               {
@@ -202,7 +202,7 @@ exports[`\`allProducts\` query 1`] = `
                   "sku": "99988213",
                 },
               ],
-              "name": "4k Philips Monitor 27\"",
+              "name": "4k Philips Monitor 27"",
               "productGroupID": "99995946",
             },
             "name": "Monitor 27",
@@ -234,8 +234,8 @@ exports[`\`allProducts\` query 1`] = `
             "review": [],
             "seo": {
               "canonical": "/4k-philips-monitor/p",
-              "description": "4k Philips Monitor 27\"",
-              "title": "4k Philips Monitor 27\"",
+              "description": "4k Philips Monitor 27"",
+              "title": "4k Philips Monitor 27"",
               "titleTemplate": "",
             },
             "sku": "99988213",
