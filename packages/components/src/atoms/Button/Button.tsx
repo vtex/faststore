@@ -1,12 +1,12 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+import React from 'react'
 import { Loader } from '../../'
 
 export type Variant = 'primary' | 'secondary' | 'tertiary'
 export type Size = 'small' | 'regular'
 export type IconPosition = 'left' | 'right'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ComponentProps<'button'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -45,22 +45,20 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconPosition?: IconPosition
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
-    children,
-    variant,
-    inverse,
-    size = 'regular',
-    testId = 'fs-button',
-    loading,
-    loadingLabel,
-    icon,
-    iconPosition = 'left',
-    disabled,
-    ...otherProps
-  },
-  ref
-) {
+export default function Button({
+  children,
+  variant,
+  inverse,
+  size = 'regular',
+  testId = 'fs-button',
+  loading,
+  loadingLabel,
+  icon,
+  iconPosition = 'left',
+  disabled,
+  ref,
+  ...otherProps
+}: ButtonProps) {
   return (
     <button
       ref={ref}
@@ -92,6 +90,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       </div>
     </button>
   )
-})
-
-export default Button
+}

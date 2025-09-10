@@ -1,8 +1,7 @@
-import type { TextareaHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaProps extends ComponentProps<'textarea'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -14,20 +13,19 @@ export interface TextareaProps
   resize?: 'none' | 'vertical' | 'horizontal' | 'both'
 }
 
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  function Textarea(
-    { testId = 'fs-textarea', resize = 'both', ...otherProps },
-    ref
-  ) {
-    return (
-      <textarea
-        ref={ref}
-        data-fs-textarea
-        data-fs-textarea-resize={resize}
-        data-testid={testId}
-        {...otherProps}
-      />
-    )
-  }
-)
-export default Textarea
+export default function Textarea({
+  testId = 'fs-textarea',
+  resize = 'both',
+  ref,
+  ...otherProps
+}: TextareaProps) {
+  return (
+    <textarea
+      ref={ref}
+      data-fs-textarea
+      data-fs-textarea-resize={resize}
+      data-testid={testId}
+      {...otherProps}
+    />
+  )
+}

@@ -1,18 +1,18 @@
-import React, { forwardRef } from 'react'
-import type { InputHTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface RadioProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export interface RadioProps extends Omit<ComponentProps<'input'>, 'type'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }
 
-const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { testId = 'fs-radio', ...otherProps }: RadioProps,
-  ref
-) {
+export default function Radio({
+  testId = 'fs-radio',
+  ref,
+  ...otherProps
+}: RadioProps) {
   return (
     <input
       ref={ref}
@@ -22,6 +22,4 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
       {...otherProps}
     />
   )
-})
-
-export default Radio
+}

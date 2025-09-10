@@ -1,8 +1,7 @@
-import type { InputHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export interface CheckboxProps extends Omit<ComponentProps<'input'>, 'type'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -13,10 +12,12 @@ export interface CheckboxProps
   partial?: boolean
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { testId = 'fs-checkbox', partial, ...otherProps }: CheckboxProps,
-  ref
-) {
+export default function Checkbox({
+  testId = 'fs-checkbox',
+  partial,
+  ref,
+  ...otherProps
+}: CheckboxProps) {
   return (
     <input
       ref={ref}
@@ -27,6 +28,4 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
       {...otherProps}
     />
   )
-})
-
-export default Checkbox
+}

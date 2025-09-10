@@ -1,17 +1,18 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface OverlayProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }
 
-const Overlay = forwardRef<HTMLDivElement, Props>(function Overlay(
-  { testId = 'fs-overlay', ...otherProps },
-  ref
-) {
+export default function Overlay({
+  testId = 'fs-overlay',
+  ref,
+  ...otherProps
+}: OverlayProps) {
   return (
     <div
       ref={ref}
@@ -21,6 +22,4 @@ const Overlay = forwardRef<HTMLDivElement, Props>(function Overlay(
       {...otherProps}
     />
   )
-})
-
-export default Overlay
+}

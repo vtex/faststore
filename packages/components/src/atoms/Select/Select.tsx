@@ -1,8 +1,8 @@
-import type { SelectHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 import { Icon } from '../..'
 
-export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps extends ComponentProps<'select'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -19,10 +19,13 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: Record<string, string>
 }
 
-const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { options, id, testId = 'fs-select', ...otherProps }: SelectProps,
-  ref
-) {
+export default function Select({
+  options,
+  id,
+  testId = 'fs-select',
+  ref,
+  ...otherProps
+}: SelectProps) {
   return (
     <div data-fs-select>
       <select ref={ref} id={id} data-testid={testId} {...otherProps}>
@@ -35,6 +38,4 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
       <Icon data-fs-select-icon name="CaretDown" />
     </div>
   )
-})
-
-export default Select
+}
