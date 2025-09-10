@@ -5,32 +5,32 @@ import { Suspense, lazy, useState, type MouseEvent } from 'react'
 import { useSearch } from '@faststore/sdk'
 import { useUI } from '@faststore/ui'
 
-import type { ProductCardProps } from 'src/components/product/ProductCard'
-import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
-import Sort from 'src/components/search/Sort'
-import type { SortProps } from 'src/components/search/Sort/Sort'
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import type { ProductCardProps } from '../../product/ProductCard'
+import type { FilterSliderProps } from '../../search/Filter/FilterSlider'
+import Sort from '../../search/Sort'
+import type { SortProps } from '../../search/Sort/Sort'
+import ProductGridSkeleton from '../../skeletons/ProductGridSkeleton'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import {
   usePage,
   type PLPContext,
   type SearchPageContext,
-} from 'src/sdk/overrides/PageProvider'
-import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
-import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
-import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
-import { useFilter } from 'src/sdk/search/useFilter'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+} from '../../../sdk/overrides/PageProvider'
+import { useProductsPrefetch } from '../../../sdk/product/useProductsPrefetch'
+import { useDelayedFacets } from '../../../sdk/search/useDelayedFacets'
+import { useDelayedPagination } from '../../../sdk/search/useDelayedPagination'
+import { useFilter } from '../../../sdk/search/useFilter'
+import useScreenResize from '../../../sdk/ui/useScreenResize'
 
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import styles from '../../sections/ProductGallery/section.module.scss'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
   () =>
     import(
       /* webpackChunkName: "FilterSkeleton" */
-      'src/components/skeletons/FilterSkeleton'
+      '../../skeletons/FilterSkeleton'
     )
 )
 

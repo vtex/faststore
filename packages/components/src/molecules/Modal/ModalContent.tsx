@@ -13,9 +13,9 @@ interface ModalContentPureProps
     DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
     'ref'
   > {
-  beforeElementRef: RefObject<HTMLDivElement>
-  trapFocusRef: RefObject<HTMLDivElement>
-  afterElementRef: RefObject<HTMLDivElement>
+  beforeElementRef: RefObject<HTMLDivElement | null>
+  trapFocusRef: RefObject<HTMLDivElement | null>
+  afterElementRef: RefObject<HTMLDivElement | null>
   testId?: string
 }
 

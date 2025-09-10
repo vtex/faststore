@@ -3,10 +3,10 @@ import { useCallback, useState } from 'react'
 
 import type { AlertProps as UIAlertProps } from '@faststore/ui'
 
-import Section from 'src/components/sections/Section/Section'
+import Section from '../../sections/Section/Section'
 import styles from './section.module.scss'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 
 export interface AlertProps extends Omit<UIAlertProps, 'content'> {
   /**

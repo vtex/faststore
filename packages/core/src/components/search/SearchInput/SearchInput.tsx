@@ -28,15 +28,15 @@ import type {
 
 import type { SearchProviderContextValue } from '@faststore/ui'
 
-import type { NavbarProps } from 'src/components/sections/Navbar'
-import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import useSuggestions from 'src/sdk/search/useSuggestions'
+import type { NavbarProps } from '../../sections/Navbar'
+import useSearchHistory from '../../../sdk/search/useSearchHistory'
+import useSuggestions from '../../../sdk/search/useSuggestions'
 
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
-  () => import('src/components/search/SearchDropdown')
+  () => import('../../search/SearchDropdown')
 )
 
 const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>

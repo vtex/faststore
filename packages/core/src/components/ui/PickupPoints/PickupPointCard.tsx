@@ -1,5 +1,5 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import type { PickupPoint } from 'src/sdk/deliveryPromise'
+import type { PickupPoint } from '../../../sdk/deliveryPromise'
 
 export type PickupPointCardProps = {
   store: PickupPoint

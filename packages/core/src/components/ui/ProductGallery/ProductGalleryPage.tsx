@@ -1,9 +1,9 @@
-import ProductGrid from 'src/components/product/ProductGrid'
-import Sentinel from 'src/sdk/search/Sentinel'
+import ProductGrid from '../../product/ProductGrid'
+import Sentinel from '../../../sdk/search/Sentinel'
 
 import { memo } from 'react'
-import type { ProductCardProps } from 'src/components/product/ProductCard'
-import { useGalleryPage } from 'src/sdk/product/usePageProductsQuery'
+import type { ProductCardProps } from '../../product/ProductCard'
+import { useGalleryPage } from '../../../sdk/product/usePageProductsQuery'
 
 interface Props {
   page: number

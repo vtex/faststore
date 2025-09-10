@@ -2,14 +2,14 @@ import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
 import { createCartStore } from '@faststore/sdk'
 import { useMemo } from 'react'
 
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   CartItemFragment,
   CartMessageFragment,
   IStoreOffer,
   ValidateCartMutationMutation,
   ValidateCartMutationMutationVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 import storeConfig from '../../../discovery.config'
 import { request } from '../graphql/request'

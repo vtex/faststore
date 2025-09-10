@@ -12,17 +12,18 @@ import {
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
 } from '@faststore/ui'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
+
+import type { Filter_FacetsFragment } from '../../../../@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
+import type { useFilter } from '../../../sdk/search/useFilter'
 import {
   PICKUP_ALL_FACET_VALUE,
   useDeliveryPromise,
-} from 'src/sdk/deliveryPromise'
-import type { useFilter } from 'src/sdk/search/useFilter'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+} from '../../../sdk/deliveryPromise'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 
 import styles from './section.module.scss'
 

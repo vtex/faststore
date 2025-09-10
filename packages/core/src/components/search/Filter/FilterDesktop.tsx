@@ -11,16 +11,17 @@ import {
   Icon as UIIcon,
   useUI,
 } from '@faststore/ui'
-import { gql } from '@generated/gql'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import type { useFilter } from 'src/sdk/search/useFilter'
+
+import { gql } from '../../../../@generated/gql'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
+import type { useFilter } from '../../../sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import {
   PICKUP_ALL_FACET_VALUE,
   useDeliveryPromise,
-} from 'src/sdk/deliveryPromise'
-import { getGlobalSettings } from 'src/utils/globalSettings'
+} from '../../../sdk/deliveryPromise'
+import { getGlobalSettings } from '../../../utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 interface FilterDesktopProps

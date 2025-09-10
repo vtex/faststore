@@ -1,6 +1,6 @@
-import { gql } from '@generated'
-import { useQuery } from 'src/sdk/graphql/useQuery'
-import { useSession } from 'src/sdk/session'
+import { gql } from '../../../@generated'
+import { useQuery } from '../graphql/useQuery'
+import { useSession } from '../session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 import { type SearchState, useSearch } from '@faststore/sdk'
@@ -9,8 +9,8 @@ import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,
   ClientProductGalleryQueryQueryVariables as Variables,
-} from '@generated/graphql'
-import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
+} from '../../../@generated/graphql'
+import type { IntelligentSearchQueryEvent } from '../analytics/types'
 
 /**
  * This query is run on the browser and contains

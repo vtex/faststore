@@ -1,4 +1,4 @@
-import { default as CustomWebFonts } from 'src/customizations/src/fonts/WebFonts'
+import { default as CustomWebFonts } from '../../fonts/WebFonts'
 
 const overrides = {
   components: {

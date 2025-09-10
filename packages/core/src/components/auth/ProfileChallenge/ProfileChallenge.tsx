@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactNode } from 'react'
-import { useAuth } from 'src/sdk/auth'
+import { useAuth } from '../../../sdk/auth'
 
 export type ProfileChallengeProps = {
   fallback?: ReactNode

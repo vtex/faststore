@@ -1,11 +1,11 @@
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientPickupPointsQueryQuery as ClientPickupPointsQuery,
   ClientPickupPointsQueryQueryVariables as ClientPickupPointsQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
-import { deliveryPromise } from 'discovery.config'
-import { request } from 'src/sdk/graphql/request'
+import { deliveryPromise } from '../../../discovery.config'
+import { request } from '../graphql/request'
 
 const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(

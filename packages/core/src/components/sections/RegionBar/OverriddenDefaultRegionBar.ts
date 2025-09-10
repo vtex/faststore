@@ -1,7 +1,7 @@
-import { override } from 'src/customizations/src/components/overrides/RegionBar'
-import { override as overridePlugin } from 'src/plugins/overrides/RegionBar'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import { override } from '../../../customizations/src/components/overrides/RegionBar'
+import { override as overridePlugin } from '../../../plugins/overrides/RegionBar'
+import { getOverriddenSection } from '../../../sdk/overrides/getOverriddenSection'
+import type { SectionOverrideDefinitionV1 } from '../../../typings/overridesDefinition'
 import RegionBar from '.'
 
 /**

@@ -3,21 +3,21 @@ import type { ComponentType } from 'react'
 import { useEffect } from 'react'
 
 import type { GetStaticProps } from 'next'
-import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
+import { default as GLOBAL_COMPONENTS } from '../components/cms/global/Components'
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
-import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
-import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import PLUGINS_COMPONENTS from 'src/plugins'
-import PageProvider from 'src/sdk/overrides/PageProvider'
-import type { PageContentType } from 'src/server/cms'
-import { injectGlobalSections } from 'src/server/cms/global'
-import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
+} from '../components/cms/GlobalSections'
+import RenderSections from '../components/cms/RenderSections'
+import { getComponentKey } from '../utils/cms'
+import { OverriddenDefaultEmptyState as EmptyState } from '../components/sections/EmptyState/OverriddenDefaultEmptyState'
+import CUSTOM_COMPONENTS from '../customizations/src/components'
+import PLUGINS_COMPONENTS from '../plugins'
+import PageProvider from '../sdk/overrides/PageProvider'
+import type { PageContentType } from '../server/cms'
+import { injectGlobalSections } from '../server/cms/global'
+import { contentService } from '../server/content/service'
+import type { PreviewData } from '../server/content/types'
 import storeConfig from '../../discovery.config'
 
 /* A list of components that can be used in the CMS. */

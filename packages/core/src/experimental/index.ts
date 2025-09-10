@@ -50,6 +50,6 @@ export { default as Selectors_unstable } from '../../src/components/ui/SkuSelect
 
 // Delivery Promise
 export {
-  deliveryPromiseStore as deliveryPromiseStore_unstable,
   useDeliveryPromise as useDeliveryPromise_unstable,
-} from 'src/sdk/deliveryPromise'
+  deliveryPromiseStore as deliveryPromiseStore_unstable,
+} from '../sdk/deliveryPromise'

@@ -2,15 +2,15 @@ import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
-import type { ClientManyProductsQueryQuery } from '@generated/graphql'
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
+import type { ClientManyProductsQueryQuery } from '../../../../@generated/graphql'
+import ProductGridSkeleton from '../../skeletons/ProductGridSkeleton'
 import type { ProductCardProps } from '../ProductCard'
 
 import { memo } from 'react'
-import ViewportObserver from 'src/components/cms/ViewportObserver'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
-import ProductSentinel from 'src/sdk/product/ProductSentinel'
+import ViewportObserver from '../../cms/ViewportObserver'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import useScreenResize from '../../../sdk/ui/useScreenResize'
+import ProductSentinel from '../../../sdk/product/ProductSentinel'
 
 interface Props {
   /**

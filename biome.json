@@ -19,7 +19,8 @@
       "__generated__",
       "@generated",
       "storybook-static",
-      "pnpm-lock.yaml"
+      "pnpm-lock.yaml",
+      "./packages/core/discovery.config.user.js"
     ]
   },
   "formatter": {
@@ -93,7 +94,8 @@
     "formatter": {
       "quoteStyle": "single",
       "semicolons": "asNeeded",
-      "trailingCommas": "es5"
+      "trailingCommas": "es5",
+      "quoteProperties": "asNeeded"
     },
     "jsxRuntime": "reactClassic"
   }

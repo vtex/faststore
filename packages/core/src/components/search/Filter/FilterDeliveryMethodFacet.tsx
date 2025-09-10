@@ -1,8 +1,8 @@
 import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
-import type { StoreFacetValueBoolean } from '@generated/graphql'
-import { sessionStore } from 'src/sdk/session'
-import type { GlobalCmsData } from 'src/utils/globalSettings'
-import { textToTitleCase } from 'src/utils/utilities'
+import { sessionStore } from '../../../sdk/session'
+import type { GlobalCmsData } from '../../../utils/globalSettings'
+import { textToTitleCase } from '../../../utils/utilities'
+import type { StoreFacetValueBoolean } from '../../../../@generated/graphql'
 
 interface FilterDeliveryMethodFacetProps {
   item: StoreFacetValueBoolean

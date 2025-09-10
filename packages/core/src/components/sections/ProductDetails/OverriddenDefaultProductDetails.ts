@@ -1,9 +1,9 @@
-import { override } from 'src/customizations/src/components/overrides/ProductDetails'
-import { override as overridePlugin } from 'src/plugins/overrides/ProductDetails'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import { override } from '../../../customizations/src/components/overrides/ProductDetails'
+import { override as overridePlugin } from '../../../plugins/overrides/ProductDetails'
+import { getOverriddenSection } from '../../../sdk/overrides/getOverriddenSection'
 import ProductDetails from './ProductDetails'
 
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import type { SectionOverrideDefinitionV1 } from '../../../typings/overridesDefinition'
 
 /**
  * This component exists to support overrides 1.0

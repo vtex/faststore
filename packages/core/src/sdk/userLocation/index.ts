@@ -1,6 +1,6 @@
 import type { Session } from '@faststore/sdk'
 import { getSavedAddress } from '../profile'
-import DiscoveryConfig from 'discovery.config'
+import DiscoveryConfig from '../../../discovery.config'
 import { sessionStore } from '../session'
 import { type RefObject, useEffect, useState } from 'react'
 import { useUI } from '@faststore/ui'

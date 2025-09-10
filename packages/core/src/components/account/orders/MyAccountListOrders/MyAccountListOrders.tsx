@@ -1,6 +1,6 @@
 import { useRef, type MutableRefObject } from 'react'
 
-import type { ServerListOrdersQueryQuery } from '@generated/graphql'
+import type { ServerListOrdersQueryQuery } from '../../../../../@generated/graphql'
 import { useRouter } from 'next/router'
 
 import {
@@ -13,15 +13,15 @@ import {
   type SearchInputFieldRef,
 } from '@faststore/ui'
 import { useEffect } from 'react'
-import MyAccountFilterSlider from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider'
-import { useDebounce } from 'src/sdk/account/useDebounce'
+import MyAccountFilterSlider from './MyAccountFilterSlider'
+import { useDebounce } from '../../../../sdk/account/useDebounce'
 import {
   useMyAccountFilter,
   type MyAccountFilter_FacetsFragment,
   type SelectedFacet,
-} from 'src/sdk/search/useMyAccountFilter'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
-import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
+} from '../../../../sdk/search/useMyAccountFilter'
+import useScreenResize from '../../../../sdk/ui/useScreenResize'
+import { FastStoreOrderStatus } from '../../../../utils/userOrderStatus'
 import MyAccountListOrdersTable, {
   Pagination,
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'

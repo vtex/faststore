@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 
-import { Button as UIButton, Icon as UIIcon } from '@faststore/ui'
-import { useSession } from 'src/sdk/session'
-import { textToTitleCase } from 'src/utils/utilities'
-import { useCheckRegionState } from 'src/sdk/userLocation'
+import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
+import { useSession } from '../../../sdk/session'
+import { textToTitleCase } from '../../../utils/utilities'
+import { useCheckRegionState } from '../../../sdk/userLocation'
 
 function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { city, postalCode } = useSession()

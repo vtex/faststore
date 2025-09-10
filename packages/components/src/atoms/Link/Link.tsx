@@ -29,7 +29,7 @@ export type LinkElementType = ElementType
 export type LinkProps<C extends LinkElementType = 'a'> =
   PolymorphicComponentPropsWithRef<C, LinkBaseProps>
 
-const Link = forwardRef(function Link<C extends LinkElementType = 'a'>(
+function Link<C extends LinkElementType = 'a'>(
   {
     as,
     children,
@@ -56,6 +56,6 @@ const Link = forwardRef(function Link<C extends LinkElementType = 'a'>(
       {children}
     </Component>
   )
-})
+}
 
-export default Link
+export default forwardRef<HTMLAnchorElement>(Link) as typeof Link

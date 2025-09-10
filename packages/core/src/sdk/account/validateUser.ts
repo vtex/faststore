@@ -1,10 +1,10 @@
-import { gql } from '@generated/gql'
+import { gql } from '../../../@generated/gql'
 import type {
   ValidateUserQuery,
   ValidateUserQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import type { GetServerSidePropsContext } from 'next'
-import { execute } from 'src/server'
+import { execute } from '../../server'
 
 const query = gql(`
   query ValidateUser {

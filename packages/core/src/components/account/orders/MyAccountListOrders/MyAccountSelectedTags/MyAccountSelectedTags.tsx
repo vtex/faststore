@@ -1,6 +1,6 @@
 import { Button } from '@faststore/ui'
-import { useSession } from 'src/sdk/session'
-import { FastStoreOrderStatusWithLabels } from 'src/utils/userOrderStatus'
+import { useSession } from '../../../../../sdk/session'
+import { FastStoreOrderStatusWithLabels } from '../../../../../utils/userOrderStatus'
 
 type MyAccountSelectedTagsProps = {
   filters: {

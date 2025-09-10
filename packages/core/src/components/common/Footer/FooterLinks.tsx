@@ -7,8 +7,8 @@ import {
 } from '@faststore/ui'
 import { useState } from 'react'
 
-import Link from 'src/components/ui/Link'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
+import Link from '../../ui/Link'
+import useScreenResize from '../../../sdk/ui/useScreenResize'
 
 type Item = {
   url: string

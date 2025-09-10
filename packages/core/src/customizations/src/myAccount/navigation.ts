@@ -1,3 +1,3 @@
-import { getMyAccountRoutes } from 'src/sdk/account/getMyAccountRoutes'
+import { getMyAccountRoutes } from '../../../sdk/account/getMyAccountRoutes'
 
 export default getMyAccountRoutes({ routes: [] })

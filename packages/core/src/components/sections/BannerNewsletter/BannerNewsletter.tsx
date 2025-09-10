@@ -1,8 +1,8 @@
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import type { BannerTextProps } from 'src/components/sections/BannerText'
+import { OverriddenDefaultBannerText as BannerText } from '../BannerText/OverriddenDefaultBannerText'
+import type { BannerTextProps } from '../BannerText'
 
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import type { NewsletterProps } from 'src/components/sections/Newsletter'
+import { OverriddenDefaultNewsletter as Newsletter } from '../Newsletter/OverriddenDefaultNewsletter'
+import type { NewsletterProps } from '../Newsletter'
 
 import Section from '../Section'
 import styles from './section.module.scss'

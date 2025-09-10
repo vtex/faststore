@@ -1,39 +1,39 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import Incentives from 'src/components/sections/Incentives'
+import { OverriddenDefaultHero as Hero } from '../../sections/Hero/OverriddenDefaultHero'
+import Incentives from '../../sections/Incentives'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
-import { getComponentKey } from 'src/utils/cms'
+import { getComponentKey } from '../../../utils/cms'
 
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import PLUGINS_COMPONENTS from 'src/plugins'
+import CUSTOM_COMPONENTS from '../../../customizations/src/components'
+import PLUGINS_COMPONENTS from '../../../plugins'
 
 const BannerText = dynamic(
   () =>
     import(
-      /* webpackChunkName: "BannerText" */ 'src/components/sections/BannerText/OverriddenDefaultBannerText'
+      /* webpackChunkName: "BannerText" */ '../../sections/BannerText/OverriddenDefaultBannerText'
     ).then((mod) => mod.OverriddenDefaultBannerText),
   { ssr: false }
 )
 const Newsletter = dynamic(
   () =>
     import(
-      /* webpackChunkName: "Newsletter" */ 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
+      /* webpackChunkName: "Newsletter" */ '../../sections/Newsletter/OverriddenDefaultNewsletter'
     ).then((mod) => mod.OverriddenDefaultNewsletter),
   { ssr: false }
 )
 const ProductShelf = dynamic(
   () =>
     import(
-      /* webpackChunkName: "ProductShelf" */ 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+      /* webpackChunkName: "ProductShelf" */ '../../sections/ProductShelf/OverriddenDefaultProductShelf'
     ).then((mod) => mod.OverriddenDefaultProductShelf),
   { ssr: false }
 )
 const ProductTiles = dynamic(
   () =>
     import(
-      /* webpackChunkName: "ProductTiles" */ 'src/components/sections/ProductTiles'
+      /* webpackChunkName: "ProductTiles" */ '../../sections/ProductTiles'
     ),
   { ssr: false }
 )

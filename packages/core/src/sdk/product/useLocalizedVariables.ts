@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 import deepmerge from 'deepmerge'
 
 import { useSearch, type SearchState } from '@faststore/sdk'
-import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
+import type { ClientManyProductsQueryQueryVariables } from '../../../@generated/graphql'
 
-import { useSession } from 'src/sdk/session'
-import { ITEMS_PER_SECTION } from 'src/constants'
+import { useSession } from '../session'
+import { ITEMS_PER_SECTION } from '../../constants'
 
 const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []

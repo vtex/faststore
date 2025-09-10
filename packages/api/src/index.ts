@@ -23,7 +23,7 @@ const platforms = {
   },
 }
 
-const directives: Directive[] = [cacheControlDirective]
+export const directives: Directive[] = [cacheControlDirective]
 
 export const getTypeDefs = () => [
   typeDefs,

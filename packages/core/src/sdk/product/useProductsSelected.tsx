@@ -1,12 +1,12 @@
-import { gql } from '@generated'
-import { useQuery } from 'src/sdk/graphql/useQuery'
-import { useSession } from 'src/sdk/session'
+import { gql } from '@faststore/core'
+import { useQuery } from '../graphql/useQuery'
+import { useSession } from '../session'
 import { useMemo } from 'react'
 import type {
   ClientManyProductsSelectedQueryQuery,
   ClientManyProductsSelectedQueryQueryVariables,
   ClientSearchSuggestionsQueryQuery,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 const query = gql(`
   query ClientManyProductsSelectedQuery(

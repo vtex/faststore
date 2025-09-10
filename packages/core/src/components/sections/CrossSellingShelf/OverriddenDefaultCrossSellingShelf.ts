@@ -1,7 +1,7 @@
-import { override } from 'src/customizations/src/components/overrides/CrossSellingShelf'
-import { override as overridePlugin } from 'src/plugins/overrides/CrossSellingShelf'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import { override } from '../../../customizations/src/components/overrides/CrossSellingShelf'
+import { override as overridePlugin } from '../../../plugins/overrides/CrossSellingShelf'
+import { getOverriddenSection } from '../../../sdk/overrides/getOverriddenSection'
+import type { SectionOverrideDefinitionV1 } from '../../../typings/overridesDefinition'
 import CrossSellingShelf from '.'
 
 /**

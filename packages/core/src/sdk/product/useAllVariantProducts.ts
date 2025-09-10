@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientAllVariantProductsQueryQuery,
   ClientProductQueryQueryVariables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'

@@ -1,4 +1,4 @@
-import { camelCaseToTitle } from 'src/utils/utilities'
+import { camelCaseToTitle } from '../../../../../utils/utilities'
 import MyAccountCard from '../../../components/MyAccountCard'
 
 export interface MyAccountMoreInformationCardProps {

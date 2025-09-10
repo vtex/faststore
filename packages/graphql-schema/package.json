@@ -1,0 +1,36 @@
+{
+  "name": "@faststore/graphql-schema",
+  "version": "4.0.0",
+  "license": "MIT",
+  "repository": "vtex/faststore",
+  "main": "./dist/cjs/index.js",
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "browserslist": "node 20",
+  "engines": {
+    "node": "22.19.0"
+  },
+  "packageManager": "pnpm@10.15.0",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@graphql-tools/merge": "catalog:",
+    "graphql": "catalog:",
+    "typescript": "catalog:",
+    "vite": "^7.1.5",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "peerDependencies": {
+    "graphql": "catalog:"
+  }
+}

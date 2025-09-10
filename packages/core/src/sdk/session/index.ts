@@ -3,13 +3,13 @@ import { createSessionStore } from '@faststore/sdk'
 import fetch from 'isomorphic-unfetch'
 import { useMemo } from 'react'
 
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
-} from '@generated/graphql'
-import discoveryConfig from 'discovery.config'
-import { sanitizeHost } from 'src/utils/utilities'
+} from '../../../@generated/graphql'
+import discoveryConfig from '../../../discovery.config'
+import { sanitizeHost } from '../../utils/utilities'
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'

@@ -1,7 +1,7 @@
-import { override } from 'src/customizations/src/components/overrides/Newsletter'
-import { override as overridePlugin } from 'src/plugins/overrides/Newsletter'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import { override } from '../../../customizations/src/components/overrides/Newsletter'
+import { override as overridePlugin } from '../../../plugins/overrides/Newsletter'
+import { getOverriddenSection } from '../../../sdk/overrides/getOverriddenSection'
+import type { SectionOverrideDefinitionV1 } from '../../../typings/overridesDefinition'
 import Newsletter from './Newsletter'
 
 /**

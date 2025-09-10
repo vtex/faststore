@@ -1,6 +1,6 @@
 import './styles.scss'
 
-/** @type { import('@storybook/react').Preview } */
+/** @type { import('@storybook/nextjs').Preview } */
 const preview = {
   parameters: {
     controls: {
@@ -10,6 +10,8 @@ const preview = {
       },
     },
   },
+
+  tags: ['autodocs'],
 }
 
 export default preview

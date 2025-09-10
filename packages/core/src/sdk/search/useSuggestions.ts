@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from '../graphql/useQuery'
 
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
-} from '@generated/graphql'
+} from '../../../@generated/graphql'
 import type { IntelligentSearchAutocompleteQueryEvent } from '../analytics/types'
 
 import { useSession } from '../session'

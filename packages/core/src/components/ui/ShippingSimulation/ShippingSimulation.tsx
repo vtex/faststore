@@ -1,8 +1,8 @@
 import type { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
 
-import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
+import { useShippingSimulation } from '../../../sdk/shipping/useShippingSimulation'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 
 type ShippingSimulationOptionalProps =
   | 'title'

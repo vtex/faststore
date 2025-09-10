@@ -1,7 +1,7 @@
 import { useEffect, type PropsWithChildren } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import type { ProductSummary_ProductFragment } from '../../../@generated/graphql'
 
 import { useViewItemListEvent } from '../analytics/hooks/useViewItemListEvent'
 import { queueViewItemList } from './viewItemListQueue'

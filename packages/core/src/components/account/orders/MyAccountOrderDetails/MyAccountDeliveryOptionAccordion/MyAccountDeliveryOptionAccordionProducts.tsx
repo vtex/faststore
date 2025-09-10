@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { camelCaseToTitle } from 'src/utils/utilities'
+import { camelCaseToTitle } from '../../../../../utils/utilities'
 
 interface MyAccountDeliveryOptionAccordionProductProps {
   image: string

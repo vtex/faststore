@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+// import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`

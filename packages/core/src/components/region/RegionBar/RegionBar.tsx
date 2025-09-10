@@ -1,16 +1,16 @@
 import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useEffect, useRef } from 'react'
 
-import { regionSliderTypes, useUI } from '@faststore/ui'
-import { sessionStore, useSession } from 'src/sdk/session'
-import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { useUI, regionSliderTypes } from '@faststore/ui'
+import { useSession, sessionStore } from '../../../sdk/session'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { textToTitleCase } from 'src/utils/utilities'
-import { getGlobalSettings } from 'src/utils/globalSettings'
-import { useCheckRegionState } from 'src/sdk/userLocation'
+import { deliveryPromise } from '../../../../discovery.config'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { textToTitleCase } from '../../../utils/utilities'
+import { getGlobalSettings } from '../../../utils/globalSettings'
+import { useCheckRegionState } from '../../../sdk/userLocation'
 
-import { deliveryPromise } from 'discovery.config'
 export interface RegionBarProps {
   /**
    * A React component that will be rendered as the location icon.

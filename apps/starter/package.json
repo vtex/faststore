@@ -1,0 +1,31 @@
+{
+  "name": "starter.store",
+  "version": "0.1.0",
+  "description": "FastStore Base Starter",
+  "private": true,
+  "scripts": {
+    "predev": "partytown copylib 'public/~partytown' && faststore-core",
+    "dev": "faststore prepare && next dev",
+    "prebuild": "partytown copylib 'public/~partytown' && faststore prepare && faststore-core",
+    "build": "next build",
+    "start": "next start",
+    "cms-sync": "echo faststore cms-sync",
+    "test": "echo faststore test",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@faststore/api": "workspace:*",
+    "@faststore/cli": "workspace:*",
+    "@faststore/core": "workspace:*",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@builder.io/partytown": "^0.6.4",
+    "@lhci/cli": "^0.9.0",
+    "@playwright/test": "catalog:",
+    "typescript": "catalog:"
+  },
+  "author": "VTEX"
+}

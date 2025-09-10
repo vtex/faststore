@@ -20,8 +20,10 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
     [href]
   )
 
+  // @TODO fix ts-ignore errors
   if (isInternalLink) {
     return (
+      // @ts-ignore
       <UILink
         as={NextLink}
         ref={ref}
@@ -38,6 +40,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
   }
 
   return (
+    // @ts-ignore
     <UILink
       ref={ref}
       href={href}

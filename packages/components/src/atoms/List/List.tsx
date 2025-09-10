@@ -24,7 +24,7 @@ type ListComponent = <T extends ElementType = 'ul'>(
   props: ListProps<T>
 ) => ReactElement | null
 
-const List = forwardRef(function List<T extends ElementType = 'ul'>(
+const List = function List<T extends ElementType = 'ul'>(
   { as, marker, testId = 'fs-list', ...otherProps }: ListProps<T>,
   ref: PolymorphicRef<T>
 ) {
@@ -40,6 +40,6 @@ const List = forwardRef(function List<T extends ElementType = 'ul'>(
       {...otherProps}
     />
   )
-}) as ListComponent
+}
 
-export default List
+export default forwardRef<HTMLUListElement>(List) as ListComponent

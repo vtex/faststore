@@ -1,4 +1,4 @@
-import { gql } from '@generated'
+import { gql } from '../../../@generated'
 
 import type {
   SubscribeToNewsletterMutation as Mutation,

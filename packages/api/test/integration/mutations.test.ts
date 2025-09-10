@@ -33,6 +33,7 @@ const apiOptions = {
   },
 } as Options
 
+jest.useFakeTimers({ advanceTimers: true })
 const mockedFetch = jest.fn()
 
 const createRunner = () => {

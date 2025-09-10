@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import fetch from 'isomorphic-unfetch'
-import { buildFormData } from 'src/utils/utilities'
+import { buildFormData } from '../../utils/utilities'
 import config from '../../../discovery.config'
 
 type SetPasswordInput = {

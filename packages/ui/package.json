@@ -24,7 +24,7 @@
   },
   "sideEffects": false,
   "engines": {
-    "node": ">=10"
+    "node": "22.19.0"
   },
   "files": [
     "dist",
@@ -47,27 +47,25 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^3.81.0",
+    "@faststore/components": "workspace:*",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",
-    "tabbable": "^5.2.1"
+    "tabbable": "catalog:"
   },
   "peerDependencies": {
-    "@faststore/components": "3.x",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
-    "@types/node": "^18.11.16",
-    "@types/react": "^18.2.42",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
     "@types/tabbable": "^3.1.1",
     "babel-loader": "^8.2.5",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "size-limit": "^7.0.8",
-    "tslib": "^2.3.1"
-  },
-  "volta": {
-    "extends": "../../package.json"
+    "tslib": "catalog:"
   }
 }

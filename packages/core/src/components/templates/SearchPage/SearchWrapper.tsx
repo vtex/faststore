@@ -1,13 +1,13 @@
 import { useSearch } from '@faststore/sdk'
 import { useRouter } from 'next/router'
 
-import storeConfig from 'discovery.config'
-import type { SearchPageContextType } from 'src/pages/s'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import type { SearchContentType } from 'src/server/cms'
+import storeConfig from '../../../../discovery.config'
+import type { SearchPageContextType } from '../../../pages/s'
+import { useProductGalleryQuery } from '../../../sdk/product/useProductGalleryQuery'
+import type { SearchContentType } from '../../../server/cms'
 
-import RenderSections from 'src/components/cms/RenderSections'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import RenderSections from '../../cms/RenderSections'
+import PageProvider from '../../../sdk/overrides/PageProvider'
 import EmptySearch from './EmptySearch'
 import SearchPage from './SearchPage'
 
