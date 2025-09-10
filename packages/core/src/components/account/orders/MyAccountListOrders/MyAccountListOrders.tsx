@@ -6,9 +6,9 @@ import { useRouter } from 'next/router'
 import {
   Button,
   EmptyState,
-  Icon as UIIcon,
   LinkButton,
   SearchInputField,
+  Icon as UIIcon,
   useUI,
   type SearchInputFieldRef,
 } from '@faststore/ui'
@@ -169,7 +169,7 @@ export default function MyAccountListOrders({
           params.set('text', value)
         }
 
-        window.location.href = `/account/orders?${params.toString()}`
+        window.location.href = `/pvt/account/orders?${params.toString()}`
       }
     },
     300,
@@ -247,7 +247,7 @@ export default function MyAccountListOrders({
             purchaseAgentId: filters.purchaseAgentId,
           }}
           onClearAll={() => {
-            window.location.href = '/account/orders'
+            window.location.href = '/pvt/account/orders'
           }}
           onRemoveFilter={(key, value) => {
             const { page, clientEmail, ...updatedFilters } = { ...filters }
@@ -288,7 +288,7 @@ export default function MyAccountListOrders({
             const params = new URLSearchParams(
               filteredQuery as Record<string, string>
             )
-            window.location.href = `/account/orders?${params.toString()}`
+            window.location.href = `/pvt/account/orders?${params.toString()}`
           }}
         />
 

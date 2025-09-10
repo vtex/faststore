@@ -24,7 +24,7 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
-import storeConfig from '../../../../discovery.config'
+import storeConfig from '../../../../../discovery.config'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -329,7 +329,7 @@ export const getServerSideProps: GetServerSideProps<
 
     return {
       redirect: {
-        destination: isForbidden ? '/account/403' : '/account/404',
+        destination: isForbidden ? '/pvt/account/403' : '/pvt/account/404',
         permanent: false,
       },
     }

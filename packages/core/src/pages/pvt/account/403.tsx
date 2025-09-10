@@ -54,7 +54,7 @@ function Page({ globalSections: globalSectionsProp, accountName }: Props) {
             subtitle="You don't have permission to access this page."
             showLoader={false}
           >
-            <LinkButton variant="secondary" href="/account">
+            <LinkButton variant="secondary" href="/pvt/account">
               Back to Account
             </LinkButton>
           </EmptyState>

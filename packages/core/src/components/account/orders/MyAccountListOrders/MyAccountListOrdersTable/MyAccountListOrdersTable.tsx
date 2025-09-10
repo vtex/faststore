@@ -55,7 +55,7 @@ export function Pagination({
     const { page, ...rest } = router.query
     const isFirstPage = newPage === 0 || newPage === 1
     router.push({
-      pathname: '/account/orders',
+      pathname: '/pvt/account/orders',
       query: {
         ...rest,
         ...(!isFirstPage ? { page: newPage } : {}),
@@ -163,7 +163,7 @@ export default function MyAccountListOrdersTable({
               max: MAX_ORDER_FIELDS,
             })
 
-            const orderUrl = `/account/orders/${item.orderId}`
+            const orderUrl = `/pvt/account/orders/${item.orderId}`
             const shippingEstimatedDate = item.ShippingEstimatedDate
               ? formatOrderDate(item.ShippingEstimatedDate, locale)
               : '-'
