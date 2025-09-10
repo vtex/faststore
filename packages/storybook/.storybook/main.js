@@ -14,15 +14,20 @@ const config = {
     '../stories/**/*.mdx',
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
+
   addons: [
     getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('@storybook/addon-docs'),
   ],
+
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {},
+  },
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
   },
 }
 export default config
