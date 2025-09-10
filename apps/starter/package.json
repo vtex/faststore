@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "predev": "partytown copylib 'public/~partytown' && faststore-core",
-    "dev": "next dev",
-    "prebuild": "partytown copylib 'public/~partytown' && faststore-core",
+    "dev": "faststore prepare && next dev",
+    "prebuild": "partytown copylib 'public/~partytown' && faststore prepare && faststore-core",
     "build": "next build",
     "start": "next start",
     "cms-sync": "echo faststore cms-sync",

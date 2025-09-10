@@ -2322,7 +2322,6 @@ export type UserOrderResult = {
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>;
   shippingData: Maybe<UserOrderShippingData>;
   shopper: Maybe<UserOrderShopper>;
-  shopperName: Maybe<UserOrderShopperName>;
   status: Maybe<Scalars['String']['output']>;
   statusDescription: Maybe<Scalars['String']['output']>;
   storePreferencesData: Maybe<UserOrderStorePreferencesData>;
@@ -2349,11 +2348,6 @@ export type UserOrderShopper = {
   firstName: Maybe<Scalars['String']['output']>;
   lastName: Maybe<Scalars['String']['output']>;
   phone: Maybe<Scalars['String']['output']>;
-};
-
-export type UserOrderShopperName = {
-  firstName: Maybe<Scalars['String']['output']>;
-  lastName: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderSlas = {
