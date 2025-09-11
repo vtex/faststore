@@ -1,7 +1,6 @@
-import type { CSSProperties, SetStateAction } from 'react'
+import type { CSSProperties, Ref, SetStateAction } from 'react'
 import {
   Suspense,
-  forwardRef,
   lazy,
   useDeferredValue,
   useImperativeHandle,
@@ -53,7 +52,8 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
-} & Omit<UISearchInputFieldProps, 'onSubmit'>
+  ref?: Ref<SearchInputRef>
+} & Omit<UISearchInputFieldProps, 'onSubmit' | 'ref'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
   resetSearchInput: () => void
@@ -68,123 +68,114 @@ const sendAnalytics = async (term: string) => {
   })
 }
 
-const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
-  function SearchInput(
-    {
-      onSearchClick,
-      buttonTestId = 'fs-search-button',
-      containerStyle,
-      sort,
-      placeholder,
-      quickOrderSettings,
-      ...otherProps
-    },
-    ref
-  ) {
-    const { hidden } = otherProps
-    const [searchQuery, setSearchQuery] = useState<string>('')
-    const [
-      customSearchDropdownVisibleCondition,
-      setCustomSearchDropdownVisibleCondition,
-    ] = useState<boolean>(false)
-    const searchQueryDeferred = useDeferredValue(searchQuery)
-    const [searchDropdownVisible, setSearchDropdownVisible] =
-      useState<boolean>(false)
+export default function SearchInput({
+  onSearchClick,
+  buttonTestId = 'fs-search-button',
+  containerStyle,
+  sort,
+  placeholder,
+  quickOrderSettings,
+  ref,
+  ...otherProps
+}: SearchInputProps) {
+  const { hidden } = otherProps
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [
+    customSearchDropdownVisibleCondition,
+    setCustomSearchDropdownVisibleCondition,
+  ] = useState<boolean>(false)
+  const searchQueryDeferred = useDeferredValue(searchQuery)
+  const [searchDropdownVisible, setSearchDropdownVisible] =
+    useState<boolean>(false)
 
-    const searchRef = useRef<HTMLDivElement>(null)
-    const { addToSearchHistory } = useSearchHistory()
-    const router = useRouter()
+  const searchRef = useRef<HTMLDivElement>(null)
+  const { addToSearchHistory } = useSearchHistory()
+  const router = useRouter()
 
-    useImperativeHandle(ref, () => ({
-      resetSearchInput: () => setSearchQuery(''),
-    }))
+  useImperativeHandle(ref, () => ({
+    resetSearchInput: () => setSearchQuery(''),
+  }))
 
-    const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
-      term,
-      path
-    ) => {
-      addToSearchHistory({ term, path })
-      sendAnalytics(term)
-      setSearchDropdownVisible(false)
-    }
-
-    useOnClickOutside(searchRef, () =>
-      setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
-    )
-
-    const { data, error } = useSuggestions(searchQueryDeferred)
-    const terms = (data?.search.suggestions.terms ?? []).slice(
-      0,
-      MAX_SUGGESTIONS
-    )
-    const products = (data?.search.suggestions.products ?? []).slice(
-      0,
-      MAX_SUGGESTIONS
-    )
-    const isLoading = !error && !data
-
-    const buttonProps = {
-      onClick: onSearchClick,
-      testId: buttonTestId,
-    }
-
-    return (
-      <>
-        {hidden ? (
-          <UIIconButton
-            type="submit"
-            aria-label="Submit Search"
-            icon={<UIIcon name="MagnifyingGlass" />}
-            size="small"
-            {...buttonProps}
-          />
-        ) : (
-          <UISearchInput
-            ref={searchRef}
-            visibleDropdown={searchDropdownVisible}
-            onSearchSelection={onSearchSelection}
-            term={searchQueryDeferred}
-            terms={terms}
-            products={products}
-            isLoading={isLoading}
-          >
-            <UISearchInputField
-              ref={ref}
-              buttonProps={buttonProps}
-              placeholder={placeholder}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                setSearchQuery(e.target.value)
-              }
-              onSubmit={(term: string) => {
-                const path = formatSearchPath({
-                  term,
-                  sort: sort as SearchState['sort'],
-                })
-
-                onSearchSelection(term, path)
-                router.push(path)
-              }}
-              onFocus={() => setSearchDropdownVisible(true)}
-              value={searchQuery}
-              {...otherProps}
-            />
-
-            {searchDropdownVisible && (
-              <Suspense fallback={null}>
-                <SearchDropdown
-                  sort={sort as SearchState['sort']}
-                  quickOrderSettings={quickOrderSettings}
-                  onChangeCustomSearchDropdownVisible={
-                    setCustomSearchDropdownVisibleCondition
-                  }
-                />
-              </Suspense>
-            )}
-          </UISearchInput>
-        )}
-      </>
-    )
+  const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
+    term,
+    path
+  ) => {
+    addToSearchHistory({ term, path })
+    sendAnalytics(term)
+    setSearchDropdownVisible(false)
   }
-)
 
-export default SearchInput
+  useOnClickOutside(searchRef, () =>
+    setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
+  )
+
+  const { data, error } = useSuggestions(searchQueryDeferred)
+  const terms = (data?.search.suggestions.terms ?? []).slice(0, MAX_SUGGESTIONS)
+  const products = (data?.search.suggestions.products ?? []).slice(
+    0,
+    MAX_SUGGESTIONS
+  )
+  const isLoading = !error && !data
+
+  const buttonProps = {
+    onClick: onSearchClick,
+    testId: buttonTestId,
+  }
+
+  return (
+    <>
+      {hidden ? (
+        <UIIconButton
+          type="submit"
+          aria-label="Submit Search"
+          icon={<UIIcon name="MagnifyingGlass" />}
+          size="small"
+          {...buttonProps}
+        />
+      ) : (
+        <UISearchInput
+          ref={searchRef}
+          visibleDropdown={searchDropdownVisible}
+          onSearchSelection={onSearchSelection}
+          term={searchQueryDeferred}
+          terms={terms}
+          products={products}
+          isLoading={isLoading}
+        >
+          <UISearchInputField
+            ref={ref}
+            buttonProps={buttonProps}
+            placeholder={placeholder}
+            onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              setSearchQuery(e.target.value)
+            }
+            onSubmit={(term: string) => {
+              const path = formatSearchPath({
+                term,
+                sort: sort as SearchState['sort'],
+              })
+
+              onSearchSelection(term, path)
+              router.push(path)
+            }}
+            onFocus={() => setSearchDropdownVisible(true)}
+            value={searchQuery}
+            {...otherProps}
+          />
+
+          {searchDropdownVisible && (
+            <Suspense fallback={null}>
+              <SearchDropdown
+                sort={sort as SearchState['sort']}
+                quickOrderSettings={quickOrderSettings}
+                onChangeCustomSearchDropdownVisible={
+                  setCustomSearchDropdownVisibleCondition
+                }
+              />
+            </Suspense>
+          )}
+        </UISearchInput>
+      )}
+    </>
+  )
+}
