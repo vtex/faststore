@@ -1,5 +1,5 @@
-import { useSearch } from '@faststore/sdk'
-import { SelectField } from '@faststore/ui'
+import { useSearch } from '@vtex/faststore-sdk'
+import { SelectField } from '@vtex/faststore-ui'
 
 const OptionsMap = {
   price_desc: 'Price, descending',

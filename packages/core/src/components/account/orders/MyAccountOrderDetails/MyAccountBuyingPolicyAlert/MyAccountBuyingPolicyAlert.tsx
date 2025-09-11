@@ -3,7 +3,7 @@ import {
   Button as UIButton,
   Icon as UIIcon,
   useUI,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { useState } from 'react'
 import MyAccountOrderActionModal from '../MyAccountOrderActionModal'
 import { useOrderAuthorization } from '../../../../../sdk/account/useOrderAuthorization'

@@ -1,4 +1,4 @@
-import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
+import { Icon as UIIcon, Skeleton as UISkeleton } from '@vtex/faststore-ui'
 import { useRef, type ReactNode } from 'react'
 import MyAccountCard from '../../../components/MyAccountCard'
 import {

@@ -1,7 +1,7 @@
-import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
+import type { RegionBarProps as UIRegionBarProps } from '@vtex/faststore-ui'
 import { useEffect, useRef } from 'react'
 
-import { useUI, regionSliderTypes } from '@faststore/ui'
+import { useUI, regionSliderTypes } from '@vtex/faststore-ui'
 import { useSession, sessionStore } from '../../../sdk/session'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 

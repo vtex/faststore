@@ -1,4 +1,4 @@
-import type { CommertialOffer } from '@faststore/api'
+import type { CommertialOffer } from '@vtex/faststore-api'
 
 export type EnhancedCommercialOffer<S, P> = CommertialOffer & {
   seller: S

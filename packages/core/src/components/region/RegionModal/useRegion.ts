@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import type { Session } from '@faststore/sdk'
+import type { Session } from '@vtex/faststore-sdk'
 import { deliveryPromise } from '../../../../discovery.config'
 import { getProductCount } from '../../../sdk/product'
 import { sessionStore, validateSession } from '../../../sdk/session'

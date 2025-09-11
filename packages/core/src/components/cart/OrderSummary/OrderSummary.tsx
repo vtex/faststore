@@ -1,7 +1,7 @@
 import {
   OrderSummary as UIOrderSummary,
   type OrderSummaryProps as UIOrderSummaryProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { ReactNode } from 'react'
 
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'

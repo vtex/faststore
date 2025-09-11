@@ -1,4 +1,4 @@
-import type { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
+import type { ShippingSimulationProps as UIShippingSimulationProps } from '@vtex/faststore-ui'
 
 import { useShippingSimulation } from '../../../sdk/shipping/useShippingSimulation'
 

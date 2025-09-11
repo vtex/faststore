@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
-import { Carousel as UICarousel } from '@faststore/ui'
-import type { CarouselProps as UICarouselProps } from '@faststore/ui'
+import { Carousel as UICarousel } from '@vtex/faststore-ui'
+import type { CarouselProps as UICarouselProps } from '@vtex/faststore-ui'
 
 import useScreenResize from '../../../sdk/ui/useScreenResize'
 

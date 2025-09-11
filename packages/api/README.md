@@ -13,20 +13,20 @@
 </p>
 
 <div style="display: flex; justify-content: center; width: 100%">
-  <a href="https://www.npmjs.com/package/@faststore/api" style="padding: 0px 2px 0px 0px">
+  <a href="https://www.npmjs.com/package/@vtex/faststore-api" style="padding: 0px 2px 0px 0px">
     <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
   </a>
-  <a href="https://bundlephobia.com/package/@faststore/api" style="padding: 0px 0px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/api" />
+  <a href="https://bundlephobia.com/package/@vtex/faststore-api" style="padding: 0px 0px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@vtex/faststore-api" />
   </a>
 </div>
 
 ## Installation
 
-From the command line in your project directory, run pnpm add `@faststore/api`.
+From the command line in your project directory, run pnpm add `@vtex/faststore-api`.
 
 ```cmd
-pnpm add @faststore/api
+pnpm add @vtex/faststore-api
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ With servers like express:
 
 ```ts
 import { execute } from 'graphql'
-import { getSchema } from '@faststore/api'
+import { getSchema } from '@vtex/faststore-api'
 
 import express from 'express'
 

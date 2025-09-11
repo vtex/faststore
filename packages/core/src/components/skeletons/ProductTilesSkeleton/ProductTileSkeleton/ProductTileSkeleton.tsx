@@ -1,4 +1,4 @@
-import { Skeleton as UISkeleton } from '@faststore/ui'
+import { Skeleton as UISkeleton } from '@vtex/faststore-ui'
 
 interface ProductTileSkeletonProps {
   index: number

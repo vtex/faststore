@@ -2,8 +2,11 @@ import { useMemo } from 'react'
 import type { ComponentProps } from 'react'
 import NextLink, { type LinkProps as NextJsLinkProps } from 'next/link'
 
-import { Link as UILink } from '@faststore/ui'
-import type { LinkProps as UILinkProps, LinkElementType } from '@faststore/ui'
+import { Link as UILink } from '@vtex/faststore-ui'
+import type {
+  LinkProps as UILinkProps,
+  LinkElementType,
+} from '@vtex/faststore-ui'
 
 export type LinkProps = Pick<
   UILinkProps<'a'>,

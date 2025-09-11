@@ -1,5 +1,5 @@
 {
-  "name": "@fatstore/storybook",
+  "name": "@vtex/faststore-storybook",
   "version": "3.81.0",
   "private": true,
   "devDependencies": {
@@ -17,8 +17,8 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@faststore/components": "workspace:*",
-    "@faststore/ui": "workspace:*",
+    "@vtex/faststore-components": "workspace:*",
+    "@vtex/faststore-ui": "workspace:*",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"

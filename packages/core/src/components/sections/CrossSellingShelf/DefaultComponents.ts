@@ -1,4 +1,4 @@
-import { ProductShelf as UIProductShelf } from '@faststore/ui'
+import { ProductShelf as UIProductShelf } from '@vtex/faststore-ui'
 import ProductCard from '../../product/ProductCard'
 import Carousel from '../../ui/Carousel'
 

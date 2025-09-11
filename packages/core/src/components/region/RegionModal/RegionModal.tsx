@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic'
 import { useRef, useState } from 'react'
 
-import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
-import { Icon, useUI } from '@faststore/ui'
+import type { RegionModalProps as UIRegionModalProps } from '@vtex/faststore-ui'
+import { Icon, useUI } from '@vtex/faststore-ui'
 
 import { deliveryPromise } from '../../../../discovery.config'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
@@ -15,7 +15,7 @@ import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
   () =>
-    import(/* webpackChunkName: "UIRegionModal" */ '@faststore/ui').then(
+    import(/* webpackChunkName: "UIRegionModal" */ '@vtex/faststore-ui').then(
       (mod) => mod.RegionModal
     ),
   { ssr: false }

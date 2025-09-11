@@ -2,12 +2,12 @@ import type {
   AddToCartEvent,
   CurrencyCode,
   RemoveFromCartEvent,
-} from '@faststore/sdk'
+} from '@vtex/faststore-sdk'
 import {
   CartItem as UICartItem,
   CartItemImage as UICartItemImage,
   CartItemSummary as UICartItemSummary,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { useCallback, useMemo } from 'react'
 
 import { Image } from '../../ui/Image'
@@ -27,7 +27,7 @@ function useCartItemEvent() {
     (item: Props['item'], quantity: number) => {
       const quantityDelta = quantity - item.quantity
 
-      import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+      import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
         return sendAnalyticsEvent<
           AddToCartEvent<AnalyticsItem> | RemoveFromCartEvent<AnalyticsItem>
         >({

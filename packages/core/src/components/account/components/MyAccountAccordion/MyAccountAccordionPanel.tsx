@@ -1,4 +1,4 @@
-import { AccordionPanel as UIAccordionPanel } from '@faststore/ui'
+import { AccordionPanel as UIAccordionPanel } from '@vtex/faststore-ui'
 import type { ReactNode } from 'react'
 
 interface MyAccountAccordionPanelProps {

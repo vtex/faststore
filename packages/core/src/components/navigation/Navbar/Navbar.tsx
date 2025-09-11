@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 
-import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
+import { Icon as UIIcon, useScrollDirection, useUI } from '@vtex/faststore-ui'
 
 import type { SearchInputRef } from '../../search/SearchInput'
 import SearchInput from '../../search/SearchInput'

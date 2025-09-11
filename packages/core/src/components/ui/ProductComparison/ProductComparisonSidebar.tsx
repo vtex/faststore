@@ -4,9 +4,9 @@ import {
   type ProductComparisonSidebarProps as UIProductComparisonSidebarProps,
   ProductComparisonSidebar as UIProductComparisonSidebar,
   useProductComparison,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
-import { gql } from '@faststore/core'
+import { gql } from '@vtex/faststore-core'
 import type { ClientManyProductsSelectedQueryQuery } from '../../../../@generated/graphql'
 
 import { useBuyButton } from '../../../sdk/cart/useBuyButton'

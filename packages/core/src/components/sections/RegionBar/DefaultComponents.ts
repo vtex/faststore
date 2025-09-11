@@ -1,4 +1,4 @@
-import { RegionBar as UIRegionBar, Icon as UIIcon } from '@faststore/ui'
+import { RegionBar as UIRegionBar, Icon as UIIcon } from '@vtex/faststore-ui'
 
 export const RegionBarDefaultComponents = {
   RegionBar: UIRegionBar,

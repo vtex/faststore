@@ -48,9 +48,9 @@ function createTmpFolder(basePath: string) {
 }
 
 /**
- * Prevents imports from @faststore/core from randomly conflicting
+ * Prevents imports from @vtex/faststore-core from randomly conflicting
  * where sometimes the package.json from the .faststore folder
- * took precedence over @faststore/core's package.json.
+ * took precedence over @vtex/faststore-core's package.json.
  */
 function filterAndCopyPackageJson(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)

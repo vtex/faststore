@@ -1,5 +1,8 @@
-import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
-import { createCartStore } from '@faststore/sdk'
+import type {
+  Cart as SDKCart,
+  CartItem as SDKCartItem,
+} from '@vtex/faststore-sdk'
+import { createCartStore } from '@vtex/faststore-sdk'
 import { useMemo } from 'react'
 
 import { gql } from '../../../@generated'

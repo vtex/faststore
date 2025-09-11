@@ -1,4 +1,4 @@
-import { Alert as UIAlert, Icon as UIIcon } from '@faststore/ui'
+import { Alert as UIAlert, Icon as UIIcon } from '@vtex/faststore-ui'
 
 export const AlertDefaultComponents = {
   Alert: UIAlert,

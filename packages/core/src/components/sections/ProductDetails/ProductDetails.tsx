@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
+import type { CurrencyCode, ViewItemEvent } from '@vtex/faststore-sdk'
 
 import { gql } from '../../../../@generated'
 import type { AnalyticsItem } from '../../../sdk/analytics/types'
@@ -147,7 +147,7 @@ function ProductDetails({
   } = product
 
   useEffect(() => {
-    import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
       sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
         name: 'view_item',
         params: {

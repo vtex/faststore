@@ -1,4 +1,7 @@
-import { Accordion as UIAccordion, type AccordionProps } from '@faststore/ui'
+import {
+  Accordion as UIAccordion,
+  type AccordionProps,
+} from '@vtex/faststore-ui'
 
 interface MyAccountAccordionProps extends AccordionProps {}
 

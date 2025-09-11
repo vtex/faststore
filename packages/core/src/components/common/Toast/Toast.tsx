@@ -2,16 +2,18 @@ import { useEffect } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { useUI } from '@faststore/ui'
+import { useUI } from '@vtex/faststore-ui'
 import Section from '../../sections/Section/Section'
 import { useCart } from '../../../sdk/cart'
 import styles from './section.module.scss'
 
 const UIToast = dynamic(
   () =>
-    import(/* webpackChunkName: "UIToast" */ '@faststore/ui').then((module) => {
-      return module.Toast
-    }),
+    import(/* webpackChunkName: "UIToast" */ '@vtex/faststore-ui').then(
+      (module) => {
+        return module.Toast
+      }
+    ),
   { ssr: false }
 )
 

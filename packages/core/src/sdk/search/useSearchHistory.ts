@@ -1,4 +1,4 @@
-import { createStore } from '@faststore/sdk'
+import { createStore } from '@vtex/faststore-sdk'
 
 import { useStore } from '../useStore'
 

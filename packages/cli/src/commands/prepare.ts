@@ -19,11 +19,11 @@ export default class Prepare extends Command {
     const clientPublicDir = path.join(basePath, 'public/')
     const corePublicDir = path.join(
       basePath,
-      'node_modules/@faststore/core/public/'
+      'node_modules/@vtex/faststore-core/public/'
     )
 
     if (!corePublicDir) {
-      throw Error('Please install @faststore/core package')
+      throw Error('Please install @vtex/faststore-core package')
     }
 
     copyFolder(corePublicDir, clientPublicDir)

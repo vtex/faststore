@@ -1,5 +1,5 @@
 {
-  "name": "@faststore/cli",
+  "name": "@vtex/faststore-cli",
   "version": "3.82.3",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@antfu/ni": "catalog:",
-    "@faststore/core": "workspace:*",
+    "@vtex/faststore-core": "workspace:*",
     "@inquirer/prompts": "^5.1.2",
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",

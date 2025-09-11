@@ -1,4 +1,4 @@
-import { Button, Icon } from '@faststore/ui'
+import { Button, Icon } from '@vtex/faststore-ui'
 import type { ServerListOrdersQueryQuery } from '../../../../../../@generated/graphql'
 import { useRouter } from 'next/router'
 import { useState } from 'react'

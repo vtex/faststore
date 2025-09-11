@@ -2,8 +2,8 @@ import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
 import { Suspense, lazy, useState, type MouseEvent } from 'react'
 
-import { useSearch } from '@faststore/sdk'
-import { useUI } from '@faststore/ui'
+import { useSearch } from '@vtex/faststore-sdk'
+import { useUI } from '@vtex/faststore-ui'
 
 import type { ProductCardProps } from '../../product/ProductCard'
 import type { FilterSliderProps } from '../../search/Filter/FilterSlider'

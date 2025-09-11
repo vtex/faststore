@@ -3,8 +3,8 @@ import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
-import { type SearchState, useSearch } from '@faststore/sdk'
-import type { Facet } from '@faststore/sdk/dist/types'
+import { type SearchState, useSearch } from '@vtex/faststore-sdk'
+import type { Facet } from '@vtex/faststore-sdk/dist/types'
 import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,
@@ -166,7 +166,7 @@ export const useProductGalleryQuery = ({
         urlHasOperator
 
       if (shouldSendAnalyticsEvent) {
-        import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+        import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchQueryEvent>({
             name: 'intelligent_search_query',
             params: {

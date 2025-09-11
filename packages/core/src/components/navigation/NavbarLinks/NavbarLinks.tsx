@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import {
   NavbarLinksListItem as UINavbarLinksListItem,
   type NavbarLinksProps as UINavbarLinksProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import type { NavbarProps } from '../Navbar'
 import RegionButton from '../../region/RegionButton'

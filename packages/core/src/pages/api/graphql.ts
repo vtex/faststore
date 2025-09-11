@@ -3,7 +3,7 @@ import {
   UnauthorizedError,
   isFastStoreError,
   stringifyCacheControl,
-} from '@faststore/api'
+} from '@vtex/faststore-api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from '../../../discovery.config'

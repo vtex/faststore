@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import type { SKUMatrixSidebarProps as UISKUMatrixSidebarProps } from '@faststore/ui'
+import type { SKUMatrixSidebarProps as UISKUMatrixSidebarProps } from '@vtex/faststore-ui'
 import {
   SKUMatrixSidebar as UISKUMatrixSidebar,
   useSKUMatrix,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { gql } from '../../../../@generated/gql'
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
 import { useBuyButton } from '../../../sdk/cart/useBuyButton'

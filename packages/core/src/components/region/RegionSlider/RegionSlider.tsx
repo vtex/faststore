@@ -1,10 +1,10 @@
-import { toggleFacets, useSearch, type Session } from '@faststore/sdk'
+import { toggleFacets, useSearch, type Session } from '@vtex/faststore-sdk'
 import {
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
   type InputFieldProps as UIInputFieldProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import dynamic from 'next/dynamic'
 import type { ChangeEvent, MouseEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -23,20 +23,20 @@ import styles from './section.module.scss'
 const UIFilterSlider = dynamic<UIFilterSliderProps>(
   () =>
     /* webpackChunkName: "UIFilterSlider" */
-    import('@faststore/ui').then((mod) => mod.FilterSlider),
+    import('@vtex/faststore-ui').then((mod) => mod.FilterSlider),
   { ssr: false }
 )
 const UIInputField = dynamic<UIInputFieldProps>(() =>
   /* webpackChunkName: "UIInputField" */
-  import('@faststore/ui').then((mod) => mod.InputField)
+  import('@vtex/faststore-ui').then((mod) => mod.InputField)
 )
 const UIIcon = dynamic<UIIconProps>(() =>
   /* webpackChunkName: "UIIcon" */
-  import('@faststore/ui').then((mod) => mod.Icon)
+  import('@vtex/faststore-ui').then((mod) => mod.Icon)
 )
 const UILink = dynamic(() =>
   /* webpackChunkName: "UILink" */
-  import('@faststore/ui').then((mod) => mod.Link)
+  import('@vtex/faststore-ui').then((mod) => mod.Link)
 )
 
 function RegionSlider() {

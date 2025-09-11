@@ -1,10 +1,10 @@
 @layer components {
   .section {
-    @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+    @import "@vtex/faststore-ui/src/components/atoms/Overlay/styles.scss";
+    @import "@vtex/faststore-ui/src/components/atoms/Button/styles.scss";
+    @import "@vtex/faststore-ui/src/components/atoms/Input/styles.scss";
+    @import "@vtex/faststore-ui/src/components/atoms/Icon/styles.scss";
+    @import "@vtex/faststore-ui/src/components/organisms/SlideOver/styles.scss";
 
     // --------------------------------------------------------
     // Design Tokens

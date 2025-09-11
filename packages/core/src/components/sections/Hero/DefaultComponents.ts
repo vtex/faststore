@@ -2,7 +2,7 @@ import {
   Hero as UIHero,
   HeroImage as UIHeroImage,
   HeroHeader as UIHeroHeader,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 export const HeroDefaultComponents = {
   Hero: UIHero,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@faststore/ui'
+import { Button } from '@vtex/faststore-ui'
 
 export default {
   title: 'Button',

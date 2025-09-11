@@ -4,7 +4,7 @@ import {
   AccordionItem as UIAccordionItem,
   AccordionPanel as UIAccordionPanel,
   List as UIList,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { useState } from 'react'
 
 import Link from '../../ui/Link'

@@ -1,4 +1,4 @@
-const { withFastStore } = require('@faststore/core/with-faststore')
+const { withFastStore } = require('@vtex/faststore-core/with-faststore')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withFastStore({

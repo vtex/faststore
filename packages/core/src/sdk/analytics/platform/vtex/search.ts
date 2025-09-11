@@ -1,7 +1,7 @@
 /**
  * More info at: https://developers.vtex.com/docs/api-reference/intelligent-search-events-api-headless
  */
-import type { AnalyticsEvent } from '@faststore/sdk'
+import type { AnalyticsEvent } from '@vtex/faststore-sdk'
 import type { SearchEvents } from '../../types'
 
 import { getBaseDomain } from '../../../../utils/getBaseDomain'

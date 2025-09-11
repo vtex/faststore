@@ -6,7 +6,7 @@ import {
   useMemo,
 } from 'react'
 
-import { useUI } from '@faststore/ui'
+import { useUI } from '@vtex/faststore-ui'
 import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'

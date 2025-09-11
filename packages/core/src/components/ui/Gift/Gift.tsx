@@ -1,10 +1,10 @@
-import type { GiftProps } from '@faststore/ui'
+import type { GiftProps } from '@vtex/faststore-ui'
 import {
   Icon,
   Gift as UIGift,
   GiftContent as UIGiftContent,
   GiftImage as UIGiftImage,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { Image } from '../Image'
 import type { CartItem as ICartItem } from '../../../sdk/cart'

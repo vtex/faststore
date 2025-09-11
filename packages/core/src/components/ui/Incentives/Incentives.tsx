@@ -2,7 +2,7 @@ import {
   Icon as UIIcon,
   Incentive as UIIncentive,
   List as UIList,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 export type Incentive = {
   icon: string

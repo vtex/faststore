@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet } from '@faststore/sdk'
+import { setFacet, toggleFacet } from '@vtex/faststore-sdk'
 import { useMemo, useReducer } from 'react'
 
 export type SelectedFacet = {

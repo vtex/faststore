@@ -14,9 +14,9 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@faststore/api": "workspace:*",
-    "@faststore/cli": "workspace:*",
-    "@faststore/core": "workspace:*",
+    "@vtex/faststore-api": "workspace:*",
+    "@vtex/faststore-cli": "workspace:*",
+    "@vtex/faststore-core": "workspace:*",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"

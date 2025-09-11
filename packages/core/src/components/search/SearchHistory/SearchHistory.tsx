@@ -2,7 +2,7 @@ import {
   SearchHistory as UISearchHistory,
   SearchHistoryTerm as UISearchHistoryTerm,
   useSearch,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import useSearchHistory from '../../../sdk/search/useSearchHistory'
 
 const SearchHistory = ({ ...props }) => {

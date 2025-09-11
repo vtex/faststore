@@ -7,7 +7,7 @@ import {
   useSearch,
   type SearchState,
   type Session,
-} from '@faststore/sdk'
+} from '@vtex/faststore-sdk'
 import type { Filter_FacetsFragment } from '../../../@generated/graphql'
 
 import type { useFilter } from '../search/useFilter'

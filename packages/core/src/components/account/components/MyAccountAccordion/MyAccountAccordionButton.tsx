@@ -1,7 +1,7 @@
 import {
   AccordionButton as UIAccordionButton,
   Icon as UIIcon,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { ReactNode } from 'react'
 
 interface MyAccountAccordionButtonProps {

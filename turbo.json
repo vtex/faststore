@@ -36,13 +36,13 @@
     "dev:server": {
       "cache": false
     },
-    "@faststore/api#dev:graphql": {
+    "@vtex/faststore-api#dev:graphql": {
       "outputs": ["dist/**"]
     },
-    "@faststore/api#build:cjs": {
+    "@vtex/faststore-api#build:cjs": {
       "outputs": ["dist/**"]
     },
-    "@faststore/api#build:esm": {
+    "@vtex/faststore-api#build:esm": {
       "outputs": ["dist/**"]
     }
   }

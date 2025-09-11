@@ -1,5 +1,5 @@
-import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
-import { Breadcrumb as UIBreadcrumb } from '@faststore/ui'
+import type { BreadcrumbProps as UIBreadcrumbProps } from '@vtex/faststore-ui'
+import { Breadcrumb as UIBreadcrumb } from '@vtex/faststore-ui'
 import { memo } from 'react'
 
 import Link from '../Link'

@@ -1,4 +1,4 @@
-import type { Options as APIOptions } from '@faststore/api'
+import type { Options as APIOptions } from '@vtex/faststore-api'
 
 import storeConfig from '../../discovery.config'
 

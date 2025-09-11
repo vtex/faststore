@@ -2,8 +2,8 @@
   .section {
     margin-top: 0;
 
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/atoms/List/styles.scss";
-    @import "@faststore/ui/src/components/organisms/Incentives/styles.scss";
+    @import "@vtex/faststore-ui/src/components/atoms/Icon/styles.scss";
+    @import "@vtex/faststore-ui/src/components/atoms/List/styles.scss";
+    @import "@vtex/faststore-ui/src/components/organisms/Incentives/styles.scss";
   }
 }

@@ -1,3 +1,3 @@
-import PreviewHandler from '@faststore/core/handlers/preview'
+import PreviewHandler from '@vtex/faststore-core/handlers/preview'
 
 export default PreviewHandler

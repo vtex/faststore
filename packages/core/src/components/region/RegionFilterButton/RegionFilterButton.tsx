@@ -5,7 +5,7 @@ import {
   Icon as UIIcon,
   useUI,
   regionSliderTypes,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 

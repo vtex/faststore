@@ -7,7 +7,7 @@ import {
   ProductComparison as UIProductComparison,
   ProductComparisonSidebar as UIProductComparisonSidebar,
   ProductComparisonToolbar as UIProductComparisonToolbar,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import dynamic from 'next/dynamic'
 

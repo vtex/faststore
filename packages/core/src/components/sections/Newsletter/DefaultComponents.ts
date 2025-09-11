@@ -6,7 +6,7 @@ import {
   NewsletterContent as UINewsletterContent,
   NewsletterForm as UINewsletterForm,
   NewsletterHeader as UINewsletterHeader,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { NewsletterAddendum as UINewsletterAddendum } from '../../ui/Newsletter'
 

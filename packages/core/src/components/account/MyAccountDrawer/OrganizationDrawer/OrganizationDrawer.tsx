@@ -1,4 +1,4 @@
-import { SlideOver, useFadeEffect } from '@faststore/ui'
+import { SlideOver, useFadeEffect } from '@vtex/faststore-ui'
 
 import { useSession } from '../../../../sdk/session'
 import storeConfig from '../../../../../discovery.config'

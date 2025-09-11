@@ -2,7 +2,7 @@ import {
   Icon as UIIcon,
   Badge as UIBadge,
   IconButton as UIIconButton,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { useCartToggleButton } from '../../../sdk/cart/useCartToggleButton'
 

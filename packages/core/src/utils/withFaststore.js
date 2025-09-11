@@ -109,7 +109,7 @@ async function withFastStore(config) {
       defaultLocale: finalConfig.session.locale,
     },
     sassOptions: {
-      additionalData: `@import "@faststore/ui/src/styles/base/utilities.scss";`,
+      additionalData: `@import "@vtex/faststore-ui/src/styles/base/utilities.scss";`,
     },
     outputFileTracingRoot: path.join(__dirname, '../'),
     experimental: {
@@ -125,7 +125,10 @@ async function withFastStore(config) {
         withCamelCaseCss(addAliases(filterWarnings(config.webpack)))
       )
     ),
-    transpilePackages: ['@faststore/core', ...(config.transpilePackages ?? [])],
+    transpilePackages: [
+      '@vtex/faststore-core',
+      ...(config.transpilePackages ?? []),
+    ],
   }
 }
 

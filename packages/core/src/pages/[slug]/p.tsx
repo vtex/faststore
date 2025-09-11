@@ -1,4 +1,4 @@
-import { isNotFoundError } from '@faststore/api'
+import { isNotFoundError } from '@vtex/faststore-api'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'

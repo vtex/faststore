@@ -3,8 +3,8 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import { useSearch } from '@faststore/sdk'
-import { UIProvider } from '@faststore/ui'
+import { useSearch } from '@vtex/faststore-sdk'
+import { UIProvider } from '@vtex/faststore-ui'
 
 import ThirdPartyScripts from '../components/ThirdPartyScripts'
 import Layout from '../Layout'

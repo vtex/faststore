@@ -1,4 +1,4 @@
-import { InputField } from '@faststore/ui'
+import { InputField } from '@vtex/faststore-ui'
 import { type Ref, useImperativeHandle, useRef, useState } from 'react'
 
 export interface MyAccountFilterFacetDateRangeProps {

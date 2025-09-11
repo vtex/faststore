@@ -1,4 +1,4 @@
-import { Button } from '@faststore/ui'
+import { Button } from '@vtex/faststore-ui'
 import { useSession } from '../../../../../sdk/session'
 import { FastStoreOrderStatusWithLabels } from '../../../../../utils/userOrderStatus'
 

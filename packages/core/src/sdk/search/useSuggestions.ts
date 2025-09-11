@@ -55,7 +55,7 @@ function useSuggestions(term: string) {
     doNotRun: term === null || term === undefined, // it is ok to be empty string ""
     onSuccess: (callbackData) => {
       if (callbackData && term) {
-        import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+        import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchAutocompleteQueryEvent>({
             name: 'intelligent_search_autocomplete_query',
             params: {

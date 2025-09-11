@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic'
 import type {
   ButtonProps,
   CartSidebarProps as UICartSidebarProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
-import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
-import { Icon, useFadeEffect, useUI } from '@faststore/ui'
+import type { CurrencyCode, ViewCartEvent } from '@vtex/faststore-sdk'
+import { Icon, useFadeEffect, useUI } from '@vtex/faststore-ui'
 import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from '../../../sdk/cart'
 import { useCheckoutButton } from '../../../sdk/cart/useCheckoutButton'
@@ -14,28 +14,28 @@ import { useSession } from '../../../sdk/session'
 
 const UIButton = dynamic<ButtonProps>(
   () =>
-    import(/* webpackChunkName: "UIButton" */ '@faststore/ui').then(
+    import(/* webpackChunkName: "UIButton" */ '@vtex/faststore-ui').then(
       (mod) => mod.Button
     ),
   { ssr: false }
 )
 const UICartSidebarFooter = dynamic<{ children: ReactNode }>(
   () =>
-    import(/* webpackChunkName: "UICartSidebarFooter" */ '@faststore/ui').then(
-      (mod) => mod.CartSidebarFooter
-    ),
+    import(
+      /* webpackChunkName: "UICartSidebarFooter" */ '@vtex/faststore-ui'
+    ).then((mod) => mod.CartSidebarFooter),
   { ssr: false }
 )
 const UICartSidebarList = dynamic<{ children: ReactNode }>(
   () =>
-    import(/* webpackChunkName: "UICartSidebarList" */ '@faststore/ui').then(
-      (mod) => mod.CartSidebarList
-    ),
+    import(
+      /* webpackChunkName: "UICartSidebarList" */ '@vtex/faststore-ui'
+    ).then((mod) => mod.CartSidebarList),
   { ssr: false }
 )
 const UICartSidebar = dynamic<UICartSidebarProps>(
   () =>
-    import(/* webpackChunkName: "UICartSidebar" */ '@faststore/ui').then(
+    import(/* webpackChunkName: "UICartSidebar" */ '@vtex/faststore-ui').then(
       (mod) => mod.CartSidebar
     ),
   { ssr: false }
@@ -73,7 +73,7 @@ function useViewCartEvent() {
   const items = JSON.stringify(itemsFromCart)
 
   const sendViewCartEvent = useCallback(() => {
-    import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
       return sendAnalyticsEvent<ViewCartEvent>({
         name: 'view_cart',
         params: {

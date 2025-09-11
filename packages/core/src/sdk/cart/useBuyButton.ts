@@ -1,10 +1,10 @@
-import type { AddToCartEvent, CurrencyCode } from '@faststore/sdk'
+import type { AddToCartEvent, CurrencyCode } from '@vtex/faststore-sdk'
 import { useCallback } from 'react'
 
 import type { AnalyticsItem } from '../analytics/types'
 import type { CartItem } from './'
 
-import { useUI } from '@faststore/ui'
+import { useUI } from '@vtex/faststore-ui'
 import { useSession } from '../session'
 import { cartStore } from './index'
 
@@ -54,7 +54,7 @@ export const useBuyButton = (
         return item.map(generatedItem)
       }
 
-      import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+      import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
         sendAnalyticsEvent<AddToCartEvent<AnalyticsItem>>({
           name: 'add_to_cart',
           params: {

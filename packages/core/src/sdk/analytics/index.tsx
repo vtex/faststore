@@ -1,5 +1,5 @@
-import type { AnalyticsEvent } from '@faststore/sdk'
-import { useAnalyticsEvent, type UnknownEvent } from '@faststore/sdk'
+import type { AnalyticsEvent } from '@vtex/faststore-sdk'
+import { useAnalyticsEvent, type UnknownEvent } from '@vtex/faststore-sdk'
 
 import storeConfig from '../../../discovery.config'
 

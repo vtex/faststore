@@ -34,9 +34,9 @@ Fork the repository (click the <kbd>Fork</kbd> button at the top right of
 
 3. Run `pnpm turbo run dev --filter={packageName}` to run a package individually.
 
-> For example, if you want to run the `@faststore/core` package, at the root of the repository run:
+> For example, if you want to run the `@vtex/faststore-core` package, at the root of the repository run:
 >
-> `pnpm turbo run dev --filter=@faststore/core`
+> `pnpm turbo run dev --filter=@vtex/faststore-core`
 
 **Note**: If you encounter issues during the setup process, please check if your current version of Pnpm, Turbo, and Node.js are matching the versions specified in the package.json file.
 

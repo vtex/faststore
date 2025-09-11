@@ -2,10 +2,10 @@ import {
   SearchTop as UISearchTop,
   SearchTopTerm as UISearchTopTerm,
   useSearch,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { HTMLAttributes } from 'react'
 
-import type { SearchState } from '@faststore/sdk'
+import type { SearchState } from '@vtex/faststore-sdk'
 import type { StoreSuggestionTerm } from '../../../../@generated/graphql'
 import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
 import useTopSearch from '../../../sdk/search/useTopSearch'

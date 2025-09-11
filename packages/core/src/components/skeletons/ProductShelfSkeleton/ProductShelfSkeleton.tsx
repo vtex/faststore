@@ -4,7 +4,7 @@ import {
   ProductShelfItem,
   ProductShelfItems,
   ProductShelf as UIProductShelf,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import ProductCardSkeleton from '../ProductCardSkeleton'
 

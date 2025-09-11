@@ -13,15 +13,15 @@
 </p>
 
 <div style="display: flex; justify-content: center; width: 100%">
-  <a href="https://www.npmjs.com/package/@faststore/api" style="padding: 0px 2px 0px 0px">
+  <a href="https://www.npmjs.com/package/@vtex/faststore-api" style="padding: 0px 2px 0px 0px">
     <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
   </a>
-  <a href="https://bundlephobia.com/package/@faststore/api" style="padding: 0px 0px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/api" />
+  <a href="https://bundlephobia.com/package/@vtex/faststore-api" style="padding: 0px 0px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@vtex/faststore-api" />
   </a>
 </div>
 
-> ⚠️ Version 3.0.0 and above - Depreciation notice: the gql function should be imported from @faststore/core. Read the [guide](faststore.dev/docs/api-extensions/api-extensions-improvements`) for more information.
+> ⚠️ Version 3.0.0 and above - Depreciation notice: the gql function should be imported from @vtex/faststore-core. Read the [guide](faststore.dev/docs/api-extensions/api-extensions-improvements`) for more information.
 
 # Compatibility
 
@@ -52,7 +52,7 @@ Installing this plugin may vary depending on your setup. The instructions below 
 To install, just
 
 ```sh
-$ pnpm add @faststore/graphql-utils
+$ pnpm add @vtex/faststore-graphql-utils
 ```
 
 > Note. Also make sure to install [graphql codegen cli](https://www.graphql-code-generator.com/docs/getting-started/installation)
@@ -65,7 +65,7 @@ To generate the persisted query file, add this plugin to your codegen config. If
 generates:
 path/to/persisted.json:
  plugins:
-   - @faststore/graphql-utils/codegen
+   - @vtex/faststore-graphql-utils/codegen
 ```
 
 Now, open your terminal and run:
@@ -84,7 +84,7 @@ To use it on Gatsby, we need to setup the babel plugin. To do this, we can use G
 // ...
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPlugin({
-    name: `@faststore/graphql-utils/babel`,
+    name: `@vtex/faststore-graphql-utils/babel`,
     options: {},
   })
 }
@@ -97,7 +97,7 @@ Now you should be good to go and create your queries.
 Now that you have successfully installed and configured both babel and codegen plugins, you can start writing your queries. Let's start by declaring the following code:
 
 ```tsx
-import { gql, request } from '@faststore/graphql-utils'
+import { gql, request } from '@vtex/faststore-graphql-utils'
 
 const MyQuery = gql`
   query MyQuery { ... }
@@ -116,7 +116,7 @@ That's it! you can use this in most GraphQL Clients, like Apollo Client, SWR, an
 For instance, to use it with SWR, you can declare a useQuery hook:
 
 ```tsx
-import { request } from '@faststore/graphql-utils'
+import { request } from '@vtex/faststore-graphql-utils'
 
 const useQuery = ({ operationName, variables }) =>
   useSWR(`/graphql/${operationName}::${JSON.stringify(variables)}`, {
@@ -127,7 +127,7 @@ const useQuery = ({ operationName, variables }) =>
 and use it on your code like:
 
 ```tsx
-import { gql } from '@faststore/graphql-utils'
+import { gql } from '@vtex/faststore-graphql-utils'
 
 const MyQuery = qql`
   query MyQuery { ... }

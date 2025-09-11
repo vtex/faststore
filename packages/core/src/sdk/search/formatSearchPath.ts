@@ -1,5 +1,5 @@
-import type { SearchState } from '@faststore/sdk'
-import { formatSearchState, initSearchState } from '@faststore/sdk'
+import type { SearchState } from '@vtex/faststore-sdk'
+import { formatSearchState, initSearchState } from '@vtex/faststore-sdk'
 
 type FormatSearchPath = {
   term: string

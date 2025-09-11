@@ -1,4 +1,4 @@
-import type { Item, Seller } from '@faststore/api'
+import type { Item, Seller } from '@vtex/faststore-api'
 import type { EnhancedCommercialOffer } from './enhance'
 import { inStock, price } from './sort'
 

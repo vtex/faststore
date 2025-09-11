@@ -12,6 +12,6 @@ export type {
   StoreProductGroupRoot,
   StoreProductRoot,
   StoreOrganizationRoot,
-} from '@faststore/api'
+} from '@vtex/faststore-api'
 
 export * from '../@generated/graphql'

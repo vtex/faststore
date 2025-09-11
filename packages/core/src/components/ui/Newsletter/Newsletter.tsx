@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import type { FormEvent } from 'react'
 
-import { useUI } from '@faststore/ui'
-import type { InputFieldProps } from '@faststore/ui'
+import { useUI } from '@vtex/faststore-ui'
+import type { InputFieldProps } from '@vtex/faststore-ui'
 
 import { useNewsletter } from '../../../sdk/newsletter/useNewsletter'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'

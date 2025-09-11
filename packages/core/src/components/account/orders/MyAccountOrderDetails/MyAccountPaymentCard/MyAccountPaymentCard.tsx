@@ -1,6 +1,6 @@
 import MyAccountCard from '../../../components/MyAccountCard'
 import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
-import { Link } from '@faststore/ui'
+import { Link } from '@vtex/faststore-ui'
 import { useFormatPrice } from '../../../utils/useFormatPrice'
 import type { ServerOrderDetailsQueryQuery } from '../../../../../../@generated/graphql'
 

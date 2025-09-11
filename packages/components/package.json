@@ -1,5 +1,5 @@
 {
-  "name": "@faststore/components",
+  "name": "@vtex/faststore-components",
   "version": "3.81.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

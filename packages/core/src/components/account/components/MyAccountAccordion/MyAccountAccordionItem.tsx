@@ -1,4 +1,4 @@
-import { AccordionItem as UIAccordionItem } from '@faststore/ui'
+import { AccordionItem as UIAccordionItem } from '@vtex/faststore-ui'
 import type { ReactNode } from 'react'
 
 interface MyAccountAccordionItemProps {

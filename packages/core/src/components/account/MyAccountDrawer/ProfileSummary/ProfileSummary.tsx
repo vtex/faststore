@@ -1,4 +1,4 @@
-import { Button, Icon } from '@faststore/ui'
+import { Button, Icon } from '@vtex/faststore-ui'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { useSession } from '../../../../sdk/session'

@@ -135,7 +135,7 @@ An example adding Bell icon:
 
 ```tsx
 // src/components/ui/MyIconButton/MyIconButton.tsx
-import Icon from '@faststore/ui'
+import Icon from '@vtex/faststore-ui'
 
 function ButtonIcon() {
   return (
@@ -153,7 +153,7 @@ More details, please refer to this [doc](https://www.faststore.dev/docs/icons).
 
 ## 🖊️ Styling Components
 
-Our customized themes are based on [Design Tokens](https://css-tricks.com/what-are-design-tokens/) using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) or a CSS class for each token. We utilize the styles from the `@faststore/ui` package, which are imported into the `src/styles` directory. Additionally, each component's styles are imported directly into the section where they are being used. Refer to [Theming overview](https://www.faststore.dev/docs/theming-overview) for more details.
+Our customized themes are based on [Design Tokens](https://css-tricks.com/what-are-design-tokens/) using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) or a CSS class for each token. We utilize the styles from the `@vtex/faststore-ui` package, which are imported into the `src/styles` directory. Additionally, each component's styles are imported directly into the section where they are being used. Refer to [Theming overview](https://www.faststore.dev/docs/theming-overview) for more details.
 
 ## 🍒 Adding queries
 

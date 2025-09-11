@@ -16,7 +16,7 @@ export const withBasePath = (basepath: string) => {
   const getRoot = () => basepath
 
   /*
-   * This will loop from the basepath until the process.cwd() looking for node_modules/@faststore/core
+   * This will loop from the basepath until the process.cwd() looking for node_modules/@vtex/faststore-core
    *
    * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
    */
