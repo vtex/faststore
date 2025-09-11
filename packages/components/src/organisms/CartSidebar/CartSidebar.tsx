@@ -1,4 +1,8 @@
-import type { HTMLAttributes, PropsWithChildren, ReactNode } from 'react'
+import type {
+  ComponentPropsWithoutRef,
+  PropsWithChildren,
+  ReactNode,
+} from 'react'
 import React from 'react'
 
 import {
@@ -13,7 +17,7 @@ import {
 
 import type { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
-export interface CartSidebarProps extends HTMLAttributes<HTMLDivElement> {
+export interface CartSidebarProps extends ComponentPropsWithoutRef<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing-library, and jest).
    */
@@ -52,7 +56,7 @@ export interface CartSidebarProps extends HTMLAttributes<HTMLDivElement> {
   onClose: () => void
 }
 
-function CartSidebar({
+export default function CartSidebar({
   testId = 'fs-cart-sidebar',
   title = 'Your Cart',
   size = 'partial',
@@ -99,5 +103,3 @@ function CartSidebar({
     </SlideOver>
   )
 }
-
-export default CartSidebar

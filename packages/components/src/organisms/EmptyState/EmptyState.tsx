@@ -27,7 +27,7 @@ export interface EmptyStateProps {
   bkgColor?: BackgroundColor
 }
 
-function EmptyState({
+export default function EmptyState({
   testId = 'fs-empty-state',
   title,
   titleIcon,
@@ -55,5 +55,3 @@ function EmptyState({
     </section>
   )
 }
-
-export default EmptyState

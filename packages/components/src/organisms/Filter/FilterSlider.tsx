@@ -58,7 +58,7 @@ export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
   footer?: boolean
 }
 
-function FilterSlider({
+export default function FilterSlider({
   testId = 'fs-filter-slider',
   title,
   size,
@@ -131,5 +131,3 @@ function FilterSlider({
     </SlideOver>
   )
 }
-
-export default FilterSlider

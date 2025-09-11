@@ -1,8 +1,8 @@
 import React, { type ReactNode } from 'react'
 import { List } from '../../'
 
-function FilterFacetBoolean({ children }: { children: ReactNode }) {
+export default function FilterFacetBoolean({
+  children,
+}: { children: ReactNode }) {
   return <List data-fs-filter-list>{children}</List>
 }
-
-export default FilterFacetBoolean

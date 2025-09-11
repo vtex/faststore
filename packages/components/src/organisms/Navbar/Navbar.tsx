@@ -1,7 +1,7 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
+export interface NavbarProps extends ComponentProps<'header'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
@@ -12,10 +12,13 @@ export interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
   scrollDirection: string
 }
 
-const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
-  { children, scrollDirection, testId = 'fs-navbar', ...otherProps },
-  ref
-) {
+export default function Navbar({
+  children,
+  scrollDirection,
+  testId = 'fs-navbar',
+  ref,
+  ...otherProps
+}: NavbarProps) {
   return (
     <header
       data-fs-navbar
@@ -28,6 +31,4 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
       {children}
     </header>
   )
-})
-
-export default Navbar
+}

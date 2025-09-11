@@ -1,32 +1,29 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface ProductShelfItemsProps
-  extends HTMLAttributes<HTMLUListElement> {
+export interface ProductShelfItemsProps extends ComponentProps<'ul'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
   testId?: string
 }
 
-const ProductShelfItems = forwardRef<HTMLUListElement, ProductShelfItemsProps>(
-  function ProductShelfItems(
-    { testId = 'fs-product-shelf-items', children, ...otherProps },
-    ref
-  ) {
-    return (
-      <ul
-        role="list"
-        ref={ref}
-        data-fs-product-shelf-items
-        data-fs-content="product-shelf"
-        data-testid={testId}
-        {...otherProps}
-      >
-        {children}
-      </ul>
-    )
-  }
-)
-
-export default ProductShelfItems
+export default function ProductShelfItems({
+  testId = 'fs-product-shelf-items',
+  children,
+  ref,
+  ...otherProps
+}: ProductShelfItemsProps) {
+  return (
+    <ul
+      role="list"
+      ref={ref}
+      data-fs-product-shelf-items
+      data-fs-content="product-shelf"
+      data-testid={testId}
+      {...otherProps}
+    >
+      {children}
+    </ul>
+  )
+}

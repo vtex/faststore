@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface NavbarButtonsProps extends HTMLAttributes<HTMLDivElement> {
+export interface NavbarButtonsProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
@@ -12,23 +12,22 @@ export interface NavbarButtonsProps extends HTMLAttributes<HTMLDivElement> {
   searchExpanded: boolean
 }
 
-const NavbarButtons = forwardRef<HTMLDivElement, NavbarButtonsProps>(
-  function NavbarButtons(
-    { children, searchExpanded, testId = 'fs-navbar-buttons', ...otherProps },
-    ref
-  ) {
-    return (
-      <div
-        data-fs-navbar-buttons
-        ref={ref}
-        data-testid={testId}
-        data-fs-navbar-search-expanded={searchExpanded}
-        {...otherProps}
-      >
-        {children}
-      </div>
-    )
-  }
-)
-
-export default NavbarButtons
+export default function NavbarButtons({
+  children,
+  searchExpanded,
+  testId = 'fs-navbar-buttons',
+  ref,
+  ...otherProps
+}: NavbarButtonsProps) {
+  return (
+    <div
+      data-fs-navbar-buttons
+      ref={ref}
+      data-testid={testId}
+      data-fs-navbar-search-expanded={searchExpanded}
+      {...otherProps}
+    >
+      {children}
+    </div>
+  )
+}

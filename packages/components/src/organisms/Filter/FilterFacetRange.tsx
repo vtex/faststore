@@ -28,7 +28,7 @@ export interface FilterFacetRangeProps {
 const formatRange = (min: number, max: number) =>
   `${min.toFixed(2)}-to-${max.toFixed(2)}`
 
-function FilterFacetRange({
+export default function FilterFacetRange({
   min,
   max,
   formatter,
@@ -54,5 +54,3 @@ function FilterFacetRange({
     />
   )
 }
-
-export default FilterFacetRange

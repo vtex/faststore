@@ -85,7 +85,7 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
   dismissible?: boolean
 }
 
-function RegionModal({
+export default function RegionModal({
   testId = 'fs-region-modal',
   title = 'Set your location',
   description = 'Offers and availability vary by location.',
@@ -162,5 +162,3 @@ function RegionModal({
     </Modal>
   )
 }
-
-export default RegionModal

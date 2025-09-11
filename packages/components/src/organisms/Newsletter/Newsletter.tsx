@@ -1,10 +1,9 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes, DetailedHTMLProps } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
 type ColorVariant = 'main' | 'light' | 'accent'
 
-export interface NewsletterProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface NewsletterProps extends ComponentProps<'div'> {
   /**
    * Enables the card Variant.
    */
@@ -19,30 +18,24 @@ export interface NewsletterProps
   testId?: string
 }
 
-const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(
-  function Newsletter(
-    {
-      card,
-      children,
-      colorVariant = 'main',
-      testId = 'fs-newsletter',
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <div
-        ref={ref}
-        data-testid={testId}
-        data-fs-content="newsletter"
-        data-fs-newsletter={card ? 'card' : ''}
-        data-fs-newsletter-color-variant={colorVariant}
-        {...otherProps}
-      >
-        {children}
-      </div>
-    )
-  }
-)
-
-export default Newsletter
+export default function Newsletter({
+  card,
+  children,
+  colorVariant = 'main',
+  testId = 'fs-newsletter',
+  ref,
+  ...otherProps
+}: NewsletterProps) {
+  return (
+    <div
+      ref={ref}
+      data-testid={testId}
+      data-fs-content="newsletter"
+      data-fs-newsletter={card ? 'card' : ''}
+      data-fs-newsletter-color-variant={colorVariant}
+      {...otherProps}
+    >
+      {children}
+    </div>
+  )
+}

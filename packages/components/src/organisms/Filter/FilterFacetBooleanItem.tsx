@@ -42,7 +42,7 @@ export interface FilterFacetBooleanItemProps {
   type?: 'checkbox' | 'radio'
 }
 
-function FilterFacetBooleanItem({
+export default function FilterFacetBooleanItem({
   testId,
   id,
   selected,
@@ -90,5 +90,3 @@ function FilterFacetBooleanItem({
     </li>
   )
 }
-
-export default FilterFacetBooleanItem

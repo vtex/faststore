@@ -69,7 +69,7 @@ export interface SKUMatrixSidebarProps
   }>
 }
 
-function SKUMatrixSidebar({
+export default function SKUMatrixSidebar({
   title,
   direction = 'rightSide',
   size = 'partial',
@@ -308,5 +308,3 @@ function SKUMatrixSidebar({
     </SlideOver>
   )
 }
-
-export default SKUMatrixSidebar

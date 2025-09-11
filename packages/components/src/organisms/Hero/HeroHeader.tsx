@@ -1,10 +1,10 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+import React from 'react'
 import { Icon, LinkButton } from '../..'
 
 import { useHero } from './Hero'
 
-export interface HeroHeaderProps extends HTMLAttributes<HTMLDivElement> {
+export interface HeroHeaderProps extends ComponentProps<'div'> {
   /**
    * Content for the h1 tag.
    */
@@ -35,52 +35,41 @@ export interface HeroHeaderProps extends HTMLAttributes<HTMLDivElement> {
   linkTargetBlank?: boolean
 }
 
-const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
-  function HeroHeader(
-    {
-      icon,
-      link,
-      title,
-      linkText,
-      linkTargetBlank,
-      subtitle,
-      children,
-      testId = 'fs-hero-heading',
-      ...otherProps
-    },
-    ref
-  ) {
-    const { variant, colorVariant } = useHero()
-    return (
-      <header
-        ref={ref}
-        data-fs-hero-heading
-        data-testid={testId}
-        {...otherProps}
-      >
-        <div data-fs-hero-wrapper data-fs-content="hero">
-          <div data-fs-hero-info>
-            <h1 data-fs-hero-title>{title}</h1>
-            <p data-fs-hero-subtitle>{subtitle}</p>
-            {!!link && (
-              <LinkButton
-                href={link}
-                inverse={colorVariant === 'main'}
-                icon={<Icon name="ArrowRight" />}
-                iconPosition="right"
-                target={linkTargetBlank ? '_blank' : undefined}
-              >
-                {linkText}
-              </LinkButton>
-            )}
-          </div>
-          {!!icon && variant === 'secondary' && (
-            <span data-fs-hero-icon>{icon}</span>
+export default function HeroHeader({
+  icon,
+  link,
+  title,
+  linkText,
+  linkTargetBlank,
+  subtitle,
+  children,
+  testId = 'fs-hero-heading',
+  ref,
+  ...otherProps
+}: HeroHeaderProps) {
+  const { variant, colorVariant } = useHero()
+  return (
+    <header ref={ref} data-fs-hero-heading data-testid={testId} {...otherProps}>
+      <div data-fs-hero-wrapper data-fs-content="hero">
+        <div data-fs-hero-info>
+          <h1 data-fs-hero-title>{title}</h1>
+          <p data-fs-hero-subtitle>{subtitle}</p>
+          {!!link && (
+            <LinkButton
+              href={link}
+              inverse={colorVariant === 'main'}
+              icon={<Icon name="ArrowRight" />}
+              iconPosition="right"
+              target={linkTargetBlank ? '_blank' : undefined}
+            >
+              {linkText}
+            </LinkButton>
           )}
         </div>
-      </header>
-    )
-  }
-)
-
-export default HeroHeader
+        {!!icon && variant === 'secondary' && (
+          <span data-fs-hero-icon>{icon}</span>
+        )}
+      </div>
+    </header>
+  )
+}

@@ -1,8 +1,7 @@
-import React, { forwardRef } from 'react'
-import type { ReactNode, HTMLAttributes, DetailedHTMLProps } from 'react'
+import React from 'react'
+import type { ReactNode, ComponentProps } from 'react'
 
-export interface NewsletterHeaderProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLHeadElement>, HTMLHeadElement> {
+export interface NewsletterHeaderProps extends ComponentProps<'header'> {
   /**
    * Icon for the section.
    */
@@ -21,35 +20,29 @@ export interface NewsletterHeaderProps
   testId?: string
 }
 
-const NewsletterHeader = forwardRef<HTMLHeadElement, NewsletterHeaderProps>(
-  function NewsletterHeader(
-    {
-      icon,
-      title,
-      description,
-      testId = 'fs-newsletter-header',
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <header
-        ref={ref}
-        data-testid={testId}
-        data-fs-newsletter-header
-        {...otherProps}
-      >
-        <h3 data-fs-newsletter-header-title>
-          {icon}
-          {title}
-        </h3>
+export default function NewsletterHeader({
+  icon,
+  title,
+  description,
+  testId = 'fs-newsletter-header',
+  ref,
+  ...otherProps
+}: NewsletterHeaderProps) {
+  return (
+    <header
+      ref={ref}
+      data-testid={testId}
+      data-fs-newsletter-header
+      {...otherProps}
+    >
+      <h3 data-fs-newsletter-header-title>
+        {icon}
+        {title}
+      </h3>
 
-        {description && (
-          <span data-fs-newsletter-header-description>{description}</span>
-        )}
-      </header>
-    )
-  }
-)
-
-export default NewsletterHeader
+      {description && (
+        <span data-fs-newsletter-header-description>{description}</span>
+      )}
+    </header>
+  )
+}

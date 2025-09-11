@@ -1,5 +1,5 @@
-import React, { forwardRef, useContext, createContext } from 'react'
-import type { HTMLAttributes } from 'react'
+import React, { useContext, createContext } from 'react'
+import type { ComponentProps } from 'react'
 
 type Variant = 'primary' | 'secondary'
 type ColorVariant = 'main' | 'light' | 'accent'
@@ -13,7 +13,7 @@ const BannerTextContext = createContext<BannerTextContext | undefined>(
   undefined
 )
 
-export interface BannerTextProps extends HTMLAttributes<HTMLDivElement> {
+export interface BannerTextProps extends ComponentProps<'div'> {
   /**
    * Specifies the component direction variant.
    */
@@ -28,36 +28,32 @@ export interface BannerTextProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const BannerText = forwardRef<HTMLDivElement, BannerTextProps>(
-  function BannerText(
-    {
-      children,
-      testId = 'fs-banner-text',
-      variant = 'primary',
-      colorVariant = 'main',
-      ...otherProps
-    },
-    ref
-  ) {
-    const context = { variant, colorVariant }
+export default function BannerText({
+  children,
+  testId = 'fs-banner-text',
+  variant = 'primary',
+  colorVariant = 'main',
+  ref,
+  ...otherProps
+}: BannerTextProps) {
+  const context = { variant, colorVariant }
 
-    return (
-      <BannerTextContext.Provider value={context}>
-        <article
-          ref={ref}
-          data-fs-banner-text
-          data-fs-content="banner-text"
-          data-fs-banner-text-variant={variant}
-          data-fs-banner-text-color-variant={colorVariant}
-          data-testid={testId}
-          {...otherProps}
-        >
-          {children}
-        </article>
-      </BannerTextContext.Provider>
-    )
-  }
-)
+  return (
+    <BannerTextContext.Provider value={context}>
+      <article
+        ref={ref}
+        data-fs-banner-text
+        data-fs-content="banner-text"
+        data-fs-banner-text-variant={variant}
+        data-fs-banner-text-color-variant={colorVariant}
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+      </article>
+    </BannerTextContext.Provider>
+  )
+}
 
 export function useBannerText() {
   const context = useContext(BannerTextContext)
@@ -70,5 +66,3 @@ export function useBannerText() {
 
   return context
 }
-
-export default BannerText

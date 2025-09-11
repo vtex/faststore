@@ -25,7 +25,7 @@ export interface FilterProps {
   onAccordionChange: (index: number) => void
 }
 
-function Filter({
+export default function Filter({
   testId,
   title,
   indicesExpanded,
@@ -45,5 +45,3 @@ function Filter({
     </div>
   )
 }
-
-export default Filter

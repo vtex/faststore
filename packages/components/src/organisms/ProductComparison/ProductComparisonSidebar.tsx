@@ -133,7 +133,7 @@ function useProductSpecifications(
   }, [products, productSorted, showOnlyDifferences])
 }
 
-function ProductComparisonSidebar({
+export default function ProductComparisonSidebar({
   title,
   sortLabel,
   filterLabel,
@@ -448,5 +448,3 @@ const getDifferences = (
     }) || []
   )
 }
-
-export default ProductComparisonSidebar

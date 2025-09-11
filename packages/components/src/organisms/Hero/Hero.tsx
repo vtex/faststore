@@ -1,5 +1,5 @@
-import React, { forwardRef, useContext, createContext } from 'react'
-import type { HTMLAttributes } from 'react'
+import React, { useContext, createContext } from 'react'
+import type { ComponentProps } from 'react'
 
 type Variant = 'primary' | 'secondary'
 type ColorVariant = 'main' | 'light' | 'accent'
@@ -11,7 +11,7 @@ interface HeroContext {
 
 const HeroContext = createContext<HeroContext | undefined>(undefined)
 
-export interface HeroProps extends HTMLAttributes<HTMLDivElement> {
+export interface HeroProps extends ComponentProps<'div'> {
   /**
    * Specifies the component variant.
    */
@@ -26,16 +26,14 @@ export interface HeroProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
-  {
-    children,
-    testId = 'fs-hero',
-    variant = 'primary',
-    colorVariant = 'main',
-    ...otherProps
-  },
-  ref
-) {
+export default function Hero({
+  children,
+  testId = 'fs-hero',
+  variant = 'primary',
+  colorVariant = 'main',
+  ref,
+  ...otherProps
+}: HeroProps) {
   const context = { variant, colorVariant }
 
   return (
@@ -52,7 +50,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
       </article>
     </HeroContext.Provider>
   )
-})
+}
 
 export function useHero() {
   const context = useContext(HeroContext)
@@ -63,5 +61,3 @@ export function useHero() {
 
   return context
 }
-
-export default Hero

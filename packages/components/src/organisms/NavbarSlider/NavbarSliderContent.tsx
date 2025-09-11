@@ -1,21 +1,19 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface NavbarSliderContentProps
-  extends HTMLAttributes<HTMLDivElement> {
+export interface NavbarSliderContentProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
   testId?: string
 }
 
-const NavbarSliderContent = forwardRef<
-  HTMLDivElement,
-  NavbarSliderContentProps
->(function NavbarSliderContent(
-  { children, testId = 'fs-navbar-slider-content', ...otherProps },
-  ref
-) {
+export default function NavbarSliderContent({
+  children,
+  testId = 'fs-navbar-slider-content',
+  ref,
+  ...otherProps
+}: NavbarSliderContentProps) {
   return (
     <div
       data-fs-navbar-slider-content
@@ -26,6 +24,4 @@ const NavbarSliderContent = forwardRef<
       {children}
     </div>
   )
-})
-
-export default NavbarSliderContent
+}

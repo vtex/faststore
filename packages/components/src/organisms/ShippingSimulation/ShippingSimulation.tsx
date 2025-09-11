@@ -138,7 +138,7 @@ export interface ShippingSimulationProps
   postalCode?: string
 }
 
-function ShippingSimulation({
+export default function ShippingSimulation({
   testId = 'fs-shipping-simulation',
   formatter,
   title = 'Shipping',
@@ -223,5 +223,3 @@ function ShippingSimulation({
     </section>
   )
 }
-
-export default ShippingSimulation

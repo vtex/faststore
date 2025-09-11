@@ -10,7 +10,7 @@ export interface NavbarSliderHeaderProps extends SlideOverHeaderProps {
   testId?: string
 }
 
-function NavbarSliderHeader({
+export default function NavbarSliderHeader({
   children,
   testId = 'fs-navbar-slider-header',
   ...otherProps
@@ -25,5 +25,3 @@ function NavbarSliderHeader({
     </SlideOverHeader>
   )
 }
-
-export default NavbarSliderHeader

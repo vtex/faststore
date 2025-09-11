@@ -22,7 +22,7 @@ const ImageComponent: ImageComponentType = ({ src, alt, ...otherProps }) => (
   <img src={src} alt={alt} {...otherProps} />
 )
 
-function ProductComparisonToolbar({
+export default function ProductComparisonToolbar({
   clearSelectionButtonLabel,
   compareButtonLabel,
   selectionWarningLabel,
@@ -74,5 +74,3 @@ function ProductComparisonToolbar({
     </footer>
   )
 }
-
-export default ProductComparisonToolbar
