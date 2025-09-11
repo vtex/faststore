@@ -1,10 +1,9 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import React, { cloneElement, forwardRef } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+import React, { cloneElement } from 'react'
 
 import { useDropdownItem } from './hooks/useDropdownItem'
 
-export interface DropdownItemProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface DropdownItemProps extends ComponentProps<'button'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -24,43 +23,37 @@ export interface DropdownItemProps
   dismissOnClick?: boolean
 }
 
-const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
-  function Button(
-    {
-      children,
-      asChild,
-      icon,
-      onClick,
-      dismissOnClick = true,
-      testId = 'fs-dropdown-item',
-      ...otherProps
-    },
-    ref
-  ) {
-    const itemProps = useDropdownItem({ ref, onClick, dismissOnClick })
+export default function DropdownItem({
+  children,
+  asChild,
+  icon,
+  onClick,
+  dismissOnClick = true,
+  testId = 'fs-dropdown-item',
+  ref,
+  ...otherProps
+}: DropdownItemProps) {
+  const itemProps = useDropdownItem({ ref, onClick, dismissOnClick })
 
-    const asChildrenItem = React.isValidElement(children)
-      ? cloneElement(children, { ...itemProps, ...(children.props ?? {}) })
-      : children
+  const asChildrenItem = React.isValidElement(children)
+    ? cloneElement(children, { ...itemProps, ...(children.props ?? {}) })
+    : children
 
-    return (
-      <>
-        {asChild ? (
-          asChildrenItem
-        ) : (
-          <button
-            data-fs-dropdown-item
-            data-testid={testId}
-            {...itemProps}
-            {...otherProps}
-          >
-            {!!icon && icon}
-            {children}
-          </button>
-        )}
-      </>
-    )
-  }
-)
-
-export default DropdownItem
+  return (
+    <>
+      {asChild ? (
+        asChildrenItem
+      ) : (
+        <button
+          data-fs-dropdown-item
+          data-testid={testId}
+          {...itemProps}
+          {...otherProps}
+        >
+          {!!icon && icon}
+          {children}
+        </button>
+      )}
+    </>
+  )
+}

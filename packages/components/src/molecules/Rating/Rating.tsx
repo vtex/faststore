@@ -1,15 +1,9 @@
-import React, {
-  forwardRef,
-  type HTMLAttributes,
-  type ReactNode,
-  useState,
-} from 'react'
+import React, { type ComponentProps, type ReactNode, useState } from 'react'
 
 import { Icon, IconButton } from '../..'
 import List from '../../atoms/List'
 
-export interface RatingProps
-  extends Omit<HTMLAttributes<HTMLUListElement>, 'onChange'> {
+export interface RatingProps extends Omit<ComponentProps<'ul'>, 'onChange'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -41,19 +35,17 @@ export interface RatingItemProps {
   'data-testid'?: string
 }
 
-const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
-  {
-    children,
-    testId = 'fs-rating',
-    length = 5,
-    value = 0,
-    icon,
-    onChange,
-    disabled,
-    ...otherProps
-  },
-  ref
-) {
+export default function Rating({
+  children,
+  testId = 'fs-rating',
+  length = 5,
+  value = 0,
+  icon,
+  onChange,
+  disabled,
+  ref,
+  ...otherProps
+}: RatingProps) {
   const [hover, setHover] = useState(0)
 
   const outlineProps = { 'data-fs-rating-icon-outline': true }
@@ -116,6 +108,4 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
       })}
     </List>
   )
-})
-
-export default Rating
+}

@@ -11,15 +11,15 @@ export type DropdownContextState<
   /**
    * Reference to DropdownButton, used to calculate a position for the DropdownMenu.
    */
-  dropdownTriggerRef: React.MutableRefObject<T | null> | null
+  dropdownTriggerRef: React.RefObject<T | null> | null
   /**
    * Reference to a selected DropdownItem, used to manipulate focus.
    */
-  selectedDropdownItemIndexRef: React.MutableRefObject<number> | null
+  selectedDropdownItemIndexRef: React.RefObject<number> | null
   /**
    * Array of References to dropdownItems in a DropdownMenu.
    */
-  dropdownItemsRef: React.MutableRefObject<E[]> | null
+  dropdownItemsRef: React.RefObject<E[]> | null
   /**
    * Function responsible for close the DropdownMenu in this context.
    */

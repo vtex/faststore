@@ -29,7 +29,7 @@ export const SearchContext = createContext<SearchProviderContextValue | null>(
   null
 )
 
-function SearchProvider({
+export default function SearchProvider({
   onSearchSelection,
   children,
   term,
@@ -45,5 +45,3 @@ function SearchProvider({
     </SearchContext.Provider>
   )
 }
-
-export default SearchProvider

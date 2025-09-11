@@ -45,13 +45,13 @@ export interface SearchAutoCompleteTermProps
   suggestion: string
 }
 
-const SearchAutoCompleteTerm = ({
+export default function SearchAutoCompleteTerm({
   testId = 'fs-search-auto-complete-term',
   suggestion,
   term,
   linkProps,
   icon = <Icon name="MagnifyingGlass" width={18} height={18} />,
-}: SearchAutoCompleteTermProps) => {
+}: SearchAutoCompleteTermProps) {
   const suggestionSubstring = suggestion.toLowerCase().split(term.toLowerCase())
 
   return (
@@ -81,5 +81,3 @@ const SearchAutoCompleteTerm = ({
     </li>
   )
 }
-
-export default SearchAutoCompleteTerm

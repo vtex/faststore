@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
 import { Label, List } from '../../'
 
-export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
+export interface OrderSummaryProps extends ComponentProps<'ul'> {
   /**
    * ID to find this component in testing tools (e.g., testing-library, and jest).
    */
@@ -42,83 +42,72 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   includeTaxesLabel?: string
 }
 
-const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
-  function OrderSummary(
-    {
-      testId = 'fs-order-summary',
-      subtotalLabel,
-      subtotalValue,
-      discountLabel = 'Discount',
-      discountValue,
-      totalLabel = 'Total',
-      totalValue,
-      includeTaxes = false,
-      includeTaxesLabel = 'Tax included',
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <List
-        ref={ref}
-        data-fs-order-summary
-        data-testid={testId}
-        {...otherProps}
-      >
-        {subtotalValue ? (
-          <li data-fs-order-summary-subtotal>
-            <span
-              data-fs-order-summary-subtotal-label
-              data-testid={`${testId}-subtotal-label`}
-            >
-              {subtotalLabel}
-            </span>
-            <span
-              data-fs-order-summary-subtotal-value
-              data-testid={`${testId}-subtotal-value`}
-            >
-              {subtotalValue}
-            </span>
-          </li>
-        ) : null}
-        {discountValue ? (
-          <li data-fs-order-summary-discount>
-            <span
-              data-fs-order-summary-discount-label
-              data-testid={`${testId}-discount-label`}
-            >
-              {discountLabel}
-            </span>
-            <span
-              data-fs-order-summary-discount-value
-              data-testid={`${testId}-discount-value`}
-            >
-              {discountValue}
-            </span>
-          </li>
-        ) : null}
-        <li data-fs-order-summary-total>
+export default function OrderSummary({
+  testId = 'fs-order-summary',
+  subtotalLabel,
+  subtotalValue,
+  discountLabel = 'Discount',
+  discountValue,
+  totalLabel = 'Total',
+  totalValue,
+  includeTaxes = false,
+  includeTaxesLabel = 'Tax included',
+  ref,
+  ...otherProps
+}: OrderSummaryProps) {
+  return (
+    <List ref={ref} data-fs-order-summary data-testid={testId} {...otherProps}>
+      {subtotalValue ? (
+        <li data-fs-order-summary-subtotal>
           <span
-            data-fs-order-summary-total-label
-            data-testid={`${testId}-total-label`}
+            data-fs-order-summary-subtotal-label
+            data-testid={`${testId}-subtotal-label`}
           >
-            {totalLabel}
+            {subtotalLabel}
           </span>
           <span
-            data-fs-order-summary-total-value
-            data-testid={`${testId}-total-value`}
+            data-fs-order-summary-subtotal-value
+            data-testid={`${testId}-subtotal-value`}
           >
-            {totalValue}
+            {subtotalValue}
           </span>
         </li>
-        {includeTaxes && (
-          <li data-fs-order-summary-taxes-label>
-            <Label>{includeTaxesLabel}</Label>
-          </li>
-        )}
-      </List>
-    )
-  }
-)
-
-export default OrderSummary
+      ) : null}
+      {discountValue ? (
+        <li data-fs-order-summary-discount>
+          <span
+            data-fs-order-summary-discount-label
+            data-testid={`${testId}-discount-label`}
+          >
+            {discountLabel}
+          </span>
+          <span
+            data-fs-order-summary-discount-value
+            data-testid={`${testId}-discount-value`}
+          >
+            {discountValue}
+          </span>
+        </li>
+      ) : null}
+      <li data-fs-order-summary-total>
+        <span
+          data-fs-order-summary-total-label
+          data-testid={`${testId}-total-label`}
+        >
+          {totalLabel}
+        </span>
+        <span
+          data-fs-order-summary-total-value
+          data-testid={`${testId}-total-value`}
+        >
+          {totalValue}
+        </span>
+      </li>
+      {includeTaxes && (
+        <li data-fs-order-summary-taxes-label>
+          <Label>{includeTaxesLabel}</Label>
+        </li>
+      )}
+    </List>
+  )
+}

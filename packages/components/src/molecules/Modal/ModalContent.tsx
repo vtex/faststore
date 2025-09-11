@@ -19,14 +19,14 @@ interface ModalContentPureProps
   testId?: string
 }
 
-const ModalContentPure = ({
+function ModalContentPure({
   beforeElementRef,
   trapFocusRef,
   afterElementRef,
   testId = 'store-modal-content',
   children,
   ...otherProps
-}: ModalContentPureProps) => {
+}: ModalContentPureProps) {
   return (
     <>
       <div
@@ -61,7 +61,10 @@ export type ModalContentProps = Omit<
   'trapFocusRef' | 'onClick' | 'beforeElementRef' | 'afterElementRef'
 >
 
-const ModalContent = ({ children, ...otherProps }: ModalContentProps) => {
+export default function ModalContent({
+  children,
+  ...otherProps
+}: ModalContentProps) {
   const trapFocusRef = useRef<HTMLDivElement>(null)
   const beforeElementRef = useRef<HTMLDivElement>(null)
   const afterElementRef = useRef<HTMLDivElement>(null)
@@ -86,5 +89,3 @@ const ModalContent = ({ children, ...otherProps }: ModalContentProps) => {
     </ModalContentPure>
   )
 }
-
-export default ModalContent

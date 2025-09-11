@@ -1,11 +1,11 @@
-import type { HTMLAttributes, ReactNode, InputHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { HTMLAttributes, ReactNode, ComponentProps } from 'react'
+import React from 'react'
 
 import Label from '../../atoms/Label'
 import Radio from '../../atoms/Radio'
 
 type EnhancedRadioFieldProps = HTMLAttributes<HTMLDivElement> &
-  Pick<InputHTMLAttributes<HTMLInputElement>, 'checked'>
+  Pick<ComponentProps<'input'>, 'checked' | 'ref'>
 
 export interface RadioFieldProps extends EnhancedRadioFieldProps {
   /**
@@ -30,23 +30,24 @@ export interface RadioFieldProps extends EnhancedRadioFieldProps {
   name?: string
 }
 
-const RadioField = forwardRef<HTMLDivElement, RadioFieldProps>(
-  function RadioField(
-    { testId = 'fs-radio-field', id, label, value, name, ...otherProps },
-    ref
-  ) {
-    return (
-      <div ref={ref} data-fs-radio-field data-testid={testId}>
-        <Radio
-          id={id}
-          value={typeof label === 'string' ? label : value}
-          name={name}
-          {...otherProps}
-        />
-        <Label htmlFor={id}>{label}</Label>
-      </div>
-    )
-  }
-)
-
-export default RadioField
+export default function RadioField({
+  testId = 'fs-radio-field',
+  id,
+  label,
+  value,
+  name,
+  ref,
+  ...otherProps
+}: RadioFieldProps) {
+  return (
+    <div ref={ref} data-fs-radio-field data-testid={testId}>
+      <Radio
+        id={id}
+        value={typeof label === 'string' ? label : value}
+        name={name}
+        {...otherProps}
+      />
+      <Label htmlFor={id}>{label}</Label>
+    </div>
+  )
+}

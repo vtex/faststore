@@ -3,7 +3,7 @@ import React, { useImperativeHandle, useRef, useState } from 'react'
 import { useDropdown } from './useDropdown'
 
 export type UseDropdownItemProps<E extends HTMLElement = HTMLElement> = {
-  ref: React.ForwardedRef<E>
+  ref?: React.Ref<E>
   onClick?: React.MouseEventHandler<E>
   dismissOnClick?: boolean
 }

@@ -5,12 +5,12 @@ import { RadioGroupContext } from './useRadioGroup'
 
 export type RadioGroupProps = PropsWithChildren<RadioGroupContext>
 
-const RadioGroup = ({
+export default function RadioGroup({
   name,
   onChange,
   children,
   selectedValue,
-}: RadioGroupProps) => {
+}: RadioGroupProps) {
   const contextValues = React.useMemo(() => {
     return { name, selectedValue, onChange }
   }, [name, selectedValue, onChange])
@@ -21,5 +21,3 @@ const RadioGroup = ({
     </RadioGroupContext.Provider>
   )
 }
-
-export default RadioGroup

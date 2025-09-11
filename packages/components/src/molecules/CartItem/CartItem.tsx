@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
 import {
   Icon,
@@ -11,7 +11,7 @@ import {
 
 import type { PriceDefinition } from '../../typings/PriceDefinition'
 
-export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface CartItemProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
@@ -46,21 +46,19 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   onQuantityChange?: (value: number) => void
 }
 
-const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
-  {
-    testId = 'fs-cart-item',
-    price,
-    quantity,
-    unavailable,
-    onQuantityChange,
-    unitMultiplier,
-    useUnitMultiplier,
-    children,
-    removeBtnProps,
-    ...otherProps
-  },
-  ref
-) {
+export default function CartItem({
+  testId = 'fs-cart-item',
+  price,
+  quantity,
+  unavailable,
+  onQuantityChange,
+  unitMultiplier,
+  useUnitMultiplier,
+  children,
+  removeBtnProps,
+  ref,
+  ...otherProps
+}: CartItemProps) {
   return (
     <article
       ref={ref}
@@ -92,6 +90,4 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
       </div>
     </article>
   )
-})
-
-export default CartItem
+}

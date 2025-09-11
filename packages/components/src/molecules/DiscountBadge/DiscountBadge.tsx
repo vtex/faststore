@@ -1,7 +1,6 @@
 import React from 'react'
 import { Badge, type BadgeProps } from '../..'
-
-import { useDiscountPercent } from '../DiscountBadge/useDiscountPercent'
+import { useDiscountPercent } from './useDiscountPercent'
 
 export interface DiscountBadgeProps
   extends Omit<BadgeProps, 'variant' | 'counter' | 'aria-label'> {
@@ -27,14 +26,14 @@ export interface DiscountBadgeProps
   thresholdHigh?: number
 }
 
-const DiscountBadge = ({
+export default function DiscountBadge({
   listPrice,
   spotPrice,
   thresholdLow = 15,
   thresholdHigh = 40,
   size,
   testId = 'fs-discount-badge',
-}: DiscountBadgeProps) => {
+}: DiscountBadgeProps) {
   const discountPercent = useDiscountPercent(listPrice, spotPrice)
 
   if (discountPercent === 0) {
@@ -59,5 +58,3 @@ const DiscountBadge = ({
     </Badge>
   )
 }
-
-export default DiscountBadge

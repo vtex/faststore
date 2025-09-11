@@ -4,11 +4,18 @@ import BreadcrumbBase, { type BreadcrumbBaseProps } from './BreadcrumbBase'
 export interface BreadcrumbProps
   extends Omit<BreadcrumbBaseProps, 'isDesktop'> {}
 
-const Breadcrumb = ({ breadcrumbList, ...otherProps }: BreadcrumbProps) => (
-  <>
-    <BreadcrumbBase breadcrumbList={breadcrumbList} {...otherProps} />
-    <BreadcrumbBase breadcrumbList={breadcrumbList} isDesktop {...otherProps} />
-  </>
-)
-
-export default Breadcrumb
+export default function Breadcrumb({
+  breadcrumbList,
+  ...otherProps
+}: BreadcrumbProps) {
+  return (
+    <>
+      <BreadcrumbBase breadcrumbList={breadcrumbList} {...otherProps} />
+      <BreadcrumbBase
+        breadcrumbList={breadcrumbList}
+        isDesktop
+        {...otherProps}
+      />
+    </>
+  )
+}

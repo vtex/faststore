@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react'
+import React, { type Ref, useCallback } from 'react'
 import { ProductPrice } from '../..'
 import SearchProductItemControl from './SearchProductItemControl'
 
@@ -37,15 +37,20 @@ export interface SearchProductItemContentProps {
    * Event emitted when value is out of the min and max bounds
    */
   onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
+  /**
+   * Component's ref
+   */
+  ref?: Ref<HTMLDivElement>
 }
 
-const SearchProductItemContent = forwardRef<
-  HTMLElement,
-  SearchProductItemContentProps
->(function SearchProductItemContent(
-  { price, title, quickOrder, onValidateBlur, ...otherProps },
-  ref
-) {
+export default function SearchProductItemContent({
+  price,
+  title,
+  quickOrder,
+  onValidateBlur,
+  ref,
+  ...otherProps
+}: SearchProductItemContentProps) {
   const renderProductItemContent = useCallback(() => {
     return (
       <>
@@ -83,6 +88,4 @@ const SearchProductItemContent = forwardRef<
       )}
     </section>
   )
-})
-
-export default SearchProductItemContent
+}

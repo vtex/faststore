@@ -62,8 +62,7 @@ export interface ModalProps
  * https://github.com/reach/reach-ui/blob/main/packages/dialog/src/index.tsx
  * https://reach.tech/dialog
  */
-
-const Modal = ({
+export default function Modal({
   children,
   testId = 'fs-modal',
   isOpen = true,
@@ -72,7 +71,7 @@ const Modal = ({
   disableEscapeKeyDown = false,
   onEntered,
   ...otherProps
-}: ModalProps) => {
+}: ModalProps) {
   const { closeModal } = useUI()
   const { fade, fadeOut, fadeIn } = useFadeEffect()
 
@@ -137,5 +136,3 @@ const Modal = ({
       )
     : null
 }
-
-export default Modal

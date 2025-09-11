@@ -1,10 +1,9 @@
 import React, {
   type ReactNode,
   useState,
-  forwardRef,
-  type HTMLAttributes,
   useRef,
   useEffect,
+  type ComponentProps,
 } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
@@ -24,8 +23,7 @@ export type Alignment = 'start' | 'center' | 'end'
  */
 export type Placement = `${Side}-${Alignment}`
 
-export interface TooltipProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
+export interface TooltipProps extends Omit<ComponentProps<'div'>, 'content'> {
   /**
    * Text/content of the tooltip.
    */
@@ -64,20 +62,18 @@ export interface TooltipProps
   describedById?: string
 }
 
-const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
-  {
-    content,
-    placement = 'top-center',
-    dismissible = false,
-    onDismiss,
-    children,
-    testId = 'fs-tooltip',
-    maxWidth = 300,
-    describedById = 'tooltip-content',
-    ...otherProps
-  },
-  ref
-) {
+export default function Tooltip({
+  content,
+  placement = 'top-center',
+  dismissible = false,
+  onDismiss,
+  children,
+  testId = 'fs-tooltip',
+  maxWidth = 300,
+  describedById = 'tooltip-content',
+  ref,
+  ...otherProps
+}: TooltipProps) {
   const [open, setOpen] = useState(false)
   const [dismissed, setDismissed] = useState(false)
   const dismissButtonRef = useRef<HTMLButtonElement>(null)
@@ -158,6 +154,4 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
       )}
     </div>
   )
-})
-
-export default Tooltip
+}

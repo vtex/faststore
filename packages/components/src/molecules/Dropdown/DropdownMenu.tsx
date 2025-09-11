@@ -45,14 +45,14 @@ export interface DropdownMenuProps extends ModalContentProps {
  * https://reach.tech/dialog
  */
 
-const DropdownMenu = ({
+export default function DropdownMenu({
   children,
   testId = 'fs-dropdown-menu',
   size = 'regular',
   align = 'left',
   style,
   ...otherProps
-}: PropsWithChildren<DropdownMenuProps>) => {
+}: PropsWithChildren<DropdownMenuProps>) {
   const {
     isOpen,
     close,
@@ -183,5 +183,3 @@ const DropdownMenu = ({
       )
     : clearChildrenReferences()
 }
-
-export default DropdownMenu

@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes, PropsWithChildren } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
 type TableCellVariant = 'data' | 'header'
 
-export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableCellProps extends ComponentProps<'td'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -23,20 +23,15 @@ export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
   align?: 'left' | 'center' | 'right'
 }
 
-const TableCell = forwardRef<
-  HTMLTableCellElement,
-  PropsWithChildren<TableCellProps>
->(function TableCell(
-  {
-    scope,
-    align,
-    children,
-    variant = 'data',
-    testId = 'fs-table-cell',
-    ...otherProps
-  },
-  ref
-) {
+export default function TableCell({
+  scope,
+  align,
+  children,
+  variant = 'data',
+  testId = 'fs-table-cell',
+  ref,
+  ...otherProps
+}: TableCellProps) {
   const Cell = variant === 'header' ? 'th' : 'td'
 
   return (
@@ -51,6 +46,4 @@ const TableCell = forwardRef<
       {children}
     </Cell>
   )
-})
-
-export default TableCell
+}

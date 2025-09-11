@@ -1,11 +1,11 @@
-import type { InputHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
 import Radio from '../../atoms/Radio'
 import { useRadioGroup } from './useRadioGroup'
 
 export interface RadioOptionProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  extends Omit<ComponentProps<'input'>, 'type'> {
   /**
    * ID to find this component in testing tools (e.g.: testing-library, and jest).
    */
@@ -20,29 +20,29 @@ export interface RadioOptionProps
   value: string | number
 }
 
-const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
-  function RadioOption(
-    { label, value, children, testId = 'fs-radio-group-option', ...otherProps },
-    ref
-  ) {
-    const { name, selectedValue, onChange } = useRadioGroup()
+export default function RadioOption({
+  label,
+  value,
+  children,
+  testId = 'fs-radio-group-option',
+  ref,
+  ...otherProps
+}: RadioOptionProps) {
+  const { name, selectedValue, onChange } = useRadioGroup()
 
-    return (
-      <label aria-label={label} data-fs-radio-group-option>
-        <Radio
-          data-fs-radio-option-item
-          ref={ref}
-          name={name}
-          checked={value === selectedValue}
-          onChange={onChange}
-          value={value}
-          testId={testId}
-          {...otherProps}
-        />
-        {children}
-      </label>
-    )
-  }
-)
-
-export default RadioOption
+  return (
+    <label aria-label={label} data-fs-radio-group-option>
+      <Radio
+        data-fs-radio-option-item
+        ref={ref}
+        name={name}
+        checked={value === selectedValue}
+        onChange={onChange}
+        value={value}
+        testId={testId}
+        {...otherProps}
+      />
+      {children}
+    </label>
+  )
+}

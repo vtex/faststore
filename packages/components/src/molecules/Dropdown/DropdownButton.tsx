@@ -1,4 +1,4 @@
-import React, { cloneElement, forwardRef, type ReactNode } from 'react'
+import React, { cloneElement, type ReactNode } from 'react'
 import Button, {
   type ButtonProps,
   type ButtonIconPosition,
@@ -35,35 +35,34 @@ export interface DropdownButtonProps
   iconPosition?: ButtonIconPosition
 }
 
-const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
-  function DropdownButton(
-    { testId = 'fs-dropdown-button', children, asChild = false, ...otherProps },
-    triggerRef
-  ) {
-    const triggerProps = useDropdownTrigger({ triggerRef })
+export default function DropdownButton({
+  testId = 'fs-dropdown-button',
+  children,
+  asChild = false,
+  ref,
+  ...otherProps
+}: DropdownButtonProps) {
+  const triggerProps = useDropdownTrigger({ triggerRef: ref })
 
-    const asChildrenTrigger = React.isValidElement(children)
-      ? cloneElement(children, { ...triggerProps, ...(children.props ?? {}) })
-      : children
+  const asChildrenTrigger = React.isValidElement(children)
+    ? cloneElement(children, { ...triggerProps, ...(children.props ?? {}) })
+    : children
 
-    return (
-      <>
-        {asChild ? (
-          asChildrenTrigger
-        ) : (
-          <Button
-            data-fs-dropdown-button
-            data-testid={testId}
-            variant="tertiary"
-            {...triggerProps}
-            {...otherProps}
-          >
-            {children}
-          </Button>
-        )}
-      </>
-    )
-  }
-)
-
-export default DropdownButton
+  return (
+    <>
+      {asChild ? (
+        asChildrenTrigger
+      ) : (
+        <Button
+          data-fs-dropdown-button
+          data-testid={testId}
+          variant="tertiary"
+          {...triggerProps}
+          {...otherProps}
+        >
+          {children}
+        </Button>
+      )}
+    </>
+  )
+}

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-export const useDiscountPercent = (listPrice: number, spotPrice: number) => {
+export function useDiscountPercent(listPrice: number, spotPrice: number) {
   return useMemo(() => {
     const diff = listPrice - spotPrice
     const discount = (diff * 100) / listPrice

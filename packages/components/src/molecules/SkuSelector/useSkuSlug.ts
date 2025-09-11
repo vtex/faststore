@@ -78,12 +78,12 @@ function getBestMatchVariation(
   })
 }
 
-export const useSkuSlug = (
+export function useSkuSlug(
   activeVariations: Record<string, string>,
   slugsMap: Record<string, string>,
   skuPropertyName: string,
   getItemHrefProp?: (option: SkuOption) => string
-) => {
+) {
   const getItemHref = useCallback(
     (option: SkuOption) => {
       if (getItemHrefProp) return { getItemHrefProp }

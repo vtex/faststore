@@ -1,10 +1,10 @@
-import type { HTMLAttributes, MouseEvent } from 'react'
-import React, { forwardRef, useMemo } from 'react'
+import type { ComponentProps, MouseEvent } from 'react'
+import React, { useMemo } from 'react'
 
 import { Button } from '../..'
 
 export interface CarouselBulletsProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'role'> {
+  extends Omit<ComponentProps<'div'>, 'onClick' | 'role'> {
   /**
    * ID of the current instance of the component.
    */
@@ -42,54 +42,48 @@ export interface CarouselBulletsProps
 const defaultAriaLabel = (id: string, idx: number, isActive: boolean) =>
   isActive ? `Current page from ${id}` : `Go to page ${idx + 1} from ${id}`
 
-const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
-  function Bullets(
-    {
-      id,
-      totalQuantity,
-      activeBullet,
-      onClick,
-      testId = 'fs-carousel-bullets',
-      ariaLabelGenerator = defaultAriaLabel,
-      ariaControlsGenerator,
-      ...otherProps
-    },
-    ref
-  ) {
-    const bulletIndexes = useMemo(
-      () => Array(totalQuantity).fill(0),
-      [totalQuantity]
-    )
+export default function CarouselBullets({
+  id,
+  totalQuantity,
+  activeBullet,
+  onClick,
+  testId = 'fs-carousel-bullets',
+  ariaLabelGenerator = defaultAriaLabel,
+  ariaControlsGenerator,
+  ref,
+  ...otherProps
+}: CarouselBulletsProps) {
+  const bulletIndexes = useMemo(
+    () => Array(totalQuantity).fill(0),
+    [totalQuantity]
+  )
 
-    return (
-      <div
-        ref={ref}
-        data-fs-carousel-bullets
-        data-testid={testId}
-        role="tablist"
-        {...otherProps}
-      >
-        {bulletIndexes.map((_, idx) => {
-          const isActive = activeBullet === idx
+  return (
+    <div
+      ref={ref}
+      data-fs-carousel-bullets
+      data-testid={testId}
+      role="tablist"
+      {...otherProps}
+    >
+      {bulletIndexes.map((_, idx) => {
+        const isActive = activeBullet === idx
 
-          return (
-            <Button
-              key={`${id}-${idx}`}
-              role="tab"
-              tabIndex={-1}
-              data-fs-carousel-bullet
-              testId={`${testId}-bullet`}
-              onClick={(e) => onClick(e, idx)}
-              aria-label={ariaLabelGenerator(id, idx, isActive)}
-              aria-controls={ariaControlsGenerator?.(idx)}
-              aria-selected={isActive}
-              variant="tertiary"
-            />
-          )
-        })}
-      </div>
-    )
-  }
-)
-
-export default CarouselBullets
+        return (
+          <Button
+            key={`${id}-${idx}`}
+            role="tab"
+            tabIndex={-1}
+            data-fs-carousel-bullet
+            testId={`${testId}-bullet`}
+            onClick={(e) => onClick(e, idx)}
+            aria-label={ariaLabelGenerator(id, idx, isActive)}
+            aria-controls={ariaControlsGenerator?.(idx)}
+            aria-selected={isActive}
+            variant="tertiary"
+          />
+        )
+      })}
+    </div>
+  )
+}

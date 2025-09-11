@@ -1,5 +1,5 @@
 import React from 'react'
-import type { MutableRefObject } from 'react'
+import type { Ref } from 'react'
 import { Label, Rating, type RatingProps } from '../..'
 
 interface DefaultProps {
@@ -22,12 +22,12 @@ interface DefaultProps {
   /**
    * Component's ref.
    */
-  ratingRef?: MutableRefObject<HTMLUListElement | null>
+  ratingRef?: Ref<HTMLUListElement>
 }
 
 export type RatingFieldProps = DefaultProps & RatingProps
 
-const RatingField = ({
+export default function RatingField({
   id,
   label,
   error,
@@ -38,7 +38,7 @@ const RatingField = ({
   ratingRef,
   testId = 'fs-rating-field',
   ...otherProps
-}: RatingFieldProps) => {
+}: RatingFieldProps) {
   const shouldDisplayError = !disabled && error && error !== ''
 
   return (
@@ -67,5 +67,3 @@ const RatingField = ({
     </div>
   )
 }
-
-export default RatingField

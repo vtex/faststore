@@ -1,16 +1,7 @@
-import type {
-  DetailedHTMLProps,
-  PropsWithChildren,
-  ReactEventHandler,
-  TableHTMLAttributes,
-} from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps, ReactEventHandler } from 'react'
+import React from 'react'
 
-export interface TableProps
-  extends DetailedHTMLProps<
-    TableHTMLAttributes<HTMLTableElement>,
-    HTMLTableElement
-  > {
+export interface TableProps extends ComponentProps<'table'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -33,25 +24,24 @@ export interface TableProps
   nonce?: string | undefined
 }
 
-const Table = forwardRef<HTMLTableElement, PropsWithChildren<TableProps>>(
-  function Table(
-    { children, variant = 'colored', testId = 'fs-table', ...otherProps },
-    ref
-  ) {
-    return (
-      <div data-fs-table>
-        <table
-          ref={ref}
-          data-fs-table-content
-          data-fs-table-variant={variant}
-          data-testid={testId}
-          {...otherProps}
-        >
-          {children}
-        </table>
-      </div>
-    )
-  }
-)
-
-export default Table
+export default function Table({
+  children,
+  variant = 'colored',
+  testId = 'fs-table',
+  ref,
+  ...otherProps
+}: TableProps) {
+  return (
+    <div data-fs-table>
+      <table
+        ref={ref}
+        data-fs-table-content
+        data-fs-table-variant={variant}
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+      </table>
+    </div>
+  )
+}

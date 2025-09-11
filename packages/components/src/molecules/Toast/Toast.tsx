@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useUI } from '../../hooks'
 
-function Toast() {
+export default function Toast() {
   const { toasts, popToast } = useUI()
   const toast = toasts[toasts.length - 1]
   const timeoutRef = useRef<NodeJS.Timeout>(null)
@@ -48,5 +48,3 @@ function Toast() {
     </div>
   )
 }
-
-export default Toast

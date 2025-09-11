@@ -1,26 +1,22 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes, PropsWithChildren } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface TableBodyProps
-  extends HTMLAttributes<HTMLTableSectionElement> {
+export interface TableBodyProps extends ComponentProps<'tbody'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }
 
-const TableBody = forwardRef<
-  HTMLTableSectionElement,
-  PropsWithChildren<TableBodyProps>
->(function TableBody(
-  { children, testId = 'fs-table-body', ...otherProps },
-  ref
-) {
+export default function TableBody({
+  children,
+  testId = 'fs-table-body',
+  ref,
+  ...otherProps
+}: TableBodyProps) {
   return (
     <tbody ref={ref} data-testid={testId} data-fs-table-body {...otherProps}>
       {children}
     </tbody>
   )
-})
-
-export default TableBody
+}

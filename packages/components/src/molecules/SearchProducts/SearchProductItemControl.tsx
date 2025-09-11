@@ -1,17 +1,12 @@
-import React, {
-  forwardRef,
-  type HTMLAttributes,
-  useCallback,
-  useState,
-} from 'react'
+import React, { useCallback, useState } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
-import type { MouseEvent, ReactNode } from 'react'
+import type { ComponentProps, MouseEvent, ReactNode } from 'react'
 
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
+  extends Omit<ComponentProps<'div'>, 'children' | 'onClick'> {
   /**
    * Renders child elements.
    */
@@ -58,26 +53,21 @@ export interface SearchProductItemControlProps
   onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
 }
 
-const SearchProductItemControl = forwardRef<
-  HTMLDivElement,
-  SearchProductItemControlProps
->(function SearchProductItemControl(
-  {
-    availability,
-    children,
-    hasVariants,
-    skuMatrixControl,
-    quantity,
-    outOfStockLabel,
-    min = 1,
-    max = undefined,
-    onClick,
-    onChangeQuantity,
-    onValidateBlur,
-    ...otherProps
-  },
-  ref
-) {
+export default function SearchProductItemControl({
+  availability,
+  children,
+  hasVariants,
+  skuMatrixControl,
+  quantity,
+  outOfStockLabel,
+  min = 1,
+  max = undefined,
+  onClick,
+  onChangeQuantity,
+  onValidateBlur,
+  ref,
+  ...otherProps
+}: SearchProductItemControlProps) {
   const [statusAddToCart, setStatusAddToCart] =
     useState<StatusButtonAddToCartType>('default')
 
@@ -195,5 +185,4 @@ const SearchProductItemControl = forwardRef<
       )}
     </div>
   )
-})
-export default SearchProductItemControl
+}

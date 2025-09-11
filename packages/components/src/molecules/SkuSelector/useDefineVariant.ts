@@ -3,7 +3,7 @@ import type { SkuOption } from './SkuSelector'
 
 export type Variant = 'image' | 'color' | 'label'
 
-const getImageName = (src: string) => {
+function getImageName(src: string) {
   const sourcePath = new URL(src).pathname
   const imageName = sourcePath.split('/').slice(-1)[0]
   return imageName
@@ -13,11 +13,11 @@ const getImageName = (src: string) => {
  * This hook infers what kind of SKU Selector will be displayed on the UI.
  * There are three different options, color, image, and label (default version).
  */
-export const useDefineVariant = (
+export function useDefineVariant(
   options: SkuOption[],
   variant?: Variant
-): Variant =>
-  useMemo(() => {
+): Variant {
+  return useMemo(() => {
     if (variant) return variant
 
     const allOptionsHaveHexColor = options.every((option) => option.hexColor)
@@ -49,3 +49,4 @@ export const useDefineVariant = (
 
     return 'label'
   }, [options, variant])
+}

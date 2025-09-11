@@ -15,21 +15,21 @@ export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
   wrap?: boolean
 }
 
-const ModalFooter = ({
+export default function ModalFooter({
   children,
   direction = 'horizontal',
   wrap = true,
   ...otherProps
-}: ModalFooterProps) => (
-  <div data-fs-modal-footer {...otherProps}>
-    <div
-      data-fs-modal-footer-actions
-      data-fs-modal-footer-actions-direction={direction}
-      data-fs-modal-footer-actions-wrap={wrap}
-    >
-      {children}
+}: ModalFooterProps) {
+  return (
+    <div data-fs-modal-footer {...otherProps}>
+      <div
+        data-fs-modal-footer-actions
+        data-fs-modal-footer-actions-direction={direction}
+        data-fs-modal-footer-actions-wrap={wrap}
+      >
+        {children}
+      </div>
     </div>
-  </div>
-)
-
-export default ModalFooter
+  )
+}

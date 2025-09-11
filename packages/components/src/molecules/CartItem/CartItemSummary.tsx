@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface CartItemSummaryProps extends HTMLAttributes<HTMLDivElement> {
+export interface CartItemSummaryProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
@@ -16,38 +16,32 @@ export interface CartItemSummaryProps extends HTMLAttributes<HTMLDivElement> {
   activeVariations?: Array<{ label: string; option: string }>
 }
 
-const CartItemSummary = forwardRef<HTMLDivElement, CartItemSummaryProps>(
-  function CartItemSummary(
-    {
-      testId = 'fs-cart-item-summary',
-      title,
-      activeVariations = [],
-      children,
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <div
-        ref={ref}
-        data-fs-cart-item-summary
-        data-testid={testId}
-        {...otherProps}
-      >
-        <div data-fs-cart-item-title>{title}</div>
-        {activeVariations.length > 0 && (
-          <div data-fs-cart-item-skus>
-            {activeVariations.map(({ label, option }) => (
-              <p key={label}>
-                {label}: <span>{option}</span>
-              </p>
-            ))}
-          </div>
-        )}
-        {children}
-      </div>
-    )
-  }
-)
-
-export default CartItemSummary
+export default function CartItemSummary({
+  testId = 'fs-cart-item-summary',
+  title,
+  activeVariations = [],
+  children,
+  ref,
+  ...otherProps
+}: CartItemSummaryProps) {
+  return (
+    <div
+      ref={ref}
+      data-fs-cart-item-summary
+      data-testid={testId}
+      {...otherProps}
+    >
+      <div data-fs-cart-item-title>{title}</div>
+      {activeVariations.length > 0 && (
+        <div data-fs-cart-item-skus>
+          {activeVariations.map(({ label, option }) => (
+            <p key={label}>
+              {label}: <span>{option}</span>
+            </p>
+          ))}
+        </div>
+      )}
+      {children}
+    </div>
+  )
+}
