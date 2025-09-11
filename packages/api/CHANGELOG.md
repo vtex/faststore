@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.84.1](https://github.com/vtex/faststore/compare/v3.84.0...v3.84.1) (2025-09-11)
+
+### Bug Fixes
+
+- Use enhanceSku in allVariantProducts ([#3028](https://github.com/vtex/faststore/issues/3028)) ([c11edcf](https://github.com/vtex/faststore/commit/c11edcf5ac93b6e042e665f3e9e90bdf9a4b3a04))
+
 # [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
 
 ### Features
