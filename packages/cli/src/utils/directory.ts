@@ -23,8 +23,8 @@ export const withBasePath = (basepath: string) => {
   const getCorePackagePath = () => {
     const packageFromNodeModules = path.join(
       'node_modules',
-      '@faststore',
-      'core'
+      '@vtex',
+      'faststore-core'
     )
     const resolvedCwd = path.resolve(process.cwd())
 

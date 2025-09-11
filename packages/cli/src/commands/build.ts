@@ -160,7 +160,7 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
     const invalidPackages: Array<string> = []
 
     Object.entries(allDeps).forEach(([pkg, version]) => {
-      if (/^@faststore\/.+/i.test(pkg) === false) return
+      if (/^@vtex\/faststore-.+/i.test(pkg) === false) return
 
       if (version && /^(http|https|git):.+/.test(version) === true) {
         invalidPackages.push(pkg)
@@ -170,7 +170,7 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
     return invalidPackages
   } catch (err) {
     console.log(
-      `${chalk.yellow('warning')} - unable to check @faststore dependencies: ${err}`
+      `${chalk.yellow('warning')} - unable to check @vtex/faststore dependencies: ${err}`
     )
 
     return []
