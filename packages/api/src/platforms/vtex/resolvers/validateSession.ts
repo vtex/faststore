@@ -94,6 +94,7 @@ export const validateSession = async (
   const isRepresentative = jwt?.isRepresentative
   const customerId = jwt?.customerId
   const unitId = jwt?.unitId
+  const userId = jwt?.userId
 
   const sessionData = await clients.commerce
     .session(params.toString())
@@ -105,6 +106,14 @@ export const validateSession = async (
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
   const publicData = sessionData?.namespaces.public ?? null
+
+  // Fetch B2B permissions if user is a representative
+  const canManageOrganization = await clients.commerce.licenseManager
+    .getUserGrantedResources({
+      userId: userId,
+      resourceKey: 'ManageOrganizationAndContract',
+    })
+    .catch(() => false)
 
   // Set seller only if it's inside a region
   let seller
@@ -150,6 +159,9 @@ export const validateSession = async (
             `${shopper?.firstName?.value ?? ''} ${shopper?.lastName?.value ?? ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
+          permissions: {
+            canManageOrganization,
+          },
         }
       : null,
     marketingData,
