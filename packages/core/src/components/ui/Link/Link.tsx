@@ -1,29 +1,32 @@
-import { forwardRef, useMemo } from 'react'
-import type { Ref, AnchorHTMLAttributes } from 'react'
-import NextLink from 'next/link'
-import type { LinkProps as FrameworkLinkProps } from 'next/link'
+import { useMemo } from 'react'
+import type { ComponentProps } from 'react'
+import NextLink, { type LinkProps as NextJsLinkProps } from 'next/link'
+
 import { Link as UILink } from '@faststore/ui'
 import type { LinkProps as UILinkProps, LinkElementType } from '@faststore/ui'
 
-export type LinkProps<T extends LinkElementType = 'a'> = UILinkProps<T> &
-  FrameworkLinkProps &
-  AnchorHTMLAttributes<HTMLAnchorElement>
+export type LinkProps = Pick<
+  UILinkProps<'a'>,
+  'variant' | 'inverse' | 'size' | 'testId'
+> &
+  Omit<NextJsLinkProps, 'as'> &
+  ComponentProps<'a'>
 
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
-  T extends LinkElementType = 'a',
->(
-  { href, inverse, children, variant = 'default', ...otherProps }: LinkProps<T>,
-  ref: Ref<HTMLAnchorElement>
-) {
+export default function Link({
+  href,
+  inverse,
+  children,
+  variant = 'default',
+  ref,
+  ...otherProps
+}: LinkProps) {
   const isInternalLink = useMemo(
     () => href[0] === '/' && href[1] !== '/',
     [href]
   )
 
-  // @TODO fix ts-ignore errors
   if (isInternalLink) {
     return (
-      // @ts-ignore
       <UILink
         as={NextLink}
         ref={ref}
@@ -31,7 +34,6 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
         inverse={inverse}
         passHref
         href={href}
-        legacyBehavior={false}
         {...otherProps}
       >
         {children}
@@ -40,7 +42,6 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
   }
 
   return (
-    // @ts-ignore
     <UILink
       ref={ref}
       href={href}
@@ -51,6 +52,4 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
       {children}
     </UILink>
   )
-})
-
-export default Link
+}
