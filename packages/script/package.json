@@ -1,7 +1,7 @@
 {
-  "name": "@vtex/faststore-navigation",
+  "name": "@vtex/faststore-script",
   "version": "0.0.0",
-  "description": "FastStore Navigation Module",
+  "description": "FastStore Script Module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -28,14 +28,16 @@
     "dev": "tsup --watch"
   },
   "devDependencies": {
+    "@next/third-parties": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tsup": "catalog:"
   },
   "peerDependencies": {
+    "next": ">=15",
+    "@next/third-parties": ">=15",
     "react": ">=19",
-    "react-dom": ">=19",
-    "next": ">=15"
+    "react-dom": ">=19"
   }
 }
