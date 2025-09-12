@@ -1,6 +1,5 @@
 import { Button, Icon } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
@@ -43,7 +42,6 @@ export function Pagination({
   total: number
   perPage: number
 }) {
-  const router = useRouter()
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
   const lastIndexLabel =
@@ -52,15 +50,13 @@ export function Pagination({
       : total
 
   const handlePageChange = (newPage: number) => {
-    const { page, ...rest } = router.query
-    const isFirstPage = newPage === 0 || newPage === 1
-    router.push({
-      pathname: '/pvt/account/orders',
-      query: {
-        ...rest,
-        ...(!isFirstPage ? { page: newPage } : {}),
-      },
-    })
+    const params = new URLSearchParams(window.location.search)
+    if (newPage === 1 || newPage === 0) {
+      params.delete('page')
+    } else {
+      params.set('page', String(newPage))
+    }
+    window.location.href = `/account/orders${params.toString() ? `?${params}` : ''}`
   }
 
   return (

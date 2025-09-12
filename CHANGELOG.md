@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.84.2](https://github.com/vtex/faststore/compare/v3.84.1...v3.84.2) (2025-09-12)
+
+### Bug Fixes
+
+- list order pagination page change ([#3031](https://github.com/vtex/faststore/issues/3031)) ([16c5cf7](https://github.com/vtex/faststore/commit/16c5cf7cdc1d494f82f08fd6aff2816ef72aac26))
+
+## [3.84.1](https://github.com/vtex/faststore/compare/v3.84.0...v3.84.1) (2025-09-11)
+
+### Bug Fixes
+
+- Use enhanceSku in allVariantProducts ([#3028](https://github.com/vtex/faststore/issues/3028)) ([c11edcf](https://github.com/vtex/faststore/commit/c11edcf5ac93b6e042e665f3e9e90bdf9a4b3a04))
+
 # [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
 
 ### Features
