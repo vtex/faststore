@@ -544,11 +544,15 @@ export const Query = {
       }
 
       const profile = sessionData.namespaces.profile ?? null
+      const contract = await commerce.masterData.getContractById({
+        contractId: profile?.id?.value ?? '',
+      })
 
-      return (
-        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
-        ''
-      )
+      const accountName = contract?.isCorporate
+        ? contract?.corporateName
+        : `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
+
+      return accountName || ''
     }
 
     const user = await commerce.licenseManager
