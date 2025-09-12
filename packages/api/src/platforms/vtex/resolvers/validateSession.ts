@@ -7,7 +7,11 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
-import { getAuthCookie, parseJwt } from '../utils/cookies'
+import {
+  getAuthCookie,
+  parseJwt,
+  updatesContextStorageCookies,
+} from '../utils/cookies'
 
 async function getPreciseLocationData(
   clients: Context['clients'],
@@ -34,8 +38,9 @@ async function getPreciseLocationData(
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients, headers, account }: Context
+  ctx: Context
 ): Promise<StoreSession | null> => {
+  const { clients, headers, account } = ctx
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
   const country = oldSession.country ?? ''
@@ -61,6 +66,52 @@ export const validateSession = async (
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
   params.set('sc', salesChannel)
+
+  // Handle region_id parameter for vtex_segment cookie update for PDP regionalization
+  // Usage example: /{productPage}/p?region_id=dnRleDpCUkE6MDQ1NjEwMDA=
+  const regionIdParam = params.get('region_id')
+
+  if (regionIdParam) {
+    try {
+      // Decode base64 encoded region_id
+      const decodedRegionId = Buffer.from(regionIdParam, 'base64').toString(
+        'utf-8'
+      )
+
+      // Extract postal code (last part after colon: "vtex:BRA:04561000" -> "04561000")
+      const extractedPostalCode = decodedRegionId.split(':').pop()
+
+      if (extractedPostalCode) {
+        // Get existing vtex_segment cookie
+        const cookies = headers?.cookie || ''
+        const vtexSegmentMatch = cookies.match(/vtex_segment=([^;]*)/)
+
+        if (vtexSegmentMatch) {
+          const currentSegment = vtexSegmentMatch[1]
+
+          // Decode the base64 cookie value
+          const decodedSegment = Buffer.from(currentSegment, 'base64').toString(
+            'utf-8'
+          )
+
+          const segmentData = JSON.parse(decodedSegment)
+          segmentData.regionId = extractedPostalCode
+
+          // Update cookie in context storage - encode back to base64
+          const updatedSegmentJson = JSON.stringify(segmentData)
+          const updatedSegmentBase64 = Buffer.from(
+            updatedSegmentJson,
+            'utf-8'
+          ).toString('base64')
+          const updatedCookie = `vtex_segment=${updatedSegmentBase64}; path=/`
+
+          updatesContextStorageCookies(ctx, updatedCookie)
+        }
+      }
+    } catch (error) {
+      console.error('Error processing region_id parameter:', error)
+    }
+  }
 
   if (!!postalCode) {
     params.set('postalCode', postalCode)
