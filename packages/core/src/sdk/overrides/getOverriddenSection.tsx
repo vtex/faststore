@@ -45,6 +45,11 @@ export function getOverridableSection<
     )
   }
 
+  // Preserve $componentKey from original Section for CMS Visual Editor compatibility
+  if ('$componentKey' in Section && Section.$componentKey) {
+    ;(OverridableSection as any).$componentKey = Section.$componentKey
+  }
+
   // This type cast is here so the symbol prop doesn't show up in the type definition
   return OverridableSection as Section
 }
@@ -65,9 +70,16 @@ export function getOverriddenSection<
   /** This type wizardry is here because the props won't behave correctly if nothing is done */
   const OverridableSection = Section as ComponentType<ComponentProps<Section>>
 
-  return function OverriddenSection(
+  const OverriddenSection = function OverriddenSection(
     props: ComponentProps<typeof OverridableSection>
   ) {
     return <OverridableSection {...props} {...{ __overrides: rest }} />
   }
+
+  // Preserve $componentKey from original Section for CMS Visual Editor compatibility
+  if ('$componentKey' in Section && Section.$componentKey) {
+    ;(OverriddenSection as any).$componentKey = Section.$componentKey
+  }
+
+  return OverriddenSection
 }

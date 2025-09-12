@@ -19,7 +19,7 @@ import ViewportObserver from './ViewportObserver'
 interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
-  sections?: Array<{ name: string; data: any; $componentKey?: string }>
+  sections?: Array<{ name: string; data: any }>
   isInteractive?: boolean
 }
 
@@ -113,22 +113,26 @@ export const RenderSectionsBase = ({
         if (!Component) {
           // TODO: add a documentation link to help to do this
           console.warn(
-            `${key} not found. Add a new component for this section or remove it from the CMS`
+            `${name} not found. Add a new component for this section or remove it from the CMS`
           )
 
           return null
         }
 
         return (
-          <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
+          <SectionBoundary
+            key={`cms-section-${name}-${index}`}
+            name={name}
+            componentKey={key}
+          >
             {data.skipLazyLoadingSection ? (
-              <Component {...data} />
+              <Component {...data} data-component-key={key} />
             ) : (
               <LazyLoadingSection
                 sectionName={name}
                 isInteractive={isInteractive}
               >
-                <Component {...data} />
+                <Component {...data} data-component-key={key} />
               </LazyLoadingSection>
             )}
           </SectionBoundary>

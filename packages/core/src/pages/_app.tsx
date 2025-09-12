@@ -7,6 +7,7 @@ import { useSearch } from '@faststore/sdk'
 import { UIProvider } from '@faststore/ui'
 
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
+import { VisualEditorProvider } from 'src/components/VisualEditor'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
@@ -37,6 +38,7 @@ function App({ Component, pageProps }: AppProps) {
 
       <UIProvider>
         <DeliveryPromiseProvider>
+          <VisualEditorProvider />
           <Layout>
             <Component {...pageProps} key={pageProps?.key} />
           </Layout>
