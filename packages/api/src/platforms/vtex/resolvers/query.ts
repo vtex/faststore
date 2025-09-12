@@ -620,11 +620,16 @@ export const Query = {
       }
 
       const profile = sessionData.namespaces.profile ?? null
+      const contract = await commerce.masterData.getContractById({
+        contractId: profile?.id?.value ?? '',
+      })
+
+      const name = contract?.isCorporate
+        ? contract?.corporateName
+        : `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
 
       return {
-        name:
-          `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
-          '',
+        name: name || '',
         email: profile?.email?.value || '',
         id: profile?.id?.value || '',
         // createdAt: '',
