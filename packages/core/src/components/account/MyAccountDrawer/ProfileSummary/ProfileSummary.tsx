@@ -37,8 +37,8 @@ export const ProfileSummary = ({
             data-fs-profile-summary-org-link
             href={
               b2b?.unitId
-                ? `/buyer-portal/org-unit/${b2b?.unitId}`
-                : '/buyer-portal'
+                ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
+                : '/pvt/organization-account'
             }
           >
             Manage <Icon name="OpenInNew" width={23} height={23} />

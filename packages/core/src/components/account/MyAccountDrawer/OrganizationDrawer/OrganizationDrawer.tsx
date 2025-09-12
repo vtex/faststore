@@ -46,7 +46,7 @@ export const OrganizationDrawer = ({
       <OrganizationDrawerHeader
         onCloseDrawer={closeDrawer}
         contractName={contractName}
-        contractUrl="/buyer-portal"
+        contractUrl="/pvt/organization-account"
       />
       <OrganizationDrawerBody isRepresentative={isRepresentative} />
       <footer data-fs-organization-drawer-footer-wrapper>

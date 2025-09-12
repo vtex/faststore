@@ -115,7 +115,7 @@ function MyAccountFilterSlider({
       }
     })
 
-    window.location.href = `/account/orders?${params.toString()}`
+    window.location.href = `/pvt/account/orders?${params.toString()}`
   }
 
   return (

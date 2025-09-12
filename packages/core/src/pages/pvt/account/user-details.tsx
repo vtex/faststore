@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
@@ -15,22 +12,20 @@ import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
 import { gql } from '@generated/gql'
 import type {
-  ServerSecurityQuery,
-  ServerSecurityQueryVariables,
+  ServerUserDetailsQueryQuery,
+  ServerUserDetailsQueryQueryVariables,
 } from '@generated/graphql'
-import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
-import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
+import MyAccountUserDetails from 'src/components/account/MyAccountUserDetails/MyAccountUserDetails'
+import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
+import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { validateUser } from 'src/sdk/account/validateUser'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-
-import { validateUser } from 'src/sdk/account/validateUser'
-import PageProvider from 'src/sdk/overrides/PageProvider'
-
-import { SecuritySection } from 'src/components/account/security'
-import storeConfig from '../../../discovery.config'
+import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -38,17 +33,21 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type SecurityPageProps = {
-  accountName: string
-  userEmail: string
+type UserDetailsPagePros = {
+  userDetails: {
+    name: string
+    email: string
+    role: string[]
+    orgUnit: string
+  }
 } & MyAccountProps
 
 export default function Page({
   globalSections: globalSectionsProp,
   accountName,
   isRepresentative,
-  userEmail,
-}: SecurityPageProps) {
+  userDetails,
+}: UserDetailsPagePros) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 
@@ -62,7 +61,7 @@ export default function Page({
           accountName={accountName}
         >
           <BeforeSection />
-          <SecuritySection userEmail={userEmail} />
+          <MyAccountUserDetails userDetails={userDetails} />
           <AfterSection />
         </MyAccountLayout>
       </RenderSections>
@@ -71,10 +70,13 @@ export default function Page({
 }
 
 const query = gql(`
-  query ServerSecurity {
+  query ServerUserDetailsQuery {
     accountName
     userDetails {
+      name
       email
+      role
+      orgUnit
     }
   }
 `)
@@ -114,24 +116,41 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(context.previewData)
 
-  const [security, globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      execute<ServerSecurityQueryVariables, ServerSecurityQuery>(
-        {
-          variables: {},
-          operation: query,
-        },
-        { headers: { ...context.req.headers } }
-      ),
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    userDetails,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    execute<ServerUserDetailsQueryQueryVariables, ServerUserDetailsQueryQuery>(
+      {
+        variables: {},
+        operation: query,
+      },
+      {
+        headers: { ...context.req.headers },
+      }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
 
-  if (security.errors) {
-    const statusCode: number = (security.errors[0] as any)?.extensions?.status
+  // If the user is not a representative (b2b), redirect them to the account home page
+  if (!isRepresentative) {
+    return {
+      redirect: {
+        destination: '/pvt/account',
+        permanent: false,
+      },
+    }
+  }
+
+  if (userDetails?.errors) {
+    const statusCode: number = (userDetails.errors[0] as any)?.extensions
+      ?.status
     const destination: string =
-      statusCode === 403 ? '/account/403' : '/account/404'
+      statusCode === 403 ? '/pvt/account/403' : '/pvt/account/404'
 
     return {
       redirect: {
@@ -149,9 +168,9 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      accountName: security.data.accountName,
-      userEmail: security.data?.userDetails.email || '',
       globalSections: globalSectionsResult,
+      accountName: userDetails.data.accountName,
+      userDetails: userDetails.data?.userDetails ?? {},
       isRepresentative,
     },
   }

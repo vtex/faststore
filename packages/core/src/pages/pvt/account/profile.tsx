@@ -28,7 +28,7 @@ import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
-import storeConfig from '../../../discovery.config'
+import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -134,7 +134,7 @@ export const getServerSideProps: GetServerSideProps<
   if (profile.errors) {
     const statusCode: number = (profile.errors[0] as any)?.extensions?.status
     const destination: string =
-      statusCode === 403 ? '/account/403' : '/account/404'
+      statusCode === 403 ? '/pvt/account/403' : '/pvt/account/404'
 
     return {
       redirect: {

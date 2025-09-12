@@ -1,5 +1,5 @@
-import { validateUser } from 'src/sdk/account/validateUser'
 import type { GetServerSideProps, NextPage } from 'next'
+import { validateUser } from 'src/sdk/account/validateUser'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 const MyAccountRedirectPage: NextPage = () => {
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     redirect: {
-      destination: '/account/profile',
+      destination: '/pvt/account/profile',
       permanent: false,
     },
   }
