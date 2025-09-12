@@ -27,7 +27,7 @@ import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { extractStatusFromError } from 'src/utils/utilities'
-import storeConfig from '../../../../../discovery.config'
+import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
