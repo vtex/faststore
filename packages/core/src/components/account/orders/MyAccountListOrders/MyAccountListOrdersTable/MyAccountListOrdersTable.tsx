@@ -56,7 +56,7 @@ export function Pagination({
     } else {
       params.set('page', String(newPage))
     }
-    window.location.href = `/account/orders${params.toString() ? `?${params}` : ''}`
+    window.location.href = `/pvt/account/orders${params.toString() ? `?${params}` : ''}`
   }
 
   return (
