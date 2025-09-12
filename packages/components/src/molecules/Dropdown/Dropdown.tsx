@@ -18,12 +18,12 @@ export interface DropdownProps {
   id?: string
 }
 
-const Dropdown = ({
+export default function Dropdown({
   children,
   isOpen: isOpenControlled,
   onDismiss,
   id = 'fs-dropdown',
-}: PropsWithChildren<DropdownProps>) => {
+}: PropsWithChildren<DropdownProps>) {
   const [isOpenInternal, setIsOpenInternal] = useState(false)
   const dropdownItemsRef = useRef<HTMLElement[]>([])
   const selectedDropdownItemIndexRef = useRef(0)
@@ -114,5 +114,3 @@ const Dropdown = ({
     </DropdownContext.Provider>
   )
 }
-
-export default Dropdown

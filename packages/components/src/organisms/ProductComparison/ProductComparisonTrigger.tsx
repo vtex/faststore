@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import type { IProductComparison } from '.'
 import CheckboxField, {
   type CheckboxFieldProps,
@@ -12,13 +12,14 @@ export type ProductComparisonTriggerProps = CheckboxFieldProps & {
   product: IProductComparison
 }
 
-const ProductComparisonTrigger = forwardRef<
-  HTMLInputElement,
-  ProductComparisonTriggerProps
->(function ProductComparisonTrigger(
-  { id, label, onChange, product, ...otherProps },
-  ref
-) {
+export default function ProductComparisonTrigger({
+  id,
+  label,
+  onChange,
+  product,
+  ref,
+  ...otherProps
+}: ProductComparisonTriggerProps) {
   const { productIds, handleProductsIds } = useProductComparison()
 
   const isSelected = productIds.some((productId) => productId === product.id)
@@ -44,6 +45,4 @@ const ProductComparisonTrigger = forwardRef<
       )}
     </div>
   )
-})
-
-export default ProductComparisonTrigger
+}

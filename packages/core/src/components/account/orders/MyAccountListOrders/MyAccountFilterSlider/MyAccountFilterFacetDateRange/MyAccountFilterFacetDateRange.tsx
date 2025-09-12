@@ -1,5 +1,5 @@
 import { InputField } from '@faststore/ui'
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import { type Ref, useImperativeHandle, useRef, useState } from 'react'
 
 export interface MyAccountFilterFacetDateRangeProps {
   /**
@@ -14,18 +14,26 @@ export interface MyAccountFilterFacetDateRangeProps {
    * The function to be called when the date range changes
    */
   setDisabled: (disabled: boolean) => void
+  /**
+   * Component ref
+   */
+  ref?: Ref<MyAccountFilterFacetDateRangeRef>
 }
 
-const MyAccountFilterFacetDateRange = forwardRef<
-  {
-    clear: () => void
-    getDataRangeFacet: () => {
-      key: string
-      value: { from: string; to: string }
-    }
-  },
-  MyAccountFilterFacetDateRangeProps
->(({ to, from, setDisabled }, ref) => {
+interface MyAccountFilterFacetDateRangeRef {
+  clear: () => void
+  getDataRangeFacet: () => {
+    key: string
+    value: { from: string; to: string }
+  }
+}
+
+export default function MyAccountFilterFacetDateRange({
+  to,
+  from,
+  setDisabled,
+  ref,
+}: MyAccountFilterFacetDateRangeProps) {
   const inputFromRef = useRef<HTMLInputElement>(null)
   const inputToRef = useRef<HTMLInputElement>(null)
   const [inputFromError, setInputFromError] = useState<string>()
@@ -108,6 +116,4 @@ const MyAccountFilterFacetDateRange = forwardRef<
       </div>
     </div>
   )
-})
-
-export default MyAccountFilterFacetDateRange
+}

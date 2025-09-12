@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import React from 'react'
 import { Badge, type BadgeProps, Icon } from '../..'
 
 export interface TagProps extends BadgeProps {
@@ -25,10 +25,15 @@ export interface TagProps extends BadgeProps {
   onClose: () => void
 }
 
-const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
-  { testId = 'fs-tag', label, icon, iconButtonLabel, onClose, ...otherProps },
-  ref
-) {
+export default function Tag({
+  testId = 'fs-tag',
+  label,
+  icon,
+  iconButtonLabel,
+  onClose,
+  ref,
+  ...otherProps
+}: TagProps) {
   return (
     <Badge
       ref={ref}
@@ -47,6 +52,4 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
       </button>
     </Badge>
   )
-})
-
-export default Tag
+}

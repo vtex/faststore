@@ -1,12 +1,11 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef, useCallback } from 'react'
+import type { ComponentProps } from 'react'
+import React, { useCallback } from 'react'
 
 import { Icon, IconButton, Link, type LinkProps } from '../../'
 
 import type { MouseEvent, ReactNode } from 'react'
 
-export interface AlertProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
+export interface AlertProps extends Omit<ComponentProps<'div'>, 'role'> {
   /**
    * ID to find this component in testing tools (e.g.: testing-library, and jest).
    */
@@ -29,18 +28,16 @@ export interface AlertProps
   onClose?: (event: MouseEvent<HTMLElement>) => void
 }
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  {
-    testId = 'fs-alert',
-    children,
-    icon,
-    dismissible,
-    link,
-    onClose,
-    ...otherProps
-  },
-  ref
-) {
+export default function Alert({
+  testId = 'fs-alert',
+  children,
+  icon,
+  dismissible,
+  link,
+  onClose,
+  ref,
+  ...otherProps
+}: AlertProps) {
   const handleClose = useCallback(
     (event: MouseEvent<HTMLElement>) => {
       if (event.defaultPrevented) {
@@ -78,6 +75,4 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       )}
     </div>
   )
-})
-
-export default Alert
+}

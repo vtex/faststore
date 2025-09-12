@@ -2,14 +2,19 @@ import React, { type ReactNode } from 'react'
 import type { BreadcrumbBaseProps } from './BreadcrumbBase'
 import Divider from './Divider'
 
-type ListItemProps = {
+interface ListItemProps {
   children: ReactNode
   isLastItem: boolean
   divider: BreadcrumbBaseProps['divider']
   testId: string
 }
 
-const ListItem = ({ children, isLastItem, divider, testId }: ListItemProps) => {
+export default function ListItem({
+  children,
+  isLastItem,
+  divider,
+  testId,
+}: ListItemProps) {
   const props = {
     'data-testid': `${testId}-item`,
     'data-fs-breadcrumb-item': isLastItem ? 'current' : true,
@@ -34,5 +39,3 @@ const ListItem = ({ children, isLastItem, divider, testId }: ListItemProps) => {
     </li>
   )
 }
-
-export default ListItem

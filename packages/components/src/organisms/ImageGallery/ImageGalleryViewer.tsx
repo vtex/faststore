@@ -7,10 +7,8 @@ export interface ImageGalleryViewerProps {
   zoomFactor?: number
 }
 
-const ImageGalleryViewer = ({
+export default function ImageGalleryViewer({
   children,
-}: PropsWithChildren<ImageGalleryViewerProps>) => {
+}: PropsWithChildren<ImageGalleryViewerProps>) {
   return <>{children}</>
 }
-
-export default ImageGalleryViewer

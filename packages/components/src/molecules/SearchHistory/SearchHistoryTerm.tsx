@@ -1,8 +1,9 @@
-import type { ReactNode } from 'react'
-import React, { type HTMLAttributes } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import React from 'react'
 import { Icon, Link, type LinkElementType, type LinkProps } from '../..'
 
-export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
+export interface SearchHistoryTermProps
+  extends ComponentPropsWithoutRef<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -21,12 +22,12 @@ export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
   icon?: ReactNode
 }
 
-const SearchHistoryTerm = ({
+export default function SearchHistoryTerm({
   testId = 'fs-search-history-term',
   value,
   linkProps,
   icon = <Icon name="ClockClockwise" width={18} height={18} />,
-}: SearchHistoryTermProps) => {
+}: SearchHistoryTermProps) {
   return (
     <li data-fs-search-history-item data-testid={testId}>
       <Link {...linkProps} data-fs-search-history-item-link variant="display">
@@ -36,5 +37,3 @@ const SearchHistoryTerm = ({
     </li>
   )
 }
-
-export default SearchHistoryTerm

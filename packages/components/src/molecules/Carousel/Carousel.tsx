@@ -84,7 +84,7 @@ export interface CarouselProps extends SwipeableProps {
   }
 }
 
-function Carousel({
+export default function Carousel({
   children,
   className,
   'aria-label': ariaLabel,
@@ -415,5 +415,3 @@ function Carousel({
     </section>
   )
 }
-
-export default Carousel

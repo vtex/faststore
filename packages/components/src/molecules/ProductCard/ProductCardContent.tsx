@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
 import type { PriceDefinition } from '../../typings/PriceDefinition'
 
@@ -16,7 +16,7 @@ import {
   Rating,
 } from '../../'
 
-export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
+export interface ProductCardContentProps extends ComponentProps<'section'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -75,83 +75,77 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   sponsoredLabel?: string
 }
 
-const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
-  function CardContent(
-    {
-      testId = 'fs-product-card-content',
-      title,
-      linkProps,
-      price,
-      outOfStock,
-      outOfStockLabel = 'Out of stock',
-      ratingValue,
-      showDiscountBadge,
-      buttonLabel = 'Add',
-      onButtonClick,
-      children,
-      includeTaxes = false,
-      includeTaxesLabel = 'Tax included',
-      sponsored = false,
-      sponsoredLabel = 'Sponsored',
-      ...otherProps
-    },
-    ref
-  ) {
-    const listingPrice = price?.listPrice ? price.listPrice : 0
-    const sellingPrice = price?.value ? price.value : 0
+export default function ProductCardContent({
+  testId = 'fs-product-card-content',
+  title,
+  linkProps,
+  price,
+  outOfStock,
+  outOfStockLabel = 'Out of stock',
+  ratingValue,
+  showDiscountBadge,
+  buttonLabel = 'Add',
+  onButtonClick,
+  children,
+  includeTaxes = false,
+  includeTaxesLabel = 'Tax included',
+  sponsored = false,
+  sponsoredLabel = 'Sponsored',
+  ref,
+  ...otherProps
+}: ProductCardContentProps) {
+  const listingPrice = price?.listPrice ? price.listPrice : 0
+  const sellingPrice = price?.value ? price.value : 0
 
-    return (
-      <section
-        ref={ref}
-        data-fs-product-card-content
-        data-fs-product-card-badge={showDiscountBadge}
-        data-testid={testId}
-        {...otherProps}
-      >
-        {sponsored && (
-          <span data-fs-product-card-sponsored-label>{sponsoredLabel}</span>
+  return (
+    <section
+      ref={ref}
+      data-fs-product-card-content
+      data-fs-product-card-badge={showDiscountBadge}
+      data-testid={testId}
+      {...otherProps}
+    >
+      {sponsored && (
+        <span data-fs-product-card-sponsored-label>{sponsoredLabel}</span>
+      )}
+      <div data-fs-product-card-heading>
+        <h3 data-fs-product-card-title>
+          <Link {...linkProps} title={title}>
+            <span>{title}</span>
+          </Link>
+        </h3>
+        {!outOfStock && (
+          <ProductPrice
+            data-fs-product-card-prices
+            value={sellingPrice}
+            listPrice={listingPrice}
+            formatter={price?.formatter}
+          />
         )}
-        <div data-fs-product-card-heading>
-          <h3 data-fs-product-card-title>
-            <Link {...linkProps} title={title}>
-              <span>{title}</span>
-            </Link>
-          </h3>
-          {!outOfStock && (
-            <ProductPrice
-              data-fs-product-card-prices
-              value={sellingPrice}
-              listPrice={listingPrice}
-              formatter={price?.formatter}
-            />
-          )}
-          {includeTaxes && (
-            <Label data-fs-product-card-taxes-label>{includeTaxesLabel}</Label>
-          )}
-          {ratingValue && (
-            <Rating value={ratingValue} icon={<Icon name="Star" />} />
-          )}
+        {includeTaxes && (
+          <Label data-fs-product-card-taxes-label>{includeTaxesLabel}</Label>
+        )}
+        {ratingValue && (
+          <Rating value={ratingValue} icon={<Icon name="Star" />} />
+        )}
+      </div>
+      {showDiscountBadge && !outOfStock && (
+        <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
+      )}
+      {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+      {onButtonClick && !outOfStock && (
+        <div data-fs-product-card-actions>
+          <Button
+            variant="primary"
+            icon={<Icon name="ShoppingCart" />}
+            iconPosition="left"
+            size="small"
+            onClick={onButtonClick}
+          >
+            {buttonLabel}
+          </Button>
         </div>
-        {showDiscountBadge && !outOfStock && (
-          <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
-        )}
-        {outOfStock && <Badge>{outOfStockLabel}</Badge>}
-        {onButtonClick && !outOfStock && (
-          <div data-fs-product-card-actions>
-            <Button
-              variant="primary"
-              icon={<Icon name="ShoppingCart" />}
-              iconPosition="left"
-              size="small"
-              onClick={onButtonClick}
-            >
-              {buttonLabel}
-            </Button>
-          </div>
-        )}
-      </section>
-    )
-  }
-)
-
-export default ProductCardContent
+      )}
+    </section>
+  )
+}

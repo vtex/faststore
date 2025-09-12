@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes, FunctionComponent } from 'react'
+import React from 'react'
+import type { FunctionComponent, ComponentProps } from 'react'
 
 import { ImageGallerySelector } from '../..'
 
@@ -20,7 +20,7 @@ export interface ImageElementData {
   alternateName: string
 }
 
-export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
+export interface ImageGalleryProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing-library, and jest).
    */
@@ -43,42 +43,34 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
   setSelectedImageIdx: (idx: number) => void
 }
 
-const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
-  function ImageGallery(
-    {
-      images,
-      children,
-      ImageComponent,
-      selectedImageIdx,
-      setSelectedImageIdx,
-      testId = 'fs-image-gallery',
-      ...otherProps
-    },
-    ref
-  ) {
-    const hasSelector = images.length > 1
+export default function ImageGallery({
+  images,
+  children,
+  ImageComponent,
+  selectedImageIdx,
+  setSelectedImageIdx,
+  testId = 'fs-image-gallery',
+  ref,
+  ...otherProps
+}: ImageGalleryProps) {
+  const hasSelector = images.length > 1
 
-    return (
-      <section
-        ref={ref}
-        data-fs-image-gallery={
-          hasSelector ? 'with-selector' : 'without-selector'
-        }
-        data-testid={testId}
-        {...otherProps}
-      >
-        {children}
-        {hasSelector && (
-          <ImageGallerySelector
-            images={images}
-            onSelect={setSelectedImageIdx}
-            currentImageIdx={selectedImageIdx}
-            ImageComponent={ImageComponent}
-          />
-        )}
-      </section>
-    )
-  }
-)
-
-export default ImageGallery
+  return (
+    <section
+      ref={ref}
+      data-fs-image-gallery={hasSelector ? 'with-selector' : 'without-selector'}
+      data-testid={testId}
+      {...otherProps}
+    >
+      {children}
+      {hasSelector && (
+        <ImageGallerySelector
+          images={images}
+          onSelect={setSelectedImageIdx}
+          currentImageIdx={selectedImageIdx}
+          ImageComponent={ImageComponent}
+        />
+      )}
+    </section>
+  )
+}

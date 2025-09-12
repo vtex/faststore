@@ -1,11 +1,9 @@
-import type { HTMLAttributes, ReactNode, RefAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
+import React from 'react'
 
 import { Button } from '../../'
 
-export interface RegionBarProps
-  extends HTMLAttributes<HTMLDivElement>,
-    RefAttributes<HTMLDivElement> {
+export interface RegionBarProps extends ComponentProps<'div'> {
   /**
    * City to be displayed in the component.
    */
@@ -68,27 +66,25 @@ export interface RegionBarProps
   }
 }
 
-const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
-  {
-    city,
-    postalCode,
-    icon: locationIcon,
-    label: locationLabel,
-    editLabel: _ = undefined,
-    buttonIcon,
-    onButtonClick: onLocationButtonClick,
-    shouldDisplayPostalCode = true,
-    filterButton: {
-      icon: filterIcon,
-      label: filterLabel,
-      selectedFilter,
-      shouldDisplayFilterButton = false,
-      onClick: onFilterButtonClick,
-    } = {},
-    ...otherProps
-  },
-  ref
-) {
+export default function RegionBar({
+  city,
+  postalCode,
+  icon: locationIcon,
+  label: locationLabel,
+  editLabel: _ = undefined,
+  buttonIcon,
+  onButtonClick: onLocationButtonClick,
+  shouldDisplayPostalCode = true,
+  filterButton: {
+    icon: filterIcon,
+    label: filterLabel,
+    selectedFilter,
+    shouldDisplayFilterButton = false,
+    onClick: onFilterButtonClick,
+  } = {},
+  ref,
+  ...otherProps
+}: RegionBarProps) {
   return (
     <div ref={ref} data-fs-region-bar {...otherProps}>
       <Button
@@ -133,6 +129,4 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
       )}
     </div>
   )
-})
-
-export default RegionBar
+}

@@ -1,6 +1,6 @@
-import type { FunctionComponent, HTMLAttributes } from 'react'
+import type { ComponentProps, FunctionComponent } from 'react'
 import React from 'react'
-import { forwardRef } from 'react'
+
 import {
   Label,
   SROnly,
@@ -45,7 +45,7 @@ export interface SkuOption {
   hexColor?: string
 }
 
-export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
+export interface SkuSelectorProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing-library, and jest).
    */
@@ -91,100 +91,94 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   }>
 }
 
-const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
-  function SkuSelector(
-    {
-      availableVariations,
-      skuPropertyName,
-      testId,
-      activeVariations,
-      linkProps,
-      slugsMap,
-      getItemHref: getItemHrefProp,
-      ImageComponent = ImageComponentFallback,
-      variant: variantProp,
-      ...otherProps
-    },
-    ref
-  ) {
-    const activeSelectorValue = activeVariations[skuPropertyName]
-    const options = availableVariations[skuPropertyName]
+export default function SkuSelector({
+  availableVariations,
+  skuPropertyName,
+  testId,
+  activeVariations,
+  linkProps,
+  slugsMap,
+  getItemHref: getItemHrefProp,
+  ImageComponent = ImageComponentFallback,
+  variant: variantProp,
+  ref,
+  ...otherProps
+}: SkuSelectorProps) {
+  const activeSelectorValue = activeVariations[skuPropertyName]
+  const options = availableVariations[skuPropertyName]
 
-    const variant = useDefineVariant(options, variantProp)
+  const variant = useDefineVariant(options, variantProp)
 
-    const { getItemHref } = useSkuSlug(
-      activeVariations,
-      slugsMap,
-      skuPropertyName,
-      getItemHrefProp
-    )
+  const { getItemHref } = useSkuSlug(
+    activeVariations,
+    slugsMap,
+    skuPropertyName,
+    getItemHrefProp
+  )
 
-    return (
-      <div
-        ref={ref}
-        data-fs-sku-selector
-        data-testid={testId}
-        data-fs-sku-selector-variant={variant}
-        {...otherProps}
-      >
-        {skuPropertyName && (
-          <Label data-fs-sku-selector-title>
-            {skuPropertyName}: <strong>{activeSelectorValue}</strong>
-          </Label>
-        )}
-        <ul data-fs-sku-selector-list>
-          {options.map((option, index) => {
-            return (
-              <li
-                key={String(index)}
-                title={option.label}
-                data-fs-sku-selector-option
-                data-fs-sku-selector-disabled={option.disabled}
-                data-fs-sku-selector-checked={
-                  option.value === activeVariations[skuPropertyName]
-                }
+  return (
+    <div
+      ref={ref}
+      data-fs-sku-selector
+      data-testid={testId}
+      data-fs-sku-selector-variant={variant}
+      {...otherProps}
+    >
+      {skuPropertyName && (
+        <Label data-fs-sku-selector-title>
+          {skuPropertyName}: <strong>{activeSelectorValue}</strong>
+        </Label>
+      )}
+      <ul data-fs-sku-selector-list>
+        {options.map((option, index) => {
+          return (
+            <li
+              key={String(index)}
+              title={option.label}
+              data-fs-sku-selector-option
+              data-fs-sku-selector-disabled={option.disabled}
+              data-fs-sku-selector-checked={
+                option.value === activeVariations[skuPropertyName]
+              }
+            >
+              <Link
+                data-fs-sku-selector-option-link
+                href={getItemHref(option)}
+                {...linkProps}
               >
-                <Link
-                  data-fs-sku-selector-option-link
-                  href={getItemHref(option)}
-                  {...linkProps}
-                >
-                  <SROnly text={option.label} />
-                </Link>
+                <SROnly text={option.label} />
+              </Link>
 
-                {variant === 'label' && <span>{option.value}</span>}
+              {variant === 'label' && <span>{option.value}</span>}
 
-                {variant === 'image' && ImageComponent && (
-                  <span>
-                    <ImageComponent
-                      src={option.src ?? ''}
-                      alt={option.alt ?? ''}
-                      data-fs-sku-selector-option-image
-                    />
-                  </span>
-                )}
+              {variant === 'image' && ImageComponent && (
+                <span>
+                  <ImageComponent
+                    src={option.src ?? ''}
+                    alt={option.alt ?? ''}
+                    data-fs-sku-selector-option-image
+                  />
+                </span>
+              )}
 
-                {variant === 'color' && (
-                  <span>
-                    <div
-                      data-fs-sku-selector-option-color
-                      title={option.value}
-                      style={
-                        {
-                          '--data-fs-sku-selector-option-color-bkg-color':
-                            option.hexColor,
-                        } as React.CSSProperties
-                      }
-                    ></div>
-                  </span>
-                )}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-    )
-  }
-)
-
-export default SkuSelector
+              {variant === 'color' && (
+                <span>
+                  <div
+                    data-fs-sku-selector-option-color
+                    title={option.value}
+                    style={
+                      {
+                        '--data-fs-sku-selector-option-color-bkg-color':
+                          option.hexColor,
+                      } as React.CSSProperties
+                    }
+                  ></div>
+                </span>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}

@@ -1,4 +1,3 @@
-import { forwardRef } from 'react'
 import type { DetailedHTMLProps, HTMLAttributes } from 'react'
 
 import { useOverrideClassName } from '../../../sdk/overrides/OverrideContext'
@@ -9,10 +8,12 @@ type SectionProps = BaseProps & {
   as?: 'section' | 'header' | 'footer' | 'aside'
 }
 
-const Section = forwardRef<HTMLDivElement, SectionProps>(function Section(
-  { as, className = '', ...otherProps },
-  ref
-) {
+export default function Section({
+  as,
+  className = '',
+  ref,
+  ...otherProps
+}: SectionProps) {
   const overrideClassName = useOverrideClassName() ?? ''
   const Component = as ?? 'section'
 
@@ -23,6 +24,4 @@ const Section = forwardRef<HTMLDivElement, SectionProps>(function Section(
       {...otherProps}
     />
   )
-})
-
-export default Section
+}

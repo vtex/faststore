@@ -1,7 +1,7 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface LoaderProps extends HTMLAttributes<HTMLSpanElement> {
+export interface LoaderProps extends ComponentProps<'span'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -12,10 +12,12 @@ export interface LoaderProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: 'light' | 'dark'
 }
 
-const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(
-  { testId = 'fs-loader', variant = 'dark', ...otherProps }: LoaderProps,
-  ref
-) {
+export default function Loader({
+  testId = 'fs-loader',
+  variant = 'dark',
+  ref,
+  ...otherProps
+}: LoaderProps) {
   return (
     <span
       ref={ref}
@@ -29,6 +31,4 @@ const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(
       <span data-fs-loader-item></span>
     </span>
   )
-})
-
-export default Loader
+}

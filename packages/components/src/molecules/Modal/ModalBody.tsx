@@ -7,10 +7,10 @@ export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 
-const ModalBody = ({ children, ...otherProps }: ModalBodyProps) => (
-  <div data-fs-modal-body {...otherProps}>
-    {children}
-  </div>
-)
-
-export default ModalBody
+export default function ModalBody({ children, ...otherProps }: ModalBodyProps) {
+  return (
+    <div data-fs-modal-body {...otherProps}>
+      {children}
+    </div>
+  )
+}

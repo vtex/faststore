@@ -1,10 +1,9 @@
 import React from 'react'
-import { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import type { ComponentProps } from 'react'
 
 import { List, useSearch } from '../../'
 
-export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
+export interface SearchTopProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -15,10 +14,13 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   title: string
 }
 
-const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
-  { testId = 'fs-top-search', title = 'Top Search', children, ...otherProps },
-  ref
-) {
+export default function SearchTop({
+  testId = 'fs-top-search',
+  title = 'Top Search',
+  children,
+  ref,
+  ...otherProps
+}: SearchTopProps) {
   const { inContext, values } = useSearch()
 
   if (inContext && (values.term.length !== 0 || values.isLoading)) {
@@ -33,6 +35,4 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
       <List as="ol">{children}</List>
     </section>
   )
-})
-
-export default SearchTop
+}

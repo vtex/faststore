@@ -1,8 +1,7 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes, DetailedHTMLProps } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface NewsletterAddendumProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
+export interface NewsletterAddendumProps extends ComponentProps<'span'> {
   /**
    * Specifies the addendum for the subscription.
    */
@@ -13,22 +12,20 @@ export interface NewsletterAddendumProps
   testId?: string
 }
 
-const NewsletterAddendum = forwardRef<HTMLSpanElement, NewsletterAddendumProps>(
-  function NewsletterAddendum(
-    { addendum, testId = 'fs-newsletter-addendum', ...otherProps },
-    ref
-  ) {
-    return (
-      <span
-        ref={ref}
-        data-testid={testId}
-        data-fs-newsletter-addendum
-        {...otherProps}
-      >
-        {addendum}
-      </span>
-    )
-  }
-)
-
-export default NewsletterAddendum
+export default function NewsletterAddendum({
+  addendum,
+  testId = 'fs-newsletter-addendum',
+  ref,
+  ...otherProps
+}: NewsletterAddendumProps) {
+  return (
+    <span
+      ref={ref}
+      data-testid={testId}
+      data-fs-newsletter-addendum
+      {...otherProps}
+    >
+      {addendum}
+    </span>
+  )
+}

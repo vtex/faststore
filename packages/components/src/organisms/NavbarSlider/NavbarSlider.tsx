@@ -21,7 +21,7 @@ export interface NavbarSliderProps
   size?: SlideOverProps['size']
 }
 
-function NavbarSlider({
+export default function NavbarSlider({
   children,
   size = 'full',
   isOpen = true,
@@ -42,5 +42,3 @@ function NavbarSlider({
     </SlideOver>
   )
 }
-
-export default NavbarSlider

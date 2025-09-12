@@ -1,10 +1,9 @@
 import React, {
-  forwardRef,
   useCallback,
   useEffect,
   useRef,
   useState,
-  type HTMLAttributes,
+  type ComponentProps,
   type KeyboardEvent,
   type ReactNode,
   type RefObject,
@@ -29,8 +28,7 @@ export type Alignment = 'start' | 'center' | 'end'
  */
 export type Placement = `${Side}-${Alignment}`
 
-export interface PopoverProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
+export interface PopoverProps extends Omit<ComponentProps<'div'>, 'content'> {
   /**
    * The Popover header's title.
    */
@@ -107,25 +105,23 @@ const calculatePosition = (
   }
 }
 
-const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
-  {
-    title,
-    content,
-    placement = 'bottom-start',
-    dismissible = false,
-    onDismiss,
-    isOpen,
-    triggerRef: propTriggerRef,
-    offsetTop = 8,
-    offsetLeft = 0,
-    closeButtonAriaLabel = 'Close Popover',
-    testId = 'fs-popover',
-    style,
-    onEntered,
-    ...otherProps
-  },
-  ref
-) {
+export default function Popover({
+  title,
+  content,
+  placement = 'bottom-start',
+  dismissible = false,
+  onDismiss,
+  isOpen,
+  triggerRef: propTriggerRef,
+  offsetTop = 8,
+  offsetLeft = 0,
+  closeButtonAriaLabel = 'Close Popover',
+  testId = 'fs-popover',
+  style,
+  onEntered,
+  ref,
+  ...otherProps
+}: PopoverProps) {
   // Use forwarded ref or internal ref for fallback
   const popoverRef = ref || useRef<HTMLDivElement>(null)
 
@@ -204,6 +200,4 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
       <span data-fs-popover-indicator aria-hidden="true" />
     </div>
   )
-})
-
-export default Popover
+}

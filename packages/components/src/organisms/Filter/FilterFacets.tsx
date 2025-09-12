@@ -24,7 +24,7 @@ export interface FilterFacetsProps {
   description?: string
 }
 
-function FilterFacets({
+export default function FilterFacets({
   testId,
   label,
   index,
@@ -53,5 +53,3 @@ function FilterFacets({
     </AccordionItem>
   )
 }
-
-export default FilterFacets

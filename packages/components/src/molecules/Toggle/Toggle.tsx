@@ -1,9 +1,9 @@
-import type { InputHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 import { Icon, Input } from './../../'
 
 export interface ToggleProps
-  extends InputHTMLAttributes<Omit<HTMLInputElement, 'disabled' | 'type'>> {
+  extends Omit<ComponentProps<'input'>, 'type' | 'disabled'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -22,16 +22,14 @@ export interface ToggleProps
   variant?: 'horizontal' | 'vertical'
 }
 
-const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
-  {
-    testId = 'fs-toggle',
-    id,
-    disabled,
-    variant = 'horizontal',
-    ...otherProps
-  }: ToggleProps,
-  ref
-) {
+export default function Toggle({
+  testId = 'fs-toggle',
+  id,
+  disabled,
+  variant = 'horizontal',
+  ref,
+  ...otherProps
+}: ToggleProps) {
   return (
     <div data-fs-toggle data-fs-toggle-variant={variant} data-testid={testId}>
       <Input
@@ -47,6 +45,4 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
       </span>
     </div>
   )
-})
-
-export default Toggle
+}

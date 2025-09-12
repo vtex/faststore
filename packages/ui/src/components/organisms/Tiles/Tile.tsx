@@ -1,17 +1,19 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface TileProps extends HTMLAttributes<HTMLLIElement> {
+export interface TileProps extends ComponentProps<'li'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
   testId?: string
 }
 
-const Tile = forwardRef<HTMLLIElement, TileProps>(function Tile(
-  { testId = 'store-tile', children, ...otherProps },
-  ref
-) {
+export default function Tile({
+  testId = 'store-tile',
+  children,
+  ref,
+  ...otherProps
+}: TileProps) {
   return (
     <li
       ref={ref}
@@ -23,6 +25,4 @@ const Tile = forwardRef<HTMLLIElement, TileProps>(function Tile(
       {children}
     </li>
   )
-})
-
-export default Tile
+}

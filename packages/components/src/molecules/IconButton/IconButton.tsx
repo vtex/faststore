@@ -1,5 +1,5 @@
 import type { ReactNode, AriaAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import React from 'react'
 
 import { Button } from '../../'
 import type { ButtonProps } from '../../'
@@ -19,35 +19,29 @@ export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
   'aria-label': AriaAttributes['aria-label']
 }
 
-const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  function IconButton(
-    {
-      icon,
-      children,
-      testId = 'fs-icon-button',
-      'aria-label': ariaLabel,
-      size = 'regular',
-      variant,
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <Button
-        ref={ref}
-        data-fs-button
-        data-fs-icon-button
-        variant={variant ?? 'tertiary'}
-        icon={icon}
-        aria-label={ariaLabel}
-        testId={testId}
-        size={size}
-        {...otherProps}
-      >
-        {children}
-      </Button>
-    )
-  }
-)
-
-export default IconButton
+export default function IconButton({
+  icon,
+  children,
+  testId = 'fs-icon-button',
+  'aria-label': ariaLabel,
+  size = 'regular',
+  variant,
+  ref,
+  ...otherProps
+}: IconButtonProps) {
+  return (
+    <Button
+      ref={ref}
+      data-fs-button
+      data-fs-icon-button
+      variant={variant ?? 'tertiary'}
+      icon={icon}
+      aria-label={ariaLabel}
+      testId={testId}
+      size={size}
+      {...otherProps}
+    >
+      {children}
+    </Button>
+  )
+}

@@ -21,12 +21,12 @@ export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
   onClose?: () => void
 }
 
-const ModalHeader = ({
+export default function ModalHeader({
   onClose,
   title,
   closeBtnProps = {},
   description,
-}: ModalHeaderProps) => {
+}: ModalHeaderProps) {
   return (
     <header data-fs-modal-header>
       {onClose && (
@@ -43,5 +43,3 @@ const ModalHeader = ({
     </header>
   )
 }
-
-export default ModalHeader

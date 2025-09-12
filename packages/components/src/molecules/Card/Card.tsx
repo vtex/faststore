@@ -1,10 +1,9 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
 import { IconButton, Icon } from '../..'
 
-export interface CardProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
+export interface CardProps extends Omit<ComponentProps<'div'>, 'role'> {
   /**
    * Specifies the text to be loaded into the header.
    */
@@ -27,18 +26,16 @@ export interface CardProps
   iconAction?: () => void
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
-  {
-    title,
-    maxWidth,
-    testId = 'fs-card',
-    iconName,
-    iconAction,
-    children,
-    ...otherProps
-  },
-  ref
-) {
+export default function Card({
+  title,
+  maxWidth,
+  testId = 'fs-card',
+  iconName,
+  iconAction,
+  children,
+  ref,
+  ...otherProps
+}: CardProps) {
   return (
     <section
       data-testid={testId}
@@ -60,6 +57,4 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
       <div data-fs-card-body>{children}</div>
     </section>
   )
-})
-
-export default Card
+}

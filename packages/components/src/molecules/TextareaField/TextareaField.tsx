@@ -1,4 +1,4 @@
-import type { MutableRefObject } from 'react'
+import type { RefObject } from 'react'
 import React, { useEffect, useRef } from 'react'
 
 import type { TextareaProps } from '../..'
@@ -24,7 +24,7 @@ type DefaultProps = {
   /**
    * Component's ref.
    */
-  textareaRef?: MutableRefObject<HTMLTextAreaElement | null>
+  textareaRef?: RefObject<HTMLTextAreaElement>
   /**
    * Specifies that the whole textarea component should be disabled.
    */
@@ -32,9 +32,9 @@ type DefaultProps = {
 }
 
 export type TextareaFieldProps = DefaultProps &
-  Omit<TextareaProps, 'disabled' | 'onSubmit'>
+  Omit<TextareaProps, 'disabled' | 'onSubmit' | 'ref'>
 
-const TextareaField = ({
+export default function TextareaField({
   id,
   label,
   error,
@@ -44,7 +44,7 @@ const TextareaField = ({
   value,
   testId = 'fs-textarea-field',
   ...otherProps
-}: TextareaFieldProps) => {
+}: TextareaFieldProps) {
   const shouldDisplayError = !disabled && error && error !== ''
   const textareaInternalRef = useRef<HTMLTextAreaElement | null>(null)
   const ref = textareaRef || textareaInternalRef
@@ -98,5 +98,3 @@ const TextareaField = ({
     </div>
   )
 }
-
-export default TextareaField

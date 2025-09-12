@@ -12,12 +12,12 @@ export interface SearchProductsProps extends HTMLAttributes<HTMLDivElement> {
   title?: string
 }
 
-const SearchProductsProps = ({
+export default function SearchProductsProps({
   testId = 'fs-search-products',
   title = 'Suggested Products',
   children,
   ...otherProps
-}: SearchProductsProps) => {
+}: SearchProductsProps) {
   const { inContext, values } = useSearch()
 
   if (inContext && values.products.length <= 0) {
@@ -32,5 +32,3 @@ const SearchProductsProps = ({
     </section>
   )
 }
-
-export default SearchProductsProps

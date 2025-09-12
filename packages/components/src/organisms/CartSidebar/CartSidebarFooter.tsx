@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react'
 
-function CartSidebarFooter({ children }: { children: ReactNode }) {
+export default function CartSidebarFooter({
+  children,
+}: { children: ReactNode }) {
   return <footer data-fs-cart-sidebar-footer>{children}</footer>
 }
-
-export default CartSidebarFooter

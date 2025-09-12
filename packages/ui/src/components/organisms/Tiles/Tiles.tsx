@@ -1,9 +1,9 @@
-import React, { Children, forwardRef } from 'react'
-import type { HTMLAttributes, ReactElement } from 'react'
+import React, { Children } from 'react'
+import type { ComponentProps, ReactElement } from 'react'
 
 import { Tile } from '.'
 
-export interface TilesProps extends HTMLAttributes<HTMLUListElement> {
+export interface TilesProps extends ComponentProps<'ul'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
@@ -15,10 +15,12 @@ const MAX_CHILDREN = 4
 const NUMBER_ITEMS_TO_EXPAND_FIRST_TWO = 2
 const NUMBER_ITEMS_TO_EXPAND_FIRST = 3
 
-const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
-  { testId = 'store-tiles', children, ...otherProps },
-  ref
-) {
+export default function Tiles({
+  testId = 'store-tiles',
+  children,
+  ref,
+  ...otherProps
+}: TilesProps) {
   const childrenCount = Children.count(children)
 
   if (process.env.NODE_ENV === 'development') {
@@ -60,6 +62,4 @@ const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
       {children}
     </ul>
   )
-})
-
-export default Tiles
+}

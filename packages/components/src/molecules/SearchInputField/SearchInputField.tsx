@@ -1,14 +1,15 @@
 import type {
   AriaAttributes,
+  ComponentPropsWithoutRef,
   FormEvent,
-  InputHTMLAttributes,
   ReactNode,
+  Ref,
 } from 'react'
-import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+import React, { useImperativeHandle, useRef } from 'react'
 
 import { Icon, IconButton, Input } from '../..'
 
-type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
+type InputProps = Omit<ComponentPropsWithoutRef<'input'>, 'onSubmit'>
 
 type ButtonProps = {
   onClick?: () => void
@@ -36,6 +37,10 @@ export interface SearchInputFieldProps extends InputProps {
    * Callback function when submitted.
    */
   onSubmit: (value: string) => void
+  /**
+   * Component's ref
+   */
+  ref?: Ref<SearchInputFieldRef>
 }
 
 export interface SearchInputFieldRef {
@@ -43,20 +48,15 @@ export interface SearchInputFieldRef {
   formRef?: HTMLFormElement | null
 }
 
-const SearchInputField = forwardRef<
-  SearchInputFieldRef | null,
-  SearchInputFieldProps
->(function SearchInputField(
-  {
-    onSubmit,
-    buttonIcon,
-    'aria-label': ariaLabel = 'search',
-    testId = 'fs-search-input',
-    buttonProps,
-    ...otherProps
-  },
-  ref
-) {
+export default function SearchInputField({
+  onSubmit,
+  buttonIcon,
+  'aria-label': ariaLabel = 'search',
+  testId = 'fs-search-input',
+  buttonProps,
+  ref,
+  ...otherProps
+}: SearchInputFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -96,6 +96,4 @@ const SearchInputField = forwardRef<
       />
     </form>
   )
-})
-
-export default SearchInputField
+}

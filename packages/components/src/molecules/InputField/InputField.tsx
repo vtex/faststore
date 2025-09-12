@@ -1,4 +1,4 @@
-import type { MutableRefObject } from 'react'
+import type { RefObject } from 'react'
 import React from 'react'
 
 import type { InputProps } from '../../'
@@ -24,7 +24,7 @@ type DefaultProps = {
   /**
    * Component's ref.
    */
-  inputRef?: MutableRefObject<HTMLInputElement | null>
+  inputRef?: RefObject<HTMLInputElement | null>
   /**
    * Specifies that the whole input component should be disabled.
    */
@@ -66,7 +66,7 @@ export type InputFieldProps = DefaultProps &
   Omit<InputProps, 'disabled' | 'onSubmit'> &
   ActionableInputField
 
-const InputField = ({
+export default function InputField({
   id,
   label,
   type = 'text',
@@ -82,7 +82,7 @@ const InputField = ({
   value,
   testId = 'fs-input-field',
   ...otherProps
-}: InputFieldProps) => {
+}: InputFieldProps) {
   const shouldDisplayError = !disabled && error && error !== ''
   const shouldDisplayButton = actionable && !disabled && value !== ''
 
@@ -126,5 +126,3 @@ const InputField = ({
     </div>
   )
 }
-
-export default InputField

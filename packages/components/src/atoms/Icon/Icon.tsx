@@ -1,5 +1,5 @@
-import type { SVGProps } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
 type IconWeight = 'thin' | 'light' | 'regular' | 'bold'
 
@@ -10,7 +10,7 @@ const mapWeightToValue: Record<IconWeight, number> = {
   thin: 8,
 }
 
-export interface IconProps extends SVGProps<SVGSVGElement> {
+export interface IconProps extends ComponentProps<'svg'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -41,10 +41,13 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
   height?: number
 }
 
-const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
-  { testId = 'fs-icon', name, weight = 'regular', ...otherProps }: IconProps,
-  ref
-) {
+export default function Icon({
+  testId = 'fs-icon',
+  name,
+  weight = 'regular',
+  ref,
+  ...otherProps
+}: IconProps) {
   const { width, height } = otherProps
   return (
     <svg
@@ -59,6 +62,4 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
       <use href={`/icons.svg#${name}`} />
     </svg>
   )
-})
-
-export default Icon
+}

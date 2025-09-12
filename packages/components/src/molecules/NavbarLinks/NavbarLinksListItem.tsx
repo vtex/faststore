@@ -1,30 +1,27 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
-export interface NavbarLinksListItemProps
-  extends HTMLAttributes<HTMLLIElement> {
+export interface NavbarLinksListItemProps extends ComponentProps<'li'> {
   /**
    * ID to find this component in testing tools (e.g.: Testing Library, and Jest).
    */
   testId?: string
 }
 
-const NavbarLinksListItem = forwardRef<HTMLLIElement, NavbarLinksListItemProps>(
-  function NavbarLinksListItem(
-    { children, testId = 'fs-navbar-links-list-item', ...otherProps },
-    ref
-  ) {
-    return (
-      <li
-        data-fs-navbar-links-list-item
-        ref={ref}
-        data-testid={testId}
-        {...otherProps}
-      >
-        {children}
-      </li>
-    )
-  }
-)
-
-export default NavbarLinksListItem
+export default function NavbarLinksListItem({
+  children,
+  testId = 'fs-navbar-links-list-item',
+  ref,
+  ...otherProps
+}: NavbarLinksListItemProps) {
+  return (
+    <li
+      data-fs-navbar-links-list-item
+      ref={ref}
+      data-testid={testId}
+      {...otherProps}
+    >
+      {children}
+    </li>
+  )
+}

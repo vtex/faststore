@@ -1,7 +1,7 @@
-import React, { type HTMLAttributes } from 'react'
+import React, { type ComponentProps } from 'react'
 import { List, Button, useSearch } from '../..'
 
-export interface SearchHistoryProps extends HTMLAttributes<HTMLDivElement> {
+export interface SearchHistoryProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -20,14 +20,14 @@ export interface SearchHistoryProps extends HTMLAttributes<HTMLDivElement> {
   onClear?: () => void
 }
 
-const SearchHistory = ({
+export default function SearchHistory({
   testId = 'fs-search-history',
   title = 'History',
   clearLabel = 'Clear History',
   onClear,
   children,
   ...otherProps
-}: SearchHistoryProps) => {
+}: SearchHistoryProps) {
   const { inContext, values } = useSearch()
 
   if (inContext && (values.term.length !== 0 || values.isLoading)) {
@@ -46,5 +46,3 @@ const SearchHistory = ({
     </section>
   )
 }
-
-export default SearchHistory

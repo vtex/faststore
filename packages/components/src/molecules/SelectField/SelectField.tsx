@@ -1,5 +1,4 @@
-import React, { forwardRef } from 'react'
-import type { PropsWithChildren } from 'react'
+import React from 'react'
 
 import { Label, Select } from '../..'
 import type { SelectProps } from '../../atoms/Select'
@@ -11,21 +10,26 @@ export interface SelectFieldProps extends SelectProps {
   label: string
 }
 
-const SelectField = forwardRef<
-  HTMLDivElement,
-  PropsWithChildren<SelectFieldProps>
->(function SelectField(
-  { id, label, options, testId = 'fs-select-field', ...otherProps },
-  ref
-) {
+export default function SelectField({
+  id,
+  label,
+  options,
+  testId = 'fs-select-field',
+  ref,
+  ...otherProps
+}: SelectFieldProps) {
   return (
-    <div ref={ref} data-fs-select-field>
+    <div data-fs-select-field>
       <Label data-fs-select-field-label htmlFor={id}>
         {label}
       </Label>
-      <Select id={id} options={options} data-testid={testId} {...otherProps} />
+      <Select
+        id={id}
+        ref={ref}
+        options={options}
+        data-testid={testId}
+        {...otherProps}
+      />
     </div>
   )
-})
-
-export default SelectField
+}

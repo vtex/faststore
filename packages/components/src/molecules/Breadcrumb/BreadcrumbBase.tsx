@@ -1,7 +1,6 @@
 import React, {
   cloneElement,
   type ComponentType,
-  forwardRef,
   lazy,
   type PropsWithChildren,
   type ReactElement,
@@ -86,118 +85,112 @@ export interface BreadcrumbBaseProps extends BreadcrumbPureProps {
   renderLink?: (renderLinkProps: RenderLinkProps) => ReactElement
 }
 
-const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
-  function BreadcrumbBase(
-    {
-      children,
-      divider: rawDivider = '',
-      testId = 'fs-breadcrumb',
-      breadcrumbList,
-      isDesktop = false,
-      renderLink,
-      homeLink,
-      dropdownButtonIcon = <Icon name="DotsThree" />,
-      collapsedItemsIcon = (
-        <Icon data-fs-dropdown-item-icon name="ArrowElbowDownRight" />
-      ),
-      ...otherProps
+export default function BreadcrumbBase({
+  children,
+  divider: rawDivider = '',
+  testId = 'fs-breadcrumb',
+  breadcrumbList,
+  isDesktop = false,
+  renderLink,
+  homeLink,
+  dropdownButtonIcon = <Icon name="DotsThree" />,
+  collapsedItemsIcon = (
+    <Icon data-fs-dropdown-item-icon name="ArrowElbowDownRight" />
+  ),
+  ref,
+  ...otherProps
+}: BreadcrumbBaseProps) {
+  const firstItem = isDesktop ? breadcrumbList[0] : null
+  const mediumItems = isDesktop
+    ? breadcrumbList.slice(1, -2)
+    : breadcrumbList.slice(0, -2)
+
+  const lastItems = breadcrumbList.slice(-2)
+
+  const collapseBreadcrumb = breadcrumbList.length > 4
+
+  const breadcrumbLink = useCallback(
+    (renderLinkProps: RenderLinkProps) => {
+      const breadcrumbItem = renderLink?.(renderLinkProps)
+      const itemProps = renderLinkProps.collapsed
+        ? {
+            'data-fs-breadcrumb-dropdown-link': true,
+          }
+        : {
+            'data-fs-breadcrumb-link': true,
+          }
+      return breadcrumbItem ? (
+        cloneElement(breadcrumbItem, {
+          ...itemProps,
+          key: renderLinkProps.itemProps.position,
+        })
+      ) : (
+        <Link
+          {...itemProps}
+          href={renderLinkProps.itemProps.item}
+          key={renderLinkProps.itemProps.position}
+        >
+          {renderLinkProps.itemProps.name}
+        </Link>
+      )
     },
-    ref
-  ) {
-    const firstItem = isDesktop ? breadcrumbList[0] : null
-    const mediumItems = isDesktop
-      ? breadcrumbList.slice(1, -2)
-      : breadcrumbList.slice(0, -2)
+    [renderLink]
+  )
 
-    const lastItems = breadcrumbList.slice(-2)
+  return (
+    <BreadcrumbPure
+      ref={ref}
+      data-fs-breadcrumb-is-desktop={isDesktop}
+      {...otherProps}
+    >
+      {homeLink}
 
-    const collapseBreadcrumb = breadcrumbList.length > 4
+      {!collapseBreadcrumb &&
+        breadcrumbList.map((item, index) => {
+          return breadcrumbList.length === index + 1 ? (
+            <span key={String(item.position)}>{item.name}</span>
+          ) : (
+            breadcrumbLink({ itemProps: item, collapsed: false })
+          )
+        })}
 
-    const breadcrumbLink = useCallback(
-      (renderLinkProps: RenderLinkProps) => {
-        const breadcrumbItem = renderLink?.(renderLinkProps)
-        const itemProps = renderLinkProps.collapsed
-          ? {
-              'data-fs-breadcrumb-dropdown-link': true,
-            }
-          : {
-              'data-fs-breadcrumb-link': true,
-            }
-        return breadcrumbItem ? (
-          cloneElement(breadcrumbItem, {
-            ...itemProps,
-            key: renderLinkProps.itemProps.position,
-          })
-        ) : (
-          <Link
-            {...itemProps}
-            href={renderLinkProps.itemProps.item}
-            key={renderLinkProps.itemProps.position}
-          >
-            {renderLinkProps.itemProps.name}
-          </Link>
-        )
-      },
-      [renderLink]
-    )
+      {collapseBreadcrumb &&
+        firstItem &&
+        breadcrumbLink({ itemProps: firstItem, collapsed: false })}
 
-    return (
-      <BreadcrumbPure
-        ref={ref}
-        data-fs-breadcrumb-is-desktop={isDesktop}
-        {...otherProps}
-      >
-        {homeLink}
+      {collapseBreadcrumb && (
+        <Suspense>
+          <Dropdown>
+            <DropdownButton
+              aria-label="View More"
+              data-fs-breadcrumb-dropdown-button
+              size="small"
+            >
+              {dropdownButtonIcon}
+            </DropdownButton>
+            <DropdownMenu data-fs-breadcrumb-dropdown-menu>
+              {mediumItems.map((item) => (
+                <DropdownItem
+                  data-fs-breadcrumb-dropdown-item
+                  key={String(item.position)}
+                  icon={collapsedItemsIcon}
+                >
+                  {breadcrumbLink({ itemProps: item, collapsed: true })}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </Suspense>
+      )}
 
-        {!collapseBreadcrumb &&
-          breadcrumbList.map((item, index) => {
-            return breadcrumbList.length === index + 1 ? (
-              <span key={String(item.position)}>{item.name}</span>
-            ) : (
-              breadcrumbLink({ itemProps: item, collapsed: false })
-            )
-          })}
-
-        {collapseBreadcrumb &&
-          firstItem &&
-          breadcrumbLink({ itemProps: firstItem, collapsed: false })}
-
-        {collapseBreadcrumb && (
-          <Suspense>
-            <Dropdown>
-              <DropdownButton
-                aria-label="View More"
-                data-fs-breadcrumb-dropdown-button
-                size="small"
-              >
-                {dropdownButtonIcon}
-              </DropdownButton>
-              <DropdownMenu data-fs-breadcrumb-dropdown-menu>
-                {mediumItems.map((item) => (
-                  <DropdownItem
-                    data-fs-breadcrumb-dropdown-item
-                    key={String(item.position)}
-                    icon={collapsedItemsIcon}
-                  >
-                    {breadcrumbLink({ itemProps: item, collapsed: true })}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
-          </Suspense>
-        )}
-
-        {collapseBreadcrumb &&
-          lastItems.map((item, index) => {
-            return lastItems.length === index + 1 ? (
-              <span key={String(item.position)}>{item.name}</span>
-            ) : (
-              breadcrumbLink({ itemProps: item, collapsed: false })
-            )
-          })}
-      </BreadcrumbPure>
-    )
-  }
-)
-
-export default BreadcrumbBase
+      {collapseBreadcrumb &&
+        lastItems.map((item, index) => {
+          return lastItems.length === index + 1 ? (
+            <span key={String(item.position)}>{item.name}</span>
+          ) : (
+            breadcrumbLink({ itemProps: item, collapsed: false })
+          )
+        })}
+    </BreadcrumbPure>
+  )
+}

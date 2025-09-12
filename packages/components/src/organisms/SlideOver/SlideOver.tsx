@@ -40,7 +40,7 @@ export interface SlideOverProps extends Omit<ModalProps, 'title'> {
   onDismiss?: () => void
 }
 
-function SlideOver({
+export default function SlideOver({
   testId = 'fs-slide-over',
   isOpen,
   direction = 'leftSide',
@@ -68,5 +68,3 @@ function SlideOver({
     </Modal>
   )
 }
-
-export default SlideOver

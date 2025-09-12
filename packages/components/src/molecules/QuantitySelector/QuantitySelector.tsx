@@ -43,7 +43,7 @@ export interface QuantitySelectorProps {
   onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
 }
 
-const QuantitySelector = ({
+export default function QuantitySelector({
   max,
   min = 1,
   unitMultiplier = 1,
@@ -54,7 +54,7 @@ const QuantitySelector = ({
   onValidateBlur,
   testId = 'fs-quantity-selector',
   ...otherProps
-}: QuantitySelectorProps) => {
+}: QuantitySelectorProps) {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
   const [multipliedUnit, setMultipliedUnit] = useState<number>(
     quantity * unitMultiplier
@@ -159,5 +159,3 @@ const QuantitySelector = ({
     </div>
   )
 }
-
-export default QuantitySelector

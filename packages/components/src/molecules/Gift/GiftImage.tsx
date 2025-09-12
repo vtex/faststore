@@ -1,22 +1,22 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface GiftImageProps extends HTMLAttributes<HTMLDivElement> {
+export interface GiftImageProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }
 
-const GiftImage = forwardRef<HTMLDivElement, GiftImageProps>(function GiftImage(
-  { testId = 'fs-gift-image', children, ...otherProps },
-  ref
-) {
+export default function GiftImage({
+  testId = 'fs-gift-image',
+  children,
+  ref,
+  ...otherProps
+}: GiftImageProps) {
   return (
     <div ref={ref} data-fs-gift-image data-testid={testId} {...otherProps}>
       {children}
     </div>
   )
-})
-
-export default GiftImage
+}

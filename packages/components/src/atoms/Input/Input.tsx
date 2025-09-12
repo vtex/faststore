@@ -1,18 +1,17 @@
-import type { InputHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { ComponentProps } from 'react'
+import React from 'react'
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends ComponentProps<'input'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { testId = 'fs-input', ...otherProps },
-  ref
-) {
+export default function Input({
+  testId = 'fs-input',
+  ref,
+  ...otherProps
+}: InputProps) {
   return <input ref={ref} data-fs-input data-testid={testId} {...otherProps} />
-})
-
-export default Input
+}

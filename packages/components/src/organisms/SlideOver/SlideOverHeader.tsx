@@ -18,12 +18,12 @@ export interface SlideOverHeaderProps
   onClose: () => void
 }
 
-const SlideOverHeader = ({
+export default function SlideOverHeader({
   children,
   closeBtnProps = {},
   onClose,
   ...otherProps
-}: SlideOverHeaderProps) => {
+}: SlideOverHeaderProps) {
   return (
     <header data-fs-slide-over-header {...otherProps}>
       {children}
@@ -37,5 +37,3 @@ const SlideOverHeader = ({
     </header>
   )
 }
-
-export default SlideOverHeader

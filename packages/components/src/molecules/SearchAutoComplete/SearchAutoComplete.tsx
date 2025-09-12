@@ -9,11 +9,11 @@ export interface SearchAutoCompleteProps
   testId?: string
 }
 
-const SearchAutoComplete = ({
+export default function SearchAutoComplete({
   testId = 'fs-search-auto-complete',
   children,
   ...otherProps
-}: SearchAutoCompleteProps) => {
+}: SearchAutoCompleteProps) {
   const { inContext, values } = useSearch()
 
   if (inContext && (values.terms.length <= 0 || values.term.length <= 0)) {
@@ -26,5 +26,3 @@ const SearchAutoComplete = ({
     </section>
   )
 }
-
-export default SearchAutoComplete

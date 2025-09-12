@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ElementType, ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import type { ElementType, ReactNode, ComponentProps } from 'react'
+import React from 'react'
 
 import { SROnly } from '../../'
 
@@ -12,8 +12,7 @@ export type PriceVariant =
 
 export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
 
-export interface PriceProps
-  extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+export interface PriceProps extends Omit<ComponentProps<'span'>, 'children'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -40,34 +39,28 @@ export interface PriceProps
   SRText?: string
 }
 
-const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
-  function Price(
-    {
-      value,
-      as: Component = 'span',
-      variant = 'selling',
-      testId = 'fs-price',
-      formatter = (price) => price,
-      SRText,
-      ...otherProps
-    },
-    ref
-  ) {
-    const formattedPrice = formatter(value, variant)
+export default function Price({
+  value,
+  as: Component = 'span',
+  variant = 'selling',
+  testId = 'fs-price',
+  formatter = (price) => price,
+  SRText,
+  ref,
+  ...otherProps
+}: PriceProps) {
+  const formattedPrice = formatter(value, variant)
 
-    return (
-      <Component
-        ref={ref}
-        data-fs-price
-        data-fs-price-variant={variant}
-        data-testid={testId}
-        {...otherProps}
-      >
-        {SRText && <SROnly text={SRText} />}
-        {formattedPrice}
-      </Component>
-    )
-  }
-)
-
-export default Price
+  return (
+    <Component
+      ref={ref}
+      data-fs-price
+      data-fs-price-variant={variant}
+      data-testid={testId}
+      {...otherProps}
+    >
+      {SRText && <SROnly text={SRText} />}
+      {formattedPrice}
+    </Component>
+  )
+}

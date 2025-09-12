@@ -1,10 +1,10 @@
-import React, { forwardRef, type HTMLAttributes } from 'react'
+import React, { type ComponentProps } from 'react'
 import type { ReactNode } from 'react'
 
 import { Rating } from '../../'
 
 export interface ProductTitleProps
-  extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+  extends Omit<ComponentProps<'header'>, 'title'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -31,44 +31,38 @@ export interface ProductTitleProps
   ratingValue?: number
 }
 
-const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
-  function ProductTitle(
-    {
-      title,
-      label,
-      refTag = 'Ref.: ',
-      refNumber,
-      testId = 'fs-product-title',
-      ratingValue,
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <header
-        ref={ref}
-        data-fs-product-title
-        data-testid={testId}
-        {...otherProps}
-      >
-        <div data-fs-product-title-header>
-          {title}
-          {!!label && label}
+export default function ProductTitle({
+  title,
+  label,
+  refTag = 'Ref.: ',
+  refNumber,
+  testId = 'fs-product-title',
+  ratingValue,
+  ref,
+  ...otherProps
+}: ProductTitleProps) {
+  return (
+    <header
+      ref={ref}
+      data-fs-product-title
+      data-testid={testId}
+      {...otherProps}
+    >
+      <div data-fs-product-title-header>
+        {title}
+        {!!label && label}
+      </div>
+
+      {(refNumber || ratingValue) && (
+        <div data-fs-product-title-addendum>
+          {ratingValue && <Rating value={ratingValue} />}
+          {refNumber && (
+            <>
+              {refTag} {refNumber}
+            </>
+          )}
         </div>
-
-        {(refNumber || ratingValue) && (
-          <div data-fs-product-title-addendum>
-            {ratingValue && <Rating value={ratingValue} />}
-            {refNumber && (
-              <>
-                {refTag} {refNumber}
-              </>
-            )}
-          </div>
-        )}
-      </header>
-    )
-  }
-)
-
-export default ProductTitle
+      )}
+    </header>
+  )
+}

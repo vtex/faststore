@@ -1,5 +1,5 @@
-import type { HTMLAttributes, AriaAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { AriaAttributes, ComponentProps } from 'react'
+import React from 'react'
 
 export type BadgeVariants =
   | 'info'
@@ -9,7 +9,7 @@ export type BadgeVariants =
   | 'warning'
   | 'danger'
 
-export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
+export interface BadgeProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -32,18 +32,16 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   'aria-label'?: AriaAttributes['aria-label']
 }
 
-const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
-  {
-    testId = 'fs-badge',
-    size = 'small',
-    variant = 'neutral',
-    counter = false,
-    'aria-label': ariaLabel,
-    children,
-    ...otherProps
-  }: BadgeProps,
-  ref
-) {
+export default function Badge({
+  testId = 'fs-badge',
+  size = 'small',
+  variant = 'neutral',
+  counter = false,
+  'aria-label': ariaLabel,
+  children,
+  ref,
+  ...otherProps
+}: BadgeProps) {
   return (
     <div
       ref={ref}
@@ -58,6 +56,4 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
       <div data-fs-badge-wrapper>{children}</div>
     </div>
   )
-})
-
-export default Badge
+}

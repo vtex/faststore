@@ -1,10 +1,10 @@
 import React from 'react'
 import type { BreadcrumbBaseProps } from './BreadcrumbBase'
 
-const Divider = ({
+export default function Divider({
   divider,
   testId,
-}: Omit<BreadcrumbBaseProps, 'breadcrumbList'>) => {
+}: Omit<BreadcrumbBaseProps, 'breadcrumbList'>) {
   const props = {
     'data-fs-breadcrumb-divider': true,
     'aria-hidden': true,
@@ -17,5 +17,3 @@ const Divider = ({
 
   return <span {...props}>{divider ?? '/'}</span>
 }
-
-export default Divider

@@ -1,10 +1,5 @@
-import type { HTMLAttributes, ReactElement } from 'react'
-import React, {
-  useContext,
-  cloneElement,
-  forwardRef,
-  createContext,
-} from 'react'
+import type { ComponentProps, ReactElement } from 'react'
+import React, { useContext, cloneElement, createContext } from 'react'
 
 interface AccordionContext {
   indices: Set<number>
@@ -15,7 +10,7 @@ interface AccordionContext {
 const AccordionContext = createContext<AccordionContext | undefined>(undefined)
 
 export interface AccordionProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  extends Omit<ComponentProps<'div'>, 'onChange'> {
   /**
    * ID to find this component in testing tools (e.g.: testing-library, and jest).
    */
@@ -30,10 +25,14 @@ export interface AccordionProps
   onChange: (index: number) => void
 }
 
-const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
-  { testId = 'fs-accordion', indices, onChange, children, ...otherProps },
-  ref
-) {
+export default function Accordion({
+  testId = 'fs-accordion',
+  indices,
+  onChange,
+  children,
+  ref,
+  ...otherProps
+}: AccordionProps) {
   const childrenWithIndex = React.Children.map(
     children as ReactElement<{ index?: string | number }>,
     (child, index) => {
@@ -62,7 +61,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
       </div>
     </AccordionContext.Provider>
   )
-})
+}
 
 export function useAccordion() {
   const context = useContext(AccordionContext)
@@ -75,5 +74,3 @@ export function useAccordion() {
 
   return context
 }
-
-export default Accordion

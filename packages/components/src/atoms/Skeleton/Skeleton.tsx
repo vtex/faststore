@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes, PropsWithChildren } from 'react'
+import React from 'react'
+import type { ComponentProps } from 'react'
 
 interface Size {
   width: string
@@ -8,7 +8,7 @@ interface Size {
 
 export type BorderStyle = 'regular' | 'pill' | 'circle'
 
-export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
+export interface SkeletonProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
@@ -35,42 +35,34 @@ export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
   borderRadius?: string
 }
 
-const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
-  function Skeleton(
-    {
-      testId = 'fs-skeleton',
-      loading = true,
-      shimmer = true,
-      children,
-      size,
-      border,
-      borderRadius,
-      ...otherProps
-    },
-    ref
-  ) {
-    const styles = {
-      width: size.width,
-      height: size.height,
-    }
-
-    return loading ? (
-      <div
-        ref={ref}
-        data-fs-skeleton
-        data-testid={testId}
-        data-fs-skeleton-border={border ? border : null}
-        style={
-          borderRadius ? { ...styles, borderRadius: borderRadius } : styles
-        }
-        {...otherProps}
-      >
-        {shimmer && <div data-fs-skeleton-shimmer />}
-      </div>
-    ) : (
-      <>{children}</>
-    )
+export default function Skeleton({
+  testId = 'fs-skeleton',
+  loading = true,
+  shimmer = true,
+  children,
+  size,
+  border,
+  borderRadius,
+  ref,
+  ...otherProps
+}: SkeletonProps) {
+  const styles = {
+    width: size.width,
+    height: size.height,
   }
-)
 
-export default Skeleton
+  return loading ? (
+    <div
+      ref={ref}
+      data-fs-skeleton
+      data-testid={testId}
+      data-fs-skeleton-border={border ? border : null}
+      style={borderRadius ? { ...styles, borderRadius: borderRadius } : styles}
+      {...otherProps}
+    >
+      {shimmer && <div data-fs-skeleton-shimmer />}
+    </div>
+  ) : (
+    <>{children}</>
+  )
+}

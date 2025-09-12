@@ -12,10 +12,8 @@ interface SROnlyProps {
   as?: ElementType
 }
 
-function SROnly({ text, as }: SROnlyProps) {
+export default function SROnly({ text, as }: SROnlyProps) {
   const Component = as ?? 'span'
 
   return <Component data-fs-sr-only>{text}</Component>
 }
-
-export default SROnly

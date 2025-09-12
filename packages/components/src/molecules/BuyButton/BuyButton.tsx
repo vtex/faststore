@@ -5,7 +5,7 @@ import type { ButtonProps } from '../../'
 
 type BuyButtonProps = ButtonProps
 
-function BuyButton({
+export default function BuyButton({
   testId = 'fs-buy-button',
   icon,
   children,
@@ -23,5 +23,3 @@ function BuyButton({
     </Button>
   )
 }
-
-export default BuyButton

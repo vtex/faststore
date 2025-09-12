@@ -61,7 +61,7 @@ const hasScroll = (container: HTMLDivElement | null): boolean => {
   return false
 }
 
-function ImageGallerySelector({
+export default function ImageGallerySelector({
   images,
   onSelect,
   ImageComponent,
@@ -141,5 +141,3 @@ function ImageGallerySelector({
     </section>
   )
 }
-
-export default ImageGallerySelector

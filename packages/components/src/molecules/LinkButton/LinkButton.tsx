@@ -1,12 +1,12 @@
-import type { AnchorHTMLAttributes, FocusEvent } from 'react'
+import type { ComponentPropsWithoutRef, FocusEvent } from 'react'
 import React, { useRef } from 'react'
 
 import type { ButtonProps } from '../..'
 
-export type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> &
-  ButtonProps
+export type LinkButtonProps = ComponentPropsWithoutRef<'a'> &
+  Omit<ButtonProps, 'ref'>
 
-function LinkButton({
+export default function LinkButton({
   icon,
   inverse,
   children,
@@ -52,5 +52,3 @@ function LinkButton({
     </a>
   )
 }
-
-export default LinkButton

@@ -1,22 +1,22 @@
-import React, { forwardRef, type HTMLAttributes } from 'react'
+import React, { type ComponentProps } from 'react'
 import SKUMatrixProvider from './provider/SKUMatrixProvider'
 
-export interface SKUMatrixProps extends HTMLAttributes<HTMLDivElement> {
+export interface SKUMatrixProps extends ComponentProps<'div'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
    */
   testId?: string
 }
 
-const SKUMatrix = forwardRef<HTMLDivElement, SKUMatrixProps>(function SKUMatrix(
-  { testId = 'fs-sku-matrix', children, ...otherProps },
-  ref
-) {
+export default function SKUMatrix({
+  testId = 'fs-sku-matrix',
+  children,
+  ref,
+  ...otherProps
+}: SKUMatrixProps) {
   return (
     <div ref={ref} data-fs-sku-matrix data-testid={testId} {...otherProps}>
       <SKUMatrixProvider>{children}</SKUMatrixProvider>
     </div>
   )
-})
-
-export default SKUMatrix
+}
