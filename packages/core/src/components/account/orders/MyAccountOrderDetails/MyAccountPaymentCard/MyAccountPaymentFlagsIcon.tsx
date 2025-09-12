@@ -1,4 +1,4 @@
-import { Icon as UIIcon } from '@faststore/ui'
+import { Icon as UIIcon } from '@vtex/faststore-ui'
 import type { OrderPaymentDataTransactionPayment } from './MyAccountPaymentCard'
 
 interface PaymentFlagsIconProps {

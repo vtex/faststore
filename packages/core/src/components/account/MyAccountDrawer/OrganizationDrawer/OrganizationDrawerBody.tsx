@@ -1,4 +1,4 @@
-import { Link } from '@faststore/ui'
+import { Link } from '@vtex/faststore-ui'
 
 import menuRoutes from '../../../../customizations/src/myAccount/navigation'
 import { USER_DETAILS_ROUTE } from '../../../../sdk/account/getMyAccountRoutes'

@@ -1,3 +1,3 @@
-import GraphqlHandler from '@faststore/core/handlers/graphql'
+import GraphqlHandler from '@vtex/faststore-core/handlers/graphql'
 
 export default GraphqlHandler

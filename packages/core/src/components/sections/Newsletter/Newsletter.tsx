@@ -2,7 +2,7 @@ import type {
   NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
   NewsletterHeaderProps as UINewsletterHeaderProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import UINewsletter from '../../ui/Newsletter'
 

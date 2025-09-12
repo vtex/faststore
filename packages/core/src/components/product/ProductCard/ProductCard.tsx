@@ -3,7 +3,7 @@ import {
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
   ProductComparisonTrigger as UIProductComparisonTrigger,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { memo, useMemo } from 'react'
 
 import { gql } from '../../../../@generated'

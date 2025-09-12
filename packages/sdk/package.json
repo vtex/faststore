@@ -1,5 +1,5 @@
 {
-  "name": "@faststore/sdk",
+  "name": "@vtex/faststore-sdk",
   "version": "3.81.0",
   "description": "Hooks for creating your next component library",
   "license": "MIT",

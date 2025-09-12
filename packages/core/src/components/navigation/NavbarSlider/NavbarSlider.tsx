@@ -1,4 +1,4 @@
-import { useFadeEffect, useUI } from '@faststore/ui'
+import { useFadeEffect, useUI } from '@vtex/faststore-ui'
 import { Suspense } from 'react'
 
 import storeConfig from '../../../../discovery.config'

@@ -1,7 +1,7 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
-import type { AlertProps as UIAlertProps } from '@faststore/ui'
+import type { AlertProps as UIAlertProps } from '@vtex/faststore-ui'
 
 import Section from '../../sections/Section/Section'
 import styles from './section.module.scss'

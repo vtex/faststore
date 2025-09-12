@@ -1,4 +1,4 @@
-import { Link, SlideOverHeader } from '@faststore/ui'
+import { Link, SlideOverHeader } from '@vtex/faststore-ui'
 import type { ReactNode } from 'react'
 
 export type OrganizationDrawerHeaderProps = {

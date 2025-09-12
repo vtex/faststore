@@ -143,7 +143,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           coreDirWithBase,
-          './src/__mocks__/store/node_modules/@faststore/core'
+          './src/__mocks__/store/node_modules/@vtex/faststore-core'
         )
       ).toBe(true)
     })
@@ -162,7 +162,7 @@ describe('withBasePath as an arbitrary dir', () => {
         expect(
           pathsToMatch(
             coreDirWithBase,
-            './src/__mocks__/monorepo/node_modules/@faststore/core'
+            './src/__mocks__/monorepo/node_modules/@vtex/faststore-core'
           )
         ).toBe(true)
       })
@@ -262,7 +262,7 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('coreCMSDir', () => {
-    it('returns the path of the CMS dir on @faststore/core package', () => {
+    it('returns the path of the CMS dir on @vtex/faststore-core package', () => {
       const mockedCwd = jest.fn(() => {
         return './src/__mocks__/store'
       })
@@ -273,7 +273,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           coreCMSDirWithBase,
-          './src/__mocks__/store/node_modules/@faststore/core/cms/faststore'
+          './src/__mocks__/store/node_modules/@vtex/faststore-core/cms/faststore'
         )
       ).toBe(true)
     })

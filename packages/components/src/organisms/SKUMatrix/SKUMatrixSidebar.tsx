@@ -30,7 +30,7 @@ const ImageComponentFallback: SKUMatrixSidebarProps['ImageComponent'] = ({
   ...otherProps
 }) => <img src={src} alt={alt} {...otherProps} />
 
-// TODO: Moves this component to the `@faststore/core` package. We decided that it doesn't make sense to have this component in the library since it's vey specific to the SKU Matrix feature.
+// TODO: Moves this component to the `@vtex/faststore-core` package. We decided that it doesn't make sense to have this component in the library since it's vey specific to the SKU Matrix feature.
 export interface SKUMatrixSidebarProps
   extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | 'fade'> {
   /**

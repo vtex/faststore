@@ -1,4 +1,4 @@
-import { Button, Icon } from '@faststore/ui'
+import { Button, Icon } from '@vtex/faststore-ui'
 import { useState, type MouseEvent } from 'react'
 import { useSession } from '../../../../sdk/session'
 import { OrganizationDrawer } from '../OrganizationDrawer/OrganizationDrawer'

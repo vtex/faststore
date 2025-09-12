@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { useSearch } from '@vtex/faststore-sdk'
 import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,

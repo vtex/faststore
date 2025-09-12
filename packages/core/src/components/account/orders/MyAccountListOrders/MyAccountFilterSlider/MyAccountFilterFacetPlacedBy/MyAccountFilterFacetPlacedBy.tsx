@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Input, IconButton, Icon, Loader } from '@faststore/ui'
+import { Input, IconButton, Icon, Loader } from '@vtex/faststore-ui'
 import type { SelectedFacet } from '../../../../../../sdk/search/useMyAccountFilter'
 import useShopperSuggestions from '../../../../../../sdk/account/useShopperSuggestions'
 import type { Shopper } from '../../../../../../sdk/account/useShopperSuggestions'

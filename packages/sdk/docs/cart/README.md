@@ -8,7 +8,7 @@ The `pure` mode is the simplest way of using the cart because it works entirely 
 To use the cart, you need to add our cart provider and call the `useCart` hook like:
 
 ```tsx
-import { CartProvider, useCart } from '@faststore/sdk'
+import { CartProvider, useCart } from '@vtex/faststore-sdk'
 
 // In the App's root component:
 const App = ({ children }) => {
@@ -29,7 +29,7 @@ The `optimistic` mode may cause side effects. This mode gives the developer a ca
 To use the optimistic cart:
 
 ```tsx
-import { CartProvider, useCart, Cart } from '@faststore/sdk'
+import { CartProvider, useCart, Cart } from '@vtex/faststore-sdk'
 
 // In the App's root component:
 const validateCart = async (cart: Cart) => {

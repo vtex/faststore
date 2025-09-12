@@ -1,7 +1,7 @@
 import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { ClientManyProductsQueryQuery } from '../../../../@generated/graphql'
 import ProductGridSkeleton from '../../skeletons/ProductGridSkeleton'
 import type { ProductCardProps } from '../ProductCard'

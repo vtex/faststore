@@ -1,4 +1,4 @@
-import { typeDefs } from '@faststore/graphql-schema'
-export { typeDefs } from '@faststore/graphql-schema'
+import { typeDefs } from '@vtex/faststore-graphql-schema'
+export { typeDefs } from '@vtex/faststore-graphql-schema'
 
 export default typeDefs

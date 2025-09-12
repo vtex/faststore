@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 
-import { Skeleton as UISkeleton } from '@faststore/ui'
+import { Skeleton as UISkeleton } from '@vtex/faststore-ui'
 interface FilterSkeletonProps {
   /**
    * Control whether skeleton should be visible or not.

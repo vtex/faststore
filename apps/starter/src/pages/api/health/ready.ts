@@ -1,3 +1,3 @@
-import ReadyHandler from '@faststore/core/handlers/health/ready'
+import ReadyHandler from '@vtex/faststore-core/handlers/health/ready'
 
 export default ReadyHandler

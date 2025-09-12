@@ -11,7 +11,7 @@ import {
   SearchInputField,
   useUI,
   type SearchInputFieldRef,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { useEffect } from 'react'
 import MyAccountFilterSlider from './MyAccountFilterSlider'
 import { useDebounce } from '../../../../sdk/account/useDebounce'

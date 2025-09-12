@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { useSearch } from '@vtex/faststore-sdk'
 import { useEffect, type PropsWithChildren } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { NextRouter } from 'next/router'

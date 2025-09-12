@@ -1,4 +1,4 @@
-import type { SearchState } from '@faststore/sdk'
+import type { SearchState } from '@vtex/faststore-sdk'
 import { gql } from '../../@generated/gql'
 import type {
   ServerManyProductsQueryQuery,

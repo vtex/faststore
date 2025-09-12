@@ -1,4 +1,4 @@
-import { Icon, LinkButton } from '@faststore/ui'
+import { Icon, LinkButton } from '@vtex/faststore-ui'
 
 import { useSession } from '../../../../sdk/session'
 

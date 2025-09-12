@@ -8,7 +8,7 @@ import {
   SlideOverHeader,
   useFadeEffect,
   useUI,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { useSetPassword } from '../../../sdk/account/useSetPassword'
 import styles from './styles.module.scss'

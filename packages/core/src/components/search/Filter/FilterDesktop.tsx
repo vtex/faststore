@@ -1,4 +1,4 @@
-import { setFacet, useSearch } from '@faststore/sdk'
+import { setFacet, useSearch } from '@vtex/faststore-sdk'
 
 import {
   regionSliderTypes,
@@ -10,7 +10,7 @@ import {
   FilterFacets as UIFilterFacets,
   Icon as UIIcon,
   useUI,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { gql } from '../../../../@generated/gql'
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'

@@ -1,4 +1,4 @@
-import { type CardProps, Card as UICard } from '@faststore/ui'
+import { type CardProps, Card as UICard } from '@vtex/faststore-ui'
 
 interface MyAccountCardProps extends CardProps {}
 

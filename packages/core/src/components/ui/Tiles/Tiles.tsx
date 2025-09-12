@@ -1,4 +1,4 @@
-import { Tiles as UITiles } from '@faststore/ui'
+import { Tiles as UITiles } from '@vtex/faststore-ui'
 
 import type { TilesProps } from '.'
 

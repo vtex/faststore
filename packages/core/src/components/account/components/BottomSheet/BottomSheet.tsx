@@ -3,7 +3,7 @@ import {
   Modal as UIModal,
   type ModalProps,
   type OverlayProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 export interface BottomSheetProps extends Omit<ModalProps, 'title'> {
   /**

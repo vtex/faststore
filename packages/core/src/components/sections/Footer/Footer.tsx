@@ -1,5 +1,5 @@
-import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
-import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
+import { PaymentMethods as UIPaymentMethods } from '@vtex/faststore-ui'
+import type { PaymentMethodsProps as UIPaymentMethodProps } from '@vtex/faststore-ui'
 
 import Section from '../Section'
 import UIFooter, {

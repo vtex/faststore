@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Tag as UITag } from '@faststore/ui'
+import { Tag as UITag } from '@vtex/faststore-ui'
 import Section from '../../sections/Section/Section'
 
 import styles from './section.module.scss'

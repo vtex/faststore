@@ -38,7 +38,7 @@ export const request = async <Query = unknown, Variables = unknown>(
   return data
 }
 
-/* This piece of code was taken out of @faststore/graphql-utils */
+/* This piece of code was taken out of @vtex/faststore-graphql-utils */
 const baseRequest = async <V = any, D = any>(
   endpoint: string,
   { operation, variables, fetchOptions }: BaseRequestOptions<V>

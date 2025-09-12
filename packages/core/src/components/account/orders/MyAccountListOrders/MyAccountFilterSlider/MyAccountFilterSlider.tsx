@@ -5,7 +5,7 @@ import {
   FilterFacetBooleanItem as UIFilterFacetBooleanItem,
   FilterFacets as UIFilterFacets,
   FilterSlider as UIFilterSlider,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { type MutableRefObject, useRef, useState } from 'react'
 import type {

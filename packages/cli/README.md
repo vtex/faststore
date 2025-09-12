@@ -14,23 +14,23 @@
 
 The FastStore Command Line Interface (CLI) is the main pre-configured tool for initializing, building and developing FastStore projects.
 
-Also the CLI is the responsible on keeping the stores up-to-date with the `@faststore/core` package and enables the cloud platform to understand the FastStore project.
+Also the CLI is the responsible on keeping the stores up-to-date with the `@vtex/faststore-core` package and enables the cloud platform to understand the FastStore project.
 
 ## Installation
 
 From the command line in your project directory, run:
 
 ```cmd
-npm install -g @faststore/cli
+npm install -g @vtex/faststore-cli
 ```
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @faststore/cli
+$ npm install -g @vtex/faststore-cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.82.3 linux-x64 node-v18.20.8
+@vtex/faststore-cli/3.82.3 linux-x64 node-v18.20.8
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND

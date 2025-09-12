@@ -1,4 +1,4 @@
-import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
+import { Icon as UIIcon, IconButton as UIIconButton } from '@vtex/faststore-ui'
 import MyAccountStatusCard from './MyAccountStatusCard'
 import MyAccountBuyingPolicyAlert from './MyAccountBuyingPolicyAlert'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'

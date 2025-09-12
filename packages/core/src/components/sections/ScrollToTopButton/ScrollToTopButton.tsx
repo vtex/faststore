@@ -1,5 +1,5 @@
-import type { ButtonProps } from '@faststore/ui'
-import { Icon, Button as UIButton } from '@faststore/ui'
+import type { ButtonProps } from '@vtex/faststore-ui'
+import { Icon, Button as UIButton } from '@vtex/faststore-ui'
 
 import Section from '../Section'
 import styles from './section.module.scss'

@@ -2,7 +2,7 @@ import {
   Icon as UIIcon,
   LinkButton as UILinkButton,
   EmptyState as UIEmptyState,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 export interface EmptyGalleryProps {
   title?: string

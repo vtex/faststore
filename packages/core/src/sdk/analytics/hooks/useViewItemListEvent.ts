@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react'
-import type { CurrencyCode, ViewItemListEvent } from '@faststore/sdk'
+import type { CurrencyCode, ViewItemListEvent } from '@vtex/faststore-sdk'
 
 import { useSession } from '../../session'
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
@@ -35,7 +35,7 @@ export const useViewItemListEvent = ({
         return
       }
 
-      import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+      import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
         sendAnalyticsEvent<ViewItemListEvent<AnalyticsItem>>({
           name: 'view_item_list',
           params: {

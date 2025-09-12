@@ -1,4 +1,8 @@
-import { regionSliderTypes, Button as UIButton, useUI } from '@faststore/ui'
+import {
+  regionSliderTypes,
+  Button as UIButton,
+  useUI,
+} from '@vtex/faststore-ui'
 import { sessionStore } from '../../../sdk/session'
 import type { GlobalCmsData } from '../../../utils/globalSettings'
 import { textToTitleCase } from '../../../utils/utilities'

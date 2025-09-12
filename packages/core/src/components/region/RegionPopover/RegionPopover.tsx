@@ -1,11 +1,11 @@
-import type { PopoverProps as UIPopoverProps } from '@faststore/ui'
+import type { PopoverProps as UIPopoverProps } from '@vtex/faststore-ui'
 import {
   Icon as UIIcon,
   InputField as UIInputField,
   Link as UILink,
   Popover as UIPopover,
   useUI,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { useRef, useState } from 'react'
 
 import useRegion from '../RegionModal/useRegion'

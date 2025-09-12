@@ -1,4 +1,4 @@
-import { gql } from '@faststore/core'
+import { gql } from '@vtex/faststore-core'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 import { useMemo } from 'react'

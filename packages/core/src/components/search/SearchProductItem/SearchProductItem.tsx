@@ -7,7 +7,7 @@ import {
   SKUMatrixTrigger as UISKUMatrixTrigger,
   useSearch,
   useUI,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import { type Dispatch, type SetStateAction, useMemo, useState } from 'react'
 
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'

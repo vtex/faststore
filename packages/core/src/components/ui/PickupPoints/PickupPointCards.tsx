@@ -4,7 +4,7 @@ import {
   List as UIList,
   RadioGroup as UIRadioGroup,
   RadioOption as UIRadioOption,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { ChangeEventHandler, MouseEventHandler } from 'react'
 import type { PickupPoint } from '../../../sdk/deliveryPromise'
 import { PickupPointCard } from '.'

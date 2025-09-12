@@ -11,21 +11,21 @@ import {
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import type { SearchEvent, SearchState } from '@faststore/sdk'
+import type { SearchEvent, SearchState } from '@vtex/faststore-sdk'
 
 import {
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
   useOnClickOutside,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
-import type { SearchProviderContextValue } from '@faststore/ui'
+import type { SearchProviderContextValue } from '@vtex/faststore-ui'
 
 import type { NavbarProps } from '../../sections/Navbar'
 import useSearchHistory from '../../../sdk/search/useSearchHistory'
@@ -40,7 +40,7 @@ const SearchDropdown = lazy(
 
 const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   /* webpackChunkName: "UISearchInputField" */
-  import('@faststore/ui').then((module) => module.SearchInputField)
+  import('@vtex/faststore-ui').then((module) => module.SearchInputField)
 )
 
 const MAX_SUGGESTIONS = 5
@@ -60,7 +60,7 @@ export type SearchInputRef = UISearchInputFieldRef & {
 }
 
 const sendAnalytics = async (term: string) => {
-  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+  import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
     sendAnalyticsEvent<SearchEvent>({
       name: 'search',
       params: { search_term: term },

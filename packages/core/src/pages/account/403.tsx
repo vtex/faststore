@@ -7,7 +7,7 @@ import {
   getGlobalSectionsData,
 } from '../../components/cms/GlobalSections'
 
-import { LinkButton } from '@faststore/ui'
+import { LinkButton } from '@vtex/faststore-ui'
 import { gql } from '../../../@generated/gql'
 import type {
   ServerAccountPageQueryQuery,

@@ -45,7 +45,7 @@ import type {
   SKUMatrixProps,
   SKUMatrixSidebarProps,
   SKUMatrixTriggerProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { PropsWithChildren } from 'react'
 
 import type Alert from '../components/sections/Alert'

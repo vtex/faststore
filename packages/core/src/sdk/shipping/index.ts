@@ -1,4 +1,4 @@
-import type { IShippingItem } from '@faststore/api'
+import type { IShippingItem } from '@vtex/faststore-api'
 
 import { gql } from '../../../@generated'
 import type {

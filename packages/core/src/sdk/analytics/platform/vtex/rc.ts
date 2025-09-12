@@ -1,4 +1,4 @@
-import type { AnalyticsEvent, PageViewEvent } from '@faststore/sdk'
+import type { AnalyticsEvent, PageViewEvent } from '@vtex/faststore-sdk'
 import type { ServerProductQueryQuery } from '../../../../../@generated/graphql'
 import type {
   CategoryView,

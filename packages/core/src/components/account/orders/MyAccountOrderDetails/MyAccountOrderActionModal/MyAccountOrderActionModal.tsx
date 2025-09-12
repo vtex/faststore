@@ -6,7 +6,7 @@ import {
   Button as UIButton,
   type ButtonProps,
   useFadeEffect,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import styles from './styles.module.scss'
 
 interface MyAccountOrderActionModalProps {

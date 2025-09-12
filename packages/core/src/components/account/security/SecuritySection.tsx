@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button } from '@faststore/ui'
+import { Button } from '@vtex/faststore-ui'
 
 import { SecurityDrawer } from './SecurityDrawer'
 import styles from './styles.module.scss'

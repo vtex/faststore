@@ -13,26 +13,26 @@
 </p>
 
 <div style="display: flex; justify-content: center; width: 100%">
-  <a href="https://www.npmjs.com/package/@faststore/ui" style="padding: 0px 2px 0px 0px">
+  <a href="https://www.npmjs.com/package/@vtex/faststore-ui" style="padding: 0px 2px 0px 0px">
     <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
   </a>
-  <a href="https://bundlephobia.com/package/@faststore/ui" style="padding: 0px 2px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/minzip/@faststore/ui" />
+  <a href="https://bundlephobia.com/package/@vtex/faststore-ui" style="padding: 0px 2px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/minzip/@vtex/faststore-ui" />
   </a>
-  <a href="https://bundlephobia.com/package/@faststore/ui" style="padding: 0px 2px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/tree-shaking/@faststore/ui" />
+  <a href="https://bundlephobia.com/package/@vtex/faststore-ui" style="padding: 0px 2px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/tree-shaking/@vtex/faststore-ui" />
   </a>
-  <a href="https://bundlephobia.com/package/@faststore/ui" style="padding: 0px 0px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/ui" />
+  <a href="https://bundlephobia.com/package/@vtex/faststore-ui" style="padding: 0px 0px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@vtex/faststore-ui" />
   </a>
 </div>
 
 ## Installation
 
-From the command line in your project directory, run pnpm add `@faststore/ui`.
+From the command line in your project directory, run pnpm add `@vtex/faststore-ui`.
 
 ```cmd
-pnpm add @faststore/ui
+pnpm add @vtex/faststore-ui
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ pnpm add @faststore/ui
 ```tsx
 import React from 'react'
 
-import { Button } from '@faststore/ui'
+import { Button } from '@vtex/faststore-ui'
 
 function MyComponent {
   return <Button variant="primary">Add to Cart</Button>

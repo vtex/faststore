@@ -93,7 +93,7 @@ const MUTATIONS = [
 ]
 
 describe('FastStore GraphQL Layer', () => {
-  describe('@faststore/api', () => {
+  describe('@vtex/faststore-api', () => {
     const nativeSchema = getMergedSchema()
 
     it('should return a valid GraphQL schema', async () => {

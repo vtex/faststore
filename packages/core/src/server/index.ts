@@ -9,7 +9,7 @@ import {
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
-import type { CacheControl, Maybe } from '@faststore/api'
+import type { CacheControl, Maybe } from '@vtex/faststore-api'
 import {
   BadRequestError,
   getContextFactory,
@@ -17,9 +17,9 @@ import {
   getTypeDefs,
   isFastStoreError,
   directives,
-} from '@faststore/api'
+} from '@vtex/faststore-api'
 // import defs from '../../@generated/schema.graphql'
-// import { mergedTypeDefs as defs } from '@faststore/graphql-schema'
+// import { mergedTypeDefs as defs } from '@vtex/faststore-graphql-schema'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
 import * as GraphQLJS from 'graphql'

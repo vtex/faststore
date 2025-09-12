@@ -19,7 +19,7 @@ const nextConfig = {
     defaultLocale: storeConfig.session.locale,
   },
   sassOptions: {
-    additionalData: `@import "@faststore/ui/src/styles/base/utilities.scss";`,
+    additionalData: `@import "@vtex/faststore-ui/src/styles/base/utilities.scss";`,
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {

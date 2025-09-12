@@ -5,7 +5,7 @@ import {
   AccordionItem as UIAccordionItem,
   AccordionPanel as UIAccordionPanel,
   AccordionButton as UIAccordionButton,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 type DescriptionData = {
   title: string

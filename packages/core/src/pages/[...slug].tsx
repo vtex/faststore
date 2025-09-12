@@ -1,4 +1,4 @@
-import { isNotFoundError } from '@faststore/api'
+import { isNotFoundError } from '@vtex/faststore-api'
 import storeConfig from '../../discovery.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
@@ -11,7 +11,7 @@ import type {
 } from '../../@generated/graphql'
 import { execute } from '../server'
 
-import type { SearchState } from '@faststore/sdk'
+import type { SearchState } from '@vtex/faststore-sdk'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,

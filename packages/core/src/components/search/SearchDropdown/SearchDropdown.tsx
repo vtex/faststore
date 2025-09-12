@@ -4,13 +4,13 @@ import {
   SearchAutoCompleteTerm as UISearchAutoCompleteTerm,
   SearchDropdown as UISearchDropdown,
   useSearch,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 import type { Dispatch, SetStateAction } from 'react'
 
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
-import type { SearchState } from '@faststore/sdk'
+import type { SearchState } from '@vtex/faststore-sdk'
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
 import SearchProductItem from '../SearchProductItem'
 import type { NavbarProps } from '../../sections/Navbar'
@@ -33,7 +33,7 @@ export function sendAutocompleteClickEvent({
   position,
   productId,
 }: IntelligentSearchAutocompleteClickParams) {
-  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+  import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
     sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
       name: 'intelligent_search_autocomplete_click',
       params: { term, url, productId, position },

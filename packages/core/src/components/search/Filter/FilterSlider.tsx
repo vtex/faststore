@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-import { useSearch } from '@faststore/sdk'
+import { useSearch } from '@vtex/faststore-sdk'
 import {
   regionSliderTypes,
   useUI,
@@ -11,7 +11,7 @@ import {
   type FilterProps as UIFilterProps,
   type FilterSliderProps as UIFilterSliderProps,
   type IconProps as UIIconProps,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 
@@ -29,37 +29,37 @@ import styles from './section.module.scss'
 
 const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
-  import('@faststore/ui').then((mod) => mod.Filter)
+  import('@vtex/faststore-ui').then((mod) => mod.Filter)
 )
 const UIFilterFacetBoolean = dynamic<{ children: React.ReactNode }>(() =>
   /* webpackChunkName: "UIFilterFacetBoolean" */
-  import('@faststore/ui').then((mod) => mod.FilterFacetBoolean)
+  import('@vtex/faststore-ui').then((mod) => mod.FilterFacetBoolean)
 )
 const UIFilterFacetBooleanItem = dynamic<UIFilterFacetBooleanItemProps>(() =>
   /* webpackChunkName: "UIFilterFacetBooleanItem" */
-  import('@faststore/ui').then((mod) => mod.FilterFacetBooleanItem)
+  import('@vtex/faststore-ui').then((mod) => mod.FilterFacetBooleanItem)
 )
 const UIFilterFacetRange = dynamic<UIFilterFacetRangeProps>(() =>
   /* webpackChunkName: "UIFilterFacetRange" */
-  import('@faststore/ui').then((mod) => mod.FilterFacetRange)
+  import('@vtex/faststore-ui').then((mod) => mod.FilterFacetRange)
 )
 const UIFilterFacets = dynamic<
   { children: React.ReactNode } & UIFilterFacetsProps
 >(() =>
   /* webpackChunkName: "UIFilterFacets" */
-  import('@faststore/ui').then((mod) => mod.FilterFacets)
+  import('@vtex/faststore-ui').then((mod) => mod.FilterFacets)
 )
 const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
   /* webpackChunkName: "UIFilterSlider" */
-  import('@faststore/ui').then((mod) => mod.FilterSlider)
+  import('@vtex/faststore-ui').then((mod) => mod.FilterSlider)
 )
 const UIButton = dynamic<UIButtonProps>(() =>
   /* webpackChunkName: "UIButton" */
-  import('@faststore/ui').then((mod) => mod.Button)
+  import('@vtex/faststore-ui').then((mod) => mod.Button)
 )
 const UIIcon = dynamic<UIIconProps>(() =>
   /* webpackChunkName: "UIIcon" */
-  import('@faststore/ui').then((mod) => mod.Icon)
+  import('@vtex/faststore-ui').then((mod) => mod.Icon)
 )
 export interface FilterSliderProps {
   /**

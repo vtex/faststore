@@ -16,8 +16,8 @@
 
 // @ts-ignore motivation: cannot find the draftjs-to-html package types.
 import draftToHtml from 'draftjs-to-html'
-import { NewsletterAddendum as UINewsletterAddendum } from '@faststore/ui'
-import type { NewsletterAddendumProps as UINewsletterAddendumProps } from '@faststore/ui'
+import { NewsletterAddendum as UINewsletterAddendum } from '@vtex/faststore-ui'
+import type { NewsletterAddendumProps as UINewsletterAddendumProps } from '@vtex/faststore-ui'
 
 export interface NewsletterAddendumProps {
   /**

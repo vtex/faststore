@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useUI } from '@faststore/ui'
+import { useUI } from '@vtex/faststore-ui'
 import { useCart } from './index'
 
 export const useCartToggleButton = () => {

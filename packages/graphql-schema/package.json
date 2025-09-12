@@ -1,5 +1,5 @@
 {
-  "name": "@faststore/graphql-schema",
+  "name": "@vtex/faststore-graphql-schema",
   "version": "4.0.0",
   "license": "MIT",
   "repository": "vtex/faststore",

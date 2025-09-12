@@ -12,7 +12,7 @@ import {
   SKUMatrix as UISKUMatrix,
   SKUMatrixSidebar as UISKUMatrixSidebar,
   SKUMatrixTrigger as UISKUMatrixTrigger,
-} from '@faststore/ui'
+} from '@vtex/faststore-ui'
 
 import LocalImageGallery from '../../ui/ImageGallery'
 import LocalShippingSimulation from '../../ui/ShippingSimulation/ShippingSimulation'

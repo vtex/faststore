@@ -1,4 +1,4 @@
-import { Tooltip } from '@faststore/ui'
+import { Tooltip } from '@vtex/faststore-ui'
 import React from 'react'
 
 export default {

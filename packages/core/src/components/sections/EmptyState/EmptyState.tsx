@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import { useRouter } from 'next/router'
 
-import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
+import { Icon as UIIcon, Loader as UILoader } from '@vtex/faststore-ui'
 
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 

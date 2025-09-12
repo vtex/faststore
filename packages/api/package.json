@@ -1,5 +1,5 @@
 {
-  "name": "@faststore/api",
+  "name": "@vtex/faststore-api",
   "version": "3.82.0",
   "license": "MIT",
   "repository": "vtex/faststore",
@@ -34,7 +34,7 @@
     "generate": "graphql-codegen && vite build"
   },
   "dependencies": {
-    "@faststore/graphql-schema": "workspace:*",
+    "@vtex/faststore-graphql-schema": "workspace:*",
     "@graphql-tools/schema": "^10.0.3",
     "@graphql-tools/utils": "catalog:",
     "@rollup/plugin-graphql": "^1.0.0",

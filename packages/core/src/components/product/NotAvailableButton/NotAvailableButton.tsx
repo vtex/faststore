@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import { Button } from '@faststore/ui'
+import { Button } from '@vtex/faststore-ui'
 
 // TODO: Remove this component when <OutOfStock /> is ready to use
 function NotAvailableButton({ children }: PropsWithChildren) {

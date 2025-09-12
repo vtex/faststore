@@ -1,4 +1,4 @@
-import { Button, Link } from '@faststore/ui'
+import { Button, Link } from '@vtex/faststore-ui'
 import { useRouter } from 'next/router'
 
 import styles from '../section.module.scss'
