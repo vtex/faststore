@@ -52,15 +52,13 @@ export function Pagination({
       : total
 
   const handlePageChange = (newPage: number) => {
-    const { page, ...rest } = router.query
-    const isFirstPage = newPage === 0 || newPage === 1
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...rest,
-        ...(!isFirstPage ? { page: newPage } : {}),
-      },
-    })
+    const params = new URLSearchParams(window.location.search)
+    if (newPage === 1) {
+      params.delete('page')
+    } else {
+      params.set('page', String(newPage))
+    }
+    window.location.href = `/account/orders${params.toString() ? `?${params}` : ''}`
   }
 
   return (
