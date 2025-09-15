@@ -1,6 +1,7 @@
 {
   "name": "@vtex/faststore-ui",
-  "version": "3.81.0",
+  "private": true,
+  "version": "4.0.0",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",

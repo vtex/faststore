@@ -1,6 +1,7 @@
 {
   "name": "@vtex/faststore-font",
-  "version": "0.0.0",
+  "private": true,
+  "version": "4.0.0",
   "description": "FastStore Font Module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -21,7 +22,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=18"
+    "node": "22.19.0"
   },
   "scripts": {
     "build": "tsup",
@@ -31,7 +32,7 @@
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tsup": "^8.5.0"
+    "tsup": "catalog:"
   },
   "peerDependencies": {
     "react": ">=19",
