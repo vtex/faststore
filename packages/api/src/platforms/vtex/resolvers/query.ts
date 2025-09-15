@@ -624,9 +624,9 @@ export const Query = {
         contractId: profile?.id?.value ?? '',
       })
 
-      const name = contract?.isCorporate
-        ? contract?.corporateName
-        : `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
+      const name =
+        contract?.corporateName ??
+        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
 
       return {
         name: name || '',
