@@ -94,10 +94,19 @@ export const validateSession = async (
   const isRepresentative = jwt?.isRepresentative
   const customerId = jwt?.customerId
   const unitId = jwt?.unitId
+  const userId = jwt?.userId
 
-  const sessionData = await clients.commerce
-    .session(params.toString())
-    .catch(() => null)
+  const [sessionData, canManageOrganization] = await Promise.all([
+    clients.commerce.session(params.toString()).catch(() => null),
+    userId
+      ? clients.commerce.licenseManager
+          .getUserGrantedResources({
+            userId: userId,
+            resourceKey: 'ManageOrganizationAndContract',
+          })
+          .catch(() => false)
+      : false,
+  ])
 
   const profile = sessionData?.namespaces.profile ?? null
   const shopper = sessionData?.namespaces.shopper ?? null
@@ -150,6 +159,9 @@ export const validateSession = async (
             `${shopper?.firstName?.value ?? ''} ${shopper?.lastName?.value ?? ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
+          permissions: {
+            canManageOrganization,
+          },
         }
       : null,
     marketingData,
