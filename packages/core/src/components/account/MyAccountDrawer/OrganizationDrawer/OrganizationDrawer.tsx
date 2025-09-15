@@ -31,7 +31,7 @@ export const OrganizationDrawer = ({
   const contractName = person?.givenName ?? ''
 
   const contractUrl =
-    b2b?.unitId && b2b.permissions.canManageOrganization
+    b2b?.unitId && b2b?.permissions?.canManageOrganization
       ? `/buyer-portal/org-unit/${b2b?.unitId}`
       : null
 
