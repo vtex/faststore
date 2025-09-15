@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.85.0](https://github.com/vtex/faststore/compare/v3.84.5...v3.85.0) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.5](https://github.com/vtex/faststore/compare/v3.84.4...v3.84.5) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.4](https://github.com/vtex/faststore/compare/v3.84.3...v3.84.4) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.3](https://github.com/vtex/faststore/compare/v3.84.2...v3.84.3) (2025-09-12)
+
+### Bug Fixes
+
+- don't require restart when switching themes ([#3018](https://github.com/vtex/faststore/issues/3018)) ([52afa59](https://github.com/vtex/faststore/commit/52afa59addae3c050786463a4aa39f3390c84971))
+
 ## [3.84.2](https://github.com/vtex/faststore/compare/v3.84.1...v3.84.2) (2025-09-12)
 
 **Note:** Version bump only for package @faststore/cli

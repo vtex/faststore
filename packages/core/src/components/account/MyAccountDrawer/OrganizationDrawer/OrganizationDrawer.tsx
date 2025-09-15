@@ -30,6 +30,11 @@ export const OrganizationDrawer = ({
 
   const contractName = person?.givenName ?? ''
 
+  const contractUrl =
+    b2b?.unitId && b2b?.permissions?.canManageOrganization
+      ? `/pvt/buyer-portal/org-unit/${b2b?.unitId}`
+      : null
+
   return (
     <SlideOver
       data-fs-organization-drawer
@@ -46,7 +51,7 @@ export const OrganizationDrawer = ({
       <OrganizationDrawerHeader
         onCloseDrawer={closeDrawer}
         contractName={contractName}
-        contractUrl="/pvt/organization-account"
+        contractUrl={contractUrl}
       />
       <OrganizationDrawerBody isRepresentative={isRepresentative} />
       <footer data-fs-organization-drawer-footer-wrapper>

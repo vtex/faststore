@@ -188,6 +188,10 @@ type StoreSession {
   refreshAfter: String
 }
 
+type StoreB2BPermissions {
+  canManageOrganization: Boolean!
+}
+
 type StoreB2B {
   customerId: String!
   isRepresentative: Boolean
@@ -198,6 +202,11 @@ type StoreB2B {
   userName: String
   userEmail: String
   savedPostalCode: String
+  permissions: StoreB2BPermissions!
+}
+
+input IStoreB2BPermissions {
+  canManageOrganization: Boolean!
 }
 
 input IStoreB2B {
@@ -210,6 +219,7 @@ input IStoreB2B {
   userName: String
   userEmail: String
   savedPostalCode: String
+  permissions: IStoreB2BPermissions!
 }
 
 """

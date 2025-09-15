@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.85.0](https://github.com/vtex/faststore/compare/v3.84.5...v3.85.0) (2025-09-15)
+
+### Features
+
+- add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029)) ([67d6125](https://github.com/vtex/faststore/commit/67d61252cba42045a4c225f2cba14656645a1dbb))
+
+## [3.84.5](https://github.com/vtex/faststore/compare/v3.84.4...v3.84.5) (2025-09-15)
+
+### Bug Fixes
+
+- Use `corporateName` in profile page ([#3035](https://github.com/vtex/faststore/issues/3035)) ([663621d](https://github.com/vtex/faststore/commit/663621dcdf0e1e6771a11ab5de4688fdf94cc028)), closes [vtex-sites/faststoreqa.store#864](https://github.com/vtex-sites/faststoreqa.store/issues/864)
+
+## [3.84.4](https://github.com/vtex/faststore/compare/v3.84.3...v3.84.4) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/api
+
 ## [3.84.1](https://github.com/vtex/faststore/compare/v3.84.0...v3.84.1) (2025-09-11)
 
 ### Bug Fixes

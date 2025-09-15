@@ -147,7 +147,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     return filteredImages.slice(0, limit)
   },
   sku: ({ itemId }) => itemId,
-  gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
+  gtin: ({ ean, referenceId }) => (ean ? ean : (referenceId[0]?.Value ?? '')),
   review: () => [],
   aggregateRating: () => ({}),
   offers: (root) =>
