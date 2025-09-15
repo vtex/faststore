@@ -96,9 +96,15 @@ export const validateSession = async (
   const unitId = jwt?.unitId
   const userId = jwt?.userId
 
-  const sessionData = await clients.commerce
-    .session(params.toString())
-    .catch(() => null)
+  const [sessionData, canManageOrganization] = await Promise.all([
+    clients.commerce.session(params.toString()).catch(() => null),
+    clients.commerce.licenseManager
+      .getUserGrantedResources({
+        userId: userId,
+        resourceKey: 'ManageOrganizationAndContract',
+      })
+      .catch(() => false),
+  ])
 
   const profile = sessionData?.namespaces.profile ?? null
   const shopper = sessionData?.namespaces.shopper ?? null
@@ -106,14 +112,6 @@ export const validateSession = async (
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
   const publicData = sessionData?.namespaces.public ?? null
-
-  // Fetch B2B permissions if user is a representative
-  const canManageOrganization = await clients.commerce.licenseManager
-    .getUserGrantedResources({
-      userId: userId,
-      resourceKey: 'ManageOrganizationAndContract',
-    })
-    .catch(() => false)
 
   // Set seller only if it's inside a region
   let seller
