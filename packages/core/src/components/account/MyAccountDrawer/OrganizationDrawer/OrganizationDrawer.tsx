@@ -32,7 +32,7 @@ export const OrganizationDrawer = ({
 
   const contractUrl =
     b2b?.unitId && b2b?.permissions?.canManageOrganization
-      ? `/buyer-portal/org-unit/${b2b?.unitId}`
+      ? `/pvt/buyer-portal/org-unit/${b2b?.unitId}`
       : null
 
   return (

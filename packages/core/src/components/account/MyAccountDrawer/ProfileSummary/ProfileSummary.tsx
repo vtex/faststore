@@ -39,7 +39,7 @@ export const ProfileSummary = ({
         {showBuyerPortalManageLink && (
           <Link
             data-fs-profile-summary-org-link
-            href={`/buyer-portal/org-unit/${b2b?.unitId}`}
+            href={`/pvt/buyer-portal/org-unit/${b2b?.unitId}`}
           >
             Manage <Icon name="OpenInNew" width={23} height={23} />
           </Link>

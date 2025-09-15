@@ -16,7 +16,7 @@ const ButtonSignIn = ({
   return (
     <LinkButton
       data-fs-button-signin-link
-      href={person?.id ? `/account` : `/login`}
+      href={person?.id ? `/pvt/account` : `/login`}
       className="text__title-mini"
       aria-label={alt}
       variant="tertiary"
