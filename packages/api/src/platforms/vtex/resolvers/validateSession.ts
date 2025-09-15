@@ -98,12 +98,14 @@ export const validateSession = async (
 
   const [sessionData, canManageOrganization] = await Promise.all([
     clients.commerce.session(params.toString()).catch(() => null),
-    clients.commerce.licenseManager
-      .getUserGrantedResources({
-        userId: userId,
-        resourceKey: 'ManageOrganizationAndContract',
-      })
-      .catch(() => false),
+    userId
+      ? clients.commerce.licenseManager
+          .getUserGrantedResources({
+            userId: userId,
+            resourceKey: 'ManageOrganizationAndContract',
+          })
+          .catch(() => false)
+      : false,
   ])
 
   const profile = sessionData?.namespaces.profile ?? null
