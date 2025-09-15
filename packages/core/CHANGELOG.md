@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.86.0](https://github.com/vtex/faststore/compare/v3.85.0...v3.86.0) (2025-09-15)
+
+### Features
+
+- ensure pvt route in my account pages SFS-2852 ([#3026](https://github.com/vtex/faststore/issues/3026)) ([93b089a](https://github.com/vtex/faststore/commit/93b089abd3bca04ef8fbdbecc7f81dd00a852987))
+
 # [3.85.0](https://github.com/vtex/faststore/compare/v3.84.5...v3.85.0) (2025-09-15)
 
 ### Features
