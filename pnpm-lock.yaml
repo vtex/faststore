@@ -580,7 +580,7 @@ importers:
     devDependencies:
       next:
         specifier: 'catalog:'
-        version: 15.5.2(@playwright/test@1.55.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.92.1)
+        version: 15.5.2(@babel/core@7.28.4)(@playwright/test@1.55.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.92.1)
       react:
         specifier: 'catalog:'
         version: 19.1.1
