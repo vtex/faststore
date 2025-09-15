@@ -1,5 +1,4 @@
 /// <reference types="@vtex/faststore-core/typings/global" />
+import { Document } from '@vtex/faststore/store/document'
 
-import { default as _Document } from '@vtex/faststore-core/pages/_document'
-
-export default _Document
+export default Document

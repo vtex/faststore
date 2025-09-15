@@ -1,7 +1,9 @@
-export {
+import {
+  ProductDetailsPage,
   getStaticProps,
   getStaticPaths,
-} from '@vtex/faststore-core/pages/[slug]/p'
-import PDPPage from '@vtex/faststore-core/pages/[slug]/p'
+} from '@vtex/faststore/store/product-details-page'
 
-export default PDPPage
+export default ProductDetailsPage
+
+export { getStaticProps, getStaticPaths }

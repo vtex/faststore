@@ -15,6 +15,66 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
+    },
+    "./navigation": {
+      "types": "./dist/navigation.d.ts",
+      "require": "./dist/navigation.js",
+      "import": "./dist/navigation.mjs"
+    },
+    "./font": {
+      "types": "./dist/font.d.ts",
+      "require": "./dist/font.js",
+      "import": "./dist/font.mjs"
+    },
+    "./lighthouse": {
+      "types": "./dist/lighthouse.d.ts",
+      "require": "./dist/lighthouse.js",
+      "import": "./dist/lighthouse.mjs"
+    },
+    "./script": {
+      "types": "./dist/script.d.ts",
+      "require": "./dist/script.js",
+      "import": "./dist/script.mjs"
+    },
+    "./sdk": {
+      "types": "./dist/sdk.d.ts",
+      "require": "./dist/sdk.js",
+      "import": "./dist/sdk.mjs"
+    },
+    "./ui": {
+      "types": "./dist/ui.d.ts",
+      "require": "./dist/ui.js",
+      "import": "./dist/ui.mjs"
+    },
+    "./store/search-page": {
+      "types": "./dist/store/search-page.d.ts",
+      "require": "./dist/store/search-page.js",
+      "import": "./dist/store/search-page.mjs"
+    },
+    "./store/product-details-page": {
+      "types": "./dist/store/product-details-page.d.ts",
+      "require": "./dist/store/product-details-page.js",
+      "import": "./dist/store/product-details-page.mjs"
+    },
+    "./store/app": {
+      "types": "./dist/store/app.d.ts",
+      "require": "./dist/store/app.js",
+      "import": "./dist/store/app.mjs"
+    },
+    "./store/document": {
+      "types": "./dist/store/document.d.ts",
+      "require": "./dist/store/document.js",
+      "import": "./dist/store/document.mjs"
+    },
+    "./store/product-listing-page": {
+      "types": "./dist/store/product-listing-page.d.ts",
+      "require": "./dist/store/product-listing-page.js",
+      "import": "./dist/store/product-listing-page.mjs"
+    },
+    "./store/index-page": {
+      "types": "./dist/store/index-page.d.ts",
+      "require": "./dist/store/index-page.js",
+      "import": "./dist/store/index-page.mjs"
     }
   },
   "files": [
@@ -26,6 +86,20 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@vtex/faststore-api": "workspace:*",
+    "@vtex/faststore-core": "workspace:*",
+    "@vtex/faststore-components": "workspace:*",
+    "@vtex/faststore-font": "workspace:*",
+    "@vtex/faststore-graphql-schema": "workspace:*",
+    "@vtex/faststore-graphql-utils": "workspace:*",
+    "@vtex/faststore-lighthouse": "workspace:*",
+    "@vtex/faststore-navigation": "workspace:*",
+    "@vtex/faststore-script": "workspace:*",
+    "@vtex/faststore-sdk": "workspace:*",
+    "@vtex/faststore-ui": "workspace:*",
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "next": "catalog:",

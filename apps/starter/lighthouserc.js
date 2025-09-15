@@ -1,4 +1,4 @@
-const lhConfig = require('@faststore/lighthouse').default
+const lhConfig = require('@vtex/faststore/lighthouse').default
 
 const { lighthouse: lh } = require('./discovery.config')
 
