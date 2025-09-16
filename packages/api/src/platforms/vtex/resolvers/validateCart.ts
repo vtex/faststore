@@ -222,8 +222,9 @@ const isOrderFormStale = (form: OrderForm) => {
 
   const oldEtag = faststoreData?.fields?.cartEtag
 
+  // If there's no etag, it's a new cart, so it's not stale
   if (oldEtag == null) {
-    return true
+    return false
   }
 
   const newEtag = getOrderFormEtag(form)
