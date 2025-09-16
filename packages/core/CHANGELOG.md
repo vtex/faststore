@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.86.2](https://github.com/vtex/faststore/compare/v3.86.1...v3.86.2) (2025-09-16)
+
+### Bug Fixes
+
+- update contract URL to remove 'pvt' prefix in OrganizationDrawer… ([#3039](https://github.com/vtex/faststore/issues/3039)) ([6e73b8e](https://github.com/vtex/faststore/commit/6e73b8e024ff66b90dc3ba48dfd53a81a582851b))
+
 ## [3.86.1](https://github.com/vtex/faststore/compare/v3.86.0...v3.86.1) (2025-09-16)
 
 ### Bug Fixes
