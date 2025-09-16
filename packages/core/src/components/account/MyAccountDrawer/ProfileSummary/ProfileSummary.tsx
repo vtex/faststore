@@ -25,8 +25,9 @@ export const ProfileSummary = ({
 }: ProfileSummaryProps) => {
   const { b2b } = useSession()
 
-  const showBuyerPortalManageLink =
-    showManageLink && b2b?.permissions?.canManageOrganization && b2b?.unitId
+  // TODO fix it
+  const showBuyerPortalManageLink = true
+  // showManageLink && b2b?.permissions?.canManageOrganization && b2b?.unitId
 
   return (
     <section
@@ -39,7 +40,7 @@ export const ProfileSummary = ({
         {showBuyerPortalManageLink && (
           <Link
             data-fs-profile-summary-org-link
-            href={`/pvt/buyer-portal/org-unit/${b2b?.unitId}`}
+            href={`/buyer-portal/org-unit/${b2b?.unitId}`}
           >
             Manage <Icon name="OpenInNew" width={23} height={23} />
           </Link>
