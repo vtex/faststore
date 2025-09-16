@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.86.1](https://github.com/vtex/faststore/compare/v3.86.0...v3.86.1) (2025-09-16)
+
+### Bug Fixes
+
+- conditionally set href for contract link in OrganizationDrawerHe… ([#3038](https://github.com/vtex/faststore/issues/3038)) ([b076715](https://github.com/vtex/faststore/commit/b076715dafea3173a69e1fc9ef1844f8e4d5e973))
+
 # [3.86.0](https://github.com/vtex/faststore/compare/v3.85.0...v3.86.0) (2025-09-15)
 
 ### Features
