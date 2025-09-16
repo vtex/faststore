@@ -1,0 +1,67 @@
+[data-fs-account-table] {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  @include media(">=notebook") {
+    grid-template-columns: minmax(11.25rem, auto) 1fr;
+  }
+
+  [data-fs-account-table-body] {
+    display: contents;
+    gap: var(--fs-spacing-1);
+  }
+
+  [data-fs-account-table-row] {
+    display: flex;
+    flex-direction: column;
+    padding: var(--fs-spacing-4) 0;
+    border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+
+    &:last-child {
+      > [data-fs-account-table-heading],
+      > [data-fs-account-table-data] { border-bottom: none; }
+    }
+
+    @include media(">=notebook") {
+      display: contents;
+    }
+  }
+
+  [data-fs-account-table-heading] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--fs-spacing-1);
+    font-family: var(--fs-text-face-body);
+    font-size: var(--fs-text-size-2);
+    font-weight: var(--fs-text-weight-regular);
+    color: var(--fs-color-text-light);
+    text-align: left;
+
+    @include media(">=notebook") {
+      min-height: var(--fs-spacing-10);
+      padding-bottom: 0;
+      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+    }
+  }
+
+  [data-fs-account-table-data] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--fs-text-face-body);
+    font-size: var(--fs-text-size-2);
+    font-weight: var(--fs-text-weight-regular);
+    color: var(--fs-color-text);
+
+    [data-fs-link] { padding: 0; }
+
+    @include media(">=notebook") {
+      min-height: var(--fs-spacing-10);
+      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+    }
+  }
+}
