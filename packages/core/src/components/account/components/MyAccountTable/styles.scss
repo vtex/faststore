@@ -20,7 +20,7 @@
     padding: var(--fs-spacing-4) 0;
     border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
 
-    &:last-child {
+    &:last-child:not(:only-child) {
       > [data-fs-account-table-heading],
       > [data-fs-account-table-data] { border-bottom: none; }
     }
