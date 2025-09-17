@@ -63,6 +63,11 @@ type DeliveryPromiseCmsData = {
     title?: string
     allDeliveryOptions?: string
   }
+  dynamicEstimate?: {
+    enabled?: boolean
+    sameDay?: string
+    nextDay?: string
+  }
   deliveryPromiseBadges?: {
     enabled?: boolean
     delivery?: string
