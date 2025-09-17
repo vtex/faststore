@@ -7,6 +7,7 @@ import type {
   QueryPickupPointsArgs,
   QueryProductArgs,
   QueryProductCountArgs,
+  QueryProductsArgs,
   QueryProfileArgs,
   QueryRedirectArgs,
   QuerySearchArgs,
@@ -14,7 +15,6 @@ import type {
   QueryShippingArgs,
   QueryUserOrderArgs,
   UserOrderFromList,
-  QueryProductsArgs,
 } from '../../../__generated__/schema'
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -478,17 +478,29 @@ export const Query = {
         },
       }
     } catch (error) {
-      const result = JSON.parse((error as Error).message).error as {
-        code: string
-        message: string
-        exception: any
+      const errorMessage = (error as Error).message
+
+      let result: {
+        code?: string
+        message?: string
+        exception?: any
+      } = {}
+
+      try {
+        const parsed = JSON.parse(errorMessage)
+        result = parsed.error || parsed
+      } catch {
+        result = { message: errorMessage }
       }
 
-      if (result?.message?.toLowerCase()?.includes('order not found')) {
+      const message =
+        result?.message?.toLowerCase() || errorMessage.toLowerCase()
+
+      if (message.includes('order not found')) {
         throw new NotFoundError(`No order found for id ${orderId}`)
       }
 
-      if (result?.message?.toLowerCase()?.includes('acesso negado')) {
+      if (message.includes('acesso negado') || message.includes('no authent')) {
         throw new ForbiddenError(
           `You are forbidden to interact with order with id ${orderId}`
         )
