@@ -59,6 +59,39 @@
     line-height: var(--fs-shipping-simulation-subtitle-line-height);
   }
 
+  [data-fs-table-row] {
+    display: flex;
+    align-items: stretch;
+  }
+
+  [data-fs-table-cell] {
+    display: flex;
+    width: 100%;
+    font-size: var(--fs-text-size-1);
+
+    &:first-of-type { flex-direction: column; }
+
+    &:last-of-type {
+      align-items: center;
+      width: fit-content;
+      min-width: fit-content;
+    }
+
+    [data-fs-shipping-simulation-option-carrier] {
+      overflow: hidden;
+      font-weight: var(--fs-text-weight-medium);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    [data-fs-shipping-simulation-option-estimate] {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
   [data-fs-shipping-simulation-location] {
     padding-bottom: var(--fs-shipping-simulation-location-padding-bottom);
     font-size: var(--fs-shipping-simulation-location-font-size);
