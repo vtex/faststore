@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import React, { createContext, useEffect } from 'react'
+import { createContext, useEffect } from 'react'
 
 import type { State as SearchState } from '../types'
 import {

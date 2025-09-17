@@ -4,7 +4,7 @@ import { useSession } from '../session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 import { type SearchState, useSearch } from '@vtex/faststore-sdk'
-import type { Facet } from '@vtex/faststore-sdk/dist/types'
+import type { Facet } from '@vtex/faststore-sdk/types'
 import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,

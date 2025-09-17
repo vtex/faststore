@@ -1,5 +1,5 @@
 import type { Dispatch, PropsWithChildren } from 'react'
-import React, { createContext, useMemo, useReducer } from 'react'
+import { createContext, useMemo, useReducer } from 'react'
 
 interface BaseState {
   displayMinicart: boolean

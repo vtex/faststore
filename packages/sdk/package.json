@@ -9,19 +9,25 @@
     "directory": "packages/sdk"
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "sideEffects": false,
-  "engines": {
-    "node": "22.19.0"
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.mjs",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
+    },
+    "./*": [ "./dist/*.d.ts", "./dist/*.ts", "./dist/*.js"]
   },
+  "sideEffects": false,
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc",
+    "dev": "vite build --watch",
+    "build": "vite build",
     "test": "jest",
     "size": "size-limit",
     "analyze": "size-limit --why"
@@ -32,6 +38,9 @@
       "limit": "10 KB"
     }
   ],
+  "engines": {
+    "node": "22.19.0"
+  },
   "peerDependencies": {
     "react": "catalog:"
   },
@@ -47,7 +56,9 @@
     "react": "catalog:",
     "size-limit": "^7.0.8",
     "ts-jest": "catalog:",
-    "tslib": "catalog:"
+    "tslib": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
   },
   "dependencies": {
     "fast-deep-equal": "catalog:",
