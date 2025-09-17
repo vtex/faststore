@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.86.4](https://github.com/vtex/faststore/compare/v3.86.3...v3.86.4) (2025-09-17)
+
+### Bug Fixes
+
+- `ShippingSimulation` table SFS-2622 ([#3030](https://github.com/vtex/faststore/issues/3030)) ([dfcb924](https://github.com/vtex/faststore/commit/dfcb9245527dd8bf90cd183fed7f556bf8b35a4d))
+
 # [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
 
 ### Features
