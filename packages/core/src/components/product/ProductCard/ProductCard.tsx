@@ -16,10 +16,6 @@ import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { getGlobalSettings } from 'src/utils/globalSettings'
-import {
-  DYNAMIC_ESTIMATE_FACET_KEY,
-  DELIVERY_OPTIONS_FACET_KEY,
-} from 'src/sdk/deliveryPromise'
 
 type Variant = 'wide' | 'default'
 
