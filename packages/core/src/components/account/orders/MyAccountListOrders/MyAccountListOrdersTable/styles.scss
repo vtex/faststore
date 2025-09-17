@@ -17,10 +17,10 @@
   --fs-list-orders-table-product-info-margin-top-first   : var(--fs-spacing-0);
   --fs-list-orders-table-product-info-margin-top   : var(--fs-spacing-1);
   --fs-list-orders-table-product-info-line-height  : var(--fs-text-size-1);
-  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2) var(--fs-spacing-3);
+  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2);
   --fs-list-orders-table-cell-padding-mobile       : var(--fs-spacing-3) var(--fs-spacing-1);
   --fs-list-orders-table-cell-color                : var(--fs-color-neutral-6);
-  --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-color-neutral-3);
+  --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-border-color-light);
   --fs-list-orders-table-row-hover-bg              : color-mix(in srgb, var(--fs-color-accent-0) 30%, transparent);
 
   // Specific sizes
@@ -118,7 +118,6 @@
   }
 
   [data-fs-list-orders-table-cell]:not(:first-child):not(:last-child) {
-    padding-top: calc(var(--fs-spacing-4) + var(--fs-spacing-0));
     color: var(--fs-list-orders-table-cell-color);
   }
 
@@ -171,7 +170,7 @@
 
 [data-fs-list-orders-table-pagination] {
   --fs-list-orders-table-pagination-text-size   : .8rem;
-  --fs-list-orders-table-pagination-box-shadow  : 0 -4px 8px rgb(0 0 0 / 5%);
+  --fs-list-orders-table-pagination-box-shadow  : 0 -4px var(--fs-spacing-1) rgb(0 0 0 / 5%);
   --fs-list-orders-table-pagination-bkg-color   : var(--fs-body-bkg);
   --fs-list-orders-table-pagination-padding     : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-0);
 

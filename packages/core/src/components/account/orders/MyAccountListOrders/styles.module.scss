@@ -12,11 +12,6 @@
   --fs-list-orders-padding                            : var(--fs-spacing-5);
   --fs-page-height                                    : 100%;
 
-  // Title
-  --fs-list-orders-title-margin-bottom                : var(--fs-spacing-5);
-  --fs-list-orders-title-font-size                    : var(--fs-spacing-4);
-  --fs-list-orders-title-font-weight                  : var(--fs-text-weight-semibold);
-
   // Search Filters
   --fs-list-orders-filter-width                       : 55%;
   --fs-list-orders-filter-margin-bottom               : var(--fs-spacing-3);
@@ -32,26 +27,6 @@
   --fs-list-orders-filter-button-margin-left          : 0.6rem;
 
   height: var(--fs-page-height);
-
-  [data-fs-list-orders] {
-    padding: var(--fs-list-orders-padding);
-
-    @include media("<notebook") {
-      padding-bottom: 0;
-    }
-  }
-
-  [data-fs-list-orders-title] {
-    margin-bottom: var(--fs-list-orders-title-margin-bottom);
-    font-size: var(--fs-list-orders-title-font-size);
-    font-weight: var(--fs-list-orders-title-font-weight);
-  }
-
-  [data-fs-list-orders-header] {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-  }
 
   [data-fs-list-orders-search-filters] {
     display: flex;
