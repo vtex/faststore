@@ -497,12 +497,12 @@ export const Query = {
         result?.message?.toLowerCase() || errorMessage.toLowerCase()
 
       if (message.includes('order not found')) {
-        throw new NotFoundError(`No order found for id ${orderId}`)
+        throw new NotFoundError(`No order found for id ${orderId}. ${message}`)
       }
 
-      if (message.includes('acesso negado') || message.includes('no authent')) {
+      if (message.includes('acesso negado')) {
         throw new ForbiddenError(
-          `You are forbidden to interact with order with id ${orderId}`
+          `You are forbidden to interact with order with id ${orderId}. ${message}`
         )
       }
 
