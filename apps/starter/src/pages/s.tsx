@@ -1,4 +1,4 @@
-export { getStaticProps } from '@vtex/faststore-core/pages/s'
-import { default as SearchPage } from '@vtex/faststore-core/pages/s'
+import { SearchPage, getStaticProps } from '@vtex/faststore/store/search-page'
 
+export { getStaticProps }
 export default SearchPage

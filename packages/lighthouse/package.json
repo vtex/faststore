@@ -1,6 +1,7 @@
 {
   "name": "@vtex/faststore-lighthouse",
-  "version": "3.81.0",
+  "private": true,
+  "version": "4.0.0",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": {

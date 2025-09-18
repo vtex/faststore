@@ -1,6 +1,7 @@
 {
   "name": "@vtex/faststore-core",
-  "version": "3.82.3",
+  "private": true,
+  "version": "4.0.0",
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
@@ -28,7 +29,13 @@
     "./src/ts/*": "./src/*.ts",
     "./api": "./api/index.ts",
     "./experimental": "./src/experimental/index.ts",
-    "./experimental/server": "./src/experimental/server/index.ts"
+    "./experimental/server": "./src/experimental/server/index.ts",
+    "./search-page": "./src/lib/search-page/index.ts",
+    "./product-details-page": "./src/lib/product-details-page/index.ts",
+    "./app": "./src/lib/app/index.ts",
+    "./document": "./src/lib/document/index.ts",
+    "./product-listing-page": "./src/lib/product-listing-page/index.ts",
+    "./index-page": "./src/lib/index-page/index.ts"
   },
   "bin": {
     "faststore-core": "./bin/generate-types.js"

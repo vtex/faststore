@@ -1,4 +1,4 @@
-export * from '@vtex/faststore-components'
+export * from './components'
 
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'

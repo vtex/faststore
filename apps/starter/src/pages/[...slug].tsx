@@ -1,7 +1,8 @@
-export {
+import {
   getStaticPaths,
   getStaticProps,
-} from '@vtex/faststore-core/pages/[...slug]'
-import { default as CategoryPage } from '@vtex/faststore-core/pages/[...slug]'
+  ProductListingPage,
+} from '@vtex/faststore/store/product-listing-page'
 
-export default CategoryPage
+export default ProductListingPage
+export { getStaticPaths, getStaticProps }

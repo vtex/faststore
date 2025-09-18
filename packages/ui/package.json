@@ -1,6 +1,7 @@
 {
   "name": "@vtex/faststore-ui",
-  "version": "3.81.0",
+  "private": true,
+  "version": "4.0.0",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -47,11 +48,11 @@
     }
   ],
   "dependencies": {
-    "@vtex/faststore-components": "workspace:*",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",
-    "tabbable": "catalog:"
+    "tabbable": "catalog:",
+    "react-intersection-observer": "^8.32.5"
   },
   "peerDependencies": {
     "react": "catalog:",
@@ -61,6 +62,7 @@
     "@size-limit/preset-small-lib": "^7.0.8",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@types/tabbable": "^3.1.1",
     "babel-loader": "^8.2.5",
     "react": "catalog:",

@@ -1,4 +1,4 @@
-export { getStaticProps } from '@vtex/faststore-core/pages/index'
-import { default as IndexPage } from '@vtex/faststore-core/pages/index'
+import { getStaticProps, IndexPage } from '@vtex/faststore/store/index-page'
 
 export default IndexPage
+export { getStaticProps }
