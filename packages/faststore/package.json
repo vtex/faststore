@@ -90,7 +90,6 @@
   "dependencies": {
     "@vtex/faststore-api": "workspace:*",
     "@vtex/faststore-core": "workspace:*",
-    "@vtex/faststore-components": "workspace:*",
     "@vtex/faststore-font": "workspace:*",
     "@vtex/faststore-graphql-schema": "workspace:*",
     "@vtex/faststore-graphql-utils": "workspace:*",

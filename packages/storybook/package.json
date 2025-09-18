@@ -17,7 +17,6 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@vtex/faststore-components": "workspace:*",
     "@vtex/faststore-ui": "workspace:*",
     "next": "catalog:",
     "react": "catalog:",
