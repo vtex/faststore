@@ -18,7 +18,9 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
 
 import {
+  DELIVERY_OPTIONS_FACET_KEY,
   PICKUP_ALL_FACET_VALUE,
+  SHIPPING_FACET_KEY,
   useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
 import type { useFilter } from 'src/sdk/search/useFilter'
@@ -102,8 +104,7 @@ function FilterSlider({
 
   const {
     facets: filteredFacets,
-    deliveryLabel,
-    deliveryOptionsLabel,
+    labelsMap,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
     onDeliveryFacetChange,
@@ -169,7 +170,7 @@ function FilterSlider({
               testId={testId}
               index={0}
               type=""
-              label={deliveryLabel}
+              label={labelsMap[SHIPPING_FACET_KEY] ?? 'Delivery'}
               description={
                 deliveryPromiseSettings?.deliveryMethods?.description
               }
@@ -190,14 +191,12 @@ function FilterSlider({
             const index = shouldDisplayDeliveryButton ? idx + 1 : idx
             const { __typename: type, label } = facet
             const isExpanded = expanded.has(index)
-            const isDeliveryMethodFacet = facet.key === 'shipping'
-            const isDeliveryOptionFacet = facet.key === 'delivery-options'
+            const isDeliveryMethodFacet = facet.key === SHIPPING_FACET_KEY
+            const isDeliveryOptionFacet =
+              facet.key === DELIVERY_OPTIONS_FACET_KEY
 
-            const sectionLabel = isDeliveryMethodFacet
-              ? deliveryLabel
-              : isDeliveryOptionFacet
-                ? deliveryOptionsLabel
-                : label
+            const sectionLabel =
+              labelsMap[facet.key as keyof typeof labelsMap] ?? label
 
             return (
               <UIFilterFacets

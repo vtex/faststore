@@ -1372,7 +1372,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String'];
   /** Number of items with this facet. */
-  quantity: Scalars['Int'];
+  quantity?: Maybe<Scalars['Int']>;
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean'];
   /** Facet value. */

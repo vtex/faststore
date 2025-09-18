@@ -71,7 +71,10 @@ function FilterFacetBooleanItem({
             className="text__title-mini-alt"
             data-fs-filter-list-item-label
           >
-            {label} <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
+            {label}
+            {quantity && (
+              <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
+            )}
           </Label>
         </>
       ) : (
