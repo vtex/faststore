@@ -16,7 +16,13 @@ import type {
   QueryUserOrderArgs,
   UserOrderFromList,
 } from '../../../__generated__/schema'
-import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
+import {
+  BadRequestError,
+  ForbiddenError,
+  NotFoundError,
+  isForbiddenError,
+  isNotFoundError,
+} from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
@@ -486,6 +492,11 @@ export const Query = {
         exception?: any
       } = {}
 
+      /** The errorMessage can be in:
+       * JSON format: {"error":{"code":"OMS007","message":"Order Not Found","exception":null}}
+       * Plain text format: "No authorized"
+       * Unknown format
+       */
       try {
         const parsed = JSON.parse(errorMessage)
         result = parsed.error || parsed
@@ -493,19 +504,19 @@ export const Query = {
         result = { message: errorMessage }
       }
 
-      const message =
-        result?.message?.toLowerCase() || errorMessage.toLowerCase()
+      const message = result?.message || errorMessage
 
-      if (message.includes('order not found')) {
-        throw new NotFoundError(`No order found for id ${orderId}. ${message}`)
+      if (isNotFoundError(error)) {
+        throw new NotFoundError(`No order found for id ${orderId}. ${message}.`)
       }
 
-      if (message.includes('acesso negado')) {
+      if (isForbiddenError(error)) {
         throw new ForbiddenError(
-          `You are forbidden to interact with order with id ${orderId}. ${message}`
+          `You are forbidden to interact with order with id ${orderId}. ${message}.`
         )
       }
 
+      // Fallback for other Errors
       throw error
     }
   },

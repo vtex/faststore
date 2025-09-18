@@ -1,5 +1,12 @@
 import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
+import {
+  BadRequestError,
+  FastStoreError,
+  ForbiddenError,
+  NotFoundError,
+  UnauthorizedError,
+} from '../../errors'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
@@ -31,5 +38,25 @@ export const fetchAPI = async (
   console.error(info, init, response)
   const text = await response.text()
 
+  // Check if response has a valid status property
+  if (typeof response?.status === 'number') {
+    switch (response.status) {
+      case 400:
+        throw new BadRequestError(text)
+      case 401:
+        throw new UnauthorizedError(text)
+      case 403:
+        throw new ForbiddenError(text)
+      case 404:
+        throw new NotFoundError(text)
+      default:
+        throw new FastStoreError(
+          { status: response.status, type: 'UnknownError' },
+          text
+        )
+    }
+  }
+
+  // Fallback to generic Error if status doesn't exist or is invalid - maybe network error
   throw new Error(text)
 }
