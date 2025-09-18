@@ -41,7 +41,7 @@
       "limit": "50 KB"
     },
     {
-      "path": "dist/esm/index.js",
+      "path": "dist/es/index.mjs",
       "limit": "40 KB"
     }
   ],
