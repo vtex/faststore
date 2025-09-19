@@ -193,7 +193,7 @@ export default function MyAccountListOrders({
   return (
     <div className={styles.page}>
       <AccountHeader pageTitle="Orders" />
-      <div data-fs-list-orders-header>
+      <div data-fs-list-orders-controls>
         <div data-fs-list-orders-search-filters>
           <SearchInputField
             ref={searchInputRef}
@@ -213,12 +213,13 @@ export default function MyAccountListOrders({
           />
           <Button
             data-fs-list-orders-search-filters-button
+            size="small"
             variant="tertiary"
             icon={
               <UIIcon
-                width={16}
-                height={16}
                 name="FadersHorizontal"
+                width={24}
+                height={24}
                 aria-label="Open Filters"
               />
             }

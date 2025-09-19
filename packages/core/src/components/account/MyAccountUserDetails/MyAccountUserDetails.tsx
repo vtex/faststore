@@ -21,7 +21,7 @@ export default function MyAccountUserDetails({
       <div data-fs-user-details-container>
         <AccountTable
           rows={[
-            { heading: 'Name', data: name },
+            { heading: 'Name', data: name ? name : '–' },
             { heading: 'Email', data: email },
             {
               heading: 'Role',

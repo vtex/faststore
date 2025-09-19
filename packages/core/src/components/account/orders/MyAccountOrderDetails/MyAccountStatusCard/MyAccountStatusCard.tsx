@@ -291,14 +291,12 @@ function MyAccountStatusCard({
                 </div>
               )}
             </div>
-            {index < steps.length - 1 && (
-              <div
-                data-fs-shipping-connector
-                data-fs-shipping-connector-status={
-                  step.status === 'completed' ? 'completed' : 'not-started'
-                }
-              />
-            )}
+            <div
+              data-fs-shipping-connector
+              data-fs-shipping-connector-status={
+                step.status === 'completed' ? 'completed' : 'not-started'
+              }
+            />
           </div>
         ))}
       </div>

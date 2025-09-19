@@ -2,6 +2,8 @@
   @import "./MyAccountListOrdersTable/styles.scss";
   @import "./MyAccountSelectedTags/styles.scss";
   @import "../../components/MyAccountStatusBadge/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
   @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
 
   // --------------------------------------------------------
@@ -28,12 +30,17 @@
 
   height: var(--fs-page-height);
 
+  [data-fs-list-orders-controls] {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--fs-list-orders-filter-margin-bottom);
+  }
+
   [data-fs-list-orders-search-filters] {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: var(--fs-list-orders-filter-width);
-    margin-bottom: var(--fs-list-orders-filter-margin-bottom);
 
     @include media("<notebook") {
       flex-direction: column;
@@ -66,9 +73,6 @@
     }
 
     [data-fs-list-orders-search-filters-button] {
-      --fs-button-border-radius   : var(--fs-list-orders-filter-button-border-radius);
-      --fs-button-height          : var(--fs-list-orders-filter-button-height);
-
       margin-left: var(--fs-list-orders-filter-button-margin-left);
     }
   }
