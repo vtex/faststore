@@ -1,0 +1,13 @@
+[data-fs-account-header] {
+  padding: var(--fs-spacing-3) 0;
+
+  @include media(">=notebook") {
+    padding: var(--fs-spacing-6) 0;
+  }
+
+  [data-fs-account-header-title] {
+    font-family: var(--fs-text-face-title);
+    font-size: var(--fs-text-size-4);
+    font-weight: var(--fs-text-weight-semibold);
+  }
+}
