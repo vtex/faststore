@@ -667,7 +667,9 @@ export function useDeliveryPromise({
       : deliveryPromiseTag === 'dynamic_estimate'
         ? getDynamicEstimateLabel(
             productTags?.find(
-              ({ typeName }) => typeName === DYNAMIC_ESTIMATE_FACET_KEY
+              ({ typeName, shippingMethods }) =>
+                typeName === DYNAMIC_ESTIMATE_FACET_KEY &&
+                shippingMethods?.includes(DELIVERY_TYPE_DELIVERY)
             )?.value
           )
         : undefined
