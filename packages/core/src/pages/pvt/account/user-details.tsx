@@ -15,6 +15,7 @@ import type {
   ServerUserDetailsQueryQuery,
   ServerUserDetailsQueryQueryVariables,
 } from '@generated/graphql'
+import storeConfig from 'discovery.config'
 import MyAccountUserDetails from 'src/components/account/MyAccountUserDetails/MyAccountUserDetails'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
@@ -25,7 +26,6 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -147,6 +147,8 @@ export const getServerSideProps: GetServerSideProps<
   }
 
   if (userDetails?.errors) {
+    console.error(...userDetails.errors)
+
     const statusCode: number = (userDetails.errors[0] as any)?.extensions
       ?.status
     const destination: string =

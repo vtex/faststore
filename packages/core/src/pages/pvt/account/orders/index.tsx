@@ -22,12 +22,12 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
+import storeConfig from 'discovery.config'
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { extractStatusFromError } from 'src/utils/utilities'
-import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -220,6 +220,8 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (listOrders.errors) {
+    console.error(...listOrders.errors)
+
     const status = extractStatusFromError(listOrders.errors[0])
     const isForbidden = status === 403 || status === 401
 

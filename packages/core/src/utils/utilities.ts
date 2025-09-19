@@ -53,13 +53,17 @@ export function camelCaseToTitle(str: string): string {
 }
 
 export function extractStatusFromError(error: any): number | undefined {
+  if (error?.extensions?.status) {
+    return error.extensions.status
+  }
+
   if (!error?.message) return undefined
 
-  const match = error.message.match(/{.*}$/)
-  if (!match) return undefined
+  const matchMessage = error.message.match(/{.*}$/)
+  if (!matchMessage) return undefined
 
   try {
-    const parsed = JSON.parse(match[0])
+    const parsed = JSON.parse(matchMessage[0])
 
     if (parsed.status) {
       return parsed.status
@@ -70,7 +74,7 @@ export function extractStatusFromError(error: any): number | undefined {
       return inner.status
     }
   } catch {
-    console.error('Failed to parse error message:', match[0])
+    console.error('Failed to parse error message:', matchMessage[0])
   }
 
   return undefined
