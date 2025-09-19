@@ -1,4 +1,5 @@
 import {
+  Badge as UIBadge,
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
@@ -102,11 +103,16 @@ function ProductCard({
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
     deliveryPromiseBadges,
+    tags: productTags,
   } = product
 
   const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
   const { badges, shouldDisplayDeliveryPromiseBadges } = useDeliveryPromise({
     deliveryPromiseBadges,
+    deliveryPromiseSettings,
+  })
+  const { productTag, shouldDisplayDeliveryPromiseTags } = useDeliveryPromise({
+    productTags,
     deliveryPromiseSettings,
   })
 
@@ -159,6 +165,9 @@ function ProductCard({
         {...otherProps}
       >
         <UIProductCardImage aspectRatio={aspectRatio}>
+          {shouldDisplayDeliveryPromiseTags && (
+            <UIBadge variant="highlighted">{productTag}</UIBadge>
+          )}
           <Image
             src={img.url}
             alt={img.alternateName}
@@ -271,6 +280,13 @@ export const fragment = gql(`
 
     deliveryPromiseBadges {
       typeName
+    }
+
+    tags {
+      typeName
+      value
+      name
+      shippingMethods
     }
   }
 `)

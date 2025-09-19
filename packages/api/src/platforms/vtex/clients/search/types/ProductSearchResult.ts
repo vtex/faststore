@@ -96,6 +96,7 @@ export interface Product {
   releaseDate: string
   advertisement?: Advertisement
   deliveryPromisesBadges?: DeliveryPromiseBadge[]
+  tags?: Tag[]
 }
 
 interface Image {
@@ -236,4 +237,10 @@ export interface Attribute {
 }
 interface DeliveryPromiseBadge {
   typeName: string
+}
+
+interface Tag {
+  typeName: string | null
+  value: string | null
+  name: string | null
 }

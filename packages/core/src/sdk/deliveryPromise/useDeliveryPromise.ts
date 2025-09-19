@@ -11,6 +11,7 @@ import {
 import type {
   DeliveryPromiseBadge,
   Filter_FacetsFragment,
+  Tag,
 } from '@generated/graphql'
 import type { useFilter } from 'src/sdk/search/useFilter'
 import type { GlobalCmsData } from 'src/utils/globalSettings'
@@ -32,9 +33,13 @@ export const PICKUP_ALL_FACET_VALUE = 'pickup-all' as const
 export const ALL_DELIVERY_OPTIONS_FACET_VALUE = 'all-delivery-options' as const
 export const DELIVERY_OPTIONS_FACET_KEY = 'delivery-options' as const
 export const DYNAMIC_ESTIMATE_FACET_KEY = 'dynamic-estimate' as const
+const DELIVERY_TYPE_DELIVERY = 'delivery' as const
+const DELIVERY_TYPE_PICKUP_IN_POINT = 'pickup-in-point' as const
 
 type Facet = SearchState['selectedFacets'][number]
-type DeliveryType = 'delivery' | 'pickup-in-point'
+type DeliveryType =
+  | typeof DELIVERY_TYPE_DELIVERY
+  | typeof DELIVERY_TYPE_PICKUP_IN_POINT
 
 export type PickupPoint = {
   id: string
@@ -89,6 +94,7 @@ type Props = {
   fallbackToFirstPickupPoint?: boolean
   selectedFilterFacets?: Facet[]
   deliveryPromiseBadges?: DeliveryPromiseBadge[]
+  productTags?: Tag[]
 }
 
 /**
@@ -101,6 +107,7 @@ export function useDeliveryPromise({
   deliveryPromiseSettings,
   fallbackToFirstPickupPoint = true,
   deliveryPromiseBadges,
+  productTags,
 }: Props = {}) {
   const { postalCode } = useSession()
   const { state: searchState, setState: setSearchState } = useSearch()
@@ -509,29 +516,31 @@ export function useDeliveryPromise({
       (badge) => badge.typeName
     )
 
-    const hasDelivery = availableTypeNames?.includes('delivery')
-    const hasPickupPoint = availableTypeNames?.includes('pickup-in-point')
+    const hasDelivery = availableTypeNames?.includes(DELIVERY_TYPE_DELIVERY)
+    const hasPickupPoint = availableTypeNames?.includes(
+      DELIVERY_TYPE_PICKUP_IN_POINT
+    )
 
     if (hasDelivery) {
       badges.push({
-        label: getBadgeLabel('delivery', true),
+        label: getBadgeLabel(DELIVERY_TYPE_DELIVERY, true),
         availability: true,
       })
     } else {
       badges.push({
-        label: getBadgeLabel('delivery', false),
+        label: getBadgeLabel(DELIVERY_TYPE_DELIVERY, false),
         availability: false,
       })
     }
 
     if (hasPickupPoint) {
       badges.push({
-        label: getBadgeLabel('pickup-in-point', true),
+        label: getBadgeLabel(DELIVERY_TYPE_PICKUP_IN_POINT, true),
         availability: true,
       })
     } else {
       badges.push({
-        label: getBadgeLabel('pickup-in-point', false),
+        label: getBadgeLabel(DELIVERY_TYPE_PICKUP_IN_POINT, false),
         availability: false,
       })
     }
@@ -546,6 +555,29 @@ export function useDeliveryPromise({
     isDeliveryPromiseEnabled &&
     (deliveryPromiseSettings?.deliveryPromiseBadges?.enabled ?? true) &&
     badges.length > 0
+
+  const deliveryPromiseTag = deliveryPromiseSettings?.tags?.option
+  const deliveryOptionId = deliveryPromiseSettings?.tags?.deliveryOptionId
+
+  const productTag =
+    deliveryPromiseTag === 'delivery_option'
+      ? productTags?.find(
+          ({ typeName, value }) =>
+            typeName === DELIVERY_OPTIONS_FACET_KEY &&
+            value === deliveryOptionId
+        )?.name
+      : deliveryPromiseTag === 'dynamic_estimate'
+        ? getDynamicEstimateLabel(
+            productTags?.find(
+              ({ typeName, shippingMethods }) =>
+                typeName === DYNAMIC_ESTIMATE_FACET_KEY &&
+                shippingMethods?.includes(DELIVERY_TYPE_DELIVERY)
+            )?.value
+          )
+        : undefined
+
+  const shouldDisplayDeliveryPromiseTags =
+    isDeliveryPromiseEnabled && !!productTag
 
   return {
     mandatory: deliveryPromiseConfig.mandatory,
@@ -580,6 +612,8 @@ export function useDeliveryPromise({
     getDynamicEstimateLabel,
     shouldDisplayDeliveryPromiseBadges,
     badges,
+    shouldDisplayDeliveryPromiseTags,
+    productTag,
   }
 }
 

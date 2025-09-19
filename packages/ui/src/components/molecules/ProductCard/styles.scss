@@ -111,6 +111,13 @@
     aspect-ratio: var(--fs-product-card-image-aspect-ratio);
     overflow: hidden;
 
+    [data-fs-badge] {
+      position: absolute;
+      left: 0;
+      z-index: var(--fs-z-index-highest);
+      padding: var(--fs-spacing-0) var(--fs-spacing-1);
+    }
+
     img {
       width: 100%;
       height: 100%;
