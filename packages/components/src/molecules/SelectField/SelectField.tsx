@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Label, Select } from '../..'
 import type { SelectProps } from '../../atoms/Select'
 

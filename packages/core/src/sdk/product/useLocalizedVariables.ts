@@ -1,7 +1,4 @@
 import { useMemo } from 'react'
-import deepmerge from 'deepmerge'
-
-import { useSearch, type SearchState } from '@vtex/faststore-sdk'
 import type { ClientManyProductsQueryQueryVariables } from '../../../@generated/graphql'
 
 import { useSession } from '../session'

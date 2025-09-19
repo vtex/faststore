@@ -1,5 +1,4 @@
 import type { ComponentProps, ReactNode } from 'react'
-import React from 'react'
 import { Loader } from '../../'
 
 export type Variant = 'primary' | 'secondary' | 'tertiary'

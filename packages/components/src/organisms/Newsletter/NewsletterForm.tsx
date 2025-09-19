@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FormEvent, ComponentProps } from 'react'
 
 export interface NewsletterFormProps

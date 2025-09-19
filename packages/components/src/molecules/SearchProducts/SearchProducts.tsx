@@ -1,4 +1,4 @@
-import React, { type HTMLAttributes } from 'react'
+import type { HTMLAttributes } from 'react'
 import { List, useSearch } from '../..'
 
 export interface SearchProductsProps extends HTMLAttributes<HTMLDivElement> {

@@ -1,5 +1,4 @@
 import type { ComponentProps, ReactNode } from 'react'
-import React from 'react'
 import { Icon, LinkButton } from '../..'
 
 import { useHero } from './Hero'

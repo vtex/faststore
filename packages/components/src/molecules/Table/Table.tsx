@@ -1,5 +1,4 @@
 import type { ComponentProps, ReactEventHandler } from 'react'
-import React from 'react'
 
 export interface TableProps extends ComponentProps<'table'> {
   /**

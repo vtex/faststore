@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import type { PriceFormatter } from '../../atoms/Price/Price'
 
-import React from 'react'
+import type React from 'react'
 
 import {
   Icon,

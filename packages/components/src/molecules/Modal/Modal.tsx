@@ -4,7 +4,6 @@ import type {
   MouseEvent,
   ReactNode,
 } from 'react'
-import React from 'react'
 import { createPortal } from 'react-dom'
 
 import { Overlay, type OverlayProps } from '../..'

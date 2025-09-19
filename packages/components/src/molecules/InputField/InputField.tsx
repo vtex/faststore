@@ -1,5 +1,4 @@
 import type { RefObject } from 'react'
-import React from 'react'
 
 import type { InputProps } from '../../'
 import { Button, Icon, IconButton, Input, Label } from '../../'

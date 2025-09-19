@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Label } from '../..'
 import { useProductComparison } from '../../hooks/useProductComparison'
 import type { ImageComponentType } from './ProductComparisonSidebar'

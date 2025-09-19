@@ -1,5 +1,5 @@
 import type { ComponentProps, MouseEvent } from 'react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { Button } from '../..'
 

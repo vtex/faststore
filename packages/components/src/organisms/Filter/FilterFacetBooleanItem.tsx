@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import React from 'react'
 import { Badge, Checkbox, Label, RadioField } from '../..'
 import type { OnFacetChange } from './Filter'
 

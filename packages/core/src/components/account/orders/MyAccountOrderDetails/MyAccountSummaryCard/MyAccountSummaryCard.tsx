@@ -1,6 +1,5 @@
 import MyAccountCard from '../../../components/MyAccountCard'
 import { useFormatPrice } from '../../../utils/useFormatPrice'
-import { useSession } from '../../../../../sdk/session'
 
 // Interface for order totals (items, shipping, discounts)
 // TODO: Use type from API

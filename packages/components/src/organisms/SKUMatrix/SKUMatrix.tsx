@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 import SKUMatrixProvider from './provider/SKUMatrixProvider'
 
 export interface SKUMatrixProps extends ComponentProps<'div'> {

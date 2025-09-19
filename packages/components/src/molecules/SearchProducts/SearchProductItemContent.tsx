@@ -1,4 +1,5 @@
-import React, { type Ref, useCallback } from 'react'
+import type React from 'react'
+import { type Ref, useCallback } from 'react'
 import { ProductPrice } from '../..'
 import SearchProductItemControl from './SearchProductItemControl'
 

@@ -72,7 +72,8 @@
         "noUnnecessaryContinue": "off",
         "useExhaustiveDependencies": "off",
         "noUnsafeOptionalChaining": "off",
-        "noSwitchDeclarations": "off"
+        "noSwitchDeclarations": "off",
+        "noUnusedImports": "error"
       },
       "complexity": {
         "noForEach": "off",
@@ -97,6 +98,6 @@
       "trailingCommas": "es5",
       "quoteProperties": "asNeeded"
     },
-    "jsxRuntime": "reactClassic"
+    "jsxRuntime": "transparent"
   }
 }

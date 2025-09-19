@@ -1,4 +1,3 @@
-import React from 'react'
 import { Badge } from '@vtex/faststore-ui'
 
 export default {

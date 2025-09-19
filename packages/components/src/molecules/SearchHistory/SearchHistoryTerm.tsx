@@ -1,5 +1,4 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
-import React from 'react'
 import { Icon, Link, type LinkElementType, type LinkProps } from '../..'
 
 export interface SearchHistoryTermProps

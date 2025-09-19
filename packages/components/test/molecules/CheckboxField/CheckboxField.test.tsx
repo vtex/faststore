@@ -2,8 +2,6 @@ import { describe, expect, it } from '@jest/globals'
 import { render, screen } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
 
-import React from 'react'
-
 import { CheckboxField } from '../../../src/index'
 
 expect.extend(toHaveNoViolations)
