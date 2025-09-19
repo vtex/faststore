@@ -312,7 +312,8 @@
       background-color: var(--fs-button-tertiary-bkg-color-hover);
     }
 
-    &:disabled [data-fs-button-wrapper] { background-color: transparent; }
+    &:disabled [data-fs-button-wrapper],
+    &:hover:disabled [data-fs-button-wrapper] { background-color: transparent; }
 
     &:active [data-fs-button-wrapper] {
       color: var(--fs-button-tertiary-text-color-active);
