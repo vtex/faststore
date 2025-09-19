@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.1](https://github.com/vtex/faststore/compare/v3.88.0...v3.88.1) (2025-09-19)
+
+### Bug Fixes
+
+- remove facets parameter from validate session ([#3046](https://github.com/vtex/faststore/issues/3046)) ([9516a0f](https://github.com/vtex/faststore/commit/9516a0f9296f94b6123060887914f10f16c2f4e7))
+
 # [3.87.0](https://github.com/vtex/faststore/compare/v3.86.4...v3.87.0) (2025-09-18)
 
 ### Features
