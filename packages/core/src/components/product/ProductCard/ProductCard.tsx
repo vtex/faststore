@@ -286,6 +286,7 @@ export const fragment = gql(`
       typeName
       value
       name
+      shippingMethods
     }
   }
 `)

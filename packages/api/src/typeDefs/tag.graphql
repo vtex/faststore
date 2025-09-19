@@ -14,4 +14,8 @@ type Tag {
   Tag name.
   """
   name: String
+  """
+  Tag shipping methods - "delivery" and/or "pickup-in-point".
+  """
+  shippingMethods: [String]
 }

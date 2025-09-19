@@ -1656,6 +1656,8 @@ export type StoreUserDetails = {
 export type Tag = {
   /** Tag name. */
   name: Maybe<Scalars['String']['output']>
+  /** Tag shipping methods - "delivery" and/or "pickup-in-point". */
+  shippingMethods: Maybe<Array<Maybe<Scalars['String']['output']>>>
   /** Tag type. */
   typeName: Maybe<Scalars['String']['output']>
   /** Tag value. */
@@ -2476,6 +2478,7 @@ export type ProductSummary_ProductFragment = {
     typeName: string | null
     value: string | null
     name: string | null
+    shippingMethods: Array<string | null> | null
   } | null> | null
 }
 
@@ -2544,6 +2547,7 @@ export type ProductDetailsFragment_ProductFragment = {
     typeName: string | null
     value: string | null
     name: string | null
+    shippingMethods: Array<string | null> | null
   } | null> | null
 }
 
@@ -2754,6 +2758,7 @@ export type ServerProductQueryQuery = {
       typeName: string | null
       value: string | null
       name: string | null
+      shippingMethods: Array<string | null> | null
     } | null> | null
   }
 }
@@ -3350,6 +3355,7 @@ export type ClientManyProductsQueryQuery = {
             typeName: string | null
             value: string | null
             name: string | null
+            shippingMethods: Array<string | null> | null
           } | null> | null
         }
       }>
@@ -3449,6 +3455,7 @@ export type ClientProductQueryQuery = {
       typeName: string | null
       value: string | null
       name: string | null
+      shippingMethods: Array<string | null> | null
     } | null> | null
   }
 }
@@ -3593,6 +3600,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           typeName: string | null
           value: string | null
           name: string | null
+          shippingMethods: Array<string | null> | null
         } | null> | null
       }>
     }
@@ -3760,6 +3768,7 @@ export type ServerManyProductsQueryQuery = {
             typeName: string | null
             value: string | null
             name: string | null
+            shippingMethods: Array<string | null> | null
           } | null> | null
         }
       }>
@@ -3862,6 +3871,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     typeName
     value
     name
+    shippingMethods
   }
 }
     `,
@@ -3985,6 +3995,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     typeName
     value
     name
+    shippingMethods
   }
   ...CartProductItem
 }
@@ -4374,7 +4385,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'e44b22c5f9d76e2a793c6b458e413df77cb994ca',
+    operationHash: '25c3171426d4198928987b353128e07b3b231e69',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -4500,7 +4511,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '98fd98aa8f01fec43caa38edb25acdb51a5e3284',
+    operationHash: '64176fdd7b1e40af7ab37aa524a02ee4b2e3416f',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -4518,7 +4529,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'f6ba376af21671bf335c0d29aafa4613eff64c22',
+    operationHash: '40c2764fc7d46e0bc69e15db97951344f0b226b8',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -4545,7 +4556,7 @@ export const ClientProfileQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '6a86749413979c8d2b79596d1d591ddb7d45984c',
+    operationHash: '3e3ebc4d4e4f88233d6c259aaa80be7994ee0b30',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -4581,7 +4592,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: 'fc42af39b9aa685c0d952c641fa4cbd2c4a11397',
+    operationHash: '8a13c3eaac063c2d88383e40a3b0b5c9894103cf',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

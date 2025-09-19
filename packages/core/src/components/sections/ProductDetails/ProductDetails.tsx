@@ -413,6 +413,7 @@ export const fragment = gql(`
       typeName
       value
       name
+      shippingMethods
     }
 
     # Contains necessary info to add this item to cart
