@@ -59,6 +59,12 @@ export const validateSession = async (
    * This is used by Checkout (checkout-session) and Intelligent Search (search-session)
    */
   const params = new URLSearchParams(search)
+
+  // Remove facets parameter if it exists so that it does not interfere with session data and prioritize vtex_segment
+  if (params.has('facets')) {
+    params.delete('facets')
+  }
+
   const salesChannel = params.get('sc') ?? channel.salesChannel
   params.set('sc', salesChannel)
 
