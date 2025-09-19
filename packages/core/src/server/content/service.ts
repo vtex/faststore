@@ -2,7 +2,7 @@ import type { ContentData, Locator } from '@vtex/client-cms'
 import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
 import { getCMSPage, getPage, type PageContentType } from '../cms'
-import type { ContentOptions, ContentParams, PreviewData } from './types'
+import type { ContentOptions, ContentParams } from './types'
 import config from '../../../discovery.config'
 import { getPLP, type PLPContentType } from '../cms/plp'
 import {

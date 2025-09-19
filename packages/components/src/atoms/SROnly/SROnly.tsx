@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ElementType } from 'react'
 
 interface SROnlyProps {

@@ -11,14 +11,13 @@
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
+  "module": "dist/es/index.mjs",
+  "typings": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
     },
     "./src/*": "./src/*"
   },
@@ -31,8 +30,8 @@
     "src"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
+    "dev": "vite build --watch",
+    "build": "vite build",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -42,7 +41,7 @@
       "limit": "50 KB"
     },
     {
-      "path": "dist/esm/index.js",
+      "path": "dist/es/index.mjs",
       "limit": "40 KB"
     }
   ],
@@ -54,6 +53,7 @@
     "tabbable": "catalog:"
   },
   "peerDependencies": {
+    "@vtex/faststore-components": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
@@ -66,6 +66,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "size-limit": "^7.0.8",
-    "tslib": "catalog:"
+    "tslib": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
   }
 }

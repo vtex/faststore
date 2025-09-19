@@ -1,5 +1,4 @@
 import type { ElementType, ReactNode, ComponentProps } from 'react'
-import React from 'react'
 
 import { SROnly } from '../../'
 

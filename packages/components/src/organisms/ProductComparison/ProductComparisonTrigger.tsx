@@ -1,4 +1,3 @@
-import React from 'react'
 import type { IProductComparison } from '.'
 import CheckboxField, {
   type CheckboxFieldProps,

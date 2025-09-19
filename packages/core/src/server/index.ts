@@ -16,7 +16,6 @@ import {
   getResolvers,
   getTypeDefs,
   isFastStoreError,
-  directives,
 } from '@vtex/faststore-api'
 // import defs from '../../@generated/schema.graphql'
 // import { mergedTypeDefs as defs } from '@vtex/faststore-graphql-schema'

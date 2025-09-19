@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { FunctionComponent } from 'react'
-import React, { useMemo } from 'react'
+import type React from 'react'
+import { useMemo } from 'react'
 import { Badge, Button, QuantitySelector, Skeleton } from '../..'
 import Icon from '../../atoms/Icon'
 import Price, { type PriceFormatter } from '../../atoms/Price'

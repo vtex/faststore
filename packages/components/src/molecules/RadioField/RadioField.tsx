@@ -1,5 +1,4 @@
 import type { HTMLAttributes, ReactNode, ComponentProps } from 'react'
-import React from 'react'
 
 import Label from '../../atoms/Label'
 import Radio from '../../atoms/Radio'

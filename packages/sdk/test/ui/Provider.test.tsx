@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import { act, renderHook } from '@testing-library/react'
 import type { FC } from 'react'
 

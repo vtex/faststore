@@ -1,6 +1,6 @@
 export {
   regionSliderTypes,
-  Toast as ToastProps,
+  type Toast as ToastProps,
   default as UIProvider,
   useUI,
 } from './UIProvider'

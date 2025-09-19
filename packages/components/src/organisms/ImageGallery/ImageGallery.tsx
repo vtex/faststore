@@ -1,4 +1,3 @@
-import React from 'react'
 import type { FunctionComponent, ComponentProps } from 'react'
 
 import { ImageGallerySelector } from '../..'

@@ -2,9 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["@testing-library/jest-dom/jest-globals"]
+    "types": ["@testing-library/jest-dom/jest-globals"],
+    "moduleResolution": "Bundler",
+    "module": "es2022"
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "src/**/*.test.ts",
     "src/**/*.test.tsx",

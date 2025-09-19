@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import pkgeJson from './package.json'
 
+const { dependencies, peerDependencies, devDependencies } = pkgeJson
 export default defineConfig({
   root: process.env.PWD ?? process.cwd(),
   plugins: [dts()],
@@ -11,7 +13,13 @@ export default defineConfig({
       fileName: '[format]/index',
     },
     rollupOptions: {
-      external: ['graphql'],
+      external: [
+        ...Object.keys({
+          ...(dependencies ?? {}),
+          ...(devDependencies ?? {}),
+          ...(peerDependencies ?? {}),
+        }),
+      ],
     },
   },
 })

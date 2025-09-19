@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import React from 'react'
 import { Badge, type BadgeProps, Icon } from '../..'
 
 export interface TagProps extends BadgeProps {

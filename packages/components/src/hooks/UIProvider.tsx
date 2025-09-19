@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactNode, RefObject } from 'react'
-import React, { createContext, useContext, useMemo, useReducer } from 'react'
+import { createContext, useContext, useMemo, useReducer } from 'react'
 
 export interface Toast {
   message: string

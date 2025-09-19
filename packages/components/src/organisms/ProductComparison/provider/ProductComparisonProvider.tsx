@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  type ReactNode,
-  useCallback,
-  useState,
-} from 'react'
+import { createContext, type ReactNode, useCallback, useState } from 'react'
 
 export interface IProductComparison {
   slug: string

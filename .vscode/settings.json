@@ -9,7 +9,9 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
-    "source.organizeImports.biome": "explicit"
+    "source.organizeImports.biome": "explicit",
+    "source.sortImports": "explicit",
+    "source.removeUnusedImports": "explicit"
   },
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"

@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 import { List, Button, useSearch } from '../..'
 
 export interface SearchHistoryProps extends ComponentProps<'div'> {

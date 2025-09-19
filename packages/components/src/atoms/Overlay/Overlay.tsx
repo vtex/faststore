@@ -1,5 +1,4 @@
 import type { ComponentProps } from 'react'
-import React from 'react'
 
 export interface OverlayProps extends ComponentProps<'div'> {
   /**

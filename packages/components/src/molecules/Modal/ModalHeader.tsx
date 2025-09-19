@@ -1,4 +1,4 @@
-import React, { type HTMLAttributes } from 'react'
+import type { HTMLAttributes } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton, { type IconButtonProps } from '../IconButton'
 

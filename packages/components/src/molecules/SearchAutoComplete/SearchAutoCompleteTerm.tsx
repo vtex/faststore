@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import React, { Fragment, type HTMLAttributes } from 'react'
+import { Fragment, type HTMLAttributes } from 'react'
 import { Icon, Link, type LinkElementType, type LinkProps } from '../..'
 
 function formatSearchTerm(

@@ -1,5 +1,4 @@
 import type { ComponentProps } from 'react'
-import React from 'react'
 
 export interface TextareaProps extends ComponentProps<'textarea'> {
   /**

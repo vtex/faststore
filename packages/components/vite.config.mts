@@ -8,6 +8,7 @@ export default defineConfig({
   root: process.env.PWD ?? process.cwd(),
   plugins: [dts()],
   build: {
+    outDir: './dist',
     lib: {
       entry: './src/index.ts',
       formats: ['cjs', 'es'],
@@ -15,6 +16,10 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react-dom/client',
         ...Object.keys({
           ...(dependencies ?? {}),
           ...(devDependencies ?? {}),

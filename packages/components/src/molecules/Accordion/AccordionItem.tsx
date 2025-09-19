@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from 'react'
+import { useContext, createContext } from 'react'
 import type { ElementType, HTMLAttributes } from 'react'
 import type { PolymorphicComponentPropsWithRef } from '../../typings'
 

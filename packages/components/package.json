@@ -1,22 +1,25 @@
 {
   "name": "@vtex/faststore-components",
   "version": "3.81.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.mjs",
+  "typings": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
     }
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
+    "dev": "vite build --watch",
+    "build": "vite build",
     "test": "jest"
   },
   "repository": {
@@ -25,10 +28,7 @@
     "directory": "packages/components"
   },
   "sideEffects": false,
-  "files": [
-    "dist",
-    "src"
-  ],
+
   "peerDependencies": {
     "react": "catalog:",
     "react-dom": "catalog:"
@@ -53,6 +53,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "ts-jest": "catalog:",
-    "tslib": "catalog:"
+    "tslib": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
   }
 }

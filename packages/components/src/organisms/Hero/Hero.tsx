@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from 'react'
+import { useContext, createContext } from 'react'
 import type { ComponentProps } from 'react'
 
 type Variant = 'primary' | 'secondary'

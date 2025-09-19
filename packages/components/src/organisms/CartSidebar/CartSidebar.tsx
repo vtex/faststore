@@ -3,7 +3,6 @@ import type {
   PropsWithChildren,
   ReactNode,
 } from 'react'
-import React from 'react'
 
 import {
   Alert,

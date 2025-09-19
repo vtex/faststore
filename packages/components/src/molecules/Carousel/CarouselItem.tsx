@@ -3,7 +3,6 @@ import type {
   CSSProperties,
   PropsWithChildren,
 } from 'react'
-import React from 'react'
 import { type SliderState, useSlideVisibility } from '../../hooks'
 
 export interface CarouselItemProps extends ComponentPropsWithoutRef<'li'> {

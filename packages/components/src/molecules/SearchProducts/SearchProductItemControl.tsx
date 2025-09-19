@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react'
+import type React from 'react'
+import { useCallback, useState } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
 import type { ComponentProps, MouseEvent, ReactNode } from 'react'

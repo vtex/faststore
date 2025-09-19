@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 import { ProductComparisonProvider } from '.'
 
 export interface ProductComparisonProps extends ComponentProps<'div'> {

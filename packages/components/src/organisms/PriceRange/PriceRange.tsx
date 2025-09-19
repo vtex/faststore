@@ -1,4 +1,4 @@
-import React, { useRef, useState, useImperativeHandle } from 'react'
+import { useRef, useState, useImperativeHandle } from 'react'
 import type { AriaAttributes, Ref } from 'react'
 
 import { Price, Slider, InputField } from '../../'

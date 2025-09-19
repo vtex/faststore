@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ComponentProps } from 'react'
 
 import { Label, List } from '../../'

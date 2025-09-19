@@ -1,4 +1,3 @@
-import React from 'react'
 import { Label, SROnly, Toggle, type ToggleProps } from './../../'
 
 export interface ToggleFieldProps extends ToggleProps {

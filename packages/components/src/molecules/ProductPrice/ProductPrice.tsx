@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ComponentProps } from 'react'
 
 import type { PriceFormatter } from '../../atoms/Price'

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import React, { type HTMLAttributes } from 'react'
+import type { HTMLAttributes } from 'react'
 import { Icon, IconButton, type IconButtonProps } from '../../'
 
 export interface SlideOverHeaderProps

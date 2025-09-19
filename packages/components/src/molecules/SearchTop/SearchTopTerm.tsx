@@ -1,5 +1,4 @@
 import type { ComponentProps } from 'react'
-import React from 'react'
 
 import { Badge, Link, type LinkElementType, type LinkProps } from '../../'
 

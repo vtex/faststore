@@ -1,5 +1,4 @@
 import type { ComponentProps } from 'react'
-import React from 'react'
 
 import { Link, type LinkElementType, type LinkProps } from '../..'
 

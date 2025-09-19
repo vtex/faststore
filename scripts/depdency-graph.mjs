@@ -1,6 +1,4 @@
 #! /usr/bin/env node
-
-import startPackage from '../apps/starter/package.json' with { type: 'json' }
 import corePackage from '../packages/core/package.json' with { type: 'json' }
 import apiPackage from '../packages/api/package.json' with { type: 'json' }
 import sdkPackage from '../packages/sdk/package.json' with { type: 'json' }

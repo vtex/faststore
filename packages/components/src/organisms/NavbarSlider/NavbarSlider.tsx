@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { SlideOver } from '../..'
 import type { SlideOverProps } from '../..'
 

@@ -5,7 +5,7 @@ import type {
   ReactNode,
   Ref,
 } from 'react'
-import React, { useImperativeHandle, useRef } from 'react'
+import { useImperativeHandle, useRef } from 'react'
 
 import { Icon, IconButton, Input } from '../..'
 

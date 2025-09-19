@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ComponentProps } from 'react'
 
 export interface RadioProps extends Omit<ComponentProps<'input'>, 'type'> {

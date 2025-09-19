@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import type { CurrencyCode, ViewItemListEvent } from '@vtex/faststore-sdk'
 
 import { useSession } from '../../session'
