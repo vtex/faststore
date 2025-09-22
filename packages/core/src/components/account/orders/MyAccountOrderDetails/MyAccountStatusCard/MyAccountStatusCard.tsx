@@ -35,8 +35,8 @@ const STEP_LABELS: Record<StepKey, Record<StepStatus, string>> = {
   },
   approval: {
     completed: 'Approved', // Custom
-    loading: 'Approval Pending', // Use from orderStatusMap
-    'not-started': 'Approval Pending',
+    loading: 'Pending approval', // Use from orderStatusMap
+    'not-started': 'Pending approval',
     failed: 'Denied', // Custom
   },
   payment: {
@@ -86,7 +86,7 @@ const VISUAL_STEPS = [
 // Map labels from userOrderStatus.ts to step keys
 const LABEL_TO_STEP_MAPPING: Record<string, StepKey> = {
   'Order Placed': 'order',
-  'Approval Pending': 'approval',
+  'Pending approval': 'approval',
   'Payment Pending': 'payment',
   'Payment Approved': 'processing',
   'Payment Denied': 'payment',
@@ -291,14 +291,12 @@ function MyAccountStatusCard({
                 </div>
               )}
             </div>
-            {index < steps.length - 1 && (
-              <div
-                data-fs-shipping-connector
-                data-fs-shipping-connector-status={
-                  step.status === 'completed' ? 'completed' : 'not-started'
-                }
-              />
-            )}
+            <div
+              data-fs-shipping-connector
+              data-fs-shipping-connector-status={
+                step.status === 'completed' ? 'completed' : 'not-started'
+              }
+            />
           </div>
         ))}
       </div>

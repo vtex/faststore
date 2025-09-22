@@ -1,108 +1,16 @@
 @layer components {
   .section {
     @import "../components/MyAccountTag/styles.scss";
+    @import "../components/MyAccountTable/styles.scss";
 
     // --------------------------------------------------------
     // Design Tokens
     // --------------------------------------------------------
 
-    --fs-user-details-padding                     : var(--fs-spacing-4) var(--fs-spacing-9);
-
-    // Title
-    --fs-user-details-title-padding               : var(--fs-spacing-4) 0;
-    --fs-user-details-title-size                  : var(--fs-text-size-4);
-    --fs-user-details-title-weight                : var(--fs-text-weight-semibold);
-    --fs-user-details-title-line-height           : var(--fs-spacing-4);
-
-    // Divider
-    --fs-user-details-divider-border              : calc(var(--fs-border-width) / 2) solid #e0e0e0;
-
-    // Row
-    --fs-user-details-row-padding                 : var(--fs-spacing-4) 0;
-    --fs-user-details-row-weight                  : var(--fs-text-weight-medium);
-    --fs-user-details-row-label-width             : 12.5rem;
-    --fs-user-details-row-label-size              : var(--fs-text-size-1);
-    --fs-user-details-row-label-weight            : var(--fs-text-weight-medium);
-    --fs-user-details-row-label-color             : var(--fs-color-neutral-5);
-
-    // Row Value
-    --fs-user-details-row-value-size              : var(--fs-text-size-1);
-    --fs-user-details-row-value-weight            : var(--fs-text-weight-medium);
-    --fs-user-details-row-value-color             : black;
-
-    width: 100%;
-    padding: var(--fs-user-details-padding);
-
-    @include media("<notebook") {
-      padding: var(--fs-spacing-0) var(--fs-spacing-5);
-    }
-
-    [data-fs-user-details-table] {
-      width: 100%;
-      border-spacing: 0;
-      border-collapse: collapse;
-    }
-
-    [data-fs-user-details-row] {
-      display: flex;
-      padding: var(--fs-user-details-row-padding);
-      font-weight: var(--fs-user-details-row-weight);
-      line-height: var(--fs-user-details-row-line-height);
-      border-bottom: var(--fs-user-details-divider-border);
-
-      @include media("<tablet") {
-        flex-direction: column;
-        gap: .5rem;
-      }
-    }
-
-    [data-fs-user-details-row]:last-of-type {
-      border-bottom: none;
-    }
-
-    [data-fs-user-details-divider-row] {
-      height: 0;
-    }
-
-    [data-fs-user-details-divider] {
-      height: 0;
-      padding: 0;
-      border: none;
-      border: var(--fs-user-details-divider-border);
-    }
-
-    [data-fs-user-details-title] {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--fs-user-details-title-padding);
-      font-size: var(--fs-user-details-title-size);
-      font-weight: var(--fs-user-details-title-weight);
-      line-height: var(--fs-user-details-title-line-height);
-    }
-
-    [data-fs-user-details-row-label] {
-      width: var(--fs-user-details-row-label-width);
-      font-size: var(--fs-user-details-row-label-size);
-      font-weight: var(--fs-user-details-row-label-weight);
-      color: var(--fs-user-details-row-label-color);
-      text-align: left;
-    }
-
-    [data-fs-user-details-row-value] {
-      font-size: var(--fs-user-details-row-value-size);
-      font-weight: var(--fs-user-details-row-value-weight);
-      color: var(--fs-user-details-row-value-color);
-    }
-
     [data-fs-user-details-row-tags] {
       display: flex;
       flex-wrap: wrap;
       gap: var(--fs-spacing-0);
-
-      [data-fs-user-details-row-value] {
-        margin-top: var(--fs-spacing-0);
-      }
     }
   }
 }
