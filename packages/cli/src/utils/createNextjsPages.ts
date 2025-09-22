@@ -51,7 +51,11 @@ const createExternalPages = ({
 }
 
 function isAllowedPrefixPage(file: string) {
-  return ALLOWED_PREFIX_PAGES.some((prefix) => file.startsWith(prefix))
+  console.log('🚀 ~ file:', file)
+  return ALLOWED_PREFIX_PAGES.some((prefix) => {
+    console.log('🚀 ~ prefix:', prefix)
+    return file.startsWith(prefix)
+  })
 }
 
 export function createNextJsPages(basePath: string) {
