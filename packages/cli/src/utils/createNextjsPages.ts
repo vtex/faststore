@@ -1,10 +1,10 @@
-import path from 'path'
 import fs from 'fs'
+import path from 'path'
 
 import { withBasePath } from './directory'
 import { myAccountPageTemplate } from './templates/myAccountPage'
 
-const ALLOWED_PREFIX_PAGES = ['/account']
+const ALLOWED_PREFIX_PAGES = ['/pvt/account']
 
 type CreateExternalPagesArgs = {
   customizationPagesDir: string
