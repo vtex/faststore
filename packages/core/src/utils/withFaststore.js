@@ -94,7 +94,7 @@ async function withFastStore(config) {
 
   const addAliases = withAliases({
     // https://github.com/vercel/next.js/issues/50391
-    react: path.resolve(root, 'node_modules/react'),
+    // react: path.resolve(root, 'node_modules/react'),
   })
 
   return {

@@ -14,6 +14,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@vtex/faststore": "workspace:*",
     "@vtex/faststore-api": "workspace:*",
     "@vtex/faststore-cli": "workspace:*",
     "@vtex/faststore-core": "workspace:*",
@@ -25,6 +26,7 @@
     "@builder.io/partytown": "^0.6.4",
     "@lhci/cli": "^0.9.0",
     "@playwright/test": "catalog:",
+    "c12": "^3.3.0",
     "typescript": "catalog:"
   },
   "author": "VTEX"
