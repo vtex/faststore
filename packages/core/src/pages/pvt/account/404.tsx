@@ -38,7 +38,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
-  accountName: ServerAccountPageQueryQuery['accountName']
+  accountName: ServerAccountPageQueryQuery['accountProfile']['name']
 }
 
 function Page({
