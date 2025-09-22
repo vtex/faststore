@@ -4,7 +4,7 @@ import path from 'path'
 import { withBasePath } from './directory'
 import { myAccountPageTemplate } from './templates/myAccountPage'
 
-const ALLOWED_PREFIX_PAGES = ['/pvt/account']
+const ALLOWED_PREFIX_PAGES = ['/pvt']
 
 type CreateExternalPagesArgs = {
   customizationPagesDir: string
@@ -51,9 +51,7 @@ const createExternalPages = ({
 }
 
 function isAllowedPrefixPage(file: string) {
-  console.log('🚀 ~ file:', file)
   return ALLOWED_PREFIX_PAGES.some((prefix) => {
-    console.log('🚀 ~ prefix:', prefix)
     return file.startsWith(prefix)
   })
 }
