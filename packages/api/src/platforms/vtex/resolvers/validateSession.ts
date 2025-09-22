@@ -113,8 +113,10 @@ export const validateSession = async (
           .catch(() => false)
       : false,
   ])
+  console.log('🚀 ~ sessionData:', sessionData)
 
   const profile = sessionData?.namespaces.profile ?? null
+  console.log('🚀 ~ profile:', profile)
   const shopper = sessionData?.namespaces.shopper ?? null
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
@@ -187,7 +189,9 @@ export const validateSession = async (
     city,
   }
 
-  if (deepEquals(oldSession, newSession)) {
+  const deepEqualsResult = deepEquals(oldSession, newSession)
+  console.log('🚀 ~ deepEqualsResult:', deepEqualsResult)
+  if (deepEqualsResult) {
     return null
   }
 
