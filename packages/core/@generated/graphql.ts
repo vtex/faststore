@@ -834,8 +834,6 @@ export type ProfileAddress = {
 }
 
 export type Query = {
-  /** Returns the account name of the current user or the B2B contract name if applicable. */
-  accountName: Maybe<Scalars['String']['output']>
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
   accountProfile: StoreAccountProfile
   /** Returns information about all collections. */
@@ -2659,7 +2657,9 @@ export type ServerAccountPageQueryQueryVariables = Exact<{
   [key: string]: never
 }>
 
-export type ServerAccountPageQueryQuery = { accountName: string | null }
+export type ServerAccountPageQueryQuery = {
+  accountProfile: { name: string | null }
+}
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input']
@@ -2749,7 +2749,6 @@ export type ServerOrderDetailsQueryQueryVariables = Exact<{
 }>
 
 export type ServerOrderDetailsQueryQuery = {
-  accountName: string | null
   userOrder: {
     orderId: string | null
     creationDate: string | null
@@ -2921,6 +2920,7 @@ export type ServerOrderDetailsQueryQuery = {
       phone: string | null
     } | null
   } | null
+  accountProfile: { name: string | null }
 }
 
 export type ServerListOrdersQueryQueryVariables = Exact<{
@@ -2937,7 +2937,6 @@ export type ServerListOrdersQueryQueryVariables = Exact<{
 }>
 
 export type ServerListOrdersQueryQuery = {
-  accountName: string | null
   listUserOrders: {
     list: Array<{
       orderId: string | null
@@ -2971,12 +2970,12 @@ export type ServerListOrdersQueryQuery = {
       perPage: number | null
     } | null
   } | null
+  accountProfile: { name: string | null }
 }
 
 export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never }>
 
 export type ServerProfileQueryQuery = {
-  accountName: string | null
   accountProfile: {
     name: string | null
     email: string | null
@@ -2987,7 +2986,7 @@ export type ServerProfileQueryQuery = {
 export type ServerSecurityQueryVariables = Exact<{ [key: string]: never }>
 
 export type ServerSecurityQuery = {
-  accountName: string | null
+  accountProfile: { name: string | null }
   userDetails: { email: string | null }
 }
 
@@ -2996,7 +2995,7 @@ export type ServerUserDetailsQueryQueryVariables = Exact<{
 }>
 
 export type ServerUserDetailsQueryQuery = {
-  accountName: string | null
+  accountProfile: { name: string | null }
   userDetails: {
     name: string | null
     email: string | null
@@ -4299,7 +4298,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
 export const ServerAccountPageQueryDocument = {
   __meta__: {
     operationName: 'ServerAccountPageQuery',
-    operationHash: '47315a3cd26ddd9c7fa963778988464341b8193f',
+    operationHash: '9baae331b75848a310fecb457e8c971ae27897ff',
   },
 } as unknown as TypedDocumentString<
   ServerAccountPageQueryQuery,
@@ -4326,7 +4325,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '2c5dca039e0aa4924e9e583f5afbe522758ca7c4',
+    operationHash: '7937ec2d330f0f6f68f3aab589f10bc96c6ddeea',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
@@ -4335,7 +4334,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4',
+    operationHash: 'b0a6b9da966cf2365f9806fd810bac248b44dba8',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
@@ -4344,7 +4343,7 @@ export const ServerListOrdersQueryDocument = {
 export const ServerProfileQueryDocument = {
   __meta__: {
     operationName: 'ServerProfileQuery',
-    operationHash: '0ed4b5db8fed122d8418195d01fb91b30261d587',
+    operationHash: '672fe0f00b7b710b63fc6573c0a6b2ec54812b8f',
   },
 } as unknown as TypedDocumentString<
   ServerProfileQueryQuery,
@@ -4353,7 +4352,7 @@ export const ServerProfileQueryDocument = {
 export const ServerSecurityDocument = {
   __meta__: {
     operationName: 'ServerSecurity',
-    operationHash: '63c6eadbe8b77c0c3c91406589755accba5cf155',
+    operationHash: '0890ba3456c40a426893b80b698df7a84cfdd6a1',
   },
 } as unknown as TypedDocumentString<
   ServerSecurityQuery,
@@ -4362,7 +4361,7 @@ export const ServerSecurityDocument = {
 export const ServerUserDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerUserDetailsQuery',
-    operationHash: '522e5feeb80e67cee931bc98eac9d08ea75c75d2',
+    operationHash: 'e5eb7e46c685d0c7a2ec62c865bfb0a66f81d557',
   },
 } as unknown as TypedDocumentString<
   ServerUserDetailsQueryQuery,
