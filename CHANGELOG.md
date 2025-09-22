@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.5](https://github.com/vtex/faststore/compare/v3.88.4...v3.88.5) (2025-09-22)
+
+### Bug Fixes
+
+- update account URL logic in ButtonSignIn component ([#3049](https://github.com/vtex/faststore/issues/3049)) ([df2a3a5](https://github.com/vtex/faststore/commit/df2a3a55e1960d63351147232009bceea786aca5))
+
 ## [3.88.4](https://github.com/vtex/faststore/compare/v3.88.3...v3.88.4) (2025-09-22)
 
 **Note:** Version bump only for package faststore
