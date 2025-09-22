@@ -66,7 +66,9 @@ function Page({ globalSections: globalSectionsProp, accountName }: Props) {
 
 const query = gql(`
   query ServerAccountPageQuery {
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)
 
@@ -134,7 +136,7 @@ export const getServerSideProps: GetServerSideProps<
       // The sections from the CMS page are not utilized here for the My Account page.
       // page,
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
     },
   }
 }

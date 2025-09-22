@@ -72,7 +72,9 @@ export default function Page({
 
 const query = gql(`
   query ServerSecurity {
-    accountName
+    accountProfile {
+      name
+    }
     userDetails {
       email
     }
@@ -150,7 +152,7 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      accountName: security.data.accountName,
+      accountName: security.data.accountProfile.name,
       userEmail: security.data?.userDetails.email || '',
       globalSections: globalSectionsResult,
       isRepresentative,

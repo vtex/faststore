@@ -46,7 +46,6 @@ type ProfilePagePros = {
 
 export default function Profile({
   globalSections: globalSectionsProp,
-  accountName,
   accountProfile,
   isRepresentative,
 }: ProfilePagePros) {
@@ -60,7 +59,7 @@ export default function Profile({
 
         <MyAccountLayout
           isRepresentative={isRepresentative}
-          accountName={accountName}
+          accountName={accountProfile.name}
         >
           <BeforeSection />
           <ProfileSection profile={accountProfile} />
@@ -73,7 +72,6 @@ export default function Profile({
 
 const query = gql(`
   query ServerProfileQuery {
-    accountName
     accountProfile {
       name
       email
@@ -155,7 +153,6 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: profile.data.accountName,
       accountProfile: profile.data.accountProfile,
       isRepresentative,
     },

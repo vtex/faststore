@@ -66,7 +66,9 @@ function Page({
 
 const query = gql(`
   query ServerAccountPageQuery {
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)
 
@@ -133,7 +135,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       page,
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
     },
   }
 }
