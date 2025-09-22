@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
@@ -47,6 +44,7 @@ type ProfilePagePros = {
 export default function Profile({
   globalSections: globalSectionsProp,
   accountProfile,
+  accountName,
   isRepresentative,
 }: ProfilePagePros) {
   const { sections: globalSections, settings: globalSettings } =
@@ -59,7 +57,7 @@ export default function Profile({
 
         <MyAccountLayout
           isRepresentative={isRepresentative}
-          accountName={accountProfile.name}
+          accountName={accountName}
         >
           <BeforeSection />
           <ProfileSection profile={accountProfile} />
@@ -153,6 +151,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
+      accountName: profile.data.accountProfile.name,
       accountProfile: profile.data.accountProfile,
       isRepresentative,
     },
