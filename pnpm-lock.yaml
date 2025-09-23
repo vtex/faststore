@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.88.5
+        specifier: ^3.88.6
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -294,7 +294,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: ^3.88.2
+        specifier: ^3.88.6
         version: link:../api
       "@faststore/graphql-utils":
         specifier: ^3.81.0
@@ -303,7 +303,7 @@ importers:
         specifier: ^3.81.0
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: ^3.85.0
+        specifier: ^3.88.6
         version: link:../sdk
       "@faststore/ui":
         specifier: ^3.88.0
@@ -2842,6 +2842,7 @@ packages:
       {
         integrity: sha512-0a7uV7Fky6yDqd0tI9+XMuvgIo6GAqiVzzzFV4OSLry4AwiQlI3igYseBV7ZVOGhedOTqj/URxjpiv07hRcwag==,
       }
+    deprecated: 'This package was intended to be used with an older versions of Prisma.\nThe newer versions of Prisma has a different approach to GraphQL integration.\nTherefore, this package is no longer needed and has been deprecated and removed.\nLearn more: https://www.prisma.io/graphql'
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
@@ -2851,6 +2852,7 @@ packages:
         integrity: sha512-hqKPlw8bOu/GRqtYr0+dINAI13HinTVYBDqhwGAPIFmLr5s+qKskzgCiwbsckdrb5LWVFmVZc+UXn80OGiyBzg==,
       }
     engines: { node: ">=16.0.0" }
+    deprecated: 'This package was intended to be used with an older versions of Prisma.\nThe newer versions of Prisma has a different approach to GraphQL integration.\nTherefore, this package is no longer needed and has been deprecated and removed.\nLearn more: https://www.prisma.io/graphql'
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
