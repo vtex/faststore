@@ -71,7 +71,9 @@ export default function Page({
 
 const query = gql(`
   query ServerUserDetailsQuery {
-    accountName
+    accountProfile {
+      name
+    }
     userDetails {
       name
       email
@@ -171,7 +173,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: userDetails.data.accountName,
+      accountName: userDetails.data.accountProfile.name,
       userDetails: userDetails.data?.userDetails ?? {},
       isRepresentative,
     },

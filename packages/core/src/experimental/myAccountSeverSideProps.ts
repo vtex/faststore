@@ -10,12 +10,12 @@ import {
   type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { execute } from 'src/server'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
+import { execute } from 'src/server'
 
+import { validateUser } from 'src/sdk/account/validateUser'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { validateUser } from 'src/sdk/account/validateUser'
 import storeConfig from '../../discovery.config'
 
 export type MyAccountProps = {
@@ -26,7 +26,9 @@ export type MyAccountProps = {
 
 const query = gql(`
   query ServerAccountPageQuery {
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)
 
@@ -91,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
       isRepresentative,
     },
   }

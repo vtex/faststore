@@ -433,12 +433,6 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
-  Returns the account name of the current user or the B2B contract name if applicable.
-  """
-  accountName: String
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
-
-  """
   Returns information about the user validation.
   """
   validateUser: ValidateUserData
