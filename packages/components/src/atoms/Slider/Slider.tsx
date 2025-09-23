@@ -1,7 +1,7 @@
 /**
  * This code is inspired by the work of [sandra-lewis](https://codesandbox.io/u/sandra-lewis)
  */
-import React, { useState, useMemo, useImperativeHandle } from 'react'
+import { useState, useMemo, useImperativeHandle } from 'react'
 import type { ComponentPropsWithoutRef, ReactNode, Ref } from 'react'
 
 interface Range {

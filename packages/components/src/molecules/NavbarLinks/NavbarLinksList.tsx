@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { List } from '../..'
 import type { ListProps } from '../..'
 

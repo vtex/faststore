@@ -1,5 +1,4 @@
 import type { AriaAttributes, ReactNode, Ref } from 'react'
-import React from 'react'
 
 import { Icon, List, SROnly } from '../../index'
 

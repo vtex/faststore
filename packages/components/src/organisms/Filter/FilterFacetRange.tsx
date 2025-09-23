@@ -1,4 +1,3 @@
-import React from 'react'
 import { PriceRange } from '../..'
 import type { OnFacetChange } from './Filter'
 

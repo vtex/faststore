@@ -1,4 +1,3 @@
-import React from 'react'
 import BreadcrumbBase, { type BreadcrumbBaseProps } from './BreadcrumbBase'
 
 export interface BreadcrumbProps

@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from '../../atoms/Button'
 import type { ButtonProps } from '../../atoms/Button'
 import { useSKUMatrix } from '../../hooks'

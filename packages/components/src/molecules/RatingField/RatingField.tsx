@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Ref } from 'react'
 import { Label, Rating, type RatingProps } from '../..'
 

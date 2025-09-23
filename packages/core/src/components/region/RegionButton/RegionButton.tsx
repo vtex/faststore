@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import { Button as UIButton, Icon as UIIcon, useUI } from '@vtex/faststore-ui'
+import { Button as UIButton, Icon as UIIcon } from '@vtex/faststore-ui'
 import { useSession } from '../../../sdk/session'
 import { textToTitleCase } from '../../../utils/utilities'
 import { useCheckRegionState } from '../../../sdk/userLocation'

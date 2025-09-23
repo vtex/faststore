@@ -1,5 +1,4 @@
 import type { HTMLAttributes, PropsWithChildren } from 'react'
-import React from 'react'
 
 import {
   Button,

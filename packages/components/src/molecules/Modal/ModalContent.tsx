@@ -4,7 +4,7 @@ import type {
   MouseEvent,
   RefObject,
 } from 'react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 import { useTrapFocus } from '../../hooks'
 

@@ -3,7 +3,7 @@ import type { SearchPageProps } from './getStaticProps'
 
 import storeConfig from '../../../discovery.config'
 import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
-import { type SearchContentType, getPage } from '../../server/cms'
+import type { SearchContentType } from '../../server/cms'
 import { injectGlobalSections } from '../../server/cms/global'
 import type { PreviewData } from '../../server/content/types'
 import { contentService } from '../../server/content/service'

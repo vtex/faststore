@@ -8,6 +8,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
+    "storybook": "turbo run storybook:dev --parallel --no-cache",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "stylelint": "stylelint \"**/*.scss\"",

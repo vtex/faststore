@@ -13,7 +13,7 @@
     "@storybook/addon-docs": "9.1.5"
   },
   "scripts": {
-    "dev": "storybook dev -p 6006",
+    "storybook:dev": "storybook dev -p 6006",
     "build": "storybook build"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import {
   type IProductComparison,
   type ProductComparisonSidebarProps as UIProductComparisonSidebarProps,

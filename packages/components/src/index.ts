@@ -178,7 +178,7 @@ export type {
 } from './molecules/SearchAutoComplete'
 export {
   default as SearchDropdown,
-  SearchDropdownProps,
+  type SearchDropdownProps,
 } from './molecules/SearchDropdown'
 export {
   default as SearchHistory,

@@ -1,5 +1,4 @@
 import type { ReactNode, AriaAttributes } from 'react'
-import React from 'react'
 
 import { Button } from '../../'
 import type { ButtonProps } from '../../'

@@ -1,4 +1,3 @@
-import React from 'react'
 import Checkbox, { type CheckboxProps } from '../../atoms/Checkbox'
 import Label from '../../atoms/Label'
 

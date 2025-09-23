@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import { Children } from 'react'
 import type { ComponentProps, ReactElement } from 'react'
 
 import { Tile } from '.'

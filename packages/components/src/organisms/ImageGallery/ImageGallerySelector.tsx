@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import type { AriaAttributes } from 'react'
 import { InView } from 'react-intersection-observer'
 import { Button, Icon, IconButton } from '../..'

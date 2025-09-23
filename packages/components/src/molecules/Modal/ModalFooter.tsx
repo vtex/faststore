@@ -1,4 +1,4 @@
-import React, { type ReactNode, type HTMLAttributes } from 'react'
+import type { ReactNode, HTMLAttributes } from 'react'
 
 export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
   /**

@@ -1,5 +1,4 @@
 import type { AriaAttributes, ComponentProps } from 'react'
-import React from 'react'
 
 export type BadgeVariants =
   | 'info'

@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 
 import DropdownContext from '../Dropdown/contexts/DropdownContext'
 

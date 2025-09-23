@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ReactNode, ComponentProps } from 'react'
 
 export interface NewsletterHeaderProps extends ComponentProps<'header'> {

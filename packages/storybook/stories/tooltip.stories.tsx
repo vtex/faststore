@@ -1,5 +1,4 @@
 import { Tooltip } from '@vtex/faststore-ui'
-import React from 'react'
 
 export default {
   title: 'Tooltip',
