@@ -672,24 +672,6 @@ export const VtexCommerce = (
           {}
         )
       },
-      getUserGrantedResources: ({
-        userId,
-        resourceKey,
-      }: {
-        userId: string
-        resourceKey: string
-      }): Promise<boolean> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
-        return fetchAPI(
-          `${base}/api/license-manager/storefront/users/${userId}/resources/${resourceKey}/granted`,
-          {
-            method: 'GET',
-            headers,
-          },
-          {}
-        )
-      },
     },
     masterData: {
       getContractById: ({
