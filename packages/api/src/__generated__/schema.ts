@@ -416,16 +416,11 @@ export type IStoreB2B = {
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
-  permissions: IStoreB2BPermissions;
   savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
   userEmail?: Maybe<Scalars['String']>;
   userName?: Maybe<Scalars['String']>;
-};
-
-export type IStoreB2BPermissions = {
-  canManageOrganization: Scalars['Boolean'];
 };
 
 /** Shopping cart input. */
@@ -1189,17 +1184,11 @@ export type StoreB2B = {
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
-  permissions: StoreB2BPermissions;
   savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
   userEmail?: Maybe<Scalars['String']>;
   userName?: Maybe<Scalars['String']>;
-};
-
-export type StoreB2BPermissions = {
-  __typename?: 'StoreB2BPermissions';
-  canManageOrganization: Scalars['Boolean'];
 };
 
 /** Brand of a given product. */

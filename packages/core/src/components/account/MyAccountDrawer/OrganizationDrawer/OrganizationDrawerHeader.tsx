@@ -14,13 +14,11 @@ export const OrganizationDrawerHeader = ({
   contractImage,
   onCloseDrawer,
 }: OrganizationDrawerHeaderProps) => {
-  const TitleComponent = contractUrl ? Link : 'div'
-
   return (
     <>
       <SlideOverHeader onClose={() => onCloseDrawer?.()} />
       <div data-fs-organization-drawer-header>
-        <TitleComponent
+        <Link
           data-fs-organization-drawer-header-contract-link
           {...(contractUrl && { href: contractUrl })}
         >
@@ -34,7 +32,7 @@ export const OrganizationDrawerHeader = ({
           <h1 data-fs-organization-drawer-header-contract-name>
             {contractName}
           </h1>
-        </TitleComponent>
+        </Link>
       </div>
     </>
   )
