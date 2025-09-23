@@ -25,10 +25,6 @@ export const ProfileSummary = ({
 }: ProfileSummaryProps) => {
   const { b2b } = useSession()
 
-  // TODO fix it
-  const showBuyerPortalManageLink = true
-  // showManageLink && b2b?.permissions?.canManageOrganization && b2b?.unitId
-
   return (
     <section
       data-fs-profile-summary
@@ -37,7 +33,7 @@ export const ProfileSummary = ({
     >
       <div data-fs-profile-summary-header>
         <h2 data-fs-profile-summary-org-name>{orgName}</h2>
-        {showBuyerPortalManageLink && (
+        {showManageLink && (
           <Link
             data-fs-profile-summary-org-link
             href={`/pvt/organization-account/org-unit/${b2b?.unitId}`}
