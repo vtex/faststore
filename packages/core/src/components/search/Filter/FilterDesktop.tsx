@@ -34,7 +34,7 @@ interface FilterDesktopProps
 
 function FilterDesktop({
   facets,
-  testId,
+  testId = 'filter-desktop',
   dispatch,
   expanded,
   title,
@@ -48,11 +48,13 @@ function FilterDesktop({
   } = useSearch()
   const { openRegionSlider } = useUI()
   const {
-    facets: filteredFacets,
+    highlightedFacet,
+    facetsWithoutHighlightedFacet,
     labelsMap,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
     onDeliveryFacetChange,
+    getDynamicEstimateLabel,
   } = useDeliveryPromise({
     allFacets: facets,
     selectedFilterFacets: searchState.selectedFacets,
@@ -90,7 +92,35 @@ function FilterDesktop({
           </UIFilterFacets>
         )}
 
-        {filteredFacets.map((facet, idx) => {
+        {highlightedFacet &&
+          highlightedFacet.__typename === 'StoreFacetBoolean' && (
+            <UIFilterFacets
+              key={`${testId}-${highlightedFacet.key}`}
+              testId={testId}
+              highlighted
+              type={highlightedFacet.__typename}
+              index={undefined}
+            >
+              {highlightedFacet.values.map((item) => (
+                <UIFilterFacetBooleanItem
+                  key={`${testId}-${highlightedFacet.label}-${item.value}`}
+                  id={`${testId}-${highlightedFacet.label}-${item.value}`}
+                  testId={testId}
+                  onFacetChange={(facet) => {
+                    onDeliveryFacetChange({ facet })
+                    resetInfiniteScroll(0)
+                  }}
+                  selected={item.selected}
+                  value={item.value}
+                  facetKey={highlightedFacet.key}
+                  label={getDynamicEstimateLabel(item.value) ?? item.label}
+                  type="toggle"
+                />
+              ))}
+            </UIFilterFacets>
+          )}
+
+        {facetsWithoutHighlightedFacet.map((facet, idx) => {
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
