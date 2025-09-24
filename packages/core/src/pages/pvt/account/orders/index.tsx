@@ -22,12 +22,12 @@ import { injectGlobalSections } from '../../../server/cms/global'
 import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from '../../../utils/userOrderStatus'
 
+import storeConfig from '../../../../discovery.config'
 import { MyAccountListOrders } from '../../../components/account/orders/MyAccountListOrders'
 import { getIsRepresentative } from '../../../sdk/account/getIsRepresentative'
 import { validateUser } from '../../../sdk/account/validateUser'
 import PageProvider from '../../../sdk/overrides/PageProvider'
 import { extractStatusFromError } from '../../../utils/utilities'
-import storeConfig from '../../../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -220,12 +220,14 @@ export const getServerSideProps: GetServerSideProps<
   ])
 
   if (listOrders.errors) {
+    console.error(...listOrders.errors)
+
     const status = extractStatusFromError(listOrders.errors[0])
     const isForbidden = status === 403 || status === 401
 
     return {
       redirect: {
-        destination: isForbidden ? '/account/403' : '/account/404',
+        destination: isForbidden ? '/pvt/account/403' : '/pvt/account/404',
         permanent: false,
       },
     }

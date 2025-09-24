@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     redirect: {
-      destination: '/account/404',
+      destination: '/pvt/account/404',
       permanent: false,
     },
   }

@@ -7,6 +7,7 @@ import type {
   QueryPickupPointsArgs,
   QueryProductArgs,
   QueryProductCountArgs,
+  QueryProductsArgs,
   QueryProfileArgs,
   QueryRedirectArgs,
   QuerySearchArgs,
@@ -14,9 +15,14 @@ import type {
   QueryShippingArgs,
   QueryUserOrderArgs,
   UserOrderFromList,
-  QueryProductsArgs,
 } from '../../../__generated__/schema'
-import { BadRequestError, ForbiddenError, NotFoundError } from '../../errors'
+import {
+  BadRequestError,
+  ForbiddenError,
+  NotFoundError,
+  isForbiddenError,
+  isNotFoundError,
+} from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
@@ -478,22 +484,39 @@ export const Query = {
         },
       }
     } catch (error) {
-      const result = JSON.parse((error as Error).message).error as {
-        code: string
-        message: string
-        exception: any
+      const errorMessage = (error as Error).message
+
+      let result: {
+        code?: string
+        message?: string
+        exception?: any
+      } = {}
+
+      /** The errorMessage can be in:
+       * JSON format: {"error":{"code":"OMS007","message":"Order Not Found","exception":null}}
+       * Plain text format: "No authorized"
+       * Unknown format
+       */
+      try {
+        const parsed = JSON.parse(errorMessage)
+        result = parsed.error || parsed
+      } catch {
+        result = { message: errorMessage }
       }
 
-      if (result?.message?.toLowerCase()?.includes('order not found')) {
-        throw new NotFoundError(`No order found for id ${orderId}`)
+      const message = result?.message || errorMessage
+
+      if (isNotFoundError(error)) {
+        throw new NotFoundError(`No order found for id ${orderId}. ${message}.`)
       }
 
-      if (result?.message?.toLowerCase()?.includes('acesso negado')) {
+      if (isForbiddenError(error)) {
         throw new ForbiddenError(
-          `You are forbidden to interact with order with id ${orderId}`
+          `You are forbidden to interact with order with id ${orderId}. ${message}.`
         )
       }
 
+      // Fallback for other Errors
       throw error
     }
   },
@@ -620,11 +643,16 @@ export const Query = {
       }
 
       const profile = sessionData.namespaces.profile ?? null
+      const contract = await commerce.masterData.getContractById({
+        contractId: profile?.id?.value ?? '',
+      })
+
+      const name =
+        contract?.corporateName ??
+        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
 
       return {
-        name:
-          `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
-          '',
+        name: name || '',
         email: profile?.email?.value || '',
         id: profile?.id?.value || '',
         // createdAt: '',

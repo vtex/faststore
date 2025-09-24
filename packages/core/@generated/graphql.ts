@@ -336,6 +336,12 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']['output']>;
 };
 
+/** Delivery Promise badge. */
+export type DeliveryPromiseBadge = {
+  /** Badge type. */
+  typeName: Maybe<Scalars['String']['output']>;
+};
+
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
@@ -1292,7 +1298,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String']['output'];
   /** Number of items with this facet. */
-  quantity: Scalars['Int']['output'];
+  quantity: Maybe<Scalars['Int']['output']>;
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean']['output'];
   /** Facet value. */
@@ -1425,6 +1431,8 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /** Delivery Promise product's badge. */
+  deliveryPromiseBadges: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
   description: Scalars['String']['output'];
   /** Global Trade Item Number. */
@@ -2322,7 +2330,6 @@ export type UserOrderResult = {
   ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>;
   shippingData: Maybe<UserOrderShippingData>;
   shopper: Maybe<UserOrderShopper>;
-  shopperName: Maybe<UserOrderShopperName>;
   status: Maybe<Scalars['String']['output']>;
   statusDescription: Maybe<Scalars['String']['output']>;
   storePreferencesData: Maybe<UserOrderStorePreferencesData>;
@@ -2349,11 +2356,6 @@ export type UserOrderShopper = {
   firstName: Maybe<Scalars['String']['output']>;
   lastName: Maybe<Scalars['String']['output']>;
   phone: Maybe<Scalars['String']['output']>;
-};
-
-export type UserOrderShopperName = {
-  firstName: Maybe<Scalars['String']['output']>;
-  lastName: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderSlas = {
@@ -2416,9 +2418,9 @@ export type ValidateUserData = {
   isValid: Scalars['Boolean']['output'];
 };
 
-export type ProductSummary_ProductFragment = { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null };
+export type ProductSummary_ProductFragment = { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null };
 
-type Filter_Facets_StoreFacetBoolean_Fragment = { __typename: 'StoreFacetBoolean', key: string, label: string, values: Array<{ label: string, value: string, selected: boolean, quantity: number }> };
+type Filter_Facets_StoreFacetBoolean_Fragment = { __typename: 'StoreFacetBoolean', key: string, label: string, values: Array<{ label: string, value: string, selected: boolean, quantity: number | null }> };
 
 type Filter_Facets_StoreFacetRange_Fragment = { __typename: 'StoreFacetRange', key: string, label: string, min: { selected: number, absolute: number }, max: { selected: number, absolute: number } };
 
@@ -2573,7 +2575,7 @@ export type ClientManyProductsQueryQueryVariables = Exact<{
 }>;
 
 
-export type ClientManyProductsQueryQuery = { search: { products: { pageInfo: { totalCount: number }, edges: Array<{ node: { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null } }> } } };
+export type ClientManyProductsQueryQuery = { search: { products: { pageInfo: { totalCount: number }, edges: Array<{ node: { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null } }> } } };
 
 export type ClientProductGalleryQueryQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -2584,7 +2586,7 @@ export type ClientProductGalleryQueryQueryVariables = Exact<{
 }>;
 
 
-export type ClientProductGalleryQueryQuery = { redirect: { url: string | null } | null, search: { products: { pageInfo: { totalCount: number } }, facets: Array<{ __typename: 'StoreFacetBoolean', key: string, label: string, values: Array<{ label: string, value: string, selected: boolean, quantity: number }> } | { __typename: 'StoreFacetRange', key: string, label: string, min: { selected: number, absolute: number }, max: { selected: number, absolute: number } }>, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
+export type ClientProductGalleryQueryQuery = { redirect: { url: string | null } | null, search: { products: { pageInfo: { totalCount: number } }, facets: Array<{ __typename: 'StoreFacetBoolean', key: string, label: string, values: Array<{ label: string, value: string, selected: boolean, quantity: number | null }> } | { __typename: 'StoreFacetRange', key: string, label: string, min: { selected: number, absolute: number }, max: { selected: number, absolute: number } }>, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
 
 export type SearchEvent_MetadataFragment = { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null };
 
@@ -2615,7 +2617,7 @@ export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
 }>;
 
 
-export type ClientSearchSuggestionsQueryQuery = { search: { suggestions: { terms: Array<{ value: string }>, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null }> }, products: { pageInfo: { totalCount: number } }, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
+export type ClientSearchSuggestionsQueryQuery = { search: { suggestions: { terms: Array<{ value: string }>, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }> }, products: { pageInfo: { totalCount: number } }, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
 
 export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input'];
@@ -2652,7 +2654,7 @@ export type ServerManyProductsQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerManyProductsQueryQuery = { search: { products: { pageInfo: { totalCount: number }, edges: Array<{ node: { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null } }> }, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
+export type ServerManyProductsQueryQuery = { search: { products: { pageInfo: { totalCount: number }, edges: Array<{ node: { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null } }> }, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -2739,6 +2741,9 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(`
   advertisement {
     adId
     adResponseId
+  }
+  deliveryPromiseBadges {
+    typeName
   }
 }
     `, {"fragmentName":"ProductSummary_product"}) as unknown as TypedDocumentString<ProductSummary_ProductFragment, unknown>;
@@ -3176,13 +3181,13 @@ export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"Cli
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
 export const ClientProductCountQueryDocument = {"__meta__":{"operationName":"ClientProductCountQuery","operationHash":"dc912e7272e3d9f5ced206837df87f544d39d0a5"}} as unknown as TypedDocumentString<ClientProductCountQueryQuery, ClientProductCountQueryQueryVariables>;
 export const ClientAllVariantProductsQueryDocument = {"__meta__":{"operationName":"ClientAllVariantProductsQuery","operationHash":"4039e05f01a2fe449e20e8b82170d0ba94b1fbe9"}} as unknown as TypedDocumentString<ClientAllVariantProductsQueryQuery, ClientAllVariantProductsQueryQueryVariables>;
-export const ClientManyProductsQueryDocument = {"__meta__":{"operationName":"ClientManyProductsQuery","operationHash":"a4d0dbbeaafcf323c0850f282d4beaa2969ababa"}} as unknown as TypedDocumentString<ClientManyProductsQueryQuery, ClientManyProductsQueryQueryVariables>;
+export const ClientManyProductsQueryDocument = {"__meta__":{"operationName":"ClientManyProductsQuery","operationHash":"e49027bc29aa10cbf7bbb0ed62239af8de1653f0"}} as unknown as TypedDocumentString<ClientManyProductsQueryQuery, ClientManyProductsQueryQueryVariables>;
 export const ClientProductGalleryQueryDocument = {"__meta__":{"operationName":"ClientProductGalleryQuery","operationHash":"bfc40da32b60f9404a4adb96b0856e3fbb04b076"}} as unknown as TypedDocumentString<ClientProductGalleryQueryQuery, ClientProductGalleryQueryQueryVariables>;
 export const ClientProductQueryDocument = {"__meta__":{"operationName":"ClientProductQuery","operationHash":"47aa22eb750cb2c529e5eeafb921bfeadb67db71"}} as unknown as TypedDocumentString<ClientProductQueryQuery, ClientProductQueryQueryVariables>;
 export const ClientManyProductsSelectedQueryDocument = {"__meta__":{"operationName":"ClientManyProductsSelectedQuery","operationHash":"b668777678c137b8c7004297df4d8b8f2b29ee06"}} as unknown as TypedDocumentString<ClientManyProductsSelectedQueryQuery, ClientManyProductsSelectedQueryQueryVariables>;
 export const ClientProfileQueryDocument = {"__meta__":{"operationName":"ClientProfileQuery","operationHash":"34ea14c0d4a57ddf9bc11e4be0cd2b5a6506d3d4"}} as unknown as TypedDocumentString<ClientProfileQueryQuery, ClientProfileQueryQueryVariables>;
-export const ClientSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientSearchSuggestionsQuery","operationHash":"3df0026ed7d06f74ef470ecb6e4d2e7c70882451"}} as unknown as TypedDocumentString<ClientSearchSuggestionsQueryQuery, ClientSearchSuggestionsQueryQueryVariables>;
+export const ClientSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientSearchSuggestionsQuery","operationHash":"bbaa2ed75c4fb04842189e8d53a1d65481154e2b"}} as unknown as TypedDocumentString<ClientSearchSuggestionsQueryQuery, ClientSearchSuggestionsQueryQueryVariables>;
 export const ClientTopSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientTopSearchSuggestionsQuery","operationHash":"e2385b0f11726d0068f96548f57a8dd441c064e3"}} as unknown as TypedDocumentString<ClientTopSearchSuggestionsQueryQuery, ClientTopSearchSuggestionsQueryQueryVariables>;
 export const ValidateSessionDocument = {"__meta__":{"operationName":"ValidateSession","operationHash":"5da2700f5a69ee8835b1cb6c69e14f4b6e12c4df"}} as unknown as TypedDocumentString<ValidateSessionMutation, ValidateSessionMutationVariables>;
 export const ClientShippingSimulationQueryDocument = {"__meta__":{"operationName":"ClientShippingSimulationQuery","operationHash":"c35bad22f67f3eb34fea52bb49efa6b1da6b728d"}} as unknown as TypedDocumentString<ClientShippingSimulationQueryQuery, ClientShippingSimulationQueryQueryVariables>;
-export const ServerManyProductsQueryDocument = {"__meta__":{"operationName":"ServerManyProductsQuery","operationHash":"59ff9a09e138da0f0d5e7ab553c4889a6d4bc432"}} as unknown as TypedDocumentString<ServerManyProductsQueryQuery, ServerManyProductsQueryQueryVariables>;
+export const ServerManyProductsQueryDocument = {"__meta__":{"operationName":"ServerManyProductsQuery","operationHash":"4b769cda49004c85d0d427c601eba36c37a52224"}} as unknown as TypedDocumentString<ServerManyProductsQueryQuery, ServerManyProductsQueryQueryVariables>;

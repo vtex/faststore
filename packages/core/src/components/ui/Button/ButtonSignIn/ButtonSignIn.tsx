@@ -1,5 +1,6 @@
 import { Icon, LinkButton } from '@vtex/faststore-ui'
 
+import storeConfig from '../../../../../discovery.config'
 import { useSession } from '../../../../sdk/session'
 
 const ButtonSignIn = ({
@@ -13,10 +14,18 @@ const ButtonSignIn = ({
 }) => {
   const { person } = useSession()
 
+  const getAccountUrl = () => {
+    if (!person?.id) return '/login'
+
+    const enableFaststoreMyAccount =
+      storeConfig.experimental?.enableFaststoreMyAccount
+    return enableFaststoreMyAccount ? '/pvt/account' : storeConfig.accountUrl
+  }
+
   return (
     <LinkButton
       data-fs-button-signin-link
-      href={person?.id ? `/account` : `/login`}
+      href={getAccountUrl()}
       className="text__title-mini"
       aria-label={alt}
       variant="tertiary"

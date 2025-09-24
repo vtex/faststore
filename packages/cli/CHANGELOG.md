@@ -3,6 +3,102 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.5](https://github.com/vtex/faststore/compare/v3.88.4...v3.88.5) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.4](https://github.com/vtex/faststore/compare/v3.88.3...v3.88.4) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.3](https://github.com/vtex/faststore/compare/v3.88.2...v3.88.3) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.2](https://github.com/vtex/faststore/compare/v3.88.1...v3.88.2) (2025-09-19)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.1](https://github.com/vtex/faststore/compare/v3.88.0...v3.88.1) (2025-09-19)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.88.0](https://github.com/vtex/faststore/compare/v3.87.0...v3.88.0) (2025-09-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.87.0](https://github.com/vtex/faststore/compare/v3.86.4...v3.87.0) (2025-09-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.86.4](https://github.com/vtex/faststore/compare/v3.86.3...v3.86.4) (2025-09-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.86.3](https://github.com/vtex/faststore/compare/v3.86.2...v3.86.3) (2025-09-17)
+
+### Bug Fixes
+
+- add all the path to the plugin API route after the /plugins prefix ([#3042](https://github.com/vtex/faststore/issues/3042)) ([dca59ac](https://github.com/vtex/faststore/commit/dca59ac05ed28a0dbfbbbd9d1d3aa1980f42cf9a))
+
+## [3.86.2](https://github.com/vtex/faststore/compare/v3.86.1...v3.86.2) (2025-09-16)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.86.1](https://github.com/vtex/faststore/compare/v3.86.0...v3.86.1) (2025-09-16)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.86.0](https://github.com/vtex/faststore/compare/v3.85.0...v3.86.0) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.85.0](https://github.com/vtex/faststore/compare/v3.84.5...v3.85.0) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.5](https://github.com/vtex/faststore/compare/v3.84.4...v3.84.5) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.4](https://github.com/vtex/faststore/compare/v3.84.3...v3.84.4) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.3](https://github.com/vtex/faststore/compare/v3.84.2...v3.84.3) (2025-09-12)
+
+### Bug Fixes
+
+- don't require restart when switching themes ([#3018](https://github.com/vtex/faststore/issues/3018)) ([52afa59](https://github.com/vtex/faststore/commit/52afa59addae3c050786463a4aa39f3390c84971))
+
+## [3.84.2](https://github.com/vtex/faststore/compare/v3.84.1...v3.84.2) (2025-09-12)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.84.1](https://github.com/vtex/faststore/compare/v3.84.0...v3.84.1) (2025-09-11)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.83.1](https://github.com/vtex/faststore/compare/v3.83.0...v3.83.1) (2025-09-09)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.83.0](https://github.com/vtex/faststore/compare/v3.82.4...v3.83.0) (2025-09-09)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.82.4](https://github.com/vtex/faststore/compare/v3.82.3...v3.82.4) (2025-09-08)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## [3.82.3](https://github.com/vtex/faststore/compare/v3.82.2...v3.82.3) (2025-09-08)
 
 **Note:** Version bump only for package @faststore/cli

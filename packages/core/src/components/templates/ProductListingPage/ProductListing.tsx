@@ -1,17 +1,17 @@
 import { useSearch } from '@vtex/faststore-sdk'
+import deepmerge from 'deepmerge'
 import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
 } from '../../../../@generated/graphql'
-import deepmerge from 'deepmerge'
 import { ITEMS_PER_PAGE } from '../../../constants'
 
 import dynamic from 'next/dynamic'
 import COMPONENTS from '../../cms/plp/Components'
 
-import RenderSections, { LazyLoadingSection } from '../../cms/RenderSections'
 import type { PLPContentType } from '../../../server/cms/plp'
+import RenderSections, { LazyLoadingSection } from '../../cms/RenderSections'
 
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'

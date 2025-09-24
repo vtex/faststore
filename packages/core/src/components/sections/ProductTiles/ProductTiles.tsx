@@ -2,14 +2,17 @@ import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import type { ClientManyProductsQueryQueryVariables } from '../../../../@generated/graphql'
+import { useViewItemListEvent } from '../../../sdk/analytics/hooks/useViewItemListEvent'
+import { useProductsQuery } from '../../../sdk/product/useProductsQuery'
 import ProductCard from '../../product/ProductCard'
 import ProductTilesSkeleton from '../../skeletons/ProductTilesSkeleton'
 import Tiles, { Tile } from '../../ui/Tiles'
-import { useViewItemListEvent } from '../../../sdk/analytics/hooks/useViewItemListEvent'
-import { useProductsQuery } from '../../../sdk/product/useProductsQuery'
 
 import Section from '../Section'
 
+import deepmerge from 'deepmerge'
+import { useDeliveryPromiseFacets } from '../../../sdk/deliveryPromise/useDeliveryPromiseFacets'
+import { overwriteMerge, toArray } from '../../../utils/utilities'
 import styles from './section.module.scss'
 
 interface ProductTilesProps
@@ -65,7 +68,18 @@ const ProductTiles = ({
 }: ProductTilesProps) => {
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
-  const data = useProductsQuery(variables)
+  const { deliveryFacets } = useDeliveryPromiseFacets()
+
+  const data = useProductsQuery({
+    ...variables,
+    selectedFacets: deepmerge(
+      toArray(variables.selectedFacets),
+      deliveryFacets,
+      {
+        arrayMerge: overwriteMerge,
+      }
+    ),
+  })
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
 

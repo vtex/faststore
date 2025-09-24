@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { deliveryPromise } from '../../../discovery.config'
 import { TIME_TO_VALIDATE_SESSION } from '../../constants'
-import { getNavigatorGeolocation } from '../userLocation'
 import { sessionStore, validateSession } from '../session'
+import { getNavigatorGeolocation } from '../userLocation'
 
 export default function useGeolocation() {
   useEffect(() => {

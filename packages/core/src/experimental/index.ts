@@ -16,9 +16,9 @@ export { useDiscountPercent as useDiscountPercent_unstable } from '../../src/sdk
 export { useFormattedPrice as useFormattedPrice_unstable } from '../../src/sdk/product/useFormattedPrice'
 export { useLocalizedVariables as useLocalizedVariables_unstable } from '../../src/sdk/product/useLocalizedVariables'
 export {
+  UseGalleryPageContext as UseGalleryPageContext_unstable,
   useCreateUseGalleryPage as useCreateUseGalleryPage_unstable,
   useGalleryPage as useGalleryPage_unstable,
-  UseGalleryPageContext as UseGalleryPageContext_unstable,
 } from '../../src/sdk/product/usePageProductsQuery'
 export { useProductGalleryQuery as useProductGalleryQuery_unstable } from '../../src/sdk/product/useProductGalleryQuery'
 export { useProductLink as useProductLink_unstable } from '../../src/sdk/product/useProductLink'
@@ -50,6 +50,6 @@ export { default as Selectors_unstable } from '../../src/components/ui/SkuSelect
 
 // Delivery Promise
 export {
-  useDeliveryPromise as useDeliveryPromise_unstable,
   deliveryPromiseStore as deliveryPromiseStore_unstable,
+  useDeliveryPromise as useDeliveryPromise_unstable,
 } from '../sdk/deliveryPromise'

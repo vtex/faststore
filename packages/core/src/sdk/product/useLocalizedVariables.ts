@@ -1,11 +1,10 @@
 import { useMemo } from 'react'
+
 import type { ClientManyProductsQueryQueryVariables } from '../../../@generated/graphql'
 
-import { useSession } from '../session'
 import { ITEMS_PER_SECTION } from '../../constants'
-
-const toArray = <T>(x: T[] | T | undefined) =>
-  Array.isArray(x) ? x : x ? [x] : []
+import { toArray } from '../../utils/utilities'
+import { useSession } from '../session'
 
 export const useLocalizedVariables = ({
   first,

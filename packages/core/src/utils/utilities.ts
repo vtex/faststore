@@ -53,13 +53,17 @@ export function camelCaseToTitle(str: string): string {
 }
 
 export function extractStatusFromError(error: any): number | undefined {
+  if (error?.extensions?.status) {
+    return error.extensions.status
+  }
+
   if (!error?.message) return undefined
 
-  const match = error.message.match(/{.*}$/)
-  if (!match) return undefined
+  const matchMessage = error.message.match(/{.*}$/)
+  if (!matchMessage) return undefined
 
   try {
-    const parsed = JSON.parse(match[0])
+    const parsed = JSON.parse(matchMessage[0])
 
     if (parsed.status) {
       return parsed.status
@@ -70,7 +74,7 @@ export function extractStatusFromError(error: any): number | undefined {
       return inner.status
     }
   } catch {
-    console.error('Failed to parse error message:', match[0])
+    console.error('Failed to parse error message:', matchMessage[0])
   }
 
   return undefined
@@ -93,3 +97,21 @@ export const buildFormData = (
 
   return form
 }
+/**
+ * Converts a value to an array. If the value is already an array, returns it as-is.
+ * If the value is undefined or null, returns an empty array.
+ * Otherwise, wraps the value in an array.
+ *
+ * @param x - The value to convert to an array
+ * @returns An array containing the value(s)
+ */
+
+export const toArray = <T>(x: T[] | T | undefined) =>
+  Array.isArray(x) ? x : x ? [x] : []
+
+/**
+ * Array merging strategy from deepmerge that makes source arrays overwrite destination array
+ *
+ * @see https://www.npmjs.com/package/deepmerge
+ */
+export const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray

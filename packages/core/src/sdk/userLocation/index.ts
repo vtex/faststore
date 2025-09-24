@@ -1,9 +1,9 @@
 import type { Session } from '@vtex/faststore-sdk'
-import { getSavedAddress } from '../profile'
-import DiscoveryConfig from '../../../discovery.config'
-import { sessionStore } from '../session'
-import { type RefObject, useEffect, useState } from 'react'
 import { useUI } from '@vtex/faststore-ui'
+import { useEffect, useState, type RefObject } from 'react'
+import DiscoveryConfig from '../../../discovery.config'
+import { getSavedAddress } from '../profile'
+import { sessionStore } from '../session'
 
 const set = (session: Session, data: Partial<Session>) => {
   if (!data || !Object.keys(data).length) return session

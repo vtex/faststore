@@ -63,6 +63,18 @@ type DeliveryPromiseCmsData = {
     title?: string
     allDeliveryOptions?: string
   }
+  deliveryPromiseBadges?: {
+    enabled?: boolean
+    delivery?: string
+    deliveryUnavailable?: string
+    pickupInPoint?: string
+    pickupInPointUnavailable?: string
+  }
+  inStock?: {
+    enabled?: boolean
+    title?: string
+    label?: string
+  }
 }
 
 export function getGlobalSettings(

@@ -203,8 +203,14 @@ export default function ShippingSimulation({
             <TableBody>
               {options.map((option) => (
                 <TableRow key={option.carrier}>
-                  <TableCell align="left">{option.carrier}</TableCell>
-                  <TableCell>{option.localizedEstimates}</TableCell>
+                  <TableCell align="left">
+                    <p data-fs-shipping-simulation-option-carrier>
+                      {option.carrier}
+                    </p>
+                    <span data-fs-shipping-simulation-option-estimate>
+                      {option.localizedEstimates}
+                    </span>
+                  </TableCell>
                   <TableCell align="right">
                     {option.price && (
                       <Price

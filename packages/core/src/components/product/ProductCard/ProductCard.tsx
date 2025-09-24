@@ -6,13 +6,15 @@ import {
 } from '@vtex/faststore-ui'
 import { memo, useMemo } from 'react'
 
-import { gql } from '../../../../@generated'
-import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
 import type { ImageProps } from 'next/image'
 import NextLink from 'next/link'
-import { Image } from '../../ui/Image'
+import { gql } from '../../../../@generated'
+import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
+import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 import { useProductLink } from '../../../sdk/product/useProductLink'
+import { getGlobalSettings } from '../../../utils/globalSettings'
+import { Image } from '../../ui/Image'
 
 type Variant = 'wide' | 'default'
 
@@ -99,7 +101,14 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    deliveryPromiseBadges,
   } = product
+
+  const { deliveryPromise: deliveryPromiseSettings } = getGlobalSettings() ?? {}
+  const { badges, shouldDisplayDeliveryPromiseBadges } = useDeliveryPromise({
+    deliveryPromiseBadges,
+    deliveryPromiseSettings,
+  })
 
   const linkProps = {
     ...useProductLink({ product, selectedOffer: 0, index }),
@@ -175,6 +184,7 @@ function ProductCard({
           includeTaxesLabel={taxesConfiguration?.taxesLabel}
           sponsored={!!advertisement}
           sponsoredLabel={sponsoredLabel}
+          deliveryPromiseBadges={shouldDisplayDeliveryPromiseBadges && badges}
         />
       </UIProductCard>
     </>
@@ -257,6 +267,10 @@ export const fragment = gql(`
     advertisement {
       adId
       adResponseId
+    }
+
+    deliveryPromiseBadges {
+      typeName
     }
   }
 `)

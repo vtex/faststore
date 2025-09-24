@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+### Bug Fixes
+
+- Revert "feat: add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029))" - SFS-2880 ([#3054](https://github.com/vtex/faststore/issues/3054)) ([68854b1](https://github.com/vtex/faststore/commit/68854b120b28d910b4ab48c93c1fbb60fe0e470d))
+
+## [3.88.2](https://github.com/vtex/faststore/compare/v3.88.1...v3.88.2) (2025-09-19)
+
+### Bug Fixes
+
+- improve error handling in user order query - SFS-2866 ([#3043](https://github.com/vtex/faststore/issues/3043)) ([efb9c08](https://github.com/vtex/faststore/commit/efb9c08a805e0ba9e5d49823b09be475ee1eee04))
+
+## [3.88.1](https://github.com/vtex/faststore/compare/v3.88.0...v3.88.1) (2025-09-19)
+
+### Bug Fixes
+
+- remove facets parameter from validate session ([#3046](https://github.com/vtex/faststore/issues/3046)) ([9516a0f](https://github.com/vtex/faststore/commit/9516a0f9296f94b6123060887914f10f16c2f4e7))
+
+# [3.87.0](https://github.com/vtex/faststore/compare/v3.86.4...v3.87.0) (2025-09-18)
+
+### Features
+
+- Delivery Promise 2.2 - in stock filter ([#2972](https://github.com/vtex/faststore/issues/2972)) ([7bfb830](https://github.com/vtex/faststore/commit/7bfb8308c76b0914d59875fbe95d3cab6e98eba3))
+
+# [3.85.0](https://github.com/vtex/faststore/compare/v3.84.5...v3.85.0) (2025-09-15)
+
+### Features
+
+- add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029)) ([67d6125](https://github.com/vtex/faststore/commit/67d61252cba42045a4c225f2cba14656645a1dbb))
+
+## [3.84.5](https://github.com/vtex/faststore/compare/v3.84.4...v3.84.5) (2025-09-15)
+
+### Bug Fixes
+
+- Use `corporateName` in profile page ([#3035](https://github.com/vtex/faststore/issues/3035)) ([663621d](https://github.com/vtex/faststore/commit/663621dcdf0e1e6771a11ab5de4688fdf94cc028)), closes [vtex-sites/faststoreqa.store#864](https://github.com/vtex-sites/faststoreqa.store/issues/864)
+
+## [3.84.4](https://github.com/vtex/faststore/compare/v3.84.3...v3.84.4) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.84.1](https://github.com/vtex/faststore/compare/v3.84.0...v3.84.1) (2025-09-11)
+
+### Bug Fixes
+
+- Use enhanceSku in allVariantProducts ([#3028](https://github.com/vtex/faststore/issues/3028)) ([c11edcf](https://github.com/vtex/faststore/commit/c11edcf5ac93b6e042e665f3e9e90bdf9a4b3a04))
+
+# [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
+
+### Features
+
+- Adds delivery promise badges to product card ([#2994](https://github.com/vtex/faststore/issues/2994)) ([87279c8](https://github.com/vtex/faststore/commit/87279c82a0ba83c9dffc5872b94cead98189dd23))
+
+## [3.82.4](https://github.com/vtex/faststore/compare/v3.82.3...v3.82.4) (2025-09-08)
+
+### Bug Fixes
+
+- geolocation undefined handling ([#3022](https://github.com/vtex/faststore/issues/3022)) ([ce76372](https://github.com/vtex/faststore/commit/ce76372806abcb8bc82976a5fc3ff17014fb3bf5))
+
 # [3.82.0](https://github.com/vtex/faststore/compare/v3.81.0...v3.82.0) (2025-09-05)
 
 ### Features

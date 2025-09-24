@@ -9,12 +9,16 @@ import {
   Icon,
   Label,
   Link,
-  type LinkElementType,
-  type LinkProps,
   ProductPrice,
   Rating,
+  type LinkElementType,
+  type LinkProps,
 } from '../../'
 
+type DeliveryPromiseBadge = {
+  label: string
+  availability: boolean
+}
 export interface ProductCardContentProps extends ComponentProps<'section'> {
   /**
    * ID to find this component in testing tools (e.g.: testing library, and jest).
@@ -72,6 +76,10 @@ export interface ProductCardContentProps extends ComponentProps<'section'> {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * List delivery badges, if enabled and available.
+   */
+  deliveryPromiseBadges?: DeliveryPromiseBadge[]
 }
 
 export default function ProductCardContent({
@@ -90,6 +98,7 @@ export default function ProductCardContent({
   includeTaxesLabel = 'Tax included',
   sponsored = false,
   sponsoredLabel = 'Sponsored',
+  deliveryPromiseBadges,
   ref,
   ...otherProps
 }: ProductCardContentProps) {
@@ -132,6 +141,22 @@ export default function ProductCardContent({
         <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
       )}
       {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+      {deliveryPromiseBadges && (
+        <div data-fs-product-card-delivery-promise-badges>
+          {deliveryPromiseBadges.map((badge: DeliveryPromiseBadge) => (
+            <span
+              data-fs-product-card-delivery-promise-badge
+              data-fs-product-card-delivery-promise-badge-availability={
+                badge.availability
+              }
+              key={badge.label}
+            >
+              {badge.label}
+            </span>
+          ))}
+        </div>
+      )}
+
       {onButtonClick && !outOfStock && (
         <div data-fs-product-card-actions>
           <Button

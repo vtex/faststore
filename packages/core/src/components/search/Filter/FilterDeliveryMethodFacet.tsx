@@ -3,10 +3,10 @@ import {
   Button as UIButton,
   useUI,
 } from '@vtex/faststore-ui'
+import type { StoreFacetValueBoolean } from '../../../../@generated/graphql'
 import { sessionStore } from '../../../sdk/session'
 import type { GlobalCmsData } from '../../../utils/globalSettings'
 import { textToTitleCase } from '../../../utils/utilities'
-import type { StoreFacetValueBoolean } from '../../../../@generated/graphql'
 
 interface FilterDeliveryMethodFacetProps {
   item: StoreFacetValueBoolean

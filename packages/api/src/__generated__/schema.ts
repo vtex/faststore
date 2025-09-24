@@ -350,6 +350,13 @@ export type DeliveryIds = {
   warehouseId?: Maybe<Scalars['String']['output']>;
 };
 
+/** Delivery Promise badge. */
+export type DeliveryPromiseBadge = {
+  __typename?: 'DeliveryPromiseBadge';
+  /** Badge type. */
+  typeName?: Maybe<Scalars['String']>;
+};
+
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
@@ -1357,7 +1364,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String']['output'];
   /** Number of items with this facet. */
-  quantity: Scalars['Int']['output'];
+  quantity?: Maybe<Scalars['Int']>;
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean']['output'];
   /** Facet value. */
@@ -1501,6 +1508,8 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /** Delivery Promise product's badge. */
+  deliveryPromiseBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
   description: Scalars['String']['output'];
   /** Global Trade Item Number. */
@@ -2478,8 +2487,8 @@ export type UserOrderResult = {
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
   shopper?: Maybe<UserOrderShopper>;
-  status?: Maybe<Scalars['String']['output']>;
-  statusDescription?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']>;
+  statusDescription?: Maybe<Scalars['String']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
   totals?: Maybe<Array<Maybe<UserOrderTotals>>>;
 };
@@ -2503,10 +2512,10 @@ export type UserOrderShippingData = {
 
 export type UserOrderShopper = {
   __typename?: 'UserOrderShopper';
-  email?: Maybe<Scalars['String']['output']>;
-  firstName?: Maybe<Scalars['String']['output']>;
-  lastName?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderSlas = {

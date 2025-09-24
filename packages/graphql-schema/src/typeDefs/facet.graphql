@@ -73,5 +73,5 @@ type StoreFacetValueBoolean {
   """
   Number of items with this facet.
   """
-  quantity: Int!
+  quantity: Int
 }

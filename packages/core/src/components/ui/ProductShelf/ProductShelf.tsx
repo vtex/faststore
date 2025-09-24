@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useId, useRef } from 'react'
 
+import deepmerge from 'deepmerge'
 import { useViewItemListEvent } from '../../../sdk/analytics/hooks/useViewItemListEvent'
+import { useDeliveryPromiseFacets } from '../../../sdk/deliveryPromise/useDeliveryPromiseFacets'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { useProductsQuery } from '../../../sdk/product/useProductsQuery'
-import { textToKebabCase } from '../../../utils/utilities'
-import { useDeliveryPromiseFacets } from '../../../sdk/deliveryPromise/useDeliveryPromiseFacets'
-import deepmerge from 'deepmerge'
+import { overwriteMerge, textToKebabCase } from '../../../utils/utilities'
 
 const ProductShelfSkeleton = dynamic(
   () =>
@@ -66,11 +66,11 @@ function ProductShelf({
   const { deliveryFacets } = useDeliveryPromiseFacets()
 
   const data = useProductsQuery({
+    ...otherProps,
     first: numberOfItems,
     selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
       arrayMerge: overwriteMerge,
     }),
-    ...otherProps,
   })
 
   const products = data?.search?.products
@@ -139,6 +139,3 @@ function ProductShelf({
 }
 
 export default ProductShelf
-
-// Array merging strategy from deepmerge that makes client arrays overwrite server array
-const overwriteMerge = (_: any[], clientArray: any[]) => clientArray

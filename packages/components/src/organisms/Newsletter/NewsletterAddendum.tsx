@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react'
+import RichText from '../../atoms/RichText'
 
 export interface NewsletterAddendumProps extends ComponentProps<'span'> {
   /**
@@ -17,14 +18,18 @@ export default function NewsletterAddendum({
   ref,
   ...otherProps
 }: NewsletterAddendumProps) {
+  if (!addendum) {
+    return null
+  }
+
   return (
-    <span
-      ref={ref}
-      data-testid={testId}
+    <RichText
+      as="span"
+      content={addendum}
+      testId={testId}
       data-fs-newsletter-addendum
       {...otherProps}
-    >
-      {addendum}
-    </span>
+      ref={ref}
+    />
   )
 }

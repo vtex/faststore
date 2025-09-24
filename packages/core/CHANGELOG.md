@@ -3,6 +3,116 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+### Bug Fixes
+
+- Revert "feat: add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029))" - SFS-2880 ([#3054](https://github.com/vtex/faststore/issues/3054)) ([68854b1](https://github.com/vtex/faststore/commit/68854b120b28d910b4ab48c93c1fbb60fe0e470d))
+
+## [3.88.5](https://github.com/vtex/faststore/compare/v3.88.4...v3.88.5) (2025-09-22)
+
+### Bug Fixes
+
+- update account URL logic in ButtonSignIn component ([#3049](https://github.com/vtex/faststore/issues/3049)) ([df2a3a5](https://github.com/vtex/faststore/commit/df2a3a55e1960d63351147232009bceea786aca5))
+
+## [3.88.4](https://github.com/vtex/faststore/compare/v3.88.3...v3.88.4) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.88.3](https://github.com/vtex/faststore/compare/v3.88.2...v3.88.3) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.88.2](https://github.com/vtex/faststore/compare/v3.88.1...v3.88.2) (2025-09-19)
+
+### Bug Fixes
+
+- improve error handling in user order query - SFS-2866 ([#3043](https://github.com/vtex/faststore/issues/3043)) ([efb9c08](https://github.com/vtex/faststore/commit/efb9c08a805e0ba9e5d49823b09be475ee1eee04))
+
+## [3.88.1](https://github.com/vtex/faststore/compare/v3.88.0...v3.88.1) (2025-09-19)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.88.0](https://github.com/vtex/faststore/compare/v3.87.0...v3.88.0) (2025-09-18)
+
+### Features
+
+- [CP-768] adding support for lexical rich text objects ([#3004](https://github.com/vtex/faststore/issues/3004)) ([3e8fdaa](https://github.com/vtex/faststore/commit/3e8fdaa4bb728d2bde038ac96a2045f5d8670744)), closes [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R189](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R189) [/github.com/vtex/faststore/pull/3004/files#diff-fe1a4c11824f3dfcc33af60e6612a2054705df8f7273932db1b5f9c0ed023172R20](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-fe1a4c11824f3dfcc33af60e6612a2054705df8f7273932db1b5f9c0ed023172R20) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R205](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R205) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R98](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R98) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R153](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R153) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R106](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R106) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R119](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R119) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R145](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R145) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R148](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R148) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R149](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R149) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R150](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R150) [/github.com/vtex/faststore/pull/3004/files#diff-946e28ce25fa403debb36f7f2bb8bad070f7ddd8586e4dd834649afcf4b529eeR32](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-946e28ce25fa403debb36f7f2bb8bad070f7ddd8586e4dd834649afcf4b529eeR32) [/github.com/vtex/faststore/pull/3004/files#diff-3a4a8bba967d6107c9b71ef5c1a0835620593286a58dc65031f8a29e8584c071R27](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-3a4a8bba967d6107c9b71ef5c1a0835620593286a58dc65031f8a29e8584c071R27)
+
+# [3.87.0](https://github.com/vtex/faststore/compare/v3.86.4...v3.87.0) (2025-09-18)
+
+### Features
+
+- Delivery Promise 2.2 - in stock filter ([#2972](https://github.com/vtex/faststore/issues/2972)) ([7bfb830](https://github.com/vtex/faststore/commit/7bfb8308c76b0914d59875fbe95d3cab6e98eba3))
+
+## [3.86.4](https://github.com/vtex/faststore/compare/v3.86.3...v3.86.4) (2025-09-17)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.86.2](https://github.com/vtex/faststore/compare/v3.86.1...v3.86.2) (2025-09-16)
+
+### Bug Fixes
+
+- update contract URL to remove 'pvt' prefix in OrganizationDrawer… ([#3039](https://github.com/vtex/faststore/issues/3039)) ([6e73b8e](https://github.com/vtex/faststore/commit/6e73b8e024ff66b90dc3ba48dfd53a81a582851b))
+
+## [3.86.1](https://github.com/vtex/faststore/compare/v3.86.0...v3.86.1) (2025-09-16)
+
+### Bug Fixes
+
+- conditionally set href for contract link in OrganizationDrawerHe… ([#3038](https://github.com/vtex/faststore/issues/3038)) ([b076715](https://github.com/vtex/faststore/commit/b076715dafea3173a69e1fc9ef1844f8e4d5e973))
+
+# [3.86.0](https://github.com/vtex/faststore/compare/v3.85.0...v3.86.0) (2025-09-15)
+
+### Features
+
+- ensure pvt route in my account pages SFS-2852 ([#3026](https://github.com/vtex/faststore/issues/3026)) ([93b089a](https://github.com/vtex/faststore/commit/93b089abd3bca04ef8fbdbecc7f81dd00a852987))
+
+# [3.85.0](https://github.com/vtex/faststore/compare/v3.84.5...v3.85.0) (2025-09-15)
+
+### Features
+
+- add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029)) ([67d6125](https://github.com/vtex/faststore/commit/67d61252cba42045a4c225f2cba14656645a1dbb))
+
+## [3.84.5](https://github.com/vtex/faststore/compare/v3.84.4...v3.84.5) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.84.4](https://github.com/vtex/faststore/compare/v3.84.3...v3.84.4) (2025-09-15)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.84.2](https://github.com/vtex/faststore/compare/v3.84.1...v3.84.2) (2025-09-12)
+
+### Bug Fixes
+
+- list order pagination page change ([#3031](https://github.com/vtex/faststore/issues/3031)) ([16c5cf7](https://github.com/vtex/faststore/commit/16c5cf7cdc1d494f82f08fd6aff2816ef72aac26))
+
+## [3.84.1](https://github.com/vtex/faststore/compare/v3.84.0...v3.84.1) (2025-09-11)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
+
+### Features
+
+- Adds delivery promise badges to product card ([#2994](https://github.com/vtex/faststore/issues/2994)) ([87279c8](https://github.com/vtex/faststore/commit/87279c82a0ba83c9dffc5872b94cead98189dd23))
+
+## [3.83.1](https://github.com/vtex/faststore/compare/v3.83.0...v3.83.1) (2025-09-09)
+
+### Bug Fixes
+
+- search update ([#3015](https://github.com/vtex/faststore/issues/3015)) ([74d3261](https://github.com/vtex/faststore/commit/74d3261267e111801b6e9fd46086c8d289a83d1e))
+
+# [3.83.0](https://github.com/vtex/faststore/compare/v3.82.4...v3.83.0) (2025-09-09)
+
+### Features
+
+- adjust Custom Fields in MyAccountListOrdersTable ([#3003](https://github.com/vtex/faststore/issues/3003)) ([5e3fcf1](https://github.com/vtex/faststore/commit/5e3fcf18f3ce50f7a93d78f0f5f92c447dcdf31a))
+
+## [3.82.4](https://github.com/vtex/faststore/compare/v3.82.3...v3.82.4) (2025-09-08)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [3.82.3](https://github.com/vtex/faststore/compare/v3.82.2...v3.82.3) (2025-09-08)
 
 **Note:** Version bump only for package @faststore/core

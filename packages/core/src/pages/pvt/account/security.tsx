@@ -29,8 +29,8 @@ import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
 import { validateUser } from '../../sdk/account/validateUser'
 import PageProvider from '../../sdk/overrides/PageProvider'
 
-import { SecuritySection } from '../../components/account/security'
 import storeConfig from '../../../discovery.config'
+import { SecuritySection } from '../../components/account/security'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -129,9 +129,10 @@ export const getServerSideProps: GetServerSideProps<
     ])
 
   if (security.errors) {
+    console.error(...security.errors)
     const statusCode: number = (security.errors[0] as any)?.extensions?.status
     const destination: string =
-      statusCode === 403 ? '/account/403' : '/account/404'
+      statusCode === 403 ? '/pvt/account/403' : '/pvt/account/404'
 
     return {
       redirect: {

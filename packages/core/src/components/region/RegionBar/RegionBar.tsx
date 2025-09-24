@@ -1,15 +1,15 @@
 import type { RegionBarProps as UIRegionBarProps } from '@vtex/faststore-ui'
 import { useEffect, useRef } from 'react'
 
-import { useUI, regionSliderTypes } from '@vtex/faststore-ui'
-import { useSession, sessionStore } from '../../../sdk/session'
+import { regionSliderTypes, useUI } from '@vtex/faststore-ui'
 import { useDeliveryPromise } from '../../../sdk/deliveryPromise'
+import { sessionStore, useSession } from '../../../sdk/session'
 
 import { deliveryPromise } from '../../../../discovery.config'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { textToTitleCase } from '../../../utils/utilities'
-import { getGlobalSettings } from '../../../utils/globalSettings'
 import { useCheckRegionState } from '../../../sdk/userLocation'
+import { getGlobalSettings } from '../../../utils/globalSettings'
+import { textToTitleCase } from '../../../utils/utilities'
 
 export interface RegionBarProps {
   /**

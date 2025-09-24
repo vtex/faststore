@@ -20,7 +20,7 @@ export const OrganizationDrawerHeader = ({
       <div data-fs-organization-drawer-header>
         <Link
           data-fs-organization-drawer-header-contract-link
-          href={contractUrl}
+          {...(contractUrl && { href: contractUrl })}
         >
           <div data-fs-organization-drawer-header-contract-image>
             {contractImage ?? (

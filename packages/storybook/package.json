@@ -1,6 +1,6 @@
 {
   "name": "@vtex/faststore-storybook",
-  "version": "3.81.0",
+  "version": "3.88.0",
   "private": true,
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",

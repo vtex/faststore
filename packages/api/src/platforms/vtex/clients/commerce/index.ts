@@ -2,16 +2,18 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type {
-  CommercialAuthorizationResponse,
-  ICommercialAuthorizationByOrderId,
-  IProcessOrderAuthorization,
-  IUserOrderCancel,
-  QueryListUserOrdersArgs,
-  StoreMarketingData,
-  UserOrder,
-  UserOrderCancel,
-  UserOrderListResult,
+import {
+  BadRequestError,
+  ForbiddenError,
+  type CommercialAuthorizationResponse,
+  type ICommercialAuthorizationByOrderId,
+  type IProcessOrderAuthorization,
+  type IUserOrderCancel,
+  type QueryListUserOrdersArgs,
+  type StoreMarketingData,
+  type UserOrder,
+  type UserOrderCancel,
+  type UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
@@ -697,14 +699,16 @@ export const VtexCommerce = (
         }>
       > => {
         if (!userId) {
-          throw new Error('Missing userId to fetch shopper name')
+          throw new BadRequestError('Missing userId to fetch shopper name.')
         }
 
         const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
         const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
 
         if (!appkey || !apptoken) {
-          throw new Error('No authentication AppKey and AppToken passed.')
+          throw new ForbiddenError(
+            'No authentication AppKey and AppToken passed.'
+          )
         }
 
         const headers: HeadersInit = {

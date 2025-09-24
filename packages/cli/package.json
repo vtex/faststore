@@ -1,6 +1,6 @@
 {
   "name": "@vtex/faststore-cli",
-  "version": "3.82.3",
+  "version": "3.88.6",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
