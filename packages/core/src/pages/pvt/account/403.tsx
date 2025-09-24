@@ -125,6 +125,8 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
+  console.log('🚀 ~ account:', account)
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
@@ -136,7 +138,7 @@ export const getServerSideProps: GetServerSideProps<
       // The sections from the CMS page are not utilized here for the My Account page.
       // page,
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account?.data?.accountProfile?.name,
     },
   }
 }

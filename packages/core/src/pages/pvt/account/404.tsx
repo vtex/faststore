@@ -125,6 +125,8 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
+  console.log('🚀 ~ account:', account)
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
@@ -135,7 +137,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       page,
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account?.data?.accountProfile?.name,
     },
   }
 }
