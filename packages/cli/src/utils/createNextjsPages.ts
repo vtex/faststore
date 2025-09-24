@@ -83,7 +83,7 @@ export function createNextJsPages(basePath: string) {
       }
 
       if (!item.isFile()) {
-        return true // Ignore non-files
+        return false // Reject anything that is not a file (symlinks, sockets, etc.)
       }
 
       const isNextPage = /\.(js|jsx|ts|tsx)$/.test(item.name)
