@@ -4,7 +4,7 @@ import path from 'path'
 import { withBasePath } from './directory'
 import { myAccountPageTemplate } from './templates/myAccountPage'
 
-const ALLOWED_PREFIX_PAGES = ['/pvt']
+const ALLOWED_PREFIX_PAGES = ['/pvt/account']
 
 type CreateExternalPagesArgs = {
   customizationPagesDir: string
@@ -69,11 +69,43 @@ export function createNextJsPages(basePath: string) {
     return
   }
 
-  const allPagesAreAllowed = fs
-    .readdirSync(customizationPagesDir)
-    .every((filePath) => isAllowedPrefixPage(path.join('/', filePath)))
+  const allPagesAreAllowed = ({
+    basePath,
+    dirPath,
+  }: { basePath: string; dirPath: string }): boolean => {
+    const items = fs.readdirSync(dirPath, { withFileTypes: true })
 
-  if (!allPagesAreAllowed) {
+    return items.every((item) => {
+      const itemPath = path.join(dirPath, item.name)
+
+      if (item.isDirectory()) {
+        return allPagesAreAllowed({ basePath, dirPath: itemPath })
+      }
+
+      if (!item.isFile()) {
+        return true // Ignore non-files
+      }
+
+      const isNextPage = /\.(js|jsx|ts|tsx)$/.test(item.name)
+      if (!isNextPage) {
+        return false // Reject files that are not Next.js pages
+      }
+
+      // For Next.js page files, check if they match allowed prefixes
+      const relativePath = path.relative(basePath, itemPath)
+      const normalizedPath =
+        '/' + relativePath.replace(/\\/g, '/').replace(/\.(js|jsx|ts|tsx)$/, '')
+
+      return isAllowedPrefixPage(normalizedPath)
+    })
+  }
+
+  const pagesAreAllowed = allPagesAreAllowed({
+    basePath: customizationPagesDir,
+    dirPath: customizationPagesDir,
+  })
+
+  if (!pagesAreAllowed) {
     throw new Error(
       `Only these prefix pages: (${ALLOWED_PREFIX_PAGES.join(', ')}) are allowed`
     )
