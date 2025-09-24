@@ -33,9 +33,13 @@ export const ALL_DELIVERY_OPTIONS_FACET_VALUE = 'all-delivery-options' as const
 export const DELIVERY_OPTIONS_FACET_KEY = 'delivery-options' as const
 export const DYNAMIC_ESTIMATE_FACET_KEY = 'dynamic-estimate' as const
 export const IN_STOCK_FACET_KEY = 'in-stock' as const
+const DELIVERY_TYPE_DELIVERY = 'delivery' as const
+const DELIVERY_TYPE_PICKUP_IN_POINT = 'pickup-in-point' as const
 
 type Facet = SearchState['selectedFacets'][number]
-type DeliveryType = 'delivery' | 'pickup-in-point'
+type DeliveryType =
+  | typeof DELIVERY_TYPE_DELIVERY
+  | typeof DELIVERY_TYPE_PICKUP_IN_POINT
 
 export type PickupPoint = {
   id: string
@@ -131,6 +135,15 @@ export function useDeliveryPromise({
     [selectedFacets]
   )
 
+  const generateGlobalPickupPointFacets = useCallback((): Facet[] => {
+    if (!globalPickupPoint) return []
+
+    return [
+      { key: SHIPPING_FACET_KEY, value: PICKUP_IN_POINT_FACET_VALUE },
+      { key: PICKUP_POINT_FACET_KEY, value: globalPickupPoint.id },
+    ]
+  }, [globalPickupPoint])
+
   // Update Delivery Promise global state after store changes
   useEffect(() => {
     const unsubscribers = [
@@ -168,13 +181,7 @@ export function useDeliveryPromise({
       setSearchState({
         selectedFacets: toggleFacets(
           selectedFacets,
-          [
-            { key: SHIPPING_FACET_KEY, value: PICKUP_IN_POINT_FACET_VALUE },
-            {
-              key: PICKUP_POINT_FACET_KEY,
-              value: globalPickupPoint.id,
-            },
-          ],
+          generateGlobalPickupPointFacets(),
           true
         ),
         page: 0,
@@ -298,6 +305,36 @@ export function useDeliveryPromise({
         facetsToToggle.concat(currentSelectedFacets)
       }
 
+      // Auto-select/deselect delivery shipping method when dynamic estimate is toggled
+      if (facet?.key === DYNAMIC_ESTIMATE_FACET_KEY && facet?.value) {
+        const shippingFacets = currentSelectedFacets.filter(
+          ({ key }) => key === SHIPPING_FACET_KEY
+        )
+        const isDeliveryShippingSelected = shippingFacets.some(
+          ({ value }) => value === DELIVERY_TYPE_DELIVERY
+        )
+        const isDynamicEstimateSelected = currentSelectedFacets.some(
+          ({ key, value }) =>
+            key === DYNAMIC_ESTIMATE_FACET_KEY && value === facet.value
+        )
+
+        // If dynamic estimate is being selected and delivery shipping is not selected, select it
+        if (!isDynamicEstimateSelected && !isDeliveryShippingSelected) {
+          facetsToToggle.push(...shippingFacets, {
+            key: SHIPPING_FACET_KEY,
+            value: DELIVERY_TYPE_DELIVERY,
+          })
+        }
+        // If dynamic estimate is being deselected and delivery shipping is selected, handle shipping method state
+        else if (isDynamicEstimateSelected && isDeliveryShippingSelected) {
+          facetsToToggle.push(...shippingFacets)
+
+          if (globalPickupPoint) {
+            facetsToToggle.push(...generateGlobalPickupPointFacets())
+          }
+        }
+      }
+
       // Filter Slider should dispatch filter actions
       if (filterDispatch) {
         filterDispatch({
@@ -317,7 +354,12 @@ export function useDeliveryPromise({
         page: 0,
       })
     },
-    [selectedFacets, defaultPickupPoint]
+    [
+      selectedFacets,
+      defaultPickupPoint,
+      globalPickupPoint,
+      generateGlobalPickupPointFacets,
+    ]
   )
 
   const facets = useMemo(() => {
@@ -443,13 +485,23 @@ export function useDeliveryPromise({
     return facets.find((facet) => facet.key === DYNAMIC_ESTIMATE_FACET_KEY)
   }, [facets, isDynamicEstimateEnabled])
 
-  const facetsWithoutHighlightedFacet = useMemo(
-    () =>
-      highlightedFacet
-        ? facets.filter((facet) => facet.key !== DYNAMIC_ESTIMATE_FACET_KEY)
-        : facets,
-    [facets, highlightedFacet]
-  )
+  const facetsWithoutHighlightedFacet = useMemo(() => {
+    let facetsWithoutHighlight = highlightedFacet
+      ? facets.filter((facet) => facet.key !== DYNAMIC_ESTIMATE_FACET_KEY)
+      : facets
+
+    // Hide shipping facet when dynamic estimate facet is selected to improve the user experience
+    const isDynamicEstimateSelected = selectedFacets.some(
+      ({ key }) => key === DYNAMIC_ESTIMATE_FACET_KEY
+    )
+    if (isDynamicEstimateSelected) {
+      facetsWithoutHighlight = facetsWithoutHighlight.filter(
+        (facet) => facet.key !== SHIPPING_FACET_KEY
+      )
+    }
+
+    return facetsWithoutHighlight
+  }, [facets, highlightedFacet, selectedFacets])
 
   function getDynamicEstimateLabel(value: string) {
     if (value === 'next-day') {
@@ -548,29 +600,31 @@ export function useDeliveryPromise({
       (badge) => badge.typeName
     )
 
-    const hasDelivery = availableTypeNames?.includes('delivery')
-    const hasPickupPoint = availableTypeNames?.includes('pickup-in-point')
+    const hasDelivery = availableTypeNames?.includes(DELIVERY_TYPE_DELIVERY)
+    const hasPickupPoint = availableTypeNames?.includes(
+      DELIVERY_TYPE_PICKUP_IN_POINT
+    )
 
     if (hasDelivery) {
       badges.push({
-        label: getBadgeLabel('delivery', true),
+        label: getBadgeLabel(DELIVERY_TYPE_DELIVERY, true),
         availability: true,
       })
     } else {
       badges.push({
-        label: getBadgeLabel('delivery', false),
+        label: getBadgeLabel(DELIVERY_TYPE_DELIVERY, false),
         availability: false,
       })
     }
 
     if (hasPickupPoint) {
       badges.push({
-        label: getBadgeLabel('pickup-in-point', true),
+        label: getBadgeLabel(DELIVERY_TYPE_PICKUP_IN_POINT, true),
         availability: true,
       })
     } else {
       badges.push({
-        label: getBadgeLabel('pickup-in-point', false),
+        label: getBadgeLabel(DELIVERY_TYPE_PICKUP_IN_POINT, false),
         availability: false,
       })
     }
