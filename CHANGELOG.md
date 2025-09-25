@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.7](https://github.com/vtex/faststore/compare/v3.88.6...v3.88.7) (2025-09-25)
+
+### Bug Fixes
+
+- refactor search dropdown to handle analytics events asynchronously ([#3057](https://github.com/vtex/faststore/issues/3057)) ([ebd0ead](https://github.com/vtex/faststore/commit/ebd0eadfaf80f493e4defd88e47517f346720810))
+
 ## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
 
 ### Bug Fixes
