@@ -204,8 +204,10 @@ function FilterSlider({
                     id={`${testId}-${highlightedFacet.label}-${item.value}`}
                     testId={testId}
                     onFacetChange={(facet) => {
-                      onDeliveryFacetChange({ facet })
-                      resetInfiniteScroll(0)
+                      onDeliveryFacetChange({
+                        facet,
+                        filterDispatch: dispatch,
+                      })
                     }}
                     selected={item.selected}
                     value={item.value}
