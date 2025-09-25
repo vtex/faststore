@@ -1,0 +1,78 @@
+{
+  // This should be automatically updated and point to Schema Registry.
+  // TODO: Add a reference to the latest version of CMS' meta schema once it's available.
+  "$id": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore",
+  "title": "FastStore Schema",
+  "description": "Collection of default schemas for FastStore.",
+  "contexts": {},
+  "components": {
+    // `Children` is not assigned to any specific React component.
+    // Instead, it's used as a "splitter" to orient the rendering process.
+    "Children": {
+      "$extends": [
+        "#/$defs/base-component"
+      ],
+      "$componentKey": "Children",
+      "$componentTitle": "Children",
+      "description": "Children",
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "content-types": {
+    "globalSections": {
+      "title": "Global Sections",
+      "$extends": [
+        "#/$defs/base-page-template"
+      ],
+      "$singleton": true,
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    "globalHeaderSections": {
+      "title": "Global Header Sections",
+      "$singleton": true,
+      "$extends": [
+        "#/$defs/base-page-template"
+      ],
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    "globalFooterSections": {
+      "title": "Global Footer Sections",
+      "$singleton": true,
+      "$extends": [
+        "#/$defs/base-page-template"
+      ],
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "base-component": {},
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    // This is a special property that allows all components to be used in the
+    // `sections` property of a content-type. Its content will be generated
+    // before this schema is sent to CP's registry.
+    "$ALLOW_ALL_COMPONENTS": {}
+  }
+}
