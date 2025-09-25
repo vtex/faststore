@@ -313,24 +313,35 @@ export function useDeliveryPromise({
         const isDeliveryShippingSelected = shippingFacets.some(
           ({ value }) => value === DELIVERY_TYPE_DELIVERY
         )
-        const isDynamicEstimateSelected = currentSelectedFacets.some(
+        const isCurrentDynamicEstimateSelected = currentSelectedFacets.some(
           ({ key, value }) =>
             key === DYNAMIC_ESTIMATE_FACET_KEY && value === facet.value
         )
 
         // If dynamic estimate is being selected and delivery shipping is not selected, select it
-        if (!isDynamicEstimateSelected && !isDeliveryShippingSelected) {
+        if (!isCurrentDynamicEstimateSelected && !isDeliveryShippingSelected) {
           facetsToToggle.push(...shippingFacets, {
             key: SHIPPING_FACET_KEY,
             value: DELIVERY_TYPE_DELIVERY,
           })
         }
         // If dynamic estimate is being deselected and delivery shipping is selected, handle shipping method state
-        else if (isDynamicEstimateSelected && isDeliveryShippingSelected) {
-          facetsToToggle.push(...shippingFacets)
+        else if (
+          isCurrentDynamicEstimateSelected &&
+          isDeliveryShippingSelected
+        ) {
+          const otherDynamicEstimates = currentSelectedFacets.filter(
+            ({ key, value }) =>
+              key === DYNAMIC_ESTIMATE_FACET_KEY && value !== facet.value
+          )
 
-          if (globalPickupPoint) {
-            facetsToToggle.push(...generateGlobalPickupPointFacets())
+          // Only remove delivery shipping if no other dynamic estimates will remain active
+          if (otherDynamicEstimates.length === 0) {
+            facetsToToggle.push(...shippingFacets)
+
+            if (globalPickupPoint) {
+              facetsToToggle.push(...generateGlobalPickupPointFacets())
+            }
           }
         }
       }
