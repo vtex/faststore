@@ -17,11 +17,15 @@ export interface FilterFacetsProps {
   /**
    * The text displayed to identify the Facet.
    */
-  label: string
+  label?: string
   /**
    * The description displayed to identify the Facet.
    */
   description?: string
+  /**
+   * Defines if the facet should be highlighted, it will not be displayed as an accordion button and will be expanded (not collapsible).
+   */
+  highlighted?: boolean
 }
 
 function FilterFacets({
@@ -31,6 +35,7 @@ function FilterFacets({
   children,
   type,
   description,
+  highlighted,
 }: PropsWithChildren<FilterFacetsProps>) {
   return (
     <AccordionItem
@@ -40,16 +45,25 @@ function FilterFacets({
       index={index}
       data-type={type}
       data-fs-filter-accordion-item
+      data-fs-filter-accordion-item-highlighted={highlighted}
     >
-      <AccordionButton testId={`${testId}-accordion-button`}>
-        {label}
-      </AccordionButton>
-      <AccordionPanel>
-        {description && (
-          <span data-fs-filter-accordion-item-description>{description}</span>
-        )}
-        {children}
-      </AccordionPanel>
+      {highlighted ? (
+        <>{children}</>
+      ) : (
+        <>
+          <AccordionButton testId={`${testId}-accordion-button`}>
+            {label}
+          </AccordionButton>
+          <AccordionPanel>
+            {description && (
+              <span data-fs-filter-accordion-item-description>
+                {description}
+              </span>
+            )}
+            {children}
+          </AccordionPanel>
+        </>
+      )}
     </AccordionItem>
   )
 }
