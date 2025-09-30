@@ -1333,7 +1333,7 @@
   {
     "name": "Children",
     "schema": {
-      "title": "Children",
+      "title": "Divider",
       "type": "object",
       "properties": {}
     }
