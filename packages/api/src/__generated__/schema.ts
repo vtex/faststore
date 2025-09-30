@@ -1537,6 +1537,8 @@ export type StoreProduct = {
   slug: Scalars['String'];
   /** Indicate the specifications of a group of SKUs. */
   specificationGroups: Array<SpecificationGroup>;
+  /** Delivery Promise product's tags. */
+  tags?: Maybe<Array<Maybe<Tag>>>;
   /** Sku Unit Multiplier */
   unitMultiplier?: Maybe<Scalars['Float']>;
 };
@@ -1739,6 +1741,19 @@ export type StoreUserDetails = {
   orgUnit?: Maybe<Scalars['String']>;
   /** User's role. */
   role?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+/** Delivery Promise tag. */
+export type Tag = {
+  __typename?: 'Tag';
+  /** Tag name. */
+  name?: Maybe<Scalars['String']>;
+  /** Tag shipping methods - "delivery" and/or "pickup-in-point". */
+  shippingMethods?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Tag type. */
+  typeName?: Maybe<Scalars['String']>;
+  /** Tag value. */
+  value?: Maybe<Scalars['String']>;
 };
 
 export type UserOrder = {
