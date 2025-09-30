@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.7](https://github.com/vtex/faststore/compare/v3.88.6...v3.88.7) (2025-09-25)
+
+### Bug Fixes
+
+- refactor search dropdown to handle analytics events asynchronously ([#3057](https://github.com/vtex/faststore/issues/3057)) ([ebd0ead](https://github.com/vtex/faststore/commit/ebd0eadfaf80f493e4defd88e47517f346720810))
+
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+### Bug Fixes
+
+- Revert "feat: add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029))" - SFS-2880 ([#3054](https://github.com/vtex/faststore/issues/3054)) ([68854b1](https://github.com/vtex/faststore/commit/68854b120b28d910b4ab48c93c1fbb60fe0e470d))
+
 ## [3.88.5](https://github.com/vtex/faststore/compare/v3.88.4...v3.88.5) (2025-09-22)
 
 ### Bug Fixes
