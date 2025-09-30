@@ -1,5 +1,4 @@
 import type { GlobalSectionsData } from 'src/components/cms/GlobalSections'
-import ChildrenSectionNotFoundError from 'src/sdk/error/ChildrenSectionNotFoundError'
 
 type InjectGlobalSectionsProps = {
   globalSections: GlobalSectionsData
@@ -16,14 +15,23 @@ export function injectGlobalSections({
     (section) => section.name === 'Children'
   )
 
-  if (childrenIndex === -1) {
-    throw new ChildrenSectionNotFoundError(
-      'Children section in Global Sections content type was not found. Please add a Children Section.'
-    )
-  }
-
   const headerSections = globalSectionsHeader?.sections || []
   const footerSections = globalSectionsFooter?.sections || []
+
+  if (childrenIndex === -1) {
+    console.warn(
+      'Children section in Global Sections content-type was not found. Returning sections without children injection.'
+    )
+
+    return {
+      ...globalSections,
+      sections: [
+        ...globalSections.sections,
+        ...headerSections,
+        ...footerSections,
+      ],
+    }
+  }
 
   return {
     ...globalSections,

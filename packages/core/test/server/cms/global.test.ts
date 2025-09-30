@@ -62,7 +62,7 @@ describe('hCMS - Multiple Global Section content type', () => {
       expect(result.sections).toEqual(globalSections.sections)
     })
 
-    it('should throw an error when the "Children" section is missing', () => {
+    it('should return sections without children injection when "Children" section is missing', () => {
       const globalSections: GlobalSectionsData = {
         sections: [
           { name: 'Navbar', data: {} },
@@ -70,17 +70,33 @@ describe('hCMS - Multiple Global Section content type', () => {
         ],
       }
 
-      expect(() =>
-        injectGlobalSections({
-          globalSections,
-          globalSectionsHeader: {
-            sections: [],
-          },
-          globalSectionsFooter: {
-            sections: [],
-          },
-        })
-      ).toThrow(Error)
+      const globalSectionsHeader: GlobalSectionsData = {
+        sections: [{ name: 'ExtraHeader', data: {} }],
+      }
+
+      const globalSectionsFooter: GlobalSectionsData = {
+        sections: [{ name: 'ExtraFooter', data: {} }],
+      }
+
+      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation()
+
+      const result = injectGlobalSections({
+        globalSections,
+        globalSectionsHeader,
+        globalSectionsFooter,
+      })
+
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Children section in Global Sections content-type was not found. Returning sections without children injection.'
+      )
+      expect(result.sections).toEqual([
+        { name: 'Navbar', data: {} }, // Original sections first
+        { name: 'Footer', data: {} },
+        { name: 'ExtraHeader', data: {} }, // Header sections after
+        { name: 'ExtraFooter', data: {} }, // Footer sections last
+      ])
+
+      consoleSpy.mockRestore()
     })
   })
 })
