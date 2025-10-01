@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.88.7](https://github.com/vtex/faststore/compare/v3.88.6...v3.88.7) (2025-09-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.5](https://github.com/vtex/faststore/compare/v3.88.4...v3.88.5) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.4](https://github.com/vtex/faststore/compare/v3.88.3...v3.88.4) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.3](https://github.com/vtex/faststore/compare/v3.88.2...v3.88.3) (2025-09-22)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.2](https://github.com/vtex/faststore/compare/v3.88.1...v3.88.2) (2025-09-19)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.1](https://github.com/vtex/faststore/compare/v3.88.0...v3.88.1) (2025-09-19)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.88.0](https://github.com/vtex/faststore/compare/v3.87.0...v3.88.0) (2025-09-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.87.0](https://github.com/vtex/faststore/compare/v3.86.4...v3.87.0) (2025-09-18)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.86.4](https://github.com/vtex/faststore/compare/v3.86.3...v3.86.4) (2025-09-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.86.3](https://github.com/vtex/faststore/compare/v3.86.2...v3.86.3) (2025-09-17)
+
+### Bug Fixes
+
+- add all the path to the plugin API route after the /plugins prefix ([#3042](https://github.com/vtex/faststore/issues/3042)) ([dca59ac](https://github.com/vtex/faststore/commit/dca59ac05ed28a0dbfbbbd9d1d3aa1980f42cf9a))
+
 ## [3.86.2](https://github.com/vtex/faststore/compare/v3.86.1...v3.86.2) (2025-09-16)
 
 **Note:** Version bump only for package @faststore/cli

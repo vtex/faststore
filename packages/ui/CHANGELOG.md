@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.88.0](https://github.com/vtex/faststore/compare/v3.87.0...v3.88.0) (2025-09-18)
+
+### Features
+
+- [CP-768] adding support for lexical rich text objects ([#3004](https://github.com/vtex/faststore/issues/3004)) ([3e8fdaa](https://github.com/vtex/faststore/commit/3e8fdaa4bb728d2bde038ac96a2045f5d8670744)), closes [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R189](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R189) [/github.com/vtex/faststore/pull/3004/files#diff-fe1a4c11824f3dfcc33af60e6612a2054705df8f7273932db1b5f9c0ed023172R20](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-fe1a4c11824f3dfcc33af60e6612a2054705df8f7273932db1b5f9c0ed023172R20) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R205](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R205) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R98](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R98) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R153](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R153) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R106](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R106) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R119](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R119) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R145](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R145) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R148](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R148) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R149](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R149) [/github.com/vtex/faststore/pull/3004/files#diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R150](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-0b1e74171da3dc2cd19600bd739a8db011c54e9032c01abe19ababa21b1cf947R150) [/github.com/vtex/faststore/pull/3004/files#diff-946e28ce25fa403debb36f7f2bb8bad070f7ddd8586e4dd834649afcf4b529eeR32](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-946e28ce25fa403debb36f7f2bb8bad070f7ddd8586e4dd834649afcf4b529eeR32) [/github.com/vtex/faststore/pull/3004/files#diff-3a4a8bba967d6107c9b71ef5c1a0835620593286a58dc65031f8a29e8584c071R27](https://github.com//github.com/vtex/faststore/pull/3004/files/issues/diff-3a4a8bba967d6107c9b71ef5c1a0835620593286a58dc65031f8a29e8584c071R27)
+
+# [3.87.0](https://github.com/vtex/faststore/compare/v3.86.4...v3.87.0) (2025-09-18)
+
+**Note:** Version bump only for package @faststore/ui
+
+## [3.86.4](https://github.com/vtex/faststore/compare/v3.86.3...v3.86.4) (2025-09-17)
+
+### Bug Fixes
+
+- `ShippingSimulation` table SFS-2622 ([#3030](https://github.com/vtex/faststore/issues/3030)) ([dfcb924](https://github.com/vtex/faststore/commit/dfcb9245527dd8bf90cd183fed7f556bf8b35a4d))
+
 # [3.84.0](https://github.com/vtex/faststore/compare/v3.83.1...v3.84.0) (2025-09-09)
 
 ### Features

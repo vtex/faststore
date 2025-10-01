@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes, DetailedHTMLProps } from 'react'
+import RichText from '../../atoms/RichText'
 
 export interface NewsletterAddendumProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
@@ -18,15 +19,19 @@ const NewsletterAddendum = forwardRef<HTMLSpanElement, NewsletterAddendumProps>(
     { addendum, testId = 'fs-newsletter-addendum', ...otherProps },
     ref
   ) {
+    if (!addendum) {
+      return null
+    }
+
     return (
-      <span
-        ref={ref}
-        data-testid={testId}
+      <RichText
+        as="span"
+        content={addendum}
+        testId={testId}
         data-fs-newsletter-addendum
         {...otherProps}
-      >
-        {addendum}
-      </span>
+        ref={ref}
+      />
     )
   }
 )

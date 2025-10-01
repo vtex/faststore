@@ -417,16 +417,11 @@ export type IStoreB2B = {
   firstName: InputMaybe<Scalars['String']['input']>
   isRepresentative: InputMaybe<Scalars['Boolean']['input']>
   lastName: InputMaybe<Scalars['String']['input']>
-  permissions: IStoreB2BPermissions
   savedPostalCode: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
   unitName: InputMaybe<Scalars['String']['input']>
   userEmail: InputMaybe<Scalars['String']['input']>
   userName: InputMaybe<Scalars['String']['input']>
-}
-
-export type IStoreB2BPermissions = {
-  canManageOrganization: Scalars['Boolean']['input']
 }
 
 /** Shopping cart input. */
@@ -1135,16 +1130,11 @@ export type StoreB2B = {
   firstName: Maybe<Scalars['String']['output']>
   isRepresentative: Maybe<Scalars['Boolean']['output']>
   lastName: Maybe<Scalars['String']['output']>
-  permissions: StoreB2BPermissions
   savedPostalCode: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
   unitName: Maybe<Scalars['String']['output']>
   userEmail: Maybe<Scalars['String']['output']>
   userName: Maybe<Scalars['String']['output']>
-}
-
-export type StoreB2BPermissions = {
-  canManageOrganization: Scalars['Boolean']['output']
 }
 
 /** Brand of a given product. */
@@ -1300,7 +1290,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String']['output']
   /** Number of items with this facet. */
-  quantity: Scalars['Int']['output']
+  quantity: Maybe<Scalars['Int']['output']>
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean']['output']
   /** Facet value. */
@@ -2470,7 +2460,7 @@ type Filter_Facets_StoreFacetBoolean_Fragment = {
     label: string
     value: string
     selected: boolean
-    quantity: number
+    quantity: number | null
   }>
 }
 
@@ -3346,7 +3336,7 @@ export type ClientProductGalleryQueryQuery = {
             label: string
             value: string
             selected: boolean
-            quantity: number
+            quantity: number | null
           }>
         }
       | {
@@ -3609,7 +3599,6 @@ export type ValidateSessionMutation = {
       userName: string | null
       userEmail: string | null
       savedPostalCode: string | null
-      permissions: { canManageOrganization: boolean }
     } | null
     marketingData: {
       utmCampaign: string | null
@@ -4506,7 +4495,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '15d85b65b36cb2c30fead1c68a01c3492319a819',
+    operationHash: '5da2700f5a69ee8835b1cb6c69e14f4b6e12c4df',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

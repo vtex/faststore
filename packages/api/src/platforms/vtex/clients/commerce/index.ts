@@ -2,16 +2,18 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type {
-  CommercialAuthorizationResponse,
-  ICommercialAuthorizationByOrderId,
-  IProcessOrderAuthorization,
-  IUserOrderCancel,
-  QueryListUserOrdersArgs,
-  StoreMarketingData,
-  UserOrder,
-  UserOrderCancel,
-  UserOrderListResult,
+import {
+  BadRequestError,
+  ForbiddenError,
+  type CommercialAuthorizationResponse,
+  type ICommercialAuthorizationByOrderId,
+  type IProcessOrderAuthorization,
+  type IUserOrderCancel,
+  type QueryListUserOrdersArgs,
+  type StoreMarketingData,
+  type UserOrder,
+  type UserOrderCancel,
+  type UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
 import type { Channel } from '../../utils/channel'
@@ -670,24 +672,6 @@ export const VtexCommerce = (
           {}
         )
       },
-      getUserGrantedResources: ({
-        userId,
-        resourceKey,
-      }: {
-        userId: string
-        resourceKey: string
-      }): Promise<boolean> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
-        return fetchAPI(
-          `${base}/api/license-manager/storefront/users/${userId}/resources/${resourceKey}/granted`,
-          {
-            method: 'GET',
-            headers,
-          },
-          {}
-        )
-      },
     },
     masterData: {
       getContractById: ({
@@ -715,14 +699,16 @@ export const VtexCommerce = (
         }>
       > => {
         if (!userId) {
-          throw new Error('Missing userId to fetch shopper name')
+          throw new BadRequestError('Missing userId to fetch shopper name.')
         }
 
         const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
         const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
 
         if (!appkey || !apptoken) {
-          throw new Error('No authentication AppKey and AppToken passed.')
+          throw new ForbiddenError(
+            'No authentication AppKey and AppToken passed.'
+          )
         }
 
         const headers: HeadersInit = {

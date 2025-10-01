@@ -70,6 +70,11 @@ type DeliveryPromiseCmsData = {
     pickupInPoint?: string
     pickupInPointUnavailable?: string
   }
+  inStock?: {
+    enabled?: boolean
+    title?: string
+    label?: string
+  }
 }
 
 export function getGlobalSettings(

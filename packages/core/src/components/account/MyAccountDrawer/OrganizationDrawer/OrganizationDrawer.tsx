@@ -30,10 +30,9 @@ export const OrganizationDrawer = ({
 
   const contractName = person?.givenName ?? ''
 
-  const contractUrl =
-    b2b?.unitId && b2b?.permissions?.canManageOrganization
-      ? `/buyer-portal/org-unit/${b2b?.unitId}`
-      : null
+  const contractUrl = b2b?.unitId
+    ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
+    : null
 
   return (
     <SlideOver
