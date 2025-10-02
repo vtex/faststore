@@ -1,22 +1,22 @@
+import type { Locator } from '@vtex/client-cms'
+import type { GetServerSideProps } from 'next'
 import { gql } from '../../@generated/gql'
 import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
 } from '../../@generated/graphql'
-import type { Locator } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
 
 import {
-  type GlobalSectionsData,
   getGlobalSectionsData,
+  type GlobalSectionsData,
 } from '../components/cms/GlobalSections'
-import { execute } from '../server'
 import { getIsRepresentative } from '../sdk/account/getIsRepresentative'
+import { execute } from '../server'
 
+import storeConfig from '../../discovery.config'
+import { validateUser } from '../sdk/account/validateUser'
 import { injectGlobalSections } from '../server/cms/global'
 import { getMyAccountRedirect } from '../utils/myAccountRedirect'
-import { validateUser } from '../sdk/account/validateUser'
-import storeConfig from '../../discovery.config'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -26,7 +26,9 @@ export type MyAccountProps = {
 
 const query = gql(`
   query ServerAccountPageQuery {
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)
 
@@ -91,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
       isRepresentative,
     },
   }

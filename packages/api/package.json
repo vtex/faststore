@@ -1,7 +1,6 @@
 {
   "name": "@vtex/faststore-api",
-  "version": "3.88.6",
-  "license": "MIT",
+  "version": "3.89.2",
   "repository": "vtex/faststore",
   "typings": "./dist/src/index.d.ts",
   "module": "dist/es/index.mjs",

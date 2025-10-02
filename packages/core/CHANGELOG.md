@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.89.2 (2025-10-02)
+
+### Bug Fixes
+
+- Filter quantity badge and labels references SFS-2896 ([#3061](https://github.com/vtex/faststore/issues/3061)) ([cfcf650](https://github.com/vtex/faststore/commit/cfcf650b5d1462c3988bc83fe2cb83981a2afa04))
+- refactor `ProductShelf` component to import directly - SFS-2895 ([#3059](https://github.com/vtex/faststore/issues/3059)) ([24ee8fb](https://github.com/vtex/faststore/commit/24ee8fb8020cf037f4fe83b7ace1a747c383cbcf))
+
+## [3.89.1](https://github.com/vtex/faststore/compare/v3.89.0...v3.89.1) (2025-10-02)
+
+### Bug Fixes
+
+- updates contract name SFS-2863 ([#3051](https://github.com/vtex/faststore/issues/3051)) ([3b884e4](https://github.com/vtex/faststore/commit/3b884e49eabbbd4d5832f342c759d1301c98dc0e))
+
+# [3.89.0](https://github.com/vtex/faststore/compare/v3.88.7...v3.89.0) (2025-10-02)
+
+### Features
+
+- My Account QA SFS-2859 ([#3040](https://github.com/vtex/faststore/issues/3040)) ([5e36a5f](https://github.com/vtex/faststore/commit/5e36a5f31acb1523024ad6e7063ca51aabe2f303)), closes [/github.com/vtex/faststore/blob/af6d2acbbc2fb72778c7223897ec7846736b4c87/packages/core/src/components/account/orders/MyAccountOrderDetails/MyAccountOrderDetails.tsx#L1](https://github.com//github.com/vtex/faststore/blob/af6d2acbbc2fb72778c7223897ec7846736b4c87/packages/core/src/components/account/orders/MyAccountOrderDetails/MyAccountOrderDetails.tsx/issues/L1)
+
+## [3.88.7](https://github.com/vtex/faststore/compare/v3.88.6...v3.88.7) (2025-09-25)
+
+### Bug Fixes
+
+- refactor search dropdown to handle analytics events asynchronously ([#3057](https://github.com/vtex/faststore/issues/3057)) ([ebd0ead](https://github.com/vtex/faststore/commit/ebd0eadfaf80f493e4defd88e47517f346720810))
+
 ## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
 
 ### Bug Fixes

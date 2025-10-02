@@ -1,7 +1,7 @@
 import { useRef, type MutableRefObject } from 'react'
 
-import type { ServerListOrdersQueryQuery } from '../../../../../@generated/graphql'
 import { useRouter } from 'next/router'
+import type { ServerListOrdersQueryQuery } from '../../../../../@generated/graphql'
 
 import {
   Button,
@@ -13,7 +13,6 @@ import {
   type SearchInputFieldRef,
 } from '@vtex/faststore-ui'
 import { useEffect } from 'react'
-import MyAccountFilterSlider from './MyAccountFilterSlider'
 import { useDebounce } from '../../../../sdk/account/useDebounce'
 import {
   useMyAccountFilter,
@@ -22,6 +21,8 @@ import {
 } from '../../../../sdk/search/useMyAccountFilter'
 import useScreenResize from '../../../../sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from '../../../../utils/userOrderStatus'
+import AccountHeader from '../../components/MyAccountHeader'
+import MyAccountFilterSlider from './MyAccountFilterSlider'
 import MyAccountListOrdersTable, {
   Pagination,
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'
@@ -191,151 +192,147 @@ export default function MyAccountListOrders({
 
   return (
     <div className={styles.page}>
-      <div data-fs-list-orders>
-        <h1 data-fs-list-orders-title>Orders</h1>
-        <div data-fs-list-orders-header>
-          <div data-fs-list-orders-search-filters>
-            <SearchInputField
-              ref={searchInputRef}
-              data-fs-search-input-field-list-orders
-              placeholder="Search"
-              onBlur={(_) => {
+      <AccountHeader pageTitle="Orders" />
+      <div data-fs-list-orders-controls>
+        <div data-fs-list-orders-search-filters>
+          <SearchInputField
+            ref={searchInputRef}
+            data-fs-search-input-field-list-orders
+            placeholder="Search"
+            onBlur={(_) => {
+              handleSearchChange(searchInputRef.current.inputRef.value)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
                 handleSearchChange(searchInputRef.current.inputRef.value)
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearchChange(searchInputRef.current.inputRef.value)
-                }
-              }}
-              onSubmit={(_) => {
-                handleSearchChange(searchInputRef.current.inputRef.value)
-              }}
-            />
-            <Button
-              data-fs-list-orders-search-filters-button
-              variant="tertiary"
-              icon={
-                <UIIcon
-                  width={16}
-                  height={16}
-                  name="FadersHorizontal"
-                  aria-label="Open Filters"
-                />
               }
-              iconPosition="left"
-              onClick={() => {
-                filter.dispatch({
-                  type: 'selectFacets',
-                  payload: getSelectedFacets({ filters }),
-                })
-                openFilter()
-              }}
-            >
-              Filters
-            </Button>
-          </div>
-          {isDesktop && (
-            <Pagination page={filters.page} total={total} perPage={perPage} />
-          )}
-        </div>
-
-        <SelectedFiltersTags
-          filters={{
-            status: filters.status,
-            dateInitial: filters.dateInitial,
-            dateFinal: filters.dateFinal,
-            purchaseAgentId: filters.purchaseAgentId,
-          }}
-          onClearAll={() => {
-            window.location.href = '/pvt/account/orders'
-          }}
-          onRemoveFilter={(key, value) => {
-            const { page, clientEmail, ...updatedFilters } = { ...filters }
-
-            if (key === 'status' && Array.isArray(updatedFilters[key])) {
-              updatedFilters[key] = updatedFilters[key].filter(
-                (v) => v !== value
-              )
-            } else if (key === 'dateInitial' || key === 'dateFinal') {
-              delete updatedFilters.dateInitial
-              delete updatedFilters.dateFinal
-            } else if (key === 'purchaseAgentId') {
-              delete updatedFilters.purchaseAgentId
-            } else {
-              delete updatedFilters[key]
-            }
-
-            if (key === 'status' && Array.isArray(updatedFilters[key])) {
-              updatedFilters[key] = updatedFilters[key].filter(
-                (v) => v.toLowerCase() !== value.toLowerCase()
-              )
-            } else if (key === 'dateInitial' || key === 'dateFinal') {
-              delete updatedFilters.dateInitial
-              delete updatedFilters.dateFinal
-            } else if (key === 'purchaseAgentId') {
-              delete updatedFilters.purchaseAgentId
-            } else {
-              delete updatedFilters[key]
-            }
-
-            // Remove filters with no values
-            const filteredQuery = Object.fromEntries(
-              Object.entries(updatedFilters).filter(([, v]) =>
-                Array.isArray(v) ? v.length > 0 : Boolean(v)
-              )
-            )
-
-            const params = new URLSearchParams(
-              filteredQuery as Record<string, string>
-            )
-            window.location.href = `/pvt/account/orders?${params.toString()}`
-          }}
-        />
-
-        {displayFilter && (
-          <MyAccountFilterSlider
-            {...filter}
-            title="Filters"
-            clearButtonLabel="Clear All"
-            applyButtonLabel="View Results"
-            searchInputRef={searchInputRef}
+            }}
+            onSubmit={(_) => {
+              handleSearchChange(searchInputRef.current.inputRef.value)
+            }}
           />
-        )}
-
-        {isEmpty ? (
-          <EmptyState
-            titleIcon={
+          <Button
+            data-fs-list-orders-search-filters-button
+            size="small"
+            variant="tertiary"
+            icon={
               <UIIcon
-                name={hasFilters ? 'MagnifyingGlass' : 'Bag2'}
-                width={56}
-                height={56}
-                weight="thin"
+                name="FadersHorizontal"
+                width={24}
+                height={24}
+                aria-label="Open Filters"
               />
             }
-            title={
-              hasFilters ? 'No results found' : "You don't have any orders"
-            }
-            bkgColor="light"
+            iconPosition="left"
+            onClick={() => {
+              filter.dispatch({
+                type: 'selectFacets',
+                payload: getSelectedFacets({ filters }),
+              })
+              openFilter()
+            }}
           >
-            {!hasFilters && (
-              <LinkButton
-                data-fs-list-orders-empty-state-link
-                href="/"
-                variant="secondary"
-              >
-                Start shopping
-              </LinkButton>
-            )}
-          </EmptyState>
-        ) : (
-          <MyAccountListOrdersTable
-            listOrders={listOrders}
-            total={total}
-            perPage={perPage}
-            filters={filters}
-          />
+            Filters
+          </Button>
+        </div>
+        {isDesktop && (
+          <Pagination page={filters.page} total={total} perPage={perPage} />
         )}
       </div>
+
+      <SelectedFiltersTags
+        filters={{
+          status: filters.status,
+          dateInitial: filters.dateInitial,
+          dateFinal: filters.dateFinal,
+          purchaseAgentId: filters.purchaseAgentId,
+        }}
+        onClearAll={() => {
+          window.location.href = '/pvt/account/orders'
+        }}
+        onRemoveFilter={(key, value) => {
+          const { page, clientEmail, ...updatedFilters } = { ...filters }
+
+          if (key === 'status' && Array.isArray(updatedFilters[key])) {
+            updatedFilters[key] = updatedFilters[key].filter((v) => v !== value)
+          } else if (key === 'dateInitial' || key === 'dateFinal') {
+            delete updatedFilters.dateInitial
+            delete updatedFilters.dateFinal
+          } else if (key === 'purchaseAgentId') {
+            delete updatedFilters.purchaseAgentId
+          } else {
+            delete updatedFilters[key]
+          }
+
+          if (key === 'status' && Array.isArray(updatedFilters[key])) {
+            updatedFilters[key] = updatedFilters[key].filter(
+              (v) => v.toLowerCase() !== value.toLowerCase()
+            )
+          } else if (key === 'dateInitial' || key === 'dateFinal') {
+            delete updatedFilters.dateInitial
+            delete updatedFilters.dateFinal
+          } else if (key === 'purchaseAgentId') {
+            delete updatedFilters.purchaseAgentId
+          } else {
+            delete updatedFilters[key]
+          }
+
+          // Remove filters with no values
+          const filteredQuery = Object.fromEntries(
+            Object.entries(updatedFilters).filter(([, v]) =>
+              Array.isArray(v) ? v.length > 0 : Boolean(v)
+            )
+          )
+
+          const params = new URLSearchParams(
+            filteredQuery as Record<string, string>
+          )
+          window.location.href = `/pvt/account/orders?${params.toString()}`
+        }}
+      />
+
+      {displayFilter && (
+        <MyAccountFilterSlider
+          {...filter}
+          title="Filters"
+          clearButtonLabel="Clear All"
+          applyButtonLabel="View Results"
+          searchInputRef={searchInputRef}
+          testId="my-account-filter-slider"
+        />
+      )}
+
+      {isEmpty ? (
+        <EmptyState
+          titleIcon={
+            <UIIcon
+              name={hasFilters ? 'MagnifyingGlass' : 'Bag2'}
+              width={56}
+              height={56}
+              weight="thin"
+            />
+          }
+          title={hasFilters ? 'No results found' : "You don't have any orders"}
+          bkgColor="light"
+        >
+          {!hasFilters && (
+            <LinkButton
+              data-fs-list-orders-empty-state-link
+              href="/"
+              variant="secondary"
+            >
+              Start shopping
+            </LinkButton>
+          )}
+        </EmptyState>
+      ) : (
+        <MyAccountListOrdersTable
+          listOrders={listOrders}
+          total={total}
+          perPage={perPage}
+          filters={filters}
+        />
+      )}
       {!isDesktop && (
         <Pagination page={filters.page} total={total} perPage={perPage} />
       )}
