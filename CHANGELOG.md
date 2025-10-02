@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.89.1](https://github.com/vtex/faststore/compare/v3.89.0...v3.89.1) (2025-10-02)
+
+### Bug Fixes
+
+- updates contract name SFS-2863 ([#3051](https://github.com/vtex/faststore/issues/3051)) ([3b884e4](https://github.com/vtex/faststore/commit/3b884e49eabbbd4d5832f342c759d1301c98dc0e))
+
 # [3.89.0](https://github.com/vtex/faststore/compare/v3.88.7...v3.89.0) (2025-10-02)
 
 ### Features
