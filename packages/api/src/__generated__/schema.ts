@@ -850,8 +850,6 @@ export type ProfileAddress = {
 
 export type Query = {
   __typename?: 'Query';
-  /** Returns the account name of the current user or the B2B contract name if applicable. */
-  accountName?: Maybe<Scalars['String']>;
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
   accountProfile: StoreAccountProfile;
   /** Returns information about all collections. */

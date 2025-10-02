@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.89.2 (2025-10-02)
+
+### Bug Fixes
+
+- refactor `ProductShelf` component to import directly - SFS-2895 ([#3059](https://github.com/vtex/faststore/issues/3059)) ([24ee8fb](https://github.com/vtex/faststore/commit/24ee8fb8020cf037f4fe83b7ace1a747c383cbcf))
+
+## [3.89.1](https://github.com/vtex/faststore/compare/v3.89.0...v3.89.1) (2025-10-02)
+
+### Bug Fixes
+
+- updates contract name SFS-2863 ([#3051](https://github.com/vtex/faststore/issues/3051)) ([3b884e4](https://github.com/vtex/faststore/commit/3b884e49eabbbd4d5832f342c759d1301c98dc0e))
+
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+### Bug Fixes
+
+- Revert "feat: add organization management permission validation ([#3029](https://github.com/vtex/faststore/issues/3029))" - SFS-2880 ([#3054](https://github.com/vtex/faststore/issues/3054)) ([68854b1](https://github.com/vtex/faststore/commit/68854b120b28d910b4ab48c93c1fbb60fe0e470d))
+
 ## [3.88.2](https://github.com/vtex/faststore/compare/v3.88.1...v3.88.2) (2025-09-19)
 
 ### Bug Fixes

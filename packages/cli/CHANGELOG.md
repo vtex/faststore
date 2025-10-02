@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.89.2 (2025-10-02)
+
+### Bug Fixes
+
+- refactor `ProductShelf` component to import directly - SFS-2895 ([#3059](https://github.com/vtex/faststore/issues/3059)) ([24ee8fb](https://github.com/vtex/faststore/commit/24ee8fb8020cf037f4fe83b7ace1a747c383cbcf))
+
+## [3.89.1](https://github.com/vtex/faststore/compare/v3.89.0...v3.89.1) (2025-10-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.89.0](https://github.com/vtex/faststore/compare/v3.88.7...v3.89.0) (2025-10-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.7](https://github.com/vtex/faststore/compare/v3.88.6...v3.88.7) (2025-09-25)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.88.6](https://github.com/vtex/faststore/compare/v3.88.5...v3.88.6) (2025-09-23)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## [3.88.5](https://github.com/vtex/faststore/compare/v3.88.4...v3.88.5) (2025-09-22)
 
 **Note:** Version bump only for package @faststore/cli
