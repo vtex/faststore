@@ -298,6 +298,7 @@ export default function MyAccountListOrders({
           clearButtonLabel="Clear All"
           applyButtonLabel="View Results"
           searchInputRef={searchInputRef}
+          testId="my-account-filter-slider"
         />
       )}
 
