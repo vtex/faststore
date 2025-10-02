@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from 'src/components/account'
@@ -72,7 +69,9 @@ export default function Page({
 
 const query = gql(`
   query ServerSecurity {
-    accountName
+    accountProfile {
+      name
+    }
     userDetails {
       email
     }
@@ -150,7 +149,7 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      accountName: security.data.accountName,
+      accountName: security.data.accountProfile.name,
       userEmail: security.data?.userDetails.email || '',
       globalSections: globalSectionsResult,
       isRepresentative,
