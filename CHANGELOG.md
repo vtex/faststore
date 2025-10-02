@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.89.0](https://github.com/vtex/faststore/compare/v3.88.7...v3.89.0) (2025-10-02)
+
+### Features
+
+- My Account QA SFS-2859 ([#3040](https://github.com/vtex/faststore/issues/3040)) ([5e36a5f](https://github.com/vtex/faststore/commit/5e36a5f31acb1523024ad6e7063ca51aabe2f303)), closes [/github.com/vtex/faststore/blob/af6d2acbbc2fb72778c7223897ec7846736b4c87/packages/core/src/components/account/orders/MyAccountOrderDetails/MyAccountOrderDetails.tsx#L1](https://github.com//github.com/vtex/faststore/blob/af6d2acbbc2fb72778c7223897ec7846736b4c87/packages/core/src/components/account/orders/MyAccountOrderDetails/MyAccountOrderDetails.tsx/issues/L1)
+
 ## [3.88.7](https://github.com/vtex/faststore/compare/v3.88.6...v3.88.7) (2025-09-25)
 
 ### Bug Fixes
