@@ -1,5 +1,4 @@
 import { parse } from 'cookie'
-import { ForbiddenError } from '../../..'
 import type { Context } from '../index'
 
 export interface ContextForCookies {
@@ -120,25 +119,6 @@ export const getWithAutCookie = (ctx: ContextForCookies) => {
     headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
 
     return headers
-  }
-}
-
-export const getWithAppKeyAndToken = () => {
-  return function withAppKeyAndToken<T extends Record<string, string>>(
-    additionalHeaders: T = {} as T
-  ): T & { 'X-VTEX-API-AppKey': string; 'X-VTEX-API-AppToken': string } {
-    const appKey = process.env.FS_DISCOVERY_APP_KEY ?? ''
-    const appToken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
-
-    if (!appKey || !appToken) {
-      throw new ForbiddenError('No authentication AppKey and AppToken passed.')
-    }
-
-    return {
-      ...additionalHeaders,
-      'X-VTEX-API-AppKey': appKey,
-      'X-VTEX-API-AppToken': appToken,
-    }
   }
 }
 

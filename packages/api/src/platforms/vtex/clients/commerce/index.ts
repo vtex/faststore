@@ -15,10 +15,10 @@ import {
   type UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
+import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
-  getWithAppKeyAndToken,
   getWithAutCookie,
   getWithCookie,
 } from '../../utils/cookies'
