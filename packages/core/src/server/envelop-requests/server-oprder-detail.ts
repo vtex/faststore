@@ -24,8 +24,7 @@ export function serverOrderDetailRequest({
   )
 }
 
-const query = gql(`
-  query ServerOrderDetailsQuery($orderId: String!) {
+const query = gql(`query ServerOrderDetailsQuery($orderId: String!) {
     userOrder(orderId: $orderId) {
       orderId
       creationDate
@@ -204,6 +203,8 @@ const query = gql(`
         phone
       }
     }
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)

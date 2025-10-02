@@ -133,100 +133,98 @@ export const SecurityDrawer = ({
       </SlideOverHeader>
 
       <div data-fs-security-drawer-body>
-        <div data-fs-security-drawer-body-form>
-          <div data-fs-security-drawer-body-current-password>
-            <Input
-              data-fs-security-drawer-input
-              id="security-drawer-input-current-password"
-              type={showCurrentPassword ? 'text' : 'password'}
-              placeholder="Current Password"
-              inputMode="text"
-              value={currentPassword}
-              onChange={(e) => {
-                setFormError(null)
-                setCurrentPassword(e.target.value)
-              }}
-            />
-            <IconButton
-              data-fs-security-drawer-input-password-toggle
-              size="small"
-              aria-label="Show Password"
-              onClick={() => setShowCurrentPassword((prev) => !prev)}
-              icon={
-                showCurrentPassword ? (
-                  <Icon name="EyeSlash" />
-                ) : (
-                  <Icon name="Eye" />
-                )
-              }
-            />
-          </div>
-
-          <div data-fs-security-drawer-body-new-password>
-            <Input
-              data-fs-security-drawer-input
-              id="security-drawer-input-new-password"
-              type={showNewPassword ? 'text' : 'password'}
-              placeholder="New Password"
-              inputMode="text"
-              value={newPassword}
-              onChange={(e) => {
-                setFormError(null)
-                setNewPassword(e.target.value)
-              }}
-            />
-            <IconButton
-              data-fs-security-drawer-input-password-toggle
-              size="small"
-              aria-label="Show Password"
-              onClick={() => setShowNewPassword((prev) => !prev)}
-              icon={
-                showNewPassword ? <Icon name="EyeSlash" /> : <Icon name="Eye" />
-              }
-            />
-          </div>
-
-          {formError && (
-            <div data-fs-security-drawer-error>
-              <Icon
-                width={20}
-                height={20}
-                name="CircleWavyWarning"
-                data-fs-security-drawer-error-icon
-              />
-              <span>{formError}</span>
-            </div>
-          )}
-
-          {newPassword.length > 0 && (
-            <div data-fs-security-drawer-input-password-rules-container>
-              <p data-fs-security-drawer-input-password-rules-title>
-                Your password must have at least:
-              </p>
-
-              <ul data-fs-security-drawer-input-password-rules-list>
-                {newPasswordValidations.map((rule, index) => (
-                  <li
-                    key={index}
-                    data-fs-security-drawer-input-password-rule-item
-                    data-status={rule.isValid ? 'success' : 'error'}
-                  >
-                    <Icon
-                      name={rule.isValid ? 'CheckCircle' : 'XCircle'}
-                      width={20}
-                      height={20}
-                    />
-                    {rule.label}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        <div data-fs-security-drawer-body-password>
+          <Input
+            data-fs-security-drawer-input
+            id="security-drawer-input-current-password"
+            type={showCurrentPassword ? 'text' : 'password'}
+            placeholder="Current Password"
+            inputMode="text"
+            value={currentPassword}
+            onChange={(e) => {
+              setFormError(null)
+              setCurrentPassword(e.target.value)
+            }}
+          />
+          <IconButton
+            data-fs-security-drawer-input-password-toggle
+            size="small"
+            aria-label="Show Password"
+            onClick={() => setShowCurrentPassword((prev) => !prev)}
+            icon={
+              showCurrentPassword ? (
+                <Icon name="EyeSlash" />
+              ) : (
+                <Icon name="Eye" />
+              )
+            }
+          />
         </div>
+
+        <div data-fs-security-drawer-body-password>
+          <Input
+            data-fs-security-drawer-input
+            id="security-drawer-input-new-password"
+            type={showNewPassword ? 'text' : 'password'}
+            placeholder="New Password"
+            inputMode="text"
+            value={newPassword}
+            onChange={(e) => {
+              setFormError(null)
+              setNewPassword(e.target.value)
+            }}
+          />
+          <IconButton
+            data-fs-security-drawer-input-password-toggle
+            size="small"
+            aria-label="Show Password"
+            onClick={() => setShowNewPassword((prev) => !prev)}
+            icon={
+              showNewPassword ? <Icon name="EyeSlash" /> : <Icon name="Eye" />
+            }
+          />
+        </div>
+
+        {formError && (
+          <div data-fs-security-drawer-error>
+            <Icon
+              width={20}
+              height={20}
+              name="CircleWavyWarning"
+              data-fs-security-drawer-error-icon
+            />
+            <span>{formError}</span>
+          </div>
+        )}
+
+        {newPassword.length > 0 && (
+          <div data-fs-security-drawer-password-rules-container>
+            <p data-fs-security-drawer-password-rules-title>
+              Your password must have at least:
+            </p>
+
+            <ul data-fs-security-drawer-password-rules-list>
+              {newPasswordValidations.map((rule, index) => (
+                <li
+                  key={index}
+                  data-fs-security-drawer-password-rule-item
+                  data-status={rule.isValid ? 'success' : 'error'}
+                >
+                  <Icon
+                    name={rule.isValid ? 'CheckCircle' : 'XCircle'}
+                    width={20}
+                    height={20}
+                  />
+                  {rule.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <footer data-fs-security-drawer-footer>
-        <Button variant="tertiary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
 

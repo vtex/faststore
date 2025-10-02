@@ -7,7 +7,6 @@ import type {
 
 const query = gql(`
   query ServerProfileQuery {
-    accountName
     accountProfile {
       name
       email

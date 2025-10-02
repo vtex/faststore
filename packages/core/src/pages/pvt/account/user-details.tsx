@@ -10,7 +10,6 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
 
-import type {} from '../../../../@generated/graphql'
 import storeConfig from '../../../../discovery.config'
 import MyAccountUserDetails from '../../../components/account/MyAccountUserDetails/MyAccountUserDetails'
 import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/user-details/after'
@@ -149,7 +148,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: userDetails.data.accountName,
+      accountName: userDetails.data.accountProfile.name,
       userDetails: userDetails.data?.userDetails ?? {},
       isRepresentative,
     },

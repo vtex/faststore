@@ -40,8 +40,6 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  padding: var(--fs-order-details-padding);
-
   @include media (">=notebook") {
     --fs-order-details-padding                      : 0;
   }
@@ -73,6 +71,7 @@
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
         margin-top: calc(var(--fs-spacing-2) * -1); // Align the back button with the title
+        margin-left: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
 
         @include media(">=notebook") {
           margin-top: calc(var(--fs-spacing-1) * -1); // Align the back button with the title
@@ -96,7 +95,7 @@
         font-weight: var(--fs-order-details-header-weight);
         line-height: var(--fs-order-details-header-line-height);
 
-        @include truncate-title(1);
+        @include truncate-title(2);
       }
     }
   }

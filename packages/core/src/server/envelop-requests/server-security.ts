@@ -7,7 +7,9 @@ import type {
 
 const query = gql(`
   query ServerSecurity {
-    accountName
+    accountProfile {
+      name
+    }
     userDetails {
       email
     }

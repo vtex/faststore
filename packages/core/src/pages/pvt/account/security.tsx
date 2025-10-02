@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { MyAccountLayout } from '../../../components/account'
@@ -11,7 +8,6 @@ import CUSTOM_COMPONENTS from '../../../customizations/src/components'
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
-import type {} from '../../../../@generated/graphql'
 import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
 import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from '../../../customizations/src/myAccount/extensions/security/before'
@@ -132,7 +128,7 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      accountName: security.data.accountName,
+      accountName: security.data.accountProfile.name,
       userEmail: security.data?.userDetails.email || '',
       globalSections: globalSectionsResult,
       isRepresentative,

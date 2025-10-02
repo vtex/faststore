@@ -40,7 +40,9 @@ const query = gql(`
         perPage
       }
     }
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)
 

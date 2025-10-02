@@ -33,7 +33,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type Props = {
   globalSections: GlobalSectionsData
-  accountName: ServerAccountPageQueryQuery['accountName']
+  accountName: ServerAccountPageQueryQuery['accountProfile']['name']
 }
 
 function Page({ globalSections: globalSectionsProp, accountName }: Props) {
@@ -120,7 +120,7 @@ export const getServerSideProps: GetServerSideProps<
       // The sections from the CMS page are not utilized here for the My Account page.
       // page,
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
     },
   }
 }

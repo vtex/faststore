@@ -1,6 +1,5 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
-import type {} from '../../@generated/graphql'
 
 import {
   getGlobalSectionsData,
@@ -74,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
       isRepresentative,
     },
   }

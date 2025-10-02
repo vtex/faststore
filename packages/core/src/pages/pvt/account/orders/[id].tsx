@@ -155,7 +155,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       globalSections: globalSectionsResult,
       order: orderDetails.data.userOrder,
-      accountName: orderDetails.data.accountName,
+      accountName: orderDetails.data.accountProfile.name,
       isRepresentative,
     },
   }

@@ -22,6 +22,8 @@ export function serverAccountRequest(context: {
 
 const query = gql(`
   query ServerAccountPageQuery {
-    accountName
+    accountProfile {
+      name
+    }
   }
 `)

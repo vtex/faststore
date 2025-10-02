@@ -1,6 +1,3 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
@@ -13,7 +10,6 @@ import CUSTOM_COMPONENTS from '../../../customizations/src/components'
 
 import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
 
-import { gql } from '../../../../@generated/gql'
 import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/profile/after'
 import { default as BeforeSection } from '../../../customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from '../../../experimental/myAccountSeverSideProps'
@@ -44,8 +40,8 @@ type ProfilePagePros = {
 
 export default function Profile({
   globalSections: globalSectionsProp,
-  accountName,
   accountProfile,
+  accountName,
   isRepresentative,
 }: ProfilePagePros) {
   const { sections: globalSections, settings: globalSettings } =
@@ -68,17 +64,6 @@ export default function Profile({
     </PageProvider>
   )
 }
-
-const query = gql(`
-  query ServerProfileQuery {
-    accountName
-    accountProfile {
-      name
-      email
-      id
-    }
-  }
-`)
 
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
@@ -147,7 +132,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: profile.data.accountName,
+      accountName: profile.data.accountProfile.name,
       accountProfile: profile.data.accountProfile,
       isRepresentative,
     },

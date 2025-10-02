@@ -5,6 +5,7 @@ import {
   SearchDropdown as UISearchDropdown,
   useSearch,
 } from '@vtex/faststore-ui'
+import type React from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 
 import { SearchHistory } from '../SearchHistory'
@@ -12,13 +13,13 @@ import { SearchTop } from '../SearchTop'
 
 import type { SearchState } from '@vtex/faststore-sdk'
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
-import SearchProductItem from '../SearchProductItem'
-import type { NavbarProps } from '../../sections/Navbar'
 import type {
   IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteClickParams,
 } from '../../../sdk/analytics/types'
 import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
+import type { NavbarProps } from '../../sections/Navbar'
+import SearchProductItem from '../SearchProductItem'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
@@ -33,8 +34,8 @@ export function sendAutocompleteClickEvent({
   position,
   productId,
 }: IntelligentSearchAutocompleteClickParams) {
-  import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
-    sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
+  return import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+    return sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
       name: 'intelligent_search_autocomplete_click',
       params: { term, url, productId, position },
     })
@@ -66,15 +67,27 @@ function SearchDropdown({
                 term: suggestion,
                 sort,
               }),
-              onClick: () => {
+              onClick: async (event: React.MouseEvent<HTMLAnchorElement>) => {
+                event.preventDefault()
+
+                const href = formatSearchPath({ term: suggestion, sort })
+
+                // Execute search selection callback
                 onSearchSelection?.(
                   term,
                   formatSearchPath({ term: term, sort })
                 )
-                sendAutocompleteClickEvent({
-                  term: term,
-                  url: window.location.href,
-                })
+
+                // Wait for analytics event to complete
+                try {
+                  await sendAutocompleteClickEvent({
+                    term: term,
+                    url: window.location.href,
+                  })
+                } catch (_) {}
+
+                // Navigate after events are completed
+                window.location.href = href
               },
             }}
           />

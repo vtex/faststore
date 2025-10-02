@@ -11,12 +11,12 @@ export const orderStatusMap = {
     label: 'Order Placed',
   },
 
-  // Approval Pending
+  // Pending approval
   'waiting-for-authorization': {
     variant: 'warning',
-    label: 'Approval Pending',
+    label: 'Pending approval',
   },
-  'waiting-for-confirmation': { variant: 'warning', label: 'Approval Pending' },
+  'waiting-for-confirmation': { variant: 'warning', label: 'Pending approval' },
 
   // Payment Pending
   'approving-transaction': { variant: 'warning', label: 'Payment Pending' },
@@ -122,7 +122,7 @@ export const groupOrderStatusByLabel = (): Record<string, string[]> => {
 
 export const FastStoreOrderStatus = [
   'Order Placed',
-  'Approval Pending',
+  'Pending approval',
   'Payment Pending',
   'Payment Approved',
   'Payment Denied',
@@ -134,7 +134,7 @@ export const FastStoreOrderStatus = [
 
 export const FastStoreOrderStatusWithLabels = {
   'order placed': 'Order Placed',
-  'approval pending': 'Approval Pending',
+  'Pending approval': 'Pending approval',
   'payment pending': 'Payment Pending',
   'payment approved': 'Payment Approved',
   'payment denied': 'Payment Denied',

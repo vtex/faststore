@@ -197,7 +197,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: listOrders.data.accountName,
+      accountName: listOrders.data.accountProfile.name,
       listOrders: listOrders.data.listUserOrders,
       total: listOrders.data.listUserOrders.paging.total,
       perPage: listOrders.data.listUserOrders.paging.perPage,

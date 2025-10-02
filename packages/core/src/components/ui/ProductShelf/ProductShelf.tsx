@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { useEffect, useId, useRef } from 'react'
 
 import deepmerge from 'deepmerge'
@@ -7,12 +6,7 @@ import { useDeliveryPromiseFacets } from '../../../sdk/deliveryPromise/useDelive
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { useProductsQuery } from '../../../sdk/product/useProductsQuery'
 import { overwriteMerge, textToKebabCase } from '../../../utils/utilities'
-
-const ProductShelfSkeleton = dynamic(
-  () =>
-    /* webpackChunkName: "ProductShelfSkeleton" */
-    import('../../skeletons/ProductShelfSkeleton')
-)
+import ProductShelfSkeleton from '../../skeletons/ProductShelfSkeleton'
 
 type Sort =
   | 'discount_desc'
