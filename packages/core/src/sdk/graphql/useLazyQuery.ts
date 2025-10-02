@@ -1,8 +1,7 @@
 import useSWR from 'swr'
 
-import { type Operation, request } from './request'
-import { DEFAULT_OPTIONS, getKey } from './useQuery'
-import type { QueryOptions } from './useQuery'
+import { GraphqlRequest, type Operation } from './request'
+import { DEFAULT_OPTIONS, getKey, type QueryOptions } from './useQuery'
 
 export const useLazyQuery = <Data, Variables = Record<string, unknown>>(
   operation: Operation,
@@ -16,9 +15,8 @@ export const useLazyQuery = <Data, Variables = Record<string, unknown>>(
   )
 
   const execute = async (queryVariables: Variables) => {
-    const data = await request<Data, Variables>(
-      operation,
-      queryVariables,
+    const { data } = await GraphqlRequest<Data, Variables>(
+      { operation, variables: queryVariables },
       options
     )
 

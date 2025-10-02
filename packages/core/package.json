@@ -56,15 +56,6 @@
   "dependencies": {
     "@antfu/ni": "catalog:",
     "@builder.io/partytown": "^0.6.1",
-    "@envelop/core": "^5.0.2",
-    "@envelop/graphql-jit": "^8.0.3",
-    "@envelop/parser-cache": "^6.0.2",
-    "@envelop/validation-cache": "^6.0.2",
-    "@vtex/faststore-api": "workspace:*",
-    "@vtex/faststore-graphql-utils": "workspace:*",
-    "@vtex/faststore-lighthouse": "workspace:*",
-    "@vtex/faststore-sdk": "workspace:*",
-    "@vtex/faststore-ui": "workspace:*",
     "@graphql-codegen/cli": "catalog:",
     "@graphql-codegen/client-preset": "4.2.6",
     "@graphql-codegen/typescript": "catalog:",
@@ -84,6 +75,10 @@
     "@parcel/watcher": "^2.4.0",
     "@vtex/client-cms": "^0.2.16",
     "@vtex/client-cp": "0.3.5",
+    "@vtex/faststore-graphql-utils": "workspace:*",
+    "@vtex/faststore-lighthouse": "workspace:*",
+    "@vtex/faststore-sdk": "workspace:*",
+    "@vtex/faststore-ui": "workspace:*",
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
     "cookie": "catalog:",
@@ -113,17 +108,21 @@
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "catalog:",
     "@types/react": "catalog:",
+    "@vtex/faststore-api": "workspace:*",
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.8.1",
     "dotenv": "^16.4.5",
     "jest": "catalog:",
     "ts-jest": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "zod": "^4.1.11"
   },
   "peerDependencies": {
+    "@vtex/faststore-api": "workspace:*",
+    "graphql": "catalog:",
+    "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "next": "catalog:",
-    "graphql": "catalog:"
+    "zod": "^4.1.11"
   }
 }

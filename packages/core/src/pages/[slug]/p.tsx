@@ -4,15 +4,9 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
 import type { ComponentType } from 'react'
-
-import { gql } from '../../../@generated'
-import type {
-  ServerProductQueryQuery,
-  ServerProductQueryQueryVariables,
-} from '../../../@generated/graphql'
+import type { ServerProductQueryQuery } from '../../../@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
 import RenderSections from '../../components/cms/RenderSections'
-import { getComponentKey } from '../../utils/cms'
 import BannerNewsletter from '../../components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from '../../components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from '../../components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -26,7 +20,7 @@ import CUSTOM_COMPONENTS from '../../customizations/src/components'
 import PLUGINS_COMPONENTS from '../../plugins'
 import { getRedirect } from '../../sdk/redirects'
 import { useSession } from '../../sdk/session'
-import { execute } from '../../server'
+import { getComponentKey } from '../../utils/cms'
 
 import storeConfig from '../../../discovery.config'
 import {
@@ -40,6 +34,7 @@ import { injectGlobalSections } from '../../server/cms/global'
 import type { PDPContentType } from '../../server/cms/pdp'
 import { contentService } from '../../server/content/service'
 import type { PreviewData } from '../../server/content/types'
+import { serverProductRequest } from '../../server/envelop-requests'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -227,67 +222,6 @@ function Page({
   )
 }
 
-const query = gql(`
-  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {
-    ...ServerProduct
-    product(locator: $locator) {
-      id: productID
-
-      seo {
-        title
-        description
-        canonical
-      }
-
-      brand {
-        name
-      }
-
-      sku
-      gtin
-      name
-      description
-      releaseDate
-
-      breadcrumbList {
-        itemListElement {
-          item
-          name
-          position
-        }
-      }
-
-      image {
-        url
-        alternateName
-      }
-
-      offers {
-        lowPrice
-        highPrice
-        lowPriceWithTaxes
-        priceCurrency
-        offers {
-          availability
-          price
-          priceValidUntil
-          priceCurrency
-          itemCondition
-          seller {
-            identifier
-          }
-        }
-      }
-
-      isVariantOf {
-        productGroupID
-      }
-
-      ...ProductDetailsFragment_product
-    }
-  }
-`)
-
 export const getStaticProps: GetStaticProps<
   Props,
   { slug: string },
@@ -307,9 +241,8 @@ export const getStaticProps: GetStaticProps<
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
-    execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
+    serverProductRequest({
       variables: { locator: [{ key: 'slug', value: slug }] },
-      operation: query,
     }),
     globalSectionsPromise,
     globalSectionsHeaderPromise,

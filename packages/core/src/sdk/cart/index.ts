@@ -15,7 +15,7 @@ import type {
 } from '../../../@generated/graphql'
 
 import storeConfig from '../../../discovery.config'
-import { request } from '../graphql/request'
+import { GraphqlRequest } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
@@ -105,37 +105,42 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .join('::')
 
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
-  const { validateCart: validated = null } = await request<
+  const {
+    data: { validateCart: validated = null },
+  } = await GraphqlRequest<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
-  >(ValidateCartMutation, {
-    session: sessionStore.read(),
-    cart: {
-      order: {
-        orderNumber: cart.id,
-        shouldSplitItem: cart.shouldSplitItem,
-        acceptedOffer: cart.items.map(
-          ({
-            price,
-            listPrice,
-            seller,
-            quantity,
-            itemOffered,
-          }): IStoreOffer => {
-            return {
+  >({
+    operation: ValidateCartMutation,
+    variables: {
+      session: sessionStore.read(),
+      cart: {
+        order: {
+          orderNumber: cart.id,
+          shouldSplitItem: cart.shouldSplitItem,
+          acceptedOffer: cart.items.map(
+            ({
               price,
               listPrice,
               seller,
               quantity,
-              itemOffered: {
-                sku: itemOffered.sku,
-                image: itemOffered.image,
-                name: itemOffered.name,
-                additionalProperty: itemOffered.additionalProperty,
-              },
+              itemOffered,
+            }): IStoreOffer => {
+              return {
+                price,
+                listPrice,
+                seller,
+                quantity,
+                itemOffered: {
+                  sku: itemOffered.sku,
+                  image: itemOffered.image,
+                  name: itemOffered.name,
+                  additionalProperty: itemOffered.additionalProperty,
+                },
+              }
             }
-          }
-        ),
+          ),
+        },
       },
     },
   })

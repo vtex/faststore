@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import { validateUser } from '../../sdk/account/validateUser'
-import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
+import { serverValidateUser } from '../../../server/envelop-requests'
+import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 
 const MyAccountRedirectPage: NextPage = () => {
   return null
@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
 }) => {
-  const isValid = await validateUser({ query, req } as any)
+  const isValid = await serverValidateUser({ query, req } as any)
 
   if (!isValid) {
     return {

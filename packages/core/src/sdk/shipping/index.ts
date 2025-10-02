@@ -6,7 +6,7 @@ import type {
   ClientShippingSimulationQueryQueryVariables as Variables,
 } from '../../../@generated/graphql'
 
-import { request } from '../graphql/request'
+import { GraphqlRequest } from '../graphql/request'
 
 const query = gql(`
   query ClientShippingSimulationQuery(
@@ -51,10 +51,13 @@ export const getShippingSimulation = async ({
   postalCode,
   country,
 }: ShippingQueryData) => {
-  const data = await request<Query, Variables>(query, {
-    items,
-    postalCode,
-    country,
+  const { data } = await GraphqlRequest<Query, Variables>({
+    operation: query,
+    variables: {
+      items,
+      postalCode,
+      country,
+    },
   })
 
   return data

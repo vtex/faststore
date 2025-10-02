@@ -1,15 +1,14 @@
 import type { Resolver } from '..'
 import type { StoreImage, StoreProductImageArgs } from '../../..'
-import type { PromiseType } from '../../../typings'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { bestOfferFirst } from '../utils/productStock'
 import {
+  VALUE_REFERENCES,
   attachmentToPropertyValue,
   attributeToPropertyValue,
-  VALUE_REFERENCES,
 } from '../utils/propertyValue'
 import { slugify } from '../utils/slugify'
 import type { Query } from './query'

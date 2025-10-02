@@ -56,6 +56,7 @@ export type Scalars = {
    */
   FormattedVariants: { input: any; output: any; }
   JSONObject: { input: any; output: any; }
+  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: { input: any; output: any; }
   /**
    * Example:
@@ -2448,11 +2449,6 @@ export type ServerCollectionPageFragment = { collection: { id: string } };
 
 export type ServerProductFragment = { product: { id: string } };
 
-export type ServerAccountPageQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ServerAccountPageQueryQuery = { accountName: string | null };
-
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
@@ -2460,49 +2456,17 @@ export type ServerCollectionPageQueryQueryVariables = Exact<{
 
 export type ServerCollectionPageQueryQuery = { collection: { id: string, seo: { title: string, description: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, meta: { selectedFacets: Array<{ key: string, value: string }> } } };
 
-export type ServerProductQueryQueryVariables = Exact<{
-  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
-}>;
+export type ServerAccountPageQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ServerProductQueryQuery = { product: { sku: string, gtin: string, name: string, description: string, releaseDate: string, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+export type ServerAccountPageQueryQuery = { accountName: string | null };
 
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
-
-export type ServerOrderDetailsQueryQueryVariables = Exact<{
-  orderId: Scalars['String']['input'];
-}>;
-
-
-export type ServerOrderDetailsQueryQuery = { accountName: string | null, userOrder: { orderId: string | null, creationDate: string | null, status: string | null, canProcessOrderAuthorization: boolean | null, statusDescription: string | null, allowCancellation: boolean | null, ruleForAuthorization: { orderAuthorizationId: string, dimensionId: string, rule: { id: string, name: string, status: CommercialAuthorizationStatus, doId: string | null, authorizedEmails: Array<string>, priority: number, timeout: number, notification: boolean, isUserAuthorized: boolean, isUserNextAuthorizer: boolean, trigger: { condition: { conditionType: number, description: string | null, lessThan: number | null, greatherThan: number | null, expression: string | null }, effect: { description: string | null, effectType: number, funcPath: string | null } }, scoreInterval: { accept: number, deny: number }, authorizationData: { requireAllApprovals: boolean, authorizers: Array<{ id: string, email: string | null, type: string, authorizationDate: string | null }> } | null } } | null, storePreferencesData: { currencyCode: string | null } | null, clientProfileData: { firstName: string | null, lastName: string | null, email: string | null, phone: string | null, corporateName: string | null, isCorporate: boolean | null } | null, customFields: Array<{ type: string, id: string | null, fields: Array<{ name: string, value: string, refId: string | null } | null> | null } | null> | null, deliveryOptionsData: { deliveryOptions: Array<{ selectedSla: string | null, deliveryChannel: string | null, deliveryCompany: string | null, shippingEstimate: string | null, shippingEstimateDate: string | null, friendlyShippingEstimate: string | null, friendlyDeliveryOptionName: string | null, seller: string | null, quantityOfDifferentItems: number | null, total: number | null, deliveryWindow: { startDateUtc: string | null, endDateUtc: string | null, price: number | null } | null, address: { addressType: string | null, receiverName: string | null, addressId: string | null, versionId: string | null, entityId: string | null, postalCode: string | null, city: string | null, state: string | null, country: string | null, street: string | null, number: string | null, neighborhood: string | null, complement: string | null, reference: string | null, geoCoordinates: Array<number | null> | null } | null, pickupStoreInfo: { additionalInfo: string | null, dockId: string | null, friendlyName: string | null, isPickupStore: boolean | null, address: { addressType: string | null, receiverName: string | null, addressId: string | null, versionId: string | null, entityId: string | null, postalCode: string | null, city: string | null, state: string | null, country: string | null, street: string | null, number: string | null, neighborhood: string | null, complement: string | null, reference: string | null, geoCoordinates: Array<number | null> | null } | null } | null, items: Array<{ id: string | null, uniqueId: string | null, name: string | null, quantity: number | null, price: number | null, imageUrl: string | null, tax: number | null, total: number | null } | null> | null } | null> | null, contact: { email: string | null, phone: string | null, name: string | null } | null } | null, paymentData: { transactions: Array<{ isActive: boolean | null, payments: Array<{ id: string | null, paymentSystemName: string | null, value: number | null, installments: number | null, referenceValue: number | null, lastDigits: string | null, url: string | null, group: string | null, tid: string | null, bankIssuedInvoiceIdentificationNumber: string | null, redemptionCode: string | null, paymentOrigin: string | null, connectorResponses: { authId: string | null } | null } | null> | null } | null> | null } | null, totals: Array<{ id: string | null, name: string | null, value: number | null } | null> | null, shopper: { firstName: string | null, lastName: string | null, email: string | null, phone: string | null } | null } | null };
-
-export type ServerListOrdersQueryQueryVariables = Exact<{
-  page: InputMaybe<Scalars['Int']['input']>;
-  perPage: InputMaybe<Scalars['Int']['input']>;
-  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
-  dateInitial: InputMaybe<Scalars['String']['input']>;
-  dateFinal: InputMaybe<Scalars['String']['input']>;
-  text: InputMaybe<Scalars['String']['input']>;
-  clientEmail: InputMaybe<Scalars['String']['input']>;
-}>;
-
-
-export type ServerListOrdersQueryQuery = { accountName: string | null, listUserOrders: { list: Array<{ orderId: string | null, creationDate: string | null, clientName: string | null, totalValue: number | null, status: string | null, statusDescription: string | null, ShippingEstimatedDate: string | null, currencyCode: string | null, items: Array<{ seller: string | null, quantity: number | null, description: string | null, ean: string | null, refId: string | null, id: string | null, productId: string | null, sellingPrice: number | null, price: number | null } | null> | null, customFields: Array<{ type: string | null, value: Array<string | null> | null } | null> | null } | null> | null, paging: { total: number | null, pages: number | null, currentPage: number | null, perPage: number | null } | null } | null };
 
 export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ServerProfileQueryQuery = { accountName: string | null, accountProfile: { name: string | null, email: string | null, id: string | null } };
-
-export type ServerSecurityQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ServerSecurityQuery = { accountName: string | null, userDetails: { email: string | null } };
-
-export type ServerUserDetailsQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ServerUserDetailsQueryQuery = { accountName: string | null, userDetails: { name: string | null, email: string | null, role: Array<string | null> | null, orgUnit: string | null } };
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel;
@@ -2517,11 +2481,6 @@ export type ProcessOrderAuthorizationMutationMutationVariables = Exact<{
 
 
 export type ProcessOrderAuthorizationMutationMutation = { processOrderAuthorization: { isPendingForOtherAuthorizer: boolean, ruleForAuthorization: { orderAuthorizationId: string, dimensionId: string, rule: { id: string, name: string, status: CommercialAuthorizationStatus, doId: string | null, authorizedEmails: Array<string>, priority: number, timeout: number, notification: boolean, isUserAuthorized: boolean, isUserNextAuthorizer: boolean, trigger: { condition: { conditionType: number, description: string | null, lessThan: number | null, greatherThan: number | null, expression: string | null }, effect: { description: string | null, effectType: number, funcPath: string | null } }, scoreInterval: { accept: number, deny: number }, authorizationData: { requireAllApprovals: boolean, authorizers: Array<{ id: string, email: string | null, type: string, authorizationDate: string | null }> } | null } } | null } | null };
-
-export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart;
@@ -2644,6 +2603,19 @@ export type ClientShippingSimulationQueryQueryVariables = Exact<{
 
 export type ClientShippingSimulationQueryQuery = { shipping: { logisticsInfo: Array<{ slas: Array<{ carrier: string | null, price: number | null, shippingEstimate: string | null, localizedEstimates: string | null, deliveryChannel: string | null, availableDeliveryWindows: Array<{ startDateUtc: string | null, endDateUtc: string | null, price: number | null, listPrice: number | null } | null> | null } | null> | null } | null> | null, address: { city: string | null, neighborhood: string | null, state: string | null } | null } | null };
 
+export type ServerListOrdersQueryQueryVariables = Exact<{
+  page: InputMaybe<Scalars['Int']['input']>;
+  perPage: InputMaybe<Scalars['Int']['input']>;
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  dateInitial: InputMaybe<Scalars['String']['input']>;
+  dateFinal: InputMaybe<Scalars['String']['input']>;
+  text: InputMaybe<Scalars['String']['input']>;
+  clientEmail: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ServerListOrdersQueryQuery = { accountName: string | null, listUserOrders: { list: Array<{ orderId: string | null, creationDate: string | null, clientName: string | null, totalValue: number | null, status: string | null, statusDescription: string | null, ShippingEstimatedDate: string | null, currencyCode: string | null, items: Array<{ seller: string | null, quantity: number | null, description: string | null, ean: string | null, refId: string | null, id: string | null, productId: string | null, sellingPrice: number | null, price: number | null } | null> | null, customFields: Array<{ type: string | null, value: Array<string | null> | null } | null> | null } | null> | null, paging: { total: number | null, pages: number | null, currentPage: number | null, perPage: number | null } | null } | null };
+
 export type ServerManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input'];
   after: InputMaybe<Scalars['String']['input']>;
@@ -2655,6 +2627,35 @@ export type ServerManyProductsQueryQueryVariables = Exact<{
 
 
 export type ServerManyProductsQueryQuery = { search: { products: { pageInfo: { totalCount: number }, edges: Array<{ node: { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null } }> }, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
+
+export type ServerOrderDetailsQueryQueryVariables = Exact<{
+  orderId: Scalars['String']['input'];
+}>;
+
+
+export type ServerOrderDetailsQueryQuery = { accountName: string | null, userOrder: { orderId: string | null, creationDate: string | null, status: string | null, canProcessOrderAuthorization: boolean | null, statusDescription: string | null, allowCancellation: boolean | null, ruleForAuthorization: { orderAuthorizationId: string, dimensionId: string, rule: { id: string, name: string, status: CommercialAuthorizationStatus, doId: string | null, authorizedEmails: Array<string>, priority: number, timeout: number, notification: boolean, isUserAuthorized: boolean, isUserNextAuthorizer: boolean, trigger: { condition: { conditionType: number, description: string | null, lessThan: number | null, greatherThan: number | null, expression: string | null }, effect: { description: string | null, effectType: number, funcPath: string | null } }, scoreInterval: { accept: number, deny: number }, authorizationData: { requireAllApprovals: boolean, authorizers: Array<{ id: string, email: string | null, type: string, authorizationDate: string | null }> } | null } } | null, storePreferencesData: { currencyCode: string | null } | null, clientProfileData: { firstName: string | null, lastName: string | null, email: string | null, phone: string | null, corporateName: string | null, isCorporate: boolean | null } | null, customFields: Array<{ type: string, id: string | null, fields: Array<{ name: string, value: string, refId: string | null } | null> | null } | null> | null, deliveryOptionsData: { deliveryOptions: Array<{ selectedSla: string | null, deliveryChannel: string | null, deliveryCompany: string | null, shippingEstimate: string | null, shippingEstimateDate: string | null, friendlyShippingEstimate: string | null, friendlyDeliveryOptionName: string | null, seller: string | null, quantityOfDifferentItems: number | null, total: number | null, deliveryWindow: { startDateUtc: string | null, endDateUtc: string | null, price: number | null } | null, address: { addressType: string | null, receiverName: string | null, addressId: string | null, versionId: string | null, entityId: string | null, postalCode: string | null, city: string | null, state: string | null, country: string | null, street: string | null, number: string | null, neighborhood: string | null, complement: string | null, reference: string | null, geoCoordinates: Array<number | null> | null } | null, pickupStoreInfo: { additionalInfo: string | null, dockId: string | null, friendlyName: string | null, isPickupStore: boolean | null, address: { addressType: string | null, receiverName: string | null, addressId: string | null, versionId: string | null, entityId: string | null, postalCode: string | null, city: string | null, state: string | null, country: string | null, street: string | null, number: string | null, neighborhood: string | null, complement: string | null, reference: string | null, geoCoordinates: Array<number | null> | null } | null } | null, items: Array<{ id: string | null, uniqueId: string | null, name: string | null, quantity: number | null, price: number | null, imageUrl: string | null, tax: number | null, total: number | null } | null> | null } | null> | null, contact: { email: string | null, phone: string | null, name: string | null } | null } | null, paymentData: { transactions: Array<{ isActive: boolean | null, payments: Array<{ id: string | null, paymentSystemName: string | null, value: number | null, installments: number | null, referenceValue: number | null, lastDigits: string | null, url: string | null, group: string | null, tid: string | null, bankIssuedInvoiceIdentificationNumber: string | null, redemptionCode: string | null, paymentOrigin: string | null, connectorResponses: { authId: string | null } | null } | null> | null } | null> | null } | null, totals: Array<{ id: string | null, name: string | null, value: number | null } | null> | null, shopper: { firstName: string | null, lastName: string | null, email: string | null, phone: string | null } | null } | null };
+
+export type ServerProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
+}>;
+
+
+export type ServerProductQueryQuery = { product: { sku: string, gtin: string, name: string, description: string, releaseDate: string, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+
+export type ServerSecurityQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerSecurityQuery = { accountName: string | null, userDetails: { email: string | null } };
+
+export type ServerUserDetailsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerUserDetailsQueryQuery = { accountName: string | null, userDetails: { name: string | null, email: string | null, role: Array<string | null> | null, orgUnit: string | null } };
+
+export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -3165,17 +3166,11 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   fuzzy
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
-export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"47315a3cd26ddd9c7fa963778988464341b8193f"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
-export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"e855903879c6504e90269e6e010549bc6de933eb"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
-export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"2c5dca039e0aa4924e9e583f5afbe522758ca7c4"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
-export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
+export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"47315a3cd26ddd9c7fa963778988464341b8193f"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"0ed4b5db8fed122d8418195d01fb91b30261d587"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
-export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"63c6eadbe8b77c0c3c91406589755accba5cf155"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
-export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"522e5feeb80e67cee931bc98eac9d08ea75c75d2"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
-export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
@@ -3190,4 +3185,10 @@ export const ClientSearchSuggestionsQueryDocument = {"__meta__":{"operationName"
 export const ClientTopSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientTopSearchSuggestionsQuery","operationHash":"e2385b0f11726d0068f96548f57a8dd441c064e3"}} as unknown as TypedDocumentString<ClientTopSearchSuggestionsQueryQuery, ClientTopSearchSuggestionsQueryQueryVariables>;
 export const ValidateSessionDocument = {"__meta__":{"operationName":"ValidateSession","operationHash":"5da2700f5a69ee8835b1cb6c69e14f4b6e12c4df"}} as unknown as TypedDocumentString<ValidateSessionMutation, ValidateSessionMutationVariables>;
 export const ClientShippingSimulationQueryDocument = {"__meta__":{"operationName":"ClientShippingSimulationQuery","operationHash":"c35bad22f67f3eb34fea52bb49efa6b1da6b728d"}} as unknown as TypedDocumentString<ClientShippingSimulationQueryQuery, ClientShippingSimulationQueryQueryVariables>;
+export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"ee84ac3f5b58c5e1950a927a42c5c1dd6012fcc4"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerManyProductsQueryDocument = {"__meta__":{"operationName":"ServerManyProductsQuery","operationHash":"4b769cda49004c85d0d427c601eba36c37a52224"}} as unknown as TypedDocumentString<ServerManyProductsQueryQuery, ServerManyProductsQueryQueryVariables>;
+export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"2c5dca039e0aa4924e9e583f5afbe522758ca7c4"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
+export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"e855903879c6504e90269e6e010549bc6de933eb"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
+export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"63c6eadbe8b77c0c3c91406589755accba5cf155"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
+export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"522e5feeb80e67cee931bc98eac9d08ea75c75d2"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
+export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;

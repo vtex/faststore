@@ -1,12 +1,12 @@
 import { useSearch } from '@vtex/faststore-sdk'
 
+import { useCallback, useEffect } from 'react'
 import { gql } from '../../../@generated'
 import type { ClientManyProductsQueryQueryVariables } from '../../../@generated/graphql'
-import { useEffect, useCallback } from 'react'
 
-import type { QueryOptions } from '../graphql/useQuery'
 import { useSWRConfig } from 'swr'
 import { prefetchQuery } from '../graphql/prefetchQuery'
+import type { QueryOptions } from '../graphql/useQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const query = gql(`

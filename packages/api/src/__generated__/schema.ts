@@ -354,7 +354,7 @@ export type DeliveryIds = {
 export type DeliveryPromiseBadge = {
   __typename?: 'DeliveryPromiseBadge';
   /** Badge type. */
-  typeName?: Maybe<Scalars['String']>;
+  typeName?: Maybe<Scalars['String']['output']>;
 };
 
 /** Input to get commercial authorizations by order ID. */
@@ -1364,7 +1364,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String']['output'];
   /** Number of items with this facet. */
-  quantity?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean']['output'];
   /** Facet value. */
@@ -2487,8 +2487,8 @@ export type UserOrderResult = {
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
   shopper?: Maybe<UserOrderShopper>;
-  status?: Maybe<Scalars['String']>;
-  statusDescription?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']['output']>;
+  statusDescription?: Maybe<Scalars['String']['output']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
   totals?: Maybe<Array<Maybe<UserOrderTotals>>>;
 };
@@ -2512,10 +2512,10 @@ export type UserOrderShippingData = {
 
 export type UserOrderShopper = {
   __typename?: 'UserOrderShopper';
-  email?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrderSlas = {

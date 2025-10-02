@@ -146,7 +146,7 @@ const getMergedSchema = () => {
   try {
     const mergedTypeDefs = mergeTypeDefs(
       [
-        getTypeDefs(),
+        getTypeDefs({ platform: 'vtex' }),
         getTypeDefsFromFolder('vtex'),
         getTypeDefsFromFolder('thirdParty'),
       ].filter(Boolean)

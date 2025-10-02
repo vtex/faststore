@@ -3,28 +3,26 @@ import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import {
-  type GlobalSectionsData,
   getGlobalSectionsData,
-} from '../../components/cms/GlobalSections'
+  type GlobalSectionsData,
+} from '../../../components/cms/GlobalSections'
 
 import { LinkButton } from '@vtex/faststore-ui'
-import { gql } from '../../../@generated/gql'
-import type {
-  ServerAccountPageQueryQuery,
-  ServerAccountPageQueryQueryVariables,
-} from '../../../@generated/graphql'
-import { MyAccountLayout } from '../../components/account'
-import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
-import RenderSections from '../../components/cms/RenderSections'
-import { OverriddenDefaultEmptyState as EmptyState } from '../../components/sections/EmptyState/OverriddenDefaultEmptyState'
-import CUSTOM_COMPONENTS from '../../customizations/src/components'
-import PLUGINS_COMPONENTS from '../../plugins'
-import { validateUser } from '../../sdk/account/validateUser'
-import PageProvider from '../../sdk/overrides/PageProvider'
-import { execute } from '../../server'
-import { type PageContentType, getPage } from '../../server/cms'
-import { injectGlobalSections } from '../../server/cms/global'
-import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
+import type { ServerAccountPageQueryQuery } from '../../../../@generated/graphql'
+import { MyAccountLayout } from '../../../components/account'
+import { default as GLOBAL_COMPONENTS } from '../../../components/cms/global/Components'
+import RenderSections from '../../../components/cms/RenderSections'
+import { OverriddenDefaultEmptyState as EmptyState } from '../../../components/sections/EmptyState/OverriddenDefaultEmptyState'
+import CUSTOM_COMPONENTS from '../../../customizations/src/components'
+import PLUGINS_COMPONENTS from '../../../plugins'
+import PageProvider from '../../../sdk/overrides/PageProvider'
+import { getPage, type PageContentType } from '../../../server/cms'
+import { injectGlobalSections } from '../../../server/cms/global'
+import {
+  serverAccountRequest,
+  serverValidateUser,
+} from '../../../server/envelop-requests'
+import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -64,18 +62,12 @@ function Page({ globalSections: globalSectionsProp, accountName }: Props) {
   )
 }
 
-const query = gql(`
-  query ServerAccountPageQuery {
-    accountName
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const isValid = await serverValidateUser(context)
 
   if (!isValid) {
     return {
@@ -111,13 +103,7 @@ export const getServerSideProps: GetServerSideProps<
       ...(context.previewData?.contentType === '403' && context.previewData),
       contentType: '403',
     }),
-    execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
-      {
-        variables: {},
-        operation: query,
-      },
-      { headers: { ...context.req.headers } }
-    ),
+    serverAccountRequest(context),
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,

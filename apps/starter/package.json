@@ -14,9 +14,14 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@envelop/core": "^5.3.1",
+    "@envelop/graphql-jit": "^8.0.4",
+    "@envelop/parser-cache": "^6.0.4",
+    "@envelop/validation-cache": "^6.0.4",
     "@vtex/faststore-api": "workspace:*",
     "@vtex/faststore-cli": "workspace:*",
     "@vtex/faststore-core": "workspace:*",
+    "graphql": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
