@@ -72,7 +72,7 @@ function FilterFacetBooleanItem({
             data-fs-filter-list-item-label
           >
             {label}
-            {quantity && (
+            {typeof quantity === 'number' && quantity >= 0 && (
               <Badge data-fs-filter-list-item-badge>{quantity}</Badge>
             )}
           </Label>
