@@ -412,6 +412,7 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
+  contractName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
@@ -1178,6 +1179,7 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
+  contractName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
