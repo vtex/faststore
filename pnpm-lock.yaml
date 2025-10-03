@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.89.2
+        specifier: ^3.89.3
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -294,7 +294,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: ^3.89.2
+        specifier: ^3.89.3
         version: link:../api
       "@faststore/graphql-utils":
         specifier: ^3.89.2

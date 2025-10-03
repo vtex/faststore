@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.89.3](https://github.com/vtex/faststore/compare/v3.89.2...v3.89.3) (2025-10-03)
+
+### Bug Fixes
+
+- implement app key/token utility for header management in MD requests. - SFS-2881 ([#3055](https://github.com/vtex/faststore/issues/3055)) ([1b42506](https://github.com/vtex/faststore/commit/1b42506a05bbb38f31ade73075529cd488428450))
+
 ## 3.89.2 (2025-10-02)
 
 ### Bug Fixes
