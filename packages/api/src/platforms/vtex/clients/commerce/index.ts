@@ -4,7 +4,6 @@ import { fetchAPI } from '../fetch'
 
 import {
   BadRequestError,
-  ForbiddenError,
   type CommercialAuthorizationResponse,
   type ICommercialAuthorizationByOrderId,
   type IProcessOrderAuthorization,
@@ -16,6 +15,7 @@ import {
   type UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
+import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
@@ -60,6 +60,7 @@ export const VtexCommerce = (
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
   const withAutCookie = getWithAutCookie(ctx)
+  const withAppKeyAndToken = getWithAppKeyAndToken()
 
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
@@ -677,7 +678,15 @@ export const VtexCommerce = (
       getContractById: ({
         contractId,
       }: { contractId: string }): Promise<ContractResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        if (!contractId) {
+          throw new BadRequestError('Missing contractId to fetch CL fields.')
+        }
+
+        const headers: HeadersInit = withAppKeyAndToken({
+          Accept: 'application/json',
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/dataentities/CL/documents/${contractId}?_fields=_all`,
@@ -702,22 +711,11 @@ export const VtexCommerce = (
           throw new BadRequestError('Missing userId to fetch shopper name.')
         }
 
-        const appkey = process.env.FS_DISCOVERY_APP_KEY ?? ''
-        const apptoken = process.env.FS_DISCOVERY_APP_TOKEN ?? ''
-
-        if (!appkey || !apptoken) {
-          throw new ForbiddenError(
-            'No authentication AppKey and AppToken passed.'
-          )
-        }
-
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withAppKeyAndToken({
           Accept: 'application/json',
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-          'X-VTEX-API-AppKey': appkey,
-          'X-VTEX-API-AppToken': apptoken,
-        }
+        })
 
         const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
 
