@@ -28,7 +28,10 @@ export const OrganizationDrawer = ({
   const { fade, fadeOut } = useFadeEffect()
   const { b2b, person } = useSession()
 
-  const contractName = person?.givenName ?? ''
+  const contractName =
+    b2b?.contractName ??
+    `${(person?.givenName ?? '').trim()} ${(person?.familyName ?? '').trim()}`.trim() ??
+    ''
 
   const contractUrl = b2b?.unitId
     ? `/pvt/organization-account/org-unit/${b2b?.unitId}`

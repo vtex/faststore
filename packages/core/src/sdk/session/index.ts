@@ -9,13 +9,13 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import discoveryConfig from 'discovery.config'
+import deepEqual from 'fast-deep-equal'
 import { sanitizeHost } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
-import deepEqual from 'fast-deep-equal'
 
 const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
@@ -60,6 +60,7 @@ export const mutation = gql(`
         userName
         userEmail
         savedPostalCode
+        contractName
       }
       marketingData {
         utmCampaign
