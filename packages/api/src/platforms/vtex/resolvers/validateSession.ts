@@ -112,6 +112,20 @@ export const validateSession = async (
   const checkout = sessionData?.namespaces.checkout ?? null
   const publicData = sessionData?.namespaces.public ?? null
 
+  // Fetch contract data for B2B representatives
+  let contract = null
+  if (isRepresentative && profile?.id?.value) {
+    try {
+      contract = await clients.commerce.masterData.getContractById({
+        contractId: profile.id.value,
+      })
+    } catch (err) {
+      console.error(
+        `Error while getting contract data for profile ID (${profile.id.value}).\n`
+      )
+    }
+  }
+
   // Set seller only if it's inside a region
   let seller
   if (!!channel.seller && (postalCode || geoCoordinates)) {
@@ -156,6 +170,7 @@ export const validateSession = async (
             `${shopper?.firstName?.value ?? ''} ${shopper?.lastName?.value ?? ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
+          contractName: contract?.corporateName ?? '',
         }
       : null,
     marketingData,
