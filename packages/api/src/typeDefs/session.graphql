@@ -198,6 +198,7 @@ type StoreB2B {
   userName: String
   userEmail: String
   savedPostalCode: String
+  contractName: String
 }
 
 input IStoreB2B {
@@ -210,6 +211,7 @@ input IStoreB2B {
   userName: String
   userEmail: String
   savedPostalCode: String
+  contractName: String
 }
 
 """
