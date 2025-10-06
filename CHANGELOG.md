@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.89.4](https://github.com/vtex/faststore/compare/v3.89.3...v3.89.4) (2025-10-06)
+
+### Bug Fixes
+
+- org drawer corporate name - SFS-2904 ([#3062](https://github.com/vtex/faststore/issues/3062)) ([0ab3a92](https://github.com/vtex/faststore/commit/0ab3a925567d5905db8c9c688e1087b649790121))
+
 ## [3.89.3](https://github.com/vtex/faststore/compare/v3.89.2...v3.89.3) (2025-10-03)
 
 ### Bug Fixes
