@@ -152,7 +152,6 @@ export default function MyAccountListOrdersTable({
             const creationDate = item.creationDate
               ? formatOrderDate(item.creationDate, locale)
               : '-'
-            const clientName = item.clientName ? item.clientName : '-'
             const totalPrice = formatPrice(item.totalValue, item.currencyCode)
             const deliveryBy = item.ShippingEstimatedDate
               ? `Delivery by ${formatOrderDate(
@@ -228,6 +227,7 @@ export default function MyAccountListOrdersTable({
                               {shippingEstimatedDate}
                             </p>
                           </div>
+                          {/* FIXME: Removing this info until we have a cost-effective way to get the shopper name
                           <div data-fs-list-orders-table-product-info>
                             <p data-fs-list-orders-table-product-info-label>
                               Placed by
@@ -238,7 +238,7 @@ export default function MyAccountListOrdersTable({
                             >
                               {clientName}
                             </p>
-                          </div>
+                          </div> */}
                         </>
                       )}
                     </td>
@@ -257,6 +257,7 @@ export default function MyAccountListOrdersTable({
                             </p>
                           </div>
                         </td>
+                        {/* FIXME: Removing this info until we have a cost-effective way to get the shopper name
                         <td data-fs-list-orders-table-cell>
                           <div data-fs-list-orders-table-product-info>
                             <p data-fs-list-orders-table-product-info-label>
@@ -269,7 +270,7 @@ export default function MyAccountListOrdersTable({
                               {clientName}
                             </p>
                           </div>
-                        </td>
+                        </td> */}
                       </>
                     )}
                     {hasOrderOrItemCustomFields && (
