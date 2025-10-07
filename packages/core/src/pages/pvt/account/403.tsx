@@ -26,6 +26,8 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
+import storeConfig from 'discovery.config'
+
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
@@ -105,8 +107,12 @@ export const getServerSideProps: GetServerSideProps<
     }
   }
 
-  // Handle refresh token case with minimal props
-  if (!validationResult.isValid && validationResult.needsRefresh) {
+  // Handle refresh token case
+  if (
+    storeConfig.experimental?.refreshToken &&
+    !validationResult.isValid &&
+    validationResult.needsRefresh
+  ) {
     const fromPage =
       typeof context.query.from === 'string' ? context.query.from : undefined
 
