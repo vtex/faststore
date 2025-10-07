@@ -1,34 +1,50 @@
-import storeConfig from 'discovery.config'
+import discoveryConfig from 'discovery.config'
+import fetch from 'isomorphic-unfetch'
+import { sanitizeHost } from 'src/utils/utilities'
 
-export const refreshToken = async (): Promise<boolean> => {
-  try {
-    const refreshTokenUrl = `${storeConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
-    const response = await fetch(refreshTokenUrl, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({}),
-    })
+const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
-    return response.ok
-  } catch (error) {
-    console.error('Error refreshing token:', error)
-    return false
-  }
+export interface RefreshTokenResponse {
+  status?: string
+  refreshAfter?: string
 }
 
-export const handleRefreshTokenAndReload = async () => {
-  const success = await refreshToken()
+async function fetchWithRetry(
+  url: RequestInfo | URL,
+  init?: RequestInit,
+  maxRetries = 3
+): Promise<RefreshTokenResponse | undefined> {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const res = await fetch(url, init)
+      if (res.status !== 200) continue
 
-  if (success) {
-    // Refresh token successful, go back to the page that called 403
-    // Forces complete navigation through getServerSideProps
-    const previousPage = document.referrer || '/pvt/account'
-    window.location.href = previousPage
-  } else {
-    // Refresh token failed, redirect to login
-    window.location.href = '/login'
+      const data = await res.json()
+      return data
+    } catch {}
   }
+
+  return undefined
+}
+
+export const refreshTokenRequest = async (): Promise<
+  RefreshTokenResponse | undefined
+> => {
+  const headers: HeadersInit = {
+    'content-type': 'application/json',
+    Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
+  }
+
+  return await fetchWithRetry(REFRESH_TOKEN_URL, {
+    credentials: 'include',
+    headers,
+    body: JSON.stringify({}),
+    method: 'POST',
+  })
+}
+
+export const isRefreshTokenSuccessful = (
+  result: RefreshTokenResponse | undefined
+): boolean => {
+  return result?.status?.toLowerCase?.() === 'success'
 }
