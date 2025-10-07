@@ -1,16 +1,16 @@
 import { useEffect } from 'react'
-import { sessionStore, useSession } from '../session'
+import { sessionStore } from '../session'
 import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
 
 export const useRefreshToken = (
   needsRefreshToken?: boolean,
   fromPage?: string
 ) => {
-  const session = useSession({ filter: false })
-
   useEffect(() => {
     const handleRefreshTokenAndUpdateSession = async () => {
       if (!needsRefreshToken) return
+
+      const currentSession = sessionStore.read() ?? sessionStore.readInitial()
 
       try {
         const result = await refreshTokenRequest()
@@ -22,7 +22,7 @@ export const useRefreshToken = (
           )
 
           sessionStore.set({
-            ...session,
+            ...currentSession,
             refreshAfter,
           })
 
@@ -37,7 +37,7 @@ export const useRefreshToken = (
         } else {
           // If refresh token failed, set refreshAfter to now + 1 hour
           sessionStore.set({
-            ...session,
+            ...currentSession,
             refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
           })
         }
@@ -46,12 +46,12 @@ export const useRefreshToken = (
 
         // Set refreshAfter to postpone future requests and redirect to login
         sessionStore.set({
-          ...session,
+          ...currentSession,
           refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
         })
       }
     }
 
     handleRefreshTokenAndUpdateSession()
-  }, [needsRefreshToken, session])
+  }, [needsRefreshToken, fromPage])
 }
