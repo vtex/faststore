@@ -2,6 +2,7 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
+import { useEffect } from 'react'
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
@@ -19,10 +20,10 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
+import { handleRefreshTokenAndReload } from 'src/sdk/account/refreshToken'
 import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
-import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
@@ -34,13 +35,30 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type Props = {
-  globalSections: GlobalSectionsData
-  accountName: ServerAccountPageQueryQuery['accountProfile']['name']
+  globalSections?: GlobalSectionsData
+  accountName?: ServerAccountPageQueryQuery['accountProfile']['name']
+  needsRefreshToken?: boolean
 }
 
-function Page({ globalSections: globalSectionsProp, accountName }: Props) {
+function Page({
+  globalSections: globalSectionsProp,
+  accountName,
+  needsRefreshToken,
+}: Props) {
   const { sections: globalSections, settings: globalSettings } =
-    globalSectionsProp ?? {}
+    globalSectionsProp ?? { sections: [], settings: {} }
+
+  useEffect(() => {
+    if (needsRefreshToken) {
+      handleRefreshTokenAndReload()
+    }
+  }, [needsRefreshToken])
+
+  // Handle refresh token case
+  if (needsRefreshToken) {
+    console.info('Refreshing authentication...')
+    return <></>
+  }
 
   return (
     <PageProvider context={{ globalSettings }}>
@@ -77,13 +95,23 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const validationResult = await validateUser(context)
 
-  if (!isValid) {
+  // Guard clause: Early redirect to login if user is invalid and doesn't need refresh
+  if (!validationResult.isValid && !validationResult.needsRefresh) {
     return {
       redirect: {
         destination: '/login',
         permanent: false,
+      },
+    }
+  }
+
+  // Handle refresh token case with minimal props
+  if (!validationResult.isValid && validationResult.needsRefresh) {
+    return {
+      props: {
+        needsRefreshToken: true,
       },
     }
   }
@@ -102,28 +130,22 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(context.previewData)
 
-  const [
-    page,
-    account,
-    globalSections,
-    globalSectionsHeader,
-    globalSectionsFooter,
-  ] = await Promise.all([
-    getPage<PageContentType>({
-      ...(context.previewData?.contentType === '403' && context.previewData),
-      contentType: '403',
-    }),
-    execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
-      {
-        variables: {},
-        operation: query,
-      },
-      { headers: { ...context.req.headers } }
-    ),
-    globalSectionsPromise,
-    globalSectionsHeaderPromise,
-    globalSectionsFooterPromise,
-  ])
+  const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      execute<
+        ServerAccountPageQueryQueryVariables,
+        ServerAccountPageQueryQuery
+      >(
+        {
+          variables: {},
+          operation: query,
+        },
+        { headers: { ...context.req.headers } }
+      ),
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,
@@ -134,7 +156,6 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       // The sections from the CMS page are not utilized here for the My Account page.
-      // page,
       globalSections: globalSectionsResult,
       accountName: account.data.accountProfile.name,
     },

@@ -1,5 +1,4 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import { validateUser } from 'src/sdk/account/validateUser'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 const MyAccountRedirectPage: NextPage = () => {
@@ -10,17 +9,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
 }) => {
-  const isValid = await validateUser({ query, req } as any)
-
-  if (!isValid) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query,
   })

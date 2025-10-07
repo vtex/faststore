@@ -8,7 +8,6 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
-import { validateUser } from 'src/sdk/account/validateUser'
 
 import { gql } from '@generated'
 import type {
@@ -268,17 +267,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
-
-  if (!isValid) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   const isRepresentative = getIsRepresentative({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
@@ -328,11 +316,14 @@ export const getServerSideProps: GetServerSideProps<
     console.error(...orderDetails.errors)
     const status = extractStatusFromError(orderDetails.errors?.[0])
 
-    const isForbidden = status === 403 || status === 401
+    // Redirect to 403 for authentication errors (401/403) to handle token refresh
+    // Redirect to 404 for other errors
+    const destination =
+      status === 403 || status === 401 ? '/pvt/account/403' : '/pvt/account/404'
 
     return {
       redirect: {
-        destination: isForbidden ? '/pvt/account/403' : '/pvt/account/404',
+        destination,
         permanent: false,
       },
     }
