@@ -122,7 +122,7 @@ export const getServerSideProps: GetServerSideProps<
     if (statusCode === 401 || statusCode === 403) {
       return {
         redirect: {
-          destination: '/pvt/account/403',
+          destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
           permanent: false,
         },
       }

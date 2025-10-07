@@ -51,9 +51,10 @@ export const getServerSideProps: GetServerSideProps<
 
   // Handle refresh token case with minimal props
   if (!validationResult.isValid && validationResult.needsRefresh) {
+    const currentPath = context.req.url || '/pvt/account'
     return {
       redirect: {
-        destination: '/pvt/account/403',
+        destination: `/pvt/account/403?from=${encodeURIComponent(currentPath)}`,
         permanent: false,
       },
     }

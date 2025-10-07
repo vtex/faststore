@@ -2,7 +2,6 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { useEffect } from 'react'
 import {
   type GlobalSectionsData,
   getGlobalSectionsData,
@@ -20,7 +19,7 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { handleRefreshTokenAndReload } from 'src/sdk/account/refreshToken'
+import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
 import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
@@ -38,21 +37,20 @@ type Props = {
   globalSections?: GlobalSectionsData
   accountName?: ServerAccountPageQueryQuery['accountProfile']['name']
   needsRefreshToken?: boolean
+  fromPage?: string
 }
 
 function Page({
   globalSections: globalSectionsProp,
   accountName,
   needsRefreshToken,
+  fromPage,
 }: Props) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? { sections: [], settings: {} }
 
-  useEffect(() => {
-    if (needsRefreshToken) {
-      handleRefreshTokenAndReload()
-    }
-  }, [needsRefreshToken])
+  // Use the new hook to handle refresh token with session management
+  useRefreshToken(needsRefreshToken, fromPage)
 
   // Handle refresh token case
   if (needsRefreshToken) {
@@ -109,9 +107,13 @@ export const getServerSideProps: GetServerSideProps<
 
   // Handle refresh token case with minimal props
   if (!validationResult.isValid && validationResult.needsRefresh) {
+    const fromPage =
+      typeof context.query.from === 'string' ? context.query.from : undefined
+
     return {
       props: {
         needsRefreshToken: true,
+        fromPage,
       },
     }
   }

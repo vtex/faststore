@@ -319,7 +319,9 @@ export const getServerSideProps: GetServerSideProps<
     // Redirect to 403 for authentication errors (401/403) to handle token refresh
     // Redirect to 404 for other errors
     const destination =
-      status === 403 || status === 401 ? '/pvt/account/403' : '/pvt/account/404'
+      status === 403 || status === 401
+        ? `/pvt/account/403?from=${encodeURIComponent(`/pvt/account/orders/${context.params?.id}`)}`
+        : '/pvt/account/404'
 
     return {
       redirect: {

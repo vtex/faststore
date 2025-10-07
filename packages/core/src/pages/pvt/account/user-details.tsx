@@ -146,7 +146,7 @@ export const getServerSideProps: GetServerSideProps<
     // Redirect to 404 for other errors
     const destination: string =
       statusCode === 401 || statusCode === 403
-        ? '/pvt/account/403'
+        ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/user-details')}`
         : '/pvt/account/404'
 
     return {
