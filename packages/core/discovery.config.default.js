@@ -152,5 +152,6 @@ module.exports = {
       staleWhileRevalidate: 60,
     },
     refreshToken: false,
+    enableRequestMethodDetection: false,
   },
 }
