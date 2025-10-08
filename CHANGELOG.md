@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.89.5](https://github.com/vtex/faststore/compare/v3.89.4...v3.89.5) (2025-10-08)
+
+### Bug Fixes
+
+- Hide `Placed by` column from orders list and filters ([#3064](https://github.com/vtex/faststore/issues/3064)) ([d6ac4c8](https://github.com/vtex/faststore/commit/d6ac4c82727963cd430aa27a0c56f3d77ebd4870))
+
 ## [3.89.4](https://github.com/vtex/faststore/compare/v3.89.3...v3.89.4) (2025-10-06)
 
 ### Bug Fixes
