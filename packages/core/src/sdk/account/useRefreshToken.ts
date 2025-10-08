@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { sessionStore } from '../session'
 import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
 
@@ -6,6 +6,8 @@ export const useRefreshToken = (
   needsRefreshToken?: boolean,
   fromPage?: string
 ) => {
+  const [shouldShow403, setShouldShow403] = useState(false)
+
   useEffect(() => {
     const handleRefreshTokenAndUpdateSession = async () => {
       if (!needsRefreshToken) return
@@ -40,6 +42,8 @@ export const useRefreshToken = (
             ...currentSession,
             refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
           })
+
+          setShouldShow403(true)
         }
       } catch (error) {
         console.error('Error during refresh token process:', error)
@@ -49,9 +53,15 @@ export const useRefreshToken = (
           ...currentSession,
           refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
         })
+
+        setShouldShow403(true)
       }
     }
 
     handleRefreshTokenAndUpdateSession()
   }, [needsRefreshToken, fromPage])
+
+  return {
+    shouldShow403,
+  }
 }

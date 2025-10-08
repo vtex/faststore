@@ -52,14 +52,15 @@ function Page({
     globalSectionsProp ?? { sections: [], settings: {} }
 
   // Use the new hook to handle refresh token with session management
-  useRefreshToken(needsRefreshToken, fromPage)
+  const { shouldShow403 } = useRefreshToken(needsRefreshToken, fromPage)
 
-  // Handle refresh token case
-  if (needsRefreshToken) {
+  // Handle refresh token case - show loading while attempting refresh
+  if (needsRefreshToken && !shouldShow403) {
     console.info('Refreshing authentication...')
     return <></>
   }
 
+  // Show 403 page if refresh failed or if we don't need refresh token
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
