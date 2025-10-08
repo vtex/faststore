@@ -103,11 +103,12 @@ function getAllFacets({
         value: status.toLowerCase(),
       })),
     },
+    /* FIXME: Removing this facet until we have a cost-effective way to get the shopper name
     {
       __typename: 'StoreFacetPlacedBy',
       key: 'purchaseAgentId',
       label: 'Placed by',
-    } as any,
+    } as any, */
     {
       __typename: 'StoreFacetRange',
       key: 'dateRange',
@@ -245,7 +246,8 @@ export default function MyAccountListOrders({
           status: filters.status,
           dateInitial: filters.dateInitial,
           dateFinal: filters.dateFinal,
-          purchaseAgentId: filters.purchaseAgentId,
+          // FIXME: Removing this filter until we have a cost-effective way to get the shopper name
+          // purchaseAgentId: filters.purchaseAgentId,
         }}
         onClearAll={() => {
           window.location.href = '/pvt/account/orders'
