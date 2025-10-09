@@ -39,7 +39,6 @@
     "prepack": "na run partytown && na run generate",
     "prebuild": "na run partytown && na run generate",
     "predev": "na run partytown && na run generate",
-    "build": "echo '[@vtex/faststore-core] - bundling must be done on starter store side'",
     "dev": "echo '[@vtex/faststore-core] - DevServer is throug starter store'",
     "dev-only": "na run dev",
     "clean": "rm -r .next",

@@ -6,7 +6,6 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "prebuild": "turbo run generate --log-order=grouped",
     "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "storybook": "turbo run storybook:dev --parallel --no-cache",

@@ -8,10 +8,6 @@
     "DISCOVERY_DEBUG"
   ],
   "tasks": {
-    "generate": {
-      "dependsOn": ["^build", "^generate"],
-      "cache": false
-    },
     "build": {
       "dependsOn": ["^build"],
       "env": ["BASE_SITE_URL"],
