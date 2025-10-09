@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.89.6](https://github.com/vtex/faststore/compare/v3.89.5...v3.89.6) (2025-10-09)
+
+### Bug Fixes
+
+- My Account orders list table ([#3066](https://github.com/vtex/faststore/issues/3066)) ([394f401](https://github.com/vtex/faststore/commit/394f40162aa190da328daf40715ac1a1db0d6d70))
+
 ## [3.89.5](https://github.com/vtex/faststore/compare/v3.89.4...v3.89.5) (2025-10-08)
 
 ### Bug Fixes
