@@ -20,7 +20,6 @@ import RenderSections, {
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
@@ -77,17 +76,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
-
-  if (!isValid) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
   })
@@ -124,6 +112,22 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
   ])
+
+  if (account.errors) {
+    console.error(...account.errors)
+
+    const statusCode: number = (account.errors[0] as any)?.extensions?.status
+
+    // Redirect to 403 for authentication errors (401/403) to handle token refresh
+    if (statusCode === 401 || statusCode === 403) {
+      return {
+        redirect: {
+          destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+          permanent: false,
+        },
+      }
+    }
+  }
 
   const globalSectionsResult = injectGlobalSections({
     globalSections,

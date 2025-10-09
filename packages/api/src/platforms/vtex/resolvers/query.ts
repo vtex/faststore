@@ -27,6 +27,7 @@ import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
+import { validateUserAuthentication } from '../utils/auth'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -424,15 +425,19 @@ export const Query = {
     { orderId }: QueryUserOrderArgs,
     ctx: Context
   ) => {
-    const {
-      clients: { commerce },
-    } = ctx
-    if (!orderId) {
-      throw new BadRequestError('Missing orderId')
-    }
-
     try {
-      const order = await commerce.oms.userOrder({ orderId })
+      if (!orderId) {
+        throw new BadRequestError('Missing orderId')
+      }
+
+      const {
+        clients: { commerce },
+      } = ctx
+
+      const [, order] = await Promise.all([
+        validateUserAuthentication(ctx),
+        commerce.oms.userOrder({ orderId }),
+      ])
 
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
@@ -529,7 +534,11 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    const orders = await commerce.oms.listUserOrders(filters)
+    const [, orders] = await Promise.all([
+      validateUserAuthentication(ctx),
+      commerce.oms.listUserOrders(filters),
+    ])
+
     return {
       list: orders.list?.map((order: UserOrderFromList) => ({
         orderId: order.orderId,
@@ -547,22 +556,11 @@ export const Query = {
     }
   },
   validateUser: async (_: unknown, __: unknown, ctx: Context) => {
-    const {
-      clients: { commerce },
-    } = ctx
+    await validateUserAuthentication(ctx)
 
-    // This resolver is used to validate if the user is logged in
-    // and has access to the account area.
-    // If the user is not logged in, it will throw an error.
-    // If the user is logged in, it will return true.
-    try {
-      const response = await commerce.vtexid.validate()
-
-      return {
-        isValid: response.authStatus === 'Success',
-      }
-    } catch (error) {
-      throw new ForbiddenError('You are not allowed to access this resource')
+    // If we reach here, validation was successful, otherwise an error would have been thrown
+    return {
+      isValid: true,
     }
   },
   // only b2b users
@@ -571,8 +569,10 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    // const params = new URLSearchParams()
-    const sessionData = await commerce.session('').catch(() => null)
+    const [, sessionData] = await Promise.all([
+      validateUserAuthentication(ctx),
+      commerce.session('').catch(() => null),
+    ])
 
     const shopper = sessionData?.namespaces.shopper ?? null
     const authentication = sessionData?.namespaces.authentication ?? null
@@ -587,6 +587,8 @@ export const Query = {
   // If isRepresentative, return b2b information.
   // If not, return b2c user information
   accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
+    await validateUserAuthentication(ctx)
+
     const {
       account,
       headers,

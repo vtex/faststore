@@ -97,9 +97,22 @@ export const validateSession = async (
 
   const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
 
-  const isRepresentative = jwt?.isRepresentative
-  const customerId = jwt?.customerId
-  const unitId = jwt?.unitId
+  // Validate JWT token if it exists
+  let isValidJwt = false
+  if (jwt) {
+    try {
+      const vtexIdResponse = await clients.commerce.vtexid.validate()
+      isValidJwt = vtexIdResponse?.authStatus?.toLowerCase() === 'success'
+    } catch (error) {
+      console.warn('JWT validation failed:', error)
+      isValidJwt = false
+    }
+  }
+
+  // Only use JWT data if the token is valid
+  const isRepresentative = isValidJwt ? jwt?.isRepresentative : false
+  const customerId = isValidJwt ? jwt?.customerId : undefined
+  const unitId = isValidJwt ? jwt?.unitId : undefined
 
   const sessionData = await clients.commerce
     .session(params.toString())
@@ -164,10 +177,16 @@ export const validateSession = async (
           customerId: authentication?.customerId?.value ?? customerId ?? '',
           unitName: authentication?.unitName?.value ?? '',
           unitId: authentication?.unitId?.value ?? unitId ?? '',
-          firstName: shopper?.firstName?.value ?? '',
-          lastName: shopper?.lastName?.value ?? '',
+          firstName:
+            typeof shopper?.firstName?.value === 'string'
+              ? shopper.firstName.value
+              : '',
+          lastName:
+            typeof shopper?.lastName?.value === 'string'
+              ? shopper.lastName.value
+              : '',
           userName:
-            `${shopper?.firstName?.value ?? ''} ${shopper?.lastName?.value ?? ''}`.trim(),
+            `${typeof shopper?.firstName?.value === 'string' ? shopper.firstName.value : ''} ${typeof shopper?.lastName?.value === 'string' ? shopper.lastName.value : ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
           contractName: contract?.corporateName ?? '',

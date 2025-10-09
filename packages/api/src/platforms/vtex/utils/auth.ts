@@ -1,4 +1,5 @@
-import { ForbiddenError } from '../../..'
+import { ForbiddenError, UnauthorizedError } from '../../..'
+import type { Context } from '../index'
 
 /**
  * Creates a function that adds VTEX API AppKey and AppToken headers to requests.
@@ -23,5 +24,38 @@ export const getWithAppKeyAndToken = () => {
       'X-VTEX-API-AppKey': appKey,
       'X-VTEX-API-AppToken': appToken,
     }
+  }
+}
+
+/**
+ * Utility function to validate user authentication
+ * Centralized validation logic for all account-related resolvers
+ */
+export const validateUserAuthentication = async (
+  ctx: Context
+): Promise<void> => {
+  const {
+    clients: { commerce },
+  } = ctx
+
+  try {
+    const validation = await commerce.vtexid.validate()
+
+    if (validation?.authStatus?.toLowerCase() !== 'success') {
+      throw new UnauthorizedError('Authentication required')
+    }
+  } catch (error) {
+    const status = (error as any).extensions?.status ?? (error as any).status
+
+    if (status === 401) {
+      throw new UnauthorizedError('Authentication required')
+    }
+
+    if (status === 403) {
+      throw new ForbiddenError('You are not allowed to access this resource')
+    }
+
+    // For any other error, throw UnauthorizedError as it likely needs token refresh
+    throw new UnauthorizedError('Authentication required')
   }
 }

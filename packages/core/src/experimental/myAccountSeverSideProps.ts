@@ -37,9 +37,10 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const validationResult = await validateUser(context)
 
-  if (!isValid) {
+  // Guard clause: Early redirect to login if user is invalid and doesn't need refresh
+  if (!validationResult.isValid && !validationResult.needsRefresh) {
     return {
       redirect: {
         destination: '/login',
@@ -48,10 +49,16 @@ export const getServerSideProps: GetServerSideProps<
     }
   }
 
-  const isRepresentative = getIsRepresentative({
-    headers: context.req.headers as Record<string, string>,
-    account: storeConfig.api.storeId,
-  })
+  // Handle refresh token case with minimal props
+  if (!validationResult.isValid && validationResult.needsRefresh) {
+    const currentPath = context.req.url || '/pvt/account'
+    return {
+      redirect: {
+        destination: `/pvt/account/403?from=${encodeURIComponent(currentPath)}`,
+        permanent: false,
+      },
+    }
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -60,6 +67,11 @@ export const getServerSideProps: GetServerSideProps<
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }
   }
+
+  const isRepresentative = getIsRepresentative({
+    headers: context.req.headers as Record<string, string>,
+    account: storeConfig.api.storeId,
+  })
 
   const [
     globalSectionsPromise,

@@ -6,6 +6,42 @@ export interface ContextForCookies {
   storage: Pick<Context['storage'], 'cookies'>
 }
 
+/**
+ * Normalizes cookie string by removing duplicates and keeping the last value for each key
+ * Example: "key1=value1; key2=value2; key1=value3" -> "key2=value2; key1=value3"
+ */
+const normalizeCookies = (cookieString: string): string => {
+  if (!cookieString) {
+    return cookieString
+  }
+
+  const cookieMap = new Map<string, string>()
+  const cookies = cookieString.split(';')
+  const processedKeys: string[] = []
+
+  // Process cookies to build map with last values and track order
+  cookies.forEach((cookie) => {
+    const trimmedCookie = cookie.trim()
+    if (trimmedCookie) {
+      const equalIndex = trimmedCookie.indexOf('=')
+      if (equalIndex > 0) {
+        const key = trimmedCookie.substring(0, equalIndex)
+        const value = trimmedCookie.substring(equalIndex + 1)
+
+        // If this is the first time we see this key, record its position
+        if (!cookieMap.has(key)) {
+          processedKeys.push(key)
+        }
+
+        cookieMap.set(key, value)
+      }
+    }
+  })
+
+  // Rebuild cookie string maintaining the order of first appearance
+  return processedKeys.map((key) => `${key}=${cookieMap.get(key)}`).join('; ')
+}
+
 const MATCH_FIRST_SET_COOKIE_KEY_VALUE = /^([^=]+)=([^;]*)/
 
 /**
@@ -64,10 +100,12 @@ export const getUpdatedCookie = (ctx: ContextForCookies) => {
     return null
   }
 
+  // Normalize cookies to handle duplicates (keep last value)
+  const normalizedCookie = normalizeCookies(ctx.headers.cookie)
   const contextStorageCookies = Array.from(ctx.storage.cookies.entries())
 
   if (contextStorageCookies.length === 0) {
-    return ctx.headers.cookie
+    return normalizedCookie
   }
 
   return contextStorageCookies.reduce(
@@ -77,7 +115,7 @@ export const getUpdatedCookie = (ctx: ContextForCookies) => {
         storageCookieKey,
         storageCookieValue
       ),
-    ctx.headers.cookie
+    normalizedCookie
   )
 }
 
@@ -98,7 +136,8 @@ export const getWithCookie = (ctx: ContextForCookies) =>
   }
 
 export const getAuthCookie = (cookies: string, account: string) => {
-  const parsedCookies = parse(cookies)
+  const normalizedCookies = normalizeCookies(cookies)
+  const parsedCookies = parse(normalizedCookies)
   const authCookie = parsedCookies[`VtexIdclientAutCookie_${account}`]
   return authCookie || ''
 }
