@@ -4,9 +4,12 @@ import type {
   ServerUserDetailsQueryQuery,
   ServerUserDetailsQueryQueryVariables,
 } from '../../../@generated/graphql'
+
 const query = gql(`
   query ServerUserDetailsQuery {
-    accountName
+    accountProfile {
+      name
+    }
     userDetails {
       name
       email
