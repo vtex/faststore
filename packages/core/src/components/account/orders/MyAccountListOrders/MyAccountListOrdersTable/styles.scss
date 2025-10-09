@@ -65,6 +65,7 @@
     }
 
     &:last-child {
+      width: 60%;
       text-align: end;
     }
 
@@ -141,8 +142,8 @@
   }
 
   [data-fs-list-orders-table-expand-button] {
-    --fs-list-orders-table-expand-width: 8rem; // 128px to rem;
-    --fs-list-orders-table-expand-margin-top: -0.75rem;
+    --fs-list-orders-table-expand-width      : 8rem; // 128px to rem;
+    --fs-list-orders-table-expand-margin-top : -0.5rem;
     --fs-list-orders-table-expand-margin-left: -1.0625rem; // 17px to rem;
 
     width: var(--fs-list-orders-table-expand-width);
