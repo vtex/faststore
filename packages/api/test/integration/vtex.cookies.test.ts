@@ -1,12 +1,13 @@
+import type { Context } from '../../src/platforms/vtex'
+import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
 import {
+  getAuthCookie,
+  getStoreCookie,
   getUpdatedCookie,
-  updatesCookieValueByKey,
   getWithCookie,
   updatesContextStorageCookies,
-  getStoreCookie,
+  updatesCookieValueByKey,
 } from '../../src/platforms/vtex/utils/cookies'
-import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
-import type { Context } from '../../src/platforms/vtex'
 
 describe('getUpdatedCookie', () => {
   it('Should return undefined if context has no headers', () => {
@@ -187,5 +188,50 @@ describe('getStoreCookie', () => {
         'CheckoutOrderFormOwnership=CFEUHpzya69CNICSrc4h5cJzeQE856pULms%2BxxQdF9EOh5WPwtrzqMwl9FwAhPVM; expires=Sat, 08 Jun 2024 20:12:41 GMT; domain=vtexfaststore.com; path=/; secure; samesite=strict; httponly',
     })
     expect(ctx.storage.cookies.size).toEqual(2)
+  })
+})
+
+describe('Cookie normalization (duplicate handling)', () => {
+  it('Should handle duplicate cookies and keep the last value in getUpdatedCookie', () => {
+    const cookieWithDuplicates =
+      'VtexIdclientAutCookie_account=oldValue; vtex_session=sessionValue; VtexIdclientAutCookie_account=newValue'
+    const ctx = {
+      headers: { cookie: cookieWithDuplicates },
+      storage: { cookies: new Map() },
+    }
+
+    const result = getUpdatedCookie(ctx)
+
+    // Should keep the last value for duplicate keys, maintaining order of first appearance
+    expect(result).toEqual(
+      'VtexIdclientAutCookie_account=newValue; vtex_session=sessionValue'
+    )
+  })
+
+  it('Should handle multiple duplicate cookies and keep the last values', () => {
+    const cookieWithMultipleDuplicates =
+      'key1=value1; key2=value2; key1=value1_updated; key3=value3; key2=value2_updated; key1=value1_final'
+    const ctx = {
+      headers: { cookie: cookieWithMultipleDuplicates },
+      storage: { cookies: new Map() },
+    }
+
+    const result = getUpdatedCookie(ctx)
+
+    // Should keep the last value for each duplicate key, maintaining order of first appearance
+    expect(result).toEqual(
+      'key1=value1_final; key2=value2_updated; key3=value3'
+    )
+  })
+
+  it('Should handle duplicate auth cookies in getAuthCookie and return the last value', () => {
+    const cookieWithDuplicateAuth =
+      'VtexIdclientAutCookie_account=oldToken; other_cookie=value; VtexIdclientAutCookie_account=newToken'
+    const account = 'account'
+
+    const result = getAuthCookie(cookieWithDuplicateAuth, account)
+
+    // Should return the last (newest) auth token
+    expect(result).toEqual('newToken')
   })
 })
