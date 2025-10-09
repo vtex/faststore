@@ -1,4 +1,4 @@
-import { Button, Icon, IconButton } from '@faststore/ui'
+import { Icon, IconButton } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import { useState } from 'react'
 
@@ -215,67 +215,22 @@ export default function MyAccountListOrdersTable({
                         </p>
                       </div>
                       {hasOrderOrItemCustomFields && (
-                        <>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Delivery by
-                            </p>
-                            <p
-                              data-fs-list-orders-table-product-info-value
-                              title={shippingEstimatedDate}
-                            >
-                              {shippingEstimatedDate}
-                            </p>
-                          </div>
-                          {/* FIXME: Removing this info until we have a cost-effective way to get the shopper name
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Placed by
-                            </p>
-                            <p
-                              data-fs-list-orders-table-product-info-value
-                              title={clientName}
-                            >
-                              {clientName}
-                            </p>
-                          </div> */}
-                        </>
+                        <div data-fs-list-orders-table-product-info>
+                          <p data-fs-list-orders-table-product-info-label>
+                            Delivery by
+                          </p>
+                          <p
+                            data-fs-list-orders-table-product-info-value
+                            title={shippingEstimatedDate}
+                          >
+                            {shippingEstimatedDate}
+                          </p>
+                        </div>
                       )}
                     </td>
-                    {!hasOrderOrItemCustomFields && (
-                      <>
-                        <td data-fs-list-orders-table-cell>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Delivery by
-                            </p>
-                            <p
-                              data-fs-list-orders-table-product-info-value
-                              title={shippingEstimatedDate}
-                            >
-                              {shippingEstimatedDate}
-                            </p>
-                          </div>
-                        </td>
-                        {/* FIXME: Removing this info until we have a cost-effective way to get the shopper name
-                        <td data-fs-list-orders-table-cell>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Placed by
-                            </p>
-                            <p
-                              data-fs-list-orders-table-product-info-value
-                              title={clientName}
-                            >
-                              {clientName}
-                            </p>
-                          </div>
-                        </td> */}
-                      </>
-                    )}
-                    {hasOrderOrItemCustomFields && (
-                      <>
-                        <td data-fs-list-orders-table-cell>
+                    <td data-fs-list-orders-table-cell>
+                      {hasOrderOrItemCustomFields && (
+                        <>
                           {displayedOrderLevel.length > 0 && (
                             <p
                               data-fs-list-orders-table-product-info-label
@@ -306,8 +261,12 @@ export default function MyAccountListOrdersTable({
                               }
                             />
                           )}
-                        </td>
-                        <td data-fs-list-orders-table-cell>
+                        </>
+                      )}
+                    </td>
+                    <td data-fs-list-orders-table-cell>
+                      {hasOrderOrItemCustomFields && (
+                        <>
                           {displayedItemLevel.length > 0 && (
                             <p
                               data-fs-list-orders-table-product-info-label
@@ -338,9 +297,9 @@ export default function MyAccountListOrdersTable({
                               }
                             />
                           )}
-                        </td>
-                      </>
-                    )}
+                        </>
+                      )}
+                    </td>
                   </>
                 )}
 
