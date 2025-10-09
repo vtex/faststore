@@ -32,7 +32,7 @@
     "test:unitc": "jest --projects jest.unit.config.js --silent --coverage",
     "test": "pnpm run test:unit && pnpm run test:int",
     "prebuild": "graphql-codegen",
-    "generate": "graphql-codegen && vite build",
+    "generate": "graphql-codegen",
     "dev:server": "pnpm build && node ./local/server.mjs"
   },
   "dependencies": {
