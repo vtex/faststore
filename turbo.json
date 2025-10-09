@@ -9,7 +9,7 @@
   ],
   "tasks": {
     "generate": {
-      "dependsOn": ["^generate"],
+      "dependsOn": ["^build", "^generate"],
       "cache": false
     },
     "build": {
