@@ -1,7 +1,8 @@
 import { assertValidSchema } from 'graphql'
 
 import storeConfig from '../../discovery.config'
-import { execute, getEnvelop } from '../../src/server'
+import { ServerExecuteFunction as execute } from '../../src/server'
+
 import {
   getMergedSchema,
   getTypeDefsFromFolder,
@@ -81,6 +82,7 @@ const QUERIES = [
   'accountProfile',
   'validateUser',
   'pickupPoints',
+  'accountName',
 ]
 
 const MUTATIONS = [
@@ -145,11 +147,12 @@ describe('FastStore GraphQL Layer', () => {
   })
 
   describe('Envelop', () => {
-    it('should exist with its plugins', async () => {
-      const envelop = await getEnvelop()
-      expect(envelop).toBeDefined()
-      expect(envelop._plugins).toHaveLength(7)
-    })
+    // Envelop now is defined in @faststore/api
+    // it('should exist with its plugins', async () => {
+    //   const envelop = await getEnvelop()
+    //   expect(envelop).toBeDefined()
+    //   expect(envelop._plugins).toHaveLength(7)
+    // })
 
     it('should handle options and execute', async () => {
       const result = await execute({
