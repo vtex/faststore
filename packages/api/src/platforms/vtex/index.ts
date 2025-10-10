@@ -80,29 +80,6 @@ export type Resolver<R = unknown, A = unknown, Return = any> = (
   info: any
 ) => Return
 
-const Resolvers = {
-  StoreCollection,
-  StoreAggregateOffer,
-  StoreProduct,
-  StoreSeo,
-  StoreFacet,
-  StoreFacetBoolean,
-  StoreFacetRange,
-  StoreFacetValueBoolean,
-  StoreOffer,
-  StoreAggregateRating,
-  StoreReview,
-  StoreProductGroup,
-  StoreSearchResult,
-  StorePropertyValue,
-  SkuVariants,
-  ShippingSLA,
-  UserOrderResult,
-  ObjectOrString,
-  Query,
-  Mutation,
-}
-
 export const getContextFactory =
   (options: Options) =>
   (ctx: any): Context => {
@@ -119,14 +96,37 @@ export const getContextFactory =
     return ctx
   }
 
-export const getResolvers = () => Resolvers
+export function getResolvers() {
+  return {
+    StoreCollection,
+    StoreAggregateOffer,
+    StoreProduct,
+    StoreSeo,
+    StoreFacet,
+    StoreFacetBoolean,
+    StoreFacetRange,
+    StoreFacetValueBoolean,
+    StoreOffer,
+    StoreAggregateRating,
+    StoreReview,
+    StoreProductGroup,
+    StoreSearchResult,
+    StorePropertyValue,
+    SkuVariants,
+    ShippingSLA,
+    UserOrderResult,
+    ObjectOrString,
+    Query,
+    Mutation,
+  }
+}
 
-export const getVTEXSchema = (
+export function getVTEXSchema(
   directives?: Array<Directive>,
   mergeSchema?: GraphQLSchema
-) => {
+) {
   let platformSchema = makeExecutableSchema({
-    resolvers: Resolvers,
+    resolvers: getResolvers(),
     typeDefs: !directives?.length
       ? typeDefs
       : mergeTypeDefs([

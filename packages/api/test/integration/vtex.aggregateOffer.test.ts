@@ -1,5 +1,6 @@
-import { bestOfferFirst } from '../../src/platforms/vtex/utils/productStock'
+import { describe, expect, it } from 'vitest'
 import type { CommertialOffer } from '../../src/platforms/vtex/clients/search/types/ProductSearchResult'
+import { bestOfferFirst } from '../../src/platforms/vtex/utils/productStock'
 
 type TestItem = Pick<CommertialOffer, 'AvailableQuantity' | 'spotPrice'>
 
