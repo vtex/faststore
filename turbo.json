@@ -27,6 +27,7 @@
       "dependsOn": ["^build", "generate"]
     },
     "@vtex/faststore-core#generate": {
+      "dependsOn": ["^build"],
       "outputs": ["@generated/**"],
       "cache": false
     },
