@@ -21,10 +21,10 @@
       "dependsOn": ["generate", "^build"]
     },
     "@vtex/faststore-api#build": {
-      "dependsOn": ["generate", "^build"]
+      "dependsOn": ["^build", "generate"]
     },
     "@vtex/faststore-core#build": {
-      "dependsOn": ["generate", "^build"]
+      "dependsOn": ["^build", "generate"]
     },
     "@vtex/faststore-core#generate": {
       "outputs": ["@generated/**"],
