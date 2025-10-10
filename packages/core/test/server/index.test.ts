@@ -82,7 +82,6 @@ const QUERIES = [
   'accountProfile',
   'validateUser',
   'pickupPoints',
-  'accountName',
 ]
 
 const MUTATIONS = [

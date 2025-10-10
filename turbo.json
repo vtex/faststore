@@ -13,6 +13,26 @@
       "env": ["BASE_SITE_URL"],
       "outputs": ["dist/**"]
     },
+    "@vtex/faststore-api#generate": {
+      "outputs": ["src/__generated__/**"],
+      "cache": false
+    },
+    "@vtex/faststore-api#test": {
+      "dependsOn": ["generate", "^build"]
+    },
+    "@vtex/faststore-api#build": {
+      "dependsOn": ["generate", "^build"]
+    },
+    "@vtex/faststore-core#build": {
+      "dependsOn": ["generate", "^build"]
+    },
+    "@vtex/faststore-core#generate": {
+      "outputs": ["@generated/**"],
+      "cache": false
+    },
+    "@vtex/faststore-core#test": {
+      "dependsOn": ["generate", "^build"]
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false
@@ -20,6 +40,7 @@
     "test": {
       "dependsOn": ["^build"]
     },
+
     "test:e2e": {
       "dependsOn": ["^build"]
     },
