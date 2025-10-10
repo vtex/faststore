@@ -6,17 +6,22 @@
   "scripts": {
     "predev": "partytown copylib 'public/~partytown' && faststore-core",
     "dev": "faststore prepare && next dev",
-    "prebuild": "partytown copylib 'public/~partytown' && faststore prepare && faststore-core",
-    "build": "next build",
+    "generate": "partytown copylib 'public/~partytown' && faststore prepare && faststore-core",
+    "build": "pnpm run generate && next build",
     "start": "next start",
     "cms-sync": "echo faststore cms-sync",
     "test": "echo faststore test",
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@envelop/core": "^5.3.1",
+    "@envelop/graphql-jit": "^8.0.4",
+    "@envelop/parser-cache": "^6.0.4",
+    "@envelop/validation-cache": "^6.0.4",
     "@vtex/faststore-api": "workspace:*",
     "@vtex/faststore-cli": "workspace:*",
     "@vtex/faststore-core": "workspace:*",
+    "graphql": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"

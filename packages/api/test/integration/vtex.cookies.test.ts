@@ -1,12 +1,14 @@
+import { describe, expect, it } from 'vitest'
+
+import type { Context } from '../../src/platforms/vtex'
+import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
 import {
+  getStoreCookie,
   getUpdatedCookie,
-  updatesCookieValueByKey,
   getWithCookie,
   updatesContextStorageCookies,
-  getStoreCookie,
+  updatesCookieValueByKey,
 } from '../../src/platforms/vtex/utils/cookies'
-import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
-import type { Context } from '../../src/platforms/vtex'
 
 describe('getUpdatedCookie', () => {
   it('Should return undefined if context has no headers', () => {

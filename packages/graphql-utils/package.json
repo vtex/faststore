@@ -1,6 +1,6 @@
 {
   "name": "@vtex/faststore-graphql-utils",
-  "version": "3.81.0",
+  "version": "3.89.2",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",

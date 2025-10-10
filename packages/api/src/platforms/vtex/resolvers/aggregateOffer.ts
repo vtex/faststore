@@ -1,8 +1,7 @@
-import { inStock, price } from '../utils/productStock'
-import type { StoreProduct } from './product'
-import type { PromiseType } from '../../../typings'
 import type { Resolver } from '..'
+import { inStock, price } from '../utils/productStock'
 import { withTax } from '../utils/taxes'
+import type { StoreProduct } from './product'
 
 export type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 

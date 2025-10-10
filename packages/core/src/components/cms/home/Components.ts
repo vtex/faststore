@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 
+import { getComponentKey } from '../../../utils/cms'
 import { OverriddenDefaultHero as Hero } from '../../sections/Hero/OverriddenDefaultHero'
 import Incentives from '../../sections/Incentives'
+import { OverriddenDefaultProductShelf as ProductShelf } from '../../sections/ProductShelf/OverriddenDefaultProductShelf'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
-import { getComponentKey } from '../../../utils/cms'
 
 import CUSTOM_COMPONENTS from '../../../customizations/src/components'
 import PLUGINS_COMPONENTS from '../../../plugins'
@@ -21,13 +22,6 @@ const Newsletter = dynamic(
     import(
       /* webpackChunkName: "Newsletter" */ '../../sections/Newsletter/OverriddenDefaultNewsletter'
     ).then((mod) => mod.OverriddenDefaultNewsletter),
-  { ssr: false }
-)
-const ProductShelf = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "ProductShelf" */ '../../sections/ProductShelf/OverriddenDefaultProductShelf'
-    ).then((mod) => mod.OverriddenDefaultProductShelf),
   { ssr: false }
 )
 const ProductTiles = dynamic(

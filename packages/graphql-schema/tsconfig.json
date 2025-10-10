@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "resolveJsonModule": true,
-    "moduleResolution": "Bundler"
-  },
-  "include": ["src/**/*"]
-}

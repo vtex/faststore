@@ -4,7 +4,7 @@ import type {
   ClientProductCountQueryQuery as Query,
   ClientProductCountQueryQueryVariables as Variables,
 } from '../../../@generated/graphql'
-import { request } from '../graphql/request'
+import { GraphqlRequest } from '../graphql/request'
 
 export const query = gql(`
   query ClientProductCountQuery($term: String) {
@@ -15,7 +15,10 @@ export const query = gql(`
 `)
 
 export const getProductCount = async (term?: string) => {
-  const { productCount } = await request<Query, Variables>(query, { term })
+  const { data } = await GraphqlRequest<Query, Variables>({
+    operation: query,
+    variables: { term },
+  })
 
-  return productCount.total
+  return data?.productCount.total
 }

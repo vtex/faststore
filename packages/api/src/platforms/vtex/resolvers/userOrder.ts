@@ -4,7 +4,6 @@ import type {
   UserOrderCustomField,
   UserOrderDeliveryOption,
 } from '../../..'
-import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
 import { getLocalizedEstimates } from './shippingSLA'
 

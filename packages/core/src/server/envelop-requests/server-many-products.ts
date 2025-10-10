@@ -1,12 +1,13 @@
-import type { SearchState } from '@vtex/faststore-sdk'
-import { gql } from '../../@generated/gql'
 import type {
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
-} from '../../@generated/graphql'
-import { ITEMS_PER_PAGE } from '../constants'
-import { execute } from '../server'
-import storeConfig from '../../discovery.config'
+} from '../../../@generated/graphql'
+import storeConfig from '../../../discovery.config'
+import { ITEMS_PER_PAGE } from '../../constants'
+
+import type { SearchState } from '@vtex/faststore-sdk'
+import { ServerExecuteFunction } from '../'
+import { gql } from '../../../@generated/gql'
 
 export const query = gql(`
   query ServerManyProductsQuery(
@@ -43,7 +44,7 @@ export const query = gql(`
   }
 `)
 
-export async function fetchServerManyProducts({
+export async function serverManyProducts({
   itemsPerPage = ITEMS_PER_PAGE,
   sort = 'score_desc',
   term = '',
@@ -83,7 +84,7 @@ export async function fetchServerManyProducts({
       sponsoredCount,
     }
 
-    const result = await execute<
+    const result = await ServerExecuteFunction<
       ServerManyProductsQueryQueryVariables,
       ServerManyProductsQueryQuery
     >({

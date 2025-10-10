@@ -1,4 +1,4 @@
-import type { GraphQLScalarSerializer } from 'graphql'
+import type { GraphQLScalarSerializer, GraphQLScalarTypeConfig } from 'graphql'
 import { GraphQLScalarType } from 'graphql'
 import { Kind } from 'graphql/language'
 
@@ -15,7 +15,7 @@ export const ObjectOrString = new GraphQLScalarType({
 
     return null
   },
-})
+} as GraphQLScalarTypeConfig<any, any>)
 
 function toObjectOrString(value: GraphQLScalarSerializer<any>) {
   if (typeof value === 'string') {

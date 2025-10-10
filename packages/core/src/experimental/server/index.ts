@@ -1,2 +1,2 @@
 // Server GraphQL
-export { execute as execute_unstable } from '../../../src/server'
+export { ServerExecuteFunction as execute_unstable } from '../../../src/server'

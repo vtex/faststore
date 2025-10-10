@@ -1,22 +1,19 @@
-import { gql } from '../../@generated/gql'
-import type {
-  ServerAccountPageQueryQuery,
-  ServerAccountPageQueryQueryVariables,
-} from '../../@generated/graphql'
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
 import {
-  type GlobalSectionsData,
   getGlobalSectionsData,
+  type GlobalSectionsData,
 } from '../components/cms/GlobalSections'
-import { execute } from '../server'
 import { getIsRepresentative } from '../sdk/account/getIsRepresentative'
 
-import { injectGlobalSections } from '../server/cms/global'
-import { getMyAccountRedirect } from '../utils/myAccountRedirect'
-import { validateUser } from '../sdk/account/validateUser'
 import storeConfig from '../../discovery.config'
+import { injectGlobalSections } from '../server/cms/global'
+import {
+  serverAccountRequest,
+  serverValidateUser,
+} from '../server/envelop-requests'
+import { getMyAccountRedirect } from '../utils/myAccountRedirect'
 
 export type MyAccountProps = {
   globalSections: GlobalSectionsData
@@ -24,18 +21,12 @@ export type MyAccountProps = {
   isRepresentative?: boolean
 }
 
-const query = gql(`
-  query ServerAccountPageQuery {
-    accountName
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const isValid = await serverValidateUser(context)
 
   if (!isValid) {
     return {
@@ -67,16 +58,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      execute<
-        ServerAccountPageQueryQueryVariables,
-        ServerAccountPageQueryQuery
-      >(
-        {
-          variables: {},
-          operation: query,
-        },
-        { headers: { ...context.req.headers } }
-      ),
+      serverAccountRequest(context),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,
@@ -91,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: account.data.accountName,
+      accountName: account.data.accountProfile.name,
       isRepresentative,
     },
   }

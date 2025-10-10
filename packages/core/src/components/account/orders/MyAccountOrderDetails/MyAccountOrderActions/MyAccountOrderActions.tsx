@@ -64,12 +64,7 @@ export default function MyAccountOrderActions({
       <div data-fs-order-actions>
         <Dropdown>
           <DropdownButton aria-label="View More" data-fs-dropdown-button>
-            <UIIcon
-              name="DotsThree"
-              width={20}
-              height={20}
-              data-fs-dropdown-icon
-            />
+            <UIIcon name="DotsThree" data-fs-dropdown-icon />
           </DropdownButton>
           <DropdownMenu align="right">
             {allowCancellation && (

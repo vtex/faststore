@@ -6,7 +6,7 @@
   // Default properties
   --fs-order-status-card-gap                     : var(--fs-spacing-1);
   --fs-order-status-card-padding                 : var(--fs-spacing-3) var(--fs-spacing-2);
-  --fs-order-status-card-bkg-color               : var(--fs-color-neutral-1);
+  --fs-order-status-card-bkg-color               : rgb(0 0 0 / 3%);
   --fs-order-status-card-border-radius           : var(--fs-border-radius-medium);
 
   // Step Icon
@@ -17,8 +17,8 @@
   --fs-order-status-step-icon-margin            : var(--fs-spacing-0);
 
   // Step Icon States
-  --fs-order-status-step-icon-completed-color   : #08a822;
-  --fs-order-status-step-icon-failed-color      : #5c5c5c;
+  --fs-order-status-step-icon-completed-color   : var(--fs-color-success-2);
+  --fs-order-status-step-icon-failed-color      : var(--fs-color-neutral-5);
   --fs-order-status-step-icon-canceled-color     : var(--fs-color-neutral-1);
   --fs-order-status-step-icon-loading-color     : var(--fs-color-neutral-4);
   --fs-order-status-step-icon-text-color        : var(--fs-color-neutral-0);
@@ -77,6 +77,10 @@
     width: 100%;
     padding: var(--fs-order-status-card-padding);
 
+    &:first-child [data-fs-shipping-connector] {
+      display: none;
+    }
+
     &[data-fs-shipping-status="loading"] {
       z-index: -1;
       background-color: var(--fs-order-status-card-bkg-color);
@@ -104,6 +108,7 @@
       width: var(--fs-order-status-step-icon-size);
       height: var(--fs-order-status-step-icon-size);
       margin: var(--fs-order-status-step-icon-margin);
+      border-radius: var(--fs-order-status-step-icon-border-radius);
 
       [data-fs-icon] {
         color: var(--fs-color-neutral-0);
@@ -111,7 +116,6 @@
 
       &[data-fs-shipping-step-completed] {
         background-color: var(--fs-order-status-step-icon-completed-color);
-        border-radius: var(--fs-order-status-step-icon-border-radius);
 
         [class*="icon"] {
           color: var(--fs-order-status-step-icon-text-color);
@@ -120,7 +124,6 @@
 
       &[data-fs-shipping-step-failed] {
         background-color: var(--fs-order-status-step-icon-failed-color);
-        border-radius: var(--fs-order-status-step-icon-border-radius);
 
         [class*="icon"] {
           color: var(--fs-order-status-step-icon-text-color);
@@ -133,16 +136,10 @@
 
       &[data-fs-shipping-step-loading] {
         background-color: var(--fs-order-status-step-icon-loading-color);
-        border-radius: var(--fs-order-status-step-icon-border-radius);
 
         [class*="icon"] {
           color: var(--fs-order-status-step-icon-text-color);
         }
-      }
-
-      &:not([data-fs-shipping-step-completed]):not([data-fs-shipping-step-loading]) {
-        border: var(--fs-order-status-step-icon-border);
-        border-radius: var(--fs-order-status-step-icon-border-radius);
       }
     }
 
@@ -193,7 +190,18 @@
 
     [data-fs-shipping-connector] {
       position: absolute;
+      bottom: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-connector-spacing));
+      left: calc(var(--fs-spacing-2) + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-step-icon-margin));
       background-color: var(--fs-order-status-connector-color);
+
+      @include media(">=notebook") {
+        top: calc(1rem + var(--fs-order-status-step-icon-margin) + var(--fs-order-status-step-icon-half-size));
+        right: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-card-gap));
+        bottom: auto;
+        left: auto;
+        width: 100%;
+        height: var(--fs-border-width);
+      }
 
       &[data-fs-shipping-connector-status="completed"] {
         background-color: var(--fs-order-status-connector-completed-color);
@@ -213,7 +221,15 @@
     }
   }
 
+  [data-fs-shipping-status="completed"] + [data-fs-shipping-step]:not([data-fs-shipping-status="completed"]) {
+    [data-fs-shipping-connector] { background-color: var(--fs-color-neutral-4); }
+  }
+
   [data-fs-shipping-status="not-started"] {
+    [data-fs-shipping-step-icon]:not([data-fs-shipping-step-canceled]) {
+      border: var(--fs-order-status-step-icon-border);
+    }
+
     [data-fs-shipping-step-label] {
       color: var(--fs-order-status-step-not-started-color);
     }

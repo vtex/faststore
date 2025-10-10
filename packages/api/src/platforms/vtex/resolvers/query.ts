@@ -546,42 +546,6 @@ export const Query = {
       paging: orders.paging,
     }
   },
-  accountName: async (_: unknown, __: unknown, ctx: Context) => {
-    const {
-      account,
-      headers,
-      clients: { commerce },
-    } = ctx
-
-    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
-
-    if (!jwt?.userId) {
-      return null
-    }
-
-    if (jwt?.isRepresentative) {
-      const sessionData = await commerce.session('').catch(() => null)
-
-      if (!sessionData) {
-        return null
-      }
-
-      const profile = sessionData.namespaces.profile ?? null
-
-      return (
-        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim() ||
-        ''
-      )
-    }
-
-    const user = await commerce.licenseManager
-      .getUserById({
-        userId: jwt?.userId,
-      })
-      .catch(() => null)
-
-    return user?.name || ''
-  },
   validateUser: async (_: unknown, __: unknown, ctx: Context) => {
     const {
       clients: { commerce },

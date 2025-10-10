@@ -1,4 +1,4 @@
-import { Button, Icon } from '@vtex/faststore-ui'
+import { Icon, IconButton } from '@vtex/faststore-ui'
 import { useState } from 'react'
 import type { ServerListOrdersQueryQuery } from '../../../../../../@generated/graphql'
 
@@ -62,36 +62,22 @@ export function Pagination({
   return (
     <div data-fs-list-orders-table-pagination>
       <p>{`${firstIndexLabel} — ${lastIndexLabel} of ${total}`}</p>
-      <Button
+      <IconButton
         size="small"
         variant="tertiary"
         disabled={page === 1}
         onClick={() => handlePageChange(page - 1)}
-        icon={
-          <Icon
-            width={16}
-            height={16}
-            name="CaretLeft"
-            aria-label="Previous Page"
-          />
-        }
-        iconPosition="left"
-      ></Button>
-      <Button
+        icon={<Icon name="CaretLeft" />}
+        aria-label="Previous Page"
+      />
+      <IconButton
         size="small"
         variant="tertiary"
         disabled={page === totalPages}
         onClick={() => handlePageChange(page + 1)}
-        icon={
-          <Icon
-            width={16}
-            height={16}
-            name="CaretRight"
-            aria-label="Next Page"
-          />
-        }
-        iconPosition="left"
-      ></Button>
+        icon={<Icon name="CaretRight" />}
+        aria-label="Next Page"
+      />
     </div>
   )
 }
@@ -191,7 +177,6 @@ export default function MyAccountListOrdersTable({
 
             return (
               <tr
-                data-fs-list-orders-table-body-row
                 data-fs-list-orders-table-row
                 key={item.orderId}
                 onClick={handleRowClick}

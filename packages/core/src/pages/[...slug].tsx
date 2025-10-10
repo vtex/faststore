@@ -1,15 +1,13 @@
 import { isNotFoundError } from '@vtex/faststore-api'
-import storeConfig from '../../discovery.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import storeConfig from '../../discovery.config'
 
 import { gql } from '../../@generated'
 import type {
   ServerCollectionPageQueryQuery,
-  ServerCollectionPageQueryQueryVariables,
   ServerManyProductsQueryQuery,
   ServerManyProductsQueryQueryVariables,
 } from '../../@generated/graphql'
-import { execute } from '../server'
 
 import type { SearchState } from '@vtex/faststore-sdk'
 import dynamic from 'next/dynamic'
@@ -30,8 +28,11 @@ import { injectGlobalSections } from '../server/cms/global'
 import type { PLPContentType } from '../server/cms/plp'
 import { contentService } from '../server/content/service'
 import type { PreviewData } from '../server/content/types'
+import {
+  serverCollectionRequest,
+  serverManyProducts,
+} from '../server/envelop-requests'
 import { getDynamicContent } from '../utils/dynamicContent'
-import { fetchServerManyProducts } from '../utils/fetchProductGallerySSR'
 
 const LandingPage = dynamic(() => import('../components/templates/LandingPage'))
 
@@ -163,13 +164,7 @@ export const getStaticProps: GetStaticProps<
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
-    execute<
-      ServerCollectionPageQueryQueryVariables,
-      ServerCollectionPageQueryQuery
-    >({
-      variables: { slug },
-      operation: query,
-    }),
+    serverCollectionRequest({ slug }),
     contentService.getPlpContent(
       {
         previewData,
@@ -183,7 +178,7 @@ export const getStaticProps: GetStaticProps<
   ])
 
   const [serverManyProductsData, serverManyProductsVariables] =
-    await fetchServerManyProducts({
+    await serverManyProducts({
       itemsPerPage: cmsPage?.settings?.productGallery?.itemsPerPage,
       sort: cmsPage?.settings?.productGallery
         ?.sortBySelection as SearchState['sort'],

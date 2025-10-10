@@ -17,11 +17,11 @@
   --fs-list-orders-table-product-info-margin-top-first   : var(--fs-spacing-0);
   --fs-list-orders-table-product-info-margin-top   : var(--fs-spacing-1);
   --fs-list-orders-table-product-info-line-height  : var(--fs-text-size-1);
-  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2) var(--fs-spacing-3);
+  --fs-list-orders-table-cell-padding              : var(--fs-spacing-4) var(--fs-spacing-2);
   --fs-list-orders-table-cell-padding-mobile       : var(--fs-spacing-3) var(--fs-spacing-1);
   --fs-list-orders-table-cell-color                : var(--fs-color-neutral-6);
-  --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-color-neutral-3);
-  --fs-list-orders-table-row-hover-bg              : color-mix(in srgb, var(--fs-color-accent-0) 30%, transparent);
+  --fs-list-orders-table-row-border-bottom         : var(--fs-border-width) solid var(--fs-border-color-light);
+  --fs-list-orders-table-row-hover-bg              : var(--fs-color-neutral-1);
 
   // Specific sizes
   --fs-list-orders-table-product-info-value-size   : 150px;
@@ -34,38 +34,50 @@
   width: 100%;
   margin: 0 auto;
   font-size: var(--fs-list-orders-table-font-size);
+  overflow-wrap: break-word;
   vertical-align: middle;
+  table-layout: fixed;
   border-collapse: collapse;
   border: none;
 
-  [data-fs-list-orders-table-cell]:first-child {
-    width: var(--fs-list-orders-table-first-child-width);
-
-    @include media("<notebook") {
-      display: flex;
-      align-items: center;
-      width: var(--fs-list-orders-table-first-child-width-mobile);
-    }
+  [data-fs-list-orders-table-product-info-main] {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
   }
 
-  [data-fs-list-orders-table-cell]:last-child {
-    width: var(--fs-list-orders-table-last-child-width);
-    text-align: end;
+  [data-fs-list-orders-table-cell] {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-list-orders-table-gap);
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 50%;
+    padding: var(--fs-list-orders-table-cell-padding);
+    text-align: left;
+    vertical-align: top;
 
-    @include media("<notebook") {
-      display: flex;
-      flex-direction: column;
-      gap: var(--fs-list-orders-table-gap);
-      align-items: flex-end;
-      justify-content: flex-end;
-      width: auto;
+    &:not(:first-child):not(:last-child) {
+      color: var(--fs-list-orders-table-cell-color);
+    }
+
+    &:last-child {
+      text-align: end;
+    }
+
+    [data-fs-my-account-badge] { margin-right: calc(var(--fs-spacing-0) * -1); }
+
+    @include media(">=notebook") {
+      display: table-cell;
     }
   }
 
   [data-fs-list-orders-table-product-info-order-id], [data-fs-list-orders-table-product-info-order-total], [data-fs-list-orders-table-product-info-value] {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   [data-fs-list-orders-table-product-info]:first-child, [data-fs-list-orders-table-product-info-value] {
@@ -74,9 +86,6 @@
 
   [data-fs-list-orders-table-product-info-value] {
     max-width: var(--fs-list-orders-table-product-info-value-size);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   [data-fs-list-orders-table-product-info-label] {
@@ -98,28 +107,12 @@
     line-height: var(--fs-list-orders-table-product-info-line-height);
   }
 
-  [data-fs-list-orders-table-cell] {
-    padding: var(--fs-list-orders-table-cell-padding);
-    text-align: left;
-    vertical-align: top;
-    border: none;
-
-    @include media("<notebook") {
-      padding: var(--fs-list-orders-table-cell-padding-mobile);
-    }
-  }
-
   [data-fs-list-orders-table-product-info-order], [data-fs-list-orders-table-product-info-item] {
     max-width: var(--fs-list-orders-table-product-info-order-size);
     margin-top: var(--fs-list-orders-table-product-info-margin-top-first);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  [data-fs-list-orders-table-cell]:not(:first-child):not(:last-child) {
-    padding-top: calc(var(--fs-spacing-4) + var(--fs-spacing-0));
-    color: var(--fs-list-orders-table-cell-color);
   }
 
   [data-fs-list-orders-table-row] {
@@ -171,7 +164,7 @@
 
 [data-fs-list-orders-table-pagination] {
   --fs-list-orders-table-pagination-text-size   : .8rem;
-  --fs-list-orders-table-pagination-box-shadow  : 0 -4px 8px rgb(0 0 0 / 5%);
+  --fs-list-orders-table-pagination-box-shadow  : 0 -4px var(--fs-spacing-1) rgb(0 0 0 / 5%);
   --fs-list-orders-table-pagination-bkg-color   : var(--fs-body-bkg);
   --fs-list-orders-table-pagination-padding     : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-0);
 
@@ -179,8 +172,10 @@
     position: sticky;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     padding: var(--fs-list-orders-table-pagination-padding);
+    margin-right: calc(var(--fs-spacing-4) * -1);
+    margin-left: calc(var(--fs-spacing-4) * -1);
     background-color: var(--fs-list-orders-table-pagination-bkg-color);
     box-shadow: var(--fs-list-orders-table-pagination-box-shadow);
   }

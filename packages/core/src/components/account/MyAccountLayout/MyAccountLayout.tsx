@@ -23,10 +23,10 @@ const MyAccountLayout = ({
       )
 
   return (
-    <div className={styles.layout}>
+    <section className={styles.layout}>
       <MyAccountMenu accountName={accountName} items={routes} />
-      <section>{children}</section>
-    </div>
+      <div data-fs-account-layout-content>{children}</div>
+    </section>
   )
 }
 export default MyAccountLayout

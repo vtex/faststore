@@ -1,34 +1,28 @@
-/* ######################################### */
-/* Mocked Page until development is finished, it will be removed after */
-
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from '../../components/account'
-import { ProfileSection } from '../../components/account/profile'
-import RenderSections from '../../components/cms/RenderSections'
-import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
-import CUSTOM_COMPONENTS from '../../customizations/src/components'
+import { MyAccountLayout } from '../../../components/account'
+import { ProfileSection } from '../../../components/account/profile'
+import RenderSections from '../../../components/cms/RenderSections'
+import { default as GLOBAL_COMPONENTS } from '../../../components/cms/global/Components'
+import CUSTOM_COMPONENTS from '../../../customizations/src/components'
 
-import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
+import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
 
-import { gql } from '../../../@generated/gql'
-import type {
-  ServerProfileQueryQuery,
-  ServerProfileQueryQueryVariables,
-} from '../../../@generated/graphql'
-import { default as AfterSection } from '../../customizations/src/myAccount/extensions/profile/after'
-import { default as BeforeSection } from '../../customizations/src/myAccount/extensions/profile/before'
-import type { MyAccountProps } from '../../experimental/myAccountSeverSideProps'
-import { getIsRepresentative } from '../../sdk/account/getIsRepresentative'
-import { validateUser } from '../../sdk/account/validateUser'
-import { injectGlobalSections } from '../../server/cms/global'
-import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
+import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/profile/after'
+import { default as BeforeSection } from '../../../customizations/src/myAccount/extensions/profile/before'
+import type { MyAccountProps } from '../../../experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from '../../../sdk/account/getIsRepresentative'
+import { injectGlobalSections } from '../../../server/cms/global'
+import {
+  serverProfileRequest,
+  serverValidateUser,
+} from '../../../server/envelop-requests'
+import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 
-import storeConfig from '../../../discovery.config'
-import PageProvider from '../../sdk/overrides/PageProvider'
-import { execute } from '../../server'
+import storeConfig from '../../../../discovery.config'
+import PageProvider from '../../../sdk/overrides/PageProvider'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -46,8 +40,8 @@ type ProfilePagePros = {
 
 export default function Profile({
   globalSections: globalSectionsProp,
-  accountName,
   accountProfile,
+  accountName,
   isRepresentative,
 }: ProfilePagePros) {
   const { sections: globalSections, settings: globalSettings } =
@@ -71,23 +65,12 @@ export default function Profile({
   )
 }
 
-const query = gql(`
-  query ServerProfileQuery {
-    accountName
-    accountProfile {
-      name
-      email
-      id
-    }
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const isValid = await serverValidateUser(context)
 
   if (!isValid) {
     return {
@@ -119,13 +102,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const [profile, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      execute<ServerProfileQueryQueryVariables, ServerProfileQueryQuery>(
-        {
-          variables: {},
-          operation: query,
-        },
-        { headers: { ...context.req.headers } }
-      ),
+      serverProfileRequest(context),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,
@@ -155,7 +132,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: profile.data.accountName,
+      accountName: profile.data.accountProfile.name,
       accountProfile: profile.data.accountProfile,
       isRepresentative,
     },

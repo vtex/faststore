@@ -181,21 +181,30 @@ function MyAccountFilterSlider({
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
                 <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
-                        dispatch({ type: 'toggleFacet', payload: facet })
-                      }
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={item.label}
-                    />
-                  ))}
+                  {facet.values.map((item) => {
+                    const normalizedTestId = testId?.trim().toLowerCase() || ''
+                    const normalizedFacetLabel =
+                      facet.label?.trim().toLowerCase() || ''
+                    const normalizedItemLabel =
+                      item.label?.trim().toLowerCase() || ''
+                    const itemId = `${normalizedTestId}-${normalizedFacetLabel}-${normalizedItemLabel}`
+
+                    return (
+                      <UIFilterFacetBooleanItem
+                        key={itemId}
+                        id={itemId}
+                        testId={`mobile-${normalizedTestId}`}
+                        onFacetChange={(facet) =>
+                          dispatch({ type: 'toggleFacet', payload: facet })
+                        }
+                        selected={item.selected}
+                        value={item.value}
+                        quantity={item.quantity}
+                        facetKey={facet.key}
+                        label={item.label}
+                      />
+                    )
+                  })}
                 </UIFilterFacetBoolean>
               )}
               {type === 'StoreFacetPlacedBy' && isExpanded && (

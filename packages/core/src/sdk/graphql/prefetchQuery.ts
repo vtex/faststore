@@ -1,14 +1,11 @@
-import { mutate } from 'swr'
-import type { Cache } from 'swr'
-
-import { request } from './request'
+import { mutate, type Cache } from 'swr'
+import { GraphqlRequest, type Operation } from './request'
 import { getKey } from './useQuery'
-import type { Operation, RequestOptions } from './request'
 
 export const prefetchQuery = <Data, Variables = Record<string, unknown>>(
   operation: Operation,
   variables: Variables,
-  { cache, ...options }: Partial<RequestOptions> & { cache: Cache }
+  { cache, ...options }: Partial<Omit<RequestInit, 'cache'>> & { cache: Cache }
 ) => {
   const key = getKey(operation['__meta__']['operationName'], variables)
 
@@ -16,5 +13,8 @@ export const prefetchQuery = <Data, Variables = Record<string, unknown>>(
     return
   }
 
-  mutate(key, request<Data, Variables>(operation, variables, options))
+  mutate(
+    key,
+    GraphqlRequest<Data, Variables>({ operation, variables }, options)
+  )
 }

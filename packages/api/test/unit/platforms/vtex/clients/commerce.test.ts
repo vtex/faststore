@@ -1,8 +1,10 @@
-import {
-  type Options,
-  getContextFactory,
-} from '../../../../../src/platforms/vtex'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import * as clients from '../../../../../src/platforms/vtex/clients'
+// This should be imported AFTER the '../../../../../src/platforms/vtex/clients'
+import {
+  getContextFactory,
+  type Options,
+} from '../../../../../src/platforms/vtex'
 
 const apiOptions = {
   platform: 'vtex',
@@ -21,19 +23,19 @@ const apiOptions = {
 const contextFactory = getContextFactory(apiOptions)
 const context = contextFactory({})
 
-const fetchAPIMocked = jest.fn()
+const fetchAPIMocked = vi.fn()
 
-jest.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
+beforeEach(() => {
+  fetchAPIMocked.mockClear()
+})
+
+vi.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
     info: RequestInfo,
     init?: RequestInit,
     options?: { storeCookies?: (headers: Headers) => void }
   ) => fetchAPIMocked(info, init, options),
 }))
-
-beforeEach(() => {
-  fetchAPIMocked.mockClear()
-})
 
 describe('VTEX Commerce', () => {
   describe('Checkout', () => {

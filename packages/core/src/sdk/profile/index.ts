@@ -4,7 +4,7 @@ import type {
   ClientProfileQueryQuery as Query,
   ClientProfileQueryQueryVariables as Variables,
 } from '../../../@generated/graphql'
-import { request } from '../graphql/request'
+import { GraphqlRequest } from '../graphql/request'
 
 export const query = gql(`
   query ClientProfileQuery($id: String!) {
@@ -20,8 +20,11 @@ export const query = gql(`
 `)
 
 export const getAddresses = async (id: string) => {
-  const data = await request<Query, Variables>(query, { id })
-  return data.profile.addresses
+  const { data } = await GraphqlRequest<Query, Variables>({
+    operation: query,
+    variables: { id },
+  })
+  return data?.profile.addresses
 }
 
 export const getSavedAddress = async (id: string) => {

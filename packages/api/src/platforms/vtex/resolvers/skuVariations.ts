@@ -1,5 +1,4 @@
 import type { Resolver } from '..'
-import type { PromiseType } from '../../../typings'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
   createSlugsMap,
@@ -43,5 +42,7 @@ export const SkuVariants: Record<string, Resolver<Root>> = {
     return filteredFormattedVariations
   },
   allVariantProducts: (root) =>
-    root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
+    root.isVariantOf.items.map((item: Parameters<typeof enhanceSku>[0]) =>
+      enhanceSku(item, root.isVariantOf)
+    ),
 }

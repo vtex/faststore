@@ -3,19 +3,21 @@ import { createSessionStore } from '@vtex/faststore-sdk'
 import fetch from 'isomorphic-unfetch'
 import { useMemo } from 'react'
 
+import deepEqual from 'fast-deep-equal'
 import { gql } from '../../../@generated'
 import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '../../../@generated/graphql'
-import discoveryConfig from '../../../discovery.config'
+import {
+  default as discoveryConfig,
+  default as storeConfig,
+} from '../../../discovery.config'
 import { sanitizeHost } from '../../utils/utilities'
-import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
-import { request } from '../graphql/request'
+import { GraphqlRequest } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
-import deepEqual from 'fast-deep-equal'
 
 const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
@@ -99,12 +101,15 @@ export const validateSession = async (session: Session) => {
       return null
     }
 
-    const data = await request<
+    const { data } = await GraphqlRequest<
       ValidateSessionMutation,
       ValidateSessionMutationVariables
-    >(mutation, { session, search: window.location.search })
+    >({
+      operation: mutation,
+      variables: { session, search: window.location.search },
+    })
 
-    return data.validateSession
+    return data?.validateSession
   } catch (error) {
     const shouldRefreshToken =
       error?.status === 401 && storeConfig.experimental?.refreshToken

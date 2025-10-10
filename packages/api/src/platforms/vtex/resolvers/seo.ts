@@ -1,5 +1,4 @@
 import type { Resolver } from '..'
-import type { PromiseType } from '../../../typings'
 import type { StoreProduct } from './product'
 
 export type Root = PromiseType<ReturnType<typeof StoreProduct.seo>> & {

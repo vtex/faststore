@@ -1,135 +1,14 @@
-import {
-  envelop,
-  type MaskError,
-  useEngine,
-  useExtendContext,
-  useMaskedErrors,
-  useSchema,
-} from '@envelop/core'
-import { useGraphQlJit } from '@envelop/graphql-jit'
-import { useParserCache } from '@envelop/parser-cache'
-import { useValidationCache } from '@envelop/validation-cache'
-import type { CacheControl, Maybe } from '@vtex/faststore-api'
-import {
-  BadRequestError,
-  getContextFactory,
-  getResolvers,
-  getTypeDefs,
-  isFastStoreError,
-} from '@vtex/faststore-api'
-// import defs from '../../@generated/schema.graphql'
-// import { mergedTypeDefs as defs } from '@vtex/faststore-graphql-schema'
-import { makeExecutableSchema } from '@graphql-tools/schema'
-import type { TypeSource } from '@graphql-tools/utils'
-import * as GraphQLJS from 'graphql'
-import { GraphQLError } from 'graphql'
+// import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
+// import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
-import persisted from '../../@generated/persisted-documents.json'
-
-import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
-import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
-
-import type { Operation } from '../sdk/graphql/request'
+import { GraphqlExecute, getSchema } from '@vtex/faststore-api'
+import persistedDocuments from '../../@generated/persisted-documents.json'
 import { apiOptions } from './options'
 
-interface ExecuteOptions<V = Record<string, unknown>> {
-  operation: Operation
-  variables: V
-  query?: string | null
-}
+const persistedQueries = new Map(Object.entries(persistedDocuments))
 
-const persistedQueries = new Map(Object.entries(persisted))
-
-const apiContextFactory = getContextFactory(apiOptions)
-
-const customFormatError: MaskError = (err) => {
-  if (err instanceof GraphQLError && isFastStoreError(err.originalError)) {
-    return err
-  }
-
-  console.error(err)
-
-  return new GraphQLError(`Sorry, something went wrong. ${err}`)
-}
-
-function loadGeneratedSchema(): TypeSource {
-  return getTypeDefs()
-}
-
-function getFinalAPISchema() {
-  const generatedSchema = loadGeneratedSchema()
-  const nativeResolvers = getResolvers(apiOptions)
-
-  return makeExecutableSchema({
-    typeDefs: generatedSchema,
-    resolvers: [nativeResolvers, vtexExtensionsResolvers, thirdPartyResolvers],
-  })
-}
-
-export const getEnvelop = async () =>
-  envelop({
-    plugins: [
-      useEngine(GraphQLJS),
-      useSchema(getFinalAPISchema()),
-      useExtendContext(apiContextFactory),
-      useMaskedErrors({ maskError: customFormatError }),
-      useGraphQlJit(),
-      useValidationCache(),
-      useParserCache(),
-    ],
-  })
-
-const envelopPromise = getEnvelop()
-
-export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
-  options: ExecuteOptions<V>,
-  envelopContext = { headers: {} }
-): Promise<{
-  data: D
-  errors: unknown[]
-  extensions: {
-    cacheControl?: CacheControl
-    cookies: Map<string, Record<string, string>> | null
-  }
-}> => {
-  if (!options?.operation?.['__meta__'])
-    console.log('Invalid query:', JSON.stringify(options))
-
-  const { operation, variables, query: maybeQuery } = options
-  const { operationHash, operationName } = operation?.['__meta__'] ?? {}
-
-  const query = maybeQuery ?? persistedQueries.get(operationHash)
-
-  if (query == null) {
-    throw new BadRequestError(
-      `No query found for operationName ${operationName} and operationHash ${operationHash}.`
-    )
-  }
-
-  const enveloped = await envelopPromise
-  const {
-    parse,
-    contextFactory,
-    execute: run,
-    schema,
-  } = enveloped(envelopContext)
-
-  const contextValue = await contextFactory(envelopContext)
-
-  const { data, errors } = (await run({
-    schema,
-    document: parse(query),
-    variableValues: variables,
-    contextValue,
-    operationName,
-  })) as { data: D; errors: unknown[] }
-
-  return {
-    data,
-    errors,
-    extensions: {
-      cookies: contextValue.storage.cookies,
-      cacheControl: contextValue.cacheControl,
-    },
-  }
-}
+export const ServerExecuteFunction = GraphqlExecute(
+  apiOptions,
+  getSchema(),
+  persistedQueries
+)
