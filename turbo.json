@@ -19,7 +19,8 @@
       "outputs": ["test-results/**", "playwright-report"]
     },
     "starter.store#build": {
-      "outputs": [".next/**"]
+      "outputs": [".next/**"],
+      "dependsOn": ["^build"]
     },
     "@vtex/faststore-api#generate": {
       "outputs": ["src/__generated__/**"],
