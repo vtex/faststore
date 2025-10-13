@@ -25,7 +25,7 @@
   },
   "scripts": {
     "dev": "vite build --watch",
-    "build": "pnpm run generate && vite build",
+    "build": "vite build",
     "test:int": "vitest run ./test/integration",
     "test:intc": "pnpm run test:int --coverage",
     "test:unit": "vitest run ./test/unit",

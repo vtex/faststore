@@ -21,10 +21,12 @@
       "dependsOn": ["generate", "^build"]
     },
     "@vtex/faststore-api#build": {
-      "dependsOn": ["^build", "generate"]
+      "dependsOn": ["^build", "generate"],
+      "outputs": ["dist/**"]
     },
     "@vtex/faststore-core#build": {
-      "dependsOn": ["^build", "generate"]
+      "dependsOn": ["^build", "generate"],
+      "outputs": ["dist/**"]
     },
     "@vtex/faststore-core#generate": {
       "dependsOn": ["^build"],
@@ -41,7 +43,6 @@
     "test": {
       "dependsOn": ["^build"]
     },
-
     "test:e2e": {
       "dependsOn": ["^build"]
     },
