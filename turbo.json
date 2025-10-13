@@ -13,6 +13,14 @@
       "env": ["BASE_SITE_URL"],
       "outputs": ["dist/**"]
     },
+    "test:e2e": {
+      "dependsOn": ["^build", "build"],
+      "passThroughEnv": ["PLAYWRIGHT_*"],
+      "outputs": ["test-results/**", "playwright-report"]
+    },
+    "starter.store#build": {
+      "outputs": [".next/**"]
+    },
     "@vtex/faststore-api#generate": {
       "outputs": ["src/__generated__/**"],
       "cache": false
@@ -41,9 +49,6 @@
       "cache": false
     },
     "test": {
-      "dependsOn": ["^build"]
-    },
-    "test:e2e": {
       "dependsOn": ["^build"]
     },
     "start": {
