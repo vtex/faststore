@@ -42,6 +42,7 @@ export interface Profile {
 export interface Shopper {
   firstName?: Value
   lastName?: Value
+  organizationManager?: { value: boolean }
 }
 
 export interface Checkout {

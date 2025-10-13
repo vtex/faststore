@@ -417,6 +417,7 @@ export type IStoreB2B = {
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
+  organizationManager?: Maybe<Scalars['Boolean']>;
   savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
@@ -1184,6 +1185,7 @@ export type StoreB2B = {
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
+  organizationManager?: Maybe<Scalars['Boolean']>;
   savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
