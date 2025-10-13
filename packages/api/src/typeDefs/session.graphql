@@ -199,6 +199,7 @@ type StoreB2B {
   userEmail: String
   savedPostalCode: String
   contractName: String
+  organizationManager: Boolean
 }
 
 input IStoreB2B {
@@ -212,6 +213,7 @@ input IStoreB2B {
   userEmail: String
   savedPostalCode: String
   contractName: String
+  organizationManager: Boolean
 }
 
 """

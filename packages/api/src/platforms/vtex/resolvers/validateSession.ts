@@ -171,6 +171,7 @@ export const validateSession = async (
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
           contractName: contract?.corporateName ?? '',
+          organizationManager: shopper?.organizationManager?.value ?? false,
         }
       : null,
     marketingData,

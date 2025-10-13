@@ -37,6 +37,8 @@ export const OrganizationDrawer = ({
     ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
     : null
 
+  const isOrganizationManager = b2b?.organizationManager || false
+
   return (
     <SlideOver
       data-fs-organization-drawer
@@ -58,7 +60,7 @@ export const OrganizationDrawer = ({
       <OrganizationDrawerBody isRepresentative={isRepresentative} />
       <footer data-fs-organization-drawer-footer-wrapper>
         <ProfileSummary
-          showManageLink
+          showManageLink={isOrganizationManager}
           bordered={true}
           onLogoutClick={doLogout}
           person={{
