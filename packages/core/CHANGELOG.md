@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.90.0](https://github.com/vtex/faststore/compare/v3.89.6...v3.90.0) (2025-10-13)
+
+### Features
+
+- show manage button only when the user be manage ([#3067](https://github.com/vtex/faststore/issues/3067)) ([08c1798](https://github.com/vtex/faststore/commit/08c17988d1a4d8aaba8016473898d2ee2ce5c244))
+
 ## [3.89.6](https://github.com/vtex/faststore/compare/v3.89.5...v3.89.6) (2025-10-09)
 
 ### Bug Fixes
