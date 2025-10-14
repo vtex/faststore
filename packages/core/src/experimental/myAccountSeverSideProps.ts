@@ -1,21 +1,18 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
-import { gql } from '../../@generated/gql'
-import type {
-  ServerAccountPageQueryQuery,
-  ServerAccountPageQueryQueryVariables,
-} from '../../@generated/graphql'
 
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from '../components/cms/GlobalSections'
 import { getIsRepresentative } from '../sdk/account/getIsRepresentative'
-import { execute } from '../server'
 
 import storeConfig from '../../discovery.config'
-import { validateUser } from '../sdk/account/validateUser'
 import { injectGlobalSections } from '../server/cms/global'
+import {
+  serverAccountRequest,
+  serverValidateUser,
+} from '../server/envelop-requests'
 import { getMyAccountRedirect } from '../utils/myAccountRedirect'
 
 export type MyAccountProps = {
@@ -24,20 +21,12 @@ export type MyAccountProps = {
   isRepresentative?: boolean
 }
 
-const query = gql(`
-  query ServerAccountPageQuery {
-    accountProfile {
-      name
-    }
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const isValid = await serverValidateUser(context)
 
   if (!isValid) {
     return {
@@ -69,16 +58,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
-      execute<
-        ServerAccountPageQueryQueryVariables,
-        ServerAccountPageQueryQuery
-      >(
-        {
-          variables: {},
-          operation: query,
-        },
-        { headers: { ...context.req.headers } }
-      ),
+      serverAccountRequest(context),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
       globalSectionsFooterPromise,

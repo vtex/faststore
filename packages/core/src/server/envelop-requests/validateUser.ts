@@ -1,10 +1,10 @@
+import type { GetServerSidePropsContext } from 'next'
+import { ServerExecuteFunction } from '..'
 import { gql } from '../../../@generated/gql'
 import type {
   ValidateUserQuery,
   ValidateUserQueryVariables,
 } from '../../../@generated/graphql'
-import type { GetServerSidePropsContext } from 'next'
-import { execute } from '../../server'
 
 const query = gql(`
   query ValidateUser {
@@ -14,8 +14,8 @@ const query = gql(`
   }
 `)
 
-export async function validateUser(context: GetServerSidePropsContext) {
-  const validateUserResult = await execute<
+export async function serverValidateUser(context: GetServerSidePropsContext) {
+  const validateUserResult = await ServerExecuteFunction<
     ValidateUserQueryVariables,
     ValidateUserQuery
   >(

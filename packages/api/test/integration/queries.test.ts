@@ -1,5 +1,8 @@
 import { execute, parse } from 'graphql'
+import { beforeEach, expect, test, vi } from 'vitest'
 
+import type { Options } from '../../src'
+import { getContextFactory, getSchema } from '../../src'
 import {
   AllCollectionsQueryFirst5,
   catalogBrandListFetch,
@@ -25,23 +28,21 @@ import {
   RedirectQueryTermTech,
   redirectTermTechFetch,
 } from '../mocks/RedirectQuery'
-import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import {
+  SearchQueryFirst5Products,
   attributeSearchCategory1Fetch,
   productSearchCategory1Fetch,
-  SearchQueryFirst5Products,
 } from '../mocks/SearchQuery'
-import { regionFetch, SellersQueryResult } from '../mocks/SellersQuery'
+import { SellersQueryResult, regionFetch } from '../mocks/SellersQuery'
 import {
+  ShippingSimulationQueryResult,
   addressFetch,
   shippingSimulationFetch,
-  ShippingSimulationQueryResult,
 } from '../mocks/ShippingQuery'
-import type { Options } from '../../src'
-import { getContextFactory, getSchema } from '../../src'
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
 
-jest.useFakeTimers({ advanceTimers: true })
-const mockedFetch = jest.fn()
+vi.useFakeTimers({ shouldAdvanceTime: true })
+const mockedFetch = vi.fn()
 
 const apiOptions = {
   platform: 'vtex',
@@ -61,23 +62,23 @@ const apiOptions = {
 } as Options
 
 const createRunner = () => {
-  const schemaPromise = getSchema(apiOptions)
+  const schemaPromise = getSchema()
   const contextFactory = getContextFactory(apiOptions)
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
     const context = contextFactory({})
 
-    return execute(
+    return execute({
       schema,
-      parse(query),
-      null,
-      {
+      document: parse(query),
+      rootValue: null,
+      contextValue: {
         ...context,
         headers: { 'content-type': 'application/json', cookie: '' },
       },
-      variables
-    )
+      variableValues: variables,
+    })
   }
 }
 
@@ -97,7 +98,7 @@ function pickFetchAPICallResult(
   )
 }
 
-jest.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
+vi.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: (
     info: RequestInfo,
     init?: RequestInit,

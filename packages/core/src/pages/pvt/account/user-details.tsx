@@ -1,31 +1,28 @@
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from '../../components/account'
-import RenderSections from '../../components/cms/RenderSections'
-import { default as GLOBAL_COMPONENTS } from '../../components/cms/global/Components'
-import CUSTOM_COMPONENTS from '../../customizations/src/components'
+import { MyAccountLayout } from '../../../components/account'
+import RenderSections from '../../../components/cms/RenderSections'
+import { default as GLOBAL_COMPONENTS } from '../../../components/cms/global/Components'
+import CUSTOM_COMPONENTS from '../../../customizations/src/components'
 
 import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 
-import { getGlobalSectionsData } from '../../components/cms/GlobalSections'
+import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
 
-import { gql } from '../../../@generated/gql'
-import type {
-  ServerUserDetailsQueryQuery,
-  ServerUserDetailsQueryQueryVariables,
-} from '../../../@generated/graphql'
-import storeConfig from '../../../discovery.config'
-import MyAccountUserDetails from '../../components/account/MyAccountUserDetails/MyAccountUserDetails'
-import { default as AfterSection } from '../../customizations/src/myAccount/extensions/user-details/after'
-import { default as BeforeSection } from '../../customizations/src/myAccount/extensions/user-details/before'
-import type { MyAccountProps } from '../../experimental/myAccountSeverSideProps'
-import { getIsRepresentative } from '../../sdk/account/getIsRepresentative'
-import { validateUser } from '../../sdk/account/validateUser'
-import PageProvider from '../../sdk/overrides/PageProvider'
-import { execute } from '../../server'
-import { injectGlobalSections } from '../../server/cms/global'
-import { getMyAccountRedirect } from '../../utils/myAccountRedirect'
+import storeConfig from '../../../../discovery.config'
+import MyAccountUserDetails from '../../../components/account/MyAccountUserDetails/MyAccountUserDetails'
+import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/user-details/after'
+import { default as BeforeSection } from '../../../customizations/src/myAccount/extensions/user-details/before'
+import type { MyAccountProps } from '../../../experimental/myAccountSeverSideProps'
+import { getIsRepresentative } from '../../../sdk/account/getIsRepresentative'
+import PageProvider from '../../../sdk/overrides/PageProvider'
+import { injectGlobalSections } from '../../../server/cms/global'
+import {
+  serverUserDetailsRequest,
+  serverValidateUser,
+} from '../../../server/envelop-requests'
+import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -69,26 +66,12 @@ export default function Page({
   )
 }
 
-const query = gql(`
-  query ServerUserDetailsQuery {
-    accountProfile {
-      name
-    }
-    userDetails {
-      name
-      email
-      role
-      orgUnit
-    }
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const isValid = await serverValidateUser(context)
 
   if (!isValid) {
     return {
@@ -124,15 +107,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
-    execute<ServerUserDetailsQueryQueryVariables, ServerUserDetailsQueryQuery>(
-      {
-        variables: {},
-        operation: query,
-      },
-      {
-        headers: { ...context.req.headers },
-      }
-    ),
+    serverUserDetailsRequest(context),
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,

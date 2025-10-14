@@ -1,11 +1,9 @@
-import useSWR from 'swr'
 import type { SWRConfiguration } from 'swr'
-
-import { request } from './request'
-import type { Operation, RequestOptions } from './request'
+import useSWR from 'swr'
+import { GraphqlRequest, type Operation } from './request'
 
 export type QueryOptions = SWRConfiguration &
-  RequestOptions & { doNotRun?: boolean }
+  Omit<RequestInit, 'cache'> & { doNotRun?: boolean }
 
 export const getKey = <Variables>(
   operationName: string,
@@ -36,7 +34,12 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
         return new Promise((resolve) => {
           setTimeout(async () => {
             resolve(
-              await request<Data, Variables>(operation, variables, options)
+              (
+                await GraphqlRequest<Data, Variables>(
+                  { operation, variables },
+                  options
+                )
+              ).data
             )
           })
         })

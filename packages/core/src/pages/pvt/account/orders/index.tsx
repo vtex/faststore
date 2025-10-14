@@ -2,32 +2,29 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from '../../../components/account'
-import RenderSections from '../../../components/cms/RenderSections'
-import { default as GLOBAL_COMPONENTS } from '../../../components/cms/global/Components'
-import CUSTOM_COMPONENTS from '../../../customizations/src/components'
+import { MyAccountLayout } from '../../../../components/account'
+import RenderSections from '../../../../components/cms/RenderSections'
+import { default as GLOBAL_COMPONENTS } from '../../../../components/cms/global/Components'
+import CUSTOM_COMPONENTS from '../../../../customizations/src/components'
 
-import { getGlobalSectionsData } from '../../../components/cms/GlobalSections'
+import type { ServerListOrdersQueryQuery } from '../../../../../@generated/graphql'
+import { getGlobalSectionsData } from '../../../../components/cms/GlobalSections'
+import { default as AfterSection } from '../../../../customizations/src/myAccount/extensions/orders/after'
+import { default as BeforeSection } from '../../../../customizations/src/myAccount/extensions/orders/before'
+import type { MyAccountProps } from '../../../../experimental/myAccountSeverSideProps'
+import { injectGlobalSections } from '../../../../server/cms/global'
+import { getMyAccountRedirect } from '../../../../utils/myAccountRedirect'
+import { groupOrderStatusByLabel } from '../../../../utils/userOrderStatus'
 
-import { gql } from '../../../../@generated/gql'
-import type {
-  ServerListOrdersQueryQuery,
-  ServerListOrdersQueryQueryVariables,
-} from '../../../../@generated/graphql'
-import { default as AfterSection } from '../../../customizations/src/myAccount/extensions/orders/after'
-import { default as BeforeSection } from '../../../customizations/src/myAccount/extensions/orders/before'
-import type { MyAccountProps } from '../../../experimental/myAccountSeverSideProps'
-import { execute } from '../../../server'
-import { injectGlobalSections } from '../../../server/cms/global'
-import { getMyAccountRedirect } from '../../../utils/myAccountRedirect'
-import { groupOrderStatusByLabel } from '../../../utils/userOrderStatus'
-
-import storeConfig from '../../../../discovery.config'
-import { MyAccountListOrders } from '../../../components/account/orders/MyAccountListOrders'
-import { getIsRepresentative } from '../../../sdk/account/getIsRepresentative'
-import { validateUser } from '../../../sdk/account/validateUser'
-import PageProvider from '../../../sdk/overrides/PageProvider'
-import { extractStatusFromError } from '../../../utils/utilities'
+import storeConfig from '../../../../../discovery.config'
+import { MyAccountListOrders } from '../../../../components/account/orders/MyAccountListOrders'
+import { getIsRepresentative } from '../../../../sdk/account/getIsRepresentative'
+import PageProvider from '../../../../sdk/overrides/PageProvider'
+import {
+  serverListOrdersQueryRequest,
+  serverValidateUser,
+} from '../../../../server/envelop-requests'
+import { extractStatusFromError } from '../../../../utils/utilities'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -85,53 +82,12 @@ export default function ListOrdersPage({
   )
 }
 
-const query = gql(`
-  query ServerListOrdersQuery ($page: Int,$perPage: Int, $status: [String], $dateInitial: String, $dateFinal: String, $text: String, $clientEmail: String) {
-    listUserOrders (page: $page, perPage: $perPage, status: $status, dateInitial: $dateInitial, dateFinal: $dateFinal, text: $text, clientEmail: $clientEmail) {
-      list {
-        orderId
-        creationDate
-        clientName
-        items {
-          seller
-          quantity
-          description
-          ean
-          refId
-          id
-          productId
-          sellingPrice
-          price
-        }
-        totalValue
-        status
-        statusDescription
-        ShippingEstimatedDate
-        currencyCode
-        customFields {
-          type
-          value
-        }
-      }
-      paging {
-        total
-        pages
-        currentPage
-        perPage
-      }
-    }
-    accountProfile {
-      name
-    }
-  }
-`)
-
 export const getServerSideProps: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const isValid = await serverValidateUser(context)
 
   if (!isValid) {
     return {
@@ -201,21 +157,18 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
-    execute<ServerListOrdersQueryQueryVariables, ServerListOrdersQueryQuery>(
-      {
-        variables: {
-          page,
-          perPage,
-          status: allStatuses,
-          dateInitial,
-          dateFinal,
-          text,
-          clientEmail,
-        },
-        operation: query,
+    serverListOrdersQueryRequest({
+      variables: {
+        page,
+        perPage,
+        status: allStatuses,
+        dateInitial,
+        dateFinal,
+        text,
+        clientEmail,
       },
-      { headers: { ...context.req.headers } }
-    ),
+      req: context.req,
+    }),
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,

@@ -1,11 +1,11 @@
 import { gql } from '../../../@generated'
 import type {
-  ClientPickupPointsQueryQuery as ClientPickupPointsQuery,
-  ClientPickupPointsQueryQueryVariables as ClientPickupPointsQueryVariables,
+  ClientPickupPointsQueryQuery,
+  ClientPickupPointsQueryQueryVariables,
 } from '../../../@generated/graphql'
 
 import { deliveryPromise } from '../../../discovery.config'
-import { request } from '../graphql/request'
+import { GraphqlRequest } from '../graphql/request'
 
 const pickupPointsQuery = gql(`
   query ClientPickupPointsQuery(
@@ -51,10 +51,10 @@ export const getPickupPoints = async ({
     geoCoordinates: geoCoordinates ?? undefined,
   }
 
-  const data = await request<
-    ClientPickupPointsQuery,
-    ClientPickupPointsQueryVariables
-  >(pickupPointsQuery, variables)
+  const { data } = await GraphqlRequest<
+    ClientPickupPointsQueryQuery,
+    ClientPickupPointsQueryQueryVariables
+  >({ operation: pickupPointsQuery, variables })
 
   if (!data) {
     return []

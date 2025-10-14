@@ -1,3 +1,6 @@
+import type { Resolver } from '..'
+import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
+import type { EnhancedSku } from '../utils/enhanceSku'
 import {
   availability,
   inStock,
@@ -5,12 +8,8 @@ import {
   price,
   sellingPrice,
 } from '../utils/productStock'
-import type { Resolver } from '..'
-import type { StoreAggregateOffer } from './aggregateOffer'
-import type { ArrayElementType } from '../../../typings'
-import type { EnhancedSku } from '../utils/enhanceSku'
-import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 import { withTax } from '../utils/taxes'
+import type { StoreAggregateOffer } from './aggregateOffer'
 
 type OrderFormProduct = OrderFormItem & { product: EnhancedSku }
 type SearchProduct = ArrayElementType<

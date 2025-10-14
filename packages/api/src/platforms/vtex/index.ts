@@ -1,3 +1,7 @@
+import { mergeTypeDefs } from '@graphql-tools/merge'
+import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
+import { isSchema, type GraphQLSchema } from 'graphql'
+import type { Directive } from '../../directives'
 import type { Clients } from './clients'
 import { getClients } from './clients'
 import type { SearchArgs } from './clients/search'
@@ -6,12 +10,12 @@ import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
 import { StoreAggregateRating } from './resolvers/aggregateRating'
 import { StoreCollection } from './resolvers/collection'
+import { StoreFacetValueBoolean } from './resolvers/faceValue'
 import {
   StoreFacet,
   StoreFacetBoolean,
   StoreFacetRange,
 } from './resolvers/facet'
-import { StoreFacetValueBoolean } from './resolvers/faceValue'
 import { Mutation } from './resolvers/mutation'
 import { ObjectOrString } from './resolvers/objectOrString'
 import { StoreOffer } from './resolvers/offer'
@@ -25,6 +29,7 @@ import { StoreSeo } from './resolvers/seo'
 import { ShippingSLA } from './resolvers/shippingSLA'
 import { SkuVariants } from './resolvers/skuVariations'
 import { UserOrderResult } from './resolvers/userOrder'
+import typeDefs from './typeDefs'
 import type { Channel } from './utils/channel'
 import ChannelMarshal from './utils/channel'
 
@@ -75,29 +80,6 @@ export type Resolver<R = unknown, A = unknown, Return = any> = (
   info: any
 ) => Return
 
-const Resolvers = {
-  StoreCollection,
-  StoreAggregateOffer,
-  StoreProduct,
-  StoreSeo,
-  StoreFacet,
-  StoreFacetBoolean,
-  StoreFacetRange,
-  StoreFacetValueBoolean,
-  StoreOffer,
-  StoreAggregateRating,
-  StoreReview,
-  StoreProductGroup,
-  StoreSearchResult,
-  StorePropertyValue,
-  SkuVariants,
-  ShippingSLA,
-  UserOrderResult,
-  ObjectOrString,
-  Query,
-  Mutation,
-}
-
 export const getContextFactory =
   (options: Options) =>
   (ctx: any): Context => {
@@ -114,4 +96,56 @@ export const getContextFactory =
     return ctx
   }
 
-export const getResolvers = (_: Options) => Resolvers
+export function getResolvers() {
+  return {
+    StoreCollection,
+    StoreAggregateOffer,
+    StoreProduct,
+    StoreSeo,
+    StoreFacet,
+    StoreFacetBoolean,
+    StoreFacetRange,
+    StoreFacetValueBoolean,
+    StoreOffer,
+    StoreAggregateRating,
+    StoreReview,
+    StoreProductGroup,
+    StoreSearchResult,
+    StorePropertyValue,
+    SkuVariants,
+    ShippingSLA,
+    UserOrderResult,
+    ObjectOrString,
+    Query,
+    Mutation,
+  }
+}
+
+export function getVTEXSchema(
+  directives?: Array<Directive>,
+  mergeSchema?: GraphQLSchema
+) {
+  let platformSchema = makeExecutableSchema({
+    resolvers: getResolvers(),
+    typeDefs: !directives?.length
+      ? typeDefs
+      : mergeTypeDefs([
+          typeDefs,
+          ...directives?.map((el) => el.typeDefs).filter(Boolean),
+        ]),
+  })
+
+  if (directives?.length)
+    platformSchema = directives?.reduce(
+      (s, d) => d.transformer(s),
+      platformSchema
+    )
+
+  if (mergeSchema && isSchema(mergeSchema)) {
+    return mergeSchemas({
+      schemas: [platformSchema, mergeSchema],
+    })
+  }
+
+  return platformSchema
+}

@@ -1,8 +1,7 @@
-import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
-import type { PromiseType } from '../../../typings'
-import type { StoreProduct } from './product'
+import { enhanceSku } from '../utils/enhanceSku'
 import { VALUE_REFERENCES } from '../utils/propertyValue'
+import type { StoreProduct } from './product'
 
 export type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
@@ -10,7 +9,9 @@ const BLOCKED_SPECIFICATIONS = new Set(['allSpecifications'])
 
 export const StoreProductGroup: Record<string, Resolver<Root>> = {
   hasVariant: (root) =>
-    root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
+    root.isVariantOf.items.map((item: Parameters<typeof enhanceSku>[0]) =>
+      enhanceSku(item, root.isVariantOf)
+    ),
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
   name: (root) => root.isVariantOf.productName,
   skuVariants: (root) => root,
@@ -18,13 +19,13 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
     specificationGroups
       // Filter sku specifications so we don't mix them with product specs.
       .filter(
-        (specificationGroup) =>
+        (specificationGroup: { name: string }) =>
           !BLOCKED_SPECIFICATIONS.has(specificationGroup.name)
       )
       // Transform specs back into product specs.
-      .flatMap(({ specifications }) =>
-        specifications.flatMap(({ name, values }) =>
-          values.map((value) => ({
+      .flatMap(({ specifications }: any) =>
+        specifications.flatMap(({ name, values }: any) =>
+          values.map((value: any) => ({
             name,
             value,
             valueReference: VALUE_REFERENCES.specification,

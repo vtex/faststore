@@ -13,14 +13,43 @@
       "env": ["BASE_SITE_URL"],
       "outputs": ["dist/**"]
     },
+    "test:e2e": {
+      "dependsOn": ["^build", "build"],
+      "passThroughEnv": ["PLAYWRIGHT_*"],
+      "outputs": ["test-results/**", "playwright-report"]
+    },
+    "starter.store#build": {
+      "outputs": [".next/**"],
+      "dependsOn": ["^build"]
+    },
+    "@vtex/faststore-api#generate": {
+      "outputs": ["src/__generated__/**"],
+      "cache": false
+    },
+    "@vtex/faststore-api#test": {
+      "dependsOn": ["generate", "^build"]
+    },
+    "@vtex/faststore-api#build": {
+      "dependsOn": ["^build", "generate"],
+      "outputs": ["dist/**"]
+    },
+    "@vtex/faststore-core#build": {
+      "dependsOn": ["^build", "generate"],
+      "outputs": ["dist/**"]
+    },
+    "@vtex/faststore-core#generate": {
+      "dependsOn": ["^build"],
+      "outputs": ["@generated/**"],
+      "cache": false
+    },
+    "@vtex/faststore-core#test": {
+      "dependsOn": ["generate", "^build"]
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false
     },
     "test": {
-      "dependsOn": ["^build"]
-    },
-    "test:e2e": {
       "dependsOn": ["^build"]
     },
     "start": {

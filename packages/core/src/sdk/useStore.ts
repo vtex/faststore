@@ -1,13 +1,15 @@
+import type { Store } from '@vtex/faststore-sdk'
 import { createBaseStore } from '@vtex/faststore-sdk'
 import { useSyncExternalStore } from 'react'
-import type { Store } from '@vtex/faststore-sdk'
 
 export const useStore = <T>(store: Store<T>) =>
   useSyncExternalStore(store.subscribe, store.read, store.readInitial)
 
 type CB<T> = (val: T) => Promise<T | null>
 
-export const createValidationStore = <T>(cb: CB<T>) => {
+export const createValidationStore = <T>(
+  cb: CB<T>
+): [Store<boolean>, CB<T>] => {
   const store = createBaseStore(false)
 
   const onValidate = async (val: T) => {
@@ -20,5 +22,5 @@ export const createValidationStore = <T>(cb: CB<T>) => {
     }
   }
 
-  return [store, onValidate] as [Store<boolean>, CB<T>]
+  return [store, onValidate]
 }
