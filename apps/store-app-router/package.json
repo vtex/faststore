@@ -21,6 +21,7 @@
     "@vtex/faststore-api": "workspace:*",
     "@vtex/faststore-cli": "workspace:*",
     "@vtex/faststore-core": "workspace:*",
+    "@vtex/faststore": "workspace:*",
     "graphql": "catalog:",
     "next": "catalog:",
     "react": "catalog:",

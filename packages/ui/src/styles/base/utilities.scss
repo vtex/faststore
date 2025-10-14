@@ -9,7 +9,7 @@
 
 // Include Media Overwrites //////////////////////////
 
-@import "~include-media/dist/include-media";
+@import "./include-media.scss";
 
 $breakpoints: (
   "phone":          320px,
