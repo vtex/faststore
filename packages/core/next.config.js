@@ -23,7 +23,7 @@ const nextConfig = {
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
-    scrollRestoration: true,
+    scrollRestoration: !storeConfig.experimental.scrollRestoration,
     /*
      * The FastStore Discovery CLI will update this value to match the path where the
      * command is being run, because that is where the node_modules directory is.
