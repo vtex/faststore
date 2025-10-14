@@ -41,7 +41,6 @@ export const Provider = ({
 
   useEffect(() => {
     globalSearchStateValue.setState(rest)
-    globalSearchStateValue.resetInfiniteScroll(rest.page ?? 0)
   }, [rest.term, rest.sort, rest.selectedFacets, rest.page])
 
   return <>{children}</>
