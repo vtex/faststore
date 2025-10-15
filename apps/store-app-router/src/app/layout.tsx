@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { ClientLayout } from './layout.client'
+import './theme'
 
 export const metadata: Metadata = {
   title: 'FastStore Starter | FastStore',
@@ -12,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   )
 }
