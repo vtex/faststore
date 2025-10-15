@@ -26,6 +26,11 @@ export default defineConfig({
           ...(peerDependencies ?? {}),
         }),
       ],
+      output: {
+        banner: () => {
+          return "'use client';"
+        },
+      },
     },
   },
 })
