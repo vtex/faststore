@@ -20,7 +20,6 @@ import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sectio
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
-import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
@@ -96,43 +95,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const validationResult = await validateUser(context)
-
-  // Guard clause: Early redirect to login if user is invalid and doesn't need refresh
-  if (!validationResult.isValid && !validationResult.needsRefresh) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  // Handle refresh token case
-  if (
-    storeConfig.experimental?.refreshToken &&
-    !validationResult.isValid &&
-    validationResult.needsRefresh
-  ) {
-    const fromPage =
-      typeof context.query.from === 'string' ? context.query.from : undefined
-
-    return {
-      props: {
-        needsRefreshToken: true,
-        fromPage,
-      },
-    }
-  }
-
-  const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
-    query: context.query,
-  })
-
-  if (!isFaststoreMyAccountEnabled) {
-    return { redirect }
-  }
-
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -162,11 +124,38 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooter,
   })
 
+  if (account.errors) {
+    console.error(...account.errors)
+
+    const statusCode: number = (account.errors[0] as any)?.extensions?.status
+
+    const fromPage =
+      typeof context.query.from === 'string' ? context.query.from : ''
+
+    return {
+      props: {
+        globalSections: globalSectionsResult,
+        needsRefreshToken:
+          (statusCode === 401 || statusCode === 403) &&
+          storeConfig.experimental?.refreshToken,
+        fromPage,
+      },
+    }
+  }
+
+  const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
+    query: context.query,
+  })
+
+  if (!isFaststoreMyAccountEnabled) {
+    return { redirect }
+  }
+
   return {
     props: {
       // The sections from the CMS page are not utilized here for the My Account page.
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account?.data?.accountProfile?.name ?? '',
     },
   }
 }
