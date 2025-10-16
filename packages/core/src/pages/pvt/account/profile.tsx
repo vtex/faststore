@@ -32,7 +32,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type ProfilePagePros = {
+type ProfilePageProps = {
   accountProfile: {
     name: string | null
     email: string | null
@@ -45,7 +45,7 @@ export default function Profile({
   accountProfile,
   accountName,
   isRepresentative,
-}: ProfilePagePros) {
+}: ProfilePageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 
