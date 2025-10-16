@@ -38,9 +38,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "tslib": "catalog:",
-    "tsup": "catalog:",
-    "unplugin-dts": "1.0.0-beta.6",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
   },
   "peerDependencies": {
     "next": ">=15",
@@ -49,7 +48,6 @@
   },
   "dependencies": {
     "@vtex/faststore-ui": "workspace:*",
-    "c12": "^3.3.0",
     "deepmerge": "^4.3.1"
   }
 }

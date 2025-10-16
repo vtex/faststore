@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-// @ts-ignore: https://github.com/qmhc/unplugin-dts?tab=readme-ov-file#type-errors-that-are-unable-to-infer-types-from-packages-in-node_modules (This workaround is not working)
-import dts from 'unplugin-dts/vite'
+import dts from 'vite-plugin-dts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
