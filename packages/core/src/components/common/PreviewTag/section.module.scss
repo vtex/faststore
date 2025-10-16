@@ -1,7 +1,7 @@
 .section [data-fs-preview-tag] {
   position: fixed;
   inset: 1rem 1rem auto auto;
-  z-index: 10000;
+  z-index: var(--fs-z-index-highest);
   border-radius: var(--fs-border-radius-pill);
   box-shadow: var(--fs-shadow-darker);
   backdrop-filter: blur(var(--fs-spacing-1));
