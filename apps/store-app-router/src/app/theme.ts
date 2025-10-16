@@ -1,3 +1,3 @@
-import { Theme } from '@vtex/faststore/server'
+import { Theme } from '@vtex/faststore'
 
 Theme.swizzle({})

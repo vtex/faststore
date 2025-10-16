@@ -2,22 +2,29 @@
   "name": "@vtex/faststore",
   "version": "0.0.0",
   "description": "FastStore",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "repository": "vtex/faststore",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.mjs",
+  "typings": "./dist/index.d.ts",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
+    },
     "./client": {
       "types": "./dist/client.d.ts",
-      "import": "./dist/client.js"
+      "import": "./dist/es/client.mjs",
+      "require": "./dist/cjs/client.js"
     },
     "./server": {
       "types": "./dist/server.d.ts",
-      "import": "./dist/server.js"
+      "import": "./dist/es/server.mjs",
+      "require": "./dist/cjs/server.js"
     },
     "./styles": "./dist/faststore.css"
   },
@@ -42,9 +49,9 @@
     "vite-plugin-dts": "catalog:"
   },
   "peerDependencies": {
-    "next": ">=15",
-    "react": ">=19",
-    "react-dom": ">=19"
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "dependencies": {
     "@vtex/faststore-ui": "workspace:*",

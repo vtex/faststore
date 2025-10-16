@@ -18,12 +18,13 @@ export default defineConfig({
   build: {
     lib: {
       entry: [
+        resolve(__dirname, 'src/index.ts'),
         resolve(__dirname, 'src/server.ts'),
         resolve(__dirname, 'src/client.ts'),
       ],
-      formats: ['es'],
-      fileName: (_format, name) => {
-        return `${name}.js`
+      formats: ['es', 'cjs'],
+      fileName: (format, name) => {
+        return `${format}/${name}.${format === 'es' ? 'mjs' : 'js'}`
       },
     },
     rollupOptions: {

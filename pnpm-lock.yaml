@@ -239,6 +239,12 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.55.1
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.1.13
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.1.9(@types/react@19.1.13)
       typescript:
         specifier: 'catalog:'
         version: 5.3.2
