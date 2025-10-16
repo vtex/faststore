@@ -12,6 +12,7 @@ import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
 import {
   authDirective,
+  cacheControlDirective,
   BadRequestError,
   getContextFactory,
   getResolvers,
@@ -68,8 +69,7 @@ function getFinalAPISchema() {
   })
 
   // Apply directive transformations
-  // TODO: include cacheControlDirective in the future and remove graphqlCacheControl config from discovery.config
-  const directives = [authDirective]
+  const directives = [cacheControlDirective, authDirective]
   return directives.reduce((s, d) => d.transformer(s), schema)
 }
 
