@@ -11,6 +11,7 @@ import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
 import {
+  authDirective,
   BadRequestError,
   getContextFactory,
   getResolvers,
@@ -61,10 +62,15 @@ function getFinalAPISchema() {
   const generatedSchema = loadGeneratedSchema()
   const nativeResolvers = getResolvers(apiOptions)
 
-  return makeExecutableSchema({
+  const schema = makeExecutableSchema({
     typeDefs: generatedSchema,
     resolvers: [nativeResolvers, vtexExtensionsResolvers, thirdPartyResolvers],
   })
+
+  // Apply directive transformations
+  // TODO: include cacheControlDirective in the future and remove graphqlCacheControl config from discovery.config
+  const directives = [authDirective]
+  return directives.reduce((s, d) => d.transformer(s), schema)
 }
 
 export const getEnvelop = async () =>
