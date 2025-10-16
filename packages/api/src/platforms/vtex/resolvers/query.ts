@@ -27,7 +27,6 @@ import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
-import { validateUserAuthentication } from '../utils/auth'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -434,10 +433,7 @@ export const Query = {
         clients: { commerce },
       } = ctx
 
-      const [, order] = await Promise.all([
-        validateUserAuthentication(ctx),
-        commerce.oms.userOrder({ orderId }),
-      ])
+      const order = await commerce.oms.userOrder({ orderId })
 
       if (!order) {
         throw new NotFoundError(`No order found for id ${orderId}`)
@@ -534,10 +530,7 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    const [, orders] = await Promise.all([
-      validateUserAuthentication(ctx),
-      commerce.oms.listUserOrders(filters),
-    ])
+    const orders = await commerce.oms.listUserOrders(filters)
 
     return {
       list: orders.list?.map((order: UserOrderFromList) => ({
@@ -555,9 +548,8 @@ export const Query = {
       paging: orders.paging,
     }
   },
-  validateUser: async (_: unknown, __: unknown, ctx: Context) => {
-    await validateUserAuthentication(ctx)
-
+  validateUser: async (_: unknown, __: unknown, _ctx: Context) => {
+    // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
     return {
       isValid: true,
@@ -569,10 +561,7 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    const [, sessionData] = await Promise.all([
-      validateUserAuthentication(ctx),
-      commerce.session('').catch(() => null),
-    ])
+    const sessionData = await commerce.session('').catch(() => null)
 
     const shopper = sessionData?.namespaces.shopper ?? null
     const authentication = sessionData?.namespaces.authentication ?? null
@@ -587,8 +576,6 @@ export const Query = {
   // If isRepresentative, return b2b information.
   // If not, return b2c user information
   accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
-    await validateUserAuthentication(ctx)
-
     const {
       account,
       headers,
