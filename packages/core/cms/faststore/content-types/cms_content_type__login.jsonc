@@ -1,0 +1,20 @@
+{
+  "login": {
+    "$extends": [
+      "#/components/base-page-template"
+    ],
+    "$singleton": true,
+    "type": "object",
+    "title": "Login",
+    "properties": {
+      "sections": {
+        "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+      }
+    },
+    "readOnly": false,
+    "writeOnly": false,
+    "deprecated": false,
+    "$abstract": false,
+    "identifierKeys": []
+  }
+}

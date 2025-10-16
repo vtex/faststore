@@ -1,0 +1,158 @@
+{
+  "$extends": [
+    "#/$defs/base-component"
+  ],
+  "$componentKey": "Search",
+  "$componentTitle": "Search Bar",
+  "title": "Search Bar",
+  "description": "Search Bar Configuration",
+  "type": "object",
+  "required": [
+    "searchInput",
+    "searchHistory",
+    "searchTop",
+    "searchAutocomplete"
+  ],
+  "properties": {
+    "searchInput": {
+      "title": "Input Field",
+      "type": "object",
+      "properties": {
+        "placeholder": {
+          "title": "Placeholder",
+          "type": "string",
+          "default": "Search everything in the store"
+        },
+        "icon": {
+          "title": "Search Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": [
+                "Magnifying Glass"
+              ],
+              "enum": [
+                "MagnifyingGlass"
+              ],
+              "default": "MagnifyingGlass"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Magnifying glass"
+            }
+          }
+        }
+      }
+    },
+    "searchHistory": {
+      "title": "Search History",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "History"
+        },
+        "clearButtonLabel": {
+          "type": "string",
+          "title": "Clear Button Label",
+          "default": "Clear history"
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": [
+                "Clock Clockwise"
+              ],
+              "enum": [
+                "ClockClockwise"
+              ],
+              "default": "ClockClockwise"
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alternative Label",
+              "default": "History"
+            }
+          }
+        },
+        "maxItems": {
+          "title": "Maximum Number of History Items",
+          "type": "integer",
+          "default": 5
+        }
+      }
+    },
+    "searchTop": {
+      "title": "Top Search",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Top search"
+        },
+        "maxItems": {
+          "title": "Maximum Number of Top Search Items",
+          "type": "integer",
+          "default": 5
+        }
+      }
+    },
+    "searchAutocomplete": {
+      "title": "Autocomplete",
+      "type": "object",
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": [
+                "Magnifying Glass"
+              ],
+              "enum": [
+                "MagnifyingGlass"
+              ]
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alternative Label",
+              "default": "Magnifying glass"
+            }
+          }
+        },
+        "maxItems": {
+          "title": "Maximum Number of Autocomplete Items",
+          "type": "integer",
+          "default": 5
+        }
+      }
+    },
+    "searchProducts": {
+      "title": "Suggested Products",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Suggested products"
+        },
+        "maxItems": {
+          "title": "Maximum Number of Suggested Products",
+          "type": "integer",
+          "default": 5
+        }
+      }
+    }
+  }
+}

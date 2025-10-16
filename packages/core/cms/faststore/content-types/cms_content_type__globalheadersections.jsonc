@@ -1,0 +1,75 @@
+{
+  "globalHeaderSections": {
+    "$extends": [
+      "#/components/base-page-template"
+    ],
+    "$singleton": true,
+    "type": "object",
+    "title": "Global Header Sections",
+    "properties": {
+      "sections": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/Search"
+            },
+            {
+              "$ref": "#/components/Navbar"
+            },
+            {
+              "$ref": "#/components/Alert"
+            },
+            {
+              "$ref": "#/components/Footer"
+            },
+            {
+              "$ref": "#/components/BannerText"
+            },
+            {
+              "$ref": "#/components/Hero"
+            },
+            {
+              "$ref": "#/components/Incentives"
+            },
+            {
+              "$ref": "#/components/ProductShelf"
+            },
+            {
+              "$ref": "#/components/ProductTiles"
+            },
+            {
+              "$ref": "#/components/Newsletter"
+            },
+            {
+              "$ref": "#/components/Children"
+            },
+            {
+              "$ref": "#/components/BannerNewsletter"
+            },
+            {
+              "$ref": "#/components/CartSidebar"
+            },
+            {
+              "$ref": "#/components/RegionBar"
+            },
+            {
+              "$ref": "#/components/RegionModal"
+            },
+            {
+              "$ref": "#/components/RegionPopover"
+            },
+            {
+              "$ref": "#/components/EmptyState"
+            }
+          ]
+        }
+      }
+    },
+    "readOnly": false,
+    "writeOnly": false,
+    "deprecated": false,
+    "$abstract": false,
+    "identifierKeys": []
+  }
+}

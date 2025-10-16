@@ -1,0 +1,103 @@
+{
+  "$extends": [
+    "#/$defs/base-component"
+  ],
+  "$componentKey": "RegionPopover",
+  "$componentTitle": "Region Popover",
+  "title": "Region Popover",
+  "description": "Region Popover configuration",
+  "type": "object",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string",
+      "default": "Set your location"
+    },
+    "closeButtonAriaLabel": {
+      "title": "Close popover aria-label",
+      "type": "string",
+      "default": "Close Region Popover"
+    },
+    "inputField": {
+      "title": "Input Field",
+      "type": "object",
+      "properties": {
+        "label": {
+          "title": "Input field label",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        },
+        "errorMessage": {
+          "title": "Input field error message",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        },
+        "noProductsAvailableErrorMessage": {
+          "title": "Input field error message for the scenario of no products available for a given location",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
+          "type": "string"
+        },
+        "buttonActionText": {
+          "title": "Input field action button label",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        }
+      }
+    },
+    "textBeforeLocation": {
+      "title": "Text before location",
+      "type": "string",
+      "default": "Your current location is",
+      "description": "If location is available, this text will be shown before the location"
+    },
+    "textAfterLocation": {
+      "title": "Text After location",
+      "type": "string",
+      "default": "Use the field below to change it.",
+      "description": "If location is available, this text will be shown after the location"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "default": "Offers and availability vary by location"
+    },
+    "idkPostalCodeLink": {
+      "title": "I don't know my postal code link",
+      "type": "object",
+      "properties": {
+        "text": {
+          "title": "Link Text",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        },
+        "to": {
+          "type": "string",
+          "title": "Action link",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string",
+              "enumNames": [
+                "Arrow Square Out"
+              ],
+              "enum": [
+                "ArrowSquareOut"
+              ]
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

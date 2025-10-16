@@ -1,0 +1,105 @@
+{
+  "$extends": [
+    "#/$defs/base-component"
+  ],
+  "$componentKey": "ProductTiles",
+  "$componentTitle": "Product Tiles",
+  "title": "Product Tiles",
+  "description": "Add custom highlights to your store",
+  "type": "object",
+  "required": [
+    "title",
+    "first",
+    "after",
+    "sort"
+  ],
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "first": {
+      "title": "First",
+      "type": "integer",
+      "default": 3,
+      "description": "Number of items to display"
+    },
+    "after": {
+      "title": "After",
+      "type": "integer",
+      "default": "0",
+      "description": "Initial pagination item"
+    },
+    "sort": {
+      "title": "Sort",
+      "description": "Items order",
+      "default": "score_desc",
+      "enum": [
+        "discount_desc",
+        "name_asc",
+        "name_desc",
+        "orders_desc",
+        "price_asc",
+        "price_desc",
+        "release_desc",
+        "score_desc"
+      ],
+      "enumNames": [
+        "Discount: higher to lower",
+        "Name: Z-A",
+        "Name: A-Z",
+        "Orders: higher to lower",
+        "Price: lower to higher",
+        "Price: higher to lower",
+        "Release date: newer to older",
+        "Relevance: higher to lower"
+      ]
+    },
+    "term": {
+      "title": "Search term",
+      "type": "string"
+    },
+    "selectedFacets": {
+      "title": "Facets",
+      "type": "array",
+      "items": {
+        "title": "Facet",
+        "type": "object",
+        "required": [
+          "key",
+          "value"
+        ],
+        "properties": {
+          "key": {
+            "title": "Key",
+            "description": "Tip: For collections, use: productClusterIds",
+            "type": "string",
+            "default": "productClusterIds"
+          },
+          "value": {
+            "title": "Value",
+            "description": "Tip: For collection 140, use: 140",
+            "type": "string",
+            "default": "140"
+          }
+        }
+      }
+    },
+    "taxesConfiguration": {
+      "title": "Taxes Configuration",
+      "type": "object",
+      "properties": {
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
+        },
+        "taxesLabel": {
+          "title": "Tax label to be displayed",
+          "type": "string",
+          "default": "Tax included"
+        }
+      }
+    }
+  }
+}

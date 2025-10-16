@@ -1,0 +1,127 @@
+{
+  "$extends": [
+    "#/$defs/base-component"
+  ],
+  "$componentKey": "ProductShelf",
+  "$componentTitle": "Product Shelf",
+  "title": "Product Shelf",
+  "description": "Add custom shelves to your store",
+  "type": "object",
+  "required": [
+    "title",
+    "numberOfItems",
+    "after",
+    "sort"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "numberOfItems": {
+      "type": "integer",
+      "title": "Total number of items",
+      "default": 5,
+      "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
+    },
+    "itemsPerPage": {
+      "type": "integer",
+      "title": "Number of items per page",
+      "default": 5,
+      "description": "Number of items to display per page in carousel"
+    },
+    "after": {
+      "type": "integer",
+      "title": "After",
+      "default": "0",
+      "description": "Initial pagination item"
+    },
+    "sort": {
+      "title": "Sort",
+      "description": "Items order",
+      "default": "score_desc",
+      "enum": [
+        "discount_desc",
+        "name_asc",
+        "name_desc",
+        "orders_desc",
+        "price_asc",
+        "price_desc",
+        "release_desc",
+        "score_desc"
+      ],
+      "enumNames": [
+        "Discount: higher to lower",
+        "Name: A-Z",
+        "Name: Z-A",
+        "Orders: higher to lower",
+        "Price: lower to higher",
+        "Price: higher to lower",
+        "Release date: newer to older",
+        "Relevance: higher to lower"
+      ]
+    },
+    "term": {
+      "type": "string",
+      "title": "Search term"
+    },
+    "selectedFacets": {
+      "title": "Facets",
+      "type": "array",
+      "items": {
+        "title": "Facet",
+        "type": "object",
+        "required": [
+          "key",
+          "value"
+        ],
+        "properties": {
+          "key": {
+            "title": "Key",
+            "description": "For collections use: productClusterIds",
+            "type": "string",
+            "default": "productClusterIds"
+          },
+          "value": {
+            "title": "Value",
+            "description": "E.g. For 'Most Wanted' collection, use: 140. To consult your collection ids go to Collections page",
+            "type": "string",
+            "default": "140"
+          }
+        }
+      }
+    },
+    "taxesConfiguration": {
+      "title": "Taxes Configuration",
+      "type": "object",
+      "properties": {
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
+        },
+        "taxesLabel": {
+          "title": "Tax label to be displayed",
+          "type": "string",
+          "default": "Tax included"
+        }
+      }
+    },
+    "productCardConfiguration": {
+      "title": "Product Card Configuration",
+      "type": "object",
+      "properties": {
+        "showDiscountBadge": {
+          "title": "Show discount badge?",
+          "type": "boolean",
+          "default": true
+        },
+        "bordered": {
+          "title": "Cards should be bordered?",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}
