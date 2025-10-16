@@ -1,0 +1,45 @@
+{
+  // This should be automatically updated and point to Schema Registry.
+  "$id": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore",
+  "title": "FastStore Schema",
+  "description": "Collection of default schemas for FastStore.",
+  // Default components available in FastStore can be added here.
+  "components": {},
+  // Default content-types available in FastStore can be added here.
+  "content-types": {},
+  "$defs": {
+    // Base schema for all components.
+    // Every component schema must extend this base schema.
+    "base-component": {
+      "type": "object",
+      "required": [
+        "$componentKey",
+        "$componentTitle"
+      ],
+      "properties": {
+        "$componentKey": {
+          "type": "string",
+          "description": "Unique identifier for the component"
+        },
+        "$componentTitle": {
+          "type": "string",
+          "description": "Display title for the component"
+        }
+      }
+    },
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
+    // DO NOT modify this property directly!!!.
+    // This is a special property that allows all components to be used in
+    // the `sections` property of a content-type.
+    // Its content will be generated before this schema is sent to
+    // the Schema Registry.
+    "$ALLOW_ALL_COMPONENTS": {}
+  }
+}
