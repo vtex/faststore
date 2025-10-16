@@ -14,8 +14,9 @@ export default function useScrollRestoration() {
 
     let isPopState = false
     const onBeforePopState = () => (isPopState = true)
-    const onRouteChangeStart = () => {
-      if (isPopState) return
+    const onRouteChangeStart = (url: string) => {
+      // Save scroll position only when navigating to PDPs
+      if (isPopState || url.includes(window.location.pathname)) return
 
       saveScrollPos()
     }
