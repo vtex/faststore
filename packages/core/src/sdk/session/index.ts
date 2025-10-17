@@ -60,6 +60,7 @@ export const mutation = gql(`
         userEmail
         savedPostalCode
         contractName
+        organizationManager
       }
       marketingData {
         utmCampaign

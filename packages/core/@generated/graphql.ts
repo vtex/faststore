@@ -418,6 +418,7 @@ export type IStoreB2B = {
   firstName: InputMaybe<Scalars['String']['input']>
   isRepresentative: InputMaybe<Scalars['Boolean']['input']>
   lastName: InputMaybe<Scalars['String']['input']>
+  organizationManager: InputMaybe<Scalars['Boolean']['input']>
   savedPostalCode: InputMaybe<Scalars['String']['input']>
   unitId: InputMaybe<Scalars['String']['input']>
   unitName: InputMaybe<Scalars['String']['input']>
@@ -1130,6 +1131,7 @@ export type StoreB2B = {
   firstName: Maybe<Scalars['String']['output']>
   isRepresentative: Maybe<Scalars['Boolean']['output']>
   lastName: Maybe<Scalars['String']['output']>
+  organizationManager: Maybe<Scalars['Boolean']['output']>
   savedPostalCode: Maybe<Scalars['String']['output']>
   unitId: Maybe<Scalars['String']['output']>
   unitName: Maybe<Scalars['String']['output']>
@@ -3601,6 +3603,7 @@ export type ValidateSessionMutation = {
       userEmail: string | null
       savedPostalCode: string | null
       contractName: string | null
+      organizationManager: boolean | null
     } | null
     marketingData: {
       utmCampaign: string | null
@@ -4497,7 +4500,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '38bfe969b4b7eb9982af932bdab0827d9d39f218',
+    operationHash: '8c3a5999496e227f167e9dc79697e6c478d48a9e',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
