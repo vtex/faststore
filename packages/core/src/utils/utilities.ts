@@ -108,10 +108,3 @@ export const buildFormData = (
 
 export const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
-
-/**
- * Array merging strategy from deepmerge that makes source arrays overwrite destination array
- *
- * @see https://www.npmjs.com/package/deepmerge
- */
-export const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
