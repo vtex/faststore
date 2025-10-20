@@ -140,7 +140,9 @@ function getOperationName(document) {
   return 'UnknownOperation'
 }
 
-function getTypeDefsFromFolder(customPath) {
+async function getTypeDefsFromFolder(customPath) {
+  const { globbySync } = await import('globby')
+
   const basePath = [root, 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
@@ -152,14 +154,14 @@ function getTypeDefsFromFolder(customPath) {
   }).map((typeDef) => parse(fs.readFileSync(typeDef, { encoding: 'utf-8' })))
 }
 
-const getMergedSchema = () => {
+const getMergedSchema = async () => {
   try {
     const mergedTypeDefs = mergeTypeDefs(
       [
         getTypeDefs({ platform: 'vtex' }),
         ...[
-          ...getTypeDefsFromFolder('vtex'),
-          ...getTypeDefsFromFolder('thirdParty'),
+          ...(await getTypeDefsFromFolder('vtex')),
+          ...(await getTypeDefsFromFolder('thirdParty')),
         ].map(print),
       ].filter(Boolean)
     )
@@ -210,7 +212,7 @@ function MapSRCFolder(
 async function main() {
   const isLocal = (process.argv[2] ?? 'false') === 'true'
 
-  saveSchemaFile(printSchemaWithDirectives(getMergedSchema()))
+  saveSchemaFile(printSchemaWithDirectives(await getMergedSchema()))
   await generateSchemaTSTypes(isLocal)
 
   if (!isLocal) {
