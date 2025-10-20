@@ -8,10 +8,18 @@ const path = require('path')
 const fs = require('fs')
 const { getTypeDefs } = require('@vtex/faststore-api')
 const { printSchemaWithDirectives } = require('@graphql-tools/utils')
-const { loadFilesSync } = require('@graphql-tools/load-files')
+// const { loadFilesSync } = require('@graphql-tools/load-files')
 const { mergeTypeDefs } = require('@graphql-tools/merge')
-const { buildASTSchema, parse, Kind } = require('graphql')
+const {
+  buildASTSchema,
+  parse,
+  Kind,
+  OperationTypeNode,
+  print,
+} = require('graphql')
 const { generate } = require('@graphql-codegen/cli')
+
+const { globbySync } = require('globby')
 
 const root = process.env.PWD ?? process.cwd()
 const schemaFileName = path.join(__dirname, '../@generated', 'schema.graphql')
@@ -137,9 +145,11 @@ function getTypeDefsFromFolder(customPath) {
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
-  return loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
-    extensions: ['graphql'],
-  })
+  return globbySync(path.join(...[...basePath, ...pathArray]), {
+    expandDirectories: {
+      extensions: ['graphql'],
+    },
+  }).map((typeDef) => parse(fs.readFileSync(typeDef, { encoding: 'utf-8' })))
 }
 
 const getMergedSchema = () => {
@@ -147,8 +157,10 @@ const getMergedSchema = () => {
     const mergedTypeDefs = mergeTypeDefs(
       [
         getTypeDefs({ platform: 'vtex' }),
-        getTypeDefsFromFolder('vtex'),
-        getTypeDefsFromFolder('thirdParty'),
+        ...[
+          ...getTypeDefsFromFolder('vtex'),
+          ...getTypeDefsFromFolder('thirdParty'),
+        ].map(print),
       ].filter(Boolean)
     )
 
@@ -206,7 +218,17 @@ async function main() {
     const _nextFolderPath = path.resolve(root, '.next')
     fs.existsSync(_nextFolderPath) &&
       fs.rmdirSync(_nextFolderPath, { recursive: true })
-    const finalConfig = extendsConfig(getUserConfig())
+
+    const queries = getQueries(
+      require(path.join(__dirname, '../@generated', 'persisted-documents.json'))
+    )
+    const finalConfig = extendsConfig({
+      ...getUserConfig(),
+      experimental: {
+        cachedOperations: queries,
+      },
+    })
+
     saveConfigFile(
       format(`module.exports = ${JSON.stringify(finalConfig, undefined, 2)}`, {
         ...prettierConfig,
@@ -218,5 +240,42 @@ async function main() {
 }
 
 if (process.env.NODE_ENV !== 'test') main()
+
+/** @param {Record<string, string>} persistedDocuments */
+const getQueries = (persistedDocuments) => {
+  const operationNames = []
+  for (const operation of Object.values(persistedDocuments)) {
+    let currentNames = []
+    const operationAST = parse(operation)
+    const hasMutationDefinition = operationAST.definitions.some(
+      (def) =>
+        def.kind === Kind.OPERATION_DEFINITION &&
+        def.operation === OperationTypeNode.MUTATION
+    )
+
+    if (hasMutationDefinition) continue
+
+    operationAST.definitions.forEach((definition) => {
+      if (
+        definition.kind === Kind.OPERATION_DEFINITION &&
+        definition.operation === OperationTypeNode.QUERY &&
+        definition.name?.kind === Kind.NAME &&
+        !!definition.name?.value
+      ) {
+        currentNames.push(definition.name.value)
+        return true
+      }
+
+      return false
+    })
+
+    if (currentNames.length) {
+      operationNames.push(...currentNames)
+      currentNames = []
+    }
+  }
+
+  return operationNames
+}
 
 module.exports = { getMergedSchema, getTypeDefsFromFolder }

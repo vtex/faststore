@@ -7,7 +7,7 @@ catalog:
   '@graphql-codegen/cli': 5.0.2
   '@graphql-codegen/typescript': 4.0.7
   '@graphql-tools/merge': 9.1.1
-  '@graphql-tools/schema': ^10.0.3
+  '@graphql-tools/schema': 10.0.25
   '@graphql-tools/utils': ^10.2.0
   '@jest/globals': 29.7.0
   '@next/third-parties': ^15.5.3

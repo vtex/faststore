@@ -1,7 +1,6 @@
-import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
+import { MapperKind, getDirective, mapSchema } from '@graphql-tools/utils'
 import type { GraphQLSchema } from 'graphql'
-
-import type { Directive } from './index'
+import { withDirectives, type Directive } from './index'
 
 const NAME = 'cacheControl'
 
@@ -20,7 +19,7 @@ export const stringify = ({
 
 const min = (a: number | undefined, b: number | undefined) => {
   if (typeof a === 'number' && typeof b === 'number') {
-    return a > b ? b : a
+    return Math.min(a, b)
   }
 
   if (typeof a === 'number') {
@@ -70,5 +69,7 @@ const directive: Directive = {
       },
     }),
 }
+
+export const withCacheControl = withDirectives([directive])
 
 export default directive

@@ -1,7 +1,7 @@
-import { mergeTypeDefs } from '@graphql-tools/merge'
-import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
+import { mergeSchemas } from '@graphql-tools/schema'
 import { isSchema, type GraphQLSchema } from 'graphql'
-import type { Directive } from '../../directives'
+import { withDirectives } from '../..'
+import cacheControlDirective from '../../directives/cacheControl'
 import type { Clients } from './clients'
 import { getClients } from './clients'
 import type { SearchArgs } from './clients/search'
@@ -121,25 +121,11 @@ export function getResolvers() {
   }
 }
 
-export function getVTEXSchema(
-  directives?: Array<Directive>,
-  mergeSchema?: GraphQLSchema
-) {
-  let platformSchema = makeExecutableSchema({
-    resolvers: getResolvers(),
-    typeDefs: !directives?.length
-      ? typeDefs
-      : mergeTypeDefs([
-          typeDefs,
-          ...directives?.map((el) => el.typeDefs).filter(Boolean),
-        ]),
-  })
-
-  if (directives?.length)
-    platformSchema = directives?.reduce(
-      (s, d) => d.transformer(s),
-      platformSchema
-    )
+export function getVTEXSchema(mergeSchema?: GraphQLSchema) {
+  const platformSchema = withDirectives([cacheControlDirective])(
+    getResolvers(),
+    typeDefs
+  )
 
   if (mergeSchema && isSchema(mergeSchema)) {
     return mergeSchemas({

@@ -2,6 +2,7 @@ import {
   envelop,
   useEngine,
   useExtendContext,
+  useLogger,
   useMaskedErrors,
   useSchema,
 } from '@envelop/core'
@@ -17,13 +18,26 @@ import { getContextFactory } from './schema'
 
 const getEnvelop = async (
   options: Options,
-  schema: GraphQLJS.GraphQLSchema
+  schema: GraphQLJS.GraphQLSchema,
+  customContextFactory?: Parameters<typeof useExtendContext>[0]
 ) => {
+  // enables including any values to the graphql context
+  let contextFactory = getContextFactory(options)
+  if (customContextFactory) {
+    contextFactory = (ctx: any) => {
+      return {
+        ...ctx,
+        ...customContextFactory(ctx),
+        ...getContextFactory(options)(ctx),
+      }
+    }
+  }
+
   return envelop({
     plugins: [
       useEngine(GraphQLJS),
       useSchema(schema),
-      useExtendContext(getContextFactory(options)),
+      useExtendContext(contextFactory),
       useMaskedErrors({
         maskError: (err: unknown) => {
           if (
@@ -41,6 +55,12 @@ const getEnvelop = async (
       useGraphQlJit(),
       useValidationCache(),
       useParserCache(),
+      useLogger({
+        logFn: (eventName, { args }) =>
+          console.log(
+            `${eventName}(${args?.operationName ?? 'unknown_operation_name'}): ${JSON.stringify(args?.variableValues)}`
+          ),
+      }),
     ],
   })
 }
@@ -48,9 +68,10 @@ const getEnvelop = async (
 export const GraphqlExecute = (
   options: Options,
   schema: GraphQLSchema,
-  persistedQueries: Map<string, string>
+  persistedQueries: Map<string, string>,
+  customContextFactory?: Parameters<typeof useExtendContext>[0]
 ) => {
-  const envelopPromise = getEnvelop(options, schema)
+  const envelopPromise = getEnvelop(options, schema, customContextFactory)
 
   return async <V extends { [k in string]: unknown } | null, Data>(
     options: Parameters<GraphqlRunner<V, Data>>[0],
