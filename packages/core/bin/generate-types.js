@@ -19,8 +19,6 @@ const {
 } = require('graphql')
 const { generate } = require('@graphql-codegen/cli')
 
-const { globbySync } = require('globby')
-
 const root = process.env.PWD ?? process.cwd()
 const schemaFileName = path.join(__dirname, '../@generated', 'schema.graphql')
 const discoveryConfigFileLocation = path.join(
