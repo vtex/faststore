@@ -89,8 +89,8 @@ export default function MyAccountBuyingPolicyAlert({
         <div data-fs-buying-policy-message>
           <h3 data-fs-buying-policy-title>{ruleForAuthorization.rule.name}</h3>
           <p data-fs-buying-policy-description>
-            This buying policy requires your approval before the order can
-            proceed.
+            {ruleForAuthorization?.rule?.trigger?.condition?.description ??
+              'This buying policy requires your approval before the order can proceed.'}
           </p>
         </div>
 
