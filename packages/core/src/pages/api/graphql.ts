@@ -144,12 +144,10 @@ const handler: NextApiHandler = async (request, response) => {
       return
     }
 
-    const cacheControl =
-      !hasErrors && extensions.cacheControl
-        ? stringifyCacheControl(extensions.cacheControl)
-        : 'no-cache, no-store'
-
-    if (
+    if (extensions.cacheControl) {
+      const cacheControl = stringifyCacheControl(extensions.cacheControl)
+      response.setHeader('cache-control', cacheControl)
+    } else if (
       request.method === 'GET' &&
       discoveryConfig?.experimental?.graphqlCacheControl?.maxAge
     ) {
@@ -163,7 +161,7 @@ const handler: NextApiHandler = async (request, response) => {
         `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
       )
     } else {
-      response.setHeader('cache-control', cacheControl)
+      response.setHeader('cache-control', 'no-cache, no-store')
     }
 
     const setCookieValues = Array.from(extensions.cookies.values())
