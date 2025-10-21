@@ -384,7 +384,7 @@ type Query {
     orderId: String!
   ): UserOrderResult
     @auth
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about the list of Orders that the User can view.
@@ -420,28 +420,28 @@ type Query {
     clientEmail: String
   ): UserOrderListMinimalResult
     @auth
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about the current user details.
   """
   userDetails: StoreUserDetails!
     @auth
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns the account profile information for the current authenticated user (b2b or b2c user).
   """
   accountProfile: StoreAccountProfile!
     @auth
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about the user validation.
   """
   validateUser: ValidateUserData
     @auth
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns a list of pickup points near to the given geo coordinates.
