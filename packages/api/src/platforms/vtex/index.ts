@@ -1,6 +1,6 @@
 import { mergeSchemas } from '@graphql-tools/schema'
 import { isSchema, type GraphQLSchema } from 'graphql'
-import { withDirectives } from '../..'
+import { withDirectives } from '../../directives'
 import cacheControlDirective from '../../directives/cacheControl'
 import type { Clients } from './clients'
 import { getClients } from './clients'
@@ -122,10 +122,9 @@ export function getResolvers() {
 }
 
 export function getVTEXSchema(mergeSchema?: GraphQLSchema) {
-  const platformSchema = withDirectives([cacheControlDirective])(
-    getResolvers(),
-    typeDefs
-  )
+  const withCacheControl = withDirectives([cacheControlDirective])
+
+  const platformSchema = withCacheControl(getResolvers(), typeDefs)
 
   if (mergeSchema && isSchema(mergeSchema)) {
     return mergeSchemas({
