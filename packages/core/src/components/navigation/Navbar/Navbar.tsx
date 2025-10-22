@@ -1,14 +1,15 @@
-import { useCallback, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useCallback, useRef, useState } from 'react'
 
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
+import { Skeleton as UISkeleton } from '@faststore/ui'
+import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
+import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
-import CartToggle from 'src/components/cart/CartToggle'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
-import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
@@ -99,8 +100,8 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
-  const { isDesktop, isMobile } = useScreenResize()
-  const { b2b } = useSession()
+  const { isDesktop } = useScreenResize()
+  const { b2b, isSessionReady } = useSession()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -185,14 +186,22 @@ function Navbar({
                 aria-hidden={!searchExpanded}
               />
             )}
-            {!isMobile &&
-              (isOrganizationEnabled ? (
-                <OrganizationSignInButton
-                  icon={signInButton.icon}
-                  isRepresentative={isRepresentative}
-                />
+            {isDesktop &&
+              (isSessionReady ? (
+                isOrganizationEnabled ? (
+                  <OrganizationSignInButton
+                    icon={signInButton.icon}
+                    isRepresentative={isRepresentative}
+                  />
+                ) : (
+                  <ButtonSignIn.Component {...signInButton} />
+                )
               ) : (
-                <ButtonSignIn.Component {...signInButton} />
+                <UISkeleton
+                  data-fs-navbar-signin-skeleton
+                  size={{ width: '140px', height: '2.5rem' }}
+                  shimmer={true}
+                />
               ))}
 
             <CartToggle {...cart} />
