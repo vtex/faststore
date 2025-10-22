@@ -92,11 +92,6 @@ async function withFastStore(config) {
     loader: '@graphql-tools/webpack-loader',
   })
 
-  const addAliases = withAliases({
-    // https://github.com/vercel/next.js/issues/50391
-    react: path.resolve(root, 'node_modules/react'),
-  })
-
   return {
     ...config,
     images: {
@@ -121,9 +116,7 @@ async function withFastStore(config) {
       ignoreDuringBuilds: true,
     },
     webpack: withGraphqlLoader(
-      withOptimizations(
-        withCamelCaseCss(addAliases(filterWarnings(config.webpack)))
-      )
+      withOptimizations(withCamelCaseCss(filterWarnings(config.webpack)))
     ),
     transpilePackages: [
       '@vtex/faststore-core',
