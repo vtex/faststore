@@ -49,7 +49,7 @@ export const persisted =
       }
     }
 
-    const debouncedHandler = debounce(handler, 500) // 500ms debounce
+    const debouncedHandler = debounce(handler, 100) // 100ms debounce
 
     debouncedHandler()
     globalThis.addEventListener?.('focus', () => debouncedHandler())
