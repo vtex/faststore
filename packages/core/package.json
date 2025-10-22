@@ -45,7 +45,7 @@
     "dev-only": "na run dev",
     "clean": "rm -r .next",
     "serve": "echo '[@vtex/faststore-core] - Starter devServer is throug starter store'",
-    "test": "jest",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
     "lhci": "lhci autorun",
     "postinstall": "node postinstall.js && is-ci || echo Skipped postinstall step for @vtex/faststore-core",
     "partytown": "partytown copylib ./public/~partytown"
