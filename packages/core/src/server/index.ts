@@ -2,9 +2,9 @@
 // import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
 import { GraphqlExecute, getSchema } from '@vtex/faststore-api'
+import type { GraphQLSchema } from 'graphql'
 import persistedDocuments from '../../@generated/persisted-documents.json'
 import { apiOptions } from './options'
-
 const persistedQueries = new Map(Object.entries(persistedDocuments))
 
 export const ServerExecuteFunction = GraphqlExecute(
@@ -12,3 +12,14 @@ export const ServerExecuteFunction = GraphqlExecute(
   getSchema(),
   persistedQueries
 )
+
+export const CustomExecutionFunction = (
+  schema: GraphQLSchema,
+  customContextFactory: (ctx: any) => any
+) =>
+  GraphqlExecute(
+    apiOptions,
+    getSchema(schema),
+    persistedQueries,
+    customContextFactory
+  )

@@ -15,8 +15,13 @@ export interface BaseRequestOptions<V = any> {
   fetchOptions?: RequestInit
 }
 
-const MethodByOperation = (operationName: string) =>
-  operationName.endsWith('Query') ? 'GET' : 'POST'
+const MethodByOperation = async (operationName: string) => {
+  const { experimental } = await import('../../../discovery.config')
+  return Array.isArray(experimental.cachedOperations) &&
+    experimental.cachedOperations.includes(operationName)
+    ? 'GET'
+    : 'POST'
+}
 
 /* This piece of code was taken out of @vtex/faststore-graphql-utils */
 const baseRequest = async <Variables, Operation>(
@@ -28,7 +33,8 @@ const baseRequest = async <Variables, Operation>(
   // Uses method from fetchOptions.
   // If no one is passed, figure out with via heuristic
   const method =
-    fetchOptions?.method?.toUpperCase() ?? MethodByOperation(operationName)
+    fetchOptions?.method?.toUpperCase() ??
+    (await MethodByOperation(operationName))
 
   const response = await (method === 'POST' ? POSTRequest : GETRequest)({
     endpoint,

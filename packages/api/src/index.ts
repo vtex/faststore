@@ -18,3 +18,6 @@ export * from './schema'
 export * from './server'
 
 export { Handler as FaststoreAPIHandler } from './handlers'
+
+export * from './directives'
+export * from './directives/cacheControl'

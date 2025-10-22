@@ -8,9 +8,9 @@ export type {
 
 export { useProductsQuery } from './src/sdk/product/useProductsQuery'
 
-export * from './src/typings/overrides'
-export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'
 export { getMyAccountRoutes } from './src/sdk/account/getMyAccountRoutes'
+export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'
+export * from './src/typings/overrides'
 
 // Overridable Sections
 export { default as AlertSection } from './src/components/sections/Alert'
@@ -29,12 +29,12 @@ export { default as Section } from './src/components/sections/Section'
 
 // Delivery Promise
 export {
+  PICKUP_ALL_FACET_VALUE,
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
   SHIPPING_FACET_KEY,
-  PICKUP_ALL_FACET_VALUE,
   getPickupPoints,
 } from './src/sdk/deliveryPromise'
 
-export { registerCustomization } from './src/utils/registerCustomization'
 export { gql } from './@generated/index'
+export { registerCustomization } from './src/utils/registerCustomization'

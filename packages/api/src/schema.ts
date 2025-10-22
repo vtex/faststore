@@ -1,4 +1,3 @@
-import type { GraphQLSchema } from 'graphql'
 import type { Directive } from './directives'
 import cacheControlDirective from './directives/cacheControl'
 import type { Options } from './platforms/vtex'
@@ -7,7 +6,6 @@ import {
   getResolvers as getResolversVTEX,
   getVTEXSchema,
 } from './platforms/vtex'
-
 export * from './__generated__/schema'
 export { stringify as stringifyCacheControl } from './directives/cacheControl'
 export type { CacheControl } from './directives/cacheControl'
@@ -26,7 +24,7 @@ export const platforms = {
   vtex: {
     getResolvers: getResolversVTEX,
     getContextFactory: getContextFactoryVTEX,
-    schema: getVTEXSchema([cacheControlDirective]),
+    schema: getVTEXSchema(),
   },
 }
 
@@ -41,5 +39,4 @@ export const getResolvers = (o: Options) => platforms[o.platform].getResolvers()
 export const getContextFactory = (o: Options) =>
   platforms[o.platform].getContextFactory(o)
 
-export const getSchema = (mergeSchema?: GraphQLSchema) =>
-  getVTEXSchema([cacheControlDirective], mergeSchema)
+export { getVTEXSchema as getSchema } from './platforms/vtex'

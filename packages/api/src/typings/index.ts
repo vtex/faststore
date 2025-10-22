@@ -27,12 +27,11 @@ type APIRequest = {
 
 type Context = Partial<{
   refreshToken: boolean
-  maxAge: string | number
-  staleWhileRevalidate: string | number
   token: Record<string, any>
   query: string
   operationName: string
   variables: any
+  config: Record<string, any>
 }> & {
   storeId: string
   graphqlRunner<V extends { [k in string]: unknown } | null, D>(

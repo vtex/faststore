@@ -131,11 +131,8 @@ declare module 'discovery-config' {
       enableSearchSSR: boolean
       enableFaststoreMyAccount: boolean
       enableVtexAssetsLoader: boolean
-      graphqlCacheControl: {
-        maxAge: number // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
-        staleWhileRevalidate: number
-      }
       refreshToken: boolean
+      cachedOperations: Array<string>
     }
 
     rewrites?: Promise<Array<{ source: string; destination: string }>>
