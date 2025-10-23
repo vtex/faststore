@@ -1,7 +1,5 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "CartSidebar",
   "$componentTitle": "Cart Sidebar",
   "title": "Cart Sidebar",
@@ -20,10 +18,7 @@
         "icon": {
           "title": "Icon",
           "type": "object",
-          "required": [
-            "icon",
-            "alt"
-          ],
+          "required": ["icon", "alt"],
           "properties": {
             "icon": {
               "title": "Icon",
@@ -63,11 +58,7 @@
     "checkoutButton": {
       "title": "Checkout button",
       "type": "object",
-      "required": [
-        "label",
-        "loadingLabel",
-        "icon"
-      ],
+      "required": ["label", "loadingLabel", "icon"],
       "properties": {
         "label": {
           "title": "Label",
@@ -82,20 +73,13 @@
         "icon": {
           "title": "Icon",
           "type": "object",
-          "required": [
-            "icon",
-            "alt"
-          ],
+          "required": ["icon", "alt"],
           "properties": {
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": [
-                "ArrowRight"
-              ],
-              "enum": [
-                "ArrowRight"
-              ],
+              "enumNames": ["ArrowRight"],
+              "enum": ["ArrowRight"],
               "default": "ArrowRight"
             },
             "alt": {

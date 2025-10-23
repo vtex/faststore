@@ -1,12 +1,42 @@
 {
-  "globalFooterSections": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
-    "$singleton": true,
+  "landingPage": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": false,
     "type": "object",
-    "title": "Global Footer Sections",
+    "title": "Landing Page",
     "properties": {
+      "seo": {
+        "title": "SEO",
+        "description": "Search Engine Optimization options",
+        "type": "object",
+        "widget": {
+          "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+        },
+        "required": ["slug", "title", "description"],
+        "properties": {
+          "slug": {
+            "title": "Path",
+            "type": "string",
+            "default": "/"
+          },
+          "title": {
+            "title": "Default page title",
+            "description": "Display this title when no other tile is available.",
+            "type": "string",
+            "default": "FastStore Starter"
+          },
+          "description": {
+            "title": "Meta tag description",
+            "type": "string",
+            "default": "A beautifully designed store"
+          },
+          "canonical": {
+            "title": "Canonical url for the page",
+            "type": "string"
+          }
+        },
+        "$componentTitle": "SEO"
+      },
       "sections": {
         "type": "array",
         "items": {
@@ -34,6 +64,9 @@
             },
             {
               "$ref": "#/components/ProductShelf"
+            },
+            {
+              "$ref": "#/components/CrossSellingShelf"
             },
             {
               "$ref": "#/components/ProductTiles"
@@ -70,6 +103,6 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": []
+    "identifierKeys": ["slug"]
   }
 }

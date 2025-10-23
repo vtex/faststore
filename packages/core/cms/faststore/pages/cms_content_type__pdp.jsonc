@@ -1,8 +1,6 @@
 {
   "pdp": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+    "$extends": ["#/components/base-page-template"],
     "$singleton": false,
     "type": "object",
     "title": "Product Page",
@@ -112,8 +110,6 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": [
-      "slug"
-    ]
+    "identifierKeys": ["slug"]
   }
 }

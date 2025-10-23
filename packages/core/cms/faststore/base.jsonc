@@ -12,10 +12,7 @@
     // Every component schema must extend this base schema.
     "base-component": {
       "type": "object",
-      "required": [
-        "$componentKey",
-        "$componentTitle"
-      ],
+      "required": ["$componentKey", "$componentTitle"],
       "properties": {
         "$componentKey": {
           "type": "string",

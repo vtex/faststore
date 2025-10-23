@@ -1,26 +1,17 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Breadcrumb",
   "$componentTitle": "Breadcrumb",
   "title": "Breadcrumb",
   "description": "Configure the breadcrumb icon and depth",
   "type": "object",
-  "required": [
-    "icon",
-    "alt"
-  ],
+  "required": ["icon", "alt"],
   "properties": {
     "icon": {
       "title": "Icon",
       "type": "string",
-      "enumNames": [
-        "House"
-      ],
-      "enum": [
-        "House"
-      ]
+      "enumNames": ["House"],
+      "enum": ["House"]
     },
     "alt": {
       "title": "Alternative Label",

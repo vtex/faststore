@@ -1,11 +1,9 @@
 {
-  "login": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+  "500": {
+    "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",
-    "title": "Login",
+    "title": "Error 500",
     "properties": {
       "sections": {
         "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"

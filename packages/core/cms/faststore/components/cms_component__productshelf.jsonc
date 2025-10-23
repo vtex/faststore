@@ -1,18 +1,11 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "ProductShelf",
   "$componentTitle": "Product Shelf",
   "title": "Product Shelf",
   "description": "Add custom shelves to your store",
   "type": "object",
-  "required": [
-    "title",
-    "numberOfItems",
-    "after",
-    "sort"
-  ],
+  "required": ["title", "numberOfItems", "after", "sort"],
   "properties": {
     "title": {
       "type": "string",
@@ -33,7 +26,7 @@
     "after": {
       "type": "integer",
       "title": "After",
-      "default": "0",
+      "default": 0,
       "description": "Initial pagination item"
     },
     "sort": {
@@ -71,10 +64,7 @@
       "items": {
         "title": "Facet",
         "type": "object",
-        "required": [
-          "key",
-          "value"
-        ],
+        "required": ["key", "value"],
         "properties": {
           "key": {
             "title": "Key",

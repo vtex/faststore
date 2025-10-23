@@ -1,8 +1,6 @@
 {
   "home": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+    "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",
     "title": "Home",
@@ -14,11 +12,7 @@
         "widget": {
           "ui:ObjectFieldTemplate": "GoogleSeoPreview"
         },
-        "required": [
-          "slug",
-          "title",
-          "description"
-        ],
+        "required": ["slug", "title", "description"],
         "properties": {
           "slug": {
             "title": "Path",
@@ -52,10 +46,7 @@
           "organization": {
             "title": "Organization",
             "type": "object",
-            "required": [
-              "name",
-              "url"
-            ],
+            "required": ["name", "url"],
             "properties": {
               "name": {
                 "title": "Organization name",
@@ -217,8 +208,6 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": [
-      "slug"
-    ]
+    "identifierKeys": ["slug"]
   }
 }

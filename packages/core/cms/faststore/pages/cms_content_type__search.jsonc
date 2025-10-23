@@ -1,47 +1,48 @@
 {
-  "landingPage": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
-    "$singleton": false,
+  "search": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": true,
     "type": "object",
-    "title": "Landing Page",
+    "title": "Search Page",
     "properties": {
-      "seo": {
-        "title": "SEO",
-        "description": "Search Engine Optimization options",
+      "productGallery": {
+        "title": "Product Gallery",
+        "description": "ProductGallery options",
         "type": "object",
-        "widget": {
-          "ui:ObjectFieldTemplate": "GoogleSeoPreview"
-        },
-        "required": [
-          "slug",
-          "title",
-          "description"
-        ],
+        "required": ["itemsPerPage", "sortBySelection"],
         "properties": {
-          "slug": {
-            "title": "Path",
-            "type": "string",
-            "default": "/"
+          "itemsPerPage": {
+            "title": "Number of ProductCards per page",
+            "type": "integer",
+            "default": 12
           },
-          "title": {
-            "title": "Default page title",
-            "description": "Display this title when no other tile is available.",
+          "sortBySelection": {
+            "title": "Default sort by value",
             "type": "string",
-            "default": "FastStore Starter"
-          },
-          "description": {
-            "title": "Meta tag description",
-            "type": "string",
-            "default": "A beautifully designed store"
-          },
-          "canonical": {
-            "title": "Canonical url for the page",
-            "type": "string"
+            "default": "score_desc",
+            "enumNames": [
+              "Price, descending",
+              "Price, ascending",
+              "Top sales",
+              "Name, A-Z",
+              "Name, Z-A",
+              "Release date",
+              "Discount",
+              "Relevance"
+            ],
+            "enum": [
+              "price_desc",
+              "price_asc",
+              "orders_desc",
+              "name_asc",
+              "name_desc",
+              "release_desc",
+              "discount_desc",
+              "score_desc"
+            ]
           }
         },
-        "$componentTitle": "SEO"
+        "$componentTitle": "Product Gallery"
       },
       "sections": {
         "type": "array",
@@ -72,9 +73,6 @@
               "$ref": "#/components/ProductShelf"
             },
             {
-              "$ref": "#/components/CrossSellingShelf"
-            },
-            {
               "$ref": "#/components/ProductTiles"
             },
             {
@@ -85,6 +83,12 @@
             },
             {
               "$ref": "#/components/BannerNewsletter"
+            },
+            {
+              "$ref": "#/components/Breadcrumb"
+            },
+            {
+              "$ref": "#/components/ProductGallery"
             },
             {
               "$ref": "#/components/CartSidebar"
@@ -109,8 +113,6 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": [
-      "slug"
-    ]
+    "identifierKeys": []
   }
 }

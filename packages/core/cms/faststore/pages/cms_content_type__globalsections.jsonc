@@ -1,8 +1,6 @@
 {
   "globalSections": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+    "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",
     "title": "Global Sections",
@@ -65,12 +63,8 @@
                   "icon": {
                     "title": "Icon",
                     "type": "string",
-                    "enumNames": [
-                      "Arrow Square Out"
-                    ],
-                    "enum": [
-                      "ArrowSquareOut"
-                    ],
+                    "enumNames": ["Arrow Square Out"],
+                    "enum": ["ArrowSquareOut"],
                     "default": "ArrowSquareOut"
                   },
                   "alt": {
@@ -93,10 +87,7 @@
           "deliveryMethods": {
             "title": "PLP/Search Filter: Delivery Methods",
             "type": "object",
-            "required": [
-              "title",
-              "description"
-            ],
+            "required": ["title", "description"],
             "properties": {
               "title": {
                 "title": "Title",
@@ -225,12 +216,8 @@
                   "icon": {
                     "title": "Icon",
                     "type": "string",
-                    "enumNames": [
-                      "Storefront"
-                    ],
-                    "enum": [
-                      "Storefront"
-                    ],
+                    "enumNames": ["Storefront"],
+                    "enum": ["Storefront"],
                     "default": "Storefront"
                   },
                   "alt": {

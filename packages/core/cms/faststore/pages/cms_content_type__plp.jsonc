@@ -1,8 +1,6 @@
 {
   "plp": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+    "$extends": ["#/components/base-page-template"],
     "$singleton": false,
     "type": "object",
     "title": "Product List Page",
@@ -23,10 +21,7 @@
         "title": "Product Gallery",
         "description": "ProductGallery options",
         "type": "object",
-        "required": [
-          "itemsPerPage",
-          "sortBySelection"
-        ],
+        "required": ["itemsPerPage", "sortBySelection"],
         "properties": {
           "itemsPerPage": {
             "title": "Number of ProductCards per page",
@@ -130,8 +125,6 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": [
-      "slug"
-    ]
+    "identifierKeys": ["slug"]
   }
 }
