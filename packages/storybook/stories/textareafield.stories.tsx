@@ -49,23 +49,6 @@ export function Disabled() {
   )
 }
 
-export function WithValue() {
-  const [value, setValue] = useState(
-    'This is a pre-filled text in the textarea. You can edit it as needed.'
-  )
-
-  return (
-    <div style={{ padding: '20px', maxWidth: '400px' }}>
-      <TextareaField
-        id="textarea-with-value"
-        label="Feedback"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-    </div>
-  )
-}
-
 export function WithPlaceholder() {
   const [value, setValue] = useState('')
 
@@ -139,50 +122,6 @@ export function WithConditionalError() {
       <p style={{ fontSize: '12px', color: '#666', marginTop: '8px' }}>
         Minimum: {minLength} characters (current: {value.length})
       </p>
-    </div>
-  )
-}
-
-export function Multiple() {
-  const [values, setValues] = useState({
-    name: '',
-    description: '',
-    notes: '',
-  })
-
-  return (
-    <div style={{ padding: '20px', maxWidth: '500px' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <TextareaField
-          id="textarea-name"
-          label="Product name"
-          value={values.name}
-          onChange={(e) => setValues({ ...values, name: e.target.value })}
-          rows={2}
-        />
-      </div>
-
-      <div style={{ marginBottom: '24px' }}>
-        <TextareaField
-          id="textarea-description"
-          label="Description"
-          value={values.description}
-          onChange={(e) =>
-            setValues({ ...values, description: e.target.value })
-          }
-          rows={4}
-        />
-      </div>
-
-      <div style={{ marginBottom: '24px' }}>
-        <TextareaField
-          id="textarea-notes"
-          label="Additional notes"
-          value={values.notes}
-          onChange={(e) => setValues({ ...values, notes: e.target.value })}
-          rows={3}
-        />
-      </div>
     </div>
   )
 }
