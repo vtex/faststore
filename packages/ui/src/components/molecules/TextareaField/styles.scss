@@ -19,6 +19,7 @@
 
   // Label
   --fs-textarea-field-label-placeholder-top-padding                           : var(--fs-spacing-2);
+  --fs-textarea-field-label-background-color                                  : var(--fs-color-neutral-0);
   --fs-textarea-field-label-max-width                                         : var(--fs-textarea-width);
   --fs-textarea-field-label-max-height                                        : calc(var(--fs-textarea-height) - var(--fs-textarea-field-label-placeholder-top-padding));
   --fs-textarea-field-label-padding                                           : 0 var(--fs-spacing-2);
@@ -63,6 +64,7 @@
     line-height: var(--fs-textarea-field-size);
     color: var(--fs-textarea-field-label-color);
     text-overflow: ellipsis;
+    background-color: var(--fs-textarea-field-label-background-color);
     transition:
       var(--fs-textarea-field-transition-property)
       var(--fs-textarea-field-transition-timing)
