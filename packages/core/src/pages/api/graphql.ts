@@ -150,7 +150,7 @@ const handler: NextApiHandler = async (request, response) => {
       response.setHeader('cache-control', cacheControl)
     } else if (
       request.method === 'GET' &&
-      operation.__meta__.operationName?.endsWith('Query')
+      operation.__meta__.operationName?.toLowerCase()?.endsWith('query')
     ) {
       const maxAge =
         discoveryConfig?.experimental?.graphqlCacheControl?.maxAge &&
