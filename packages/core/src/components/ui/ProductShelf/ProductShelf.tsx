@@ -3,10 +3,10 @@ import { useEffect, useId, useRef } from 'react'
 import deepmerge from 'deepmerge'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
+import { useDeliveryPromiseGlobalFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
-import { overwriteMerge, textToKebabCase } from 'src/utils/utilities'
+import { textToKebabCase, toArray } from 'src/utils/utilities'
 
 type Sort =
   | 'discount_desc'
@@ -57,14 +57,15 @@ function ProductShelf({
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const { deliveryFacets } = useDeliveryPromiseFacets()
+  const { globalDeliveryFacets } = useDeliveryPromiseGlobalFacets()
 
   const data = useProductsQuery({
     ...otherProps,
     first: numberOfItems,
-    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
-      arrayMerge: overwriteMerge,
-    }),
+    selectedFacets: deepmerge(
+      toArray(otherProps.selectedFacets),
+      globalDeliveryFacets
+    ),
   })
 
   const products = data?.search?.products
