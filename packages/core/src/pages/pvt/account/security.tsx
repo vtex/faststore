@@ -17,7 +17,7 @@ import type {
 } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'

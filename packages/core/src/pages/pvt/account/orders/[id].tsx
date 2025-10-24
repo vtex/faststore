@@ -7,7 +7,7 @@ import MyAccountOrderDetails from 'src/components/account/orders/MyAccountOrderD
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 
 import { gql } from '@generated'
 import type {
