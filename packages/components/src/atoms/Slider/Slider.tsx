@@ -85,6 +85,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       step,
       minValueLabelComponent,
       maxValueLabelComponent,
+      'aria-labelledby': ariaLabelledBy,
       ...otherProps
     },
     ref
@@ -161,8 +162,9 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             aria-valuemin={min.absolute}
             aria-valuemax={max.absolute}
             aria-valuenow={minVal}
+            aria-valuetext={getAriaValueText?.(minVal, 'min')}
             aria-label={String(minVal)}
-            aria-labelledby={getAriaValueText?.(minVal, 'min')}
+            aria-labelledby={ariaLabelledBy}
           />
           {minValueLabelComponent && (
             <span
@@ -196,8 +198,9 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             aria-valuemin={min.absolute}
             aria-valuemax={max.absolute}
             aria-valuenow={maxVal}
+            aria-valuetext={getAriaValueText?.(maxVal, 'max')}
             aria-label={String(maxVal)}
-            aria-labelledby={getAriaValueText?.(maxVal, 'max')}
+            aria-labelledby={ariaLabelledBy}
           />
           {maxValueLabelComponent && (
             <span
