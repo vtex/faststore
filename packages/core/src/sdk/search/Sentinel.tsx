@@ -6,8 +6,6 @@ import { useRouter } from 'next/router'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
-import useScreenResize from 'src/sdk/ui/useScreenResize'
-
 interface SentinelProps {
   page: number
   pageSize: number
@@ -41,8 +39,10 @@ const replacePagination = (page: string, router: NextRouter) => {
 function Sentinel({ page, children }: PropsWithChildren<SentinelProps>) {
   const router = useRouter()
   const { pages } = useSearch()
-  const { isMobile } = useScreenResize()
-  const { ref, inView } = useInView({ threshold: isMobile ? 0.3 : 0.7 })
+  const { ref, inView } = useInView({
+    threshold: [0.3, 0.7],
+    triggerOnce: false,
+  })
 
   useEffect(() => {
     // Only replace pagination state when infinite scroll

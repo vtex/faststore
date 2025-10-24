@@ -132,11 +132,11 @@ const getSessionStorageKey = (key: string) => `__fs_gallery_page_${key}`
 
 function getPagesFromSessionStorage(): number[] | null {
   try {
-    const stateKey = window.history.state?.key
-    if (!stateKey) {
+    const sanitizedKey = window.location.pathname.replace(/\W/g, '_')
+    if (!sanitizedKey) {
       return null
     }
-    const storageKey = getSessionStorageKey(stateKey)
+    const storageKey = getSessionStorageKey(sanitizedKey)
 
     const item = sessionStorage.getItem(storageKey)
 
@@ -149,11 +149,11 @@ function getPagesFromSessionStorage(): number[] | null {
 function setPagesSessionStorage(pages: number[]) {
   try {
     // Uses the key to identify a PLP
-    const stateKey = window.history.state?.key
-    if (!stateKey) {
+    const sanitizedKey = window.location.pathname.replace(/\W/g, '_')
+    if (!sanitizedKey) {
       return
     }
-    const storageKey = getSessionStorageKey(stateKey)
+    const storageKey = getSessionStorageKey(sanitizedKey)
 
     sessionStorage.setItem(storageKey, JSON.stringify(pages))
   } catch (_) {
