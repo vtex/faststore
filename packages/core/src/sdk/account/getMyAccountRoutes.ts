@@ -10,15 +10,16 @@ interface GetMyAccountRouteParams {
   routes: Route[]
 }
 
-export const USER_DETAILS_ROUTE = '/pvt/account/user-details'
+export const PROFILE_ROUTE = '/pvt/account/profile'
 export const ORDERS_ROUTE = '/pvt/account/orders'
+export const USER_DETAILS_ROUTE = '/pvt/account/user-details'
 export const SECURITY_ROUTE = '/pvt/account/security'
 
 // This is the default route list for My Account, we should add then as the feature is implemented
 const DEFAULT_ROUTES: Route[] = [
   {
     title: 'Profile',
-    route: '/pvt/account/profile',
+    route: PROFILE_ROUTE,
   },
   {
     title: 'Orders',

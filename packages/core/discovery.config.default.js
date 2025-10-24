@@ -149,7 +149,7 @@ module.exports = {
     enableVtexAssetsLoader: false,
     graphqlCacheControl: {
       maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
-      staleWhileRevalidate: 60,
+      staleWhileRevalidate: 60 * 60, // 1 hour
     },
     refreshToken: false,
   },

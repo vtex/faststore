@@ -10,7 +10,8 @@ import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
 import { execute } from '../../server'
 
-const ONE_MINUTE = 60
+const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
+const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
 
 /**
  * This function replaces the setCookie domain so that we can use localhost in dev environment.
@@ -144,26 +145,34 @@ const handler: NextApiHandler = async (request, response) => {
       return
     }
 
-    const cacheControl =
-      !hasErrors && extensions.cacheControl
-        ? stringifyCacheControl(extensions.cacheControl)
-        : 'no-cache, no-store'
-
-    if (
+    if (extensions.cacheControl) {
+      const cacheControl = stringifyCacheControl(extensions.cacheControl)
+      response.setHeader('cache-control', cacheControl)
+    } else if (
       request.method === 'GET' &&
-      discoveryConfig?.experimental?.graphqlCacheControl?.maxAge
+      operation.__meta__.operationName?.toLowerCase()?.endsWith('query')
     ) {
-      const maxAge = discoveryConfig.experimental.graphqlCacheControl.maxAge
+      const maxAge =
+        discoveryConfig?.experimental?.graphqlCacheControl?.maxAge &&
+        discoveryConfig?.experimental?.graphqlCacheControl?.maxAge > 0
+          ? discoveryConfig.experimental.graphqlCacheControl.maxAge
+          : DEFAULT_MAX_AGE // 5 minutes
+
       const staleWhileRevalidate =
         discoveryConfig?.experimental?.graphqlCacheControl
-          ?.staleWhileRevalidate ?? ONE_MINUTE
+          ?.staleWhileRevalidate &&
+        discoveryConfig?.experimental?.graphqlCacheControl
+          ?.staleWhileRevalidate > 0
+          ? discoveryConfig.experimental.graphqlCacheControl
+              .staleWhileRevalidate
+          : DEFAULT_STALE_WHILE_REVALIDATE // 1 hour
 
       response.setHeader(
         'cache-control',
         `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
       )
     } else {
-      response.setHeader('cache-control', cacheControl)
+      response.setHeader('cache-control', 'no-cache, no-store')
     }
 
     const setCookieValues = Array.from(extensions.cookies.values())

@@ -1,6 +1,5 @@
 import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
-import fetch from 'isomorphic-unfetch'
 import { useMemo } from 'react'
 
 import { gql } from '@generated'
@@ -8,16 +7,16 @@ import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
-import discoveryConfig from 'discovery.config'
 import deepEqual from 'fast-deep-equal'
-import { sanitizeHost } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
+import {
+  isRefreshTokenSuccessful,
+  refreshTokenRequest,
+} from '../account/refreshToken'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
-
-const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
 export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
@@ -112,19 +111,9 @@ export const validateSession = async (session: Session) => {
       error?.status === 401 && storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
-      const headers: HeadersInit = {
-        'content-type': 'application/json',
-        Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
-      }
+      const result = await refreshTokenRequest()
 
-      const result = await fetchWithRetry(REFRESH_TOKEN_URL, {
-        credentials: 'include',
-        headers,
-        body: JSON.stringify({}),
-        method: 'POST',
-      })
-
-      if (result?.status?.toLowerCase?.() === 'success') {
+      if (isRefreshTokenSuccessful(result)) {
         const refreshAfter = String(
           Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
         )
@@ -196,24 +185,4 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
     }),
     [isValidating, session, channel]
   )
-}
-
-async function fetchWithRetry(
-  url: RequestInfo | URL,
-  init?: RequestInit,
-  maxRetries = 3
-) {
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      const res = await fetch(url, init)
-      if (res.status !== 200) continue
-
-      const data = await res.json()
-      if (data.status?.toLowerCase?.() === 'success') {
-        return data
-      }
-    } catch {}
-  }
-
-  return
 }
