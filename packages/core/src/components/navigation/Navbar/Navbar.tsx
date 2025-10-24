@@ -200,7 +200,6 @@ function Navbar({
                 <UISkeleton
                   data-fs-navbar-signin-skeleton
                   size={{ width: '140px', height: '2.5rem' }}
-                  shimmer={true}
                 />
               ))}
 
