@@ -1,18 +1,17 @@
 import { memo } from 'react'
 
 import NextImage, { type ImageProps as NextImageProps } from 'next/image'
-import loader from './loader'
+import { faststoreLoader } from './loader'
 
 export type ImageProps = NextImageProps
 
-// Next loader function does not handle all props as height and options
-// so we use a custom loader to handle images using thumbor server with VTEX CDN
-// https://nextjs.org/docs/api-reference/next/image#loader
+// FastStore Image component that uses custom loader for VTEX URLs (optimized)
+// Returns src directly for all other images (no optimization)
 function Image({ loading = 'lazy', ...otherProps }: ImageProps) {
   return (
     <NextImage
       data-fs-image
-      loader={loader}
+      loader={faststoreLoader}
       loading={loading}
       priority={loading === 'eager'}
       {...otherProps}
