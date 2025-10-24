@@ -216,7 +216,7 @@ type Query {
     """
     locator: [IStoreSelectedFacet!]!
   ): StoreProduct!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns the details of a collection based on the collection slug.
@@ -227,7 +227,7 @@ type Query {
     """
     slug: String!
   ): StoreCollection!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns the result of a product, facet, or suggestion search.
@@ -258,7 +258,7 @@ type Query {
     """
     sponsoredCount: Int
   ): StoreSearchResult!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about all products.
@@ -273,13 +273,13 @@ type Query {
     """
     after: String
   ): StoreProductConnection!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about selected products.
   """
   products(productIds: [String!]!): [StoreProduct!]!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about all collections.
@@ -294,7 +294,7 @@ type Query {
     """
     after: String
   ): StoreCollectionConnection!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about shipping simulation.
@@ -313,7 +313,7 @@ type Query {
     """
     country: String!
   ): ShippingData
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns if there's a redirect for a search.
@@ -350,7 +350,7 @@ type Query {
     """
     salesChannel: String
   ): SellersData
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about the profile.
@@ -361,7 +361,7 @@ type Query {
     """
     id: String!
   ): Profile
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns the total product count information based on a specific location accessible through the VTEX segment cookie.
@@ -372,7 +372,7 @@ type Query {
     """
     term: String
   ): ProductCountResult
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about the Details of an User Order.
@@ -384,7 +384,7 @@ type Query {
     orderId: String!
   ): UserOrderResult
     @auth
-    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about the list of Orders that the User can view.
@@ -420,28 +420,28 @@ type Query {
     clientEmail: String
   ): UserOrderListMinimalResult
     @auth
-    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about the current user details.
   """
   userDetails: StoreUserDetails!
     @auth
-    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns the account profile information for the current authenticated user (b2b or b2c user).
   """
   accountProfile: StoreAccountProfile!
     @auth
-    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns information about the user validation.
   """
   validateUser: ValidateUserData
     @auth
-    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
   Returns a list of pickup points near to the given geo coordinates.
@@ -452,7 +452,7 @@ type Query {
     """
     geoCoordinates: IStoreGeoCoordinates
   ): PickupPoints
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 }
 
 type ValidateUserData {

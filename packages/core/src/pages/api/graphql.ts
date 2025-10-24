@@ -11,7 +11,7 @@ import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
 import { execute } from '../../server'
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
-const DEFAULT_STALE_WHILE_REVALIDATE = 60 // 1 minute
+const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
 
 /**
  * This function replaces the setCookie domain so that we can use localhost in dev environment.
@@ -165,7 +165,7 @@ const handler: NextApiHandler = async (request, response) => {
           ?.staleWhileRevalidate > 0
           ? discoveryConfig.experimental.graphqlCacheControl
               .staleWhileRevalidate
-          : DEFAULT_STALE_WHILE_REVALIDATE // 1 minute
+          : DEFAULT_STALE_WHILE_REVALIDATE // 1 hour
 
       response.setHeader(
         'cache-control',
