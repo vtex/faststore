@@ -17,13 +17,12 @@ import type {
 } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/security/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/security/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
-import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 
 import storeConfig from 'discovery.config'
@@ -83,17 +82,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
-
-  if (!isValid) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   const isRepresentative = getIsRepresentative({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
@@ -130,8 +118,13 @@ export const getServerSideProps: GetServerSideProps<
   if (security.errors) {
     console.error(...security.errors)
     const statusCode: number = (security.errors[0] as any)?.extensions?.status
+
+    // Redirect to 403 for authentication errors (401/403) to handle token refresh
+    // Redirect to 404 for other errors
     const destination: string =
-      statusCode === 403 ? '/pvt/account/403' : '/pvt/account/404'
+      statusCode === 401 || statusCode === 403
+        ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/security')}`
+        : '/pvt/account/404'
 
     return {
       redirect: {

@@ -11,6 +11,8 @@ import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
 import {
+  authDirective,
+  cacheControlDirective,
   BadRequestError,
   getContextFactory,
   getResolvers,
@@ -61,10 +63,14 @@ function getFinalAPISchema() {
   const generatedSchema = loadGeneratedSchema()
   const nativeResolvers = getResolvers(apiOptions)
 
-  return makeExecutableSchema({
+  const schema = makeExecutableSchema({
     typeDefs: generatedSchema,
     resolvers: [nativeResolvers, vtexExtensionsResolvers, thirdPartyResolvers],
   })
+
+  // Apply directive transformations
+  const directives = [cacheControlDirective, authDirective]
+  return directives.reduce((s, d) => d.transformer(s), schema)
 }
 
 export const getEnvelop = async () =>

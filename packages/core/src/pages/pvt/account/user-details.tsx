@@ -19,9 +19,8 @@ import storeConfig from 'discovery.config'
 import MyAccountUserDetails from 'src/components/account/MyAccountUserDetails/MyAccountUserDetails'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
-import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
@@ -88,17 +87,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
-
-  if (!isValid) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   const isRepresentative = getIsRepresentative({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
@@ -153,8 +141,13 @@ export const getServerSideProps: GetServerSideProps<
 
     const statusCode: number = (userDetails.errors[0] as any)?.extensions
       ?.status
+
+    // Redirect to 403 for authentication errors (401/403) to handle token refresh
+    // Redirect to 404 for other errors
     const destination: string =
-      statusCode === 403 ? '/pvt/account/403' : '/pvt/account/404'
+      statusCode === 401 || statusCode === 403
+        ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/user-details')}`
+        : '/pvt/account/404'
 
     return {
       redirect: {
