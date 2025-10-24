@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.91.0](https://github.com/vtex/faststore/compare/v3.90.1...v3.91.0) (2025-10-24)
+
+### Features
+
+- user validation improvements + refresh token SSR and api - SFS-2909 ([#3065](https://github.com/vtex/faststore/issues/3065)) ([97071ee](https://github.com/vtex/faststore/commit/97071ee21fcee0b038dfafa06633ef597136898e))
+
 ## [3.90.1](https://github.com/vtex/faststore/compare/v3.90.0...v3.90.1) (2025-10-20)
 
 **Note:** Version bump only for package @faststore/cli
