@@ -89,7 +89,6 @@ function NavbarSlider({
             <UISkeleton
               data-fs-navbar-slider-signin-skeleton
               size={{ width: '140px', height: '2.5rem' }}
-              shimmer={true}
             />
           )}
         </Suspense>
