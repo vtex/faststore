@@ -1,6 +1,6 @@
 import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { gql } from '@generated'
 import type {
@@ -17,6 +17,8 @@ import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
+
+const SESSION_READY_KEY = 'faststore_session_ready'
 
 export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
@@ -160,15 +162,20 @@ interface SessionOptions {
  * This key is used only in the useAuth hook and is only required to send on the ValidateSession mutation,
  * so we remove it from the session's channel object to avoid unnecessary cache invalidations and query executions.
  *
+ * The hook also provides session stability management to prevent UI blinking effects during session validation.
+ * The session ready state is persisted in sessionStorage to maintain consistency across page navigations
+ * and provide faster loading times on subsequent page visits.
+ *
  * @param options - Optional configuration for the hook.
  * @param options.filter - A boolean value indicating whether to filter the channel object or not. Default is true.
- * @returns An object containing the session data, channel object, and a flag indicating whether the session is being validated.
+ * @returns An object containing the session data, channel object, validation status, and session readiness status.
  */
-
 export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
   const currentSessionStore = sessionStore.read() ?? sessionStore.readInitial()
   const resultSessionStore = useStore(sessionStore)
   const isValidating = useStore(validationStore)
+  const { isSessionReady } = useSessionReady({ isValidating })
+
   let { channel, ...session } = resultSessionStore ?? currentSessionStore
 
   if (filter) {
@@ -182,7 +189,72 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
       ...session,
       channel,
       isValidating,
+      isSessionReady,
     }),
-    [isValidating, session, channel]
+    [isValidating, session, channel, isSessionReady]
   )
+}
+
+/**
+ * Custom hook to manage session readiness state.
+ * Provides session stability management to prevent UI blinking effects during session validation.
+ * The session ready state is persisted in sessionStorage to maintain consistency across page navigations
+ * and provide faster loading times on subsequent page visits.
+ *
+ * @param isValidating - Whether the session is currently being validated
+ * @returns An object containing the session readiness status
+ */
+export const useSessionReady = ({
+  isValidating,
+}: { isValidating: boolean }) => {
+  // Initialize with persisted state from sessionStorage
+  const [isSessionReady, setIsSessionReady] = useState(() => {
+    if (typeof window === 'undefined') return false
+    try {
+      return sessionStorage.getItem(SESSION_READY_KEY) === 'true'
+    } catch {
+      return false
+    }
+  })
+
+  // Wait for session to be stable (not validating and has consistent data)
+  const hasValidatedRef = useRef(false)
+
+  useEffect(() => {
+    // Only run the effect if there has already been a change in isValidating (that is, validateSession has already been called at least once)
+    if (!hasValidatedRef.current && isValidating) {
+      hasValidatedRef.current = true
+      return
+    }
+
+    if (!hasValidatedRef.current) {
+      return
+    }
+
+    if (!isValidating) {
+      setIsSessionReady(true)
+      // Persist the ready state in sessionStorage
+      try {
+        sessionStorage.setItem(SESSION_READY_KEY, 'true')
+      } catch {
+        // Ignore storage errors
+      }
+      return
+    }
+
+    // Only set to false if we don't have a persisted ready state
+    if (typeof window !== 'undefined') {
+      try {
+        const persistedReady =
+          sessionStorage.getItem(SESSION_READY_KEY) === 'true'
+        if (!persistedReady) {
+          setIsSessionReady(false)
+        }
+      } catch {
+        setIsSessionReady(false)
+      }
+    }
+  }, [isValidating])
+
+  return { isSessionReady }
 }
