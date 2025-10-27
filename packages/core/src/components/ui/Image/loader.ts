@@ -6,14 +6,6 @@ function handleVtexUrls(src: string, width: number, quality?: number) {
       ? Math.ceil(quality / 10)
       : quality
     : 8
-  // Handle VTEX file manager URLs (CMS Images)
-  if (src.includes('vtex.file-manager-graphql')) {
-    const url = new URL(src)
-    url.searchParams.set('width', width.toString())
-    url.searchParams.set('aspect', 'true')
-    url.searchParams.set('quality', customQuality.toString())
-    return url.toString()
-  }
 
   // Handle VTEX IDs pattern: /ids/{number}/{filename}.{extension}?{queryParams} (Product Images)
   const regex = /(\/ids\/\d+)\/([^/?]+)(\.[^/?]+)(\?.+)?$/
@@ -26,6 +18,15 @@ function handleVtexUrls(src: string, width: number, quality?: number) {
         return `${idPart}-${width}-auto/${filename}.webp?${qs.toString()}`
       }
     )
+  }
+
+  // Handle VTEX file manager URLs (CMS Images)
+  if (src.includes('vtexassets') && src.includes('/assets')) {
+    const url = new URL(src)
+    url.searchParams.set('width', width.toString())
+    url.searchParams.set('aspect', 'true')
+    url.searchParams.set('quality', customQuality.toString())
+    return url.toString()
   }
 
   return null
