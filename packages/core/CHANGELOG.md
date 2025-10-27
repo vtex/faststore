@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.91.2 (2025-10-27)
+
+### Bug Fixes
+
+- update buying policy alert message to include dynamic description SFS-2861 ([#3076](https://github.com/vtex/faststore/issues/3076)) ([f8f470e](https://github.com/vtex/faststore/commit/f8f470e7d70a0a2556e6136d84f57540b734b528))
+- update SEO for search page ([#3081](https://github.com/vtex/faststore/issues/3081)) ([315a244](https://github.com/vtex/faststore/commit/315a244c3ee119f0c5d1f61a095ac70754582026))
+
 ## [3.91.1](https://github.com/vtex/faststore/compare/v3.91.0...v3.91.1) (2025-10-24)
 
 ### Bug Fixes
