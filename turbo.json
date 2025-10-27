@@ -18,9 +18,13 @@
       "passThroughEnv": ["PLAYWRIGHT_*"],
       "outputs": ["test-results/**", "playwright-report"]
     },
+    "starter.store#generate": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
     "starter.store#build": {
       "outputs": [".next/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "generate"]
     },
     "@vtex/faststore-api#generate": {
       "outputs": ["src/__generated__/**"],
