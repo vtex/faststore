@@ -1,3 +1,6 @@
+import persistedDocuments from '@generated/persisted-documents.json'
+import discoveryConfig from 'discovery.config'
+
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
 export type Operation = {
   __meta__?: Record<string, any>
@@ -19,6 +22,10 @@ const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
     'Content-Type': 'application/json',
   },
 }
+
+const mutationNames = Object.values(persistedDocuments)
+  .flatMap((str) => Array.from(str.matchAll(/mutation\s+([^( {]+)/g)))
+  .map((match) => match[1])
 
 export const request = async <Query = unknown, Variables = unknown>(
   operation: Operation,
@@ -45,14 +52,16 @@ const baseRequest = async <V = any, D = any>(
 ): Promise<GraphQLResponse<D>> => {
   const { operationName, operationHash } = operation['__meta__']
 
-  // Uses method from fetchOptions.
-  // If no one is passed, figure out with via heuristic
+  // Determine HTTP method: prioritize fetchOptions, then use heuristics
   const method =
-    fetchOptions?.method !== undefined
-      ? fetchOptions.method.toUpperCase()
+    fetchOptions?.method?.toUpperCase() ??
+    (discoveryConfig.experimental?.enableRequestMethodDetection
+      ? mutationNames.includes(operationName)
+        ? 'POST'
+        : 'GET'
       : operationName.endsWith('Query')
         ? 'GET'
-        : 'POST'
+        : 'POST')
 
   const params = new URLSearchParams({
     operationName,
