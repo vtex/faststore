@@ -15,7 +15,7 @@ module.exports = {
       descriptionTemplate: '%s products on FastStore Product Detail Page',
     },
     search: {
-      titleTemplate: '%s: Search results title',
+      titleTemplate: '%s | Search results',
       descriptionTemplate: '%s: Search results description',
       noIndex: true,
       noFollow: true,
