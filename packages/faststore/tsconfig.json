@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowJs": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declarationDir": "declarations"
+  },
+  "include": ["./src", "./types/css.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}

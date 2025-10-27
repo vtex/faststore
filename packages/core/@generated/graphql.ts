@@ -822,7 +822,6 @@ export type ProfileAddress = {
 };
 
 export type Query = {
-  MyCustomQuery: Scalars['String']['output'];
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
   accountProfile: StoreAccountProfile;
   /** Returns information about all collections. */
@@ -2656,11 +2655,6 @@ export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
 
-export type CustomQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CustomQuery = { MyCustomQuery: string };
-
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -3196,4 +3190,3 @@ export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerPr
 export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
 export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"e5eb7e46c685d0c7a2ec62c865bfb0a66f81d557"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
-export const CustomDocument = {"__meta__":{"operationName":"Custom","operationHash":"4a77492de21fbb08e190069523ad885cc4887292"}} as unknown as TypedDocumentString<CustomQuery, CustomQueryVariables>;
