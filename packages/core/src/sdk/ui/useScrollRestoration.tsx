@@ -49,7 +49,7 @@ export default function useScrollRestoration() {
           }
 
           // Products rendering delay
-          setTimeout(tryScroll, 300)
+          setTimeout(tryScroll, 500)
         }
       }
     }
