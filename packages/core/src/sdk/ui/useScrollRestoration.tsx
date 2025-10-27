@@ -38,18 +38,44 @@ export default function useScrollRestoration() {
         if (stored) {
           const { x, y } = JSON.parse(stored)
 
+          let attempts = 0
+          const maxAttempts = 60 // ~1s with 60fps
+          let lastScrollHeight = 0
+
           const tryScroll = () => {
+            const currentScrollHeight = document.documentElement.scrollHeight
+            const hasEnoughHeight =
+              currentScrollHeight >= y + window.innerHeight
+            const heightStabilized = currentScrollHeight === lastScrollHeight
+
             window.scrollTo(x, y)
+
+            // Check if we've reached our target position
+            const scrolledCorrectly =
+              Math.abs(window.scrollY - y) < 5 &&
+              Math.abs(window.scrollX - x) < 5
+
+            // Continue trying if:
+            // - Haven't scrolled correctly yet
+            // - Height is still changing (content loading)
+            // - Haven't reached max attempts
             if (
-              document.documentElement.scrollHeight <
-              y + window.innerHeight
+              attempts < maxAttempts &&
+              (!scrolledCorrectly || (!hasEnoughHeight && !heightStabilized))
             ) {
+              lastScrollHeight = currentScrollHeight
+              attempts++
               window.requestAnimationFrame(tryScroll)
             }
           }
 
-          // Products rendering delay
-          setTimeout(tryScroll, 500)
+          // Wait for Next.js to finish initial render
+          setTimeout(() => {
+            // Give the browser a chance to calculate layout
+            window.requestAnimationFrame(() =>
+              window.requestAnimationFrame(tryScroll)
+            )
+          }, 300)
         }
       }
     }
