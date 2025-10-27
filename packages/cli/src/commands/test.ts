@@ -1,4 +1,4 @@
-import { Command } from '@oclif/core'
+import { Args, Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
@@ -45,13 +45,13 @@ async function storeTest(tmpDir: string) {
 }
 
 export default class Test extends Command {
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being tested is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { args } = await this.parse(Test)

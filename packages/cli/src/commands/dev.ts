@@ -1,4 +1,4 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
@@ -125,22 +125,22 @@ function copyGenerated(from: string, to: string) {
 }
 
 export default class Dev extends Command {
-  static args = [
-    {
+  static args = {
+    account: Args.string({
       name: 'account',
       description:
         'The account for which the Discovery is running. Currently noop.',
-    },
-    {
+    }),
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being run is. Defaults to cwd.',
-    },
-    {
+    }),
+    port: Args.integer({
       name: 'port',
       description: 'The port where FastStore should run. Defaults to 3000.',
-    },
-  ]
+    }),
+  }
 
   static flags = {
     'watch-plugins': Flags.boolean({

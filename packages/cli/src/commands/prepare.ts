@@ -1,16 +1,16 @@
-import { Command } from '@oclif/core'
-import path from 'node:path'
+import { Args, Command } from '@oclif/core'
 import fs from 'node:fs'
+import path from 'node:path'
 import { getBasePath } from '../utils/directory'
 
 export default class Prepare extends Command {
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being run is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { args } = await this.parse(Prepare)
