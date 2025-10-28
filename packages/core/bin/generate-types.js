@@ -8,7 +8,6 @@ const path = require('path')
 const fs = require('fs')
 const { getTypeDefs } = require('@vtex/faststore-api')
 const { printSchemaWithDirectives } = require('@graphql-tools/utils')
-// const { loadFilesSync } = require('@graphql-tools/load-files')
 const { mergeTypeDefs } = require('@graphql-tools/merge')
 const {
   buildASTSchema,
