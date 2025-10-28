@@ -8,17 +8,10 @@ export default function useScrollRestoration() {
   const { resetInfiniteScroll } = useSearch()
 
   useEffect(() => {
+    let isPopState = false
+
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
-    }
-
-    let isPopState = false
-    const onBeforePopState = () => (isPopState = true)
-    const onRouteChangeStart = (url: string) => {
-      // Save scroll position only when navigating to PDPs
-      if (isPopState || url.includes(window.location.pathname)) return
-
-      saveScrollPos()
     }
 
     const saveScrollPos = () => {
@@ -31,39 +24,34 @@ export default function useScrollRestoration() {
       }
     }
 
-    const restoreScrollPos = () => {
+    const restoreScrollPos = async () => {
       const key = window.history.state?.key
       if (key) {
         const stored = sessionStorage.getItem(`__fs_scroll_${key}`)
         if (stored) {
-          const { x, y } = JSON.parse(stored)
-
-          const tryScroll = () => {
-            window.scrollTo(x, y)
-            if (
-              document.documentElement.scrollHeight <
-              y + window.innerHeight
-            ) {
-              window.requestAnimationFrame(tryScroll)
-            }
-          }
+          const { x, y } = await JSON.parse(stored)
 
           // Products rendering delay
-          setTimeout(tryScroll, 600)
+          setTimeout(() => window.scrollTo(x, y), 600)
         }
       }
+    }
+
+    const onBeforePopState = () => (isPopState = true)
+
+    const onRouteChangeStart = (url: string) => {
+      // Save scroll position only when navigating to PDPs
+      if (isPopState || url.includes(window.location.pathname)) return
+      saveScrollPos()
+
+      // Reset each PLP's infinite scroll when navigating to other pages than PDPs
+      if (url.includes(window.location.pathname) || url.endsWith('/p')) return
+      resetInfiniteScroll(0)
     }
 
     router.beforePopState(onBeforePopState)
     router.events.on('routeChangeStart', onRouteChangeStart)
     window.addEventListener('popstate', restoreScrollPos)
-
-    // Reset each PLP's infinite scroll when navigating to other pages than PDPs
-    router.events.on('routeChangeStart', (url) => {
-      if (url.includes(window.location.pathname) || url.endsWith('/p')) return
-
-      resetInfiniteScroll(0)
-    })
 
     return () => {
       router.beforePopState(() => true)
