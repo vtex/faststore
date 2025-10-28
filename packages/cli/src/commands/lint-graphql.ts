@@ -38,28 +38,12 @@ export default class LintGraphql extends Command {
   }
 }
 
-// let config: any
-
 async function parseFile(filePath: string) {
   if (!isFile(filePath)) return
 
   logger.log(`
     ${chalk.yellow('info')} - parsing file: ${filePath}`)
 
-  // if (!config) {
-  //   const tsConfigPath = ts.findConfigFile(
-  //     path.dirname(filePath),
-  //     ts.sys.fileExists,
-  //     'tsconfig.json'
-  //   )
-  //   if (!tsConfigPath) return // tsconfig not found
-
-  //   const tsConfig = ts.readConfigFile(tsConfigPath, ts.sys.readFile)
-
-  //   if (!tsConfig || tsConfig.error) return // Unable to read the file
-
-  //   config = tsConfig.config
-  // }
   const sourceCode = ts.sys.readFile(filePath)
 
   if (!sourceCode) return // something impossible happened here
