@@ -1,11 +1,8 @@
 import type { ImageLoaderProps } from 'next/image'
 
-function handleVtexUrls(src: string, width: number, quality?: number) {
-  const customQuality = quality
-    ? quality > 10
-      ? Math.ceil(quality / 10)
-      : quality
-    : 8
+function handleVtexUrls(src: string, width: number, quality = 8) {
+  const customQuality =
+    quality > 10 ? Math.ceil(Math.min(quality, 100) / 10) : quality
 
   // Handle VTEX IDs pattern: /ids/{number}/{filename}.{extension}?{queryParams} (Product Images)
   const regex = /(\/ids\/\d+)\/([^/?]+)(\.[^/?]+)(\?.+)?$/
