@@ -1,4 +1,3 @@
-// import { ux as CliUx } from '@oclif/core'
 import confirm from '@inquirer/confirm'
 import chalk from 'chalk'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs-extra'
