@@ -5,7 +5,7 @@ import {
 } from '@vtex/faststore-ui'
 import type { HTMLAttributes } from 'react'
 
-import type { SearchState } from '@vtex/faststore-sdk'
+import type { SearchState } from '@vtex/faststore-sdk-internal'
 import type { StoreSuggestionTerm } from '../../../../@generated/graphql'
 import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
 import useTopSearch from '../../../sdk/search/useTopSearch'

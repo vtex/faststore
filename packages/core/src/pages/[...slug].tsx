@@ -9,7 +9,7 @@ import type {
   ServerManyProductsQueryQueryVariables,
 } from '../../@generated/graphql'
 
-import type { SearchState } from '@vtex/faststore-sdk'
+import type { SearchState } from '@vtex/faststore-sdk-internal'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,

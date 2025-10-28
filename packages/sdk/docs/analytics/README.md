@@ -10,7 +10,7 @@ To fire a standard GA4 event:
 
 ```tsx
 import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@vtex/faststore-sdk'
+import { sendAnalyticsEvent } from '@vtex/faststore-sdk-internal'
 
 const MyComponent = () => {
   const addToCartCallback = useCallback(() => {
@@ -38,7 +38,7 @@ To fire a custom event:
 
 ```tsx
 import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@vtex/faststore-sdk'
+import { sendAnalyticsEvent } from '@vtex/faststore-sdk-internal'
 
 interface CustomEvent {
   type: 'custom_event'
@@ -72,8 +72,8 @@ It's possible to receive analytics events by using the `useAnalyticsEvent` hook.
 To use the `useAnalyticsEvent` hook:
 
 ```tsx
-import { useAnalyticsEvent } from '@vtex/faststore-sdk'
-import type { AnalyticsEvent } from '@vtex/faststore-sdk'
+import { useAnalyticsEvent } from '@vtex/faststore-sdk-internal'
+import type { AnalyticsEvent } from '@vtex/faststore-sdk-internal'
 
 /**
  *  Notice that we typed it as AnalyticsEvent, but there may be events that are not from this type.

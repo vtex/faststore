@@ -1,4 +1,7 @@
-import type { CurrencyCode, RemoveFromCartEvent } from '@vtex/faststore-sdk'
+import type {
+  CurrencyCode,
+  RemoveFromCartEvent,
+} from '@vtex/faststore-sdk-internal'
 import { useCallback } from 'react'
 
 import type { AnalyticsItem } from '../analytics/types'
@@ -20,7 +23,7 @@ export const useRemoveButton = (item: CartItem | null) => {
         return
       }
 
-      import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+      import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
         sendAnalyticsEvent<RemoveFromCartEvent<AnalyticsItem>>({
           name: 'remove_from_cart',
           params: {

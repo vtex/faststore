@@ -1,4 +1,4 @@
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 import { useRouter } from 'next/router'
 
 import storeConfig from '../../../../discovery.config'
@@ -6,8 +6,8 @@ import type { SearchPageContextType } from '../../../pages/s'
 import { useProductGalleryQuery } from '../../../sdk/product/useProductGalleryQuery'
 import type { SearchContentType } from '../../../server/cms'
 
-import RenderSections from '../../cms/RenderSections'
 import PageProvider from '../../../sdk/overrides/PageProvider'
+import RenderSections from '../../cms/RenderSections'
 import EmptySearch from './EmptySearch'
 import SearchPage from './SearchPage'
 

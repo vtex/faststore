@@ -55,21 +55,23 @@ function useSuggestions(term: string) {
     doNotRun: term === null || term === undefined, // it is ok to be empty string ""
     onSuccess: (callbackData) => {
       if (callbackData && term) {
-        import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
-          sendAnalyticsEvent<IntelligentSearchAutocompleteQueryEvent>({
-            name: 'intelligent_search_autocomplete_query',
-            params: {
-              locale,
-              term,
-              url: window.location.href,
-              logicalOperator:
-                callbackData.search.metadata?.logicalOperator ?? 'and',
-              isTermMisspelled:
-                callbackData.search.metadata?.isTermMisspelled ?? false,
-              totalCount: callbackData.search.products.pageInfo.totalCount,
-            },
-          })
-        })
+        import('@vtex/faststore-sdk-internal').then(
+          ({ sendAnalyticsEvent }) => {
+            sendAnalyticsEvent<IntelligentSearchAutocompleteQueryEvent>({
+              name: 'intelligent_search_autocomplete_query',
+              params: {
+                locale,
+                term,
+                url: window.location.href,
+                logicalOperator:
+                  callbackData.search.metadata?.logicalOperator ?? 'and',
+                isTermMisspelled:
+                  callbackData.search.metadata?.isTermMisspelled ?? false,
+                totalCount: callbackData.search.products.pageInfo.totalCount,
+              },
+            })
+          }
+        )
       }
     },
   })

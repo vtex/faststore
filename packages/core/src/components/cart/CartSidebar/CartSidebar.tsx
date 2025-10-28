@@ -5,7 +5,7 @@ import type {
   CartSidebarProps as UICartSidebarProps,
 } from '@vtex/faststore-ui'
 
-import type { CurrencyCode, ViewCartEvent } from '@vtex/faststore-sdk'
+import type { CurrencyCode, ViewCartEvent } from '@vtex/faststore-sdk-internal'
 import { Icon, useFadeEffect, useUI } from '@vtex/faststore-ui'
 import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from '../../../sdk/cart'
@@ -73,7 +73,7 @@ function useViewCartEvent() {
   const items = JSON.stringify(itemsFromCart)
 
   const sendViewCartEvent = useCallback(() => {
-    import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+    import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
       return sendAnalyticsEvent<ViewCartEvent>({
         name: 'view_cart',
         params: {

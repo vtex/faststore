@@ -40,7 +40,7 @@ pnpm add @vtex/faststore-sdk
 ```tsx
 import React, { Component } from 'react'
 
-import { useUI } from '@vtex/faststore-sdk'
+import { useUI } from '@vtex/faststore-sdk-internal'
 
 function MyComponent {
   const { displayMinicart } = useUI()

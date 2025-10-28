@@ -1,11 +1,11 @@
+import type { IStoreSelectedFacet } from '@vtex/faststore-api'
 import {
   setFacet,
   toggleFacet,
   toggleFacets,
   useSearch,
-} from '@vtex/faststore-sdk'
+} from '@vtex/faststore-sdk-internal'
 import { useEffect, useMemo, useReducer } from 'react'
-import type { IStoreSelectedFacet } from '@vtex/faststore-api'
 
 import type { Filter_FacetsFragment } from '../../../@generated/graphql'
 

@@ -1,10 +1,10 @@
-import type { PageViewEvent } from '@vtex/faststore-sdk'
+import type { PageViewEvent } from '@vtex/faststore-sdk-internal'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 
 export const usePageViewEvent = (props?: any) => {
   const sendPageViewEvent = useCallback(() => {
-    import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+    import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
       sendAnalyticsEvent<PageViewEvent>({
         name: 'page_view',
         params: {

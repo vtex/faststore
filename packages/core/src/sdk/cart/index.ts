@@ -1,8 +1,8 @@
 import type {
   Cart as SDKCart,
   CartItem as SDKCartItem,
-} from '@vtex/faststore-sdk'
-import { createCartStore } from '@vtex/faststore-sdk'
+} from '@vtex/faststore-sdk-internal'
+import { createCartStore } from '@vtex/faststore-sdk-internal'
 import { useMemo } from 'react'
 
 import { gql } from '../../../@generated'

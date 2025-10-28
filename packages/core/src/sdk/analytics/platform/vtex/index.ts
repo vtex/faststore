@@ -1,4 +1,4 @@
-import type { AnalyticsEvent } from '@vtex/faststore-sdk'
+import type { AnalyticsEvent } from '@vtex/faststore-sdk-internal'
 
 import handleRCEvent from './rc'
 import handleSearchEvent from './search'

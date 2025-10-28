@@ -1,9 +1,9 @@
-import type { SearchState } from '@vtex/faststore-sdk'
+import type { SearchState } from '@vtex/faststore-sdk-internal'
 import {
   formatSearchState,
   parseSearchState,
   SearchProvider,
-} from '@vtex/faststore-sdk'
+} from '@vtex/faststore-sdk-internal'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'

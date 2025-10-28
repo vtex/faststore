@@ -3,8 +3,8 @@ import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
-import { type SearchState, useSearch } from '@vtex/faststore-sdk'
-import type { Facet } from '@vtex/faststore-sdk/types'
+import { type SearchState, useSearch } from '@vtex/faststore-sdk-internal'
+import type { Facet } from '@vtex/faststore-sdk-internal/types'
 import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,
@@ -166,19 +166,22 @@ export const useProductGalleryQuery = ({
         urlHasOperator
 
       if (shouldSendAnalyticsEvent) {
-        import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
-          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-            name: 'intelligent_search_query',
-            params: {
-              locale,
-              term,
-              url: window.location.href,
-              logicalOperator: updatedOperatorFacetValue ?? 'and',
-              isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
-              totalCount: data.search.products.pageInfo.totalCount,
-            },
-          })
-        })
+        import('@vtex/faststore-sdk-internal').then(
+          ({ sendAnalyticsEvent }) => {
+            sendAnalyticsEvent<IntelligentSearchQueryEvent>({
+              name: 'intelligent_search_query',
+              params: {
+                locale,
+                term,
+                url: window.location.href,
+                logicalOperator: updatedOperatorFacetValue ?? 'and',
+                isTermMisspelled:
+                  data.search.metadata?.isTermMisspelled ?? false,
+                totalCount: data.search.products.pageInfo.totalCount,
+              },
+            })
+          }
+        )
       }
 
       // Update the Search state (and URL) only if the values from fuzzy and operator changes

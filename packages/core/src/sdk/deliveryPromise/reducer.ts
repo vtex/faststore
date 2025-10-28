@@ -1,4 +1,4 @@
-import type { Session } from '@vtex/faststore-sdk'
+import type { Session } from '@vtex/faststore-sdk-internal'
 
 import type { PickupPoint } from '.'
 

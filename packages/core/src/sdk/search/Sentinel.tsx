@@ -1,8 +1,8 @@
-import { useSearch } from '@vtex/faststore-sdk'
-import { useEffect, type PropsWithChildren } from 'react'
-import { useInView } from 'react-intersection-observer'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 import type { NextRouter } from 'next/router'
 import { useRouter } from 'next/router'
+import { useEffect, type PropsWithChildren } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import type { ProductSummary_ProductFragment } from '../../../@generated/graphql'
 

@@ -2,12 +2,12 @@ import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import type { SearchState } from '@vtex/faststore-sdk'
+import type { SearchState } from '@vtex/faststore-sdk-internal'
 import {
   formatSearchState,
   parseSearchState,
   SearchProvider,
-} from '@vtex/faststore-sdk'
+} from '@vtex/faststore-sdk-internal'
 import { SROnly as UISROnly } from '@vtex/faststore-ui'
 
 import { ITEMS_PER_PAGE } from '../constants'

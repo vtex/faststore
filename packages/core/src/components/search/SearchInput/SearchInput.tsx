@@ -11,7 +11,7 @@ import {
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import type { SearchEvent, SearchState } from '@vtex/faststore-sdk'
+import type { SearchEvent, SearchState } from '@vtex/faststore-sdk-internal'
 
 import {
   Icon as UIIcon,
@@ -27,9 +27,9 @@ import type {
 
 import type { SearchProviderContextValue } from '@vtex/faststore-ui'
 
-import type { NavbarProps } from '../../sections/Navbar'
 import useSearchHistory from '../../../sdk/search/useSearchHistory'
 import useSuggestions from '../../../sdk/search/useSuggestions'
+import type { NavbarProps } from '../../sections/Navbar'
 
 import { formatSearchPath } from '../../../sdk/search/formatSearchPath'
 
@@ -60,7 +60,7 @@ export type SearchInputRef = UISearchInputFieldRef & {
 }
 
 const sendAnalytics = async (term: string) => {
-  import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+  import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
     sendAnalyticsEvent<SearchEvent>({
       name: 'search',
       params: { search_term: term },

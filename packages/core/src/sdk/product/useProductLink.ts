@@ -1,6 +1,9 @@
-import type { CurrencyCode, SelectItemEvent } from '@vtex/faststore-sdk'
-import type { ProductSummary_ProductFragment } from '../../../@generated/graphql'
+import type {
+  CurrencyCode,
+  SelectItemEvent,
+} from '@vtex/faststore-sdk-internal'
 import { useCallback } from 'react'
+import type { ProductSummary_ProductFragment } from '../../../@generated/graphql'
 import type { AnalyticsItem, SearchSelectItemEvent } from '../analytics/types'
 import { useSession } from '../session'
 
@@ -21,7 +24,7 @@ export const useProductLink = ({
   } = useSession()
 
   const onClick = useCallback(() => {
-    import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+    import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
       sendAnalyticsEvent<SelectItemEvent<AnalyticsItem>>({
         name: 'select_item',
         params: {

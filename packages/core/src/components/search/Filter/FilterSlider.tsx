@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 import {
   regionSliderTypes,
   useUI,

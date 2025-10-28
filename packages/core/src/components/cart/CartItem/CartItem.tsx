@@ -2,7 +2,7 @@ import type {
   AddToCartEvent,
   CurrencyCode,
   RemoveFromCartEvent,
-} from '@vtex/faststore-sdk'
+} from '@vtex/faststore-sdk-internal'
 import {
   CartItem as UICartItem,
   CartItemImage as UICartItemImage,
@@ -10,13 +10,13 @@ import {
 } from '@vtex/faststore-ui'
 import { useCallback, useMemo } from 'react'
 
-import { Image } from '../../ui/Image'
 import type { AnalyticsItem } from '../../../sdk/analytics/types'
 import type { CartItem as ICartItem } from '../../../sdk/cart'
 import { cartStore } from '../../../sdk/cart'
 import { useRemoveButton } from '../../../sdk/cart/useRemoveButton'
 import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
 import { useSession } from '../../../sdk/session'
+import { Image } from '../../ui/Image'
 
 function useCartItemEvent() {
   const {
@@ -27,7 +27,7 @@ function useCartItemEvent() {
     (item: Props['item'], quantity: number) => {
       const quantityDelta = quantity - item.quantity
 
-      import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+      import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
         return sendAnalyticsEvent<
           AddToCartEvent<AnalyticsItem> | RemoveFromCartEvent<AnalyticsItem>
         >({

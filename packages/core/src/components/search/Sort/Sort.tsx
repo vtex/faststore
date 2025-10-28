@@ -1,4 +1,4 @@
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 import { SelectField } from '@vtex/faststore-ui'
 
 const OptionsMap = {

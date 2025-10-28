@@ -11,7 +11,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
-import type { SearchState } from '@vtex/faststore-sdk'
+import type { SearchState } from '@vtex/faststore-sdk-internal'
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
 import type {
   IntelligentSearchAutocompleteClickEvent,
@@ -34,12 +34,14 @@ export function sendAutocompleteClickEvent({
   position,
   productId,
 }: IntelligentSearchAutocompleteClickParams) {
-  return import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
-    return sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
-      name: 'intelligent_search_autocomplete_click',
-      params: { term, url, productId, position },
-    })
-  })
+  return import('@vtex/faststore-sdk-internal').then(
+    ({ sendAnalyticsEvent }) => {
+      return sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
+        name: 'intelligent_search_autocomplete_click',
+        params: { term, url, productId, position },
+      })
+    }
+  )
 }
 
 function SearchDropdown({

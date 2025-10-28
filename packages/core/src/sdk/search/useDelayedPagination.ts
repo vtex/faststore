@@ -1,4 +1,4 @@
-import { usePagination as usePaginationSDK } from '@vtex/faststore-sdk'
+import { usePagination as usePaginationSDK } from '@vtex/faststore-sdk-internal'
 import { useEffect, useState } from 'react'
 
 export const useDelayedPagination = (totalCount: number) => {

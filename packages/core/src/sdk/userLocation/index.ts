@@ -1,4 +1,4 @@
-import type { Session } from '@vtex/faststore-sdk'
+import type { Session } from '@vtex/faststore-sdk-internal'
 import { useUI } from '@vtex/faststore-ui'
 import { useEffect, useState, type RefObject } from 'react'
 import DiscoveryConfig from '../../../discovery.config'

@@ -7,7 +7,7 @@ import {
   useSearch,
   type SearchState,
   type Session,
-} from '@vtex/faststore-sdk'
+} from '@vtex/faststore-sdk-internal'
 import type {
   DeliveryPromiseBadge,
   Filter_FacetsFragment,

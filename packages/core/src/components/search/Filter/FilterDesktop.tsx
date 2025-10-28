@@ -1,4 +1,4 @@
-import { setFacet, useSearch } from '@vtex/faststore-sdk'
+import { setFacet, useSearch } from '@vtex/faststore-sdk-internal'
 
 import {
   regionSliderTypes,

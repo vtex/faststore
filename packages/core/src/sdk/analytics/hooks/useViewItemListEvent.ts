@@ -1,8 +1,11 @@
+import type {
+  CurrencyCode,
+  ViewItemListEvent,
+} from '@vtex/faststore-sdk-internal'
 import { useCallback } from 'react'
-import type { CurrencyCode, ViewItemListEvent } from '@vtex/faststore-sdk'
 
-import { useSession } from '../../session'
 import type { ProductSummary_ProductFragment } from '../../../../@generated/graphql'
+import { useSession } from '../../session'
 
 import type { AnalyticsItem } from '../types'
 
@@ -35,7 +38,7 @@ export const useViewItemListEvent = ({
         return
       }
 
-      import('@vtex/faststore-sdk').then(({ sendAnalyticsEvent }) => {
+      import('@vtex/faststore-sdk-internal').then(({ sendAnalyticsEvent }) => {
         sendAnalyticsEvent<ViewItemListEvent<AnalyticsItem>>({
           name: 'view_item_list',
           params: {

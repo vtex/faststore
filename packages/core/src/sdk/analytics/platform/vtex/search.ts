@@ -1,12 +1,12 @@
 /**
  * More info at: https://developers.vtex.com/docs/api-reference/intelligent-search-events-api-headless
  */
-import type { AnalyticsEvent } from '@vtex/faststore-sdk'
+import type { AnalyticsEvent } from '@vtex/faststore-sdk-internal'
 import type { SearchEvents } from '../../types'
 
+import config from '../../../../../discovery.config'
 import { getBaseDomain } from '../../../../utils/getBaseDomain'
 import { getCookie } from '../../../../utils/getCookie'
-import config from '../../../../../discovery.config'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600

@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
 import { Suspense, lazy, useState, type MouseEvent } from 'react'
 
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 import { useUI } from '@vtex/faststore-ui'
 
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'

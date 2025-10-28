@@ -1,4 +1,4 @@
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 
 import { useCallback, useEffect } from 'react'
 import { gql } from '../../../@generated'

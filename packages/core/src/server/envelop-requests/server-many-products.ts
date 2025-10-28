@@ -5,7 +5,7 @@ import type {
 import storeConfig from '../../../discovery.config'
 import { ITEMS_PER_PAGE } from '../../constants'
 
-import type { SearchState } from '@vtex/faststore-sdk'
+import type { SearchState } from '@vtex/faststore-sdk-internal'
 import { ServerExecuteFunction } from '../'
 import { gql } from '../../../@generated/gql'
 

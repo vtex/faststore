@@ -1,5 +1,5 @@
-import type { Session } from '@vtex/faststore-sdk'
-import { createSessionStore } from '@vtex/faststore-sdk'
+import type { Session } from '@vtex/faststore-sdk-internal'
+import { createSessionStore } from '@vtex/faststore-sdk-internal'
 import fetch from 'isomorphic-unfetch'
 import { useMemo } from 'react'
 

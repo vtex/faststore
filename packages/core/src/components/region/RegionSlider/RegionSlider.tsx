@@ -1,4 +1,8 @@
-import { toggleFacets, useSearch, type Session } from '@vtex/faststore-sdk'
+import {
+  toggleFacets,
+  useSearch,
+  type Session,
+} from '@vtex/faststore-sdk-internal'
 import {
   useUI,
   type FilterSliderProps as UIFilterSliderProps,
@@ -8,8 +12,6 @@ import {
 import dynamic from 'next/dynamic'
 import type { ChangeEvent, MouseEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import useRegion from '../RegionModal/useRegion'
-import { PickupPointCards } from '../../ui/PickupPoints'
 import {
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
@@ -18,6 +20,8 @@ import {
 } from '../../../sdk/deliveryPromise'
 import { sessionStore, useSession } from '../../../sdk/session'
 import { getGlobalSettings } from '../../../utils/globalSettings'
+import { PickupPointCards } from '../../ui/PickupPoints'
+import useRegion from '../RegionModal/useRegion'
 import styles from './section.module.scss'
 
 const UIFilterSlider = dynamic<UIFilterSliderProps>(

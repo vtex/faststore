@@ -1,5 +1,5 @@
-import type { Store } from '@vtex/faststore-sdk'
-import { createBaseStore } from '@vtex/faststore-sdk'
+import type { Store } from '@vtex/faststore-sdk-internal'
+import { createBaseStore } from '@vtex/faststore-sdk-internal'
 import { useSyncExternalStore } from 'react'
 
 export const useStore = <T>(store: Store<T>) =>

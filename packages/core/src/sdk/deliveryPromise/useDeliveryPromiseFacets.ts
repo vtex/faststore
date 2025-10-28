@@ -1,4 +1,4 @@
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 
 export function useDeliveryPromiseFacets() {
   const { state: searchState } = useSearch()
