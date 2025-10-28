@@ -32,7 +32,7 @@ export default function useScrollRestoration() {
           const { x, y } = await JSON.parse(stored)
 
           // Products rendering delay
-          setTimeout(() => window.scrollTo(x, y), 600)
+          setTimeout(() => window.scrollTo(x, y), 800)
         }
       }
     }
