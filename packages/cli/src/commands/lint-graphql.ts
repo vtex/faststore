@@ -106,7 +106,7 @@ function findGraphqlQueryVisitor(file: ts.SourceFile) {
           noLocation: true,
         })
         if (hasInvalidQuery(AST)) {
-          const error = `⚠️ [Graphql anonymous query found]: Graphql Queris must have a operation Name.\n\nfile📄: ${chalk.yellowBright(file.fileName)}`
+          const error = `⚠️ [GraphQL anonymous query found]: GraphQL queries must have an operation name.\n\nfile📄: ${chalk.yellowBright(file.fileName)}`
           logger.error(`${chalk.red('error')}: ${error}`)
           throw new Error(error)
         }
