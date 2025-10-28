@@ -54,7 +54,6 @@ const documents = {
     "\n  query ServerSecurity {\n    accountProfile {\n      name\n    }\n    userDetails {\n      email\n    }\n  }\n": types.ServerSecurityDocument,
     "\n  query ServerUserDetailsQuery {\n    accountProfile {\n      name\n    }\n    userDetails {\n      name\n      email\n      role\n      orgUnit\n    }\n  }\n": types.ServerUserDetailsQueryDocument,
     "\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n": types.ValidateUserDocument,
-    "\n  query Custom {\n    MyCustomQuery\n  }\n": types.CustomDocument,
 };
 
 /**
@@ -217,10 +216,6 @@ export function gql(source: "\n  query ServerUserDetailsQuery {\n    accountProf
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query ValidateUser {\n    validateUser {\n      isValid\n    }\n  }\n"): typeof import('./graphql').ValidateUserDocument;
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  query Custom {\n    MyCustomQuery\n  }\n"): typeof import('./graphql').CustomDocument;
 
 
 export function gql(source: string) {
