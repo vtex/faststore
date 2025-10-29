@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "partytown copylib 'public/~partytown' && faststore-core",
     "dev": "faststore prepare && next dev",
-    "generate": "partytown copylib 'public/~partytown' && faststore prepare && faststore-core",
+    "generate": "partytown copylib 'public/~partytown' && faststore-core",
     "build": "pnpm run generate && next build",
     "start": "next start",
     "cms-sync": "echo faststore cms-sync",

@@ -99,45 +99,46 @@ describe('FastStore GraphQL Layer', () => {
     it('should return a valid GraphQL schema', async () => {
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.
-      expect(assertValidSchema(nativeSchema)).toBeUndefined()
+      expect(assertValidSchema(await nativeSchema)).toBeUndefined()
     })
 
     it('should return a valid GraphQL schema contain all expected types', async () => {
-      TYPES.forEach((typeName) => {
-        expect(nativeSchema.getType(typeName)).toBeDefined()
+      TYPES.forEach(async (typeName) => {
+        expect((await nativeSchema).getType(typeName)).toBeDefined()
       })
     })
 
     it('should return a valid GraphQL schema contain all expected queries', async () => {
-      const queryFields = nativeSchema.getQueryType()?.getFields() ?? {}
+      const queryFields = (await nativeSchema).getQueryType()?.getFields() ?? {}
 
       expect(Object.keys(queryFields)).toEqual(QUERIES)
     })
 
     it('should return a valid GraphQL schema contain all expected mutations', async () => {
-      const mutationFields = nativeSchema.getMutationType()?.getFields() ?? {}
+      const mutationFields =
+        (await nativeSchema).getMutationType()?.getFields() ?? {}
 
       expect(Object.keys(mutationFields)).toEqual(MUTATIONS)
     })
   })
 
   describe('VTEX API Extension', () => {
-    it('getTypeDefsFromFolder function should return an Array', () => {
-      const typeDefs = getTypeDefsFromFolder('vtex')
+    it('getTypeDefsFromFolder function should return an Array', async () => {
+      const typeDefs = await getTypeDefsFromFolder('vtex')
       expect(typeDefs).toBeInstanceOf(Array)
     })
   })
 
   describe('Third Party API Extension', () => {
-    it('getTypeDefsFromFolder function should return an Array', () => {
-      const typeDefs = getTypeDefsFromFolder('thirdParty')
+    it('getTypeDefsFromFolder function should return an Array', async () => {
+      const typeDefs = await getTypeDefsFromFolder('thirdParty')
       expect(typeDefs).toBeInstanceOf(Array)
     })
   })
 
   describe('Final Schema after merging', () => {
     it('should return a valid merged GraphQL schema', async () => {
-      const schema = getMergedSchema()
+      const schema = await getMergedSchema()
 
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.

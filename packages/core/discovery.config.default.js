@@ -132,10 +132,6 @@ module.exports = {
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
     enableVtexAssetsLoader: false,
-    graphqlCacheControl: {
-      maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
-      staleWhileRevalidate: 60,
-    },
     refreshToken: false,
   },
 }

@@ -5,4 +5,6 @@ const nextConfig = withFastStore({
   reactStrictMode: false,
 })
 
+delete nextConfig.i18n
+
 module.exports = nextConfig

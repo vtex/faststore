@@ -122,25 +122,17 @@ export function withParsedGraphqlContext(next?: APIHandler): APIHandler {
       return
     }
 
-    const cacheControl =
-      !hasErrors && extensions.cacheControl
+    const setCookieValues = Array.from(extensions.cookies?.values() ?? [])
+
+    if (request.method === 'GET') {
+      const cacheControl = extensions.cacheControl
         ? stringifyCacheControl(extensions.cacheControl)
         : 'no-cache, no-store'
 
-    if (request.method === 'GET' && context['maxAge']) {
-      const maxAge = context['maxAge']
-      const staleWhileRevalidate = context['staleWhileRevalidate']
-
-      response.setHeader(
-        'cache-control',
-        `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
-      )
-    } else {
       response.setHeader('cache-control', cacheControl)
     }
 
-    const setCookieValues = Array.from(extensions.cookies?.values() ?? [])
-    if (setCookieValues.length > 0 && !hasErrors) {
+    if (setCookieValues.length > 0) {
       response.setHeader(
         'set-cookie',
         setCookieValues.map(({ setCookie }) =>
