@@ -15,7 +15,7 @@ module.exports = {
       descriptionTemplate: '%s products on FastStore Product Detail Page',
     },
     search: {
-      titleTemplate: '%s: Search results title',
+      titleTemplate: '%s | Search results',
       descriptionTemplate: '%s: Search results description',
       noIndex: true,
       noFollow: true,
@@ -149,7 +149,7 @@ module.exports = {
     enableVtexAssetsLoader: false,
     graphqlCacheControl: {
       maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
-      staleWhileRevalidate: 60,
+      staleWhileRevalidate: 60 * 60, // 1 hour
     },
     refreshToken: false,
   },

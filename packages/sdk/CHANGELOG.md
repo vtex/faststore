@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.91.2 (2025-10-27)
+
+### Bug Fixes
+
+- update buying policy alert message to include dynamic description SFS-2861 ([#3076](https://github.com/vtex/faststore/issues/3076)) ([f8f470e](https://github.com/vtex/faststore/commit/f8f470e7d70a0a2556e6136d84f57540b734b528))
+
+## [3.91.1](https://github.com/vtex/faststore/compare/v3.91.0...v3.91.1) (2025-10-24)
+
+### Bug Fixes
+
+- signin button flickering - SFS-2862 ([#3078](https://github.com/vtex/faststore/issues/3078)) ([edd4ac0](https://github.com/vtex/faststore/commit/edd4ac084817467e6dcedc6cd5fe89923b0f55e3))
+
 # [3.90.0](https://github.com/vtex/faststore/compare/v3.89.6...v3.90.0) (2025-10-13)
 
 ### Features

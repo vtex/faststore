@@ -54,27 +54,27 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
 
   const isSSREnabled = storeConfig.experimental.enableSearchSSR
 
+  const title = searchTerm ?? seo.title ?? 'Search Results'
+  const titleTemplate = searchSeo?.titleTemplate ?? seo.titleTemplate
+  const description = searchSeo?.descriptionTemplate
+    ? searchSeo.descriptionTemplate.replace(/%s/g, () => searchTerm)
+    : seo.description
+
   // default behavior without SSR
   if (!isSSREnabled) {
     return {
       noindex: searchSeo?.noIndex ?? true,
       nofollow: searchSeo?.noFollow ?? true,
-      title: seo.title,
-      description: seo.description,
-      titleTemplate: seo.titleTemplate,
+      title,
+      titleTemplate,
+      description,
       openGraph: {
         type: 'website',
-        title: seo.title,
-        description: seo.description,
+        title,
+        description,
       },
     }
   }
-
-  const title = searchTerm ?? 'Search Results'
-  const titleTemplate = searchSeo?.titleTemplate ?? seo.titleTemplate
-  const description = searchSeo?.descriptionTemplate
-    ? searchSeo.descriptionTemplate.replace(/%s/g, () => searchTerm)
-    : seo.description
 
   const canonical = searchTerm
     ? `${storeConfig.storeUrl}/s?q=${searchTerm.replaceAll(' ', '+')}`
@@ -116,7 +116,7 @@ function Page({
 
   const { noindex, nofollow, ...seoData } = generateSEOData(
     storeConfig,
-    searchTerm
+    searchTerm ?? searchParams.term ?? undefined
   )
 
   return (

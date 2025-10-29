@@ -19,12 +19,13 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { validateUser } from 'src/sdk/account/validateUser'
+import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
-import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+
+import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -34,14 +35,31 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type Props = {
-  globalSections: GlobalSectionsData
-  accountName: ServerAccountPageQueryQuery['accountProfile']['name']
+  globalSections?: GlobalSectionsData
+  accountName?: ServerAccountPageQueryQuery['accountProfile']['name']
+  needsRefreshToken?: boolean
+  fromPage?: string
 }
 
-function Page({ globalSections: globalSectionsProp, accountName }: Props) {
+function Page({
+  globalSections: globalSectionsProp,
+  accountName,
+  needsRefreshToken,
+  fromPage,
+}: Props) {
   const { sections: globalSections, settings: globalSettings } =
-    globalSectionsProp ?? {}
+    globalSectionsProp ?? { sections: [], settings: {} }
 
+  // Use the new hook to handle refresh token with session management
+  const { shouldShow403 } = useRefreshToken(needsRefreshToken, fromPage)
+
+  // Handle refresh token case - show loading while attempting refresh
+  if (needsRefreshToken && !shouldShow403) {
+    console.info('Refreshing authentication...')
+    return <></>
+  }
+
+  // Show 403 page if refresh failed or if we don't need refresh token
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
@@ -77,13 +95,50 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(context.previewData)
 
-  if (!isValid) {
+  const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      execute<
+        ServerAccountPageQueryQueryVariables,
+        ServerAccountPageQueryQuery
+      >(
+        {
+          variables: {},
+          operation: query,
+        },
+        { headers: { ...context.req.headers } }
+      ),
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
+  if (account.errors) {
+    console.error(...account.errors)
+
+    const statusCode: number = (account.errors[0] as any)?.extensions?.status
+
+    const fromPage =
+      typeof context.query.from === 'string' ? context.query.from : ''
+
     return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
+      props: {
+        globalSections: globalSectionsResult,
+        needsRefreshToken:
+          (statusCode === 401 || statusCode === 403) &&
+          storeConfig.experimental?.refreshToken,
+        fromPage,
       },
     }
   }
@@ -96,47 +151,11 @@ export const getServerSideProps: GetServerSideProps<
     return { redirect }
   }
 
-  const [
-    globalSectionsPromise,
-    globalSectionsHeaderPromise,
-    globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
-
-  const [
-    page,
-    account,
-    globalSections,
-    globalSectionsHeader,
-    globalSectionsFooter,
-  ] = await Promise.all([
-    getPage<PageContentType>({
-      ...(context.previewData?.contentType === '403' && context.previewData),
-      contentType: '403',
-    }),
-    execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
-      {
-        variables: {},
-        operation: query,
-      },
-      { headers: { ...context.req.headers } }
-    ),
-    globalSectionsPromise,
-    globalSectionsHeaderPromise,
-    globalSectionsFooterPromise,
-  ])
-
-  const globalSectionsResult = injectGlobalSections({
-    globalSections,
-    globalSectionsHeader,
-    globalSectionsFooter,
-  })
-
   return {
     props: {
       // The sections from the CMS page are not utilized here for the My Account page.
-      // page,
       globalSections: globalSectionsResult,
-      accountName: account.data.accountProfile.name,
+      accountName: account?.data?.accountProfile?.name ?? '',
     },
   }
 }

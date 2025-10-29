@@ -1,7 +1,7 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 export default function Page() {

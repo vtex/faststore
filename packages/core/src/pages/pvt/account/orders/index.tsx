@@ -16,7 +16,7 @@ import type {
 } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/orders/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/orders/before'
-import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
+import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
@@ -25,7 +25,6 @@ import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 import storeConfig from 'discovery.config'
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
-import { validateUser } from 'src/sdk/account/validateUser'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { extractStatusFromError } from 'src/utils/utilities'
 
@@ -131,17 +130,6 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const isValid = await validateUser(context)
-
-  if (!isValid) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
   const isRepresentative = getIsRepresentative({
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
@@ -225,11 +213,17 @@ export const getServerSideProps: GetServerSideProps<
     console.error(...listOrders.errors)
 
     const status = extractStatusFromError(listOrders.errors[0])
-    const isForbidden = status === 403 || status === 401
+
+    // Redirect to 403 for authentication errors (401/403) to handle token refresh
+    // Redirect to 404 for other errors
+    const destination =
+      status === 403 || status === 401
+        ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/orders')}`
+        : '/pvt/account/404'
 
     return {
       redirect: {
-        destination: isForbidden ? '/pvt/account/403' : '/pvt/account/404',
+        destination,
         permanent: false,
       },
     }
