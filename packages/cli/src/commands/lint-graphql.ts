@@ -83,7 +83,9 @@ function findGraphqlQueryVisitor(file: ts.SourceFile) {
   return (node: ts.Node) => {
     if (
       ts.isNoSubstitutionTemplateLiteral(node) ||
-      (ts.isCallExpression(node.parent) && ts.isStringLiteral(node))
+      (ts.isCallExpression(node.parent) &&
+        (node.parent.expression as ts.Expression).getText() === 'gql' &&
+        ts.isStringLiteral(node))
     ) {
       try {
         const AST = parse(node.text, {
