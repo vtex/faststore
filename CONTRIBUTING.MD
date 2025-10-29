@@ -88,7 +88,7 @@ After committing your changes, push them to the remote repository and open a Pul
 5. **Branching & Release Workflow**
    - ✅ **All Pull Requests must target the `dev` branch**, unless they are **hotfixes**.
    - 🔥 **Hotfixes** that require direct merging into `main` must be communicated beforehand, explaining the urgency.
-   - 🚀 The `dev` branch is merged into `main` every **three weeks**, generating a new release.
+   - 🚀 The `dev` branch is merged into `main` every **two weeks**, generating a new release.
    - 📦 All releases coming from `dev` are published under the **`dev` npm dist-tag**.
    - ✅ Releases on `main` are published under the **`latest` dist-tag**.
 
