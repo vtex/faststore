@@ -142,6 +142,13 @@ export const getAuthCookie = (cookies: string, account: string) => {
   return authCookie || ''
 }
 
+export const getSegmentCookie = (cookies: string) => {
+  const normalizedCookies = normalizeCookies(cookies)
+  const parsedCookies = parse(normalizedCookies)
+  const segmentCookie = parsedCookies['vtex_segment']
+  return segmentCookie || ''
+}
+
 export const getWithAutCookie = (ctx: ContextForCookies) => {
   const withCookie = getWithCookie(ctx)
 
@@ -195,4 +202,12 @@ export function parseJwt(token: string) {
     return null
   }
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+}
+
+export function parseJwtHeader(token: string) {
+  if (!token) {
+    return null
+  }
+
+  return JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString())
 }

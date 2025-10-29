@@ -1,6 +1,10 @@
 import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
-import { getWithCookie } from '../../utils/cookies'
+import {
+  getWithCookie,
+  getSegmentCookie,
+  parseJwtHeader,
+} from '../../utils/cookies'
 import type {
   FuzzyFacet,
   OperatorFacet,
@@ -146,9 +150,19 @@ export const IntelligentSearch = (
   }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const withDefaultFacets = facets.filter(
-      ({ key }) => !EXTRA_FACETS_KEYS.has(key)
-    )
+    const withDefaultFacets = facets
+      .filter(({ key }) => !EXTRA_FACETS_KEYS.has(key))
+      .filter(({ key }) => {
+        // Remove `productClusterIds` facet if it is already set in vtex_segment cookie
+        const segmentJwt = parseJwtHeader(
+          getSegmentCookie(ctx.headers?.cookie ?? '')
+        )
+        if (!segmentJwt || !segmentJwt?.facets?.includes('productClusterIds')) {
+          return
+        }
+
+        return key.toLowerCase() !== 'productclusterids'
+      })
 
     const shippingFacet =
       facets.find(
