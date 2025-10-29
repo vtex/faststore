@@ -24,7 +24,7 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
-  storeConfig.experimental.scrollRestoration && useScrollRestoration()
+  storeConfig.experimental?.scrollRestoration && useScrollRestoration()
   const router = useRouter()
   const { start: startGlobalSearchState } = useSearch()
 
