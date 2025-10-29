@@ -112,6 +112,7 @@
 
     &:disabled + label {
       cursor: not-allowed;
+      background-color: transparent;
     }
   }
 
