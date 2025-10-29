@@ -11,6 +11,7 @@ import {
 import path from 'path'
 import ts from 'typescript'
 import { logger } from '../utils/logger'
+
 export default class LintGraphql extends Command {
   static flags = {}
 
