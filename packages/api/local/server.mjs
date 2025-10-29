@@ -22,9 +22,6 @@ const yoga = createYoga({
   schema: getSchema(),
   context: getContextFactory(apiOptions),
   plugins: [
-    // useEngine(GraphQLJS),
-    // useSchema(schema),
-    // useExtendContext(contextFactory),
     useMaskedErrors({
       maskError: (err) => {
         if (
