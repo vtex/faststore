@@ -1,4 +1,4 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { existsSync } from 'fs-extra'
 
@@ -12,13 +12,13 @@ export default class GenerateGraphql extends Command {
     core: Flags.boolean({ char: 'c', hidden: true }),
   }
 
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore GraphQL customization is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { flags, args } = await this.parse(GenerateGraphql)

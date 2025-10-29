@@ -1,4 +1,4 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
@@ -10,18 +10,18 @@ import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 
 export default class Build extends Command {
-  static args = [
-    {
+  static args = {
+    account: Args.string({
       name: 'account',
       description:
-        'The account for which the Discovery is running. Currently noop.',
-    },
-    {
+        'The account for which the Discovery is running. Currently noop',
+    }),
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being built is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   static flags = {
     ['no-verify']: Flags.boolean({

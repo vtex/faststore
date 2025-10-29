@@ -1,26 +1,26 @@
-import { Command } from '@oclif/core'
+import { Args, Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import { existsSync } from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 
 export default class Start extends Command {
-  static args = [
-    {
+  static args = {
+    account: Args.string({
       name: 'account',
       description:
         'The account for which the Discovery is running. Currently noop.',
-    },
-    {
+    }),
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being run is. Defaults to cwd.',
-    },
-    {
+    }),
+    port: Args.integer({
       name: 'port',
       description: 'The port where FastStore should run. Defaults to 3000.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { args } = await this.parse(Start)

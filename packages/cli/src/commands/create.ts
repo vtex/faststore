@@ -1,16 +1,16 @@
-import fs from 'node:fs'
-import degit from 'degit'
-import { Command } from '@oclif/core'
 import { confirm } from '@inquirer/prompts'
+import { Args, Command } from '@oclif/core'
+import degit from 'degit'
+import fs from 'node:fs'
 
 export default class Create extends Command {
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the Discovery folder will be created. Defaults to ./discovery.',
-    },
-  ]
+    }),
+  }
 
   static description =
     'Creates a discovery folder based on the starter.store template.'

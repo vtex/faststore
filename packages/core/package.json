@@ -113,7 +113,7 @@
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.8.1",
     "dotenv": "^16.4.5",
-    "globby": "^15.0.0",
+    "globby": "catalog:",
     "jest": "catalog:",
     "jsonpath": "^1.1.1",
     "ts-jest": "catalog:",
