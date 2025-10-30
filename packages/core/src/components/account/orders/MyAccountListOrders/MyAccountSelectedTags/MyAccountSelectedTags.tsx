@@ -7,12 +7,11 @@ type MyAccountSelectedTagsProps = {
     status?: string[]
     dateInitial?: string
     dateFinal?: string
-    pendingMyApproval?: boolean
   }
   onClearAll: () => void
   onRemoveFilter: (
-    key: 'status' | 'dateInitial' | 'dateFinal' | 'pendingMyApproval',
-    value: string | boolean
+    key: 'status' | 'dateInitial' | 'dateFinal',
+    value: string
   ) => void
 }
 
@@ -41,8 +40,7 @@ function Tags({
   onRemoveFilter,
 }: Pick<MyAccountSelectedTagsProps, 'filters' | 'onRemoveFilter'>) {
   const { locale } = useSession()
-  const { dateInitial, dateFinal, status, pendingMyApproval } = filters
-
+  const { dateInitial, dateFinal, status } = filters
   const formattedDateInitial = dateInitial
     ? formatFilterDate(dateInitial, locale)
     : ''
@@ -87,21 +85,8 @@ function Tags({
     </div>
   ))
 
-  const pendingMyApprovalTag = pendingMyApproval && (
-    <div key="pending-approval" data-fs-list-orders-selected-tag>
-      <span>Pending my approval</span>
-      <button
-        data-fs-list-orders-selected-tag-clear
-        onClick={() => onRemoveFilter('pendingMyApproval', pendingMyApproval)}
-      >
-        &times;
-      </button>
-    </div>
-  )
-
   return (
     <>
-      {pendingMyApprovalTag}
       {dateTag}
       {statusTags}
     </>
@@ -115,10 +100,7 @@ function MyAccountSelectedTags({
 }: MyAccountSelectedTagsProps) {
   const hasFilters = Object.entries(filters).some(
     ([key, values]) =>
-      (key === 'status' ||
-        key === 'dateInitial' ||
-        key === 'dateFinal' ||
-        key === 'pendingMyApproval') &&
+      (key === 'status' || key === 'dateInitial' || key === 'dateFinal') &&
       values &&
       (Array.isArray(values) ? values.length > 0 : true)
   )

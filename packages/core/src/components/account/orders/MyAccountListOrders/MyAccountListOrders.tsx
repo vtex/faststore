@@ -40,7 +40,6 @@ export type MyAccountListOrdersProps = {
     dateFinal: string
     text: string
     clientEmail: string
-    pendingMyApproval?: boolean
   }
 }
 
@@ -73,11 +72,6 @@ function getSelectedFacets({
     } else if (filter === 'dateFinal' && value) {
       acc.push({
         key: 'dateFinal',
-        value: String(value),
-      })
-    } else if (filter === 'pendingMyApproval' && value) {
-      acc.push({
-        key: 'pendingMyApproval',
         value: String(value),
       })
     }
@@ -246,7 +240,6 @@ export default function MyAccountListOrders({
           status: filters.status,
           dateInitial: filters.dateInitial,
           dateFinal: filters.dateFinal,
-          pendingMyApproval: filters.pendingMyApproval,
         }}
         onClearAll={() => {
           window.location.href = '/pvt/account/orders'
