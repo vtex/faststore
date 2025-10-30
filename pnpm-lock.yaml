@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.91.3-dev.1
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -303,7 +303,7 @@ importers:
         specifier: ^3.91.3-dev.0
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.91.3-dev.1
         version: link:../sdk
       "@faststore/ui":
         specifier: ^3.91.3-dev.0
