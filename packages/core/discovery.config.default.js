@@ -151,5 +151,6 @@ module.exports = {
       staleWhileRevalidate: 60 * 60, // 1 hour
     },
     refreshToken: false,
+    scrollRestoration: false,
   },
 }
