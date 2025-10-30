@@ -3,189 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
-
-### Features
-
-- version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
-
-# 3.96.0-dev.18 (2025-12-24)
-
-**Note:** Version bump only for package faststore
-
-# 3.96.0-dev.17 (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.16](https://github.com/vtex/faststore/compare/v3.96.0-dev.15...v3.96.0-dev.16) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.15](https://github.com/vtex/faststore/compare/v3.96.0-dev.14...v3.96.0-dev.15) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.14](https://github.com/vtex/faststore/compare/v3.96.0-dev.13...v3.96.0-dev.14) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.13](https://github.com/vtex/faststore/compare/v3.96.0-dev.12...v3.96.0-dev.13) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.12](https://github.com/vtex/faststore/compare/v3.96.0-dev.11...v3.96.0-dev.12) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# 3.96.0-dev.11 (2025-12-23)
-
-### Bug Fixes
-
-- correct comment for platform specific config in discovery configuration ([0fea6fa](https://github.com/vtex/faststore/commit/0fea6faf812c0f0af3f139b6507b2f342264209c))
-
-# 3.96.0-dev.10 (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.9](https://github.com/vtex/faststore/compare/v3.96.0-dev.8...v3.96.0-dev.9) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.8](https://github.com/vtex/faststore/compare/v3.96.0-dev.7...v3.96.0-dev.8) (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# 3.96.0-dev.7 (2025-12-23)
-
-### Bug Fixes
-
-- correct comment for platform specific API configuration in discovery config ([b03968c](https://github.com/vtex/faststore/commit/b03968c84cfb935b71ef64f575dcdf3e8f624b5a))
-
-# 3.96.0-dev.6 (2025-12-23)
-
-**Note:** Version bump only for package faststore
-
-# 3.96.0-dev.5 (2025-12-23)
-
-### Features
-
-- Trigger build ([28b6ec0](https://github.com/vtex/faststore/commit/28b6ec0489080be0a3431ec2ead7bfce0da75a34))
-
-# 3.96.0-dev.4 (2025-12-23)
-
-### Bug Fixes
-
-- update release workflow to handle both main and dev branches ([#3160](https://github.com/vtex/faststore/issues/3160)) ([4247f92](https://github.com/vtex/faststore/commit/4247f9254f47056e726418290f4f019760a81935))
-
-# [3.96.0-dev.3](https://github.com/vtex/faststore/compare/v3.96.0-dev.2...v3.96.0-dev.3) (2025-12-22)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.2](https://github.com/vtex/faststore/compare/v3.96.0-dev.1...v3.96.0-dev.2) (2025-12-18)
-
-### Bug Fixes
-
-- adds cache busting to bypass cache when logged in/out. ([#3152](https://github.com/vtex/faststore/issues/3152)) ([862ea50](https://github.com/vtex/faststore/commit/862ea50999214771c4fa38fa70db789b4de5e59b))
-
-# [3.96.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.0-dev.0...v3.96.0-dev.1) (2025-12-16)
-
-**Note:** Version bump only for package faststore
-
-# [3.96.0-dev.0](https://github.com/vtex/faststore/compare/v3.95.1-dev.0...v3.96.0-dev.0) (2025-12-10)
-
-### Features
-
-- adds `priceTags` as tax - SFS-2970 ([#3144](https://github.com/vtex/faststore/issues/3144)) ([d1b3869](https://github.com/vtex/faststore/commit/d1b38699f2955890be1759e1d6d6cf55e1c4dda9))
-
-## [3.95.1-dev.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.95.1-dev.0) (2025-12-02)
-
-# 3.95.0-dev.3 (2025-12-02)
-
-**Note:** Version bump only for package faststore
-
-# 3.95.0 (2025-12-02)
-
-### Features
-
-- release graduate ([#3139](https://github.com/vtex/faststore/issues/3139)) ([90285fc](https://github.com/vtex/faststore/commit/90285fcc453531a897ba52adcb14032e8ebd8065))
-- release version 20250212 ([#3138](https://github.com/vtex/faststore/issues/3138)) ([5e51548](https://github.com/vtex/faststore/commit/5e5154898e3756aa8d95efd54d76db0c90248d8d))
-
-# [3.95.0-dev.2](https://github.com/vtex/faststore/compare/v3.94.0...v3.95.0-dev.2) (2025-12-02)
-
-### Features
-
-- release version 20250112 ([#3135](https://github.com/vtex/faststore/issues/3135)) ([65440cd](https://github.com/vtex/faststore/commit/65440cd5607e6946b4023882eacf711c215aa138))
-
-# 3.95.0-dev.1 (2025-12-01)
-
-### Bug Fixes
-
-- remove unnecessary fields from session in validateSession function ([#3124](https://github.com/vtex/faststore/issues/3124)) ([d64b7f6](https://github.com/vtex/faststore/commit/d64b7f61cb62881f448fafad2ed4d4b3771cdeca))
-- Update `validateCart` mutation tests ([#3132](https://github.com/vtex/faststore/issues/3132)) ([c8cbb52](https://github.com/vtex/faststore/commit/c8cbb5204562ddee126c63a576ba1f4d264092f7))
-
-# [3.95.0-dev.0](https://github.com/vtex/faststore/compare/v3.94.1-dev.0...v3.95.0-dev.0) (2025-11-20)
-
-### Features
-
-- Add svg extension to public folder copy's allow list ([#3123](https://github.com/vtex/faststore/issues/3123)) ([15aca77](https://github.com/vtex/faststore/commit/15aca77a3e4309d780dcb2c1511618a450c61e0f))
-
-## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
-
-# 3.93.0-dev.4 (2025-11-17)
-
-**Note:** Version bump only for package faststore
-
-# 3.94.0 (2025-11-19)
-
-### Features
-
-- release version 20251119 17 05 ([#3126](https://github.com/vtex/faststore/issues/3126)) ([9753c3f](https://github.com/vtex/faststore/commit/9753c3ff5ea760767978c41ec138b661a87ad731))
-- update version to 3.93.0-dev.4 and clean up changelogs ([#3127](https://github.com/vtex/faststore/issues/3127)) ([0c29d74](https://github.com/vtex/faststore/commit/0c29d749dc2222d01d848ffda9c2ae95dfba22af))
-
-# [3.93.0-dev.4](https://github.com/vtex/faststore/compare/v3.93.0-dev.3...v3.93.0-dev.4) (2025-11-17)
-
-### Bug Fixes
-
-- Show skeleton when product price is validating ([#3112](https://github.com/vtex/faststore/issues/3112)) ([1acb303](https://github.com/vtex/faststore/commit/1acb30334e2a17fe81630d3b0d631152c4e635f3))
-
-# 3.93.0-dev.3 (2025-11-17)
-
-### Bug Fixes
-
-- build among diff modules ([#3119](https://github.com/vtex/faststore/issues/3119)) ([fde7eb6](https://github.com/vtex/faststore/commit/fde7eb6635aaa4e0821fb8f6c6fb71f24604330b))
-
-# [3.93.0-dev.2](https://github.com/vtex/faststore/compare/v3.93.0-dev.1...v3.93.0-dev.2) (2025-11-07)
-
-### Bug Fixes
-
-- **ui:** update slider variable for border-radius in the mozilla rules ([#3077](https://github.com/vtex/faststore/issues/3077)) ([c491593](https://github.com/vtex/faststore/commit/c49159374edd41c9b4827f3ab902cdc2fc294101))
-
-# 3.93.0-dev.1 (2025-11-06)
-
-### Bug Fixes
-
-- Handle empty footer logo scenario ([#3094](https://github.com/vtex/faststore/issues/3094)) ([7323d8a](https://github.com/vtex/faststore/commit/7323d8a7d8cb09ad1d7ada7ca3269b8a28c7b91d))
-
-# [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
-
-### Features
-
-- Add RTL Support ([#3097](https://github.com/vtex/faststore/issues/3097)) ([e293857](https://github.com/vtex/faststore/commit/e293857070b265419aee793ba09fd0795e7d7b44))
-
-## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.91.3-dev.1...v3.92.1-dev.0) (2025-11-03)
-
-**Note:** Version bump only for package faststore
-
-# [3.92.0](https://github.com/vtex/faststore/compare/v3.91.2...v3.92.0) (2025-11-03)
-
-### Features
-
-- release ([#3092](https://github.com/vtex/faststore/issues/3092)) ([6dfe2ba](https://github.com/vtex/faststore/commit/6dfe2ba42dd03137ea53c85ad5aa3ee5a13c2fbf))
-
-## [3.91.3-dev.1](https://github.com/vtex/faststore/compare/v3.91.3-dev.0...v3.91.3-dev.1) (2025-10-30)
-
-**Note:** Version bump only for package faststore
-
 ## 3.91.3-dev.0 (2025-10-30)
 
 ### Bug Fixes
@@ -333,13 +150,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- update contract URL to remove 'pvt' prefix in OrganizationDrawer… ([#3039](https://github.com/vtex/faststore/issues/3039)) ([6e73b8e](https://github.com/vtex/faststore/commit/6e73b8e024ff66b90dc3ba48dfd53a81a582851b))
+- update contract URL to remove 'pvt' prefix in OrganizationDrawer…… ([#3039](https://github.com/vtex/faststore/issues/3039)) ([6e73b8e](https://github.com/vtex/faststore/commit/6e73b8e024ff66b90dc3ba48dfd53a81a582851b))
 
 ## [3.86.1](https://github.com/vtex/faststore/compare/v3.86.0...v3.86.1) (2025-09-16)
 
 ### Bug Fixes
 
-- conditionally set href for contract link in OrganizationDrawerHe… ([#3038](https://github.com/vtex/faststore/issues/3038)) ([b076715](https://github.com/vtex/faststore/commit/b076715dafea3173a69e1fc9ef1844f8e4d5e973))
+- conditionally set href for contract link in OrganizationDrawerHe…… ([#3038](https://github.com/vtex/faststore/issues/3038)) ([b076715](https://github.com/vtex/faststore/commit/b076715dafea3173a69e1fc9ef1844f8e4d5e973))
 
 # [3.86.0](https://github.com/vtex/faststore/compare/v3.85.0...v3.86.0) (2025-09-15)
 
@@ -553,7 +370,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- removing unwanted facets on product shelf to prevent duplication… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
+- removing unwanted facets on product shelf to prevent duplication…… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
 
 # [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
 
