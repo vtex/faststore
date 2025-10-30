@@ -123,6 +123,7 @@ function Page({
     <SearchProvider
       onChange={applySearchState}
       itemsPerPage={itemsPerPage}
+      shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
       {...searchParams}
     >
       {/* SEO */}
