@@ -1,5 +1,5 @@
 {
-  "name": "@fatstore/storybook",
+  "name": "@faststore/storybook",
   "version": "3.91.2",
   "private": true,
   "devDependencies": {
