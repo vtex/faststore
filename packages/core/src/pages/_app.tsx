@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import { useSearch } from '@vtex/faststore-sdk'
+import { useSearch } from '@vtex/faststore-sdk-internal'
 import { UIProvider } from '@vtex/faststore-ui'
 
 import ThirdPartyScripts from '../components/ThirdPartyScripts'
@@ -19,9 +19,12 @@ import SEO from '../../next-seo.config'
 import '../styles/main.scss'
 
 import { ITEMS_PER_PAGE } from '../constants'
+import { useSessionSettings } from '../sdk/session/useSessionSettings'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
+  // Initialize session with setting from FastStoreSDK
+  useSessionSettings()
   const router = useRouter()
   const { start: startGlobalSearchState } = useSearch()
 
