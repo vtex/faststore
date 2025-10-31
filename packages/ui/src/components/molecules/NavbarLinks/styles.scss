@@ -19,8 +19,8 @@
   --fs-navbar-links-link-padding-notebook            : 0 var(--fs-spacing-0);
 
   // List
-  --fs-navbar-links-list-padding-left-notebook       : var(--fs-spacing-3);
-  --fs-navbar-links-list-margin-left-notebook        : var(--fs-spacing-2);
+  --fs-navbar-links-list-padding-inline-start-notebook       : var(--fs-spacing-3);
+  --fs-navbar-links-list-margin-inline-start-notebook        : var(--fs-spacing-2);
   --fs-navbar-links-list-border-left-width-notebook  : var(--fs-border-width);
   --fs-navbar-links-list-border-left-color-notebook  : var(--fs-border-color-light);
 
@@ -51,7 +51,7 @@
   }
 
   [data-fs-button] {
-    margin-left: calc(-1 * var(--fs-spacing-1));
+    margin-inline-start: calc(-1 * var(--fs-spacing-1));
 
     // TODO: remove this after navbar 2.0 is implemented
     &[data-fs-button-variant="tertiary"] [data-fs-button-wrapper] {
@@ -69,11 +69,11 @@
       display: flex;
       align-items: center;
       column-gap: var(--fs-spacing-3);
-      padding-left: var(--fs-navbar-links-list-padding-left-notebook);
-      margin-left: var(--fs-navbar-links-list-margin-left-notebook);
+      padding-inline-start: var(--fs-navbar-links-list-padding-inline-start-notebook);
+      margin-inline-start: var(--fs-navbar-links-list-margin-inline-start-notebook);
       &::before {
         position: absolute;
-        left: calc(-1 * var(--fs-spacing-1));
+        inset-inline-start: calc(-1 * var(--fs-spacing-1));
         width: var(--fs-navbar-links-list-border-left-width-notebook);
         height: 60%;
         content: "";

@@ -173,7 +173,7 @@
 
     @include media("<notebook") {
       height: 100%;
-      padding-left: var(--fs-grid-padding);
+      padding-inline-start: var(--fs-grid-padding);
 
       &::after { left: calc(-1 * var(--fs-grid-padding)); }
 

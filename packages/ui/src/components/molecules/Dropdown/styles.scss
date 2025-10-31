@@ -24,7 +24,7 @@
 
   // Icon
   --fs-dropdown-item-icon-min-width         : 1.125rem;
-  --fs-dropdown-item-icon-margin-right      : var(--fs-spacing-0);
+  --fs-dropdown-item-icon-margin-inline-end      : var(--fs-spacing-0);
   --fs-dropdown-item-icon-margin-top        : calc(-1 * var(--fs-spacing-1));
 
   // Small
@@ -54,7 +54,7 @@
     font-size: var(--fs-dropdown-item-text-size);
     font-weight: var(--fs-dropdown-item-text-weight);
     color: var(--fs-dropdown-item-color);
-    text-align: left;
+    text-align: start;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
@@ -74,7 +74,7 @@
     [data-fs-dropdown-item-icon] {
       display: flex;
       min-width: var(--fs-dropdown-item-icon-min-width);
-      margin-right: var(--fs-dropdown-item-icon-margin-right);
+      margin-inline-end: var(--fs-dropdown-item-icon-margin-inline-end);
     }
 
     > a {

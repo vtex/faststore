@@ -82,7 +82,7 @@
 
   [data-fs-cart-item-remove-button] {
     position: absolute;
-    right: 0;
+    inset-inline-end: 0;
   }
 
   [data-fs-cart-item-prices] {
@@ -94,7 +94,7 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    padding-right: var(--fs-cart-item-padding);
+    padding-inline-end: var(--fs-cart-item-padding);
     border-top: var(--fs-cart-item-border-width) solid var(--fs-cart-item-border-color);
     [data-quantity-selector-input] {
       border-color: transparent;

@@ -71,7 +71,7 @@
     &:not(:placeholder-shown) + label,
     &:focus + label {
       top: rem(6px);
-      left: var(--fs-border-width);
+      inset-inline-start: var(--fs-border-width);
       font-size: var(--fs-input-field-label-size);
     }
 
@@ -117,17 +117,17 @@
   &[data-fs-input-field-actionable="true"] {
     min-width: rem(250px);
 
-    [data-fs-input] { padding-right: var(--fs-spacing-13); }
+    [data-fs-input] { padding-inline-end: var(--fs-spacing-13); }
 
     [data-fs-button] {
       position: absolute;
       top: 0;
-      right: 0;
+      inset-inline-end: 0;
       height: var(--fs-input-field-button-height);
 
       [data-fs-button-wrapper]::before {
         position: absolute;
-        left: calc(-1 * var(--fs-spacing-1));
+        inset-inline-start: calc(-1 * var(--fs-spacing-1));
         width: 1px;
         height: 80%;
         content: "";

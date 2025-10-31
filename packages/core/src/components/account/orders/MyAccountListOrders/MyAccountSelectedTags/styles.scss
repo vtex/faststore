@@ -52,11 +52,11 @@
   [data-fs-list-orders-selected-tags-clear-all-button] {
     --fs-button-height: 1.5rem;
 
-    --fs-list-orders-selected-tags-clear-all-button-margin-left: -0.5rem;
+    --fs-list-orders-selected-tags-clear-all-button-margin-inline-start: -0.5rem;
 
     [data-fs-button-wrapper] {
       width: max-content;
-      margin-top: var(--fs-list-orders-selected-tags-clear-all-button-margin-left);
+      margin-top: var(--fs-list-orders-selected-tags-clear-all-button-margin-inline-start);
       background-color: transparent;
       transition: unset;
 

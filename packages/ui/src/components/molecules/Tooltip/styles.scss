@@ -98,31 +98,42 @@
 
   /* TOP-START */
   [data-fs-tooltip-placement="top-start"] {
-    left: 0;
+    inset-inline-start: 0;
   }
 
   [data-fs-tooltip-placement="top-start"] [data-fs-tooltip-indicator] {
-    left: var(--fs-spacing-3);
+    inset-inline-start: var(--fs-spacing-3);
   }
 
   /* TOP-END */
   [data-fs-tooltip-placement="top-end"] {
-    right: 0;
+    inset-inline-end: 0;
   }
 
   [data-fs-tooltip-placement="top-end"] [data-fs-tooltip-indicator] {
-    right: var(--fs-spacing-3);
+    inset-inline-end: var(--fs-spacing-3);
   }
 
   /* RIGHT */
   [data-fs-tooltip-placement^="right"] {
-    left: 100%;
+    inset-inline-start: 100%;
     transform: translateX(var(--fs-tooltip-indicator-translate));
   }
 
   [data-fs-tooltip-placement^="right"] [data-fs-tooltip-indicator] {
-    right: 100%;
-    border-right-color: var(--fs-tooltip-background);
+    inset-inline-end: 100%;
+    border-inline-end-color: var(--fs-tooltip-background);
+  }
+
+  // RTL: Invert right/left tooltip directions
+  [dir='rtl'] & {
+    &[data-fs-tooltip-placement^="right"] {
+      transform: translateX(calc(-1 * var(--fs-tooltip-indicator-translate)));
+    }
+
+    &[data-fs-tooltip-placement^="left"] {
+      transform: translateX(var(--fs-tooltip-indicator-translate));
+    }
   }
 
   /* RIGHT-CENTER */
@@ -182,31 +193,31 @@
 
   /* BOTTOM-START */
   [data-fs-tooltip-placement="bottom-start"] {
-    left: 0;
+    inset-inline-start: 0;
   }
 
   [data-fs-tooltip-placement="bottom-start"] [data-fs-tooltip-indicator] {
-    left: var(--fs-spacing-3);
+    inset-inline-start: var(--fs-spacing-3);
   }
 
   /* BOTTOM-END */
   [data-fs-tooltip-placement="bottom-end"] {
-    right: 0;
+    inset-inline-end: 0;
   }
 
   [data-fs-tooltip-placement="bottom-end"] [data-fs-tooltip-indicator] {
-    right: var(--fs-spacing-3);
+    inset-inline-end: var(--fs-spacing-3);
   }
 
   /* LEFT */
   [data-fs-tooltip-placement^="left"] {
-    right: 100%;
+    inset-inline-end: 100%;
     transform: translateX(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
   [data-fs-tooltip-placement^="left"] [data-fs-tooltip-indicator] {
-    left: 100%;
-    border-left-color: var(--fs-tooltip-background);
+    inset-inline-start: 100%;
+    border-inline-start-color: var(--fs-tooltip-background);
   }
 
   /* LEFT-CENTER */

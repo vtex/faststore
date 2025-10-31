@@ -48,6 +48,11 @@ module.exports = {
       symbol: '$',
     },
     locale: 'en-US',
+    // RTL (Right-to-Left) text direction
+    // Set to 'rtl' or 'ltr' to override automatic detection based on locale
+    // If not set, will be automatically determined from locale (e.g., 'ar-SA' -> 'rtl')
+    // Leave as null/undefined to use automatic detection
+    rtl: 'rtl',
     channel:
       '{"salesChannel":"1","regionId":"","hasOnlyDefaultSalesChannel":"true"}',
     country: 'USA',

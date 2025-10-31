@@ -4,7 +4,7 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-breadcrumb-margin-left                         : var(--fs-spacing-0);
+  --fs-breadcrumb-margin-inline-start                         : var(--fs-spacing-0);
   --fs-breadcrumb-padding                             : var(--fs-spacing-2) 0;
 
   // List item
@@ -28,7 +28,7 @@
   --fs-breadcrumb-divider-border-left-color           : var(--fs-border-color-light);
 
   // Dropdown Button
-  --fs-breadcrumb-dropdown-button-margin-left         : var(--fs-breadcrumb-margin-left);
+  --fs-breadcrumb-dropdown-button-margin-inline-start         : var(--fs-breadcrumb-margin-inline-start);
   --fs-breadcrumb-dropdown-button-color               : var(--fs-color-link);
   --fs-breadcrumb-dropdown-button-border-radius       : var(--fs-spacing-0);
   --fs-breadcrumb-dropdown-button-transition-property : var(--fs-transition-property);
@@ -47,7 +47,7 @@
     align-items: center;
     overflow-x: hidden;
     @include media("<notebook") {
-      margin-left: var(--fs-breadcrumb-margin-left);
+      margin-inline-start: var(--fs-breadcrumb-margin-inline-start);
     }
   }
 
@@ -125,7 +125,7 @@
   [data-fs-breadcrumb-dropdown-button] {
     display: flex;
     align-items: center;
-    margin-left: var(--fs-breadcrumb-dropdown-button-margin-left);
+    margin-inline-start: var(--fs-breadcrumb-dropdown-button-margin-inline-start);
     color: var(--fs-breadcrumb-dropdown-button-color);
     cursor: pointer;
     background-color: transparent;

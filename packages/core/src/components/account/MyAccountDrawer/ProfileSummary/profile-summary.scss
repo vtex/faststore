@@ -70,14 +70,14 @@
     width: var(--fs-spacing-6);
     min-width: var(--fs-spacing-6);
     height: var(--fs-spacing-6);
-    margin-right: var(--fs-spacing-3);
+    margin-inline-end: var(--fs-spacing-3);
     overflow: hidden;
     color: var(--fs-border-color-active);
     background-color: #cbe9ff;
     border-radius: var(--fs-border-radius-pill);
 
     @include media("<=tablet") {
-      margin-right: var(--fs-spacing-1);
+      margin-inline-end: var(--fs-spacing-1);
     }
   }
 

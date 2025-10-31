@@ -33,12 +33,12 @@
   --fs-toast-title-size                   : var(--fs-text-size-body);
   --fs-toast-title-weight                 : var(--fs-text-weight-bold);
   --fs-toast-title-line-height            : 1.2;
-  --fs-toast-title-margin-left            : var(--fs-spacing-3);
+  --fs-toast-title-margin-inline-start            : var(--fs-spacing-3);
 
   // Message
   --fs-toast-message-size                 : var(--fs-toast-title-size);
   --fs-toast-message-line-height          : var(--fs-toast-title-line-height);
-  --fs-toast-message-margin-left          : var(--fs-spacing-3);
+  --fs-toast-message-margin-inline-start          : var(--fs-spacing-3);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -46,12 +46,12 @@
 
   position: fixed;
   top: var(--fs-toast-top-mobile);
-  right: 0;
+  inset-inline-end: 0;
   z-index: 10;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
   width: var(--fs-toast-width);
   min-height: var(--fs-toast-min-height);
   padding: var(--fs-toast-padding);
@@ -65,7 +65,7 @@
 
   @include media(">=tablet") {
     top: var(--fs-toast-top-tablet);
-    right: var(--fs-spacing-4);
+    inset-inline-end: var(--fs-spacing-4);
     max-width: rem(398px);
   }
 
@@ -95,7 +95,7 @@
   }
 
   [data-fs-toast-title] {
-    margin-left: var(--fs-toast-title-margin-left);
+    margin-inline-start: var(--fs-toast-title-margin-inline-start);
     overflow: hidden;
     font-size: var(--fs-toast-title-size);
     font-weight: var(--fs-toast-title-weight);
@@ -103,7 +103,7 @@
   }
 
   [data-fs-toast-message] {
-    margin-left: var(--fs-toast-message-margin-left);
+    margin-inline-start: var(--fs-toast-message-margin-inline-start);
     overflow: hidden;
     font-size: var(--fs-toast-message-size);
     line-height: var(--fs-toast-message-line-height);

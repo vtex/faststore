@@ -18,15 +18,15 @@
   --fs-filter-accordion-button-text-size                  : var(--fs-text-size-lead);
   --fs-filter-accordion-button-text-weight                : var(--fs-text-weight-regular);
   --fs-filter-accordion-button-line-height                : 1.5;
-  --fs-filter-accordion-button-padding-right-notebook     : var(--fs-spacing-4);
-  --fs-filter-accordion-button-padding-left-notebook      : var(--fs-filter-accordion-button-padding-right-notebook);
+  --fs-filter-accordion-button-padding-inline-end-notebook     : var(--fs-spacing-4);
+  --fs-filter-accordion-button-padding-inline-start-notebook      : var(--fs-filter-accordion-button-padding-inline-end-notebook);
 
   --fs-filter-accordion-button-text-size-notebook         : var(--fs-text-size-2);
   --fs-filter-accordion-button-line-height-notebook       : 1.25;
 
   // Accordion Item Panel
-  --fs-filter-accordion-item-panel-padding-right-notebook : var(--fs-spacing-4);
-  --fs-filter-accordion-item-panel-padding-left-notebook  : var(--fs-filter-accordion-item-panel-padding-right-notebook);
+  --fs-filter-accordion-item-panel-padding-inline-end-notebook : var(--fs-spacing-4);
+  --fs-filter-accordion-item-panel-padding-inline-start-notebook  : var(--fs-filter-accordion-item-panel-padding-inline-end-notebook);
 
   // Accordion Item List
   --fs-filter-list-padding-bottom                         : var(--fs-spacing-3);
@@ -40,12 +40,12 @@
 
   // List Item Label
   --fs-filter-list-item-label-width                       : 100%;
-  --fs-filter-list-item-label-margin-left                 : var(--fs-spacing-1);
+  --fs-filter-list-item-label-margin-inline-start                 : var(--fs-spacing-1);
   --fs-filter-list-item-label-text-size                   : var(--fs-text-size-2);
   --fs-filter-list-item-label-line-height                 : 1.25;
 
   // List Item Badge
-  --fs-filter-list-item-badge-margin-left                 : var(--fs-spacing-1);
+  --fs-filter-list-item-badge-margin-inline-start                 : var(--fs-spacing-1);
 
   [data-fs-filter-title] {
     display: flex;
@@ -75,8 +75,8 @@
         line-height: var(--fs-filter-accordion-button-line-height);
 
         @include media(">=notebook") {
-          padding-right: var(--fs-filter-accordion-button-padding-right-notebook);
-          padding-left: var(--fs-filter-accordion-button-padding-left-notebook);
+          padding-inline-start: var(--fs-filter-accordion-button-padding-inline-start-notebook);
+          padding-inline-end: var(--fs-filter-accordion-button-padding-inline-end-notebook);
           font-size: var(--fs-filter-accordion-button-text-size-notebook);
           line-height: var(--fs-filter-accordion-button-line-height-notebook);
         }
@@ -85,8 +85,8 @@
 
     [data-fs-accordion-panel] {
       @include media(">=notebook") {
-        padding-right: var(--fs-filter-accordion-item-panel-padding-right-notebook);
-        padding-left: var(--fs-filter-accordion-item-panel-padding-left-notebook);
+        padding-inline-start: var(--fs-filter-accordion-item-panel-padding-inline-start-notebook);
+        padding-inline-end: var(--fs-filter-accordion-item-panel-padding-inline-end-notebook);
       }
     }
 
@@ -121,13 +121,13 @@
     display: flex;
     align-items: center;
     width: var(--fs-filter-list-item-label-width);
-    margin-left: var(--fs-filter-list-item-label-margin-left);
+    margin-inline-start: var(--fs-filter-list-item-label-margin-inline-start);
     font-size: var(--fs-filter-list-item-label-text-size);
     line-height: var(--fs-filter-list-item-label-line-height);
   }
 
   [data-fs-filter-list-item-badge] {
-    margin-left: var(--fs-filter-list-item-badge-margin-left);
+    margin-inline-start: var(--fs-filter-list-item-badge-margin-inline-start);
   }
 
   [data-fs-filter-list-item-radio] {

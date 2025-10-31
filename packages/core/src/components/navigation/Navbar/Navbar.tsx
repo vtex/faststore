@@ -6,6 +6,7 @@ import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 import { Skeleton as UISkeleton } from '@faststore/ui'
 import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
 import CartToggle from 'src/components/cart/CartToggle'
+import RTLToggle from 'src/components/common/RTLToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
@@ -204,6 +205,7 @@ function Navbar({
               ))}
 
             <CartToggle {...cart} />
+            <RTLToggle />
           </NavbarButtons.Component>
         </NavbarRow.Component>
       </NavbarHeader.Component>

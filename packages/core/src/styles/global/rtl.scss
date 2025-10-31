@@ -1,0 +1,92 @@
+/**
+ * RTL (Right-to-Left) specific styles
+ * These styles will be applied when the HTML element has dir="rtl"
+ */
+
+[dir='rtl'] {
+  // Common RTL adjustments
+  // These are general rules that apply to RTL layouts
+
+  // Text alignment defaults to right for RTL
+  text-align: right;
+
+  // Ensure proper margin and padding direction
+  // Most components should use CSS logical properties (margin-inline-start, etc.)
+  // but for legacy support, we can add specific overrides here if needed
+}
+
+// RTL-specific adjustments for common UI patterns
+[dir='rtl'] {
+  // Icons that need to be flipped
+  .icon-flip {
+    transform: scaleX(-1);
+  }
+
+  // Dropdowns and menus
+  // These typically need left/right position adjustments
+  // Most should be handled by CSS logical properties in component styles
+
+  // Navigation menus
+  nav {
+    direction: rtl;
+  }
+
+  // Lists
+  ul,
+  ol {
+    padding-inline-start: 0;
+    padding-inline-end: initial;
+  }
+
+  // Forms
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='number'],
+  input[type='search'],
+  textarea {
+    text-align: right;
+  }
+
+  // Buttons with icons
+  button,
+  .button {
+    direction: rtl;
+
+    &.icon-left {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+// Utility classes for RTL-aware spacing
+// These use CSS logical properties which automatically adjust for direction
+// If you need to override specific margins/paddings, use logical properties:
+// margin-inline-start instead of margin-left
+// margin-inline-end instead of margin-right
+// padding-inline-start instead of padding-left
+// padding-inline-end instead of padding-right
+
+// RTL-specific animation and transition adjustments
+[dir='rtl'] {
+  // Slide animations are inverted automatically via component-specific rules
+  // (see SlideOver, Tooltip, Popover component styles)
+
+  // General transform inversions for directional animations
+  // Components with translateX animations will be handled individually
+
+  // Ensure transitions respect RTL direction
+  * {
+    transition-timing-function: ease;
+  }
+
+  // Invert horizontal scrolling direction if needed
+  [data-fs-carousel-track] {
+    direction: rtl;
+
+    [data-fs-carousel-item] {
+      direction: ltr; // Reset content direction inside items
+    }
+  }
+}
+

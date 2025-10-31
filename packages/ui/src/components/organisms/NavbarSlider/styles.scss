@@ -9,7 +9,7 @@
   // Header
   --fs-navbar-slider-header-height              : 5rem;
   --fs-navbar-slider-header-padding-bottom      : var(--fs-spacing-2);
-  --fs-navbar-slider-header-button-margin-right : calc(-1 * var(--fs-spacing-1));
+  --fs-navbar-slider-header-button-margin-inline-end : calc(-1 * var(--fs-spacing-1));
 
   // Footer
   --fs-navbar-slider-footer-padding-top         : var(--fs-navbar-slider-header-padding-bottom);
@@ -17,7 +17,7 @@
 
   // Logo
   --fs-navbar-slider-logo-padding               : 0;
-  --fs-navbar-slider-logo-margin-right          : var(--fs-spacing-5);
+  --fs-navbar-slider-logo-margin-inline-end          : var(--fs-spacing-5);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -34,7 +34,7 @@
   [data-fs-navbar-slider-logo] {
     height: 100%;
     padding: var(--fs-navbar-slider-logo-padding);
-    margin-right: var(--fs-navbar-slider-logo-margin-right);
+    margin-inline-end: var(--fs-navbar-slider-logo-margin-inline-end);
   }
 
   [data-fs-navbar-slider-footer] {
@@ -43,7 +43,7 @@
 
     [data-fs-button-signin-link] {
       width: fit-content;
-      padding-left: 0;
+      padding-inline-start: 0;
     }
   }
 }

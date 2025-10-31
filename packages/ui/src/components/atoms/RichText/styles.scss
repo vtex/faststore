@@ -7,15 +7,15 @@
     [data-fs-rich-text-list="true"] {
       margin-top: 0;
       margin-bottom: 0;
-      margin-left: var(--fs-spacing-4);
+      margin-inline-start: var(--fs-spacing-4);
 
       [data-fs-rich-text-list="true"] {
-        margin-left: var(--fs-spacing-6);
+        margin-inline-start: var(--fs-spacing-6);
       }
     }
 
     li {
-      padding-left: 0;
+      padding-inline-start: 0;
       margin: 0;
     }
 

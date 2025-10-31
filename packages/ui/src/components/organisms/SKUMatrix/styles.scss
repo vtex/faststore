@@ -75,11 +75,11 @@
 
     [data-fs-table-cell] {
       &:first-child {
-        padding-left: 0;
+        padding-inline-start: 0;
       }
 
       &:last-child {
-        padding-right: 0;
+        padding-inline-end: 0;
       }
     }
   }
