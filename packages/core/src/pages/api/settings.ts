@@ -15,7 +15,7 @@ export default async function handler(
     const appKey = process.env.VTEX_API_KEY
     const appToken = process.env.VTEX_API_TOKEN
 
-    console.log('🔄 Initializing FastStoreSDK (external package):', { account })
+    console.log('Initializing FastStoreSDK to get settings:', { account })
 
     // Use the external FastStoreSDK package
     const faststore = new FastStoreSDK({
@@ -40,7 +40,8 @@ export default async function handler(
   } catch (error) {
     console.error('Settings API error:', error)
 
-    // Fallback settings
+    // Fallback settings for when the FastStoreSDK fails to get the settings
+    // TODO: check what to do in this scneario
     const fallbackSettings: SettingsResponse = {
       locales: [],
       currentLocale: storeConfig.session.locale,

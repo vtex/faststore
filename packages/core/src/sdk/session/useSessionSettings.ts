@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import type { SettingsResponse } from '@vtex/faststore-sdk'
 import storeConfig from '../../../discovery.config'
+import { localizationStore } from '../localization'
 import { sessionStore } from './index'
 
 export const useSessionSettings = () => {
@@ -34,6 +35,12 @@ export const useSessionSettings = () => {
               ...channel,
               salesChannel: settings.salesChannel,
             }),
+          })
+
+          // Store localization settings (available locales, URL mappings)
+          localizationStore.set({
+            locales: settings.locales,
+            urls: settings.urls,
           })
 
           console.log('Session initialized with settings:', {
