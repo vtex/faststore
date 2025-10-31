@@ -29,8 +29,8 @@
 
     [data-fs-slide-over-header] {
       @include media(">=notebook") {
-        padding-right: var(--fs-spacing-6);
-        padding-left: var(--fs-spacing-6);
+        padding-inline-start: var(--fs-spacing-6);
+        padding-inline-end: var(--fs-spacing-6);
       }
     }
 

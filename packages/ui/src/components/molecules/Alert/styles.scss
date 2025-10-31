@@ -5,8 +5,8 @@
 
   // Default properties
   --fs-alert-height                    : var(--fs-spacing-7);
-  --fs-alert-padding-left              : var(--fs-spacing-3);
-  --fs-alert-padding-right             : var(--fs-alert-padding-left);
+  --fs-alert-padding-inline-start              : var(--fs-spacing-3);
+  --fs-alert-padding-inline-end             : var(--fs-alert-padding-inline-start);
 
   --fs-alert-bkg-color                 : var(--fs-color-highlighted-bkg);
 
@@ -16,7 +16,7 @@
   // Icon
   --fs-alert-icon-width                : var(--fs-spacing-4);
   --fs-alert-icon-height               : var(--fs-alert-icon-width);
-  --fs-alert-icon-margin-right         : var(--fs-spacing-1);
+  --fs-alert-icon-margin-inline-end         : var(--fs-spacing-1);
   --fs-alert-icon-color                : var(--fs-alert-text-color);
 
   // Link
@@ -36,8 +36,8 @@
   align-items: center;
   width: 100%;
   height: var(--fs-alert-height);
-  padding-right: var(--fs-alert-padding-right);
-  padding-left: var(--fs-alert-padding-left);
+  padding-inline-start: var(--fs-alert-padding-inline-start);
+  padding-inline-end: var(--fs-alert-padding-inline-end);
   font-size: var(--fs-alert-text-size);
   color: var(--fs-alert-text-color);
   background-color: var(--fs-alert-bkg-color);
@@ -45,7 +45,7 @@
   > [data-fs-icon] {
     width: var(--fs-alert-icon-width);
     height: var(--fs-alert-icon-height);
-    margin-right: var(--fs-alert-icon-margin-right);
+    margin-inline-end: var(--fs-alert-icon-margin-inline-end);
     color: var(--fs-alert-icon-color);
   }
 
@@ -76,7 +76,7 @@
   }
 
   [data-fs-alert-button] {
-    margin-left: auto;
+    margin-inline-start: auto;
 
     [data-fs-button-wrapper] { color: var(--fs-alert-button-text-color); }
 
@@ -90,6 +90,6 @@
   // --------------------------------------------------------
 
   &[data-fs-alert-dismissible="true"] {
-    padding-right: 0;
+    padding-inline-end: 0;
   }
 }

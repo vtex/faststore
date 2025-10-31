@@ -83,7 +83,7 @@
       display: flex;
       gap: var(--fs-spacing-2);
       justify-self: left;
-      margin-right: auto;
+      margin-inline-end: auto;
     }
   }
 }
@@ -126,7 +126,7 @@
         padding: 0;
         font-size: var(--fs-text-size-3);
         font-weight: var(--fs-text-weight-semibold);
-        text-align: left;
+        text-align: start;
         letter-spacing: -0.04em;
       }
 
@@ -204,7 +204,7 @@
                 justify-content: space-between;
                 width: 100%;
                 padding: 0;
-                padding-right: var(--fs-spacing-1);
+                padding-inline-end: var(--fs-spacing-1);
                 text-align: start;
               }
             }
@@ -283,8 +283,8 @@
           flex-direction: row-reverse;
 
           [data-fs-label] {
-            margin-right: var(--fs-spacing-1);
-            margin-left: 0;
+            margin-inline-end: var(--fs-spacing-1);
+            margin-inline-start: 0;
           }
         }
 
@@ -293,7 +293,7 @@
           align-items: center;
 
           [data-fs-product-comparison-filters-sort-label] {
-            margin-right: var(--fs-spacing-1);
+            margin-inline-end: var(--fs-spacing-1);
             font-size: var(--fs-text-size-2);
             font-weight: var(--fs-product-comparison-text-weight);
           }
@@ -395,8 +395,8 @@
     border-bottom: 1px solid var(--fs-border-color-light);
 
     [data-fs-label] {
-      margin-right: var(--fs-spacing-6);
-      margin-left: 0;
+      margin-inline-end: var(--fs-spacing-6);
+      margin-inline-start: 0;
     }
   }
 }

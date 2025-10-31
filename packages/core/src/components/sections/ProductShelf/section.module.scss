@@ -1,7 +1,7 @@
 @layer components {
   .section {
     [data-fs-product-shelf-skeleton] {
-      --fs-carousel-item-margin-right    : var(--fs-spacing-3);
+      --fs-carousel-item-margin-inline-end    : var(--fs-spacing-3);
 
       padding-bottom: var(--fs-spacing-5);
 
@@ -10,7 +10,7 @@
       @include media("<tablet") {
         [data-fs-product-shelf-item] {
           &:not(:last-of-type) {
-            margin-right: var(--fs-carousel-item-margin-right);
+            margin-inline-end: var(--fs-carousel-item-margin-inline-end);
           }
         }
       }

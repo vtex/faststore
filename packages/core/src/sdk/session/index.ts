@@ -138,7 +138,7 @@ export const validateSession = async (session: Session) => {
 
 const [validationStore, onValidate] = createValidationStore(validateSession)
 
-const defaultStore = createSessionStore(storeConfig.session, onValidate)
+const defaultStore = createSessionStore(storeConfig.session as any, onValidate)
 
 export const sessionStore = {
   ...defaultStore,

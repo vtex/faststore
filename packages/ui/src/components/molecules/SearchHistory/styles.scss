@@ -5,9 +5,9 @@
 
   // Default properties
   --fs-search-history-padding-top             : var(--fs-spacing-2);
-  --fs-search-history-padding-right           : var(--fs-spacing-3);
+  --fs-search-history-padding-inline-end           : var(--fs-spacing-3);
   --fs-search-history-padding-bottom          : var(--fs-search-history-padding-top);
-  --fs-search-history-padding-left            : var(--fs-search-history-padding-right);
+  --fs-search-history-padding-inline-start            : var(--fs-search-history-padding-inline-end);
   --fs-search-history-transition-property     : var(--fs-transition-property);
   --fs-search-history-transition-function     : var(--fs-transition-function);
   --fs-search-history-transition-timing       : var(--fs-transition-timing);
@@ -43,7 +43,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: var(--fs-search-history-min-height);
-    padding: var(--fs-search-history-header-padding-top) var(--fs-search-history-padding-right) var(--fs-search-history-header-padding-bottom) var(--fs-search-history-padding-left);
+    padding: var(--fs-search-history-header-padding-top) var(--fs-search-history-padding-inline-end) var(--fs-search-history-header-padding-bottom) var(--fs-search-history-padding-inline-start);
     [data-fs-button] { white-space: nowrap; }
   }
 
@@ -69,8 +69,8 @@
       align-items: center;
       justify-content: flex-start;
       width: 100%;
-      padding-left: var(--fs-search-history-padding-left);
-      padding-right: var(--fs-search-history-padding-right);
+      padding-inline-start: var(--fs-search-history-padding-inline-start);
+      padding-inline-end: var(--fs-search-history-padding-inline-end);
       column-gap: var(--fs-search-history-item-column-gap);
     }
 

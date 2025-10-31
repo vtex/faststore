@@ -70,7 +70,7 @@
 
     [data-fs-my-account-accordion-summary] {
       flex-shrink: 0;
-      padding-left: calc(var(--fs-spacing-4) + var(--fs-spacing-2)); // icon + padding
+      padding-inline-start: calc(var(--fs-spacing-4) + var(--fs-spacing-2)); // icon + padding
       font-size: var(--fs-text-size-1);
       font-weight: var(--fs-text-weight-medium);
       line-height: 1.5;

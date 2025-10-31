@@ -15,7 +15,7 @@
   --fs-search-input-field-button-padding-bottom-desktop : var(--fs-search-input-field-button-padding-top-desktop);
 
   // Input
-  --fs-search-input-field-input-padding-right           : var(--fs-spacing-7);
+  --fs-search-input-field-input-padding-inline-end           : var(--fs-spacing-7);
   --fs-search-input-field-input-bkg-color               : var(--fs-color-body-bkg);
 
   // --------------------------------------------------------
@@ -33,19 +33,19 @@
 
   [data-fs-icon-button][data-fs-button-variant] {
     position: relative;
-    right: .125rem;
+    inset-inline-end: .125rem;
     @include media(">=notebook") {
       position: absolute;
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
       padding-bottom: var(--fs-search-input-field-button-padding-bottom-desktop);
       min-height: var(--fs-search-input-field-button-min-height);
-      right: 0;
+      inset-inline-end: 0;
     }
   }
 
   [data-fs-search-input-field-input] {
     height: auto;
-    padding-right: var(--fs-search-input-field-input-padding-right);
+    padding-inline-end: var(--fs-search-input-field-input-padding-inline-end);
     background-color: var(--fs-search-input-field-input-bkg-color);
     transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
     @include media("<notebook") { border: 0; }

@@ -5,9 +5,9 @@
 
   // Default properties
   --fs-search-auto-complete-padding-top             : var(--fs-spacing-2);
-  --fs-search-auto-complete-padding-right           : var(--fs-spacing-3);
+  --fs-search-auto-complete-padding-inline-end           : var(--fs-spacing-3);
   --fs-search-auto-complete-padding-bottom          : var(--fs-search-auto-complete-padding-top);
-  --fs-search-auto-complete-padding-left            : var(--fs-search-auto-complete-padding-right);
+  --fs-search-auto-complete-padding-inline-start            : var(--fs-search-auto-complete-padding-inline-end);
   --fs-search-auto-complete-transition-property     : var(--fs-transition-property);
   --fs-search-auto-complete-transition-function     : var(--fs-transition-function);
   --fs-search-auto-complete-transition-timing       : var(--fs-transition-timing);
@@ -48,8 +48,8 @@
     justify-content: flex-start;
     width: 100%;
     color: var(--fs-color-neutral-6);
-    padding-left: var(--fs-search-auto-complete-padding-left);
-    padding-right: var(--fs-search-auto-complete-padding-right);
+    padding-inline-start: var(--fs-search-auto-complete-padding-inline-start);
+    padding-inline-end: var(--fs-search-auto-complete-padding-inline-end);
     column-gap: var(--fs-search-auto-complete-item-column-gap);
     &:visited { color: var(--fs-color-neutral-6); }
 

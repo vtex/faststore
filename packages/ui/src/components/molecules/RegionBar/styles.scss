@@ -16,19 +16,19 @@
 
   // CTA
   // @deprecated
-  --fs-region-bar-cta-margin-left          : auto;
+  --fs-region-bar-cta-margin-inline-start          : auto;
   --fs-region-bar-cta-text-decoration      : underline;
 
   // Message
   // @deprecated
-  --fs-region-bar-message-margin-right     : auto;
+  --fs-region-bar-message-margin-inline-end     : auto;
 
   // Postal Code
   // @deprecated
-  --fs-region-bar-postal-code-margin-right : auto;
+  --fs-region-bar-postal-code-margin-inline-end : auto;
 
   // Icon
-  --fs-region-bar-icon-margin-right        : var(--fs-spacing-1);
+  --fs-region-bar-icon-margin-inline-end        : var(--fs-spacing-1);
 
   // Location
   --fs-region-bar-location-height          : var(--fs-spacing-4);
@@ -62,29 +62,29 @@
 
   [data-fs-icon] {
     flex-shrink: 0;
-    margin-right: var(--fs-region-bar-icon-margin-right);
+    margin-inline-end: var(--fs-region-bar-icon-margin-inline-end);
 
     &:last-child {
       position: absolute;
-      right: 0;
+      inset-inline-end: 0;
     }
   }
 
   // @deprecated
   [data-fs-region-bar-cta] {
-    margin-left: var(--fs-region-bar-cta-margin-left);
+    margin-inline-start: var(--fs-region-bar-cta-margin-inline-start);
     text-decoration: var(--fs-region-bar-cta-text-decoration);
   }
 
   // @deprecated
   [data-fs-region-bar-postal-code] {
-    margin-right: var(--fs-region-bar-postal-code-margin-right);
+    margin-inline-end: var(--fs-region-bar-postal-code-margin-inline-end);
     font-weight: var(--fs-text-weight-regular);
   }
 
   // @deprecated
   [data-fs-region-bar-message] {
-    margin-right: var(--fs-region-bar-message-margin-right);
+    margin-inline-end: var(--fs-region-bar-message-margin-inline-end);
     font-weight: var(--fs-text-weight-regular);
   }
 

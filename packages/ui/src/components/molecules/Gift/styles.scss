@@ -79,7 +79,7 @@
     align-items: center;
 
     [data-fs-badge] {
-      margin-left: var(--fs-spacing-1);
+      margin-inline-start: var(--fs-spacing-1);
     }
 
     [data-fs-price-variant="listing"] {
@@ -91,7 +91,7 @@
   [data-fs-icon] {
     position: absolute;
     top: calc(-1 * var(--fs-gift-icon-size) / 2);
-    left: calc(-1 * var(--fs-gift-icon-size) / 2);
+    inset-inline-start: calc(-1 * var(--fs-gift-icon-size) / 2);
     width: var(--fs-gift-icon-size);
     height: var(--fs-gift-icon-size);
     padding: var(--fs-gift-icon-padding);

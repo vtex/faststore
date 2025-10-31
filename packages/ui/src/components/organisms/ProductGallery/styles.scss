@@ -31,8 +31,8 @@
     height: 100%;
 
     @include media("<notebook") {
-      padding-right: 0;
-      padding-left: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
     }
 
     @include media(">=notebook") {
@@ -101,7 +101,7 @@
     @include media(">=notebook") {
       grid-column: 4 /span 2;
       gap: var(--fs-spacing-3);
-      justify-content: left;
+      justify-content: flex-start;
       order: unset;
       min-height: initial;
       padding: 0;
@@ -161,8 +161,8 @@
     justify-content: center;
     min-height: var(--fs-spacing-13);
     padding: var(--fs-spacing-4);
-    margin-right: calc(-1 * var(--padding));
-    margin-left: calc(-1 * var(--padding));
+    margin-inline-start: calc(-1 * var(--padding));
+    margin-inline-end: calc(-1 * var(--padding));
 
     @include media(">=notebook") {
       padding: var(--fs-spacing-1) var(--fs-spacing-2);

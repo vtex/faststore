@@ -1,0 +1,28 @@
+@layer components {
+  .rtlToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid var(--fs-border-color-light);
+    border-radius: var(--fs-border-radius);
+
+    &:hover {
+      background-color: var(--fs-color-tertiary-bkg-hover);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--fs-color-focus-ring);
+      outline-offset: 2px;
+    }
+
+    [data-fs-icon] {
+      color: var(--fs-color-text);
+    }
+  }
+}
+

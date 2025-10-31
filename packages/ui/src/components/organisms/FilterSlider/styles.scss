@@ -21,7 +21,7 @@
 
   // Footer Buttons
   --fs-filter-slider-footer-button-clear-width        : 40%;
-  --fs-filter-slider-footer-button-clear-margin-right : var(--fs-spacing-3);
+  --fs-filter-slider-footer-button-clear-margin-inline-end : var(--fs-spacing-3);
 
   --fs-filter-slider-footer-button-apply-width        : 60%;
 
@@ -75,7 +75,7 @@
 
   [data-fs-filter-slider-footer-button-clear] {
     width: var(--fs-filter-slider-footer-button-clear-width);
-    margin-right: var(--fs-filter-slider-footer-button-clear-margin-right);
+    margin-inline-end: var(--fs-filter-slider-footer-button-clear-margin-inline-end);
   }
 
   [data-fs-filter-slider-footer-button-apply] {

@@ -69,7 +69,7 @@
       text-align: end;
     }
 
-    [data-fs-my-account-badge] { margin-right: calc(var(--fs-spacing-0) * -1); }
+    [data-fs-my-account-badge] { margin-inline-end: calc(var(--fs-spacing-0) * -1); }
 
     @include media(">=notebook") {
       display: table-cell;
@@ -144,14 +144,14 @@
   [data-fs-list-orders-table-expand-button] {
     --fs-list-orders-table-expand-width      : 8rem; // 128px to rem;
     --fs-list-orders-table-expand-margin-top : -0.5rem;
-    --fs-list-orders-table-expand-margin-left: -1.0625rem; // 17px to rem;
+    --fs-list-orders-table-expand-margin-inline-start: -1.0625rem; // 17px to rem;
 
     width: var(--fs-list-orders-table-expand-width);
     margin-top: var(--fs-list-orders-table-expand-margin-top);
 
     [data-fs-button-wrapper] {
       width: max-content;
-      margin-left: var(--fs-list-orders-table-expand-margin-left);
+      margin-inline-start: var(--fs-list-orders-table-expand-margin-inline-start);
       font-size: var(--fs-text-size-tiny);
       background-color: transparent;
       transition: unset;
@@ -175,8 +175,8 @@
     left: 0;
     width: 100vw;
     padding: var(--fs-list-orders-table-pagination-padding);
-    margin-right: calc(var(--fs-spacing-4) * -1);
-    margin-left: calc(var(--fs-spacing-4) * -1);
+    margin-inline-start: calc(var(--fs-spacing-4) * -1);
+    margin-inline-end: calc(var(--fs-spacing-4) * -1);
     background-color: var(--fs-list-orders-table-pagination-bkg-color);
     box-shadow: var(--fs-list-orders-table-pagination-box-shadow);
   }

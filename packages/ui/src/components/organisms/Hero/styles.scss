@@ -156,7 +156,7 @@
     [data-fs-hero-info] {
       @include media(">=tablet") {
         width: 46%;
-        padding-right: var(--fs-spacing-9);
+        padding-inline-end: var(--fs-spacing-9);
       }
     }
   }

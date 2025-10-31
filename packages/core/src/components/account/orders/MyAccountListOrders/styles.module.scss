@@ -26,7 +26,7 @@
 
   --fs-list-orders-filter-button-border-radius        : var(--fs-border-radius-pill);
   --fs-list-orders-filter-button-height               : 2.375rem;
-  --fs-list-orders-filter-button-margin-left          : 0.6rem;
+  --fs-list-orders-filter-button-margin-inline-start          : 0.6rem;
 
   height: var(--fs-page-height);
 
@@ -73,7 +73,7 @@
     }
 
     [data-fs-list-orders-search-filters-button] {
-      margin-left: var(--fs-list-orders-filter-button-margin-left);
+      margin-inline-start: var(--fs-list-orders-filter-button-margin-inline-start);
     }
   }
 }

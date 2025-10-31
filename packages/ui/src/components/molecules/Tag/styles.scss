@@ -18,7 +18,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding-right: var(--fs-spacing-6);
+    padding-inline-end: var(--fs-spacing-6);
     line-height: initial;
   }
 
@@ -58,7 +58,7 @@
 
   &[data-fs-badge-size="big"] [data-fs-tag-label] {
     padding-top: 1px;
-    margin-right: var(--fs-spacing-4);
+    margin-inline-end: var(--fs-spacing-4);
   }
 
   &[data-fs-badge-variant="warning"] {

@@ -71,7 +71,7 @@
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
         margin-top: calc(var(--fs-spacing-2) * -1); // Align the back button with the title
-        margin-left: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
+        margin-inline-start: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
 
         @include media(">=notebook") {
           margin-top: calc(var(--fs-spacing-1) * -1); // Align the back button with the title

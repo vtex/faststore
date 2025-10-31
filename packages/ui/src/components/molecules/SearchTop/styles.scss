@@ -5,9 +5,9 @@
 
   // Default properties
   --fs-search-top-padding-top             : var(--fs-spacing-2);
-  --fs-search-top-padding-right           : var(--fs-spacing-3);
+  --fs-search-top-padding-inline-end           : var(--fs-spacing-3);
   --fs-search-top-padding-bottom          : var(--fs-search-top-padding-top);
-  --fs-search-top-padding-left            : var(--fs-search-top-padding-right);
+  --fs-search-top-padding-inline-start            : var(--fs-search-top-padding-inline-end);
   --fs-search-top-transition-property     : var(--fs-transition-property);
   --fs-search-top-transition-function     : var(--fs-transition-function);
   --fs-search-top-transition-timing       : var(--fs-transition-timing);
@@ -41,7 +41,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: var(--fs-search-top-min-height);
-    padding: var(--fs-search-top-header-padding-top) var(--fs-search-top-padding-right) var(--fs-search-top-header-padding-bottom) var(--fs-search-top-padding-left);
+    padding: var(--fs-search-top-header-padding-top) var(--fs-search-top-padding-inline-end) var(--fs-search-top-header-padding-bottom) var(--fs-search-top-padding-inline-start);
   }
 
   [data-fs-search-top-title] {
@@ -66,8 +66,8 @@
       align-items: flex-end;
       justify-content: flex-start;
       width: 100%;
-      padding-left: var(--fs-search-top-padding-left);
-      padding-right: var(--fs-search-top-padding-right);
+      padding-inline-start: var(--fs-search-top-padding-inline-start);
+      padding-inline-end: var(--fs-search-top-padding-inline-end);
       column-gap: var(--fs-search-top-item-column-gap);
     }
 

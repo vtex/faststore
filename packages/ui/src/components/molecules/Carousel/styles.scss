@@ -8,7 +8,7 @@
   --fs-carousel-padding-desktop            : var(--fs-spacing-0) calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0);
 
   // Item
-  --fs-carousel-item-margin-right          : var(--fs-spacing-3);
+  --fs-carousel-item-margin-inline-end          : var(--fs-spacing-3);
 
   // Controls
   --fs-carousel-controls-width             : 3.125rem;
@@ -25,8 +25,8 @@
 
   // Bullets
   --fs-carousel-bullets-padding-top        : var(--fs-carousel-controls-control-left);
-  --fs-carousel-bullets-padding-left       : var(--fs-grid-padding);
-  --fs-carousel-bullets-padding-right      : var(--fs-carousel-bullets-padding-left);
+  --fs-carousel-bullets-padding-inline-start       : var(--fs-grid-padding);
+  --fs-carousel-bullets-padding-inline-end      : var(--fs-carousel-bullets-padding-inline-start);
   --fs-carousel-bullets-column-gap-mobile  : var(--fs-spacing-0);
   --fs-carousel-bullets-column-gap-tablet  : var(--fs-spacing-3);
 
@@ -105,7 +105,7 @@
 
   [data-fs-carousel-item] {
     &:not(:last-of-type) {
-      margin-right: var(--fs-carousel-item-margin-right);
+      margin-inline-end: var(--fs-carousel-item-margin-inline-end);
     }
   }
 
@@ -116,8 +116,8 @@
     display: flex;
     flex-flow: row nowrap;
     column-gap: var(--fs-carousel-bullets-column-gap-mobile);
-    padding-left: var(--fs-carousel-bullets-padding-left);
-    padding-right: var(--fs-carousel-bullets-padding-right);
+    padding-inline-start: var(--fs-carousel-bullets-padding-inline-start);
+    padding-inline-end: var(--fs-carousel-bullets-padding-inline-end);
 
     @include media(">tablet") {
       width: fit-content;

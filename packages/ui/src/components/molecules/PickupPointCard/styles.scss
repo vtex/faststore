@@ -51,7 +51,7 @@
   }
 
   [data-fs-pickup-point-card-header-postal-code] {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 
   [data-fs-pickup-point-card-header-postal-code],
@@ -72,7 +72,7 @@
   [data-fs-pickup-point-card-address] {
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    justify-content: flex-start;
     font-size: var(--fs-pickup-point-card-distance-font-size);
 
     > span {

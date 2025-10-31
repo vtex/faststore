@@ -194,7 +194,7 @@
         display: inline-block;
         width: var(--fs-product-card-delivery-promise-badge-status-width);
         height: var(--fs-product-card-delivery-promise-badge-status-width);
-        margin-right: var(--fs-spacing-1);
+        margin-inline-end: var(--fs-spacing-1);
         content: "";
         border-radius: var(--fs-product-card-delivery-promise-badge-status-border-radius);
       }
@@ -244,8 +244,8 @@
     padding-bottom: var(--fs-product-card-wide-content-padding);
 
     [data-fs-product-card-content] {
-      padding-right: var(--fs-product-card-wide-content-padding);
-      padding-left: var(--fs-product-card-wide-content-padding);
+      padding-inline-start: var(--fs-product-card-wide-content-padding);
+      padding-inline-end: var(--fs-product-card-wide-content-padding);
 
       [data-fs-link] > span { @include truncate-title(2); }
 

@@ -69,7 +69,7 @@
     text-align: center;
 
     @include media(">=notebook") {
-      text-align: left;
+      text-align: start;
       align-content: flex-start;
     }
   }
@@ -92,7 +92,7 @@
     }
 
     @include media(">=notebook") {
-      justify-content: left;
+      justify-content: flex-start;
     }
   }
 
@@ -100,7 +100,7 @@
     text-align: center;
 
     @include media(">=notebook") {
-      text-align: left;
+      text-align: start;
     }
   }
 
@@ -118,7 +118,7 @@
 
       [data-fs-button] {
         width: auto;
-        margin-left: auto;
+        margin-inline-start: auto;
         min-width: 40%;
       }
     }
