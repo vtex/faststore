@@ -112,7 +112,7 @@
   [data-fs-payment-methods] {
     @include media(">=notebook") {
       grid-column: 11 / span 2;
-      margin-left: calc(-1 * var(--fs-spacing-3));
+      margin-inline-start: calc(-1 * var(--fs-spacing-3));
     }
   }
 
@@ -178,7 +178,7 @@
   &[data-fs-footer-links] {
     [data-fs-link] {
       display: inline-block;
-      padding-left: 0;
+      padding-inline-start: 0;
     }
 
     @include media(">=notebook") {

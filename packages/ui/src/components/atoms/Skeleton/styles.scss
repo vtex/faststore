@@ -17,32 +17,37 @@
   --fs-skeleton-shimmer-transition-function          : linear;
   --fs-skeleton-shimmer-transition-iteration         : infinite;
 
+  position: relative;
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
   overflow: hidden;
-  position: relative;
   background: var(--fs-skeleton-bkg-color);
   border-radius: var(--fs-skeleton-border-radius);
 
   [data-fs-skeleton-shimmer] {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100vw;
     height: 100%;
     animation: loading var(--fs-skeleton-shimmer-transition-timing) var(--fs-skeleton-shimmer-transition-iteration) var(--fs-skeleton-shimmer-transition-function);
+
+    html[dir="rtl"] & {
+      animation-name: loading-rtl;
+    }
+
     &::after {
       position: absolute;
-      content: '';
       width: var(--fs-skeleton-shimmer-width);
       height: var(--fs-skeleton-shimmer-height);
+      content: "";
       background: var(--fs-skeleton-shimmer-bkg-color);
       box-shadow: var(--fs-skeleton-shimmer-box-shadow);
     }
   }
-
 
   // --------------------------------------------------------
   // Variants Styles
@@ -63,5 +68,10 @@
 
 @keyframes loading {
   0% { transform: translate3d(-50vw, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes loading-rtl {
+  0% { transform: translate3d(50vw, 0, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
