@@ -188,10 +188,8 @@ const orderFormToCart = async (
   }
 }
 
-const getOrderFormEtag = (
-  { items }: OrderForm,
-  { id: sessionId }: SessionJwt
-) => md5(JSON.stringify({ sessionId, items }))
+const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) =>
+  md5(JSON.stringify({ sessionId: sessionJwt?.id ?? '', items }))
 
 const setOrderFormEtag = async (
   form: OrderForm,
@@ -374,8 +372,6 @@ export const validateCart = async (
 
   const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
   const jwt = parseJwt(sessionCookie)
-
-  console.log('session JWT', jwt)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
