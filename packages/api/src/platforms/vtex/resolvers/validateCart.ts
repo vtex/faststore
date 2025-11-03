@@ -27,6 +27,8 @@ import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
+import { parseJwt } from '../utils/cookies'
+import type { SessionJwt } from '../clients/commerce/types/Session'
 
 type Indexed<T> = T & { index?: number }
 
@@ -186,18 +188,22 @@ const orderFormToCart = async (
   }
 }
 
-const getOrderFormEtag = ({ items }: OrderForm) => md5(JSON.stringify(items))
+const getOrderFormEtag = (
+  { items }: OrderForm,
+  { id: sessionId }: SessionJwt
+) => md5(JSON.stringify({ sessionId, items }))
 
 const setOrderFormEtag = async (
   form: OrderForm,
-  commerce: Context['clients']['commerce']
+  commerce: Context['clients']['commerce'],
+  session: SessionJwt
 ) => {
   try {
     const orderForm = await commerce.checkout.setCustomData({
       id: form.orderFormId,
       appId: 'faststore',
       key: 'cartEtag',
-      value: getOrderFormEtag(form),
+      value: getOrderFormEtag(form, session),
     })
 
     return orderForm
@@ -215,7 +221,7 @@ const setOrderFormEtag = async (
  * @description If cartEtag is not up to date, this means that
  * another system changed the cart, like Checkout UI or Order Placed
  */
-const isOrderFormStale = (form: OrderForm) => {
+const isOrderFormStale = (form: OrderForm, session: SessionJwt) => {
   const faststoreData = form.customData?.customApps.find(
     (app) => app.id === 'faststore'
   )
@@ -226,7 +232,7 @@ const isOrderFormStale = (form: OrderForm) => {
     return true
   }
 
-  const newEtag = getOrderFormEtag(form)
+  const newEtag = getOrderFormEtag(form, session)
 
   return newEtag !== oldEtag
 }
@@ -366,13 +372,18 @@ export const validateCart = async (
     await clearOrderFormMessages(orderNumber, ctx)
   }
 
+  const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
+  const jwt = parseJwt(sessionCookie)
+
+  console.log('session JWT', jwt)
+
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
-  const isStale = isOrderFormStale(orderForm)
+  const isStale = isOrderFormStale(orderForm, jwt)
 
   if (isStale) {
-    const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+    const newOrderForm = await setOrderFormEtag(orderForm, commerce, jwt).then(
       joinItems
     )
     if (orderNumber) {
@@ -467,7 +478,7 @@ export const validateCart = async (
       return form
     })
     // update orderForm etag so we know last time we touched this orderForm
-    .then((form: OrderForm) => setOrderFormEtag(form, commerce))
+    .then((form: OrderForm) => setOrderFormEtag(form, commerce, jwt))
     .then(joinItems)
 
   const equalMessages = deepEquals(
