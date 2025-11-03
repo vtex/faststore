@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.91.3-dev.1](https://github.com/vtex/faststore/compare/v3.91.3-dev.0...v3.91.3-dev.1) (2025-10-30)
+
+**Note:** Version bump only for package @faststore/core
+
+## 3.91.3-dev.0 (2025-10-30)
+
+### Bug Fixes
+
+- add background color to TextareaField label ([#3079](https://github.com/vtex/faststore/issues/3079)) ([9e5a64d](https://github.com/vtex/faststore/commit/9e5a64d51d9983f028ec5cf0004cfed633b1ee8d)), closes [#2705](https://github.com/vtex/faststore/issues/2705) [/github.com/vtex/faststore/pull/2705#pullrequestreview-2710467780](https://github.com//github.com/vtex/faststore/pull/2705/issues/pullrequestreview-2710467780) [#2705](https://github.com/vtex/faststore/issues/2705) [/github.com/vtex/faststore/pull/2705#pullrequestreview-2710467780](https://github.com//github.com/vtex/faststore/pull/2705/issues/pullrequestreview-2710467780)
+- remove purchaseAgentId filter - SFS-2942 ([#3085](https://github.com/vtex/faststore/issues/3085)) ([270588f](https://github.com/vtex/faststore/commit/270588f1e7490ff94e296c4da7116c4112883359))
+
 ## 3.91.2 (2025-10-27)
 
 ### Bug Fixes

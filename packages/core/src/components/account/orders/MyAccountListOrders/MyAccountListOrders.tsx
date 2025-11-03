@@ -14,7 +14,6 @@ import {
 } from '@faststore/ui'
 import { useEffect } from 'react'
 import MyAccountFilterSlider from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider'
-import AccountHeader from '../../components/MyAccountHeader'
 import { useDebounce } from 'src/sdk/account/useDebounce'
 import {
   useMyAccountFilter,
@@ -23,6 +22,7 @@ import {
 } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
+import AccountHeader from '../../components/MyAccountHeader'
 import MyAccountListOrdersTable, {
   Pagination,
 } from './MyAccountListOrdersTable/MyAccountListOrdersTable'
@@ -40,7 +40,6 @@ export type MyAccountListOrdersProps = {
     dateFinal: string
     text: string
     clientEmail: string
-    purchaseAgentId?: string
   }
 }
 
@@ -75,11 +74,6 @@ function getSelectedFacets({
         key: 'dateFinal',
         value: String(value),
       })
-    } else if (filter === 'purchaseAgentId' && value) {
-      acc.push({
-        key: 'purchaseAgentId',
-        value: String(value),
-      })
     }
 
     return acc
@@ -103,12 +97,6 @@ function getAllFacets({
         value: status.toLowerCase(),
       })),
     },
-    /* FIXME: Removing this facet until we have a cost-effective way to get the shopper name
-    {
-      __typename: 'StoreFacetPlacedBy',
-      key: 'purchaseAgentId',
-      label: 'Placed by',
-    } as any, */
     {
       __typename: 'StoreFacetRange',
       key: 'dateRange',
@@ -246,8 +234,6 @@ export default function MyAccountListOrders({
           status: filters.status,
           dateInitial: filters.dateInitial,
           dateFinal: filters.dateFinal,
-          // FIXME: Removing this filter until we have a cost-effective way to get the shopper name
-          // purchaseAgentId: filters.purchaseAgentId,
         }}
         onClearAll={() => {
           window.location.href = '/pvt/account/orders'
@@ -256,25 +242,12 @@ export default function MyAccountListOrders({
           const { page, clientEmail, ...updatedFilters } = { ...filters }
 
           if (key === 'status' && Array.isArray(updatedFilters[key])) {
-            updatedFilters[key] = updatedFilters[key].filter((v) => v !== value)
-          } else if (key === 'dateInitial' || key === 'dateFinal') {
-            delete updatedFilters.dateInitial
-            delete updatedFilters.dateFinal
-          } else if (key === 'purchaseAgentId') {
-            delete updatedFilters.purchaseAgentId
-          } else {
-            delete updatedFilters[key]
-          }
-
-          if (key === 'status' && Array.isArray(updatedFilters[key])) {
             updatedFilters[key] = updatedFilters[key].filter(
               (v) => v.toLowerCase() !== value.toLowerCase()
             )
           } else if (key === 'dateInitial' || key === 'dateFinal') {
             delete updatedFilters.dateInitial
             delete updatedFilters.dateFinal
-          } else if (key === 'purchaseAgentId') {
-            delete updatedFilters.purchaseAgentId
           } else {
             delete updatedFilters[key]
           }

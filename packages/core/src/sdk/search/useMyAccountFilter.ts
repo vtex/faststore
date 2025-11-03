@@ -49,16 +49,9 @@ export type MyAccountFilter_Facets_StoreFacetRange_Fragment = {
   to: string
 }
 
-export type MyAccountFilter_Facets_StoreFacetPlacedBy_Fragment = {
-  __typename: 'StoreFacetPlacedBy'
-  key: string
-  label: string
-}
-
 export type MyAccountFilter_FacetsFragment =
   | MyAccountFilter_Facets_StoreFacetBoolean_Fragment
   | MyAccountFilter_Facets_StoreFacetRange_Fragment
-  | MyAccountFilter_Facets_StoreFacetPlacedBy_Fragment
 
 const reducer = (state: State, action: Action) => {
   const { expanded, selected } = state
