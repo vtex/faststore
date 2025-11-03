@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
+
+### Features
+
+- Add RTL Support ([#3097](https://github.com/vtex/faststore/issues/3097)) ([e293857](https://github.com/vtex/faststore/commit/e293857070b265419aee793ba09fd0795e7d7b44))
+
 ## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.91.3-dev.1...v3.92.1-dev.0) (2025-11-03)
 
 **Note:** Version bump only for package @faststore/components
