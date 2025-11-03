@@ -66,8 +66,8 @@
       }
     }
 
-    &:first-of-type { left: 0; }
-    &:last-of-type { right: 0; }
+    &:first-of-type { inset-inline-start: 0; }
+    &:last-of-type { inset-inline-end: 0; }
 
     &:disabled {
       [data-fs-button-wrapper],
@@ -86,7 +86,6 @@
       box-shadow: var(--fs-qty-selector-shadow-hover);
     }
   }
-
 }
 
 // --------------------------------------------------------
@@ -95,8 +94,8 @@
 
 [data-fs-quantity-selector="disabled"] {
   [data-quantity-selector-input] {
+    color: var(--fs-qty-selector-disabled-text-color);
     background-color: var(--fs-qty-selector-disabled-bkg-color);
     border-color: var(--fs-qty-selector-disabled-border-color);
-    color: var(--fs-qty-selector-disabled-text-color);
   }
 }

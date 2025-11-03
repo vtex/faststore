@@ -153,4 +153,7 @@ module.exports = {
     refreshToken: false,
     scrollRestoration: false,
   },
+
+  // Text direction: 'ltr' (left-to-right) or 'rtl' (right-to-left)
+  direction: 'rtl',
 }

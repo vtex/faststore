@@ -119,13 +119,21 @@
   }
 
   [data-fs-slider-value-label="min"] {
-    text-align: left;
+    text-align: start;
     transform: translateX(-1rem);
+
+    html[dir="rtl"] & {
+      transform: translateX(1rem);
+    }
   }
 
   [data-fs-slider-value-label="max"] {
-    text-align: right;
+    text-align: end;
     transform: translateX(calc(-100% + 1.25rem));
+
+    html[dir="rtl"] & {
+      transform: translateX(calc(100% - 1.25rem));
+    }
   }
 
   [data-fs-slider-absolute-values] {
