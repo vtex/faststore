@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.91.3-dev.1
+        specifier: ^3.93.0-dev.0
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -294,19 +294,19 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.92.1-dev.0
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.92.1-dev.0
         version: link:../graphql-utils
       "@faststore/lighthouse":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.92.1-dev.0
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: ^3.91.3-dev.1
+        specifier: ^3.92.1-dev.0
         version: link:../sdk
       "@faststore/ui":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.93.0-dev.0
         version: link:../ui
       "@graphql-codegen/cli":
         specifier: 5.0.2
@@ -567,10 +567,10 @@ importers:
   packages/storybook:
     dependencies:
       "@faststore/components":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.93.0-dev.0
         version: link:../components
       "@faststore/ui":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.93.0-dev.0
         version: link:../ui
       next:
         specifier: ^15.1.6
@@ -622,7 +622,7 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.91.3-dev.0
+        specifier: ^3.93.0-dev.0
         version: link:../components
       include-media:
         specifier: ^1.4.10
@@ -1775,7 +1775,7 @@ packages:
       {
         integrity: sha512-W6C7O0eSg6YNujHYZozXK5iJ+V69QVLLLRv+NlmYh1vFe0PUJ3kmAhRCx7rUqI3XAA/KpdyfdxLoopBg3GlfVA==,
       }
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    deprecated: Use @qwik.dev/partytown instead
     hasBin: true
 
   "@chromatic-com/storybook@3.2.4":

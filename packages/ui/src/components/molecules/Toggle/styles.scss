@@ -59,11 +59,12 @@
   // --------------------------------------------------------
 
   position: relative;
-  overflow: visible;
   width: fit-content;
+  overflow: visible;
 
   input {
     @include focus-ring-visible;
+
     position: absolute;
     z-index: 1;
     display: block;
@@ -76,37 +77,45 @@
     box-shadow: var(--fs-toggle-shadow);
     transition: var(--fs-toggle-transition-property) var(--fs-toggle-transition-timing) var(--fs-toggle-transition-function);
     appearance: none;
+
     &:checked {
       background-color: var(--fs-toggle-checked-bkg-color);
       border: var(--fs-toggle-border-width) solid var(--fs-toggle-checked-border-color);
+
       + [data-fs-toggle-knob] {
         color: var(--fs-toggle-knob-icon-checked-color);
         background-color: var(--fs-toggle-knob-checked-bkg-color);
         border-color: var(--fs-toggle-knob-checked-border-color);
       }
+
       @media (hover: hover) {
         &:hover:not(:disabled) {
           background-color: var(--fs-toggle-checked-bkg-color-hover);
           border: var(--fs-toggle-border-width) solid var(--fs-toggle-checked-border-color-hover);
+
           + [data-fs-toggle-knob] {
             color: var(--fs-toggle-knob-icon-checked-color-hover);
           }
         }
       }
     }
+
     &:not(:checked) {
       background-color: var(--fs-toggle-bkg-color);
       border: var(--fs-toggle-border-width) solid var(--fs-toggle-border-color);
+
       + [data-fs-toggle-knob] {
         color: var(--fs-toggle-knob-icon-color);
         background-color: var(--fs-toggle-knob-bkg-color);
         border: var(--fs-toggle-border-width) solid var(--fs-toggle-knob-border-color);
       }
+
       @media (hover: hover) {
         &:hover:not(:disabled) {
           background-color: var(--fs-toggle-bkg-color-hover);
           border-color: var(--fs-toggle-border-color-hover);
           box-shadow: var(--fs-toggle-shadow-hover);
+
           + [data-fs-toggle-knob] {
             background-color: var(--fs-toggle-knob-bkg-color-hover);
             border-color: var(--fs-toggle-knob-border-color-hover);
@@ -114,14 +123,17 @@
         }
       }
     }
+
     &:disabled {
       pointer-events: none;
       background-color: var(--fs-toggle-disabled-bkg-color);
       border-color: var(--fs-toggle-disabled-border-color);
+
       + [data-fs-toggle-knob] {
         background-color: var(--fs-toggle-knob-disabled-bkg-color);
         border-color: var(--fs-toggle-knob-disabled-border-color);
       }
+
       &:checked + [data-fs-toggle-knob] {
         color: var(--fs-toggle-knob-icon-disabled-color);
       }
@@ -129,15 +141,15 @@
   }
 
   [data-fs-toggle-knob] {
-      position: absolute;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      border-radius: var(--fs-toggle-knob-border-radius);
-      box-shadow: var(--fs-toggle-knob-shadow);
-      transition: var(--fs-toggle-transition-property) var(--fs-toggle-transition-timing) var(--fs-toggle-transition-function);
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    border-radius: var(--fs-toggle-knob-border-radius);
+    box-shadow: var(--fs-toggle-knob-shadow);
+    transition: var(--fs-toggle-transition-property) var(--fs-toggle-transition-timing) var(--fs-toggle-transition-function);
   }
 
   // --------------------------------------------------------
@@ -148,11 +160,11 @@
     min-width: calc(var(--fs-toggle-height) * 1.75);
     height: var(--fs-toggle-height);
 
-    input:checked + [data-fs-toggle-knob] { left: calc(50% + var(--fs-toggle-border-width)); }
+    input:checked + [data-fs-toggle-knob] { inset-inline-start: calc(50% + var(--fs-toggle-border-width)); }
 
     [data-fs-toggle-knob] {
       top: calc(var(--fs-toggle-border-width) * 4);
-      left: calc(var(--fs-toggle-border-width) * 4);
+      inset-inline-start: calc(var(--fs-toggle-border-width) * 4);
       width: calc(50% - (var(--fs-toggle-border-width) * 5));
       height: calc(100% - (var(--fs-toggle-border-width) * 8));
     }
@@ -166,7 +178,7 @@
 
     [data-fs-toggle-knob] {
       bottom: calc(var(--fs-toggle-border-width) * 4);
-      left: calc(var(--fs-toggle-border-width) * 4);
+      inset-inline-start: calc(var(--fs-toggle-border-width) * 4);
       width: calc(100% - (var(--fs-toggle-border-width) * 8));
       height: calc(50% - (var(--fs-toggle-border-width) * 5));
     }
