@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
+
+### Features
+
+- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+
 # [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
 
 **Note:** Version bump only for package @faststore/storybook

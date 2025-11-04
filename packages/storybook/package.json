@@ -1,6 +1,6 @@
 {
   "name": "@faststore/storybook",
-  "version": "3.93.0-dev.0",
+  "version": "3.93.0",
   "private": true,
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
@@ -25,8 +25,8 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@faststore/components": "^3.93.0-dev.0",
-    "@faststore/ui": "^3.93.0-dev.0",
+    "@faststore/components": "^3.93.0",
+    "@faststore/ui": "^3.93.0",
     "next": "^15.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
