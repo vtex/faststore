@@ -50,8 +50,8 @@
 
   position: fixed;
   top: var(--fs-modal-position-top);
-  right: var(--fs-modal-position-right);
-  left: var(--fs-modal-position-left);
+  inset-inline-start: var(--fs-modal-position-left);
+  inset-inline-end: var(--fs-modal-position-right);
   max-width: var(--fs-modal-max-width);
   min-height: var(--fs-modal-min-height);
   margin: var(--fs-modal-margin);
@@ -93,7 +93,7 @@
     [data-fs-modal-header-close-button] {
       position: absolute;
       top: var(--fs-modal-header-close-button-position-top);
-      right: var(--fs-modal-header-close-button-position-right);
+      inset-inline-end: var(--fs-modal-header-close-button-position-right);
     }
   }
 

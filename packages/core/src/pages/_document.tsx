@@ -4,8 +4,10 @@ import storeConfig from '../../discovery.config'
 import { WebFonts } from 'src/customizations/src/GlobalOverrides'
 
 function Document() {
+  const direction = storeConfig.direction || 'ltr'
+
   return (
-    <Html>
+    <Html dir={direction}>
       <Head>
         <link
           rel="preconnect"
