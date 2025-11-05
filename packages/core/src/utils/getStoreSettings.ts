@@ -3,6 +3,8 @@ import { FastStoreSDK } from '@vtex/faststore-sdk'
 
 import storeConfig from '../../discovery.config'
 
+export type StoreSettingsResponse = SettingsResponse
+
 const fallbackSettings: SettingsResponse = {
   locales: [],
   currentLocale: storeConfig.session.locale,

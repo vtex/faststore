@@ -5,8 +5,8 @@ import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
 
 import {
-  type GlobalSectionsData,
   getGlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import COMPONENTS from 'src/components/cms/home/Components'
 import PageProvider from 'src/sdk/overrides/PageProvider'
@@ -14,12 +14,17 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import {
+  getSDKSettings,
+  type StoreSettingsResponse,
+} from 'src/utils/getStoreSettings'
 import storeConfig from '../../discovery.config'
 
 type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
   serverData?: unknown
+  storeSettings?: StoreSettingsResponse
 }
 
 function Page({
@@ -156,6 +161,8 @@ export const getStaticProps: GetStaticProps<
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(previewData)
+
+  const settingsPromise = getSDKSettings(storeConfig.storeUrl)
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   let cmsPage = null
@@ -183,12 +190,14 @@ export const getStaticProps: GetStaticProps<
     globalSectionsHeader,
     globalSectionsFooter,
     serverData,
+    storeSettings,
   ] = await Promise.all([
     pagePromise,
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
     serverDataPromise,
+    settingsPromise,
   ])
 
   const globalSectionsResult = injectGlobalSections({
@@ -202,6 +211,7 @@ export const getStaticProps: GetStaticProps<
       page,
       globalSections: globalSectionsResult,
       serverData,
+      storeSettings,
     },
   }
 }
