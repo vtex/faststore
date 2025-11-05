@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { useMemo } from 'react'
 
-import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import { Skeleton as UISkeleton } from '@faststore/ui'
+import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
