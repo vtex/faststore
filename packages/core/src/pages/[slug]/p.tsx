@@ -12,7 +12,6 @@ import type {
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -27,6 +26,7 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { getRedirect } from 'src/sdk/redirects'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
+import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
 import {
@@ -40,6 +40,10 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import {
+  getSDKSettings,
+  type StoreSettingsResponse,
+} from 'src/utils/getStoreSettings'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -70,6 +74,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 type Props = PDPContentType & {
   data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
+  storeSettings?: StoreSettingsResponse
   meta: {
     title: string
     description: string
@@ -295,6 +300,8 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
 
+  const settingsPromise = getSDKSettings(storeConfig.storeUrl)
+
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -306,6 +313,7 @@ export const getStaticProps: GetStaticProps<
     globalSections,
     globalSectionsHeader,
     globalSectionsFooter,
+    storeSettings,
   ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
@@ -314,6 +322,7 @@ export const getStaticProps: GetStaticProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
+    settingsPromise,
   ])
 
   const { data, errors = [] } = searchResult
@@ -384,6 +393,7 @@ export const getStaticProps: GetStaticProps<
       offers,
       globalSections: globalSectionsResult,
       key: seo.canonical,
+      storeSettings,
     },
     revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
   }

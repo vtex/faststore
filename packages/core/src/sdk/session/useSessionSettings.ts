@@ -1,6 +1,7 @@
 import type { SettingsResponse } from '@vtex/faststore-sdk'
 import { useEffect } from 'react'
 
+import { createStore } from '@faststore/sdk'
 import { sessionStore } from './index'
 
 /**
@@ -37,9 +38,24 @@ export const useSessionSettings = (settings?: SettingsResponse) => {
       }),
     }
 
-    // Only update if values changed
-    if (JSON.stringify(updatedSession) !== JSON.stringify(currentSession)) {
-      sessionStore.set(updatedSession)
-    }
+    localizationStore.set({
+      locales: settings.locales,
+      urls: settings.urls,
+    })
+
+    sessionStore.set(updatedSession)
   }, [settings])
 }
+
+export type LocalizationStore = {
+  locales: string[]
+  urls: Record<string, string>
+}
+
+export const localizationStore = createStore<LocalizationStore>(
+  {
+    locales: [],
+    urls: {},
+  },
+  'fs::localeOptions'
+)
