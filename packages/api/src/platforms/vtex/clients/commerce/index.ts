@@ -534,13 +534,8 @@ export const VtexCommerce = (
         if (clientEmail) params.append('clientEmail', clientEmail)
         if (page) params.append('page', page.toString())
         if (perPage) params.append('per_page', perPage.toString())
-
         if (pendingMyApproval) {
-          console.log(
-            'Filtering orders with pending user approval:',
-            pendingMyApproval
-          )
-          // TODO: Implement actual filtering logic when API is ready
+          params.append('my_pending_approvals', String(true))
         }
 
         const headers: HeadersInit = withCookie({
