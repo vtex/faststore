@@ -2546,5 +2546,31 @@
         }
       }
     }
+  },
+  {
+    "name": "ScrollToTopButton",
+    "requiredScopes": ["plp", "search"],
+    "schema": {
+      "title": "Scroll to Top Button",
+      "description": "A button to scroll the page back to the top",
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "title": "Button Text",
+          "description": "Text displayed on the button",
+          "type": "string",
+          "default": "Scroll to top"
+        },
+        "iconPosition": {
+          "title": "Icon Position",
+          "description": "Position of the icon relative to the text",
+          "type": "string",
+          "enumNames": ["Left", "Right"],
+          "enum": ["left", "right"],
+          "default": "left"
+        }
+      }
+    }
   }
 ]
