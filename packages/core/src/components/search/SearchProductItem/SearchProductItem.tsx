@@ -155,8 +155,12 @@ function SearchProductItem({
         }}
         onValidateBlur={(min, max, quantity) =>
           pushToast({
-            title: 'Invalid quantity!',
-            message: `The quantity you entered is outside the range of ${min} to ${max}. The quantity was set to ${quantity}.`,
+            title: quickOrderSettings?.invalidQuantityToast?.title,
+            message:
+              quickOrderSettings?.invalidQuantityToast?.message
+                ?.replace('%{min}', min.toString())
+                ?.replace('%{max}', max.toString())
+                ?.replace('%{quantity}', quantity.toString()) || '',
             status: 'INFO',
             icon: <Icon name="CircleWavyWarning" width={30} height={30} />,
           })
