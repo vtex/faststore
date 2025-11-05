@@ -1529,8 +1529,14 @@
       "title": "Breadcrumb",
       "description": "Configure the breadcrumb icon and depth",
       "type": "object",
-      "required": ["icon", "alt"],
+      "required": ["icon", "alt", "fallbackLabel"],
       "properties": {
+        "fallbackLabel": {
+          "title": "Fallback label",
+          "description": "Label shown when there are no breadcrumb items to display, such as on the Search page.",
+          "type": "string",
+          "default": "All Products"
+        },
         "icon": {
           "title": "Icon",
           "type": "string",
