@@ -190,6 +190,9 @@ function SearchProductItem({
                     status={(status: string | null) =>
                       onChangeCustomSearchDropdownVisible(status === 'visible')
                     }
+                    invalidQuantityToast={
+                      quickOrderSettings?.invalidQuantityToast
+                    }
                   />
                 </UISKUMatrix>
               )}
