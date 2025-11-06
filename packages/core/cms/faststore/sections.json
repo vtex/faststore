@@ -318,7 +318,7 @@
                     "message": {
                       "title": "Message",
                       "type": "string",
-                      "description": "If the message has '%{min}', '%{max}' and '%{quantity}' placeholders, they will be replaced by the min, max and quantity values.",
+                      "description": "If the message has %{min}, %{max} and %{quantity} placeholders, they will be replaced by the min, max and quantity values.",
                       "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
                     }
                   }
@@ -1723,7 +1723,7 @@
                 "message": {
                   "title": "Message",
                   "type": "string",
-                  "description": "If the message has '%{min}', '%{max}' and '%{quantity}' placeholders, they will be replaced by the min, max and quantity values.",
+                  "description": "If the message has %{min}, %{max} and %{quantity} placeholders, they will be replaced by the min, max and quantity values.",
                   "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
                 }
               }
