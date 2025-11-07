@@ -8,6 +8,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+# [3.93.0-dev.2](https://github.com/vtex/faststore/compare/v3.93.0-dev.1...v3.93.0-dev.2) (2025-11-07)
+
+**Note:** Version bump only for package @faststore/core
+
+# 3.93.0-dev.1 (2025-11-06)
+
+### Bug Fixes
+
+- Handle empty footer logo scenario ([#3094](https://github.com/vtex/faststore/issues/3094)) ([7323d8a](https://github.com/vtex/faststore/commit/7323d8a7d8cb09ad1d7ada7ca3269b8a28c7b91d))
 
 # [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
 
@@ -164,13 +173,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- update contract URL to remove 'pvt' prefix in OrganizationDrawer… ([#3039](https://github.com/vtex/faststore/issues/3039)) ([6e73b8e](https://github.com/vtex/faststore/commit/6e73b8e024ff66b90dc3ba48dfd53a81a582851b))
+- update contract URL to remove 'pvt' prefix in OrganizationDrawer…… ([#3039](https://github.com/vtex/faststore/issues/3039)) ([6e73b8e](https://github.com/vtex/faststore/commit/6e73b8e024ff66b90dc3ba48dfd53a81a582851b))
 
 ## [3.86.1](https://github.com/vtex/faststore/compare/v3.86.0...v3.86.1) (2025-09-16)
 
 ### Bug Fixes
 
-- conditionally set href for contract link in OrganizationDrawerHe… ([#3038](https://github.com/vtex/faststore/issues/3038)) ([b076715](https://github.com/vtex/faststore/commit/b076715dafea3173a69e1fc9ef1844f8e4d5e973))
+- conditionally set href for contract link in OrganizationDrawerHe…… ([#3038](https://github.com/vtex/faststore/issues/3038)) ([b076715](https://github.com/vtex/faststore/commit/b076715dafea3173a69e1fc9ef1844f8e4d5e973))
 
 # [3.86.0](https://github.com/vtex/faststore/compare/v3.85.0...v3.86.0) (2025-09-15)
 
@@ -348,7 +357,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- removing unwanted facets on product shelf to prevent duplication… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
+- removing unwanted facets on product shelf to prevent duplication…… ([#2970](https://github.com/vtex/faststore/issues/2970)) ([6ba3ca0](https://github.com/vtex/faststore/commit/6ba3ca06ecee058bc93ef9fa784a585f0a8c6563))
 
 # [3.69.0](https://github.com/vtex/faststore/compare/v3.68.2...v3.69.0) (2025-07-31)
 

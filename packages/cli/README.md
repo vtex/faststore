@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.93.0 linux-x64 node-v18.20.8
+@faststore/cli/3.93.0-dev.2 linux-x64 node-v18.20.8
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -52,7 +52,7 @@ USAGE
 
 ## `faststore build [ACCOUNT] [PATH]`
 
-```
+```plain
 USAGE
   $ faststore build [ACCOUNT] [PATH] [--no-verify]
 
@@ -65,11 +65,11 @@ FLAGS
                registry.
 ```
 
-_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/build.js)_
+_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/build.js)_
 
 ## `faststore cms-sync [PATH]`
 
-```
+```plain
 USAGE
   $ faststore cms-sync [PATH] [-d]
 
@@ -80,13 +80,13 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/cms-sync.js)_
+_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/cms-sync.js)_
 
 ## `faststore create [PATH]`
 
 Creates a discovery folder based on the starter.store template.
 
-```
+```plain
 USAGE
   $ faststore create [PATH]
 
@@ -100,11 +100,11 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/create.js)_
+_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/create.js)_
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
-```
+```plain
 USAGE
   $ faststore dev [ACCOUNT] [PATH] [PORT] [--watch-plugins]
 
@@ -117,11 +117,11 @@ FLAGS
   --watch-plugins  Enable watching for plugin changes
 ```
 
-_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/dev.js)_
+_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/dev.js)_
 
 ## `faststore generate-graphql [PATH]`
 
-```
+```plain
 USAGE
   $ faststore generate-graphql [PATH]
 
@@ -129,13 +129,13 @@ ARGUMENTS
   PATH  The path where the FastStore GraphQL customization is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/generate-graphql.js)_
+_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/generate-graphql.js)_
 
 ## `faststore help [COMMAND]`
 
 Display help for faststore.
 
-```
+```plain
 USAGE
   $ faststore help [COMMAND] [-n]
 
@@ -153,7 +153,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.2
 
 ## `faststore start [ACCOUNT] [PATH] [PORT]`
 
-```
+```plain
 USAGE
   $ faststore start [ACCOUNT] [PATH] [PORT]
 
@@ -163,11 +163,11 @@ ARGUMENTS
   PORT     The port where FastStore should run. Defaults to 3000.
 ```
 
-_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/start.js)_
+_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/start.js)_
 
 ## `faststore test [PATH]`
 
-```
+```plain
 USAGE
   $ faststore test [PATH]
 
@@ -175,5 +175,5 @@ ARGUMENTS
   PATH  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/test.js)_
+_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.2/dist/commands/test.js)_
 <!-- commandsstop -->
