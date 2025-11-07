@@ -1858,6 +1858,74 @@
             }
           }
         },
+        "sortBySelector": {
+          "title": "Sort by selector",
+          "type": "object",
+          "required": ["label", "options"],
+          "properties": {
+            "label": {
+              "title": "Label",
+              "type": "string",
+              "default": "Sort by"
+            },
+            "options": {
+              "title": "Options labels",
+              "type": "object",
+              "required": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ],
+              "properties": {
+                "price_desc": {
+                  "title": "Price - Descending",
+                  "type": "string",
+                  "default": "Price, descending"
+                },
+                "price_asc": {
+                  "title": "Price - Ascending",
+                  "type": "string",
+                  "default": "Price, ascending"
+                },
+                "orders_desc": {
+                  "title": "Orders - Descending",
+                  "type": "string",
+                  "default": "Top sales"
+                },
+                "name_asc": {
+                  "title": "Name - Ascending",
+                  "type": "string",
+                  "default": "Name, A-Z"
+                },
+                "name_desc": {
+                  "title": "Name - Descending",
+                  "type": "string",
+                  "default": "Name, Z-A"
+                },
+                "release_desc": {
+                  "title": "Release - Descending",
+                  "type": "string",
+                  "default": "Release date"
+                },
+                "discount_desc": {
+                  "title": "Discount - Descending",
+                  "type": "string",
+                  "default": "Discount"
+                },
+                "score_desc": {
+                  "title": "Score - Descending",
+                  "type": "string",
+                  "default": "Relevance"
+                }
+              }
+            }
+          }
+        },
         "filter": {
           "title": "Filter",
           "type": "object",
