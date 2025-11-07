@@ -218,6 +218,7 @@ const setOrderFormEtag = async (
  * Checks if cartEtag stored on customData is up to date
  * @description If cartEtag is not up to date, this means that
  * another system changed the cart, like Checkout UI or Order Placed
+ * or another device which has the same cart open
  */
 const isOrderFormStale = (form: OrderForm, session: SessionJwt) => {
   const faststoreData = form.customData?.customApps.find(
