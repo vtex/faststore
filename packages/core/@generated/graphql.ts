@@ -2929,6 +2929,7 @@ export type ServerListOrdersQueryQueryVariables = Exact<{
   dateFinal: InputMaybe<Scalars['String']['input']>
   text: InputMaybe<Scalars['String']['input']>
   clientEmail: InputMaybe<Scalars['String']['input']>
+  pendingMyApproval: InputMaybe<Scalars['Boolean']['input']>
 }>
 
 export type ServerListOrdersQueryQuery = {
@@ -4330,7 +4331,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'b0a6b9da966cf2365f9806fd810bac248b44dba8',
+    operationHash: '70d06de1da9c11f10ebde31b66fd74eccd456af5',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,

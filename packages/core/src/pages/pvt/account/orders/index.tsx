@@ -85,8 +85,8 @@ export default function ListOrdersPage({
 }
 
 const query = gql(`
-  query ServerListOrdersQuery ($page: Int,$perPage: Int, $status: [String], $dateInitial: String, $dateFinal: String, $text: String, $clientEmail: String) {
-    listUserOrders (page: $page, perPage: $perPage, status: $status, dateInitial: $dateInitial, dateFinal: $dateFinal, text: $text, clientEmail: $clientEmail) {
+  query ServerListOrdersQuery ($page: Int,$perPage: Int, $status: [String], $dateInitial: String, $dateFinal: String, $text: String, $clientEmail: String, $pendingMyApproval: Boolean) {
+    listUserOrders (page: $page, perPage: $perPage, status: $status, dateInitial: $dateInitial, dateFinal: $dateFinal, text: $text, clientEmail: $clientEmail, pendingMyApproval: $pendingMyApproval) {
       list {
         orderId
         creationDate
@@ -196,6 +196,7 @@ export const getServerSideProps: GetServerSideProps<
           dateFinal,
           text,
           clientEmail,
+          pendingMyApproval,
         },
         operation: query,
       },
