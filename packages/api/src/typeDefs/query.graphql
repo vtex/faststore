@@ -186,6 +186,10 @@ type StoreSearchResult {
   Search result metadata. Additional data can be used to send analytics events.
   """
   metadata: SearchMetadata
+  """
+  Search result searchId. Unique identifier for the search query can be used to correlate search analytics events.
+  """
+  searchId: String!
 }
 
 input IGeoCoordinates {

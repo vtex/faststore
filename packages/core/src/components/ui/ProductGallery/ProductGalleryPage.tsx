@@ -30,6 +30,20 @@ function ProductGalleryPage({
   const { data } = useGalleryPage(page)
 
   const products = data?.search?.products?.edges ?? []
+  const searchId = data?.search?.searchId
+
+  function buildExtraProductProps(
+    product?: Record<string, string>,
+    index?: number
+  ) {
+    return {
+      'data-af-element': 'search-result',
+      'data-af-onclick': product && !!product.productId,
+      'data-af-search-id': searchId,
+      'data-af-product-position': index ?? Number(index) + 1, // Product position in Search Analytics starts with 1
+      'data-af-product-id': product && product.productId,
+    }
+  }
 
   return (
     <Sentinel
@@ -47,6 +61,8 @@ function ProductGalleryPage({
         productCard={productCard}
         firstPage={firstPage}
         title={title}
+        searchId={searchId}
+        buildExtraProductProps={searchId && buildExtraProductProps}
       />
     </Sentinel>
   )
