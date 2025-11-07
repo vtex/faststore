@@ -28,6 +28,7 @@ export type PageContentType = ContentData & {
     seo: {
       slug: string
       title: string
+      titleTemplate?: string
       description: string
       canonical?: string
       name?: string
