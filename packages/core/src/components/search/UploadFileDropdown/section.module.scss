@@ -1,0 +1,25 @@
+.section {
+  @import "@faststore/ui/src/components/molecules/Dropzone/styles.scss";
+
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-padding-section: var(--fs-grid-padding);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  padding: var(--fs-padding-section);
+
+  [data-fs-upload-button-container] {
+    display: flex;
+    justify-content: center;
+  }
+
+  [data-fs-upload-button] {
+    margin-top: var(--fs-spacing-2);
+  }
+}
