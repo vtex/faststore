@@ -19,3 +19,4 @@ export type {
 export { useSlideVisibility } from './useSlideVisibility'
 export { useTrapFocus } from './useTrapFocus'
 export { useProductComparison } from './useProductComparison'
+export { useRTL } from './useRTL'

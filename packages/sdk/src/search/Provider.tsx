@@ -15,6 +15,7 @@ type Props = Partial<
   SearchState & {
     onChange?: (url: URL) => void
     itemsPerPage?: number
+    shouldResetInfiniteScroll?: boolean
   }
 >
 
@@ -22,6 +23,7 @@ export const Provider = ({
   children,
   itemsPerPage,
   onChange,
+  shouldResetInfiniteScroll,
   ...rest
 }: PropsWithChildren<Props>) => {
   const globalSearchStateValue = useSearchState()
@@ -41,7 +43,8 @@ export const Provider = ({
 
   useEffect(() => {
     globalSearchStateValue.setState(rest)
-    globalSearchStateValue.resetInfiniteScroll(rest.page ?? 0)
+    shouldResetInfiniteScroll &&
+      globalSearchStateValue.resetInfiniteScroll(rest.page ?? 0)
   }, [rest.term, rest.sort, rest.selectedFacets, rest.page])
 
   return <>{children}</>
