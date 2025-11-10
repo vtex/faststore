@@ -14,6 +14,7 @@ type ButtonProps = {
   onClick?: () => void
   testId?: string
 }
+
 export interface SearchInputFieldProps extends InputProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
