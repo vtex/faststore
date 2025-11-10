@@ -1,1 +1,1 @@
-export { default } from './UploadCSVModal'
+export { default } from './UploadFileDropdown'
