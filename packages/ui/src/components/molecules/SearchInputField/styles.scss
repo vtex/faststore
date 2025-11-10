@@ -1,22 +1,34 @@
+[data-fs-search-input-field-wrapper] {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
 [data-fs-search-input-field] {
   // --------------------------------------------------------
   // Design Tokens for Search Input Field
   // --------------------------------------------------------
   // Default properties
-  --fs-search-input-field-height-mobile                 : var(--fs-control-tap-size);
-  --fs-search-input-field-height-desktop                : var(--fs-spacing-6);
+  --fs-search-input-field-height-mobile: var(--fs-control-tap-size);
+  --fs-search-input-field-height-desktop: var(--fs-spacing-6);
 
-  --fs-search-input-field-transition-timing             : var(--fs-transition-timing);
-  --fs-search-input-field-transition-function           : ease;
+  --fs-search-input-field-transition-timing: var(--fs-transition-timing);
+  --fs-search-input-field-transition-function: ease;
 
   // Button
-  --fs-search-input-field-button-min-height             : var(--fs-search-input-field-height-desktop);
-  --fs-search-input-field-button-padding-top-desktop    : var(--fs-spacing-0);
-  --fs-search-input-field-button-padding-bottom-desktop : var(--fs-search-input-field-button-padding-top-desktop);
+  --fs-search-input-field-button-min-height:
+    var(
+      --fs-search-input-field-height-desktop
+    );
+  --fs-search-input-field-button-padding-top-desktop: var(--fs-spacing-0);
+  --fs-search-input-field-button-padding-bottom-desktop:
+    var(
+      --fs-search-input-field-button-padding-top-desktop
+    );
 
   // Input
-  --fs-search-input-field-input-padding-right           : var(--fs-spacing-7);
-  --fs-search-input-field-input-bkg-color               : var(--fs-color-body-bkg);
+  --fs-search-input-field-input-padding-right: var(--fs-spacing-7);
+  --fs-search-input-field-input-bkg-color: var(--fs-color-body-bkg);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -29,26 +41,64 @@
 
   @include input-focus-ring;
 
-  @include media(">=notebook") { height: var(--fs-search-input-field-height-desktop); }
+  @include media(">=notebook") {
+    height: var(--fs-search-input-field-height-desktop);
+  }
 
-  [data-fs-icon-button][data-fs-button-variant] {
+  [data-fs-search-input-field-actions] {
     position: relative;
-    right: .125rem;
+    right: 0.125rem;
+    display: flex;
+    gap: 0;
+    align-items: center;
+
     @include media(">=notebook") {
       position: absolute;
-      padding-top: var(--fs-search-input-field-button-padding-top-desktop);
-      padding-bottom: var(--fs-search-input-field-button-padding-bottom-desktop);
-      min-height: var(--fs-search-input-field-button-min-height);
       right: 0;
     }
   }
 
-  [data-fs-search-input-field-input] {
-    height: auto;
-    padding-right: var(--fs-search-input-field-input-padding-right);
-    background-color: var(--fs-search-input-field-input-bkg-color);
-    transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
-    @include media("<notebook") { border: 0; }
+  [data-fs-icon-button][data-fs-button-variant] {
+    @include media(">=notebook") {
+      min-height: var(--fs-search-input-field-button-min-height);
+      padding-top: var(--fs-search-input-field-button-padding-top-desktop);
+      padding-bottom:
+        var(
+          --fs-search-input-field-button-padding-bottom-desktop
+        );
+    }
   }
 
+  [data-fs-search-input-field-attachment-button] {
+    [data-fs-icon] {
+      transform: rotate(90deg);
+    }
+
+    &:hover {
+      --fs-button-border-radius: var(--fs-border-radius-circle);
+    }
+  }
+
+  [data-fs-search-input-field-separator] {
+    display: inline-block;
+    width: 1px;
+    height: var(--fs-spacing-3);
+    margin: 0 var(--fs-spacing-0);
+    background-color: var(--fs-border-color-light, #e0e0e0);
+  }
+
+  [data-fs-search-input-field-input] {
+    height: auto;
+    padding-right: var(--fs-spacing-7);
+    background-color: var(--fs-search-input-field-input-bkg-color);
+    transition:
+      box-shadow var(--fs-search-input-field-transition-timing)
+      var(--fs-search-input-field-transition-timing),
+      border var(--fs-search-input-field-transition-timing)
+      var(--fs-search-input-field-transition-function);
+
+    @include media("<notebook") {
+      border: 0;
+    }
+  }
 }
