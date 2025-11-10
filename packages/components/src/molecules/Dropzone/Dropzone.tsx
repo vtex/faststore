@@ -90,7 +90,7 @@ export interface DropzoneProps extends HTMLAttributes<HTMLDivElement> {
    * When disabled, `aria-disabled` is also set so assistive tech
    * can still identify the dropzone and its state.
    */
-  ariaLabel: string
+  ariaLabel?: string
 }
 
 export interface DropzoneState {
@@ -111,13 +111,13 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
     accept,
     multiple = true,
     disabled = false,
-    dragActiveText,
-    text,
+    dragActiveText = 'Drop the files here...',
+    text = 'Drag and drop files here, or click to select files',
     noClick = false,
     noKeyboard = false,
     noDrag = false,
     selectFilesButton = null,
-    ariaLabel,
+    ariaLabel = '',
     ...otherProps
   },
   ref
@@ -165,16 +165,18 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
   const rootProps = getRootProps()
   const mergedRef = mergeRefs(ref, rootProps.ref as React.Ref<HTMLDivElement>)
 
-  const accessibilityProps = disabled
-    ? {
-        role: 'button' as const,
-        'aria-label': ariaLabel,
-        'aria-disabled': true as const,
-      }
-    : {
-        role: 'button' as const,
-        'aria-label': ariaLabel,
-      }
+  const accessibilityProps = ariaLabel
+    ? disabled
+      ? {
+          role: 'button' as const,
+          'aria-label': ariaLabel,
+          'aria-disabled': true as const,
+        }
+      : {
+          role: 'button' as const,
+          'aria-label': ariaLabel,
+        }
+    : {}
 
   return (
     <div

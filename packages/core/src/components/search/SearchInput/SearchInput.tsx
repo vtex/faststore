@@ -62,6 +62,7 @@ const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   import('@faststore/ui').then((module) => module.SearchInputField)
 )
 
+
 const MAX_SUGGESTIONS = 5
 
 export type SearchInputProps = {
@@ -309,6 +310,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           >
             <UISearchInputField
               ref={ref}
+              showUploadButton
+              onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
               showAttachmentButton={showAttachmentButton}
@@ -359,7 +362,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 />
               </Suspense>
             )}
-
             {fileUploadVisible && (
               <FileUploadCard
                 {...({

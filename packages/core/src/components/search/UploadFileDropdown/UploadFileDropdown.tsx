@@ -317,7 +317,6 @@ export default function UploadFileDropdown({
             maxSize={MAX_FILE_SIZE}
             disabled={isParsing}
             text={labels.dropzoneText}
-            aria-label={labels.dropzoneAriaLabel}
             dragActiveText={labels.dropzoneDragActiveText}
           />
           <Button
