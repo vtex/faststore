@@ -46,6 +46,9 @@
   [data-fs-search-input-field-actions] {
     position: relative;
     inset-inline-end: 0.125rem;
+    display: flex;
+    gap: 0;
+    align-items: center;
 
     @include media(">=notebook") {
       position: absolute;
