@@ -29,6 +29,20 @@ export interface SearchInputFieldProps extends InputProps {
    */
   buttonIcon?: ReactNode
   /**
+   * Whether to show the attachment button.
+   * @default false
+   */
+  showAttachmentButton?: boolean
+  /**
+   * Props for the paperclip button inside the input.
+   */
+  attachmentButtonProps?: ButtonProps
+  /**
+   * A React component that will be rendered as an icon (attachment button).
+   * @default <Icon name="Paperclip" />
+   */
+  attachmentButtonIcon?: ReactNode
+  /**
    * Custom aria-label for input and button.
    */
   'aria-label'?: AriaAttributes['aria-label']
@@ -50,6 +64,9 @@ const SearchInputField = forwardRef<
   {
     onSubmit,
     buttonIcon,
+    showAttachmentButton = false,
+    attachmentButtonIcon,
+    attachmentButtonProps,
     'aria-label': ariaLabel = 'search',
     testId = 'fs-search-input',
     buttonProps,
@@ -74,27 +91,48 @@ const SearchInputField = forwardRef<
   }))
 
   return (
-    <form
-      ref={formRef}
-      data-fs-search-input-field
-      data-testid={testId}
-      onSubmit={handleSubmit}
-      role="search"
-    >
-      <Input
-        ref={inputRef}
-        aria-label={ariaLabel}
-        data-fs-search-input-field-input
-        {...otherProps}
-      />
-      <IconButton
-        type="submit"
-        aria-label="Submit Search"
-        icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
-        size="small"
-        {...buttonProps}
-      />
-    </form>
+    <div data-fs-search-input-field-wrapper>
+      <form
+        ref={formRef}
+        data-fs-search-input-field
+        data-testid={testId}
+        onSubmit={handleSubmit}
+        role="search"
+      >
+        <Input
+          ref={inputRef}
+          aria-label={ariaLabel}
+          data-fs-search-input-field-input
+          {...otherProps}
+        />
+
+        <div data-fs-search-input-field-actions>
+          {showAttachmentButton && (
+            <>
+              <IconButton
+                type="button"
+                aria-label="Attach File"
+                icon={attachmentButtonIcon ?? <Icon name="Paperclip" />}
+                size="small"
+                data-fs-search-input-field-attachment-button
+                {...attachmentButtonProps}
+              />
+
+              <span data-fs-search-input-field-separator />
+            </>
+          )}
+
+          <IconButton
+            type="submit"
+            aria-label="Submit Search"
+            icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
+            size="small"
+            data-fs-search-input-field-submit-button
+            {...buttonProps}
+          />
+        </div>
+      </form>
+    </div>
   )
 })
 
