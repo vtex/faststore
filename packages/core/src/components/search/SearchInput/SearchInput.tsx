@@ -46,6 +46,15 @@ const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   import('@faststore/ui').then((module) => module.SearchInputField)
 )
 
+const UploadFileDropdown = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "UploadFileDropdown" */
+      'src/components/search/UploadFileDropdown/UploadFileDropdown'
+    ).then((mod) => mod.default),
+  { ssr: false }
+)
+
 const MAX_SUGGESTIONS = 5
 
 export type SearchInputProps = {
@@ -62,22 +71,21 @@ export type SearchInputProps = {
   /**
    * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
    */
-  fileUploadCardProps?: Partial<
-    Pick<
-      FileUploadCardProps,
-      | 'title'
-      | 'fileInputAriaLabel'
-      | 'dropzoneAriaLabel'
-      | 'dropzoneTitle'
-      | 'selectFileButtonLabel'
-      | 'downloadTemplateButtonLabel'
-      | 'removeButtonAriaLabel'
-      | 'searchButtonLabel'
-      | 'uploadingStatusText'
-      | 'getCompletedStatusText'
-      | 'errorMessages'
+  fileUploadCardProps?: {
+    title?: string
+    fileInputAriaLabel?: string
+    dropzoneAriaLabel?: string
+    dropzoneTitle?: string
+    selectFileButtonLabel?: string
+    downloadTemplateButtonLabel?: string
+    removeButtonAriaLabel?: string
+    searchButtonLabel?: string
+    uploadingStatusText?: string
+    getCompletedStatusText?: (fileSize: number) => string
+    errorMessages?: Partial<
+      Record<string, { title: string; description: string }>
     >
-  >
+  }
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -111,6 +119,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
   ) {
     const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
+    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [
       customSearchDropdownVisibleCondition,
       setCustomSearchDropdownVisibleCondition,
@@ -247,6 +256,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   ...(fileUploadCardProps ?? {}),
                 } as FileUploadCardProps)}
               />
+            )}
+
+            {isUploadModalOpen && (
+              <Suspense fallback={null}>
+                <UploadFileDropdown />
+              </Suspense>
             )}
           </UISearchInput>
         )}
