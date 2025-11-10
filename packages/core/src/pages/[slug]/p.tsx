@@ -75,6 +75,7 @@ type Props = PDPContentType & {
     description: string
     canonical: string
   }
+  locale: string
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -91,6 +92,7 @@ function Page({
   globalSections: globalSectionsProp,
   offers,
   meta,
+  locale,
 }: Props) {
   const { currency } = useSession()
 
@@ -148,6 +150,7 @@ function Page({
 
   return (
     <>
+      <h1>Você está acessando a página de produto em {locale}</h1>
       {isClientOfferEnabled && (
         <Head>
           <link
@@ -292,7 +295,7 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string },
   PreviewData
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, locale }) => {
   const slug = params?.slug ?? ''
 
   const [
@@ -384,6 +387,7 @@ export const getStaticProps: GetStaticProps<
       offers,
       globalSections: globalSectionsResult,
       key: seo.canonical,
+      locale: locale ?? 'Não definido',
     },
     revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
   }

@@ -20,12 +20,14 @@ type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
   serverData?: unknown
+  locale: string
 }
 
 function Page({
   page: { sections, settings },
   globalSections: globalSectionsProp,
   serverData,
+  locale,
 }: Props) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
@@ -35,7 +37,6 @@ function Page({
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
-
   const organizationAddress = Object.entries(
     settings?.seo?.organization?.address ?? {}
   ).reduce(
@@ -136,6 +137,7 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
+        <h1>Você está acessando a página em {locale}</h1>
         <RenderSections
           globalSections={globalSections}
           sections={sections}
@@ -150,7 +152,7 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   PreviewData
-> = async ({ previewData }) => {
+> = async ({ previewData, locale }) => {
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
@@ -202,6 +204,7 @@ export const getStaticProps: GetStaticProps<
       page,
       globalSections: globalSectionsResult,
       serverData,
+      locale: locale ?? 'Não definido',
     },
   }
 }

@@ -1,6 +1,7 @@
 // @ts-check
 const path = require('path')
 const storeConfig = require('./discovery.config')
+const locales = require('./locales.json')
 
 /**
  * @type {import('next').NextConfig}
@@ -17,8 +18,12 @@ const nextConfig = {
     loaderFile: './src/components/ui/Image/loader.ts',
   },
   i18n: {
-    locales: [storeConfig.session.locale],
-    defaultLocale: storeConfig.session.locale,
+    locales: locales.locales,
+    defaultLocale: locales.defaultLocale,
+    domains: Object.entries(locales.urls).map(([locale, url]) => ({
+      domain: url.replace('https://', '').replace('http://', ''),
+      defaultLocale: locale,
+    })),
   },
   sassOptions: {
     additionalData: `@import "src/customizations/src/styles/custom-mixins.scss";`,
