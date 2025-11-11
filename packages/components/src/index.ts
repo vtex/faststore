@@ -399,4 +399,4 @@ export type {
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
 export { default as Dropzone } from './molecules/Dropzone'
-export type { DropzoneProps } from './molecules/Dropzone'
+export type { DropzoneProps, DropzoneState } from './molecules/Dropzone'
