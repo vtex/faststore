@@ -7,11 +7,12 @@ import {
   Dropzone as UIDropzone,
   SearchDropdown as UISearchDropdown,
   type DropzoneState,
+  Loader,
   useUI,
 } from '@faststore/ui'
 
 import styles from './section.module.scss'
-import { formatFileName } from 'src/utils/utilities'
+import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
 const MAX_FILES = 1
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
@@ -27,6 +28,7 @@ type CSVData = {
   data: Array<{ SKU: string; Quantity: number }>
   fileName: string
   totalRows: number
+  fileSize: number
 }
 
 export default function UploadFileDropdown() {
@@ -132,6 +134,7 @@ export default function UploadFileDropdown() {
             data: transformedData,
             fileName: file.name,
             totalRows: transformedData.length,
+            fileSize: file.size,
           })
         } catch (err) {
           reject(
@@ -211,21 +214,70 @@ export default function UploadFileDropdown() {
   }
 
   const handleDownloadTemplate = () => {
-    const finalHeaders = ['SKU', 'Quantity']
-    const data = [
-      { SKU: 'AB120', Quantity: 2 },
-      { SKU: 'AB121', Quantity: 3 },
-      { SKU: 'AB122', Quantity: 5 },
-      { SKU: 'AB123', Quantity: 10 },
-      { SKU: 'AB124', Quantity: 1 },
-      { SKU: 'AB125', Quantity: 20 },
-    ]
+    try {
+      const templateData = [
+        { SKU: 'PROD-001', Quantity: 5 },
+        { SKU: 'ITEM-234', Quantity: 12 },
+        { SKU: 'SKU789', Quantity: 3 },
+        { SKU: 'ABC-XYZ-456', Quantity: 8 },
+        { SKU: 'SAMPLE-100', Quantity: 25 },
+      ]
 
-    const ws = XLSX.utils.json_to_sheet(data, { header: finalHeaders })
-    const wb = XLSX.utils.book_new()
+      const ws = XLSX.utils.json_to_sheet(templateData, {
+        header: ['SKU', 'Quantity'],
+      })
 
-    XLSX.utils.book_append_sheet(wb, ws, 'SheetJS')
-    XLSX.writeFile(wb, 'template-search-sku-quantity.xlsx')
+      ws['!cols'] = [
+        { wch: 15 }, // SKU column width
+        { wch: 10 }, // Quantity column width
+      ]
+
+      // Add comments to header cells
+      if (!ws['!comments']) ws['!comments'] = []
+
+      ws['A1'].c = [
+        {
+          a: 'System',
+          t: 'Enter the product SKU/ID as it appears in your catalog',
+        },
+      ]
+
+      ws['B1'].c = [
+        {
+          a: 'System',
+          t: 'Enter a positive number for the desired quantity',
+        },
+      ]
+
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb, ws, 'Bulk Search Template')
+
+      const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-')
+      const filename = `bulk-search-template-${timestamp}.xlsx`
+
+      wb.Props = {
+        Title: 'Bulk Search Template',
+        Subject: 'Template for bulk product search',
+        Author: 'FastStore',
+        CreatedDate: new Date(),
+      }
+
+      XLSX.writeFile(wb, filename)
+
+      pushToast({
+        title: 'Template Downloaded',
+        message: 'Template file has been downloaded successfully',
+        status: 'INFO',
+        icon: <UIIcon name="CircleWavyCheck" width={30} height={30} />,
+      })
+    } catch (error) {
+      pushToast({
+        title: 'Download Failed',
+        message: 'Failed to download template file. Please try again.',
+        status: 'ERROR',
+        icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+      })
+    }
   }
 
   const handleUseData = () => {
@@ -245,7 +297,13 @@ export default function UploadFileDropdown() {
                 {formatFileName(csvData.fileName)}
               </h3>
               <p data-fs-upload-result-file-rows>
-                {`Completed · ${csvData.totalRows} products found`}
+                {isProcessing ? (
+                  <Loader />
+                ) : (
+                  `Completed · ${formatFileSize(csvData.fileSize)} · ${
+                    csvData.totalRows
+                  } products found`
+                )}
               </p>
             </div>
             <Button variant="tertiary" size="small" onClick={clearData}>
@@ -259,6 +317,7 @@ export default function UploadFileDropdown() {
               size="small"
               onClick={handleUseData}
               data-fs-upload-use-data-button
+              disabled={isProcessing}
             >
               Search
             </Button>
@@ -301,14 +360,6 @@ export default function UploadFileDropdown() {
           >
             Download Template
           </Button>
-        </div>
-      )}
-
-      {/* Loading state */}
-      {isProcessing && (
-        <div data-fs-upload-loading>
-          <UIIcon name="CircleNotch" />
-          <p>Processing file...</p>
         </div>
       )}
 

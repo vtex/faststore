@@ -101,7 +101,7 @@
     background-color: var(--fs-border-color-light, #e0e0e0);
   }
 
-  [data-fs-search-input-field-upload-button] {
+  &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
     right: 2.5rem;
 
     @include media(">=notebook") {
