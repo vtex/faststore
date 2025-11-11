@@ -305,7 +305,7 @@
                     }
                   }
                 },
-                "invalidQuantityToast": {
+                "invalidQuantityToastLabels": {
                   "title": "Invalid quantity toast",
                   "description": "This toast will be displayed when the quantity is out of the range of the min and max values.",
                   "type": "object",
@@ -1710,7 +1710,7 @@
               "type": "boolean",
               "default": false
             },
-            "invalidQuantityToast": {
+            "invalidQuantityToastLabels": {
               "title": "Invalid quantity toast",
               "description": "This toast will be displayed when the quantity is out of the range of the min and max values.",
               "type": "object",

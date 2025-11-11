@@ -61,7 +61,7 @@ export interface ProductDetailsProps {
   }
   quantitySelector: {
     useUnitMultiplier?: boolean
-    invalidQuantityToast?: {
+    invalidQuantityToastLabels?: {
       title?: string
       message?: string
     }
@@ -262,7 +262,9 @@ function ProductDetails({
                   product={product}
                   isValidating={isValidating}
                   taxesConfiguration={taxesConfiguration}
-                  invalidQuantityToast={quantitySelector?.invalidQuantityToast}
+                  invalidQuantityToastLabels={
+                    quantitySelector?.invalidQuantityToastLabels
+                  }
                 />
 
                 {skuMatrix?.shouldDisplaySKUMatrix &&
@@ -281,8 +283,8 @@ function ProductDetails({
                           formatter={useFormattedPrice}
                           columns={skuMatrix.columns}
                           overlayProps={{ className: styles.section }}
-                          invalidQuantityToast={
-                            quantitySelector?.invalidQuantityToast
+                          invalidQuantityToastLabels={
+                            quantitySelector?.invalidQuantityToastLabels
                           }
                         />
                       </SKUMatrix.Component>

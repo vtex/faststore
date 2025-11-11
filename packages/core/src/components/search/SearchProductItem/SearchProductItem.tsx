@@ -155,9 +155,9 @@ function SearchProductItem({
         }}
         onValidateBlur={(min, max, quantity) =>
           pushToast({
-            title: quickOrderSettings?.invalidQuantityToast?.title,
+            title: quickOrderSettings?.invalidQuantityToastLabels?.title,
             message:
-              quickOrderSettings?.invalidQuantityToast?.message
+              quickOrderSettings?.invalidQuantityToastLabels?.message
                 ?.replace('%{min}', min.toString())
                 ?.replace('%{max}', max.toString())
                 ?.replace('%{quantity}', quantity.toString()) || '',
@@ -190,8 +190,8 @@ function SearchProductItem({
                     status={(status: string | null) =>
                       onChangeCustomSearchDropdownVisible(status === 'visible')
                     }
-                    invalidQuantityToast={
-                      quickOrderSettings?.invalidQuantityToast
+                    invalidQuantityToastLabels={
+                      quickOrderSettings?.invalidQuantityToastLabels
                     }
                   />
                 </UISKUMatrix>

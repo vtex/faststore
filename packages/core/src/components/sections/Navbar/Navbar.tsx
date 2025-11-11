@@ -25,7 +25,7 @@ export interface NavbarProps {
     sort: string
     quickOrderSettings?: {
       quickOrder: boolean
-      invalidQuantityToast?: {
+      invalidQuantityToastLabels?: {
         title?: string
         message?: string
       }

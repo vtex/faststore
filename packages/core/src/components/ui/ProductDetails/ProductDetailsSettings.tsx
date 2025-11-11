@@ -28,7 +28,7 @@ interface ProductDetailsSettingsProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
-  invalidQuantityToast?: {
+  invalidQuantityToastLabels?: {
     title?: string
     message?: string
   }
@@ -44,7 +44,7 @@ function ProductDetailsSettings({
   notAvailableButtonTitle,
   useUnitMultiplier = false,
   taxesConfiguration,
-  invalidQuantityToast,
+  invalidQuantityToastLabels,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -148,9 +148,9 @@ function ProductDetailsSettings({
               quantity: number
             ) => {
               pushToast({
-                title: invalidQuantityToast?.title,
+                title: invalidQuantityToastLabels?.title,
                 message:
-                  invalidQuantityToast?.message
+                  invalidQuantityToastLabels?.message
                     ?.replace('%{min}', min.toString())
                     ?.replace('%{max}', maxValue.toString())
                     ?.replace('%{quantity}', quantity.toString()) || '',

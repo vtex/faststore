@@ -68,9 +68,9 @@ export interface SKUMatrixSidebarProps
     height?: number
   }>
   /**
-   * Properties related to the 'invalid quantity' toast.
+   * Labels related to the 'invalid quantity' toast.
    */
-  invalidQuantityToast?: {
+  invalidQuantityToastLabels?: {
     title?: string
     message?: string
   }
@@ -87,7 +87,7 @@ function SKUMatrixSidebar({
   ImageComponent = ImageComponentFallback,
   buyProps: { onClick: buyButtonOnClick, ...buyProps },
   overlayProps,
-  invalidQuantityToast,
+  invalidQuantityToastLabels,
   ...otherProps
 }: SKUMatrixSidebarProps) {
   const {
@@ -270,9 +270,9 @@ function SKUMatrixSidebar({
                           quantity: number
                         ) => {
                           pushToast({
-                            title: invalidQuantityToast?.title,
+                            title: invalidQuantityToastLabels?.title,
                             message:
-                              invalidQuantityToast?.message
+                              invalidQuantityToastLabels?.message
                                 ?.replace('%{min}', min.toString())
                                 ?.replace('%{max}', maxValue.toString())
                                 ?.replace('%{quantity}', quantity.toString()) ||
