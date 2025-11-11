@@ -28,6 +28,10 @@ interface ProductDetailsSettingsProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  invalidQuantityToastLabels?: {
+    title?: string
+    message?: string
+  }
 }
 
 function ProductDetailsSettings({
@@ -40,6 +44,7 @@ function ProductDetailsSettings({
   notAvailableButtonTitle,
   useUnitMultiplier = false,
   taxesConfiguration,
+  invalidQuantityToastLabels,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -143,8 +148,12 @@ function ProductDetailsSettings({
               quantity: number
             ) => {
               pushToast({
-                title: 'Invalid quantity!',
-                message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                title: invalidQuantityToastLabels?.title,
+                message:
+                  invalidQuantityToastLabels?.message
+                    ?.replace('%{min}', min.toString())
+                    ?.replace('%{max}', maxValue.toString())
+                    ?.replace('%{quantity}', quantity.toString()) || '',
                 status: 'INFO',
                 icon: (
                   <UIIcon name="CircleWavyWarning" width={30} height={30} />

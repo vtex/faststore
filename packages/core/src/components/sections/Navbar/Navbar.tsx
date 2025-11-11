@@ -25,6 +25,10 @@ export interface NavbarProps {
     sort: string
     quickOrderSettings?: {
       quickOrder: boolean
+      invalidQuantityToastLabels?: {
+        title?: string
+        message?: string
+      }
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
