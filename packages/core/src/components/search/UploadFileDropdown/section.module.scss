@@ -83,8 +83,12 @@
   }
 
   [data-fs-upload-result-file-rows] {
+    max-width: 500px;
+    overflow: hidden;
     font-size: var(--fs-text-size-2);
     color: var(--fs-color-neutral-4);
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   [data-fs-upload-actions] {
