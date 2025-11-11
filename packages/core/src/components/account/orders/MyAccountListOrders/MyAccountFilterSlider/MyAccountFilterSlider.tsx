@@ -13,7 +13,6 @@ import type {
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
 import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
-import FilterFacetPlacedBy from './MyAccountFilterFacetPlacedBy'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -90,10 +89,6 @@ function MyAccountFilterSlider({
           acc['status'] = Array.isArray(acc['status'])
             ? [...acc['status'], value]
             : [value]
-        }
-
-        if (key === 'purchaseAgentId') {
-          acc['purchaseAgentId'] = value
         }
 
         return acc
@@ -207,9 +202,6 @@ function MyAccountFilterSlider({
                     )
                   })}
                 </UIFilterFacetBoolean>
-              )}
-              {type === 'StoreFacetPlacedBy' && isExpanded && (
-                <FilterFacetPlacedBy selected={selected} dispatch={dispatch} />
               )}
               {type === 'StoreFacetRange' && isExpanded && (
                 <FilterFacetDateRange

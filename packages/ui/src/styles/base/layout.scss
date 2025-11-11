@@ -17,12 +17,12 @@
   }
 
   .layout__section {
-    margin-bottom: var(--fs-spacing-4);
     margin-top: var(--fs-spacing-4);
+    margin-bottom: var(--fs-spacing-4);
 
     @include media(">=notebook") {
-      margin-bottom: var(--fs-grid-padding);
       margin-top: var(--fs-grid-padding);
+      margin-bottom: var(--fs-grid-padding);
     }
   }
 
@@ -31,8 +31,7 @@
     width: 100%;
     width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
     max-width: var(--fs-grid-max-width);
-    margin-right: auto;
-    margin-left: auto;
+    margin-inline: auto;
   }
 
   [data-fs-content] { @include layout-content; }

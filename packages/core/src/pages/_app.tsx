@@ -12,8 +12,10 @@ import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
+import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
 
 import SEO from 'next-seo.config'
+import storeConfig from 'discovery.config'
 
 // FastStore UI's base styles
 import '../styles/main.scss'
@@ -22,6 +24,7 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
+  storeConfig.experimental?.scrollRestoration && useScrollRestoration()
   const router = useRouter()
   const { start: startGlobalSearchState } = useSearch()
 

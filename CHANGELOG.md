@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
+
+### Features
+
+- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+
+# [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
+
+### Features
+
+- Add RTL Support ([#3097](https://github.com/vtex/faststore/issues/3097)) ([e293857](https://github.com/vtex/faststore/commit/e293857070b265419aee793ba09fd0795e7d7b44))
+
+## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.91.3-dev.1...v3.92.1-dev.0) (2025-11-03)
+
+**Note:** Version bump only for package faststore
+
+# [3.92.0](https://github.com/vtex/faststore/compare/v3.91.2...v3.92.0) (2025-11-03)
+
+### Features
+
+- release ([#3092](https://github.com/vtex/faststore/issues/3092)) ([6dfe2ba](https://github.com/vtex/faststore/commit/6dfe2ba42dd03137ea53c85ad5aa3ee5a13c2fbf))
+
+## [3.91.3-dev.1](https://github.com/vtex/faststore/compare/v3.91.3-dev.0...v3.91.3-dev.1) (2025-10-30)
+
+**Note:** Version bump only for package faststore
+
+## 3.91.3-dev.0 (2025-10-30)
+
+### Bug Fixes
+
+- add background color to TextareaField label ([#3079](https://github.com/vtex/faststore/issues/3079)) ([9e5a64d](https://github.com/vtex/faststore/commit/9e5a64d51d9983f028ec5cf0004cfed633b1ee8d)), closes [#2705](https://github.com/vtex/faststore/issues/2705) [/github.com/vtex/faststore/pull/2705#pullrequestreview-2710467780](https://github.com//github.com/vtex/faststore/pull/2705/issues/pullrequestreview-2710467780) [#2705](https://github.com/vtex/faststore/issues/2705) [/github.com/vtex/faststore/pull/2705#pullrequestreview-2710467780](https://github.com//github.com/vtex/faststore/pull/2705/issues/pullrequestreview-2710467780)
+- remove purchaseAgentId filter - SFS-2942 ([#3085](https://github.com/vtex/faststore/issues/3085)) ([270588f](https://github.com/vtex/faststore/commit/270588f1e7490ff94e296c4da7116c4112883359))
+
 ## 3.91.2 (2025-10-27)
 
 ### Bug Fixes
