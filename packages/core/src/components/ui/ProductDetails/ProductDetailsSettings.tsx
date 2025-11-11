@@ -130,7 +130,6 @@ function ProductDetailsSettings({
                 formatter={useFormattedPrice}
                 {...ProductPrice.props}
               />
-
               {taxesConfiguration?.usePriceWithTaxes && (
                 <UILabel data-fs-product-details-taxes-label>
                   {taxesConfiguration?.taxesLabel}
@@ -168,6 +167,7 @@ function ProductDetailsSettings({
             />
           </section>
         ))}
+
       {skuVariants && (
         <Selectors
           slugsMap={skuVariants.slugsMap}
