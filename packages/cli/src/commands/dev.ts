@@ -1,4 +1,4 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
@@ -44,7 +44,7 @@ async function storeDev(
   rootDir: string,
   tmpDir: string,
   coreDir: string,
-  port: number
+  port: number | string
 ) {
   // Only try to read vtex.env if it exists
   let envVars = {}
@@ -125,22 +125,22 @@ function copyGenerated(from: string, to: string) {
 }
 
 export default class Dev extends Command {
-  static args = [
-    {
-      name: 'account',
-      description:
-        'The account for which the Discovery is running. Currently noop.',
-    },
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being run is. Defaults to cwd.',
-    },
-    {
+    }),
+    account: Args.string({
+      name: 'account',
+      description:
+        'The account for which the Discovery is running. Currently noop.',
+    }),
+    port: Args.string({
       name: 'port',
       description: 'The port where FastStore should run. Defaults to 3000.',
-    },
-  ]
+    }),
+  }
 
   static flags = {
     'watch-plugins': Flags.boolean({
@@ -153,7 +153,7 @@ export default class Dev extends Command {
     const { args, flags } = await this.parse(Dev)
     const basePath = getBasePath(args.path)
 
-    const port = args.port ?? 3000
+    const port = args.port ?? '3000'
     const watchPlugins = flags['watch-plugins']
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)

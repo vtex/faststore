@@ -1,6 +1,7 @@
 import path from 'path'
 import chalk from 'chalk'
-import { CliUx } from '@oclif/core'
+// import { ux } from '@oclif/core'
+import { confirm } from '@inquirer/prompts'
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'fs-extra'
 
 import { withBasePath } from './directory'
@@ -96,13 +97,13 @@ async function confirmUserChoice(
   duplicates: ContentTypeOrSectionDefinition[],
   fileName: string
 ) {
-  const goAhead = await CliUx.ux.confirm(
-    `You are about to override default ${
+  const goAhead = await confirm({
+    message: `You are about to override default ${
       fileName.split('.')[0]
     }:\n\n${duplicates
       .map((definition) => definition.id || definition.name)
-      .join('\n')}\n\nAre you sure? [yes/no]`
-  )
+      .join('\n')}\n\nAre you sure? [yes/no]`,
+  })
 
   if (!goAhead) {
     throw new Error('cms-sync cancelled by user.')

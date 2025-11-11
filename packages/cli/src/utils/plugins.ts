@@ -5,9 +5,9 @@ import {
   readdirSync,
   writeFileSync,
 } from 'fs-extra'
-import { withBasePath } from './directory'
+import { withBasePath } from './directory.ts'
 import path from 'path'
-import { logger } from './logger'
+import { logger } from './logger.ts'
 
 export type PageConfig = {
   path: string
