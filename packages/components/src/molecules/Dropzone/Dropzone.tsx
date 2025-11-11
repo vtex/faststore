@@ -98,6 +98,11 @@ export interface DropzoneState {
   fileRejections: FileRejection[]
 }
 
+export interface DropzoneState {
+  acceptedFiles: File[]
+  fileRejections: FileRejection[]
+}
+
 const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
   {
     icon,
