@@ -1,14 +1,13 @@
+import type { GraphqlResolver } from '..'
 import { enhanceSku } from '../utils/enhanceSku'
-import type { Resolver } from '..'
-import type { PromiseType } from '../../../typings'
-import type { StoreProduct } from './product'
 import { VALUE_REFERENCES } from '../utils/propertyValue'
+import type { StoreProduct } from './product'
 
 export type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
 const BLOCKED_SPECIFICATIONS = new Set(['allSpecifications'])
 
-export const StoreProductGroup: Record<string, Resolver<Root>> = {
+export const StoreProductGroup: Record<string, GraphqlResolver<Root>> = {
   hasVariant: (root) =>
     root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,

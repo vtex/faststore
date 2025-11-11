@@ -2,9 +2,8 @@ import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
 
 import { NotFoundError } from '../../errors'
-import type { CollectionPageType } from '../clients/commerce/types/Portal'
-import type { Options } from '..'
 import type { Clients } from '../clients'
+import type { CollectionPageType } from '../clients/commerce/types/Portal'
 
 // Limits concurrent requests to 20 so that they don't timeout
 const CONCURRENT_REQUESTS_MAX = 20

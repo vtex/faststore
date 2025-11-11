@@ -12,7 +12,7 @@
   "module": "dist/lighthouse.esm.js",
   "typings": "dist/index.d.ts",
   "engines": {
-    "node": ">=10"
+    "node": ">=20"
   },
   "files": [
     "dist",
@@ -23,6 +23,6 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@types/node": "^18.11.16"
+    "@types/node": "catalog:"
   }
 }

@@ -1,8 +1,7 @@
+import type { GraphqlResolver } from '..'
 import { inStock, price } from '../utils/productStock'
-import type { StoreProduct } from './product'
-import type { PromiseType } from '../../../typings'
-import type { Resolver } from '..'
 import { withTax } from '../utils/taxes'
+import type { StoreProduct } from './product'
 
 export type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
@@ -35,8 +34,8 @@ const getLowPrice = (
   return withTax(lowPrice, lowOffer?.Tax, lowOffer?.product?.unitMultiplier)
 }
 
-export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, Root>
+export const StoreAggregateOffer: Record<string, GraphqlResolver<Root>> & {
+  offers: GraphqlResolver<Root, any, Root>
 } = {
   highPrice: (offers) => getHighPrice(offers),
   lowPrice: (offers) => getLowPrice(offers),

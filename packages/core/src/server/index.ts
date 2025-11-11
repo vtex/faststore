@@ -11,14 +11,13 @@ import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
 import {
-  authDirective,
-  cacheControlDirective,
   BadRequestError,
-  getContextFactory,
-  getResolvers,
+  GraphqlVtexContextFactory,
+  GraphqlVtexSchema,
   isFastStoreError,
 } from '@faststore/api'
 import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
 import * as GraphQLJS from 'graphql'
@@ -41,7 +40,7 @@ interface ExecuteOptions<V = Record<string, unknown>> {
 
 const persistedQueries = new Map(Object.entries(persisted))
 
-const apiContextFactory = getContextFactory(apiOptions)
+const apiContextFactory = GraphqlVtexContextFactory(apiOptions)
 
 const customFormatError: MaskError = (err) => {
   if (err instanceof GraphQLError && isFastStoreError(err.originalError)) {
@@ -60,17 +59,17 @@ function loadGeneratedSchema(): TypeSource {
 }
 
 function getFinalAPISchema() {
-  const generatedSchema = loadGeneratedSchema()
-  const nativeResolvers = getResolvers(apiOptions)
+  const finalTypeDefs = mergeTypeDefs([
+    GraphqlVtexSchema(),
+    loadGeneratedSchema(),
+  ])
 
   const schema = makeExecutableSchema({
-    typeDefs: generatedSchema,
-    resolvers: [nativeResolvers, vtexExtensionsResolvers, thirdPartyResolvers],
+    typeDefs: finalTypeDefs,
+    resolvers: [vtexExtensionsResolvers, thirdPartyResolvers],
   })
 
-  // Apply directive transformations
-  const directives = [cacheControlDirective, authDirective]
-  return directives.reduce((s, d) => d.transformer(s), schema)
+  return GraphqlVtexSchema(schema)
 }
 
 export const getEnvelop = async () =>

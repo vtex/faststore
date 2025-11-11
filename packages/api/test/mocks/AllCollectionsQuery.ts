@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 export const AllCollectionsQueryFirst5 = `query allCollections {
   allCollections(first: 5) {
     edges {

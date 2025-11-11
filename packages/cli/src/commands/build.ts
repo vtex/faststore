@@ -1,4 +1,4 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
@@ -6,22 +6,19 @@ import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 
 export default class Build extends Command {
-  static args = [
-    {
-      name: 'account',
+  static args = {
+    account: Args.string({
       description:
         'The account for which the Discovery is running. Currently noop.',
-    },
-    {
-      name: 'path',
+    }),
+    path: Args.string({
       description:
         'The path where the FastStore being built is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   static flags = {
     ['no-verify']: Flags.boolean({
@@ -51,9 +48,13 @@ export default class Build extends Command {
 
     const { tmpDir } = withBasePath(basePath)
 
-    await generate({ setup: true, basePath })
-
     const packageManager = getPreferredPackageManager()
+
+    spawnSync(`${packageManager} run generate`, {
+      shell: true,
+      cwd: tmpDir,
+      stdio: 'inherit',
+    })
 
     const buildResult = spawnSync(`${packageManager} run build`, {
       shell: true,

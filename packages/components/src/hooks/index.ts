@@ -1,11 +1,12 @@
 export {
   regionSliderTypes,
-  Toast as ToastProps,
   default as UIProvider,
   useUI,
+  type Toast as ToastProps,
 } from './UIProvider'
 export { useFadeEffect } from './useFadeEffect'
 export { useOnClickOutside } from './useOnClickOutside'
+export { useProductComparison } from './useProductComparison'
 export { useScrollDirection } from './useScrollDirection'
 export { useSearch } from './useSearch'
 export { useSKUMatrix } from './useSKUMatrix'
@@ -18,5 +19,4 @@ export type {
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
 export { useTrapFocus } from './useTrapFocus'
-export { useProductComparison } from './useProductComparison'
 export { useRTL } from './useRTL'
