@@ -108,3 +108,32 @@ export const buildFormData = (
 
 export const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
+
+/**
+ * Formats the file name to a more user-friendly version.
+ * @param fileName - The original file name.
+ * @returns The formatted file name.
+ * @example
+ * formatFileName('smartphoneX5-23-256gb-black-edition-2023.xlsx')
+ * // Returns: 'smartphoneX5-23...ck-edition-2023.xlsx'
+ */
+export function formatFileName(fileName: string): string {
+  const maxLength = 30
+  const extensionIndex = fileName.lastIndexOf('.')
+  const extension = extensionIndex !== -1 ? fileName.slice(extensionIndex) : ''
+
+  if (fileName.length <= maxLength) {
+    return fileName
+  }
+
+  let nameWithoutExtension =
+    extensionIndex !== -1 ? fileName.slice(0, extensionIndex) : fileName
+
+  if (nameWithoutExtension.length > maxLength) {
+    const start = nameWithoutExtension.slice(0, maxLength / 2)
+    const end = nameWithoutExtension.slice(-maxLength / 2)
+    nameWithoutExtension = `${start}...${end}`
+  }
+
+  return `${nameWithoutExtension}${extension}`
+}
