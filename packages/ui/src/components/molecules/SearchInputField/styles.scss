@@ -15,7 +15,7 @@
   --fs-search-input-field-button-padding-bottom-desktop : var(--fs-search-input-field-button-padding-top-desktop);
 
   // Input
-  --fs-search-input-field-input-padding-right           : var(--fs-spacing-7);
+  --fs-search-input-field-input-padding-right           : var(--fs-spacing-13);
   --fs-search-input-field-input-bkg-color               : var(--fs-color-body-bkg);
 
   // --------------------------------------------------------
@@ -51,5 +51,13 @@
     transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
 
     @include media("<notebook") { border: 0; }
+  }
+
+  &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
+    right: 2.5rem;
+
+    @include media(">=notebook") {
+      right: 3rem;
+    }
   }
 }

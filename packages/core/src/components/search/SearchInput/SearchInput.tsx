@@ -44,6 +44,15 @@ const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   import('@faststore/ui').then((module) => module.SearchInputField)
 )
 
+const UploadFileDropdown = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "UploadFileDropdown" */
+      'src/components/search/UploadFileDropdown/UploadFileDropdown'
+    ).then((mod) => mod.default),
+  { ssr: false }
+)
+
 const MAX_SUGGESTIONS = 5
 
 export type SearchInputProps = {
@@ -83,6 +92,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
   ) {
     const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
+    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [
       customSearchDropdownVisibleCondition,
       setCustomSearchDropdownVisibleCondition,
@@ -150,6 +160,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           >
             <UISearchInputField
               ref={ref}
+              showUploadButton
+              onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
@@ -178,6 +190,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                     setCustomSearchDropdownVisibleCondition
                   }
                 />
+              </Suspense>
+            )}
+            {isUploadModalOpen && (
+              <Suspense fallback={null}>
+                <UploadFileDropdown />
               </Suspense>
             )}
           </UISearchInput>
