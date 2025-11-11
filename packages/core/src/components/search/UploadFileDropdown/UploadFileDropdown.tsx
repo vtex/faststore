@@ -5,12 +5,15 @@ import {
   Dropzone as UIDropzone,
   FileRejectionCode,
   Icon as UIIcon,
+  Loader,
   SearchDropdown as UISearchDropdown,
   useCSVParser,
   useUI,
   type CSVData,
   type DropzoneState,
 } from '@faststore/ui'
+
+import * as XLSX from 'xlsx'
 
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 import styles from './section.module.scss'
@@ -234,8 +237,6 @@ export default function UploadFileDropdown({
   const [csvData, setCsvData] = useState<CSVData | null>(null)
   const [isExcelParsing, setIsExcelParsing] = useState(false)
 
-  const isProcessing = isParsing || isExcelParsing
-
   const csvOptions = useMemo(
     () => ({
       delimiter: ',' as const,
@@ -253,6 +254,8 @@ export default function UploadFileDropdown({
     onClearError,
     onGenerateTemplate,
   } = useCSVParser(csvOptions)
+
+  const isProcessing = isParsing || isExcelParsing
 
   const clearData = () => {
     setCsvData(null)
@@ -405,9 +408,13 @@ export default function UploadFileDropdown({
                 {formatFileName(csvData.fileName)}
               </h3>
               <p data-fs-upload-result-file-rows>
-                {labels.getCompletedStatusText(
-                  formatFileSize(csvData.fileSize),
-                  csvData.totalRows
+                {isProcessing ? (
+                  <Loader />
+                ) : (
+                  labels.getCompletedStatusText(
+                    formatFileSize(csvData.fileSize),
+                    csvData.totalRows
+                  )
                 )}
               </p>
             </div>
