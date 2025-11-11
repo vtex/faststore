@@ -14,11 +14,11 @@ import path from 'path'
 
 import ora from 'ora'
 
-import { withBasePath } from './directory'
-import { installDependencies } from './dependencies'
-import { logger } from './logger'
-import { installPlugins } from './plugins'
-import { createNextJsPages } from './createNextjsPages'
+import { withBasePath } from './directory.ts'
+import { installDependencies } from './dependencies.ts'
+import { logger } from './logger.ts'
+import { installPlugins } from './plugins.ts'
+import { createNextJsPages } from './createNextjsPages.ts'
 
 interface GenerateOptions {
   setup?: boolean
@@ -55,12 +55,18 @@ function createTmpFolder(basePath: string) {
 function filterAndCopyPackageJson(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
-  const corePackageJsonPath = path.join(coreDir, 'package.json')
-
-  const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
-  const { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
+  const { exports: _, ...filteredFileContent } = JSON.parse(
+    readFileSync(path.join(coreDir, 'package.json'), 'utf8')
+  )
 
   filteredFileContent.name = 'dot-faststore'
+  filteredFileContent.scripts = {
+    ...filteredFileContent.scripts,
+    generate: 'faststore generate',
+    build: 'faststore build',
+    start: 'faststore serve',
+    dev: 'faststore dev',
+  }
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
     spaces: 2,

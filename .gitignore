@@ -39,6 +39,7 @@ build/Release
 dist/
 build/
 storybook-static/
+.faststore
 
 # Dependency directories
 node_modules/

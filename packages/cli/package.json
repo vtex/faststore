@@ -3,8 +3,9 @@
   "version": "3.93.0-dev.2",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
+  "type": "module",
   "bin": {
-    "faststore": "./bin/run"
+    "faststore": "./bin/run.js"
   },
   "homepage": "https://github.com/vtex/faststore",
   "license": "MIT",
@@ -17,49 +18,59 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@antfu/ni": "^0.21.12",
-    "@faststore/core": "^3.93.0-dev.2",
+    "@faststore/api": "workspace:*",
+    "@faststore/core": "workspace:*",
+    "@graphql-tools/merge": "catalog:",
+    "@graphql-tools/utils": "catalog:",
+    "@inquirer/confirm": "^5.1.19",
     "@inquirer/prompts": "^5.1.2",
-    "@oclif/core": "^1.16.4",
-    "@oclif/plugin-help": "^5",
-    "@oclif/plugin-not-found": "^2.3.3",
+    "@oclif/core": "^4",
+    "@oclif/plugin-help": "^6",
+    "@oclif/plugin-not-found": "^3",
     "chalk": "~4.1.2",
     "chokidar": "^3.5.3",
     "degit": "^2.8.4",
     "dotenv": "^16.4.5",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11",
+    "globby": "^15.0.0",
+    "graphql": "catalog:",
     "ora": "5.4.1",
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@antfu/ni": "catalog:",
+    "@graphql-codegen/cli": "catalog:",
     "@types/chai": "^4",
     "@types/degit": "^2.8.6",
-    "@types/fs-extra": "^9.0.13",
-    "@types/jest": "29.1.0",
-    "@types/node": "^16.11.63",
+    "@types/fs-extra": "^11",
+    "@types/jest": "catalog:",
+    "@types/node": "catalog:",
     "chai": "^4",
-    "jest": "^29.7.0",
-    "oclif": "^3",
+    "jest": "catalog:",
+    "oclif": "^4",
     "shx": "^0.3.3",
-    "ts-jest": "^29.1.2",
+    "ts-jest": "catalog:",
     "ts-node": "^10.9.1",
-    "tslib": "^2.3.1"
-  },
-  "volta": {
-    "extends": "../../package.json"
+    "tslib": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "oclif": {
     "bin": "faststore",
+    "commands": {
+      "strategy": "explicit",
+      "target": "./dist/index.js",
+      "identifier": "commands"
+    },
     "dirname": "faststore",
-    "commands": "./dist/commands",
+    "topicSeparator": " ",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
-    ],
-    "topicSeparator": " "
+    ]
   },
   "scripts": {
-    "build": "shx rm -rf dist && tsc -b",
+    "build": "tsc -b",
     "test": "jest src/**/*.test.ts",
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "na run && oclif manifest && oclif readme",
@@ -69,5 +80,11 @@
   "keywords": [
     "oclif"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "@antfu/ni": "catalog:"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

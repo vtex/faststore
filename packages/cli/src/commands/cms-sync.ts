@@ -1,4 +1,4 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import { spawn } from 'child_process'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
@@ -10,13 +10,13 @@ export default class CmsSync extends Command {
     ['dry-run']: Flags.boolean({ char: 'd' }),
   }
 
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being synched with the CMS is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { flags, args } = await this.parse(CmsSync)

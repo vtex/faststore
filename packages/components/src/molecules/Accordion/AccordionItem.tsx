@@ -1,5 +1,5 @@
-import React, { useContext, forwardRef, createContext } from 'react'
 import type { ElementType, HTMLAttributes, ReactElement } from 'react'
+import React, { createContext, forwardRef, useContext } from 'react'
 import type {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
@@ -40,9 +40,7 @@ type AccordionItemComponent = <C extends ElementType = 'div'>(
   props: AccordionItemProps<C>
 ) => ReactElement | null
 
-const AccordionItem = forwardRef(function AccordionItem<
-  C extends ElementType = 'div',
->(
+const AccordionItem = forwardRef(function AccordionItem<C extends ElementType>(
   {
     prefixId = '',
     index = 0,

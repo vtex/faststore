@@ -1,3 +1,6 @@
+import type { GraphqlResolver } from '..'
+import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
+import type { EnhancedSku } from '../utils/enhanceSku'
 import {
   availability,
   inStock,
@@ -5,12 +8,8 @@ import {
   price,
   sellingPrice,
 } from '../utils/productStock'
-import type { Resolver } from '..'
-import type { StoreAggregateOffer } from './aggregateOffer'
-import type { ArrayElementType } from '../../../typings'
-import type { EnhancedSku } from '../utils/enhanceSku'
-import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 import { withTax } from '../utils/taxes'
+import type { StoreAggregateOffer } from './aggregateOffer'
 
 type OrderFormProduct = OrderFormItem & { product: EnhancedSku }
 type SearchProduct = ArrayElementType<
@@ -24,7 +23,7 @@ const isSearchItem = (item: Root): item is SearchProduct =>
 const isOrderFormItem = (item: Root): item is OrderFormProduct =>
   'skuName' in item
 
-export const StoreOffer: Record<string, Resolver<Root>> = {
+export const StoreOffer: Record<string, GraphqlResolver<Root>> = {
   priceCurrency: async (_, __, ctx) => {
     const {
       loaders: { salesChannelLoader },

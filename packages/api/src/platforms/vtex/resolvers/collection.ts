@@ -1,4 +1,4 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { CollectionPageType } from '../clients/commerce/types/Portal'
@@ -29,7 +29,7 @@ const slugifyRoot = (root: Root) => {
   return new URL(root.url).pathname.slice(1).toLowerCase()
 }
 
-export const StoreCollection: Record<string, Resolver<Root>> = {
+export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugifyRoot(root),
   seo: (root) =>

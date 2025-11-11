@@ -10,29 +10,26 @@
     "directory": "packages/ui"
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
+  "typings": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js"
     },
     "./src/*": "./src/*"
   },
   "sideEffects": false,
   "engines": {
-    "node": ">=10"
+    "node": ">=20"
   },
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
+    "dev": "vite build --watch",
+    "build": "vite build",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -47,27 +44,26 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^3.93.0-dev.1",
+    "@faststore/components": "workspace:*",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
-    "react-swipeable": "^7.0.0",
-    "tabbable": "^5.2.1"
+    "react-swipeable": "catalog:",
+    "tabbable": "catalog:"
   },
   "peerDependencies": {
-    "@faststore/components": "3.x",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@faststore/components": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
-    "@types/node": "^18.11.16",
-    "@types/react": "^18.2.42",
-    "@types/tabbable": "^3.1.1",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/tabbable": "catalog:",
     "babel-loader": "^8.2.5",
     "size-limit": "^7.0.8",
-    "tslib": "^2.3.1"
-  },
-  "volta": {
-    "extends": "../../package.json"
+    "tslib": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
   }
 }
