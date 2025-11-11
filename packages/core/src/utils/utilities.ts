@@ -137,3 +137,20 @@ export function formatFileName(fileName: string): string {
 
   return `${nameWithoutExtension}${extension}`
 }
+
+/**
+ * Formats a file size in bytes to a human-readable string.
+ * @param bytes - The file size in bytes.
+ * @returns The formatted file size string.
+ * @example
+ * formatFileSize(2048) // Returns: '2 KB'
+ */
+export const formatFileSize = (bytes: number): string => {
+  if (bytes === 0) return '0 Bytes'
+
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return Number.parseFloat((bytes / k ** i).toFixed(2)) + ' ' + sizes[i]
+}
