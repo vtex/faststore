@@ -71,13 +71,17 @@ export interface ProductGalleryProps {
       selectionWarning: string
       sidebarComponent?: {
         title: string
-        sortLabel: string
+        sortLabels?: {
+          label?: string
+          options?: {
+            productByName?: string
+            productByPrice?: string
+          }
+        }
         filterLabel: string
-        productNameFilterLabel: string
         preferencesLabel: string
         toggleFieldLabel: string
         cartButtonLabel: string
-        priceLabel: string
         priceWithTaxLabel: string
       }
       technicalInformation?: {

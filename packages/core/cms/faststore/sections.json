@@ -2158,15 +2158,32 @@
                       "type": "string",
                       "default": "Filters"
                     },
-                    "productNameFilterLabel": {
-                      "title": "Filter by product name text",
-                      "type": "string",
-                      "default": "Product name"
-                    },
-                    "sortLabel": {
-                      "title": "Sort filter text",
-                      "type": "string",
-                      "default": "Sort by"
+                    "sortLabels": {
+                      "title": "Sort labels",
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "title": "Sort filter text",
+                          "type": "string",
+                          "default": "Sort by"
+                        },
+                        "options": {
+                          "title": "Sort options",
+                          "type": "object",
+                          "properties": {
+                            "productByName": {
+                              "title": "Product Name",
+                              "type": "string",
+                              "default": "Product Name"
+                            },
+                            "productByPrice": {
+                              "title": "Price",
+                              "type": "string",
+                              "default": "Price"
+                            }
+                          }
+                        }
+                      }
                     },
                     "toggleFieldLabel": {
                       "title": "Toggle filter text",
@@ -2182,11 +2199,6 @@
                       "title": "Add to cart button",
                       "type": "string",
                       "default": "Add to cart"
-                    },
-                    "priceLabel": {
-                      "title": "Price text",
-                      "type": "string",
-                      "default": "Price"
                     },
                     "priceWithTaxLabel": {
                       "title": "Price with taxes text",
