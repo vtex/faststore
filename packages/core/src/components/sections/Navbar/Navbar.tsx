@@ -76,6 +76,7 @@ export interface NavbarProps {
       label: string
     }
   }
+  loadingLabel: string
 }
 
 function NavbarSection({
@@ -93,6 +94,7 @@ function NavbarSection({
       enabled: shouldDisplayRegion,
     },
   },
+  loadingLabel,
 }: NavbarProps) {
   return (
     <Section className={`${styles.section} section-navbar`}>
@@ -109,6 +111,7 @@ function NavbarSection({
           label: regionLabel,
           shouldDisplayRegion,
         }}
+        loadingLabel={loadingLabel}
       />
     </Section>
   )

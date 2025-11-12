@@ -115,6 +115,7 @@ function RegionSlider() {
   const cmsData = getGlobalSettings()
   const inputField = cmsData?.regionalization?.inputField
   const idkPostalCodeLink = cmsData?.regionalization?.idkPostalCodeLink
+  const inputLoadingLabel = inputField?.loadingLabel
 
   const handleSubmit = async () => {
     if (isValidating) {
@@ -358,7 +359,9 @@ function RegionSlider() {
           label={inputField?.label}
           actionable
           value={input}
-          buttonActionText={dataLoading ? '...' : inputField?.buttonActionText}
+          buttonActionText={
+            dataLoading ? inputLoadingLabel : inputField?.buttonActionText
+          }
           onInput={(e) => {
             setInput(e.currentTarget.value)
             regionError !== '' && setRegionError('')
