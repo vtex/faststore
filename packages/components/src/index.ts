@@ -1,5 +1,10 @@
 // Hooks
 export * from './hooks'
+export type {
+  CSVData,
+  CSVParserError,
+  CSVParserOptions,
+} from './hooks/useCSVParser'
 
 // Atoms
 export { default as Badge } from './atoms/Badge'
