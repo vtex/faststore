@@ -355,12 +355,18 @@
             }
           },
           {
-            "name": "loadingLabel",
+            "name": "loading",
             "schema": {
-              "title": "Loading Label",
-              "description": "Default loading message label",
-              "type": "string",
-              "default": "Loading..."
+              "title": "Loading",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Loading Label",
+                  "description": "Default loading message label",
+                  "type": "string",
+                  "default": "Loading..."
+                }
+              }
             }
           }
         ]

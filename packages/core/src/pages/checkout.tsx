@@ -34,9 +34,10 @@ function Page({ globalSections: globalSectionsProp }: Props) {
     window.location.href = storeConfig.checkoutUrl
   }, [])
 
+  const globalSettingLoading = globalSettings?.loading as { label?: string }
   const loadingLabel =
-    typeof globalSettings?.loadingLabel === 'string'
-      ? globalSettings?.loadingLabel
+    typeof globalSettingLoading?.label === 'string'
+      ? globalSettingLoading?.label
       : ''
 
   return (
