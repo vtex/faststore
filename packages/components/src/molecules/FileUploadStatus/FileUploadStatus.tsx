@@ -81,11 +81,15 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Status text when state is Uploading (e.g. from CMS).
    */
-  uploadingStatusText: string
+  uploadingStatusText?: string
   /**
    * Status text when state is Completed (e.g. from CMS). May include file size.
    */
-  completedStatusText: string
+  completedStatusText?: string
+  /**
+   * Custom file name display (optional).
+   */
+  fileName?: string
 }
 
 const FileUploadStatus = ({
@@ -103,8 +107,9 @@ const FileUploadStatus = ({
   downloadTemplateButtonLabel,
   selectFileButtonLabel,
   errorMessages,
-  uploadingStatusText,
-  completedStatusText,
+  uploadingStatusText = 'Uploading your file...',
+  completedStatusText = 'Completed',
+  fileName,
   ...otherProps
 }: FileUploadStatusProps) => {
   const getErrorMessage = (): { title: string; description: string } => {
@@ -183,7 +188,7 @@ const FileUploadStatus = ({
             </>
           ) : (
             <>
-              <p data-fs-file-upload-status-filename>{file.name}</p>
+              <p data-fs-file-upload-status-filename>{fileName ?? file.name}</p>
               <p data-fs-file-upload-status-text>{getStatusText()}</p>
             </>
           )}
