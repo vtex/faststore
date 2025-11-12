@@ -11,6 +11,7 @@ type PDPSettings = {
       value?: string
     }
     seo?: {
+      titleTemplate?: string
       id?: string
       mainEntityOfPage?: string
     }

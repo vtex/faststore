@@ -577,6 +577,12 @@
                 "ui:ObjectFieldTemplate": "GoogleSeoPreview"
               },
               "properties": {
+                "titleTemplate": {
+                  "title": "PDP page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore PDP"
+                },
                 "id": {
                   "title": "ID",
                   "description": "A unique identifier used to reference the product page. This is a descriptive value (e.g., `#product`) that will be concatenated with the product path (example of the result: `/product-slug/p#product`).",
@@ -602,6 +608,22 @@
       {
         "name": "Settings",
         "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "properties": {
+                "titleTemplate": {
+                  "title": "PLP page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore PLP"
+                }
+              }
+            }
+          },
           {
             "name": "template",
             "schema": {
@@ -670,6 +692,22 @@
       {
         "name": "Settings",
         "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "properties": {
+                "titleTemplate": {
+                  "title": "Default page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore"
+                }
+              }
+            }
+          },
           {
             "name": "productGallery",
             "schema": {

@@ -101,7 +101,10 @@ function Page({
 
   // SEO data
   const title = meta?.title ?? storeSeo.title
-  const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    pdpSeo?.titleTemplate ??
+    storeSeo.titleTemplate
   const description =
     meta?.description ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
