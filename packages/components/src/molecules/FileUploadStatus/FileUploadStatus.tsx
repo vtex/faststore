@@ -51,6 +51,18 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
    * Callback when select file is clicked (only shown when state is 'error').
    */
   onSelectFile?: () => void
+  /**
+   * Custom text for various states (optional).
+   */
+  completedText?: string
+  /**
+   * Custom text for various states (optional).
+   */
+  uploadingText?: string
+  /**
+   * Custom file name display (optional).
+   */
+  fileName?: string
 }
 
 const FileUploadStatus = ({
@@ -63,12 +75,11 @@ const FileUploadStatus = ({
   onSearch,
   onDownloadTemplate,
   onSelectFile,
+  completedText = 'Completed',
+  uploadingText = 'Uploading your file...',
+  fileName,
   ...otherProps
 }: FileUploadStatusProps) => {
-  const formatFileSize = (bytes: number): string => {
-    return `${(bytes / 1024).toFixed(0)} KB` //ADJUST ONCE INTEGRATED
-  }
-
   const getErrorMessage = (): { title: string; description: string } => {
     if (errorMessage) {
       // If custom error message is provided, use it as title and empty description
@@ -119,9 +130,9 @@ const FileUploadStatus = ({
   const getStatusText = (): string => {
     switch (state) {
       case 'uploading':
-        return 'Uploading your file...'
+        return uploadingText
       case 'completed':
-        return `Completed • ${formatFileSize(file.size)}`
+        return completedText
       default:
         return ''
     }
@@ -182,7 +193,7 @@ const FileUploadStatus = ({
             </>
           ) : (
             <>
-              <p data-fs-file-upload-status-filename>{file.name}</p>
+              <p data-fs-file-upload-status-filename>{fileName ?? file.name}</p>
               <p data-fs-file-upload-status-text>{getStatusText()}</p>
             </>
           )}
