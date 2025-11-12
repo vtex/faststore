@@ -218,6 +218,9 @@ importers:
 
   packages/components:
     dependencies:
+      '@koale/useworker':
+        specifier: ^4.1.2
+        version: 4.1.2(react@18.3.1)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -447,6 +450,9 @@ importers:
       tsx:
         specifier: ^4.6.2
         version: 4.6.2
+      xlsx:
+        specifier: ^0.18.5
+        version: 0.18.5
     devDependencies:
       '@cypress/code-coverage':
         specifier: ^3.12.1
@@ -2649,6 +2655,11 @@ packages:
   '@kamilkisiela/fast-url-parser@1.1.4':
     resolution: {integrity: sha512-gbkePEBupNydxCelHCESvFSFM8XPh1Zs/OAVRW/rKpEqPAl5PbOM90Si8mv9bvnR53uPD2s/FiRxdvSejpRJew==}
 
+  '@koale/useworker@4.1.2':
+    resolution: {integrity: sha512-rVS9qs5prEBBw1YnvBlIN/jc1MLbchtv54mI1OGH8rQrE1jYfXg2+1p+4O5vFcU96cy2dafosnwZw8HXDpY//w==}
+    peerDependencies:
+      react: '>=16.8.0 <20.0.0'
+
   '@lerna/create@9.0.3':
     resolution: {integrity: sha512-hUTEWrR8zH+/Z3bp/R1aLm6DW8vB/BB7KH7Yeg4fMfrvSwxegiLVW9uJFAzWkK4mzEagmj/Dti85Yg9MN13t0g==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
@@ -4036,6 +4047,10 @@ packages:
     resolution: {integrity: sha512-OXwN5b9pCUXNQHJpwwD2qP40byEmSgzj8B4ydSN0uMNYWiFmJ6x6KwUllMmfk8Rwu/HJDFR7U8ubsWBoN0Xp0A==}
     engines: {node: '>=8.9'}
 
+  adler-32@1.3.1:
+    resolution: {integrity: sha512-ynZ4w/nUUv5rrsR8UUGoe1VC9hZj6V5hU9Qw1HlMDJGEJw5S7TfTErWTjMys6M7vr0YWcPqs3qAr4ss0nDfP+A==}
+    engines: {node: '>=0.8'}
+
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
@@ -4648,6 +4663,10 @@ packages:
   caseless@0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
 
+  cfb@1.2.2:
+    resolution: {integrity: sha512-KfdUZsSOw19/ObEWasvBP/Ac4reZvAGauZhs6S/gqNhXhI7cKwvlH7ulj+dOEYnca4bm4SGo8C1bTAQvnTjgQA==}
+    engines: {node: '>=0.8'}
+
   chai@4.3.7:
     resolution: {integrity: sha512-HLnAzZ2iupm25PlN0xFreAlBA5zaBSv3og0DdeGA4Ar6h6rJ3A0rolRUKJhSF2V10GZKDgWF/VmAEsNWjCRB+A==}
     engines: {node: '>=4'}
@@ -4906,6 +4925,10 @@ packages:
     resolution: {integrity: sha512-RpAVKQA5T63xEj6/giIbUEtZwJ4UFIc3ZtvEkiaUERylqe8xb5IvqcgOurZLahv93CLKfxcw5YI+DZcUBRyLXA==}
     engines: {node: '>=0.10.0'}
 
+  codepage@1.15.0:
+    resolution: {integrity: sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==}
+    engines: {node: '>=0.8'}
+
   collect-v8-coverage@1.0.1:
     resolution: {integrity: sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg==}
 
@@ -5135,6 +5158,11 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  crc-32@1.2.2:
+    resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
+    engines: {node: '>=0.8'}
+    hasBin: true
 
   create-ecdh@4.0.4:
     resolution: {integrity: sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A==}
@@ -6220,6 +6248,10 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
+  frac@1.1.2:
+    resolution: {integrity: sha512-w/XBfkibaTl3YDqASwfDUqkna4Z2p9cFSr1aHDt0WoMTECnRfBOv2WArlZILlqgWlmdIlALXGpM2AOhEk5W3IA==}
+    engines: {node: '>=0.8'}
+
   fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
 
@@ -6724,10 +6756,6 @@ packages:
 
   https-proxy-agent@6.2.1:
     resolution: {integrity: sha512-ONsE3+yfZF2caH5+bJlcddtWqNI3Gvs5A38+ngvljxaBiRXRswym2c7yf8UAeFpRFKjFNHIFEHqR/OLAWJzyiA==}
-    engines: {node: '>= 14'}
-
-  https-proxy-agent@7.0.4:
-    resolution: {integrity: sha512-wlwpilI7YdjSkWaQ/7omYBMTliDcmCN8OLihO6I9B86g06lMyAoqgoDpV0XqoaPOKj+0DIdAvnsWfyAAhmimcg==}
     engines: {node: '>= 14'}
 
   https-proxy-agent@7.0.6:
@@ -9949,6 +9977,10 @@ packages:
   sprintf-js@1.1.3:
     resolution: {integrity: sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==}
 
+  ssf@0.11.2:
+    resolution: {integrity: sha512-+idbmIXoYET47hH+d7dfm2epdOMUDjqcB4648sTZ+t2JwoyBFL/insLfB/racrDmsKB3diwsDA696pZMieAC5g==}
+    engines: {node: '>=0.8'}
+
   sshpk@1.17.0:
     resolution: {integrity: sha512-/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==}
     engines: {node: '>=0.10.0'}
@@ -11025,6 +11057,14 @@ packages:
     resolution: {integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==}
     engines: {node: '>=8'}
 
+  wmf@1.0.2:
+    resolution: {integrity: sha512-/p9K7bEh0Dj6WbXg4JG0xvLQmIadrner1bi45VMJTfnbVHsc7yIajZyoSoK60/dtVBs12Fm6WkUI5/3WAVsNMw==}
+    engines: {node: '>=0.8'}
+
+  word@0.3.0:
+    resolution: {integrity: sha512-OELeY0Q61OXpdUfTp+oweA/vtLVg5VDOXh+3he3PNzLGG/y0oylSOC1xRVj0+l4vQ3tj/bB1HVHv1ocXkQceFA==}
+    engines: {node: '>=0.8'}
+
   wordwrap@1.0.0:
     resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
 
@@ -11124,6 +11164,11 @@ packages:
   xdg-basedir@4.0.0:
     resolution: {integrity: sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==}
     engines: {node: '>=8'}
+
+  xlsx@0.18.5:
+    resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
+    engines: {node: '>=0.8'}
+    hasBin: true
 
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
@@ -13362,14 +13407,14 @@ snapshots:
       '@types/js-yaml': 4.0.5
       '@whatwg-node/fetch': 0.9.17
       chalk: 4.1.2
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.3
       dotenv: 16.4.5
       graphql: 15.8.0
       graphql-request: 6.1.0(encoding@0.1.13)(graphql@15.8.0)
       http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.4
+      https-proxy-agent: 7.0.6
       jose: 5.3.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       lodash: 4.17.21
       scuid: 1.1.0
       tslib: 2.8.1
@@ -13388,14 +13433,14 @@ snapshots:
       '@types/js-yaml': 4.0.5
       '@whatwg-node/fetch': 0.9.17
       chalk: 4.1.2
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.3
       dotenv: 16.4.5
       graphql: 15.8.0
       graphql-request: 6.1.0(encoding@0.1.13)(graphql@15.8.0)
       http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.4
+      https-proxy-agent: 7.0.6
       jose: 5.3.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       lodash: 4.17.21
       scuid: 1.1.0
       tslib: 2.8.1
@@ -14163,6 +14208,11 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@kamilkisiela/fast-url-parser@1.1.4': {}
+
+  '@koale/useworker@4.1.2(react@18.3.1)':
+    dependencies:
+      dequal: 2.0.3
+      react: 18.3.1
 
   '@lerna/create@9.0.3(@types/node@20.14.9)(typescript@5.3.2)':
     dependencies:
@@ -16080,6 +16130,8 @@ snapshots:
       loader-utils: 2.0.4
       regex-parser: 2.3.0
 
+  adler-32@1.3.1: {}
+
   agent-base@6.0.2:
     dependencies:
       debug: 4.4.0(supports-color@8.1.1)
@@ -16839,6 +16891,11 @@ snapshots:
 
   caseless@0.12.0: {}
 
+  cfb@1.2.2:
+    dependencies:
+      adler-32: 1.3.1
+      crc-32: 1.2.2
+
   chai@4.3.7:
     dependencies:
       assertion-error: 1.1.0
@@ -17119,6 +17176,8 @@ snapshots:
 
   code-point-at@1.1.0: {}
 
+  codepage@1.15.0: {}
+
   collect-v8-coverage@1.0.1: {}
 
   color-convert@1.9.3:
@@ -17370,8 +17429,8 @@ snapshots:
 
   cosmiconfig@8.3.6(typescript@5.3.2):
     dependencies:
-      import-fresh: 3.3.0
-      js-yaml: 4.1.0
+      import-fresh: 3.3.1
+      js-yaml: 4.1.1
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
@@ -17385,6 +17444,8 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.3.2
+
+  crc-32@1.2.2: {}
 
   create-ecdh@4.0.4:
     dependencies:
@@ -18614,6 +18675,8 @@ snapshots:
 
   forwarded@0.2.0: {}
 
+  frac@1.1.2: {}
+
   fraction.js@4.2.0: {}
 
   fresh@0.5.2: {}
@@ -19268,13 +19331,6 @@ snapshots:
       - supports-color
 
   https-proxy-agent@6.2.1:
-    dependencies:
-      agent-base: 7.1.1
-      debug: 4.4.0(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
-  https-proxy-agent@7.0.4:
     dependencies:
       agent-base: 7.1.1
       debug: 4.4.0(supports-color@8.1.1)
@@ -20327,7 +20383,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 18.19.74
+      '@types/node': 20.14.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -20768,7 +20824,7 @@ snapshots:
       log-update: 4.0.0
       p-map: 4.0.0
       rfdc: 1.4.1
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       through: 2.3.8
       wrap-ansi: 7.0.0
     optionalDependencies:
@@ -23388,6 +23444,10 @@ snapshots:
 
   sprintf-js@1.1.3: {}
 
+  ssf@0.11.2:
+    dependencies:
+      frac: 1.1.2
+
   sshpk@1.17.0:
     dependencies:
       asn1: 0.2.6
@@ -24595,6 +24655,10 @@ snapshots:
     dependencies:
       string-width: 4.2.3
 
+  wmf@1.0.2: {}
+
+  word@0.3.0: {}
+
   wordwrap@1.0.0: {}
 
   wrap-ansi@2.1.0:
@@ -24685,6 +24749,16 @@ snapshots:
   xdg-basedir@3.0.0: {}
 
   xdg-basedir@4.0.0: {}
+
+  xlsx@0.18.5:
+    dependencies:
+      adler-32: 1.3.1
+      cfb: 1.2.2
+      codepage: 1.15.0
+      crc-32: 1.2.2
+      ssf: 0.11.2
+      wmf: 1.0.2
+      word: 0.3.0
 
   xml-name-validator@4.0.0: {}
 
