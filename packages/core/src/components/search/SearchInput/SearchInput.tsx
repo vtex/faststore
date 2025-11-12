@@ -4,6 +4,7 @@ import {
   forwardRef,
   lazy,
   useDeferredValue,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -20,7 +21,9 @@ import {
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
+  useCSVParser,
   useOnClickOutside,
+  type CSVData,
 } from '@faststore/ui'
 
 import type {
@@ -36,6 +39,7 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
@@ -136,6 +140,20 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
 
+    const [csvData, setCsvData] = useState<CSVData | null>(null)
+
+    const {
+      error: csvError,
+      isProcessing: isCsvProcessing,
+      onParseFile,
+      onClearError,
+      onKillWorkers,
+      onGenerateTemplate,
+    } = useCSVParser({
+      delimiter: ',',
+      skipEmptyLines: true,
+    })
+
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
     }))
@@ -149,29 +167,62 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchDropdownVisible(false)
     }
 
-    const handleFileSelect = (files: File[]) => {
+    const handleFileSelect = async (files: File[]) => {
+      if (files.length === 0) return
+
       setHasFile(true)
+
+      onClearError()
+      const file = files[0]
+
+      const result = await onParseFile(file)
+
       setIsUploadOpen(true)
-      // TODO: Handle file upload logic
-      // setFileUploadVisible(false)
+
+      if (result) {
+        setCsvData(result)
+        // TODO: Use the parsed data for bulk search
+        console.log('CSV Data processed in Worker:', result.data)
+      }
     }
 
-    const handleDownloadTemplate = () => {
-      // Create a sample CSV template
-      const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
-      const blob = new Blob([csvContent], { type: 'text/csv' })
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = 'template.csv'
-      a.click()
-      window.URL.revokeObjectURL(url)
+    const handleDownloadTemplate = async () => {
+      try {
+        const csvContent = await onGenerateTemplate()
+
+        if (csvContent) {
+          const blob = new Blob([csvContent], { type: 'text/csv' })
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = 'template.csv'
+          a.click()
+          window.URL.revokeObjectURL(url)
+        }
+      } catch (error) {
+        console.error('Failed to download template:', error)
+      }
+    }
+
+    const handleDismiss = () => {
+      setCsvData(null)
+      setFileUploadVisible(false)
+      onClearError()
+    }
+
+    const handleSearch = () => {
+      if (!csvData) return
+      console.log('Performing bulk search with CSV data:', csvData)
     }
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
     })
+
+    useEffect(() => {
+      return () => onKillWorkers()
+    }, [onKillWorkers])
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -251,9 +302,14 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               <FileUploadCard
                 {...({
                   isOpen: isUploadOpen || hasFile || fileUploadVisible,
-                  onDismiss: () => setFileUploadVisible(false),
+                  onDismiss: handleDismiss,
                   onFileSelect: handleFileSelect,
                   onDownloadTemplate: handleDownloadTemplate,
+                  formatterFileSize: formatFileSize,
+                  formatterFileName: formatFileName,
+                  onSearch: handleSearch,
+                  isUploading: isCsvProcessing,
+                  hasError: !!csvError,
                   ...(fileUploadCardProps ?? {}),
                 } as FileUploadCardProps)}
               />
