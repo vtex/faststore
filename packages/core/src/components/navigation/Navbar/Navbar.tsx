@@ -74,6 +74,10 @@ export interface NavbarProps {
    * Menu props.
    */
   menu: SectionNavbarProps['navigation']['menu']
+  /**
+   * Loading label.
+   */
+  loadingLabel: string
 }
 
 function Navbar({
@@ -89,6 +93,7 @@ function Navbar({
   menu: {
     icon: { icon: menuIcon, alt: menuIconAlt },
   },
+  loadingLabel,
 }: NavbarProps) {
   const {
     Navbar: NavbarWrapper,
@@ -155,6 +160,7 @@ function Navbar({
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
               submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
+              loadingLabel={loadingLabel}
             />
           )}
 
@@ -184,6 +190,7 @@ function Navbar({
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
                 submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
+                loadingLabel={loadingLabel}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />

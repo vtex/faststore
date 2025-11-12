@@ -44,6 +44,11 @@
                       "type": "string",
                       "default": "Try using a different postal code.",
                       "description": "This message will guide user in case of an error."
+                    },
+                    "loadingLabel": {
+                      "title": "Loading Label",
+                      "type": "string",
+                      "default": "..."
                     }
                   }
                 },
@@ -347,6 +352,15 @@
                   }
                 }
               }
+            }
+          },
+          {
+            "name": "loadingLabel",
+            "schema": {
+              "title": "Loading Label",
+              "description": "Default loading message label",
+              "type": "string",
+              "default": "Loading..."
             }
           }
         ]

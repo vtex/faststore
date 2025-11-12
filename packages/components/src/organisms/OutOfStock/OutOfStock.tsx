@@ -48,7 +48,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
       testId = 'fs-out-of-stock',
       title,
       buttonLabel = 'Notify Me',
-      loadingLabel = 'Loading',
+      loadingLabel,
       inputLabel,
       subtitle,
       disabled,
