@@ -322,7 +322,9 @@ const FileUploadCard = ({
           uploadingStatusText={uploadingStatusText}
           completedStatusText={getCompletedStatusText(selectedFile.size)}
           fileName={
-            formatterFileName ? formatterFileName(selectedFile.name) : undefined
+            formatterFileName
+              ? formatterFileName(selectedFile.name)
+              : selectedFile.name
           }
         />
       ) : (
