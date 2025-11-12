@@ -114,8 +114,8 @@ export const toArray = <T>(x: T[] | T | undefined) =>
  * @param fileName - The original file name.
  * @returns The formatted file name.
  * @example
- * formatFileName('smartphoneX5-23-256gb-black-edition-2023.csv')
- * // Returns: 'smartphoneX5-23...ck-edition-2023.csv'
+ * formatFileName('smartphoneX5-23-256gb-black-edition-2023.xlsx')
+ * // Returns: 'smartphoneX5-23...ck-edition-2023.xlsx'
  */
 export function formatFileName(fileName: string): string {
   const maxLength = 30
@@ -169,21 +169,4 @@ export const formatFileSize = (bytes: number): string => {
   )
 
   return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
-}
-
-/**
- * Formats a file size in bytes to a human-readable string.
- * @param bytes - The file size in bytes.
- * @returns The formatted file size string.
- * @example
- * formatFileSize(2048) // Returns: '2 KB'
- */
-export const formatFileSize = (bytes: number): string => {
-  if (bytes === 0) return '0 Bytes'
-
-  const k = 1024
-  const sizes = ['Bytes', 'KB', 'MB', 'GB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-  return Number.parseFloat((bytes / k ** i).toFixed(2)) + ' ' + sizes[i]
 }
