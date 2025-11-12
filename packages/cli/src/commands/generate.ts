@@ -10,9 +10,9 @@ import chalk from 'chalk'
 import { buildASTSchema, Kind, parse, type DocumentNode } from 'graphql'
 import fs from 'node:fs'
 import path from 'node:path'
-import { getBasePath, withBasePath } from '../utils/directory.ts'
-import { generate } from '../utils/generate.ts'
-import { logger } from '../utils/logger.ts'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { generate } from '../utils/generate'
+import { logger } from '../utils/logger'
 
 const schemaFileName = 'schema.graphql'
 

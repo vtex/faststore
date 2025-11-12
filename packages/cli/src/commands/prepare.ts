@@ -2,7 +2,7 @@ import { Args, Command } from '@oclif/core'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { getBasePath } from '../utils/directory.ts'
+import { getBasePath } from '../utils/directory'
 
 export default class Prepare extends Command {
   static args = {

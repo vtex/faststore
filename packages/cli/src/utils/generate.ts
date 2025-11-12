@@ -14,11 +14,11 @@ import path from 'path'
 
 import ora from 'ora'
 
-import { withBasePath } from './directory.ts'
-import { installDependencies } from './dependencies.ts'
-import { logger } from './logger.ts'
-import { installPlugins } from './plugins.ts'
-import { createNextJsPages } from './createNextjsPages.ts'
+import { withBasePath } from './directory'
+import { installDependencies } from './dependencies'
+import { logger } from './logger'
+import { installPlugins } from './plugins'
+import { createNextJsPages } from './createNextjsPages'
 
 interface GenerateOptions {
   setup?: boolean

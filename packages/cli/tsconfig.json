@@ -1,8 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rewriteRelativeImportExtensions": true
+    "outDir": "dist"
   },
-  "include": ["src"]
+  "exclude": ["./bin", "node_modules"]
 }

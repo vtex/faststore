@@ -1,5 +1,5 @@
-import { getPreferredPackageManager } from './commands.ts'
-import { runCommandSync } from './runCommandSync.ts'
+import { getPreferredPackageManager } from './commands'
+import { runCommandSync } from './runCommandSync'
 
 type InstallDependenciesOptions = {
   dependencies: string[]

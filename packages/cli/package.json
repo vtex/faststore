@@ -34,12 +34,12 @@
     "fs-extra": "^11",
     "globby": "^15.0.0",
     "graphql": "catalog:",
-    "ora": "5.4.1",
-    "path": "^0.12.7"
+    "ora": "5.4.1"
   },
   "devDependencies": {
     "@antfu/ni": "catalog:",
     "@graphql-codegen/cli": "catalog:",
+    "@parcel/watcher": "^2.5.1",
     "@types/chai": "^4",
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^11",
@@ -49,11 +49,11 @@
     "jest": "catalog:",
     "oclif": "^4",
     "shx": "^0.3.3",
-    "ts-jest": "catalog:",
     "ts-node": "^10.9.1",
     "tslib": "catalog:",
+    "tsup": "^8.5.0",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vitest": "catalog:"
   },
   "oclif": {
     "bin": "faststore",
@@ -70,8 +70,8 @@
     ]
   },
   "scripts": {
-    "build": "tsc -b",
-    "test": "jest src/**/*.test.ts",
+    "build": "tsup",
+    "test": "vitest run src/**/*.test.ts",
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "na run && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md"
@@ -82,7 +82,8 @@
   ],
   "types": "dist/index.d.ts",
   "peerDependencies": {
-    "@antfu/ni": "catalog:"
+    "@antfu/ni": "catalog:",
+    "@parcel/watcher": "^2.5.1"
   },
   "engines": {
     "node": ">=20"
