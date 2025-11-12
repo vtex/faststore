@@ -34,12 +34,17 @@ function Page({ globalSections: globalSectionsProp }: Props) {
     window.location.href = storeConfig.checkoutUrl
   }, [])
 
+  const loadingLabel =
+    typeof globalSettings?.loadingLabel === 'string'
+      ? globalSettings?.loadingLabel
+      : ''
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <div>loading...</div>
+        <div>{loadingLabel}</div>
       </RenderSections>
     </PageProvider>
   )

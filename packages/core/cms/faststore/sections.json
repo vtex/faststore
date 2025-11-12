@@ -140,6 +140,11 @@
               "default": 5
             }
           }
+        },
+        "loadingLabel": {
+          "title": "Loading Label",
+          "type": "string",
+          "default": "Loading..."
         }
       }
     }
@@ -1603,6 +1608,11 @@
               "default": false
             }
           }
+        },
+        "loadingLabel": {
+          "title": "Loading Label",
+          "type": "string",
+          "default": "Loading..."
         },
         "buyButton": {
           "title": "Buy Button",

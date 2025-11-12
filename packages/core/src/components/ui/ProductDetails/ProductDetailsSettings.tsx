@@ -32,6 +32,7 @@ interface ProductDetailsSettingsProps {
     title?: string
     message?: string
   }
+  loadingLabel?: string
 }
 
 function ProductDetailsSettings({
@@ -45,6 +46,7 @@ function ProductDetailsSettings({
   useUnitMultiplier = false,
   taxesConfiguration,
   invalidQuantityToast,
+  loadingLabel,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -177,7 +179,7 @@ function ProductDetailsSettings({
           non-composited animation violation due to the button transitioning its
           background color when changing from its initial disabled to active state.
           See full explanation on commit https://git.io/JyXV5. */
-        <AddToCartLoadingSkeleton />
+        <AddToCartLoadingSkeleton loadingLabel={loadingLabel} />
       ) : outOfStock ? (
         // TODO: Adds <OutOfStock /> when component is ready to use
         <NotAvailableButton.Component>

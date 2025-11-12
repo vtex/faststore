@@ -35,6 +35,7 @@ export interface ProductDetailsProps {
       showDiscountBadge: boolean
     }
   }
+  loadingLabel: string
   buyButton: {
     title: string
     icon: {
@@ -92,6 +93,7 @@ function ProductDetails({
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
   },
+  loadingLabel,
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
     title: shippingSimulatorTitle,
@@ -236,7 +238,7 @@ function ProductDetails({
                 data-fs-product-details-settings
                 data-fs-product-details-section
               >
-                <p>Loading...</p>
+                <p>{loadingLabel}</p>
               </section>
             </section>
           ) : (
@@ -254,6 +256,7 @@ function ProductDetails({
                   useUnitMultiplier={
                     quantitySelector?.useUnitMultiplier ?? false
                   }
+                  loadingLabel={loadingLabel}
                   {...ProductDetailsSettings.props}
                   // Dynamic props shouldn't be overridable
                   // This decision can be reviewed later if needed

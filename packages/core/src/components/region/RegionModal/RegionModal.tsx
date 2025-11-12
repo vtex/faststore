@@ -52,6 +52,7 @@ function RegionModal(regionModalProps: RegionModalProps) {
       noProductsAvailableErrorMessage:
         inputFieldNoProductsAvailableErrorMessage = '',
       buttonActionText: inputButtonActionText = '',
+      loadingLabel: inputLoadingLabel = '',
     } = {},
     idkPostalCodeLink: {
       text: idkPostalCodeLinkText = '',
@@ -135,7 +136,9 @@ function RegionModal(regionModalProps: RegionModalProps) {
             setInput('')
             setRegionError('')
           }}
-          inputButtonActionText={loading ? '...' : inputButtonActionText}
+          inputButtonActionText={
+            loading ? inputLoadingLabel : inputButtonActionText
+          }
           dismissible={isDismissible}
         />
       )}
