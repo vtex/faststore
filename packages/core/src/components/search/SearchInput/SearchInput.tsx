@@ -4,6 +4,7 @@ import {
   forwardRef,
   lazy,
   useDeferredValue,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -168,13 +169,16 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       []
     )
 
+    const csvParser = useCSVParser(csvParserOptions)
     const {
       error: csvError,
       isParsing: isCsvProcessing,
       onParseFile,
       onClearError,
       onGenerateTemplate,
-    } = useCSVParser(csvParserOptions)
+    } = csvParser
+    const onKillWorkers = (csvParser as { onKillWorkers?: () => void })
+      .onKillWorkers
 
     // Access globalSettings for fileUpload configuration (section and content-type)
     let fileUploadConfig
@@ -263,7 +267,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         // ignore in envs without window
       }
       onFileSearch?.(csvData)
-      // TODO: Add integration here
     }
 
     useOnClickOutside(searchRef, () => {
@@ -271,6 +274,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setFileUploadVisible(false)
       setIsUploadModalOpen(false)
     })
+
+    useEffect(() => {
+      return () => onKillWorkers?.()
+    }, [onKillWorkers])
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
