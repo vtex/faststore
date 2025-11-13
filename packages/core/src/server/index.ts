@@ -100,9 +100,12 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   const { operationHash, operationName } = operation['__meta__']
 
   if (!persistedQueries.size) {
-    Object.entries(await import('@generated/persisted-documents.json')).forEach(
-      (key, value) => persistedQueries.set(key, value)
+    const persistedQueriesLoaded = await import(
+      '@generated/persisted-documents.json'
     )
+    Object.entries(
+      persistedQueriesLoaded.default ?? persistedQueriesLoaded
+    ).forEach(([key, value]) => persistedQueries.set(key, value))
   }
   const query = maybeQuery ?? persistedQueries.get(operationHash)
 

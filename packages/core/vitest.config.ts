@@ -18,5 +18,24 @@ export default defineConfig({
       graphql: 'graphql/index.js',
     },
   },
-  plugins: [],
+  plugins: [
+    {
+      name: 'virtual-module',
+      resolveId(id) {
+        if (id.endsWith('persisted-documents.json')) {
+          return id
+        }
+        return null
+      },
+      load(id) {
+        if (id.endsWith('persisted-documents.json')) {
+          return JSON.stringify({
+            '4b33c5c07f440dc7489e55619dc2211a13786e72':
+              'fragment ServerCollectionPage on Query { collection(slug: $slug) { id } } query ServerCollectionPageQuery($slug: String!) { collection(slug: $slug) { breadcrumbList { itemListElement { item name position } } meta { selectedFacets { key value } } seo { description title } } ...ServerCollectionPage }',
+          })
+        }
+        return null
+      },
+    },
+  ],
 })
