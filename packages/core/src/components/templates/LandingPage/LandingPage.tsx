@@ -57,13 +57,18 @@ export default function LandingPage({
     globalSettings,
   }
 
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    storeConfig.seo.titleTemplate ??
+    storeConfig.seo.title
+
   return (
     <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
-        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
+        titleTemplate={titleTemplate}
         canonical={
           settings?.seo?.canonical ?? `${storeConfig.storeUrl}/${slug}`
         }
