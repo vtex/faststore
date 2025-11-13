@@ -297,16 +297,16 @@ importers:
         specifier: workspace:*
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../graphql-utils
       "@faststore/lighthouse":
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../sdk
       "@faststore/ui":
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../ui
       "@graphql-codegen/cli":
         specifier: 5.0.2
