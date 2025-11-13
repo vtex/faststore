@@ -55,3 +55,7 @@ export interface Public {
   items?: Value
   postalCode?: Value
 }
+
+export interface SessionJwt {
+  id: string
+}
