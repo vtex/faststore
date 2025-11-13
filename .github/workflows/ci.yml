@@ -61,7 +61,7 @@ jobs:
           mkdir -p packed-packages
           for package in packages/*; do
             if [ -d "$package" ]; then
-              (cd "$package" && npm pack --pack-destination ../../packed-packages)
+              (cd "$package" && pnpm pack --pack-destination ../../packed-packages)
             fi
           done
 
