@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 export const getBasePath = (basePath?: string) => {
   if (basePath) {
@@ -20,7 +21,9 @@ export const withBasePath = (basepath: string) => {
    * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
    */
   const getCorePackagePath = () =>
-    path.dirname(import.meta.resolve('@faststore/core', import.meta.url))
+    path.dirname(
+      fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+    )
 
   const customizationsDir = getRoot()
   const tmpDir = path.join(process.cwd(), tmpFolderName)

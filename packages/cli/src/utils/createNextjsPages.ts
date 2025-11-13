@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 
-import { withBasePath } from './directory.ts'
-import { myAccountPageTemplate } from './templates/myAccountPage.ts'
+import { withBasePath } from './directory'
+import { myAccountPageTemplate } from './templates/myAccountPage'
 
 const ALLOWED_PREFIX_PAGES = ['/pvt/account']
 

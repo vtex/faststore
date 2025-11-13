@@ -1,5 +1,17 @@
 import chalk from 'chalk'
-import {
+import fsExtra from 'fs-extra'
+
+import path from 'path'
+
+import ora from 'ora'
+
+import { withBasePath } from './directory'
+import { installDependencies } from './dependencies'
+import { logger } from './logger'
+import { installPlugins } from './plugins'
+import { createNextJsPages } from './createNextjsPages'
+
+const {
   copyFileSync,
   copySync,
   existsSync,
@@ -9,17 +21,7 @@ import {
   removeSync,
   writeFileSync,
   writeJsonSync,
-} from 'fs-extra'
-import path from 'path'
-
-import ora from 'ora'
-
-import { withBasePath } from './directory.ts'
-import { installDependencies } from './dependencies.ts'
-import { logger } from './logger.ts'
-import { installPlugins } from './plugins.ts'
-import { createNextJsPages } from './createNextjsPages.ts'
-
+} = fsExtra
 interface GenerateOptions {
   setup?: boolean
   basePath: string

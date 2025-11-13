@@ -1,17 +1,17 @@
+import path from 'node:path'
 import { Args, Command } from '@oclif/core'
 import chalk from 'chalk'
-import { getBasePath, withBasePath } from '../utils/directory'
-import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import genTsTypes from '../utils/generate-types'
 
 export default class Generate extends Command {
+  static hidden = true
   static flags = {}
 
   static args = {
     path: Args.string({
       name: 'path',
-      hidden: true,
+      required: true,
       description:
         'The path where the FastStore being built is. Defaults to cwd.',
     }),
@@ -19,12 +19,12 @@ export default class Generate extends Command {
 
   async run() {
     const { args } = await this.parse(Generate)
-    const basePath = getBasePath(args.path)
-    const { tmpDir } = withBasePath(basePath)
 
-    await generate({ setup: true, basePath })
-
-    genTsTypes(args.path ?? tmpDir)
+    await genTsTypes(
+      path.isAbsolute(args.path)
+        ? args.path
+        : path.relative(process.env.PWD ?? process.cwd(), args.path)
+    )
 
     logger.log(
       `${chalk.green(

@@ -1,13 +1,9 @@
-import {
-  copySync,
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  writeFileSync,
-} from 'fs-extra'
-import { withBasePath } from './directory.ts'
+import fsExtra from 'fs-extra'
+import { withBasePath } from './directory'
 import path from 'path'
-import { logger } from './logger.ts'
+import { logger } from './logger'
+
+const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
 
 export type PageConfig = {
   path: string

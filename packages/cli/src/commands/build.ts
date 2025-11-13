@@ -2,11 +2,13 @@ import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
+
+const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
 export default class Build extends Command {
   static args = {

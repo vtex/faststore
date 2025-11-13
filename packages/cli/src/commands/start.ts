@@ -1,8 +1,10 @@
 import { Args, Command } from '@oclif/core'
 import { spawn } from 'child_process'
-import { existsSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
+
+const { existsSync } = fsExtra
 
 export default class Start extends Command {
   static args = {
