@@ -58,7 +58,7 @@ function loadGeneratedSchema(): TypeSource {
   })
 }
 
-function getFinalAPISchema() {
+export function getFinalAPISchema() {
   const finalTypeDefs = mergeTypeDefs([
     GraphqlVtexSchema(),
     loadGeneratedSchema(),

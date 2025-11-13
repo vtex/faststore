@@ -29,7 +29,7 @@ const pluginsMock = vi.hoisted(() => ({
   getPluginsList: vi.fn(),
 }))
 
-vi.mock('fs-extra', () => fsExtraMocked)
+vi.mock('fs-extra', () => ({ default: fsExtraMocked }))
 vi.mock('./plugins', () => pluginsMock)
 
 describe('mergeCMSFile', () => {

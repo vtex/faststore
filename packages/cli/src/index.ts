@@ -8,6 +8,7 @@ import { default as Generate } from './commands/generate'
 import { default as Prepare } from './commands/prepare'
 import { default as Serve } from './commands/start'
 import { default as Test } from './commands/test'
+import { default as GenerateTypes } from './commands/generate-types'
 
 export const commands = {
   create: Create,
@@ -18,4 +19,5 @@ export const commands = {
   'cms-sync': CmsSync,
   test: Test,
   generate: Generate,
+  'generate-types': GenerateTypes,
 }

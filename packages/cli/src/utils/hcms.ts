@@ -2,7 +2,8 @@ import path from 'path'
 import chalk from 'chalk'
 // import { ux } from '@oclif/core'
 import { confirm } from '@inquirer/prompts'
-import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
+const { readFileSync, existsSync, writeFileSync, mkdirSync } = fsExtra
 
 import { withBasePath } from './directory'
 import { getPluginName, getPluginsList } from './plugins'

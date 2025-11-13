@@ -1,15 +1,6 @@
 import chalk from 'chalk'
-import {
-  copyFileSync,
-  copySync,
-  existsSync,
-  mkdirsSync,
-  readFileSync,
-  readdirSync,
-  removeSync,
-  writeFileSync,
-  writeJsonSync,
-} from 'fs-extra'
+import fsExtra from 'fs-extra'
+
 import path from 'path'
 
 import ora from 'ora'
@@ -20,6 +11,17 @@ import { logger } from './logger'
 import { installPlugins } from './plugins'
 import { createNextJsPages } from './createNextjsPages'
 
+const {
+  copyFileSync,
+  copySync,
+  existsSync,
+  mkdirsSync,
+  readFileSync,
+  readdirSync,
+  removeSync,
+  writeFileSync,
+  writeJsonSync,
+} = fsExtra
 interface GenerateOptions {
   setup?: boolean
   basePath: string
