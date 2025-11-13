@@ -24,8 +24,6 @@ import * as GraphQLJS from 'graphql'
 import { GraphQLError } from 'graphql'
 import path from 'path'
 
-import persisted from '@generated/persisted-documents.json'
-
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
@@ -38,7 +36,7 @@ interface ExecuteOptions<V = Record<string, unknown>> {
   query?: string | null
 }
 
-const persistedQueries = new Map(Object.entries(persisted))
+const persistedQueries = new Map()
 
 const apiContextFactory = GraphqlVtexContextFactory(apiOptions)
 
@@ -101,6 +99,11 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   const { operation, variables, query: maybeQuery } = options
   const { operationHash, operationName } = operation['__meta__']
 
+  if (!persistedQueries.size) {
+    Object.entries(await import('@generated/persisted-documents.json')).forEach(
+      (key, value) => persistedQueries.set(key, value)
+    )
+  }
   const query = maybeQuery ?? persistedQueries.get(operationHash)
 
   if (query == null) {
