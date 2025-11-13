@@ -33,6 +33,16 @@
     "dev:server": {
       "cache": false
     },
+    "@faststore/api#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.graphql",
+        "codegen.yml",
+        "tsconfig.json"
+      ],
+      "outputs": ["dist/**"]
+    },
     "@faststore/api#dev:graphql": {
       "outputs": ["dist/**"]
     },
@@ -41,6 +51,10 @@
     },
     "@faststore/api#build:esm": {
       "outputs": ["dist/**"]
+    },
+    "@faststore/core#build": {
+      "dependsOn": ["^build", "@faststore/api#build"],
+      "outputs": [".next/**"]
     }
   }
 }

@@ -294,7 +294,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: "*"
+        specifier: ^3.93.0-dev.1
         version: 3.93.0(encoding@0.1.13)(graphql@15.8.0)(rollup@2.79.2)
       "@faststore/graphql-utils":
         specifier: ^3.93.0-dev.1
