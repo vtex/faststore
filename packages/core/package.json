@@ -45,7 +45,7 @@
     "@envelop/parser-cache": "^6.0.2",
     "@envelop/validation-cache": "^6.0.2",
     "@faststore/api": "workspace:*",
-    "@faststore/graphql-utils": "workspace:*",
+    "@faststore/graphql-utils": "3.93.0-dev.1",
     "@faststore/lighthouse": "workspace:*",
     "@faststore/sdk": "workspace:*",
     "@faststore/ui": "workspace:*",

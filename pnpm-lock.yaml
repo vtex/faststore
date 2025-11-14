@@ -297,7 +297,7 @@ importers:
         specifier: workspace:*
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: workspace:*
+        specifier: 3.93.0-dev.1
         version: link:../graphql-utils
       "@faststore/lighthouse":
         specifier: workspace:*
