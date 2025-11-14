@@ -52,7 +52,7 @@ USAGE
 
 ## `faststore build [ACCOUNT] [PATH]`
 
-```
+```plain
 USAGE
   $ faststore build [ACCOUNT] [PATH] [--no-verify]
 
@@ -69,7 +69,7 @@ _See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.93
 
 ## `faststore cms-sync [PATH]`
 
-```
+```plain
 USAGE
   $ faststore cms-sync [PATH] [-d]
 
@@ -86,7 +86,7 @@ _See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3
 
 Creates a discovery folder based on the starter.store template.
 
-```
+```plain
 USAGE
   $ faststore create [PATH]
 
@@ -104,7 +104,7 @@ _See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.9
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
-```
+```plain
 USAGE
   $ faststore dev [ACCOUNT] [PATH] [PORT] [--watch-plugins]
 
@@ -121,7 +121,7 @@ _See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.93.0
 
 ## `faststore generate-graphql [PATH]`
 
-```
+```plain
 USAGE
   $ faststore generate-graphql [PATH]
 
@@ -135,7 +135,7 @@ _See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore
 
 Display help for faststore.
 
-```
+```plain
 USAGE
   $ faststore help [COMMAND] [-n]
 
@@ -153,7 +153,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.2
 
 ## `faststore start [ACCOUNT] [PATH] [PORT]`
 
-```
+```plain
 USAGE
   $ faststore start [ACCOUNT] [PATH] [PORT]
 
@@ -167,7 +167,7 @@ _See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.93
 
 ## `faststore test [PATH]`
 
-```
+```plain
 USAGE
   $ faststore test [PATH]
 

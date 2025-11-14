@@ -34,6 +34,7 @@ const query = gql(`
       metadata {
         ...SearchEvent_metadata
       }
+      searchId
     }
   }
 `)
