@@ -1,0 +1,85 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "RegionModal",
+  "$componentTitle": "Region Modal",
+  "title": "Region Modal",
+  "description": "Region Modal configuration",
+  "type": "object",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string",
+      "default": "Set your location"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "default": "Offers and availability vary by location"
+    },
+    "closeButtonAriaLabel": {
+      "title": "Close modal aria-label",
+      "type": "string",
+      "default": "Close Region Modal"
+    },
+    "inputField": {
+      "title": "Input Field",
+      "type": "object",
+      "properties": {
+        "label": {
+          "title": "Input field label",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        },
+        "errorMessage": {
+          "title": "Input field error message",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        },
+        "noProductsAvailableErrorMessage": {
+          "title": "Input field error message for the scenario of no products available for a given location",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
+          "type": "string"
+        },
+        "buttonActionText": {
+          "title": "Input field action button label",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        }
+      }
+    },
+    "idkPostalCodeLink": {
+      "title": "I don't know my postal code link",
+      "type": "object",
+      "properties": {
+        "text": {
+          "title": "Link Text",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+          "type": "string"
+        },
+        "to": {
+          "type": "string",
+          "title": "Action link",
+          "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string",
+              "enumNames": ["Arrow Square Out"],
+              "enum": ["ArrowSquareOut"]
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
