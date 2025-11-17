@@ -22,7 +22,8 @@ export const withBasePath = (basepath: string) => {
    */
   const getCorePackagePath = () =>
     path.dirname(
-      fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+      // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+      require.resolve('@faststore/core')
     )
 
   const customizationsDir = getRoot()

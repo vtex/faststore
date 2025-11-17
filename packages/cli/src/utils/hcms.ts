@@ -122,7 +122,9 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
     userStoreConfigFile,
   } = withBasePath(basePath)
 
-  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+  const { default: userStoreConfig } = await import(
+    path.resolve(userStoreConfigFile)
+  )
   const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
 
   const coreFilePath = path.join(coreCMSDir, fileName)

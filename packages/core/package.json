@@ -59,7 +59,6 @@
     "draftjs-to-html": "^0.9.1",
     "fast-deep-equal": "catalog:",
     "fs-extra": "^10.1.0",
-    "graphql": "catalog:",
     "include-media": "^1.4.10",
     "isomorphic-unfetch": "^3.1.0",
     "lexical": "^0.34.0",
@@ -92,9 +91,13 @@
     "cypress-axe": "^1.5.0",
     "cypress-wait-until": "^2.0.1",
     "dotenv": "^8.2.0",
+    "graphql": "catalog:",
     "is-ci": "^3.0.0",
     "typescript": "catalog:",
     "use-sync-external-store": "^1.6.0",
     "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "graphql": "catalog:"
   }
 }

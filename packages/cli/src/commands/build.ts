@@ -7,6 +7,7 @@ import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
+import path from 'path'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
@@ -52,20 +53,26 @@ export default class Build extends Command {
 
     const packageManager = getPreferredPackageManager()
 
-    spawnSync(`${packageManager} run generate`, {
+    let scriptResult = spawnSync(
+      `node ${path.join(require.resolve('@faststore/cli'), '../../bin/run.js')} generate`,
+      {
+        shell: true,
+        stdio: 'inherit',
+      }
+    )
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
+    }
+
+    scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
 
-    const buildResult = spawnSync(`${packageManager} run build`, {
-      shell: true,
-      cwd: tmpDir,
-      stdio: 'inherit',
-    })
-
-    if (buildResult.status && buildResult.status !== 0) {
-      process.exit(buildResult.status)
+    if (scriptResult.status && scriptResult.status !== 0) {
+      process.exit(scriptResult.status)
     }
 
     await normalizeStandaloneBuildDir(basePath)
@@ -148,9 +155,11 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
 
   try {
     const {
-      devDependencies = {},
-      dependencies = {},
-      peerDependencies = {},
+      default: {
+        devDependencies = {},
+        dependencies = {},
+        peerDependencies = {},
+      },
     } = await import(packageJsonPath)
 
     const allDeps: Record<string, string> = Object.assign(

@@ -3,7 +3,7 @@
   "version": "3.93.0-dev.2",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
-  "type": "module",
+  "type": "commonjs",
   "bin": {
     "faststore": "./bin/run.js"
   },

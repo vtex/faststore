@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "esnext"
   },
   "exclude": ["./bin", "node_modules"]
 }

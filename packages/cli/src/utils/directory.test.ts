@@ -143,7 +143,8 @@ describe('withBasePath as an arbitrary dir', () => {
       const { coreDir: coreDirWithBase } = withBasePath(basePath)
 
       const resolvedPath = path.dirname(
-        fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+        // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+        require.resolve('@faststore/core')
       )
 
       expect(pathsToMatch(coreDirWithBase, resolvedPath)).toBe(true)
@@ -161,7 +162,8 @@ describe('withBasePath as an arbitrary dir', () => {
         )
 
         const resolvedPath = path.dirname(
-          fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+          require.resolve('@faststore/core')
+          // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
         )
 
         expect(pathsToMatch(coreDirWithBase, resolvedPath)).toBe(true)
@@ -272,7 +274,8 @@ describe('withBasePath as an arbitrary dir', () => {
 
       const resolvedPath = path.join(
         path.dirname(
-          fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+          require.resolve('@faststore/core')
+          // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
         ),
         'cms',
         'faststore'

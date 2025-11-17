@@ -19,7 +19,7 @@ export default class Prepare extends Command {
 
     const clientPublicDir = path.join(basePath, 'public/')
     const corePublicDir = path.resolve(
-      fileURLToPath(path.dirname(import.meta.resolve('@faststore/core'))),
+      fileURLToPath(path.dirname(require.resolve('@faststore/core'))),
       'public'
     )
     // const corePublicDir = path.join(

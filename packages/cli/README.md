@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.93.0-dev.2 darwin-arm64 node-v20.19.5
+@faststore/cli/3.93.0-dev.2 darwin-arm64 node-v22.19.0
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND

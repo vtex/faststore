@@ -1,8 +1,9 @@
 import { Args, Command } from '@oclif/core'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 import fsExtra from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
+import path from 'path'
 
 const { existsSync } = fsExtra
 
@@ -25,18 +26,18 @@ export default class Start extends Command {
     const { args } = await this.parse(Start)
     const basePath = getBasePath(args.path)
     const port = args.port ?? 3000
-    const { tmpDir } = withBasePath(basePath)
+    const { getRoot } = withBasePath(basePath)
     const packageManager = getPreferredPackageManager()
 
-    if (!existsSync(tmpDir)) {
-      throw Error(
-        'The ".faststore" directory could not be found. If you are trying to serve your store, run "faststore build" first.'
-      )
+    if (!existsSync(path.join(getRoot(), '.next'))) {
+      spawnSync(`${packageManager} faststore build`, {
+        shell: true,
+        stdio: 'inherit',
+      })
     }
 
-    return spawn(`${packageManager} run serve -p ${port}`, {
+    return spawn(`${packageManager} next start -p ${port}`, {
       shell: true,
-      cwd: tmpDir,
       stdio: 'inherit',
     })
   }
