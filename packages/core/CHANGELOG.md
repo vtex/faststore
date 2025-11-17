@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.93.0-dev.4](https://github.com/vtex/faststore/compare/v3.93.0-dev.3...v3.93.0-dev.4) (2025-11-17)
+
+### Bug Fixes
+
+- Show skeleton when product price is validating ([#3112](https://github.com/vtex/faststore/issues/3112)) ([1acb303](https://github.com/vtex/faststore/commit/1acb30334e2a17fe81630d3b0d631152c4e635f3))
+
 # 3.93.0-dev.3 (2025-11-17)
 
 ### Bug Fixes
