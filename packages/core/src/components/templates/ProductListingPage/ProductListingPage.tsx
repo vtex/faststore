@@ -93,7 +93,10 @@ export default function ProductListingPage({
     seo: { plp: plpSeo, ...storeSeo },
   } = storeConfig
   const title = collection?.seo.title ?? storeSeo.title
-  const titleTemplate = plpSeo?.titleTemplate ?? storeSeo.titleTemplate
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    plpSeo?.titleTemplate ??
+    storeSeo.titleTemplate
   const description =
     collection?.seo.description || // Use description that comes from the Checkout API
     plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP

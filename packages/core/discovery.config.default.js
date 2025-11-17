@@ -3,7 +3,6 @@ module.exports = {
     title: 'FastStore Starter',
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
-    author: 'Store Framework',
     name: 'FastStore',
     publisherId: '',
     plp: {
