@@ -30,6 +30,7 @@ type MyAccountListOrdersTableProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    pendingMyApproval?: boolean
   }
 }
 
