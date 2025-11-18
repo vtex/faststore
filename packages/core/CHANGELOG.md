@@ -3,15 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.93.0-dev.2](https://github.com/vtex/faststore/compare/v3.93.0-dev.1...v3.93.0-dev.2) (2025-11-07)
+# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
 
-**Note:** Version bump only for package @faststore/core
+### Features
 
-# 3.93.0-dev.1 (2025-11-06)
-
-### Bug Fixes
-
-- Handle empty footer logo scenario ([#3094](https://github.com/vtex/faststore/issues/3094)) ([7323d8a](https://github.com/vtex/faststore/commit/7323d8a7d8cb09ad1d7ada7ca3269b8a28c7b91d))
+- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
 
 # [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
 
