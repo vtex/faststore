@@ -16,7 +16,6 @@ import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
-  SearchInputField,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
@@ -53,6 +52,12 @@ const UploadFileDropdown = dynamic(
     ).then((mod) => mod.default),
   { ssr: false }
 )
+
+const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
+  /* webpackChunkName: "UISearchInputField" */
+  import('@faststore/ui').then((module) => module.SearchInputField)
+)
+
 const MAX_SUGGESTIONS = 5
 
 export type SearchInputProps = {
@@ -248,7 +253,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             products={products}
             isLoading={isLoading}
           >
-            <SearchInputField
+            <UISearchInputField
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
