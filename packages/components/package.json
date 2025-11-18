@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "3.93.0-dev.1",
+  "version": "3.93.0",
   "sideEffects": false,
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
