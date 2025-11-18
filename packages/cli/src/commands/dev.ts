@@ -1,6 +1,6 @@
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
@@ -186,6 +186,17 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true, basePath })
+
+    const cliPath = require.resolve('@faststore/cli')
+    spawnSync(`node ${path.join(cliPath, '../../bin/run.js')} generate-types`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    spawnSync(`node ${path.join(cliPath, '../../bin/run.js')} cache-graphql`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 

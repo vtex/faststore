@@ -53,16 +53,28 @@ export default class Build extends Command {
 
     const packageManager = getPreferredPackageManager()
 
-    let scriptResult = spawnSync(
-      `node ${path.join(require.resolve('@faststore/cli'), '../../bin/run.js')} generate`,
-      {
-        shell: true,
-        stdio: 'inherit',
-      }
+    const binCli = path.join(
+      require.resolve('@faststore/cli'),
+      '../../bin/run.js'
     )
+    let scriptResult = spawnSync(`node ${binCli} generate`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
     if (scriptResult.error || scriptResult.status !== 0) {
       throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
+    }
+
+    scriptResult = spawnSync(`node ${binCli} cache-graphql`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Cant run cache-graphql' + (scriptResult.error?.message ?? '')
+      )
     }
 
     scriptResult = spawnSync(`${packageManager} run build`, {

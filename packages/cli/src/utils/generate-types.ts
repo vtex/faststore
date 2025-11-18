@@ -1,3 +1,4 @@
+import { saveFile } from './file'
 import { GraphqlVtexSchema } from '@faststore/api'
 import {
   generate as codegenGenerate,
@@ -128,12 +129,4 @@ async function getTypeDefsFromFolder(root: string, customPath: string) {
       extensions: ['graphql'],
     },
   }).map((typeDef) => parse(fs.readFileSync(typeDef, { encoding: 'utf-8' })))
-}
-
-function saveFile(fileLocation: string) {
-  fs.mkdirSync(path.dirname(fileLocation), { recursive: true })
-
-  return (content: string) => {
-    fs.writeFileSync(fileLocation, content)
-  }
 }
