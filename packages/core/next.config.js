@@ -1,7 +1,40 @@
 // @ts-check
 const path = require('path')
 const storeConfig = require('./discovery.config')
-const locales = require('./locales.json')
+// const locales = require('./locales.json')
+
+export const mockedLocales = [
+  'en-US',
+  'pt-BR',
+  'es-MX',
+  'fr-CA',
+  'en-CA',
+  'es-ES',
+  'fr-FR',
+  'de-DE',
+  'it-IT',
+  'nl-NL',
+  'sv-SE',
+  'no-NO',
+  'da-DK',
+  'fi-FI',
+  'pt-PT',
+  'pl-PL',
+  'cs-CZ',
+  'hu-HU',
+  'ro-RO',
+  'sk-SK',
+  'el-GR',
+  'tr-TR',
+  'ru-RU',
+  'uk-UA',
+  'ar-SA',
+  'he-IL',
+  'ja-JP',
+  'ko-KR',
+  'zh-CN',
+  'zh-TW',
+]
 
 /**
  * @type {import('next').NextConfig}
@@ -18,12 +51,9 @@ const nextConfig = {
     loaderFile: './src/components/ui/Image/loader.ts',
   },
   i18n: {
-    locales: locales.locales,
-    defaultLocale: locales.defaultLocale,
-    domains: Object.entries(locales.urls).map(([locale, url]) => ({
-      domain: url.replace('https://', '').replace('http://', ''),
-      defaultLocale: locale,
-    })),
+    locales: mockedLocales,
+    defaultLocale: 'pt-BR',
+    localeDetection: false,
   },
   sassOptions: {
     additionalData: `@import "src/customizations/src/styles/custom-mixins.scss";`,
@@ -71,7 +101,6 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
-  rewrites: storeConfig.rewrites,
   eslint: {
     ignoreDuringBuilds: true,
   },
