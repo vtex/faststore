@@ -218,8 +218,8 @@
 
   &:focus-visible {
     border-radius: var(--fs-border-radius-small);
-    outline: 2px solid var(--fs-color-focus-ring);
-    outline-offset: 2px;
+    outline: 0.125rem solid var(--fs-color-focus-ring);
+    outline-offset: 0.125rem;
   }
 }
 
