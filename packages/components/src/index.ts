@@ -106,6 +106,7 @@ export { default as FileUploadCard } from './molecules/FileUploadCard'
 export type { FileUploadCardProps } from './molecules/FileUploadCard'
 export { default as FileUploadStatus } from './molecules/FileUploadStatus'
 export type {
+  FileUploadErrorType,
   FileUploadStatusProps,
   FileUploadState,
 } from './molecules/FileUploadStatus'
