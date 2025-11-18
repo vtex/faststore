@@ -68,12 +68,7 @@ FLAGS
                registry.
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/build.js)_
-=======
 _See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/build.js)_
-
-> > > > > > > dev
 
 ## `faststore cms-sync [PATH]`
 
@@ -88,12 +83,7 @@ FLAGS
   -d, --dry-run
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/cms-sync.js)_
-=======
 _See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/cms-sync.js)_
-
-> > > > > > > dev
 
 ## `faststore create [PATH]`
 
@@ -113,12 +103,7 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/create.js)_
-=======
 _See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/create.js)_
-
-> > > > > > > dev
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
@@ -135,12 +120,7 @@ FLAGS
   --watch-plugins  Enable watching for plugin changes
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/dev.js)_
-=======
 _See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/dev.js)_
-
-> > > > > > > dev
 
 ## `faststore generate-graphql [PATH]`
 
@@ -152,12 +132,7 @@ ARGUMENTS
   PATH  The path where the FastStore GraphQL customization is. Defaults to cwd.
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/generate-graphql.js)_
-=======
 _See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/generate-graphql.js)_
-
-> > > > > > > dev
 
 ## `faststore help [COMMAND]`
 
@@ -191,12 +166,7 @@ ARGUMENTS
   PORT     The port where FastStore should run. Defaults to 3000.
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/start.js)_
-=======
 _See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/start.js)_
-
-> > > > > > > dev
 
 ## `faststore test [PATH]`
 
@@ -208,11 +178,6 @@ ARGUMENTS
   PATH  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-<<<<<<< HEAD
-_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/test.js)_
-=======
 _See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.93.0-dev.4/dist/commands/test.js)_
-
-> > > > > > > dev
 
 <!-- commandsstop -->
