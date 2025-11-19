@@ -4,7 +4,7 @@
  * It generates a JSON file consumed during Next.js build to configure i18n.
  */
 
-// -- uncomment when running locally:
+// NOTE: uncomment when running locally:
 // const path = require('path')
 // const fs = require('fs/promises')
 // const dotenv = require('dotenv')
@@ -19,12 +19,10 @@ const OUTPUT_FILE = path.join(OUTPUT_DIR, 'locales.json')
 const { VTEX_ACCOUNT, FS_DISCOVERY_APP_KEY, FS_DISCOVERY_APP_TOKEN } =
   process.env
 
-const hasCredentials =
-  VTEX_ACCOUNT && FS_DISCOVERY_APP_KEY && FS_DISCOVERY_APP_TOKEN
-
 /**
  * Normalize locale strings returned by the SDK.
  * Converts underscores to hyphen and uppercases the region part when present.
+ * TODO: in case just support hyphen, we won't need this.
  */
 const normalizeLocale = (locale) => {
   if (!locale || typeof locale !== 'string') {
@@ -66,27 +64,9 @@ const normalizeUrls = (urls = {}) =>
     return acc
   }, {})
 
-const getFallbackSettings = () => ({
-  locales: normalizeLocales([storeConfig.session.locale]),
-  defaultLocale: normalizeLocale(storeConfig.session.locale),
-  urls: normalizeUrls({
-    [storeConfig.session.locale]: storeConfig.storeUrl,
-  }),
-  currency: storeConfig.session.currency.code,
-  salesChannel: JSON.parse(storeConfig.session.channel).salesChannel,
-})
-
 async function fetchLocalesFromSDK() {
-  if (!hasCredentials) {
-    console.warn(
-      '[fetch-locales] Missing VTEX credentials. Falling back to discovery.config defaults.'
-    )
-
-    return getFallbackSettings()
-  }
-
   const faststore = new FastStoreSDK({
-    account: VTEX_ACCOUNT,
+    account: VTEX_ACCOUNT || storeConfig.api.storeId,
     appKey: FS_DISCOVERY_APP_KEY,
     appToken: FS_DISCOVERY_APP_TOKEN,
   })
@@ -95,6 +75,7 @@ async function fetchLocalesFromSDK() {
 
   console.info(`[fetch-locales] Fetching settings for ${baseUrl}`)
 
+  // TODO: Check the possibility in the SDK to not pass a baseUrl here
   const response = await faststore.settings({ url: baseUrl })
 
   const locales = normalizeLocales(response.locales)
@@ -102,12 +83,11 @@ async function fetchLocalesFromSDK() {
 
   console.log('response', response)
 
-  // TODO: Improve default locale selection
-  // QUESTION: do we need current locale here?
+  // TODO: Improve default locale SDK could provide one for us
   const defaultLocale = normalizeLocale(response.currentLocale) ?? locales[0]
 
   return {
-    locales: locales.length > 0 ? locales : getFallbackSettings().locales,
+    locales,
     defaultLocale,
     urls,
     currency: response.currency,
@@ -129,15 +109,6 @@ async function main() {
     await writeOutput(data)
   } catch (error) {
     console.error('[fetch-locales] Failed to fetch locales:', error)
-
-    const fallback = getFallbackSettings()
-
-    await writeOutput({
-      ...fallback,
-      raw: null,
-      error: true,
-    })
-
     process.exitCode = 1
   }
 }
