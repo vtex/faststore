@@ -142,8 +142,8 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.93.0-dev.4
-        version: 3.93.0(@babel/core@7.26.7)(@faststore/components@3.93.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.4.5)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1)
+        specifier: ^3.94.0
+        version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
         version: 5.1.2
@@ -297,8 +297,8 @@ importers:
         specifier: workspace:*
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: ^3.93.0-dev.3
-        version: 3.93.0(graphql@15.8.0)
+        specifier: ^3.94.0
+        version: link:../graphql-utils
       "@faststore/lighthouse":
         specifier: workspace:*
         version: link:../lighthouse
@@ -567,11 +567,11 @@ importers:
   packages/storybook:
     dependencies:
       "@faststore/components":
-        specifier: ^3.93.0-dev.3
-        version: 3.93.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.94.0
+        version: link:../components
       "@faststore/ui":
-        specifier: ^3.93.0-dev.3
-        version: 3.93.0(@faststore/components@3.93.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.94.0
+        version: link:../ui
       next:
         specifier: ^15.1.6
         version: 15.1.6(@babel/core@7.26.7)(@opentelemetry/api@1.4.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)
@@ -622,8 +622,8 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.93.0-dev.3
-        version: 3.93.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.94.0
+        version: link:../components
       include-media:
         specifier: ^1.4.10
         version: 1.4.10
