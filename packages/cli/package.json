@@ -33,11 +33,11 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11",
     "globby": "^15.0.0",
-    "graphql": "catalog:",
     "ora": "5.4.1"
   },
   "devDependencies": {
     "@antfu/ni": "catalog:",
+    "graphql": "catalog:",
     "@graphql-codegen/cli": "catalog:",
     "@parcel/watcher": "^2.5.1",
     "@types/degit": "^2.8.6",
@@ -79,7 +79,8 @@
   "types": "dist/index.d.ts",
   "peerDependencies": {
     "@antfu/ni": "catalog:",
-    "@parcel/watcher": "^2.5.1"
+    "@parcel/watcher": "^2.5.1",
+    "graphql": "catalog:"
   },
   "engines": {
     "node": ">=20"
