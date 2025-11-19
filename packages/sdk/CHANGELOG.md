@@ -3,8 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-**Note:** Version bump only for package @faststore/sdk
-
 # 3.93.0-dev.3 (2025-11-17)
 
 **Note:** Version bump only for package @faststore/sdk
@@ -12,12 +10,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 # 3.93.0-dev.1 (2025-11-06)
 
 **Note:** Version bump only for package @faststore/sdk
-
-# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
-
-### Features
-
-- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
 
 ## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.91.3-dev.1...v3.92.1-dev.0) (2025-11-03)
 
