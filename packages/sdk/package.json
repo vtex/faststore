@@ -1,6 +1,6 @@
 {
   "name": "@faststore/sdk",
-  "version": "3.94.0",
+  "version": "3.94.1-dev.0",
   "description": "Hooks for creating your next component library",
   "license": "MIT",
   "repository": {
