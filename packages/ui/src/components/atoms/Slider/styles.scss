@@ -81,7 +81,7 @@
     cursor: col-resize;
     background-color: var(--fs-slider-thumb-bkg-color);
     border: var(--fs-slider-thumb-border-width) solid var(--fs-slider-thumb-border-color);
-    border-radius: var(--fs-slider-thumb-radius);
+    border-radius: var(--fs-slider-thumb-border-radius);
   }
 
   [data-fs-slider-thumb] {

@@ -491,6 +491,7 @@ export const VtexCommerce = (
         text,
         clientEmail,
         perPage,
+        pendingMyApproval,
       }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
         const params = new URLSearchParams()
 
@@ -533,6 +534,9 @@ export const VtexCommerce = (
         if (clientEmail) params.append('clientEmail', clientEmail)
         if (page) params.append('page', page.toString())
         if (perPage) params.append('per_page', perPage.toString())
+        if (pendingMyApproval) {
+          params.append('my_pending_approvals', String(true))
+        }
 
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',

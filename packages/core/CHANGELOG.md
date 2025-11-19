@@ -3,17 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
+# [3.93.0-dev.4](https://github.com/vtex/faststore/compare/v3.93.0-dev.3...v3.93.0-dev.4) (2025-11-17)
 
-### Features
+### Bug Fixes
 
-- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+- Show skeleton when product price is validating ([#3112](https://github.com/vtex/faststore/issues/3112)) ([1acb303](https://github.com/vtex/faststore/commit/1acb30334e2a17fe81630d3b0d631152c4e635f3))
+
+# 3.93.0-dev.3 (2025-11-17)
+
+### Bug Fixes
+
+- build among diff modules ([#3119](https://github.com/vtex/faststore/issues/3119)) ([fde7eb6](https://github.com/vtex/faststore/commit/fde7eb6635aaa4e0821fb8f6c6fb71f24604330b))
+
+# [3.93.0-dev.2](https://github.com/vtex/faststore/compare/v3.93.0-dev.1...v3.93.0-dev.2) (2025-11-07)
+
+**Note:** Version bump only for package @faststore/core
+
+# 3.93.0-dev.1 (2025-11-06)
+
+### Bug Fixes
+
+- Handle empty footer logo scenario ([#3094](https://github.com/vtex/faststore/issues/3094)) ([7323d8a](https://github.com/vtex/faststore/commit/7323d8a7d8cb09ad1d7ada7ca3269b8a28c7b91d))
 
 # [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
 
 ### Features
 
 - Add RTL Support ([#3097](https://github.com/vtex/faststore/issues/3097)) ([e293857](https://github.com/vtex/faststore/commit/e293857070b265419aee793ba09fd0795e7d7b44))
+
+# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
+
+### Features
+
+- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
 
 ## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.91.3-dev.1...v3.92.1-dev.0) (2025-11-03)
 

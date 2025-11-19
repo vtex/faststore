@@ -839,7 +839,7 @@ export type Query = {
   allProducts: StoreProductConnection
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection
-  /** Returns information about the list of Orders that the User can view. */
+  /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints: Maybe<PickupPoints>
@@ -886,6 +886,7 @@ export type QueryListUserOrdersArgs = {
   dateFinal: InputMaybe<Scalars['String']['input']>
   dateInitial: InputMaybe<Scalars['String']['input']>
   page: InputMaybe<Scalars['Int']['input']>
+  pendingMyApproval: InputMaybe<Scalars['Boolean']['input']>
   perPage: InputMaybe<Scalars['Int']['input']>
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   text: InputMaybe<Scalars['String']['input']>
@@ -2928,6 +2929,7 @@ export type ServerListOrdersQueryQueryVariables = Exact<{
   dateFinal: InputMaybe<Scalars['String']['input']>
   text: InputMaybe<Scalars['String']['input']>
   clientEmail: InputMaybe<Scalars['String']['input']>
+  pendingMyApproval: InputMaybe<Scalars['Boolean']['input']>
 }>
 
 export type ServerListOrdersQueryQuery = {
@@ -4329,7 +4331,7 @@ export const ServerOrderDetailsQueryDocument = {
 export const ServerListOrdersQueryDocument = {
   __meta__: {
     operationName: 'ServerListOrdersQuery',
-    operationHash: 'b0a6b9da966cf2365f9806fd810bac248b44dba8',
+    operationHash: '70d06de1da9c11f10ebde31b66fd74eccd456af5',
   },
 } as unknown as TypedDocumentString<
   ServerListOrdersQueryQuery,
