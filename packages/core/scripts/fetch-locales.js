@@ -4,23 +4,20 @@
  * It generates a JSON file consumed during Next.js build to configure i18n.
  */
 
+// -- uncomment when running locally:
+// const path = require('path')
+// const fs = require('fs/promises')
 // const dotenv = require('dotenv')
 // dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
-const path = require('path')
-const fs = require('fs/promises')
 const { FastStoreSDK } = require('@vtex/faststore-sdk')
 const storeConfig = require('../discovery.config')
 
 const OUTPUT_DIR = path.resolve(__dirname, '../')
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'locales.json')
 
-const {
-  VTEX_ACCOUNT,
-  FS_DISCOVERY_APP_KEY,
-  FS_DISCOVERY_APP_TOKEN,
-  FASTSTORE_SETTINGS_URL,
-} = process.env
+const { VTEX_ACCOUNT, FS_DISCOVERY_APP_KEY, FS_DISCOVERY_APP_TOKEN } =
+  process.env
 
 const hasCredentials =
   VTEX_ACCOUNT && FS_DISCOVERY_APP_KEY && FS_DISCOVERY_APP_TOKEN
@@ -94,7 +91,7 @@ async function fetchLocalesFromSDK() {
     appToken: FS_DISCOVERY_APP_TOKEN,
   })
 
-  const baseUrl = FASTSTORE_SETTINGS_URL ?? storeConfig.storeUrl
+  const baseUrl = storeConfig.storeUrl
 
   console.info(`[fetch-locales] Fetching settings for ${baseUrl}`)
 
@@ -103,7 +100,10 @@ async function fetchLocalesFromSDK() {
   const locales = normalizeLocales(response.locales)
   const urls = normalizeUrls(response.urls)
 
+  console.log('response', response)
+
   // TODO: Improve default locale selection
+  // QUESTION: do we need current locale here?
   const defaultLocale = normalizeLocale(response.currentLocale) ?? locales[0]
 
   return {
