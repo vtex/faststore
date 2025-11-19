@@ -100,7 +100,9 @@ function FilterSlider({
   const { openRegionSlider } = useUI()
 
   const cmsData = getGlobalSettings()
-  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+  const { deliveryPromise: deliveryPromiseSettings, filters: filtersSettings } =
+    cmsData ?? {}
+  const filterFacetRangeSettings = filtersSettings?.filterFacetRange
 
   const {
     facets: filteredFacets,
@@ -262,6 +264,14 @@ function FilterSlider({
                       facet.key.toLowerCase() === 'price'
                         ? useFormattedPrice
                         : undefined
+                    }
+                    minLabel={filterFacetRangeSettings?.minLabel}
+                    maxLabel={filterFacetRangeSettings?.maxLabel}
+                    minPriceGreaterThanMaxErrorMessage={
+                      filterFacetRangeSettings?.minPriceGreaterThanMaxErrorMessage
+                    }
+                    maxPriceSmallerThanMinErrorMessage={
+                      filterFacetRangeSettings?.maxPriceSmallerThanMinErrorMessage
                     }
                     onFacetChange={(facet) =>
                       dispatch({

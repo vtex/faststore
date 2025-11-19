@@ -312,6 +312,42 @@
                 }
               }
             }
+          },
+          {
+            "name": "filters",
+            "schema": {
+              "title": "Filters",
+              "description": "Filter configurations for PLP/Search pages",
+              "type": "object",
+              "properties": {
+                "filterFacetRange": {
+                  "title": "PLP/Search Filter: Range Facet",
+                  "type": "object",
+                  "properties": {
+                    "minLabel": {
+                      "title": "Minimum value label",
+                      "type": "string",
+                      "default": "Min"
+                    },
+                    "maxLabel": {
+                      "title": "Maximum value label",
+                      "type": "string",
+                      "default": "Max"
+                    },
+                    "minPriceGreaterThanMaxErrorMessage": {
+                      "title": "Error message when minimum is greater than maximum",
+                      "type": "string",
+                      "default": "Min price can't be greater than max"
+                    },
+                    "maxPriceSmallerThanMinErrorMessage": {
+                      "title": "Error message when maximum is smaller than minimum",
+                      "type": "string",
+                      "default": "Max price can't be smaller than min"
+                    }
+                  }
+                }
+              }
+            }
           }
         ]
       }

@@ -40,7 +40,9 @@ function FilterDesktop({
   title,
 }: FilterDesktopProps & ReturnType<typeof useFilter>) {
   const cmsData = getGlobalSettings()
-  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+  const { deliveryPromise: deliveryPromiseSettings, filters: filtersSettings } =
+    cmsData ?? {}
+  const filterFacetRangeSettings = filtersSettings?.filterFacetRange
   const {
     resetInfiniteScroll,
     state: searchState,
@@ -162,6 +164,14 @@ function FilterDesktop({
                     facet.key.toLowerCase() === 'price'
                       ? useFormattedPrice
                       : undefined
+                  }
+                  minLabel={filterFacetRangeSettings?.minLabel}
+                  maxLabel={filterFacetRangeSettings?.maxLabel}
+                  minPriceGreaterThanMaxErrorMessage={
+                    filterFacetRangeSettings?.minPriceGreaterThanMaxErrorMessage
+                  }
+                  maxPriceSmallerThanMinErrorMessage={
+                    filterFacetRangeSettings?.maxPriceSmallerThanMinErrorMessage
                   }
                   onFacetChange={(facet) => {
                     setSearchState({
