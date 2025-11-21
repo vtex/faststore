@@ -40,6 +40,7 @@ export type MyAccountListOrdersProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    pendingMyApproval?: boolean
   }
 }
 
@@ -74,6 +75,11 @@ function getSelectedFacets({
         key: 'dateFinal',
         value: String(value),
       })
+    } else if (filter === 'pendingMyApproval' && value) {
+      acc.push({
+        key: 'pendingMyApproval',
+        value: String(value),
+      })
     }
 
     return acc
@@ -86,6 +92,11 @@ function getAllFacets({
   filters: MyAccountListOrdersProps['filters']
 }): MyAccountFilter_FacetsFragment[] {
   return [
+    {
+      __typename: 'StoreFacetPendingApproval',
+      key: 'pendingMyApproval',
+      label: 'Pending Approval',
+    } as any,
     {
       __typename: 'StoreFacetBoolean',
       key: 'status',
@@ -114,7 +125,8 @@ function hasActiveFilters(
     filters.status.length > 0 ||
     Boolean(filters.dateInitial) ||
     Boolean(filters.dateFinal) ||
-    Boolean(filters.text)
+    Boolean(filters.text) ||
+    Boolean(filters.pendingMyApproval)
   )
 }
 
@@ -234,6 +246,7 @@ export default function MyAccountListOrders({
           status: filters.status,
           dateInitial: filters.dateInitial,
           dateFinal: filters.dateFinal,
+          pendingMyApproval: filters.pendingMyApproval,
         }}
         onClearAll={() => {
           window.location.href = '/pvt/account/orders'
@@ -243,7 +256,7 @@ export default function MyAccountListOrders({
 
           if (key === 'status' && Array.isArray(updatedFilters[key])) {
             updatedFilters[key] = updatedFilters[key].filter(
-              (v) => v.toLowerCase() !== value.toLowerCase()
+              (v) => v.toLowerCase() !== value.toString().toLowerCase()
             )
           } else if (key === 'dateInitial' || key === 'dateFinal') {
             delete updatedFilters.dateInitial
