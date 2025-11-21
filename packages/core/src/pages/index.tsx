@@ -137,7 +137,6 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <h1>Você está acessando a página em {locale}</h1>
         <RenderSections
           globalSections={globalSections}
           sections={sections}
