@@ -1,6 +1,6 @@
 import { createStore } from '@faststore/sdk'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 import localesData from '../../../locales-test.json'
 import { sessionStore } from './index'
 
@@ -26,18 +26,20 @@ function buildUrlsMap(locales: any): Record<string, string> {
 console.log('url map', buildUrlsMap(localesData.locales))
 
 export const useSessionSettings = () => {
-  const [hasInitialized, setHasInitialized] = useState(false)
   const router = useRouter()
+  const prevLocaleRef = useRef<string>()
 
-  useEffect(() => {
-    // Only run in browser
-    if (typeof window === 'undefined') {
-      return
-    }
+  // Get current locale from Next.js router
+  const currentLocale = router.locale || (localesData as any).defaultLocale
 
+  // Initialize/update stores synchronously when locale changes
+  // This prevents blink on first render and locale switches
+  if (
+    typeof window !== 'undefined' &&
+    prevLocaleRef.current !== currentLocale
+  ) {
     try {
-      // Get current locale from Next.js router
-      const currentLocale = router.locale || (localesData as any).defaultLocale
+      prevLocaleRef.current = currentLocale
 
       console.log('useSessionSettings: Current locale:', currentLocale)
 
@@ -65,14 +67,10 @@ export const useSessionSettings = () => {
 
       // Update stores with settings
       updateSessionStores(settings)
-
-      if (!hasInitialized) {
-        setHasInitialized(true)
-      }
     } catch (error) {
       console.error('Error initializing session settings:', error)
     }
-  }, [router.locale, hasInitialized])
+  }
 }
 
 function updateSessionStores(settings: {

@@ -10,6 +10,7 @@
     display: flex;
     gap: var(--fs-spacing-1);
     align-items: center;
+    width: 145px;
     padding: var(--fs-spacing-1) var(--fs-spacing-2);
     cursor: pointer;
     background-color: var(--fs-color-neutral-bkg);
@@ -25,6 +26,10 @@
     &:focus-visible {
       outline: 2px solid var(--fs-color-focus-ring);
       outline-offset: 2px;
+    }
+
+    &[data-fs-button][data-fs-button-size="small"] {
+      padding: 0;
     }
 
     [data-fs-button-wrapper] > span {
@@ -94,6 +99,70 @@
           margin-left: var(--fs-spacing-1);
           font-size: var(--fs-text-size-tiny);
           color: var(--fs-color-text-light);
+        }
+      }
+    }
+
+    // Language-currency mode styles
+    [data-fs-language-currency-selector] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--fs-spacing-3);
+      min-width: 280px;
+
+      [data-fs-language-currency-row] {
+        display: flex;
+        flex-direction: column;
+        gap: var(--fs-spacing-1);
+
+        [data-fs-language-currency-label] {
+          display: flex;
+          flex-direction: column;
+          gap: var(--fs-spacing-1);
+          font-size: var(--fs-text-size-body);
+          font-weight: var(--fs-text-weight-bold);
+          color: var(--fs-color-text);
+
+          [data-fs-language-currency-select] {
+            padding: var(--fs-spacing-2);
+            font-size: var(--fs-text-size-body);
+            color: var(--fs-color-text);
+            cursor: pointer;
+            background-color: var(--fs-color-neutral-bkg);
+            border: 1px solid var(--fs-border-color);
+            border-radius: var(--fs-border-radius);
+            transition: all var(--fs-transition-timing) var(--fs-transition-function);
+
+            &:hover {
+              border-color: var(--fs-border-color-hover, var(--fs-border-color-active));
+            }
+
+            &:focus {
+              border-color: var(--fs-color-primary-border, var(--fs-border-color-active));
+              outline: 2px solid var(--fs-color-focus-ring);
+              outline-offset: 2px;
+            }
+          }
+        }
+      }
+
+      [data-fs-language-currency-warning] {
+        padding: var(--fs-spacing-2);
+        font-size: var(--fs-text-size-tiny);
+        color: var(--fs-color-warning-text);
+        text-align: center;
+        background-color: var(--fs-color-warning-bkg);
+        border-radius: var(--fs-border-radius);
+      }
+
+      [data-fs-language-currency-apply] {
+        margin-top: var(--fs-spacing-1);
+
+        &:disabled {
+          color: var(--fs-color-disabled-text);
+          cursor: not-allowed;
+          background-color: var(--fs-color-disabled-bkg);
+          opacity: 0.5;
         }
       }
     }

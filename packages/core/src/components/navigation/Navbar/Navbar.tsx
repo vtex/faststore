@@ -188,7 +188,7 @@ function Navbar({
               />
             )}
 
-            <LocaleSelector />
+            <LocaleSelector mode="language-currency" />
             {isDesktop &&
               (isSessionReady ? (
                 isOrganizationEnabled ? (
