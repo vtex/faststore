@@ -4,11 +4,12 @@
  * It generates a JSON file consumed during Next.js build to configure i18n.
  */
 
+const path = require('path')
+const fs = require('fs/promises')
+
 // NOTE: uncomment when running locally:
-// const path = require('path')
-// const fs = require('fs/promises')
-// const dotenv = require('dotenv')
-// dotenv.config({ path: path.resolve(__dirname, '../.env') })
+const dotenv = require('dotenv')
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 const { FastStoreSDK } = require('@vtex/faststore-sdk')
 const storeConfig = require('../discovery.config')
