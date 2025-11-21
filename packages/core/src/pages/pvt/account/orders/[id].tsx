@@ -257,6 +257,38 @@ const query = gql(`
         email
         phone
       }
+      budgetData {
+        budgets {
+          id
+          name
+          unitId
+          cycleConfiguration {
+            startDate
+            endDate
+            autoResetOnPeriodEnd
+            carryOverBalance
+          }
+          balance {
+            amount
+            balanceAdjustment
+            remaining
+          }
+          allocations {
+            id
+            linkedEntity {
+              type
+              id
+            }
+            balance {
+              amount
+              balanceAdjustment
+              remaining
+            }
+            reservations
+            ToBeSpent
+          }
+        }
+      }
     }
     accountProfile {
       name
@@ -339,10 +371,18 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooter,
   })
 
+  const order = orderDetails.data.userOrder
+
+  // Log budgetData no console do servidor (Node.js)
+  console.log(
+    'Budget Data (Server):',
+    JSON.stringify((order as any)?.budgetData, null, 2)
+  )
+
   return {
     props: {
       globalSections: globalSectionsResult,
-      order: orderDetails.data.userOrder,
+      order,
       accountName: orderDetails.data.accountProfile.name,
       isRepresentative,
     },

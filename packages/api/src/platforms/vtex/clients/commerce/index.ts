@@ -475,6 +475,8 @@ export const VtexCommerce = (
       userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
 
+        const base = `https://${account}.vtexcommercebeta.com.br`
+
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
           {

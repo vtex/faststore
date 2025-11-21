@@ -7,6 +7,7 @@ import MyAccountOrderActions from './MyAccountOrderActions'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
+import MyAccountBudgetsCard from './MyAccountBudgetsCard'
 
 import type {
   ServerOrderDetailsQueryQuery,
@@ -116,6 +117,13 @@ export default function MyAccountOrderDetails({
 
         {moreInformationCustomFields?.length > 0 && (
           <MyAccountMoreInformationCard fields={moreInformationCustomFields} />
+        )}
+
+        {order.budgetData && (
+          <MyAccountBudgetsCard
+            budgetData={order.budgetData}
+            currencyCode={order.storePreferencesData.currencyCode}
+          />
         )}
       </main>
     </div>
