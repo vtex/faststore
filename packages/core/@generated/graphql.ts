@@ -1647,6 +1647,7 @@ export type UserOrder = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
   allowEdition: Maybe<Scalars['Boolean']['output']>
   authorizedDate: Maybe<Scalars['String']['output']>
+  budgetData: Maybe<UserOrderBudgetData>
   callCenterOperatorData: Maybe<Scalars['String']['output']>
   canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   cancelReason: Maybe<Scalars['String']['output']>
@@ -1749,6 +1750,45 @@ export type UserOrderAttachmentOfferings = {
 export type UserOrderAttachments = {
   content: Maybe<Scalars['JSONObject']['output']>
   name: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudget = {
+  allocations: Maybe<Array<Maybe<UserOrderBudgetAllocation>>>
+  balance: Maybe<UserOrderBudgetBalance>
+  cycleConfiguration: Maybe<UserOrderBudgetCycleConfiguration>
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudgetAllocation = {
+  ToBeSpent: Maybe<Scalars['Float']['output']>
+  balance: Maybe<UserOrderBudgetBalance>
+  id: Maybe<Scalars['String']['output']>
+  linkedEntity: Maybe<UserOrderBudgetAllocationLinkedEntity>
+  reservations: Maybe<Scalars['JSONObject']['output']>
+}
+
+export type UserOrderBudgetAllocationLinkedEntity = {
+  id: Maybe<Scalars['String']['output']>
+  type: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudgetBalance = {
+  amount: Maybe<Scalars['Float']['output']>
+  balanceAdjustment: Maybe<Scalars['Float']['output']>
+  remaining: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderBudgetCycleConfiguration = {
+  autoResetOnPeriodEnd: Maybe<Scalars['Boolean']['output']>
+  carryOverBalance: Maybe<Scalars['Boolean']['output']>
+  endDate: Maybe<Scalars['String']['output']>
+  startDate: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudgetData = {
+  budgets: Maybe<Array<Maybe<UserOrderBudget>>>
 }
 
 export type UserOrderCancel = {
@@ -2310,6 +2350,7 @@ export type UserOrderRestitutions = {
 
 export type UserOrderResult = {
   allowCancellation: Maybe<Scalars['Boolean']['output']>
+  budgetData: Maybe<UserOrderBudgetData>
   canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
   clientProfileData: Maybe<UserOrderClientProfileData>
   creationDate: Maybe<Scalars['String']['output']>
@@ -2912,6 +2953,35 @@ export type ServerOrderDetailsQueryQuery = {
       lastName: string | null
       email: string | null
       phone: string | null
+    } | null
+    budgetData: {
+      budgets: Array<{
+        id: string | null
+        name: string | null
+        unitId: string | null
+        cycleConfiguration: {
+          startDate: string | null
+          endDate: string | null
+          autoResetOnPeriodEnd: boolean | null
+          carryOverBalance: boolean | null
+        } | null
+        balance: {
+          amount: number | null
+          balanceAdjustment: number | null
+          remaining: number | null
+        } | null
+        allocations: Array<{
+          id: string | null
+          reservations: any | null
+          ToBeSpent: number | null
+          linkedEntity: { type: string | null; id: string | null } | null
+          balance: {
+            amount: number | null
+            balanceAdjustment: number | null
+            remaining: number | null
+          } | null
+        } | null> | null
+      } | null> | null
     } | null
   } | null
   accountProfile: { name: string | null }
@@ -4320,7 +4390,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: '7937ec2d330f0f6f68f3aab589f10bc96c6ddeea',
+    operationHash: 'd55cde4f2d52208eebd2b114e84f66992b0151cc',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,
