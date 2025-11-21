@@ -1,77 +1,111 @@
 import { createStore } from '@faststore/sdk'
-import type { SettingsResponse } from '@vtex/faststore-sdk'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import localesData from '../../../locales-test.json'
 import { sessionStore } from './index'
 
 /**
- * Hook to fetch and update session with SDK settings
- * Uses actual browser URL to get accurate locale/currency/URLs
+ * Hook to update session with locale settings from locales.json
+ * Matches current URL/locale to get currency and sales channel
+ * No API fetch needed - all data comes from prebuild locales.json
  */
 
-export const useSessionSettings = (settings?: SettingsResponse) => {
-  const [hasFetched, setHasFetched] = useState(false)
+/**
+ * Build URLs map from locales object
+ */
+function buildUrlsMap(locales: any): Record<string, string> {
+  return Object.keys(locales).reduce(
+    (acc, localeCode) => {
+      acc[localeCode] = locales[localeCode].bindings.url
+      return acc
+    },
+    {} as Record<string, string>
+  )
+}
+
+console.log('url map', buildUrlsMap(localesData.locales))
+
+export const useSessionSettings = () => {
+  const [hasInitialized, setHasInitialized] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
-    // Only run once, only in browser
-    if (hasFetched || typeof window === 'undefined') {
-      console.log('settings', settings)
+    // Only run in browser
+    if (typeof window === 'undefined') {
       return
     }
 
-    const fetchAndUpdateSettings = async () => {
-      try {
-        // const actualUrl = window.location.href
-        const actualUrl = 'https://brandless.myvtex.com/en-EN'
+    try {
+      // Get current locale from Next.js router
+      const currentLocale = router.locale || (localesData as any).defaultLocale
 
-        console.log('useSessionSettings: Fetching settings for URL:', actualUrl)
+      console.log('useSessionSettings: Current locale:', currentLocale)
 
-        // Call API route to get settings for actual URL
-        const response = await fetch(
-          `/api/settings?url=${encodeURIComponent(actualUrl)}`
-        )
+      // Get locale-specific bindings or fallback to defaults
+      const localesObj = (localesData as any).locales
+      const localeConfig = localesObj[currentLocale]
+      const currency = localeConfig?.bindings?.currency?.code
+      const currencySymbol = localeConfig?.bindings?.currency?.symbol
+      const salesChannel = localeConfig?.bindings?.salesChannel
 
-        if (!response.ok) {
-          console.error('Failed to fetch settings:', response.statusText)
-          return
-        }
-
-        const freshSettings: SettingsResponse = await response.json()
-
-        console.log('useSessionSettings: Received settings', freshSettings)
-
-        // Update stores with settings
-        updateSessionStores(freshSettings)
-
-        setHasFetched(true)
-      } catch (error) {
-        console.error('Error:', error)
+      // Get settings from locales-test.json
+      const settings = {
+        currentLocale,
+        currency,
+        currencySymbol,
+        salesChannel,
+        locales: Object.keys(localesObj),
+        urls: buildUrlsMap(localesObj),
       }
-    }
 
-    fetchAndUpdateSettings()
-  }, [hasFetched])
+      console.log(
+        'useSessionSettings: Loaded settings from locales.json:',
+        settings
+      )
+
+      // Update stores with settings
+      updateSessionStores(settings)
+
+      if (!hasInitialized) {
+        setHasInitialized(true)
+      }
+    } catch (error) {
+      console.error('Error initializing session settings:', error)
+    }
+  }, [router.locale, hasInitialized])
 }
 
-function updateSessionStores(settings: SettingsResponse) {
+function updateSessionStores(settings: {
+  currentLocale: string
+  currency: string
+  currencySymbol: string
+  salesChannel: string
+  locales: string[]
+  urls: Record<string, string>
+}) {
   const currentSession = sessionStore.read()
 
   // Update session store
   const updatedSession = {
     ...currentSession,
-    locale: settings.currentLocale || currentSession.locale,
+    locale: settings.currentLocale,
     currency: {
-      code: settings.currency || currentSession.currency.code,
-      // TODO: Get currency symbol from settings
-      symbol: currentSession.currency.symbol,
+      code: settings.currency,
+      symbol: settings.currencySymbol,
     },
     channel: JSON.stringify({
-      salesChannel:
-        settings.salesChannel ||
-        JSON.parse(currentSession.channel).salesChannel,
+      salesChannel: settings.salesChannel,
     }),
   }
 
   sessionStore.set(updatedSession)
+
+  console.log('Session updated:', {
+    locale: settings.currentLocale,
+    currency: settings.currency,
+    currencySymbol: settings.currencySymbol,
+    salesChannel: settings.salesChannel,
+  })
 
   // Update localization store
   localizationStore.set({

@@ -15,6 +15,7 @@ import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import storeConfig from 'discovery.config'
+import LocaleSelector from 'src/components/common/Locale/LocaleSelector/LocaleSelector'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
 const NavbarLinks = dynamic(
@@ -186,6 +187,8 @@ function Navbar({
                 aria-hidden={!searchExpanded}
               />
             )}
+
+            <LocaleSelector />
             {isDesktop &&
               (isSessionReady ? (
                 isOrganizationEnabled ? (

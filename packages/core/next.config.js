@@ -1,40 +1,40 @@
 // @ts-check
 const path = require('path')
 const storeConfig = require('./discovery.config')
-// const locales = require('./locales.json')
+const locales = require('./locales-test.json')
 
-export const mockedLocales = [
-  'en-US',
-  'pt-BR',
-  'es-MX',
-  'fr-CA',
-  'en-CA',
-  'es-ES',
-  'fr-FR',
-  'de-DE',
-  'it-IT',
-  'nl-NL',
-  'sv-SE',
-  'no-NO',
-  'da-DK',
-  'fi-FI',
-  'pt-PT',
-  'pl-PL',
-  'cs-CZ',
-  'hu-HU',
-  'ro-RO',
-  'sk-SK',
-  'el-GR',
-  'tr-TR',
-  'ru-RU',
-  'uk-UA',
-  'ar-SA',
-  'he-IL',
-  'ja-JP',
-  'ko-KR',
-  'zh-CN',
-  'zh-TW',
-]
+// export const mockedLocales = [
+//   'en-US',
+//   'pt-BR',
+//   'es-MX',
+//   'fr-CA',
+//   'en-CA',
+//   'es-ES',
+//   'fr-FR',
+//   'de-DE',
+//   'it-IT',
+//   'nl-NL',
+//   'sv-SE',
+//   'no-NO',
+//   'da-DK',
+//   'fi-FI',
+//   'pt-PT',
+//   'pl-PL',
+//   'cs-CZ',
+//   'hu-HU',
+//   'ro-RO',
+//   'sk-SK',
+//   'el-GR',
+//   'tr-TR',
+//   'ru-RU',
+//   'uk-UA',
+//   'ar-SA',
+//   'he-IL',
+//   'ja-JP',
+//   'ko-KR',
+//   'zh-CN',
+//   'zh-TW',
+// ]
 
 /**
  * @type {import('next').NextConfig}
@@ -51,8 +51,9 @@ const nextConfig = {
     loaderFile: './src/components/ui/Image/loader.ts',
   },
   i18n: {
-    locales: mockedLocales,
-    defaultLocale: 'pt-BR',
+    // locales: mockedLocales,
+    locales: Object.keys(locales.locales),
+    defaultLocale: locales.defaultLocale,
     localeDetection: false,
   },
   sassOptions: {

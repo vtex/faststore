@@ -1,0 +1,101 @@
+// AI GENERATED CODE
+.section {
+  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+
+  position: relative;
+  display: inline-block;
+
+  [data-fs-locale-selector-button] {
+    display: flex;
+    gap: var(--fs-spacing-1);
+    align-items: center;
+    padding: var(--fs-spacing-1) var(--fs-spacing-2);
+    cursor: pointer;
+    background-color: var(--fs-color-neutral-bkg);
+    border: 1px solid var(--fs-border-color);
+    border-radius: var(--fs-border-radius);
+    transition: all var(--fs-transition-timing) var(--fs-transition-function);
+
+    &:hover {
+      background-color: var(--fs-color-neutral-bkg-hover, var(--fs-color-neutral-1));
+      border-color: var(--fs-border-color-hover, var(--fs-border-color-active));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--fs-color-focus-ring);
+      outline-offset: 2px;
+    }
+
+    [data-fs-button-wrapper] > span {
+      display: flex;
+      column-gap: 12px;
+    }
+
+    [data-fs-locale-selector-current] {
+      font-size: var(--fs-text-size-body);
+      font-weight: var(--fs-text-weight-bold);
+      color: var(--fs-color-text);
+      text-transform: uppercase;
+    }
+  }
+
+  .popover {
+    position: absolute;
+    top: calc(100% + var(--fs-spacing-1));
+    left: 0;
+    z-index: var(--fs-z-index-dropdown, 100);
+    min-width: 236px;
+    padding: var(--fs-spacing-2);
+    background-color: var(--fs-color-body-bkg);
+    border: 1px solid var(--fs-border-color);
+    border-radius: var(--fs-border-radius);
+    box-shadow: var(--fs-shadow);
+
+    [data-fs-locale-selector-list] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--fs-spacing-0);
+
+      [data-fs-locale-selector-option] {
+        display: flex;
+        gap: var(--fs-spacing-2);
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: var(--fs-spacing-2);
+        text-align: left;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        border-radius: var(--fs-border-radius);
+        transition: background-color var(--fs-transition-timing) var(--fs-transition-function);
+
+        &:hover {
+          background-color: var(--fs-color-neutral-1);
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--fs-color-focus-ring);
+          outline-offset: -2px;
+        }
+
+        &[data-fs-locale-selector-option-selected="true"] {
+          font-weight: var(--fs-text-weight-bold);
+          background-color: var(--fs-color-primary-bkg-light, var(--fs-color-neutral-1));
+        }
+
+        [data-fs-locale-selector-option-name] {
+          font-size: var(--fs-text-size-body);
+          color: var(--fs-color-text);
+        }
+
+        [data-fs-locale-selector-option-code] {
+          margin-left: var(--fs-spacing-1);
+          font-size: var(--fs-text-size-tiny);
+          color: var(--fs-color-text-light);
+        }
+      }
+    }
+  }
+}
