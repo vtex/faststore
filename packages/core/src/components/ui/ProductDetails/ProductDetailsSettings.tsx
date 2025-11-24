@@ -47,6 +47,7 @@ function ProductDetailsSettings({
   useUnitMultiplier = false,
   taxesConfiguration,
   invalidQuantityToastLabels,
+  loadingLabel,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
