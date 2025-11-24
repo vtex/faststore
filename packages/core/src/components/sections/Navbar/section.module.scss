@@ -33,6 +33,7 @@
     @import "@faststore/ui/src/components/organisms/Navbar/styles.scss";
     @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
     @import "@faststore/ui/src/components/organisms/SKUMatrix/styles.scss";
+    @import "@faststore/ui/src/components/organisms/QuickOrderDrawer/styles.scss";
 
     // Sets Navbar height on desktop to avoid CLS issue - Cumulative Layout Shift
     --fs-navbar-height-desktop: 4.5rem;
