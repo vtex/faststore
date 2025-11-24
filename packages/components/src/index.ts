@@ -398,3 +398,17 @@ export type {
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
+
+export {
+  default as QuickOrderDrawer,
+  QuickOrderDrawerHeader,
+  QuickOrderDrawerProducts,
+  QuickOrderDrawerFooter,
+} from './organisms/QuickOrderDrawer'
+
+export type {
+  QuickOrderDrawerProps,
+  QuickOrderDrawerHeaderProps,
+  QuickOrderDrawerProductsProps,
+  QuickOrderDrawerFooterProps,
+} from './organisms/QuickOrderDrawer'
