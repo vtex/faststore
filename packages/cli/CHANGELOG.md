@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.95.0-dev.0](https://github.com/vtex/faststore/compare/v3.94.1-dev.0...v3.95.0-dev.0) (2025-11-20)
+
+### Features
+
+- Add svg extension to public folder copy's allow list ([#3123](https://github.com/vtex/faststore/issues/3123)) ([15aca77](https://github.com/vtex/faststore/commit/15aca77a3e4309d780dcb2c1511618a450c61e0f))
+
 ## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
 
 # 3.93.0-dev.4 (2025-11-17)
