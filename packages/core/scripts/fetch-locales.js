@@ -66,6 +66,15 @@ const normalizeUrls = (urls = {}) =>
   }, {})
 
 async function fetchLocalesFromSDK() {
+  // Check if credentials are available
+  if (!FS_DISCOVERY_APP_KEY || !FS_DISCOVERY_APP_TOKEN) {
+    console.warn(
+      '[fetch-locales] FS_DISCOVERY_APP_KEY or FS_DISCOVERY_APP_TOKEN not found.'
+    )
+    console.warn('[fetch-locales] Skipping locale generation.')
+    return null
+  }
+
   const faststore = new FastStoreSDK({
     account: VTEX_ACCOUNT || storeConfig.api.storeId,
     appKey: FS_DISCOVERY_APP_KEY,
@@ -106,6 +115,11 @@ async function writeOutput(data) {
 async function main() {
   try {
     const data = await fetchLocalesFromSDK()
+
+    if (data === null) {
+      console.info('[fetch-locales] No credentials provided, skipping.')
+      return
+    }
 
     await writeOutput(data)
   } catch (error) {
