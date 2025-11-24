@@ -194,14 +194,14 @@ const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) =>
 const setOrderFormEtag = async (
   form: OrderForm,
   commerce: Context['clients']['commerce'],
-  session: SessionJwt
+  sessionJwt: SessionJwt
 ) => {
   try {
     const orderForm = await commerce.checkout.setCustomData({
       id: form.orderFormId,
       appId: 'faststore',
       key: 'cartEtag',
-      value: getOrderFormEtag(form, session),
+      value: getOrderFormEtag(form, sessionJwt),
     })
 
     return orderForm
@@ -220,7 +220,7 @@ const setOrderFormEtag = async (
  * another system changed the cart, like Checkout UI or Order Placed
  * or another device which has the same cart open with FastStore
  */
-const isOrderFormStale = (form: OrderForm, session: SessionJwt) => {
+const isOrderFormStale = (form: OrderForm, sessionJwt: SessionJwt) => {
   const faststoreData = form.customData?.customApps.find(
     (app) => app.id === 'faststore'
   )
@@ -231,7 +231,7 @@ const isOrderFormStale = (form: OrderForm, session: SessionJwt) => {
     return true
   }
 
-  const newEtag = getOrderFormEtag(form, session)
+  const newEtag = getOrderFormEtag(form, sessionJwt)
 
   return newEtag !== oldEtag
 }
@@ -372,17 +372,19 @@ export const validateCart = async (
   }
 
   const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
-  const jwt = parseJwt(sessionCookie)
+  const sessionJwt = parseJwt(sessionCookie)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
-  const isStale = isOrderFormStale(orderForm, jwt)
+  const isStale = isOrderFormStale(orderForm, sessionJwt)
 
   if (isStale) {
-    const newOrderForm = await setOrderFormEtag(orderForm, commerce, jwt).then(
-      joinItems
-    )
+    const newOrderForm = await setOrderFormEtag(
+      orderForm,
+      commerce,
+      sessionJwt
+    ).then(joinItems)
     if (orderNumber) {
       return orderFormToCart(newOrderForm, skuLoader, shouldSplitItem)
     }
@@ -475,7 +477,7 @@ export const validateCart = async (
       return form
     })
     // update orderForm etag so we know last time we touched this orderForm
-    .then((form: OrderForm) => setOrderFormEtag(form, commerce, jwt))
+    .then((form: OrderForm) => setOrderFormEtag(form, commerce, sessionJwt))
     .then(joinItems)
 
   const equalMessages = deepEquals(
