@@ -88,8 +88,6 @@ jobs:
           cd starter
           yarn install
           yarn add graphql@16.11.0
-          yarn add graphql@^15
-          ../scripts/set-resolution.js . "next" "^15"
 
       - name: Debug Starter
         run: |
