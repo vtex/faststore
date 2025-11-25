@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "disabled-build": "storybook build"
+    "build": "storybook build"
   },
   "dependencies": {
     "@faststore/components": "workspace:*",
