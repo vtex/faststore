@@ -39,6 +39,41 @@
                   "default": "Magnifying glass"
                 }
               }
+            },
+            "attachmentButton": {
+              "title": "Attachment Button",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "title": "Show attachment button?",
+                  "description": "Enable file upload functionality in the search input",
+                  "type": "boolean",
+                  "default": false
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["Paperclip"],
+                      "enum": ["Paperclip"],
+                      "default": "Paperclip"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "Attach File"
+                    }
+                  }
+                },
+                "ariaLabel": {
+                  "title": "Aria Label",
+                  "type": "string",
+                  "default": "Attach File"
+                }
+              }
             }
           }
         },
@@ -196,6 +231,41 @@
               "title": "Placeholder for Search Bar",
               "type": "string",
               "default": "Search everything in the store"
+            },
+            "attachmentButton": {
+              "title": "Attachment Button",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "title": "Show attachment button?",
+                  "description": "Enable file upload functionality in the search input",
+                  "type": "boolean",
+                  "default": false
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["Paperclip"],
+                      "enum": ["Paperclip"],
+                      "default": "Paperclip"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "Attach File"
+                    }
+                  }
+                },
+                "ariaLabel": {
+                  "title": "Aria Label",
+                  "type": "string",
+                  "default": "Attach File"
+                }
+              }
             },
             "sort": {
               "title": "Results default sort value",
