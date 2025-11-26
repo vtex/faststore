@@ -76,7 +76,7 @@ export default class CacheGraphql extends Command {
       )
     )
 
-    logger.log(
+    logger.info(
       `${chalk.green('success')} - GraphQL queries cached with success: 🎉
       Queries: ${cachedQueries.join(', ')}`
     )
