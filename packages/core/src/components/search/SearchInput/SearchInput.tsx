@@ -128,6 +128,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const buttonProps = {
       onClick: onSearchClick,
       testId: buttonTestId,
+      'aria-label': submitButtonAriaLabel,
     }
 
     return (
