@@ -12,6 +12,7 @@ import {
 
 import Badge from '../../atoms/Badge'
 import type { PriceFormatter } from '../../atoms/Price'
+import Price from '../../atoms/Price'
 import Skeleton from '../../atoms/Skeleton'
 import { useUI } from '../../hooks'
 import Alert from '../../molecules/Alert'
@@ -20,7 +21,6 @@ import {
   useQuickOrderDrawer,
   type VariationProductColumn,
 } from './provider/QuickOrderDrawerProvider'
-import Price from '../../atoms/Price'
 
 export type QuickOrderDrawerProductsProps = {
   columns: VariationProductColumn
@@ -31,7 +31,7 @@ const QuickOrderDrawerProducts = ({
   columns,
   formatter,
 }: QuickOrderDrawerProductsProps) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, _setLoading] = useState(false)
   const { pushToast } = useUI()
   const { products, onChangeQuantityItem, onDelete } = useQuickOrderDrawer()
 

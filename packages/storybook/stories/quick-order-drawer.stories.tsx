@@ -1,13 +1,21 @@
 import {
   QuickOrderDrawer,
+  QuickOrderDrawerFooter,
   QuickOrderDrawerHeader,
   QuickOrderDrawerProducts,
-  QuickOrderDrawerFooter,
+  UIProvider,
 } from '@faststore/ui'
 import React, { useState } from 'react'
 
 export default {
   title: 'QuickOrderDrawer',
+  decorators: [
+    (Story: React.ComponentType) => (
+      <UIProvider>
+        <Story />
+      </UIProvider>
+    ),
+  ],
 }
 
 const columns = {
@@ -27,12 +35,14 @@ export function Default() {
     <div>
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer isOpen={isOpen}>
-        <QuickOrderDrawerHeader
-          title="order-file.xlsx"
-          onCloseDrawer={() => setIsOpen(false)}
-        />
-        <QuickOrderDrawerProducts columns={columns} />
-        <QuickOrderDrawerFooter />
+        <>
+          <QuickOrderDrawerHeader
+            title="order-file.xlsx"
+            onCloseDrawer={() => setIsOpen(false)}
+          />
+          <QuickOrderDrawerProducts columns={columns} />
+          <QuickOrderDrawerFooter />
+        </>
       </QuickOrderDrawer>
     </div>
   )
