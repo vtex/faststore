@@ -8,7 +8,7 @@ export type QuickOrderDrawerFooterProps = {
 }
 
 const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, _setLoading] = useState(false)
   const { itemsCount, totalPrice } = useQuickOrderDrawer()
 
   return (

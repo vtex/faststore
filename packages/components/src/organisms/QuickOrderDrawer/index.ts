@@ -1,4 +1,4 @@
-export { default } from './QuickOrderDrawer'
+export { default, default as QuickOrderDrawer } from './QuickOrderDrawer'
 export type { QuickOrderDrawerProps } from './QuickOrderDrawer'
 
 export { default as QuickOrderDrawerHeader } from './QuickOrderDrawerHeader'
