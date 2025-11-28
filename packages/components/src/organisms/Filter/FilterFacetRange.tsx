@@ -32,13 +32,13 @@ export interface FilterFacetRangeProps {
    */
   maxLabel?: string
   /**
-   * Error message when minimum price is greater than maximum price.
+   * Error message for the minimum price input field.
    */
-  minPriceGreaterThanMaxErrorMessage?: string
+  minPriceErrorMessage?: string
   /**
-   * Error message when maximum price is smaller than minimum price.
+   * Error message for the maximum price input field.
    */
-  maxPriceSmallerThanMinErrorMessage?: string
+  maxPriceErrorMessage?: string
 }
 
 const formatRange = (min: number, max: number) =>
@@ -52,8 +52,8 @@ function FilterFacetRange({
   onFacetChange,
   minLabel,
   maxLabel,
-  minPriceGreaterThanMaxErrorMessage,
-  maxPriceSmallerThanMinErrorMessage,
+  minPriceErrorMessage,
+  maxPriceErrorMessage,
 }: FilterFacetRangeProps) {
   return (
     <PriceRange
@@ -64,8 +64,8 @@ function FilterFacetRange({
       step={1}
       minLabel={minLabel}
       maxLabel={maxLabel}
-      minPriceGreaterThanMaxErrorMessage={minPriceGreaterThanMaxErrorMessage}
-      maxPriceSmallerThanMinErrorMessage={maxPriceSmallerThanMinErrorMessage}
+      minPriceErrorMessage={minPriceErrorMessage}
+      maxPriceErrorMessage={maxPriceErrorMessage}
       onEnd={(v) =>
         onFacetChange(
           {

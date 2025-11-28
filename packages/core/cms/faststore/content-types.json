@@ -334,13 +334,13 @@
                       "type": "string",
                       "default": "Max"
                     },
-                    "minPriceGreaterThanMaxErrorMessage": {
-                      "title": "Error message when minimum is greater than maximum",
+                    "minPriceErrorMessage": {
+                      "title": "Error message for the minimum price input field",
                       "type": "string",
                       "default": "Min price can't be greater than max"
                     },
-                    "maxPriceSmallerThanMinErrorMessage": {
-                      "title": "Error message when maximum is smaller than minimum",
+                    "maxPriceErrorMessage": {
+                      "title": "Error message for the maximum price input field",
                       "type": "string",
                       "default": "Max price can't be smaller than min"
                     }

@@ -82,8 +82,8 @@ type FiltersCmsData = {
   filterFacetRange?: {
     minLabel?: string
     maxLabel?: string
-    minPriceGreaterThanMaxErrorMessage?: string
-    maxPriceSmallerThanMinErrorMessage?: string
+    minPriceErrorMessage?: string
+    maxPriceErrorMessage?: string
   }
 }
 

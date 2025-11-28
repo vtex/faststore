@@ -27,13 +27,13 @@ export interface PriceRangeProps
    */
   maxLabel?: string
   /**
-   * Error message when minimum price is greater than maximum price.
+   * Error message for the minimum price input field.
    */
-  minPriceGreaterThanMaxErrorMessage?: string
+  minPriceErrorMessage?: string
   /**
-   * Error message when maximum price is smaller than minimum price.
+   * Error message for the maximum price input field.
    */
-  maxPriceSmallerThanMinErrorMessage?: string
+  maxPriceErrorMessage?: string
 }
 
 type PriceRangeRefType = {
@@ -54,8 +54,8 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       'aria-label': ariaLabel,
       minLabel = 'Min',
       maxLabel = 'Max',
-      minPriceGreaterThanMaxErrorMessage = "Min price can't be greater than max",
-      maxPriceSmallerThanMinErrorMessage = "Max price can't be smaller than min",
+      minPriceErrorMessage = "Min price can't be greater than max",
+      maxPriceErrorMessage = "Max price can't be smaller than min",
       ...otherProps
     },
     ref
@@ -103,7 +103,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       }
 
       if (Number(value) > Math.floor(priceRange.max)) {
-        setInputMinError(minPriceGreaterThanMaxErrorMessage)
+        setInputMinError(minPriceErrorMessage)
       }
 
       setPriceRange({ ...priceRange, min: Number(value) })
@@ -121,7 +121,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       }
 
       if (Number(value) < Math.round(priceRange.min)) {
-        setInputMaxError(maxPriceSmallerThanMinErrorMessage)
+        setInputMaxError(maxPriceErrorMessage)
       }
 
       setPriceRange({ ...priceRange, max: Number(value) })

@@ -167,11 +167,11 @@ function FilterDesktop({
                   }
                   minLabel={filterFacetRangeSettings?.minLabel}
                   maxLabel={filterFacetRangeSettings?.maxLabel}
-                  minPriceGreaterThanMaxErrorMessage={
-                    filterFacetRangeSettings?.minPriceGreaterThanMaxErrorMessage
+                  minPriceErrorMessage={
+                    filterFacetRangeSettings?.minPriceErrorMessage
                   }
-                  maxPriceSmallerThanMinErrorMessage={
-                    filterFacetRangeSettings?.maxPriceSmallerThanMinErrorMessage
+                  maxPriceErrorMessage={
+                    filterFacetRangeSettings?.maxPriceErrorMessage
                   }
                   onFacetChange={(facet) => {
                     setSearchState({
