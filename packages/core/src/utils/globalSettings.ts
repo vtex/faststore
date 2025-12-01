@@ -4,6 +4,7 @@ import { usePage } from 'src/sdk/overrides/PageProvider'
 export type GlobalCmsData = {
   regionalization?: RegionalizationCmsData
   deliveryPromise?: DeliveryPromiseCmsData
+  filters?: FiltersCmsData
 }
 
 type RegionalizationCmsData = {
@@ -74,6 +75,15 @@ type DeliveryPromiseCmsData = {
     enabled?: boolean
     title?: string
     label?: string
+  }
+}
+
+type FiltersCmsData = {
+  filterFacetRange?: {
+    minLabel?: string
+    maxLabel?: string
+    minPriceErrorMessage?: string
+    maxPriceErrorMessage?: string
   }
 }
 
