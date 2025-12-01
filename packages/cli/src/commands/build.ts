@@ -8,6 +8,7 @@ import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
 import path from 'path'
+import { fileURLToPath } from 'url'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
@@ -54,8 +55,9 @@ export default class Build extends Command {
     const packageManager = getPreferredPackageManager()
 
     const binCli = path.join(
-      require.resolve('@faststore/cli'),
-      '../../bin/run.js'
+      fileURLToPath(
+        import.meta.resolve('@faststore/cli/runner', import.meta.url)
+      )
     )
     let scriptResult = spawnSync(`node ${binCli} generate`, {
       shell: true,

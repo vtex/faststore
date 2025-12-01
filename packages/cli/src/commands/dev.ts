@@ -12,6 +12,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+import { fileURLToPath } from 'url'
 
 /**
  * Taken from toolbelt
@@ -187,13 +188,16 @@ export default class Dev extends Command {
 
     await generate({ setup: true, basePath })
 
-    const cliPath = require.resolve('@faststore/cli')
-    spawnSync(`node ${path.join(cliPath, '../../bin/run.js')} generate-types`, {
+    const cliPath = fileURLToPath(
+      import.meta.resolve('@faststore/cli/runner', import.meta.url)
+    )
+
+    spawnSync(`node ${cliPath} generate-types`, {
       shell: true,
       stdio: 'inherit',
     })
 
-    spawnSync(`node ${path.join(cliPath, '../../bin/run.js')} cache-graphql`, {
+    spawnSync(`node ${cliPath} cache-graphql`, {
       shell: true,
       stdio: 'inherit',
     })

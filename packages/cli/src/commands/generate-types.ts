@@ -23,7 +23,7 @@ export default class Generate extends Command {
     await genTsTypes(
       path.isAbsolute(args.path)
         ? args.path
-        : path.relative(process.env.PWD ?? process.cwd(), args.path)
+        : path.resolve(process.env.PWD ?? process.cwd(), args.path)
     )
 
     logger.log(

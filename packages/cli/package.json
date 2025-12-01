@@ -3,13 +3,17 @@
   "version": "3.93.0",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
-  "type": "commonjs",
+  "type": "module",
   "bin": {
     "faststore": "./bin/run.js"
   },
   "homepage": "https://github.com/vtex/faststore",
   "license": "MIT",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./runner": "./bin/run.js"
+  },
   "repository": "vtex/faststore",
   "files": [
     "/bin",

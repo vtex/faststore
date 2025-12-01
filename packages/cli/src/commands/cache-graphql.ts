@@ -42,9 +42,10 @@ export default class CacheGraphql extends Command {
       this.getConfigFile(flags.config && path.resolve(argPath, flags.config)) ||
       this.getConfigFile(tmpDir) ||
       this.getConfigFile(argPath)
-    const persistedDocumentsPath = this.getPersistedDocument(
-      (flags?.queries && path.resolve(argPath, flags?.queries)) || argPath
-    )
+    const persistedDocumentsPath =
+      this.getPersistedDocument(
+        (flags?.queries && path.resolve(argPath, flags?.queries)) || argPath
+      ) || this.getPersistedDocument(tmpDir)
     if (!configPath) {
       return this.errorFileNotFound(
         configFileName,
@@ -143,6 +144,8 @@ export default class CacheGraphql extends Command {
     logger.error(
       `${chalk.red('[Error]')} - Couldn't find ${fileName} at ${rootDir}`
     )
+
+    process.exit(1)
   }
 }
 

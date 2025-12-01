@@ -291,32 +291,24 @@ async function copyTheme(basePath: string) {
     userLegacyStoreConfigFile,
   } = withBasePath(basePath)
 
-  let storeConfig
+  const storeConfigFile =
+    (existsSync(userStoreConfigFile) && userStoreConfigFile) ||
+    (existsSync(userLegacyStoreConfigFile) && userLegacyStoreConfigFile)
 
-  // Because of how node caches imports, if we don't delete the cache
-  // for the {discovery|faststore}.config.js files we will return a
-  // cached version and not reflect the theme change until a restart
-  // happens. Deleting before importing clears the cache
-  if (
-    existsSync(userStoreConfigFile) &&
-    !!require.cache[path.resolve(userStoreConfigFile)]
-  ) {
-    delete require.cache[path.resolve(userStoreConfigFile)]
-    storeConfig = (await import(path.resolve(userStoreConfigFile)))?.default
-  } else if (
-    existsSync(userLegacyStoreConfigFile) &&
-    !!require.cache[path.resolve(userLegacyStoreConfigFile)]
-  ) {
-    delete require.cache[path.resolve(userLegacyStoreConfigFile)]
-    storeConfig = (await import(path.resolve(userLegacyStoreConfigFile)))
-      ?.default
-  } else {
+  const userStoreConfigFilePath =
+    storeConfigFile && path.resolve(storeConfigFile)
+  const importedStoreConfig =
+    userStoreConfigFilePath && (await import(userStoreConfigFilePath))
+  const storeConfig =
+    userStoreConfigFilePath &&
+    (importedStoreConfig?.default || importedStoreConfig)
+
+  if (!storeConfig)
     logger.info(
       `${chalk.blue(
         'info'
       )} - No store config file was found in the root directory`
     )
-  }
 
   if (storeConfig.theme) {
     const customTheme = path.join(
