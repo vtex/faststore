@@ -23,6 +23,14 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    attachmentButton?: {
+      enabled: boolean
+      icon: {
+        icon: string
+        alt: string
+      }
+      ariaLabel: string
+    }
     quickOrderSettings?: {
       quickOrder: boolean
       skuMatrix: {

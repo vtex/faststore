@@ -312,6 +312,166 @@
                 }
               }
             }
+          },
+          {
+            "name": "fileUpload",
+            "schema": {
+              "title": "File Upload",
+              "description": "File upload functionality configurations",
+              "type": "object",
+              "properties": {
+                "acceptedFileTypes": {
+                  "title": "Accepted file types",
+                  "description": "Comma-separated list of accepted file extensions (e.g., '.csv,.xlsx,.xls')",
+                  "type": "string",
+                  "default": ".csv"
+                },
+                "maxFileSize": {
+                  "title": "Maximum file size (in KB)",
+                  "description": "Maximum file size allowed for upload",
+                  "type": "integer",
+                  "default": 10240
+                },
+                "errorMessages": {
+                  "title": "Error Messages",
+                  "type": "object",
+                  "properties": {
+                    "unexpected": {
+                      "title": "Unexpected error message",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "Upload failed."
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "An unexpected error occurred. Try again or upload a new file."
+                        }
+                      }
+                    },
+                    "unsupported": {
+                      "title": "Unsupported file type message",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "Unsupported file type."
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "Upload a CSV or use the template provided."
+                        }
+                      }
+                    },
+                    "unreadable": {
+                      "title": "Unreadable file message",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "File can't be read."
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "Make sure it's correctly formatted and not corrupted."
+                        }
+                      }
+                    },
+                    "invalidStructure": {
+                      "title": "Invalid structure message",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "Invalid structure."
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "Check missing headers or columns and try again."
+                        }
+                      }
+                    },
+                    "empty": {
+                      "title": "Empty file message",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "File is empty."
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "Add items to your file and upload it again."
+                        }
+                      }
+                    },
+                    "tooLarge": {
+                      "title": "File too large message",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "File too large."
+                        },
+                        "description": {
+                          "title": "Description",
+                          "type": "string",
+                          "default": "Split it into smaller files and try again."
+                        }
+                      }
+                    }
+                  }
+                },
+                "labels": {
+                  "title": "Labels",
+                  "type": "object",
+                  "properties": {
+                    "selectFile": {
+                      "title": "Select file button label",
+                      "type": "string",
+                      "default": "Select file"
+                    },
+                    "downloadTemplate": {
+                      "title": "Download template button/link label",
+                      "type": "string",
+                      "default": "Download template"
+                    },
+                    "search": {
+                      "title": "Search button label",
+                      "type": "string",
+                      "default": "Search"
+                    },
+                    "remove": {
+                      "title": "Remove file button aria-label",
+                      "type": "string",
+                      "default": "Remove file"
+                    },
+                    "uploading": {
+                      "title": "Uploading status text",
+                      "type": "string",
+                      "default": "Uploading your file..."
+                    },
+                    "dropzone": {
+                      "title": "Dropzone text",
+                      "type": "string",
+                      "default": "Drop a file to search in bulk"
+                    }
+                  }
+                }
+              }
+            }
           }
         ]
       }

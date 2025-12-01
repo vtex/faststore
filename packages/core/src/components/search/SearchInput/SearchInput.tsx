@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
+  FileUploadCard,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
@@ -29,6 +30,7 @@ import type {
 import type { SearchProviderContextValue } from '@faststore/ui'
 
 import type { NavbarProps } from 'src/components/sections/Navbar'
+import { usePage } from 'src/sdk/overrides/PageProvider'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
@@ -53,6 +55,12 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  showAttachmentButton?: boolean
+  attachmentButtonIcon?: {
+    icon: string
+    alt: string
+  }
+  attachmentButtonAriaLabel?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -77,6 +85,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      showAttachmentButton = false,
+      attachmentButtonIcon,
+      attachmentButtonAriaLabel,
       ...otherProps
     },
     ref
@@ -90,10 +101,23 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
+    const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
+    const [isUploadOpen, setIsUploadOpen] = useState(false)
+    const [hasFile, setHasFile] = useState(false)
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+
+    // Access globalSettings for fileUpload configuration
+    let fileUploadConfig
+    try {
+      const pageContext = usePage<{ globalSettings?: { fileUpload?: any } }>()
+      fileUploadConfig = pageContext?.globalSettings?.fileUpload
+    } catch {
+      // If PageProvider is not available, use empty config
+      fileUploadConfig = undefined
+    }
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -108,9 +132,29 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchDropdownVisible(false)
     }
 
-    useOnClickOutside(searchRef, () =>
+    const handleFileSelect = (files: File[]) => {
+      setHasFile(true)
+      setIsUploadOpen(true)
+      // TODO: Handle file upload logic
+      // setFileUploadVisible(false)
+    }
+
+    const handleDownloadTemplate = () => {
+      // Create a sample CSV template
+      const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
+      const blob = new Blob([csvContent], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'template.csv'
+      a.click()
+      window.URL.revokeObjectURL(url)
+    }
+
+    useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
-    )
+      setFileUploadVisible(false)
+    })
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -152,6 +196,22 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
+              showAttachmentButton={showAttachmentButton}
+              attachmentButtonIcon={
+                showAttachmentButton && attachmentButtonIcon ? (
+                  <UIIcon
+                    name={attachmentButtonIcon.icon}
+                    aria-label={attachmentButtonIcon.alt}
+                  />
+                ) : undefined
+              }
+              attachmentButtonProps={{
+                onClick: () => setFileUploadVisible(true),
+                'aria-label':
+                  attachmentButtonAriaLabel ??
+                  attachmentButtonIcon?.alt ??
+                  'Attach File',
+              }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
               }
@@ -179,6 +239,19 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   }
                 />
               </Suspense>
+            )}
+
+            {fileUploadVisible && (
+              <FileUploadCard
+                isOpen={isUploadOpen || hasFile || fileUploadVisible}
+                onDismiss={() => setFileUploadVisible(false)}
+                onFileSelect={handleFileSelect}
+                onDownloadTemplate={handleDownloadTemplate}
+                accept={fileUploadConfig?.acceptedFileTypes ?? '.csv'}
+                maxFileSize={fileUploadConfig?.maxFileSize}
+                errorMessages={fileUploadConfig?.errorMessages}
+                labels={fileUploadConfig?.labels}
+              />
             )}
           </UISearchInput>
         )}
