@@ -53,6 +53,7 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  submitButtonAriaLabel?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -77,6 +78,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      submitButtonAriaLabel = 'Submit Search',
       ...otherProps
     },
     ref
@@ -126,6 +128,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const buttonProps = {
       onClick: onSearchClick,
       testId: buttonTestId,
+      'aria-label': submitButtonAriaLabel,
     }
 
     return (
@@ -133,7 +136,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         {hidden ? (
           <UIIconButton
             type="submit"
-            aria-label="Submit Search"
+            aria-label={submitButtonAriaLabel}
             icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}

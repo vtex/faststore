@@ -222,6 +222,11 @@
                 "score_desc"
               ]
             },
+            "submitButtonAriaLabel": {
+              "title": "Submit Search Button aria-label",
+              "type": "string",
+              "default": "Submit Search"
+            },
             "quickOrderSettings": {
               "title": "Quick Order settings",
               "type": "object",

@@ -154,6 +154,7 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
             />
           )}
 
@@ -182,6 +183,7 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
+                submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />
