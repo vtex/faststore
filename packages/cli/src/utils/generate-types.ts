@@ -9,7 +9,6 @@ import { printSchemaWithDirectives } from '@graphql-tools/utils'
 import { buildASTSchema, Kind, parse, type DocumentNode } from 'graphql'
 import fs from 'node:fs'
 import path from 'node:path'
-import * as globby from 'globby'
 
 const schemaFileName = 'schema.graphql'
 
@@ -117,11 +116,12 @@ async function generateSchemaFile(rootPath: string) {
 }
 
 async function getTypeDefsFromFolder(root: string, customPath: string) {
+  const globby = await import('globby')
   const basePath = [root, 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
-  return globby
+  return ((globby as any).default ?? globby)
     .globbySync(path.join(...[...basePath, ...pathArray]), {
       expandDirectories: {
         extensions: ['graphql'],
