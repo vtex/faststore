@@ -69,7 +69,7 @@ const SearchInputField = forwardRef<
     }
   }
 
-  const { 'aria-label': buttonAriaLabel, ...restButtonProps } =
+  const { 'aria-label': buttonAriaLabel, ...otherButtonProps } =
     buttonProps ?? {}
 
   useImperativeHandle(ref, () => ({
