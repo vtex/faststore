@@ -87,6 +87,7 @@ jobs:
         run: |
           cd starter
           yarn install
+          yarn add graphql@16.11.0
 
       - name: Build starter
         run: |
