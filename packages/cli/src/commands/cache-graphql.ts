@@ -1,6 +1,6 @@
 import { saveFile } from '../utils/file'
 import { format } from 'prettier'
-import { Args, Command } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
@@ -8,31 +8,65 @@ import { Kind, OperationTypeNode, parse as parseGraphql } from 'graphql'
 import path from 'path'
 import fsExtra from 'fs-extra'
 
+const persistedDocumentsName = 'persisted-documents.json'
+const configFileName = 'discovery.config.default.js'
+
 export default class CacheGraphql extends Command {
-  static flags = {}
+  static flags = {
+    queries: Flags.string({
+      name: 'queries',
+      description: 'The path to locate persisted-document file.',
+    }),
+    config: Flags.string({
+      name: 'config',
+      description: 'The path where the discovery.config is located',
+    }),
+  }
 
   static args = {
-    path: Args.string({
-      name: 'path',
+    store: Args.string({
+      name: 'store',
       description:
-        'The path where the FastStore being built is. Defaults to cwd.',
+        'The path where the FastStore being built is or the persisted-document path. Defaults to cwd.',
     }),
   }
 
   async run() {
-    const { args } = await this.parse(CacheGraphql)
-    const basePath = getBasePath(args.path)
-    const { tmpDir } = withBasePath(basePath)
-    const configFileName = 'discovery.config.default.js'
-    const configPath = path.join(tmpDir, configFileName)
+    const { args, flags } = await this.parse(CacheGraphql)
+
+    const rootPath = getBasePath()
+    const argPath =
+      (args?.store && path.resolve(rootPath, args.store)) || rootPath
+    const { tmpDir } = withBasePath(argPath)
+    const configPath =
+      this.getConfigFile(flags.config && path.resolve(argPath, flags.config)) ||
+      this.getConfigFile(tmpDir) ||
+      this.getConfigFile(argPath)
+    const persistedDocumentsPath = this.getPersistedDocument(
+      (flags?.queries && path.resolve(argPath, flags?.queries)) || argPath
+    )
+    if (!configPath) {
+      return this.errorFileNotFound(
+        configFileName,
+        `\n    ${tmpDir}\n    ${argPath}`
+      )
+    }
+
+    if (!persistedDocumentsPath) {
+      return this.errorFileNotFound(
+        persistedDocumentsName,
+        flags?.queries ?? argPath
+      )
+    }
+
     const saveConfigFile = saveFile(configPath)
 
-    logger.info(`${chalk.blue('[Info]')} - .faststore Path at: ${tmpDir}`)
+    if (fsExtra.pathExistsSync(tmpDir))
+      logger.info(`${chalk.blue('[Info]')} - .faststore Path at: ${tmpDir}`)
 
-    const persistedDocumentsPath = path.join(
-      tmpDir,
-      '@generated',
-      'persisted-documents.json'
+    logger.info(`${chalk.blue('[Info]')} - Config file location: ${configPath}`)
+    logger.info(
+      `${chalk.blue('[Info]')} - Persisted documents at: ${persistedDocumentsPath}`
     )
 
     const { default: persistedDocuments } = await import(
@@ -40,20 +74,7 @@ export default class CacheGraphql extends Command {
       { with: { type: 'json' } }
     )
 
-    if (!!persistedDocuments) {
-      logger.info(
-        `${chalk.blue('[Info]')} - Found graphql persisted documents at: ${persistedDocumentsPath}`
-      )
-    }
-
-    if (fsExtra.existsSync(configPath) === false) {
-      logger.error(
-        `${chalk.red('[Error]')} - Couldn't find ${configFileName} as ${tmpDir}`
-      )
-    }
-
     const discoveryConfig = await import(configPath)
-
     const cachedQueries = getQueries(persistedDocuments)
 
     saveConfigFile(
@@ -77,8 +98,50 @@ export default class CacheGraphql extends Command {
     )
 
     logger.info(
-      `${chalk.green('success')} - GraphQL queries cached with success: 🎉
+      `${chalk.green('[Success]')} - GraphQL queries cached with success: 🎉
       Queries: ${cachedQueries.join(', ')}`
+    )
+  }
+
+  getPersistedDocument(rootPath?: string) {
+    return this.getFile(persistedDocumentsName, [
+      '@generated',
+      persistedDocumentsName,
+    ])(rootPath)
+  }
+
+  getConfigFile(rootPath?: string) {
+    return this.getFile(configFileName, [configFileName])(rootPath)
+  }
+
+  getFile(fileName: string, pathFromRoot?: string | Array<string>) {
+    return (rootPath?: string) => {
+      switch (true) {
+        case !rootPath:
+          return
+        case rootPath?.endsWith(fileName) && fsExtra.existsSync(rootPath):
+          return rootPath
+        case fsExtra.existsSync(path.join(rootPath ?? '', fileName)):
+          return path.join(rootPath, fileName)
+        default:
+          if (!pathFromRoot) return
+
+          const filePath = path.join(
+            rootPath,
+            ...(Array.isArray(pathFromRoot) ? pathFromRoot : [pathFromRoot])
+          )
+
+          if (fsExtra.existsSync(filePath)) {
+            return filePath
+          }
+          return
+      }
+    }
+  }
+
+  errorFileNotFound(fileName: string, rootDir: string) {
+    logger.error(
+      `${chalk.red('[Error]')} - Couldn't find ${fileName} at ${rootDir}`
     )
   }
 }
@@ -104,10 +167,8 @@ const getQueries = (persistedDocuments: Record<string, string>) => {
         !!definition.name?.value
       ) {
         currentNames.push(definition.name.value)
-        return true
+        return
       }
-
-      return false
     })
 
     if (currentNames.length) {
