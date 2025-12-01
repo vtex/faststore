@@ -39,10 +39,7 @@ describe('mergeCMSFile', () => {
       JSON.stringify(coreContentTypes)
     )
 
-    const { tmpCMSDir, userStoreConfigFile } = withBasePath('.')
-
-    console.debug('debugging: ', path.resolve(userStoreConfigFile))
-    console.log('debugging: ', path.resolve(userStoreConfigFile))
+    const { tmpCMSDir } = withBasePath('.')
 
     pluginsMock.getPluginsList.mockResolvedValue([])
 
