@@ -34,6 +34,7 @@ import type {
 import type { SearchProviderContextValue } from '@faststore/ui'
 
 import type { NavbarProps } from 'src/components/sections/Navbar'
+import { usePage } from 'src/sdk/overrides/PageProvider'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
@@ -72,6 +73,11 @@ export type SearchInputProps = {
   sort?: string
   /** When true, shows the attachment button; can be set from CMS. */
   showAttachmentButton?: boolean
+  /** Icon for the attachment button; can be set from CMS. */
+  attachmentButtonIcon?: {
+    icon: string
+    alt: string
+  }
   /** Aria-label for the attachment button; can be set from CMS. */
   attachmentButtonAriaLabel?: string
   /**
@@ -102,7 +108,7 @@ export type SearchInputProps = {
    * Pass from CMS so all copy is editable.
    */
   uploadFileDropdownLabels?: UploadFileDropdownLabels
-} & Omit<UISearchInputFieldProps, 'onSubmit'>
+} & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
   resetSearchInput: () => void
@@ -126,7 +132,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
-      showAttachmentButton = true,
+      showAttachmentButton = false,
+      attachmentButtonIcon,
       attachmentButtonAriaLabel,
       onFileSearch,
       fileUploadCardProps,
@@ -167,6 +174,15 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onClearError,
       onGenerateTemplate,
     } = useCSVParser(csvParserOptions)
+
+    // Access globalSettings for fileUpload configuration (section and content-type)
+    let fileUploadConfig
+    try {
+      const pageContext = usePage<{ globalSettings?: { fileUpload?: any } }>()
+      fileUploadConfig = pageContext?.globalSettings?.fileUpload
+    } catch {
+      fileUploadConfig = undefined
+    }
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -296,7 +312,19 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               buttonProps={buttonProps}
               placeholder={placeholder}
               showAttachmentButton={showAttachmentButton}
-              attachmentButtonAriaLabel={attachmentButtonAriaLabel}
+              attachmentButtonAriaLabel={
+                attachmentButtonAriaLabel ??
+                attachmentButtonIcon?.alt ??
+                'Attach File'
+              }
+              attachmentButtonIcon={
+                showAttachmentButton && attachmentButtonIcon ? (
+                  <UIIcon
+                    name={attachmentButtonIcon.icon}
+                    aria-label={attachmentButtonIcon.alt}
+                  />
+                ) : undefined
+              }
               attachmentButtonProps={{
                 onClick: () => {
                   setFileUploadVisible(true)
@@ -344,7 +372,35 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onSearch: handleSearch,
                   isUploading: isCsvProcessing,
                   hasError: !!csvError,
+                  accept: fileUploadConfig?.acceptedFileTypes ?? '.csv',
                   ...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS),
+                  ...(fileUploadConfig?.errorMessages && {
+                    errorMessages: {
+                      ...(fileUploadCardProps?.errorMessages ??
+                        DEFAULT_FILE_UPLOAD_CARD_PROPS.errorMessages),
+                      ...fileUploadConfig.errorMessages,
+                    },
+                  }),
+                  ...(fileUploadConfig?.labels && {
+                    selectFileButtonLabel:
+                      fileUploadConfig.labels.selectFile ??
+                      fileUploadCardProps?.selectFileButtonLabel,
+                    downloadTemplateButtonLabel:
+                      fileUploadConfig.labels.downloadTemplate ??
+                      fileUploadCardProps?.downloadTemplateButtonLabel,
+                    searchButtonLabel:
+                      fileUploadConfig.labels.search ??
+                      fileUploadCardProps?.searchButtonLabel,
+                    removeButtonAriaLabel:
+                      fileUploadConfig.labels.remove ??
+                      fileUploadCardProps?.removeButtonAriaLabel,
+                    uploadingStatusText:
+                      fileUploadConfig.labels.uploading ??
+                      fileUploadCardProps?.uploadingStatusText,
+                    dropzoneTitle:
+                      fileUploadConfig.labels.dropzone ??
+                      fileUploadCardProps?.dropzoneTitle,
+                  }),
                 } as FileUploadCardProps)}
               />
             )}

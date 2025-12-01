@@ -155,6 +155,15 @@ function Navbar({
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
               fileUploadCardProps={searchInput?.fileUploadCardProps}
+              showAttachmentButton={
+                searchInput?.attachmentButton?.enabled ?? false
+              }
+              attachmentButtonIcon={
+                searchInput?.attachmentButton?.icon ?? undefined
+              }
+              attachmentButtonAriaLabel={
+                searchInput?.attachmentButton?.ariaLabel
+              }
             />
           )}
 
@@ -184,6 +193,15 @@ function Navbar({
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
                 fileUploadCardProps={searchInput?.fileUploadCardProps}
+                showAttachmentButton={
+                  searchInput?.attachmentButton?.enabled ?? false
+                }
+                attachmentButtonIcon={
+                  searchInput?.attachmentButton?.icon ?? undefined
+                }
+                attachmentButtonAriaLabel={
+                  searchInput?.attachmentButton?.ariaLabel
+                }
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />
