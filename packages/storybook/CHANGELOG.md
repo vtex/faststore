@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.95.0-dev.1 (2025-12-01)
+
+### Bug Fixes
+
+- Update `validateCart` mutation tests ([#3132](https://github.com/vtex/faststore/issues/3132)) ([c8cbb52](https://github.com/vtex/faststore/commit/c8cbb5204562ddee126c63a576ba1f4d264092f7))
+
 ## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
 
 **Note:** Version bump only for package @faststore/storybook
