@@ -94,7 +94,7 @@ async function fetchLocalesFromSDK() {
   console.log('response', response)
 
   // TODO: Improve default locale SDK could provide one for us
-  const defaultLocale = normalizeLocale(response.currentLocale) ?? locales[0]
+  const defaultLocale = normalizeLocale(response.currentLocale)
 
   return {
     locales,

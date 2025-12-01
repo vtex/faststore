@@ -1,8 +1,5 @@
 {
   "defaultLocale": "pt-BR",
-  "defaultCurrency": "BRL",
-  "defaultSalesChannel": "1",
-  "defaultUrl": "brandless.fast.store",
   "regions": {
     "BR": {
       "code": "BR",
@@ -41,14 +38,20 @@
       "script": "Latn",
       "textDirection": "ltr",
       "regionCode": "BR",
-      "bindings": {
-        "currency": {
-          "code": "BRL",
-          "symbol": "R$"
+      "bindings": [
+        {
+          "currencyCode": "BRL",
+          "url": "https://brandless.fast.store/pt-BR",
+          "salesChannel": "1",
+          "isDefault": true
         },
-        "url": "https://brandless.fast.store/pt-BR",
-        "salesChannel": "1"
-      }
+        {
+          "currencyCode": "BRL",
+          "url": "https://pt.brandless.fast.store",
+          "salesChannel": "2",
+          "isDefault": false
+        }
+      ]
     },
     "it-IT": {
       "code": "it-IT",
@@ -58,14 +61,14 @@
       "script": "Latn",
       "textDirection": "ltr",
       "regionCode": "IT",
-      "bindings": {
-        "currency": {
-          "code": "EUR",
-          "symbol": "€"
-        },
-        "url": "https://brandless.fast.store/it-IT",
-        "salesChannel": "3"
-      }
+      "bindings": [
+        {
+          "currencyCode": "EUR",
+          "url": "https://brandless.fast.store/it-IT",
+          "salesChannel": "3",
+          "isDefault": false
+        }
+      ]
     },
     "en-CA": {
       "code": "en-CA",
@@ -75,14 +78,14 @@
       "script": "Latn",
       "textDirection": "ltr",
       "regionCode": "CA",
-      "bindings": {
-        "currency": {
-          "code": "USD",
-          "symbol": "$"
-        },
-        "url": "https://brandless.fast.store/en-CA",
-        "salesChannel": "2"
-      }
+      "bindings": [
+        {
+          "currencyCode": "USD",
+          "url": "https://brandless.fast.store/en-CA",
+          "salesChannel": "2",
+          "isDefault": false
+        }
+      ]
     },
     "fr-CA": {
       "code": "fr-CA",
@@ -92,14 +95,14 @@
       "script": "Latn",
       "textDirection": "ltr",
       "regionCode": "CA",
-      "bindings": {
-        "currency": {
-          "code": "USD",
-          "symbol": "$"
-        },
-        "url": "https://brandless.fast.store/fr-CA",
-        "salesChannel": "2"
-      }
+      "bindings": [
+        {
+          "currencyCode": "USD",
+          "url": "https://brandless.fast.store/fr-CA",
+          "salesChannel": "2",
+          "isDefault": false
+        }
+      ]
     },
     "en-US": {
       "code": "en-US",
@@ -109,34 +112,31 @@
       "script": "Latn",
       "textDirection": "ltr",
       "regionCode": "US",
-      "bindings": {
-        "currency": {
-          "code": "USD",
-          "symbol": "$"
-        },
-        "url": "https://brandless.fast.store/en-US",
-        "salesChannel": "2"
-      }
+      "bindings": [
+        {
+          "currencyCode": "USD",
+          "url": "https://brandless.fast.store/en-US",
+          "salesChannel": "2",
+          "isDefault": false
+        }
+      ]
     }
   },
   "currencies": {
     "BRL": {
       "code": "BRL",
       "name": "Brazilian Real",
-      "symbol": "R$",
-      "salesChannel": "1"
+      "symbol": "R$"
     },
     "USD": {
       "code": "USD",
       "name": "US Dollar",
-      "symbol": "$",
-      "salesChannel": "2"
+      "symbol": "$"
     },
     "EUR": {
       "code": "EUR",
       "name": "Euro",
-      "symbol": "€",
-      "salesChannel": "3"
+      "symbol": "€"
     }
   }
 }

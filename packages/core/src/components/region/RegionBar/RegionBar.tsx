@@ -2,13 +2,13 @@ import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useEffect, useRef } from 'react'
 
 import { regionSliderTypes, useUI } from '@faststore/ui'
-import { sessionStore, useSession } from 'src/sdk/session'
 import { useDeliveryPromise } from 'src/sdk/deliveryPromise'
+import { sessionStore, useSession } from 'src/sdk/session'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { textToTitleCase } from 'src/utils/utilities'
-import { getGlobalSettings } from 'src/utils/globalSettings'
 import { useCheckRegionState } from 'src/sdk/userLocation'
+import { getGlobalSettings } from 'src/utils/globalSettings'
+import { textToTitleCase } from 'src/utils/utilities'
 
 import { deliveryPromise } from 'discovery.config'
 export interface RegionBarProps {

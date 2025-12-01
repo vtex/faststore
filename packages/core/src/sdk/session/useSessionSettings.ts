@@ -1,6 +1,6 @@
 import { createStore } from '@faststore/sdk'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useEffect, useState } from 'react'
 import localesData from '../../../locales-test.json'
 import { sessionStore } from './index'
 
@@ -12,49 +12,67 @@ import { sessionStore } from './index'
 
 /**
  * Build URLs map from locales object
+ * Creates a map where each locale has an array of URLs
  */
-function buildUrlsMap(locales: any): Record<string, string> {
+function buildUrlsMap(locales: any): Record<string, string[]> {
   return Object.keys(locales).reduce(
     (acc, localeCode) => {
-      acc[localeCode] = locales[localeCode].bindings.url
+      const bindings = locales[localeCode].bindings
+
+      // Handle bindings as array (multiple URLs per locale)
+      if (Array.isArray(bindings)) {
+        acc[localeCode] = bindings
+          .map((binding: any) => binding.url)
+          .filter(Boolean)
+      }
+
       return acc
     },
-    {} as Record<string, string>
+    {} as Record<string, string[]>
   )
 }
 
 console.log('url map', buildUrlsMap(localesData.locales))
 
 export const useSessionSettings = () => {
+  const [hasInitialized, setHasInitialized] = useState(false)
   const router = useRouter()
-  const prevLocaleRef = useRef<string>()
 
-  // Get current locale from Next.js router
-  const currentLocale = router.locale || (localesData as any).defaultLocale
+  useEffect(() => {
+    // Only run in browser
+    if (typeof window === 'undefined') {
+      return
+    }
 
-  // Initialize/update stores synchronously when locale changes
-  // This prevents blink on first render and locale switches
-  if (
-    typeof window !== 'undefined' &&
-    prevLocaleRef.current !== currentLocale
-  ) {
     try {
-      prevLocaleRef.current = currentLocale
+      // Get current locale from Next.js router
+      const currentLocale = router.locale || (localesData as any).defaultLocale
+
+      console.log(localesData)
 
       console.log('useSessionSettings: Current locale:', currentLocale)
 
       // Get locale-specific bindings or fallback to defaults
       const localesObj = (localesData as any).locales
+      const currenciesObj = (localesData as any).currencies
       const localeConfig = localesObj[currentLocale]
-      const currency = localeConfig?.bindings?.currency?.code
-      const currencySymbol = localeConfig?.bindings?.currency?.symbol
-      const salesChannel = localeConfig?.bindings?.salesChannel
+
+      // Get the first binding (or match by URL in the future)
+      const binding = localeConfig?.bindings?.[0]
+      const currencyCode = binding?.currencyCode
+      const salesChannel = binding?.salesChannel
+
+      // Look up currency details from currencies object
+      const currencyInfo = currenciesObj[currencyCode]
+      const currencySymbol = currencyInfo?.symbol
+      const currencyName = currencyInfo?.name
 
       // Get settings from locales-test.json
       const settings = {
         currentLocale,
-        currency,
+        currency: currencyCode,
         currencySymbol,
+        currencyName,
         salesChannel,
         locales: Object.keys(localesObj),
         urls: buildUrlsMap(localesObj),
@@ -67,19 +85,24 @@ export const useSessionSettings = () => {
 
       // Update stores with settings
       updateSessionStores(settings)
+
+      if (!hasInitialized) {
+        setHasInitialized(true)
+      }
     } catch (error) {
       console.error('Error initializing session settings:', error)
     }
-  }
+  }, [router.locale, hasInitialized])
 }
 
 function updateSessionStores(settings: {
   currentLocale: string
   currency: string
   currencySymbol: string
+  currencyName: string
   salesChannel: string
   locales: string[]
-  urls: Record<string, string>
+  urls: Record<string, string[]>
 }) {
   const currentSession = sessionStore.read()
 
@@ -102,6 +125,7 @@ function updateSessionStores(settings: {
     locale: settings.currentLocale,
     currency: settings.currency,
     currencySymbol: settings.currencySymbol,
+    currencyName: settings.currencyName,
     salesChannel: settings.salesChannel,
   })
 
@@ -114,7 +138,7 @@ function updateSessionStores(settings: {
 
 export type LocalizationStore = {
   locales: string[]
-  urls: Record<string, string>
+  urls: Record<string, string[]>
 }
 
 export const localizationStore = createStore<LocalizationStore>(

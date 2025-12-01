@@ -161,7 +161,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
 
   return (
     <>
-      {displayPopover.isOpen && (
+      {displayPopover.isOpen && displayPopover.triggerRef === triggerRef && (
         <div className={`${styles.section} section-region-popover`}>
           <UIPopover
             data-fs-region-popover

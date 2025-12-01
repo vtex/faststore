@@ -66,7 +66,7 @@ function LocaleSelector({
   // State for language-currency mode
   const [selectedLanguage, setSelectedLanguage] = useState(currentLocale)
   const [selectedCurrency, setSelectedCurrency] = useState(
-    currentCurrency?.code || localesData.defaultCurrency
+    currentCurrency?.code
   )
 
   // Find matching locale for language-currency combination
@@ -75,12 +75,14 @@ function LocaleSelector({
       const allLocales = Object.values(localesData.locales) as Array<{
         code: string
         languageCode: string
-        bindings: { currency: { code: string } }
+        bindings: Array<{ currencyCode: string }>
       }>
 
       // Try exact match first
       const exactMatch = allLocales.find(
-        (l) => l.code === language && l.bindings.currency.code === currency
+        (l) =>
+          l.code === language &&
+          l.bindings.some((b) => b.currencyCode === currency)
       )
       if (exactMatch) return exactMatch.code
 
@@ -89,7 +91,7 @@ function LocaleSelector({
       const languageMatch = allLocales.find(
         (l) =>
           l.languageCode === languageCode &&
-          l.bindings.currency.code === currency
+          l.bindings.some((b) => b.currencyCode === currency)
       )
 
       return languageMatch?.code || null
@@ -135,15 +137,20 @@ function LocaleSelector({
       const { sessionStore } = await import('src/sdk/session')
       const currentSession = sessionStore.read()
 
+      // Get the first binding
+      const binding = localeConfig.bindings?.[0]
+      const currencyCode = binding?.currencyCode
+      const currencyInfo = (localesData.currencies as any)[currencyCode]
+
       sessionStore.set({
         ...currentSession,
         locale: newLocale,
         currency: {
-          code: localeConfig.bindings.currency.code,
-          symbol: localeConfig.bindings.currency.symbol,
+          code: currencyCode,
+          symbol: currencyInfo?.symbol,
         },
         channel: JSON.stringify({
-          salesChannel: localeConfig.bindings.salesChannel,
+          salesChannel: binding?.salesChannel,
         }),
       })
     }
@@ -154,10 +161,11 @@ function LocaleSelector({
     closePopover()
   }
 
-  const handleTogglePopover = () => {
-    if (popover.isOpen) {
+  const handleTogglePopover = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (popover.isOpen && popover.triggerRef === buttonRef) {
       closePopover()
-    } else {
+    } else if (!popover.isOpen) {
       openPopover({
         isOpen: true,
         triggerRef: buttonRef,
@@ -174,15 +182,20 @@ function LocaleSelector({
       const { sessionStore } = await import('src/sdk/session')
       const currentSession = sessionStore.read()
 
+      // Get the first binding
+      const binding = localeConfig.bindings?.[0]
+      const currencyCode = binding?.currencyCode
+      const currencyInfo = (localesData.currencies as any)[currencyCode]
+
       sessionStore.set({
         ...currentSession,
         locale: matchingLocale,
         currency: {
-          code: localeConfig.bindings.currency.code,
-          symbol: localeConfig.bindings.currency.symbol,
+          code: currencyCode,
+          symbol: currencyInfo?.symbol,
         },
         channel: JSON.stringify({
-          salesChannel: localeConfig.bindings.salesChannel,
+          salesChannel: binding?.salesChannel,
         }),
       })
     }
@@ -290,7 +303,7 @@ function LocaleSelector({
         variant="tertiary"
         size="small"
         aria-label={buttonAriaLabel}
-        aria-expanded={popover.isOpen}
+        aria-expanded={popover.isOpen && popover.triggerRef === buttonRef}
         aria-haspopup="true"
       >
         {icon && (
@@ -309,7 +322,7 @@ function LocaleSelector({
         <UIIcon name="CaretDown" width={16} height={16} aria-hidden="true" />
       </UIButton>
 
-      {popover.isOpen && (
+      {popover.isOpen && popover.triggerRef === buttonRef && (
         <div
           data-fs-locale-selector-popover
           className={styles.popover}
