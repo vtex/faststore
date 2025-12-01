@@ -96,7 +96,7 @@ const SearchInputField = forwardRef<
         aria-label={buttonAriaLabel ?? 'Submit Search'}
         icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
         size="small"
-        {...restButtonProps}
+        {...otherButtonProps}
       />
     </form>
   )
