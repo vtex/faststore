@@ -4,6 +4,7 @@ import { usePage } from 'src/sdk/overrides/PageProvider'
 export type GlobalCmsData = {
   regionalization?: RegionalizationCmsData
   deliveryPromise?: DeliveryPromiseCmsData
+  fileUpload?: FileUploadCmsData
 }
 
 type RegionalizationCmsData = {
@@ -74,6 +75,45 @@ type DeliveryPromiseCmsData = {
     enabled?: boolean
     title?: string
     label?: string
+  }
+}
+
+type FileUploadCmsData = {
+  acceptedFileTypes?: string
+  maxFileSize?: number
+  errorMessages?: {
+    unexpected?: {
+      title?: string
+      description?: string
+    }
+    unsupported?: {
+      title?: string
+      description?: string
+    }
+    unreadable?: {
+      title?: string
+      description?: string
+    }
+    invalidStructure?: {
+      title?: string
+      description?: string
+    }
+    empty?: {
+      title?: string
+      description?: string
+    }
+    tooLarge?: {
+      title?: string
+      description?: string
+    }
+  }
+  labels?: {
+    selectFile?: string
+    downloadTemplate?: string
+    search?: string
+    remove?: string
+    uploading?: string
+    dropzone?: string
   }
 }
 

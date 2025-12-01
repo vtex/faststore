@@ -154,6 +154,17 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              showAttachmentButton={
+                searchInput?.attachmentButton?.enabled ?? false
+              }
+              attachmentButtonIcon={
+                searchInput?.attachmentButton?.icon
+                  ? searchInput.attachmentButton.icon
+                  : undefined
+              }
+              attachmentButtonAriaLabel={
+                searchInput?.attachmentButton?.ariaLabel
+              }
             />
           )}
 
@@ -182,6 +193,17 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
+                showAttachmentButton={
+                  searchInput?.attachmentButton?.enabled ?? false
+                }
+                attachmentButtonIcon={
+                  searchInput?.attachmentButton?.icon
+                    ? searchInput.attachmentButton.icon
+                    : undefined
+                }
+                attachmentButtonAriaLabel={
+                  searchInput?.attachmentButton?.ariaLabel
+                }
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />
