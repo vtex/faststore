@@ -134,7 +134,7 @@ export const FastStoreOrderStatus = [
 
 export const FastStoreOrderStatusWithLabels = {
   'order placed': 'Order Placed',
-  'Pending approval': 'Pending approval',
+  'pending approval': 'Pending approval',
   'payment pending': 'Payment Pending',
   'payment approved': 'Payment Approved',
   'payment denied': 'Payment Denied',

@@ -130,7 +130,7 @@ function copyCoreFiles(basePath: string) {
 function copyPublicFiles(basePath: string) {
   const { userDir, tmpDir } = withBasePath(basePath)
 
-  const allowList = ['json', 'txt', 'xml', 'ico', 'public']
+  const allowList = ['json', 'txt', 'xml', 'ico', 'public', 'svg']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {

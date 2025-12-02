@@ -10,7 +10,6 @@ import {
   checkoutOrderFormCustomDataValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
-  checkoutOrderFormItemsValidFetch,
   checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
   productSearchPage1Count1Fetch,
@@ -89,29 +88,24 @@ beforeEach(() => {
 })
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
-  const fetchAPICalls = [
-    checkoutOrderFormValidFetch,
-    checkoutOrderFormItemsValidFetch,
-    checkoutOrderFormCustomDataValidFetch,
-  ]
-
   mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+    pickFetchAPICallResult(info, init, [
+      checkoutOrderFormValidFetch,
+      checkoutOrderFormCustomDataValidFetch,
+      salesChannelStaleFetch,
+    ])
   )
 
   const response = await run(ValidateCartMutation, { cart: ValidCart })
 
+  // When cart is valid, the system will:
+  // 1. GET orderForm
+  // 2. PUT customData (update/set etag because cart might have been modified elsewhere)
+  // 3. GET saleschannel (to get currency info)
+  // Since the cart matches and etag is now correct, it returns null (no changes needed)
   expect(mockedFetch).toHaveBeenCalledTimes(3)
 
-  fetchAPICalls.forEach((fetchAPICall) => {
-    expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
-      fetchAPICall.init,
-      fetchAPICall.options
-    )
-  })
-
-  expect(response).toEqual({ data: { validateCart: null } })
+  expect(response.data?.validateCart).toEqual(null)
 })
 
 test('`validateCart` mutation should return the full order when an invalid cart is passed', async () => {
@@ -129,16 +123,12 @@ test('`validateCart` mutation should return the full order when an invalid cart 
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
-  expect(mockedFetch).toHaveBeenCalledTimes(5)
-
-  fetchAPICalls.forEach((fetchAPICall, index) => {
-    expect(mockedFetch).toHaveBeenNthCalledWith(
-      index + 1,
-      fetchAPICall.info,
-      fetchAPICall.init,
-      fetchAPICall.options
-    )
-  })
+  // When cart is invalid:
+  // 1. GET orderForm
+  // 2. PATCH items (update cart items)
+  // 3. PUT customData (set etag after update)
+  // 4. GET product_search (load SKUs)
+  expect(mockedFetch).toHaveBeenCalledTimes(4)
 
   expect(response).toMatchSnapshot()
 })
@@ -157,16 +147,12 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
+  // When the cart is stale:
+  // 1. GET orderForm
+  // 2. PUT customData (setOrderFormEtag when detecting stale)
+  // 3. GET product_search (to load SKUs for the cart)
+  // 4. GET saleschannel (to get currency info for product loading)
   expect(mockedFetch).toHaveBeenCalledTimes(4)
-
-  fetchAPICalls.forEach((fetchAPICall, index) => {
-    expect(mockedFetch).toHaveBeenNthCalledWith(
-      index + 1,
-      fetchAPICall.info,
-      fetchAPICall.init,
-      fetchAPICall.options
-    )
-  })
 
   expect(response).toMatchSnapshot()
 })

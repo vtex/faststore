@@ -3,11 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
+# 3.95.0 (2025-12-02)
 
 ### Features
 
-- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+- release version 20250212 ([#3138](https://github.com/vtex/faststore/issues/3138)) ([5e51548](https://github.com/vtex/faststore/commit/5e5154898e3756aa8d95efd54d76db0c90248d8d))
+
+# [3.95.0-dev.2](https://github.com/vtex/faststore/compare/v3.94.0...v3.95.0-dev.2) (2025-12-02)
+
+### Features
+
+- release version 20250112 ([#3135](https://github.com/vtex/faststore/issues/3135)) ([65440cd](https://github.com/vtex/faststore/commit/65440cd5607e6946b4023882eacf711c215aa138))
+
+# 3.95.0-dev.1 (2025-12-01)
+
+### Bug Fixes
+
+- Update `validateCart` mutation tests ([#3132](https://github.com/vtex/faststore/issues/3132)) ([c8cbb52](https://github.com/vtex/faststore/commit/c8cbb5204562ddee126c63a576ba1f4d264092f7))
+
+## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
+
+**Note:** Version bump only for package @faststore/api
+
+# 3.94.0 (2025-11-19)
+
+### Features
+
+- release version 20251119 17 05 ([#3126](https://github.com/vtex/faststore/issues/3126)) ([9753c3f](https://github.com/vtex/faststore/commit/9753c3ff5ea760767978c41ec138b661a87ad731))
+- update version to 3.93.0-dev.4 and clean up changelogs ([#3127](https://github.com/vtex/faststore/issues/3127)) ([0c29d74](https://github.com/vtex/faststore/commit/0c29d749dc2222d01d848ffda9c2ae95dfba22af))
+
+# 3.93.0-dev.3 (2025-11-17)
+
+**Note:** Version bump only for package @faststore/api
+
+# 3.93.0-dev.1 (2025-11-06)
+
+**Note:** Version bump only for package @faststore/api
 
 ## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.91.3-dev.1...v3.92.1-dev.0) (2025-11-03)
 

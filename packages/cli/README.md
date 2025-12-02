@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.93.0 linux-x64 node-v18.20.8
+@faststore/cli/3.95.0 linux-x64 node-v18.20.8
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -66,7 +66,7 @@ FLAGS
                registry.
 ```
 
-_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/build.js)_
+_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/build.js)_
 
 ## `faststore cms-sync [PATH]`
 
@@ -81,7 +81,7 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/cms-sync.js)_
+_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/cms-sync.js)_
 
 ## `faststore create [PATH]`
 
@@ -101,7 +101,7 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/create.js)_
+_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/create.js)_
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
@@ -118,7 +118,7 @@ FLAGS
   --watch-plugins  Enable watching for plugin changes
 ```
 
-_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/dev.js)_
+_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/dev.js)_
 
 ## `faststore generate-graphql [PATH]`
 
@@ -127,7 +127,7 @@ USAGE
   $ faststore generate
 ```
 
-_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/generate-graphql.js)_
+_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/generate-graphql.js)_
 
 ## `faststore help [COMMAND]`
 
@@ -159,7 +159,7 @@ ARGUMENTS
   [PATH]  The path where the FastStore being run is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/start.js)_
+_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/start.js)_
 
 ## `faststore test [PATH]`
 
@@ -171,5 +171,5 @@ ARGUMENTS
   [PATH]  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.93.0/dist/commands/test.js)_
+_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/test.js)_
 <!-- commandsstop -->
