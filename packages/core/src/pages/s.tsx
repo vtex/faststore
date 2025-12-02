@@ -65,8 +65,10 @@ function generateSEOData(
     searchSeo?.titleTemplate ??
     seo.titleTemplate
   const description = searchSeo?.descriptionTemplate
-    ? searchSeo.descriptionTemplate.replace(/%s/g, () => searchTerm)
-    : seo.description
+    ? searchSeo.descriptionTemplate
+        .replace(/%s/g, () => searchTerm ?? '')
+        ?.trim()
+    : seo.description?.trim()
 
   // default behavior without SSR
   if (!isSSREnabled) {
