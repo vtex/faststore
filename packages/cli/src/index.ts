@@ -9,6 +9,7 @@ import { default as Prepare } from './commands/prepare'
 import { default as Serve } from './commands/start'
 import { default as Test } from './commands/test'
 import { default as GenerateTypes } from './commands/generate-types'
+import { default as CacheGraphql } from './commands/cache-graphql'
 
 export const commands = {
   create: Create,
@@ -20,4 +21,5 @@ export const commands = {
   test: Test,
   generate: Generate,
   'generate-types': GenerateTypes,
+  'cache-graphql': CacheGraphql,
 }

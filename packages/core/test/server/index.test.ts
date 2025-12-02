@@ -117,20 +117,6 @@ describe('FastStore GraphQL Layer', () => {
     })
   })
 
-  // describe('VTEX API Extension', () => {
-  //   it('getTypeDefsFromFolder function should return an Array', () => {
-  //     const typeDefs = getTypeDefsFromFolder('vtex')
-  //     expect(typeDefs).toBeInstanceOf(Array)
-  //   })
-  // })
-
-  // describe('Third Party API Extension', () => {
-  //   it('getTypeDefsFromFolder function should return an Array', () => {
-  //     const typeDefs = getTypeDefsFromFolder('thirdParty')
-  //     expect(typeDefs).toBeInstanceOf(Array)
-  //   })
-  // })
-
   describe('Final Schema after merging', () => {
     it('should return a valid merged GraphQL schema', async () => {
       const schema = getFinalAPISchema()

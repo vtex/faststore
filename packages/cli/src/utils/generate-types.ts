@@ -1,3 +1,4 @@
+import { saveFile } from './file'
 import { GraphqlVtexSchema } from '@faststore/api'
 import {
   generate as codegenGenerate,
@@ -114,26 +115,19 @@ async function generateSchemaFile(rootPath: string) {
   saveSchemaFile(finalSchema)
 }
 
-import { globbySync } from 'globby'
-
 async function getTypeDefsFromFolder(root: string, customPath: string) {
-  // const globby = await import('globby')
-
+  const globby = await import('globby')
   const basePath = [root, 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
-  return globbySync(path.join(...[...basePath, ...pathArray]), {
-    expandDirectories: {
-      extensions: ['graphql'],
-    },
-  }).map((typeDef) => parse(fs.readFileSync(typeDef, { encoding: 'utf-8' })))
-}
-
-function saveFile(fileLocation: string) {
-  fs.mkdirSync(path.dirname(fileLocation), { recursive: true })
-
-  return (content: string) => {
-    fs.writeFileSync(fileLocation, content)
-  }
+  return ((globby as any).default ?? globby)
+    .globbySync(path.join(...[...basePath, ...pathArray]), {
+      expandDirectories: {
+        extensions: ['graphql'],
+      },
+    })
+    .map((typeDef: string) =>
+      parse(fs.readFileSync(typeDef, { encoding: 'utf-8' }))
+    )
 }

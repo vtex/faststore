@@ -8,6 +8,7 @@ import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
 import path from 'path'
+import { fileURLToPath } from 'url'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
@@ -53,16 +54,30 @@ export default class Build extends Command {
 
     const packageManager = getPreferredPackageManager()
 
-    let scriptResult = spawnSync(
-      `node ${path.join(require.resolve('@faststore/cli'), '../../bin/run.js')} generate`,
-      {
-        shell: true,
-        stdio: 'inherit',
-      }
+    const binCli = path.join(
+      fileURLToPath(
+        import.meta.resolve('@faststore/cli/runner', import.meta.url)
+      )
     )
+    let scriptResult = spawnSync(`node ${binCli} generate`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
     if (scriptResult.error || scriptResult.status !== 0) {
       throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
+    }
+
+    scriptResult = spawnSync(`node ${binCli} cache-graphql`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Unable to run cache-graphql' +
+        (scriptResult.error?.message ?? '')
+      )
     }
 
     scriptResult = spawnSync(`${packageManager} run build`, {

@@ -3,13 +3,17 @@
   "version": "3.93.0",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
-  "type": "commonjs",
+  "type": "module",
   "bin": {
     "faststore": "./bin/run.js"
   },
   "homepage": "https://github.com/vtex/faststore",
   "license": "MIT",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./runner": "./bin/run.js"
+  },
   "repository": "vtex/faststore",
   "files": [
     "/bin",
@@ -33,11 +37,11 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11",
     "globby": "^15.0.0",
-    "graphql": "catalog:",
     "ora": "5.4.1"
   },
   "devDependencies": {
     "@antfu/ni": "catalog:",
+    "graphql": "catalog:",
     "@graphql-codegen/cli": "catalog:",
     "@parcel/watcher": "^2.5.1",
     "@types/degit": "^2.8.6",
@@ -79,7 +83,8 @@
   "types": "dist/index.d.ts",
   "peerDependencies": {
     "@antfu/ni": "catalog:",
-    "@parcel/watcher": "^2.5.1"
+    "@parcel/watcher": "^2.5.1",
+    "graphql": "catalog:"
   },
   "engines": {
     "node": ">=20"

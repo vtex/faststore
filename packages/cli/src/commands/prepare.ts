@@ -18,14 +18,13 @@ export default class Prepare extends Command {
     const basePath = getBasePath(args.path)
 
     const clientPublicDir = path.join(basePath, 'public/')
+
     const corePublicDir = path.resolve(
-      fileURLToPath(path.dirname(require.resolve('@faststore/core'))),
+      fileURLToPath(
+        path.dirname(import.meta.resolve('@faststore/core', import.meta.url))
+      ),
       'public'
     )
-    // const corePublicDir = path.join(
-    //   basePath,
-    //   'node_modules/@faststore/core/public/'
-    // )
 
     if (!corePublicDir) {
       throw Error('Please install @faststore/core package')
