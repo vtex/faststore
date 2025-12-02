@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.95.0-dev.3](https://github.com/vtex/faststore/compare/v3.95.0-dev.1...v3.95.0-dev.3) (2025-12-02)
+
+### Features
+
+- Trigger build ([6bd417e](https://github.com/vtex/faststore/commit/6bd417ee07b7cd6cdfbd6f6169f33709ae5a5003))
+
 # [3.95.0-dev.2](https://github.com/vtex/faststore/compare/v3.94.0...v3.95.0-dev.2) (2025-12-02)
 
 ### Features
