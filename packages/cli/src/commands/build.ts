@@ -75,7 +75,7 @@ export default class Build extends Command {
 
     if (scriptResult.error || scriptResult.status !== 0) {
       throw (
-        'Error: Cant run cache-graphql' + (scriptResult.error?.message ?? '')
+        'Error: Unable to run cache-graphql' + (scriptResult.error?.message ?? '')
       )
     }
 
