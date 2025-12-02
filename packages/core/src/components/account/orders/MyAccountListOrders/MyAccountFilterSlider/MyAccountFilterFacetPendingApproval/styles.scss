@@ -1,0 +1,18 @@
+[data-fs-my-account-filter-facet-pending-approval] {
+  display: flex;
+  gap: var(--fs-spacing-2);
+  align-items: center;
+  padding: var(--fs-spacing-2) 0;
+
+  label {
+    font-size: var(--fs-text-size-body);
+    font-weight: var(--fs-text-weight-regular);
+    color: var(--fs-color-text);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  [data-fs-toggle] {
+    flex-shrink: 0;
+  }
+}

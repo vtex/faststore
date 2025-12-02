@@ -863,7 +863,7 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
-  /** Returns information about the list of Orders that the User can view. */
+  /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
@@ -914,6 +914,7 @@ export type QueryListUserOrdersArgs = {
   dateFinal?: InputMaybe<Scalars['String']['input']>;
   dateInitial?: InputMaybe<Scalars['String']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
+  pendingMyApproval?: InputMaybe<Scalars['Boolean']['input']>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
