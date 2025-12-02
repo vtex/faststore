@@ -44,6 +44,7 @@ export interface NavbarProps {
         }
       }
     }
+    loadingLabel?: string
   }
   signInButton: {
     icon: {

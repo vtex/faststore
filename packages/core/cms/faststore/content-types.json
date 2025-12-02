@@ -44,6 +44,11 @@
                       "type": "string",
                       "default": "Try using a different postal code.",
                       "description": "This message will guide user in case of an error."
+                    },
+                    "loadingLabel": {
+                      "title": "Loading Label",
+                      "type": "string",
+                      "default": "..."
                     }
                   }
                 },
@@ -345,6 +350,21 @@
                       "default": "Max price can't be smaller than min"
                     }
                   }
+                }
+              }
+            }
+          },
+          {
+            "name": "loading",
+            "schema": {
+              "title": "Loading",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Loading Label",
+                  "description": "Default loading message label",
+                  "type": "string",
+                  "default": "Loading..."
                 }
               }
             }

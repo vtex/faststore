@@ -155,6 +155,7 @@ function Navbar({
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
               submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
+              loadingLabel={searchInput?.loadingLabel}
             />
           )}
 
@@ -186,6 +187,7 @@ function Navbar({
                 submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
+                loadingLabel={searchInput?.loadingLabel}
               />
             )}
             {isDesktop &&
