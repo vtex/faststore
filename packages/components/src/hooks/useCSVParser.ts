@@ -168,7 +168,7 @@ const parseCSVInWorker = (
           err instanceof Error ? err.message : 'Unknown error'
         errors.push(`Row ${rowIndex + 2}: ${errorMessage}`)
 
-        // Limitar erros para evitar uso excessivo de memória
+        // Limit errors to avoid excessive memory usage
         if (errors.length > 1000) {
           errors.splice(0, 500)
         }
@@ -177,29 +177,29 @@ const parseCSVInWorker = (
       }
     }
 
-    // Estimar número total de linhas baseado no tamanho do arquivo
+    // Estimate total number of rows based on file size
     const estimateRows = (fileSize: number) => {
-      const avgBytesPerRow = 50 // Estimativa conservadora
+      const avgBytesPerRow = 50 // Conservative estimate
       return Math.floor(fileSize / avgBytesPerRow)
     }
 
     totalEstimatedRows = estimateRows(file.size)
 
     Papa.parse(file, {
-      // Configurações de performance
-      header: false, // Vamos processar o header manualmente
-      dynamicTyping: false, // Manter como string para validação customizada
+      // Performance settings
+      header: false, // We'll process the header manually
+      dynamicTyping: false, // Keep as string for custom validation
       skipEmptyLines: config.skipEmptyLines,
-      delimiter: config.delimiter || '', // Auto-detect se vazio
+      delimiter: config.delimiter || '', // Auto-detect if empty
 
-      // Processamento em chunks para melhor performance
+      // Chunk processing for better performance
       chunk: (results, parser) => {
         try {
-          // Processar header na primeira execução
+          // Process header on first execution
           if (!isHeaderProcessed && results.data.length > 0) {
             headers = results.data[0] as string[]
 
-            // Encontrar índices das colunas
+            // Find column indices
             skuIndex = findColumnIndex(headers, config.skuColumnNames)
             quantityIndex = findColumnIndex(headers, config.quantityColumnNames)
 
@@ -223,12 +223,12 @@ const parseCSVInWorker = (
               return
             }
 
-            // Remover header dos dados para processar apenas as linhas de dados
+            // Remove header from data to process only data rows
             results.data = results.data.slice(1)
             isHeaderProcessed = true
           }
 
-          // Processar chunk atual
+          // Process current chunk
           results.data.forEach((row: any, index: number) => {
             const globalRowIndex = processedRows + index
             const transformedRow = validateAndTransformRow(row, globalRowIndex)
@@ -240,7 +240,7 @@ const parseCSVInWorker = (
 
           processedRows += results.data.length
 
-          // Callback de progresso se fornecido
+          // Progress callback if provided
           if (config.onProgress) {
             const percentage = Math.min(
               100,
@@ -260,7 +260,7 @@ const parseCSVInWorker = (
 
       complete: () => {
         try {
-          // Verificar se temos dados válidos
+          // Check if we have valid data
           if (transformedData.length === 0) {
             if (errors.length > 0) {
               reject(
@@ -274,7 +274,7 @@ const parseCSVInWorker = (
             return
           }
 
-          // Log warnings se houver erros não críticos
+          // Log warnings if there are non-critical errors
           if (errors.length > 0) {
             console.warn(
               `CSV parsing completed with ${errors.length} warnings. Sample:`,
@@ -282,7 +282,7 @@ const parseCSVInWorker = (
             )
           }
 
-          // Progresso final
+          // Final progress
           if (config.onProgress) {
             config.onProgress({
               processed: processedRows,
@@ -306,13 +306,13 @@ const parseCSVInWorker = (
         reject(new Error(`PapaParse error: ${error.message}`))
       },
 
-      // Configurações adicionais de performance
-      fastMode: false, // Desabilitado para suportar aspas e caracteres especiais
-      step: undefined, // Usar chunk em vez de step para melhor performance
-      chunkSize: config.chunkSize, // Tamanho do chunk em bytes
-      preview: 0, // Processar arquivo completo
+      // Additional performance settings
+      fastMode: false, // Disabled to support quotes and special characters
+      step: undefined, // Use chunk instead of step for better performance
+      chunkSize: config.chunkSize, // Chunk size in bytes
+      preview: 0, // Process complete file
       encoding: 'UTF-8',
-      worker: false, // Já estamos em um Worker, não precisamos de outro
+      worker: false, // We're already in a Worker, no need for another one
     })
   })
 }
