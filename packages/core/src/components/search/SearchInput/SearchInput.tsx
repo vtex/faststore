@@ -44,11 +44,6 @@ const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
 )
 
-// const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
-//   /* webpackChunkName: "UISearchInputField" */
-//   import('@faststore/ui').then((module) => module.SearchInputField)
-// )
-
 const MAX_SUGGESTIONS = 5
 
 export type SearchInputProps = {
