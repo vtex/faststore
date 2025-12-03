@@ -34,7 +34,6 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@koale/useworker": "^4.1.2",
     "papaparse": "^5.5.3",
     "react-intersection-observer": "^8.32.5",
     "react-swipeable": "^7.0.0",

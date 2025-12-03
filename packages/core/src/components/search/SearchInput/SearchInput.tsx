@@ -4,7 +4,6 @@ import {
   forwardRef,
   lazy,
   useDeferredValue,
-  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -105,7 +104,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       isProcessing: isCsvProcessing,
       onParseFile,
       onClearError,
-      onKillWorkers,
       onGenerateTemplate,
     } = useCSVParser({
       delimiter: ',',
@@ -177,10 +175,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
     })
-
-    useEffect(() => {
-      return () => onKillWorkers()
-    }, [onKillWorkers])
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
