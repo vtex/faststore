@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### Features
+
+- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
+- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
+- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
+
 # 3.94.0 (2025-11-19)
 
 ### Features
