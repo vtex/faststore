@@ -1,5 +1,17 @@
 import chalk from 'chalk'
-import {
+import fsExtra from 'fs-extra'
+
+import path from 'path'
+
+import ora from 'ora'
+
+import { withBasePath } from './directory'
+import { installDependencies } from './dependencies'
+import { logger } from './logger'
+import { installPlugins } from './plugins'
+import { createNextJsPages } from './createNextjsPages'
+
+const {
   copyFileSync,
   copySync,
   existsSync,
@@ -9,17 +21,7 @@ import {
   removeSync,
   writeFileSync,
   writeJsonSync,
-} from 'fs-extra'
-import path from 'path'
-
-import ora from 'ora'
-
-import { withBasePath } from './directory.ts'
-import { installDependencies } from './dependencies.ts'
-import { logger } from './logger.ts'
-import { installPlugins } from './plugins.ts'
-import { createNextJsPages } from './createNextjsPages.ts'
-
+} = fsExtra
 interface GenerateOptions {
   setup?: boolean
   basePath: string
@@ -63,9 +65,11 @@ function filterAndCopyPackageJson(basePath: string) {
   filteredFileContent.scripts = {
     ...filteredFileContent.scripts,
     generate: 'faststore generate',
-    build: 'faststore build',
-    start: 'faststore serve',
-    dev: 'faststore dev',
+    build: 'next build',
+    serve: 'next serve',
+    dev: 'next dev',
+    'dev-only': 'next dev',
+    predev: 'na run partytown',
   }
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
@@ -167,9 +171,11 @@ async function copyCypressFiles(basePath: string) {
     let userStoreConfig
 
     if (existsSync(userStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userStoreConfigFile))
+      userStoreConfig = (await import(path.resolve(userStoreConfigFile)))
+        ?.default
     } else if (existsSync(userLegacyStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+      userStoreConfig = (await import(path.resolve(userLegacyStoreConfigFile)))
+        ?.default
     } else {
       logger.info(
         `${chalk.blue(
@@ -248,9 +254,10 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
   let userStoreConfig
 
   if (existsSync(userStoreConfigFile)) {
-    userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    userStoreConfig = (await import(path.resolve(userStoreConfigFile)))?.default
   } else if (existsSync(userLegacyStoreConfigFile)) {
-    userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+    userStoreConfig = (await import(path.resolve(userLegacyStoreConfigFile)))
+      ?.default
   } else {
     logger.info(
       `${chalk.blue(
@@ -284,25 +291,24 @@ async function copyTheme(basePath: string) {
     userLegacyStoreConfigFile,
   } = withBasePath(basePath)
 
-  let storeConfig
+  const storeConfigFile =
+    (existsSync(userStoreConfigFile) && userStoreConfigFile) ||
+    (existsSync(userLegacyStoreConfigFile) && userLegacyStoreConfigFile)
 
-  // Because of how node caches imports, if we don't delete the cache
-  // for the {discovery|faststore}.config.js files we will return a
-  // cached version and not reflect the theme change until a restart
-  // happens. Deleting before importing clears the cache
-  if (existsSync(userStoreConfigFile)) {
-    delete require.cache[path.resolve(userStoreConfigFile)]
-    storeConfig = await import(path.resolve(userStoreConfigFile))
-  } else if (existsSync(userLegacyStoreConfigFile)) {
-    delete require.cache[path.resolve(userLegacyStoreConfigFile)]
-    storeConfig = await import(path.resolve(userLegacyStoreConfigFile))
-  } else {
+  const userStoreConfigFilePath =
+    storeConfigFile && path.resolve(storeConfigFile)
+  const importedStoreConfig =
+    userStoreConfigFilePath && (await import(userStoreConfigFilePath))
+  const storeConfig =
+    userStoreConfigFilePath &&
+    (importedStoreConfig?.default || importedStoreConfig)
+
+  if (!storeConfig)
     logger.info(
       `${chalk.blue(
         'info'
       )} - No store config file was found in the root directory`
     )
-  }
 
   if (storeConfig.theme) {
     const customTheme = path.join(
@@ -360,14 +366,18 @@ function updateBuildTime(basePath: string) {
   }
 }
 
-function checkDependencies(basePath: string, packagesToCheck: string[]) {
+async function checkDependencies(basePath: string, packagesToCheck: string[]) {
   const { coreDir, getRoot } = withBasePath(basePath)
 
   const corePackageJsonPath = path.join(coreDir, 'package.json')
   const rootPackageJsonPath = path.join(getRoot(), 'package.json')
 
-  const corePackageJson = require(corePackageJsonPath)
-  const rootPackageJson = require(rootPackageJsonPath)
+  const { default: corePackageJson } = await import(corePackageJsonPath, {
+    with: { type: 'json' },
+  })
+  const { default: rootPackageJson } = await import(rootPackageJsonPath, {
+    with: { type: 'json' },
+  })
 
   packagesToCheck.forEach((packageName) => {
     const coreVersion =
@@ -424,7 +434,7 @@ function getCurrentUserStoreConfigFile(basePath: string) {
   return null
 }
 
-function validateAndInstallMissingDependencies(basePath: string) {
+async function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir } = withBasePath(basePath)
 
   const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath)
@@ -433,15 +443,20 @@ function validateAndInstallMissingDependencies(basePath: string) {
     return
   }
 
-  const userStoreConfig = require(currentUserStoreConfigFile)
-  const userPackageJson = require(path.join(userDir, 'package.json'))
+  const { default: userStoreConfig } = await import(currentUserStoreConfigFile)
+  const { default: userPackageJson } = await import(
+    path.join(userDir, 'package.json'),
+    {
+      with: { type: 'json' },
+    }
+  )
 
   const missingDependencies: Array<{
     feature: string
     dependencies: string[]
   }> = []
 
-  if (userStoreConfig.experimental.preact) {
+  if (userStoreConfig?.experimental?.preact) {
     missingDependencies.push({
       feature: 'Preact',
       dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8'],
@@ -504,13 +519,13 @@ function enableRedirectsMiddleware(basePath: string) {
   }
 }
 
-function enableSearchSSR(basePath: string) {
+async function enableSearchSSR(basePath: string) {
   const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
 
   if (!storeConfigPath) {
     return
   }
-  const storeConfig = require(storeConfigPath)
+  const { default: storeConfig } = await import(storeConfigPath)
   if (!storeConfig.experimental.enableSearchSSR) {
     return
   }
@@ -532,7 +547,7 @@ export async function generate(options: GenerateOptions) {
 
   let setupPromise: Promise<unknown> | null = null
 
-  validateAndInstallMissingDependencies(basePath)
+  await validateAndInstallMissingDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([

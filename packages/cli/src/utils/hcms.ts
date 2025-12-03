@@ -2,7 +2,8 @@ import path from 'path'
 import chalk from 'chalk'
 // import { ux } from '@oclif/core'
 import { confirm } from '@inquirer/prompts'
-import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
+const { readFileSync, existsSync, writeFileSync, mkdirSync } = fsExtra
 
 import { withBasePath } from './directory'
 import { getPluginName, getPluginsList } from './plugins'
@@ -121,7 +122,9 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
     userStoreConfigFile,
   } = withBasePath(basePath)
 
-  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+  const { default: userStoreConfig } = await import(
+    path.resolve(userStoreConfigFile)
+  )
   const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
 
   const coreFilePath = path.join(coreCMSDir, fileName)

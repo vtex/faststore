@@ -1,11 +1,13 @@
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { existsSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
 
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+
+const { existsSync } = fsExtra
 
 export default class GenerateGraphql extends Command {
   static flags = {
