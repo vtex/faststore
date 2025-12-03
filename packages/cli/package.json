@@ -10,6 +10,10 @@
   "homepage": "https://github.com/vtex/faststore",
   "license": "MIT",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./runner": "./bin/run.js"
+  },
   "repository": "vtex/faststore",
   "files": [
     "/bin",
@@ -33,27 +37,23 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11",
     "globby": "^15.0.0",
-    "graphql": "catalog:",
-    "ora": "5.4.1",
-    "path": "^0.12.7"
+    "ora": "5.4.1"
   },
   "devDependencies": {
     "@antfu/ni": "catalog:",
+    "graphql": "catalog:",
     "@graphql-codegen/cli": "catalog:",
-    "@types/chai": "^4",
+    "@parcel/watcher": "^2.5.1",
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^11",
-    "@types/jest": "catalog:",
     "@types/node": "catalog:",
-    "chai": "^4",
-    "jest": "catalog:",
     "oclif": "^4",
     "shx": "^0.3.3",
-    "ts-jest": "catalog:",
     "ts-node": "^10.9.1",
     "tslib": "catalog:",
+    "tsup": "^8.5.0",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vitest": "catalog:"
   },
   "oclif": {
     "bin": "faststore",
@@ -70,10 +70,10 @@
     ]
   },
   "scripts": {
-    "build": "tsc -b",
-    "test": "jest src/**/*.test.ts",
+    "build": "tsup-node",
+    "test": "vitest run src/**/*.test.ts",
     "postpack": "shx rm -f oclif.manifest.json",
-    "prepack": "na run && oclif manifest && oclif readme",
+    "prepack": "na run build && oclif readme",
     "version": "oclif readme && git add README.md"
   },
   "bugs": "https://github.com/vtex/faststore/issues",
@@ -82,7 +82,9 @@
   ],
   "types": "dist/index.d.ts",
   "peerDependencies": {
-    "@antfu/ni": "catalog:"
+    "@antfu/ni": "catalog:",
+    "@parcel/watcher": "^2.5.1",
+    "graphql": "catalog:"
   },
   "engines": {
     "node": ">=20"

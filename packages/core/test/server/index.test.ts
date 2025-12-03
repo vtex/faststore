@@ -2,10 +2,7 @@ import { assertValidSchema } from 'graphql'
 
 import storeConfig from '../../discovery.config'
 import { execute, getEnvelop } from '../../src/server'
-import {
-  getMergedSchema,
-  getTypeDefsFromFolder,
-} from '../../src/server/generator/schema'
+import { getFinalAPISchema } from '../../src/server'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -93,7 +90,7 @@ const MUTATIONS = [
 
 describe('FastStore GraphQL Layer', () => {
   describe('@faststore/api', () => {
-    const nativeSchema = getMergedSchema()
+    const nativeSchema = getFinalAPISchema()
 
     it('should return a valid GraphQL schema', async () => {
       // `assertValidSchema()` will throw an error if the schema is invalid, and
@@ -120,23 +117,9 @@ describe('FastStore GraphQL Layer', () => {
     })
   })
 
-  describe('VTEX API Extension', () => {
-    it('getTypeDefsFromFolder function should return an Array', () => {
-      const typeDefs = getTypeDefsFromFolder('vtex')
-      expect(typeDefs).toBeInstanceOf(Array)
-    })
-  })
-
-  describe('Third Party API Extension', () => {
-    it('getTypeDefsFromFolder function should return an Array', () => {
-      const typeDefs = getTypeDefsFromFolder('thirdParty')
-      expect(typeDefs).toBeInstanceOf(Array)
-    })
-  })
-
   describe('Final Schema after merging', () => {
     it('should return a valid merged GraphQL schema', async () => {
-      const schema = getMergedSchema()
+      const schema = getFinalAPISchema()
 
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.

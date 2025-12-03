@@ -1,7 +1,6 @@
-import './styles.scss'
+import type { Preview } from '@storybook/nextjs'
 
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {

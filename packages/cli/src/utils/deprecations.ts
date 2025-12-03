@@ -1,6 +1,6 @@
 import { existsSync } from 'fs'
 import chalk from 'chalk'
-import { logger } from './logger.ts'
+import { logger } from './logger'
 
 /**
  * Checks for the presence of deprecated secret files and logs a warning if found.

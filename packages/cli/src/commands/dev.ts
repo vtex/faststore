@@ -1,6 +1,6 @@
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
@@ -12,6 +12,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+import { fileURLToPath } from 'url'
 
 /**
  * Taken from toolbelt
@@ -186,6 +187,20 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true, basePath })
+
+    const cliPath = fileURLToPath(
+      import.meta.resolve('@faststore/cli/runner', import.meta.url)
+    )
+
+    spawnSync(`node ${cliPath} generate-types`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    spawnSync(`node ${cliPath} cache-graphql`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 

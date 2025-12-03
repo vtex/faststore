@@ -2,11 +2,15 @@ import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
 export default class Build extends Command {
   static args = {
@@ -50,20 +54,40 @@ export default class Build extends Command {
 
     const packageManager = getPreferredPackageManager()
 
-    spawnSync(`${packageManager} run generate`, {
+    const binCli = path.join(
+      fileURLToPath(
+        import.meta.resolve('@faststore/cli/runner', import.meta.url)
+      )
+    )
+    let scriptResult = spawnSync(`node ${binCli} generate`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
+    }
+
+    scriptResult = spawnSync(`node ${binCli} cache-graphql`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Unable to run cache-graphql' +
+        (scriptResult.error?.message ?? '')
+      )
+    }
+
+    scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
 
-    const buildResult = spawnSync(`${packageManager} run build`, {
-      shell: true,
-      cwd: tmpDir,
-      stdio: 'inherit',
-    })
-
-    if (buildResult.status && buildResult.status !== 0) {
-      process.exit(buildResult.status)
+    if (scriptResult.status && scriptResult.status !== 0) {
+      process.exit(scriptResult.status)
     }
 
     await normalizeStandaloneBuildDir(basePath)
@@ -146,9 +170,11 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
 
   try {
     const {
-      devDependencies = {},
-      dependencies = {},
-      peerDependencies = {},
+      default: {
+        devDependencies = {},
+        dependencies = {},
+        peerDependencies = {},
+      },
     } = await import(packageJsonPath)
 
     const allDeps: Record<string, string> = Object.assign(
