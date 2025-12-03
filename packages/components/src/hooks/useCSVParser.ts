@@ -1,4 +1,3 @@
-import { useWorker, WORKER_STATUS } from '@koale/useworker'
 import Papa from 'papaparse'
 import { useCallback, useState } from 'react'
 
@@ -32,7 +31,7 @@ export type CSVParserError = {
 
 /**
  * Hook to parse CSV files containing SKU and Quantity columns.
- * Utilizes Web Workers for efficient parsing of large files.
+ * Utilizes PapaParse's native Web Worker for efficient parsing of large files.
  * @param options CSV parsing options
  * @returns Object containing parsing state and functions
  */
@@ -41,21 +40,13 @@ export function useCSVParser(options: CSVParserOptions = {}) {
   const [isParsing, setIsParsing] = useState(false)
   const [isGeneratingTemplate, setIsGeneratingTemplate] = useState(false)
 
-  const [parseWorker, parseWorkerController] = useWorker(parseCSVInWorker)
-  const [templateWorker, templateWorkerController] =
-    useWorker(generateCSVTemplate)
-
-  const isProcessing = parseWorkerController.status === WORKER_STATUS.RUNNING
-  const isGenerating =
-    templateWorkerController.status === WORKER_STATUS.RUNNING
-
   const onParseFile = useCallback(
     async (file: File): Promise<CSVData | null> => {
       try {
         setError(null)
         setIsParsing(true)
 
-        const result = await parseWorker(file, options)
+        const result = await parseCSVFile(file, options)
         return result
       } catch (err) {
         const error: CSVParserError = {
@@ -69,13 +60,13 @@ export function useCSVParser(options: CSVParserOptions = {}) {
         setIsParsing(false)
       }
     },
-    [parseWorker, options]
+    [options]
   )
 
   const onGenerateTemplate = useCallback(async (): Promise<string | null> => {
     try {
       setIsGeneratingTemplate(true)
-      const csvContent = await templateWorker()
+      const csvContent = generateCSVTemplate()
       return csvContent
     } catch (err) {
       const error: CSVParserError = {
@@ -88,29 +79,26 @@ export function useCSVParser(options: CSVParserOptions = {}) {
     } finally {
       setIsGeneratingTemplate(false)
     }
-  }, [templateWorker])
+  }, [])
 
   const onClearError = useCallback(() => {
     setError(null)
   }, [])
 
-  const onKillWorkers = useCallback(() => {
-    parseWorkerController.kill()
-    templateWorkerController.kill()
-  }, [parseWorkerController, templateWorkerController])
-
   return {
     error,
-    isParsing: isParsing || isProcessing,
-    isGeneratingTemplate: isGeneratingTemplate || isGenerating,
+    isParsing,
+    isGeneratingTemplate,
     onParseFile,
     onGenerateTemplate,
     onClearError,
-    onKillWorkers,
   }
 }
 
-const parseCSVInWorker = (
+/**
+ * Parse CSV file using PapaParse's native Web Worker
+ */
+const parseCSVFile = (
   file: File,
   options: WorkerCSVOptions = {}
 ): Promise<WorkerCSVData> => {
@@ -120,7 +108,7 @@ const parseCSVInWorker = (
       quantityColumnNames: ['quantity', 'qty', 'amount', 'count'],
       delimiter: '',
       skipEmptyLines: true,
-      chunkSize: 10000,
+      chunkSize: 1024 * 1024, // 1MB chunks
     }
 
     const config = { ...defaultOptions, ...options }
@@ -200,6 +188,9 @@ const parseCSVInWorker = (
       dynamicTyping: false, // Keep as string for custom validation
       skipEmptyLines: config.skipEmptyLines,
       delimiter: config.delimiter || '', // Auto-detect if empty
+
+      // Enable PapaParse native Web Worker
+      worker: true,
 
       // Chunk processing for better performance
       chunk: (results, parser) => {
@@ -317,15 +308,16 @@ const parseCSVInWorker = (
 
       // Additional performance settings
       fastMode: false, // Disabled to support quotes and special characters
-      step: undefined, // Use chunk instead of step for better performance
       chunkSize: config.chunkSize, // Chunk size in bytes
       preview: 0, // Process complete file
       encoding: 'UTF-8',
-      worker: false, // We're already in a Worker, no need for another one
     })
   })
 }
 
+/**
+ * Generate CSV template with sample data
+ */
 const generateCSVTemplate = (): string => {
   const templateData = [
     { sku: 'PROD-001', quantity: 5 },

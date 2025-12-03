@@ -4,7 +4,6 @@ import {
   forwardRef,
   lazy,
   useDeferredValue,
-  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -175,9 +174,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onClearError,
       onGenerateTemplate,
     } = csvParser
-    const onKillWorkers = (csvParser as { onKillWorkers?: () => void })
-      .onKillWorkers
-
     // Access globalSettings for fileUpload configuration (section and content-type)
     let fileUploadConfig
     try {
@@ -272,10 +268,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setFileUploadVisible(false)
       setIsUploadModalOpen(false)
     })
-
-    useEffect(() => {
-      return () => onKillWorkers?.()
-    }, [onKillWorkers])
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
