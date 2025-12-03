@@ -1713,6 +1713,11 @@
               "title": "Description section title",
               "type": "string",
               "default": "Description"
+            },
+            "accordionAriaLabel": {
+              "title": "Product description accordion aria label",
+              "type": "string",
+              "default": "Product Description Content"
             }
           }
         },

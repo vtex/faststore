@@ -56,6 +56,7 @@ export interface ProductDetailsProps {
     title: string
     displayDescription: boolean
     initiallyExpanded: 'first' | 'all' | 'none'
+    accordionAriaLabel?: string
   }
   notAvailableButton: {
     title: string
@@ -105,6 +106,7 @@ function ProductDetails({
     title: productDescriptionDetailsTitle,
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
+    accordionAriaLabel: productDescriptionAccordionAriaLabel,
   },
   skuMatrix,
   notAvailableButton: { title: notAvailableButtonTitle },
@@ -337,6 +339,7 @@ function ProductDetails({
                 productDescriptionInitiallyExpanded ??
                 ProductDescription.props.initiallyExpanded
               }
+              accordionAriaLabel={productDescriptionAccordionAriaLabel}
               descriptionData={[
                 { content: description, title: productDescriptionDetailsTitle },
               ]}
