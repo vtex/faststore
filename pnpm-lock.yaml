@@ -143,7 +143,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       '@faststore/core':
-        specifier: ^3.93.0
+        specifier: ^3.94.0
         version: link:../core
       '@inquirer/prompts':
         specifier: ^5.1.2
@@ -218,9 +218,6 @@ importers:
 
   packages/components:
     dependencies:
-      '@koale/useworker':
-        specifier: ^4.1.2
-        version: 4.1.2(react@18.3.1)
       papaparse:
         specifier: ^5.5.3
         version: 5.5.3
@@ -307,19 +304,19 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       '@faststore/api':
-        specifier: ^3.93.0
+        specifier: workspace:*
         version: link:../api
       '@faststore/graphql-utils':
-        specifier: ^3.93.0
+        specifier: ^3.94.0
         version: link:../graphql-utils
       '@faststore/lighthouse':
-        specifier: ^3.93.0
+        specifier: workspace:*
         version: link:../lighthouse
       '@faststore/sdk':
-        specifier: ^3.93.0
+        specifier: workspace:*
         version: link:../sdk
       '@faststore/ui':
-        specifier: ^3.93.0
+        specifier: workspace:*
         version: link:../ui
       '@graphql-codegen/cli':
         specifier: 5.0.2
@@ -580,10 +577,10 @@ importers:
   packages/storybook:
     dependencies:
       '@faststore/components':
-        specifier: ^3.93.0
+        specifier: ^3.94.0
         version: link:../components
       '@faststore/ui':
-        specifier: ^3.93.0
+        specifier: ^3.94.0
         version: link:../ui
       next:
         specifier: ^15.1.6
@@ -635,7 +632,7 @@ importers:
   packages/ui:
     dependencies:
       '@faststore/components':
-        specifier: ^3.93.0
+        specifier: ^3.94.0
         version: link:../components
       include-media:
         specifier: ^1.4.10
@@ -2454,11 +2451,6 @@ packages:
 
   '@kamilkisiela/fast-url-parser@1.1.4':
     resolution: {integrity: sha512-gbkePEBupNydxCelHCESvFSFM8XPh1Zs/OAVRW/rKpEqPAl5PbOM90Si8mv9bvnR53uPD2s/FiRxdvSejpRJew==}
-
-  '@koale/useworker@4.1.2':
-    resolution: {integrity: sha512-rVS9qs5prEBBw1YnvBlIN/jc1MLbchtv54mI1OGH8rQrE1jYfXg2+1p+4O5vFcU96cy2dafosnwZw8HXDpY//w==}
-    peerDependencies:
-      react: '>=16.8.0 <20.0.0'
 
   '@lerna/create@8.1.9':
     resolution: {integrity: sha512-DPnl5lPX4v49eVxEbJnAizrpMdMTBz1qykZrAbBul9rfgk531v8oAt+Pm6O/rpAleRombNM7FJb5rYGzBJatOQ==}
@@ -13401,11 +13393,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@kamilkisiela/fast-url-parser@1.1.4': {}
-
-  '@koale/useworker@4.1.2(react@18.3.1)':
-    dependencies:
-      dequal: 2.0.3
-      react: 18.3.1
 
   '@lerna/create@8.1.9(encoding@0.1.13)(typescript@5.3.2)':
     dependencies:
