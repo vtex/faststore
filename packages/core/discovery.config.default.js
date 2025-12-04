@@ -3,7 +3,6 @@ module.exports = {
     title: 'FastStore Starter',
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
-    author: 'Store Framework',
     name: 'FastStore',
     publisherId: '',
     plp: {
@@ -31,7 +30,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'storeframework',
+    storeId: 'brandless',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',

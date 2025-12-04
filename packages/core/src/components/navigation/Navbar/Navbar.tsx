@@ -154,6 +154,8 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
+              loadingLabel={searchInput?.loadingLabel}
             />
           )}
 
@@ -182,8 +184,10 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
+                submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
+                loadingLabel={searchInput?.loadingLabel}
               />
             )}
             {isDesktop &&

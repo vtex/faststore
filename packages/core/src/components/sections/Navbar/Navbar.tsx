@@ -23,8 +23,13 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    submitButtonAriaLabel?: string
     quickOrderSettings?: {
       quickOrder: boolean
+      invalidQuantityToastLabels?: {
+        title?: string
+        message?: string
+      }
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
@@ -39,6 +44,7 @@ export interface NavbarProps {
         }
       }
     }
+    loadingLabel?: string
   }
   signInButton: {
     icon: {

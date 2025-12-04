@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
   Accordion as UIAccordion,
+  AccordionButton as UIAccordionButton,
   AccordionItem as UIAccordionItem,
   AccordionPanel as UIAccordionPanel,
-  AccordionButton as UIAccordionButton,
 } from '@faststore/ui'
 
 type DescriptionData = {
@@ -24,11 +24,16 @@ interface ProductDescriptionProps {
    *
    */
   descriptionData: DescriptionData[]
+  /**
+   * For accessibility purposes, define a string that labels the current product description.
+   */
+  accordionAriaLabel?: string
 }
 
 function ProductDescription({
   descriptionData,
   initiallyExpanded = 'first',
+  accordionAriaLabel,
 }: ProductDescriptionProps) {
   /**
    * Maps 'initiallyExpanded' prop values to indices
@@ -65,7 +70,7 @@ function ProductDescription({
       <UIAccordion
         indices={indices}
         onChange={onChange}
-        aria-label="Product Details Content"
+        aria-label={accordionAriaLabel}
       >
         {descriptionData.map(({ title, content }, index) => (
           <UIAccordionItem

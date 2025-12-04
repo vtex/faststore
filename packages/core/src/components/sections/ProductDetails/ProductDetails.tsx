@@ -35,6 +35,7 @@ export interface ProductDetailsProps {
       showDiscountBadge: boolean
     }
   }
+  loadingLabel: string
   buyButton: {
     title: string
     icon: {
@@ -55,12 +56,17 @@ export interface ProductDetailsProps {
     title: string
     displayDescription: boolean
     initiallyExpanded: 'first' | 'all' | 'none'
+    accordionAriaLabel?: string
   }
   notAvailableButton: {
     title: string
   }
   quantitySelector: {
     useUnitMultiplier?: boolean
+    invalidQuantityToastLabels?: {
+      title?: string
+      message?: string
+    }
   }
   taxesConfiguration?: {
     usePriceWithTaxes?: boolean
@@ -88,6 +94,7 @@ function ProductDetails({
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
   },
+  loadingLabel,
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
     title: shippingSimulatorTitle,
@@ -99,6 +106,7 @@ function ProductDetails({
     title: productDescriptionDetailsTitle,
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
+    accordionAriaLabel: productDescriptionAccordionAriaLabel,
   },
   skuMatrix,
   notAvailableButton: { title: notAvailableButtonTitle },
@@ -232,7 +240,7 @@ function ProductDetails({
                 data-fs-product-details-settings
                 data-fs-product-details-section
               >
-                <p>Loading...</p>
+                <p>{loadingLabel}</p>
               </section>
             </section>
           ) : (
@@ -250,6 +258,7 @@ function ProductDetails({
                   useUnitMultiplier={
                     quantitySelector?.useUnitMultiplier ?? false
                   }
+                  loadingLabel={loadingLabel}
                   {...ProductDetailsSettings.props}
                   // Dynamic props shouldn't be overridable
                   // This decision can be reviewed later if needed
@@ -258,6 +267,9 @@ function ProductDetails({
                   product={product}
                   isValidating={isValidating}
                   taxesConfiguration={taxesConfiguration}
+                  invalidQuantityToastLabels={
+                    quantitySelector?.invalidQuantityToastLabels
+                  }
                 />
 
                 {skuMatrix?.shouldDisplaySKUMatrix &&
@@ -276,6 +288,9 @@ function ProductDetails({
                           formatter={useFormattedPrice}
                           columns={skuMatrix.columns}
                           overlayProps={{ className: styles.section }}
+                          invalidQuantityToastLabels={
+                            quantitySelector?.invalidQuantityToastLabels
+                          }
                         />
                       </SKUMatrix.Component>
                     </>
@@ -324,6 +339,7 @@ function ProductDetails({
                 productDescriptionInitiallyExpanded ??
                 ProductDescription.props.initiallyExpanded
               }
+              accordionAriaLabel={productDescriptionAccordionAriaLabel}
               descriptionData={[
                 { content: description, title: productDescriptionDetailsTitle },
               ]}

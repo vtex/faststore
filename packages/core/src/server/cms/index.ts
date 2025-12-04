@@ -13,21 +13,28 @@ export type Options =
     }
 
 type ProductGallerySettings = {
-  settings: {
-    productGallery: {
-      itemsPerPage: number
-      sortBySelection: string
-    }
+  productGallery: {
+    itemsPerPage: number
+    sortBySelection: string
   }
 }
 
-export type SearchContentType = ContentData & ProductGallerySettings
+export type SearchSettings = {
+  settings: {
+    seo: {
+      titleTemplate?: string
+    }
+  } & ProductGallerySettings
+}
+
+export type SearchContentType = ContentData & SearchSettings
 
 export type PageContentType = ContentData & {
   settings: {
     seo: {
       slug: string
       title: string
+      titleTemplate?: string
       description: string
       canonical?: string
       name?: string
