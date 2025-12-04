@@ -8,7 +8,11 @@ import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
-import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import type {
+  ServerOrderDetailsQueryQuery,
+  UserOrderDeliveryOption,
+  UserOrderDeliveryOptionsData,
+} from '@generated/graphql'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
 import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
 import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
@@ -72,7 +76,9 @@ export default function MyAccountOrderDetails({
         />
 
         <MyAccountDeliveryCard
-          deliveryOptionsData={order.deliveryOptionsData}
+          deliveryOptionsData={
+            order.deliveryOptionsData as UserOrderDeliveryOptionsData
+          }
           fields={
             order?.customFields?.find((field) => field.type === 'address')
               ?.fields || []
@@ -99,7 +105,7 @@ export default function MyAccountOrderDetails({
         {order.deliveryOptionsData.deliveryOptions.map((option) => (
           <MyAccountDeliveryOptionAccordion
             key={option.friendlyDeliveryOptionName}
-            deliveryOption={option}
+            deliveryOption={option as UserOrderDeliveryOption}
             contact={order.deliveryOptionsData.contact}
             currencyCode={order.storePreferencesData.currencyCode}
             customFields={order.customFields.filter(

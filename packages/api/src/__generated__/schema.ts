@@ -2039,7 +2039,10 @@ export type UserOrderDeliveryOptionsItems = {
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   quantity?: Maybe<Scalars['Int']>;
+  sellingPrice?: Maybe<Scalars['Float']>;
   tax?: Maybe<Scalars['Float']>;
+  taxPriceTags?: Maybe<Array<Maybe<UserOrderPriceTag>>>;
+  taxPriceTagsTotal?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   uniqueId?: Maybe<Scalars['String']>;
 };
