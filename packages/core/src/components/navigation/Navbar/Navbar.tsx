@@ -8,6 +8,7 @@ import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
+import I18nButton from 'src/components/ui/I18nButton'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -63,6 +64,13 @@ export interface NavbarProps {
     shouldDisplayRegion: boolean
   }
   /**
+   * i18n Button props.
+   */
+  i18nButton?: {
+    icon: string
+    shouldDisplayI18nButton: boolean
+  }
+  /**
    * Page links.
    */
   links: SectionNavbarProps['navigation']['pageLinks']
@@ -84,6 +92,7 @@ function Navbar({
   links,
   signIn,
   region,
+  i18nButton,
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
@@ -190,6 +199,10 @@ function Navbar({
                 loadingLabel={searchInput?.loadingLabel}
               />
             )}
+            {isDesktop && i18nButton?.shouldDisplayI18nButton && (
+              <I18nButton icon={i18nButton?.icon} />
+            )}
+
             {isDesktop &&
               (isSessionReady ? (
                 isOrganizationEnabled ? (
@@ -221,6 +234,7 @@ function Navbar({
           links={links}
           signIn={signIn}
           region={region}
+          i18nButton={i18nButton}
         />
       )}
     </NavbarWrapper.Component>

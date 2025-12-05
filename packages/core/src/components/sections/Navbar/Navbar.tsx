@@ -67,6 +67,12 @@ export interface NavbarProps {
       }
       label: string
     }
+    i18nButton: {
+      shouldDisplayI18nButton: boolean
+      icon: {
+        icon: string
+      }
+    }
     pageLinks: PageLinks[]
     menu: {
       icon: {
@@ -94,6 +100,10 @@ function NavbarSection({
       icon: { icon: regionIcon },
       enabled: shouldDisplayRegion,
     },
+    i18nButton: {
+      icon: { icon: i18nIcon },
+      shouldDisplayI18nButton,
+    },
   },
 }: NavbarProps) {
   return (
@@ -110,6 +120,10 @@ function NavbarSection({
           icon: regionIcon,
           label: regionLabel,
           shouldDisplayRegion,
+        }}
+        i18nButton={{
+          icon: i18nIcon,
+          shouldDisplayI18nButton,
         }}
       />
     </Section>
