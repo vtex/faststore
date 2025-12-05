@@ -88,7 +88,7 @@
 
     @include media(">=notebook") {
       display: grid;
-      grid-template-columns: 1fr minmax(auto, 37.5rem) 1fr;
+      grid-template-columns: 1fr minmax(auto, 32.5rem) 1fr;
     }
 
     [data-fs-navbar-button-menu] {
