@@ -16,6 +16,8 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
+        'node:crypto',
+        'crypto',
         ...Object.keys({
           ...(dependencies ?? {}),
           ...(peerDependencies ?? {}),
