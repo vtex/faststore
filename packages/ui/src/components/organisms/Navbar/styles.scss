@@ -115,6 +115,30 @@
       display: none;
     }
 
+    [data-fs-i18n-button] {
+      [data-fs-button-wrapper] {
+        padding-right: var(--fs-spacing-1);
+        padding-left: var(--fs-spacing-1);
+      }
+
+      [data-fs-button-wrapper] [data-fs-button-icon] + span {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--fs-spacing-2);
+        align-items: center;
+        font-weight: var(--fs-text-weight-medium);
+      }
+
+      [data-i18n-button-text-locale],
+      [data-i18n-button-text-currency] {
+        color: var(--fs-color-text-display);
+      }
+
+      [data-i18n-button-text-separator] {
+        color: var(--fs-border-color);
+      }
+    }
+
     @include media(">=notebook") {
       order: 2;
 
