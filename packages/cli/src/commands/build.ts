@@ -80,6 +80,18 @@ export default class Build extends Command {
       )
     }
 
+    scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Unable to run generate-i18n' +
+        (scriptResult.error?.message ?? '')
+      )
+    }
+
     scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,
       cwd: tmpDir,
