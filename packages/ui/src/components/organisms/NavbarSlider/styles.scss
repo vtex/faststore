@@ -26,8 +26,8 @@
   padding: var(--fs-navbar-slider-padding);
 
   [data-fs-navbar-slider-header] {
-    padding: 0;
     height: var(--fs-navbar-slider-header-height);
+    padding: 0;
     padding-bottom: var(--fs-navbar-slider-header-padding-bottom);
   }
 
@@ -44,6 +44,16 @@
     [data-fs-button-signin-link] {
       width: fit-content;
       padding-left: 0;
+    }
+
+    [data-fs-i18n-button] {
+      [data-i18n-button-text-separator] {
+        color: var(--fs-border-color);
+      }
+
+      [data-i18n-button-arrow] {
+        display: none;
+      }
     }
   }
 }

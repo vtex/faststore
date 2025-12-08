@@ -199,6 +199,7 @@ function Navbar({
                 loadingLabel={searchInput?.loadingLabel}
               />
             )}
+
             {isDesktop && i18nButton?.shouldDisplayI18nButton && (
               <I18nButton icon={i18nButton?.icon} />
             )}

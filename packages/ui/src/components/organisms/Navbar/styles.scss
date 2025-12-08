@@ -119,6 +119,7 @@
       [data-fs-button-wrapper] {
         padding-right: var(--fs-spacing-1);
         padding-left: var(--fs-spacing-1);
+        border: var(--fs-border-width) solid var(--fs-border-color);
       }
 
       [data-fs-button-wrapper] [data-fs-button-icon] + span {
