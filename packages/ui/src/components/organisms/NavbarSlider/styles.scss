@@ -13,7 +13,7 @@
 
   // Footer
   --fs-navbar-slider-footer-padding-top         : var(--fs-navbar-slider-header-padding-bottom);
-  --fs-navbar-slider-footer-margin-top          : var(--fs-navbar-slider-header-padding-bottom);
+  --fs-navbar-slider-footer-margin-top          : auto;
 
   // Logo
   --fs-navbar-slider-logo-padding               : 0;
@@ -23,6 +23,8 @@
   // Structural Styles
   // --------------------------------------------------------
 
+  display: flex;
+  flex-direction: column;
   padding: var(--fs-navbar-slider-padding);
 
   [data-fs-navbar-slider-header] {
