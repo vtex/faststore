@@ -46,6 +46,7 @@ USAGE
 * [`faststore create [PATH]`](#faststore-create-path)
 * [`faststore dev [PATH] [ACCOUNT] [PORT]`](#faststore-dev-path-account-port)
 * [`faststore generate`](#faststore-generate)
+* [`faststore generate-i18n PATH`](#faststore-generate-i18n-path)
 * [`faststore help [COMMAND]`](#faststore-help-command)
 * [`faststore prepare [PATH]`](#faststore-prepare-path)
 * [`faststore serve [ACCOUNT] [PATH] [PORT]`](#faststore-serve-account-path-port)
@@ -128,6 +129,26 @@ USAGE
 ```
 
 _See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.95.0/dist/commands/generate-graphql.js)_
+
+## `faststore generate-i18n PATH`
+
+Generates and syncs i18n configuration (locales, regions, currencies) from FastStore SDK
+
+```
+USAGE
+  $ faststore generate-i18n PATH [--config CONFIG]
+
+ARGUMENTS
+  PATH  The path where the FastStore being built is. Required.
+
+FLAGS
+  --config=CONFIG  The path where the discovery.config is located
+
+DESCRIPTION
+  Fetches i18n configuration from FastStore SDK and updates the discovery.config file
+  with locales, regions, and currencies settings. Requires VTEX credentials:
+  VTEX_ACCOUNT, FS_DISCOVERY_APP_KEY, and FS_DISCOVERY_APP_TOKEN environment variables.
+```
 
 ## `faststore help [COMMAND]`
 
