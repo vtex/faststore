@@ -117,6 +117,7 @@
 
     [data-fs-i18n-button] {
       [data-fs-button-wrapper] {
+        column-gap: var(--fs-spacing-1);
         padding-right: var(--fs-spacing-1);
         padding-left: var(--fs-spacing-1);
         border: var(--fs-border-width) solid var(--fs-border-color);
@@ -125,7 +126,7 @@
       [data-fs-button-wrapper] [data-fs-button-icon] + span {
         display: grid;
         grid-template-columns: auto 1fr;
-        gap: var(--fs-spacing-2);
+        gap: var(--fs-spacing-1);
         align-items: center;
         font-weight: var(--fs-text-weight-medium);
       }

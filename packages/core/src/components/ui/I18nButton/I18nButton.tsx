@@ -10,7 +10,7 @@ const I18nButton = ({ icon }: { icon: string }) => {
   return (
     <UIButton
       data-fs-i18n-button
-      icon={<Icon name={icon} width={18} height={18} weight="bold" />}
+      icon={<Icon name={icon} width={16} height={16} weight="bold" />}
       iconPosition="left"
       variant="tertiary"
       onClick={() => {
@@ -23,7 +23,7 @@ const I18nButton = ({ icon }: { icon: string }) => {
         <span data-i18n-button-text-separator>/</span>
         <span data-i18n-button-text-currency>{currency.code}</span>
       </div>
-      <Icon data-i18n-button-arrow name="CaretDown" width={12} height={12} />
+      <Icon data-i18n-button-arrow name="CaretDown" width={16} height={16} />
     </UIButton>
   )
 }
