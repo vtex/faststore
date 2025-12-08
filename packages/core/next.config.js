@@ -70,6 +70,32 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.myvtex.com *.vtexassets.com *.vtexcommercestable.com *.vtexcommercebeta.com https://www.googletagmanager.com https://www.google-analytics.com https://tagmanager.google.com",
+              "style-src 'self' 'unsafe-inline' *.myvtex.com *.vtexassets.com https://fonts.googleapis.com",
+              "img-src 'self' data: blob: *.myvtex.com *.vtexassets.com *.vteximg.com.br https://www.google-analytics.com https://www.googletagmanager.com",
+              "font-src 'self' data: *.myvtex.com *.vtexassets.com https://fonts.gstatic.com",
+              "connect-src 'self' *.myvtex.com *.vtexassets.com *.vtexcommercestable.com *.vtexcommercebeta.com https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com",
+              "frame-src 'self' *.myvtex.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+              'upgrade-insecure-requests',
+            ].join('; '),
+          },
+        ],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
