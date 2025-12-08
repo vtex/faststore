@@ -5,8 +5,7 @@ import { useSession } from 'src/sdk/session'
 const I18nButton = ({ icon }: { icon: string }) => {
   const { locale, currency } = useSession()
 
-  // const displayText = `${locale} | ${currency.code}`
-  const displayText = 'IT/EUR'
+  const localeText = locale.split('-')[0].toUpperCase()
 
   return (
     <UIButton
@@ -20,7 +19,7 @@ const I18nButton = ({ icon }: { icon: string }) => {
       }}
     >
       <div data-i18n-button-text>
-        <span data-i18n-button-text-locale>US</span>
+        <span data-i18n-button-text-locale>{localeText}</span>
         <span data-i18n-button-text-separator>/</span>
         <span data-i18n-button-text-currency>{currency.code}</span>
       </div>
