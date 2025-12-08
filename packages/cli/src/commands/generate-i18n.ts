@@ -148,7 +148,7 @@ export default class GenerateI18n extends Command {
   }
 }
 
-const mockedSettings = {
+export const mockedSettings = {
   defaultLocale: 'pt-BR',
   regions: {
     BR: {
