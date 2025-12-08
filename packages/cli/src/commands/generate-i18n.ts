@@ -11,7 +11,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { logger } from '../utils/logger'
-import { FastStoreSDK } from '@vtex/faststore-sdk'
+// import { FastStoreSDK } from '@vtex/faststore-sdk'
 import fsExtra from 'fs-extra'
 import { saveFile } from '../utils/file'
 
@@ -36,7 +36,6 @@ export default class GenerateI18n extends Command {
   static args = {
     path: Args.string({
       name: 'path',
-      required: true,
       description:
         'The path where the FastStore being built is. Defaults to cwd.',
     }),
@@ -111,11 +110,12 @@ export default class GenerateI18n extends Command {
       return
     }
 
-    const faststore = new FastStoreSDK({
-      account: VTEX_ACCOUNT,
-      appKey: FS_DISCOVERY_APP_KEY,
-      appToken: FS_DISCOVERY_APP_TOKEN,
-    })
+    // TODO: Uncomment when SDK is updated to return new structure
+    // const faststore = new FastStoreSDK({
+    //   account: VTEX_ACCOUNT,
+    //   appKey: FS_DISCOVERY_APP_KEY,
+    //   appToken: FS_DISCOVERY_APP_TOKEN,
+    // })
 
     // const settings = await faststore.settings({
     //   url: 'https://homebrewqa.fast.store',
