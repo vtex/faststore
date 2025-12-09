@@ -387,7 +387,7 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
-  Returns information about the list of Orders that the User can view.
+  Returns the list of Orders that the User can view.
   """
   listUserOrders(
     """
@@ -418,6 +418,10 @@ type Query {
     Client email used to filter of the list of orders.
     """
     clientEmail: String
+    """
+    Filter orders that are pending user approval.
+    """
+    pendingMyApproval: Boolean
   ): UserOrderListMinimalResult
     @auth
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)

@@ -3,11 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.93.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.93.0) (2025-11-04)
+# 3.94.0 (2025-11-19)
 
 ### Features
 
-- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+- release version 20251119 17 05 ([#3126](https://github.com/vtex/faststore/issues/3126)) ([9753c3f](https://github.com/vtex/faststore/commit/9753c3ff5ea760767978c41ec138b661a87ad731))
+- update version to 3.93.0-dev.4 and clean up changelogs ([#3127](https://github.com/vtex/faststore/issues/3127)) ([0c29d74](https://github.com/vtex/faststore/commit/0c29d749dc2222d01d848ffda9c2ae95dfba22af))
+
+# [3.93.0-dev.4](https://github.com/vtex/faststore/compare/v3.93.0-dev.3...v3.93.0-dev.4) (2025-11-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+# 3.93.0-dev.3 (2025-11-17)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.93.0-dev.2](https://github.com/vtex/faststore/compare/v3.93.0-dev.1...v3.93.0-dev.2) (2025-11-07)
+
+**Note:** Version bump only for package @faststore/cli
+
+# 3.93.0-dev.1 (2025-11-06)
+
+**Note:** Version bump only for package @faststore/cli
 
 # [3.93.0-dev.0](https://github.com/vtex/faststore/compare/v3.92.1-dev.0...v3.93.0-dev.0) (2025-11-03)
 

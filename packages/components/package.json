@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "3.93.0",
+  "version": "3.94.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "react-dropzone": "^14.3.8",
+    "papaparse": "^5.5.3",
     "react-intersection-observer": "^8.32.5",
     "react-swipeable": "^7.0.0",
     "tabbable": "^5.2.1"
@@ -45,6 +46,7 @@
     "@testing-library/react": "^14.3.0",
     "@types/jest": "29.1.0",
     "@types/jest-axe": "^3.5.9",
+    "@types/papaparse": "^5.5.0",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "@types/tabbable": "^3.1.1",
