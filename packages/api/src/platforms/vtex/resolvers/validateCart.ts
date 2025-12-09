@@ -9,7 +9,7 @@ import {
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type {
   IStoreOffer,
   IStoreOrder,
@@ -169,7 +169,7 @@ const joinItems = (form: OrderForm) => {
 
 const orderFormToCart = async (
   form: OrderForm,
-  skuLoader: Context['loaders']['skuLoader'],
+  skuLoader: GraphqlContext['loaders']['skuLoader'],
   shouldSplitItem?: boolean | null
 ) => {
   return {
@@ -193,7 +193,7 @@ const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) =>
 
 const setOrderFormEtag = async (
   form: OrderForm,
-  commerce: Context['clients']['commerce'],
+  commerce: GraphqlContext['clients']['commerce'],
   sessionJwt: SessionJwt
 ) => {
   try {
@@ -237,7 +237,10 @@ const isOrderFormStale = (form: OrderForm, sessionJwt: SessionJwt) => {
 }
 
 // Returns the regionalized orderForm
-const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
+const getOrderForm = async (
+  id: string,
+  { clients: { commerce } }: GraphqlContext
+) => {
   return commerce.checkout.orderForm({
     id,
   })
@@ -245,7 +248,7 @@ const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
 
 const clearOrderFormMessages = async (
   id: string,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ) => {
   return commerce.checkout.clearOrderFormMessages({
     id,
@@ -255,7 +258,7 @@ const clearOrderFormMessages = async (
 const updateOrderFormShippingData = async (
   orderForm: OrderForm,
   session: Maybe<IStoreSession> | undefined,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ) => {
   // Stores that are not yet providing the session while validating the cart
   // should not be able to update the shipping data
@@ -336,7 +339,7 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
 export const validateCart = async (
   _: unknown,
   { cart: { order }, session }: MutationValidateCartArgs,
-  ctx: Context
+  ctx: GraphqlContext
 ) => {
   const orderFormIdFromCookie = getCookieCheckoutOrderNumber(
     ctx.headers.cookie,

@@ -1,5 +1,5 @@
 import { Icon, IconButton } from '@faststore/ui'
-import type { ServerListOrdersQueryQuery } from '@generated/graphql'
+
 import { useState } from 'react'
 
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
@@ -7,6 +7,8 @@ import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { ExpandButton } from './ExpandButton/ExpandButton'
+
+import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 
 const MAX_ITEM_FIELDS = 5
 const MAX_ORDER_FIELDS = 5

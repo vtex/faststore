@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react'
 import type { ElementType, ReactElement } from 'react'
+import React, { forwardRef } from 'react'
 
 import type {
-  PolymorphicRef,
   PolymorphicComponentPropsWithRef,
+  PolymorphicRef,
 } from '../../typings'
 
 interface BaseProps {
@@ -24,7 +24,7 @@ type ListComponent = <T extends ElementType = 'ul'>(
   props: ListProps<T>
 ) => ReactElement | null
 
-const List = forwardRef(function List<T extends ElementType = 'ul'>(
+const List = forwardRef<ElementType>(function List<T extends ElementType>(
   { as, marker, testId = 'fs-list', ...otherProps }: ListProps<T>,
   ref: PolymorphicRef<T>
 ) {

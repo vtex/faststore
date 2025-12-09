@@ -36,7 +36,7 @@ const nextConfig = {
      * For discovery-only paths, that is the user directory, and for monorepo, that is the base
      * of the monorepo
      * */
-    outputFileTracingRoot: path.join(__dirname, '../'),
+    // outputFileTracingRoot: path.join(__dirname, '../'),
   },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
@@ -73,6 +73,9 @@ const nextConfig = {
   rewrites: storeConfig.rewrites,
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  turbopack: {
+    root: process.cwd(),
   },
 }
 

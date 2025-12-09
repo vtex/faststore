@@ -1,4 +1,4 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type {
   MutationSubscribeToNewsletterArgs,
   PersonNewsletter,
@@ -7,7 +7,7 @@ import type {
 export const subscribeToNewsletter = async (
   _: any,
   { data }: MutationSubscribeToNewsletterArgs,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ): Promise<PersonNewsletter | null> => {
   const response = await commerce.subscribeToNewsletter(data)
   return { id: response?.Id }

@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 export const ValidateCartMutation = `mutation ValidateCartMutation($cart: IStoreCart!) {
   validateCart(cart: $cart) {
     messages {

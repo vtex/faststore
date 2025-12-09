@@ -1,4 +1,4 @@
-import type { Options as APIOptions } from '@faststore/api'
+import type { APIOptions } from '@faststore/api'
 
 import storeConfig from '../../discovery.config'
 
