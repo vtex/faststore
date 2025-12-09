@@ -3,25 +3,21 @@ import * as XLSX from 'xlsx'
 
 import {
   Button,
-  Icon as UIIcon,
-  Dropzone as UIDropzone,
-  SearchDropdown as UISearchDropdown,
-  type DropzoneState,
   Loader,
+  Dropzone as UIDropzone,
+  Icon as UIIcon,
+  SearchDropdown as UISearchDropdown,
   useUI,
+  type DropzoneState,
 } from '@faststore/ui'
 
-import styles from './section.module.scss'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
+import styles from './section.module.scss'
 
 const MAX_FILES = 1
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = {
   'text/csv': ['.csv'],
-  'application/vnd.ms-excel': ['.xls'],
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-    '.xlsx',
-  ],
 }
 
 type CSVData = {
@@ -204,8 +200,7 @@ export default function UploadFileDropdown() {
     if (code === 'file-too-large') {
       errorMessage = 'File is too large. Maximum size is 5MB.'
     } else if (code === 'file-invalid-type') {
-      errorMessage =
-        'Invalid file type. Please upload a CSV, XLS, or XLSX file.'
+      errorMessage = 'Invalid file type. Please upload a CSV file.'
     } else if (code === 'too-many-files') {
       errorMessage = 'Too many files. Please upload only one file.'
     }
@@ -348,7 +343,7 @@ export default function UploadFileDropdown() {
             disabled={isProcessing}
             text="Drop a file to search in bulk"
             aria-label="Drop a file to search in bulk"
-            dragActiveText="Drop a CSV/Excel file with SKU and Quantity columns"
+            dragActiveText="Drop a CSV file with SKU and Quantity columns"
           />
           <Button
             data-fs-download-template-button
