@@ -2,6 +2,7 @@ import { Partytown } from '@builder.io/partytown/react'
 import storeConfig from 'discovery.config'
 import OverrideComponents from 'src/customizations/src/GlobalOverrides'
 import GoogleTagManager, { GTM_DEBUG_QUERY_STRING } from './GoogleTagManager'
+import PartytownErrorBoundary from './PartytownErrorBoundary'
 import VTEX from './vtex'
 
 const gtmContainerId = storeConfig.analytics?.gtmContainerId
@@ -37,7 +38,9 @@ function ThirdPartyScripts() {
       {includeGTM && <GoogleTagManager containerId={gtmContainerId} />}
       {includeVTEX && <VTEX />}
       <OverrideComponents.ThirdPartyScripts />
-      <Partytown key="partytown" />
+      <PartytownErrorBoundary>
+        <Partytown key="partytown" />
+      </PartytownErrorBoundary>
     </>
   )
 }
