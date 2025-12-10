@@ -47,7 +47,7 @@
         },
         {
           "currencyCode": "BRL",
-          "url": "https://pt.brandless.fast.store",
+          "url": "https://brandless.fast.store.com.br",
           "salesChannel": "2",
           "isDefault": false
         }
@@ -98,7 +98,7 @@
       "bindings": [
         {
           "currencyCode": "USD",
-          "url": "https://brandless.fast.store/fr-CA",
+          "url": "https://canada.brandless.fast.store",
           "salesChannel": "2",
           "isDefault": false
         }
@@ -116,6 +116,12 @@
         {
           "currencyCode": "USD",
           "url": "https://brandless.fast.store/en-US",
+          "salesChannel": "2",
+          "isDefault": false
+        },
+        {
+          "currencyCode": "USD",
+          "url": "https://brandless.fast.store.com",
           "salesChannel": "2",
           "isDefault": false
         }
