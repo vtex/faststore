@@ -1,5 +1,7 @@
 // @ts-check
 
+// Builds Next.js i18n domains configuration from locale settings
+
 /**
  * Checks if a binding is a valid domain-based binding (no path)
  * A binding is domain-based if it has no path (or only root path '/')
@@ -16,7 +18,7 @@ function getValidSubdomainBinding(binding) {
     const bindingHostname = bindingUrl.hostname
     const bindingPathname = bindingUrl.pathname
 
-    if (Boolean(bindingPathname && bindingPathname !== '/')) {
+    if (bindingPathname && bindingPathname !== '/') {
       // path-based binding
       return null
     }
