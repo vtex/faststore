@@ -23,7 +23,7 @@ const I18nButton = ({ icon }: { icon: string }) => {
         <span data-i18n-button-text-separator>/</span>
         <span data-i18n-button-text-currency>{currency.code}</span>
       </div>
-      <Icon data-i18n-button-arrow name="CaretDown" width={16} height={16} />
+      <Icon data-i18n-button-arrow name="CaretDown" aria-hidden="true" width={16} height={16} />
     </UIButton>
   )
 }
