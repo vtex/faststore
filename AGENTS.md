@@ -14,7 +14,6 @@
 - 🎨 Customizable UI components
 - 🔌 GraphQL API layer
 
-**Version**: 3.95.0
 **License**: MIT
 **Repository**: https://github.com/vtex/faststore
 
