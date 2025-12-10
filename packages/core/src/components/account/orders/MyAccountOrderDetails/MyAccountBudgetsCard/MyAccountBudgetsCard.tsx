@@ -25,13 +25,30 @@ function MyAccountBudgetsCard({
     .map((budget) => {
       if (!budget || !budget.allocations) return null
 
-      // Find the allocation with the highest balance amount
       const allocations = budget.allocations.filter(Boolean)
-      const largestAllocation = allocations.reduce((max, allocation) => {
-        const maxAmount = max?.balance?.amount || 0
-        const currentAmount = allocation?.balance?.amount || 0
-        return currentAmount > maxAmount ? allocation : max
-      }, allocations[0] || null)
+
+      // Calculate toBeSpent: sum all reservation values from all allocations
+      // reservations is an object (key: value), so we need to sum all values
+      const toBeSpent = allocations.reduce((total, allocation) => {
+        if (!allocation?.reservations) return total
+
+        const reservations = allocation.reservations
+        // If reservations is an object, sum all its values
+        if (typeof reservations === 'object' && reservations !== null) {
+          const reservationValues = Object.values(reservations).filter(
+            (val): val is number => typeof val === 'number'
+          )
+          return total + reservationValues.reduce((sum, val) => sum + val, 0)
+        }
+
+        return total
+      }, 0)
+
+      // Get remaining from budget.balance.remaining
+      const remaining = budget.balance?.remaining || 0
+
+      // Calculate available: toBeSpent + remaining
+      const available = toBeSpent + remaining
 
       // Get list of allocation linkedEntity IDs
       const allocationIds = allocations
@@ -41,8 +58,10 @@ function MyAccountBudgetsCard({
 
       return {
         budget,
-        largestAllocation,
         allocationIds,
+        toBeSpent,
+        remaining,
+        available,
       }
     })
     .filter(Boolean)
@@ -62,17 +81,14 @@ function MyAccountBudgetsCard({
         </div>
         <div data-fs-budgets-table-body>
           {budgetRows.map(
-            ({ budget, largestAllocation, allocationIds }, index) => {
-              if (!budget || !largestAllocation) return null
+            (
+              { budget, allocationIds, toBeSpent, remaining, available },
+              index
+            ) => {
+              if (!budget) return null
 
               const budgetName = budget.name || ''
               const allocationsList = allocationIds || ''
-
-              // Values from the largest allocation
-              const available = largestAllocation.balance?.amount || 0
-              const toBeSpent =
-                largestAllocation.balance?.balanceAdjustment || 0
-              const remaining = largestAllocation.balance?.remaining || 0
 
               return (
                 <div key={budget.id || index}>
@@ -82,7 +98,7 @@ function MyAccountBudgetsCard({
                         ? `${budgetName.substring(0, 20)}...`
                         : budgetName}
                     </div>
-                    <div data-fs-budgets-name-secondary>
+                    <div data-fs-budgets-name-secondary title={allocationsList}>
                       {allocationsList.length > 20
                         ? `${allocationsList.substring(0, 20)}...`
                         : allocationsList}
