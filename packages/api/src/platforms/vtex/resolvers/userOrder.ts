@@ -230,7 +230,7 @@ export function filterTaxPriceTags(priceTags: UserOrderPriceTag[]) {
   )
 
   return {
-    taxPriceTags: taxPriceTags,
+    taxPriceTags,
     taxPriceTagsTotal,
   }
 }
