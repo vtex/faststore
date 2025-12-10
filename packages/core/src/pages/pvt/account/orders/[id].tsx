@@ -371,12 +371,6 @@ export const getServerSideProps: GetServerSideProps<
 
   const order = orderDetails.data.userOrder
 
-  // Log budgetData no console do servidor (Node.js)
-  console.log(
-    'Budget Data (Server):',
-    JSON.stringify((order as any)?.budgetData, null, 2)
-  )
-
   return {
     props: {
       globalSections: globalSectionsResult,
