@@ -73,7 +73,7 @@ packages/
 ### @faststore/core
 **Purpose**: Main application package bundling everything together
 **Location**: `packages/core/`
-**Tech**: Next.js 13, React 18, GraphQL
+**Tech**: Next.js, React, GraphQL
 
 **Key Directories:**
 - `src/components/` - Application components (sections, organisms, molecules, atoms)
