@@ -35,7 +35,7 @@ const replaceSetCookieDomain = (request: NextApiRequest, setCookie: string) => {
 
 const parseRequest = (request: NextApiRequest) => {
   try {
-    const { operationName, operationHash, variables, query } =
+    const { operationName, operationHash, variables, query, v } =
       request.method === 'POST'
         ? request.body
         : {
@@ -46,6 +46,7 @@ const parseRequest = (request: NextApiRequest) => {
                 ? request.query.variables
                 : ''
             ),
+            v: request.query.v,
             query: undefined,
           }
 
@@ -57,6 +58,7 @@ const parseRequest = (request: NextApiRequest) => {
         },
       },
       variables,
+      v,
       // Do not allow queries in production, only for devMode so we can use graphql tools
       // like introspection etc. In production, we only accept known queries for better
       // security
@@ -88,7 +90,8 @@ const handler: NextApiHandler = async (request, response) => {
   }
 
   try {
-    const { operation, variables, query } = parseRequest(request)
+    // v is used to cache bust the request if there is a VtexIdclientAutCookie
+    const { operation, variables, query, v } = parseRequest(request)
 
     if (
       operation.__meta__.operationName === 'ValidateSession' &&
@@ -141,7 +144,7 @@ const handler: NextApiHandler = async (request, response) => {
     const { data, errors, extensions } = await execute(
       {
         operation,
-        variables,
+        variables: { ...variables, ...(v ? { v } : {}) },
         query,
       },
       { headers: request.headers }
@@ -157,8 +160,13 @@ const handler: NextApiHandler = async (request, response) => {
       return
     }
 
+    const hasAuthCookie = hasVtexIdclientAutCookie(request)
+
     if (extensions.cacheControl) {
-      const cacheControl = stringifyCacheControl(extensions.cacheControl)
+      const cacheControl = stringifyCacheControl(
+        extensions.cacheControl,
+        hasAuthCookie
+      )
       response.setHeader('cache-control', cacheControl)
     } else if (
       request.method === 'GET' &&
@@ -179,9 +187,10 @@ const handler: NextApiHandler = async (request, response) => {
               .staleWhileRevalidate
           : DEFAULT_STALE_WHILE_REVALIDATE // 1 hour
 
+      const scope = hasAuthCookie ? 'private' : 'public'
       response.setHeader(
         'cache-control',
-        `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+        `${scope}, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
       )
     } else {
       response.setHeader('cache-control', 'no-cache, no-store')
@@ -200,9 +209,6 @@ const handler: NextApiHandler = async (request, response) => {
     }
 
     response.setHeader('content-type', 'application/json')
-    if (hasVtexIdclientAutCookie(request)) {
-      response.setHeader('Vary', 'Cookie')
-    }
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
