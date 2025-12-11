@@ -9,6 +9,7 @@ import {
 import { useState } from 'react'
 import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
+import { useReorder } from 'src/sdk/account/useReorder'
 
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean
@@ -25,6 +26,7 @@ export default function MyAccountOrderActions({
   const { pushToast } = useUI()
 
   const { cancelOrder, loading } = useCancelOrder()
+  const { reorder } = useReorder()
 
   const handleCancel = async () => {
     const data = {
@@ -54,10 +56,11 @@ export default function MyAccountOrderActions({
     }
   }
 
-  // Don't render if no actions are available
-  if (!allowCancellation) {
-    return null
+  const handleReorder = () => {
+    reorder(orderId)
   }
+
+  // Always render dropdown since reorder is always available
 
   return (
     <>
@@ -67,6 +70,15 @@ export default function MyAccountOrderActions({
             <UIIcon name="DotsThree" data-fs-dropdown-icon />
           </DropdownButton>
           <DropdownMenu align="right">
+            <DropdownItem
+              type="button"
+              onClick={handleReorder}
+              style={{
+                color: 'var(--fs-color-text)',
+              }}
+            >
+              Reorder
+            </DropdownItem>
             {allowCancellation && (
               <DropdownItem
                 type="button"

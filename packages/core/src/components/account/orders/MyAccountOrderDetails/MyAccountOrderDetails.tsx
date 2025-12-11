@@ -6,6 +6,7 @@ import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccor
 import MyAccountOrderActions from './MyAccountOrderActions'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
+import MyAccountReorderButton from './MyAccountReorderButton'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
@@ -51,11 +52,14 @@ export default function MyAccountOrderDetails({
           </div>
         </div>
 
-        <MyAccountOrderActions
-          allowCancellation={order.allowCancellation}
-          orderId={order.orderId}
-          customerEmail={order.clientProfileData?.email}
-        />
+        <div data-fs-order-details-header-actions>
+          <MyAccountReorderButton orderId={order.orderId} />
+          <MyAccountOrderActions
+            allowCancellation={order.allowCancellation}
+            orderId={order.orderId}
+            customerEmail={order.clientProfileData?.email}
+          />
+        </div>
       </header>
 
       <main data-fs-order-details-content>
