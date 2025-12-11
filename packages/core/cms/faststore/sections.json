@@ -427,6 +427,30 @@
                 }
               }
             },
+            "i18nButton": {
+              "type": "object",
+              "title": "Internationalization Button",
+              "properties": {
+                "shouldDisplayI18nButton": {
+                  "type": "boolean",
+                  "title": "Should display internationalization button?",
+                  "default": false
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["Globe"],
+                      "enum": ["Globe"],
+                      "default": "Globe"
+                    }
+                  }
+                }
+              }
+            },
             "pageLinks": {
               "title": "Links",
               "type": "array",
