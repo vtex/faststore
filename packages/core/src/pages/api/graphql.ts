@@ -4,6 +4,7 @@ import {
   isFastStoreError,
   stringifyCacheControl,
 } from '@faststore/api'
+import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
@@ -66,6 +67,17 @@ const parseRequest = (request: NextApiRequest) => {
       `Invalid request. Please check the request. ${error}`
     )
   }
+}
+
+/**
+ * Checks if there is any cookie that starts with 'VtexIdclientAutCookie'
+ * in the request headers
+ */
+const hasVtexIdclientAutCookie = (request: NextApiRequest): boolean => {
+  const cookies = parse(request.headers.cookie ?? '')
+  return Object.keys(cookies).some((cookieName) =>
+    cookieName.startsWith('VtexIdclientAutCookie')
+  )
 }
 
 const handler: NextApiHandler = async (request, response) => {
@@ -188,7 +200,9 @@ const handler: NextApiHandler = async (request, response) => {
     }
 
     response.setHeader('content-type', 'application/json')
-    response.setHeader('Vary', 'Cookie')
+    if (hasVtexIdclientAutCookie(request)) {
+      response.setHeader('Vary', 'Cookie')
+    }
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
