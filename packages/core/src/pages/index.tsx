@@ -35,6 +35,10 @@ function Page({
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    storeConfig.seo.titleTemplate ??
+    storeConfig.seo.title
 
   const organizationAddress = Object.entries(
     settings?.seo?.organization?.address ?? {}
@@ -54,7 +58,7 @@ function Page({
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
-        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
+        titleTemplate={titleTemplate}
         canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
         openGraph={{
           type: 'website',

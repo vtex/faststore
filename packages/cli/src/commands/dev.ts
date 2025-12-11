@@ -202,6 +202,11 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
+    spawnSync(`node ${cliPath} generate-i18n`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
     storeDev(getRoot(), tmpDir, coreDir, port)
 
     return await new Promise((resolve, reject) => {

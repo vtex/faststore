@@ -37,7 +37,8 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11",
     "globby": "^15.0.0",
-    "ora": "5.4.1"
+    "ora": "5.4.1",
+    "@vtex/faststore-sdk": "0.1.1-canary.0"
   },
   "devDependencies": {
     "@antfu/ni": "catalog:",

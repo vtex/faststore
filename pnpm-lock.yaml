@@ -275,6 +275,9 @@ importers:
       '@oclif/plugin-not-found':
         specifier: ^3
         version: 3.2.73(@types/node@20.19.13)
+      '@vtex/faststore-sdk':
+        specifier: 0.1.1-canary.0
+        version: 0.1.1-canary.0
       chalk:
         specifier: ~4.1.2
         version: 4.1.2
@@ -4212,6 +4215,9 @@ packages:
   '@vtex/client-cp@0.3.5':
     resolution: {integrity: sha512-uzvpYz1LHiPxBc0FmVVG0azfGWiYJhIJf2JgcNSsi3V5oxR/dwM6tbh+JigSNQpp6bNn9GglLvMpYboxORMsnQ==}
     engines: {node: '>=16'}
+
+  '@vtex/faststore-sdk@0.1.1-canary.0':
+    resolution: {integrity: sha512-q1688+GHwGaU2Ato9MQ4wMDmMutIEm6ybRlvmpb1pnm5+dDUcujhwjxB0r6wHA7TfLQ4XZhIl1sHfG0tE1Qi2Q==}
 
   '@vtex/prettier-config@1.0.0':
     resolution: {integrity: sha512-4Uv67bK2eORhzWg/11J5/+fxPUWY6b0sYdhcqMzIgo0zluXlYqbZU6iueKZ48SxG4ODw8ZaqMRfpNsLd3Gw5+Q==}
@@ -16063,6 +16069,8 @@ snapshots:
       axios: 1.13.2
     transitivePeerDependencies:
       - debug
+
+  '@vtex/faststore-sdk@0.1.1-canary.0': {}
 
   '@vtex/prettier-config@1.0.0(prettier@2.8.8)':
     dependencies:

@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import storeConfig from 'discovery.config'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import { ButtonSignInFallback } from 'src/components/ui/Button'
+import I18nButton from 'src/components/ui/I18nButton'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 
@@ -20,12 +21,14 @@ interface NavbarSliderProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
+  i18nButton?: NavbarProps['i18nButton']
 }
 
 function NavbarSlider({
   logo,
   links,
   region,
+  i18nButton,
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
@@ -92,6 +95,9 @@ function NavbarSlider({
             />
           )}
         </Suspense>
+        {i18nButton.shouldDisplayI18nButton && (
+          <I18nButton icon={i18nButton?.icon} />
+        )}
       </NavbarSliderFooter.Component>
     </NavbarSliderWrapper.Component>
   )

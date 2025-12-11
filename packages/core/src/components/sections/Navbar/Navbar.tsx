@@ -23,8 +23,13 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    submitButtonAriaLabel?: string
     quickOrderSettings?: {
       quickOrder: boolean
+      invalidQuantityToastLabels?: {
+        title?: string
+        message?: string
+      }
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
@@ -39,6 +44,7 @@ export interface NavbarProps {
         }
       }
     }
+    loadingLabel?: string
   }
   signInButton: {
     icon: {
@@ -60,6 +66,12 @@ export interface NavbarProps {
         icon: string
       }
       label: string
+    }
+    i18nButton: {
+      shouldDisplayI18nButton: boolean
+      icon: {
+        icon: string
+      }
     }
     pageLinks: PageLinks[]
     menu: {
@@ -88,6 +100,10 @@ function NavbarSection({
       icon: { icon: regionIcon },
       enabled: shouldDisplayRegion,
     },
+    i18nButton: {
+      icon: { icon: i18nIcon },
+      shouldDisplayI18nButton,
+    },
   },
 }: NavbarProps) {
   return (
@@ -104,6 +120,10 @@ function NavbarSection({
           icon: regionIcon,
           label: regionLabel,
           shouldDisplayRegion,
+        }}
+        i18nButton={{
+          icon: i18nIcon,
+          shouldDisplayI18nButton,
         }}
       />
     </Section>
