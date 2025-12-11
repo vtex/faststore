@@ -1,19 +1,22 @@
 import { Button } from '@faststore/ui'
 import { useReorder } from 'src/sdk/account/useReorder'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
+type Order = ServerOrderDetailsQueryQuery['userOrder']
 
 export interface MyAccountReorderButtonProps {
-  orderId: string
+  order: Order
   onClick?: () => void
 }
 
 export default function MyAccountReorderButton({
-  orderId,
+  order,
   onClick,
 }: MyAccountReorderButtonProps) {
   const { reorder, loading } = useReorder()
 
   const handleClick = () => {
-    reorder(orderId)
+    reorder(order)
     if (onClick) {
       onClick()
     }

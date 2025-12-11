@@ -53,11 +53,12 @@ export default function MyAccountOrderDetails({
         </div>
 
         <div data-fs-order-details-header-actions>
-          <MyAccountReorderButton orderId={order.orderId} />
+          <MyAccountReorderButton order={order} />
           <MyAccountOrderActions
             allowCancellation={order.allowCancellation}
             orderId={order.orderId}
             customerEmail={order.clientProfileData?.email}
+            order={order}
           />
         </div>
       </header>

@@ -10,17 +10,22 @@ import { useState } from 'react'
 import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 import { useReorder } from 'src/sdk/account/useReorder'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
+type Order = ServerOrderDetailsQueryQuery['userOrder']
 
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean
   orderId: string
   customerEmail?: string
+  order: Order
 }
 
 export default function MyAccountOrderActions({
   allowCancellation,
   orderId,
   customerEmail,
+  order,
 }: MyAccountOrderActionsProps) {
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false)
   const { pushToast } = useUI()
@@ -57,7 +62,7 @@ export default function MyAccountOrderActions({
   }
 
   const handleReorder = () => {
-    reorder(orderId)
+    reorder(order)
   }
 
   // Always render dropdown since reorder is always available
