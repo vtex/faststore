@@ -1,9 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config({
-  path: [
-    path.resolve(process.cwd(), 'vtex.env'),
-    path.resolve(process.cwd(), '.env'),
-  ],
+  path: [path.resolve(process.cwd(), '.env')],
 })
 import { format } from 'prettier'
 import path from 'node:path'
