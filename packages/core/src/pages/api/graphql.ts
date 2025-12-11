@@ -188,6 +188,7 @@ const handler: NextApiHandler = async (request, response) => {
     }
 
     response.setHeader('content-type', 'application/json')
+    response.setHeader('Vary', 'Cookie')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
