@@ -25,24 +25,24 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-order-details-padding                        : 0 20px;
+  --fs-order-details-padding: 0 20px;
 
   // Header
-  --fs-order-details-header-gap                     : var(--fs-spacing-3);
-  --fs-order-details-header-padding                 : var(--fs-spacing-5) 0 var(--fs-spacing-4);
-  --fs-order-details-header-weight                  : var(--fs-text-weight-semibold);
-  --fs-order-details-header-size                    : var(--fs-text-size-4);
-  --fs-order-details-header-line-height             : 1.33;
+  --fs-order-details-header-gap: var(--fs-spacing-3);
+  --fs-order-details-header-padding: var(--fs-spacing-5) 0 var(--fs-spacing-4);
+  --fs-order-details-header-weight: var(--fs-text-weight-semibold);
+  --fs-order-details-header-size: var(--fs-text-size-4);
+  --fs-order-details-header-line-height: 1.33;
 
   // Content
-  --fs-order-details-content-gap                     : var(--fs-spacing-4);
+  --fs-order-details-content-gap: var(--fs-spacing-4);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
-  @include media (">=notebook") {
-    --fs-order-details-padding                      : 0;
+  @include media(">=notebook") {
+    --fs-order-details-padding: 0;
   }
 
   [data-fs-order-details-header] {
@@ -53,14 +53,14 @@
     justify-content: space-between;
     padding: var(--fs-order-details-header-padding);
 
-    @include media (">=tablet") {
-      --fs-order-details-header-gap                 : var(--fs-spacing-2);
+    @include media(">=tablet") {
+      --fs-order-details-header-gap: var(--fs-spacing-2);
 
       align-items: center;
     }
 
-    @include media (">=notebook") {
-      --fs-order-details-header-padding             : var(--fs-spacing-6) 0;
+    @include media(">=notebook") {
+      --fs-order-details-header-padding: var(--fs-spacing-6) 0;
     }
 
     [data-fs-order-details-header-title] {
@@ -71,11 +71,21 @@
 
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
-        margin-top: calc(var(--fs-spacing-2) * -1); // Align the back button with the title
-        margin-left: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
+        margin-top:
+          calc(
+            var(--fs-spacing-2) * -1
+          ); // Align the back button with the title
+
+        margin-left:
+          calc(
+            var(--fs-spacing-2) * -1
+          ); // Align the back button with the content
 
         @include media(">=notebook") {
-          margin-top: calc(var(--fs-spacing-1) * -1); // Align the back button with the title
+          margin-top:
+            calc(
+              var(--fs-spacing-1) * -1
+            ); // Align the back button with the title
         }
       }
 
@@ -105,6 +115,12 @@
       flex-direction: row;
       gap: var(--fs-spacing-2);
       align-items: center;
+
+      [data-fs-reorder-button] {
+        @include media("<tablet") {
+          display: none;
+        }
+      }
     }
   }
 
@@ -113,7 +129,7 @@
     flex-direction: column;
     gap: var(--fs-order-details-content-gap);
 
-    @include media (">=notebook") {
+    @include media(">=notebook") {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
