@@ -78,7 +78,7 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value:
-              "frame-ancestors 'self' https://ai-agents-vtex.vercel.app https://*.myvtex.com",
+              "frame-ancestors 'self' https://ai-agents-vtex.vercel.app https://*.myvtex.com https://*.preview.vtex.app",
           },
         ],
       },
