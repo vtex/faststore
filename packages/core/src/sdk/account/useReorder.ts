@@ -13,7 +13,6 @@ import { redirectToCheckout } from '../cart/redirectToCheckout'
 
 type Order = ServerOrderDetailsQueryQuery['userOrder']
 
-// Função helper para gerar ID do item (similar à getItemId do cart)
 const getItemId = (item: CartItemFragment) => {
   const propertyIds =
     item.itemOffered.additionalProperty
@@ -35,9 +34,6 @@ export const useReorder = () => {
       return
     }
 
-    // Extrair todos os itens das deliveryOptions e agrupar por seller
-    // Os itens em deliveryOptions são simplificados, então precisamos usar
-    // as informações da deliveryOption (seller) junto com os itens
     const orderItemsWithSeller =
       order.deliveryOptionsData.deliveryOptions.flatMap((option) =>
         (option.items || []).map((item) => ({
@@ -55,14 +51,9 @@ export const useReorder = () => {
     setError(null)
 
     try {
-      // NÃO esvaziar o carrinho - deixar o validateCart fazer a sincronização
-      // O validateCart vai substituir todos os itens do OrderForm pelos novos itens do pedido
-
-      // Obter orderFormId atual (do cookie ou do cart)
       const currentCart = cartStore.read()
       const orderFormId = currentCart.id || ''
 
-      // Converter itens do pedido para formato IStoreOffer
       const acceptedOffer: IStoreOffer[] = orderItemsWithSeller
         .filter(
           (item) =>
@@ -74,10 +65,9 @@ export const useReorder = () => {
             identifier: item.seller ?? '',
           },
           price: item.price ?? 0,
-          listPrice: item.price ?? 0, // deliveryOptionsItems não tem listPrice
+          listPrice: item.price ?? 0,
           itemOffered: {
             sku: item.id ?? '',
-            // Campos mínimos necessários - o checkout buscará o resto automaticamente
             image: item.imageUrl
               ? [
                   {
@@ -87,7 +77,6 @@ export const useReorder = () => {
                 ]
               : [],
             name: item.name ?? '',
-            // deliveryOptionsItems não tem attachments, então deixamos undefined
             additionalProperty: undefined as
               | Array<{
                   propertyID: string
@@ -103,7 +92,6 @@ export const useReorder = () => {
         throw new Error('No valid items to reorder')
       }
 
-      // Chamar mutation validateCart para adicionar itens ao checkout
       const { validateCart: validated } = await request<
         ValidateCartMutationMutation,
         ValidateCartMutationMutationVariables
@@ -122,7 +110,6 @@ export const useReorder = () => {
         throw new Error('Failed to add items to cart')
       }
 
-      // Atualizar o cartStore com os itens retornados do checkout
       const updatedCart = {
         id: validated.order.orderNumber,
         items: validated.order.acceptedOffer.map((item) => ({
@@ -135,7 +122,6 @@ export const useReorder = () => {
 
       cartStore.set(updatedCart)
 
-      // Redirecionar para o checkout após adicionar os itens
       redirectToCheckout(validated.order.orderNumber)
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Unknown error'))
