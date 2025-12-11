@@ -1,0 +1,130 @@
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import path from 'node:path'
+import os from 'node:os'
+import fs from 'node:fs'
+import { format } from 'prettier'
+import { mockedSettings } from './generate-i18n'
+import { saveFile } from '../utils/file'
+
+const faststoreSDKMock = vi.hoisted(() => ({
+  FastStoreSDK: vi.fn().mockImplementation(() => ({
+    settings: vi.fn(),
+  })),
+}))
+
+vi.mock('@vtex/faststore-sdk', () => faststoreSDKMock)
+
+describe('GenerateI18n', () => {
+  let tempDir: string
+  let originalEnv: NodeJS.ProcessEnv
+  let originalCwd: string
+
+  beforeEach(() => {
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-test-'))
+    originalCwd = process.cwd()
+    process.chdir(tempDir)
+
+    originalEnv = { ...process.env }
+    process.env.VTEX_ACCOUNT = 'testaccount'
+    process.env.FS_DISCOVERY_APP_KEY = 'testkey'
+    process.env.FS_DISCOVERY_APP_TOKEN = 'testtoken'
+
+    vi.clearAllMocks()
+  })
+
+  afterEach(() => {
+    if (fs.existsSync(tempDir)) {
+      fs.rmSync(tempDir, { recursive: true, force: true })
+    }
+    process.chdir(originalCwd)
+    process.env = originalEnv
+  })
+
+  it('should write i18n config to discovery.config.default.js file', async () => {
+    const configPath = path.join(tempDir, 'discovery.config.default.js')
+    const existingConfig = {
+      seo: { title: 'Test Store' },
+      api: { storeId: 'test' },
+    }
+
+    fs.writeFileSync(
+      configPath,
+      `module.exports = ${JSON.stringify(existingConfig, null, 2)}`
+    )
+
+    const discoveryConfig = await import(configPath)
+    const mergedConfig = {
+      ...(discoveryConfig?.default ?? discoveryConfig),
+      i18n: mockedSettings,
+    }
+
+    const saveConfigFile = saveFile(configPath)
+    const formattedContent = await format(
+      `module.exports = ${JSON.stringify(mergedConfig, undefined, 2)}`,
+      {
+        parser: 'typescript',
+        quoteProps: 'as-needed',
+      }
+    )
+
+    saveConfigFile(formattedContent)
+
+    expect(fs.existsSync(configPath)).toBe(true)
+
+    delete require.cache[require.resolve(configPath)]
+    const config = require(configPath)
+
+    expect(config.seo).toEqual(existingConfig.seo)
+    expect(config.api).toEqual(existingConfig.api)
+
+    expect(config.i18n).toBeDefined()
+    expect(config.i18n.defaultLocale).toBe(mockedSettings.defaultLocale)
+    expect(config.i18n.regions).toEqual(mockedSettings.regions)
+    expect(config.i18n.locales).toEqual(mockedSettings.locales)
+    expect(config.i18n.currencies).toEqual(mockedSettings.currencies)
+  })
+
+  it('should merge i18n config preserving all existing properties', async () => {
+    const configPath = path.join(tempDir, 'discovery.config.default.js')
+    const existingConfig = {
+      seo: { title: 'My Store', description: 'My Description' },
+      api: { storeId: 'mystore', workspace: 'master' },
+      theme: 'my-theme',
+      platform: 'vtex',
+      session: { locale: 'en-US', currency: { code: 'USD' } },
+    }
+
+    fs.writeFileSync(
+      configPath,
+      `module.exports = ${JSON.stringify(existingConfig, null, 2)}`
+    )
+
+    const discoveryConfig = await import(configPath)
+    const mergedConfig = {
+      ...(discoveryConfig?.default ?? discoveryConfig),
+      i18n: mockedSettings,
+    }
+
+    const saveConfigFile = saveFile(configPath)
+    const formattedContent = await format(
+      `module.exports = ${JSON.stringify(mergedConfig, undefined, 2)}`,
+      {
+        parser: 'typescript',
+        quoteProps: 'as-needed',
+      }
+    )
+    saveConfigFile(formattedContent)
+
+    delete require.cache[require.resolve(configPath)]
+    const config = require(configPath)
+
+    expect(config.seo).toEqual(existingConfig.seo)
+    expect(config.api).toEqual(existingConfig.api)
+    expect(config.theme).toBe(existingConfig.theme)
+    expect(config.platform).toBe(existingConfig.platform)
+    expect(config.session).toEqual(existingConfig.session)
+
+    expect(config.i18n).toBeDefined()
+    expect(config.i18n.defaultLocale).toBe(mockedSettings.defaultLocale)
+  })
+})
