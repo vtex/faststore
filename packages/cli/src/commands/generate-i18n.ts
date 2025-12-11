@@ -114,9 +114,7 @@ export default class GenerateI18n extends Command {
     //   appToken: FS_DISCOVERY_APP_TOKEN,
     // })
 
-    // const settings = await faststore.settings({
-    //   url: 'https://homebrewqa.fast.store',
-    // })
+    // const settings = await faststore.settings()
 
     saveConfigFile(
       await format(
@@ -134,10 +132,6 @@ export default class GenerateI18n extends Command {
         }
       )
     )
-
-    const settings = mockedSettings
-
-    logger.info(settings)
 
     logger.info(
       `${chalk.green('success')} - i18n configuration successfully generated 🎉`
