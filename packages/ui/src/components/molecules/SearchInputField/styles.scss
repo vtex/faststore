@@ -101,4 +101,12 @@
       border: 0;
     }
   }
+
+  &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
+    right: 2.5rem;
+
+    @include media(">=notebook") {
+      right: 3rem;
+    }
+  }
 }

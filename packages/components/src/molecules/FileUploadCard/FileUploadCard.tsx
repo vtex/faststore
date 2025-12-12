@@ -44,6 +44,22 @@ export interface FileUploadCardProps
    * @default false
    */
   multiple?: boolean
+  /**
+   * Formatter for file size display.
+   */
+  formatterFileSize?: (size: number) => string
+  /**
+   * Formatter for file name display.
+   */
+  formatterFileName?: (name: string) => string
+  /**
+   * Indicates if the file is being uploaded.
+   */
+  isUploading?: boolean
+  /**
+   * Indicates if there was an error during file upload.
+   */
+  hasError?: boolean
 }
 
 const FileUploadCard = ({
@@ -55,6 +71,10 @@ const FileUploadCard = ({
   onSearch,
   accept = '.csv,.xlsx,.xls',
   multiple = false,
+  formatterFileSize,
+  formatterFileName,
+  isUploading = false,
+  hasError = false,
   ...otherProps
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -102,13 +122,12 @@ const FileUploadCard = ({
         return
       }
 
-      setUploadState('uploading')
-      setErrorType(undefined)
-
-      // Simulate upload process
-      setTimeout(() => {
+      if (isUploading) {
+        setUploadState('uploading')
+        setErrorType(undefined)
+      } else {
         setUploadState('completed')
-      }, 2000)
+      }
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -145,13 +164,13 @@ const FileUploadCard = ({
         return
       }
 
-      setUploadState('uploading')
-      setErrorType(undefined)
-
-      // Simulate upload process
-      setTimeout(() => {
+      if (isUploading) {
+        setUploadState('uploading')
+      } else {
         setUploadState('completed')
-      }, 2000)
+      }
+
+      setErrorType(undefined)
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -172,7 +191,7 @@ const FileUploadCard = ({
       onDownloadTemplate()
     } else {
       // Default template download
-      const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
+      const csvContent = 'SKU,Quantity\nAB001,AB100,AB999\n2,5,49'
       const blob = new Blob([csvContent], { type: 'text/csv' })
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -228,6 +247,16 @@ const FileUploadCard = ({
           onSearch={handleSearch}
           onDownloadTemplate={handleDownloadTemplate}
           onSelectFile={triggerFileInput}
+          fileName={
+            formatterFileName
+              ? formatterFileName(selectedFile.name)
+              : selectedFile.name
+          }
+          completedText={
+            formatterFileSize
+              ? `Completed • ${formatterFileSize(selectedFile.size)}`
+              : 'Completed'
+          }
         />
       ) : (
         <div

@@ -1,0 +1,232 @@
+[data-fs-dropzone] {
+  // --------------------------------------------------------
+  // Design Tokens for Dropzone Component
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-modal-bg-color: var(--fs-color-neutral-0);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  // Base styles
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--fs-spacing-4);
+  cursor: pointer;
+  background-color: var(--fs-modal-bg-color);
+  border: 1px dashed var(--fs-color-neutral-3);
+  border-radius: var(--fs-border-radius);
+  transition: all var(--fs-transition-timing) var(--fs-transition-function);
+
+  // Hover state
+  &:hover {
+    background-color: var(--fs-color-primary-bkg-light);
+    border-color: var(--fs-color-primary-base);
+  }
+
+  // Focus state
+  &:focus-within {
+    outline: 2px solid var(--fs-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  // Drag active state
+  &[data-fs-dropzone-drag-active="true"] {
+    background-color: var(--fs-color-primary-bkg-light);
+    border-color: var(--fs-color-primary-base);
+    transform: scale(1.02);
+    animation: dropzone-pulse 1s infinite;
+  }
+
+  // Drag accept state
+  &[data-fs-dropzone-drag-accept="true"] {
+    background-color: var(--fs-color-success-bkg);
+    border-color: var(--fs-color-success-border);
+
+    [data-fs-dropzone-text] {
+      font-weight: var(--fs-text-weight-semibold);
+      color: var(--fs-color-success-text);
+    }
+  }
+
+  // Drag reject state
+  &[data-fs-dropzone-drag-reject="true"] {
+    background-color: var(--fs-color-danger-bkg);
+    border-color: var(--fs-color-danger-border);
+
+    [data-fs-dropzone-text] {
+      color: var(--fs-color-danger-text);
+    }
+  }
+
+  // Disabled state
+  &[data-fs-dropzone-disabled="true"] {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &:hover {
+      background-color: var(--fs-color-neutral-0);
+      border-color: var(--fs-border-color);
+    }
+  }
+
+  // Icon styles
+  [data-fs-dropzone-icon] {
+    margin-bottom: var(--fs-spacing-2);
+    font-size: var(--fs-text-size-4);
+    color: var(--fs-color-text-light);
+
+    svg {
+      width: 60px;
+      height: 50px;
+    }
+  }
+
+  // Content area
+  [data-fs-dropzone-content] {
+    width: 100%;
+    text-align: center;
+  }
+
+  // Text styles
+  [data-fs-dropzone-text] {
+    margin: 0;
+    font-size: var(--fs-text-size-2);
+    font-weight: var(--fs-text-weight-semibold);
+    line-height: 1.5;
+    color: var(--fs-color-text);
+  }
+
+  // Files list
+  [data-fs-dropzone-files] {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--fs-spacing-2);
+    margin-top: var(--fs-spacing-3);
+    background-color: var(--fs-color-success-bkg);
+    border: 1px solid var(--fs-color-success-border);
+    border-radius: var(--fs-border-radius-medium);
+
+    > p {
+      margin: 0 0 var(--fs-spacing-1) 0;
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-bold);
+      color: var(--fs-color-success-text);
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+  }
+
+  [data-fs-dropzone-file] {
+    padding: var(--fs-spacing-1) 0;
+    font-size: var(--fs-text-size-1);
+    color: var(--fs-color-text);
+    border-bottom: 1px solid var(--fs-color-success-border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  // Errors list
+  [data-fs-dropzone-errors] {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--fs-spacing-2);
+    margin-top: var(--fs-spacing-3);
+    background-color: var(--fs-color-danger-bkg);
+    border: 1px solid var(--fs-color-danger-border);
+    border-radius: var(--fs-border-radius-small);
+
+    > p {
+      margin: 0 0 var(--fs-spacing-1) 0;
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-bold);
+      color: var(--fs-color-danger-text);
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+  }
+
+  [data-fs-dropzone-error] {
+    padding: var(--fs-spacing-1) 0;
+    font-size: var(--fs-text-size-1);
+    color: var(--fs-color-danger-text);
+    border-bottom: 1px solid var(--fs-color-danger-border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  // Input hidden
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  [data-fs-dropzone] {
+    min-height: 150px;
+    padding: var(--fs-spacing-3);
+
+    [data-fs-dropzone-icon] svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    [data-fs-dropzone-text] {
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-semibold);
+    }
+  }
+}
+
+// Dark mode support (if using CSS custom properties)
+[data-theme="dark"] [data-fs-dropzone] {
+  background-color: var(--fs-color-neutral-1);
+  border-color: var(--fs-color-neutral-3);
+
+  &:hover {
+    background-color: var(--fs-color-primary-bkg-dark);
+  }
+}
+
+// Animation for drag state
+@keyframes dropzone-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
