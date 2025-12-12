@@ -144,7 +144,7 @@ importers:
         version: 0.21.12
       '@faststore/core':
         specifier: ^3.94.0
-        version: 3.95.0(@babel/core@7.26.7)(@faststore/components@3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(enquirer@2.3.6)(rollup@2.79.2)(typescript@5.4.5)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1)(yjs@13.6.27)
+        version: 3.95.0(@babel/core@7.26.7)(@faststore/components@3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.4.5)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1)
       '@inquirer/prompts':
         specifier: ^5.1.2
         version: 5.1.2
@@ -600,7 +600,7 @@ importers:
         version: 3.2.4(react@18.3.1)(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-essentials':
         specifier: ^8.5.2
-        version: 8.5.2(@types/react@18.2.21)(storybook@8.5.2(prettier@3.3.3))
+        version: 8.5.2(@types/react@18.2.42)(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-interactions':
         specifier: ^8.5.2
         version: 8.5.2(storybook@8.5.2(prettier@3.3.3))
@@ -620,11 +620,11 @@ importers:
         specifier: ^8.5.2
         version: 8.5.2(storybook@8.5.2(prettier@3.3.3))
       '@types/react':
-        specifier: 18.2.21
-        version: 18.2.21
+        specifier: ^18.2.42
+        version: 18.2.42
       '@types/react-dom':
-        specifier: 18.2.21
-        version: 18.2.21
+        specifier: ^18.2.42
+        version: 18.3.7(@types/react@18.2.42)
       sass:
         specifier: ^1.83.4
         version: 1.83.4
@@ -3646,8 +3646,10 @@ packages:
   '@types/react-dom@18.2.21':
     resolution: {integrity: sha512-gnvBA/21SA4xxqNXEwNiVcP0xSGHh/gi1VhWv9Bl46a0ItbTT5nFY+G9VSQpaG/8N/qdJpJ+vftQ4zflTtnjLw==}
 
-  '@types/react@18.2.21':
-    resolution: {integrity: sha512-neFKG/sBAwGxHgXiIxnbm3/AAVQ/cMRS93hvBpg8xYRbeQSPVABp9U2bRnPf0iI4+Ucdv3plSxKK+3CW2ENJxA==}
+  '@types/react-dom@18.3.7':
+    resolution: {integrity: sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==}
+    peerDependencies:
+      '@types/react': ^18.0.0
 
   '@types/react@18.2.42':
     resolution: {integrity: sha512-c1zEr96MjakLYus/wPnuWDo1/zErfdU9rNsIGmE+NV71nx88FG9Ttgo5dqorXTu/LImX2f63WBP986gJkMPNbA==}
@@ -12170,7 +12172,7 @@ snapshots:
       react-swipeable: 7.0.0(react@18.3.1)
       tabbable: 5.3.3
 
-  '@faststore/core@3.95.0(@babel/core@7.26.7)(@faststore/components@3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(enquirer@2.3.6)(rollup@2.79.2)(typescript@5.4.5)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1)(yjs@13.6.27)':
+  '@faststore/core@3.95.0(@babel/core@7.26.7)(@faststore/components@3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.4.5)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1)':
     dependencies:
       '@antfu/ni': 0.21.12
       '@builder.io/partytown': 0.6.4
@@ -12183,7 +12185,7 @@ snapshots:
       '@faststore/lighthouse': 3.95.0
       '@faststore/sdk': 3.95.0(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
       '@faststore/ui': 3.95.0(@faststore/components@3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@graphql-codegen/cli': 5.0.2(@parcel/watcher@2.5.1)(@types/node@16.18.57)(encoding@0.1.13)(enquirer@2.3.6)(graphql@15.8.0)(typescript@5.4.5)
+      '@graphql-codegen/cli': 5.0.2(@parcel/watcher@2.5.1)(@types/node@16.18.57)(encoding@0.1.13)(graphql@15.8.0)(typescript@5.4.5)
       '@graphql-codegen/client-preset': 4.2.6(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-codegen/typescript': 4.0.7(encoding@0.1.13)(graphql@15.8.0)
       '@graphql-codegen/typescript-operations': 4.2.1(encoding@0.1.13)(graphql@15.8.0)
@@ -12366,7 +12368,7 @@ snapshots:
       - zen-observable
       - zenObservable
 
-  '@graphql-codegen/cli@5.0.2(@parcel/watcher@2.5.1)(@types/node@16.18.57)(encoding@0.1.13)(enquirer@2.3.6)(graphql@15.8.0)(typescript@5.4.5)':
+  '@graphql-codegen/cli@5.0.2(@parcel/watcher@2.5.1)(@types/node@16.18.57)(encoding@0.1.13)(graphql@15.8.0)(typescript@5.4.5)':
     dependencies:
       '@babel/generator': 7.26.5
       '@babel/template': 7.25.9
@@ -14011,10 +14013,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@mdx-js/react@3.1.0(@types/react@18.2.21)(react@18.3.1)':
+  '@mdx-js/react@3.1.0(@types/react@18.2.42)(react@18.3.1)':
     dependencies:
       '@types/mdx': 2.0.3
-      '@types/react': 18.2.21
+      '@types/react': 18.2.42
       react: 18.3.1
 
   '@next/env@13.5.11': {}
@@ -14819,9 +14821,9 @@ snapshots:
       storybook: 8.5.2(prettier@3.3.3)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-docs@8.5.2(@types/react@18.2.21)(storybook@8.5.2(prettier@3.3.3))':
+  '@storybook/addon-docs@8.5.2(@types/react@18.2.42)(storybook@8.5.2(prettier@3.3.3))':
     dependencies:
-      '@mdx-js/react': 3.1.0(@types/react@18.2.21)(react@18.3.1)
+      '@mdx-js/react': 3.1.0(@types/react@18.2.42)(react@18.3.1)
       '@storybook/blocks': 8.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.2(prettier@3.3.3))
       '@storybook/csf-plugin': 8.5.2(storybook@8.5.2(prettier@3.3.3))
       '@storybook/react-dom-shim': 8.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.5.2(prettier@3.3.3))
@@ -14832,12 +14834,12 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@storybook/addon-essentials@8.5.2(@types/react@18.2.21)(storybook@8.5.2(prettier@3.3.3))':
+  '@storybook/addon-essentials@8.5.2(@types/react@18.2.42)(storybook@8.5.2(prettier@3.3.3))':
     dependencies:
       '@storybook/addon-actions': 8.5.2(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-backgrounds': 8.5.2(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-controls': 8.5.2(storybook@8.5.2(prettier@3.3.3))
-      '@storybook/addon-docs': 8.5.2(@types/react@18.2.21)(storybook@8.5.2(prettier@3.3.3))
+      '@storybook/addon-docs': 8.5.2(@types/react@18.2.42)(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-highlight': 8.5.2(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-measure': 8.5.2(storybook@8.5.2(prettier@3.3.3))
       '@storybook/addon-outline': 8.5.2(storybook@8.5.2(prettier@3.3.3))
@@ -15389,11 +15391,9 @@ snapshots:
     dependencies:
       '@types/react': 18.2.42
 
-  '@types/react@18.2.21':
+  '@types/react-dom@18.3.7(@types/react@18.2.42)':
     dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
-      csstype: 3.1.1
+      '@types/react': 18.2.42
 
   '@types/react@18.2.42':
     dependencies:
