@@ -15,9 +15,9 @@
     "generate:codegen": "graphql-codegen",
     "format:generated": "prettier --write \"@generated/**/*.{ts,js,tsx,jsx,json}\" --loglevel error",
     "generate": "na run generate:schema && na run generate:codegen && na run format:generated",
-    "prebuild": "na run partytown && na run generate",
+    "prebuild": "na run generate",
     "build": "next build",
-    "predev": "na run partytown && na run generate",
+    "predev": "na run generate",
     "dev": "next dev",
     "dev-only": "next dev",
     "clean": "rm -r .next",
@@ -25,8 +25,7 @@
     "test:e2e": "cypress open",
     "test": "jest",
     "lhci": "lhci autorun",
-    "postinstall": "node postinstall.js && is-ci || echo Skipped postinstall step for @faststore/core",
-    "partytown": "partytown copylib ./public/~partytown"
+    "postinstall": "node postinstall.js && is-ci || echo Skipped postinstall step for @faststore/core"
   },
   "engines": {
     "node": ">=18"
@@ -39,7 +38,6 @@
   "sideEffects": false,
   "dependencies": {
     "@antfu/ni": "^0.21.12",
-    "@builder.io/partytown": "^0.6.1",
     "@envelop/core": "^5.0.2",
     "@envelop/graphql-jit": "^8.0.3",
     "@envelop/parser-cache": "^6.0.2",

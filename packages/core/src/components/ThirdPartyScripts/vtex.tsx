@@ -5,7 +5,7 @@ function VTEX() {
     <>
       <script
         key="vtexrc.js-init"
-        type="text/partytown"
+        type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: `
             window.VTEX_METADATA = {account:'${storeConfig.api.storeId}', renderer: 'faststore'};
@@ -15,7 +15,7 @@ function VTEX() {
       />
       <script
         key="vtexrc.js-script"
-        type="text/partytown"
+        type="text/javascript"
         async
         src="https://io.vtex.com.br/rc/rc.js"
       />
