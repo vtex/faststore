@@ -211,8 +211,10 @@ const query = gql(`
             name
             quantity
             price
+            sellingPrice
             imageUrl
             tax
+            taxPriceTagsTotal
             total
           }
         }
