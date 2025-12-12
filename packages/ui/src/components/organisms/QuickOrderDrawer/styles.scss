@@ -41,6 +41,7 @@
     width: var(--fs-qod-width);
 
     @include media(">=notebook") {
+      width: var(--fs-qod-width);
       max-width: var(--fs-qod-width);
     }
   }
