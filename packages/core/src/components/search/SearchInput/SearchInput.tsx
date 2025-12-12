@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
+  FileUploadCard,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
@@ -90,6 +91,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
+    const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
+    const [isUploadOpen, setIsUploadOpen] = useState(false)
+    const [hasFile, setHasFile] = useState(false)
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
@@ -108,9 +112,29 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchDropdownVisible(false)
     }
 
-    useOnClickOutside(searchRef, () =>
+    const handleFileSelect = (files: File[]) => {
+      setHasFile(true)
+      setIsUploadOpen(true)
+      // TODO: Handle file upload logic
+      // setFileUploadVisible(false)
+    }
+
+    const handleDownloadTemplate = () => {
+      // Create a sample CSV template
+      const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
+      const blob = new Blob([csvContent], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'template.csv'
+      a.click()
+      window.URL.revokeObjectURL(url)
+    }
+
+    useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
-    )
+      setFileUploadVisible(false)
+    })
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -152,6 +176,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
+              showAttachmentButton={true}
+              attachmentButtonProps={{
+                onClick: () => setFileUploadVisible(true),
+              }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
               }
@@ -179,6 +207,15 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   }
                 />
               </Suspense>
+            )}
+
+            {fileUploadVisible && (
+              <FileUploadCard
+                isOpen={isUploadOpen || hasFile || fileUploadVisible}
+                onDismiss={() => setFileUploadVisible(false)}
+                onFileSelect={handleFileSelect}
+                onDownloadTemplate={handleDownloadTemplate}
+              />
             )}
           </UISearchInput>
         )}

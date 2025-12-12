@@ -1,0 +1,235 @@
+[data-fs-file-upload-status] {
+  // --------------------------------------------------------
+  // Design Tokens for File Upload Status
+  // --------------------------------------------------------
+
+  --fs-file-upload-status-padding: var(--fs-spacing-0);
+  --fs-file-upload-status-gap: var(--fs-spacing-3);
+  --fs-file-upload-status-bkg-color: var(--fs-color-neutral-0);
+
+  --fs-file-upload-status-file-info-padding: var(--fs-spacing-3);
+  --fs-file-upload-status-file-info-border-color: var(--fs-border-color-light);
+  --fs-file-upload-status-file-info-border-radius: 1.25rem;
+
+  --fs-file-upload-status-icon-size: var(--fs-spacing-6);
+  --fs-file-upload-status-icon-bg-completed: #08a822;
+  --fs-file-upload-status-icon-bg-uploading: #08a822;
+  --fs-file-upload-status-icon-bg-error: #d31a15;
+
+  --fs-file-upload-status-filename-color: var(--fs-color-text);
+  --fs-file-upload-status-text-color: var(--fs-color-text-light);
+
+  --fs-file-upload-status-button-width: 100%;
+  --fs-file-upload-status-button-height: var(--fs-spacing-7);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-file-upload-status-gap);
+
+  // height: 188px;
+  width: 100%;
+  padding: var(--fs-file-upload-status-padding);
+  background-color: var(--fs-file-upload-status-bkg-color);
+}
+
+[data-fs-file-upload-status-file-info] {
+  display: flex;
+  gap: var(--fs-spacing-3);
+  align-items: center;
+  padding: var(--fs-file-upload-status-file-info-padding);
+  background-color: var(--fs-color-neutral-0);
+  border:
+    var(--fs-border-width) solid
+    var(--fs-file-upload-status-file-info-border-color);
+  border-radius: var(--fs-file-upload-status-file-info-border-radius);
+}
+
+[data-fs-file-upload-status-file-info][data-fs-file-upload-state="error"] {
+  background-color: #fdf6f5;
+  border: 1px solid #ffdfd9;
+}
+
+[data-fs-file-upload-status-icon] {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--fs-file-upload-status-icon-size);
+  height: var(--fs-file-upload-status-icon-size);
+  border-radius: var(--fs-border-radius);
+}
+
+[data-fs-file-upload-status-icon-loading] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--fs-file-upload-status-icon-bg-uploading);
+  border-radius: var(--fs-border-radius);
+
+  [data-fs-icon] {
+    overflow: visible;
+    color: var(--fs-color-neutral-0);
+    fill: currentColor;
+    stroke: currentColor;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[data-fs-file-upload-status-icon-completed] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--fs-file-upload-status-icon-bg-completed);
+  border-radius: var(--fs-border-radius-medium);
+
+  [data-fs-icon] {
+    overflow: visible;
+    color: var(--fs-color-neutral-0);
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+[data-fs-file-upload-status-icon-error] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--fs-file-upload-status-icon-bg-error);
+  border-radius: var(--fs-border-radius-medium);
+
+  [data-fs-icon] {
+    overflow: visible;
+    color: var(--fs-color-neutral-0);
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+[data-fs-file-upload-status-details] {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--fs-spacing-0);
+  min-width: 0;
+}
+
+[data-fs-file-upload-status-filename] {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--fs-text-size-body);
+  font-weight: var(--fs-text-weight-medium);
+  color: var(--fs-file-upload-status-filename-color);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-fs-file-upload-status-text-error] {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--fs-text-size-legend);
+  font-weight: var(--fs-text-weight-medium);
+  color: var(--fs-file-upload-status-filename-color);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-fs-file-upload-status-text] {
+  margin: 0;
+  font-size: var(--fs-text-size-legend);
+  font-weight: var(--fs-text-weight-medium);
+  color: var(--fs-file-upload-status-text-color);
+
+  [data-fs-file-upload-status-state="error"] & {
+    font-size: var(--fs-text-size-1);
+    font-weight: 500;
+  }
+}
+
+[data-fs-file-upload-status-remove] {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fs-spacing-1);
+  color: var(--fs-color-text);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: opacity var(--fs-transition-timing) ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    border-radius: var(--fs-border-radius-small);
+    outline: 2px solid var(--fs-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  [data-fs-icon] {
+    width: var(--fs-spacing-4);
+    height: var(--fs-spacing-4);
+  }
+}
+
+[data-fs-file-upload-status-search-button] {
+  width: var(--fs-file-upload-status-button-width);
+  height: var(--fs-file-upload-status-button-height);
+  min-height: var(--fs-file-upload-status-button-height);
+
+  --fs-button-border-radius: var(--fs-border-radius-pill);
+  --fs-button-primary-bkg-color: #0366dd;
+  --fs-button-primary-bkg-color-hover: #0252b8;
+  --fs-button-primary-text-color: var(--fs-color-neutral-0);
+
+  [data-fs-button-wrapper] {
+    padding: 0;
+  }
+}
+
+[data-fs-file-upload-status-error-actions] {
+  display: flex;
+  gap: var(--fs-spacing-2);
+  width: 100%;
+}
+
+[data-fs-file-upload-status-download-button],
+[data-fs-file-upload-status-select-button] {
+  flex: 1;
+  height: var(--fs-file-upload-status-button-height);
+  min-height: var(--fs-file-upload-status-button-height);
+
+  --fs-button-border-radius: var(--fs-border-radius-pill);
+  --fs-button-primary-bkg-color: #0366dd;
+  --fs-button-primary-bkg-color-hover: #0252b8;
+  --fs-button-primary-text-color: var(--fs-color-neutral-0);
+  --fs-button-secondary-text-color: #0366dd;
+  --fs-button-secondary-bkg-color: transparent;
+  --fs-button-secondary-border-color: #d6d6d6;
+  --fs-button-secondary-text-color-hover: var(--fs-color-neutral-0);
+
+  [data-fs-button-wrapper] {
+    padding: 0;
+  }
+}
