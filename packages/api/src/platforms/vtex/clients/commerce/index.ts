@@ -442,7 +442,7 @@ export const VtexCommerce = (
           headers,
           body: '{}',
         },
-        { storeCookies }
+        { storeCookies: sessionCookie ? undefined : storeCookies }
       )
     },
     subscribeToNewsletter: (data: {
