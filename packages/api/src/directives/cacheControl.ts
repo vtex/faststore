@@ -11,12 +11,18 @@ export interface CacheControl {
   scope?: string
 }
 
-export const stringify = ({
-  scope = 'private',
-  sMaxAge = 0,
-  staleWhileRevalidate = 0,
-}: CacheControl) =>
-  `${scope}, s-maxage=${sMaxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+export const stringify = (
+  cacheControl: CacheControl,
+  forcePrivate?: boolean
+): string => {
+  const {
+    scope = 'private',
+    sMaxAge = 0,
+    staleWhileRevalidate = 0,
+  } = cacheControl
+  const finalScope = forcePrivate ? 'private' : scope
+  return `${finalScope}, s-maxage=${sMaxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+}
 
 const min = (a: number | undefined, b: number | undefined) => {
   if (typeof a === 'number' && typeof b === 'number') {
