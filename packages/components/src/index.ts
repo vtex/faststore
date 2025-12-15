@@ -1,5 +1,6 @@
 // Hooks
 export * from './hooks'
+export { useCSVParser } from './hooks/useCSVParser'
 export type {
   CSVData,
   CSVParserError,
@@ -423,8 +424,10 @@ export {
 } from './organisms/QuickOrderDrawer'
 
 export type {
+  Product,
   QuickOrderDrawerFooterProps,
   QuickOrderDrawerHeaderProps,
   QuickOrderDrawerProductsProps,
   QuickOrderDrawerProps,
+  VariationProductColumn,
 } from './organisms/QuickOrderDrawer'

@@ -8,8 +8,17 @@ export type QuickOrderDrawerFooterProps = {
 }
 
 const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
-  const [loading, _setLoading] = useState(false)
-  const { itemsCount, totalPrice } = useQuickOrderDrawer()
+  const [loading, setLoading] = useState(false)
+  const { itemsCount, totalPrice, onAddToCart } = useQuickOrderDrawer()
+
+  const handleAddToCart = async () => {
+    setLoading(true)
+    try {
+      onAddToCart()
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div data-fs-qod-footer>
@@ -21,6 +30,7 @@ const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
         data-fs-qod-add-to-cart-btn
         variant="primary"
         loading={loading}
+        onClick={handleAddToCart}
         aria-label={`Add ${itemsCount} items to cart`}
       >
         Add to Cart

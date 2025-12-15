@@ -4,7 +4,10 @@ import type { PriceFormatter } from '../../atoms/Price'
 import { useFadeEffect } from '../../hooks'
 import SlideOver from '../SlideOver/SlideOver'
 
-import { QuickOrderDrawerProvider } from './provider/QuickOrderDrawerProvider'
+import {
+  QuickOrderDrawerProvider,
+  type QuickOrderDrawerProviderProps,
+} from './provider/QuickOrderDrawerProvider'
 
 export type QuickOrderDrawerProps = {
   /**
@@ -26,17 +29,23 @@ export type QuickOrderDrawerProps = {
    * Formatter function that transforms the raw price value and render the result.
    */
   formatter?: PriceFormatter
+
+  /**
+   * Props forwarded to the `QuickOrderDrawerProvider` component.
+   */
+  providerProps?: Omit<QuickOrderDrawerProviderProps, 'children'>
 }
 
 const QuickOrderDrawer = ({
   testId = 'fs-qod',
   isOpen,
   overlayProps,
+  providerProps,
   children,
 }: PropsWithChildren<QuickOrderDrawerProps>) => {
   const { fade } = useFadeEffect()
   return (
-    <QuickOrderDrawerProvider>
+    <QuickOrderDrawerProvider {...providerProps}>
       <SlideOver
         testId={testId}
         fade={fade}

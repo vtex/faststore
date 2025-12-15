@@ -1,4 +1,4 @@
-export { default, default as QuickOrderDrawer } from './QuickOrderDrawer'
+export { default as QuickOrderDrawer, default } from './QuickOrderDrawer'
 export type { QuickOrderDrawerProps } from './QuickOrderDrawer'
 
 export { default as QuickOrderDrawerHeader } from './QuickOrderDrawerHeader'
@@ -9,3 +9,8 @@ export type { QuickOrderDrawerProductsProps } from './QuickOrderDrawerProducts'
 
 export { default as QuickOrderDrawerFooter } from './QuickOrderDrawerFooter'
 export type { QuickOrderDrawerFooterProps } from './QuickOrderDrawerFooter'
+
+export type {
+  Product,
+  VariationProductColumn,
+} from './provider/QuickOrderDrawerProvider'

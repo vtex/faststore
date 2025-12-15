@@ -3253,6 +3253,51 @@ export type ClientAllVariantProductsQueryQuery = {
   }
 }
 
+export type ClientBulkProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ClientBulkProductQueryQuery = {
+  product: {
+    sku: string
+    name: string
+    gtin: string
+    description: string
+    unitMultiplier: number | null
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
+      } | null
+    }
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    offers: {
+      lowPrice: number
+      lowPriceWithTaxes: number
+      offers: Array<{
+        availability: string
+        price: number
+        priceWithTaxes: number
+        listPrice: number
+        listPriceWithTaxes: number
+        seller: { identifier: string }
+      }>
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+  }
+}
+
 export type ClientManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input']
   after: InputMaybe<Scalars['String']['input']>
@@ -4435,6 +4480,15 @@ export const ClientAllVariantProductsQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientAllVariantProductsQueryQuery,
   ClientAllVariantProductsQueryQueryVariables
+>
+export const ClientBulkProductQueryDocument = {
+  __meta__: {
+    operationName: 'ClientBulkProductQuery',
+    operationHash: '327ba5943f9258729bf425cd42b89912be035c8a',
+  },
+} as unknown as TypedDocumentString<
+  ClientBulkProductQueryQuery,
+  ClientBulkProductQueryQueryVariables
 >
 export const ClientManyProductsQueryDocument = {
   __meta__: {
