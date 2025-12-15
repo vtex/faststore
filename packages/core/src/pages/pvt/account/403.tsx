@@ -24,6 +24,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
 
@@ -90,7 +91,7 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
@@ -159,5 +160,9 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)
 
 export default Page
