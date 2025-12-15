@@ -4,6 +4,7 @@ import {
   forwardRef,
   lazy,
   useDeferredValue,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -17,12 +18,17 @@ import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
+  QuickOrderDrawer,
+  QuickOrderDrawerFooter,
+  QuickOrderDrawerHeader,
+  QuickOrderDrawerProducts,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
   useCSVParser,
   useOnClickOutside,
   type CSVData,
+  type Product,
 } from '@faststore/ui'
 
 import type {
@@ -40,6 +46,9 @@ import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
 import type { UploadFileDropdownLabels } from 'src/components/search/UploadFileDropdown'
+import { cartStore } from 'src/sdk/cart'
+import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuickOrder'
+import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
@@ -154,12 +163,15 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
     const [isUploadOpen, setIsUploadOpen] = useState(false)
     const [hasFile, setHasFile] = useState(false)
+    const [isQuickOrderDrawerOpen, setIsQuickOrderDrawerOpen] = useState(false)
+    const [quickOrderProducts, setQuickOrderProducts] = useState<Product[]>([])
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
 
     const [csvData, setCsvData] = useState<CSVData | null>(null)
+    const [skusToFetch, setSkusToFetch] = useState<string[]>([])
 
     const csvParserOptions = useMemo(
       () => ({ delimiter: ',' as const, skipEmptyLines: true }),
@@ -244,9 +256,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     }
 
     const handleSearch = () => {
-      if (!csvData) {
-        return
-      }
+      if (!csvData) return
+
       const payload = {
         fileName: csvData.fileName,
         totalRows: csvData.totalRows,
@@ -261,7 +272,49 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         // ignore in envs without window
       }
       onFileSearch?.(csvData)
+
+      // Extract SKUs from CSV data for product fetch
+      const skus = csvData.data.map((item) => item.sku)
+      setSkusToFetch(skus)
     }
+
+    // Fetch products when SKUs are available
+    const { products: fetchedProducts, isLoading: isLoadingProducts } =
+      useBulkProductsQuery(skusToFetch)
+
+    // Convert fetched products to QuickOrder format when available
+    useEffect(() => {
+      if (fetchedProducts.length > 0 && skusToFetch.length > 0) {
+        const convertedProducts: Product[] = []
+
+        fetchedProducts.forEach((productData) => {
+          if (productData.product && !productData.error) {
+            // Find the requested quantity for this SKU
+            const csvItem = csvData?.data.find(
+              (item) => item.sku === productData.sku
+            )
+            const requestedQuantity = csvItem?.quantity ?? 1
+
+            const convertedProduct = convertProductToQuickOrder(
+              productData.product,
+              requestedQuantity
+            )
+
+            if (convertedProduct) {
+              convertedProducts.push(convertedProduct)
+            }
+          }
+        })
+
+        setQuickOrderProducts(convertedProducts)
+
+        // Open drawer if we have products
+        if (convertedProducts.length > 0) {
+          setIsQuickOrderDrawerOpen(true)
+          setFileUploadVisible(false)
+        }
+      }
+    }, [fetchedProducts, skusToFetch, csvData])
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
@@ -369,7 +422,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   formatterFileSize: formatFileSize,
                   formatterFileName: formatFileName,
                   onSearch: handleSearch,
-                  isUploading: isCsvProcessing,
+                  isUploading: isCsvProcessing || isLoadingProducts,
                   hasError: !!csvError,
                   accept: fileUploadConfig?.acceptedFileTypes ?? '.csv',
                   ...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS),
@@ -411,6 +464,73 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
           </UISearchInput>
         )}
+
+        <QuickOrderDrawer
+          isOpen={isQuickOrderDrawerOpen}
+          overlayProps={{
+            onClick: () => setIsQuickOrderDrawerOpen(false),
+          }}
+          providerProps={{
+            initialProducts: quickOrderProducts,
+            onAddToCart: (productsToAdd: Product[]) => {
+              // Convert products to cart items and add to cart
+              productsToAdd.forEach((product: Product) => {
+                if (
+                  product.selectedCount > 0 &&
+                  product.availability === 'available'
+                ) {
+                  // Find the corresponding fetched product to get full details
+                  const fetchedProduct = fetchedProducts.find(
+                    (p) => p.product?.sku === product.id
+                  )?.product
+
+                  if (fetchedProduct && fetchedProduct.offers?.offers[0]) {
+                    const offer = fetchedProduct.offers.offers[0]
+
+                    cartStore.addItem({
+                      itemOffered: {
+                        sku: fetchedProduct.sku,
+                        name: fetchedProduct.name,
+                        unitMultiplier: fetchedProduct.unitMultiplier ?? 1,
+                        image: fetchedProduct.image,
+                        brand: fetchedProduct.brand,
+                        isVariantOf: fetchedProduct.isVariantOf,
+                        gtin: fetchedProduct.gtin,
+                        additionalProperty: fetchedProduct.additionalProperty,
+                      },
+                      seller: offer.seller,
+                      quantity: product.selectedCount,
+                      price: product.price,
+                      listPrice: offer.listPrice ?? product.price,
+                      priceWithTaxes: offer.priceWithTaxes ?? product.price,
+                      listPriceWithTaxes:
+                        offer.listPriceWithTaxes ?? product.price,
+                    })
+                  }
+                }
+              })
+
+              setIsQuickOrderDrawerOpen(false)
+            },
+          }}
+        >
+          <QuickOrderDrawerHeader
+            title="Quick Order"
+            onCloseDrawer={() => setIsQuickOrderDrawerOpen(false)}
+          />
+          <QuickOrderDrawerProducts
+            columns={{
+              name: 'Product',
+              availability: {
+                label: 'Availability',
+                stockDisplaySettings: 'showAvailability',
+              },
+              price: 'Price',
+              quantity: 'Quantity',
+            }}
+          />
+          <QuickOrderDrawerFooter />
+        </QuickOrderDrawer>
       </>
     )
   }
