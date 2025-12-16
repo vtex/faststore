@@ -37,7 +37,9 @@ function ThirdPartyScripts() {
       {includeGTM && <GoogleTagManager containerId={gtmContainerId} />}
       {includeVTEX && <VTEX />}
       <OverrideComponents.ThirdPartyScripts />
-      <Partytown key="partytown" />
+      {typeof window !== 'undefined' && window.self === window.top && (
+        <Partytown key="partytown" />
+      )}
     </>
   )
 }
