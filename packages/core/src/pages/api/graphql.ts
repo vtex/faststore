@@ -90,8 +90,8 @@ const handler: NextApiHandler = async (request, response) => {
   }
 
   try {
-    // v is used to cache bust the request if there is a VtexIdclientAutCookie
-    const { operation, variables, query, v } = parseRequest(request)
+    // value is used to cache bust the request if there is a VtexIdclientAutCookie
+    const { operation, variables, query, v: value } = parseRequest(request)
 
     if (
       operation.__meta__.operationName === 'ValidateSession' &&
@@ -144,7 +144,7 @@ const handler: NextApiHandler = async (request, response) => {
     const { data, errors, extensions } = await execute(
       {
         operation,
-        variables: { ...variables, ...(v ? { v } : {}) },
+        variables: { ...variables, ...(value ? { v: value } : {}) },
         query,
       },
       { headers: request.headers }

@@ -1,3 +1,5 @@
+import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
+
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
 export type Operation = {
   __meta__?: Record<string, any>
@@ -13,6 +15,7 @@ export interface BaseRequestOptions<V = any> {
   variables: V
   fetchOptions?: RequestInit
   cacheBusting?: boolean
+  value?: string | null
 }
 
 const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
@@ -21,35 +24,19 @@ const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
   },
 }
 
-/**
- * Checks if there is any cookie that starts with 'VtexIdclientAutCookie'
- * in the browser cookies
- */
-const hasVtexIdclientAutCookie = (): boolean => {
-  if (typeof document === 'undefined') {
-    return false
-  }
-
-  const cookies = document.cookie.split(';').map((cookie) => cookie.trim())
-  return cookies.some((cookie) => {
-    const cookieName = cookie.split('=')[0]
-    return cookieName.startsWith('VtexIdclientAutCookie')
-  })
-}
-
 export const request = async <Query = unknown, Variables = unknown>(
   operation: Operation,
   variables: Variables,
   options?: RequestOptions
 ) => {
-  const hasAuthCookie = hasVtexIdclientAutCookie()
+  // Get cache busting value based on cookie changes
+  const value = getClientCacheBustingValue()
 
-  // If there is a VtexIdclientAutCookie, we need to cache bust to get updated values according to the user's session
   const { data, errors } = await baseRequest<Variables, Query>('/api/graphql', {
     ...options,
     variables,
     operation,
-    cacheBusting: hasAuthCookie,
+    value,
   })
 
   if (errors?.length) {
@@ -62,12 +49,7 @@ export const request = async <Query = unknown, Variables = unknown>(
 /* This piece of code was taken out of @faststore/graphql-utils */
 const baseRequest = async <V = any, D = any>(
   endpoint: string,
-  {
-    operation,
-    variables,
-    fetchOptions,
-    cacheBusting = false,
-  }: BaseRequestOptions<V>
+  { operation, variables, fetchOptions, value }: BaseRequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
   const { operationName, operationHash } = operation['__meta__']
 
@@ -84,7 +66,7 @@ const baseRequest = async <V = any, D = any>(
     operationName,
     operationHash,
     ...(method === 'GET' && { variables: JSON.stringify(variables) }),
-    ...(method === 'GET' && cacheBusting && { v: '1' }),
+    ...(method === 'GET' && value && { v: value }),
   })
 
   const body =
