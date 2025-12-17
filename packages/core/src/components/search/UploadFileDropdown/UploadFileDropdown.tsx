@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import * as XLSX from 'xlsx'
+import { useEffect, useState } from 'react'
 
 import {
   Button,
@@ -7,7 +6,9 @@ import {
   Dropzone as UIDropzone,
   Icon as UIIcon,
   SearchDropdown as UISearchDropdown,
+  useCSVParser,
   useUI,
+  type CSVData,
   type DropzoneState,
 } from '@faststore/ui'
 
@@ -20,161 +21,35 @@ const ACCEPTED_FILE_TYPES = {
   'text/csv': ['.csv'],
 }
 
-type CSVData = {
-  data: Array<{ SKU: string; Quantity: number }>
-  fileName: string
-  totalRows: number
-  fileSize: number
-}
-
 export default function UploadFileDropdown() {
   const { pushToast } = useUI()
 
   const [csvData, setCsvData] = useState<CSVData | null>(null)
-  const [isProcessing, setIsProcessing] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
-  const parseCSVFile = async (file: File): Promise<CSVData> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-
-      reader.onload = (e) => {
-        try {
-          const data = e.target?.result
-          if (!data) {
-            throw new Error('Failed to read file')
-          }
-
-          // Parse the file using XLSX
-          const workbook = XLSX.read(data, { type: 'binary' })
-
-          // Get the first sheet
-          const sheetName = workbook.SheetNames[0]
-          const worksheet = workbook.Sheets[sheetName]
-
-          // Convert to JSON array of objects
-          const jsonData = XLSX.utils.sheet_to_json(worksheet, {
-            header: 1,
-            defval: '', // Default value for empty cells
-          })
-
-          if (!jsonData || jsonData.length === 0) {
-            throw new Error('File is empty or invalid')
-          }
-
-          // Get headers and rows
-          const headers = jsonData[0] as string[]
-          const rows = jsonData.slice(1) as string[][]
-
-          // Find SKU and Quantity column indices
-          const skuIndex = headers.findIndex(
-            (header) =>
-              header.toLowerCase().includes('sku') ||
-              header.toLowerCase().includes('id') ||
-              header.toLowerCase().includes('product')
-          )
-
-          const quantityIndex = headers.findIndex(
-            (header) =>
-              header.toLowerCase().includes('quantity') ||
-              header.toLowerCase().includes('qty') ||
-              header.toLowerCase().includes('amount')
-          )
-
-          if (skuIndex === -1) {
-            throw new Error(
-              'SKU column not found. Please ensure your file has a column with "SKU", "ID", or "Product" in the header.'
-            )
-          }
-
-          if (quantityIndex === -1) {
-            throw new Error(
-              'Quantity column not found. Please ensure your file has a column with "Quantity", "Qty", or "Amount" in the header.'
-            )
-          }
-
-          // Transform data to the required format
-          const transformedData = rows
-            .filter(
-              (row) =>
-                // Filter out empty rows
-                row[skuIndex] &&
-                row[skuIndex] !== '' &&
-                row[quantityIndex] !== undefined &&
-                row[quantityIndex] !== ''
-            )
-            .map((row) => {
-              const sku = String(row[skuIndex]).trim()
-              const quantity = Number(row[quantityIndex])
-
-              // Validate quantity is a valid number
-              if (isNaN(quantity) || quantity < 0) {
-                throw new Error(
-                  `Invalid quantity value: ${row[quantityIndex]} for SKU: ${sku}`
-                )
-              }
-
-              return {
-                SKU: sku,
-                Quantity: quantity,
-              }
-            })
-
-          if (transformedData.length === 0) {
-            throw new Error(
-              'No valid data found. Please check your file format.'
-            )
-          }
-
-          resolve({
-            data: transformedData,
-            fileName: file.name,
-            totalRows: transformedData.length,
-            fileSize: file.size,
-          })
-        } catch (err) {
-          reject(
-            new Error(
-              `Failed to parse file: ${
-                err instanceof Error ? err.message : 'Unknown error'
-              }`
-            )
-          )
-        }
-      }
-
-      reader.onerror = () => {
-        reject(new Error('Failed to read file'))
-      }
-
-      reader.readAsBinaryString(file)
-    })
-  }
+  const {
+    error: csvError,
+    isProcessing,
+    onParseFile,
+    onClearError,
+    onGenerateTemplate,
+  } = useCSVParser({
+    delimiter: ',',
+    skipEmptyLines: true,
+    skuColumnNames: ['sku', 'id', 'product', 'productid', 'item'],
+    quantityColumnNames: ['quantity', 'qty', 'amount', 'count'],
+  })
 
   const clearData = () => {
     setCsvData(null)
-    setError(null)
+    onClearError()
   }
 
-  const handleFilesAccepted = async (files: File[]) => {
-    if (files.length === 0) return
-
-    setIsProcessing(true)
-    setError(null)
-    setCsvData(null)
-
-    try {
-      const file = files[0]
-      const parsedData = await parseCSVFile(file)
-      setCsvData(parsedData)
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Failed to process file'
-
-      setError(errorMessage)
+  // Show toast notification when CSV parsing error occurs
+  useEffect(() => {
+    if (csvError) {
       pushToast({
         title: 'File Upload Error',
-        message: errorMessage,
+        message: csvError.message,
         status: 'ERROR',
         icon: (
           <UIIcon
@@ -185,9 +60,22 @@ export default function UploadFileDropdown() {
           />
         ),
       })
-    } finally {
-      setIsProcessing(false)
     }
+  }, [csvError, pushToast])
+
+  const handleFilesAccepted = async (files: File[]) => {
+    if (files.length === 0) return
+
+    setCsvData(null)
+    onClearError()
+
+    const file = files[0]
+    const parsedData = await onParseFile(file)
+
+    if (parsedData) {
+      setCsvData(parsedData)
+    }
+    // Error handling is done by the hook and displayed via csvError state
   }
 
   const handleFilesRejected = (
@@ -205,66 +93,41 @@ export default function UploadFileDropdown() {
       errorMessage = 'Too many files. Please upload only one file.'
     }
 
-    setError(errorMessage)
+    pushToast({
+      title: 'File Upload Error',
+      message: errorMessage,
+      status: 'ERROR',
+      icon: (
+        <UIIcon
+          name="CircleWavyWarning"
+          width={30}
+          height={30}
+          data-fs-upload-error-icon
+        />
+      ),
+    })
   }
 
-  const handleDownloadTemplate = () => {
+  const handleDownloadTemplate = async () => {
     try {
-      const templateData = [
-        { SKU: 'PROD-001', Quantity: 5 },
-        { SKU: 'ITEM-234', Quantity: 12 },
-        { SKU: 'SKU789', Quantity: 3 },
-        { SKU: 'ABC-XYZ-456', Quantity: 8 },
-        { SKU: 'SAMPLE-100', Quantity: 25 },
-      ]
+      const csvContent = await onGenerateTemplate()
 
-      const ws = XLSX.utils.json_to_sheet(templateData, {
-        header: ['SKU', 'Quantity'],
-      })
+      if (csvContent) {
+        const blob = new Blob([csvContent], { type: 'text/csv' })
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'bulk-search-template.csv'
+        a.click()
+        window.URL.revokeObjectURL(url)
 
-      ws['!cols'] = [
-        { wch: 15 }, // SKU column width
-        { wch: 10 }, // Quantity column width
-      ]
-
-      // Add comments to header cells
-      if (!ws['!comments']) ws['!comments'] = []
-
-      ws['A1'].c = [
-        {
-          a: 'System',
-          t: 'Enter the product SKU/ID as it appears in your catalog',
-        },
-      ]
-
-      ws['B1'].c = [
-        {
-          a: 'System',
-          t: 'Enter a positive number for the desired quantity',
-        },
-      ]
-
-      const wb = XLSX.utils.book_new()
-      XLSX.utils.book_append_sheet(wb, ws, 'Bulk Search Template')
-
-      const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-')
-      const filename = `bulk-search-template-${timestamp}.xlsx`
-
-      wb.Props = {
-        Title: 'Bulk Search Template',
-        Subject: 'Template for bulk product search',
-        Author: 'FastStore',
-        CreatedDate: new Date(),
+        pushToast({
+          title: 'Template Downloaded',
+          message: 'Template file has been downloaded successfully',
+          status: 'INFO',
+          icon: <UIIcon name="CircleWavyCheck" width={30} height={30} />,
+        })
       }
-
-      XLSX.writeFile(wb, filename)
-
-      pushToast({
-        title: 'Template Downloaded',
-        message: 'Template file has been downloaded successfully',
-        status: 'INFO',
-        icon: <UIIcon name="CircleWavyCheck" width={30} height={30} />,
-      })
     } catch (error) {
       pushToast({
         title: 'Download Failed',
@@ -358,10 +221,10 @@ export default function UploadFileDropdown() {
         </div>
       )}
 
-      {error && (
+      {csvError && (
         <div data-fs-upload-error>
           <UIIcon name="CircleWavyWarning" data-fs-upload-error-icon />
-          <p>{error}</p>
+          <p>{csvError.message}</p>
         </div>
       )}
     </UISearchDropdown>
