@@ -14,11 +14,11 @@ import path from 'path'
 
 import ora from 'ora'
 
-import { withBasePath } from './directory'
+import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
+import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
-import { createNextJsPages } from './createNextjsPages'
 
 interface GenerateOptions {
   setup?: boolean
@@ -120,7 +120,7 @@ function copyCoreFiles(basePath: string) {
 function copyPublicFiles(basePath: string) {
   const { userDir, tmpDir } = withBasePath(basePath)
 
-  const allowList = ['json', 'txt', 'xml', 'ico', 'public']
+  const allowList = ['json', 'txt', 'xml', 'ico', 'public', 'svg']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {

@@ -14,7 +14,7 @@
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "test": "turbo run test",
     "size": "turbo run size",
-    "release": "lerna version --conventional-commits --yes && lerna publish from-git --yes",
+    "release": "lerna version --conventional-commits --conventional-graduate --yes && lerna publish from-git --yes",
     "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --yes && lerna publish from-git --dist-tag=dev --yes",
     "clean": "turbo run clean && rm -rf node_modules",
     "prepare": "husky"

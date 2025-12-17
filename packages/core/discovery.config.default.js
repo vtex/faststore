@@ -16,7 +16,7 @@ module.exports = {
     },
     search: {
       titleTemplate: '%s | Search results',
-      descriptionTemplate: '%s: Search results description',
+      descriptionTemplate: '%s Search results description',
       noIndex: true,
       noFollow: true,
       bodyH1: 'Showing results for:',

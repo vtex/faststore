@@ -102,10 +102,20 @@ export const validateSession = async (session: Session) => {
       return null
     }
 
+    // Remove fields that are not part of IStoreSession type
+    const { isSessionReady, isValidating, ...sessionWithoutExtras } =
+      session as Session & {
+        isSessionReady?: boolean
+        isValidating?: boolean
+      }
+
     const data = await request<
       ValidateSessionMutation,
       ValidateSessionMutationVariables
-    >(mutation, { session, search: window.location.search })
+    >(mutation, {
+      session: sessionWithoutExtras,
+      search: window.location.search,
+    })
 
     return data.validateSession
   } catch (error) {
