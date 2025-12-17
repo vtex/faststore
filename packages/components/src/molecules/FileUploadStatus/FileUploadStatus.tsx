@@ -200,14 +200,14 @@ const FileUploadStatus = ({
         </div>
 
         {onRemove && (
-          <button
+          <Button
             type="button"
             onClick={onRemove}
             data-fs-file-upload-status-remove
             aria-label="Remove file"
           >
             <Icon name="X" width={16} height={16} />
-          </button>
+          </Button>
         )}
       </div>
       {state === 'completed' && onSearch && (

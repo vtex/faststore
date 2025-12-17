@@ -53,6 +53,11 @@ const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
 )
 
+const UploadFileDropdown = lazy(
+  /* webpackChunkName: "UploadFileDropdown" */
+  () => import('src/components/search/UploadFileDropdown')
+)
+
 const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   /* webpackChunkName: "UISearchInputField" */
   import('@faststore/ui').then((module) => module.SearchInputField)
@@ -318,6 +323,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
+      setIsUploadModalOpen(false)
     })
 
     const { data, error } = useSuggestions(searchQueryDeferred)
@@ -419,6 +425,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 isUploading={isCsvProcessing || isLoadingProducts}
                 hasError={!!csvError}
               />
+            )}
+
+            {isUploadModalOpen && (
+              <Suspense fallback={null}>
+                <UploadFileDropdown />
+              </Suspense>
             )}
           </UISearchInput>
         )}
