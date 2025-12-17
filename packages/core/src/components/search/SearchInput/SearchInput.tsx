@@ -9,13 +9,13 @@ import {
   useState,
 } from 'react'
 
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
-  SearchInputField,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
@@ -218,7 +218,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             products={products}
             isLoading={isLoading}
           >
-            <SearchInputField
+            <UISearchInputField
               ref={ref}
               showUploadButton
               onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
