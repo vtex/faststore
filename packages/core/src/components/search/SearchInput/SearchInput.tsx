@@ -224,7 +224,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton={true}
+              showAttachmentButton
               attachmentButtonProps={{
                 onClick: () => setFileUploadVisible(true),
               }}
