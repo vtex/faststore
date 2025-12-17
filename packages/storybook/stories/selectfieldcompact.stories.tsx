@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
 import { SelectFieldCompact } from '@faststore/components'
+import React, { useState } from 'react'
 
 export default {
   title: 'SelectFieldCompact',
@@ -17,15 +17,6 @@ const countryOptions = {
   de: 'Germany',
   es: 'Spain',
   it: 'Italy',
-}
-
-const sizeOptions = {
-  '': 'Select size',
-  xs: 'Extra Small',
-  s: 'Small',
-  m: 'Medium',
-  l: 'Large',
-  xl: 'Extra Large',
 }
 
 export function Default() {
@@ -128,14 +119,6 @@ export function MultipleStates() {
       />
 
       <SelectFieldCompact
-        id="select-with-value-state"
-        label="Size"
-        options={sizeOptions}
-        value={size}
-        onChange={(e) => setSize(e.target.value)}
-      />
-
-      <SelectFieldCompact
         id="select-error-state"
         label="Country (Required)"
         options={countryOptions}
@@ -184,42 +167,6 @@ export function WithValidation() {
           ? `Selected: ${countryOptions[value as keyof typeof countryOptions]}`
           : 'No selection'}
       </p>
-    </div>
-  )
-}
-
-export function DifferentSizes() {
-  const [value1, setValue1] = useState('')
-  const [value2, setValue2] = useState('')
-
-  return (
-    <div
-      style={{
-        padding: '20px',
-        display: 'flex',
-        gap: '20px',
-        flexWrap: 'wrap',
-      }}
-    >
-      <div style={{ width: '200px' }}>
-        <SelectFieldCompact
-          id="select-small"
-          label="Size"
-          options={sizeOptions}
-          value={value1}
-          onChange={(e) => setValue1(e.target.value)}
-        />
-      </div>
-
-      <div style={{ width: '400px' }}>
-        <SelectFieldCompact
-          id="select-large"
-          label="Country"
-          options={countryOptions}
-          value={value2}
-          onChange={(e) => setValue2(e.target.value)}
-        />
-      </div>
     </div>
   )
 }
