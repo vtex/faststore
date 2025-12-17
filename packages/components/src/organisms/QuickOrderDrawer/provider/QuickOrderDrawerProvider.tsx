@@ -1,9 +1,10 @@
 import React, {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
-  useCallback,
   type ReactNode,
 } from 'react'
 import type { PriceFormatter } from '../../../atoms/Price'
@@ -70,10 +71,26 @@ export const QuickOrderDrawerProvider = ({
   formatter,
   initialAlertMessage,
 }: QuickOrderDrawerProviderProps) => {
-  const [products, setProducts] = useState<Product[]>(initialProducts)
+  const [products, setProducts] = useState<Product[]>(initialProducts || [])
+
+  const getAlertMessage = (prods: Product[]) => {
+    const hasOutOfStock = prods.some((p) => p.availability === 'outOfStock')
+    return hasOutOfStock
+      ? 'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
+      : ''
+  }
+
   const [alertMessage, setAlertMessage] = useState<string>(
     initialAlertMessage ?? ''
   )
+
+  useEffect(() => {
+    const newProducts = initialProducts || []
+
+    setProducts(newProducts)
+
+    setAlertMessage(getAlertMessage(newProducts))
+  }, [initialProducts])
 
   const { totalPrice, itemsCount } = useMemo(() => {
     const filteredProducts = products.filter(

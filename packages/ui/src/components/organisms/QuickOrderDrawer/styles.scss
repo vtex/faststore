@@ -16,6 +16,7 @@
 
   display: flex;
   flex-direction: column;
+  height: 100%;
   color: var(--fs-quick-order-drawer-primary-text-color);
 
   // --------------------------------------------------------
@@ -53,27 +54,49 @@
   }
 
   [data-fs-quick-order-drawer-header] {
-    height: 8%;
+    flex-shrink: 0;
     padding: var(--fs-spacing-4) var(--fs-spacing-4) var(--fs-spacing-4)
       var(--fs-spacing-11);
     border-bottom: 1px solid var(--fs-quick-order-drawer-neutral-border-color);
 
     [data-fs-icon] {
-      color: black;
+      color: #000000;
     }
 
     [data-fs-quick-order-drawer-title-container] {
       display: flex;
       align-items: center;
-      width: 30%;
+      width: 50%;
       height: 100%;
     }
 
     [data-fs-quick-order-drawer-icon] {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: var(--fs-spacing-5);
+      height: var(--fs-spacing-5);
       margin: 0;
+      margin-right: var(--fs-spacing-2);
+      margin-left: var(--fs-spacing-9);
+    }
+
+    [data-fs-qod-icon-completed] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: #08a822;
+      border-radius: var(--fs-border-radius-medium);
 
       [data-fs-icon] {
-        color: green;
+        width: var(--fs-spacing-4);
+        height: var(--fs-spacing-4);
+        overflow: visible;
+        color: var(--fs-color-neutral-0);
+        fill: currentColor;
       }
     }
 
@@ -87,9 +110,11 @@
   }
 
   [data-fs-quick-order-drawer-content] {
-    height: 80%;
+    flex: 1;
+    min-height: 0;
     padding: var(--fs-spacing-4) var(--fs-spacing-11);
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-size: var(--fs-text-size-1);
 
     [data-fs-alert] {
@@ -97,6 +122,11 @@
       max-width: none;
       font-weight: var(--fs-text-weight-semibold);
       background-color: #f1f8fd;
+      border-radius: var(--fs-spacing-0);
+    }
+
+    [data-fs-alert] svg {
+      color: #0383df;
     }
 
     [data-fs-quick-order-drawer-table] {
@@ -269,9 +299,10 @@
 
   [data-fs-quick-order-drawer-footer] {
     display: flex;
+    flex-shrink: 0;
     justify-content: space-between;
-    height: 12%;
     padding: var(--fs-spacing-5) var(--fs-spacing-11);
+    background-color: #ffffff;
     border-top: 1px solid var(--fs-quick-order-drawer-neutral-border-color);
 
     [data-fs-quick-order-drawer-footer-price-container] {
