@@ -43,6 +43,11 @@ const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
 )
 
+const UploadFileDropdown = lazy(
+  /* webpackChunkName: "UploadFileDropdown" */
+  () => import('src/components/search/UploadFileDropdown')
+)
+
 const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   /* webpackChunkName: "UISearchInputField" */
   import('@faststore/ui').then((module) => module.SearchInputField)
@@ -144,7 +149,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (result) {
         setCsvData(result)
         // TODO: Use the parsed data for bulk search
-        console.log('CSV Data processed in Worker:', result.data)
       }
     }
 
@@ -174,12 +178,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     const handleSearch = () => {
       if (!csvData) return
-      console.log('Performing bulk search with CSV data:', csvData)
     }
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
+      setIsUploadModalOpen(false)
     })
 
     const { data, error } = useSuggestions(searchQueryDeferred)
@@ -269,6 +273,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 isUploading={isCsvProcessing}
                 hasError={!!csvError}
               />
+            )}
+
+            {isUploadModalOpen && (
+              <Suspense fallback={null}>
+                <UploadFileDropdown />
+              </Suspense>
             )}
           </UISearchInput>
         )}
