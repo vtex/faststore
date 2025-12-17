@@ -176,7 +176,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton={true}
+              showAttachmentButton
               attachmentButtonProps={{
                 onClick: () => setFileUploadVisible(true),
               }}
