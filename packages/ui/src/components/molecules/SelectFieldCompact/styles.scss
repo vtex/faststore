@@ -1,0 +1,171 @@
+[data-fs-select-field-compact] {
+  // --------------------------------------------------------
+  // Design Tokens for Select Field Compact
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-select-field-compact-padding                    : var(--fs-spacing-2) var(--fs-spacing-5) 0 var(--fs-spacing-2);
+  --fs-select-field-compact-color                      : var(--fs-color-text);
+  --fs-select-field-compact-size                       : var(--fs-text-size-body);
+  --fs-select-field-compact-border-color               : var(--fs-border-color);
+  --fs-select-field-compact-border-radius              : var(--fs-border-radius);
+  --fs-select-field-compact-bkg-color                  : var(--fs-color-body-bkg);
+  --fs-select-field-compact-min-height                 : var(--fs-control-tap-size);
+
+  --fs-select-field-compact-transition-function        : var(--fs-transition-function);
+  --fs-select-field-compact-transition-property        : var(--fs-transition-property);
+  --fs-select-field-compact-transition-timing          : var(--fs-transition-timing);
+
+  // Label
+  --fs-select-field-compact-label-padding              : 0 var(--fs-spacing-2);
+  --fs-select-field-compact-label-color                : var(--fs-color-text-light);
+  --fs-select-field-compact-label-size                 : var(--fs-text-size-tiny);
+
+  // Icon
+  --fs-select-field-compact-icon-position-right        : var(--fs-spacing-1);
+  --fs-select-field-compact-icon-width                 : var(--fs-spacing-3);
+  --fs-select-field-compact-icon-height                : var(--fs-select-field-compact-icon-width);
+  --fs-select-field-compact-icon-color                 : var(--fs-color-text);
+
+  // Error
+  --fs-select-field-compact-error-message-size         : var(--fs-text-size-legend);
+  --fs-select-field-compact-error-message-line-height  : 1.1;
+  --fs-select-field-compact-error-message-margin-top   : var(--fs-spacing-0);
+  --fs-select-field-compact-error-message-color        : var(--fs-color-danger-text);
+  --fs-select-field-compact-error-border-color         : var(--fs-color-danger-border);
+  --fs-select-field-compact-error-box-shadow           : 0 0 0 var(--fs-border-width) var(--fs-select-field-compact-error-border-color);
+  --fs-select-field-compact-error-focus-ring           : var(--fs-color-focus-ring-danger);
+
+  // Disabled
+  --fs-select-field-compact-disabled-bkg-color         : var(--fs-color-disabled-bkg);
+  --fs-select-field-compact-disabled-text-color        : var(--fs-color-disabled-text);
+  --fs-select-field-compact-disabled-border-color      : var(--fs-border-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  [data-fs-select-field-compact-wrapper] {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  [data-fs-select-field-compact-select] {
+    width: 100%;
+    min-height: var(--fs-select-field-compact-min-height);
+    padding: var(--fs-select-field-compact-padding);
+    padding-bottom: var(--fs-spacing-1);
+    font-size: var(--fs-select-field-compact-size);
+    color: var(--fs-select-field-compact-color);
+    background-color: var(--fs-select-field-compact-bkg-color);
+    border: var(--fs-border-width) solid var(--fs-select-field-compact-border-color);
+    border-radius: var(--fs-select-field-compact-border-radius);
+    transition: var(--fs-select-field-compact-transition-property) var(--fs-select-field-compact-transition-timing) var(--fs-select-field-compact-transition-function);
+    appearance: none;
+
+    @include focus-ring;
+
+    // Hide default label when select has a value
+    option[value=""][disabled] {
+      display: none;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: var(--fs-color-primary-border-light);
+    }
+
+    &:focus {
+      border-color: var(--fs-color-primary-border);
+    }
+
+    // Floating label behavior - when empty, label appears in center
+    &:not(:focus):invalid + [data-fs-select-field-compact-label] {
+      top: calc(50% - (var(--fs-select-field-compact-size) / 2));
+      overflow: hidden;
+      font-size: var(--fs-select-field-compact-size);
+    }
+
+    // When select has value or is focused, label floats to top
+    &:focus + [data-fs-select-field-compact-label],
+    &:valid + [data-fs-select-field-compact-label] {
+      top: rem(6px);
+      font-size: var(--fs-select-field-compact-label-size);
+    }
+
+    &:disabled {
+      color: var(--fs-select-field-compact-disabled-text-color);
+      cursor: not-allowed;
+      background-color: var(--fs-select-field-compact-disabled-bkg-color);
+      border-color: var(--fs-select-field-compact-disabled-border-color);
+
+      + [data-fs-select-field-compact-label] {
+        color: var(--fs-select-field-compact-disabled-text-color);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  [data-fs-select-field-compact-label] {
+    position: absolute;
+    padding: var(--fs-select-field-compact-label-padding);
+    line-height: var(--fs-select-field-compact-label-size);
+    color: var(--fs-select-field-compact-label-color);
+    pointer-events: none;
+    transition: var(--fs-select-field-compact-transition-property) var(--fs-select-field-compact-transition-timing) var(--fs-select-field-compact-transition-function);
+  }
+
+  [data-fs-select-field-compact-icon],
+  [data-fs-select-field-compact-loader] {
+    position: absolute;
+    right: var(--fs-select-field-compact-icon-position-right);
+    width: var(--fs-select-field-compact-icon-width);
+    height: var(--fs-select-field-compact-icon-height);
+    color: var(--fs-select-field-compact-icon-color);
+    pointer-events: none;
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-select-field-compact-error="true"] {
+    [data-fs-select-field-compact-select] {
+      border-color: var(--fs-select-field-compact-error-border-color);
+
+      @include input-focus-ring(
+        $outline: #{var(--fs-select-field-compact-error-focus-ring)},
+        $border: #{var(--fs-select-field-compact-error-border-color)}
+      );
+
+      &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+        border-color: var(--fs-select-field-compact-error-border-color);
+        box-shadow: var(--fs-select-field-compact-error-box-shadow);
+      }
+    }
+
+    [data-fs-select-field-compact-error-message] {
+      margin-top: var(--fs-select-field-compact-error-message-margin-top);
+      font-size: var(--fs-select-field-compact-error-message-size);
+      line-height: var(--fs-select-field-compact-error-message-line-height);
+      color: var(--fs-select-field-compact-error-message-color);
+    }
+  }
+
+  &[data-fs-select-field-compact-loading="true"] {
+    [data-fs-select-field-compact-select] {
+      cursor: wait;
+    }
+  }
+
+  &[data-fs-select-field-compact-disabled="true"] {
+    [data-fs-select-field-compact-icon],
+    [data-fs-select-field-compact-loader] {
+      display: none;
+    }
+  }
+}

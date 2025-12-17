@@ -208,6 +208,8 @@ export { default as SearchTop, SearchTopTerm } from './molecules/SearchTop'
 export type { SearchTopProps, SearchTopTermProps } from './molecules/SearchTop'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
+export { default as SelectFieldCompact } from './molecules/SelectFieldCompact'
+export type { SelectFieldCompactProps } from './molecules/SelectFieldCompact'
 export { default as SkuSelector } from './molecules/SkuSelector'
 export type { SkuOption, SkuSelectorProps } from './molecules/SkuSelector'
 export {
