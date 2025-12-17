@@ -66,7 +66,7 @@ const FileUploadStatus = ({
   ...otherProps
 }: FileUploadStatusProps) => {
   const formatFileSize = (bytes: number): string => {
-    return `${(bytes / 1024).toFixed(0)} KB` //ADJUST ONCE INTEGRATED
+    return `${(bytes / 1024).toFixed(0)} KB` // TODO: ADJUST ONCE INTEGRATED
   }
 
   const getErrorMessage = (): { title: string; description: string } => {
@@ -189,14 +189,14 @@ const FileUploadStatus = ({
         </div>
 
         {onRemove && (
-          <button
+          <Button
             type="button"
             onClick={onRemove}
             data-fs-file-upload-status-remove
             aria-label="Remove file"
           >
             <Icon name="X" width={16} height={16} />
-          </button>
+          </Button>
         )}
       </div>
       {state === 'completed' && onSearch && (
