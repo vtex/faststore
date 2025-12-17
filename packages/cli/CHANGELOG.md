@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.95.0 (2025-12-02)
+
+### Features
+
+- release version 20250212 ([#3138](https://github.com/vtex/faststore/issues/3138)) ([5e51548](https://github.com/vtex/faststore/commit/5e5154898e3756aa8d95efd54d76db0c90248d8d))
+
+# [3.95.0-dev.2](https://github.com/vtex/faststore/compare/v3.94.0...v3.95.0-dev.2) (2025-12-02)
+
+### Features
+
+- release version 20250112 ([#3135](https://github.com/vtex/faststore/issues/3135)) ([65440cd](https://github.com/vtex/faststore/commit/65440cd5607e6946b4023882eacf711c215aa138))
+
+# 3.95.0-dev.1 (2025-12-01)
+
+### Bug Fixes
+
+- Update `validateCart` mutation tests ([#3132](https://github.com/vtex/faststore/issues/3132)) ([c8cbb52](https://github.com/vtex/faststore/commit/c8cbb5204562ddee126c63a576ba1f4d264092f7))
+
+# [3.95.0-dev.0](https://github.com/vtex/faststore/compare/v3.94.1-dev.0...v3.95.0-dev.0) (2025-11-20)
+
+### Features
+
+- Add svg extension to public folder copy's allow list ([#3123](https://github.com/vtex/faststore/issues/3123)) ([15aca77](https://github.com/vtex/faststore/commit/15aca77a3e4309d780dcb2c1511618a450c61e0f))
+
+## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
+
+# 3.93.0-dev.4 (2025-11-17)
+
+**Note:** Version bump only for package @faststore/cli
+
 # 3.94.0 (2025-11-19)
 
 ### Features

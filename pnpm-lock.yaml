@@ -306,11 +306,16 @@ importers:
       '@faststore/api':
         specifier: workspace:*
         version: link:../api
+<<<<<<< HEAD
       '@faststore/components':
         specifier: workspace:*
         version: link:../components
       '@faststore/graphql-utils':
         specifier: 3.94.0
+=======
+      "@faststore/graphql-utils":
+        specifier: ^3.95.0
+>>>>>>> a9697d86117f2027c4580b8c26e70d27aa1a089d
         version: link:../graphql-utils
       '@faststore/lighthouse':
         specifier: workspace:*
@@ -582,11 +587,19 @@ importers:
 
   packages/storybook:
     dependencies:
+<<<<<<< HEAD
       '@faststore/components':
         specifier: 3.94.0
         version: link:../components
       '@faststore/ui':
         specifier: 3.94.0
+=======
+      "@faststore/components":
+        specifier: ^3.95.0
+        version: link:../components
+      "@faststore/ui":
+        specifier: ^3.95.0
+>>>>>>> a9697d86117f2027c4580b8c26e70d27aa1a089d
         version: link:../ui
       next:
         specifier: ^15.1.6
@@ -637,8 +650,13 @@ importers:
 
   packages/ui:
     dependencies:
+<<<<<<< HEAD
       '@faststore/components':
         specifier: 3.94.0
+=======
+      "@faststore/components":
+        specifier: ^3.95.0
+>>>>>>> a9697d86117f2027c4580b8c26e70d27aa1a089d
         version: link:../components
       include-media:
         specifier: ^1.4.10
