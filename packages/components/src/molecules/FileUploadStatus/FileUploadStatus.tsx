@@ -112,6 +112,10 @@ const FileUploadStatus = ({
   fileName,
   ...otherProps
 }: FileUploadStatusProps) => {
+  const formatFileSize = (bytes: number): string => {
+    return `${(bytes / 1024).toFixed(0)} KB` // TODO: ADJUST ONCE INTEGRATED
+  }
+
   const getErrorMessage = (): { title: string; description: string } => {
     if (errorMessage) {
       return { title: errorMessage, description: '' }

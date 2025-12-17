@@ -164,10 +164,10 @@ const FileUploadCard = ({
 
   useEffect(() => {
     if (hasError && selectedFile) {
-      setUploadState('error')
-      setErrorType('invalid-structure')
+      setUploadState(FileUploadState.Error)
+      setErrorType(FileUploadErrorType.InvalidStructure)
     } else if (!hasError && selectedFile && !isUploading) {
-      setUploadState('completed')
+      setUploadState(FileUploadState.Completed)
       setErrorType(undefined)
     }
   }, [hasError, selectedFile, isUploading])
