@@ -48,7 +48,7 @@ const UploadFileDropdown = dynamic(
   () =>
     import(
       /* webpackChunkName: "UploadFileDropdown" */
-      'src/components/search/UploadFileDropdown/UploadFileDropdown'
+      'src/components/search/UploadFileDropdown'
     ).then((mod) => mod.default),
   { ssr: false }
 )
@@ -179,7 +179,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (result) {
         setCsvData(result)
         // TODO: Use the parsed data for bulk search
-        console.log('CSV Data processed in Worker:', result.data)
       }
     }
 
@@ -209,12 +208,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     const handleSearch = () => {
       if (!csvData) return
-      console.log('Performing bulk search with CSV data:', csvData)
     }
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
+      setIsUploadModalOpen(false)
     })
 
     const { data, error } = useSuggestions(searchQueryDeferred)

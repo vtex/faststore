@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
+import type { FileRejection } from 'react-dropzone/.'
 
 export type FileUploadOptions = {
   maxFiles?: number
@@ -51,7 +52,7 @@ export function useFileUpload(options = DEFAULT_FILE_UPLOAD_OPTIONS) {
   )
 
   const onFilesRejected = useCallback(
-    (fileRejections: any) => {
+    (fileRejections: FileRejection[]) => {
       const firstError = fileRejections[0]?.errors[0]
 
       if (firstError) {
