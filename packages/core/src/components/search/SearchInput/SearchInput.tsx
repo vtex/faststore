@@ -24,6 +24,7 @@ import {
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
+  useCSVParser,
   useOnClickOutside,
   type CSVData,
   type Product,
@@ -43,6 +44,7 @@ import useSuggestions from 'src/sdk/search/useSuggestions'
 import { cartStore } from 'src/sdk/cart'
 import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuickOrder'
 import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
+import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
@@ -71,7 +73,7 @@ export type SearchInputProps = {
     alt: string
   }
   attachmentButtonAriaLabel?: string
-} & Omit<UISearchInputFieldProps, 'onSubmit'>
+} & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
   resetSearchInput: () => void
@@ -121,8 +123,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+    const priceFormatter = usePriceFormatter()
 
     const [csvData, setCsvData] = useState<CSVData | null>(null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [skusToFetch, setSkusToFetch] = useState<string[]>([])
 
     const {
@@ -132,7 +136,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onClearError,
       onGenerateTemplate,
     } = useCSVParser({
-      delimiter: ',',
+      delimiter: '',
       skipEmptyLines: true,
     })
 
@@ -153,18 +157,25 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (files.length === 0) return
 
       setHasFile(true)
-
-      onClearError()
-      const file = files[0]
-
-      const result = await onParseFile(file)
-
       setIsUploadOpen(true)
 
-      if (result) {
-        setCsvData(result)
-        // TODO: Use the parsed data for bulk search
-        console.log('CSV Data processed in Worker:', result.data)
+      const file = files[0]
+      setSelectedFile(file)
+
+      onClearError()
+      setCsvData(null)
+      setQuickOrderProducts([])
+      setSkusToFetch([])
+      setIsQuickOrderDrawerOpen(false)
+
+      try {
+        const result = await onParseFile(file)
+
+        if (result && result.data && result.data.length > 0) {
+          setCsvData(result)
+        }
+      } catch (error) {
+        // Error will be handled by the CSV parser hook
       }
     }
 
@@ -182,39 +193,98 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           window.URL.revokeObjectURL(url)
         }
       } catch (error) {
-        console.error('Failed to download template:', error)
+        // Error handled silently
       }
     }
 
     const handleDismiss = () => {
       setCsvData(null)
+      setSelectedFile(null)
+      setSkusToFetch([])
+      setQuickOrderProducts([])
       setFileUploadVisible(false)
+      setIsUploadOpen(false)
+      setHasFile(false)
       onClearError()
     }
 
-    const handleSearch = () => {
-      if (!csvData) return
+    const handleSearch = async (_file?: File) => {
+      let dataToUse = csvData
 
-      // Extract SKUs from CSV data
-      const skus = csvData.data.map((item: { SKU: string }) => item.SKU)
-      setSkusToFetch(skus)
+      if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
+        const fileToParse = _file || selectedFile
+
+        if (fileToParse) {
+          try {
+            const parsePromise = onParseFile(fileToParse)
+
+            const timeoutPromise = new Promise<never>((_, reject) => {
+              setTimeout(() => {
+                reject(
+                  new Error(
+                    'The file may be too large, corrupted, or the parser may be stuck.'
+                  )
+                )
+              }, 30000)
+            })
+
+            const result = (await Promise.race([
+              parsePromise,
+              timeoutPromise,
+            ])) as Awaited<ReturnType<typeof onParseFile>>
+
+            if (result && result.data && result.data.length > 0) {
+              dataToUse = result
+              setCsvData(result)
+            } else {
+              return
+            }
+          } catch (error) {
+            return
+          }
+        } else {
+          return
+        }
+      }
+
+      if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
+        return
+      }
+      const skus = dataToUse.data
+        .map((item: { SKU: string }) => item.SKU)
+        .filter(Boolean)
+
+      if (skus.length > 0) {
+        setQuickOrderProducts([])
+        setIsQuickOrderDrawerOpen(false)
+        setSkusToFetch(skus)
+      }
     }
 
-    // Fetch products when SKUs are available
     const { products: fetchedProducts, isLoading: isLoadingProducts } =
       useBulkProductsQuery(skusToFetch)
 
-    // Convert fetched products to QuickOrder format when available
     useEffect(() => {
-      if (fetchedProducts.length > 0 && skusToFetch.length > 0) {
+      if (skusToFetch.length > 0 && isLoadingProducts) {
+        setQuickOrderProducts([])
+        setIsQuickOrderDrawerOpen(false)
+        return
+      }
+
+      if (
+        !isLoadingProducts &&
+        skusToFetch.length > 0 &&
+        csvData &&
+        fetchedProducts.length > 0
+      ) {
         const convertedProducts: Product[] = []
 
         fetchedProducts.forEach((productData) => {
           if (productData.product && !productData.error) {
-            // Find the requested quantity for this SKU
-            const csvItem = csvData?.data.find(
+            const csvItem = csvData.data.find(
               (item: { SKU: string; Quantity: number }) =>
-                item.SKU === productData.sku
+                item.SKU === productData.sku ||
+                item.SKU?.trim() === productData.sku?.trim()
             )
             const requestedQuantity = csvItem?.Quantity ?? 1
 
@@ -230,14 +300,20 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         })
 
         setQuickOrderProducts(convertedProducts)
-
-        // Open drawer if we have products
         if (convertedProducts.length > 0) {
           setIsQuickOrderDrawerOpen(true)
           setFileUploadVisible(false)
         }
+      } else if (
+        !isLoadingProducts &&
+        skusToFetch.length > 0 &&
+        csvData &&
+        fetchedProducts.length === 0
+      ) {
+        setQuickOrderProducts([])
+        setIsQuickOrderDrawerOpen(false)
       }
-    }, [fetchedProducts, skusToFetch, csvData])
+    }, [fetchedProducts, skusToFetch, csvData, isLoadingProducts])
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
@@ -346,22 +422,27 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
           </UISearchInput>
         )}
-
         <QuickOrderDrawer
           isOpen={isQuickOrderDrawerOpen}
           overlayProps={{
-            onClick: () => setIsQuickOrderDrawerOpen(false),
+            onClick: () => {
+              setIsQuickOrderDrawerOpen(false)
+              setQuickOrderProducts([])
+              setSkusToFetch([])
+            },
           }}
           providerProps={{
             initialProducts: quickOrderProducts,
-            onAddToCart: (productsToAdd: Product[]) => {
-              // Convert products to cart items and add to cart
+            onAddToCart: (
+              productsToAdd: Product[],
+              totalPrice: number,
+              itemsCount: number
+            ) => {
               productsToAdd.forEach((product: Product) => {
                 if (
                   product.selectedCount > 0 &&
                   product.availability === 'available'
                 ) {
-                  // Find the corresponding fetched product to get full details
                   const fetchedProduct = fetchedProducts.find(
                     (p) => p.product?.sku === product.id
                   )?.product
@@ -397,21 +478,30 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           }}
         >
           <QuickOrderDrawerHeader
-            title="Quick Order"
-            onCloseDrawer={() => setIsQuickOrderDrawerOpen(false)}
+            title={
+              selectedFile ? formatFileName(selectedFile.name) : 'Quick Order'
+            }
+            onCloseDrawer={() => {
+              setIsQuickOrderDrawerOpen(false)
+              setQuickOrderProducts([])
+              setSkusToFetch([])
+            }}
           />
           <QuickOrderDrawerProducts
             columns={{
-              name: 'Product',
+              name: 'Product Name',
               availability: {
                 label: 'Availability',
                 stockDisplaySettings: 'showAvailability',
               },
-              price: 'Price',
+              price: 'Price (tax included)',
               quantity: 'Quantity',
             }}
+            formatter={(price, variant) => priceFormatter(price)}
           />
-          <QuickOrderDrawerFooter />
+          <QuickOrderDrawerFooter
+            formatter={(price, variant) => priceFormatter(price)}
+          />
         </QuickOrderDrawer>
       </>
     )

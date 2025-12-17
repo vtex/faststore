@@ -1,13 +1,14 @@
 export * from '@faststore/components'
 
 // Explicitly re-export useCSVParser to ensure webpack can resolve it
-// Import from source to avoid TypeScript resolution issues during build
-export { useCSVParser } from '@faststore/components/src/hooks/useCSVParser'
-export type {
-  CSVData,
-  CSVParserError,
-  CSVParserOptions,
-} from '@faststore/components/src/hooks/useCSVParser'
+// @ts-ignore - TypeScript may not resolve export * properly during build
+export { useCSVParser } from '@faststore/components'
+// @ts-ignore - TypeScript may not resolve export * properly during build
+export type { CSVData } from '@faststore/components'
+// @ts-ignore
+export type { CSVParserError } from '@faststore/components'
+// @ts-ignore
+export type { CSVParserOptions } from '@faststore/components'
 
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'

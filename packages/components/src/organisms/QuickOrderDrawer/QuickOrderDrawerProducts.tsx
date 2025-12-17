@@ -44,7 +44,7 @@ const QuickOrderDrawerProducts = ({
       <>
         {alertMessage && (
           <Alert
-            icon={<Icon name="CircleWarning" weight="bold" />}
+            icon={<Icon name="AlertFilled" weight="bold" />}
             dismissible
             onClick={() => setAlertMessage('')}
             aria-label="Product availability warning"

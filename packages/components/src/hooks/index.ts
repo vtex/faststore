@@ -1,11 +1,20 @@
 export {
-  regionSliderTypes,
   Toast as ToastProps,
   default as UIProvider,
+  regionSliderTypes,
   useUI,
 } from './UIProvider'
+export { useCSVParser } from './useCSVParser'
+export type {
+  CSVData,
+  CSVParserError,
+  CSVParserOptions,
+} from './useCSVParser'
 export { useFadeEffect } from './useFadeEffect'
+export { useFileUpload } from './useFileUpload'
 export { useOnClickOutside } from './useOnClickOutside'
+export { useProductComparison } from './useProductComparison'
+export { useRTL } from './useRTL'
 export { useScrollDirection } from './useScrollDirection'
 export { useSearch } from './useSearch'
 export { useSKUMatrix } from './useSKUMatrix'
@@ -18,7 +27,3 @@ export type {
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
 export { useTrapFocus } from './useTrapFocus'
-export { useProductComparison } from './useProductComparison'
-export { useRTL } from './useRTL'
-export { useCSVParser } from './useCSVParser'
-export { useFileUpload } from './useFileUpload'

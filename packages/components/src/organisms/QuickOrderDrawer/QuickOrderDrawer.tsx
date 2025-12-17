@@ -53,9 +53,10 @@ const QuickOrderDrawer = ({
         size="partial"
         direction="rightSide"
         overlayProps={overlayProps}
+        data-fs-slide-over
         data-fs-qod
       >
-        {children}
+        <div data-fs-qod>{children}</div>
       </SlideOver>
     </QuickOrderDrawerProvider>
   )

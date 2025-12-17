@@ -1,9 +1,10 @@
 import React, {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
-  useCallback,
   type ReactNode,
 } from 'react'
 
@@ -57,42 +58,31 @@ export interface QuickOrderDrawerProviderProps {
   ) => void
 }
 
-// Mock data for demonstration
-const mockProducts: Product[] = [
-  ...Array.from(
-    { length: 4 },
-    (_, i): Product => ({
-      id: `SGS23U-256GRN-EU${i}`,
-      price: 1249.9,
-      quantityUpdated: i % 3 === 0,
-      availability: i % 4 ? 'available' : 'outOfStock',
-      inventory: 100,
-      name: `Business Smartphone X5 256GB/8GB ${['Green', 'Phantom Black', 'Lavender', 'Cream'][i]}`,
-      selectedCount: i % 4 ? [18, 20, 20, 12][i] : 0,
-      image: { url: '/image.png', alternateName: 'Business Smartphone' },
-    })
-  ),
-  {
-    id: 'SGS23U-512BLK-EU',
-    price: 1499.9,
-    availability: 'available',
-    inventory: 100,
-    name: 'Business Smartphone X5 512GB/12GB Phantom Black',
-    selectedCount: 40,
-    quantityUpdated: false,
-    image: { url: '/image.png', alternateName: 'Business Smartphone' },
-  },
-]
-
 export const QuickOrderDrawerProvider = ({
   children,
-  initialProducts = mockProducts,
+  initialProducts,
   onAddToCart: onAddToCartCallback,
 }: QuickOrderDrawerProviderProps) => {
-  const [products, setProducts] = useState<Product[]>(initialProducts)
+  const [products, setProducts] = useState<Product[]>(initialProducts || [])
+
+  const getAlertMessage = (prods: Product[]) => {
+    const hasOutOfStock = prods.some((p) => p.availability === 'outOfStock')
+    return hasOutOfStock
+      ? 'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
+      : ''
+  }
+
   const [alertMessage, setAlertMessage] = useState<string>(
-    'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
+    getAlertMessage(products)
   )
+
+  useEffect(() => {
+    const newProducts = initialProducts || []
+
+    setProducts(newProducts)
+
+    setAlertMessage(getAlertMessage(newProducts))
+  }, [initialProducts])
 
   const { totalPrice, itemsCount } = useMemo(() => {
     return products.reduce<{ totalPrice: number; itemsCount: number }>(
@@ -130,12 +120,6 @@ export const QuickOrderDrawerProvider = ({
 
     if (onAddToCartCallback) {
       onAddToCartCallback(productsToAdd, totalPrice, itemsCount)
-    } else {
-      console.log('Adding to cart:', {
-        products: productsToAdd,
-        totalPrice,
-        itemsCount,
-      })
     }
   }, [products, totalPrice, itemsCount, onAddToCartCallback])
 

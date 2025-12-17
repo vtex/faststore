@@ -1,6 +1,6 @@
 import React from 'react'
-import { SlideOverHeader } from '../SlideOver'
 import Icon from '../../atoms/Icon'
+import { SlideOverHeader } from '../SlideOver'
 
 export type QuickOrderDrawerHeaderProps = {
   title: string
@@ -13,7 +13,7 @@ const QuickOrderDrawerHeader = ({
   title,
   titleCharLimit = 30,
 }: QuickOrderDrawerHeaderProps) => {
-  const leftOffset = Math.floor(titleCharLimit / 2) - 3 // three dots
+  const leftOffset = Math.floor(titleCharLimit / 2) - 3
   const rightOffset = Math.floor(titleCharLimit / 2)
   const titleFormmated =
     title.length > titleCharLimit
@@ -32,7 +32,9 @@ const QuickOrderDrawerHeader = ({
     >
       <div data-fs-qod-title-container>
         <div data-fs-qod-icon>
-          <Icon name="Table" weight="bold" width={32} height={32} />
+          <div data-fs-qod-icon-completed>
+            <Icon name="Table" weight="bold" width={32} height={32} />
+          </div>
         </div>
         <div data-fs-qod-title>{titleFormmated}</div>
       </div>

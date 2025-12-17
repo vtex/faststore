@@ -103,6 +103,16 @@ const FileUploadCard = ({
     return () => window.removeEventListener('keydown', handleEscape)
   }, [isOpen, onDismiss])
 
+  useEffect(() => {
+    if (hasError && selectedFile) {
+      setUploadState('error')
+      setErrorType('invalid-structure')
+    } else if (!hasError && selectedFile && !isUploading) {
+      setUploadState('completed')
+      setErrorType(undefined)
+    }
+  }, [hasError, selectedFile, isUploading])
+
   const isValidFileType = (file: File): boolean => {
     const fileName = file.name.toLowerCase()
     const validExtensions = ['.csv']
@@ -115,16 +125,16 @@ const FileUploadCard = ({
       const file = files[0]
       setSelectedFile(file)
 
-      // Validate file type
       if (!isValidFileType(file)) {
         setUploadState('error')
         setErrorType('unsupported')
         return
       }
 
+      setErrorType(undefined)
+
       if (isUploading) {
         setUploadState('uploading')
-        setErrorType(undefined)
       } else {
         setUploadState('completed')
       }
@@ -157,20 +167,19 @@ const FileUploadCard = ({
       const file = files[0]
       setSelectedFile(file)
 
-      // Validate file type
       if (!isValidFileType(file)) {
         setUploadState('error')
         setErrorType('unsupported')
         return
       }
 
+      setErrorType(undefined)
+
       if (isUploading) {
         setUploadState('uploading')
       } else {
         setUploadState('completed')
       }
-
-      setErrorType(undefined)
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -179,7 +188,6 @@ const FileUploadCard = ({
   }
 
   const triggerFileInput = () => {
-    // Reset the input value to allow selecting the same file again
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
@@ -190,7 +198,6 @@ const FileUploadCard = ({
     if (onDownloadTemplate) {
       onDownloadTemplate()
     } else {
-      // Default template download
       const csvContent = 'SKU,Quantity\nAB001,AB100,AB999\n2,5,49'
       const blob = new Blob([csvContent], { type: 'text/csv' })
       const url = window.URL.createObjectURL(blob)

@@ -2507,6 +2507,7 @@ export type ProductDetailsFragment_ProductFragment = {
       priceWithTaxes: number
       listPrice: number
       listPriceWithTaxes: number
+      quantity: number
       seller: { identifier: string }
     }>
   }
@@ -2704,6 +2705,7 @@ export type ServerProductQueryQuery = {
         priceWithTaxes: number
         listPrice: number
         listPriceWithTaxes: number
+        quantity: number
         seller: { identifier: string }
       }>
     }
@@ -3253,11 +3255,11 @@ export type ClientAllVariantProductsQueryQuery = {
   }
 }
 
-export type ClientBulkProductQueryQueryVariables = Exact<{
+export type ClientProductQueryQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ClientBulkProductQueryQuery = {
+export type ClientProductQueryQuery = {
   product: {
     sku: string
     name: string
@@ -3286,6 +3288,7 @@ export type ClientBulkProductQueryQuery = {
         priceWithTaxes: number
         listPrice: number
         listPriceWithTaxes: number
+        quantity: number
         seller: { identifier: string }
       }>
     }
@@ -3409,51 +3412,6 @@ export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
   fuzzy: string | null
-}
-
-export type ClientProductQueryQueryVariables = Exact<{
-  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
-}>
-
-export type ClientProductQueryQuery = {
-  product: {
-    sku: string
-    name: string
-    gtin: string
-    description: string
-    unitMultiplier: number | null
-    id: string
-    isVariantOf: {
-      name: string
-      productGroupID: string
-      skuVariants: {
-        activeVariations: any | null
-        slugsMap: any | null
-        availableVariations: any | null
-        allVariantProducts: Array<{ name: string; productID: string }> | null
-      } | null
-    }
-    image: Array<{ url: string; alternateName: string }>
-    brand: { name: string }
-    offers: {
-      lowPrice: number
-      lowPriceWithTaxes: number
-      offers: Array<{
-        availability: string
-        price: number
-        priceWithTaxes: number
-        listPrice: number
-        listPriceWithTaxes: number
-        seller: { identifier: string }
-      }>
-    }
-    additionalProperty: Array<{
-      propertyID: string
-      name: string
-      value: any
-      valueReference: any
-    }>
-  }
 }
 
 export type ClientManyProductsSelectedQueryQueryVariables = Exact<{
@@ -3959,6 +3917,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       priceWithTaxes
       listPrice
       listPriceWithTaxes
+      quantity
       seller {
         identifier
       }
@@ -4358,7 +4317,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'e855903879c6504e90269e6e010549bc6de933eb',
+    operationHash: 'b59e3d28ab8e7b44f0efa17b8b8b318b285bee09',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -4481,14 +4440,14 @@ export const ClientAllVariantProductsQueryDocument = {
   ClientAllVariantProductsQueryQuery,
   ClientAllVariantProductsQueryQueryVariables
 >
-export const ClientBulkProductQueryDocument = {
+export const ClientProductQueryDocument = {
   __meta__: {
-    operationName: 'ClientBulkProductQuery',
-    operationHash: '327ba5943f9258729bf425cd42b89912be035c8a',
+    operationName: 'ClientProductQuery',
+    operationHash: '3d65d8f0d279557542be9a361cb3ceb2008bad45',
   },
 } as unknown as TypedDocumentString<
-  ClientBulkProductQueryQuery,
-  ClientBulkProductQueryQueryVariables
+  ClientProductQueryQuery,
+  ClientProductQueryQueryVariables
 >
 export const ClientManyProductsQueryDocument = {
   __meta__: {
@@ -4507,15 +4466,6 @@ export const ClientProductGalleryQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
   ClientProductGalleryQueryQueryVariables
->
-export const ClientProductQueryDocument = {
-  __meta__: {
-    operationName: 'ClientProductQuery',
-    operationHash: '47aa22eb750cb2c529e5eeafb921bfeadb67db71',
-  },
-} as unknown as TypedDocumentString<
-  ClientProductQueryQuery,
-  ClientProductQueryQueryVariables
 >
 export const ClientManyProductsSelectedQueryDocument = {
   __meta__: {

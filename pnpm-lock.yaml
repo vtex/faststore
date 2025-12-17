@@ -306,9 +306,12 @@ importers:
       '@faststore/api':
         specifier: workspace:*
         version: link:../api
+      '@faststore/components':
+        specifier: workspace:*
+        version: link:../components
       '@faststore/graphql-utils':
-        specifier: ^3.94.0
-        version: 3.95.0(graphql@15.8.0)
+        specifier: 3.94.0
+        version: link:../graphql-utils
       '@faststore/lighthouse':
         specifier: workspace:*
         version: link:../lighthouse
@@ -580,11 +583,11 @@ importers:
   packages/storybook:
     dependencies:
       '@faststore/components':
-        specifier: ^3.94.0
-        version: 3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.94.0
+        version: link:../components
       '@faststore/ui':
-        specifier: ^3.94.0
-        version: 3.95.0(@faststore/components@3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.94.0
+        version: link:../ui
       next:
         specifier: ^15.1.6
         version: 15.1.6(@babel/core@7.26.7)(@opentelemetry/api@1.4.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.4)
@@ -635,8 +638,8 @@ importers:
   packages/ui:
     dependencies:
       '@faststore/components':
-        specifier: ^3.94.0
-        version: 3.95.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.94.0
+        version: link:../components
       include-media:
         specifier: ^1.4.10
         version: 1.4.10
