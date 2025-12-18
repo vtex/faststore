@@ -248,9 +248,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 onFileSelect={handleFileSelect}
                 onDownloadTemplate={handleDownloadTemplate}
                 accept={fileUploadConfig?.acceptedFileTypes ?? '.csv'}
-                maxFileSize={fileUploadConfig?.maxFileSize}
-                errorMessages={fileUploadConfig?.errorMessages}
-                labels={fileUploadConfig?.labels}
               />
             )}
           </UISearchInput>
