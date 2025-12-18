@@ -1,7 +1,8 @@
 import discoveryConfig from 'discovery.config'
 
-const STORAGE_KEY_AUTH_COOKIE_VALUE = 'faststore_auth_cookie_value'
-const STORAGE_KEY_CACHE_BUST_LAST_VALUE = 'faststore_cache_bust_last_value'
+export const STORAGE_KEY_AUTH_COOKIE_VALUE = 'faststore_auth_cookie_value'
+export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
+  'faststore_cache_bust_last_value'
 
 /**
  * Gets the VtexIdclientAutCookie value from browser
