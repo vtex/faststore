@@ -1,7 +1,7 @@
 import type { ChangeEvent, DragEvent, HTMLAttributes } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Button, Card, Icon } from '../..'
+import { Button, Card, Icon, Input } from '../..'
 import { useOnClickOutside } from '../../hooks'
 import FileUploadStatus, {
   type FileUploadErrorType,
@@ -36,7 +36,7 @@ export interface FileUploadCardProps
   onSearch?: (file: File) => void
   /**
    * Accepted file types.
-   * @default '.csv,.xlsx,.xls'
+   * @default '.csv'
    */
   accept?: string
   /**
@@ -53,7 +53,7 @@ const FileUploadCard = ({
   onFileSelect,
   onDownloadTemplate,
   onSearch,
-  accept = '.csv,.xlsx,.xls',
+  accept = '.csv',
   multiple = false,
   ...otherProps
 }: FileUploadCardProps) => {
@@ -209,7 +209,7 @@ const FileUploadCard = ({
       aria-hidden={!isOpen}
       {...otherProps}
     >
-      <input
+      <Input
         ref={fileInputRef}
         type="file"
         onChange={handleFileChange}
@@ -261,13 +261,13 @@ const FileUploadCard = ({
             Select file
           </Button>
 
-          <button
+          <Button
             type="button"
             onClick={handleDownloadTemplate}
             data-fs-file-upload-card-template-link
           >
             Download template
-          </button>
+          </Button>
         </div>
       )}
     </Card>

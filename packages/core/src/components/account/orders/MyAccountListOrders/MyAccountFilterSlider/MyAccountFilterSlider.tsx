@@ -13,6 +13,7 @@ import type {
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
 import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
+import FilterFacetPendingApproval from './MyAccountFilterFacetPendingApproval'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -89,6 +90,10 @@ function MyAccountFilterSlider({
           acc['status'] = Array.isArray(acc['status'])
             ? [...acc['status'], value]
             : [value]
+        }
+
+        if (key === 'pendingMyApproval') {
+          acc['pendingMyApproval'] = value
         }
 
         return acc
@@ -202,6 +207,12 @@ function MyAccountFilterSlider({
                     )
                   })}
                 </UIFilterFacetBoolean>
+              )}
+              {type === 'StoreFacetPendingApproval' && isExpanded && (
+                <FilterFacetPendingApproval
+                  selected={selected}
+                  dispatch={dispatch}
+                />
               )}
               {type === 'StoreFacetRange' && isExpanded && (
                 <FilterFacetDateRange
