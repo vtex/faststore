@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.96.0-dev.2](https://github.com/vtex/faststore/compare/v3.96.0-dev.1...v3.96.0-dev.2) (2025-12-18)
+
+### Bug Fixes
+
+- adds cache busting to bypass cache when logged in/out. ([#3152](https://github.com/vtex/faststore/issues/3152)) ([862ea50](https://github.com/vtex/faststore/commit/862ea50999214771c4fa38fa70db789b4de5e59b))
+
 # [3.96.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.0-dev.0...v3.96.0-dev.1) (2025-12-16)
 
 **Note:** Version bump only for package faststore
