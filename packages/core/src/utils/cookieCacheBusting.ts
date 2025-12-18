@@ -1,7 +1,7 @@
 import discoveryConfig from 'discovery.config'
 
 const STORAGE_KEY_AUTH_COOKIE_VALUE = 'faststore_auth_cookie_value'
-const STORAGE_KEY_LAST_VALUE = 'faststore_last_value'
+const STORAGE_KEY_CACHE_BUST_LAST_VALUE = 'faststore_cache_bust_last_value'
 
 /**
  * Gets the VtexIdclientAutCookie value from browser
@@ -68,7 +68,7 @@ const getLastValue = (): string | null => {
   }
 
   try {
-    return sessionStorage.getItem(STORAGE_KEY_LAST_VALUE)
+    return sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
   } catch {
     return null
   }
@@ -83,7 +83,7 @@ const storeLastValue = (value: string): void => {
   }
 
   try {
-    sessionStorage.setItem(STORAGE_KEY_LAST_VALUE, value)
+    sessionStorage.setItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE, value)
   } catch {
     // Ignore storage errors
   }
@@ -99,7 +99,7 @@ const clearStorage = (): void => {
 
   try {
     sessionStorage.removeItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
-    sessionStorage.removeItem(STORAGE_KEY_LAST_VALUE)
+    sessionStorage.removeItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
   } catch {
     // Ignore storage errors
   }
