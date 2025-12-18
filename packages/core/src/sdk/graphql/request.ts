@@ -1,3 +1,5 @@
+import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
+
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
 export type Operation = {
   __meta__?: Record<string, any>
@@ -12,6 +14,8 @@ export interface BaseRequestOptions<V = any> {
   operation: Operation
   variables: V
   fetchOptions?: RequestInit
+  cacheBusting?: boolean
+  value?: string | null
 }
 
 const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
@@ -25,10 +29,14 @@ export const request = async <Query = unknown, Variables = unknown>(
   variables: Variables,
   options?: RequestOptions
 ) => {
+  // Get cache busting value based on cookie changes
+  const value = getClientCacheBustingValue()
+
   const { data, errors } = await baseRequest<Variables, Query>('/api/graphql', {
     ...options,
     variables,
     operation,
+    value,
   })
 
   if (errors?.length) {
@@ -41,7 +49,7 @@ export const request = async <Query = unknown, Variables = unknown>(
 /* This piece of code was taken out of @faststore/graphql-utils */
 const baseRequest = async <V = any, D = any>(
   endpoint: string,
-  { operation, variables, fetchOptions }: BaseRequestOptions<V>
+  { operation, variables, fetchOptions, value }: BaseRequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
   const { operationName, operationHash } = operation['__meta__']
 
@@ -58,6 +66,7 @@ const baseRequest = async <V = any, D = any>(
     operationName,
     operationHash,
     ...(method === 'GET' && { variables: JSON.stringify(variables) }),
+    ...(method === 'GET' && value && { v: value }),
   })
 
   const body =
