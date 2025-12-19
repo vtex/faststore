@@ -6,6 +6,7 @@ import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccor
 import MyAccountOrderActions from './MyAccountOrderActions'
 import MyAccountOrderedByCard from './MyAccountOrderedByCard'
 import MyAccountPaymentCard from './MyAccountPaymentCard'
+import MyAccountReorderButton from './MyAccountReorderButton'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type {
@@ -55,11 +56,15 @@ export default function MyAccountOrderDetails({
           </div>
         </div>
 
-        <MyAccountOrderActions
-          allowCancellation={order.allowCancellation}
-          orderId={order.orderId}
-          customerEmail={order.clientProfileData?.email}
-        />
+        <div data-fs-order-details-header-actions>
+          <MyAccountReorderButton order={order} />
+          <MyAccountOrderActions
+            allowCancellation={order.allowCancellation}
+            orderId={order.orderId}
+            customerEmail={order.clientProfileData?.email}
+            order={order}
+          />
+        </div>
       </header>
 
       <main data-fs-order-details-content>
