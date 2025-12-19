@@ -13,7 +13,6 @@ import {
 import Badge from '../../atoms/Badge'
 import type { PriceFormatter } from '../../atoms/Price'
 import Price from '../../atoms/Price'
-import Skeleton from '../../atoms/Skeleton'
 import { useUI } from '../../hooks'
 import Alert from '../../molecules/Alert'
 import Tooltip from '../../molecules/Tooltip'
@@ -31,7 +30,6 @@ const QuickOrderDrawerProducts = ({
   columns,
   formatter,
 }: QuickOrderDrawerProductsProps) => {
-  const [loading, _setLoading] = useState(false)
   const { pushToast } = useUI()
   const { products, onChangeQuantityItem, onDelete } = useQuickOrderDrawer()
 
@@ -84,148 +82,118 @@ const QuickOrderDrawerProducts = ({
           </TableHead>
 
           <TableBody>
-            {loading ? (
-              <>
-                {Array.from({ length: 5 }).map((_, index) => {
-                  return (
-                    <TableRow key={`table-row-${index}`}>
-                      {Array.from({
-                        length: 4,
-                      }).map((_, index) => {
-                        return (
-                          <TableCell key={`table-cell-${index}`}>
-                            <span>
-                              <Skeleton
-                                key={index}
-                                size={{ width: '100%', height: '30px' }}
-                              />
-                            </span>
-                          </TableCell>
-                        )
-                      })}
-                    </TableRow>
-                  )
-                })}
-              </>
-            ) : (
-              <>
-                {products.map((variantProduct) => (
-                  <TableRow
-                    key={`${variantProduct.name}-${variantProduct.id}`}
-                    data-fs-qod-table-row={variantProduct.availability}
-                  >
-                    <TableCell data-fs-qod-cell="product" align="left">
-                      <div data-fs-qod-table-cell-img-container>
-                        <img
-                          height={48}
-                          src={variantProduct.image.url}
-                          alt={
-                            variantProduct.image.alternateName ||
-                            variantProduct.name
-                          }
+            {products.map((variantProduct) => (
+              <TableRow
+                key={`${variantProduct.name}-${variantProduct.id}`}
+                data-fs-qod-table-row={variantProduct.availability}
+              >
+                <TableCell data-fs-qod-cell="product" align="left">
+                  <div data-fs-qod-table-cell-img-container>
+                    <img
+                      height={48}
+                      src={variantProduct.image.url}
+                      alt={
+                        variantProduct.image.alternateName ||
+                        variantProduct.name
+                      }
+                    />
+                  </div>
+
+                  <div data-fs-qod-table-cell-name-container>
+                    <div data-fs-qod-text={'primary'}>
+                      {variantProduct.name}
+                    </div>
+                    <span data-fs-qod-text={'secondary'}>
+                      {variantProduct.id}
+                    </span>
+                  </div>
+                  {variantProduct.availability === 'available' &&
+                    variantProduct.quantityUpdated && (
+                      <Tooltip
+                        content={'Quantity updated to match our inventory'}
+                        placement="left-center"
+                      >
+                        <IconButton
+                          aria-label="Quantity adjusted to match available inventory"
+                          icon={<Icon name="CircleWarning" weight="bold" />}
                         />
-                      </div>
+                      </Tooltip>
+                    )}
+                </TableCell>
 
-                      <div data-fs-qod-table-cell-name-container>
-                        <div data-fs-qod-text={'primary'}>
-                          {variantProduct.name}
-                        </div>
-                        <span data-fs-qod-text={'secondary'}>
-                          {variantProduct.id}
-                        </span>
-                      </div>
-                      {variantProduct.availability === 'available' &&
-                        variantProduct.quantityUpdated && (
-                          <Tooltip
-                            content={'Quantity updated to match our inventory'}
-                            placement="left-center"
-                          >
-                            <IconButton
-                              aria-label="Quantity adjusted to match available inventory"
-                              icon={<Icon name="CircleWarning" weight="bold" />}
-                            />
-                          </Tooltip>
-                        )}
-                    </TableCell>
-
-                    <TableCell align="left">
-                      {columns.availability.stockDisplaySettings ===
-                        'showAvailability' && (
-                        <Badge
-                          variant={
-                            variantProduct.availability === 'outOfStock'
-                              ? 'warning'
-                              : 'success'
-                          }
-                        >
-                          {variantProduct.availability === 'outOfStock'
-                            ? 'Out of stock'
-                            : 'Available'}
-                        </Badge>
-                      )}
-
-                      {columns.availability.stockDisplaySettings ===
-                        'showStockQuantity' && variantProduct.inventory}
-                    </TableCell>
-
-                    <TableCell data-fs-qod-cell="price" align="right">
-                      <Price
-                        value={variantProduct.price}
-                        variant="spot"
-                        formatter={formatter}
-                        data-fs-qod-table-price={variantProduct.availability}
-                      />
-                    </TableCell>
-
-                    <TableCell
-                      align="right"
-                      data-fs-qod-cell="quantity-selector"
+                <TableCell align="left">
+                  {columns.availability.stockDisplaySettings ===
+                    'showAvailability' && (
+                    <Badge
+                      variant={
+                        variantProduct.availability === 'outOfStock'
+                          ? 'warning'
+                          : 'success'
+                      }
                     >
-                      <div data-fs-qod-table-action>
-                        <QuantitySelector
-                          min={0}
-                          max={variantProduct.inventory}
-                          disabled={
-                            !variantProduct.inventory ||
-                            variantProduct.availability === 'outOfStock'
-                          }
-                          initial={variantProduct.selectedCount}
-                          onChange={(value) =>
-                            onChangeQuantityItem(variantProduct.id, value)
-                          }
-                          aria-label={`Select quantity for ${variantProduct.name}`}
-                          onValidateBlur={(
-                            min: number,
-                            maxValue: number,
-                            quantity: number
-                          ) => {
-                            pushToast({
-                              title: 'Invalid quantity!',
-                              message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
-                              status: 'INFO',
-                              icon: (
-                                <Icon
-                                  name="CircleWavyWarning"
-                                  width={30}
-                                  height={30}
-                                />
-                              ),
-                            })
-                          }}
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell align="right" data-fs-qod-delete-cell>
-                      <IconButton
-                        onClick={() => onDelete(variantProduct.id)}
-                        icon={<Icon name="Thrash" color="#1F1F1F" />}
-                        aria-label={`Remove ${variantProduct.name} from quick order list`}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </>
-            )}
+                      {variantProduct.availability === 'outOfStock'
+                        ? 'Out of stock'
+                        : 'Available'}
+                    </Badge>
+                  )}
+
+                  {columns.availability.stockDisplaySettings ===
+                    'showStockQuantity' && variantProduct.inventory}
+                </TableCell>
+
+                <TableCell data-fs-qod-cell="price" align="right">
+                  <Price
+                    value={variantProduct.price}
+                    variant="spot"
+                    formatter={formatter}
+                    data-fs-qod-table-price={variantProduct.availability}
+                  />
+                </TableCell>
+
+                <TableCell align="right" data-fs-qod-cell="quantity-selector">
+                  <div data-fs-qod-table-action>
+                    <QuantitySelector
+                      min={0}
+                      max={variantProduct.inventory}
+                      disabled={
+                        !variantProduct.inventory ||
+                        variantProduct.availability === 'outOfStock'
+                      }
+                      initial={variantProduct.selectedCount}
+                      onChange={(value) =>
+                        onChangeQuantityItem(variantProduct.id, value)
+                      }
+                      aria-label={`Select quantity for ${variantProduct.name}`}
+                      onValidateBlur={(
+                        min: number,
+                        maxValue: number,
+                        quantity: number
+                      ) => {
+                        pushToast({
+                          title: 'Invalid quantity!',
+                          message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                          status: 'INFO',
+                          icon: (
+                            <Icon
+                              name="CircleWavyWarning"
+                              width={30}
+                              height={30}
+                            />
+                          ),
+                        })
+                      }}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell align="right" data-fs-qod-delete-cell>
+                  <IconButton
+                    onClick={() => onDelete(variantProduct.id)}
+                    icon={<Icon name="Thrash" color="#1F1F1F" />}
+                    aria-label={`Remove ${variantProduct.name} from quick order list`}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </>
