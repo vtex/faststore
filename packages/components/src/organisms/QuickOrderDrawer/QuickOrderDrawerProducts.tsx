@@ -13,10 +13,10 @@ import {
 import Badge from '../../atoms/Badge'
 import type { PriceFormatter } from '../../atoms/Price'
 import Price from '../../atoms/Price'
-import Skeleton from '../../atoms/Skeleton'
 import { useUI } from '../../hooks'
 import Alert from '../../molecules/Alert'
 import Tooltip from '../../molecules/Tooltip'
+import Skeleton from '../../atoms/Skeleton'
 import {
   useQuickOrderDrawer,
   type VariationProductColumn,
@@ -121,43 +121,30 @@ const QuickOrderDrawerProducts = ({
           <TableBody>
             {products.length === 0 ? (
               <>
-                {Array.from({ length: 5 }).map((_, rowIndex) => {
-                  return (
-                    <TableRow key={`table-row-${rowIndex}`}>
-                      {Array.from({
-                        length: 5,
-                      }).map((_, cellIndex) => {
-                        return (
-                          <TableCell
-                            key={`table-cell-${rowIndex}-${cellIndex}`}
-                          >
-                            <span>
-                              <Skeleton
-                                key={`skeleton-${rowIndex}-${cellIndex}`}
-                                size={{ width: '100%', height: '30px' }}
-                              />
-                            </span>
-                          </TableCell>
-                        )
-                      })}
-                    </TableRow>
-                  )
-                })}
+                {Array.from({ length: 5 }).map((_, rowIndex) => (
+                  <TableRow key={`table-row-${rowIndex}`}>
+                    {Array.from({ length: 5 }).map((_, cellIndex) => (
+                      <TableCell key={`table-cell-${rowIndex}-${cellIndex}`}>
+                        <span>
+                          <Skeleton
+                            key={`skeleton-${rowIndex}-${cellIndex}`}
+                            size={{ width: '100%', height: '30px' }}
+                          />
+                        </span>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
               </>
             ) : (
               <>
                 {products.map((variantProduct) => (
                   <TableRow
                     key={`${variantProduct.name}-${variantProduct.id}`}
-                    data-fs-quick-order-drawer-table-row={
-                      variantProduct.availability
-                    }
+                    data-fs-qod-table-row={variantProduct.availability}
                   >
-                    <TableCell
-                      data-fs-quick-order-drawer-cell="product"
-                      align="left"
-                    >
-                      <div data-fs-quick-order-drawer-table-cell-img-container>
+                    <TableCell data-fs-qod-cell="product" align="left">
+                      <div data-fs-qod-table-cell-img-container>
                         <ImageComponent
                           height={48}
                           src={variantProduct.image.url}
@@ -168,11 +155,11 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
 
-                      <div data-fs-quick-order-drawer-table-cell-name-container>
-                        <div data-fs-quick-order-drawer-text={'primary'}>
+                      <div data-fs-qod-table-cell-name-container>
+                        <div data-fs-qod-text={'primary'}>
                           {variantProduct.name}
                         </div>
-                        <span data-fs-quick-order-drawer-text={'secondary'}>
+                        <span data-fs-qod-text={'secondary'}>
                           {variantProduct.id}
                         </span>
                       </div>
@@ -210,25 +197,17 @@ const QuickOrderDrawerProducts = ({
                         'showStockQuantity' && variantProduct.inventory}
                     </TableCell>
 
-                    <TableCell
-                      data-fs-quick-order-drawer-cell="price"
-                      align="right"
-                    >
+                    <TableCell data-fs-qod-cell="price" align="right">
                       <Price
                         value={variantProduct.price}
                         variant="spot"
                         formatter={priceFormatter}
-                        data-fs-quick-order-drawer-table-price={
-                          variantProduct.availability
-                        }
+                        data-fs-qod-table-price={variantProduct.availability}
                       />
                     </TableCell>
 
-                    <TableCell
-                      align="right"
-                      data-fs-quick-order-drawer-cell="quantity-selector"
-                    >
-                      <div data-fs-quick-order-drawer-table-action>
+                    <TableCell align="right" data-fs-qod-cell="quantity-selector">
+                      <div data-fs-qod-table-action>
                         <QuantitySelector
                           min={0}
                           max={variantProduct.inventory}
@@ -246,37 +225,34 @@ const QuickOrderDrawerProducts = ({
                             maxValue: number,
                             quantity: number
                           ) => {
-                            const title = messages?.invalidQuantityTitle
+                            const title =
+                              messages?.invalidQuantityTitle ?? 'Invalid quantity!'
                             const message = messages?.invalidQuantityMessage
                               ? messages.invalidQuantityMessage(
                                   min,
                                   maxValue,
                                   quantity
                                 )
-                              : undefined
+                              : `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`
 
-                            if (title && message) {
-                              pushToast({
-                                title,
-                                message,
-                                status: 'INFO',
-                                icon: (
-                                  <Icon
-                                    name="CircleWavyWarning"
-                                    width={30}
-                                    height={30}
-                                  />
-                                ),
-                              })
-                            }
+                            pushToast({
+                              title,
+                              message,
+                              status: 'INFO',
+                              icon: (
+                                <Icon
+                                  name="CircleWavyWarning"
+                                  width={30}
+                                  height={30}
+                                />
+                              ),
+                            })
                           }}
                         />
                       </div>
                     </TableCell>
-                    <TableCell
-                      align="right"
-                      data-fs-quick-order-drawer-delete-cell
-                    >
+
+                    <TableCell align="right" data-fs-qod-delete-cell>
                       <IconButton
                         onClick={() => onDelete(variantProduct.id)}
                         icon={<Icon name="Thrash" color="#1F1F1F" />}
