@@ -9,14 +9,14 @@ export enum FileUploadState {
   Error = 'error',
 }
 
-export enum FileUploadErrorType {
-  Unexpected = 'unexpected',
-  Unsupported = 'unsupported',
-  Unreadable = 'unreadable',
-  InvalidStructure = 'invalid-structure',
-  Empty = 'empty',
-  TooLarge = 'too-large',
-}
+export type FileUploadErrorType =
+  | 'unexpected'
+  | 'unsupported'
+  | 'unreadable'
+  | 'invalid-structure'
+  | 'empty'
+  | 'too-large'
+  | 'no-products-found'
 
 export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -122,6 +122,51 @@ const FileUploadStatus = ({
     }
     if (errorType && errorMessages?.[errorType]) {
       return errorMessages[errorType]!
+    }
+
+    switch (errorType) {
+      case 'unsupported':
+        return {
+          title: 'Unsupported file type.',
+          description: 'Upload a CSV or use the template provided.',
+        }
+      case 'unreadable':
+        return {
+          title: "File can't be read.",
+          description: "Make sure it's correctly formatted and not corrupted.",
+        }
+      case 'invalid-structure':
+        return {
+          title: 'Invalid structure.',
+          description: 'Check missing headers or columns and try again.',
+        }
+      case 'empty':
+        return {
+          title: 'File is empty.',
+          description: 'Add items to your file and upload it again.',
+        }
+      case 'too-large':
+        return {
+          title: 'File too large.',
+          description: 'Split it into smaller files and try again.',
+        }
+      case 'no-products-found':
+        return {
+          title: 'No products found.',
+          description: 'Please verify the SKUs in your file and try again.',
+        }
+      case 'unexpected':
+        return {
+          title: 'Upload failed.',
+          description:
+            'An unexpected error occurred. Try again or upload a new file.',
+        }
+      default:
+        return {
+          title: 'Upload failed.',
+          description:
+            'An unexpected error occurred. Try again or upload a new file.',
+        }
     }
     return { title: '', description: '' }
   }

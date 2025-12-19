@@ -175,7 +175,7 @@ const FileUploadCard = ({
   useEffect(() => {
     if (hasError && selectedFile) {
       setUploadState(FileUploadState.Error)
-      setErrorType(errorTypeProp ?? FileUploadErrorType.InvalidStructure)
+      setErrorType(errorTypeProp ?? 'invalid-structure')
     } else if (!hasError && selectedFile && !isUploading) {
       setUploadState(FileUploadState.Completed)
       setErrorType(undefined)
@@ -196,7 +196,7 @@ const FileUploadCard = ({
 
       if (!isValidFileType(file)) {
         setUploadState(FileUploadState.Error)
-        setErrorType(FileUploadErrorType.Unsupported)
+        setErrorType('unsupported')
         return
       }
 
@@ -238,7 +238,7 @@ const FileUploadCard = ({
 
       if (!isValidFileType(file)) {
         setUploadState(FileUploadState.Error)
-        setErrorType(FileUploadErrorType.Unsupported)
+        setErrorType('unsupported')
         return
       }
 
@@ -318,7 +318,7 @@ const FileUploadCard = ({
         <FileUploadStatus
           file={selectedFile}
           state={uploadState}
-          errorType={errorType}
+          errorType={errorTypeProp ?? errorType}
           errorMessages={errorMessages}
           errorMessage={errorMessage}
           onRemove={handleRemoveFile}
