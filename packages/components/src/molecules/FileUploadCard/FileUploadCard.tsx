@@ -60,6 +60,14 @@ export interface FileUploadCardProps
    * Indicates if there was an error during file upload.
    */
   hasError?: boolean
+  /**
+   * Type of error when hasError is true.
+   */
+  errorType?: FileUploadErrorType
+  /**
+   * Custom error message to display when hasError is true.
+   */
+  errorMessage?: string
 }
 
 const FileUploadCard = ({
@@ -75,6 +83,8 @@ const FileUploadCard = ({
   formatterFileName,
   isUploading = false,
   hasError = false,
+  errorType: errorTypeProp,
+  errorMessage,
   ...otherProps
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -106,12 +116,12 @@ const FileUploadCard = ({
   useEffect(() => {
     if (hasError && selectedFile) {
       setUploadState('error')
-      setErrorType('invalid-structure')
+      setErrorType(errorTypeProp ?? 'invalid-structure')
     } else if (!hasError && selectedFile && !isUploading) {
       setUploadState('completed')
       setErrorType(undefined)
     }
-  }, [hasError, selectedFile, isUploading])
+  }, [hasError, selectedFile, isUploading, errorTypeProp])
 
   const isValidFileType = (file: File): boolean => {
     const fileName = file.name.toLowerCase()
@@ -250,6 +260,7 @@ const FileUploadCard = ({
           file={selectedFile}
           state={uploadState}
           errorType={errorType}
+          errorMessage={errorMessage}
           onRemove={handleRemoveFile}
           onSearch={handleSearch}
           onDownloadTemplate={handleDownloadTemplate}

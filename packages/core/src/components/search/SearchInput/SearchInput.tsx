@@ -27,6 +27,7 @@ import {
   useCSVParser,
   useOnClickOutside,
   type CSVData,
+  type FileUploadErrorType,
   type Product,
 } from '@faststore/ui'
 
@@ -149,6 +150,16 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       resetSearchInput: () => setSearchQuery(''),
     }))
 
+    // Map CSV parser error types to FileUploadErrorType
+    const mapCSVErrorToFileUploadErrorType = (
+      csvErrorType?: string
+    ): FileUploadErrorType => {
+      if (csvErrorType === 'FILE_ERROR') {
+        return 'unreadable'
+      }
+      return 'invalid-structure'
+    }
+
     const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
       term,
       path
@@ -173,14 +184,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSkusToFetch([])
       setIsQuickOrderDrawerOpen(false)
 
-      try {
-        const result = await onParseFile(file)
+      const result = await onParseFile(file)
 
-        if (result && result.data && result.data.length > 0) {
-          setCsvData(result)
-        }
-      } catch (error) {
-        // Error will be handled by the CSV parser hook
+      if (result && result.data && result.data.length > 0) {
+        setCsvData(result)
       }
     }
 
@@ -424,6 +431,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 onSearch={handleSearch}
                 isUploading={isCsvProcessing || isLoadingProducts}
                 hasError={!!csvError}
+                {...(csvError && {
+                  errorType: mapCSVErrorToFileUploadErrorType(csvError.type),
+                  errorMessage: csvError.message,
+                })}
               />
             )}
 
