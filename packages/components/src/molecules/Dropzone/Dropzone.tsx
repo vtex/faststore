@@ -167,7 +167,7 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
       {acceptedFiles.length > 0 && (
         <div data-fs-dropzone-files>
           <ul>
-            {acceptedFiles.map((file, index) => (
+            {acceptedFiles.map((file: File, index: number) => (
               <li key={index} data-fs-dropzone-file>
                 {file.name} - {file.size} bytes
               </li>
@@ -179,11 +179,19 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
       {fileRejections.length > 0 && (
         <div data-fs-dropzone-errors>
           <ul>
-            {fileRejections.map(({ file, errors }, index) => (
-              <li key={index} data-fs-dropzone-error>
-                {file.name} - {errors.map((e) => e.message).join(', ')}
-              </li>
-            ))}
+            {fileRejections.map(
+              (fileRejection: FileRejection, index: number) => {
+                const { file, errors } = fileRejection
+                return (
+                  <li key={index} data-fs-dropzone-error>
+                    {file.name} -{' '}
+                    {errors
+                      .map((e: { message: string }) => e.message)
+                      .join(', ')}
+                  </li>
+                )
+              }
+            )}
           </ul>
         </div>
       )}

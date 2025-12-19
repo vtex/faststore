@@ -26,6 +26,7 @@ import {
   SearchInput as UISearchInput,
   useCSVParser,
   useOnClickOutside,
+  useUI,
   type CSVData,
   type FileUploadErrorType,
   type Product,
@@ -125,11 +126,13 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const [hasFile, setHasFile] = useState(false)
     const [isQuickOrderDrawerOpen, setIsQuickOrderDrawerOpen] = useState(false)
     const [quickOrderProducts, setQuickOrderProducts] = useState<Product[]>([])
+    const [noProductsError, setNoProductsError] = useState<boolean>(false)
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
     const priceFormatter = usePriceFormatter()
+    const { pushToast } = useUI()
 
     const [csvData, setCsvData] = useState<CSVData | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -183,6 +186,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setQuickOrderProducts([])
       setSkusToFetch([])
       setIsQuickOrderDrawerOpen(false)
+      setNoProductsError(false)
 
       const result = await onParseFile(file)
 
@@ -217,6 +221,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setFileUploadVisible(false)
       setIsUploadOpen(false)
       setHasFile(false)
+      setNoProductsError(false)
       onClearError()
     }
 
@@ -226,51 +231,92 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
         const fileToParse = _file || selectedFile
 
-        if (fileToParse) {
-          try {
-            const parsePromise = onParseFile(fileToParse)
+        if (!fileToParse) {
+          pushToast({
+            title: 'No file selected',
+            message: 'Please select a CSV file to search.',
+            status: 'ERROR',
+            icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+          })
+          return
+        }
 
-            const timeoutPromise = new Promise<never>((_, reject) => {
-              setTimeout(() => {
-                reject(
-                  new Error(
-                    'The file may be too large, corrupted, or the parser may be stuck.'
-                  )
+        try {
+          const parsePromise = onParseFile(fileToParse)
+
+          const timeoutPromise = new Promise<never>((_, reject) => {
+            setTimeout(() => {
+              reject(
+                new Error(
+                  'The file may be too large, corrupted, or the parser may be stuck.'
                 )
-              }, 30000)
+              )
+            }, 30000)
+          })
+
+          const result = (await Promise.race([
+            parsePromise,
+            timeoutPromise,
+          ])) as Awaited<ReturnType<typeof onParseFile>>
+
+          if (result && result.data && result.data.length > 0) {
+            dataToUse = result
+            setCsvData(result)
+          } else {
+            pushToast({
+              title: 'No data found',
+              message:
+                'The CSV file could not be processed or contains no valid data. Please check the file format and try again.',
+              status: 'ERROR',
+              icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
             })
-
-            const result = (await Promise.race([
-              parsePromise,
-              timeoutPromise,
-            ])) as Awaited<ReturnType<typeof onParseFile>>
-
-            if (result && result.data && result.data.length > 0) {
-              dataToUse = result
-              setCsvData(result)
-            } else {
-              return
-            }
-          } catch (error) {
             return
           }
-        } else {
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error
+              ? error.message
+              : 'Failed to process the CSV file. Please try again.'
+          pushToast({
+            title: 'File processing error',
+            message: errorMessage,
+            status: 'ERROR',
+            icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+          })
           return
         }
       }
 
       if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
+        pushToast({
+          title: 'No data available',
+          message:
+            'The CSV file contains no valid data. Please check the file and try again.',
+          status: 'ERROR',
+          icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+        })
         return
       }
+
       const skus = dataToUse.data
         .map((item: { SKU: string }) => item.SKU)
         .filter(Boolean)
 
-      if (skus.length > 0) {
-        setQuickOrderProducts([])
-        setIsQuickOrderDrawerOpen(false)
-        setSkusToFetch(skus)
+      if (skus.length === 0) {
+        pushToast({
+          title: 'No valid SKUs found',
+          message:
+            'The CSV file does not contain any valid SKUs. Please check the file format and ensure it has a SKU column.',
+          status: 'ERROR',
+          icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+        })
+        return
       }
+
+      setQuickOrderProducts([])
+      setIsQuickOrderDrawerOpen(false)
+      setNoProductsError(false)
+      setSkusToFetch(skus)
     }
 
     const { products: fetchedProducts, isLoading: isLoadingProducts } =
@@ -280,6 +326,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (skusToFetch.length > 0 && isLoadingProducts) {
         setQuickOrderProducts([])
         setIsQuickOrderDrawerOpen(false)
+        setNoProductsError(false)
         return
       }
 
@@ -315,6 +362,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         if (convertedProducts.length > 0) {
           setIsQuickOrderDrawerOpen(true)
           setFileUploadVisible(false)
+          setNoProductsError(false)
+        } else {
+          setQuickOrderProducts([])
+          setIsQuickOrderDrawerOpen(false)
+          setNoProductsError(true)
+          setFileUploadVisible(true)
         }
       } else if (
         !isLoadingProducts &&
@@ -324,6 +377,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       ) {
         setQuickOrderProducts([])
         setIsQuickOrderDrawerOpen(false)
+        setNoProductsError(true)
+        setFileUploadVisible(true)
       }
     }, [fetchedProducts, skusToFetch, csvData, isLoadingProducts])
 
@@ -375,21 +430,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton={showAttachmentButton}
-              attachmentButtonIcon={
-                showAttachmentButton && attachmentButtonIcon ? (
-                  <UIIcon
-                    name={attachmentButtonIcon.icon}
-                    aria-label={attachmentButtonIcon.alt}
-                  />
-                ) : undefined
-              }
+              showAttachmentButton={true}
+              attachmentButtonIcon={true}
               attachmentButtonProps={{
                 onClick: () => setFileUploadVisible(true),
-                'aria-label':
-                  attachmentButtonAriaLabel ??
-                  attachmentButtonIcon?.alt ??
-                  'Attach File',
               }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
@@ -419,7 +463,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 />
               </Suspense>
             )}
-
             {fileUploadVisible && (
               <FileUploadCard
                 isOpen={isUploadOpen || hasFile || fileUploadVisible}
@@ -430,10 +473,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 formatterFileName={formatFileName}
                 onSearch={handleSearch}
                 isUploading={isCsvProcessing || isLoadingProducts}
-                hasError={!!csvError}
-                {...(csvError && {
-                  errorType: mapCSVErrorToFileUploadErrorType(csvError.type),
-                  errorMessage: csvError.message,
+                hasError={(!!csvError || noProductsError) && !isLoadingProducts}
+                {...((csvError || (noProductsError && !isLoadingProducts)) && {
+                  errorType: noProductsError
+                    ? 'no-products-found'
+                    : mapCSVErrorToFileUploadErrorType(csvError.type),
+                  errorMessage: noProductsError ? undefined : csvError?.message,
                 })}
               />
             )}

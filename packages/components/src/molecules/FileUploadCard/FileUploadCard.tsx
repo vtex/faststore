@@ -116,7 +116,7 @@ const FileUploadCard = ({
   useEffect(() => {
     if (hasError && selectedFile) {
       setUploadState('error')
-      setErrorType(errorTypeProp ?? 'invalid-structure')
+      setErrorType(errorTypeProp ?? 'unexpected')
     } else if (!hasError && selectedFile && !isUploading) {
       setUploadState('completed')
       setErrorType(undefined)
@@ -259,7 +259,7 @@ const FileUploadCard = ({
         <FileUploadStatus
           file={selectedFile}
           state={uploadState}
-          errorType={errorType}
+          errorType={errorTypeProp ?? errorType}
           errorMessage={errorMessage}
           onRemove={handleRemoveFile}
           onSearch={handleSearch}

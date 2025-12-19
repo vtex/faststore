@@ -12,6 +12,7 @@ export type FileUploadErrorType =
   | 'invalid-structure'
   | 'empty'
   | 'too-large'
+  | 'no-products-found'
 
 export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -82,7 +83,6 @@ const FileUploadStatus = ({
 }: FileUploadStatusProps) => {
   const getErrorMessage = (): { title: string; description: string } => {
     if (errorMessage) {
-      // If custom error message is provided, use it as title and empty description
       return { title: errorMessage, description: '' }
     }
 
@@ -111,6 +111,11 @@ const FileUploadStatus = ({
         return {
           title: 'File too large.',
           description: 'Split it into smaller files and try again.',
+        }
+      case 'no-products-found':
+        return {
+          title: 'No products found.',
+          description: 'Please verify the SKUs in your file and try again.',
         }
       case 'unexpected':
         return {

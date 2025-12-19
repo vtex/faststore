@@ -32,6 +32,7 @@ export type CSVParserError = {
 /**
  * Hook to parse CSV files containing SKU and Quantity columns.
  * Utilizes PapaParse's native Web Worker for efficient parsing of large files.
+ * Supports both comma (,) and semicolon (;) delimiters - automatically detects which one is used.
  * @param options CSV parsing options
  * @returns Object containing parsing state and functions
  */
@@ -102,16 +103,46 @@ const parseCSVFile = (
   file: File,
   options: WorkerCSVOptions = {}
 ): Promise<WorkerCSVData> => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const defaultOptions = {
       skuColumnNames: ['sku', 'id', 'product', 'productid', 'item'],
       quantityColumnNames: ['quantity', 'qty', 'amount', 'count'],
       delimiter: '',
       skipEmptyLines: true,
-      chunkSize: 1024 * 1024, // 1MB chunks
+      chunkSize: 1024 * 1024,
     }
 
     const config = { ...defaultOptions, ...options }
+
+    const detectDelimiter = (): Promise<string> => {
+      if (config.delimiter) {
+        return Promise.resolve(config.delimiter)
+      }
+
+      return new Promise((resolveDelimiter) => {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const text = e.target?.result as string
+          const firstLine = text.split('\n')[0] || text.split('\r\n')[0] || ''
+
+          const commaCount = (firstLine.match(/,/g) || []).length
+          const semicolonCount = (firstLine.match(/;/g) || []).length
+          const tabCount = (firstLine.match(/\t/g) || []).length
+
+          if (semicolonCount > 0 && semicolonCount >= commaCount) {
+            resolveDelimiter(';')
+          } else if (tabCount > commaCount && tabCount > semicolonCount) {
+            resolveDelimiter('\t')
+          } else {
+            resolveDelimiter(',')
+          }
+        }
+        reader.onerror = () => resolveDelimiter(',')
+        reader.readAsText(file.slice(0, 1024))
+      })
+    }
+
+    const detectedDelimiter = await detectDelimiter()
 
     let headers: string[] = []
     let skuIndex = -1
@@ -165,7 +196,6 @@ const parseCSVFile = (
           err instanceof Error ? err.message : 'Unknown error'
         errors.push(`Row ${rowIndex + 2}: ${errorMessage}`)
 
-        // Limit errors to avoid excessive memory usage
         if (errors.length > 1000) {
           errors.splice(0, 500)
         }
@@ -174,32 +204,29 @@ const parseCSVFile = (
       }
     }
 
-    // Estimate total number of rows based on file size
     const estimateRows = (fileSize: number) => {
-      const avgBytesPerRow = 50 // Conservative estimate
+      const avgBytesPerRow = 50
       return Math.floor(fileSize / avgBytesPerRow)
     }
 
     totalEstimatedRows = estimateRows(file.size)
 
     Papa.parse(file, {
-      // Performance settings
-      header: false, // We'll process the header manually
-      dynamicTyping: false, // Keep as string for custom validation
+      header: false,
+      dynamicTyping: false,
       skipEmptyLines: config.skipEmptyLines,
-      delimiter: config.delimiter || '', // Auto-detect if empty
+      delimiter: detectedDelimiter,
 
-      // Enable PapaParse native Web Worker
       worker: true,
 
-      // Chunk processing for better performance
-      chunk: (results, parser) => {
+      chunk: (
+        results: { data: unknown[][] },
+        parser: { abort: () => void }
+      ) => {
         try {
-          // Process header on first execution
           if (!isHeaderProcessed && results.data.length > 0) {
             headers = results.data[0] as string[]
 
-            // Find column indices
             skuIndex = findColumnIndex(headers, config.skuColumnNames)
             quantityIndex = findColumnIndex(headers, config.quantityColumnNames)
 
@@ -223,12 +250,10 @@ const parseCSVFile = (
               return
             }
 
-            // Remove header from data to process only data rows
             results.data = results.data.slice(1)
             isHeaderProcessed = true
           }
 
-          // Process current chunk
           results.data.forEach((row: any, index: number) => {
             const globalRowIndex = processedRows + index
             const transformedRow = validateAndTransformRow(row, globalRowIndex)
@@ -240,7 +265,6 @@ const parseCSVFile = (
 
           processedRows += results.data.length
 
-          // Progress callback if provided
           if (config.onProgress) {
             const percentage = Math.min(
               100,
@@ -260,7 +284,6 @@ const parseCSVFile = (
 
       complete: () => {
         try {
-          // Check if we have valid data
           if (transformedData.length === 0) {
             if (errors.length > 0) {
               reject(
@@ -274,7 +297,6 @@ const parseCSVFile = (
             return
           }
 
-          // Log warnings if there are non-critical errors
           if (errors.length > 0) {
             console.warn(
               `CSV parsing completed with ${errors.length} warnings. Sample:`,
@@ -282,7 +304,6 @@ const parseCSVFile = (
             )
           }
 
-          // Final progress
           if (config.onProgress) {
             config.onProgress({
               processed: processedRows,
@@ -302,14 +323,15 @@ const parseCSVFile = (
         }
       },
 
-      error: (error) => {
-        reject(new Error(`PapaParse error: ${error.message}`))
+      error: (error: unknown) => {
+        const errorMessage =
+          error instanceof Error ? error.message : 'Unknown parsing error'
+        reject(new Error(`PapaParse error: ${errorMessage}`))
       },
 
-      // Additional performance settings
-      fastMode: false, // Disabled to support quotes and special characters
-      chunkSize: config.chunkSize, // Chunk size in bytes
-      preview: 0, // Process complete file
+      fastMode: false,
+      chunkSize: config.chunkSize,
+      preview: 0,
       encoding: 'UTF-8',
     })
   })
