@@ -18,6 +18,7 @@ import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
+  FileUploadErrorType,
   QuickOrderDrawer,
   QuickOrderDrawerFooter,
   QuickOrderDrawerHeader,
@@ -202,6 +203,16 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       resetSearchInput: () => setSearchQuery(''),
     }))
 
+    // Map CSV parser error types to FileUploadErrorType
+    const mapCSVErrorToFileUploadErrorType = (
+      csvErrorType?: string
+    ): FileUploadErrorType => {
+      if (csvErrorType === 'FILE_ERROR') {
+        return FileUploadErrorType.Unreadable
+      }
+      return FileUploadErrorType.InvalidStructure
+    }
+
     const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
       term,
       path
@@ -226,14 +237,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSkusToFetch([])
       setIsQuickOrderDrawerOpen(false)
 
-      try {
-        const result = await onParseFile(file)
+      const result = await onParseFile(file)
 
-        if (result && result.data && result.data.length > 0) {
-          setCsvData(result)
-        }
-      } catch {
-        // Error will be handled by the CSV parser hook
+      if (result && result.data && result.data.length > 0) {
+        setCsvData(result)
       }
     }
 
@@ -488,46 +495,48 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
             {fileUploadVisible && (
               <FileUploadCard
-                {...({
-                  isOpen: isUploadOpen || hasFile || fileUploadVisible,
-                  onDismiss: handleDismiss,
-                  onFileSelect: handleFileSelect,
-                  onDownloadTemplate: handleDownloadTemplate,
-                  formatterFileSize: formatFileSize,
-                  formatterFileName: formatFileName,
-                  onSearch: handleSearch,
-                  isUploading: isCsvProcessing || isLoadingProducts,
-                  hasError: !!csvError,
-                  accept: fileUploadConfig?.acceptedFileTypes ?? '.csv',
-                  ...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS),
-                  ...(fileUploadConfig?.errorMessages && {
-                    errorMessages: {
-                      ...(fileUploadCardProps?.errorMessages ??
-                        DEFAULT_FILE_UPLOAD_CARD_PROPS.errorMessages),
-                      ...fileUploadConfig.errorMessages,
-                    },
-                  }),
-                  ...(fileUploadConfig?.labels && {
-                    selectFileButtonLabel:
-                      fileUploadConfig.labels.selectFile ??
-                      fileUploadCardProps?.selectFileButtonLabel,
-                    downloadTemplateButtonLabel:
-                      fileUploadConfig.labels.downloadTemplate ??
-                      fileUploadCardProps?.downloadTemplateButtonLabel,
-                    searchButtonLabel:
-                      fileUploadConfig.labels.search ??
-                      fileUploadCardProps?.searchButtonLabel,
-                    removeButtonAriaLabel:
-                      fileUploadConfig.labels.remove ??
-                      fileUploadCardProps?.removeButtonAriaLabel,
-                    uploadingStatusText:
-                      fileUploadConfig.labels.uploading ??
-                      fileUploadCardProps?.uploadingStatusText,
-                    dropzoneTitle:
-                      fileUploadConfig.labels.dropzone ??
-                      fileUploadCardProps?.dropzoneTitle,
-                  }),
-                } as FileUploadCardProps)}
+                isOpen={isUploadOpen || hasFile || fileUploadVisible}
+                onDismiss={handleDismiss}
+                onFileSelect={handleFileSelect}
+                onDownloadTemplate={handleDownloadTemplate}
+                formatterFileSize={formatFileSize}
+                formatterFileName={formatFileName}
+                onSearch={handleSearch}
+                isUploading={isCsvProcessing || isLoadingProducts}
+                hasError={!!csvError}
+                accept={fileUploadConfig?.acceptedFileTypes ?? '.csv'}
+                {...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS)}
+                {...(fileUploadConfig?.errorMessages && {
+                  errorMessages: {
+                    ...(fileUploadCardProps?.errorMessages ??
+                      DEFAULT_FILE_UPLOAD_CARD_PROPS.errorMessages),
+                    ...fileUploadConfig.errorMessages,
+                  },
+                })}
+                {...(fileUploadConfig?.labels && {
+                  selectFileButtonLabel:
+                    fileUploadConfig.labels.selectFile ??
+                    fileUploadCardProps?.selectFileButtonLabel,
+                  downloadTemplateButtonLabel:
+                    fileUploadConfig.labels.downloadTemplate ??
+                    fileUploadCardProps?.downloadTemplateButtonLabel,
+                  searchButtonLabel:
+                    fileUploadConfig.labels.search ??
+                    fileUploadCardProps?.searchButtonLabel,
+                  removeButtonAriaLabel:
+                    fileUploadConfig.labels.remove ??
+                    fileUploadCardProps?.removeButtonAriaLabel,
+                  uploadingStatusText:
+                    fileUploadConfig.labels.uploading ??
+                    fileUploadCardProps?.uploadingStatusText,
+                  dropzoneTitle:
+                    fileUploadConfig.labels.dropzone ??
+                    fileUploadCardProps?.dropzoneTitle,
+                })}
+                {...(csvError && {
+                  errorType: mapCSVErrorToFileUploadErrorType(csvError.type),
+                  errorMessage: csvError.message,
+                })}
               />
             )}
 
