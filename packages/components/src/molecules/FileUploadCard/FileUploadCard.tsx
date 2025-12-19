@@ -208,7 +208,7 @@ const FileUploadCard = ({
     if (onDownloadTemplate) {
       onDownloadTemplate()
     } else {
-      const csvContent = 'SKU,Quantity\nAB001,AB100,AB999\n2,5,49'
+      const csvContent = 'SKU,Quantity\nAB001,2\nAB100,5\nAB999,49'
       const blob = new Blob([csvContent], { type: 'text/csv' })
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
