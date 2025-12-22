@@ -37,7 +37,7 @@ export function Default() {
       <QuickOrderDrawer isOpen={isOpen}>
         <>
           <QuickOrderDrawerHeader
-            title="order-file.xlsx"
+            title="order-file.csv"
             onCloseDrawer={() => setIsOpen(false)}
           />
           <QuickOrderDrawerProducts columns={columns} />
@@ -82,7 +82,7 @@ export function WithStockQuantity() {
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer isOpen={isOpen}>
         <QuickOrderDrawerHeader
-          title="order-file.xlsx"
+          title="order-file.csv"
           onCloseDrawer={() => setIsOpen(false)}
         />
         <QuickOrderDrawerProducts columns={columnsWithStock} />
@@ -100,7 +100,7 @@ export function OpenByDefault() {
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer isOpen={isOpen}>
         <QuickOrderDrawerHeader
-          title="order-file.xlsx"
+          title="order-file.csv"
           onCloseDrawer={() => setIsOpen(false)}
         />
         <QuickOrderDrawerProducts columns={columns} />

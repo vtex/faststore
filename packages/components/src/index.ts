@@ -427,5 +427,6 @@ export type {
   QuickOrderDrawerHeaderProps,
   QuickOrderDrawerProductsProps,
   QuickOrderDrawerProps,
+  QuickOrderDrawerProviderProps,
   VariationProductColumn,
 } from './organisms/QuickOrderDrawer'

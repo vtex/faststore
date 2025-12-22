@@ -12,5 +12,6 @@ export type { QuickOrderDrawerFooterProps } from './QuickOrderDrawerFooter'
 
 export type {
   Product,
+  QuickOrderDrawerProviderProps,
   VariationProductColumn,
 } from './provider/QuickOrderDrawerProvider'

@@ -286,6 +286,47 @@
           }
         }
       }
+
+      [data-fs-qod-empty-state] {
+        padding: var(--fs-spacing-7) var(--fs-spacing-4);
+        border-bottom: none;
+
+        [data-fs-qod-empty-state-container] {
+          display: flex;
+          flex-direction: column;
+          gap: var(--fs-spacing-3);
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        [data-fs-qod-empty-state-icon] {
+          color: var(--fs-color-text-light);
+        }
+
+        [data-fs-qod-empty-state-content] {
+          width: 100%;
+          text-align: center;
+        }
+
+        [data-fs-qod-empty-state-title] {
+          margin: 0;
+          margin-bottom: var(--fs-spacing-1);
+          font-size: var(--fs-text-size-2);
+          font-weight: var(--fs-text-weight-semibold);
+          color: var(--fs-color-text);
+        }
+
+        [data-fs-qod-empty-state-message] {
+          margin: 0;
+          font-size: var(--fs-text-size-1);
+          color: var(--fs-color-text-light);
+        }
+      }
+
+      [data-fs-table-row]:has([data-fs-qod-empty-state]) {
+        border-bottom: none;
+      }
     }
   }
 

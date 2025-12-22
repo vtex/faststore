@@ -38,6 +38,7 @@ interface QuickOrderDrawerContextValue {
   totalPrice: number
   itemsCount: number
   alertMessage: string
+  isLoading: boolean
   setAlertMessage: (message: string) => void
   onChangeQuantityItem: (id: string, value: number) => void
   onDelete: (id: string) => void
@@ -51,6 +52,8 @@ const QuickOrderDrawerContext = createContext<
 export interface QuickOrderDrawerProviderProps {
   children: ReactNode
   initialProducts?: Product[]
+  isLoading?: boolean
+  totalRequestedSkus?: number
   onAddToCart?: (
     products: Product[],
     totalPrice: number,
@@ -61,28 +64,51 @@ export interface QuickOrderDrawerProviderProps {
 export const QuickOrderDrawerProvider = ({
   children,
   initialProducts,
+  isLoading = false,
+  totalRequestedSkus,
   onAddToCart: onAddToCartCallback,
 }: QuickOrderDrawerProviderProps) => {
   const [products, setProducts] = useState<Product[]>(initialProducts || [])
 
-  const getAlertMessage = (prods: Product[]) => {
+  const getAlertMessage = (prods: Product[], totalRequestedSkus?: number) => {
+    // Don't show alert if there are no products (empty state handles this)
+    if (prods.length === 0) {
+      return ''
+    }
+
     const hasOutOfStock = prods.some((p) => p.availability === 'outOfStock')
-    return hasOutOfStock
-      ? 'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
-      : ''
+    const hasNotFound =
+      totalRequestedSkus !== undefined &&
+      totalRequestedSkus > 0 &&
+      prods.length < totalRequestedSkus
+
+    if (hasNotFound && hasOutOfStock) {
+      return 'Some of the SKUs were not found or are not available. Please adjust the amount before proceeding to the cart.'
+    }
+    if (hasNotFound) {
+      return 'Some of the SKUs were not found. Please check your CSV file and try again.'
+    }
+    if (hasOutOfStock) {
+      return 'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
+    }
+    return ''
   }
 
-  const [alertMessage, setAlertMessage] = useState<string>(
-    getAlertMessage(products)
-  )
+  const [alertMessage, setAlertMessage] = useState<string>('')
 
   useEffect(() => {
     const newProducts = initialProducts || []
 
     setProducts(newProducts)
-
-    setAlertMessage(getAlertMessage(newProducts))
   }, [initialProducts])
+
+  useEffect(() => {
+    if (!isLoading) {
+      setAlertMessage(getAlertMessage(products, totalRequestedSkus))
+    } else if (isLoading) {
+      setAlertMessage('')
+    }
+  }, [products, isLoading, totalRequestedSkus])
 
   const { totalPrice, itemsCount } = useMemo(() => {
     return products.reduce<{ totalPrice: number; itemsCount: number }>(
@@ -128,6 +154,7 @@ export const QuickOrderDrawerProvider = ({
     totalPrice,
     itemsCount,
     alertMessage,
+    isLoading,
     setAlertMessage,
     onChangeQuantityItem,
     onDelete,
