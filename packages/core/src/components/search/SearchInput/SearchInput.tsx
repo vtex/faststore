@@ -29,14 +29,14 @@ import {
   useCSVParser,
   useOnClickOutside,
   useUI,
-  type CSVData,
-  type Product,
 } from '@faststore/ui'
 
 import type {
   FileUploadCardProps,
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
+  CSVData,
+  Product,
 } from '@faststore/ui'
 
 import type { SearchProviderContextValue } from '@faststore/ui'
@@ -100,16 +100,16 @@ export type SearchInputProps = {
    * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
    */
   fileUploadCardProps?: {
-    title?: string
-    fileInputAriaLabel?: string
-    dropzoneAriaLabel?: string
+    title: string
+    fileInputAriaLabel: string
+    dropzoneAriaLabel: string
     dropzoneTitle?: string
     selectFileButtonLabel?: string
     downloadTemplateButtonLabel?: string
     removeButtonAriaLabel?: string
     searchButtonLabel?: string
     uploadingStatusText?: string
-    getCompletedStatusText?: (fileSize: number) => string
+    getCompletedStatusText: (fileSize: number) => string
     errorMessages?: Partial<
       Record<string, { title: string; description: string }>
     >
@@ -179,6 +179,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const [csvData, setCsvData] = useState<CSVData | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [skusToFetch, setSkusToFetch] = useState<string[]>([])
+    const [isLoadingWithDelay, setIsLoadingWithDelay] = useState(false)
 
     const csvParserOptions = useMemo(
       () => ({ delimiter: ',' as const, skipEmptyLines: true }),
@@ -212,7 +213,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     ): FileUploadErrorType => {
       if (csvErrorType === 'FILE_ERROR') {
         return 'unreadable'
-      }
+            }
       return 'invalid-structure'
     }
 
@@ -249,22 +250,18 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     }
 
     const handleDownloadTemplate = async () => {
-      try {
-        const csvContent = await onGenerateTemplate()
+      const csvContent = await onGenerateTemplate()
 
-        if (csvContent) {
-          const blob = new Blob([csvContent], { type: 'text/csv' })
-          const url = window.URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = 'template.csv'
-          document.body.appendChild(a)
-          a.click()
-          document.body.removeChild(a)
-          window.URL.revokeObjectURL(url)
-        }
-      } catch (error) {
-        // Error handled silently
+      if (csvContent) {
+        const blob = new Blob([csvContent], { type: 'text/csv' })
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'template.csv'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
       }
     }
 
@@ -383,8 +380,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       }
 
       setQuickOrderProducts([])
-      setIsQuickOrderDrawerOpen(false)
       setNoProductsError(false)
+      setIsLoadingWithDelay(true)
+      // Open drawer immediately to show loading skeleton
+      setIsQuickOrderDrawerOpen(true)
+      setFileUploadVisible(false)
       setSkusToFetch(skus)
     }
 
@@ -393,8 +393,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     useEffect(() => {
       if (skusToFetch.length > 0 && isLoadingProducts) {
+        // Clear products and show loading skeleton
         setQuickOrderProducts([])
-        setIsQuickOrderDrawerOpen(false)
+        setIsLoadingWithDelay(true)
+        // Keep drawer open to show loading skeleton
+        setIsQuickOrderDrawerOpen(true)
+        setFileUploadVisible(false)
         setNoProductsError(false)
         return
       }
@@ -405,49 +409,65 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         csvData &&
         fetchedProducts.length > 0
       ) {
-        const convertedProducts: Product[] = []
+        // Add artificial delay to test loading state
+        setIsLoadingWithDelay(true)
 
-        fetchedProducts.forEach((productData) => {
-          if (productData.product && !productData.error) {
-            const csvItem = csvData.data.find(
-              (item) =>
-                item.sku === productData.sku ||
-                item.sku?.trim() === productData.sku?.trim()
-            )
-            const requestedQuantity = csvItem?.quantity ?? 1
+        const timeoutId = setTimeout(() => {
+          const convertedProducts: Product[] = []
 
-            const convertedProduct = convertProductToQuickOrder(
-              productData.product,
-              requestedQuantity
-            )
+          fetchedProducts.forEach((productData) => {
+            if (productData.product && !productData.error) {
+              const csvItem = csvData.data.find(
+                (item) =>
+                  item.sku === productData.sku ||
+                  item.sku?.trim() === productData.sku?.trim()
+              )
+              const requestedQuantity = csvItem?.quantity ?? 1
 
-            if (convertedProduct) {
-              convertedProducts.push(convertedProduct)
+              const convertedProduct = convertProductToQuickOrder(
+                productData.product,
+                requestedQuantity
+              )
+
+              if (convertedProduct) {
+                convertedProducts.push(convertedProduct)
+              }
             }
-          }
-        })
+          })
 
-        setQuickOrderProducts(convertedProducts)
-        if (convertedProducts.length > 0) {
-          setIsQuickOrderDrawerOpen(true)
-          setFileUploadVisible(false)
-          setNoProductsError(false)
-        } else {
-          setQuickOrderProducts([])
-          setIsQuickOrderDrawerOpen(false)
-          setNoProductsError(true)
-          setFileUploadVisible(true)
+          setQuickOrderProducts(convertedProducts)
+          setIsLoadingWithDelay(false)
+
+          if (convertedProducts.length > 0) {
+            setIsQuickOrderDrawerOpen(true)
+            setFileUploadVisible(false)
+            setNoProductsError(false)
+          } else {
+            // Keep drawer open to show empty state message
+            setQuickOrderProducts([])
+            setIsQuickOrderDrawerOpen(true)
+            setFileUploadVisible(false)
+            setNoProductsError(true)
+          }
+        }, 2000) // 2 second delay for testing
+
+        return () => {
+          clearTimeout(timeoutId)
         }
-      } else if (
+      }
+
+      if (
         !isLoadingProducts &&
         skusToFetch.length > 0 &&
         csvData &&
         fetchedProducts.length === 0
       ) {
+        // Keep drawer open to show empty state message
         setQuickOrderProducts([])
-        setIsQuickOrderDrawerOpen(false)
+        setIsQuickOrderDrawerOpen(true)
+        setFileUploadVisible(false)
         setNoProductsError(true)
-        setFileUploadVisible(true)
+        setIsLoadingWithDelay(false)
       }
     }, [fetchedProducts, skusToFetch, csvData, isLoadingProducts])
 
@@ -614,6 +634,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           }}
           providerProps={{
             initialProducts: quickOrderProducts,
+            isLoading: isLoadingProducts || isLoadingWithDelay,
+            totalRequestedSkus: csvData?.data?.length || 0,
             onAddToCart: (
               productsToAdd: Product[],
               totalPrice: number,

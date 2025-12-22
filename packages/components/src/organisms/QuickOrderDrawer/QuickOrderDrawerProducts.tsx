@@ -13,10 +13,10 @@ import {
 import Badge from '../../atoms/Badge'
 import type { PriceFormatter } from '../../atoms/Price'
 import Price from '../../atoms/Price'
+import Skeleton from '../../atoms/Skeleton'
 import { useUI } from '../../hooks'
 import Alert from '../../molecules/Alert'
 import Tooltip from '../../molecules/Tooltip'
-import Skeleton from '../../atoms/Skeleton'
 import {
   useQuickOrderDrawer,
   type VariationProductColumn,
@@ -68,16 +68,18 @@ const QuickOrderDrawerProducts = ({
     products,
     onChangeQuantityItem,
     onDelete,
+    isLoading,
     alertMessage,
     setAlertMessage,
     formatter: contextFormatter,
   } = useQuickOrderDrawer()
   const priceFormatter = formatter || contextFormatter
 
+  const showSkeleton = isLoading
   return (
     <div data-fs-quick-order-drawer-content>
       <>
-        {alertMessage && (
+        {!isLoading && alertMessage && (
           <Alert
             icon={<Icon name="AlertFilled" weight="bold" />}
             dismissible
@@ -119,24 +121,25 @@ const QuickOrderDrawerProducts = ({
           </TableHead>
 
           <TableBody>
-            {products.length === 0 ? (
+            {showSkeleton ? (
               <>
-                {Array.from({ length: 5 }).map((_, rowIndex) => (
-                  <TableRow key={`table-row-${rowIndex}`}>
-                    {Array.from({ length: 5 }).map((_, cellIndex) => (
-                      <TableCell key={`table-cell-${rowIndex}-${cellIndex}`}>
-                        <span>
-                          <Skeleton
-                            key={`skeleton-${rowIndex}-${cellIndex}`}
-                            size={{ width: '100%', height: '30px' }}
-                          />
-                        </span>
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
+                {Array.from({ length: 4 }).map((_, index) => {
+                  return (
+                    <TableRow key={`table-row-skeleton-${index}`}>
+                      {Array.from({
+                        length: 4,
+                      }).map((_, cellIndex) => {
+                        return (
+                          <TableCell key={`table-cell-skeleton-${cellIndex}`}>
+                            <Skeleton size={{ width: '96%', height: '30px' }} />
+                          </TableCell>
+                        )
+                      })}
+                    </TableRow>
+                  )
+                })}
               </>
-            ) : (
+            ) : products.length > 0 ? (
               <>
                 {products.map((variantProduct) => (
                   <TableRow
@@ -206,7 +209,10 @@ const QuickOrderDrawerProducts = ({
                       />
                     </TableCell>
 
-                    <TableCell align="right" data-fs-qod-cell="quantity-selector">
+                    <TableCell
+                      align="right"
+                      data-fs-qod-cell="quantity-selector"
+                    >
                       <div data-fs-qod-table-action>
                         <QuantitySelector
                           min={0}
@@ -251,7 +257,6 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
                     </TableCell>
-
                     <TableCell align="right" data-fs-qod-delete-cell>
                       <IconButton
                         onClick={() => onDelete(variantProduct.id)}
@@ -262,6 +267,33 @@ const QuickOrderDrawerProducts = ({
                   </TableRow>
                 ))}
               </>
+            ) : (
+              <TableRow>
+                <TableCell
+                  align="center"
+                  data-fs-qod-empty-state
+                  {...({
+                    colSpan: 5,
+                  } as React.HTMLAttributes<HTMLTableCellElement>)}
+                >
+                  <div data-fs-qod-empty-state-container>
+                    <Icon
+                      name="MagnifyingGlass"
+                      width={48}
+                      height={48}
+                      weight="thin"
+                      data-fs-qod-empty-state-icon
+                    />
+                    <div data-fs-qod-empty-state-content>
+                      <p data-fs-qod-empty-state-title>No products found</p>
+                      <p data-fs-qod-empty-state-message>
+                        No SKUs were found for the provided file. Please check
+                        your CSV file and try again.
+                      </p>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>
