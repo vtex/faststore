@@ -520,11 +520,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               buttonProps={buttonProps}
               placeholder={placeholder}
               showAttachmentButton={showAttachmentButton}
-              attachmentButtonAriaLabel={
-                attachmentButtonAriaLabel ??
-                attachmentButtonIcon?.alt ??
-                'Attach File'
-              }
               attachmentButtonIcon={
                 showAttachmentButton && attachmentButtonIcon ? (
                   <UIIcon
@@ -538,6 +533,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   setFileUploadVisible(true)
                   setIsUploadModalOpen(true)
                 },
+                'aria-label':
+                  attachmentButtonAriaLabel ??
+                  attachmentButtonIcon?.alt ??
+                  'Attach File',
               }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
