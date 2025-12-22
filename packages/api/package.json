@@ -70,6 +70,9 @@
   "peerDependencies": {
     "graphql": "^15.6.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "volta": {
     "extends": "../../package.json"
   }
