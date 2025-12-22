@@ -450,10 +450,21 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton={true}
-              attachmentButtonIcon={true}
+              showAttachmentButton={showAttachmentButton}
+              attachmentButtonIcon={
+                showAttachmentButton && attachmentButtonIcon ? (
+                  <UIIcon
+                    name={attachmentButtonIcon.icon}
+                    aria-label={attachmentButtonIcon.alt}
+                  />
+                ) : undefined
+              }
               attachmentButtonProps={{
                 onClick: () => setFileUploadVisible(true),
+                'aria-label':
+                  attachmentButtonAriaLabel ??
+                  attachmentButtonIcon?.alt ??
+                  'Attach File',
               }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
