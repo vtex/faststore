@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
           fetch-depth: 2
@@ -34,7 +34,7 @@ jobs:
           version: 10.26.2
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "pnpm"
