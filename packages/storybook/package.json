@@ -2,6 +2,11 @@
   "name": "@faststore/storybook",
   "version": "3.96.0-dev.7",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore.git",
+    "directory": "packages/storybook"
+  },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
     "@storybook/addon-essentials": "^8.5.2",

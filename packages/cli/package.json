@@ -9,7 +9,11 @@
   "homepage": "https://github.com/vtex/faststore",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore.git",
+    "directory": "packages/cli"
+  },
   "files": [
     "/bin",
     "/dist",

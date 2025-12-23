@@ -5,7 +5,11 @@
   "main": "dist/cjs/src/index.js",
   "typings": "dist/esm/src/index.d.ts",
   "module": "dist/esm/src/index.js",
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore.git",
+    "directory": "packages/api"
+  },
   "files": [
     "dist",
     "src"

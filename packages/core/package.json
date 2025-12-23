@@ -2,7 +2,11 @@
   "name": "@faststore/core",
   "version": "3.96.0-dev.7",
   "license": "MIT",
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore.git",
+    "directory": "packages/core"
+  },
   "browserslist": "supports es6-module and not dead",
   "exports": {
     ".": "./index.ts",

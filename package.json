@@ -1,7 +1,10 @@
 {
   "name": "faststore",
   "description": "Digital commerce toolkit for frontend developers.",
-  "repository": "git@github.com:vtex/faststore.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore.git"
+  },
   "license": "MIT",
   "private": true,
   "scripts": {
