@@ -1,10 +1,15 @@
-# This Action should run on main branch and verify lint, test, and then publish the version on npm
+# This Action should run on main and dev branches and verify lint, test, and then publish the version on npm
 name: CD
 
 on:
   push:
     branches:
       - main
+      - dev
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   build:
@@ -55,10 +60,15 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Publish
+      - name: Publish (main)
+        if: github.ref_name == 'main'
         run: pnpm release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish (dev)
+        if: github.ref_name == 'dev'
+        run: pnpm release:dev
 
       - name: Publish to Chromatic
         uses: chromaui/action@latest
