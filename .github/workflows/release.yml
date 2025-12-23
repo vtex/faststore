@@ -33,15 +33,15 @@ jobs:
         with:
           version: 9.15.5
 
-      - name: Upgrade npm for OIDC support
-        run: npm install -g npm@latest
-
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
+
+      - name: Upgrade npm for OIDC support
+        run: npm install -g npm@latest
 
       - name: Configure CI Git User
         run: |
