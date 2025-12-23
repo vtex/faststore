@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.96.0-dev.7 (2025-12-23)
+
+### Bug Fixes
+
+- correct comment for platform specific API configuration in discovery config ([b03968c](https://github.com/vtex/faststore/commit/b03968c84cfb935b71ef64f575dcdf3e8f624b5a))
+
 # 3.96.0-dev.6 (2025-12-23)
 
 **Note:** Version bump only for package @faststore/core
