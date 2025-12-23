@@ -7,7 +7,7 @@
   "module": "dist/esm/src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vtex/faststore.git",
+    "url": "https://github.com/vtex/faststore",
     "directory": "packages/api"
   },
   "files": [

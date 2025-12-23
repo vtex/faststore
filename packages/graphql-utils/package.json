@@ -4,7 +4,7 @@
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vtex/faststore.git",
+    "url": "https://github.com/vtex/faststore",
     "directory": "packages/graphql-utils"
   },
   "license": "MIT",
