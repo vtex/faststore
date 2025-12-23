@@ -63,8 +63,6 @@ jobs:
       - name: Publish (main)
         if: github.ref_name == 'main'
         run: pnpm release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Publish (dev)
         if: github.ref_name == 'dev'
