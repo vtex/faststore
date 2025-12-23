@@ -8,7 +8,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
