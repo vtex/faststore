@@ -65,11 +65,11 @@ jobs:
 
       - name: Publish (main)
         if: github.ref_name == 'main'
-        run: pnpm release
+        run: NODE_AUTH_TOKEN="" pnpm release
 
       - name: Publish (dev)
         if: github.ref_name == 'dev'
-        run: pnpm release:dev
+        run: NODE_AUTH_TOKEN="" pnpm release:dev
 
       - name: Publish to Chromatic
         uses: chromaui/action@latest
