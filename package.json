@@ -24,7 +24,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "husky": "9.1.7",
-    "lerna": "^8.1.9",
+    "lerna": "^9.0.3",
     "lint-staged": "15.4.3",
     "prettier": "^3.1.0",
     "stylelint": "^14.6.0",

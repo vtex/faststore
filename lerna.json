@@ -12,5 +12,6 @@
     "**/*.snap",
     "**/*.test.*",
     "**/*.md"
-  ]
+  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

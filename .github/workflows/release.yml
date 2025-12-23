@@ -9,7 +9,7 @@ on:
 
 permissions:
   id-token: write # Required for OIDC
-  contents: read
+  contents: write # Required for lerna to commit version changes
 
 jobs:
   build:
@@ -62,6 +62,11 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      - name: Verify npm authentication
+        run: |
+          echo "Verifying npm authentication..."
+          npm whoami --registry=https://registry.npmjs.org/ || echo "Warning: npm whoami failed, but this may be normal for OIDC"
 
       - name: Publish (main)
         if: github.ref_name == 'main'
