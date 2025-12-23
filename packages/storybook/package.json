@@ -1,6 +1,6 @@
 {
   "name": "@faststore/storybook",
-  "version": "3.96.0-dev.8",
+  "version": "3.96.0-dev.9",
   "private": true,
   "repository": {
     "type": "git",
@@ -30,8 +30,8 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@faststore/components": "^3.96.0-dev.8",
-    "@faststore/ui": "^3.96.0-dev.8",
+    "@faststore/components": "^3.96.0-dev.9",
+    "@faststore/ui": "^3.96.0-dev.9",
     "next": "^15.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
