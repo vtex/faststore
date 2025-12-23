@@ -29,7 +29,7 @@ module.exports = {
   // Ecommerce Platform
   platform: 'vtex',
 
-  // Platform specific configs for API
+  // Platform specific config for API
   api: {
     storeId: 'storeframework',
     workspace: 'master',
