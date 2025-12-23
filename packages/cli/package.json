@@ -52,6 +52,9 @@
   "volta": {
     "extends": "../../package.json"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "oclif": {
     "bin": "faststore",
     "dirname": "faststore",

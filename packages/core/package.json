@@ -40,6 +40,9 @@
     "pnpm": "9.15.1",
     "yarn": "1.22.22"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "dependencies": {
     "@antfu/ni": "^0.21.12",
