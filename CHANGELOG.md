@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.96.0-dev.13](https://github.com/vtex/faststore/compare/v3.96.0-dev.12...v3.96.0-dev.13) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
 # [3.96.0-dev.12](https://github.com/vtex/faststore/compare/v3.96.0-dev.11...v3.96.0-dev.12) (2025-12-23)
 
 **Note:** Version bump only for package faststore
