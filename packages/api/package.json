@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "3.96.0-dev.3",
+  "version": "3.96.0-dev.4",
   "license": "MIT",
   "main": "dist/cjs/src/index.js",
   "typings": "dist/esm/src/index.d.ts",

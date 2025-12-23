@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.96.0-dev.4 (2025-12-23)
+
+### Bug Fixes
+
+- update release workflow to handle both main and dev branches ([#3160](https://github.com/vtex/faststore/issues/3160)) ([4247f92](https://github.com/vtex/faststore/commit/4247f9254f47056e726418290f4f019760a81935))
+
 # [3.96.0-dev.3](https://github.com/vtex/faststore/compare/v3.96.0-dev.2...v3.96.0-dev.3) (2025-12-22)
 
 **Note:** Version bump only for package faststore
