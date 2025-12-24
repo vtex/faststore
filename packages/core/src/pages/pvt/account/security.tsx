@@ -22,6 +22,7 @@ import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 import PageProvider from 'src/sdk/overrides/PageProvider'
 
@@ -77,7 +78,7 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
@@ -149,3 +150,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

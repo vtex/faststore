@@ -12,10 +12,11 @@ import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
+import { useLocaleValidation } from 'src/sdk/i18n'
 import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
 
-import SEO from 'next-seo.config'
 import storeConfig from 'discovery.config'
+import SEO from 'next-seo.config'
 
 // FastStore UI's base styles
 import '../styles/main.scss'
@@ -30,6 +31,9 @@ function App({ Component, pageProps }: AppProps) {
 
   // Initialize global Search state
   startGlobalSearchState(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
+
+  // Client-side validation of locale binding (fallback for static pages)
+  useLocaleValidation()
 
   return (
     <ErrorBoundary>
