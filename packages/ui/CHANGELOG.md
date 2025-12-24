@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.96.0-dev.18 (2025-12-24)
+
+**Note:** Version bump only for package @faststore/ui
+
 # 3.96.0-dev.17 (2025-12-23)
 
 **Note:** Version bump only for package @faststore/ui
