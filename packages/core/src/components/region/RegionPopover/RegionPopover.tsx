@@ -65,6 +65,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
       noProductsAvailableErrorMessage:
         inputFieldNoProductsAvailableErrorMessage = '',
       buttonActionText: inputButtonActionText = '',
+      loadingLabel: inputLoadingLabel = '',
     } = {},
     idkPostalCodeLink: {
       text: idkPostalCodeLinkText = '',
@@ -150,7 +151,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
           setInput('')
           setRegionError('')
         }}
-        buttonActionText={loading ? '...' : inputButtonActionText}
+        buttonActionText={loading ? inputLoadingLabel : inputButtonActionText}
         error={regionError}
       />
       {idkPostalCodeLinkTo && (
