@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
@@ -39,9 +40,9 @@
   "version": "0.0.0",
   "volta": {
     "node": "18.19.0",
-    "pnpm": "10.26.2"
+    "pnpm": "9.15.5"
   },
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@9.15.5",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",
     "*.scss": "stylelint --fix"
