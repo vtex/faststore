@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "3.95.0",
+  "version": "3.96.0-dev.18",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -9,7 +9,11 @@
   "homepage": "https://github.com/vtex/faststore",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/cli"
+  },
   "files": [
     "/bin",
     "/dist",
@@ -18,7 +22,7 @@
   ],
   "dependencies": {
     "@antfu/ni": "^0.21.12",
-    "@faststore/core": "^3.95.0",
+    "@faststore/core": "^3.96.0-dev.18",
     "@inquirer/prompts": "^5.1.2",
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",
@@ -47,6 +51,9 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "oclif": {
     "bin": "faststore",

@@ -1,0 +1,312 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "ProductGallery",
+  "$componentTitle": "Product Gallery",
+  "title": "Product Gallery",
+  "description": "Product Gallery configuration",
+  "type": "object",
+  "required": ["filter"],
+  "properties": {
+    "searchTermLabel": {
+      "title": "Search page term label",
+      "type": "string",
+      "default": "Showing results for:"
+    },
+    "totalCountLabel": {
+      "title": "Total count label",
+      "type": "string",
+      "default": "Results"
+    },
+    "previousPageButton": {
+      "title": "Previous page button",
+      "type": "object",
+      "required": ["icon", "label"],
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["ArrowLeft"],
+              "enum": ["ArrowLeft"],
+              "default": "ArrowLeft"
+            },
+            "alt": {
+              "title": "Alternative label",
+              "type": "string",
+              "default": "Arrow Left icon"
+            }
+          }
+        },
+        "label": {
+          "title": "Previous page button",
+          "type": "string",
+          "default": "Previous page"
+        }
+      }
+    },
+    "loadMorePageButton": {
+      "title": "Load more products Button",
+      "type": "object",
+      "required": ["label"],
+      "properties": {
+        "label": {
+          "title": "Load more products label",
+          "type": "string",
+          "default": "Load more products"
+        }
+      }
+    },
+    "filter": {
+      "title": "Filter",
+      "type": "object",
+      "required": ["title", "mobileOnly"],
+      "properties": {
+        "title": {
+          "title": "Filter title",
+          "type": "string",
+          "default": "Filters"
+        },
+        "mobileOnly": {
+          "title": "Mobile Only",
+          "type": "object",
+          "required": ["filterButton", "clearButtonLabel", "applyButtonLabel"],
+          "properties": {
+            "filterButton": {
+              "title": "Show filter button",
+              "type": "object",
+              "required": ["label", "icon"],
+              "properties": {
+                "label": {
+                  "title": "Label",
+                  "type": "string",
+                  "default": "Filters"
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "required": ["icon", "alt"],
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["FadersHorizontal"],
+                      "enum": ["FadersHorizontal"],
+                      "default": "FadersHorizontal"
+                    },
+                    "alt": {
+                      "title": "Alternative label",
+                      "type": "string",
+                      "default": "Open filters"
+                    }
+                  }
+                }
+              }
+            },
+            "clearButtonLabel": {
+              "title": "Clear button label",
+              "type": "string",
+              "default": "Clear all"
+            },
+            "applyButtonLabel": {
+              "title": "Apply button label",
+              "type": "string",
+              "default": "Apply"
+            }
+          }
+        }
+      }
+    },
+    "productCard": {
+      "title": "Product Card Configuration",
+      "type": "object",
+      "properties": {
+        "showDiscountBadge": {
+          "title": "Show discount badge?",
+          "type": "boolean",
+          "default": true
+        },
+        "bordered": {
+          "title": "Cards should be bordered?",
+          "type": "boolean",
+          "default": true
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
+        },
+        "sponsoredLabel": {
+          "title": "Sponsored Label",
+          "type": "string",
+          "default": "Sponsored"
+        }
+      }
+    },
+    "emptyGallery": {
+      "title": "Empty Gallery",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Nothing matches your search"
+        },
+        "firstButton": {
+          "title": "First Button",
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "title": "Label",
+              "default": "Browse offers"
+            },
+            "url": {
+              "type": "string",
+              "title": "URL",
+              "default": "/office"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "default": "CircleWavyWarning"
+            }
+          }
+        },
+        "secondButton": {
+          "title": "Second Button",
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "title": "Label",
+              "default": "Just arrived"
+            },
+            "url": {
+              "type": "string",
+              "title": "URL",
+              "default": "/technology"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "default": "RocketLaunch"
+            }
+          }
+        }
+      }
+    },
+    "productComparison": {
+      "title": "Product Comparison",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "title": "Enable Product Comparison",
+          "type": "boolean",
+          "default": false
+        },
+        "labels": {
+          "title": "Labels",
+          "type": "object",
+          "properties": {
+            "compareButton": {
+              "title": "Compare Button",
+              "type": "string",
+              "default": "Compare"
+            },
+            "clearSelectionButton": {
+              "title": "Clear Selection Button",
+              "type": "string",
+              "default": "Clear Selection"
+            },
+            "selectionWarning": {
+              "title": "Selection Warning",
+              "type": "string",
+              "default": "Select at least 2"
+            },
+            "sidebarComponent": {
+              "title": "Sidebar component",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Compare Products"
+                },
+                "filterLabel": {
+                  "title": "Filter text",
+                  "type": "string",
+                  "default": "Filters"
+                },
+                "productNameFilterLabel": {
+                  "title": "Filter by product name text",
+                  "type": "string",
+                  "default": "Product name"
+                },
+                "sortLabel": {
+                  "title": "Sort filter text",
+                  "type": "string",
+                  "default": "Sort by"
+                },
+                "toggleFieldLabel": {
+                  "title": "Toggle filter text",
+                  "type": "string",
+                  "default": "Show only differences"
+                },
+                "preferencesLabel": {
+                  "title": "Preferences text",
+                  "type": "string",
+                  "default": "Preferences"
+                },
+                "cartButtonLabel": {
+                  "title": "Add to cart button",
+                  "type": "string",
+                  "default": "Add to cart"
+                },
+                "priceLabel": {
+                  "title": "Price text",
+                  "type": "string",
+                  "default": "Price"
+                },
+                "priceWithTaxLabel": {
+                  "title": "Price with taxes text",
+                  "type": "string",
+                  "default": "Price with taxes"
+                }
+              }
+            },
+            "technicalInformation": {
+              "title": "Technical Information",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Technical Information"
+                },
+                "description": {
+                  "title": "Description",
+                  "type": "string",
+                  "default": "Technical facts and information about the product."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

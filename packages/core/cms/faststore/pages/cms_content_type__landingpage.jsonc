@@ -1,0 +1,108 @@
+{
+  "landingPage": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": false,
+    "type": "object",
+    "title": "Landing Page",
+    "properties": {
+      "seo": {
+        "title": "SEO",
+        "description": "Search Engine Optimization options",
+        "type": "object",
+        "widget": {
+          "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+        },
+        "required": ["slug", "title", "description"],
+        "properties": {
+          "slug": {
+            "title": "Path",
+            "type": "string",
+            "default": "/"
+          },
+          "title": {
+            "title": "Default page title",
+            "description": "Display this title when no other tile is available.",
+            "type": "string",
+            "default": "FastStore Starter"
+          },
+          "description": {
+            "title": "Meta tag description",
+            "type": "string",
+            "default": "A beautifully designed store"
+          },
+          "canonical": {
+            "title": "Canonical url for the page",
+            "type": "string"
+          }
+        },
+        "$componentTitle": "SEO"
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/Search"
+            },
+            {
+              "$ref": "#/components/Navbar"
+            },
+            {
+              "$ref": "#/components/Alert"
+            },
+            {
+              "$ref": "#/components/Footer"
+            },
+            {
+              "$ref": "#/components/BannerText"
+            },
+            {
+              "$ref": "#/components/Hero"
+            },
+            {
+              "$ref": "#/components/Incentives"
+            },
+            {
+              "$ref": "#/components/ProductShelf"
+            },
+            {
+              "$ref": "#/components/CrossSellingShelf"
+            },
+            {
+              "$ref": "#/components/ProductTiles"
+            },
+            {
+              "$ref": "#/components/Newsletter"
+            },
+            {
+              "$ref": "#/components/Children"
+            },
+            {
+              "$ref": "#/components/BannerNewsletter"
+            },
+            {
+              "$ref": "#/components/CartSidebar"
+            },
+            {
+              "$ref": "#/components/RegionBar"
+            },
+            {
+              "$ref": "#/components/RegionModal"
+            },
+            {
+              "$ref": "#/components/RegionPopover"
+            },
+            {
+              "$ref": "#/components/EmptyState"
+            }
+          ]
+        }
+      }
+    },
+    "readOnly": false,
+    "writeOnly": false,
+    "deprecated": false,
+    "$abstract": false,
+    "identifierKeys": ["slug"]
+  }
+}

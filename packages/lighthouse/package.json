@@ -1,6 +1,6 @@
 {
   "name": "@faststore/lighthouse",
-  "version": "3.95.0",
+  "version": "3.96.0-dev.18",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": {
@@ -18,6 +18,9 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc"

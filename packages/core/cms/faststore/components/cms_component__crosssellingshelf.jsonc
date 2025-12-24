@@ -1,0 +1,50 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "CrossSellingShelf",
+  "$componentTitle": "Cross Selling Shelf",
+  "title": "Cross Selling Shelf",
+  "description": "Add cross selling product data to your users",
+  "type": "object",
+  "required": ["title", "numberOfItems", "kind"],
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "numberOfItems": {
+      "title": "Total number of items",
+      "type": "integer",
+      "default": 5,
+      "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
+    },
+    "itemsPerPage": {
+      "type": "integer",
+      "title": "Number of items per page",
+      "default": 5,
+      "description": "Number of items to display per page in carousel"
+    },
+    "kind": {
+      "title": "Kind",
+      "description": "Change cross selling types",
+      "default": "buy",
+      "enum": ["buy", "view"],
+      "enumNames": ["Who bought also bought", "Who saw also saw"]
+    },
+    "taxesConfiguration": {
+      "title": "Taxes Configuration",
+      "type": "object",
+      "properties": {
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
+        },
+        "taxesLabel": {
+          "title": "Tax label to be displayed",
+          "type": "string",
+          "default": "Tax included"
+        }
+      }
+    }
+  }
+}

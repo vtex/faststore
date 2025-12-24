@@ -682,8 +682,11 @@ type UserOrderDeliveryOptionsItems {
   name: String
   quantity: Int
   price: Float
+  sellingPrice: Float
   imageUrl: String
   tax: Float
+  taxPriceTags: [UserOrderPriceTag]
+  taxPriceTagsTotal: Float
   total: Float
 }
 

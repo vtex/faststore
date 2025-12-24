@@ -1,6 +1,6 @@
 {
   "name": "@faststore/sdk",
-  "version": "3.95.0",
+  "version": "3.96.0-dev.18",
   "description": "Hooks for creating your next component library",
   "license": "MIT",
   "repository": {
@@ -32,6 +32,9 @@
       "limit": "10 KB"
     }
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "react": "^18.2.0"
   },

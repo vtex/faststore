@@ -1,7 +1,10 @@
 {
   "name": "faststore",
   "description": "Digital commerce toolkit for frontend developers.",
-  "repository": "git@github.com:vtex/faststore.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore"
+  },
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -22,7 +25,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "husky": "9.1.7",
-    "lerna": "^8.1.9",
+    "lerna": "^9.0.3",
     "lint-staged": "15.4.3",
     "prettier": "^3.1.0",
     "stylelint": "^14.6.0",
