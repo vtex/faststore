@@ -37,7 +37,7 @@ function ThirdPartyScripts() {
       {includeGTM && <GoogleTagManager containerId={gtmContainerId} />}
       {includeVTEX && <VTEX />}
       <OverrideComponents.ThirdPartyScripts />
-      {/* Only render Partytown when not in an iframe to prevent cross-origin errors */}
+      {/* Only render Partytown when not in an iframe to prevent cross-origin errors. */}
       {typeof window !== 'undefined' && window.self === window.top && (
         <Partytown key="partytown" />
       )}
