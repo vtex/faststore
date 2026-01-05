@@ -2,11 +2,11 @@ import type { RefObject, SelectHTMLAttributes } from 'react'
 import { useMemo, useState } from 'react'
 
 import {
+  SlideOver,
+  SlideOverHeader,
   Button as UIButton,
   Popover as UIPopover,
   SelectField as UISelectField,
-  SlideOver,
-  SlideOverHeader,
   useFadeEffect,
 } from '@faststore/ui'
 
