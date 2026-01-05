@@ -8,7 +8,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { logger } from '../utils/logger'
-// import { FastStoreSDK } from '@vtex/faststore-sdk'
+import { FastStoreSDK } from '@vtex/faststore-sdk'
 import fsExtra from 'fs-extra'
 import { saveFile } from '../utils/file'
 
@@ -107,21 +107,20 @@ export default class GenerateI18n extends Command {
       return
     }
 
-    // TODO: Uncomment when SDK is updated to return new structure
-    // const faststore = new FastStoreSDK({
-    //   account: VTEX_ACCOUNT,
-    //   appKey: FS_DISCOVERY_APP_KEY,
-    //   appToken: FS_DISCOVERY_APP_TOKEN,
-    // })
+    const faststore = new FastStoreSDK({
+      account: VTEX_ACCOUNT,
+      appKey: FS_DISCOVERY_APP_KEY,
+      appToken: FS_DISCOVERY_APP_TOKEN,
+    })
 
-    // const settings = await faststore.settings()
+    const settings = await faststore.locales()
 
     saveConfigFile(
       await format(
         `module.exports = ${JSON.stringify(
           {
             ...(discoveryConfig?.default ?? discoveryConfig),
-            i18n: mockedSettings,
+            i18n: settings,
           },
           undefined,
           2
@@ -137,147 +136,4 @@ export default class GenerateI18n extends Command {
       `${chalk.green('success')} - i18n configuration successfully generated 🎉`
     )
   }
-}
-
-export const mockedSettings = {
-  defaultLocale: 'pt-BR',
-  regions: {
-    BR: {
-      code: 'BR',
-      name: 'Brazil',
-      dateFormat: 'DD/MM/YYYY',
-      timeFormat: '12h',
-      timeFormatMask: 'hh:mm a',
-      unitSystem: 'metric',
-      defaultTimezone: 'GMT-3',
-    },
-    CA: {
-      code: 'CA',
-      name: 'Canada',
-      dateFormat: 'YYYY-MM-DD',
-      timeFormat: '12h',
-      timeFormatMask: 'hh:mm a',
-      unitSystem: 'metric',
-      defaultTimezone: 'GMT-5',
-    },
-    US: {
-      code: 'US',
-      name: 'United States',
-      dateFormat: 'MM/DD/YYYY',
-      timeFormat: '12h',
-      timeFormatMask: 'hh:mm a',
-      unitSystem: 'imperial',
-      defaultTimezone: 'GMT-5',
-    },
-  },
-  locales: {
-    'pt-BR': {
-      code: 'pt-BR',
-      name: 'Português',
-      languageCode: 'pt',
-      languageName: 'Portuguese',
-      script: 'Latn',
-      textDirection: 'ltr',
-      regionCode: 'BR',
-      bindings: [
-        {
-          currencyCode: 'BRL',
-          url: 'https://brandless.fast.store/pt-BR',
-          salesChannel: '1',
-          isDefault: true,
-        },
-        {
-          currencyCode: 'BRL',
-          url: 'https://pt.brandless.fast.store',
-          salesChannel: '2',
-          isDefault: false,
-        },
-      ],
-    },
-    'it-IT': {
-      code: 'it-IT',
-      name: 'Italiano',
-      languageCode: 'it',
-      languageName: 'Italian',
-      script: 'Latn',
-      textDirection: 'ltr',
-      regionCode: 'IT',
-      bindings: [
-        {
-          currencyCode: 'EUR',
-          url: 'https://brandless.fast.store/it-IT',
-          salesChannel: '3',
-          isDefault: false,
-        },
-      ],
-    },
-    'en-CA': {
-      code: 'en-CA',
-      name: 'English (Canada)',
-      languageCode: 'en',
-      languageName: 'English',
-      script: 'Latn',
-      textDirection: 'ltr',
-      regionCode: 'CA',
-      bindings: [
-        {
-          currencyCode: 'USD',
-          url: 'https://brandless.fast.store/en-CA',
-          salesChannel: '2',
-          isDefault: false,
-        },
-      ],
-    },
-    'fr-CA': {
-      code: 'fr-CA',
-      name: 'Français',
-      languageCode: 'fr',
-      languageName: 'French',
-      script: 'Latn',
-      textDirection: 'ltr',
-      regionCode: 'CA',
-      bindings: [
-        {
-          currencyCode: 'USD',
-          url: 'https://brandless.fast.store/fr-CA',
-          salesChannel: '2',
-          isDefault: false,
-        },
-      ],
-    },
-    'en-US': {
-      code: 'en-US',
-      name: 'English',
-      languageCode: 'en',
-      languageName: 'English',
-      script: 'Latn',
-      textDirection: 'ltr',
-      regionCode: 'US',
-      bindings: [
-        {
-          currencyCode: 'USD',
-          url: 'https://brandless.fast.store/en-US',
-          salesChannel: '2',
-          isDefault: false,
-        },
-      ],
-    },
-  },
-  currencies: {
-    BRL: {
-      code: 'BRL',
-      name: 'Brazilian Real',
-      symbol: 'R$',
-    },
-    USD: {
-      code: 'USD',
-      name: 'US Dollar',
-      symbol: '$',
-    },
-    EUR: {
-      code: 'EUR',
-      name: 'Euro',
-      symbol: '€',
-    },
-  },
 }
