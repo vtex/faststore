@@ -64,9 +64,9 @@ const I18nButton = ({ icon }: { icon: string }) => {
         triggerRef={buttonRef}
         languages={MOCK_LANGUAGES}
         currencies={MOCK_CURRENCIES}
-        title="Selecionar idioma e moeda"
-        languageLabel="Selecionar idioma"
-        currencyLabel="Selecionar moeda"
+        title=""
+        languageLabel="Lingua"
+        currencyLabel="Moeda"
         description="Alterar o idioma ou a moeda pode afetar preços, promoções e disponibilidade."
         saveLabel="Salvar"
         defaultLanguage={defaultLanguage}

@@ -89,7 +89,7 @@ const I18nSelectorContent = ({
   onSave,
 }: I18nSelectorContentProps) => {
   return (
-    <div data-fs-i18n-selector>
+    <div data-fs-i18n-selector-content>
       <UISelectField
         id="i18n-selector-language"
         label={languageLabel}
@@ -178,9 +178,10 @@ function I18nSelector({
     return (
       <UIModal
         isOpen={isOpen}
+        data-fs-i18n-selector
         onDismiss={onClose}
         overlayProps={{
-          className: `${styles.mobile}`,
+          className: `${styles.common} ${styles.mobile}`,
         }}
       >
         <UIModalHeader title={title} onClose={onClose} />
@@ -201,25 +202,23 @@ function I18nSelector({
             languages={languages}
             currencies={currencies}
           />
-        </UIModalBody>
-        <UIModalFooter>
           <UIButton variant="primary" onClick={handleSave}>
             {saveLabel}
           </UIButton>
-        </UIModalFooter>
+        </UIModalBody>
       </UIModal>
     )
   }
 
   return (
-    <div className={`${styles.desktop}`}>
+    <div className={`${styles.common} ${styles.desktop}`}>
       <UIPopover
         isOpen={isOpen}
         placement="bottom-start"
-        dismissible
         triggerRef={triggerRef}
         onDismiss={onClose}
         offsetTop={undefined}
+        data-fs-i18n-selector
         content={
           <I18nSelectorContent
             selectedLanguage={selectedLanguage}

@@ -1,3 +1,31 @@
 [data-fs-i18n-selector] {
-  // Styles to be defined later
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2, 12px);
+  align-items: flex-end;
+  background: var(--fs-color-neutral-0, #fff);
+  border: 1px solid var(--fs-border-color-default, #999);
+  border-radius: var(--fs-border-radius, 2px);
+
+  [data-fs-i18n-selector-description] {
+    width: 193px;
+    margin: var(--fs-spacing-2) 0;
+    font-size: var(--fs-text-size-0, 12px);
+    color: var(--palette-neutral-color-neutral-4, #999);
+  }
+
+  [data-fs-popover-indicator],
+  [data-fs-modal-header],
+  [data-fs-popover-header] {
+    display: none;
+  }
+
+  [data-fs-i18n-selector-actions] {
+    display: flex;
+    justify-content: end;
+  }
+
+  &[data-fs-modal-content] {
+    align-items: flex-start;
+  }
 }
