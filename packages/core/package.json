@@ -15,7 +15,11 @@
     "test:e2e": "cypress open",
     "test": "vitest run",
     "lhci": "lhci autorun",
-    "partytown": "partytown copylib ./public/~partytown"
+    "partytown": "partytown copylib ./public/~partytown",
+    "gen-types": "node ../cli/bin/run generate-types .",
+    "cache-graphql": "node ../cli/bin/run cache-graphql --config=./discovery.config.default.js --queries=./@generated/persisted-documents.json",
+    "generate": "pnpm run gen-types && pnpm run cache-graphql ",
+    "dev": "pnpm run generate && next dev"
   },
   "engines": {
     "node": ">=20"
