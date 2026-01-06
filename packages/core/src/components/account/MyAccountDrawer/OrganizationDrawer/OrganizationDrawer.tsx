@@ -118,6 +118,9 @@ export const doLogout = async (_event?: unknown) => {
   if (!storeConfig) return
 
   try {
+    // Clear client-side storage (sessionStorage, localStorage, IndexedDB, non-HttpOnly cookies)
+    await clearBrowserStorageForCurrentDomain()
+
     // Clear HttpOnly cookies via API endpoint (server-side)
     try {
       await fetch('/api/logout', {
@@ -127,9 +130,6 @@ export const doLogout = async (_event?: unknown) => {
     } catch {
       // Continue even if API call fails
     }
-
-    // Clear client-side storage (sessionStorage, localStorage, IndexedDB, non-HttpOnly cookies)
-    await clearBrowserStorageForCurrentDomain()
   } finally {
     window.location.assign(
       `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
