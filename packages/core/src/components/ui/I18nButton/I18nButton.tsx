@@ -40,7 +40,7 @@ const I18nButton = ({ icon }: { icon: string }) => {
         iconPosition="left"
         variant="tertiary"
         onClick={() => {
-          setIsSelectorOpen(true)
+          setIsSelectorOpen(!isSelectorOpen)
         }}
       >
         <div data-i18n-button-text>
@@ -58,20 +58,22 @@ const I18nButton = ({ icon }: { icon: string }) => {
         />
       </UIButton>
 
-      <I18nSelector
-        isOpen={isSelectorOpen}
-        onClose={() => setIsSelectorOpen(false)}
-        triggerRef={buttonRef}
-        languages={MOCK_LANGUAGES}
-        currencies={MOCK_CURRENCIES}
-        title=""
-        languageLabel="Lingua"
-        currencyLabel="Moeda"
-        description="Alterar o idioma ou a moeda pode afetar preços, promoções e disponibilidade."
-        saveLabel="Salvar"
-        defaultLanguage={defaultLanguage}
-        defaultCurrency={defaultCurrency}
-      />
+      {isSelectorOpen && (
+        <I18nSelector
+          isOpen={isSelectorOpen}
+          onClose={() => setIsSelectorOpen(false)}
+          triggerRef={buttonRef}
+          languages={MOCK_LANGUAGES}
+          currencies={MOCK_CURRENCIES}
+          title=""
+          languageLabel="Lingua"
+          currencyLabel="Moeda"
+          description="Alterar o idioma ou a moeda pode afetar preços, promoções e disponibilidade."
+          saveLabel="Salvar"
+          defaultLanguage={defaultLanguage}
+          defaultCurrency={defaultCurrency}
+        />
+      )}
     </>
   )
 }

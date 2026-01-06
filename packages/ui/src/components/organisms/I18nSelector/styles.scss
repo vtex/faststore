@@ -24,8 +24,31 @@
     display: flex;
     justify-content: end;
   }
+}
 
-  &[data-fs-modal-content] {
-    align-items: flex-start;
+[data-fs-i18n-selector-mobile] {
+  align-items: flex-start;
+
+  [data-fs-slide-over-header] {
+    width: 100%;
+  }
+
+  [data-fs-i18n-selector-body] {
+    padding: 0 var(--fs-spacing-3);
+  }
+
+  [data-fs-i18n-selector-title] {
+    font-size: var(--fs-text-size-3);
+    font-weight: var(--fs-text-weight-semibold);
+  }
+
+  [data-fs-i18n-selector-footer] {
+    width: 100%;
+    padding: var(--fs-spacing-3);
+
+    [data-fs-button] {
+      width: 100%;
+      
+    }
   }
 }

@@ -3,12 +3,11 @@ import { useMemo, useState } from 'react'
 
 import {
   Button as UIButton,
-  Modal as UIModal,
-  ModalBody as UIModalBody,
-  ModalFooter as UIModalFooter,
-  ModalHeader as UIModalHeader,
   Popover as UIPopover,
   SelectField as UISelectField,
+  SlideOver,
+  SlideOverHeader,
+  useFadeEffect,
 } from '@faststore/ui'
 
 import useScreenResize from 'src/sdk/ui/useScreenResize'
@@ -134,7 +133,8 @@ function I18nSelector({
   defaultLanguage,
   defaultCurrency,
 }: I18nSelectorProps) {
-  const { loading, isMobile } = useScreenResize()
+  const { loading, isDesktop } = useScreenResize()
+  const { fade, fadeOut } = useFadeEffect()
 
   const [selectedLanguage, setSelectedLanguage] = useState<SelectValue>(() => {
     if (defaultLanguage && languages[defaultLanguage]) {
@@ -165,82 +165,91 @@ function I18nSelector({
     onClose()
   }
 
-  const isMobileDevice = useMemo(
-    () => !loading && Boolean(isMobile),
-    [loading, isMobile]
+  const isDesktopDevice = useMemo(
+    () => !loading && Boolean(isDesktop),
+    [loading, isDesktop]
   )
 
   if (!isOpen || loading) {
     return null
   }
 
-  if (isMobileDevice) {
+  if (isDesktopDevice) {
     return (
-      <UIModal
-        isOpen={isOpen}
-        data-fs-i18n-selector
-        onDismiss={onClose}
-        overlayProps={{
-          className: `${styles.common} ${styles.mobile}`,
-        }}
-      >
-        <UIModalHeader title={title} onClose={onClose} />
-        <UIModalBody>
-          <I18nSelectorContent
-            selectedLanguage={selectedLanguage}
-            selectedCurrency={selectedCurrency}
-            onLanguageChange={(event) =>
-              setSelectedLanguage(event.currentTarget.value)
-            }
-            onCurrencyChange={(event) =>
-              setSelectedCurrency(event.currentTarget.value)
-            }
-            languageLabel={languageLabel}
-            currencyLabel={currencyLabel}
-            description={description}
-            saveLabel={saveLabel}
-            languages={languages}
-            currencies={currencies}
-          />
-          <UIButton variant="primary" onClick={handleSave}>
-            {saveLabel}
-          </UIButton>
-        </UIModalBody>
-      </UIModal>
+      <div className={`${styles.common} ${styles.desktop}`}>
+        <UIPopover
+          isOpen={isOpen}
+          placement="bottom-start"
+          triggerRef={triggerRef}
+          onDismiss={onClose}
+          offsetTop={undefined}
+          data-fs-i18n-selector
+          content={
+            <I18nSelectorContent
+              selectedLanguage={selectedLanguage}
+              selectedCurrency={selectedCurrency}
+              onLanguageChange={(event) =>
+                setSelectedLanguage(event.currentTarget.value)
+              }
+              onCurrencyChange={(event) =>
+                setSelectedCurrency(event.currentTarget.value)
+              }
+              languageLabel={languageLabel}
+              currencyLabel={currencyLabel}
+              description={description}
+              saveLabel={saveLabel}
+              languages={languages}
+              currencies={currencies}
+              showSaveButton
+              onSave={handleSave}
+            />
+          }
+        />
+      </div>
     )
   }
 
   return (
-    <div className={`${styles.common} ${styles.desktop}`}>
-      <UIPopover
-        isOpen={isOpen}
-        placement="bottom-start"
-        triggerRef={triggerRef}
-        onDismiss={onClose}
-        offsetTop={undefined}
-        data-fs-i18n-selector
-        content={
-          <I18nSelectorContent
-            selectedLanguage={selectedLanguage}
-            selectedCurrency={selectedCurrency}
-            onLanguageChange={(event) =>
-              setSelectedLanguage(event.currentTarget.value)
-            }
-            onCurrencyChange={(event) =>
-              setSelectedCurrency(event.currentTarget.value)
-            }
-            languageLabel={languageLabel}
-            currencyLabel={currencyLabel}
-            description={description}
-            saveLabel={saveLabel}
-            languages={languages}
-            currencies={currencies}
-            showSaveButton
-            onSave={handleSave}
-          />
-        }
-      />
-    </div>
+    <SlideOver
+      data-fs-i18n-selector
+      data-fs-i18n-selector-mobile
+      fade={fade}
+      onDismiss={fadeOut}
+      onTransitionEnd={() => fade === 'out' && onClose()}
+      isOpen={isOpen}
+      size="partial"
+      direction="bottomSide"
+      overlayProps={{
+        className: `${styles.common} ${styles.mobile}`,
+      }}
+    >
+      <SlideOverHeader onClose={fadeOut}>
+        <h2 data-fs-i18n-selector-title>Selecione lingua e moeda</h2>
+      </SlideOverHeader>
+      <div data-fs-i18n-selector-body>
+        <I18nSelectorContent
+          selectedLanguage={selectedLanguage}
+          selectedCurrency={selectedCurrency}
+          onLanguageChange={(event) =>
+            setSelectedLanguage(event.currentTarget.value)
+          }
+          onCurrencyChange={(event) =>
+            setSelectedCurrency(event.currentTarget.value)
+          }
+          languageLabel={languageLabel}
+          currencyLabel={currencyLabel}
+          description={description}
+          saveLabel={saveLabel}
+          languages={languages}
+          currencies={currencies}
+        />
+      </div>
+      <footer data-fs-i18n-selector-footer>
+        <UIButton variant="primary" onClick={handleSave}>
+          {saveLabel}
+        </UIButton>
+      </footer>
+    </SlideOver>
   )
 }
 
