@@ -123,7 +123,7 @@ export const doLogout = async (_event?: unknown) => {
 
     // Clear HttpOnly cookies via API endpoint (server-side)
     try {
-      await fetch('/api/logout', {
+      await fetch('/api/fs/logout', {
         method: 'POST',
         credentials: 'include',
       })
