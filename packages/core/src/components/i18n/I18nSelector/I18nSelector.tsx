@@ -170,42 +170,43 @@ function I18nSelector({
     [loading, isDesktop]
   )
 
-  if (!isOpen || loading) {
+  if (loading) {
     return null
   }
 
   if (isDesktopDevice) {
     return (
-      <div className={`${styles.common} ${styles.desktop}`}>
-        <UIPopover
-          isOpen={isOpen}
-          placement="bottom-start"
-          triggerRef={triggerRef}
-          onDismiss={onClose}
-          offsetTop={0}
-          data-fs-i18n-selector
-          content={
-            <I18nSelectorContent
-              selectedLanguage={selectedLanguage}
-              selectedCurrency={selectedCurrency}
-              onLanguageChange={(event) =>
-                setSelectedLanguage(event.currentTarget.value)
-              }
-              onCurrencyChange={(event) =>
-                setSelectedCurrency(event.currentTarget.value)
-              }
-              languageLabel={languageLabel}
-              currencyLabel={currencyLabel}
-              description={description}
-              saveLabel={saveLabel}
-              languages={languages}
-              currencies={currencies}
-              showSaveButton
-              onSave={handleSave}
-            />
-          }
-        />
-      </div>
+      <UIPopover
+        isOpen={isOpen}
+        placement="bottom-start"
+        triggerRef={triggerRef}
+        onDismiss={onClose}
+        usePortal
+        data-fs-i18n-selector
+        wrapperProps={{
+          className: `${styles.common} ${styles.desktop}`,
+        }}
+        content={
+          <I18nSelectorContent
+            selectedLanguage={selectedLanguage}
+            selectedCurrency={selectedCurrency}
+            onLanguageChange={(event) =>
+              setSelectedLanguage(event.currentTarget.value)
+            }
+            onCurrencyChange={(event) =>
+              setSelectedCurrency(event.currentTarget.value)
+            }
+            languageLabel={languageLabel}
+            currencyLabel={currencyLabel}
+            description={description}
+            saveLabel={saveLabel}
+            languages={languages}
+            currencies={currencies}
+            showSaveButton
+            onSave={handleSave}
+          />
+        }
+      />
     )
   }
 
@@ -218,7 +219,7 @@ function I18nSelector({
       onTransitionEnd={() => fade === 'out' && onClose()}
       isOpen={isOpen}
       size="partial"
-      direction="bottomSide"
+      direction="rightSide"
       overlayProps={{
         className: `${styles.common} ${styles.mobile}`,
       }}

@@ -17,7 +17,23 @@ const MOCK_CURRENCIES: Record<string, string> = {
   EUR: 'EUR',
 }
 
-const I18nButton = ({ icon }: { icon: string }) => {
+interface I18nButtonProps {
+  icon: string
+  title?: string
+  languageLabel?: string
+  currencyLabel?: string
+  description?: string
+  saveLabel?: string
+}
+
+const I18nButton = ({
+  icon,
+  title = 'Select language and currency',
+  languageLabel = 'Language',
+  currencyLabel = 'Currency',
+  description = 'Changing the language or currency may affect prices, promotions and availability.',
+  saveLabel = 'Save',
+}: I18nButtonProps) => {
   const { locale, currency } = useSession()
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -65,11 +81,11 @@ const I18nButton = ({ icon }: { icon: string }) => {
           triggerRef={buttonRef}
           languages={MOCK_LANGUAGES}
           currencies={MOCK_CURRENCIES}
-          title="Selecione lingua e moeda"
-          languageLabel="Lingua"
-          currencyLabel="Moeda"
-          description="Alterar o idioma ou a moeda pode afetar preços, promoções e disponibilidade."
-          saveLabel="Salvar"
+          title={title}
+          languageLabel={languageLabel}
+          currencyLabel={currencyLabel}
+          description={description}
+          saveLabel={saveLabel}
           defaultLanguage={defaultLanguage}
           defaultCurrency={defaultCurrency}
         />

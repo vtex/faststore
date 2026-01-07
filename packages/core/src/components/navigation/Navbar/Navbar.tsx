@@ -71,6 +71,16 @@ export interface NavbarProps {
     shouldDisplayI18nButton: boolean
   }
   /**
+   * i18n Selector props.
+   */
+  i18nSelector?: {
+    title?: string
+    languageLabel?: string
+    currencyLabel?: string
+    description?: string
+    saveLabel?: string
+  }
+  /**
    * Page links.
    */
   links: SectionNavbarProps['navigation']['pageLinks']
@@ -93,6 +103,7 @@ function Navbar({
   signIn,
   region,
   i18nButton,
+  i18nSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
@@ -201,7 +212,14 @@ function Navbar({
             )}
 
             {isDesktop && i18nButton?.shouldDisplayI18nButton && (
-              <I18nButton icon={i18nButton?.icon} />
+              <I18nButton
+                icon={i18nButton?.icon}
+                title={i18nSelector?.title}
+                languageLabel={i18nSelector?.languageLabel}
+                currencyLabel={i18nSelector?.currencyLabel}
+                description={i18nSelector?.description}
+                saveLabel={i18nSelector?.saveLabel}
+              />
             )}
 
             {isDesktop &&
@@ -236,6 +254,7 @@ function Navbar({
           signIn={signIn}
           region={region}
           i18nButton={i18nButton}
+          i18nSelector={i18nSelector}
         />
       )}
     </NavbarWrapper.Component>
