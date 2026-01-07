@@ -1,11 +1,13 @@
 [data-fs-i18n-selector] {
+  --fs-popover-margin: 0;
+  --fs-popover-border-radius: var(--fs-border-radius, 2px);
+  --fs-popover-bkg-color: var(--fs-color-neutral-0, #fff);
+
   display: flex;
   flex-direction: column;
   gap: var(--fs-spacing-2, 12px);
   align-items: flex-end;
-  background: var(--fs-color-neutral-0, #fff);
   border: 1px solid var(--fs-border-color-default, #999);
-  border-radius: var(--fs-border-radius, 2px);
 
   [data-fs-i18n-selector-description] {
     width: 193px;
@@ -48,7 +50,6 @@
 
     [data-fs-button] {
       width: 100%;
-      
     }
   }
 }

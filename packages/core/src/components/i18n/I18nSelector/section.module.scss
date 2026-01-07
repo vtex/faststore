@@ -1,11 +1,3 @@
-.common {
-  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Select/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-  @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
-  @import "@faststore/ui/src/components/organisms/I18nSelector/styles.scss";
-}
-
 .desktop {
   @import "@faststore/ui/src/components/molecules/Popover/styles.scss";
 }
@@ -13,4 +5,12 @@
 .mobile {
   @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
   @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+}
+
+.common {
+  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Select/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
+  @import "@faststore/ui/src/components/organisms/I18nSelector/styles.scss";
 }

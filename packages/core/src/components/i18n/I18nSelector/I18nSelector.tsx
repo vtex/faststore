@@ -182,7 +182,7 @@ function I18nSelector({
           placement="bottom-start"
           triggerRef={triggerRef}
           onDismiss={onClose}
-          offsetTop={undefined}
+          offsetTop={0}
           data-fs-i18n-selector
           content={
             <I18nSelectorContent
@@ -224,7 +224,7 @@ function I18nSelector({
       }}
     >
       <SlideOverHeader onClose={fadeOut}>
-        <h2 data-fs-i18n-selector-title>Selecione lingua e moeda</h2>
+        <h2 data-fs-i18n-selector-title>{title}</h2>
       </SlideOverHeader>
       <div data-fs-i18n-selector-body>
         <I18nSelectorContent
