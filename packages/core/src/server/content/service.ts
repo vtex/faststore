@@ -20,20 +20,24 @@ import { isBranchPreview, isContentPlatformSource } from './utils'
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
 export class ContentService {
-  // private clientCP: ClientCP
-
-  // constructor() {
-  //   this.clientCP = new ClientCP({
-  //     tenant: config.api.storeId,
-  //     // locale: 'fr-FR', // Fixed locale for testing - should use session.locale in the future
-  //   })
-  // }
+  private clientCPCache = new Map<string, ClientCP>()
 
   private getClientCP(locale?: string): ClientCP {
+    const currentLocale = locale ?? config.i18n.defaultLocale
+
+    // Reuse cached ClientCP for locale
+    if (this.clientCPCache.has(currentLocale)) {
+      return this.clientCPCache.get(currentLocale)
+    }
+
+    // Create new instance only if not in cache
     const clientCP = new ClientCP({
       tenant: config.api.storeId,
-      locale: locale ?? config.i18n.defaultLocale,
+      locale: currentLocale,
     })
+
+    // Store in cache for future use
+    this.clientCPCache.set(currentLocale, clientCP)
 
     return clientCP
   }
