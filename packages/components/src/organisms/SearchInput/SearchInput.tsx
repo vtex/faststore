@@ -14,6 +14,10 @@ export type SearchInputProps = {
    * The current status of the Search Dropdown.
    */
   visibleDropdown: boolean
+  /**
+   * Search result searchId.
+   */
+  searchId?: string
 } & HTMLAttributes<HTMLDivElement> &
   SearchProviderContextValue
 
@@ -28,6 +32,7 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
       term,
       terms,
       onSearchSelection,
+      searchId,
       ...otherProps
     },
     ref
@@ -46,6 +51,7 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
           term={term}
           products={products}
           terms={terms}
+          searchId={searchId}
         >
           {children}
         </SearchProvider>
