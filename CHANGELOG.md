@@ -7,6 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
+- RTL ([#3098](https://github.com/vtex/faststore/issues/3098)) ([63c7fa4](https://github.com/vtex/faststore/commit/63c7fa4fe1cb2e6e8bfa5d5a0812845c3bd835c5))
+# [3.93.0-dev.2](https://github.com/vtex/faststore/compare/v3.93.0-dev.1...v3.93.0-dev.2) (2025-11-07)
+
+### Bug Fixes
+
 - **ui:** update slider variable for border-radius in the mozilla rules ([#3077](https://github.com/vtex/faststore/issues/3077)) ([c491593](https://github.com/vtex/faststore/commit/c49159374edd41c9b4827f3ab902cdc2fc294101))
 
 # 3.93.0-dev.1 (2025-11-06)
