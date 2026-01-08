@@ -4,14 +4,14 @@ export interface AddressInput {
 }
 
 export interface Address {
-  postalCode: string
-  city: string
-  state: string
-  country: string
-  street: string
-  number: string
-  neighborhood: string
-  complement: string
-  reference: string
-  geoCoordinates: [number, number] // [longitude, latitude]
+  postalCode: string | null
+  city: string | null
+  state: string | null
+  country: string | null
+  street: string | null
+  number: string | null
+  neighborhood: string | null
+  complement: string | null
+  reference: string | null
+  geoCoordinates: [number, number] | null // [longitude, latitude]
 }
