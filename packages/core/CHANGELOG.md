@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.96.0-dev.19](https://github.com/vtex/faststore/compare/v3.96.0-dev.18...v3.96.0-dev.19) (2026-01-08)
+
+### Features
+
+- logout clear storage ([#3163](https://github.com/vtex/faststore/issues/3163)) ([1fbacc3](https://github.com/vtex/faststore/commit/1fbacc3b3e32b4f83a2f56c1f97eb0f8ff843f61))
+
 # 3.96.0-dev.18 (2025-12-24)
 
 **Note:** Version bump only for package @faststore/core
