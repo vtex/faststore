@@ -8,7 +8,6 @@ import {
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
@@ -17,6 +16,7 @@ import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getComponentKey } from 'src/utils/cms'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -67,18 +67,19 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   PreviewData
-> = async ({ previewData }) => {
+> = async ({ previewData, locale }) => {
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
       contentService.getSingleContent<PageContentType>({
         contentType: '404',
         previewData,
+        locale,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,

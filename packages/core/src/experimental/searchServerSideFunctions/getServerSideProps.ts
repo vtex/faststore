@@ -3,10 +3,10 @@ import type { SearchPageProps } from './getStaticProps'
 
 import storeConfig from 'discovery.config'
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
-import { type SearchContentType, getPage } from 'src/server/cms'
+import type { SearchContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
-import type { PreviewData } from 'src/server/content/types'
 import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 const getServerSidePropsBase: GetServerSideProps<
@@ -14,14 +14,14 @@ const getServerSidePropsBase: GetServerSideProps<
   Record<string, string>,
   PreviewData
 > = async (context) => {
-  const { previewData, query, res } = context
+  const { previewData, query, res, locale } = context
   const searchTerm = (query.q as string)?.split('+').join(' ')
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
@@ -36,6 +36,7 @@ const getServerSidePropsBase: GetServerSideProps<
         contentService.getSingleContent<SearchContentType>({
           contentType: 'search',
           previewData,
+          locale,
           documentId: page.documentId,
           versionId: page.versionId,
           releaseId: page.releaseId,
