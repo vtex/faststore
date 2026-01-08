@@ -117,8 +117,6 @@ export const getLandingPageBySlug = async (
   previewData: PreviewData,
   locale?: string
 ) => {
-  console.log('🌐 Locale from context (getLandingPageBySlug):', locale)
-
   try {
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
@@ -133,6 +131,8 @@ export const getLandingPageBySlug = async (
             previewData,
             locale,
             // documentId: pageBySlug.documentId,
+            // TODO: uncomment line above and remove line below.
+            // REMOVE below line just for testing purposes - passing documentId manually
             documentId: '11a7ccfb-ac7e-4ab0-ab5b-7438106edb3d',
             versionId: pageBySlug.versionId,
             releaseId: pageBySlug.releaseId,
