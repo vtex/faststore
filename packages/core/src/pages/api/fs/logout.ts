@@ -2,6 +2,11 @@ import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import discoveryConfig from 'discovery.config'
+import {
+  expireCookieServer,
+  getCookieDomains,
+  getVtexCookieNames,
+} from 'src/utils/clearCookies'
 
 const ADDITIONAL_COOKIES = ['CheckoutOrderFormOwnership'] as const
 
@@ -21,18 +26,19 @@ const handler: NextApiHandler = async (
   try {
     const hostname = request.headers.host?.split(':')[0] ?? ''
     const cookies = parse(request.headers.cookie ?? '')
-    const domains = [undefined, hostname, `.${hostname}`]
+    const domains = getCookieDomains(hostname)
     const clearedCookies: string[] = []
 
-    const vtexCookieNames = Object.keys(cookies).filter((name) =>
-      name.toLowerCase().includes('vtex')
-    )
+    const vtexCookieNames = getVtexCookieNames(Object.keys(cookies))
 
     // Clear vid_rt cookie with specific path (only if refreshToken is enabled)
     if (discoveryConfig.experimental?.refreshToken && cookies.vid_rt) {
       for (const domain of domains) {
-        const domainAttr = domain ? `; domain=${domain}` : ''
-        const clearedCookie = `vid_rt=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=/api/vtexid/refreshtoken/webstore${domainAttr}; samesite=lax; httponly`
+        const clearedCookie = expireCookieServer({
+          name: 'vid_rt',
+          path: '/api/vtexid/refreshtoken/webstore',
+          domain,
+        })
         clearedCookies.push(clearedCookie)
       }
     }
@@ -45,8 +51,11 @@ const handler: NextApiHandler = async (
 
     for (const cookieName of otherCookieNames) {
       for (const domain of domains) {
-        const domainAttr = domain ? `; domain=${domain}` : ''
-        const clearedCookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=/${domainAttr}; samesite=lax; httponly`
+        const clearedCookie = expireCookieServer({
+          name: cookieName,
+          path: '/',
+          domain,
+        })
         clearedCookies.push(clearedCookie)
       }
     }

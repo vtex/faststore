@@ -1,6 +1,12 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
 
 import { useSession } from 'src/sdk/session'
+import {
+  expireCookieClient,
+  getCookieDomains,
+  getCookiePaths,
+  getVtexCookieNames,
+} from 'src/utils/clearCookies'
 import storeConfig from '../../../../../discovery.config'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
@@ -60,38 +66,15 @@ const clearBrowserStorageForCurrentDomain = async () => {
       .map((c) => c.split('=')[0])
       .filter(Boolean)
 
-    // Filter cookies that contain 'vtex' (case-insensitive)
-    const vtexCookieNames = allCookieNames.filter((name) =>
-      name.toLowerCase().includes('vtex')
-    )
-
-    const pathname = window.location.pathname || '/'
-    const pathParts = pathname.split('/').filter(Boolean)
-    const paths: string[] = ['/']
-
-    let current = ''
-    for (const part of pathParts) {
-      current += `/${part}`
-      if (!paths.includes(current)) paths.push(current)
-    }
-
-    const domains: Array<string | undefined> = [
-      undefined, // host-only cookie
-      hostname,
-      hostname.startsWith('.') ? hostname : `.${hostname}`,
-    ]
-
-    const expire = (name: string, path: string, domain?: string) => {
-      const domainAttr = domain ? `; domain=${domain}` : ''
-      const secureAttr = secure ? '; secure' : ''
-      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=${path}${domainAttr}; samesite=lax${secureAttr}`
-    }
+    const vtexCookieNames = getVtexCookieNames(allCookieNames)
+    const paths = getCookiePaths(window.location.pathname || '/')
+    const domains = getCookieDomains(hostname)
 
     for (const name of vtexCookieNames) {
       for (const path of paths) {
         for (const domain of domains) {
           try {
-            expire(name, path, domain)
+            expireCookieClient({ name, path, domain, secure })
           } catch {}
         }
       }
