@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
+
+### Bug Fixes
+
+- Prevent Partytown cross-origin errors in iframe environments ([#3155](https://github.com/vtex/faststore/issues/3155)) ([997252e](https://github.com/vtex/faststore/commit/997252e9a18807f4c26c350197d4f2d139de58f8))
+
 # [3.96.0-dev.20](https://github.com/vtex/faststore/compare/v3.96.0-dev.19...v3.96.0-dev.20) (2026-01-08)
 
 ### Bug Fixes
