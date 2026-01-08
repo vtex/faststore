@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.96.0-dev.20](https://github.com/vtex/faststore/compare/v3.96.0-dev.19...v3.96.0-dev.20) (2026-01-08)
+
+### Bug Fixes
+
+- Add slug field to landing page schema - CROC-185 ([#3166](https://github.com/vtex/faststore/issues/3166)) ([41b9878](https://github.com/vtex/faststore/commit/41b987825ee5ebb7d311eef33e2ca65034dc130d))
+
 # [3.96.0-dev.19](https://github.com/vtex/faststore/compare/v3.96.0-dev.18...v3.96.0-dev.19) (2026-01-08)
 
 ### Features
