@@ -118,8 +118,6 @@ export const getStaticProps: GetStaticProps<
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
 
-  console.log('🌐 Locale from context (slug.tsx):', locale)
-
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
