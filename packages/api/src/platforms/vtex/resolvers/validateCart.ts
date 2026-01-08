@@ -177,7 +177,7 @@ const orderFormToCart = async (
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: await skuLoader.load(`${item.id}-invisibleItems`),
+        product: await skuLoader.load(`${item.id}-invisibleItems-cart`),
       })),
       shouldSplitItem,
     },
