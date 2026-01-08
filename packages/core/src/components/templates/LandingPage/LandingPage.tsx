@@ -114,8 +114,11 @@ export default function LandingPage({
 
 export const getLandingPageBySlug = async (
   slug: string,
-  previewData: PreviewData
+  previewData: PreviewData,
+  locale?: string
 ) => {
+  console.log('🌐 Locale from context (getLandingPageBySlug):', locale)
+
   try {
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
@@ -128,6 +131,7 @@ export const getLandingPageBySlug = async (
           await contentService.getSingleContent<PageContentType>({
             contentType: 'landingPage',
             previewData,
+            locale,
             // documentId: pageBySlug.documentId,
             documentId: '11a7ccfb-ac7e-4ab0-ab5b-7438106edb3d',
             versionId: pageBySlug.versionId,
@@ -144,6 +148,7 @@ export const getLandingPageBySlug = async (
         contentType: 'landingPage',
         previewData,
         slug,
+        locale,
         // TODO: REMOVE just for testing purposes - passing documentId manually
         documentId: '11a7ccfb-ac7e-4ab0-ab5b-7438106edb3d',
         // TODO: puts back the filters when the default documentId is removed
