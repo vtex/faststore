@@ -52,7 +52,6 @@ export const useMultilangConfig = (params?: { url?: string | URL }) => {
       setSettings(newSettings)
     }
   }
-  // }, [url])
 
   useEffect(() => {
     if (!settings) return
