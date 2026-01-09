@@ -16,7 +16,6 @@ export const useMultilangConfig = (params?: { url?: string | URL }) => {
 
   const [settings, setSettings] = useState<Settings | undefined>(undefined)
 
-  // useEffect(() => {
   if (!url) {
     if (typeof window === 'undefined') {
       return undefined
