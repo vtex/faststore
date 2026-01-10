@@ -127,6 +127,11 @@
     @include media(">=notebook") {
       order: 2;
 
+      [data-fs-button] {
+        // TODO: remove this after adding `regular` size to the button
+        --fs-button-height: 40px;
+      }
+
       [data-fs-button-signin-link] {
         display: inline-flex;
       }
