@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
+import storeConfig from 'discovery.config'
 import { validateLocaleForHostname } from 'src/utils/validateLocaleForHostname'
 
 /**
@@ -11,11 +12,18 @@ import { validateLocaleForHostname } from 'src/utils/validateLocaleForHostname'
  * server-side validation.
  *
  * If the locale is invalid for the current hostname, the user is redirected to the 404 page.
+ *
+ * Only runs if multilanguage feature is enabled (multilanguage.enabled === true).
  */
 export function useLocaleValidation() {
   const router = useRouter()
 
   useEffect(() => {
+    // Skip validation if multilanguage feature is not enabled
+    if (!storeConfig.multilanguage?.enabled) {
+      return
+    }
+
     // Skip validation if we're already on the 404 page (from SSR notFound)
     if (router.pathname === '/404') {
       return

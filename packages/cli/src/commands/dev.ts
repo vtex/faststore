@@ -12,6 +12,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+import { isMultilanguageEnabled } from '../utils/config'
 import { fileURLToPath } from 'url'
 
 /**
@@ -202,10 +203,14 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
-    spawnSync(`node ${cliPath} generate-i18n`, {
-      shell: true,
-      stdio: 'inherit',
-    })
+    const multilanguageEnabled = await isMultilanguageEnabled(basePath)
+
+    if (multilanguageEnabled) {
+      spawnSync(`node ${cliPath} generate-i18n`, {
+        shell: true,
+        stdio: 'inherit',
+      })
+    }
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 
