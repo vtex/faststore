@@ -20,16 +20,17 @@ export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
     // For validateCart flow: consider enableUnavailableItemsOnCart flag
     // For other flows: always pass hideUnavailableItems: false to prevent regionalization issues
     const hideUnavailableItems =
-      isFromValidateCart && !flags?.enableUnavailableItemsOnCart
-        ? undefined
-        : false
+      !isFromValidateCart ||
+      (isFromValidateCart && flags?.enableUnavailableItemsOnCart)
+        ? false
+        : undefined
 
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
       showInvisibleItems,
-      hideUnavailableItems,
+      ...(hideUnavailableItems !== undefined && { hideUnavailableItems }),
     })
 
     const skuBySkuId = products.reduce(
