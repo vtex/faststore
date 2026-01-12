@@ -86,7 +86,7 @@ export interface PopoverProps
    * Whether to render the Popover using a React portal.
    * @default false
    */
-  usePortal?: boolean
+  enablePortal?: boolean
   /**
    * Props for the wrapper div when using portal.
    */
@@ -98,26 +98,26 @@ const calculatePosition = (
   placement: Placement,
   offsetTop: number,
   offsetLeft: number,
-  usePortal: boolean
+  enablePortal: boolean
 ) => {
   const { top, left, height } = rect
 
   switch (true) {
     case placement.startsWith('top'):
       return {
-        top: usePortal
+        top: enablePortal
           ? top + height - offsetTop
           : top + height + window.scrollY - offsetTop,
-        left: usePortal
+        left: enablePortal
           ? left + offsetLeft
           : left + window.scrollX + offsetLeft,
       }
     case placement.startsWith('bottom'):
       return {
-        top: usePortal
+        top: enablePortal
           ? top + height + offsetTop
           : top + height + window.scrollY + offsetTop,
-        left: usePortal
+        left: enablePortal
           ? left + offsetLeft
           : left + window.scrollX + offsetLeft,
       }
@@ -141,7 +141,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     testId = 'fs-popover',
     style,
     onEntered,
-    usePortal = false,
+    enablePortal = false,
     wrapperProps,
     ...otherProps
   },
@@ -165,14 +165,14 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     const rect = triggerRef.current.getBoundingClientRect()
 
     setPopoverPosition(
-      calculatePosition(rect, placement, offsetTop, offsetLeft, usePortal)
+      calculatePosition(rect, placement, offsetTop, offsetLeft, enablePortal)
     )
 
     // Trigger the onEntered callback after positioning
     if (onEntered) {
       onEntered()
     }
-  }, [isOpen, triggerRef, offsetTop, offsetLeft, placement, usePortal])
+  }, [isOpen, triggerRef, offsetTop, offsetLeft, placement, enablePortal])
 
   const handleDismiss = useCallback(() => {
     closePopover()
@@ -206,7 +206,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
       onKeyDown={handleKeyDown}
       data-testid={testId}
       style={{
-        position: usePortal ? 'fixed' : 'absolute',
+        position: enablePortal ? 'fixed' : 'absolute',
         ...popoverPosition,
         ...style,
       }}
@@ -230,7 +230,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     </div>
   )
 
-  if (usePortal) {
+  if (enablePortal) {
     return createPortal(
       <div {...wrapperProps}>{popoverElement}</div>,
       document.body

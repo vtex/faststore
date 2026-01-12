@@ -181,7 +181,7 @@ function I18nSelector({
         placement="bottom-start"
         triggerRef={triggerRef}
         onDismiss={onClose}
-        usePortal
+        enablePortal
         data-fs-i18n-selector
         wrapperProps={{
           className: `${styles.common} ${styles.desktop}`,
