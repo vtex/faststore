@@ -447,19 +447,41 @@ export const validateCart = async (
     offerToOrderItemInput
   )
 
-  if (changes.length === 0) {
+  // Check if shippingData needs to be updated
+  const { updateShipping } = session
+    ? shouldUpdateShippingData(orderForm, session)
+    : { updateShipping: false }
+
+  // If there are no item changes and no shipping data updates needed, return null
+  if (changes.length === 0 && !updateShipping) {
     return null
   }
+
   // Step4: Apply delta changes to order form
-  const updatedOrderForm = await commerce.checkout
-    // update orderForm items
-    .updateOrderFormItems({
-      id: orderForm.orderFormId,
-      orderItems: changes,
-      shouldSplitItem,
-    })
-    // update orderForm shippingData
-    .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
+  let updatedOrderForm: OrderForm
+
+  if (changes.length > 0) {
+    // Update items first if there are changes
+    updatedOrderForm = await commerce.checkout
+      .updateOrderFormItems({
+        id: orderForm.orderFormId,
+        orderItems: changes,
+        shouldSplitItem,
+      })
+      .then((form: OrderForm) =>
+        updateOrderFormShippingData(form, session, ctx)
+      )
+  } else {
+    // Only update shippingData if there are no item changes
+    updatedOrderForm = await updateOrderFormShippingData(
+      orderForm,
+      session,
+      ctx
+    )
+  }
+
+  // Continue with marketingData and etag updates
+  updatedOrderForm = await Promise.resolve(updatedOrderForm)
     // update marketingData
     .then((form: OrderForm) => {
       if (session?.marketingData) {
