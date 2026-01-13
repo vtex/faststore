@@ -1,23 +1,16 @@
 # .coderabbit.yaml
-# Recommended configuration for FastStore (VTEX) projects
+# Valid configuration for CodeRabbit – FastStore friendly
 
-language: "en"
+language: en
 
 reviews:
-  # Avoid obvious or repetitive comments
-  profile: "chill"
+  profile: chill
+  comment_style: inline
 
-  # Inline comments on PRs
-  comment_style: "inline"
-
-  # High-level summary instead of noise
   high_level_summary: true
   auto_approve: false
-
-  # Limit comments to keep reviews actionable
   max_comments: 15
 
-  # Ignore generated or low-value files
   ignore:
     - "**/*.snap"
     - "**/*.lock"
@@ -25,75 +18,16 @@ reviews:
     - "**/.next/**"
     - "**/generated/**"
 
-rules:
-  # Architecture and project structure
-  - name: "FastStore Architecture"
-    description: "Ensure alignment with FastStore and VTEX architectural standards"
-    severity: "high"
-    keywords:
-      - "pages/"
-      - "components/"
-      - "sections/"
-      - "sdk/"
-      - "store.config"
+  # Extra context to guide the reviewer (THIS IS VALID)
+  instructions: |
+    This is a FastStore (VTEX) project.
+    Focus reviews on:
+    - Performance (Core Web Vitals)
+    - Accessibility basics (a11y)
+    - Architectural consistency
+    - Production impact over stylistic preferences
 
-  # Performance is critical for e-commerce
-  - name: "Performance and Core Web Vitals"
-    description: "Prevent negative impact on LCP, CLS, and TBT"
-    severity: "high"
-    keywords:
-      - "useEffect"
-      - "useMemo"
-      - "useCallback"
-      - "Image"
-      - "lazy"
-      - "dynamic import"
-
-  # Accessibility baseline
-  - name: "Accessibility"
-    description: "Check for basic accessibility best practices"
-    severity: "medium"
-    keywords:
-      - "aria-"
-      - "alt="
-      - "role="
-      - "label"
-
-  # Maintainability and DX
-  - name: "Readability and Developer Experience"
-    description: "Clear, predictable, and maintainable code"
-    severity: "medium"
-    keywords:
-      - "any"
-      - "TODO"
-      - "FIXME"
-
-guidelines:
-  # Explicit review tone
-  tone: "constructive and direct"
-  focus:
-    - "production impact"
-    - "user experience"
-    - "architectural consistency"
-    - "FastStore standards"
-
-  avoid:
-    - "obvious comments"
-    - "formatting nitpicks"
-    - "contextless suggestions"
-
-knowledge:
-  # Project context
-  framework: "FastStore"
-  platform: "VTEX"
-  stack:
-    - "React"
-    - "TypeScript"
-    - "Next.js"
-    - "GraphQL"
-    - "Tailwind or CSS Modules"
-
-tools:
-  lint: true
-  typescript: true
-  performance_hints: true
+    Avoid:
+    - Obvious comments
+    - Formatting nitpicks
+    - Repeating what linters already catch
