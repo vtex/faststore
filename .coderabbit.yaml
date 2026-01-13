@@ -1,33 +1,58 @@
-# .coderabbit.yaml
-# Valid configuration for CodeRabbit – FastStore friendly
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
-language: en
+language: "en-US"
+
+# Customize tone so CodeRabbit reviews with clear guidelines for FastStore
+tone_instructions: >
+  You are an expert code reviewer familiar with FastStore, React, Next.js.
+  Focus comments on:
+    - Core Web Vitals and performance regressions
+    - Accessibility basics (a11y)
+    - Code structure and architectural consistency
+
+early_access: false
+enable_free_tier: true
 
 reviews:
-  profile: chill
-  comment_style: inline
+  # Review tone (chill vs assertive)
+  profile: "chill"
 
+  # Provide a high level summary of PR changes
   high_level_summary: true
-  auto_approve: false
-  max_comments: 15
 
-  ignore:
-    - "**/*.snap"
-    - "**/*.lock"
-    - "**/dist/**"
-    - "**/.next/**"
-    - "**/generated/**"
+  # Optional: include extra review behaviours
+  request_changes_workflow: false
+  high_level_summary_in_walkthrough: false
+  auto_title_placeholder: "@coderabbitai"
 
-  # Extra context to guide the reviewer (THIS IS VALID)
-  instructions: |
-    This is a FastStore (VTEX) project.
-    Focus reviews on:
-    - Performance (Core Web Vitals)
-    - Accessibility basics (a11y)
-    - Architectural consistency
-    - Production impact over stylistic preferences
+  # Helpful flags
+  review_status: true
+  commit_status: false
+  collapse_walkthrough: false
+  changed_files_summary: true
 
-    Avoid:
-    - Obvious comments
-    - Formatting nitpicks
-    - Repeating what linters already catch
+  # Path filters to exclude things like output, generated files, and build folders
+  path_filters:
+    - "src/**"
+    - "apps/**"
+    - "!dist/**"
+    - "!.next/**"
+    - "!node_modules/**"
+
+  # Optional path specific instructions (useful for FastStore code patterns)
+  path_instructions:
+    - path: "src/components/**"
+      instructions: |
+        In component code:
+        - Ensure React hooks follow rules of hooks
+        - Check rendering performance (avoid heavy operations on render)
+        - Favor lazy loading for large components
+
+    - path: "src/pages/**"
+      instructions: |
+        Page-level code:
+        - Ensure correct use of Next.js conventions
+        - Validate SEO-related tags and performance implications
+      
+chat:
+  auto_reply: true
