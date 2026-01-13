@@ -3,7 +3,6 @@ import type { ComponentType } from 'react'
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
@@ -17,6 +16,7 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
+import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
 import { contentService } from 'src/server/content/service'
@@ -114,7 +114,8 @@ export default function LandingPage({
 
 export const getLandingPageBySlug = async (
   slug: string,
-  previewData: PreviewData
+  previewData: PreviewData,
+  locale?: string
 ) => {
   try {
     if (storeConfig.cms.data) {
@@ -128,7 +129,11 @@ export const getLandingPageBySlug = async (
           await contentService.getSingleContent<PageContentType>({
             contentType: 'landingPage',
             previewData,
-            documentId: pageBySlug.documentId,
+            locale,
+            // documentId: pageBySlug.documentId,
+            // TODO: uncomment line above and remove line below.
+            // REMOVE below line just for testing purposes - passing documentId manually
+            documentId: '11a7ccfb-ac7e-4ab0-ab5b-7438106edb3d',
             versionId: pageBySlug.versionId,
             releaseId: pageBySlug.releaseId,
             slug: pageBySlug.settings?.seo?.slug,
@@ -143,10 +148,14 @@ export const getLandingPageBySlug = async (
         contentType: 'landingPage',
         previewData,
         slug,
-        filters:
-          previewData?.contentType !== 'landingPage'
-            ? { filters: { 'settings.seo.slug': `/${slug}` } }
-            : undefined,
+        locale,
+        // TODO: REMOVE just for testing purposes - passing documentId manually
+        documentId: '11a7ccfb-ac7e-4ab0-ab5b-7438106edb3d',
+        // TODO: puts back the filters when the default documentId is removed
+        // filters:
+        //   previewData?.contentType !== 'landingPage'
+        //     ? { filters: { 'settings.seo.slug': `/${slug}` } }
+        //     : undefined,
       })
     return landingPageData
   } catch (error) {
