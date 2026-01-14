@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.2](https://github.com/vtex/faststore/compare/v3.96.1...v3.96.2) (2026-01-14)
+
+### Bug Fixes
+
+- validate cart loop shipping simulation / logged ([#3174](https://github.com/vtex/faststore/issues/3174)) ([41bc64b](https://github.com/vtex/faststore/commit/41bc64bfa48382b3cbe5c05c7a57ce6d3e403da3))
+
 ## [3.96.1](https://github.com/vtex/faststore/compare/v3.96.0...v3.96.1) (2026-01-09)
 
 ### Bug Fixes
