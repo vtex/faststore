@@ -18,7 +18,7 @@ reviews:
     enabled: true
     branches:
       include:
-        - *
+        - "**"
   # Review tone (chill vs assertive)
   profile: "chill"
 
