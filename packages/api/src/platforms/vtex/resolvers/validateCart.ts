@@ -188,8 +188,26 @@ const orderFormToCart = async (
   }
 }
 
-const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) =>
-  md5(JSON.stringify({ sessionId: sessionJwt?.id ?? '', items }))
+const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) => {
+  // Only include critical item properties in etag to avoid false positives
+  // when prices or availability change due to regionalization
+
+  // Include:
+  // - id (SKU): to detect item additions/removals
+  // - quantity: to detect quantity changes
+  // - seller: to detect seller changes
+  // - attachments: to detect customizations/personalizations changes
+  const criticalItems = items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    seller: item.seller,
+    attachments: item.attachments, // customizations
+  }))
+
+  return md5(
+    JSON.stringify({ sessionId: sessionJwt?.id ?? '', items: criticalItems })
+  )
+}
 
 const setOrderFormEtag = async (
   form: OrderForm,
