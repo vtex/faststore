@@ -188,8 +188,26 @@ const orderFormToCart = async (
   }
 }
 
-const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) =>
-  md5(JSON.stringify({ sessionId: sessionJwt?.id ?? '', items }))
+const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) => {
+  // Only include critical item properties in etag to avoid false positives
+  // when prices or availability change due to regionalization
+
+  // Include:
+  // - id (SKU): to detect item additions/removals
+  // - quantity: to detect quantity changes
+  // - seller: to detect seller changes
+  // - attachments: to detect customizations/personalizations changes
+  const criticalItems = items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    seller: item.seller,
+    attachments: item.attachments, // customizations
+  }))
+
+  return md5(
+    JSON.stringify({ sessionId: sessionJwt?.id ?? '', items: criticalItems })
+  )
+}
 
 const setOrderFormEtag = async (
   form: OrderForm,
@@ -447,19 +465,41 @@ export const validateCart = async (
     offerToOrderItemInput
   )
 
-  if (changes.length === 0) {
+  // Check if shippingData needs to be updated
+  const { updateShipping } = session
+    ? shouldUpdateShippingData(orderForm, session)
+    : { updateShipping: false }
+
+  // If there are no item changes and no shipping data updates needed, return null
+  if (changes.length === 0 && !updateShipping) {
     return null
   }
+
   // Step4: Apply delta changes to order form
-  const updatedOrderForm = await commerce.checkout
-    // update orderForm items
-    .updateOrderFormItems({
-      id: orderForm.orderFormId,
-      orderItems: changes,
-      shouldSplitItem,
-    })
-    // update orderForm shippingData
-    .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
+  let updatedOrderForm: OrderForm
+
+  if (changes.length > 0) {
+    // Update items first if there are changes
+    updatedOrderForm = await commerce.checkout
+      .updateOrderFormItems({
+        id: orderForm.orderFormId,
+        orderItems: changes,
+        shouldSplitItem,
+      })
+      .then((form: OrderForm) =>
+        updateOrderFormShippingData(form, session, ctx)
+      )
+  } else {
+    // Only update shippingData if there are no item changes
+    updatedOrderForm = await updateOrderFormShippingData(
+      orderForm,
+      session,
+      ctx
+    )
+  }
+
+  // Continue with marketingData and etag updates
+  updatedOrderForm = await Promise.resolve(updatedOrderForm)
     // update marketingData
     .then((form: OrderForm) => {
       if (session?.marketingData) {
