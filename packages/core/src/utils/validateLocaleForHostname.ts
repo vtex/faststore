@@ -1,9 +1,8 @@
-import localesSettings from '../../locales-settings.json'
+import storeConfig from 'discovery.config.default.js'
 import type { LocalesSettings } from '../typings/locales'
 
-// TODO: update to use SDK
 function getLocalesSettings(): LocalesSettings {
-  return localesSettings as LocalesSettings
+  return storeConfig.i18n as LocalesSettings
 }
 
 /**
