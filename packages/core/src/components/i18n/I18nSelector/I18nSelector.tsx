@@ -10,6 +10,8 @@ import {
   useFadeEffect,
 } from '@faststore/ui'
 
+import storeConfig from 'discovery.config'
+
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import styles from './section.module.scss'
 
@@ -53,11 +55,6 @@ interface I18nSelectorProps {
    * Optional callback fired when the user confirms the Save action.
    */
   onSave?: (params: { language: SelectValue; currency: SelectValue }) => void
-  /**
-   * Available language and currency options.
-   */
-  languages: SelectOptions
-  currencies: SelectOptions
   /**
    * UI copy texts.
    */
@@ -123,8 +120,6 @@ function I18nSelector({
   onClose,
   triggerRef,
   onSave,
-  languages,
-  currencies,
   title,
   languageLabel,
   currencyLabel,
@@ -135,6 +130,38 @@ function I18nSelector({
 }: I18nSelectorProps) {
   const { loading, isDesktop } = useScreenResize()
   const { fade, fadeOut } = useFadeEffect()
+
+  const languages = useMemo(() => {
+    const localesConfig = storeConfig.i18n?.locales
+    if (!localesConfig) return {}
+
+    return Object.keys(localesConfig).reduce<Record<string, string>>(
+      (acc, key) => {
+        const locale = localesConfig[key]
+        if (locale?.name) {
+          acc[key] = locale.name
+        }
+        return acc
+      },
+      {}
+    )
+  }, [])
+
+  const currencies = useMemo(() => {
+    const currenciesConfig = storeConfig.i18n?.currencies
+    if (!currenciesConfig) return {}
+
+    return Object.keys(currenciesConfig).reduce<Record<string, string>>(
+      (acc, key) => {
+        const currency = currenciesConfig[key]
+        if (currency?.code) {
+          acc[key] = currency.code
+        }
+        return acc
+      },
+      {}
+    )
+  }, [])
 
   const [selectedLanguage, setSelectedLanguage] = useState<SelectValue>(() => {
     if (defaultLanguage && languages[defaultLanguage]) {

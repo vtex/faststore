@@ -5,18 +5,6 @@ import { Icon, Button as UIButton } from '@faststore/ui'
 import I18nSelector from 'src/components/i18n/I18nSelector'
 import { useSession } from 'src/sdk/session'
 
-const MOCK_LANGUAGES: Record<string, string> = {
-  'pt-BR': 'Português',
-  'en-US': 'Inglês',
-  'it-IT': 'Italiano',
-}
-
-const MOCK_CURRENCIES: Record<string, string> = {
-  BRL: 'BRL',
-  USD: 'USD',
-  EUR: 'EUR',
-}
-
 interface I18nButtonProps {
   icon: string
   title?: string
@@ -40,12 +28,8 @@ const I18nButton = ({
 
   const localeText = locale.split('-')[0].toUpperCase()
 
-  const defaultLanguage =
-    locale && MOCK_LANGUAGES[locale] ? locale : Object.keys(MOCK_LANGUAGES)[0]
-  const defaultCurrency =
-    currency?.code && MOCK_CURRENCIES[currency.code]
-      ? currency.code
-      : Object.keys(MOCK_CURRENCIES)[0]
+  const defaultLanguage = locale
+  const defaultCurrency = currency?.code
 
   return (
     <>
@@ -79,8 +63,6 @@ const I18nButton = ({
           isOpen={isSelectorOpen}
           onClose={() => setIsSelectorOpen(false)}
           triggerRef={buttonRef}
-          languages={MOCK_LANGUAGES}
-          currencies={MOCK_CURRENCIES}
           title={title}
           languageLabel={languageLabel}
           currencyLabel={currencyLabel}
