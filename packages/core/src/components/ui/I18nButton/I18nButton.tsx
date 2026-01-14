@@ -16,11 +16,11 @@ interface I18nButtonProps {
 
 const I18nButton = ({
   icon,
-  title = 'Select language and currency',
-  languageLabel = 'Language',
-  currencyLabel = 'Currency',
-  description = 'Changing the language or currency may affect prices, promotions and availability.',
-  saveLabel = 'Save',
+  title,
+  languageLabel,
+  currencyLabel,
+  description,
+  saveLabel,
 }: I18nButtonProps) => {
   const { locale, currency } = useSession()
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
