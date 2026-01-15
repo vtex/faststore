@@ -1,4 +1,3 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
 language: "en-US"
 
@@ -14,8 +13,6 @@ reviews:
     enabled: true
     base_branches:
       - "dev"
-      include:
-        - "**"
   # Review tone (chill vs assertive)
   profile: "chill"
 
@@ -33,7 +30,8 @@ reviews:
   collapse_walkthrough: false
   changed_files_summary: true
 
-  # Path filters to exclude things like output, generated files, and build folders
+# Path filters to exclude things like output, generated files, and build folders
+  path_filters:
     - "packages/**"
     - "!**/dist/**"
     - "!**/.next/**"
@@ -47,46 +45,46 @@ reviews:
     - "!node_modules/**"
 
   # Optional path specific instructions (useful for FastStore code patterns)
-path_instructions:
-    - path: "packages/**/src/components/**"
-      instructions: |
-        Component code:
-        - Ensure React hooks follow rules of hooks (no conditional hooks, proper dependencies)
-        - Check rendering performance (avoid heavy operations on render, use memo/useMemo/useCallback when appropriate)
-        - Favor lazy loading for large components using dynamic imports
-        - Use semantic HTML and proper ARIA labels for accessibility
-        - Ensure components are properly typed with TypeScript
-
-    - path: "packages/core/src/pages/**"
-      instructions: |
-        Page-level code (Model in MVC - data fetching):
-        - Ensure correct use of Next.js conventions (getStaticProps, getServerSideProps, File System Routing)
-        - Validate SEO-related tags (meta tags, structured data, Open Graph)
-        - Performance implications: static generation vs SSR vs ISR
-        - Proper error handling (404, 500 pages)
-        - Static data fetching should happen here, dynamic enrichment in components
-
-    - path: "packages/**/src/sdk/**"
-      instructions: |
-        SDK code:
-        - Custom hooks should follow React hooks conventions
-        - GraphQL queries should be optimized (avoid over-fetching, use fragments)
-        - Business logic should be separated from UI concerns
-
-    - path: "packages/api/src/**"
-      instructions: |
-        GraphQL API code:
-        - TypeDefs should follow GraphQL best practices
-        - Resolvers should be platform-agnostic when possible
-        - Proper error handling and validation
-        - Consider performance implications of resolvers
-        - Type safety with generated types
-
-    - path: "packages/**/*.ts"
-      instructions: |
-        TypeScript files:
-        - Ensure type safety and avoid type assertions when possible
-        - Consider bundle size impact of dependencies
+  path_instructions:
+      - path: "packages/**/src/components/**"
+        instructions: |
+          Component code:
+          - Ensure React hooks follow rules of hooks (no conditional hooks, proper dependencies)
+          - Check rendering performance (avoid heavy operations on render, use memo/useMemo/useCallback when appropriate)
+          - Favor lazy loading for large components using dynamic imports
+          - Use semantic HTML and proper ARIA labels for accessibility
+          - Ensure components are properly typed with TypeScript
+  
+      - path: "packages/core/src/pages/**"
+        instructions: |
+          Page-level code (Model in MVC - data fetching):
+          - Ensure correct use of Next.js conventions (getStaticProps, getServerSideProps, File System Routing)
+          - Validate SEO-related tags (meta tags, structured data, Open Graph)
+          - Performance implications: static generation vs SSR vs ISR
+          - Proper error handling (404, 500 pages)
+          - Static data fetching should happen here, dynamic enrichment in components
+  
+      - path: "packages/**/src/sdk/**"
+        instructions: |
+          SDK code:
+          - Custom hooks should follow React hooks conventions
+          - GraphQL queries should be optimized (avoid over-fetching, use fragments)
+          - Business logic should be separated from UI concerns
+  
+      - path: "packages/api/src/**"
+        instructions: |
+          GraphQL API code:
+          - TypeDefs should follow GraphQL best practices
+          - Resolvers should be platform-agnostic when possible
+          - Proper error handling and validation
+          - Consider performance implications of resolvers
+          - Type safety with generated types
+  
+      - path: "packages/**/*.ts"
+        instructions: |
+          TypeScript files:
+          - Ensure type safety and avoid type assertions when possible
+          - Consider bundle size impact of dependencies
       
 chat:
   auto_reply: true
