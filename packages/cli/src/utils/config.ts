@@ -5,16 +5,16 @@ import chalk from 'chalk'
 import { logger } from './logger'
 import { withBasePath } from './directory'
 
-const configFileName = 'discovery.config.default.js'
+const configFileName = 'discovery.config.js'
 
 /**
- * Checks if multilanguage feature is enabled in the discovery config.
+ * Checks if localization feature is enabled in the discovery config.
  * Reads from discovery.config.default.js file in tmpDir or basePath.
  *
  * @param basePath - The base path where the FastStore is located
- * @returns Promise<boolean> - true if multilanguage.enabled === true, false otherwise
+ * @returns Promise<boolean> - true if localization.enabled === true, false otherwise
  */
-export async function isMultilanguageEnabled(
+export async function isLocalizationEnabled(
   basePath: string
 ): Promise<boolean> {
   const { tmpDir } = withBasePath(basePath)
@@ -28,11 +28,11 @@ export async function isMultilanguageEnabled(
       try {
         const discoveryConfig = await import(configPath)
         const config = discoveryConfig?.default ?? discoveryConfig
-        return config?.multilanguage?.enabled === true
+        return config?.localization?.enabled === true
       } catch (error) {
         // If we can't read the config, default to false (backward compatibility)
         logger.warn(
-          `${chalk.yellow('warning')} - Could not read config file: ${configPath}. Defaulting multilanguage to disabled.`
+          `${chalk.yellow('warning')} - Could not read config file: ${configPath}. Defaulting Localization to disabled.`
         )
       }
     }

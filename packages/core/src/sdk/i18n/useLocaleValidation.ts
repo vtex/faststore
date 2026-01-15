@@ -13,14 +13,14 @@ import { validateLocaleForHostname } from 'src/utils/validateLocaleForHostname'
  *
  * If the locale is invalid for the current hostname, the user is redirected to the 404 page.
  *
- * Only runs if multilanguage feature is enabled (multilanguage.enabled === true).
+ * Only runs if localization feature is enabled (localization.enabled === true).
  */
 export function useLocaleValidation() {
   const router = useRouter()
 
   useEffect(() => {
-    // Skip validation if multilanguage feature is not enabled
-    if (!storeConfig.multilanguage?.enabled) {
+    // Skip validation if localization feature is not enabled
+    if (!storeConfig.localization?.enabled) {
       return
     }
 

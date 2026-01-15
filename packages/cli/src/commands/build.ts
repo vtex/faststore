@@ -7,7 +7,7 @@ import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
-import { isMultilanguageEnabled } from '../utils/config'
+import { isLocalizationEnabled } from '../utils/config'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -81,9 +81,9 @@ export default class Build extends Command {
       )
     }
 
-    const multilanguageEnabled = await isMultilanguageEnabled(basePath)
+    const localizationEnabled = await isLocalizationEnabled(basePath)
 
-    if (multilanguageEnabled) {
+    if (localizationEnabled) {
       scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
         shell: true,
         stdio: 'inherit',
