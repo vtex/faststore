@@ -16,7 +16,8 @@ enable_free_tier: true
 reviews:
   auto_review:
     enabled: true
-    branches:
+    base_branches:
+      - "dev"
       include:
         - "**"
   # Review tone (chill vs assertive)
