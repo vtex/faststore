@@ -246,7 +246,7 @@ function I18nSelector({
       onTransitionEnd={() => fade === 'out' && onClose()}
       isOpen={isOpen}
       size="partial"
-      direction="rightSide"
+      direction="bottomSide"
       overlayProps={{
         className: `${styles.common} ${styles.mobile}`,
       }}
