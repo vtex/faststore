@@ -13,6 +13,7 @@ reviews:
     enabled: true
     base_branches:
       - "dev"
+      - ".*"
   # Review tone (chill vs assertive)
   profile: "chill"
 
