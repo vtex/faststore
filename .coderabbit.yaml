@@ -4,11 +4,7 @@ language: "en-US"
 
 # Customize tone so CodeRabbit reviews with clear guidelines for FastStore
 tone_instructions: >
-  You are an expert code reviewer familiar with FastStore, React, Next.js.
-  Focus comments on:
-    - Core Web Vitals and performance regressions
-    - Accessibility basics (a11y)
-    - Code structure and architectural consistency
+  Review FastStore PRs focusing on performance, SEO, accessibility, and TypeScript safety. Be concise and actionable.
 
 early_access: false
 enable_free_tier: true
@@ -51,19 +47,46 @@ reviews:
     - "!node_modules/**"
 
   # Optional path specific instructions (useful for FastStore code patterns)
-  path_instructions:
-    - path: "src/components/**"
+path_instructions:
+    - path: "packages/**/src/components/**"
       instructions: |
-        In component code:
-        - Ensure React hooks follow rules of hooks
-        - Check rendering performance (avoid heavy operations on render)
-        - Favor lazy loading for large components
+        Component code:
+        - Ensure React hooks follow rules of hooks (no conditional hooks, proper dependencies)
+        - Check rendering performance (avoid heavy operations on render, use memo/useMemo/useCallback when appropriate)
+        - Favor lazy loading for large components using dynamic imports
+        - Use semantic HTML and proper ARIA labels for accessibility
+        - Ensure components are properly typed with TypeScript
 
-    - path: "src/pages/**"
+    - path: "packages/core/src/pages/**"
       instructions: |
-        Page-level code:
-        - Ensure correct use of Next.js conventions
-        - Validate SEO-related tags and performance implications
+        Page-level code (Model in MVC - data fetching):
+        - Ensure correct use of Next.js conventions (getStaticProps, getServerSideProps, File System Routing)
+        - Validate SEO-related tags (meta tags, structured data, Open Graph)
+        - Performance implications: static generation vs SSR vs ISR
+        - Proper error handling (404, 500 pages)
+        - Static data fetching should happen here, dynamic enrichment in components
+
+    - path: "packages/**/src/sdk/**"
+      instructions: |
+        SDK code:
+        - Custom hooks should follow React hooks conventions
+        - GraphQL queries should be optimized (avoid over-fetching, use fragments)
+        - Business logic should be separated from UI concerns
+
+    - path: "packages/api/src/**"
+      instructions: |
+        GraphQL API code:
+        - TypeDefs should follow GraphQL best practices
+        - Resolvers should be platform-agnostic when possible
+        - Proper error handling and validation
+        - Consider performance implications of resolvers
+        - Type safety with generated types
+
+    - path: "packages/**/*.ts"
+      instructions: |
+        TypeScript files:
+        - Ensure type safety and avoid type assertions when possible
+        - Consider bundle size impact of dependencies
       
 chat:
   auto_reply: true
