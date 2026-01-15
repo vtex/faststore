@@ -38,7 +38,12 @@ reviews:
   changed_files_summary: true
 
   # Path filters to exclude things like output, generated files, and build folders
-  path_filters:
+    - "packages/**"
+    - "!**/dist/**"
+    - "!**/.next/**"
+    - "!**/node_modules/**"
+    - "!**/@generated/**"
+    - "!**/storybook-static/**"
     - "src/**"
     - "apps/**"
     - "!dist/**"
