@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { Icon, Button as UIButton } from '@faststore/ui'
 
 import I18nSelector from 'src/components/i18n/I18nSelector'
-import { useSession } from 'src/sdk/session'
+import { useBindingSelector } from 'src/sdk/i18n'
 
 interface I18nButtonProps {
   icon: string
@@ -22,14 +22,24 @@ const I18nButton = ({
   description,
   saveLabel,
 }: I18nButtonProps) => {
-  const { locale, currency } = useSession()
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  const localeText = locale.split('-')[0].toUpperCase()
+  const {
+    languages,
+    currencies,
+    localeCode,
+    currencyCode,
+    setLocaleCode,
+    setCurrencyCode,
+    save,
+    canSave,
+    error,
+  } = useBindingSelector()
 
-  const defaultLanguage = locale
-  const defaultCurrency = currency?.code
+  // Extract language code from locale code for display (e.g., "pt-BR" -> "PT")
+  const localeText = localeCode?.split('-')[0].toUpperCase() ?? ''
+  const currencyText = currencyCode ?? ''
 
   return (
     <>
@@ -46,7 +56,7 @@ const I18nButton = ({
         <div data-i18n-button-text>
           <span data-i18n-button-text-locale>{localeText}</span>
           <span data-i18n-button-text-separator>/</span>
-          <span data-i18n-button-text-currency>{currency.code}</span>
+          <span data-i18n-button-text-currency>{currencyText}</span>
         </div>
         <Icon
           data-i18n-button-arrow
@@ -63,13 +73,20 @@ const I18nButton = ({
           isOpen={isSelectorOpen}
           onClose={() => setIsSelectorOpen(false)}
           triggerRef={buttonRef}
+          languages={languages}
+          currencies={currencies}
+          localeCode={localeCode}
+          currencyCode={currencyCode}
+          onLocaleChange={setLocaleCode}
+          onCurrencyChange={setCurrencyCode}
+          onSave={save}
+          canSave={canSave}
+          error={error}
           title={title}
           languageLabel={languageLabel}
           currencyLabel={currencyLabel}
           description={description}
           saveLabel={saveLabel}
-          defaultLanguage={defaultLanguage}
-          defaultCurrency={defaultCurrency}
         />
       )}
     </>
