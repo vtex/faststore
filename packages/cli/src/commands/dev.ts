@@ -12,6 +12,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+import { isLocalizationEnabled } from '../utils/config'
 import { fileURLToPath } from 'url'
 
 /**
@@ -202,10 +203,14 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
-    spawnSync(`node ${cliPath} generate-i18n`, {
-      shell: true,
-      stdio: 'inherit',
-    })
+    const localizationEnabled = await isLocalizationEnabled(basePath)
+
+    if (localizationEnabled) {
+      spawnSync(`node ${cliPath} generate-i18n`, {
+        shell: true,
+        stdio: 'inherit',
+      })
+    }
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 

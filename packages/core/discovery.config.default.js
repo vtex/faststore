@@ -68,6 +68,11 @@ module.exports = {
     refreshAfter: null, // timestamp in seconds e.g. '1743042990'
   },
 
+  // Localization feature flag
+  localization: {
+    enabled: false,
+  },
+
   // Default cart
   cart: {
     id: '',
