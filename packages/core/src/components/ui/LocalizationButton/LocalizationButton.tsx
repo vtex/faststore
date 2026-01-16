@@ -2,8 +2,8 @@ import { useRef, useState } from 'react'
 
 import { Icon, Button as UIButton } from '@faststore/ui'
 
-import I18nSelector from 'src/components/i18n/I18nSelector'
-import { useBindingSelector } from 'src/sdk/i18n'
+import LocalizationSelector from 'src/components/localization/LocalizationSelector'
+import { useBindingSelector } from 'src/sdk/localization'
 import { useSession } from 'src/sdk/session'
 
 interface LocalizationButtonErrorMessages {
@@ -13,7 +13,7 @@ interface LocalizationButtonErrorMessages {
   defaultError?: string
 }
 
-interface I18nButtonProps {
+interface LocalizationButtonProps {
   icon: string
   title?: string
   languageLabel?: string
@@ -24,7 +24,7 @@ interface I18nButtonProps {
   errorMessages?: LocalizationButtonErrorMessages
 }
 
-const I18nButton = ({
+const LocalizationButton = ({
   icon,
   title,
   languageLabel,
@@ -33,7 +33,7 @@ const I18nButton = ({
   saveLabel,
   ariaLabel,
   errorMessages,
-}: I18nButtonProps) => {
+}: LocalizationButtonProps) => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -59,7 +59,7 @@ const I18nButton = ({
     <>
       <UIButton
         ref={buttonRef}
-        data-fs-i18n-button
+        data-fs-localization-button
         icon={<Icon name={icon} width={16} height={16} weight="bold" />}
         iconPosition="left"
         variant="tertiary"
@@ -67,13 +67,13 @@ const I18nButton = ({
           setIsSelectorOpen(!isSelectorOpen)
         }}
       >
-        <div data-i18n-button-text>
-          <span data-i18n-button-text-locale>{localeText}</span>
-          <span data-i18n-button-text-separator>/</span>
-          <span data-i18n-button-text-currency>{currencyText}</span>
+        <div data-localization-button-text>
+          <span data-localization-button-text-locale>{localeText}</span>
+          <span data-localization-button-text-separator>/</span>
+          <span data-localization-button-text-currency>{currencyText}</span>
         </div>
         <Icon
-          data-i18n-button-arrow
+          data-localization-button-arrow
           name="CaretDown"
           aria-hidden="true"
           width={16}
@@ -83,7 +83,7 @@ const I18nButton = ({
       </UIButton>
 
       {isSelectorOpen && (
-        <I18nSelector
+        <LocalizationSelector
           isOpen={isSelectorOpen}
           onClose={() => setIsSelectorOpen(false)}
           triggerRef={buttonRef}
@@ -108,4 +108,4 @@ const I18nButton = ({
   )
 }
 
-export default I18nButton
+export default LocalizationButton

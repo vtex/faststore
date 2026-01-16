@@ -11,14 +11,14 @@ import {
   useFadeEffect,
 } from '@faststore/ui'
 
-import type { BindingSelectorError } from 'src/sdk/i18n'
+import type { BindingSelectorError } from 'src/sdk/localization'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import styles from './section.module.scss'
 
 type SelectValue = string
 type SelectOptions = Record<string, string>
 
-interface I18nSelectorContentProps {
+interface LocalizationSelectorContentProps {
   /** Language options - Record where key is locale code (e.g., "pt-BR") and value is language name (e.g., "Português") */
   languages: SelectOptions
   /** Currency options - Record where key is currency code and value is currency code */
@@ -54,7 +54,7 @@ interface LocalizationSelectorErrorMessages {
   defaultError?: string
 }
 
-interface I18nSelectorProps {
+interface LocalizationSelectorProps {
   /**
    * Controls whether the selector is open or closed.
    */
@@ -122,7 +122,7 @@ interface I18nSelectorProps {
   errorMessages?: LocalizationSelectorErrorMessages
 }
 
-const I18nSelectorContent = ({
+const LocalizationSelectorContent = ({
   languages,
   currencies,
   localeCode,
@@ -137,11 +137,11 @@ const I18nSelectorContent = ({
   onSave,
   isSaveEnabled = true,
   errorMessage,
-}: I18nSelectorContentProps) => {
+}: LocalizationSelectorContentProps) => {
   return (
-    <div data-fs-i18n-selector-content>
+    <div data-fs-localization-selector-content>
       <UISelectField
-        id="i18n-selector-language"
+        id="localization-selector-language"
         label={languageLabel}
         options={languages}
         value={localeCode}
@@ -149,7 +149,7 @@ const I18nSelectorContent = ({
       />
 
       <UISelectField
-        id="i18n-selector-currency"
+        id="localization-selector-currency"
         label={currencyLabel}
         options={currencies}
         value={currencyCode}
@@ -157,12 +157,12 @@ const I18nSelectorContent = ({
         disabled={Object.keys(currencies).length === 0}
       />
 
-      <p data-fs-i18n-selector-description>{description}</p>
+      <p data-fs-localization-selector-description>{description}</p>
 
       {errorMessage}
 
       {showSaveButton && onSave && (
-        <div data-fs-i18n-selector-actions>
+        <div data-fs-localization-selector-actions>
           <UIButton
             variant="primary"
             onClick={onSave}
@@ -186,7 +186,7 @@ function getErrorMessage(
   return errorMessages?.[error.type] ?? errorMessages?.defaultError ?? ''
 }
 
-function I18nSelector({
+function LocalizationSelector({
   isOpen,
   onClose,
   triggerRef,
@@ -205,7 +205,7 @@ function I18nSelector({
   description,
   saveLabel,
   errorMessages,
-}: I18nSelectorProps) {
+}: LocalizationSelectorProps) {
   const { loading, isDesktop } = useScreenResize()
   const { fade, fadeOut } = useFadeEffect()
 
@@ -238,12 +238,12 @@ function I18nSelector({
         triggerRef={triggerRef}
         onDismiss={onClose}
         enablePortal
-        data-fs-i18n-selector
+        data-fs-localization-selector
         wrapperProps={{
           className: `${styles.common} ${styles.desktop}`,
         }}
         content={
-          <I18nSelectorContent
+          <LocalizationSelectorContent
             languages={languages}
             currencies={currencies}
             localeCode={localeCode ?? ''}
@@ -266,8 +266,8 @@ function I18nSelector({
 
   return (
     <SlideOver
-      data-fs-i18n-selector
-      data-fs-i18n-selector-mobile
+      data-fs-localization-selector
+      data-fs-localization-selector-mobile
       fade={fade}
       onDismiss={fadeOut}
       onTransitionEnd={() => fade === 'out' && onClose()}
@@ -279,10 +279,10 @@ function I18nSelector({
       }}
     >
       <SlideOverHeader onClose={fadeOut}>
-        <h2 data-fs-i18n-selector-title>{title}</h2>
+        <h2 data-fs-localization-selector-title>{title}</h2>
       </SlideOverHeader>
-      <div data-fs-i18n-selector-body>
-        <I18nSelectorContent
+      <div data-fs-localization-selector-body>
+        <LocalizationSelectorContent
           languages={languages}
           currencies={currencies}
           localeCode={localeCode ?? ''}
@@ -296,7 +296,7 @@ function I18nSelector({
           errorMessage={errorMessage}
         />
       </div>
-      <footer data-fs-i18n-selector-footer>
+      <footer data-fs-localization-selector-footer>
         <UIButton
           variant="primary"
           onClick={handleSave}
@@ -309,4 +309,4 @@ function I18nSelector({
   )
 }
 
-export default I18nSelector
+export default LocalizationSelector

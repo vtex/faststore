@@ -58,14 +58,14 @@ export interface UseBindingSelectorReturn {
 }
 
 /**
- * Hook that provides state and actions for the i18n selector.
+ * Hook that provides state and actions for the localization selector.
  * Manages locale selection, currency filtering, and binding resolution.
  *
  * @returns Object with languages, currencies, selections, and actions
  */
 export function useBindingSelector(): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
-  const i18nConfig = storeConfig.localization as LocalizationConfig
+  const localizationConfig = storeConfig.localization as LocalizationConfig
 
   // Pre-select current locale code and currency code from session
   const [localeCode, setLocaleCode] = useState<string | null>(
@@ -78,19 +78,21 @@ export function useBindingSelector(): UseBindingSelectorReturn {
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
   const languages = useMemo(
-    () => buildLanguageOptions(i18nConfig.locales),
-    [i18nConfig.locales]
+    () => buildLanguageOptions(localizationConfig.locales),
+    [localizationConfig.locales]
   )
 
   // Filter currencies based on selected locale
   const currencies = useMemo(() => {
-    if (!localeCode || !i18nConfig.locales[localeCode]) {
+    if (!localeCode || !localizationConfig.locales[localeCode]) {
       return {}
     }
-    const currencyList = getCurrenciesForLocale(i18nConfig.locales[localeCode])
+    const currencyList = getCurrenciesForLocale(
+      localizationConfig.locales[localeCode]
+    )
     // Convert array to Record<string, string> for UISelectField
     return Object.fromEntries(currencyList.map((code) => [code, code]))
-  }, [localeCode, i18nConfig.locales])
+  }, [localeCode, localizationConfig.locales])
 
   // Handle locale code change
   const handleSetLocaleCode = useCallback(
@@ -99,7 +101,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
       setError(null)
 
       // Check if current currency is available in new locale
-      const locale = i18nConfig.locales[code]
+      const locale = localizationConfig.locales[code]
       if (locale) {
         const availableCurrencies = getCurrenciesForLocale(locale)
 
@@ -118,7 +120,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
         }
       }
     },
-    [i18nConfig.locales, currencyCode]
+    [localizationConfig.locales, currencyCode]
   )
 
   // Handle currency code change
@@ -131,7 +133,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
   const save = useCallback(() => {
     if (!localeCode || !currencyCode) return
 
-    const locale = i18nConfig.locales[localeCode]
+    const locale = localizationConfig.locales[localeCode]
     if (!locale) {
       setError({
         type: 'no-binding-found',
@@ -159,7 +161,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
 
     // Redirect to binding URL
     window.location.href = binding.url
-  }, [localeCode, currencyCode, i18nConfig.locales])
+  }, [localeCode, currencyCode, localizationConfig.locales])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)
 
