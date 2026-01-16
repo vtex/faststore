@@ -224,26 +224,27 @@ export const VtexCommerce = (
         refreshOutdatedData = true,
         channel = ctx.storage.channel,
       }: {
-        id: string
+        id?: string
         refreshOutdatedData?: boolean
         channel?: Required<Channel>
       }): Promise<OrderForm> => {
         const { salesChannel } = channel
-        const params = new URLSearchParams({
-          refreshOutdatedData: refreshOutdatedData.toString(),
-          sc: salesChannel,
-        })
-
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
+        const params = new URLSearchParams({ sc: salesChannel })
+        if (id) {
+          params.set('refreshOutdatedData', refreshOutdatedData.toString())
+        }
+        const url = `${base}/api/checkout/pub/orderForm${id ? `/${id}` : ''}?${params.toString()}`
 
         return fetchAPI(
-          `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
+          url,
           {
             ...BASE_INIT,
             headers,
+            ...(id ? {} : { body: '{}' }),
           },
           { storeCookies }
         )

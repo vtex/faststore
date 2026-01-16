@@ -236,13 +236,6 @@ const isOrderFormStale = (form: OrderForm, sessionJwt: SessionJwt) => {
   return newEtag !== oldEtag
 }
 
-// Returns the regionalized orderForm
-const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
-  return commerce.checkout.orderForm({
-    id,
-  })
-}
-
 const clearOrderFormMessages = async (
   id: string,
   { clients: { commerce } }: Context
@@ -342,10 +335,6 @@ export const validateCart = async (
     ctx.headers.cookie,
     'checkout.vtex.com'
   )
-  const orderNumber =
-    orderFormIdFromCookie !== '' ? orderFormIdFromCookie : order?.orderNumber
-
-  const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -363,7 +352,11 @@ export const validateCart = async (
   }
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await getOrderForm(orderNumber, ctx)
+  const orderForm = await commerce.checkout.orderForm({
+    id: orderFormIdFromCookie || undefined,
+    channel: ctx.storage.channel,
+  })
+  const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
   // In the next validateCart mutation it will only have messages if a new message is created on orderForm
@@ -373,6 +366,8 @@ export const validateCart = async (
 
   const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
   const sessionJwt = parseJwt(sessionCookie)
+
+  const { acceptedOffer, shouldSplitItem } = order
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
