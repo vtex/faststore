@@ -451,6 +451,37 @@
                 }
               }
             },
+            "i18nSelector": {
+              "type": "object",
+              "title": "Internationalization Selector",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Select language and currency"
+                },
+                "languageLabel": {
+                  "title": "Language Label",
+                  "type": "string",
+                  "default": "Language"
+                },
+                "currencyLabel": {
+                  "title": "Currency Label",
+                  "type": "string",
+                  "default": "Currency"
+                },
+                "description": {
+                  "title": "Description",
+                  "type": "string",
+                  "default": "Changing the language or currency may affect prices, promotions and availability."
+                },
+                "saveLabel": {
+                  "title": "Save Button Label",
+                  "type": "string",
+                  "default": "Save"
+                }
+              }
+            },
             "pageLinks": {
               "title": "Links",
               "type": "array",

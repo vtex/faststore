@@ -22,6 +22,7 @@ interface NavbarSliderProps {
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
   i18nButton?: NavbarProps['i18nButton']
+  i18nSelector?: NavbarProps['i18nSelector']
 }
 
 function NavbarSlider({
@@ -29,6 +30,7 @@ function NavbarSlider({
   links,
   region,
   i18nButton,
+  i18nSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
@@ -95,8 +97,15 @@ function NavbarSlider({
             />
           )}
         </Suspense>
-        {i18nButton.shouldDisplayI18nButton && (
-          <I18nButton icon={i18nButton?.icon} />
+        {i18nButton?.shouldDisplayI18nButton && (
+          <I18nButton
+            icon={i18nButton?.icon}
+            title={i18nSelector?.title}
+            languageLabel={i18nSelector?.languageLabel}
+            currencyLabel={i18nSelector?.currencyLabel}
+            description={i18nSelector?.description}
+            saveLabel={i18nSelector?.saveLabel}
+          />
         )}
       </NavbarSliderFooter.Component>
     </NavbarSliderWrapper.Component>

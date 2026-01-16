@@ -73,6 +73,13 @@ export interface NavbarProps {
         icon: string
       }
     }
+    i18nSelector: {
+      title?: string
+      languageLabel?: string
+      currencyLabel?: string
+      description?: string
+      saveLabel?: string
+    }
     pageLinks: PageLinks[]
     menu: {
       icon: {
@@ -104,6 +111,13 @@ function NavbarSection({
       icon: { icon: i18nIcon },
       shouldDisplayI18nButton,
     },
+    i18nSelector: {
+      title: i18nTitle,
+      languageLabel: i18nLanguageLabel,
+      currencyLabel: i18nCurrencyLabel,
+      description: i18nDescription,
+      saveLabel: i18nSaveLabel,
+    } = {},
   },
 }: NavbarProps) {
   return (
@@ -124,6 +138,13 @@ function NavbarSection({
         i18nButton={{
           icon: i18nIcon,
           shouldDisplayI18nButton,
+        }}
+        i18nSelector={{
+          title: i18nTitle,
+          languageLabel: i18nLanguageLabel,
+          currencyLabel: i18nCurrencyLabel,
+          description: i18nDescription,
+          saveLabel: i18nSaveLabel,
         }}
       />
     </Section>
