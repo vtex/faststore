@@ -41,6 +41,14 @@ const ProductTiles = dynamic(
     ),
   { ssr: false }
 )
+const ScrollToTopButton = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "ScrollToTopButton" */
+      'src/components/sections/ScrollToTopButton'
+    ),
+  { ssr: false }
+)
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -55,6 +63,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(Newsletter, 'Newsletter')]: Newsletter,
   [getComponentKey(ProductShelf, 'ProductShelf')]: ProductShelf,
   [getComponentKey(ProductTiles, 'ProductTiles')]: ProductTiles,
+  [getComponentKey(ScrollToTopButton, 'ScrollToTopButton')]: ScrollToTopButton,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }

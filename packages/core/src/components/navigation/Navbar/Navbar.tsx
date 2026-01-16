@@ -8,6 +8,7 @@ import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
+import I18nButton from 'src/components/ui/I18nButton'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -63,6 +64,23 @@ export interface NavbarProps {
     shouldDisplayRegion: boolean
   }
   /**
+   * i18n Button props.
+   */
+  i18nButton?: {
+    icon: string
+    shouldDisplayI18nButton: boolean
+  }
+  /**
+   * i18n Selector props.
+   */
+  i18nSelector?: {
+    title?: string
+    languageLabel?: string
+    currencyLabel?: string
+    description?: string
+    saveLabel?: string
+  }
+  /**
    * Page links.
    */
   links: SectionNavbarProps['navigation']['pageLinks']
@@ -84,6 +102,8 @@ function Navbar({
   links,
   signIn,
   region,
+  i18nButton,
+  i18nSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
@@ -154,6 +174,8 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
+              loadingLabel={searchInput?.loadingLabel}
             />
           )}
 
@@ -182,10 +204,24 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
+                submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
+                loadingLabel={searchInput?.loadingLabel}
               />
             )}
+
+            {isDesktop && i18nButton?.shouldDisplayI18nButton && (
+              <I18nButton
+                icon={i18nButton?.icon}
+                title={i18nSelector?.title}
+                languageLabel={i18nSelector?.languageLabel}
+                currencyLabel={i18nSelector?.currencyLabel}
+                description={i18nSelector?.description}
+                saveLabel={i18nSelector?.saveLabel}
+              />
+            )}
+
             {isDesktop &&
               (isSessionReady ? (
                 isOrganizationEnabled ? (
@@ -217,6 +253,8 @@ function Navbar({
           links={links}
           signIn={signIn}
           region={region}
+          i18nButton={i18nButton}
+          i18nSelector={i18nSelector}
         />
       )}
     </NavbarWrapper.Component>

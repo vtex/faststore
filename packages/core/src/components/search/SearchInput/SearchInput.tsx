@@ -53,6 +53,8 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  submitButtonAriaLabel?: string
+  loadingLabel?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -77,6 +79,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      submitButtonAriaLabel = 'Submit Search',
+      loadingLabel,
       ...otherProps
     },
     ref
@@ -126,6 +130,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const buttonProps = {
       onClick: onSearchClick,
       testId: buttonTestId,
+      'aria-label': submitButtonAriaLabel,
     }
 
     return (
@@ -133,7 +138,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         {hidden ? (
           <UIIconButton
             type="submit"
-            aria-label="Submit Search"
+            aria-label={submitButtonAriaLabel}
             icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}
@@ -174,6 +179,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 <SearchDropdown
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
+                  loadingLabel={loadingLabel}
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }

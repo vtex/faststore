@@ -17,15 +17,19 @@ import styles from './section.module.scss'
 interface BreadcrumbSectionProps {
   icon: string
   alt: string
+  fallbackLabel: string
 }
 
-function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
+function BreadcrumbSection({
+  fallbackLabel,
+  ...otherProps
+}: BreadcrumbSectionProps) {
   const { Breadcrumb } = useOverrideComponents<'Breadcrumb'>()
 
   const context = usePage<PDPContext | PLPContext>()
   const title = isPLP(context)
     ? context?.data?.collection?.seo?.title
-    : 'All Products'
+    : fallbackLabel
   const fallback = [{ item: '/', name: title, position: 1 }]
 
   const breadcrumbList = isPDP(context)

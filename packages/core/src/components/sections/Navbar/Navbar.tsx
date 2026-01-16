@@ -23,8 +23,13 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    submitButtonAriaLabel?: string
     quickOrderSettings?: {
       quickOrder: boolean
+      invalidQuantityToastLabels?: {
+        title?: string
+        message?: string
+      }
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
@@ -39,6 +44,7 @@ export interface NavbarProps {
         }
       }
     }
+    loadingLabel?: string
   }
   signInButton: {
     icon: {
@@ -60,6 +66,19 @@ export interface NavbarProps {
         icon: string
       }
       label: string
+    }
+    i18nButton: {
+      shouldDisplayI18nButton: boolean
+      icon: {
+        icon: string
+      }
+    }
+    i18nSelector: {
+      title?: string
+      languageLabel?: string
+      currencyLabel?: string
+      description?: string
+      saveLabel?: string
     }
     pageLinks: PageLinks[]
     menu: {
@@ -88,6 +107,17 @@ function NavbarSection({
       icon: { icon: regionIcon },
       enabled: shouldDisplayRegion,
     },
+    i18nButton: {
+      icon: { icon: i18nIcon },
+      shouldDisplayI18nButton,
+    },
+    i18nSelector: {
+      title: i18nTitle,
+      languageLabel: i18nLanguageLabel,
+      currencyLabel: i18nCurrencyLabel,
+      description: i18nDescription,
+      saveLabel: i18nSaveLabel,
+    } = {},
   },
 }: NavbarProps) {
   return (
@@ -104,6 +134,17 @@ function NavbarSection({
           icon: regionIcon,
           label: regionLabel,
           shouldDisplayRegion,
+        }}
+        i18nButton={{
+          icon: i18nIcon,
+          shouldDisplayI18nButton,
+        }}
+        i18nSelector={{
+          title: i18nTitle,
+          languageLabel: i18nLanguageLabel,
+          currencyLabel: i18nCurrencyLabel,
+          description: i18nDescription,
+          saveLabel: i18nSaveLabel,
         }}
       />
     </Section>
