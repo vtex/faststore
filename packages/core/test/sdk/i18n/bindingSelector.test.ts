@@ -5,8 +5,8 @@ import {
   getCurrenciesForLocale,
   isValidUrl,
   resolveBinding,
-} from '../../../src/sdk/i18n/bindingSelector'
-import type { Binding, Locale } from '../../../src/sdk/i18n/types'
+} from '../../../src/sdk/localization/bindingSelector'
+import type { Binding, Locale } from '../../../src/sdk/localization/types'
 
 // Helper to create a mock locale
 function createLocale(overrides: Partial<Locale> = {}): Locale {

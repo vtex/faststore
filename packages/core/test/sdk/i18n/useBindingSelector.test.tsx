@@ -5,8 +5,8 @@ import {
   getCurrenciesForLocale,
   isValidUrl,
   resolveBinding,
-} from '../../../src/sdk/i18n/bindingSelector'
-import type { Locale } from '../../../src/sdk/i18n/types'
+} from '../../../src/sdk/localization/bindingSelector'
+import type { Locale } from '../../../src/sdk/localization/types'
 
 // Test data that mirrors what the hook would receive from discovery.config
 const mockLocales: Record<string, Locale> = {

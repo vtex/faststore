@@ -8,8 +8,8 @@ import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
-import I18nButton from 'src/components/ui/I18nButton'
 import Link from 'src/components/ui/Link'
+import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
@@ -64,16 +64,16 @@ export interface NavbarProps {
     shouldDisplayRegion: boolean
   }
   /**
-   * i18n Button props.
+   * Localization Button props.
    */
-  i18nButton?: {
+  localizationButton?: {
     icon: string
-    shouldDisplayI18nButton: boolean
+    shouldDisplayLocalizationButton: boolean
   }
   /**
-   * i18n Selector props.
+   * Localization Selector props.
    */
-  i18nSelector?: {
+  localizationSelector?: {
     title?: string
     languageLabel?: string
     currencyLabel?: string
@@ -102,8 +102,8 @@ function Navbar({
   links,
   signIn,
   region,
-  i18nButton,
-  i18nSelector,
+  localizationButton,
+  localizationSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
@@ -211,16 +211,17 @@ function Navbar({
               />
             )}
 
-            {isDesktop && i18nButton?.shouldDisplayI18nButton && (
-              <I18nButton
-                icon={i18nButton?.icon}
-                title={i18nSelector?.title}
-                languageLabel={i18nSelector?.languageLabel}
-                currencyLabel={i18nSelector?.currencyLabel}
-                description={i18nSelector?.description}
-                saveLabel={i18nSelector?.saveLabel}
-              />
-            )}
+            {isDesktop &&
+              localizationButton?.shouldDisplayLocalizationButton && (
+                <LocalizationButton
+                  icon={localizationButton?.icon}
+                  title={localizationSelector?.title}
+                  languageLabel={localizationSelector?.languageLabel}
+                  currencyLabel={localizationSelector?.currencyLabel}
+                  description={localizationSelector?.description}
+                  saveLabel={localizationSelector?.saveLabel}
+                />
+              )}
 
             {isDesktop &&
               (isSessionReady ? (
@@ -253,8 +254,8 @@ function Navbar({
           links={links}
           signIn={signIn}
           region={region}
-          i18nButton={i18nButton}
-          i18nSelector={i18nSelector}
+          localizationButton={localizationButton}
+          localizationSelector={localizationSelector}
         />
       )}
     </NavbarWrapper.Component>
