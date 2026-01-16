@@ -1,11 +1,13 @@
 import type { Binding, Locale } from './types'
 
 /**
- * Builds language options as Record<string, string> for direct use with UISelectField.
- * Uses "languageName (regionCode)" only when multiple locales share the same languageName.
+ * Builds display labels for locale codes for use in UI select fields.
  *
- * @param locales - Record of locale objects from discovery.config
- * @returns Record where key is locale code (e.g., "pt-BR") and value is display label (e.g., "Português (BR)")
+ * When multiple locales share the same languageName, the label includes the regionCode
+ * in parentheses (e.g., "Português (BR)"); otherwise the label is just the languageName.
+ *
+ * @param locales - Mapping of locale code to locale objects as provided by discovery.config
+ * @returns Mapping where each key is a locale code (e.g., "pt-BR") and each value is the display label (e.g., "Português" or "Português (BR)")
  */
 export function buildLanguageOptions(
   locales: Record<string, Locale>
@@ -46,12 +48,14 @@ export function getCurrenciesForLocale(locale: Locale): string[] {
 }
 
 /**
- * Resolves the correct binding for a locale+currency combination.
- * Applies isDefault tie-breaker when multiple bindings match.
+ * Selects the binding that matches a given currency code for a locale.
  *
- * @param bindings - Array of bindings from a locale
- * @param currencyCode - The selected currency code to match
- * @returns The resolved binding, or null if no match found
+ * If multiple bindings match the currency code, the binding with `isDefault === true` is chosen;
+ * otherwise the first matching binding is returned.
+ *
+ * @param bindings - Array of bindings for the locale
+ * @param currencyCode - The currency code to match (e.g., "USD")
+ * @returns The matching `Binding`, preferring one with `isDefault === true` when multiple matches exist, or `null` if no match is found
  */
 export function resolveBinding(
   bindings: Binding[],
@@ -67,10 +71,10 @@ export function resolveBinding(
 }
 
 /**
- * Validates that a URL is non-empty and appears to be valid.
+ * Determines whether a string is a non-empty, well-formed URL.
  *
- * @param url - The URL string to validate
- * @returns True if the URL is valid, false otherwise
+ * @param url - The string to validate as a URL
+ * @returns `true` if `url` is non-empty and parses as a URL, `false` otherwise
  */
 export function isValidUrl(url: string): boolean {
   if (!url || url.trim() === '') return false

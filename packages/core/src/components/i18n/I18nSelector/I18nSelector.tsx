@@ -156,7 +156,10 @@ const I18nSelectorContent = ({
 }
 
 /**
- * Helper function to get error message for display
+ * Get a user-facing message for a BindingSelectorError.
+ *
+ * @param error - The binding selector error to convert into a message
+ * @returns A human-readable message describing the error
  */
 function getErrorMessage(error: BindingSelectorError): string {
   switch (error.type) {
@@ -171,6 +174,31 @@ function getErrorMessage(error: BindingSelectorError): string {
   }
 }
 
+/**
+ * Renders a responsive language and currency selector as a popover on desktop or a slide-over on mobile.
+ *
+ * Renders validation or binding errors when provided, allows changing locale and currency, and exposes a save action that triggers `onSave` and closes the UI.
+ *
+ * @param isOpen - Controls whether the selector panel is visible
+ * @param onClose - Callback invoked to close the selector
+ * @param triggerRef - Reference element used to anchor the desktop popover
+ * @param languages - Mapping of locale codes to display labels for language selection
+ * @param currencies - Mapping of currency codes to display labels for currency selection
+ * @param localeCode - Currently selected locale code
+ * @param currencyCode - Currently selected currency code
+ * @param onLocaleChange - Callback invoked with the new locale code when the language selection changes
+ * @param onCurrencyChange - Callback invoked with the new currency code when the currency selection changes
+ * @param onSave - Callback invoked when the user confirms the selection
+ * @param canSave - Whether the save action is enabled
+ * @param error - Optional binding selector error used to produce a user-facing error message
+ * @param title - Title shown in the slide-over header on mobile
+ * @param languageLabel - Label text for the language select field
+ * @param currencyLabel - Label text for the currency select field
+ * @param description - Optional descriptive text shown in the selector content
+ * @param saveLabel - Text for the save action button
+ *
+ * @returns The selector UI as a popover (desktop) or slide-over (mobile), or `null` while loading.
+ */
 function I18nSelector({
   isOpen,
   onClose,

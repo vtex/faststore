@@ -58,10 +58,21 @@ export interface UseBindingSelectorReturn {
 }
 
 /**
- * Hook that provides state and actions for the i18n selector.
- * Manages locale selection, currency filtering, and binding resolution.
+ * Provides state and actions for selecting a locale and currency and for resolving the corresponding binding URL.
  *
- * @returns Object with languages, currencies, selections, and actions
+ * Exposes language and currency option maps, the current selections and error state, setters to update selections,
+ * a readiness flag, and a save action that validates the selection and redirects to the resolved binding URL.
+ *
+ * @returns An object with the following properties:
+ *  - `languages`: Record of available locale codes to display names
+ *  - `currencies`: Record of available currency codes (filtered by selected locale)
+ *  - `localeCode`: currently selected locale code or `null`
+ *  - `currencyCode`: currently selected currency code or `null`
+ *  - `canSave`: `true` when both `localeCode` and `currencyCode` are selected and there is no error, `false` otherwise
+ *  - `error`: current `BindingSelectorError` or `null`
+ *  - `setLocaleCode`: function to update the selected locale code
+ *  - `setCurrencyCode`: function to update the selected currency code
+ *  - `save`: function that validates the selection, resolves a binding, and redirects to its URL when valid
  */
 export function useBindingSelector(): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
