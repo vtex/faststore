@@ -261,7 +261,7 @@ export const InvalidCart = {
 // Valid Cart
 
 export const checkoutOrderFormValidFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?refreshOutdatedData=true&sc=1',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?sc=1&refreshOutdatedData=true',
   init: {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
@@ -288,7 +288,7 @@ export const checkoutOrderFormCustomDataValidFetch = {
 // "Invalid" Cart
 
 export const checkoutOrderFormInvalidFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?refreshOutdatedData=true&sc=1',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?sc=1&refreshOutdatedData=true',
   init: {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
@@ -300,7 +300,7 @@ export const checkoutOrderFormInvalidFetch = {
 }
 
 export const checkoutOrderFormItemsInvalidFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2/items?allowOutdatedData=paymentData&sc=1',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2/items?sc=1&allowOutdatedData=paymentData',
   init: {
     method: 'PATCH',
     headers: {
@@ -531,7 +531,7 @@ export const productSearchPage1Count1Fetch = {
 
 // Stale Cart
 export const checkoutOrderFormStaleFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?refreshOutdatedData=true&sc=1',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForm/edbe3b03c8c94827a37ec5a6a4648fd2?sc=1&refreshOutdatedData=true',
   init: {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
