@@ -4,8 +4,8 @@ import { Suspense } from 'react'
 import storeConfig from 'discovery.config'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import { ButtonSignInFallback } from 'src/components/ui/Button'
-import I18nButton from 'src/components/ui/I18nButton'
 import Link from 'src/components/ui/Link'
+import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 
 import type { NavbarProps } from '../Navbar'
@@ -21,16 +21,16 @@ interface NavbarSliderProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
-  i18nButton?: NavbarProps['i18nButton']
-  i18nSelector?: NavbarProps['i18nSelector']
+  localizationButton?: NavbarProps['localizationButton']
+  localizationSelector?: NavbarProps['localizationSelector']
 }
 
 function NavbarSlider({
   logo,
   links,
   region,
-  i18nButton,
-  i18nSelector,
+  localizationButton,
+  localizationSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
@@ -97,14 +97,14 @@ function NavbarSlider({
             />
           )}
         </Suspense>
-        {i18nButton?.shouldDisplayI18nButton && (
-          <I18nButton
-            icon={i18nButton?.icon}
-            title={i18nSelector?.title}
-            languageLabel={i18nSelector?.languageLabel}
-            currencyLabel={i18nSelector?.currencyLabel}
-            description={i18nSelector?.description}
-            saveLabel={i18nSelector?.saveLabel}
+        {localizationButton?.shouldDisplayLocalizationButton && (
+          <LocalizationButton
+            icon={localizationButton?.icon}
+            title={localizationSelector?.title}
+            languageLabel={localizationSelector?.languageLabel}
+            currencyLabel={localizationSelector?.currencyLabel}
+            description={localizationSelector?.description}
+            saveLabel={localizationSelector?.saveLabel}
           />
         )}
       </NavbarSliderFooter.Component>

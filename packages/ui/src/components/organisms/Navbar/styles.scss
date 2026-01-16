@@ -115,7 +115,7 @@
       display: none;
     }
 
-    [data-fs-i18n-button] {
+    [data-fs-localization-button] {
       [data-fs-button-wrapper] {
         column-gap: var(--fs-spacing-1);
         padding-right: var(--fs-spacing-1);
@@ -131,12 +131,12 @@
         font-weight: var(--fs-text-weight-medium);
       }
 
-      [data-i18n-button-text-locale],
-      [data-i18n-button-text-currency] {
+      [data-localization-button-text-locale],
+      [data-localization-button-text-currency] {
         color: var(--fs-color-text-display);
       }
 
-      [data-i18n-button-text-separator] {
+      [data-localization-button-text-separator] {
         color: var(--fs-border-color);
       }
     }

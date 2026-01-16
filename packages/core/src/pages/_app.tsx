@@ -12,7 +12,7 @@ import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
-import { useLocaleValidation } from 'src/sdk/i18n'
+import { useLocaleValidation } from 'src/sdk/localization'
 import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
 
 import storeConfig from 'discovery.config'
