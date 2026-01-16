@@ -25,6 +25,19 @@ interface NavbarSliderProps {
   i18nSelector?: NavbarProps['i18nSelector']
 }
 
+/**
+ * Renders a slide-out navbar with a header (logo), navigation links, sign-in controls, and an optional internationalization button.
+ *
+ * @param logo - Logo data (src, alt, and optional link) displayed in the header.
+ * @param links - Navigation links displayed in the content area.
+ * @param region - Region data passed to the navigation links.
+ * @param i18nButton - Controls whether the i18n button is shown and supplies its icon.
+ * @param i18nSelector - Optional i18n selector labels and descriptions used to configure the I18nButton.
+ * @param homeLabel - Home label used as the logo link title fallback.
+ * @param signInButton - Sign-in button props or icon used in the footer sign-in control.
+ *
+ * @returns The rendered NavbarSlider React element.
+ */
 function NavbarSlider({
   logo,
   links,

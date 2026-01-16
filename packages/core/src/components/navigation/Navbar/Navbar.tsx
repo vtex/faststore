@@ -94,6 +94,14 @@ export interface NavbarProps {
   menu: SectionNavbarProps['navigation']['menu']
 }
 
+/**
+ * Render the responsive site navigation bar with logo, search (desktop and mobile), sign-in area, cart toggle, optional internationalization controls, and a collapsible mobile slider.
+ *
+ * Renders desktop-specific elements (search input, links, i18n button, sign-in or organization sign-in, cart) and a mobile drawer/slider when appropriate. When both the experimental Faststore My Account feature flag and the session's representative flag are enabled, the organization sign-in control is shown instead of the standard sign-in button.
+ *
+ * @param i18nSelector - Optional labels and text for the i18n selector UI: `title`, `languageLabel`, `currencyLabel`, `description`, and `saveLabel`. These values are forwarded to the desktop I18nButton and the mobile NavbarSlider.
+ * @returns The rendered Navbar React element.
+ */
 function Navbar({
   cart,
   logo,

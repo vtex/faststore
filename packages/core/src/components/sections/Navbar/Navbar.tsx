@@ -93,6 +93,14 @@ export interface NavbarProps {
   }
 }
 
+/**
+ * Render the page's navbar section using the provided configuration.
+ *
+ * @param props - NavbarProps containing layout and behavior for the Navbar. The nested
+ * `navigation.i18nSelector` fields (`title`, `languageLabel`, `currencyLabel`, `description`, `saveLabel`)
+ * are optional and, when present, are passed through to the underlying Navbar's i18n selector.
+ * @returns A Section element containing a configured Navbar component.
+ */
 function NavbarSection({
   logo,
   searchInput,
