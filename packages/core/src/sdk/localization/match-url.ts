@@ -3,7 +3,7 @@ import config from 'discovery.config'
 export function matchURLBinding(href: string) {
   let binding
   const matchedConfig = Object.entries(config.i18n.locales).find(
-    ([lang, langConfig]) => {
+    ([_, langConfig]) => {
       const hostURLObject = new URL(href)
       const langPath =
         /\/(\w{2}-\w{2})\/?/i.exec(hostURLObject.pathname)?.[1] ?? ''

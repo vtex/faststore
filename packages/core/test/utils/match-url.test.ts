@@ -1,5 +1,5 @@
-import { matchURLBinding } from '../../src/sdk/multilang/match-url'
 import { vi } from 'vitest'
+import { matchURLBinding } from '../../src/sdk/localization/match-url'
 
 vi.mock(import('../../discovery.config.js'), async (original) => ({
   default: {
