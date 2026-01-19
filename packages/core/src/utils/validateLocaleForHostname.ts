@@ -2,7 +2,7 @@ import storeConfig from 'discovery.config.default.js'
 import type { LocalesSettings } from '../typings/locales'
 
 function getLocalesSettings(): LocalesSettings {
-  return storeConfig.localization as LocalesSettings
+  return storeConfig.localization as unknown as LocalesSettings
 }
 
 /**
