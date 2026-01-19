@@ -479,6 +479,32 @@
                   "title": "Save Button Label",
                   "type": "string",
                   "default": "Save"
+                },
+                "errorMessages": {
+                  "title": "Error Messages",
+                  "type": "object",
+                  "properties": {
+                    "noBindingFound": {
+                      "title": "No Binding Found Error",
+                      "type": "string",
+                      "default": "Unable to save configuration. No matching store found."
+                    },
+                    "invalidUrl": {
+                      "title": "Invalid URL Error",
+                      "type": "string",
+                      "default": "Invalid redirect URL. Please try again."
+                    },
+                    "noCurrencies": {
+                      "title": "No Currencies Error",
+                      "type": "string",
+                      "default": "No currencies available for this language."
+                    },
+                    "defaultError": {
+                      "title": "Default Error",
+                      "type": "string",
+                      "default": "An error occurred. Please try again."
+                    }
+                  }
                 }
               }
             },

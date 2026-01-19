@@ -10,10 +10,10 @@
   flex-direction: column;
   gap: var(--fs-spacing-2, 12px);
   align-items: flex-end;
+  max-width: 288px;
   border: 1px solid var(--fs-border-color-default);
 
   [data-fs-i18n-selector-description] {
-    width: 193px;
     margin-bottom: var(--fs-spacing-3);
     font-size: var(--fs-text-size-1);
     font-weight: var(--fs-text-weight-medium);
@@ -33,6 +33,20 @@
   [data-fs-i18n-selector-actions] {
     display: flex;
     justify-content: end;
+  }
+
+  [data-fs-localization-selector-error] {
+    display: flex;
+    gap: var(--fs-spacing-1);
+    align-items: flex-start;
+    width: 100%;
+    font-size: var(--fs-text-size-1);
+    color: var(--fs-color-danger-text);
+
+    [data-fs-icon] {
+      flex-shrink: 0;
+      color: var(--fs-color-danger-text);
+    }
   }
 }
 

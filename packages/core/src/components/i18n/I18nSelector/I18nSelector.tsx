@@ -5,6 +5,7 @@ import {
   SlideOver,
   SlideOverHeader,
   Button as UIButton,
+  Icon as UIIcon,
   Popover as UIPopover,
   SelectField as UISelectField,
   useFadeEffect,
@@ -42,6 +43,15 @@ interface I18nSelectorContentProps {
   onSave?: () => void
   /** Whether the save button should be enabled */
   canSave?: boolean
+  /** Error message element to display */
+  errorMessage?: React.ReactNode
+}
+
+interface LocalizationSelectorErrorMessages {
+  noBindingFound?: string
+  invalidUrl?: string
+  noCurrencies?: string
+  defaultError?: string
 }
 
 interface I18nSelectorProps {
@@ -106,6 +116,10 @@ interface I18nSelectorProps {
    */
   description: string
   saveLabel: string
+  /**
+   * Custom error messages from CMS
+   */
+  errorMessages?: LocalizationSelectorErrorMessages
 }
 
 const I18nSelectorContent = ({
@@ -122,6 +136,7 @@ const I18nSelectorContent = ({
   showSaveButton = false,
   onSave,
   canSave = true,
+  errorMessage,
 }: I18nSelectorContentProps) => {
   return (
     <div data-fs-i18n-selector-content>
@@ -144,6 +159,8 @@ const I18nSelectorContent = ({
 
       <p data-fs-i18n-selector-description>{description}</p>
 
+      {errorMessage}
+
       {showSaveButton && onSave && (
         <div data-fs-i18n-selector-actions>
           <UIButton variant="primary" onClick={onSave} disabled={!canSave}>
@@ -158,17 +175,11 @@ const I18nSelectorContent = ({
 /**
  * Helper function to get error message for display
  */
-function getErrorMessage(error: BindingSelectorError): string {
-  switch (error.type) {
-    case 'no-binding-found':
-      return 'Unable to save configuration. No matching store found.'
-    case 'invalid-url':
-      return 'Invalid redirect URL. Please try again.'
-    case 'no-currencies':
-      return 'No currencies available for this language.'
-    default:
-      return 'An error occurred. Please try again.'
-  }
+function getErrorMessage(
+  error: BindingSelectorError,
+  errorMessages?: LocalizationSelectorErrorMessages
+): string {
+  return errorMessages?.[error.type] ?? errorMessages?.defaultError ?? ''
 }
 
 function I18nSelector({
@@ -189,13 +200,13 @@ function I18nSelector({
   currencyLabel,
   description,
   saveLabel,
+  errorMessages,
 }: I18nSelectorProps) {
   const { loading, isDesktop } = useScreenResize()
   const { fade, fadeOut } = useFadeEffect()
 
   const handleSave = () => {
     onSave()
-    onClose()
   }
 
   const isDesktopDevice = useMemo(
@@ -209,8 +220,9 @@ function I18nSelector({
 
   // Error display
   const errorMessage = error && (
-    <div data-fs-i18n-selector-error role="alert">
-      {getErrorMessage(error)}
+    <div data-fs-localization-selector-error role="alert">
+      <UIIcon name="Warning" width={18} height={18} />
+      <span>{getErrorMessage(error, errorMessages)}</span>
     </div>
   )
 
@@ -227,24 +239,22 @@ function I18nSelector({
           className: `${styles.common} ${styles.desktop}`,
         }}
         content={
-          <>
-            {errorMessage}
-            <I18nSelectorContent
-              languages={languages}
-              currencies={currencies}
-              localeCode={localeCode ?? ''}
-              currencyCode={currencyCode ?? ''}
-              onLocaleChange={onLocaleChange}
-              onCurrencyChange={onCurrencyChange}
-              languageLabel={languageLabel}
-              currencyLabel={currencyLabel}
-              description={description}
-              saveLabel={saveLabel}
-              showSaveButton
-              onSave={handleSave}
-              canSave={canSave}
-            />
-          </>
+          <I18nSelectorContent
+            languages={languages}
+            currencies={currencies}
+            localeCode={localeCode ?? ''}
+            currencyCode={currencyCode ?? ''}
+            onLocaleChange={onLocaleChange}
+            onCurrencyChange={onCurrencyChange}
+            languageLabel={languageLabel}
+            currencyLabel={currencyLabel}
+            description={description}
+            saveLabel={saveLabel}
+            showSaveButton
+            onSave={handleSave}
+            canSave={canSave}
+            errorMessage={errorMessage}
+          />
         }
       />
     )
@@ -268,7 +278,6 @@ function I18nSelector({
         <h2 data-fs-i18n-selector-title>{title}</h2>
       </SlideOverHeader>
       <div data-fs-i18n-selector-body>
-        {errorMessage}
         <I18nSelectorContent
           languages={languages}
           currencies={currencies}
@@ -280,6 +289,7 @@ function I18nSelector({
           currencyLabel={currencyLabel}
           description={description}
           saveLabel={saveLabel}
+          errorMessage={errorMessage}
         />
       </div>
       <footer data-fs-i18n-selector-footer>

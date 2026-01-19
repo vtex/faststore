@@ -5,6 +5,13 @@ import { Icon, Button as UIButton } from '@faststore/ui'
 import I18nSelector from 'src/components/i18n/I18nSelector'
 import { useBindingSelector } from 'src/sdk/i18n'
 
+interface LocalizationButtonErrorMessages {
+  noBindingFound?: string
+  invalidUrl?: string
+  noCurrencies?: string
+  defaultError?: string
+}
+
 interface I18nButtonProps {
   icon: string
   title?: string
@@ -12,6 +19,7 @@ interface I18nButtonProps {
   currencyLabel?: string
   description?: string
   saveLabel?: string
+  errorMessages?: LocalizationButtonErrorMessages
 }
 
 const I18nButton = ({
@@ -21,6 +29,7 @@ const I18nButton = ({
   currencyLabel,
   description,
   saveLabel,
+  errorMessages,
 }: I18nButtonProps) => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -87,6 +96,7 @@ const I18nButton = ({
           currencyLabel={currencyLabel}
           description={description}
           saveLabel={saveLabel}
+          errorMessages={errorMessages}
         />
       )}
     </>
