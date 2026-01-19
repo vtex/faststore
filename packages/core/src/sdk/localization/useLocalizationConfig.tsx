@@ -1,0 +1,103 @@
+import config from 'discovery.config'
+import deepEqual from 'fast-deep-equal'
+import { useEffect, useState } from 'react'
+import { sessionStore } from '../session'
+
+import { matchURLBinding } from './match-url'
+
+type Settings = {
+  locale: string
+  currency: { code: string; symbol: string }
+  salesChannel: number
+}
+
+export const useLocalizationConfig = (params?: { url?: string | URL }) => {
+  let url = params?.url ?? ''
+  const defaultConfig = config.i18n.locales[
+    config.i18n.defaultLocale
+  ] as ConfigType
+  const defaultBinding =
+    defaultConfig.bindings.find((el) => el.isDefault) ??
+    defaultConfig.bindings.at(0)
+
+  if (!defaultBinding)
+    throw new Error(
+      'Localization configuration invalid: not found default binding'
+    )
+
+  const [settings, setSettings] = useState<Settings>(
+    getSettingsFromConfig(defaultConfig, defaultBinding)
+  )
+
+  if (!url) {
+    if (typeof window === 'undefined') {
+      return settings
+    }
+
+    url = window.location.href
+  }
+
+  if (url instanceof URL) url = url.toString()
+
+  // @TODO: Check if multilang is enabled and i18n is present on config file.
+  if (!config.i18n) {
+    const Err = new Error(
+      'Missing i18n configuration in faststore config file.'
+    )
+    console.error(Err)
+    throw Err
+  }
+
+  const { config: regionConfig, binding } = matchURLBinding(url)
+  if (!!regionConfig && !!binding) {
+    const newSettings = getSettingsFromConfig(regionConfig, binding)
+    if (deepEqual(settings, newSettings) === false) {
+      setSettings(newSettings)
+    }
+  }
+
+  useEffect(() => {
+    if (!settings) return
+
+    const session = sessionStore.read()
+
+    const channel = JSON.parse(session.channel ?? '{}')
+    channel['salesChannel'] = settings.salesChannel
+
+    const newSession = {
+      ...session,
+      locale: settings.locale,
+      currency: settings.currency,
+      channel: JSON.stringify(channel),
+    }
+
+    if (
+      newSession.channel !== session.channel ||
+      newSession.locale !== session.locale ||
+      deepEqual(newSession.currency, session.currency) === false
+    ) {
+      sessionStore.set(newSession)
+    }
+  }, [settings])
+
+  function getSettingsFromConfig(
+    configObject: ConfigType,
+    binding: ConfigType['bindings'][number]
+  ): Settings {
+    const salesChannel = Number(binding.salesChannel)
+
+    return {
+      currency: {
+        code: binding.currencyCode,
+        symbol: config.i18n.currencies[binding.currencyCode].symbol,
+      },
+      locale: configObject.code,
+      salesChannel: isNaN(salesChannel) ? 1 : salesChannel,
+    }
+  }
+
+  return settings
+}
+
+type ConfigType =
+  (typeof config)['i18n']['locales'][keyof (typeof config)['i18n']['locales']]
