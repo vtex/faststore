@@ -4,7 +4,7 @@ import { matchURLBinding } from '../../src/sdk/localization/match-url'
 vi.mock(import('../../discovery.config.js'), async (original) => ({
   default: {
     ...((await original()).default ?? {}),
-    i18n: {
+    localization: {
       defaultLocale: 'pt-BR',
       regions: {
         CA: {
@@ -141,7 +141,7 @@ import config from 'discovery.config'
 describe('URL match', () => {
   it('Should pass', () => {
     const ptBR = {
-      config: config.i18n['locales']['pt-BR'],
+      config: config.localization['locales']['pt-BR'],
       binding: {
         currencyCode: 'BRL',
         url: 'https://brandless.myvtex.com',
@@ -157,7 +157,7 @@ describe('URL match', () => {
     ).toEqual(ptBR)
 
     const enCa = {
-      config: config.i18n['locales']['en-CA'],
+      config: config.localization['locales']['en-CA'],
       binding: {
         currencyCode: 'BRL',
         url: 'https://brandless.fast.store/pt-BR',

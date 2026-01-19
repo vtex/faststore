@@ -114,13 +114,17 @@ export default class GenerateI18n extends Command {
     })
 
     const settings = await faststore.locales()
+    const currentConfig = discoveryConfig?.default ?? discoveryConfig
 
     saveConfigFile(
       await format(
         `module.exports = ${JSON.stringify(
           {
-            ...(discoveryConfig?.default ?? discoveryConfig),
-            i18n: settings,
+            ...currentConfig,
+            localization: {
+              ...(currentConfig?.localization ?? {}),
+              ...settings,
+            },
           },
           undefined,
           2

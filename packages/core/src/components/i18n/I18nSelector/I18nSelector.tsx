@@ -132,7 +132,7 @@ function I18nSelector({
   const { fade, fadeOut } = useFadeEffect()
 
   const languages = useMemo(() => {
-    const localesConfig = storeConfig.i18n?.locales
+    const localesConfig = storeConfig.localization?.locales
     if (!localesConfig) return {}
 
     return Object.keys(localesConfig).reduce<Record<string, string>>(
@@ -148,7 +148,7 @@ function I18nSelector({
   }, [])
 
   const currencies = useMemo(() => {
-    const currenciesConfig = storeConfig.i18n?.currencies
+    const currenciesConfig = storeConfig.localization?.currencies
     if (!currenciesConfig) return {}
 
     return Object.keys(currenciesConfig).reduce<Record<string, string>>(

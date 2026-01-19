@@ -195,9 +195,13 @@ describe('GenerateI18n', () => {
     )
 
     const discoveryConfig = await import(configPath)
+    const currentConfig = discoveryConfig?.default ?? discoveryConfig
     const mergedConfig = {
-      ...(discoveryConfig?.default ?? discoveryConfig),
-      i18n: mockedSettings,
+      ...currentConfig,
+      localization: {
+        enabled: currentConfig?.localization?.enabled ?? true,
+        ...mockedSettings,
+      },
     }
 
     const saveConfigFile = saveFile(configPath)
@@ -219,11 +223,12 @@ describe('GenerateI18n', () => {
     expect(config.seo).toEqual(existingConfig.seo)
     expect(config.api).toEqual(existingConfig.api)
 
-    expect(config.i18n).toBeDefined()
-    expect(config.i18n.defaultLocale).toBe(mockedSettings.defaultLocale)
-    expect(config.i18n.regions).toEqual(mockedSettings.regions)
-    expect(config.i18n.locales).toEqual(mockedSettings.locales)
-    expect(config.i18n.currencies).toEqual(mockedSettings.currencies)
+    expect(config.localization).toBeDefined()
+    expect(config.localization.enabled).toBe(true)
+    expect(config.localization.defaultLocale).toBe(mockedSettings.defaultLocale)
+    expect(config.localization.regions).toEqual(mockedSettings.regions)
+    expect(config.localization.locales).toEqual(mockedSettings.locales)
+    expect(config.localization.currencies).toEqual(mockedSettings.currencies)
   })
 
   it('should merge i18n config preserving all existing properties', async () => {
@@ -242,9 +247,13 @@ describe('GenerateI18n', () => {
     )
 
     const discoveryConfig = await import(configPath)
+    const currentConfig = discoveryConfig?.default ?? discoveryConfig
     const mergedConfig = {
-      ...(discoveryConfig?.default ?? discoveryConfig),
-      i18n: mockedSettings,
+      ...currentConfig,
+      localization: {
+        enabled: currentConfig?.localization?.enabled ?? true,
+        ...mockedSettings,
+      },
     }
 
     const saveConfigFile = saveFile(configPath)
@@ -266,7 +275,8 @@ describe('GenerateI18n', () => {
     expect(config.platform).toBe(existingConfig.platform)
     expect(config.session).toEqual(existingConfig.session)
 
-    expect(config.i18n).toBeDefined()
-    expect(config.i18n.defaultLocale).toBe(mockedSettings.defaultLocale)
+    expect(config.localization).toBeDefined()
+    expect(config.localization.enabled).toBe(true)
+    expect(config.localization.defaultLocale).toBe(mockedSettings.defaultLocale)
   })
 })
