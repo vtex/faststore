@@ -19,6 +19,7 @@ interface I18nButtonProps {
   currencyLabel?: string
   description?: string
   saveLabel?: string
+  ariaLabel?: string
   errorMessages?: LocalizationButtonErrorMessages
 }
 
@@ -29,6 +30,7 @@ const I18nButton = ({
   currencyLabel,
   description,
   saveLabel,
+  ariaLabel,
   errorMessages,
 }: I18nButtonProps) => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
@@ -42,7 +44,7 @@ const I18nButton = ({
     setLocaleCode,
     setCurrencyCode,
     save,
-    canSave,
+    isSaveEnabled,
     error,
   } = useBindingSelector()
 
@@ -73,7 +75,7 @@ const I18nButton = ({
           aria-hidden="true"
           width={16}
           height={16}
-          aria-label="Open i18n modal"
+          aria-label={ariaLabel}
         />
       </UIButton>
 
@@ -89,7 +91,7 @@ const I18nButton = ({
           onLocaleChange={setLocaleCode}
           onCurrencyChange={setCurrencyCode}
           onSave={save}
-          canSave={canSave}
+          isSaveEnabled={isSaveEnabled}
           error={error}
           title={title}
           languageLabel={languageLabel}

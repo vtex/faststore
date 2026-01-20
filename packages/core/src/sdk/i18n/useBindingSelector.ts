@@ -46,7 +46,7 @@ export interface UseBindingSelectorReturn {
   /** Selected currency code (e.g., "BRL") */
   currencyCode: string | null
   /** True when both locale and currency are selected and no error */
-  canSave: boolean
+  isSaveEnabled: boolean
   /** Current error state, if any */
   error: BindingSelectorError | null
   /** Action to set the locale code (e.g., "pt-BR") */
@@ -161,14 +161,14 @@ export function useBindingSelector(): UseBindingSelectorReturn {
     window.location.href = binding.url
   }, [localeCode, currencyCode, i18nConfig.locales])
 
-  const canSave = Boolean(localeCode && currencyCode && !error)
+  const isSaveEnabled = Boolean(localeCode && currencyCode && !error)
 
   return {
     languages,
     currencies,
     localeCode,
     currencyCode,
-    canSave,
+    isSaveEnabled,
     error,
     setLocaleCode: handleSetLocaleCode,
     setCurrencyCode: handleSetCurrencyCode,

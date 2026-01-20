@@ -448,6 +448,11 @@
                       "default": "Globe"
                     }
                   }
+                },
+                "ariaLabel": {
+                  "title": "Aria Label for localization selector",
+                  "type": "string",
+                  "default": "Open localization selector"
                 }
               }
             },

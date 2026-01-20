@@ -42,7 +42,7 @@ interface I18nSelectorContentProps {
   showSaveButton?: boolean
   onSave?: () => void
   /** Whether the save button should be enabled */
-  canSave?: boolean
+  isSaveEnabled?: boolean
   /** Error message element to display */
   errorMessage?: React.ReactNode
 }
@@ -100,7 +100,7 @@ interface I18nSelectorProps {
   /**
    * Whether save is enabled from useBindingSelector hook
    */
-  canSave: boolean
+  isSaveEnabled: boolean
   /**
    * Error state from useBindingSelector hook
    */
@@ -135,7 +135,7 @@ const I18nSelectorContent = ({
   saveLabel,
   showSaveButton = false,
   onSave,
-  canSave = true,
+  isSaveEnabled = true,
   errorMessage,
 }: I18nSelectorContentProps) => {
   return (
@@ -163,7 +163,11 @@ const I18nSelectorContent = ({
 
       {showSaveButton && onSave && (
         <div data-fs-i18n-selector-actions>
-          <UIButton variant="primary" onClick={onSave} disabled={!canSave}>
+          <UIButton
+            variant="primary"
+            onClick={onSave}
+            disabled={!isSaveEnabled}
+          >
             {saveLabel}
           </UIButton>
         </div>
@@ -193,7 +197,7 @@ function I18nSelector({
   onLocaleChange,
   onCurrencyChange,
   onSave,
-  canSave,
+  isSaveEnabled,
   error,
   title,
   languageLabel,
@@ -252,7 +256,7 @@ function I18nSelector({
             saveLabel={saveLabel}
             showSaveButton
             onSave={handleSave}
-            canSave={canSave}
+            isSaveEnabled={isSaveEnabled}
             errorMessage={errorMessage}
           />
         }
@@ -293,7 +297,11 @@ function I18nSelector({
         />
       </div>
       <footer data-fs-i18n-selector-footer>
-        <UIButton variant="primary" onClick={handleSave} disabled={!canSave}>
+        <UIButton
+          variant="primary"
+          onClick={handleSave}
+          disabled={!isSaveEnabled}
+        >
           {saveLabel}
         </UIButton>
       </footer>
