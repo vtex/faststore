@@ -22,6 +22,7 @@ import SEO from 'next-seo.config'
 import '../styles/main.scss'
 
 import { ITEMS_PER_PAGE } from 'src/constants'
+import { useLocalizationConfig } from 'src/sdk/localization/useLocalizationConfig'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
@@ -34,6 +35,9 @@ function App({ Component, pageProps }: AppProps) {
 
   // Client-side validation of locale binding (fallback for static pages)
   useLocaleValidation()
+
+  // Update session with localization config
+  useLocalizationConfig()
 
   return (
     <ErrorBoundary>
