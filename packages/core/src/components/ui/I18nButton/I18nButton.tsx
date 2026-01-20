@@ -4,6 +4,7 @@ import { Icon, Button as UIButton } from '@faststore/ui'
 
 import I18nSelector from 'src/components/i18n/I18nSelector'
 import { useBindingSelector } from 'src/sdk/i18n'
+import { useSession } from 'src/sdk/session'
 
 interface LocalizationButtonErrorMessages {
   noBindingFound?: string
@@ -48,9 +49,11 @@ const I18nButton = ({
     error,
   } = useBindingSelector()
 
-  // Extract language code from locale code for display (e.g., "pt-BR" -> "PT")
-  const localeText = localeCode?.split('-')[0].toUpperCase() ?? ''
-  const currencyText = currencyCode ?? ''
+  const { locale: sessionLocale, currency: sessionCurrency } = useSession()
+
+  // Extract language code from session locale for display (e.g., "pt-BR" -> "PT")
+  const localeText = sessionLocale?.split('-')[0].toUpperCase() ?? ''
+  const currencyText = sessionCurrency?.code ?? ''
 
   return (
     <>
