@@ -65,7 +65,7 @@ export interface UseBindingSelectorReturn {
  */
 export function useBindingSelector(): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
-  const i18nConfig = storeConfig.i18n as LocalizationConfig
+  const i18nConfig = storeConfig.localization as LocalizationConfig
 
   // Pre-select current locale code and currency code from session
   const [localeCode, setLocaleCode] = useState<string | null>(
