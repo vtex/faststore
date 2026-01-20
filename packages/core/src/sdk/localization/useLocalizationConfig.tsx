@@ -13,8 +13,8 @@ type Settings = {
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   let url = params?.url ?? ''
-  const defaultConfig = config.i18n.locales[
-    config.i18n.defaultLocale
+  const defaultConfig = config.localization.locales[
+    config.localization.defaultLocale
   ] as ConfigType
   const defaultBinding =
     defaultConfig.bindings.find((el) => el.isDefault) ??
@@ -39,10 +39,10 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
 
   if (url instanceof URL) url = url.toString()
 
-  // @TODO: Check if multilang is enabled and i18n is present on config file.
-  if (!config.i18n) {
+  // @TODO: Check if multilang is enabled and localization is present on config file.
+  if (!config.localization) {
     const Err = new Error(
-      'Missing i18n configuration in faststore config file.'
+      'Missing localization configuration in faststore config file.'
     )
     console.error(Err)
     throw Err
@@ -89,7 +89,7 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     return {
       currency: {
         code: binding.currencyCode,
-        symbol: config.i18n.currencies[binding.currencyCode].symbol,
+        symbol: config.localization.currencies[binding.currencyCode].symbol,
       },
       locale: configObject.code,
       salesChannel: isNaN(salesChannel) ? 1 : salesChannel,
@@ -100,4 +100,4 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
 }
 
 type ConfigType =
-  (typeof config)['i18n']['locales'][keyof (typeof config)['i18n']['locales']]
+  (typeof config)['localization']['locales'][keyof (typeof config)['localization']['locales']]
