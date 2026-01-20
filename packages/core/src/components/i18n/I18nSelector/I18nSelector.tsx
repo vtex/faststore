@@ -1,17 +1,17 @@
-import type { RefObject, SelectHTMLAttributes } from 'react'
-import { useMemo, useState } from 'react'
+import type { RefObject } from 'react'
+import { useMemo } from 'react'
 
 import {
-  Button as UIButton,
-  Popover as UIPopover,
-  SelectField as UISelectField,
   SlideOver,
   SlideOverHeader,
+  Button as UIButton,
+  Icon as UIIcon,
+  Popover as UIPopover,
+  SelectField as UISelectField,
   useFadeEffect,
 } from '@faststore/ui'
 
-import storeConfig from 'discovery.config'
-
+import type { BindingSelectorError } from 'src/sdk/i18n'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import styles from './section.module.scss'
 
@@ -19,22 +19,39 @@ type SelectValue = string
 type SelectOptions = Record<string, string>
 
 interface I18nSelectorContentProps {
-  selectedLanguage: SelectValue
-  selectedCurrency: SelectValue
-  onLanguageChange: SelectHTMLAttributes<HTMLSelectElement>['onChange']
-  onCurrencyChange: SelectHTMLAttributes<HTMLSelectElement>['onChange']
+  /** Language options - Record where key is locale code (e.g., "pt-BR") and value is language name (e.g., "Português") */
+  languages: SelectOptions
+  /** Currency options - Record where key is currency code and value is currency code */
+  currencies: SelectOptions
+  /** Currently selected locale code (e.g., "pt-BR") */
+  localeCode: SelectValue
+  /** Currently selected currency code (e.g., "BRL") */
+  currencyCode: SelectValue
+  /** Callback when locale code changes - receives locale code */
+  onLocaleChange: (code: string) => void
+  /** Callback when currency code changes - receives currency code */
+  onCurrencyChange: (code: string) => void
   languageLabel: string
   currencyLabel: string
   description: string
   saveLabel: string
-  languages: SelectOptions
-  currencies: SelectOptions
   /**
    * When true, renders the Save button inside the content.
    * Used by the desktop (Popover) variation.
    */
   showSaveButton?: boolean
   onSave?: () => void
+  /** Whether the save button should be enabled */
+  isSaveEnabled?: boolean
+  /** Error message element to display */
+  errorMessage?: React.ReactNode
+}
+
+interface LocalizationSelectorErrorMessages {
+  noBindingFound?: string
+  invalidUrl?: string
+  noCurrencies?: string
+  defaultError?: string
 }
 
 interface I18nSelectorProps {
@@ -52,37 +69,74 @@ interface I18nSelectorProps {
    */
   triggerRef?: RefObject<HTMLElement>
   /**
-   * Optional callback fired when the user confirms the Save action.
+   * Language options from useBindingSelector hook.
+   * Record where key is locale code (e.g., "pt-BR") and value is language name (e.g., "Português")
    */
-  onSave?: (params: { language: SelectValue; currency: SelectValue }) => void
+  languages: SelectOptions
   /**
-   * UI copy texts.
+   * Currency options from useBindingSelector hook.
+   */
+  currencies: SelectOptions
+  /**
+   * Currently selected locale code from useBindingSelector hook (e.g., "pt-BR")
+   */
+  localeCode: SelectValue | null
+  /**
+   * Currently selected currency code from useBindingSelector hook (e.g., "BRL")
+   */
+  currencyCode: SelectValue | null
+  /**
+   * Callback when locale code changes - receives locale code and passes to hook's setLocaleCode
+   */
+  onLocaleChange: (code: string) => void
+  /**
+   * Callback when currency code changes - passes to hook's setCurrencyCode
+   */
+  onCurrencyChange: (code: string) => void
+  /**
+   * Callback when save is triggered - passes to hook's save
+   */
+  onSave: () => void
+  /**
+   * Whether save is enabled from useBindingSelector hook
+   */
+  isSaveEnabled: boolean
+  /**
+   * Error state from useBindingSelector hook
+   */
+  error: BindingSelectorError | null
+  /**
+   * Title displayed in mobile SlideOver header
    */
   title: string
   languageLabel: string
   currencyLabel: string
+  /**
+   * Description text
+   */
   description: string
   saveLabel: string
   /**
-   * Initial selected values (optional).
+   * Custom error messages from CMS
    */
-  defaultLanguage?: SelectValue
-  defaultCurrency?: SelectValue
+  errorMessages?: LocalizationSelectorErrorMessages
 }
 
 const I18nSelectorContent = ({
-  selectedLanguage,
-  selectedCurrency,
-  onLanguageChange,
+  languages,
+  currencies,
+  localeCode,
+  currencyCode,
+  onLocaleChange,
   onCurrencyChange,
   languageLabel,
   currencyLabel,
   description,
   saveLabel,
-  languages,
-  currencies,
   showSaveButton = false,
   onSave,
+  isSaveEnabled = true,
+  errorMessage,
 }: I18nSelectorContentProps) => {
   return (
     <div data-fs-i18n-selector-content>
@@ -90,23 +144,30 @@ const I18nSelectorContent = ({
         id="i18n-selector-language"
         label={languageLabel}
         options={languages}
-        value={selectedLanguage}
-        onChange={onLanguageChange}
+        value={localeCode}
+        onChange={(event) => onLocaleChange(event.currentTarget.value)}
       />
 
       <UISelectField
         id="i18n-selector-currency"
         label={currencyLabel}
         options={currencies}
-        value={selectedCurrency}
-        onChange={onCurrencyChange}
+        value={currencyCode}
+        onChange={(event) => onCurrencyChange(event.currentTarget.value)}
+        disabled={Object.keys(currencies).length === 0}
       />
 
       <p data-fs-i18n-selector-description>{description}</p>
 
+      {errorMessage}
+
       {showSaveButton && onSave && (
         <div data-fs-i18n-selector-actions>
-          <UIButton variant="primary" onClick={onSave}>
+          <UIButton
+            variant="primary"
+            onClick={onSave}
+            disabled={!isSaveEnabled}
+          >
             {saveLabel}
           </UIButton>
         </div>
@@ -115,81 +176,41 @@ const I18nSelectorContent = ({
   )
 }
 
+/**
+ * Helper function to get error message for display
+ */
+function getErrorMessage(
+  error: BindingSelectorError,
+  errorMessages?: LocalizationSelectorErrorMessages
+): string {
+  return errorMessages?.[error.type] ?? errorMessages?.defaultError ?? ''
+}
+
 function I18nSelector({
   isOpen,
   onClose,
   triggerRef,
+  languages,
+  currencies,
+  localeCode,
+  currencyCode,
+  onLocaleChange,
+  onCurrencyChange,
   onSave,
+  isSaveEnabled,
+  error,
   title,
   languageLabel,
   currencyLabel,
   description,
   saveLabel,
-  defaultLanguage,
-  defaultCurrency,
+  errorMessages,
 }: I18nSelectorProps) {
   const { loading, isDesktop } = useScreenResize()
   const { fade, fadeOut } = useFadeEffect()
 
-  const languages = useMemo(() => {
-    const localesConfig = storeConfig.localization?.locales
-    if (!localesConfig) return {}
-
-    return Object.keys(localesConfig).reduce<Record<string, string>>(
-      (acc, key) => {
-        const locale = localesConfig[key]
-        if (locale?.name) {
-          acc[key] = locale.name
-        }
-        return acc
-      },
-      {}
-    )
-  }, [])
-
-  const currencies = useMemo(() => {
-    const currenciesConfig = storeConfig.localization?.currencies
-    if (!currenciesConfig) return {}
-
-    return Object.keys(currenciesConfig).reduce<Record<string, string>>(
-      (acc, key) => {
-        const currency = currenciesConfig[key]
-        if (currency?.code) {
-          acc[key] = currency.code
-        }
-        return acc
-      },
-      {}
-    )
-  }, [])
-
-  const [selectedLanguage, setSelectedLanguage] = useState<SelectValue>(() => {
-    if (defaultLanguage && languages[defaultLanguage]) {
-      return defaultLanguage
-    }
-
-    const [firstLanguage] = Object.keys(languages)
-
-    return firstLanguage ?? ''
-  })
-
-  const [selectedCurrency, setSelectedCurrency] = useState<SelectValue>(() => {
-    if (defaultCurrency && currencies[defaultCurrency]) {
-      return defaultCurrency
-    }
-
-    const [firstCurrency] = Object.keys(currencies)
-
-    return firstCurrency ?? ''
-  })
-
   const handleSave = () => {
-    onSave?.({
-      language: selectedLanguage,
-      currency: selectedCurrency,
-    })
-
-    onClose()
+    onSave()
   }
 
   const isDesktopDevice = useMemo(
@@ -200,6 +221,14 @@ function I18nSelector({
   if (loading) {
     return null
   }
+
+  // Error display
+  const errorMessage = error && (
+    <div data-fs-localization-selector-error role="alert">
+      <UIIcon name="Warning" width={18} height={18} />
+      <span>{getErrorMessage(error, errorMessages)}</span>
+    </div>
+  )
 
   if (isDesktopDevice) {
     return (
@@ -215,22 +244,20 @@ function I18nSelector({
         }}
         content={
           <I18nSelectorContent
-            selectedLanguage={selectedLanguage}
-            selectedCurrency={selectedCurrency}
-            onLanguageChange={(event) =>
-              setSelectedLanguage(event.currentTarget.value)
-            }
-            onCurrencyChange={(event) =>
-              setSelectedCurrency(event.currentTarget.value)
-            }
+            languages={languages}
+            currencies={currencies}
+            localeCode={localeCode ?? ''}
+            currencyCode={currencyCode ?? ''}
+            onLocaleChange={onLocaleChange}
+            onCurrencyChange={onCurrencyChange}
             languageLabel={languageLabel}
             currencyLabel={currencyLabel}
             description={description}
             saveLabel={saveLabel}
-            languages={languages}
-            currencies={currencies}
             showSaveButton
             onSave={handleSave}
+            isSaveEnabled={isSaveEnabled}
+            errorMessage={errorMessage}
           />
         }
       />
@@ -256,24 +283,25 @@ function I18nSelector({
       </SlideOverHeader>
       <div data-fs-i18n-selector-body>
         <I18nSelectorContent
-          selectedLanguage={selectedLanguage}
-          selectedCurrency={selectedCurrency}
-          onLanguageChange={(event) =>
-            setSelectedLanguage(event.currentTarget.value)
-          }
-          onCurrencyChange={(event) =>
-            setSelectedCurrency(event.currentTarget.value)
-          }
+          languages={languages}
+          currencies={currencies}
+          localeCode={localeCode ?? ''}
+          currencyCode={currencyCode ?? ''}
+          onLocaleChange={onLocaleChange}
+          onCurrencyChange={onCurrencyChange}
           languageLabel={languageLabel}
           currencyLabel={currencyLabel}
           description={description}
           saveLabel={saveLabel}
-          languages={languages}
-          currencies={currencies}
+          errorMessage={errorMessage}
         />
       </div>
       <footer data-fs-i18n-selector-footer>
-        <UIButton variant="primary" onClick={handleSave}>
+        <UIButton
+          variant="primary"
+          onClick={handleSave}
+          disabled={!isSaveEnabled}
+        >
           {saveLabel}
         </UIButton>
       </footer>
