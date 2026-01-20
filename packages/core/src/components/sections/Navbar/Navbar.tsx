@@ -67,13 +67,13 @@ export interface NavbarProps {
       }
       label: string
     }
-    i18nButton: {
-      shouldDisplayI18nButton: boolean
+    localizationButton: {
+      shouldDisplayLocalizationButton: boolean
       icon: {
         icon: string
       }
     }
-    i18nSelector: {
+    localizationSelector: {
       title?: string
       languageLabel?: string
       currencyLabel?: string
@@ -107,16 +107,16 @@ function NavbarSection({
       icon: { icon: regionIcon },
       enabled: shouldDisplayRegion,
     },
-    i18nButton: {
-      icon: { icon: i18nIcon },
-      shouldDisplayI18nButton,
+    localizationButton: {
+      icon: { icon: localizationIcon },
+      shouldDisplayLocalizationButton,
     },
-    i18nSelector: {
-      title: i18nTitle,
-      languageLabel: i18nLanguageLabel,
-      currencyLabel: i18nCurrencyLabel,
-      description: i18nDescription,
-      saveLabel: i18nSaveLabel,
+    localizationSelector: {
+      title: localizationTitle,
+      languageLabel: localizationLanguageLabel,
+      currencyLabel: localizationCurrencyLabel,
+      description: localizationDescription,
+      saveLabel: localizationSaveLabel,
     } = {},
   },
 }: NavbarProps) {
@@ -135,16 +135,16 @@ function NavbarSection({
           label: regionLabel,
           shouldDisplayRegion,
         }}
-        i18nButton={{
-          icon: i18nIcon,
-          shouldDisplayI18nButton,
+        localizationButton={{
+          icon: localizationIcon,
+          shouldDisplayLocalizationButton,
         }}
-        i18nSelector={{
-          title: i18nTitle,
-          languageLabel: i18nLanguageLabel,
-          currencyLabel: i18nCurrencyLabel,
-          description: i18nDescription,
-          saveLabel: i18nSaveLabel,
+        localizationSelector={{
+          title: localizationTitle,
+          languageLabel: localizationLanguageLabel,
+          currencyLabel: localizationCurrencyLabel,
+          description: localizationDescription,
+          saveLabel: localizationSaveLabel,
         }}
       />
     </Section>

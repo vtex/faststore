@@ -427,13 +427,13 @@
                 }
               }
             },
-            "i18nButton": {
+            "localizationButton": {
               "type": "object",
-              "title": "Internationalization Button",
+              "title": "Localization Button",
               "properties": {
-                "shouldDisplayI18nButton": {
+                "shouldDisplayLocalizationButton": {
                   "type": "boolean",
-                  "title": "Should display internationalization button?",
+                  "title": "Should display localization button?",
                   "default": false
                 },
                 "icon": {
@@ -456,9 +456,9 @@
                 }
               }
             },
-            "i18nSelector": {
+            "localizationSelector": {
               "type": "object",
-              "title": "Internationalization Selector",
+              "title": "Localization Selector",
               "properties": {
                 "title": {
                   "title": "Title",

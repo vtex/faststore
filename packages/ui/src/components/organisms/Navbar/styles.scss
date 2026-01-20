@@ -115,7 +115,7 @@
       display: none;
     }
 
-    [data-fs-i18n-button] {
+    [data-fs-localization-button] {
       [data-fs-button-wrapper] [data-fs-button-icon] + span {
         display: grid;
         grid-template-columns: auto 1fr;
