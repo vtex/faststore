@@ -131,6 +131,9 @@ function Navbar({
   const isRepresentative = b2b?.isRepresentative
 
   const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+  const isLocalizationEnabled =
+    storeConfig.localization?.enabled &&
+    localizationButton?.shouldDisplayLocalizationButton
 
   const handlerExpandSearch = useCallback(() => {
     setSearchExpanded(true)
@@ -211,17 +214,16 @@ function Navbar({
               />
             )}
 
-            {isDesktop &&
-              localizationButton?.shouldDisplayLocalizationButton && (
-                <LocalizationButton
-                  icon={localizationButton?.icon}
-                  title={localizationSelector?.title}
-                  languageLabel={localizationSelector?.languageLabel}
-                  currencyLabel={localizationSelector?.currencyLabel}
-                  description={localizationSelector?.description}
-                  saveLabel={localizationSelector?.saveLabel}
-                />
-              )}
+            {isDesktop && isLocalizationEnabled && (
+              <LocalizationButton
+                icon={localizationButton?.icon}
+                title={localizationSelector?.title}
+                languageLabel={localizationSelector?.languageLabel}
+                currencyLabel={localizationSelector?.currencyLabel}
+                description={localizationSelector?.description}
+                saveLabel={localizationSelector?.saveLabel}
+              />
+            )}
 
             {isDesktop &&
               (isSessionReady ? (

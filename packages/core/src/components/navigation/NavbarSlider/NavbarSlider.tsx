@@ -50,8 +50,11 @@ function NavbarSlider({
     storeConfig.experimental?.enableFaststoreMyAccount
 
   const isRepresentative = b2b?.isRepresentative
-
   const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+
+  const isLocalizationEnabled =
+    storeConfig.localization?.enabled &&
+    localizationButton?.shouldDisplayLocalizationButton
 
   return (
     <NavbarSliderWrapper.Component
@@ -97,7 +100,7 @@ function NavbarSlider({
             />
           )}
         </Suspense>
-        {localizationButton?.shouldDisplayLocalizationButton && (
+        {isLocalizationEnabled && (
           <LocalizationButton
             icon={localizationButton?.icon}
             title={localizationSelector?.title}
