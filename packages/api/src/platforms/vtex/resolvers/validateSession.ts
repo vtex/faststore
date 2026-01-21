@@ -20,8 +20,14 @@ async function getPreciseLocationData(
       country,
     })
 
-    const [longitude, latitude] = address.geoCoordinates
-    return { city: address.city, geoCoordinates: { latitude, longitude } }
+    const geoCoordinates = address.geoCoordinates
+      ? {
+          latitude: address.geoCoordinates[1],
+          longitude: address.geoCoordinates[0],
+        }
+      : null
+
+    return { city: address.city, geoCoordinates }
   } catch (err) {
     console.error(
       `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
