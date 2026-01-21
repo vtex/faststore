@@ -21,6 +21,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
 
+# [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
+
+### Bug Fixes
+
+- Prevent Partytown cross-origin errors in iframe environments ([#3155](https://github.com/vtex/faststore/issues/3155)) ([997252e](https://github.com/vtex/faststore/commit/997252e9a18807f4c26c350197d4f2d139de58f8))
+
+# [3.96.0-dev.20](https://github.com/vtex/faststore/compare/v3.96.0-dev.19...v3.96.0-dev.20) (2026-01-08)
+
+### Bug Fixes
+
+- Add slug field to landing page schema - CROC-185 ([#3166](https://github.com/vtex/faststore/issues/3166)) ([41b9878](https://github.com/vtex/faststore/commit/41b987825ee5ebb7d311eef33e2ca65034dc130d))
+
+# [3.96.0-dev.19](https://github.com/vtex/faststore/compare/v3.96.0-dev.18...v3.96.0-dev.19) (2026-01-08)
+
+### Features
+
+- logout clear storage ([#3163](https://github.com/vtex/faststore/issues/3163)) ([1fbacc3](https://github.com/vtex/faststore/commit/1fbacc3b3e32b4f83a2f56c1f97eb0f8ff843f61))
+
 # 3.96.0-dev.18 (2025-12-24)
 
 **Note:** Version bump only for package faststore

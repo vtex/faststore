@@ -17,6 +17,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
 
+# [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.96.0-dev.20](https://github.com/vtex/faststore/compare/v3.96.0-dev.19...v3.96.0-dev.20) (2026-01-08)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.96.0-dev.19](https://github.com/vtex/faststore/compare/v3.96.0-dev.18...v3.96.0-dev.19) (2026-01-08)
+
+**Note:** Version bump only for package @faststore/cli
+
 # 3.96.0-dev.18 (2025-12-24)
 
 **Note:** Version bump only for package @faststore/cli
