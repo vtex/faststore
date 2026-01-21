@@ -12,8 +12,6 @@ export function injectGlobalSections({
   globalSectionsHeader,
   globalSectionsFooter,
 }: InjectGlobalSectionsProps) {
-  // TODO: remover later
-  // Temp Handle case when globalSections or sections array is undefined/empty
   if (
     !globalSections ||
     !globalSections.sections ||

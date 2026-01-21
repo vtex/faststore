@@ -217,8 +217,7 @@ export class ContentService {
     const { cmsOptions } = options
     const params: Partial<EntryPathParams> = {
       accountName: config.api.storeId,
-      // storeId: 'faststore',
-      storeId: 'multilanguage',
+      storeId: 'faststore',
       contentType: cmsOptions.contentType,
       slug: options.slug,
     }
