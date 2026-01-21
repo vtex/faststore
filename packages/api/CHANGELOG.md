@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.2](https://github.com/vtex/faststore/compare/v3.96.1...v3.96.2) (2026-01-14)
+
+### Bug Fixes
+
+- validate cart loop shipping simulation / logged ([#3174](https://github.com/vtex/faststore/issues/3174)) ([41bc64b](https://github.com/vtex/faststore/commit/41bc64bfa48382b3cbe5c05c7a57ce6d3e403da3))
+
+## [3.96.1](https://github.com/vtex/faststore/compare/v3.96.0...v3.96.1) (2026-01-09)
+
+### Bug Fixes
+
+- error shipping without neighborhood ([#3168](https://github.com/vtex/faststore/issues/3168)) ([fa91844](https://github.com/vtex/faststore/commit/fa91844390a8f928b7509f6778518584c147aa48))
+
+# [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
+
+### Features
+
+- version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+
 # 3.96.0-dev.18 (2025-12-24)
 
 **Note:** Version bump only for package @faststore/api

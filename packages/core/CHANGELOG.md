@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.2](https://github.com/vtex/faststore/compare/v3.96.1...v3.96.2) (2026-01-14)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.96.1](https://github.com/vtex/faststore/compare/v3.96.0...v3.96.1) (2026-01-09)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
+
+### Features
+
+- version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+  > > > > > > > main
+
 # [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
 
 ### Bug Fixes
