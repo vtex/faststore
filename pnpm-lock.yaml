@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.96.0-dev.21
+        specifier: ^3.96.0-dev.22
         version: 3.96.0(@babel/core@7.26.7)(@faststore/components@3.96.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.3.2)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1)
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -297,7 +297,7 @@ importers:
         specifier: workspace:*
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: ^3.96.0-dev.18
+        specifier: ^3.96.0-dev.22
         version: 3.96.0(graphql@15.8.0)
       "@faststore/lighthouse":
         specifier: workspace:*
@@ -567,10 +567,10 @@ importers:
   packages/storybook:
     dependencies:
       "@faststore/components":
-        specifier: ^3.96.0-dev.18
+        specifier: ^3.96.0-dev.22
         version: 3.96.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       "@faststore/ui":
-        specifier: ^3.96.0-dev.18
+        specifier: ^3.96.0-dev.22
         version: 3.96.0(@faststore/components@3.96.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next:
         specifier: ^15.1.6
@@ -622,7 +622,7 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.96.0-dev.18
+        specifier: ^3.96.0-dev.22
         version: 3.96.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       include-media:
         specifier: ^1.4.10
@@ -17019,6 +17019,7 @@ packages:
         integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==,
       }
     engines: { node: ">=10" }
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   tar@7.5.2:
     resolution:
@@ -17026,6 +17027,7 @@ packages:
         integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==,
       }
     engines: { node: ">=18" }
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   temp-dir@1.0.0:
     resolution:

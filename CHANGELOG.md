@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.96.0-dev.22 (2026-01-21)
+
+### Bug Fixes
+
+- Clear cart (get new orderForm) if there is no checkout cookie present ([#3178](https://github.com/vtex/faststore/issues/3178)) ([f3f69bc](https://github.com/vtex/faststore/commit/f3f69bca1c54f2859ad4c3ac9a52563a0e8c2571))
+
 # [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
 
 ### Bug Fixes
