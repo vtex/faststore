@@ -23,7 +23,7 @@ export class ContentService {
   private clientCPCache = new Map<string, ClientCP>()
 
   private getClientCP(locale?: string): ClientCP {
-    const currentLocale = locale ?? config.i18n.defaultLocale
+    const currentLocale = locale ?? config.localization.defaultLocale
 
     // Reuse cached ClientCP for locale
     if (this.clientCPCache.has(currentLocale)) {
