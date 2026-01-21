@@ -87,6 +87,21 @@ export interface CarouselProps extends SwipeableProps {
     left?: ReactNode
     right?: ReactNode
   }
+
+  /*
+   * Check whether the carousel will play automatically or not.
+   */
+  autoPlay: boolean
+  autoPlayIntervalTime: number
+  /*
+   * Specify when it's paused after mouse entering carousel items list.
+   */
+  isPaused: boolean
+  setIsPaused: (paused: boolean) => void
+  /*
+   * Specify in which page carousel is at the moment.
+   */
+  setCurrentPage: (page: number) => void
 }
 
 function Carousel({
@@ -104,6 +119,11 @@ function Carousel({
   variant = 'scroll',
   itemsPerPage = 1,
   navigationIcons = undefined,
+  autoPlay,
+  autoPlayIntervalTime,
+  isPaused,
+  setIsPaused,
+  setCurrentPage,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
   if (itemsPerPage < 1) {
@@ -146,6 +166,29 @@ function Carousel({
       )
     }
   }, [carouselItemsWidth])
+
+  useEffect(() => {
+    setCurrentPage(sliderState.currentPage)
+
+    if (
+      isPaused ||
+      !autoPlay ||
+      sliderState.currentPage === childrenCount - 1
+    ) {
+      return
+    }
+
+    const autoPlayInterval = setInterval(() => {
+      slide('next', sliderDispatch)
+    }, autoPlayIntervalTime)
+
+    return () => {
+      sliderDispatch({
+        type: 'STOP_SLIDE',
+      })
+      clearInterval(autoPlayInterval)
+    }
+  }, [sliderState.currentPage, isPaused])
 
   const showNavigationArrows =
     pagesCount !== 1 &&
@@ -394,6 +437,12 @@ function Carousel({
           dir={isRTL ? 'rtl' : 'ltr'}
           onScroll={onScrollTrack}
           onTransitionEnd={onTransitionTrackEnd}
+          onMouseEnter={() => {
+            setIsPaused(true)
+          }}
+          onMouseLeave={() => {
+            setIsPaused(false)
+          }}
         >
           {slides.map((currentSlide, idx) => (
             <CarouselItem
