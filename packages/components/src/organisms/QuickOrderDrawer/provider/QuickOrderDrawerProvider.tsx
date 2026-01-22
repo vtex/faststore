@@ -23,7 +23,6 @@ export interface Product {
 
 export interface VariationProductColumn {
   name: string
-
   availability: {
     label: string
     stockDisplaySettings: 'showStockQuantity' | 'showAvailability'
@@ -128,15 +127,7 @@ export const QuickOrderDrawerProvider = ({
         product.selectedCount > 0 && product.availability === 'available'
     )
 
-    if (onAddToCartCallback) {
-      onAddToCartCallback(productsToAdd, totalPrice, itemsCount)
-    } else {
-      console.log('Adding to cart:', {
-        products: productsToAdd,
-        totalPrice,
-        itemsCount,
-      })
-    }
+    onAddToCartCallback?.(productsToAdd, totalPrice, itemsCount)
   }, [products, totalPrice, itemsCount, onAddToCartCallback])
 
   const value: QuickOrderDrawerContextValue = {
