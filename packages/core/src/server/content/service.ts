@@ -193,7 +193,11 @@ export class ContentService {
     if (entries.length > 1) {
       throw new MultipleContentError(params)
     }
-    return this.getEntryData({ ...params, entryId: entries[0].id }, isPreview)
+    return this.getEntryData(
+      { ...params, entryId: entries[0].id },
+      isPreview,
+      locale
+    )
   }
 
   private createContentOptions(params: ContentParams): ContentOptions {
