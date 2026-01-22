@@ -5,6 +5,7 @@ import { Icon, Button as UIButton } from '@faststore/ui'
 import LocalizationSelector from 'src/components/localization/LocalizationSelector'
 import { useBindingSelector } from 'src/sdk/localization'
 import { useSession } from 'src/sdk/session'
+import storeConfig from 'discovery.config'
 
 interface LocalizationButtonErrorMessages {
   noBindingFound?: string
@@ -50,6 +51,11 @@ const LocalizationButton = ({
   } = useBindingSelector()
 
   const { locale: sessionLocale, currency: sessionCurrency } = useSession()
+
+  // Don't render if localization is not enabled
+  if (!storeConfig.localization?.enabled) {
+    return null
+  }
 
   // Extract language code from session locale for display (e.g., "pt-BR" -> "PT")
   const localeText = sessionLocale?.split('-')[0].toUpperCase() ?? ''
