@@ -40,7 +40,7 @@ const QuickOrderDrawerProducts = ({
   )
 
   return (
-    <div data-fs-qod-content>
+    <div data-fs-quick-order-drawer-content>
       <>
         {alertMessage && (
           <Alert
@@ -53,14 +53,14 @@ const QuickOrderDrawerProducts = ({
           </Alert>
         )}
         <Table
-          data-fs-qod-table
+          data-fs-quick-order-drawer-table
           variant="bordered"
           aria-label="Quick order products list"
         >
           <TableHead>
             <TableRow>
               <TableCell
-                data-fs-qod-product-header
+                data-fs-quick-order-drawer-product-header
                 align="left"
                 variant="header"
                 scope="col"
@@ -112,10 +112,15 @@ const QuickOrderDrawerProducts = ({
                 {products.map((variantProduct) => (
                   <TableRow
                     key={`${variantProduct.name}-${variantProduct.id}`}
-                    data-fs-qod-table-row={variantProduct.availability}
+                    data-fs-quick-order-drawer-table-row={
+                      variantProduct.availability
+                    }
                   >
-                    <TableCell data-fs-qod-cell="product" align="left">
-                      <div data-fs-qod-table-cell-img-container>
+                    <TableCell
+                      data-fs-quick-order-drawer-cell="product"
+                      align="left"
+                    >
+                      <div data-fs-quick-order-drawer-table-cell-img-container>
                         <img
                           height={48}
                           src={variantProduct.image.url}
@@ -126,11 +131,11 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
 
-                      <div data-fs-qod-table-cell-name-container>
-                        <div data-fs-qod-text={'primary'}>
+                      <div data-fs-quick-order-drawer-table-cell-name-container>
+                        <div data-fs-quick-order-drawer-text={'primary'}>
                           {variantProduct.name}
                         </div>
-                        <span data-fs-qod-text={'secondary'}>
+                        <span data-fs-quick-order-drawer-text={'secondary'}>
                           {variantProduct.id}
                         </span>
                       </div>
@@ -168,20 +173,25 @@ const QuickOrderDrawerProducts = ({
                         'showStockQuantity' && variantProduct.inventory}
                     </TableCell>
 
-                    <TableCell data-fs-qod-cell="price" align="right">
+                    <TableCell
+                      data-fs-quick-order-drawer-cell="price"
+                      align="right"
+                    >
                       <Price
                         value={variantProduct.price}
                         variant="spot"
                         formatter={formatter}
-                        data-fs-qod-table-price={variantProduct.availability}
+                        data-fs-quick-order-drawer-table-price={
+                          variantProduct.availability
+                        }
                       />
                     </TableCell>
 
                     <TableCell
                       align="right"
-                      data-fs-qod-cell="quantity-selector"
+                      data-fs-quick-order-drawer-cell="quantity-selector"
                     >
-                      <div data-fs-qod-table-action>
+                      <div data-fs-quick-order-drawer-table-action>
                         <QuantitySelector
                           min={0}
                           max={variantProduct.inventory}
@@ -215,7 +225,10 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
                     </TableCell>
-                    <TableCell align="right" data-fs-qod-delete-cell>
+                    <TableCell
+                      align="right"
+                      data-fs-quick-order-drawer-delete-cell
+                    >
                       <IconButton
                         onClick={() => onDelete(variantProduct.id)}
                         icon={<Icon name="Thrash" color="#1F1F1F" />}

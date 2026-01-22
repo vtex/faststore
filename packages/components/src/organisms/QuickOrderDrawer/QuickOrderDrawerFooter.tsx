@@ -12,13 +12,13 @@ const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
   const { itemsCount, totalPrice } = useQuickOrderDrawer()
 
   return (
-    <div data-fs-qod-footer>
-      <div data-fs-qod-footer-price-container>
+    <div data-fs-quick-order-drawer-footer>
+      <div data-fs-quick-order-drawer-footer-price-container>
         <span>{itemsCount} items</span>
         <Price value={totalPrice} variant="selling" formatter={formatter} />
       </div>
       <Button
-        data-fs-qod-add-to-cart-btn
+        data-fs-quick-order-drawer-add-to-cart-btn
         variant="primary"
         loading={loading}
         aria-label={`Add ${itemsCount} items to cart`}
