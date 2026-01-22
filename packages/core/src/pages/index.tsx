@@ -159,7 +159,7 @@ export const getStaticProps: GetStaticProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   let cmsPage = null
