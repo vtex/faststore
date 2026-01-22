@@ -29,7 +29,7 @@ export type QuickOrderDrawerProps = {
 }
 
 const QuickOrderDrawer = ({
-  testId = 'fs-qod',
+  testId = 'fs-quick-order-drawer',
   isOpen,
   overlayProps,
   children,
@@ -44,7 +44,7 @@ const QuickOrderDrawer = ({
         size="partial"
         direction="rightSide"
         overlayProps={overlayProps}
-        data-fs-qod
+        data-fs-quick-order-drawer
       >
         {children}
       </SlideOver>

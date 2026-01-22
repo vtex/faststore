@@ -22,7 +22,7 @@ const QuickOrderDrawerHeader = ({
 
   return (
     <SlideOverHeader
-      data-fs-qod-header
+      data-fs-quick-order-drawer-header
       closeBtnProps={{
         variant: 'tertiary',
         color: 'black',
@@ -30,11 +30,11 @@ const QuickOrderDrawerHeader = ({
       }}
       onClose={() => onCloseDrawer?.()}
     >
-      <div data-fs-qod-title-container>
-        <div data-fs-qod-icon>
+      <div data-fs-quick-order-drawer-title-container>
+        <div data-fs-quick-order-drawer-icon>
           <Icon name="Table" weight="bold" width={32} height={32} />
         </div>
-        <div data-fs-qod-title>{titleFormmated}</div>
+        <div data-fs-quick-order-drawer-title>{titleFormmated}</div>
       </div>
     </SlideOverHeader>
   )
