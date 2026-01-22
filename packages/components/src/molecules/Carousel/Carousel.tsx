@@ -175,7 +175,8 @@ function Carousel({
     if (
       isPaused ||
       !autoPlay ||
-      sliderState.currentPage === childrenCount - 1
+      !autoPlayIntervalTime ||
+      (!infiniteMode && sliderState.currentPage === childrenCount - 1)
     ) {
       return
     }
@@ -190,7 +191,16 @@ function Carousel({
       })
       clearInterval(autoPlayInterval)
     }
-  }, [sliderState.currentPage, isPaused])
+  }, [
+    sliderState.currentPage,
+    isPaused,
+    autoPlay,
+    autoPlayIntervalTime,
+    childrenCount,
+    slide,
+    sliderDispatch,
+    setCurrentPage,
+  ])
 
   const showNavigationArrows =
     pagesCount !== 1 &&
