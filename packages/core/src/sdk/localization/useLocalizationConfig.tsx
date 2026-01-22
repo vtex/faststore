@@ -12,10 +12,6 @@ type Settings = {
 }
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
-  if (!config.localization?.enabled) {
-    return
-  }
-
   let url = params?.url ?? ''
   const defaultConfig = config.localization.locales[
     config.localization.defaultLocale
