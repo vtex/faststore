@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "3.95.0",
+  "version": "3.96.4-dev.0",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -14,7 +14,11 @@
     ".": "./dist/index.js",
     "./runner": "./bin/run.js"
   },
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/cli"
+  },
   "files": [
     "/bin",
     "/dist",
@@ -54,6 +58,9 @@
     "tsup": "^8.5.0",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "oclif": {
     "bin": "faststore",

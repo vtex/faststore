@@ -1,8 +1,12 @@
 {
   "name": "@faststore/core",
-  "version": "3.95.0",
+  "version": "3.96.4-dev.0",
   "license": "MIT",
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/core"
+  },
   "browserslist": "supports es6-module and not dead",
   "packageManager": "pnpm@10.20.0",
   "exports": {
@@ -23,6 +27,9 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "sideEffects": false,
   "dependencies": {

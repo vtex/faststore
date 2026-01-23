@@ -3,6 +3,152 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package faststore
+
+## [3.96.3](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.3) (2026-01-21)
+
+**Note:** Version bump only for package faststore
+
+## [3.96.2](https://github.com/vtex/faststore/compare/v3.96.1...v3.96.2) (2026-01-14)
+
+### Bug Fixes
+
+- validate cart loop shipping simulation / logged ([#3174](https://github.com/vtex/faststore/issues/3174)) ([41bc64b](https://github.com/vtex/faststore/commit/41bc64bfa48382b3cbe5c05c7a57ce6d3e403da3))
+
+## [3.96.1](https://github.com/vtex/faststore/compare/v3.96.0...v3.96.1) (2026-01-09)
+
+### Bug Fixes
+
+- error shipping without neighborhood ([#3168](https://github.com/vtex/faststore/issues/3168)) ([fa91844](https://github.com/vtex/faststore/commit/fa91844390a8f928b7509f6778518584c147aa48))
+
+# [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
+
+### Features
+
+- version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+
+# 3.96.0-dev.22 (2026-01-21)
+
+### Bug Fixes
+
+- Clear cart (get new orderForm) if there is no checkout cookie present ([#3178](https://github.com/vtex/faststore/issues/3178)) ([f3f69bc](https://github.com/vtex/faststore/commit/f3f69bca1c54f2859ad4c3ac9a52563a0e8c2571))
+
+# [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
+
+### Bug Fixes
+
+- Prevent Partytown cross-origin errors in iframe environments ([#3155](https://github.com/vtex/faststore/issues/3155)) ([997252e](https://github.com/vtex/faststore/commit/997252e9a18807f4c26c350197d4f2d139de58f8))
+
+# [3.96.0-dev.20](https://github.com/vtex/faststore/compare/v3.96.0-dev.19...v3.96.0-dev.20) (2026-01-08)
+
+### Bug Fixes
+
+- Add slug field to landing page schema - CROC-185 ([#3166](https://github.com/vtex/faststore/issues/3166)) ([41b9878](https://github.com/vtex/faststore/commit/41b987825ee5ebb7d311eef33e2ca65034dc130d))
+
+# [3.96.0-dev.19](https://github.com/vtex/faststore/compare/v3.96.0-dev.18...v3.96.0-dev.19) (2026-01-08)
+
+### Features
+
+- logout clear storage ([#3163](https://github.com/vtex/faststore/issues/3163)) ([1fbacc3](https://github.com/vtex/faststore/commit/1fbacc3b3e32b4f83a2f56c1f97eb0f8ff843f61))
+
+# 3.96.0-dev.18 (2025-12-24)
+
+**Note:** Version bump only for package faststore
+
+# 3.96.0-dev.17 (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.16](https://github.com/vtex/faststore/compare/v3.96.0-dev.15...v3.96.0-dev.16) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.15](https://github.com/vtex/faststore/compare/v3.96.0-dev.14...v3.96.0-dev.15) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.14](https://github.com/vtex/faststore/compare/v3.96.0-dev.13...v3.96.0-dev.14) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.13](https://github.com/vtex/faststore/compare/v3.96.0-dev.12...v3.96.0-dev.13) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.12](https://github.com/vtex/faststore/compare/v3.96.0-dev.11...v3.96.0-dev.12) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# 3.96.0-dev.11 (2025-12-23)
+
+### Bug Fixes
+
+- correct comment for platform specific config in discovery configuration ([0fea6fa](https://github.com/vtex/faststore/commit/0fea6faf812c0f0af3f139b6507b2f342264209c))
+
+# 3.96.0-dev.10 (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.9](https://github.com/vtex/faststore/compare/v3.96.0-dev.8...v3.96.0-dev.9) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.8](https://github.com/vtex/faststore/compare/v3.96.0-dev.7...v3.96.0-dev.8) (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# 3.96.0-dev.7 (2025-12-23)
+
+### Bug Fixes
+
+- correct comment for platform specific API configuration in discovery config ([b03968c](https://github.com/vtex/faststore/commit/b03968c84cfb935b71ef64f575dcdf3e8f624b5a))
+
+# 3.96.0-dev.6 (2025-12-23)
+
+**Note:** Version bump only for package faststore
+
+# 3.96.0-dev.5 (2025-12-23)
+
+### Features
+
+- Trigger build ([28b6ec0](https://github.com/vtex/faststore/commit/28b6ec0489080be0a3431ec2ead7bfce0da75a34))
+
+# 3.96.0-dev.4 (2025-12-23)
+
+### Bug Fixes
+
+- update release workflow to handle both main and dev branches ([#3160](https://github.com/vtex/faststore/issues/3160)) ([4247f92](https://github.com/vtex/faststore/commit/4247f9254f47056e726418290f4f019760a81935))
+
+# [3.96.0-dev.3](https://github.com/vtex/faststore/compare/v3.96.0-dev.2...v3.96.0-dev.3) (2025-12-22)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.2](https://github.com/vtex/faststore/compare/v3.96.0-dev.1...v3.96.0-dev.2) (2025-12-18)
+
+### Bug Fixes
+
+- adds cache busting to bypass cache when logged in/out. ([#3152](https://github.com/vtex/faststore/issues/3152)) ([862ea50](https://github.com/vtex/faststore/commit/862ea50999214771c4fa38fa70db789b4de5e59b))
+
+# [3.96.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.0-dev.0...v3.96.0-dev.1) (2025-12-16)
+
+**Note:** Version bump only for package faststore
+
+# [3.96.0-dev.0](https://github.com/vtex/faststore/compare/v3.95.1-dev.0...v3.96.0-dev.0) (2025-12-10)
+
+### Features
+
+- adds `priceTags` as tax - SFS-2970 ([#3144](https://github.com/vtex/faststore/issues/3144)) ([d1b3869](https://github.com/vtex/faststore/commit/d1b38699f2955890be1759e1d6d6cf55e1c4dda9))
+
+## [3.95.1-dev.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.95.1-dev.0) (2025-12-02)
+
+# 3.95.0-dev.3 (2025-12-02)
+
+**Note:** Version bump only for package faststore
+
 # 3.95.0 (2025-12-02)
 
 ### Features

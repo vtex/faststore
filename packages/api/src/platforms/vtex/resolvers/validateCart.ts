@@ -188,8 +188,26 @@ const orderFormToCart = async (
   }
 }
 
-const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) =>
-  md5(JSON.stringify({ sessionId: sessionJwt?.id ?? '', items }))
+const getOrderFormEtag = ({ items }: OrderForm, sessionJwt: SessionJwt) => {
+  // Only include critical item properties in etag to avoid false positives
+  // when prices or availability change due to regionalization
+
+  // Include:
+  // - id (SKU): to detect item additions/removals
+  // - quantity: to detect quantity changes
+  // - seller: to detect seller changes
+  // - attachments: to detect customizations/personalizations changes
+  const criticalItems = items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    seller: item.seller,
+    attachments: item.attachments, // customizations
+  }))
+
+  return md5(
+    JSON.stringify({ sessionId: sessionJwt?.id ?? '', items: criticalItems })
+  )
+}
 
 const setOrderFormEtag = async (
   form: OrderForm,
@@ -234,16 +252,6 @@ const isOrderFormStale = (form: OrderForm, sessionJwt: SessionJwt) => {
   const newEtag = getOrderFormEtag(form, sessionJwt)
 
   return newEtag !== oldEtag
-}
-
-// Returns the regionalized orderForm
-const getOrderForm = async (
-  id: string,
-  { clients: { commerce } }: GraphqlContext
-) => {
-  return commerce.checkout.orderForm({
-    id,
-  })
 }
 
 const clearOrderFormMessages = async (
@@ -345,10 +353,6 @@ export const validateCart = async (
     ctx.headers.cookie,
     'checkout.vtex.com'
   )
-  const orderNumber =
-    orderFormIdFromCookie !== '' ? orderFormIdFromCookie : order?.orderNumber
-
-  const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -366,7 +370,11 @@ export const validateCart = async (
   }
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await getOrderForm(orderNumber, ctx)
+  const orderForm = await commerce.checkout.orderForm({
+    id: orderFormIdFromCookie || undefined,
+    channel: ctx.storage.channel,
+  })
+  const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
   // In the next validateCart mutation it will only have messages if a new message is created on orderForm
@@ -376,6 +384,8 @@ export const validateCart = async (
 
   const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
   const sessionJwt = parseJwt(sessionCookie)
+
+  const { acceptedOffer, shouldSplitItem } = order
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
@@ -450,19 +460,41 @@ export const validateCart = async (
     offerToOrderItemInput
   )
 
-  if (changes.length === 0) {
+  // Check if shippingData needs to be updated
+  const { updateShipping } = session
+    ? shouldUpdateShippingData(orderForm, session)
+    : { updateShipping: false }
+
+  // If there are no item changes and no shipping data updates needed, return null
+  if (changes.length === 0 && !updateShipping) {
     return null
   }
+
   // Step4: Apply delta changes to order form
-  const updatedOrderForm = await commerce.checkout
-    // update orderForm items
-    .updateOrderFormItems({
-      id: orderForm.orderFormId,
-      orderItems: changes,
-      shouldSplitItem,
-    })
-    // update orderForm shippingData
-    .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
+  let updatedOrderForm: OrderForm
+
+  if (changes.length > 0) {
+    // Update items first if there are changes
+    updatedOrderForm = await commerce.checkout
+      .updateOrderFormItems({
+        id: orderForm.orderFormId,
+        orderItems: changes,
+        shouldSplitItem,
+      })
+      .then((form: OrderForm) =>
+        updateOrderFormShippingData(form, session, ctx)
+      )
+  } else {
+    // Only update shippingData if there are no item changes
+    updatedOrderForm = await updateOrderFormShippingData(
+      orderForm,
+      session,
+      ctx
+    )
+  }
+
+  // Continue with marketingData and etag updates
+  updatedOrderForm = await Promise.resolve(updatedOrderForm)
     // update marketingData
     .then((form: OrderForm) => {
       if (session?.marketingData) {
