@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
 import type { LocalesSettings } from 'src/typings/locales'
+import { getCustomPathsFromBindings } from 'src/utils/customPaths'
 
 type RewriteRule = {
   regex: RegExp
@@ -16,26 +17,6 @@ function isValidLocale(locale: string): boolean {
   return locale in (storeConfig.localization.locales || {})
 }
 
-function isCustomPath(url: string): boolean {
-  try {
-    const urlObj = new URL(url)
-    const pathname = urlObj.pathname
-
-    if (pathname === '/' || pathname === '') {
-      return false
-    }
-
-    const canonicalPathPattern = /^\/[a-z]{2}-[A-Z]{2}\/?$/i
-    if (canonicalPathPattern.test(pathname)) {
-      return false
-    }
-
-    return true
-  } catch {
-    return false
-  }
-}
-
 function generateRewriteRules(): RewriteRule[] {
   const rules: RewriteRule[] = []
 
@@ -43,10 +24,13 @@ function generateRewriteRules(): RewriteRule[] {
     return rules
   }
 
+  const customPaths = getCustomPathsFromBindings()
   const locales = (storeConfig.localization.locales ||
     {}) as LocalesSettings['locales']
 
-  for (const [localeCode, localeConfig] of Object.entries(locales)) {
+  for (const customPath of customPaths) {
+    const localeConfig = locales[customPath.locale]
+
     if (!localeConfig?.bindings || !Array.isArray(localeConfig.bindings)) {
       continue
     }
@@ -56,27 +40,24 @@ function generateRewriteRules(): RewriteRule[] {
         continue
       }
 
-      if (!isCustomPath(binding.url)) {
-        continue
-      }
-
       try {
         const bindingUrl = new URL(binding.url)
-        const pathname = bindingUrl.pathname
+        const pathname = bindingUrl.pathname.replace(/\/$/, '')
 
-        if (!pathname || pathname === '/') {
+        if (pathname !== customPath.path) {
           continue
         }
 
-        const escapedPath = pathname
-          .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-          .replace(/\/$/, '')
+        const escapedPath = customPath.path.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          '\\$&'
+        )
 
         const regex = new RegExp(`^${escapedPath}(?:\\/(.*))?$`, 'i')
 
         rules.push({
           regex,
-          locale: localeCode,
+          locale: customPath.locale,
           hostname: bindingUrl.hostname,
         })
       } catch {
@@ -102,9 +83,10 @@ export function middleware(request: NextRequest) {
   const { pathname, search, hostname } = request.nextUrl
 
   for (const rule of rewriteRules) {
-    if (rule.hostname && rule.hostname !== hostname) {
-      continue
-    }
+    // TODO: Re-enable hostname validation after testing
+    // if (rule.hostname && rule.hostname !== hostname) {
+    //   continue
+    // }
 
     const match = pathname.match(rule.regex)
     if (!match) continue
