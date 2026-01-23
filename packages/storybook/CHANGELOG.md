@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
+
+### Features
+
+- version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.18 (2025-12-24)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.17 (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [3.96.0-dev.16](https://github.com/vtex/faststore/compare/v3.96.0-dev.15...v3.96.0-dev.16) (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.11 (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.10 (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [3.96.0-dev.9](https://github.com/vtex/faststore/compare/v3.96.0-dev.8...v3.96.0-dev.9) (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [3.96.0-dev.8](https://github.com/vtex/faststore/compare/v3.96.0-dev.7...v3.96.0-dev.8) (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.7 (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.6 (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# 3.96.0-dev.5 (2025-12-23)
+
+### Features
+
+- Trigger build ([28b6ec0](https://github.com/vtex/faststore/commit/28b6ec0489080be0a3431ec2ead7bfce0da75a34))
+
+# 3.96.0-dev.4 (2025-12-23)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [3.95.1-dev.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.95.1-dev.0) (2025-12-02)
+
+**Note:** Version bump only for package @faststore/storybook
+
 # 3.95.0 (2025-12-02)
 
 ### Features

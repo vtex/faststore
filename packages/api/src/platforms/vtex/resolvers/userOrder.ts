@@ -3,6 +3,7 @@ import type {
   Maybe,
   UserOrderCustomField,
   UserOrderDeliveryOption,
+  UserOrderPriceTag,
 } from '../../..'
 import type { Query } from './query'
 import { getLocalizedEstimates } from './shippingSLA'
@@ -58,8 +59,14 @@ export const UserOrderResult: Record<string, GraphqlResolver<Root>> = {
           `${deliveryChannelsMapping[deliveryChannel as keyof typeof deliveryChannelsMapping] || ''} ${friendlyShippingEstimate} ${address?.neighborhood ? `to ${address?.neighborhood}` : ''}`.trim()
 
         // TODO check other totals like bundleItems etc
+        const { taxPriceTagsTotal, taxPriceTags } = filterTaxPriceTags(
+          (item?.priceTags ?? []) as UserOrderPriceTag[]
+        )
+
         const itemTotal =
-          (item?.sellingPrice ?? 0) * (item?.quantity ?? 0) + (item?.tax ?? 0)
+          (item?.sellingPrice ?? 0) * (item?.quantity ?? 0) +
+          (item?.tax ?? 0) +
+          (taxPriceTagsTotal ?? 0)
 
         if (!acc[groupKey]) {
           acc[groupKey] = {
@@ -89,7 +96,10 @@ export const UserOrderResult: Record<string, GraphqlResolver<Root>> = {
             name: item?.name || '',
             quantity: item?.quantity || 0,
             price: item?.price || 0,
+            sellingPrice: item?.sellingPrice || 0,
             imageUrl: item?.imageUrl || '',
+            taxPriceTags: taxPriceTags ?? [],
+            taxPriceTagsTotal: taxPriceTagsTotal ?? 0,
             tax: item?.tax || 0,
             total: itemTotal,
           })
@@ -203,4 +213,23 @@ export const UserOrderResult: Record<string, GraphqlResolver<Root>> = {
     //     },
     //   ]
   },
+}
+
+// logic copied from https://github.com/vtex/my-orders/blob/3271bdd4216851fb21b64093769d73183868e362/react/components/Order/ChangeSummary/ChangeV2/shared/filterPriceTags.js#L59-L60
+export function filterTaxPriceTags(priceTags: UserOrderPriceTag[]) {
+  const multiplier = 100
+
+  const taxPriceTags = priceTags.filter((priceTag) =>
+    priceTag?.name?.includes('TAX')
+  )
+
+  const taxPriceTagsTotal = taxPriceTags.reduce(
+    (acc, curr) => acc + (curr.rawValue ? curr.rawValue * multiplier : 0),
+    0
+  )
+
+  return {
+    taxPriceTags,
+    taxPriceTagsTotal,
+  }
 }

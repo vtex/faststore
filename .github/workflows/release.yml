@@ -1,10 +1,15 @@
-# This Action should run on main branch and verify lint, test, and then publish the version on npm
+# This Action should run on main and dev branches and verify lint, test, and then publish the version on npm
 name: CD
 
 on:
   push:
     branches:
       - main
+      - dev
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: write # Required for lerna to commit version changes
 
 jobs:
   build:
@@ -18,7 +23,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
           fetch-depth: 2
@@ -34,6 +39,9 @@ jobs:
           node-version: 20
           cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
+
+      - name: Upgrade npm for OIDC support
+        run: npm install -g npm@latest
 
       - name: Configure CI Git User
         run: |
@@ -55,10 +63,13 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Publish
+      - name: Publish (main)
+        if: github.ref_name == 'main'
         run: pnpm release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish (dev)
+        if: github.ref_name == 'dev'
+        run: pnpm release:dev
 
       - name: Publish to Chromatic
         uses: chromaui/action@latest

@@ -1,0 +1,238 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "Footer",
+  "$componentTitle": "Footer",
+  "title": "Footer",
+  "description": "Footer displayed on all pages",
+  "type": "object",
+  "properties": {
+    "incentives": {
+      "title": "Incentives",
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "title": "Incentive",
+        "type": "object",
+        "required": ["title", "firstLineText", "icon"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "firstLineText": {
+            "type": "string",
+            "title": "First line of text"
+          },
+          "secondLineText": {
+            "type": "string",
+            "title": "Second line of text"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon",
+            "enumNames": [
+              "Truck",
+              "Calendar",
+              "Gift",
+              "Store Front",
+              "Shield Check"
+            ],
+            "enum": ["Truck", "Calendar", "Gift", "Storefront", "ShieldCheck"]
+          },
+          "alt": {
+            "title": "Alternative Label",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "footerLinks": {
+      "title": "Footer Links Sections",
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "title": "Footer Links Section",
+        "type": "object",
+        "properties": {
+          "sectionTitle": {
+            "title": "Section Title",
+            "type": "string"
+          },
+          "items": {
+            "title": "Links",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "title": "Link",
+              "type": "object",
+              "required": ["text", "url"],
+              "properties": {
+                "text": {
+                  "title": "Link Text",
+                  "type": "string"
+                },
+                "url": {
+                  "title": "Link URL",
+                  "type": "string",
+                  "description": "Absolute or Relative"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "footerSocial": {
+      "title": "Social Media Links",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Follow us"
+        },
+        "socialLinks": {
+          "title": "Social Media",
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8,
+          "items": {
+            "title": "Link",
+            "type": "object",
+            "required": ["alt", "url", "icon"],
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": [
+                      "Facebook",
+                      "Instagram",
+                      "Pinterest",
+                      "Twitter"
+                    ],
+                    "enum": ["Facebook", "Instagram", "Pinterest", "Twitter"]
+                  }
+                }
+              },
+              "alt": {
+                "title": "Alt",
+                "type": "string"
+              },
+              "url": {
+                "title": "URL",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "logo": {
+      "title": "Logo",
+      "type": "object",
+      "properties": {
+        "src": {
+          "title": "Image",
+          "type": "string",
+          "widget": {
+            "ui:widget": "media-gallery",
+            "restrictMediaTypes": {
+              "video": true,
+              "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+            }
+          }
+        },
+        "alt": {
+          "title": "Alternative Label",
+          "type": "string"
+        },
+        "link": {
+          "title": "Logo Link",
+          "type": "object",
+          "required": ["url", "title"],
+          "properties": {
+            "url": {
+              "title": "Link URL",
+              "type": "string"
+            },
+            "title": {
+              "title": "Link Title",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "copyrightInfo": {
+      "title": "Copyright Message",
+      "type": "string"
+    },
+    "acceptedPaymentMethods": {
+      "title": "Payment Methods Sections",
+      "type": "object",
+      "required": ["showPaymentMethods"],
+      "properties": {
+        "showPaymentMethods": {
+          "title": "Display Payment Methods",
+          "type": "boolean",
+          "default": true
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Payment methods"
+        },
+        "paymentMethods": {
+          "title": "Payment Methods",
+          "type": "array",
+          "items": {
+            "title": "Payment Method",
+            "type": "object",
+            "required": ["icon", "alt"],
+            "properties": {
+              "icon": {
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": [
+                      "Visa",
+                      "Diners Club",
+                      "Mastercard",
+                      "Elo Card",
+                      "PayPal",
+                      "Stripe",
+                      "GooglePay",
+                      "ApplePay"
+                    ],
+                    "enum": [
+                      "Visa",
+                      "Diners",
+                      "Mastercard",
+                      "EloCard",
+                      "PayPal",
+                      "Stripe",
+                      "GooglePay",
+                      "ApplePay"
+                    ]
+                  }
+                }
+              },
+              "alt": {
+                "type": "string",
+                "title": "Alternative Label"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

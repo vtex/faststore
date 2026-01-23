@@ -1,3 +1,5 @@
+import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
+
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
 
 export type Operation = {
@@ -13,6 +15,8 @@ export interface BaseRequestOptions<V = any> {
   operation: Operation
   variables: V
   fetchOptions?: RequestInit
+  cacheBusting?: boolean
+  value?: string | null
 }
 
 const MethodByOperation = async (operationName: string) => {
@@ -23,11 +27,11 @@ const MethodByOperation = async (operationName: string) => {
     : 'POST'
 }
 
-/* This piece of code was taken out of @vtex/faststore-graphql-utils */
-const baseRequest = async <Variables, Operation>(
+/* This piece of code was taken out of @faststore/graphql-utils */
+const baseRequest = async <V = any, D = any>(
   endpoint: string,
-  { operation, variables, fetchOptions }: BaseRequestOptions<Variables>
-): Promise<GraphQLResponse<Operation>> => {
+  { operation, variables, fetchOptions, value }: BaseRequestOptions<V>
+): Promise<GraphQLResponse<D>> => {
   const { operationName, operationHash } = operation['__meta__']
 
   // Uses method from fetchOptions.
@@ -41,6 +45,7 @@ const baseRequest = async <Variables, Operation>(
     operation,
     variables,
     fetchOptions,
+    value,
   })
 
   return ParseInvalidRequest(response) ?? response.json()
@@ -51,12 +56,14 @@ const GETRequest = <Variables>({
   variables,
   fetchOptions,
   endpoint,
+  value,
 }: BaseRequestOptions<Variables> & { endpoint: string }) => {
   const { operationName, operationHash } = operation['__meta__']
   const params = new URLSearchParams({
     operationName,
     operationHash,
     variables: JSON.stringify(variables),
+    ...(value && { v: value }),
   })
 
   const url = `${endpoint}?${params.toString()}`
@@ -73,6 +80,7 @@ const POSTRequest = <Variables>({
   variables,
   fetchOptions,
   endpoint,
+  value,
 }: BaseRequestOptions<Variables> & { endpoint: string }) => {
   const { operationName, operationHash } = operation['__meta__']
   const params = new URLSearchParams({
@@ -117,10 +125,14 @@ export async function GraphqlRequest<Query = unknown, Variables = unknown>(
   { operation, variables }: { operation: Operation; variables: Variables },
   options?: RequestInit
 ): Promise<GraphQLResponse<Query>> {
+  // Get cache busting value based on cookie changes
+  const value = getClientCacheBustingValue()
+
   const response = await baseRequest<Variables, Query>('/api/graphql', {
     variables,
     operation,
     fetchOptions: options,
+    value,
   })
 
   // in Order to keep the same behaviour of previous version (request) throwing error
