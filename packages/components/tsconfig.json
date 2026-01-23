@@ -2,7 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["@testing-library/jest-dom/jest-globals"]
+    "types": ["@testing-library/jest-dom/jest-globals"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "importHelpers": true
   },
   "include": ["src"],
   "exclude": [

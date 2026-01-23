@@ -22,7 +22,7 @@
       ]
     },
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "incremental": true,
     "isolatedModules": true,
     "target": "es5",

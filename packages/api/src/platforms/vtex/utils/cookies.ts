@@ -1,9 +1,9 @@
 import { parse } from 'cookie'
-import type { Context } from '../index'
+import type { GraphqlContext } from '../index'
 
 export interface ContextForCookies {
-  headers: Context['headers']
-  storage: Pick<Context['storage'], 'cookies'>
+  headers: GraphqlContext['headers']
+  storage: Pick<GraphqlContext['storage'], 'cookies'>
 }
 
 /**
@@ -55,7 +55,7 @@ const MATCH_FIRST_SET_COOKIE_KEY_VALUE = /^([^=]+)=([^;]*)/
  *     }
  */
 export const updatesContextStorageCookies = (
-  ctx: Pick<Context, 'storage'>,
+  ctx: Pick<GraphqlContext, 'storage'>,
   setCookieValue: string
 ) => {
   const matchCookie = setCookieValue.match(MATCH_FIRST_SET_COOKIE_KEY_VALUE)
@@ -71,7 +71,10 @@ export const updatesContextStorageCookies = (
   }
 }
 
-export const setCookie = (ctx: Pick<Context, 'storage'>, headers: Headers) => {
+export const setCookie = (
+  ctx: Pick<GraphqlContext, 'storage'>,
+  headers: Headers
+) => {
   headers
     .getSetCookie()
     .forEach((setCookieValue) =>
@@ -80,7 +83,7 @@ export const setCookie = (ctx: Pick<Context, 'storage'>, headers: Headers) => {
 }
 
 export const getStoreCookie =
-  (ctx: Pick<Context, 'storage'>) => (headers: Headers) =>
+  (ctx: Pick<GraphqlContext, 'storage'>) => (headers: Headers) =>
     setCookie(ctx, headers)
 
 /**

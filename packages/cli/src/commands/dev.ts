@@ -1,6 +1,6 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
@@ -12,6 +12,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
+import { fileURLToPath } from 'url'
 
 /**
  * Taken from toolbelt
@@ -44,7 +45,7 @@ async function storeDev(
   rootDir: string,
   tmpDir: string,
   coreDir: string,
-  port: number
+  port: number | string
 ) {
   // Only try to read vtex.env if it exists
   let envVars = {}
@@ -125,22 +126,22 @@ function copyGenerated(from: string, to: string) {
 }
 
 export default class Dev extends Command {
-  static args = [
-    {
-      name: 'account',
-      description:
-        'The account for which the Discovery is running. Currently noop.',
-    },
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being run is. Defaults to cwd.',
-    },
-    {
+    }),
+    account: Args.string({
+      name: 'account',
+      description:
+        'The account for which the Discovery is running. Currently noop.',
+    }),
+    port: Args.string({
       name: 'port',
       description: 'The port where FastStore should run. Defaults to 3000.',
-    },
-  ]
+    }),
+  }
 
   static flags = {
     'watch-plugins': Flags.boolean({
@@ -153,7 +154,7 @@ export default class Dev extends Command {
     const { args, flags } = await this.parse(Dev)
     const basePath = getBasePath(args.path)
 
-    const port = args.port ?? 3000
+    const port = args.port ?? '3000'
     const watchPlugins = flags['watch-plugins']
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
@@ -186,6 +187,20 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true, basePath })
+
+    const cliPath = fileURLToPath(
+      import.meta.resolve('@faststore/cli/runner', import.meta.url)
+    )
+
+    spawnSync(`node ${cliPath} generate-types`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    spawnSync(`node ${cliPath} cache-graphql`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 

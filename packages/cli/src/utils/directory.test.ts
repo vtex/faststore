@@ -1,5 +1,7 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import path from 'path'
 import { withBasePath } from './directory'
+import { fileURLToPath } from 'url'
 
 const pathsToMatch = (expected: string, desired: string) => {
   const expectedResolved = path.resolve(expected)
@@ -134,23 +136,23 @@ describe('withBasePath as an arbitrary dir', () => {
 
   describe('coreDir', () => {
     it('is the faststoreDir + core', () => {
-      const mockedCwd = jest.fn(() => {
+      const mockedCwd = vi.fn(() => {
         return './src/__mocks__/store'
       })
       process.cwd = mockedCwd
       const { coreDir: coreDirWithBase } = withBasePath(basePath)
 
-      expect(
-        pathsToMatch(
-          coreDirWithBase,
-          './src/__mocks__/store/node_modules/@faststore/core'
-        )
-      ).toBe(true)
+      const resolvedPath = path.dirname(
+        // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+        require.resolve('@faststore/core')
+      )
+
+      expect(pathsToMatch(coreDirWithBase, resolvedPath)).toBe(true)
     })
 
     describe('when is in a monorepo', () => {
       it('can look at its parent until it reaches the monorepo directory', () => {
-        const mockedCwd = jest.fn(() => {
+        const mockedCwd = vi.fn(() => {
           return './src/__mocks__/monorepo'
         })
         process.cwd = mockedCwd
@@ -159,12 +161,12 @@ describe('withBasePath as an arbitrary dir', () => {
           path.join(__dirname, '..', '__mocks__', 'monorepo', 'discovery')
         )
 
-        expect(
-          pathsToMatch(
-            coreDirWithBase,
-            './src/__mocks__/monorepo/node_modules/@faststore/core'
-          )
-        ).toBe(true)
+        const resolvedPath = path.dirname(
+          require.resolve('@faststore/core')
+          // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+        )
+
+        expect(pathsToMatch(coreDirWithBase, resolvedPath)).toBe(true)
       })
     })
   })
@@ -263,19 +265,23 @@ describe('withBasePath as an arbitrary dir', () => {
 
   describe('coreCMSDir', () => {
     it('returns the path of the CMS dir on @faststore/core package', () => {
-      const mockedCwd = jest.fn(() => {
+      const mockedCwd = vi.fn(() => {
         return './src/__mocks__/store'
       })
       process.cwd = mockedCwd
 
       const { coreCMSDir: coreCMSDirWithBase } = withBasePath(basePath)
 
-      expect(
-        pathsToMatch(
-          coreCMSDirWithBase,
-          './src/__mocks__/store/node_modules/@faststore/core/cms/faststore'
-        )
-      ).toBe(true)
+      const resolvedPath = path.join(
+        path.dirname(
+          require.resolve('@faststore/core')
+          // fileURLToPath(import.meta.resolve('@faststore/core', import.meta.url))
+        ),
+        'cms',
+        'faststore'
+      )
+
+      expect(pathsToMatch(coreCMSDirWithBase, resolvedPath)).toBe(true)
     })
   })
 

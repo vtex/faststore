@@ -24,7 +24,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.5
+          version: 10.20.0
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -61,7 +61,7 @@ jobs:
           mkdir -p packed-packages
           for package in packages/*; do
             if [ -d "$package" ]; then
-              (cd "$package" && npm pack --pack-destination ../../packed-packages)
+              (cd "$package" && pnpm pack --pack-destination ../../packed-packages)
             fi
           done
 
@@ -87,6 +87,7 @@ jobs:
         run: |
           cd starter
           yarn install
+          yarn add graphql@16.11.0
 
       - name: Build starter
         run: |

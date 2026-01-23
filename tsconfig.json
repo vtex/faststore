@@ -4,11 +4,8 @@
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
     "jsx": "react",
     "lib": ["dom", "esnext", "DOM.Iterable"],
-    "module": "esnext",
-    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -16,7 +13,10 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
+    "declarationMap": true,
     "target": "esnext",
-    "declarationMap": true
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "importHelpers": true
   }
 }

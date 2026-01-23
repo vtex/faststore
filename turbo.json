@@ -8,11 +8,6 @@
     "DISCOVERY_DEBUG"
   ],
   "tasks": {
-    "site#build": {
-      "dependsOn": ["^build"],
-      "env": ["BASE_SITE_URL"],
-      "outputs": [".next/**"]
-    },
     "build": {
       "dependsOn": ["^build"],
       "env": ["BASE_SITE_URL"],

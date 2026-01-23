@@ -1,6 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type {
   MutationValidateSessionArgs,
   StoreMarketingData,
@@ -10,7 +10,7 @@ import ChannelMarshal from '../utils/channel'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 
 async function getPreciseLocationData(
-  clients: Context['clients'],
+  clients: GraphqlContext['clients'],
   country: string,
   postalCode: string
 ) {
@@ -40,7 +40,7 @@ async function getPreciseLocationData(
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients, headers, account }: Context
+  { clients, headers, account }: GraphqlContext
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')

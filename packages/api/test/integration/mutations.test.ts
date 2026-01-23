@@ -1,9 +1,10 @@
 import { execute, parse } from 'graphql'
-
-import type { Options } from '../../src'
-import { getContextFactory, getSchema } from '../../src'
-import { salesChannelStaleFetch } from '../mocks/salesChannel'
+import { beforeEach, expect, test, vi } from 'vitest'
+import { GraphqlVtexContextFactory, GraphqlVtexSchema } from '../../src'
 import {
+  InvalidCart,
+  ValidCart,
+  ValidateCartMutation,
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
   checkoutOrderFormCustomDataValidFetch,
@@ -11,11 +12,9 @@ import {
   checkoutOrderFormItemsInvalidFetch,
   checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
-  InvalidCart,
   productSearchPage1Count1Fetch,
-  ValidateCartMutation,
-  ValidCart,
 } from '../mocks/ValidateCartMutation'
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
 
 const apiOptions = {
   platform: 'vtex',
@@ -32,11 +31,12 @@ const apiOptions = {
   },
 } as Options
 
-const mockedFetch = jest.fn()
+vi.useFakeTimers({ shouldAdvanceTime: true })
+const mockedFetch = vi.fn()
 
 const createRunner = () => {
-  const schemaPromise = getSchema(apiOptions)
-  const contextFactory = getContextFactory(apiOptions)
+  const schemaPromise = GraphqlVtexSchema()
+  const contextFactory = GraphqlVtexContextFactory(apiOptions)
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
@@ -44,19 +44,19 @@ const createRunner = () => {
     const orderFormCookie =
       'checkout.vtex.com=__ofid=edbe3b03c8c94827a37ec5a6a4648fd2'
 
-    return execute(
+    return execute({
       schema,
-      parse(query),
-      null,
-      {
+      document: parse(query),
+      rootValue: null,
+      contextValue: {
         ...context,
         headers: {
           'content-type': 'application/json',
           cookie: orderFormCookie,
         },
       },
-      variables
-    )
+      variableValues: variables,
+    })
   }
 }
 
@@ -76,7 +76,7 @@ function pickFetchAPICallResult(
   )
 }
 
-jest.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
+vi.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
     info: RequestInfo,
     init?: RequestInit,
