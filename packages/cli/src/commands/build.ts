@@ -53,6 +53,9 @@ export default class Build extends Command {
 
     await generate({ setup: true, basePath })
 
+    // Copy .env file to temporary directory to make NEXT_PUBLIC_* variables available during build
+    copyDotenv(basePath, tmpDir)
+
     const packageManager = getPreferredPackageManager()
 
     const buildResult = spawnSync(`${packageManager} run build`, {
@@ -174,5 +177,14 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
     )
 
     return []
+  }
+}
+
+export function copyDotenv(basePath: string, tmpPath: string) {
+  const dotenvFile = `${basePath}/.env`
+  const destinationFile = `${tmpPath}/.env`
+
+  if (existsSync(dotenvFile)) {
+    copySync(dotenvFile, destinationFile)
   }
 }
