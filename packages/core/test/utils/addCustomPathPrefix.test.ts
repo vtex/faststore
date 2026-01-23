@@ -1,4 +1,61 @@
+import { vi } from 'vitest'
 import { describe, expect, it } from 'vitest'
+
+vi.mock('../../discovery.config.js', async () => {
+  const original = await import('../../discovery.config.js')
+  return {
+    default: {
+      ...(original.default ?? {}),
+      localization: {
+        enabled: true,
+        defaultLocale: 'pt-BR',
+        locales: {
+          'pt-BR': {
+            code: 'pt-BR',
+            name: 'português',
+            languageCode: 'pt',
+            languageName: 'Portuguese',
+            script: 'Latn',
+            textDirection: 'ltr',
+            regionCode: 'BR',
+            bindings: [
+              {
+                currencyCode: 'BRL',
+                url: 'https://brandless.myvtex.com',
+                salesChannel: '1',
+                isDefault: true,
+              },
+            ],
+          },
+          'it-IT': {
+            code: 'it-IT',
+            name: 'italiano',
+            languageCode: 'it',
+            languageName: 'Italian',
+            script: 'Latn',
+            textDirection: 'ltr',
+            regionCode: 'IT',
+            bindings: [
+              {
+                currencyCode: 'USD',
+                url: 'https://brandless.fast.store/it-IT',
+                salesChannel: '2',
+                isDefault: false,
+              },
+              {
+                currencyCode: 'EUR',
+                url: 'https://brandless.fast.store/europe/it',
+                salesChannel: '3',
+                isDefault: false,
+              },
+            ],
+          },
+        },
+      },
+    },
+  }
+})
+
 import { addCustomPathPrefix } from '../../src/utils/addCustomPathPrefix'
 
 describe('addCustomPathPrefix', () => {
