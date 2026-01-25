@@ -109,7 +109,7 @@ function Page({
   let productPriceAmountMetatag = product.offers.lowPrice?.toString()
 
   if (
-    product.offers.lowPrice &&
+    product.offers.lowPrice != undefined &&
     pdpSeo?.minPriceFractionDigits &&
     typeof pdpSeo.minPriceFractionDigits === 'number'
   ) {
