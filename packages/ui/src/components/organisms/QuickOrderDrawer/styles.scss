@@ -24,20 +24,26 @@
   background-color: #ffffff;
 
   [data-fs-quick-order-drawer-text="primary"] {
+    overflow: hidden;
     font-weight: var(--fs-text-weight-medium);
     line-height: 120%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     vertical-align: middle;
   }
 
   [data-fs-quick-order-drawer-text="secondary"] {
+    overflow: hidden;
     font-size: var(--fs-text-size-legend);
     font-weight: var(--fs-text-weight-regular);
     line-height: 120%;
     color: var(--fs-quick-order-drawer-secondary-text-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
     vertical-align: middle;
   }
 
-  &[data-fs-slide-over-size="partial"] {
+  &[data-fs-slide-over][data-fs-slide-over-size="partial"] {
     width: var(--fs-quick-order-drawer-width);
 
     @include media(">=notebook") {
@@ -154,6 +160,9 @@
       [data-fs-quick-order-drawer-cell="product"] {
         display: flex;
         align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         [data-fs-quick-order-drawer-table-cell-img-container] {
           display: flex;
@@ -166,6 +175,9 @@
           display: flex;
           flex-direction: column;
           padding: var(--fs-spacing-3) var(--fs-spacing-1);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         [data-fs-tooltip] {
