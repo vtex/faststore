@@ -110,11 +110,11 @@ function Page({
 
   if (
     product.offers.lowPrice != undefined &&
-    pdpSeo?.minPriceFractionDigits &&
-    typeof pdpSeo.minPriceFractionDigits === 'number'
+    pdpSeo?.minPriceAmountFractionDigits &&
+    typeof pdpSeo.minPriceAmountFractionDigits === 'number'
   ) {
     productPriceAmountMetatag = product.offers.lowPrice
-      .toFixed(pdpSeo.minPriceFractionDigits)
+      .toFixed(pdpSeo.minPriceAmountFractionDigits)
       .toString()
   }
 
