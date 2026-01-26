@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, type FunctionComponent } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../../molecules/IconButton'
 import QuantitySelector from '../../molecules/QuantitySelector'
@@ -22,14 +22,32 @@ import {
   type VariationProductColumn,
 } from './provider/QuickOrderDrawerProvider'
 
+type ImageComponentType = FunctionComponent<{
+  src: string
+  alt: string
+  width?: number
+  height?: number
+  loading?: 'eager' | 'lazy'
+}>
+
+const DefaultImageComponent: ImageComponentType = ({
+  src,
+  alt,
+  width,
+  height,
+  ...otherProps
+}) => <img src={src} alt={alt} width={width} height={height} {...otherProps} />
+
 export type QuickOrderDrawerProductsProps = {
   columns: VariationProductColumn
   formatter?: PriceFormatter
+  ImageComponent?: ImageComponentType
 }
 
 const QuickOrderDrawerProducts = ({
   columns,
   formatter,
+  ImageComponent = DefaultImageComponent,
 }: QuickOrderDrawerProductsProps) => {
   const [loading, _setLoading] = useState(false)
   const { pushToast } = useUI()
@@ -121,7 +139,7 @@ const QuickOrderDrawerProducts = ({
                       align="left"
                     >
                       <div data-fs-quick-order-drawer-table-cell-img-container>
-                        <img
+                        <ImageComponent
                           height={48}
                           src={variantProduct.image.url}
                           alt={
