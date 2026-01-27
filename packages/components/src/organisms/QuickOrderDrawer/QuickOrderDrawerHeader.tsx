@@ -15,7 +15,7 @@ const QuickOrderDrawerHeader = ({
 }: QuickOrderDrawerHeaderProps) => {
   const leftOffset = Math.floor(titleCharLimit / 2) - 3 // three dots
   const rightOffset = Math.floor(titleCharLimit / 2)
-  const titleFormmated =
+  const titleFormatted =
     title.length > titleCharLimit
       ? `${title.slice(0, leftOffset)}...${title.slice(-rightOffset)}`
       : title
@@ -34,7 +34,7 @@ const QuickOrderDrawerHeader = ({
         <div data-fs-quick-order-drawer-icon>
           <Icon name="Table" weight="bold" width={32} height={32} />
         </div>
-        <div data-fs-quick-order-drawer-title>{titleFormmated}</div>
+        <div data-fs-quick-order-drawer-title>{titleFormatted}</div>
       </div>
     </SlideOverHeader>
   )

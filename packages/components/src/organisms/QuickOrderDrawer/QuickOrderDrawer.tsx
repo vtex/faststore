@@ -32,11 +32,12 @@ const QuickOrderDrawer = ({
   testId = 'fs-quick-order-drawer',
   isOpen,
   overlayProps,
+  formatter,
   children,
 }: PropsWithChildren<QuickOrderDrawerProps>) => {
   const { fade } = useFadeEffect()
   return (
-    <QuickOrderDrawerProvider>
+    <QuickOrderDrawerProvider formatter={formatter}>
       <SlideOver
         testId={testId}
         fade={fade}

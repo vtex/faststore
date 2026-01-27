@@ -1,4 +1,4 @@
-import React, { useState, type FunctionComponent } from 'react'
+import React, { type FunctionComponent } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../../molecules/IconButton'
 import QuantitySelector from '../../molecules/QuantitySelector'
@@ -49,13 +49,16 @@ const QuickOrderDrawerProducts = ({
   formatter,
   ImageComponent = DefaultImageComponent,
 }: QuickOrderDrawerProductsProps) => {
-  const [loading, _setLoading] = useState(false)
   const { pushToast } = useUI()
-  const { products, onChangeQuantityItem, onDelete } = useQuickOrderDrawer()
-
-  const [alertMessage, setAlertMessage] = useState(
-    'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
-  )
+  const {
+    products,
+    onChangeQuantityItem,
+    onDelete,
+    alertMessage,
+    setAlertMessage,
+    formatter: contextFormatter,
+  } = useQuickOrderDrawer()
+  const priceFormatter = formatter || contextFormatter
 
   return (
     <div data-fs-quick-order-drawer-content>
@@ -102,19 +105,21 @@ const QuickOrderDrawerProducts = ({
           </TableHead>
 
           <TableBody>
-            {loading ? (
+            {products.length === 0 ? (
               <>
-                {Array.from({ length: 5 }).map((_, index) => {
+                {Array.from({ length: 5 }).map((_, rowIndex) => {
                   return (
-                    <TableRow key={`table-row-${index}`}>
+                    <TableRow key={`table-row-${rowIndex}`}>
                       {Array.from({
-                        length: 4,
-                      }).map((_, index) => {
+                        length: 5,
+                      }).map((_, cellIndex) => {
                         return (
-                          <TableCell key={`table-cell-${index}`}>
+                          <TableCell
+                            key={`table-cell-${rowIndex}-${cellIndex}`}
+                          >
                             <span>
                               <Skeleton
-                                key={index}
+                                key={`skeleton-${rowIndex}-${cellIndex}`}
                                 size={{ width: '100%', height: '30px' }}
                               />
                             </span>
@@ -198,7 +203,7 @@ const QuickOrderDrawerProducts = ({
                       <Price
                         value={variantProduct.price}
                         variant="spot"
-                        formatter={formatter}
+                        formatter={priceFormatter}
                         data-fs-quick-order-drawer-table-price={
                           variantProduct.availability
                         }
