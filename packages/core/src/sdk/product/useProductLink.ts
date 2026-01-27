@@ -3,6 +3,8 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useCallback } from 'react'
 import type { AnalyticsItem, SearchSelectItemEvent } from '../analytics/types'
 import { useSession } from '../session'
+import { addCustomPathPrefix } from 'src/utils/customPaths'
+import { useRouter } from 'next/router'
 
 export type ProductLinkOptions = {
   index: number
@@ -15,6 +17,7 @@ export const useProductLink = ({
   product,
   selectedOffer,
 }: ProductLinkOptions) => {
+  const router = useRouter()
   const { slug } = product
   const {
     currency: { code },
@@ -61,7 +64,7 @@ export const useProductLink = ({
   }, [code, product, index, selectedOffer])
 
   return {
-    href: `/${slug}/p`,
+    href: addCustomPathPrefix(`/${slug}/p`, router?.asPath ?? ''),
     onClick,
     'data-testid': 'product-link',
   }
