@@ -1,7 +1,5 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "ProductDetails",
   "$componentTitle": "Product Details",
   "title": "Product Details",
@@ -24,14 +22,8 @@
             "size": {
               "title": "Size",
               "type": "string",
-              "enumNames": [
-                "Big",
-                "Small"
-              ],
-              "enum": [
-                "big",
-                "small"
-              ]
+              "enumNames": ["Big", "Small"],
+              "enum": ["big", "small"]
             }
           }
         },
@@ -63,12 +55,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": [
-                "Shopping Cart"
-              ],
-              "enum": [
-                "ShoppingCart"
-              ]
+              "enumNames": ["Shopping Cart"],
+              "enum": ["ShoppingCart"]
             },
             "alt": {
               "type": "string",
@@ -133,16 +121,8 @@
         "initiallyExpanded": {
           "type": "string",
           "title": "Initially Expanded?",
-          "enumNames": [
-            "First",
-            "All",
-            "None"
-          ],
-          "enum": [
-            "first",
-            "all",
-            "none"
-          ]
+          "enumNames": ["First", "All", "None"],
+          "enum": ["first", "all", "none"]
         },
         "displayDescription": {
           "title": "Should display description?",
@@ -241,10 +221,7 @@
               "items": {
                 "title": "Column",
                 "type": "object",
-                "required": [
-                  "label",
-                  "value"
-                ],
+                "required": ["label", "value"],
                 "properties": {
                   "label": {
                     "title": "Label",
@@ -270,10 +247,7 @@
                   "title": "Stock display settings",
                   "description": "Control how the stock status of your products is displayed to customers on your online store.",
                   "type": "string",
-                  "enum": [
-                    "showAvailability",
-                    "showStockQuantity"
-                  ],
+                  "enum": ["showAvailability", "showStockQuantity"],
                   "enumNames": [
                     "Show availability (Available/Out of Stock)",
                     "Show stock quantity"

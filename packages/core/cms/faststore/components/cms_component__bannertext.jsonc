@@ -1,17 +1,11 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "BannerText",
   "$componentTitle": "Banner Text",
   "title": "Banner Text",
   "description": "Add a quick promotion with a text/action pair",
   "type": "object",
-  "required": [
-    "title",
-    "caption",
-    "link"
-  ],
+  "required": ["title", "caption", "link"],
   "properties": {
     "title": {
       "title": "Title",
@@ -24,10 +18,7 @@
     "link": {
       "title": "Call to Action",
       "type": "object",
-      "required": [
-        "text",
-        "url"
-      ],
+      "required": ["text", "url"],
       "properties": {
         "text": {
           "title": "Text",
@@ -47,28 +38,14 @@
     "colorVariant": {
       "type": "string",
       "title": "Color variant",
-      "enumNames": [
-        "Main",
-        "Light",
-        "Accent"
-      ],
-      "enum": [
-        "main",
-        "light",
-        "accent"
-      ]
+      "enumNames": ["Main", "Light", "Accent"],
+      "enum": ["main", "light", "accent"]
     },
     "variant": {
       "type": "string",
       "title": "Variant",
-      "enumNames": [
-        "Primary",
-        "Secondary"
-      ],
-      "enum": [
-        "primary",
-        "secondary"
-      ]
+      "enumNames": ["Primary", "Secondary"],
+      "enum": ["primary", "secondary"]
     }
   },
   "readOnly": false,

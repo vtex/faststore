@@ -1,8 +1,6 @@
 {
   "landingPage": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+    "$extends": ["#/components/base-page-template"],
     "$singleton": false,
     "type": "object",
     "title": "Landing Page",
@@ -14,11 +12,7 @@
         "widget": {
           "ui:ObjectFieldTemplate": "GoogleSeoPreview"
         },
-        "required": [
-          "slug",
-          "title",
-          "description"
-        ],
+        "required": ["slug", "title", "description"],
         "properties": {
           "slug": {
             "title": "Path",
@@ -115,8 +109,6 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": [
-      "slug"
-    ]
+    "identifierKeys": ["slug"]
   }
 }

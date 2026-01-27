@@ -1,37 +1,17 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Alert",
   "$componentTitle": "Alert",
   "title": "Alert",
   "description": "Add an alert",
   "type": "object",
-  "required": [
-    "icon",
-    "content",
-    "dismissible"
-  ],
+  "required": ["icon", "content", "dismissible"],
   "properties": {
     "icon": {
       "type": "string",
       "title": "Icon",
-      "enumNames": [
-        "Bell",
-        "BellRinging",
-        "Checked",
-        "Info",
-        "Truck",
-        "User"
-      ],
-      "enum": [
-        "Bell",
-        "BellRinging",
-        "Checked",
-        "Info",
-        "Truck",
-        "User"
-      ]
+      "enumNames": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"],
+      "enum": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"]
     },
     "content": {
       "type": "string",

@@ -1,7 +1,5 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "EmptyState",
   "$componentTitle": "Empty State",
   "title": "Empty State",
@@ -19,12 +17,8 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": [
-            "CircleWavy Warning"
-          ],
-          "enum": [
-            "CircleWavyWarning"
-          ]
+          "enumNames": ["CircleWavy Warning"],
+          "enum": ["CircleWavyWarning"]
         },
         "alt": {
           "title": "Alternative Label",
