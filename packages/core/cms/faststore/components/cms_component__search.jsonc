@@ -1,5 +1,7 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "Search",
   "$componentTitle": "Search Bar",
   "title": "Search Bar",
@@ -28,8 +30,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Magnifying Glass"],
-              "enum": ["MagnifyingGlass"],
+              "enumNames": [
+                "Magnifying Glass"
+              ],
+              "enum": [
+                "MagnifyingGlass"
+              ],
               "default": "MagnifyingGlass"
             },
             "alt": {
@@ -62,8 +68,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Clock Clockwise"],
-              "enum": ["ClockClockwise"],
+              "enumNames": [
+                "Clock Clockwise"
+              ],
+              "enum": [
+                "ClockClockwise"
+              ],
               "default": "ClockClockwise"
             },
             "alt": {
@@ -107,8 +117,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Magnifying Glass"],
-              "enum": ["MagnifyingGlass"]
+              "enumNames": [
+                "Magnifying Glass"
+              ],
+              "enum": [
+                "MagnifyingGlass"
+              ]
             },
             "alt": {
               "type": "string",
@@ -140,5 +154,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

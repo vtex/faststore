@@ -1,6 +1,8 @@
 {
   "globalFooterSections": {
-    "$extends": ["#/components/base-page-template"],
+    "$extends": [
+      "#/components/base-page-template"
+    ],
     "$singleton": true,
     "type": "object",
     "title": "Global Footer Sections",

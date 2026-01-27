@@ -1,6 +1,8 @@
 {
   "globalSections": {
-    "$extends": ["#/components/base-page-template"],
+    "$extends": [
+      "#/components/base-page-template"
+    ],
     "$singleton": true,
     "type": "object",
     "title": "Global Sections",
@@ -40,6 +42,11 @@
                 "type": "string",
                 "default": "Try using a different postal code.",
                 "description": "This message will guide user in case of an error."
+              },
+              "loadingLabel": {
+                "title": "Loading Label",
+                "type": "string",
+                "default": "..."
               }
             }
           },
@@ -63,8 +70,12 @@
                   "icon": {
                     "title": "Icon",
                     "type": "string",
-                    "enumNames": ["Arrow Square Out"],
-                    "enum": ["ArrowSquareOut"],
+                    "enumNames": [
+                      "Arrow Square Out"
+                    ],
+                    "enum": [
+                      "ArrowSquareOut"
+                    ],
                     "default": "ArrowSquareOut"
                   },
                   "alt": {
@@ -87,7 +98,10 @@
           "deliveryMethods": {
             "title": "PLP/Search Filter: Delivery Methods",
             "type": "object",
-            "required": ["title", "description"],
+            "required": [
+              "title",
+              "description"
+            ],
             "properties": {
               "title": {
                 "title": "Title",
@@ -216,8 +230,12 @@
                   "icon": {
                     "title": "Icon",
                     "type": "string",
-                    "enumNames": ["Storefront"],
-                    "enum": ["Storefront"],
+                    "enumNames": [
+                      "Storefront"
+                    ],
+                    "enum": [
+                      "Storefront"
+                    ],
                     "default": "Storefront"
                   },
                   "alt": {
@@ -306,6 +324,53 @@
           }
         },
         "$componentTitle": "Delivery Promise"
+      },
+      "filters": {
+        "title": "Filters",
+        "description": "Filter configurations for PLP/Search pages",
+        "type": "object",
+        "properties": {
+          "filterFacetRange": {
+            "title": "PLP/Search Filter: Range Facet",
+            "type": "object",
+            "properties": {
+              "minLabel": {
+                "title": "Minimum value label",
+                "type": "string",
+                "default": "Min"
+              },
+              "maxLabel": {
+                "title": "Maximum value label",
+                "type": "string",
+                "default": "Max"
+              },
+              "minPriceErrorMessage": {
+                "title": "Error message for the minimum price input field",
+                "type": "string",
+                "default": "Min price can't be greater than max"
+              },
+              "maxPriceErrorMessage": {
+                "title": "Error message for the maximum price input field",
+                "type": "string",
+                "default": "Max price can't be smaller than min"
+              }
+            }
+          }
+        },
+        "$componentTitle": "Filters"
+      },
+      "loading": {
+        "title": "Loading",
+        "type": "object",
+        "properties": {
+          "label": {
+            "title": "Loading Label",
+            "description": "Default loading message label",
+            "type": "string",
+            "default": "Loading..."
+          }
+        },
+        "$componentTitle": "Loading"
       },
       "sections": {
         "type": "array",

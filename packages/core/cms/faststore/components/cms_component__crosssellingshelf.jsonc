@@ -1,11 +1,17 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "CrossSellingShelf",
   "$componentTitle": "Cross Selling Shelf",
   "title": "Cross Selling Shelf",
   "description": "Add cross selling product data to your users",
   "type": "object",
-  "required": ["title", "numberOfItems", "kind"],
+  "required": [
+    "title",
+    "numberOfItems",
+    "kind"
+  ],
   "properties": {
     "title": {
       "title": "Title",
@@ -27,8 +33,14 @@
       "title": "Kind",
       "description": "Change cross selling types",
       "default": "buy",
-      "enum": ["buy", "view"],
-      "enumNames": ["Who bought also bought", "Who saw also saw"]
+      "enum": [
+        "buy",
+        "view"
+      ],
+      "enumNames": [
+        "Who bought also bought",
+        "Who saw also saw"
+      ]
     },
     "taxesConfiguration": {
       "title": "Taxes Configuration",
@@ -46,5 +58,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

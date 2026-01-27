@@ -1,8 +1,14 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "Children",
   "$componentTitle": "Children",
   "title": "Children",
   "type": "object",
-  "properties": {}
+  "properties": {},
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

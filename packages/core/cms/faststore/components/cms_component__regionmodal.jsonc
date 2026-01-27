@@ -1,5 +1,7 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "RegionModal",
   "$componentTitle": "Region Modal",
   "title": "Region Modal",
@@ -69,8 +71,12 @@
               "title": "Icon",
               "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
               "type": "string",
-              "enumNames": ["Arrow Square Out"],
-              "enum": ["ArrowSquareOut"]
+              "enumNames": [
+                "Arrow Square Out"
+              ],
+              "enum": [
+                "ArrowSquareOut"
+              ]
             },
             "alt": {
               "title": "Alternative Label",
@@ -81,5 +87,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

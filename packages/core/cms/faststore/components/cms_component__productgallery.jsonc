@@ -1,11 +1,15 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "ProductGallery",
   "$componentTitle": "Product Gallery",
   "title": "Product Gallery",
   "description": "Product Gallery configuration",
   "type": "object",
-  "required": ["filter"],
+  "required": [
+    "filter"
+  ],
   "properties": {
     "searchTermLabel": {
       "title": "Search page term label",
@@ -20,7 +24,10 @@
     "previousPageButton": {
       "title": "Previous page button",
       "type": "object",
-      "required": ["icon", "label"],
+      "required": [
+        "icon",
+        "label"
+      ],
       "properties": {
         "icon": {
           "title": "Icon",
@@ -29,8 +36,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["ArrowLeft"],
-              "enum": ["ArrowLeft"],
+              "enumNames": [
+                "ArrowLeft"
+              ],
+              "enum": [
+                "ArrowLeft"
+              ],
               "default": "ArrowLeft"
             },
             "alt": {
@@ -50,7 +61,9 @@
     "loadMorePageButton": {
       "title": "Load more products Button",
       "type": "object",
-      "required": ["label"],
+      "required": [
+        "label"
+      ],
       "properties": {
         "label": {
           "title": "Load more products label",
@@ -59,10 +72,84 @@
         }
       }
     },
+    "sortBySelector": {
+      "title": "Sort by selector",
+      "type": "object",
+      "required": [
+        "label",
+        "options"
+      ],
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "default": "Sort by"
+        },
+        "options": {
+          "title": "Options labels",
+          "type": "object",
+          "required": [
+            "price_desc",
+            "price_asc",
+            "orders_desc",
+            "name_asc",
+            "name_desc",
+            "release_desc",
+            "discount_desc",
+            "score_desc"
+          ],
+          "properties": {
+            "price_desc": {
+              "title": "Price - Descending",
+              "type": "string",
+              "default": "Price, descending"
+            },
+            "price_asc": {
+              "title": "Price - Ascending",
+              "type": "string",
+              "default": "Price, ascending"
+            },
+            "orders_desc": {
+              "title": "Orders - Descending",
+              "type": "string",
+              "default": "Top sales"
+            },
+            "name_asc": {
+              "title": "Name - Ascending",
+              "type": "string",
+              "default": "Name, A-Z"
+            },
+            "name_desc": {
+              "title": "Name - Descending",
+              "type": "string",
+              "default": "Name, Z-A"
+            },
+            "release_desc": {
+              "title": "Release - Descending",
+              "type": "string",
+              "default": "Release date"
+            },
+            "discount_desc": {
+              "title": "Discount - Descending",
+              "type": "string",
+              "default": "Discount"
+            },
+            "score_desc": {
+              "title": "Score - Descending",
+              "type": "string",
+              "default": "Relevance"
+            }
+          }
+        }
+      }
+    },
     "filter": {
       "title": "Filter",
       "type": "object",
-      "required": ["title", "mobileOnly"],
+      "required": [
+        "title",
+        "mobileOnly"
+      ],
       "properties": {
         "title": {
           "title": "Filter title",
@@ -72,12 +159,19 @@
         "mobileOnly": {
           "title": "Mobile Only",
           "type": "object",
-          "required": ["filterButton", "clearButtonLabel", "applyButtonLabel"],
+          "required": [
+            "filterButton",
+            "clearButtonLabel",
+            "applyButtonLabel"
+          ],
           "properties": {
             "filterButton": {
               "title": "Show filter button",
               "type": "object",
-              "required": ["label", "icon"],
+              "required": [
+                "label",
+                "icon"
+              ],
               "properties": {
                 "label": {
                   "title": "Label",
@@ -87,13 +181,20 @@
                 "icon": {
                   "title": "Icon",
                   "type": "object",
-                  "required": ["icon", "alt"],
+                  "required": [
+                    "icon",
+                    "alt"
+                  ],
                   "properties": {
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["FadersHorizontal"],
-                      "enum": ["FadersHorizontal"],
+                      "enumNames": [
+                        "FadersHorizontal"
+                      ],
+                      "enum": [
+                        "FadersHorizontal"
+                      ],
                       "default": "FadersHorizontal"
                     },
                     "alt": {
@@ -251,15 +352,32 @@
                   "type": "string",
                   "default": "Filters"
                 },
-                "productNameFilterLabel": {
-                  "title": "Filter by product name text",
-                  "type": "string",
-                  "default": "Product name"
-                },
-                "sortLabel": {
-                  "title": "Sort filter text",
-                  "type": "string",
-                  "default": "Sort by"
+                "sortLabels": {
+                  "title": "Sort labels",
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "title": "Sort filter text",
+                      "type": "string",
+                      "default": "Sort by"
+                    },
+                    "options": {
+                      "title": "Sort options",
+                      "type": "object",
+                      "properties": {
+                        "productByName": {
+                          "title": "Product Name",
+                          "type": "string",
+                          "default": "Product Name"
+                        },
+                        "productByPrice": {
+                          "title": "Price",
+                          "type": "string",
+                          "default": "Price"
+                        }
+                      }
+                    }
+                  }
                 },
                 "toggleFieldLabel": {
                   "title": "Toggle filter text",
@@ -275,11 +393,6 @@
                   "title": "Add to cart button",
                   "type": "string",
                   "default": "Add to cart"
-                },
-                "priceLabel": {
-                  "title": "Price text",
-                  "type": "string",
-                  "default": "Price"
                 },
                 "priceWithTaxLabel": {
                   "title": "Price with taxes text",
@@ -308,5 +421,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

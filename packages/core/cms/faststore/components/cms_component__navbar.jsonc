@@ -1,16 +1,22 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "Navbar",
   "$componentTitle": "Navbar",
   "title": "Navbar",
   "description": "Navbar configuration",
   "type": "object",
-  "required": ["logo"],
+  "required": [
+    "logo"
+  ],
   "properties": {
     "logo": {
       "title": "Logo",
       "type": "object",
-      "required": ["src"],
+      "required": [
+        "src"
+      ],
       "properties": {
         "src": {
           "title": "Image",
@@ -19,7 +25,14 @@
             "ui:widget": "media-gallery",
             "restrictMediaTypes": {
               "video": true,
-              "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+              "image": [
+                "png",
+                "jpg",
+                "jpeg",
+                "gif",
+                "svg",
+                "webp"
+              ]
             }
           }
         },
@@ -30,7 +43,10 @@
         "link": {
           "title": "Logo Link",
           "type": "object",
-          "required": ["url", "title"],
+          "required": [
+            "url",
+            "title"
+          ],
           "properties": {
             "url": {
               "title": "Link URL",
@@ -48,7 +64,9 @@
       "title": "Search Input",
       "description": "Search Input configurations",
       "type": "object",
-      "required": ["sort"],
+      "required": [
+        "sort"
+      ],
       "properties": {
         "placeholder": {
           "title": "Placeholder for Search Bar",
@@ -79,6 +97,11 @@
             "discount_desc",
             "score_desc"
           ]
+        },
+        "submitButtonAriaLabel": {
+          "title": "Submit Search Button aria-label",
+          "type": "string",
+          "default": "Submit Search"
         },
         "quickOrderSettings": {
           "title": "Quick Order settings",
@@ -114,7 +137,10 @@
                       "items": {
                         "title": "Column",
                         "type": "object",
-                        "required": ["label", "value"],
+                        "required": [
+                          "label",
+                          "value"
+                        ],
                         "properties": {
                           "label": {
                             "title": "Label",
@@ -140,7 +166,10 @@
                           "title": "Stock display settings",
                           "description": "Control how the stock status of your products is displayed to customers on your online store.",
                           "type": "string",
-                          "enum": ["showAvailability", "showStockQuantity"],
+                          "enum": [
+                            "showAvailability",
+                            "showStockQuantity"
+                          ],
                           "enumNames": [
                             "Show availability (Available/Out of Stock)",
                             "Show stock quantity"
@@ -162,8 +191,31 @@
                   }
                 }
               }
+            },
+            "invalidQuantityToastLabels": {
+              "title": "Invalid quantity toast",
+              "description": "This toast will be displayed when the quantity is out of the range of the min and max values.",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Invalid quantity!"
+                },
+                "message": {
+                  "title": "Message",
+                  "type": "string",
+                  "description": "If the message has %{min}, %{max} and %{quantity} placeholders, they will be replaced by the min, max and quantity values.",
+                  "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
+                }
+              }
             }
           }
+        },
+        "loadingLabel": {
+          "title": "Loading Label",
+          "type": "string",
+          "default": "Loading..."
         }
       }
     },
@@ -178,8 +230,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["User"],
-              "enum": ["User"],
+              "enumNames": [
+                "User"
+              ],
+              "enum": [
+                "User"
+              ],
               "default": "User"
             },
             "alt": {
@@ -208,8 +264,12 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": ["Shopping Cart"],
-          "enum": ["ShoppingCart"],
+          "enumNames": [
+            "Shopping Cart"
+          ],
+          "enum": [
+            "ShoppingCart"
+          ],
           "default": "ShoppingCart"
         },
         "alt": {
@@ -239,8 +299,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Map Pin"],
-                  "enum": ["MapPin"],
+                  "enumNames": [
+                    "Map Pin"
+                  ],
+                  "enum": [
+                    "MapPin"
+                  ],
                   "default": "MapPin"
                 },
                 "alt": {
@@ -257,6 +321,96 @@
             }
           }
         },
+        "localizationButton": {
+          "type": "object",
+          "title": "Localization Button",
+          "properties": {
+            "shouldDisplayLocalizationButton": {
+              "type": "boolean",
+              "title": "Should display localization button?",
+              "default": false
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": [
+                    "Globe"
+                  ],
+                  "enum": [
+                    "Globe"
+                  ],
+                  "default": "Globe"
+                }
+              }
+            },
+            "ariaLabel": {
+              "title": "Aria Label for localization selector",
+              "type": "string",
+              "default": "Open localization selector"
+            }
+          }
+        },
+        "localizationSelector": {
+          "type": "object",
+          "title": "Localization Selector",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Select language and currency"
+            },
+            "languageLabel": {
+              "title": "Language Label",
+              "type": "string",
+              "default": "Language"
+            },
+            "currencyLabel": {
+              "title": "Currency Label",
+              "type": "string",
+              "default": "Currency"
+            },
+            "description": {
+              "title": "Description",
+              "type": "string",
+              "default": "Changing the language or currency may affect prices, promotions and availability."
+            },
+            "saveLabel": {
+              "title": "Save Button Label",
+              "type": "string",
+              "default": "Save"
+            },
+            "errorMessages": {
+              "title": "Error Messages",
+              "type": "object",
+              "properties": {
+                "noBindingFound": {
+                  "title": "No Binding Found Error",
+                  "type": "string",
+                  "default": "Unable to save configuration. No matching store found."
+                },
+                "invalidUrl": {
+                  "title": "Invalid URL Error",
+                  "type": "string",
+                  "default": "Invalid redirect URL. Please try again."
+                },
+                "noCurrencies": {
+                  "title": "No Currencies Error",
+                  "type": "string",
+                  "default": "No currencies available for this language."
+                },
+                "defaultError": {
+                  "title": "Default Error",
+                  "type": "string",
+                  "default": "An error occurred. Please try again."
+                }
+              }
+            }
+          }
+        },
         "pageLinks": {
           "title": "Links",
           "type": "array",
@@ -264,7 +418,10 @@
           "items": {
             "title": "Link",
             "type": "object",
-            "required": ["text", "url"],
+            "required": [
+              "text",
+              "url"
+            ],
             "properties": {
               "text": {
                 "title": "Link Text",
@@ -288,8 +445,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["List"],
-                  "enum": ["List"],
+                  "enumNames": [
+                    "List"
+                  ],
+                  "enum": [
+                    "List"
+                  ],
                   "default": "List"
                 },
                 "alt": {
@@ -314,5 +475,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

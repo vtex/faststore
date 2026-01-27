@@ -1,10 +1,26 @@
 {
   "plp": {
-    "$extends": ["#/components/base-page-template"],
+    "$extends": [
+      "#/components/base-page-template"
+    ],
     "$singleton": false,
     "type": "object",
     "title": "Product List Page",
     "properties": {
+      "seo": {
+        "title": "SEO",
+        "description": "Search Engine Optimization options",
+        "type": "object",
+        "properties": {
+          "titleTemplate": {
+            "title": "PLP page title template",
+            "description": "Template applied to the page title. Use %s to reference the page title.",
+            "type": "string",
+            "default": "%s | FastStore PLP"
+          }
+        },
+        "$componentTitle": "SEO"
+      },
       "template": {
         "title": "Template",
         "type": "object",
@@ -21,7 +37,10 @@
         "title": "Product Gallery",
         "description": "ProductGallery options",
         "type": "object",
-        "required": ["itemsPerPage", "sortBySelection"],
+        "required": [
+          "itemsPerPage",
+          "sortBySelection"
+        ],
         "properties": {
           "itemsPerPage": {
             "title": "Number of ProductCards per page",
@@ -116,6 +135,9 @@
             },
             {
               "$ref": "#/components/EmptyState"
+            },
+            {
+              "$ref": "#/components/ScrollToTopButton"
             }
           ]
         }
@@ -125,6 +147,8 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": ["slug"]
+    "identifierKeys": [
+      "slug"
+    ]
   }
 }

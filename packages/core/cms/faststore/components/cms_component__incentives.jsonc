@@ -1,5 +1,7 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "Incentives",
   "$componentTitle": "Incentives",
   "title": "Incentives",
@@ -14,7 +16,11 @@
       "items": {
         "title": "Incentive",
         "type": "object",
-        "required": ["title", "firstLineText", "icon"],
+        "required": [
+          "title",
+          "firstLineText",
+          "icon"
+        ],
         "properties": {
           "title": {
             "type": "string",
@@ -38,7 +44,13 @@
               "Store Front",
               "Shield Check"
             ],
-            "enum": ["Truck", "Calendar", "Gift", "Storefront", "ShieldCheck"]
+            "enum": [
+              "Truck",
+              "Calendar",
+              "Gift",
+              "Storefront",
+              "ShieldCheck"
+            ]
           },
           "alt": {
             "title": "Alternative Label",
@@ -47,5 +59,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }
