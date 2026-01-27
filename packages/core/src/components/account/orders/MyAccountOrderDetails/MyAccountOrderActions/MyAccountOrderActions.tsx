@@ -9,22 +9,29 @@ import {
 import { useState } from 'react'
 import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
+import { useReorder } from 'src/sdk/account/useReorder'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+
+type Order = ServerOrderDetailsQueryQuery['userOrder']
 
 interface MyAccountOrderActionsProps {
   allowCancellation: boolean
   orderId: string
   customerEmail?: string
+  order: Order
 }
 
 export default function MyAccountOrderActions({
   allowCancellation,
   orderId,
   customerEmail,
+  order,
 }: MyAccountOrderActionsProps) {
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false)
   const { pushToast } = useUI()
 
   const { cancelOrder, loading } = useCancelOrder()
+  const { reorder } = useReorder()
 
   const handleCancel = async () => {
     const data = {
@@ -54,10 +61,11 @@ export default function MyAccountOrderActions({
     }
   }
 
-  // Don't render if no actions are available
-  if (!allowCancellation) {
-    return null
+  const handleReorder = () => {
+    reorder(order)
   }
+
+  // Always render dropdown since reorder is always available
 
   return (
     <>
@@ -67,6 +75,15 @@ export default function MyAccountOrderActions({
             <UIIcon name="DotsThree" data-fs-dropdown-icon />
           </DropdownButton>
           <DropdownMenu align="right">
+            <DropdownItem
+              type="button"
+              onClick={handleReorder}
+              style={{
+                color: 'var(--fs-color-text)',
+              }}
+            >
+              Reorder
+            </DropdownItem>
             {allowCancellation && (
               <DropdownItem
                 type="button"
