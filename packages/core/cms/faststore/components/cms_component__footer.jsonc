@@ -1,7 +1,5 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Footer",
   "$componentTitle": "Footer",
   "title": "Footer",
@@ -16,11 +14,7 @@
       "items": {
         "title": "Incentive",
         "type": "object",
-        "required": [
-          "title",
-          "firstLineText",
-          "icon"
-        ],
+        "required": ["title", "firstLineText", "icon"],
         "properties": {
           "title": {
             "type": "string",
@@ -44,13 +38,7 @@
               "Store Front",
               "Shield Check"
             ],
-            "enum": [
-              "Truck",
-              "Calendar",
-              "Gift",
-              "Storefront",
-              "ShieldCheck"
-            ]
+            "enum": ["Truck", "Calendar", "Gift", "Storefront", "ShieldCheck"]
           },
           "alt": {
             "title": "Alternative Label",
@@ -79,10 +67,7 @@
             "items": {
               "title": "Link",
               "type": "object",
-              "required": [
-                "text",
-                "url"
-              ],
+              "required": ["text", "url"],
               "properties": {
                 "text": {
                   "title": "Link Text",
@@ -116,11 +101,7 @@
           "items": {
             "title": "Link",
             "type": "object",
-            "required": [
-              "alt",
-              "url",
-              "icon"
-            ],
+            "required": ["alt", "url", "icon"],
             "properties": {
               "icon": {
                 "title": "Icon",
@@ -135,12 +116,7 @@
                       "Pinterest",
                       "Twitter"
                     ],
-                    "enum": [
-                      "Facebook",
-                      "Instagram",
-                      "Pinterest",
-                      "Twitter"
-                    ]
+                    "enum": ["Facebook", "Instagram", "Pinterest", "Twitter"]
                   }
                 }
               },
@@ -168,14 +144,7 @@
             "ui:widget": "media-gallery",
             "restrictMediaTypes": {
               "video": true,
-              "image": [
-                "png",
-                "jpg",
-                "jpeg",
-                "gif",
-                "svg",
-                "webp"
-              ]
+              "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
             }
           }
         },
@@ -186,10 +155,7 @@
         "link": {
           "title": "Logo Link",
           "type": "object",
-          "required": [
-            "url",
-            "title"
-          ],
+          "required": ["url", "title"],
           "properties": {
             "url": {
               "title": "Link URL",
@@ -210,9 +176,7 @@
     "acceptedPaymentMethods": {
       "title": "Payment Methods Sections",
       "type": "object",
-      "required": [
-        "showPaymentMethods"
-      ],
+      "required": ["showPaymentMethods"],
       "properties": {
         "showPaymentMethods": {
           "title": "Display Payment Methods",
@@ -230,10 +194,7 @@
           "items": {
             "title": "Payment Method",
             "type": "object",
-            "required": [
-              "icon",
-              "alt"
-            ],
+            "required": ["icon", "alt"],
             "properties": {
               "icon": {
                 "type": "object",

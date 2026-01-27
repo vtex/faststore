@@ -1,22 +1,16 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Navbar",
   "$componentTitle": "Navbar",
   "title": "Navbar",
   "description": "Navbar configuration",
   "type": "object",
-  "required": [
-    "logo"
-  ],
+  "required": ["logo"],
   "properties": {
     "logo": {
       "title": "Logo",
       "type": "object",
-      "required": [
-        "src"
-      ],
+      "required": ["src"],
       "properties": {
         "src": {
           "title": "Image",
@@ -25,14 +19,7 @@
             "ui:widget": "media-gallery",
             "restrictMediaTypes": {
               "video": true,
-              "image": [
-                "png",
-                "jpg",
-                "jpeg",
-                "gif",
-                "svg",
-                "webp"
-              ]
+              "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
             }
           }
         },
@@ -43,10 +30,7 @@
         "link": {
           "title": "Logo Link",
           "type": "object",
-          "required": [
-            "url",
-            "title"
-          ],
+          "required": ["url", "title"],
           "properties": {
             "url": {
               "title": "Link URL",
@@ -64,9 +48,7 @@
       "title": "Search Input",
       "description": "Search Input configurations",
       "type": "object",
-      "required": [
-        "sort"
-      ],
+      "required": ["sort"],
       "properties": {
         "placeholder": {
           "title": "Placeholder for Search Bar",
@@ -137,10 +119,7 @@
                       "items": {
                         "title": "Column",
                         "type": "object",
-                        "required": [
-                          "label",
-                          "value"
-                        ],
+                        "required": ["label", "value"],
                         "properties": {
                           "label": {
                             "title": "Label",
@@ -166,10 +145,7 @@
                           "title": "Stock display settings",
                           "description": "Control how the stock status of your products is displayed to customers on your online store.",
                           "type": "string",
-                          "enum": [
-                            "showAvailability",
-                            "showStockQuantity"
-                          ],
+                          "enum": ["showAvailability", "showStockQuantity"],
                           "enumNames": [
                             "Show availability (Available/Out of Stock)",
                             "Show stock quantity"
@@ -230,12 +206,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": [
-                "User"
-              ],
-              "enum": [
-                "User"
-              ],
+              "enumNames": ["User"],
+              "enum": ["User"],
               "default": "User"
             },
             "alt": {
@@ -264,12 +236,8 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": [
-            "Shopping Cart"
-          ],
-          "enum": [
-            "ShoppingCart"
-          ],
+          "enumNames": ["Shopping Cart"],
+          "enum": ["ShoppingCart"],
           "default": "ShoppingCart"
         },
         "alt": {
@@ -299,12 +267,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": [
-                    "Map Pin"
-                  ],
-                  "enum": [
-                    "MapPin"
-                  ],
+                  "enumNames": ["Map Pin"],
+                  "enum": ["MapPin"],
                   "default": "MapPin"
                 },
                 "alt": {
@@ -337,12 +301,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": [
-                    "Globe"
-                  ],
-                  "enum": [
-                    "Globe"
-                  ],
+                  "enumNames": ["Globe"],
+                  "enum": ["Globe"],
                   "default": "Globe"
                 }
               }
@@ -418,10 +378,7 @@
           "items": {
             "title": "Link",
             "type": "object",
-            "required": [
-              "text",
-              "url"
-            ],
+            "required": ["text", "url"],
             "properties": {
               "text": {
                 "title": "Link Text",
@@ -445,12 +402,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": [
-                    "List"
-                  ],
-                  "enum": [
-                    "List"
-                  ],
+                  "enumNames": ["List"],
+                  "enum": ["List"],
                   "default": "List"
                 },
                 "alt": {

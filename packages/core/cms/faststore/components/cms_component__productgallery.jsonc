@@ -1,15 +1,11 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "ProductGallery",
   "$componentTitle": "Product Gallery",
   "title": "Product Gallery",
   "description": "Product Gallery configuration",
   "type": "object",
-  "required": [
-    "filter"
-  ],
+  "required": ["filter"],
   "properties": {
     "searchTermLabel": {
       "title": "Search page term label",
@@ -24,10 +20,7 @@
     "previousPageButton": {
       "title": "Previous page button",
       "type": "object",
-      "required": [
-        "icon",
-        "label"
-      ],
+      "required": ["icon", "label"],
       "properties": {
         "icon": {
           "title": "Icon",
@@ -36,12 +29,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": [
-                "ArrowLeft"
-              ],
-              "enum": [
-                "ArrowLeft"
-              ],
+              "enumNames": ["ArrowLeft"],
+              "enum": ["ArrowLeft"],
               "default": "ArrowLeft"
             },
             "alt": {
@@ -61,9 +50,7 @@
     "loadMorePageButton": {
       "title": "Load more products Button",
       "type": "object",
-      "required": [
-        "label"
-      ],
+      "required": ["label"],
       "properties": {
         "label": {
           "title": "Load more products label",
@@ -75,10 +62,7 @@
     "sortBySelector": {
       "title": "Sort by selector",
       "type": "object",
-      "required": [
-        "label",
-        "options"
-      ],
+      "required": ["label", "options"],
       "properties": {
         "label": {
           "title": "Label",
@@ -146,10 +130,7 @@
     "filter": {
       "title": "Filter",
       "type": "object",
-      "required": [
-        "title",
-        "mobileOnly"
-      ],
+      "required": ["title", "mobileOnly"],
       "properties": {
         "title": {
           "title": "Filter title",
@@ -159,19 +140,12 @@
         "mobileOnly": {
           "title": "Mobile Only",
           "type": "object",
-          "required": [
-            "filterButton",
-            "clearButtonLabel",
-            "applyButtonLabel"
-          ],
+          "required": ["filterButton", "clearButtonLabel", "applyButtonLabel"],
           "properties": {
             "filterButton": {
               "title": "Show filter button",
               "type": "object",
-              "required": [
-                "label",
-                "icon"
-              ],
+              "required": ["label", "icon"],
               "properties": {
                 "label": {
                   "title": "Label",
@@ -181,20 +155,13 @@
                 "icon": {
                   "title": "Icon",
                   "type": "object",
-                  "required": [
-                    "icon",
-                    "alt"
-                  ],
+                  "required": ["icon", "alt"],
                   "properties": {
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": [
-                        "FadersHorizontal"
-                      ],
-                      "enum": [
-                        "FadersHorizontal"
-                      ],
+                      "enumNames": ["FadersHorizontal"],
+                      "enum": ["FadersHorizontal"],
                       "default": "FadersHorizontal"
                     },
                     "alt": {

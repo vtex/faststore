@@ -1,8 +1,6 @@
 {
   "search": {
-    "$extends": [
-      "#/components/base-page-template"
-    ],
+    "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",
     "title": "Search Page",
@@ -25,10 +23,7 @@
         "title": "Product Gallery",
         "description": "ProductGallery options",
         "type": "object",
-        "required": [
-          "itemsPerPage",
-          "sortBySelection"
-        ],
+        "required": ["itemsPerPage", "sortBySelection"],
         "properties": {
           "itemsPerPage": {
             "title": "Number of ProductCards per page",

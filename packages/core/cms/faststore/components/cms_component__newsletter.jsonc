@@ -1,15 +1,11 @@
 {
-  "$extends": [
-    "#/$defs/base-component"
-  ],
+  "$extends": ["#/$defs/base-component"],
   "$componentKey": "Newsletter",
   "$componentTitle": "Newsletter",
   "title": "Newsletter",
   "description": "Allow users to subscribe to your updates",
   "type": "object",
-  "required": [
-    "title"
-  ],
+  "required": ["title"],
   "properties": {
     "icon": {
       "title": "Icon",
@@ -18,12 +14,8 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": [
-            "Envelope"
-          ],
-          "enum": [
-            "Envelope"
-          ],
+          "enumNames": ["Envelope"],
+          "enum": ["Envelope"],
           "default": "Envelope"
         },
         "alt": {
@@ -83,16 +75,8 @@
     "colorVariant": {
       "title": "Color variant",
       "type": "string",
-      "enumNames": [
-        "Main",
-        "Light",
-        "Accent"
-      ],
-      "enum": [
-        "main",
-        "light",
-        "accent"
-      ],
+      "enumNames": ["Main", "Light", "Accent"],
+      "enum": ["main", "light", "accent"],
       "default": "main"
     },
     "toastSubscribe": {
@@ -114,12 +98,8 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": [
-            "CircleWavyCheck"
-          ],
-          "enum": [
-            "CircleWavyCheck"
-          ],
+          "enumNames": ["CircleWavyCheck"],
+          "enum": ["CircleWavyCheck"],
           "default": "CircleWavyCheck"
         }
       }
@@ -143,12 +123,8 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": [
-            "CircleWavyWarning"
-          ],
-          "enum": [
-            "CircleWavyWarning"
-          ],
+          "enumNames": ["CircleWavyWarning"],
+          "enum": ["CircleWavyWarning"],
           "default": "CircleWavyWarning"
         }
       }
