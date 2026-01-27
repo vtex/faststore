@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.97.0-dev.0](https://github.com/vtex/faststore/compare/v3.96.4-dev.0...v3.97.0-dev.0) (2026-01-27)
+
+### Features
+
+- Enable fraction digit formatting for SEO's `product:price:amount` meta tag ([#3179](https://github.com/vtex/faststore/issues/3179)) ([d6e6252](https://github.com/vtex/faststore/commit/d6e6252eb578d782505b8e505ee48cd9fd1526e3))
+
 ## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
 
 # 3.96.0-dev.22 (2026-01-21)
