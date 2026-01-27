@@ -1,6 +1,8 @@
 {
   "500": {
-    "$extends": ["#/components/base-page-template"],
+    "$extends": [
+      "#/components/base-page-template"
+    ],
     "$singleton": true,
     "type": "object",
     "title": "Error 500",

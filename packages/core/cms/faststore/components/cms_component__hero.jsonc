@@ -1,11 +1,15 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "Hero",
   "$componentTitle": "Hero",
   "title": "Hero",
   "description": "Add a quick promotion with an image/action pair",
   "type": "object",
-  "required": ["title"],
+  "required": [
+    "title"
+  ],
   "properties": {
     "title": {
       "title": "Title",
@@ -45,7 +49,14 @@
             "ui:widget": "media-gallery",
             "restrictMediaTypes": {
               "video": true,
-              "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+              "image": [
+                "png",
+                "jpg",
+                "jpeg",
+                "gif",
+                "svg",
+                "webp"
+              ]
             }
           }
         },
@@ -58,14 +69,32 @@
     "colorVariant": {
       "type": "string",
       "title": "Color variant",
-      "enumNames": ["Main", "Light", "Accent"],
-      "enum": ["main", "light", "accent"]
+      "enumNames": [
+        "Main",
+        "Light",
+        "Accent"
+      ],
+      "enum": [
+        "main",
+        "light",
+        "accent"
+      ]
     },
     "variant": {
       "type": "string",
       "title": "Variant",
-      "enumNames": ["Primary", "Secondary"],
-      "enum": ["primary", "secondary"]
+      "enumNames": [
+        "Primary",
+        "Secondary"
+      ],
+      "enum": [
+        "primary",
+        "secondary"
+      ]
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

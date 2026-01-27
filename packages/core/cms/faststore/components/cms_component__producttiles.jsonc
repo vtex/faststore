@@ -1,11 +1,18 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "ProductTiles",
   "$componentTitle": "Product Tiles",
   "title": "Product Tiles",
   "description": "Add custom highlights to your store",
   "type": "object",
-  "required": ["title", "first", "after", "sort"],
+  "required": [
+    "title",
+    "first",
+    "after",
+    "sort"
+  ],
   "properties": {
     "title": {
       "title": "Title",
@@ -58,7 +65,10 @@
       "items": {
         "title": "Facet",
         "type": "object",
-        "required": ["key", "value"],
+        "required": [
+          "key",
+          "value"
+        ],
         "properties": {
           "key": {
             "title": "Key",
@@ -91,5 +101,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

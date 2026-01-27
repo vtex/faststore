@@ -1,5 +1,7 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "ProductDetails",
   "$componentTitle": "Product Details",
   "title": "Product Details",
@@ -22,8 +24,14 @@
             "size": {
               "title": "Size",
               "type": "string",
-              "enumNames": ["Big", "Small"],
-              "enum": ["big", "small"]
+              "enumNames": [
+                "Big",
+                "Small"
+              ],
+              "enum": [
+                "big",
+                "small"
+              ]
             }
           }
         },
@@ -33,6 +41,11 @@
           "default": false
         }
       }
+    },
+    "loadingLabel": {
+      "title": "Loading Label",
+      "type": "string",
+      "default": "Loading..."
     },
     "buyButton": {
       "title": "Buy Button",
@@ -50,8 +63,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Shopping Cart"],
-              "enum": ["ShoppingCart"]
+              "enumNames": [
+                "Shopping Cart"
+              ],
+              "enum": [
+                "ShoppingCart"
+              ]
             },
             "alt": {
               "type": "string",
@@ -116,8 +133,16 @@
         "initiallyExpanded": {
           "type": "string",
           "title": "Initially Expanded?",
-          "enumNames": ["First", "All", "None"],
-          "enum": ["first", "all", "none"]
+          "enumNames": [
+            "First",
+            "All",
+            "None"
+          ],
+          "enum": [
+            "first",
+            "all",
+            "none"
+          ]
         },
         "displayDescription": {
           "title": "Should display description?",
@@ -128,6 +153,11 @@
           "title": "Description section title",
           "type": "string",
           "default": "Description"
+        },
+        "accordionAriaLabel": {
+          "title": "Product description accordion aria label",
+          "type": "string",
+          "default": "Product Description Content"
         }
       }
     },
@@ -139,6 +169,24 @@
           "title": "Should use unit multiplier?",
           "type": "boolean",
           "default": false
+        },
+        "invalidQuantityToastLabels": {
+          "title": "Invalid quantity toast",
+          "description": "This toast will be displayed when the quantity is out of the range of the min and max values.",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Invalid quantity!"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string",
+              "description": "If the message has %{min}, %{max} and %{quantity} placeholders, they will be replaced by the min, max and quantity values.",
+              "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
+            }
+          }
         }
       }
     },
@@ -193,7 +241,10 @@
               "items": {
                 "title": "Column",
                 "type": "object",
-                "required": ["label", "value"],
+                "required": [
+                  "label",
+                  "value"
+                ],
                 "properties": {
                   "label": {
                     "title": "Label",
@@ -219,7 +270,10 @@
                   "title": "Stock display settings",
                   "description": "Control how the stock status of your products is displayed to customers on your online store.",
                   "type": "string",
-                  "enum": ["showAvailability", "showStockQuantity"],
+                  "enum": [
+                    "showAvailability",
+                    "showStockQuantity"
+                  ],
                   "enumNames": [
                     "Show availability (Available/Out of Stock)",
                     "Show stock quantity"
@@ -242,5 +296,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

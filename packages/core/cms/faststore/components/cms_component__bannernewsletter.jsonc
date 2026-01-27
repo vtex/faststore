@@ -1,16 +1,24 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "BannerNewsletter",
   "$componentTitle": "Banner Newsletter",
   "title": "Banner Newsletter",
   "description": "Add newsletter with a banner",
   "type": "object",
-  "required": ["banner", "newsletter"],
+  "required": [
+    "banner",
+    "newsletter"
+  ],
   "properties": {
     "banner": {
       "title": "Banner",
       "type": "object",
-      "required": ["title", "link"],
+      "required": [
+        "title",
+        "link"
+      ],
       "properties": {
         "title": {
           "title": "Title",
@@ -25,7 +33,10 @@
         "link": {
           "title": "Call to Action",
           "type": "object",
-          "required": ["text", "url"],
+          "required": [
+            "text",
+            "url"
+          ],
           "properties": {
             "text": {
               "title": "Text",
@@ -42,15 +53,29 @@
         "colorVariant": {
           "title": "Color variant",
           "type": "string",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"],
+          "enumNames": [
+            "Main",
+            "Light",
+            "Accent"
+          ],
+          "enum": [
+            "main",
+            "light",
+            "accent"
+          ],
           "default": "light"
         },
         "variant": {
           "title": "Variant",
           "type": "string",
-          "enumNames": ["Primary", "Secondary"],
-          "enum": ["primary", "secondary"],
+          "enumNames": [
+            "Primary",
+            "Secondary"
+          ],
+          "enum": [
+            "primary",
+            "secondary"
+          ],
           "default": "secondary"
         }
       }
@@ -58,7 +83,10 @@
     "newsletter": {
       "title": "Newsletter",
       "type": "object",
-      "required": ["title", "description"],
+      "required": [
+        "title",
+        "description"
+      ],
       "properties": {
         "icon": {
           "title": "Icon",
@@ -67,8 +95,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Envelope"],
-              "enum": ["Envelope"],
+              "enumNames": [
+                "Envelope"
+              ],
+              "enum": [
+                "Envelope"
+              ],
               "default": "Envelope"
             },
             "alt": {
@@ -123,8 +155,16 @@
         "colorVariant": {
           "title": "Color variant",
           "type": "string",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"],
+          "enumNames": [
+            "Main",
+            "Light",
+            "Accent"
+          ],
+          "enum": [
+            "main",
+            "light",
+            "accent"
+          ],
           "default": "main"
         },
         "toastSubscribe": {
@@ -146,8 +186,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyCheck"],
-              "enum": ["CircleWavyCheck"],
+              "enumNames": [
+                "CircleWavyCheck"
+              ],
+              "enum": [
+                "CircleWavyCheck"
+              ],
               "default": "CircleWavyCheck"
             }
           }
@@ -171,13 +215,21 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyWarning"],
-              "enum": ["CircleWavyWarning"],
+              "enumNames": [
+                "CircleWavyWarning"
+              ],
+              "enum": [
+                "CircleWavyWarning"
+              ],
               "default": "CircleWavyWarning"
             }
           }
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

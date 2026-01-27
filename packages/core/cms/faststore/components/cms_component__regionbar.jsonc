@@ -1,11 +1,15 @@
 {
-  "$extends": ["#/$defs/base-component"],
+  "$extends": [
+    "#/$defs/base-component"
+  ],
   "$componentKey": "RegionBar",
   "$componentTitle": "Region Bar",
   "title": "Region Bar",
   "description": "Region Bar configuration",
   "type": "object",
-  "required": ["label"],
+  "required": [
+    "label"
+  ],
   "properties": {
     "icon": {
       "title": "Location icon",
@@ -14,8 +18,12 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": ["Map Pin"],
-          "enum": ["MapPin"],
+          "enumNames": [
+            "Map Pin"
+          ],
+          "enum": [
+            "MapPin"
+          ],
           "default": "MapPin"
         },
         "alt": {
@@ -43,8 +51,12 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": ["Caret Right"],
-          "enum": ["CaretRight"],
+          "enumNames": [
+            "Caret Right"
+          ],
+          "enum": [
+            "CaretRight"
+          ],
           "default": "CaretRight"
         },
         "alt": {
@@ -54,5 +66,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

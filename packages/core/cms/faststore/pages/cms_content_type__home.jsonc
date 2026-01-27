@@ -1,6 +1,8 @@
 {
   "home": {
-    "$extends": ["#/components/base-page-template"],
+    "$extends": [
+      "#/components/base-page-template"
+    ],
     "$singleton": true,
     "type": "object",
     "title": "Home",
@@ -12,7 +14,11 @@
         "widget": {
           "ui:ObjectFieldTemplate": "GoogleSeoPreview"
         },
-        "required": ["slug", "title", "description"],
+        "required": [
+          "slug",
+          "title",
+          "description"
+        ],
         "properties": {
           "slug": {
             "title": "Path",
@@ -24,6 +30,12 @@
             "description": "Display this title when no other tile is available",
             "type": "string",
             "default": "FastStore Starter"
+          },
+          "titleTemplate": {
+            "title": "Default page title template",
+            "description": "Template applied to the page title. Use %s to reference the page title.",
+            "type": "string",
+            "default": "%s | FastStore"
           },
           "description": {
             "title": "Meta tag description",
@@ -46,7 +58,10 @@
           "organization": {
             "title": "Organization",
             "type": "object",
-            "required": ["name", "url"],
+            "required": [
+              "name",
+              "url"
+            ],
             "properties": {
               "name": {
                 "title": "Organization name",
@@ -208,6 +223,8 @@
     "writeOnly": false,
     "deprecated": false,
     "$abstract": false,
-    "identifierKeys": ["slug"]
+    "identifierKeys": [
+      "slug"
+    ]
   }
 }
