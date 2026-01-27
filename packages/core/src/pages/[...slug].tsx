@@ -114,7 +114,7 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string[] },
   PreviewData
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, locale }) => {
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
 
@@ -122,9 +122,9 @@ export const getStaticProps: GetStaticProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
-  const landingPagePromise = getLandingPageBySlug(slug, previewData)
+  const landingPagePromise = getLandingPageBySlug(slug, previewData, locale)
 
   const landingPage = await landingPagePromise
 
@@ -176,6 +176,7 @@ export const getStaticProps: GetStaticProps<
       {
         previewData,
         slug,
+        locale,
       },
       rewrites
     ),

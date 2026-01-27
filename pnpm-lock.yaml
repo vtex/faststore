@@ -494,8 +494,8 @@ importers:
         specifier: ^0.2.16
         version: 0.2.16(encoding@0.1.13)
       '@vtex/client-cp':
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.4.0
+        version: 0.4.0
       '@vtex/prettier-config':
         specifier: 1.0.0
         version: 1.0.0(prettier@2.8.8)
@@ -4250,8 +4250,8 @@ packages:
   '@vtex/client-cms@0.2.16':
     resolution: {integrity: sha512-mK5OiaaGHItVuispyy8yXLILnMx4aOJj7HkamOmAL12+KbnkiKKpO1vJEb3hRB16lK1rHtl7Q5H3aTFsMqrf0w==}
 
-  '@vtex/client-cp@0.3.5':
-    resolution: {integrity: sha512-uzvpYz1LHiPxBc0FmVVG0azfGWiYJhIJf2JgcNSsi3V5oxR/dwM6tbh+JigSNQpp6bNn9GglLvMpYboxORMsnQ==}
+  '@vtex/client-cp@0.4.0':
+    resolution: {integrity: sha512-tZxZL4ixR29fkhJ04mBcvCxD3ZBMP2dV5vXoubfgMnNP7PnhdREP4Oj7uR/CkL2jT3kRSS7u6pbetQ1ilwFByw==}
     engines: {node: '>=16'}
 
   '@vtex/faststore-sdk@0.1.1-canary.1':
@@ -16375,7 +16375,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@vtex/client-cp@0.3.5':
+  '@vtex/client-cp@0.4.0':
     dependencies:
       axios: 1.13.2
     transitivePeerDependencies:

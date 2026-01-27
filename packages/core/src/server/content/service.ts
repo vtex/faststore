@@ -20,12 +20,26 @@ import { isBranchPreview, isContentPlatformSource } from './utils'
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
 export class ContentService {
-  private clientCP: ClientCP
+  private clientCPCache = new Map<string, ClientCP>()
 
-  constructor() {
-    this.clientCP = new ClientCP({
+  private getClientCP(locale?: string): ClientCP {
+    const currentLocale = locale ?? config.localization.defaultLocale
+
+    // Reuse cached ClientCP for locale
+    if (this.clientCPCache.has(currentLocale)) {
+      return this.clientCPCache.get(currentLocale)
+    }
+
+    // Create new instance only if not in cache
+    const clientCP = new ClientCP({
       tenant: config.api.storeId,
+      locale: currentLocale,
     })
+
+    // Store in cache for future use
+    this.clientCPCache.set(currentLocale, clientCP)
+
+    return clientCP
   }
 
   async getSingleContent<T extends ContentData>(
@@ -34,7 +48,7 @@ export class ContentService {
     const options = this.createContentOptions(params)
 
     if (isContentPlatformSource()) {
-      return this.getFromCP<T>(options)
+      return this.getFromCP<T>(options, params.locale)
     }
     return getPage(options.cmsOptions)
   }
@@ -45,9 +59,15 @@ export class ContentService {
     const options = this.createContentOptions(params)
 
     if (isContentPlatformSource()) {
+      const clientCP = this.getClientCP(params.locale)
       const serviceParams = this.convertOptionsToParams(options)
-      const { entries } = await this.clientCP.listEntries(serviceParams)
-      return this.fillEntriesWithData(entries, serviceParams, options.isPreview)
+      const { entries } = await clientCP.listEntries(serviceParams)
+      return this.fillEntriesWithData(
+        entries,
+        serviceParams,
+        options.isPreview,
+        params.locale
+      )
     }
     return getCMSPage(options.cmsOptions)
   }
@@ -90,13 +110,15 @@ export class ContentService {
   }
 
   private async getFromCP<T extends ContentData>(
-    options: ContentOptions
+    options: ContentOptions,
+    locale?: string
   ): Promise<T> {
     const params = this.convertOptionsToParams(options)
     try {
       const entry: PageContentType = await this.getEntry(
         params,
-        options.isPreview
+        options.isPreview,
+        locale
       )
       return entry as T
     } catch (err: unknown) {
@@ -108,13 +130,15 @@ export class ContentService {
   private async fillEntriesWithData(
     entries: ContentEntry[],
     serviceParams: EntryPathParams,
-    isPreview: boolean
+    isPreview: boolean,
+    locale?: string
   ): Promise<{ data: (ContentEntry & PageContentType)[] }> {
     const data = await Promise.all(
       entries.map(async (entry) => {
         const entryData = await this.getEntryData(
           { ...serviceParams, entryId: entry.id },
-          isPreview
+          isPreview,
+          locale
         )
         return this.mergeEntryWithData(entry, entryData)
       })
@@ -124,38 +148,44 @@ export class ContentService {
 
   private async getEntry(
     params: EntryPathParams,
-    isPreview: boolean
+    isPreview: boolean,
+    locale?: string
   ): Promise<PageContentType> {
     return params.entryId || params.slug
-      ? await this.getEntryData(params, isPreview)
-      : await this.fetchFirstEntryFromList(params, isPreview)
+      ? await this.getEntryData(params, isPreview, locale)
+      : await this.fetchFirstEntryFromList(params, isPreview, locale)
   }
 
   private async getEntryData(
     params: EntryPathParams,
-    isPreview: boolean
+    isPreview: boolean,
+    locale?: string
   ): Promise<PageContentType> {
     if (!params.entryId && !params.slug) {
       const operation = isPreview ? 'Preview' : 'getEntry'
       throw new Error(`${operation} requires entryId or slug`)
     }
 
+    const clientCP = this.getClientCP(locale)
+
     if (isPreview) {
       return params.entryId
-        ? (this.clientCP.previewEntryById(params) as Promise<PageContentType>)
-        : (this.clientCP.previewEntryBySlug(params) as Promise<PageContentType>)
+        ? (clientCP.previewEntryById(params) as Promise<PageContentType>)
+        : (clientCP.previewEntryBySlug(params) as Promise<PageContentType>)
     }
 
     return params.entryId
-      ? (this.clientCP.getEntry(params) as Promise<PageContentType>)
-      : (this.clientCP.getEntryBySlug(params) as Promise<PageContentType>)
+      ? (clientCP.getEntry(params) as Promise<PageContentType>)
+      : (clientCP.getEntryBySlug(params) as Promise<PageContentType>)
   }
 
   private async fetchFirstEntryFromList(
     params: EntryPathParams,
-    isPreview: boolean
+    isPreview: boolean,
+    locale?: string
   ): Promise<PageContentType> {
-    const { entries } = await this.clientCP.listEntries(params)
+    const clientCP = this.getClientCP(locale)
+    const { entries } = await clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
       console.warn('No entries found for params', params)
       return {} as PageContentType
@@ -163,7 +193,11 @@ export class ContentService {
     if (entries.length > 1) {
       throw new MultipleContentError(params)
     }
-    return this.getEntryData({ ...params, entryId: entries[0].id }, isPreview)
+    return this.getEntryData(
+      { ...params, entryId: entries[0].id },
+      isPreview,
+      locale
+    )
   }
 
   private createContentOptions(params: ContentParams): ContentOptions {

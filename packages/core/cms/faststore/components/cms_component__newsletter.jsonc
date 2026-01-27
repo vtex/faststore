@@ -129,5 +129,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

@@ -17,6 +17,7 @@ export interface ContentParams {
   versionId?: string
   releaseId?: string
   filters?: Record<string, unknown>
+  locale?: string
 }
 
 export interface ContentOptions {
