@@ -13,6 +13,7 @@ module.exports = {
     pdp: {
       titleTemplate: '%s | FastStore PDP',
       descriptionTemplate: '%s products on FastStore Product Detail Page',
+      minPriceAmountFractionDigits: undefined,
     },
     search: {
       titleTemplate: '%s | Search results',
