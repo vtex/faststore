@@ -30,6 +30,8 @@ type ImageComponentType = FunctionComponent<{
   loading?: 'eager' | 'lazy'
 }>
 
+// TODO: Replace with faststore Image component in final implementation
+// This is a temporary reference component for storybook preview
 const DefaultImageComponent: ImageComponentType = ({
   src,
   alt,
