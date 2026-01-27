@@ -9,6 +9,7 @@ import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
+import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useSession } from 'src/sdk/session'
@@ -63,6 +64,23 @@ export interface NavbarProps {
     shouldDisplayRegion: boolean
   }
   /**
+   * Localization Button props.
+   */
+  localizationButton?: {
+    icon: string
+    shouldDisplayLocalizationButton: boolean
+  }
+  /**
+   * Localization Selector props.
+   */
+  localizationSelector?: {
+    title?: string
+    languageLabel?: string
+    currencyLabel?: string
+    description?: string
+    saveLabel?: string
+  }
+  /**
    * Page links.
    */
   links: SectionNavbarProps['navigation']['pageLinks']
@@ -84,6 +102,8 @@ function Navbar({
   links,
   signIn,
   region,
+  localizationButton,
+  localizationSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
@@ -111,6 +131,9 @@ function Navbar({
   const isRepresentative = b2b?.isRepresentative
 
   const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+  const isLocalizationEnabled =
+    storeConfig.localization?.enabled &&
+    localizationButton?.shouldDisplayLocalizationButton
 
   const handlerExpandSearch = useCallback(() => {
     setSearchExpanded(true)
@@ -154,6 +177,8 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
+              loadingLabel={searchInput?.loadingLabel}
             />
           )}
 
@@ -182,10 +207,24 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
+                submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
+                loadingLabel={searchInput?.loadingLabel}
               />
             )}
+
+            {isDesktop && isLocalizationEnabled && (
+              <LocalizationButton
+                icon={localizationButton?.icon}
+                title={localizationSelector?.title}
+                languageLabel={localizationSelector?.languageLabel}
+                currencyLabel={localizationSelector?.currencyLabel}
+                description={localizationSelector?.description}
+                saveLabel={localizationSelector?.saveLabel}
+              />
+            )}
+
             {isDesktop &&
               (isSessionReady ? (
                 isOrganizationEnabled ? (
@@ -217,6 +256,8 @@ function Navbar({
           links={links}
           signIn={signIn}
           region={region}
+          localizationButton={localizationButton}
+          localizationSelector={localizationSelector}
         />
       )}
     </NavbarWrapper.Component>

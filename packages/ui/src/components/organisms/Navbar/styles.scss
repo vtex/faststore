@@ -88,7 +88,7 @@
 
     @include media(">=notebook") {
       display: grid;
-      grid-template-columns: 1fr minmax(auto, 37.5rem) 1fr;
+      grid-template-columns: 1fr minmax(auto, 32.5rem) 1fr;
     }
 
     [data-fs-navbar-button-menu] {
@@ -115,8 +115,22 @@
       display: none;
     }
 
+    [data-fs-localization-button] {
+      [data-fs-button-wrapper] [data-fs-button-icon] + span {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--fs-spacing-1);
+        align-items: center;
+      }
+    }
+
     @include media(">=notebook") {
       order: 2;
+
+      [data-fs-button] {
+        // TODO: remove this after adding `regular` size to the button
+        --fs-button-height: 40px;
+      }
 
       [data-fs-button-signin-link] {
         display: inline-flex;

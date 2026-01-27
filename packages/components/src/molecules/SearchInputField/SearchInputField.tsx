@@ -13,6 +13,7 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 type ButtonProps = {
   onClick?: () => void
   testId?: string
+  'aria-label'?: string
 }
 export interface SearchInputFieldProps extends InputProps {
   /**
@@ -68,6 +69,9 @@ const SearchInputField = forwardRef<
     }
   }
 
+  const { 'aria-label': buttonAriaLabel, ...otherButtonProps } =
+    buttonProps ?? {}
+
   useImperativeHandle(ref, () => ({
     inputRef: inputRef.current,
     formRef: formRef.current,
@@ -89,10 +93,10 @@ const SearchInputField = forwardRef<
       />
       <IconButton
         type="submit"
-        aria-label="Submit Search"
+        aria-label={buttonAriaLabel ?? 'Submit Search'}
         icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
         size="small"
-        {...buttonProps}
+        {...otherButtonProps}
       />
     </form>
   )

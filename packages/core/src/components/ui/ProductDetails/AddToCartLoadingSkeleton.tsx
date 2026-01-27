@@ -1,4 +1,8 @@
-export default function AddToCartLoadingSkeleton() {
+export default function AddToCartLoadingSkeleton({
+  loadingLabel,
+}: {
+  loadingLabel?: string
+}) {
   return (
     // Generated via https://skeletonreact.com/.
     <svg
@@ -9,7 +13,7 @@ export default function AddToCartLoadingSkeleton() {
       viewBox="0 0 112 48"
       preserveAspectRatio="none"
     >
-      <title id="loading-aria">Loading...</title>
+      <title id="loading-aria">{loadingLabel}</title>
       <rect
         x="0"
         y="0"
