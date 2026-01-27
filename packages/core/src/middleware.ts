@@ -88,6 +88,9 @@ export function middleware(request: NextRequest) {
     //   continue
     // }
 
+    // TODO: re-enable validation of locale in subdomain bindings
+    // useLocaleValidation()
+
     const match = pathname.match(rule.regex)
     if (!match) continue
 
