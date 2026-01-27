@@ -5,9 +5,20 @@ import { useQuickOrderDrawer } from './provider/QuickOrderDrawerProvider'
 
 export type QuickOrderDrawerFooterProps = {
   formatter?: PriceFormatter
+  /**
+   * Text labels for CMS configuration
+   */
+  labels?: {
+    itemsLabel?: string
+    addToCartLabel?: string
+    addToCartAriaLabel?: string
+  }
 }
 
-const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
+const QuickOrderDrawerFooter = ({
+  formatter,
+  labels,
+}: QuickOrderDrawerFooterProps) => {
   const [loading, setLoading] = useState(false)
   const {
     itemsCount,
@@ -16,6 +27,11 @@ const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
     formatter: contextFormatter,
   } = useQuickOrderDrawer()
   const priceFormatter = formatter || contextFormatter
+
+  const itemsLabel = labels?.itemsLabel ?? 'items'
+  const addToCartLabel = labels?.addToCartLabel ?? 'Add to Cart'
+  const addToCartAriaLabel =
+    labels?.addToCartAriaLabel ?? `Add ${itemsCount} items to cart`
 
   const handleAddToCart = () => {
     if (loading || itemsCount === 0) return
@@ -27,7 +43,9 @@ const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
   return (
     <div data-fs-quick-order-drawer-footer>
       <div data-fs-quick-order-drawer-footer-price-container>
-        <span>{itemsCount} items</span>
+        <span>
+          {itemsCount} {itemsLabel}
+        </span>
         <Price
           value={totalPrice}
           variant="selling"
@@ -40,9 +58,9 @@ const QuickOrderDrawerFooter = ({ formatter }: QuickOrderDrawerFooterProps) => {
         loading={loading}
         disabled={itemsCount === 0}
         onClick={handleAddToCart}
-        aria-label={`Add ${itemsCount} items to cart`}
+        aria-label={addToCartAriaLabel}
       >
-        Add to Cart
+        {addToCartLabel}
       </Button>
     </div>
   )
