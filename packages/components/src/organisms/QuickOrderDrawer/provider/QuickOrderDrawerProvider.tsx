@@ -6,6 +6,7 @@ import React, {
   useCallback,
   type ReactNode,
 } from 'react'
+import type { PriceFormatter } from '../../../atoms/Price'
 
 export interface Product {
   id: string
@@ -40,6 +41,7 @@ interface QuickOrderDrawerContextValue {
   onChangeQuantityItem: (id: string, value: number) => void
   onDelete: (id: string) => void
   onAddToCart: () => void
+  formatter?: PriceFormatter
 }
 
 const QuickOrderDrawerContext = createContext<
@@ -54,6 +56,7 @@ export interface QuickOrderDrawerProviderProps {
     totalPrice: number,
     itemsCount: number
   ) => void
+  formatter?: PriceFormatter
 }
 
 // Mock data for demonstration
@@ -87,6 +90,7 @@ export const QuickOrderDrawerProvider = ({
   children,
   initialProducts = mockProducts,
   onAddToCart: onAddToCartCallback,
+  formatter,
 }: QuickOrderDrawerProviderProps) => {
   const [products, setProducts] = useState<Product[]>(initialProducts)
   const [alertMessage, setAlertMessage] = useState<string>(
@@ -127,8 +131,17 @@ export const QuickOrderDrawerProvider = ({
         product.selectedCount > 0 && product.availability === 'available'
     )
 
-    onAddToCartCallback?.(productsToAdd, totalPrice, itemsCount)
-  }, [products, totalPrice, itemsCount, onAddToCartCallback])
+    const filteredTotalPrice = productsToAdd.reduce(
+      (sum, product) => sum + product.price * product.selectedCount,
+      0
+    )
+    const filteredItemsCount = productsToAdd.reduce(
+      (sum, product) => sum + product.selectedCount,
+      0
+    )
+
+    onAddToCartCallback?.(productsToAdd, filteredTotalPrice, filteredItemsCount)
+  }, [products, onAddToCartCallback])
 
   const value: QuickOrderDrawerContextValue = {
     products,
@@ -139,6 +152,7 @@ export const QuickOrderDrawerProvider = ({
     onChangeQuantityItem,
     onDelete,
     onAddToCart,
+    formatter,
   }
 
   return (
