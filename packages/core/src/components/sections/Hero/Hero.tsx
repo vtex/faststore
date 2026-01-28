@@ -69,7 +69,11 @@ const Hero = ({
         <HeroHeader.Component
           title={title}
           subtitle={subtitle}
-          link={addCustomPathPrefix(link?.url, router?.asPath ?? '')}
+          link={
+            link?.url
+              ? addCustomPathPrefix(link.url, router?.asPath ?? '')
+              : undefined
+          }
           linkText={link?.text}
           linkTargetBlank={link?.linkTargetBlank}
           icon={icon}
