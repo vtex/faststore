@@ -44,12 +44,24 @@ export type QuickOrderDrawerProductsProps = {
   columns: VariationProductColumn
   formatter?: PriceFormatter
   ImageComponent?: ImageComponentType
+  /**
+   * Messages for CMS configuration
+   */
+  messages?: {
+    invalidQuantityTitle?: string
+    invalidQuantityMessage?: (
+      min: number,
+      max: number,
+      quantity: number
+    ) => string
+  }
 }
 
 const QuickOrderDrawerProducts = ({
   columns,
   formatter,
   ImageComponent = DefaultImageComponent,
+  messages,
 }: QuickOrderDrawerProductsProps) => {
   const { pushToast } = useUI()
   const {
@@ -234,18 +246,29 @@ const QuickOrderDrawerProducts = ({
                             maxValue: number,
                             quantity: number
                           ) => {
-                            pushToast({
-                              title: 'Invalid quantity!',
-                              message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
-                              status: 'INFO',
-                              icon: (
-                                <Icon
-                                  name="CircleWavyWarning"
-                                  width={30}
-                                  height={30}
-                                />
-                              ),
-                            })
+                            const title = messages?.invalidQuantityTitle
+                            const message = messages?.invalidQuantityMessage
+                              ? messages.invalidQuantityMessage(
+                                  min,
+                                  maxValue,
+                                  quantity
+                                )
+                              : undefined
+
+                            if (title && message) {
+                              pushToast({
+                                title,
+                                message,
+                                status: 'INFO',
+                                icon: (
+                                  <Icon
+                                    name="CircleWavyWarning"
+                                    width={30}
+                                    height={30}
+                                  />
+                                ),
+                              })
+                            }
                           }}
                         />
                       </div>

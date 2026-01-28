@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../../atoms/Button'
 import Price, { type PriceFormatter } from '../../atoms/Price'
 import { useQuickOrderDrawer } from './provider/QuickOrderDrawerProvider'
@@ -19,7 +19,6 @@ const QuickOrderDrawerFooter = ({
   formatter,
   labels,
 }: QuickOrderDrawerFooterProps) => {
-  const [loading, setLoading] = useState(false)
   const {
     itemsCount,
     totalPrice,
@@ -27,24 +26,18 @@ const QuickOrderDrawerFooter = ({
     formatter: contextFormatter,
   } = useQuickOrderDrawer()
   const priceFormatter = formatter || contextFormatter
-
-  const itemsLabel = labels?.itemsLabel ?? 'items'
-  const addToCartLabel = labels?.addToCartLabel ?? 'Add to Cart'
-  const addToCartAriaLabel =
-    labels?.addToCartAriaLabel ?? `Add ${itemsCount} items to cart`
+  const { itemsLabel, addToCartLabel, addToCartAriaLabel } = labels || {}
 
   const handleAddToCart = () => {
-    if (loading || itemsCount === 0) return
-    setLoading(true)
+    if (itemsCount === 0) return
     onAddToCart()
-    setLoading(false)
   }
 
   return (
     <div data-fs-quick-order-drawer-footer>
       <div data-fs-quick-order-drawer-footer-price-container>
         <span>
-          {itemsCount} {itemsLabel}
+          {itemsCount} {itemsLabel || ''}
         </span>
         <Price
           value={totalPrice}
@@ -55,12 +48,11 @@ const QuickOrderDrawerFooter = ({
       <Button
         data-fs-quick-order-drawer-add-to-cart-btn
         variant="primary"
-        loading={loading}
         disabled={itemsCount === 0}
         onClick={handleAddToCart}
         aria-label={addToCartAriaLabel}
       >
-        {addToCartLabel}
+        {addToCartLabel || ''}
       </Button>
     </div>
   )
