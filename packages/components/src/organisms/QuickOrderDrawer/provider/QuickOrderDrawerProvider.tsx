@@ -103,7 +103,12 @@ export const QuickOrderDrawerProvider = ({
   )
 
   const { totalPrice, itemsCount } = useMemo(() => {
-    return products.reduce<{ totalPrice: number; itemsCount: number }>(
+    const filteredProducts = products.filter(
+      (product) =>
+        product.selectedCount > 0 && product.availability === 'available'
+    )
+
+    return filteredProducts.reduce<{ totalPrice: number; itemsCount: number }>(
       (prev, curr) => ({
         totalPrice: prev.totalPrice + curr.price * curr.selectedCount,
         itemsCount: prev.itemsCount + curr.selectedCount,
@@ -136,17 +141,8 @@ export const QuickOrderDrawerProvider = ({
         product.selectedCount > 0 && product.availability === 'available'
     )
 
-    const filteredTotalPrice = productsToAdd.reduce(
-      (sum, product) => sum + product.price * product.selectedCount,
-      0
-    )
-    const filteredItemsCount = productsToAdd.reduce(
-      (sum, product) => sum + product.selectedCount,
-      0
-    )
-
-    onAddToCartCallback?.(productsToAdd, filteredTotalPrice, filteredItemsCount)
-  }, [products, onAddToCartCallback])
+    onAddToCartCallback?.(productsToAdd, totalPrice, itemsCount)
+  }, [products, totalPrice, itemsCount, onAddToCartCallback])
 
   const value: QuickOrderDrawerContextValue = {
     products,
