@@ -187,7 +187,16 @@ export class ContentService {
     const clientCP = this.getClientCP(locale)
     const { entries } = await clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
-      console.warn('No entries found for params', params)
+      // Optional content types - suppress warning as these are expected to be missing
+      const optionalContentTypes = [
+        'globalHeaderSections',
+        'globalFooterSections',
+      ]
+      const isOptional = optionalContentTypes.includes(params.contentType)
+
+      if (!isOptional) {
+        console.warn('No entries found for params', params)
+      }
       return {} as PageContentType
     }
     if (entries.length > 1) {
