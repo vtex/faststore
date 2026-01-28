@@ -1,0 +1,130 @@
+{
+  "plp": {
+    "$extends": ["#/components/base-page-template"],
+    "$singleton": false,
+    "type": "object",
+    "title": "Product List Page",
+    "properties": {
+      "template": {
+        "title": "Template",
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "PLP template value (e.g. Slug: /department/category/subcategory)",
+            "type": "string",
+            "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is left empty, the generic PLP template will be applied."
+          }
+        },
+        "$componentTitle": "Template"
+      },
+      "productGallery": {
+        "title": "Product Gallery",
+        "description": "ProductGallery options",
+        "type": "object",
+        "required": ["itemsPerPage", "sortBySelection"],
+        "properties": {
+          "itemsPerPage": {
+            "title": "Number of ProductCards per page",
+            "type": "integer",
+            "default": 12
+          },
+          "sortBySelection": {
+            "title": "Default sort by value",
+            "type": "string",
+            "default": "score_desc",
+            "enumNames": [
+              "Price, descending",
+              "Price, ascending",
+              "Top sales",
+              "Name, A-Z",
+              "Name, Z-A",
+              "Release date",
+              "Discount",
+              "Relevance"
+            ],
+            "enum": [
+              "price_desc",
+              "price_asc",
+              "orders_desc",
+              "name_asc",
+              "name_desc",
+              "release_desc",
+              "discount_desc",
+              "score_desc"
+            ]
+          }
+        },
+        "$componentTitle": "Product Gallery"
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/Search"
+            },
+            {
+              "$ref": "#/components/Navbar"
+            },
+            {
+              "$ref": "#/components/Alert"
+            },
+            {
+              "$ref": "#/components/Footer"
+            },
+            {
+              "$ref": "#/components/BannerText"
+            },
+            {
+              "$ref": "#/components/Hero"
+            },
+            {
+              "$ref": "#/components/Incentives"
+            },
+            {
+              "$ref": "#/components/ProductShelf"
+            },
+            {
+              "$ref": "#/components/ProductTiles"
+            },
+            {
+              "$ref": "#/components/Newsletter"
+            },
+            {
+              "$ref": "#/components/Children"
+            },
+            {
+              "$ref": "#/components/BannerNewsletter"
+            },
+            {
+              "$ref": "#/components/Breadcrumb"
+            },
+            {
+              "$ref": "#/components/ProductGallery"
+            },
+            {
+              "$ref": "#/components/CartSidebar"
+            },
+            {
+              "$ref": "#/components/RegionBar"
+            },
+            {
+              "$ref": "#/components/RegionModal"
+            },
+            {
+              "$ref": "#/components/RegionPopover"
+            },
+            {
+              "$ref": "#/components/EmptyState"
+            }
+          ]
+        }
+      }
+    },
+    "readOnly": false,
+    "writeOnly": false,
+    "deprecated": false,
+    "$abstract": false,
+    "identifierKeys": ["slug"]
+  }
+}

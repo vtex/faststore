@@ -1,6 +1,6 @@
 {
   "name": "@faststore/storybook",
-  "version": "3.95.0",
+  "version": "3.96.4-dev.0",
   "private": true,
   "engines": {
     "node": ">=20"

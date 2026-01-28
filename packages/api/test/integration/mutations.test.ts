@@ -41,6 +41,8 @@ const createRunner = () => {
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
     const context = contextFactory({})
+    const orderFormCookie =
+      'checkout.vtex.com=__ofid=edbe3b03c8c94827a37ec5a6a4648fd2'
 
     return execute({
       schema,
@@ -48,7 +50,10 @@ const createRunner = () => {
       rootValue: null,
       contextValue: {
         ...context,
-        headers: { 'content-type': 'application/json', cookie: '' },
+        headers: {
+          'content-type': 'application/json',
+          cookie: orderFormCookie,
+        },
       },
       variableValues: variables,
     })

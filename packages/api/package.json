@@ -1,11 +1,15 @@
 {
   "name": "@faststore/api",
-  "version": "3.95.0",
+  "version": "3.96.4-dev.0",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "typings": "dist/src/index.d.ts",
   "module": "dist/es/index.mjs",
-  "repository": "vtex/faststore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/api"
+  },
   "files": [
     "dist",
     "src"
@@ -68,5 +72,8 @@
   },
   "peerDependencies": {
     "graphql": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

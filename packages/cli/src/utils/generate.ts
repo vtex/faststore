@@ -28,7 +28,12 @@ interface GenerateOptions {
 }
 
 // package.json is copied manually after filtering its content
-const ignorePaths = ['package.json', 'node_modules', 'cypress.config.ts']
+const ignorePaths = [
+  'package.json',
+  'node_modules',
+  'cypress.config.ts',
+  'base.jsonc', // CP special file, it must not be copied to the merchants' temp dir
+]
 
 function createTmpFolder(basePath: string) {
   const { tmpDir, tmpFolderName } = withBasePath(basePath)
