@@ -15,6 +15,7 @@ import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 type Props = {
   page: PageContentType
@@ -52,6 +53,8 @@ function Page({
     {} as Record<string, string>
   )
 
+  const storeUrl = getStoreURL()
+
   return (
     <>
       {/* SEO */}
@@ -59,10 +62,10 @@ function Page({
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
         titleTemplate={titleTemplate}
-        canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
+        canonical={settings?.seo?.canonical ?? storeUrl}
         openGraph={{
           type: 'website',
-          url: storeConfig.storeUrl,
+          url: storeUrl,
           title: settings?.seo?.title ?? storeConfig.seo.title,
           description:
             settings?.seo?.description ?? storeConfig.seo.description,
@@ -71,10 +74,10 @@ function Page({
       <SiteLinksSearchBoxJsonLd
         type="WebSite"
         name={settings?.seo?.name ?? storeConfig.seo.name}
-        url={storeConfig.storeUrl}
+        url={storeUrl}
         potentialActions={[
           {
-            target: `${storeConfig.storeUrl}/s/?q`,
+            target: `${storeUrl}/s/?q`,
             queryInput: 'search_term_string',
           },
         ]}

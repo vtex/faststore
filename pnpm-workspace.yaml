@@ -17,7 +17,7 @@ catalog:
   '@jest/globals': 29.7.0
   '@next/third-parties': ^15.5.3
   '@playwright/test': ^1.55.0
-  '@testing-library/react': ^14.3.0
+  '@testing-library/react': 14.3.1
   '@types/jest': 29.1.0
   '@types/node': 20.19.13
   '@types/react': ^18

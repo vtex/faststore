@@ -6,6 +6,7 @@ import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import styles from './section.module.scss'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 type OrganizationDrawerProps = {
   isOpen: boolean
@@ -16,7 +17,7 @@ type OrganizationDrawerProps = {
 export const doLogout = () => {
   if (!storeConfig) return
   window.location.assign(
-    `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
+    `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${getStoreURL()}`
   )
 }
 

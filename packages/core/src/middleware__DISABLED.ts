@@ -10,6 +10,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
+import { getStoreURL } from './sdk/localization/useLocalizationConfig'
 
 type Redirect = {
   from: string
@@ -35,7 +36,7 @@ export async function middleware(request: NextRequest) {
   const redirect = await redirectsClient.get(pathname)
 
   if (redirect) {
-    const redirectUrl = new URL(redirect.to, storeConfig.storeUrl)
+    const redirectUrl = new URL(redirect.to, getStoreURL())
     const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
 
     const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
