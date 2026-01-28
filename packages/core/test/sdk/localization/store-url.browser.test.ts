@@ -3,7 +3,7 @@ import { getStoreURL } from '../../../src/sdk/localization/useLocalizationConfig
 
 vi.mock(import('../../../discovery.config.js'), async (original) => ({
   default: {
-    ...((await original()).default ?? {}),
+    ...((await original()).default ?? (await original())),
     localization: {
       enabled: true,
       defaultLocale: 'pt-BR',
