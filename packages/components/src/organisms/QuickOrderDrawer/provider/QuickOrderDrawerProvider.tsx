@@ -57,6 +57,10 @@ export interface QuickOrderDrawerProviderProps {
     itemsCount: number
   ) => void
   formatter?: PriceFormatter
+  /**
+   * Initial alert message for CMS configuration
+   */
+  initialAlertMessage?: string
 }
 
 // Mock data for demonstration
@@ -91,10 +95,11 @@ export const QuickOrderDrawerProvider = ({
   initialProducts = mockProducts,
   onAddToCart: onAddToCartCallback,
   formatter,
+  initialAlertMessage,
 }: QuickOrderDrawerProviderProps) => {
   const [products, setProducts] = useState<Product[]>(initialProducts)
   const [alertMessage, setAlertMessage] = useState<string>(
-    'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
+    initialAlertMessage || ''
   )
 
   const { totalPrice, itemsCount } = useMemo(() => {

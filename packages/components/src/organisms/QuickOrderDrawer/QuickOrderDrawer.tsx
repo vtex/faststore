@@ -26,6 +26,11 @@ export type QuickOrderDrawerProps = {
    * Formatter function that transforms the raw price value and render the result.
    */
   formatter?: PriceFormatter
+
+  /**
+   * Initial alert message for CMS configuration
+   */
+  initialAlertMessage?: string
 }
 
 const QuickOrderDrawer = ({
@@ -33,11 +38,15 @@ const QuickOrderDrawer = ({
   isOpen,
   overlayProps,
   formatter,
+  initialAlertMessage,
   children,
 }: PropsWithChildren<QuickOrderDrawerProps>) => {
   const { fade } = useFadeEffect()
   return (
-    <QuickOrderDrawerProvider formatter={formatter}>
+    <QuickOrderDrawerProvider
+      formatter={formatter}
+      initialAlertMessage={initialAlertMessage}
+    >
       <SlideOver
         testId={testId}
         fade={fade}

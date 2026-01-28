@@ -405,6 +405,7 @@ export {
   QuickOrderDrawerFooter,
   QuickOrderDrawerHeader,
   QuickOrderDrawerProducts,
+  useQuickOrderDrawer,
 } from './organisms/QuickOrderDrawer'
 
 export type {
