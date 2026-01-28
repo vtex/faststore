@@ -63,43 +63,16 @@ export interface QuickOrderDrawerProviderProps {
   initialAlertMessage?: string
 }
 
-// Mock data for demonstration
-const mockProducts: Product[] = [
-  ...Array.from(
-    { length: 4 },
-    (_, i): Product => ({
-      id: `SGS23U-256GRN-EU${i}`,
-      price: 1249.9,
-      quantityUpdated: i % 3 === 0,
-      availability: i % 4 ? 'available' : 'outOfStock',
-      inventory: 100,
-      name: `Business Smartphone X5 256GB/8GB ${['Green', 'Phantom Black', 'Lavender', 'Cream'][i]}`,
-      selectedCount: i % 4 ? [18, 20, 20, 12][i] : 0,
-      image: { url: '/image.png', alternateName: 'Business Smartphone' },
-    })
-  ),
-  {
-    id: 'SGS23U-512BLK-EU',
-    price: 1499.9,
-    availability: 'available',
-    inventory: 100,
-    name: 'Business Smartphone X5 512GB/12GB Phantom Black',
-    selectedCount: 40,
-    quantityUpdated: false,
-    image: { url: '/image.png', alternateName: 'Business Smartphone' },
-  },
-]
-
 export const QuickOrderDrawerProvider = ({
   children,
-  initialProducts = mockProducts,
+  initialProducts = [],
   onAddToCart: onAddToCartCallback,
   formatter,
   initialAlertMessage,
 }: QuickOrderDrawerProviderProps) => {
   const [products, setProducts] = useState<Product[]>(initialProducts)
   const [alertMessage, setAlertMessage] = useState<string>(
-    initialAlertMessage || ''
+    initialAlertMessage ?? ''
   )
 
   const { totalPrice, itemsCount } = useMemo(() => {
