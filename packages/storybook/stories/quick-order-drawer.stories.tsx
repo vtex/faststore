@@ -50,6 +50,30 @@ const messages = {
 const initialAlertMessage =
   'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
 
+// Mock products for storybook testing only
+const mockProducts = [
+  ...Array.from({ length: 4 }, (_, i) => ({
+    id: `SGS23U-256GRN-EU${i}`,
+    price: 1249.9,
+    quantityUpdated: i % 3 === 0,
+    availability: i % 4 ? 'available' : 'outOfStock',
+    inventory: 100,
+    name: `Business Smartphone X5 256GB/8GB ${['Green', 'Phantom Black', 'Lavender', 'Cream'][i]}`,
+    selectedCount: i % 4 ? [18, 20, 20, 12][i] : 0,
+    image: { url: '/image.png', alternateName: 'Business Smartphone' },
+  })),
+  {
+    id: 'SGS23U-512BLK-EU',
+    price: 1499.9,
+    availability: 'available',
+    inventory: 100,
+    name: 'Business Smartphone X5 512GB/12GB Phantom Black',
+    selectedCount: 40,
+    quantityUpdated: false,
+    image: { url: '/image.png', alternateName: 'Business Smartphone' },
+  },
+]
+
 export function Default() {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -59,6 +83,7 @@ export function Default() {
       <QuickOrderDrawer
         isOpen={isOpen}
         initialAlertMessage={initialAlertMessage}
+        initialProducts={mockProducts as unknown as any[]}
       >
         <>
           <QuickOrderDrawerHeader
@@ -82,6 +107,7 @@ export function WithLongTitle() {
       <QuickOrderDrawer
         isOpen={isOpen}
         initialAlertMessage={initialAlertMessage}
+        initialProducts={mockProducts as unknown as any[]}
       >
         <QuickOrderDrawerHeader
           title="abcdefghijklmnopqrstuvwxyz1234567890.xlsx"
@@ -111,6 +137,7 @@ export function WithStockQuantity() {
       <QuickOrderDrawer
         isOpen={isOpen}
         initialAlertMessage={initialAlertMessage}
+        initialProducts={mockProducts as unknown as any[]}
       >
         <QuickOrderDrawerHeader
           title="order-file.xlsx"
@@ -135,6 +162,7 @@ export function OpenByDefault() {
       <QuickOrderDrawer
         isOpen={isOpen}
         initialAlertMessage={initialAlertMessage}
+        initialProducts={mockProducts as unknown as any[]}
       >
         <QuickOrderDrawerHeader
           title="order-file.xlsx"

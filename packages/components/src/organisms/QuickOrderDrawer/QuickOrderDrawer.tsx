@@ -4,7 +4,10 @@ import type { PriceFormatter } from '../../atoms/Price'
 import { useFadeEffect } from '../../hooks'
 import SlideOver from '../SlideOver/SlideOver'
 
-import { QuickOrderDrawerProvider } from './provider/QuickOrderDrawerProvider'
+import {
+  type Product,
+  QuickOrderDrawerProvider,
+} from './provider/QuickOrderDrawerProvider'
 
 export type QuickOrderDrawerProps = {
   /**
@@ -31,6 +34,11 @@ export type QuickOrderDrawerProps = {
    * Initial alert message for CMS configuration
    */
   initialAlertMessage?: string
+
+  /**
+   * Initial products for the Quick Order Drawer
+   */
+  initialProducts?: Product[]
 }
 
 const QuickOrderDrawer = ({
@@ -39,6 +47,7 @@ const QuickOrderDrawer = ({
   overlayProps,
   formatter,
   initialAlertMessage,
+  initialProducts,
   children,
 }: PropsWithChildren<QuickOrderDrawerProps>) => {
   const { fade } = useFadeEffect()
@@ -46,6 +55,7 @@ const QuickOrderDrawer = ({
     <QuickOrderDrawerProvider
       formatter={formatter}
       initialAlertMessage={initialAlertMessage}
+      initialProducts={initialProducts}
     >
       <SlideOver
         testId={testId}
