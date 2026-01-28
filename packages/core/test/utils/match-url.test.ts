@@ -5,6 +5,7 @@ vi.mock(import('../../discovery.config.js'), async (original) => ({
   default: {
     ...((await original()).default ?? {}),
     localization: {
+      enabled: true,
       defaultLocale: 'pt-BR',
       regions: {
         CA: {

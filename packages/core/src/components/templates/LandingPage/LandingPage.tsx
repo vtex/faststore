@@ -21,6 +21,7 @@ import type { PageContentType } from 'src/server/cms'
 import storeConfig from 'discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -62,6 +63,8 @@ export default function LandingPage({
     storeConfig.seo.titleTemplate ??
     storeConfig.seo.title
 
+  const storeURL = getStoreURL()
+
   return (
     <>
       {/* SEO */}
@@ -69,22 +72,20 @@ export default function LandingPage({
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
         titleTemplate={titleTemplate}
-        canonical={
-          settings?.seo?.canonical ?? `${storeConfig.storeUrl}/${slug}`
-        }
+        canonical={settings?.seo?.canonical ?? `${storeURL}/${slug}`}
         openGraph={{
           type: 'website',
-          url: storeConfig.storeUrl,
+          url: storeURL,
           title: settings?.seo?.title ?? storeConfig.seo.title,
           description:
             settings?.seo?.description ?? storeConfig.seo.description,
         }}
       />
       <SiteLinksSearchBoxJsonLd
-        url={storeConfig.storeUrl}
+        url={storeURL}
         potentialActions={[
           {
-            target: `${storeConfig.storeUrl}/s/?q`,
+            target: `${storeURL}/s/?q`,
             queryInput: 'search_term_string',
           },
         ]}

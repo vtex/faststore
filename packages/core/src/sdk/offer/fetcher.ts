@@ -1,11 +1,12 @@
 import type { ProductSearchResult } from '@faststore/api'
-import { api, storeUrl } from '../../../discovery.config'
+import { api } from '../../../discovery.config'
+import { getStoreURL } from '../localization/useLocalizationConfig'
 
 const IS_PROD = process.env.NODE_ENV === 'production'
 
 export function getUrl(skuId: string) {
   const base = IS_PROD
-    ? storeUrl
+    ? getStoreURL()
     : `https://${api.storeId}.${api.environment}.com.br`
   const url = new URL(`${base}/api/intelligent-search/product_search`)
   url.searchParams.append('query', `sku.id:${skuId}`)

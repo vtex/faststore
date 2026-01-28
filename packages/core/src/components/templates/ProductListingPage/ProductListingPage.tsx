@@ -20,6 +20,7 @@ import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
@@ -101,16 +102,17 @@ export default function ProductListingPage({
     collection?.seo.description || // Use description that comes from the Checkout API
     plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
     storeSeo.description // Use default description from the store SEO config
+  const storeURL = getStoreURL()
 
   const [pathname] = router.asPath.split('?')
-  const canonical = `${storeConfig.storeUrl}${pathname}`
+  const canonical = `${storeURL}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   let itemListElements = collection?.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = storeURL + pathname
 
         return { name, position, item: pageUrl }
       }

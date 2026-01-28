@@ -4,6 +4,7 @@ import ClientCMS from '@vtex/client-cms'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import { sanitizeHost } from 'src/utils/utilities'
 import config from '../../../discovery.config'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 export type Options =
   | Locator
@@ -75,7 +76,7 @@ export const clientCMS = new ClientCMS({
   tenant: config.api.storeId,
   builder:
     (config.contentSource as Record<string, string>)?.project ?? 'faststore',
-  host: sanitizeHost(config.storeUrl),
+  host: sanitizeHost(getStoreURL()),
 })
 
 export const getCMSPage = async (
