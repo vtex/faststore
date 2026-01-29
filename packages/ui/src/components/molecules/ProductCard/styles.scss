@@ -167,9 +167,15 @@
     @include truncate-title(var(--fs-product-card-title-max-lines));
   }
 
+  [data-fs-product-card-prices-wrapper] {
+    display: flex;
+    align-items: end;
+  }
+
   [data-fs-product-card-prices] {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
 
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-product-card-price-size);
