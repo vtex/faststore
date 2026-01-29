@@ -427,6 +427,9 @@ export type {
   QuickOrderDrawerProductsProps,
   QuickOrderDrawerProps,
 } from './organisms/QuickOrderDrawer'
+<<<<<<< HEAD
 
 export { default as Dropzone } from './molecules/Dropzone'
 export type { DropzoneProps, DropzoneState } from './molecules/Dropzone'
+=======
+>>>>>>> ed71e1900 (feat: Criaçao do Quick Order Drawer (#3140))
