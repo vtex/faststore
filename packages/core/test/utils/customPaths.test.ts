@@ -2,7 +2,7 @@ import { vi } from 'vitest'
 import { describe, expect, it } from 'vitest'
 
 vi.mock('../../discovery.config.js', async () => {
-  const original = await import('../../discovery.config.js')
+  const original = await vi.importActual('../../discovery.config.js')
   return {
     default: {
       ...(original.default ?? {}),
