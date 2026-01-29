@@ -4,8 +4,12 @@ import type { SWRConfiguration } from 'swr'
 import { request } from './request'
 import type { Operation, RequestOptions } from './request'
 
-export type QueryOptions = SWRConfiguration &
-  RequestOptions & { doNotRun?: boolean }
+type CustomOptions = {
+  doNotRun?: boolean
+  fullQueryResponse?: boolean
+}
+
+export type QueryOptions = SWRConfiguration & RequestOptions & CustomOptions
 
 export const getKey = <Variables>(
   operationName: string,
