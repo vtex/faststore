@@ -16,6 +16,7 @@ const {
   copySync,
   existsSync,
   mkdirsSync,
+  moveSync,
   readFileSync,
   readdirSync,
   removeSync,
@@ -517,6 +518,47 @@ function enableRedirectsMiddleware(basePath: string) {
       logger.log(
         `${chalk.green('success')} Redirects middleware has been enabled`
       )
+    }
+  } catch (error) {
+    logger.error(error)
+    throw error
+  }
+}
+
+const I18N_MIDDLEWARE_DISABLED_FILENAME = 'middleware__I18N_DISABLED.ts'
+
+/**
+ * Toggle i18n middleware based on localization feature flag (localization.enabled) in discovery config.
+ * When flag is off: renames middleware.ts → middleware__I18N_DISABLED.ts so Next.js does not run it.
+ * When flag is on: renames middleware__I18N_DISABLED.ts → middleware.ts so Next.js runs it.
+ */
+export function toggleI18nMiddlewareByLocalizationFlag(
+  basePath: string,
+  localizationEnabled: boolean
+): void {
+  try {
+    const { tmpDir } = withBasePath(basePath)
+    const middlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
+    const disabledPath = path.join(
+      tmpDir,
+      'src',
+      I18N_MIDDLEWARE_DISABLED_FILENAME
+    )
+
+    if (localizationEnabled) {
+      if (existsSync(disabledPath) && !existsSync(middlewarePath)) {
+        moveSync(disabledPath, middlewarePath)
+        logger.log(
+          `${chalk.green('success')} i18n middleware enabled (renamed from ${I18N_MIDDLEWARE_DISABLED_FILENAME})`
+        )
+      }
+    } else {
+      if (existsSync(middlewarePath)) {
+        moveSync(middlewarePath, disabledPath)
+        logger.log(
+          `${chalk.green('success')} i18n middleware disabled (renamed to ${I18N_MIDDLEWARE_DISABLED_FILENAME})`
+        )
+      }
     }
   } catch (error) {
     logger.error(error)
