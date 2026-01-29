@@ -100,7 +100,8 @@ function extractCustomPathPrefix(pathname: string): string | null {
   const customPaths = getCustomPathsFromBindings()
 
   for (const { path } of customPaths) {
-    if (pathname.startsWith(path)) {
+    // Match exact path or path with segment boundary (e.g., '/it' matches '/it' or '/it/apparel' but not '/item')
+    if (pathname === path || pathname.startsWith(`${path}/`)) {
       return path
     }
   }
@@ -121,7 +122,8 @@ function hasCustomPathPrefix(link: string): boolean {
   const customPaths = getCustomPathsFromBindings()
 
   for (const { path } of customPaths) {
-    if (link.startsWith(path)) {
+    // Match exact path or path with segment boundary (e.g., '/it' matches '/it' or '/it/apparel' but not '/item')
+    if (link === path || link.startsWith(`${path}/`)) {
       return true
     }
   }

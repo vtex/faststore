@@ -50,6 +50,35 @@ vi.mock('../../discovery.config.js', async () => {
               },
             ],
           },
+          'fr-CA': {
+            code: 'fr-CA',
+            name: 'français',
+            languageCode: 'fr',
+            languageName: 'French',
+            script: 'Latn',
+            textDirection: 'ltr',
+            regionCode: 'CA',
+            bindings: [
+              {
+                currencyCode: 'CAD',
+                url: 'https://brandless.fast.store/it',
+                salesChannel: '4',
+                isDefault: false,
+              },
+              {
+                currencyCode: 'USD',
+                url: 'https://brandless.fast.store/pt',
+                salesChannel: '5',
+                isDefault: false,
+              },
+              {
+                currencyCode: 'EUR',
+                url: 'https://brandless.fast.store/europe',
+                salesChannel: '6',
+                isDefault: false,
+              },
+            ],
+          },
         },
       },
     },
@@ -164,6 +193,110 @@ describe('customPaths', () => {
       if (currentPath.startsWith('/europe/it')) {
         expect(result).toBe('/europe/it/')
       }
+    })
+
+    describe('partial prefix match prevention', () => {
+      it('should match exact custom path', () => {
+        const link = '/apparel'
+        const currentPath = '/it'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/it/apparel')
+      })
+
+      it('should match custom path with segment boundary', () => {
+        const link = '/apparel'
+        const currentPath = '/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/it/apparel')
+      })
+
+      it('should NOT match partial prefix (/it vs /item)', () => {
+        const link = '/apparel'
+        const currentPath = '/item'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        // /item should NOT be treated as having /it prefix
+        expect(result).toBe('/apparel')
+      })
+
+      it('should NOT match partial prefix (/pt vs /pt-BR)', () => {
+        const link = '/apparel'
+        const currentPath = '/pt-BR'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        // /pt-BR is canonical, not custom path /pt
+        expect(result).toBe('/apparel')
+      })
+
+      it('should NOT match partial prefix (/europe vs /european)', () => {
+        const link = '/apparel'
+        const currentPath = '/european'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        // /european should NOT be treated as having /europe prefix
+        expect(result).toBe('/apparel')
+      })
+
+      it('should match longer custom path when both exist (/europe/it vs /it)', () => {
+        const link = '/apparel'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        // Should match /europe/it (longer) not /it
+        expect(result).toBe('/europe/it/apparel')
+      })
+
+      it('should handle exact match at root level', () => {
+        const link = '/apparel'
+        const currentPath = '/europe'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/apparel')
+      })
+
+      it('should handle exact match with trailing slash', () => {
+        const link = '/apparel'
+        const currentPath = '/europe/'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/apparel')
+      })
+    })
+
+    describe('hasCustomPathPrefix edge cases', () => {
+      it('should detect link with exact custom path prefix', () => {
+        const link = '/it/apparel'
+        const currentPath = '/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/it/apparel')
+      })
+
+      it('should NOT detect partial match as prefix (/item vs /it)', () => {
+        const link = '/item/apparel'
+        const currentPath = '/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/it/item/apparel')
+      })
+
+      it('should detect longer custom path prefix correctly', () => {
+        const link = '/europe/it/apparel'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/it/apparel')
+      })
+
+      it('should detect shorter custom path prefix when link has it', () => {
+        const link = '/it/apparel'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/it/apparel')
+      })
     })
   })
 })
