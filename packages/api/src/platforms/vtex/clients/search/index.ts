@@ -96,7 +96,7 @@ export const IntelligentSearch = (
   }: Options,
   ctx: Context
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
+  const base = `https://vtexisdev2--${account}.${environment}.com.br/api/io`
   const withCookie = getWithCookie(ctx)
 
   const host =
