@@ -24,6 +24,8 @@ export interface NavbarProps {
     placeholder?: string
     sort: string
     submitButtonAriaLabel?: string
+    searchHistoryTitle?: string
+    searchTopTitle?: string
     quickOrderSettings?: {
       quickOrder: boolean
       invalidQuantityToastLabels?: {

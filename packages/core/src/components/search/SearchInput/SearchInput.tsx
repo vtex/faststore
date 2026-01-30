@@ -55,6 +55,8 @@ export type SearchInputProps = {
   sort?: string
   submitButtonAriaLabel?: string
   loadingLabel?: string
+  searchHistoryTitle?: string
+  searchTopTitle?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -81,6 +83,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       quickOrderSettings,
       submitButtonAriaLabel,
       loadingLabel,
+      searchHistoryTitle,
+      searchTopTitle,
       ...otherProps
     },
     ref
@@ -180,6 +184,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
                   loadingLabel={loadingLabel}
+                  searchHistoryTitle={searchHistoryTitle}
+                  searchTopTitle={searchTopTitle}
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }

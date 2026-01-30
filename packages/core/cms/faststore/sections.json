@@ -227,6 +227,16 @@
               "type": "string",
               "default": "Submit Search"
             },
+            "searchHistoryTitle": {
+              "title": "Search History Title",
+              "type": "string",
+              "default": "History"
+            },
+            "searchTopTitle": {
+              "title": "Top Search Title",
+              "type": "string",
+              "default": "Top search"
+            },
             "quickOrderSettings": {
               "title": "Quick Order settings",
               "type": "object",

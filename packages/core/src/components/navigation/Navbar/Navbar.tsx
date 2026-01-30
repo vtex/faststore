@@ -179,6 +179,8 @@ function Navbar({
               quickOrderSettings={searchInput?.quickOrderSettings}
               submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
               loadingLabel={searchInput?.loadingLabel}
+              searchHistoryTitle={searchInput?.searchHistoryTitle}
+              searchTopTitle={searchInput?.searchTopTitle}
             />
           )}
 
@@ -211,6 +213,8 @@ function Navbar({
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
                 loadingLabel={searchInput?.loadingLabel}
+                searchHistoryTitle={searchInput?.searchHistoryTitle}
+                searchTopTitle={searchInput?.searchTopTitle}
               />
             )}
 
