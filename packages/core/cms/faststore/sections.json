@@ -1665,11 +1665,13 @@
           "title": "Icon",
           "type": "string",
           "enumNames": ["House"],
-          "enum": ["House"]
+          "enum": ["House"],
+          "default": "House"
         },
         "alt": {
           "title": "Alternative Label",
-          "type": "string"
+          "type": "string",
+          "default": "Go to homepage"
         }
       }
     }
