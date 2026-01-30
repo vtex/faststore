@@ -48,7 +48,8 @@ export class ContentService {
     const options = this.createContentOptions(params)
 
     if (isContentPlatformSource()) {
-      return this.getFromCP<T>(options, params.locale)
+      const locale = config.localization.enabled ? params.locale : undefined
+      return this.getFromCP<T>(options, locale)
     }
     return getPage(options.cmsOptions)
   }
@@ -59,14 +60,15 @@ export class ContentService {
     const options = this.createContentOptions(params)
 
     if (isContentPlatformSource()) {
-      const clientCP = this.getClientCP(params.locale)
+      const locale = config.localization.enabled ? params.locale : undefined
+      const clientCP = this.getClientCP(locale)
       const serviceParams = this.convertOptionsToParams(options)
       const { entries } = await clientCP.listEntries(serviceParams)
       return this.fillEntriesWithData(
         entries,
         serviceParams,
         options.isPreview,
-        params.locale
+        locale
       )
     }
     return getCMSPage(options.cmsOptions)
