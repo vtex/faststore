@@ -337,6 +337,11 @@
                       "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
                     }
                   }
+                },
+                "outOfStockLabel": {
+                  "title": "Out of Stock Label",
+                  "type": "string",
+                  "default": "Out of stock"
                 }
               }
             },

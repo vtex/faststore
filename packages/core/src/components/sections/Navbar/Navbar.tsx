@@ -45,6 +45,7 @@ export interface NavbarProps {
           }
         }
       }
+      outOfStockLabel?: string
     }
     loadingLabel?: string
   }
