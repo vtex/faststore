@@ -10,7 +10,7 @@
           "ui:widget": "slug"
         },
         "type": "string"
-       },
+      },
       "seo": {
         "title": "SEO",
         "description": "Search Engine Optimization options",
