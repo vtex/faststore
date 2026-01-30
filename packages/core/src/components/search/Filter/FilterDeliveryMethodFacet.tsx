@@ -17,7 +17,7 @@ export default function FilterDeliveryMethodFacet({
   const { openRegionSlider } = useUI()
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
-  const mapDeliveryMethodLabel: Record<string, string> = {
+  const mapDeliveryMethodLabel: Record<string, string | undefined> = {
     delivery: deliveryMethods?.delivery,
     'pickup-in-point': deliveryMethods?.pickupInPoint,
     'pickup-nearby': deliveryMethods?.pickupNearby,
