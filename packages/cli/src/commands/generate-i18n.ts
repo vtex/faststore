@@ -116,6 +116,25 @@ export default class GenerateI18n extends Command {
     const settings = await faststore.locales()
     const currentConfig = discoveryConfig?.default ?? discoveryConfig
 
+    // Validate contentSource configuration for localization
+    const shouldUseCP = currentConfig.localization.enabled
+    const currentContentSourceType =
+      currentConfig?.contentSource?.type?.toUpperCase()
+
+    if (shouldUseCP && currentContentSourceType !== 'CP') {
+      logger.error(
+        `\n${chalk.yellow('[Error]')} - Localization is enabled but contentSource is set to "${currentContentSourceType}".\n\n` +
+          `${chalk.cyan('Required Action:')}\n` +
+          `Update your ${chalk.bold('discovery.config.js')} file:\n\n` +
+          `  contentSource: {\n` +
+          `    type: ${chalk.green('"CP"')}\n` +
+          `  },\n\n` +
+          `${chalk.dim('When localization is enabled, Content Platform (CP) is required.')}\n`
+      )
+
+      process.exit(1)
+    }
+
     saveConfigFile(
       await format(
         `module.exports = ${JSON.stringify(
