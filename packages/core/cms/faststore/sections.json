@@ -349,6 +349,11 @@
               "title": "Loading Label",
               "type": "string",
               "default": "Loading..."
+            },
+            "collapseSearchAriaLabel": {
+              "title": "Collapse Search Button aria-label",
+              "type": "string",
+              "default": "Collapse search bar"
             }
           }
         },

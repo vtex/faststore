@@ -191,7 +191,10 @@ function Navbar({
             {searchExpanded && (
               <IconButton.Component
                 data-fs-button-collapse
-                aria-label="Collapse search bar"
+                aria-label={
+                  searchInput?.collapseSearchAriaLabel ??
+                  IconButton.props['aria-label']
+                }
                 icon={<UIIcon name="CaretLeft" width={32} height={32} />}
                 {...IconButton.props}
                 // Dynamic props, shouldn't be overridable
