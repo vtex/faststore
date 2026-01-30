@@ -202,7 +202,7 @@ function ProductDetailsSettings({
           }
           {...buyProps}
         >
-          {buyButtonTitle || 'Add to Cart'}
+          {buyButtonTitle}
         </BuyButton.Component>
       )}
     </>

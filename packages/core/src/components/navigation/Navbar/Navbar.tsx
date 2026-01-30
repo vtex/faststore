@@ -179,6 +179,8 @@ function Navbar({
               quickOrderSettings={searchInput?.quickOrderSettings}
               submitButtonAriaLabel={searchInput?.submitButtonAriaLabel}
               loadingLabel={searchInput?.loadingLabel}
+              searchHistoryTitle={searchInput?.searchHistoryTitle}
+              searchTopTitle={searchInput?.searchTopTitle}
             />
           )}
 
@@ -189,7 +191,10 @@ function Navbar({
             {searchExpanded && (
               <IconButton.Component
                 data-fs-button-collapse
-                aria-label="Collapse search bar"
+                aria-label={
+                  searchInput?.collapseSearchAriaLabel ??
+                  IconButton.props['aria-label']
+                }
                 icon={<UIIcon name="CaretLeft" width={32} height={32} />}
                 {...IconButton.props}
                 // Dynamic props, shouldn't be overridable
@@ -211,6 +216,8 @@ function Navbar({
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
                 loadingLabel={searchInput?.loadingLabel}
+                searchHistoryTitle={searchInput?.searchHistoryTitle}
+                searchTopTitle={searchInput?.searchTopTitle}
               />
             )}
 

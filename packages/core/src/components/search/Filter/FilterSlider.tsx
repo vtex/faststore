@@ -128,7 +128,7 @@ function FilterSlider({
         clearBtnProps={{
           variant: 'secondary',
           onClick: () => dispatch({ type: 'selectFacets', payload: [] }),
-          children: clearButtonLabel ?? 'Clear All',
+          children: clearButtonLabel,
         }}
         applyBtnProps={{
           variant: 'primary',
@@ -150,7 +150,7 @@ function FilterSlider({
               page: 0,
             })
           },
-          children: applyButtonLabel ?? 'Apply',
+          children: applyButtonLabel,
         }}
         onClose={() => {
           dispatch({
@@ -172,7 +172,7 @@ function FilterSlider({
               testId={testId}
               index={0}
               type=""
-              label={labelsMap[SHIPPING_FACET_KEY] ?? 'Delivery'}
+              label={labelsMap[SHIPPING_FACET_KEY]}
               description={
                 deliveryPromiseSettings?.deliveryMethods?.description
               }
@@ -183,8 +183,10 @@ function FilterSlider({
                 onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
                 icon={<UIIcon name="MapPin" />}
               >
-                {deliveryPromiseSettings?.deliveryMethods
-                  ?.setLocationButtonLabel ?? 'Set Location'}
+                {
+                  deliveryPromiseSettings?.deliveryMethods
+                    ?.setLocationButtonLabel
+                }
               </UIButton>
             </UIFilterFacets>
           )}

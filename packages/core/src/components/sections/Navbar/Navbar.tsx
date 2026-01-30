@@ -24,6 +24,9 @@ export interface NavbarProps {
     placeholder?: string
     sort: string
     submitButtonAriaLabel?: string
+    searchHistoryTitle?: string
+    searchTopTitle?: string
+    collapseSearchAriaLabel?: string
     quickOrderSettings?: {
       quickOrder: boolean
       invalidQuantityToastLabels?: {
@@ -43,6 +46,7 @@ export interface NavbarProps {
           }
         }
       }
+      outOfStockLabel?: string
     }
     loadingLabel?: string
   }
