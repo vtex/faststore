@@ -18,10 +18,10 @@ export default function FilterDeliveryMethodFacet({
 
   const location = city ? `${textToTitleCase(city)}, ${postalCode}` : postalCode
   const mapDeliveryMethodLabel: Record<string, string> = {
-    delivery: deliveryMethods?.delivery ?? 'Shipping to',
-    'pickup-in-point': deliveryMethods?.pickupInPoint ?? 'Pickup at',
-    'pickup-nearby': deliveryMethods?.pickupNearby ?? 'Pickup Nearby',
-    'pickup-all': deliveryMethods?.pickupAll?.label ?? 'Pickup Anywhere',
+    delivery: deliveryMethods?.delivery,
+    'pickup-in-point': deliveryMethods?.pickupInPoint,
+    'pickup-nearby': deliveryMethods?.pickupNearby,
+    'pickup-all': deliveryMethods?.pickupAll?.label,
   }
 
   if (item.value === 'delivery') {

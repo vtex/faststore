@@ -344,7 +344,7 @@ function RegionSlider() {
               onClick: () => clearFilter(),
               children:
                 cmsData?.deliveryPromise?.regionSlider
-                  ?.pickupPointClearFilterButtonLabel ?? 'Clear filter',
+                  ?.pickupPointClearFilterButtonLabel,
             }
           : undefined
       }

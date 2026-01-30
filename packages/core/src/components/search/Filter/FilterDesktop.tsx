@@ -77,7 +77,7 @@ function FilterDesktop({
             testId={testId}
             index={0}
             type=""
-            label={labelsMap[SHIPPING_FACET_KEY] ?? 'Delivery'}
+            label={labelsMap[SHIPPING_FACET_KEY]}
             description={deliveryPromiseSettings?.deliveryMethods?.description}
           >
             <UIButton
@@ -86,8 +86,7 @@ function FilterDesktop({
               onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
               icon={<UIIcon name="MapPin" />}
             >
-              {deliveryPromiseSettings?.deliveryMethods
-                ?.setLocationButtonLabel ?? 'Set Location'}
+              {deliveryPromiseSettings?.deliveryMethods?.setLocationButtonLabel}
             </UIButton>
           </UIFilterFacets>
         )}

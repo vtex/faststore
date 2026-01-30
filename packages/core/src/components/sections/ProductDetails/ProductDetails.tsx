@@ -6,6 +6,7 @@ import { gql } from '@generated'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 
 import Section from '../Section'
 
@@ -129,6 +130,10 @@ function ProductDetails({
   const context = usePDP()
   const { product, isValidating } = context?.data
   const [quantity, setQuantity] = useState(1)
+  const cmsData = getGlobalSettings()
+  const {
+    inputField: { errorMessage: inputFieldErrorMessage = '' } = {},
+  } = cmsData?.regionalization ?? {}
   if (!product) {
     throw new Error('NotFound')
   }
@@ -328,6 +333,7 @@ function ProductDetails({
                     shippingSimulatorOptionsTableTitle ??
                     ShippingSimulation.props.optionsLabel
                   }
+                  invalidPostalCodeErrorMessage={inputFieldErrorMessage}
                 />
               )}
             </section>

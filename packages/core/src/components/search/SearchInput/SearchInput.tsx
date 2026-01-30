@@ -79,7 +79,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
-      submitButtonAriaLabel = 'Submit Search',
+      submitButtonAriaLabel,
       loadingLabel,
       ...otherProps
     },
