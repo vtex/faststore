@@ -59,6 +59,9 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     if (!settings) return
 
     const session = sessionStore.read()
+    console.log('[useLocalizationConfig] Current session before update:', {
+      locale: session.locale,
+    })
 
     const channel = JSON.parse(session.channel ?? '{}')
     channel.salesChannel = settings.salesChannel
@@ -77,6 +80,40 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     ) {
       sessionStore.set(newSession)
     }
+  }, [settings])
+
+  // Guard: Re-apply binding settings if server overwrites them
+  useEffect(() => {
+    if (!settings) {
+      return
+    }
+
+    const unsubscribe = sessionStore.subscribe((updatedSession) => {
+      const currentChannel = JSON.parse(updatedSession.channel ?? '{}')
+
+      // Check if localization got overwritten by validateSession
+      const localeMatch = updatedSession.locale === settings.locale
+      const currencyMatch = deepEqual(
+        updatedSession.currency,
+        settings.currency
+      )
+      const channelMatch = currentChannel.salesChannel === settings.salesChannel
+
+      if (!localeMatch || !currencyMatch || !channelMatch) {
+        // Re-apply the correct binding settings
+        const channel = JSON.parse(updatedSession.channel ?? '{}')
+        channel.salesChannel = settings.salesChannel
+
+        sessionStore.set({
+          ...updatedSession,
+          locale: settings.locale,
+          currency: settings.currency,
+          channel: JSON.stringify(channel),
+        })
+      }
+    })
+
+    return unsubscribe
   }, [settings])
 
   function getSettingsFromConfig(
