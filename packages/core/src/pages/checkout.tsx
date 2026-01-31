@@ -55,12 +55,12 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async ({ previewData, locale }) => {
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
   const [globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

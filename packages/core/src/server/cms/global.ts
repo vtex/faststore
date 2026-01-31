@@ -12,6 +12,31 @@ export function injectGlobalSections({
   globalSectionsHeader,
   globalSectionsFooter,
 }: InjectGlobalSectionsProps) {
+  if (
+    !globalSections ||
+    !globalSections.sections ||
+    globalSections.sections.length === 0
+  ) {
+    console.warn(
+      'Global Sections content type was not found or has no sections. Returning minimal structure for development.'
+    )
+    // Return minimal structure with header and footer sections
+    const headerSections = globalSectionsHeader?.sections || []
+    const footerSections = globalSectionsFooter?.sections || []
+
+    return {
+      sections: [
+        ...headerSections,
+        {
+          name: 'Children',
+          data: {},
+        },
+        ...footerSections,
+      ],
+      settings: globalSections?.settings || {},
+    }
+  }
+
   const childrenIndex = globalSections.sections.findIndex(
     (section) => section.name === 'Children'
   )

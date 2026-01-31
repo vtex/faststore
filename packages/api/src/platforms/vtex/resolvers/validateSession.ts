@@ -160,6 +160,7 @@ export const validateSession = async (
 
   const newSession = {
     ...oldSession,
+    locale: oldSession.locale,
     currency: {
       code: store?.currencyCode?.value ?? oldSession.currency.code,
       symbol: store?.currencySymbol?.value ?? oldSession.currency.symbol,
