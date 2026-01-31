@@ -123,7 +123,7 @@ export default class GenerateI18n extends Command {
 
     if (shouldUseCP && currentContentSourceType !== 'CP') {
       logger.error(
-        `\n${chalk.yellow('[Error]')} - Localization is enabled but contentSource is set to "${currentContentSourceType}".\n\n` +
+        `\n${chalk.red('[Error]')} - Localization is enabled but contentSource is set to "${currentContentSourceType}".\n\n` +
           `${chalk.cyan('Required Action:')}\n` +
           `Update your ${chalk.bold('discovery.config.js')} file:\n\n` +
           `  contentSource: {\n` +
