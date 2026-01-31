@@ -19,7 +19,7 @@ export const useLocalizedVariables = ({
   return useMemo(() => {
     return {
       first: first ?? ITEMS_PER_SECTION,
-      after: String(after) ?? '0',
+      after: String(after ?? 0),
       sort: sort ?? ('score_desc' as const),
       term: term ?? '',
       selectedFacets: [
