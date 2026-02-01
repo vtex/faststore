@@ -129,11 +129,6 @@ module.exports = {
         name: 'US Dollar',
         symbol: '$',
       },
-      EUR: {
-        code: 'EUR',
-        name: 'Euro',
-        symbol: '€',
-      },
     },
   },
   cart: {

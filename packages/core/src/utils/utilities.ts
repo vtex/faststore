@@ -7,10 +7,7 @@
  * textToKebabCase("Example Text!") // example-text
  * ```
  */
-export function textToKebabCase(text: string | null | undefined): string {
-  // Handle null, undefined, or empty strings
-  if (!text) return ''
-
+export function textToKebabCase(text: string): string {
   // Replace spaces and special characters with hyphens
   let kebabCase = text.replace(/[^\w\s]/gi, '-')
 
