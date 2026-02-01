@@ -66,6 +66,7 @@ const getServerSidePropsBase: GetServerSideProps<
       contentService.getSingleContent<SearchContentType>({
         contentType: 'search',
         previewData,
+        locale,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
