@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.5](https://github.com/vtex/faststore/compare/v3.96.4...v3.96.5) (2026-02-02)
+
+### Bug Fixes
+
+- normalize set cookies domain host - SFS-3034 ([#3190](https://github.com/vtex/faststore/issues/3190)) ([645c91d](https://github.com/vtex/faststore/commit/645c91debeb16379f41aff6cb2225e2ed3b6086b))
+
 ## [3.96.4](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4) (2026-01-26)
 
 ### Bug Fixes
