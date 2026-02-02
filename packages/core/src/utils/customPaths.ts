@@ -23,8 +23,12 @@ export function isCustomPath(url: string): boolean {
       return false
     }
 
-    const canonicalPathPattern = /^\/[a-z]{2}-[A-Z]{2}\/?$/i
-    if (canonicalPathPattern.test(pathname)) {
+    // Only treat as canonical (not custom) paths that match a configured locale
+    const localeCodes = storeConfig.localization?.enabled
+      ? (Object.keys(storeConfig.localization?.locales ?? {}) as string[])
+      : []
+    const normalizedPathname = pathname.replace(/\/$/, '')
+    if (localeCodes.some((code) => normalizedPathname === `/${code}`)) {
       return false
     }
 

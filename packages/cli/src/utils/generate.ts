@@ -545,20 +545,14 @@ export function toggleI18nMiddlewareByLocalizationFlag(
       I18N_MIDDLEWARE_DISABLED_FILENAME
     )
 
-    if (localizationEnabled) {
-      if (existsSync(disabledPath) && !existsSync(middlewarePath)) {
-        moveSync(disabledPath, middlewarePath)
-        logger.log(
-          `${chalk.green('success')} i18n middleware enabled (renamed from ${I18N_MIDDLEWARE_DISABLED_FILENAME})`
-        )
-      }
-    } else {
-      if (existsSync(middlewarePath)) {
-        moveSync(middlewarePath, disabledPath)
-        logger.log(
-          `${chalk.green('success')} i18n middleware disabled (renamed to ${I18N_MIDDLEWARE_DISABLED_FILENAME})`
-        )
-      }
+    const shouldEnableMiddleware =
+      existsSync(disabledPath) && !existsSync(middlewarePath)
+    const shouldDisableMiddleware = existsSync(middlewarePath)
+
+    if (localizationEnabled && shouldEnableMiddleware) {
+      moveSync(disabledPath, middlewarePath)
+    } else if (!localizationEnabled && shouldDisableMiddleware) {
+      moveSync(middlewarePath, disabledPath)
     }
   } catch (error) {
     logger.error(error)
