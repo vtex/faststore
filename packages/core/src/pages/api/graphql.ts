@@ -21,8 +21,22 @@ const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
 /**
  * Extracts hostname from the incoming request.
  */
-const getRequestHostname = ({ request }: { request: NextApiRequest }) =>
-  new URL(`https://${request.headers.host}`).hostname
+const getRequestHostname = ({
+  request,
+}: {
+  request: NextApiRequest
+}): string | null => {
+  const hostHeader = request.headers.host?.trim()
+  if (!hostHeader) {
+    return null
+  }
+
+  try {
+    return new URL(`https://${hostHeader}`).hostname
+  } catch {
+    return null
+  }
+}
 
 /**
  * Checks whether the cookie domain should be replaced by host.
@@ -71,6 +85,9 @@ const normalizeSetCookieDomain = ({
   }
 
   const host = getRequestHostname({ request })
+  if (!host) {
+    return setCookie
+  }
   const cookieDomain = domainMatch[1]
 
   if (
