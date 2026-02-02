@@ -491,59 +491,21 @@ async function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
-// TODO: Read the value from an environment variable
-const ENABLE_REDIRECTS_MIDDLEWARE = false
-
-// Enable redirects middleware by renaming the file from middleware__DISABLED.ts to middleware.tsß
-function enableRedirectsMiddleware(basePath: string) {
-  if (!ENABLE_REDIRECTS_MIDDLEWARE) {
-    return
-  }
-
-  try {
-    const { tmpDir } = withBasePath(basePath)
-
-    const disabledMiddlewarePath = path.join(
-      tmpDir,
-      'src',
-      'middleware__DISABLED.ts'
-    )
-
-    /* Rename the file to enable middleware functionality and then remove the disabled middleware file */
-    if (existsSync(disabledMiddlewarePath)) {
-      const enabledMiddlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
-      copyFileSync(disabledMiddlewarePath, enabledMiddlewarePath)
-      removeSync(disabledMiddlewarePath)
-
-      logger.log(
-        `${chalk.green('success')} Redirects middleware has been enabled`
-      )
-    }
-  } catch (error) {
-    logger.error(error)
-    throw error
-  }
-}
-
-const I18N_MIDDLEWARE_DISABLED_FILENAME = 'middleware__I18N_DISABLED.ts'
+const DISABLED_MIDDLEWARE_FILENAME = 'middleware__DISABLED.ts'
 
 /**
- * Toggle i18n middleware based on localization feature flag (localization.enabled) in discovery config.
- * When flag is off: renames middleware.ts → middleware__I18N_DISABLED.ts so Next.js does not run it.
- * When flag is on: renames middleware__I18N_DISABLED.ts → middleware.ts so Next.js runs it.
+ * Toggle middleware based on localization feature flag (localization.enabled) in discovery config.
+ * When flag is off: renames middleware.ts → middleware__DISABLED.ts so Next.js does not run it.
+ * When flag is on: renames middleware__DISABLED.ts → middleware.ts so Next.js runs it.
  */
-export function toggleI18nMiddlewareByLocalizationFlag(
+export function toggleMiddlewareByLocalizationFlag(
   basePath: string,
   localizationEnabled: boolean
 ): void {
   try {
     const { tmpDir } = withBasePath(basePath)
     const middlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
-    const disabledPath = path.join(
-      tmpDir,
-      'src',
-      I18N_MIDDLEWARE_DISABLED_FILENAME
-    )
+    const disabledPath = path.join(tmpDir, 'src', DISABLED_MIDDLEWARE_FILENAME)
 
     const shouldEnableMiddleware =
       existsSync(disabledPath) && !existsSync(middlewarePath)

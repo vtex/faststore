@@ -6,7 +6,7 @@ import fsExtra from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { toggleI18nMiddlewareByLocalizationFlag } from '../utils/generate'
+import { toggleMiddlewareByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { isLocalizationEnabled } from '../utils/config'
 import path from 'path'
@@ -98,7 +98,7 @@ export default class Build extends Command {
       }
     }
 
-    toggleI18nMiddlewareByLocalizationFlag(basePath, localizationEnabled)
+    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,
