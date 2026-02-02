@@ -1,22 +1,19 @@
+import chalk from 'chalk'
 import { existsSync } from 'fs'
 import path from 'path'
-import chalk from 'chalk'
 
-import { logger } from './logger'
 import { withBasePath } from './directory'
+import { logger } from './logger'
 
 const configFileName = 'discovery.config.js'
 
 /**
- * Checks if localization feature is enabled in the discovery config.
- * Reads from discovery.config.default.js file in tmpDir or basePath.
+ * Reads and returns the discovery config from tmpDir or basePath.
  *
  * @param basePath - The base path where the FastStore is located
- * @returns Promise<boolean> - true if localization.enabled === true, false otherwise
+ * @returns Promise<any | null> - The config object or null if not found
  */
-export async function isLocalizationEnabled(
-  basePath: string
-): Promise<boolean> {
+async function getDiscoveryConfig(basePath: string): Promise<any | null> {
   const { tmpDir } = withBasePath(basePath)
   const configPaths = [
     path.join(tmpDir, configFileName),
@@ -27,16 +24,78 @@ export async function isLocalizationEnabled(
     if (existsSync(configPath)) {
       try {
         const discoveryConfig = await import(configPath)
-        const config = discoveryConfig?.default ?? discoveryConfig
-        return config?.localization?.enabled === true
+        return discoveryConfig?.default ?? discoveryConfig
       } catch (error) {
-        // If we can't read the config, default to false (backward compatibility)
         logger.warn(
-          `${chalk.yellow('warning')} - Could not read config file: ${configPath}. Defaulting Localization to disabled.`
+          `${chalk.yellow('warning')} - Could not read config file: ${configPath}.`
         )
       }
     }
   }
 
-  return false
+  return null
+}
+
+/**
+ * Checks if localization feature is enabled in the discovery config.
+ *
+ * @param config - The discovery config object
+ * @returns boolean - true if localization.enabled === true, false otherwise
+ */
+function isLocalizationEnabled(config: any): boolean {
+  return config?.localization?.enabled === true
+}
+
+/**
+ * Validates if contentSource is set to "CP" when localization is enabled.
+ * Exits the process with an error message if validation fails.
+ *
+ * @param config - The discovery config object
+ */
+function validateContentSourceForLocalization(config: any): void {
+  if (!config?.localization?.enabled) {
+    return
+  }
+
+  const currentContentSourceType = config?.contentSource?.type?.toUpperCase()
+
+  if (currentContentSourceType !== 'CP') {
+    logger.error(
+      `\n${chalk.red('[Error]')} - Localization is enabled but contentSource is set to "${currentContentSourceType}".\n\n` +
+        `${chalk.cyan('Required Action:')}\n` +
+        `Update your ${chalk.bold('discovery.config.js')} file:\n\n` +
+        `  contentSource: {\n` +
+        `    type: ${chalk.green('"CP"')}\n` +
+        `  },\n\n` +
+        `${chalk.dim('When localization is enabled, Content Platform (CP) is required.')}\n`
+    )
+
+    process.exit(1)
+  }
+}
+
+/**
+ * Checks localization status and validates configuration.
+ * Reads the config file once and performs both checks.
+ *
+ * @param basePath - The base path where the FastStore is located
+ * @returns Promise<boolean> - true if localization is enabled and valid, false otherwise
+ */
+export async function checkAndValidateLocalization(
+  basePath: string
+): Promise<boolean> {
+  const config = await getDiscoveryConfig(basePath)
+
+  // If we can't read the config, default to false (backward compatibility)
+  if (!config) {
+    return false
+  }
+
+  const enabled = isLocalizationEnabled(config)
+
+  if (enabled) {
+    validateContentSourceForLocalization(config)
+  }
+
+  return enabled
 }

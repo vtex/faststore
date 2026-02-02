@@ -7,7 +7,6 @@ import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
-import { isLocalizationEnabled } from '../utils/config'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -81,20 +80,17 @@ export default class Build extends Command {
       )
     }
 
-    const localizationEnabled = await isLocalizationEnabled(basePath)
+    // generate-i18n will check if localization is enabled internally
+    scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
-    if (localizationEnabled) {
-      scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
-        shell: true,
-        stdio: 'inherit',
-      })
-
-      if (scriptResult.error || scriptResult.status !== 0) {
-        throw (
-          'Error: Unable to run generate-i18n' +
-          (scriptResult.error?.message ?? '')
-        )
-      }
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Unable to run generate-i18n' +
+        (scriptResult.error?.message ?? '')
+      )
     }
 
     scriptResult = spawnSync(`${packageManager} run build`, {
