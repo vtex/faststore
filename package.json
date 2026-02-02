@@ -10,6 +10,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --log-order=grouped",
+    "build:codesandbox": "turbo run build --filter @faststore/cli...",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",

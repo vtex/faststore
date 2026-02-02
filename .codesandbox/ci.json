@@ -1,5 +1,5 @@
 {
-  "buildCommand": "build",
+  "buildCommand": "build:codesandbox",
   "packages": [
     "packages/api",
     "packages/cli",

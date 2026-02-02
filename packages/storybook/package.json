@@ -8,6 +8,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.2",
     "@storybook/nextjs": "10.2.3",
+    "@types/react": "catalog:",
     "storybook": "^10.2.3"
   },
   "scripts": {

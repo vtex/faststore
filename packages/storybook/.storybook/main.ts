@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/nextjs'
 
-import { dirname, join } from 'path'
+import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 /**
@@ -9,9 +9,7 @@ import { fileURLToPath } from 'url'
  */
 function getAbsolutePath(value: string): any {
   return dirname(
-    fileURLToPath(
-      import.meta.resolve(join(value, 'package.json'), import.meta.url)
-    )
+    fileURLToPath(import.meta.resolve(`${value}/package.json`, import.meta.url))
   )
 }
 
