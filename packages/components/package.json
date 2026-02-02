@@ -43,7 +43,6 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/tabbable": "catalog:",
-    "@vitejs/plugin-react": "^5.1.2",
     "tslib": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
