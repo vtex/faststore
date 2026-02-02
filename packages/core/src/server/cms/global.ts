@@ -7,6 +7,31 @@ type InjectGlobalSectionsProps = {
   globalSectionsFooter: GlobalSectionsData
 }
 
+function createMinimalGlobalSections({
+  globalSectionsHeader,
+  globalSectionsFooter,
+  settings,
+}: {
+  globalSectionsHeader: GlobalSectionsData
+  globalSectionsFooter: GlobalSectionsData
+  settings?: any
+}): GlobalSectionsData {
+  const headerSections = globalSectionsHeader?.sections || []
+  const footerSections = globalSectionsFooter?.sections || []
+
+  return {
+    sections: [
+      ...headerSections,
+      {
+        name: 'Children',
+        data: {},
+      },
+      ...footerSections,
+    ],
+    settings: settings || {},
+  }
+}
+
 export function injectGlobalSections({
   globalSections,
   globalSectionsHeader,
@@ -20,21 +45,11 @@ export function injectGlobalSections({
     console.warn(
       'Global Sections content type was not found or has no sections. Returning minimal structure for development.'
     )
-    // Return minimal structure with header and footer sections
-    const headerSections = globalSectionsHeader?.sections || []
-    const footerSections = globalSectionsFooter?.sections || []
-
-    return {
-      sections: [
-        ...headerSections,
-        {
-          name: 'Children',
-          data: {},
-        },
-        ...footerSections,
-      ],
-      settings: globalSections?.settings || {},
-    }
+    return createMinimalGlobalSections({
+      globalSectionsHeader,
+      globalSectionsFooter,
+      settings: globalSections?.settings,
+    })
   }
 
   const childrenIndex = globalSections.sections.findIndex(
