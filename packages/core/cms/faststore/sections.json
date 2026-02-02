@@ -2229,6 +2229,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
+                  "enumNames": ["CircleWavyWarning"],
+                  "enum": ["CircleWavyWarning"],
                   "default": "CircleWavyWarning"
                 }
               }
@@ -2250,6 +2252,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
+                  "enumNames": ["RocketLaunch"],
+                  "enum": ["RocketLaunch"],
                   "default": "RocketLaunch"
                 }
               }
@@ -2770,8 +2774,9 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavy Warning"],
-              "enum": ["CircleWavyWarning"]
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
+              "default": "CircleWavyWarning"
             },
             "alt": {
               "title": "Alternative Label",
