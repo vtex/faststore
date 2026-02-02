@@ -8,7 +8,7 @@
     "directory": "packages/core"
   },
   "browserslist": "supports es6-module and not dead",
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.28.0",
   "exports": {
     ".": "./index.ts",
     "./api": "./api/index.ts",
