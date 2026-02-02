@@ -6,10 +6,11 @@
     "title": "Landing Page",
     "properties": {
       "slug": {
+        "type": "string",
         "widget": {
           "ui:widget": "slug"
         },
-        "type": "string"
+        "$componentTitle": "slug"
       },
       "seo": {
         "title": "SEO",
