@@ -1,11 +1,31 @@
-export { default } from './Dropdown'
-export type { DropdownProps } from './Dropdown'
+import { type ComponentType, lazy, type PropsWithChildren } from 'react'
+import type { DropdownProps } from '../Dropdown/Dropdown'
+import type { DropdownButtonProps } from '../Dropdown/DropdownButton'
+import type { DropdownItemProps } from '../Dropdown/DropdownItem'
+import type { DropdownMenuProps } from '../Dropdown/DropdownMenu'
 
-export { default as DropdownButton } from './DropdownButton'
-export type { DropdownButtonProps } from './DropdownButton'
+export type { DropdownProps } from '../Dropdown/Dropdown'
+export type { DropdownButtonProps } from '../Dropdown/DropdownButton'
+export type { DropdownItemProps } from '../Dropdown/DropdownItem'
+export type { DropdownMenuProps } from '../Dropdown/DropdownMenu'
 
-export { default as DropdownItem } from './DropdownItem'
-export type { DropdownItemProps } from './DropdownItem'
+export default lazy<ComponentType<PropsWithChildren<DropdownProps>>>(
+  () => import(/* webpackChunkName: "Dropdown" */ '../Dropdown/Dropdown')
+)
 
-export { default as DropdownMenu } from './DropdownMenu'
-export type { DropdownMenuProps } from './DropdownMenu'
+export const DropdownButton = lazy<ComponentType<DropdownButtonProps>>(
+  () =>
+    import(
+      /* webpackChunkName: "DropdownButton" */ '../Dropdown/DropdownButton'
+    )
+)
+
+export const DropdownMenu = lazy<ComponentType<DropdownMenuProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown/DropdownMenu')
+)
+
+export const DropdownItem = lazy<ComponentType<DropdownItemProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownItem" */ '../Dropdown/DropdownItem')
+)

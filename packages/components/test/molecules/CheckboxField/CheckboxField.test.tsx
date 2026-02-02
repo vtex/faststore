@@ -1,12 +1,14 @@
-import { describe, expect, it } from '@jest/globals'
-import { render, screen } from '@testing-library/react'
-import { axe, toHaveNoViolations } from 'jest-axe'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
+import { axe } from 'vitest-axe'
 
 import React from 'react'
 
 import { CheckboxField } from '../../../src/index'
 
-expect.extend(toHaveNoViolations)
+afterEach(() => {
+  cleanup()
+})
 
 describe('CheckboxField', () => {
   it('renders the default state', () => {
@@ -68,6 +70,7 @@ describe('CheckboxField', () => {
       <CheckboxField id="identifier" label="Label" />
     )
 
+    // @ts-expect-error
     expect(await axe(container)).toHaveNoViolations()
   })
 })

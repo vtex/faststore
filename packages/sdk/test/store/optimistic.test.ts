@@ -1,12 +1,13 @@
-import { waitFor } from './../waitFor'
+import { expect, test, vi } from 'vitest'
 import { createBaseStore, optimistic } from '../../src'
+import { waitFor } from './../waitFor'
 
 const getStore = <T>(initial: T, onValidate: (x: T) => Promise<T | null>) =>
   optimistic<T>(onValidate)(createBaseStore(initial))
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const onValidate = jest.fn(async (x) => {
+const onValidate = vi.fn(async (x) => {
   await sleep(500)
   return x < 2 ? x + 1 : null
 })
