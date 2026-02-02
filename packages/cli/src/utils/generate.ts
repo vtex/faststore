@@ -570,8 +570,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    enableRedirectsMiddleware(basePath),
-
     installPlugins(basePath),
   ])
 }
