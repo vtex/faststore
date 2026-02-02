@@ -9,6 +9,11 @@ export type CustomPathInfo = {
 // Cache for custom paths (computed once, reused)
 let cachedCustomPaths: CustomPathInfo[] | null = null
 
+/** Returns path only (strip query ? and hash #) for prefix detection and building */
+function getPathOnly(pathOrLink: string): string {
+  return pathOrLink.split('?')[0].split('#')[0]
+}
+
 /**
  * Checks if a URL has a custom path (not canonical format like /pt-BR)
  * @param url - The URL to check
@@ -101,11 +106,12 @@ export function getCustomPathsFromBindings(): CustomPathInfo[] {
  * @returns Custom path prefix if found, null otherwise
  */
 function extractCustomPathPrefix(pathname: string): string | null {
+  const pathOnly = getPathOnly(pathname)
   const customPaths = getCustomPathsFromBindings()
 
   for (const { path } of customPaths) {
     // Match exact path or path with segment boundary (e.g., '/it' matches '/it' or '/it/apparel' but not '/item')
-    if (pathname === path || pathname.startsWith(`${path}/`)) {
+    if (pathOnly === path || pathOnly.startsWith(`${path}/`)) {
       return path
     }
   }
@@ -123,11 +129,12 @@ function hasCustomPathPrefix(link: string): boolean {
     return false
   }
 
+  const pathOnly = getPathOnly(link)
   const customPaths = getCustomPathsFromBindings()
 
   for (const { path } of customPaths) {
     // Match exact path or path with segment boundary (e.g., '/it' matches '/it' or '/it/apparel' but not '/item')
-    if (link === path || link.startsWith(`${path}/`)) {
+    if (pathOnly === path || pathOnly.startsWith(`${path}/`)) {
       return true
     }
   }
@@ -163,5 +170,7 @@ export function addCustomPathPrefix(
     return link
   }
 
-  return `${prefix}${link}`
+  const pathOnly = getPathOnly(link)
+  const queryAndHash = link.slice(pathOnly.length)
+  return `${prefix}${pathOnly}${queryAndHash}`
 }

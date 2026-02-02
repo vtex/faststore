@@ -186,6 +186,48 @@ describe('customPaths', () => {
       expect(result).toBe(link)
     })
 
+    describe('query and hash handling', () => {
+      it('preserves query string when adding prefix', () => {
+        const link = '/apparel?color=red'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/it/apparel?color=red')
+      })
+
+      it('preserves hash when adding prefix', () => {
+        const link = '/apparel#section'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/it/apparel#section')
+      })
+
+      it('preserves query and hash when adding prefix', () => {
+        const link = '/apparel?sort=price#reviews'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/it/apparel?sort=price#reviews')
+      })
+
+      it('does not double-prefix when link already has prefix with query', () => {
+        const link = '/europe/it/apparel?color=red'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/it/apparel?color=red')
+      })
+
+      it('detects existing prefix when path has query (e.g. /europe/it?foo=bar)', () => {
+        const link = '/europe/it?foo=bar'
+        const currentPath = '/europe/it/sporting'
+        const result = addCustomPathPrefix(link, currentPath)
+
+        expect(result).toBe('/europe/it?foo=bar')
+      })
+    })
+
     it('handles root path correctly', () => {
       const link = '/'
       const currentPath = '/europe/it/apparel'
