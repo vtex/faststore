@@ -108,7 +108,7 @@ describe('customPaths', () => {
       }
     })
 
-    it('returns paths with locale information', () => {
+    it('returns paths with locale and optional hostname', () => {
       const paths = getCustomPathsFromBindings()
 
       paths.forEach((pathInfo) => {
@@ -116,6 +116,9 @@ describe('customPaths', () => {
         expect(pathInfo).toHaveProperty('locale')
         expect(typeof pathInfo.path).toBe('string')
         expect(typeof pathInfo.locale).toBe('string')
+        if (pathInfo.hostname != null) {
+          expect(typeof pathInfo.hostname).toBe('string')
+        }
       })
     })
   })

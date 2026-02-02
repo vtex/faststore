@@ -4,6 +4,8 @@ import type { LocalesSettings } from 'src/typings/locales'
 export type CustomPathInfo = {
   path: string
   locale: string
+  /** Hostname from binding URL (for middleware rewrite rules; TODO: re-enable host validation) */
+  hostname?: string
 }
 
 let cachedCustomPaths: CustomPathInfo[] | null = null
@@ -14,9 +16,11 @@ function getPathOnly(pathOrLink: string): string {
 }
 
 /**
- * Returns the normalized pathname if the URL has a custom path, null otherwise.
+ * Parses URL and returns normalized pathname and hostname when it has a custom path, null otherwise.
  */
-function getPathnameIfCustomPath(url: string): string | null {
+function parseCustomPathUrl(
+  url: string
+): { path: string; hostname: string } | null {
   try {
     const urlObj = new URL(url)
     const pathname = urlObj.pathname
@@ -34,7 +38,7 @@ function getPathnameIfCustomPath(url: string): string | null {
       return null
     }
 
-    return normalizedPathname
+    return { path: normalizedPathname, hostname: urlObj.hostname }
   } catch {
     return null
   }
@@ -70,11 +74,12 @@ export function getCustomPathsFromBindings(): CustomPathInfo[] {
         continue
       }
 
-      const path = getPathnameIfCustomPath(binding.url)
-      if (path) {
+      const result = parseCustomPathUrl(binding.url)
+      if (result) {
         customPaths.push({
-          path,
+          path: result.path,
           locale: localeCode,
+          hostname: result.hostname,
         })
       }
     }

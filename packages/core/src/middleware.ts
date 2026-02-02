@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
-import type { LocalesSettings } from 'src/typings/locales'
 import { getCustomPathsFromBindings } from 'src/utils/localization/customPaths'
 
 type RewriteRule = {
@@ -18,53 +17,21 @@ function isValidLocale(locale: string): boolean {
 }
 
 function generateRewriteRules(): RewriteRule[] {
-  const rules: RewriteRule[] = []
-
   if (!storeConfig.localization?.enabled) {
-    return rules
+    return []
   }
 
   const customPaths = getCustomPathsFromBindings()
-  const locales = (storeConfig.localization.locales ||
-    {}) as LocalesSettings['locales']
 
-  for (const customPath of customPaths) {
-    const localeConfig = locales[customPath.locale]
-
-    if (!localeConfig?.bindings || !Array.isArray(localeConfig.bindings)) {
-      continue
+  const rules: RewriteRule[] = customPaths.map((customPath) => {
+    const escapedPath = customPath.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`^${escapedPath}(?:\\/(.*))?$`, 'i')
+    return {
+      regex,
+      locale: customPath.locale,
+      hostname: customPath.hostname,
     }
-
-    for (const binding of localeConfig.bindings) {
-      if (!binding.url) {
-        continue
-      }
-
-      try {
-        const bindingUrl = new URL(binding.url)
-        const pathname = bindingUrl.pathname.replace(/\/$/, '')
-
-        if (pathname !== customPath.path) {
-          continue
-        }
-
-        const escapedPath = customPath.path.replace(
-          /[.*+?^${}()|[\]\\]/g,
-          '\\$&'
-        )
-
-        const regex = new RegExp(`^${escapedPath}(?:\\/(.*))?$`, 'i')
-
-        rules.push({
-          regex,
-          locale: customPath.locale,
-          hostname: bindingUrl.hostname,
-        })
-      } catch {
-        continue
-      }
-    }
-  }
+  })
 
   return rules.sort((a, b) => {
     const aLength = a.regex.source.length
