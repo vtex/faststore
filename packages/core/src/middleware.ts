@@ -41,6 +41,7 @@ function generateRewriteRules(): RewriteRule[] {
 }
 
 const rewriteRules = generateRewriteRules()
+const shouldValidateHostname = process.env.NODE_ENV === 'production'
 
 export function middleware(request: NextRequest) {
   if (!storeConfig.localization?.enabled) {
@@ -50,10 +51,9 @@ export function middleware(request: NextRequest) {
   const { pathname, search, hostname } = request.nextUrl
 
   for (const rule of rewriteRules) {
-    // TODO: Re-enable hostname validation after testing
-    // if (rule.hostname && rule.hostname !== hostname) {
-    //   continue
-    // }
+    if (shouldValidateHostname && rule.hostname && rule.hostname !== hostname) {
+      continue
+    }
 
     // TODO: re-enable validation of locale in subdomain bindings
     // useLocaleValidation()
