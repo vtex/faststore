@@ -63,7 +63,7 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
       locale: session.locale,
     })
 
-    const channel = JSON.parse(session.channel ?? '{}')
+    const channel = JSON.parse(session.channel ?? '{}') ?? {}
     channel.salesChannel = settings.salesChannel
 
     const newSession = {
@@ -89,7 +89,7 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     }
 
     const unsubscribe = sessionStore.subscribe((updatedSession) => {
-      const currentChannel = JSON.parse(updatedSession.channel ?? '{}')
+      const currentChannel = JSON.parse(updatedSession.channel ?? '{}') ?? {}
 
       // Check if localization got overwritten by validateSession
       const localeMatch = updatedSession.locale === settings.locale
@@ -97,12 +97,14 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
         updatedSession.currency,
         settings.currency
       )
-      const channelMatch = currentChannel.salesChannel === settings.salesChannel
+      const currentSalesChannel = String(currentChannel.salesChannel ?? '')
+      const settingsSalesChannel = String(settings.salesChannel)
+      const channelMatch = currentSalesChannel === settingsSalesChannel
 
       if (!localeMatch || !currencyMatch || !channelMatch) {
         // Re-apply the correct binding settings
-        const channel = JSON.parse(updatedSession.channel ?? '{}')
-        channel.salesChannel = settings.salesChannel
+        const channel = JSON.parse(updatedSession.channel ?? '{}') ?? {}
+        channel.salesChannel = settingsSalesChannel
 
         sessionStore.set({
           ...updatedSession,

@@ -26,8 +26,9 @@ export class ContentService {
     const currentLocale = locale ?? config.localization.defaultLocale
 
     // Reuse cached ClientCP for locale
-    if (this.clientCPCache.has(currentLocale)) {
-      return this.clientCPCache.get(currentLocale)
+    const cachedClient = this.clientCPCache.get(currentLocale)
+    if (cachedClient) {
+      return cachedClient
     }
 
     // Create new instance only if not in cache

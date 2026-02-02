@@ -117,7 +117,7 @@ export default class GenerateI18n extends Command {
     const currentConfig = discoveryConfig?.default ?? discoveryConfig
 
     // Validate contentSource configuration for localization
-    const shouldUseCP = currentConfig.localization.enabled
+    const shouldUseCP = currentConfig?.localization?.enabled
     const currentContentSourceType =
       currentConfig?.contentSource?.type?.toUpperCase()
 
