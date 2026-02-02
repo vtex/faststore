@@ -19,6 +19,10 @@ import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
+const OPTIONAL_CONTENT_TYPES = [
+  'globalHeaderSections',
+  'globalFooterSections',
+] as const
 export class ContentService {
   private clientCPCache = new Map<string, ClientCP>()
 
@@ -190,12 +194,9 @@ export class ContentService {
     const clientCP = this.getClientCP(locale)
     const { entries } = await clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
-      // Optional content types - suppress warning as these are expected to be missing
-      const optionalContentTypes = [
-        'globalHeaderSections',
-        'globalFooterSections',
-      ]
-      const isOptional = optionalContentTypes.includes(params.contentType)
+      const isOptional = OPTIONAL_CONTENT_TYPES.includes(
+        params.contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
+      )
 
       if (!isOptional) {
         console.warn('No entries found for params', params)
