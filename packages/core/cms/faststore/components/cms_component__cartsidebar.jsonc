@@ -55,6 +55,22 @@
         }
       }
     },
+    "emptyCart": {
+      "title": "Empty Cart",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Your Cart is empty"
+        },
+        "buttonLabel": {
+          "title": "Button Label",
+          "type": "string",
+          "default": "Start Shopping"
+        }
+      }
+    },
     "checkoutButton": {
       "title": "Checkout button",
       "type": "object",

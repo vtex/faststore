@@ -159,11 +159,13 @@
           "properties": {
             "url": {
               "title": "Link URL",
-              "type": "string"
+              "type": "string",
+              "default": "/"
             },
             "title": {
               "title": "Link Title",
-              "type": "string"
+              "type": "string",
+              "default": "Go to Home"
             }
           }
         }

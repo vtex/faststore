@@ -85,6 +85,16 @@
           "type": "string",
           "default": "Submit Search"
         },
+        "searchHistoryTitle": {
+          "title": "Search History Title",
+          "type": "string",
+          "default": "History"
+        },
+        "searchTopTitle": {
+          "title": "Top Search Title",
+          "type": "string",
+          "default": "Top search"
+        },
         "quickOrderSettings": {
           "title": "Quick Order settings",
           "type": "object",
@@ -185,6 +195,11 @@
                   "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
                 }
               }
+            },
+            "outOfStockLabel": {
+              "title": "Out of Stock Label",
+              "type": "string",
+              "default": "Out of stock"
             }
           }
         },
@@ -192,6 +207,11 @@
           "title": "Loading Label",
           "type": "string",
           "default": "Loading..."
+        },
+        "collapseSearchAriaLabel": {
+          "title": "Collapse Search Button aria-label",
+          "type": "string",
+          "default": "Collapse search bar"
         }
       }
     },
