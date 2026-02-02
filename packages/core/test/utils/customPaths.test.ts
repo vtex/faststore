@@ -130,12 +130,11 @@ describe('customPaths', () => {
     it('returns paths sorted by length (longest first)', () => {
       const paths = getCustomPathsFromBindings()
 
-      if (paths.length > 1) {
-        for (let i = 0; i < paths.length - 1; i++) {
-          expect(paths[i].path.length).toBeGreaterThanOrEqual(
-            paths[i + 1].path.length
-          )
-        }
+      expect(paths.length).toBeGreaterThan(1)
+      for (let i = 0; i < paths.length - 1; i++) {
+        expect(paths[i].path.length).toBeGreaterThanOrEqual(
+          paths[i + 1].path.length
+        )
       }
     })
 
@@ -175,9 +174,7 @@ describe('customPaths', () => {
 
       const result = addCustomPathPrefix(link, currentPath)
 
-      if (currentPath.startsWith('/europe/it')) {
-        expect(result).toBe('/europe/it/apparel')
-      }
+      expect(result).toBe('/europe/it/apparel')
     })
 
     it('returns link as-is when current path has no custom prefix', () => {
@@ -195,9 +192,7 @@ describe('customPaths', () => {
 
       const result = addCustomPathPrefix(link, currentPath)
 
-      if (currentPath.startsWith('/europe/it')) {
-        expect(result).toBe('/europe/it/')
-      }
+      expect(result).toBe('/europe/it/')
     })
 
     describe('partial prefix match prevention', () => {
