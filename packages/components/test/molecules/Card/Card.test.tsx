@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react'
 import React from 'react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import { Card } from '../../../src/index'
 
@@ -10,6 +10,10 @@ afterEach(() => {
 
 describe('Card', () => {
   const mockIconAction = vi.fn()
+  beforeEach(() => {
+    mockIconAction.mockClear()
+  })
+
   it('renders with title', () => {
     const renderResult = render(<Card title="Test Card" />)
 

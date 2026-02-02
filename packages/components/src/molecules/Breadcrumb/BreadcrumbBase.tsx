@@ -1,6 +1,9 @@
 import React, {
   cloneElement,
+  type ComponentType,
   forwardRef,
+  lazy,
+  type PropsWithChildren,
   type ReactElement,
   type ReactNode,
   Suspense,
@@ -8,13 +11,34 @@ import React, {
 } from 'react'
 import Icon from '../../atoms/Icon'
 import Link from '../../atoms/Link'
-import {
-  default as Dropdown,
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
+import type {
+  DropdownButtonProps,
+  DropdownItemProps,
+  DropdownMenuProps,
+  DropdownProps,
 } from '../Dropdown'
 import BreadcrumbPure, { type BreadcrumbPureProps } from './BreadcrumbPure'
+
+const Dropdown = lazy<ComponentType<PropsWithChildren<DropdownProps>>>(
+  () => import(/* webpackChunkName: "Dropdown" */ '../Dropdown/Dropdown')
+)
+
+const DropdownButton = lazy<ComponentType<DropdownButtonProps>>(
+  () =>
+    import(
+      /* webpackChunkName: "DropdownButton" */ '../Dropdown/DropdownButton'
+    )
+)
+
+const DropdownMenu = lazy<ComponentType<DropdownMenuProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown/DropdownMenu')
+)
+
+const DropdownItem = lazy<ComponentType<DropdownItemProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownItem" */ '../Dropdown/DropdownItem')
+)
 
 type ItemElement = {
   item: string

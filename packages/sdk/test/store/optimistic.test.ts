@@ -1,4 +1,4 @@
-import { expect, test, vi } from 'vitest'
+import { beforeEach, expect, test, vi } from 'vitest'
 import { createBaseStore, optimistic } from '../../src'
 import { waitFor } from './../waitFor'
 
@@ -10,6 +10,10 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 const onValidate = vi.fn(async (x) => {
   await sleep(500)
   return x < 2 ? x + 1 : null
+})
+
+beforeEach(() => {
+  onValidate.mockClear()
 })
 
 test('Optmistic Store: Calls validation function', async () => {
