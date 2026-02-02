@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
 import type { LocalesSettings } from 'src/typings/locales'
-import { getCustomPathsFromBindings } from 'src/utils/customPaths'
+import { getCustomPathsFromBindings } from 'src/utils/localization/customPaths'
 
 type RewriteRule = {
   regex: RegExp

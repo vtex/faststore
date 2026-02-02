@@ -1,8 +1,8 @@
 import { vi } from 'vitest'
 import { describe, expect, it } from 'vitest'
 
-vi.mock('../../discovery.config.js', async () => {
-  const original = await vi.importActual('../../discovery.config.js')
+vi.mock('../../../discovery.config.js', async () => {
+  const original = await vi.importActual('../../../discovery.config.js')
   return {
     default: {
       ...(original.default ?? {}),
@@ -89,7 +89,7 @@ import {
   getCustomPathsFromBindings,
   isCustomPath,
   addCustomPathPrefix,
-} from '../../src/utils/customPaths'
+} from '../../../src/utils/localization/customPaths'
 
 describe('customPaths', () => {
   describe('isCustomPath', () => {

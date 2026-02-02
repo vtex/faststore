@@ -12,8 +12,7 @@ import Section from '../Section'
 import styles from './section.module.scss'
 import { HeroDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
-import { addCustomPathPrefix } from 'src/utils/customPaths'
-import { useRouter } from 'next/router'
+import { useLink } from '../../../sdk/ui/useLink'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']
@@ -46,7 +45,7 @@ const Hero = ({
     HeroImage,
     HeroHeader,
   } = useOverrideComponents<'Hero'>()
-  const router = useRouter()
+  const { resolveLink } = useLink()
 
   return (
     <Section className={`${styles.section} section-hero`}>
@@ -69,11 +68,7 @@ const Hero = ({
         <HeroHeader.Component
           title={title}
           subtitle={subtitle}
-          link={
-            link?.url
-              ? addCustomPathPrefix(link.url, router?.asPath ?? '')
-              : undefined
-          }
+          link={resolveLink(link?.url)}
           linkText={link?.text}
           linkTargetBlank={link?.linkTargetBlank}
           icon={icon}
