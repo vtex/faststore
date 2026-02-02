@@ -6,7 +6,6 @@ export type CustomPathInfo = {
   locale: string
 }
 
-// Cache for custom paths (computed once, reused)
 let cachedCustomPaths: CustomPathInfo[] | null = null
 
 /** Returns path only (strip query ? and hash #) for prefix detection and building */
@@ -15,17 +14,15 @@ function getPathOnly(pathOrLink: string): string {
 }
 
 /**
- * Checks if a URL has a custom path (not canonical format like /pt-BR)
- * @param url - The URL to check
- * @returns true if the URL has a custom path, false otherwise
+ * Returns the normalized pathname if the URL has a custom path, null otherwise.
  */
-export function isCustomPath(url: string): boolean {
+function getPathnameIfCustomPath(url: string): string | null {
   try {
     const urlObj = new URL(url)
     const pathname = urlObj.pathname
 
-    if (pathname === '/' || pathname === '') {
-      return false
+    if (!pathname || pathname === '/') {
+      return null
     }
 
     // Only treat as canonical (not custom) paths that match a configured locale
@@ -34,12 +31,12 @@ export function isCustomPath(url: string): boolean {
       : []
     const normalizedPathname = pathname.replace(/\/$/, '')
     if (localeCodes.some((code) => normalizedPathname === `/${code}`)) {
-      return false
+      return null
     }
 
-    return true
+    return normalizedPathname
   } catch {
-    return false
+    return null
   }
 }
 
@@ -73,25 +70,12 @@ export function getCustomPathsFromBindings(): CustomPathInfo[] {
         continue
       }
 
-      if (!isCustomPath(binding.url)) {
-        continue
-      }
-
-      try {
-        const bindingUrl = new URL(binding.url)
-        const pathname = bindingUrl.pathname
-
-        if (!pathname || pathname === '/') {
-          continue
-        }
-
-        const normalizedPath = pathname.replace(/\/$/, '')
+      const path = getPathnameIfCustomPath(binding.url)
+      if (path) {
         customPaths.push({
-          path: normalizedPath,
+          path,
           locale: localeCode,
         })
-      } catch {
-        continue
       }
     }
   }
@@ -120,29 +104,6 @@ function extractCustomPathPrefix(pathname: string): string | null {
 }
 
 /**
- * Checks if a link already has a custom path prefix
- * @param link - The link to check (e.g., '/apparel' or '/europe/it/apparel')
- * @returns true if link already has a custom path prefix
- */
-function hasCustomPathPrefix(link: string): boolean {
-  if (!link.startsWith('/')) {
-    return false
-  }
-
-  const pathOnly = getPathOnly(link)
-  const customPaths = getCustomPathsFromBindings()
-
-  for (const { path } of customPaths) {
-    // Match exact path or path with segment boundary (e.g., '/it' matches '/it' or '/it/apparel' but not '/item')
-    if (pathOnly === path || pathOnly.startsWith(`${path}/`)) {
-      return true
-    }
-  }
-
-  return false
-}
-
-/**
  * Adds custom path prefix to a link if needed
  * @param link - The link href (e.g., '/apparel' or '/europe/it/apparel')
  * @param currentPathname - Current pathname (e.g., '/europe/it/apparel')
@@ -160,7 +121,7 @@ export function addCustomPathPrefix(
     return link
   }
 
-  if (hasCustomPathPrefix(link)) {
+  if (extractCustomPathPrefix(link) !== null) {
     return link
   }
 

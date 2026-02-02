@@ -87,40 +87,10 @@ vi.mock('../../../discovery.config.js', async () => {
 
 import {
   getCustomPathsFromBindings,
-  isCustomPath,
   addCustomPathPrefix,
 } from '../../../src/utils/localization/customPaths'
 
 describe('customPaths', () => {
-  describe('isCustomPath', () => {
-    it('returns false for root path', () => {
-      expect(isCustomPath('https://example.com/')).toBe(false)
-      expect(isCustomPath('https://example.com')).toBe(false)
-    })
-
-    it('returns false only for configured canonical locale paths', () => {
-      expect(isCustomPath('https://example.com/pt-BR')).toBe(false)
-      expect(isCustomPath('https://example.com/it-IT/')).toBe(false)
-      expect(isCustomPath('https://example.com/fr-CA')).toBe(false)
-    })
-
-    it('returns true for path that looks like locale but is not configured', () => {
-      expect(isCustomPath('https://example.com/dd-ud')).toBe(true)
-      expect(isCustomPath('https://example.com/en-US')).toBe(true)
-    })
-
-    it('returns true for custom paths', () => {
-      expect(isCustomPath('https://example.com/pt/br')).toBe(true)
-      expect(isCustomPath('https://example.com/europe/it')).toBe(true)
-      expect(isCustomPath('https://example.com/america/pt')).toBe(true)
-    })
-
-    it('returns false for invalid URLs', () => {
-      expect(isCustomPath('not-a-url')).toBe(false)
-      expect(isCustomPath('')).toBe(false)
-    })
-  })
-
   describe('getCustomPathsFromBindings', () => {
     it('returns an array', () => {
       const paths = getCustomPathsFromBindings()
@@ -259,7 +229,6 @@ describe('customPaths', () => {
         const currentPath = '/item'
         const result = addCustomPathPrefix(link, currentPath)
 
-        // /item should NOT be treated as having /it prefix
         expect(result).toBe('/apparel')
       })
 
@@ -277,7 +246,6 @@ describe('customPaths', () => {
         const currentPath = '/european'
         const result = addCustomPathPrefix(link, currentPath)
 
-        // /european should NOT be treated as having /europe prefix
         expect(result).toBe('/apparel')
       })
 
@@ -307,7 +275,7 @@ describe('customPaths', () => {
       })
     })
 
-    describe('hasCustomPathPrefix edge cases', () => {
+    describe('when link already has custom path prefix', () => {
       it('should detect link with exact custom path prefix', () => {
         const link = '/it/apparel'
         const currentPath = '/it/sporting'
