@@ -9,7 +9,7 @@ import path from 'path'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { generate } from '../utils/generate'
+import { generate, toggleMiddlewareByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
 import { isLocalizationEnabled } from '../utils/config'
@@ -211,6 +211,8 @@ export default class Dev extends Command {
         stdio: 'inherit',
       })
     }
+
+    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 
