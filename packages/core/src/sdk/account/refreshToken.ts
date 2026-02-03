@@ -28,10 +28,11 @@ async function fetchWithRetry(
 export const refreshTokenRequest = async (): Promise<
   RefreshTokenResponse | undefined
 > => {
-  const REFRESH_TOKEN_URL = `${getStoreURL()}/api/vtexid/refreshtoken/webstore`
+  const storeOriginURL = new URL(getStoreURL()).origin
+  const REFRESH_TOKEN_URL = `${storeOriginURL}/api/vtexid/refreshtoken/webstore`
   const headers: HeadersInit = {
     'content-type': 'application/json',
-    Host: `${sanitizeHost(getStoreURL())}`,
+    Host: `${sanitizeHost(storeOriginURL)}`,
   }
 
   return await fetchWithRetry(REFRESH_TOKEN_URL, {
