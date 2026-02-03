@@ -17,7 +17,7 @@ function VTEX() {
         key="vtexrc.js-script"
         type="text/partytown"
         async
-        src="https://io.vtex.com.br/rc/rc.js"
+        src="https://io2.vtex.com/rc/rc.js"
       />
       <script
         type="text/javascript"
