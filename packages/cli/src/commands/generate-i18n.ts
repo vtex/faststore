@@ -1,16 +1,17 @@
+import { Args, Command, Flags } from '@oclif/core'
+import { FastStoreSDK } from '@vtex/faststore-sdk'
+import chalk from 'chalk'
 import dotenv from 'dotenv'
+import fsExtra from 'fs-extra'
+import path from 'node:path'
+import { format } from 'prettier'
+import { checkAndValidateLocalization } from '../utils/config'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { saveFile } from '../utils/file'
+import { logger } from '../utils/logger'
 dotenv.config({
   path: [path.resolve(process.cwd(), '.env')],
 })
-import { format } from 'prettier'
-import path from 'node:path'
-import { getBasePath, withBasePath } from '../utils/directory'
-import { Args, Command, Flags } from '@oclif/core'
-import chalk from 'chalk'
-import { logger } from '../utils/logger'
-import { FastStoreSDK } from '@vtex/faststore-sdk'
-import fsExtra from 'fs-extra'
-import { saveFile } from '../utils/file'
 
 const configFileName = 'discovery.config.default.js'
 
@@ -80,6 +81,14 @@ export default class GenerateI18n extends Command {
     const rootPath = getBasePath()
     const argPath =
       (args?.path && path.resolve(rootPath, args.path)) || rootPath
+
+    // Check if localization is enabled and contentSource is set to CP
+    const localizationEnabled = await checkAndValidateLocalization(argPath)
+
+    if (!localizationEnabled) {
+      return
+    }
+
     const { tmpDir } = withBasePath(argPath)
     const configPath =
       this.getConfigFile(flags.config && path.resolve(argPath, flags.config)) ||

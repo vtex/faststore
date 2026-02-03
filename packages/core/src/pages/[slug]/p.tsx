@@ -12,7 +12,6 @@ import type {
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -27,6 +26,7 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { getRedirect } from 'src/sdk/redirects'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
+import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
 import {
@@ -295,14 +295,14 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string },
   PreviewData
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, locale }) => {
   const slug = params?.slug ?? ''
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
   const [
     searchResult,
@@ -349,6 +349,7 @@ export const getStaticProps: GetStaticProps<
     {
       previewData,
       slug,
+      locale,
     }
   )
 

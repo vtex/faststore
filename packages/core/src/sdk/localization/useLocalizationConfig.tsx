@@ -2,13 +2,12 @@ import config from 'discovery.config'
 import deepEqual from 'fast-deep-equal'
 import { useEffect, useState } from 'react'
 import { sessionStore } from '../session'
-
 import { matchURLBinding } from './match-url'
 
 type Settings = {
   locale: string
   currency: { code: string; symbol: string }
-  salesChannel: number
+  salesChannel: string
 }
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
@@ -60,9 +59,12 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     if (!settings) return
 
     const session = sessionStore.read()
+    console.log('[useLocalizationConfig] Current session before update:', {
+      locale: session.locale,
+    })
 
-    const channel = JSON.parse(session.channel ?? '{}')
-    channel['salesChannel'] = settings.salesChannel
+    const channel = JSON.parse(session.channel ?? '{}') ?? {}
+    channel.salesChannel = settings.salesChannel
 
     const newSession = {
       ...session,
@@ -80,6 +82,42 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     }
   }, [settings])
 
+  // Guard: Re-apply binding settings if server overwrites them
+  useEffect(() => {
+    if (!settings) {
+      return
+    }
+
+    const unsubscribe = sessionStore.subscribe((updatedSession) => {
+      const currentChannel = JSON.parse(updatedSession.channel ?? '{}') ?? {}
+
+      // Check if localization got overwritten by validateSession
+      const localeMatch = updatedSession.locale === settings.locale
+      const currencyMatch = deepEqual(
+        updatedSession.currency,
+        settings.currency
+      )
+      const currentSalesChannel = String(currentChannel.salesChannel ?? '')
+      const settingsSalesChannel = String(settings.salesChannel)
+      const channelMatch = currentSalesChannel === settingsSalesChannel
+
+      if (!localeMatch || !currencyMatch || !channelMatch) {
+        // Re-apply the correct binding settings
+        const channel = JSON.parse(updatedSession.channel ?? '{}') ?? {}
+        channel.salesChannel = settingsSalesChannel
+
+        sessionStore.set({
+          ...updatedSession,
+          locale: settings.locale,
+          currency: settings.currency,
+          channel: JSON.stringify(channel),
+        })
+      }
+    })
+
+    return unsubscribe
+  }, [settings])
+
   function getSettingsFromConfig(
     configObject: ConfigType,
     binding: ConfigType['bindings'][number]
@@ -92,7 +130,7 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
         symbol: config.localization.currencies[binding.currencyCode].symbol,
       },
       locale: configObject.code,
-      salesChannel: isNaN(salesChannel) ? 1 : salesChannel,
+      salesChannel: String(isNaN(salesChannel) ? 1 : salesChannel),
     }
   }
 
