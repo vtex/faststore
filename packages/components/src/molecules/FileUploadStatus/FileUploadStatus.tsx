@@ -201,6 +201,7 @@ const FileUploadStatus = ({
       </div>
       {state === 'completed' && onSearch && (
         <Button
+          type="button"
           variant="primary"
           size="regular"
           onClick={onSearch}
@@ -214,6 +215,7 @@ const FileUploadStatus = ({
         <div data-fs-file-upload-status-error-actions>
           {onDownloadTemplate && (
             <Button
+              type="button"
               variant="secondary"
               size="regular"
               onClick={onDownloadTemplate}
@@ -224,6 +226,7 @@ const FileUploadStatus = ({
           )}
           {onSelectFile && (
             <Button
+              type="button"
               variant="primary"
               size="regular"
               onClick={onSelectFile}

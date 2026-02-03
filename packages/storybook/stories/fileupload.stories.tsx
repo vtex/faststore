@@ -131,7 +131,6 @@ export function SearchInputFieldWithFileUpload() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleDownloadTemplate = () => {
-    console.log('Download template clicked')
     // Create and download template file
     const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
     const blob = new Blob([csvContent], { type: 'text/csv' })
@@ -139,7 +138,9 @@ export function SearchInputFieldWithFileUpload() {
     const a = document.createElement('a')
     a.href = url
     a.download = 'template.csv'
+    document.body.appendChild(a)
     a.click()
+    document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
   }
 
