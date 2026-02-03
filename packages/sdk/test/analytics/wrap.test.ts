@@ -1,4 +1,5 @@
-import { wrap, unwrap } from '../../src/analytics/wrap'
+import { describe, expect, it } from 'vitest'
+import { unwrap, wrap } from '../../src/analytics/wrap'
 import { ADD_TO_CART_SAMPLE } from './__fixtures__/EventSamples'
 
 describe('wrap and unwrap functions', () => {

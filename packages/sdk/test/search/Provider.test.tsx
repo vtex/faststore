@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import type { ComponentPropsWithoutRef } from 'react'
 import React from 'react'
+import { expect, test, vi } from 'vitest'
 
 import {
   formatSearchState,
@@ -32,7 +33,7 @@ type Props = {
 
 test('SearchProvider: change sort ordering', async () => {
   const state = initSearchState()
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -54,7 +55,7 @@ test('SearchProvider: change sort ordering', async () => {
 test('SearchProvider: Set full text term', async () => {
   const fullTextTerm = 'Full Text Term'
   const state = initSearchState()
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -86,7 +87,7 @@ test('SearchProvider: Set full text term', async () => {
 test('SearchProvider: Set current page', async () => {
   const page = 10
   const state = initSearchState()
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -110,7 +111,7 @@ test('SearchProvider: selects a simple facet', async () => {
     value: '10:100',
   }
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const state = initSearchState()
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
@@ -142,7 +143,7 @@ test('SearchProvider: selects a simple facet when more facets are inside the sta
     value: 'awesome',
   }
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const state = initSearchState({
     selectedFacets: [facet1],
   })
@@ -179,7 +180,7 @@ test('SearchProvider: Facet uniqueness', async () => {
     selectedFacets: [facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -225,7 +226,7 @@ test('SearchProvider: Remove facet selection', async () => {
     selectedFacets: [facet1, facet2, facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -258,7 +259,7 @@ test('SearchProvider: Remove initial facet', async () => {
     selectedFacets: [facet1, facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -300,7 +301,7 @@ test('SearchProvider: Toggle Facet', async () => {
     selectedFacets: [facet1, facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -368,7 +369,7 @@ test('SearchProvider: Toggle Facets', async () => {
     selectedFacets: [facet1, facet2, facet3],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => (
       <Wrapper {...props} onChange={mock} {...state} />
@@ -417,7 +418,7 @@ test('SearchProvider: Infinite Scroll Pagination', async () => {
 })
 
 test('SearchProvider: onChange is called', async () => {
-  const mock = jest.fn(() => {})
+  const mock = vi.fn(() => {})
   const { result } = renderHook(useSearch, {
     wrapper: (props: Props) => <Wrapper {...props} onChange={mock} />,
   })
