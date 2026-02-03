@@ -3,11 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package @faststore/graphql-utils
+
 # [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
 
 ### Features
 
 - version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package @faststore/graphql-utils
 
 # 3.96.0-dev.18 (2025-12-24)
 
