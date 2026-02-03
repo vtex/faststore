@@ -265,7 +265,7 @@ importers:
         version: 3.2.74(@types/node@20.19.13)
       '@vtex/faststore-sdk':
         specifier: 0.1.1-canary.1
-        version: 0.1.1-canary.
+        version: 0.1.1-canary.1
       chalk:
         specifier: ~4.1.2
         version: 4.1.2
