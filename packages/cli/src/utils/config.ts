@@ -8,12 +8,26 @@ import { logger } from './logger'
 const configFileName = 'discovery.config.js'
 
 /**
+ * Partial type for discovery config with only the properties used by this module
+ */
+type DiscoveryConfigSubset = {
+  localization?: {
+    enabled?: boolean
+  }
+  contentSource?: {
+    type?: string
+  }
+}
+
+/**
  * Reads and returns the discovery config from tmpDir or basePath.
  *
  * @param basePath - The base path where the FastStore is located
- * @returns Promise<any | null> - The config object or null if not found
+ * @returns Promise<DiscoveryConfigSubset | null> - The config object or null if not found
  */
-async function getDiscoveryConfig(basePath: string): Promise<any | null> {
+async function getDiscoveryConfig(
+  basePath: string
+): Promise<DiscoveryConfigSubset | null> {
   const { tmpDir } = withBasePath(basePath)
   const configPaths = [
     path.join(tmpDir, configFileName),
@@ -42,7 +56,7 @@ async function getDiscoveryConfig(basePath: string): Promise<any | null> {
  * @param config - The discovery config object
  * @returns boolean - true if localization.enabled === true, false otherwise
  */
-function isLocalizationEnabled(config: any): boolean {
+function isLocalizationEnabled(config: DiscoveryConfigSubset): boolean {
   return config?.localization?.enabled === true
 }
 
@@ -52,7 +66,9 @@ function isLocalizationEnabled(config: any): boolean {
  *
  * @param config - The discovery config object
  */
-function validateContentSourceForLocalization(config: any): void {
+function validateContentSourceForLocalization(
+  config: DiscoveryConfigSubset
+): void {
   if (!isLocalizationEnabled(config)) {
     return
   }
