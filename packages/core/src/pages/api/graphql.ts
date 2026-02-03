@@ -13,24 +13,91 @@ import { execute } from '../../server'
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
+const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
+
+// Example: "Set-Cookie: key=value; Domain=example.com; Path=/"
+const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
 
 /**
- * This function replaces the setCookie domain so that we can use localhost in dev environment.
- *
- * @param request NextApiRequest
- * @param setCookie setCookie string that comes from FastStore API
- * @returns setCookie string with it domains replace
+ * Extracts hostname from the incoming request.
  */
-const replaceSetCookieDomain = (request: NextApiRequest, setCookie: string) => {
-  const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
-  const faststoreAPIHostname = new URL(`https://${request.headers.host}`)
-    .hostname
+const getRequestHostname = ({
+  request,
+}: {
+  request: NextApiRequest
+}): string | null => {
+  const hostHeader = request.headers.host?.trim()
+  if (!hostHeader) {
+    return null
+  }
 
-  // Replaces original cookie domain for FastStore API's domain hostname
-  return setCookie.replace(
-    MATCH_DOMAIN_REGEXP,
-    `; domain=${faststoreAPIHostname}`
-  )
+  try {
+    return new URL(`https://${hostHeader}`).hostname
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Checks whether the cookie domain should be replaced by host.
+ */
+const shouldReplaceCookieDomain = ({
+  cookieDomain,
+  host,
+}: {
+  cookieDomain: string
+  host: string
+}) => {
+  const normalizedDomain = cookieDomain.replace(/^\./, '').toLowerCase()
+  const normalizedHost = host.toLowerCase()
+
+  return normalizedDomain !== normalizedHost
+}
+
+/**
+ * Determines if host is eligible for domain normalization.
+ */
+const isAllowedHost = ({
+  host,
+  allowList,
+}: {
+  host: string
+  allowList: string[]
+}) => {
+  const normalizedHost = host.toLowerCase()
+
+  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
+}
+
+/**
+ * Ensure the cookie domain matches the current host so the browser can store it.
+ */
+const normalizeSetCookieDomain = ({
+  request,
+  setCookie,
+}: {
+  request: NextApiRequest
+  setCookie: string
+}) => {
+  const domainMatch = setCookie.match(MATCH_DOMAIN_REGEXP)
+  if (!domainMatch) {
+    return setCookie
+  }
+
+  const host = getRequestHostname({ request })
+  if (!host) {
+    return setCookie
+  }
+  const cookieDomain = domainMatch[1]
+
+  if (
+    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
+    !shouldReplaceCookieDomain({ cookieDomain, host })
+  ) {
+    return setCookie
+  }
+
+  return setCookie.replace(MATCH_DOMAIN_REGEXP, `; domain=${host}`)
 }
 
 const parseRequest = (request: NextApiRequest) => {
@@ -201,9 +268,7 @@ const handler: NextApiHandler = async (request, response) => {
       response.setHeader(
         'set-cookie',
         setCookieValues.map(({ setCookie }) =>
-          process.env.NODE_ENV !== 'production'
-            ? replaceSetCookieDomain(request, setCookie)
-            : setCookie
+          normalizeSetCookieDomain({ request, setCookie })
         )
       )
     }
