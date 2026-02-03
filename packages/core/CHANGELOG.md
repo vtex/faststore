@@ -15,6 +15,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/core
 
+## [3.96.5](https://github.com/vtex/faststore/compare/v3.96.4...v3.96.5) (2026-02-02)
+
+### Bug Fixes
+
+- normalize set cookies domain host - SFS-3034 ([#3190](https://github.com/vtex/faststore/issues/3190)) ([645c91d](https://github.com/vtex/faststore/commit/645c91debeb16379f41aff6cb2225e2ed3b6086b))
+
+## [3.96.4](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4) (2026-01-26)
+
+### Bug Fixes
+
+- close filter on apply button click in FilterSlider component ([#3187](https://github.com/vtex/faststore/issues/3187)) ([f3c96eb](https://github.com/vtex/faststore/commit/f3c96eb5e73178d8c863a3e40ac576dc623a0624))
+
 ## [3.96.3](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.3) (2026-01-21)
 
 **Note:** Version bump only for package @faststore/core

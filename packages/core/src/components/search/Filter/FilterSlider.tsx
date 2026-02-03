@@ -97,7 +97,7 @@ function FilterSlider({
   applyButtonLabel,
 }: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
-  const { openRegionSlider } = useUI()
+  const { closeFilter, openRegionSlider } = useUI()
 
   const cmsData = getGlobalSettings()
   const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
@@ -147,6 +147,8 @@ function FilterSlider({
                 : selected,
               page: 0,
             })
+
+            closeFilter()
           },
           children: applyButtonLabel ?? 'Apply',
         }}
