@@ -53,7 +53,7 @@ function isLocalizationEnabled(config: any): boolean {
  * @param config - The discovery config object
  */
 function validateContentSourceForLocalization(config: any): void {
-  if (!config?.localization?.enabled) {
+  if (!isLocalizationEnabled(config)) {
     return
   }
 
@@ -91,11 +91,7 @@ export async function checkAndValidateLocalization(
     return false
   }
 
-  const enabled = isLocalizationEnabled(config)
+  validateContentSourceForLocalization(config)
 
-  if (enabled) {
-    validateContentSourceForLocalization(config)
-  }
-
-  return enabled
+  return isLocalizationEnabled(config)
 }
