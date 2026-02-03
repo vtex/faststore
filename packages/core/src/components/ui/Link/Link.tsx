@@ -5,7 +5,7 @@ import type { LinkProps as FrameworkLinkProps } from 'next/link'
 import { Link as UILink } from '@faststore/ui'
 import type { LinkProps as UILinkProps, LinkElementType } from '@faststore/ui'
 
-import { useLink } from '../../../sdk/ui/useLink'
+import { useLink } from 'src/sdk/ui/useLink'
 
 export type LinkProps<T extends LinkElementType = 'a'> = UILinkProps<T> &
   FrameworkLinkProps &

@@ -4,7 +4,6 @@ import type { LocalesSettings } from 'src/typings/locales'
 export type CustomPathInfo = {
   path: string
   locale: string
-  /** Hostname from binding URL (for middleware rewrite rules; TODO: re-enable host validation) */
   hostname?: string
 }
 
