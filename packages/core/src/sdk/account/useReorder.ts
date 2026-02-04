@@ -6,6 +6,7 @@ import type {
   ValidateCartMutationMutation,
   ValidateCartMutationMutationVariables,
   CartItemFragment,
+  IStoreCart,
 } from '@generated/graphql'
 import { request } from '../graphql/request'
 import { sessionStore } from '../session'
@@ -60,7 +61,6 @@ export const useReorder = () => {
 
     try {
       const currentCart = cartStore.read()
-      const orderFormId = currentCart.id || ''
 
       const acceptedOffer: IStoreOffer[] = orderItemsWithSeller
         .filter(
@@ -93,17 +93,25 @@ export const useReorder = () => {
         throw new ReorderError('No valid items to reorder')
       }
 
+      const orderPayload: Partial<IStoreCart['order']> & {
+        acceptedOffer: IStoreCart['order']['acceptedOffer']
+        shouldSplitItem?: IStoreCart['order']['shouldSplitItem']
+      } = {
+        acceptedOffer,
+        shouldSplitItem: false,
+      }
+
+      if (currentCart.id) {
+        orderPayload.orderNumber = currentCart.id
+      }
+
       const { validateCart: validated } = await request<
         ValidateCartMutationMutation,
         ValidateCartMutationMutationVariables
       >(ValidateCartMutation, {
         session: sessionStore.read(),
         cart: {
-          order: {
-            orderNumber: orderFormId,
-            shouldSplitItem: false,
-            acceptedOffer,
-          },
+          order: orderPayload as IStoreCart['order'],
         },
       })
 

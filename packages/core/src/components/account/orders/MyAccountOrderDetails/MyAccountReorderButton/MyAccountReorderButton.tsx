@@ -15,10 +15,12 @@ export default function MyAccountReorderButton({
 }: MyAccountReorderButtonProps) {
   const { reorder, loading } = useReorder()
 
-  const handleClick = () => {
-    reorder(order)
-    if (onClick) {
-      onClick()
+  const handleClick = async () => {
+    try {
+      await reorder(order)
+      onClick?.()
+    } catch (error) {
+      console.error(error)
     }
   }
 
