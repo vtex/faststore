@@ -80,7 +80,7 @@ function getSettingsFromConfig(
       symbol: config.localization.currencies[binding.currencyCode].symbol,
     },
     locale: configObject.code,
-    salesChannel: isNaN(salesChannel) ? 1 : salesChannel,
+    salesChannel: `${isNaN(salesChannel) ? 1 : salesChannel}`,
     storeURL: binding.url,
   }
 }
