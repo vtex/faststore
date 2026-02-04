@@ -65,8 +65,6 @@ export default function MyAccountOrderActions({
     reorder(order)
   }
 
-  // Always render dropdown since reorder is always available
-
   return (
     <>
       <div data-fs-order-actions>
@@ -78,9 +76,8 @@ export default function MyAccountOrderActions({
             <DropdownItem
               type="button"
               onClick={handleReorder}
-              style={{
-                color: 'var(--fs-color-text)',
-              }}
+              data-fs-order-actions-item
+              data-fs-order-actions-item-reorder
             >
               Reorder
             </DropdownItem>
@@ -88,9 +85,8 @@ export default function MyAccountOrderActions({
               <DropdownItem
                 type="button"
                 onClick={() => setIsCancelOpen(true)}
-                style={{
-                  color: 'var(--fs-color-text)',
-                }}
+                data-fs-order-actions-item
+                data-fs-order-actions-item-cancel
               >
                 Cancel order
               </DropdownItem>

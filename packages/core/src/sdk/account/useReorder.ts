@@ -10,16 +10,21 @@ import type {
 import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { redirectToCheckout } from '../cart/redirectToCheckout'
+import ReorderError from '../error/ReorderError/ReorderError'
 
 type Order = ServerOrderDetailsQueryQuery['userOrder']
+type AdditionalProperties =
+  CartItemFragment['itemOffered']['additionalProperty']
 
 const getItemId = (item: CartItemFragment) => {
   const propertyIds =
     item.itemOffered.additionalProperty
       ?.map((prop) => prop.propertyID)
-      .join('-') || ''
+      .join('-') ?? ''
 
-  return [item.itemOffered.sku, item.seller.identifier, propertyIds]
+  const sellerId = item.seller?.identifier ?? ''
+
+  return [item.itemOffered.sku, sellerId, propertyIds]
     .filter(Boolean)
     .join('::')
 }
@@ -30,20 +35,23 @@ export const useReorder = () => {
 
   const reorder = async (order: Order | null | undefined) => {
     if (!order) {
-      setError(new Error('Order not found'))
+      const err = new ReorderError('Order not found')
+      setError(err)
       return
     }
 
+    const deliveryOptions = order.deliveryOptionsData?.deliveryOptions ?? []
     const orderItemsWithSeller =
-      order.deliveryOptionsData.deliveryOptions.flatMap((option) =>
-        (option.items || []).map((item) => ({
+      deliveryOptions.flatMap((option) =>
+        (option?.items ?? []).map((item) => ({
           ...item,
-          seller: option.seller,
+          seller: option?.seller,
         }))
-      )
+      ) ?? []
 
     if (!orderItemsWithSeller || orderItemsWithSeller.length === 0) {
-      setError(new Error('No items found in order'))
+      const err = new ReorderError('No items found in order')
+      setError(err)
       return
     }
 
@@ -60,9 +68,9 @@ export const useReorder = () => {
             item && item.id && item.quantity && item.seller && item.quantity > 0
         )
         .map((item) => ({
-          quantity: item.quantity ?? 1,
+          quantity: item.quantity,
           seller: {
-            identifier: item.seller ?? '',
+            identifier: item.seller,
           },
           price: item.price ?? 0,
           listPrice: item.price ?? 0,
@@ -77,19 +85,12 @@ export const useReorder = () => {
                 ]
               : [],
             name: item.name ?? '',
-            additionalProperty: undefined as
-              | Array<{
-                  propertyID: string
-                  name: string
-                  value: any
-                  valueReference: string
-                }>
-              | undefined,
+            additionalProperty: [] as AdditionalProperties,
           },
         }))
 
       if (acceptedOffer.length === 0) {
-        throw new Error('No valid items to reorder')
+        throw new ReorderError('No valid items to reorder')
       }
 
       const { validateCart: validated } = await request<
@@ -107,7 +108,7 @@ export const useReorder = () => {
       })
 
       if (!validated) {
-        throw new Error('Failed to add items to cart')
+        throw new ReorderError('Failed to add items to cart')
       }
 
       const updatedCart = {
@@ -124,7 +125,7 @@ export const useReorder = () => {
 
       redirectToCheckout(validated.order.orderNumber)
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Unknown error'))
+      setError(err instanceof Error ? err : new ReorderError('Unknown error'))
       console.error('Error reordering:', err)
     } finally {
       setLoading(false)
