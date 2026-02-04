@@ -6,13 +6,14 @@ import dotenv from 'dotenv'
 
 import { cpSync, existsSync, readFileSync } from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
+import { checkAndValidateLocalization } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate, toggleMiddlewareByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
-import { fileURLToPath } from 'url'
 
 /**
  * Taken from toolbelt
@@ -208,6 +209,7 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
+    const localizationEnabled = await checkAndValidateLocalization(basePath)
     toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     storeDev(getRoot(), tmpDir, coreDir, port)
