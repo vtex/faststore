@@ -128,7 +128,14 @@ function getSettings(params?: { url?: string | URL }) {
   return defaultSettings
 }
 
-export const getStoreURL = () => getSettings().storeURL
+export const getStoreURL = () => {
+  // If localization is not enabled, use storeUrl from config
+  if (!config.localization?.enabled === true) {
+    return config.storeUrl
+  }
+
+  return getSettings().storeURL
+}
 
 /** @description receives an react component and returns a new component with the storeURL as optional */
 export function withStoreURL<
