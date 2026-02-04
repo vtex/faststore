@@ -38,7 +38,7 @@ jobs:
         run: pnpm build
 
       - name: Core Generate
-        run: (cd ./packages/core && pnpm generate)
+        run: (cd ./packages/core && pnpm gen-types)
 
       - name: Size
         run: pnpm size
