@@ -21,6 +21,7 @@ import {
   getStaticProps,
   type SearchPageProps,
 } from 'src/experimental/searchServerSideFunctions'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 export interface SearchPageContextType {
   title: string
@@ -87,7 +88,7 @@ function generateSEOData(
   }
 
   const canonical = searchTerm
-    ? `${storeConfig.storeUrl}/s?q=${searchTerm.replaceAll(' ', '+')}`
+    ? `${getStoreURL()}/s?q=${searchTerm.replaceAll(' ', '+')}`
     : undefined
 
   return {

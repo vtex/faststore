@@ -40,6 +40,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -114,7 +115,7 @@ function Page({
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = getStoreURL() + pathname
 
         return { name, position, item: pageUrl }
       }
@@ -356,7 +357,7 @@ export const getStaticProps: GetStaticProps<
   const { seo } = data.product
   const title = seo.title
   const description = seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
+  const canonical = `${getStoreURL()}${seo.canonical}`
 
   const meta = { title, description, canonical }
 
