@@ -15,7 +15,8 @@ export type GlobalSectionsData = {
 
 export const getGlobalSectionsByType = async (
   previewData: PreviewData,
-  contentType: string
+  contentType: string,
+  locale?: string
 ): Promise<GlobalSectionsData> => {
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
@@ -25,6 +26,7 @@ export const getGlobalSectionsByType = async (
       const pageData = contentService.getSingleContent<PageContentType>({
         contentType,
         previewData,
+        locale,
         documentId: page.documentId,
         versionId: page.versionId,
         releaseId: page.releaseId,
@@ -37,25 +39,30 @@ export const getGlobalSectionsByType = async (
   const pageData = contentService.getSingleContent<PageContentType>({
     contentType,
     previewData,
+    locale,
   })
 
   return pageData
 }
 
 export const getGlobalSectionsData = (
-  previewData: PreviewData
+  previewData: PreviewData,
+  locale?: string
 ): Promise<GlobalSectionsData>[] => {
   const globalSections = getGlobalSectionsByType(
     previewData,
-    GLOBAL_SECTIONS_CONTENT_TYPE
+    GLOBAL_SECTIONS_CONTENT_TYPE,
+    locale
   )
   const globalHeaderSections = getGlobalSectionsByType(
     previewData,
-    GLOBAL_SECTIONS_HEADER_CONTENT_TYPE
+    GLOBAL_SECTIONS_HEADER_CONTENT_TYPE,
+    locale
   )
   const globalFooterSections = getGlobalSectionsByType(
     previewData,
-    GLOBAL_SECTIONS_FOOTER_CONTENT_TYPE
+    GLOBAL_SECTIONS_FOOTER_CONTENT_TYPE,
+    locale
   )
 
   return [globalSections, globalHeaderSections, globalFooterSections]

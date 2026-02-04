@@ -397,6 +397,15 @@
         "name": "Settings",
         "configurations": [
           {
+            "name": "slug",
+            "schema": {
+              "type": "string",
+              "widget": {
+                "ui:widget": "slug"
+              }
+            }
+          },
+          {
             "name": "seo",
             "schema": {
               "title": "SEO",

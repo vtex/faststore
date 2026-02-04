@@ -99,7 +99,15 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
+interface UseShippingSimulationOptions {
+  shippingItem: ProductShippingInfo
+  invalidPostalCodeErrorMessage?: string
+}
+
+export const useShippingSimulation = ({
+  shippingItem,
+  invalidPostalCodeErrorMessage,
+}: UseShippingSimulationOptions) => {
   const [{ input, shippingSimulation }, dispatch] = useReducer(
     reducer,
     null,
@@ -172,7 +180,7 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
         type: 'onError',
         payload: {
           displayClearButton: true,
-          errorMessage: 'You entered an invalid Postal Code',
+          errorMessage: invalidPostalCodeErrorMessage,
         },
       })
     }

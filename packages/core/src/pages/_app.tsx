@@ -12,7 +12,6 @@ import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
-import { useLocaleValidation } from 'src/sdk/localization'
 import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
 
 import storeConfig from 'discovery.config'
@@ -32,9 +31,6 @@ function App({ Component, pageProps }: AppProps) {
 
   // Initialize global Search state
   startGlobalSearchState(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
-
-  // Client-side validation of locale binding (fallback for static pages)
-  useLocaleValidation()
 
   // Update session with localization config
   useLocalizationConfig()

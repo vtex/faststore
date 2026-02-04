@@ -9,11 +9,7 @@ export interface BreadcrumbProps extends UIBreadcrumbProps {
   alt: string
 }
 
-const Breadcrumb = ({
-  icon,
-  alt = 'Go to homepage',
-  ...otherProps
-}: BreadcrumbProps) => {
+const Breadcrumb = ({ icon, alt, ...otherProps }: BreadcrumbProps) => {
   const { Breadcrumb, Icon } = useOverrideComponents<'Breadcrumb'>()
 
   return (
@@ -31,7 +27,7 @@ const Breadcrumb = ({
             height={18}
             weight="bold"
             {...Icon.props}
-            name={icon ?? Icon.props.name ?? 'Home'}
+            name={icon ?? Icon.props.name}
           />
         </Link>
       }

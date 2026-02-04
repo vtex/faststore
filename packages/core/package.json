@@ -8,7 +8,7 @@
     "directory": "packages/core"
   },
   "browserslist": "supports es6-module and not dead",
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.28.0",
   "exports": {
     ".": "./index.ts",
     "./api": "./api/index.ts",
@@ -61,7 +61,7 @@
     "@lexical/rich-text": "^0.34.0",
     "@types/react": "catalog:",
     "@vtex/client-cms": "^0.2.16",
-    "@vtex/client-cp": "0.3.5",
+    "@vtex/client-cp": "0.4.0",
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
     "cookie": "catalog:",
@@ -90,11 +90,10 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "catalog:",
-    "@lhci/cli": "^0.9.0",
+    "@lhci/cli": "^0.15.1",
     "@testing-library/cypress": "^10.0.1",
     "@testing-library/react": "catalog:",
     "@types/cookie": "^0.6.0",
-    "@types/cypress": "^1.1.3",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "catalog:",
     "@vitejs/plugin-react": "^5.1.2",

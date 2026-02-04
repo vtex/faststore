@@ -227,6 +227,16 @@
               "type": "string",
               "default": "Submit Search"
             },
+            "searchHistoryTitle": {
+              "title": "Search History Title",
+              "type": "string",
+              "default": "History"
+            },
+            "searchTopTitle": {
+              "title": "Top Search Title",
+              "type": "string",
+              "default": "Top search"
+            },
             "quickOrderSettings": {
               "title": "Quick Order settings",
               "type": "object",
@@ -327,6 +337,11 @@
                       "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
                     }
                   }
+                },
+                "outOfStockLabel": {
+                  "title": "Out of Stock Label",
+                  "type": "string",
+                  "default": "Out of stock"
                 }
               }
             },
@@ -334,6 +349,11 @@
               "title": "Loading Label",
               "type": "string",
               "default": "Loading..."
+            },
+            "collapseSearchAriaLabel": {
+              "title": "Collapse Search Button aria-label",
+              "type": "string",
+              "default": "Collapse search bar"
             }
           }
         },
@@ -789,11 +809,13 @@
               "properties": {
                 "url": {
                   "title": "Link URL",
-                  "type": "string"
+                  "type": "string",
+                  "default": "/"
                 },
                 "title": {
                   "title": "Link Title",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Go to Home"
                 }
               }
             }
@@ -1655,11 +1677,13 @@
           "title": "Icon",
           "type": "string",
           "enumNames": ["House"],
-          "enum": ["House"]
+          "enum": ["House"],
+          "default": "House"
         },
         "alt": {
           "title": "Alternative Label",
-          "type": "string"
+          "type": "string",
+          "default": "Go to homepage"
         }
       }
     }
@@ -2166,6 +2190,16 @@
               "title": "Sponsored Label",
               "type": "string",
               "default": "Sponsored"
+            },
+            "buttonLabel": {
+              "title": "Button Label",
+              "type": "string",
+              "default": "Add"
+            },
+            "outOfStockLabel": {
+              "title": "Out of Stock Label",
+              "type": "string",
+              "default": "Out of stock"
             }
           }
         },
@@ -2195,6 +2229,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
+                  "enumNames": ["CircleWavyWarning"],
+                  "enum": ["CircleWavyWarning"],
                   "default": "CircleWavyWarning"
                 }
               }
@@ -2216,6 +2252,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
+                  "enumNames": ["RocketLaunch"],
+                  "enum": ["RocketLaunch"],
                   "default": "RocketLaunch"
                 }
               }
@@ -2390,6 +2428,22 @@
               "type": "string",
               "title": "Text",
               "default": "Free shipping on orders $300+"
+            }
+          }
+        },
+        "emptyCart": {
+          "title": "Empty Cart",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Your Cart is empty"
+            },
+            "buttonLabel": {
+              "title": "Button Label",
+              "type": "string",
+              "default": "Start Shopping"
             }
           }
         },
@@ -2720,8 +2774,9 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavy Warning"],
-              "enum": ["CircleWavyWarning"]
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
+              "default": "CircleWavyWarning"
             },
             "alt": {
               "title": "Alternative Label",

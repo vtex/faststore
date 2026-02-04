@@ -6,14 +6,14 @@ import dotenv from 'dotenv'
 
 import { cpSync, existsSync, readFileSync } from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
+import { checkAndValidateLocalization } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { generate } from '../utils/generate'
+import { generate, toggleMiddlewareByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
-import { isLocalizationEnabled } from '../utils/config'
-import { fileURLToPath } from 'url'
 
 /**
  * Taken from toolbelt
@@ -203,14 +203,14 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
-    const localizationEnabled = await isLocalizationEnabled(basePath)
+    // generate-i18n will check if localization is enabled internally
+    spawnSync(`node ${cliPath} generate-i18n`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
-    if (localizationEnabled) {
-      spawnSync(`node ${cliPath} generate-i18n`, {
-        shell: true,
-        stdio: 'inherit',
-      })
-    }
+    const localizationEnabled = await checkAndValidateLocalization(basePath)
+    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 

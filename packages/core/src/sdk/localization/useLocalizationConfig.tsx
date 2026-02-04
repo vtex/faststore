@@ -2,17 +2,19 @@ import config from 'discovery.config'
 import deepEqual from 'fast-deep-equal'
 import React, { useEffect, useState } from 'react'
 import { sessionStore } from '../session'
-
 import { matchURLBinding } from './match-url'
 
 type Settings = {
   locale: string
   currency: { code: string; symbol: string }
-  salesChannel: number
+  salesChannel: string
   storeURL: string
 }
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
+  const [session, setSession] = useState(
+    sessionStore.read() ?? sessionStore.readInitial()
+  )
   const defaultConfig = config.localization.locales[
     config.localization.defaultLocale
   ] as ConfigType
@@ -33,12 +35,16 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   }
 
   useEffect(() => {
+    return sessionStore.subscribe((newSession) => {
+      setSession(newSession)
+    })
+  }, [])
+
+  useEffect(() => {
     if (!settings) return
 
-    const session = sessionStore.read()
-
-    const channel = JSON.parse(session.channel ?? '{}')
-    channel['salesChannel'] = settings.salesChannel
+    const channel = JSON.parse(session.channel ?? '{}') ?? {}
+    channel.salesChannel = settings.salesChannel
 
     const newSession = {
       ...session,
@@ -54,7 +60,7 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     ) {
       sessionStore.set(newSession)
     }
-  }, [settings])
+  }, [settings, session])
 
   return settings
 }

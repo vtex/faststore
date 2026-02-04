@@ -3,13 +3,14 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import fsExtra from 'fs-extra'
-import { getPreferredPackageManager } from '../utils/commands'
-import { checkDeprecatedSecretFiles } from '../utils/deprecations'
-import { getBasePath, withBasePath } from '../utils/directory'
-import { logger } from '../utils/logger'
-import { isLocalizationEnabled } from '../utils/config'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { getPreferredPackageManager } from '../utils/commands'
+import { checkAndValidateLocalization } from '../utils/config'
+import { checkDeprecatedSecretFiles } from '../utils/deprecations'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { toggleMiddlewareByLocalizationFlag } from '../utils/generate'
+import { logger } from '../utils/logger'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
@@ -81,21 +82,21 @@ export default class Build extends Command {
       )
     }
 
-    const localizationEnabled = await isLocalizationEnabled(basePath)
+    // generate-i18n will check if localization is enabled internally
+    scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
+      shell: true,
+      stdio: 'inherit',
+    })
 
-    if (localizationEnabled) {
-      scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
-        shell: true,
-        stdio: 'inherit',
-      })
-
-      if (scriptResult.error || scriptResult.status !== 0) {
-        throw (
-          'Error: Unable to run generate-i18n' +
-          (scriptResult.error?.message ?? '')
-        )
-      }
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Unable to run generate-i18n' +
+        (scriptResult.error?.message ?? '')
+      )
     }
+
+    const localizationEnabled = await checkAndValidateLocalization(basePath)
+    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,

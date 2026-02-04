@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
-    "test": "jest"
+    "test": "vitest run"
   },
   "exports": {
     ".": {
@@ -38,21 +38,16 @@
     "tabbable": "catalog:"
   },
   "devDependencies": {
-    "@jest/globals": "catalog:",
-    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "catalog:",
-    "@types/jest": "catalog:",
-    "@types/jest-axe": "^3.5.9",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/tabbable": "catalog:",
-    "jest": "catalog:",
-    "jest-axe": "^9.0.0",
-    "jest-environment-jsdom": "catalog:",
-    "ts-jest": "catalog:",
     "tslib": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-dts": "catalog:"
+    "vite-plugin-dts": "catalog:",
+    "vitest": "catalog:",
+    "vitest-axe": "^0.1.0"
   },
   "engines": {
     "node": ">=20"
