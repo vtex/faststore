@@ -3,15 +3,20 @@ import React from 'react'
 
 import { Button, Icon } from '../..'
 
-export type FileUploadState = 'uploading' | 'completed' | 'error'
+export enum FileUploadState {
+  Uploading = 'uploading',
+  Completed = 'completed',
+  Error = 'error',
+}
 
-export type FileUploadErrorType =
-  | 'unexpected'
-  | 'unsupported'
-  | 'unreadable'
-  | 'invalid-structure'
-  | 'empty'
-  | 'too-large'
+export enum FileUploadErrorType {
+  Unexpected = 'unexpected',
+  Unsupported = 'unsupported',
+  Unreadable = 'unreadable',
+  InvalidStructure = 'invalid-structure',
+  Empty = 'empty',
+  TooLarge = 'too-large',
+}
 
 export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -51,77 +56,73 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
    * Callback when select file is clicked (only shown when state is 'error').
    */
   onSelectFile?: () => void
+  /**
+   * Aria-label for the remove button (e.g. from CMS).
+   */
+  removeButtonAriaLabel?: string
+  /**
+   * Label for the search button when state is 'completed' (e.g. from CMS).
+   */
+  searchButtonLabel?: string
+  /**
+   * Label for the download template button (e.g. from CMS).
+   */
+  downloadTemplateButtonLabel?: string
+  /**
+   * Label for the select file button (e.g. from CMS).
+   */
+  selectFileButtonLabel?: string
+  /**
+   * Error messages per error type (e.g. from CMS). Required when state is Error to show messages.
+   */
+  errorMessages?: Partial<
+    Record<FileUploadErrorType, { title: string; description: string }>
+  >
+  /**
+   * Status text when state is Uploading (e.g. from CMS).
+   */
+  uploadingStatusText?: string
+  /**
+   * Status text when state is Completed (e.g. from CMS). May include file size.
+   */
+  completedStatusText?: string
 }
 
 const FileUploadStatus = ({
   testId = 'fs-file-upload-status',
   file,
-  state = 'uploading',
+  state = FileUploadState.Uploading,
   errorType,
   errorMessage,
   onRemove,
   onSearch,
   onDownloadTemplate,
   onSelectFile,
+  removeButtonAriaLabel,
+  searchButtonLabel,
+  downloadTemplateButtonLabel,
+  selectFileButtonLabel,
+  errorMessages,
+  uploadingStatusText,
+  completedStatusText,
   ...otherProps
 }: FileUploadStatusProps) => {
-  const formatFileSize = (bytes: number): string => {
-    return `${(bytes / 1024).toFixed(0)} KB` // TODO: ADJUST ONCE INTEGRATED
-  }
-
   const getErrorMessage = (): { title: string; description: string } => {
     if (errorMessage) {
-      // If custom error message is provided, use it as title and empty description
       return { title: errorMessage, description: '' }
     }
-
-    switch (errorType) {
-      case 'unsupported':
-        return {
-          title: 'Unsupported file type.',
-          description: 'Upload a CSV or use the template provided.',
-        }
-      case 'unreadable':
-        return {
-          title: "File can't be read.",
-          description: "Make sure it's correctly formatted and not corrupted.",
-        }
-      case 'invalid-structure':
-        return {
-          title: 'Invalid structure.',
-          description: 'Check missing headers or columns and try again.',
-        }
-      case 'empty':
-        return {
-          title: 'File is empty.',
-          description: 'Add items to your file and upload it again.',
-        }
-      case 'too-large':
-        return {
-          title: 'File too large.',
-          description: 'Split it into smaller files and try again.',
-        }
-      case 'unexpected':
-        return {
-          title: 'Upload failed.',
-          description:
-            'An unexpected error occurred. Try again or upload a new file.',
-        }
-      default:
-        return {
-          title: 'Upload failed.',
-          description:
-            'An unexpected error occurred. Try again or upload a new file.',
-        }
+    if (errorType && errorMessages?.[errorType]) {
+      return errorMessages[errorType]!
     }
+    return { title: '', description: '' }
   }
 
   const getStatusText = (): string => {
     switch (state) {
-      case 'uploading':
-        return 'Uploading your file...'
-      case 'completed':
-        return `Completed • ${formatFileSize(file.size)}`
+      case FileUploadState.Uploading:
+        return uploadingStatusText ?? ''
+      case FileUploadState.Completed:
+        return completedStatusText ?? ''
       default:
         return ''
     }
@@ -129,19 +130,19 @@ const FileUploadStatus = ({
 
   const getIcon = () => {
     switch (state) {
-      case 'uploading':
+      case FileUploadState.Uploading:
         return (
           <div data-fs-file-upload-status-icon-loading>
             <Icon name="CircleNotch" width={24} height={24} strokeWidth={5} />
           </div>
         )
-      case 'completed':
+      case FileUploadState.Completed:
         return (
           <div data-fs-file-upload-status-icon-completed>
             <Icon name="Table" width={24} height={24} strokeWidth={5} />
           </div>
         )
-      case 'error':
+      case FileUploadState.Error:
         return (
           <div data-fs-file-upload-status-icon-error>
             <Icon
@@ -171,7 +172,7 @@ const FileUploadStatus = ({
         <div data-fs-file-upload-status-icon>{getIcon()}</div>
 
         <div data-fs-file-upload-status-details>
-          {state === 'error' ? (
+          {state === FileUploadState.Error ? (
             <>
               <p data-fs-file-upload-status-text-error>
                 {getErrorMessage().title}
@@ -193,13 +194,13 @@ const FileUploadStatus = ({
             type="button"
             onClick={onRemove}
             data-fs-file-upload-status-remove
-            aria-label="Remove file"
+            aria-label={removeButtonAriaLabel}
           >
             <Icon name="X" width={16} height={16} />
           </Button>
         )}
       </div>
-      {state === 'completed' && onSearch && (
+      {state === FileUploadState.Completed && onSearch && (
         <Button
           type="button"
           variant="primary"
@@ -207,11 +208,11 @@ const FileUploadStatus = ({
           onClick={onSearch}
           data-fs-file-upload-status-search-button
         >
-          Search
+          {searchButtonLabel}
         </Button>
       )}
 
-      {state === 'error' && (
+      {state === FileUploadState.Error && (
         <div data-fs-file-upload-status-error-actions>
           {onDownloadTemplate && (
             <Button
@@ -221,7 +222,7 @@ const FileUploadStatus = ({
               onClick={onDownloadTemplate}
               data-fs-file-upload-status-download-button
             >
-              Download template
+              {downloadTemplateButtonLabel}
             </Button>
           )}
           {onSelectFile && (
@@ -232,7 +233,7 @@ const FileUploadStatus = ({
               onClick={onSelectFile}
               data-fs-file-upload-status-select-button
             >
-              Select file
+              {selectFileButtonLabel}
             </Button>
           )}
         </div>

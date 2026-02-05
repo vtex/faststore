@@ -23,6 +23,7 @@ import {
 } from '@faststore/ui'
 
 import type {
+  FileUploadCardProps,
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
@@ -54,6 +55,29 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  /** When true, shows the attachment button; can be set from CMS. */
+  showAttachmentButton?: boolean
+  /** Aria-label for the attachment button; can be set from CMS. */
+  attachmentButtonAriaLabel?: string
+  /**
+   * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
+   */
+  fileUploadCardProps?: Partial<
+    Pick<
+      FileUploadCardProps,
+      | 'title'
+      | 'fileInputAriaLabel'
+      | 'dropzoneAriaLabel'
+      | 'dropzoneTitle'
+      | 'selectFileButtonLabel'
+      | 'downloadTemplateButtonLabel'
+      | 'removeButtonAriaLabel'
+      | 'searchButtonLabel'
+      | 'uploadingStatusText'
+      | 'getCompletedStatusText'
+      | 'errorMessages'
+    >
+  >
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -78,6 +102,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      showAttachmentButton = true,
+      attachmentButtonAriaLabel,
+      fileUploadCardProps,
       ...otherProps
     },
     ref
@@ -176,7 +203,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton
+              showAttachmentButton={showAttachmentButton}
+              attachmentButtonAriaLabel={attachmentButtonAriaLabel}
               attachmentButtonProps={{
                 onClick: () => setFileUploadVisible(true),
               }}
@@ -211,10 +239,13 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
             {fileUploadVisible && (
               <FileUploadCard
-                isOpen={isUploadOpen || hasFile || fileUploadVisible}
-                onDismiss={() => setFileUploadVisible(false)}
-                onFileSelect={handleFileSelect}
-                onDownloadTemplate={handleDownloadTemplate}
+                {...({
+                  isOpen: isUploadOpen || hasFile || fileUploadVisible,
+                  onDismiss: () => setFileUploadVisible(false),
+                  onFileSelect: handleFileSelect,
+                  onDownloadTemplate: handleDownloadTemplate,
+                  ...(fileUploadCardProps ?? {}),
+                } as FileUploadCardProps)}
               />
             )}
           </UISearchInput>

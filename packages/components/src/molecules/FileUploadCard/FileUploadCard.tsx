@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, Icon, Input } from '../..'
 import { useOnClickOutside } from '../../hooks'
 import FileUploadStatus, {
-  type FileUploadErrorType,
-  type FileUploadState,
+  FileUploadErrorType,
+  FileUploadState,
 } from '../FileUploadStatus/FileUploadStatus'
 
 export interface FileUploadCardProps
@@ -44,6 +44,52 @@ export interface FileUploadCardProps
    * @default false
    */
   multiple?: boolean
+  /**
+   * Card title (e.g. from CMS).
+   */
+  title: string
+  /**
+   * Aria-label for the file input (e.g. from CMS).
+   */
+  fileInputAriaLabel: string
+  /**
+   * Aria-label for the dropzone region (e.g. from CMS).
+   */
+  dropzoneAriaLabel: string
+  /**
+   * Dropzone title text (e.g. from CMS).
+   */
+  dropzoneTitle: string
+  /**
+   * Label for the select file button (e.g. from CMS).
+   */
+  selectFileButtonLabel: string
+  /**
+   * Label for the download template button (e.g. from CMS).
+   */
+  downloadTemplateButtonLabel: string
+  /**
+   * Aria-label for the remove button in FileUploadStatus (e.g. from CMS).
+   */
+  removeButtonAriaLabel: string
+  /**
+   * Label for the search button in FileUploadStatus (e.g. from CMS).
+   */
+  searchButtonLabel: string
+  /**
+   * Status text when uploading in FileUploadStatus (e.g. from CMS).
+   */
+  uploadingStatusText: string
+  /**
+   * Status text when completed in FileUploadStatus (e.g. from CMS). Receives file size in bytes.
+   */
+  getCompletedStatusText?: (fileSize: number) => string
+  /**
+   * Error messages per error type for FileUploadStatus (e.g. from CMS).
+   */
+  errorMessages?: Partial<
+    Record<FileUploadErrorType, { title: string; description: string }>
+  >
 }
 
 const FileUploadCard = ({
@@ -55,13 +101,26 @@ const FileUploadCard = ({
   onSearch,
   accept = '.csv',
   multiple = false,
+  title,
+  fileInputAriaLabel,
+  dropzoneAriaLabel,
+  dropzoneTitle,
+  selectFileButtonLabel,
+  downloadTemplateButtonLabel,
+  removeButtonAriaLabel,
+  searchButtonLabel,
+  uploadingStatusText,
+  getCompletedStatusText,
+  errorMessages,
   ...otherProps
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [dragActive, setDragActive] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [uploadState, setUploadState] = useState<FileUploadState>('uploading')
+  const [uploadState, setUploadState] = useState<FileUploadState>(
+    FileUploadState.Uploading
+  )
   const [errorType, setErrorType] = useState<FileUploadErrorType | undefined>(
     undefined
   )
@@ -97,17 +156,17 @@ const FileUploadCard = ({
 
       // Validate file type
       if (!isValidFileType(file)) {
-        setUploadState('error')
-        setErrorType('unsupported')
+        setUploadState(FileUploadState.Error)
+        setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
-      setUploadState('uploading')
+      setUploadState(FileUploadState.Uploading)
       setErrorType(undefined)
 
       // Simulate upload process
       setTimeout(() => {
-        setUploadState('completed')
+        setUploadState(FileUploadState.Completed)
       }, 2000)
 
       if (onFileSelect) {
@@ -140,17 +199,17 @@ const FileUploadCard = ({
 
       // Validate file type
       if (!isValidFileType(file)) {
-        setUploadState('error')
-        setErrorType('unsupported')
+        setUploadState(FileUploadState.Error)
+        setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
-      setUploadState('uploading')
+      setUploadState(FileUploadState.Uploading)
       setErrorType(undefined)
 
       // Simulate upload process
       setTimeout(() => {
-        setUploadState('completed')
+        setUploadState(FileUploadState.Completed)
       }, 2000)
 
       if (onFileSelect) {
@@ -185,7 +244,7 @@ const FileUploadCard = ({
 
   const handleRemoveFile = () => {
     setSelectedFile(null)
-    setUploadState('uploading')
+    setUploadState(FileUploadState.Uploading)
     setErrorType(undefined)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
@@ -201,7 +260,7 @@ const FileUploadCard = ({
   return (
     <Card
       ref={containerRef}
-      title="File Upload"
+      title={title}
       data-fs-file-upload-card
       data-fs-file-upload-card-open={isOpen}
       data-fs-file-upload-card-has-file={selectedFile !== null}
@@ -216,7 +275,7 @@ const FileUploadCard = ({
         accept={accept}
         multiple={multiple}
         style={{ display: 'none' }}
-        aria-label="File upload input"
+        aria-label={fileInputAriaLabel}
       />
 
       {selectedFile ? (
@@ -224,10 +283,17 @@ const FileUploadCard = ({
           file={selectedFile}
           state={uploadState}
           errorType={errorType}
+          errorMessages={errorMessages}
           onRemove={handleRemoveFile}
           onSearch={handleSearch}
           onDownloadTemplate={handleDownloadTemplate}
           onSelectFile={triggerFileInput}
+          removeButtonAriaLabel={removeButtonAriaLabel}
+          searchButtonLabel={searchButtonLabel}
+          downloadTemplateButtonLabel={downloadTemplateButtonLabel}
+          selectFileButtonLabel={selectFileButtonLabel}
+          uploadingStatusText={uploadingStatusText}
+          completedStatusText={getCompletedStatusText?.(selectedFile.size)}
         />
       ) : (
         <div
@@ -238,7 +304,7 @@ const FileUploadCard = ({
           onDragOver={handleDrag}
           onDrop={handleDrop}
           role="region"
-          aria-label="Drop a file to search in bulk"
+          aria-label={dropzoneAriaLabel}
         >
           <div data-fs-file-upload-card-icon>
             <div data-fs-file-upload-card-icon-shadow />
@@ -250,7 +316,7 @@ const FileUploadCard = ({
             </div>
           </div>
 
-          <p data-fs-file-upload-card-title>Drop a file to search in bulk</p>
+          <p data-fs-file-upload-card-title>{dropzoneTitle}</p>
 
           <Button
             variant="secondary"
@@ -258,7 +324,7 @@ const FileUploadCard = ({
             onClick={triggerFileInput}
             data-fs-file-upload-card-select-button
           >
-            Select file
+            {selectFileButtonLabel}
           </Button>
 
           <Button
@@ -266,7 +332,7 @@ const FileUploadCard = ({
             onClick={handleDownloadTemplate}
             data-fs-file-upload-card-template-link
           >
-            Download template
+            {downloadTemplateButtonLabel}
           </Button>
         </div>
       )}

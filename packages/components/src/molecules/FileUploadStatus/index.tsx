@@ -1,6 +1,6 @@
-export { default } from './FileUploadStatus'
-export type {
+export {
+  default,
   FileUploadState,
   FileUploadErrorType,
-  FileUploadStatusProps,
 } from './FileUploadStatus'
+export type { FileUploadStatusProps } from './FileUploadStatus'

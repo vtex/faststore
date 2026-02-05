@@ -1,13 +1,61 @@
 import {
   FileUploadCard,
+  FileUploadErrorType,
   FileUploadStatus,
+  FileUploadState,
   SearchInputField,
 } from '@faststore/components'
-import type { FileUploadErrorType } from '@faststore/components/dist/esm/molecules/FileUploadStatus'
 import React, { useState } from 'react'
 
 export default {
   title: 'FileUpload',
+}
+
+const fileUploadCardTextProps = {
+  title: 'File Upload',
+  fileInputAriaLabel: 'File upload input',
+  dropzoneAriaLabel: 'Drop a file to search in bulk',
+  dropzoneTitle: 'Drop a file to search in bulk',
+  selectFileButtonLabel: 'Select file',
+  downloadTemplateButtonLabel: 'Download template',
+}
+
+const fileUploadStatusErrorMessages = {
+  [FileUploadErrorType.Unexpected]: {
+    title: 'Upload failed.',
+    description:
+      'An unexpected error occurred. Try again or upload a new file.',
+  },
+  [FileUploadErrorType.Unsupported]: {
+    title: 'Unsupported file type.',
+    description: 'Upload a CSV or use the template provided.',
+  },
+  [FileUploadErrorType.Unreadable]: {
+    title: "File can't be read.",
+    description: "Make sure it's correctly formatted and not corrupted.",
+  },
+  [FileUploadErrorType.InvalidStructure]: {
+    title: 'Invalid structure.',
+    description: 'Check missing headers or columns and try again.',
+  },
+  [FileUploadErrorType.Empty]: {
+    title: 'File is empty.',
+    description: 'Add items to your file and upload it again.',
+  },
+  [FileUploadErrorType.TooLarge]: {
+    title: 'File too large.',
+    description: 'Split it into smaller files and try again.',
+  },
+}
+
+const fileUploadStatusTextProps = {
+  removeButtonAriaLabel: 'Remove file',
+  searchButtonLabel: 'Search',
+  downloadTemplateButtonLabel: 'Download template',
+  selectFileButtonLabel: 'Select file',
+  uploadingStatusText: 'Uploading your file...',
+  getCompletedStatusText: (size: number) =>
+    `Completed • ${(size / 1024).toFixed(0)} KB`,
 }
 
 export function FileUploadCardDefault() {
@@ -27,6 +75,14 @@ export function FileUploadCardDefault() {
         onSearch={(file) => {
           console.log('Search with file:', file)
         }}
+        {...fileUploadCardTextProps}
+        removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
+        getCompletedStatusText={
+          fileUploadStatusTextProps.getCompletedStatusText
+        }
+        errorMessages={fileUploadStatusErrorMessages}
       />
       <button onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '200px' }}>
         {isOpen ? 'Close' : 'Open'} File Upload Card
@@ -42,8 +98,10 @@ export function FileUploadStatusUploading() {
     <div style={{ margin: '16px', maxWidth: '600px' }}>
       <FileUploadStatus
         file={file}
-        state="uploading"
+        state={FileUploadState.Uploading}
         onRemove={() => console.log('Remove clicked')}
+        removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
       />
     </div>
   )
@@ -56,9 +114,14 @@ export function FileUploadStatusCompleted() {
     <div style={{ margin: '16px', maxWidth: '600px' }}>
       <FileUploadStatus
         file={file}
-        state="completed"
+        state={FileUploadState.Completed}
         onRemove={() => console.log('Remove clicked')}
         onSearch={() => console.log('Search clicked')}
+        removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
+          file.size
+        )}
       />
     </div>
   )
@@ -71,11 +134,17 @@ export function FileUploadStatusError() {
     <div style={{ margin: '16px', maxWidth: '600px' }}>
       <FileUploadStatus
         file={file}
-        state="error"
-        errorType="unsupported"
+        state={FileUploadState.Error}
+        errorType={FileUploadErrorType.Unsupported}
+        errorMessages={fileUploadStatusErrorMessages}
         onRemove={() => console.log('Remove clicked')}
         onDownloadTemplate={() => console.log('Download template clicked')}
         onSelectFile={() => console.log('Select file clicked')}
+        removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        downloadTemplateButtonLabel={
+          fileUploadStatusTextProps.downloadTemplateButtonLabel
+        }
+        selectFileButtonLabel={fileUploadStatusTextProps.selectFileButtonLabel}
       />
     </div>
   )
@@ -84,12 +153,12 @@ export function FileUploadStatusError() {
 export function FileUploadStatusAllErrorTypes() {
   const file = new File(['content'], 'example.csv', { type: 'text/csv' })
   const errorTypes: FileUploadErrorType[] = [
-    'unexpected',
-    'unsupported',
-    'unreadable',
-    'invalid-structure',
-    'empty',
-    'too-large',
+    FileUploadErrorType.Unexpected,
+    FileUploadErrorType.Unsupported,
+    FileUploadErrorType.Unreadable,
+    FileUploadErrorType.InvalidStructure,
+    FileUploadErrorType.Empty,
+    FileUploadErrorType.TooLarge,
   ]
 
   return (
@@ -114,11 +183,21 @@ export function FileUploadStatusAllErrorTypes() {
           </h3>
           <FileUploadStatus
             file={file}
-            state="error"
+            state={FileUploadState.Error}
             errorType={errorType}
+            errorMessages={fileUploadStatusErrorMessages}
             onRemove={() => console.log('Remove clicked')}
             onDownloadTemplate={() => console.log('Download template clicked')}
             onSelectFile={() => console.log('Select file clicked')}
+            removeButtonAriaLabel={
+              fileUploadStatusTextProps.removeButtonAriaLabel
+            }
+            downloadTemplateButtonLabel={
+              fileUploadStatusTextProps.downloadTemplateButtonLabel
+            }
+            selectFileButtonLabel={
+              fileUploadStatusTextProps.selectFileButtonLabel
+            }
           />
         </div>
       ))}
@@ -150,6 +229,9 @@ export function SearchInputFieldWithFileUpload() {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         showAttachmentButton={true}
+        aria-label="Search products"
+        attachmentButtonAriaLabel="Attach File"
+        submitButtonAriaLabel="Submit Search"
         attachmentButtonProps={{
           onClick: () => {
             setFileUploadVisible(!fileUploadVisible)
@@ -173,6 +255,16 @@ export function SearchInputFieldWithFileUpload() {
             console.log('Search with file:', file)
             setFileUploadVisible(false)
           }}
+          {...fileUploadCardTextProps}
+          removeButtonAriaLabel={
+            fileUploadStatusTextProps.removeButtonAriaLabel
+          }
+          searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+          uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
+          getCompletedStatusText={
+            fileUploadStatusTextProps.getCompletedStatusText
+          }
+          errorMessages={fileUploadStatusErrorMessages}
         />
       )}
     </div>

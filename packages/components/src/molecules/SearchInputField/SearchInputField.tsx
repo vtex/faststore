@@ -38,12 +38,20 @@ export interface SearchInputFieldProps extends InputProps {
    */
   attachmentButtonProps?: ButtonProps
   /**
+   * Aria-label for the attachment button (e.g. from CMS).
+   */
+  attachmentButtonAriaLabel?: string
+  /**
+   * Aria-label for the submit button (e.g. from CMS).
+   */
+  submitButtonAriaLabel?: string
+  /**
    * A React component that will be rendered as an icon (attachment button).
    * @default <Icon name="Paperclip" />
    */
   attachmentButtonIcon?: ReactNode
   /**
-   * Custom aria-label for input and button.
+   * Aria-label for the search input (e.g. from CMS).
    */
   'aria-label'?: AriaAttributes['aria-label']
   /**
@@ -65,9 +73,11 @@ const SearchInputField = forwardRef<
     onSubmit,
     buttonIcon,
     showAttachmentButton = false,
+    attachmentButtonAriaLabel,
     attachmentButtonIcon,
     attachmentButtonProps,
-    'aria-label': ariaLabel = 'search',
+    submitButtonAriaLabel,
+    'aria-label': ariaLabel,
     testId = 'fs-search-input',
     buttonProps,
     ...otherProps
@@ -111,7 +121,7 @@ const SearchInputField = forwardRef<
             <>
               <IconButton
                 type="button"
-                aria-label="Attach File"
+                aria-label={attachmentButtonAriaLabel}
                 icon={attachmentButtonIcon ?? <Icon name="Paperclip" />}
                 size="small"
                 data-fs-search-input-field-attachment-button
@@ -124,7 +134,7 @@ const SearchInputField = forwardRef<
 
           <IconButton
             type="submit"
-            aria-label="Submit Search"
+            aria-label={submitButtonAriaLabel}
             icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
             size="small"
             data-fs-search-input-field-submit-button
