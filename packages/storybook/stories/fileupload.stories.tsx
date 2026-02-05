@@ -102,6 +102,9 @@ export function FileUploadStatusUploading() {
         onRemove={() => console.log('Remove clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
         uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
+        completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
+          file.size
+        )}
       />
     </div>
   )
@@ -119,6 +122,7 @@ export function FileUploadStatusCompleted() {
         onSearch={() => console.log('Search clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
         searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
         completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
           file.size
         )}
@@ -145,6 +149,10 @@ export function FileUploadStatusError() {
           fileUploadStatusTextProps.downloadTemplateButtonLabel
         }
         selectFileButtonLabel={fileUploadStatusTextProps.selectFileButtonLabel}
+        uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
+        completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
+          file.size
+        )}
       />
     </div>
   )
@@ -198,6 +206,10 @@ export function FileUploadStatusAllErrorTypes() {
             selectFileButtonLabel={
               fileUploadStatusTextProps.selectFileButtonLabel
             }
+            uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
+            completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
+              file.size
+            )}
           />
         </div>
       ))}
