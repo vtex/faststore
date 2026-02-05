@@ -2964,28 +2964,11 @@ export type ServerOrderDetailsQueryQuery = {
       budgets: Array<{
         id: string | null
         name: string | null
-        unitId: string | null
-        cycleConfiguration: {
-          startDate: string | null
-          endDate: string | null
-          autoResetOnPeriodEnd: boolean | null
-          carryOverBalance: boolean | null
-        } | null
-        balance: {
-          amount: number | null
-          balanceAdjustment: number | null
-          remaining: number | null
-        } | null
+        balance: { remaining: number | null } | null
         allocations: Array<{
           id: string | null
           reservations: any | null
-          ToBeSpent: number | null
-          linkedEntity: { type: string | null; id: string | null } | null
-          balance: {
-            amount: number | null
-            balanceAdjustment: number | null
-            remaining: number | null
-          } | null
+          linkedEntity: { id: string | null } | null
         } | null> | null
       } | null> | null
     } | null
@@ -4397,7 +4380,7 @@ export const ServerProductQueryDocument = {
 export const ServerOrderDetailsQueryDocument = {
   __meta__: {
     operationName: 'ServerOrderDetailsQuery',
-    operationHash: 'd55cde4f2d52208eebd2b114e84f66992b0151cc',
+    operationHash: '2e8cfaeb0e427b7c913d2ae5ca13f7cc64f8ebf7',
   },
 } as unknown as TypedDocumentString<
   ServerOrderDetailsQueryQuery,

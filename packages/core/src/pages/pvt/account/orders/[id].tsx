@@ -261,31 +261,15 @@ const query = gql(`
         budgets {
           id
           name
-          unitId
-          cycleConfiguration {
-            startDate
-            endDate
-            autoResetOnPeriodEnd
-            carryOverBalance
-          }
           balance {
-            amount
-            balanceAdjustment
             remaining
           }
           allocations {
             id
             linkedEntity {
-              type
               id
             }
-            balance {
-              amount
-              balanceAdjustment
-              remaining
-            }
             reservations
-            ToBeSpent
           }
         }
       }

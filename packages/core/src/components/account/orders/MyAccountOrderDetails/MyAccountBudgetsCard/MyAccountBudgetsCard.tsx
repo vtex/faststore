@@ -52,7 +52,11 @@ function MyAccountBudgetsCard({
 
       // Get list of allocation linkedEntity IDs
       const allocationIds = allocations
-        .map((allocation) => allocation?.linkedEntity?.id)
+        .map((allocation) => {
+          console.log('allocation', allocation)
+          console.log(allocation?.linkedEntity)
+          return allocation?.linkedEntity?.id
+        })
         .filter(Boolean)
         .join(', ')
 
