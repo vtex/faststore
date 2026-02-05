@@ -8,7 +8,7 @@ import { cpSync, existsSync, readFileSync } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
-import { checkAndValidateLocalization } from '../utils/config'
+import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate, toggleMiddlewareByLocalizationFlag } from '../utils/generate'
@@ -203,13 +203,14 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
-    // generate-i18n will check if localization is enabled internally
+    // generate-i18n will validate localization config and check if it's enabled
     spawnSync(`node ${cliPath} generate-i18n`, {
       shell: true,
       stdio: 'inherit',
     })
 
-    const localizationEnabled = await checkAndValidateLocalization(basePath)
+    const config = await getDiscoveryConfig(basePath)
+    const localizationEnabled = config?.localization?.enabled === true
     toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     storeDev(getRoot(), tmpDir, coreDir, port)

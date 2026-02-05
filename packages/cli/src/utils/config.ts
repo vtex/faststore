@@ -25,7 +25,7 @@ type DiscoveryConfigSubset = {
  * @param basePath - The base path where the FastStore is located
  * @returns Promise<DiscoveryConfigSubset | null> - The config object or null if not found
  */
-async function getDiscoveryConfig(
+export async function getDiscoveryConfig(
   basePath: string
 ): Promise<DiscoveryConfigSubset | null> {
   const { tmpDir } = withBasePath(basePath)
