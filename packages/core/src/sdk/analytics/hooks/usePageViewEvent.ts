@@ -1,6 +1,6 @@
 import type { PageViewEvent } from '@faststore/sdk'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 export const usePageViewEvent = (props?: any) => {
   const sendPageViewEvent = useCallback(() => {
@@ -18,10 +18,15 @@ export const usePageViewEvent = (props?: any) => {
   }, [props])
 
   const router = useRouter()
+  const lastPathRef = useRef<string | null>(null)
 
   useEffect(() => {
+    if (lastPathRef.current === router.asPath) {
+      return
+    }
+    lastPathRef.current = router.asPath
     sendPageViewEvent()
-  }, [router.pathname, sendPageViewEvent])
+  }, [router.asPath, sendPageViewEvent])
 
   return { sendPageViewEvent }
 }
