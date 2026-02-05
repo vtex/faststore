@@ -23,8 +23,6 @@ function MyAccountBudgetsCard({
       (budget) => budget && budget.allocations && budget.allocations.length > 0
     )
     .map((budget) => {
-      if (!budget || !budget.allocations) return null
-
       const allocations = budget.allocations.filter(Boolean)
 
       // Calculate toBeSpent: sum all reservation values from all allocations
@@ -52,11 +50,7 @@ function MyAccountBudgetsCard({
 
       // Get list of allocation linkedEntity IDs
       const allocationIds = allocations
-        .map((allocation) => {
-          console.log('allocation', allocation)
-          console.log(allocation?.linkedEntity)
-          return allocation?.linkedEntity?.id
-        })
+        .map((allocation) => allocation?.linkedEntity?.id)
         .filter(Boolean)
         .join(', ')
 
@@ -68,7 +62,6 @@ function MyAccountBudgetsCard({
         available,
       }
     })
-    .filter(Boolean)
 
   if (budgetRows.length === 0) {
     return null
@@ -89,8 +82,6 @@ function MyAccountBudgetsCard({
               { budget, allocationIds, toBeSpent, remaining, available },
               index
             ) => {
-              if (!budget) return null
-
               const budgetName = budget.name || ''
               const allocationsList = allocationIds || ''
 
