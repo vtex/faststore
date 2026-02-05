@@ -140,6 +140,7 @@ module.exports = {
   experimental: {
     cypressVersion: 12,
     enableCypressExtension: false,
+    enableScriptsLogs: false,
     noRobots: false,
     noindex: false,
     nofollow: false,
