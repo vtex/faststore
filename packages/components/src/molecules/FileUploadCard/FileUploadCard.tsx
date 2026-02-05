@@ -83,7 +83,7 @@ export interface FileUploadCardProps
   /**
    * Status text when completed in FileUploadStatus (e.g. from CMS). Receives file size in bytes.
    */
-  getCompletedStatusText?: (fileSize: number) => string
+  getCompletedStatusText: (fileSize: number) => string
   /**
    * Error messages per error type for FileUploadStatus (e.g. from CMS).
    */

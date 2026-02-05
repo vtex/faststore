@@ -81,11 +81,11 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Status text when state is Uploading (e.g. from CMS).
    */
-  uploadingStatusText?: string
+  uploadingStatusText: string
   /**
    * Status text when state is Completed (e.g. from CMS). May include file size.
    */
-  completedStatusText?: string
+  completedStatusText: string
 }
 
 const FileUploadStatus = ({
@@ -120,7 +120,7 @@ const FileUploadStatus = ({
   const getStatusText = (): string => {
     switch (state) {
       case FileUploadState.Uploading:
-        return uploadingStatusText ?? ''
+        return uploadingStatusText
       case FileUploadState.Completed:
         return completedStatusText ?? ''
       default:
