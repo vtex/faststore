@@ -86,7 +86,7 @@ function MyAccountBudgetsCard({
               const allocationsList = allocationIds || ''
 
               return (
-                <div key={budget.id || index}>
+                <div data-fs-budgets-row key={budget.id || index}>
                   <div data-fs-budgets-name>
                     <div data-fs-budgets-name-primary>
                       {budgetName.length > 20
