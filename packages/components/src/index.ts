@@ -100,6 +100,14 @@ export type {
   DropdownMenuProps,
   DropdownProps,
 } from './molecules/Dropdown'
+export { default as FileUploadCard } from './molecules/FileUploadCard'
+export type { FileUploadCardProps } from './molecules/FileUploadCard'
+export {
+  default as FileUploadStatus,
+  FileUploadErrorType,
+  FileUploadState,
+} from './molecules/FileUploadStatus'
+export type { FileUploadStatusProps } from './molecules/FileUploadStatus'
 export { default as Gift, GiftContent, GiftImage } from './molecules/Gift'
 export type {
   GiftContentProps,
