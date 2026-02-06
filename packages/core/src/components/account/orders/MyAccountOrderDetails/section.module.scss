@@ -19,6 +19,7 @@
   @import "./MyAccountStatusCard/styles.scss";
   @import "./MyAccountMoreInformationCard/styles.scss";
   @import "./MyAccountBuyingPolicyAlert/styles.scss";
+  @import "./MyAccountBudgetsCard/styles.scss";
 
   // --------------------------------------------------------
   // Design Tokens
@@ -147,6 +148,10 @@
     }
 
     [data-fs-delivery-option-accordion] {
+      grid-column: span 2;
+    }
+
+    [data-fs-order-budgets-card] {
       grid-column: span 2;
     }
   }
