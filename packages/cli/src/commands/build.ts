@@ -6,7 +6,7 @@ import fsExtra from 'fs-extra'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
-import { checkAndValidateLocalization } from '../utils/config'
+import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { toggleMiddlewareByLocalizationFlag } from '../utils/generate'
@@ -82,7 +82,7 @@ export default class Build extends Command {
       )
     }
 
-    // generate-i18n will check if localization is enabled internally
+    // generate-i18n will validate localization config and check if it's enabled
     scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
       shell: true,
       stdio: 'inherit',
@@ -95,7 +95,8 @@ export default class Build extends Command {
       )
     }
 
-    const localizationEnabled = await checkAndValidateLocalization(basePath)
+    const config = await getDiscoveryConfig(basePath)
+    const localizationEnabled = config?.localization?.enabled === true
     toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     scriptResult = spawnSync(`${packageManager} run build`, {
