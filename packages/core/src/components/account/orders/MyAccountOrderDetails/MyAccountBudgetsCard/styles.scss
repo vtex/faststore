@@ -1,14 +1,22 @@
 [data-fs-order-budgets-card] {
-  --fs-budgets-gap: var(--fs-spacing-3);
-  --fs-budgets-padding-y: var(--fs-spacing-2);
-  --fs-budgets-row-padding: var(--fs-spacing-3) 0;
-  --fs-budgets-font-size: var(--fs-text-size-2);
-  --fs-budgets-font-size-sm: var(--fs-text-size-1);
-  --fs-budgets-weight-regular: var(--fs-text-weight-regular);
-  --fs-budgets-weight-semibold: var(--fs-text-weight-semibold);
-  --fs-budgets-text: var(--fs-color-text);
-  --fs-budgets-text-secondary: var(--fs-color-text-secondary);
-  --fs-budgets-border-color: var(--fs-border-color-light);
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  --fs-budgets-gap                : var(--fs-spacing-3);
+  --fs-budgets-padding-y          : var(--fs-spacing-2);
+  --fs-budgets-row-padding        : var(--fs-spacing-3) 0;
+  --fs-budgets-font-size          : var(--fs-text-size-2);
+  --fs-budgets-font-size-sm       : var(--fs-text-size-1);
+  --fs-budgets-weight-regular     : var(--fs-text-weight-regular);
+  --fs-budgets-weight-semibold    : var(--fs-text-weight-semibold);
+  --fs-budgets-text               : var(--fs-color-text);
+  --fs-budgets-text-secondary     : var(--fs-color-text-secondary);
+  --fs-budgets-border-color       : var(--fs-border-color-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
 
   [data-fs-budgets-table] {
     display: flex;
