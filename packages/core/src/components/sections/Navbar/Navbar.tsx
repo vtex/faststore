@@ -39,6 +39,22 @@ export interface NavbarProps {
         }
       }
     }
+    /** Props for FileUploadCard (labels, messages). Pass from CMS so all copy is editable. */
+    fileUploadCardProps?: {
+      title?: string
+      fileInputAriaLabel?: string
+      dropzoneAriaLabel?: string
+      dropzoneTitle?: string
+      selectFileButtonLabel?: string
+      downloadTemplateButtonLabel?: string
+      removeButtonAriaLabel?: string
+      searchButtonLabel?: string
+      uploadingStatusText?: string
+      getCompletedStatusText?: (fileSize: number) => string
+      errorMessages?: Partial<
+        Record<string, { title: string; description: string }>
+      >
+    }
   }
   signInButton: {
     icon: {
