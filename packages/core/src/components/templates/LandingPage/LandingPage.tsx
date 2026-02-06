@@ -3,7 +3,6 @@ import type { ComponentType } from 'react'
 
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
@@ -17,10 +16,12 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
+import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -57,29 +58,34 @@ export default function LandingPage({
     globalSettings,
   }
 
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    storeConfig.seo.titleTemplate ??
+    storeConfig.seo.title
+
+  const storeURL = getStoreURL()
+
   return (
     <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
-        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
-        canonical={
-          settings?.seo?.canonical ?? `${storeConfig.storeUrl}/${slug}`
-        }
+        titleTemplate={titleTemplate}
+        canonical={settings?.seo?.canonical ?? `${storeURL}/${slug}`}
         openGraph={{
           type: 'website',
-          url: storeConfig.storeUrl,
+          url: storeURL,
           title: settings?.seo?.title ?? storeConfig.seo.title,
           description:
             settings?.seo?.description ?? storeConfig.seo.description,
         }}
       />
       <SiteLinksSearchBoxJsonLd
-        url={storeConfig.storeUrl}
+        url={storeURL}
         potentialActions={[
           {
-            target: `${storeConfig.storeUrl}/s/?q`,
+            target: `${storeURL}/s/?q`,
             queryInput: 'search_term_string',
           },
         ]}
@@ -109,13 +115,14 @@ export default function LandingPage({
 
 export const getLandingPageBySlug = async (
   slug: string,
-  previewData: PreviewData
+  previewData: PreviewData,
+  locale?: string
 ) => {
   try {
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
       const pageBySlug = cmsData['landingPage'].find((page: any) => {
-        slug === page.settings?.seo?.slug
+        return slug === page.settings?.seo?.slug
       })
 
       if (pageBySlug) {
@@ -123,6 +130,7 @@ export const getLandingPageBySlug = async (
           await contentService.getSingleContent<PageContentType>({
             contentType: 'landingPage',
             previewData,
+            locale,
             documentId: pageBySlug.documentId,
             versionId: pageBySlug.versionId,
             releaseId: pageBySlug.releaseId,
@@ -138,6 +146,7 @@ export const getLandingPageBySlug = async (
         contentType: 'landingPage',
         previewData,
         slug,
+        locale,
         filters:
           previewData?.contentType !== 'landingPage'
             ? { filters: { 'settings.seo.slug': `/${slug}` } }

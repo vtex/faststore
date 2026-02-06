@@ -21,9 +21,18 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    * Default sort by value
    */
   sort?: string
+  /**
+   * Title for the top search section
+   */
+  title?: string
 }
 
-function SearchTop({ topTerms = [], sort, ...otherProps }: SearchTopProps) {
+function SearchTop({
+  topTerms = [],
+  sort,
+  title,
+  ...otherProps
+}: SearchTopProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
@@ -38,7 +47,7 @@ function SearchTop({ topTerms = [], sort, ...otherProps }: SearchTopProps) {
   }
 
   return (
-    <UISearchTop title="Top Search" {...otherProps}>
+    <UISearchTop title={title} {...otherProps}>
       {terms.map((term, index) => (
         <UISearchTopTerm
           key={index}

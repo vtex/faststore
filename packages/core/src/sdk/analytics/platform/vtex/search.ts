@@ -7,6 +7,7 @@ import type { SearchEvents } from '../../types'
 import { getBaseDomain } from 'src/utils/getBaseDomain'
 import { getCookie } from 'src/utils/getCookie'
 import config from '../../../../../discovery.config'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
@@ -23,8 +24,8 @@ const createOrRefreshCookie = (key: string, expiresSecond: number) => {
     process.env.NODE_ENV === 'development'
       ? '.localhost'
       : config.secureSubdomain
-        ? getBaseDomain([config.storeUrl, config.secureSubdomain])
-        : `.${new URL(config.storeUrl).hostname}`
+        ? getBaseDomain([getStoreURL(), config.secureSubdomain])
+        : `.${new URL(getStoreURL()).hostname}`
 
   return () => {
     let currentValue = getCookie(key)

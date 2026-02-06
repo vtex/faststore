@@ -26,14 +26,6 @@ import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { isContentPlatformSource } from 'src/server/content/utils'
 
-const ScrollToTopButton = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "ScrollToTopButton" */
-      'src/components/sections/ScrollToTopButton'
-    )
-)
-
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
   serverManyProductsVariables: ServerManyProductsQueryQueryVariables
@@ -110,11 +102,7 @@ export default function ProductListing({
             sections={sections}
             globalSections={globalSections}
             components={COMPONENTS}
-          >
-            <LazyLoadingSection sectionName="ScrollToTopButton">
-              <ScrollToTopButton />
-            </LazyLoadingSection>
-          </RenderSections>
+          />
         </UseGalleryPageContext.Provider>
       </PageProvider>
     </>

@@ -155,15 +155,19 @@ function SearchProductItem({
         }}
         onValidateBlur={(min, max, quantity) =>
           pushToast({
-            title: 'Invalid quantity!',
-            message: `The quantity you entered is outside the range of ${min} to ${max}. The quantity was set to ${quantity}.`,
+            title: quickOrderSettings?.invalidQuantityToastLabels?.title,
+            message:
+              quickOrderSettings?.invalidQuantityToastLabels?.message
+                ?.replace('%{min}', min.toString())
+                ?.replace('%{max}', max.toString())
+                ?.replace('%{quantity}', quantity.toString()) || '',
             status: 'INFO',
             icon: <Icon name="CircleWavyWarning" width={30} height={30} />,
           })
         }
         quickOrder={{
           enabled: quickOrderSettings?.quickOrder,
-          outOfStockLabel: 'Out of stock',
+          outOfStockLabel: quickOrderSettings?.outOfStockLabel,
           availability: !outOfStock,
           hasVariants,
           buyProps,
@@ -185,6 +189,9 @@ function SearchProductItem({
                     product={product}
                     status={(status: string | null) =>
                       onChangeCustomSearchDropdownVisible(status === 'visible')
+                    }
+                    invalidQuantityToastLabels={
+                      quickOrderSettings?.invalidQuantityToastLabels
                     }
                   />
                 </UISKUMatrix>

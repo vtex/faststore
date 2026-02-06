@@ -16,6 +16,7 @@ const {
   copySync,
   existsSync,
   mkdirsSync,
+  moveSync,
   readFileSync,
   readdirSync,
   removeSync,
@@ -490,33 +491,30 @@ async function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
-// TODO: Read the value from an environment variable
-const ENABLE_REDIRECTS_MIDDLEWARE = false
+const DISABLED_MIDDLEWARE_FILENAME = 'middleware__DISABLED.ts'
 
-// Enable redirects middleware by renaming the file from middleware__DISABLED.ts to middleware.tsß
-function enableRedirectsMiddleware(basePath: string) {
-  if (!ENABLE_REDIRECTS_MIDDLEWARE) {
-    return
-  }
-
+/**
+ * Toggle middleware based on localization feature flag (localization.enabled) in discovery config.
+ * When flag is off: renames middleware.ts → middleware__DISABLED.ts so Next.js does not run it.
+ * When flag is on: renames middleware__DISABLED.ts → middleware.ts so Next.js runs it.
+ */
+export function toggleMiddlewareByLocalizationFlag(
+  basePath: string,
+  localizationEnabled: boolean
+): void {
   try {
     const { tmpDir } = withBasePath(basePath)
+    const middlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
+    const disabledPath = path.join(tmpDir, 'src', DISABLED_MIDDLEWARE_FILENAME)
 
-    const disabledMiddlewarePath = path.join(
-      tmpDir,
-      'src',
-      'middleware__DISABLED.ts'
-    )
+    const shouldEnableMiddleware =
+      existsSync(disabledPath) && !existsSync(middlewarePath)
+    const shouldDisableMiddleware = existsSync(middlewarePath)
 
-    /* Rename the file to enable middleware functionality and then remove the disabled middleware file */
-    if (existsSync(disabledMiddlewarePath)) {
-      const enabledMiddlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
-      copyFileSync(disabledMiddlewarePath, enabledMiddlewarePath)
-      removeSync(disabledMiddlewarePath)
-
-      logger.log(
-        `${chalk.green('success')} Redirects middleware has been enabled`
-      )
+    if (localizationEnabled && shouldEnableMiddleware) {
+      moveSync(disabledPath, middlewarePath)
+    } else if (!localizationEnabled && shouldDisableMiddleware) {
+      moveSync(middlewarePath, disabledPath)
     }
   } catch (error) {
     logger.error(error)
@@ -572,8 +570,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    enableRedirectsMiddleware(basePath),
-
     installPlugins(basePath),
   ])
 }

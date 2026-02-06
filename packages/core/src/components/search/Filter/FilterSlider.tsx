@@ -100,7 +100,9 @@ function FilterSlider({
   const { openRegionSlider } = useUI()
 
   const cmsData = getGlobalSettings()
-  const { deliveryPromise: deliveryPromiseSettings } = cmsData ?? {}
+  const { deliveryPromise: deliveryPromiseSettings, filters: filtersSettings } =
+    cmsData ?? {}
+  const filterFacetRangeSettings = filtersSettings?.filterFacetRange
 
   const {
     facets: filteredFacets,
@@ -126,7 +128,7 @@ function FilterSlider({
         clearBtnProps={{
           variant: 'secondary',
           onClick: () => dispatch({ type: 'selectFacets', payload: [] }),
-          children: clearButtonLabel ?? 'Clear All',
+          children: clearButtonLabel,
         }}
         applyBtnProps={{
           variant: 'primary',
@@ -148,7 +150,7 @@ function FilterSlider({
               page: 0,
             })
           },
-          children: applyButtonLabel ?? 'Apply',
+          children: applyButtonLabel,
         }}
         onClose={() => {
           dispatch({
@@ -170,7 +172,7 @@ function FilterSlider({
               testId={testId}
               index={0}
               type=""
-              label={labelsMap[SHIPPING_FACET_KEY] ?? 'Delivery'}
+              label={labelsMap[SHIPPING_FACET_KEY]}
               description={
                 deliveryPromiseSettings?.deliveryMethods?.description
               }
@@ -181,8 +183,10 @@ function FilterSlider({
                 onClick={() => openRegionSlider(regionSliderTypes.setLocation)}
                 icon={<UIIcon name="MapPin" />}
               >
-                {deliveryPromiseSettings?.deliveryMethods
-                  ?.setLocationButtonLabel ?? 'Set Location'}
+                {
+                  deliveryPromiseSettings?.deliveryMethods
+                    ?.setLocationButtonLabel
+                }
               </UIButton>
             </UIFilterFacets>
           )}
@@ -262,6 +266,14 @@ function FilterSlider({
                       facet.key.toLowerCase() === 'price'
                         ? useFormattedPrice
                         : undefined
+                    }
+                    minLabel={filterFacetRangeSettings?.minLabel}
+                    maxLabel={filterFacetRangeSettings?.maxLabel}
+                    minPriceErrorMessage={
+                      filterFacetRangeSettings?.minPriceErrorMessage
+                    }
+                    maxPriceErrorMessage={
+                      filterFacetRangeSettings?.maxPriceErrorMessage
                     }
                     onFacetChange={(facet) =>
                       dispatch({
