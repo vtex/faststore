@@ -88,19 +88,15 @@ function MyAccountBudgetsCard({
               return (
                 <div data-fs-budgets-row key={budget.id || index}>
                   <div data-fs-budgets-name>
-                    <div data-fs-budgets-name-primary>
-                      {budgetName.length > 20
-                        ? `${budgetName.substring(0, 20)}...`
-                        : budgetName}
-                    </div>
+                    <div data-fs-budgets-name-primary>{budgetName}</div>
                     <div data-fs-budgets-name-secondary title={allocationsList}>
-                      {allocationsList.length > 20
-                        ? `${allocationsList.substring(0, 20)}...`
-                        : allocationsList}
+                      {allocationsList}
                     </div>
                   </div>
                   <div data-fs-budgets-available>
-                    {available ? formatPrice(available, currencyCode) : '—'}
+                    {Number.isFinite(available)
+                      ? formatPrice(available, currencyCode)
+                      : '—'}
                   </div>
                   <div data-fs-budgets-to-be-spent>
                     {toBeSpent !== 0
