@@ -9,8 +9,8 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "turbo run build --log-order=grouped",
-    "build:codesandbox": "turbo run build --filter @faststore/cli...",
+    "build": "turbo run build --log-order=grouped && (cd ./packages/core && pnpm run gen-types)",
+    "build:codesandbox": "turbo run build --filter @faststore/cli... && (cd ./packages/core && pnpm run gen-types)",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
