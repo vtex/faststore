@@ -11,4 +11,10 @@
   [data-fs-order-actions-item] {
     color: var(--fs-color-text);
   }
+
+  [data-fs-order-actions-item-reorder] {
+    @include media(">=tablet") {
+      display: none;
+    }
+  }
 }
