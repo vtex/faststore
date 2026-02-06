@@ -15,6 +15,7 @@
   @import "./MyAccountPaymentCard/styles.scss";
   @import "./MyAccountDeliveryOptionAccordion/styles.scss";
   @import "./MyAccountOrderActions/styles.scss";
+  @import "./MyAccountReorderButton/styles.scss";
   @import "./MyAccountStatusCard/styles.scss";
   @import "./MyAccountMoreInformationCard/styles.scss";
   @import "./MyAccountBuyingPolicyAlert/styles.scss";
@@ -107,6 +108,19 @@
         line-height: var(--fs-order-details-header-line-height);
 
         @include truncate-title(2);
+      }
+    }
+
+    [data-fs-order-details-header-actions] {
+      display: flex;
+      flex-direction: row;
+      gap: var(--fs-spacing-2);
+      align-items: center;
+
+      [data-fs-reorder-button] {
+        @include media("<tablet") {
+          display: none;
+        }
       }
     }
   }
