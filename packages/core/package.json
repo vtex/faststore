@@ -101,7 +101,8 @@
     "style-loader": "^3.3.1",
     "swr": "^2.2.5",
     "tsx": "^4.6.2",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "yjs": ">=13.5.22"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
