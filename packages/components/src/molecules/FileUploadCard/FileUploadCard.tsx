@@ -47,47 +47,47 @@ export interface FileUploadCardProps
   /**
    * Card title (e.g. from CMS).
    */
-  title?: string
+  title: string
   /**
    * Aria-label for the file input (e.g. from CMS).
    */
-  fileInputAriaLabel?: string
+  fileInputAriaLabel: string
   /**
    * Aria-label for the dropzone region (e.g. from CMS).
    */
-  dropzoneAriaLabel?: string
+  dropzoneAriaLabel: string
   /**
    * Dropzone title text (e.g. from CMS).
    */
-  dropzoneTitle?: string
+  dropzoneTitle: string
   /**
    * Label for the select file button (e.g. from CMS).
    */
-  selectFileButtonLabel?: string
+  selectFileButtonLabel: string
   /**
    * Label for the download template button (e.g. from CMS).
    */
-  downloadTemplateButtonLabel?: string
+  downloadTemplateButtonLabel: string
   /**
    * Aria-label for the remove button in FileUploadStatus (e.g. from CMS).
    */
-  removeButtonAriaLabel?: string
+  removeButtonAriaLabel: string
   /**
    * Label for the search button in FileUploadStatus (e.g. from CMS).
    */
-  searchButtonLabel?: string
+  searchButtonLabel: string
   /**
    * Status text when uploading in FileUploadStatus (e.g. from CMS).
    */
-  uploadingStatusText?: string
+  uploadingStatusText: string
   /**
    * Status text when completed in FileUploadStatus (e.g. from CMS). Receives file size in bytes.
    */
-  getCompletedStatusText?: (fileSize: number) => string
+  getCompletedStatusText: (fileSize: number) => string
   /**
    * Error messages per error type for FileUploadStatus (e.g. from CMS).
    */
-  errorMessages?: Partial<
+  errorMessages: Partial<
     Record<FileUploadErrorType, { title: string; description: string }>
   >
   /**
@@ -117,22 +117,19 @@ const FileUploadCard = ({
   onSearch,
   accept = '.csv',
   multiple = false,
-  title = 'File Upload',
-  fileInputAriaLabel = 'File upload input',
-  dropzoneAriaLabel = 'Drop a file to search in bulk',
-  dropzoneTitle = 'Drop a file to search in bulk',
-  selectFileButtonLabel = 'Select file',
-  downloadTemplateButtonLabel = 'Download template',
-  removeButtonAriaLabel = 'Remove file',
-  searchButtonLabel = 'Search',
-  uploadingStatusText = 'Uploading your file...',
+  title,
+  fileInputAriaLabel,
+  dropzoneAriaLabel,
+  dropzoneTitle,
+  selectFileButtonLabel,
+  downloadTemplateButtonLabel,
+  removeButtonAriaLabel,
+  searchButtonLabel,
+  uploadingStatusText,
+  getCompletedStatusText,
   errorMessages,
   formatterFileSize,
   formatterFileName,
-  getCompletedStatusText = (size: number) =>
-    formatterFileSize
-      ? `Completed • ${formatterFileSize(size)}`
-      : `Completed • ${(size / 1024).toFixed(0)} KB`,
   isUploading = false,
   hasError = false,
   ...otherProps
@@ -323,7 +320,7 @@ const FileUploadCard = ({
           downloadTemplateButtonLabel={downloadTemplateButtonLabel}
           selectFileButtonLabel={selectFileButtonLabel}
           uploadingStatusText={uploadingStatusText}
-          completedStatusText={getCompletedStatusText?.(selectedFile.size)}
+          completedStatusText={getCompletedStatusText(selectedFile.size)}
           fileName={
             formatterFileName ? formatterFileName(selectedFile.name) : undefined
           }
