@@ -36,6 +36,7 @@ import type { NavbarProps } from 'src/components/sections/Navbar'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
+import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
@@ -327,7 +328,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onSearch: handleSearch,
                   isUploading: isCsvProcessing,
                   hasError: !!csvError,
-                  ...(fileUploadCardProps ?? {}),
+                  ...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS),
                 } as FileUploadCardProps)}
               />
             )}

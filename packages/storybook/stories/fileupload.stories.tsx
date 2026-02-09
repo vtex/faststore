@@ -101,6 +101,12 @@ export function FileUploadStatusUploading() {
         state={FileUploadState.Uploading}
         onRemove={() => console.log('Remove clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        downloadTemplateButtonLabel={
+          fileUploadStatusTextProps.downloadTemplateButtonLabel
+        }
+        selectFileButtonLabel={fileUploadStatusTextProps.selectFileButtonLabel}
+        errorMessages={fileUploadStatusErrorMessages}
         uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
         completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
           file.size
@@ -122,6 +128,11 @@ export function FileUploadStatusCompleted() {
         onSearch={() => console.log('Search clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
         searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        downloadTemplateButtonLabel={
+          fileUploadStatusTextProps.downloadTemplateButtonLabel
+        }
+        selectFileButtonLabel={fileUploadStatusTextProps.selectFileButtonLabel}
+        errorMessages={fileUploadStatusErrorMessages}
         uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
         completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
           file.size
@@ -145,6 +156,7 @@ export function FileUploadStatusError() {
         onDownloadTemplate={() => console.log('Download template clicked')}
         onSelectFile={() => console.log('Select file clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
         downloadTemplateButtonLabel={
           fileUploadStatusTextProps.downloadTemplateButtonLabel
         }
@@ -200,6 +212,7 @@ export function FileUploadStatusAllErrorTypes() {
             removeButtonAriaLabel={
               fileUploadStatusTextProps.removeButtonAriaLabel
             }
+            searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
             downloadTemplateButtonLabel={
               fileUploadStatusTextProps.downloadTemplateButtonLabel
             }
