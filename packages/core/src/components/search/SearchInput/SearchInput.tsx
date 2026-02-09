@@ -72,6 +72,11 @@ export type SearchInputProps = {
   /** Aria-label for the attachment button; can be set from CMS. */
   attachmentButtonAriaLabel?: string
   /**
+   * Called when the user clicks Search in the file upload card, with the parsed CSV data.
+   * Use this to run bulk search, add to cart, or analytics.
+   */
+  onFileSearch?: (data: CSVData) => void
+  /**
    * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
    */
   fileUploadCardProps?: {
@@ -115,6 +120,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       quickOrderSettings,
       showAttachmentButton = true,
       attachmentButtonAriaLabel,
+      onFileSearch,
       fileUploadCardProps,
       ...otherProps
     },
@@ -207,7 +213,26 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     }
 
     const handleSearch = () => {
-      if (!csvData) return
+      if (!csvData) {
+        console.log('[Search] Botão Search clicado sem dados (csvData null)')
+        return
+      }
+      const payload = {
+        fileName: csvData.fileName,
+        totalRows: csvData.totalRows,
+        fileSize: csvData.fileSize,
+        data: csvData.data,
+      }
+      console.log('[Search] Botão Search clicado – dados processados:', payload)
+      try {
+        window.dispatchEvent(
+          new CustomEvent('faststore:file-search', { detail: payload })
+        )
+      } catch {
+        // ignore in envs without window
+      }
+      onFileSearch?.(csvData)
+      // TODO: Add integration here
     }
 
     useOnClickOutside(searchRef, () => {
