@@ -24,22 +24,24 @@ type ListComponent = <T extends ElementType = 'ul'>(
   props: ListProps<T>
 ) => ReactElement | null
 
-const List = forwardRef(function List<T extends ElementType = 'ul'>(
-  { as, marker, testId = 'fs-list', ...otherProps }: ListProps<T>,
-  ref: PolymorphicRef<T>
-) {
-  const Component = as ?? 'ul'
+const List = forwardRef<HTMLUListElement, Omit<ListProps<'ul'>, 'ref'>>(
+  function List<T extends ElementType = 'ul'>(
+    { as, marker, testId = 'fs-list', ...otherProps }: ListProps<T>,
+    ref: PolymorphicRef<T>
+  ) {
+    const Component = as ?? 'ul'
 
-  return (
-    <Component
-      ref={ref}
-      role="list"
-      data-fs-list
-      data-fs-list-marker={marker}
-      data-testid={testId}
-      {...otherProps}
-    />
-  )
-}) as ListComponent
+    return (
+      <Component
+        ref={ref}
+        role="list"
+        data-fs-list
+        data-fs-list-marker={marker}
+        data-testid={testId}
+        {...otherProps}
+      />
+    )
+  }
+) as ListComponent
 
 export default List
