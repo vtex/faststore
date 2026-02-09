@@ -1,9 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "3.96.4-dev.0",
-  "sideEffects": false,
-  "author": "Emerson Laurentino @emersonlaurentino",
-  "license": "MIT",
+  "version": "3.97.0-dev.2",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.mjs",
   "typings": "dist/index.d.ts",

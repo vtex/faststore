@@ -495,6 +495,7 @@ export const Query = {
           email: shopper?.email || '',
           phone: shopper?.phone || '',
         },
+        budgetData: order.budgetData ?? { budgets: [] },
       }
     } catch (error) {
       const errorMessage = (error as Error).message

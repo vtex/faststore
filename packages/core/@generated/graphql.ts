@@ -1657,66 +1657,67 @@ export type StoreUserDetails = {
 };
 
 export type UserOrder = {
-  affiliateId: Maybe<Scalars['String']['output']>;
-  allowCancellation: Maybe<Scalars['Boolean']['output']>;
-  allowEdition: Maybe<Scalars['Boolean']['output']>;
-  authorizedDate: Maybe<Scalars['String']['output']>;
-  callCenterOperatorData: Maybe<Scalars['String']['output']>;
-  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>;
-  cancelReason: Maybe<Scalars['String']['output']>;
-  cancellationData: Maybe<UserOrderCancellationData>;
-  cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>;
-  changesAttachment: Maybe<Scalars['String']['output']>;
-  checkedInPickupPointId: Maybe<Scalars['String']['output']>;
-  clientPreferencesData: Maybe<UserOrderClientPreferencesData>;
-  clientProfileData: Maybe<UserOrderClientProfileData>;
-  commercialConditionData: Maybe<Scalars['String']['output']>;
-  creationDate: Maybe<Scalars['String']['output']>;
-  customData: Maybe<UserOrderCustomData>;
-  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
-  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>;
-  followUpEmail: Maybe<Scalars['String']['output']>;
-  giftRegistryData: Maybe<Scalars['String']['output']>;
-  hostname: Maybe<Scalars['String']['output']>;
-  invoiceData: Maybe<Scalars['String']['output']>;
-  invoicedDate: Maybe<Scalars['String']['output']>;
-  isCheckedIn: Maybe<Scalars['Boolean']['output']>;
-  isCompleted: Maybe<Scalars['Boolean']['output']>;
-  itemMetadata: Maybe<UserOrderItemMetadata>;
-  items: Maybe<Array<Maybe<UserOrderItems>>>;
-  lastChange: Maybe<Scalars['String']['output']>;
-  lastMessage: Maybe<Scalars['String']['output']>;
-  marketingData: Maybe<Scalars['String']['output']>;
-  marketplace: Maybe<UserOrderMarketplace>;
-  marketplaceItems: Maybe<Array<Maybe<UserOrderItems>>>;
-  marketplaceOrderId: Maybe<Scalars['String']['output']>;
-  marketplaceServicesEndpoint: Maybe<Scalars['String']['output']>;
-  merchantName: Maybe<Scalars['String']['output']>;
-  openTextField: Maybe<Scalars['String']['output']>;
-  orderFormId: Maybe<Scalars['String']['output']>;
-  orderGroup: Maybe<Scalars['String']['output']>;
-  orderId: Maybe<Scalars['String']['output']>;
-  origin: Maybe<Scalars['String']['output']>;
-  packageAttachment: Maybe<UserOrderPackageAttachment>;
-  paymentData: Maybe<UserOrderPaymentData>;
-  purchaseAgentData: Maybe<UserOrderPurchaseAgentData>;
-  ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>;
-  roundingError: Maybe<Scalars['Int']['output']>;
-  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>;
-  salesChannel: Maybe<Scalars['String']['output']>;
-  sellerOrderId: Maybe<Scalars['String']['output']>;
-  sellers: Maybe<Array<Maybe<UserOrderStoreSellers>>>;
-  sequence: Maybe<Scalars['String']['output']>;
-  shippingData: Maybe<UserOrderShippingData>;
-  status: Maybe<Scalars['String']['output']>;
-  statusDescription: Maybe<Scalars['String']['output']>;
-  storePreferencesData: Maybe<UserOrderStorePreferencesData>;
-  subscriptionData: Maybe<Scalars['String']['output']>;
-  taxData: Maybe<Scalars['String']['output']>;
-  totals: Maybe<Array<Maybe<UserOrderTotals>>>;
-  value: Maybe<Scalars['Float']['output']>;
-  workflowIsInError: Maybe<Scalars['Boolean']['output']>;
-};
+  affiliateId: Maybe<Scalars['String']['output']>
+  allowCancellation: Maybe<Scalars['Boolean']['output']>
+  allowEdition: Maybe<Scalars['Boolean']['output']>
+  authorizedDate: Maybe<Scalars['String']['output']>
+  budgetData: Maybe<UserOrderBudgetData>
+  callCenterOperatorData: Maybe<Scalars['String']['output']>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
+  cancelReason: Maybe<Scalars['String']['output']>
+  cancellationData: Maybe<UserOrderCancellationData>
+  cancellationRequests: Maybe<Array<Maybe<UserOrderCancellationRequest>>>
+  changesAttachment: Maybe<Scalars['String']['output']>
+  checkedInPickupPointId: Maybe<Scalars['String']['output']>
+  clientPreferencesData: Maybe<UserOrderClientPreferencesData>
+  clientProfileData: Maybe<UserOrderClientProfileData>
+  commercialConditionData: Maybe<Scalars['String']['output']>
+  creationDate: Maybe<Scalars['String']['output']>
+  customData: Maybe<UserOrderCustomData>
+  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
+  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
+  followUpEmail: Maybe<Scalars['String']['output']>
+  giftRegistryData: Maybe<Scalars['String']['output']>
+  hostname: Maybe<Scalars['String']['output']>
+  invoiceData: Maybe<Scalars['String']['output']>
+  invoicedDate: Maybe<Scalars['String']['output']>
+  isCheckedIn: Maybe<Scalars['Boolean']['output']>
+  isCompleted: Maybe<Scalars['Boolean']['output']>
+  itemMetadata: Maybe<UserOrderItemMetadata>
+  items: Maybe<Array<Maybe<UserOrderItems>>>
+  lastChange: Maybe<Scalars['String']['output']>
+  lastMessage: Maybe<Scalars['String']['output']>
+  marketingData: Maybe<Scalars['String']['output']>
+  marketplace: Maybe<UserOrderMarketplace>
+  marketplaceItems: Maybe<Array<Maybe<UserOrderItems>>>
+  marketplaceOrderId: Maybe<Scalars['String']['output']>
+  marketplaceServicesEndpoint: Maybe<Scalars['String']['output']>
+  merchantName: Maybe<Scalars['String']['output']>
+  openTextField: Maybe<Scalars['String']['output']>
+  orderFormId: Maybe<Scalars['String']['output']>
+  orderGroup: Maybe<Scalars['String']['output']>
+  orderId: Maybe<Scalars['String']['output']>
+  origin: Maybe<Scalars['String']['output']>
+  packageAttachment: Maybe<UserOrderPackageAttachment>
+  paymentData: Maybe<UserOrderPaymentData>
+  purchaseAgentData: Maybe<UserOrderPurchaseAgentData>
+  ratesAndBenefitsData: Maybe<UserOrderRatesAndBenefitsData>
+  roundingError: Maybe<Scalars['Int']['output']>
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
+  salesChannel: Maybe<Scalars['String']['output']>
+  sellerOrderId: Maybe<Scalars['String']['output']>
+  sellers: Maybe<Array<Maybe<UserOrderStoreSellers>>>
+  sequence: Maybe<Scalars['String']['output']>
+  shippingData: Maybe<UserOrderShippingData>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  storePreferencesData: Maybe<UserOrderStorePreferencesData>
+  subscriptionData: Maybe<Scalars['String']['output']>
+  taxData: Maybe<Scalars['String']['output']>
+  totals: Maybe<Array<Maybe<UserOrderTotals>>>
+  value: Maybe<Scalars['Float']['output']>
+  workflowIsInError: Maybe<Scalars['Boolean']['output']>
+}
 
 export type UserOrderAdditionalInfo = {
   brandId: Maybe<Scalars['String']['output']>;
@@ -1764,6 +1765,45 @@ export type UserOrderAttachments = {
   content: Maybe<Scalars['JSONObject']['output']>;
   name: Maybe<Scalars['String']['output']>;
 };
+
+export type UserOrderBudget = {
+  allocations: Maybe<Array<Maybe<UserOrderBudgetAllocation>>>
+  balance: Maybe<UserOrderBudgetBalance>
+  cycleConfiguration: Maybe<UserOrderBudgetCycleConfiguration>
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  unitId: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudgetAllocation = {
+  ToBeSpent: Maybe<Scalars['Float']['output']>
+  balance: Maybe<UserOrderBudgetBalance>
+  id: Maybe<Scalars['String']['output']>
+  linkedEntity: Maybe<UserOrderBudgetAllocationLinkedEntity>
+  reservations: Maybe<Scalars['JSONObject']['output']>
+}
+
+export type UserOrderBudgetAllocationLinkedEntity = {
+  id: Maybe<Scalars['String']['output']>
+  type: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudgetBalance = {
+  amount: Maybe<Scalars['Float']['output']>
+  balanceAdjustment: Maybe<Scalars['Float']['output']>
+  remaining: Maybe<Scalars['Float']['output']>
+}
+
+export type UserOrderBudgetCycleConfiguration = {
+  autoResetOnPeriodEnd: Maybe<Scalars['Boolean']['output']>
+  carryOverBalance: Maybe<Scalars['Boolean']['output']>
+  endDate: Maybe<Scalars['String']['output']>
+  startDate: Maybe<Scalars['String']['output']>
+}
+
+export type UserOrderBudgetData = {
+  budgets: Maybe<Array<Maybe<UserOrderBudget>>>
+}
 
 export type UserOrderCancel = {
   data: Maybe<Scalars['String']['output']>;
@@ -2324,24 +2364,25 @@ export type UserOrderRestitutions = {
 };
 
 export type UserOrderResult = {
-  allowCancellation: Maybe<Scalars['Boolean']['output']>;
-  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>;
-  clientProfileData: Maybe<UserOrderClientProfileData>;
-  creationDate: Maybe<Scalars['String']['output']>;
-  customData: Maybe<UserOrderCustomData>;
-  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
-  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>;
-  items: Maybe<Array<Maybe<UserOrderItems>>>;
-  orderId: Maybe<Scalars['String']['output']>;
-  paymentData: Maybe<UserOrderPaymentData>;
-  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>;
-  shippingData: Maybe<UserOrderShippingData>;
-  shopper: Maybe<UserOrderShopper>;
-  status: Maybe<Scalars['String']['output']>;
-  statusDescription: Maybe<Scalars['String']['output']>;
-  storePreferencesData: Maybe<UserOrderStorePreferencesData>;
-  totals: Maybe<Array<Maybe<UserOrderTotals>>>;
-};
+  allowCancellation: Maybe<Scalars['Boolean']['output']>
+  budgetData: Maybe<UserOrderBudgetData>
+  canProcessOrderAuthorization: Maybe<Scalars['Boolean']['output']>
+  clientProfileData: Maybe<UserOrderClientProfileData>
+  creationDate: Maybe<Scalars['String']['output']>
+  customData: Maybe<UserOrderCustomData>
+  customFields: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>
+  deliveryOptionsData: Maybe<UserOrderDeliveryOptionsData>
+  items: Maybe<Array<Maybe<UserOrderItems>>>
+  orderId: Maybe<Scalars['String']['output']>
+  paymentData: Maybe<UserOrderPaymentData>
+  ruleForAuthorization: Maybe<ProcessOrderAuthorizationRule>
+  shippingData: Maybe<UserOrderShippingData>
+  shopper: Maybe<UserOrderShopper>
+  status: Maybe<Scalars['String']['output']>
+  statusDescription: Maybe<Scalars['String']['output']>
+  storePreferencesData: Maybe<UserOrderStorePreferencesData>
+  totals: Maybe<Array<Maybe<UserOrderTotals>>>
+}
 
 export type UserOrderSellingPrices = {
   quantity: Maybe<Scalars['Int']['output']>;
@@ -2480,6 +2521,194 @@ export type ServerOrderDetailsQueryQueryVariables = Exact<{
   orderId: Scalars['String']['input'];
 }>;
 
+export type ServerOrderDetailsQueryQuery = {
+  userOrder: {
+    orderId: string | null
+    creationDate: string | null
+    status: string | null
+    canProcessOrderAuthorization: boolean | null
+    statusDescription: string | null
+    allowCancellation: boolean | null
+    ruleForAuthorization: {
+      orderAuthorizationId: string
+      dimensionId: string
+      rule: {
+        id: string
+        name: string
+        status: CommercialAuthorizationStatus
+        doId: string | null
+        authorizedEmails: Array<string>
+        priority: number
+        timeout: number
+        notification: boolean
+        isUserAuthorized: boolean
+        isUserNextAuthorizer: boolean
+        trigger: {
+          condition: {
+            conditionType: number
+            description: string | null
+            lessThan: number | null
+            greatherThan: number | null
+            expression: string | null
+          }
+          effect: {
+            description: string | null
+            effectType: number
+            funcPath: string | null
+          }
+        }
+        scoreInterval: { accept: number; deny: number }
+        authorizationData: {
+          requireAllApprovals: boolean
+          authorizers: Array<{
+            id: string
+            email: string | null
+            type: string
+            authorizationDate: string | null
+          }>
+        } | null
+      }
+    } | null
+    storePreferencesData: { currencyCode: string | null } | null
+    clientProfileData: {
+      firstName: string | null
+      lastName: string | null
+      email: string | null
+      phone: string | null
+      corporateName: string | null
+      isCorporate: boolean | null
+    } | null
+    customFields: Array<{
+      type: string
+      id: string | null
+      fields: Array<{
+        name: string
+        value: string
+        refId: string | null
+      } | null> | null
+    } | null> | null
+    deliveryOptionsData: {
+      deliveryOptions: Array<{
+        selectedSla: string | null
+        deliveryChannel: string | null
+        deliveryCompany: string | null
+        shippingEstimate: string | null
+        shippingEstimateDate: string | null
+        friendlyShippingEstimate: string | null
+        friendlyDeliveryOptionName: string | null
+        seller: string | null
+        quantityOfDifferentItems: number | null
+        total: number | null
+        deliveryWindow: {
+          startDateUtc: string | null
+          endDateUtc: string | null
+          price: number | null
+        } | null
+        address: {
+          addressType: string | null
+          receiverName: string | null
+          addressId: string | null
+          versionId: string | null
+          entityId: string | null
+          postalCode: string | null
+          city: string | null
+          state: string | null
+          country: string | null
+          street: string | null
+          number: string | null
+          neighborhood: string | null
+          complement: string | null
+          reference: string | null
+          geoCoordinates: Array<number | null> | null
+        } | null
+        pickupStoreInfo: {
+          additionalInfo: string | null
+          dockId: string | null
+          friendlyName: string | null
+          isPickupStore: boolean | null
+          address: {
+            addressType: string | null
+            receiverName: string | null
+            addressId: string | null
+            versionId: string | null
+            entityId: string | null
+            postalCode: string | null
+            city: string | null
+            state: string | null
+            country: string | null
+            street: string | null
+            number: string | null
+            neighborhood: string | null
+            complement: string | null
+            reference: string | null
+            geoCoordinates: Array<number | null> | null
+          } | null
+        } | null
+        items: Array<{
+          id: string | null
+          uniqueId: string | null
+          name: string | null
+          quantity: number | null
+          price: number | null
+          sellingPrice: number | null
+          imageUrl: string | null
+          tax: number | null
+          taxPriceTagsTotal: number | null
+          total: number | null
+        } | null> | null
+      } | null> | null
+      contact: {
+        email: string | null
+        phone: string | null
+        name: string | null
+      } | null
+    } | null
+    paymentData: {
+      transactions: Array<{
+        isActive: boolean | null
+        payments: Array<{
+          id: string | null
+          paymentSystemName: string | null
+          value: number | null
+          installments: number | null
+          referenceValue: number | null
+          lastDigits: string | null
+          url: string | null
+          group: string | null
+          tid: string | null
+          bankIssuedInvoiceIdentificationNumber: string | null
+          redemptionCode: string | null
+          paymentOrigin: string | null
+          connectorResponses: { authId: string | null } | null
+        } | null> | null
+      } | null> | null
+    } | null
+    totals: Array<{
+      id: string | null
+      name: string | null
+      value: number | null
+    } | null> | null
+    shopper: {
+      firstName: string | null
+      lastName: string | null
+      email: string | null
+      phone: string | null
+    } | null
+    budgetData: {
+      budgets: Array<{
+        id: string | null
+        name: string | null
+        balance: { remaining: number | null } | null
+        allocations: Array<{
+          id: string | null
+          reservations: any | null
+          linkedEntity: { id: string | null } | null
+        } | null> | null
+      } | null> | null
+    } | null
+  } | null
+  accountProfile: { name: string | null }
+}
 
 export type ServerOrderDetailsQueryQuery = { userOrder: { orderId: string | null, creationDate: string | null, status: string | null, canProcessOrderAuthorization: boolean | null, statusDescription: string | null, allowCancellation: boolean | null, ruleForAuthorization: { orderAuthorizationId: string, dimensionId: string, rule: { id: string, name: string, status: CommercialAuthorizationStatus, doId: string | null, authorizedEmails: Array<string>, priority: number, timeout: number, notification: boolean, isUserAuthorized: boolean, isUserNextAuthorizer: boolean, trigger: { condition: { conditionType: number, description: string | null, lessThan: number | null, greatherThan: number | null, expression: string | null }, effect: { description: string | null, effectType: number, funcPath: string | null } }, scoreInterval: { accept: number, deny: number }, authorizationData: { requireAllApprovals: boolean, authorizers: Array<{ id: string, email: string | null, type: string, authorizationDate: string | null }> } | null } } | null, storePreferencesData: { currencyCode: string | null } | null, clientProfileData: { firstName: string | null, lastName: string | null, email: string | null, phone: string | null, corporateName: string | null, isCorporate: boolean | null } | null, customFields: Array<{ type: string, id: string | null, fields: Array<{ name: string, value: string, refId: string | null } | null> | null } | null> | null, deliveryOptionsData: { deliveryOptions: Array<{ selectedSla: string | null, deliveryChannel: string | null, deliveryCompany: string | null, shippingEstimate: string | null, shippingEstimateDate: string | null, friendlyShippingEstimate: string | null, friendlyDeliveryOptionName: string | null, seller: string | null, quantityOfDifferentItems: number | null, total: number | null, deliveryWindow: { startDateUtc: string | null, endDateUtc: string | null, price: number | null } | null, address: { addressType: string | null, receiverName: string | null, addressId: string | null, versionId: string | null, entityId: string | null, postalCode: string | null, city: string | null, state: string | null, country: string | null, street: string | null, number: string | null, neighborhood: string | null, complement: string | null, reference: string | null, geoCoordinates: Array<number | null> | null } | null, pickupStoreInfo: { additionalInfo: string | null, dockId: string | null, friendlyName: string | null, isPickupStore: boolean | null, address: { addressType: string | null, receiverName: string | null, addressId: string | null, versionId: string | null, entityId: string | null, postalCode: string | null, city: string | null, state: string | null, country: string | null, street: string | null, number: string | null, neighborhood: string | null, complement: string | null, reference: string | null, geoCoordinates: Array<number | null> | null } | null } | null, items: Array<{ id: string | null, uniqueId: string | null, name: string | null, quantity: number | null, price: number | null, sellingPrice: number | null, imageUrl: string | null, tax: number | null, taxPriceTagsTotal: number | null, total: number | null } | null> | null } | null> | null, contact: { email: string | null, phone: string | null, name: string | null } | null } | null, paymentData: { transactions: Array<{ isActive: boolean | null, payments: Array<{ id: string | null, paymentSystemName: string | null, value: number | null, installments: number | null, referenceValue: number | null, lastDigits: string | null, url: string | null, group: string | null, tid: string | null, bankIssuedInvoiceIdentificationNumber: string | null, redemptionCode: string | null, paymentOrigin: string | null, connectorResponses: { authId: string | null } | null } | null> | null } | null> | null } | null, totals: Array<{ id: string | null, name: string | null, value: number | null } | null> | null, shopper: { firstName: string | null, lastName: string | null, email: string | null, phone: string | null } | null } | null, accountProfile: { name: string | null } };
 
@@ -3172,30 +3401,240 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   logicalOperator
   fuzzy
 }
-    `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
-export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
-export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
-export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"e855903879c6504e90269e6e010549bc6de933eb"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
-export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"a9c4099d622ef84c92396e2ca938ee4df4f45dce"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
-export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
-export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
-export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
-export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"e5eb7e46c685d0c7a2ec62c865bfb0a66f81d557"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
-export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
-export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
-export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
-export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
-export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
-export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
-export const ClientProductCountQueryDocument = {"__meta__":{"operationName":"ClientProductCountQuery","operationHash":"dc912e7272e3d9f5ced206837df87f544d39d0a5"}} as unknown as TypedDocumentString<ClientProductCountQueryQuery, ClientProductCountQueryQueryVariables>;
-export const ClientAllVariantProductsQueryDocument = {"__meta__":{"operationName":"ClientAllVariantProductsQuery","operationHash":"4039e05f01a2fe449e20e8b82170d0ba94b1fbe9"}} as unknown as TypedDocumentString<ClientAllVariantProductsQueryQuery, ClientAllVariantProductsQueryQueryVariables>;
-export const ClientManyProductsQueryDocument = {"__meta__":{"operationName":"ClientManyProductsQuery","operationHash":"e49027bc29aa10cbf7bbb0ed62239af8de1653f0"}} as unknown as TypedDocumentString<ClientManyProductsQueryQuery, ClientManyProductsQueryQueryVariables>;
-export const ClientProductGalleryQueryDocument = {"__meta__":{"operationName":"ClientProductGalleryQuery","operationHash":"bfc40da32b60f9404a4adb96b0856e3fbb04b076"}} as unknown as TypedDocumentString<ClientProductGalleryQueryQuery, ClientProductGalleryQueryQueryVariables>;
-export const ClientProductQueryDocument = {"__meta__":{"operationName":"ClientProductQuery","operationHash":"47aa22eb750cb2c529e5eeafb921bfeadb67db71"}} as unknown as TypedDocumentString<ClientProductQueryQuery, ClientProductQueryQueryVariables>;
-export const ClientManyProductsSelectedQueryDocument = {"__meta__":{"operationName":"ClientManyProductsSelectedQuery","operationHash":"b668777678c137b8c7004297df4d8b8f2b29ee06"}} as unknown as TypedDocumentString<ClientManyProductsSelectedQueryQuery, ClientManyProductsSelectedQueryQueryVariables>;
-export const ClientProfileQueryDocument = {"__meta__":{"operationName":"ClientProfileQuery","operationHash":"34ea14c0d4a57ddf9bc11e4be0cd2b5a6506d3d4"}} as unknown as TypedDocumentString<ClientProfileQueryQuery, ClientProfileQueryQueryVariables>;
-export const ClientSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientSearchSuggestionsQuery","operationHash":"bbaa2ed75c4fb04842189e8d53a1d65481154e2b"}} as unknown as TypedDocumentString<ClientSearchSuggestionsQueryQuery, ClientSearchSuggestionsQueryQueryVariables>;
-export const ClientTopSearchSuggestionsQueryDocument = {"__meta__":{"operationName":"ClientTopSearchSuggestionsQuery","operationHash":"e2385b0f11726d0068f96548f57a8dd441c064e3"}} as unknown as TypedDocumentString<ClientTopSearchSuggestionsQueryQuery, ClientTopSearchSuggestionsQueryQueryVariables>;
-export const ValidateSessionDocument = {"__meta__":{"operationName":"ValidateSession","operationHash":"8c3a5999496e227f167e9dc79697e6c478d48a9e"}} as unknown as TypedDocumentString<ValidateSessionMutation, ValidateSessionMutationVariables>;
-export const ClientShippingSimulationQueryDocument = {"__meta__":{"operationName":"ClientShippingSimulationQuery","operationHash":"c35bad22f67f3eb34fea52bb49efa6b1da6b728d"}} as unknown as TypedDocumentString<ClientShippingSimulationQueryQuery, ClientShippingSimulationQueryQueryVariables>;
-export const ServerManyProductsQueryDocument = {"__meta__":{"operationName":"ServerManyProductsQuery","operationHash":"4b769cda49004c85d0d427c601eba36c37a52224"}} as unknown as TypedDocumentString<ServerManyProductsQueryQuery, ServerManyProductsQueryQueryVariables>;
+    `,
+  { fragmentName: 'SearchEvent_metadata' }
+) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>
+export const ServerAccountPageQueryDocument = {
+  __meta__: {
+    operationName: 'ServerAccountPageQuery',
+    operationHash: '9baae331b75848a310fecb457e8c971ae27897ff',
+  },
+} as unknown as TypedDocumentString<
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables
+>
+export const ServerCollectionPageQueryDocument = {
+  __meta__: {
+    operationName: 'ServerCollectionPageQuery',
+    operationHash: '4b33c5c07f440dc7489e55619dc2211a13786e72',
+  },
+} as unknown as TypedDocumentString<
+  ServerCollectionPageQueryQuery,
+  ServerCollectionPageQueryQueryVariables
+>
+export const ServerProductQueryDocument = {
+  __meta__: {
+    operationName: 'ServerProductQuery',
+    operationHash: 'e855903879c6504e90269e6e010549bc6de933eb',
+  },
+} as unknown as TypedDocumentString<
+  ServerProductQueryQuery,
+  ServerProductQueryQueryVariables
+>
+export const ServerOrderDetailsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerOrderDetailsQuery',
+    operationHash: 'bdf677bbccce12186a5ef15aebdce46585a99782',
+  },
+} as unknown as TypedDocumentString<
+  ServerOrderDetailsQueryQuery,
+  ServerOrderDetailsQueryQueryVariables
+>
+export const ServerListOrdersQueryDocument = {
+  __meta__: {
+    operationName: 'ServerListOrdersQuery',
+    operationHash: '70d06de1da9c11f10ebde31b66fd74eccd456af5',
+  },
+} as unknown as TypedDocumentString<
+  ServerListOrdersQueryQuery,
+  ServerListOrdersQueryQueryVariables
+>
+export const ServerProfileQueryDocument = {
+  __meta__: {
+    operationName: 'ServerProfileQuery',
+    operationHash: '672fe0f00b7b710b63fc6573c0a6b2ec54812b8f',
+  },
+} as unknown as TypedDocumentString<
+  ServerProfileQueryQuery,
+  ServerProfileQueryQueryVariables
+>
+export const ServerSecurityDocument = {
+  __meta__: {
+    operationName: 'ServerSecurity',
+    operationHash: '0890ba3456c40a426893b80b698df7a84cfdd6a1',
+  },
+} as unknown as TypedDocumentString<
+  ServerSecurityQuery,
+  ServerSecurityQueryVariables
+>
+export const ServerUserDetailsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerUserDetailsQuery',
+    operationHash: 'e5eb7e46c685d0c7a2ec62c865bfb0a66f81d557',
+  },
+} as unknown as TypedDocumentString<
+  ServerUserDetailsQueryQuery,
+  ServerUserDetailsQueryQueryVariables
+>
+export const CancelOrderMutationDocument = {
+  __meta__: {
+    operationName: 'CancelOrderMutation',
+    operationHash: 'e2b06da6840614d3c72768e56579b9d3b8e80802',
+  },
+} as unknown as TypedDocumentString<
+  CancelOrderMutationMutation,
+  CancelOrderMutationMutationVariables
+>
+export const ProcessOrderAuthorizationMutationDocument = {
+  __meta__: {
+    operationName: 'ProcessOrderAuthorizationMutation',
+    operationHash: '8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d',
+  },
+} as unknown as TypedDocumentString<
+  ProcessOrderAuthorizationMutationMutation,
+  ProcessOrderAuthorizationMutationMutationVariables
+>
+export const ValidateUserDocument = {
+  __meta__: {
+    operationName: 'ValidateUser',
+    operationHash: '32f99c73c3de958b64d6bece1afe800469f54548',
+  },
+} as unknown as TypedDocumentString<
+  ValidateUserQuery,
+  ValidateUserQueryVariables
+>
+export const ValidateCartMutationDocument = {
+  __meta__: {
+    operationName: 'ValidateCartMutation',
+    operationHash: 'c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0',
+  },
+} as unknown as TypedDocumentString<
+  ValidateCartMutationMutation,
+  ValidateCartMutationMutationVariables
+>
+export const ClientPickupPointsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientPickupPointsQuery',
+    operationHash: '3fa04e88c811fcb5ece7206fd5aa745bdbc143a8',
+  },
+} as unknown as TypedDocumentString<
+  ClientPickupPointsQueryQuery,
+  ClientPickupPointsQueryQueryVariables
+>
+export const SubscribeToNewsletterDocument = {
+  __meta__: {
+    operationName: 'SubscribeToNewsletter',
+    operationHash: 'feb7005103a859e2bc8cf2360d568806fd88deba',
+  },
+} as unknown as TypedDocumentString<
+  SubscribeToNewsletterMutation,
+  SubscribeToNewsletterMutationVariables
+>
+export const ClientProductCountQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProductCountQuery',
+    operationHash: 'dc912e7272e3d9f5ced206837df87f544d39d0a5',
+  },
+} as unknown as TypedDocumentString<
+  ClientProductCountQueryQuery,
+  ClientProductCountQueryQueryVariables
+>
+export const ClientAllVariantProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientAllVariantProductsQuery',
+    operationHash: '4039e05f01a2fe449e20e8b82170d0ba94b1fbe9',
+  },
+} as unknown as TypedDocumentString<
+  ClientAllVariantProductsQueryQuery,
+  ClientAllVariantProductsQueryQueryVariables
+>
+export const ClientManyProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsQuery',
+    operationHash: 'e49027bc29aa10cbf7bbb0ed62239af8de1653f0',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsQueryQuery,
+  ClientManyProductsQueryQueryVariables
+>
+export const ClientProductGalleryQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProductGalleryQuery',
+    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
+  },
+} as unknown as TypedDocumentString<
+  ClientProductGalleryQueryQuery,
+  ClientProductGalleryQueryQueryVariables
+>
+export const ClientProductQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProductQuery',
+    operationHash: '47aa22eb750cb2c529e5eeafb921bfeadb67db71',
+  },
+} as unknown as TypedDocumentString<
+  ClientProductQueryQuery,
+  ClientProductQueryQueryVariables
+>
+export const ClientManyProductsSelectedQueryDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsSelectedQuery',
+    operationHash: 'b668777678c137b8c7004297df4d8b8f2b29ee06',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsSelectedQueryQuery,
+  ClientManyProductsSelectedQueryQueryVariables
+>
+export const ClientProfileQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProfileQuery',
+    operationHash: '34ea14c0d4a57ddf9bc11e4be0cd2b5a6506d3d4',
+  },
+} as unknown as TypedDocumentString<
+  ClientProfileQueryQuery,
+  ClientProfileQueryQueryVariables
+>
+export const ClientSearchSuggestionsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientSearchSuggestionsQuery',
+    operationHash: 'bbaa2ed75c4fb04842189e8d53a1d65481154e2b',
+  },
+} as unknown as TypedDocumentString<
+  ClientSearchSuggestionsQueryQuery,
+  ClientSearchSuggestionsQueryQueryVariables
+>
+export const ClientTopSearchSuggestionsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientTopSearchSuggestionsQuery',
+    operationHash: 'e2385b0f11726d0068f96548f57a8dd441c064e3',
+  },
+} as unknown as TypedDocumentString<
+  ClientTopSearchSuggestionsQueryQuery,
+  ClientTopSearchSuggestionsQueryQueryVariables
+>
+export const ValidateSessionDocument = {
+  __meta__: {
+    operationName: 'ValidateSession',
+    operationHash: '8c3a5999496e227f167e9dc79697e6c478d48a9e',
+  },
+} as unknown as TypedDocumentString<
+  ValidateSessionMutation,
+  ValidateSessionMutationVariables
+>
+export const ClientShippingSimulationQueryDocument = {
+  __meta__: {
+    operationName: 'ClientShippingSimulationQuery',
+    operationHash: 'c35bad22f67f3eb34fea52bb49efa6b1da6b728d',
+  },
+} as unknown as TypedDocumentString<
+  ClientShippingSimulationQueryQuery,
+  ClientShippingSimulationQueryQueryVariables
+>
+export const ServerManyProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerManyProductsQuery',
+    operationHash: '4b769cda49004c85d0d427c601eba36c37a52224',
+  },
+} as unknown as TypedDocumentString<
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables
+>

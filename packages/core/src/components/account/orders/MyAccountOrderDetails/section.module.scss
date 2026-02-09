@@ -18,26 +18,28 @@
   @include meta.load-css("./MyAccountPaymentCard/styles.scss");
   @include meta.load-css("./MyAccountDeliveryOptionAccordion/styles.scss");
   @include meta.load-css("./MyAccountOrderActions/styles.scss");
+  @include meta.load-css("./MyAccountReorderButton/styles.scss");
   @include meta.load-css("./MyAccountStatusCard/styles.scss");
   @include meta.load-css("./MyAccountMoreInformationCard/styles.scss");
   @include meta.load-css("./MyAccountBuyingPolicyAlert/styles.scss");
+  @include meta.load-css("./MyAccountBudgetsCard/styles.scss");
 
   // --------------------------------------------------------
   // Design Tokens
   // --------------------------------------------------------
 
   // Default properties
-  --fs-order-details-padding                        : 0 20px;
+  --fs-order-details-padding: 0 20px;
 
   // Header
-  --fs-order-details-header-gap                     : var(--fs-spacing-3);
-  --fs-order-details-header-padding                 : var(--fs-spacing-5) 0 var(--fs-spacing-4);
-  --fs-order-details-header-weight                  : var(--fs-text-weight-semibold);
-  --fs-order-details-header-size                    : var(--fs-text-size-4);
-  --fs-order-details-header-line-height             : 1.33;
+  --fs-order-details-header-gap: var(--fs-spacing-3);
+  --fs-order-details-header-padding: var(--fs-spacing-5) 0 var(--fs-spacing-4);
+  --fs-order-details-header-weight: var(--fs-text-weight-semibold);
+  --fs-order-details-header-size: var(--fs-text-size-4);
+  --fs-order-details-header-line-height: 1.33;
 
   // Content
-  --fs-order-details-content-gap                     : var(--fs-spacing-4);
+  --fs-order-details-content-gap: var(--fs-spacing-4);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -73,8 +75,15 @@
 
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
-        margin-top: calc(var(--fs-spacing-2) * -1); // Align the back button with the title
-        margin-left: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
+        margin-top:
+          calc(
+            var(--fs-spacing-2) * -1
+          ); // Align the back button with the title
+
+        margin-left:
+          calc(
+            var(--fs-spacing-2) * -1
+          ); // Align the back button with the content
 
         @include utilities.media(">=notebook") {
           margin-top: calc(var(--fs-spacing-1) * -1); // Align the back button with the title
@@ -99,6 +108,19 @@
         line-height: var(--fs-order-details-header-line-height);
 
         @include utilities.truncate-title(2);
+      }
+    }
+
+    [data-fs-order-details-header-actions] {
+      display: flex;
+      flex-direction: row;
+      gap: var(--fs-spacing-2);
+      align-items: center;
+
+      [data-fs-reorder-button] {
+        @include media("<tablet") {
+          display: none;
+        }
       }
     }
   }
@@ -126,6 +148,10 @@
     }
 
     [data-fs-delivery-option-accordion] {
+      grid-column: span 2;
+    }
+
+    [data-fs-order-budgets-card] {
       grid-column: span 2;
     }
   }
