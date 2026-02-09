@@ -64,6 +64,7 @@
     "@types/react": "catalog:",
     "@types/tabbable": "catalog:",
     "babel-loader": "^8.2.5",
+    "sass": "^1.97.3",
     "size-limit": "^7.0.8",
     "tslib": "catalog:",
     "vite": "catalog:",

@@ -21,6 +21,7 @@ const nextConfig = {
     defaultLocale: storeConfig.session.locale,
   },
   sassOptions: {
+    importers: [new (require('sass').NodePackageImporter)()],
     silenceDeprecations: ['if-function', 'legacy-js-api'],
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13

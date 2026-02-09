@@ -79,7 +79,6 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-intersection-observer": "catalog:",
-    "sass": "^1.44.0",
     "sass-loader": "^12.6.0",
     "sharp": "^0.32.6",
     "style-loader": "^3.3.1",
@@ -102,6 +101,7 @@
     "dotenv": "^8.2.0",
     "graphql": "catalog:",
     "is-ci": "^3.0.0",
+    "sass": "^1.97.0",
     "typescript": "catalog:",
     "use-sync-external-store": "^1.6.0",
     "vitest": "catalog:"

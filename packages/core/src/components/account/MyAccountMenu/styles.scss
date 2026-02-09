@@ -1,5 +1,3 @@
-@use "@faststore/ui/src/styles/base/utilities";
-
 .menu {
   display: flex;
   flex-direction: column;
@@ -91,40 +89,3 @@
     }
   }
 }
-
-// @include utilities.media(">=notebook") {
-//   grid-template-rows: none;
-//   grid-template-columns: max(300px) 80%;
-//   gap: var(--fs-spacing-3);
-//   padding: 0 var(--fs-spacing-3) 0 var(--fs-spacing-6);
-
-//   .menu {
-//     padding: 0;
-//     padding-top: var(--fs-spacing-6);
-//     overflow: visible;
-//   }
-
-//   .nav {
-//     flex-direction: column;
-//     gap: var(--fs-spacing-0);
-//   }
-
-//   .navItem {
-//     margin-left: -16px;
-//   }
-
-//   .avatar {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     width: var(--fs-spacing-8);
-//     height: var(--fs-spacing-8);
-//     font-size: var(--fs-text-size-4);
-//     font-weight: var(--fs-text-weight-semibold);
-//     color: var(--fs-color-main-2);
-//     text-align: center;
-//     background-color: var(--fs-color-accent-0);
-//     border: var(--spacing-1) solid var(--fs-color-neutral-0);
-//     border-radius: var(--fs-border-radius-circle);
-//   }
-// }
