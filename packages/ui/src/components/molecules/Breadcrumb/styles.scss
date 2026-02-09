@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-breadcrumb] {
   // --------------------------------------------------------
   // Design Tokens for Breadcrumb
@@ -46,7 +48,8 @@
     display: flex;
     align-items: center;
     overflow-x: hidden;
-    @include media("<notebook") {
+
+    @include utilities.media("<notebook") {
       margin-left: var(--fs-breadcrumb-margin-left);
     }
   }
@@ -61,7 +64,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      @include media("<=tablet") {
+      @include utilities.media("<=tablet") {
         max-width: var(--fs-breadcrumb-list-item-max-width-mobile);
       }
     }
@@ -89,7 +92,7 @@
       color: var(--fs-breadcrumb-list-item-last-text-color);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       &:nth-child(3) {
         overflow: visible;
       }
@@ -135,14 +138,14 @@
   }
 
   &[data-fs-breadcrumb-is-desktop="true"] {
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       display: none;
       visibility: hidden;
     }
   }
 
   &[data-fs-breadcrumb-is-desktop="false"] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: none;
       visibility: hidden;
     }

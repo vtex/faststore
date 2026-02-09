@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-footer] {
   // --------------------------------------------------------
   // Design Tokens for Footer
@@ -31,7 +33,7 @@
     background-color: var(--fs-footer-bkg-color);
   }
 
-  @include media("<notebook") {
+  @include utilities.media("<notebook") {
     padding-top: 0;
   }
 
@@ -42,7 +44,7 @@
     font-weight: var(--fs-footer-title-weight);
     line-height: var(--fs-footer-title-line-height);
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       text-align: center;
     }
   }
@@ -52,11 +54,11 @@
     position: relative;
     display: flex;
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       flex-direction: column;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       column-gap: var(--fs-footer-spacing-horizontal-notebook);
@@ -67,7 +69,7 @@
       content: "";
       border-top: var(--fs-footer-divisor-border-width) solid var(--fs-footer-divisor-border-color);
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         grid-column: span 12;
       }
     }
@@ -82,7 +84,7 @@
   }
 
   [data-fs-footer-navigation] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       row-gap: var(--fs-footer-spacing-vertical-notebook);
       padding-bottom: var(--fs-footer-spacing-vertical-notebook);
     }
@@ -91,7 +93,7 @@
   [data-fs-footer-info] {
     position: relative;
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -102,7 +104,7 @@
       }
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       row-gap: var(--fs-footer-spacing-vertical-notebook);
       padding-bottom: var(--fs-footer-spacing-vertical-notebook);
     }
@@ -110,7 +112,7 @@
 
   [data-fs-footer-social],
   [data-fs-payment-methods] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: 11 / span 2;
       margin-inline-start: calc(-1 * var(--fs-spacing-3));
     }
@@ -120,7 +122,7 @@
     display: flex;
     flex-direction: column;
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       padding: var(--fs-footer-spacing-vertical-mobile) 0 var(--fs-spacing-3);
     }
 
@@ -128,7 +130,7 @@
       display: flex;
       justify-content: center;
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         justify-content: space-between;
       }
 
@@ -144,17 +146,17 @@
   }
 
   [data-fs-payment-methods] {
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       margin: var(--fs-footer-spacing-vertical-mobile) auto;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       order: 3;
     }
   }
 
   [data-fs-icon] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: span 2;
     }
   }
@@ -164,7 +166,7 @@
       white-space: break-spaces;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: span 6;
     }
   }
@@ -181,11 +183,11 @@
       padding-inline-start: 0;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: span 9;
     }
 
-    @include media(">=desktop") {
+    @include utilities.media(">=desktop") {
       grid-column: span 8;
     }
   }
@@ -195,27 +197,27 @@
   // --------------------------------------------------------
 
   &[data-fs-footer-incentives="true"] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       padding-top: 0;
     }
   }
 
   &:not([data-fs-footer-social="true"]) {
     [data-fs-footer-info]::before {
-      @include media("<notebook") {
+      @include utilities.media("<notebook") {
         border-color: transparent;
       }
     }
 
     [data-fs-footer-links] {
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         grid-column: span 12;
       }
     }
   }
 
   &:not([data-fs-footer-payment-methods="true"]) [data-fs-footer-copyright] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       grid-column: span 10;
     }
   }

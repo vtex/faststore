@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-toast] {
   // --------------------------------------------------------
   // Design Tokens for Toast
@@ -63,17 +65,17 @@
   transition: var(--fs-toast-transition-property) var(--fs-toast-transition-timing) var(--fs-toast-transition-function);
   transform: translate3d(0, 0, 0);
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     top: var(--fs-toast-top-tablet);
     inset-inline-end: var(--fs-spacing-4);
-    max-width: rem(398px);
+    max-width: utilities.rem(398px);
   }
 
   &[data-fs-toast-visible="true"] {
     opacity: 1;
     transform: translate3d(0, 50%, 0);
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       transform: translate3d(0, 10%, 0);
     }
   }

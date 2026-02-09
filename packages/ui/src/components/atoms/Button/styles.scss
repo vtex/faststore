@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-button] {
   // --------------------------------------------------------
   // Design Tokens for Buttons
@@ -149,12 +151,12 @@
     @media not all and (min-resolution: .001dpcm) {
       @supports (-webkit-appearance:none) {
         &:focus [data-fs-button-wrapper],
-        &:focus:hover [data-fs-button-wrapper] { @include focus-ring; }
+        &:focus:hover [data-fs-button-wrapper] { @include utilities.focus-ring; }
       }
     }
 
     &:focus-visible [data-fs-button-wrapper],
-    &:focus-visible:hover [data-fs-button-wrapper] { @include focus-ring; }
+    &:focus-visible:hover [data-fs-button-wrapper] { @include utilities.focus-ring; }
 
     &:disabled [data-fs-button-wrapper], &[data-fs-button-disabled="true"] [data-fs-button-wrapper] {
       color: var(--fs-button-disabled-text-color);

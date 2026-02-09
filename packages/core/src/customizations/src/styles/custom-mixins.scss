@@ -2,4 +2,4 @@
 // Stores' custom mixins will override this file
 // ----------------------------------------------------------
 
-@import "@faststore/ui/src/styles/base/utilities.scss";
+@use "@faststore/ui/src/styles/base/utilities.scss" as *;

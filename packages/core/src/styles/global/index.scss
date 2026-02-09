@@ -1,14 +1,14 @@
-// Establish a layer order up-front, FS UI base styles have the lowest priority
-@layer base, components, theme;
-
 // FastStore UI's base styles
-@import "@faststore/ui/src/styles/global.scss";
+@use "@faststore/ui/src/styles/global.scss";
 
 // Components & Sections styles
-@import "@faststore/ui/src/components/atoms/Skeleton/styles.scss";
-@import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
-@import "@faststore/ui/src/components/atoms/SROnly/styles.scss";
-@import "src/components/sections/Section/section.scss";
+@use "@faststore/ui/src/components/atoms/Skeleton/styles.scss" as skeleton-styles;
+@use "@faststore/ui/src/components/atoms/Overlay/styles.scss" as overlay-styles;
+@use "@faststore/ui/src/components/atoms/SROnly/styles.scss"  as sronly-styles;
+@use "src/components/sections/Section/section.scss";
 
 // Importing this component because is being used outside the context of the Section
-@import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
+@use "@faststore/ui/src/components/molecules/Dropdown/styles.scss"  as dropdown-styles;
+
+// Establish a layer order up-front, FS UI base styles have the lowest priority
+@layer base, components, theme;

@@ -1,19 +1,22 @@
+@use "sass:meta";
+@use "@faststore/ui/src/styles/base/utilities";
+
 .layout {
-  @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Link/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-  @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
-  @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
-  @import "../MyAccountMenu/styles.scss";
-  @import "../components/MyAccountHeader/styles.scss";
+  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Badge/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Link/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Input/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/molecules/LinkButton/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchInputField/styles.scss");
+  @include meta.load-css("../MyAccountMenu/styles.scss");
+  @include meta.load-css("../components/MyAccountHeader/styles.scss");
 
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: calc(100vh - 18rem);
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     grid-template-rows: none;
     grid-template-columns: max(300px) 1fr;
     gap: var(--fs-spacing-3);
@@ -24,7 +27,7 @@
   [data-fs-account-layout-content] {
     padding: 0 var(--fs-spacing-4);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       padding: 0 var(--fs-spacing-8);
     }
   }

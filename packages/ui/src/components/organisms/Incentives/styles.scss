@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-incentives] {
   // --------------------------------------------------------
   // Design Tokens for Incentives
@@ -42,7 +44,7 @@
     overflow-x: auto;
     overflow-y: hidden;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       justify-content: center;
     }
   }
@@ -53,11 +55,11 @@
     align-items: center;
     justify-content: center;
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       row-gap: var(--fs-spacing-0);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       flex-direction: row;
 
       [data-fs-incentive-content] {

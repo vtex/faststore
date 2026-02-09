@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-toggle] {
   // --------------------------------------------------------
   // Design Tokens for Toggle
@@ -63,7 +65,7 @@
   overflow: visible;
 
   input {
-    @include focus-ring-visible;
+    @include utilities.focus-ring-visible;
 
     position: absolute;
     z-index: 1;

@@ -1,18 +1,21 @@
+@use "@faststore/ui/src/styles/base/utilities";
+@use "sass:meta";
+
 @layer components {
   .section {
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       margin-top: 0;
 
       &:last-child {
         margin-bottom: 0;
       }
 
-      @include section-divisor(bottom, 0);
+      @include utilities.section-divisor(bottom, 0);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       &:not(:last-child) {
-        @include section-divisor(bottom);
+        @include utilities.section-divisor(bottom);
       }
     }
 
@@ -25,7 +28,7 @@
       h1 {
         font-size: var(--fs-text-size-4);
 
-        @include media(">=tablet") {
+        @include utilities.media(">=tablet") {
           padding-top: var(--fs-spacing-4);
           font-size: var(--fs-text-size-5);
         }
@@ -36,39 +39,39 @@
       }
     }
 
-    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
-    @import "@faststore/ui/src/components/atoms/List/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Price/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Radio/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Select/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Skeleton/styles";
-    @import "@faststore/ui/src/components/atoms/Slider/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Accordion/styles.scss";
-    @import "@faststore/ui/src/components/molecules/CheckboxField/styles.scss";
-    @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
-    @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
-    @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
-    @import "@faststore/ui/src/components/molecules/ProductCard/styles.scss";
-    @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
-    @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
-    @import "@faststore/ui/src/components/molecules/RadioField/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Toggle/styles.scss";
-    @import "@faststore/ui/src/components/molecules/ToggleField/styles.scss";
-    @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
-    @import "@faststore/ui/src/components/organisms/Filter/styles.scss";
-    @import "@faststore/ui/src/components/organisms/FilterSkeleton/styles.scss";
-    @import "@faststore/ui/src/components/organisms/PriceRange/styles.scss";
-    @import "@faststore/ui/src/components/organisms/ProductComparison/styles";
-    @import "@faststore/ui/src/components/organisms/ProductGallery/styles.scss";
-    @import "@faststore/ui/src/components/organisms/ProductGrid/styles.scss";
-    @import "@faststore/ui/src/components/organisms/SlideOver/styles";
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Badge/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Checkbox/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Input/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Link/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/List/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Price/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Radio/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Select/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Skeleton/styles");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Slider/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Accordion/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/CheckboxField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/DiscountBadge/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Dropdown/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/InputField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/LinkButton/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Modal/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductCard/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductCardSkeleton/styles");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductPrice/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/RadioField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SelectField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Toggle/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ToggleField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/EmptyState/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/Filter/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/FilterSkeleton/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/PriceRange/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/ProductComparison/styles");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/ProductGallery/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/ProductGrid/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/SlideOver/styles");
   }
 }

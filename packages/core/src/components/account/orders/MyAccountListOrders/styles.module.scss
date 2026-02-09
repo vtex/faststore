@@ -1,10 +1,13 @@
+@use "sass:meta";
+@use "@faststore/ui/src/styles/base/utilities";
+
 .page {
-  @import "./MyAccountListOrdersTable/styles.scss";
-  @import "./MyAccountSelectedTags/styles.scss";
-  @import "../../components/MyAccountStatusBadge/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-  @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
-  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
+  @include meta.load-css("./MyAccountListOrdersTable/styles.scss");
+  @include meta.load-css("./MyAccountSelectedTags/styles.scss");
+  @include meta.load-css("../../components/MyAccountStatusBadge/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchInputField/styles.scss");
+  @include meta.load-css("pkg:@faststore/ui/src/components/organisms/EmptyState/styles.scss");
 
   // --------------------------------------------------------
   // Design Tokens
@@ -42,7 +45,7 @@
     justify-content: space-between;
     width: var(--fs-list-orders-filter-width);
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       flex-direction: column;
       gap: var(--fs-list-orders-filter-gap-mobile);
       align-items: flex-end;
@@ -52,10 +55,10 @@
 
     [data-fs-search-input-field] {
       [data-fs-search-input-field-input] {
-        @include media("<notebook") {
+        @include utilities.media("<notebook") {
           border: var(--fs-input-border-width) solid var(--fs-input-border-color);
 
-          @include input-focus-ring;
+          @include utilities.input-focus-ring;
 
           &:hover:not(:disabled):not(:focus-visible):not(:focus) {
             border-color: var(--fs-list-orders-filter-input-border-color-hover);
@@ -65,7 +68,7 @@
       }
 
       [data-fs-icon-button][data-fs-button-variant] {
-        @include media("<notebook") {
+        @include utilities.media("<notebook") {
           position: absolute;
           right: 0;
         }

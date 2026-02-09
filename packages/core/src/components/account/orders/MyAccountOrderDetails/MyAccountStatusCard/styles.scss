@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-order-status-card] {
   // --------------------------------------------------------
   // Design Tokens for Order Status Card
@@ -48,7 +50,7 @@
   --fs-order-status-connector-desktop-spacing   : 0.625rem;
 
   [data-fs-card-body] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,7 +64,7 @@
     width: 100%;
     overflow-x: auto;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -87,7 +89,7 @@
       border-radius: var(--fs-order-status-card-border-radius);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       flex: 1;
       flex-direction: column;
       gap: var(--fs-spacing-2);
@@ -149,7 +151,7 @@
       flex-direction: column;
       gap: var(--fs-order-status-step-content-gap);
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         text-align: center;
       }
     }
@@ -172,7 +174,7 @@
       font-size: var(--fs-order-status-step-details-size);
       color: var(--fs-color-text-light);
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         flex-direction: column;
         gap: var(--fs-spacing-0);
       }
@@ -194,7 +196,7 @@
       left: calc(var(--fs-spacing-2) + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-step-icon-margin));
       background-color: var(--fs-order-status-connector-color);
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         top: calc(1rem + var(--fs-order-status-step-icon-margin) + var(--fs-order-status-step-icon-half-size));
         right: calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-card-gap));
         bottom: auto;

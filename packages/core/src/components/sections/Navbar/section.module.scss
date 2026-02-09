@@ -1,43 +1,46 @@
+@use "@faststore/ui/src/styles/base/utilities";
+@use "sass:meta";
+
 @layer components {
   .section {
     position: sticky;
     top: 0;
     z-index: var(--fs-z-index-high);
 
-    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
-    @import "@faststore/ui/src/components/atoms/List/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Logo/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Price/styles.scss";
-    @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
-    @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
-    @import "@faststore/ui/src/components/molecules/QuantitySelector/styles.scss";
-    @import "@faststore/ui/src/components/molecules/NavbarLinks/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Popover/styles.scss";
-    @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
-    @import "@faststore/ui/src/components/organisms/RegionPopover/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SearchDropdown/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SearchHistory/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SearchProducts/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SearchTop/styles.scss";
-    @import "@faststore/ui/src/components/molecules/SkuSelector/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Table/styles.scss";
-    @import "@faststore/ui/src/components/organisms/SearchInput/styles.scss";
-    @import "@faststore/ui/src/components/organisms/Navbar/styles.scss";
-    @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
-    @import "@faststore/ui/src/components/organisms/SKUMatrix/styles.scss";
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Badge/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Loader/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Input/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Link/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/List/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Logo/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Overlay/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Price/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/InputField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/LinkButton/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/QuantitySelector/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/NavbarLinks/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Popover/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductPrice/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/RegionPopover/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchDropdown/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchHistory/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchInputField/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchProducts/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SearchTop/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/SkuSelector/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Table/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/SearchInput/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/Navbar/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/SlideOver/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/SKUMatrix/styles.scss");
 
     // Sets Navbar height on desktop to avoid CLS issue - Cumulative Layout Shift
     --fs-navbar-height-desktop: 4.5rem;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       height: var(--fs-navbar-height-desktop);
 
       // Sets margin to avoid overlapping the section below

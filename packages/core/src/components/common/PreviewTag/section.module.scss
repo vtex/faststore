@@ -1,8 +1,10 @@
+@use "sass:meta";
+
 @layer components {
   .section {
-    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Badge/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Tag/styles.scss");
 
     [data-fs-preview-tag] {
       position: fixed;

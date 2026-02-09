@@ -3,8 +3,10 @@
 // Reset
 // ----------------------------------------------------------
 
+@use "sass:meta";
+
 @layer base {
-  @import "~modern-normalize/modern-normalize";
+  @include meta.load-css("pkg:modern-normalize/modern-normalize");
 
   // Reset default styles
   body {
@@ -49,9 +51,9 @@
   }
 
   button {
+    background-color: transparent;
     border: 0;
     outline: none;
-    background-color: transparent;
     box-shadow: none;
   }
 

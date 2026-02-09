@@ -70,7 +70,6 @@
     "draftjs-to-html": "^0.9.1",
     "fast-deep-equal": "catalog:",
     "fs-extra": "^10.1.0",
-    "include-media": "^1.4.10",
     "isomorphic-unfetch": "^3.1.0",
     "lexical": "^0.34.0",
     "next": "catalog:",

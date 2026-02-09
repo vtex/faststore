@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-product-title] {
   // --------------------------------------------------------
   // Design Tokens for Product Title
@@ -20,14 +22,14 @@
 
   [data-fs-product-title-header] {
     display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--fs-product-title-row-gap);
+    column-gap: var(--fs-product-title-column-gap);
     justify-content: space-between;
     max-width: 42ch;
-    flex-wrap: wrap;
-    column-gap: var(--fs-product-title-column-gap);
-    row-gap: var(--fs-product-title-row-gap);
 
     // Title prop
-    & > *:first-child {
+    > *:first-child {
       font-size: var(--fs-product-title-text-size);
       font-weight: var(--fs-product-title-text-weight);
       line-height: var(--fs-product-title-line-height);
@@ -35,7 +37,7 @@
 
     [data-fs-badge] { white-space: nowrap; }
 
-    @include media(">=tablet", "<notebook") {
+    @include utilities.media(">=tablet", "<notebook") {
       flex-direction: column;
       row-gap: var(--fs-product-title-row-gap);
     }
@@ -43,8 +45,8 @@
 
   [data-fs-product-title-addendum] {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-top: var(--fs-product-title-row-gap);
     font-size: var(--fs-product-title-addendum-size);
     line-height: var(--fs-product-title-addendum-line-height);

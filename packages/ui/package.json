@@ -17,6 +17,9 @@
       "import": "./dist/es/index.mjs",
       "require": "./dist/cjs/index.js"
     },
+    "./*.scss": {
+      "sass": "./src/*.scss"
+    },
     "./src/*": "./src/*"
   },
   "sideEffects": false,
@@ -45,7 +48,7 @@
   ],
   "dependencies": {
     "@faststore/components": "workspace:*",
-    "include-media": "^1.4.10",
+    "include-media": "^2.0.0",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "catalog:",
     "tabbable": "catalog:"
