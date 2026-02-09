@@ -46,7 +46,7 @@
   // --------------------------------------------------------
 
   @include utilities.media (">=notebook") {
-    --fs-order-details-padding                      : 0;
+    --fs-order-details-padding: 0;
   }
 
   [data-fs-order-details-header] {
@@ -58,13 +58,13 @@
     padding: var(--fs-order-details-header-padding);
 
     @include utilities.media (">=tablet") {
-      --fs-order-details-header-gap                 : var(--fs-spacing-2);
+      --fs-order-details-header-gap: var(--fs-spacing-2);
 
       align-items: center;
     }
 
     @include utilities.media (">=notebook") {
-      --fs-order-details-header-padding             : var(--fs-spacing-6) 0;
+      --fs-order-details-header-padding: var(--fs-spacing-6) 0;
     }
 
     [data-fs-order-details-header-title] {
@@ -75,15 +75,9 @@
 
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
-        margin-top:
-          calc(
-            var(--fs-spacing-2) * -1
-          ); // Align the back button with the title
+        margin-top: calc(var(--fs-spacing-2) * -1); // Align the back button with the title
 
-        margin-left:
-          calc(
-            var(--fs-spacing-2) * -1
-          ); // Align the back button with the content
+        margin-left: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
 
         @include utilities.media(">=notebook") {
           margin-top: calc(var(--fs-spacing-1) * -1); // Align the back button with the title
@@ -118,7 +112,7 @@
       align-items: center;
 
       [data-fs-reorder-button] {
-        @include media("<tablet") {
+        @include utilities.media("<tablet") {
           display: none;
         }
       }
