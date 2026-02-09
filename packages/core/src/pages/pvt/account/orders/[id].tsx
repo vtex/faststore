@@ -258,6 +258,22 @@ const query = gql(`
         email
         phone
       }
+      budgetData {
+        budgets {
+          id
+          name
+          balance {
+            remaining
+          }
+          allocations {
+            id
+            linkedEntity {
+              id
+            }
+            reservations
+          }
+        }
+      }
     }
     accountProfile {
       name
@@ -340,10 +356,12 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
+  const order = orderDetails.data.userOrder
+
   return {
     props: {
       globalSections: globalSectionsResult,
-      order: orderDetails.data.userOrder,
+      order,
       accountName: orderDetails.data.accountProfile.name,
       isRepresentative,
     },

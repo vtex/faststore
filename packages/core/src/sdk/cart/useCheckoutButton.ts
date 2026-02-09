@@ -1,21 +1,14 @@
-import storeConfig from '../../../discovery.config'
 import { useCart } from './index'
+import { redirectToCheckout } from './redirectToCheckout'
 
 export const useCheckoutButton = () => {
   const { isValidating, id } = useCart()
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    const isDevEnv =
-      window.location.host.includes('.vtex.app') ||
-      window.location.host.includes('localhost')
 
     if (!isValidating) {
-      if (!isDevEnv) {
-        window.location.href = `${storeConfig.checkoutUrl}`
-      } else if (id) {
-        window.location.href = `${storeConfig.checkoutUrl}?orderFormId=${id}`
-      }
+      redirectToCheckout(id)
     }
   }
 

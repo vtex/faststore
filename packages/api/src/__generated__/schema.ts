@@ -1753,6 +1753,7 @@ export type UserOrder = {
   allowCancellation?: Maybe<Scalars['Boolean']['output']>;
   allowEdition?: Maybe<Scalars['Boolean']['output']>;
   authorizedDate?: Maybe<Scalars['String']['output']>;
+  budgetData?: Maybe<UserOrderBudgetData>;
   callCenterOperatorData?: Maybe<Scalars['String']['output']>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']['output']>;
   cancelReason?: Maybe<Scalars['String']['output']>;
@@ -1860,6 +1861,51 @@ export type UserOrderAttachments = {
   __typename?: 'UserOrderAttachments';
   content?: Maybe<Scalars['JSONObject']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserOrderBudget = {
+  __typename?: 'UserOrderBudget';
+  allocations?: Maybe<Array<Maybe<UserOrderBudgetAllocation>>>;
+  balance?: Maybe<UserOrderBudgetBalance>;
+  cycleConfiguration?: Maybe<UserOrderBudgetCycleConfiguration>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  unitId?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserOrderBudgetAllocation = {
+  __typename?: 'UserOrderBudgetAllocation';
+  ToBeSpent?: Maybe<Scalars['Float']['output']>;
+  balance?: Maybe<UserOrderBudgetBalance>;
+  id?: Maybe<Scalars['String']['output']>;
+  linkedEntity?: Maybe<UserOrderBudgetAllocationLinkedEntity>;
+  reservations?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type UserOrderBudgetAllocationLinkedEntity = {
+  __typename?: 'UserOrderBudgetAllocationLinkedEntity';
+  id?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserOrderBudgetBalance = {
+  __typename?: 'UserOrderBudgetBalance';
+  amount?: Maybe<Scalars['Float']['output']>;
+  balanceAdjustment?: Maybe<Scalars['Float']['output']>;
+  remaining?: Maybe<Scalars['Float']['output']>;
+};
+
+export type UserOrderBudgetCycleConfiguration = {
+  __typename?: 'UserOrderBudgetCycleConfiguration';
+  autoResetOnPeriodEnd?: Maybe<Scalars['Boolean']['output']>;
+  carryOverBalance?: Maybe<Scalars['Boolean']['output']>;
+  endDate?: Maybe<Scalars['String']['output']>;
+  startDate?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserOrderBudgetData = {
+  __typename?: 'UserOrderBudgetData';
+  budgets?: Maybe<Array<Maybe<UserOrderBudget>>>;
 };
 
 export type UserOrderCancel = {
@@ -2481,6 +2527,7 @@ export type UserOrderRestitutions = {
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
   allowCancellation?: Maybe<Scalars['Boolean']['output']>;
+  budgetData?: Maybe<UserOrderBudgetData>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']['output']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
   creationDate?: Maybe<Scalars['String']['output']>;

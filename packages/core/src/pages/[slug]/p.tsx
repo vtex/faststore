@@ -110,6 +110,17 @@ function Page({
     meta?.description ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
     storeSeo.description
+  let productPriceAmountMetatag = product.offers.lowPrice?.toString()
+
+  if (
+    product.offers.lowPrice != undefined &&
+    pdpSeo?.minPriceAmountFractionDigits &&
+    typeof pdpSeo.minPriceAmountFractionDigits === 'number'
+  ) {
+    productPriceAmountMetatag = product.offers.lowPrice
+      .toFixed(pdpSeo.minPriceAmountFractionDigits)
+      .toString()
+  }
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
@@ -181,7 +192,7 @@ function Page({
         additionalMetaTags={[
           {
             property: 'product:price:amount',
-            content: product.offers.lowPrice?.toString() ?? undefined,
+            content: productPriceAmountMetatag ?? undefined,
           },
           {
             property: 'product:price:currency',
