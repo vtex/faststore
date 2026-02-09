@@ -1,5 +1,9 @@
-import { vi } from 'vitest'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import {
+  addCustomPathPrefix,
+  getCustomPathsFromBindings,
+  matchesBindingPath,
+} from '../../../src/utils/localization/customPaths'
 
 vi.mock('../../../discovery.config.js', async () => {
   const original = await vi.importActual('../../../discovery.config.js')
@@ -84,11 +88,6 @@ vi.mock('../../../discovery.config.js', async () => {
     },
   }
 })
-
-import {
-  getCustomPathsFromBindings,
-  addCustomPathPrefix,
-} from '../../../src/utils/localization/customPaths'
 
 describe('customPaths', () => {
   describe('getCustomPathsFromBindings', () => {
@@ -311,5 +310,69 @@ describe('customPaths', () => {
         expect(result).toBe('/it/apparel')
       })
     })
+  })
+})
+
+describe('matchesBindingPath', () => {
+  it('should match exact root path', () => {
+    expect(matchesBindingPath('/', '/')).toBe(true)
+  })
+
+  it('should not match non-root when binding is root', () => {
+    expect(matchesBindingPath('/pt-BR', '/')).toBe(false)
+    expect(matchesBindingPath('/europe/it', '/')).toBe(false)
+  })
+
+  it('should match exact locale path', () => {
+    expect(matchesBindingPath('/pt-BR', '/pt-BR')).toBe(true)
+    expect(matchesBindingPath('/it-IT', '/it-IT')).toBe(true)
+    expect(matchesBindingPath('/en-US', '/en-US')).toBe(true)
+  })
+
+  it('should match locale path with trailing slash', () => {
+    expect(matchesBindingPath('/pt-BR/', '/pt-BR')).toBe(true)
+    expect(matchesBindingPath('/pt-BR', '/pt-BR/')).toBe(true)
+    expect(matchesBindingPath('/pt-BR/', '/pt-BR/')).toBe(true)
+  })
+
+  it('should match locale path with additional segments', () => {
+    expect(matchesBindingPath('/pt-BR/products', '/pt-BR')).toBe(true)
+    expect(matchesBindingPath('/pt-BR/office', '/pt-BR')).toBe(true)
+    expect(matchesBindingPath('/pt-BR/p', '/pt-BR')).toBe(true)
+    expect(matchesBindingPath('/it-IT/apparel', '/it-IT')).toBe(true)
+  })
+
+  it('should not match different locale paths', () => {
+    expect(matchesBindingPath('/pt-BR', '/it-IT')).toBe(false)
+    expect(matchesBindingPath('/en-US', '/pt-BR')).toBe(false)
+  })
+
+  it('should match exact custom path', () => {
+    expect(matchesBindingPath('/europe/it', '/europe/it')).toBe(true)
+    expect(matchesBindingPath('/america/fr', '/america/fr')).toBe(true)
+    expect(matchesBindingPath('/emea-eur', '/emea-eur')).toBe(true)
+  })
+
+  it('should match custom path with trailing slash', () => {
+    expect(matchesBindingPath('/europe/it/', '/europe/it')).toBe(true)
+    expect(matchesBindingPath('/europe/it', '/europe/it/')).toBe(true)
+  })
+
+  it('should match custom path with additional segments', () => {
+    expect(matchesBindingPath('/europe/it/products', '/europe/it')).toBe(true)
+    expect(matchesBindingPath('/europe/it/office', '/europe/it')).toBe(true)
+    expect(matchesBindingPath('/america/fr/apparel', '/america/fr')).toBe(true)
+    expect(matchesBindingPath('/emea-eur/products', '/emea-eur')).toBe(true)
+  })
+
+  it('should not match different custom paths', () => {
+    expect(matchesBindingPath('/europe/it', '/europe/fr')).toBe(false)
+    expect(matchesBindingPath('/europe/it', '/america/it')).toBe(false)
+  })
+
+  it('should not match similar but different paths', () => {
+    // Important: /europe/item should NOT match /europe/it
+    expect(matchesBindingPath('/europe/item', '/europe/it')).toBe(false)
+    expect(matchesBindingPath('/europe/italy', '/europe/it')).toBe(false)
   })
 })

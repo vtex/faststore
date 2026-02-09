@@ -15,6 +15,40 @@ function getPathOnly(pathOrLink: string): string {
 }
 
 /**
+ * Checks if an incoming path matches a binding path.
+ * Supports exact match and prefix matching for paths with additional segments.
+ * @param incomingPath - The path from the URL being checked (e.g., '/europe/it/products')
+ * @param bindingPath - The path from the binding configuration (e.g., '/europe/it')
+ * @returns true if they match (exact or prefix match)
+ * @example
+ * matchesBindingPath('/europe/it', '/europe/it') // true (exact match)
+ * matchesBindingPath('/europe/it/products', '/europe/it') // true (prefix match)
+ * matchesBindingPath('/europe/item', '/europe/it') // false (not a match)
+ * matchesBindingPath('/pt-BR/office', '/pt-BR') // true (prefix match)
+ * matchesBindingPath('/', '/') // true (root match)
+ */
+export function matchesBindingPath(
+  incomingPath: string,
+  bindingPath: string
+): boolean {
+  // Normalize paths (remove trailing slash, but keep '/' for root)
+  const normalizedIncoming =
+    incomingPath.replace(/\/$/, '').toLowerCase() || '/'
+  const normalizedBinding = bindingPath.replace(/\/$/, '').toLowerCase() || '/'
+
+  // Root path only matches exact root
+  if (normalizedBinding === '/') {
+    return normalizedIncoming === '/'
+  }
+
+  // For non-root paths, match exact or prefix
+  return (
+    normalizedIncoming === normalizedBinding ||
+    normalizedIncoming.startsWith(`${normalizedBinding}/`)
+  )
+}
+
+/**
  * Parses URL and returns normalized pathname and hostname when it has a custom path, null otherwise.
  */
 function parseCustomPathUrl(
@@ -98,8 +132,7 @@ function extractCustomPathPrefix(pathname: string): string | null {
   const customPaths = getCustomPathsFromBindings()
 
   for (const { path } of customPaths) {
-    // Match exact path or path with segment boundary (e.g., '/it' matches '/it' or '/it/apparel' but not '/item')
-    if (pathOnly === path || pathOnly.startsWith(`${path}/`)) {
+    if (matchesBindingPath(pathOnly, path)) {
       return path
     }
   }
