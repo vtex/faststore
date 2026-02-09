@@ -59,33 +59,33 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Aria-label for the remove button (e.g. from CMS).
    */
-  removeButtonAriaLabel?: string
+  removeButtonAriaLabel: string
   /**
    * Label for the search button when state is 'completed' (e.g. from CMS).
    */
-  searchButtonLabel?: string
+  searchButtonLabel: string
   /**
    * Label for the download template button (e.g. from CMS).
    */
-  downloadTemplateButtonLabel?: string
+  downloadTemplateButtonLabel: string
   /**
    * Label for the select file button (e.g. from CMS).
    */
-  selectFileButtonLabel?: string
+  selectFileButtonLabel: string
   /**
    * Error messages per error type (e.g. from CMS). Required when state is Error to show messages.
    */
-  errorMessages?: Partial<
+  errorMessages: Partial<
     Record<FileUploadErrorType, { title: string; description: string }>
   >
   /**
    * Status text when state is Uploading (e.g. from CMS).
    */
-  uploadingStatusText?: string
+  uploadingStatusText: string
   /**
    * Status text when state is Completed (e.g. from CMS). May include file size.
    */
-  completedStatusText?: string
+  completedStatusText: string
   /**
    * Custom file name display (optional).
    */
@@ -107,8 +107,8 @@ const FileUploadStatus = ({
   downloadTemplateButtonLabel,
   selectFileButtonLabel,
   errorMessages,
-  uploadingStatusText = 'Uploading your file...',
-  completedStatusText = 'Completed',
+  uploadingStatusText,
+  completedStatusText,
   fileName,
   ...otherProps
 }: FileUploadStatusProps) => {
@@ -127,7 +127,7 @@ const FileUploadStatus = ({
       case FileUploadState.Uploading:
         return uploadingStatusText
       case FileUploadState.Completed:
-        return completedStatusText ?? ''
+        return completedStatusText
       default:
         return ''
     }

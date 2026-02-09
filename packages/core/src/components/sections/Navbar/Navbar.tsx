@@ -4,6 +4,7 @@ import Section from '../Section'
 import styles from './section.module.scss'
 
 import Navbar from '../../../components/navigation/Navbar'
+import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from '../../../components/search/fileUploadCardDefaults'
 import { NavbarDefaultComponents } from './DefaultComponents'
 
 type PageLinks = {
@@ -112,7 +113,11 @@ function NavbarSection({
         home={home}
         menu={menu}
         logo={logo}
-        searchInput={searchInput}
+        searchInput={{
+          ...searchInput,
+          fileUploadCardProps:
+            searchInput.fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS,
+        }}
         cart={cartIcon}
         links={pageLinks}
         signIn={{ button: signInButton }}
