@@ -39,12 +39,12 @@
       white-space: nowrap;
     }
 
-    @include media('>=tablet') {
+    @include media(">=tablet") {
       grid-template-columns: var(--fs-budgets-cols-desktop);
     }
 
     [data-fs-budgets-header-available] {
-      @include media('<tablet') {
+      @include media("<tablet") {
         display: none;
       }
     }
@@ -70,13 +70,13 @@
         border-bottom: none;
       }
 
-      @include media('>=tablet') {
+      @include media(">=tablet") {
         grid-template-columns: var(--fs-budgets-cols-desktop);
       }
     }
 
     [data-fs-budgets-available] {
-      @include media('<tablet') {
+      @include media("<tablet") {
         display: none;
       }
     }

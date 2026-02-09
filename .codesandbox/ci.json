@@ -1,15 +1,14 @@
 {
-  "buildCommand": "build",
+  "buildCommand": "build:codesandbox",
   "packages": [
     "packages/api",
     "packages/cli",
     "packages/core",
-    "packages/graphql-utils",
     "packages/lighthouse",
     "packages/sdk",
     "packages/ui",
     "packages/components"
   ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
-  "node": "18"
+  "node": "20"
 }

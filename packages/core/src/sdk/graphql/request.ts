@@ -1,13 +1,14 @@
 import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
 
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
+
 export type Operation = {
   __meta__?: Record<string, any>
 }
 
-export interface GraphQLResponse<D = any> {
-  data: D
-  errors: any[]
+export interface GraphQLResponse<Data = any> {
+  data?: Data
+  errors?: any[]
 }
 
 export interface BaseRequestOptions<V = any> {
@@ -18,32 +19,12 @@ export interface BaseRequestOptions<V = any> {
   value?: string | null
 }
 
-const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
-  POST: {
-    'Content-Type': 'application/json',
-  },
-}
-
-export const request = async <Query = unknown, Variables = unknown>(
-  operation: Operation,
-  variables: Variables,
-  options?: RequestOptions
-) => {
-  // Get cache busting value based on cookie changes
-  const value = getClientCacheBustingValue()
-
-  const { data, errors } = await baseRequest<Variables, Query>('/api/graphql', {
-    ...options,
-    variables,
-    operation,
-    value,
-  })
-
-  if (errors?.length) {
-    throw errors[0]
-  }
-
-  return data
+const MethodByOperation = async (operationName: string) => {
+  const { experimental } = await import('../../../discovery.config')
+  return Array.isArray(experimental.cachedOperations) &&
+    experimental.cachedOperations.includes(operationName)
+    ? 'GET'
+    : 'POST'
 }
 
 /* This piece of code was taken out of @faststore/graphql-utils */
@@ -56,40 +37,76 @@ const baseRequest = async <V = any, D = any>(
   // Uses method from fetchOptions.
   // If no one is passed, figure out with via heuristic
   const method =
-    fetchOptions?.method !== undefined
-      ? fetchOptions.method.toUpperCase()
-      : operationName.endsWith('Query')
-        ? 'GET'
-        : 'POST'
+    fetchOptions?.method?.toUpperCase() ??
+    (await MethodByOperation(operationName))
 
+  const response = await (method === 'POST' ? POSTRequest : GETRequest)({
+    endpoint,
+    operation,
+    variables,
+    fetchOptions,
+    value,
+  })
+
+  return ParseInvalidRequest(response) ?? response.json()
+}
+
+const GETRequest = <Variables>({
+  operation,
+  variables,
+  fetchOptions,
+  endpoint,
+  value,
+}: BaseRequestOptions<Variables> & { endpoint: string }) => {
+  const { operationName, operationHash } = operation['__meta__']
   const params = new URLSearchParams({
     operationName,
     operationHash,
-    ...(method === 'GET' && { variables: JSON.stringify(variables) }),
-    ...(method === 'GET' && value && { v: value }),
+    variables: JSON.stringify(variables),
+    ...(value && { v: value }),
   })
-
-  const body =
-    method === 'POST'
-      ? JSON.stringify({
-          operationName,
-          operationHash,
-          variables,
-        })
-      : undefined
 
   const url = `${endpoint}?${params.toString()}`
 
-  const response = await fetch(url, {
-    method,
-    body,
+  return fetch(url, {
+    method: 'GET',
+    body: undefined,
+    ...fetchOptions,
+  })
+}
+
+const POSTRequest = <Variables>({
+  operation,
+  variables,
+  fetchOptions,
+  endpoint,
+  value,
+}: BaseRequestOptions<Variables> & { endpoint: string }) => {
+  const { operationName, operationHash } = operation['__meta__']
+  const params = new URLSearchParams({
+    operationName,
+    operationHash,
+  })
+  const url = `${endpoint}?${params.toString()}`
+
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({
+      operationName,
+      operationHash,
+      variables,
+    }),
     ...fetchOptions,
     headers: {
-      ...DEFAULT_HEADERS_BY_VERB[method],
+      'Content-Type': 'application/json',
       ...fetchOptions?.headers,
     },
   })
+}
 
+const ParseInvalidRequest = <T>(
+  response: Awaited<ReturnType<typeof fetch>>
+) => {
   if (!response.ok) {
     const statusText = response.statusText
     return {
@@ -100,8 +117,44 @@ const baseRequest = async <V = any, D = any>(
         },
       ],
       data: undefined,
-    } as GraphQLResponse<D>
+    } as GraphQLResponse<T>
+  }
+}
+
+export async function GraphqlRequest<Query = unknown, Variables = unknown>(
+  { operation, variables }: { operation: Operation; variables: Variables },
+  options?: RequestInit
+): Promise<GraphQLResponse<Query>> {
+  // Get cache busting value based on cookie changes
+  const value = getClientCacheBustingValue()
+
+  const response = await baseRequest<Variables, Query>('/api/graphql', {
+    variables,
+    operation,
+    fetchOptions: options,
+    value,
+  })
+
+  // in Order to keep the same behaviour of previous version (request) throwing error
+  if (response.errors?.length) {
+    throw response.errors[0]
   }
 
-  return response.json()
+  return response
+}
+
+/**
+ * @description It only exists to backward compatibilities
+ */
+export async function request<Query = unknown, Variables = unknown>(
+  operation: Operation,
+  variables: Variables,
+  options?: RequestOptions
+) {
+  return (
+    await GraphqlRequest<Query, Variables>(
+      { operation, variables },
+      options?.fetchOptions
+    )
+  ).data
 }

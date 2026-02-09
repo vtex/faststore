@@ -10,6 +10,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --log-order=grouped",
+    "build:codesandbox": "turbo run build --filter @faststore/cli...",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
@@ -35,14 +36,10 @@
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.0.1",
     "turbo": "^2.3.4",
-    "typescript": "5.3.2"
+    "typescript": "catalog:"
   },
   "version": "0.0.0",
-  "volta": {
-    "node": "18.19.0",
-    "pnpm": "9.15.5"
-  },
-  "packageManager": "pnpm@9.15.5",
+  "packageManager": "pnpm@10.28.0",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",
     "*.scss": "stylelint --fix"

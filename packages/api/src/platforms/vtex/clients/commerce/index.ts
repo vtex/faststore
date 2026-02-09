@@ -14,7 +14,7 @@ import {
   type UserOrderCancel,
   type UserOrderListResult,
 } from '../../../..'
-import type { Context, Options } from '../../index'
+import type { GraphqlContext } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
@@ -54,7 +54,7 @@ const BASE_INIT = {
 
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
-  ctx: Context
+  ctx: GraphqlContext
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)

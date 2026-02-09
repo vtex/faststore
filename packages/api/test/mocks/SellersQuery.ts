@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 export const SellersQueryResult = `query SellersQuery {
     sellers(
       postalCode: "32808"
