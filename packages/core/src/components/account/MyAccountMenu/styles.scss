@@ -6,6 +6,12 @@
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  @include media(">=notebook") {
+    padding: 0;
+    padding-top: var(--fs-spacing-6);
+    overflow: visible;
+  }
 }
 
 .account {
@@ -39,6 +45,11 @@
 .nav {
   display: flex;
   gap: var(--fs-spacing-1);
+
+  @include media(">=notebook") {
+    flex-direction: column;
+    gap: var(--fs-spacing-0);
+  }
 }
 
 .navItem {
@@ -86,30 +97,14 @@
       box-shadow: none;
     }
   }
-}
 
-@include media(">=notebook") {
-  grid-template-rows: none;
-  grid-template-columns: max(300px) 80%;
-  gap: var(--fs-spacing-3);
-  padding: 0 var(--fs-spacing-3) 0 var(--fs-spacing-6);
-
-  .menu {
-    padding: 0;
-    padding-top: var(--fs-spacing-6);
-    overflow: visible;
-  }
-
-  .nav {
-    flex-direction: column;
-    gap: var(--fs-spacing-0);
-  }
-
-  .navItem {
+  @include media(">=notebook") {
     margin-left: -16px;
   }
+}
 
-  .avatar {
+.avatar {
+  @include media(">=notebook") {
     display: flex;
     align-items: center;
     justify-content: center;
