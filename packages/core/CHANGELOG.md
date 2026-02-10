@@ -11,6 +11,52 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
 - Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
 
+# [3.97.0-dev.3](https://github.com/vtex/faststore/compare/v3.97.0-dev.2...v3.97.0-dev.3) (2026-02-06)
+
+### Features
+
+- add budget to order details ([#3130](https://github.com/vtex/faststore/issues/3130)) ([f109b02](https://github.com/vtex/faststore/commit/f109b0271542aef02810d2996f00e075a9b9bde6))
+
+# 3.97.0-dev.2 (2026-02-06)
+
+### Features
+
+- reorder feature ([#3153](https://github.com/vtex/faststore/issues/3153)) ([d0fdeec](https://github.com/vtex/faststore/commit/d0fdeec77cd94e16f1b79dcc927487320983ba0e))
+
+# [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
+
+# 3.97.0-dev.0 (2026-01-27)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.97.0-dev.0](https://github.com/vtex/faststore/compare/v3.96.4-dev.0...v3.97.0-dev.0) (2026-01-27)
+
+### Features
+
+- Enable fraction digit formatting for SEO's `product:price:amount` meta tag ([#3179](https://github.com/vtex/faststore/issues/3179)) ([d6e6252](https://github.com/vtex/faststore/commit/d6e6252eb578d782505b8e505ee48cd9fd1526e3))
+
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.96.5](https://github.com/vtex/faststore/compare/v3.96.4...v3.96.5) (2026-02-02)
+
+### Bug Fixes
+
+- normalize set cookies domain host - SFS-3034 ([#3190](https://github.com/vtex/faststore/issues/3190)) ([645c91d](https://github.com/vtex/faststore/commit/645c91debeb16379f41aff6cb2225e2ed3b6086b))
+
+## [3.96.4](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4) (2026-01-26)
+
+### Bug Fixes
+
+- close filter on apply button click in FilterSlider component ([#3187](https://github.com/vtex/faststore/issues/3187)) ([f3c96eb](https://github.com/vtex/faststore/commit/f3c96eb5e73178d8c863a3e40ac576dc623a0624))
+
+## [3.96.3](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.3) (2026-01-21)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [3.96.2](https://github.com/vtex/faststore/compare/v3.96.1...v3.96.2) (2026-01-14)
 
 **Note:** Version bump only for package @faststore/core
@@ -24,6 +70,28 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.96.0-dev.21](https://github.com/vtex/faststore/compare/v3.96.0-dev.20...v3.96.0-dev.21) (2026-01-08)
+
+### Bug Fixes
+
+- Prevent Partytown cross-origin errors in iframe environments ([#3155](https://github.com/vtex/faststore/issues/3155)) ([997252e](https://github.com/vtex/faststore/commit/997252e9a18807f4c26c350197d4f2d139de58f8))
+
+# [3.96.0-dev.20](https://github.com/vtex/faststore/compare/v3.96.0-dev.19...v3.96.0-dev.20) (2026-01-08)
+
+### Bug Fixes
+
+- Add slug field to landing page schema - CROC-185 ([#3166](https://github.com/vtex/faststore/issues/3166)) ([41b9878](https://github.com/vtex/faststore/commit/41b987825ee5ebb7d311eef33e2ca65034dc130d))
+
+# [3.96.0-dev.19](https://github.com/vtex/faststore/compare/v3.96.0-dev.18...v3.96.0-dev.19) (2026-01-08)
+
+### Features
+
+- logout clear storage ([#3163](https://github.com/vtex/faststore/issues/3163)) ([1fbacc3](https://github.com/vtex/faststore/commit/1fbacc3b3e32b4f83a2f56c1f97eb0f8ff843f61))
 
 # 3.96.0-dev.18 (2025-12-24)
 

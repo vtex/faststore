@@ -111,4 +111,33 @@
       right: 3rem;
     }
   }
+
+  [data-fs-icon-button][data-fs-button-variant] {
+    @include media(">=notebook") {
+      min-height: var(--fs-search-input-field-button-min-height);
+      padding-top: var(--fs-search-input-field-button-padding-top-desktop);
+      padding-bottom:
+        var(
+          --fs-search-input-field-button-padding-bottom-desktop
+        );
+    }
+  }
+
+  [data-fs-search-input-field-attachment-button] {
+    [data-fs-icon] {
+      transform: rotate(90deg);
+    }
+
+    &:hover {
+      --fs-button-border-radius: var(--fs-border-radius-circle);
+    }
+  }
+
+  [data-fs-search-input-field-separator] {
+    display: inline-block;
+    width: 1px;
+    height: var(--fs-spacing-3);
+    margin: 0 var(--fs-spacing-0);
+    background-color: var(--fs-border-color-light, #e0e0e0);
+  }
 }
