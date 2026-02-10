@@ -1,16 +1,52 @@
-@layer components {
-  .section {
-    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
+.section [data-fs-preview-tag] {
+  position: fixed;
+  inset: 1rem 1rem auto auto;
+  z-index: var(--fs-z-index-highest);
+  border-radius: var(--fs-border-radius-pill);
+  box-shadow: var(--fs-shadow-darker);
+  backdrop-filter: blur(var(--fs-spacing-1));
 
-    [data-fs-preview-tag] {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 10000;
-      box-shadow: var(--fs-shadow-darker);
-      backdrop-filter: blur(var(--fs-spacing-1));
+  [data-fs-badge-wrapper="true"] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: var(--fs-spacing-1) var(--fs-spacing-6) var(--fs-spacing-1) var(--fs-spacing-2);
+    color: var(--fs-color-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--fs-color-danger-bkg);
+    border-radius: var(--fs-border-radius-pill);
+    box-shadow: var(--fs-shadow-hover);
+
+    [data-fs-tag-icon-button="true"] {
+      position: absolute;
+      right: calc(-1 * var(--fs-spacing-1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--fs-spacing-7);
+      height: var(--fs-spacing-7);
+      cursor: pointer;
+
+      [data-fs-icon] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        background: var(--fs-color-danger-bkg);
+        border-radius: 50%;
+        transition: var(--fs-transition-property) var(--fs-transition-timing) var(--fs-transition-function);
+      }
+
+      &:hover [data-fs-icon],
+      &:focus [data-fs-icon] {
+        filter: brightness(0.9);
+      }
+
+      &:focus [data-fs-icon] {
+        border: var(--fs-border-width) solid currentColor;
+      }
     }
   }
 }
