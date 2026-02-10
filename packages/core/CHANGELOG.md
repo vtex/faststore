@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.97.0-dev.4](https://github.com/vtex/faststore/compare/v3.97.0-dev.3...v3.97.0-dev.4) (2026-02-10)
+
+### Bug Fixes
+
+- scripts improvements - update RC url + Partytown loading + logs + fix bugs. ([#3198](https://github.com/vtex/faststore/issues/3198)) ([9a35b63](https://github.com/vtex/faststore/commit/9a35b63a91bc5cd53de553c053ceeed8bb983184))
+
 # [3.97.0-dev.3](https://github.com/vtex/faststore/compare/v3.97.0-dev.2...v3.97.0-dev.3) (2026-02-06)
 
 ### Features
