@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Button,
   Dropzone,
@@ -46,6 +46,7 @@ interface UploadFileDropdownLabels {
   dropzoneAriaLabel?: string
   dropzoneDragActiveText?: string
   templateFileName?: string
+  clearButtonAriaLabel?: string
   getCompletedStatusText?: (fileSize: string, totalRows: number) => string
 }
 
@@ -69,6 +70,7 @@ const DEFAULT_LABELS: Required<UploadFileDropdownLabels> = {
   dropzoneAriaLabel: 'Drop a file to search in bulk',
   dropzoneDragActiveText: 'Drop a CSV file with SKU and Quantity columns',
   templateFileName: 'bulk-search-template.csv',
+  clearButtonAriaLabel: 'Clear uploaded file',
   getCompletedStatusText: (fileSize, totalRows) =>
     `Completed · ${fileSize} · ${totalRows} products found`,
 }
@@ -146,6 +148,7 @@ export function CustomLabels() {
     dropzoneAriaLabel: 'Arraste um arquivo para buscar em massa',
     dropzoneDragActiveText: 'Solte o CSV com colunas SKU e Quantidade',
     templateFileName: 'template-busca-em-massa.csv',
+    clearButtonAriaLabel: 'Remover arquivo',
     getCompletedStatusText: (fileSize, totalRows) =>
       `Concluído · ${fileSize} · ${totalRows} produtos encontrados`,
   }
@@ -361,6 +364,11 @@ export function LabelReference() {
       prop: 'templateFileName',
       defaultValue: DEFAULT_LABELS.templateFileName,
       description: 'File name for the downloaded CSV template',
+    },
+    {
+      prop: 'clearButtonAriaLabel',
+      defaultValue: DEFAULT_LABELS.clearButtonAriaLabel,
+      description: 'Accessible label for the clear / dismiss button',
     },
     {
       prop: 'getCompletedStatusText',
