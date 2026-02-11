@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import {
   Button,
@@ -21,10 +21,108 @@ const ACCEPTED_FILE_TYPES = {
   'text/csv': ['.csv'],
 }
 
-export default function UploadFileDropdown() {
+// ------------------------------------------------------------------
+// Props & default labels
+// ------------------------------------------------------------------
+
+export interface UploadFileDropdownLabels {
+  /** Toast title shown when a CSV parsing error occurs. */
+  toastErrorTitle?: string
+  /** Toast title shown when a file is rejected (wrong type / too large / too many). */
+  toastRejectionTitle?: string
+  /** Default toast message when a file is rejected for an unknown reason. */
+  toastRejectionDefaultMessage?: string
+  /** Toast message when the file is too large. */
+  toastFileTooLargeMessage?: string
+  /** Toast message when the file type is invalid. */
+  toastFileInvalidTypeMessage?: string
+  /** Toast message when too many files are dropped. */
+  toastTooManyFilesMessage?: string
+  /** Toast title shown when the template generation fails. */
+  toastDownloadFailedTitle?: string
+  /** Toast message shown when the template generation fails. */
+  toastDownloadFailedMessage?: string
+  /** Toast title shown after a successful template download. */
+  toastDownloadSuccessTitle?: string
+  /** Toast message shown after a successful template download. */
+  toastDownloadSuccessMessage?: string
+  /** Label for the "Search" action button. */
+  searchButtonLabel?: string
+  /** Label for the "Select File" button inside the dropzone. */
+  selectFileButtonLabel?: string
+  /** Label shown on the button while a file is being processed. */
+  processingButtonLabel?: string
+  /** Label for the "Download Template" button. */
+  downloadTemplateButtonLabel?: string
+  /** Text shown inside the dropzone area. */
+  dropzoneText?: string
+  /** Accessible label for the dropzone. */
+  dropzoneAriaLabel?: string
+  /** Text shown when a file is being dragged over the dropzone. */
+  dropzoneDragActiveText?: string
+  /** File name used when downloading the CSV template. */
+  templateFileName?: string
+  /**
+   * Builds the "completed" status text shown after parsing.
+   * Receives the formatted file size string and the total row count.
+   */
+  getCompletedStatusText?: (fileSize: string, totalRows: number) => string
+}
+
+export interface UploadFileDropdownProps {
+  /** Customisable labels / copy. Every key is optional and falls back to an English default. */
+  labels?: UploadFileDropdownLabels
+}
+
+const DEFAULT_LABELS: Required<UploadFileDropdownLabels> = {
+  toastErrorTitle: 'File Upload Error',
+  toastRejectionTitle: 'File Upload Error',
+  toastRejectionDefaultMessage: 'Failed to upload file',
+  toastFileTooLargeMessage: 'File is too large. Maximum size is 5MB.',
+  toastFileInvalidTypeMessage: 'Invalid file type. Please upload a CSV file.',
+  toastTooManyFilesMessage: 'Too many files. Please upload only one file.',
+  toastDownloadFailedTitle: 'Download Failed',
+  toastDownloadFailedMessage:
+    'Failed to download template file. Please try again.',
+  toastDownloadSuccessTitle: 'Template Downloaded',
+  toastDownloadSuccessMessage: 'Template file has been downloaded successfully',
+  searchButtonLabel: 'Search',
+  selectFileButtonLabel: 'Select File',
+  processingButtonLabel: 'Processing...',
+  downloadTemplateButtonLabel: 'Download Template',
+  dropzoneText: 'Drop a file to search in bulk',
+  dropzoneAriaLabel: 'Drop a file to search in bulk',
+  dropzoneDragActiveText: 'Drop a CSV file with SKU and Quantity columns',
+  templateFileName: 'bulk-search-template.csv',
+  getCompletedStatusText: (fileSize, totalRows) =>
+    `Completed · ${fileSize} · ${totalRows} products found`,
+}
+
+// ------------------------------------------------------------------
+// Component
+// ------------------------------------------------------------------
+
+export default function UploadFileDropdown({
+  labels: labelsProp,
+}: UploadFileDropdownProps = {}) {
+  const labels = useMemo<Required<UploadFileDropdownLabels>>(
+    () => ({ ...DEFAULT_LABELS, ...labelsProp }),
+    [labelsProp]
+  )
+
   const { pushToast } = useUI()
 
   const [csvData, setCsvData] = useState<CSVData | null>(null)
+
+  const csvOptions = useMemo(
+    () => ({
+      delimiter: ',' as const,
+      skipEmptyLines: true,
+      skuColumnNames: ['sku', 'id', 'product', 'productid', 'item'],
+      quantityColumnNames: ['quantity', 'qty', 'amount', 'count'],
+    }),
+    []
+  )
 
   const {
     error: csvError,
@@ -32,12 +130,7 @@ export default function UploadFileDropdown() {
     onParseFile,
     onClearError,
     onGenerateTemplate,
-  } = useCSVParser({
-    delimiter: ',',
-    skipEmptyLines: true,
-    skuColumnNames: ['sku', 'id', 'product', 'productid', 'item'],
-    quantityColumnNames: ['quantity', 'qty', 'amount', 'count'],
-  })
+  } = useCSVParser(csvOptions)
 
   const clearData = () => {
     setCsvData(null)
@@ -48,7 +141,7 @@ export default function UploadFileDropdown() {
   useEffect(() => {
     if (csvError) {
       pushToast({
-        title: 'File Upload Error',
+        title: labels.toastErrorTitle,
         message: csvError.message,
         status: 'ERROR',
         icon: (
@@ -61,7 +154,7 @@ export default function UploadFileDropdown() {
         ),
       })
     }
-  }, [csvError, pushToast])
+  }, [csvError, pushToast, labels.toastErrorTitle])
 
   const handleFilesAccepted = async (files: File[]) => {
     if (files.length === 0) return
@@ -83,18 +176,18 @@ export default function UploadFileDropdown() {
   ) => {
     const code = fileRejections[0]?.errors[0]?.code || ''
 
-    let errorMessage = 'Failed to upload file'
+    let errorMessage = labels.toastRejectionDefaultMessage
 
     if (code === 'file-too-large') {
-      errorMessage = 'File is too large. Maximum size is 5MB.'
+      errorMessage = labels.toastFileTooLargeMessage
     } else if (code === 'file-invalid-type') {
-      errorMessage = 'Invalid file type. Please upload a CSV file.'
+      errorMessage = labels.toastFileInvalidTypeMessage
     } else if (code === 'too-many-files') {
-      errorMessage = 'Too many files. Please upload only one file.'
+      errorMessage = labels.toastTooManyFilesMessage
     }
 
     pushToast({
-      title: 'File Upload Error',
+      title: labels.toastRejectionTitle,
       message: errorMessage,
       status: 'ERROR',
       icon: (
@@ -112,26 +205,36 @@ export default function UploadFileDropdown() {
     try {
       const csvContent = await onGenerateTemplate()
 
-      if (csvContent) {
-        const blob = new Blob([csvContent], { type: 'text/csv' })
-        const url = window.URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = 'bulk-search-template.csv'
-        a.click()
-        window.URL.revokeObjectURL(url)
-
+      if (!csvContent) {
         pushToast({
-          title: 'Template Downloaded',
-          message: 'Template file has been downloaded successfully',
-          status: 'INFO',
-          icon: <UIIcon name="CircleWavyCheck" width={30} height={30} />,
+          title: labels.toastDownloadFailedTitle,
+          message: labels.toastDownloadFailedMessage,
+          status: 'ERROR',
+          icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
         })
+        return
       }
+
+      const blob = new Blob([csvContent], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = labels.templateFileName
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+
+      pushToast({
+        title: labels.toastDownloadSuccessTitle,
+        message: labels.toastDownloadSuccessMessage,
+        status: 'INFO',
+        icon: <UIIcon name="CircleWavyCheck" width={30} height={30} />,
+      })
     } catch (error) {
       pushToast({
-        title: 'Download Failed',
-        message: 'Failed to download template file. Please try again.',
+        title: labels.toastDownloadFailedTitle,
+        message: labels.toastDownloadFailedMessage,
         status: 'ERROR',
         icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
       })
@@ -158,9 +261,10 @@ export default function UploadFileDropdown() {
                 {isProcessing ? (
                   <Loader />
                 ) : (
-                  `Completed · ${formatFileSize(csvData.fileSize)} · ${
+                  labels.getCompletedStatusText(
+                    formatFileSize(csvData.fileSize),
                     csvData.totalRows
-                  } products found`
+                  )
                 )}
               </p>
             </div>
@@ -177,7 +281,7 @@ export default function UploadFileDropdown() {
               data-fs-upload-use-data-button
               disabled={isProcessing}
             >
-              Search
+              {labels.searchButtonLabel}
             </Button>
           </div>
         </div>
@@ -193,7 +297,9 @@ export default function UploadFileDropdown() {
                   size="small"
                   disabled={isProcessing}
                 >
-                  {isProcessing ? 'Processing...' : 'Select File'}
+                  {isProcessing
+                    ? labels.processingButtonLabel
+                    : labels.selectFileButtonLabel}
                 </Button>
               </div>
             }
@@ -204,9 +310,9 @@ export default function UploadFileDropdown() {
             maxFiles={MAX_FILES}
             maxSize={MAX_FILE_SIZE}
             disabled={isProcessing}
-            text="Drop a file to search in bulk"
-            aria-label="Drop a file to search in bulk"
-            dragActiveText="Drop a CSV file with SKU and Quantity columns"
+            text={labels.dropzoneText}
+            aria-label={labels.dropzoneAriaLabel}
+            dragActiveText={labels.dropzoneDragActiveText}
           />
           <Button
             data-fs-download-template-button
@@ -216,7 +322,7 @@ export default function UploadFileDropdown() {
             disabled={isProcessing}
             onClick={handleDownloadTemplate}
           >
-            Download Template
+            {labels.downloadTemplateButtonLabel}
           </Button>
         </div>
       )}

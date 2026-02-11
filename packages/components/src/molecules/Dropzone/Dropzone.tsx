@@ -2,6 +2,23 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef, useCallback } from 'react'
 import { useDropzone, type Accept, type FileRejection } from 'react-dropzone'
 
+/**
+ * Merges multiple refs (object refs and callback refs) into a single callback ref.
+ */
+function mergeRefs<T>(
+  ...refs: Array<React.Ref<T> | undefined>
+): React.RefCallback<T> {
+  return (instance: T | null) => {
+    for (const ref of refs) {
+      if (typeof ref === 'function') {
+        ref(instance)
+      } else if (ref && typeof ref === 'object') {
+        ;(ref as React.MutableRefObject<T | null>).current = instance
+      }
+    }
+  }
+}
+
 export interface DropzoneProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -68,6 +85,11 @@ export interface DropzoneProps extends HTMLAttributes<HTMLDivElement> {
    * Custom content for the select files button.
    */
   selectFilesButton?: ReactNode
+  /**
+   * Accessible label for the dropzone root element.
+   * Applied only when the dropzone is not disabled.
+   */
+  ariaLabel?: string
 }
 
 export interface DropzoneState {
@@ -94,6 +116,7 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
     noKeyboard = false,
     noDrag = false,
     selectFilesButton = null,
+    ariaLabel,
     ...otherProps
   },
   ref
@@ -138,17 +161,29 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
     noDrag,
   })
 
+  const rootProps = getRootProps()
+  const mergedRef = mergeRefs(ref, rootProps.ref as React.Ref<HTMLDivElement>)
+
+  const accessibilityProps = !disabled
+    ? {
+        role: 'button' as const,
+        'aria-label':
+          ariaLabel ?? 'Drag and drop files here, or click to select files',
+      }
+    : {}
+
   return (
     <div
-      ref={ref}
       data-fs-dropzone
       data-fs-dropzone-drag-active={isDragActive}
       data-fs-dropzone-drag-accept={isDragAccept}
       data-fs-dropzone-drag-reject={isDragReject}
       data-fs-dropzone-disabled={disabled}
       data-testid={testId}
-      {...getRootProps()}
+      {...rootProps}
+      {...accessibilityProps}
       {...otherProps}
+      ref={mergedRef}
     >
       <input {...getInputProps()} />
 
