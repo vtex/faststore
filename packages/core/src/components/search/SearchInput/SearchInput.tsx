@@ -209,7 +209,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           const a = document.createElement('a')
           a.href = url
           a.download = 'template.csv'
+          document.body.appendChild(a)
           a.click()
+          document.body.removeChild(a)
           window.URL.revokeObjectURL(url)
         }
       } catch (error) {
@@ -227,7 +229,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     const handleSearch = () => {
       if (!csvData) {
-        console.log('[Search] Botão Search clicado sem dados (csvData null)')
         return
       }
       const payload = {
@@ -236,7 +237,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         fileSize: csvData.fileSize,
         data: csvData.data,
       }
-      console.log('[Search] Botão Search clicado – dados processados:', payload)
       try {
         window.dispatchEvent(
           new CustomEvent('faststore:file-search', { detail: payload })
