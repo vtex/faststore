@@ -5,6 +5,7 @@ import {
   lazy,
   useDeferredValue,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -37,6 +38,7 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
+import type { UploadFileDropdownLabels } from 'src/components/search/UploadFileDropdown'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
@@ -95,6 +97,11 @@ export type SearchInputProps = {
       Record<string, { title: string; description: string }>
     >
   }
+  /**
+   * Labels / copy for the UploadFileDropdown (bulk upload modal).
+   * Pass from CMS so all copy is editable.
+   */
+  uploadFileDropdownLabels?: UploadFileDropdownLabels
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -123,6 +130,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       attachmentButtonAriaLabel,
       onFileSearch,
       fileUploadCardProps,
+      uploadFileDropdownLabels,
       ...otherProps
     },
     ref
@@ -147,16 +155,18 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     const [csvData, setCsvData] = useState<CSVData | null>(null)
 
+    const csvParserOptions = useMemo(
+      () => ({ delimiter: ',' as const, skipEmptyLines: true }),
+      []
+    )
+
     const {
       error: csvError,
       isProcessing: isCsvProcessing,
       onParseFile,
       onClearError,
       onGenerateTemplate,
-    } = useCSVParser({
-      delimiter: ',',
-      skipEmptyLines: true,
-    })
+    } = useCSVParser(csvParserOptions)
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -210,6 +220,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const handleDismiss = () => {
       setCsvData(null)
       setFileUploadVisible(false)
+      setHasFile(false)
+      setIsUploadOpen(false)
       onClearError()
     }
 
@@ -335,7 +347,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
             {isUploadModalOpen && (
               <Suspense fallback={null}>
-                <UploadFileDropdown />
+                <UploadFileDropdown labels={uploadFileDropdownLabels} />
               </Suspense>
             )}
           </UISearchInput>
