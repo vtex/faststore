@@ -139,4 +139,12 @@
     margin: 0 var(--fs-spacing-0);
     background-color: var(--fs-border-color-light, #e0e0e0);
   }
+
+  &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
+    inset-inline-end: 2.5rem;
+
+    @include media(">=notebook") {
+      inset-inline-end: 3rem;
+    }
+  }
 }

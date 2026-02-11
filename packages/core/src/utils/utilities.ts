@@ -126,16 +126,29 @@ export function formatFileName(fileName: string): string {
     return fileName
   }
 
-  let nameWithoutExtension =
+  const nameWithoutExtension =
     extensionIndex !== -1 ? fileName.slice(0, extensionIndex) : fileName
 
-  if (nameWithoutExtension.length > maxLength) {
-    const start = nameWithoutExtension.slice(0, maxLength / 2)
-    const end = nameWithoutExtension.slice(-maxLength / 2)
-    nameWithoutExtension = `${start}...${end}`
+  const availableBase = maxLength - extension.length
+
+  if (availableBase <= 0) {
+    // Extension alone exceeds maxLength; truncate from the end of the full name
+    return fileName.slice(0, maxLength)
   }
 
-  return `${nameWithoutExtension}${extension}`
+  const ellipsis = '...'
+  if (availableBase <= ellipsis.length) {
+    return `${nameWithoutExtension.slice(0, availableBase)}${extension}`
+  }
+
+  const half = Math.floor((availableBase - ellipsis.length) / 2)
+  const start = nameWithoutExtension.slice(0, half)
+  const end = nameWithoutExtension.slice(
+    -(availableBase - ellipsis.length - half)
+  )
+  const truncatedNameWithoutExtension = `${start}${ellipsis}${end}`
+
+  return `${truncatedNameWithoutExtension}${extension}`
 }
 
 /**
