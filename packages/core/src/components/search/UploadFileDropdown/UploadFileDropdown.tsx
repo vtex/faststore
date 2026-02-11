@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 
 import {
   Button,
-  Loader,
   Dropzone as UIDropzone,
   Icon as UIIcon,
   SearchDropdown as UISearchDropdown,
@@ -62,6 +61,8 @@ export interface UploadFileDropdownLabels {
   dropzoneDragActiveText?: string
   /** File name used when downloading the CSV template. */
   templateFileName?: string
+  /** Accessible label for the clear / dismiss button (the "X" icon button). */
+  clearButtonAriaLabel?: string
   /**
    * Builds the "completed" status text shown after parsing.
    * Receives the formatted file size string and the total row count.
@@ -94,6 +95,7 @@ const DEFAULT_LABELS: Required<UploadFileDropdownLabels> = {
   dropzoneAriaLabel: 'Drop a file to search in bulk',
   dropzoneDragActiveText: 'Drop a CSV file with SKU and Quantity columns',
   templateFileName: 'bulk-search-template.csv',
+  clearButtonAriaLabel: 'Clear uploaded file',
   getCompletedStatusText: (fileSize, totalRows) =>
     `Completed · ${fileSize} · ${totalRows} products found`,
 }
@@ -258,17 +260,18 @@ export default function UploadFileDropdown({
                 {formatFileName(csvData.fileName)}
               </h3>
               <p data-fs-upload-result-file-rows>
-                {isProcessing ? (
-                  <Loader />
-                ) : (
-                  labels.getCompletedStatusText(
-                    formatFileSize(csvData.fileSize),
-                    csvData.totalRows
-                  )
+                {labels.getCompletedStatusText(
+                  formatFileSize(csvData.fileSize),
+                  csvData.totalRows
                 )}
               </p>
             </div>
-            <Button variant="tertiary" size="small" onClick={clearData}>
+            <Button
+              variant="tertiary"
+              size="small"
+              onClick={clearData}
+              aria-label={labels.clearButtonAriaLabel}
+            >
               <UIIcon name="X" data-fs-upload-clear-icon />
             </Button>
           </div>
