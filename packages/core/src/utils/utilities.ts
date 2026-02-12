@@ -114,8 +114,8 @@ export const toArray = <T>(x: T[] | T | undefined) =>
  * @param fileName - The original file name.
  * @returns The formatted file name.
  * @example
- * formatFileName('smartphoneX5-23-256gb-black-edition-2023.xlsx')
- * // Returns: 'smartphoneX5-23...ck-edition-2023.xlsx'
+ * formatFileName('smartphoneX5-23-256gb-black-edition-2023.csv')
+ * // Returns: 'smartphoneX5-23...ck-edition-2023.csv'
  */
 export function formatFileName(fileName: string): string {
   const maxLength = 30

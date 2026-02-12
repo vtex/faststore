@@ -21,5 +21,9 @@ export { useTrapFocus } from './useTrapFocus'
 export { useProductComparison } from './useProductComparison'
 export { useRTL } from './useRTL'
 export { useCSVParser } from './useCSVParser'
-export { DEFAULT_FILE_UPLOAD_OPTIONS, useFileUpload } from './useFileUpload'
+export {
+  DEFAULT_FILE_UPLOAD_OPTIONS,
+  FileRejectionCode,
+  useFileUpload,
+} from './useFileUpload'
 export type { FileUploadOptions } from './useFileUpload'
