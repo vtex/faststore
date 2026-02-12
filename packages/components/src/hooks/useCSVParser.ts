@@ -37,14 +37,14 @@ export type CSVParserError = {
  */
 export function useCSVParser(options: CSVParserOptions = {}) {
   const [error, setError] = useState<CSVParserError | null>(null)
-  const [isProcessing, setIsProcessing] = useState(false)
+  const [isParsing, setIsParsing] = useState(false)
   const [isGeneratingTemplate, setIsGeneratingTemplate] = useState(false)
 
   const onParseFile = useCallback(
     async (file: File): Promise<CSVData | null> => {
       try {
         setError(null)
-        setIsProcessing(true)
+        setIsParsing(true)
 
         const result = await parseCSVFile(file, options)
         return result
@@ -57,7 +57,7 @@ export function useCSVParser(options: CSVParserOptions = {}) {
         setError(error)
         return null
       } finally {
-        setIsProcessing(false)
+        setIsParsing(false)
       }
     },
     [options]
@@ -87,7 +87,7 @@ export function useCSVParser(options: CSVParserOptions = {}) {
 
   return {
     error,
-    isProcessing,
+    isParsing,
     isGeneratingTemplate,
     onParseFile,
     onGenerateTemplate,
@@ -128,8 +128,8 @@ const parseCSVFile = (
       columnNames: string[]
     ): number => {
       return headers.findIndex((header) =>
-        columnNames.some((name) =>
-          header.toLowerCase().trim().includes(name.toLowerCase())
+        columnNames.some(
+          (name) => header.toLowerCase().trim() === name.toLowerCase()
         )
       )
     }
