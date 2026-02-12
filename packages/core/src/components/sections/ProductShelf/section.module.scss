@@ -4,11 +4,13 @@
 @layer components {
   .section {
     [data-fs-product-shelf-skeleton] {
-      --fs-carousel-item-margin-right    : var(--fs-spacing-3);
+      --fs-carousel-item-margin-right: var(--fs-spacing-3);
 
       padding-bottom: var(--fs-spacing-5);
 
-      [data-fs-product-shelf-items] { @include utilities.layout-content; }
+      [data-fs-product-shelf-items] {
+        @include utilities.layout-content;
+      }
 
       @include utilities.media("<tablet") {
         [data-fs-product-shelf-item] {
@@ -19,19 +21,19 @@
       }
     }
 
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Badge/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Link/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Price/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/SROnly/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Skeleton/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Carousel/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/DiscountBadge/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Rating/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductCard/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductCardSkeleton/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/ProductPrice/styles");
-    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/ProductShelf/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Badge/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Link/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Price/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/SROnly/styles");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Skeleton/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Carousel/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/DiscountBadge/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Rating/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/ProductCard/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/ProductCardSkeleton/styles");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/ProductPrice/styles");
+    @include meta.load-css("~@faststore/ui/src/components/organisms/ProductShelf/styles");
   }
 }

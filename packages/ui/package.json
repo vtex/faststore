@@ -54,7 +54,6 @@
     "tabbable": "catalog:"
   },
   "peerDependencies": {
-    "@faststore/components": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

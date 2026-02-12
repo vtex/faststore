@@ -2,10 +2,10 @@
 
 @layer components {
   .orderActionsModal {
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Loader/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Modal/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Loader/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Modal/styles.scss");
     @include meta.load-css("src/components/account/components/BottomSheet/styles.scss");
 
     [data-fs-order-details-action-modal] {
@@ -36,7 +36,7 @@
           align-items: center;
           padding: 0;
 
-          > * {
+          >* {
             flex-grow: 1;
           }
         }

@@ -2,9 +2,9 @@
 
 @layer components {
   .section {
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Badge/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Tag/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Badge/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Tag/styles.scss");
 
     [data-fs-preview-tag] {
       position: fixed;

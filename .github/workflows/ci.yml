@@ -66,7 +66,7 @@ jobs:
           done
 
       - name: Clone starter
-        run: git clone https://github.com/vtex-sites/starter.store.git starter
+        run: git clone -b canary-v2 https://github.com/vtex-sites/starter.store.git starter
 
       - name: Install specific Yarn version
         run: npm install -g yarn@1.22.19 # https://github.com/yarnpkg/yarn/issues/9015

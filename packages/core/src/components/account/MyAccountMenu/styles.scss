@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 .menu {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,12 @@
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  @include utilities.media(">=notebook") {
+    padding: 0;
+    padding-top: var(--fs-spacing-6);
+    overflow: visible;
+  }
 }
 
 .account {
@@ -41,6 +49,11 @@
 .nav {
   display: flex;
   gap: var(--fs-spacing-1);
+
+  @include utilities.media(">=notebook") {
+    flex-direction: column;
+    gap: var(--fs-spacing-0);
+  }
 }
 
 .navItem {
@@ -87,5 +100,26 @@
       outline: 3px solid var(--fs-color-focus-ring);
       box-shadow: none;
     }
+  }
+
+  @include utilities.media(">=notebook") {
+    margin-left: -16px;
+  }
+}
+
+.avatar {
+  @include utilities.media(">=notebook") {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--fs-spacing-8);
+    height: var(--fs-spacing-8);
+    font-size: var(--fs-text-size-4);
+    font-weight: var(--fs-text-weight-semibold);
+    color: var(--fs-color-main-2);
+    text-align: center;
+    background-color: var(--fs-color-accent-0);
+    border: var(--spacing-1) solid var(--fs-color-neutral-0);
+    border-radius: var(--fs-border-radius-circle);
   }
 }

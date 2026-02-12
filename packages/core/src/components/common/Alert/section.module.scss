@@ -3,11 +3,13 @@
 
 @layer components {
   .section {
-    [data-fs-content="alert"] { @include utilities.layout-content-full; }
+    [data-fs-content="alert"] {
+      @include utilities.layout-content-full;
+    }
 
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Link/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Alert/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Link/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Alert/styles.scss");
   }
 }

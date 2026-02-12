@@ -27,12 +27,12 @@
   },
   "peerDependencies": {
     "react": "catalog:",
+    "tabbable": "catalog:",
     "react-dom": "catalog:"
   },
   "dependencies": {
     "react-intersection-observer": "catalog:",
-    "react-swipeable": "catalog:",
-    "tabbable": "catalog:"
+    "react-swipeable": "catalog:"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",

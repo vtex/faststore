@@ -17,7 +17,9 @@ const showError = ({
   logger.error(`${chalk.red('error')} - ${message}`)
 
   if (cmd && error) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${cmd} error root ↓`)
+    logger.log(
+      `${chalk.magenta('DEBUG')} - $ ${JSON.stringify(cmd, null, 2)} error root ↓`
+    )
     logger.log(error.stdout?.toString())
   }
 
@@ -36,7 +38,9 @@ const showWarning = ({
   logger.warn(`${chalk.yellow('warn')} - ${message}`)
 
   if (cmd && error) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${cmd} warn root ↓`)
+    logger.log(
+      `${chalk.magenta('DEBUG')} - $ ${JSON.stringify(cmd, null, 2)} warn root ↓`
+    )
     logger.log(error.stdout?.toString())
   }
 }
@@ -64,7 +68,7 @@ export const runCommandSync = ({
         cwd,
       }
     )
-    logger.log(`[STATUS] ${res.toString()}`)
+    logger.log(`[STATUS] ${res?.toString() ?? 'Unknown'}`)
     logger.log(`[FINISHED] ${cmd}`)
   } catch (error) {
     const sanitizedError = debug ? (error as ExecSyncError) : undefined

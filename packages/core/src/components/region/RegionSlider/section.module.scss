@@ -2,17 +2,17 @@
 @use "@faststore/ui/src/styles/base/utilities";
 
 .section {
-  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Button/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Input/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Link/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/molecules/InputField/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Modal/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/molecules/PickupPointCard/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/organisms/EmptyState/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/organisms/FilterSlider/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/organisms/PickupPointCards/styles.scss");
-  @include meta.load-css("pkg:@faststore/ui/src/components/organisms/SlideOver/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Input/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Link/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/InputField/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Modal/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/PickupPointCard/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/EmptyState/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/FilterSlider/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/PickupPointCards/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
 
   [data-fs-filter-region-slider] {
     [data-fs-filter-slider-title] {

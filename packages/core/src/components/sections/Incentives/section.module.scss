@@ -4,8 +4,8 @@
   .section {
     margin-top: 0;
 
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/List/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/organisms/Incentives/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/List/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/organisms/Incentives/styles.scss");
   }
 }

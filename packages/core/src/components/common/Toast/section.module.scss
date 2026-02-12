@@ -2,7 +2,7 @@
 
 @layer components {
   .section {
-    @include meta.load-css("pkg:@faststore/ui/src/components/atoms/Icon/styles.scss");
-    @include meta.load-css("pkg:@faststore/ui/src/components/molecules/Toast/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Toast/styles.scss");
   }
 }

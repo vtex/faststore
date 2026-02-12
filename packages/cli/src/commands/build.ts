@@ -3,12 +3,12 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import fsExtra from 'fs-extra'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
-import path from 'path'
-import { fileURLToPath } from 'url'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
 
@@ -52,7 +52,7 @@ export default class Build extends Command {
 
     const { tmpDir } = withBasePath(basePath)
 
-    const packageManager = getPreferredPackageManager()
+    const packageManager = await getPreferredPackageManager()
 
     const binCli = path.join(
       fileURLToPath(
