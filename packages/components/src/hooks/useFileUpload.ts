@@ -1,6 +1,15 @@
 import { useCallback, useState } from 'react'
 import type { FileRejection } from 'react-dropzone/.'
 
+/**
+ * Error codes returned by react-dropzone when a file is rejected.
+ */
+export enum FileRejectionCode {
+  FileTooLarge = 'file-too-large',
+  FileInvalidType = 'file-invalid-type',
+  TooManyFiles = 'too-many-files',
+}
+
 export type FileUploadOptions = {
   maxFiles?: number
   maxSize?: number
@@ -37,15 +46,15 @@ export function useFileUpload(options: FileUploadOptions = {}) {
   const getErrorMessage = useCallback(
     (code: string) => {
       switch (code) {
-        case 'file-too-large': {
+        case FileRejectionCode.FileTooLarge: {
           const sizeMB = Math.round(maxSize / (1024 * 1024))
           return `File is too large. Maximum size is ${sizeMB}MB.`
         }
 
-        case 'file-invalid-type':
+        case FileRejectionCode.FileInvalidType:
           return `Invalid file type. Please upload a ${allowedExtensions} file.`
 
-        case 'too-many-files':
+        case FileRejectionCode.TooManyFiles:
           return `Too many files. Please upload only ${maxFiles} file(s).`
 
         default:
