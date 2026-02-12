@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   Button,
   Dropzone as UIDropzone,
+  FileRejectionCode,
   Icon as UIIcon,
   SearchDropdown as UISearchDropdown,
   useCSVParser,
@@ -74,6 +75,7 @@ export interface UploadFileDropdownProps {
   /** Customisable labels / copy. Every key is optional and falls back to an English default. */
   labels?: UploadFileDropdownLabels
 }
+// TODO: remove default labels once CMS is integrated
 
 const DEFAULT_LABELS: Required<UploadFileDropdownLabels> = {
   toastErrorTitle: 'File Upload Error',
@@ -180,11 +182,11 @@ export default function UploadFileDropdown({
 
     let errorMessage = labels.toastRejectionDefaultMessage
 
-    if (code === 'file-too-large') {
+    if (code === FileRejectionCode.FileTooLarge) {
       errorMessage = labels.toastFileTooLargeMessage
-    } else if (code === 'file-invalid-type') {
+    } else if (code === FileRejectionCode.FileInvalidType) {
       errorMessage = labels.toastFileInvalidTypeMessage
-    } else if (code === 'too-many-files') {
+    } else if (code === FileRejectionCode.TooManyFiles) {
       errorMessage = labels.toastTooManyFilesMessage
     }
 

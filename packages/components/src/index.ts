@@ -5,7 +5,10 @@ export type {
   CSVParserError,
   CSVParserOptions,
 } from './hooks/useCSVParser'
-export { DEFAULT_FILE_UPLOAD_OPTIONS } from './hooks/useFileUpload'
+export {
+  DEFAULT_FILE_UPLOAD_OPTIONS,
+  FileRejectionCode,
+} from './hooks/useFileUpload'
 export type { FileUploadOptions } from './hooks/useFileUpload'
 
 // Atoms
