@@ -222,6 +222,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const handleDismiss = () => {
       setCsvData(null)
       setFileUploadVisible(false)
+      setIsUploadModalOpen(false)
       setHasFile(false)
       setIsUploadOpen(false)
       onClearError()
@@ -297,7 +298,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               showAttachmentButton={showAttachmentButton}
               attachmentButtonAriaLabel={attachmentButtonAriaLabel}
               attachmentButtonProps={{
-                onClick: () => setFileUploadVisible(true),
+                onClick: () => {
+                  setFileUploadVisible(true)
+                  setIsUploadModalOpen(true)
+                },
               }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
