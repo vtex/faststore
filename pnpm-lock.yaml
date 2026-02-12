@@ -226,9 +226,6 @@ importers:
 
   packages/components:
     dependencies:
-      '@koale/useworker':
-        specifier: ^4.1.2
-        version: 4.1.2(react@18.3.1)
       papaparse:
         specifier: ^5.5.3
         version: 5.5.3
@@ -2885,11 +2882,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
-
-  '@koale/useworker@4.1.2':
-    resolution: {integrity: sha512-rVS9qs5prEBBw1YnvBlIN/jc1MLbchtv54mI1OGH8rQrE1jYfXg2+1p+4O5vFcU96cy2dafosnwZw8HXDpY//w==}
-    peerDependencies:
-      react: '>=16.8.0 <20.0.0'
 
   '@lerna/create@9.0.3':
     resolution: {integrity: sha512-hUTEWrR8zH+/Z3bp/R1aLm6DW8vB/BB7KH7Yeg4fMfrvSwxegiLVW9uJFAzWkK4mzEagmj/Dti85Yg9MN13t0g==}
@@ -14897,11 +14889,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@koale/useworker@4.1.2(react@18.3.1)':
-    dependencies:
-      dequal: 2.0.3
-      react: 18.3.1
 
   '@lerna/create@9.0.3(@types/node@22.19.10)(typescript@5.3.2)':
     dependencies:

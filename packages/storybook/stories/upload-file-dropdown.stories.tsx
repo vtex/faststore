@@ -3,7 +3,6 @@ import {
   Button,
   Dropzone,
   Icon,
-  Loader,
   SearchDropdown,
   UIProvider,
 } from '@faststore/components'
