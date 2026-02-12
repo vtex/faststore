@@ -162,7 +162,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     const {
       error: csvError,
-      isProcessing: isCsvProcessing,
+      isParsing: isCsvProcessing,
       onParseFile,
       onClearError,
       onGenerateTemplate,

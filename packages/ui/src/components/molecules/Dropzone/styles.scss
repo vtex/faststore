@@ -66,8 +66,10 @@
   }
 
   // Disabled state
+  // pointer-events is NOT used here so that cursor: not-allowed and
+  // &:hover overrides remain visible. Disabling is enforced by
+  // react-dropzone's `disabled` prop + aria-disabled in the component.
   &[data-fs-dropzone-disabled="true"] {
-    pointer-events: none;
     cursor: not-allowed;
     opacity: 0.6;
 

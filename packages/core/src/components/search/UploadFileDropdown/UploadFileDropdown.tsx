@@ -128,7 +128,7 @@ export default function UploadFileDropdown({
 
   const {
     error: csvError,
-    isProcessing,
+    isParsing,
     onParseFile,
     onClearError,
     onGenerateTemplate,
@@ -282,7 +282,7 @@ export default function UploadFileDropdown({
               size="small"
               onClick={handleUseData}
               data-fs-upload-use-data-button
-              disabled={isProcessing}
+              disabled={isParsing}
             >
               {labels.searchButtonLabel}
             </Button>
@@ -298,9 +298,9 @@ export default function UploadFileDropdown({
                   type="button"
                   variant="secondary"
                   size="small"
-                  disabled={isProcessing}
+                  disabled={isParsing}
                 >
-                  {isProcessing
+                  {isParsing
                     ? labels.processingButtonLabel
                     : labels.selectFileButtonLabel}
                 </Button>
@@ -312,7 +312,7 @@ export default function UploadFileDropdown({
             accept={ACCEPTED_FILE_TYPES}
             maxFiles={MAX_FILES}
             maxSize={MAX_FILE_SIZE}
-            disabled={isProcessing}
+            disabled={isParsing}
             text={labels.dropzoneText}
             aria-label={labels.dropzoneAriaLabel}
             dragActiveText={labels.dropzoneDragActiveText}
@@ -322,7 +322,7 @@ export default function UploadFileDropdown({
             type="button"
             variant="tertiary"
             size="small"
-            disabled={isProcessing}
+            disabled={isParsing}
             onClick={handleDownloadTemplate}
           >
             {labels.downloadTemplateButtonLabel}
