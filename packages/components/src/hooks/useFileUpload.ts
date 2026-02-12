@@ -24,27 +24,35 @@ export const DEFAULT_FILE_UPLOAD_OPTIONS: Required<FileUploadOptions> = {
  * @param options Configuration options for file upload.
  * @returns An object containing upload error state and handlers.
  */
-export function useFileUpload(options = DEFAULT_FILE_UPLOAD_OPTIONS) {
+export function useFileUpload(options: FileUploadOptions = {}) {
+  const resolvedOptions = { ...DEFAULT_FILE_UPLOAD_OPTIONS, ...options }
+  const { maxFiles, maxSize, acceptedTypes } = resolvedOptions
+  const allowedExtensions = Object.values(acceptedTypes)
+    .flat()
+    .map((ext) => ext.replace('.', '').toUpperCase())
+    .join(', ')
+
   const [uploadError, setUploadError] = useState<string | null>(null)
 
   const getErrorMessage = useCallback(
-    (code: string, maxSize: number) => {
+    (code: string) => {
       switch (code) {
-        case 'file-too-large':
+        case 'file-too-large': {
           const sizeMB = Math.round(maxSize / (1024 * 1024))
           return `File is too large. Maximum size is ${sizeMB}MB.`
+        }
 
         case 'file-invalid-type':
-          return 'Invalid file type. Please upload a CSV, XLS, or XLSX file.'
+          return `Invalid file type. Please upload a ${allowedExtensions} file.`
 
         case 'too-many-files':
-          return `Too many files. Please upload only ${options.maxFiles} file(s).`
+          return `Too many files. Please upload only ${maxFiles} file(s).`
 
         default:
           return 'Failed to upload file. Please try again.'
       }
     },
-    [options.maxFiles]
+    [maxFiles, maxSize, allowedExtensions]
   )
 
   const onFilesRejected = useCallback(
@@ -52,11 +60,11 @@ export function useFileUpload(options = DEFAULT_FILE_UPLOAD_OPTIONS) {
       const firstError = fileRejections[0]?.errors[0]
 
       if (firstError) {
-        const errorMessage = getErrorMessage(firstError.code, options.maxSize)
+        const errorMessage = getErrorMessage(firstError.code)
         setUploadError(errorMessage)
       }
     },
-    [getErrorMessage, options.maxSize]
+    [getErrorMessage]
   )
 
   const onClearUploadError = useCallback(() => {
