@@ -13,7 +13,7 @@ export async function getPreferredPackageManager() {
     (await getDepPackageJSON('@antfu/ni'))?.bin?.['na'] ?? ''
   )
 
-  if (fsExtra.existsSync(binNA) == false) return agent
+  if (!binNA || fsExtra.existsSync(binNA) == false) return agent
 
   agent = spawnSync('node', [binNA, '?'], { encoding: 'utf-8' })?.stdout.trim()
 
@@ -23,14 +23,14 @@ export async function getPreferredPackageManager() {
 export async function getPackageRootDir(
   pkg: string,
   cwd: string | undefined = process.cwd(),
-  depth = 20
+  depth = 30
 ) {
   let pkgPath = resolvePackage(pkg, { cwd })
 
   if (!pkgPath) throw new Error(`Couldn't resolve package ${pkg}`)
 
   let pkgJson = await loadPackageJsonAt(pkgPath)
-  while (pkgJson?.name !== pkg && depth > 0) {
+  while (pkgJson?.name !== pkg && --depth > 0) {
     pkgPath = join(pkgPath, '..')
     pkgJson = await loadPackageJsonAt(join(pkgPath, '..'))
   }
@@ -47,7 +47,7 @@ async function loadPackageJsonAt(at?: string): Promise<
       name: string
       dependencies?: Record<string, string>
       peerDependencies?: Record<string, string>
-      bin: Record<string, string>
+      bin?: Record<string, string>
     })
 > {
   const file = 'package.json',
