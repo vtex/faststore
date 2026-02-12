@@ -182,7 +182,7 @@ const parseCSVFile = (
 
     totalEstimatedRows = estimateRows(file.size)
 
-    Papa.parse(file, {
+    Papa.parse<string[]>(file, {
       // Performance settings
       header: false, // We'll process the header manually
       dynamicTyping: false, // Keep as string for custom validation
@@ -195,9 +195,11 @@ const parseCSVFile = (
       // Chunk processing for better performance
       chunk: (results, parser) => {
         try {
+          let rows = results.data
+
           // Process header on first execution
-          if (!isHeaderProcessed && results.data.length > 0) {
-            headers = results.data[0] as string[]
+          if (!isHeaderProcessed && rows.length > 0) {
+            headers = rows[0]
 
             // Find column indices
             skuIndex = findColumnIndex(headers, config.skuColumnNames)
@@ -223,13 +225,13 @@ const parseCSVFile = (
               return
             }
 
-            // Remove header from data to process only data rows
-            results.data = results.data.slice(1)
+            // Skip header row — use only data rows
+            rows = rows.slice(1)
             isHeaderProcessed = true
           }
 
           // Process current chunk
-          results.data.forEach((row: any, index: number) => {
+          rows.forEach((row, index) => {
             const globalRowIndex = processedRows + index
             const transformedRow = validateAndTransformRow(row, globalRowIndex)
 
@@ -238,7 +240,7 @@ const parseCSVFile = (
             }
           })
 
-          processedRows += results.data.length
+          processedRows += rows.length
 
           // Progress callback if provided
           if (config.onProgress) {
