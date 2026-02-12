@@ -2,7 +2,7 @@ import Papa from 'papaparse'
 import { useCallback, useState } from 'react'
 
 export interface WorkerCSVData {
-  data: Array<{ SKU: string; Quantity: number }>
+  data: Array<{ sku: string; quantity: number }>
   fileName: string
   totalRows: number
   fileSize: number
@@ -118,7 +118,7 @@ const parseCSVFile = (
     let quantityIndex = -1
     let isHeaderProcessed = false
 
-    const transformedData: Array<{ SKU: string; Quantity: number }> = []
+    const transformedData: Array<{ sku: string; quantity: number }> = []
     const errors: string[] = []
     let processedRows = 0
     let totalEstimatedRows = 0
@@ -157,8 +157,8 @@ const parseCSVFile = (
         }
 
         return {
-          SKU: trimmedSku,
-          Quantity: numericQuantity,
+          sku: trimmedSku,
+          quantity: numericQuantity,
         }
       } catch (err) {
         const errorMessage =
@@ -322,11 +322,11 @@ const parseCSVFile = (
  */
 const generateCSVTemplate = (): string => {
   const templateData = [
-    { SKU: 'PROD-001', Quantity: 5 },
-    { SKU: 'ITEM-234', Quantity: 12 },
-    { SKU: 'SKU789', Quantity: 3 },
-    { SKU: 'ABC-XYZ-456', Quantity: 8 },
-    { SKU: 'SAMPLE-100', Quantity: 25 },
+    { sku: 'PROD-001', quantity: 5 },
+    { sku: 'ITEM-234', quantity: 12 },
+    { sku: 'SKU789', quantity: 3 },
+    { sku: 'ABC-XYZ-456', quantity: 8 },
+    { sku: 'SAMPLE-100', quantity: 25 },
   ]
 
   return Papa.unparse(templateData, {
