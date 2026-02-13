@@ -45,7 +45,7 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  @include utilities.media (">=notebook") {
+  @include utilities.media(">=notebook") {
     --fs-order-details-padding: 0;
   }
 
