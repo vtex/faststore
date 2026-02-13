@@ -323,7 +323,12 @@ export const getStaticProps: GetStaticProps<
     globalSectionsFooter,
   ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
-      variables: { locator: [{ key: 'slug', value: slug }] },
+      variables: {
+        locator: [
+          { key: 'slug', value: slug },
+          { key: 'locale', value: locale },
+        ],
+      },
       operation: query,
     }),
     globalSectionsPromise,

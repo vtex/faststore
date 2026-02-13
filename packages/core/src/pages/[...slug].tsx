@@ -192,6 +192,7 @@ export const getStaticProps: GetStaticProps<
         ?.sortBySelection as SearchState['sort'],
       term: '',
       selectedFacets: data?.collection?.meta.selectedFacets,
+      locale,
     })
 
   const notFound = errors.find(isNotFoundError)
