@@ -59,23 +59,23 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Aria-label for the remove button (e.g. from CMS).
    */
-  removeButtonAriaLabel?: string
+  removeButtonAriaLabel: string
   /**
    * Label for the search button when state is 'completed' (e.g. from CMS).
    */
-  searchButtonLabel?: string
+  searchButtonLabel: string
   /**
    * Label for the download template button (e.g. from CMS).
    */
-  downloadTemplateButtonLabel?: string
+  downloadTemplateButtonLabel: string
   /**
    * Label for the select file button (e.g. from CMS).
    */
-  selectFileButtonLabel?: string
+  selectFileButtonLabel: string
   /**
    * Error messages per error type (e.g. from CMS). Required when state is Error to show messages.
    */
-  errorMessages?: Partial<
+  errorMessages: Partial<
     Record<FileUploadErrorType, { title: string; description: string }>
   >
   /**
@@ -86,6 +86,10 @@ export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
    * Status text when state is Completed (e.g. from CMS). May include file size.
    */
   completedStatusText: string
+  /**
+   * Custom file name display (optional).
+   */
+  fileName?: string
 }
 
 const FileUploadStatus = ({
@@ -105,6 +109,7 @@ const FileUploadStatus = ({
   errorMessages,
   uploadingStatusText,
   completedStatusText,
+  fileName,
   ...otherProps
 }: FileUploadStatusProps) => {
   const getErrorMessage = (): { title: string; description: string } => {
@@ -122,7 +127,7 @@ const FileUploadStatus = ({
       case FileUploadState.Uploading:
         return uploadingStatusText
       case FileUploadState.Completed:
-        return completedStatusText ?? ''
+        return completedStatusText
       default:
         return ''
     }
@@ -183,7 +188,7 @@ const FileUploadStatus = ({
             </>
           ) : (
             <>
-              <p data-fs-file-upload-status-filename>{file.name}</p>
+              <p data-fs-file-upload-status-filename>{fileName ?? file.name}</p>
               <p data-fs-file-upload-status-text>{getStatusText()}</p>
             </>
           )}

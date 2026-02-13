@@ -27,7 +27,7 @@
     );
 
   // Input
-  --fs-search-input-field-input-padding-right: var(--fs-spacing-7);
+  --fs-search-input-field-input-padding-right: var(--fs-spacing-13);
   --fs-search-input-field-input-bkg-color: var(--fs-color-body-bkg);
 
   // --------------------------------------------------------
@@ -47,13 +47,19 @@
 
   [data-fs-search-input-field-actions] {
     position: relative;
-    inset-inline-end: .125rem;
+    inset-inline-end: 0.125rem;
+    display: flex;
+    gap: 0;
+    align-items: center;
 
     @include media(">=notebook") {
       position: absolute;
       min-height: var(--fs-search-input-field-button-min-height);
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
-      padding-bottom: var(--fs-search-input-field-button-padding-bottom-desktop);
+      padding-bottom:
+        var(
+          --fs-search-input-field-button-padding-bottom-desktop
+        );
       inset-inline-end: 0;
     }
   }
@@ -62,9 +68,15 @@
     height: auto;
     padding-inline-end: var(--fs-search-input-field-input-padding-right);
     background-color: var(--fs-search-input-field-input-bkg-color);
-    transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
+    transition:
+      box-shadow var(--fs-search-input-field-transition-timing)
+      var(--fs-search-input-field-transition-function),
+      border var(--fs-search-input-field-transition-timing)
+      var(--fs-search-input-field-transition-function);
 
-    @include media("<notebook") { border: 0; }
+    @include media("<notebook") {
+      border: 0;
+    }
   }
 
   [data-fs-icon-button][data-fs-button-variant] {
@@ -94,5 +106,13 @@
     height: var(--fs-spacing-3);
     margin: 0 var(--fs-spacing-0);
     background-color: var(--fs-border-color-light, #e0e0e0);
+  }
+
+  &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
+    inset-inline-end: 2.5rem;
+
+    @include media(">=notebook") {
+      inset-inline-end: 3rem;
+    }
   }
 }

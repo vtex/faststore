@@ -66,13 +66,13 @@ export function FileUploadCardDefault() {
       <FileUploadCard
         isOpen={isOpen}
         onDismiss={() => setIsOpen(false)}
-        onFileSelect={(files) => {
+        onFileSelect={(files: File[]) => {
           console.log('Files selected:', files)
         }}
         onDownloadTemplate={() => {
           console.log('Download template clicked')
         }}
-        onSearch={(file) => {
+        onSearch={(file: File) => {
           console.log('Search with file:', file)
         }}
         {...fileUploadCardTextProps}
@@ -101,6 +101,12 @@ export function FileUploadStatusUploading() {
         state={FileUploadState.Uploading}
         onRemove={() => console.log('Remove clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        downloadTemplateButtonLabel={
+          fileUploadStatusTextProps.downloadTemplateButtonLabel
+        }
+        selectFileButtonLabel={fileUploadStatusTextProps.selectFileButtonLabel}
+        errorMessages={fileUploadStatusErrorMessages}
         uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
         completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
           file.size
@@ -122,6 +128,11 @@ export function FileUploadStatusCompleted() {
         onSearch={() => console.log('Search clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
         searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
+        downloadTemplateButtonLabel={
+          fileUploadStatusTextProps.downloadTemplateButtonLabel
+        }
+        selectFileButtonLabel={fileUploadStatusTextProps.selectFileButtonLabel}
+        errorMessages={fileUploadStatusErrorMessages}
         uploadingStatusText={fileUploadStatusTextProps.uploadingStatusText}
         completedStatusText={fileUploadStatusTextProps.getCompletedStatusText(
           file.size
@@ -145,6 +156,7 @@ export function FileUploadStatusError() {
         onDownloadTemplate={() => console.log('Download template clicked')}
         onSelectFile={() => console.log('Select file clicked')}
         removeButtonAriaLabel={fileUploadStatusTextProps.removeButtonAriaLabel}
+        searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
         downloadTemplateButtonLabel={
           fileUploadStatusTextProps.downloadTemplateButtonLabel
         }
@@ -200,6 +212,7 @@ export function FileUploadStatusAllErrorTypes() {
             removeButtonAriaLabel={
               fileUploadStatusTextProps.removeButtonAriaLabel
             }
+            searchButtonLabel={fileUploadStatusTextProps.searchButtonLabel}
             downloadTemplateButtonLabel={
               fileUploadStatusTextProps.downloadTemplateButtonLabel
             }
@@ -222,6 +235,7 @@ export function SearchInputFieldWithFileUpload() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleDownloadTemplate = () => {
+    console.log('Download template clicked')
     // Create and download template file
     const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
     const blob = new Blob([csvContent], { type: 'text/csv' })
@@ -259,11 +273,11 @@ export function SearchInputFieldWithFileUpload() {
         <FileUploadCard
           isOpen={fileUploadVisible}
           onDismiss={() => setFileUploadVisible(false)}
-          onFileSelect={(files) => {
+          onFileSelect={(files: File[]) => {
             console.log('Files selected:', files)
           }}
           onDownloadTemplate={handleDownloadTemplate}
-          onSearch={(file) => {
+          onSearch={(file: File) => {
             console.log('Search with file:', file)
             setFileUploadVisible(false)
           }}
