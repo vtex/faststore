@@ -46,11 +46,11 @@ interface RegionPopoverProps {
 
 function RegionPopover(regionPopoverProps: RegionPopoverProps) {
   const {
-    title = 'Set your location',
+    title,
     closeButtonAriaLabel,
-    textBeforeLocation = 'Your current location is:',
-    textAfterLocation = 'Use the field below to change it.',
-    description = 'Offers and availability vary by location.',
+    textBeforeLocation,
+    textAfterLocation,
+    description,
     triggerRef,
     offsetTop = 6,
     offsetLeft,
@@ -65,6 +65,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
       noProductsAvailableErrorMessage:
         inputFieldNoProductsAvailableErrorMessage = '',
       buttonActionText: inputButtonActionText = '',
+      loadingLabel: inputLoadingLabel = '',
     } = {},
     idkPostalCodeLink: {
       text: idkPostalCodeLinkText = '',
@@ -150,7 +151,7 @@ function RegionPopover(regionPopoverProps: RegionPopoverProps) {
           setInput('')
           setRegionError('')
         }}
-        buttonActionText={loading ? '...' : inputButtonActionText}
+        buttonActionText={loading ? inputLoadingLabel : inputButtonActionText}
         error={regionError}
       />
       {idkPostalCodeLinkTo && (

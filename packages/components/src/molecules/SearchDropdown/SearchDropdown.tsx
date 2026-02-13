@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode, PropsWithChildren } from 'react'
+import type { HTMLAttributes, PropsWithChildren, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 import { useSearch } from '../../hooks'
 
@@ -9,15 +9,16 @@ export interface SearchDropdownProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   children?: ReactNode
+  loadingLabel?: string
 }
 
-const SearchLoading = () => {
+const SearchLoading = ({ loadingLabel }: { loadingLabel?: string }) => {
   const { inContext, values } = useSearch()
 
   return (
     <>
       {inContext && values.isLoading && (
-        <p data-fs-search-dropdown-loading-text>Loading...</p>
+        <p data-fs-search-dropdown-loading-text>{loadingLabel}</p>
       )}
     </>
   )
@@ -27,13 +28,13 @@ const SearchDropdown = forwardRef<
   HTMLDivElement,
   PropsWithChildren<SearchDropdownProps>
 >(function SearchDropdown(
-  { testId = 'fs-search-dropdown', children, ...otherProps },
+  { testId = 'fs-search-dropdown', children, loadingLabel, ...otherProps },
   ref
 ) {
   return (
     <div ref={ref} data-fs-search-dropdown data-testid={testId} {...otherProps}>
       <section>
-        <SearchLoading />
+        <SearchLoading loadingLabel={loadingLabel} />
         {children}
       </section>
     </div>

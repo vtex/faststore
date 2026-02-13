@@ -132,8 +132,9 @@ const getPluginPageFileContent = (
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}'
 ${appLayout ? `import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 ${appLayout ? `import RenderSections from 'src/components/cms/RenderSections'` : ``}
+import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
-export async function getServerSideProps(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
+async function getServerSidePropsBase(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
   const noop = async function() {}
   const loaderData = await (page.loader || noop)(otherProps)
 ${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData)` : ``}
@@ -145,6 +146,8 @@ ${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData
     }
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(getServerSidePropsBase)
 export default function Page(props) {
   ${
     appLayout

@@ -1,10 +1,28 @@
+import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    include: ['./test/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     globals: true,
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          environment: 'jsdom',
+          include: ['./test/**/*.browser.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'node',
+          include: ['./test/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+          exclude: ['./test/**/*.browser.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        },
+      },
+    ],
   },
   resolve: {
     alias: {
@@ -19,6 +37,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    react(),
     {
       name: 'virtual-module',
       resolveId(id) {

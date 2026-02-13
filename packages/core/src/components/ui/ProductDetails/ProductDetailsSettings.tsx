@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { useMemo } from 'react'
 
-import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import { Skeleton as UISkeleton } from '@faststore/ui'
+import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
@@ -29,6 +29,11 @@ interface ProductDetailsSettingsProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  invalidQuantityToastLabels?: {
+    title?: string
+    message?: string
+  }
+  loadingLabel?: string
 }
 
 function ProductDetailsSettings({
@@ -41,6 +46,8 @@ function ProductDetailsSettings({
   notAvailableButtonTitle,
   useUnitMultiplier = false,
   taxesConfiguration,
+  invalidQuantityToastLabels,
+  loadingLabel,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -125,6 +132,7 @@ function ProductDetailsSettings({
                 formatter={useFormattedPrice}
                 {...ProductPrice.props}
               />
+
               {taxesConfiguration?.usePriceWithTaxes && (
                 <UILabel data-fs-product-details-taxes-label>
                   {taxesConfiguration?.taxesLabel}
@@ -147,8 +155,12 @@ function ProductDetailsSettings({
                 quantity: number
               ) => {
                 pushToast({
-                  title: 'Invalid quantity!',
-                  message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                  title: invalidQuantityToastLabels?.title,
+                  message:
+                    invalidQuantityToastLabels?.message
+                      ?.replace('%{min}', min.toString())
+                      ?.replace('%{max}', maxValue.toString())
+                      ?.replace('%{quantity}', quantity.toString()) || '',
                   status: 'INFO',
                   icon: (
                     <UIIcon name="CircleWavyWarning" width={30} height={30} />
@@ -172,7 +184,7 @@ function ProductDetailsSettings({
           non-composited animation violation due to the button transitioning its
           background color when changing from its initial disabled to active state.
           See full explanation on commit https://git.io/JyXV5. */
-        <AddToCartLoadingSkeleton />
+        <AddToCartLoadingSkeleton loadingLabel={loadingLabel} />
       ) : outOfStock ? (
         // TODO: Adds <OutOfStock /> when component is ready to use
         <NotAvailableButton.Component>
@@ -190,7 +202,7 @@ function ProductDetailsSettings({
           }
           {...buyProps}
         >
-          {buyButtonTitle || 'Add to Cart'}
+          {buyButtonTitle}
         </BuyButton.Component>
       )}
     </>

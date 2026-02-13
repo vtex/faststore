@@ -25,6 +25,12 @@
             "type": "string",
             "default": "FastStore Starter"
           },
+          "titleTemplate": {
+            "title": "Default page title template",
+            "description": "Template applied to the page title. Use %s to reference the page title.",
+            "type": "string",
+            "default": "%s | FastStore"
+          },
           "description": {
             "title": "Meta tag description",
             "type": "string",

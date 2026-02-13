@@ -9,6 +9,7 @@ import React, {
   type ReactNode,
   type RefObject,
 } from 'react'
+import { createPortal } from 'react-dom'
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
 
@@ -81,26 +82,44 @@ export interface PopoverProps
    * Reference to the trigger element that opens the Popover.
    */
   triggerRef?: RefObject<HTMLElement>
+  /**
+   * Whether to render the Popover using a React portal.
+   * @default false
+   */
+  enablePortal?: boolean
+  /**
+   * Props for the wrapper div when using portal.
+   */
+  wrapperProps?: HTMLAttributes<HTMLDivElement>
 }
 
 const calculatePosition = (
   rect: DOMRect,
   placement: Placement,
   offsetTop: number,
-  offsetLeft: number
+  offsetLeft: number,
+  enablePortal: boolean
 ) => {
   const { top, left, height } = rect
 
   switch (true) {
     case placement.startsWith('top'):
       return {
-        top: top + height + window.scrollY - offsetTop,
-        left: left + window.scrollX + offsetLeft,
+        top: enablePortal
+          ? top + height - offsetTop
+          : top + height + window.scrollY - offsetTop,
+        left: enablePortal
+          ? left + offsetLeft
+          : left + window.scrollX + offsetLeft,
       }
     case placement.startsWith('bottom'):
       return {
-        top: top + height + window.scrollY + offsetTop,
-        left: left + window.scrollX + offsetLeft,
+        top: enablePortal
+          ? top + height + offsetTop
+          : top + height + window.scrollY + offsetTop,
+        left: enablePortal
+          ? left + offsetLeft
+          : left + window.scrollX + offsetLeft,
       }
     default:
       return { top: 0, left: 0 }
@@ -122,6 +141,8 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     testId = 'fs-popover',
     style,
     onEntered,
+    enablePortal = false,
+    wrapperProps,
     ...otherProps
   },
   ref
@@ -144,14 +165,14 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     const rect = triggerRef.current.getBoundingClientRect()
 
     setPopoverPosition(
-      calculatePosition(rect, placement, offsetTop, offsetLeft)
+      calculatePosition(rect, placement, offsetTop, offsetLeft, enablePortal)
     )
 
     // Trigger the onEntered callback after positioning
     if (onEntered) {
       onEntered()
     }
-  }, [isOpen, triggerRef, offsetTop, offsetLeft, placement])
+  }, [isOpen, triggerRef, offsetTop, offsetLeft, placement, enablePortal])
 
   const handleDismiss = useCallback(() => {
     closePopover()
@@ -176,7 +197,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
     return null
   }
 
-  return (
+  const popoverElement = (
     <div
       data-fs-popover
       role="dialog"
@@ -184,7 +205,11 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
       data-fs-popover-placement={placement}
       onKeyDown={handleKeyDown}
       data-testid={testId}
-      style={{ position: 'absolute', ...popoverPosition, ...style }}
+      style={{
+        position: enablePortal ? 'fixed' : 'absolute',
+        ...popoverPosition,
+        ...style,
+      }}
       {...otherProps}
     >
       <header data-fs-popover-header>
@@ -204,6 +229,15 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
       <span data-fs-popover-indicator aria-hidden="true" />
     </div>
   )
+
+  if (enablePortal) {
+    return createPortal(
+      <div {...wrapperProps}>{popoverElement}</div>,
+      document.body
+    )
+  }
+
+  return popoverElement
 })
 
 export default Popover
