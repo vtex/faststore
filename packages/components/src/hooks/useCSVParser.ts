@@ -1,5 +1,5 @@
 import Papa from 'papaparse'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 export interface WorkerCSVData {
   data: Array<{ sku: string; quantity: number }>
@@ -29,16 +29,23 @@ export type CSVParserError = {
   type: 'PARSE_ERROR' | 'VALIDATION_ERROR' | 'FILE_ERROR'
 }
 
+const defaultOptions: CSVParserOptions = {}
+
 /**
  * Hook to parse CSV files containing SKU and Quantity columns.
  * Utilizes PapaParse's native Web Worker for efficient parsing of large files.
  * @param options CSV parsing options
  * @returns Object containing parsing state and functions
  */
-export function useCSVParser(options: CSVParserOptions = {}) {
+export function useCSVParser(options?: CSVParserOptions) {
   const [error, setError] = useState<CSVParserError | null>(null)
   const [isParsing, setIsParsing] = useState(false)
   const [isGeneratingTemplate, setIsGeneratingTemplate] = useState(false)
+
+  const mergedOptions = useMemo(
+    () => ({ ...defaultOptions, ...options }),
+    [options]
+  )
 
   const onParseFile = useCallback(
     async (file: File): Promise<CSVData | null> => {
@@ -46,7 +53,7 @@ export function useCSVParser(options: CSVParserOptions = {}) {
         setError(null)
         setIsParsing(true)
 
-        const result = await parseCSVFile(file, options)
+        const result = await parseCSVFile(file, mergedOptions)
         return result
       } catch (err) {
         const error: CSVParserError = {
@@ -60,7 +67,7 @@ export function useCSVParser(options: CSVParserOptions = {}) {
         setIsParsing(false)
       }
     },
-    [options]
+    [mergedOptions]
   )
 
   const onGenerateTemplate = useCallback(async (): Promise<string | null> => {
