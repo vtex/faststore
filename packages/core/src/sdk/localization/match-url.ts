@@ -1,4 +1,5 @@
 import config from 'discovery.config'
+import { matchesBindingPath } from 'src/utils/localization/customPaths'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -7,28 +8,38 @@ export function matchURLBinding(href: string) {
   const matchedConfig = Object.entries(config.localization.locales).find(
     ([_, langConfig]: [string, any]) => {
       const hostURLObject = new URL(href)
-      const langPath =
-        /\/(\w{2}-\w{2})\/?/i.exec(hostURLObject.pathname)?.[1] ?? ''
-
-      const origin = `${hostURLObject.protocol}//${hostURLObject.hostname}`
 
       binding = langConfig.bindings.find(({ url }: { url: string }) => {
         const configURLObject = new URL(url)
 
-        // In development, allow protocol mismatch (http vs https) and ignore port
-        if (isDevelopment) {
-          const hostnameMatch =
-            hostURLObject.hostname === configURLObject.hostname
-          const pathMatch =
-            !langPath || configURLObject.pathname === `/${langPath}`
+        // In development, allow localhost to match any hostname for easier testing
+        const isLocalhost =
+          hostURLObject.hostname === 'localhost' ||
+          hostURLObject.hostname === '127.0.0.1'
 
-          return hostnameMatch && pathMatch
+        const hostnameMatch =
+          (isDevelopment && isLocalhost) ||
+          hostURLObject.hostname === configURLObject.hostname
+
+        if (!hostnameMatch) {
+          return false
         }
 
-        // In production, require exact origin match
-        return (
-          (langPath && url === `${origin}/${langPath}`) ||
-          (!langPath && url === origin)
+        // In production, also verify protocol matches for security
+        // In development, allow http vs https mismatch (e.g., local http testing with https config)
+        if (!isDevelopment) {
+          const protocolMatch =
+            hostURLObject.protocol === configURLObject.protocol
+
+          if (!protocolMatch) {
+            return false
+          }
+        }
+
+        // Check if pathname matches (exact or prefix match)
+        return matchesBindingPath(
+          hostURLObject.pathname,
+          configURLObject.pathname
         )
       })
 
