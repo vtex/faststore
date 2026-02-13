@@ -54,7 +54,6 @@
     "tabbable": "^5.2.1"
   },
   "peerDependencies": {
-    "@faststore/components": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
