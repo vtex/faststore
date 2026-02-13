@@ -293,6 +293,7 @@ export default function UploadFileDropdown({
       ) : (
         <div data-fs-dropzone-container>
           <UIDropzone
+            ariaLabel={labels.dropzoneAriaLabel}
             selectFilesButton={
               <div data-fs-upload-button-container>
                 <Button
@@ -329,13 +330,6 @@ export default function UploadFileDropdown({
           >
             {labels.downloadTemplateButtonLabel}
           </Button>
-        </div>
-      )}
-
-      {csvError && (
-        <div data-fs-upload-error>
-          <UIIcon name="CircleWavyWarning" data-fs-upload-error-icon />
-          <p>{csvError.message}</p>
         </div>
       )}
     </UISearchDropdown>

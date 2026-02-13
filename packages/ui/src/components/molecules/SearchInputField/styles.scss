@@ -70,7 +70,7 @@
     background-color: var(--fs-search-input-field-input-bkg-color);
     transition:
       box-shadow var(--fs-search-input-field-transition-timing)
-      var(--fs-search-input-field-transition-timing),
+      var(--fs-search-input-field-transition-function),
       border var(--fs-search-input-field-transition-timing)
       var(--fs-search-input-field-transition-function);
 

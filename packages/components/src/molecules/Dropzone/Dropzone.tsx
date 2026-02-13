@@ -70,15 +70,15 @@ export interface DropzoneProps extends HTMLAttributes<HTMLDivElement> {
    */
   text?: string
   /**
-   * Whether to show the file input (hidden by default).
+   * Whether to disable opening the file dialog on click.
    */
   noClick?: boolean
   /**
-   * Whether to prevent drag events on the document body.
+   * Whether to disable opening the file dialog via keyboard.
    */
   noKeyboard?: boolean
   /**
-   * Whether to prevent dropping on the document body.
+   * Whether to disable drag-and-drop on the drop zone.
    */
   noDrag?: boolean
   /**
@@ -90,7 +90,7 @@ export interface DropzoneProps extends HTMLAttributes<HTMLDivElement> {
    * When disabled, `aria-disabled` is also set so assistive tech
    * can still identify the dropzone and its state.
    */
-  ariaLabel?: string
+  ariaLabel: string
 }
 
 export interface DropzoneState {
