@@ -1,3 +1,5 @@
+@use "./utilities";
+
 // ----------------------------------------------------------
 // FS UI STYLES
 // Layout
@@ -20,7 +22,7 @@
     margin-top: var(--fs-spacing-4);
     margin-bottom: var(--fs-spacing-4);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       margin-top: var(--fs-grid-padding);
       margin-bottom: var(--fs-grid-padding);
     }
@@ -34,7 +36,7 @@
     margin-inline: auto;
   }
 
-  [data-fs-content] { @include layout-content; }
+  [data-fs-content] { @include utilities.layout-content; }
 
   .no-scroll {
     overflow: hidden;
@@ -43,7 +45,7 @@
 
   // Helper class
   .display-mobile {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: none;
       visibility: hidden;
     }
@@ -51,7 +53,7 @@
 
   // Helper class
   .hidden-mobile {
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       display: none;
       visibility: hidden;
     }

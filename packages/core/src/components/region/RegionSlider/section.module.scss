@@ -1,15 +1,18 @@
+@use "sass:meta";
+@use "@faststore/ui/src/styles/base/utilities";
+
 .section {
-  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Link/styles.scss";
-  @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
-  @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
-  @import "@faststore/ui/src/components/molecules/PickupPointCard/styles.scss";
-  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
-  @import "@faststore/ui/src/components/organisms/FilterSlider/styles.scss";
-  @import "@faststore/ui/src/components/organisms/PickupPointCards/styles.scss";
-  @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Input/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Link/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/InputField/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Modal/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/PickupPointCard/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/EmptyState/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/FilterSlider/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/PickupPointCards/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
 
   [data-fs-filter-region-slider] {
     [data-fs-filter-slider-title] {
@@ -28,7 +31,7 @@
     }
 
     [data-fs-slide-over-header] {
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         padding-right: var(--fs-spacing-6);
         padding-left: var(--fs-spacing-6);
       }
@@ -38,7 +41,7 @@
       height: 100%;
       padding: 0 var(--fs-spacing-3);
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         padding: 0 var(--fs-spacing-6);
       }
 

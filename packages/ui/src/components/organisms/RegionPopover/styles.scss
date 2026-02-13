@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-region-popover] {
   // --------------------------------------------------------
   // Design Tokens for Region Popover
@@ -21,7 +23,7 @@
 
   width: auto;
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     width: var(--fs-region-popover-width);
   }
 

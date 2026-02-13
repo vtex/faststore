@@ -30,7 +30,7 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest(tmpDir: string) {
-  const packageManager = getPreferredPackageManager()
+  const packageManager = await getPreferredPackageManager()
 
   const testProcess = spawn(`${packageManager} run test:e2e`, {
     shell: true,

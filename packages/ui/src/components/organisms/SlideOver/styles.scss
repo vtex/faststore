@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-slide-over] {
   // --------------------------------------------------------
   // Design Tokens for Slide Over
@@ -33,7 +35,7 @@
   &[data-fs-slide-over-size="partial"] {
     width: var(--fs-slide-over-partial-width-mobile);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       width: var(--fs-slide-over-partial-width-notebook);
       max-width: var(--fs-slide-over-partial-max-width-notebook);
     }

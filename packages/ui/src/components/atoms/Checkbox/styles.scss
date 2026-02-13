@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-checkbox] {
   // --------------------------------------------------------
   // Design Tokens for Checkbox
@@ -52,7 +54,7 @@
   transition: var(--fs-checkbox-transition);
   appearance: none;
 
-  @include input-focus-ring;
+  @include utilities.input-focus-ring;
 
   &::before {
     position: absolute;

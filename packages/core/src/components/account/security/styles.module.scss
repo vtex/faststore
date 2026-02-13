@@ -1,11 +1,14 @@
+@use "sass:meta";
+@use "@faststore/ui/src/styles/base/utilities";
+
 @layer components {
   .section {
-    @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-    @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
-    @import "../components/MyAccountTable/styles.scss";
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Overlay/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Input/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
+    @include meta.load-css("../components/MyAccountTable/styles.scss");
 
     // --------------------------------------------------------
     // Design Tokens
@@ -141,10 +144,13 @@
       justify-content: center;
       padding: var(--fs-spacing-3) var(--fs-spacing-4);
       border-top: var(--fs-border-width) solid var(--fs-border-color-light);
-      [data-fs-button] { width: 100%; }
+
+      [data-fs-button] {
+        width: 100%;
+      }
     }
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       [data-fs-security-drawer-footer] {
         align-items: center;
         justify-content: flex-end;

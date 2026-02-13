@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-select] {
   // --------------------------------------------------------
   // Design Tokens for Select
@@ -49,7 +51,7 @@
     transition: var(--fs-select-transition-property) var(--fs-select-transition-timing) var(--fs-select-transition-function);
     appearance: none;
 
-    @include focus-ring-visible;
+    @include utilities.focus-ring-visible;
 
     &:focus { background-color: var(--fs-select-bkg-color-focus); }
 
@@ -62,17 +64,17 @@
       + [data-fs-select-icon] { display: none; }
     }
 
-    @include media("<notebook") { min-height: var(--fs-select-min-height); }
+    @include utilities.media("<notebook") { min-height: var(--fs-select-min-height); }
 
-    @include media(">=notebook") { height: var(--fs-select-height); }
+    @include utilities.media(">=notebook") { height: var(--fs-select-height); }
   }
 
   [data-fs-select-icon] {
     position: absolute;
     right: var(--fs-select-icon-position-right);
-    color: var(--fs-select-icon-color);
-    pointer-events: none;
     width: var(--fs-select-icon-width);
     height: var(--fs-select-icon-height);
+    color: var(--fs-select-icon-color);
+    pointer-events: none;
   }
 }

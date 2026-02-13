@@ -1,25 +1,28 @@
+@use "sass:meta";
+@use "@faststore/ui/src/styles/base/utilities";
+
 .page {
-  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-  @import "@faststore/ui/src/components/molecules/Card/styles.scss";
-  @import "@faststore/ui/src/components/molecules/Alert/styles.scss";
-  @import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
-  @import "../../components/MyAccountAccordion/styles.scss";
-  @import "../../components/MyAccountCard/styles.scss";
-  @import "../../components/MyAccountStatusBadge/styles.scss";
-  @import "./MyAccountSummaryCard/styles.scss";
-  @import "./MyAccountOrderedByCard/styles.scss";
-  @import "./MyAccountDeliveryCard/styles.scss";
-  @import "./MyAccountPaymentCard/styles.scss";
-  @import "./MyAccountDeliveryOptionAccordion/styles.scss";
-  @import "./MyAccountOrderActions/styles.scss";
-  @import "./MyAccountReorderButton/styles.scss";
-  @import "./MyAccountStatusCard/styles.scss";
-  @import "./MyAccountMoreInformationCard/styles.scss";
-  @import "./MyAccountBuyingPolicyAlert/styles.scss";
-  @import "./MyAccountBudgetsCard/styles.scss";
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Badge/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Loader/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Card/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Alert/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/Dropdown/styles.scss");
+  @include meta.load-css("../../components/MyAccountAccordion/styles.scss");
+  @include meta.load-css("../../components/MyAccountCard/styles.scss");
+  @include meta.load-css("../../components/MyAccountStatusBadge/styles.scss");
+  @include meta.load-css("./MyAccountSummaryCard/styles.scss");
+  @include meta.load-css("./MyAccountOrderedByCard/styles.scss");
+  @include meta.load-css("./MyAccountDeliveryCard/styles.scss");
+  @include meta.load-css("./MyAccountPaymentCard/styles.scss");
+  @include meta.load-css("./MyAccountDeliveryOptionAccordion/styles.scss");
+  @include meta.load-css("./MyAccountOrderActions/styles.scss");
+  @include meta.load-css("./MyAccountReorderButton/styles.scss");
+  @include meta.load-css("./MyAccountStatusCard/styles.scss");
+  @include meta.load-css("./MyAccountMoreInformationCard/styles.scss");
+  @include meta.load-css("./MyAccountBuyingPolicyAlert/styles.scss");
+  @include meta.load-css("./MyAccountBudgetsCard/styles.scss");
 
   // --------------------------------------------------------
   // Design Tokens
@@ -42,7 +45,7 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     --fs-order-details-padding: 0;
   }
 
@@ -54,13 +57,13 @@
     justify-content: space-between;
     padding: var(--fs-order-details-header-padding);
 
-    @include media(">=tablet") {
+    @include utilities.media (">=tablet") {
       --fs-order-details-header-gap: var(--fs-spacing-2);
 
       align-items: center;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media (">=notebook") {
       --fs-order-details-header-padding: var(--fs-spacing-6) 0;
     }
 
@@ -72,21 +75,11 @@
 
       [data-fs-order-details-header-back-button] {
         flex-shrink: 0;
-        margin-top:
-          calc(
-            var(--fs-spacing-2) * -1
-          ); // Align the back button with the title
+        margin-top: calc(var(--fs-spacing-2) * -1); // Align the back button with the title
+        margin-left: calc(var(--fs-spacing-2) * -1); // Align the back button with the content
 
-        margin-left:
-          calc(
-            var(--fs-spacing-2) * -1
-          ); // Align the back button with the content
-
-        @include media(">=notebook") {
-          margin-top:
-            calc(
-              var(--fs-spacing-1) * -1
-            ); // Align the back button with the title
+        @include utilities.media(">=notebook") {
+          margin-top: calc(var(--fs-spacing-1) * -1); // Align the back button with the title
         }
       }
 
@@ -96,7 +89,7 @@
         gap: var(--fs-spacing-1);
         align-items: flex-start;
 
-        @include media(">=tablet") {
+        @include utilities.media(">=tablet") {
           flex-flow: row wrap;
           align-items: center;
         }
@@ -107,7 +100,7 @@
         font-weight: var(--fs-order-details-header-weight);
         line-height: var(--fs-order-details-header-line-height);
 
-        @include truncate-title(2);
+        @include utilities.truncate-title(2);
       }
     }
 
@@ -118,7 +111,7 @@
       align-items: center;
 
       [data-fs-reorder-button] {
-        @include media("<tablet") {
+        @include utilities.media("<tablet") {
           display: none;
         }
       }
@@ -130,7 +123,7 @@
     flex-direction: column;
     gap: var(--fs-order-details-content-gap);
 
-    @include media(">=notebook") {
+    @include utilities.media (">=notebook") {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }

@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-product-grid] {
   // --------------------------------------------------------
   // Design Tokens for ProductGrid
@@ -20,7 +22,7 @@
   grid-template-columns: repeat(var(--fs-product-grid-columns-mobile), 1fr);
   grid-gap: var(--fs-product-grid-gap-mobile);
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     $pagination-start-index: 2;
 
     grid-template-columns: repeat(var(--fs-product-grid-columns-desktop), 1fr);
@@ -31,9 +33,9 @@
     }
   }
 
-  @include media("<notebook") { padding-bottom: var(--fs-grid-gap-2); }
+  @include utilities.media("<notebook") { padding-bottom: var(--fs-grid-gap-2); }
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     grid-gap: var(--fs-product-grid-gap-desktop);
   }
 }
