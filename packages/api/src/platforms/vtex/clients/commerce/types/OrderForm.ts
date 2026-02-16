@@ -155,7 +155,7 @@ export interface OrderForm {
 
 export interface ClientPreferencesData {
   locale: string
-  optinNewsLetter: any | null
+  optinNewsLetter?: any | null
 }
 
 export interface OrderFormCustomData {
