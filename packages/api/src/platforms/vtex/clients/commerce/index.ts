@@ -27,7 +27,11 @@ import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
-import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type {
+  ClientPreferencesData,
+  OrderForm,
+  OrderFormInputItem,
+} from './types/OrderForm'
 import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
@@ -224,7 +228,7 @@ export const VtexCommerce = (
         clientPreferencesData,
       }: {
         id: string
-        clientPreferencesData: { locale: string }
+        clientPreferencesData: ClientPreferencesData
       }): Promise<OrderForm> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',

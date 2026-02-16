@@ -120,10 +120,7 @@ export interface OrderForm {
     name: string
     logo: string
   }>
-  clientPreferencesData: {
-    locale: string
-    optinNewsLetter: any | null
-  }
+  clientPreferencesData: ClientPreferencesData
   commercialConditionData: any | null
   storePreferencesData: {
     countryCode: string
@@ -154,6 +151,11 @@ export interface OrderForm {
   }
   subscriptionData: SubscriptionData | null
   itemsOrdination: any | null
+}
+
+export interface ClientPreferencesData {
+  locale: string
+  optinNewsLetter: any | null
 }
 
 export interface OrderFormCustomData {
