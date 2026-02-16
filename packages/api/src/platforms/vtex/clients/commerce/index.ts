@@ -219,6 +219,28 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      clientPreferencesData: ({
+        id,
+        clientPreferencesData,
+      }: {
+        id: string
+        clientPreferencesData: { locale: string }
+      }): Promise<OrderForm> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/attachments/clientPreferencesData`,
+          {
+            headers,
+            body: JSON.stringify(clientPreferencesData),
+            method: 'POST',
+          },
+          { storeCookies }
+        )
+      },
       orderForm: ({
         id,
         refreshOutdatedData = true,

@@ -370,10 +370,21 @@ export const validateCart = async (
   }
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await commerce.checkout.orderForm({
+  let orderForm = await commerce.checkout.orderForm({
     id: orderFormIdFromCookie || undefined,
     channel: ctx.storage.channel,
   })
+
+  // Sync session locale to checkout so OrderForm has the same clientPreferencesData.locale
+  if (locale && orderForm.clientPreferencesData?.locale !== locale) {
+    orderForm = await commerce.checkout.clientPreferencesData({
+      id: orderForm.orderFormId,
+      clientPreferencesData: {
+        locale,
+      },
+    })
+  }
+
   const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
