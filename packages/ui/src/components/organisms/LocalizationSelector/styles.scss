@@ -1,17 +1,24 @@
 [data-fs-localization-selector] {
-  --fs-popover-margin: 0;
-  --fs-popover-border-radius: var(--fs-border-radius);
-  --fs-popover-bkg-color: var(--fs-color-neutral-0);
-  --fs-popover-indicator-translate: 0;
-  --fs-popover-z-index: var(--fs-z-index-high);
-  --fs-popover-padding: var(--fs-spacing-3) var(--fs-spacing-4);
+  // Design Tokens for Localization Selector
+  --fs-localization-selector-max-width                          : 288px;
+
+  // Override Popover design tokens
+  --fs-popover-padding                                          : var(--fs-spacing-3) var(--fs-spacing-4);
+  --fs-popover-margin                                           : 0;
+  --fs-popover-border-radius                                    : var(--fs-border-radius);
+  --fs-popover-bkg-color                                        : var(--fs-color-neutral-0);
+  --fs-popover-indicator-translate                              : 0;
+  --fs-popover-z-index                                          : var(--fs-z-index-high);
 
   display: flex;
   flex-direction: column;
-  gap: var(--fs-spacing-2, 12px);
+  gap: var(--fs-spacing-2);
   align-items: flex-end;
-  max-width: 288px;
-  border: 1px solid var(--fs-border-color-default);
+  border: var(--fs-border-width) solid var(--fs-border-color);
+
+  @include media(">=tablet") {
+    max-width: var(--fs-localization-selector-max-width);
+  }
 
   [data-fs-localization-selector-description] {
     margin-bottom: var(--fs-spacing-3);
