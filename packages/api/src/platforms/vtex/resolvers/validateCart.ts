@@ -370,21 +370,10 @@ export const validateCart = async (
   }
 
   // Step1: Get OrderForm from VTEX Commerce
-  let orderForm = await commerce.checkout.orderForm({
+  const orderForm = await commerce.checkout.orderForm({
     id: orderFormIdFromCookie || undefined,
     channel: ctx.storage.channel,
   })
-
-  // Sync session locale to checkout so OrderForm has the same clientPreferencesData.locale
-  if (locale && orderForm.clientPreferencesData?.locale !== locale) {
-    orderForm = await commerce.checkout.clientPreferencesData({
-      id: orderForm.orderFormId,
-      clientPreferencesData: {
-        locale,
-      },
-    })
-  }
-
   const orderNumber = orderForm.orderFormId
 
   // Clear messages so it doesn't keep populating toasts on a loop
@@ -504,7 +493,7 @@ export const validateCart = async (
     )
   }
 
-  // Continue with marketingData and etag updates
+  // Continue with marketingData, clientPreferencesData (locale), and etag updates.
   updatedOrderForm = await Promise.resolve(updatedOrderForm)
     // update marketingData
     .then((form: OrderForm) => {
@@ -520,6 +509,17 @@ export const validateCart = async (
         })
       }
 
+      return form
+    })
+
+    // update session locale to orderForm clientPreferencesData when there are changes (same pattern as storePreferencesData)
+    .then((form: OrderForm) => {
+      if (locale && form.clientPreferencesData?.locale !== locale) {
+        return commerce.checkout.clientPreferencesData({
+          id: form.orderFormId,
+          clientPreferencesData: { locale },
+        })
+      }
       return form
     })
     // update orderForm etag so we know last time we touched this orderForm
