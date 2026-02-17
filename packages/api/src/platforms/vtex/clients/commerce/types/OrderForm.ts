@@ -120,7 +120,7 @@ export interface OrderForm {
     name: string
     logo: string
   }>
-  clientPreferencesData: ClientPreferencesData
+  clientPreferencesData: ClientPreferencesData | null
   commercialConditionData: any | null
   storePreferencesData: {
     countryCode: string
