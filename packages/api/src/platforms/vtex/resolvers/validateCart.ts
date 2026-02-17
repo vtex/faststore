@@ -517,7 +517,10 @@ export const validateCart = async (
       if (locale && form.clientPreferencesData?.locale !== locale) {
         return commerce.checkout.clientPreferencesData({
           id: form.orderFormId,
-          clientPreferencesData: { locale },
+          clientPreferencesData: {
+            ...form.clientPreferencesData,
+            locale,
+          },
         })
       }
       return form
