@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
+import storeConfig from 'discovery.config'
 import { addCustomPathPrefix } from 'src/utils/localization/customPaths'
 
 /**
@@ -15,11 +16,26 @@ export function useLink() {
         return undefined
       }
       if (href.startsWith('/') && !href.startsWith('//')) {
-        return addCustomPathPrefix(href, router.asPath ?? '')
+        const asPath = router.asPath ?? ''
+        const withCustomPath = addCustomPathPrefix(href, asPath)
+        const defaultLocale = storeConfig.localization?.defaultLocale
+        const onCustomPath = addCustomPathPrefix('/s', asPath) !== '/s'
+        // Only add Next.js locale when no custom path was applied AND we're not on a custom-path page
+        if (
+          withCustomPath === href &&
+          storeConfig.localization?.enabled &&
+          router.locale &&
+          defaultLocale &&
+          router.locale !== defaultLocale &&
+          !onCustomPath
+        ) {
+          return `/${router.locale}${href}`
+        }
+        return withCustomPath
       }
       return href
     },
-    [router.asPath]
+    [router.asPath, router.locale]
   )
 
   return { resolveLink }

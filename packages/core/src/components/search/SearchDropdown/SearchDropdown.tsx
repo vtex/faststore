@@ -19,6 +19,7 @@ import type {
   IntelligentSearchAutocompleteClickParams,
 } from 'src/sdk/analytics/types'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { useSearchBase } from 'src/sdk/search/useSearchBase'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
@@ -54,6 +55,7 @@ function SearchDropdown({
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
+  const searchBase = useSearchBase()
 
   return (
     <UISearchDropdown {...otherProps}>
@@ -66,19 +68,19 @@ function SearchDropdown({
             term={term}
             suggestion={suggestion}
             linkProps={{
-              href: formatSearchPath({
-                term: suggestion,
-                sort,
-              }),
+              href: formatSearchPath({ term: suggestion, sort }, searchBase),
               onClick: async (event: React.MouseEvent<HTMLAnchorElement>) => {
                 event.preventDefault()
 
-                const href = formatSearchPath({ term: suggestion, sort })
+                const href = formatSearchPath(
+                  { term: suggestion, sort },
+                  searchBase
+                )
 
                 // Execute search selection callback
                 onSearchSelection?.(
                   term,
-                  formatSearchPath({ term: term, sort })
+                  formatSearchPath({ term: term, sort }, searchBase)
                 )
 
                 // Wait for analytics event to complete

@@ -33,6 +33,7 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { useSearchBase } from 'src/sdk/search/useSearchBase'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
@@ -102,6 +103,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+    const searchBase = useSearchBase()
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -165,10 +167,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 setSearchQuery(e.target.value)
               }
               onSubmit={(term: string) => {
-                const path = formatSearchPath({
-                  term,
-                  sort: sort as SearchState['sort'],
-                })
+                const path = formatSearchPath(
+                  { term, sort: sort as SearchState['sort'] },
+                  searchBase
+                )
 
                 onSearchSelection(term, path)
                 router.push(path)
