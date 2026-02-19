@@ -2,7 +2,11 @@ import {
   ATTR_SERVICE_NAME,
   ATTR_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions'
-import { Exporters, NewTelemetryClient } from '@vtex/diagnostics-nodejs'
+import {
+  Exporters,
+  Instrumentation,
+  NewTelemetryClient,
+} from '@vtex/diagnostics-nodejs'
 import type { TelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
 import type { TraceClient } from '@vtex/diagnostics-nodejs/dist/types/traces.js'
 import { name } from '../package.json' with { type: 'json' }
@@ -32,7 +36,7 @@ export async function getTelemetryClient(opt: {
   TELEMETRY_CLIENT = await NewTelemetryClient(
     APPLICATION_ID,
     SERVICE_NAME,
-    SERVICE_NAME,
+    'faststore-proxy',
     {
       additionalAttrs: {
         [ATTR_SERVICE_NAME]: opt.name,
@@ -42,10 +46,15 @@ export async function getTelemetryClient(opt: {
     }
   )
   const tracesExporter = await setupTracesExporter()
+  await TELEMETRY_CLIENT.newLogsClient({ exporter: tracesExporter })
+  await TELEMETRY_CLIENT.newMetricsClient({ exporter: tracesExporter })
   TRACE_CLIENT = await TELEMETRY_CLIENT.newTracesClient({
     exporter: tracesExporter,
   })
 
+  TELEMETRY_CLIENT.registerInstrumentations(
+    Instrumentation.CommonInstrumentations.minimal()
+  )
   console.log('TELEMETRY CLIENT STARTED', opt)
 
   return TELEMETRY_CLIENT

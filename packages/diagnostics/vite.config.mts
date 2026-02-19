@@ -17,7 +17,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        ...builtinModules.concat(builtinModules.map(e => `node:${e}`)),
+        ...builtinModules.concat(builtinModules.map((e) => `node:${e}`)),
         ...Object.keys({
           ...(dependencies ?? {}),
         }),
