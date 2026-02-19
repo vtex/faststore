@@ -1,21 +1,24 @@
 import { mergeSchemas } from '@graphql-tools/schema'
-import { isSchema, type GraphQLSchema } from 'graphql'
+import * as otelApi from '@opentelemetry/api'
+import { type GraphQLSchema, isSchema } from 'graphql'
+import crypto from 'node:crypto'
 import { withDirectives } from '../../directives'
 import authDirective from '../../directives/auth'
 import cacheControlDirective from '../../directives/cacheControl'
+import { ResolverTrace } from '../../observability/telemetry'
 import type { Clients } from './clients'
 import { getClients } from './clients'
 import type { SearchArgs } from './clients/search'
 import type { Loaders } from './loaders'
 import { getLoaders } from './loaders'
-import { getResolvers } from './resolvers'
+import { getResolvers as nativeGetResolvers } from './resolvers'
 import typeDefs from './typeDefs'
 import type { Channel } from './utils/channel'
 import ChannelMarshal from './utils/channel'
 
-export { getResolvers } from './resolvers'
-
 export interface GraphqlContext {
+  /** Request scope ID */
+  id: string
   clients: Clients
   loaders: Loaders
   /**
@@ -33,18 +36,19 @@ export interface GraphqlContext {
   }
   headers: Record<string, string>
   account: string
+  OTEL: {
+    tracer: otelApi.Tracer
+    traceparent: string
+    tracestate: string
+  }
 }
 
-export type GraphqlResolver<R = unknown, A = unknown, Return = any> = (
-  root: R,
-  args: A,
-  ctx: GraphqlContext,
-  info: any
-) => Return
+export const GraphqlVtexContextFactory = (options: Options) => {
+  const id = crypto.randomBytes(32).toString('hex')
+  return (ctx: any): GraphqlContext => {
+    const tracer = otelApi.trace.getTracer('@faststore', options?.version)
 
-export const GraphqlVtexContextFactory =
-  (options: Options) =>
-  (ctx: any): GraphqlContext => {
+    ctx.id = id
     ctx.storage = {
       channel: ChannelMarshal.parse(options.channel),
       flags: options.flags ?? {},
@@ -54,9 +58,46 @@ export const GraphqlVtexContextFactory =
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
     ctx.account = options.account
+    ctx.OTEL = {
+      ...(options.OTEL ??
+        otelApi.propagation.inject(otelApi.context.active(), {})),
+      tracer: tracer,
+    }
 
     return ctx
   }
+}
+
+// export function VtexResolver<S = unknown, V = unknown, R = unknown>(
+//   resolver: GraphqlResolver<S, V, R>
+// ): typeof resolver {
+//   return ResolverTrace<GraphqlContext, S, V, R>(resolver)
+// }
+
+export type GraphqlResolver<S = any, V = any, R = any> = Resolver<
+  GraphqlContext,
+  S,
+  V,
+  R
+>
+
+export function getResolvers() {
+  const resolvers = nativeGetResolvers()
+
+  const finalResolvers: any = {}
+  for (const [key, resolver] of Object.entries(resolvers)) {
+    finalResolvers[key] = Object.fromEntries(
+      Object.entries(resolver).map(([name, resolverFunction]) => {
+        if (typeof resolverFunction !== 'function')
+          return [name, resolverFunction]
+
+        return [name, ResolverTrace(resolverFunction, `${key}(${name})`)]
+      })
+    )
+  }
+
+  return finalResolvers satisfies typeof resolvers
+}
 
 export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
   const withCacheControl = withDirectives([

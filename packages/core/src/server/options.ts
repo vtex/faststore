@@ -1,6 +1,10 @@
 import type { APIOptions } from '@faststore/api'
-
+import * as OTELAPI from '@opentelemetry/api'
 import storeConfig from '../../discovery.config'
+import { version } from '../../package.json' with { type: 'json' }
+
+const OTEL = {}
+OTELAPI.propagation.inject(OTELAPI.context.active(), OTEL)
 
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
@@ -19,4 +23,6 @@ export const apiOptions: APIOptions = {
     enableUnavailableItemsOnCart:
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
+  version,
+  OTEL,
 }
