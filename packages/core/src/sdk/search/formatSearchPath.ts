@@ -1,5 +1,6 @@
 import type { SearchState } from '@faststore/sdk'
 import { formatSearchState, initSearchState } from '@faststore/sdk'
+import { useCallback } from 'react'
 
 import { useSearchBase } from 'src/sdk/search/useSearchBase'
 
@@ -36,6 +37,8 @@ export function useFormatSearchPath(): (
   params: FormatSearchPathParams
 ) => string {
   const searchBase = useSearchBase()
-  return (params: FormatSearchPathParams) =>
-    formatSearchPath(params, searchBase)
+  return useCallback(
+    (params: FormatSearchPathParams) => formatSearchPath(params, searchBase),
+    [searchBase]
+  )
 }
