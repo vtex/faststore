@@ -123,7 +123,7 @@
     flex-direction: column;
     gap: var(--fs-order-details-content-gap);
 
-    @include utilities.media (">=notebook") {
+    @include utilities.media(">=notebook") {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
