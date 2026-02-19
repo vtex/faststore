@@ -9,7 +9,6 @@ import type { SearchState } from '@faststore/sdk'
 import type { StoreSuggestionTerm } from '@generated/graphql'
 import { useFormatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useTopSearch from 'src/sdk/search/useTopSearch'
-import { useSearchBase } from 'src/sdk/search/useSearchBase'
 
 const MAX_TOP_SEARCH_TERMS = 5
 
