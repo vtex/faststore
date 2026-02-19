@@ -33,5 +33,5 @@ export async function withTraceClient<T = typeof apiOptions>(
   return {
     ...apiOptions,
     OTEL,
-  } satisfies T
+  } as T
 }
