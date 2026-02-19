@@ -1,7 +1,10 @@
-import { useCallback } from 'react'
-import { useRouter } from 'next/router'
 import storeConfig from 'discovery.config'
-import { addCustomPathPrefix } from 'src/utils/localization/customPaths'
+import { useRouter } from 'next/router'
+import { useCallback } from 'react'
+import {
+  addCustomPathPrefix,
+  extractCustomPathPrefix,
+} from 'src/utils/localization/customPaths'
 
 /**
  * Hook that centralizes link resolution with custom path prefix (i18n).
@@ -19,7 +22,8 @@ export function useLink() {
         const asPath = router.asPath ?? ''
         const withCustomPath = addCustomPathPrefix(href, asPath)
         const defaultLocale = storeConfig.localization?.defaultLocale
-        const onCustomPath = addCustomPathPrefix('/s', asPath) !== '/s'
+        // Check if current page has a custom path prefix
+        const onCustomPath = extractCustomPathPrefix(asPath) !== null
         // Only add Next.js locale when no custom path was applied AND we're not on a custom-path page
         if (
           withCustomPath === href &&
