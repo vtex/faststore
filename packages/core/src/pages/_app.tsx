@@ -23,6 +23,12 @@ import '../styles/main.scss'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useLocalizationConfig } from 'src/sdk/localization/useLocalizationConfig'
 
+function LocalizationConfigUpdater() {
+  // Update session with localization config
+  useLocalizationConfig()
+  return null
+}
+
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
   storeConfig.experimental?.scrollRestoration && useScrollRestoration()
@@ -32,11 +38,9 @@ function App({ Component, pageProps }: AppProps) {
   // Initialize global Search state
   startGlobalSearchState(router.asPath, { itemsPerPage: ITEMS_PER_PAGE })
 
-  // Update session with localization config
-  useLocalizationConfig()
-
   return (
     <ErrorBoundary>
+      {storeConfig.localization?.enabled && <LocalizationConfigUpdater />}
       <Head> {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</Head>
       <DefaultSeo {...SEO} />
 
