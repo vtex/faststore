@@ -27,7 +27,11 @@ import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
-import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type {
+  ClientPreferencesData,
+  OrderForm,
+  OrderFormInputItem,
+} from './types/OrderForm'
 import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
@@ -214,6 +218,28 @@ export const VtexCommerce = (
           {
             headers,
             body: JSON.stringify(marketingData),
+            method: 'POST',
+          },
+          { storeCookies }
+        )
+      },
+      clientPreferencesData: ({
+        id,
+        clientPreferencesData,
+      }: {
+        id: string
+        clientPreferencesData: ClientPreferencesData
+      }): Promise<OrderForm> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/attachments/clientPreferencesData`,
+          {
+            headers,
+            body: JSON.stringify(clientPreferencesData),
             method: 'POST',
           },
           { storeCookies }
