@@ -32,8 +32,7 @@ import type { NavbarProps } from 'src/components/sections/Navbar'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import { useSearchBase } from 'src/sdk/search/useSearchBase'
+import { useFormatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
@@ -103,7 +102,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
-    const searchBase = useSearchBase()
+    const formatSearchPath = useFormatSearchPath()
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -167,10 +166,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 setSearchQuery(e.target.value)
               }
               onSubmit={(term: string) => {
-                const path = formatSearchPath(
-                  { term, sort: sort as SearchState['sort'] },
-                  searchBase
-                )
+                const path = formatSearchPath({
+                  term,
+                  sort: sort as SearchState['sort'],
+                })
 
                 onSearchSelection(term, path)
                 router.push(path)

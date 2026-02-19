@@ -7,7 +7,7 @@ import type { HTMLAttributes } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
 import type { StoreSuggestionTerm } from '@generated/graphql'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { useFormatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useTopSearch from 'src/sdk/search/useTopSearch'
 import { useSearchBase } from 'src/sdk/search/useSearchBase'
 
@@ -37,7 +37,7 @@ function SearchTop({
   const {
     values: { onSearchSelection },
   } = useSearch()
-  const searchBase = useSearchBase()
+  const formatSearchPath = useFormatSearchPath()
   const { data } = useTopSearch()
   const terms = (data?.search.suggestions.terms ?? topTerms).slice(
     0,
@@ -51,13 +51,10 @@ function SearchTop({
   return (
     <UISearchTop title={title} {...otherProps}>
       {terms.map((term, index) => {
-        const path = formatSearchPath(
-          {
-            term: term.value,
-            sort: sort as SearchState['sort'],
-          },
-          searchBase
-        )
+        const path = formatSearchPath({
+          term: term.value,
+          sort: sort as SearchState['sort'],
+        })
         return (
           <UISearchTopTerm
             key={index}
