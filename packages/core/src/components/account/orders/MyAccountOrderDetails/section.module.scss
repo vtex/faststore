@@ -57,7 +57,7 @@
     justify-content: space-between;
     padding: var(--fs-order-details-header-padding);
 
-    @include utilities.media (">=tablet") {
+    @include utilities.media(">=tablet") {
       --fs-order-details-header-gap: var(--fs-spacing-2);
 
       align-items: center;
