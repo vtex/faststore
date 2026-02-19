@@ -1,0 +1,33 @@
+{
+  "name": "@faststore/diagnostics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/src/index.d.ts",
+  "scripts": {
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/es/index.mjs"
+    }
+  },
+  "packageManager": "pnpm@10.28.0",
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/semantic-conventions": "^1.39.0",
+    "@vtex/diagnostics-nodejs": "^5.1.1"
+  },
+  "devDependencies": {
+    "tslib": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
+  }
+}

@@ -1,9 +1,9 @@
 import { builtinModules } from 'node:module'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-import pkgeJson from './package.json'
+import pkgeJson from './package.json' with { type: 'json' }
 
-const { dependencies, peerDependencies } = pkgeJson
+const { dependencies = {} } = pkgeJson
 
 export default defineConfig({
   root: process.env.PWD ?? process.cwd(),
@@ -20,7 +20,6 @@ export default defineConfig({
         ...builtinModules.concat(builtinModules.map(e => `node:${e}`)),
         ...Object.keys({
           ...(dependencies ?? {}),
-          ...(peerDependencies ?? {}),
         }),
       ],
     },

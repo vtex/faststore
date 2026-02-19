@@ -1,5 +1,10 @@
+import { name, version } from '../package.json' with { type: 'json' }
+
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
-    ;(await import('./utils/instrumentation.node'))?.Init()
+    ;(await import('@faststore/diagnostics')).getTelemetryClient({
+      name,
+      version,
+    })
   }
 }

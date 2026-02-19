@@ -1,10 +1,6 @@
 import type { APIOptions } from '@faststore/api'
-import * as OTELAPI from '@opentelemetry/api'
 import storeConfig from '../../discovery.config'
 import { version } from '../../package.json' with { type: 'json' }
-
-const OTEL = {}
-OTELAPI.propagation.inject(OTELAPI.context.active(), OTEL)
 
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
@@ -24,5 +20,18 @@ export const apiOptions: APIOptions = {
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
   version,
-  OTEL,
+  OTEL: {},
+}
+
+export async function withTraceClient<T = typeof apiOptions>(
+  apiOptions: T
+): Promise<T> {
+  const OTEL = {}
+  const traceCLient = (await import('@faststore/diagnostics'))?.getTraceClient()
+  traceCLient?.inject(OTEL)
+
+  return {
+    ...apiOptions,
+    OTEL,
+  } satisfies T
 }

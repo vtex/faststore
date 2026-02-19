@@ -1,7 +1,8 @@
+import { getTelemetryClient } from '@faststore/diagnostics'
 import { mergeSchemas } from '@graphql-tools/schema'
-import * as otelApi from '@opentelemetry/api'
 import { type GraphQLSchema, isSchema } from 'graphql'
 import crypto from 'node:crypto'
+import { name, version } from '../../../package.json' with { type: 'json' }
 import { withDirectives } from '../../directives'
 import authDirective from '../../directives/auth'
 import cacheControlDirective from '../../directives/cacheControl'
@@ -36,18 +37,16 @@ export interface GraphqlContext {
   }
   headers: Record<string, string>
   account: string
-  OTEL: {
-    tracer: otelApi.Tracer
-    traceparent: string
-    tracestate: string
-  }
+  OTEL: Record<string, unknown>
 }
 
 export const GraphqlVtexContextFactory = (options: Options) => {
+  getTelemetryClient({
+    name,
+    version,
+  })
   const id = crypto.randomBytes(32).toString('hex')
   return (ctx: any): GraphqlContext => {
-    const tracer = otelApi.trace.getTracer('@faststore', options?.version)
-
     ctx.id = id
     ctx.storage = {
       channel: ChannelMarshal.parse(options.channel),
@@ -58,11 +57,7 @@ export const GraphqlVtexContextFactory = (options: Options) => {
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
     ctx.account = options.account
-    ctx.OTEL = {
-      ...(options.OTEL ??
-        otelApi.propagation.inject(otelApi.context.active(), {})),
-      tracer: tracer,
-    }
+    ctx.OTEL = options.OTEL
 
     return ctx
   }
