@@ -71,15 +71,12 @@ function SearchDropdown({
               onClick: async (event: React.MouseEvent<HTMLAnchorElement>) => {
                 event.preventDefault()
 
-                const href = formatSearchPath(
-                  { term: suggestion, sort },
-                  searchBase
-                )
+                const href = formatSearchPath({ term: suggestion, sort })
 
                 // Execute search selection callback
                 onSearchSelection?.(
                   term,
-                  formatSearchPath({ term: term, sort }, searchBase)
+                  formatSearchPath({ term: term, sort })
                 )
 
                 // Wait for analytics event to complete
