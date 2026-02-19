@@ -30,8 +30,8 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@faststore/components": "^3.97.0-dev.2",
-    "@faststore/ui": "^3.97.0-dev.2",
+    "@faststore/components": "workspace:*",
+    "@faststore/ui": "workspace:*",
     "next": "^15.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
