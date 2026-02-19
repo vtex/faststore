@@ -1,6 +1,6 @@
 import type { APIOptions } from '@faststore/api'
 import storeConfig from '../../discovery.config'
-import { version } from '../../package.json' with { type: 'json' }
+import { version } from '../../package.json'
 
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
