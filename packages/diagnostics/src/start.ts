@@ -32,6 +32,7 @@ async function setupTracesExporter() {
 export async function getTelemetryClient(opt: {
   name: string
   version: string
+  account: string
 }) {
   TELEMETRY_CLIENT = await NewTelemetryClient(
     APPLICATION_ID,
@@ -42,6 +43,7 @@ export async function getTelemetryClient(opt: {
         [ATTR_SERVICE_NAME]: opt.name,
         [ATTR_SERVICE_VERSION]: opt.version,
         environment: process.env.NODE_ENV ?? 'development',
+        ACCOUNT: opt.account ?? 'unknown',
       },
     }
   )

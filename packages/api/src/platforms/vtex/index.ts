@@ -44,6 +44,7 @@ export const GraphqlVtexContextFactory = (options: Options) => {
   getTelemetryClient({
     name,
     version,
+    account: options.account,
   })
   const id = crypto.randomBytes(32).toString('hex')
   return (ctx: any): GraphqlContext => {

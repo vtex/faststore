@@ -5,7 +5,7 @@ const { ATTR_CODE_FUNCTION_NAME, ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } =
   CONVENTIONS
 
 export const ResolverTrace = <
-  TContext extends { OTEL: Record<string, any> },
+  TContext extends { OTEL: Record<string, any>; account: string },
   TSource = any,
   TVars = any,
   TReturn = any,
@@ -32,6 +32,7 @@ export const ResolverTrace = <
             [ATTR_CODE_FUNCTION_NAME]: resolverName,
             [ATTR_SERVICE_NAME]: name,
             [ATTR_SERVICE_VERSION]: version,
+            ACCOUNT: graphqlContext.account,
           },
         }
       )
