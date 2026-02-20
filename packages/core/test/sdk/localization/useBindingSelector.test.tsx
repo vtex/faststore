@@ -94,16 +94,16 @@ const mockLocales: Record<string, Locale> = {
 
 describe('useBindingSelector integration scenarios', () => {
   describe('language options computation', () => {
-    it('disambiguates languages with same languageName', () => {
+    it('disambiguates languages with same name (native name, first letter capitalized)', () => {
       const languages = buildLanguageOptions(mockLocales)
 
-      // Portuguese appears in both BR and PT
-      expect(languages['pt-BR']).toBe('Portuguese (BR)')
-      expect(languages['pt-PT']).toBe('Portuguese (PT)')
+      // Português appears in both BR and PT → disambiguate with region
+      expect(languages['pt-BR']).toBe('Português (BR)')
+      expect(languages['pt-PT']).toBe('Português (PT)')
 
-      // English and French are unique
+      // English and Français are unique
       expect(languages['en-US']).toBe('English')
-      expect(languages['fr-FR']).toBe('French')
+      expect(languages['fr-FR']).toBe('Français')
     })
 
     it('returns Record<string, string> format for UISelectField', () => {
@@ -181,9 +181,9 @@ describe('useBindingSelector integration scenarios', () => {
 
   describe('complete flow simulation', () => {
     it('simulates user selecting pt-BR then BRL', () => {
-      // Step 1: Build language options (locale code → language name)
+      // Step 1: Build language options (locale code → native name, capitalized)
       const languages = buildLanguageOptions(mockLocales)
-      expect(languages['pt-BR']).toBe('Portuguese (BR)')
+      expect(languages['pt-BR']).toBe('Português (BR)')
 
       // Step 2: User selects pt-BR locale, get currencies
       const currencies = getCurrenciesForLocale(mockLocales['pt-BR'])

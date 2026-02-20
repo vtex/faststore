@@ -34,19 +34,19 @@ function createBinding(overrides: Partial<Binding> = {}): Binding {
   }
 }
 
-// Helper to create a locale with simplified parameters
-function makeLocale(code: string, languageName: string): Locale {
+// Helper to create a locale with simplified parameters (name is used for display)
+function makeLocale(code: string, name: string): Locale {
   const [languageCode, regionCode] = code.split('-')
   return createLocale({
     code,
-    languageName,
+    name,
     languageCode,
     regionCode,
   })
 }
 
 describe('buildLanguageOptions', () => {
-  it('displays only languageName when unique', () => {
+  it('displays native name (capitalized) when unique', () => {
     const locales: Record<string, Locale> = {
       'fr-FR': makeLocale('fr-FR', 'Français'),
       'en-US': makeLocale('en-US', 'English'),
@@ -58,7 +58,7 @@ describe('buildLanguageOptions', () => {
     expect(options['en-US']).toBe('English')
   })
 
-  it('adds regionCode when languageName is duplicated', () => {
+  it('adds regionCode when name is duplicated', () => {
     const locales: Record<string, Locale> = {
       'pt-BR': makeLocale('pt-BR', 'Português'),
       'pt-PT': makeLocale('pt-PT', 'Português'),

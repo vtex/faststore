@@ -1,8 +1,16 @@
 import type { Binding, Locale } from './types'
 
 /**
+ * Capitalizes the first character of a string (e.g. "italiano" → "Italiano").
+ */
+function capitalizeFirst(str: string): string {
+  if (!str) return str
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+/**
  * Builds language options as Record<string, string> for direct use with UISelectField.
- * Uses "languageName (regionCode)" only when multiple locales share the same languageName.
+ * Uses native locale name with first letter capitalized; adds " (regionCode)" when multiple locales share the same name.
  *
  * @param locales - Record of locale objects from discovery.config
  * @returns Record where key is locale code (e.g., "pt-BR") and value is display label (e.g., "Português (BR)")
@@ -10,20 +18,20 @@ import type { Binding, Locale } from './types'
 export function buildLanguageOptions(
   locales: Record<string, Locale>
 ): Record<string, string> {
-  // Count occurrences of each languageName to determine disambiguation needs
+  // Count occurrences of each name to determine disambiguation needs
   const languageCount: Record<string, number> = {}
   Object.values(locales).forEach((locale) => {
-    languageCount[locale.languageName] =
-      (languageCount[locale.languageName] || 0) + 1
+    languageCount[locale.name] = (languageCount[locale.name] || 0) + 1
   })
 
-  // Build options with conditional disambiguation
+  // Build options with conditional disambiguation; format native name with first letter capitalized
   const options: Record<string, string> = {}
   Object.entries(locales).forEach(([code, locale]) => {
-    const needsDisambiguation = languageCount[locale.languageName] > 1
+    const label = capitalizeFirst(locale.name)
+    const needsDisambiguation = languageCount[locale.name] > 1
     options[code] = needsDisambiguation
-      ? `${locale.languageName} (${locale.regionCode})`
-      : locale.languageName
+      ? `${label} (${locale.regionCode})`
+      : label
   })
 
   return options
