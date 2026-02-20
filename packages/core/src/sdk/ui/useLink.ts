@@ -26,6 +26,7 @@ export function useLink() {
         const onCustomPath = extractCustomPathPrefix(asPath) !== null
         // Only add Next.js locale when no custom path was applied AND we're not on a custom-path page
         if (
+          storeConfig.localization?.enabled &&
           router.locale &&
           defaultLocale &&
           router.locale !== defaultLocale &&
