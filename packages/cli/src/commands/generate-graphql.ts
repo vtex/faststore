@@ -30,7 +30,7 @@ export default class GenerateGraphql extends Command {
 
     const isCore = flags.core ?? false
 
-    const packageManager = getPreferredPackageManager()
+    const packageManager = await getPreferredPackageManager()
 
     if (!isCore && !existsSync(tmpDir)) {
       logger.log(

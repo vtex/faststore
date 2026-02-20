@@ -5,11 +5,11 @@ import path from 'path'
 
 import ora from 'ora'
 
-import { withBasePath } from './directory'
+import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
+import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
-import { createNextJsPages } from './createNextjsPages'
 
 const {
   copyFileSync,
@@ -468,7 +468,7 @@ async function validateAndInstallMissingDependencies(basePath: string) {
     })
   }
 
-  missingDependencies.forEach(({ feature, dependencies }) => {
+  missingDependencies.forEach(async ({ feature, dependencies }) => {
     const dependenciesToInstall = dependencies.filter((dependency) => {
       const dependencyName = dependency.split('@')[0]
       return !userPackageJson.dependencies[dependencyName]
@@ -479,7 +479,7 @@ async function validateAndInstallMissingDependencies(basePath: string) {
         `Installing ${feature} missing dependencies\n`
       ).start()
 
-      installDependencies({
+      await installDependencies({
         dependencies: dependenciesToInstall,
         cwd: userDir,
         errorMessage: `failed to install ${feature} dependencies`,

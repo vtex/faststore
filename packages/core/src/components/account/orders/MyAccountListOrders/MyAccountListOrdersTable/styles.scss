@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities" as u;
+
 [data-fs-list-orders-table] {
   // --------------------------------------------------------
   // Design Tokens
@@ -71,7 +73,7 @@
 
     [data-fs-my-account-badge] { margin-right: calc(var(--fs-spacing-0) * -1); }
 
-    @include media(">=notebook") {
+    @include u.media(">=notebook") {
       display: table-cell;
     }
   }
@@ -121,7 +123,7 @@
     border-bottom: var(--fs-list-orders-table-row-border-bottom);
     transition: background-color 0.5s ease;
 
-    @include media("<notebook") {
+    @include u.media("<notebook") {
       display: flex;
       justify-content: space-between;
 
@@ -169,7 +171,7 @@
   --fs-list-orders-table-pagination-bkg-color   : var(--fs-body-bkg);
   --fs-list-orders-table-pagination-padding     : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-0);
 
-  @include media("<notebook") {
+  @include u.media("<notebook") {
     position: sticky;
     bottom: 0;
     left: 0;

@@ -26,8 +26,8 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@faststore/api": "workspace:*",
-    "@faststore/core": "workspace:*",
+    "@antfu/ni": "catalog:",
+    "@graphql-codegen/cli": "catalog:",
     "@graphql-tools/merge": "catalog:",
     "@graphql-tools/utils": "catalog:",
     "@inquirer/confirm": "^5.1.19",
@@ -41,23 +41,27 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11",
     "globby": "^15.0.0",
-    "ora": "5.4.1"
+    "oclif": "^4",
+    "ora": "5.4.1",
+    "resolve-pkg": "^3.0.0",
+    "prettier": "^3.1.0",
+    "@faststore/api": "workspace:*",
+    "@faststore/core": "workspace:*"
   },
   "devDependencies": {
-    "@antfu/ni": "catalog:",
-    "graphql": "catalog:",
-    "@graphql-codegen/cli": "catalog:",
-    "@parcel/watcher": "^2.5.1",
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^11",
     "@types/node": "catalog:",
-    "oclif": "^4",
+    "graphql": "catalog:",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
     "tslib": "catalog:",
     "tsup": "^8.5.0",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "graphql": "catalog:"
   },
   "publishConfig": {
     "access": "public"
@@ -88,11 +92,6 @@
     "oclif"
   ],
   "types": "dist/index.d.ts",
-  "peerDependencies": {
-    "@antfu/ni": "catalog:",
-    "@parcel/watcher": "^2.5.1",
-    "graphql": "catalog:"
-  },
   "engines": {
     "node": ">=20"
   }

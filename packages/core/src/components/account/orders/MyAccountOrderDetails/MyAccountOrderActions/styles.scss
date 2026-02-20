@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-order-actions] {
   display: flex;
   flex-flow: row;
@@ -13,7 +15,7 @@
   }
 
   [data-fs-order-actions-item-reorder] {
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       display: none;
     }
   }

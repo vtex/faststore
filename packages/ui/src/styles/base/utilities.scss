@@ -9,16 +9,14 @@
 /* SQ-ENABLE */
 
 // Include Media Overwrites //////////////////////////
+@use "~include-media/dist/include-media" as * with ($breakpoints: ("phone": 320px,
+"phonemid": 375px,
+    "tablet": 768px,
+    "notebook": 1280px,
+    "desktop": 1440px,
+  ));
 
-@import "~include-media/dist/include-media";
-
-$breakpoints: (
-  "phone":          320px,
-  "phonemid":       375px,
-  "tablet":         768px,
-  "notebook":      1280px,
-  "desktop":       1440px,
-);
+@forward "~include-media/dist/include-media";
 
 // Global mixins /////////////////////////////////////
 
@@ -68,23 +66,30 @@ $base: 16px !default;
     padding-top: $padding;
     border-top: var(--fs-border-width) solid var(--fs-border-color-light);
 
-    @include media(">=notebook") { padding-top: $padding; }
+    @include media(">=notebook") {
+      padding-top: $padding;
+    }
   }
 
   @if $position == "bottom" {
     padding-bottom: $padding;
     border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
 
-    @include media(">=notebook") { padding-bottom: $padding; }
+    @include media(">=notebook") {
+      padding-bottom: $padding;
+    }
   }
 }
 
 // Focus Ring Mixins /////////////////////////////////
 
 @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
-  @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
-    @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
-      &:hover:focus,                              // due to Safari's lack of support
+  @media not all and (min-resolution: .001dpcm) {
+    // Target only Safari browsers
+    @supports (-webkit-appearance:none) {
+      // Use `focus` instead of `focus-visible`
+      &:hover:focus,
+      // due to Safari's lack of support
       &:focus {
         border-color: $border;
         outline: none;
@@ -113,10 +118,19 @@ $base: 16px !default;
 }
 
 @mixin focus-ring-visible {
-  @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
-    @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
-      &:focus { @include focus-ring; }            // due to Safari's lack of support
+  @media not all and (min-resolution: .001dpcm) {
+    // Target only Safari browsers
+    @supports (-webkit-appearance:none) {
+      // Use `focus` instead of `focus-visible`
+      &:focus {
+        @include focus-ring;
+      }
+
+      // due to Safari's lack of support
     }
   }
-  &:focus-visible { @include focus-ring; }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
 }

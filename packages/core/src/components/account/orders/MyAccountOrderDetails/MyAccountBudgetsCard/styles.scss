@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-order-budgets-card] {
   --fs-budgets-gap: var(--fs-spacing-3);
   --fs-budgets-padding-y: var(--fs-spacing-2);
@@ -39,12 +41,12 @@
       white-space: nowrap;
     }
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       grid-template-columns: var(--fs-budgets-cols-desktop);
     }
 
     [data-fs-budgets-header-available] {
-      @include media("<tablet") {
+      @include utilities.media("<tablet") {
         display: none;
       }
     }
@@ -62,7 +64,7 @@
       border-bottom: 1px solid var(--fs-budgets-border-color);
 
       // Prevent long content from forcing the grid to overflow
-      > * {
+      >* {
         min-width: 0;
       }
 
@@ -70,13 +72,13 @@
         border-bottom: none;
       }
 
-      @include media(">=tablet") {
+      @include utilities.media(">=tablet") {
         grid-template-columns: var(--fs-budgets-cols-desktop);
       }
     }
 
     [data-fs-budgets-available] {
-      @include media("<tablet") {
+      @include utilities.media("<tablet") {
         display: none;
       }
     }

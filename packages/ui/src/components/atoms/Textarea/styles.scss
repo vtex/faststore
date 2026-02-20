@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-textarea] {
   // --------------------------------------------------------
   // Design Tokens for Textarea
@@ -50,7 +52,7 @@
     width 0s,
     height 0s;
 
-  @include input-focus-ring;
+  @include utilities.input-focus-ring;
 
   &:hover:not(:disabled):not(:focus-visible):not(:focus) {
     border-color: var(--fs-textarea-border-color-hover);

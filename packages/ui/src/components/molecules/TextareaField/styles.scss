@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-textarea-field] {
   // --------------------------------------------------------
   // Design Tokens for Input Field
@@ -100,14 +102,14 @@
     &:focus + label {
       top: var(--fs-border-width);
       left: var(--fs-textarea-field-label-left);
-      padding-top: rem(6px);
+      padding-top: utilities.rem(6px);
       font-size: var(--fs-textarea-field-label-size);
       white-space: nowrap;
     }
 
     &:focus + label {
       top: var(--fs-border-width-thick);
-      padding-top: calc(rem(6px) - var(--fs-border-width));
+      padding-top: calc(utilities.rem(6px) - var(--fs-border-width));
     }
 
     &:disabled + label {
@@ -124,7 +126,7 @@
     [data-fs-textarea] {
       border-color: var(--fs-textarea-field-error-border-color);
 
-      @include input-focus-ring(
+      @include utilities.input-focus-ring(
         $outline: #{var(--fs-textarea-field-error-focus-ring)},
         $border: #{var(--fs-textarea-field-error-border-color)}
       );
