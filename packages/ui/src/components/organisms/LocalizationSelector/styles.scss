@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-localization-selector] {
   // Design Tokens for Localization Selector
   --fs-localization-selector-max-width                          : 288px;
@@ -16,7 +18,7 @@
   align-items: flex-end;
   border: var(--fs-border-width) solid var(--fs-border-color);
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     max-width: var(--fs-localization-selector-max-width);
   }
 
