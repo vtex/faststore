@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-newsletter] {
   // --------------------------------------------------------
   // Design Tokens for Newsletter
@@ -40,15 +42,14 @@
   border-radius: var(--fs-newsletter-border-radius);
 
   [data-fs-newsletter-form] {
-    padding: var(--fs-newsletter-padding-mobile);
     display: flex;
     flex-direction: column;
     row-gap: var(--fs-spacing-4);
+    padding: var(--fs-newsletter-padding-mobile);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       padding: var(--fs-newsletter-padding-desktop);
     }
-
   }
 
   [data-fs-newsletter-content] {
@@ -68,9 +69,9 @@
     line-height: 1.5;
     text-align: center;
 
-    @include media(">=notebook") {
-      text-align: left;
+    @include utilities.media(">=notebook") {
       align-content: flex-start;
+      text-align: left;
     }
   }
 
@@ -91,7 +92,7 @@
       height: var(--fs-newsletter-icon-size);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       justify-content: left;
     }
   }
@@ -99,7 +100,7 @@
   [data-fs-newsletter-addendum] {
     text-align: center;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       text-align: left;
     }
   }
@@ -109,7 +110,7 @@
   // --------------------------------------------------------
 
   &:not([data-fs-newsletter="card"]) {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       [data-fs-newsletter-form] {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -118,8 +119,8 @@
 
       [data-fs-button] {
         width: auto;
-        margin-left: auto;
         min-width: 40%;
+        margin-left: auto;
       }
     }
   }
@@ -139,19 +140,19 @@
   }
 
   &[data-fs-newsletter-color-variant="main"] {
-    background-color: var(--fs-newsletter-main-bkg-color);
     color: var(--fs-newsletter-main-text-color);
+    background-color: var(--fs-newsletter-main-bkg-color);
 
     [data-fs-link="true"] { color: var(--fs-color-link-inverse); }
   }
 
   &[data-fs-newsletter-color-variant="light"] {
-    background-color: var(--fs-newsletter-light-bkg-color);
     color: var(--fs-newsletter-light-text-color);
+    background-color: var(--fs-newsletter-light-bkg-color);
   }
 
   &[data-fs-newsletter-color-variant="accent"] {
-    background-color: var(--fs-newsletter-accent-bkg-color);
     color: var(--fs-newsletter-accent-text-color);
+    background-color: var(--fs-newsletter-accent-bkg-color);
   }
 }

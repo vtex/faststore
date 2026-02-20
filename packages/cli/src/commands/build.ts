@@ -54,7 +54,7 @@ export default class Build extends Command {
 
     const { tmpDir } = withBasePath(basePath)
 
-    const packageManager = getPreferredPackageManager()
+    const packageManager = await getPreferredPackageManager()
 
     const binCli = path.join(
       fileURLToPath(

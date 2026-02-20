@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-payment-methods] {
   // --------------------------------------------------------
   // Design Tokens for Payment Methods
@@ -27,13 +29,13 @@
   // --------------------------------------------------------
 
   [data-fs-payment-methods-title] {
-    & > *:first-child {
+    > *:first-child {
       font-size: var(--fs-payment-methods-title-size);
       font-weight: var(--fs-payment-methods-title-weight);
       line-height: var(--fs-payment-methods-title-line-height);
     }
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       text-align: center;
     }
   }
@@ -45,7 +47,7 @@
     justify-content: space-between;
     margin-top: var(--fs-payment-methods-flags-margin-top);
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       column-gap: var(--fs-grid-gap-2);
     }
   }
@@ -57,8 +59,8 @@
     width: var(--fs-payment-methods-flag-width);
     height: var(--fs-payment-methods-flag-height);
     overflow: hidden;
+    background-color: var(--fs-payment-methods-flag-bkg-color);
     border: var(--fs-payment-methods-flag-border-width) solid var(--fs-payment-methods-flag-border-color);
     border-radius: var(--fs-payment-methods-flag-border-radius);
-    background-color: var(--fs-payment-methods-flag-bkg-color);
   }
 }

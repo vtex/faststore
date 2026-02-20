@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-order-more-information-card] {
   // --------------------------------------------------------
   // Design Tokens for More Information Card
@@ -10,7 +12,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1.75rem;
 
-    @include media("<tablet") {
+    @include utilities.media("<tablet") {
       grid-template-columns: 1fr;
     }
 

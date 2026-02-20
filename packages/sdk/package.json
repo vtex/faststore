@@ -51,6 +51,7 @@
     "react": "catalog:"
   },
   "devDependencies": {
+    "react": "catalog:",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@testing-library/react": "catalog:",
     "@types/node": "catalog:",
@@ -66,7 +67,6 @@
   "dependencies": {
     "fast-deep-equal": "catalog:",
     "idb-keyval": "^6",
-    "react": "catalog:",
     "zustand": "^5.0.5"
   }
 }

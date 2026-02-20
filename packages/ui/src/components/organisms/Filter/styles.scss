@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-filter] {
   // --------------------------------------------------------
   // Design Tokens for Filter
@@ -55,13 +57,13 @@
     font-size: var(--fs-filter-title-text-size);
     line-height: var(--fs-filter-accordion-button-line-height-notebook);
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       display: none;
     }
   }
 
   [data-fs-filter-accordion] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       border: var(--fs-filter-accordion-border-width-notebook) solid var(--fs-filter-accordion-border-color-notebook);
       border-radius: var(--fs-filter-accordion-border-radius-notebook);
     }
@@ -74,7 +76,7 @@
         font-weight: var(--fs-filter-accordion-button-text-weight);
         line-height: var(--fs-filter-accordion-button-line-height);
 
-        @include media(">=notebook") {
+        @include utilities.media(">=notebook") {
           padding-right: var(--fs-filter-accordion-button-padding-right-notebook);
           padding-left: var(--fs-filter-accordion-button-padding-left-notebook);
           font-size: var(--fs-filter-accordion-button-text-size-notebook);
@@ -84,7 +86,7 @@
     }
 
     [data-fs-accordion-panel] {
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         padding-right: var(--fs-filter-accordion-item-panel-padding-right-notebook);
         padding-left: var(--fs-filter-accordion-item-panel-padding-left-notebook);
       }

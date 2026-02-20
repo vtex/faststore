@@ -62,7 +62,7 @@ async function storeDev(
     }
   }
 
-  const packageManager = getPreferredPackageManager()
+  const packageManager = await getPreferredPackageManager()
 
   runCommandSync({
     cmd: `${packageManager} predev`,
