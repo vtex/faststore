@@ -1,7 +1,9 @@
+@use "sass:meta";
+
 @layer components {
   .section {
-    @import "../components/MyAccountTag/styles.scss";
-    @import "../components/MyAccountTable/styles.scss";
+    @include meta.load-css("../components/MyAccountTag/styles.scss");
+    @include meta.load-css("../components/MyAccountTable/styles.scss");
 
     // --------------------------------------------------------
     // Design Tokens
