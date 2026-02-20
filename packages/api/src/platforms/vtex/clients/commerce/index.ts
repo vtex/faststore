@@ -300,6 +300,32 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
+      addItemAttachment: ({
+        id,
+        itemIndex,
+        attachmentName,
+        content,
+      }: {
+        id: string
+        itemIndex: number
+        attachmentName: string
+        content: Record<string, string>
+      }): Promise<OrderForm> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/items/${itemIndex}/attachments/${attachmentName}`,
+          {
+            ...BASE_INIT,
+            headers,
+            body: JSON.stringify({ content }),
+          },
+          { storeCookies }
+        )
+      },
       setCustomData: ({
         id,
         appId,

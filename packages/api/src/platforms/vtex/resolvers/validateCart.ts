@@ -19,21 +19,25 @@ import type {
   MutationValidateCartArgs,
 } from '../../../__generated__/schema'
 import type {
+  Attachment,
   OrderForm,
   OrderFormInputItem,
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
+import type { SessionJwt } from '../clients/commerce/types/Session'
 import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
+import { parseJwt } from '../utils/cookies'
 import { createNewAddress } from '../utils/createNewAddress'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
-import { parseJwt } from '../utils/cookies'
-import type { SessionJwt } from '../clients/commerce/types/Session'
 
 type Indexed<T> = T & { index?: number }
 
 const isAttachment = (value: IStorePropertyValue) =>
   value.valueReference === VALUE_REFERENCES.attachment
+
+const isSubscriptionAttachment = (attachment: Attachment) =>
+  attachment.name.startsWith('vtex.subscription.')
 
 const getId = (item: IStoreOffer) =>
   [
@@ -484,6 +488,34 @@ export const validateCart = async (
       .then((form: OrderForm) =>
         updateOrderFormShippingData(form, session, ctx)
       )
+
+    // Step4.1: Set subscription attachments via the dedicated endpoint
+    // so that VTEX's Subscription module populates subscriptionData.
+    const subscriptionItems = changes.filter(
+      (item) =>
+        item.attachments && item.attachments.some(isSubscriptionAttachment)
+    )
+
+    if (subscriptionItems.length > 0) {
+      for (const change of subscriptionItems) {
+        const itemIndex = updatedOrderForm.items.findIndex(
+          (i) => i.id === change.id && i.seller === change.seller
+        )
+
+        if (itemIndex < 0) continue
+
+        const subAttachment = change.attachments?.find(isSubscriptionAttachment)
+
+        if (!subAttachment?.content) continue
+
+        updatedOrderForm = await commerce.checkout.addItemAttachment({
+          id: updatedOrderForm.orderFormId,
+          itemIndex,
+          attachmentName: subAttachment.name,
+          content: subAttachment.content,
+        })
+      }
+    }
   } else {
     // Only update shippingData if there are no item changes
     updatedOrderForm = await updateOrderFormShippingData(
