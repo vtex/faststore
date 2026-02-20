@@ -127,7 +127,7 @@ export function getCustomPathsFromBindings(): CustomPathInfo[] {
  * @param pathname - Current pathname (e.g., '/europe/it/apparel')
  * @returns Custom path prefix if found, null otherwise
  */
-function extractCustomPathPrefix(pathname: string): string | null {
+export function extractCustomPathPrefix(pathname: string): string | null {
   const pathOnly = getPathOnly(pathname)
   const customPaths = getCustomPathsFromBindings()
 
