@@ -1,3 +1,4 @@
+import './globals'
 import * as OTEL_API from '@opentelemetry/api'
 import * as OTEL_CONVENTIONS from '@opentelemetry/semantic-conventions'
 import { getTelemetryClient, getTraceClient } from './start'

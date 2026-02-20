@@ -1,6 +1,7 @@
 import type { APIOptions } from '@faststore/api'
+import { getTraceClient } from '@faststore/diagnostics'
 import storeConfig from '../../discovery.config'
-import { version } from '../../package.json'
+import { name, version } from '../../package.json'
 
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
@@ -27,8 +28,7 @@ export async function withTraceClient<T = typeof apiOptions>(
   apiOptions: T
 ): Promise<T> {
   const OTEL = {}
-  const traceCLient = (await import('@faststore/diagnostics'))?.getTraceClient()
-  traceCLient?.inject(OTEL)
+  getTraceClient(name)?.inject(OTEL)
 
   return {
     ...apiOptions,

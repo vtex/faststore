@@ -34,9 +34,9 @@ const apiOptions = {
 vi.useFakeTimers({ shouldAdvanceTime: true })
 const mockedFetch = vi.fn()
 
-const createRunner = () => {
+const createRunner = async () => {
   const schemaPromise = GraphqlVtexSchema()
-  const contextFactory = GraphqlVtexContextFactory(apiOptions)
+  const contextFactory = await GraphqlVtexContextFactory(apiOptions)
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
@@ -84,8 +84,6 @@ vi.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
   ) => mockedFetch(info, init, options),
 }))
 
-const run = createRunner()
-
 // Always clear the mocked fetch before each test so we can count and validate
 // the calls performed by each query independently.
 beforeEach(() => {
@@ -93,6 +91,7 @@ beforeEach(() => {
 })
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
+  const run = await createRunner()
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, [
       checkoutOrderFormValidFetch,
@@ -114,6 +113,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
 })
 
 test('`validateCart` mutation should return the full order when an invalid cart is passed', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     checkoutOrderFormInvalidFetch,
     checkoutOrderFormItemsInvalidFetch,
@@ -139,6 +139,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
 })
 
 test('`validateCart` mutation should return new cart when etag is stale', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     checkoutOrderFormStaleFetch,
     checkoutOrderFormCustomDataStaleFetch,

@@ -1,11 +1,20 @@
+import 'server-only'
+
+const { name, version } = require('../package.json')
+const { api } = require('../discovery.config')
+
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
-    const { name, version } = await import('../package.json')
-    const { api } = await import('../discovery.config')
-    ;(await import('@faststore/diagnostics')).getTelemetryClient({
-      name,
-      version,
-      account: api.storeId,
-    })
+    try {
+      const { getTelemetryClient } = await import('@faststore/diagnostics')
+
+      return getTelemetryClient({
+        name,
+        version,
+        account: api.storeId,
+      })
+    } catch (error) {
+      console.error('Failed to initialize OTEL Instrumentation')
+    }
   }
 }

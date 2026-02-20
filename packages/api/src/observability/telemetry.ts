@@ -20,10 +20,11 @@ export const ResolverTrace = <
     info: any
   ): TReturn => {
     const activeContext =
-      getTraceClient()?.extract(graphqlContext.OTEL) ?? OTELAPI.context.active()
+      getTraceClient(name)?.extract(graphqlContext.OTEL) ??
+      OTELAPI.context.active()
 
     return OTELAPI.context.with(activeContext, () => {
-      const span = getTraceClient()?.startSpan(
+      const span = getTraceClient(name)?.startSpan(
         resolverName ?? 'Unknown Graphql Resolver',
         {
           timestamp: Date.now(),
@@ -37,19 +38,24 @@ export const ResolverTrace = <
         }
       )
 
-      const returnedValue = fn(source, vars, graphqlContext, info)
+      if (!span) return fn(source, vars, graphqlContext, info)
+      try {
+        const returnedValue = fn(source, vars, graphqlContext, info)
 
-      if (!span) return returnedValue
+        if (!(returnedValue instanceof Promise)) {
+          span.end()
+          return returnedValue
+        }
 
-      if (!(returnedValue instanceof Promise)) {
+        return returnedValue.then((value) => {
+          span.end()
+          return value
+        }) as TReturn
+      } catch (error) {
         span.end()
-        return returnedValue
+        console.error(`Error when executing resolver: ${resolverName}`, error)
+        throw error
       }
-
-      return returnedValue.then((value) => {
-        span.end()
-        return value
-      }) as TReturn
     })
   }
 }

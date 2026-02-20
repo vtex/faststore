@@ -3,16 +3,17 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import pkgeJson from './package.json' with { type: 'json' }
 
-const { dependencies = {} } = pkgeJson
+const { dependencies = {}, devDependencies } = pkgeJson
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   root: process.env.PWD ?? process.cwd(),
-  plugins: [dts()],
+  plugins: [dts() as any],
   build: {
+    sourcemap: mode === 'production' ? 'hidden' : 'inline',
     outDir: './dist',
     lib: {
       entry: './src/index.ts',
-      formats: ['cjs', 'es'],
+      formats: ['es', 'cjs'],
       fileName: '[format]/index',
     },
     rollupOptions: {
@@ -20,8 +21,9 @@ export default defineConfig({
         ...builtinModules.concat(builtinModules.map((e) => `node:${e}`)),
         ...Object.keys({
           ...(dependencies ?? {}),
+          ...(devDependencies ?? {}),
         }),
       ],
     },
   },
-})
+}))

@@ -60,9 +60,9 @@ const apiOptions = {
   },
 } as Options
 
-const createRunner = () => {
+const createRunner = async () => {
   const schemaPromise = GraphqlVtexSchema()
-  const contextFactory = GraphqlVtexContextFactory(apiOptions)
+  const contextFactory = await GraphqlVtexContextFactory(apiOptions)
 
   return async (query: string, variables?: any) => {
     const schema = await schemaPromise
@@ -105,8 +105,6 @@ vi.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
   ) => mockedFetch(info, init, options),
 }))
 
-const run = createRunner()
-
 // Always clear the mocked fetch before each test so we can count and validate
 // the calls performed by each query independently.
 beforeEach(() => {
@@ -114,6 +112,7 @@ beforeEach(() => {
 })
 
 test('`collection` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     pageTypeDesksFetch,
     pageTypeOfficeFetch,
@@ -140,6 +139,7 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [productSearchFetch, salesChannelStaleFetch]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -162,6 +162,7 @@ test('`product` query', async () => {
 })
 
 test('`allCollections` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     catalogBrandListFetch,
     catalogCategory3Fetch,
@@ -192,6 +193,7 @@ test('`allCollections` query', async () => {
 })
 
 test('`allProducts` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [productSearchPage1Count5Fetch, salesChannelStaleFetch]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -214,6 +216,7 @@ test('`allProducts` query', async () => {
 })
 
 test('`search` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [
     productSearchCategory1Fetch,
     attributeSearchCategory1Fetch,
@@ -240,6 +243,7 @@ test('`search` query', async () => {
 })
 
 test('`shipping` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [addressFetch, shippingSimulationFetch]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -262,6 +266,7 @@ test('`shipping` query', async () => {
 })
 
 test('`redirect` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [redirectTermTechFetch]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -283,6 +288,7 @@ test('`redirect` query', async () => {
 })
 
 test('`sellers` query', async () => {
+  const run = await createRunner()
   const fetchAPICalls = [regionFetch]
 
   mockedFetch.mockImplementation((info, init) =>

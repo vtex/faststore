@@ -4,7 +4,8 @@
     "outDir": "dist/esm",
     "resolveJsonModule": true,
     "moduleResolution": "Bundler",
-    "strict": true
+    "strict": true,
+    "types": ["node"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "@types/**/*"]
 }

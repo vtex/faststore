@@ -10,21 +10,27 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "files": [
+    "./src/**/*.json"
+  ],
   "exports": {
     ".": {
       "types": "./dist/src/index.d.ts",
-      "import": "./dist/es/index.mjs",
       "require": "./dist/cjs/index.js",
-      "default": "./dist/es/index.mjs"
-    }
+      "import": "./dist/es/index.mjs",
+      "default": "./dist/cjs/index.js"
+    },
+    "./config": "./src/config.json"
   },
   "packageManager": "pnpm@10.28.0",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/semantic-conventions": "^1.39.0",
-    "@vtex/diagnostics-nodejs": "^5.1.1"
+    "@vtex/diagnostics-nodejs": "^5.1.1",
+    "stream": "^0.0.3"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "tslib": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

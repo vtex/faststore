@@ -1,0 +1,20 @@
+{
+  "traces": {
+    "sampling": {
+      "defaultRate": 0.01,
+      "rules": [
+        {
+          "name": "critical_endpoints",
+          "sampleRate": 1.0,
+          "conditions": [
+            {
+              "attribute": "http.target",
+              "operator": "Regex",
+              "value": "^/api/graphql"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

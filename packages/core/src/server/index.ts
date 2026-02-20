@@ -70,7 +70,7 @@ export function getFinalAPISchema() {
 
 export const getEnvelop = async () => {
   const options = await withTraceClient(apiOptions)
-  const apiContextFactory = GraphqlVtexContextFactory(options)
+  const apiContextFactory = await GraphqlVtexContextFactory(options)
 
   return envelop({
     plugins: [

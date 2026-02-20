@@ -40,8 +40,8 @@ export interface GraphqlContext {
   OTEL: Record<string, unknown>
 }
 
-export const GraphqlVtexContextFactory = (options: Options) => {
-  getTelemetryClient({
+export const GraphqlVtexContextFactory = async (options: Options) => {
+  await getTelemetryClient({
     name,
     version,
     account: options.account,
