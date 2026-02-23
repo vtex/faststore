@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.97.0-dev.5](https://github.com/vtex/faststore/compare/v3.97.0-dev.4...v3.97.0-dev.5) (2026-02-19)
+
+**Note:** Version bump only for package @faststore/storybook
+
 # 3.97.0-dev.2 (2026-02-06)
 
 **Note:** Version bump only for package @faststore/storybook

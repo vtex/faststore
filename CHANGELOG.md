@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.97.0-dev.6](https://github.com/vtex/faststore/compare/v3.97.0-dev.5...v3.97.0-dev.6) (2026-02-19)
+
+### Bug Fixes
+
+- remove query string from preview cookie path ([#3213](https://github.com/vtex/faststore/issues/3213)) ([bc60a59](https://github.com/vtex/faststore/commit/bc60a5968d48f03e0fe52060b19dc8b48f6582f0))
+
+# [3.97.0-dev.5](https://github.com/vtex/faststore/compare/v3.97.0-dev.4...v3.97.0-dev.5) (2026-02-19)
+
+**Note:** Version bump only for package faststore
+
+# [3.97.0-dev.4](https://github.com/vtex/faststore/compare/v3.97.0-dev.3...v3.97.0-dev.4) (2026-02-10)
+
+### Bug Fixes
+
+- scripts improvements - update RC url + Partytown loading + logs + fix bugs. ([#3198](https://github.com/vtex/faststore/issues/3198)) ([9a35b63](https://github.com/vtex/faststore/commit/9a35b63a91bc5cd53de553c053ceeed8bb983184))
+
 # [3.97.0-dev.3](https://github.com/vtex/faststore/compare/v3.97.0-dev.2...v3.97.0-dev.3) (2026-02-06)
 
 ### Features
