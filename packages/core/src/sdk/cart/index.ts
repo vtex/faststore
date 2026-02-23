@@ -53,6 +53,7 @@ export const ValidateCartMutation = gql(`
     priceWithTaxes
     listPrice
     listPriceWithTaxes
+    isGift
     itemOffered {
       ...CartProductItem
     }
@@ -88,7 +89,12 @@ export const ValidateCartMutation = gql(`
   }
 `)
 
-const isGift = (item: CartItem) => item.price === 0
+const isGift = (item: CartItem) => {
+  if (storeConfig.experimental?.useIsGiftFromOrderForm) {
+    return item?.isGift ?? false
+  }
+  return item.price === 0
+}
 
 const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
   [
