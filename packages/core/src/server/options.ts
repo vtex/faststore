@@ -39,7 +39,7 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
     ...apiOptions,
     OTEL: {
       ...OTEL,
-      enabled: storeConfig.analytics.otelEnabled.toString() === 'true',
+      enabled: storeConfig.analytics?.otelEnabled?.toString() === 'true',
     },
   } as T
 }
