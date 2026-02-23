@@ -29,8 +29,7 @@
     "@opentelemetry/instrumentation-http": "^0.212.0",
     "@opentelemetry/semantic-conventions": "^1.39.0",
     "@vtex/diagnostics-nodejs": "^5.1.1",
-    "resolve-pkg": "^3.0.1",
-    "stream": "^0.0.3"
+    "resolve-pkg": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "catalog:",
