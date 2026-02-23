@@ -3783,19 +3783,13 @@ export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
 {
-  __apiType?: NonNullable<
-    DocumentTypeDecoration<TResult, TVariables>['__apiType']
-  >
-  private value: string
-  public __meta__?: Record<string, any> | undefined
+  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType']
 
-  constructor(value: string, __meta__?: Record<string, any> | undefined) {
+  constructor(private value: string, public __meta__?: Record<string, any>) {
     super(value)
-    this.value = value
-    this.__meta__ = __meta__
   }
 
-  override toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
     return this.value
   }
 }
