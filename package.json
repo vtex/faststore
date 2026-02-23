@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "turbo run build --log-order=grouped",
+    "build": "turbo run build --log-order=grouped && turbo run generate --log-order=grouped",
     "build:codesandbox": "turbo run build --filter @faststore/cli...",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
