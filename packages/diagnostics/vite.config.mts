@@ -18,6 +18,8 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       external: [
+        /@vtex\/diagnostics-nodejs/,
+        /@opentelemetry/,
         ...builtinModules.concat(builtinModules.map((e) => `node:${e}`)),
         ...Object.keys({
           ...(dependencies ?? {}),

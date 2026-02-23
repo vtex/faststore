@@ -5,7 +5,7 @@
       "rules": [
         {
           "name": "critical_endpoints",
-          "sampleRate": 1.0,
+          "sampleRate": 0.3,
           "conditions": [
             {
               "attribute": "http.target",

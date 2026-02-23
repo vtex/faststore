@@ -23,6 +23,10 @@ export const ResolverTrace = <
       getTraceClient(name)?.extract(graphqlContext.OTEL) ??
       OTELAPI.context.active()
 
+    if ((graphqlContext?.OTEL?.enabled ?? false) === false) {
+      return fn(source, vars, graphqlContext, info)
+    }
+
     return OTELAPI.context.with(activeContext, () => {
       const span = getTraceClient(name)?.startSpan(
         resolverName ?? 'Unknown Graphql Resolver',

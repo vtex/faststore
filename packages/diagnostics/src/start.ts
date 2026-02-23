@@ -3,10 +3,12 @@ import {
   ATTR_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions'
 import {
-  Exporters,
-  Instrumentation,
-  NewTelemetryClient,
-} from '@vtex/diagnostics-nodejs'
+  CreateTracesExporterConfig,
+  CreateExporter,
+} from '@vtex/diagnostics-nodejs/dist/exporters/index.js'
+import { NewTelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
+import resolvePackage from 'resolve-pkg'
 
 import { name } from '../package.json' with { type: 'json' }
 
@@ -15,12 +17,12 @@ const APPLICATION_ID = name
 const OTLP_ENDPOINT = process.env.OTLP_ENDPOINT || 'localhost:4317'
 
 async function setupTracesExporter() {
-  const tracesConfig = Exporters.CreateTracesExporterConfig({
+  const tracesConfig = CreateTracesExporterConfig({
     endpoint: OTLP_ENDPOINT,
     insecure: globalThis.fsDiagnostics.IS_DEV ?? false,
   })
 
-  const tracesExporter = Exporters.CreateExporter(tracesConfig, 'otlp')
+  const tracesExporter = CreateExporter(tracesConfig, 'otlp')
   await tracesExporter.initialize()
   return tracesExporter
 }
@@ -44,9 +46,14 @@ export async function getTelemetryClient(opt: {
         environment: process.env.NODE_ENV ?? 'development',
         ACCOUNT: opt.account ?? 'unknown',
       },
-      debug: globalThis.fsDiagnostics.IS_DEV,
+      // debug: globalThis.fsDiagnostics.IS_DEV,
       config: {
-        configPath: require.resolve('@faststore/diagnostics/config'),
+        configPath: resolvePackage(
+          `@faststore/diagnostics/configs/${globalThis.fsDiagnostics.IS_DEV ? 'dev' : 'prod'}.json`,
+          {
+            cwd: process.env.PWD ?? process.cwd(),
+          }
+        ),
       },
     }
   )
@@ -60,7 +67,7 @@ export async function getTelemetryClient(opt: {
     })
   )
 
-  client.registerInstrumentations([new Instrumentation.HttpInstrumentation()])
+  client.registerInstrumentations([new HttpInstrumentation()])
 
   globalThis.fsDiagnostics.TELEMETRY_CLIENTS.set(opt.name, client)
   if (globalThis.fsDiagnostics.IS_DEV)

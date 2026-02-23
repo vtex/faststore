@@ -41,12 +41,20 @@ export interface GraphqlContext {
 }
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
-  await getTelemetryClient({
-    name,
-    version,
-    account: options.account,
-  })
   const id = crypto.randomBytes(32).toString('hex')
+
+  if (options.OTEL?.enabled) {
+    try {
+      await getTelemetryClient({
+        name,
+        version,
+        account: options.account,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (ctx: any): GraphqlContext => {
     ctx.id = id
     ctx.storage = {
@@ -59,16 +67,11 @@ export const GraphqlVtexContextFactory = async (options: Options) => {
     ctx.loaders = getLoaders(options, ctx)
     ctx.account = options.account
     ctx.OTEL = options.OTEL
+    ctx.discoveryConfig = options.discoveryConfig
 
     return ctx
   }
 }
-
-// export function VtexResolver<S = unknown, V = unknown, R = unknown>(
-//   resolver: GraphqlResolver<S, V, R>
-// ): typeof resolver {
-//   return ResolverTrace<GraphqlContext, S, V, R>(resolver)
-// }
 
 export type GraphqlResolver<S = any, V = any, R = any> = Resolver<
   GraphqlContext,
@@ -92,7 +95,7 @@ export function getResolvers() {
     )
   }
 
-  return finalResolvers satisfies typeof resolvers
+  return finalResolvers as typeof resolvers
 }
 
 export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
