@@ -19,7 +19,7 @@ interface Options {
   flags?: FeatureFlags
   version?: string
   OTEL?: {
-    enabled: boolean | string | undefined
+    enabled: boolean
     traceparent?: string
     tracestate?: string
   }

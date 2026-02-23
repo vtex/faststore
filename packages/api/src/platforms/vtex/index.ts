@@ -1,7 +1,6 @@
 import { getTelemetryClient } from '@faststore/diagnostics'
 import { mergeSchemas } from '@graphql-tools/schema'
 import { type GraphQLSchema, isSchema } from 'graphql'
-import crypto from 'node:crypto'
 import { name, version } from '../../../package.json' with { type: 'json' }
 import { withDirectives } from '../../directives'
 import authDirective from '../../directives/auth'
@@ -41,8 +40,6 @@ export interface GraphqlContext {
 }
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
-  const id = crypto.randomBytes(32).toString('hex')
-
   if (options.OTEL?.enabled) {
     try {
       await getTelemetryClient({
@@ -56,7 +53,6 @@ export const GraphqlVtexContextFactory = async (options: Options) => {
   }
 
   return (ctx: any): GraphqlContext => {
-    ctx.id = id
     ctx.storage = {
       channel: ChannelMarshal.parse(options.channel),
       flags: options.flags ?? {},
