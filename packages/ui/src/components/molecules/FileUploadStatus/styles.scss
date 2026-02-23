@@ -38,12 +38,8 @@
   align-items: center;
   padding: var(--fs-file-upload-status-file-info-padding);
   background-color: var(--fs-color-neutral-0);
-<<<<<<< HEAD
-  border: var(--fs-border-width) solid
-=======
   border:
     var(--fs-border-width) solid
->>>>>>> 0ce08856f (feat: add FileUploadCard and FileUploadStatus components (#3109))
     var(--fs-file-upload-status-file-info-border-color);
   border-radius: var(--fs-file-upload-status-file-info-border-radius);
 }
