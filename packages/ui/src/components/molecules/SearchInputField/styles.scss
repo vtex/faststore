@@ -54,16 +54,9 @@
       position: absolute;
       min-height: var(--fs-search-input-field-button-min-height);
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
-<<<<<<< HEAD
-      padding-bottom:
-        var(
-          --fs-search-input-field-button-padding-bottom-desktop
-        );
-=======
       padding-bottom: var(
         --fs-search-input-field-button-padding-bottom-desktop
       );
->>>>>>> upstream/feat/BE-71
       inset-inline-end: 0;
     }
   }
@@ -74,15 +67,9 @@
     background-color: var(--fs-search-input-field-input-bkg-color);
     transition:
       box-shadow var(--fs-search-input-field-transition-timing)
-<<<<<<< HEAD
-      var(--fs-search-input-field-transition-function),
-      border var(--fs-search-input-field-transition-timing)
-      var(--fs-search-input-field-transition-function);
-=======
         var(--fs-search-input-field-transition-function),
       border var(--fs-search-input-field-transition-timing)
         var(--fs-search-input-field-transition-function);
->>>>>>> upstream/feat/BE-71
 
     @include media("<notebook") {
       border: 0;
@@ -93,12 +80,6 @@
     @include media(">=notebook") {
       min-height: var(--fs-search-input-field-button-min-height);
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
-<<<<<<< HEAD
-      padding-bottom:
-        var(
-          --fs-search-input-field-button-padding-bottom-desktop
-        );
-=======
       padding-bottom: var(
         --fs-search-input-field-button-padding-bottom-desktop
       );
@@ -138,7 +119,6 @@
       padding-bottom: var(
         --fs-search-input-field-button-padding-bottom-desktop
       );
->>>>>>> upstream/feat/BE-71
     }
   }
 
