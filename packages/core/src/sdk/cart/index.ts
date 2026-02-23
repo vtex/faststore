@@ -16,7 +16,11 @@ import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
-export interface CartItem extends SDKCartItem, CartItemFragment {}
+export interface CartItem
+  extends SDKCartItem,
+    Omit<CartItemFragment, 'isGift'> {
+  isGift?: boolean | null
+}
 
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
