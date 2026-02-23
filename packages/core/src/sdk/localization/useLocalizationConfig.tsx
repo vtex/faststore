@@ -41,24 +41,28 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   }, [])
 
   useEffect(() => {
-    if (!settings) return
+    if (settings) {
+      const channel = JSON.parse(session.channel ?? '{}') ?? {}
+      channel.salesChannel = settings.salesChannel
 
-    const channel = JSON.parse(session.channel ?? '{}') ?? {}
-    channel.salesChannel = settings.salesChannel
+      const newSession = {
+        ...session,
+        locale: settings.locale,
+        currency: settings.currency,
+        channel: JSON.stringify(channel),
+      }
 
-    const newSession = {
-      ...session,
-      locale: settings.locale,
-      currency: settings.currency,
-      channel: JSON.stringify(channel),
-    }
-
-    if (
-      newSession.channel !== session.channel ||
-      newSession.locale !== session.locale ||
-      deepEqual(newSession.currency, session.currency) === false
-    ) {
-      sessionStore.set(newSession)
+      if (newSession.channel !== session.channel) {
+        sessionStore.set(newSession)
+      } else {
+        if (newSession.locale !== session.locale) {
+          sessionStore.set(newSession)
+        } else {
+          if (deepEqual(newSession.currency, session.currency) === false) {
+            sessionStore.set(newSession)
+          }
+        }
+      }
     }
   }, [settings, session])
 
