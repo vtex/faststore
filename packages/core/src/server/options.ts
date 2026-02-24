@@ -33,7 +33,9 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
   apiOptions: T
 ): Promise<T> {
   const OTEL = {}
-  getTraceClient(name)?.inject(OTEL)
+  getTraceClient(
+    apiOptions?.discoveryConfig?.analytics?.serviceName ?? name
+  )?.inject(OTEL)
 
   return {
     ...apiOptions,
