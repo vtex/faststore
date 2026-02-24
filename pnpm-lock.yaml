@@ -4,14 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@storybook/builder-webpack5>webpack': 5.97.1
-  '@storybook/builder-webpack5>esbuild': 0.24.2
-  '@storybook/nextjs>webpack': 5.97.1
-  '@storybook/nextjs>esbuild': 0.24.2
-  '@storybook/nextjs>sass': 1.83.4
-  '@storybook/nextjs>sass-loader': 14.2.1
-
 importers:
 
   .:
@@ -617,7 +609,7 @@ importers:
         version: 8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.17(prettier@3.8.1))
       '@storybook/nextjs':
         specifier: ^8.5.2
-        version: 8.6.17(esbuild@0.25.12)(next@15.5.12(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)(storybook@8.6.17(prettier@3.8.1))(type-fest@4.41.0)(typescript@5.3.2)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(esbuild@0.25.12))
+        version: 8.6.17(esbuild@0.25.12)(next@15.5.12(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)(storybook@8.6.17(prettier@3.8.1))(type-fest@4.41.0)(typescript@5.3.2)(webpack-hot-middleware@2.26.1)(webpack@5.97.1(esbuild@0.25.12))
       '@storybook/react':
         specifier: ^8.5.2
         version: 8.6.17(@storybook/test@8.6.15(storybook@8.6.17(prettier@3.8.1)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.17(prettier@3.8.1))(typescript@5.3.2)
@@ -3809,7 +3801,7 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
       storybook: ^8.6.17
       typescript: '*'
-      webpack: 5.97.1
+      webpack: ^5.0.0
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -15906,7 +15898,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(esbuild@0.25.12))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-hot-middleware@2.26.1)(webpack@5.97.1(esbuild@0.25.12))':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.48.0
@@ -15916,7 +15908,7 @@ snapshots:
       react-refresh: 0.14.2
       schema-utils: 4.3.3
       source-map: 0.7.6
-      webpack: 5.105.2(esbuild@0.25.12)
+      webpack: 5.97.1(esbuild@0.25.12)
     optionalDependencies:
       type-fest: 4.41.0
       webpack-hot-middleware: 2.26.1
@@ -16231,7 +16223,7 @@ snapshots:
     dependencies:
       storybook: 8.6.17(prettier@3.8.1)
 
-  '@storybook/nextjs@8.6.17(esbuild@0.25.12)(next@15.5.12(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)(storybook@8.6.17(prettier@3.8.1))(type-fest@4.41.0)(typescript@5.3.2)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(esbuild@0.25.12))':
+  '@storybook/nextjs@8.6.17(esbuild@0.25.12)(next@15.5.12(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)(storybook@8.6.17(prettier@3.8.1))(type-fest@4.41.0)(typescript@5.3.2)(webpack-hot-middleware@2.26.1)(webpack@5.97.1(esbuild@0.25.12))':
     dependencies:
       '@babel/core': 7.29.0
       '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.29.0)
@@ -16246,30 +16238,30 @@ snapshots:
       '@babel/preset-react': 7.28.5(@babel/core@7.29.0)
       '@babel/preset-typescript': 7.28.5(@babel/core@7.29.0)
       '@babel/runtime': 7.28.6
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(esbuild@0.25.12))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.17(react-refresh@0.14.2)(type-fest@4.41.0)(webpack-hot-middleware@2.26.1)(webpack@5.97.1(esbuild@0.25.12))
       '@storybook/builder-webpack5': 8.6.17(esbuild@0.25.12)(storybook@8.6.17(prettier@3.8.1))(typescript@5.3.2)
       '@storybook/preset-react-webpack': 8.6.17(@storybook/test@8.6.17(storybook@8.6.17(prettier@3.8.1)))(esbuild@0.25.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.17(prettier@3.8.1))(typescript@5.3.2)
       '@storybook/react': 8.6.17(@storybook/test@8.6.17(storybook@8.6.17(prettier@3.8.1)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.17(prettier@3.8.1))(typescript@5.3.2)
       '@storybook/test': 8.6.17(storybook@8.6.17(prettier@3.8.1))
       '@types/semver': 7.7.1
-      babel-loader: 9.2.1(@babel/core@7.29.0)(webpack@5.105.2(esbuild@0.25.12))
-      css-loader: 6.11.0(webpack@5.105.2(esbuild@0.25.12))
+      babel-loader: 9.2.1(@babel/core@7.29.0)(webpack@5.97.1(esbuild@0.25.12))
+      css-loader: 6.11.0(webpack@5.97.1(esbuild@0.25.12))
       find-up: 5.0.0
       image-size: 1.2.1
       loader-utils: 3.3.1
       next: 15.5.12(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)
-      node-polyfill-webpack-plugin: 2.0.1(webpack@5.105.2(esbuild@0.25.12))
+      node-polyfill-webpack-plugin: 2.0.1(webpack@5.97.1(esbuild@0.25.12))
       pnp-webpack-plugin: 1.7.0(typescript@5.3.2)
       postcss: 8.5.6
-      postcss-loader: 8.2.1(postcss@8.5.6)(typescript@5.3.2)(webpack@5.105.2(esbuild@0.25.12))
+      postcss-loader: 8.2.1(postcss@8.5.6)(typescript@5.3.2)(webpack@5.97.1(esbuild@0.25.12))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-refresh: 0.14.2
       resolve-url-loader: 5.0.0
-      sass-loader: 14.2.1(sass@1.97.3)(webpack@5.105.2(esbuild@0.25.12))
+      sass-loader: 14.2.1(sass@1.97.3)(webpack@5.97.1(esbuild@0.25.12))
       semver: 7.7.4
       storybook: 8.6.17(prettier@3.8.1)
-      style-loader: 3.3.4(webpack@5.105.2(esbuild@0.25.12))
+      style-loader: 3.3.4(webpack@5.97.1(esbuild@0.25.12))
       styled-jsx: 5.1.7(@babel/core@7.29.0)(react@18.3.1)
       ts-dedent: 2.2.0
       tsconfig-paths: 4.2.0
@@ -16277,7 +16269,7 @@ snapshots:
     optionalDependencies:
       sharp: 0.33.5
       typescript: 5.3.2
-      webpack: 5.105.2(esbuild@0.25.12)
+      webpack: 5.97.1(esbuild@0.25.12)
     transitivePeerDependencies:
       - '@rspack/core'
       - '@swc/core'
@@ -17295,19 +17287,19 @@ snapshots:
       schema-utils: 2.7.1
       webpack: 5.105.2
 
-  babel-loader@9.2.1(@babel/core@7.29.0)(webpack@5.105.2(esbuild@0.25.12)):
-    dependencies:
-      '@babel/core': 7.29.0
-      find-cache-dir: 4.0.0
-      schema-utils: 4.3.3
-      webpack: 5.105.2(esbuild@0.25.12)
-
   babel-loader@9.2.1(@babel/core@7.29.0)(webpack@5.105.2):
     dependencies:
       '@babel/core': 7.29.0
       find-cache-dir: 4.0.0
       schema-utils: 4.3.3
       webpack: 5.105.2
+
+  babel-loader@9.2.1(@babel/core@7.29.0)(webpack@5.97.1(esbuild@0.25.12)):
+    dependencies:
+      '@babel/core': 7.29.0
+      find-cache-dir: 4.0.0
+      schema-utils: 4.3.3
+      webpack: 5.97.1(esbuild@0.25.12)
 
   babel-plugin-istanbul@6.1.1:
     dependencies:
@@ -18486,19 +18478,6 @@ snapshots:
   csp_evaluator@1.1.0: {}
 
   css-functions-list@3.3.3: {}
-
-  css-loader@6.11.0(webpack@5.105.2(esbuild@0.25.12)):
-    dependencies:
-      icss-utils: 5.1.0(postcss@8.5.6)
-      postcss: 8.5.6
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.6)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.6)
-      postcss-modules-scope: 3.2.1(postcss@8.5.6)
-      postcss-modules-values: 4.0.0(postcss@8.5.6)
-      postcss-value-parser: 4.2.0
-      semver: 7.7.4
-    optionalDependencies:
-      webpack: 5.105.2(esbuild@0.25.12)
 
   css-loader@6.11.0(webpack@5.105.2):
     dependencies:
@@ -22548,7 +22527,7 @@ snapshots:
 
   node-machine-id@1.1.12: {}
 
-  node-polyfill-webpack-plugin@2.0.1(webpack@5.105.2(esbuild@0.25.12)):
+  node-polyfill-webpack-plugin@2.0.1(webpack@5.97.1(esbuild@0.25.12)):
     dependencies:
       assert: 2.1.0
       browserify-zlib: 0.2.0
@@ -22575,7 +22554,7 @@ snapshots:
       url: 0.11.4
       util: 0.12.5
       vm-browserify: 1.1.2
-      webpack: 5.105.2(esbuild@0.25.12)
+      webpack: 5.97.1(esbuild@0.25.12)
 
   node-preload@0.2.1:
     dependencies:
@@ -23416,14 +23395,14 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-loader@8.2.1(postcss@8.5.6)(typescript@5.3.2)(webpack@5.105.2(esbuild@0.25.12)):
+  postcss-loader@8.2.1(postcss@8.5.6)(typescript@5.3.2)(webpack@5.97.1(esbuild@0.25.12)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.3.2)
       jiti: 2.6.1
       postcss: 8.5.6
       semver: 7.7.4
     optionalDependencies:
-      webpack: 5.105.2(esbuild@0.25.12)
+      webpack: 5.97.1(esbuild@0.25.12)
     transitivePeerDependencies:
       - typescript
 
@@ -24100,12 +24079,12 @@ snapshots:
     optionalDependencies:
       sass: 1.97.3
 
-  sass-loader@14.2.1(sass@1.97.3)(webpack@5.105.2(esbuild@0.25.12)):
+  sass-loader@14.2.1(sass@1.97.3)(webpack@5.97.1(esbuild@0.25.12)):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
       sass: 1.97.3
-      webpack: 5.105.2(esbuild@0.25.12)
+      webpack: 5.97.1(esbuild@0.25.12)
 
   sass@1.97.3:
     dependencies:
@@ -24731,10 +24710,6 @@ snapshots:
   strip-json-comments@2.0.1: {}
 
   strip-json-comments@3.1.1: {}
-
-  style-loader@3.3.4(webpack@5.105.2(esbuild@0.25.12)):
-    dependencies:
-      webpack: 5.105.2(esbuild@0.25.12)
 
   style-loader@3.3.4(webpack@5.105.2):
     dependencies:
