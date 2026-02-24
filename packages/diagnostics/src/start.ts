@@ -64,8 +64,8 @@ export async function getTelemetryClient(opt: {
   client.registerInstrumentations([new HttpInstrumentation()])
 
   globalThis.fsDiagnostics.TELEMETRY_CLIENTS.set(opt.name, client)
-  // if (globalThis.fsDiagnostics.IS_DEV)
-  console.log('TELEMETRY CLIENT STARTED', opt)
+  if (globalThis.fsDiagnostics.IS_DEV)
+    console.log('TELEMETRY CLIENT STARTED', opt)
 
   return client
 }

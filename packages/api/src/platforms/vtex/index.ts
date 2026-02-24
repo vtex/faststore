@@ -39,17 +39,23 @@ export interface GraphqlContext {
   OTEL: Record<string, unknown>
 }
 
+const getAPITelemetryClient = tryOnce(async function getAPITelemetryClient(
+  serviceName: string,
+  account: string
+) {
+  return await getTelemetryClient({
+    name: serviceName,
+    version,
+    account,
+  })
+})
+
 export const GraphqlVtexContextFactory = async (options: Options) => {
   if (options.OTEL?.enabled) {
-    try {
-      await getTelemetryClient({
-        name,
-        version,
-        account: options.account,
-      })
-    } catch (error) {
-      console.error(error)
-    }
+    const serviceName =
+      (options.discoveryConfig as any)?.analytics?.serviceName ?? name
+
+    await getAPITelemetryClient(serviceName, options.account)
   }
 
   return (ctx: any): GraphqlContext => {
@@ -109,4 +115,24 @@ export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
   }
 
   return platformSchema
+}
+
+function tryOnce<Fn extends (...args: any[]) => any | Promise<any>>(fn: Fn) {
+  let result: ReturnType<Fn> | undefined
+  let err: any
+  const fnName = fn.name ?? 'unknonw function'
+  return async (...args: Parameters<Fn>) => {
+    if (!!err) return
+    if (!!result) return result
+
+    try {
+      result ??= await fn(...args)
+      return result
+    } catch (error) {
+      err ??= error
+      console.error(`Error trying to run function: ${fnName}`)
+    }
+
+    throw new Error(`Try once: Function (${fnName}) cant return void`)
+  }
 }

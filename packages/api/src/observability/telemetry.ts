@@ -5,7 +5,11 @@ const { ATTR_CODE_FUNCTION_NAME, ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } =
   CONVENTIONS
 
 export const ResolverTrace = <
-  TContext extends { OTEL: Record<string, any>; account: string },
+  TContext extends {
+    OTEL: Record<string, any>
+    account: string
+    discoveryConfig: Record<string, any>
+  },
   TSource = any,
   TVars = any,
   TReturn = any,
@@ -19,23 +23,25 @@ export const ResolverTrace = <
     graphqlContext: TContext,
     info: any
   ): TReturn => {
-    const activeContext =
-      getTraceClient(name)?.extract(graphqlContext.OTEL) ??
-      OTELAPI.context.active()
-
     if ((graphqlContext?.OTEL?.enabled ?? false) === false) {
       return fn(source, vars, graphqlContext, info)
     }
 
+    const serviceName =
+      graphqlContext.discoveryConfig?.analytics?.serviceName ?? name
+    const activeContext =
+      getTraceClient(serviceName)?.extract(graphqlContext.OTEL) ??
+      OTELAPI.context.active()
+
     return OTELAPI.context.with(activeContext, () => {
-      const span = getTraceClient(name)?.startSpan(
+      const span = getTraceClient(serviceName)?.startSpan(
         resolverName ?? 'Unknown Graphql Resolver',
         {
           timestamp: Date.now(),
           kind: OTELAPI.SpanKind.INTERNAL,
           attributes: {
             [ATTR_CODE_FUNCTION_NAME]: resolverName,
-            [ATTR_SERVICE_NAME]: name,
+            [ATTR_SERVICE_NAME]: serviceName,
             [ATTR_SERVICE_VERSION]: version,
             ACCOUNT: graphqlContext.account,
           },

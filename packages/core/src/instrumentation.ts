@@ -11,7 +11,7 @@ export async function register() {
       const { getTelemetryClient } = await import('@faststore/diagnostics')
 
       return getTelemetryClient({
-        name,
+        name: config.analytics?.serviceName ?? name,
         version,
         account: config.api.storeId,
       })
