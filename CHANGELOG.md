@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.98.0-dev.1 (2026-02-24)
+
+### Features
+
+- update coderabbit instructions ([#3226](https://github.com/vtex/faststore/issues/3226)) ([dfbc58a](https://github.com/vtex/faststore/commit/dfbc58a042443a3018c0b3df569f42918e3e349d))
+
 # [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
 
 ### Features
