@@ -13,7 +13,6 @@ jest.mock('discovery.config', () => ({
 
 import {
   getClientCacheBustingValue,
-  STORAGE_KEY_ANONYMOUS_SESSION,
   STORAGE_KEY_AUTH_COOKIE_VALUE,
   STORAGE_KEY_CACHE_BUST_LAST_VALUE,
 } from '../../src/utils/cookieCacheBusting'
@@ -41,40 +40,15 @@ describe('cookieCacheBusting', () => {
     jest.restoreAllMocks()
   })
 
-  it('should return and persist an anonymous session value when auth cookie is missing', () => {
-    const nowSpy = jest.spyOn(Date, 'now').mockReturnValue(1700000000000)
-    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem')
-
-    const result = getClientCacheBustingValue()
-
-    expect(result).toBe('1700000000000')
-    expect(setItemSpy).toHaveBeenCalledWith(
-      STORAGE_KEY_ANONYMOUS_SESSION,
-      '1700000000000'
-    )
-    expect(nowSpy).toHaveBeenCalled()
-  })
-
-  it('should clear storage and return new anonymous value when user logs out', () => {
-    setAuthCookie('token-1')
-    sessionStorage.setItem(STORAGE_KEY_AUTH_COOKIE_VALUE, 'token-1')
-    sessionStorage.setItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE, 'old')
-    sessionStorage.setItem(STORAGE_KEY_ANONYMOUS_SESSION, 'old-anon')
-
-    clearAllCookies()
-    const nowSpy = jest.spyOn(Date, 'now').mockReturnValue(1700000000999)
+  it('should clear storage and return null when auth cookie is missing', () => {
     const removeItemSpy = jest.spyOn(Storage.prototype, 'removeItem')
 
     const result = getClientCacheBustingValue()
 
-    expect(result).toBe('1700000000999')
+    expect(result).toBeNull()
     expect(removeItemSpy).toHaveBeenCalledWith(STORAGE_KEY_AUTH_COOKIE_VALUE)
     expect(removeItemSpy).toHaveBeenCalledWith(
       STORAGE_KEY_CACHE_BUST_LAST_VALUE
-    )
-    expect(removeItemSpy).toHaveBeenCalledWith(STORAGE_KEY_ANONYMOUS_SESSION)
-    expect(sessionStorage.getItem(STORAGE_KEY_ANONYMOUS_SESSION)).toBe(
-      '1700000000999'
     )
   })
 

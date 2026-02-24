@@ -3,7 +3,6 @@ import discoveryConfig from 'discovery.config'
 export const STORAGE_KEY_AUTH_COOKIE_VALUE = 'faststore_auth_cookie_value'
 export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
   'faststore_cache_bust_last_value'
-export const STORAGE_KEY_ANONYMOUS_SESSION = 'faststore_anonymous_session'
 
 /**
  * Gets the VtexIdclientAutCookie value from browser
@@ -92,30 +91,6 @@ const storeLastValue = (value: string): void => {
 }
 
 /**
- * Gets the anonymous session value (unique per anonymous session, e.g. after logout)
- */
-const getAnonymousSessionValue = (): string | null => {
-  if (typeof sessionStorage === 'undefined') return null
-  try {
-    return sessionStorage.getItem(STORAGE_KEY_ANONYMOUS_SESSION)
-  } catch {
-    return null
-  }
-}
-
-/**
- * Stores the anonymous session value (client-side only)
- */
-const storeAnonymousSessionValue = (value: string): void => {
-  if (typeof sessionStorage === 'undefined') return
-  try {
-    sessionStorage.setItem(STORAGE_KEY_ANONYMOUS_SESSION, value)
-  } catch {
-    // Ignore storage errors
-  }
-}
-
-/**
  * Clears all cache busting related data from sessionStorage (client-side only)
  */
 const clearStorage = (): void => {
@@ -126,33 +101,21 @@ const clearStorage = (): void => {
   try {
     sessionStorage.removeItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
     sessionStorage.removeItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
-    sessionStorage.removeItem(STORAGE_KEY_ANONYMOUS_SESSION)
   } catch {
     // Ignore storage errors
   }
 }
 
 /**
- * Gets cache busting value for client-side based on auth cookie changes.
- * When anonymous (no auth cookie), returns a unique value per "anonymous session"
- * (e.g. new value after logout) so the request URL is unique and the browser
- * does not serve a cached response from a previous session.
+ * Gets cache busting value for client-side based on auth cookie changes
  */
 export const getClientCacheBustingValue = (): string | null => {
   const currentAuthCookieValue = getAuthCookieValue()
 
+  // Guard clause: if auth cookie doesn't exist, clear storage and don't proceed with cache busting logic
   if (currentAuthCookieValue === null) {
-    // User is anonymous. If they were logged in before (logout), clear and create new anonymous session.
-    const wasLoggedIn = getStoredAuthCookieValue() !== null
-    if (wasLoggedIn) {
-      clearStorage()
-    }
-    let anonymousValue = getAnonymousSessionValue()
-    if (!anonymousValue) {
-      anonymousValue = Date.now().toString()
-      storeAnonymousSessionValue(anonymousValue)
-    }
-    return anonymousValue
+    clearStorage()
+    return null
   }
 
   const storedAuthCookieValue = getStoredAuthCookieValue()
