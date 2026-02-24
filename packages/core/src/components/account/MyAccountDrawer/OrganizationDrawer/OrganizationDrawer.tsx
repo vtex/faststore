@@ -11,6 +11,7 @@ import storeConfig from '../../../../../discovery.config'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
+import { setReloadAfterLogoutReturn } from './useReloadAfterLogoutReturn'
 import styles from './section.module.scss'
 
 type OrganizationDrawerProps = {
@@ -114,6 +115,7 @@ export const doLogout = async (_event?: unknown) => {
       // Continue even if API call fails
     }
   } finally {
+    setReloadAfterLogoutReturn()
     window.location.assign(
       `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
     )
