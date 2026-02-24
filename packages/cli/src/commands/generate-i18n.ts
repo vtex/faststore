@@ -3,23 +3,15 @@ import { FastStoreSDK } from '@vtex/faststore-sdk'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 import fsExtra from 'fs-extra'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { format } from 'prettier'
 import { checkAndValidateLocalization } from '../utils/config'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { saveFile } from '../utils/file'
 import { logger } from '../utils/logger'
-dotenv.config({
-  path: [path.resolve(process.cwd(), '.env')],
-})
 
 const configFileName = 'discovery.config.default.js'
-
-const { VTEX_ACCOUNT, FS_DISCOVERY_APP_KEY, FS_DISCOVERY_APP_TOKEN } =
-  process.env
-
-const hasCredentials =
-  VTEX_ACCOUNT && FS_DISCOVERY_APP_KEY && FS_DISCOVERY_APP_TOKEN
 
 export default class GenerateI18n extends Command {
   static hidden = true
@@ -89,6 +81,26 @@ export default class GenerateI18n extends Command {
       return
     }
 
+    const vtexEnvPath = path.join(argPath, 'vtex.env')
+    if (existsSync(vtexEnvPath)) {
+      dotenv.config({ path: vtexEnvPath })
+    }
+
+    const { VTEX_ACCOUNT, FS_DISCOVERY_APP_KEY, FS_DISCOVERY_APP_TOKEN } =
+      process.env
+    const hasCredentials =
+      VTEX_ACCOUNT && FS_DISCOVERY_APP_KEY && FS_DISCOVERY_APP_TOKEN
+
+    if (!hasCredentials) {
+      logger.error(`${chalk.red('[Error]')} - Missing VTEX credentials.\n
+      ${chalk.cyan('Required Action:')}\n
+      Check your FastStore WebOps Settings page - to work in production, it should contain the following variables: ${chalk.cyan('VTEX_ACCOUNT')}, ${chalk.cyan('FS_DISCOVERY_APP_KEY')}, ${chalk.cyan('FS_DISCOVERY_APP_TOKEN')}.\n
+      If running locally, please check your ${chalk.bold('vtex.env')} file, it should also contain those variables.
+      `)
+
+      return
+    }
+
     const { tmpDir } = withBasePath(argPath)
     const configPath =
       this.getConfigFile(flags.config && path.resolve(argPath, flags.config)) ||
@@ -109,12 +121,6 @@ export default class GenerateI18n extends Command {
 
     logger.info(`${chalk.blue('[Info]')} - Config file location: ${configPath}`)
     const discoveryConfig = await import(configPath)
-
-    if (!hasCredentials) {
-      logger.info(`${chalk.red('error')} - Missing VTEX credentials.`)
-
-      return
-    }
 
     const faststore = new FastStoreSDK({
       account: VTEX_ACCOUNT,
