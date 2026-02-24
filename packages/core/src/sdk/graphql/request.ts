@@ -66,7 +66,7 @@ const baseRequest = async <V = any, D = any>(
     operationName,
     operationHash,
     ...(method === 'GET' && { variables: JSON.stringify(variables) }),
-    ...(method === 'GET' && value && { v: value }),
+    ...(method === 'GET' && { v: value ?? 'anonymous' }),
   })
 
   const body =
