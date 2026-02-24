@@ -1,9 +1,9 @@
-import { useMemo, type PropsWithChildren, type ReactElement } from 'react'
+import { isValidElement, type PropsWithChildren } from 'react'
 
 import { usePageViewEvent } from './sdk/analytics/hooks/usePageViewEvent'
 
 function Layout({ children }: PropsWithChildren) {
-  const props = useMemo(() => (children as ReactElement)?.props, [])
+  const props = isValidElement(children) ? children.props : undefined
   usePageViewEvent(props)
 
   return <>{children}</>

@@ -60,6 +60,7 @@ type UserOrder {
   canProcessOrderAuthorization: Boolean
   ruleForAuthorization: ProcessOrderAuthorizationRule
   purchaseAgentData: UserOrderPurchaseAgentData
+  budgetData: UserOrderBudgetData
 }
 
 type UserOrderPurchaseAgentData {
@@ -91,6 +92,7 @@ type UserOrderResult {
   items: [UserOrderItems]
   ruleForAuthorization: ProcessOrderAuthorizationRule
   shopper: UserOrderShopper
+  budgetData: UserOrderBudgetData
 }
 
 type UserOrderShopper {
@@ -780,4 +782,43 @@ type UserOrderFromListMinimal {
   ShippingEstimatedDate: String
   customFields: [UserOrderFromListCustomFields]
   currencyCode: String
+}
+
+type UserOrderBudgetData {
+  budgets: [UserOrderBudget]
+}
+
+type UserOrderBudget {
+  id: String
+  name: String
+  unitId: String
+  cycleConfiguration: UserOrderBudgetCycleConfiguration
+  balance: UserOrderBudgetBalance
+  allocations: [UserOrderBudgetAllocation]
+}
+
+type UserOrderBudgetCycleConfiguration {
+  startDate: String
+  endDate: String
+  autoResetOnPeriodEnd: Boolean
+  carryOverBalance: Boolean
+}
+
+type UserOrderBudgetBalance {
+  amount: Float
+  balanceAdjustment: Float
+  remaining: Float
+}
+
+type UserOrderBudgetAllocation {
+  id: String
+  linkedEntity: UserOrderBudgetAllocationLinkedEntity
+  balance: UserOrderBudgetBalance
+  reservations: JSONObject
+  ToBeSpent: Float
+}
+
+type UserOrderBudgetAllocationLinkedEntity {
+  type: String
+  id: String
 }

@@ -4,6 +4,7 @@
 import type { AnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvents } from '../../types'
 
+import { LOG_LABEL_STYLE } from 'src/constants'
 import { getBaseDomain } from 'src/utils/getBaseDomain'
 import { getCookie } from 'src/utils/getCookie'
 import config from '../../../../../discovery.config'
@@ -11,6 +12,7 @@ import config from '../../../../../discovery.config'
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
 
+const enableScriptsLogs = config.experimental?.enableScriptsLogs === true
 const randomUUID = () =>
   typeof crypto.randomUUID === 'function'
     ? crypto.randomUUID().replaceAll('-', '')
@@ -83,19 +85,31 @@ type SearchEvent =
       type: 'search.autocomplete.click'
     }
 
-const sendEvent = (options: SearchEvent & { url?: string }) =>
-  fetch(`https://sp.vtex.com/event-api/v1/${config.api.storeId}/event`, {
+const sendEvent = (options: SearchEvent & { url?: string }) => {
+  const payload = {
+    ...options,
+    userAgent: navigator.userAgent,
+    anonymous: user.anonymous(),
+    session: user.session(),
+  }
+
+  if (enableScriptsLogs) {
+    console.debug(
+      '%cvtex%c Search Event',
+      LOG_LABEL_STYLE,
+      'color:inherit',
+      payload
+    )
+  }
+
+  return fetch(`https://sp.vtex.com/event-api/v1/${config.api.storeId}/event`, {
     method: 'POST',
-    body: JSON.stringify({
-      ...options,
-      userAgent: navigator.userAgent,
-      anonymous: user.anonymous(),
-      session: user.session(),
-    }),
+    body: JSON.stringify(payload),
     headers: {
       'content-type': 'application/json',
     },
   })
+}
 
 const isFullTextSearch = (url: URL) =>
   typeof url.searchParams.get('q') === 'string' &&

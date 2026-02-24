@@ -86,6 +86,7 @@ reviews:
           TypeScript files:
           - Ensure type safety and avoid type assertions when possible
           - Consider bundle size impact of dependencies
+          - Prefer flat conditionals over nested ifs: combine conditions with && or use early returns to avoid deep nesting and improve readability.
       
 chat:
   auto_reply: true
