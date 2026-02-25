@@ -98,7 +98,7 @@ export default class GenerateI18n extends Command {
       If running locally, please check your ${chalk.bold('vtex.env')} file, it should also contain those variables.
       `)
 
-      return
+      process.exit(1)
     }
 
     const { tmpDir } = withBasePath(argPath)
