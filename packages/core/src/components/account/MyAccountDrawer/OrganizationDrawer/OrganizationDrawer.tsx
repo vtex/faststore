@@ -11,6 +11,7 @@ import storeConfig from '../../../../../discovery.config'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
+import { setReloadAfterLogoutReturn } from './useReloadAfterLogoutReturn'
 import styles from './section.module.scss'
 
 type OrganizationDrawerProps = {
@@ -27,6 +28,7 @@ const clearBrowserStorageForCurrentDomain = async () => {
     const sessionStorageKeys = [
       'faststore_session_ready',
       'faststore_auth_cookie_value',
+      'faststore_person_id',
       'faststore_cache_bust_last_value',
     ]
 
@@ -51,6 +53,25 @@ const clearBrowserStorageForCurrentDomain = async () => {
         } catch {}
       }
     } catch {}
+  } catch {}
+
+  // Clear IndexedDB: remove session key first (avoids blocked when DB has open connections),
+  // then delete the whole keyval-store
+  try {
+    if ('indexedDB' in window) {
+      const { del } = await import('idb-keyval')
+      await del('fs::session').catch(() => {})
+    }
+
+    const idb = window.indexedDB
+    if (idb) {
+      await new Promise<void>((resolve) => {
+        const req = idb.deleteDatabase('keyval-store')
+        req.onsuccess = () => resolve()
+        req.onerror = () => resolve()
+        req.onblocked = () => resolve()
+      })
+    }
   } catch {}
 
   // Clear all cookies containing 'vtex' in the name (case-insensitive)
@@ -80,21 +101,6 @@ const clearBrowserStorageForCurrentDomain = async () => {
       }
     }
   } catch {}
-
-  // Clear IndexedDB (keyval-store)
-  try {
-    if (!('indexedDB' in window)) return
-
-    const idb = window.indexedDB
-    if (!idb) return
-
-    await new Promise<void>((resolve) => {
-      const req = idb.deleteDatabase('keyval-store')
-      req.onsuccess = () => resolve()
-      req.onerror = () => resolve()
-      req.onblocked = () => resolve()
-    })
-  } catch {}
 }
 
 export const doLogout = async (_event?: unknown) => {
@@ -104,16 +110,19 @@ export const doLogout = async (_event?: unknown) => {
     // Clear client-side storage (sessionStorage, localStorage, IndexedDB, non-HttpOnly cookies)
     await clearBrowserStorageForCurrentDomain()
 
-    // Clear HttpOnly cookies via API endpoint (server-side)
+    // Clear HttpOnly cookies via API endpoint (server-side).
+    // Must await and consume the response so Set-Cookie headers are fully processed before redirect.
     try {
-      await fetch('/api/fs/logout', {
+      const res = await fetch('/api/fs/logout', {
         method: 'POST',
         credentials: 'include',
       })
+      await res.json().catch((): null => null)
     } catch {
-      // Continue even if API call fails
+      // Continue even if API call fails (e.g. network error)
     }
   } finally {
+    setReloadAfterLogoutReturn()
     window.location.assign(
       `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
     )
