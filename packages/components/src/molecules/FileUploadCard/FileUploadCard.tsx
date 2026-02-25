@@ -87,9 +87,25 @@ export interface FileUploadCardProps
   /**
    * Error messages per error type for FileUploadStatus (e.g. from CMS).
    */
-  errorMessages?: Partial<
+  errorMessages: Partial<
     Record<FileUploadErrorType, { title: string; description: string }>
   >
+  /**
+   * Formatter for file size display.
+   */
+  formatterFileSize?: (size: number) => string
+  /**
+   * Formatter for file name display.
+   */
+  formatterFileName?: (name: string) => string
+  /**
+   * Indicates if the file is being uploaded.
+   */
+  isUploading?: boolean
+  /**
+   * Indicates if there was an error during file upload.
+   */
+  hasError?: boolean
 }
 
 const FileUploadCard = ({
@@ -112,6 +128,10 @@ const FileUploadCard = ({
   uploadingStatusText,
   getCompletedStatusText,
   errorMessages,
+  formatterFileSize,
+  formatterFileName,
+  isUploading = false,
+  hasError = false,
   ...otherProps
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -164,10 +184,14 @@ const FileUploadCard = ({
       setUploadState(FileUploadState.Uploading)
       setErrorType(undefined)
 
-      // Simulate upload process
-      setTimeout(() => {
+      if (isUploading) {
+        // Simulate upload process
+        setTimeout(() => {
+          setUploadState(FileUploadState.Completed)
+        }, 2000)
+      } else {
         setUploadState(FileUploadState.Completed)
-      }, 2000)
+      }
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -207,10 +231,13 @@ const FileUploadCard = ({
       setUploadState(FileUploadState.Uploading)
       setErrorType(undefined)
 
-      // Simulate upload process
-      setTimeout(() => {
+      if (isUploading) {
+        setTimeout(() => {
+          setUploadState(FileUploadState.Completed)
+        }, 2000)
+      } else {
         setUploadState(FileUploadState.Completed)
-      }, 2000)
+      }
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -231,7 +258,7 @@ const FileUploadCard = ({
       onDownloadTemplate()
     } else {
       // Default template download
-      const csvContent = 'Product ID,Quantity,Price\n001,10,99.99\n002,5,49.99'
+      const csvContent = 'SKU,Quantity\nAB001,AB100,AB999\n2,5,49'
       const blob = new Blob([csvContent], { type: 'text/csv' })
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -293,7 +320,10 @@ const FileUploadCard = ({
           downloadTemplateButtonLabel={downloadTemplateButtonLabel}
           selectFileButtonLabel={selectFileButtonLabel}
           uploadingStatusText={uploadingStatusText}
-          completedStatusText={getCompletedStatusText?.(selectedFile.size)}
+          completedStatusText={getCompletedStatusText(selectedFile.size)}
+          fileName={
+            formatterFileName ? formatterFileName(selectedFile.name) : undefined
+          }
         />
       ) : (
         <div

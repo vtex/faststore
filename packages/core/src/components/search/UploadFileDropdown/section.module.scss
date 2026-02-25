@@ -1,0 +1,106 @@
+.section {
+  @import "@faststore/ui/src/components/molecules/Dropzone/styles";
+
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-padding-section: var(--fs-grid-padding);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  padding: var(--fs-padding-section);
+  padding-bottom: calc(var(--fs-padding-section) / 2);
+
+  [data-fs-dropzone] {
+    width: 100%;
+  }
+
+  [data-fs-upload-button-container] {
+    display: flex;
+    justify-content: center;
+  }
+
+  [data-fs-upload-button] {
+    margin-top: var(--fs-spacing-2);
+  }
+
+  [data-fs-dropzone-container] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  [data-fs-download-template-button] {
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+  }
+
+  [data-fs-upload-error-icon] {
+    color: var(--fs-color-danger-text);
+  }
+
+  [data-fs-upload-error] {
+    display: flex;
+    gap: var(--fs-spacing-1);
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    margin-top: var(--fs-spacing-2);
+  }
+
+  [data-fs-upload-results] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-2);
+  }
+
+  [data-fs-upload-result-info] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--fs-spacing-2);
+    border: 1px solid var(--fs-color-neutral-3);
+    border-radius: var(--fs-border-radius-medium);
+  }
+
+  [data-fs-upload-result-file-details] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-1);
+  }
+
+  [data-fs-upload-result-file-name] {
+    max-width: 500px;
+    overflow: hidden;
+    font-weight: var(--fs-text-weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-upload-result-file-rows] {
+    max-width: 500px;
+    overflow: hidden;
+    font-size: var(--fs-text-size-2);
+    color: var(--fs-color-neutral-4);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-fs-upload-actions] {
+    display: flex;
+    gap: var(--fs-spacing-1);
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  [data-fs-upload-use-data-button] {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
