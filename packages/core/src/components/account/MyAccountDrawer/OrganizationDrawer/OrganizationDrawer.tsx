@@ -28,6 +28,7 @@ const clearBrowserStorageForCurrentDomain = async () => {
     const sessionStorageKeys = [
       'faststore_session_ready',
       'faststore_auth_cookie_value',
+      'faststore_person_id',
       'faststore_cache_bust_last_value',
     ]
 
@@ -52,6 +53,25 @@ const clearBrowserStorageForCurrentDomain = async () => {
         } catch {}
       }
     } catch {}
+  } catch {}
+
+  // Clear IndexedDB: remove session key first (avoids blocked when DB has open connections),
+  // then delete the whole keyval-store
+  try {
+    if ('indexedDB' in window) {
+      const { del } = await import('idb-keyval')
+      await del('fs::session').catch(() => {})
+    }
+
+    const idb = window.indexedDB
+    if (idb) {
+      await new Promise<void>((resolve) => {
+        const req = idb.deleteDatabase('keyval-store')
+        req.onsuccess = () => resolve()
+        req.onerror = () => resolve()
+        req.onblocked = () => resolve()
+      })
+    }
   } catch {}
 
   // Clear all cookies containing 'vtex' in the name (case-insensitive)
@@ -80,21 +100,6 @@ const clearBrowserStorageForCurrentDomain = async () => {
         }
       }
     }
-  } catch {}
-
-  // Clear IndexedDB (keyval-store)
-  try {
-    if (!('indexedDB' in window)) return
-
-    const idb = window.indexedDB
-    if (!idb) return
-
-    await new Promise<void>((resolve) => {
-      const req = idb.deleteDatabase('keyval-store')
-      req.onsuccess = () => resolve()
-      req.onerror = () => resolve()
-      req.onblocked = () => resolve()
-    })
   } catch {}
 }
 
