@@ -105,14 +105,16 @@ export const doLogout = async (_event?: unknown) => {
     // Clear client-side storage (sessionStorage, localStorage, IndexedDB, non-HttpOnly cookies)
     await clearBrowserStorageForCurrentDomain()
 
-    // Clear HttpOnly cookies via API endpoint (server-side)
+    // Clear HttpOnly cookies via API endpoint (server-side).
+    // Must await and consume the response so Set-Cookie headers are fully processed before redirect.
     try {
-      await fetch('/api/fs/logout', {
+      const res = await fetch('/api/fs/logout', {
         method: 'POST',
         credentials: 'include',
       })
+      await res.json().catch((): null => null)
     } catch {
-      // Continue even if API call fails
+      // Continue even if API call fails (e.g. network error)
     }
   } finally {
     setReloadAfterLogoutReturn()
