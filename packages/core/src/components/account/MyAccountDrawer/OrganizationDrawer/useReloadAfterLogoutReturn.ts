@@ -46,7 +46,7 @@ const checkAndReloadIfReturnedFromLogout = (): void => {
       setTimeout(forceRefreshWithoutCache, RELOAD_DELAY_MS)
     }
   } catch {
-    // Ignore
+    // Ignore.
   }
 }
 
