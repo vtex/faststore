@@ -31,6 +31,7 @@ export const request = async <Query = unknown, Variables = unknown>(
 ) => {
   // Get cache busting value based on cookie changes
   const value = getClientCacheBustingValue()
+  console.log('🚀 ~ value:', value)
 
   const { data, errors } = await baseRequest<Variables, Query>('/api/graphql', {
     ...options,
@@ -51,6 +52,7 @@ const baseRequest = async <V = any, D = any>(
   endpoint: string,
   { operation, variables, fetchOptions, value }: BaseRequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
+  console.log('🚀 ~ baseRequest value:', value)
   const { operationName, operationHash } = operation['__meta__']
 
   // Uses method from fetchOptions.
@@ -69,6 +71,7 @@ const baseRequest = async <V = any, D = any>(
     ...(method === 'GET' && value && { v: value }),
   })
 
+  console.log('🚀 ~ params.toString():', params.toString())
   const body =
     method === 'POST'
       ? JSON.stringify({

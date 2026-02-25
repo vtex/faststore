@@ -111,6 +111,7 @@ const clearStorage = (): void => {
  */
 export const getClientCacheBustingValue = (): string | null => {
   const currentAuthCookieValue = getAuthCookieValue()
+  console.log('🚀 ~ currentAuthCookieValue:', currentAuthCookieValue)
 
   // Guard clause: if auth cookie doesn't exist, clear storage and don't proceed with cache busting logic
   if (currentAuthCookieValue === null) {
@@ -119,23 +120,27 @@ export const getClientCacheBustingValue = (): string | null => {
   }
 
   const storedAuthCookieValue = getStoredAuthCookieValue()
+  console.log('🚀 ~ storedAuthCookieValue:', storedAuthCookieValue)
 
   // If auth cookie changed, update stored value and return new timestamp
   if (currentAuthCookieValue !== storedAuthCookieValue) {
     storeAuthCookieValue(currentAuthCookieValue)
     const timestamp = Date.now().toString()
+    console.log('🚀 ~ timestamp:', timestamp)
     storeLastValue(timestamp)
     return timestamp
   }
 
   // Auth cookie hasn't changed, return last value or create one if it doesn't exist
   const lastValue = getLastValue()
+  console.log('🚀 ~ lastValue:', lastValue)
   if (lastValue) {
     return lastValue
   }
 
   // Fallback: if no last value, create one
   const timestamp = Date.now().toString()
+  console.log('🚀 ~ Fallback timestamp:', timestamp)
   storeLastValue(timestamp)
   return timestamp
 }
