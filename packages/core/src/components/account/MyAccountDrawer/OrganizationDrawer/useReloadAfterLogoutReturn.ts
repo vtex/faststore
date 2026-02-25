@@ -27,11 +27,23 @@ export const setReloadAfterLogoutReturn = (): void => {
   }
 }
 
+const RELOAD_DELAY_MS = 1000
+
+/**
+ * Forces a full navigation with cache-busting param instead of reload().
+ * Bypasses disk cache by changing the URL, ensuring fresh HTML and API responses.
+ */
+const forceRefreshWithoutCache = (): void => {
+  const url = new URL(window.location.href)
+  url.searchParams.set('_', Date.now().toString())
+  window.location.replace(url.toString())
+}
+
 const checkAndReloadIfReturnedFromLogout = (): void => {
   try {
     if (sessionStorage.getItem(RELOAD_AFTER_LOGOUT_KEY)) {
       sessionStorage.removeItem(RELOAD_AFTER_LOGOUT_KEY)
-      window.location.reload()
+      setTimeout(forceRefreshWithoutCache, RELOAD_DELAY_MS)
     }
   } catch {
     // Ignore
