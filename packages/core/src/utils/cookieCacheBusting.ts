@@ -1,62 +1,49 @@
-import discoveryConfig from 'discovery.config'
+import { getSessionPersonId } from 'src/sdk/sessionAuthState'
 
-export const STORAGE_KEY_AUTH_COOKIE_VALUE = 'faststore_auth_cookie_value'
+export const STORAGE_KEY_PERSON_ID = 'faststore_person_id'
 export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
   'faststore_cache_bust_last_value'
 
 /**
- * Gets the VtexIdclientAutCookie value from browser
- * Note: vtex_segment is httpOnly and cannot be accessed via JavaScript,
- * so we only monitor VtexIdclientAutCookie_<account>
+ * Gets person?.id from session (via ValidateSession).
+ * Uses session data since auth cookies are now httpOnly and inaccessible via JavaScript.
  */
-const getAuthCookieValue = (): string | null => {
-  if (typeof document === 'undefined') {
+const getPersonId = (): string | null => {
+  if (typeof window === 'undefined') {
     return null
   }
 
-  const account = discoveryConfig.api.storeId
-  const authCookieName = `VtexIdclientAutCookie_${account}`
-  console.log('🚀 ~ authCookieName:', authCookieName)
-  const cookies = document.cookie.split(';').map((cookie) => cookie.trim())
-  console.log('🚀 ~ cookies:', cookies)
-  const authCookie = cookies.find((c) => c.startsWith(`${authCookieName}=`))
-  console.log('🚀 ~ authCookie:', authCookie)
-
-  if (!authCookie) {
-    return null
-  }
-
-  return authCookie.split('=').slice(1).join('=')
+  return getSessionPersonId()
 }
 
 /**
- * Gets the stored auth cookie value from sessionStorage (client-side only)
+ * Gets the stored person id from sessionStorage (client-side only)
  */
-const getStoredAuthCookieValue = (): string | null => {
+const getStoredPersonId = (): string | null => {
   if (typeof sessionStorage === 'undefined') {
     return null
   }
 
   try {
-    return sessionStorage.getItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
+    return sessionStorage.getItem(STORAGE_KEY_PERSON_ID)
   } catch {
     return null
   }
 }
 
 /**
- * Stores the auth cookie value in sessionStorage (client-side only)
+ * Stores the person id in sessionStorage (client-side only)
  */
-const storeAuthCookieValue = (value: string | null): void => {
+const storePersonId = (value: string | null): void => {
   if (typeof sessionStorage === 'undefined') {
     return
   }
 
   try {
     if (value === null) {
-      sessionStorage.removeItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
+      sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)
     } else {
-      sessionStorage.setItem(STORAGE_KEY_AUTH_COOKIE_VALUE, value)
+      sessionStorage.setItem(STORAGE_KEY_PERSON_ID, value)
     }
   } catch {
     // Ignore storage errors
@@ -102,7 +89,7 @@ const clearStorage = (): void => {
   }
 
   try {
-    sessionStorage.removeItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
+    sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)
     sessionStorage.removeItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
   } catch {
     // Ignore storage errors
@@ -110,40 +97,37 @@ const clearStorage = (): void => {
 }
 
 /**
- * Gets cache busting value for client-side based on auth cookie changes
+ * Gets cache busting value for client-side based on auth state changes.
+ * Uses person?.id from session (via useSession/ValidateSession) since auth cookies
+ * are now httpOnly and cannot be accessed via JavaScript.
  */
 export const getClientCacheBustingValue = (): string | null => {
-  const currentAuthCookieValue = getAuthCookieValue()
-  console.log('🚀 ~ currentAuthCookieValue:', currentAuthCookieValue)
+  const currentPersonId = getPersonId()
 
-  // Guard clause: if auth cookie doesn't exist, clear storage and don't proceed with cache busting logic
-  if (currentAuthCookieValue === null) {
+  // Guard clause: if user is not logged in (no person?.id), clear storage and don't proceed with cache busting logic
+  if (currentPersonId === null) {
     clearStorage()
     return null
   }
 
-  const storedAuthCookieValue = getStoredAuthCookieValue()
-  console.log('🚀 ~ storedAuthCookieValue:', storedAuthCookieValue)
+  const storedPersonId = getStoredPersonId()
 
-  // If auth cookie changed, update stored value and return new timestamp
-  if (currentAuthCookieValue !== storedAuthCookieValue) {
-    storeAuthCookieValue(currentAuthCookieValue)
+  // If person changed (login/logout or different user), update stored value and return new timestamp
+  if (currentPersonId !== storedPersonId) {
+    storePersonId(currentPersonId)
     const timestamp = Date.now().toString()
-    console.log('🚀 ~ timestamp:', timestamp)
     storeLastValue(timestamp)
     return timestamp
   }
 
-  // Auth cookie hasn't changed, return last value or create one if it doesn't exist
+  // Person hasn't changed, return last value or create one if it doesn't exist
   const lastValue = getLastValue()
-  console.log('🚀 ~ lastValue:', lastValue)
   if (lastValue) {
     return lastValue
   }
 
   // Fallback: if no last value, create one
   const timestamp = Date.now().toString()
-  console.log('🚀 ~ Fallback timestamp:', timestamp)
   storeLastValue(timestamp)
   return timestamp
 }
