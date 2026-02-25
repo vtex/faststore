@@ -422,3 +422,6 @@ export type {
   QuickOrderDrawerProductsProps,
   QuickOrderDrawerProps,
 } from './organisms/QuickOrderDrawer'
+
+export { default as Dropzone } from './molecules/Dropzone'
+export type { DropzoneProps, DropzoneState } from './molecules/Dropzone'
