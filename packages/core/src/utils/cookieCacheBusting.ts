@@ -16,8 +16,11 @@ const getAuthCookieValue = (): string | null => {
 
   const account = discoveryConfig.api.storeId
   const authCookieName = `VtexIdclientAutCookie_${account}`
+  console.log('🚀 ~ authCookieName:', authCookieName)
   const cookies = document.cookie.split(';').map((cookie) => cookie.trim())
+  console.log('🚀 ~ cookies:', cookies)
   const authCookie = cookies.find((c) => c.startsWith(`${authCookieName}=`))
+  console.log('🚀 ~ authCookie:', authCookie)
 
   if (!authCookie) {
     return null
