@@ -51,8 +51,8 @@ export default function useSearchHistory(
     const set = new Set<string>()
     const current = byLocale[locale] ?? []
     const newHistoryArray = [newHistory, ...current]
-      .slice(0, maxHistorySize)
       .filter((item) => !set.has(item.term) && set.add(item.term), set)
+      .slice(0, maxHistorySize)
 
     searchHistoryStore.set({
       ...byLocale,
