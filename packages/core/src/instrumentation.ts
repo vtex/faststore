@@ -9,11 +9,14 @@ export async function register() {
     const { name, version } = pkgJSON
     try {
       const { getTelemetryClient } = await import('@faststore/diagnostics')
+      console.log('Instrumemtation.ts: Getting telemetry client')
 
       return getTelemetryClient({
-        name: config.analytics?.serviceName ?? name,
+        serviceName: config.analytics?.serviceName ?? name,
         version,
         account: config.api.storeId,
+        clientName: config.api.storeId,
+        packageName: name,
       })
     } catch (error) {
       console.error('Failed to initialize OTEL Instrumentation')

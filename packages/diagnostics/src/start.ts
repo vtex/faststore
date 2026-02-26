@@ -1,8 +1,4 @@
 import {
-  ATTR_SERVICE_NAME,
-  ATTR_SERVICE_VERSION,
-} from '@opentelemetry/semantic-conventions'
-import {
   CreateTracesExporterConfig,
   CreateExporter,
 } from '@vtex/diagnostics-nodejs/dist/exporters/index.js'
@@ -10,15 +6,15 @@ import { NewTelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/clie
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
 import resolvePackage from 'resolve-pkg'
 
-import { name } from '../package.json' with { type: 'json' }
-
-const APPLICATION_ID = name
-const OTLP_ENDPOINT = process.env.OTLP_ENDPOINT || 'localhost:4317'
+import { name as currentPkgName } from '../package.json' with { type: 'json' }
 
 async function setupTracesExporter() {
+  const OTLP_TRACES_ENDPOINT =
+    process.env.OTLP_TRACES_ENDPOINT || 'localhost:4317'
+
   const tracesConfig = CreateTracesExporterConfig({
-    endpoint: OTLP_ENDPOINT,
-    insecure: globalThis.fsDiagnostics.IS_DEV ?? false,
+    endpoint: OTLP_TRACES_ENDPOINT,
+    insecure: global.fsDiagnostics.IS_DEV ?? false,
   })
 
   const tracesExporter = CreateExporter(tracesConfig, 'otlp')
@@ -27,49 +23,62 @@ async function setupTracesExporter() {
 }
 
 export async function getTelemetryClient(opt: {
-  name: string
+  serviceName: string
   version: string
+  clientName: string
   account: string
+  packageName: string
 }) {
-  if (globalThis.fsDiagnostics.TELEMETRY_CLIENTS.has(opt.name))
-    return globalThis.fsDiagnostics.TELEMETRY_CLIENTS.get(opt.name)
+  if (global.fsDiagnostics.TELEMETRY_CLIENTS.has(opt.packageName))
+    return global.fsDiagnostics.TELEMETRY_CLIENTS.get(opt.packageName)
 
-  const client = await NewTelemetryClient(APPLICATION_ID, opt.name, opt.name, {
-    additionalAttrs: {
-      [ATTR_SERVICE_NAME]: opt.name,
-      [ATTR_SERVICE_VERSION]: opt.version,
-      environment: process.env.NODE_ENV ?? 'development',
-      ACCOUNT: opt.account ?? 'unknown',
-    },
-    // debug: globalThis.fsDiagnostics.IS_DEV,
-    config: {
-      configPath: resolvePackage(
-        `@faststore/diagnostics/configs/${globalThis.fsDiagnostics.IS_DEV ? 'dev' : 'prod'}.json`,
-        {
-          cwd: process.env.PWD ?? process.cwd(),
-        }
-      ),
-    },
-  })
+  const client = await NewTelemetryClient(
+    currentPkgName,
+    opt.clientName,
+    opt.serviceName,
+    {
+      additionalAttrs: {
+        '@faststore_version': opt.version,
+        '@faststore_package_name': opt.packageName,
+        '@faststore_account_name': opt.account ?? 'unknown',
+        '@faststore_environment': process.env.NODE_ENV ?? 'development',
+      },
+      // debug: global.fsDiagnostics.IS_DEV,
+      config: {
+        configPath: resolvePackage(
+          `@faststore/diagnostics/configs/${global.fsDiagnostics.IS_DEV ? 'dev' : 'prod'}.json`,
+          {
+            cwd: process.env.PWD ?? process.cwd(),
+          }
+        ),
+      },
+    }
+  )
+
   const tracesExporter = await setupTracesExporter()
-  await client.newLogsClient()
-  await client.newMetricsClient()
-  globalThis.fsDiagnostics.TRACE_CLIENTS.set(
-    opt.name,
+  // const logger = await client.newLogsClient()
+  // const metrics = await client.newMetricsClient()
+
+  global.fsDiagnostics.TRACE_CLIENTS.set(
+    opt.packageName,
     await client.newTracesClient({
+      setGlobalProvider: true,
       exporter: tracesExporter,
     })
   )
 
+  // await logger.shutdown()
+  // await metrics.shutdown()
+
   client.registerInstrumentations([new HttpInstrumentation()])
 
-  globalThis.fsDiagnostics.TELEMETRY_CLIENTS.set(opt.name, client)
-  if (globalThis.fsDiagnostics.IS_DEV)
-    console.log('TELEMETRY CLIENT STARTED', opt)
+  // if (global.fsDiagnostics.IS_DEV)
+  console.log('TELEMETRY CLIENT STARTED', opt)
 
+  global.fsDiagnostics.TELEMETRY_CLIENTS.set(opt.packageName, client)
   return client
 }
 
-export function getTraceClient(name: string) {
-  return globalThis.fsDiagnostics.TRACE_CLIENTS.get(name)
+export function getTraceClient(serviceName: string) {
+  return global.fsDiagnostics.TRACE_CLIENTS.get(serviceName)
 }

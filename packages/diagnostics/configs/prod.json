@@ -4,15 +4,9 @@
       "defaultRate": 0.01,
       "rules": [
         {
-          "name": "critical_endpoints",
+          "name": "trace_all",
           "sampleRate": 0.3,
-          "conditions": [
-            {
-              "attribute": "http.target",
-              "operator": "Regex",
-              "value": "^/api/graphql"
-            }
-          ]
+          "conditions": []
         }
       ]
     }

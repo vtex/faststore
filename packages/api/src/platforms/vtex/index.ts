@@ -1,7 +1,6 @@
-import { getTelemetryClient } from '@faststore/diagnostics'
+import { OTELAPI } from '@faststore/diagnostics'
 import { mergeSchemas } from '@graphql-tools/schema'
 import { type GraphQLSchema, isSchema } from 'graphql'
-import { name, version } from '../../../package.json' with { type: 'json' }
 import { withDirectives } from '../../directives'
 import authDirective from '../../directives/auth'
 import cacheControlDirective from '../../directives/cacheControl'
@@ -39,40 +38,26 @@ export interface GraphqlContext {
   OTEL: Record<string, unknown>
 }
 
-const getAPITelemetryClient = tryOnce(async function getAPITelemetryClient(
-  serviceName: string,
-  account: string
-) {
-  return await getTelemetryClient({
-    name: serviceName,
-    version,
-    account,
-  })
-})
-
 export const GraphqlVtexContextFactory = async (options: Options) => {
-  if (options.OTEL?.enabled) {
-    const serviceName =
-      (options.discoveryConfig as any)?.analytics?.serviceName ?? name
+  return OTELAPI.context.with(
+    OTELAPI.propagation.extract(OTELAPI.context.active(), options.OTEL),
+    () =>
+      (ctx: any): GraphqlContext => {
+        ctx.storage = {
+          channel: ChannelMarshal.parse(options.channel),
+          flags: options.flags ?? {},
+          locale: options.locale,
+          cookies: new Map<string, Record<string, string>>(),
+        }
+        ctx.clients = getClients(options, ctx)
+        ctx.loaders = getLoaders(options, ctx)
+        ctx.account = options.account
+        ctx.OTEL = options.OTEL
+        ctx.discoveryConfig = options.discoveryConfig
 
-    await getAPITelemetryClient(serviceName, options.account)
-  }
-
-  return (ctx: any): GraphqlContext => {
-    ctx.storage = {
-      channel: ChannelMarshal.parse(options.channel),
-      flags: options.flags ?? {},
-      locale: options.locale,
-      cookies: new Map<string, Record<string, string>>(),
-    }
-    ctx.clients = getClients(options, ctx)
-    ctx.loaders = getLoaders(options, ctx)
-    ctx.account = options.account
-    ctx.OTEL = options.OTEL
-    ctx.discoveryConfig = options.discoveryConfig
-
-    return ctx
-  }
+        return ctx
+      }
+  )
 }
 
 export type GraphqlResolver<S = any, V = any, R = any> = Resolver<
@@ -115,24 +100,4 @@ export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
   }
 
   return platformSchema
-}
-
-function tryOnce<Fn extends (...args: any[]) => any | Promise<any>>(fn: Fn) {
-  let result: ReturnType<Fn> | undefined
-  let err: any
-  const fnName = fn.name ?? 'unknonw function'
-  return async (...args: Parameters<Fn>) => {
-    if (!!err) return
-    if (!!result) return result
-
-    try {
-      result ??= await fn(...args)
-      return result
-    } catch (error) {
-      err ??= error
-      console.error(`Error trying to run function: ${fnName}`)
-    }
-
-    throw new Error(`Try once: Function (${fnName}) cant return void`)
-  }
 }

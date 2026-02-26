@@ -1,8 +1,5 @@
-import { CONVENTIONS, OTELAPI, getTraceClient } from '@faststore/diagnostics'
+import { OTELAPI } from '@faststore/diagnostics'
 import { name, version } from '../../package.json' with { type: 'json' }
-
-const { ATTR_CODE_FUNCTION_NAME, ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } =
-  CONVENTIONS
 
 export const ResolverTrace = <
   TContext extends {
@@ -27,26 +24,24 @@ export const ResolverTrace = <
       return fn(source, vars, graphqlContext, info)
     }
 
-    const serviceName =
-      graphqlContext.discoveryConfig?.analytics?.serviceName ?? name
-    const activeContext =
-      getTraceClient(serviceName)?.extract(graphqlContext.OTEL) ??
-      OTELAPI.context.active()
+    const trace = OTELAPI.trace.getTracer(name, version)
+    const activeContext = OTELAPI.propagation.extract(
+      OTELAPI.context.active(),
+      graphqlContext.OTEL
+    )
 
     return OTELAPI.context.with(activeContext, () => {
-      const span = getTraceClient(serviceName)?.startSpan(
-        resolverName ?? 'Unknown Graphql Resolver',
-        {
+      const span = trace.startSpan(resolverName ?? 'Unknown Graphql Resolver', {
+        startTime: Date.now(),
+        kind: OTELAPI.SpanKind.INTERNAL,
+        attributes: {
           timestamp: Date.now(),
-          kind: OTELAPI.SpanKind.INTERNAL,
-          attributes: {
-            [ATTR_CODE_FUNCTION_NAME]: resolverName,
-            [ATTR_SERVICE_NAME]: serviceName,
-            [ATTR_SERVICE_VERSION]: version,
-            ACCOUNT: graphqlContext.account,
-          },
-        }
-      )
+          '@faststore_version': version,
+          '@faststore_package_name': name,
+          '@faststore_account_name': graphqlContext.account,
+          '@faststore_environment': process.env.NODE_ENV,
+        },
+      })
 
       if (!span) return fn(source, vars, graphqlContext, info)
       try {
