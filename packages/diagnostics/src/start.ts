@@ -56,8 +56,8 @@ export async function getTelemetryClient(opt: {
   )
 
   const tracesExporter = await setupTracesExporter()
-  // const logger = await client.newLogsClient()
-  // const metrics = await client.newMetricsClient()
+  const logger = await client.newLogsClient()
+  const metrics = await client.newMetricsClient()
 
   global.fsDiagnostics.TRACE_CLIENTS.set(
     opt.packageName,
@@ -67,13 +67,12 @@ export async function getTelemetryClient(opt: {
     })
   )
 
-  // await logger.shutdown()
-  // await metrics.shutdown()
-
   client.registerInstrumentations([new HttpInstrumentation()])
 
-  // if (global.fsDiagnostics.IS_DEV)
-  console.log('TELEMETRY CLIENT STARTED', opt)
+  await logger.shutdown()
+  await metrics.shutdown()
+
+  if (global.fsDiagnostics.IS_DEV) console.log('TELEMETRY CLIENT STARTED', opt)
 
   global.fsDiagnostics.TELEMETRY_CLIENTS.set(opt.packageName, client)
   return client
