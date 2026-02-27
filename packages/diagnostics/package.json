@@ -36,5 +36,8 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
