@@ -122,6 +122,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       MAX_SUGGESTIONS
     )
     const isLoading = !error && !data
+    const searchId = data?.search.searchId
 
     const buttonProps = {
       onClick: onSearchClick,
@@ -147,6 +148,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             terms={terms}
             products={products}
             isLoading={isLoading}
+            searchId={searchId}
           >
             <UISearchInputField
               ref={ref}

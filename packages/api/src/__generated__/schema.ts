@@ -1638,6 +1638,8 @@ export type StoreSearchResult = {
   metadata?: Maybe<SearchMetadata>;
   /** Search result products. */
   products: StoreProductConnection;
+  /** Search result searchId. Unique identifier for the search query can be used to correlate search analytics events. */
+  searchId: Scalars['String'];
   /** Search result suggestions. */
   suggestions: StoreSuggestions;
 };
