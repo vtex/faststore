@@ -13,6 +13,7 @@ import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
+import { IframeSafetyProvider } from 'src/components/common/IframeSafetyProvider'
 
 import SEO from 'next-seo.config'
 import storeConfig from 'discovery.config'
@@ -33,18 +34,20 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary>
-      <Head> {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</Head>
-      <DefaultSeo {...SEO} />
+      <IframeSafetyProvider>
+        <Head> {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</Head>
+        <DefaultSeo {...SEO} />
 
-      <AnalyticsHandler />
+        <AnalyticsHandler />
 
-      <UIProvider>
-        <DeliveryPromiseProvider>
-          <Layout>
-            <Component {...pageProps} key={pageProps?.key} />
-          </Layout>
-        </DeliveryPromiseProvider>
-      </UIProvider>
+        <UIProvider>
+          <DeliveryPromiseProvider>
+            <Layout>
+              <Component {...pageProps} key={pageProps?.key} />
+            </Layout>
+          </DeliveryPromiseProvider>
+        </UIProvider>
+      </IframeSafetyProvider>
     </ErrorBoundary>
   )
 }
