@@ -1,0 +1,68 @@
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+  padding: var(--fs-spacing-3);
+  background-color: var(--fs-color-neutral-bkg);
+  border-radius: var(--fs-border-radius);
+}
+
+.summaryTitle {
+  font-size: var(--fs-text-size-lead);
+  font-weight: var(--fs-text-weight-bold);
+  margin-bottom: var(--fs-spacing-1);
+}
+
+.summaryLines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-1);
+}
+
+.summaryLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fs-text-size-body);
+
+  span:first-child {
+    color: var(--fs-color-text-light);
+  }
+}
+
+.summaryDiscount {
+  span {
+    color: var(--fs-color-success-text);
+  }
+}
+
+.summaryFreeShipping {
+  color: var(--fs-color-success-text);
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.summaryToBeCalculated {
+  color: var(--fs-color-text-light);
+  font-style: italic;
+}
+
+.summaryGiftCards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fs-text-size-body);
+
+  span:first-child {
+    color: var(--fs-color-text-light);
+  }
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--fs-spacing-2);
+  border-top: var(--fs-border-width) solid var(--fs-border-color);
+  font-size: var(--fs-text-size-lead);
+  font-weight: var(--fs-text-weight-bold);
+}

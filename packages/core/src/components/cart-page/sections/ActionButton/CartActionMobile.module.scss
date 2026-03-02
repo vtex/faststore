@@ -1,0 +1,35 @@
+@layer components {
+  .cartActionMobile {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-2);
+  }
+}
+
+.cartActionMobileSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartActionMobileLabel {
+  font-size: var(--fs-text-size-body);
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.cartActionMobileTotal {
+  font-size: var(--fs-text-size-lead);
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.cartActionMobileButtons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+}
+
+.cartActionMobileButton {
+  width: 100%;
+}

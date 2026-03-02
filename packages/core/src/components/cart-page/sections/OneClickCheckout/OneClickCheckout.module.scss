@@ -1,0 +1,13 @@
+@layer components {
+  .oneClickCheckout {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-2);
+  }
+}
+
+.oneClickCheckoutButton {
+  width: 100%;
+}

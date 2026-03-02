@@ -1,0 +1,38 @@
+@layer components {
+  .emptyCart {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: var(--fs-spacing-6);
+  }
+}
+
+.emptyCartContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fs-spacing-3);
+  text-align: center;
+  max-width: 480px;
+}
+
+.emptyCartIcon {
+  color: var(--fs-color-text-light);
+  opacity: 0.4;
+}
+
+.emptyCartTitle {
+  font-size: var(--fs-text-size-title-page);
+  font-weight: var(--fs-text-weight-bold);
+  margin: 0;
+}
+
+.emptyCartDescription {
+  font-size: var(--fs-text-size-body);
+  color: var(--fs-color-text-light);
+  margin: 0;
+  line-height: 1.5;
+}

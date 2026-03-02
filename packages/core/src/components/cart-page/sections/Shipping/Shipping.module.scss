@@ -1,0 +1,260 @@
+@layer components {
+  .shippingChannelSelector {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Input/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Radio/styles.scss';
+    @import '@faststore/ui/src/components/molecules/InputField/styles.scss';
+    @import '@faststore/ui/src/components/molecules/RadioField/styles.scss';
+
+    margin-bottom: var(--fs-spacing-3);
+
+    [data-fs-radio-group] {
+      display: flex;
+      flex-direction: row;
+      gap: var(--fs-spacing-3);
+    }
+  }
+
+  .deliverySection {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Input/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Radio/styles.scss';
+    @import '@faststore/ui/src/components/molecules/InputField/styles.scss';
+    @import '@faststore/ui/src/components/molecules/RadioField/styles.scss';
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-2);
+  }
+}
+
+.shippingChannelLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.shippingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+  padding: var(--fs-spacing-3) 0;
+}
+
+.shippingInfoEmpty {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+  color: var(--fs-color-text-light);
+  font-size: var(--fs-text-size-body);
+}
+
+.shippingInfoNoSlas {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+  color: var(--fs-color-danger-text);
+  font-size: var(--fs-text-size-body);
+}
+
+.shippingInfoDelivery,
+.shippingInfoPickup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-1);
+}
+
+.shippingInfoHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+  font-weight: var(--fs-text-weight-bold);
+  font-size: var(--fs-text-size-body);
+}
+
+.shippingInfoAddress {
+  font-size: var(--fs-text-size-body);
+  color: var(--fs-color-text-light);
+  margin: 0;
+}
+
+.shippingInfoEstimate {
+  font-size: var(--fs-text-size-tiny);
+  color: var(--fs-color-text-light);
+  margin: 0;
+}
+
+.shippingInfoDistance {
+  font-size: var(--fs-text-size-tiny);
+  color: var(--fs-color-text-light);
+}
+
+.deliveryAddress {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--fs-spacing-2);
+
+  p {
+    font-size: var(--fs-text-size-body);
+    margin: 0;
+  }
+}
+
+.deliveryNoSlas {
+  color: var(--fs-color-danger-text);
+  font-size: var(--fs-text-size-body);
+}
+
+.deliverySlaInfo {
+  font-size: var(--fs-text-size-body);
+  color: var(--fs-color-text-light);
+}
+
+.pickupSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+}
+
+.pickupTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+  font-size: var(--fs-text-size-body);
+  font-weight: var(--fs-text-weight-bold);
+  margin: 0;
+}
+
+.pickupNoSlas {
+  color: var(--fs-color-danger-text);
+  font-size: var(--fs-text-size-body);
+}
+
+.pickupPointCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-0);
+  padding: var(--fs-spacing-2);
+  border: var(--fs-border-width) solid var(--fs-border-color);
+  border-radius: var(--fs-border-radius);
+}
+
+.pickupPointHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+
+  strong {
+    font-size: var(--fs-text-size-body);
+  }
+}
+
+.pickupPointAddress {
+  font-size: var(--fs-text-size-tiny);
+  color: var(--fs-color-text-light);
+  margin: 0;
+}
+
+.pickupPointDistance {
+  font-size: var(--fs-text-size-tiny);
+  color: var(--fs-color-text-light);
+}
+
+.pickupPointEstimate {
+  font-size: var(--fs-text-size-tiny);
+  margin: 0;
+}
+
+.pickupPointCost {
+  font-size: var(--fs-text-size-tiny);
+  font-weight: var(--fs-text-weight-bold);
+  margin: 0;
+}
+
+.pickupPointHours {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-text-size-tiny);
+  color: var(--fs-color-text-light);
+}
+
+.pickupOtherOptions {
+  summary {
+    cursor: pointer;
+    font-size: var(--fs-text-size-body);
+    color: var(--fs-color-link);
+    padding: var(--fs-spacing-1) 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.pickupOptionsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+  margin-top: var(--fs-spacing-2);
+}
+
+.addressDrawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addressDrawer {
+  background-color: var(--fs-color-body-bkg);
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--fs-spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-4);
+}
+
+.addressDrawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-size: var(--fs-text-size-title-section);
+    font-weight: var(--fs-text-weight-bold);
+    margin: 0;
+  }
+}
+
+.addressDrawerClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--fs-spacing-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fs-color-text);
+}
+
+.addressDrawerForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-3);
+}
+
+.addressDrawerActions {
+  display: flex;
+  gap: var(--fs-spacing-2);
+  justify-content: flex-end;
+}

@@ -1,0 +1,17 @@
+@layer components {
+  .cartPageItem {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Icon/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Price/styles.scss';
+    @import '@faststore/ui/src/components/molecules/CartItem/styles.scss';
+    @import '@faststore/ui/src/components/molecules/QuantitySelector/styles.scss';
+    @import '@faststore/ui/src/components/molecules/ProductPrice/styles.scss';
+
+    padding: var(--fs-spacing-3) 0;
+    border-bottom: var(--fs-border-width) solid var(--fs-border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

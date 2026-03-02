@@ -1,0 +1,106 @@
+@layer components {
+  .cartPage {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Loader/styles.scss';
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--fs-spacing-4);
+    max-width: var(--fs-grid-max-width, 1280px);
+    margin: 0 auto;
+    padding: var(--fs-spacing-3) var(--fs-spacing-4);
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 380px;
+      padding: var(--fs-spacing-5) var(--fs-spacing-6);
+      gap: var(--fs-spacing-6);
+    }
+  }
+}
+
+.cartPageContent {
+  min-width: 0;
+}
+
+.cartPageTitle {
+  font-size: var(--fs-text-size-title-page);
+  font-weight: var(--fs-text-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--fs-spacing-4);
+}
+
+.cartPageSidebar {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+
+.cartPageSidebarSticky {
+  position: sticky;
+  top: var(--fs-spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-3);
+}
+
+.cartPageActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+}
+
+.cartPageActionsDesktop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+}
+
+.cartPageMobileActions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: var(--fs-color-body-bkg);
+  border-top: var(--fs-border-width) solid var(--fs-border-color);
+  padding: var(--fs-spacing-3) var(--fs-spacing-4);
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.cartPageLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  grid-column: 1 / -1;
+}
+
+.cartPageError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fs-spacing-2);
+  padding: var(--fs-spacing-6);
+  grid-column: 1 / -1;
+  text-align: center;
+
+  h2 {
+    font-size: var(--fs-text-size-title-section);
+    font-weight: var(--fs-text-weight-bold);
+  }
+
+  p {
+    font-size: var(--fs-text-size-body);
+    color: var(--fs-color-text-light);
+  }
+}
+
+.cartPageComment {
+  padding: var(--fs-spacing-3) 0;
+  border-top: var(--fs-border-width) solid var(--fs-border-color);
+}

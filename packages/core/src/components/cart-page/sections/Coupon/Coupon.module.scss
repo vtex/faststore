@@ -1,0 +1,60 @@
+@layer components {
+  .coupon {
+    @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+    @import '@faststore/ui/src/components/atoms/Input/styles.scss';
+    @import '@faststore/ui/src/components/molecules/InputField/styles.scss';
+    @import '@faststore/ui/src/components/molecules/Tag/styles.scss';
+
+    display: flex;
+    flex-direction: column;
+    border-top: var(--fs-border-width) solid var(--fs-border-color);
+    border-bottom: var(--fs-border-width) solid var(--fs-border-color);
+    padding: var(--fs-spacing-2) 0;
+  }
+}
+
+.couponToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1);
+  background: none;
+  border: none;
+  padding: var(--fs-spacing-1) 0;
+  cursor: pointer;
+  font-size: var(--fs-text-size-body);
+  font-weight: var(--fs-text-weight-bold);
+  color: var(--fs-color-text);
+  width: 100%;
+
+  [data-fs-icon]:last-child {
+    margin-left: auto;
+  }
+}
+
+.couponContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2);
+  padding-top: var(--fs-spacing-2);
+}
+
+.couponForm {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--fs-spacing-2);
+
+  [data-fs-input-field] {
+    flex: 1;
+  }
+}
+
+.couponError {
+  color: var(--fs-color-danger-text);
+  font-size: var(--fs-text-size-tiny);
+}
+
+.couponList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fs-spacing-1);
+}
