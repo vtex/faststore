@@ -1438,6 +1438,8 @@ export type StoreProduct = {
   image: Array<StoreImage>
   /** Indicates product group related to this product. */
   isVariantOf: StoreProductGroup
+  /** Manufacturer Part Number. Identifies the product to its manufacturer. */
+  mpn: Scalars['String']['output']
   /** Product name. */
   name: Scalars['String']['output']
   /** Aggregate offer information. */
@@ -2723,6 +2725,7 @@ export type ServerProductQueryQuery = {
   product: {
     sku: string
     gtin: string
+    mpn: string
     name: string
     description: string
     releaseDate: string
@@ -4371,7 +4374,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'e855903879c6504e90269e6e010549bc6de933eb',
+    operationHash: 'b0491eb0c42122063e67e607b07d0c2df363e8ed',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
