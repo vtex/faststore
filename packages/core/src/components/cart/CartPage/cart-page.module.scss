@@ -1,0 +1,360 @@
+.cartPage {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1280px;
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    padding: 2rem;
+  }
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex-shrink: 0;
+    width: 360px;
+  }
+}
+
+.sidebarSticky {
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.headerCount {
+  font-size: 0.875rem;
+  color: var(--fs-color-text-light, #757575);
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.itemCard {
+  padding: 1rem;
+  border: 1px solid var(--fs-border-color-light, #e0e0e0);
+  border-radius: 0.5rem;
+}
+
+.shippingPreview {
+  padding: 1rem;
+  border: 1px solid var(--fs-border-color-light, #e0e0e0);
+  border-radius: 0.5rem;
+}
+
+.shippingTitle {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.shippingOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--fs-border-color-light, #e0e0e0);
+  }
+}
+
+.shippingAddress {
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--fs-color-text-light, #757575);
+  border-top: 1px solid var(--fs-border-color-light, #e0e0e0);
+}
+
+.postalCodeForm {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.postalCodeInput {
+  flex: 1;
+}
+
+// Address Autocomplete
+.addressAutocomplete {
+  position: relative;
+}
+
+.addressInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.addressInput {
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--fs-border-color-light, #e0e0e0);
+  border-radius: 0.25rem;
+  outline: none;
+
+  &:focus {
+    border-color: var(--fs-color-primary-bkg, #2953b2);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.addressSpinner {
+  position: absolute;
+  right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--fs-border-color-light, #e0e0e0);
+  border-top-color: var(--fs-color-primary-bkg, #2953b2);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.suggestionList {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 20;
+  max-height: 200px;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  overflow-y: auto;
+  list-style: none;
+  background: var(--fs-color-body-bkg, #fff);
+  border: 1px solid var(--fs-border-color-light, #e0e0e0);
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.suggestionItem {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--fs-color-text, #171a1c);
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:hover {
+    background: var(--fs-color-primary-bkg-light, #f0f4ff);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--fs-border-color-light, #e0e0e0);
+  }
+}
+
+.addressStatus {
+  margin: 0.375rem 0 0;
+  font-size: 0.75rem;
+  color: var(--fs-color-text-light, #757575);
+}
+
+.addressError {
+  margin: 0.375rem 0 0;
+  font-size: 0.75rem;
+  color: var(--fs-color-danger-text, #c0392b);
+}
+
+.couponSection {
+  padding: 1rem;
+  border: 1px solid var(--fs-border-color-light, #e0e0e0);
+  border-radius: 0.5rem;
+}
+
+.couponTitle {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.couponForm {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.couponInput {
+  flex: 1;
+}
+
+.couponList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  list-style: none;
+}
+
+.couponTag {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--fs-color-success-text, #1e7e34);
+  background: var(--fs-color-success-bkg, #e6f9e6);
+  border-radius: 0.25rem;
+}
+
+.couponRemove {
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.summarySection {
+  padding: 1rem;
+  border: 1px solid var(--fs-border-color-light, #e0e0e0);
+  border-radius: 0.5rem;
+}
+
+.checkoutButton {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.mobileAction {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  padding: 1rem;
+  background: var(--fs-color-body-bkg, #fff);
+  border-top: 1px solid var(--fs-border-color-light, #e0e0e0);
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.unavailableSection {
+  padding: 1rem;
+  margin-top: 1.5rem;
+  background: var(--fs-color-warning-bkg, #fff3cd);
+  border: 1px solid var(--fs-color-warning-bkg, #fff3cd);
+  border-radius: 0.5rem;
+}
+
+.unavailableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.unavailableTitle {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--fs-color-warning-text, #856404);
+}
+
+.unavailableList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.unavailableItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.unavailableItemImage {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 0.25rem;
+}
+
+// Skeleton styles
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1280px;
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    padding: 2rem;
+  }
+}
+
+.skeletonContent {
+  flex: 1;
+}
+
+.skeletonSidebar {
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex-shrink: 0;
+    width: 360px;
+  }
+}
+
+.skeletonItem {
+  margin-bottom: 1rem;
+}
