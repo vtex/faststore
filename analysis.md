@@ -1,27 +1,10 @@
-# FastCheckout <> FastStore
+# FastCheckout <> FastStore: Análise de Portabilidade
 
-## Estado atual do FastCheckout
+## Conclusão
 
-Atualmente o FastCheckout possui NN features, suportando tanto use cases de B2C mais simples — como carrinhos com agrupamentos por disponibilidade ou data de entrega, seja pickup ou delivery — até cenários mais complexos como seleção de entrega por item, entrega agendada e pagamentos com one-click via Apple e Google Pay. Além disso, tem features de B2B Offer como Punchout, Roles & Permissions, Credit Card Tokenization, Bundles, Scheduled Delivery, etc.
+A portabilidade do FastCheckout para a FastStore é viável, mas representa um esforço significativo. Um experimento com escopo reduzido (tela de Cart simplificada) demonstrou que é possível reutilizar 100% do BFF existente, porém a migração completa envolve **6 frentes de trabalho** — desde infraestrutura de data-layer e state management, passando pela recriação de 300+ componentes, até a integração com CMS e extensibilidade — com estimativa total de **XX dev weeks**.
 
-O FastCheckout tem dois principais componentes na arquitetura:
-
-- **FastCheckout BFF** — back-end for front-end que faz o meio de campo com 10 APIs da VTEX (e.g. Checkout, MasterData, Identity, Intelligent Search, etc).
-- **FastCheckout UI** — que atualmente conta com mais de 300 core componentes, distribuídos entre as etapas de Cart, Delivery, Payments e Order Placed.
-
-## O que precisamos migrar
-
-- **Portar Specialized Components:** O FastCheckout utiliza componentes de uma biblioteca diferente da FastStore, portanto seria necessário _recriar_ os "specialized" components (e.g. CartList, ShippingPreview, etc) utilizando o design system da FastStore.
-
-- **Migrar data-layer:** O FastCheckout utiliza Relay, um GraphQL client criado pela Meta. A FastStore utiliza uma solução que é uma camada mais "fina", sem gerenciamento de estado tão pesado. Teríamos que migrar toda a camada de estado para a solução da FastStore, que é envelop + fetch.
-
-- **Migrar arquitetura de extensibilidade:** A extensibilidade do FastCheckout utiliza FastStore Extension Points, que são pontos de inserção de componentes. Dependendo do escopo necessário, seria necessário adicionar suporte a section overrides (já suportado pelo FastStore Discovery) e/ou readequar o section override para essa API (FastStore Extension Points em teoria faz parte do guarda-chuva FastStore, segundo a spec do FastStore Platform).
-
-- **Criação do SDK:** Atualmente o FastCheckout é um produto mais "autocontido", sem a intenção de fornecer um SDK como o FastStore Discovery. Nenhum recurso do BFF — como seleção de endereço, busca de endereço por autocomplete, pagamento com cartão, etc — está disponível como React hook ou componente. Seria necessário migrar os mais de 300 componentes do core e padronizar os recursos em React hooks e funções utilitárias.
-
-- **Integração com o CMS:** Atualmente a montagem das telas do FastCheckout é totalmente estática — o layout é posicionado de forma única para todos os clientes, sem movimentar blocos ou seções de um lado para o outro. Considerando que o CMS é parte crucial da experiência de customização, será necessário se integrar ao CMS para fazer a renderização das telas conforme o CMS especifica.
-
-## Resultados do experimento
+## Resultado do experimento
 
 O escopo focou em um pedaço pequeno do Cart do FastCheckout, assumindo reuso de 100% do BFF do FastCheckout e considerando apenas as funcionalidades:
 
@@ -81,3 +64,28 @@ A partir do que foi desenvolvido nas etapas anteriores:
 > Estimativa: XX dev weeks
 
 Atualmente o FastCheckout é intencionalmente menos customizável que o Discovery (baseado na visão do produto). Para adicionar a camada de extensibilidade no nível de flexibilidade similar ao Discovery, precisaríamos minimamente integrar diversos pontos de extensão em todas as telas.
+
+---
+
+## Contexto
+
+### Estado atual do FastCheckout
+
+Atualmente o FastCheckout possui NN features, suportando tanto use cases de B2C mais simples — como carrinhos com agrupamentos por disponibilidade ou data de entrega, seja pickup ou delivery — até cenários mais complexos como seleção de entrega por item, entrega agendada e pagamentos com one-click via Apple e Google Pay. Além disso, tem features de B2B Offer como Punchout, Roles & Permissions, Credit Card Tokenization, Bundles, Scheduled Delivery, etc.
+
+O FastCheckout tem dois principais componentes na arquitetura:
+
+- **FastCheckout BFF** — back-end for front-end que faz o meio de campo com 10 APIs da VTEX (e.g. Checkout, MasterData, Identity, Intelligent Search, etc).
+- **FastCheckout UI** — que atualmente conta com mais de 300 core componentes, distribuídos entre as etapas de Cart, Delivery, Payments e Order Placed.
+
+### O que precisamos migrar
+
+- **Portar Specialized Components:** O FastCheckout utiliza componentes de uma biblioteca diferente da FastStore, portanto seria necessário _recriar_ os "specialized" components (e.g. CartList, ShippingPreview, etc) utilizando o design system da FastStore.
+
+- **Migrar data-layer:** O FastCheckout utiliza Relay, um GraphQL client criado pela Meta. A FastStore utiliza uma solução que é uma camada mais "fina", sem gerenciamento de estado tão pesado. Teríamos que migrar toda a camada de estado para a solução da FastStore, que é envelop + fetch.
+
+- **Migrar arquitetura de extensibilidade:** A extensibilidade do FastCheckout utiliza FastStore Extension Points, que são pontos de inserção de componentes. Dependendo do escopo necessário, seria necessário adicionar suporte a section overrides (já suportado pelo FastStore Discovery) e/ou readequar o section override para essa API (FastStore Extension Points em teoria faz parte do guarda-chuva FastStore, segundo a spec do FastStore Platform).
+
+- **Criação do SDK:** Atualmente o FastCheckout é um produto mais "autocontido", sem a intenção de fornecer um SDK como o FastStore Discovery. Nenhum recurso do BFF — como seleção de endereço, busca de endereço por autocomplete, pagamento com cartão, etc — está disponível como React hook ou componente. Seria necessário migrar os mais de 300 componentes do core e padronizar os recursos em React hooks e funções utilitárias.
+
+- **Integração com o CMS:** Atualmente a montagem das telas do FastCheckout é totalmente estática — o layout é posicionado de forma única para todos os clientes, sem movimentar blocos ou seções de um lado para o outro. Considerando que o CMS é parte crucial da experiência de customização, será necessário se integrar ao CMS para fazer a renderização das telas conforme o CMS especifica.
