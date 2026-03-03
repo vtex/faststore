@@ -17,9 +17,23 @@ interface Options {
   showSponsored: boolean
   incrementAddress: boolean
   flags?: FeatureFlags
+  version?: string
+  OTEL?: {
+    enabled: boolean
+    traceparent?: string
+    tracestate?: string
+  }
+  discoveryConfig?: Record<string, unknown>
 }
 
 interface FeatureFlags {
   enableOrderFormSync?: boolean
   enableUnavailableItemsOnCart?: boolean
 }
+
+type Resolver<
+  TContext extends Record<string, any>,
+  TSource = any,
+  TVars = any,
+  TReturn = any,
+> = (source: TSource, vars: TVars, context: TContext, info: any) => TReturn

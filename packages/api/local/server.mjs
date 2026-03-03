@@ -20,7 +20,7 @@ const apiOptions = {
 
 const yoga = createYoga({
   schema: GraphqlVtexSchema(),
-  context: GraphqlVtexContextFactory(apiOptions),
+  context: await GraphqlVtexContextFactory(apiOptions),
   plugins: [
     useMaskedErrors({
       maskError: (err) => {

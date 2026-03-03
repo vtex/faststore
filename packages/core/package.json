@@ -40,6 +40,7 @@
     "@envelop/parser-cache": "catalog:",
     "@envelop/validation-cache": "catalog:",
     "@faststore/api": "workspace:*",
+    "@faststore/diagnostics": "workspace:*",
     "@faststore/lighthouse": "workspace:*",
     "@faststore/sdk": "workspace:*",
     "@faststore/ui": "workspace:*",

@@ -17,7 +17,7 @@ const apiOptions = {
   },
 } as Options
 
-const contextFactory = GraphqlVtexContextFactory(apiOptions)
+const contextFactory = await GraphqlVtexContextFactory(apiOptions)
 const context = contextFactory({})
 
 const fetchAPIMocked = vi.fn()

@@ -221,7 +221,7 @@ const handler: NextApiHandler = async (request, response) => {
 
     if (hasErrors) {
       const error = errors.find(isFastStoreError)
-      console.error(error)
+      console.error('Graphql execution returned with error: ', error)
 
       response.status(error?.extensions.status ?? 500).end()
       return
@@ -276,7 +276,10 @@ const handler: NextApiHandler = async (request, response) => {
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
-    console.error(err)
+    console.error(
+      'Something unexpected occurred querying Graphql endpoint: \n',
+      err
+    )
 
     if (err instanceof BadRequestError) {
       response.status(400).end()

@@ -11,7 +11,7 @@
 // Include Media Overwrites //////////////////////////
 @use "~include-media/dist/include-media" as * with ($breakpoints: ("phone": 320px,
 "phonemid": 375px,
-    "tablet": 768px,
+"tablet": 768px,
     "notebook": 1280px,
     "desktop": 1440px,
   ));
