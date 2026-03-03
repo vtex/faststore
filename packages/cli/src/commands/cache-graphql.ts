@@ -4,9 +4,11 @@ import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
-import { Kind, OperationTypeNode, parse as parseGraphql } from 'graphql'
+import graphql from 'graphql'
 import path from 'path'
 import fsExtra from 'fs-extra'
+
+const { Kind, OperationTypeNode, parse: parseGraphql } = graphql
 
 const persistedDocumentsName = 'persisted-documents.json'
 const configFileName = 'discovery.config.default.js'

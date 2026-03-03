@@ -1,3 +1,8 @@
+import { LOG_LABEL_STYLE } from 'src/constants'
+import storeConfig from '../../../discovery.config'
+
+const enableScriptsLogs = storeConfig.experimental?.enableScriptsLogs === true
+
 interface Props {
   containerId: string
   dataLayerName?: string
@@ -5,16 +10,20 @@ interface Props {
 
 export const GTM_DEBUG_QUERY_STRING = 'gtm_debug'
 
-const useSnippet = (opts: Props & { partytownScript: boolean }) => `${
-  opts.partytownScript ? '!' : ''
-}window.location.search.includes('${GTM_DEBUG_QUERY_STRING}=')&&
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
- new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
- j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
- 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
- })(window,document,'script',${JSON.stringify(
-   opts.dataLayerName ?? 'dataLayer'
- )},${JSON.stringify(opts.containerId)});`
+const useSnippet = (opts: Props & { partytownScript: boolean }) => {
+  const dataLayer = opts.dataLayerName ?? 'dataLayer'
+  return `${
+    opts.partytownScript ? '!' : ''
+  }window.location.search.includes('${GTM_DEBUG_QUERY_STRING}=')&&
+  (function(w,d,s,l,i){w[l]=w[l]||[];
+  ${enableScriptsLogs ? `w[l].push=(function(orig){return function(){console.debug("%cvtex%c GTM dataLayer.push","${LOG_LABEL_STYLE}","color:inherit",arguments);return orig.apply(this, arguments);}})(w[l].push);` : ''}
+  w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script',${JSON.stringify(
+    dataLayer
+  )},${JSON.stringify(opts.containerId)});`
+}
 
 /**
  * Google Tag Manager script adapted to be executed only when necessary.

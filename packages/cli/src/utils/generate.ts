@@ -70,10 +70,10 @@ function filterAndCopyPackageJson(basePath: string) {
   filteredFileContent.scripts = {
     ...filteredFileContent.scripts,
     generate: 'faststore generate',
-    build: 'next build',
+    build: 'next build --webpack',
     serve: 'next serve',
-    dev: 'next dev',
-    'dev-only': 'next dev',
+    dev: 'next dev --webpack',
+    'dev-only': 'next dev --webpack',
     predev: 'na run partytown',
   }
 
