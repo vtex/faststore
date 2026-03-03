@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
+
+### Features
+
+- add mpn (manufacturer code) to product's structured data ([#3234](https://github.com/vtex/faststore/issues/3234)) ([9597e39](https://github.com/vtex/faststore/commit/9597e39a8d63a651b815f90fe3b1ea5409258ca3))
+
+# 3.98.0-dev.1 (2026-02-24)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
+
+### Features
+
+- release version 20260224 ([#3225](https://github.com/vtex/faststore/issues/3225)) ([7a52516](https://github.com/vtex/faststore/commit/7a5251677a8f67066a2e060191b896ae6d0b0d9a))
+
+## [3.97.1](https://github.com/vtex/faststore/compare/v3.97.0...v3.97.1) (2026-02-24)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.97.0-dev.6](https://github.com/vtex/faststore/compare/v3.97.0-dev.5...v3.97.0-dev.6) (2026-02-19)
+
+### Bug Fixes
+
+- remove query string from preview cookie path ([#3213](https://github.com/vtex/faststore/issues/3213)) ([bc60a59](https://github.com/vtex/faststore/commit/bc60a5968d48f03e0fe52060b19dc8b48f6582f0))
+
+# [3.97.0-dev.5](https://github.com/vtex/faststore/compare/v3.97.0-dev.4...v3.97.0-dev.5) (2026-02-19)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.97.0-dev.4](https://github.com/vtex/faststore/compare/v3.97.0-dev.3...v3.97.0-dev.4) (2026-02-10)
+
+### Bug Fixes
+
+- scripts improvements - update RC url + Partytown loading + logs + fix bugs. ([#3198](https://github.com/vtex/faststore/issues/3198)) ([9a35b63](https://github.com/vtex/faststore/commit/9a35b63a91bc5cd53de553c053ceeed8bb983184))
+
 # [3.97.0-dev.3](https://github.com/vtex/faststore/compare/v3.97.0-dev.2...v3.97.0-dev.3) (2026-02-06)
 
 ### Features
@@ -14,6 +50,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - reorder feature ([#3153](https://github.com/vtex/faststore/issues/3153)) ([d0fdeec](https://github.com/vtex/faststore/commit/d0fdeec77cd94e16f1b79dcc927487320983ba0e))
+
+# <<<<<<< HEAD
+
+# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
+
+**Note:** Version bump only for package @faststore/core
+
+> > > > > > > main
 
 # [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
 
