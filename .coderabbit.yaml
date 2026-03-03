@@ -3,7 +3,7 @@ language: "en-US"
 
 # Customize tone so CodeRabbit reviews with clear guidelines for FastStore
 tone_instructions: >
-  Review FastStore PRs focusing on performance, SEO, accessibility, and TypeScript safety. Be concise and actionable.
+  Review FastStore PRs focusing on performance, SEO, accessibility, TypeScript safety, and code readability (clear structure, flat conditionals, meaningful names). Be concise and actionable.
 
 early_access: false
 enable_free_tier: true
@@ -81,7 +81,7 @@ reviews:
           - Consider performance implications of resolvers
           - Type safety with generated types
   
-      - path: "packages/**/*.ts"
+      - path: "packages/**/*.{ts,tsx}"
         instructions: |
           TypeScript files:
           - Ensure type safety and avoid type assertions when possible

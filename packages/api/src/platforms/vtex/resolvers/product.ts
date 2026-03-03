@@ -147,6 +147,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
   },
   sku: ({ itemId }) => itemId,
   gtin: ({ ean, referenceId }) => (ean ? ean : (referenceId[0]?.Value ?? '')),
+  mpn: ({ isVariantOf: { manufacturerCode } }) => manufacturerCode ?? '',
   review: () => [],
   aggregateRating: () => ({}),
   offers: (root) =>
