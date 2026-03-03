@@ -1,6 +1,7 @@
-import { Icon, LinkButton } from '@faststore/ui'
+import { Icon } from '@faststore/ui'
 
 import storeConfig from 'discovery.config'
+import LinkButton from 'src/components/ui/LinkButton'
 import { useSession } from 'src/sdk/session'
 
 const ButtonSignIn = ({
