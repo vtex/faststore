@@ -47,6 +47,10 @@ type StoreProduct {
   """
   gtin: String!
   """
+  Manufacturer Part Number. Identifies the product to its manufacturer.
+  """
+  mpn: String!
+  """
   Array with review information.
   """
   review: [StoreReview!]!

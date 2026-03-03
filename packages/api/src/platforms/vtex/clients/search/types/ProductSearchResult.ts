@@ -94,6 +94,7 @@ export interface Product {
   properties: Array<{ name: string; values: string[] }>
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
+  manufacturerCode?: string
   advertisement?: Advertisement
   deliveryPromisesBadges?: DeliveryPromiseBadge[]
 }

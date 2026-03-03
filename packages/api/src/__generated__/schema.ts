@@ -1520,6 +1520,8 @@ export type StoreProduct = {
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */
   isVariantOf: StoreProductGroup;
+  /** Manufacturer Part Number. Identifies the product to its manufacturer. */
+  mpn: Scalars['String'];
   /** Product name. */
   name: Scalars['String'];
   /** Aggregate offer information. */
