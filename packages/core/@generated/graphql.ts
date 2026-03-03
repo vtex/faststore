@@ -1348,6 +1348,8 @@ export type StoreMarketingData = {
 export type StoreOffer = {
   /** Offer item availability. */
   availability: Scalars['String']['output']
+  /** Whether this offer is a gift (e.g. free promotional item). */
+  isGift: Maybe<Scalars['Boolean']['output']>
   /** Offer item condition. */
   itemCondition: Scalars['String']['output']
   /** Information on the item being offered. */
@@ -3139,6 +3141,7 @@ export type ValidateCartMutationMutation = {
         priceWithTaxes: number
         listPrice: number
         listPriceWithTaxes: number
+        isGift: boolean | null
         seller: { identifier: string }
         itemOffered: {
           sku: string
@@ -3177,6 +3180,7 @@ export type CartItemFragment = {
   priceWithTaxes: number
   listPrice: number
   listPriceWithTaxes: number
+  isGift: boolean | null
   seller: { identifier: string }
   itemOffered: {
     sku: string
@@ -4309,6 +4313,7 @@ export const CartItemFragmentDoc = new TypedDocumentString(
   priceWithTaxes
   listPrice
   listPriceWithTaxes
+  isGift
   itemOffered {
     ...CartProductItem
   }
@@ -4455,7 +4460,7 @@ export const ValidateUserDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: 'c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0',
+    operationHash: '32c15f8888ca34f223def7972b7f19090808435a',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,

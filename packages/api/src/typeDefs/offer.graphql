@@ -50,6 +50,10 @@ type StoreOffer {
   Number of items offered.
   """
   quantity: Int!
+  """
+  Whether this offer is a gift (e.g. free promotional item).
+  """
+  isGift: Boolean
 }
 
 """
