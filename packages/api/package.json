@@ -55,6 +55,7 @@
     "@envelop/graphql-jit": "catalog:",
     "@envelop/parser-cache": "catalog:",
     "@envelop/validation-cache": "catalog:",
+    "@faststore/diagnostics": "workspace:^",
     "@graphql-codegen/cli": "catalog:",
     "@graphql-codegen/typescript": "catalog:",
     "@parcel/watcher": "^2.5.1",
@@ -71,6 +72,7 @@
     "vitest": "^4.0.7"
   },
   "peerDependencies": {
+    "@faststore/diagnostics": "workspace:*",
     "graphql": "catalog:"
   },
   "publishConfig": {

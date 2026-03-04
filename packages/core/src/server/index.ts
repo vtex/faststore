@@ -28,7 +28,7 @@ import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolv
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
 import type { Operation } from '../sdk/graphql/request'
-import { apiOptions } from './options'
+import { apiOptions, withTraceClient } from './options'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operation: Operation
@@ -37,8 +37,6 @@ interface ExecuteOptions<V = Record<string, unknown>> {
 }
 
 const persistedQueries = new Map()
-
-const apiContextFactory = GraphqlVtexContextFactory(apiOptions)
 
 const customFormatError: MaskError = (err) => {
   if (err instanceof GraphQLError && isFastStoreError(err.originalError)) {
@@ -70,8 +68,11 @@ export function getFinalAPISchema() {
   return GraphqlVtexSchema(schema)
 }
 
-export const getEnvelop = async () =>
-  envelop({
+export const getEnvelop = async () => {
+  const options = await withTraceClient(apiOptions)
+  const apiContextFactory = await GraphqlVtexContextFactory(options)
+
+  return envelop({
     plugins: [
       useEngine(GraphQLJS),
       useSchema(getFinalAPISchema()),
@@ -82,6 +83,7 @@ export const getEnvelop = async () =>
       useParserCache(),
     ],
   })
+}
 
 const envelopPromise = getEnvelop()
 
