@@ -5,6 +5,7 @@ import {
   lazy,
   useDeferredValue,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -15,13 +16,17 @@ import { useRouter } from 'next/router'
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
+  FileUploadCard,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
+  useCSVParser,
   useOnClickOutside,
+  type CSVData,
 } from '@faststore/ui'
 
 import type {
+  FileUploadCardProps,
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
@@ -32,11 +37,23 @@ import type { NavbarProps } from 'src/components/sections/Navbar'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
+import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
+import type { UploadFileDropdownLabels } from 'src/components/search/UploadFileDropdown'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
   () => import('src/components/search/SearchDropdown')
+)
+
+const UploadFileDropdown = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "UploadFileDropdown" */
+      'src/components/search/UploadFileDropdown'
+    ).then((mod) => mod.default),
+  { ssr: false }
 )
 
 const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
@@ -53,6 +70,38 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  /** When true, shows the attachment button; can be set from CMS. */
+  showAttachmentButton?: boolean
+  /** Aria-label for the attachment button; can be set from CMS. */
+  attachmentButtonAriaLabel?: string
+  /**
+   * Called when the user clicks Search in the file upload card, with the parsed CSV data.
+   * Use this to run bulk search, add to cart, or analytics.
+   */
+  onFileSearch?: (data: CSVData) => void
+  /**
+   * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
+   */
+  fileUploadCardProps?: {
+    title?: string
+    fileInputAriaLabel?: string
+    dropzoneAriaLabel?: string
+    dropzoneTitle?: string
+    selectFileButtonLabel?: string
+    downloadTemplateButtonLabel?: string
+    removeButtonAriaLabel?: string
+    searchButtonLabel?: string
+    uploadingStatusText?: string
+    getCompletedStatusText?: (fileSize: number) => string
+    errorMessages?: Partial<
+      Record<string, { title: string; description: string }>
+    >
+  }
+  /**
+   * Labels / copy for the UploadFileDropdown (bulk upload modal).
+   * Pass from CMS so all copy is editable.
+   */
+  uploadFileDropdownLabels?: UploadFileDropdownLabels
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -77,12 +126,18 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      showAttachmentButton = true,
+      attachmentButtonAriaLabel,
+      onFileSearch,
+      fileUploadCardProps,
+      uploadFileDropdownLabels,
       ...otherProps
     },
     ref
   ) {
     const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
+    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [
       customSearchDropdownVisibleCondition,
       setCustomSearchDropdownVisibleCondition,
@@ -90,10 +145,28 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
+    const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
+    const [isUploadOpen, setIsUploadOpen] = useState(false)
+    const [hasFile, setHasFile] = useState(false)
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+
+    const [csvData, setCsvData] = useState<CSVData | null>(null)
+
+    const csvParserOptions = useMemo(
+      () => ({ delimiter: ',' as const, skipEmptyLines: true }),
+      []
+    )
+
+    const {
+      error: csvError,
+      isParsing: isCsvProcessing,
+      onParseFile,
+      onClearError,
+      onGenerateTemplate,
+    } = useCSVParser(csvParserOptions)
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -108,9 +181,79 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchDropdownVisible(false)
     }
 
-    useOnClickOutside(searchRef, () =>
+    const handleFileSelect = async (files: File[]) => {
+      if (files.length === 0) return
+
+      setHasFile(true)
+
+      onClearError()
+      const file = files[0]
+
+      const result = await onParseFile(file)
+
+      setIsUploadOpen(true)
+
+      if (result) {
+        setCsvData(result)
+        // TODO: Use the parsed data for bulk search
+      }
+    }
+
+    const handleDownloadTemplate = async () => {
+      try {
+        const csvContent = await onGenerateTemplate()
+
+        if (csvContent) {
+          const blob = new Blob([csvContent], { type: 'text/csv' })
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = 'template.csv'
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+          window.URL.revokeObjectURL(url)
+        }
+      } catch (error) {
+        console.error('Failed to download template:', error)
+      }
+    }
+
+    const handleDismiss = () => {
+      setCsvData(null)
+      setFileUploadVisible(false)
+      setIsUploadModalOpen(false)
+      setHasFile(false)
+      setIsUploadOpen(false)
+      onClearError()
+    }
+
+    const handleSearch = () => {
+      if (!csvData) {
+        return
+      }
+      const payload = {
+        fileName: csvData.fileName,
+        totalRows: csvData.totalRows,
+        fileSize: csvData.fileSize,
+        data: csvData.data,
+      }
+      try {
+        window.dispatchEvent(
+          new CustomEvent('faststore:file-search', { detail: payload })
+        )
+      } catch {
+        // ignore in envs without window
+      }
+      onFileSearch?.(csvData)
+      // TODO: Add integration here
+    }
+
+    useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
-    )
+      setFileUploadVisible(false)
+      setIsUploadModalOpen(false)
+    })
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -152,6 +295,14 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
+              showAttachmentButton={showAttachmentButton}
+              attachmentButtonAriaLabel={attachmentButtonAriaLabel}
+              attachmentButtonProps={{
+                onClick: () => {
+                  setFileUploadVisible(true)
+                  setIsUploadModalOpen(true)
+                },
+              }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
               }
@@ -178,6 +329,29 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                     setCustomSearchDropdownVisibleCondition
                   }
                 />
+              </Suspense>
+            )}
+
+            {fileUploadVisible && (
+              <FileUploadCard
+                {...({
+                  isOpen: isUploadOpen || hasFile || fileUploadVisible,
+                  onDismiss: handleDismiss,
+                  onFileSelect: handleFileSelect,
+                  onDownloadTemplate: handleDownloadTemplate,
+                  formatterFileSize: formatFileSize,
+                  formatterFileName: formatFileName,
+                  onSearch: handleSearch,
+                  isUploading: isCsvProcessing,
+                  hasError: !!csvError,
+                  ...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS),
+                } as FileUploadCardProps)}
+              />
+            )}
+
+            {isUploadModalOpen && (
+              <Suspense fallback={null}>
+                <UploadFileDropdown labels={uploadFileDropdownLabels} />
               </Suspense>
             )}
           </UISearchInput>

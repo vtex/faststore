@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Features
+
+- Re-exported `useCSVParser` hook from `@faststore/components` (see components changelog for details).
+- Re-exported `useFileUpload` hook from `@faststore/components` (see components changelog for details).
+- Re-exported `FileUploadCard` component from `@faststore/components` (see components changelog for details).
+
 # [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
 
 ### Features
