@@ -164,7 +164,6 @@ const FileUploadStatus = ({
             'An unexpected error occurred. Try again or upload a new file.',
         }
     }
-    return { title: '', description: '' }
   }
 
   const getStatusText = (): string => {

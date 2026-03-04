@@ -5,6 +5,7 @@ export type {
   CSVParserError,
   CSVParserOptions,
 } from './hooks/useCSVParser'
+export { FileRejectionCode } from './hooks/useFileUpload'
 // Atoms
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'

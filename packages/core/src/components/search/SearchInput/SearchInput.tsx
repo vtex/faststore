@@ -18,7 +18,7 @@ import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
-  FileUploadErrorType,
+  type FileUploadErrorType,
   QuickOrderDrawer,
   QuickOrderDrawerFooter,
   QuickOrderDrawerHeader,
@@ -100,16 +100,16 @@ export type SearchInputProps = {
    * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
    */
   fileUploadCardProps?: {
-    title: string
-    fileInputAriaLabel: string
-    dropzoneAriaLabel: string
+    title?: string
+    fileInputAriaLabel?: string
+    dropzoneAriaLabel?: string
     dropzoneTitle?: string
     selectFileButtonLabel?: string
     downloadTemplateButtonLabel?: string
     removeButtonAriaLabel?: string
     searchButtonLabel?: string
     uploadingStatusText?: string
-    getCompletedStatusText: (fileSize: number) => string
+    getCompletedStatusText?: (fileSize: number) => string
     errorMessages?: Partial<
       Record<string, { title: string; description: string }>
     >
@@ -213,7 +213,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     ): FileUploadErrorType => {
       if (csvErrorType === 'FILE_ERROR') {
         return 'unreadable'
-            }
+      }
       return 'invalid-structure'
     }
 
@@ -568,6 +568,22 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
             {fileUploadVisible && (
               <FileUploadCard
+                title={
+                  fileUploadCardProps.title ??
+                  DEFAULT_FILE_UPLOAD_CARD_PROPS.title
+                }
+                fileInputAriaLabel={
+                  fileUploadCardProps.fileInputAriaLabel ??
+                  DEFAULT_FILE_UPLOAD_CARD_PROPS.fileInputAriaLabel
+                }
+                dropzoneAriaLabel={
+                  fileUploadCardProps.dropzoneAriaLabel ??
+                  DEFAULT_FILE_UPLOAD_CARD_PROPS.dropzoneAriaLabel
+                }
+                getCompletedStatusText={
+                  fileUploadCardProps.getCompletedStatusText ??
+                  DEFAULT_FILE_UPLOAD_CARD_PROPS.getCompletedStatusText
+                }
                 isOpen={isUploadOpen || hasFile || fileUploadVisible}
                 onDismiss={handleDismiss}
                 onFileSelect={handleFileSelect}

@@ -255,6 +255,7 @@ const parseCSVFile = (
           }
 
           results.data.forEach((row: any, index: number) => {
+            console.log('')
             const globalRowIndex = processedRows + index
             const transformedRow = validateAndTransformRow(row, globalRowIndex)
 
