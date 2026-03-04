@@ -11,6 +11,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - Re-exported `useFileUpload` hook from `@faststore/components` (see components changelog for details).
 - Re-exported `FileUploadCard` component from `@faststore/components` (see components changelog for details).
 
+# [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
+
+### Features
+
+- add mpn (manufacturer code) to product's structured data ([#3234](https://github.com/vtex/faststore/issues/3234)) ([9597e39](https://github.com/vtex/faststore/commit/9597e39a8d63a651b815f90fe3b1ea5409258ca3))
+
+# 3.98.0-dev.1 (2026-02-24)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
+
+### Features
+
+- release version 20260224 ([#3225](https://github.com/vtex/faststore/issues/3225)) ([7a52516](https://github.com/vtex/faststore/commit/7a5251677a8f67066a2e060191b896ae6d0b0d9a))
+
+## [3.97.1](https://github.com/vtex/faststore/compare/v3.97.0...v3.97.1) (2026-02-24)
+
+**Note:** Version bump only for package @faststore/core
+
 # [3.97.0-dev.6](https://github.com/vtex/faststore/compare/v3.97.0-dev.5...v3.97.0-dev.6) (2026-02-19)
 
 ### Bug Fixes
@@ -38,6 +58,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - reorder feature ([#3153](https://github.com/vtex/faststore/issues/3153)) ([d0fdeec](https://github.com/vtex/faststore/commit/d0fdeec77cd94e16f1b79dcc927487320983ba0e))
+
+# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
+
+**Note:** Version bump only for package @faststore/core
 
 # [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
 

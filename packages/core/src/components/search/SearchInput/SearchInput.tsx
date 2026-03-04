@@ -194,6 +194,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onClearError,
       onGenerateTemplate,
     } = csvParser
+
     // Access globalSettings for fileUpload configuration (section and content-type)
     let fileUploadConfig
     try {
@@ -250,18 +251,22 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     }
 
     const handleDownloadTemplate = async () => {
-      const csvContent = await onGenerateTemplate()
+      try {
+        const csvContent = await onGenerateTemplate()
 
-      if (csvContent) {
-        const blob = new Blob([csvContent], { type: 'text/csv' })
-        const url = window.URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = 'template.csv'
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-        window.URL.revokeObjectURL(url)
+        if (csvContent) {
+          const blob = new Blob([csvContent], { type: 'text/csv' })
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = 'template.csv'
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+          window.URL.revokeObjectURL(url)
+        }
+      } catch (error) {
+        console.error('Failed to download template:', error)
       }
     }
 
@@ -528,6 +533,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   />
                 ) : undefined
               }
+              attachmentButtonAriaLabel={attachmentButtonAriaLabel}
               attachmentButtonProps={{
                 onClick: () => {
                   setFileUploadVisible(true)

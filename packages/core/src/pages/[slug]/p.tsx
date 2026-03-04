@@ -208,6 +208,7 @@ function Page({
         brand={product.brand.name}
         sku={product.sku}
         gtin={product.gtin}
+        mpn={product.mpn}
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
@@ -256,6 +257,7 @@ const query = gql(`
 
       sku
       gtin
+      mpn
       name
       description
       releaseDate
