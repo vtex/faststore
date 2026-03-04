@@ -1,6 +1,6 @@
 import {
   FileUploadCard,
-  FileUploadErrorType,
+  type FileUploadErrorType,
   FileUploadStatus,
   FileUploadState,
   SearchInputField,

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, Icon, Input } from '../..'
 import { useOnClickOutside } from '../../hooks'
 import FileUploadStatus, {
-  FileUploadErrorType,
+  type FileUploadErrorType,
   FileUploadState,
 } from '../FileUploadStatus/FileUploadStatus'
 

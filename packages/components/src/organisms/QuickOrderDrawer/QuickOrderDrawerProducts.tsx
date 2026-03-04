@@ -232,7 +232,8 @@ const QuickOrderDrawerProducts = ({
                             quantity: number
                           ) => {
                             const title =
-                              messages?.invalidQuantityTitle ?? 'Invalid quantity!'
+                              messages?.invalidQuantityTitle ??
+                              'Invalid quantity!'
                             const message = messages?.invalidQuantityMessage
                               ? messages.invalidQuantityMessage(
                                   min,

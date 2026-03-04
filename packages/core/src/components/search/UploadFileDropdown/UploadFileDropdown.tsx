@@ -91,8 +91,7 @@ const DEFAULT_LABELS: Required<UploadFileDropdownLabels> = {
   toastDownloadFailedMessage:
     'Failed to download template file. Please try again.',
   toastDownloadSuccessTitle: 'Template Downloaded',
-  toastDownloadSuccessMessage:
-    'Template file has been downloaded successfully',
+  toastDownloadSuccessMessage: 'Template file has been downloaded successfully',
   searchButtonLabel: 'Search',
   selectFileButtonLabel: 'Select File',
   processingButtonLabel: 'Processing...',
