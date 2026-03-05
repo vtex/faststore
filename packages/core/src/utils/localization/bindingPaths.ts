@@ -172,3 +172,99 @@ export function addCustomPathPrefix(
   const queryAndHash = link.slice(pathOnly.length)
   return `${prefix}${pathOnly}${queryAndHash}`
 }
+
+/**
+ * Collects all binding URL paths from the locales config (both locale-code
+ * paths like "/pt-BR" and custom paths like "/europe/it").
+ * Returns deduplicated paths sorted by length descending (most specific first).
+ *
+ * Unlike `getCustomPathsFromBindings`, this does NOT filter out locale-code paths.
+ *
+ * @returns Array of binding path strings sorted longest-first
+ */
+export function collectAllBindingPaths(): string[] {
+  if (!storeConfig.localization?.enabled) {
+    return []
+  }
+
+  const locales = (storeConfig.localization.locales ||
+    {}) as LocalesSettings['locales']
+  const pathSet = new Set<string>()
+
+  for (const localeConfig of Object.values(locales)) {
+    if (!localeConfig?.bindings || !Array.isArray(localeConfig.bindings)) {
+      continue
+    }
+
+    for (const binding of localeConfig.bindings) {
+      if (!binding.url) {
+        continue
+      }
+
+      try {
+        const pathname = new URL(binding.url).pathname.replace(/\/$/, '')
+
+        if (pathname && pathname !== '/') {
+          pathSet.add(pathname)
+        }
+      } catch {
+        console.warn(
+          `[bindingPaths] Skipping invalid binding URL: "${binding.url}"`
+        )
+      }
+    }
+  }
+
+  return Array.from(pathSet).sort((a, b) => b.length - a.length)
+}
+
+/**
+ * Strips the current binding path prefix from `currentPathname`, returning the
+ * remaining "page path" (e.g. "/products/item").
+ *
+ * @param currentPathname - The full browser pathname (e.g., "/pt-BR/products/item")
+ * @returns The page path after stripping the matched prefix, or the full pathname if none matches
+ */
+export function getPagePath(currentPathname: string): string {
+  const pathOnly = getPathOnly(currentPathname)
+  const bindingPaths = collectAllBindingPaths()
+
+  for (const bp of bindingPaths) {
+    if (matchesBindingPath(pathOnly, bp)) {
+      const normalizedBp = bp.replace(/\/$/, '').toLowerCase()
+      const normalizedPath = pathOnly.replace(/\/$/, '').toLowerCase()
+
+      if (normalizedPath === normalizedBp) {
+        return ''
+      }
+
+      const prefixEnd =
+        normalizedPath.indexOf(normalizedBp) === 0 ? bp.length : 0
+
+      return prefixEnd > 0 ? pathOnly.slice(prefixEnd) : pathOnly
+    }
+  }
+
+  return pathOnly
+}
+
+/**
+ * Builds a redirect URL by combining the target binding URL with the current
+ * page path and query string.
+ *
+ * @param bindingUrl - The new binding's base URL (e.g., "http://localhost:3000/en-US")
+ * @param currentUrl - The current page URL path including query string (e.g., "/pt-BR/products/item?color=red")
+ * @returns The full redirect URL preserving the page path and query string
+ */
+export function buildRedirectUrl(
+  bindingUrl: string,
+  currentUrl: string
+): string {
+  const pathOnly = getPathOnly(currentUrl)
+  const suffix = currentUrl.slice(pathOnly.length)
+
+  const pagePath = getPagePath(pathOnly)
+  const baseUrl = bindingUrl.replace(/\/$/, '')
+
+  return `${baseUrl}${pagePath}${suffix}`
+}
