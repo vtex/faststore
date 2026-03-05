@@ -43,7 +43,7 @@ function generateRewriteRules(): RewriteRule[] {
 const rewriteRules = generateRewriteRules()
 const shouldValidateHostname = process.env.NODE_ENV === 'production'
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (!storeConfig.localization?.enabled) {
     return NextResponse.next()
   }
