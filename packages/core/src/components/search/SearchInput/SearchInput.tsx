@@ -498,6 +498,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       testId: buttonTestId,
     }
 
+    const resolvedFileUploadCardProps = {
+      ...DEFAULT_FILE_UPLOAD_CARD_PROPS,
+      ...(fileUploadCardProps ?? {}),
+    }
+
     return (
       <>
         {hidden ? (
@@ -574,21 +579,15 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
             {fileUploadVisible && (
               <FileUploadCard
-                title={
-                  fileUploadCardProps.title ??
-                  DEFAULT_FILE_UPLOAD_CARD_PROPS.title
-                }
+                title={resolvedFileUploadCardProps.title}
                 fileInputAriaLabel={
-                  fileUploadCardProps.fileInputAriaLabel ??
-                  DEFAULT_FILE_UPLOAD_CARD_PROPS.fileInputAriaLabel
+                  resolvedFileUploadCardProps.fileInputAriaLabel
                 }
                 dropzoneAriaLabel={
-                  fileUploadCardProps.dropzoneAriaLabel ??
-                  DEFAULT_FILE_UPLOAD_CARD_PROPS.dropzoneAriaLabel
+                  resolvedFileUploadCardProps.dropzoneAriaLabel
                 }
                 getCompletedStatusText={
-                  fileUploadCardProps.getCompletedStatusText ??
-                  DEFAULT_FILE_UPLOAD_CARD_PROPS.getCompletedStatusText
+                  resolvedFileUploadCardProps.getCompletedStatusText
                 }
                 isOpen={isUploadOpen || hasFile || fileUploadVisible}
                 onDismiss={handleDismiss}
@@ -600,7 +599,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 isUploading={isCsvProcessing || isLoadingProducts}
                 hasError={(!!csvError || noProductsError) && !isLoadingProducts}
                 accept={fileUploadConfig?.acceptedFileTypes ?? '.csv'}
-                {...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS)}
+                {...resolvedFileUploadCardProps}
                 {...(fileUploadConfig?.errorMessages && {
                   errorMessages: {
                     ...(fileUploadCardProps?.errorMessages ??
