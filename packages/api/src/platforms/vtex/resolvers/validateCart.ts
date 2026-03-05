@@ -493,7 +493,7 @@ export const validateCart = async (
     )
   }
 
-  // Continue with marketingData and etag updates
+  // Continue with marketingData, clientPreferencesData (locale), and etag updates.
   updatedOrderForm = await Promise.resolve(updatedOrderForm)
     // update marketingData
     .then((form: OrderForm) => {
@@ -509,6 +509,20 @@ export const validateCart = async (
         })
       }
 
+      return form
+    })
+
+    // update session locale to orderForm clientPreferencesData when there are changes (same pattern as storePreferencesData)
+    .then((form: OrderForm) => {
+      if (locale && form.clientPreferencesData?.locale !== locale) {
+        return commerce.checkout.clientPreferencesData({
+          id: form.orderFormId,
+          clientPreferencesData: {
+            ...form.clientPreferencesData,
+            locale,
+          },
+        })
+      }
       return form
     })
     // update orderForm etag so we know last time we touched this orderForm

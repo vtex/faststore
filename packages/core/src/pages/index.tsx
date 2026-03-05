@@ -15,6 +15,7 @@ import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 type Props = {
   page: PageContentType
@@ -35,6 +36,10 @@ function Page({
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    storeConfig.seo.titleTemplate ??
+    storeConfig.seo.title
 
   const organizationAddress = Object.entries(
     settings?.seo?.organization?.address ?? {}
@@ -48,17 +53,19 @@ function Page({
     {} as Record<string, string>
   )
 
+  const storeUrl = getStoreURL()
+
   return (
     <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
-        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
-        canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
+        titleTemplate={titleTemplate}
+        canonical={settings?.seo?.canonical ?? storeUrl}
         openGraph={{
           type: 'website',
-          url: storeConfig.storeUrl,
+          url: storeUrl,
           title: settings?.seo?.title ?? storeConfig.seo.title,
           description:
             settings?.seo?.description ?? storeConfig.seo.description,
@@ -67,10 +74,10 @@ function Page({
       <SiteLinksSearchBoxJsonLd
         type="WebSite"
         name={settings?.seo?.name ?? storeConfig.seo.name}
-        url={storeConfig.storeUrl}
+        url={storeUrl}
         potentialActions={[
           {
-            target: `${storeConfig.storeUrl}/s/?q`,
+            target: `${storeUrl}/s/?q`,
             queryInput: 'search_term_string',
           },
         ]}
@@ -150,12 +157,12 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   PreviewData
-> = async ({ previewData }) => {
+> = async ({ previewData, locale }) => {
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   let cmsPage = null
@@ -171,10 +178,12 @@ export const getStaticProps: GetStaticProps<
         documentId: cmsPage.documentId,
         versionId: cmsPage.versionId,
         releaseId: cmsPage.releaseId,
+        locale,
       })
     : contentService.getSingleContent<PageContentType>({
         contentType: 'home',
         previewData,
+        locale,
       })
 
   const [

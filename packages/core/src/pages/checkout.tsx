@@ -34,12 +34,18 @@ function Page({ globalSections: globalSectionsProp }: Props) {
     window.location.href = storeConfig.checkoutUrl
   }, [])
 
+  const globalSettingLoading = globalSettings?.loading as { label?: string }
+  const loadingLabel =
+    typeof globalSettingLoading?.label === 'string'
+      ? globalSettingLoading?.label
+      : ''
+
   return (
     <PageProvider context={{ globalSettings }}>
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <div>loading...</div>
+        <div>{loadingLabel}</div>
       </RenderSections>
     </PageProvider>
   )
@@ -49,12 +55,12 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async ({ previewData, locale }) => {
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
   const [globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

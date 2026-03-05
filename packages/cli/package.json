@@ -43,6 +43,7 @@
     "globby": "^15.0.0",
     "oclif": "^4",
     "ora": "5.4.1",
+    "@vtex/faststore-sdk": "0.1.1-canary.3",
     "resolve-pkg": "^3.0.0",
     "prettier": "^3.1.0",
     "@faststore/api": "workspace:*",

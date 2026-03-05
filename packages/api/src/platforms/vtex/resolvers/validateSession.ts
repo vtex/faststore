@@ -89,6 +89,9 @@ export const validateSession = async (
     )
   }
 
+  // Sending the locale to the session, the store-session app will update cultureInfo
+  params.set('locale', oldSession.locale)
+
   const { marketingData: oldMarketingData } = oldSession
 
   const marketingData: StoreMarketingData = {

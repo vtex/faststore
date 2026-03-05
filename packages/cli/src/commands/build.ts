@@ -6,8 +6,10 @@ import fsExtra from 'fs-extra'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
+import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
+import { toggleMiddlewareByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
@@ -79,6 +81,23 @@ export default class Build extends Command {
         (scriptResult.error?.message ?? '')
       )
     }
+
+    // generate-i18n will validate localization config and check if it's enabled
+    scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
+      shell: true,
+      stdio: 'inherit',
+    })
+
+    if (scriptResult.error || scriptResult.status !== 0) {
+      throw (
+        'Error: Unable to run generate-i18n' +
+        (scriptResult.error?.message ?? '')
+      )
+    }
+
+    const config = await getDiscoveryConfig(basePath)
+    const localizationEnabled = config?.localization?.enabled === true
+    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
 
     scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,
