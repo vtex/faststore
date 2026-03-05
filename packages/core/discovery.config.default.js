@@ -31,7 +31,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'brandless',
+    storeId: 'storeframework',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
