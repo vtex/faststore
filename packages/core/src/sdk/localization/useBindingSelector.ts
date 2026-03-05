@@ -163,7 +163,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
     // Redirect to binding URL, preserving the current page path and query string
     window.location.href = buildRedirectUrl(
       binding.url,
-      `${window.location.pathname}${window.location.search}`
+      `${window.location.pathname}${window.location.search}${window.location.hash}`
     )
   }, [localeCode, currencyCode, localizationConfig.locales])
 
