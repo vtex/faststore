@@ -1,0 +1,203 @@
+@layer components {
+  .section {
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Price/styles.scss";
+    @import "@faststore/ui/src/components/molecules/CartItem/styles.scss";
+    @import "@faststore/ui/src/components/molecules/QuantitySelector/styles.scss";
+    @import "@faststore/ui/src/components/molecules/OrderSummary/styles.scss";
+    @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
+    @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
+  }
+}
+
+.fcCartPage {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.fcCartTitle {
+  font-size: var(--fs-text-size-title-page, 1.5rem);
+  font-weight: var(--fs-text-weight-bold, 700);
+  margin-bottom: 1.5rem;
+}
+
+.fcCartLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+
+  @media (min-width: 64rem) {
+    grid-template-columns: 1fr 20rem;
+  }
+}
+
+.fcCartMain {
+  min-width: 0;
+}
+
+.fcCartSidebar {
+  position: sticky;
+  top: 5rem;
+  align-self: start;
+  padding: var(--fs-spacing-3, 1rem);
+  border: var(--fs-border-width, 1px) solid var(--fs-border-color-light, #e8e8e8);
+  border-radius: var(--fs-border-radius, 0.25rem);
+}
+
+// --------------------------------------------------------
+// Cart list
+// --------------------------------------------------------
+
+.fcCartList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2, 0.5rem);
+}
+
+.fcCartListItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2, 0.5rem);
+
+  li {
+    padding: 0;
+    border: none;
+  }
+}
+
+// --------------------------------------------------------
+// Unavailable items
+// --------------------------------------------------------
+
+.fcCartUnavailable {
+  margin-top: var(--fs-spacing-3, 1rem);
+  padding: var(--fs-spacing-3, 1rem);
+  border: 1px solid var(--fs-color-warning-border, #f0c36d);
+  border-radius: var(--fs-border-radius, 0.25rem);
+  background: var(--fs-color-warning-bkg, #fff8e1);
+}
+
+.fcCartUnavailableHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-1, 0.25rem);
+  margin-bottom: var(--fs-spacing-2, 0.5rem);
+  font-size: var(--fs-text-size-body, 0.875rem);
+  font-weight: var(--fs-text-weight-bold, 700);
+}
+
+.fcCartUnavailableList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-spacing-2, 0.5rem);
+}
+
+.fcCartUnavailableItem {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-spacing-2, 0.5rem);
+  opacity: 0.7;
+
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--fs-border-radius, 0.25rem);
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    span {
+      font-size: var(--fs-text-size-body, 0.875rem);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    small {
+      font-size: var(--fs-text-size-legend, 0.75rem);
+      color: var(--fs-color-text-light, #727273);
+    }
+  }
+}
+
+// --------------------------------------------------------
+// Empty cart
+// --------------------------------------------------------
+
+.fcEmptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--fs-spacing-3, 1rem);
+  padding: 4rem 1rem;
+
+  h2 {
+    font-size: var(--fs-text-size-title-section, 1.25rem);
+    font-weight: var(--fs-text-weight-bold, 700);
+  }
+
+  p {
+    color: var(--fs-color-text-light, #727273);
+    max-width: 24rem;
+  }
+}
+
+// --------------------------------------------------------
+// Loading & error states
+// --------------------------------------------------------
+
+.fcCartLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fs-spacing-3, 1rem);
+  padding: 4rem 1rem;
+}
+
+.fcCartSpinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--fs-border-color-light, #e8e8e8);
+  border-top-color: var(--fs-color-primary-text, #004a2f);
+  border-radius: 50%;
+  animation: fc-spin 0.6s linear infinite;
+}
+
+@keyframes fc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fcCartError {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--fs-color-danger-text, #cb4242);
+}
+
+.fcCartAlert {
+  padding: var(--fs-spacing-2, 0.5rem) var(--fs-spacing-3, 1rem);
+  margin-bottom: var(--fs-spacing-3, 1rem);
+  border-radius: var(--fs-border-radius, 0.25rem);
+  background: var(--fs-color-danger-bkg, #fde8e8);
+  color: var(--fs-color-danger-text, #cb4242);
+  font-size: var(--fs-text-size-body, 0.875rem);
+}
