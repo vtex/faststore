@@ -326,10 +326,7 @@ export const getStaticProps: GetStaticProps<
   ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: {
-        locator: [
-          { key: 'slug', value: slug },
-          { key: 'locale', value: locale },
-        ],
+        locator: [{ key: 'slug', value: slug }],
       },
       operation: query,
     }),
