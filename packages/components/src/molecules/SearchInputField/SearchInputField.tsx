@@ -59,6 +59,18 @@ export interface SearchInputFieldProps extends InputProps {
    * Callback function when submitted.
    */
   onSubmit: (value: string) => void
+  /**
+   * Show upload button
+   */
+  showUploadButton?: boolean
+  /**
+   * Props for the upload button inside the input.
+   */
+  buttonUploadProps?: ButtonProps
+  /**
+   * Callback function when upload button is clicked
+   */
+  onUploadClick?: () => void
 }
 
 export interface SearchInputFieldRef {
@@ -81,6 +93,9 @@ const SearchInputField = forwardRef<
     'aria-label': ariaLabel,
     testId = 'fs-search-input',
     buttonProps,
+    showUploadButton = false,
+    buttonUploadProps,
+    onUploadClick,
     ...otherProps
   },
   ref
@@ -131,6 +146,18 @@ const SearchInputField = forwardRef<
 
               <span data-fs-search-input-field-separator />
             </>
+          )}
+
+          {showUploadButton && (
+            <IconButton
+              data-fs-search-input-field-upload-button
+              type="button"
+              onClick={onUploadClick}
+              aria-label="Upload File"
+              icon={<Icon name="Clip" />}
+              size="small"
+              {...buttonUploadProps}
+            />
           )}
 
           <IconButton

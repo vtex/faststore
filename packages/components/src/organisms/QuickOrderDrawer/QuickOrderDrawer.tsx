@@ -1,12 +1,11 @@
 import React, { type PropsWithChildren } from 'react'
 import type { OverlayProps } from '../../atoms/Overlay'
-import type { PriceFormatter } from '../../atoms/Price'
 import { useFadeEffect } from '../../hooks'
 import SlideOver from '../SlideOver/SlideOver'
 
 import {
-  type Product,
   QuickOrderDrawerProvider,
+  type QuickOrderDrawerProviderProps,
 } from './provider/QuickOrderDrawerProvider'
 
 export type QuickOrderDrawerProps = {
@@ -26,37 +25,21 @@ export type QuickOrderDrawerProps = {
   overlayProps?: OverlayProps
 
   /**
-   * Formatter function that transforms the raw price value and render the result.
+   * Props forwarded to the `QuickOrderDrawerProvider` component.
    */
-  formatter?: PriceFormatter
-
-  /**
-   * Initial alert message for CMS configuration
-   */
-  initialAlertMessage?: string
-
-  /**
-   * Initial products for the Quick Order Drawer
-   */
-  initialProducts?: Product[]
+  providerProps?: Omit<QuickOrderDrawerProviderProps, 'children'>
 }
 
 const QuickOrderDrawer = ({
   testId = 'fs-quick-order-drawer',
   isOpen,
   overlayProps,
-  formatter,
-  initialAlertMessage,
-  initialProducts,
+  providerProps,
   children,
 }: PropsWithChildren<QuickOrderDrawerProps>) => {
   const { fade } = useFadeEffect()
   return (
-    <QuickOrderDrawerProvider
-      formatter={formatter}
-      initialAlertMessage={initialAlertMessage}
-      initialProducts={initialProducts}
-    >
+    <QuickOrderDrawerProvider {...providerProps}>
       <SlideOver
         testId={testId}
         fade={fade}

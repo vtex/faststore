@@ -1,6 +1,11 @@
 // Hooks
 export * from './hooks'
-
+export type {
+  CSVData,
+  CSVParserError,
+  CSVParserOptions,
+} from './hooks/useCSVParser'
+export { FileRejectionCode } from './hooks/useFileUpload'
 // Atoms
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
@@ -417,10 +422,13 @@ export {
 } from './organisms/QuickOrderDrawer'
 
 export type {
+  Product,
   QuickOrderDrawerFooterProps,
   QuickOrderDrawerHeaderProps,
   QuickOrderDrawerProductsProps,
   QuickOrderDrawerProps,
+  QuickOrderDrawerProviderProps,
+  VariationProductColumn,
 } from './organisms/QuickOrderDrawer'
 
 export { default as Dropzone } from './molecules/Dropzone'

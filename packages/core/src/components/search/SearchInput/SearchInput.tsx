@@ -4,6 +4,7 @@ import {
   forwardRef,
   lazy,
   useDeferredValue,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -17,28 +18,40 @@ import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
+  type FileUploadErrorType,
+  QuickOrderDrawer,
+  QuickOrderDrawerFooter,
+  QuickOrderDrawerHeader,
+  QuickOrderDrawerProducts,
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
   useCSVParser,
   useOnClickOutside,
-  type CSVData,
+  useUI,
 } from '@faststore/ui'
 
 import type {
   FileUploadCardProps,
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
+  CSVData,
+  Product,
 } from '@faststore/ui'
 
 import type { SearchProviderContextValue } from '@faststore/ui'
 
 import type { NavbarProps } from 'src/components/sections/Navbar'
+import { usePage } from 'src/sdk/overrides/PageProvider'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
 import type { UploadFileDropdownLabels } from 'src/components/search/UploadFileDropdown'
+import { cartStore } from 'src/sdk/cart'
+import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuickOrder'
+import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
+import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
@@ -60,7 +73,6 @@ const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
   /* webpackChunkName: "UISearchInputField" */
   import('@faststore/ui').then((module) => module.SearchInputField)
 )
-
 const MAX_SUGGESTIONS = 5
 
 export type SearchInputProps = {
@@ -72,6 +84,11 @@ export type SearchInputProps = {
   sort?: string
   /** When true, shows the attachment button; can be set from CMS. */
   showAttachmentButton?: boolean
+  /** Icon for the attachment button; can be set from CMS. */
+  attachmentButtonIcon?: {
+    icon: string
+    alt: string
+  }
   /** Aria-label for the attachment button; can be set from CMS. */
   attachmentButtonAriaLabel?: string
   /**
@@ -102,7 +119,7 @@ export type SearchInputProps = {
    * Pass from CMS so all copy is editable.
    */
   uploadFileDropdownLabels?: UploadFileDropdownLabels
-} & Omit<UISearchInputFieldProps, 'onSubmit'>
+} & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
   resetSearchInput: () => void
@@ -126,7 +143,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
-      showAttachmentButton = true,
+      showAttachmentButton = false,
+      attachmentButtonIcon,
       attachmentButtonAriaLabel,
       onFileSearch,
       fileUploadCardProps,
@@ -148,29 +166,54 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const [fileUploadVisible, setFileUploadVisible] = useState<boolean>(false)
     const [isUploadOpen, setIsUploadOpen] = useState(false)
     const [hasFile, setHasFile] = useState(false)
+    const [isQuickOrderDrawerOpen, setIsQuickOrderDrawerOpen] = useState(false)
+    const [quickOrderProducts, setQuickOrderProducts] = useState<Product[]>([])
+    const [noProductsError, setNoProductsError] = useState<boolean>(false)
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+    const priceFormatter = usePriceFormatter()
+    const { pushToast } = useUI()
 
     const [csvData, setCsvData] = useState<CSVData | null>(null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const [skusToFetch, setSkusToFetch] = useState<string[]>([])
+    const [isLoadingWithDelay, setIsLoadingWithDelay] = useState(false)
 
     const csvParserOptions = useMemo(
       () => ({ delimiter: ',' as const, skipEmptyLines: true }),
       []
     )
 
+    const csvParser = useCSVParser(csvParserOptions)
     const {
       error: csvError,
       isParsing: isCsvProcessing,
       onParseFile,
       onClearError,
       onGenerateTemplate,
-    } = useCSVParser(csvParserOptions)
+    } = csvParser
+
+    // Access globalSettings for fileUpload configuration (section and content-type)
+
+    const pageContext = usePage<{ globalSettings?: { fileUpload?: any } }>()
+    const fileUploadConfig =
+      pageContext?.globalSettings?.fileUpload ?? undefined
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
     }))
+
+    // Map CSV parser error types to FileUploadErrorType
+    const mapCSVErrorToFileUploadErrorType = (
+      csvErrorType?: string
+    ): FileUploadErrorType => {
+      if (csvErrorType === 'FILE_ERROR') {
+        return 'unreadable'
+      }
+      return 'invalid-structure'
+    }
 
     const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
       term,
@@ -185,17 +228,22 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (files.length === 0) return
 
       setHasFile(true)
+      setIsUploadOpen(true)
+
+      const file = files[0]
+      setSelectedFile(file)
 
       onClearError()
-      const file = files[0]
+      setCsvData(null)
+      setQuickOrderProducts([])
+      setSkusToFetch([])
+      setIsQuickOrderDrawerOpen(false)
+      setNoProductsError(false)
 
       const result = await onParseFile(file)
 
-      setIsUploadOpen(true)
-
-      if (result) {
+      if (result && result.data && result.data.length > 0) {
         setCsvData(result)
-        // TODO: Use the parsed data for bulk search
       }
     }
 
@@ -221,22 +269,95 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     const handleDismiss = () => {
       setCsvData(null)
+      setSelectedFile(null)
+      setSkusToFetch([])
+      setQuickOrderProducts([])
       setFileUploadVisible(false)
       setIsUploadModalOpen(false)
       setHasFile(false)
       setIsUploadOpen(false)
+      setNoProductsError(false)
       onClearError()
     }
 
-    const handleSearch = () => {
-      if (!csvData) {
+    const handleSearch = async (_file?: File) => {
+      let dataToUse = csvData
+
+      if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
+        const fileToParse = _file || selectedFile
+
+        if (!fileToParse) {
+          pushToast({
+            title: 'No file selected',
+            message: 'Please select a CSV file to search.',
+            status: 'ERROR',
+            icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+          })
+          return
+        }
+
+        try {
+          const parsePromise = onParseFile(fileToParse)
+
+          const timeoutPromise = new Promise<never>((_, reject) => {
+            setTimeout(() => {
+              reject(
+                new Error(
+                  'The file may be too large, corrupted, or the parser may be stuck.'
+                )
+              )
+            }, 30000)
+          })
+
+          const result = (await Promise.race([
+            parsePromise,
+            timeoutPromise,
+          ])) as Awaited<ReturnType<typeof onParseFile>>
+
+          if (result && result.data && result.data.length > 0) {
+            dataToUse = result
+            setCsvData(result)
+          } else {
+            pushToast({
+              title: 'No data found',
+              message:
+                'The CSV file could not be processed or contains no valid data. Please check the file format and try again.',
+              status: 'ERROR',
+              icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+            })
+            return
+          }
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error
+              ? error.message
+              : 'Failed to process the CSV file. Please try again.'
+          pushToast({
+            title: 'File processing error',
+            message: errorMessage,
+            status: 'ERROR',
+            icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+          })
+          return
+        }
+      }
+
+      if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
+        pushToast({
+          title: 'No data available',
+          message:
+            'The CSV file contains no valid data. Please check the file and try again.',
+          status: 'ERROR',
+          icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+        })
         return
       }
+
       const payload = {
-        fileName: csvData.fileName,
-        totalRows: csvData.totalRows,
-        fileSize: csvData.fileSize,
-        data: csvData.data,
+        fileName: dataToUse.fileName,
+        totalRows: dataToUse.totalRows,
+        fileSize: dataToUse.fileSize,
+        data: dataToUse.data,
       }
       try {
         window.dispatchEvent(
@@ -245,9 +366,112 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       } catch {
         // ignore in envs without window
       }
-      onFileSearch?.(csvData)
-      // TODO: Add integration here
+      onFileSearch?.(dataToUse)
+
+      const skus = dataToUse.data.map((item) => item.sku).filter(Boolean)
+
+      if (skus.length === 0) {
+        pushToast({
+          title: 'No valid SKUs found',
+          message:
+            'The CSV file does not contain any valid SKUs. Please check the file format and ensure it has a SKU column.',
+          status: 'ERROR',
+          icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+        })
+        return
+      }
+
+      setQuickOrderProducts([])
+      setNoProductsError(false)
+      setIsLoadingWithDelay(true)
+      // Open drawer immediately to show loading skeleton
+      setIsQuickOrderDrawerOpen(true)
+      setFileUploadVisible(false)
+      setSkusToFetch(skus)
     }
+
+    const { products: fetchedProducts, isLoading: isLoadingProducts } =
+      useBulkProductsQuery(skusToFetch)
+
+    useEffect(() => {
+      if (skusToFetch.length > 0 && isLoadingProducts) {
+        // Clear products and show loading skeleton
+        setQuickOrderProducts([])
+        setIsLoadingWithDelay(true)
+        // Keep drawer open to show loading skeleton
+        setIsQuickOrderDrawerOpen(true)
+        setFileUploadVisible(false)
+        setNoProductsError(false)
+        return
+      }
+
+      if (
+        !isLoadingProducts &&
+        skusToFetch.length > 0 &&
+        csvData &&
+        fetchedProducts.length > 0
+      ) {
+        // Add artificial delay to test loading state
+        setIsLoadingWithDelay(true)
+
+        const timeoutId = setTimeout(() => {
+          const convertedProducts: Product[] = []
+
+          fetchedProducts.forEach((productData) => {
+            if (productData.product && !productData.error) {
+              const csvItem = csvData.data.find(
+                (item) =>
+                  item.sku === productData.sku ||
+                  item.sku?.trim() === productData.sku?.trim()
+              )
+              const requestedQuantity = csvItem?.quantity ?? 1
+
+              const convertedProduct = convertProductToQuickOrder(
+                productData.product,
+                requestedQuantity
+              )
+
+              if (convertedProduct) {
+                convertedProducts.push(convertedProduct)
+              }
+            }
+          })
+
+          setQuickOrderProducts(convertedProducts)
+          setIsLoadingWithDelay(false)
+
+          if (convertedProducts.length > 0) {
+            setIsQuickOrderDrawerOpen(true)
+            setFileUploadVisible(false)
+            setNoProductsError(false)
+          } else {
+            // Keep drawer open to show empty state message
+            setQuickOrderProducts([])
+            setIsQuickOrderDrawerOpen(true)
+            setFileUploadVisible(false)
+            setNoProductsError(true)
+          }
+        }, 2000) // 2 second delay for testing
+
+        return () => {
+          clearTimeout(timeoutId)
+        }
+      }
+
+      if (
+        !isLoadingProducts &&
+        skusToFetch.length > 0 &&
+        csvData &&
+        fetchedProducts.length === 0
+      ) {
+        // Keep drawer open to show empty state message
+        setQuickOrderProducts([])
+        setIsQuickOrderDrawerOpen(true)
+        setFileUploadVisible(false)
+        setNoProductsError(true)
+        setIsLoadingWithDelay(false)
+      }
+    }, [fetchedProducts, skusToFetch, csvData, isLoadingProducts])
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
@@ -269,6 +493,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const buttonProps = {
       onClick: onSearchClick,
       testId: buttonTestId,
+    }
+
+    const resolvedFileUploadCardProps = {
+      ...DEFAULT_FILE_UPLOAD_CARD_PROPS,
+      ...(fileUploadCardProps ?? {}),
     }
 
     return (
@@ -293,15 +522,29 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           >
             <UISearchInputField
               ref={ref}
+              showUploadButton
+              onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
               showAttachmentButton={showAttachmentButton}
+              attachmentButtonIcon={
+                showAttachmentButton && attachmentButtonIcon ? (
+                  <UIIcon
+                    name={attachmentButtonIcon.icon}
+                    aria-label={attachmentButtonIcon.alt}
+                  />
+                ) : undefined
+              }
               attachmentButtonAriaLabel={attachmentButtonAriaLabel}
               attachmentButtonProps={{
                 onClick: () => {
                   setFileUploadVisible(true)
                   setIsUploadModalOpen(true)
                 },
+                'aria-label':
+                  attachmentButtonAriaLabel ??
+                  attachmentButtonIcon?.alt ??
+                  'Attach File',
               }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
@@ -331,21 +574,62 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 />
               </Suspense>
             )}
-
             {fileUploadVisible && (
               <FileUploadCard
-                {...({
-                  isOpen: isUploadOpen || hasFile || fileUploadVisible,
-                  onDismiss: handleDismiss,
-                  onFileSelect: handleFileSelect,
-                  onDownloadTemplate: handleDownloadTemplate,
-                  formatterFileSize: formatFileSize,
-                  formatterFileName: formatFileName,
-                  onSearch: handleSearch,
-                  isUploading: isCsvProcessing,
-                  hasError: !!csvError,
-                  ...(fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS),
-                } as FileUploadCardProps)}
+                title={resolvedFileUploadCardProps.title}
+                fileInputAriaLabel={
+                  resolvedFileUploadCardProps.fileInputAriaLabel
+                }
+                dropzoneAriaLabel={
+                  resolvedFileUploadCardProps.dropzoneAriaLabel
+                }
+                getCompletedStatusText={
+                  resolvedFileUploadCardProps.getCompletedStatusText
+                }
+                isOpen={isUploadOpen || hasFile || fileUploadVisible}
+                onDismiss={handleDismiss}
+                onFileSelect={handleFileSelect}
+                onDownloadTemplate={handleDownloadTemplate}
+                formatterFileSize={formatFileSize}
+                formatterFileName={formatFileName}
+                onSearch={handleSearch}
+                isUploading={isCsvProcessing || isLoadingProducts}
+                hasError={(!!csvError || noProductsError) && !isLoadingProducts}
+                accept={fileUploadConfig?.acceptedFileTypes ?? '.csv'}
+                {...resolvedFileUploadCardProps}
+                {...(fileUploadConfig?.errorMessages && {
+                  errorMessages: {
+                    ...(fileUploadCardProps?.errorMessages ??
+                      DEFAULT_FILE_UPLOAD_CARD_PROPS.errorMessages),
+                    ...fileUploadConfig.errorMessages,
+                  },
+                })}
+                {...(fileUploadConfig?.labels && {
+                  selectFileButtonLabel:
+                    fileUploadConfig.labels.selectFile ??
+                    fileUploadCardProps?.selectFileButtonLabel,
+                  downloadTemplateButtonLabel:
+                    fileUploadConfig.labels.downloadTemplate ??
+                    fileUploadCardProps?.downloadTemplateButtonLabel,
+                  searchButtonLabel:
+                    fileUploadConfig.labels.search ??
+                    fileUploadCardProps?.searchButtonLabel,
+                  removeButtonAriaLabel:
+                    fileUploadConfig.labels.remove ??
+                    fileUploadCardProps?.removeButtonAriaLabel,
+                  uploadingStatusText:
+                    fileUploadConfig.labels.uploading ??
+                    fileUploadCardProps?.uploadingStatusText,
+                  dropzoneTitle:
+                    fileUploadConfig.labels.dropzone ??
+                    fileUploadCardProps?.dropzoneTitle,
+                })}
+                {...((csvError || (noProductsError && !isLoadingProducts)) && {
+                  errorType: noProductsError
+                    ? 'no-products-found'
+                    : mapCSVErrorToFileUploadErrorType(csvError.type),
+                  errorMessage: noProductsError ? undefined : csvError?.message,
+                })}
               />
             )}
 
@@ -356,6 +640,89 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
           </UISearchInput>
         )}
+        <QuickOrderDrawer
+          isOpen={isQuickOrderDrawerOpen}
+          overlayProps={{
+            onClick: () => {
+              setIsQuickOrderDrawerOpen(false)
+              setQuickOrderProducts([])
+              setSkusToFetch([])
+            },
+          }}
+          providerProps={{
+            initialProducts: quickOrderProducts,
+            isLoading: isLoadingProducts || isLoadingWithDelay,
+            totalRequestedSkus: csvData?.data?.length || 0,
+            onAddToCart: (
+              productsToAdd: Product[],
+              totalPrice: number,
+              itemsCount: number
+            ) => {
+              productsToAdd.forEach((product: Product) => {
+                if (
+                  product.selectedCount > 0 &&
+                  product.availability === 'available'
+                ) {
+                  const fetchedProduct = fetchedProducts.find(
+                    (p) => p.product?.sku === product.id
+                  )?.product
+
+                  if (fetchedProduct && fetchedProduct.offers?.offers[0]) {
+                    const offer = fetchedProduct.offers.offers[0]
+
+                    cartStore.addItem({
+                      itemOffered: {
+                        sku: fetchedProduct.sku,
+                        name: fetchedProduct.name,
+                        unitMultiplier: fetchedProduct.unitMultiplier ?? 1,
+                        image: fetchedProduct.image,
+                        brand: fetchedProduct.brand,
+                        isVariantOf: fetchedProduct.isVariantOf,
+                        gtin: fetchedProduct.gtin,
+                        additionalProperty: fetchedProduct.additionalProperty,
+                      },
+                      seller: offer.seller,
+                      quantity: product.selectedCount,
+                      price: product.price,
+                      listPrice: offer.listPrice ?? product.price,
+                      priceWithTaxes: offer.priceWithTaxes ?? product.price,
+                      listPriceWithTaxes:
+                        offer.listPriceWithTaxes ?? product.price,
+                    })
+                  }
+                }
+              })
+
+              setIsQuickOrderDrawerOpen(false)
+            },
+          }}
+        >
+          <QuickOrderDrawerHeader
+            title={
+              selectedFile ? formatFileName(selectedFile.name) : 'Quick Order'
+            }
+            onCloseDrawer={() => {
+              setIsQuickOrderDrawerOpen(false)
+              setQuickOrderProducts([])
+              setSkusToFetch([])
+            }}
+          />
+          <QuickOrderDrawerProducts
+            columns={{
+              name: 'Product Name',
+              availability: {
+                label: 'Availability',
+                stockDisplaySettings: 'showAvailability',
+              },
+              price: 'Price (tax included)',
+              quantity: 'Quantity',
+            }}
+            formatter={(price, variant) => priceFormatter(price)}
+          />
+          <QuickOrderDrawerFooter
+            formatter={(price, variant) => priceFormatter(price)}
+          />
+        </QuickOrderDrawer>
       </>
     )
   }

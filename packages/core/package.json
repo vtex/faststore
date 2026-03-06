@@ -100,7 +100,8 @@
     "sharp": "^0.32.6",
     "style-loader": "^3.3.1",
     "swr": "^2.2.5",
-    "tsx": "^4.6.2"
+    "tsx": "^4.6.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",

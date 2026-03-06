@@ -87,7 +87,7 @@ export function Default() {
       >
         <>
           <QuickOrderDrawerHeader
-            title="order-file.xlsx"
+            title="order-file.csv"
             onCloseDrawer={() => setIsOpen(false)}
           />
           <QuickOrderDrawerProducts columns={columns} messages={messages} />
@@ -140,7 +140,7 @@ export function WithStockQuantity() {
         initialProducts={mockProducts as unknown as any[]}
       >
         <QuickOrderDrawerHeader
-          title="order-file.xlsx"
+          title="order-file.csv"
           onCloseDrawer={() => setIsOpen(false)}
         />
         <QuickOrderDrawerProducts
@@ -165,7 +165,7 @@ export function OpenByDefault() {
         initialProducts={mockProducts as unknown as any[]}
       >
         <QuickOrderDrawerHeader
-          title="order-file.xlsx"
+          title="order-file.csv"
           onCloseDrawer={() => setIsOpen(false)}
         />
         <QuickOrderDrawerProducts columns={columns} messages={messages} />

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, Icon, Input } from '../..'
 import { useOnClickOutside } from '../../hooks'
 import FileUploadStatus, {
-  FileUploadErrorType,
+  type FileUploadErrorType,
   FileUploadState,
 } from '../FileUploadStatus/FileUploadStatus'
 
@@ -47,7 +47,7 @@ export interface FileUploadCardProps
   /**
    * Card title (e.g. from CMS).
    */
-  title: string
+  title?: string
   /**
    * Aria-label for the file input (e.g. from CMS).
    */
@@ -106,6 +106,14 @@ export interface FileUploadCardProps
    * Indicates if there was an error during file upload.
    */
   hasError?: boolean
+  /**
+   * Type of error when hasError is true.
+   */
+  errorType?: FileUploadErrorType
+  /**
+   * Custom error message to display when hasError is true.
+   */
+  errorMessage?: string
 }
 
 const FileUploadCard = ({
@@ -132,6 +140,8 @@ const FileUploadCard = ({
   formatterFileName,
   isUploading = false,
   hasError = false,
+  errorType: errorTypeProp,
+  errorMessage,
   ...otherProps
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -162,6 +172,25 @@ const FileUploadCard = ({
     return () => window.removeEventListener('keydown', handleEscape)
   }, [isOpen, onDismiss])
 
+  useEffect(() => {
+    if (!selectedFile) return
+
+    if (hasError) {
+      setUploadState(FileUploadState.Error)
+      setErrorType(errorTypeProp ?? 'invalid-structure')
+      return
+    }
+
+    if (isUploading) {
+      setUploadState(FileUploadState.Uploading)
+      setErrorType(undefined)
+      return
+    }
+
+    setUploadState(FileUploadState.Completed)
+    setErrorType(undefined)
+  }, [hasError, selectedFile, isUploading, errorTypeProp])
+
   const isValidFileType = (file: File): boolean => {
     const fileName = file.name.toLowerCase()
     const validExtensions = ['.csv']
@@ -174,21 +203,16 @@ const FileUploadCard = ({
       const file = files[0]
       setSelectedFile(file)
 
-      // Validate file type
       if (!isValidFileType(file)) {
         setUploadState(FileUploadState.Error)
-        setErrorType(FileUploadErrorType.Unsupported)
+        setErrorType('unsupported')
         return
       }
 
-      setUploadState(FileUploadState.Uploading)
       setErrorType(undefined)
 
       if (isUploading) {
-        // Simulate upload process
-        setTimeout(() => {
-          setUploadState(FileUploadState.Completed)
-        }, 2000)
+        setUploadState(FileUploadState.Uploading)
       } else {
         setUploadState(FileUploadState.Completed)
       }
@@ -221,20 +245,16 @@ const FileUploadCard = ({
       const file = files[0]
       setSelectedFile(file)
 
-      // Validate file type
       if (!isValidFileType(file)) {
         setUploadState(FileUploadState.Error)
-        setErrorType(FileUploadErrorType.Unsupported)
+        setErrorType('unsupported')
         return
       }
 
-      setUploadState(FileUploadState.Uploading)
       setErrorType(undefined)
 
       if (isUploading) {
-        setTimeout(() => {
-          setUploadState(FileUploadState.Completed)
-        }, 2000)
+        setUploadState(FileUploadState.Uploading)
       } else {
         setUploadState(FileUploadState.Completed)
       }
@@ -246,7 +266,6 @@ const FileUploadCard = ({
   }
 
   const triggerFileInput = () => {
-    // Reset the input value to allow selecting the same file again
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
@@ -257,8 +276,7 @@ const FileUploadCard = ({
     if (onDownloadTemplate) {
       onDownloadTemplate()
     } else {
-      // Default template download
-      const csvContent = 'SKU,Quantity\nAB001,AB100,AB999\n2,5,49'
+      const csvContent = 'SKU,Quantity\nAB001,2\nAB100,5\nAB999,49'
       const blob = new Blob([csvContent], { type: 'text/csv' })
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -287,7 +305,7 @@ const FileUploadCard = ({
   return (
     <Card
       ref={containerRef}
-      title={title}
+      title={title ?? 'File Upload'}
       data-fs-file-upload-card
       data-fs-file-upload-card-open={isOpen}
       data-fs-file-upload-card-has-file={selectedFile !== null}
@@ -309,8 +327,9 @@ const FileUploadCard = ({
         <FileUploadStatus
           file={selectedFile}
           state={uploadState}
-          errorType={errorType}
+          errorType={errorTypeProp ?? errorType}
           errorMessages={errorMessages}
+          errorMessage={errorMessage}
           onRemove={handleRemoveFile}
           onSearch={handleSearch}
           onDownloadTemplate={handleDownloadTemplate}
@@ -322,7 +341,9 @@ const FileUploadCard = ({
           uploadingStatusText={uploadingStatusText}
           completedStatusText={getCompletedStatusText(selectedFile.size)}
           fileName={
-            formatterFileName ? formatterFileName(selectedFile.name) : undefined
+            formatterFileName
+              ? formatterFileName(selectedFile.name)
+              : selectedFile.name
           }
         />
       ) : (

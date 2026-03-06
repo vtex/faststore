@@ -49,5 +49,15 @@
   },
   "dependencies": {
     "axios": "^1.8.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@storybook/builder-webpack5>webpack": "5.97.1",
+      "@storybook/builder-webpack5>esbuild": "0.24.2",
+      "@storybook/nextjs>webpack": "5.97.1",
+      "@storybook/nextjs>esbuild": "0.24.2",
+      "@storybook/nextjs>sass": "1.83.4",
+      "@storybook/nextjs>sass-loader": "14.2.1"
+    }
   }
 }

@@ -2553,6 +2553,7 @@ export type ProductDetailsFragment_ProductFragment = {
       priceWithTaxes: number
       listPrice: number
       listPriceWithTaxes: number
+      quantity: number
       seller: { identifier: string }
     }>
   }
@@ -2751,6 +2752,7 @@ export type ServerProductQueryQuery = {
         priceWithTaxes: number
         listPrice: number
         listPriceWithTaxes: number
+        quantity: number
         seller: { identifier: string }
       }>
     }
@@ -3314,6 +3316,52 @@ export type ClientAllVariantProductsQueryQuery = {
   }
 }
 
+export type ClientProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ClientProductQueryQuery = {
+  product: {
+    sku: string
+    name: string
+    gtin: string
+    description: string
+    unitMultiplier: number | null
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
+      } | null
+    }
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    offers: {
+      lowPrice: number
+      lowPriceWithTaxes: number
+      offers: Array<{
+        availability: string
+        price: number
+        priceWithTaxes: number
+        listPrice: number
+        listPriceWithTaxes: number
+        quantity: number
+        seller: { identifier: string }
+      }>
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+  }
+}
+
 export type ClientManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input']
   after: InputMaybe<Scalars['String']['input']>
@@ -3425,51 +3473,6 @@ export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
   fuzzy: string | null
-}
-
-export type ClientProductQueryQueryVariables = Exact<{
-  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
-}>
-
-export type ClientProductQueryQuery = {
-  product: {
-    sku: string
-    name: string
-    gtin: string
-    description: string
-    unitMultiplier: number | null
-    id: string
-    isVariantOf: {
-      name: string
-      productGroupID: string
-      skuVariants: {
-        activeVariations: any | null
-        slugsMap: any | null
-        availableVariations: any | null
-        allVariantProducts: Array<{ name: string; productID: string }> | null
-      } | null
-    }
-    image: Array<{ url: string; alternateName: string }>
-    brand: { name: string }
-    offers: {
-      lowPrice: number
-      lowPriceWithTaxes: number
-      offers: Array<{
-        availability: string
-        price: number
-        priceWithTaxes: number
-        listPrice: number
-        listPriceWithTaxes: number
-        seller: { identifier: string }
-      }>
-    }
-    additionalProperty: Array<{
-      propertyID: string
-      name: string
-      value: any
-      valueReference: any
-    }>
-  }
 }
 
 export type ClientManyProductsSelectedQueryQueryVariables = Exact<{
@@ -3786,13 +3789,19 @@ export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
 {
-  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType']
+  __apiType?: NonNullable<
+    DocumentTypeDecoration<TResult, TVariables>['__apiType']
+  >
+  private value: string
+  public __meta__?: Record<string, any> | undefined
 
-  constructor(private value: string, public __meta__?: Record<string, any>) {
+  constructor(value: string, __meta__?: Record<string, any> | undefined) {
     super(value)
+    this.value = value
+    this.__meta__ = __meta__
   }
 
-  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+  override toString(): string & DocumentTypeDecoration<TResult, TVariables> {
     return this.value
   }
 }
@@ -3975,6 +3984,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       priceWithTaxes
       listPrice
       listPriceWithTaxes
+      quantity
       seller {
         identifier
       }
@@ -4374,7 +4384,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'b0491eb0c42122063e67e607b07d0c2df363e8ed',
+    operationHash: 'f03d0963fed159ac4bbe11f90ea09c635a66b68c',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -4497,6 +4507,15 @@ export const ClientAllVariantProductsQueryDocument = {
   ClientAllVariantProductsQueryQuery,
   ClientAllVariantProductsQueryQueryVariables
 >
+export const ClientProductQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProductQuery',
+    operationHash: '3d65d8f0d279557542be9a361cb3ceb2008bad45',
+  },
+} as unknown as TypedDocumentString<
+  ClientProductQueryQuery,
+  ClientProductQueryQueryVariables
+>
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
@@ -4514,15 +4533,6 @@ export const ClientProductGalleryQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
   ClientProductGalleryQueryQueryVariables
->
-export const ClientProductQueryDocument = {
-  __meta__: {
-    operationName: 'ClientProductQuery',
-    operationHash: '47aa22eb750cb2c529e5eeafb921bfeadb67db71',
-  },
-} as unknown as TypedDocumentString<
-  ClientProductQueryQuery,
-  ClientProductQueryQueryVariables
 >
 export const ClientManyProductsSelectedQueryDocument = {
   __meta__: {
