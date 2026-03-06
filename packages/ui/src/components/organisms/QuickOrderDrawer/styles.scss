@@ -17,10 +17,22 @@
   // Aliases for backward compatibility
   --fs-quick-order-drawer-width: var(--fs-qod-width);
   --fs-quick-order-drawer-primary-text-color: var(--fs-qod-primary-text-color);
-  --fs-quick-order-drawer-secondary-text-color: var(--fs-qod-secondary-text-color);
-  --fs-quick-order-drawer-badge-success-bkg-color: var(--fs-qod-badge-success-bkg-color);
-  --fs-quick-order-drawer-badge-warning-bkg-color: var(--fs-qod-badge-warning-bkg-color);
-  --fs-quick-order-drawer-neutral-border-color: var(--fs-qod-neutral-border-color);
+  --fs-quick-order-drawer-secondary-text-color:
+    var(
+      --fs-qod-secondary-text-color
+    );
+  --fs-quick-order-drawer-badge-success-bkg-color:
+    var(
+      --fs-qod-badge-success-bkg-color
+    );
+  --fs-quick-order-drawer-badge-warning-bkg-color:
+    var(
+      --fs-qod-badge-warning-bkg-color
+    );
+  --fs-quick-order-drawer-neutral-border-color:
+    var(
+      --fs-qod-neutral-border-color
+    );
 
   display: flex;
   flex-direction: column;
@@ -65,7 +77,8 @@
 
   [data-fs-quick-order-drawer-header] {
     flex-shrink: 0;
-    padding: var(--fs-spacing-4) var(--fs-spacing-4) var(--fs-spacing-4)
+    padding:
+      var(--fs-spacing-4) var(--fs-spacing-4) var(--fs-spacing-4)
       var(--fs-spacing-11);
     border-bottom:
       var(--fs-border-width) solid
@@ -108,7 +121,7 @@
         height: var(--fs-spacing-4);
         overflow: visible;
         color: var(--fs-color-neutral-0);
-        fill: currentColor;
+        fill: currentcolor;
       }
     }
 
@@ -262,17 +275,19 @@
         color: var(--fs-badge-success-text-color);
 
         [data-fs-badge-wrapper] {
-          background-color: var(
-            --fs-quick-order-drawer-badge-success-bkg-color
-          );
+          background-color:
+            var(
+              --fs-quick-order-drawer-badge-success-bkg-color
+            );
         }
       }
 
       [data-fs-badge-variant="warning"] {
         [data-fs-badge-wrapper] {
-          background-color: var(
-            --fs-quick-order-drawer-badge-warning-bkg-color
-          );
+          background-color:
+            var(
+              --fs-quick-order-drawer-badge-warning-bkg-color
+            );
         }
       }
 

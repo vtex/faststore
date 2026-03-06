@@ -123,11 +123,11 @@ const QuickOrderDrawerProducts = ({
           <TableBody>
             {showSkeleton ? (
               <>
-                {Array.from({ length: 4 }).map((_, index) => {
+                {Array.from({ length: 5 }).map((_, index) => {
                   return (
                     <TableRow key={`table-row-skeleton-${index}`}>
                       {Array.from({
-                        length: 4,
+                        length: 5,
                       }).map((_, cellIndex) => {
                         return (
                           <TableCell key={`table-cell-skeleton-${cellIndex}`}>

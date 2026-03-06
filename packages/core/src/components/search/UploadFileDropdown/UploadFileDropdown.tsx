@@ -168,6 +168,7 @@ const parseXLSXFile = async (file: File): Promise<CSVData> => {
           )
         }
 
+        const errors: string[] = []
         const transformedData = rows
           .filter(
             (row) =>
@@ -176,21 +177,33 @@ const parseXLSXFile = async (file: File): Promise<CSVData> => {
               row[quantityIndex] !== undefined &&
               row[quantityIndex] !== ''
           )
-          .map((row) => {
-            const sku = String(row[skuIndex]).trim()
-            const quantity = Number(row[quantityIndex])
+          .reduce<Array<{ sku: string; quantity: number }>>(
+            (acc, row, index) => {
+              const sku = String(row[skuIndex]).trim()
+              const quantity = Number(row[quantityIndex])
 
-            if (isNaN(quantity) || quantity < 0) {
-              throw new Error(
-                `Invalid quantity value: ${row[quantityIndex]} for SKU: ${sku}`
-              )
-            }
+              if (isNaN(quantity) || quantity < 0) {
+                errors.push(
+                  `Invalid quantity value: ${row[quantityIndex]} for SKU: ${sku}`
+                )
+                return acc
+              }
 
-            return { sku, quantity }
-          })
+              acc.push({ sku, quantity })
+              return acc
+            },
+            []
+          )
 
         if (transformedData.length === 0) {
           throw new Error('No valid data found. Please check your file format.')
+        }
+
+        if (errors.length > 0) {
+          console.warn(
+            `Parsing completed with ${errors.length} warnings. Sample:`,
+            errors.slice(0, 10)
+          )
         }
 
         resolve({

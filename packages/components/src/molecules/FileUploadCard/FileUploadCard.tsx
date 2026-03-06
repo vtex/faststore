@@ -173,13 +173,22 @@ const FileUploadCard = ({
   }, [isOpen, onDismiss])
 
   useEffect(() => {
-    if (hasError && selectedFile) {
+    if (!selectedFile) return
+
+    if (hasError) {
       setUploadState(FileUploadState.Error)
       setErrorType(errorTypeProp ?? 'invalid-structure')
-    } else if (!hasError && selectedFile && !isUploading) {
-      setUploadState(FileUploadState.Completed)
-      setErrorType(undefined)
+      return
     }
+
+    if (isUploading) {
+      setUploadState(FileUploadState.Uploading)
+      setErrorType(undefined)
+      return
+    }
+
+    setUploadState(FileUploadState.Completed)
+    setErrorType(undefined)
   }, [hasError, selectedFile, isUploading, errorTypeProp])
 
   const isValidFileType = (file: File): boolean => {

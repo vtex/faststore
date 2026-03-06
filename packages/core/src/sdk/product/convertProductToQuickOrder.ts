@@ -71,7 +71,7 @@ export const convertProductToQuickOrder = (
     price: offer.price,
     quantityUpdated,
     image: {
-      url: product.image[0]?.url || '',
+      url: product.image[0]?.url ?? '',
       alternateName: product.image[0]?.alternateName || product.name,
     },
     inventory,

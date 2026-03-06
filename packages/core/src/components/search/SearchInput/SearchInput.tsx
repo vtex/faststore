@@ -196,13 +196,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     } = csvParser
 
     // Access globalSettings for fileUpload configuration (section and content-type)
-    let fileUploadConfig
-    try {
-      const pageContext = usePage<{ globalSettings?: { fileUpload?: any } }>()
-      fileUploadConfig = pageContext?.globalSettings?.fileUpload
-    } catch {
-      fileUploadConfig = undefined
-    }
+
+    const pageContext = usePage<{ globalSettings?: { fileUpload?: any } }>()
+    const fileUploadConfig =
+      pageContext?.globalSettings?.fileUpload ?? undefined
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
