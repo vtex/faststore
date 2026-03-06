@@ -221,7 +221,7 @@ export function useDeliveryPromise({
       values: [
         {
           value: 'true',
-          label: deliveryPromiseSettings?.inStock?.label ?? 'In-stock only',
+          label: deliveryPromiseSettings?.inStock?.label ?? '',
           selected: selectedFacets.some(
             ({ key, value }) => key === IN_STOCK_FACET_KEY && value === 'true'
           ),
@@ -236,9 +236,7 @@ export function useDeliveryPromise({
     () => [
       {
         value: ALL_DELIVERY_METHODS_FACET_VALUE,
-        label:
-          deliveryPromiseSettings?.deliveryMethods?.allDeliveryMethods ??
-          'All delivery methods',
+        label: deliveryPromiseSettings?.deliveryMethods?.allDeliveryMethods,
         selected:
           !selectedFacets.some(({ key }) => key === SHIPPING_FACET_KEY) ||
           selectedFacets?.some(
@@ -250,9 +248,7 @@ export function useDeliveryPromise({
       },
       {
         value: ALL_DELIVERY_OPTIONS_FACET_VALUE,
-        label:
-          deliveryPromiseSettings?.deliveryOptions?.allDeliveryOptions ??
-          'All delivery options',
+        label: deliveryPromiseSettings?.deliveryOptions?.allDeliveryOptions,
         selected:
           !selectedFacets.some(
             ({ key }) => key === DELIVERY_OPTIONS_FACET_KEY
@@ -468,12 +464,10 @@ export function useDeliveryPromise({
   )
 
   const labelsMap = {
-    [SHIPPING_FACET_KEY]:
-      deliveryPromiseSettings?.deliveryMethods?.title ?? 'Delivery',
+    [SHIPPING_FACET_KEY]: deliveryPromiseSettings?.deliveryMethods?.title,
     [DELIVERY_OPTIONS_FACET_KEY]:
-      deliveryPromiseSettings?.deliveryOptions?.title ?? 'Delivery Option',
-    [IN_STOCK_FACET_KEY]:
-      deliveryPromiseSettings?.inStock?.title ?? 'Availability',
+      deliveryPromiseSettings?.deliveryOptions?.title,
+    [IN_STOCK_FACET_KEY]: deliveryPromiseSettings?.inStock?.title,
   }
 
   function getBadgeLabel(value: DeliveryType, isAvailable: boolean) {
@@ -483,19 +477,17 @@ export function useDeliveryPromise({
     > = {
       delivery: {
         available:
-          deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ??
-          'Available for shipping',
+          deliveryPromiseSettings?.deliveryPromiseBadges?.delivery ?? '',
         unavailable:
           deliveryPromiseSettings?.deliveryPromiseBadges?.deliveryUnavailable ??
-          'Unavailable for shipping',
+          '',
       },
       'pickup-in-point': {
         available:
-          deliveryPromiseSettings?.deliveryPromiseBadges?.pickupInPoint ??
-          'Available for pickup',
+          deliveryPromiseSettings?.deliveryPromiseBadges?.pickupInPoint ?? '',
         unavailable:
           deliveryPromiseSettings?.deliveryPromiseBadges
-            ?.pickupInPointUnavailable ?? 'Unavailable for pickup',
+            ?.pickupInPointUnavailable ?? '',
       },
     }
 

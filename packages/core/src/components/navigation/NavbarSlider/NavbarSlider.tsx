@@ -5,6 +5,7 @@ import storeConfig from 'discovery.config'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
+import LocalizationButton from 'src/components/ui/LocalizationButton'
 import Logo from 'src/components/ui/Logo'
 
 import type { NavbarProps } from '../Navbar'
@@ -20,12 +21,16 @@ interface NavbarSliderProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
+  localizationButton?: NavbarProps['localizationButton']
+  localizationSelector?: NavbarProps['localizationSelector']
 }
 
 function NavbarSlider({
   logo,
   links,
   region,
+  localizationButton,
+  localizationSelector,
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
@@ -45,8 +50,11 @@ function NavbarSlider({
     storeConfig.experimental?.enableFaststoreMyAccount
 
   const isRepresentative = b2b?.isRepresentative
-
   const isOrganizationEnabled = isFaststoreMyAccountEnabled && isRepresentative
+
+  const isLocalizationEnabled =
+    storeConfig.localization?.enabled &&
+    localizationButton?.shouldDisplayLocalizationButton
 
   return (
     <NavbarSliderWrapper.Component
@@ -92,6 +100,16 @@ function NavbarSlider({
             />
           )}
         </Suspense>
+        {isLocalizationEnabled && (
+          <LocalizationButton
+            icon={localizationButton?.icon}
+            title={localizationSelector?.title}
+            languageLabel={localizationSelector?.languageLabel}
+            currencyLabel={localizationSelector?.currencyLabel}
+            description={localizationSelector?.description}
+            saveLabel={localizationSelector?.saveLabel}
+          />
+        )}
       </NavbarSliderFooter.Component>
     </NavbarSliderWrapper.Component>
   )

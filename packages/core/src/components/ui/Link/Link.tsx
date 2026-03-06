@@ -5,6 +5,8 @@ import type { LinkProps as FrameworkLinkProps } from 'next/link'
 import { Link as UILink } from '@faststore/ui'
 import type { LinkProps as UILinkProps, LinkElementType } from '@faststore/ui'
 
+import { useLink } from 'src/sdk/ui/useLink'
+
 export type LinkProps<T extends LinkElementType = 'a'> = UILinkProps<T> &
   FrameworkLinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement>
@@ -15,9 +17,16 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
   { href, inverse, children, variant = 'default', ...otherProps }: LinkProps<T>,
   ref: Ref<HTMLAnchorElement>
 ) {
+  const { resolveLink } = useLink()
+
   const isInternalLink = useMemo(
     () => href[0] === '/' && href[1] !== '/',
     [href]
+  )
+
+  const finalHref = useMemo(
+    () => (isInternalLink ? (resolveLink(href) ?? href) : href),
+    [href, isInternalLink, resolveLink]
   )
 
   if (isInternalLink) {
@@ -28,7 +37,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
         variant={variant}
         inverse={inverse}
         passHref
-        href={href}
+        href={finalHref}
         legacyBehavior={false}
         {...otherProps}
       >

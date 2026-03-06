@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-tiles] {
   // --------------------------------------------------------
   // Design Tokens for Tiles
@@ -20,11 +22,11 @@
   row-gap: var(--fs-tiles-gap-mobile);
   column-gap: var(--fs-tiles-gap-mobile);
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  @include media(">=notebook") { column-gap: var(--fs-tiles-gap-notebook); }
+  @include utilities.media(">=notebook") { column-gap: var(--fs-tiles-gap-notebook); }
 
   [data-fs-tile] {
     min-width: var(--fs-tiles-tile-min-width);
@@ -33,13 +35,13 @@
       overflow: hidden;
       border-radius: var(--fs-tiles-tile-border-radius);
 
-      @include media(">=tablet") {
+      @include utilities.media(">=tablet") {
         display: grid;
         grid-auto-rows: 62% auto;
         [data-fs-product-card-image] { height: 100%; }
       }
 
-      @include media(">=notebook") { grid-auto-rows: 80% auto; }
+      @include utilities.media(">=notebook") { grid-auto-rows: 80% auto; }
     }
   }
 

@@ -40,6 +40,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -101,7 +102,10 @@ function Page({
 
   // SEO data
   const title = meta?.title ?? storeSeo.title
-  const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    pdpSeo?.titleTemplate ??
+    storeSeo.titleTemplate
   const description =
     meta?.description ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
@@ -122,7 +126,7 @@ function Page({
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = getStoreURL() + pathname
 
         return { name, position, item: pageUrl }
       }
@@ -305,14 +309,14 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string },
   PreviewData
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, locale }) => {
   const slug = params?.slug ?? ''
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(previewData, locale)
 
   const [
     searchResult,
@@ -321,7 +325,12 @@ export const getStaticProps: GetStaticProps<
     globalSectionsFooter,
   ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
-      variables: { locator: [{ key: 'slug', value: slug }] },
+      variables: {
+        // Workaround until i18n slugs are fixed with Intelligent Search and Catalog.
+        // With locale, breadcrumbList returns translated slugs that lead to 404s.
+        // locator: [{ key: 'slug', value: slug }, { key: 'locale', value: locale }],
+        locator: [{ key: 'slug', value: slug }],
+      },
       operation: query,
     }),
     globalSectionsPromise,
@@ -359,13 +368,14 @@ export const getStaticProps: GetStaticProps<
     {
       previewData,
       slug,
+      locale,
     }
   )
 
   const { seo } = data.product
   const title = seo.title
   const description = seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
+  const canonical = `${getStoreURL()}${seo.canonical}`
 
   const meta = { title, description, canonical }
 

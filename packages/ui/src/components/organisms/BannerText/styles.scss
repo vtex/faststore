@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-banner-text] {
   // --------------------------------------------------------
   // Design Tokens for Banner Text
@@ -53,7 +55,8 @@
     justify-content: center;
     height: 100%;
     padding: var(--fs-banner-text-padding-mobile);
-    @include media(">=notebook") {
+
+    @include utilities.media(">=notebook") {
       padding: var(--fs-banner-text-padding-desktop);
     }
   }
@@ -73,7 +76,7 @@
       font-weight: var(--fs-banner-text-title-weight);
       line-height: var(--fs-banner-text-title-line-height);
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         display: block;
         font-size: var(--fs-banner-text-primary-title-size);
       }
@@ -87,7 +90,7 @@
       font-weight: var(--fs-banner-text-title-weight);
       line-height: var(--fs-banner-text-title-line-height);
 
-      @include media(">=notebook") { display: block; }
+      @include utilities.media(">=notebook") { display: block; }
     }
 
     p {

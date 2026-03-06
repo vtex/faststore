@@ -3,6 +3,7 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useCallback } from 'react'
 import type { AnalyticsItem, SearchSelectItemEvent } from '../analytics/types'
 import { useSession } from '../session'
+import { useLink } from '../ui/useLink'
 
 export type ProductLinkOptions = {
   index: number
@@ -15,6 +16,7 @@ export const useProductLink = ({
   product,
   selectedOffer,
 }: ProductLinkOptions) => {
+  const { resolveLink } = useLink()
   const { slug } = product
   const {
     currency: { code },
@@ -61,7 +63,7 @@ export const useProductLink = ({
   }, [code, product, index, selectedOffer])
 
   return {
-    href: `/${slug}/p`,
+    href: resolveLink(`/${slug}/p`) ?? `/${slug}/p`,
     onClick,
     'data-testid': 'product-link',
   }

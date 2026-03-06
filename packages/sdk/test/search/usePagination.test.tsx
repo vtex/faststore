@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react'
 import React, { type PropsWithChildren } from 'react'
+import { expect, test } from 'vitest'
 
 import { initSearchState, SearchProvider, usePagination } from '../../src'
 import { useSearchState } from '../../src/search/globalState/useSearchState'

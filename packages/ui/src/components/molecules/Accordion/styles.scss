@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-accordion] {
   // --------------------------------------------------------
   // Design Tokens for Accordion
@@ -30,7 +32,7 @@
   [data-fs-accordion-item] {
     border-bottom: var(--fs-accordion-item-border-bottom-width) solid var(--fs-accordion-item-border-bottom-color);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       &:last-child {
         border-bottom: 0;
       }

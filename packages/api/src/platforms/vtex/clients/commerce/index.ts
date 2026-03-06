@@ -14,7 +14,7 @@ import {
   type UserOrderCancel,
   type UserOrderListResult,
 } from '../../../..'
-import type { Context, Options } from '../../index'
+import type { GraphqlContext } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
@@ -27,7 +27,11 @@ import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
-import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type {
+  ClientPreferencesData,
+  OrderForm,
+  OrderFormInputItem,
+} from './types/OrderForm'
 import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
@@ -54,7 +58,7 @@ const BASE_INIT = {
 
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
-  ctx: Context
+  ctx: GraphqlContext
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
@@ -214,6 +218,28 @@ export const VtexCommerce = (
           {
             headers,
             body: JSON.stringify(marketingData),
+            method: 'POST',
+          },
+          { storeCookies }
+        )
+      },
+      clientPreferencesData: ({
+        id,
+        clientPreferencesData,
+      }: {
+        id: string
+        clientPreferencesData: ClientPreferencesData
+      }): Promise<OrderForm> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/attachments/clientPreferencesData`,
+          {
+            headers,
+            body: JSON.stringify(clientPreferencesData),
             method: 'POST',
           },
           { storeCookies }

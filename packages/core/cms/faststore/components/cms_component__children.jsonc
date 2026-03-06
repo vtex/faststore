@@ -4,5 +4,9 @@
   "$componentTitle": "Children",
   "title": "Children",
   "type": "object",
-  "properties": {}
+  "properties": {},
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

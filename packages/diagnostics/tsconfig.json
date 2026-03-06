@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist/esm",
+    "resolveJsonModule": true,
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*", "@types/**/*"]
+}

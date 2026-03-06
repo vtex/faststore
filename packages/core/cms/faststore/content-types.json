@@ -44,6 +44,11 @@
                       "type": "string",
                       "default": "Try using a different postal code.",
                       "description": "This message will guide user in case of an error."
+                    },
+                    "loadingLabel": {
+                      "title": "Loading Label",
+                      "type": "string",
+                      "default": "..."
                     }
                   }
                 },
@@ -312,6 +317,57 @@
                 }
               }
             }
+          },
+          {
+            "name": "filters",
+            "schema": {
+              "title": "Filters",
+              "description": "Filter configurations for PLP/Search pages",
+              "type": "object",
+              "properties": {
+                "filterFacetRange": {
+                  "title": "PLP/Search Filter: Range Facet",
+                  "type": "object",
+                  "properties": {
+                    "minLabel": {
+                      "title": "Minimum value label",
+                      "type": "string",
+                      "default": "Min"
+                    },
+                    "maxLabel": {
+                      "title": "Maximum value label",
+                      "type": "string",
+                      "default": "Max"
+                    },
+                    "minPriceErrorMessage": {
+                      "title": "Error message for the minimum price input field",
+                      "type": "string",
+                      "default": "Min price can't be greater than max"
+                    },
+                    "maxPriceErrorMessage": {
+                      "title": "Error message for the maximum price input field",
+                      "type": "string",
+                      "default": "Max price can't be smaller than min"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "loading",
+            "schema": {
+              "title": "Loading",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Loading Label",
+                  "description": "Default loading message label",
+                  "type": "string",
+                  "default": "Loading..."
+                }
+              }
+            }
           }
         ]
       }
@@ -341,6 +397,15 @@
         "name": "Settings",
         "configurations": [
           {
+            "name": "slug",
+            "schema": {
+              "type": "string",
+              "widget": {
+                "ui:widget": "slug"
+              }
+            }
+          },
+          {
             "name": "seo",
             "schema": {
               "title": "SEO",
@@ -361,6 +426,12 @@
                   "description": "Display this title when no other tile is available.",
                   "type": "string",
                   "default": "FastStore Starter"
+                },
+                "titleTemplate": {
+                  "title": "Default page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore"
                 },
                 "description": {
                   "title": "Meta tag description",
@@ -408,6 +479,12 @@
                   "description": "Display this title when no other tile is available",
                   "type": "string",
                   "default": "FastStore Starter"
+                },
+                "titleTemplate": {
+                  "title": "Default page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore"
                 },
                 "description": {
                   "title": "Meta tag description",
@@ -565,6 +642,12 @@
                 "ui:ObjectFieldTemplate": "GoogleSeoPreview"
               },
               "properties": {
+                "titleTemplate": {
+                  "title": "PDP page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore PDP"
+                },
                 "id": {
                   "title": "ID",
                   "description": "A unique identifier used to reference the product page. This is a descriptive value (e.g., `#product`) that will be concatenated with the product path (example of the result: `/product-slug/p#product`).",
@@ -590,6 +673,22 @@
       {
         "name": "Settings",
         "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "properties": {
+                "titleTemplate": {
+                  "title": "PLP page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | FastStore PLP"
+                }
+              }
+            }
+          },
           {
             "name": "template",
             "schema": {
@@ -658,6 +757,22 @@
       {
         "name": "Settings",
         "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "properties": {
+                "titleTemplate": {
+                  "title": "Default page title template",
+                  "description": "Template applied to the page title. Use %s to reference the page title.",
+                  "type": "string",
+                  "default": "%s | Search results"
+                }
+              }
+            }
+          },
           {
             "name": "productGallery",
             "schema": {

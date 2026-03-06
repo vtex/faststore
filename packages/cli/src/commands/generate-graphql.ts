@@ -1,24 +1,26 @@
-import { Command, Flags } from '@oclif/core'
+import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { existsSync } from 'fs-extra'
+import fsExtra from 'fs-extra'
 
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
 
+const { existsSync } = fsExtra
+
 export default class GenerateGraphql extends Command {
   static flags = {
     core: Flags.boolean({ char: 'c', hidden: true }),
   }
 
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore GraphQL customization is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { flags, args } = await this.parse(GenerateGraphql)
@@ -28,7 +30,7 @@ export default class GenerateGraphql extends Command {
 
     const isCore = flags.core ?? false
 
-    const packageManager = getPreferredPackageManager()
+    const packageManager = await getPreferredPackageManager()
 
     if (!isCore && !existsSync(tmpDir)) {
       logger.log(
