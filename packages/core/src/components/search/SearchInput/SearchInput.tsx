@@ -179,6 +179,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const [csvData, setCsvData] = useState<CSVData | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [skusToFetch, setSkusToFetch] = useState<string[]>([])
+    const [skuQuantityMap, setSkuQuantityMap] = useState<
+      Record<string, number>
+    >({})
     const [isLoadingWithDelay, setIsLoadingWithDelay] = useState(false)
 
     const csvParserOptions = useMemo(
@@ -237,6 +240,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setCsvData(null)
       setQuickOrderProducts([])
       setSkusToFetch([])
+      setSkuQuantityMap({})
       setIsQuickOrderDrawerOpen(false)
       setNoProductsError(false)
 
@@ -271,6 +275,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setCsvData(null)
       setSelectedFile(null)
       setSkusToFetch([])
+      setSkuQuantityMap({})
       setQuickOrderProducts([])
       setFileUploadVisible(false)
       setIsUploadModalOpen(false)
@@ -368,9 +373,15 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       }
       onFileSearch?.(dataToUse)
 
-      const skus = dataToUse.data.map((item) => item.sku).filter(Boolean)
+      const map: Record<string, number> = {}
+      for (const item of dataToUse.data) {
+        const sku = item.sku?.trim()
+        if (!sku) continue
+        map[sku] = (map[sku] ?? 0) + (item.quantity ?? 1)
+      }
+      const uniqueSkus = Object.keys(map)
 
-      if (skus.length === 0) {
+      if (uniqueSkus.length === 0) {
         pushToast({
           title: 'No valid SKUs found',
           message:
@@ -384,10 +395,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setQuickOrderProducts([])
       setNoProductsError(false)
       setIsLoadingWithDelay(true)
+      setSkuQuantityMap(map)
       // Open drawer immediately to show loading skeleton
       setIsQuickOrderDrawerOpen(true)
       setFileUploadVisible(false)
-      setSkusToFetch(skus)
+      setSkusToFetch(uniqueSkus)
     }
 
     const { products: fetchedProducts, isLoading: isLoadingProducts } =
@@ -408,7 +420,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (
         !isLoadingProducts &&
         skusToFetch.length > 0 &&
-        csvData &&
+        Object.keys(skuQuantityMap).length > 0 &&
         fetchedProducts.length > 0
       ) {
         // Add artificial delay to test loading state
@@ -419,12 +431,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
           fetchedProducts.forEach((productData) => {
             if (productData.product && !productData.error) {
-              const csvItem = csvData.data.find(
-                (item) =>
-                  item.sku === productData.sku ||
-                  item.sku?.trim() === productData.sku?.trim()
-              )
-              const requestedQuantity = csvItem?.quantity ?? 1
+              const requestedQuantity =
+                skuQuantityMap[productData.sku ?? ''] ?? 1
 
               const convertedProduct = convertProductToQuickOrder(
                 productData.product,
@@ -461,7 +469,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       if (
         !isLoadingProducts &&
         skusToFetch.length > 0 &&
-        csvData &&
+        Object.keys(skuQuantityMap).length > 0 &&
         fetchedProducts.length === 0
       ) {
         // Keep drawer open to show empty state message
@@ -471,7 +479,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         setNoProductsError(true)
         setIsLoadingWithDelay(false)
       }
-    }, [fetchedProducts, skusToFetch, csvData, isLoadingProducts])
+    }, [fetchedProducts, skusToFetch, skuQuantityMap, isLoadingProducts])
 
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
@@ -647,12 +655,13 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               setIsQuickOrderDrawerOpen(false)
               setQuickOrderProducts([])
               setSkusToFetch([])
+              setSkuQuantityMap({})
             },
           }}
           providerProps={{
             initialProducts: quickOrderProducts,
             isLoading: isLoadingProducts || isLoadingWithDelay,
-            totalRequestedSkus: csvData?.data?.length || 0,
+            totalRequestedSkus: Object.keys(skuQuantityMap).length || 0,
             onAddToCart: (
               productsToAdd: Product[],
               totalPrice: number,
@@ -705,6 +714,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               setIsQuickOrderDrawerOpen(false)
               setQuickOrderProducts([])
               setSkusToFetch([])
+              setSkuQuantityMap({})
             }}
           />
           <QuickOrderDrawerProducts

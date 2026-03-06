@@ -193,8 +193,20 @@ const FileUploadCard = ({
 
   const isValidFileType = (file: File): boolean => {
     const fileName = file.name.toLowerCase()
-    const validExtensions = ['.csv']
-    return validExtensions.some((ext) => fileName.endsWith(ext))
+    const acceptedTypes = accept
+      .split(',')
+      .map((value) => value.trim().toLowerCase())
+      .filter(Boolean)
+
+    if (acceptedTypes.length === 0) {
+      return fileName.endsWith('.csv')
+    }
+
+    return acceptedTypes.some((value) =>
+      value.startsWith('.')
+        ? fileName.endsWith(value)
+        : file.type.toLowerCase() === value
+    )
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -37,6 +37,10 @@ export const convertProductToQuickOrder = (
   // Determine selectedCount and quantityUpdated based on availability and inventory
   let selectedCount: number
   let quantityUpdated: boolean
+  const normalizedRequestedQuantity =
+    Number.isFinite(requestedQuantity) && requestedQuantity > 0
+      ? Math.floor(requestedQuantity)
+      : 1
 
   if (isOutOfStock) {
     // Out of stock: set quantity to 0
@@ -46,14 +50,14 @@ export const convertProductToQuickOrder = (
     // Inventory is 0 but marked as InStock (edge case): set quantity to 0
     selectedCount = 0
     quantityUpdated = true
-  } else if (offerQuantity != null && requestedQuantity > inventory) {
+  } else if (offerQuantity != null && normalizedRequestedQuantity > inventory) {
     // Quantity is provided and requested quantity exceeds inventory: cap at inventory
     selectedCount = inventory
     quantityUpdated = true
   } else {
     // Requested quantity is within inventory (or quantity not provided): use requested quantity
-    selectedCount = requestedQuantity
-    quantityUpdated = false
+    selectedCount = normalizedRequestedQuantity
+    quantityUpdated = normalizedRequestedQuantity !== requestedQuantity
   }
 
   // Get the variant name from allVariantProducts that matches this product's SKU

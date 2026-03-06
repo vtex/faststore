@@ -289,7 +289,7 @@ const QuickOrderDrawerProducts = ({
                       <p data-fs-qod-empty-state-title>No products found</p>
                       <p data-fs-qod-empty-state-message>
                         No SKUs were found for the provided file. Please check
-                        your CSV file and try again.
+                        your file and try again.
                       </p>
                     </div>
                   </div>

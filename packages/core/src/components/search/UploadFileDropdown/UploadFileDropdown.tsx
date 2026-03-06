@@ -139,21 +139,24 @@ const parseXLSXFile = async (file: File): Promise<CSVData> => {
           throw new Error('File is empty or invalid')
         }
 
-        const headers = jsonData[0] as string[]
+        const headers = (
+          jsonData[0] as Array<string | number | boolean | null>
+        ).map((header) => String(header ?? '').toLowerCase())
+
         const rows = jsonData.slice(1) as string[][]
 
         const skuIndex = headers.findIndex(
           (header) =>
-            header?.toLowerCase().includes('sku') ||
-            header?.toLowerCase().includes('id') ||
-            header?.toLowerCase().includes('product')
+            header.includes('sku') ||
+            header.includes('id') ||
+            header.includes('product')
         )
 
         const quantityIndex = headers.findIndex(
           (header) =>
-            header?.toLowerCase().includes('quantity') ||
-            header?.toLowerCase().includes('qty') ||
-            header?.toLowerCase().includes('amount')
+            header.includes('quantity') ||
+            header.includes('qty') ||
+            header.includes('amount')
         )
 
         if (skuIndex === -1) {

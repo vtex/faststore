@@ -123,7 +123,7 @@ const parseCSVFile = (
         const reader = new FileReader()
         reader.onload = (e) => {
           const text = e.target?.result as string
-          const firstLine = text.split('\n')[0] || text.split('\r\n')[0] || ''
+          const firstLine = (text.split(/\r?\n/)[0] || '').replace(/\r$/, '')
 
           const commaCount = (firstLine.match(/,/g) || []).length
           const semicolonCount = (firstLine.match(/;/g) || []).length
