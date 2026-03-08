@@ -1,6 +1,6 @@
 import {
   FileUploadCard,
-  type FileUploadErrorType,
+  FileUploadErrorType,
   FileUploadStatus,
   FileUploadState,
   SearchInputField,
@@ -23,32 +23,32 @@ const fileUploadCardTextProps = {
 const fileUploadStatusErrorMessages: Partial<
   Record<FileUploadErrorType, { title: string; description: string }>
 > = {
-  unexpected: {
+  [FileUploadErrorType.Unexpected]: {
     title: 'Upload failed.',
     description:
       'An unexpected error occurred. Try again or upload a new file.',
   },
-  unsupported: {
+  [FileUploadErrorType.Unsupported]: {
     title: 'Unsupported file type.',
     description: 'Upload a CSV or use the template provided.',
   },
-  unreadable: {
+  [FileUploadErrorType.Unreadable]: {
     title: "File can't be read.",
     description: "Make sure it's correctly formatted and not corrupted.",
   },
-  'invalid-structure': {
+  [FileUploadErrorType.InvalidStructure]: {
     title: 'Invalid structure.',
     description: 'Check missing headers or columns and try again.',
   },
-  empty: {
+  [FileUploadErrorType.Empty]: {
     title: 'File is empty.',
     description: 'Add items to your file and upload it again.',
   },
-  'too-large': {
+  [FileUploadErrorType.TooLarge]: {
     title: 'File too large.',
     description: 'Split it into smaller files and try again.',
   },
-  'no-products-found': {
+  [FileUploadErrorType.NoProductsFound]: {
     title: 'No products found.',
     description: 'Please verify the SKUs in your file and try again.',
   },
@@ -156,7 +156,7 @@ export function FileUploadStatusError() {
       <FileUploadStatus
         file={file}
         state={FileUploadState.Error}
-        errorType="unsupported"
+        errorType={FileUploadErrorType.Unsupported}
         errorMessages={fileUploadStatusErrorMessages}
         onRemove={() => console.log('Remove clicked')}
         onDownloadTemplate={() => console.log('Download template clicked')}
@@ -178,15 +178,7 @@ export function FileUploadStatusError() {
 
 export function FileUploadStatusAllErrorTypes() {
   const file = new File(['content'], 'example.csv', { type: 'text/csv' })
-  const errorTypes: FileUploadErrorType[] = [
-    'unexpected',
-    'unsupported',
-    'unreadable',
-    'invalid-structure',
-    'empty',
-    'too-large',
-    'no-products-found',
-  ]
+  const errorTypes: FileUploadErrorType[] = Object.values(FileUploadErrorType)
 
   return (
     <div

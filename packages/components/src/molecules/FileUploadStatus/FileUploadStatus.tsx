@@ -9,14 +9,15 @@ export enum FileUploadState {
   Error = 'error',
 }
 
-export type FileUploadErrorType =
-  | 'unexpected'
-  | 'unsupported'
-  | 'unreadable'
-  | 'invalid-structure'
-  | 'empty'
-  | 'too-large'
-  | 'no-products-found'
+export enum FileUploadErrorType {
+  Unexpected = 'unexpected',
+  Unsupported = 'unsupported',
+  Unreadable = 'unreadable',
+  InvalidStructure = 'invalid-structure',
+  Empty = 'empty',
+  TooLarge = 'too-large',
+  NoProductsFound = 'no-products-found',
+}
 
 export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
   /**

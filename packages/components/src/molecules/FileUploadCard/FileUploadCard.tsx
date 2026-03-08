@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, Icon, Input } from '../..'
 import { useOnClickOutside } from '../../hooks'
 import FileUploadStatus, {
-  type FileUploadErrorType,
+  FileUploadErrorType,
   FileUploadState,
 } from '../FileUploadStatus/FileUploadStatus'
 
@@ -177,7 +177,7 @@ const FileUploadCard = ({
 
     if (hasError) {
       setUploadState(FileUploadState.Error)
-      setErrorType(errorTypeProp ?? 'invalid-structure')
+      setErrorType(errorTypeProp ?? FileUploadErrorType.InvalidStructure)
       return
     }
 
@@ -217,7 +217,7 @@ const FileUploadCard = ({
 
       if (!isValidFileType(file)) {
         setUploadState(FileUploadState.Error)
-        setErrorType('unsupported')
+        setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
@@ -259,7 +259,7 @@ const FileUploadCard = ({
 
       if (!isValidFileType(file)) {
         setUploadState(FileUploadState.Error)
-        setErrorType('unsupported')
+        setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 

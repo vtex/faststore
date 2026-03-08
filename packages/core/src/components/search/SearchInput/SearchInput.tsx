@@ -18,7 +18,7 @@ import type { SearchEvent, SearchState } from '@faststore/sdk'
 
 import {
   FileUploadCard,
-  type FileUploadErrorType,
+  FileUploadErrorType,
   QuickOrderDrawer,
   QuickOrderDrawerFooter,
   QuickOrderDrawerHeader,
@@ -213,9 +213,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       csvErrorType?: string
     ): FileUploadErrorType => {
       if (csvErrorType === 'FILE_ERROR') {
-        return 'unreadable'
+        return FileUploadErrorType.Unreadable
       }
-      return 'invalid-structure'
+      return FileUploadErrorType.InvalidStructure
     }
 
     const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
@@ -634,7 +634,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 })}
                 {...((csvError || (noProductsError && !isLoadingProducts)) && {
                   errorType: noProductsError
-                    ? 'no-products-found'
+                    ? FileUploadErrorType.NoProductsFound
                     : mapCSVErrorToFileUploadErrorType(csvError.type),
                   errorMessage: noProductsError ? undefined : csvError?.message,
                 })}
