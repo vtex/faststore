@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import {
   addCustomPathPrefix,
   extractCustomPathPrefix,
-} from 'src/utils/localization/customPaths'
+} from 'src/utils/localization/bindingPaths'
 
 /**
  * Hook that centralizes link resolution with custom path prefix (i18n).

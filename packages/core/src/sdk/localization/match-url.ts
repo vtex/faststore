@@ -1,5 +1,5 @@
 import config from 'discovery.config'
-import { matchesBindingPath } from 'src/utils/localization/customPaths'
+import { matchesBindingPath } from 'src/utils/localization/bindingPaths'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 

@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 
 import storeConfig from '../../../discovery.config'
+import { buildRedirectUrl } from '../../utils/localization/bindingPaths'
 import { useSession } from '../session'
 import {
   buildLanguageOptions,
@@ -159,8 +160,11 @@ export function useBindingSelector(): UseBindingSelectorReturn {
       return
     }
 
-    // Redirect to binding URL
-    window.location.href = binding.url
+    // Redirect to binding URL, preserving the current page path and query string
+    window.location.href = buildRedirectUrl(
+      binding.url,
+      `${window.location.pathname}${window.location.search}${window.location.hash}`
+    )
   }, [localeCode, currencyCode, localizationConfig.locales])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)

@@ -1,9 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
   addCustomPathPrefix,
+  buildRedirectUrl,
+  collectAllBindingPaths,
   getCustomPathsFromBindings,
+  getPagePath,
   matchesBindingPath,
-} from '../../../src/utils/localization/customPaths'
+} from '../../../src/utils/localization/bindingPaths'
 
 vi.mock('../../../discovery.config.js', async () => {
   const original = await vi.importActual('../../../discovery.config.js')
@@ -80,6 +83,23 @@ vi.mock('../../../discovery.config.js', async () => {
                 url: 'https://brandless.fast.store/europe',
                 salesChannel: '6',
                 isDefault: false,
+              },
+            ],
+          },
+          'en-US': {
+            code: 'en-US',
+            name: 'English',
+            languageCode: 'en',
+            languageName: 'English',
+            script: 'Latn',
+            textDirection: 'ltr',
+            regionCode: 'US',
+            bindings: [
+              {
+                currencyCode: 'USD',
+                url: 'https://brandless.fast.store/en-US',
+                salesChannel: '7',
+                isDefault: true,
               },
             ],
           },
@@ -374,5 +394,206 @@ describe('matchesBindingPath', () => {
     // Important: /europe/item should NOT match /europe/it
     expect(matchesBindingPath('/europe/item', '/europe/it')).toBe(false)
     expect(matchesBindingPath('/europe/italy', '/europe/it')).toBe(false)
+  })
+})
+
+describe('collectAllBindingPaths', () => {
+  it('returns all binding paths including locale-code paths', () => {
+    const paths = collectAllBindingPaths()
+
+    expect(paths).toEqual(
+      expect.arrayContaining([
+        '/it-IT',
+        '/en-US',
+        '/europe/it',
+        '/europe',
+        '/it',
+        '/pt',
+      ])
+    )
+  })
+
+  it('excludes root-only paths', () => {
+    const paths = collectAllBindingPaths()
+
+    expect(paths).not.toContain('/')
+    expect(paths).not.toContain('')
+  })
+
+  it('returns deduplicated paths', () => {
+    const paths = collectAllBindingPaths()
+    const unique = new Set(paths)
+
+    expect(paths.length).toBe(unique.size)
+  })
+
+  it('returns paths sorted by length descending (most specific first)', () => {
+    const paths = collectAllBindingPaths()
+
+    for (let i = 0; i < paths.length - 1; i++) {
+      expect(paths[i].length).toBeGreaterThanOrEqual(paths[i + 1].length)
+    }
+  })
+})
+
+describe('getPagePath', () => {
+  it('strips locale-code prefix and returns page path', () => {
+    expect(getPagePath('/it-IT/products/item')).toBe('/products/item')
+    expect(getPagePath('/en-US/office')).toBe('/office')
+  })
+
+  it('strips custom path prefix and returns page path', () => {
+    expect(getPagePath('/europe/it/products')).toBe('/products')
+    expect(getPagePath('/europe/apparel/shoes')).toBe('/apparel/shoes')
+  })
+
+  it('returns empty string when pathname matches binding path exactly', () => {
+    expect(getPagePath('/it-IT')).toBe('')
+    expect(getPagePath('/europe/it')).toBe('')
+    expect(getPagePath('/en-US')).toBe('')
+  })
+
+  it('returns empty string for exact match with trailing slash', () => {
+    expect(getPagePath('/it-IT/')).toBe('')
+  })
+
+  it('returns full pathname when no binding prefix matches', () => {
+    expect(getPagePath('/unknown/page')).toBe('/unknown/page')
+    expect(getPagePath('/products')).toBe('/products')
+  })
+
+  it('returns full pathname for root path', () => {
+    expect(getPagePath('/')).toBe('/')
+  })
+
+  it('prefers longer (more specific) prefix match', () => {
+    // /europe/it (10 chars) should match before /europe (7 chars)
+    expect(getPagePath('/europe/it/products')).toBe('/products')
+  })
+
+  it('does not partially match binding paths', () => {
+    // /it-ITx should NOT match /it-IT
+    expect(getPagePath('/it-ITx/products')).toBe('/it-ITx/products')
+  })
+
+  it('strips query and hash before matching', () => {
+    expect(getPagePath('/it-IT/products?color=red')).toBe('/products')
+    expect(getPagePath('/it-IT/products#section')).toBe('/products')
+  })
+})
+
+describe('buildRedirectUrl', () => {
+  it('preserves page path when switching locale-code bindings', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/it-IT/products/item'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/en-US/products/item')
+  })
+
+  it('preserves page path and query string', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/it-IT/products/item?color=red&size=M'
+    )
+
+    expect(result).toBe(
+      'https://brandless.fast.store/en-US/products/item?color=red&size=M'
+    )
+  })
+
+  it('preserves page path when switching from locale-code to custom path', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/europe/it',
+      '/en-US/products/item'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/europe/it/products/item')
+  })
+
+  it('preserves page path when switching from custom path to locale-code', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/europe/it/products/item'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/en-US/products/item')
+  })
+
+  it('preserves page path when switching between custom paths', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/it',
+      '/europe/it/products/item'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/it/products/item')
+  })
+
+  it('redirects to binding root when on binding root (no page path)', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/it-IT'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/en-US')
+  })
+
+  it('redirects to binding root with query string when on binding root', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/it-IT?ref=nav'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/en-US?ref=nav')
+  })
+
+  it('handles binding URL with trailing slash', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US/',
+      '/it-IT/products'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/en-US/products')
+  })
+
+  it('handles switching to a root-domain binding (no path prefix)', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.myvtex.com',
+      '/it-IT/products/item?color=red'
+    )
+
+    expect(result).toBe('https://brandless.myvtex.com/products/item?color=red')
+  })
+
+  it('handles pathname with no matching binding prefix', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/unknown/page'
+    )
+
+    expect(result).toBe('https://brandless.fast.store/en-US/unknown/page')
+  })
+
+  it('handles deep nested page paths', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/it-IT/category/subcategory/product/p?skuId=123'
+    )
+
+    expect(result).toBe(
+      'https://brandless.fast.store/en-US/category/subcategory/product/p?skuId=123'
+    )
+  })
+
+  it('handles page path with hash', () => {
+    const result = buildRedirectUrl(
+      'https://brandless.fast.store/en-US',
+      '/it-IT/products/item#section'
+    )
+
+    expect(result).toBe(
+      'https://brandless.fast.store/en-US/products/item#section'
+    )
   })
 })
