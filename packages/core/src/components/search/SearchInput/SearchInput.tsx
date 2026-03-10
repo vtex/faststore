@@ -662,6 +662,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           />
           <QuickOrderDrawerFooter
             formatter={(price, variant) => priceFormatter(price)}
+            labels={drawerConfig?.footer}
           />
         </QuickOrderDrawer>
       </>

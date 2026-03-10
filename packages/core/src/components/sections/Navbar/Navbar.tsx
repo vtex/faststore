@@ -53,6 +53,11 @@ export interface NavbarProps {
           price?: string
           quantity?: string
         }
+        footer?: {
+          itemsLabel?: string
+          addToCartLabel?: string
+          addToCartAriaLabel?: string
+        }
       }
       toastMessages?: {
         noFileSelected?: { title?: string; message?: string }

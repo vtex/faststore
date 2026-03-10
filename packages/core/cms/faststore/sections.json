@@ -403,6 +403,27 @@
                           "default": "Quantity"
                         }
                       }
+                    },
+                    "footer": {
+                      "title": "Drawer footer labels",
+                      "type": "object",
+                      "properties": {
+                        "itemsLabel": {
+                          "title": "Items label (shown next to item count)",
+                          "type": "string",
+                          "default": "items"
+                        },
+                        "addToCartLabel": {
+                          "title": "Add to cart button label",
+                          "type": "string",
+                          "default": "Add to Cart"
+                        },
+                        "addToCartAriaLabel": {
+                          "title": "Add to cart button aria-label",
+                          "type": "string",
+                          "default": "Add items to cart"
+                        }
+                      }
                     }
                   }
                 },
