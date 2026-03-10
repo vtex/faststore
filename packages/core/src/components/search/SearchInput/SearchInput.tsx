@@ -46,7 +46,6 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
-import type { UploadFileDropdownLabels } from 'src/components/search/UploadFileDropdown'
 import { cartStore } from 'src/sdk/cart'
 import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuickOrder'
 import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
@@ -57,15 +56,6 @@ import { formatFileName, formatFileSize } from 'src/utils/utilities'
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
   () => import('src/components/search/SearchDropdown')
-)
-
-const UploadFileDropdown = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "UploadFileDropdown" */
-      'src/components/search/UploadFileDropdown'
-    ).then((mod) => mod.default),
-  { ssr: false }
 )
 
 const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
@@ -113,11 +103,6 @@ export type SearchInputProps = {
       Record<string, { title: string; description: string }>
     >
   }
-  /**
-   * Labels / copy for the UploadFileDropdown (bulk upload modal).
-   * Pass from CMS so all copy is editable.
-   */
-  uploadFileDropdownLabels?: UploadFileDropdownLabels
 } & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -147,14 +132,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       attachmentButtonAriaLabel,
       onFileSearch,
       fileUploadCardProps,
-      uploadFileDropdownLabels,
       ...otherProps
     },
     ref
   ) {
     const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
-    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [
       customSearchDropdownVisibleCondition,
       setCustomSearchDropdownVisibleCondition,
@@ -277,7 +260,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSkuQuantityMap({})
       setQuickOrderProducts([])
       setFileUploadVisible(false)
-      setIsUploadModalOpen(false)
       setHasFile(false)
       setIsUploadOpen(false)
       setNoProductsError(false)
@@ -483,7 +465,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     useOnClickOutside(searchRef, () => {
       setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
       setFileUploadVisible(false)
-      setIsUploadModalOpen(false)
     })
 
     const { data, error } = useSuggestions(searchQueryDeferred)
@@ -529,11 +510,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           >
             <UISearchInputField
               ref={ref}
-              showUploadButton
-              onUploadClick={() => setIsUploadModalOpen((prev) => !prev)}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton={showAttachmentButton}
+              showAttachmentButton={true}
               attachmentButtonIcon={
                 showAttachmentButton && attachmentButtonIcon ? (
                   <UIIcon
@@ -546,7 +525,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               attachmentButtonProps={{
                 onClick: () => {
                   setFileUploadVisible(true)
-                  setIsUploadModalOpen(true)
                 },
                 'aria-label':
                   attachmentButtonAriaLabel ??
@@ -638,12 +616,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   errorMessage: noProductsError ? undefined : csvError?.message,
                 })}
               />
-            )}
-
-            {isUploadModalOpen && (
-              <Suspense fallback={null}>
-                <UploadFileDropdown labels={uploadFileDropdownLabels} />
-              </Suspense>
             )}
           </UISearchInput>
         )}
