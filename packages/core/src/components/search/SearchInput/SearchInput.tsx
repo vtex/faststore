@@ -32,7 +32,6 @@ import {
 } from '@faststore/ui'
 
 import type {
-  FileUploadCardProps,
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
   CSVData,

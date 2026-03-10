@@ -82,8 +82,10 @@ export function Default() {
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer
         isOpen={isOpen}
-        initialAlertMessage={initialAlertMessage}
-        initialProducts={mockProducts as unknown as any[]}
+        providerProps={{
+          initialAlertMessage,
+          initialProducts: mockProducts as unknown as any[],
+        }}
       >
         <>
           <QuickOrderDrawerHeader
@@ -106,11 +108,13 @@ export function WithLongTitle() {
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer
         isOpen={isOpen}
-        initialAlertMessage={initialAlertMessage}
-        initialProducts={mockProducts as unknown as any[]}
+        providerProps={{
+          initialAlertMessage,
+          initialProducts: mockProducts as unknown as any[],
+        }}
       >
         <QuickOrderDrawerHeader
-          title="abcdefghijklmnopqrstuvwxyz1234567890.xlsx"
+          title="abcdefghijklmnopqrstuvwxyz1234567890.csv"
           onCloseDrawer={() => setIsOpen(false)}
         />
         <QuickOrderDrawerProducts columns={columns} messages={messages} />
@@ -136,8 +140,10 @@ export function WithStockQuantity() {
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer
         isOpen={isOpen}
-        initialAlertMessage={initialAlertMessage}
-        initialProducts={mockProducts as unknown as any[]}
+        providerProps={{
+          initialAlertMessage,
+          initialProducts: mockProducts as unknown as any[],
+        }}
       >
         <QuickOrderDrawerHeader
           title="order-file.csv"
@@ -161,8 +167,10 @@ export function OpenByDefault() {
       <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
       <QuickOrderDrawer
         isOpen={isOpen}
-        initialAlertMessage={initialAlertMessage}
-        initialProducts={mockProducts as unknown as any[]}
+        providerProps={{
+          initialAlertMessage,
+          initialProducts: mockProducts as unknown as any[],
+        }}
       >
         <QuickOrderDrawerHeader
           title="order-file.csv"

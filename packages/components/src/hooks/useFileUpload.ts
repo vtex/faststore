@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import type { FileRejection } from 'react-dropzone/.'
+import type { FileRejection } from 'react-dropzone'
 
 /**
  * Error codes returned by react-dropzone when a file is rejected.
@@ -20,10 +20,6 @@ const MAX_FILES_DEFAULT = 1
 const MAX_SIZE_DEFAULT = 100 * 1024 * 1024 // 100MB
 const ACCEPTED_TYPES_DEFAULT = {
   'text/csv': ['.csv'],
-  'application/vnd.ms-excel': ['.xls'],
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-    '.xlsx',
-  ],
 }
 
 export const DEFAULT_FILE_UPLOAD_OPTIONS: Required<FileUploadOptions> = {

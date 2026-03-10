@@ -322,7 +322,7 @@
               "properties": {
                 "acceptedFileTypes": {
                   "title": "Accepted file types",
-                  "description": "Comma-separated list of accepted file extensions (e.g., '.csv,.xlsx,.xls')",
+                  "description": "Comma-separated list of accepted file extensions (e.g., '.csv')",
                   "type": "string",
                   "default": ".csv"
                 },

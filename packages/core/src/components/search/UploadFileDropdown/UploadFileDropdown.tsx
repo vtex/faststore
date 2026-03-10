@@ -13,7 +13,6 @@ import {
   type DropzoneState,
 } from '@faststore/ui'
 
-import * as XLSX from 'xlsx'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 import styles from './section.module.scss'
 
@@ -21,10 +20,6 @@ const MAX_FILES = 1
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 const ACCEPTED_FILE_TYPES = {
   'text/csv': ['.csv'],
-  'application/vnd.ms-excel': ['.xls'],
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-    '.xlsx',
-  ],
 }
 
 // ------------------------------------------------------------------
@@ -110,134 +105,6 @@ const DEFAULT_LABELS: Required<UploadFileDropdownLabels> = {
     `Completed · ${fileSize} · ${totalRows} products found`,
 }
 
-const isExcelFile = (file: File): boolean => {
-  const ext = file.name.split('.').pop()?.toLowerCase()
-  return ext === 'xls' || ext === 'xlsx'
-}
-
-const parseXLSXFile = async (file: File): Promise<CSVData> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-
-    reader.onload = (e) => {
-      try {
-        const data = e.target?.result
-        if (!data) {
-          throw new Error('Failed to read file')
-        }
-
-        const workbook = XLSX.read(data, { type: 'binary' })
-        const sheetName = workbook.SheetNames[0]
-        const worksheet = workbook.Sheets[sheetName]
-
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, {
-          header: 1,
-          defval: '',
-        })
-
-        if (!jsonData || jsonData.length === 0) {
-          throw new Error('File is empty or invalid')
-        }
-
-        const headers = (
-          jsonData[0] as Array<string | number | boolean | null>
-        ).map((header) => String(header ?? '').toLowerCase())
-
-        const rows = jsonData.slice(1) as string[][]
-
-        const skuIndex = headers.findIndex(
-          (header) =>
-            header.includes('sku') ||
-            header.includes('id') ||
-            header.includes('product')
-        )
-
-        const quantityIndex = headers.findIndex(
-          (header) =>
-            header.includes('quantity') ||
-            header.includes('qty') ||
-            header.includes('amount')
-        )
-
-        if (skuIndex === -1) {
-          throw new Error(
-            'SKU column not found. Please ensure your file has a column with "SKU", "ID", or "Product" in the header.'
-          )
-        }
-
-        if (quantityIndex === -1) {
-          throw new Error(
-            'Quantity column not found. Please ensure your file has a column with "Quantity", "Qty", or "Amount" in the header.'
-          )
-        }
-
-        const errors: string[] = []
-        const transformedData = rows
-          .filter(
-            (row) =>
-              row[skuIndex] &&
-              row[skuIndex] !== '' &&
-              row[quantityIndex] !== undefined &&
-              row[quantityIndex] !== ''
-          )
-          .reduce<Array<{ sku: string; quantity: number }>>(
-            (acc, row, index) => {
-              const sku = String(row[skuIndex]).trim()
-              const quantity = Number(row[quantityIndex])
-
-              if (isNaN(quantity) || quantity < 0) {
-                errors.push(
-                  `Invalid quantity value: ${row[quantityIndex]} for SKU: ${sku}`
-                )
-                return acc
-              }
-
-              acc.push({ sku, quantity })
-              return acc
-            },
-            []
-          )
-
-        if (transformedData.length === 0) {
-          throw new Error('No valid data found. Please check your file format.')
-        }
-
-        if (errors.length > 0) {
-          console.warn(
-            `Parsing completed with ${errors.length} warnings. Sample:`,
-            errors.slice(0, 10)
-          )
-        }
-
-        resolve({
-          data: transformedData,
-          fileName: file.name,
-          totalRows: transformedData.length,
-          fileSize: file.size,
-        })
-      } catch (err) {
-        reject(
-          new Error(
-            `Failed to parse file: ${
-              err instanceof Error ? err.message : 'Unknown error'
-            }`
-          )
-        )
-      }
-    }
-
-    reader.onerror = () => {
-      reject(new Error('Failed to read file'))
-    }
-
-    reader.readAsBinaryString(file)
-  })
-}
-
-// ------------------------------------------------------------------
-// Component
-// ------------------------------------------------------------------
-
 export default function UploadFileDropdown({
   labels: labelsProp,
 }: UploadFileDropdownProps = {}) {
@@ -249,7 +116,6 @@ export default function UploadFileDropdown({
   const { pushToast } = useUI()
 
   const [csvData, setCsvData] = useState<CSVData | null>(null)
-  const [isExcelParsing, setIsExcelParsing] = useState(false)
 
   const csvOptions = useMemo(
     () => ({
@@ -269,7 +135,7 @@ export default function UploadFileDropdown({
     onGenerateTemplate,
   } = useCSVParser(csvOptions)
 
-  const isProcessing = isParsing || isExcelParsing
+  const isProcessing = isParsing
 
   const clearData = () => {
     setCsvData(null)
@@ -303,35 +169,9 @@ export default function UploadFileDropdown({
 
     const file = files[0]
 
-    if (isExcelFile(file)) {
-      setIsExcelParsing(true)
-      try {
-        const parsedData = await parseXLSXFile(file)
-        setCsvData(parsedData)
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Failed to process file'
-        pushToast({
-          title: labels.toastErrorTitle,
-          message: errorMessage,
-          status: 'ERROR',
-          icon: (
-            <UIIcon
-              name="CircleWavyWarning"
-              width={30}
-              height={30}
-              data-fs-upload-error-icon
-            />
-          ),
-        })
-      } finally {
-        setIsExcelParsing(false)
-      }
-    } else {
-      const parsedData = await onParseFile(file)
-      if (parsedData) {
-        setCsvData(parsedData)
-      }
+    const parsedData = await onParseFile(file)
+    if (parsedData) {
+      setCsvData(parsedData)
     }
   }
 

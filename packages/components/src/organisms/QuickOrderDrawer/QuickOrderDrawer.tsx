@@ -23,23 +23,22 @@ export type QuickOrderDrawerProps = {
    * Props forwarded to the `Overlay` component.
    */
   overlayProps?: OverlayProps
-
-  /**
-   * Props forwarded to the `QuickOrderDrawerProvider` component.
-   */
-  providerProps?: Omit<QuickOrderDrawerProviderProps, 'children'>
-}
+} & Omit<QuickOrderDrawerProviderProps, 'children'>
 
 const QuickOrderDrawer = ({
   testId = 'fs-quick-order-drawer',
   isOpen,
   overlayProps,
-  providerProps,
   children,
+  initialAlertMessage,
+  initialProducts,
 }: PropsWithChildren<QuickOrderDrawerProps>) => {
   const { fade } = useFadeEffect()
   return (
-    <QuickOrderDrawerProvider {...providerProps}>
+    <QuickOrderDrawerProvider
+      initialAlertMessage={initialAlertMessage}
+      initialProducts={initialProducts}
+    >
       <SlideOver
         testId={testId}
         fade={fade}
