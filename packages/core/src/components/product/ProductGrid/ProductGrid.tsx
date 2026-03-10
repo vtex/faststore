@@ -54,14 +54,15 @@ interface Props {
    * The returned key/value pairs will be spread onto the corresponding section element.
    *
    * @example
-   * buildExtraProductProps={(product, index) => ({
+   * buildExtraProductProps={(product, index, searchId) => ({
    *   'data-af-category': product.category || 'unknown',
    *   'data-af-index': String(index),
    * })}
    */
   buildExtraProductProps?: (
-    product?: Record<string, any>,
-    index?: number
+    product: Record<string, any>,
+    index: number,
+    searchId: string
   ) => Record<string, string | number | boolean>
 }
 
@@ -80,7 +81,7 @@ function ProductGrid({
   compareLabel,
   title,
   searchId,
-  buildExtraProductProps,
+  buildExtraProductProps = () => ({}),
 }: Props) {
   const { isMobile } = useScreenResize()
   const { __experimentalProductCard: ProductCard } =
@@ -129,7 +130,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
-                    {...buildExtraProductProps(product, idx)}
+                    {...buildExtraProductProps(product, idx, searchId)}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
@@ -162,7 +163,7 @@ function ProductGrid({
                       index={pageSize * page + idx + 1}
                       taxesConfiguration={taxesConfiguration}
                       sponsoredLabel={sponsoredLabel}
-                      {...buildExtraProductProps(product, idx)}
+                      {...buildExtraProductProps(product, idx, searchId)}
                     />
                   </ProductSentinel>
                 </UIProductGridItem>
@@ -198,7 +199,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
-                    {...buildExtraProductProps(product, idx)}
+                    {...buildExtraProductProps(product, idx, searchId)}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
