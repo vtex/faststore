@@ -3,6 +3,7 @@ import {
   Suspense,
   forwardRef,
   lazy,
+  useCallback,
   useDeferredValue,
   useEffect,
   useImperativeHandle,
@@ -41,7 +42,6 @@ import type {
 import type { SearchProviderContextValue } from '@faststore/ui'
 
 import type { NavbarProps } from 'src/components/sections/Navbar'
-import { usePage } from 'src/sdk/overrides/PageProvider'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
@@ -51,6 +51,7 @@ import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuic
 import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { getGlobalSettings } from 'src/utils/globalSettings'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
 const SearchDropdown = lazy(
@@ -180,11 +181,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onGenerateTemplate,
     } = csvParser
 
-    // Access globalSettings for fileUpload configuration (section and content-type)
-
-    const pageContext = usePage<{ globalSettings?: { fileUpload?: any } }>()
-    const fileUploadConfig =
-      pageContext?.globalSettings?.fileUpload ?? undefined
+    const { fileUpload: fileUploadConfig } = getGlobalSettings() ?? {}
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -483,6 +480,47 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       testId: buttonTestId,
     }
 
+    const handleAddToCart = useCallback(
+      (productsToAdd: Product[]) => {
+        productsToAdd.forEach((product: Product) => {
+          if (
+            product.selectedCount > 0 &&
+            product.availability === 'available'
+          ) {
+            const fetchedProduct = fetchedProducts.find(
+              (p) => p.product?.sku === product.id
+            )?.product
+
+            if (fetchedProduct && fetchedProduct.offers?.offers[0]) {
+              const offer = fetchedProduct.offers.offers[0]
+
+              cartStore.addItem({
+                itemOffered: {
+                  sku: fetchedProduct.sku,
+                  name: fetchedProduct.name,
+                  unitMultiplier: fetchedProduct.unitMultiplier ?? 1,
+                  image: fetchedProduct.image,
+                  brand: fetchedProduct.brand,
+                  isVariantOf: fetchedProduct.isVariantOf,
+                  gtin: fetchedProduct.gtin,
+                  additionalProperty: fetchedProduct.additionalProperty,
+                },
+                seller: offer.seller,
+                quantity: product.selectedCount,
+                price: product.price,
+                listPrice: offer.listPrice ?? product.price,
+                priceWithTaxes: offer.priceWithTaxes ?? product.price,
+                listPriceWithTaxes: offer.listPriceWithTaxes ?? product.price,
+              })
+            }
+          }
+        })
+
+        setIsQuickOrderDrawerOpen(false)
+      },
+      [fetchedProducts]
+    )
+
     const resolvedFileUploadCardProps = {
       ...DEFAULT_FILE_UPLOAD_CARD_PROPS,
       ...(fileUploadCardProps ?? {}),
@@ -633,48 +671,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             initialProducts: quickOrderProducts,
             isLoading: isLoadingProducts || isLoadingWithDelay,
             totalRequestedSkus: Object.keys(skuQuantityMap).length || 0,
-            onAddToCart: (
-              productsToAdd: Product[],
-              totalPrice: number,
-              itemsCount: number
-            ) => {
-              productsToAdd.forEach((product: Product) => {
-                if (
-                  product.selectedCount > 0 &&
-                  product.availability === 'available'
-                ) {
-                  const fetchedProduct = fetchedProducts.find(
-                    (p) => p.product?.sku === product.id
-                  )?.product
-
-                  if (fetchedProduct && fetchedProduct.offers?.offers[0]) {
-                    const offer = fetchedProduct.offers.offers[0]
-
-                    cartStore.addItem({
-                      itemOffered: {
-                        sku: fetchedProduct.sku,
-                        name: fetchedProduct.name,
-                        unitMultiplier: fetchedProduct.unitMultiplier ?? 1,
-                        image: fetchedProduct.image,
-                        brand: fetchedProduct.brand,
-                        isVariantOf: fetchedProduct.isVariantOf,
-                        gtin: fetchedProduct.gtin,
-                        additionalProperty: fetchedProduct.additionalProperty,
-                      },
-                      seller: offer.seller,
-                      quantity: product.selectedCount,
-                      price: product.price,
-                      listPrice: offer.listPrice ?? product.price,
-                      priceWithTaxes: offer.priceWithTaxes ?? product.price,
-                      listPriceWithTaxes:
-                        offer.listPriceWithTaxes ?? product.price,
-                    })
-                  }
-                }
-              })
-
-              setIsQuickOrderDrawerOpen(false)
-            },
+            onAddToCart: handleAddToCart,
           }}
         >
           <QuickOrderDrawerHeader

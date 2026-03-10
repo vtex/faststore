@@ -144,10 +144,10 @@ const QuickOrderDrawerProducts = ({
                 {products.map((variantProduct) => (
                   <TableRow
                     key={`${variantProduct.name}-${variantProduct.id}`}
-                    data-fs-qod-table-row={variantProduct.availability}
+                    data-fs-quick-order-table-row={variantProduct.availability}
                   >
-                    <TableCell data-fs-qod-cell="product" align="left">
-                      <div data-fs-qod-table-cell-img-container>
+                    <TableCell data-fs-quick-order-cell="product" align="left">
+                      <div data-fs-quick-order-table-cell-img-container>
                         <ImageComponent
                           height={48}
                           src={variantProduct.image.url}
@@ -158,11 +158,11 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
 
-                      <div data-fs-qod-table-cell-name-container>
-                        <div data-fs-qod-text={'primary'}>
+                      <div data-fs-quick-order-table-cell-name-container>
+                        <div data-fs-quick-order-text={'primary'}>
                           {variantProduct.name}
                         </div>
-                        <span data-fs-qod-text={'secondary'}>
+                        <span data-fs-quick-order-text={'secondary'}>
                           {variantProduct.id}
                         </span>
                       </div>
@@ -200,20 +200,22 @@ const QuickOrderDrawerProducts = ({
                         'showStockQuantity' && variantProduct.inventory}
                     </TableCell>
 
-                    <TableCell data-fs-qod-cell="price" align="right">
+                    <TableCell data-fs-quick-order-cell="price" align="right">
                       <Price
                         value={variantProduct.price}
                         variant="spot"
                         formatter={priceFormatter}
-                        data-fs-qod-table-price={variantProduct.availability}
+                        data-fs-quick-order-table-price={
+                          variantProduct.availability
+                        }
                       />
                     </TableCell>
 
                     <TableCell
                       align="right"
-                      data-fs-qod-cell="quantity-selector"
+                      data-fs-quick-order-cell="quantity-selector"
                     >
-                      <div data-fs-qod-table-action>
+                      <div data-fs-quick-order-table-action>
                         <QuantitySelector
                           min={0}
                           max={variantProduct.inventory}
@@ -258,7 +260,7 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
                     </TableCell>
-                    <TableCell align="right" data-fs-qod-delete-cell>
+                    <TableCell align="right" data-fs-quick-order-delete-cell>
                       <IconButton
                         onClick={() => onDelete(variantProduct.id)}
                         icon={<Icon name="Thrash" color="#1F1F1F" />}
@@ -272,22 +274,24 @@ const QuickOrderDrawerProducts = ({
               <TableRow>
                 <TableCell
                   align="center"
-                  data-fs-qod-empty-state
+                  data-fs-quick-order-empty-state
                   {...({
                     colSpan: 5,
                   } as React.HTMLAttributes<HTMLTableCellElement>)}
                 >
-                  <div data-fs-qod-empty-state-container>
+                  <div data-fs-quick-order-empty-state-container>
                     <Icon
                       name="MagnifyingGlass"
                       width={48}
                       height={48}
                       weight="thin"
-                      data-fs-qod-empty-state-icon
+                      data-fs-quick-order-empty-state-icon
                     />
-                    <div data-fs-qod-empty-state-content>
-                      <p data-fs-qod-empty-state-title>No products found</p>
-                      <p data-fs-qod-empty-state-message>
+                    <div data-fs-quick-order-empty-state-content>
+                      <p data-fs-quick-order-empty-state-title>
+                        No products found
+                      </p>
+                      <p data-fs-quick-order-empty-state-message>
                         No SKUs were found for the provided file. Please check
                         your file and try again.
                       </p>

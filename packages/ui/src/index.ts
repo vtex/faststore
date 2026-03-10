@@ -1,19 +1,14 @@
 export * from '@faststore/components'
 
-// Explicitly re-export useCSVParser to ensure webpack can resolve it
 export { useCSVParser } from '@faststore/components'
 export type {
   CSVData,
   CSVParserError,
   CSVParserOptions,
 } from '@faststore/components'
-// Explicitly re-export FileUploadCardProps to ensure TypeScript resolves it
 export type { FileUploadCardProps } from '@faststore/components'
-// Explicitly re-export Product to ensure TypeScript resolves it
 export type { Product } from '@faststore/components'
-
 export { FileRejectionCode } from '@faststore/components'
-
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 

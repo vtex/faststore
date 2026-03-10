@@ -27,3 +27,4 @@ export type {
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
 export { useTrapFocus } from './useTrapFocus'
+export { FileRejectionCode } from './useFileUpload'

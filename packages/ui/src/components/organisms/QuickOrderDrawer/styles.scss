@@ -31,7 +31,7 @@
   background-color: var(--fs-color-body-bkg);
 
   [data-fs-quick-order-drawer-text="primary"],
-  [data-fs-qod-text="primary"] {
+  [data-fs-quick-order-text="primary"] {
     overflow: hidden;
     font-weight: var(--fs-text-weight-medium);
     line-height: 120%;
@@ -41,7 +41,7 @@
   }
 
   [data-fs-quick-order-drawer-text="secondary"],
-  [data-fs-qod-text="secondary"] {
+  [data-fs-quick-order-text="secondary"] {
     overflow: hidden;
     font-size: var(--fs-text-size-legend);
     font-weight: var(--fs-text-weight-regular);
@@ -93,7 +93,7 @@
       margin-left: var(--fs-spacing-9);
     }
 
-    [data-fs-qod-icon-completed] {
+    [data-fs-quick-order-icon-completed] {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -191,17 +191,17 @@
       }
 
       [data-fs-quick-order-drawer-table-row="available"],
-      [data-fs-qod-table-row="available"] {
+      [data-fs-quick-order-table-row="available"] {
         color: var(--fs-quick-order-drawer-primary-text-color);
       }
 
-      [data-fs-qod-table-row="outOfStock"] {
+      [data-fs-quick-order-table-row="outOfStock"] {
         color: var(--fs-quick-order-drawer-secondary-text-color);
         background-color: var(--fs-color-neutral-1);
       }
 
       [data-fs-quick-order-drawer-cell="product"],
-      [data-fs-qod-cell="product"] {
+      [data-fs-quick-order-cell="product"] {
         display: flex;
         align-items: center;
         overflow: hidden;
@@ -209,7 +209,7 @@
         white-space: nowrap;
 
         [data-fs-quick-order-drawer-table-cell-img-container],
-        [data-fs-qod-table-cell-img-container] {
+        [data-fs-quick-order-table-cell-img-container] {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -217,7 +217,7 @@
         }
 
         [data-fs-quick-order-drawer-table-cell-name-container],
-        [data-fs-qod-table-cell-name-container] {
+        [data-fs-quick-order-table-cell-name-container] {
           display: flex;
           flex-direction: column;
           padding: var(--fs-spacing-3) var(--fs-spacing-1);
@@ -247,7 +247,7 @@
       }
 
       [data-fs-quick-order-drawer-cell="price"],
-      [data-fs-qod-cell="price"] {
+      [data-fs-quick-order-cell="price"] {
         padding-right: 3%;
       }
 
@@ -294,17 +294,17 @@
       }
 
       [data-fs-quick-order-drawer-table-price="available"],
-      [data-fs-qod-table-price="available"] {
+      [data-fs-quick-order-table-price="available"] {
         color: var(--fs-quick-order-drawer-primary-text-color);
       }
 
       [data-fs-quick-order-drawer-table-price="outOfStock"],
-      [data-fs-qod-table-price="outOfStock"] {
+      [data-fs-quick-order-table-price="outOfStock"] {
         color: var(--fs-quick-order-drawer-secondary-text-color);
       }
 
       [data-fs-quick-order-drawer-delete-cell],
-      [data-fs-qod-delete-cell] {
+      [data-fs-quick-order-delete-cell] {
         [data-fs-button-wrapper] {
           width: 2.5rem;
           height: 2.5rem;
@@ -317,11 +317,11 @@
         }
       }
 
-      [data-fs-qod-empty-state] {
+      [data-fs-quick-order-empty-state] {
         padding: var(--fs-spacing-7) var(--fs-spacing-4);
         border-bottom: none;
 
-        [data-fs-qod-empty-state-container] {
+        [data-fs-quick-order-empty-state-container] {
           display: flex;
           flex-direction: column;
           gap: var(--fs-spacing-3);
@@ -330,16 +330,16 @@
           width: 100%;
         }
 
-        [data-fs-qod-empty-state-icon] {
+        [data-fs-quick-order-empty-state-icon] {
           color: var(--fs-color-text-light);
         }
 
-        [data-fs-qod-empty-state-content] {
+        [data-fs-quick-order-empty-state-content] {
           width: 100%;
           text-align: center;
         }
 
-        [data-fs-qod-empty-state-title] {
+        [data-fs-quick-order-empty-state-title] {
           margin: 0;
           margin-bottom: var(--fs-spacing-1);
           font-size: var(--fs-text-size-2);
@@ -347,14 +347,14 @@
           color: var(--fs-color-text);
         }
 
-        [data-fs-qod-empty-state-message] {
+        [data-fs-quick-order-empty-state-message] {
           margin: 0;
           font-size: var(--fs-text-size-1);
           color: var(--fs-color-text-light);
         }
       }
 
-      [data-fs-table-row]:has([data-fs-qod-empty-state]) {
+      [data-fs-table-row]:has([data-fs-quick-order-empty-state]) {
         border-bottom: none;
       }
     }
