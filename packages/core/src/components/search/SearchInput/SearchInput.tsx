@@ -45,13 +45,11 @@ import type { NavbarProps } from 'src/components/sections/Navbar'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
-import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from 'src/components/search/fileUploadCardDefaults'
 import { cartStore } from 'src/sdk/cart'
 import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuickOrder'
 import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import { getGlobalSettings } from 'src/utils/globalSettings'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
 const SearchDropdown = lazy(
@@ -72,38 +70,11 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
-  /** When true, shows the attachment button; can be set from CMS. */
-  showAttachmentButton?: boolean
-  /** Icon for the attachment button; can be set from CMS. */
-  attachmentButtonIcon?: {
-    icon: string
-    alt: string
-  }
-  /** Aria-label for the attachment button; can be set from CMS. */
-  attachmentButtonAriaLabel?: string
   /**
    * Called when the user clicks Search in the file upload card, with the parsed CSV data.
    * Use this to run bulk search, add to cart, or analytics.
    */
   onFileSearch?: (data: CSVData) => void
-  /**
-   * Props for FileUploadCard (labels, messages, etc.). Pass from CMS so all copy is editable.
-   */
-  fileUploadCardProps?: {
-    title?: string
-    fileInputAriaLabel?: string
-    dropzoneAriaLabel?: string
-    dropzoneTitle?: string
-    selectFileButtonLabel?: string
-    downloadTemplateButtonLabel?: string
-    removeButtonAriaLabel?: string
-    searchButtonLabel?: string
-    uploadingStatusText?: string
-    getCompletedStatusText?: (fileSize: number) => string
-    errorMessages?: Partial<
-      Record<string, { title: string; description: string }>
-    >
-  }
 } & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -128,11 +99,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
-      showAttachmentButton = false,
-      attachmentButtonIcon,
-      attachmentButtonAriaLabel,
       onFileSearch,
-      fileUploadCardProps,
       ...otherProps
     },
     ref
@@ -181,7 +148,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onGenerateTemplate,
     } = csvParser
 
-    const { fileUpload: fileUploadConfig } = getGlobalSettings() ?? {}
+    const isQuickOrderEnabled = quickOrderSettings?.quickOrder ?? false
+    const attachmentButton = quickOrderSettings?.attachmentButton
+    const toastMessages = quickOrderSettings?.toastMessages
+    const drawerConfig = quickOrderSettings?.drawer
+    const a11yLabels = quickOrderSettings?.accessibilityLabels
+    const fileUploadCardConfig = quickOrderSettings?.fileUploadCard
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -271,8 +243,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
         if (!fileToParse) {
           pushToast({
-            title: 'No file selected',
-            message: 'Please select a CSV file to search.',
+            title: toastMessages?.noFileSelected?.title,
+            message: toastMessages?.noFileSelected?.message,
             status: 'ERROR',
             icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
           })
@@ -284,11 +256,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
           const timeoutPromise = new Promise<never>((_, reject) => {
             setTimeout(() => {
-              reject(
-                new Error(
-                  'The file may be too large, corrupted, or the parser may be stuck.'
-                )
-              )
+              reject(new Error(toastMessages?.fileTimeout?.message))
             }, 30000)
           })
 
@@ -302,9 +270,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             setCsvData(result)
           } else {
             pushToast({
-              title: 'No data found',
-              message:
-                'The CSV file could not be processed or contains no valid data. Please check the file format and try again.',
+              title: toastMessages?.noDataFound?.title,
+              message: toastMessages?.noDataFound?.message,
               status: 'ERROR',
               icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
             })
@@ -314,9 +281,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           const errorMessage =
             error instanceof Error
               ? error.message
-              : 'Failed to process the CSV file. Please try again.'
+              : toastMessages?.fileProcessingError?.defaultMessage
           pushToast({
-            title: 'File processing error',
+            title: toastMessages?.fileProcessingError?.title,
             message: errorMessage,
             status: 'ERROR',
             icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
@@ -327,9 +294,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
       if (!dataToUse || !dataToUse.data || dataToUse.data.length === 0) {
         pushToast({
-          title: 'No data available',
-          message:
-            'The CSV file contains no valid data. Please check the file and try again.',
+          title: toastMessages?.noDataAvailable?.title,
+          message: toastMessages?.noDataAvailable?.message,
           status: 'ERROR',
           icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
         })
@@ -361,9 +327,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
       if (uniqueSkus.length === 0) {
         pushToast({
-          title: 'No valid SKUs found',
-          message:
-            'The CSV file does not contain any valid SKUs. Please check the file format and ensure it has a SKU column.',
+          title: toastMessages?.noValidSkus?.title,
+          message: toastMessages?.noValidSkus?.message,
           status: 'ERROR',
           icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
         })
@@ -521,17 +486,33 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       [fetchedProducts]
     )
 
-    const resolvedFileUploadCardProps = {
-      ...DEFAULT_FILE_UPLOAD_CARD_PROPS,
-      ...(fileUploadCardProps ?? {}),
-    }
+    const getCompletedStatusText = useCallback(
+      (fileSize: number) => {
+        const template = fileUploadCardConfig?.completedStatusTemplate ?? ''
+        return template.replace('{fileSize}', (fileSize / 1024).toFixed(1))
+      },
+      [fileUploadCardConfig?.completedStatusTemplate]
+    )
+
+    const resolvedErrorMessages = useMemo(() => {
+      const msgs = fileUploadCardConfig?.errorMessages ?? {}
+      const result: Record<string, { title: string; description: string }> = {}
+
+      for (const [key, val] of Object.entries(msgs)) {
+        if (val?.title && val?.description) {
+          result[key] = { title: val.title, description: val.description }
+        }
+      }
+
+      return result
+    }, [fileUploadCardConfig?.errorMessages])
 
     return (
       <>
         {hidden ? (
           <UIIconButton
             type="submit"
-            aria-label="Submit Search"
+            aria-label={a11yLabels?.searchButtonAriaLabel}
             icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}
@@ -550,24 +531,25 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               ref={ref}
               buttonProps={buttonProps}
               placeholder={placeholder}
-              showAttachmentButton={true}
+              showAttachmentButton={isQuickOrderEnabled}
               attachmentButtonIcon={
-                showAttachmentButton && attachmentButtonIcon ? (
+                isQuickOrderEnabled && attachmentButton?.icon ? (
                   <UIIcon
-                    name={attachmentButtonIcon.icon}
-                    aria-label={attachmentButtonIcon.alt}
+                    name={attachmentButton.icon.icon}
+                    aria-label={attachmentButton.icon.alt}
                   />
                 ) : undefined
               }
-              attachmentButtonAriaLabel={attachmentButtonAriaLabel}
+              attachmentButtonAriaLabel={
+                attachmentButton?.ariaLabel ?? a11yLabels?.attachButtonAriaLabel
+              }
               attachmentButtonProps={{
                 onClick: () => {
                   setFileUploadVisible(true)
                 },
                 'aria-label':
-                  attachmentButtonAriaLabel ??
-                  attachmentButtonIcon?.alt ??
-                  'Attach File',
+                  attachmentButton?.ariaLabel ??
+                  a11yLabels?.attachButtonAriaLabel,
               }}
               onChange={(e: { target: { value: SetStateAction<string> } }) =>
                 setSearchQuery(e.target.value)
@@ -599,16 +581,24 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             )}
             {fileUploadVisible && (
               <FileUploadCard
-                title={resolvedFileUploadCardProps.title}
-                fileInputAriaLabel={
-                  resolvedFileUploadCardProps.fileInputAriaLabel
+                title={fileUploadCardConfig?.title}
+                fileInputAriaLabel={fileUploadCardConfig?.fileInputAriaLabel}
+                dropzoneAriaLabel={fileUploadCardConfig?.dropzoneAriaLabel}
+                dropzoneTitle={fileUploadCardConfig?.dropzoneTitle}
+                selectFileButtonLabel={
+                  fileUploadCardConfig?.selectFileButtonLabel
                 }
-                dropzoneAriaLabel={
-                  resolvedFileUploadCardProps.dropzoneAriaLabel
+                downloadTemplateButtonLabel={
+                  fileUploadCardConfig?.downloadTemplateButtonLabel
                 }
-                getCompletedStatusText={
-                  resolvedFileUploadCardProps.getCompletedStatusText
+                removeButtonAriaLabel={
+                  fileUploadCardConfig?.removeButtonAriaLabel
                 }
+                searchButtonLabel={fileUploadCardConfig?.searchButtonLabel}
+                uploadingStatusText={fileUploadCardConfig?.uploadingStatusText}
+                getCompletedStatusText={getCompletedStatusText}
+                errorMessages={resolvedErrorMessages}
+                accept={fileUploadCardConfig?.acceptedFileTypes}
                 isOpen={isUploadOpen || hasFile || fileUploadVisible}
                 onDismiss={handleDismiss}
                 onFileSelect={handleFileSelect}
@@ -618,35 +608,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 onSearch={handleSearch}
                 isUploading={isCsvProcessing || isLoadingProducts}
                 hasError={(!!csvError || noProductsError) && !isLoadingProducts}
-                accept={fileUploadConfig?.acceptedFileTypes ?? '.csv'}
-                {...resolvedFileUploadCardProps}
-                {...(fileUploadConfig?.errorMessages && {
-                  errorMessages: {
-                    ...(fileUploadCardProps?.errorMessages ??
-                      DEFAULT_FILE_UPLOAD_CARD_PROPS.errorMessages),
-                    ...fileUploadConfig.errorMessages,
-                  },
-                })}
-                {...(fileUploadConfig?.labels && {
-                  selectFileButtonLabel:
-                    fileUploadConfig.labels.selectFile ??
-                    fileUploadCardProps?.selectFileButtonLabel,
-                  downloadTemplateButtonLabel:
-                    fileUploadConfig.labels.downloadTemplate ??
-                    fileUploadCardProps?.downloadTemplateButtonLabel,
-                  searchButtonLabel:
-                    fileUploadConfig.labels.search ??
-                    fileUploadCardProps?.searchButtonLabel,
-                  removeButtonAriaLabel:
-                    fileUploadConfig.labels.remove ??
-                    fileUploadCardProps?.removeButtonAriaLabel,
-                  uploadingStatusText:
-                    fileUploadConfig.labels.uploading ??
-                    fileUploadCardProps?.uploadingStatusText,
-                  dropzoneTitle:
-                    fileUploadConfig.labels.dropzone ??
-                    fileUploadCardProps?.dropzoneTitle,
-                })}
                 {...((csvError || (noProductsError && !isLoadingProducts)) && {
                   errorType: noProductsError
                     ? FileUploadErrorType.NoProductsFound
@@ -676,7 +637,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         >
           <QuickOrderDrawerHeader
             title={
-              selectedFile ? formatFileName(selectedFile.name) : 'Quick Order'
+              selectedFile
+                ? formatFileName(selectedFile.name)
+                : drawerConfig?.defaultTitle
             }
             onCloseDrawer={() => {
               setIsQuickOrderDrawerOpen(false)
@@ -687,13 +650,13 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           />
           <QuickOrderDrawerProducts
             columns={{
-              name: 'Product Name',
+              name: drawerConfig?.columns?.name,
               availability: {
-                label: 'Availability',
+                label: drawerConfig?.columns?.availabilityLabel,
                 stockDisplaySettings: 'showAvailability',
               },
-              price: 'Price (tax included)',
-              quantity: 'Quantity',
+              price: drawerConfig?.columns?.price,
+              quantity: drawerConfig?.columns?.quantity,
             }}
             formatter={(price, variant) => priceFormatter(price)}
           />

@@ -154,16 +154,6 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
-              fileUploadCardProps={searchInput?.fileUploadCardProps}
-              showAttachmentButton={
-                searchInput?.attachmentButton?.enabled ?? false
-              }
-              attachmentButtonIcon={
-                searchInput?.attachmentButton?.icon ?? undefined
-              }
-              attachmentButtonAriaLabel={
-                searchInput?.attachmentButton?.ariaLabel
-              }
             />
           )}
 
@@ -192,16 +182,6 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
-                fileUploadCardProps={searchInput?.fileUploadCardProps}
-                showAttachmentButton={
-                  searchInput?.attachmentButton?.enabled ?? false
-                }
-                attachmentButtonIcon={
-                  searchInput?.attachmentButton?.icon ?? undefined
-                }
-                attachmentButtonAriaLabel={
-                  searchInput?.attachmentButton?.ariaLabel
-                }
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />
