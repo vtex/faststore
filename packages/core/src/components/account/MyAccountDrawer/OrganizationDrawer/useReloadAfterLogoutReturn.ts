@@ -27,7 +27,7 @@ export const setReloadAfterLogoutReturn = (): void => {
   }
 }
 
-const RELOAD_DELAY_MS = 1000
+const RELOAD_DELAY_MS = 2000
 
 /**
  * Forces a full navigation with cache-busting param instead of reload().
