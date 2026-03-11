@@ -9,7 +9,7 @@ import { getPreferredPackageManager } from '../utils/commands'
 import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { toggleMiddlewareByLocalizationFlag } from '../utils/generate'
+import { toggleProxyByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
@@ -97,7 +97,7 @@ export default class Build extends Command {
 
     const config = await getDiscoveryConfig(basePath)
     const localizationEnabled = config?.localization?.enabled === true
-    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
+    toggleProxyByLocalizationFlag(basePath, localizationEnabled)
 
     scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,

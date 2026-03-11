@@ -491,30 +491,29 @@ async function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
-const DISABLED_MIDDLEWARE_FILENAME = 'middleware__DISABLED.ts'
+const DISABLED_PROXY_FILENAME = 'proxy__DISABLED.ts'
 
 /**
- * Toggle middleware based on localization feature flag (localization.enabled) in discovery config.
- * When flag is off: renames middleware.ts → middleware__DISABLED.ts so Next.js does not run it.
- * When flag is on: renames middleware__DISABLED.ts → middleware.ts so Next.js runs it.
+ * Toggle proxy based on localization feature flag (localization.enabled) in discovery config.
+ * When flag is off: renames proxy.ts → proxy__DISABLED.ts so Next.js does not run it.
+ * When flag is on: renames proxy__DISABLED.ts → proxy.ts so Next.js runs it.
  */
-export function toggleMiddlewareByLocalizationFlag(
+export function toggleProxyByLocalizationFlag(
   basePath: string,
   localizationEnabled: boolean
 ): void {
   try {
     const { tmpDir } = withBasePath(basePath)
-    const middlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
-    const disabledPath = path.join(tmpDir, 'src', DISABLED_MIDDLEWARE_FILENAME)
+    const proxyPath = path.join(tmpDir, 'src', 'proxy.ts')
+    const disabledPath = path.join(tmpDir, 'src', DISABLED_PROXY_FILENAME)
 
-    const shouldEnableMiddleware =
-      existsSync(disabledPath) && !existsSync(middlewarePath)
-    const shouldDisableMiddleware = existsSync(middlewarePath)
+    const shouldEnableProxy = existsSync(disabledPath) && !existsSync(proxyPath)
+    const shouldDisableProxy = existsSync(proxyPath)
 
-    if (localizationEnabled && shouldEnableMiddleware) {
-      moveSync(disabledPath, middlewarePath)
-    } else if (!localizationEnabled && shouldDisableMiddleware) {
-      moveSync(middlewarePath, disabledPath)
+    if (localizationEnabled && shouldEnableProxy) {
+      moveSync(disabledPath, proxyPath)
+    } else if (!localizationEnabled && shouldDisableProxy) {
+      moveSync(proxyPath, disabledPath)
     }
   } catch (error) {
     logger.error(error)
