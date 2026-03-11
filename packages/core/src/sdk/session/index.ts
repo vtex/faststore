@@ -15,7 +15,6 @@ import {
 } from '../account/refreshToken'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { setCacheBustingSource } from '../sessionAuthState'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 
@@ -150,11 +149,6 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate] = createValidationStore(validateSession)
 
 const defaultStore = createSessionStore(storeConfig.session, onValidate)
-
-// Register getter to read person?.id from store at call time (avoids race with validateSession)
-setCacheBustingSource(
-  () => (defaultStore.read() ?? defaultStore.readInitial())?.person?.id ?? null
-)
 
 export const sessionStore = {
   ...defaultStore,

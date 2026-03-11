@@ -1,4 +1,4 @@
-import { getSessionPersonId } from 'src/sdk/sessionAuthState'
+import { sessionStore } from 'src/sdk/session'
 
 export const STORAGE_KEY_PERSON_ID = 'faststore_person_id'
 export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
@@ -6,14 +6,14 @@ export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
 
 /**
  * Gets person?.id from session (via ValidateSession).
- * Uses session data since auth cookies are now httpOnly and inaccessible via JavaScript.
+ * Reads session store directly since auth cookies are httpOnly and inaccessible via JavaScript.
  */
 const getPersonId = (): string | null => {
   if (typeof window === 'undefined') {
     return null
   }
-
-  return getSessionPersonId()
+  const session = sessionStore.read() ?? sessionStore.readInitial()
+  return session?.person?.id ?? null
 }
 
 /**
@@ -83,7 +83,7 @@ const storeLastValue = (value: string): void => {
 /**
  * Clears all cache busting related data from sessionStorage (client-side only)
  */
-const clearStorage = (): void => {
+const clearCacheBustingStorage = (): void => {
   if (typeof sessionStorage === 'undefined') {
     return
   }
@@ -106,18 +106,19 @@ export const getClientCacheBustingValue = (): string | null => {
 
   // Guard clause: if user is not logged in (no person?.id), clear storage and don't proceed with cache busting logic
   if (currentPersonId === null) {
-    clearStorage()
+    clearCacheBustingStorage()
     return null
   }
 
   const storedPersonId = getStoredPersonId()
 
-  // If person changed (login/logout or different user), update stored value and return new timestamp
+  // If person changed (login/logout or different user), update stored value and return new value
   if (currentPersonId !== storedPersonId) {
     storePersonId(currentPersonId)
     const timestamp = Date.now().toString()
-    storeLastValue(timestamp)
-    return timestamp
+    const value = `${timestamp}::${currentPersonId}`
+    storeLastValue(value)
+    return value
   }
 
   // Person hasn't changed, return last value or create one if it doesn't exist
@@ -128,6 +129,7 @@ export const getClientCacheBustingValue = (): string | null => {
 
   // Fallback: if no last value, create one
   const timestamp = Date.now().toString()
-  storeLastValue(timestamp)
-  return timestamp
+  const value = `${timestamp}::${currentPersonId}`
+  storeLastValue(value)
+  return value
 }

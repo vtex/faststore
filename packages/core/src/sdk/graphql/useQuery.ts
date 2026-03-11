@@ -1,10 +1,10 @@
-import useSWR from 'swr'
 import type { SWRConfiguration } from 'swr'
+import useSWR from 'swr'
 
 import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
 
-import { request } from './request'
 import type { Operation, RequestOptions } from './request'
+import { request } from './request'
 
 export type QueryOptions = SWRConfiguration &
   RequestOptions & { doNotRun?: boolean }
@@ -24,7 +24,7 @@ const getSessionCacheKeySuffix = (): string => {
     return ''
   }
   const value = getClientCacheBustingValue()
-  return value ?? 'anonymous'
+  return value ?? ''
 }
 
 export const DEFAULT_OPTIONS = {
