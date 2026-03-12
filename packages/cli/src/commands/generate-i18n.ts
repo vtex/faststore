@@ -146,7 +146,6 @@ export default class GenerateI18n extends Command {
         )}`,
         {
           parser: 'typescript',
-          singleQuote: true,
           quoteProps: 'as-needed',
         }
       )
