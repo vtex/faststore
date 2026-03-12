@@ -18,6 +18,20 @@ interface Props {
   compareLabel?: string
 }
 
+function buildExtraProductProps(
+  product: Record<string, string>,
+  index: number,
+  searchId: string
+) {
+  return {
+    'data-af-element': 'search-result',
+    'data-af-onclick': product && !!product.productId,
+    'data-af-search-id': searchId,
+    'data-af-product-position': Number(index ?? 0) + 1, // Product position in Search Analytics starts with 1
+    'data-af-product-id': product && product.productId,
+  }
+}
+
 function ProductGalleryPage({
   page,
   title,
@@ -30,6 +44,7 @@ function ProductGalleryPage({
   const { data } = useGalleryPage(page)
 
   const products = data?.search?.products?.edges ?? []
+  const searchId = data?.search?.searchId
 
   return (
     <Sentinel
@@ -47,6 +62,8 @@ function ProductGalleryPage({
         productCard={productCard}
         firstPage={firstPage}
         title={title}
+        searchId={searchId}
+        buildExtraProductProps={searchId && buildExtraProductProps}
       />
     </Sentinel>
   )
