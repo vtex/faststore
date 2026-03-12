@@ -1,8 +1,10 @@
-import useSWR from 'swr'
 import type { SWRConfiguration } from 'swr'
+import useSWR from 'swr'
 
-import { request } from './request'
+import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
+
 import type { Operation, RequestOptions } from './request'
+import { request } from './request'
 
 export type QueryOptions = SWRConfiguration &
   RequestOptions & { doNotRun?: boolean }
@@ -11,6 +13,19 @@ export const getKey = <Variables>(
   operationName: string,
   variables: Variables
 ) => `${operationName}::${JSON.stringify(variables)}`
+
+/**
+ * Returns a suffix for the cache key based on auth state (logged-in vs anonymous).
+ * This ensures SWR keeps separate cache entries for logged-in and logged-out users,
+ * avoiding stale product data (e.g. prices, availability) when switching session state.
+ */
+const getSessionCacheKeySuffix = (): string => {
+  if (typeof window === 'undefined') {
+    return ''
+  }
+  const value = getClientCacheBustingValue()
+  return value ?? ''
+}
 
 export const DEFAULT_OPTIONS = {
   errorRetryCount: 3,
@@ -27,10 +42,12 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
   options?: QueryOptions
 ) =>
   useSWR<Data>(
-    () =>
-      options?.doNotRun
-        ? null
-        : getKey(operation['__meta__']['operationName'], variables),
+    () => {
+      if (options?.doNotRun) return null
+      const baseKey = getKey(operation['__meta__']['operationName'], variables)
+      const sessionSuffix = getSessionCacheKeySuffix()
+      return `${baseKey}::${sessionSuffix}`
+    },
     {
       fetcher: () => {
         return new Promise((resolve) => {
