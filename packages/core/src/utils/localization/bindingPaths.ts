@@ -305,10 +305,14 @@ export function getChannelForLocale(locale: string | undefined): string {
     return filterChannel(defaultChannel)
   }
 
-  const channelObj = JSON.parse(defaultChannel)
-  const updatedChannel = { ...channelObj, salesChannel: binding.salesChannel }
-
-  return filterChannel(JSON.stringify(updatedChannel))
+  try {
+    const channelObj = JSON.parse(defaultChannel)
+    const updatedChannel = { ...channelObj, salesChannel: binding.salesChannel }
+    return filterChannel(JSON.stringify(updatedChannel))
+  } catch {
+    console.warn('[bindingPaths] Failed to parse channel')
+    return filterChannel(defaultChannel)
+  }
 }
 
 /**
