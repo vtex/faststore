@@ -95,6 +95,7 @@ export default class CacheGraphql extends Command {
         )}`,
         {
           parser: 'typescript',
+          singleQuote: true,
           quoteProps: 'as-needed',
         }
       )
