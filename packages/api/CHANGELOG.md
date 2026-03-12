@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
+
+### Features
+
+- Add ActivityFlow data parameters with search-related information ([#3105](https://github.com/vtex/faststore/issues/3105)) ([8f69ff8](https://github.com/vtex/faststore/commit/8f69ff855c31abedba66071132240c53a93ab56d))
+
 # [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
 
 ### Features
