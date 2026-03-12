@@ -21,7 +21,10 @@ export function useLink() {
       if (href.startsWith('/') && !href.startsWith('//')) {
         const asPath = router.asPath ?? ''
         const withCustomPath = addCustomPathPrefix(href, asPath)
-        const defaultLocale = storeConfig.localization?.defaultLocale
+        // On a subdomain, router.defaultLocale is set to the domain's locale (e.g., fr-FR).
+        // Using the global config default (e.g., en-US) would incorrectly prepend /fr-FR/ to every link, breaking navigation.
+        const defaultLocale =
+          router.defaultLocale ?? storeConfig.localization?.defaultLocale
         // Check if current page has a custom path prefix
         const onCustomPath = extractCustomPathPrefix(asPath) !== null
         // Only add Next.js locale when no custom path was applied AND we're not on a custom-path page
