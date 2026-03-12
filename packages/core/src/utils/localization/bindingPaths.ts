@@ -306,9 +306,9 @@ export function getChannelForLocale(locale: string | undefined): string {
   }
 
   const channelObj = JSON.parse(defaultChannel)
-  channelObj.salesChannel = binding.salesChannel
+  const updatedChannel = { ...channelObj, salesChannel: binding.salesChannel }
 
-  return filterChannel(JSON.stringify(channelObj))
+  return filterChannel(JSON.stringify(updatedChannel))
 }
 
 /**

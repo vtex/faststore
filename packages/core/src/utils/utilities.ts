@@ -118,6 +118,15 @@ export const toArray = <T>(x: T[] | T | undefined) =>
  * @returns The filtered channel string.
  */
 export function filterChannel(channel: string): string {
-  const { hasOnlyDefaultSalesChannel, ...filteredChannel } = JSON.parse(channel)
-  return JSON.stringify(filteredChannel)
+  if (!channel) {
+    return '{}'
+  }
+  try {
+    const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
+      JSON.parse(channel)
+    return JSON.stringify(filteredChannel)
+  } catch {
+    console.warn('[filterChannel] Invalid channel JSON:', channel)
+    return channel
+  }
 }
