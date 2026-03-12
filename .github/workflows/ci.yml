@@ -34,14 +34,14 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Lint
+        run: pnpm lint
+
       - name: Build
         run: pnpm build
 
       - name: Size
         run: pnpm size
-
-      - name: Lint
-        run: pnpm lint
 
       - name: Test
         run: pnpm test

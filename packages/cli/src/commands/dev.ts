@@ -11,7 +11,7 @@ import { getPreferredPackageManager } from '../utils/commands'
 import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { generate, toggleMiddlewareByLocalizationFlag } from '../utils/generate'
+import { generate, toggleProxyByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
 
@@ -211,7 +211,7 @@ export default class Dev extends Command {
 
     const config = await getDiscoveryConfig(basePath)
     const localizationEnabled = config?.localization?.enabled === true
-    toggleMiddlewareByLocalizationFlag(basePath, localizationEnabled)
+    toggleProxyByLocalizationFlag(basePath, localizationEnabled)
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 
