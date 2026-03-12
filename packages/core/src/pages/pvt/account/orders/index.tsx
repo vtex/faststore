@@ -21,6 +21,7 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
+import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'
@@ -125,7 +126,7 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
@@ -253,3 +254,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-search-dropdown] {
   // --------------------------------------------------------
   // Design Tokens for Search Dropdown
@@ -36,12 +38,12 @@
   background-color: var(--fs-search-dropdown-bkg-color);
   &:empty { display: none; }
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     top: var(--fs-search-dropdown-position-top-tablet);
     left: var(--fs-search-dropdown-position-left-tablet);
   }
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     top: var(--fs-search-dropdown-position-top-desktop);
     left: 0;
     width: var(--fs-search-dropdown-width-desktop);

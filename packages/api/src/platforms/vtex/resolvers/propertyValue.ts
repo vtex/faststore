@@ -1,10 +1,10 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type { StorePropertyValue as StorePropertyValueType } from '../../../__generated__/schema'
 import { getPropertyId } from '../utils/propertyValue'
 
 export type Root = StorePropertyValueType
 
-export const StorePropertyValue: Record<string, Resolver<Root>> = {
+export const StorePropertyValue: Record<string, GraphqlResolver<Root>> = {
   propertyID: (root) => root.propertyID || getPropertyId(root),
   name: ({ name }) => name,
   value: ({ value }) => value,

@@ -1,15 +1,6 @@
 import chalk from 'chalk'
-import {
-  copyFileSync,
-  copySync,
-  existsSync,
-  mkdirsSync,
-  readFileSync,
-  readdirSync,
-  removeSync,
-  writeFileSync,
-  writeJsonSync,
-} from 'fs-extra'
+import fsExtra from 'fs-extra'
+
 import path from 'path'
 
 import ora from 'ora'
@@ -20,6 +11,18 @@ import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
 
+const {
+  copyFileSync,
+  copySync,
+  existsSync,
+  mkdirsSync,
+  moveSync,
+  readFileSync,
+  readdirSync,
+  removeSync,
+  writeFileSync,
+  writeJsonSync,
+} = fsExtra
 interface GenerateOptions {
   setup?: boolean
   basePath: string
@@ -60,12 +63,20 @@ function createTmpFolder(basePath: string) {
 function filterAndCopyPackageJson(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
-  const corePackageJsonPath = path.join(coreDir, 'package.json')
-
-  const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
-  const { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
+  const { exports: _, ...filteredFileContent } = JSON.parse(
+    readFileSync(path.join(coreDir, 'package.json'), 'utf8')
+  )
 
   filteredFileContent.name = 'dot-faststore'
+  filteredFileContent.scripts = {
+    ...filteredFileContent.scripts,
+    generate: 'faststore generate',
+    build: 'next build --webpack',
+    serve: 'next serve',
+    dev: 'next dev --webpack',
+    'dev-only': 'next dev --webpack',
+    predev: 'na run partytown',
+  }
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
     spaces: 2,
@@ -166,9 +177,11 @@ async function copyCypressFiles(basePath: string) {
     let userStoreConfig
 
     if (existsSync(userStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userStoreConfigFile))
+      userStoreConfig = (await import(path.resolve(userStoreConfigFile)))
+        ?.default
     } else if (existsSync(userLegacyStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+      userStoreConfig = (await import(path.resolve(userLegacyStoreConfigFile)))
+        ?.default
     } else {
       logger.info(
         `${chalk.blue(
@@ -247,9 +260,10 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
   let userStoreConfig
 
   if (existsSync(userStoreConfigFile)) {
-    userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    userStoreConfig = (await import(path.resolve(userStoreConfigFile)))?.default
   } else if (existsSync(userLegacyStoreConfigFile)) {
-    userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+    userStoreConfig = (await import(path.resolve(userLegacyStoreConfigFile)))
+      ?.default
   } else {
     logger.info(
       `${chalk.blue(
@@ -283,25 +297,24 @@ async function copyTheme(basePath: string) {
     userLegacyStoreConfigFile,
   } = withBasePath(basePath)
 
-  let storeConfig
+  const storeConfigFile =
+    (existsSync(userStoreConfigFile) && userStoreConfigFile) ||
+    (existsSync(userLegacyStoreConfigFile) && userLegacyStoreConfigFile)
 
-  // Because of how node caches imports, if we don't delete the cache
-  // for the {discovery|faststore}.config.js files we will return a
-  // cached version and not reflect the theme change until a restart
-  // happens. Deleting before importing clears the cache
-  if (existsSync(userStoreConfigFile)) {
-    delete require.cache[path.resolve(userStoreConfigFile)]
-    storeConfig = await import(path.resolve(userStoreConfigFile))
-  } else if (existsSync(userLegacyStoreConfigFile)) {
-    delete require.cache[path.resolve(userLegacyStoreConfigFile)]
-    storeConfig = await import(path.resolve(userLegacyStoreConfigFile))
-  } else {
+  const userStoreConfigFilePath =
+    storeConfigFile && path.resolve(storeConfigFile)
+  const importedStoreConfig =
+    userStoreConfigFilePath && (await import(userStoreConfigFilePath))
+  const storeConfig =
+    userStoreConfigFilePath &&
+    (importedStoreConfig?.default || importedStoreConfig)
+
+  if (!storeConfig)
     logger.info(
       `${chalk.blue(
         'info'
       )} - No store config file was found in the root directory`
     )
-  }
 
   if (storeConfig.theme) {
     const customTheme = path.join(
@@ -359,14 +372,18 @@ function updateBuildTime(basePath: string) {
   }
 }
 
-function checkDependencies(basePath: string, packagesToCheck: string[]) {
+async function checkDependencies(basePath: string, packagesToCheck: string[]) {
   const { coreDir, getRoot } = withBasePath(basePath)
 
   const corePackageJsonPath = path.join(coreDir, 'package.json')
   const rootPackageJsonPath = path.join(getRoot(), 'package.json')
 
-  const corePackageJson = require(corePackageJsonPath)
-  const rootPackageJson = require(rootPackageJsonPath)
+  const { default: corePackageJson } = await import(corePackageJsonPath, {
+    with: { type: 'json' },
+  })
+  const { default: rootPackageJson } = await import(rootPackageJsonPath, {
+    with: { type: 'json' },
+  })
 
   packagesToCheck.forEach((packageName) => {
     const coreVersion =
@@ -423,7 +440,7 @@ function getCurrentUserStoreConfigFile(basePath: string) {
   return null
 }
 
-function validateAndInstallMissingDependencies(basePath: string) {
+async function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir } = withBasePath(basePath)
 
   const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath)
@@ -432,22 +449,27 @@ function validateAndInstallMissingDependencies(basePath: string) {
     return
   }
 
-  const userStoreConfig = require(currentUserStoreConfigFile)
-  const userPackageJson = require(path.join(userDir, 'package.json'))
+  const { default: userStoreConfig } = await import(currentUserStoreConfigFile)
+  const { default: userPackageJson } = await import(
+    path.join(userDir, 'package.json'),
+    {
+      with: { type: 'json' },
+    }
+  )
 
   const missingDependencies: Array<{
     feature: string
     dependencies: string[]
   }> = []
 
-  if (userStoreConfig.experimental.preact) {
+  if (userStoreConfig?.experimental?.preact) {
     missingDependencies.push({
       feature: 'Preact',
       dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8'],
     })
   }
 
-  missingDependencies.forEach(({ feature, dependencies }) => {
+  missingDependencies.forEach(async ({ feature, dependencies }) => {
     const dependenciesToInstall = dependencies.filter((dependency) => {
       const dependencyName = dependency.split('@')[0]
       return !userPackageJson.dependencies[dependencyName]
@@ -458,7 +480,7 @@ function validateAndInstallMissingDependencies(basePath: string) {
         `Installing ${feature} missing dependencies\n`
       ).start()
 
-      installDependencies({
+      await installDependencies({
         dependencies: dependenciesToInstall,
         cwd: userDir,
         errorMessage: `failed to install ${feature} dependencies`,
@@ -469,33 +491,29 @@ function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
-// TODO: Read the value from an environment variable
-const ENABLE_REDIRECTS_MIDDLEWARE = false
+const DISABLED_PROXY_FILENAME = 'proxy__DISABLED.ts'
 
-// Enable redirects middleware by renaming the file from middleware__DISABLED.ts to middleware.tsß
-function enableRedirectsMiddleware(basePath: string) {
-  if (!ENABLE_REDIRECTS_MIDDLEWARE) {
-    return
-  }
-
+/**
+ * Toggle proxy based on localization feature flag (localization.enabled) in discovery config.
+ * When flag is off: renames proxy.ts → proxy__DISABLED.ts so Next.js does not run it.
+ * When flag is on: renames proxy__DISABLED.ts → proxy.ts so Next.js runs it.
+ */
+export function toggleProxyByLocalizationFlag(
+  basePath: string,
+  localizationEnabled: boolean
+): void {
   try {
     const { tmpDir } = withBasePath(basePath)
+    const proxyPath = path.join(tmpDir, 'src', 'proxy.ts')
+    const disabledPath = path.join(tmpDir, 'src', DISABLED_PROXY_FILENAME)
 
-    const disabledMiddlewarePath = path.join(
-      tmpDir,
-      'src',
-      'middleware__DISABLED.ts'
-    )
+    const shouldEnableProxy = existsSync(disabledPath) && !existsSync(proxyPath)
+    const shouldDisableProxy = existsSync(proxyPath)
 
-    /* Rename the file to enable middleware functionality and then remove the disabled middleware file */
-    if (existsSync(disabledMiddlewarePath)) {
-      const enabledMiddlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
-      copyFileSync(disabledMiddlewarePath, enabledMiddlewarePath)
-      removeSync(disabledMiddlewarePath)
-
-      logger.log(
-        `${chalk.green('success')} Redirects middleware has been enabled`
-      )
+    if (localizationEnabled && shouldEnableProxy) {
+      moveSync(disabledPath, proxyPath)
+    } else if (!localizationEnabled && shouldDisableProxy) {
+      moveSync(proxyPath, disabledPath)
     }
   } catch (error) {
     logger.error(error)
@@ -503,13 +521,13 @@ function enableRedirectsMiddleware(basePath: string) {
   }
 }
 
-function enableSearchSSR(basePath: string) {
+async function enableSearchSSR(basePath: string) {
   const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
 
   if (!storeConfigPath) {
     return
   }
-  const storeConfig = require(storeConfigPath)
+  const { default: storeConfig } = await import(storeConfigPath)
   if (!storeConfig.experimental.enableSearchSSR) {
     return
   }
@@ -531,7 +549,7 @@ export async function generate(options: GenerateOptions) {
 
   let setupPromise: Promise<unknown> | null = null
 
-  validateAndInstallMissingDependencies(basePath)
+  await validateAndInstallMissingDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([
@@ -551,8 +569,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    enableRedirectsMiddleware(basePath),
-
     installPlugins(basePath),
   ])
 }

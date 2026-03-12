@@ -80,6 +80,21 @@
             "score_desc"
           ]
         },
+        "submitButtonAriaLabel": {
+          "title": "Submit Search Button aria-label",
+          "type": "string",
+          "default": "Submit Search"
+        },
+        "searchHistoryTitle": {
+          "title": "Search History Title",
+          "type": "string",
+          "default": "History"
+        },
+        "searchTopTitle": {
+          "title": "Top Search Title",
+          "type": "string",
+          "default": "Top search"
+        },
         "quickOrderSettings": {
           "title": "Quick Order settings",
           "type": "object",
@@ -162,8 +177,41 @@
                   }
                 }
               }
+            },
+            "invalidQuantityToastLabels": {
+              "title": "Invalid quantity toast",
+              "description": "This toast will be displayed when the quantity is out of the range of the min and max values.",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Invalid quantity!"
+                },
+                "message": {
+                  "title": "Message",
+                  "type": "string",
+                  "description": "If the message has %{min}, %{max} and %{quantity} placeholders, they will be replaced by the min, max and quantity values.",
+                  "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
+                }
+              }
+            },
+            "outOfStockLabel": {
+              "title": "Out of Stock Label",
+              "type": "string",
+              "default": "Out of stock"
             }
           }
+        },
+        "loadingLabel": {
+          "title": "Loading Label",
+          "type": "string",
+          "default": "Loading..."
+        },
+        "collapseSearchAriaLabel": {
+          "title": "Collapse Search Button aria-label",
+          "type": "string",
+          "default": "Collapse search bar"
         }
       }
     },
@@ -257,6 +305,92 @@
             }
           }
         },
+        "localizationButton": {
+          "type": "object",
+          "title": "Localization Button",
+          "properties": {
+            "shouldDisplayLocalizationButton": {
+              "type": "boolean",
+              "title": "Should display localization button?",
+              "default": false
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Globe"],
+                  "enum": ["Globe"],
+                  "default": "Globe"
+                }
+              }
+            },
+            "ariaLabel": {
+              "title": "Aria Label for localization selector",
+              "type": "string",
+              "default": "Open localization selector"
+            }
+          }
+        },
+        "localizationSelector": {
+          "type": "object",
+          "title": "Localization Selector",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Select language and currency"
+            },
+            "languageLabel": {
+              "title": "Language Label",
+              "type": "string",
+              "default": "Language"
+            },
+            "currencyLabel": {
+              "title": "Currency Label",
+              "type": "string",
+              "default": "Currency"
+            },
+            "description": {
+              "title": "Description",
+              "type": "string",
+              "default": "Changing the language or currency may affect prices, promotions and availability."
+            },
+            "saveLabel": {
+              "title": "Save Button Label",
+              "type": "string",
+              "default": "Save"
+            },
+            "errorMessages": {
+              "title": "Error Messages",
+              "type": "object",
+              "properties": {
+                "noBindingFound": {
+                  "title": "No Binding Found Error",
+                  "type": "string",
+                  "default": "Unable to save configuration. No matching store found."
+                },
+                "invalidUrl": {
+                  "title": "Invalid URL Error",
+                  "type": "string",
+                  "default": "Invalid redirect URL. Please try again."
+                },
+                "noCurrencies": {
+                  "title": "No Currencies Error",
+                  "type": "string",
+                  "default": "No currencies available for this language."
+                },
+                "defaultError": {
+                  "title": "Default Error",
+                  "type": "string",
+                  "default": "An error occurred. Please try again."
+                }
+              }
+            }
+          }
+        },
         "pageLinks": {
           "title": "Links",
           "type": "array",
@@ -314,5 +448,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

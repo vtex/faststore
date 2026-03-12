@@ -18,11 +18,13 @@ import type {
   IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteClickParams,
 } from 'src/sdk/analytics/types'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { useFormatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
+  searchHistoryTitle?: string
+  searchTopTitle?: string
   [key: string]: any
   onChangeCustomSearchDropdownVisible?: Dispatch<SetStateAction<boolean>>
 }
@@ -44,17 +46,20 @@ export function sendAutocompleteClickEvent({
 function SearchDropdown({
   sort,
   quickOrderSettings,
+  searchHistoryTitle,
+  searchTopTitle,
   onChangeCustomSearchDropdownVisible,
   ...otherProps
 }: SearchDropdownProps) {
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
+  const formatSearchPath = useFormatSearchPath()
 
   return (
     <UISearchDropdown {...otherProps}>
-      <SearchHistory sort={sort} />
-      <SearchTop sort={sort} />
+      <SearchHistory title={searchHistoryTitle} sort={sort} />
+      <SearchTop title={searchTopTitle} sort={sort} />
       <UISearchAutoComplete>
         {terms?.map(({ value: suggestion }) => (
           <UISearchAutoCompleteTerm
@@ -62,10 +67,7 @@ function SearchDropdown({
             term={term}
             suggestion={suggestion}
             linkProps={{
-              href: formatSearchPath({
-                term: suggestion,
-                sort,
-              }),
+              href: formatSearchPath({ term: suggestion, sort }),
               onClick: async (event: React.MouseEvent<HTMLAnchorElement>) => {
                 event.preventDefault()
 

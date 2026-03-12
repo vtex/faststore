@@ -17,8 +17,9 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": ["CircleWavy Warning"],
-          "enum": ["CircleWavyWarning"]
+          "enumNames": ["CircleWavyWarning"],
+          "enum": ["CircleWavyWarning"],
+          "default": "CircleWavyWarning"
         },
         "alt": {
           "title": "Alternative Label",
@@ -69,5 +70,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

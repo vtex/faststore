@@ -1,5 +1,5 @@
 import { ForbiddenError, UnauthorizedError } from '../../..'
-import type { Context } from '../index'
+import type { GraphqlContext } from '../index'
 
 /**
  * Creates a function that adds VTEX API AppKey and AppToken headers to requests.
@@ -32,7 +32,7 @@ export const getWithAppKeyAndToken = () => {
  * Centralized validation logic for all account-related resolvers
  */
 export const validateUserAuthentication = async (
-  ctx: Context
+  ctx: GraphqlContext
 ): Promise<void> => {
   const {
     clients: { commerce },

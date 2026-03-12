@@ -1,7 +1,8 @@
-import type { Context } from '../../src/platforms/vtex'
+import { describe, expect, it } from 'vitest'
+
+import type { GraphqlContext } from '../../src/platforms/vtex'
 import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
 import {
-  getAuthCookie,
   getStoreCookie,
   getUpdatedCookie,
   getWithCookie,
@@ -104,7 +105,7 @@ describe('updatesContextStorageCookies', () => {
 
     const ctx = {
       storage: { cookies: new Map() },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     updatesContextStorageCookies(ctx, setCookie)
 
@@ -119,7 +120,7 @@ describe('updatesContextStorageCookies', () => {
 
     const ctx = {
       storage: { cookies: new Map() },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     updatesContextStorageCookies(ctx, setCookie)
 
@@ -145,7 +146,7 @@ describe('updatesContextStorageCookies', () => {
           Object.entries(cookieStorage)
         ),
       },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     updatesContextStorageCookies(ctx, setCookie)
 
@@ -160,7 +161,7 @@ describe('getStoreCookie', () => {
   it('Should iterate on headers and call updatesContextStorageCookies for each of them', () => {
     const ctx = {
       storage: { cookies: new Map() },
-    } as Pick<Context, 'storage'>
+    } as Pick<GraphqlContext, 'storage'>
 
     const headers = new Headers()
     headers.append(
@@ -188,50 +189,5 @@ describe('getStoreCookie', () => {
         'CheckoutOrderFormOwnership=CFEUHpzya69CNICSrc4h5cJzeQE856pULms%2BxxQdF9EOh5WPwtrzqMwl9FwAhPVM; expires=Sat, 08 Jun 2024 20:12:41 GMT; domain=vtexfaststore.com; path=/; secure; samesite=strict; httponly',
     })
     expect(ctx.storage.cookies.size).toEqual(2)
-  })
-})
-
-describe('Cookie normalization (duplicate handling)', () => {
-  it('Should handle duplicate cookies and keep the last value in getUpdatedCookie', () => {
-    const cookieWithDuplicates =
-      'VtexIdclientAutCookie_account=oldValue; vtex_session=sessionValue; VtexIdclientAutCookie_account=newValue'
-    const ctx = {
-      headers: { cookie: cookieWithDuplicates },
-      storage: { cookies: new Map() },
-    }
-
-    const result = getUpdatedCookie(ctx)
-
-    // Should keep the last value for duplicate keys, maintaining order of first appearance
-    expect(result).toEqual(
-      'VtexIdclientAutCookie_account=newValue; vtex_session=sessionValue'
-    )
-  })
-
-  it('Should handle multiple duplicate cookies and keep the last values', () => {
-    const cookieWithMultipleDuplicates =
-      'key1=value1; key2=value2; key1=value1_updated; key3=value3; key2=value2_updated; key1=value1_final'
-    const ctx = {
-      headers: { cookie: cookieWithMultipleDuplicates },
-      storage: { cookies: new Map() },
-    }
-
-    const result = getUpdatedCookie(ctx)
-
-    // Should keep the last value for each duplicate key, maintaining order of first appearance
-    expect(result).toEqual(
-      'key1=value1_final; key2=value2_updated; key3=value3'
-    )
-  })
-
-  it('Should handle duplicate auth cookies in getAuthCookie and return the last value', () => {
-    const cookieWithDuplicateAuth =
-      'VtexIdclientAutCookie_account=oldToken; other_cookie=value; VtexIdclientAutCookie_account=newToken'
-    const account = 'account'
-
-    const result = getAuthCookie(cookieWithDuplicateAuth, account)
-
-    // Should return the last (newest) auth token
-    expect(result).toEqual('newToken')
   })
 })

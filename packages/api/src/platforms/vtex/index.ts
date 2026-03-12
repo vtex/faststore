@@ -1,54 +1,23 @@
+import { OTELAPI } from '@faststore/diagnostics'
+import { mergeSchemas } from '@graphql-tools/schema'
+import { type GraphQLSchema, isSchema } from 'graphql'
+import { withDirectives } from '../../directives'
+import authDirective from '../../directives/auth'
+import cacheControlDirective from '../../directives/cacheControl'
+import { ResolverTrace } from '../../observability/telemetry'
 import type { Clients } from './clients'
 import { getClients } from './clients'
 import type { SearchArgs } from './clients/search'
 import type { Loaders } from './loaders'
 import { getLoaders } from './loaders'
-import { StoreAggregateOffer } from './resolvers/aggregateOffer'
-import { StoreAggregateRating } from './resolvers/aggregateRating'
-import { StoreCollection } from './resolvers/collection'
-import {
-  StoreFacet,
-  StoreFacetBoolean,
-  StoreFacetRange,
-} from './resolvers/facet'
-import { StoreFacetValueBoolean } from './resolvers/faceValue'
-import { Mutation } from './resolvers/mutation'
-import { ObjectOrString } from './resolvers/objectOrString'
-import { StoreOffer } from './resolvers/offer'
-import { StoreProduct } from './resolvers/product'
-import { StoreProductGroup } from './resolvers/productGroup'
-import { StorePropertyValue } from './resolvers/propertyValue'
-import { Query } from './resolvers/query'
-import { StoreReview } from './resolvers/review'
-import { StoreSearchResult } from './resolvers/searchResult'
-import { StoreSeo } from './resolvers/seo'
-import { ShippingSLA } from './resolvers/shippingSLA'
-import { SkuVariants } from './resolvers/skuVariations'
-import { UserOrderResult } from './resolvers/userOrder'
+import { getResolvers as nativeGetResolvers } from './resolvers'
+import typeDefs from './typeDefs'
 import type { Channel } from './utils/channel'
 import ChannelMarshal from './utils/channel'
 
-export interface Options {
-  platform: 'vtex'
-  account: string
-  environment: 'vtexcommercestable' | 'vtexcommercebeta'
-  // Default sales channel to use for fetching products
-  subDomainPrefix: string[]
-  channel: string
-  locale: string
-  hideUnavailableItems: boolean
-  simulationBehavior?: 'default' | 'skip' | 'only1P'
-  showSponsored: boolean
-  incrementAddress: boolean
-  flags?: FeatureFlags
-}
-
-interface FeatureFlags {
-  enableOrderFormSync?: boolean
-  enableUnavailableItemsOnCart?: boolean
-}
-
-export interface Context {
+export interface GraphqlContext {
+  /** Request scope ID */
+  id: string
   clients: Clients
   loaders: Loaders
   /**
@@ -66,52 +35,69 @@ export interface Context {
   }
   headers: Record<string, string>
   account: string
+  OTEL: Record<string, unknown>
 }
 
-export type Resolver<R = unknown, A = unknown, Return = any> = (
-  root: R,
-  args: A,
-  ctx: Context,
-  info: any
-) => Return
+export const GraphqlVtexContextFactory = async (options: Options) => {
+  return OTELAPI.context.with(
+    OTELAPI.propagation.extract(OTELAPI.context.active(), options.OTEL),
+    () =>
+      (ctx: any): GraphqlContext => {
+        ctx.storage = {
+          channel: ChannelMarshal.parse(options.channel),
+          flags: options.flags ?? {},
+          locale: options.locale,
+          cookies: new Map<string, Record<string, string>>(),
+        }
+        ctx.clients = getClients(options, ctx)
+        ctx.loaders = getLoaders(options, ctx)
+        ctx.account = options.account
+        ctx.OTEL = options.OTEL
+        ctx.discoveryConfig = options.discoveryConfig
 
-const Resolvers = {
-  StoreCollection,
-  StoreAggregateOffer,
-  StoreProduct,
-  StoreSeo,
-  StoreFacet,
-  StoreFacetBoolean,
-  StoreFacetRange,
-  StoreFacetValueBoolean,
-  StoreOffer,
-  StoreAggregateRating,
-  StoreReview,
-  StoreProductGroup,
-  StoreSearchResult,
-  StorePropertyValue,
-  SkuVariants,
-  ShippingSLA,
-  UserOrderResult,
-  ObjectOrString,
-  Query,
-  Mutation,
+        return ctx
+      }
+  )
 }
 
-export const getContextFactory =
-  (options: Options) =>
-  (ctx: any): Context => {
-    ctx.storage = {
-      channel: ChannelMarshal.parse(options.channel),
-      flags: options.flags ?? {},
-      locale: options.locale,
-      cookies: new Map<string, Record<string, string>>(),
-    }
-    ctx.clients = getClients(options, ctx)
-    ctx.loaders = getLoaders(options, ctx)
-    ctx.account = options.account
+export type GraphqlResolver<S = any, V = any, R = any> = Resolver<
+  GraphqlContext,
+  S,
+  V,
+  R
+>
 
-    return ctx
+export function getResolvers() {
+  const resolvers = nativeGetResolvers()
+
+  const finalResolvers: any = {}
+  for (const [key, resolver] of Object.entries(resolvers)) {
+    finalResolvers[key] = Object.fromEntries(
+      Object.entries(resolver).map(([name, resolverFunction]) => {
+        if (typeof resolverFunction !== 'function')
+          return [name, resolverFunction]
+
+        return [name, ResolverTrace(resolverFunction, `${key}(${name})`)]
+      })
+    )
   }
 
-export const getResolvers = (_: Options) => Resolvers
+  return finalResolvers as typeof resolvers
+}
+
+export function GraphqlVtexSchema(mergeSchema?: GraphQLSchema) {
+  const withCacheControl = withDirectives([
+    cacheControlDirective,
+    authDirective,
+  ])
+
+  const platformSchema = withCacheControl(getResolvers(), typeDefs)
+
+  if (mergeSchema && isSchema(mergeSchema)) {
+    return mergeSchemas({
+      schemas: [platformSchema, mergeSchema],
+    })
+  }
+
+  return platformSchema
+}

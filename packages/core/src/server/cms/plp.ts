@@ -13,6 +13,9 @@ type PLPSettings = {
     template?: {
       value?: string
     }
+    seo: {
+      titleTemplate?: string
+    }
     productGallery: {
       itemsPerPage: number
       sortBySelection: string

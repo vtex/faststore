@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-delivery-option-accordion] {
   // --------------------------------------------------------
   // Design Tokens
@@ -31,7 +33,7 @@
     padding: var(--fs-spacing-4) var(--fs-spacing-4) var(--fs-spacing-5);
     border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       grid-template-columns: repeat(2, 1fr);
     }
 
@@ -88,7 +90,7 @@
         gap: var(--fs-spacing-0);
       }
 
-      @include media(">=notebook") {
+      @include utilities.media(">=notebook") {
         display: grid;
         grid-template-columns: auto 1fr repeat(3, minmax(6.25rem, auto)); // min = 100px
         grid-auto-flow: column;
@@ -152,7 +154,7 @@
           font-weight: var(--fs-text-weight-medium);
           line-height: 1.5;
 
-          @include truncate-title(1);
+          @include utilities.truncate-title(1);
         }
 
         span {
@@ -160,7 +162,7 @@
           line-height: 1.5;
           color: var(--fs-color-text-light);
 
-          @include truncate-title(1);
+          @include utilities.truncate-title(1);
         }
       }
 
@@ -171,7 +173,7 @@
         flex-direction: column;
         align-items: flex-start;
 
-        @include media(">=notebook") {
+        @include utilities.media(">=notebook") {
           align-items: flex-end;
         }
 

@@ -32,7 +32,7 @@ import type { NavbarProps } from 'src/components/sections/Navbar'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { useFormatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
@@ -53,6 +53,10 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  submitButtonAriaLabel?: string
+  loadingLabel?: string
+  searchHistoryTitle?: string
+  searchTopTitle?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -77,6 +81,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      submitButtonAriaLabel,
+      loadingLabel,
+      searchHistoryTitle,
+      searchTopTitle,
       ...otherProps
     },
     ref
@@ -94,6 +102,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+    const formatSearchPath = useFormatSearchPath()
 
     useImperativeHandle(ref, () => ({
       resetSearchInput: () => setSearchQuery(''),
@@ -126,6 +135,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const buttonProps = {
       onClick: onSearchClick,
       testId: buttonTestId,
+      'aria-label': submitButtonAriaLabel,
     }
 
     return (
@@ -133,7 +143,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         {hidden ? (
           <UIIconButton
             type="submit"
-            aria-label="Submit Search"
+            aria-label={submitButtonAriaLabel}
             icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}
@@ -174,6 +184,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 <SearchDropdown
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
+                  loadingLabel={loadingLabel}
+                  searchHistoryTitle={searchHistoryTitle}
+                  searchTopTitle={searchTopTitle}
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }

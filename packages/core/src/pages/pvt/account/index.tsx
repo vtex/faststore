@@ -1,14 +1,12 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 const MyAccountRedirectPage: NextPage = () => {
   return null
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  req,
-}) => {
+const getServerSidePropsBase: GetServerSideProps = async ({ query, req }) => {
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query,
   })
@@ -24,5 +22,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)
 
 export default MyAccountRedirectPage
