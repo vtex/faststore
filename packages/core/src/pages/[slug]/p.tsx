@@ -27,12 +27,14 @@ import { getRedirect } from 'src/sdk/redirects'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
+import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
 
 import storeConfig from 'discovery.config'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
@@ -40,7 +42,6 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import type { PDPContentType } from 'src/server/cms/pdp'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -327,9 +328,11 @@ export const getStaticProps: GetStaticProps<
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: {
         // Workaround until i18n slugs are fixed with Intelligent Search and Catalog.
-        // With locale, breadcrumbList returns translated slugs that lead to 404s.
-        // locator: [{ key: 'slug', value: slug }, { key: 'locale', value: locale }],
-        locator: [{ key: 'slug', value: slug }],
+        // With we add locale ({ key: 'locale', value: locale }), breadcrumbList returns translated slugs that lead to 404s.
+        locator: [
+          { key: 'slug', value: slug },
+          { key: 'channel', value: getChannelForLocale(locale) },
+        ],
       },
       operation: query,
     }),

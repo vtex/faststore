@@ -108,3 +108,16 @@ export const buildFormData = (
 
 export const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
+
+/**
+ * Filters the channel object by removing the hasOnlyDefaultSalesChannel key.
+ * This key is used only in the useAuth hook and is only required to send on the ValidateSession mutation,
+ * so we remove it from the session's channel object to avoid unnecessary cache invalidations and query executions
+ *
+ * @param channel - The channel string to filter.
+ * @returns The filtered channel string.
+ */
+export function filterChannel(channel: string): string {
+  const { hasOnlyDefaultSalesChannel, ...filteredChannel } = JSON.parse(channel)
+  return JSON.stringify(filteredChannel)
+}

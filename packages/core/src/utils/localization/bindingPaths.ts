@@ -1,5 +1,6 @@
 import storeConfig from 'discovery.config'
 import type { LocalesSettings } from 'src/typings/locales'
+import { filterChannel } from 'src/utils/utilities'
 
 export type CustomPathInfo = {
   path: string
@@ -7,7 +8,17 @@ export type CustomPathInfo = {
   hostname?: string
 }
 
-let cachedCustomPaths: CustomPathInfo[] | null = null
+export type SubdomainBinding = {
+  hostname: string
+  locale: string
+}
+
+type BindingsByType = {
+  customPaths: CustomPathInfo[]
+  subdomainBindings: SubdomainBinding[]
+}
+
+let bindingsByTypeCache: BindingsByType | null = null
 
 /** Returns path only (strip query ? and hash #) for prefix detection and building */
 function getPathOnly(pathOrLink: string): string {
@@ -49,53 +60,38 @@ export function matchesBindingPath(
 }
 
 /**
- * Parses URL and returns normalized pathname and hostname when it has a custom path, null otherwise.
+ * Checks whether a locale code exists in the localization configuration.
  */
-function parseCustomPathUrl(
-  url: string
-): { path: string; hostname: string } | null {
-  try {
-    const urlObj = new URL(url)
-    const pathname = urlObj.pathname
-
-    if (!pathname || pathname === '/') {
-      return null
-    }
-
-    // Only treat as canonical (not custom) paths that match a configured locale
-    const localeCodes = storeConfig.localization?.enabled
-      ? (Object.keys(storeConfig.localization?.locales ?? {}) as string[])
-      : []
-    const normalizedPathname = pathname.replace(/\/$/, '')
-    if (localeCodes.some((code) => normalizedPathname === `/${code}`)) {
-      return null
-    }
-
-    return { path: normalizedPathname, hostname: urlObj.hostname }
-  } catch {
-    return null
+export function isValidLocale(locale: string): boolean {
+  if (!storeConfig.localization?.enabled) {
+    return false
   }
+
+  return locale in (storeConfig.localization.locales || {})
 }
 
 /**
- * Extracts custom paths from localization bindings configuration
- * Results are cached for performance
- * @returns Array of custom path information (path and locale)
+ * Single pass over all locale bindings, classifying each as either a
+ * custom-path binding (has a non-root pathname) or a subdomain binding
+ * (root pathname — hostname alone determines the locale).
+ * Results are cached after the first call.
  */
-export function getCustomPathsFromBindings(): CustomPathInfo[] {
-  if (cachedCustomPaths !== null) {
-    return cachedCustomPaths
+function getBindingsByType(): BindingsByType {
+  if (bindingsByTypeCache !== null) {
+    return bindingsByTypeCache
   }
 
   const customPaths: CustomPathInfo[] = []
+  const subdomainBindings: SubdomainBinding[] = []
 
   if (!storeConfig.localization?.enabled) {
-    cachedCustomPaths = customPaths
-    return cachedCustomPaths
+    bindingsByTypeCache = { customPaths, subdomainBindings }
+    return bindingsByTypeCache
   }
 
   const locales = (storeConfig.localization.locales ||
     {}) as LocalesSettings['locales']
+  const localeCodes = new Set(Object.keys(locales))
 
   for (const [localeCode, localeConfig] of Object.entries(locales)) {
     if (!localeConfig?.bindings || !Array.isArray(localeConfig.bindings)) {
@@ -107,19 +103,51 @@ export function getCustomPathsFromBindings(): CustomPathInfo[] {
         continue
       }
 
-      const result = parseCustomPathUrl(binding.url)
-      if (result) {
-        customPaths.push({
-          path: result.path,
-          locale: localeCode,
-          hostname: result.hostname,
-        })
+      try {
+        const urlObj = new URL(binding.url)
+        const pathname = urlObj.pathname.replace(/\/$/, '') || '/'
+
+        if (pathname === '/') {
+          subdomainBindings.push({
+            hostname: urlObj.hostname,
+            locale: localeCode,
+          })
+        } else if (!localeCodes.has(pathname.slice(1))) {
+          customPaths.push({
+            path: pathname,
+            locale: localeCode,
+            hostname: urlObj.hostname,
+          })
+        }
+      } catch {
+        console.warn(
+          `[bindingPaths] Skipping invalid binding URL: "${binding.url}"`
+        )
+        continue
       }
     }
   }
 
-  cachedCustomPaths = customPaths.sort((a, b) => b.path.length - a.path.length)
-  return cachedCustomPaths
+  customPaths.sort((a, b) => b.path.length - a.path.length)
+
+  bindingsByTypeCache = { customPaths, subdomainBindings }
+  return bindingsByTypeCache
+}
+
+/**
+ * Returns bindings that use a custom URL path (non-root pathname).
+ * Sorted by path length descending (most specific first).
+ */
+export function getCustomPathsFromBindings(): CustomPathInfo[] {
+  return getBindingsByType().customPaths
+}
+
+/**
+ * Returns bindings where the hostname alone determines the locale
+ * (root pathname '/').
+ */
+export function getSubdomainBindings(): SubdomainBinding[] {
+  return getBindingsByType().subdomainBindings
 }
 
 /**
@@ -246,6 +274,41 @@ export function getPagePath(currentPathname: string): string {
   }
 
   return pathOnly
+}
+
+/**
+ * Resolves the channel string for a given locale by looking up its
+ * binding's salesChannel. Falls back to the default session channel when the
+ * locale is unknown or localization is disabled.
+ *
+ * The returned string is a JSON channel object (same format used by
+ * `storeConfig.session.channel`) with `hasOnlyDefaultSalesChannel` stripped so
+ * it can be passed directly as a `channel` facet/locator value.
+ */
+export function getChannelForLocale(locale: string | undefined): string {
+  const defaultChannel = storeConfig.session.channel
+
+  if (!locale || !storeConfig.localization?.enabled) {
+    return filterChannel(defaultChannel)
+  }
+
+  const localeConfig = (storeConfig.localization.locales ?? {})[locale]
+
+  if (!localeConfig?.bindings?.length) {
+    return filterChannel(defaultChannel)
+  }
+
+  const binding =
+    localeConfig.bindings.find((b) => b.isDefault) ?? localeConfig.bindings[0]
+
+  if (!binding?.salesChannel) {
+    return filterChannel(defaultChannel)
+  }
+
+  const channelObj = JSON.parse(defaultChannel)
+  channelObj.salesChannel = binding.salesChannel
+
+  return filterChannel(JSON.stringify(channelObj))
 }
 
 /**
