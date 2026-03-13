@@ -154,7 +154,6 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
-              fileUploadCardProps={searchInput?.fileUploadCardProps}
             />
           )}
 
@@ -183,7 +182,6 @@ function Navbar({
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
                 quickOrderSettings={searchInput?.quickOrderSettings}
-                fileUploadCardProps={searchInput?.fileUploadCardProps}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />

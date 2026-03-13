@@ -41,6 +41,8 @@
 
   <symbol id="BellRinging" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M56.20305,112a71.80121,71.80121,0,1,1,143.60186,0h0c0,35.81563,7.49325,56.59893,14.093,67.95814A7.999,7.999,0,0,1,207.01628,192H48.98365A7.99908,7.99908,0,0,1,42.103,179.95641c6.60328-11.35959,14.1-32.1426,14.1-67.95641Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><path d="M96,192v8a32,32,0,0,0,64,0v-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><path d="M183.43247,23.98832a104.46641,104.46641,0,0,1,37.91845,42.1156" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><path d="M34.64909,66.10391A104.46639,104.46639,0,0,1,72.56757,23.98829" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
 
+  <symbol id="AlertFilled" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z"></path></symbol>
+
   <symbol id="Calendar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="40" y="40" width="176" height="176" rx="8"  stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"></rect><line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></line><line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></line><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></line><path d="M92,127.99666h28l-16,20a16,16,0,1,1-11.30681,27.3206" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><polyline points="144 139.997 160 127.997 160 179.997" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></polyline></symbol>
 
   <symbol id="CaretDown" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></symbol>
@@ -311,6 +313,10 @@
     <rect width="60" height="50" fill="white"/>
     </clipPath>
     </defs>
+  </symbol>
+
+  <symbol id="Inventory" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11 19.425V12.575L5 9.1V15.95L11 19.425ZM13 19.425L19 15.95V9.1L13 12.575V19.425ZM11 21.725L4 17.7C3.68333 17.5167 3.4375 17.275 3.2625 16.975C3.0875 16.675 3 16.3417 3 15.975V8.025C3 7.65833 3.0875 7.325 3.2625 7.025C3.4375 6.725 3.68333 6.48333 4 6.3L11 2.275C11.3167 2.09167 11.65 2 12 2C12.35 2 12.6833 2.09167 13 2.275L20 6.3C20.3167 6.48333 20.5625 6.725 20.7375 7.025C20.9125 7.325 21 7.65833 21 8.025V15.975C21 16.3417 20.9125 16.675 20.7375 16.975C20.5625 17.275 20.3167 17.5167 20 17.7L13 21.725C12.6833 21.9083 12.35 22 12 22C11.65 22 11.3167 21.9083 11 21.725ZM16 8.525L17.925 7.425L12 4L10.05 5.125L16 8.525ZM12 10.85L13.95 9.725L8.025 6.3L6.075 7.425L12 10.85Z"/>
   </symbol>
 
 </svg>

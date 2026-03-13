@@ -417,10 +417,14 @@ export {
 } from './organisms/QuickOrderDrawer'
 
 export type {
+  AlertMessages,
+  Product,
   QuickOrderDrawerFooterProps,
   QuickOrderDrawerHeaderProps,
   QuickOrderDrawerProductsProps,
   QuickOrderDrawerProps,
+  QuickOrderDrawerProviderProps,
+  VariationProductColumn,
 } from './organisms/QuickOrderDrawer'
 
 export { default as Dropzone } from './molecules/Dropzone'

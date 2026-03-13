@@ -4,7 +4,6 @@ import Section from '../Section'
 import styles from './section.module.scss'
 
 import Navbar from '../../../components/navigation/Navbar'
-import { DEFAULT_FILE_UPLOAD_CARD_PROPS } from '../../../components/search/fileUploadCardDefaults'
 import { NavbarDefaultComponents } from './DefaultComponents'
 
 type PageLinks = {
@@ -26,6 +25,13 @@ export interface NavbarProps {
     sort: string
     quickOrderSettings?: {
       quickOrder: boolean
+      attachmentButton?: {
+        icon: {
+          icon: string
+          alt: string
+        }
+        ariaLabel: string
+      }
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
@@ -39,22 +45,58 @@ export interface NavbarProps {
           }
         }
       }
-    }
-    /** Props for FileUploadCard (labels, messages). Pass from CMS so all copy is editable. */
-    fileUploadCardProps?: {
-      title?: string
-      fileInputAriaLabel?: string
-      dropzoneAriaLabel?: string
-      dropzoneTitle?: string
-      selectFileButtonLabel?: string
-      downloadTemplateButtonLabel?: string
-      removeButtonAriaLabel?: string
-      searchButtonLabel?: string
-      uploadingStatusText?: string
-      getCompletedStatusText?: (fileSize: number) => string
-      errorMessages?: Partial<
-        Record<string, { title: string; description: string }>
-      >
+      drawer?: {
+        defaultTitle?: string
+        columns?: {
+          name?: string
+          availabilityLabel?: string
+          price?: string
+          quantity?: string
+        }
+        messages?: {
+          invalidQuantityTitle?: string
+          emptyStateTitle?: string
+          emptyStateMessage?: string
+        }
+        alertMessages?: {
+          notFoundAndOutOfStock?: string
+          notFound?: string
+          outOfStock?: string
+        }
+        footer?: {
+          itemsLabel?: string
+          addToCartLabel?: string
+          addToCartAriaLabel?: string
+        }
+      }
+      toastMessages?: {
+        noFileSelected?: { title?: string; message?: string }
+        noDataFound?: { title?: string; message?: string }
+        fileProcessingError?: { title?: string; defaultMessage?: string }
+        fileTimeout?: { message?: string }
+        noDataAvailable?: { title?: string; message?: string }
+        noValidSkus?: { title?: string; message?: string }
+      }
+      accessibilityLabels?: {
+        attachButtonAriaLabel?: string
+        searchButtonAriaLabel?: string
+      }
+      fileUploadCard?: {
+        title?: string
+        fileInputAriaLabel?: string
+        dropzoneAriaLabel?: string
+        dropzoneTitle?: string
+        selectFileButtonLabel?: string
+        downloadTemplateButtonLabel?: string
+        removeButtonAriaLabel?: string
+        searchButtonLabel?: string
+        uploadingStatusText?: string
+        completedStatusTemplate?: string
+        acceptedFileTypes?: string
+        errorMessages?: Partial<
+          Record<string, { title?: string; description?: string }>
+        >
+      }
     }
   }
   signInButton: {
@@ -113,11 +155,7 @@ function NavbarSection({
         home={home}
         menu={menu}
         logo={logo}
-        searchInput={{
-          ...searchInput,
-          fileUploadCardProps:
-            searchInput.fileUploadCardProps ?? DEFAULT_FILE_UPLOAD_CARD_PROPS,
-        }}
+        searchInput={searchInput}
         cart={cartIcon}
         links={pageLinks}
         signIn={{ button: signInButton }}

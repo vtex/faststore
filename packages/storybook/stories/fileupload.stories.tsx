@@ -20,7 +20,9 @@ const fileUploadCardTextProps = {
   downloadTemplateButtonLabel: 'Download template',
 }
 
-const fileUploadStatusErrorMessages = {
+const fileUploadStatusErrorMessages: Partial<
+  Record<FileUploadErrorType, { title: string; description: string }>
+> = {
   [FileUploadErrorType.Unexpected]: {
     title: 'Upload failed.',
     description:
@@ -45,6 +47,10 @@ const fileUploadStatusErrorMessages = {
   [FileUploadErrorType.TooLarge]: {
     title: 'File too large.',
     description: 'Split it into smaller files and try again.',
+  },
+  [FileUploadErrorType.NoProductsFound]: {
+    title: 'No products found.',
+    description: 'Please verify the SKUs in your file and try again.',
   },
 }
 
@@ -172,14 +178,7 @@ export function FileUploadStatusError() {
 
 export function FileUploadStatusAllErrorTypes() {
   const file = new File(['content'], 'example.csv', { type: 'text/csv' })
-  const errorTypes: FileUploadErrorType[] = [
-    FileUploadErrorType.Unexpected,
-    FileUploadErrorType.Unsupported,
-    FileUploadErrorType.Unreadable,
-    FileUploadErrorType.InvalidStructure,
-    FileUploadErrorType.Empty,
-    FileUploadErrorType.TooLarge,
-  ]
+  const errorTypes: FileUploadErrorType[] = Object.values(FileUploadErrorType)
 
   return (
     <div

@@ -47,13 +47,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/cli
 
-# <<<<<<< HEAD
-
 # [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
 
 **Note:** Version bump only for package @faststore/cli
-
-> > > > > > > main
 
 # [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
 

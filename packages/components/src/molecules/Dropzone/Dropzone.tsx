@@ -90,7 +90,12 @@ export interface DropzoneProps extends HTMLAttributes<HTMLDivElement> {
    * When disabled, `aria-disabled` is also set so assistive tech
    * can still identify the dropzone and its state.
    */
-  ariaLabel: string
+  ariaLabel?: string
+}
+
+export interface DropzoneState {
+  acceptedFiles: File[]
+  fileRejections: FileRejection[]
 }
 
 export interface DropzoneState {
@@ -165,16 +170,18 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
   const rootProps = getRootProps()
   const mergedRef = mergeRefs(ref, rootProps.ref as React.Ref<HTMLDivElement>)
 
-  const accessibilityProps = disabled
-    ? {
-        role: 'button' as const,
-        'aria-label': ariaLabel,
-        'aria-disabled': true as const,
-      }
-    : {
-        role: 'button' as const,
-        'aria-label': ariaLabel,
-      }
+  const accessibilityProps = ariaLabel
+    ? disabled
+      ? {
+          role: 'button' as const,
+          'aria-label': ariaLabel,
+          'aria-disabled': true as const,
+        }
+      : {
+          role: 'button' as const,
+          'aria-label': ariaLabel,
+        }
+    : {}
 
   return (
     <div
@@ -206,7 +213,7 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
       {acceptedFiles.length > 0 && (
         <div data-fs-dropzone-files>
           <ul>
-            {acceptedFiles.map((file, index) => (
+            {acceptedFiles.map((file: File, index: number) => (
               <li key={index} data-fs-dropzone-file>
                 {file.name} - {file.size} bytes
               </li>
@@ -218,11 +225,19 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
       {fileRejections.length > 0 && (
         <div data-fs-dropzone-errors>
           <ul>
-            {fileRejections.map(({ file, errors }, index) => (
-              <li key={index} data-fs-dropzone-error>
-                {file.name} - {errors.map((e) => e.message).join(', ')}
-              </li>
-            ))}
+            {fileRejections.map(
+              (fileRejection: FileRejection, index: number) => {
+                const { file, errors } = fileRejection
+                return (
+                  <li key={index} data-fs-dropzone-error>
+                    {file.name} -{' '}
+                    {errors
+                      .map((e: { message: string }) => e.message)
+                      .join(', ')}
+                  </li>
+                )
+              }
+            )}
           </ul>
         </div>
       )}

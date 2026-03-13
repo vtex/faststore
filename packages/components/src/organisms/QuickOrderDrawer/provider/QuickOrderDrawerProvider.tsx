@@ -1,9 +1,10 @@
 import React, {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
-  useCallback,
   type ReactNode,
 } from 'react'
 import type { PriceFormatter } from '../../../atoms/Price'
@@ -37,6 +38,7 @@ interface QuickOrderDrawerContextValue {
   totalPrice: number
   itemsCount: number
   alertMessage: string
+  isLoading: boolean
   setAlertMessage: (message: string) => void
   onChangeQuantityItem: (id: string, value: number) => void
   onDelete: (id: string) => void
@@ -48,9 +50,17 @@ const QuickOrderDrawerContext = createContext<
   QuickOrderDrawerContextValue | undefined
 >(undefined)
 
+export interface AlertMessages {
+  notFoundAndOutOfStock?: string
+  notFound?: string
+  outOfStock?: string
+}
+
 export interface QuickOrderDrawerProviderProps {
   children: ReactNode
   initialProducts?: Product[]
+  isLoading?: boolean
+  totalRequestedSkus?: number
   onAddToCart?: (
     products: Product[],
     totalPrice: number,
@@ -61,19 +71,64 @@ export interface QuickOrderDrawerProviderProps {
    * Initial alert message for CMS configuration
    */
   initialAlertMessage?: string
+  /**
+   * Alert messages from CMS for different scenarios.
+   */
+  alertMessages?: AlertMessages
 }
 
 export const QuickOrderDrawerProvider = ({
   children,
   initialProducts = [],
+  isLoading = false,
+  totalRequestedSkus,
   onAddToCart: onAddToCartCallback,
   formatter,
   initialAlertMessage,
+  alertMessages,
 }: QuickOrderDrawerProviderProps) => {
-  const [products, setProducts] = useState<Product[]>(initialProducts)
+  const [products, setProducts] = useState<Product[]>(initialProducts || [])
+
+  const getAlertMessage = (prods: Product[], totalRequestedSkus?: number) => {
+    if (prods.length === 0) {
+      return ''
+    }
+
+    const hasOutOfStock = prods.some((p) => p.availability === 'outOfStock')
+    const hasNotFound =
+      totalRequestedSkus !== undefined &&
+      totalRequestedSkus > 0 &&
+      prods.length < totalRequestedSkus
+
+    if (hasNotFound && hasOutOfStock) {
+      return alertMessages?.notFoundAndOutOfStock ?? ''
+    }
+    if (hasNotFound) {
+      return alertMessages?.notFound ?? ''
+    }
+    if (hasOutOfStock) {
+      return alertMessages?.outOfStock ?? ''
+    }
+    return ''
+  }
+
   const [alertMessage, setAlertMessage] = useState<string>(
     initialAlertMessage ?? ''
   )
+
+  useEffect(() => {
+    const newProducts = initialProducts || []
+
+    setProducts(newProducts)
+  }, [initialProducts])
+
+  useEffect(() => {
+    if (!isLoading) {
+      setAlertMessage(getAlertMessage(products, totalRequestedSkus))
+    } else if (isLoading) {
+      setAlertMessage('')
+    }
+  }, [products, isLoading, totalRequestedSkus])
 
   const { totalPrice, itemsCount } = useMemo(() => {
     const filteredProducts = products.filter(
@@ -122,6 +177,7 @@ export const QuickOrderDrawerProvider = ({
     totalPrice,
     itemsCount,
     alertMessage,
+    isLoading,
     setAlertMessage,
     onChangeQuantityItem,
     onDelete,

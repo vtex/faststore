@@ -54,6 +54,8 @@ export type QuickOrderDrawerProductsProps = {
       max: number,
       quantity: number
     ) => string
+    emptyStateTitle?: string
+    emptyStateMessage?: string
   }
 }
 
@@ -68,18 +70,20 @@ const QuickOrderDrawerProducts = ({
     products,
     onChangeQuantityItem,
     onDelete,
+    isLoading,
     alertMessage,
     setAlertMessage,
     formatter: contextFormatter,
   } = useQuickOrderDrawer()
   const priceFormatter = formatter || contextFormatter
 
+  const showSkeleton = isLoading
   return (
     <div data-fs-quick-order-drawer-content>
       <>
-        {alertMessage && (
+        {!isLoading && alertMessage && (
           <Alert
-            icon={<Icon name="CircleWarning" weight="bold" />}
+            icon={<Icon name="AlertFilled" weight="bold" />}
             dismissible
             onClick={() => setAlertMessage('')}
             aria-label="Product availability warning"
@@ -119,24 +123,17 @@ const QuickOrderDrawerProducts = ({
           </TableHead>
 
           <TableBody>
-            {products.length === 0 ? (
+            {showSkeleton ? (
               <>
-                {Array.from({ length: 5 }).map((_, rowIndex) => {
+                {Array.from({ length: 5 }).map((_, index) => {
                   return (
-                    <TableRow key={`table-row-${rowIndex}`}>
+                    <TableRow key={`table-row-skeleton-${index}`}>
                       {Array.from({
                         length: 5,
                       }).map((_, cellIndex) => {
                         return (
-                          <TableCell
-                            key={`table-cell-${rowIndex}-${cellIndex}`}
-                          >
-                            <span>
-                              <Skeleton
-                                key={`skeleton-${rowIndex}-${cellIndex}`}
-                                size={{ width: '100%', height: '30px' }}
-                              />
-                            </span>
+                          <TableCell key={`table-cell-skeleton-${cellIndex}`}>
+                            <Skeleton size={{ width: '96%', height: '30px' }} />
                           </TableCell>
                         )
                       })}
@@ -144,20 +141,15 @@ const QuickOrderDrawerProducts = ({
                   )
                 })}
               </>
-            ) : (
+            ) : products.length > 0 ? (
               <>
                 {products.map((variantProduct) => (
                   <TableRow
                     key={`${variantProduct.name}-${variantProduct.id}`}
-                    data-fs-quick-order-drawer-table-row={
-                      variantProduct.availability
-                    }
+                    data-fs-quick-order-table-row={variantProduct.availability}
                   >
-                    <TableCell
-                      data-fs-quick-order-drawer-cell="product"
-                      align="left"
-                    >
-                      <div data-fs-quick-order-drawer-table-cell-img-container>
+                    <TableCell data-fs-quick-order-cell="product" align="left">
+                      <div data-fs-quick-order-table-cell-img-container>
                         <ImageComponent
                           height={48}
                           src={variantProduct.image.url}
@@ -168,11 +160,11 @@ const QuickOrderDrawerProducts = ({
                         />
                       </div>
 
-                      <div data-fs-quick-order-drawer-table-cell-name-container>
-                        <div data-fs-quick-order-drawer-text={'primary'}>
+                      <div data-fs-quick-order-table-cell-name-container>
+                        <div data-fs-quick-order-text={'primary'}>
                           {variantProduct.name}
                         </div>
-                        <span data-fs-quick-order-drawer-text={'secondary'}>
+                        <span data-fs-quick-order-text={'secondary'}>
                           {variantProduct.id}
                         </span>
                       </div>
@@ -210,15 +202,12 @@ const QuickOrderDrawerProducts = ({
                         'showStockQuantity' && variantProduct.inventory}
                     </TableCell>
 
-                    <TableCell
-                      data-fs-quick-order-drawer-cell="price"
-                      align="right"
-                    >
+                    <TableCell data-fs-quick-order-cell="price" align="right">
                       <Price
                         value={variantProduct.price}
                         variant="spot"
                         formatter={priceFormatter}
-                        data-fs-quick-order-drawer-table-price={
+                        data-fs-quick-order-table-price={
                           variantProduct.availability
                         }
                       />
@@ -226,9 +215,9 @@ const QuickOrderDrawerProducts = ({
 
                     <TableCell
                       align="right"
-                      data-fs-quick-order-drawer-cell="quantity-selector"
+                      data-fs-quick-order-cell="quantity-selector"
                     >
-                      <div data-fs-quick-order-drawer-table-action>
+                      <div data-fs-quick-order-table-action>
                         <QuantitySelector
                           min={0}
                           max={variantProduct.inventory}
@@ -253,30 +242,25 @@ const QuickOrderDrawerProducts = ({
                                   maxValue,
                                   quantity
                                 )
-                              : undefined
+                              : ''
 
-                            if (title && message) {
-                              pushToast({
-                                title,
-                                message,
-                                status: 'INFO',
-                                icon: (
-                                  <Icon
-                                    name="CircleWavyWarning"
-                                    width={30}
-                                    height={30}
-                                  />
-                                ),
-                              })
-                            }
+                            pushToast({
+                              title,
+                              message,
+                              status: 'INFO',
+                              icon: (
+                                <Icon
+                                  name="CircleWavyWarning"
+                                  width={30}
+                                  height={30}
+                                />
+                              ),
+                            })
                           }}
                         />
                       </div>
                     </TableCell>
-                    <TableCell
-                      align="right"
-                      data-fs-quick-order-drawer-delete-cell
-                    >
+                    <TableCell align="right" data-fs-quick-order-delete-cell>
                       <IconButton
                         onClick={() => onDelete(variantProduct.id)}
                         icon={<Icon name="Thrash" color="#1F1F1F" />}
@@ -286,6 +270,34 @@ const QuickOrderDrawerProducts = ({
                   </TableRow>
                 ))}
               </>
+            ) : (
+              <TableRow>
+                <TableCell
+                  align="center"
+                  data-fs-quick-order-empty-state
+                  {...({
+                    colSpan: 5,
+                  } as React.HTMLAttributes<HTMLTableCellElement>)}
+                >
+                  <div data-fs-quick-order-empty-state-container>
+                    <Icon
+                      name="MagnifyingGlass"
+                      width={48}
+                      height={48}
+                      weight="thin"
+                      data-fs-quick-order-empty-state-icon
+                    />
+                    <div data-fs-quick-order-empty-state-content>
+                      <p data-fs-quick-order-empty-state-title>
+                        {messages?.emptyStateTitle}
+                      </p>
+                      <p data-fs-quick-order-empty-state-message>
+                        {messages?.emptyStateMessage}
+                      </p>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>
