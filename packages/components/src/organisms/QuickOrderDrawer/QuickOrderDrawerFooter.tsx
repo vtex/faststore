@@ -60,9 +60,9 @@ const QuickOrderDrawerFooter = ({
           disabled={itemsCount === 0}
           loading={loading}
           onClick={handleAddToCart}
-          aria-label={addToCartAriaLabel ?? `Add ${itemsCount} items to cart`}
+          aria-label={addToCartAriaLabel}
         >
-          {addToCartLabel || ''}
+          {addToCartLabel}
         </Button>
       </div>
     </div>

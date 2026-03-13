@@ -159,6 +159,30 @@ export function WithStockQuantity() {
   )
 }
 
+export function WithNotFoundAndOutOfStock() {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(true)}>Open Quick Order Drawer</button>
+      <QuickOrderDrawer
+        isOpen={isOpen}
+        providerProps={{
+          initialProducts: mockProducts as unknown as any[],
+          totalRequestedSkus: 8,
+        }}
+      >
+        <QuickOrderDrawerHeader
+          title="order-file.csv"
+          onCloseDrawer={() => setIsOpen(false)}
+        />
+        <QuickOrderDrawerProducts columns={columns} messages={messages} />
+        <QuickOrderDrawerFooterWithLabels />
+      </QuickOrderDrawer>
+    </div>
+  )
+}
+
 export function OpenByDefault() {
   const [isOpen, setIsOpen] = useState(true)
 

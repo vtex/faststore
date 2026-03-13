@@ -53,6 +53,16 @@ export interface NavbarProps {
           price?: string
           quantity?: string
         }
+        messages?: {
+          invalidQuantityTitle?: string
+          emptyStateTitle?: string
+          emptyStateMessage?: string
+        }
+        alertMessages?: {
+          notFoundAndOutOfStock?: string
+          notFound?: string
+          outOfStock?: string
+        }
         footer?: {
           itemsLabel?: string
           addToCartLabel?: string

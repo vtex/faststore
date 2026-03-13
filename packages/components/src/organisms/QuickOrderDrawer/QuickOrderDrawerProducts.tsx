@@ -54,6 +54,8 @@ export type QuickOrderDrawerProductsProps = {
       max: number,
       quantity: number
     ) => string
+    emptyStateTitle?: string
+    emptyStateMessage?: string
   }
 }
 
@@ -233,16 +235,14 @@ const QuickOrderDrawerProducts = ({
                             maxValue: number,
                             quantity: number
                           ) => {
-                            const title =
-                              messages?.invalidQuantityTitle ??
-                              'Invalid quantity!'
+                            const title = messages?.invalidQuantityTitle
                             const message = messages?.invalidQuantityMessage
                               ? messages.invalidQuantityMessage(
                                   min,
                                   maxValue,
                                   quantity
                                 )
-                              : `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`
+                              : ''
 
                             pushToast({
                               title,
@@ -289,11 +289,10 @@ const QuickOrderDrawerProducts = ({
                     />
                     <div data-fs-quick-order-empty-state-content>
                       <p data-fs-quick-order-empty-state-title>
-                        No products found
+                        {messages?.emptyStateTitle}
                       </p>
                       <p data-fs-quick-order-empty-state-message>
-                        No SKUs were found for the provided file. Please check
-                        your file and try again.
+                        {messages?.emptyStateMessage}
                       </p>
                     </div>
                   </div>

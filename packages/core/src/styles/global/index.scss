@@ -4,9 +4,6 @@
 // FastStore UI's base styles
 @import "@faststore/ui/src/styles/global.scss";
 
-// Import components styles (includes QuickOrderDrawer)
-@import "@faststore/ui/src/styles/components.scss";
-
 // Components & Sections styles
 @import "@faststore/ui/src/components/atoms/Skeleton/styles.scss";
 @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
@@ -14,4 +11,5 @@
 @import "src/components/sections/Section/section.scss";
 
 // Importing this component because is being used outside the context of the Section
-@import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
+@import "@faststore/ui/src/components/organisms/QuickOrderDrawer/styles.scss";
+@import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";

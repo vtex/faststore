@@ -633,6 +633,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             isLoading: isLoadingProducts || isLoadingWithDelay,
             totalRequestedSkus: Object.keys(skuQuantityMap).length || 0,
             onAddToCart: handleAddToCart,
+            alertMessages: drawerConfig?.alertMessages,
           }}
         >
           <QuickOrderDrawerHeader
@@ -658,10 +659,11 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               price: drawerConfig?.columns?.price,
               quantity: drawerConfig?.columns?.quantity,
             }}
-            formatter={(price, variant) => priceFormatter(price)}
+            formatter={(price) => priceFormatter(price)}
+            messages={drawerConfig?.messages}
           />
           <QuickOrderDrawerFooter
-            formatter={(price, variant) => priceFormatter(price)}
+            formatter={(price) => priceFormatter(price)}
             labels={drawerConfig?.footer}
           />
         </QuickOrderDrawer>

@@ -417,6 +417,7 @@ export {
 } from './organisms/QuickOrderDrawer'
 
 export type {
+  AlertMessages,
   Product,
   QuickOrderDrawerFooterProps,
   QuickOrderDrawerHeaderProps,

@@ -50,6 +50,12 @@ const QuickOrderDrawerContext = createContext<
   QuickOrderDrawerContextValue | undefined
 >(undefined)
 
+export interface AlertMessages {
+  notFoundAndOutOfStock?: string
+  notFound?: string
+  outOfStock?: string
+}
+
 export interface QuickOrderDrawerProviderProps {
   children: ReactNode
   initialProducts?: Product[]
@@ -65,6 +71,10 @@ export interface QuickOrderDrawerProviderProps {
    * Initial alert message for CMS configuration
    */
   initialAlertMessage?: string
+  /**
+   * Alert messages from CMS for different scenarios.
+   */
+  alertMessages?: AlertMessages
 }
 
 export const QuickOrderDrawerProvider = ({
@@ -75,11 +85,11 @@ export const QuickOrderDrawerProvider = ({
   onAddToCart: onAddToCartCallback,
   formatter,
   initialAlertMessage,
+  alertMessages,
 }: QuickOrderDrawerProviderProps) => {
   const [products, setProducts] = useState<Product[]>(initialProducts || [])
 
   const getAlertMessage = (prods: Product[], totalRequestedSkus?: number) => {
-    // Don't show alert if there are no products (empty state handles this)
     if (prods.length === 0) {
       return ''
     }
@@ -91,13 +101,13 @@ export const QuickOrderDrawerProvider = ({
       prods.length < totalRequestedSkus
 
     if (hasNotFound && hasOutOfStock) {
-      return 'Some of the SKUs were not found or are not available. Please adjust the amount before proceeding to the cart.'
+      return alertMessages?.notFoundAndOutOfStock ?? ''
     }
     if (hasNotFound) {
-      return 'Some of the SKUs were not found. Please check your CSV file and try again.'
+      return alertMessages?.notFound ?? ''
     }
     if (hasOutOfStock) {
-      return 'Some of the SKUs are not available. Please adjust the amount before proceeding to the cart.'
+      return alertMessages?.outOfStock ?? ''
     }
     return ''
   }

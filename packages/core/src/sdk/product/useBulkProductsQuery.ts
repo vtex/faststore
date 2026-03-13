@@ -58,15 +58,11 @@ export const useBulkProductsQuery = (skus: string[]) => {
           )
         }
 
-        // Process SKUs in batches to avoid overwhelming the server
-        // This matches the RFC recommendation to divide requests into smaller batches
         const results: BulkProductData[] = []
 
         for (let i = 0; i < skus.length; i += BATCH_SIZE) {
           const batch = skus.slice(i, i + BATCH_SIZE)
 
-          // Fetch each product individually using the same query as useProductQuery
-          // This matches exactly how products are fetched elsewhere in the codebase
           const batchPromises = batch.map(
             async (sku): Promise<BulkProductData> => {
               try {

@@ -47,7 +47,7 @@ export interface FileUploadCardProps
   /**
    * Card title (e.g. from CMS).
    */
-  title?: string
+  title: string
   /**
    * Aria-label for the file input (e.g. from CMS).
    */
@@ -317,7 +317,7 @@ const FileUploadCard = ({
   return (
     <Card
       ref={containerRef}
-      title={title ?? 'File Upload'}
+      title={title}
       data-fs-file-upload-card
       data-fs-file-upload-card-open={isOpen}
       data-fs-file-upload-card-has-file={selectedFile !== null}

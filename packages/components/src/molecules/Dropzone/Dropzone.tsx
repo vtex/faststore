@@ -116,13 +116,13 @@ const Dropzone = forwardRef<HTMLDivElement, DropzoneProps>(function Dropzone(
     accept,
     multiple = true,
     disabled = false,
-    dragActiveText = 'Drop the files here...',
-    text = 'Drag and drop files here, or click to select files',
+    dragActiveText,
+    text,
     noClick = false,
     noKeyboard = false,
     noDrag = false,
     selectFilesButton = null,
-    ariaLabel = '',
+    ariaLabel,
     ...otherProps
   },
   ref
