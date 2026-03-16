@@ -53,6 +53,7 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  searchProductsTitle?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -77,6 +78,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      searchProductsTitle,
       ...otherProps
     },
     ref
@@ -179,6 +181,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }
+                  searchProductsTitle={searchProductsTitle}
                 />
               </Suspense>
             )}

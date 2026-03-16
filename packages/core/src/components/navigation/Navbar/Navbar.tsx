@@ -154,6 +154,7 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              searchProductsTitle={searchInput?.searchProductsTitle}
             />
           )}
 

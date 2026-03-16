@@ -192,6 +192,11 @@
           "type": "object",
           "required": ["sort"],
           "properties": {
+            "searchProductsTitle": {
+              "title": "Search Products Title for Search Results Dropdown",
+              "type": "string",
+              "default": "Suggested Products"
+            },
             "placeholder": {
               "title": "Placeholder for Search Bar",
               "type": "string",
