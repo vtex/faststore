@@ -129,7 +129,7 @@ module.exports = {
   },
 
   contentSource: {
-    type: 'CMS',
+    type: 'CP',
   },
 
   deliveryPromise: {
