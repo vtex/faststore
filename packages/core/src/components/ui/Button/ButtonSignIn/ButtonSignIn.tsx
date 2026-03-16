@@ -3,6 +3,7 @@ import { Icon } from '@faststore/ui'
 import storeConfig from 'discovery.config'
 import LinkButton from 'src/components/ui/LinkButton'
 import { useSession } from 'src/sdk/session'
+import { useLink } from 'src/sdk/ui/useLink'
 
 const ButtonSignIn = ({
   label,
@@ -14,13 +15,15 @@ const ButtonSignIn = ({
   icon: { alt: string; icon: string }
 }) => {
   const { person } = useSession()
+  const { resolveLink } = useLink()
 
   const getAccountUrl = () => {
     if (!person?.id) return '/login'
 
     const enableFaststoreMyAccount =
       storeConfig.experimental?.enableFaststoreMyAccount
-    return enableFaststoreMyAccount ? '/pvt/account' : storeConfig.accountUrl
+    if (enableFaststoreMyAccount) return '/pvt/account'
+    return resolveLink(storeConfig.accountUrl) ?? storeConfig.accountUrl
   }
 
   return (
