@@ -21,6 +21,8 @@ import type {
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 interface SearchDropdownProps {
+  searchHistoryTitle?: string
+  searchTopTitle?: string
   searchProductsTitle?: string
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
@@ -47,6 +49,8 @@ function SearchDropdown({
   quickOrderSettings,
   onChangeCustomSearchDropdownVisible,
   searchProductsTitle,
+  searchHistoryTitle,
+  searchTopTitle,
   ...otherProps
 }: SearchDropdownProps) {
   const {
@@ -55,8 +59,8 @@ function SearchDropdown({
 
   return (
     <UISearchDropdown {...otherProps}>
-      <SearchHistory sort={sort} />
-      <SearchTop sort={sort} />
+      <SearchHistory title={searchHistoryTitle} sort={sort} />
+      <SearchTop title={searchTopTitle} sort={sort} />
       <UISearchAutoComplete>
         {terms?.map(({ value: suggestion }) => (
           <UISearchAutoCompleteTerm

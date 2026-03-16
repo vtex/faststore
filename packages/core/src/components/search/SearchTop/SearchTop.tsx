@@ -13,6 +13,7 @@ import useTopSearch from 'src/sdk/search/useTopSearch'
 const MAX_TOP_SEARCH_TERMS = 5
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
+  title?: string
   /**
    * List of top searched items
    */
@@ -23,7 +24,12 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   sort?: string
 }
 
-function SearchTop({ topTerms = [], sort, ...otherProps }: SearchTopProps) {
+function SearchTop({
+  topTerms = [],
+  sort,
+  title = 'Top Search',
+  ...otherProps
+}: SearchTopProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
@@ -38,7 +44,7 @@ function SearchTop({ topTerms = [], sort, ...otherProps }: SearchTopProps) {
   }
 
   return (
-    <UISearchTop title="Top Search" {...otherProps}>
+    <UISearchTop title={title} {...otherProps}>
       {terms.map((term, index) => (
         <UISearchTopTerm
           key={index}

@@ -23,6 +23,8 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    searchHistoryTitle?: string
+    searchTopTitle?: string
     searchProductsTitle?: string
     quickOrderSettings?: {
       quickOrder: boolean
