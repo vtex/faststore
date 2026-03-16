@@ -2546,5 +2546,15 @@
         }
       }
     }
+  },
+  {
+    "name": "Webchat",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Webchat",
+      "description": "Webchat widget. Enable via ?webchat in the URL or when added to the page; disable with ?webchat=0 or ?webchat=false.",
+      "type": "object",
+      "properties": {}
+    }
   }
 ]

@@ -36,6 +36,11 @@ const RegionSlider = dynamic(
     ),
   { ssr: false }
 )
+const Webchat = dynamic(
+  () =>
+    import(/* webpackChunkName: "Webchat" */ 'src/components/sections/Webchat'),
+  { ssr: false }
+)
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(Alert, 'Alert')]: Alert,
@@ -46,6 +51,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(RegionModal, 'RegionModal')]: RegionModal, // out of viewport
   [getComponentKey(RegionSlider, 'RegionSlider')]: RegionSlider, // out of viewport
   [getComponentKey(Footer, 'Footer')]: Footer, // out of viewport
+  [getComponentKey(Webchat, 'Webchat')]: Webchat,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
