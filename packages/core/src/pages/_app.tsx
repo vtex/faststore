@@ -6,7 +6,9 @@ import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
 import { UIProvider } from '@faststore/ui'
 
-import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
+import ThirdPartyScripts, {
+  useWebchatScript,
+} from 'src/components/ThirdPartyScripts'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import { DeliveryPromiseProvider } from 'src/sdk/deliveryPromise'
@@ -24,6 +26,7 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
+  useWebchatScript()
   storeConfig.experimental?.scrollRestoration && useScrollRestoration()
   const router = useRouter()
   const { start: startGlobalSearchState } = useSearch()
