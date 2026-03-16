@@ -187,6 +187,9 @@ function Navbar({
                 quickOrderSettings={searchInput?.quickOrderSettings}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
+                searchHistoryTitle={searchInput?.searchHistoryTitle}
+                searchTopTitle={searchInput?.searchTopTitle}
+                searchProductsTitle={searchInput?.searchProductsTitle}
               />
             )}
             {isDesktop &&

@@ -205,7 +205,7 @@
             "searchProductsTitle": {
               "title": "Search Products Title for Search Results Dropdown",
               "type": "string",
-              "default": "Suggested Products"
+              "default": "Suggested products"
             },
             "placeholder": {
               "title": "Placeholder for Search Bar",
