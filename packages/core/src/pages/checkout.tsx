@@ -13,6 +13,7 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import PageProvider from 'src/sdk/overrides/PageProvider'
+import { useLink } from 'src/sdk/ui/useLink'
 import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 
@@ -29,10 +30,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 function Page({ globalSections: globalSectionsProp }: Props) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
+  const { resolveLink } = useLink()
 
   useEffect(() => {
-    window.location.href = storeConfig.checkoutUrl
-  }, [])
+    const href = resolveLink(storeConfig.checkoutUrl) ?? storeConfig.checkoutUrl
+    window.location.href = href
+  }, [resolveLink])
 
   const globalSettingLoading = globalSettings?.loading as { label?: string }
   const loadingLabel =
