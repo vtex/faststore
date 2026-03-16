@@ -193,7 +193,7 @@ export default class Dev extends Command {
       import.meta.resolve('@faststore/cli/runner', import.meta.url)
     )
 
-    spawnSync(`node ${cliPath} generate-types`, {
+    spawnSync(`node ${cliPath} generate-types ${tmpDir}`, {
       shell: true,
       stdio: 'inherit',
     })
