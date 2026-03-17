@@ -6,7 +6,7 @@ const { buildI18nDomains } = require('./scripts/i18n')
 const localesSettings = storeConfig.localization
 
 const getRootFolder = () => {
-  if (__dirname.endsWith('.faststore')) return __dirname
+  if (__dirname.endsWith('.faststore')) return path.join(__dirname, '..')
 
   return path.join(__dirname, '../../')
 }
