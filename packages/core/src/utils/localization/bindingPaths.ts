@@ -1,13 +1,25 @@
 import storeConfig from 'discovery.config'
 import type { LocalesSettings } from 'src/typings/locales'
 
+// Reuse the same logic used by next.config (scripts/i18n)
+// to discover which locales have pure domain bindings.
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { buildI18nDomains } = require('../../../scripts/i18n') as {
+  buildI18nDomains: (
+    localesSettings: LocalesSettings
+  ) => Array<{ domain: string; defaultLocale: string }>
+}
+
 export type CustomPathInfo = {
   path: string
   locale: string
   hostname?: string
 }
 
+type LocalesConfig = LocalesSettings['locales'] | undefined
+
 let cachedCustomPaths: CustomPathInfo[] | null = null
+let cachedDomainLocales: Set<string> | null = null
 
 /** Returns path only (strip query ? and hash #) for prefix detection and building */
 function getPathOnly(pathOrLink: string): string {
@@ -89,13 +101,12 @@ export function getCustomPathsFromBindings(): CustomPathInfo[] {
 
   const customPaths: CustomPathInfo[] = []
 
-  if (!storeConfig.localization?.enabled) {
+  if (storeConfig.localization?.enabled === false) {
     cachedCustomPaths = customPaths
     return cachedCustomPaths
   }
 
-  const locales = (storeConfig.localization.locales ||
-    {}) as LocalesSettings['locales']
+  const locales = (storeConfig.localization.locales || {}) as LocalesConfig
 
   for (const [localeCode, localeConfig] of Object.entries(locales)) {
     if (!localeConfig?.bindings || !Array.isArray(localeConfig.bindings)) {
@@ -183,12 +194,11 @@ export function addCustomPathPrefix(
  * @returns Array of binding path strings sorted longest-first
  */
 export function collectAllBindingPaths(): string[] {
-  if (!storeConfig.localization?.enabled) {
+  if (storeConfig.localization?.enabled === false) {
     return []
   }
 
-  const locales = (storeConfig.localization.locales ||
-    {}) as LocalesSettings['locales']
+  const locales = (storeConfig.localization.locales || {}) as LocalesConfig
   const pathSet = new Set<string>()
 
   for (const localeConfig of Object.values(locales)) {
@@ -216,6 +226,35 @@ export function collectAllBindingPaths(): string[] {
   }
 
   return Array.from(pathSet).sort((a, b) => b.length - a.length)
+}
+
+/**
+ * Returns true when the given locale has at least one binding whose URL is
+ * domain-based (i.e. it has no custom path, only "/" or an empty pathname).
+ *
+ * Example:
+ *  - "https://fr.brandless.fast.store" -> true (domain-based)
+ *  - "https://brandless.fast.store/fr-FR" -> false (path-based)
+ */
+export function localeHasDomainBinding(localeCode: string): boolean {
+  if (storeConfig.localization?.enabled === false) {
+    return false
+  }
+
+  if (cachedDomainLocales === null) {
+    const localesSettings = storeConfig.localization as LocalesSettings
+    const domains = buildI18nDomains(localesSettings) ?? []
+
+    cachedDomainLocales = new Set(
+      domains
+        .map((entry) => entry.defaultLocale)
+        .filter(
+          (code): code is string => typeof code === 'string' && code.length > 0
+        )
+    )
+  }
+
+  return cachedDomainLocales.has(localeCode)
 }
 
 /**
