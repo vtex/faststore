@@ -155,7 +155,7 @@ module.exports = {
     refreshToken: false,
     scrollRestoration: false,
     /** Package names to transpile (e.g. ['@vtex/components']). Usempty, enables Next.js transpilePackages. */
-    transpilePackagesList: [],
+    transpilePackages: [],
   },
 
   // Text direction: 'ltr' (left-to-right) or 'rtl' (right-to-left)
