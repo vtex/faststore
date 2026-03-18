@@ -9,6 +9,10 @@ const nextConfig = {
   /* config options here */
   /* Replaces terser by swc for minifying. It's the default in NextJS 13 */
   swcMinify: true,
+  ...(Array.isArray(storeConfig.experimental?.transpilePackagesList) &&
+    storeConfig.experimental.transpilePackagesList.length > 0 && {
+      transpilePackages: storeConfig.experimental.transpilePackagesList,
+    }),
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
     deviceSizes: [360, 412, 540, 768, 1280, 1440],
