@@ -71,7 +71,7 @@ export interface NavbarProps {
       }
       label: string
     }
-    localizationButton: {
+    localizationButton?: {
       shouldDisplayLocalizationButton: boolean
       icon: {
         icon: string
@@ -114,7 +114,7 @@ function NavbarSection({
     localizationButton: {
       icon: { icon: localizationIcon },
       shouldDisplayLocalizationButton,
-    },
+    } = { icon: { icon: '' }, shouldDisplayLocalizationButton: false },
     localizationSelector: {
       title: localizationTitle,
       languageLabel: localizationLanguageLabel,
