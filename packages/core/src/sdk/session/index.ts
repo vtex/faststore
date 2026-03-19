@@ -8,6 +8,7 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import deepEqual from 'fast-deep-equal'
+import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
   isRefreshTokenSuccessful,
@@ -189,9 +190,7 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
   let { channel, ...session } = resultSessionStore ?? currentSessionStore
 
   if (filter) {
-    const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
-      JSON.parse(channel)
-    channel = JSON.stringify(filteredChannel)
+    channel = filterChannel(channel ?? '')
   }
 
   return useMemo(

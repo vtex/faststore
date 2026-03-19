@@ -36,6 +36,16 @@ export function matchURLBinding(href: string) {
           }
         }
 
+        // If the config pathname is the root, it is a subdomain binding
+        // and we don't need to check if pathname matches.
+        const configPathname =
+          configURLObject.pathname.replace(/\/$/, '') || '/'
+        const isSubdomainBinding = configPathname === '/'
+
+        if (isSubdomainBinding) {
+          return true
+        }
+
         // Check if pathname matches (exact or prefix match)
         return matchesBindingPath(
           hostURLObject.pathname,

@@ -3,8 +3,11 @@ import {
   addCustomPathPrefix,
   buildRedirectUrl,
   collectAllBindingPaths,
+  getChannelForLocale,
   getCustomPathsFromBindings,
   getPagePath,
+  getSubdomainBindings,
+  isValidLocale,
   matchesBindingPath,
 } from '../../../src/utils/localization/bindingPaths'
 
@@ -13,6 +16,11 @@ vi.mock('../../../discovery.config.js', async () => {
   return {
     default: {
       ...(original.default ?? {}),
+      session: {
+        channel:
+          '{"salesChannel":"1","regionId":"","hasOnlyDefaultSalesChannel":"true"}',
+        locale: 'pt-BR',
+      },
       localization: {
         enabled: true,
         defaultLocale: 'pt-BR',
@@ -31,6 +39,12 @@ vi.mock('../../../discovery.config.js', async () => {
                 url: 'https://brandless.myvtex.com',
                 salesChannel: '1',
                 isDefault: true,
+              },
+              {
+                currencyCode: 'BRL',
+                url: 'https://brandless.myvtex.com/brasil',
+                salesChannel: '9',
+                isDefault: false,
               },
             ],
           },
@@ -99,6 +113,23 @@ vi.mock('../../../discovery.config.js', async () => {
                 currencyCode: 'USD',
                 url: 'https://brandless.fast.store/en-US',
                 salesChannel: '7',
+                isDefault: true,
+              },
+            ],
+          },
+          'fr-FR': {
+            code: 'fr-FR',
+            name: 'français',
+            languageCode: 'fr',
+            languageName: 'French',
+            script: 'Latn',
+            textDirection: 'ltr',
+            regionCode: 'FR',
+            bindings: [
+              {
+                currencyCode: 'EUR',
+                url: 'https://fr.brandless.fast.store',
+                salesChannel: '8',
                 isDefault: true,
               },
             ],
@@ -479,6 +510,82 @@ describe('getPagePath', () => {
   it('strips query and hash before matching', () => {
     expect(getPagePath('/it-IT/products?color=red')).toBe('/products')
     expect(getPagePath('/it-IT/products#section')).toBe('/products')
+  })
+})
+
+describe('isValidLocale', () => {
+  it('returns true for configured locales', () => {
+    expect(isValidLocale('pt-BR')).toBe(true)
+    expect(isValidLocale('it-IT')).toBe(true)
+    expect(isValidLocale('fr-CA')).toBe(true)
+    expect(isValidLocale('en-US')).toBe(true)
+    expect(isValidLocale('fr-FR')).toBe(true)
+  })
+
+  it('returns false for unknown locales', () => {
+    expect(isValidLocale('de-DE')).toBe(false)
+    expect(isValidLocale('ja-JP')).toBe(false)
+    expect(isValidLocale('')).toBe(false)
+  })
+})
+
+describe('getSubdomainBindings', () => {
+  it('includes subdomain bindings (root path URLs)', () => {
+    const bindings = getSubdomainBindings()
+    const hostnames = bindings.map((b) => b.hostname)
+
+    expect(hostnames).toContain('brandless.myvtex.com')
+    expect(hostnames).toContain('fr.brandless.fast.store')
+  })
+
+  it('maps hostnames to correct locales', () => {
+    const bindings = getSubdomainBindings()
+    const ptBR = bindings.find((b) => b.hostname === 'brandless.myvtex.com')
+    const frFR = bindings.find((b) => b.hostname === 'fr.brandless.fast.store')
+
+    expect(ptBR?.locale).toBe('pt-BR')
+    expect(frFR?.locale).toBe('fr-FR')
+  })
+
+  it('excludes path-based bindings', () => {
+    const bindings = getSubdomainBindings()
+    const locales = bindings.map((b) => b.locale)
+
+    expect(locales).not.toContain('it-IT')
+    expect(locales).not.toContain('fr-CA')
+    expect(locales).not.toContain('en-US')
+  })
+})
+
+describe('getChannelForLocale', () => {
+  it('returns channel with correct salesChannel for a locale', () => {
+    const channel = JSON.parse(getChannelForLocale('fr-FR'))
+
+    expect(channel.salesChannel).toBe('8')
+  })
+
+  it('returns the isDefault binding salesChannel when multiple bindings exist', () => {
+    const channel = JSON.parse(getChannelForLocale('pt-BR'))
+
+    expect(channel.salesChannel).toBe('1')
+  })
+
+  it('returns first binding salesChannel when none is isDefault', () => {
+    const channel = JSON.parse(getChannelForLocale('it-IT'))
+
+    expect(channel.salesChannel).toBe('2')
+  })
+
+  it('falls back to default channel for unknown locale', () => {
+    const channel = JSON.parse(getChannelForLocale('de-DE'))
+
+    expect(channel.salesChannel).toBe('1')
+  })
+
+  it('falls back to default channel for undefined locale', () => {
+    const channel = JSON.parse(getChannelForLocale(undefined))
+
+    expect(channel.salesChannel).toBe('1')
   })
 })
 
