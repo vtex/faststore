@@ -22,5 +22,9 @@ export function useWebchatScript(
     } else {
       document.head.appendChild(script)
     }
+
+    return () => {
+      script.remove()
+    }
   }, [])
 }
