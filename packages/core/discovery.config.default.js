@@ -154,7 +154,7 @@ module.exports = {
     },
     refreshToken: false,
     scrollRestoration: false,
-    /** Package names to transpile (e.g. ['@vtex/components']). Usempty, enables Next.js transpilePackages. */
+    /** Package names to transpile (e.g. ['@vtex/components']). Use a non-empty list to enable Next.js transpilation. */
     transpilePackages: [],
   },
 
