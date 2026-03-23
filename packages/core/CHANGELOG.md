@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.98.0-dev.4](https://github.com/vtex/faststore/compare/v3.98.0-dev.3...v3.98.0-dev.4) (2026-03-23)
+
+### Features
+
+- Add transpilePackages to configuration for Next.js - SFS-3100 ([#3244](https://github.com/vtex/faststore/issues/3244)) ([9399323](https://github.com/vtex/faststore/commit/939932383b3abf78a6c7184ac9f428d90d49401b))
+
 # [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
 
 ### Features

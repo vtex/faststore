@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.98.0-dev.3
+        specifier: ^3.98.0-dev.4
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -3676,6 +3676,7 @@ packages:
         integrity: sha512-hUTEWrR8zH+/Z3bp/R1aLm6DW8vB/BB7KH7Yeg4fMfrvSwxegiLVW9uJFAzWkK4mzEagmj/Dti85Yg9MN13t0g==,
       }
     engines: { node: ^20.19.0 || ^22.12.0 || >=24.0.0 }
+    deprecated: This package is an implementation detail of Lerna and is no longer published separately.
 
   "@lexical/clipboard@0.34.0":
     resolution:
