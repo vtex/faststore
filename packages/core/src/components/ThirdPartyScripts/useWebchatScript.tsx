@@ -13,7 +13,6 @@ export function useWebchatScript(
 ): void {
   useEffect(() => {
     if (process.env.DISABLE_3P_SCRIPTS) return
-    if (typeof window === 'undefined') return
 
     const script = document.createElement('script')
     script.src = WEBCHAT_SCRIPT_URL
