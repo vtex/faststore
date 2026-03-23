@@ -2552,7 +2552,7 @@
     "requiredScopes": [],
     "schema": {
       "title": "Webchat",
-      "description": "Webchat widget. Enable via ?webchat in the URL or when added to the page; disable with ?webchat=0 or ?webchat=false.",
+      "description": "Webchat widget. Loads when this section is added to the page.",
       "type": "object",
       "properties": {}
     }
