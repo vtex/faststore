@@ -26,5 +26,5 @@ export function useWebchatScript(
     return () => {
       script.remove()
     }
-  }, [])
+  }, [containerRef])
 }
