@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.98.0-dev.5](https://github.com/vtex/faststore/compare/v3.98.0-dev.4...v3.98.0-dev.5) (2026-03-24)
+
+### Features
+
+- Add Webchat component and script integration + hCMS - SFS-3084 ([#3242](https://github.com/vtex/faststore/issues/3242)) ([04c3fbb](https://github.com/vtex/faststore/commit/04c3fbb91d028c5828998388105d327913194074))
+
 # [3.98.0-dev.4](https://github.com/vtex/faststore/compare/v3.98.0-dev.3...v3.98.0-dev.4) (2026-03-23)
 
 ### Features
