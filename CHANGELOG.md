@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.98.0-dev.6](https://github.com/vtex/faststore/compare/v3.98.0-dev.5...v3.98.0-dev.6) (2026-03-24)
+
+### Bug Fixes
+
+- enhance cache key management in useQuery ([#3230](https://github.com/vtex/faststore/issues/3230)) ([3f28502](https://github.com/vtex/faststore/commit/3f28502a8d381e476728661ea1150d0777ba87d1))
+
 # [3.98.0-dev.5](https://github.com/vtex/faststore/compare/v3.98.0-dev.4...v3.98.0-dev.5) (2026-03-24)
 
 ### Features
