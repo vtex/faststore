@@ -29,7 +29,7 @@ export const request = async <Query = unknown, Variables = unknown>(
   variables: Variables,
   options?: RequestOptions
 ) => {
-  // Get cache busting value based on cookie changes
+  // Get cache busting value based person?.id from session
   const value = getClientCacheBustingValue()
 
   const { data, errors } = await baseRequest<Variables, Query>('/api/graphql', {
