@@ -2855,5 +2855,15 @@
         }
       }
     }
+  },
+  {
+    "name": "Webchat",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Webchat",
+      "description": "Webchat widget. Loads when this section is added to the page.",
+      "type": "object",
+      "properties": {}
+    }
   }
 ]
