@@ -20,7 +20,7 @@
     "after": {
       "title": "After",
       "type": "string",
-      "default": 0,
+      "default": "0",
       "description": "Initial pagination item"
     },
     "sort": {
