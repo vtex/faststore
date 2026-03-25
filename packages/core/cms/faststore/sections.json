@@ -957,7 +957,7 @@
           "description": "Number of items to display per page in carousel"
         },
         "after": {
-          "type": "integer",
+          "type": "string",
           "title": "After",
           "default": 0,
           "description": "Initial pagination item"
@@ -1121,7 +1121,7 @@
         },
         "after": {
           "title": "After",
-          "type": "integer",
+          "type": "string",
           "default": 0,
           "description": "Initial pagination item"
         },
