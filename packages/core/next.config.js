@@ -73,6 +73,17 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
+    // Suppress "Critical dependency" warnings from OpenTelemetry's dynamic requires
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      { module: /require-in-the-middle/, message: /Critical dependency/ },
+      {
+        module: /@opentelemetry\/instrumentation/,
+        message: /Critical dependency/,
+      },
+      { module: /@vtex\/diagnostics-nodejs/, message: /Critical dependency/ },
+    ]
+
     return config
   },
   redirects: storeConfig.redirects,
