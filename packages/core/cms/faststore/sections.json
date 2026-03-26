@@ -2857,11 +2857,11 @@
     }
   },
   {
-    "name": "Webchat",
+    "name": "ShoppingAssistant",
     "requiredScopes": [],
     "schema": {
-      "title": "Webchat",
-      "description": "Webchat widget. Loads when this section is added to the page.",
+      "title": "Shopping Assistant",
+      "description": "To enable Shopping Assistant, make sure you have finished the setup at Agentic CX > Dashboard.",
       "type": "object",
       "properties": {}
     }

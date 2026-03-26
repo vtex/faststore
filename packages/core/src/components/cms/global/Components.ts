@@ -36,9 +36,11 @@ const RegionSlider = dynamic(
     ),
   { ssr: false }
 )
-const Webchat = dynamic(
+const ShoppingAssistant = dynamic(
   () =>
-    import(/* webpackChunkName: "Webchat" */ 'src/components/sections/Webchat'),
+    import(
+      /* webpackChunkName: "ShoppingAssistant" */ 'src/components/sections/ShoppingAssistant'
+    ),
   { ssr: false }
 )
 
@@ -51,7 +53,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(RegionModal, 'RegionModal')]: RegionModal, // out of viewport
   [getComponentKey(RegionSlider, 'RegionSlider')]: RegionSlider, // out of viewport
   [getComponentKey(Footer, 'Footer')]: Footer, // out of viewport
-  [getComponentKey(Webchat, 'Webchat')]: Webchat,
+  [getComponentKey(ShoppingAssistant, 'ShoppingAssistant')]: ShoppingAssistant,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }

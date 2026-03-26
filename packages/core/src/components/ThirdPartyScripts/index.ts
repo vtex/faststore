@@ -1,2 +1,2 @@
 export { default } from './ThirdPartyScripts'
-export { useWebchatScript } from './useWebchatScript'
+export { useShoppingAssistant } from './useShoppingAssistant'
