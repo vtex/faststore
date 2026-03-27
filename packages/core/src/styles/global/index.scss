@@ -11,4 +11,5 @@
 @import "src/components/sections/Section/section.scss";
 
 // Importing this component because is being used outside the context of the Section
-@import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
+@import "@faststore/ui/src/components/organisms/QuickOrderDrawer/styles.scss";
+@import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";

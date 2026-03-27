@@ -13,6 +13,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/components
 
+## [Unreleased]
+
+### Features
+
+- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
+- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
+- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
+
 # [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
 
 ### Features
