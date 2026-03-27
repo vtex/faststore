@@ -16,6 +16,7 @@ export enum FileUploadErrorType {
   InvalidStructure = 'invalid-structure',
   Empty = 'empty',
   TooLarge = 'too-large',
+  NoProductsFound = 'no-products-found',
 }
 
 export interface FileUploadStatusProps extends HTMLAttributes<HTMLDivElement> {
@@ -116,10 +117,17 @@ const FileUploadStatus = ({
     if (errorMessage) {
       return { title: errorMessage, description: '' }
     }
+
     if (errorType && errorMessages?.[errorType]) {
       return errorMessages[errorType]!
     }
-    return { title: '', description: '' }
+
+    return (
+      errorMessages?.[FileUploadErrorType.Unexpected] ?? {
+        title: '',
+        description: '',
+      }
+    )
   }
 
   const getStatusText = (): string => {

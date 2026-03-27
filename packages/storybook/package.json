@@ -12,6 +12,7 @@
     "@storybook/addon-essentials": "^8.5.2",
     "@storybook/addon-interactions": "^8.5.2",
     "@storybook/addon-onboarding": "^8.5.2",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
     "@storybook/blocks": "^8.5.2",
     "@storybook/nextjs": "^8.5.2",
     "@storybook/react": "^8.5.2",
@@ -30,8 +31,8 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@faststore/components": "^3.98.0-dev.1",
-    "@faststore/ui": "^3.98.0-dev.1",
+    "@faststore/components": "workspace:*",
+    "@faststore/ui": "workspace:*",
     "next": "^15.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

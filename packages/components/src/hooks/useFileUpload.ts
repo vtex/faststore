@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import type { FileRejection } from 'react-dropzone/.'
+import type { FileRejection } from 'react-dropzone'
 
 /**
  * Error codes returned by react-dropzone when a file is rejected.
