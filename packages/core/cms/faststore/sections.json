@@ -373,6 +373,46 @@
                       "title": "Drawer messages",
                       "type": "object",
                       "properties": {
+                        "alertAriaLabel": {
+                          "title": "Alert aria-label",
+                          "type": "string",
+                          "default": "Product availability warning"
+                        },
+                        "tableAriaLabel": {
+                          "title": "Table aria-label",
+                          "type": "string",
+                          "default": "Quick order products list"
+                        },
+                        "quantityUpdatedTooltip": {
+                          "title": "Quantity updated tooltip text",
+                          "type": "string",
+                          "default": "Quantity updated to match our inventory"
+                        },
+                        "quantityUpdatedAriaLabel": {
+                          "title": "Quantity updated aria-label",
+                          "type": "string",
+                          "default": "Quantity adjusted to match available inventory"
+                        },
+                        "outOfStockLabel": {
+                          "title": "Out of stock badge label",
+                          "type": "string",
+                          "default": "Out of stock"
+                        },
+                        "availableLabel": {
+                          "title": "Available badge label",
+                          "type": "string",
+                          "default": "Available"
+                        },
+                        "selectQuantityAriaLabel": {
+                          "title": "Select quantity aria-label ({productName} will be replaced)",
+                          "type": "string",
+                          "default": "Select quantity for {productName}"
+                        },
+                        "removeProductAriaLabel": {
+                          "title": "Remove product aria-label ({productName} will be replaced)",
+                          "type": "string",
+                          "default": "Remove {productName} from quick order list"
+                        },
                         "invalidQuantityTitle": {
                           "title": "Invalid quantity toast title",
                           "type": "string",

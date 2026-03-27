@@ -48,6 +48,14 @@ export type QuickOrderDrawerProductsProps = {
    * Messages for CMS configuration
    */
   messages?: {
+    alertAriaLabel?: string
+    tableAriaLabel?: string
+    quantityUpdatedTooltip?: string
+    quantityUpdatedAriaLabel?: string
+    outOfStockLabel?: string
+    availableLabel?: string
+    selectQuantityAriaLabel?: string
+    removeProductAriaLabel?: string
     invalidQuantityTitle?: string
     invalidQuantityMessage?: (
       min: number,
@@ -86,7 +94,7 @@ const QuickOrderDrawerProducts = ({
             icon={<Icon name="AlertFilled" weight="bold" />}
             dismissible
             onClick={() => setAlertMessage('')}
-            aria-label="Product availability warning"
+            aria-label={messages?.alertAriaLabel}
           >
             {alertMessage}
           </Alert>
@@ -94,7 +102,7 @@ const QuickOrderDrawerProducts = ({
         <Table
           data-fs-quick-order-drawer-table
           variant="bordered"
-          aria-label="Quick order products list"
+          aria-label={messages?.tableAriaLabel}
         >
           <TableHead>
             <TableRow>
@@ -171,11 +179,11 @@ const QuickOrderDrawerProducts = ({
                       {variantProduct.availability === 'available' &&
                         variantProduct.quantityUpdated && (
                           <Tooltip
-                            content={'Quantity updated to match our inventory'}
+                            content={messages?.quantityUpdatedTooltip}
                             placement="left-center"
                           >
                             <IconButton
-                              aria-label="Quantity adjusted to match available inventory"
+                              aria-label={messages?.quantityUpdatedAriaLabel}
                               icon={<Icon name="CircleWarning" weight="bold" />}
                             />
                           </Tooltip>
@@ -193,8 +201,8 @@ const QuickOrderDrawerProducts = ({
                           }
                         >
                           {variantProduct.availability === 'outOfStock'
-                            ? 'Out of stock'
-                            : 'Available'}
+                            ? messages?.outOfStockLabel
+                            : messages?.availableLabel}
                         </Badge>
                       )}
 
@@ -229,7 +237,10 @@ const QuickOrderDrawerProducts = ({
                           onChange={(value) =>
                             onChangeQuantityItem(variantProduct.id, value)
                           }
-                          aria-label={`Select quantity for ${variantProduct.name}`}
+                          aria-label={messages?.selectQuantityAriaLabel?.replace(
+                            '{productName}',
+                            variantProduct.name
+                          )}
                           onValidateBlur={(
                             min: number,
                             maxValue: number,
@@ -264,7 +275,10 @@ const QuickOrderDrawerProducts = ({
                       <IconButton
                         onClick={() => onDelete(variantProduct.id)}
                         icon={<Icon name="Thrash" color="#1F1F1F" />}
-                        aria-label={`Remove ${variantProduct.name} from quick order list`}
+                        aria-label={messages?.removeProductAriaLabel?.replace(
+                          '{productName}',
+                          variantProduct.name
+                        )}
                       />
                     </TableCell>
                   </TableRow>

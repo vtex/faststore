@@ -54,6 +54,14 @@ export interface NavbarProps {
           quantity?: string
         }
         messages?: {
+          alertAriaLabel?: string
+          tableAriaLabel?: string
+          quantityUpdatedTooltip?: string
+          quantityUpdatedAriaLabel?: string
+          outOfStockLabel?: string
+          availableLabel?: string
+          selectQuantityAriaLabel?: string
+          removeProductAriaLabel?: string
           invalidQuantityTitle?: string
           emptyStateTitle?: string
           emptyStateMessage?: string
