@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.98.0-dev.8](https://github.com/vtex/faststore/compare/v3.98.0-dev.7...v3.98.0-dev.8) (2026-03-27)
+
+### Features
+
+- Add Quick Order Full Feature ([#3197](https://github.com/vtex/faststore/issues/3197)) ([f5518d7](https://github.com/vtex/faststore/commit/f5518d7f205dccad99b6ea0a127fd09cf77d1edb))
+
 # [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
 
 ### Features
