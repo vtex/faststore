@@ -16,13 +16,15 @@
   --fs-search-input-field-transition-function: ease;
 
   // Button
-  --fs-search-input-field-button-min-height: var(
-    --fs-search-input-field-height-desktop
-  );
+  --fs-search-input-field-button-min-height:
+    var(
+      --fs-search-input-field-height-desktop
+    );
   --fs-search-input-field-button-padding-top-desktop: var(--fs-spacing-0);
-  --fs-search-input-field-button-padding-bottom-desktop: var(
-    --fs-search-input-field-button-padding-top-desktop
-  );
+  --fs-search-input-field-button-padding-bottom-desktop:
+    var(
+      --fs-search-input-field-button-padding-top-desktop
+    );
 
   // Input
   --fs-search-input-field-input-padding-right: var(--fs-spacing-13);
@@ -53,10 +55,6 @@
     @include media(">=notebook") {
       position: absolute;
       min-height: var(--fs-search-input-field-button-min-height);
-      padding-top: var(--fs-search-input-field-button-padding-top-desktop);
-      padding-bottom: var(
-        --fs-search-input-field-button-padding-bottom-desktop
-      );
       inset-inline-end: 0;
     }
   }
@@ -67,9 +65,9 @@
     background-color: var(--fs-search-input-field-input-bkg-color);
     transition:
       box-shadow var(--fs-search-input-field-transition-timing)
-        var(--fs-search-input-field-transition-function),
+      var(--fs-search-input-field-transition-function),
       border var(--fs-search-input-field-transition-timing)
-        var(--fs-search-input-field-transition-function);
+      var(--fs-search-input-field-transition-function);
 
     @include media("<notebook") {
       border: 0;
@@ -80,9 +78,10 @@
     @include media(">=notebook") {
       min-height: var(--fs-search-input-field-button-min-height);
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
-      padding-bottom: var(
-        --fs-search-input-field-button-padding-bottom-desktop
-      );
+      padding-bottom:
+        var(
+          --fs-search-input-field-button-padding-bottom-desktop
+        );
     }
   }
 
