@@ -13,6 +13,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - version 2026 03 27 ([#3251](https://github.com/vtex/faststore/issues/3251)) ([f330a43](https://github.com/vtex/faststore/commit/f330a43661567ad8edb468acd3416bb7ffacd8b6))
 
+# [3.98.0-dev.10](https://github.com/vtex/faststore/compare/v3.98.0-dev.9...v3.98.0-dev.10) (2026-03-27)
+
+**Note:** Version bump only for package faststore
+
 # [3.98.0-dev.9](https://github.com/vtex/faststore/compare/v3.98.0-dev.8...v3.98.0-dev.9) (2026-03-27)
 
 **Note:** Version bump only for package faststore

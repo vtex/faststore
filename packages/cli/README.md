@@ -25,6 +25,7 @@ npm install -g @faststore/cli
 ```
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
@@ -36,19 +37,21 @@ USAGE
   $ faststore COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 ## Commands
 
 <!-- commands -->
-* [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
-* [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
-* [`faststore create [PATH]`](#faststore-create-path)
-* [`faststore dev [ACCOUNT] [PATH] [PORT]`](#faststore-dev-account-path-port)
-* [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
-* [`faststore help [COMMANDS]`](#faststore-help-commands)
-* [`faststore start [ACCOUNT] [PATH] [PORT]`](#faststore-start-account-path-port)
-* [`faststore test [PATH]`](#faststore-test-path)
+
+- [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
+- [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
+- [`faststore create [PATH]`](#faststore-create-path)
+- [`faststore dev [ACCOUNT] [PATH] [PORT]`](#faststore-dev-account-path-port)
+- [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
+- [`faststore help [COMMANDS]`](#faststore-help-commands)
+- [`faststore start [ACCOUNT] [PATH] [PORT]`](#faststore-start-account-path-port)
+- [`faststore test [PATH]`](#faststore-test-path)
 
 ## `faststore build [ACCOUNT] [PATH]`
 
@@ -176,4 +179,5 @@ ARGUMENTS
 ```
 
 _See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.98.0/dist/commands/test.js)_
+
 <!-- commandsstop -->
