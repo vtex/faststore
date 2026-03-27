@@ -126,4 +126,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       fuzzy: productSearchResult.fuzzy,
     }
   },
+  searchId: async ({ productSearchPromise }) => {
+    const productSearchResult = await productSearchPromise
+
+    return productSearchResult.searchId
+  },
 }

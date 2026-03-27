@@ -3017,5 +3017,15 @@
         }
       }
     }
+  },
+  {
+    "name": "ShoppingAssistant",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Shopping Assistant",
+      "description": "To enable Shopping Assistant, make sure you have finished the setup at Agentic CX > Dashboard.",
+      "type": "object",
+      "properties": {}
+    }
   }
 ]

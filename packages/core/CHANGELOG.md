@@ -11,6 +11,34 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - Re-exported `useFileUpload` hook from `@faststore/components` (see components changelog for details).
 - Re-exported `FileUploadCard` component from `@faststore/components` (see components changelog for details).
 
+# [3.98.0-dev.7](https://github.com/vtex/faststore/compare/v3.98.0-dev.6...v3.98.0-dev.7) (2026-03-26)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.98.0-dev.6](https://github.com/vtex/faststore/compare/v3.98.0-dev.5...v3.98.0-dev.6) (2026-03-24)
+
+### Bug Fixes
+
+- enhance cache key management in useQuery ([#3230](https://github.com/vtex/faststore/issues/3230)) ([3f28502](https://github.com/vtex/faststore/commit/3f28502a8d381e476728661ea1150d0777ba87d1))
+
+# [3.98.0-dev.5](https://github.com/vtex/faststore/compare/v3.98.0-dev.4...v3.98.0-dev.5) (2026-03-24)
+
+### Features
+
+- Add Webchat component and script integration + hCMS - SFS-3084 ([#3242](https://github.com/vtex/faststore/issues/3242)) ([04c3fbb](https://github.com/vtex/faststore/commit/04c3fbb91d028c5828998388105d327913194074))
+
+# [3.98.0-dev.4](https://github.com/vtex/faststore/compare/v3.98.0-dev.3...v3.98.0-dev.4) (2026-03-23)
+
+### Features
+
+- Add transpilePackages to configuration for Next.js - SFS-3100 ([#3244](https://github.com/vtex/faststore/issues/3244)) ([9399323](https://github.com/vtex/faststore/commit/939932383b3abf78a6c7184ac9f428d90d49401b))
+
+# [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
+
+### Features
+
+- Add ActivityFlow data parameters with search-related information ([#3105](https://github.com/vtex/faststore/issues/3105)) ([8f69ff8](https://github.com/vtex/faststore/commit/8f69ff855c31abedba66071132240c53a93ab56d))
+
 # [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
 
 ### Features

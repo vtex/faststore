@@ -36,6 +36,13 @@ const RegionSlider = dynamic(
     ),
   { ssr: false }
 )
+const ShoppingAssistant = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "ShoppingAssistant" */ 'src/components/sections/ShoppingAssistant'
+    ),
+  { ssr: false }
+)
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(Alert, 'Alert')]: Alert,
@@ -46,6 +53,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   [getComponentKey(RegionModal, 'RegionModal')]: RegionModal, // out of viewport
   [getComponentKey(RegionSlider, 'RegionSlider')]: RegionSlider, // out of viewport
   [getComponentKey(Footer, 'Footer')]: Footer, // out of viewport
+  [getComponentKey(ShoppingAssistant, 'ShoppingAssistant')]: ShoppingAssistant,
   ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
