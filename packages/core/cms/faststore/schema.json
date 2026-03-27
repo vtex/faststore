@@ -1,5 +1,5 @@
 {
-  "$id": "https://vtex.vtexcommercestable.com.br/api/content-platform/schemas/vtex/faststore",
+  "$id": "vtex.faststore",
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
   "content-types": {
@@ -35,393 +35,12 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "pdp": {
-      "$extends": ["#/components/base-page-template"],
-      "$singleton": false,
-      "type": "object",
-      "title": "Product Page",
-      "properties": {
-        "template": {
-          "title": "Template",
-          "type": "object",
-          "properties": {
-            "value": {
-              "title": "PDP template value (e.g. Slug: /apple-magic-mouse/p OR /department/category/subcategory/)",
-              "type": "string",
-              "description": "Possible values: the PDP slug template (e.g. '/apple-magic-mouse/p'); A PLP template (e.g. '/department/' OR '/department/category/' OR '/department/category/subcategory/'). If empty, this template will be the generic PDP."
-            }
-          },
-          "$componentTitle": "Template"
-        },
-        "seo": {
-          "title": "SEO",
-          "description": "Search Engine Optimization options",
-          "type": "object",
-          "widget": {
-            "ui:ObjectFieldTemplate": "GoogleSeoPreview"
-          },
-          "properties": {
-            "id": {
-              "title": "ID",
-              "description": "A unique identifier used to reference the product page. This is a descriptive value (e.g., `#product`) that will be concatenated with the product path (example of the result: `/product-slug/p#product`).",
-              "type": "string"
-            },
-            "mainEntityOfPage": {
-              "title": "Main entity of page",
-              "description": "Indicates the main entity of the page. A unique identifier used to reference the product page. This is a descriptive value (e.g., `#webpage`) that will be concatenated with the product path (example of the result: `/product-slug/p#webpage`).",
-              "type": "string"
-            }
-          },
-          "$componentTitle": "SEO"
-        },
-        "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/CrossSellingShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductDetails"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
-        }
-      },
-      "readOnly": false,
-      "writeOnly": false,
-      "deprecated": false,
-      "$abstract": false,
-      "identifierKeys": ["slug"]
-    },
-    "plp": {
-      "$extends": ["#/components/base-page-template"],
-      "$singleton": false,
-      "type": "object",
-      "title": "Product List Page",
-      "properties": {
-        "template": {
-          "title": "Template",
-          "type": "object",
-          "properties": {
-            "value": {
-              "title": "PLP template value (e.g. Slug: /department/category/subcategory)",
-              "type": "string",
-              "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is left empty, the generic PLP template will be applied."
-            }
-          },
-          "$componentTitle": "Template"
-        },
-        "productGallery": {
-          "title": "Product Gallery",
-          "description": "ProductGallery options",
-          "type": "object",
-          "required": ["itemsPerPage", "sortBySelection"],
-          "properties": {
-            "itemsPerPage": {
-              "title": "Number of ProductCards per page",
-              "type": "integer",
-              "default": 12
-            },
-            "sortBySelection": {
-              "title": "Default sort by value",
-              "type": "string",
-              "default": "score_desc",
-              "enumNames": [
-                "Price, descending",
-                "Price, ascending",
-                "Top sales",
-                "Name, A-Z",
-                "Name, Z-A",
-                "Release date",
-                "Discount",
-                "Relevance"
-              ],
-              "enum": [
-                "price_desc",
-                "price_asc",
-                "orders_desc",
-                "name_asc",
-                "name_desc",
-                "release_desc",
-                "discount_desc",
-                "score_desc"
-              ]
-            }
-          },
-          "$componentTitle": "Product Gallery"
-        },
-        "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductGallery"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
-        }
-      },
-      "readOnly": false,
-      "writeOnly": false,
-      "deprecated": false,
-      "$abstract": false,
-      "identifierKeys": ["slug"]
-    },
-    "home": {
+    "globalFooterSections": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
-      "title": "Home",
+      "title": "Global Footer Sections",
       "properties": {
-        "seo": {
-          "title": "SEO",
-          "description": "Search Engine Optimization options",
-          "type": "object",
-          "widget": {
-            "ui:ObjectFieldTemplate": "GoogleSeoPreview"
-          },
-          "required": ["slug", "title", "description"],
-          "properties": {
-            "slug": {
-              "title": "Path",
-              "type": "string",
-              "default": "/"
-            },
-            "title": {
-              "title": "Default page title",
-              "description": "Display this title when no other tile is available",
-              "type": "string",
-              "default": "FastStore Starter"
-            },
-            "description": {
-              "title": "Meta tag description",
-              "type": "string",
-              "default": "A beautifully designed store"
-            },
-            "canonical": {
-              "title": "Canonical url for the page",
-              "type": "string"
-            },
-            "name": {
-              "title": "Name",
-              "type": "string"
-            },
-            "publisherId": {
-              "title": "Publisher ID",
-              "description": "A unique identifier used to reference the publisher. This can be a descriptive value (e.g., `#organization`) or a full URL (e.g., `https://example.com/publisher`).",
-              "type": "string"
-            },
-            "organization": {
-              "title": "Organization",
-              "type": "object",
-              "required": ["name", "url"],
-              "properties": {
-                "name": {
-                  "title": "Organization name",
-                  "type": "string",
-                  "default": "VTEX"
-                },
-                "legalName": {
-                  "title": "Organization legal name",
-                  "type": "string",
-                  "default": "VTEX Commerce"
-                },
-                "id": {
-                  "title": "Organization ID",
-                  "description": "A unique reference for the organization. This can be a descriptive value (e.g., #organization) or a full URL (e.g.,https://example.com/organization).",
-                  "type": "string"
-                },
-                "url": {
-                  "title": "Organization URL",
-                  "type": "string",
-                  "default": "https://vtex.com"
-                },
-                "sameAs": {
-                  "title": "Organization URLs",
-                  "type": "array",
-                  "description": "The URL of a page on another website with additional information about your organization. For example, a URL to your organization's profile page on a social media or review site.",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "logo": {
-                  "title": "Organization logo URL",
-                  "description": "A logo that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
-                  "type": "string"
-                },
-                "image": {
-                  "title": "Organization image/logo object",
-                  "description": "An image that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
-                  "type": "object",
-                  "properties": {
-                    "url": {
-                      "title": "Organization image URL",
-                      "description": "The URL of the image. Make sure the url is crawlable and indexable.",
-                      "type": "string"
-                    },
-                    "caption": {
-                      "title": "Organization image caption",
-                      "description": "A short description of the image.",
-                      "type": "string"
-                    },
-                    "id": {
-                      "title": "Organization image ID",
-                      "description": "A unique reference for the image. This can be a descriptive value (e.g., #logo) or a full URL (e.g.,https://example.com/logo).",
-                      "type": "string"
-                    }
-                  }
-                },
-                "email": {
-                  "title": "Organization email",
-                  "description": "The email address to contact your business",
-                  "type": "string"
-                },
-                "telephone": {
-                  "title": "Organization phone",
-                  "description": "A business phone number. Be sure to include the country code and area code in the phone number.",
-                  "type": "string"
-                },
-                "address": {
-                  "title": "Organization address",
-                  "description": "The address (physical or mailing) of your organization, if applicable.",
-                  "type": "object",
-                  "properties": {
-                    "streetAddress": {
-                      "title": "Street Address",
-                      "description": "The full street address of your postal address.",
-                      "type": "string"
-                    },
-                    "addressLocality": {
-                      "title": "City",
-                      "description": "The city of your postal address.",
-                      "type": "string"
-                    },
-                    "addressCountry": {
-                      "title": "Country",
-                      "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'.",
-                      "type": "string"
-                    },
-                    "postalCode": {
-                      "title": "Postal Code",
-                      "description": "The postal code of your postal address.",
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "$componentTitle": "SEO"
-        },
         "sections": {
           "type": "array",
           "items": {
@@ -461,138 +80,6 @@
               },
               {
                 "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
-        }
-      },
-      "readOnly": false,
-      "writeOnly": false,
-      "deprecated": false,
-      "$abstract": false,
-      "identifierKeys": ["slug"]
-    },
-    "login": {
-      "$extends": ["#/components/base-page-template"],
-      "$singleton": true,
-      "type": "object",
-      "title": "Login",
-      "properties": {
-        "sections": {
-          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
-        }
-      },
-      "readOnly": false,
-      "writeOnly": false,
-      "deprecated": false,
-      "$abstract": false,
-      "identifierKeys": []
-    },
-    "search": {
-      "$extends": ["#/components/base-page-template"],
-      "$singleton": true,
-      "type": "object",
-      "title": "Search Page",
-      "properties": {
-        "productGallery": {
-          "title": "Product Gallery",
-          "description": "ProductGallery options",
-          "type": "object",
-          "required": ["itemsPerPage", "sortBySelection"],
-          "properties": {
-            "itemsPerPage": {
-              "title": "Number of ProductCards per page",
-              "type": "integer",
-              "default": 12
-            },
-            "sortBySelection": {
-              "title": "Default sort by value",
-              "type": "string",
-              "default": "score_desc",
-              "enumNames": [
-                "Price, descending",
-                "Price, ascending",
-                "Top sales",
-                "Name, A-Z",
-                "Name, Z-A",
-                "Release date",
-                "Discount",
-                "Relevance"
-              ],
-              "enum": [
-                "price_desc",
-                "price_asc",
-                "orders_desc",
-                "name_asc",
-                "name_desc",
-                "release_desc",
-                "discount_desc",
-                "score_desc"
-              ]
-            }
-          },
-          "$componentTitle": "Product Gallery"
-        },
-        "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductGallery"
               },
               {
                 "$ref": "#/components/CartSidebar"
@@ -619,44 +106,12 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "landingPage": {
+    "globalHeaderSections": {
       "$extends": ["#/components/base-page-template"],
-      "$singleton": false,
+      "$singleton": true,
       "type": "object",
-      "title": "Landing Page",
+      "title": "Global Header Sections",
       "properties": {
-        "seo": {
-          "title": "SEO",
-          "description": "Search Engine Optimization options",
-          "type": "object",
-          "widget": {
-            "ui:ObjectFieldTemplate": "GoogleSeoPreview"
-          },
-          "required": ["slug", "title", "description"],
-          "properties": {
-            "slug": {
-              "title": "Path",
-              "type": "string",
-              "default": "/"
-            },
-            "title": {
-              "title": "Default page title",
-              "description": "Display this title when no other tile is available.",
-              "type": "string",
-              "default": "FastStore Starter"
-            },
-            "description": {
-              "title": "Meta tag description",
-              "type": "string",
-              "default": "A beautifully designed store"
-            },
-            "canonical": {
-              "title": "Canonical url for the page",
-              "type": "string"
-            }
-          },
-          "$componentTitle": "SEO"
-        },
         "sections": {
           "type": "array",
           "items": {
@@ -684,9 +139,6 @@
               },
               {
                 "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/CrossSellingShelf"
               },
               {
                 "$ref": "#/components/ProductTiles"
@@ -723,7 +175,7 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false,
-      "identifierKeys": ["slug"]
+      "identifierKeys": []
     },
     "globalSections": {
       "$extends": ["#/components/base-page-template"],
@@ -1098,12 +550,152 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "globalFooterSections": {
+    "home": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
-      "title": "Global Footer Sections",
+      "title": "Home",
       "properties": {
+        "seo": {
+          "title": "SEO",
+          "description": "Search Engine Optimization options",
+          "type": "object",
+          "widget": {
+            "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+          },
+          "required": ["slug", "title", "description"],
+          "properties": {
+            "slug": {
+              "title": "Path",
+              "type": "string",
+              "default": "/"
+            },
+            "title": {
+              "title": "Default page title",
+              "description": "Display this title when no other tile is available",
+              "type": "string",
+              "default": "FastStore Starter"
+            },
+            "description": {
+              "title": "Meta tag description",
+              "type": "string",
+              "default": "A beautifully designed store"
+            },
+            "canonical": {
+              "title": "Canonical url for the page",
+              "type": "string"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "publisherId": {
+              "title": "Publisher ID",
+              "description": "A unique identifier used to reference the publisher. This can be a descriptive value (e.g., `#organization`) or a full URL (e.g., `https://example.com/publisher`).",
+              "type": "string"
+            },
+            "organization": {
+              "title": "Organization",
+              "type": "object",
+              "required": ["name", "url"],
+              "properties": {
+                "name": {
+                  "title": "Organization name",
+                  "type": "string",
+                  "default": "VTEX"
+                },
+                "legalName": {
+                  "title": "Organization legal name",
+                  "type": "string",
+                  "default": "VTEX Commerce"
+                },
+                "id": {
+                  "title": "Organization ID",
+                  "description": "A unique reference for the organization. This can be a descriptive value (e.g., #organization) or a full URL (e.g.,https://example.com/organization).",
+                  "type": "string"
+                },
+                "url": {
+                  "title": "Organization URL",
+                  "type": "string",
+                  "default": "https://vtex.com"
+                },
+                "sameAs": {
+                  "title": "Organization URLs",
+                  "type": "array",
+                  "description": "The URL of a page on another website with additional information about your organization. For example, a URL to your organization's profile page on a social media or review site.",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "logo": {
+                  "title": "Organization logo URL",
+                  "description": "A logo that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
+                  "type": "string"
+                },
+                "image": {
+                  "title": "Organization image/logo object",
+                  "description": "An image that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "title": "Organization image URL",
+                      "description": "The URL of the image. Make sure the url is crawlable and indexable.",
+                      "type": "string"
+                    },
+                    "caption": {
+                      "title": "Organization image caption",
+                      "description": "A short description of the image.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "title": "Organization image ID",
+                      "description": "A unique reference for the image. This can be a descriptive value (e.g., #logo) or a full URL (e.g.,https://example.com/logo).",
+                      "type": "string"
+                    }
+                  }
+                },
+                "email": {
+                  "title": "Organization email",
+                  "description": "The email address to contact your business",
+                  "type": "string"
+                },
+                "telephone": {
+                  "title": "Organization phone",
+                  "description": "A business phone number. Be sure to include the country code and area code in the phone number.",
+                  "type": "string"
+                },
+                "address": {
+                  "title": "Organization address",
+                  "description": "The address (physical or mailing) of your organization, if applicable.",
+                  "type": "object",
+                  "properties": {
+                    "streetAddress": {
+                      "title": "Street Address",
+                      "description": "The full street address of your postal address.",
+                      "type": "string"
+                    },
+                    "addressLocality": {
+                      "title": "City",
+                      "description": "The city of your postal address.",
+                      "type": "string"
+                    },
+                    "addressCountry": {
+                      "title": "Country",
+                      "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'.",
+                      "type": "string"
+                    },
+                    "postalCode": {
+                      "title": "Postal Code",
+                      "description": "The postal code of your postal address.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "$componentTitle": "SEO"
+        },
         "sections": {
           "type": "array",
           "items": {
@@ -1167,14 +759,306 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false,
-      "identifierKeys": []
+      "identifierKeys": ["slug"]
     },
-    "globalHeaderSections": {
+    "landingPage": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": false,
+      "type": "object",
+      "title": "Landing Page",
+      "properties": {
+        "slug": {
+          "widget": {
+            "ui:widget": "slug"
+          },
+          "type": "string"
+        },
+        "seo": {
+          "title": "SEO",
+          "description": "Search Engine Optimization options",
+          "type": "object",
+          "widget": {
+            "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+          },
+          "required": ["slug", "title", "description"],
+          "properties": {
+            "slug": {
+              "title": "Path",
+              "type": "string",
+              "default": "/"
+            },
+            "title": {
+              "title": "Default page title",
+              "description": "Display this title when no other tile is available.",
+              "type": "string",
+              "default": "FastStore Starter"
+            },
+            "description": {
+              "title": "Meta tag description",
+              "type": "string",
+              "default": "A beautifully designed store"
+            },
+            "canonical": {
+              "title": "Canonical url for the page",
+              "type": "string"
+            }
+          },
+          "$componentTitle": "SEO"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/components/Search"
+              },
+              {
+                "$ref": "#/components/Navbar"
+              },
+              {
+                "$ref": "#/components/Alert"
+              },
+              {
+                "$ref": "#/components/Footer"
+              },
+              {
+                "$ref": "#/components/BannerText"
+              },
+              {
+                "$ref": "#/components/Hero"
+              },
+              {
+                "$ref": "#/components/Incentives"
+              },
+              {
+                "$ref": "#/components/ProductShelf"
+              },
+              {
+                "$ref": "#/components/CrossSellingShelf"
+              },
+              {
+                "$ref": "#/components/ProductTiles"
+              },
+              {
+                "$ref": "#/components/Newsletter"
+              },
+              {
+                "$ref": "#/components/Children"
+              },
+              {
+                "$ref": "#/components/BannerNewsletter"
+              },
+              {
+                "$ref": "#/components/CartSidebar"
+              },
+              {
+                "$ref": "#/components/RegionBar"
+              },
+              {
+                "$ref": "#/components/RegionModal"
+              },
+              {
+                "$ref": "#/components/RegionPopover"
+              },
+              {
+                "$ref": "#/components/EmptyState"
+              }
+            ]
+          }
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": ["slug"]
+    },
+    "login": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
-      "title": "Global Header Sections",
+      "title": "Login",
       "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
+    "pdp": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": false,
+      "type": "object",
+      "title": "Product Page",
+      "properties": {
+        "template": {
+          "title": "Template",
+          "type": "object",
+          "properties": {
+            "value": {
+              "title": "PDP template value (e.g. Slug: /apple-magic-mouse/p OR /department/category/subcategory/)",
+              "type": "string",
+              "description": "Possible values: the PDP slug template (e.g. '/apple-magic-mouse/p'); A PLP template (e.g. '/department/' OR '/department/category/' OR '/department/category/subcategory/'). If empty, this template will be the generic PDP."
+            }
+          },
+          "$componentTitle": "Template"
+        },
+        "seo": {
+          "title": "SEO",
+          "description": "Search Engine Optimization options",
+          "type": "object",
+          "widget": {
+            "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+          },
+          "properties": {
+            "id": {
+              "title": "ID",
+              "description": "A unique identifier used to reference the product page. This is a descriptive value (e.g., `#product`) that will be concatenated with the product path (example of the result: `/product-slug/p#product`).",
+              "type": "string"
+            },
+            "mainEntityOfPage": {
+              "title": "Main entity of page",
+              "description": "Indicates the main entity of the page. A unique identifier used to reference the product page. This is a descriptive value (e.g., `#webpage`) that will be concatenated with the product path (example of the result: `/product-slug/p#webpage`).",
+              "type": "string"
+            }
+          },
+          "$componentTitle": "SEO"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/components/Search"
+              },
+              {
+                "$ref": "#/components/Navbar"
+              },
+              {
+                "$ref": "#/components/Alert"
+              },
+              {
+                "$ref": "#/components/Footer"
+              },
+              {
+                "$ref": "#/components/BannerText"
+              },
+              {
+                "$ref": "#/components/Hero"
+              },
+              {
+                "$ref": "#/components/Incentives"
+              },
+              {
+                "$ref": "#/components/ProductShelf"
+              },
+              {
+                "$ref": "#/components/CrossSellingShelf"
+              },
+              {
+                "$ref": "#/components/ProductTiles"
+              },
+              {
+                "$ref": "#/components/Newsletter"
+              },
+              {
+                "$ref": "#/components/Children"
+              },
+              {
+                "$ref": "#/components/BannerNewsletter"
+              },
+              {
+                "$ref": "#/components/Breadcrumb"
+              },
+              {
+                "$ref": "#/components/ProductDetails"
+              },
+              {
+                "$ref": "#/components/CartSidebar"
+              },
+              {
+                "$ref": "#/components/RegionBar"
+              },
+              {
+                "$ref": "#/components/RegionModal"
+              },
+              {
+                "$ref": "#/components/RegionPopover"
+              },
+              {
+                "$ref": "#/components/EmptyState"
+              }
+            ]
+          }
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": ["slug"]
+    },
+    "plp": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": false,
+      "type": "object",
+      "title": "Product List Page",
+      "properties": {
+        "template": {
+          "title": "Template",
+          "type": "object",
+          "properties": {
+            "value": {
+              "title": "PLP template value (e.g. Slug: /department/category/subcategory)",
+              "type": "string",
+              "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is left empty, the generic PLP template will be applied."
+            }
+          },
+          "$componentTitle": "Template"
+        },
+        "productGallery": {
+          "title": "Product Gallery",
+          "description": "ProductGallery options",
+          "type": "object",
+          "required": ["itemsPerPage", "sortBySelection"],
+          "properties": {
+            "itemsPerPage": {
+              "title": "Number of ProductCards per page",
+              "type": "integer",
+              "default": 12
+            },
+            "sortBySelection": {
+              "title": "Default sort by value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
+            }
+          },
+          "$componentTitle": "Product Gallery"
+        },
         "sections": {
           "type": "array",
           "items": {
@@ -1214,6 +1098,128 @@
               },
               {
                 "$ref": "#/components/BannerNewsletter"
+              },
+              {
+                "$ref": "#/components/Breadcrumb"
+              },
+              {
+                "$ref": "#/components/ProductGallery"
+              },
+              {
+                "$ref": "#/components/CartSidebar"
+              },
+              {
+                "$ref": "#/components/RegionBar"
+              },
+              {
+                "$ref": "#/components/RegionModal"
+              },
+              {
+                "$ref": "#/components/RegionPopover"
+              },
+              {
+                "$ref": "#/components/EmptyState"
+              }
+            ]
+          }
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": ["slug"]
+    },
+    "search": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "Search Page",
+      "properties": {
+        "productGallery": {
+          "title": "Product Gallery",
+          "description": "ProductGallery options",
+          "type": "object",
+          "required": ["itemsPerPage", "sortBySelection"],
+          "properties": {
+            "itemsPerPage": {
+              "title": "Number of ProductCards per page",
+              "type": "integer",
+              "default": 12
+            },
+            "sortBySelection": {
+              "title": "Default sort by value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
+            }
+          },
+          "$componentTitle": "Product Gallery"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/components/Search"
+              },
+              {
+                "$ref": "#/components/Navbar"
+              },
+              {
+                "$ref": "#/components/Alert"
+              },
+              {
+                "$ref": "#/components/Footer"
+              },
+              {
+                "$ref": "#/components/BannerText"
+              },
+              {
+                "$ref": "#/components/Hero"
+              },
+              {
+                "$ref": "#/components/Incentives"
+              },
+              {
+                "$ref": "#/components/ProductShelf"
+              },
+              {
+                "$ref": "#/components/ProductTiles"
+              },
+              {
+                "$ref": "#/components/Newsletter"
+              },
+              {
+                "$ref": "#/components/Children"
+              },
+              {
+                "$ref": "#/components/BannerNewsletter"
+              },
+              {
+                "$ref": "#/components/Breadcrumb"
+              },
+              {
+                "$ref": "#/components/ProductGallery"
               },
               {
                 "$ref": "#/components/CartSidebar"
@@ -1242,77 +1248,6 @@
     }
   },
   "components": {
-    "Hero": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "Hero",
-      "$componentTitle": "Hero",
-      "title": "Hero",
-      "description": "Add a quick promotion with an image/action pair",
-      "type": "object",
-      "required": ["title"],
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string"
-        },
-        "subtitle": {
-          "title": "Subtitle",
-          "type": "string"
-        },
-        "link": {
-          "title": "Call to Action",
-          "type": "object",
-          "properties": {
-            "text": {
-              "type": "string",
-              "title": "Text"
-            },
-            "url": {
-              "type": "string",
-              "title": "URL"
-            },
-            "linkTargetBlank": {
-              "type": "boolean",
-              "title": "Open link in new window?",
-              "default": false
-            }
-          }
-        },
-        "image": {
-          "type": "object",
-          "title": "Image",
-          "properties": {
-            "src": {
-              "type": "string",
-              "title": "Image",
-              "widget": {
-                "ui:widget": "media-gallery",
-                "restrictMediaTypes": {
-                  "video": true,
-                  "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
-                }
-              }
-            },
-            "alt": {
-              "type": "string",
-              "title": "Alternative Label"
-            }
-          }
-        },
-        "colorVariant": {
-          "type": "string",
-          "title": "Color variant",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"]
-        },
-        "variant": {
-          "type": "string",
-          "title": "Variant",
-          "enumNames": ["Primary", "Secondary"],
-          "enum": ["primary", "secondary"]
-        }
-      }
-    },
     "Alert": {
       "$extends": ["#/$defs/base-component"],
       "$componentKey": "Alert",
@@ -1357,6 +1292,514 @@
           "type": "boolean",
           "default": false,
           "title": "Is dismissible?"
+        }
+      }
+    },
+    "BannerNewsletter": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "BannerNewsletter",
+      "$componentTitle": "Banner Newsletter",
+      "title": "Banner Newsletter",
+      "description": "Add newsletter with a banner",
+      "type": "object",
+      "required": ["banner", "newsletter"],
+      "properties": {
+        "banner": {
+          "title": "Banner",
+          "type": "object",
+          "required": ["title", "link"],
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Check out our next release"
+            },
+            "caption": {
+              "title": "Caption",
+              "type": "string",
+              "default": "Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!"
+            },
+            "link": {
+              "title": "Call to Action",
+              "type": "object",
+              "required": ["text", "url"],
+              "properties": {
+                "text": {
+                  "title": "Text",
+                  "type": "string",
+                  "default": "Shop now"
+                },
+                "url": {
+                  "title": "URL",
+                  "type": "string",
+                  "default": "/"
+                }
+              }
+            },
+            "colorVariant": {
+              "title": "Color variant",
+              "type": "string",
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"],
+              "default": "light"
+            },
+            "variant": {
+              "title": "Variant",
+              "type": "string",
+              "enumNames": ["Primary", "Secondary"],
+              "enum": ["primary", "secondary"],
+              "default": "secondary"
+            }
+          }
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "type": "object",
+          "required": ["title", "description"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Envelope"],
+                  "enum": ["Envelope"],
+                  "default": "Envelope"
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Envelope"
+                }
+              }
+            },
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Subscribe to the newsletter"
+            },
+            "description": {
+              "title": "Description",
+              "type": "string",
+              "default": "Get news and special offers!"
+            },
+            "privacyPolicy": {
+              "title": "Privacy Policy Disclaimer",
+              "type": "string",
+              "widget": {
+                "ui:widget": "draftjs-rich-text"
+              }
+            },
+            "emailInputLabel": {
+              "title": "Email input label",
+              "type": "string",
+              "default": "Email"
+            },
+            "displayNameInput": {
+              "title": "Request name?",
+              "type": "boolean",
+              "default": true
+            },
+            "nameInputLabel": {
+              "title": "Name input label",
+              "type": "string",
+              "default": "Name"
+            },
+            "subscribeButtonLabel": {
+              "title": "Subscribe button label",
+              "type": "string",
+              "default": "Subscribe"
+            },
+            "subscribeButtonLoadingLabel": {
+              "title": "Subscribe button loading label",
+              "type": "string",
+              "default": "Loading..."
+            },
+            "colorVariant": {
+              "title": "Color variant",
+              "type": "string",
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"],
+              "default": "main"
+            },
+            "toastSubscribe": {
+              "title": "Toast Subscribe",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "description": "Message Title",
+                  "type": "string",
+                  "default": "Hooray!"
+                },
+                "message": {
+                  "title": "Message",
+                  "description": "Message",
+                  "type": "string",
+                  "default": "Thanks for your subscription."
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["CircleWavyCheck"],
+                  "enum": ["CircleWavyCheck"],
+                  "default": "CircleWavyCheck"
+                }
+              }
+            },
+            "toastSubscribeError": {
+              "title": "Toast Subscribe Error",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "description": "Message Title",
+                  "type": "string",
+                  "default": "Oops!"
+                },
+                "message": {
+                  "title": "Message",
+                  "description": "Message",
+                  "type": "string",
+                  "default": "Something went wrong. Please try again."
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["CircleWavyWarning"],
+                  "enum": ["CircleWavyWarning"],
+                  "default": "CircleWavyWarning"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "BannerText": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "BannerText",
+      "$componentTitle": "Banner Text",
+      "title": "Banner Text",
+      "description": "Add a quick promotion with a text/action pair",
+      "type": "object",
+      "required": ["title", "caption", "link"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "caption": {
+          "title": "Caption",
+          "type": "string"
+        },
+        "link": {
+          "title": "Call to Action",
+          "type": "object",
+          "required": ["text", "url"],
+          "properties": {
+            "text": {
+              "title": "Text",
+              "type": "string"
+            },
+            "url": {
+              "title": "URL",
+              "type": "string"
+            },
+            "linkTargetBlank": {
+              "type": "boolean",
+              "title": "Open link in new window?",
+              "default": false
+            }
+          }
+        },
+        "colorVariant": {
+          "type": "string",
+          "title": "Color variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
+        }
+      }
+    },
+    "Breadcrumb": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "Breadcrumb",
+      "$componentTitle": "Breadcrumb",
+      "title": "Breadcrumb",
+      "description": "Configure the breadcrumb icon and depth",
+      "type": "object",
+      "required": ["icon", "alt"],
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["House"],
+          "enum": ["House"]
+        },
+        "alt": {
+          "title": "Alternative Label",
+          "type": "string"
+        }
+      }
+    },
+    "CartSidebar": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "CartSidebar",
+      "$componentTitle": "Cart Sidebar",
+      "title": "Cart Sidebar",
+      "description": "Cart Sidebar configuration",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title text",
+          "type": "string",
+          "default": "Your cart"
+        },
+        "alert": {
+          "title": "Alert",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "required": ["icon", "alt"],
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": [
+                    "Bell",
+                    "BellRinging",
+                    "Checked",
+                    "Info",
+                    "Truck",
+                    "User"
+                  ],
+                  "enum": [
+                    "Bell",
+                    "BellRinging",
+                    "Checked",
+                    "Info",
+                    "Truck",
+                    "User"
+                  ],
+                  "default": "Truck"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Right icon"
+                }
+              }
+            },
+            "text": {
+              "type": "string",
+              "title": "Text",
+              "default": "Free shipping on orders $300+"
+            }
+          }
+        },
+        "checkoutButton": {
+          "title": "Checkout button",
+          "type": "object",
+          "required": ["label", "loadingLabel", "icon"],
+          "properties": {
+            "label": {
+              "title": "Label",
+              "type": "string",
+              "default": "Checkout"
+            },
+            "loadingLabel": {
+              "title": "Loading label",
+              "type": "string",
+              "default": "Loading..."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "required": ["icon", "alt"],
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["ArrowRight"],
+                  "enum": ["ArrowRight"],
+                  "default": "ArrowRight"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Right icon"
+                }
+              }
+            }
+          }
+        },
+        "quantitySelector": {
+          "title": "Quantity Selector",
+          "type": "object",
+          "properties": {
+            "useUnitMultiplier": {
+              "title": "Should use unit multiplier?",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
+        }
+      }
+    },
+    "Children": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "Children",
+      "$componentTitle": "Children",
+      "title": "Children",
+      "type": "object",
+      "properties": {}
+    },
+    "CrossSellingShelf": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "CrossSellingShelf",
+      "$componentTitle": "Cross Selling Shelf",
+      "title": "Cross Selling Shelf",
+      "description": "Add cross selling product data to your users",
+      "type": "object",
+      "required": ["title", "numberOfItems", "kind"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "numberOfItems": {
+          "title": "Total number of items",
+          "type": "integer",
+          "default": 5,
+          "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
+        },
+        "itemsPerPage": {
+          "type": "integer",
+          "title": "Number of items per page",
+          "default": 5,
+          "description": "Number of items to display per page in carousel"
+        },
+        "kind": {
+          "title": "Kind",
+          "description": "Change cross selling types",
+          "default": "buy",
+          "enum": ["buy", "view"],
+          "enumNames": ["Who bought also bought", "Who saw also saw"]
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
+        }
+      }
+    },
+    "EmptyState": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "EmptyState",
+      "$componentTitle": "Empty State",
+      "title": "Empty State",
+      "description": "Empty State configuration",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "titleIcon": {
+          "title": "Title Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavy Warning"],
+              "enum": ["CircleWavyWarning"]
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string"
+            }
+          }
+        },
+        "subtitle": {
+          "title": "Subtitle",
+          "type": "string"
+        },
+        "showLoader": {
+          "type": "boolean",
+          "title": "Show loader?",
+          "default": false
+        },
+        "errorState": {
+          "title": "Error state used for shown errorId and fromUrl properties in 500 and 404 pages",
+          "type": "object",
+          "properties": {
+            "errorId": {
+              "title": "errorId used in 500 and 404 pages",
+              "type": "object",
+              "properties": {
+                "show": {
+                  "type": "boolean",
+                  "title": "Show errorId in the end of message?"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description shown before the errorId"
+                }
+              }
+            },
+            "fromUrl": {
+              "title": "fromUrl used in 500 and 404 pages",
+              "type": "object",
+              "properties": {
+                "show": {
+                  "type": "boolean",
+                  "title": "Show fromUrl in the end of message?"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description shown before the fromUrl"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1603,6 +2046,134 @@
                     "title": "Alternative Label"
                   }
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Hero": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "Hero",
+      "$componentTitle": "Hero",
+      "title": "Hero",
+      "description": "Add a quick promotion with an image/action pair",
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "subtitle": {
+          "title": "Subtitle",
+          "type": "string"
+        },
+        "link": {
+          "title": "Call to Action",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Text"
+            },
+            "url": {
+              "type": "string",
+              "title": "URL"
+            },
+            "linkTargetBlank": {
+              "type": "boolean",
+              "title": "Open link in new window?",
+              "default": false
+            }
+          }
+        },
+        "image": {
+          "type": "object",
+          "title": "Image",
+          "properties": {
+            "src": {
+              "type": "string",
+              "title": "Image",
+              "widget": {
+                "ui:widget": "media-gallery",
+                "restrictMediaTypes": {
+                  "video": true,
+                  "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+                }
+              }
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alternative Label"
+            }
+          }
+        },
+        "colorVariant": {
+          "type": "string",
+          "title": "Color variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
+        }
+      }
+    },
+    "Incentives": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "Incentives",
+      "$componentTitle": "Incentives",
+      "title": "Incentives",
+      "description": "Add Incentives to your shopper",
+      "type": "object",
+      "properties": {
+        "incentives": {
+          "title": "Incentives",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "title": "Incentive",
+            "type": "object",
+            "required": ["title", "firstLineText", "icon"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "title": "Title"
+              },
+              "firstLineText": {
+                "type": "string",
+                "title": "First line of text"
+              },
+              "secondLineText": {
+                "type": "string",
+                "title": "Second line of text"
+              },
+              "icon": {
+                "type": "string",
+                "title": "Icon",
+                "enumNames": [
+                  "Truck",
+                  "Calendar",
+                  "Gift",
+                  "Store Front",
+                  "Shield Check"
+                ],
+                "enum": [
+                  "Truck",
+                  "Calendar",
+                  "Gift",
+                  "Storefront",
+                  "ShieldCheck"
+                ]
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string"
               }
             }
           }
@@ -1927,418 +2498,6 @@
         }
       }
     },
-    "Search": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "Search",
-      "$componentTitle": "Search Bar",
-      "title": "Search Bar",
-      "description": "Search Bar Configuration",
-      "type": "object",
-      "required": [
-        "searchInput",
-        "searchHistory",
-        "searchTop",
-        "searchAutocomplete"
-      ],
-      "properties": {
-        "searchInput": {
-          "title": "Input Field",
-          "type": "object",
-          "properties": {
-            "placeholder": {
-              "title": "Placeholder",
-              "type": "string",
-              "default": "Search everything in the store"
-            },
-            "icon": {
-              "title": "Search Icon",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"],
-                  "default": "MagnifyingGlass"
-                },
-                "alt": {
-                  "title": "Alternative Label",
-                  "type": "string",
-                  "default": "Magnifying glass"
-                }
-              }
-            }
-          }
-        },
-        "searchHistory": {
-          "title": "Search History",
-          "type": "object",
-          "properties": {
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "default": "History"
-            },
-            "clearButtonLabel": {
-              "type": "string",
-              "title": "Clear Button Label",
-              "default": "Clear history"
-            },
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["Clock Clockwise"],
-                  "enum": ["ClockClockwise"],
-                  "default": "ClockClockwise"
-                },
-                "alt": {
-                  "type": "string",
-                  "title": "Alternative Label",
-                  "default": "History"
-                }
-              }
-            },
-            "maxItems": {
-              "title": "Maximum Number of History Items",
-              "type": "integer",
-              "default": 5
-            }
-          }
-        },
-        "searchTop": {
-          "title": "Top Search",
-          "type": "object",
-          "properties": {
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "default": "Top search"
-            },
-            "maxItems": {
-              "title": "Maximum Number of Top Search Items",
-              "type": "integer",
-              "default": 5
-            }
-          }
-        },
-        "searchAutocomplete": {
-          "title": "Autocomplete",
-          "type": "object",
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"]
-                },
-                "alt": {
-                  "type": "string",
-                  "title": "Alternative Label",
-                  "default": "Magnifying glass"
-                }
-              }
-            },
-            "maxItems": {
-              "title": "Maximum Number of Autocomplete Items",
-              "type": "integer",
-              "default": 5
-            }
-          }
-        },
-        "searchProducts": {
-          "title": "Suggested Products",
-          "type": "object",
-          "properties": {
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "default": "Suggested products"
-            },
-            "maxItems": {
-              "title": "Maximum Number of Suggested Products",
-              "type": "integer",
-              "default": 5
-            }
-          }
-        }
-      }
-    },
-    "Children": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "Children",
-      "$componentTitle": "Children",
-      "title": "Children",
-      "type": "object",
-      "properties": {}
-    },
-    "RegionBar": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "RegionBar",
-      "$componentTitle": "Region Bar",
-      "title": "Region Bar",
-      "description": "Region Bar configuration",
-      "type": "object",
-      "required": ["label"],
-      "properties": {
-        "icon": {
-          "title": "Location icon",
-          "type": "object",
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "string",
-              "enumNames": ["Map Pin"],
-              "enum": ["MapPin"],
-              "default": "MapPin"
-            },
-            "alt": {
-              "title": "Alternative label",
-              "type": "string",
-              "default": "Map Pin icon"
-            }
-          }
-        },
-        "label": {
-          "title": "Location label",
-          "type": "string",
-          "default": "Set your location"
-        },
-        "editLabel": {
-          "title": "Location edit label",
-          "type": "string",
-          "default": "",
-          "description": "[Deprecated] This label should not be used anymore."
-        },
-        "buttonIcon": {
-          "title": "Button Icon",
-          "type": "object",
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "string",
-              "enumNames": ["Caret Right"],
-              "enum": ["CaretRight"],
-              "default": "CaretRight"
-            },
-            "alt": {
-              "title": "Alternative Label",
-              "type": "string",
-              "default": "Caret Right icon"
-            }
-          }
-        }
-      }
-    },
-    "BannerText": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "BannerText",
-      "$componentTitle": "Banner Text",
-      "title": "Banner Text",
-      "description": "Add a quick promotion with a text/action pair",
-      "type": "object",
-      "required": ["title", "caption", "link"],
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string"
-        },
-        "caption": {
-          "title": "Caption",
-          "type": "string"
-        },
-        "link": {
-          "title": "Call to Action",
-          "type": "object",
-          "required": ["text", "url"],
-          "properties": {
-            "text": {
-              "title": "Text",
-              "type": "string"
-            },
-            "url": {
-              "title": "URL",
-              "type": "string"
-            },
-            "linkTargetBlank": {
-              "type": "boolean",
-              "title": "Open link in new window?",
-              "default": false
-            }
-          }
-        },
-        "colorVariant": {
-          "type": "string",
-          "title": "Color variant",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"]
-        },
-        "variant": {
-          "type": "string",
-          "title": "Variant",
-          "enumNames": ["Primary", "Secondary"],
-          "enum": ["primary", "secondary"]
-        }
-      }
-    },
-    "Breadcrumb": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "Breadcrumb",
-      "$componentTitle": "Breadcrumb",
-      "title": "Breadcrumb",
-      "description": "Configure the breadcrumb icon and depth",
-      "type": "object",
-      "required": ["icon", "alt"],
-      "properties": {
-        "icon": {
-          "title": "Icon",
-          "type": "string",
-          "enumNames": ["House"],
-          "enum": ["House"]
-        },
-        "alt": {
-          "title": "Alternative Label",
-          "type": "string"
-        }
-      }
-    },
-    "EmptyState": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "EmptyState",
-      "$componentTitle": "Empty State",
-      "title": "Empty State",
-      "description": "Empty State configuration",
-      "type": "object",
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string"
-        },
-        "titleIcon": {
-          "title": "Title Icon",
-          "type": "object",
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "string",
-              "enumNames": ["CircleWavy Warning"],
-              "enum": ["CircleWavyWarning"]
-            },
-            "alt": {
-              "title": "Alternative Label",
-              "type": "string"
-            }
-          }
-        },
-        "subtitle": {
-          "title": "Subtitle",
-          "type": "string"
-        },
-        "showLoader": {
-          "type": "boolean",
-          "title": "Show loader?",
-          "default": false
-        },
-        "errorState": {
-          "title": "Error state used for shown errorId and fromUrl properties in 500 and 404 pages",
-          "type": "object",
-          "properties": {
-            "errorId": {
-              "title": "errorId used in 500 and 404 pages",
-              "type": "object",
-              "properties": {
-                "show": {
-                  "type": "boolean",
-                  "title": "Show errorId in the end of message?"
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Description shown before the errorId"
-                }
-              }
-            },
-            "fromUrl": {
-              "title": "fromUrl used in 500 and 404 pages",
-              "type": "object",
-              "properties": {
-                "show": {
-                  "type": "boolean",
-                  "title": "Show fromUrl in the end of message?"
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Description shown before the fromUrl"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "Incentives": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "Incentives",
-      "$componentTitle": "Incentives",
-      "title": "Incentives",
-      "description": "Add Incentives to your shopper",
-      "type": "object",
-      "properties": {
-        "incentives": {
-          "title": "Incentives",
-          "type": "array",
-          "minItems": 3,
-          "maxItems": 5,
-          "items": {
-            "title": "Incentive",
-            "type": "object",
-            "required": ["title", "firstLineText", "icon"],
-            "properties": {
-              "title": {
-                "type": "string",
-                "title": "Title"
-              },
-              "firstLineText": {
-                "type": "string",
-                "title": "First line of text"
-              },
-              "secondLineText": {
-                "type": "string",
-                "title": "Second line of text"
-              },
-              "icon": {
-                "type": "string",
-                "title": "Icon",
-                "enumNames": [
-                  "Truck",
-                  "Calendar",
-                  "Gift",
-                  "Store Front",
-                  "Shield Check"
-                ],
-                "enum": [
-                  "Truck",
-                  "Calendar",
-                  "Gift",
-                  "Storefront",
-                  "ShieldCheck"
-                ]
-              },
-              "alt": {
-                "title": "Alternative Label",
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
     "Newsletter": {
       "$extends": ["#/$defs/base-component"],
       "$componentKey": "Newsletter",
@@ -2467,522 +2626,6 @@
               "enumNames": ["CircleWavyWarning"],
               "enum": ["CircleWavyWarning"],
               "default": "CircleWavyWarning"
-            }
-          }
-        }
-      }
-    },
-    "CartSidebar": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "CartSidebar",
-      "$componentTitle": "Cart Sidebar",
-      "title": "Cart Sidebar",
-      "description": "Cart Sidebar configuration",
-      "type": "object",
-      "properties": {
-        "title": {
-          "title": "Title text",
-          "type": "string",
-          "default": "Your cart"
-        },
-        "alert": {
-          "title": "Alert",
-          "type": "object",
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "required": ["icon", "alt"],
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": [
-                    "Bell",
-                    "BellRinging",
-                    "Checked",
-                    "Info",
-                    "Truck",
-                    "User"
-                  ],
-                  "enum": [
-                    "Bell",
-                    "BellRinging",
-                    "Checked",
-                    "Info",
-                    "Truck",
-                    "User"
-                  ],
-                  "default": "Truck"
-                },
-                "alt": {
-                  "title": "Alternative label",
-                  "type": "string",
-                  "default": "Arrow Right icon"
-                }
-              }
-            },
-            "text": {
-              "type": "string",
-              "title": "Text",
-              "default": "Free shipping on orders $300+"
-            }
-          }
-        },
-        "checkoutButton": {
-          "title": "Checkout button",
-          "type": "object",
-          "required": ["label", "loadingLabel", "icon"],
-          "properties": {
-            "label": {
-              "title": "Label",
-              "type": "string",
-              "default": "Checkout"
-            },
-            "loadingLabel": {
-              "title": "Loading label",
-              "type": "string",
-              "default": "Loading..."
-            },
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "required": ["icon", "alt"],
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["ArrowRight"],
-                  "enum": ["ArrowRight"],
-                  "default": "ArrowRight"
-                },
-                "alt": {
-                  "title": "Alternative label",
-                  "type": "string",
-                  "default": "Arrow Right icon"
-                }
-              }
-            }
-          }
-        },
-        "quantitySelector": {
-          "title": "Quantity Selector",
-          "type": "object",
-          "properties": {
-            "useUnitMultiplier": {
-              "title": "Should use unit multiplier?",
-              "type": "boolean",
-              "default": false
-            }
-          }
-        },
-        "taxesConfiguration": {
-          "title": "Taxes Configuration",
-          "type": "object",
-          "properties": {
-            "usePriceWithTaxes": {
-              "title": "Should use taxes to calculate the price?",
-              "type": "boolean",
-              "default": false
-            },
-            "taxesLabel": {
-              "title": "Tax label to be displayed",
-              "type": "string",
-              "default": "Tax included"
-            }
-          }
-        }
-      }
-    },
-    "RegionModal": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "RegionModal",
-      "$componentTitle": "Region Modal",
-      "title": "Region Modal",
-      "description": "Region Modal configuration",
-      "type": "object",
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string",
-          "default": "Set your location"
-        },
-        "description": {
-          "title": "Description",
-          "type": "string",
-          "default": "Offers and availability vary by location"
-        },
-        "closeButtonAriaLabel": {
-          "title": "Close modal aria-label",
-          "type": "string",
-          "default": "Close Region Modal"
-        },
-        "inputField": {
-          "title": "Input Field",
-          "type": "object",
-          "properties": {
-            "label": {
-              "title": "Input field label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            },
-            "errorMessage": {
-              "title": "Input field error message",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            },
-            "noProductsAvailableErrorMessage": {
-              "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
-              "type": "string"
-            },
-            "buttonActionText": {
-              "title": "Input field action button label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            }
-          }
-        },
-        "idkPostalCodeLink": {
-          "title": "I don't know my postal code link",
-          "type": "object",
-          "properties": {
-            "text": {
-              "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            },
-            "to": {
-              "type": "string",
-              "title": "Action link",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
-            },
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-                  "type": "string",
-                  "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"]
-                },
-                "alt": {
-                  "title": "Alternative Label",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "ProductShelf": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "ProductShelf",
-      "$componentTitle": "Product Shelf",
-      "title": "Product Shelf",
-      "description": "Add custom shelves to your store",
-      "type": "object",
-      "required": ["title", "numberOfItems", "after", "sort"],
-      "properties": {
-        "title": {
-          "type": "string",
-          "title": "Title"
-        },
-        "numberOfItems": {
-          "type": "integer",
-          "title": "Total number of items",
-          "default": 5,
-          "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
-        },
-        "itemsPerPage": {
-          "type": "integer",
-          "title": "Number of items per page",
-          "default": 5,
-          "description": "Number of items to display per page in carousel"
-        },
-        "after": {
-          "type": "integer",
-          "title": "After",
-          "default": 0,
-          "description": "Initial pagination item"
-        },
-        "sort": {
-          "title": "Sort",
-          "description": "Items order",
-          "default": "score_desc",
-          "enum": [
-            "discount_desc",
-            "name_asc",
-            "name_desc",
-            "orders_desc",
-            "price_asc",
-            "price_desc",
-            "release_desc",
-            "score_desc"
-          ],
-          "enumNames": [
-            "Discount: higher to lower",
-            "Name: A-Z",
-            "Name: Z-A",
-            "Orders: higher to lower",
-            "Price: lower to higher",
-            "Price: higher to lower",
-            "Release date: newer to older",
-            "Relevance: higher to lower"
-          ]
-        },
-        "term": {
-          "type": "string",
-          "title": "Search term"
-        },
-        "selectedFacets": {
-          "title": "Facets",
-          "type": "array",
-          "items": {
-            "title": "Facet",
-            "type": "object",
-            "required": ["key", "value"],
-            "properties": {
-              "key": {
-                "title": "Key",
-                "description": "For collections use: productClusterIds",
-                "type": "string",
-                "default": "productClusterIds"
-              },
-              "value": {
-                "title": "Value",
-                "description": "E.g. For 'Most Wanted' collection, use: 140. To consult your collection ids go to Collections page",
-                "type": "string",
-                "default": "140"
-              }
-            }
-          }
-        },
-        "taxesConfiguration": {
-          "title": "Taxes Configuration",
-          "type": "object",
-          "properties": {
-            "usePriceWithTaxes": {
-              "title": "Should use taxes to calculate the price?",
-              "type": "boolean",
-              "default": false
-            },
-            "taxesLabel": {
-              "title": "Tax label to be displayed",
-              "type": "string",
-              "default": "Tax included"
-            }
-          }
-        },
-        "productCardConfiguration": {
-          "title": "Product Card Configuration",
-          "type": "object",
-          "properties": {
-            "showDiscountBadge": {
-              "title": "Show discount badge?",
-              "type": "boolean",
-              "default": true
-            },
-            "bordered": {
-              "title": "Cards should be bordered?",
-              "type": "boolean",
-              "default": true
-            }
-          }
-        }
-      }
-    },
-    "ProductTiles": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "ProductTiles",
-      "$componentTitle": "Product Tiles",
-      "title": "Product Tiles",
-      "description": "Add custom highlights to your store",
-      "type": "object",
-      "required": ["title", "first", "after", "sort"],
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string"
-        },
-        "first": {
-          "title": "First",
-          "type": "integer",
-          "default": 3,
-          "description": "Number of items to display"
-        },
-        "after": {
-          "title": "After",
-          "type": "integer",
-          "default": 0,
-          "description": "Initial pagination item"
-        },
-        "sort": {
-          "title": "Sort",
-          "description": "Items order",
-          "default": "score_desc",
-          "enum": [
-            "discount_desc",
-            "name_asc",
-            "name_desc",
-            "orders_desc",
-            "price_asc",
-            "price_desc",
-            "release_desc",
-            "score_desc"
-          ],
-          "enumNames": [
-            "Discount: higher to lower",
-            "Name: Z-A",
-            "Name: A-Z",
-            "Orders: higher to lower",
-            "Price: lower to higher",
-            "Price: higher to lower",
-            "Release date: newer to older",
-            "Relevance: higher to lower"
-          ]
-        },
-        "term": {
-          "title": "Search term",
-          "type": "string"
-        },
-        "selectedFacets": {
-          "title": "Facets",
-          "type": "array",
-          "items": {
-            "title": "Facet",
-            "type": "object",
-            "required": ["key", "value"],
-            "properties": {
-              "key": {
-                "title": "Key",
-                "description": "Tip: For collections, use: productClusterIds",
-                "type": "string",
-                "default": "productClusterIds"
-              },
-              "value": {
-                "title": "Value",
-                "description": "Tip: For collection 140, use: 140",
-                "type": "string",
-                "default": "140"
-              }
-            }
-          }
-        },
-        "taxesConfiguration": {
-          "title": "Taxes Configuration",
-          "type": "object",
-          "properties": {
-            "usePriceWithTaxes": {
-              "title": "Should use taxes to calculate the price?",
-              "type": "boolean",
-              "default": false
-            },
-            "taxesLabel": {
-              "title": "Tax label to be displayed",
-              "type": "string",
-              "default": "Tax included"
-            }
-          }
-        }
-      }
-    },
-    "RegionPopover": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "RegionPopover",
-      "$componentTitle": "Region Popover",
-      "title": "Region Popover",
-      "description": "Region Popover configuration",
-      "type": "object",
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string",
-          "default": "Set your location"
-        },
-        "closeButtonAriaLabel": {
-          "title": "Close popover aria-label",
-          "type": "string",
-          "default": "Close Region Popover"
-        },
-        "inputField": {
-          "title": "Input Field",
-          "type": "object",
-          "properties": {
-            "label": {
-              "title": "Input field label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            },
-            "errorMessage": {
-              "title": "Input field error message",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            },
-            "noProductsAvailableErrorMessage": {
-              "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
-              "type": "string"
-            },
-            "buttonActionText": {
-              "title": "Input field action button label",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            }
-          }
-        },
-        "textBeforeLocation": {
-          "title": "Text before location",
-          "type": "string",
-          "default": "Your current location is",
-          "description": "If location is available, this text will be shown before the location"
-        },
-        "textAfterLocation": {
-          "title": "Text After location",
-          "type": "string",
-          "default": "Use the field below to change it.",
-          "description": "If location is available, this text will be shown after the location"
-        },
-        "description": {
-          "title": "Description",
-          "type": "string",
-          "default": "Offers and availability vary by location"
-        },
-        "idkPostalCodeLink": {
-          "title": "I don't know my postal code link",
-          "type": "object",
-          "properties": {
-            "text": {
-              "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-              "type": "string"
-            },
-            "to": {
-              "type": "string",
-              "title": "Action link",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
-            },
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-                  "type": "string",
-                  "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"]
-                },
-                "alt": {
-                  "title": "Alternative Label",
-                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
-                  "type": "string"
-                }
-              }
             }
           }
         }
@@ -3550,205 +3193,22 @@
         }
       }
     },
-    "BannerNewsletter": {
+    "ProductShelf": {
       "$extends": ["#/$defs/base-component"],
-      "$componentKey": "BannerNewsletter",
-      "$componentTitle": "Banner Newsletter",
-      "title": "Banner Newsletter",
-      "description": "Add newsletter with a banner",
+      "$componentKey": "ProductShelf",
+      "$componentTitle": "Product Shelf",
+      "title": "Product Shelf",
+      "description": "Add custom shelves to your store",
       "type": "object",
-      "required": ["banner", "newsletter"],
-      "properties": {
-        "banner": {
-          "title": "Banner",
-          "type": "object",
-          "required": ["title", "link"],
-          "properties": {
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "default": "Check out our next release"
-            },
-            "caption": {
-              "title": "Caption",
-              "type": "string",
-              "default": "Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!"
-            },
-            "link": {
-              "title": "Call to Action",
-              "type": "object",
-              "required": ["text", "url"],
-              "properties": {
-                "text": {
-                  "title": "Text",
-                  "type": "string",
-                  "default": "Shop now"
-                },
-                "url": {
-                  "title": "URL",
-                  "type": "string",
-                  "default": "/"
-                }
-              }
-            },
-            "colorVariant": {
-              "title": "Color variant",
-              "type": "string",
-              "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"],
-              "default": "light"
-            },
-            "variant": {
-              "title": "Variant",
-              "type": "string",
-              "enumNames": ["Primary", "Secondary"],
-              "enum": ["primary", "secondary"],
-              "default": "secondary"
-            }
-          }
-        },
-        "newsletter": {
-          "title": "Newsletter",
-          "type": "object",
-          "required": ["title", "description"],
-          "properties": {
-            "icon": {
-              "title": "Icon",
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["Envelope"],
-                  "enum": ["Envelope"],
-                  "default": "Envelope"
-                },
-                "alt": {
-                  "type": "string",
-                  "title": "Alternative Label",
-                  "default": "Envelope"
-                }
-              }
-            },
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "default": "Subscribe to the newsletter"
-            },
-            "description": {
-              "title": "Description",
-              "type": "string",
-              "default": "Get news and special offers!"
-            },
-            "privacyPolicy": {
-              "title": "Privacy Policy Disclaimer",
-              "type": "string",
-              "widget": {
-                "ui:widget": "draftjs-rich-text"
-              }
-            },
-            "emailInputLabel": {
-              "title": "Email input label",
-              "type": "string",
-              "default": "Email"
-            },
-            "displayNameInput": {
-              "title": "Request name?",
-              "type": "boolean",
-              "default": true
-            },
-            "nameInputLabel": {
-              "title": "Name input label",
-              "type": "string",
-              "default": "Name"
-            },
-            "subscribeButtonLabel": {
-              "title": "Subscribe button label",
-              "type": "string",
-              "default": "Subscribe"
-            },
-            "subscribeButtonLoadingLabel": {
-              "title": "Subscribe button loading label",
-              "type": "string",
-              "default": "Loading..."
-            },
-            "colorVariant": {
-              "title": "Color variant",
-              "type": "string",
-              "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"],
-              "default": "main"
-            },
-            "toastSubscribe": {
-              "title": "Toast Subscribe",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title",
-                  "description": "Message Title",
-                  "type": "string",
-                  "default": "Hooray!"
-                },
-                "message": {
-                  "title": "Message",
-                  "description": "Message",
-                  "type": "string",
-                  "default": "Thanks for your subscription."
-                },
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["CircleWavyCheck"],
-                  "enum": ["CircleWavyCheck"],
-                  "default": "CircleWavyCheck"
-                }
-              }
-            },
-            "toastSubscribeError": {
-              "title": "Toast Subscribe Error",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title",
-                  "description": "Message Title",
-                  "type": "string",
-                  "default": "Oops!"
-                },
-                "message": {
-                  "title": "Message",
-                  "description": "Message",
-                  "type": "string",
-                  "default": "Something went wrong. Please try again."
-                },
-                "icon": {
-                  "title": "Icon",
-                  "type": "string",
-                  "enumNames": ["CircleWavyWarning"],
-                  "enum": ["CircleWavyWarning"],
-                  "default": "CircleWavyWarning"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "CrossSellingShelf": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "CrossSellingShelf",
-      "$componentTitle": "Cross Selling Shelf",
-      "title": "Cross Selling Shelf",
-      "description": "Add cross selling product data to your users",
-      "type": "object",
-      "required": ["title", "numberOfItems", "kind"],
+      "required": ["title", "numberOfItems", "after", "sort"],
       "properties": {
         "title": {
-          "title": "Title",
-          "type": "string"
+          "type": "string",
+          "title": "Title"
         },
         "numberOfItems": {
-          "title": "Total number of items",
           "type": "integer",
+          "title": "Total number of items",
           "default": 5,
           "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
         },
@@ -3758,12 +3218,174 @@
           "default": 5,
           "description": "Number of items to display per page in carousel"
         },
-        "kind": {
-          "title": "Kind",
-          "description": "Change cross selling types",
-          "default": "buy",
-          "enum": ["buy", "view"],
-          "enumNames": ["Who bought also bought", "Who saw also saw"]
+        "after": {
+          "type": "string",
+          "title": "After",
+          "default": "0",
+          "description": "Initial pagination item"
+        },
+        "sort": {
+          "title": "Sort",
+          "description": "Items order",
+          "default": "score_desc",
+          "enum": [
+            "discount_desc",
+            "name_asc",
+            "name_desc",
+            "orders_desc",
+            "price_asc",
+            "price_desc",
+            "release_desc",
+            "score_desc"
+          ],
+          "enumNames": [
+            "Discount: higher to lower",
+            "Name: A-Z",
+            "Name: Z-A",
+            "Orders: higher to lower",
+            "Price: lower to higher",
+            "Price: higher to lower",
+            "Release date: newer to older",
+            "Relevance: higher to lower"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "title": "Search term"
+        },
+        "selectedFacets": {
+          "title": "Facets",
+          "type": "array",
+          "items": {
+            "title": "Facet",
+            "type": "object",
+            "required": ["key", "value"],
+            "properties": {
+              "key": {
+                "title": "Key",
+                "description": "For collections use: productClusterIds",
+                "type": "string",
+                "default": "productClusterIds"
+              },
+              "value": {
+                "title": "Value",
+                "description": "E.g. For 'Most Wanted' collection, use: 140. To consult your collection ids go to Collections page",
+                "type": "string",
+                "default": "140"
+              }
+            }
+          }
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
+        },
+        "productCardConfiguration": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
+    },
+    "ProductTiles": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "ProductTiles",
+      "$componentTitle": "Product Tiles",
+      "title": "Product Tiles",
+      "description": "Add custom highlights to your store",
+      "type": "object",
+      "required": ["title", "first", "after", "sort"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "first": {
+          "title": "First",
+          "type": "integer",
+          "default": 3,
+          "description": "Number of items to display"
+        },
+        "after": {
+          "title": "After",
+          "type": "string",
+          "default": "0",
+          "description": "Initial pagination item"
+        },
+        "sort": {
+          "title": "Sort",
+          "description": "Items order",
+          "default": "score_desc",
+          "enum": [
+            "discount_desc",
+            "name_asc",
+            "name_desc",
+            "orders_desc",
+            "price_asc",
+            "price_desc",
+            "release_desc",
+            "score_desc"
+          ],
+          "enumNames": [
+            "Discount: higher to lower",
+            "Name: Z-A",
+            "Name: A-Z",
+            "Orders: higher to lower",
+            "Price: lower to higher",
+            "Price: higher to lower",
+            "Release date: newer to older",
+            "Relevance: higher to lower"
+          ]
+        },
+        "term": {
+          "title": "Search term",
+          "type": "string"
+        },
+        "selectedFacets": {
+          "title": "Facets",
+          "type": "array",
+          "items": {
+            "title": "Facet",
+            "type": "object",
+            "required": ["key", "value"],
+            "properties": {
+              "key": {
+                "title": "Key",
+                "description": "Tip: For collections, use: productClusterIds",
+                "type": "string",
+                "default": "productClusterIds"
+              },
+              "value": {
+                "title": "Value",
+                "description": "Tip: For collection 140, use: 140",
+                "type": "string",
+                "default": "140"
+              }
+            }
+          }
         },
         "taxesConfiguration": {
           "title": "Taxes Configuration",
@@ -3782,33 +3404,424 @@
           }
         }
       }
+    },
+    "RegionBar": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "RegionBar",
+      "$componentTitle": "Region Bar",
+      "title": "Region Bar",
+      "description": "Region Bar configuration",
+      "type": "object",
+      "required": ["label"],
+      "properties": {
+        "icon": {
+          "title": "Location icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Map Pin"],
+              "enum": ["MapPin"],
+              "default": "MapPin"
+            },
+            "alt": {
+              "title": "Alternative label",
+              "type": "string",
+              "default": "Map Pin icon"
+            }
+          }
+        },
+        "label": {
+          "title": "Location label",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "editLabel": {
+          "title": "Location edit label",
+          "type": "string",
+          "default": "",
+          "description": "[Deprecated] This label should not be used anymore."
+        },
+        "buttonIcon": {
+          "title": "Button Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Caret Right"],
+              "enum": ["CaretRight"],
+              "default": "CaretRight"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Caret Right icon"
+            }
+          }
+        }
+      }
+    },
+    "RegionModal": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "RegionModal",
+      "$componentTitle": "Region Modal",
+      "title": "Region Modal",
+      "description": "Region Modal configuration",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Offers and availability vary by location"
+        },
+        "closeButtonAriaLabel": {
+          "title": "Close modal aria-label",
+          "type": "string",
+          "default": "Close Region Modal"
+        },
+        "inputField": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Input field label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            },
+            "errorMessage": {
+              "title": "Input field error message",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            },
+            "noProductsAvailableErrorMessage": {
+              "title": "Input field error message for the scenario of no products available for a given location",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
+              "type": "string"
+            },
+            "buttonActionText": {
+              "title": "Input field action button label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            }
+          }
+        },
+        "idkPostalCodeLink": {
+          "title": "I don't know my postal code link",
+          "type": "object",
+          "properties": {
+            "text": {
+              "title": "Link Text",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            },
+            "to": {
+              "type": "string",
+              "title": "Action link",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string",
+                  "enumNames": ["Arrow Square Out"],
+                  "enum": ["ArrowSquareOut"]
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "RegionPopover": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "RegionPopover",
+      "$componentTitle": "Region Popover",
+      "title": "Region Popover",
+      "description": "Region Popover configuration",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "closeButtonAriaLabel": {
+          "title": "Close popover aria-label",
+          "type": "string",
+          "default": "Close Region Popover"
+        },
+        "inputField": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Input field label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            },
+            "errorMessage": {
+              "title": "Input field error message",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            },
+            "noProductsAvailableErrorMessage": {
+              "title": "Input field error message for the scenario of no products available for a given location",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
+              "type": "string"
+            },
+            "buttonActionText": {
+              "title": "Input field action button label",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            }
+          }
+        },
+        "textBeforeLocation": {
+          "title": "Text before location",
+          "type": "string",
+          "default": "Your current location is",
+          "description": "If location is available, this text will be shown before the location"
+        },
+        "textAfterLocation": {
+          "title": "Text After location",
+          "type": "string",
+          "default": "Use the field below to change it.",
+          "description": "If location is available, this text will be shown after the location"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Offers and availability vary by location"
+        },
+        "idkPostalCodeLink": {
+          "title": "I don't know my postal code link",
+          "type": "object",
+          "properties": {
+            "text": {
+              "title": "Link Text",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
+            },
+            "to": {
+              "type": "string",
+              "title": "Action link",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string",
+                  "enumNames": ["Arrow Square Out"],
+                  "enum": ["ArrowSquareOut"]
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Search": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "Search",
+      "$componentTitle": "Search Bar",
+      "title": "Search Bar",
+      "description": "Search Bar Configuration",
+      "type": "object",
+      "required": [
+        "searchInput",
+        "searchHistory",
+        "searchTop",
+        "searchAutocomplete"
+      ],
+      "properties": {
+        "searchInput": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "placeholder": {
+              "title": "Placeholder",
+              "type": "string",
+              "default": "Search everything in the store"
+            },
+            "icon": {
+              "title": "Search Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"],
+                  "default": "MagnifyingGlass"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "Magnifying glass"
+                }
+              }
+            }
+          }
+        },
+        "searchHistory": {
+          "title": "Search History",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "History"
+            },
+            "clearButtonLabel": {
+              "type": "string",
+              "title": "Clear Button Label",
+              "default": "Clear history"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Clock Clockwise"],
+                  "enum": ["ClockClockwise"],
+                  "default": "ClockClockwise"
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "History"
+                }
+              }
+            },
+            "maxItems": {
+              "title": "Maximum Number of History Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "searchTop": {
+          "title": "Top Search",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Top search"
+            },
+            "maxItems": {
+              "title": "Maximum Number of Top Search Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "searchAutocomplete": {
+          "title": "Autocomplete",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Magnifying glass"
+                }
+              }
+            },
+            "maxItems": {
+              "title": "Maximum Number of Autocomplete Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "searchProducts": {
+          "title": "Suggested Products",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Suggested products"
+            },
+            "maxItems": {
+              "title": "Maximum Number of Suggested Products",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {
+    "base-component": {
+      "type": "object",
+      "required": ["$componentKey", "$componentTitle"],
+      "properties": {
+        "$componentKey": {
+          "type": "string",
+          "description": "Unique identifier for the component"
+        },
+        "$componentTitle": {
+          "type": "string",
+          "description": "Display title for the component"
+        }
+      }
+    },
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
     "$ALLOW_ALL_COMPONENTS": {
       "type": "array",
       "items": {
         "anyOf": [
           {
-            "$ref": "#/components/Hero"
-          },
-          {
             "$ref": "#/components/Alert"
           },
           {
-            "$ref": "#/components/Footer"
-          },
-          {
-            "$ref": "#/components/Navbar"
-          },
-          {
-            "$ref": "#/components/Search"
-          },
-          {
-            "$ref": "#/components/Children"
-          },
-          {
-            "$ref": "#/components/RegionBar"
+            "$ref": "#/components/BannerNewsletter"
           },
           {
             "$ref": "#/components/BannerText"
@@ -3817,28 +3830,31 @@
             "$ref": "#/components/Breadcrumb"
           },
           {
+            "$ref": "#/components/CartSidebar"
+          },
+          {
+            "$ref": "#/components/Children"
+          },
+          {
+            "$ref": "#/components/CrossSellingShelf"
+          },
+          {
             "$ref": "#/components/EmptyState"
+          },
+          {
+            "$ref": "#/components/Footer"
+          },
+          {
+            "$ref": "#/components/Hero"
           },
           {
             "$ref": "#/components/Incentives"
           },
           {
+            "$ref": "#/components/Navbar"
+          },
+          {
             "$ref": "#/components/Newsletter"
-          },
-          {
-            "$ref": "#/components/CartSidebar"
-          },
-          {
-            "$ref": "#/components/RegionModal"
-          },
-          {
-            "$ref": "#/components/ProductShelf"
-          },
-          {
-            "$ref": "#/components/ProductTiles"
-          },
-          {
-            "$ref": "#/components/RegionPopover"
           },
           {
             "$ref": "#/components/ProductDetails"
@@ -3847,10 +3863,22 @@
             "$ref": "#/components/ProductGallery"
           },
           {
-            "$ref": "#/components/BannerNewsletter"
+            "$ref": "#/components/ProductShelf"
           },
           {
-            "$ref": "#/components/CrossSellingShelf"
+            "$ref": "#/components/ProductTiles"
+          },
+          {
+            "$ref": "#/components/RegionBar"
+          },
+          {
+            "$ref": "#/components/RegionModal"
+          },
+          {
+            "$ref": "#/components/RegionPopover"
+          },
+          {
+            "$ref": "#/components/Search"
           }
         ]
       }
