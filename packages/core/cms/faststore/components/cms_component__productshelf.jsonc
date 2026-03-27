@@ -24,9 +24,9 @@
       "description": "Number of items to display per page in carousel"
     },
     "after": {
-      "type": "integer",
+      "type": "string",
       "title": "After",
-      "default": 0,
+      "default": "0",
       "description": "Initial pagination item"
     },
     "sort": {
