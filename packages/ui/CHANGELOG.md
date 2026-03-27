@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.98.0 (2026-03-27)
+
+### Bug Fixes
+
+- Set `after` attribute as string instead of integer ([#3245](https://github.com/vtex/faststore/issues/3245)) ([c40d3fc](https://github.com/vtex/faststore/commit/c40d3fcf0018099cc067bb7082757535ca9839b0))
+
+### Features
+
+- version 2026 03 27 ([#3251](https://github.com/vtex/faststore/issues/3251)) ([f330a43](https://github.com/vtex/faststore/commit/f330a43661567ad8edb468acd3416bb7ffacd8b6))
+
 # [3.98.0-dev.9](https://github.com/vtex/faststore/compare/v3.98.0-dev.8...v3.98.0-dev.9) (2026-03-27)
 
 **Note:** Version bump only for package @faststore/ui
