@@ -38,6 +38,14 @@ export default class Build extends Command {
 
     const basePath = getBasePath(args.path)
 
+    logger.info(
+      `${chalk.blue('[Info]')} - Build path arg: ${
+        args.path === undefined
+          ? 'not set (using cwd)'
+          : JSON.stringify(args.path)
+      } — resolved basePath: ${basePath}`
+    )
+
     // Check for deprecated secret files
     checkDeprecatedSecretFiles(basePath)
 
