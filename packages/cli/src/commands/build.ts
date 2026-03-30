@@ -69,7 +69,7 @@ export default class Build extends Command {
         import.meta.resolve('@faststore/cli/runner', import.meta.url)
       )
     )
-    let scriptResult = spawnSync(`node ${binCli} generate`, {
+    let scriptResult = spawnSync(`node ${binCli} generate ${basePath}`, {
       shell: true,
       stdio: 'inherit',
     })
@@ -78,7 +78,7 @@ export default class Build extends Command {
       throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
     }
 
-    scriptResult = spawnSync(`node ${binCli} cache-graphql`, {
+    scriptResult = spawnSync(`node ${binCli} cache-graphql ${basePath}`, {
       shell: true,
       stdio: 'inherit',
     })
@@ -91,7 +91,7 @@ export default class Build extends Command {
     }
 
     // generate-i18n will validate localization config and check if it's enabled
-    scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
+    scriptResult = spawnSync(`node ${binCli} generate-i18n ${basePath}`, {
       shell: true,
       stdio: 'inherit',
     })
