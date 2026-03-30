@@ -18,9 +18,14 @@ export default async function genTsTypes(at: string) {
 }
 
 function generateSchemaTSTypes(root: string) {
-  // let documents = MapSRCFolder(path.resolve(__dirname, '../src'))
+  let finalPath = path.resolve(root, 'src')
+
+  if (existsSync(path.resolve(root, '.faststore'))) {
+    finalPath = path.resolve(root, '.faststore', 'src')
+  }
+
   // glob to include all ts/tsx files
-  const documents = [`${path.resolve(root, 'src')}/**/*.{ts,tsx}`]
+  const documents = [`${finalPath}/**/*.{ts,tsx}`]
 
   const config: CodegenConfig = {
     documents,
@@ -28,9 +33,9 @@ function generateSchemaTSTypes(root: string) {
     errorsOnly: false,
     debug: false,
     verbose: true,
-    schema: path.resolve(root, '@generated', schemaFileName),
+    schema: path.resolve(finalPath, '@generated', schemaFileName),
     generates: {
-      [`${path.resolve(root, '@generated')}/`]: {
+      [`${finalPath}/@generated/`]: {
         preset: 'client',
         config: {
           /** Not all of these properties are supported by the preset, but it reflects our previous config when we used typescript plugins directly */
