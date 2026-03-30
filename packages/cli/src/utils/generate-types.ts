@@ -7,7 +7,7 @@ import {
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { printSchemaWithDirectives } from '@graphql-tools/utils'
 import { buildASTSchema, Kind, parse, type DocumentNode } from 'graphql'
-import fs from 'node:fs'
+import fs, { existsSync } from 'node:fs'
 import path from 'node:path'
 
 const schemaFileName = 'schema.graphql'
@@ -87,7 +87,10 @@ async function generateSchemaFile(rootPath: string) {
   const faststoreSchema = printSchemaWithDirectives(GraphqlVtexSchema())
 
   const getMergedSchema = async () => {
-    const root = process.env.PWD ?? process.cwd()
+    const root = path.join(
+      rootPath.endsWith('.faststore') ? [rootPath, '..'].join('/') : rootPath
+    )
+
     const customizations = [
       ...(await getTypeDefsFromFolder(root, 'vtex')),
       ...(await getTypeDefsFromFolder(root, 'thirdParty')),
@@ -107,9 +110,18 @@ async function generateSchemaFile(rootPath: string) {
     }
   }
 
-  const saveSchemaFile = saveFile(
-    path.resolve(rootPath, '@generated', schemaFileName)
-  )
+  let pathToSave = path.resolve(rootPath, '@generated', schemaFileName)
+
+  if (existsSync(path.resolve(rootPath, '.faststore'))) {
+    pathToSave = path.resolve(
+      rootPath,
+      '.faststore',
+      '@generated',
+      schemaFileName
+    )
+  }
+
+  const saveSchemaFile = saveFile(pathToSave)
   const finalSchema = printSchemaWithDirectives(await getMergedSchema())
 
   saveSchemaFile(finalSchema)
