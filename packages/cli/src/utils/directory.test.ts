@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import path from 'path'
 import { withBasePath } from './directory'
-import { fileURLToPath } from 'url'
 
 const pathsToMatch = (expected: string, desired: string) => {
   const expectedResolved = path.resolve(expected)
@@ -172,10 +171,12 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('tmpDir', () => {
-    it('is the basePath + .faststore', () => {
+    it('is the basePath + .faststore (not cwd + .faststore)', () => {
       const { tmpDir: tmpDirWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(tmpDirWithBase, './.faststore')).toBe(true)
+      expect(
+        pathsToMatch(tmpDirWithBase, path.join(basePath, '.faststore'))
+      ).toBe(true)
     })
   })
 
@@ -197,7 +198,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpCustomizationsSrcDirWithBase,
-          './.faststore/src/customizations/src'
+          path.join(basePath, '.faststore', 'src', 'customizations', 'src')
         )
       ).toBe(true)
     })
@@ -226,7 +227,15 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpThemesCustomizationsFileWithBase,
-          './.faststore/src/customizations/src/themes/index.scss'
+          path.join(
+            basePath,
+            '.faststore',
+            'src',
+            'customizations',
+            'src',
+            'themes',
+            'index.scss'
+          )
         )
       ).toBe(true)
     })
@@ -237,7 +246,10 @@ describe('withBasePath as an arbitrary dir', () => {
       const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
 
       expect(
-        pathsToMatch(tmpCMSDirWithBase(), './.faststore/cms/faststore')
+        pathsToMatch(
+          tmpCMSDirWithBase(),
+          path.join(basePath, '.faststore', 'cms', 'faststore')
+        )
       ).toBe(true)
     })
 
@@ -247,7 +259,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpCMSDirWithBase('another-builder'),
-          './.faststore/cms/another-builder'
+          path.join(basePath, '.faststore', 'cms', 'another-builder')
         )
       ).toBe(true)
     })
@@ -293,7 +305,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpCMSWebhookUrlsFileWithBase,
-          './.faststore/cms-webhook-urls.json'
+          path.join(basePath, '.faststore', 'cms-webhook-urls.json')
         )
       ).toBe(true)
     })
@@ -321,9 +333,96 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpStoreConfigFileWithBase,
-          './.faststore/src/customizations/discovery.config.js'
+          path.join(
+            basePath,
+            '.faststore',
+            'src',
+            'customizations',
+            'discovery.config.js'
+          )
         )
       ).toBe(true)
     })
+  })
+})
+
+describe('withBasePath as a monorepo package (e.g. root/packages/store)', () => {
+  const monorepoRoot = path.join(__dirname, '..', '__mocks__', 'monorepo')
+  const packagePath = path.join(monorepoRoot, 'store')
+
+  it('places tmpDir under the package directory, not the monorepo root cwd', () => {
+    process.cwd = vi.fn(() => monorepoRoot)
+
+    const { tmpDir } = withBasePath(packagePath)
+    const tmpDirIfOnlyCwd = path.join(monorepoRoot, '.faststore')
+
+    expect(pathsToMatch(tmpDir, path.join(packagePath, '.faststore'))).toBe(
+      true
+    )
+    expect(pathsToMatch(tmpDir, tmpDirIfOnlyCwd)).toBe(false)
+  })
+
+  it('resolves tmp paths under packagePath/.faststore when cwd is the repo root', () => {
+    process.cwd = vi.fn(() => monorepoRoot)
+
+    const paths = withBasePath(packagePath)
+
+    expect(
+      pathsToMatch(paths.tmpDir, path.join(packagePath, '.faststore'))
+    ).toBe(true)
+    expect(
+      pathsToMatch(
+        paths.tmpStoreConfigFile,
+        path.join(
+          packagePath,
+          '.faststore',
+          'src',
+          'customizations',
+          'discovery.config.js'
+        )
+      )
+    ).toBe(true)
+    expect(
+      pathsToMatch(
+        paths.tmpCMSDir(),
+        path.join(packagePath, '.faststore', 'cms', 'faststore')
+      )
+    ).toBe(true)
+    expect(
+      pathsToMatch(
+        paths.tmpCustomizationsSrcDir,
+        path.join(packagePath, '.faststore', 'src', 'customizations', 'src')
+      )
+    ).toBe(true)
+  })
+
+  it('keeps user-facing paths on the package root (discovery.config, src, cms)', () => {
+    const paths = withBasePath(packagePath)
+
+    expect(pathsToMatch(paths.userDir, packagePath)).toBe(true)
+    expect(
+      pathsToMatch(
+        paths.userStoreConfigFile,
+        path.join(packagePath, 'discovery.config.js')
+      )
+    ).toBe(true)
+    expect(pathsToMatch(paths.userSrcDir, path.join(packagePath, 'src'))).toBe(
+      true
+    )
+    expect(
+      pathsToMatch(paths.userCMSDir, path.join(packagePath, 'cms', 'faststore'))
+    ).toBe(true)
+  })
+
+  it('uses a nested package path like .../packages/discovery independent of cwd', () => {
+    const nestedPackage = path.join(monorepoRoot, 'packages', 'discovery')
+    process.cwd = vi.fn(() => monorepoRoot)
+
+    const { tmpDir, userDir } = withBasePath(nestedPackage)
+
+    expect(pathsToMatch(tmpDir, path.join(nestedPackage, '.faststore'))).toBe(
+      true
+    )
+    expect(pathsToMatch(userDir, nestedPackage)).toBe(true)
   })
 })
