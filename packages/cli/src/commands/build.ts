@@ -4,7 +4,7 @@ import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import fsExtra from 'fs-extra'
 import path from 'path'
-import { fileURLToPath } from 'url'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
@@ -196,13 +196,19 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
   }
 
   try {
+    const mod = await import(pathToFileURL(packageJsonPath).href, {
+      with: { type: 'json' },
+    })
+    const pkg = (mod.default ?? mod) as {
+      devDependencies?: Record<string, string>
+      dependencies?: Record<string, string>
+      peerDependencies?: Record<string, string>
+    }
     const {
-      default: {
-        devDependencies = {},
-        dependencies = {},
-        peerDependencies = {},
-      },
-    } = await import(packageJsonPath)
+      devDependencies = {},
+      dependencies = {},
+      peerDependencies = {},
+    } = pkg
 
     const allDeps: Record<string, string> = Object.assign(
       {},
