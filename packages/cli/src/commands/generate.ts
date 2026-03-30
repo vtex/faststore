@@ -24,7 +24,7 @@ export default class Generate extends Command {
 
     await generate({ setup: true, basePath })
 
-    genTsTypes(args.path ?? tmpDir)
+    genTsTypes(tmpDir)
 
     logger.log(
       `${chalk.green(
