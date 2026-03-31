@@ -418,7 +418,7 @@ function updateNextConfig(basePath: string) {
   let nextConfigData = String(readFileSync(nextConfigPath))
   nextConfigData = nextConfigData.replace(
     /outputFileTracingRoot\:\s+(.*),/,
-    `outputFileTracingRoot: '${process.cwd()}',`
+    `outputFileTracingRoot: '${basePath}',`
   )
 
   writeFileSync(nextConfigPath, nextConfigData)
