@@ -1,5 +1,4 @@
 {
-  "$id": "vtex.faststore",
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
   "content-types": {
@@ -539,6 +538,9 @@
               },
               {
                 "$ref": "#/components/EmptyState"
+              },
+              {
+                "$ref": "#/components/ShoppingAssistant"
               }
             ]
           }
@@ -3788,31 +3790,18 @@
           }
         }
       }
+    },
+    "ShoppingAssistant": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "ShoppingAssistant",
+      "$componentTitle": "Shopping Assistant",
+      "title": "Shopping Assistant",
+      "description": "To enable Shopping Assistant, make sure you have finished the setup at Agentic CX > Dashboard.",
+      "type": "object",
+      "properties": {}
     }
   },
   "$defs": {
-    "base-component": {
-      "type": "object",
-      "required": ["$componentKey", "$componentTitle"],
-      "properties": {
-        "$componentKey": {
-          "type": "string",
-          "description": "Unique identifier for the component"
-        },
-        "$componentTitle": {
-          "type": "string",
-          "description": "Display title for the component"
-        }
-      }
-    },
-    "base-page-template": {
-      "type": "object",
-      "properties": {
-        "sections": {
-          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
-        }
-      }
-    },
     "$ALLOW_ALL_COMPONENTS": {
       "type": "array",
       "items": {
@@ -3879,6 +3868,9 @@
           },
           {
             "$ref": "#/components/Search"
+          },
+          {
+            "$ref": "#/components/ShoppingAssistant"
           }
         ]
       }
