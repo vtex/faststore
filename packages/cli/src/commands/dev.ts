@@ -198,13 +198,13 @@ export default class Dev extends Command {
       stdio: 'inherit',
     })
 
-    spawnSync(`node ${cliPath} cache-graphql`, {
+    spawnSync(`node ${cliPath} cache-graphql ${basePath}`, {
       shell: true,
       stdio: 'inherit',
     })
 
     // generate-i18n will validate localization config and check if it's enabled
-    spawnSync(`node ${cliPath} generate-i18n`, {
+    spawnSync(`node ${cliPath} generate-i18n ${basePath}`, {
       shell: true,
       stdio: 'inherit',
     })
