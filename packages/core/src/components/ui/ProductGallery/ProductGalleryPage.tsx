@@ -63,7 +63,9 @@ function ProductGalleryPage({
         firstPage={firstPage}
         title={title}
         searchId={searchId}
-        buildExtraProductProps={searchId && buildExtraProductProps}
+        buildExtraProductProps={
+          (searchId && buildExtraProductProps) || undefined
+        }
       />
     </Sentinel>
   )
