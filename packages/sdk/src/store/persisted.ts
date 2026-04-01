@@ -41,25 +41,38 @@ const debounce = <T extends (...args: any[]) => any>(
 export const persisted =
   <T>(key: string) =>
   (store: Store<T>) => {
+    let hydrated = false
+
     const handler = async () => {
       const payload = await getIDB<T>(key)
 
       if (typeof document !== 'undefined') {
         store.set(payload ?? store.readInitial())
       }
+
+      hydrated = true
     }
 
-    const debouncedHandler = debounce(handler, 100) // 100ms debounce
+    // Read immediately on init — no debounce — so the store is hydrated
+    // before any other subscriber (e.g. session → cart revalidation) can
+    // trigger a write that would overwrite the persisted data.
+    handler()
 
-    debouncedHandler()
+    const debouncedHandler = debounce(handler, 100)
+
     globalThis.addEventListener?.('focus', () => debouncedHandler())
     globalThis.document?.addEventListener(
       'visibilitychange',
       () => document.visibilityState === 'visible' && debouncedHandler()
     )
 
+    // Block IDB writes until the initial read completes.  This prevents a
+    // race where an early store.set (from session sync, etc.) overwrites
+    // saved data before it has been read back.
     store.subscribe((value) => {
-      setIDB(key, value)
+      if (hydrated) {
+        setIDB(key, value)
+      }
     })
 
     return store

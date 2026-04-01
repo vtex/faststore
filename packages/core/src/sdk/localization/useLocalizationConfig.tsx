@@ -35,7 +35,6 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   // re-running the sync effect. The sync effect only needs to react to `settings`
   // changes, not to every session update triggered by the optimistic middleware.
   const sessionRef = useRef(sessionStore.read() ?? sessionStore.readInitial())
-  const isFirstMount = useRef(true)
 
   useEffect(() => {
     return sessionStore.subscribe((newSession) => {
@@ -44,20 +43,6 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   }, [])
 
   useEffect(() => {
-    if (isFirstMount.current) {
-      isFirstMount.current = false
-
-      // On first mount, only sync if the URL explicitly maps to a locale binding.
-      // When no binding matches (fallback defaults), skip to avoid a session
-      // update that races with cart hydration from IndexedDB.
-      const currentUrl =
-        typeof window !== 'undefined' ? window.location.href : ''
-      const { config: regionConfig, binding } = matchURLBinding(currentUrl)
-      if (!regionConfig || !binding) {
-        return
-      }
-    }
-
     if (!settings) return
 
     const session = sessionRef.current
