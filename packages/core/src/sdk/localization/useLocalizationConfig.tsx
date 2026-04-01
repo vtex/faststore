@@ -1,6 +1,6 @@
 import config from 'discovery.config'
 import deepEqual from 'fast-deep-equal'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { sessionStore } from '../session'
 import { matchURLBinding } from './match-url'
 
@@ -12,9 +12,6 @@ type Settings = {
 }
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
-  const [session, setSession] = useState(
-    sessionStore.read() ?? sessionStore.readInitial()
-  )
   const defaultConfig = config.localization.locales[
     config.localization.defaultLocale
   ] as ConfigType
@@ -34,15 +31,36 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     return setSettings(newSettings)
   }
 
+  // Use a ref to always hold the latest session without causing re-renders or
+  // re-running the sync effect. The sync effect only needs to react to `settings`
+  // changes, not to every session update triggered by the optimistic middleware.
+  const sessionRef = useRef(sessionStore.read() ?? sessionStore.readInitial())
+  const isFirstMount = useRef(true)
+
   useEffect(() => {
     return sessionStore.subscribe((newSession) => {
-      setSession(newSession)
+      sessionRef.current = newSession
     })
   }, [])
 
   useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false
+
+      // On first mount, only sync if the URL explicitly maps to a locale binding.
+      // When no binding matches (fallback defaults), skip to avoid a session
+      // update that races with cart hydration from IndexedDB.
+      const currentUrl =
+        typeof window !== 'undefined' ? window.location.href : ''
+      const { config: regionConfig, binding } = matchURLBinding(currentUrl)
+      if (!regionConfig || !binding) {
+        return
+      }
+    }
+
     if (!settings) return
 
+    const session = sessionRef.current
     const channel = JSON.parse(session.channel ?? '{}') ?? {}
     channel.salesChannel = settings.salesChannel
 
@@ -60,7 +78,7 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     ) {
       sessionStore.set(newSession)
     }
-  }, [settings, session])
+  }, [settings])
 
   return settings
 }
