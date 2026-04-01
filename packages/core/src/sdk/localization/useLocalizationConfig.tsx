@@ -44,14 +44,24 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   }, [])
 
   useEffect(() => {
+    const session = sessionRef.current
+
     if (isFirstMount.current) {
       isFirstMount.current = false
-      return
+      const channel = JSON.parse(session.channel ?? '{}') ?? {}
+
+      const isSettingsEqual =
+        settings?.locale === session.locale &&
+        deepEqual(settings?.currency, session.currency) &&
+        settings?.salesChannel === channel.salesChannel
+
+      if (isSettingsEqual) {
+        return
+      }
     }
 
     if (!settings) return
 
-    const session = sessionRef.current
     const channel = JSON.parse(session.channel ?? '{}') ?? {}
     channel.salesChannel = settings.salesChannel
 
