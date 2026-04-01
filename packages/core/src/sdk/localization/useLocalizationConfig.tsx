@@ -44,24 +44,23 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   }, [])
 
   useEffect(() => {
-    const session = sessionRef.current
-
     if (isFirstMount.current) {
       isFirstMount.current = false
-      const channel = JSON.parse(session.channel ?? '{}') ?? {}
 
-      const isSettingsEqual =
-        settings?.locale === session.locale &&
-        deepEqual(settings?.currency, session.currency) &&
-        settings?.salesChannel === channel.salesChannel
-
-      if (isSettingsEqual) {
+      // On first mount, only sync if the URL explicitly maps to a locale binding.
+      // When no binding matches (fallback defaults), skip to avoid a session
+      // update that races with cart hydration from IndexedDB.
+      const currentUrl =
+        typeof window !== 'undefined' ? window.location.href : ''
+      const { config: regionConfig, binding } = matchURLBinding(currentUrl)
+      if (!regionConfig || !binding) {
         return
       }
     }
 
     if (!settings) return
 
+    const session = sessionRef.current
     const channel = JSON.parse(session.channel ?? '{}') ?? {}
     channel.salesChannel = settings.salesChannel
 
