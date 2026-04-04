@@ -127,12 +127,20 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             </Link>
           </h3>
           {!outOfStock && (
-            <ProductPrice
-              data-fs-product-card-prices
-              value={sellingPrice}
-              listPrice={listingPrice}
-              formatter={price?.formatter}
-            />
+            <div data-fs-product-card-prices-wrapper>
+              <ProductPrice
+                data-fs-product-card-prices
+                value={sellingPrice}
+                listPrice={listingPrice}
+                formatter={price?.formatter}
+              />
+              {showDiscountBadge && (
+                <DiscountBadge
+                  listPrice={listingPrice}
+                  spotPrice={sellingPrice}
+                />
+              )}
+            </div>
           )}
           {includeTaxes && (
             <Label data-fs-product-card-taxes-label>{includeTaxesLabel}</Label>
@@ -141,9 +149,6 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             <Rating value={ratingValue} icon={<Icon name="Star" />} />
           )}
         </div>
-        {showDiscountBadge && !outOfStock && (
-          <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
-        )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
         {deliveryPromiseBadges && (
           <div data-fs-product-card-delivery-promise-badges>
