@@ -69,18 +69,18 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   PreviewData
 > = async ({ previewData, locale }) => {
+  const contentContext = { previewData, locale }
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData, locale)
+  ] = getGlobalSectionsData(contentContext)
 
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
       contentService.getSingleContent<PageContentType>({
+        ...contentContext,
         contentType: '500',
-        previewData,
-        locale,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,

@@ -136,7 +136,10 @@ const getServerSidePropsBase: GetServerSideProps<
     account: storeConfig.api.storeId,
   })
 
-  const { previewData } = context
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -150,7 +153,7 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const page = Number(context.query.page as string | undefined) || 1
   const perPage = 25 // TODO: make this configurable

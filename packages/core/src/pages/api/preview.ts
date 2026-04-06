@@ -58,6 +58,7 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     let slug = pickParam(req, 'slug')
+    const locale = pickParam(req, 'locale')
     if (slug && !slug.startsWith('/')) {
       slug = `/${slug}`
     }
@@ -99,9 +100,13 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     // Fetch CMS to check if the provided `locator` exists
-    const page = await contentService.getSingleContent({
-      contentType: locator.contentType,
+    const contentContext = {
       previewData: locator,
+      locale,
+    }
+    const page = await contentService.getSingleContent({
+      ...contentContext,
+      contentType: locator.contentType,
       slug,
       documentId: locator.documentId,
       versionId: locator.versionId,

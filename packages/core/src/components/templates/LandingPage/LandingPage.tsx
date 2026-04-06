@@ -20,8 +20,8 @@ import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
 import { contentService } from 'src/server/content/service'
-import type { PreviewData } from 'src/server/content/types'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
+import type { ContentRequestContext } from 'src/server/content/types'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -115,8 +115,7 @@ export default function LandingPage({
 
 export const getLandingPageBySlug = async (
   slug: string,
-  previewData: PreviewData,
-  locale?: string
+  contentContext: ContentRequestContext
 ) => {
   try {
     if (storeConfig.cms.data) {
@@ -129,8 +128,7 @@ export const getLandingPageBySlug = async (
         const landingPageData =
           await contentService.getSingleContent<PageContentType>({
             contentType: 'landingPage',
-            previewData,
-            locale,
+            ...contentContext,
             documentId: pageBySlug.documentId,
             versionId: pageBySlug.versionId,
             releaseId: pageBySlug.releaseId,
@@ -144,13 +142,12 @@ export const getLandingPageBySlug = async (
     const landingPageData =
       await contentService.getSingleContent<PageContentType>({
         contentType: 'landingPage',
-        previewData,
+        ...contentContext,
         slug,
-        locale,
         filters:
-          previewData?.contentType !== 'landingPage'
-            ? { filters: { 'settings.seo.slug': `/${slug}` } }
-            : undefined,
+          contentContext.previewData?.contentType === 'landingPage'
+            ? undefined
+            : { filters: { 'settings.seo.slug': `/${slug}` } },
       })
     return landingPageData
   } catch (error) {

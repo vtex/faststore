@@ -77,6 +77,10 @@ const getServerSidePropsBase: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
   })
@@ -89,7 +93,7 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     page,
@@ -99,7 +103,8 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   ] = await Promise.all([
     getPage<PageContentType>({
-      ...(context.previewData?.contentType === '404' && context.previewData),
+      ...(contentContext.previewData?.contentType === '404' &&
+        contentContext.previewData),
       contentType: '404',
     }),
     execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(

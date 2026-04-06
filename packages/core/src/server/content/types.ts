@@ -9,9 +9,13 @@ export type PreviewData = Locator & {
   slug?: string
 }
 
-export interface ContentParams {
-  contentType?: string
+export interface ContentRequestContext {
   previewData?: PreviewData | null
+  locale?: string
+}
+
+export interface ContentParams extends ContentRequestContext {
+  contentType?: string
   slug?: string
   documentId?: string
   versionId?: string
@@ -22,6 +26,7 @@ export interface ContentParams {
 
 export interface ContentOptions {
   cmsOptions: Options
+  locale?: string
   slug?: string
   isPreview: boolean
 }

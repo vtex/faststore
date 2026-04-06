@@ -214,7 +214,7 @@ export class ContentService {
   }
 
   private createContentOptions(params: ContentParams): ContentOptions {
-    const { contentType, previewData, slug } = params
+    const { contentType, previewData, slug, locale } = params
 
     const contentPreviewEnabled = previewData?.contentType === contentType
     const branchPreviewEnabled = isBranchPreview(previewData)
@@ -225,6 +225,7 @@ export class ContentService {
         contentPreviewEnabled,
         branchPreviewEnabled
       ),
+      ...(locale !== undefined && { locale }),
       ...(slug !== undefined && { slug }),
       isPreview: contentPreviewEnabled || branchPreviewEnabled,
     }
@@ -238,6 +239,7 @@ export class ContentService {
         (config.contentSource as Record<string, string>)?.project ??
         'faststore',
       contentType: cmsOptions.contentType,
+      locale: options.locale,
       slug: options.slug,
     }
 
@@ -253,11 +255,13 @@ export class ContentService {
     if ('filters' in cmsOptions && cmsOptions.filters) {
       const nested = (
         cmsOptions.filters as { filters?: Record<string, unknown> }
-      ).filters as Record<string, unknown>
-      if (nested && nested['settings.seo.slug']) {
-        const seo = nested['settings.seo.slug'] as string
+      ).filters
+      const seo = nested?.['settings.seo.slug']
+
+      if (typeof seo === 'string') {
         params.slug = seo.replace(/^\//, '')
       }
+
       Object.assign(params, cmsOptions.filters)
     }
 

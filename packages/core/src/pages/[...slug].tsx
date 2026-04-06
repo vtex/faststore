@@ -117,14 +117,15 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params, previewData, locale }) => {
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
+  const contentContext = { previewData, locale }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData, locale)
+  ] = getGlobalSectionsData(contentContext)
 
-  const landingPagePromise = getLandingPageBySlug(slug, previewData, locale)
+  const landingPagePromise = getLandingPageBySlug(slug, contentContext)
 
   const landingPage = await landingPagePromise
 
@@ -174,7 +175,7 @@ export const getStaticProps: GetStaticProps<
     }),
     contentService.getPlpContent(
       {
-        previewData,
+        ...contentContext,
         slug,
         locale,
       },

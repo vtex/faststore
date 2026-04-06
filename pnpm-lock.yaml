@@ -488,8 +488,8 @@ importers:
         specifier: ^0.2.16
         version: 0.2.16(encoding@0.1.13)
       '@vtex/client-cp':
-        specifier: 0.4.0
-        version: 0.4.0
+        specifier: 0.5.1
+        version: 0.5.1
       '@vtex/prettier-config':
         specifier: 1.0.0
         version: 1.0.0(prettier@2.8.8)
@@ -2924,6 +2924,7 @@ packages:
   '@lerna/create@9.0.4':
     resolution: {integrity: sha512-WxedGD98G8/a6HztCXNWquaM0x17oSvfvuqDsLxNNX1qXGyrzmMUmd1mQikF/47uy80X6qyWdaRtaAHlwkvEUA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: This package is an implementation detail of Lerna and is no longer published separately.
 
   '@lexical/clipboard@0.34.0':
     resolution: {integrity: sha512-u0Jx6Lncb3AKW/BrCfI7E2mhlTT0eCp2bR1hefHnKHo2LIxil4QHg4gtj+DWTxG2vkZVQvvsrGgiC+SX8Va81A==}
@@ -4833,8 +4834,8 @@ packages:
   '@vtex/client-cms@0.2.16':
     resolution: {integrity: sha512-mK5OiaaGHItVuispyy8yXLILnMx4aOJj7HkamOmAL12+KbnkiKKpO1vJEb3hRB16lK1rHtl7Q5H3aTFsMqrf0w==}
 
-  '@vtex/client-cp@0.4.0':
-    resolution: {integrity: sha512-tZxZL4ixR29fkhJ04mBcvCxD3ZBMP2dV5vXoubfgMnNP7PnhdREP4Oj7uR/CkL2jT3kRSS7u6pbetQ1ilwFByw==}
+  '@vtex/client-cp@0.5.1':
+    resolution: {integrity: sha512-z5ooUZvOl7okcfIgXxviI4Y2TNpotbZBHhseL+AhMsyG+UxijcfqyiNDcQncWKbNmPQY6/kZgjuAh/ENaN+2CA==}
     engines: {node: '>=16'}
 
   '@vtex/diagnostics-nodejs@5.1.1':
@@ -5393,6 +5394,7 @@ packages:
   basic-ftp@5.1.0:
     resolution: {integrity: sha512-RkaJzeJKDbaDWTIPiJwubyljaEPwpVWkm9Rt5h9Nd6h7tEXTJ3VB4qxdZBioV7JO5yLUaOKwz7vDOzlncUsegw==}
     engines: {node: '>=10.0.0'}
+    deprecated: Security vulnerability fixed in 5.2.1, please upgrade
 
   bcrypt-pbkdf@1.0.2:
     resolution: {integrity: sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==}
@@ -17070,7 +17072,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@vtex/client-cp@0.4.0':
+  '@vtex/client-cp@0.5.1':
     dependencies:
       axios: 1.13.5
     transitivePeerDependencies:

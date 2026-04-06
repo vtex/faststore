@@ -95,12 +95,16 @@ const getServerSidePropsBase: GetServerSideProps<
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }
   }
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [security, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

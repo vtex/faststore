@@ -59,11 +59,12 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData, locale }) => {
+  const contentContext = { previewData, locale }
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData, locale)
+  ] = getGlobalSectionsData(contentContext)
 
   const [globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

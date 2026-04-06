@@ -38,6 +38,10 @@ const getServerSidePropsBase: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const validationResult = await validateUser(context)
 
   // Guard clause: Early redirect to login if user is invalid and doesn't need refresh
@@ -78,7 +82,7 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

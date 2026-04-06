@@ -300,15 +300,18 @@ const getServerSidePropsBase: GetServerSideProps<
   }
 
   const {
-    previewData,
     params: { id },
   } = context
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     orderDetails,

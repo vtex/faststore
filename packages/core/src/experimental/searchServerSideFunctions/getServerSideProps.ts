@@ -16,12 +16,13 @@ const getServerSidePropsBase: GetServerSideProps<
 > = async (context) => {
   const { previewData, query, res, locale } = context
   const searchTerm = (query.q as string)?.split('+').join(' ')
+  const contentContext = { previewData, locale }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData, locale)
+  ] = getGlobalSectionsData(contentContext)
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
@@ -34,9 +35,8 @@ const getServerSidePropsBase: GetServerSideProps<
         globalSectionsFooter,
       ] = await Promise.all([
         contentService.getSingleContent<SearchContentType>({
+          ...contentContext,
           contentType: 'search',
-          previewData,
-          locale,
           documentId: page.documentId,
           versionId: page.versionId,
           releaseId: page.releaseId,
@@ -64,9 +64,8 @@ const getServerSidePropsBase: GetServerSideProps<
   const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
       contentService.getSingleContent<SearchContentType>({
+        ...contentContext,
         contentType: 'search',
-        previewData,
-        locale,
       }),
       globalSectionsPromise,
       globalSectionsHeaderPromise,
