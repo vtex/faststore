@@ -38,14 +38,6 @@ export default class Build extends Command {
 
     const basePath = getBasePath(args.path)
 
-    logger.info(
-      `${chalk.blue('[Info]')} - Build path arg: ${
-        args.path === undefined
-          ? 'not set (using cwd)'
-          : JSON.stringify(args.path)
-      } — resolved basePath: ${basePath}`
-    )
-
     // Check for deprecated secret files
     checkDeprecatedSecretFiles(basePath)
 
@@ -69,8 +61,7 @@ export default class Build extends Command {
         import.meta.resolve('@faststore/cli/runner', import.meta.url)
       )
     )
-    let scriptResult = spawnSync(`node ${binCli} generate ${basePath}`, {
-      shell: true,
+    let scriptResult = spawnSync('node', [binCli, 'generate', basePath], {
       stdio: 'inherit',
     })
 
@@ -78,8 +69,7 @@ export default class Build extends Command {
       throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
     }
 
-    scriptResult = spawnSync(`node ${binCli} cache-graphql ${basePath}`, {
-      shell: true,
+    scriptResult = spawnSync('node', [binCli, 'cache-graphql', basePath], {
       stdio: 'inherit',
     })
 
@@ -91,8 +81,7 @@ export default class Build extends Command {
     }
 
     // generate-i18n will validate localization config and check if it's enabled
-    scriptResult = spawnSync(`node ${binCli} generate-i18n ${basePath}`, {
-      shell: true,
+    scriptResult = spawnSync('node', [binCli, 'generate-i18n', basePath], {
       stdio: 'inherit',
     })
 
@@ -143,7 +132,7 @@ async function normalizeStandaloneBuildDir(basePath: string) {
   const { tmpDir } = withBasePath(basePath)
   const isRunningFromMonorepo = process.cwd() !== basePath
   const prefix = isRunningFromMonorepo
-    ? `${path.relative(process.cwd(), basePath)}/`
+    ? `${path.relative(process.cwd(), basePath).replace(/\\/g, '/')}/`
     : ''
 
   // Fix Next.js v13+ standalone build output directory
