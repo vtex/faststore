@@ -10,6 +10,11 @@ import type {
 import deepEqual from 'fast-deep-equal'
 import storeConfig from '../../../discovery.config'
 import {
+  clearRefreshFailureCount,
+  incrementRefreshFailureCount,
+  MAX_REFRESH_RETRIES,
+} from 'src/utils/refreshTokenRetry'
+import {
   isRefreshTokenSuccessful,
   refreshTokenRequest,
 } from '../account/refreshToken'
@@ -126,6 +131,7 @@ export const validateSession = async (session: Session) => {
       const result = await refreshTokenRequest()
 
       if (isRefreshTokenSuccessful(result)) {
+        clearRefreshFailureCount()
         const refreshAfter = String(
           Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
         )
@@ -135,8 +141,13 @@ export const validateSession = async (session: Session) => {
           refreshAfter,
         })
       } else {
-        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
-        // so that we can postpone refreshToken request and continue the ValidateSession request
+        const failures = incrementRefreshFailureCount()
+        if (failures >= MAX_REFRESH_RETRIES && typeof window !== 'undefined') {
+          clearRefreshFailureCount()
+          sessionStore.set(sessionStore.readInitial())
+          window.location.href = '/login'
+          return null
+        }
         sessionStore.set({
           ...session,
           refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour

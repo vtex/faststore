@@ -1,46 +1,86 @@
 import discoveryConfig from 'discovery.config'
 import fetch from 'isomorphic-unfetch'
-import { sanitizeHost } from 'src/utils/utilities'
-
-const REFRESH_TOKEN_URL = `${discoveryConfig.storeUrl}/api/vtexid/refreshtoken/webstore`
 
 export interface RefreshTokenResponse {
   status?: string
   refreshAfter?: string
 }
 
+const PROXY_PATH = '/api/fs/refresh-token'
+
+let inFlightRefresh: Promise<RefreshTokenResponse | undefined> | null = null
+
 async function fetchWithRetry(
   url: RequestInfo | URL,
-  init?: RequestInit,
+  init: RequestInit,
   maxRetries = 3
 ): Promise<RefreshTokenResponse | undefined> {
+  let lastStatus = 0
+  let lastBody = ''
+
   for (let i = 0; i < maxRetries; i++) {
     try {
       const res = await fetch(url, init)
-      if (res.status !== 200) continue
+      lastStatus = res.status
+      lastBody = await res.text()
 
-      const data = await res.json()
-      return data
-    } catch {}
+      if (res.status !== 200) {
+        console.error(
+          '[refreshTokenRequest] non-200 response',
+          lastStatus,
+          lastBody.slice(0, 500)
+        )
+        continue
+      }
+
+      try {
+        return JSON.parse(lastBody) as RefreshTokenResponse
+      } catch {
+        console.error(
+          '[refreshTokenRequest] invalid JSON',
+          lastBody.slice(0, 500)
+        )
+      }
+    } catch (err) {
+      console.error('[refreshTokenRequest] fetch error', err)
+    }
   }
 
+  console.error(
+    '[refreshTokenRequest] exhausted retries',
+    lastStatus,
+    lastBody.slice(0, 500)
+  )
   return undefined
 }
 
 export const refreshTokenRequest = async (): Promise<
   RefreshTokenResponse | undefined
 > => {
-  const headers: HeadersInit = {
-    'content-type': 'application/json',
-    Host: `${sanitizeHost(discoveryConfig.storeUrl)}`,
+  if (!discoveryConfig.experimental?.refreshToken) {
+    return undefined
   }
 
-  return await fetchWithRetry(REFRESH_TOKEN_URL, {
-    credentials: 'include',
-    headers,
-    body: JSON.stringify({}),
-    method: 'POST',
+  if (inFlightRefresh) {
+    return inFlightRefresh
+  }
+
+  inFlightRefresh = fetchWithRetry(
+    PROXY_PATH,
+    {
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({}),
+      method: 'POST',
+    },
+    3
+  ).finally(() => {
+    inFlightRefresh = null
   })
+
+  return inFlightRefresh
 }
 
 export const isRefreshTokenSuccessful = (
