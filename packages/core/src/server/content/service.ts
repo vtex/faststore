@@ -253,16 +253,12 @@ export class ContentService {
       params.branchId = cmsOptions.releaseId
     }
     if ('filters' in cmsOptions && cmsOptions.filters) {
-      const nested = (
-        cmsOptions.filters as { filters?: Record<string, unknown> }
-      ).filters
-      const seo = nested?.['settings.seo.slug']
+      const filters = cmsOptions.filters as Record<string, unknown>
+      const seo = filters['settings.seo.slug']
 
-      if (typeof seo === 'string') {
+      if (typeof seo === 'string' && !params.slug) {
         params.slug = seo.replace(/^\//, '')
       }
-
-      Object.assign(params, cmsOptions.filters)
     }
 
     return params as EntryPathParams

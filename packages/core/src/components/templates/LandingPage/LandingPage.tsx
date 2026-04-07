@@ -147,7 +147,7 @@ export const getLandingPageBySlug = async (
         filters:
           contentContext.previewData?.contentType === 'landingPage'
             ? undefined
-            : { filters: { 'settings.seo.slug': `/${slug}` } },
+            : { 'settings.seo.slug': `/${slug}` },
       })
     return landingPageData
   } catch (error) {
