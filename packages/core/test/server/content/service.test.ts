@@ -42,4 +42,57 @@ describe('ContentService', () => {
       expect(params.slug).toBe('summer-sale')
     })
   })
+
+  describe('createContentOptions', () => {
+    it('prefers the preview locale when the request falls back to the default locale', () => {
+      const service = getServiceInternals(new ContentService())
+
+      const options = service.createContentOptions({
+        contentType: 'landingPage',
+        locale: 'en-US',
+        previewData: {
+          contentType: 'landingPage',
+          documentId: 'entry-1',
+          versionId: 'branch-1',
+          locale: 'pt-BR',
+        },
+      })
+
+      expect(options.locale).toBe('pt-BR')
+    })
+
+    it('keeps the explicit route locale when it already differs from the default locale', () => {
+      const service = getServiceInternals(new ContentService())
+
+      const options = service.createContentOptions({
+        contentType: 'landingPage',
+        locale: 'fr-FR',
+        previewData: {
+          contentType: 'landingPage',
+          documentId: 'entry-1',
+          versionId: 'branch-1',
+          locale: 'pt-BR',
+        },
+      })
+
+      expect(options.locale).toBe('fr-FR')
+    })
+
+    it('does not leak the preview locale into CMS locator params', () => {
+      const service = getServiceInternals(new ContentService())
+
+      const options = service.createContentOptions({
+        contentType: 'landingPage',
+        locale: 'en-US',
+        previewData: {
+          contentType: 'landingPage',
+          documentId: 'entry-1',
+          versionId: 'branch-1',
+          locale: 'pt-BR',
+        },
+      })
+
+      expect('locale' in options.cmsOptions).toBe(false)
+    })
+  })
 })

@@ -7,6 +7,7 @@ export const ContentSourceType = {
 
 export type PreviewData = Locator & {
   slug?: string
+  locale?: string
 }
 
 export interface ContentRequestContext {

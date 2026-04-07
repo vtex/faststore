@@ -215,6 +215,12 @@ export class ContentService {
 
   private createContentOptions(params: ContentParams): ContentOptions {
     const { contentType, previewData, slug, locale } = params
+    const previewLocale = previewData?.locale
+    const effectiveLocale =
+      previewLocale !== undefined &&
+      (locale === undefined || locale === config.session.locale)
+        ? previewLocale
+        : locale
 
     const contentPreviewEnabled = previewData?.contentType === contentType
     const branchPreviewEnabled = isBranchPreview(previewData)
@@ -225,7 +231,7 @@ export class ContentService {
         contentPreviewEnabled,
         branchPreviewEnabled
       ),
-      ...(locale !== undefined && { locale }),
+      ...(effectiveLocale !== undefined && { locale: effectiveLocale }),
       ...(slug !== undefined && { slug }),
       isPreview: contentPreviewEnabled || branchPreviewEnabled,
     }
@@ -277,7 +283,7 @@ export class ContentService {
       releaseId,
       filters,
     } = params
-    const { slug: _, ...previewLocator } = previewData || {}
+    const { slug: _, locale: __, ...previewLocator } = previewData || {}
 
     return {
       contentType,
