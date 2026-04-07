@@ -8,97 +8,16 @@ import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
-import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
+import { getJWTAutCookie } from 'src/utils/getCookie'
+import { normalizeSetCookieDomain } from 'src/utils/normalizeSetCookieForRequest'
+import {
+  computeShouldRefreshToken,
+  describeShouldRefreshTokenReason,
+} from 'src/utils/sessionValidateRefreshDecision'
 import { execute } from '../../server'
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
-const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
-
-// Example: "Set-Cookie: key=value; Domain=example.com; Path=/"
-const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
-
-/**
- * Extracts hostname from the incoming request.
- */
-const getRequestHostname = ({
-  request,
-}: {
-  request: NextApiRequest
-}): string | null => {
-  const hostHeader = request.headers.host?.trim()
-  if (!hostHeader) {
-    return null
-  }
-
-  try {
-    return new URL(`https://${hostHeader}`).hostname
-  } catch {
-    return null
-  }
-}
-
-/**
- * Checks whether the cookie domain should be replaced by host.
- */
-const shouldReplaceCookieDomain = ({
-  cookieDomain,
-  host,
-}: {
-  cookieDomain: string
-  host: string
-}) => {
-  const normalizedDomain = cookieDomain.replace(/^\./, '').toLowerCase()
-  const normalizedHost = host.toLowerCase()
-
-  return normalizedDomain !== normalizedHost
-}
-
-/**
- * Determines if host is eligible for domain normalization.
- */
-const isAllowedHost = ({
-  host,
-  allowList,
-}: {
-  host: string
-  allowList: string[]
-}) => {
-  const normalizedHost = host.toLowerCase()
-
-  return allowList.some((suffix) => normalizedHost.endsWith(suffix))
-}
-
-/**
- * Ensure the cookie domain matches the current host so the browser can store it.
- */
-const normalizeSetCookieDomain = ({
-  request,
-  setCookie,
-}: {
-  request: NextApiRequest
-  setCookie: string
-}) => {
-  const domainMatch = setCookie.match(MATCH_DOMAIN_REGEXP)
-  if (!domainMatch) {
-    return setCookie
-  }
-
-  const host = getRequestHostname({ request })
-  if (!host) {
-    return setCookie
-  }
-  const cookieDomain = domainMatch[1]
-
-  if (
-    !isAllowedHost({ host, allowList: ALLOWED_HOST_SUFFIXES }) ||
-    !shouldReplaceCookieDomain({ cookieDomain, host })
-  ) {
-    return setCookie
-  }
-
-  return setCookie.replace(MATCH_DOMAIN_REGEXP, `; domain=${host}`)
-}
 
 const parseRequest = (request: NextApiRequest) => {
   try {
@@ -169,29 +88,28 @@ const handler: NextApiHandler = async (request, response) => {
         account: discoveryConfig.api.storeId,
       })
 
-      const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
+      const refreshAfter = variables?.session?.refreshAfter as
+        | string
+        | null
+        | undefined
 
-      const refreshAfterExist = !!variables?.session?.refreshAfter
-
-      const refreshAfterExpired =
-        refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
-
-      const tokenExistAndIsFirstRefreshTokenRequest =
-        !!jwt && !refreshAfterExist
-
-      // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
-      const tokenNotExistAndRefreshAfterExistAndIsExpired =
-        !jwt && !!refreshAfterExist && refreshAfterExpired
-
-      const tokenExpiredAndRefreshAfterIsNullOrExpired =
-        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
-
-      const shouldRefreshToken =
-        tokenExistAndIsFirstRefreshTokenRequest ||
-        tokenNotExistAndRefreshAfterExistAndIsExpired ||
-        tokenExpiredAndRefreshAfterIsNullOrExpired
+      const shouldRefreshToken = computeShouldRefreshToken({
+        jwt,
+        refreshAfter,
+      })
 
       if (shouldRefreshToken) {
+        const reason = describeShouldRefreshTokenReason({
+          jwt,
+          refreshAfter,
+        })
+        console.warn('[ValidateSession] shouldRefreshToken', {
+          reason,
+          hasJwt: Boolean(jwt),
+          refreshAfter,
+          jwtExp: jwt?.exp,
+          jwtIat: jwt?.iat,
+        })
         throw new UnauthorizedError(
           'Unauthorized: Token expired. Please login again or refresh the page.'
         )
