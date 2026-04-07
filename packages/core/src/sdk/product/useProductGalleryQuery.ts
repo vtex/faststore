@@ -3,8 +3,7 @@ import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
-import { type SearchState, useSearch } from '@faststore/sdk'
-import type { Facet } from '@faststore/sdk/dist/types'
+import { type Facet, type SearchState, useSearch } from '@faststore/sdk'
 import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,

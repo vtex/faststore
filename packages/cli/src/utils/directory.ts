@@ -26,7 +26,7 @@ export const withBasePath = (basepath: string) => {
     )
 
   const customizationsDir = getRoot()
-  const tmpDir = path.join(process.cwd(), tmpFolderName)
+  const tmpDir = path.join(getRoot(), tmpFolderName)
   const userSrcDir = path.join(customizationsDir, 'src')
   const getPackagePath = (...packagePath: string[]) =>
     path.join(customizationsDir, 'node_modules', ...packagePath)

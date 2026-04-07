@@ -193,19 +193,16 @@ export default class Dev extends Command {
       import.meta.resolve('@faststore/cli/runner', import.meta.url)
     )
 
-    spawnSync(`node ${cliPath} generate-types ${tmpDir}`, {
-      shell: true,
+    spawnSync('node', [cliPath, 'generate-types', tmpDir], {
       stdio: 'inherit',
     })
 
-    spawnSync(`node ${cliPath} cache-graphql`, {
-      shell: true,
+    spawnSync('node', [cliPath, 'cache-graphql', basePath], {
       stdio: 'inherit',
     })
 
     // generate-i18n will validate localization config and check if it's enabled
-    spawnSync(`node ${cliPath} generate-i18n`, {
-      shell: true,
+    spawnSync('node', [cliPath, 'generate-i18n', basePath], {
       stdio: 'inherit',
     })
 

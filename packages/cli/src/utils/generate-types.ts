@@ -7,7 +7,7 @@ import {
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { printSchemaWithDirectives } from '@graphql-tools/utils'
 import { buildASTSchema, Kind, parse, type DocumentNode } from 'graphql'
-import fs from 'node:fs'
+import fs, { existsSync } from 'node:fs'
 import path from 'node:path'
 
 const schemaFileName = 'schema.graphql'
@@ -18,9 +18,14 @@ export default async function genTsTypes(at: string) {
 }
 
 function generateSchemaTSTypes(root: string) {
-  // let documents = MapSRCFolder(path.resolve(__dirname, '../src'))
+  let finalRootPath = path.resolve(root)
+
+  if (existsSync(path.resolve(root, '.faststore'))) {
+    finalRootPath = path.resolve(root, '.faststore')
+  }
+
   // glob to include all ts/tsx files
-  const documents = [`${path.resolve(root, 'src')}/**/*.{ts,tsx}`]
+  const documents = [`${finalRootPath}/src/**/*.{ts,tsx}`]
 
   const config: CodegenConfig = {
     documents,
@@ -28,9 +33,9 @@ function generateSchemaTSTypes(root: string) {
     errorsOnly: false,
     debug: false,
     verbose: true,
-    schema: path.resolve(root, '@generated', schemaFileName),
+    schema: path.resolve(finalRootPath, '@generated', schemaFileName),
     generates: {
-      [`${path.resolve(root, '@generated')}/`]: {
+      [`${finalRootPath}/@generated/`]: {
         preset: 'client',
         config: {
           /** Not all of these properties are supported by the preset, but it reflects our previous config when we used typescript plugins directly */
@@ -87,7 +92,10 @@ async function generateSchemaFile(rootPath: string) {
   const faststoreSchema = printSchemaWithDirectives(GraphqlVtexSchema())
 
   const getMergedSchema = async () => {
-    const root = process.env.PWD ?? process.cwd()
+    const root = path.join(
+      rootPath.endsWith('.faststore') ? [rootPath, '..'].join('/') : rootPath
+    )
+
     const customizations = [
       ...(await getTypeDefsFromFolder(root, 'vtex')),
       ...(await getTypeDefsFromFolder(root, 'thirdParty')),
@@ -107,9 +115,18 @@ async function generateSchemaFile(rootPath: string) {
     }
   }
 
-  const saveSchemaFile = saveFile(
-    path.resolve(rootPath, '@generated', schemaFileName)
-  )
+  let pathToSave = path.resolve(rootPath, '@generated', schemaFileName)
+
+  if (existsSync(path.resolve(rootPath, '.faststore'))) {
+    pathToSave = path.resolve(
+      rootPath,
+      '.faststore',
+      '@generated',
+      schemaFileName
+    )
+  }
+
+  const saveSchemaFile = saveFile(pathToSave)
   const finalSchema = printSchemaWithDirectives(await getMergedSchema())
 
   saveSchemaFile(finalSchema)
