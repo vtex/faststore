@@ -47,14 +47,14 @@ interface LocalizationSelectorContentProps {
   errorMessage?: React.ReactNode
 }
 
-interface LocalizationSelectorErrorMessages {
+export interface LocalizationSelectorErrorMessages {
   noBindingFound?: string
   invalidUrl?: string
   noCurrencies?: string
   defaultError?: string
 }
 
-interface LocalizationSelectorProps {
+export interface LocalizationSelectorProps {
   /**
    * Controls whether the selector is open or closed.
    */

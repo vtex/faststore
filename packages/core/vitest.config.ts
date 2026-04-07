@@ -1,6 +1,39 @@
 import react from '@vitejs/plugin-react'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import type { Plugin } from 'vite'
 import { defineConfig } from 'vitest/config'
+
+const rootDir = fileURLToPath(new URL('.', import.meta.url))
+const discoveryJs = path.join(rootDir, 'discovery.config.js')
+const discoveryDefaultJs = path.join(rootDir, 'discovery.config.default.js')
+
+/**
+ * Resolve bare and relative `discovery.config` imports (including `.default.js`) for Vitest.
+ */
+function discoveryConfigResolvePlugin(): Plugin {
+  return {
+    name: 'vitest-discovery-config-resolve',
+    enforce: 'pre',
+    resolveId(id) {
+      if (
+        id === 'discovery.config.default.js' ||
+        id.endsWith('/discovery.config.default.js')
+      ) {
+        return discoveryDefaultJs
+      }
+      if (
+        id === 'discovery.config' ||
+        id.endsWith('/discovery.config') ||
+        id.endsWith('\\discovery.config')
+      ) {
+        return discoveryJs
+      }
+      return undefined
+    },
+  }
+}
 
 export default defineConfig({
   test: {
@@ -37,6 +70,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    discoveryConfigResolvePlugin(),
     react(),
     {
       name: 'virtual-module',

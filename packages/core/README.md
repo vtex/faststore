@@ -19,7 +19,7 @@ This starter ships the main FastStore configuration files to get your store up a
 Install dependencies with pnpm
 
 ```shell
-pnpm i 
+pnpm i
 ```
 
 2. **Start developing**
@@ -179,6 +179,30 @@ $ pnpm generate
 That's it! you have just regenerated all graphql queries/fragments for your application and the new data you requested should be available to your component.
 
 > Pro tip: Pass `-w` to the `pnpm generate` command so it watches for changes and you don't need to run this command multiple times.
+
+## Localization API (custom navbar)
+
+When you replace the default navbar, import the same locale/currency building blocks the core navbar uses from **`@faststore/core`** or the smaller entry **`@faststore/core/localization`**:
+
+```tsx
+import {
+  LocalizationButton,
+  LocalizationSelector,
+  useBindingSelector,
+} from '@faststore/core/localization'
+
+import type {
+  BindingSelectorError,
+  LocalizationButtonProps,
+  LocalizationSelectorProps,
+  UseBindingSelectorReturn,
+} from '@faststore/core/localization'
+```
+
+- **`LocalizationButton`** — drop-in trigger plus selector wiring (respects `localization.enabled` in `discovery.config`).
+- **`LocalizationSelector`** — controlled popover / slide-over UI; pair with **`useBindingSelector`** for options, errors, and save/redirect behavior.
+
+Requires a client component boundary (hooks and browser redirect on save).
 
 ## CMS Integration
 

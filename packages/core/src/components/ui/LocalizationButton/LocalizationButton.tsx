@@ -7,14 +7,14 @@ import { useBindingSelector } from 'src/sdk/localization'
 import { useSession } from 'src/sdk/session'
 import storeConfig from 'discovery.config'
 
-interface LocalizationButtonErrorMessages {
+export interface LocalizationButtonErrorMessages {
   noBindingFound?: string
   invalidUrl?: string
   noCurrencies?: string
   defaultError?: string
 }
 
-interface LocalizationButtonProps {
+export interface LocalizationButtonProps {
   icon: string
   title?: string
   languageLabel?: string
