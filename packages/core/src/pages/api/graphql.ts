@@ -179,17 +179,13 @@ const handler: NextApiHandler = async (request, response) => {
       const tokenExistAndIsFirstRefreshTokenRequest =
         !!jwt && !refreshAfterExist
 
-      // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
-      const tokenNotExistAndRefreshAfterExistAndIsExpired =
-        !jwt && !!refreshAfterExist && refreshAfterExpired
-
-      const tokenExpiredAndRefreshAfterIsNullOrExpired =
-        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
+      // token expired with no refreshAfter: covers jwt expired before first refresh and after browser clears the cookie
+      const tokenExpiredWithNoRefreshAfter = tokenExpired && !refreshAfterExist
 
       const shouldRefreshToken =
         tokenExistAndIsFirstRefreshTokenRequest ||
-        tokenNotExistAndRefreshAfterExistAndIsExpired ||
-        tokenExpiredAndRefreshAfterIsNullOrExpired
+        tokenExpiredWithNoRefreshAfter ||
+        refreshAfterExpired
 
       if (shouldRefreshToken) {
         throw new UnauthorizedError(
