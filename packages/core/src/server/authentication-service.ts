@@ -5,8 +5,13 @@ import type { CryptoKey } from 'jose'
 
 import storeConfig from '../../discovery.config'
 
-const WEBOPS_API_URL =
-  process.env.WEBOPS_API_URL || 'https://faststore.vtex.com'
+import {
+  webopsPasswordProtectionPublicKeyUrl,
+  webopsPasswordProtectionRenewUrl,
+  webopsPasswordProtectionStatusUrl,
+  webopsPasswordProtectionTimeouts,
+} from './password-protection/webops-api'
+
 const COOKIE_NAME = '__fs_auth_token'
 const TOKEN_TTL_SECONDS = 10 * 60
 /** How long to reuse the RSA public key fetched from WebOps */
@@ -31,10 +36,9 @@ let publicKeyCache: {
 } | null = null
 
 async function fetchPublicKeyPemFromWebOps(): Promise<string> {
-  const res = await fetch(
-    `${WEBOPS_API_URL}/api/v1/password-protection/public-key`,
-    { signal: AbortSignal.timeout(5000) }
-  )
+  const res = await fetch(webopsPasswordProtectionPublicKeyUrl(), {
+    signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.publicKeyMs),
+  })
 
   if (!res.ok) {
     throw new Error(`WebOps public-key returned ${res.status}`)
@@ -171,18 +175,15 @@ export class AuthenticationService {
     payload: TokenPayload
   ): Promise<AuthResult> {
     try {
-      const res = await fetch(
-        `${WEBOPS_API_URL}/api/v1/password-protection/renew`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            storeId: this.storeId,
-            expiredToken,
-          }),
-          signal: AbortSignal.timeout(10000),
-        }
-      )
+      const res = await fetch(webopsPasswordProtectionRenewUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          storeId: this.storeId,
+          expiredToken,
+        }),
+        signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.defaultMs),
+      })
 
       if (res.ok) {
         const data = await res.json()
@@ -207,10 +208,9 @@ export class AuthenticationService {
 
   private async handleNoAuth(request: NextRequest): Promise<AuthResult> {
     try {
-      const res = await fetch(
-        `${WEBOPS_API_URL}/api/v1/password-protection/status?storeId=${this.storeId}`,
-        { signal: AbortSignal.timeout(10000) }
-      )
+      const res = await fetch(webopsPasswordProtectionStatusUrl(this.storeId), {
+        signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.defaultMs),
+      })
 
       if (!res.ok) {
         return this.failClosed(request)
