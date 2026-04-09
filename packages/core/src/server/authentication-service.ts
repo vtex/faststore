@@ -5,6 +5,7 @@ import type { CryptoKey } from 'jose'
 
 import storeConfig from '../../discovery.config'
 
+import { isSecureAuthCookieForMiddleware } from './password-protection/auth-cookie'
 import {
   webopsPasswordProtectionPublicKeyUrl,
   webopsPasswordProtectionRenewUrl,
@@ -66,6 +67,11 @@ async function getPublicVerificationKey(): Promise<CryptoKey> {
   publicKeyCache = { pem, key, fetchedAt: now }
 
   return key
+}
+
+/** Clears the cached WebOps public key (for unit tests only). */
+export function resetPasswordProtectionPublicKeyCacheForTests(): void {
+  publicKeyCache = null
 }
 
 export class AuthenticationService {
@@ -190,7 +196,7 @@ export class AuthenticationService {
 
         if (data.valid && data.token) {
           const response = NextResponse.next()
-          this.setAuthCookie(response, data.token)
+          this.setAuthCookie(response, data.token, request)
 
           return { response }
         }
@@ -222,7 +228,7 @@ export class AuthenticationService {
         const response = NextResponse.next()
 
         if (status.token) {
-          this.setAuthCookie(response, status.token)
+          this.setAuthCookie(response, status.token, request)
         }
 
         return { response }
@@ -249,10 +255,14 @@ export class AuthenticationService {
     return { response: NextResponse.next() }
   }
 
-  private setAuthCookie(response: NextResponse, token: string): void {
+  private setAuthCookie(
+    response: NextResponse,
+    token: string,
+    request: NextRequest
+  ): void {
     response.cookies.set(COOKIE_NAME, token, {
       httpOnly: true,
-      secure: true,
+      secure: isSecureAuthCookieForMiddleware(request),
       sameSite: 'lax',
       path: '/',
       maxAge: TOKEN_TTL_SECONDS,

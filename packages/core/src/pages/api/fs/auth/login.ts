@@ -2,6 +2,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import storeConfig from 'discovery.config'
 
+import { isSecureAuthCookieForPagesApi } from '../../../../server/password-protection/auth-cookie'
 import {
   webopsPasswordProtectionSessionUrl,
   webopsPasswordProtectionTimeouts,
@@ -55,8 +56,12 @@ const handler: NextApiHandler = async (
           ? request.query.returnTo
           : '/'
 
+      const securePart = isSecureAuthCookieForPagesApi(request)
+        ? '; Secure'
+        : ''
+
       response.setHeader('Set-Cookie', [
-        `${COOKIE_NAME}=${data.token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${TOKEN_TTL_SECONDS}`,
+        `${COOKIE_NAME}=${data.token}; HttpOnly${securePart}; SameSite=Lax; Path=/; Max-Age=${TOKEN_TTL_SECONDS}`,
       ])
 
       response.status(200).json({
