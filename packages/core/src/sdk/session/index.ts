@@ -135,11 +135,15 @@ export const validateSession = async (session: Session) => {
           refreshAfter,
         })
       } else {
-        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
-        // so that we can postpone refreshToken request and continue the ValidateSession request
+        // Refresh token failed: clear server-side cookies (JWT + vid_rt) via logout
+        // and reset session to anonymous state to break the hourly retry loop
+        await fetch('/api/fs/logout', { method: 'POST' })
+
         sessionStore.set({
           ...session,
-          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
+          person: null,
+          b2b: null,
+          refreshAfter: null,
         })
       }
     }
