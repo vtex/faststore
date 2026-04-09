@@ -16,7 +16,7 @@ type Redirect = {
   type: 'permanent' | 'temporary'
 }
 interface RedirectsClient {
-get(from: string): Promise<Redirect | null>
+  get(from: string): Promise<Redirect | null>
 }
 
 class DynamoRedirectsClient implements RedirectsClient {
@@ -29,32 +29,37 @@ class DynamoRedirectsClient implements RedirectsClient {
 const redirectsClient = new DynamoRedirectsClient()
 
 export async function middleware(request: NextRequest) {
-  const authService = new AuthenticationService()
-  const authResult = await authService.authenticateRequest(request)
+  const path = request.nextUrl.pathname
 
-  if (authResult.response.status !== 200) {
-    return authResult.response
-  }
+  try {
+    const authService = new AuthenticationService()
+    const authResult = await authService.authenticateRequest(request)
 
-  if (process.env.ENABLE_REDIRECTS_MIDDLEWARE === 'true') {
-    const { pathname } = request.nextUrl
-    const redirect = await redirectsClient.get(pathname)
-
-    if (redirect) {
-      const redirectUrl = new URL(redirect.to, storeConfig.storeUrl)
-      const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
-      const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
-
-      response.headers.set(
-        'Cache-Control',
-        'public, max-age=300, stale-while-revalidate=31536000'
-      )
-
-      return response
+    if (authResult.response.status !== 200) {
+      return authResult.response
     }
-  }
 
-  return authResult.response
+    if (process.env.ENABLE_REDIRECTS_MIDDLEWARE === 'true') {
+      const redirect = await redirectsClient.get(path)
+
+      if (redirect) {
+        const redirectUrl = new URL(redirect.to, storeConfig.storeUrl)
+        const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
+        const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
+
+        response.headers.set(
+          'Cache-Control',
+          'public, max-age=300, stale-while-revalidate=31536000'
+        )
+
+        return response
+      }
+    }
+
+    return authResult.response
+  } catch {
+    return NextResponse.next()
+  }
 }
 
 export const config = {

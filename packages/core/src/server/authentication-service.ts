@@ -9,12 +9,8 @@ const WEBOPS_API_URL =
   process.env.WEBOPS_API_URL || 'https://faststore.vtex.com'
 const COOKIE_NAME = '__fs_auth_token'
 const TOKEN_TTL_SECONDS = 10 * 60
-
-// RSA public key for JWT RS256 verification (safe to expose)
-// TODO: Replace with actual public key generated for password protection
-const PUBLIC_KEY_PEM = `-----BEGIN PUBLIC KEY-----
-REPLACE_WITH_ACTUAL_PUBLIC_KEY
------END PUBLIC KEY-----`
+/** How long to reuse the RSA public key fetched from WebOps */
+const PUBLIC_KEY_CACHE_MS = 60 * 60 * 1000
 
 interface TokenPayload {
   storeId: string
@@ -28,18 +24,48 @@ interface AuthResult {
   response: NextResponse
 }
 
-let cachedKey: CryptoKey | null = null
+let publicKeyCache: {
+  pem: string
+  key: CryptoKey
+  fetchedAt: number
+} | null = null
 
-async function getPublicKey(): Promise<CryptoKey> {
-  if (!cachedKey) {
-    cachedKey = await importSPKI(PUBLIC_KEY_PEM, 'RS256')
+async function fetchPublicKeyPemFromWebOps(): Promise<string> {
+  const res = await fetch(
+    `${WEBOPS_API_URL}/api/v1/password-protection/public-key`,
+    { signal: AbortSignal.timeout(5000) }
+  )
+
+  if (!res.ok) {
+    throw new Error(`WebOps public-key returned ${res.status}`)
   }
 
-  return cachedKey
+  const body = (await res.json()) as { publicKey?: string }
+  const pem = body.publicKey?.trim()
+
+  if (!pem) {
+    throw new Error('WebOps public-key response missing publicKey')
+  }
+
+  return pem
+}
+
+async function getPublicVerificationKey(): Promise<CryptoKey> {
+  const now = Date.now()
+
+  if (publicKeyCache && now - publicKeyCache.fetchedAt < PUBLIC_KEY_CACHE_MS) {
+    return publicKeyCache.key
+  }
+
+  const pem = await fetchPublicKeyPemFromWebOps()
+  const key = await importSPKI(pem, 'RS256')
+  publicKeyCache = { pem, key, fetchedAt: now }
+
+  return key
 }
 
 export class AuthenticationService {
-  private storeId: string
+  private readonly storeId: string
 
   constructor() {
     this.storeId = storeConfig.api.storeId
@@ -68,11 +94,11 @@ export class AuthenticationService {
       }
 
       if (verification.expired && verification.payload) {
-        return this.tryRenewSession(request, token, verification.payload)
+        return await this.tryRenewSession(request, token, verification.payload)
       }
     }
 
-    return this.handleNoAuth(request)
+    return await this.handleNoAuth(request)
   }
 
   private shouldCheckProtection(request: NextRequest): boolean {
@@ -90,10 +116,7 @@ export class AuthenticationService {
     return process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED === 'true'
   }
 
-  private shouldProtectDomain(
-    request: NextRequest,
-    scope?: string
-  ): boolean {
+  private shouldProtectDomain(request: NextRequest, scope?: string): boolean {
     const hostname = request.headers.get('host') || ''
     const isDefaultDomain = hostname.endsWith('.vtex.app')
 
@@ -104,24 +127,36 @@ export class AuthenticationService {
     )
   }
 
+  private payloadMatchesStore(payload: TokenPayload): boolean {
+    return payload.storeId === this.storeId
+  }
+
   private async verifyToken(token: string): Promise<{
     valid: boolean
     expired: boolean
     payload?: TokenPayload
   }> {
     try {
-      const key = await getPublicKey()
+      const key = await getPublicVerificationKey()
       const { payload } = await jwtVerify(token, key)
+      const p = payload as unknown as TokenPayload
+
+      if (!this.payloadMatchesStore(p)) {
+        return { valid: false, expired: false }
+      }
 
       return {
         valid: true,
         expired: false,
-        payload: payload as unknown as TokenPayload,
+        payload: p,
       }
     } catch (error) {
       if (error instanceof errors.JWTExpired) {
-        // Signature was valid but token expired — safe to use payload for renewal
         const payload = decodeJwt(token) as unknown as TokenPayload
+
+        if (!this.payloadMatchesStore(payload)) {
+          return { valid: false, expired: false }
+        }
 
         return { valid: false, expired: true, payload }
       }
@@ -145,6 +180,7 @@ export class AuthenticationService {
             storeId: this.storeId,
             expiredToken,
           }),
+          signal: AbortSignal.timeout(10000),
         }
       )
 
@@ -159,7 +195,7 @@ export class AuthenticationService {
         }
       }
     } catch {
-      // Renewal failed — fall through to redirect
+      // Fall through to redirect or fail-open below
     }
 
     if (!this.shouldProtectDomain(request, payload.scope)) {
@@ -172,7 +208,8 @@ export class AuthenticationService {
   private async handleNoAuth(request: NextRequest): Promise<AuthResult> {
     try {
       const res = await fetch(
-        `${WEBOPS_API_URL}/api/v1/password-protection/status?storeId=${this.storeId}`
+        `${WEBOPS_API_URL}/api/v1/password-protection/status?storeId=${this.storeId}`,
+        { signal: AbortSignal.timeout(10000) }
       )
 
       if (!res.ok) {
