@@ -64,11 +64,19 @@ export default function PasswordProtectionLogin() {
           maxWidth: '20rem',
         }}
       >
+        <label
+          htmlFor="fs-auth-password"
+          style={{ fontSize: '0.875rem', fontWeight: 500 }}
+        >
+          Password
+        </label>
         <input
+          id="fs-auth-password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter password"
+          autoComplete="current-password"
           required
           disabled={loading}
           style={{

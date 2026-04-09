@@ -2,8 +2,11 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import storeConfig from 'discovery.config'
 
-const WEBOPS_API_URL =
-  process.env.WEBOPS_API_URL || 'https://faststore.vtex.com'
+import {
+  webopsPasswordProtectionSessionUrl,
+  webopsPasswordProtectionTimeouts,
+} from '../../../../server/password-protection/webops-api'
+
 const COOKIE_NAME = '__fs_auth_token'
 const TOKEN_TTL_SECONDS = 10 * 60
 
@@ -29,15 +32,12 @@ const handler: NextApiHandler = async (
       return
     }
 
-    const webopsResponse = await fetch(
-      `${WEBOPS_API_URL}/api/v1/password-protection/session`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ storeId, password }),
-        signal: AbortSignal.timeout(10000),
-      }
-    )
+    const webopsResponse = await fetch(webopsPasswordProtectionSessionUrl(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ storeId, password }),
+      signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.defaultMs),
+    })
 
     if (!webopsResponse.ok) {
       response.status(401).json({
