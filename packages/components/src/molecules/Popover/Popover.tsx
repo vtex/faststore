@@ -93,33 +93,102 @@ export interface PopoverProps
   wrapperProps?: HTMLAttributes<HTMLDivElement>
 }
 
+/**
+ * `top` / `bottom` / `left` are all optional so portal calcs can use either
+ * vertical anchor; `transform` must always be set in portal mode to suppress
+ * the stylesheet transform that uses % values unsuitable for fixed positioning.
+ */
+type PopoverCoords = {
+  top?: number
+  bottom?: number
+  left: number
+  transform?: string
+}
+
+/**
+ * For portal (`position: fixed`) we compute pixel coords from
+ * `getBoundingClientRect()` (viewport-relative). We use `bottom` instead of
+ * `top` for `top-*` placements so the arrow sits just above the trigger without
+ * fighting the CSS `bottom: 100%` rule.
+ * For non-portal (`position: absolute`) we keep the original simple coords and
+ * let the stylesheet handle placement/transforms.
+ */
 const calculatePosition = (
   rect: DOMRect,
   placement: Placement,
   offsetTop: number,
   offsetLeft: number,
   enablePortal: boolean
-) => {
-  const { top, left, height } = rect
+): PopoverCoords => {
+  const { top, left, height, width } = rect
 
+  if (enablePortal) {
+    // pixels from viewport bottom to the trigger's top edge (with optional gap)
+    const bottomAnchor = window.innerHeight - rect.top + offsetTop
+    // pixels from viewport top to the trigger's bottom edge (with optional gap)
+    const topAnchor = top + height + offsetTop
+
+    switch (true) {
+      case placement.startsWith('top'): {
+        if (placement === 'top-center') {
+          return {
+            bottom: bottomAnchor,
+            left: left + width / 2 + offsetLeft,
+            transform: 'translateX(-50%)',
+          }
+        }
+        if (placement === 'top-end') {
+          return {
+            bottom: bottomAnchor,
+            left: left + width + offsetLeft,
+            transform: 'translateX(-100%)',
+          }
+        }
+        // top-start
+        return {
+          bottom: bottomAnchor,
+          left: left + offsetLeft,
+          transform: 'none',
+        }
+      }
+      case placement.startsWith('bottom'): {
+        if (placement === 'bottom-center') {
+          return {
+            top: topAnchor,
+            left: left + width / 2 + offsetLeft,
+            transform: 'translateX(-50%)',
+          }
+        }
+        if (placement === 'bottom-end') {
+          return {
+            top: topAnchor,
+            left: left + width + offsetLeft,
+            transform: 'translateX(-100%)',
+          }
+        }
+        // bottom-start
+        return {
+          top: topAnchor,
+          left: left + offsetLeft,
+          transform: 'none',
+        }
+      }
+      default:
+        return { top: 0, left: 0, transform: 'none' }
+    }
+  }
+
+  // Non-portal: absolute positioning; let CSS handle placement transforms
   switch (true) {
     case placement.startsWith('top'):
       return {
-        top: enablePortal
-          ? top + height - offsetTop
-          : top + height + window.scrollY - offsetTop,
-        left: enablePortal
-          ? left + offsetLeft
-          : left + window.scrollX + offsetLeft,
+        top: top + height + window.scrollY - offsetTop,
+        left: left + window.scrollX + offsetLeft,
       }
     case placement.startsWith('bottom'):
       return {
-        top: enablePortal
-          ? top + height + offsetTop
-          : top + height + window.scrollY + offsetTop,
-        left: enablePortal
-          ? left + offsetLeft
-          : left + window.scrollX + offsetLeft,
+        top: top + height + window.scrollY + offsetTop,
+        left: left + window.scrollX + offsetLeft,
       }
     default:
       return { top: 0, left: 0 }
@@ -150,7 +219,11 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   // Use forwarded ref or internal ref for fallback
   const popoverRef = ref || useRef<HTMLDivElement>(null)
 
-  const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 })
+  const [popoverPosition, setPopoverPosition] = useState<PopoverCoords>({
+    top: 0,
+    left: 0,
+  })
+
   const { popover, closePopover } = useUI()
 
   const contextTriggerRef = popover.triggerRef
@@ -207,7 +280,14 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
       data-testid={testId}
       style={{
         position: enablePortal ? 'fixed' : 'absolute',
-        ...popoverPosition,
+        top: popoverPosition.top,
+        bottom: popoverPosition.bottom,
+        left: popoverPosition.left,
+        // In portal mode the transform is always provided (even 'none') to
+        // prevent the stylesheet transform from applying to fixed coordinates.
+        ...(popoverPosition.transform !== undefined
+          ? { transform: popoverPosition.transform }
+          : {}),
         ...style,
       }}
       {...otherProps}
