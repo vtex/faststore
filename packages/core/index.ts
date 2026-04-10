@@ -35,20 +35,3 @@ export {
   PICKUP_ALL_FACET_VALUE,
   getPickupPoints,
 } from './src/sdk/deliveryPromise'
-
-// Localization (custom navbar)
-export {
-  LocalizationButton,
-  LocalizationSelector,
-  useBindingSelector,
-} from './localization'
-export type {
-  Binding,
-  BindingSelectorError,
-  Locale,
-  LocalizationButtonErrorMessages,
-  LocalizationButtonProps,
-  LocalizationSelectorErrorMessages,
-  LocalizationSelectorProps,
-  UseBindingSelectorReturn,
-} from './localization'

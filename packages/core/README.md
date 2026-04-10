@@ -182,25 +182,25 @@ That's it! you have just regenerated all graphql queries/fragments for your appl
 
 ## Localization API (custom navbar)
 
-When you replace the default navbar, import the same locale/currency building blocks the core navbar uses from **`@faststore/core`** or the smaller entry **`@faststore/core/localization`**:
+When you replace the default navbar, import the same locale/currency building blocks the core navbar uses from **`@faststore/core/experimental`** (unstable API surface):
 
 ```tsx
 import {
-  LocalizationButton,
-  LocalizationSelector,
-  useBindingSelector,
-} from '@faststore/core/localization'
+  LocalizationButton_unstable,
+  LocalizationSelector_unstable,
+  useBindingSelector_unstable,
+} from '@faststore/core/experimental'
 
 import type {
   BindingSelectorError,
   LocalizationButtonProps,
   LocalizationSelectorProps,
   UseBindingSelectorReturn,
-} from '@faststore/core/localization'
+} from '@faststore/core/experimental'
 ```
 
-- **`LocalizationButton`** — drop-in trigger plus selector wiring (respects `localization.enabled` in `discovery.config`).
-- **`LocalizationSelector`** — controlled popover / slide-over UI; pair with **`useBindingSelector`** for options, errors, and save/redirect behavior.
+- **`LocalizationButton_unstable`** — drop-in trigger plus selector wiring (respects `localization.enabled` in `discovery.config`).
+- **`LocalizationSelector_unstable`** — controlled popover / slide-over UI; pair with **`useBindingSelector_unstable`** for options, errors, and save/redirect behavior.
 
 Requires a client component boundary (hooks and browser redirect on save).
 
