@@ -56,19 +56,26 @@ export {
 
 // Localization
 export { default as LocalizationSelector_unstable } from '../components/localization/LocalizationSelector'
+export type {
+  LocalizationSelectorErrorMessages,
+  LocalizationSelectorProps,
+} from '../components/localization/LocalizationSelector/LocalizationSelector'
 export { default as LocalizationButton_unstable } from '../components/ui/LocalizationButton'
-export { useBindingSelector as useBindingSelector_unstable } from '../sdk/localization'
+export type {
+  LocalizationButtonErrorMessages,
+  LocalizationButtonProps,
+} from '../components/ui/LocalizationButton/LocalizationButton'
+export {
+  useBindingSelector as useBindingSelector_unstable,
+  useLocaleValidation as useLocaleValidation_unstable,
+} from '../sdk/localization'
+export {
+  isValidUrl as isValidUrl_unstable,
+  resolveBinding as resolveBinding_unstable,
+} from '../sdk/localization/bindingSelector'
 export type {
   Binding,
   BindingSelectorError,
   Locale,
 } from '../sdk/localization/types'
-export type {
-  LocalizationButtonErrorMessages,
-  LocalizationButtonProps,
-} from '../components/ui/LocalizationButton/LocalizationButton'
-export type {
-  LocalizationSelectorErrorMessages,
-  LocalizationSelectorProps,
-} from '../components/localization/LocalizationSelector/LocalizationSelector'
 export type { UseBindingSelectorReturn } from '../sdk/localization/useBindingSelector'
