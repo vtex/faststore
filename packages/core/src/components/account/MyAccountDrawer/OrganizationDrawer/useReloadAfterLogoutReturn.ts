@@ -13,6 +13,7 @@ import { useEffect } from 'react'
  */
 
 export const RELOAD_AFTER_LOGOUT_KEY = 'faststore_reload_after_logout_return'
+export const SESSION_READY_KEY = 'faststore_session_ready'
 
 /**
  * Call before redirecting to logout. When the user returns to the store, the app
@@ -43,6 +44,8 @@ const checkAndReloadIfReturnedFromLogout = (): void => {
   try {
     if (sessionStorage.getItem(RELOAD_AFTER_LOGOUT_KEY)) {
       sessionStorage.removeItem(RELOAD_AFTER_LOGOUT_KEY)
+      // Pre-set session ready so the reloaded page starts without a skeleton.
+      sessionStorage.setItem(SESSION_READY_KEY, 'true')
       setTimeout(forceRefreshWithoutCache, RELOAD_DELAY_MS)
     }
   } catch {
