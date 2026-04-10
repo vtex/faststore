@@ -1,6 +1,6 @@
 import fsExtra from 'fs-extra'
-import { withBasePath } from './directory'
 import path from 'path'
+import { withBasePath } from './directory'
 import { logger } from './logger'
 
 const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
@@ -132,7 +132,7 @@ const getPluginPageFileContent = (
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}'
 ${appLayout ? `import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 ${appLayout ? `import RenderSections from 'src/components/cms/RenderSections'` : ``}
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 async function getServerSidePropsBase(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
   const noop = async function() {}

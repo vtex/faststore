@@ -24,7 +24,7 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,

@@ -19,9 +19,9 @@ import { default as BeforeSection } from 'src/customizations/src/myAccount/exten
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
 import { MyAccountListOrders } from 'src/components/account/orders/MyAccountListOrders'

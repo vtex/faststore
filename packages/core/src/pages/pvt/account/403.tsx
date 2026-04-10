@@ -23,8 +23,8 @@ import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
 

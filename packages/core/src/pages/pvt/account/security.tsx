@@ -22,7 +22,7 @@ import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 import PageProvider from 'src/sdk/overrides/PageProvider'
 

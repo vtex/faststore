@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 import storeConfig from 'discovery.config'
-import { validateLocaleForHostname } from 'src/utils/validateLocaleForHostname'
+import { validateLocaleForHostname } from 'src/utils/localization/validateLocaleForHostname'
 
 /**
  * Client-side validation hook for locale binding.

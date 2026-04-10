@@ -15,8 +15,8 @@ import { execute } from 'src/server'
 
 import { validateUser } from 'src/sdk/account/validateUser'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 import storeConfig from '../../discovery.config'
 
 export type MyAccountProps = {

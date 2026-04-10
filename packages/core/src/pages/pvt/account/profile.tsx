@@ -21,7 +21,7 @@ import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
 import PageProvider from 'src/sdk/overrides/PageProvider'
