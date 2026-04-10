@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
 
+import type { PopoverProps } from '@faststore/ui'
 import { Icon, Button as UIButton } from '@faststore/ui'
 
+import storeConfig from 'discovery.config'
 import LocalizationSelector from 'src/components/localization/LocalizationSelector'
 import { useBindingSelector } from 'src/sdk/localization'
 import { useSession } from 'src/sdk/session'
-import storeConfig from 'discovery.config'
 
 export interface LocalizationButtonErrorMessages {
   noBindingFound?: string
@@ -23,6 +24,7 @@ export interface LocalizationButtonProps {
   saveLabel?: string
   ariaLabel?: string
   errorMessages?: LocalizationButtonErrorMessages
+  popoverPlacement?: PopoverProps['placement']
 }
 
 const LocalizationButton = ({
@@ -34,6 +36,7 @@ const LocalizationButton = ({
   saveLabel,
   ariaLabel,
   errorMessages,
+  popoverPlacement,
 }: LocalizationButtonProps) => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -108,6 +111,7 @@ const LocalizationButton = ({
           description={description}
           saveLabel={saveLabel}
           errorMessages={errorMessages}
+          popoverPlacement={popoverPlacement}
         />
       )}
     </>
