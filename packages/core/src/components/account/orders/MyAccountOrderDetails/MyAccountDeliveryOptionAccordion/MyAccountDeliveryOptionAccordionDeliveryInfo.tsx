@@ -3,6 +3,7 @@ import type {
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsContact,
 } from '@generated/graphql'
+import { useIntl } from 'react-intl'
 
 interface InfoContainerProps {
   title: string
@@ -27,6 +28,7 @@ function MyAccountDeliveryOptionAccordionDeliveryInfo({
   deliveryOption,
   contact,
 }: MyAccountDeliveryOptionAccordionDeliveryInfoProps) {
+  const intl = useIntl()
   const isPickup = deliveryOption.deliveryChannel === 'pickup-in-point'
   const address = isPickup
     ? deliveryOption.pickupStoreInfo?.address
@@ -39,7 +41,11 @@ function MyAccountDeliveryOptionAccordionDeliveryInfo({
   return (
     <div data-fs-delivery-option-accordion-delivery-info>
       {!isPickup && contact && (
-        <InfoContainer title="Recipient">
+        <InfoContainer
+          title={intl.formatMessage({
+            id: 'myaccount.orderDetails.delivery.recipient',
+          })}
+        >
           <span data-fs-delivery-option-accordion-info>
             <strong>{contact.name}</strong>
           </span>
@@ -52,7 +58,17 @@ function MyAccountDeliveryOptionAccordionDeliveryInfo({
         </InfoContainer>
       )}
 
-      <InfoContainer title={isPickup ? 'Store address' : 'Delivery address'}>
+      <InfoContainer
+        title={
+          isPickup
+            ? intl.formatMessage({
+                id: 'myaccount.orderDetails.delivery.storeAddress',
+              })
+            : intl.formatMessage({
+                id: 'myaccount.orderDetails.delivery.deliveryAddress',
+              })
+        }
+      >
         <span data-fs-delivery-option-accordion-info>
           <strong>{address.city}</strong>
         </span>
@@ -64,15 +80,19 @@ function MyAccountDeliveryOptionAccordionDeliveryInfo({
 
       {/* TODO: Validate this after we check the return from api  */}
       {isPickup && deliveryOption.deliveryWindow && (
-        <InfoContainer title="Store Hours">
+        <InfoContainer
+          title={intl.formatMessage({
+            id: 'myaccount.orderDetails.delivery.storeHours',
+          })}
+        >
           <span data-fs-delivery-option-accordion-info>
-            From:{' '}
+            {intl.formatMessage({ id: 'myaccount.orderDetails.delivery.from' })}
             {new Date(
               deliveryOption.deliveryWindow.startDateUtc
             ).toLocaleString()}
           </span>
           <span data-fs-delivery-option-accordion-info>
-            To:{' '}
+            {intl.formatMessage({ id: 'myaccount.orderDetails.delivery.to' })}
             {new Date(
               deliveryOption.deliveryWindow.endDateUtc
             ).toLocaleString()}

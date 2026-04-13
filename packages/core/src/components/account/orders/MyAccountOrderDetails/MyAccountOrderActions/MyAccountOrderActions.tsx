@@ -7,6 +7,7 @@ import {
   useUI,
 } from '@faststore/ui'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 import { useReorder } from 'src/sdk/account/useReorder'
@@ -29,6 +30,7 @@ export default function MyAccountOrderActions({
 }: MyAccountOrderActionsProps) {
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false)
   const { pushToast } = useUI()
+  const intl = useIntl()
 
   const { cancelOrder, loading } = useCancelOrder()
   const { reorder } = useReorder()
@@ -47,7 +49,9 @@ export default function MyAccountOrderActions({
       setIsCancelOpen(false)
       pushToast({
         status: 'INFO',
-        message: 'Order canceled successfully',
+        message: intl.formatMessage({
+          id: 'myaccount.orderDetails.actions.cancelSuccess',
+        }),
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
 
@@ -55,7 +59,9 @@ export default function MyAccountOrderActions({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: "Order couldn't be canceled due to a technical issue.",
+        message: intl.formatMessage({
+          id: 'myaccount.orderDetails.actions.cancelError',
+        }),
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -69,7 +75,12 @@ export default function MyAccountOrderActions({
     <>
       <div data-fs-order-actions>
         <Dropdown>
-          <DropdownButton aria-label="View More" data-fs-dropdown-button>
+          <DropdownButton
+            aria-label={intl.formatMessage({
+              id: 'myaccount.orderDetails.actions.viewMore',
+            })}
+            data-fs-dropdown-button
+          >
             <UIIcon name="DotsThree" data-fs-dropdown-icon />
           </DropdownButton>
           <DropdownMenu align="right">
@@ -79,7 +90,9 @@ export default function MyAccountOrderActions({
               data-fs-order-actions-item
               data-fs-order-actions-item-reorder
             >
-              Reorder
+              {intl.formatMessage({
+                id: 'myaccount.orderDetails.actions.reorder',
+              })}
             </DropdownItem>
             {allowCancellation && (
               <DropdownItem
@@ -88,7 +101,9 @@ export default function MyAccountOrderActions({
                 data-fs-order-actions-item
                 data-fs-order-actions-item-cancel
               >
-                Cancel order
+                {intl.formatMessage({
+                  id: 'myaccount.orderDetails.actions.cancelOrder',
+                })}
               </DropdownItem>
             )}
           </DropdownMenu>
@@ -98,9 +113,15 @@ export default function MyAccountOrderActions({
       <MyAccountOrderActionModal
         isOpen={isCancelOpen}
         loading={loading}
-        title="Cancel order"
-        message="Are you sure you want to cancel this order? This action can't be undone."
-        confirmText="Cancel order"
+        title={intl.formatMessage({
+          id: 'myaccount.orderDetails.actions.cancelOrder',
+        })}
+        message={intl.formatMessage({
+          id: 'myaccount.orderDetails.actions.cancelConfirmMessage',
+        })}
+        confirmText={intl.formatMessage({
+          id: 'myaccount.orderDetails.actions.cancelOrder',
+        })}
         danger
         onClose={() => setIsCancelOpen(false)}
         onConfirm={handleCancel}

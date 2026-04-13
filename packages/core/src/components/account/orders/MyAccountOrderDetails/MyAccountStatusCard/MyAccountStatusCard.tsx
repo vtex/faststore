@@ -1,5 +1,6 @@
 import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
 import { useRef, type ReactNode } from 'react'
+import { useIntl } from 'react-intl'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
@@ -24,64 +25,48 @@ interface MyAccountStatusCardProps {
   creationDate: ServerOrderDetailsQueryQuery['userOrder']['creationDate']
 }
 
-// Define custom labels for each step based on their status
-// This allows us to show different text for the same step depending on its current state
-const STEP_LABELS: Record<StepKey, Record<StepStatus, string>> = {
+// Message IDs for each step based on their status
+const STEP_LABEL_IDS: Record<StepKey, Record<StepStatus, string>> = {
   order: {
-    completed: 'Order Placed',
-    loading: 'Order Placed',
-    'not-started': 'Order Placed',
-    failed: 'Order Placed',
+    completed: 'myaccount.orderDetails.status.orderPlaced',
+    loading: 'myaccount.orderDetails.status.orderPlaced',
+    'not-started': 'myaccount.orderDetails.status.orderPlaced',
+    failed: 'myaccount.orderDetails.status.orderPlaced',
   },
   approval: {
-    completed: 'Approved', // Custom
-    loading: 'Pending approval', // Use from orderStatusMap
-    'not-started': 'Pending approval',
-    failed: 'Denied', // Custom
+    completed: 'myaccount.orderDetails.status.approved',
+    loading: 'myaccount.orderDetails.status.pendingApproval',
+    'not-started': 'myaccount.orderDetails.status.pendingApproval',
+    failed: 'myaccount.orderDetails.status.denied',
   },
   payment: {
-    completed: 'Payment Approved', // Use from orderStatusMap
-    loading: 'Payment Pending', // Use from orderStatusMap
-    'not-started': 'Payment authorization', // Custom
-    failed: 'Payment Denied', // Use from orderStatusMap
+    completed: 'myaccount.orderDetails.status.paymentApproved',
+    loading: 'myaccount.orderDetails.status.paymentPending',
+    'not-started': 'myaccount.orderDetails.status.paymentAuthorization',
+    failed: 'myaccount.orderDetails.status.paymentDenied',
   },
   processing: {
-    completed: 'Ready for Delivery', // Use from orderStatusMap
-    loading: 'Handling order', // Custom
-    'not-started': 'Handling order', // Custom
-    failed: 'Canceled', // Use from orderStatusMap
+    completed: 'myaccount.orderDetails.status.readyForDelivery',
+    loading: 'myaccount.orderDetails.status.handlingOrder',
+    'not-started': 'myaccount.orderDetails.status.handlingOrder',
+    failed: 'myaccount.orderDetails.status.canceled',
   },
   shipping: {
-    completed: 'Invoiced', // Use from orderStatusMap
-    loading: 'Shipping order', // Custom
-    'not-started': 'Ship order', // Custom
-    failed: 'Canceled', // Use from orderStatusMap
+    completed: 'myaccount.orderDetails.status.invoiced',
+    loading: 'myaccount.orderDetails.status.shippingOrder',
+    'not-started': 'myaccount.orderDetails.status.shipOrder',
+    failed: 'myaccount.orderDetails.status.canceled',
   },
 }
 
 // Define the visual progression of order steps from start to finish
-const VISUAL_STEPS = [
-  {
-    label: (stepStatus: StepStatus) => STEP_LABELS.order[stepStatus],
-    key: 'order',
-  },
-  {
-    label: (stepStatus: StepStatus) => STEP_LABELS.approval[stepStatus],
-    key: 'approval',
-  },
-  {
-    label: (stepStatus: StepStatus) => STEP_LABELS.payment[stepStatus],
-    key: 'payment',
-  },
-  {
-    label: (stepStatus: StepStatus) => STEP_LABELS.processing[stepStatus],
-    key: 'processing',
-  },
-  {
-    label: (stepStatus: StepStatus) => STEP_LABELS.shipping[stepStatus],
-    key: 'shipping',
-  },
-] as const
+const VISUAL_STEPS: Array<{ key: StepKey }> = [
+  { key: 'order' },
+  { key: 'approval' },
+  { key: 'payment' },
+  { key: 'processing' },
+  { key: 'shipping' },
+]
 
 // Map labels from userOrderStatus.ts to step keys
 const LABEL_TO_STEP_MAPPING: Record<string, StepKey> = {
@@ -217,6 +202,7 @@ function MyAccountStatusCard({
   creationDate,
 }: MyAccountStatusCardProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const intl = useIntl()
 
   useConnectorPositioning(containerRef)
 
@@ -241,7 +227,7 @@ function MyAccountStatusCard({
       ? step.key === 'payment'
         ? currentStatusLabel
         : '—' // prevent hydration mismatch
-      : step.label(stepStatus)
+      : intl.formatMessage({ id: STEP_LABEL_IDS[step.key][stepStatus] })
 
     // Add creation date to the order step when it's completed or failed
     let completedAt: string | undefined
@@ -261,7 +247,10 @@ function MyAccountStatusCard({
   })
 
   return (
-    <MyAccountCard title="Status" data-fs-order-status-card>
+    <MyAccountCard
+      title={intl.formatMessage({ id: 'myaccount.orderDetails.status.title' })}
+      data-fs-order-status-card
+    >
       <div data-fs-order-status-content ref={containerRef}>
         {steps.map((step, index) => (
           <div

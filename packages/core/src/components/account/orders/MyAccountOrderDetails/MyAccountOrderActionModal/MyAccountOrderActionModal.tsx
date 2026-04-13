@@ -7,6 +7,7 @@ import {
   type ButtonProps,
   useFadeEffect,
 } from '@faststore/ui'
+import { useIntl } from 'react-intl'
 import styles from './styles.module.scss'
 
 interface MyAccountOrderActionModalProps {
@@ -28,12 +29,16 @@ export default function MyAccountOrderActionModal({
   title,
   message,
   confirmText,
-  cancelText = 'Not now',
+  cancelText,
   confirmVariant = 'primary',
   danger = false,
   onClose,
   onConfirm,
 }: MyAccountOrderActionModalProps) {
+  const intl = useIntl()
+  const resolvedCancelText =
+    cancelText ??
+    intl.formatMessage({ id: 'myaccount.orderDetails.modal.notNow' })
   const { fade, fadeOut, fadeIn } = useFadeEffect()
 
   return (
@@ -58,7 +63,7 @@ export default function MyAccountOrderActionModal({
       </UIModalBody>
       <UIModalFooter>
         <UIButton variant="secondary" onClick={fadeOut} disabled={loading}>
-          {cancelText}
+          {resolvedCancelText}
         </UIButton>
         <UIButton
           variant={confirmVariant}

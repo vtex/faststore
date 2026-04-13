@@ -1,4 +1,5 @@
 import { Button } from '@faststore/ui'
+import { useIntl } from 'react-intl'
 import { useReorder } from 'src/sdk/account/useReorder'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
@@ -14,6 +15,7 @@ export default function MyAccountReorderButton({
   onClick,
 }: MyAccountReorderButtonProps) {
   const { reorder, loading } = useReorder()
+  const intl = useIntl()
 
   const handleClick = async () => {
     try {
@@ -31,7 +33,7 @@ export default function MyAccountReorderButton({
       onClick={handleClick}
       disabled={loading}
     >
-      Reorder
+      {intl.formatMessage({ id: 'myaccount.orderDetails.actions.reorder' })}
     </Button>
   )
 }

@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl'
 import MyAccountCard from '../../../components/MyAccountCard'
 import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
 import { Link } from '@faststore/ui'
@@ -76,13 +77,17 @@ function MyAccountPaymentCard({
   allowCancellation = false,
 }: MyAccountPaymentCardProps) {
   const formatPrice = useFormatPrice()
+  const intl = useIntl()
 
   const bankInvoiceUrl = getBankInvoiceUrl(paymentData?.transactions)
 
   const showPrintBankInvoiceButton = allowCancellation && bankInvoiceUrl
 
   return (
-    <MyAccountCard title="Payment" data-fs-order-payment-card>
+    <MyAccountCard
+      title={intl.formatMessage({ id: 'myaccount.orderDetails.payment.title' })}
+      data-fs-order-payment-card
+    >
       <div data-fs-payment-details>
         {paymentData?.transactions[0]?.payments.map((payment) => {
           const methodInfo = getPaymentMethodInfo(payment)
@@ -119,17 +124,27 @@ function MyAccountPaymentCard({
 
               <div data-fs-payment-transaction-info>
                 {payment.tid && (
-                  <span data-fs-payment-tid>Tid: {payment.tid}</span>
+                  <span data-fs-payment-tid>
+                    {intl.formatMessage({
+                      id: 'myaccount.orderDetails.payment.tid',
+                    })}
+                    {payment.tid}
+                  </span>
                 )}
                 {payment.connectorResponses?.authId && (
                   <span data-fs-payment-authid>
-                    AuthId: {String(payment.connectorResponses.authId)}
+                    {intl.formatMessage({
+                      id: 'myaccount.orderDetails.payment.authId',
+                    })}
+                    {String(payment.connectorResponses.authId)}
                   </span>
                 )}
                 <div data-fs-payment-bank-invoice>
                   {payment.bankIssuedInvoiceIdentificationNumber && (
                     <span data-fs-payment-bank-invoice-number>
-                      Invoice Number:{' '}
+                      {intl.formatMessage({
+                        id: 'myaccount.orderDetails.payment.invoiceNumber',
+                      })}
                       {payment.bankIssuedInvoiceIdentificationNumber}
                     </span>
                   )}
@@ -139,7 +154,9 @@ function MyAccountPaymentCard({
                       href={bankInvoiceUrl}
                       target="_blank"
                     >
-                      Print Bank Invoice
+                      {intl.formatMessage({
+                        id: 'myaccount.orderDetails.payment.printBankInvoice',
+                      })}
                     </Link>
                   )}
                 </div>

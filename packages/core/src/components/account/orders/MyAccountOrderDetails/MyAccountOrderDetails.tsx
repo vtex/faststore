@@ -1,4 +1,5 @@
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
+import { useIntl } from 'react-intl'
 import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
 import MyAccountBuyingPolicyAlert from './MyAccountBuyingPolicyAlert'
 import MyAccountDeliveryCard from './MyAccountDeliveryCard'
@@ -29,6 +30,7 @@ const MIN_HISTORY_LENGTH_TO_GO_BACK = 2
 export default function MyAccountOrderDetails({
   order,
 }: MyAccountOrderDetailsProps) {
+  const intl = useIntl()
   const moreInformationCustomFields = order?.customFields?.find(
     (field) => field.type === 'order'
   )?.fields
@@ -41,14 +43,17 @@ export default function MyAccountOrderDetails({
             <UIIconButton
               data-fs-order-details-header-back-button
               size="small"
-              aria-label="Go back"
+              aria-label={intl.formatMessage({
+                id: 'myaccount.orderDetails.goBack',
+              })}
               icon={<UIIcon name="ArrowLeft" />}
               type="button"
             />
           </a>
           <div data-fs-order-details-header-title-wrapper>
             <h1 data-fs-order-details-header-title-text>
-              Order #{order.orderId}
+              {intl.formatMessage({ id: 'myaccount.orderDetails.orderPrefix' })}
+              {order.orderId}
             </h1>
             <MyAccountStatusBadge
               status={order.status}

@@ -1,4 +1,5 @@
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import { useIntl } from 'react-intl'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 
@@ -12,6 +13,7 @@ function MyAccountBudgetsCard({
   currencyCode,
 }: MyAccountBudgetsCardProps) {
   const formatPrice = useFormatPrice()
+  const intl = useIntl()
 
   if (!budgetData?.budgets || budgetData.budgets.length === 0) {
     return null
@@ -68,13 +70,30 @@ function MyAccountBudgetsCard({
   }
 
   return (
-    <MyAccountCard title="Budgets" data-fs-order-budgets-card>
+    <MyAccountCard
+      title={intl.formatMessage({ id: 'myaccount.orderDetails.budgets.title' })}
+      data-fs-order-budgets-card
+    >
       <div data-fs-budgets-table>
         <div data-fs-budgets-table-header>
-          <div data-fs-budgets-header-name>Name</div>
-          <div data-fs-budgets-header-available>Available</div>
-          <div data-fs-budgets-header-to-be-spent>To be spent</div>
-          <div data-fs-budgets-header-remaining>Remaining</div>
+          <div data-fs-budgets-header-name>
+            {intl.formatMessage({ id: 'myaccount.orderDetails.budgets.name' })}
+          </div>
+          <div data-fs-budgets-header-available>
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.budgets.available',
+            })}
+          </div>
+          <div data-fs-budgets-header-to-be-spent>
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.budgets.toBeSpent',
+            })}
+          </div>
+          <div data-fs-budgets-header-remaining>
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.budgets.remaining',
+            })}
+          </div>
         </div>
         <div data-fs-budgets-table-body>
           {budgetRows.map(

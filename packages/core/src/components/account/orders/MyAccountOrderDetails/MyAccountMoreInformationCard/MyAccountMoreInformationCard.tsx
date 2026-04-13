@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl'
 import { camelCaseToTitle } from 'src/utils/utilities'
 import MyAccountCard from '../../../components/MyAccountCard'
 
@@ -12,8 +13,15 @@ export interface MyAccountMoreInformationCardProps {
 function MyAccountMoreInformationCard({
   fields,
 }: MyAccountMoreInformationCardProps) {
+  const intl = useIntl()
+
   return (
-    <MyAccountCard title="More information" data-fs-order-more-information-card>
+    <MyAccountCard
+      title={intl.formatMessage({
+        id: 'myaccount.orderDetails.moreInfo.title',
+      })}
+      data-fs-order-more-information-card
+    >
       <div data-fs-order-more-information-card-content>
         {fields.map((item) => (
           <div key={item.name} data-fs-order-more-information-card-item>

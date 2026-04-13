@@ -1,5 +1,6 @@
 import { Button, Link } from '@faststore/ui'
 import { useRouter } from 'next/router'
+import { useIntl } from 'react-intl'
 
 import styles from '../section.module.scss'
 
@@ -20,6 +21,7 @@ export interface MyAccountMenuProps
 const Nav = ({ items }: Pick<MyAccountMenuProps, 'items'>) => {
   const router = useRouter()
   const currentRoute = router.pathname
+  const intl = useIntl()
 
   return (
     <ul className={styles.nav}>
@@ -30,7 +32,7 @@ const Nav = ({ items }: Pick<MyAccountMenuProps, 'items'>) => {
           key={route}
         >
           <Link href={route} tabIndex={0}>
-            {title}
+            {intl.formatMessage({ id: title, defaultMessage: title })}
           </Link>
         </li>
       ))}
@@ -44,6 +46,7 @@ const MyAccountMenu = ({
   items,
 }: MyAccountMenuProps) => {
   const { isDesktop } = useScreenResize()
+  const intl = useIntl()
 
   return (
     <div className={styles.menu}>
@@ -62,7 +65,7 @@ const MyAccountMenu = ({
             variant="secondary"
             size="small"
           >
-            Switch
+            {intl.formatMessage({ id: 'myaccount.menu.switch' })}
           </Button>
         </div>
       ) : null}

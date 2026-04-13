@@ -95,13 +95,14 @@
     "prettier": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intl": "^6.8.9",
     "react-intersection-observer": "^8.32.5",
     "sass": "^1.44.0",
     "sass-loader": "^12.6.0",
     "sharp": "^0.32.6",
     "style-loader": "^3.3.1",
     "swr": "^2.2.5",
-    "tsx": "^4.6.2"
+    "tsx": "^3.14.0"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",

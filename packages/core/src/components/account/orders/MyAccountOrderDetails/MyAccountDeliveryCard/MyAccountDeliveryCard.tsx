@@ -1,4 +1,5 @@
 import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
+import { useIntl } from 'react-intl'
 import { camelCaseToTitle } from 'src/utils/utilities'
 import MyAccountCard from '../../../components/MyAccountCard'
 
@@ -15,8 +16,15 @@ export default function MyAccountDeliveryCard({
   deliveryOptionsData,
   fields,
 }: MyAccountDeliveryCardProps) {
+  const intl = useIntl()
+
   return (
-    <MyAccountCard title="Delivery" data-fs-order-delivery-card>
+    <MyAccountCard
+      title={intl.formatMessage({
+        id: 'myaccount.orderDetails.delivery.title',
+      })}
+      data-fs-order-delivery-card
+    >
       <div data-fs-delivery-methods>
         {deliveryOptionsData.deliveryOptions.map((option, index) => (
           <p key={option.friendlyDeliveryOptionName} data-fs-delivery-method>

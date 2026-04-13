@@ -16,21 +16,22 @@ export const USER_DETAILS_ROUTE = '/pvt/account/user-details'
 export const SECURITY_ROUTE = '/pvt/account/security'
 
 // This is the default route list for My Account, we should add then as the feature is implemented
+// Titles are react-intl message IDs, translated in MyAccountMenu
 const DEFAULT_ROUTES: Route[] = [
   {
-    title: 'Profile',
+    title: 'myaccount.menu.profile',
     route: PROFILE_ROUTE,
   },
   {
-    title: 'Orders',
+    title: 'myaccount.menu.orders',
     route: ORDERS_ROUTE,
   },
   {
-    title: 'User Details',
+    title: 'myaccount.menu.userDetails',
     route: USER_DETAILS_ROUTE,
   },
   {
-    title: 'Security',
+    title: 'myaccount.menu.security',
     route: SECURITY_ROUTE,
   },
 ]

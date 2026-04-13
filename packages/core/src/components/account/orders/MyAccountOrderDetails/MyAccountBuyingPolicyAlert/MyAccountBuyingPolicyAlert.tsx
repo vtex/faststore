@@ -5,6 +5,7 @@ import {
   useUI,
 } from '@faststore/ui'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 import MyAccountOrderActionModal from '../MyAccountOrderActionModal'
 import { useOrderAuthorization } from 'src/sdk/account/useOrderAuthorization'
 import type { ProcessOrderAuthorizationRule } from '@generated/graphql'
@@ -22,6 +23,7 @@ export default function MyAccountBuyingPolicyAlert({
   onAuthorizationComplete,
 }: MyAccountBuyingPolicyAlertProps) {
   const { pushToast } = useUI()
+  const intl = useIntl()
   const [isAuthorizationOpen, setIsAuthorizationOpen] = useState<boolean>(false)
   const { data, error, processOrderAuthorization, loading } =
     useOrderAuthorization()
@@ -37,10 +39,12 @@ export default function MyAccountBuyingPolicyAlert({
         },
       })
 
-      // Success toast
       pushToast({
         status: 'INFO',
-        message: `${ruleForAuthorization.rule.name} policy approved successfully.`,
+        message: intl.formatMessage(
+          { id: 'myaccount.orderDetails.buyingPolicy.approvedSuccess' },
+          { ruleName: ruleForAuthorization.rule.name }
+        ),
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
 
@@ -48,7 +52,9 @@ export default function MyAccountBuyingPolicyAlert({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: "Policy couldn't be approved due to a technical issue.",
+        message: intl.formatMessage({
+          id: 'myaccount.orderDetails.buyingPolicy.approvalError',
+        }),
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -67,7 +73,10 @@ export default function MyAccountBuyingPolicyAlert({
 
       pushToast({
         status: 'INFO',
-        message: `${ruleForAuthorization.rule.name} policy rejected successfully. Order denied.`,
+        message: intl.formatMessage(
+          { id: 'myaccount.orderDetails.buyingPolicy.rejectedSuccess' },
+          { ruleName: ruleForAuthorization.rule.name }
+        ),
         icon: <UIIcon width={30} height={30} name="XCircle" />,
       })
 
@@ -76,7 +85,9 @@ export default function MyAccountBuyingPolicyAlert({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: "Policy couldn't be rejected due to a technical issue.",
+        message: intl.formatMessage({
+          id: 'myaccount.orderDetails.buyingPolicy.rejectionError',
+        }),
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -93,7 +104,9 @@ export default function MyAccountBuyingPolicyAlert({
           <h3 data-fs-buying-policy-title>{ruleForAuthorization.rule.name}</h3>
           <p data-fs-buying-policy-description>
             {ruleForAuthorization?.rule?.trigger?.condition?.description ??
-              BUYING_POLICY_APPROVAL_REQUIRED_MESSAGE}
+              intl.formatMessage({
+                id: 'myaccount.orderDetails.buyingPolicy.requiresApproval',
+              })}
           </p>
         </div>
 
@@ -107,7 +120,9 @@ export default function MyAccountBuyingPolicyAlert({
             data-fs-buying-policy-action-reject
             data-fs-button-danger
           >
-            Reject
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.buyingPolicy.reject',
+            })}
           </UIButton>
           <UIButton
             variant="primary"
@@ -117,7 +132,9 @@ export default function MyAccountBuyingPolicyAlert({
             loading={loading}
             data-fs-buying-policy-action-approve
           >
-            Approve
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.buyingPolicy.approve',
+            })}
           </UIButton>
         </div>
       </div>
@@ -127,8 +144,9 @@ export default function MyAccountBuyingPolicyAlert({
           data-fs-pending-policies-alert
           icon={<UIIcon name="Info" width={20} height={20} />}
         >
-          Your approval is recorded. This order is still pending further
-          approvals.
+          {intl.formatMessage({
+            id: 'myaccount.orderDetails.buyingPolicy.pendingPolicies',
+          })}
         </UIAlert>
       )}
 
@@ -137,18 +155,25 @@ export default function MyAccountBuyingPolicyAlert({
         loading={loading}
         onClose={() => setIsAuthorizationOpen(false)}
         onConfirm={handleReject}
-        title="Reject approval request"
+        title={intl.formatMessage({
+          id: 'myaccount.orderDetails.buyingPolicy.rejectTitle',
+        })}
         message={
           <>
-            You're about to reject this approval request, triggered by the
-            {` ${ruleForAuthorization.rule.name} policy`}. Rejecting any
-            approval request will deny the entire order.
+            {intl.formatMessage(
+              { id: 'myaccount.orderDetails.buyingPolicy.rejectMessage' },
+              { ruleName: ruleForAuthorization.rule.name }
+            )}
             <br />
             <br />
-            This action is permanent and cannot be undone.
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.buyingPolicy.permanent',
+            })}
           </>
         }
-        confirmText="Reject"
+        confirmText={intl.formatMessage({
+          id: 'myaccount.orderDetails.buyingPolicy.reject',
+        })}
         danger
       />
     </>
