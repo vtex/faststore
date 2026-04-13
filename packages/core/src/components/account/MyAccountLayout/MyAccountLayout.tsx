@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import { USER_DETAILS_ROUTE } from 'src/sdk/account/getMyAccountRoutes'
+import { MyAccountIntlProvider } from '../i18n/MyAccountIntlProvider'
 import MyAccountMenu from '../MyAccountMenu'
 import styles from '../section.module.scss'
 
@@ -23,10 +24,12 @@ const MyAccountLayout = ({
       )
 
   return (
-    <section className={styles.layout}>
-      <MyAccountMenu accountName={accountName} items={routes} />
-      <div data-fs-account-layout-content>{children}</div>
-    </section>
+    <MyAccountIntlProvider>
+      <section className={styles.layout}>
+        <MyAccountMenu accountName={accountName} items={routes} />
+        <div data-fs-account-layout-content>{children}</div>
+      </section>
+    </MyAccountIntlProvider>
   )
 }
 export default MyAccountLayout

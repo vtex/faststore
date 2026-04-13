@@ -13,6 +13,7 @@ import {
   type SearchInputFieldRef,
 } from '@faststore/ui'
 import { useEffect } from 'react'
+import { useIntl } from 'react-intl'
 import MyAccountFilterSlider from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider'
 import { useDebounce } from 'src/sdk/account/useDebounce'
 import {
@@ -88,19 +89,25 @@ function getSelectedFacets({
 
 function getAllFacets({
   filters,
+  pendingApprovalLabel,
+  statusLabel,
+  orderDateLabel,
 }: {
   filters: MyAccountListOrdersProps['filters']
+  pendingApprovalLabel: string
+  statusLabel: string
+  orderDateLabel: string
 }): MyAccountFilter_FacetsFragment[] {
   return [
     {
       __typename: 'StoreFacetPendingApproval',
       key: 'pendingMyApproval',
-      label: 'Pending Approval',
+      label: pendingApprovalLabel,
     } as any,
     {
       __typename: 'StoreFacetBoolean',
       key: 'status',
-      label: 'Status',
+      label: statusLabel,
       values: FastStoreOrderStatus.map((status) => ({
         label: status,
         quantity: 0,
@@ -111,7 +118,7 @@ function getAllFacets({
     {
       __typename: 'StoreFacetRange',
       key: 'dateRange',
-      label: 'Order Date',
+      label: orderDateLabel,
       from: filters.dateInitial,
       to: filters.dateFinal,
     },
@@ -139,6 +146,7 @@ export default function MyAccountListOrders({
   const router = useRouter()
   const { isDesktop } = useScreenResize()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
+  const intl = useIntl()
 
   // Set the initial value of the search input field based on server values
   useEffect(() => {
@@ -179,7 +187,14 @@ export default function MyAccountListOrders({
   )
 
   const selectedFacets: SelectedFacet[] = getSelectedFacets({ filters })
-  const allFacets = getAllFacets({ filters })
+  const allFacets = getAllFacets({
+    filters,
+    pendingApprovalLabel: intl.formatMessage({
+      id: 'myaccount.orders.pendingApproval',
+    }),
+    statusLabel: intl.formatMessage({ id: 'myaccount.orders.status' }),
+    orderDateLabel: intl.formatMessage({ id: 'myaccount.orders.orderDate' }),
+  })
 
   const filter = useMyAccountFilter({
     allFacets,
@@ -193,13 +208,15 @@ export default function MyAccountListOrders({
 
   return (
     <div className={styles.page}>
-      <AccountHeader pageTitle="Orders" />
+      <AccountHeader
+        pageTitle={intl.formatMessage({ id: 'myaccount.orders.title' })}
+      />
       <div data-fs-list-orders-controls>
         <div data-fs-list-orders-search-filters>
           <SearchInputField
             ref={searchInputRef}
             data-fs-search-input-field-list-orders
-            placeholder="Search"
+            placeholder={intl.formatMessage({ id: 'myaccount.orders.search' })}
             onBlur={(_) => {
               handleSearchChange(searchInputRef.current.inputRef.value)
             }}
@@ -221,7 +238,9 @@ export default function MyAccountListOrders({
                 name="FadersHorizontal"
                 width={24}
                 height={24}
-                aria-label="Open Filters"
+                aria-label={intl.formatMessage({
+                  id: 'myaccount.orders.openFilters',
+                })}
               />
             }
             iconPosition="left"
@@ -233,7 +252,7 @@ export default function MyAccountListOrders({
               openFilter()
             }}
           >
-            Filters
+            {intl.formatMessage({ id: 'myaccount.orders.filters' })}
           </Button>
         </div>
         {isDesktop && (
@@ -282,9 +301,13 @@ export default function MyAccountListOrders({
       {displayFilter && (
         <MyAccountFilterSlider
           {...filter}
-          title="Filters"
-          clearButtonLabel="Clear All"
-          applyButtonLabel="View Results"
+          title={intl.formatMessage({ id: 'myaccount.orders.filters' })}
+          clearButtonLabel={intl.formatMessage({
+            id: 'myaccount.orders.clearAll',
+          })}
+          applyButtonLabel={intl.formatMessage({
+            id: 'myaccount.orders.viewResults',
+          })}
           searchInputRef={searchInputRef}
           testId="my-account-filter-slider"
         />
@@ -300,7 +323,11 @@ export default function MyAccountListOrders({
               weight="thin"
             />
           }
-          title={hasFilters ? 'No results found' : "You don't have any orders"}
+          title={
+            hasFilters
+              ? intl.formatMessage({ id: 'myaccount.orders.noResultsFound' })
+              : intl.formatMessage({ id: 'myaccount.orders.emptyOrders' })
+          }
           bkgColor="light"
         >
           {!hasFilters && (
@@ -309,7 +336,7 @@ export default function MyAccountListOrders({
               href="/"
               variant="secondary"
             >
-              Start shopping
+              {intl.formatMessage({ id: 'myaccount.orders.startShopping' })}
             </LinkButton>
           )}
         </EmptyState>

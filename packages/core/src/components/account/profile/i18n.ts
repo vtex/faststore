@@ -1,7 +1,7 @@
-export const strings = {
-  profile: 'Profile',
-  name: 'Name',
-  email: 'Email',
-  id: 'ID',
-  createdDate: 'Created date',
+export const messageIds = {
+  profile: 'myaccount.profile.title',
+  name: 'myaccount.profile.name',
+  email: 'myaccount.profile.email',
+  id: 'myaccount.profile.id',
+  createdDate: 'myaccount.profile.createdDate',
 }

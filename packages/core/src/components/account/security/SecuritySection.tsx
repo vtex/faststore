@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@faststore/ui'
+import { useIntl } from 'react-intl'
 
 import AccountTable from '../components/MyAccountTable'
 import AccountHeader from '../components/MyAccountHeader'
@@ -14,6 +15,8 @@ export const SecuritySection = ({
   accountName,
 }: SecuritySectionProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const intl = useIntl()
+
   return (
     <>
       {isDrawerOpen && (
@@ -26,13 +29,17 @@ export const SecuritySection = ({
       )}
 
       <section data-fs-securiry-section className={styles.section}>
-        <AccountHeader pageTitle="Security" />
+        <AccountHeader
+          pageTitle={intl.formatMessage({ id: 'myaccount.security.title' })}
+        />
 
         <div data-fs-security-container>
           <AccountTable
             rows={[
               {
-                heading: 'Password',
+                heading: intl.formatMessage({
+                  id: 'myaccount.security.password',
+                }),
                 data: (
                   <>
                     <span data-fs-security-table-data-text>••••••••••</span>
@@ -41,7 +48,9 @@ export const SecuritySection = ({
                       data-fs-security-table-action-button
                       onClick={() => setIsDrawerOpen(true)}
                     >
-                      Reset password
+                      {intl.formatMessage({
+                        id: 'myaccount.security.resetPassword',
+                      })}
                     </Button>
                   </>
                 ),

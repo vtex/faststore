@@ -3,6 +3,7 @@ import type {
   UserOrderDeliveryOptionsContact,
 } from '@generated/graphql'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 import {
   MyAccountAccordion,
   MyAccountAccordionButton,
@@ -41,10 +42,15 @@ function MyAccountDeliveryOptionAccordion({
     new Set([])
   )
   const formatPrice = useFormatPrice()
+  const intl = useIntl()
 
   const title = deliveryOption.friendlyDeliveryOptionName
 
-  const summary = `${deliveryOption.quantityOfDifferentItems} ${deliveryOption.quantityOfDifferentItems === 1 ? 'item' : 'items'} – Total ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
+  const itemLabel =
+    deliveryOption.quantityOfDifferentItems === 1
+      ? intl.formatMessage({ id: 'myaccount.orderDetails.delivery.item' })
+      : intl.formatMessage({ id: 'myaccount.orderDetails.delivery.items' })
+  const summary = `${deliveryOption.quantityOfDifferentItems} ${itemLabel} – ${intl.formatMessage({ id: 'myaccount.orderDetails.delivery.productTotal' })} ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
 
   const onChange = (index: number) => {
     if (indicesExpanded.has(index)) {

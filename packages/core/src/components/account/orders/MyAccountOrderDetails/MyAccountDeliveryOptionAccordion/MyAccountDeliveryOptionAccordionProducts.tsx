@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useIntl } from 'react-intl'
 import { camelCaseToTitle } from 'src/utils/utilities'
 
 interface MyAccountDeliveryOptionAccordionProductProps {
@@ -24,6 +25,8 @@ function MyAccountDeliveryOptionAccordionProduct({
   tax,
   total,
 }: MyAccountDeliveryOptionAccordionProductProps) {
+  const intl = useIntl()
+
   return (
     <div data-fs-delivery-option-accordion-product>
       <div data-fs-delivery-option-accordion-product-top>
@@ -43,15 +46,25 @@ function MyAccountDeliveryOptionAccordionProduct({
       <div data-fs-delivery-option-accordion-product-bottom>
         <div data-fs-delivery-option-accordion-product-price>
           <p>{price}</p>
-          <span>Each</span>
+          <span>
+            {intl.formatMessage({ id: 'myaccount.orderDetails.delivery.each' })}
+          </span>
         </div>
         <div data-fs-delivery-option-accordion-product-tax>
           <p>{tax}</p>
-          <span>Taxes</span>
+          <span>
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.delivery.taxes',
+            })}
+          </span>
         </div>
         <div data-fs-delivery-option-accordion-product-total>
           <p>{total}</p>
-          <span>Total</span>
+          <span>
+            {intl.formatMessage({
+              id: 'myaccount.orderDetails.delivery.productTotal',
+            })}
+          </span>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import { useIntl } from 'react-intl'
 import MyAccountCard from '../../../components/MyAccountCard'
 
 interface MyAccountOrderedByCardProps {
@@ -23,6 +24,7 @@ function MyAccountOrderedByCard({
   clientProfileData,
   shopper,
 }: MyAccountOrderedByCardProps) {
+  const intl = useIntl()
   const shopperNameExists = Boolean(shopper?.firstName)
   const firstName =
     (shopperNameExists ? shopper?.firstName : clientProfileData?.firstName) ??
@@ -39,7 +41,12 @@ function MyAccountOrderedByCard({
   }
 
   return (
-    <MyAccountCard title="Ordered by" data-fs-order-ordered-by-card>
+    <MyAccountCard
+      title={intl.formatMessage({
+        id: 'myaccount.orderDetails.orderedBy.title',
+      })}
+      data-fs-order-ordered-by-card
+    >
       {isCorporate && corporateName && (
         <div data-fs-ordered-by-org>
           <div data-fs-ordered-by-avatar>{getFirstLetter(corporateName)}</div>

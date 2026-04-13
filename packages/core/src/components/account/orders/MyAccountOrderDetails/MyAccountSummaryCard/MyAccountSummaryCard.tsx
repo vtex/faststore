@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 
@@ -31,6 +32,7 @@ function MyAccountSummaryCard({
   transactions,
 }: MyAccountSummaryCardProps) {
   const formatPrice = useFormatPrice()
+  const intl = useIntl()
 
   // Calculate any payment surcharges from active transactions
   const calculatePaymentSurcharge = () => {
@@ -58,7 +60,9 @@ function MyAccountSummaryCard({
     if (surchargeAmount > 0) {
       const interestLineItem = {
         id: 'Interest',
-        name: 'Interest',
+        name: intl.formatMessage({
+          id: 'myaccount.orderDetails.summary.interest',
+        }),
         value: surchargeAmount,
       }
 
@@ -73,7 +77,10 @@ function MyAccountSummaryCard({
   const totalAmount = displayTotals.reduce((sum, total) => sum + total.value, 0)
 
   return (
-    <MyAccountCard title="Summary" data-fs-order-summary-card>
+    <MyAccountCard
+      title={intl.formatMessage({ id: 'myaccount.orderDetails.summary.title' })}
+      data-fs-order-summary-card
+    >
       {displayTotals.map((total) => (
         <div key={total.id} data-fs-order-summary-item>
           <span>{total.name}</span>
@@ -81,7 +88,9 @@ function MyAccountSummaryCard({
         </div>
       ))}
       <div data-fs-order-summary-item data-fs-order-summary-total>
-        <span>Total</span>
+        <span>
+          {intl.formatMessage({ id: 'myaccount.orderDetails.summary.total' })}
+        </span>
         <span>{formatPrice(totalAmount, currencyCode)}</span>
       </div>
     </MyAccountCard>

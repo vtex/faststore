@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "vtex-docs": {
+      "type": "sse",
+      "url": "https://docs-assistant.vtex.com/api/mcp/sse"
+    }
+  }
+}
