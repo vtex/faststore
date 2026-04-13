@@ -7,7 +7,7 @@ import type { Operation, RequestOptions } from './request'
 import { request } from './request'
 
 export type QueryOptions = SWRConfiguration &
-  RequestOptions & { doNotRun?: boolean }
+  RequestOptions & { doNotRun?: boolean; keySuffix?: string }
 
 export const getKey = <Variables>(
   operationName: string,
@@ -46,7 +46,8 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
       if (options?.doNotRun) return null
       const baseKey = getKey(operation['__meta__']['operationName'], variables)
       const sessionSuffix = getSessionCacheKeySuffix()
-      return `${baseKey}::${sessionSuffix}`
+      const extra = options?.keySuffix ? `::${options.keySuffix}` : ''
+      return `${baseKey}::${sessionSuffix}${extra}`
     },
     {
       fetcher: () => {
