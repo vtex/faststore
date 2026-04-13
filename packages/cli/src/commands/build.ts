@@ -1,7 +1,7 @@
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
-import { existsSync } from 'fs'
+import { cpSync, existsSync } from 'fs'
 import fsExtra from 'fs-extra'
 import path from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
@@ -13,6 +13,16 @@ import { toggleProxyByLocalizationFlag } from '../utils/generate'
 import { logger } from '../utils/logger'
 
 const { copySync, moveSync, readdirSync, removeSync } = fsExtra
+
+function copyGenerated(from: string, to: string) {
+  try {
+    cpSync(from, to, { recursive: true, force: true, dereference: true })
+
+    return { success: true }
+  } catch {
+    return { success: false }
+  }
+}
 
 export default class Build extends Command {
   static args = {
@@ -52,7 +62,7 @@ export default class Build extends Command {
       )
     }
 
-    const { tmpDir } = withBasePath(basePath)
+    const { tmpDir, coreDir } = withBasePath(basePath)
 
     const packageManager = await getPreferredPackageManager()
 
@@ -95,6 +105,20 @@ export default class Build extends Command {
     const config = await getDiscoveryConfig(basePath)
     const localizationEnabled = config?.localization?.enabled === true
     toggleProxyByLocalizationFlag(basePath, localizationEnabled)
+
+    const { success } = copyGenerated(
+      path.join(tmpDir, '@generated'),
+      path.join(coreDir, '@generated')
+    )
+
+    if (!success) {
+      logger.log(
+        `${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`
+      )
+      logger.log(
+        `Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`
+      )
+    }
 
     scriptResult = spawnSync(`${packageManager} run build`, {
       shell: true,
