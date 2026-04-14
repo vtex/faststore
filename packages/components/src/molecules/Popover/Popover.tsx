@@ -217,7 +217,8 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   ref
 ) {
   // Use forwarded ref or internal ref for fallback
-  const popoverRef = ref || useRef<HTMLDivElement>(null)
+  const localRef = useRef<HTMLDivElement>(null)
+  const popoverRef = ref ?? localRef
 
   const [popoverPosition, setPopoverPosition] = useState<PopoverCoords>({
     top: 0,
