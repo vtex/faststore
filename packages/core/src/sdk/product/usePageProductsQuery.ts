@@ -1,3 +1,4 @@
+import storeConfig from 'discovery.config'
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
@@ -81,8 +82,23 @@ export const useCreateUseGalleryPage = (
   params?: UseCreateUseGalleryPageProps
 ) => {
   const initialPages = params?.initialPages?.search ? [params.initialPages] : []
+
+  // Seed the cache with the same region-aware key shape that useGalleryPage uses,
+  // so hasSameVariables correctly matches on first mount and avoids an unnecessary
+  // re-fetch of the SSR-loaded page.
+  const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
+  const { postalCode } = useSession()
   const initialVariables = params?.serverManyProductsVariables
-    ? [getKey(params.serverManyProductsVariables)]
+    ? [
+        getKey(
+          isDeliveryPromiseEnabled
+            ? {
+                ...params.serverManyProductsVariables,
+                _postalCode: postalCode ?? '',
+              }
+            : params.serverManyProductsVariables
+        ),
+      ]
     : []
 
   const [pages, setPages] =
@@ -98,7 +114,7 @@ export const useCreateUseGalleryPage = (
       itemsPerPage,
     } = useSearch()
 
-    const { postalCode } = useSession()
+    const { postalCode, isValidating: isSessionValidating } = useSession()
 
     const localizedVariables = useLocalizedVariables({
       first: itemsPerPage,
@@ -110,8 +126,12 @@ export const useCreateUseGalleryPage = (
 
     // Include postalCode in the cache key so pages are invalidated on region change.
     // _postalCode is not sent to the API — it only affects the local cache comparison.
+    // Only applied when deliveryPromise is enabled to avoid unnecessary cache fragmentation.
     const localizedVariablesWithRegion = useMemo(
-      () => ({ ...localizedVariables, _postalCode: postalCode ?? '' }),
+      () =>
+        isDeliveryPromiseEnabled
+          ? { ...localizedVariables, _postalCode: postalCode ?? '' }
+          : localizedVariables,
       [localizedVariables, postalCode]
     )
 
@@ -133,7 +153,8 @@ export const useCreateUseGalleryPage = (
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,
-      doNotRun: !shouldFetch,
+      doNotRun:
+        !shouldFetch || (isDeliveryPromiseEnabled && isSessionValidating),
     })
 
     const shouldUpdatePages = data !== null
