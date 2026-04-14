@@ -138,7 +138,7 @@ export const useProductGalleryQuery = ({
   selectedFacets,
   itemsPerPage,
 }: ProductGalleryQueryOptions) => {
-  const { locale, postalCode } = useSession()
+  const { locale } = useSession()
   const { state, setState } = useSearch()
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
@@ -149,7 +149,6 @@ export const useProductGalleryQuery = ({
   })
 
   const queryResult = useQuery<Query, Variables>(query, localizedVariables, {
-    keySuffix: postalCode ?? undefined,
     onSuccess: (data: Query) => {
       const updatedFuzzyFacetValue = data.search.metadata?.fuzzy
       const updatedOperatorFacetValue = data.search.metadata?.logicalOperator

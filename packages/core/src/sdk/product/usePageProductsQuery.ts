@@ -15,6 +15,7 @@ import {
   useState,
 } from 'react'
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useSession } from 'src/sdk/session'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
@@ -97,6 +98,8 @@ export const useCreateUseGalleryPage = (
       itemsPerPage,
     } = useSearch()
 
+    const { postalCode } = useSession()
+
     const localizedVariables = useLocalizedVariables({
       first: itemsPerPage,
       after: (itemsPerPage * page).toString(),
@@ -105,9 +108,16 @@ export const useCreateUseGalleryPage = (
       selectedFacets,
     })
 
+    // Include postalCode in the cache key so pages are invalidated on region change.
+    // _postalCode is not sent to the API — it only affects the local cache comparison.
+    const localizedVariablesWithRegion = useMemo(
+      () => ({ ...localizedVariables, _postalCode: postalCode ?? '' }),
+      [localizedVariables, postalCode]
+    )
+
     const hasSameVariables = deepEquals(
       pagesCache.current[page],
-      getKey(localizedVariables)
+      getKey(localizedVariablesWithRegion)
     )
 
     const shouldFetchFirstPage = useShouldFetchFirstPage({
@@ -129,7 +139,7 @@ export const useCreateUseGalleryPage = (
     const shouldUpdatePages = data !== null
 
     if (shouldUpdatePages) {
-      pagesCache.current[page] = getKey(localizedVariables)
+      pagesCache.current[page] = getKey(localizedVariablesWithRegion)
 
       // Update refs
       const newPages = [...pagesRef.current]
