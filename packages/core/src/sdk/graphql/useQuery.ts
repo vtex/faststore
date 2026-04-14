@@ -2,13 +2,12 @@ import type { SWRConfiguration } from 'swr'
 import useSWR from 'swr'
 
 import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
-import { sessionStore } from 'src/sdk/session'
 
 import type { Operation, RequestOptions } from './request'
 import { request } from './request'
 
 export type QueryOptions = SWRConfiguration &
-  RequestOptions & { doNotRun?: boolean; keySuffix?: string }
+  RequestOptions & { doNotRun?: boolean }
 
 export const getKey = <Variables>(
   operationName: string,
@@ -16,23 +15,16 @@ export const getKey = <Variables>(
 ) => `${operationName}::${JSON.stringify(variables)}`
 
 /**
- * Returns a suffix for the cache key based on auth state and region.
- * This ensures SWR keeps separate cache entries for:
- * - logged-in vs anonymous users (via person.id)
- * - different postal codes / regions (via postalCode)
- * Avoiding stale product data (e.g. prices, availability, delivery facets) when
- * switching session state or region.
+ * Returns a suffix for the cache key based on auth state (logged-in vs anonymous).
+ * This ensures SWR keeps separate cache entries for logged-in and logged-out users,
+ * avoiding stale product data (e.g. prices, availability) when switching session state.
  */
 const getSessionCacheKeySuffix = (): string => {
   if (typeof window === 'undefined') {
     return ''
   }
-  const authValue = getClientCacheBustingValue()
-  const postalCode =
-    sessionStore.read()?.postalCode ??
-    sessionStore.readInitial()?.postalCode ??
-    ''
-  return `${authValue ?? ''}::${postalCode}`
+  const value = getClientCacheBustingValue()
+  return value ?? ''
 }
 
 export const DEFAULT_OPTIONS = {
@@ -54,8 +46,7 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
       if (options?.doNotRun) return null
       const baseKey = getKey(operation['__meta__']['operationName'], variables)
       const sessionSuffix = getSessionCacheKeySuffix()
-      const extra = options?.keySuffix ? `::${options.keySuffix}` : ''
-      return `${baseKey}::${sessionSuffix}${extra}`
+      return `${baseKey}::${sessionSuffix}`
     },
     {
       fetcher: () => {
