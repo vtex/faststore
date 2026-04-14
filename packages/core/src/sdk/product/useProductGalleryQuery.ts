@@ -1,3 +1,4 @@
+import storeConfig from 'discovery.config'
 import { gql } from '@generated'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
@@ -138,7 +139,7 @@ export const useProductGalleryQuery = ({
   selectedFacets,
   itemsPerPage,
 }: ProductGalleryQueryOptions) => {
-  const { locale } = useSession()
+  const { locale, isValidating: isSessionValidating } = useSession()
   const { state, setState } = useSearch()
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
@@ -148,7 +149,10 @@ export const useProductGalleryQuery = ({
     selectedFacets,
   })
 
+  const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
+
   const queryResult = useQuery<Query, Variables>(query, localizedVariables, {
+    doNotRun: isDeliveryPromiseEnabled && isSessionValidating,
     onSuccess: (data: Query) => {
       const updatedFuzzyFacetValue = data.search.metadata?.fuzzy
       const updatedOperatorFacetValue = data.search.metadata?.logicalOperator
@@ -196,6 +200,7 @@ export const useProductGalleryQuery = ({
   const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
   const shouldRefetchQuery =
     !queryResult.error && (!fuzzyFacetValue || !operatorFacetValue)
+
   if (shouldRefetchQuery) {
     // The first result is not relevant, return null data to avoid rendering the page while the query is being re-fetched
     return { ...queryResult, isValidating: true, data: null }
