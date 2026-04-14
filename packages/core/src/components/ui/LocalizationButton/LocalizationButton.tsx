@@ -84,7 +84,6 @@ const LocalizationButton = ({
         <Icon
           data-localization-button-arrow
           name="CaretDown"
-          aria-hidden="true"
           width={16}
           height={16}
           aria-label={ariaLabel}
