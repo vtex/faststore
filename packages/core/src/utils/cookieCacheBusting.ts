@@ -1,6 +1,7 @@
 import { sessionStore } from 'src/sdk/session'
 
 export const STORAGE_KEY_PERSON_ID = 'faststore_person_id'
+export const STORAGE_KEY_POSTAL_CODE = 'faststore_postal_code'
 export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
   'faststore_cache_bust_last_value'
 
@@ -14,6 +15,18 @@ const getPersonId = (): string | null => {
   }
   const session = sessionStore.read() ?? sessionStore.readInitial()
   return session?.person?.id ?? null
+}
+
+/**
+ * Gets postalCode from session (via ValidateSession / region).
+ */
+const getPostalCodeFromSession = (): string | null => {
+  if (typeof window === 'undefined') {
+    return null
+  }
+  const session = sessionStore.read() ?? sessionStore.readInitial()
+  const postal = session?.postalCode?.trim()
+  return postal || null
 }
 
 /**
@@ -44,6 +57,40 @@ const storePersonId = (value: string | null): void => {
       sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)
     } else {
       sessionStorage.setItem(STORAGE_KEY_PERSON_ID, value)
+    }
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+/**
+ * Gets the stored postal code from sessionStorage (client-side only)
+ */
+const getStoredPostalCode = (): string | null => {
+  if (typeof sessionStorage === 'undefined') {
+    return null
+  }
+
+  try {
+    return sessionStorage.getItem(STORAGE_KEY_POSTAL_CODE)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Stores the postal code in sessionStorage (client-side only)
+ */
+const storePostalCode = (value: string | null): void => {
+  if (typeof sessionStorage === 'undefined') {
+    return
+  }
+
+  try {
+    if (value === null) {
+      sessionStorage.removeItem(STORAGE_KEY_POSTAL_CODE)
+    } else {
+      sessionStorage.setItem(STORAGE_KEY_POSTAL_CODE, value)
     }
   } catch {
     // Ignore storage errors
@@ -90,46 +137,67 @@ const clearCacheBustingStorage = (): void => {
 
   try {
     sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)
+    sessionStorage.removeItem(STORAGE_KEY_POSTAL_CODE)
     sessionStorage.removeItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
   } catch {
     // Ignore storage errors
   }
 }
 
+const buildCacheBustValue = (
+  timestamp: string,
+  personId: string | null,
+  postalCode: string | null
+) => `${timestamp}::${personId ?? ''}::${postalCode ?? ''}`
+
 /**
- * Gets cache busting value for client-side based on auth state changes.
- * Uses person?.id from session (via useSession/ValidateSession) since auth cookies
- * are now httpOnly and cannot be accessed via JavaScript.
+ * Gets cache busting value for client-side when session identity for caching changes.
+ * Uses person?.id and postalCode from session (via useSession/ValidateSession): auth cookies
+ * are httpOnly, but the session store reflects validated session including region.
  */
 export const getClientCacheBustingValue = (): string | null => {
   const currentPersonId = getPersonId()
+  const currentPostalCode = getPostalCodeFromSession()
 
-  // Guard clause: if user is not logged in (no person?.id), clear storage and don't proceed with cache busting logic
-  if (currentPersonId === null) {
+  if (currentPersonId === null && currentPostalCode === null) {
     clearCacheBustingStorage()
     return null
   }
 
   const storedPersonId = getStoredPersonId()
+  const storedPostalCode = getStoredPostalCode()
 
-  // If person changed (login/logout or different user), update stored value and return new value
-  if (currentPersonId !== storedPersonId) {
-    storePersonId(currentPersonId)
+  const personChanged = currentPersonId !== storedPersonId
+  const postalChanged = currentPostalCode !== storedPostalCode
+
+  if (personChanged || postalChanged) {
+    if (personChanged) {
+      storePersonId(currentPersonId)
+    }
+    if (postalChanged) {
+      storePostalCode(currentPostalCode)
+    }
     const timestamp = Date.now().toString()
-    const value = `${timestamp}::${currentPersonId}`
+    const value = buildCacheBustValue(
+      timestamp,
+      currentPersonId,
+      currentPostalCode
+    )
     storeLastValue(value)
     return value
   }
 
-  // Person hasn't changed, return last value or create one if it doesn't exist
   const lastValue = getLastValue()
   if (lastValue) {
     return lastValue
   }
 
-  // Fallback: if no last value, create one
   const timestamp = Date.now().toString()
-  const value = `${timestamp}::${currentPersonId}`
+  const value = buildCacheBustValue(
+    timestamp,
+    currentPersonId,
+    currentPostalCode
+  )
   storeLastValue(value)
   return value
 }
