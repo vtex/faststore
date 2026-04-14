@@ -3,7 +3,9 @@
   "description": "Collection of default schemas for FastStore.",
   "content-types": {
     "404": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Error 404",
@@ -19,7 +21,9 @@
       "identifierKeys": []
     },
     "500": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Error 500",
@@ -35,7 +39,9 @@
       "identifierKeys": []
     },
     "globalFooterSections": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Global Footer Sections",
@@ -106,7 +112,9 @@
       "identifierKeys": []
     },
     "globalHeaderSections": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Global Header Sections",
@@ -177,7 +185,9 @@
       "identifierKeys": []
     },
     "globalSections": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Global Sections",
@@ -245,8 +255,12 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["Arrow Square Out"],
-                      "enum": ["ArrowSquareOut"],
+                      "enumNames": [
+                        "Arrow Square Out"
+                      ],
+                      "enum": [
+                        "ArrowSquareOut"
+                      ],
                       "default": "ArrowSquareOut"
                     },
                     "alt": {
@@ -269,7 +283,10 @@
             "deliveryMethods": {
               "title": "PLP/Search Filter: Delivery Methods",
               "type": "object",
-              "required": ["title", "description"],
+              "required": [
+                "title",
+                "description"
+              ],
               "properties": {
                 "title": {
                   "title": "Title",
@@ -398,8 +415,12 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["Storefront"],
-                      "enum": ["Storefront"],
+                      "enumNames": [
+                        "Storefront"
+                      ],
+                      "enum": [
+                        "Storefront"
+                      ],
                       "default": "Storefront"
                     },
                     "alt": {
@@ -605,7 +626,9 @@
       "identifierKeys": []
     },
     "home": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Home",
@@ -617,7 +640,11 @@
           "widget": {
             "ui:ObjectFieldTemplate": "GoogleSeoPreview"
           },
-          "required": ["slug", "title", "description"],
+          "required": [
+            "slug",
+            "title",
+            "description"
+          ],
           "properties": {
             "slug": {
               "title": "Path",
@@ -657,7 +684,10 @@
             "organization": {
               "title": "Organization",
               "type": "object",
-              "required": ["name", "url"],
+              "required": [
+                "name",
+                "url"
+              ],
               "properties": {
                 "name": {
                   "title": "Organization name",
@@ -819,10 +849,14 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false,
-      "identifierKeys": ["slug"]
+      "identifierKeys": [
+        "slug"
+      ]
     },
     "landingPage": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": false,
       "type": "object",
       "title": "Landing Page",
@@ -841,7 +875,11 @@
           "widget": {
             "ui:ObjectFieldTemplate": "GoogleSeoPreview"
           },
-          "required": ["slug", "title", "description"],
+          "required": [
+            "slug",
+            "title",
+            "description"
+          ],
           "properties": {
             "slug": {
               "title": "Path",
@@ -938,10 +976,14 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false,
-      "identifierKeys": ["slug"]
+      "identifierKeys": [
+        "slug"
+      ]
     },
     "login": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Login",
@@ -957,7 +999,9 @@
       "identifierKeys": []
     },
     "pdp": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": false,
       "type": "object",
       "title": "Product Page",
@@ -1073,10 +1117,14 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false,
-      "identifierKeys": ["slug"]
+      "identifierKeys": [
+        "slug"
+      ]
     },
     "plp": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": false,
       "type": "object",
       "title": "Product List Page",
@@ -1111,7 +1159,10 @@
           "title": "Product Gallery",
           "description": "ProductGallery options",
           "type": "object",
-          "required": ["itemsPerPage", "sortBySelection"],
+          "required": [
+            "itemsPerPage",
+            "sortBySelection"
+          ],
           "properties": {
             "itemsPerPage": {
               "title": "Number of ProductCards per page",
@@ -1218,10 +1269,14 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false,
-      "identifierKeys": ["slug"]
+      "identifierKeys": [
+        "slug"
+      ]
     },
     "search": {
-      "$extends": ["#/components/base-page-template"],
+      "$extends": [
+        "#/components/base-page-template"
+      ],
       "$singleton": true,
       "type": "object",
       "title": "Search Page",
@@ -1244,7 +1299,10 @@
           "title": "Product Gallery",
           "description": "ProductGallery options",
           "type": "object",
-          "required": ["itemsPerPage", "sortBySelection"],
+          "required": [
+            "itemsPerPage",
+            "sortBySelection"
+          ],
           "properties": {
             "itemsPerPage": {
               "title": "Number of ProductCards per page",
@@ -1356,13 +1414,19 @@
   },
   "components": {
     "Alert": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Alert",
       "$componentTitle": "Alert",
       "title": "Alert",
       "description": "Add an alert",
       "type": "object",
-      "required": ["icon", "content", "dismissible"],
+      "required": [
+        "icon",
+        "content",
+        "dismissible"
+      ],
       "properties": {
         "icon": {
           "type": "string",
@@ -1375,7 +1439,14 @@
             "Truck",
             "User"
           ],
-          "enum": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"]
+          "enum": [
+            "Bell",
+            "BellRinging",
+            "Checked",
+            "Info",
+            "Truck",
+            "User"
+          ]
         },
         "content": {
           "type": "string",
@@ -1407,18 +1478,26 @@
       "$abstract": false
     },
     "BannerNewsletter": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "BannerNewsletter",
       "$componentTitle": "Banner Newsletter",
       "title": "Banner Newsletter",
       "description": "Add newsletter with a banner",
       "type": "object",
-      "required": ["banner", "newsletter"],
+      "required": [
+        "banner",
+        "newsletter"
+      ],
       "properties": {
         "banner": {
           "title": "Banner",
           "type": "object",
-          "required": ["title", "link"],
+          "required": [
+            "title",
+            "link"
+          ],
           "properties": {
             "title": {
               "title": "Title",
@@ -1433,7 +1512,10 @@
             "link": {
               "title": "Call to Action",
               "type": "object",
-              "required": ["text", "url"],
+              "required": [
+                "text",
+                "url"
+              ],
               "properties": {
                 "text": {
                   "title": "Text",
@@ -1450,15 +1532,29 @@
             "colorVariant": {
               "title": "Color variant",
               "type": "string",
-              "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"],
+              "enumNames": [
+                "Main",
+                "Light",
+                "Accent"
+              ],
+              "enum": [
+                "main",
+                "light",
+                "accent"
+              ],
               "default": "light"
             },
             "variant": {
               "title": "Variant",
               "type": "string",
-              "enumNames": ["Primary", "Secondary"],
-              "enum": ["primary", "secondary"],
+              "enumNames": [
+                "Primary",
+                "Secondary"
+              ],
+              "enum": [
+                "primary",
+                "secondary"
+              ],
               "default": "secondary"
             }
           }
@@ -1466,7 +1562,10 @@
         "newsletter": {
           "title": "Newsletter",
           "type": "object",
-          "required": ["title", "description"],
+          "required": [
+            "title",
+            "description"
+          ],
           "properties": {
             "icon": {
               "title": "Icon",
@@ -1475,8 +1574,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Envelope"],
-                  "enum": ["Envelope"],
+                  "enumNames": [
+                    "Envelope"
+                  ],
+                  "enum": [
+                    "Envelope"
+                  ],
                   "default": "Envelope"
                 },
                 "alt": {
@@ -1531,8 +1634,16 @@
             "colorVariant": {
               "title": "Color variant",
               "type": "string",
-              "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"],
+              "enumNames": [
+                "Main",
+                "Light",
+                "Accent"
+              ],
+              "enum": [
+                "main",
+                "light",
+                "accent"
+              ],
               "default": "main"
             },
             "toastSubscribe": {
@@ -1554,8 +1665,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["CircleWavyCheck"],
-                  "enum": ["CircleWavyCheck"],
+                  "enumNames": [
+                    "CircleWavyCheck"
+                  ],
+                  "enum": [
+                    "CircleWavyCheck"
+                  ],
                   "default": "CircleWavyCheck"
                 }
               }
@@ -1579,8 +1694,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["CircleWavyWarning"],
-                  "enum": ["CircleWavyWarning"],
+                  "enumNames": [
+                    "CircleWavyWarning"
+                  ],
+                  "enum": [
+                    "CircleWavyWarning"
+                  ],
                   "default": "CircleWavyWarning"
                 }
               }
@@ -1594,13 +1713,19 @@
       "$abstract": false
     },
     "BannerText": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "BannerText",
       "$componentTitle": "Banner Text",
       "title": "Banner Text",
       "description": "Add a quick promotion with a text/action pair",
       "type": "object",
-      "required": ["title", "caption", "link"],
+      "required": [
+        "title",
+        "caption",
+        "link"
+      ],
       "properties": {
         "title": {
           "title": "Title",
@@ -1613,7 +1738,10 @@
         "link": {
           "title": "Call to Action",
           "type": "object",
-          "required": ["text", "url"],
+          "required": [
+            "text",
+            "url"
+          ],
           "properties": {
             "text": {
               "title": "Text",
@@ -1633,14 +1761,28 @@
         "colorVariant": {
           "type": "string",
           "title": "Color variant",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"]
+          "enumNames": [
+            "Main",
+            "Light",
+            "Accent"
+          ],
+          "enum": [
+            "main",
+            "light",
+            "accent"
+          ]
         },
         "variant": {
           "type": "string",
           "title": "Variant",
-          "enumNames": ["Primary", "Secondary"],
-          "enum": ["primary", "secondary"]
+          "enumNames": [
+            "Primary",
+            "Secondary"
+          ],
+          "enum": [
+            "primary",
+            "secondary"
+          ]
         }
       },
       "readOnly": false,
@@ -1649,13 +1791,19 @@
       "$abstract": false
     },
     "Breadcrumb": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Breadcrumb",
       "$componentTitle": "Breadcrumb",
       "title": "Breadcrumb",
       "description": "Configure the breadcrumb icon and depth",
       "type": "object",
-      "required": ["icon", "alt", "fallbackLabel"],
+      "required": [
+        "icon",
+        "alt",
+        "fallbackLabel"
+      ],
       "properties": {
         "fallbackLabel": {
           "title": "Fallback label",
@@ -1666,8 +1814,12 @@
         "icon": {
           "title": "Icon",
           "type": "string",
-          "enumNames": ["House"],
-          "enum": ["House"],
+          "enumNames": [
+            "House"
+          ],
+          "enum": [
+            "House"
+          ],
           "default": "House"
         },
         "alt": {
@@ -1682,7 +1834,9 @@
       "$abstract": false
     },
     "CartSidebar": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "CartSidebar",
       "$componentTitle": "Cart Sidebar",
       "title": "Cart Sidebar",
@@ -1701,7 +1855,10 @@
             "icon": {
               "title": "Icon",
               "type": "object",
-              "required": ["icon", "alt"],
+              "required": [
+                "icon",
+                "alt"
+              ],
               "properties": {
                 "icon": {
                   "title": "Icon",
@@ -1757,7 +1914,11 @@
         "checkoutButton": {
           "title": "Checkout button",
           "type": "object",
-          "required": ["label", "loadingLabel", "icon"],
+          "required": [
+            "label",
+            "loadingLabel",
+            "icon"
+          ],
           "properties": {
             "label": {
               "title": "Label",
@@ -1772,13 +1933,20 @@
             "icon": {
               "title": "Icon",
               "type": "object",
-              "required": ["icon", "alt"],
+              "required": [
+                "icon",
+                "alt"
+              ],
               "properties": {
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["ArrowRight"],
-                  "enum": ["ArrowRight"],
+                  "enumNames": [
+                    "ArrowRight"
+                  ],
+                  "enum": [
+                    "ArrowRight"
+                  ],
                   "default": "ArrowRight"
                 },
                 "alt": {
@@ -1824,7 +1992,9 @@
       "$abstract": false
     },
     "Children": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Children",
       "$componentTitle": "Children",
       "title": "Children",
@@ -1836,13 +2006,19 @@
       "$abstract": false
     },
     "CrossSellingShelf": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "CrossSellingShelf",
       "$componentTitle": "Cross Selling Shelf",
       "title": "Cross Selling Shelf",
       "description": "Add cross selling product data to your users",
       "type": "object",
-      "required": ["title", "numberOfItems", "kind"],
+      "required": [
+        "title",
+        "numberOfItems",
+        "kind"
+      ],
       "properties": {
         "title": {
           "title": "Title",
@@ -1864,8 +2040,14 @@
           "title": "Kind",
           "description": "Change cross selling types",
           "default": "buy",
-          "enum": ["buy", "view"],
-          "enumNames": ["Who bought also bought", "Who saw also saw"]
+          "enum": [
+            "buy",
+            "view"
+          ],
+          "enumNames": [
+            "Who bought also bought",
+            "Who saw also saw"
+          ]
         },
         "taxesConfiguration": {
           "title": "Taxes Configuration",
@@ -1890,7 +2072,9 @@
       "$abstract": false
     },
     "EmptyState": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "EmptyState",
       "$componentTitle": "Empty State",
       "title": "Empty State",
@@ -1908,8 +2092,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyWarning"],
-              "enum": ["CircleWavyWarning"],
+              "enumNames": [
+                "CircleWavyWarning"
+              ],
+              "enum": [
+                "CircleWavyWarning"
+              ],
               "default": "CircleWavyWarning"
             },
             "alt": {
@@ -1968,7 +2156,9 @@
       "$abstract": false
     },
     "Footer": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Footer",
       "$componentTitle": "Footer",
       "title": "Footer",
@@ -1983,7 +2173,11 @@
           "items": {
             "title": "Incentive",
             "type": "object",
-            "required": ["title", "firstLineText", "icon"],
+            "required": [
+              "title",
+              "firstLineText",
+              "icon"
+            ],
             "properties": {
               "title": {
                 "type": "string",
@@ -2042,7 +2236,10 @@
                 "items": {
                   "title": "Link",
                   "type": "object",
-                  "required": ["text", "url"],
+                  "required": [
+                    "text",
+                    "url"
+                  ],
                   "properties": {
                     "text": {
                       "title": "Link Text",
@@ -2076,7 +2273,11 @@
               "items": {
                 "title": "Link",
                 "type": "object",
-                "required": ["alt", "url", "icon"],
+                "required": [
+                  "alt",
+                  "url",
+                  "icon"
+                ],
                 "properties": {
                   "icon": {
                     "title": "Icon",
@@ -2124,7 +2325,14 @@
                 "ui:widget": "media-gallery",
                 "restrictMediaTypes": {
                   "video": true,
-                  "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+                  "image": [
+                    "png",
+                    "jpg",
+                    "jpeg",
+                    "gif",
+                    "svg",
+                    "webp"
+                  ]
                 }
               }
             },
@@ -2135,7 +2343,10 @@
             "link": {
               "title": "Logo Link",
               "type": "object",
-              "required": ["url", "title"],
+              "required": [
+                "url",
+                "title"
+              ],
               "properties": {
                 "url": {
                   "title": "Link URL",
@@ -2158,7 +2369,9 @@
         "acceptedPaymentMethods": {
           "title": "Payment Methods Sections",
           "type": "object",
-          "required": ["showPaymentMethods"],
+          "required": [
+            "showPaymentMethods"
+          ],
           "properties": {
             "showPaymentMethods": {
               "title": "Display Payment Methods",
@@ -2176,7 +2389,10 @@
               "items": {
                 "title": "Payment Method",
                 "type": "object",
-                "required": ["icon", "alt"],
+                "required": [
+                  "icon",
+                  "alt"
+                ],
                 "properties": {
                   "icon": {
                     "type": "object",
@@ -2223,13 +2439,17 @@
       "$abstract": false
     },
     "Hero": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Hero",
       "$componentTitle": "Hero",
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
       "type": "object",
-      "required": ["title"],
+      "required": [
+        "title"
+      ],
       "properties": {
         "title": {
           "title": "Title",
@@ -2269,7 +2489,14 @@
                 "ui:widget": "media-gallery",
                 "restrictMediaTypes": {
                   "video": true,
-                  "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+                  "image": [
+                    "png",
+                    "jpg",
+                    "jpeg",
+                    "gif",
+                    "svg",
+                    "webp"
+                  ]
                 }
               }
             },
@@ -2282,14 +2509,28 @@
         "colorVariant": {
           "type": "string",
           "title": "Color variant",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"]
+          "enumNames": [
+            "Main",
+            "Light",
+            "Accent"
+          ],
+          "enum": [
+            "main",
+            "light",
+            "accent"
+          ]
         },
         "variant": {
           "type": "string",
           "title": "Variant",
-          "enumNames": ["Primary", "Secondary"],
-          "enum": ["primary", "secondary"]
+          "enumNames": [
+            "Primary",
+            "Secondary"
+          ],
+          "enum": [
+            "primary",
+            "secondary"
+          ]
         }
       },
       "readOnly": false,
@@ -2298,7 +2539,9 @@
       "$abstract": false
     },
     "Incentives": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Incentives",
       "$componentTitle": "Incentives",
       "title": "Incentives",
@@ -2313,7 +2556,11 @@
           "items": {
             "title": "Incentive",
             "type": "object",
-            "required": ["title", "firstLineText", "icon"],
+            "required": [
+              "title",
+              "firstLineText",
+              "icon"
+            ],
             "properties": {
               "title": {
                 "type": "string",
@@ -2359,18 +2606,24 @@
       "$abstract": false
     },
     "Navbar": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Navbar",
       "$componentTitle": "Navbar",
       "title": "Navbar",
       "description": "Navbar configuration",
       "type": "object",
-      "required": ["logo"],
+      "required": [
+        "logo"
+      ],
       "properties": {
         "logo": {
           "title": "Logo",
           "type": "object",
-          "required": ["src"],
+          "required": [
+            "src"
+          ],
           "properties": {
             "src": {
               "title": "Image",
@@ -2379,7 +2632,14 @@
                 "ui:widget": "media-gallery",
                 "restrictMediaTypes": {
                   "video": true,
-                  "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+                  "image": [
+                    "png",
+                    "jpg",
+                    "jpeg",
+                    "gif",
+                    "svg",
+                    "webp"
+                  ]
                 }
               }
             },
@@ -2390,7 +2650,10 @@
             "link": {
               "title": "Logo Link",
               "type": "object",
-              "required": ["url", "title"],
+              "required": [
+                "url",
+                "title"
+              ],
               "properties": {
                 "url": {
                   "title": "Link URL",
@@ -2408,7 +2671,9 @@
           "title": "Search Input",
           "description": "Search Input configurations",
           "type": "object",
-          "required": ["sort"],
+          "required": [
+            "sort"
+          ],
           "properties": {
             "placeholder": {
               "title": "Placeholder for Search Bar",
@@ -2489,7 +2754,10 @@
                           "items": {
                             "title": "Column",
                             "type": "object",
-                            "required": ["label", "value"],
+                            "required": [
+                              "label",
+                              "value"
+                            ],
                             "properties": {
                               "label": {
                                 "title": "Label",
@@ -2515,7 +2783,10 @@
                               "title": "Stock display settings",
                               "description": "Control how the stock status of your products is displayed to customers on your online store.",
                               "type": "string",
-                              "enum": ["showAvailability", "showStockQuantity"],
+                              "enum": [
+                                "showAvailability",
+                                "showStockQuantity"
+                              ],
                               "enumNames": [
                                 "Show availability (Available/Out of Stock)",
                                 "Show stock quantity"
@@ -2586,8 +2857,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["User"],
-                  "enum": ["User"],
+                  "enumNames": [
+                    "User"
+                  ],
+                  "enum": [
+                    "User"
+                  ],
                   "default": "User"
                 },
                 "alt": {
@@ -2616,8 +2891,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Shopping Cart"],
-              "enum": ["ShoppingCart"],
+              "enumNames": [
+                "Shopping Cart"
+              ],
+              "enum": [
+                "ShoppingCart"
+              ],
               "default": "ShoppingCart"
             },
             "alt": {
@@ -2647,8 +2926,12 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["Map Pin"],
-                      "enum": ["MapPin"],
+                      "enumNames": [
+                        "Map Pin"
+                      ],
+                      "enum": [
+                        "MapPin"
+                      ],
                       "default": "MapPin"
                     },
                     "alt": {
@@ -2681,8 +2964,12 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["Globe"],
-                      "enum": ["Globe"],
+                      "enumNames": [
+                        "Globe"
+                      ],
+                      "enum": [
+                        "Globe"
+                      ],
                       "default": "Globe"
                     }
                   }
@@ -2758,7 +3045,10 @@
               "items": {
                 "title": "Link",
                 "type": "object",
-                "required": ["text", "url"],
+                "required": [
+                  "text",
+                  "url"
+                ],
                 "properties": {
                   "text": {
                     "title": "Link Text",
@@ -2782,8 +3072,12 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["List"],
-                      "enum": ["List"],
+                      "enumNames": [
+                        "List"
+                      ],
+                      "enum": [
+                        "List"
+                      ],
                       "default": "List"
                     },
                     "alt": {
@@ -2815,13 +3109,17 @@
       "$abstract": false
     },
     "Newsletter": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Newsletter",
       "$componentTitle": "Newsletter",
       "title": "Newsletter",
       "description": "Allow users to subscribe to your updates",
       "type": "object",
-      "required": ["title"],
+      "required": [
+        "title"
+      ],
       "properties": {
         "icon": {
           "title": "Icon",
@@ -2830,8 +3128,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Envelope"],
-              "enum": ["Envelope"],
+              "enumNames": [
+                "Envelope"
+              ],
+              "enum": [
+                "Envelope"
+              ],
               "default": "Envelope"
             },
             "alt": {
@@ -2891,8 +3193,16 @@
         "colorVariant": {
           "title": "Color variant",
           "type": "string",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"],
+          "enumNames": [
+            "Main",
+            "Light",
+            "Accent"
+          ],
+          "enum": [
+            "main",
+            "light",
+            "accent"
+          ],
           "default": "main"
         },
         "toastSubscribe": {
@@ -2914,8 +3224,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyCheck"],
-              "enum": ["CircleWavyCheck"],
+              "enumNames": [
+                "CircleWavyCheck"
+              ],
+              "enum": [
+                "CircleWavyCheck"
+              ],
               "default": "CircleWavyCheck"
             }
           }
@@ -2939,8 +3253,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyWarning"],
-              "enum": ["CircleWavyWarning"],
+              "enumNames": [
+                "CircleWavyWarning"
+              ],
+              "enum": [
+                "CircleWavyWarning"
+              ],
               "default": "CircleWavyWarning"
             }
           }
@@ -2952,7 +3270,9 @@
       "$abstract": false
     },
     "ProductDetails": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "ProductDetails",
       "$componentTitle": "Product Details",
       "title": "Product Details",
@@ -2975,8 +3295,14 @@
                 "size": {
                   "title": "Size",
                   "type": "string",
-                  "enumNames": ["Big", "Small"],
-                  "enum": ["big", "small"]
+                  "enumNames": [
+                    "Big",
+                    "Small"
+                  ],
+                  "enum": [
+                    "big",
+                    "small"
+                  ]
                 }
               }
             },
@@ -3008,8 +3334,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Shopping Cart"],
-                  "enum": ["ShoppingCart"]
+                  "enumNames": [
+                    "Shopping Cart"
+                  ],
+                  "enum": [
+                    "ShoppingCart"
+                  ]
                 },
                 "alt": {
                   "type": "string",
@@ -3074,8 +3404,16 @@
             "initiallyExpanded": {
               "type": "string",
               "title": "Initially Expanded?",
-              "enumNames": ["First", "All", "None"],
-              "enum": ["first", "all", "none"]
+              "enumNames": [
+                "First",
+                "All",
+                "None"
+              ],
+              "enum": [
+                "first",
+                "all",
+                "none"
+              ]
             },
             "displayDescription": {
               "title": "Should display description?",
@@ -3174,7 +3512,10 @@
                   "items": {
                     "title": "Column",
                     "type": "object",
-                    "required": ["label", "value"],
+                    "required": [
+                      "label",
+                      "value"
+                    ],
                     "properties": {
                       "label": {
                         "title": "Label",
@@ -3200,7 +3541,10 @@
                       "title": "Stock display settings",
                       "description": "Control how the stock status of your products is displayed to customers on your online store.",
                       "type": "string",
-                      "enum": ["showAvailability", "showStockQuantity"],
+                      "enum": [
+                        "showAvailability",
+                        "showStockQuantity"
+                      ],
                       "enumNames": [
                         "Show availability (Available/Out of Stock)",
                         "Show stock quantity"
@@ -3230,13 +3574,17 @@
       "$abstract": false
     },
     "ProductGallery": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "ProductGallery",
       "$componentTitle": "Product Gallery",
       "title": "Product Gallery",
       "description": "Product Gallery configuration",
       "type": "object",
-      "required": ["filter"],
+      "required": [
+        "filter"
+      ],
       "properties": {
         "searchTermLabel": {
           "title": "Search page term label",
@@ -3251,7 +3599,10 @@
         "previousPageButton": {
           "title": "Previous page button",
           "type": "object",
-          "required": ["icon", "label"],
+          "required": [
+            "icon",
+            "label"
+          ],
           "properties": {
             "icon": {
               "title": "Icon",
@@ -3260,8 +3611,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["ArrowLeft"],
-                  "enum": ["ArrowLeft"],
+                  "enumNames": [
+                    "ArrowLeft"
+                  ],
+                  "enum": [
+                    "ArrowLeft"
+                  ],
                   "default": "ArrowLeft"
                 },
                 "alt": {
@@ -3281,7 +3636,9 @@
         "loadMorePageButton": {
           "title": "Load more products Button",
           "type": "object",
-          "required": ["label"],
+          "required": [
+            "label"
+          ],
           "properties": {
             "label": {
               "title": "Load more products label",
@@ -3293,7 +3650,10 @@
         "sortBySelector": {
           "title": "Sort by selector",
           "type": "object",
-          "required": ["label", "options"],
+          "required": [
+            "label",
+            "options"
+          ],
           "properties": {
             "label": {
               "title": "Label",
@@ -3361,7 +3721,10 @@
         "filter": {
           "title": "Filter",
           "type": "object",
-          "required": ["title", "mobileOnly"],
+          "required": [
+            "title",
+            "mobileOnly"
+          ],
           "properties": {
             "title": {
               "title": "Filter title",
@@ -3380,7 +3743,10 @@
                 "filterButton": {
                   "title": "Show filter button",
                   "type": "object",
-                  "required": ["label", "icon"],
+                  "required": [
+                    "label",
+                    "icon"
+                  ],
                   "properties": {
                     "label": {
                       "title": "Label",
@@ -3390,13 +3756,20 @@
                     "icon": {
                       "title": "Icon",
                       "type": "object",
-                      "required": ["icon", "alt"],
+                      "required": [
+                        "icon",
+                        "alt"
+                      ],
                       "properties": {
                         "icon": {
                           "title": "Icon",
                           "type": "string",
-                          "enumNames": ["FadersHorizontal"],
-                          "enum": ["FadersHorizontal"],
+                          "enumNames": [
+                            "FadersHorizontal"
+                          ],
+                          "enum": [
+                            "FadersHorizontal"
+                          ],
                           "default": "FadersHorizontal"
                         },
                         "alt": {
@@ -3495,8 +3868,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["CircleWavyWarning"],
-                  "enum": ["CircleWavyWarning"],
+                  "enumNames": [
+                    "CircleWavyWarning"
+                  ],
+                  "enum": [
+                    "CircleWavyWarning"
+                  ],
                   "default": "CircleWavyWarning"
                 }
               }
@@ -3518,8 +3895,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["RocketLaunch"],
-                  "enum": ["RocketLaunch"],
+                  "enumNames": [
+                    "RocketLaunch"
+                  ],
+                  "enum": [
+                    "RocketLaunch"
+                  ],
                   "default": "RocketLaunch"
                 }
               }
@@ -3644,13 +4025,20 @@
       "$abstract": false
     },
     "ProductShelf": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "ProductShelf",
       "$componentTitle": "Product Shelf",
       "title": "Product Shelf",
       "description": "Add custom shelves to your store",
       "type": "object",
-      "required": ["title", "numberOfItems", "after", "sort"],
+      "required": [
+        "title",
+        "numberOfItems",
+        "after",
+        "sort"
+      ],
       "properties": {
         "title": {
           "type": "string",
@@ -3709,7 +4097,10 @@
           "items": {
             "title": "Facet",
             "type": "object",
-            "required": ["key", "value"],
+            "required": [
+              "key",
+              "value"
+            ],
             "properties": {
               "key": {
                 "title": "Key",
@@ -3765,13 +4156,20 @@
       "$abstract": false
     },
     "ProductTiles": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "ProductTiles",
       "$componentTitle": "Product Tiles",
       "title": "Product Tiles",
       "description": "Add custom highlights to your store",
       "type": "object",
-      "required": ["title", "first", "after", "sort"],
+      "required": [
+        "title",
+        "first",
+        "after",
+        "sort"
+      ],
       "properties": {
         "title": {
           "title": "Title",
@@ -3824,7 +4222,10 @@
           "items": {
             "title": "Facet",
             "type": "object",
-            "required": ["key", "value"],
+            "required": [
+              "key",
+              "value"
+            ],
             "properties": {
               "key": {
                 "title": "Key",
@@ -3864,13 +4265,17 @@
       "$abstract": false
     },
     "RegionBar": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "RegionBar",
       "$componentTitle": "Region Bar",
       "title": "Region Bar",
       "description": "Region Bar configuration",
       "type": "object",
-      "required": ["label"],
+      "required": [
+        "label"
+      ],
       "properties": {
         "icon": {
           "title": "Location icon",
@@ -3879,8 +4284,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Map Pin"],
-              "enum": ["MapPin"],
+              "enumNames": [
+                "Map Pin"
+              ],
+              "enum": [
+                "MapPin"
+              ],
               "default": "MapPin"
             },
             "alt": {
@@ -3908,8 +4317,12 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Caret Right"],
-              "enum": ["CaretRight"],
+              "enumNames": [
+                "Caret Right"
+              ],
+              "enum": [
+                "CaretRight"
+              ],
               "default": "CaretRight"
             },
             "alt": {
@@ -3926,7 +4339,9 @@
       "$abstract": false
     },
     "RegionModal": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "RegionModal",
       "$componentTitle": "Region Modal",
       "title": "Region Modal",
@@ -3996,8 +4411,12 @@
                   "title": "Icon",
                   "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
-                  "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"]
+                  "enumNames": [
+                    "Arrow Square Out"
+                  ],
+                  "enum": [
+                    "ArrowSquareOut"
+                  ]
                 },
                 "alt": {
                   "title": "Alternative Label",
@@ -4015,7 +4434,9 @@
       "$abstract": false
     },
     "RegionPopover": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "RegionPopover",
       "$componentTitle": "Region Popover",
       "title": "Region Popover",
@@ -4097,8 +4518,12 @@
                   "title": "Icon",
                   "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
                   "type": "string",
-                  "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"]
+                  "enumNames": [
+                    "Arrow Square Out"
+                  ],
+                  "enum": [
+                    "ArrowSquareOut"
+                  ]
                 },
                 "alt": {
                   "title": "Alternative Label",
@@ -4116,13 +4541,17 @@
       "$abstract": false
     },
     "ScrollToTopButton": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "ScrollToTopButton",
       "$componentTitle": "Scroll to Top Button",
       "title": "Scroll to Top Button",
       "description": "A button to scroll the page back to the top",
       "type": "object",
-      "required": ["text"],
+      "required": [
+        "text"
+      ],
       "properties": {
         "text": {
           "title": "Button Text",
@@ -4134,8 +4563,14 @@
           "title": "Icon Position",
           "description": "Position of the icon relative to the text",
           "type": "string",
-          "enumNames": ["Left", "Right"],
-          "enum": ["left", "right"],
+          "enumNames": [
+            "Left",
+            "Right"
+          ],
+          "enum": [
+            "left",
+            "right"
+          ],
           "default": "left"
         }
       },
@@ -4145,7 +4580,9 @@
       "$abstract": false
     },
     "Search": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "Search",
       "$componentTitle": "Search Bar",
       "title": "Search Bar",
@@ -4174,8 +4611,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"],
+                  "enumNames": [
+                    "Magnifying Glass"
+                  ],
+                  "enum": [
+                    "MagnifyingGlass"
+                  ],
                   "default": "MagnifyingGlass"
                 },
                 "alt": {
@@ -4208,8 +4649,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Clock Clockwise"],
-                  "enum": ["ClockClockwise"],
+                  "enumNames": [
+                    "Clock Clockwise"
+                  ],
+                  "enum": [
+                    "ClockClockwise"
+                  ],
                   "default": "ClockClockwise"
                 },
                 "alt": {
@@ -4253,8 +4698,12 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"]
+                  "enumNames": [
+                    "Magnifying Glass"
+                  ],
+                  "enum": [
+                    "MagnifyingGlass"
+                  ]
                 },
                 "alt": {
                   "type": "string",
@@ -4293,7 +4742,9 @@
       "$abstract": false
     },
     "ShoppingAssistant": {
-      "$extends": ["#/$defs/base-component"],
+      "$extends": [
+        "#/$defs/base-component"
+      ],
       "$componentKey": "ShoppingAssistant",
       "$componentTitle": "Shopping Assistant",
       "title": "Shopping Assistant",
