@@ -7,10 +7,10 @@ import storeConfig from '../../discovery.config'
 
 import { isSecureAuthCookieForMiddleware } from './password-protection/auth-cookie'
 import {
-  webopsPasswordProtectionPublicKeyUrl,
-  webopsPasswordProtectionRenewUrl,
-  webopsPasswordProtectionStatusUrl,
-  webopsPasswordProtectionTimeouts,
+  publicKeyUrl,
+  renewUrl,
+  protectionStatusUrl,
+  passwordProtectionTimeouts,
 } from './password-protection/webops-api'
 
 const COOKIE_NAME = '__fs_auth_token'
@@ -37,8 +37,8 @@ let publicKeyCache: {
 } | null = null
 
 async function fetchPublicKeyPemFromWebOps(): Promise<string> {
-  const res = await fetch(webopsPasswordProtectionPublicKeyUrl(), {
-    signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.publicKeyMs),
+  const res = await fetch(publicKeyUrl, {
+    signal: AbortSignal.timeout(passwordProtectionTimeouts.publicKeyMs),
   })
 
   if (!res.ok) {
@@ -181,14 +181,14 @@ export class AuthenticationService {
     payload: TokenPayload
   ): Promise<AuthResult> {
     try {
-      const res = await fetch(webopsPasswordProtectionRenewUrl(), {
+      const res = await fetch(renewUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           storeId: this.storeId,
           expiredToken,
         }),
-        signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.defaultMs),
+        signal: AbortSignal.timeout(passwordProtectionTimeouts.defaultMs),
       })
 
       if (res.ok) {
@@ -214,12 +214,12 @@ export class AuthenticationService {
 
   private async handleNoAuth(request: NextRequest): Promise<AuthResult> {
     try {
-      const res = await fetch(webopsPasswordProtectionStatusUrl(this.storeId), {
-        signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.defaultMs),
+      const res = await fetch(protectionStatusUrl, {
+        signal: AbortSignal.timeout(passwordProtectionTimeouts.defaultMs),
       })
 
       if (!res.ok) {
-        return this.failClosed(request)
+        return { response: this.redirectToLogin(request) }
       }
 
       const status = await res.json()
@@ -240,19 +240,8 @@ export class AuthenticationService {
 
       return { response: this.redirectToLogin(request) }
     } catch {
-      return this.failClosed(request)
-    }
-  }
-
-  private failClosed(request: NextRequest): AuthResult {
-    const hostname = request.headers.get('host') || ''
-
-    if (hostname.endsWith('.vtex.app')) {
       return { response: this.redirectToLogin(request) }
     }
-
-    // Custom domains fail-open to protect production reliability
-    return { response: NextResponse.next() }
   }
 
   private setAuthCookie(

@@ -65,13 +65,15 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes, including api/fs/auth/login)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - fs-auth-login (password protection login page)
+     * Match all paths including `/`
+     * Exclude:
+     * - api (e.g. api/fs/auth/login)
+     * - _next/static, _next/image
+     * - favicon.ico
+     * - fs-auth-login (login page)
+     * - ~partytown (partytown scripts)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login).*)',
+    '/',
+    '/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown).*)',
   ],
 }
