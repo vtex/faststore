@@ -1,4 +1,5 @@
 import { Button, InputField } from '@faststore/ui'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { type FormEvent, useState } from 'react'
 
@@ -44,6 +45,9 @@ export default function PasswordProtectionLogin() {
 
   return (
     <div className={styles.fsAuthLogin}>
+      <Head>
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
       <div className={styles.page}>
         <h1 className={styles.title}>This store is password protected</h1>
 
