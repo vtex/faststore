@@ -3,12 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0-dev.1](https://github.com/vtex/faststore/compare/v3.99.0-dev.0...v3.99.0-dev.1) (2026-04-15)
+
+**Note:** Version bump only for package faststore
+
 # [3.99.0-dev.0](https://github.com/vtex/faststore/compare/v3.98.1-dev.0...v3.99.0-dev.0) (2026-03-31)
 
 ### Features
 
 - Add Shopping Assistant component to FastStore schema ([#3255](https://github.com/vtex/faststore/issues/3255)) ([f4c8ea6](https://github.com/vtex/faststore/commit/f4c8ea65da468d26acac198071882523a8a57215))
-
 
 ## [3.98.2](https://github.com/vtex/faststore/compare/v3.98.1...v3.98.2) (2026-04-09)
 
@@ -84,7 +87,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - add mpn (manufacturer code) to product's structured data ([#3234](https://github.com/vtex/faststore/issues/3234)) ([9597e39](https://github.com/vtex/faststore/commit/9597e39a8d63a651b815f90fe3b1ea5409258ca3))
 
-
 # 3.98.0-dev.1 (2026-02-24)
 
 ### Features
@@ -96,7 +98,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - release version 20260224 ([#3225](https://github.com/vtex/faststore/issues/3225)) ([7a52516](https://github.com/vtex/faststore/commit/7a5251677a8f67066a2e060191b896ae6d0b0d9a))
-
 
 ## [3.97.1](https://github.com/vtex/faststore/compare/v3.97.0...v3.97.1) (2026-02-24)
 
