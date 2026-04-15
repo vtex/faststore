@@ -47,6 +47,10 @@ export async function middleware(request: NextRequest) {
         const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
         const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
 
+        for (const cookie of authResult.response.cookies.getAll()) {
+          response.cookies.set(cookie)
+        }
+
         response.headers.set(
           'Cache-Control',
           'public, max-age=300, stale-while-revalidate=31536000'
