@@ -109,7 +109,11 @@ describe('AuthenticationService', () => {
       'neg-cache-token'
     )
     expect(global.fetch).toHaveBeenCalledWith(
-      expect.stringContaining('/api/v1/password-protection/status'),
+      expect.objectContaining({
+        href: expect.stringMatching(
+          /\/api\/v1\/password-protection\/status.*storeId=test-store/
+        ),
+      }),
       expect.any(Object)
     )
   })
@@ -148,6 +152,58 @@ describe('AuthenticationService', () => {
     const { response } = await service.authenticateRequest(previewRequest('/p'))
 
     expect(response.status).toBe(200)
+  })
+
+  it('redirects to login when protected for ALL_DOMAINS on custom host', async () => {
+    process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = 'true'
+    ;(global.fetch as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        protected: true,
+        scope: 'ALL_DOMAINS',
+      }),
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      new NextRequest('https://shop.example.com/checkout', {
+        headers: { host: 'shop.example.com' },
+      })
+    )
+
+    expect(response.status).toBe(307)
+    expect(response.headers.get('location')).toContain('returnTo=%2Fcheckout')
+  })
+
+  it('allows traffic when JWT is valid and store is password-protected', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+
+    jwtVerifyMock.mockResolvedValueOnce({
+      payload: {
+        storeId: 'test-store',
+        protected: true,
+        scope: 'DEFAULT_DOMAINS',
+      },
+      protectedHeader: { alg: 'RS256' },
+    } as unknown as Awaited<ReturnType<typeof jwtVerify>>)
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/account', {
+        headers: { cookie: '__fs_auth_token=valid' },
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+    expect((global.fetch as jest.Mock).mock.calls[0][0]).toEqual(
+      expect.objectContaining({
+        pathname: '/api/v1/password-protection/public-key',
+      })
+    )
   })
 
   it('verifies JWT locally when cookie present (not protected payload)', async () => {
@@ -210,6 +266,33 @@ describe('AuthenticationService', () => {
     expect(response.status).toBe(307)
   })
 
+  it('falls back to status when cookie JWT fails verification for non-expiry reasons', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+    jwtVerifyMock.mockRejectedValueOnce(new Error('invalid signature'))
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        protected: false,
+        token: 'after-bad-jwt',
+      }),
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=garbage' },
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.cookies.get('__fs_auth_token')?.value).toBe('after-bad-jwt')
+    expect(jwtVerifyMock).toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledTimes(2)
+  })
+
   it('renews session when JWT is expired and WebOps renew succeeds', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
@@ -244,6 +327,87 @@ describe('AuthenticationService', () => {
     expect(response.cookies.get('__fs_auth_token')?.value).toBe('renewed-token')
   })
 
+  it('redirects to login when JWT is expired and renew response is not ok', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+    jwtVerifyMock.mockRejectedValueOnce(
+      new errors.JWTExpired('jwt expired', { storeId: 'test-store' })
+    )
+    decodeJwtMock.mockReturnValueOnce({
+      storeId: 'test-store',
+      protected: true,
+      scope: 'DEFAULT_DOMAINS',
+    } as ReturnType<typeof decodeJwt>)
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 502,
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=expired' },
+      })
+    )
+
+    expect(response.status).toBe(307)
+  })
+
+  it('redirects to login when JWT is expired and renew body is not valid', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+    jwtVerifyMock.mockRejectedValueOnce(
+      new errors.JWTExpired('jwt expired', { storeId: 'test-store' })
+    )
+    decodeJwtMock.mockReturnValueOnce({
+      storeId: 'test-store',
+      protected: true,
+      scope: 'DEFAULT_DOMAINS',
+    } as ReturnType<typeof decodeJwt>)
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ valid: false }),
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=expired' },
+      })
+    )
+
+    expect(response.status).toBe(307)
+  })
+
+  it('allows traffic when renew fails but expired JWT scope does not apply to this host', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+    jwtVerifyMock.mockRejectedValueOnce(
+      new errors.JWTExpired('jwt expired', { storeId: 'test-store' })
+    )
+    decodeJwtMock.mockReturnValueOnce({
+      storeId: 'test-store',
+      protected: true,
+      scope: 'CUSTOM_DOMAINS',
+    } as ReturnType<typeof decodeJwt>)
+    ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('renew down'))
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=old' },
+      })
+    )
+
+    expect(response.status).toBe(200)
+  })
+
   it('fail-closes to login on default domain when status request fails', async () => {
     ;(global.fetch as jest.Mock).mockRejectedValue(new Error('network'))
 
@@ -254,7 +418,20 @@ describe('AuthenticationService', () => {
     expect(response.headers.get('location')).toContain('/fs-auth-login')
   })
 
-  it('fail-opens on custom domain when status request fails', async () => {
+  it('fail-closes to login when status endpoint returns a non-ok HTTP status', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue({
+      ok: false,
+      status: 503,
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(previewRequest('/p'))
+
+    expect(response.status).toBe(307)
+    expect(response.headers.get('location')).toContain('/fs-auth-login')
+  })
+
+  it('fail-closes to login on custom domain when status request fails', async () => {
     process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = 'true'
     ;(global.fetch as jest.Mock).mockRejectedValue(new Error('network'))
 
@@ -265,7 +442,8 @@ describe('AuthenticationService', () => {
 
     const { response } = await service.authenticateRequest(request)
 
-    expect(response.status).toBe(200)
+    expect(response.status).toBe(307)
+    expect(response.headers.get('location')).toContain('/fs-auth-login')
   })
 
   it('does not enforce protection on custom domain when env gate is off', async () => {
