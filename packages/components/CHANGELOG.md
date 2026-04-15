@@ -9,6 +9,49 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - simplify city and postal code display logic in `RegionBar` and `RegionButton` ([#3259](https://github.com/vtex/faststore/issues/3259)) ([8944bee](https://github.com/vtex/faststore/commit/8944bee9cb92ccea2b6ca24309cfa5478b6f4d0d))
 
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/components
+
+# 3.98.0 (2026-03-27)
+
+- Set `after` attribute as string instead of integer ([#3245](https://github.com/vtex/faststore/issues/3245)) ([c40d3fc](https://github.com/vtex/faststore/commit/c40d3fcf0018099cc067bb7082757535ca9839b0))
+
+### Features
+
+- version 2026 03 27 ([#3251](https://github.com/vtex/faststore/issues/3251)) ([f330a43](https://github.com/vtex/faststore/commit/f330a43661567ad8edb468acd3416bb7ffacd8b6))
+
+# [3.98.0-dev.8](https://github.com/vtex/faststore/compare/v3.98.0-dev.7...v3.98.0-dev.8) (2026-03-27)
+
+### Features
+
+- Add Quick Order Full Feature ([#3197](https://github.com/vtex/faststore/issues/3197)) ([f5518d7](https://github.com/vtex/faststore/commit/f5518d7f205dccad99b6ea0a127fd09cf77d1edb))
+
+# [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
+
+### Features
+
+- Add ActivityFlow data parameters with search-related information ([#3105](https://github.com/vtex/faststore/issues/3105)) ([8f69ff8](https://github.com/vtex/faststore/commit/8f69ff855c31abedba66071132240c53a93ab56d))
+
+
+# 3.98.0-dev.1 (2026-02-24)
+
+**Note:** Version bump only for package @faststore/components
+
+## [Unreleased]
+
+### Features
+
+- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
+- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
+- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
+
+# [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
+
+### Features
+
+- release version 20260224 ([#3225](https://github.com/vtex/faststore/issues/3225)) ([7a52516](https://github.com/vtex/faststore/commit/7a5251677a8f67066a2e060191b896ae6d0b0d9a))
+
 # 3.97.0-dev.2 (2026-02-06)
 
 # [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
