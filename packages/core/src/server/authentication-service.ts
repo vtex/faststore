@@ -141,6 +141,13 @@ export class AuthenticationService {
     return payload.storeId === this.storeId
   }
 
+  private isJwtExpiredError(error: unknown): boolean {
+    return (
+      error instanceof errors.JWTExpired ||
+      (error instanceof Error && error.name === 'JWTExpired')
+    )
+  }
+
   private async verifyToken(token: string): Promise<{
     valid: boolean
     expired: boolean
@@ -161,7 +168,7 @@ export class AuthenticationService {
         payload: p,
       }
     } catch (error) {
-      if (error instanceof errors.JWTExpired) {
+      if (this.isJwtExpiredError(error)) {
         const payload = decodeJwt(token) as unknown as TokenPayload
 
         if (!this.payloadMatchesStore(payload)) {
