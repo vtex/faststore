@@ -267,7 +267,8 @@ export class AuthenticationService {
 
   private redirectToLogin(request: NextRequest): NextResponse {
     const loginUrl = new URL('/fs-auth-login', request.url)
-    loginUrl.searchParams.set('returnTo', request.nextUrl.pathname)
+    const returnTo = `${request.nextUrl.pathname}${request.nextUrl.search}`
+    loginUrl.searchParams.set('returnTo', returnTo)
 
     return NextResponse.redirect(loginUrl)
   }
