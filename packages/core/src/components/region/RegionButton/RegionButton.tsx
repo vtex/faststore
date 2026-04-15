@@ -19,7 +19,11 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
       onClick={openModal}
       ref={regionButtonRef}
     >
-      {city && postalCode ? `${textToTitleCase(city)}, ${postalCode}` : label}
+      {postalCode
+        ? city
+          ? `${textToTitleCase(city)}, ${postalCode}`
+          : postalCode
+        : label}
     </UIButton>
   )
 }

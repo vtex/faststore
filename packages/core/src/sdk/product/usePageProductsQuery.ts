@@ -1,3 +1,4 @@
+import storeConfig from 'discovery.config'
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
@@ -15,6 +16,7 @@ import {
   useState,
 } from 'react'
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useSession } from 'src/sdk/session'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
@@ -80,8 +82,23 @@ export const useCreateUseGalleryPage = (
   params?: UseCreateUseGalleryPageProps
 ) => {
   const initialPages = params?.initialPages?.search ? [params.initialPages] : []
+
+  // Seed the cache with the same region-aware key shape that useGalleryPage uses,
+  // so hasSameVariables correctly matches on first mount and avoids an unnecessary
+  // re-fetch of the SSR-loaded page.
+  const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
+  const { postalCode } = useSession()
   const initialVariables = params?.serverManyProductsVariables
-    ? [getKey(params.serverManyProductsVariables)]
+    ? [
+        getKey(
+          isDeliveryPromiseEnabled
+            ? {
+                ...params.serverManyProductsVariables,
+                _postalCode: postalCode ?? '',
+              }
+            : params.serverManyProductsVariables
+        ),
+      ]
     : []
 
   const [pages, setPages] =
@@ -97,6 +114,8 @@ export const useCreateUseGalleryPage = (
       itemsPerPage,
     } = useSearch()
 
+    const { postalCode, isValidating: isSessionValidating } = useSession()
+
     const localizedVariables = useLocalizedVariables({
       first: itemsPerPage,
       after: (itemsPerPage * page).toString(),
@@ -105,9 +124,20 @@ export const useCreateUseGalleryPage = (
       selectedFacets,
     })
 
+    // Include postalCode in the cache key so pages are invalidated on region change.
+    // _postalCode is not sent to the API — it only affects the local cache comparison.
+    // Only applied when deliveryPromise is enabled to avoid unnecessary cache fragmentation.
+    const localizedVariablesWithRegion = useMemo(
+      () =>
+        isDeliveryPromiseEnabled
+          ? { ...localizedVariables, _postalCode: postalCode ?? '' }
+          : localizedVariables,
+      [localizedVariables, postalCode]
+    )
+
     const hasSameVariables = deepEquals(
       pagesCache.current[page],
-      getKey(localizedVariables)
+      getKey(localizedVariablesWithRegion)
     )
 
     const shouldFetchFirstPage = useShouldFetchFirstPage({
@@ -123,13 +153,14 @@ export const useCreateUseGalleryPage = (
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,
-      doNotRun: !shouldFetch,
+      doNotRun:
+        !shouldFetch || (isDeliveryPromiseEnabled && isSessionValidating),
     })
 
     const shouldUpdatePages = data !== null
 
     if (shouldUpdatePages) {
-      pagesCache.current[page] = getKey(localizedVariables)
+      pagesCache.current[page] = getKey(localizedVariablesWithRegion)
 
       // Update refs
       const newPages = [...pagesRef.current]

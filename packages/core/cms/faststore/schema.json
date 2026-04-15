@@ -3802,6 +3802,28 @@
     }
   },
   "$defs": {
+    "base-component": {
+      "type": "object",
+      "required": ["$componentKey", "$componentTitle"],
+      "properties": {
+        "$componentKey": {
+          "type": "string",
+          "description": "Unique identifier for the component"
+        },
+        "$componentTitle": {
+          "type": "string",
+          "description": "Display title for the component"
+        }
+      }
+    },
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
     "$ALLOW_ALL_COMPONENTS": {
       "type": "array",
       "items": {
