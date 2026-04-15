@@ -45,9 +45,17 @@ const handler: NextApiHandler = async (
     })
 
     if (!webopsResponse.ok) {
-      response.status(401).json({
+      if (webopsResponse.status === 401 || webopsResponse.status === 403) {
+        response.status(401).json({
+          success: false,
+          error: 'Invalid password',
+        })
+        return
+      }
+
+      response.status(503).json({
         success: false,
-        error: 'Invalid password',
+        error: 'Service temporarily unavailable',
       })
       return
     }
