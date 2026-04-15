@@ -4,8 +4,8 @@ import storeConfig from 'discovery.config'
 
 import { isSecureAuthCookieForPagesApi } from '../../../../server/password-protection/auth-cookie'
 import {
-  webopsPasswordProtectionSessionUrl,
-  webopsPasswordProtectionTimeouts,
+  sessionUrl,
+  passwordProtectionTimeouts,
 } from '../../../../server/password-protection/webops-api'
 
 const COOKIE_NAME = '__fs_auth_token'
@@ -33,11 +33,11 @@ const handler: NextApiHandler = async (
       return
     }
 
-    const webopsResponse = await fetch(webopsPasswordProtectionSessionUrl(), {
+    const webopsResponse = await fetch(sessionUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ storeId, password }),
-      signal: AbortSignal.timeout(webopsPasswordProtectionTimeouts.defaultMs),
+      signal: AbortSignal.timeout(passwordProtectionTimeouts.defaultMs),
     })
 
     if (!webopsResponse.ok) {
