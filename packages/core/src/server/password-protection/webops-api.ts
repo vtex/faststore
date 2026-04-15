@@ -14,9 +14,10 @@ export const publicKeyUrl = new URL(
 )
 
 export const protectionStatusUrl = new URL(
-  `/api/v1/password-protection/status?storeId=${discoveryConfig.api.storeId}`,
+  '/api/v1/password-protection/status',
   origin
 )
+protectionStatusUrl.searchParams.set('storeId', discoveryConfig.api.storeId)
 
 export const sessionUrl = new URL('/api/v1/password-protection/session', origin)
 
