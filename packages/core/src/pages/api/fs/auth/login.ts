@@ -11,6 +11,10 @@ import {
 const COOKIE_NAME = '__fs_auth_token'
 const TOKEN_TTL_SECONDS = 10 * 60
 
+const isSafeReturnToPath = (value: string): boolean => {
+  return value.startsWith('/') && !value.startsWith('//')
+}
+
 const handler: NextApiHandler = async (
   request: NextApiRequest,
   response: NextApiResponse
@@ -55,6 +59,7 @@ const handler: NextApiHandler = async (
         typeof request.query.returnTo === 'string'
           ? request.query.returnTo
           : '/'
+      const sanitizedReturnTo = isSafeReturnToPath(returnTo) ? returnTo : '/'
 
       const securePart = isSecureAuthCookieForPagesApi(request)
         ? '; Secure'
@@ -66,7 +71,7 @@ const handler: NextApiHandler = async (
 
       response.status(200).json({
         success: true,
-        redirectUrl: returnTo,
+        redirectUrl: sanitizedReturnTo,
       })
     } else {
       response.status(401).json({
