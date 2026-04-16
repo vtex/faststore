@@ -81,10 +81,10 @@ export const mutation = gql(`
 
 export const validateSession = async (session: Session) => {
   const settings = getSettings()
-  const newChanel = {
+  const newChanel = JSON.stringify({
     ...(JSON.parse(session.channel ?? '{}') ?? {}),
-    salesChanne: settings.salesChannel,
-  }
+    salesChannel: settings.salesChannel,
+  })
 
   if (
     newChanel !== session.channel ||
@@ -93,7 +93,7 @@ export const validateSession = async (session: Session) => {
   ) {
     session.locale = settings.locale
     session.currency = settings.currency
-    session.channel = JSON.stringify(newChanel)
+    session.channel = newChanel
   }
 
   // If deliveryPromise is enabled and there is no postalCode in the session
