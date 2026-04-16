@@ -68,6 +68,13 @@ const nextConfig = {
         }
       })
 
+    config.module.rules.push({
+      test: /\.js$/,
+      enforce: 'pre',
+      use: ['source-map-loader'],
+      include: /node_modules\/@faststore/,
+    })
+
     // Reduce the number of chunks so we ship a smaller first bundle.
     // This should help reducing TBT
     if (!isServer && !dev && config.optimization?.splitChunks) {
