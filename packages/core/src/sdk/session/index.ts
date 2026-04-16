@@ -154,6 +154,12 @@ const defaultStore = createSessionStore(storeConfig.session, onValidate)
 export const sessionStore = {
   ...defaultStore,
   set: (val: Session) => {
+    console.trace('Session Set %o', {
+      country: val.country,
+      locale: val.locale,
+      currency: val.currency,
+      saleChannel: val.channel,
+    })
     if (deepEqual(val, defaultStore.read()) === true) return
 
     defaultStore.set(val)
