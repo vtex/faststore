@@ -18,6 +18,7 @@ import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
+import { getSettings } from '../localization/useLocalizationConfig'
 
 const SESSION_READY_KEY = 'faststore_session_ready'
 
@@ -79,6 +80,22 @@ export const mutation = gql(`
 `)
 
 export const validateSession = async (session: Session) => {
+  const settings = getSettings()
+  const newChanel = JSON.stringify({
+    ...(JSON.parse(session.channel ?? '{}') ?? {}),
+    salesChannel: settings.salesChannel,
+  })
+
+  if (
+    newChanel !== session.channel ||
+    settings.locale !== session.locale ||
+    deepEqual(settings.currency, session.currency) === false
+  ) {
+    session.locale = settings.locale
+    session.currency = settings.currency
+    session.channel = newChanel
+  }
+
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (
     storeConfig.deliveryPromise?.enabled &&

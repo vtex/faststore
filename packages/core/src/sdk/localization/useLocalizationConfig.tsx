@@ -88,7 +88,7 @@ function getSettingsFromConfig(
   }
 }
 
-function getSettings(params?: { url?: string | URL }) {
+export function getSettings(params?: { url?: string | URL }) {
   let url = params?.url ?? ''
   const defaultConfig = config.localization.locales[
     config.localization.defaultLocale
