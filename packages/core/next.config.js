@@ -22,7 +22,6 @@ console.log(`
  * */
 const nextConfig = {
   /* config options here */
-  productionBrowserSourceMaps: true,
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
     deviceSizes: [360, 412, 540, 768, 1280, 1440],
@@ -67,13 +66,6 @@ const nextConfig = {
           options.modules.exportLocalsConvention = 'camelCase'
         }
       })
-
-    config.module.rules.push({
-      test: /\.js$/,
-      enforce: 'pre',
-      use: ['source-map-loader'],
-      include: /node_modules\/@faststore/,
-    })
 
     // Reduce the number of chunks so we ship a smaller first bundle.
     // This should help reducing TBT
