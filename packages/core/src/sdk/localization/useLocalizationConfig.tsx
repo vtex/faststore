@@ -2,14 +2,7 @@ import config from 'discovery.config'
 import deepEqual from 'fast-deep-equal'
 import React, { useEffect, useRef, useState } from 'react'
 import { sessionStore } from '../session'
-import { matchURLBinding } from './match-url'
-
-type Settings = {
-  locale: string
-  currency: { code: string; symbol: string }
-  salesChannel: string
-  storeURL: string
-}
+import { type LocalizationSettings, getSettings } from './settings'
 
 export const useLocalizationConfig = (params?: { url?: string | URL }) => {
   const defaultConfig = config.localization.locales[
@@ -24,7 +17,9 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
       'Localization configuration invalid: not found default binding'
     )
 
-  const [settings, setSettings] = useState<Settings>(getSettings(params))
+  const [settings, setSettings] = useState<LocalizationSettings>(
+    getSettings(params)
+  )
 
   const newSettings = getSettings(params)
   if (deepEqual(settings, newSettings) === false) {
@@ -70,66 +65,6 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
 
 type ConfigType =
   (typeof config)['localization']['locales'][keyof (typeof config)['localization']['locales']]
-
-function getSettingsFromConfig(
-  configObject: ConfigType,
-  binding: ConfigType['bindings'][number]
-): Settings {
-  const salesChannel = Number(binding.salesChannel)
-
-  return {
-    currency: {
-      code: binding.currencyCode,
-      symbol: config.localization.currencies[binding.currencyCode].symbol,
-    },
-    locale: configObject.code,
-    salesChannel: `${isNaN(salesChannel) ? 1 : salesChannel}`,
-    storeURL: binding.url,
-  }
-}
-
-function getSettings(params?: { url?: string | URL }) {
-  let url = params?.url ?? ''
-  const defaultConfig = config.localization.locales[
-    config.localization.defaultLocale
-  ] as ConfigType
-
-  const defaultBinding =
-    defaultConfig.bindings.find((el) => el.isDefault) ??
-    defaultConfig.bindings.at(0)
-
-  if (!defaultBinding)
-    throw new Error(
-      'Localization configuration invalid: not found default binding'
-    )
-
-  const defaultSettings = getSettingsFromConfig(defaultConfig, defaultBinding)
-
-  if (!url) {
-    if (typeof window === 'undefined') {
-      return defaultSettings
-    }
-
-    url = window.location.href
-  }
-
-  if (url instanceof URL) url = url.toString()
-
-  if (!config.localization) {
-    const Err = new Error(
-      'Missing localization configuration in faststore config file.'
-    )
-    console.error(Err)
-    throw Err
-  }
-
-  const { config: regionConfig, binding } = matchURLBinding(url)
-  if (!!regionConfig && !!binding) {
-    return getSettingsFromConfig(regionConfig, binding)
-  }
-
-  return defaultSettings
-}
 
 export const getStoreURL = () => {
   // If localization is not enabled, use storeUrl from config
