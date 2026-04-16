@@ -8,6 +8,7 @@ export default defineConfig({
   root: process.env.PWD ?? process.cwd(),
   plugins: [dts()],
   build: {
+    sourcemap: 'inline',
     outDir: './dist',
     lib: {
       entry: './src/index.ts',
