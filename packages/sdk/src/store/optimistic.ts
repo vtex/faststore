@@ -19,11 +19,6 @@ export const optimistic = <T>(onValidate: Validator<T> = trivial) => {
         const validated = await onValidate(value)
 
         if (!cancel && validated !== null && validated !== undefined) {
-          console.trace(
-            'Optimistic: valu: %o \n validated: %o',
-            value,
-            validated
-          )
           store.set(validated)
         }
       }
