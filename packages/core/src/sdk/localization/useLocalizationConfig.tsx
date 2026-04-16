@@ -31,16 +31,35 @@ export const useLocalizationConfig = (params?: { url?: string | URL }) => {
     return setSettings(newSettings)
   }
 
-  // Use a ref to always hold the latest session without causing re-renders or
-  // re-running the sync effect. The sync effect only needs to react to `settings`
-  // changes, not to every session update triggered by the optimistic middleware.
   const sessionRef = useRef(sessionStore.read() ?? sessionStore.readInitial())
 
   useEffect(() => {
     return sessionStore.subscribe((newSession) => {
       sessionRef.current = newSession
+
+      // Guard against locale drift caused by IDB hydration restoring a stale
+      // session from a previous visit on a different locale/binding.
+      // URL-derived settings are the source of truth for these fields.
+      if (!settings) return
+
+      const channel = JSON.parse(newSession.channel ?? '{}') ?? {}
+
+      if (
+        newSession.locale !== settings.locale ||
+        channel.salesChannel !== settings.salesChannel ||
+        !deepEqual(newSession.currency, settings.currency)
+      ) {
+        channel.salesChannel = settings.salesChannel
+
+        sessionStore.set({
+          ...newSession,
+          locale: settings.locale,
+          currency: settings.currency,
+          channel: JSON.stringify(channel),
+        })
+      }
     })
-  }, [])
+  }, [settings])
 
   useEffect(() => {
     if (!settings) return
