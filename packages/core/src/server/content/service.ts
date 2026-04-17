@@ -46,8 +46,20 @@ export class ContentService {
 
     if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
-      const { entries } = await this.clientCP.listEntries(serviceParams)
-      return this.fillEntriesWithData(entries, serviceParams, options.isPreview)
+      const allEntries: ContentEntry[] = []
+      let scroll: string | undefined
+
+      do {
+        const result = await this.clientCP.listEntries(serviceParams, scroll)
+        allEntries.push(...result.entries)
+        scroll = result.scroll ?? undefined
+      } while (scroll)
+
+      return this.fillEntriesWithData(
+        allEntries,
+        serviceParams,
+        options.isPreview
+      )
     }
     return getCMSPage(options.cmsOptions)
   }
