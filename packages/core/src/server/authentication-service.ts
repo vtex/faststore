@@ -37,7 +37,7 @@ let publicKeyCache: {
 } | null = null
 
 async function fetchPublicKeyPemFromWebOps(): Promise<string> {
-  const res = await fetch(publicKeyUrl, {
+  const res = await fetch(publicKeyUrl(), {
     signal: AbortSignal.timeout(passwordProtectionTimeouts.publicKeyMs),
   })
 
@@ -188,7 +188,7 @@ export class AuthenticationService {
     payload: TokenPayload
   ): Promise<AuthResult> {
     try {
-      const res = await fetch(renewUrl, {
+      const res = await fetch(renewUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -221,7 +221,7 @@ export class AuthenticationService {
 
   private async handleNoAuth(request: NextRequest): Promise<AuthResult> {
     try {
-      const res = await fetch(protectionStatusUrl, {
+      const res = await fetch(protectionStatusUrl(), {
         signal: AbortSignal.timeout(passwordProtectionTimeouts.defaultMs),
       })
 
