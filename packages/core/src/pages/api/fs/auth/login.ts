@@ -37,7 +37,7 @@ const handler: NextApiHandler = async (
       return
     }
 
-    const webopsResponse = await fetch(sessionUrl, {
+    const webopsResponse = await fetch(sessionUrl(), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ storeId, password }),
