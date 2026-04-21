@@ -413,6 +413,9 @@
             },
             {
               "$ref": "#/components/EmptyState"
+            },
+            {
+              "$ref": "#/components/ShoppingAssistant"
             }
           ]
         }
