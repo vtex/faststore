@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0-dev.2](https://github.com/vtex/faststore/compare/v3.99.0-dev.1...v3.99.0-dev.2) (2026-04-21)
+
+### Bug Fixes
+
+- Prevent IDB writes before store hydration completes - SFS-3121 ([#3267](https://github.com/vtex/faststore/issues/3267)) ([0b23e52](https://github.com/vtex/faststore/commit/0b23e526db23d7338c0eda75b673bb0bea05eef3))
+
 # [3.99.0-dev.1](https://github.com/vtex/faststore/compare/v3.99.0-dev.0...v3.99.0-dev.1) (2026-04-15)
 
 **Note:** Version bump only for package faststore
