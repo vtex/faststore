@@ -12,8 +12,10 @@ import { useEffect } from 'react'
  * We handle both: check the flag on mount (fresh load) and on pageshow (bfcache).
  */
 
-export const RELOAD_AFTER_LOGOUT_KEY = 'faststore_reload_after_logout_return'
-export const SESSION_READY_KEY = 'faststore_session_ready'
+import {
+  RELOAD_AFTER_LOGOUT_KEY,
+  SESSION_READY_KEY,
+} from '../../../../sdk/session/storageKeys'
 
 /**
  * Call before redirecting to logout. When the user returns to the store, the app

@@ -16,10 +16,8 @@ import {
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
-import { RELOAD_AFTER_LOGOUT_KEY } from '../../components/account/MyAccountDrawer/OrganizationDrawer/useReloadAfterLogoutReturn'
 import { getPostalCode } from '../userLocation/index'
-
-const SESSION_READY_KEY = 'faststore_session_ready'
+import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
 const isReloadAfterLogoutPending = (): boolean => {
   try {
