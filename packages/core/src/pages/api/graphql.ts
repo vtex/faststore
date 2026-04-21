@@ -8,7 +8,8 @@ import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
-import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
+import { getJWTAutCookie } from 'src/utils/getCookie'
+import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
@@ -169,16 +170,10 @@ const handler: NextApiHandler = async (request, response) => {
         account: discoveryConfig.api.storeId,
       })
 
-      const refreshAfterExist = !!variables?.session?.refreshAfter
-
-      const refreshAfterExpired =
-        refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
-
-      const tokenExistAndIsFirstRefreshTokenRequest =
-        !!jwt && !refreshAfterExist
-
-      const shouldRefreshToken =
-        tokenExistAndIsFirstRefreshTokenRequest || refreshAfterExpired
+      const shouldRefreshToken = shouldForceRefreshTokenForValidateSession({
+        jwt,
+        sessionRefreshAfter: variables?.session?.refreshAfter,
+      })
 
       if (shouldRefreshToken) {
         throw new UnauthorizedError(
