@@ -137,7 +137,11 @@ export const validateSession = async (session: Session) => {
       } else {
         // Refresh token failed: clear server-side cookies (JWT + vid_rt) via logout
         // and reset session to anonymous state to break the hourly retry loop
-        await fetch('/api/fs/logout', { method: 'POST' })
+        try {
+          await fetch('/api/fs/logout', { method: 'POST' })
+        } catch (logoutError) {
+          console.error('Failed to call logout endpoint:', logoutError)
+        }
 
         sessionStore.set({
           ...session,
