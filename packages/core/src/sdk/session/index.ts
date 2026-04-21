@@ -135,20 +135,7 @@ export const validateSession = async (session: Session) => {
           refreshAfter,
         })
       } else {
-        // Refresh token failed: clear server-side cookies (JWT + vid_rt) via logout
-        // and reset session to anonymous state to break the hourly retry loop
-        try {
-          await fetch('/api/fs/logout', { method: 'POST' })
-        } catch (logoutError) {
-          console.error('Failed to call logout endpoint:', logoutError)
-        }
-
-        sessionStore.set({
-          ...session,
-          person: null,
-          b2b: null,
-          refreshAfter: null,
-        })
+        await logoutAndClearSession(session)
       }
     }
   }
@@ -168,6 +155,21 @@ export const sessionStore = {
     // Trigger cart revalidation when session changes
     cartStore.set(cartStore.read())
   },
+}
+
+export async function logoutAndClearSession(session: Session) {
+  try {
+    await fetch('/api/fs/logout', { method: 'POST' })
+  } catch (logoutError) {
+    console.error('Failed to call logout endpoint:', logoutError)
+  }
+
+  sessionStore.set({
+    ...session,
+    person: null,
+    b2b: null,
+    refreshAfter: null,
+  })
 }
 
 interface SessionOptions {
