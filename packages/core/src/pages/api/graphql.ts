@@ -169,8 +169,6 @@ const handler: NextApiHandler = async (request, response) => {
         account: discoveryConfig.api.storeId,
       })
 
-      const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
-
       const refreshAfterExist = !!variables?.session?.refreshAfter
 
       const refreshAfterExpired =
@@ -179,13 +177,8 @@ const handler: NextApiHandler = async (request, response) => {
       const tokenExistAndIsFirstRefreshTokenRequest =
         !!jwt && !refreshAfterExist
 
-      // token expired with no refreshAfter: covers jwt expired before first refresh and after browser clears the cookie
-      const tokenExpiredWithNoRefreshAfter = tokenExpired && !refreshAfterExist
-
       const shouldRefreshToken =
-        tokenExistAndIsFirstRefreshTokenRequest ||
-        tokenExpiredWithNoRefreshAfter ||
-        refreshAfterExpired
+        tokenExistAndIsFirstRefreshTokenRequest || refreshAfterExpired
 
       if (shouldRefreshToken) {
         throw new UnauthorizedError(
