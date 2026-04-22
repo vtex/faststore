@@ -2,10 +2,12 @@ import type { NextApiRequest } from 'next'
 import type { NextRequest } from 'next/server'
 
 function isLocalHost(host: string): boolean {
-  const hostname = host.split(':')[0]?.toLowerCase() ?? ''
+  const normalizedHost = host.toLowerCase()
+  const match = new RegExp(/^\[([^\\]]+)\](?::\d+)?$/).exec(normalizedHost)
+  const hostname = match?.[1] ?? normalizedHost.split(':')[0] ?? ''
 
   return (
-    hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]'
+    hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1'
   )
 }
 
