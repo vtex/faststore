@@ -81,6 +81,11 @@ export class AuthenticationService {
     this.storeId = storeConfig.api.storeId
   }
 
+  private getNormalizedHost(request: NextRequest): string {
+    const hostname = request.headers.get('host') || ''
+    return hostname.split(':')[0].trim().toLowerCase()
+  }
+
   async authenticateRequest(request: NextRequest): Promise<AuthResult> {
     if (!this.shouldCheckProtection(request)) {
       return { response: NextResponse.next() }
@@ -116,7 +121,7 @@ export class AuthenticationService {
       return false
     }
 
-    const hostname = request.headers.get('host') || ''
+    const hostname = this.getNormalizedHost(request)
     const isDefaultDomain = hostname.endsWith('.vtex.app')
 
     if (isDefaultDomain) {
@@ -127,7 +132,7 @@ export class AuthenticationService {
   }
 
   private shouldProtectDomain(request: NextRequest, scope?: string): boolean {
-    const hostname = request.headers.get('host') || ''
+    const hostname = this.getNormalizedHost(request)
     const isDefaultDomain = hostname.endsWith('.vtex.app')
 
     return (
@@ -273,3 +278,5 @@ export class AuthenticationService {
     return NextResponse.redirect(loginUrl)
   }
 }
+
+w
