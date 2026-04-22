@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0-dev.0](https://github.com/vtex/faststore/compare/v3.98.1-dev.0...v3.99.0-dev.0) (2026-03-31)
+
+### Features
+
+- Add Shopping Assistant component to FastStore schema ([#3255](https://github.com/vtex/faststore/issues/3255)) ([f4c8ea6](https://github.com/vtex/faststore/commit/f4c8ea65da468d26acac198071882523a8a57215))
+
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/core
+
+# 3.98.0 (2026-03-27)
+
+### Bug Fixes
+
+- Set `after` attribute as string instead of integer ([#3245](https://github.com/vtex/faststore/issues/3245)) ([c40d3fc](https://github.com/vtex/faststore/commit/c40d3fcf0018099cc067bb7082757535ca9839b0))
+
+### Features
+
+- version 2026 03 27 ([#3251](https://github.com/vtex/faststore/issues/3251)) ([f330a43](https://github.com/vtex/faststore/commit/f330a43661567ad8edb468acd3416bb7ffacd8b6))
+
+# [3.98.0-dev.10](https://github.com/vtex/faststore/compare/v3.98.0-dev.9...v3.98.0-dev.10) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.98.0-dev.9](https://github.com/vtex/faststore/compare/v3.98.0-dev.8...v3.98.0-dev.9) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.98.0-dev.8](https://github.com/vtex/faststore/compare/v3.98.0-dev.7...v3.98.0-dev.8) (2026-03-27)
+
+### Features
+
+- Add Quick Order Full Feature ([#3197](https://github.com/vtex/faststore/issues/3197)) ([f5518d7](https://github.com/vtex/faststore/commit/f5518d7f205dccad99b6ea0a127fd09cf77d1edb))
+
+## [Unreleased]
+
+### Features
+
+- Re-exported `useCSVParser` hook from `@faststore/components` (see components changelog for details).
+- Re-exported `useFileUpload` hook from `@faststore/components` (see components changelog for details).
+- Re-exported `FileUploadCard` component from `@faststore/components` (see components changelog for details).
+
+# [3.98.0-dev.7](https://github.com/vtex/faststore/compare/v3.98.0-dev.6...v3.98.0-dev.7) (2026-03-26)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.98.0-dev.6](https://github.com/vtex/faststore/compare/v3.98.0-dev.5...v3.98.0-dev.6) (2026-03-24)
+
+### Bug Fixes
+
+- enhance cache key management in useQuery ([#3230](https://github.com/vtex/faststore/issues/3230)) ([3f28502](https://github.com/vtex/faststore/commit/3f28502a8d381e476728661ea1150d0777ba87d1))
+
+# [3.98.0-dev.5](https://github.com/vtex/faststore/compare/v3.98.0-dev.4...v3.98.0-dev.5) (2026-03-24)
+
+### Features
+
+- Add Webchat component and script integration + hCMS - SFS-3084 ([#3242](https://github.com/vtex/faststore/issues/3242)) ([04c3fbb](https://github.com/vtex/faststore/commit/04c3fbb91d028c5828998388105d327913194074))
+
+# [3.98.0-dev.4](https://github.com/vtex/faststore/compare/v3.98.0-dev.3...v3.98.0-dev.4) (2026-03-23)
+
+### Features
+
+- Add transpilePackages to configuration for Next.js - SFS-3100 ([#3244](https://github.com/vtex/faststore/issues/3244)) ([9399323](https://github.com/vtex/faststore/commit/939932383b3abf78a6c7184ac9f428d90d49401b))
+
+# [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
+
+### Features
+
+- Add ActivityFlow data parameters with search-related information ([#3105](https://github.com/vtex/faststore/issues/3105)) ([8f69ff8](https://github.com/vtex/faststore/commit/8f69ff855c31abedba66071132240c53a93ab56d))
+
 # [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
 
 ### Features
@@ -51,13 +121,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - reorder feature ([#3153](https://github.com/vtex/faststore/issues/3153)) ([d0fdeec](https://github.com/vtex/faststore/commit/d0fdeec77cd94e16f1b79dcc927487320983ba0e))
 
-# <<<<<<< HEAD
-
 # [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
 
 **Note:** Version bump only for package @faststore/core
-
-> > > > > > > main
 
 # [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
 

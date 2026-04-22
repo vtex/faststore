@@ -14,3 +14,5 @@
 
 // Importing this component because is being used outside the context of the Section
 @include meta.load-css("~@faststore/ui/src/components/molecules/Dropdown/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/organisms/QuickOrderDrawer/styles.scss");
+@include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");

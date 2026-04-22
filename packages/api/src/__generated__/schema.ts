@@ -1524,7 +1524,7 @@ export type StoreProduct = {
   /** Indicates product group related to this product. */
   isVariantOf: StoreProductGroup;
   /** Manufacturer Part Number. Identifies the product to its manufacturer. */
-  mpn: Scalars['String'];
+  mpn: Scalars['String']['output'];
   /** Product name. */
   name: Scalars['String']['output'];
   /** Aggregate offer information. */
@@ -1643,6 +1643,8 @@ export type StoreSearchResult = {
   metadata?: Maybe<SearchMetadata>;
   /** Search result products. */
   products: StoreProductConnection;
+  /** Search result searchId. Unique identifier for the search query can be used to correlate search analytics events. */
+  searchId: Scalars['String']['output'];
   /** Search result suggestions. */
   suggestions: StoreSuggestions;
 };

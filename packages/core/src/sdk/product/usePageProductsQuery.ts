@@ -1,8 +1,8 @@
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
-  ClientManyProductsQueryQuery,
-  ClientManyProductsQueryQueryVariables,
+  ClientManyProductsQueryWithSearchIdQuery,
+  ClientManyProductsQueryWithSearchIdQueryVariables,
 } from '@generated/graphql'
 import deepEquals from 'fast-deep-equal'
 import {
@@ -34,7 +34,7 @@ export const useGalleryPage = (page: number) => {
 }
 
 export const query = gql(`
-  query ClientManyProductsQuery(
+  query ClientManyProductsQueryWithSearchId(
     $first: Int!
     $after: String
     $sort: StoreSort!
@@ -61,6 +61,7 @@ export const query = gql(`
           }
         }
       }
+      searchId
     }
   }
 `)
@@ -68,8 +69,8 @@ export const query = gql(`
 const getKey = (object: any) => JSON.stringify(object)
 
 interface UseCreateUseGalleryPageProps {
-  initialPages: ClientManyProductsQueryQuery
-  serverManyProductsVariables: ClientManyProductsQueryQueryVariables
+  initialPages: ClientManyProductsQueryWithSearchIdQuery
+  serverManyProductsVariables: ClientManyProductsQueryWithSearchIdQueryVariables
 }
 
 /**
@@ -84,9 +85,10 @@ export const useCreateUseGalleryPage = (
     : []
 
   const [pages, setPages] =
-    useState<ClientManyProductsQueryQuery[]>(initialPages)
+    useState<ClientManyProductsQueryWithSearchIdQuery[]>(initialPages)
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
-  const pagesRef = useRef<ClientManyProductsQueryQuery[]>(initialPages)
+  const pagesRef =
+    useRef<ClientManyProductsQueryWithSearchIdQuery[]>(initialPages)
   const pagesCache = useRef<string[]>(initialVariables)
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
@@ -116,8 +118,8 @@ export const useCreateUseGalleryPage = (
     const shouldFetch = !hasSameVariables || shouldFetchFirstPage
 
     const { data } = useQuery<
-      ClientManyProductsQueryQuery,
-      ClientManyProductsQueryQueryVariables
+      ClientManyProductsQueryWithSearchIdQuery,
+      ClientManyProductsQueryWithSearchIdQueryVariables
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,

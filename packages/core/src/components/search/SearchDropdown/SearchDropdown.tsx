@@ -52,7 +52,7 @@ function SearchDropdown({
   ...otherProps
 }: SearchDropdownProps) {
   const {
-    values: { onSearchSelection, products, term, terms },
+    values: { onSearchSelection, products, term, terms, searchId },
   } = useSearch()
   const formatSearchPath = useFormatSearchPath()
 
@@ -94,7 +94,11 @@ function SearchDropdown({
           />
         ))}
       </UISearchAutoComplete>
-      <SearchProducts>
+      <SearchProducts
+        data-af-element={searchId && 'search-autocomplete'}
+        data-af-onimpression={!!searchId}
+        data-af-search-id={searchId}
+      >
         {products.map((product, index) => {
           const productParsed = product as ProductSummary_ProductFragment
           return (
@@ -106,6 +110,11 @@ function SearchDropdown({
               onChangeCustomSearchDropdownVisible={
                 onChangeCustomSearchDropdownVisible
               }
+              data-af-element={searchId && 'search-autocomplete'}
+              data-af-onclick={!!(searchId && productParsed.id)}
+              data-af-search-id={searchId}
+              data-af-product-position={searchId && index + 1} // Product position in Search Analytics starts with 1
+              data-af-product-id={searchId && productParsed.id}
             />
           )
         })}

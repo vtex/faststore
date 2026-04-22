@@ -23,6 +23,10 @@ export interface SearchProviderContextValue {
    * Callback function when a search term is selected.
    */
   onSearchSelection?: (term: string, path: string) => void
+  /**
+   * Search result searchId.
+   */
+  searchId?: string
 }
 
 export const SearchContext = createContext<SearchProviderContextValue | null>(
@@ -36,10 +40,11 @@ function SearchProvider({
   terms,
   products,
   isLoading,
+  searchId,
 }: PropsWithChildren<SearchProviderContextValue>) {
   return (
     <SearchContext.Provider
-      value={{ onSearchSelection, term, terms, products, isLoading }}
+      value={{ onSearchSelection, term, terms, products, isLoading, searchId }}
     >
       {children}
     </SearchContext.Provider>

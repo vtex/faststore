@@ -15,29 +15,24 @@ vi.mock('discovery.config', () => ({
 
 import {
   getClientCacheBustingValue,
-  STORAGE_KEY_AUTH_COOKIE_VALUE,
+  STORAGE_KEY_PERSON_ID,
   STORAGE_KEY_CACHE_BUST_LAST_VALUE,
 } from '../../src/utils/cookieCacheBusting'
 
-const setAuthCookie = (value: string) => {
-  document.cookie = `VtexIdclientAutCookie_store=${value}; path=/`
+const setSessionPerson = (personId: string) => {
+  const session = { person: { id: personId } }
+  mockRead.mockReturnValue(session)
+  mockReadInitial.mockReturnValue(session)
 }
 
-const clearAllCookies = () => {
-  const cookies = document.cookie
-    .split(';')
-    .map((c) => c.trim())
-    .filter(Boolean)
-
-  for (const cookie of cookies) {
-    const [name] = cookie.split('=')
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`
-  }
+const clearSessionPerson = () => {
+  mockRead.mockReturnValue(null)
+  mockReadInitial.mockReturnValue(null)
 }
 
 describe('cookieCacheBusting', () => {
   beforeEach(() => {
-    clearAllCookies()
+    jest.restoreAllMocks()
     sessionStorage.clear()
     vi.restoreAllMocks()
   })
@@ -55,14 +50,14 @@ describe('cookieCacheBusting', () => {
     expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBeNull()
   })
 
-  it('should return a new timestamp and persist values when auth cookie changed', () => {
-    setAuthCookie('token-1')
+  it('should return a new timestamp and persist values when auth state changed (login)', () => {
+    setSessionPerson('user-id-1')
 
     const nowSpy = vi.spyOn(Date, 'now').mockReturnValue(1700000000000)
 
     const result = getClientCacheBustingValue()
 
-    expect(result).toBe('1700000000000')
+    expect(result).toBe('1700000000000::user-id-1')
     expect(nowSpy).toHaveBeenCalled()
     // Verify values were persisted
     expect(sessionStorage.getItem(STORAGE_KEY_AUTH_COOKIE_VALUE)).toBe(
@@ -73,10 +68,13 @@ describe('cookieCacheBusting', () => {
     )
   })
 
-  it('should return last cached value when auth cookie is the same and last value exists', () => {
-    setAuthCookie('token-1')
-    sessionStorage.setItem(STORAGE_KEY_AUTH_COOKIE_VALUE, 'token-1')
-    sessionStorage.setItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE, 'prev')
+  it('should return last cached value when auth state is the same and last value exists', () => {
+    setSessionPerson('user-id-1')
+    sessionStorage.setItem(STORAGE_KEY_PERSON_ID, 'user-id-1')
+    sessionStorage.setItem(
+      STORAGE_KEY_CACHE_BUST_LAST_VALUE,
+      '1700000000000::user-id-1'
+    )
 
     const result = getClientCacheBustingValue()
 
@@ -91,15 +89,15 @@ describe('cookieCacheBusting', () => {
     )
   })
 
-  it('should create and persist a new last value when auth cookie is the same but last value is missing', () => {
-    setAuthCookie('token-1')
-    sessionStorage.setItem(STORAGE_KEY_AUTH_COOKIE_VALUE, 'token-1')
+  it('should create and persist a new last value when auth state is the same but last value is missing', () => {
+    setSessionPerson('user-id-1')
+    sessionStorage.setItem(STORAGE_KEY_PERSON_ID, 'user-id-1')
 
     const nowSpy = vi.spyOn(Date, 'now').mockReturnValue(1700000000123)
 
     const result = getClientCacheBustingValue()
 
-    expect(result).toBe('1700000000123')
+    expect(result).toBe('1700000000123::user-id-1')
     expect(nowSpy).toHaveBeenCalled()
     // Verify new last value was persisted
     expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBe(
@@ -111,14 +109,22 @@ describe('cookieCacheBusting', () => {
     )
   })
 
-  it('should keep "=" characters in cookie value', () => {
-    setAuthCookie('a=b=c')
+  it('should detect user change and return new timestamp', () => {
+    setSessionPerson('user-id-1')
+    sessionStorage.setItem(STORAGE_KEY_PERSON_ID, 'user-id-1')
+    sessionStorage.setItem(
+      STORAGE_KEY_CACHE_BUST_LAST_VALUE,
+      '1700000000000::user-id-1'
+    )
 
     vi.spyOn(Date, 'now').mockReturnValue(1700000000456)
 
     const result = getClientCacheBustingValue()
 
-    expect(result).toBe('1700000000456')
-    expect(sessionStorage.getItem(STORAGE_KEY_AUTH_COOKIE_VALUE)).toBe('a=b=c')
+    expect(result).toBe('1700000000456::user-id-2')
+    expect(sessionStorage.getItem(STORAGE_KEY_PERSON_ID)).toBe('user-id-2')
+    expect(sessionStorage.getItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)).toBe(
+      '1700000000456::user-id-2'
+    )
   })
 })
