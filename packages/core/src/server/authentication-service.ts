@@ -278,5 +278,3 @@ export class AuthenticationService {
     return NextResponse.redirect(loginUrl)
   }
 }
-
-w
