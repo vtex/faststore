@@ -73,7 +73,7 @@
   }
 
   [data-fs-icon-button][data-fs-button-variant] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       min-height: var(--fs-search-input-field-button-min-height);
       padding-top: var(--fs-search-input-field-button-padding-top-desktop);
       padding-bottom:
@@ -104,7 +104,7 @@
   &[data-fs-search-input-field] [data-fs-search-input-field-upload-button] {
     right: 2.5rem;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       right: 3rem;
     }
   }
