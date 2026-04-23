@@ -1425,6 +1425,8 @@ export type StoreOffer = {
   __typename?: 'StoreOffer';
   /** Offer item availability. */
   availability: Scalars['String'];
+  /** Whether this offer is a gift (e.g. free promotional item). */
+  isGift?: Maybe<Scalars['Boolean']>;
   /** Offer item condition. */
   itemCondition: Scalars['String'];
   /** Information on the item being offered. */
