@@ -24,10 +24,6 @@ vi.mock('src/sdk/session', () => ({
   },
 }))
 
-jest.mock('discovery.config', () => ({
-  deliveryPromise: { enabled: true },
-}))
-
 import {
   getClientCacheBustingValue,
   STORAGE_KEY_CACHE_BUST_LAST_VALUE,
