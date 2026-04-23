@@ -1,3 +1,4 @@
+import storeConfig from 'discovery.config'
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {

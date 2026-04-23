@@ -3,15 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0-dev.2](https://github.com/vtex/faststore/compare/v3.99.0-dev.1...v3.99.0-dev.2) (2026-04-21)
+
+### Bug Fixes
+
+- Prevent IDB writes before store hydration completes - SFS-3121 ([#3267](https://github.com/vtex/faststore/issues/3267)) ([0b23e52](https://github.com/vtex/faststore/commit/0b23e526db23d7338c0eda75b673bb0bea05eef3))
+
+# [3.99.0-dev.1](https://github.com/vtex/faststore/compare/v3.99.0-dev.0...v3.99.0-dev.1) (2026-04-15)
+
+**Note:** Version bump only for package faststore
+
 # [3.99.0-dev.0](https://github.com/vtex/faststore/compare/v3.98.1-dev.0...v3.99.0-dev.0) (2026-03-31)
 
 ### Features
 
 - Add Shopping Assistant component to FastStore schema ([#3255](https://github.com/vtex/faststore/issues/3255)) ([f4c8ea6](https://github.com/vtex/faststore/commit/f4c8ea65da468d26acac198071882523a8a57215))
 
-## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+## [3.98.2](https://github.com/vtex/faststore/compare/v3.98.1...v3.98.2) (2026-04-09)
+
+- Store ID param sent to Content Platform client ([#3265](https://github.com/vtex/faststore/issues/3265)) ([63fffd8](https://github.com/vtex/faststore/commit/63fffd878403c4d0c9aff8f6d56064dfa42ab833))
+
+### Bug Fixes
+
+## [3.98.3](https://github.com/vtex/faststore/compare/v3.98.2...v3.98.3) (2026-04-09)
 
 **Note:** Version bump only for package faststore
+
+## [3.98.4](https://github.com/vtex/faststore/compare/v3.98.3...v3.98.4) (2026-04-15)
+
+## [3.98.1](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1) (2026-04-07)
+
+### Bug Fixes
+
+- simplify city and postal code display logic in `RegionBar` and `RegionButton` ([#3259](https://github.com/vtex/faststore/issues/3259)) ([8944bee](https://github.com/vtex/faststore/commit/8944bee9cb92ccea2b6ca24309cfa5478b6f4d0d))
 
 # 3.98.0 (2026-03-27)
 
@@ -42,8 +66,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package faststore
 
 # [3.98.0-dev.6](https://github.com/vtex/faststore/compare/v3.98.0-dev.5...v3.98.0-dev.6) (2026-03-24)
-
-### Bug Fixes
 
 - enhance cache key management in useQuery ([#3230](https://github.com/vtex/faststore/issues/3230)) ([3f28502](https://github.com/vtex/faststore/commit/3f28502a8d381e476728661ea1150d0777ba87d1))
 

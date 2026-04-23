@@ -43,7 +43,7 @@ export const persisted =
   (store: Store<T>) => {
     let hydrated = false
 
-    const handler = async () => {
+    const hydrateFromIDB = async () => {
       const payload = await getIDB<T>(key)
 
       if (typeof document !== 'undefined') {
@@ -53,17 +53,24 @@ export const persisted =
       hydrated = true
     }
 
-    // Read immediately on init — no debounce — so the store is hydrated
-    // before any other subscriber (e.g. session → cart revalidation) can
-    // trigger a write that would overwrite the persisted data.
-    handler()
+    hydrateFromIDB()
 
-    const debouncedHandler = debounce(handler, 100)
+    // Cross-tab sync: when the user returns to this tab, unconditionally
+    // pull the latest value from IDB (another tab may have written it).
+    const syncFromIDB = async () => {
+      const payload = await getIDB<T>(key)
 
-    globalThis.addEventListener?.('focus', () => debouncedHandler())
+      if (typeof document !== 'undefined' && payload !== undefined) {
+        store.set(payload)
+      }
+    }
+
+    const debouncedSync = debounce(syncFromIDB, 100)
+
+    globalThis.addEventListener?.('focus', () => debouncedSync())
     globalThis.document?.addEventListener(
       'visibilitychange',
-      () => document.visibilityState === 'visible' && debouncedHandler()
+      () => document.visibilityState === 'visible' && debouncedSync()
     )
 
     // Block IDB writes until the initial read completes.  This prevents a

@@ -98,17 +98,21 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
         icon={buttonIcon ?? undefined}
       >
         {!!locationIcon && locationIcon}
-        {city && postalCode ? (
+        {postalCode && (shouldDisplayPostalCode || city) ? (
           <div data-fs-region-bar-location>
-            <span
-              data-fs-region-bar-postal-code
-              data-fs-region-bar-location-city
-            >
-              {city}
-            </span>
-            <span data-fs-region-bar-location-postal-code>
-              {shouldDisplayPostalCode && `, ${postalCode}`}
-            </span>
+            {city && (
+              <span
+                data-fs-region-bar-postal-code
+                data-fs-region-bar-location-city
+              >
+                {city}
+              </span>
+            )}
+            {shouldDisplayPostalCode && (
+              <span data-fs-region-bar-location-postal-code>
+                {city ? `, ${postalCode}` : postalCode}
+              </span>
+            )}
           </div>
         ) : (
           <span data-fs-region-bar-message data-fs-region-bar-location-message>
