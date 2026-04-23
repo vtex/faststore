@@ -14,7 +14,14 @@ export type LinkProps<T extends LinkElementType = 'a'> = UILinkProps<T> &
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
   T extends LinkElementType = 'a',
 >(
-  { href, inverse, children, variant = 'default', ...otherProps }: LinkProps<T>,
+  {
+    href,
+    inverse,
+    children,
+    variant = 'default',
+    prefetch,
+    ...otherProps
+  }: LinkProps<T>,
   ref: Ref<HTMLAnchorElement>
 ) {
   const { resolveLink } = useLink()
@@ -39,6 +46,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
         passHref
         href={finalHref}
         legacyBehavior={false}
+        prefetch={prefetch}
         {...otherProps}
       >
         {children}
