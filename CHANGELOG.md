@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.99.0-dev.3 (2026-04-23)
+
+### Features
+
+- add isGift field to StoreOffer type and resolvers - SFS-3040 ([#3220](https://github.com/vtex/faststore/issues/3220)) ([e10fc92](https://github.com/vtex/faststore/commit/e10fc92633a5296a5b03286028d31d9c280561c6))
+- Enhance session management with logout - SFS-3105 ([#3268](https://github.com/vtex/faststore/issues/3268)) ([9468e32](https://github.com/vtex/faststore/commit/9468e32a3531ca3c91c7f82a34ac1c750c6a26ef))
+
 # [3.99.0-dev.2](https://github.com/vtex/faststore/compare/v3.99.0-dev.1...v3.99.0-dev.2) (2026-04-21)
 
 ### Bug Fixes
