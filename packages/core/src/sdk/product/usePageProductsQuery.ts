@@ -1,8 +1,6 @@
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
-  ClientManyProductsQueryQuery,
-  ClientManyProductsQueryQueryVariables,
   ClientManyProductsQueryWithSearchIdQuery,
   ClientManyProductsQueryWithSearchIdQueryVariables,
 } from '@generated/graphql'
@@ -150,8 +148,8 @@ export const useCreateUseGalleryPage = (
     const shouldFetch = !hasSameVariables || shouldFetchFirstPage
 
     const { data } = useQuery<
-      ClientManyProductsQueryQuery,
-      ClientManyProductsQueryQueryVariables
+      ClientManyProductsQueryWithSearchIdQuery,
+      ClientManyProductsQueryWithSearchIdQueryVariables
     >(query, localizedVariablesWithRegion, {
       fallbackData: null,
       suspense: true,
