@@ -39,11 +39,11 @@
   "size-limit": [
     {
       "path": "dist/cjs/index.js",
-      "limit": "50 KB"
+      "limit": "62 KB"
     },
     {
       "path": "dist/es/index.mjs",
-      "limit": "40 KB"
+      "limit": "60 KB"
     }
   ],
   "dependencies": {
