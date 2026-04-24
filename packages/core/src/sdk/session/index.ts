@@ -117,13 +117,6 @@ export const validateSession = async (session: Session) => {
     return null
   }
 
-  // If the session has a refreshAfter and no person, clear the stale refreshAfter
-  // but continue to the validation flow so the GraphQL call still runs.
-  if (session.refreshAfter && !session.person) {
-    session = { ...session, refreshAfter: null }
-    sessionStore.set(session)
-  }
-
   // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
   // On success, continue to the validation flow with the refreshed session.
   // On failure (logoutAndClearSession already triggered), bail out.
