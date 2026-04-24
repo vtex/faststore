@@ -1,8 +1,9 @@
+import storeConfig from 'discovery.config'
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
-  ClientManyProductsQueryQuery,
-  ClientManyProductsQueryQueryVariables,
+  ClientManyProductsQueryWithSearchIdQuery,
+  ClientManyProductsQueryWithSearchIdQueryVariables,
 } from '@generated/graphql'
 import deepEquals from 'fast-deep-equal'
 import {
@@ -15,6 +16,7 @@ import {
   useState,
 } from 'react'
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useSession } from 'src/sdk/session'
 import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
@@ -34,7 +36,7 @@ export const useGalleryPage = (page: number) => {
 }
 
 export const query = gql(`
-  query ClientManyProductsQuery(
+  query ClientManyProductsQueryWithSearchId(
     $first: Int!
     $after: String
     $sort: StoreSort!
@@ -61,6 +63,7 @@ export const query = gql(`
           }
         }
       }
+      searchId
     }
   }
 `)
@@ -68,8 +71,8 @@ export const query = gql(`
 const getKey = (object: any) => JSON.stringify(object)
 
 interface UseCreateUseGalleryPageProps {
-  initialPages: ClientManyProductsQueryQuery
-  serverManyProductsVariables: ClientManyProductsQueryQueryVariables
+  initialPages: ClientManyProductsQueryWithSearchIdQuery
+  serverManyProductsVariables: ClientManyProductsQueryWithSearchIdQueryVariables
 }
 
 /**
@@ -79,14 +82,30 @@ export const useCreateUseGalleryPage = (
   params?: UseCreateUseGalleryPageProps
 ) => {
   const initialPages = params?.initialPages?.search ? [params.initialPages] : []
+
+  // Seed the cache with the same region-aware key shape that useGalleryPage uses,
+  // so hasSameVariables correctly matches on first mount and avoids an unnecessary
+  // re-fetch of the SSR-loaded page.
+  const isDeliveryPromiseEnabled = storeConfig.deliveryPromise?.enabled ?? false
+  const { postalCode } = useSession()
   const initialVariables = params?.serverManyProductsVariables
-    ? [getKey(params.serverManyProductsVariables)]
+    ? [
+        getKey(
+          isDeliveryPromiseEnabled
+            ? {
+                ...params.serverManyProductsVariables,
+                _postalCode: postalCode ?? '',
+              }
+            : params.serverManyProductsVariables
+        ),
+      ]
     : []
 
   const [pages, setPages] =
-    useState<ClientManyProductsQueryQuery[]>(initialPages)
+    useState<ClientManyProductsQueryWithSearchIdQuery[]>(initialPages)
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
-  const pagesRef = useRef<ClientManyProductsQueryQuery[]>(initialPages)
+  const pagesRef =
+    useRef<ClientManyProductsQueryWithSearchIdQuery[]>(initialPages)
   const pagesCache = useRef<string[]>(initialVariables)
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
@@ -94,6 +113,8 @@ export const useCreateUseGalleryPage = (
       state: { sort, term, selectedFacets },
       itemsPerPage,
     } = useSearch()
+
+    const { postalCode, isValidating: isSessionValidating } = useSession()
 
     const localizedVariables = useLocalizedVariables({
       first: itemsPerPage,
@@ -103,9 +124,20 @@ export const useCreateUseGalleryPage = (
       selectedFacets,
     })
 
+    // Include postalCode in the cache key so pages are invalidated on region change.
+    // _postalCode is not sent to the API — it only affects the local cache comparison.
+    // Only applied when deliveryPromise is enabled to avoid unnecessary cache fragmentation.
+    const localizedVariablesWithRegion = useMemo(
+      () =>
+        isDeliveryPromiseEnabled
+          ? { ...localizedVariables, _postalCode: postalCode ?? '' }
+          : localizedVariables,
+      [localizedVariables, postalCode]
+    )
+
     const hasSameVariables = deepEquals(
       pagesCache.current[page],
-      getKey(localizedVariables)
+      getKey(localizedVariablesWithRegion)
     )
 
     const shouldFetchFirstPage = useShouldFetchFirstPage({
@@ -116,18 +148,19 @@ export const useCreateUseGalleryPage = (
     const shouldFetch = !hasSameVariables || shouldFetchFirstPage
 
     const { data } = useQuery<
-      ClientManyProductsQueryQuery,
-      ClientManyProductsQueryQueryVariables
+      ClientManyProductsQueryWithSearchIdQuery,
+      ClientManyProductsQueryWithSearchIdQueryVariables
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,
-      doNotRun: !shouldFetch,
+      doNotRun:
+        !shouldFetch || (isDeliveryPromiseEnabled && isSessionValidating),
     })
 
     const shouldUpdatePages = data !== null
 
     if (shouldUpdatePages) {
-      pagesCache.current[page] = getKey(localizedVariables)
+      pagesCache.current[page] = getKey(localizedVariablesWithRegion)
 
       // Update refs
       const newPages = [...pagesRef.current]

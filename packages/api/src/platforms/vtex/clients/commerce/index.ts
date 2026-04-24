@@ -2,19 +2,20 @@ import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type {
-  CommercialAuthorizationResponse,
-  ICommercialAuthorizationByOrderId,
-  IProcessOrderAuthorization,
-  IUserOrderCancel,
-  QueryListUserOrdersArgs,
-  StoreMarketingData,
-  UserOrder,
-  UserOrderCancel,
-  UserOrderListResult,
+import {
+  BadRequestError,
+  type CommercialAuthorizationResponse,
+  type ICommercialAuthorizationByOrderId,
+  type IProcessOrderAuthorization,
+  type IUserOrderCancel,
+  type QueryListUserOrdersArgs,
+  type StoreMarketingData,
+  type UserOrder,
+  type UserOrderCancel,
+  type UserOrderListResult,
 } from '../../../..'
 import type { Context, Options } from '../../index'
-import { buildFormData } from '../../utils/buildFormData'
+import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
   getStoreCookie,
@@ -59,6 +60,7 @@ export const VtexCommerce = (
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
   const withAutCookie = getWithAutCookie(ctx)
+  const withAppKeyAndToken = getWithAppKeyAndToken()
 
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
@@ -222,26 +224,27 @@ export const VtexCommerce = (
         refreshOutdatedData = true,
         channel = ctx.storage.channel,
       }: {
-        id: string
+        id?: string
         refreshOutdatedData?: boolean
         channel?: Required<Channel>
       }): Promise<OrderForm> => {
         const { salesChannel } = channel
-        const params = new URLSearchParams({
-          refreshOutdatedData: refreshOutdatedData.toString(),
-          sc: salesChannel,
-        })
-
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
+        const params = new URLSearchParams({ sc: salesChannel })
+        if (id) {
+          params.set('refreshOutdatedData', refreshOutdatedData.toString())
+        }
+        const url = `${base}/api/checkout/pub/orderForm${id ? `/${id}` : ''}?${params.toString()}`
 
         return fetchAPI(
-          `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
+          url,
           {
             ...BASE_INIT,
             headers,
+            ...(id ? {} : { body: '{}' }),
           },
           { storeCookies }
         )
@@ -424,7 +427,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,shopper.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -489,6 +492,7 @@ export const VtexCommerce = (
         text,
         clientEmail,
         perPage,
+        pendingMyApproval,
       }: QueryListUserOrdersArgs): Promise<UserOrderListResult> => {
         const params = new URLSearchParams()
 
@@ -531,6 +535,9 @@ export const VtexCommerce = (
         if (clientEmail) params.append('clientEmail', clientEmail)
         if (page) params.append('page', page.toString())
         if (perPage) params.append('per_page', perPage.toString())
+        if (pendingMyApproval) {
+          params.append('my_pending_approvals', String(true))
+        }
 
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
@@ -676,7 +683,15 @@ export const VtexCommerce = (
       getContractById: ({
         contractId,
       }: { contractId: string }): Promise<ContractResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        if (!contractId) {
+          throw new BadRequestError('Missing contractId to fetch CL fields.')
+        }
+
+        const headers: HeadersInit = withAppKeyAndToken({
+          Accept: 'application/json',
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/dataentities/CL/documents/${contractId}?_fields=_all`,
@@ -687,24 +702,30 @@ export const VtexCommerce = (
           {}
         )
       },
-      getShopperNameById: ({
+      getShopperById: ({
         userId,
       }: { userId: string }): Promise<
         Array<{
           firstName: string
           lastName: string
+          email: string
+          phone: string
         }>
       > => {
         if (!userId) {
-          throw new Error('Missing userId to fetch shopper name')
+          throw new BadRequestError('Missing userId to fetch shopper name.')
         }
+
+        const headers: HeadersInit = withAppKeyAndToken({
+          Accept: 'application/json',
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         const userIdNormalized = userId.replace(/-/g, '') // Normalize userId by removing hyphens
 
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
         return fetchAPI(
-          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized})&_fields=_all&_schema=v1`,
+          `${base}/api/dataentities/shopper/search?_where=(userId=${userIdNormalized} OR userId=${userId})&_fields=_all&_schema=v1`,
           {
             method: 'GET',
             headers,
@@ -728,47 +749,6 @@ export const VtexCommerce = (
           },
           { storeCookies }
         )
-      },
-      setPassword: async ({
-        email,
-        newPassword,
-        currentPassword,
-        accesskey,
-        recaptcha,
-      }: {
-        email: string
-        newPassword: string
-        currentPassword: string
-        accesskey?: string
-        recaptcha?: string
-      }): Promise<{ success: boolean; message?: string }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
-
-        const body = buildFormData({
-          login: email,
-          newPassword,
-          currentPassword,
-          accesskey,
-          recaptcha,
-        })
-
-        const result = await fetchAPI(
-          `${base}/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
-          {
-            method: 'POST',
-            headers,
-            body,
-          },
-          { storeCookies }
-        )
-
-        if ((result?.authStatus ?? '').toLowerCase() === 'success') {
-          return { success: true }
-        }
-        return {
-          success: false,
-          message: result?.authStatus ?? 'Unknown error',
-        }
       },
     },
   }

@@ -1,6 +1,6 @@
 {
   "name": "@faststore/graphql-utils",
-  "version": "3.56.1",
+  "version": "3.99.0-dev.3",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",
@@ -12,6 +12,9 @@
   "browser": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=production tsc",
     "dev": "tsc --watch"

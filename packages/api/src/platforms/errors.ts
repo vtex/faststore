@@ -1,15 +1,17 @@
 type ErrorType =
   | 'BadRequestError'
+  | 'UnauthorizedError'
   | 'NotFoundError'
   | 'RedirectError'
   | 'ForbiddenError'
+  | 'UnknownError'
 
 interface Extension {
   type: ErrorType
   status: number
 }
 
-class FastStoreError<T extends Extension = Extension> extends Error {
+export class FastStoreError<T extends Extension = Extension> extends Error {
   constructor(
     public extensions: T,
     message?: string
@@ -25,9 +27,9 @@ export class BadRequestError extends FastStoreError {
   }
 }
 
-export class NotFoundError extends FastStoreError {
+export class UnauthorizedError extends FastStoreError {
   constructor(message?: string) {
-    super({ status: 404, type: 'NotFoundError' }, message)
+    super({ status: 401, type: 'UnauthorizedError' }, message)
   }
 }
 
@@ -37,14 +39,23 @@ export class ForbiddenError extends FastStoreError {
   }
 }
 
+export class NotFoundError extends FastStoreError {
+  constructor(message?: string) {
+    super({ status: 404, type: 'NotFoundError' }, message)
+  }
+}
+
 export const isFastStoreError = (error: any): error is FastStoreError =>
   error?.name === 'FastStoreError'
-
-export const isNotFoundError = (error: any): error is NotFoundError =>
-  error?.extensions?.type === 'NotFoundError'
 
 export const isBadRequestError = (error: any): error is BadRequestError =>
   error?.extensions?.type === 'BadRequestError'
 
+export const isUnauthorizedError = (error: any): error is UnauthorizedError =>
+  error?.extensions?.type === 'UnauthorizedError'
+
 export const isForbiddenError = (error: any): error is ForbiddenError =>
   error?.extensions?.type === 'ForbiddenError'
+
+export const isNotFoundError = (error: any): error is NotFoundError =>
+  error?.extensions?.type === 'NotFoundError'

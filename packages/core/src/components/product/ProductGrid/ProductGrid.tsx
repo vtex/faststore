@@ -37,9 +37,33 @@ interface Props {
    */
   firstPage?: number
   /**
+   * Determine whether to show the comparison checkbox.
+   */
+  shouldShowComparison?: boolean
+  /**
+   * Label for comparison text.
+   */
+  compareLabel?: string
+  /**
    * Title for the `ProductGrid` component that will be send to GA events.
    */
   title?: string
+  searchId?: string
+  /**
+   * Function that returns optional external porps for each product summary.
+   * The returned key/value pairs will be spread onto the corresponding section element.
+   *
+   * @example
+   * buildExtraProductProps={(product, index, searchId) => ({
+   *   'data-af-category': product.category || 'unknown',
+   *   'data-af-index': String(index),
+   * })}
+   */
+  buildExtraProductProps?: (
+    product: Record<string, any>,
+    index: number,
+    searchId: string
+  ) => Record<string, string | number | boolean>
 }
 
 function ProductGrid({
@@ -53,7 +77,11 @@ function ProductGrid({
     sponsoredLabel,
   } = {},
   firstPage,
+  shouldShowComparison,
+  compareLabel,
   title,
+  searchId,
+  buildExtraProductProps = () => ({}),
 }: Props) {
   const { isMobile } = useScreenResize()
   const { __experimentalProductCard: ProductCard } =
@@ -67,7 +95,11 @@ function ProductGrid({
       aspectRatio={aspectRatio}
       loading={products.length === 0}
     >
-      <UIProductGrid>
+      <UIProductGrid
+        data-af-element={searchId && 'search-result'}
+        data-af-onimpression={!!searchId}
+        data-af-search-id={searchId}
+      >
         {isGridWithViewportObserver ? (
           // In mobile, the ProductGrid initially renders the first 2 items, the rest of the items are rendered when they come into the viewport.
           <>
@@ -80,6 +112,8 @@ function ProductGrid({
                   pageSize={pageSize}
                 >
                   <ProductCard.Component
+                    enableCompareCheckbox={shouldShowComparison}
+                    compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
                       width: 150,
@@ -96,6 +130,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
+                    {...buildExtraProductProps(product, idx, searchId)}
                   />
                 </ProductSentinel>
               </UIProductGridItem>
@@ -110,6 +145,8 @@ function ProductGrid({
                     pageSize={pageSize}
                   >
                     <ProductCard.Component
+                      enableCompareCheckbox={shouldShowComparison}
+                      compareLabel={compareLabel}
                       aspectRatio={aspectRatio}
                       imgProps={{
                         width: 150,
@@ -126,6 +163,7 @@ function ProductGrid({
                       index={pageSize * page + idx + 1}
                       taxesConfiguration={taxesConfiguration}
                       sponsoredLabel={sponsoredLabel}
+                      {...buildExtraProductProps(product, idx, searchId)}
                     />
                   </ProductSentinel>
                 </UIProductGridItem>
@@ -143,6 +181,8 @@ function ProductGrid({
                   pageSize={pageSize}
                 >
                   <ProductCard.Component
+                    enableCompareCheckbox={shouldShowComparison}
+                    compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
                       width: 150,
@@ -159,6 +199,7 @@ function ProductGrid({
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
                     sponsoredLabel={sponsoredLabel}
+                    {...buildExtraProductProps(product, idx, searchId)}
                   />
                 </ProductSentinel>
               </UIProductGridItem>

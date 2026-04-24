@@ -234,6 +234,81 @@
                       }
                     }
                   }
+                },
+                "deliveryOptions": {
+                  "title": "PLP/Search Filter: Delivery Options",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should enable Delivery Options?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "title": {
+                      "title": "Delivery Options title",
+                      "type": "string",
+                      "default": "Delivery Option"
+                    },
+                    "allDeliveryOptions": {
+                      "title": "All delivery options label",
+                      "type": "string",
+                      "default": "All delivery options"
+                    }
+                  }
+                },
+                "deliveryPromiseBadges": {
+                  "title": "Delivery Promise badges",
+                  "type": "object",
+                  "description": "The badges will be displayed in product cards indicating the delivery methods availability for the product.",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should display Delivery Promise badges?",
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "delivery": {
+                      "title": "Shipping available label",
+                      "type": "string",
+                      "default": "Available for shipping"
+                    },
+                    "deliveryUnavailable": {
+                      "title": "Shipping unavailable label",
+                      "type": "string",
+                      "default": "Unavailable for shipping"
+                    },
+                    "pickupInPoint": {
+                      "title": "Pickup available label",
+                      "type": "string",
+                      "default": "Available for pickup"
+                    },
+                    "pickupInPointUnavailable": {
+                      "title": "Pickup unavailable label",
+                      "type": "string",
+                      "default": "Unavailable for pickup"
+                    }
+                  }
+                },
+                "inStock": {
+                  "title": "PLP/Search Filter: In Stock",
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "title": "Should display In Stock filter?",
+                      "description": "Allow shoppers to filter only products that are currently in stock. Note: When enabling, ensure that the `hideUnavailableItems` property is set to `false` in the store's `discovery.config.js` file.",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "title": {
+                      "title": "In Stock title",
+                      "type": "string",
+                      "default": "Availability"
+                    },
+                    "label": {
+                      "title": "In Stock label",
+                      "type": "string",
+                      "default": "In-stock only"
+                    }
+                  }
                 }
               }
             }

@@ -1,39 +1,73 @@
-import storeConfig from 'discovery.config'
 import type { ImageLoaderProps } from 'next/image'
-const THUMBOR_SERVER = `https://${storeConfig.api.storeId}.vtexassets.com`
 
+function handleVtexUrls(src: string, width: number, quality = 8) {
+  const customQuality =
+    quality > 10 ? Math.ceil(Math.min(quality, 100) / 10) : quality
+
+  // Handle VTEX IDs pattern: /ids/{number}/{filename}.{extension}?{queryParams} (Product Images)
+  const regex = /(\/ids\/\d+)\/([^/?]+)(\.[^/?]+)(\?.+)?$/
+  if (regex.test(src)) {
+    return src.replace(
+      regex,
+      (_match, idPart, filename, _extension, queryString = '') => {
+        const qs = new URLSearchParams(queryString)
+        qs.set('quality', customQuality.toString())
+        return `${idPart}-${width}-auto/${filename}.webp?${qs.toString()}`
+      }
+    )
+  }
+
+  // Handle VTEX file manager URLs (CMS Images)
+  if (src.includes('vtexassets') && src.includes('/assets')) {
+    const url = new URL(src)
+    url.searchParams.set('width', width.toString())
+    url.searchParams.set('aspect', 'true')
+    url.searchParams.set('quality', customQuality.toString())
+    return url.toString()
+  }
+
+  return null
+}
+
+/**
+ * Global loader that handles VTEX-specific URLs with custom logic
+ * and falls back to Next.js default behavior for other images
+ */
 export default function customImageLoader({
   src,
   width,
   quality,
 }: ImageLoaderProps) {
-  return storeConfig.experimental.enableVtexAssetsLoader
-    ? fileServerLoader({ src, width })
-    : thumborLoader({ src, width, quality })
-}
+  const vtexResult = handleVtexUrls(src, width, quality)
+  if (vtexResult) {
+    return vtexResult
+  }
 
-function thumborLoader({ src, width, quality }: ImageLoaderProps) {
-  const preSizeComponents = [THUMBOR_SERVER, 'unsafe']
-
-  // proportional to the width, enter a height of 0,
-  const height = 0
-  const finalSize = `${width}x${height}`
-
-  const postSizeComponents: string[] = ['center', 'middle']
-  quality && postSizeComponents.push(`filters:quality(${quality || 80})`)
-  postSizeComponents.push(encodeURIComponent(src))
-
-  return [...preSizeComponents, finalSize, ...postSizeComponents].join('/')
-}
-
-function fileServerLoader({ src, width }: ImageLoaderProps) {
-  // Regular expression to match the pattern: /ids/{number}/{filename}.{extension}?{queryParams}
-  const regex = /(\/ids\/\d+)\/([^/?]+)(\.[^/?]+)(\?.+)?$/
-
-  return src.replace(
-    regex,
-    (_match, idPart, filename, _extension, queryString = '') => {
-      return `${idPart}-${width}-auto/${filename}.webp${queryString}`
+  try {
+    new URL(src)
+    const params = new URLSearchParams()
+    params.set('url', src)
+    params.set('w', width.toString())
+    if (quality) {
+      params.set('q', quality.toString())
     }
-  )
+
+    return `/_next/image?${params.toString()}`
+  } catch {
+    // If URL parsing fails, it's a local path (/logo.svg) or an invalid URL
+    return src
+  }
+}
+
+/**
+ * Loader used by FastStore Image component that only handles VTEX URLs
+ * Returns src directly for other images (no Next.js optimization)
+ */
+export function faststoreLoader({ src, width, quality }: ImageLoaderProps) {
+  const vtexResult = handleVtexUrls(src, width, quality)
+  if (vtexResult) {
+    return vtexResult
+  }
+
+  return src
 }

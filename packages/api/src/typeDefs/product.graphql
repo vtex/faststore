@@ -47,6 +47,10 @@ type StoreProduct {
   """
   gtin: String!
   """
+  Manufacturer Part Number. Identifies the product to its manufacturer.
+  """
+  mpn: String!
+  """
   Array with review information.
   """
   review: [StoreReview!]!
@@ -74,6 +78,52 @@ type StoreProduct {
   Advertisement information about the product.
   """
   advertisement: Advertisement
+  """
+  Indicates whether the product has specifications.
+  """
+  hasSpecifications: Boolean
+  """
+  Indicate the specifications of a product.
+  """
+  skuSpecifications: [SkuSpecification!]!
+  """
+  Indicate the specifications of a group of SKUs.
+  """
+  specificationGroups: [SpecificationGroup!]!
+  """
+  Delivery Promise product's badge.
+  """
+  deliveryPromiseBadges: [DeliveryPromiseBadge]
+}
+
+type SkuSpecification {
+  field: SKUSpecificationField!
+  values: [SKUSpecificationValue!]!
+}
+
+type SKUSpecificationValue {
+  name: String!
+  id: String
+  fieldId: String
+  originalName: String
+}
+
+type SKUSpecificationField {
+  name: String!
+  originalName: String
+  id: String
+}
+
+type SpecificationGroup {
+  name: String!
+  originalName: String!
+  specifications: [Specification!]!
+}
+
+type Specification {
+  name: String!
+  originalName: String!
+  values: [String!]!
 }
 
 """

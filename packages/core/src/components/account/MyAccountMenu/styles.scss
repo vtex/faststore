@@ -46,6 +46,7 @@
   height: var(--fs-spacing-6);
   font-size: var(--fs-text-size-1);
   font-weight: var(--fs-text-weight-medium);
+  white-space: nowrap;
   background-color: var(--fs-color-tertiary-bkg);
   border-radius: var(--fs-border-radius-pill);
 
@@ -101,7 +102,7 @@
 
   .nav {
     flex-direction: column;
-    gap: 0;
+    gap: var(--fs-spacing-0);
   }
 
   .navItem {

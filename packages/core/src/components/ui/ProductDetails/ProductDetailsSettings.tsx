@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import { useMemo } from 'react'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
+import { Skeleton as UISkeleton } from '@faststore/ui'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
@@ -103,57 +104,60 @@ function ProductDetailsSettings({
 
   return (
     <>
-      {!outOfStock && (
-        <section data-fs-product-details-values>
-          <div data-fs-product-details-values-wrapper>
-            <ProductPrice.Component
-              data-fs-product-details-prices
-              value={
-                (taxesConfiguration?.usePriceWithTaxes
-                  ? priceWithTaxes
-                  : price) * (unitMultiplier ?? 1)
-              }
-              listPrice={
-                (taxesConfiguration?.usePriceWithTaxes
-                  ? listPriceWithTaxes
-                  : listPrice) * (unitMultiplier ?? 1)
-              }
-              formatter={useFormattedPrice}
-              {...ProductPrice.props}
+      {!outOfStock &&
+        (isValidating ? (
+          <UISkeleton size={{ width: '100%', height: '50px' }} />
+        ) : (
+          <section data-fs-product-details-values>
+            <div data-fs-product-details-values-wrapper>
+              <ProductPrice.Component
+                data-fs-product-details-prices
+                value={
+                  (taxesConfiguration?.usePriceWithTaxes
+                    ? priceWithTaxes
+                    : price) * (unitMultiplier ?? 1)
+                }
+                listPrice={
+                  (taxesConfiguration?.usePriceWithTaxes
+                    ? listPriceWithTaxes
+                    : listPrice) * (unitMultiplier ?? 1)
+                }
+                formatter={useFormattedPrice}
+                {...ProductPrice.props}
+              />
+              {taxesConfiguration?.usePriceWithTaxes && (
+                <UILabel data-fs-product-details-taxes-label>
+                  {taxesConfiguration?.taxesLabel}
+                </UILabel>
+              )}
+            </div>
+            <QuantitySelector.Component
+              min={1}
+              max={10}
+              unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
+              useUnitMultiplier={useUnitMultiplier}
+              {...QuantitySelector.props}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              onChange={setQuantity}
+              // TODO: we should get the Toast values from the hCMS
+              onValidateBlur={(
+                min: number,
+                maxValue: number,
+                quantity: number
+              ) => {
+                pushToast({
+                  title: 'Invalid quantity!',
+                  message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                  status: 'INFO',
+                  icon: (
+                    <UIIcon name="CircleWavyWarning" width={30} height={30} />
+                  ),
+                })
+              }}
             />
-            {taxesConfiguration?.usePriceWithTaxes && (
-              <UILabel data-fs-product-details-taxes-label>
-                {taxesConfiguration?.taxesLabel}
-              </UILabel>
-            )}
-          </div>
-          <QuantitySelector.Component
-            min={1}
-            max={10}
-            unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
-            useUnitMultiplier={useUnitMultiplier}
-            {...QuantitySelector.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            onChange={setQuantity}
-            // TODO: we should get the Toast values from the hCMS
-            onValidateBlur={(
-              min: number,
-              maxValue: number,
-              quantity: number
-            ) => {
-              pushToast({
-                title: 'Invalid quantity!',
-                message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
-                status: 'INFO',
-                icon: (
-                  <UIIcon name="CircleWavyWarning" width={30} height={30} />
-                ),
-              })
-            }}
-          />
-        </section>
-      )}
+          </section>
+        ))}
       {skuVariants && (
         <Selectors
           slugsMap={skuVariants.slugsMap}

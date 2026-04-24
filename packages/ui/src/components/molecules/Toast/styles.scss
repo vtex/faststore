@@ -16,7 +16,7 @@
   --fs-toast-border-width                 : var(--fs-border-width);
   --fs-toast-border-color                 : transparent;
 
-  --fs-toast-shadow                       : 0 1px 3px rgba(0,0,0,.1);
+  --fs-toast-shadow                       : 0 1px 3px rgb(0 0 0 / 10%);
   --fs-toast-bkg-color                    : var(--fs-color-neutral-0);
 
   --fs-toast-transition-property          : var(--fs-transition-property);
@@ -46,12 +46,12 @@
 
   position: fixed;
   top: var(--fs-toast-top-mobile);
-  right: 0;
+  inset-inline-end: 0;
   z-index: 10;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: left;
+  justify-content: start;
   width: var(--fs-toast-width);
   min-height: var(--fs-toast-min-height);
   padding: var(--fs-toast-padding);
@@ -65,7 +65,7 @@
 
   @include media(">=tablet") {
     top: var(--fs-toast-top-tablet);
-    right: var(--fs-spacing-4);
+    inset-inline-end: var(--fs-spacing-4);
     max-width: rem(398px);
   }
 
@@ -95,7 +95,7 @@
   }
 
   [data-fs-toast-title] {
-    margin-left: var(--fs-toast-title-margin-left);
+    margin-inline-start: var(--fs-toast-title-margin-left);
     overflow: hidden;
     font-size: var(--fs-toast-title-size);
     font-weight: var(--fs-toast-title-weight);
@@ -103,7 +103,7 @@
   }
 
   [data-fs-toast-message] {
-    margin-left: var(--fs-toast-message-margin-left);
+    margin-inline-start: var(--fs-toast-message-margin-left);
     overflow: hidden;
     font-size: var(--fs-toast-message-size);
     line-height: var(--fs-toast-message-line-height);

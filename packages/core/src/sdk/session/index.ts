@@ -1,17 +1,34 @@
 import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { gql } from '@generated'
 import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
+import deepEqual from 'fast-deep-equal'
 import storeConfig from '../../../discovery.config'
+import {
+  isRefreshTokenSuccessful,
+  refreshTokenRequest,
+} from '../account/refreshToken'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { getSavedAddress } from '../profile'
 import { createValidationStore, useStore } from '../useStore'
+import { getPostalCode } from '../userLocation/index'
+import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
+
+const isReloadAfterLogoutPending = (): boolean => {
+  try {
+    return (
+      typeof sessionStorage !== 'undefined' &&
+      !!sessionStorage.getItem(RELOAD_AFTER_LOGOUT_KEY)
+    )
+  } catch {
+    return false
+  }
+}
 
 export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
@@ -54,6 +71,8 @@ export const mutation = gql(`
         userName
         userEmail
         savedPostalCode
+        contractName
+        organizationManager
       }
       marketingData {
         utmCampaign
@@ -63,65 +82,96 @@ export const mutation = gql(`
         utmiPage
         utmiPart
       }
+      refreshAfter
     }
   }
 `)
 
 export const validateSession = async (session: Session) => {
+  // Skip validation if the page is about to reload after logout — avoids an
+  // aborted-fetch TypeError when the forced reload navigates the page away.
+  if (isReloadAfterLogoutPending()) {
+    return null
+  }
+
   // If deliveryPromise is enabled and there is no postalCode in the session
-  if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
+  if (
+    storeConfig.deliveryPromise?.enabled &&
+    (!session.postalCode ||
+      session.postalCode === storeConfig.session.postalCode)
+  ) {
     // Case B2B: If a B2B shopper is logged in and a saved address is available, the postalCode field is automatically updated with the postal code from that address by the B2B session apps (shopper-session and profile-session).
     if (session.b2b && session.b2b?.savedPostalCode) {
       sessionStore.set({
         ...session,
         postalCode: session.b2b.savedPostalCode,
       })
-    }
-
-    // Case B2C: If a B2C shopper is logged in, try to get the location (postalCode, geoCoordinates, and country) from their saved address
-    else if (session.person?.id) {
-      const address = await getSavedAddress(session.person?.id)
-
-      // Save the location in the session
-      if (address) {
-        sessionStore.set({
-          ...session,
-          city: address?.city,
-          postalCode: address?.postalCode,
-          geoCoordinates: {
-            // the values come in the reverse expected order
-            latitude: address?.geoCoordinate ? address?.geoCoordinate[1] : null,
-            longitude: address?.geoCoordinate
-              ? address?.geoCoordinate[0]
-              : null,
-          },
-          country: address?.country,
-        })
-      }
     } else {
-      // Fallback: use the initial postalCode defined in discovery.config.js
-      const initialPostalCode = defaultStore.readInitial().postalCode
-
-      !!initialPostalCode &&
-        sessionStore.set({ ...session, postalCode: initialPostalCode })
+      const sessionWithLocation = await getPostalCode(session)
+      !!sessionWithLocation && sessionStore.set(sessionWithLocation)
     }
   }
 
-  const data = await request<
-    ValidateSessionMutation,
-    ValidateSessionMutationVariables
-  >(mutation, { session, search: window.location.search })
+  try {
+    // Prevents to call ValidateSession without session (required) and get Error
+    if (!session) {
+      return null
+    }
 
-  return data.validateSession
+    // Remove fields that are not part of IStoreSession type
+    const { isSessionReady, isValidating, ...sessionWithoutExtras } =
+      session as Session & {
+        isSessionReady?: boolean
+        isValidating?: boolean
+      }
+
+    const data = await request<
+      ValidateSessionMutation,
+      ValidateSessionMutationVariables
+    >(mutation, {
+      session: sessionWithoutExtras,
+      search: window.location.search,
+    })
+
+    return data.validateSession
+  } catch (error) {
+    const shouldRefreshToken =
+      error?.status === 401 && storeConfig.experimental?.refreshToken
+
+    if (shouldRefreshToken) {
+      const result = await refreshTokenRequest()
+
+      if (isRefreshTokenSuccessful(result)) {
+        const refreshAfter = String(
+          Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+        )
+
+        sessionStore.set({
+          ...session,
+          refreshAfter,
+        })
+      } else {
+        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
+        // so that we can postpone refreshToken request and continue the ValidateSession request
+        sessionStore.set({
+          ...session,
+          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
+        })
+      }
+    }
+  }
 }
 
-const [validationStore, onValidate] = createValidationStore(validateSession)
+const [validationStore, onValidate, hasValidatedStore] =
+  createValidationStore(validateSession)
 
 const defaultStore = createSessionStore(storeConfig.session, onValidate)
 
 export const sessionStore = {
   ...defaultStore,
   set: (val: Session) => {
+    if (deepEqual(val, defaultStore.read()) === true) return
+
     defaultStore.set(val)
 
     // Trigger cart revalidation when session changes
@@ -139,14 +189,22 @@ interface SessionOptions {
  * This key is used only in the useAuth hook and is only required to send on the ValidateSession mutation,
  * so we remove it from the session's channel object to avoid unnecessary cache invalidations and query executions.
  *
+ * The hook also provides session stability management to prevent UI blinking effects during session validation.
+ * The session ready state is persisted in sessionStorage to maintain consistency across page navigations
+ * and provide faster loading times on subsequent page visits.
+ *
  * @param options - Optional configuration for the hook.
  * @param options.filter - A boolean value indicating whether to filter the channel object or not. Default is true.
- * @returns An object containing the session data, channel object, and a flag indicating whether the session is being validated.
+ * @returns An object containing the session data, channel object, validation status, and session readiness status.
  */
-
 export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
-  let { channel, ...session } = useStore(sessionStore)
+  const currentSessionStore = sessionStore.read() ?? sessionStore.readInitial()
+  const resultSessionStore = useStore(sessionStore)
   const isValidating = useStore(validationStore)
+  const hasValidated = useStore(hasValidatedStore)
+  const { isSessionReady } = useSessionReady({ isValidating, hasValidated })
+
+  let { channel, ...session } = resultSessionStore ?? currentSessionStore
 
   if (filter) {
     const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
@@ -159,7 +217,55 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
       ...session,
       channel,
       isValidating,
+      isSessionReady,
     }),
-    [isValidating, session, channel]
+    [isValidating, session, channel, isSessionReady]
   )
+}
+
+/**
+ * Custom hook to manage session readiness state.
+ * Provides session stability management to prevent UI blinking effects during session validation.
+ * The session ready state is persisted in sessionStorage to maintain consistency across page navigations
+ * and provide faster loading times on subsequent page visits.
+ *
+ * Uses `hasValidated` (a reactive store value) instead of a ref-based transition tracker to avoid
+ * a React 18 automatic batching race condition where `isValidating` goes true→false so fast that
+ * the effect never observes the `true` state, leaving `isSessionReady` stuck at false.
+ *
+ * @param isValidating - Whether the session is currently being validated
+ * @param hasValidated - Whether at least one validation cycle has ever completed
+ * @returns An object containing the session readiness status
+ */
+export const useSessionReady = ({
+  isValidating,
+  hasValidated,
+}: {
+  isValidating: boolean
+  hasValidated: boolean
+}) => {
+  // Initialize with persisted state from sessionStorage
+  const [isSessionReady, setIsSessionReady] = useState(() => {
+    if (typeof window === 'undefined') return false
+    try {
+      return sessionStorage.getItem(SESSION_READY_KEY) === 'true'
+    } catch {
+      return false
+    }
+  })
+
+  useEffect(() => {
+    // Only mark ready once at least one full validation cycle has completed
+    // and validation is not currently in flight.
+    if (isValidating || !hasValidated) return
+
+    setIsSessionReady(true)
+    try {
+      sessionStorage.setItem(SESSION_READY_KEY, 'true')
+    } catch {
+      // Ignore storage errors
+    }
+  }, [isValidating, hasValidated])
+
+  return { isSessionReady }
 }

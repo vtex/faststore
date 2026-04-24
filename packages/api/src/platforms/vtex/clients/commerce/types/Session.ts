@@ -42,6 +42,7 @@ export interface Profile {
 export interface Shopper {
   firstName?: Value
   lastName?: Value
+  organizationManager?: { value: boolean }
 }
 
 export interface Checkout {
@@ -53,4 +54,8 @@ export interface Public {
   orderFormId?: Value
   items?: Value
   postalCode?: Value
+}
+
+export interface SessionJwt {
+  id: string
 }

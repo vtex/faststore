@@ -18,12 +18,14 @@ export const optimistic = <T>(onValidate: Validator<T> = trivial) => {
 
         const validated = await onValidate(value)
 
-        if (!cancel && validated !== null) {
+        if (!cancel && validated !== null && validated !== undefined) {
           store.set(validated)
         }
       }
 
-      queue = queue.then(handler)
+      queue = queue.then(handler).catch((_) => {
+        console.error('Error in optimistic validation:', _)
+      })
 
       return () => {
         cancel = true

@@ -16,6 +16,10 @@ import {
   Rating,
 } from '../../'
 
+type DeliveryPromiseBadge = {
+  label: string
+  availability: boolean
+}
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
@@ -73,6 +77,10 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
+  /**
+   * List delivery badges, if enabled and available.
+   */
+  deliveryPromiseBadges?: DeliveryPromiseBadge[]
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -93,6 +101,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       includeTaxesLabel = 'Tax included',
       sponsored = false,
       sponsoredLabel = 'Sponsored',
+      deliveryPromiseBadges,
       ...otherProps
     },
     ref
@@ -136,6 +145,22 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+        {deliveryPromiseBadges && (
+          <div data-fs-product-card-delivery-promise-badges>
+            {deliveryPromiseBadges.map((badge: DeliveryPromiseBadge) => (
+              <span
+                data-fs-product-card-delivery-promise-badge
+                data-fs-product-card-delivery-promise-badge-availability={
+                  badge.availability
+                }
+                key={badge.label}
+              >
+                {badge.label}
+              </span>
+            ))}
+          </div>
+        )}
+
         {onButtonClick && !outOfStock && (
           <div data-fs-product-card-actions>
             <Button

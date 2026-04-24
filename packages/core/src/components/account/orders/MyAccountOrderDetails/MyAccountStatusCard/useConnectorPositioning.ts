@@ -45,19 +45,11 @@ export function useConnectorPositioning(
       if (isDesktop) {
         const containerGap = calculateContainerGap()
         connectors.forEach((connector) => {
-          connector.style.top =
-            'calc(1rem + var(--fs-order-status-step-icon-margin) + var(--fs-order-status-step-icon-half-size))'
-          connector.style.left =
-            'calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-card-gap))'
           connector.style.width = `calc(((50% - var(--fs-order-status-step-icon-half-size) - var(--fs-order-status-card-gap)) * 2) + ${containerGap}px)`
           connector.style.height = 'var(--fs-border-width)'
         })
       } else {
         connectors.forEach((connector) => {
-          connector.style.top =
-            'calc(50% + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-connector-spacing))'
-          connector.style.left =
-            'calc(var(--fs-spacing-2) + var(--fs-order-status-step-icon-half-size) + var(--fs-order-status-step-icon-margin))'
           connector.style.width = 'var(--fs-border-width)'
           connector.style.height =
             'calc((50% - var(--fs-order-status-step-icon-half-size)) + var(--fs-order-status-card-gap) + (50% - var(--fs-order-status-step-icon-half-size)) - (var(--fs-order-status-connector-spacing) * 2))'

@@ -76,7 +76,7 @@ describe('withBasePath as the current dir `.`', () => {
       const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
 
       expect(
-        pathsToMatch(tmpCMSDirWithBase, './.faststore/cms/faststore')
+        pathsToMatch(tmpCMSDirWithBase(), './.faststore/cms/faststore')
       ).toBe(true)
     })
   })
@@ -173,9 +173,7 @@ describe('withBasePath as an arbitrary dir', () => {
     it('is the basePath + .faststore', () => {
       const { tmpDir: tmpDirWithBase } = withBasePath(basePath)
 
-      expect(
-        pathsToMatch(tmpDirWithBase, './src/__mocks__/store/.faststore')
-      ).toBe(true)
+      expect(pathsToMatch(tmpDirWithBase, './.faststore')).toBe(true)
     })
   })
 
@@ -197,7 +195,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpCustomizationsSrcDirWithBase,
-          './src/__mocks__/store/.faststore/src/customizations/src'
+          './.faststore/src/customizations/src'
         )
       ).toBe(true)
     })
@@ -226,7 +224,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpThemesCustomizationsFileWithBase,
-          './src/__mocks__/store/.faststore/src/customizations/src/themes/index.scss'
+          './.faststore/src/customizations/src/themes/index.scss'
         )
       ).toBe(true)
     })
@@ -237,9 +235,17 @@ describe('withBasePath as an arbitrary dir', () => {
       const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
 
       expect(
+        pathsToMatch(tmpCMSDirWithBase(), './.faststore/cms/faststore')
+      ).toBe(true)
+    })
+
+    it('returns the path of the CMS dir with the builderId on the .faststore dir', () => {
+      const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
+
+      expect(
         pathsToMatch(
-          tmpCMSDirWithBase,
-          './src/__mocks__/store/.faststore/cms/faststore'
+          tmpCMSDirWithBase('another-builder'),
+          './.faststore/cms/another-builder'
         )
       ).toBe(true)
     })
@@ -281,7 +287,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpCMSWebhookUrlsFileWithBase,
-          './src/__mocks__/store/.faststore/cms-webhook-urls.json'
+          './.faststore/cms-webhook-urls.json'
         )
       ).toBe(true)
     })
@@ -309,7 +315,7 @@ describe('withBasePath as an arbitrary dir', () => {
       expect(
         pathsToMatch(
           tmpStoreConfigFileWithBase,
-          './src/__mocks__/store/.faststore/src/customizations/discovery.config.js'
+          './.faststore/src/customizations/discovery.config.js'
         )
       ).toBe(true)
     })

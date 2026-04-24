@@ -3,6 +3,7 @@ import { useRef, type ReactNode } from 'react'
 import MyAccountCard from 'src/components/account/components/MyAccountCard'
 import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
+import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
 export type StepStatus = 'completed' | 'loading' | 'not-started' | 'failed'
 export type StepKey =
@@ -20,6 +21,7 @@ interface Step {
 
 interface MyAccountStatusCardProps {
   status: OrderStatusKey
+  creationDate: ServerOrderDetailsQueryQuery['userOrder']['creationDate']
 }
 
 // Define custom labels for each step based on their status
@@ -33,8 +35,8 @@ const STEP_LABELS: Record<StepKey, Record<StepStatus, string>> = {
   },
   approval: {
     completed: 'Approved', // Custom
-    loading: 'Approval Pending', // Use from orderStatusMap
-    'not-started': 'Approval Pending',
+    loading: 'Pending approval', // Use from orderStatusMap
+    'not-started': 'Pending approval',
     failed: 'Denied', // Custom
   },
   payment: {
@@ -84,7 +86,7 @@ const VISUAL_STEPS = [
 // Map labels from userOrderStatus.ts to step keys
 const LABEL_TO_STEP_MAPPING: Record<string, StepKey> = {
   'Order Placed': 'order',
-  'Approval Pending': 'approval',
+  'Pending approval': 'approval',
   'Payment Pending': 'payment',
   'Payment Approved': 'processing',
   'Payment Denied': 'payment',
@@ -99,14 +101,21 @@ const CANCELED_LABELS = ['Cancellation Requested', 'Canceled']
 const FAILED_LABELS = ['Payment Denied']
 
 const formatDate = (date: string) => {
-  return new Intl.DateTimeFormat('en-US', {
+  const dateObj = new Date(date)
+
+  const dateString = new Intl.DateTimeFormat('en-US', {
     month: '2-digit',
     day: '2-digit',
     year: 'numeric',
+  }).format(dateObj)
+
+  const timeString = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: '2-digit',
     hour12: true,
-  }).format(new Date(date))
+  }).format(dateObj)
+
+  return { date: dateString, time: timeString }
 }
 
 const StepIcon = ({
@@ -203,7 +212,10 @@ const getStepStatus = ({
   return thisStepIndex < currentStepIndex ? 'completed' : 'not-started'
 }
 
-function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
+function MyAccountStatusCard({
+  status,
+  creationDate,
+}: MyAccountStatusCardProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useConnectorPositioning(containerRef)
@@ -231,9 +243,20 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
         : '—' // prevent hydration mismatch
       : step.label(stepStatus)
 
+    // Add creation date to the order step when it's completed or failed
+    let completedAt: string | undefined
+    if (
+      step.key === 'order' &&
+      (stepStatus === 'completed' || stepStatus === 'failed') &&
+      creationDate
+    ) {
+      completedAt = creationDate
+    }
+
     return {
       label: stepLabel,
       status: stepStatus,
+      completedAt,
     }
   })
 
@@ -260,19 +283,20 @@ function MyAccountStatusCard({ status }: MyAccountStatusCardProps) {
               {step.completedAt && (
                 <div data-fs-shipping-step-details>
                   <span data-fs-shipping-step-date>
-                    {formatDate(step.completedAt)}
+                    {formatDate(step.completedAt).date}
+                  </span>
+                  <span data-fs-shipping-step-time>
+                    {formatDate(step.completedAt).time}
                   </span>
                 </div>
               )}
             </div>
-            {index < steps.length - 1 && (
-              <div
-                data-fs-shipping-connector
-                data-fs-shipping-connector-status={
-                  step.status === 'completed' ? 'completed' : 'not-started'
-                }
-              />
-            )}
+            <div
+              data-fs-shipping-connector
+              data-fs-shipping-connector-status={
+                step.status === 'completed' ? 'completed' : 'not-started'
+              }
+            />
           </div>
         ))}
       </div>

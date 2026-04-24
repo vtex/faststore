@@ -347,6 +347,13 @@ export type DeliveryIds = {
   warehouseId?: Maybe<Scalars['String']>;
 };
 
+/** Delivery Promise badge. */
+export type DeliveryPromiseBadge = {
+  __typename?: 'DeliveryPromiseBadge';
+  /** Badge type. */
+  typeName?: Maybe<Scalars['String']>;
+};
+
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
@@ -405,10 +412,12 @@ export type IShippingItem = {
 };
 
 export type IStoreB2B = {
+  contractName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
+  organizationManager?: Maybe<Scalars['Boolean']>;
   savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
@@ -569,6 +578,8 @@ export type IStoreSession = {
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Refresh token after Information. */
+  refreshAfter?: Maybe<Scalars['String']>;
 };
 
 /** Input to the cancel order API. */
@@ -651,11 +662,6 @@ export type Mutation = {
   cancelOrder?: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
-  /**
-   * Sets a new password for the user.
-   * This mutation is used to change the user's password, typically after a password reset or when the user wants to update their password.
-   */
-  setPassword?: Maybe<SetPasswordResponse>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -672,11 +678,6 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
-};
-
-
-export type MutationSetPasswordArgs = {
-  data: ISetPassword;
 };
 
 
@@ -851,8 +852,6 @@ export type ProfileAddress = {
 
 export type Query = {
   __typename?: 'Query';
-  /** Returns the account name of the current user or the B2B contract name if applicable. */
-  accountName?: Maybe<Scalars['String']>;
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
   accountProfile: StoreAccountProfile;
   /** Returns information about all collections. */
@@ -861,7 +860,7 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
-  /** Returns information about the list of Orders that the User can view. */
+  /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
@@ -869,6 +868,8 @@ export type Query = {
   product: StoreProduct;
   /** Returns the total product count information based on a specific location accessible through the VTEX segment cookie. */
   productCount?: Maybe<ProductCountResult>;
+  /** Returns information about selected products. */
+  products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
@@ -910,6 +911,7 @@ export type QueryListUserOrdersArgs = {
   dateFinal?: Maybe<Scalars['String']>;
   dateInitial?: Maybe<Scalars['String']>;
   page?: Maybe<Scalars['Int']>;
+  pendingMyApproval?: Maybe<Scalars['Boolean']>;
   perPage?: Maybe<Scalars['Int']>;
   status?: Maybe<Array<Maybe<Scalars['String']>>>;
   text?: Maybe<Scalars['String']>;
@@ -928,6 +930,11 @@ export type QueryProductArgs = {
 
 export type QueryProductCountArgs = {
   term?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryProductsArgs = {
+  productIds: Array<Scalars['String']>;
 };
 
 
@@ -969,6 +976,21 @@ export type QueryShippingArgs = {
 
 export type QueryUserOrderArgs = {
   orderId: Scalars['String'];
+};
+
+export type SkuSpecificationField = {
+  __typename?: 'SKUSpecificationField';
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  originalName?: Maybe<Scalars['String']>;
+};
+
+export type SkuSpecificationValue = {
+  __typename?: 'SKUSpecificationValue';
+  fieldId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  originalName?: Maybe<Scalars['String']>;
 };
 
 /** Search result. */
@@ -1059,11 +1081,17 @@ export type ShippingSla = {
   shippingEstimateDate?: Maybe<Scalars['String']>;
 };
 
+export type SkuSpecification = {
+  __typename?: 'SkuSpecification';
+  field: SkuSpecificationField;
+  values: Array<SkuSpecificationValue>;
+};
+
 export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
   activeVariations?: Maybe<Scalars['ActiveVariations']>;
-  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName?: Maybe<Scalars['VariantsByName']>;
@@ -1094,6 +1122,20 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName?: Maybe<Scalars['String']>;
+};
+
+export type Specification = {
+  __typename?: 'Specification';
+  name: Scalars['String'];
+  originalName: Scalars['String'];
+  values: Array<Scalars['String']>;
+};
+
+export type SpecificationGroup = {
+  __typename?: 'SpecificationGroup';
+  name: Scalars['String'];
+  originalName: Scalars['String'];
+  specifications: Array<Specification>;
 };
 
 /** Account profile information. */
@@ -1139,10 +1181,12 @@ export type StoreAuthor = {
 
 export type StoreB2B = {
   __typename?: 'StoreB2B';
+  contractName?: Maybe<Scalars['String']>;
   customerId: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   isRepresentative?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
+  organizationManager?: Maybe<Scalars['Boolean']>;
   savedPostalCode?: Maybe<Scalars['String']>;
   unitId?: Maybe<Scalars['String']>;
   unitName?: Maybe<Scalars['String']>;
@@ -1320,7 +1364,7 @@ export type StoreFacetValueBoolean = {
   /** Facet value label. */
   label: Scalars['String'];
   /** Number of items with this facet. */
-  quantity: Scalars['Int'];
+  quantity?: Maybe<Scalars['Int']>;
   /** Indicates whether facet is selected. */
   selected: Scalars['Boolean'];
   /** Facet value. */
@@ -1381,6 +1425,8 @@ export type StoreOffer = {
   __typename?: 'StoreOffer';
   /** Offer item availability. */
   availability: Scalars['String'];
+  /** Whether this offer is a gift (e.g. free promotional item). */
+  isGift?: Maybe<Scalars['Boolean']>;
   /** Offer item condition. */
   itemCondition: Scalars['String'];
   /** Information on the item being offered. */
@@ -1464,14 +1510,20 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /** Delivery Promise product's badge. */
+  deliveryPromiseBadges?: Maybe<Array<Maybe<DeliveryPromiseBadge>>>;
   /** Product description. */
   description: Scalars['String'];
   /** Global Trade Item Number. */
   gtin: Scalars['String'];
+  /** Indicates whether the product has specifications. */
+  hasSpecifications?: Maybe<Scalars['Boolean']>;
   /** Array of images. */
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */
   isVariantOf: StoreProductGroup;
+  /** Manufacturer Part Number. Identifies the product to its manufacturer. */
+  mpn: Scalars['String'];
   /** Product name. */
   name: Scalars['String'];
   /** Aggregate offer information. */
@@ -1486,8 +1538,12 @@ export type StoreProduct = {
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String'];
+  /** Indicate the specifications of a product. */
+  skuSpecifications: Array<SkuSpecification>;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String'];
+  /** Indicate the specifications of a group of SKUs. */
+  specificationGroups: Array<SpecificationGroup>;
   /** Sku Unit Multiplier */
   unitMultiplier?: Maybe<Scalars['Float']>;
 };
@@ -1586,6 +1642,8 @@ export type StoreSearchResult = {
   metadata?: Maybe<SearchMetadata>;
   /** Search result products. */
   products: StoreProductConnection;
+  /** Search result searchId. Unique identifier for the search query can be used to correlate search analytics events. */
+  searchId: Scalars['String'];
   /** Search result suggestions. */
   suggestions: StoreSuggestions;
 };
@@ -1630,6 +1688,8 @@ export type StoreSession = {
   person?: Maybe<StorePerson>;
   /** Session postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Refresh token after Information. */
+  refreshAfter?: Maybe<Scalars['String']>;
 };
 
 /** Product search results sorting options. */
@@ -1696,6 +1756,7 @@ export type UserOrder = {
   allowCancellation?: Maybe<Scalars['Boolean']>;
   allowEdition?: Maybe<Scalars['Boolean']>;
   authorizedDate?: Maybe<Scalars['String']>;
+  budgetData?: Maybe<UserOrderBudgetData>;
   callCenterOperatorData?: Maybe<Scalars['String']>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   cancelReason?: Maybe<Scalars['String']>;
@@ -1803,6 +1864,51 @@ export type UserOrderAttachments = {
   __typename?: 'UserOrderAttachments';
   content?: Maybe<Scalars['JSONObject']>;
   name?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderBudget = {
+  __typename?: 'UserOrderBudget';
+  allocations?: Maybe<Array<Maybe<UserOrderBudgetAllocation>>>;
+  balance?: Maybe<UserOrderBudgetBalance>;
+  cycleConfiguration?: Maybe<UserOrderBudgetCycleConfiguration>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderBudgetAllocation = {
+  __typename?: 'UserOrderBudgetAllocation';
+  ToBeSpent?: Maybe<Scalars['Float']>;
+  balance?: Maybe<UserOrderBudgetBalance>;
+  id?: Maybe<Scalars['String']>;
+  linkedEntity?: Maybe<UserOrderBudgetAllocationLinkedEntity>;
+  reservations?: Maybe<Scalars['JSONObject']>;
+};
+
+export type UserOrderBudgetAllocationLinkedEntity = {
+  __typename?: 'UserOrderBudgetAllocationLinkedEntity';
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderBudgetBalance = {
+  __typename?: 'UserOrderBudgetBalance';
+  amount?: Maybe<Scalars['Float']>;
+  balanceAdjustment?: Maybe<Scalars['Float']>;
+  remaining?: Maybe<Scalars['Float']>;
+};
+
+export type UserOrderBudgetCycleConfiguration = {
+  __typename?: 'UserOrderBudgetCycleConfiguration';
+  autoResetOnPeriodEnd?: Maybe<Scalars['Boolean']>;
+  carryOverBalance?: Maybe<Scalars['Boolean']>;
+  endDate?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+};
+
+export type UserOrderBudgetData = {
+  __typename?: 'UserOrderBudgetData';
+  budgets?: Maybe<Array<Maybe<UserOrderBudget>>>;
 };
 
 export type UserOrderCancel = {
@@ -1985,7 +2091,10 @@ export type UserOrderDeliveryOptionsItems = {
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   quantity?: Maybe<Scalars['Int']>;
+  sellingPrice?: Maybe<Scalars['Float']>;
   tax?: Maybe<Scalars['Float']>;
+  taxPriceTags?: Maybe<Array<Maybe<UserOrderPriceTag>>>;
+  taxPriceTagsTotal?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   uniqueId?: Maybe<Scalars['String']>;
 };
@@ -2421,8 +2530,10 @@ export type UserOrderRestitutions = {
 export type UserOrderResult = {
   __typename?: 'UserOrderResult';
   allowCancellation?: Maybe<Scalars['Boolean']>;
+  budgetData?: Maybe<UserOrderBudgetData>;
   canProcessOrderAuthorization?: Maybe<Scalars['Boolean']>;
   clientProfileData?: Maybe<UserOrderClientProfileData>;
+  creationDate?: Maybe<Scalars['String']>;
   customData?: Maybe<UserOrderCustomData>;
   customFields?: Maybe<Array<Maybe<UserOrderCustomFieldsGrouped>>>;
   deliveryOptionsData?: Maybe<UserOrderDeliveryOptionsData>;
@@ -2431,7 +2542,7 @@ export type UserOrderResult = {
   paymentData?: Maybe<UserOrderPaymentData>;
   ruleForAuthorization?: Maybe<ProcessOrderAuthorizationRule>;
   shippingData?: Maybe<UserOrderShippingData>;
-  shopperName?: Maybe<UserOrderShopperName>;
+  shopper?: Maybe<UserOrderShopper>;
   status?: Maybe<Scalars['String']>;
   statusDescription?: Maybe<Scalars['String']>;
   storePreferencesData?: Maybe<UserOrderStorePreferencesData>;
@@ -2455,10 +2566,12 @@ export type UserOrderShippingData = {
   trackingHints?: Maybe<Scalars['String']>;
 };
 
-export type UserOrderShopperName = {
-  __typename?: 'UserOrderShopperName';
+export type UserOrderShopper = {
+  __typename?: 'UserOrderShopper';
+  email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 export type UserOrderSlas = {

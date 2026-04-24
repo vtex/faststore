@@ -47,6 +47,8 @@ export interface B2bInfo {
   userName: string
   userEmail: string
   savedPostalCode: string
+  contractName: string
+  organizationManager: boolean
 }
 
 export interface Session {
@@ -62,6 +64,7 @@ export interface Session {
   person: Person | null
   b2b: B2bInfo | null
   marketingData: MarketingData | null
+  refreshAfter: string | null // timestamp in seconds e.g. '1743042990'
 }
 
 export const createSessionStore = (

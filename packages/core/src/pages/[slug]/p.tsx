@@ -12,7 +12,6 @@ import type {
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
-import { getComponentKey } from 'src/utils/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
@@ -27,6 +26,7 @@ import PLUGINS_COMPONENTS from 'src/plugins'
 import { getRedirect } from 'src/sdk/redirects'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
+import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
 import {
@@ -106,6 +106,17 @@ function Page({
     meta?.description ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
     storeSeo.description
+  let productPriceAmountMetatag = product.offers.lowPrice?.toString()
+
+  if (
+    product.offers.lowPrice != undefined &&
+    pdpSeo?.minPriceAmountFractionDigits &&
+    typeof pdpSeo.minPriceAmountFractionDigits === 'number'
+  ) {
+    productPriceAmountMetatag = product.offers.lowPrice
+      .toFixed(pdpSeo.minPriceAmountFractionDigits)
+      .toString()
+  }
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
@@ -177,7 +188,7 @@ function Page({
         additionalMetaTags={[
           {
             property: 'product:price:amount',
-            content: product.offers.lowPrice?.toString() ?? undefined,
+            content: productPriceAmountMetatag ?? undefined,
           },
           {
             property: 'product:price:currency',
@@ -197,6 +208,7 @@ function Page({
         brand={product.brand.name}
         sku={product.sku}
         gtin={product.gtin}
+        mpn={product.mpn}
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
@@ -245,6 +257,7 @@ const query = gql(`
 
       sku
       gtin
+      mpn
       name
       description
       releaseDate

@@ -24,6 +24,7 @@ export const ProfileSummary = ({
   ...otherProps
 }: ProfileSummaryProps) => {
   const { b2b } = useSession()
+
   return (
     <section
       data-fs-profile-summary
@@ -35,11 +36,7 @@ export const ProfileSummary = ({
         {showManageLink && (
           <Link
             data-fs-profile-summary-org-link
-            href={
-              b2b?.unitId
-                ? `/buyer-portal/org-unit/${b2b?.unitId}`
-                : '/buyer-portal'
-            }
+            href={`/pvt/organization-account/org-unit/${b2b?.unitId}`}
           >
             Manage <Icon name="OpenInNew" width={23} height={23} />
           </Link>

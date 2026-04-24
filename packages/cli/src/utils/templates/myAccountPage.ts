@@ -13,7 +13,7 @@ export const myAccountPageTemplate = (pagePath: string) => `
   import {
     getServerSideProps,
     type MyAccountProps,
-  } from 'src/experimental/myAccountSeverSideProps'
+  } from 'src/experimental/myAccountServerSideProps'
   import DynamicPage from '${pagePath}';
   import PageProvider from 'src/sdk/overrides/PageProvider'
   /* A list of components that can be used in the CMS. */

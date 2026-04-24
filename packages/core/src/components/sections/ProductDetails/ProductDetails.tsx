@@ -353,6 +353,10 @@ export const fragment = gql(`
         activeVariations
         slugsMap
         availableVariations
+        allVariantProducts {
+          name
+          productID
+        }
       }
     }
 
@@ -374,6 +378,7 @@ export const fragment = gql(`
         priceWithTaxes
         listPrice
         listPriceWithTaxes
+        quantity
         seller {
           identifier
         }

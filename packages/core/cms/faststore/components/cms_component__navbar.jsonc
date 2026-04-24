@@ -1,0 +1,318 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "Navbar",
+  "$componentTitle": "Navbar",
+  "title": "Navbar",
+  "description": "Navbar configuration",
+  "type": "object",
+  "required": ["logo"],
+  "properties": {
+    "logo": {
+      "title": "Logo",
+      "type": "object",
+      "required": ["src"],
+      "properties": {
+        "src": {
+          "title": "Image",
+          "type": "string",
+          "widget": {
+            "ui:widget": "media-gallery",
+            "restrictMediaTypes": {
+              "video": true,
+              "image": ["png", "jpg", "jpeg", "gif", "svg", "webp"]
+            }
+          }
+        },
+        "alt": {
+          "title": "Alternative Label",
+          "type": "string"
+        },
+        "link": {
+          "title": "Logo Link",
+          "type": "object",
+          "required": ["url", "title"],
+          "properties": {
+            "url": {
+              "title": "Link URL",
+              "type": "string"
+            },
+            "title": {
+              "title": "Link Title",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "searchInput": {
+      "title": "Search Input",
+      "description": "Search Input configurations",
+      "type": "object",
+      "required": ["sort"],
+      "properties": {
+        "placeholder": {
+          "title": "Placeholder for Search Bar",
+          "type": "string",
+          "default": "Search everything in the store"
+        },
+        "sort": {
+          "title": "Results default sort value",
+          "type": "string",
+          "default": "score_desc",
+          "enumNames": [
+            "Price, descending",
+            "Price, ascending",
+            "Top sales",
+            "Name, A-Z",
+            "Name, Z-A",
+            "Release date",
+            "Discount",
+            "Relevance"
+          ],
+          "enum": [
+            "price_desc",
+            "price_asc",
+            "orders_desc",
+            "name_asc",
+            "name_desc",
+            "release_desc",
+            "discount_desc",
+            "score_desc"
+          ]
+        },
+        "quickOrderSettings": {
+          "title": "Quick Order settings",
+          "type": "object",
+          "properties": {
+            "quickOrder": {
+              "title": "Enable Quick Order?",
+              "description": "Allows adding products directly to the cart through search terms, streamlining the purchase.",
+              "type": "boolean",
+              "default": false
+            },
+            "skuMatrix": {
+              "title": "SKUMatrix Configuration",
+              "type": "object",
+              "properties": {
+                "triggerButtonLabel": {
+                  "title": "SKU Matrix Trigger label to be displayed",
+                  "type": "string",
+                  "default": "Select multiple"
+                },
+                "columns": {
+                  "title": "Columns",
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "title": "SKU name column label",
+                      "type": "string",
+                      "default": "Name"
+                    },
+                    "additionalColumns": {
+                      "title": "Additional columns",
+                      "type": "array",
+                      "items": {
+                        "title": "Column",
+                        "type": "object",
+                        "required": ["label", "value"],
+                        "properties": {
+                          "label": {
+                            "title": "Label",
+                            "type": "string"
+                          },
+                          "value": {
+                            "title": "Value",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "availability": {
+                      "title": "Availability column label",
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "title": "Label",
+                          "type": "string",
+                          "default": "Availability"
+                        },
+                        "stockDisplaySettings": {
+                          "title": "Stock display settings",
+                          "description": "Control how the stock status of your products is displayed to customers on your online store.",
+                          "type": "string",
+                          "enum": ["showAvailability", "showStockQuantity"],
+                          "enumNames": [
+                            "Show availability (Available/Out of Stock)",
+                            "Show stock quantity"
+                          ],
+                          "default": "showAvailability"
+                        }
+                      }
+                    },
+                    "price": {
+                      "title": "Price column label",
+                      "type": "string",
+                      "default": "Price"
+                    },
+                    "quantitySelector": {
+                      "title": "Quantity selector column label",
+                      "type": "string",
+                      "default": "Quantity"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "signInButton": {
+      "title": "Sign In Button",
+      "type": "object",
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["User"],
+              "enum": ["User"],
+              "default": "User"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "User"
+            }
+          }
+        },
+        "label": {
+          "title": "Call to Action",
+          "type": "string",
+          "default": "Sign in"
+        },
+        "myAccountLabel": {
+          "title": "My Account Label",
+          "type": "string",
+          "default": "My account"
+        }
+      }
+    },
+    "cartIcon": {
+      "title": "Cart Icon",
+      "type": "object",
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["Shopping Cart"],
+          "enum": ["ShoppingCart"],
+          "default": "ShoppingCart"
+        },
+        "alt": {
+          "title": "Alternative Label",
+          "type": "string",
+          "default": "Shopping cart"
+        }
+      }
+    },
+    "navigation": {
+      "title": "Navigation",
+      "type": "object",
+      "properties": {
+        "regionalization": {
+          "type": "object",
+          "title": "Regionalization",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Use Regionalization?",
+              "default": true
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Map Pin"],
+                  "enum": ["MapPin"],
+                  "default": "MapPin"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "MapPin"
+                }
+              }
+            },
+            "label": {
+              "title": "Call to Action",
+              "type": "string",
+              "default": "Set Location"
+            }
+          }
+        },
+        "pageLinks": {
+          "title": "Links",
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "title": "Link",
+            "type": "object",
+            "required": ["text", "url"],
+            "properties": {
+              "text": {
+                "title": "Link Text",
+                "type": "string"
+              },
+              "url": {
+                "title": "Link URL",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "menu": {
+          "type": "object",
+          "title": "Menu",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["List"],
+                  "enum": ["List"],
+                  "default": "List"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "List"
+                }
+              }
+            }
+          }
+        },
+        "home": {
+          "title": "Home",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Go to Home Label",
+              "type": "string",
+              "default": "Go to Home"
+            }
+          }
+        }
+      }
+    }
+  }
+}

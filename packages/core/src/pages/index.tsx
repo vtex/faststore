@@ -198,7 +198,11 @@ export const getStaticProps: GetStaticProps<
   })
 
   return {
-    props: { page, globalSections: globalSectionsResult, serverData },
+    props: {
+      page,
+      globalSections: globalSectionsResult,
+      serverData,
+    },
   }
 }
 

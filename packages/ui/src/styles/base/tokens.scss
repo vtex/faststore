@@ -82,8 +82,12 @@
     --fs-color-focus-ring-danger         : #e1adad;
 
     // SITUATIONS
-    --fs-color-success-text              : #1e493b;
-    --fs-color-success-bkg               : #b3ebd5;
+    --fs-color-success-0                 : #1e493b;
+    --fs-color-success-1                 : #b3ebd5;
+    --fs-color-success-2                 : #016810;
+
+    --fs-color-success-text              : var(--fs-color-success-0);
+    --fs-color-success-bkg               : var(--fs-color-success-1);
     --fs-color-success-border            : var(--fs-color-success-text);
 
     --fs-color-warning-text              : var(--fs-color-text);
@@ -275,7 +279,7 @@
     // SHADOW
     --fs-shadow                          : none;
     --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
-    --fs-shadow-hover                    : 0 2px 3px rgba(0,0,0,.1);
+    --fs-shadow-hover                    : 0 2px 3px rgb(0 0 0 / 10%);
 
     // LOGO
     --fs-logo-width                      : 7rem;

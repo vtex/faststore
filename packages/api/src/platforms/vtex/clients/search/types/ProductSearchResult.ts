@@ -14,6 +14,7 @@ export interface ProductSearchResult {
   fuzzy: string
   correction?: Correction
   redirect?: string
+  searchId: string
 }
 
 interface Correction {
@@ -94,7 +95,9 @@ export interface Product {
   properties: Array<{ name: string; values: string[] }>
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
+  manufacturerCode?: string
   advertisement?: Advertisement
+  deliveryPromisesBadges?: DeliveryPromiseBadge[]
 }
 
 interface Image {
@@ -232,4 +235,7 @@ export interface Attribute {
   name: string
   value: string
   visible: boolean
+}
+interface DeliveryPromiseBadge {
+  typeName: string
 }

@@ -138,7 +138,6 @@
     transition: var(--fs-button-transition-property) var(--fs-button-transition-timing) var(--fs-button-transition-function);
   }
 
-
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
@@ -174,6 +173,7 @@
 
   &[data-fs-button-size="small"] {
     --fs-control-tap-size: var(--fs-button-small-min-height);
+
     padding: var(--fs-spacing-1);
 
     [data-fs-button-wrapper] {
@@ -242,7 +242,6 @@
   }
 
   &[data-fs-button-variant="secondary"] {
-
     [data-fs-button-wrapper] {
       color: var(--fs-button-secondary-text-color);
       background-color: var(--fs-button-secondary-bkg-color);
@@ -268,7 +267,6 @@
     }
 
     &[data-fs-button-inverse="true"] {
-
       [data-fs-button-wrapper] {
         color: var(--fs-button-secondary-inverse-text-color);
         background-color: var(--fs-button-secondary-inverse-bkg-color);
@@ -296,7 +294,6 @@
   }
 
   &[data-fs-button-variant="tertiary"] {
-
     [data-fs-button-wrapper] {
       color: var(--fs-button-tertiary-text-color);
       background-color: var(--fs-button-tertiary-bkg-color);
@@ -315,6 +312,9 @@
       background-color: var(--fs-button-tertiary-bkg-color-hover);
     }
 
+    &:disabled [data-fs-button-wrapper],
+    &:hover:disabled [data-fs-button-wrapper] { background-color: transparent; }
+
     &:active [data-fs-button-wrapper] {
       color: var(--fs-button-tertiary-text-color-active);
       background-color: var(--fs-button-tertiary-bkg-color-active);
@@ -322,7 +322,6 @@
     }
 
     &[data-fs-button-inverse="true"] {
-
       [data-fs-button-wrapper] {
         color: var(--fs-button-tertiary-inverse-text-color);
         background-color: var(--fs-button-tertiary-inverse-bkg-color);
@@ -354,22 +353,23 @@
 
     [data-fs-button-wrapper] {
       column-gap: 0;
+      width: 100%;
       padding: 0;
       border-width: 0;
-      width: 100%;
     }
   }
 
   &[data-fs-button-loading="true"] [data-fs-button-wrapper] {
     > * {
-      opacity: 0;
       pointer-events: none;
+      opacity: 0;
     }
+
     [data-fs-button-loading-label] {
       position: absolute;
-      opacity: 1;
       display: flex;
       column-gap: var(--fs-button-loading-label-column-gap);
+      opacity: 1;
     }
   }
 }

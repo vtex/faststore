@@ -1,18 +1,12 @@
-import dynamic from 'next/dynamic'
 import { useEffect, useId, useRef } from 'react'
 
+import deepmerge from 'deepmerge'
+import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
+import { useDeliveryPromiseGlobalFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
-import { textToKebabCase } from 'src/utils/utilities'
-import { useDeliveryPromiseFacets } from 'src/sdk/deliveryPromise/useDeliveryPromiseFacets'
-import deepmerge from 'deepmerge'
-
-const ProductShelfSkeleton = dynamic(
-  () =>
-    /* webpackChunkName: "ProductShelfSkeleton" */
-    import('src/components/skeletons/ProductShelfSkeleton')
-)
+import { textToKebabCase, toArray } from 'src/utils/utilities'
 
 type Sort =
   | 'discount_desc'
@@ -63,14 +57,15 @@ function ProductShelf({
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const { deliveryFacets } = useDeliveryPromiseFacets()
+  const { globalDeliveryFacets } = useDeliveryPromiseGlobalFacets()
 
   const data = useProductsQuery({
-    first: numberOfItems,
-    selectedFacets: deepmerge(otherProps.selectedFacets, deliveryFacets, {
-      arrayMerge: overwriteMerge,
-    }),
     ...otherProps,
+    first: numberOfItems,
+    selectedFacets: deepmerge(
+      toArray(otherProps.selectedFacets),
+      globalDeliveryFacets
+    ),
   })
 
   const products = data?.search?.products
@@ -139,6 +134,3 @@ function ProductShelf({
 }
 
 export default ProductShelf
-
-// Array merging strategy from deepmerge that makes client arrays overwrite server array
-const overwriteMerge = (_: any[], clientArray: any[]) => clientArray

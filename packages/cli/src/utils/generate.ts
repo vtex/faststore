@@ -14,11 +14,11 @@ import path from 'path'
 
 import ora from 'ora'
 
-import { withBasePath } from './directory'
+import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
+import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
-import { createNextJsPages } from './createNextjsPages'
 
 interface GenerateOptions {
   setup?: boolean
@@ -26,7 +26,12 @@ interface GenerateOptions {
 }
 
 // package.json is copied manually after filtering its content
-const ignorePaths = ['package.json', 'node_modules', 'cypress.config.ts']
+const ignorePaths = [
+  'package.json',
+  'node_modules',
+  'cypress.config.ts',
+  'base.jsonc', // CP special file, it must not be copied to the merchants' temp dir
+]
 
 function createTmpFolder(basePath: string) {
   const { tmpDir, tmpFolderName } = withBasePath(basePath)
@@ -120,7 +125,7 @@ function copyCoreFiles(basePath: string) {
 function copyPublicFiles(basePath: string) {
   const { userDir, tmpDir } = withBasePath(basePath)
 
-  const allowList = ['json', 'txt', 'xml', 'ico', 'public']
+  const allowList = ['json', 'txt', 'xml', 'ico', 'public', 'svg']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
@@ -280,9 +285,15 @@ async function copyTheme(basePath: string) {
 
   let storeConfig
 
+  // Because of how node caches imports, if we don't delete the cache
+  // for the {discovery|faststore}.config.js files we will return a
+  // cached version and not reflect the theme change until a restart
+  // happens. Deleting before importing clears the cache
   if (existsSync(userStoreConfigFile)) {
+    delete require.cache[path.resolve(userStoreConfigFile)]
     storeConfig = await import(path.resolve(userStoreConfigFile))
   } else if (existsSync(userLegacyStoreConfigFile)) {
+    delete require.cache[path.resolve(userLegacyStoreConfigFile)]
     storeConfig = await import(path.resolve(userLegacyStoreConfigFile))
   } else {
     logger.info(
@@ -528,6 +539,7 @@ export async function generate(options: GenerateOptions) {
       copyCoreFiles(basePath),
       copyCypressFiles(basePath),
       copyPublicFiles(basePath),
+      updateNextConfig(basePath),
     ])
   }
 
@@ -539,7 +551,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    updateNextConfig(basePath),
     enableRedirectsMiddleware(basePath),
 
     installPlugins(basePath),

@@ -179,6 +179,8 @@ export interface UseSliderArgs extends SwipeableProps {
   infiniteMode?: boolean
   /**  Whether or not slide after swiping left/right. */
   shouldSlideOnSwipe?: boolean
+  /** Whether the document is in RTL mode. */
+  isRTL?: boolean
 }
 
 export const useSlider = ({
@@ -186,6 +188,7 @@ export const useSlider = ({
   itemsPerPage = 1,
   infiniteMode = false,
   shouldSlideOnSwipe = true,
+  isRTL = false,
   ...swipeableConfigOverrides
 }: UseSliderArgs) => {
   const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
@@ -193,9 +196,13 @@ export const useSlider = ({
   )
 
   const handlers = useSwipeable({
+    // In RTL, swipe directions are swapped:
+    // - Swiping right should go to next (instead of previous)
+    // - Swiping left should go to previous (instead of next)
     onSwipedRight: () =>
-      shouldSlideOnSwipe && slide('previous', sliderDispatch),
-    onSwipedLeft: () => shouldSlideOnSwipe && slide('next', sliderDispatch),
+      shouldSlideOnSwipe && slide(isRTL ? 'next' : 'previous', sliderDispatch),
+    onSwipedLeft: () =>
+      shouldSlideOnSwipe && slide(isRTL ? 'previous' : 'next', sliderDispatch),
     trackMouse: true,
     ...swipeableConfigOverrides,
   })

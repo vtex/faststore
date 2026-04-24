@@ -41,25 +41,42 @@ const debounce = <T extends (...args: any[]) => any>(
 export const persisted =
   <T>(key: string) =>
   (store: Store<T>) => {
-    const handler = async () => {
+    let hydrated = false
+
+    const hydrateFromIDB = async () => {
       const payload = await getIDB<T>(key)
 
       if (typeof document !== 'undefined') {
         store.set(payload ?? store.readInitial())
       }
+
+      hydrated = true
     }
 
-    const debouncedHandler = debounce(handler, 500) // 500ms debounce
+    hydrateFromIDB()
 
-    debouncedHandler()
-    globalThis.addEventListener?.('focus', () => debouncedHandler())
+    // Cross-tab sync: when the user returns to this tab, unconditionally
+    // pull the latest value from IDB (another tab may have written it).
+    const syncFromIDB = async () => {
+      const payload = await getIDB<T>(key)
+
+      if (typeof document !== 'undefined' && payload !== undefined) {
+        store.set(payload)
+      }
+    }
+
+    const debouncedSync = debounce(syncFromIDB, 100)
+
+    globalThis.addEventListener?.('focus', () => debouncedSync())
     globalThis.document?.addEventListener(
       'visibilitychange',
-      () => document.visibilityState === 'visible' && debouncedHandler()
+      () => document.visibilityState === 'visible' && debouncedSync()
     )
 
     store.subscribe((value) => {
-      setIDB(key, value)
+      if (hydrated) {
+        setIDB(key, value)
+      }
     })
 
     return store

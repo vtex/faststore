@@ -1,4 +1,4 @@
-import { formatSearchState, useSearch } from '@faststore/sdk'
+import { useSearch } from '@faststore/sdk'
 import type {
   ServerCollectionPageQueryQuery,
   ServerManyProductsQueryQuery,
@@ -73,7 +73,7 @@ export default function ProductListing({
     itemsPerPage,
   })
 
-  const initialPages = { search: server?.search }
+  const initialPages = { search: { ...server?.search, searchId: '' } }
   const { pages, useGalleryPage } = useCreateUseGalleryPage({
     initialPages,
     serverManyProductsVariables,

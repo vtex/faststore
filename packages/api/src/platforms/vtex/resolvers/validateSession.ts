@@ -20,8 +20,14 @@ async function getPreciseLocationData(
       country,
     })
 
-    const [longitude, latitude] = address.geoCoordinates
-    return { city: address.city, geoCoordinates: { latitude, longitude } }
+    const geoCoordinates = address.geoCoordinates
+      ? {
+          latitude: address.geoCoordinates[1],
+          longitude: address.geoCoordinates[0],
+        }
+      : null
+
+    return { city: address.city, geoCoordinates }
   } catch (err) {
     console.error(
       `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
@@ -59,6 +65,12 @@ export const validateSession = async (
    * This is used by Checkout (checkout-session) and Intelligent Search (search-session)
    */
   const params = new URLSearchParams(search)
+
+  // Remove facets parameter if it exists so that it does not interfere with session data and prioritize vtex_segment
+  if (params.has('facets')) {
+    params.delete('facets')
+  }
+
   const salesChannel = params.get('sc') ?? channel.salesChannel
   params.set('sc', salesChannel)
 
@@ -91,9 +103,22 @@ export const validateSession = async (
 
   const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
 
-  const isRepresentative = jwt?.isRepresentative
-  const customerId = jwt?.customerId
-  const unitId = jwt?.unitId
+  // Validate JWT token if it exists
+  let isValidJwt = false
+  if (jwt) {
+    try {
+      const vtexIdResponse = await clients.commerce.vtexid.validate()
+      isValidJwt = vtexIdResponse?.authStatus?.toLowerCase() === 'success'
+    } catch (error) {
+      console.warn('JWT validation failed:', error)
+      isValidJwt = false
+    }
+  }
+
+  // Only use JWT data if the token is valid
+  const isRepresentative = isValidJwt ? jwt?.isRepresentative : false
+  const customerId = isValidJwt ? jwt?.customerId : undefined
+  const unitId = isValidJwt ? jwt?.unitId : undefined
 
   const sessionData = await clients.commerce
     .session(params.toString())
@@ -105,6 +130,20 @@ export const validateSession = async (
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
   const publicData = sessionData?.namespaces.public ?? null
+
+  // Fetch contract data for B2B representatives
+  let contract = null
+  if (isRepresentative && profile?.id?.value) {
+    try {
+      contract = await clients.commerce.masterData.getContractById({
+        contractId: profile.id.value,
+      })
+    } catch (err) {
+      console.error(
+        `Error while getting contract data for profile ID (${profile.id.value}).\n`
+      )
+    }
+  }
 
   // Set seller only if it's inside a region
   let seller
@@ -144,12 +183,20 @@ export const validateSession = async (
           customerId: authentication?.customerId?.value ?? customerId ?? '',
           unitName: authentication?.unitName?.value ?? '',
           unitId: authentication?.unitId?.value ?? unitId ?? '',
-          firstName: shopper?.firstName?.value ?? '',
-          lastName: shopper?.lastName?.value ?? '',
+          firstName:
+            typeof shopper?.firstName?.value === 'string'
+              ? shopper.firstName.value
+              : '',
+          lastName:
+            typeof shopper?.lastName?.value === 'string'
+              ? shopper.lastName.value
+              : '',
           userName:
-            `${shopper?.firstName?.value ?? ''} ${shopper?.lastName?.value ?? ''}`.trim(),
+            `${typeof shopper?.firstName?.value === 'string' ? shopper.firstName.value : ''} ${typeof shopper?.lastName?.value === 'string' ? shopper.lastName.value : ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
+          contractName: contract?.corporateName ?? '',
+          organizationManager: shopper?.organizationManager?.value ?? false,
         }
       : null,
     marketingData,
@@ -161,7 +208,11 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
-    geoCoordinates,
+    geoCoordinates:
+      (geoCoordinates?.latitude &&
+        geoCoordinates?.longitude &&
+        geoCoordinates) ||
+      null,
     city,
   }
 

@@ -10,17 +10,22 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
 import { Icon, IconButton } from '../..'
-import { useSlider } from '../../hooks'
+import { useSlider, useRTL } from '../../hooks'
 import CarouselBullets from './CarouselBullets'
 import CarouselItem from './CarouselItem'
 
-const createTransformValues = (infinite: boolean, totalItems: number) => {
+const createTransformValues = (
+  infinite: boolean,
+  totalItems: number,
+  isRTL: boolean
+) => {
   const transformMap: Record<number, number> = {}
   const slideWidth = 100 / totalItems
 
   for (let idx = 0; idx < totalItems; ++idx) {
     const currIdx = infinite ? idx - 1 : idx
-    const transformValue = -(slideWidth * idx)
+    // In RTL, we need to invert the transform direction
+    const transformValue = isRTL ? slideWidth * idx : -(slideWidth * idx)
 
     transformMap[currIdx] = transformValue
   }
@@ -105,6 +110,7 @@ function Carousel({
     throw new Error('itemsPerPage must be greater than or equal to 1')
   }
 
+  const isRTL = useRTL()
   const carouselTrackRef = useRef<HTMLUListElement>(null)
   const isSlideCarousel = variant === 'slide'
   const isScrollCarousel = variant === 'scroll'
@@ -120,6 +126,7 @@ function Carousel({
     infiniteMode,
     totalItems: childrenCount,
     shouldSlideOnSwipe: isSlideCarousel,
+    isRTL,
     ...swipeableConfigOverrides,
   })
 
@@ -149,8 +156,8 @@ function Carousel({
     (controls === 'complete' || controls === 'paginationBullets')
 
   const transformValues = useMemo(
-    () => createTransformValues(infiniteMode, numberOfSlides),
-    [numberOfSlides, infiniteMode]
+    () => createTransformValues(infiniteMode, numberOfSlides, isRTL),
+    [numberOfSlides, infiniteMode, isRTL]
   )
 
   const postRenderedSlides =
@@ -221,10 +228,31 @@ function Carousel({
       return
     }
 
-    const itemWidth = Number(event.currentTarget.firstElementChild?.scrollWidth)
-    const scrollOffset = event.currentTarget?.scrollLeft
+    const element = event.currentTarget as HTMLElement
+    const itemWidth = Number(element.firstElementChild?.scrollWidth)
+
+    // In RTL, scrollLeft behavior varies by browser
+    // We need to calculate the scroll offset differently for RTL
+    let scrollOffset = element.scrollLeft
+
+    if (isRTL) {
+      // In RTL, scrollLeft can be negative in some browsers
+      // We calculate the actual scroll position from the right
+      const maxScroll = element.scrollWidth - element.clientWidth
+      // Handle negative scrollLeft (some browsers)
+      if (scrollOffset < 0) {
+        scrollOffset = Math.abs(scrollOffset)
+      } else {
+        // For RTL, calculate from the right side
+        scrollOffset = maxScroll - scrollOffset
+      }
+    }
+
     const formatter = scrollOffset > itemWidth / 2 ? Math.round : Math.floor
-    const page = formatter(scrollOffset / itemWidth)
+    const page = Math.max(
+      0,
+      Math.min(sliderState.totalPages - 1, formatter(scrollOffset / itemWidth))
+    )
 
     slide(page, sliderDispatch)
   }
@@ -272,25 +300,54 @@ function Carousel({
 
     const scrollOffset = index * carouselItemsWidth * itemsPerPage
 
-    carouselTrackRef.current?.scrollTo({
-      left: scrollOffset,
-      behavior: 'smooth',
-    })
+    if (isRTL && carouselTrackRef.current) {
+      // In RTL, we need to scroll from the right
+      // The scrollLeft behavior varies by browser in RTL
+      const maxScroll =
+        carouselTrackRef.current.scrollWidth -
+        carouselTrackRef.current.clientWidth
+      const rtlScrollOffset = maxScroll - scrollOffset
+
+      // Check if scrollLeft is negative (some browsers use negative values in RTL)
+      const currentScrollLeft = carouselTrackRef.current.scrollLeft
+      if (currentScrollLeft < 0) {
+        // Use negative scroll offset for browsers that support it
+        carouselTrackRef.current.scrollTo({
+          left: -scrollOffset,
+          behavior: 'smooth',
+        })
+      } else {
+        // Use positive scroll offset from the right
+        carouselTrackRef.current.scrollTo({
+          left: rtlScrollOffset,
+          behavior: 'smooth',
+        })
+      }
+    } else {
+      carouselTrackRef.current?.scrollTo({
+        left: scrollOffset,
+        behavior: 'smooth',
+      })
+    }
 
     slide(index, sliderDispatch)
   }
 
   // accessible behavior for tablist
   const handleBulletsKeyDown = (event: KeyboardEvent) => {
+    // In RTL, arrow key directions are swapped
+    const leftKey = isRTL ? 'ArrowRight' : 'ArrowLeft'
+    const rightKey = isRTL ? 'ArrowLeft' : 'ArrowRight'
+
     switch (event.key) {
-      case 'ArrowLeft': {
+      case leftKey: {
         isSlideCarousel && slidePrevious()
         isScrollCarousel &&
           onScrollPagination(sliderState.currentPage - 1, 'previous')
         break
       }
 
-      case 'ArrowRight': {
+      case rightKey: {
         isSlideCarousel && slideNext()
         isScrollCarousel &&
           onScrollPagination(sliderState.currentPage + 1, 'next')
@@ -334,6 +391,7 @@ function Carousel({
           ref={carouselTrackRef}
           style={carouselTrackStyle}
           data-fs-carousel-track
+          dir={isRTL ? 'rtl' : 'ltr'}
           onScroll={onScrollTrack}
           onTransitionEnd={onTransitionTrackEnd}
         >
@@ -357,14 +415,28 @@ function Carousel({
       {showNavigationArrows && (
         <div data-fs-carousel-controls>
           <IconButton
-            data-fs-carousel-control="left"
+            data-fs-carousel-control={isRTL ? 'right' : 'left'}
             aria-controls={id}
             disabled={!infiniteMode && sliderState.currentPage === 0}
             aria-label="previous"
             icon={
-              navigationIcons?.left ?? (
-                <Icon name="ArrowLeft" width={20} height={20} weight="bold" />
-              )
+              isRTL
+                ? (navigationIcons?.right ?? (
+                    <Icon
+                      name="ArrowRight"
+                      width={20}
+                      height={20}
+                      weight="bold"
+                    />
+                  ))
+                : (navigationIcons?.left ?? (
+                    <Icon
+                      name="ArrowLeft"
+                      width={20}
+                      height={20}
+                      weight="bold"
+                    />
+                  ))
             }
             onClick={() => {
               isSlideCarousel && slidePrevious()
@@ -373,7 +445,7 @@ function Carousel({
             }}
           />
           <IconButton
-            data-fs-carousel-control="right"
+            data-fs-carousel-control={isRTL ? 'left' : 'right'}
             aria-controls={id}
             disabled={
               !infiniteMode &&
@@ -381,9 +453,23 @@ function Carousel({
             }
             aria-label="next"
             icon={
-              navigationIcons?.right ?? (
-                <Icon name="ArrowRight" width={20} height={20} weight="bold" />
-              )
+              isRTL
+                ? (navigationIcons?.left ?? (
+                    <Icon
+                      name="ArrowLeft"
+                      width={20}
+                      height={20}
+                      weight="bold"
+                    />
+                  ))
+                : (navigationIcons?.right ?? (
+                    <Icon
+                      name="ArrowRight"
+                      width={20}
+                      height={20}
+                      weight="bold"
+                    />
+                  ))
             }
             onClick={() => {
               isSlideCarousel && slideNext()

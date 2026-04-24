@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react'
 import React, { type PropsWithChildren } from 'react'
 
 import { initSearchState, SearchProvider, usePagination } from '../../src'
+import { useSearchState } from '../../src/search/globalState/useSearchState'
 
 test('usePagination: paginates forwards', async () => {
   const totalItems = 20
@@ -26,6 +27,9 @@ test('usePagination: paginates forwards', async () => {
 })
 
 test('usePagination: paginates backwards', async () => {
+  // Initialize the global state `pages` before rendering
+  useSearchState.getState().resetInfiniteScroll(1)
+
   const totalItems = 20
   const { result } = renderHook(usePagination, {
     wrapper: ({ children }: PropsWithChildren<any>) => (

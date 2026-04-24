@@ -63,6 +63,7 @@ const QUERIES = [
   'collection',
   'search',
   'allProducts',
+  'products',
   'allCollections',
   'shipping',
   'redirect',
@@ -73,7 +74,6 @@ const QUERIES = [
   'listUserOrders',
   'userDetails',
   'accountProfile',
-  'accountName',
   'validateUser',
   'pickupPoints',
 ]
@@ -84,7 +84,6 @@ const MUTATIONS = [
   'subscribeToNewsletter',
   'cancelOrder',
   'processOrderAuthorization',
-  'setPassword',
 ]
 
 let schema: GraphQLSchema

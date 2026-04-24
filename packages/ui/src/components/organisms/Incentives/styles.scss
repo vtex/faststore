@@ -61,8 +61,8 @@
       flex-direction: row;
 
       [data-fs-incentive-content] {
-        margin-left: var(--fs-spacing-2);
-        text-align: left;
+        margin-inline-start: var(--fs-spacing-2);
+        text-align: start;
       }
     }
   }
@@ -112,9 +112,9 @@
 
   &[data-fs-incentives-variant="horizontal"] {
     li:not(:last-child) {
-      padding-right: var(--fs-incentives-gap);
-      margin-right: var(--fs-incentives-gap);
-      border-right: var(--fs-incentives-border-width) solid var(--fs-incentives-border-color);
+      padding-inline-end: var(--fs-incentives-gap);
+      margin-inline-end: var(--fs-incentives-gap);
+      border-inline-end: var(--fs-incentives-border-width) solid var(--fs-incentives-border-color);
     }
   }
 }

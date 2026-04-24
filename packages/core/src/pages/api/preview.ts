@@ -1,13 +1,13 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-import { previewRedirects } from '../../../discovery.config'
-import { contentService } from 'src/server/content/service'
 import { isLocator } from 'src/server/cms'
+import { contentService } from 'src/server/content/service'
+import type { PreviewData } from 'src/server/content/types'
 import {
   isBranchPreview,
   isContentPlatformSource,
 } from 'src/server/content/utils'
-import type { PreviewData } from 'src/server/content/types'
+import { previewRedirects } from '../../../discovery.config'
 
 type Settings = {
   seo: {
@@ -40,7 +40,7 @@ const setPreviewAndRedirect = (
   }
 
   if (!isBranchPreview(previewData as PreviewData)) {
-    options.path = redirectPath
+    options.path = redirectPath.split('?')[0]
   }
 
   res.setPreviewData(previewData, options)

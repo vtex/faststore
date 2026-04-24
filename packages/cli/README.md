@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.70.1 linux-x64 node-v18.20.8
+@faststore/cli/3.99.0-dev.3 linux-x64 node-v20.20.2
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -46,7 +46,7 @@ USAGE
 * [`faststore create [PATH]`](#faststore-create-path)
 * [`faststore dev [ACCOUNT] [PATH] [PORT]`](#faststore-dev-account-path-port)
 * [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
-* [`faststore help [COMMAND]`](#faststore-help-command)
+* [`faststore help [COMMANDS]`](#faststore-help-commands)
 * [`faststore start [ACCOUNT] [PATH] [PORT]`](#faststore-start-account-path-port)
 * [`faststore test [PATH]`](#faststore-test-path)
 
@@ -65,7 +65,7 @@ FLAGS
                registry.
 ```
 
-_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/build.js)_
+_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/build.js)_
 
 ## `faststore cms-sync [PATH]`
 
@@ -80,7 +80,7 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/cms-sync.js)_
+_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/cms-sync.js)_
 
 ## `faststore create [PATH]`
 
@@ -100,21 +100,24 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/create.js)_
+_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/create.js)_
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
 ```
 USAGE
-  $ faststore dev [ACCOUNT] [PATH] [PORT]
+  $ faststore dev [ACCOUNT] [PATH] [PORT] [--watch-plugins]
 
 ARGUMENTS
   ACCOUNT  The account for which the Discovery is running. Currently noop.
   PATH     The path where the FastStore being run is. Defaults to cwd.
   PORT     The port where FastStore should run. Defaults to 3000.
+
+FLAGS
+  --watch-plugins  Enable watching for plugin changes
 ```
 
-_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/dev.js)_
+_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/dev.js)_
 
 ## `faststore generate-graphql [PATH]`
 
@@ -126,18 +129,18 @@ ARGUMENTS
   PATH  The path where the FastStore GraphQL customization is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/generate-graphql.js)_
+_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/generate-graphql.js)_
 
-## `faststore help [COMMAND]`
+## `faststore help [COMMANDS]`
 
 Display help for faststore.
 
 ```
 USAGE
-  $ faststore help [COMMAND] [-n]
+  $ faststore help [COMMANDS] [-n]
 
 ARGUMENTS
-  COMMAND  Command to show help for.
+  COMMANDS  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -146,7 +149,7 @@ DESCRIPTION
   Display help for faststore.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.22/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/src/commands/help.ts)_
 
 ## `faststore start [ACCOUNT] [PATH] [PORT]`
 
@@ -160,7 +163,7 @@ ARGUMENTS
   PORT     The port where FastStore should run. Defaults to 3000.
 ```
 
-_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/start.js)_
+_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/start.js)_
 
 ## `faststore test [PATH]`
 
@@ -172,5 +175,5 @@ ARGUMENTS
   PATH  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.70.1/dist/commands/test.js)_
+_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.3/dist/commands/test.js)_
 <!-- commandsstop -->

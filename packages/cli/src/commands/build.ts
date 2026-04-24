@@ -4,9 +4,9 @@ import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { getPreferredPackageManager } from '../utils/commands'
-import { withBasePath } from '../utils/directory'
-import { generate } from '../utils/generate'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 
 export default class Build extends Command {
@@ -33,7 +33,7 @@ export default class Build extends Command {
   async run() {
     const { args, flags } = await this.parse(Build)
 
-    const basePath = args.path ?? process.cwd()
+    const basePath = getBasePath(args.path)
 
     // Check for deprecated secret files
     checkDeprecatedSecretFiles(basePath)

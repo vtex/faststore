@@ -107,7 +107,7 @@
 
     [data-fs-button-signin-link] + [data-fs-cart-toggle] {
       @include media(">=notebook") {
-        margin-left: var(--fs-spacing-3);
+        margin-inline-start: var(--fs-spacing-3);
       }
     }
 
@@ -146,7 +146,7 @@
         }
 
         [data-fs-icon] {
-          margin-right: 0;
+          margin-inline-end: 0;
           line-height: 0;
 
           svg {
@@ -169,17 +169,17 @@
         }
 
         [data-fs-icon] {
-          margin-right: 0;
+          margin-inline-end: 0;
         }
       }
 
       [data-fs-icon-button="true"] {
-        right: 0;
+        inset-inline-end: 0;
         transition: margin var(--fs-navbar-transition-timing) var(--fs-navbar-transition-function);
       }
 
       [data-fs-cart-toggle] {
-        right: 0;
+        inset-inline-end: 0;
         display: none;
       }
     }
@@ -198,9 +198,8 @@
 
     @include media("<notebook") {
       padding: var(--fs-spacing-1) 0 var(--fs-spacing-1) var(--fs-spacing-3);
-      margin-right: auto;
-      margin-left: var(--fs-spacing-0);
-      border-left: var(--fs-navbar-logo-border-left-width) solid var(--fs-navbar-logo-border-left-color);
+      margin-inline: auto 0;
+      border-inline-start: var(--fs-navbar-logo-border-left-width) solid var(--fs-navbar-logo-border-left-color);
     }
 
     [data-fs-logo] {

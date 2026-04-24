@@ -11,4 +11,7 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(
     compilerOptions.paths /*, { prefix: '<rootDir>/' } */
   ),
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'test/tsconfig.json' }],
+  },
 }

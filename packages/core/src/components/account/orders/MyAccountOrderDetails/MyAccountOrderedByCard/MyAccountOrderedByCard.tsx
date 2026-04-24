@@ -11,20 +11,26 @@ interface MyAccountOrderedByCardProps {
     | 'corporateName'
     | 'isCorporate'
   >
-  shopperName: {
+  shopper: {
     firstName: string
     lastName: string
+    email: string
+    phone: string
   }
 }
 
 function MyAccountOrderedByCard({
   clientProfileData,
-  shopperName,
+  shopper,
 }: MyAccountOrderedByCardProps) {
-  const firstName = shopperName?.firstName ?? clientProfileData?.firstName ?? ''
-  const lastName = shopperName?.lastName ?? clientProfileData?.lastName ?? ''
-  const email = clientProfileData?.email
-  const phone = clientProfileData?.phone
+  const shopperNameExists = Boolean(shopper?.firstName)
+  const firstName =
+    (shopperNameExists ? shopper?.firstName : clientProfileData?.firstName) ??
+    ''
+  const lastName =
+    (shopperNameExists ? shopper?.lastName : clientProfileData?.lastName) ?? ''
+  const email = shopper?.email || clientProfileData?.email
+  const phone = shopper?.phone || clientProfileData?.phone
   const corporateName = clientProfileData?.corporateName
   const isCorporate = clientProfileData?.isCorporate
 

@@ -5,6 +5,7 @@
 
 /* SQ-DISABLE */
 @use "sass:math";
+
 /* SQ-ENABLE */
 
 // Include Media Overwrites //////////////////////////
@@ -48,8 +49,7 @@ $base: 16px !default;
   box-sizing: border-box;
   width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
   max-width: var(--fs-grid-max-width);
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline: auto;
 }
 
 @mixin layout-content-full {

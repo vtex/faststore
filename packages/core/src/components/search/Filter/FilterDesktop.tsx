@@ -18,8 +18,10 @@ import type { useFilter } from 'src/sdk/search/useFilter'
 import type { FilterSliderProps } from './FilterSlider'
 
 import {
-  useDeliveryPromise,
+  DELIVERY_OPTIONS_FACET_KEY,
   PICKUP_ALL_FACET_VALUE,
+  SHIPPING_FACET_KEY,
+  useDeliveryPromise,
 } from 'src/sdk/deliveryPromise'
 import { getGlobalSettings } from 'src/utils/globalSettings'
 import FilterDeliveryMethodFacet from './FilterDeliveryMethodFacet'
@@ -47,7 +49,7 @@ function FilterDesktop({
   const { openRegionSlider } = useUI()
   const {
     facets: filteredFacets,
-    deliveryLabel,
+    labelsMap,
     isPickupAllEnabled,
     shouldDisplayDeliveryButton,
     onDeliveryFacetChange,
@@ -73,7 +75,7 @@ function FilterDesktop({
             testId={testId}
             index={0}
             type=""
-            label={deliveryLabel}
+            label={labelsMap[SHIPPING_FACET_KEY] ?? 'Delivery'}
             description={deliveryPromiseSettings?.deliveryMethods?.description}
           >
             <UIButton
@@ -92,17 +94,21 @@ function FilterDesktop({
           const index = shouldDisplayDeliveryButton ? idx + 1 : idx
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
-          const isDeliveryFacet = facet.key === 'shipping'
+          const isDeliveryMethodFacet = facet.key === SHIPPING_FACET_KEY
+          const isDeliveryOptionFacet = facet.key === DELIVERY_OPTIONS_FACET_KEY
+
+          const sectionLabel =
+            labelsMap[facet.key as keyof typeof labelsMap] ?? label
 
           return (
             <UIFilterFacets
-              key={`${testId}-${label}-${index}`}
+              key={`${testId}-${sectionLabel}-${index}`}
               testId={testId}
               index={index}
               type={type}
-              label={isDeliveryFacet ? deliveryLabel : label}
+              label={sectionLabel}
               description={
-                isDeliveryFacet
+                isDeliveryMethodFacet
                   ? deliveryPromiseSettings?.deliveryMethods?.description
                   : undefined
               }
@@ -126,7 +132,7 @@ function FilterDesktop({
                           quantity={item.quantity}
                           facetKey={facet.key}
                           label={
-                            isDeliveryFacet ? (
+                            isDeliveryMethodFacet ? (
                               <FilterDeliveryMethodFacet
                                 item={item}
                                 deliveryMethods={
@@ -137,7 +143,11 @@ function FilterDesktop({
                               item.label
                             )
                           }
-                          type={isDeliveryFacet ? 'radio' : 'checkbox'}
+                          type={
+                            isDeliveryMethodFacet || isDeliveryOptionFacet
+                              ? 'radio'
+                              : 'checkbox'
+                          }
                         />
                       )
                   )}

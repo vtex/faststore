@@ -182,6 +182,10 @@ type StoreSession {
   Marketing information.
   """
   marketingData: StoreMarketingData
+  """
+  Refresh token after Information.
+  """
+  refreshAfter: String
 }
 
 type StoreB2B {
@@ -194,6 +198,8 @@ type StoreB2B {
   userName: String
   userEmail: String
   savedPostalCode: String
+  contractName: String
+  organizationManager: Boolean
 }
 
 input IStoreB2B {
@@ -206,6 +212,8 @@ input IStoreB2B {
   userName: String
   userEmail: String
   savedPostalCode: String
+  contractName: String
+  organizationManager: Boolean
 }
 
 """
@@ -260,4 +268,8 @@ input IStoreSession {
   Marketing information input.
   """
   marketingData: IStoreMarketingData
+  """
+  Refresh token after Information.
+  """
+  refreshAfter: String
 }

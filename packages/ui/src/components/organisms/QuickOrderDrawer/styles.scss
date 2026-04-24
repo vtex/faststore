@@ -1,0 +1,439 @@
+[data-fs-quick-order-drawer] {
+  @import "../../atoms/Badge/styles";
+  @import "../../atoms/Button/styles";
+  @import "../../atoms/Icon/styles";
+  @import "../../atoms/Overlay/styles";
+  @import "../../atoms/Price/styles";
+  @import "../../atoms/Skeleton/styles";
+  @import "../../molecules/Alert/styles";
+  @import "../../molecules/QuantitySelector/styles";
+  @import "../../molecules/Table/styles";
+  @import "../../molecules/Tooltip/styles";
+  @import "../../organisms/SlideOver/styles";
+
+  // --------------------------------------------------------
+  // Design Tokens for Quick Order Drawer
+  // --------------------------------------------------------
+
+  // Layout
+  --fs-quick-order-drawer-width: 91%;
+  --fs-quick-order-drawer-padding: var(--fs-spacing-11);
+  --fs-quick-order-drawer-row-height: 3rem;
+
+  // Colors
+  --fs-quick-order-drawer-bkg-color: var(--fs-color-body-bkg);
+  --fs-quick-order-drawer-primary-text-color: var(--fs-color-text);
+  --fs-quick-order-drawer-secondary-text-color: var(--fs-color-text-light);
+  --fs-quick-order-drawer-inverse-text-color: var(--fs-color-text-inverse);
+
+  // Borders
+  --fs-quick-order-drawer-border-width: var(--fs-border-width);
+  --fs-quick-order-drawer-border-color: var(--fs-color-neutral-2);
+  --fs-quick-order-drawer-border-radius: var(--fs-border-radius-medium);
+  --fs-quick-order-drawer-border-radius-pill: var(--fs-border-radius-pill);
+
+  // Typography
+  --fs-quick-order-drawer-title-size: var(--fs-text-size-4);
+  --fs-quick-order-drawer-text-size-body: var(--fs-text-size-1);
+  --fs-quick-order-drawer-text-size-small: var(--fs-text-size-0);
+  --fs-quick-order-drawer-text-size-default: var(--fs-text-size-2);
+  --fs-quick-order-drawer-text-size-legend: var(--fs-text-size-legend);
+  --fs-quick-order-drawer-text-weight-regular: var(--fs-text-weight-regular);
+  --fs-quick-order-drawer-text-weight-medium: var(--fs-text-weight-medium);
+  --fs-quick-order-drawer-text-weight-semibold: var(--fs-text-weight-semibold);
+
+  // Header
+  --fs-quick-order-drawer-header-completed-bkg: var(--fs-color-success-2);
+  --fs-quick-order-drawer-header-completed-color: var(--fs-color-neutral-0);
+
+  // Alert
+  --fs-quick-order-drawer-alert-bkg-color: var(--fs-color-info-bkg);
+  --fs-quick-order-drawer-alert-icon-color: var(--fs-color-link);
+
+  // Table
+  --fs-quick-order-drawer-out-of-stock-bkg: var(--fs-color-neutral-1);
+  --fs-quick-order-drawer-col-product-width: 33%;
+  --fs-quick-order-drawer-col-availability-width: 17%;
+  --fs-quick-order-drawer-col-price-width: 20%;
+  --fs-quick-order-drawer-col-quantity-width: 24%;
+  --fs-quick-order-drawer-col-actions-width: 6%;
+
+  // Footer
+  --fs-quick-order-drawer-footer-icon-color: #858585;
+  --fs-quick-order-drawer-footer-icon-bkg: #f5f5f5;
+  --fs-quick-order-drawer-footer-icon-size: 3rem;
+  --fs-quick-order-drawer-footer-btn-color: var(--fs-color-primary-text);
+  --fs-quick-order-drawer-footer-btn-bkg: var(--fs-color-primary-bkg);
+  --fs-quick-order-drawer-footer-btn-height: var(--fs-spacing-9);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--fs-quick-order-drawer-primary-text-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  background-color: var(--fs-quick-order-drawer-bkg-color);
+
+  [data-fs-quick-order-drawer-text="primary"],
+  [data-fs-quick-order-text="primary"] {
+    overflow: hidden;
+    font-weight: var(--fs-quick-order-drawer-text-weight-medium);
+    line-height: 120%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  [data-fs-quick-order-drawer-text="secondary"],
+  [data-fs-quick-order-text="secondary"] {
+    overflow: hidden;
+    font-size: var(--fs-quick-order-drawer-text-size-legend);
+    font-weight: var(--fs-quick-order-drawer-text-weight-regular);
+    line-height: 120%;
+    color: var(--fs-quick-order-drawer-secondary-text-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  &[data-fs-slide-over][data-fs-slide-over-size="partial"] {
+    width: var(--fs-quick-order-drawer-width);
+
+    @include media(">=notebook") {
+      width: var(--fs-quick-order-drawer-width);
+      max-width: var(--fs-quick-order-drawer-width);
+    }
+  }
+
+  [data-fs-quick-order-drawer-header] {
+    flex-shrink: 0;
+    padding:
+      var(--fs-spacing-4) var(--fs-spacing-4) var(--fs-spacing-4)
+      var(--fs-quick-order-drawer-padding);
+    border-bottom:
+      var(--fs-quick-order-drawer-border-width) solid
+      var(--fs-quick-order-drawer-border-color);
+
+    [data-fs-icon] {
+      color: var(--fs-quick-order-drawer-primary-text-color);
+    }
+
+    [data-fs-quick-order-drawer-title-container] {
+      display: flex;
+      align-items: center;
+      width: 50%;
+      height: 100%;
+    }
+
+    [data-fs-quick-order-drawer-icon] {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: var(--fs-spacing-5);
+      height: var(--fs-spacing-5);
+      margin: 0;
+      margin-right: var(--fs-spacing-2);
+      margin-left: var(--fs-spacing-9);
+    }
+
+    [data-fs-quick-order-icon-completed] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: var(--fs-quick-order-drawer-header-completed-bkg);
+      border-radius: var(--fs-quick-order-drawer-border-radius);
+
+      [data-fs-icon] {
+        width: var(--fs-spacing-4);
+        height: var(--fs-spacing-4);
+        overflow: visible;
+        color: var(--fs-quick-order-drawer-header-completed-color);
+        fill: currentcolor;
+      }
+    }
+
+    [data-fs-quick-order-drawer-title] {
+      padding: 0 0.5rem;
+      font-size: var(--fs-quick-order-drawer-title-size);
+      font-weight: var(--fs-quick-order-drawer-text-weight-semibold);
+      line-height: 120%;
+      vertical-align: middle;
+    }
+  }
+
+  [data-fs-quick-order-drawer-content] {
+    flex: 1;
+    min-height: 0;
+    padding: var(--fs-spacing-4) var(--fs-quick-order-drawer-padding);
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: var(--fs-quick-order-drawer-text-size-body);
+
+    [data-fs-alert] {
+      width: 100%;
+      max-width: none;
+      font-weight: var(--fs-quick-order-drawer-text-weight-semibold);
+      background-color: var(--fs-quick-order-drawer-alert-bkg-color);
+      border-radius: var(--fs-spacing-0);
+    }
+
+    [data-fs-alert] svg {
+      color: var(--fs-quick-order-drawer-alert-icon-color);
+    }
+
+    [data-fs-quick-order-drawer-table] {
+      width: 100%;
+      table-layout: fixed;
+
+      [data-fs-table-head] {
+        color: var(--fs-quick-order-drawer-secondary-text-color);
+
+        [data-fs-table-cell="header"] {
+          font-weight: var(--fs-quick-order-drawer-text-weight-medium);
+        }
+
+        [data-fs-table-cell]:nth-child(1) {
+          width: var(--fs-quick-order-drawer-col-product-width);
+        }
+
+        [data-fs-table-cell]:nth-child(2) {
+          width: var(--fs-quick-order-drawer-col-availability-width);
+        }
+
+        [data-fs-table-cell]:nth-child(3) {
+          width: var(--fs-quick-order-drawer-col-price-width);
+        }
+
+        [data-fs-table-cell]:nth-child(4) {
+          width: var(--fs-quick-order-drawer-col-quantity-width);
+        }
+
+        [data-fs-table-cell]:nth-child(5) {
+          width: var(--fs-quick-order-drawer-col-actions-width);
+        }
+      }
+
+      [data-fs-table-row] {
+        height: var(--fs-quick-order-drawer-row-height);
+        border-bottom:
+          var(--fs-quick-order-drawer-border-width) solid
+          var(--fs-quick-order-drawer-border-color);
+      }
+
+      [data-fs-table-cell] {
+        padding: 1rem 0;
+      }
+
+      [data-fs-tooltip-wrapper] {
+        position: absolute;
+        top: 1.875rem;
+        color: var(--fs-quick-order-drawer-inverse-text-color);
+        background-color: var(--fs-quick-order-drawer-primary-text-color);
+      }
+
+      [data-fs-quick-order-drawer-table-row="available"],
+      [data-fs-quick-order-table-row="available"] {
+        color: var(--fs-quick-order-drawer-primary-text-color);
+      }
+
+      [data-fs-quick-order-table-row="outOfStock"] {
+        color: var(--fs-quick-order-drawer-secondary-text-color);
+        background-color: var(--fs-quick-order-drawer-out-of-stock-bkg);
+      }
+
+      [data-fs-quick-order-drawer-cell="product"],
+      [data-fs-quick-order-cell="product"] {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        [data-fs-quick-order-drawer-table-cell-img-container],
+        [data-fs-quick-order-table-cell-img-container] {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 0 0.5rem;
+        }
+
+        [data-fs-quick-order-drawer-table-cell-name-container],
+        [data-fs-quick-order-table-cell-name-container] {
+          display: flex;
+          flex-direction: column;
+          padding: var(--fs-spacing-3) var(--fs-spacing-1);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        [data-fs-tooltip] {
+          [data-fs-button] {
+            width: 2rem;
+
+            [data-fs-button-wrapper] {
+              width: var(--fs-spacing-4);
+            }
+          }
+
+          align-self: flex-start;
+
+          svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin: 0;
+            color: var(--fs-quick-order-drawer-secondary-text-color);
+          }
+        }
+      }
+
+      [data-fs-quick-order-drawer-cell="price"],
+      [data-fs-quick-order-cell="price"] {
+        padding-right: 3%;
+      }
+
+      [data-fs-badge] {
+        font-size: var(--fs-quick-order-drawer-text-size-small);
+        font-weight: var(--fs-quick-order-drawer-text-weight-medium);
+        text-transform: none;
+      }
+
+      [data-quantity-selector-input] {
+        padding: 0 0.5rem 0 0;
+        border-radius: var(--fs-quick-order-drawer-border-radius-pill);
+      }
+
+      [data-quantity-selector-button]:disabled {
+        svg {
+          color: var(--fs-quick-order-drawer-secondary-text-color);
+        }
+      }
+
+      [data-quantity-selector-input]:disabled {
+        color: var(--fs-quick-order-drawer-secondary-text-color);
+        background-color: transparent;
+      }
+
+      [data-fs-quick-order-drawer-table-price="available"],
+      [data-fs-quick-order-table-price="available"] {
+        color: var(--fs-quick-order-drawer-primary-text-color);
+      }
+
+      [data-fs-quick-order-drawer-table-price="outOfStock"],
+      [data-fs-quick-order-table-price="outOfStock"] {
+        color: var(--fs-quick-order-drawer-secondary-text-color);
+      }
+
+      [data-fs-quick-order-drawer-delete-cell],
+      [data-fs-quick-order-delete-cell] {
+        [data-fs-button-wrapper] {
+          width: 2.5rem;
+          height: 2.5rem;
+
+          [data-fs-icon] {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: 0;
+          }
+        }
+      }
+
+      [data-fs-quick-order-empty-state] {
+        padding: var(--fs-spacing-7) var(--fs-spacing-4);
+        border-bottom: none;
+
+        [data-fs-quick-order-empty-state-container] {
+          display: flex;
+          flex-direction: column;
+          gap: var(--fs-spacing-3);
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        [data-fs-quick-order-empty-state-icon] {
+          color: var(--fs-quick-order-drawer-secondary-text-color);
+        }
+
+        [data-fs-quick-order-empty-state-content] {
+          width: 100%;
+          text-align: center;
+        }
+
+        [data-fs-quick-order-empty-state-title] {
+          margin: 0;
+          margin-bottom: var(--fs-spacing-1);
+          font-size: var(--fs-quick-order-drawer-text-size-default);
+          font-weight: var(--fs-quick-order-drawer-text-weight-semibold);
+          color: var(--fs-quick-order-drawer-primary-text-color);
+        }
+
+        [data-fs-quick-order-empty-state-message] {
+          margin: 0;
+          font-size: var(--fs-quick-order-drawer-text-size-body);
+          color: var(--fs-quick-order-drawer-secondary-text-color);
+        }
+      }
+
+      [data-fs-table-row]:has([data-fs-quick-order-empty-state]) {
+        border-bottom: none;
+      }
+    }
+  }
+
+  [data-fs-quick-order-drawer-footer] {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    padding: var(--fs-spacing-5) var(--fs-quick-order-drawer-padding);
+    background-color: var(--fs-quick-order-drawer-bkg-color);
+    border-top:
+      var(--fs-quick-order-drawer-border-width) solid
+      var(--fs-quick-order-drawer-border-color);
+
+    [data-fs-quick-order-drawer-footer-items] {
+      display: flex;
+      gap: var(--fs-spacing-2);
+      align-items: center;
+      font-size: var(--fs-quick-order-drawer-text-size-default);
+      font-weight: var(--fs-quick-order-drawer-text-weight-medium);
+
+      [data-fs-icon] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--fs-quick-order-drawer-footer-icon-size);
+        height: var(--fs-quick-order-drawer-footer-icon-size);
+        padding: var(--fs-spacing-2);
+        color: var(--fs-quick-order-drawer-footer-icon-color);
+        background-color: var(--fs-quick-order-drawer-footer-icon-bkg);
+        border-radius: var(--fs-quick-order-drawer-border-radius);
+      }
+    }
+
+    [data-fs-quick-order-drawer-footer-actions] {
+      display: flex;
+      gap: var(--fs-spacing-4);
+      align-items: center;
+
+      [data-fs-price] {
+        font-size: var(--fs-quick-order-drawer-text-size-default);
+        font-weight: var(--fs-quick-order-drawer-text-weight-medium);
+      }
+
+      [data-fs-button-wrapper] {
+        height: var(--fs-quick-order-drawer-footer-btn-height);
+        padding: 0 var(--fs-spacing-7);
+        font-size: var(--fs-quick-order-drawer-text-size-body);
+        color: var(--fs-quick-order-drawer-footer-btn-color);
+        background-color: var(--fs-quick-order-drawer-footer-btn-bkg);
+        border-radius: var(--fs-quick-order-drawer-border-radius-pill);
+      }
+    }
+  }
+}

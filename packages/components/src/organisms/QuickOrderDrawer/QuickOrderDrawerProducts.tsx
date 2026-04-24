@@ -1,0 +1,323 @@
+import React, { type FunctionComponent } from 'react'
+import Icon from '../../atoms/Icon'
+import IconButton from '../../molecules/IconButton'
+import QuantitySelector from '../../molecules/QuantitySelector'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '../../molecules/Table'
+
+import Badge from '../../atoms/Badge'
+import type { PriceFormatter } from '../../atoms/Price'
+import Price from '../../atoms/Price'
+import Skeleton from '../../atoms/Skeleton'
+import { useUI } from '../../hooks'
+import Alert from '../../molecules/Alert'
+import Tooltip from '../../molecules/Tooltip'
+import {
+  useQuickOrderDrawer,
+  type VariationProductColumn,
+} from './provider/QuickOrderDrawerProvider'
+
+type ImageComponentType = FunctionComponent<{
+  src: string
+  alt: string
+  width?: number
+  height?: number
+  loading?: 'eager' | 'lazy'
+}>
+
+// TODO: Replace with faststore Image component in final implementation
+// This is a temporary reference component for storybook preview
+const DefaultImageComponent: ImageComponentType = ({
+  src,
+  alt,
+  width,
+  height,
+  ...otherProps
+}) => <img src={src} alt={alt} width={width} height={height} {...otherProps} />
+
+export type QuickOrderDrawerProductsProps = {
+  columns: VariationProductColumn
+  formatter?: PriceFormatter
+  ImageComponent?: ImageComponentType
+  /**
+   * Messages for CMS configuration
+   */
+  messages?: {
+    alertAriaLabel?: string
+    tableAriaLabel?: string
+    quantityUpdatedTooltip?: string
+    quantityUpdatedAriaLabel?: string
+    outOfStockLabel?: string
+    availableLabel?: string
+    selectQuantityAriaLabel?: string
+    removeProductAriaLabel?: string
+    invalidQuantityTitle?: string
+    invalidQuantityMessage?: (
+      min: number,
+      max: number,
+      quantity: number
+    ) => string
+    emptyStateTitle?: string
+    emptyStateMessage?: string
+  }
+}
+
+const QuickOrderDrawerProducts = ({
+  columns,
+  formatter,
+  ImageComponent = DefaultImageComponent,
+  messages,
+}: QuickOrderDrawerProductsProps) => {
+  const { pushToast } = useUI()
+  const {
+    products,
+    onChangeQuantityItem,
+    onDelete,
+    isLoading,
+    alertMessage,
+    setAlertMessage,
+    formatter: contextFormatter,
+  } = useQuickOrderDrawer()
+  const priceFormatter = formatter || contextFormatter
+
+  const showSkeleton = isLoading
+  return (
+    <div data-fs-quick-order-drawer-content>
+      <>
+        {!isLoading && alertMessage && (
+          <Alert
+            icon={<Icon name="AlertFilled" weight="bold" />}
+            dismissible
+            onClick={() => setAlertMessage('')}
+            aria-label={messages?.alertAriaLabel}
+          >
+            {alertMessage}
+          </Alert>
+        )}
+        <Table
+          data-fs-quick-order-drawer-table
+          variant="bordered"
+          aria-label={messages?.tableAriaLabel}
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell
+                data-fs-quick-order-drawer-product-header
+                align="left"
+                variant="header"
+                scope="col"
+              >
+                {columns.name}
+              </TableCell>
+
+              <TableCell align="left" variant="header" scope="col">
+                {columns.availability.label}
+              </TableCell>
+
+              <TableCell align="center" variant="header" scope="col">
+                {columns.price}
+              </TableCell>
+
+              <TableCell align="left" variant="header" scope="col">
+                {columns.quantity}
+              </TableCell>
+              <TableCell align="right" variant="header" scope="col"></TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {showSkeleton ? (
+              <>
+                {Array.from({ length: 5 }).map((_, index) => {
+                  return (
+                    <TableRow key={`table-row-skeleton-${index}`}>
+                      {Array.from({
+                        length: 5,
+                      }).map((_, cellIndex) => {
+                        return (
+                          <TableCell key={`table-cell-skeleton-${cellIndex}`}>
+                            <Skeleton size={{ width: '96%', height: '30px' }} />
+                          </TableCell>
+                        )
+                      })}
+                    </TableRow>
+                  )
+                })}
+              </>
+            ) : products.length > 0 ? (
+              <>
+                {products.map((variantProduct) => (
+                  <TableRow
+                    key={`${variantProduct.name}-${variantProduct.id}`}
+                    data-fs-quick-order-table-row={variantProduct.availability}
+                  >
+                    <TableCell data-fs-quick-order-cell="product" align="left">
+                      <div data-fs-quick-order-table-cell-img-container>
+                        <ImageComponent
+                          height={48}
+                          src={variantProduct.image.url}
+                          alt={
+                            variantProduct.image.alternateName ||
+                            variantProduct.name
+                          }
+                        />
+                      </div>
+
+                      <div data-fs-quick-order-table-cell-name-container>
+                        <div data-fs-quick-order-text={'primary'}>
+                          {variantProduct.name}
+                        </div>
+                        <span data-fs-quick-order-text={'secondary'}>
+                          {variantProduct.id}
+                        </span>
+                      </div>
+                      {variantProduct.availability === 'available' &&
+                        variantProduct.quantityUpdated && (
+                          <Tooltip
+                            content={messages?.quantityUpdatedTooltip}
+                            placement="left-center"
+                          >
+                            <IconButton
+                              aria-label={messages?.quantityUpdatedAriaLabel}
+                              icon={<Icon name="CircleWarning" weight="bold" />}
+                            />
+                          </Tooltip>
+                        )}
+                    </TableCell>
+
+                    <TableCell align="left">
+                      {columns.availability.stockDisplaySettings ===
+                        'showAvailability' && (
+                        <Badge
+                          variant={
+                            variantProduct.availability === 'outOfStock'
+                              ? 'warning'
+                              : 'success'
+                          }
+                        >
+                          {variantProduct.availability === 'outOfStock'
+                            ? messages?.outOfStockLabel
+                            : messages?.availableLabel}
+                        </Badge>
+                      )}
+
+                      {columns.availability.stockDisplaySettings ===
+                        'showStockQuantity' && variantProduct.inventory}
+                    </TableCell>
+
+                    <TableCell data-fs-quick-order-cell="price" align="right">
+                      <Price
+                        value={variantProduct.price}
+                        variant="spot"
+                        formatter={priceFormatter}
+                        data-fs-quick-order-table-price={
+                          variantProduct.availability
+                        }
+                      />
+                    </TableCell>
+
+                    <TableCell
+                      align="right"
+                      data-fs-quick-order-cell="quantity-selector"
+                    >
+                      <div data-fs-quick-order-table-action>
+                        <QuantitySelector
+                          min={0}
+                          max={variantProduct.inventory}
+                          disabled={
+                            !variantProduct.inventory ||
+                            variantProduct.availability === 'outOfStock'
+                          }
+                          initial={variantProduct.selectedCount}
+                          onChange={(value) =>
+                            onChangeQuantityItem(variantProduct.id, value)
+                          }
+                          aria-label={messages?.selectQuantityAriaLabel?.replace(
+                            '{productName}',
+                            variantProduct.name
+                          )}
+                          onValidateBlur={(
+                            min: number,
+                            maxValue: number,
+                            quantity: number
+                          ) => {
+                            const title = messages?.invalidQuantityTitle
+                            const message = messages?.invalidQuantityMessage
+                              ? messages.invalidQuantityMessage(
+                                  min,
+                                  maxValue,
+                                  quantity
+                                )
+                              : ''
+
+                            pushToast({
+                              title,
+                              message,
+                              status: 'INFO',
+                              icon: (
+                                <Icon
+                                  name="CircleWavyWarning"
+                                  width={30}
+                                  height={30}
+                                />
+                              ),
+                            })
+                          }}
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell align="right" data-fs-quick-order-delete-cell>
+                      <IconButton
+                        onClick={() => onDelete(variantProduct.id)}
+                        icon={<Icon name="Thrash" color="#1F1F1F" />}
+                        aria-label={messages?.removeProductAriaLabel?.replace(
+                          '{productName}',
+                          variantProduct.name
+                        )}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </>
+            ) : (
+              <TableRow>
+                <TableCell
+                  align="center"
+                  data-fs-quick-order-empty-state
+                  {...({
+                    colSpan: 5,
+                  } as React.HTMLAttributes<HTMLTableCellElement>)}
+                >
+                  <div data-fs-quick-order-empty-state-container>
+                    <Icon
+                      name="MagnifyingGlass"
+                      width={48}
+                      height={48}
+                      weight="thin"
+                      data-fs-quick-order-empty-state-icon
+                    />
+                    <div data-fs-quick-order-empty-state-content>
+                      <p data-fs-quick-order-empty-state-title>
+                        {messages?.emptyStateTitle}
+                      </p>
+                      <p data-fs-quick-order-empty-state-message>
+                        {messages?.emptyStateMessage}
+                      </p>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </>
+    </div>
+  )
+}
+
+export default QuickOrderDrawerProducts

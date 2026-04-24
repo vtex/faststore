@@ -5,7 +5,7 @@ import {
   SearchDropdown as UISearchDropdown,
   useSearch,
 } from '@faststore/ui'
-import type { Dispatch, SetStateAction } from 'react'
+import React, { type Dispatch, type SetStateAction } from 'react'
 
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
@@ -24,7 +24,7 @@ interface SearchDropdownProps {
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
-  onChangeCustomSearchDropdownVisible: Dispatch<SetStateAction<boolean>>
+  onChangeCustomSearchDropdownVisible?: Dispatch<SetStateAction<boolean>>
 }
 
 export function sendAutocompleteClickEvent({
@@ -33,8 +33,8 @@ export function sendAutocompleteClickEvent({
   position,
   productId,
 }: IntelligentSearchAutocompleteClickParams) {
-  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
-    sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
+  return import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    return sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
       name: 'intelligent_search_autocomplete_click',
       params: { term, url, productId, position },
     })
@@ -48,7 +48,7 @@ function SearchDropdown({
   ...otherProps
 }: SearchDropdownProps) {
   const {
-    values: { onSearchSelection, products, term, terms },
+    values: { onSearchSelection, products, term, terms, searchId },
   } = useSearch()
 
   return (
@@ -66,21 +66,37 @@ function SearchDropdown({
                 term: suggestion,
                 sort,
               }),
-              onClick: () => {
+              onClick: async (event: React.MouseEvent<HTMLAnchorElement>) => {
+                event.preventDefault()
+
+                const href = formatSearchPath({ term: suggestion, sort })
+
+                // Execute search selection callback
                 onSearchSelection?.(
                   term,
                   formatSearchPath({ term: term, sort })
                 )
-                sendAutocompleteClickEvent({
-                  term: term,
-                  url: window.location.href,
-                })
+
+                // Wait for analytics event to complete
+                try {
+                  await sendAutocompleteClickEvent({
+                    term: term,
+                    url: window.location.href,
+                  })
+                } catch (_) {}
+
+                // Navigate after events are completed
+                window.location.href = href
               },
             }}
           />
         ))}
       </UISearchAutoComplete>
-      <SearchProducts>
+      <SearchProducts
+        data-af-element={searchId && 'search-autocomplete'}
+        data-af-onimpression={!!searchId}
+        data-af-search-id={searchId}
+      >
         {products.map((product, index) => {
           const productParsed = product as ProductSummary_ProductFragment
           return (
@@ -92,6 +108,11 @@ function SearchDropdown({
               onChangeCustomSearchDropdownVisible={
                 onChangeCustomSearchDropdownVisible
               }
+              data-af-element={searchId && 'search-autocomplete'}
+              data-af-onclick={!!(searchId && productParsed.id)}
+              data-af-search-id={searchId}
+              data-af-product-position={searchId && index + 1} // Product position in Search Analytics starts with 1
+              data-af-product-id={searchId && productParsed.id}
             />
           )
         })}

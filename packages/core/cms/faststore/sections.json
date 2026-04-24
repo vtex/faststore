@@ -20,7 +20,7 @@
             "placeholder": {
               "title": "Placeholder",
               "type": "string",
-              "default": "Search Everything at the Store"
+              "default": "Search everything in the store"
             },
             "icon": {
               "title": "Search Icon",
@@ -36,7 +36,7 @@
                 "alt": {
                   "title": "Alternative Label",
                   "type": "string",
-                  "default": "Magnifying Glass"
+                  "default": "Magnifying glass"
                 }
               }
             }
@@ -54,7 +54,7 @@
             "clearButtonLabel": {
               "type": "string",
               "title": "Clear Button Label",
-              "default": "Clear History"
+              "default": "Clear history"
             },
             "icon": {
               "title": "Icon",
@@ -88,7 +88,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Top Search"
+              "default": "Top search"
             },
             "maxItems": {
               "title": "Maximum Number of Top Search Items",
@@ -114,7 +114,7 @@
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Magnifying Glass"
+                  "default": "Magnifying glass"
                 }
               }
             },
@@ -132,7 +132,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Suggested Products"
+              "default": "Suggested products"
             },
             "maxItems": {
               "title": "Maximum Number of Suggested Products",
@@ -195,7 +195,7 @@
             "placeholder": {
               "title": "Placeholder for Search Bar",
               "type": "string",
-              "default": "Search everything at the store"
+              "default": "Search everything in the store"
             },
             "sort": {
               "title": "Results default sort value",
@@ -231,6 +231,35 @@
                   "description": "Allows adding products directly to the cart through search terms, streamlining the purchase.",
                   "type": "boolean",
                   "default": false
+                },
+                "attachmentButton": {
+                  "title": "Attachment Button",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["Paperclip"],
+                          "enum": ["Paperclip"],
+                          "default": "Paperclip"
+                        },
+                        "alt": {
+                          "title": "Alternative Label",
+                          "type": "string",
+                          "default": "Attach File"
+                        }
+                      }
+                    },
+                    "ariaLabel": {
+                      "title": "Aria Label",
+                      "type": "string",
+                      "default": "Attach File"
+                    }
+                  }
                 },
                 "skuMatrix": {
                   "title": "SKUMatrix Configuration",
@@ -304,6 +333,448 @@
                       }
                     }
                   }
+                },
+                "drawer": {
+                  "title": "Quick Order Drawer",
+                  "type": "object",
+                  "properties": {
+                    "defaultTitle": {
+                      "title": "Default drawer title",
+                      "type": "string",
+                      "default": "Quick Order"
+                    },
+                    "columns": {
+                      "title": "Drawer table columns",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "title": "Product name column label",
+                          "type": "string",
+                          "default": "Product Name"
+                        },
+                        "availabilityLabel": {
+                          "title": "Availability column label",
+                          "type": "string",
+                          "default": "Availability"
+                        },
+                        "price": {
+                          "title": "Price column label",
+                          "type": "string",
+                          "default": "Price (tax included)"
+                        },
+                        "quantity": {
+                          "title": "Quantity column label",
+                          "type": "string",
+                          "default": "Quantity"
+                        }
+                      }
+                    },
+                    "messages": {
+                      "title": "Drawer messages",
+                      "type": "object",
+                      "properties": {
+                        "alertAriaLabel": {
+                          "title": "Alert aria-label",
+                          "type": "string",
+                          "default": "Product availability warning"
+                        },
+                        "tableAriaLabel": {
+                          "title": "Table aria-label",
+                          "type": "string",
+                          "default": "Quick order products list"
+                        },
+                        "quantityUpdatedTooltip": {
+                          "title": "Quantity updated tooltip text",
+                          "type": "string",
+                          "default": "Quantity updated to match our inventory"
+                        },
+                        "quantityUpdatedAriaLabel": {
+                          "title": "Quantity updated aria-label",
+                          "type": "string",
+                          "default": "Quantity adjusted to match available inventory"
+                        },
+                        "outOfStockLabel": {
+                          "title": "Out of stock badge label",
+                          "type": "string",
+                          "default": "Out of stock"
+                        },
+                        "availableLabel": {
+                          "title": "Available badge label",
+                          "type": "string",
+                          "default": "Available"
+                        },
+                        "selectQuantityAriaLabel": {
+                          "title": "Select quantity aria-label ({productName} will be replaced)",
+                          "type": "string",
+                          "default": "Select quantity for {productName}"
+                        },
+                        "removeProductAriaLabel": {
+                          "title": "Remove product aria-label ({productName} will be replaced)",
+                          "type": "string",
+                          "default": "Remove {productName} from quick order list"
+                        },
+                        "invalidQuantityTitle": {
+                          "title": "Invalid quantity toast title",
+                          "type": "string",
+                          "default": "Invalid quantity!"
+                        },
+                        "emptyStateTitle": {
+                          "title": "Empty state title",
+                          "type": "string",
+                          "default": "No products found"
+                        },
+                        "emptyStateMessage": {
+                          "title": "Empty state message",
+                          "type": "string",
+                          "default": "No SKUs were found for the provided file. Please check your file and try again."
+                        }
+                      }
+                    },
+                    "alertMessages": {
+                      "title": "Alert messages",
+                      "type": "object",
+                      "properties": {
+                        "notFoundAndOutOfStock": {
+                          "title": "Not found and out of stock",
+                          "type": "string",
+                          "default": "Some of the SKUs were not found or are not available. Please adjust the amount before proceeding to the cart."
+                        },
+                        "notFound": {
+                          "title": "Not found",
+                          "type": "string",
+                          "default": "Some of the SKUs were not found. Please check your CSV file and try again."
+                        },
+                        "outOfStock": {
+                          "title": "Out of stock",
+                          "type": "string",
+                          "default": "Some of the SKUs are not available. Please adjust the amount before proceeding to the cart."
+                        }
+                      }
+                    },
+                    "footer": {
+                      "title": "Drawer footer labels",
+                      "type": "object",
+                      "properties": {
+                        "itemsLabel": {
+                          "title": "Items label (shown next to item count)",
+                          "type": "string",
+                          "default": "items"
+                        },
+                        "addToCartLabel": {
+                          "title": "Add to cart button label",
+                          "type": "string",
+                          "default": "Add to Cart"
+                        },
+                        "addToCartAriaLabel": {
+                          "title": "Add to cart button aria-label",
+                          "type": "string",
+                          "default": "Add items to cart"
+                        }
+                      }
+                    }
+                  }
+                },
+                "toastMessages": {
+                  "title": "Toast Messages",
+                  "type": "object",
+                  "properties": {
+                    "noFileSelected": {
+                      "title": "No file selected",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "No file selected"
+                        },
+                        "message": {
+                          "title": "Message",
+                          "type": "string",
+                          "default": "Please select a CSV file to search."
+                        }
+                      }
+                    },
+                    "noDataFound": {
+                      "title": "No data found",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "No data found"
+                        },
+                        "message": {
+                          "title": "Message",
+                          "type": "string",
+                          "default": "The CSV file could not be processed or contains no valid data. Please check the file format and try again."
+                        }
+                      }
+                    },
+                    "fileProcessingError": {
+                      "title": "File processing error",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "File processing error"
+                        },
+                        "defaultMessage": {
+                          "title": "Default message",
+                          "type": "string",
+                          "default": "Failed to process the CSV file. Please try again."
+                        }
+                      }
+                    },
+                    "fileTimeout": {
+                      "title": "File timeout",
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "title": "Message",
+                          "type": "string",
+                          "default": "The file may be too large, corrupted, or the parser may be stuck."
+                        }
+                      }
+                    },
+                    "noDataAvailable": {
+                      "title": "No data available",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "No data available"
+                        },
+                        "message": {
+                          "title": "Message",
+                          "type": "string",
+                          "default": "The CSV file contains no valid data. Please check the file and try again."
+                        }
+                      }
+                    },
+                    "noValidSkus": {
+                      "title": "No valid SKUs found",
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "title": "Title",
+                          "type": "string",
+                          "default": "No valid SKUs found"
+                        },
+                        "message": {
+                          "title": "Message",
+                          "type": "string",
+                          "default": "The CSV file does not contain any valid SKUs. Please check the file format and ensure it has a SKU column."
+                        }
+                      }
+                    }
+                  }
+                },
+                "accessibilityLabels": {
+                  "title": "Accessibility Labels",
+                  "type": "object",
+                  "properties": {
+                    "attachButtonAriaLabel": {
+                      "title": "Attach file button aria-label",
+                      "type": "string",
+                      "default": "Attach File"
+                    },
+                    "searchButtonAriaLabel": {
+                      "title": "Search button aria-label",
+                      "type": "string",
+                      "default": "Submit Search"
+                    }
+                  }
+                },
+                "fileUploadCard": {
+                  "title": "File Upload Card",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Card title",
+                      "type": "string",
+                      "default": "File Upload"
+                    },
+                    "fileInputAriaLabel": {
+                      "title": "File input aria-label",
+                      "type": "string",
+                      "default": "File upload input"
+                    },
+                    "dropzoneAriaLabel": {
+                      "title": "Dropzone aria-label",
+                      "type": "string",
+                      "default": "Drop a file to search in bulk"
+                    },
+                    "dropzoneTitle": {
+                      "title": "Dropzone title",
+                      "type": "string",
+                      "default": "Drop your file here or click to browse"
+                    },
+                    "dropzoneDragActiveText": {
+                      "title": "Dropzone drag active text",
+                      "type": "string",
+                      "default": "Drop the files here..."
+                    },
+                    "dropzoneText": {
+                      "title": "Dropzone text",
+                      "type": "string",
+                      "default": "Drag and drop files here, or click to select files"
+                    },
+                    "selectFileButtonLabel": {
+                      "title": "Select file button label",
+                      "type": "string",
+                      "default": "Select file"
+                    },
+                    "downloadTemplateButtonLabel": {
+                      "title": "Download template button label",
+                      "type": "string",
+                      "default": "Download template"
+                    },
+                    "removeButtonAriaLabel": {
+                      "title": "Remove button aria-label",
+                      "type": "string",
+                      "default": "Remove file"
+                    },
+                    "searchButtonLabel": {
+                      "title": "Search button label",
+                      "type": "string",
+                      "default": "Search"
+                    },
+                    "uploadingStatusText": {
+                      "title": "Uploading status text",
+                      "type": "string",
+                      "default": "Uploading..."
+                    },
+                    "completedStatusTemplate": {
+                      "title": "Completed status text ({fileSize} will be replaced with file size in KB)",
+                      "type": "string",
+                      "default": "File ready ({fileSize} KB)"
+                    },
+                    "acceptedFileTypes": {
+                      "title": "Accepted file types",
+                      "type": "string",
+                      "default": ".csv"
+                    },
+                    "errorMessages": {
+                      "title": "Error Messages",
+                      "type": "object",
+                      "properties": {
+                        "unexpected": {
+                          "title": "Unexpected error",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "Something went wrong"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "We could not process your file. Please try again."
+                            }
+                          }
+                        },
+                        "unsupported": {
+                          "title": "Unsupported file",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "Unsupported file"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "Please upload a CSV file."
+                            }
+                          }
+                        },
+                        "unreadable": {
+                          "title": "Unreadable file",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "File could not be read"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "The file may be corrupted or in an unsupported encoding."
+                            }
+                          }
+                        },
+                        "invalid-structure": {
+                          "title": "Invalid structure",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "Invalid file structure"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "The CSV does not match the expected format. Use the template."
+                            }
+                          }
+                        },
+                        "empty": {
+                          "title": "Empty file",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "Empty file"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "The file has no data. Add at least one row."
+                            }
+                          }
+                        },
+                        "too-large": {
+                          "title": "File too large",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "File too large"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "Please upload a file smaller than the maximum allowed size."
+                            }
+                          }
+                        },
+                        "no-products-found": {
+                          "title": "No products found",
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "default": "No products found"
+                            },
+                            "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "default": "Please verify the SKUs in your file and try again."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -334,12 +805,12 @@
             "label": {
               "title": "Call to Action",
               "type": "string",
-              "default": "Sign In"
+              "default": "Sign in"
             },
             "myAccountLabel": {
               "title": "My Account Label",
               "type": "string",
-              "default": "My Account"
+              "default": "My account"
             }
           }
         },
@@ -357,7 +828,7 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string",
-              "default": "Shopping Cart"
+              "default": "Shopping cart"
             }
           }
         },
@@ -606,7 +1077,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Follow Us"
+              "default": "Follow us"
             },
             "socialLinks": {
               "title": "Social Media",
@@ -702,7 +1173,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Payment Methods"
+              "default": "Payment methods"
             },
             "paymentMethods": {
               "title": "Payment Methods",
@@ -957,7 +1428,7 @@
           "description": "Number of items to display per page in carousel"
         },
         "after": {
-          "type": "integer",
+          "type": "string",
           "title": "After",
           "default": "0",
           "description": "Initial pagination item"
@@ -1121,7 +1592,7 @@
         },
         "after": {
           "title": "After",
-          "type": "integer",
+          "type": "string",
           "default": "0",
           "description": "Initial pagination item"
         },
@@ -1226,12 +1697,12 @@
         "title": {
           "title": "Title",
           "type": "string",
-          "default": "Get News and Special Offers!"
+          "default": "Subscribe to the newsletter"
         },
         "description": {
           "title": "Description",
           "type": "string",
-          "default": "Receive our news and promotions in advance"
+          "default": "Get news and special offers!"
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
@@ -1243,7 +1714,7 @@
         "emailInputLabel": {
           "title": "Email input label",
           "type": "string",
-          "default": "Your Email"
+          "default": "Email"
         },
         "displayNameInput": {
           "title": "Request name?",
@@ -1253,7 +1724,7 @@
         "nameInputLabel": {
           "title": "Name input label",
           "type": "string",
-          "default": "Your Name"
+          "default": "Name"
         },
         "subscribeButtonLabel": {
           "title": "Subscribe button label",
@@ -1291,7 +1762,7 @@
               "title": "Message",
               "description": "Message",
               "type": "string",
-              "default": "Thank for your subscription."
+              "default": "Thanks for your subscription."
             },
             "icon": {
               "title": "Icon",
@@ -1310,13 +1781,13 @@
               "title": "Title",
               "description": "Message Title",
               "type": "string",
-              "default": "Oops."
+              "default": "Oops!"
             },
             "message": {
               "title": "Message",
               "description": "Message",
               "type": "string",
-              "default": "Something went wrong. Please Try again."
+              "default": "Something went wrong. Please try again."
             },
             "icon": {
               "title": "Icon",
@@ -1355,7 +1826,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get to Know Our Next Release"
+              "default": "Check out our next release"
             },
             "caption": {
               "title": "Caption",
@@ -1421,12 +1892,12 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Get News and Special Offers!"
+              "default": "Subscribe to the newsletter"
             },
             "description": {
               "title": "Description",
               "type": "string",
-              "default": "Receive our news and promotions in advance"
+              "default": "Get news and special offers!"
             },
             "privacyPolicy": {
               "title": "Privacy Policy Disclaimer",
@@ -1438,7 +1909,7 @@
             "emailInputLabel": {
               "title": "Email input label",
               "type": "string",
-              "default": "Your Email"
+              "default": "Email"
             },
             "displayNameInput": {
               "title": "Request name?",
@@ -1448,7 +1919,7 @@
             "nameInputLabel": {
               "title": "Name input label",
               "type": "string",
-              "default": "Your Name"
+              "default": "Name"
             },
             "subscribeButtonLabel": {
               "title": "Subscribe button label",
@@ -1481,7 +1952,7 @@
                   "title": "Message",
                   "description": "Message",
                   "type": "string",
-                  "default": "Thank for your subscription."
+                  "default": "Thanks for your subscription."
                 },
                 "icon": {
                   "title": "Icon",
@@ -1500,13 +1971,13 @@
                   "title": "Title",
                   "description": "Message Title",
                   "type": "string",
-                  "default": "Oops."
+                  "default": "Oops!"
                 },
                 "message": {
                   "title": "Message",
                   "description": "Message",
                   "type": "string",
-                  "default": "Something went wrong. Please Try again."
+                  "default": "Something went wrong. Please try again."
                 },
                 "icon": {
                   "title": "Icon",
@@ -1587,7 +2058,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Add to Cart"
+              "default": "Add to cart"
             },
             "icon": {
               "title": "Icon",
@@ -1602,7 +2073,7 @@
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Shopping Cart"
+                  "default": "Shopping cart"
                 }
               }
             }
@@ -1616,7 +2087,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Not Available"
+              "default": "Unavailable"
             }
           }
         },
@@ -1632,7 +2103,7 @@
             "inputLabel": {
               "title": "Input Label",
               "type": "string",
-              "default": "Postal Code"
+              "default": "Postal code"
             },
             "link": {
               "title": "Postal Code Discovery",
@@ -1641,7 +2112,7 @@
                 "text": {
                   "title": "Link Text",
                   "type": "string",
-                  "default": "I don't know my Postal Code"
+                  "default": "I don't know my postal code"
                 },
                 "to": {
                   "title": "URL",
@@ -1836,7 +2307,7 @@
             "label": {
               "title": "Previous page button",
               "type": "string",
-              "default": "Previous Page"
+              "default": "Previous page"
             }
           }
         },
@@ -1896,7 +2367,7 @@
                         "alt": {
                           "title": "Alternative label",
                           "type": "string",
-                          "default": "Open Filters"
+                          "default": "Open filters"
                         }
                       }
                     }
@@ -1905,7 +2376,7 @@
                 "clearButtonLabel": {
                   "title": "Clear button label",
                   "type": "string",
-                  "default": "Clear All"
+                  "default": "Clear all"
                 },
                 "applyButtonLabel": {
                   "title": "Apply button label",
@@ -1960,7 +2431,7 @@
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Nothing matches with your search"
+              "default": "Nothing matches your search"
             },
             "firstButton": {
               "title": "First Button",
@@ -1969,7 +2440,7 @@
                 "label": {
                   "type": "string",
                   "title": "Label",
-                  "default": "Browse Offers"
+                  "default": "Browse offers"
                 },
                 "url": {
                   "type": "string",
@@ -1990,7 +2461,7 @@
                 "label": {
                   "type": "string",
                   "title": "Label",
-                  "default": "Just Arrived"
+                  "default": "Just arrived"
                 },
                 "url": {
                   "type": "string",
@@ -2001,6 +2472,105 @@
                   "title": "Icon",
                   "type": "string",
                   "default": "RocketLaunch"
+                }
+              }
+            }
+          }
+        },
+        "productComparison": {
+          "title": "Product Comparison",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "title": "Enable Product Comparison",
+              "type": "boolean",
+              "default": false
+            },
+            "labels": {
+              "title": "Labels",
+              "type": "object",
+              "properties": {
+                "compareButton": {
+                  "title": "Compare Button",
+                  "type": "string",
+                  "default": "Compare"
+                },
+                "clearSelectionButton": {
+                  "title": "Clear Selection Button",
+                  "type": "string",
+                  "default": "Clear Selection"
+                },
+                "selectionWarning": {
+                  "title": "Selection Warning",
+                  "type": "string",
+                  "default": "Select at least 2"
+                },
+                "sidebarComponent": {
+                  "title": "Sidebar component",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Compare Products"
+                    },
+                    "filterLabel": {
+                      "title": "Filter text",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "productNameFilterLabel": {
+                      "title": "Filter by product name text",
+                      "type": "string",
+                      "default": "Product name"
+                    },
+                    "sortLabel": {
+                      "title": "Sort filter text",
+                      "type": "string",
+                      "default": "Sort by"
+                    },
+                    "toggleFieldLabel": {
+                      "title": "Toggle filter text",
+                      "type": "string",
+                      "default": "Show only differences"
+                    },
+                    "preferencesLabel": {
+                      "title": "Preferences text",
+                      "type": "string",
+                      "default": "Preferences"
+                    },
+                    "cartButtonLabel": {
+                      "title": "Add to cart button",
+                      "type": "string",
+                      "default": "Add to cart"
+                    },
+                    "priceLabel": {
+                      "title": "Price text",
+                      "type": "string",
+                      "default": "Price"
+                    },
+                    "priceWithTaxLabel": {
+                      "title": "Price with taxes text",
+                      "type": "string",
+                      "default": "Price with taxes"
+                    }
+                  }
+                },
+                "technicalInformation": {
+                  "title": "Technical Information",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Technical Information"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "type": "string",
+                      "default": "Technical facts and information about the product."
+                    }
+                  }
                 }
               }
             }
@@ -2020,7 +2590,7 @@
         "title": {
           "title": "Title text",
           "type": "string",
-          "default": "Your Cart"
+          "default": "Your cart"
         },
         "alert": {
           "title": "Alert",
@@ -2062,7 +2632,7 @@
             "text": {
               "type": "string",
               "title": "Text",
-              "default": "Free shipping starts at $300"
+              "default": "Free shipping on orders $300+"
             }
           }
         },
@@ -2230,7 +2800,7 @@
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
               "type": "string"
             },
             "buttonActionText": {
@@ -2245,9 +2815,9 @@
           "type": "object",
           "properties": {
             "text": {
-              "type": "string",
               "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             },
             "to": {
               "type": "string",
@@ -2311,7 +2881,7 @@
             },
             "noProductsAvailableErrorMessage": {
               "title": "Input field error message for the scenario of no products available for a given location",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections The '%s' is replaced by the postal code value.",
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections. The '%s' is replaced by the postal code value.",
               "type": "string"
             },
             "buttonActionText": {
@@ -2343,9 +2913,9 @@
           "type": "object",
           "properties": {
             "text": {
-              "type": "string",
               "title": "Link Text",
-              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections"
+              "description": "[Deprecated] Use the fields from the Settings tab in Global Sections",
+              "type": "string"
             },
             "to": {
               "type": "string",
@@ -2446,6 +3016,16 @@
           }
         }
       }
+    }
+  },
+  {
+    "name": "ShoppingAssistant",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Shopping Assistant",
+      "description": "To enable Shopping Assistant, make sure you have finished the setup at Agentic CX > Dashboard.",
+      "type": "object",
+      "properties": {}
     }
   }
 ]

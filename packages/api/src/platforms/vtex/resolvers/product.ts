@@ -147,7 +147,8 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     return filteredImages.slice(0, limit)
   },
   sku: ({ itemId }) => itemId,
-  gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
+  gtin: ({ ean, referenceId }) => (ean ? ean : (referenceId[0]?.Value ?? '')),
+  mpn: ({ isVariantOf: { manufacturerCode } }) => manufacturerCode ?? '',
   review: () => [],
   aggregateRating: () => ({}),
   offers: (root) =>
@@ -188,6 +189,14 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       ...propertyValueAttributes,
     ]
   },
+  hasSpecifications: ({ isVariantOf }) =>
+    Boolean(isVariantOf.skuSpecifications?.length),
+  skuSpecifications: ({ isVariantOf: { skuSpecifications } }) =>
+    skuSpecifications ?? [],
+  specificationGroups: ({ isVariantOf: { specificationGroups } }) =>
+    specificationGroups,
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
+  deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
+    deliveryPromisesBadges,
 }

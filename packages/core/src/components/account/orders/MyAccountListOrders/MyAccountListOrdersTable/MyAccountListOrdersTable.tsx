@@ -1,14 +1,15 @@
-import { Button, Icon } from '@faststore/ui'
+import { Icon, IconButton } from '@faststore/ui'
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+import { ExpandButton } from './ExpandButton/ExpandButton'
 
-const MAX_COST_CENTERS = 5
+const MAX_ITEM_FIELDS = 5
+const MAX_ORDER_FIELDS = 5
 
 function formatOrderDate(date: string, locale: string) {
   return new Date(date).toLocaleDateString(locale, {
@@ -29,6 +30,7 @@ type MyAccountListOrdersTableProps = {
     dateFinal: string
     text: string
     clientEmail: string
+    pendingMyApproval?: boolean
   }
 }
 
@@ -41,7 +43,6 @@ export function Pagination({
   total: number
   perPage: number
 }) {
-  const router = useRouter()
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
   const lastIndexLabel =
@@ -50,50 +51,34 @@ export function Pagination({
       : total
 
   const handlePageChange = (newPage: number) => {
-    const { page, ...rest } = router.query
-    const isFirstPage = newPage === 0 || newPage === 1
-    router.push({
-      pathname: '/account/orders',
-      query: {
-        ...rest,
-        ...(!isFirstPage ? { page: newPage } : {}),
-      },
-    })
+    const params = new URLSearchParams(window.location.search)
+    if (newPage === 1 || newPage === 0) {
+      params.delete('page')
+    } else {
+      params.set('page', String(newPage))
+    }
+    window.location.href = `/pvt/account/orders${params.toString() ? `?${params}` : ''}`
   }
 
   return (
     <div data-fs-list-orders-table-pagination>
       <p>{`${firstIndexLabel} — ${lastIndexLabel} of ${total}`}</p>
-      <Button
+      <IconButton
         size="small"
         variant="tertiary"
         disabled={page === 1}
         onClick={() => handlePageChange(page - 1)}
-        icon={
-          <Icon
-            width={16}
-            height={16}
-            name="CaretLeft"
-            aria-label="Previous Page"
-          />
-        }
-        iconPosition="left"
-      ></Button>
-      <Button
+        icon={<Icon name="CaretLeft" />}
+        aria-label="Previous Page"
+      />
+      <IconButton
         size="small"
         variant="tertiary"
         disabled={page === totalPages}
         onClick={() => handlePageChange(page + 1)}
-        icon={
-          <Icon
-            width={16}
-            height={16}
-            name="CaretRight"
-            aria-label="Next Page"
-          />
-        }
-        iconPosition="left"
-      ></Button>
+        icon={<Icon name="CaretRight" />}
+        aria-label="Next Page"
+      />
     </div>
   )
 }
@@ -104,23 +89,21 @@ export default function MyAccountListOrdersTable({
   perPage,
   filters,
 }: MyAccountListOrdersTableProps) {
-  const hasOrderOrItemCustomFields =
-    listOrders?.list?.some(
-      (order) =>
-        order?.customFields
-          ?.filter((field) => field.type === 'order' || field.type === 'item')
-          .flatMap((field) => field.value).length > 0
-    ) || false
-
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
-  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({})
 
-  const handleToggleExpand = (orderId: string) => {
+  const [expandedRows, setExpandedRows] = useState<
+    Record<string, { item: boolean; order: boolean }>
+  >({})
+
+  const handleToggle = (orderId: string, type: 'item' | 'order') => {
     setExpandedRows((prev) => ({
       ...prev,
-      [orderId]: !prev[orderId],
+      [orderId]: {
+        ...prev[orderId],
+        [type]: !prev[orderId]?.[type],
+      },
     }))
   }
 
@@ -129,15 +112,57 @@ export default function MyAccountListOrdersTable({
       <table data-fs-list-orders-table>
         <tbody data-fs-list-orders-table-body>
           {listOrders.list.map((item) => {
+            const orderLevel =
+              item?.customFields?.find(({ type }) => type === 'order')?.value ||
+              []
             const itemLevel =
               item?.customFields?.find(({ type }) => type === 'item')?.value ||
               []
-            const isExpanded = expandedRows[item.orderId]
-            const shouldShowButton = itemLevel.length > MAX_COST_CENTERS
-            const displayedItemLevel = isExpanded
-              ? itemLevel
-              : itemLevel.slice(0, 5)
-            const orderUrl = `/account/orders/${item.orderId}`
+
+            const hasOrderOrItemCustomFields =
+              (orderLevel && orderLevel.length > 0) ||
+              (itemLevel && itemLevel.length > 0)
+
+            const isItemFieldsExpanded =
+              expandedRows[item.orderId]?.item || false
+            const isOrderFieldsExpanded =
+              expandedRows[item.orderId]?.order || false
+
+            const {
+              displayed: displayedItemLevel,
+              shouldShowButton: shouldShowViewMoreButtonToItemsFields,
+            } = getLevel({
+              level: itemLevel,
+              isExpanded: isItemFieldsExpanded,
+              max: MAX_ITEM_FIELDS,
+            })
+
+            const {
+              displayed: displayedOrderLevel,
+              shouldShowButton: shouldShowViewMoreButtonToOrderFields,
+            } = getLevel({
+              level: orderLevel,
+              isExpanded: isOrderFieldsExpanded,
+              max: MAX_ORDER_FIELDS,
+            })
+
+            const orderUrl = `/pvt/account/orders/${item.orderId}`
+            const shippingEstimatedDate = item.ShippingEstimatedDate
+              ? formatOrderDate(item.ShippingEstimatedDate, locale)
+              : '-'
+            const creationDate = item.creationDate
+              ? formatOrderDate(item.creationDate, locale)
+              : '-'
+            const totalPrice = formatPrice(item.totalValue, item.currencyCode)
+            const deliveryBy = item.ShippingEstimatedDate
+              ? `Delivery by ${formatOrderDate(
+                  item.ShippingEstimatedDate,
+                  locale
+                )}`
+              : '-'
+
+            const additionalInfoIdOrder = `additional-info-${item.orderId}-order`
+            const additionalInfoIdItem = `additional-info-${item.orderId}-item`
 
             const handleRowClick = () => {
               window.location.href = orderUrl
@@ -152,7 +177,6 @@ export default function MyAccountListOrdersTable({
 
             return (
               <tr
-                data-fs-list-orders-table-body-row
                 data-fs-list-orders-table-row
                 key={item.orderId}
                 onClick={handleRowClick}
@@ -162,11 +186,17 @@ export default function MyAccountListOrdersTable({
               >
                 <td data-fs-list-orders-table-cell>
                   <div data-fs-list-orders-table-product-info-main>
-                    <p data-fs-list-orders-table-product-info-order-id>
+                    <p
+                      data-fs-list-orders-table-product-info-order-id
+                      title={`ID: ${item.orderId || '-'}`}
+                    >
                       {item.orderId || '-'}
                     </p>
-                    <p data-fs-list-orders-table-product-info-order-total>
-                      Total: {formatPrice(item.totalValue, item.currencyCode)}
+                    <p
+                      data-fs-list-orders-table-product-info-order-total
+                      title={`Total: ${totalPrice}`}
+                    >
+                      Total: {totalPrice}
                     </p>
                   </div>
                 </td>
@@ -178,134 +208,99 @@ export default function MyAccountListOrdersTable({
                         <p data-fs-list-orders-table-product-info-label>
                           Placed on
                         </p>
-                        <p data-fs-list-orders-table-product-info-value>
-                          {item.creationDate
-                            ? formatOrderDate(item.creationDate, locale)
-                            : '-'}
+                        <p
+                          data-fs-list-orders-table-product-info-value
+                          title={creationDate}
+                        >
+                          {creationDate}
                         </p>
                       </div>
                       {hasOrderOrItemCustomFields && (
-                        <>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Delivery by
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item.ShippingEstimatedDate
-                                ? formatOrderDate(
-                                    item.ShippingEstimatedDate,
-                                    locale
-                                  )
-                                : '-'}
-                            </p>
-                          </div>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Placed by
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item?.clientName}
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {/* {item?.clientOrgName} */}
-                            </p>
-                          </div>
-                        </>
+                        <div data-fs-list-orders-table-product-info>
+                          <p data-fs-list-orders-table-product-info-label>
+                            Delivery by
+                          </p>
+                          <p
+                            data-fs-list-orders-table-product-info-value
+                            title={shippingEstimatedDate}
+                          >
+                            {shippingEstimatedDate}
+                          </p>
+                        </div>
                       )}
                     </td>
-                    {!hasOrderOrItemCustomFields && (
-                      <>
-                        <td data-fs-list-orders-table-cell>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Delivery by
+                    <td data-fs-list-orders-table-cell>
+                      {hasOrderOrItemCustomFields && (
+                        <>
+                          {displayedOrderLevel.length > 0 && (
+                            <p
+                              data-fs-list-orders-table-product-info-label
+                              id={additionalInfoIdOrder}
+                            >
+                              Order fields
                             </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item.ShippingEstimatedDate
-                                ? formatOrderDate(
-                                    item.ShippingEstimatedDate,
-                                    locale
-                                  )
-                                : '-'}
-                            </p>
-                          </div>
-                        </td>
-                        <td data-fs-list-orders-table-cell>
-                          <div data-fs-list-orders-table-product-info>
-                            <p data-fs-list-orders-table-product-info-label>
-                              Placed by
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {item?.clientName}
-                            </p>
-                            <p data-fs-list-orders-table-product-info-value>
-                              {/* {item?.clientOrgName} */}
-                            </p>
-                          </div>
-                        </td>
-                      </>
-                    )}
-                    {hasOrderOrItemCustomFields && (
-                      <>
-                        <td data-fs-list-orders-table-cell>
-                          {item?.customFields
-                            ?.find(({ type }) => type === 'order')
-                            ?.value?.map((field: string, idx: number) => (
-                              <p
-                                key={field + idx}
-                                data-fs-list-orders-table-product-info-order
-                              >
-                                {field}
-                              </p>
-                            ))}
-                        </td>
-                        <td data-fs-list-orders-table-cell>
-                          {displayedItemLevel.map(
+                          )}
+                          {displayedOrderLevel.map(
                             (field: string, idx: number) => (
                               <p
                                 key={field + idx}
-                                data-fs-list-orders-table-product-info-item
+                                data-fs-list-orders-table-product-info-order
+                                title={field}
+                                aria-owns={additionalInfoIdOrder}
                               >
                                 {field}
                               </p>
                             )
                           )}
-                          {shouldShowButton && (
-                            <Button
-                              data-fs-list-orders-table-expand-button
-                              size="small"
-                              variant="primary"
-                              inverse
-                              iconPosition="right"
-                              icon={
-                                isExpanded ? (
-                                  <Icon
-                                    width={16}
-                                    height={16}
-                                    name="CaretUp"
-                                    aria-label="Collapse"
-                                  />
-                                ) : (
-                                  <Icon
-                                    width={16}
-                                    height={16}
-                                    name="CaretDown"
-                                    aria-label="Expand"
-                                  />
-                                )
+                          {shouldShowViewMoreButtonToOrderFields && (
+                            <ExpandButton
+                              ariaControls={additionalInfoIdOrder}
+                              isExpanded={isOrderFieldsExpanded}
+                              count={orderLevel.length - MAX_ORDER_FIELDS}
+                              onToggle={() =>
+                                handleToggle(item.orderId, 'order')
                               }
-                              onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                handleToggleExpand(item.orderId)
-                              }}
-                            >
-                              {isExpanded ? 'View less' : 'View all'}
-                            </Button>
+                            />
                           )}
-                        </td>
-                      </>
-                    )}
+                        </>
+                      )}
+                    </td>
+                    <td data-fs-list-orders-table-cell>
+                      {hasOrderOrItemCustomFields && (
+                        <>
+                          {displayedItemLevel.length > 0 && (
+                            <p
+                              data-fs-list-orders-table-product-info-label
+                              id={additionalInfoIdItem}
+                            >
+                              Item fields
+                            </p>
+                          )}
+                          {displayedItemLevel.map(
+                            (field: string, idx: number) => (
+                              <p
+                                key={field + idx}
+                                data-fs-list-orders-table-product-info-item
+                                title={field}
+                                aria-owns={additionalInfoIdItem}
+                              >
+                                {field}
+                              </p>
+                            )
+                          )}
+                          {shouldShowViewMoreButtonToItemsFields && (
+                            <ExpandButton
+                              ariaControls={additionalInfoIdItem}
+                              isExpanded={isItemFieldsExpanded}
+                              count={itemLevel.length - MAX_ITEM_FIELDS}
+                              onToggle={() =>
+                                handleToggle(item.orderId, 'item')
+                              }
+                            />
+                          )}
+                        </>
+                      )}
+                    </td>
                   </>
                 )}
 
@@ -314,16 +309,7 @@ export default function MyAccountListOrdersTable({
                     status={item.status}
                     statusFallback={item.statusDescription}
                   />
-                  {!isDesktop && (
-                    <p>
-                      {item.ShippingEstimatedDate
-                        ? `Delivery by ${formatOrderDate(
-                            item.ShippingEstimatedDate,
-                            locale
-                          )}`
-                        : ''}
-                    </p>
-                  )}
+                  {!isDesktop && <p>{deliveryBy}</p>}
                 </td>
               </tr>
             )
@@ -335,4 +321,19 @@ export default function MyAccountListOrdersTable({
       )}
     </>
   )
+}
+
+function getLevel({
+  level,
+  isExpanded,
+  max,
+}: {
+  level: string[]
+  isExpanded?: boolean
+  max: number
+}) {
+  const shouldShowButton = level.length > max
+  const displayed = isExpanded ? level : level.slice(0, max)
+
+  return { displayed, shouldShowButton }
 }

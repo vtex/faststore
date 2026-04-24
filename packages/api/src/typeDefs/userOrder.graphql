@@ -60,6 +60,7 @@ type UserOrder {
   canProcessOrderAuthorization: Boolean
   ruleForAuthorization: ProcessOrderAuthorizationRule
   purchaseAgentData: UserOrderPurchaseAgentData
+  budgetData: UserOrderBudgetData
 }
 
 type UserOrderPurchaseAgentData {
@@ -75,6 +76,7 @@ type UserOrderPurchaseAgent {
 
 type UserOrderResult {
   orderId: String
+  creationDate: String
   status: String
   canProcessOrderAuthorization: Boolean
   statusDescription: String
@@ -89,12 +91,15 @@ type UserOrderResult {
   shippingData: UserOrderShippingData
   items: [UserOrderItems]
   ruleForAuthorization: ProcessOrderAuthorizationRule
-  shopperName: UserOrderShopperName
+  shopper: UserOrderShopper
+  budgetData: UserOrderBudgetData
 }
 
-type UserOrderShopperName {
+type UserOrderShopper {
   firstName: String
   lastName: String
+  email: String
+  phone: String
 }
 
 type UserOrderListResult {
@@ -679,8 +684,11 @@ type UserOrderDeliveryOptionsItems {
   name: String
   quantity: Int
   price: Float
+  sellingPrice: Float
   imageUrl: String
   tax: Float
+  taxPriceTags: [UserOrderPriceTag]
+  taxPriceTagsTotal: Float
   total: Float
 }
 
@@ -774,4 +782,43 @@ type UserOrderFromListMinimal {
   ShippingEstimatedDate: String
   customFields: [UserOrderFromListCustomFields]
   currencyCode: String
+}
+
+type UserOrderBudgetData {
+  budgets: [UserOrderBudget]
+}
+
+type UserOrderBudget {
+  id: String
+  name: String
+  unitId: String
+  cycleConfiguration: UserOrderBudgetCycleConfiguration
+  balance: UserOrderBudgetBalance
+  allocations: [UserOrderBudgetAllocation]
+}
+
+type UserOrderBudgetCycleConfiguration {
+  startDate: String
+  endDate: String
+  autoResetOnPeriodEnd: Boolean
+  carryOverBalance: Boolean
+}
+
+type UserOrderBudgetBalance {
+  amount: Float
+  balanceAdjustment: Float
+  remaining: Float
+}
+
+type UserOrderBudgetAllocation {
+  id: String
+  linkedEntity: UserOrderBudgetAllocationLinkedEntity
+  balance: UserOrderBudgetBalance
+  reservations: JSONObject
+  ToBeSpent: Float
+}
+
+type UserOrderBudgetAllocationLinkedEntity {
+  type: String
+  id: String
 }

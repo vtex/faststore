@@ -14,6 +14,9 @@ interface MyAccountBuyingPolicyAlertProps {
   onAuthorizationComplete?: () => void
 }
 
+export const BUYING_POLICY_APPROVAL_REQUIRED_MESSAGE =
+  'This buying policy requires your approval before the order can proceed.'
+
 export default function MyAccountBuyingPolicyAlert({
   ruleForAuthorization,
   onAuthorizationComplete,
@@ -89,8 +92,8 @@ export default function MyAccountBuyingPolicyAlert({
         <div data-fs-buying-policy-message>
           <h3 data-fs-buying-policy-title>{ruleForAuthorization.rule.name}</h3>
           <p data-fs-buying-policy-description>
-            This buying policy requires your approval before the order can
-            proceed.
+            {ruleForAuthorization?.rule?.trigger?.condition?.description ??
+              BUYING_POLICY_APPROVAL_REQUIRED_MESSAGE}
           </p>
         </div>
 

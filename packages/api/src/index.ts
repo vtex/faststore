@@ -5,13 +5,18 @@ import {
   getResolvers as getResolversVTEX,
 } from './platforms/vtex'
 import { typeDefs } from './typeDefs'
+import authDirective from './directives/auth'
 import cacheControlDirective from './directives/cacheControl'
 import type { Directive } from './directives'
 import type { Options as OptionsVTEX } from './platforms/vtex'
 
 export * from './__generated__/schema'
 export * from './platforms/errors'
-export { stringify as stringifyCacheControl } from './directives/cacheControl'
+export { default as authDirective } from './directives/auth'
+export {
+  default as cacheControlDirective,
+  stringify as stringifyCacheControl,
+} from './directives/cacheControl'
 export type { CacheControl } from './directives/cacheControl'
 
 export type Options = OptionsVTEX
@@ -23,7 +28,7 @@ const platforms = {
   },
 }
 
-const directives: Directive[] = [cacheControlDirective]
+const directives: Directive[] = [cacheControlDirective, authDirective]
 
 export const getTypeDefs = () => [
   typeDefs,

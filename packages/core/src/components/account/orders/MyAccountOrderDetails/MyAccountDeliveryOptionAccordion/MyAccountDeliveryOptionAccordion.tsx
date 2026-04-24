@@ -69,21 +69,24 @@ function MyAccountDeliveryOptionAccordion({
             contact={contact}
           />
           <MyAccountDeliveryOptionAccordionProducts>
-            {deliveryOption.items?.map((item, index) => (
-              <MyAccountDeliveryOptionAccordionProduct
-                key={index}
-                image={item.imageUrl || ''}
-                quantity={item.quantity}
-                name={item.name}
-                field={
-                  customFields?.find((cf) => cf.id === item.uniqueId)
-                    ?.fields?.[0]
-                }
-                price={formatPrice(item.price ?? 0, currencyCode)}
-                tax={formatPrice(item.tax ?? 0, currencyCode)}
-                total={formatPrice(item.total ?? 0, currencyCode)}
-              />
-            ))}
+            {deliveryOption.items?.map((item, index) => {
+              const tax = (item.tax ?? 0) + (item.taxPriceTagsTotal ?? 0)
+              return (
+                <MyAccountDeliveryOptionAccordionProduct
+                  key={index}
+                  image={item.imageUrl || ''}
+                  quantity={item.quantity}
+                  name={item.name}
+                  field={
+                    customFields?.find((cf) => cf.id === item.uniqueId)
+                      ?.fields?.[0]
+                  }
+                  price={formatPrice(item.sellingPrice ?? 0, currencyCode)}
+                  tax={formatPrice(tax, currencyCode)}
+                  total={formatPrice(item.total ?? 0, currencyCode)}
+                />
+              )
+            })}
           </MyAccountDeliveryOptionAccordionProducts>
         </MyAccountAccordionPanel>
       </MyAccountAccordionItem>

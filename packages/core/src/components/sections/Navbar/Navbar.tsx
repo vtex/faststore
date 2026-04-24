@@ -23,20 +23,87 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
-    quickOrderSettings: {
+    quickOrderSettings?: {
       quickOrder: boolean
+      attachmentButton?: {
+        icon: {
+          icon: string
+          alt: string
+        }
+        ariaLabel: string
+      }
       skuMatrix: {
         triggerButtonLabel: string
         columns: {
           name: string
           additionalColumns: Array<{ label: string; value: string }>
-          price: number
-          quantitySelector: number
+          price: string
+          quantitySelector: string
           availability: {
             label: string
             stockDisplaySettings: 'showAvailability' | 'showStockQuantity'
           }
         }
+      }
+      drawer?: {
+        defaultTitle?: string
+        columns?: {
+          name?: string
+          availabilityLabel?: string
+          price?: string
+          quantity?: string
+        }
+        messages?: {
+          alertAriaLabel?: string
+          tableAriaLabel?: string
+          quantityUpdatedTooltip?: string
+          quantityUpdatedAriaLabel?: string
+          outOfStockLabel?: string
+          availableLabel?: string
+          selectQuantityAriaLabel?: string
+          removeProductAriaLabel?: string
+          invalidQuantityTitle?: string
+          emptyStateTitle?: string
+          emptyStateMessage?: string
+        }
+        alertMessages?: {
+          notFoundAndOutOfStock?: string
+          notFound?: string
+          outOfStock?: string
+        }
+        footer?: {
+          itemsLabel?: string
+          addToCartLabel?: string
+          addToCartAriaLabel?: string
+        }
+      }
+      toastMessages?: {
+        noFileSelected?: { title?: string; message?: string }
+        noDataFound?: { title?: string; message?: string }
+        fileProcessingError?: { title?: string; defaultMessage?: string }
+        fileTimeout?: { message?: string }
+        noDataAvailable?: { title?: string; message?: string }
+        noValidSkus?: { title?: string; message?: string }
+      }
+      accessibilityLabels?: {
+        attachButtonAriaLabel?: string
+        searchButtonAriaLabel?: string
+      }
+      fileUploadCard?: {
+        title?: string
+        fileInputAriaLabel?: string
+        dropzoneAriaLabel?: string
+        dropzoneTitle?: string
+        selectFileButtonLabel?: string
+        downloadTemplateButtonLabel?: string
+        removeButtonAriaLabel?: string
+        searchButtonLabel?: string
+        uploadingStatusText?: string
+        completedStatusTemplate?: string
+        acceptedFileTypes?: string
+        errorMessages?: Partial<
+          Record<string, { title?: string; description?: string }>
+        >
       }
     }
   }

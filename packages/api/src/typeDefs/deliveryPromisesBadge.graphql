@@ -1,0 +1,9 @@
+"""
+Delivery Promise badge.
+"""
+type DeliveryPromiseBadge {
+  """
+  Badge type.
+  """
+  typeName: String
+}

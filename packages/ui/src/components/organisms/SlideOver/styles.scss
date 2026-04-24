@@ -1,5 +1,4 @@
 [data-fs-slide-over] {
-
   // --------------------------------------------------------
   // Design Tokens for Slide Over
   // --------------------------------------------------------
@@ -50,18 +49,30 @@
   }
 
   &[data-fs-slide-over-direction="leftSide"] {
-    left: 0;
+    inset-inline-start: 0;
 
     &[data-fs-slide-over-state="out"] {
       transform: translateX(-100%);
     }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html[dir="rtl"] &[data-fs-slide-over-state="out"] {
+        transform: translateX(100%);
+      }
+    }
   }
 
   &[data-fs-slide-over-direction="rightSide"] {
-    right: 0;
+    inset-inline-end: 0;
 
     &[data-fs-slide-over-state="out"] {
       transform: translateX(100%);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html[dir="rtl"] &[data-fs-slide-over-state="out"] {
+        transform: translateX(-100%);
+      }
     }
   }
 
@@ -73,7 +84,7 @@
     background-color: var(--fs-slide-over-header-bkg-color);
 
     [data-fs-slide-over-header-icon] {
-      margin-right: calc(-1 * var(--fs-spacing-1));
+      margin-inline-end: calc(-1 * var(--fs-spacing-1));
 
       svg {
         width: 32px;

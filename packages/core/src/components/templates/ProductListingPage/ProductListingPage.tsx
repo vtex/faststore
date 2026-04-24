@@ -118,6 +118,7 @@ export default function ProductListingPage({
     <SearchProvider
       onChange={applySearchState}
       itemsPerPage={itemsPerPage}
+      shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
       {...searchParams}
     >
       {/* SEO */}

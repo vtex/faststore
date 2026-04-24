@@ -37,13 +37,12 @@
 
   [data-fs-table-cell="header"],
   [data-fs-table-cell="data"] {
-    padding-right: var(--fs-table-cell-padding-x);
-    padding-left: var(--fs-table-cell-padding-x);
+    padding-inline: var(--fs-table-cell-padding-x);
     overflow-x: auto;
     text-align: center;
-    &[data-fs-table-cell-align="left"] { text-align: left; }
+    &[data-fs-table-cell-align="left"] { text-align: start; }
     &[data-fs-table-cell-align="center"] { text-align: center; }
-    &[data-fs-table-cell-align="right"] { text-align: right; }
+    &[data-fs-table-cell-align="right"] { text-align: end; }
   }
 
   thead [data-fs-table-cell="header"] {
@@ -91,7 +90,7 @@
   [data-fs-icon] {
     width: var(--fs-spacing-3);
     height: var(--fs-spacing-3);
-    margin-right: var(--fs-spacing-2);
+    margin-inline-end: var(--fs-spacing-2);
   }
 
   // --------------------------------------------------------

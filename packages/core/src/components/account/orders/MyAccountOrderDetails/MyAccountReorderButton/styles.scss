@@ -1,0 +1,10 @@
+[data-fs-reorder-button] {
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    --fs-button-secondary-bkg-color: var(--fs-button-primary-bkg-color);
+    --fs-button-secondary-text-color: var(--fs-button-primary-text-color);
+    --fs-button-secondary-bkg-color-hover: var(--fs-button-primary-bkg-color-hover);
+    --fs-button-secondary-bkg-color-active: var(--fs-button-primary-bkg-color-active);
+  }
+}

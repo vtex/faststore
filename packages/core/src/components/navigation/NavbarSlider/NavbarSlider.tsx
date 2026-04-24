@@ -1,4 +1,4 @@
-import { useFadeEffect, useUI } from '@faststore/ui'
+import { Skeleton as UISkeleton, useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
 import storeConfig from 'discovery.config'
@@ -39,7 +39,7 @@ function NavbarSlider({
 
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b } = useSession()
+  const { b2b, isSessionReady } = useSession()
 
   const isFaststoreMyAccountEnabled =
     storeConfig.experimental?.enableFaststoreMyAccount
@@ -76,13 +76,20 @@ function NavbarSlider({
       </NavbarSliderContent.Component>
       <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
-          {isOrganizationEnabled ? (
-            <OrganizationSignInButton
-              icon={signInButton.icon}
-              isRepresentative={isRepresentative}
-            />
+          {isSessionReady ? (
+            isOrganizationEnabled ? (
+              <OrganizationSignInButton
+                icon={signInButton.icon}
+                isRepresentative={isRepresentative}
+              />
+            ) : (
+              <ButtonSignIn.Component {...signInButton} />
+            )
           ) : (
-            <ButtonSignIn.Component {...signInButton} />
+            <UISkeleton
+              data-fs-navbar-slider-signin-skeleton
+              size={{ width: '140px', height: '2.5rem' }}
+            />
           )}
         </Suspense>
       </NavbarSliderFooter.Component>

@@ -13,6 +13,7 @@ import type {
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
 import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
+import FilterFacetPendingApproval from './MyAccountFilterFacetPendingApproval'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -91,6 +92,10 @@ function MyAccountFilterSlider({
             : [value]
         }
 
+        if (key === 'pendingMyApproval') {
+          acc['pendingMyApproval'] = value
+        }
+
         return acc
       },
       {} as Record<string, string | string[]>
@@ -110,7 +115,7 @@ function MyAccountFilterSlider({
       }
     })
 
-    window.location.href = `/account/orders?${params.toString()}`
+    window.location.href = `/pvt/account/orders?${params.toString()}`
   }
 
   return (
@@ -132,23 +137,20 @@ function MyAccountFilterSlider({
       applyBtnProps={{
         variant: 'primary',
         onClick: () => {
-          const dateRangeFacet = dateRangeInputRef.current?.getDataRangeFacet()
+          const dateRangeFacet =
+            dateRangeInputRef.current?.getDataRangeFacet?.()
+          const dateFrom = dateRangeFacet?.value?.from?.trim?.()
+          const dateTo = dateRangeFacet?.value?.to?.trim?.()
 
-          const selectedFacets = [
-            ...selected,
-            dateRangeFacet.value.from.trim()
-              ? {
-                  key: 'dateInitial',
-                  value: dateRangeFacet.value.from,
-                }
-              : undefined,
-            dateRangeFacet.value.to.trim()
-              ? {
-                  key: 'dateFinal',
-                  value: dateRangeFacet.value.to,
-                }
-              : undefined,
-          ].filter(Boolean)
+          const dateFacets = []
+          if (dateFrom) {
+            dateFacets.push({ key: 'dateInitial', value: dateFrom })
+          }
+          if (dateTo) {
+            dateFacets.push({ key: 'dateFinal', value: dateTo })
+          }
+
+          const selectedFacets = [...selected, ...dateFacets]
 
           handleFilterChange({
             selectedFacets,
@@ -180,22 +182,37 @@ function MyAccountFilterSlider({
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
                 <UIFilterFacetBoolean>
-                  {facet.values.map((item) => (
-                    <UIFilterFacetBooleanItem
-                      key={`${testId}-${facet.label}-${item.label}`}
-                      id={`${testId}-${facet.label}-${item.label}`}
-                      testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
-                        dispatch({ type: 'toggleFacet', payload: facet })
-                      }
-                      selected={item.selected}
-                      value={item.value}
-                      quantity={item.quantity}
-                      facetKey={facet.key}
-                      label={item.label}
-                    />
-                  ))}
+                  {facet.values.map((item) => {
+                    const normalizedTestId = testId?.trim().toLowerCase() || ''
+                    const normalizedFacetLabel =
+                      facet.label?.trim().toLowerCase() || ''
+                    const normalizedItemLabel =
+                      item.label?.trim().toLowerCase() || ''
+                    const itemId = `${normalizedTestId}-${normalizedFacetLabel}-${normalizedItemLabel}`
+
+                    return (
+                      <UIFilterFacetBooleanItem
+                        key={itemId}
+                        id={itemId}
+                        testId={`mobile-${normalizedTestId}`}
+                        onFacetChange={(facet) =>
+                          dispatch({ type: 'toggleFacet', payload: facet })
+                        }
+                        selected={item.selected}
+                        value={item.value}
+                        quantity={item.quantity}
+                        facetKey={facet.key}
+                        label={item.label}
+                      />
+                    )
+                  })}
                 </UIFilterFacetBoolean>
+              )}
+              {type === 'StoreFacetPendingApproval' && isExpanded && (
+                <FilterFacetPendingApproval
+                  selected={selected}
+                  dispatch={dispatch}
+                />
               )}
               {type === 'StoreFacetRange' && isExpanded && (
                 <FilterFacetDateRange
