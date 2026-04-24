@@ -77,7 +77,44 @@ export const mutation = gql(`
   }
 `)
 
+async function handleRefreshToken(session: Session): Promise<void> {
+  const result = await refreshTokenRequest()
+
+  if (isRefreshTokenSuccessful(result)) {
+    sessionStore.set({
+      ...session,
+      refreshAfter: String(
+        Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+      ),
+    })
+  } else {
+    await logoutAndClearSession(session)
+  }
+}
+
+function isRefreshAfterExpired(session: Session): boolean {
+  return (
+    !!session.refreshAfter &&
+    Math.floor(Date.now() / 1000) > Number(session.refreshAfter)
+  )
+}
+
 export const validateSession = async (session: Session) => {
+  // If the session has a refreshAfter and no person, set the refreshAfter to null
+  if (session.refreshAfter && !session.person) {
+    sessionStore.set({ ...session, refreshAfter: null })
+    return null
+  }
+
+  // If the refreshToken is enabled and the refreshAfter is expired, refresh the token
+  if (
+    storeConfig.experimental?.refreshToken &&
+    isRefreshAfterExpired(session)
+  ) {
+    await handleRefreshToken(session)
+    return null
+  }
+
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (
     storeConfig.deliveryPromise?.enabled &&
@@ -123,20 +160,7 @@ export const validateSession = async (session: Session) => {
       error?.status === 401 && storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
-      const result = await refreshTokenRequest()
-
-      if (isRefreshTokenSuccessful(result)) {
-        const refreshAfter = String(
-          Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-        )
-
-        sessionStore.set({
-          ...session,
-          refreshAfter,
-        })
-      } else {
-        await logoutAndClearSession(session)
-      }
+      await handleRefreshToken(session)
     }
   }
 }
