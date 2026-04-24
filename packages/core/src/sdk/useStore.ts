@@ -9,6 +9,7 @@ type CB<T> = (val: T) => Promise<T | null>
 
 export const createValidationStore = <T>(cb: CB<T>) => {
   const store = createBaseStore(false)
+  const hasValidatedStore = createBaseStore(false)
 
   const onValidate = async (val: T) => {
     try {
@@ -17,8 +18,13 @@ export const createValidationStore = <T>(cb: CB<T>) => {
       return await cb(val)
     } finally {
       store.set(false)
+      hasValidatedStore.set(true)
     }
   }
 
-  return [store, onValidate] as [Store<boolean>, CB<T>]
+  return [store, onValidate, hasValidatedStore] as [
+    Store<boolean>,
+    CB<T>,
+    Store<boolean>,
+  ]
 }
