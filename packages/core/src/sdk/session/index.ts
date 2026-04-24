@@ -77,19 +77,20 @@ export const mutation = gql(`
   }
 `)
 
-async function handleRefreshToken(session: Session): Promise<void> {
+async function handleRefreshToken(session: Session): Promise<Session | null> {
   const result = await refreshTokenRequest()
 
   if (isRefreshTokenSuccessful(result)) {
-    sessionStore.set({
+    return {
       ...session,
       refreshAfter: String(
         Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
       ),
-    })
-  } else {
-    await logoutAndClearSession(session)
+    }
   }
+
+  await logoutAndClearSession(session)
+  return null
 }
 
 function isRefreshAfterExpired(session: Session): boolean {
@@ -100,19 +101,25 @@ function isRefreshAfterExpired(session: Session): boolean {
 }
 
 export const validateSession = async (session: Session) => {
-  // If the session has a refreshAfter and no person, set the refreshAfter to null
+  // If the session has a refreshAfter and no person, clear the stale refreshAfter
+  // but continue to the validation flow so the GraphQL call still runs.
   if (session.refreshAfter && !session.person) {
-    sessionStore.set({ ...session, refreshAfter: null })
-    return null
+    session = { ...session, refreshAfter: null }
+    sessionStore.set(session)
   }
 
-  // If the refreshToken is enabled and the refreshAfter is expired, refresh the token
+  // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
+  // On success, continue to the validation flow with the refreshed session.
+  // On failure (logoutAndClearSession already triggered), bail out.
   if (
     storeConfig.experimental?.refreshToken &&
     isRefreshAfterExpired(session)
   ) {
-    await handleRefreshToken(session)
-    return null
+    const refreshed = await handleRefreshToken(session)
+    if (!refreshed) {
+      return null
+    }
+    session = refreshed
   }
 
   // If deliveryPromise is enabled and there is no postalCode in the session
@@ -160,7 +167,10 @@ export const validateSession = async (session: Session) => {
       error?.status === 401 && storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
-      await handleRefreshToken(session)
+      const refreshed = await handleRefreshToken(session)
+      if (refreshed) {
+        sessionStore.set(refreshed)
+      }
     }
   }
 }
