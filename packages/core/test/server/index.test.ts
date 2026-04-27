@@ -1,8 +1,7 @@
 import { assertValidSchema } from 'graphql'
 
 import storeConfig from '../../discovery.config'
-import { execute, getEnvelop } from '../../src/server'
-import { getFinalAPISchema } from '../../src/server'
+import { execute, getEnvelop, getFinalAPISchema } from '../../src/server'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -78,6 +77,7 @@ const QUERIES = [
   'accountProfile',
   'validateUser',
   'pickupPoints',
+  'accountName',
 ]
 
 const MUTATIONS = [

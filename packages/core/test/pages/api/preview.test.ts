@@ -1,16 +1,16 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import handler from '../../../src/pages/api/preview'
 import { contentService } from '../../../src/server/content/service'
 
 const createResponse = () => {
   const res = {
-    clearPreviewData: jest.fn(),
-    setPreviewData: jest.fn(),
-    redirect: jest.fn(),
-    status: jest.fn().mockReturnThis(),
-    end: jest.fn(),
+    clearPreviewData: vi.fn(),
+    setPreviewData: vi.fn(),
+    redirect: vi.fn(),
+    status: vi.fn().mockReturnThis(),
+    end: vi.fn(),
   }
 
   return res as unknown as NextApiResponse & typeof res
@@ -18,13 +18,11 @@ const createResponse = () => {
 
 describe('/api/preview', () => {
   beforeEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   it('stores the requested locale in the preview session data', async () => {
-    jest
-      .spyOn(contentService, 'getSingleContent')
-      .mockResolvedValue({} as never)
+    vi.spyOn(contentService, 'getSingleContent').mockResolvedValue({} as never)
 
     const req = {
       query: {
@@ -67,9 +65,7 @@ describe('/api/preview', () => {
   })
 
   it('keeps preview session data locator-only when locale is absent', async () => {
-    jest
-      .spyOn(contentService, 'getSingleContent')
-      .mockResolvedValue({} as never)
+    vi.spyOn(contentService, 'getSingleContent').mockResolvedValue({} as never)
 
     const req = {
       query: {

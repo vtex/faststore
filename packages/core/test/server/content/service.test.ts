@@ -1,5 +1,5 @@
 import type { EntryPathParams } from '@vtex/client-cp'
-import { describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from 'vitest'
 
 import { ContentService } from '../../../src/server/content/service'
 import type {
