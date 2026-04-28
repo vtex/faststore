@@ -36,9 +36,12 @@ export default class Start extends Command {
       })
     }
 
-    return spawn(`${packageManager} next start ${tmpDir} -p ${port}`, {
-      shell: true,
-      stdio: 'inherit',
-    })
+    return spawn(
+      packageManager,
+      ['next', 'start', tmpDir, '-p', String(port)],
+      {
+        stdio: 'inherit',
+      }
+    )
   }
 }

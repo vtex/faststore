@@ -25,9 +25,9 @@ const handler: NextApiHandler = async (
   }
 
   try {
-    const hostname = getRequestHostname(request.headers.host) ?? ''
+    const hostname = getRequestHostname(request.headers.host)
     const cookies = parse(request.headers.cookie ?? '')
-    const domains = getCookieDomains(hostname)
+    const domains = hostname ? getCookieDomains(hostname) : [undefined]
     const clearedCookies: string[] = []
 
     const vtexCookieNames = getVtexCookieNames(Object.keys(cookies))

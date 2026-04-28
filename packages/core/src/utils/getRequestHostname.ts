@@ -20,6 +20,7 @@ export function getRequestHostname(
   try {
     return new URL(`https://${trimmed}`).hostname.toLowerCase()
   } catch {
-    return trimmed.split(':')[0].toLowerCase()
+    const fallback = trimmed.split(':')[0].trim().toLowerCase()
+    return fallback || null
   }
 }
