@@ -87,11 +87,48 @@ export const mutation = gql(`
   }
 `)
 
+async function handleRefreshToken(session: Session): Promise<Session | null> {
+  const result = await refreshTokenRequest()
+
+  if (isRefreshTokenSuccessful(result)) {
+    return {
+      ...session,
+      refreshAfter: String(
+        Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+      ),
+    }
+  }
+
+  await logoutAndClearSession(session)
+  return null
+}
+
+function isRefreshAfterExpired(session: Session): boolean {
+  return (
+    !!session.refreshAfter &&
+    Math.floor(Date.now() / 1000) > Number(session.refreshAfter)
+  )
+}
+
 export const validateSession = async (session: Session) => {
   // Skip validation if the page is about to reload after logout — avoids an
   // aborted-fetch TypeError when the forced reload navigates the page away.
   if (isReloadAfterLogoutPending()) {
     return null
+  }
+
+  // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
+  // On success, continue to the validation flow with the refreshed session.
+  // On failure (logoutAndClearSession already triggered), bail out.
+  if (
+    storeConfig.experimental?.refreshToken &&
+    isRefreshAfterExpired(session)
+  ) {
+    const refreshed = await handleRefreshToken(session)
+    if (!refreshed) {
+      return null
+    }
+    session = refreshed
   }
 
   // If deliveryPromise is enabled and there is no postalCode in the session
@@ -139,24 +176,9 @@ export const validateSession = async (session: Session) => {
       error?.status === 401 && storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
-      const result = await refreshTokenRequest()
-
-      if (isRefreshTokenSuccessful(result)) {
-        const refreshAfter = String(
-          Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-        )
-
-        sessionStore.set({
-          ...session,
-          refreshAfter,
-        })
-      } else {
-        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
-        // so that we can postpone refreshToken request and continue the ValidateSession request
-        sessionStore.set({
-          ...session,
-          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
-        })
+      const refreshed = await handleRefreshToken(session)
+      if (refreshed) {
+        sessionStore.set(refreshed)
       }
     }
   }
@@ -177,6 +199,21 @@ export const sessionStore = {
     // Trigger cart revalidation when session changes
     cartStore.set(cartStore.read())
   },
+}
+
+export async function logoutAndClearSession(session: Session) {
+  try {
+    await fetch('/api/fs/logout', { method: 'POST' })
+  } catch (logoutError) {
+    console.error('Failed to call logout endpoint:', logoutError)
+  }
+
+  sessionStore.set({
+    ...session,
+    person: null,
+    b2b: null,
+    refreshAfter: null,
+  })
 }
 
 interface SessionOptions {
