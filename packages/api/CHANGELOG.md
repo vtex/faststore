@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.99.0-dev.4 (2026-04-28)
+
+**Note:** Version bump only for package @faststore/api
+
 # 3.99.0-dev.3 (2026-04-23)
 
 ### Features
