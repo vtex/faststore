@@ -26,7 +26,7 @@ export default class Start extends Command {
     const { args } = await this.parse(Start)
     const basePath = getBasePath(args.path)
     const port = args.port ?? 3000
-    const { getRoot } = withBasePath(basePath)
+    const { getRoot, tmpDir } = withBasePath(basePath)
     const packageManager = await getPreferredPackageManager()
 
     if (!existsSync(path.join(getRoot(), '.next'))) {
@@ -36,7 +36,7 @@ export default class Start extends Command {
       })
     }
 
-    return spawn(`${packageManager} next start -p ${port}`, {
+    return spawn(`${packageManager} next start ${tmpDir} -p ${port}`, {
       shell: true,
       stdio: 'inherit',
     })
