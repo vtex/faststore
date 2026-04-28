@@ -180,29 +180,6 @@ That's it! you have just regenerated all graphql queries/fragments for your appl
 
 > Pro tip: Pass `-w` to the `pnpm generate` command so it watches for changes and you don't need to run this command multiple times.
 
-## Localization API (custom navbar)
-
-When you replace the default navbar, import the same locale/currency building blocks the core navbar uses from **`@faststore/core/experimental`** (unstable API surface):
-
-```tsx
-import {
-  LocalizationButton_unstable,
-  LocalizationSelector_unstable,
-  useBindingSelector_unstable,
-} from '@faststore/core/experimental'
-
-import type {
-  BindingSelectorError,
-  LocalizationButtonProps,
-  LocalizationSelectorProps,
-  UseBindingSelectorReturn,
-} from '@faststore/core/experimental'
-```
-
-- **`LocalizationButton_unstable`** — drop-in trigger plus selector wiring (respects `localization.enabled` in `discovery.config`).
-- **`LocalizationSelector_unstable`** — controlled popover / slide-over UI; pair with **`useBindingSelector_unstable`** for options, errors, and save/redirect behavior.
-
-Requires a client component boundary (hooks and browser redirect on save).
 
 ## CMS Integration
 
