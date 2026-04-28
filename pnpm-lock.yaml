@@ -273,8 +273,8 @@ importers:
         specifier: ^3
         version: 3.2.74(@types/node@20.19.13)
       '@vtex/faststore-sdk':
-        specifier: 0.1.1-canary.3
-        version: 0.1.1-canary.3
+        specifier: 0.1.1-canary.5
+        version: 0.1.1-canary.5
       chalk:
         specifier: ~4.1.2
         version: 4.1.2
@@ -4863,8 +4863,8 @@ packages:
     resolution: {integrity: sha512-apTPplntetN0y7+A0b6+9qh7SRv5Q7Ox+bQ7e3bY84UBWM6uBrphWeHNJve9DI3H9Y8oA1jjZCtXNamiE7hiWA==}
     engines: {node: '>=14'}
 
-  '@vtex/faststore-sdk@0.1.1-canary.3':
-    resolution: {integrity: sha512-pbsG7X0tro4RPG3cVdcrgAvGt54W6mz+LUQrdLv+xTlCmI24+C2+f3oWnsEYsHErua2tHf9qXIXG7e6Jsj5ICA==}
+  '@vtex/faststore-sdk@0.1.1-canary.5':
+    resolution: {integrity: sha512-yzZFhp9hRMP+oV/wmNYuv7Cwwbm2j5EcALQQa/X59a1xXpk2ZyHAwmFc61fTFO8mQkOc3HK2ZY2R9BtF78NS+Q==}
 
   '@vtex/prettier-config@1.0.0':
     resolution: {integrity: sha512-4Uv67bK2eORhzWg/11J5/+fxPUWY6b0sYdhcqMzIgo0zluXlYqbZU6iueKZ48SxG4ODw8ZaqMRfpNsLd3Gw5+Q==}
@@ -17112,7 +17112,7 @@ snapshots:
 
   '@vtex/diagnostics-semconv@5.1.0': {}
 
-  '@vtex/faststore-sdk@0.1.1-canary.3': {}
+  '@vtex/faststore-sdk@0.1.1-canary.5': {}
 
   '@vtex/prettier-config@1.0.0(prettier@2.8.8)':
     dependencies:
