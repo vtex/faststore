@@ -1,21 +1,22 @@
 import { useRef, useState } from 'react'
 
+import type { PopoverProps } from '@faststore/ui'
 import { Icon, Button as UIButton } from '@faststore/ui'
 
+import storeConfig from 'discovery.config'
 import LocalizationSelector from 'src/components/localization/LocalizationSelector'
 import { useBindingSelector } from 'src/sdk/localization'
 import { useSession } from 'src/sdk/session'
-import storeConfig from 'discovery.config'
 
-interface LocalizationButtonErrorMessages {
+export interface LocalizationButtonErrorMessages {
   noBindingFound?: string
   invalidUrl?: string
   noCurrencies?: string
   defaultError?: string
 }
 
-interface LocalizationButtonProps {
-  icon: string
+export interface LocalizationButtonProps {
+  icon?: string
   title?: string
   languageLabel?: string
   currencyLabel?: string
@@ -23,6 +24,7 @@ interface LocalizationButtonProps {
   saveLabel?: string
   ariaLabel?: string
   errorMessages?: LocalizationButtonErrorMessages
+  popoverPlacement?: PopoverProps['placement']
 }
 
 const LocalizationButton = ({
@@ -34,6 +36,7 @@ const LocalizationButton = ({
   saveLabel,
   ariaLabel,
   errorMessages,
+  popoverPlacement,
 }: LocalizationButtonProps) => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -66,7 +69,11 @@ const LocalizationButton = ({
       <UIButton
         ref={buttonRef}
         data-fs-localization-button
-        icon={<Icon name={icon} width={16} height={16} weight="bold" />}
+        icon={
+          icon ? (
+            <Icon name={icon} width={16} height={16} weight="bold" />
+          ) : undefined
+        }
         iconPosition="left"
         variant="tertiary"
         onClick={() => {
@@ -81,7 +88,6 @@ const LocalizationButton = ({
         <Icon
           data-localization-button-arrow
           name="CaretDown"
-          aria-hidden="true"
           width={16}
           height={16}
           aria-label={ariaLabel}
@@ -108,6 +114,7 @@ const LocalizationButton = ({
           description={description}
           saveLabel={saveLabel}
           errorMessages={errorMessages}
+          popoverPlacement={popoverPlacement}
         />
       )}
     </>
