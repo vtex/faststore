@@ -1,5 +1,6 @@
 import storeConfig from 'discovery.config'
 import { NextResponse, type NextRequest } from 'next/server'
+import { getRequestHostname } from 'src/utils/getRequestHostname'
 import {
   getCustomPathsFromBindings,
   getSubdomainBindings,
@@ -107,7 +108,7 @@ export function proxy(request: NextRequest) {
   // next/dist/server/next-server.js. As a result, request.nextUrl.hostname
   // returns the bind address (e.g. "0.0.0.0"), which never matches the
   // hostname extracted from a binding URL (e.g. "brandless.fast.store").
-  const hostname = request.headers.get('host')
+  const hostname = getRequestHostname(request.headers.get('host'))
 
   const subdomainMatch = subdomainBindings.find((b) => b.hostname === hostname)
 

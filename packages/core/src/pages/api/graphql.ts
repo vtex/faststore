@@ -9,6 +9,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
+import { getRequestHostname } from 'src/utils/getRequestHostname'
 import { execute } from '../../server'
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
@@ -17,26 +18,6 @@ const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
 
 // Example: "Set-Cookie: key=value; Domain=example.com; Path=/"
 const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
-
-/**
- * Extracts hostname from the incoming request.
- */
-const getRequestHostname = ({
-  request,
-}: {
-  request: NextApiRequest
-}): string | null => {
-  const hostHeader = request.headers.host?.trim()
-  if (!hostHeader) {
-    return null
-  }
-
-  try {
-    return new URL(`https://${hostHeader}`).hostname
-  } catch {
-    return null
-  }
-}
 
 /**
  * Checks whether the cookie domain should be replaced by host.
@@ -84,7 +65,7 @@ const normalizeSetCookieDomain = ({
     return setCookie
   }
 
-  const host = getRequestHostname({ request })
+  const host = getRequestHostname(request.headers.host)
   if (!host) {
     return setCookie
   }

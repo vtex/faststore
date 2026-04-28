@@ -1,5 +1,6 @@
 import storeConfig from 'discovery.config.default.js'
 import type { LocalesSettings } from '../../typings/locales'
+import { getRequestHostname } from '../getRequestHostname'
 
 function getLocalesSettings(): LocalesSettings {
   return storeConfig.localization as LocalesSettings
@@ -50,8 +51,11 @@ export function validateLocaleForHostname(
   hostname: string,
   locale: string
 ): boolean {
-  // Normalize hostname (remove port if present)
-  const normalizedHostname = hostname.split(':')[0]
+  const normalizedHostname = getRequestHostname(hostname)
+
+  if (!normalizedHostname) {
+    return false
+  }
 
   // For localhost, allow all locales (useful for development)
   if (
