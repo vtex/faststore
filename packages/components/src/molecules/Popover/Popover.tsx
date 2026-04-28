@@ -101,7 +101,7 @@ export interface PopoverProps
 type PopoverCoords = {
   top?: number
   bottom?: number
-  left: number
+  left?: number
   transform?: string
 }
 
