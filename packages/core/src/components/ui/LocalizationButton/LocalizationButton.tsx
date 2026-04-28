@@ -69,7 +69,11 @@ const LocalizationButton = ({
       <UIButton
         ref={buttonRef}
         data-fs-localization-button
-        icon={icon ?? <Icon name={icon} width={16} height={16} weight="bold" />}
+        icon={
+          icon ? (
+            <Icon name={icon} width={16} height={16} weight="bold" />
+          ) : undefined
+        }
         iconPosition="left"
         variant="tertiary"
         onClick={() => {

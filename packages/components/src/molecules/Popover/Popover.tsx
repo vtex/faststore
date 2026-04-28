@@ -128,71 +128,69 @@ const calculatePosition = (
     // pixels from viewport top to the trigger's bottom edge (with optional gap)
     const topAnchor = top + height + offsetTop
 
-    switch (true) {
-      case placement.startsWith('top'): {
-        if (placement === 'top-center') {
-          return {
-            bottom: bottomAnchor,
-            left: left + width / 2 + offsetLeft,
-            transform: 'translateX(-50%)',
-          }
-        }
-        if (placement === 'top-end') {
-          return {
-            bottom: bottomAnchor,
-            left: left + width + offsetLeft,
-            transform: 'translateX(-100%)',
-          }
-        }
-        // top-start
+    if (placement.startsWith('top')) {
+      if (placement === 'top-center') {
         return {
           bottom: bottomAnchor,
-          left: left + offsetLeft,
-          transform: 'none',
+          left: left + width / 2 + offsetLeft,
+          transform: 'translateX(-50%)',
         }
       }
-      case placement.startsWith('bottom'): {
-        if (placement === 'bottom-center') {
-          return {
-            top: topAnchor,
-            left: left + width / 2 + offsetLeft,
-            transform: 'translateX(-50%)',
-          }
+      if (placement === 'top-end') {
+        return {
+          bottom: bottomAnchor,
+          left: left + width + offsetLeft,
+          transform: 'translateX(-100%)',
         }
-        if (placement === 'bottom-end') {
-          return {
-            top: topAnchor,
-            left: left + width + offsetLeft,
-            transform: 'translateX(-100%)',
-          }
-        }
-        // bottom-start
+      }
+      return {
+        bottom: bottomAnchor,
+        left: left + offsetLeft,
+        transform: 'none',
+      }
+    }
+
+    if (placement.startsWith('bottom')) {
+      if (placement === 'bottom-center') {
         return {
           top: topAnchor,
-          left: left + offsetLeft,
-          transform: 'none',
+          left: left + width / 2 + offsetLeft,
+          transform: 'translateX(-50%)',
         }
       }
-      default:
-        return { top: 0, left: 0, transform: 'none' }
+      if (placement === 'bottom-end') {
+        return {
+          top: topAnchor,
+          left: left + width + offsetLeft,
+          transform: 'translateX(-100%)',
+        }
+      }
+      return {
+        top: topAnchor,
+        left: left + offsetLeft,
+        transform: 'none',
+      }
     }
+
+    return { top: 0, left: 0, transform: 'none' }
   }
 
   // Non-portal: absolute positioning; let CSS handle placement transforms
-  switch (true) {
-    case placement.startsWith('top'):
-      return {
-        top: top + height + window.scrollY - offsetTop,
-        left: left + window.scrollX + offsetLeft,
-      }
-    case placement.startsWith('bottom'):
-      return {
-        top: top + height + window.scrollY + offsetTop,
-        left: left + window.scrollX + offsetLeft,
-      }
-    default:
-      return { top: 0, left: 0 }
+  if (placement.startsWith('top')) {
+    return {
+      top: top + height + window.scrollY - offsetTop,
+      left: left + window.scrollX + offsetLeft,
+    }
   }
+
+  if (placement.startsWith('bottom')) {
+    return {
+      top: top + height + window.scrollY + offsetTop,
+      left: left + window.scrollX + offsetLeft,
+    }
+  }
+
+  return { top: 0, left: 0 }
 }
 
 const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
