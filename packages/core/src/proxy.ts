@@ -40,7 +40,7 @@ const DATA_ROUTE_RE = /^\/_next\/data\/[^/]+\/([^/]+)\/(.+)$/
 
 const rewriteRules = generateRewriteRules()
 const subdomainBindings = getSubdomainBindings()
-const shouldValidateHostname = false
+const shouldValidateHostname = process.env.NODE_ENV === 'production'
 const validLocales = new Set(
   Object.keys(storeConfig.localization?.locales || {})
 )
@@ -97,7 +97,17 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const { pathname, search, hostname } = request.nextUrl
+  const { pathname, search } = request.nextUrl
+
+  // Read the hostname from the Host header rather than request.nextUrl.hostname.
+  // When the Next.js standalone server is started with a `hostname` (which the
+  // generated server.js always does, defaulting to "0.0.0.0" via the HOSTNAME
+  // env var), Next.js builds the internal request URL using that bind address
+  // instead of the client-facing host, see attachRequestMeta in
+  // next/dist/server/next-server.js. As a result, request.nextUrl.hostname
+  // returns the bind address (e.g. "0.0.0.0"), which never matches the
+  // hostname extracted from a binding URL (e.g. "brandless.fast.store").
+  const hostname = request.headers.get('host')
 
   const subdomainMatch = subdomainBindings.find((b) => b.hostname === hostname)
 
