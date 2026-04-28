@@ -16,7 +16,7 @@ export interface LocalizationButtonErrorMessages {
 }
 
 export interface LocalizationButtonProps {
-  icon: string
+  icon?: string
   title?: string
   languageLabel?: string
   currencyLabel?: string
@@ -69,7 +69,7 @@ const LocalizationButton = ({
       <UIButton
         ref={buttonRef}
         data-fs-localization-button
-        icon={<Icon name={icon} width={16} height={16} weight="bold" />}
+        icon={icon ?? <Icon name={icon} width={16} height={16} weight="bold" />}
         iconPosition="left"
         variant="tertiary"
         onClick={() => {
