@@ -40,7 +40,7 @@ const DATA_ROUTE_RE = /^\/_next\/data\/[^/]+\/([^/]+)\/(.+)$/
 
 const rewriteRules = generateRewriteRules()
 const subdomainBindings = getSubdomainBindings()
-const shouldValidateHostname = process.env.NODE_ENV === 'production'
+const shouldValidateHostname = false
 const validLocales = new Set(
   Object.keys(storeConfig.localization?.locales || {})
 )
