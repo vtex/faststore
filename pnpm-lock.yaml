@@ -627,8 +627,8 @@ importers:
         specifier: ^0.212.0
         version: 0.212.0(@opentelemetry/api@1.9.0)
       '@vtex/diagnostics-nodejs':
-        specifier: ^5.1.1
-        version: 5.1.1(@opentelemetry/api@1.9.0)(@types/express@4.17.25)(express@4.22.1)
+        specifier: ^5.1.9
+        version: 5.1.9(@opentelemetry/api@1.9.0)(@types/express@4.17.25)(express@4.22.1)
       resolve-pkg:
         specifier: ^3.0.1
         version: 3.0.1
@@ -4837,8 +4837,8 @@ packages:
     resolution: {integrity: sha512-tZxZL4ixR29fkhJ04mBcvCxD3ZBMP2dV5vXoubfgMnNP7PnhdREP4Oj7uR/CkL2jT3kRSS7u6pbetQ1ilwFByw==}
     engines: {node: '>=16'}
 
-  '@vtex/diagnostics-nodejs@5.1.1':
-    resolution: {integrity: sha512-f6m/2zO2X59kGL/uljKECsOsHl7StQ7CPfaTl9PQJZ4rx2hGg0t0RERek9m9fwg5lmJwrpeoerX4bRqiU7r2/A==}
+  '@vtex/diagnostics-nodejs@5.1.9':
+    resolution: {integrity: sha512-HPU8A0MmmKAZ+X60L3vY59vRgr0Q5zRPrHwq1NIQc6NNJ945WXXaVD7OEZJAkhxuPGm8e1fknGFBfMCbfP6qPg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0'
@@ -4859,8 +4859,8 @@ packages:
       koa:
         optional: true
 
-  '@vtex/diagnostics-semconv@5.1.0':
-    resolution: {integrity: sha512-apTPplntetN0y7+A0b6+9qh7SRv5Q7Ox+bQ7e3bY84UBWM6uBrphWeHNJve9DI3H9Y8oA1jjZCtXNamiE7hiWA==}
+  '@vtex/diagnostics-semconv@5.1.4':
+    resolution: {integrity: sha512-q31zROhgVl96/R+cm2a2NXN1t3G5seWWcpYkNPLN1srgEzHF4zof2DvHzfK8IcWmUdzDEVYoLRSX+cFR/drLrA==}
     engines: {node: '>=14'}
 
   '@vtex/faststore-sdk@0.1.1-canary.5':
@@ -17076,7 +17076,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@vtex/diagnostics-nodejs@5.1.1(@opentelemetry/api@1.9.0)(@types/express@4.17.25)(express@4.22.1)':
+  '@vtex/diagnostics-nodejs@5.1.9(@opentelemetry/api@1.9.0)(@types/express@4.17.25)(express@4.22.1)':
     dependencies:
       '@aws-sdk/client-s3': 3.994.0
       '@grpc/grpc-js': 1.14.3
@@ -17100,7 +17100,7 @@ snapshots:
       '@opentelemetry/sdk-trace-base': 2.5.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-node': 2.5.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.40.0
-      '@vtex/diagnostics-semconv': 5.1.0
+      '@vtex/diagnostics-semconv': 5.1.4
       tslib: 2.8.1
       uuid: 11.1.0
     optionalDependencies:
@@ -17110,7 +17110,7 @@ snapshots:
       - aws-crt
       - supports-color
 
-  '@vtex/diagnostics-semconv@5.1.0': {}
+  '@vtex/diagnostics-semconv@5.1.4': {}
 
   '@vtex/faststore-sdk@0.1.1-canary.5': {}
 
