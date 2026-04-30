@@ -7,7 +7,6 @@ import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
 import type {
-  ClientProductQueryQuery,
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables,
 } from '@generated/graphql'
@@ -84,30 +83,6 @@ type Props = PDPContentType & {
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
-/**
- * Merges server + client PDP payloads. After `deepmerge`, we replace `skuVariants` from
- * the client when present: localized `availableVariations` keys differ by locale, and
- * default object merge would keep both (duplicate SKU selectors).
- */
-const mergePdpData = (
-  server: ServerProductQueryQuery,
-  client: Partial<ClientProductQueryQuery> | Record<string, unknown> | undefined
-) => {
-  const merged = deepmerge(server, (client ?? {}) as ServerProductQueryQuery, {
-    arrayMerge: overwriteMerge,
-  })
-
-  const clientSkuVariants = (
-    client as Partial<ClientProductQueryQuery> | undefined
-  )?.product?.isVariantOf?.skuVariants
-
-  if (clientSkuVariants != null && merged.product?.isVariantOf != null) {
-    merged.product.isVariantOf.skuVariants = clientSkuVariants
-  }
-
-  return merged
-}
-
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
@@ -181,7 +156,7 @@ function Page({
     globalSectionsProp ?? {}
   const context = {
     data: {
-      ...mergePdpData(server, client),
+      ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
       isValidating,
     },
     globalSettings,
@@ -357,6 +332,7 @@ export const getStaticProps: GetStaticProps<
         locator: [
           { key: 'slug', value: slug },
           { key: 'channel', value: getChannelForLocale(locale) },
+          { key: 'locale', value: locale },
         ],
       },
       operation: query,
