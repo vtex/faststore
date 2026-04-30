@@ -1985,6 +1985,7 @@ export type UserOrderCourierStatus = {
   __typename?: 'UserOrderCourierStatus';
   data?: Maybe<Array<UserOrderTrackingInformation>>;
   finished?: Maybe<Scalars['Boolean']>;
+  deliveredDate?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
 };
 
