@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 const MyAccountRedirectPage: NextPage = () => {
   return null

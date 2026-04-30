@@ -100,6 +100,14 @@ export type {
   DropdownMenuProps,
   DropdownProps,
 } from './molecules/Dropdown'
+export { default as FileUploadCard } from './molecules/FileUploadCard'
+export type { FileUploadCardProps } from './molecules/FileUploadCard'
+export {
+  default as FileUploadStatus,
+  FileUploadErrorType,
+  FileUploadState,
+} from './molecules/FileUploadStatus'
+export type { FileUploadStatusProps } from './molecules/FileUploadStatus'
 export { default as Gift, GiftContent, GiftImage } from './molecules/Gift'
 export type {
   GiftContentProps,
@@ -393,8 +401,31 @@ export {
   SKUMatrixSidebar,
   SKUMatrixTrigger,
 } from './organisms/SKUMatrix'
+
 export type {
   SKUMatrixProps,
   SKUMatrixSidebarProps,
   SKUMatrixTriggerProps,
 } from './organisms/SKUMatrix'
+
+export {
+  default as QuickOrderDrawer,
+  QuickOrderDrawerFooter,
+  QuickOrderDrawerHeader,
+  QuickOrderDrawerProducts,
+  useQuickOrderDrawer,
+} from './organisms/QuickOrderDrawer'
+
+export type {
+  AlertMessages,
+  Product,
+  QuickOrderDrawerFooterProps,
+  QuickOrderDrawerHeaderProps,
+  QuickOrderDrawerProductsProps,
+  QuickOrderDrawerProps,
+  QuickOrderDrawerProviderProps,
+  VariationProductColumn,
+} from './organisms/QuickOrderDrawer'
+
+export { default as Dropzone } from './molecules/Dropzone'
+export type { DropzoneProps, DropzoneState } from './molecules/Dropzone'

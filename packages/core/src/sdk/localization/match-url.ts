@@ -1,33 +1,34 @@
 import config from 'discovery.config'
 import { matchesBindingPath } from 'src/utils/localization/bindingPaths'
 
-const isDevelopment = process.env.NODE_ENV === 'development'
+function shouldSkipHostnameCheck(hostname: string): boolean {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1'
+  const isPreviewUrl = hostname.endsWith('.vtex.app')
+
+  return isLocalhost || isPreviewUrl || isDevelopment
+}
 
 export function matchURLBinding(href: string) {
   let binding
   const matchedConfig = Object.entries(config.localization.locales).find(
     ([_, langConfig]: [string, any]) => {
       const hostURLObject = new URL(href)
+      const skipHostname = shouldSkipHostnameCheck(hostURLObject.hostname)
 
       binding = langConfig.bindings.find(({ url }: { url: string }) => {
         const configURLObject = new URL(url)
 
-        // In development, allow localhost to match any hostname for easier testing
-        const isLocalhost =
-          hostURLObject.hostname === 'localhost' ||
-          hostURLObject.hostname === '127.0.0.1'
-
         const hostnameMatch =
-          (isDevelopment && isLocalhost) ||
-          hostURLObject.hostname === configURLObject.hostname
+          skipHostname || hostURLObject.hostname === configURLObject.hostname
 
         if (!hostnameMatch) {
           return false
         }
 
-        // In production, also verify protocol matches for security
-        // In development, allow http vs https mismatch (e.g., local http testing with https config)
-        if (!isDevelopment) {
+        // Verify protocol matches for security, but skip on environments
+        // where the hostname is already relaxed (localhost, preview deploys).
+        if (!skipHostname) {
           const protocolMatch =
             hostURLObject.protocol === configURLObject.protocol
 
@@ -42,8 +43,10 @@ export function matchURLBinding(href: string) {
           configURLObject.pathname.replace(/\/$/, '') || '/'
         const isSubdomainBinding = configPathname === '/'
 
+        // Subdomain bindings rely on hostname, so when the hostname check
+        // is skipped we can only match path-based bindings.
         if (isSubdomainBinding) {
-          return true
+          return !skipHostname
         }
 
         // Check if pathname matches (exact or prefix match)

@@ -1,6 +1,7 @@
 import type { RefObject } from 'react'
 import { useMemo } from 'react'
 
+import type { PopoverProps } from '@faststore/ui'
 import {
   SlideOver,
   SlideOverHeader,
@@ -47,14 +48,14 @@ interface LocalizationSelectorContentProps {
   errorMessage?: React.ReactNode
 }
 
-interface LocalizationSelectorErrorMessages {
+export interface LocalizationSelectorErrorMessages {
   noBindingFound?: string
   invalidUrl?: string
   noCurrencies?: string
   defaultError?: string
 }
 
-interface LocalizationSelectorProps {
+export interface LocalizationSelectorProps {
   /**
    * Controls whether the selector is open or closed.
    */
@@ -120,6 +121,12 @@ interface LocalizationSelectorProps {
    * Custom error messages from CMS
    */
   errorMessages?: LocalizationSelectorErrorMessages
+  /**
+   * Desktop only: `Popover` placement relative to `triggerRef`.
+   * Defaults to `bottom-start`. Use `top-start` / `top-end` when the trigger sits
+   * near the bottom of the viewport (e.g. footer).
+   */
+  popoverPlacement?: PopoverProps['placement']
 }
 
 const LocalizationSelectorContent = ({
@@ -205,6 +212,7 @@ function LocalizationSelector({
   description,
   saveLabel,
   errorMessages,
+  popoverPlacement = 'bottom-start',
 }: LocalizationSelectorProps) {
   const { loading, isDesktop } = useScreenResize()
   const { fade, fadeOut } = useFadeEffect()
@@ -234,7 +242,7 @@ function LocalizationSelector({
     return (
       <UIPopover
         isOpen={isOpen}
-        placement="bottom-start"
+        placement={popoverPlacement}
         triggerRef={triggerRef}
         onDismiss={onClose}
         enablePortal

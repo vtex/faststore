@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/api
+
+# 3.98.0 (2026-03-27)
+
+### Bug Fixes
+
+- Set `after` attribute as string instead of integer ([#3245](https://github.com/vtex/faststore/issues/3245)) ([c40d3fc](https://github.com/vtex/faststore/commit/c40d3fcf0018099cc067bb7082757535ca9839b0))
+
+### Features
+
+- version 2026 03 27 ([#3251](https://github.com/vtex/faststore/issues/3251)) ([f330a43](https://github.com/vtex/faststore/commit/f330a43661567ad8edb468acd3416bb7ffacd8b6))
+
+# [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
+
+### Features
+
+- Add ActivityFlow data parameters with search-related information ([#3105](https://github.com/vtex/faststore/issues/3105)) ([8f69ff8](https://github.com/vtex/faststore/commit/8f69ff855c31abedba66071132240c53a93ab56d))
+
 # [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
 
 ### Features

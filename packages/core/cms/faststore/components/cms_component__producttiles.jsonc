@@ -19,8 +19,8 @@
     },
     "after": {
       "title": "After",
-      "type": "integer",
-      "default": 0,
+      "type": "string",
+      "default": "0",
       "description": "Initial pagination item"
     },
     "sort": {

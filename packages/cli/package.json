@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "3.98.0-dev.2",
+  "version": "3.99.0-dev.2",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -43,7 +43,7 @@
     "globby": "^15.0.0",
     "oclif": "^4",
     "ora": "5.4.1",
-    "@vtex/faststore-sdk": "0.1.1-canary.3",
+    "@vtex/faststore-sdk": "0.1.1-canary.5",
     "resolve-pkg": "^3.0.0",
     "prettier": "^3.1.0",
     "@faststore/api": "workspace:*",

@@ -65,7 +65,7 @@ export default function ProductListing({
     itemsPerPage,
   })
 
-  const initialPages = { search: server?.search }
+  const initialPages = { search: { ...server?.search, searchId: '' } }
   const { pages, useGalleryPage } = useCreateUseGalleryPage({
     initialPages,
     serverManyProductsVariables,

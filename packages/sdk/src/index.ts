@@ -97,7 +97,7 @@ export {
 export { Provider as SearchProvider } from './search/Provider'
 export { useSearch } from './search/useSearch'
 export { usePagination } from './search/usePagination'
-export type { State as SearchState } from './types'
+export type { Facet, State as SearchState } from './types'
 
 // UI
 export { Context as UIContext, Provider as UIProvider } from './ui/Provider'

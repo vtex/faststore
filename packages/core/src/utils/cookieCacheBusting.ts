@@ -1,68 +1,99 @@
-import discoveryConfig from 'discovery.config'
+import storeConfig from 'discovery.config'
+import { sessionStore } from 'src/sdk/session'
 
-export const STORAGE_KEY_AUTH_COOKIE_VALUE = 'faststore_auth_cookie_value'
+export const STORAGE_KEY_PERSON_ID = 'faststore_person_id'
+export const STORAGE_KEY_POSTAL_CODE = 'faststore_postal_code'
 export const STORAGE_KEY_CACHE_BUST_LAST_VALUE =
   'faststore_cache_bust_last_value'
 
 /**
- * Gets the VtexIdclientAutCookie value from browser
- * Note: vtex_segment is httpOnly and cannot be accessed via JavaScript,
- * so we only monitor VtexIdclientAutCookie_<account>
+ * Gets person?.id from session (via ValidateSession).
+ * Reads session store directly since auth cookies are httpOnly and inaccessible via JavaScript.
  */
-const getAuthCookieValue = (): string | null => {
-  if (typeof document === 'undefined') {
+const getPersonId = (): string | null => {
+  if (typeof window === 'undefined') {
     return null
   }
-
-  const account = discoveryConfig.api.storeId
-  const authCookieName = `VtexIdclientAutCookie_${account}`
-  const cookies = document.cookie.split(';').map((cookie) => cookie.trim())
-  const authCookie = cookies.find((c) => c.startsWith(`${authCookieName}=`))
-
-  if (!authCookie) {
-    return null
-  }
-
-  return authCookie.split('=').slice(1).join('=')
+  const session = sessionStore.read() ?? sessionStore.readInitial()
+  return session?.person?.id ?? null
 }
 
 /**
- * Gets the stored auth cookie value from sessionStorage (client-side only)
+ * Gets postalCode from session when deliveryPromise is enabled.
+ * Reads session store directly since vtex_segment is httpOnly and inaccessible via JavaScript.
+ * Returns null for stores that don't use delivery promise — postal code has no effect
+ * on their facets, so there is no need to fragment the CDN cache by region.
  */
-const getStoredAuthCookieValue = (): string | null => {
+const getPostalCode = (): string | null => {
+  if (typeof window === 'undefined' || !storeConfig.deliveryPromise?.enabled) {
+    return null
+  }
+  const session = sessionStore.read() ?? sessionStore.readInitial()
+  return session?.postalCode ?? null
+}
+
+const getStoredPersonId = (): string | null => {
   if (typeof sessionStorage === 'undefined') {
     return null
   }
 
   try {
-    return sessionStorage.getItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
+    return sessionStorage.getItem(STORAGE_KEY_PERSON_ID)
   } catch {
     return null
   }
 }
 
 /**
- * Stores the auth cookie value in sessionStorage (client-side only)
+ * Gets the postal code from sessionStorage (client-side only)
  */
-const storeAuthCookieValue = (value: string | null): void => {
+const getStoredPostalCode = (): string | null => {
+  if (typeof sessionStorage === 'undefined') {
+    return null
+  }
+
+  try {
+    return sessionStorage.getItem(STORAGE_KEY_POSTAL_CODE)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Stores the person id in sessionStorage (client-side only)
+ */
+const storePersonId = (value: string | null): void => {
   if (typeof sessionStorage === 'undefined') {
     return
   }
 
   try {
     if (value === null) {
-      sessionStorage.removeItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
+      sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)
     } else {
-      sessionStorage.setItem(STORAGE_KEY_AUTH_COOKIE_VALUE, value)
+      sessionStorage.setItem(STORAGE_KEY_PERSON_ID, value)
     }
   } catch {
     // Ignore storage errors
   }
 }
 
-/**
- * Gets the last cache busting value from sessionStorage (client-side only)
- */
+const storePostalCode = (value: string | null): void => {
+  if (typeof sessionStorage === 'undefined') {
+    return
+  }
+
+  try {
+    if (value === null) {
+      sessionStorage.removeItem(STORAGE_KEY_POSTAL_CODE)
+    } else {
+      sessionStorage.setItem(STORAGE_KEY_POSTAL_CODE, value)
+    }
+  } catch {
+    // Ignore storage errors
+  }
+}
+
 const getLastValue = (): string | null => {
   if (typeof sessionStorage === 'undefined') {
     return null
@@ -76,7 +107,7 @@ const getLastValue = (): string | null => {
 }
 
 /**
- * Stores the last cache busting value in sessionStorage (client-side only)
+ * Stores the last value in sessionStorage (client-side only)
  */
 const storeLastValue = (value: string): void => {
   if (typeof sessionStorage === 'undefined') {
@@ -91,51 +122,74 @@ const storeLastValue = (value: string): void => {
 }
 
 /**
- * Clears all cache busting related data from sessionStorage (client-side only)
+ * Clears the cache busting related data from sessionStorage (client-side only)
  */
-const clearStorage = (): void => {
+const clearCacheBustingStorage = (): void => {
   if (typeof sessionStorage === 'undefined') {
     return
   }
 
   try {
-    sessionStorage.removeItem(STORAGE_KEY_AUTH_COOKIE_VALUE)
+    sessionStorage.removeItem(STORAGE_KEY_PERSON_ID)
+    sessionStorage.removeItem(STORAGE_KEY_POSTAL_CODE)
     sessionStorage.removeItem(STORAGE_KEY_CACHE_BUST_LAST_VALUE)
   } catch {
     // Ignore storage errors
   }
 }
 
+const buildValue = (
+  personId: string | null,
+  postalCode: string | null
+): string => {
+  const timestamp = Date.now().toString()
+  return [timestamp, personId, postalCode].filter(Boolean).join('::')
+}
+
 /**
- * Gets cache busting value for client-side based on auth cookie changes
+ * Gets cache busting value for client-side GET requests based on session state.
+ *
+ * Covers two axes that make GraphQL responses user/region-specific:
+ * - Auth state (person.id): logged-in users see personalised prices and availability.
+ * - Postal code: delivery-promise facets (shipping, delivery-options) differ per region.
+ *
+ * The value is appended as the `v` query param so the CDN treats each
+ * combination as a distinct cache entry. Returns null when neither axis is set,
+ * meaning the public CDN cache is shared across all anonymous visitors with no
+ * location — which is the correct behaviour for stores without delivery promise.
  */
 export const getClientCacheBustingValue = (): string | null => {
-  const currentAuthCookieValue = getAuthCookieValue()
+  const currentPersonId = getPersonId()
+  const currentPostalCode = getPostalCode()
 
-  // Guard clause: if auth cookie doesn't exist, clear storage and don't proceed with cache busting logic
-  if (currentAuthCookieValue === null) {
-    clearStorage()
+  // No session-specific data: clear storage and allow shared public CDN caching (don't proceed with cache busting logic)
+  if (!currentPersonId && !currentPostalCode) {
+    clearCacheBustingStorage()
     return null
   }
 
-  const storedAuthCookieValue = getStoredAuthCookieValue()
+  const storedPersonId = getStoredPersonId()
+  const storedPostalCode = getStoredPostalCode()
 
-  // If auth cookie changed, update stored value and return new timestamp
-  if (currentAuthCookieValue !== storedAuthCookieValue) {
-    storeAuthCookieValue(currentAuthCookieValue)
-    const timestamp = Date.now().toString()
-    storeLastValue(timestamp)
-    return timestamp
+  // Either axis changed: persist new state and generate a fresh cache-busting value
+  if (
+    currentPersonId !== storedPersonId ||
+    currentPostalCode !== storedPostalCode
+  ) {
+    storePersonId(currentPersonId)
+    storePostalCode(currentPostalCode)
+    const value = buildValue(currentPersonId, currentPostalCode)
+    storeLastValue(value)
+    return value
   }
 
-  // Auth cookie hasn't changed, return last value or create one if it doesn't exist
+  // Nothing changed: reuse existing value (or create one if storage was cleared)
   const lastValue = getLastValue()
   if (lastValue) {
     return lastValue
   }
 
-  // Fallback: if no last value, create one
-  const timestamp = Date.now().toString()
-  storeLastValue(timestamp)
-  return timestamp
+  const value = buildValue(currentPersonId, currentPostalCode)
+  storeLastValue(value)
+  return value
 }

@@ -4,7 +4,7 @@ import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import fsExtra from 'fs-extra'
 import path from 'path'
-import { fileURLToPath } from 'url'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
@@ -61,8 +61,7 @@ export default class Build extends Command {
         import.meta.resolve('@faststore/cli/runner', import.meta.url)
       )
     )
-    let scriptResult = spawnSync(`node ${binCli} generate`, {
-      shell: true,
+    let scriptResult = spawnSync('node', [binCli, 'generate', basePath], {
       stdio: 'inherit',
     })
 
@@ -70,8 +69,7 @@ export default class Build extends Command {
       throw 'Error: Cant run generate' + (scriptResult.error?.message ?? '')
     }
 
-    scriptResult = spawnSync(`node ${binCli} cache-graphql`, {
-      shell: true,
+    scriptResult = spawnSync('node', [binCli, 'cache-graphql', basePath], {
       stdio: 'inherit',
     })
 
@@ -83,8 +81,7 @@ export default class Build extends Command {
     }
 
     // generate-i18n will validate localization config and check if it's enabled
-    scriptResult = spawnSync(`node ${binCli} generate-i18n`, {
-      shell: true,
+    scriptResult = spawnSync('node', [binCli, 'generate-i18n', basePath], {
       stdio: 'inherit',
     })
 
@@ -133,23 +130,27 @@ async function copyResource(from: string, to: string) {
 
 async function normalizeStandaloneBuildDir(basePath: string) {
   const { tmpDir } = withBasePath(basePath)
+  const isRunningFromMonorepo = process.cwd() !== basePath
+  const prefix = isRunningFromMonorepo
+    ? `${path.relative(process.cwd(), basePath).replace(/\\/g, '/')}/`
+    : ''
 
   // Fix Next.js v13+ standalone build output directory
-  if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
+  if (existsSync(`${tmpDir}/.next/standalone/${prefix}.faststore`)) {
     const standaloneBuildFiles = readdirSync(
-      `${tmpDir}/.next/standalone/.faststore`
+      `${tmpDir}/.next/standalone/${prefix}.faststore`
     )
 
     await Promise.all(
       standaloneBuildFiles.map((file) =>
         moveSync(
-          `${tmpDir}/.next/standalone/.faststore/${file}`,
+          `${tmpDir}/.next/standalone/${prefix}.faststore/${file}`,
           `${tmpDir}/.next/standalone/${file}`,
           { overwrite: true }
         )
       )
     )
-    removeSync(`${tmpDir}/.next/standalone/.faststore`)
+    removeSync(`${tmpDir}/.next/standalone/${prefix}.faststore`)
   }
 }
 
@@ -188,13 +189,19 @@ async function checkDeps(basePath: string): Promise<Array<string>> {
   }
 
   try {
+    const mod = await import(pathToFileURL(packageJsonPath).href, {
+      with: { type: 'json' },
+    })
+    const pkg = (mod.default ?? mod) as {
+      devDependencies?: Record<string, string>
+      dependencies?: Record<string, string>
+      peerDependencies?: Record<string, string>
+    }
     const {
-      default: {
-        devDependencies = {},
-        dependencies = {},
-        peerDependencies = {},
-      },
-    } = await import(packageJsonPath)
+      devDependencies = {},
+      dependencies = {},
+      peerDependencies = {},
+    } = pkg
 
     const allDeps: Record<string, string> = Object.assign(
       {},

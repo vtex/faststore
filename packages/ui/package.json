@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "3.98.0-dev.1",
+  "version": "3.99.0-dev.1",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -39,11 +39,11 @@
   "size-limit": [
     {
       "path": "dist/cjs/index.js",
-      "limit": "50 KB"
+      "limit": "62 KB"
     },
     {
       "path": "dist/es/index.mjs",
-      "limit": "40 KB"
+      "limit": "60 KB"
     }
   ],
   "dependencies": {

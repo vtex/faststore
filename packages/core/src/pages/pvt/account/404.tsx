@@ -24,8 +24,8 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

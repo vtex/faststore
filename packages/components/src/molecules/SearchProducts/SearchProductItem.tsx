@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 
 import { Link, type LinkElementType, type LinkProps } from '../..'
 
-export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface SearchProductItemProps extends HTMLAttributes<HTMLLIElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -17,11 +17,16 @@ export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
 
 const SearchProductItem = forwardRef<HTMLLIElement, SearchProductItemProps>(
   function ProductItem(
-    { testId = 'fs-search-product-item', linkProps, children },
+    { testId = 'fs-search-product-item', linkProps, children, ...otherProps },
     ref
   ) {
     return (
-      <li ref={ref} data-fs-search-product-item data-testid={testId}>
+      <li
+        ref={ref}
+        data-fs-search-product-item
+        data-testid={testId}
+        {...otherProps}
+      >
         <Link {...linkProps} data-fs-search-product-item-link variant="display">
           {children}
         </Link>

@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
 import type { SearchSettings } from 'src/server/cms'
@@ -125,9 +125,19 @@ function Page({
     return null
   }
 
+  const [effectiveSearchTerm, setEffectiveSearchTerm] = useState<
+    string | undefined
+  >(() => searchTerm ?? undefined)
+
+  useEffect(() => {
+    if (!searchTerm && searchParams.term) {
+      setEffectiveSearchTerm(searchParams.term)
+    }
+  }, [searchParams.term, searchTerm])
+
   const { noindex, nofollow, ...seoData } = generateSEOData(
     storeConfig,
-    searchTerm ?? searchParams.term ?? undefined,
+    effectiveSearchTerm,
     settings?.seo
   )
 
@@ -159,7 +169,7 @@ function Page({
         searchContentType={searchContentType}
         serverData={{
           title: seoData.title,
-          searchTerm: searchTerm ?? searchParams.term ?? undefined,
+          searchTerm: effectiveSearchTerm,
         }}
         globalSections={globalSections}
         globalSettings={globalSettings}

@@ -76,6 +76,7 @@ function filterAndCopyPackageJson(basePath: string) {
     dev: 'next dev --webpack',
     'dev-only': 'next dev --webpack',
     predev: 'na run partytown',
+    prebuild: 'na run partytown',
   }
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {

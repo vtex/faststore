@@ -7,7 +7,7 @@ import type { SearchContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { contentService } from 'src/server/content/service'
 import type { PreviewData } from 'src/server/content/types'
-import { withLocaleValidationSSR } from 'src/utils/withLocaleValidation'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 const getServerSidePropsBase: GetServerSideProps<
   SearchPageProps,
