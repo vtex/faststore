@@ -327,8 +327,6 @@ export const getStaticProps: GetStaticProps<
   ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: {
-        // Workaround until i18n slugs are fixed with Intelligent Search and Catalog.
-        // With we add locale ({ key: 'locale', value: locale }), breadcrumbList returns translated slugs that lead to 404s.
         locator: [
           { key: 'slug', value: slug },
           { key: 'channel', value: getChannelForLocale(locale) },
