@@ -77,6 +77,7 @@ jobs:
         run: pnpm release:v3
 
       - name: Publish to Chromatic
+        if: github.ref_name != '3.x'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
