@@ -1,13 +1,16 @@
 import {
   SearchHistory as UISearchHistory,
   SearchHistoryTerm as UISearchHistoryTerm,
+  type SearchHistoryProps as UISearchHistoryProps,
   useSearch,
 } from '@faststore/ui'
+
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 
-export interface SearchHistoryProps {
+export interface SearchHistoryProps
+  extends Omit<UISearchHistoryProps, 'title'> {
   title?: string
-  [x: string]: any
+  sort?: string
 }
 
 const SearchHistory = ({ title = 'History', ...props }: SearchHistoryProps) => {

@@ -1,9 +1,9 @@
 import {
   SearchTop as UISearchTop,
   SearchTopTerm as UISearchTopTerm,
+  type SearchTopProps as UISearchTopProps,
   useSearch,
 } from '@faststore/ui'
-import type { HTMLAttributes } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
 import type { StoreSuggestionTerm } from '@generated/graphql'
@@ -12,8 +12,7 @@ import useTopSearch from 'src/sdk/search/useTopSearch'
 
 const MAX_TOP_SEARCH_TERMS = 5
 
-export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string
+export interface SearchTopProps extends Omit<UISearchTopProps, 'title'> {
   /**
    * List of top searched items
    */
@@ -22,6 +21,7 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    * Default sort by value
    */
   sort?: string
+  title?: string
 }
 
 function SearchTop({
