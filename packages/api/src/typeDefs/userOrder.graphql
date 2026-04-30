@@ -283,6 +283,7 @@ type UserOrderCourierStatus {
   data: [UserOrderTrackingInformation!]
   finished: Boolean
   status: String
+  deliveredDate: String
 }
 
 type UserOrderTrackingInformation {
