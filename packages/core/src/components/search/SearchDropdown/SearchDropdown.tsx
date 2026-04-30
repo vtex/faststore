@@ -21,6 +21,9 @@ import type {
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 interface SearchDropdownProps {
+  searchHistoryTitle?: string
+  searchTopTitle?: string
+  searchProductsTitle?: string
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
@@ -45,6 +48,9 @@ function SearchDropdown({
   sort,
   quickOrderSettings,
   onChangeCustomSearchDropdownVisible,
+  searchProductsTitle,
+  searchHistoryTitle,
+  searchTopTitle,
   ...otherProps
 }: SearchDropdownProps) {
   const {
@@ -53,8 +59,8 @@ function SearchDropdown({
 
   return (
     <UISearchDropdown {...otherProps}>
-      <SearchHistory sort={sort} />
-      <SearchTop sort={sort} />
+      <SearchHistory title={searchHistoryTitle} sort={sort} />
+      <SearchTop title={searchTopTitle} sort={sort} />
       <UISearchAutoComplete>
         {terms?.map(({ value: suggestion }) => (
           <UISearchAutoCompleteTerm
@@ -96,6 +102,7 @@ function SearchDropdown({
         data-af-element={searchId && 'search-autocomplete'}
         data-af-onimpression={!!searchId}
         data-af-search-id={searchId}
+        title={searchProductsTitle}
       >
         {products.map((product, index) => {
           const productParsed = product as ProductSummary_ProductFragment

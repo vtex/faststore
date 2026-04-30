@@ -154,6 +154,9 @@ function Navbar({
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
               quickOrderSettings={searchInput?.quickOrderSettings}
+              searchHistoryTitle={searchInput?.searchHistoryTitle}
+              searchTopTitle={searchInput?.searchTopTitle}
+              searchProductsTitle={searchInput?.searchProductsTitle}
             />
           )}
 
@@ -184,6 +187,9 @@ function Navbar({
                 quickOrderSettings={searchInput?.quickOrderSettings}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
+                searchHistoryTitle={searchInput?.searchHistoryTitle}
+                searchTopTitle={searchInput?.searchTopTitle}
+                searchProductsTitle={searchInput?.searchProductsTitle}
               />
             )}
             {isDesktop &&

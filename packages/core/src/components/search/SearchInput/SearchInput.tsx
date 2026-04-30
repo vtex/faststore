@@ -70,6 +70,9 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  searchHistoryTitle?: string
+  searchTopTitle?: string
+  searchProductsTitle?: string
   /**
    * Called when the user clicks Search in the file upload card, with the parsed CSV data.
    * Use this to run bulk search, add to cart, or analytics.
@@ -99,6 +102,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      searchHistoryTitle,
+      searchTopTitle,
+      searchProductsTitle,
       onFileSearch,
       ...otherProps
     },
@@ -578,6 +584,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }
+                  searchHistoryTitle={searchHistoryTitle}
+                  searchTopTitle={searchTopTitle}
+                  searchProductsTitle={searchProductsTitle}
                 />
               </Suspense>
             )}

@@ -192,6 +192,21 @@
           "type": "object",
           "required": ["sort"],
           "properties": {
+            "searchHistoryTitle": {
+              "title": "Search History Title for Search Results Dropdown",
+              "type": "string",
+              "default": "History"
+            },
+            "searchTopTitle": {
+              "title": "Search Top Title for Search Results Dropdown",
+              "type": "string",
+              "default": "Top search"
+            },
+            "searchProductsTitle": {
+              "title": "Search Products Title for Search Results Dropdown",
+              "type": "string",
+              "default": "Suggested products"
+            },
             "placeholder": {
               "title": "Placeholder for Search Bar",
               "type": "string",
