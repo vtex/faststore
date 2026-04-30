@@ -202,7 +202,12 @@ function Page({
         ]}
         titleTemplate={titleTemplate}
       />
-      <BreadcrumbJsonLd itemListElements={itemListElements} />
+
+      {/* TODO: when localized slugs are available remove this workaround */}
+      {!storeConfig.localization?.enabled && (
+        <BreadcrumbJsonLd itemListElements={itemListElements} />
+      )}
+
       <ProductJsonLd
         id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
         mainEntityOfPage={`${meta.canonical}${

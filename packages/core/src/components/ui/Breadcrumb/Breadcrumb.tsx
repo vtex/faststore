@@ -34,7 +34,7 @@ const Breadcrumb = ({ icon, alt, ...otherProps }: BreadcrumbProps) => {
       }
       renderLink={({ itemProps: { item: link, name } }) =>
         // workaround to display the name without a link since localized slug is not available yet
-        // TODO: when slug localized available remove this workaround
+        // TODO: when localized slugs are available remove this workaround
         storeConfig.localization?.enabled ? (
           <span data-fs-breadcrumb-link>{name}</span>
         ) : (
