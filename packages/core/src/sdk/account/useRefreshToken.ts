@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { sessionStore } from '../session'
+import { logoutAndClearSession, sessionStore } from '../session'
 import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
 
 export const useRefreshToken = (
@@ -37,23 +37,12 @@ export const useRefreshToken = (
           url.searchParams.set('_refresh', Date.now().toString())
           window.location.href = url.toString()
         } else {
-          // If refresh token failed, set refreshAfter to now + 1 hour
-          sessionStore.set({
-            ...currentSession,
-            refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
-          })
-
+          await logoutAndClearSession(currentSession)
           setShouldShow403(true)
         }
       } catch (error) {
         console.error('Error during refresh token process:', error)
-
-        // Set refreshAfter to postpone future requests and redirect to login
-        sessionStore.set({
-          ...currentSession,
-          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
-        })
-
+        await logoutAndClearSession(currentSession)
         setShouldShow403(true)
       }
     }

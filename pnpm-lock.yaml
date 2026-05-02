@@ -142,8 +142,8 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.99.0-dev.3
-        version: 3.99.0-dev.4(@babel/core@7.26.7)(@opentelemetry/api@1.4.1)(@types/node@16.18.57)(encoding@0.1.13)(rollup@2.79.2)(typescript@5.4.5)(use-sync-external-store@1.4.0(react@18.3.1))(webpack@5.97.1(@swc/core@1.15.30))
+        specifier: ^3.99.0-dev.4
+        version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
         version: 5.1.2
@@ -306,8 +306,8 @@ importers:
         specifier: workspace:*
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: ^3.99.0-dev.3
-        version: 3.99.0-dev.4(graphql@15.8.0)
+        specifier: ^3.99.0-dev.4
+        version: link:../graphql-utils
       "@faststore/lighthouse":
         specifier: workspace:*
         version: link:../lighthouse

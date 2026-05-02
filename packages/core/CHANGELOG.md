@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.99.0-dev.4 (2026-04-28)
+
+### Bug Fixes
+
+- Refactor token refresh logic in GraphQL API handler - SFS-3104 ([#3263](https://github.com/vtex/faststore/issues/3263)) ([695ab6a](https://github.com/vtex/faststore/commit/695ab6a9413eb53ef457cfc890c74e41c29c1ab8))
+
 # 3.99.0-dev.3 (2026-04-23)
 
 ### Features
