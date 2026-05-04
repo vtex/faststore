@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.99.0-dev.6 (2026-05-04)
+
+### Bug Fixes
+
+- Base CMS schema ([#3290](https://github.com/vtex/faststore/issues/3290)) ([3455e89](https://github.com/vtex/faststore/commit/3455e89295e197f4bd18c0b5f84d7b01c0d67009))
+
 # 3.99.0-dev.5 (2026-05-04)
 
 ### Bug Fixes
