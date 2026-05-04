@@ -3802,6 +3802,19 @@
     }
   },
   "$defs": {
+    "base-component": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "base-page-template": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      }
+    },
     "$ALLOW_ALL_COMPONENTS": {
       "type": "array",
       "items": {
