@@ -8,7 +8,8 @@ import { parse } from 'cookie'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
-import { getJWTAutCookie, isExpired } from 'src/utils/getCookie'
+import { getJWTAutCookie } from 'src/utils/getCookie'
+import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 
 const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
@@ -160,7 +161,11 @@ const handler: NextApiHandler = async (request, response) => {
     // value is used to cache bust the request if there is a VtexIdclientAutCookie
     const { operation, variables, query, v: value } = parseRequest(request)
 
+    const hostname = request.headers.host?.split(':')[0]
+    const isLocal = hostname === 'localhost' || hostname === '127.0.0.1'
+
     if (
+      !isLocal &&
       operation.__meta__.operationName === 'ValidateSession' &&
       discoveryConfig.experimental?.refreshToken
     ) {
@@ -169,27 +174,10 @@ const handler: NextApiHandler = async (request, response) => {
         account: discoveryConfig.api.storeId,
       })
 
-      const tokenExpired = Boolean(jwt && isExpired(Number(jwt?.exp)))
-
-      const refreshAfterExist = !!variables?.session?.refreshAfter
-
-      const refreshAfterExpired =
-        refreshAfterExist && isExpired(Number(variables.session.refreshAfter))
-
-      const tokenExistAndIsFirstRefreshTokenRequest =
-        !!jwt && !refreshAfterExist
-
-      // when token expired, browser clears the cookie, but we still have the refreshAfter in session and the refresh token cookie
-      const tokenNotExistAndRefreshAfterExistAndIsExpired =
-        !jwt && !!refreshAfterExist && refreshAfterExpired
-
-      const tokenExpiredAndRefreshAfterIsNullOrExpired =
-        tokenExpired && (!refreshAfterExist || refreshAfterExpired)
-
-      const shouldRefreshToken =
-        tokenExistAndIsFirstRefreshTokenRequest ||
-        tokenNotExistAndRefreshAfterExistAndIsExpired ||
-        tokenExpiredAndRefreshAfterIsNullOrExpired
+      const shouldRefreshToken = shouldForceRefreshTokenForValidateSession({
+        jwt,
+        sessionRefreshAfter: variables?.session?.refreshAfter,
+      })
 
       if (shouldRefreshToken) {
         throw new UnauthorizedError(

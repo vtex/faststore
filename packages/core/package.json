@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "3.98.4",
+  "version": "3.99.0-dev.7",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -52,7 +52,7 @@
     "@envelop/parser-cache": "^6.0.2",
     "@envelop/validation-cache": "^6.0.2",
     "@faststore/api": "workspace:*",
-    "@faststore/graphql-utils": "^3.98.0",
+    "@faststore/graphql-utils": "^3.99.0-dev.6",
     "@faststore/lighthouse": "workspace:*",
     "@faststore/sdk": "workspace:*",
     "@faststore/ui": "workspace:*",
@@ -90,7 +90,9 @@
     "isomorphic-unfetch": "^3.1.0",
     "lexical": "^0.34.0",
     "next": "^13.5.9",
+    "next-logger": "^5.0.2",
     "next-seo": "^6.6.0",
+    "pino": "^9.7.0",
     "postcss": "^8.4.4",
     "prettier": "^2.2.0",
     "react": "^18.2.0",

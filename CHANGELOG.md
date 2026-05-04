@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0-dev.7](https://github.com/vtex/faststore/compare/v3.99.0-dev.6...v3.99.0-dev.7) (2026-05-04)
+
+### Bug Fixes
+
+- fixing preview tag style ([#3058](https://github.com/vtex/faststore/issues/3058)) ([5084915](https://github.com/vtex/faststore/commit/50849157ac190a57fc151e7e6c9cb10df487bff6))
+
+# 3.99.0-dev.6 (2026-05-04)
+
+### Bug Fixes
+
+- Base CMS schema ([#3290](https://github.com/vtex/faststore/issues/3290)) ([3455e89](https://github.com/vtex/faststore/commit/3455e89295e197f4bd18c0b5f84d7b01c0d67009))
+
+# 3.99.0-dev.5 (2026-05-04)
+
+### Bug Fixes
+
+- Enhance session validation logic to skip token refresh in local … ([#3285](https://github.com/vtex/faststore/issues/3285)) ([41a330a](https://github.com/vtex/faststore/commit/41a330a9704a29369141e6e78b1f6d01e5a2e1a5))
+
+# 3.99.0-dev.4 (2026-04-28)
+
+### Bug Fixes
+
+- Refactor token refresh logic in GraphQL API handler - SFS-3104 ([#3263](https://github.com/vtex/faststore/issues/3263)) ([695ab6a](https://github.com/vtex/faststore/commit/695ab6a9413eb53ef457cfc890c74e41c29c1ab8))
+
+# 3.99.0-dev.3 (2026-04-23)
+
+### Features
+
+- add isGift field to StoreOffer type and resolvers - SFS-3040 ([#3220](https://github.com/vtex/faststore/issues/3220)) ([e10fc92](https://github.com/vtex/faststore/commit/e10fc92633a5296a5b03286028d31d9c280561c6))
+- Enhance session management with logout - SFS-3105 ([#3268](https://github.com/vtex/faststore/issues/3268)) ([9468e32](https://github.com/vtex/faststore/commit/9468e32a3531ca3c91c7f82a34ac1c750c6a26ef))
+
+# [3.99.0-dev.2](https://github.com/vtex/faststore/compare/v3.99.0-dev.1...v3.99.0-dev.2) (2026-04-21)
+
+### Bug Fixes
+
+- Prevent IDB writes before store hydration completes - SFS-3121 ([#3267](https://github.com/vtex/faststore/issues/3267)) ([0b23e52](https://github.com/vtex/faststore/commit/0b23e526db23d7338c0eda75b673bb0bea05eef3))
+
+# [3.99.0-dev.1](https://github.com/vtex/faststore/compare/v3.99.0-dev.0...v3.99.0-dev.1) (2026-04-15)
+
+**Note:** Version bump only for package faststore
+
+# [3.99.0-dev.0](https://github.com/vtex/faststore/compare/v3.98.1-dev.0...v3.99.0-dev.0) (2026-03-31)
+
+### Features
+
+- Add Shopping Assistant component to FastStore schema ([#3255](https://github.com/vtex/faststore/issues/3255)) ([f4c8ea6](https://github.com/vtex/faststore/commit/f4c8ea65da468d26acac198071882523a8a57215))
+
 ## [3.98.4](https://github.com/vtex/faststore/compare/v3.98.3...v3.98.4) (2026-04-15)
 
 **Note:** Version bump only for package faststore
@@ -34,6 +81,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - version 2026 03 27 ([#3251](https://github.com/vtex/faststore/issues/3251)) ([f330a43](https://github.com/vtex/faststore/commit/f330a43661567ad8edb468acd3416bb7ffacd8b6))
+
+# [3.98.0-dev.10](https://github.com/vtex/faststore/compare/v3.98.0-dev.9...v3.98.0-dev.10) (2026-03-27)
+
+**Note:** Version bump only for package faststore
 
 # [3.98.0-dev.9](https://github.com/vtex/faststore/compare/v3.98.0-dev.8...v3.98.0-dev.9) (2026-03-27)
 

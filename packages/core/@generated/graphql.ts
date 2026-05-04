@@ -1348,6 +1348,8 @@ export type StoreMarketingData = {
 export type StoreOffer = {
   /** Offer item availability. */
   availability: Scalars['String']['output']
+  /** Whether this offer is a gift (e.g. free promotional item). */
+  isGift: Maybe<Scalars['Boolean']['output']>
   /** Offer item condition. */
   itemCondition: Scalars['String']['output']
   /** Information on the item being offered. */
@@ -3143,6 +3145,7 @@ export type ValidateCartMutationMutation = {
         priceWithTaxes: number
         listPrice: number
         listPriceWithTaxes: number
+        isGift: boolean | null
         seller: { identifier: string }
         itemOffered: {
           sku: string
@@ -3181,6 +3184,7 @@ export type CartItemFragment = {
   priceWithTaxes: number
   listPrice: number
   listPriceWithTaxes: number
+  isGift: boolean | null
   seller: { identifier: string }
   itemOffered: {
     sku: string
@@ -3860,19 +3864,13 @@ export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
 {
-  __apiType?: NonNullable<
-    DocumentTypeDecoration<TResult, TVariables>['__apiType']
-  >
-  private value: string
-  public __meta__?: Record<string, any> | undefined
+  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType']
 
-  constructor(value: string, __meta__?: Record<string, any> | undefined) {
+  constructor(private value: string, public __meta__?: Record<string, any>) {
     super(value)
-    this.value = value
-    this.__meta__ = __meta__
   }
 
-  override toString(): string & DocumentTypeDecoration<TResult, TVariables> {
+  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
     return this.value
   }
 }
@@ -4390,6 +4388,7 @@ export const CartItemFragmentDoc = new TypedDocumentString(
   priceWithTaxes
   listPrice
   listPriceWithTaxes
+  isGift
   itemOffered {
     ...CartProductItem
   }
@@ -4536,7 +4535,7 @@ export const ValidateUserDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: 'c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0',
+    operationHash: '32c15f8888ca34f223def7972b7f19090808435a',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,

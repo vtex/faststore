@@ -1,6 +1,6 @@
 import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { gql } from '@generated'
 import type {
@@ -17,8 +17,23 @@ import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
+import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
-const SESSION_READY_KEY = 'faststore_session_ready'
+const isLocalEnvironment = (): boolean =>
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1')
+
+const isReloadAfterLogoutPending = (): boolean => {
+  try {
+    return (
+      typeof sessionStorage !== 'undefined' &&
+      !!sessionStorage.getItem(RELOAD_AFTER_LOGOUT_KEY)
+    )
+  } catch {
+    return false
+  }
+}
 
 export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
@@ -77,7 +92,52 @@ export const mutation = gql(`
   }
 `)
 
+async function handleRefreshToken(session: Session): Promise<Session | null> {
+  const result = await refreshTokenRequest()
+
+  if (isRefreshTokenSuccessful(result)) {
+    return {
+      ...session,
+      refreshAfter: String(
+        Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
+      ),
+    }
+  }
+
+  await logoutAndClearSession(session)
+  return null
+}
+
+function isRefreshAfterExpired(session: Session): boolean {
+  return (
+    !!session.refreshAfter &&
+    Math.floor(Date.now() / 1000) > Number(session.refreshAfter)
+  )
+}
+
 export const validateSession = async (session: Session) => {
+  // Skip validation if the page is about to reload after logout — avoids an
+  // aborted-fetch TypeError when the forced reload navigates the page away.
+  if (isReloadAfterLogoutPending()) {
+    return null
+  }
+
+  // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
+  // On success, continue to the validation flow with the refreshed session.
+  // On failure (logoutAndClearSession already triggered), bail out.
+  // Skipped in local environments where the refresh token infrastructure is unavailable.
+  if (
+    !isLocalEnvironment() &&
+    storeConfig.experimental?.refreshToken &&
+    isRefreshAfterExpired(session)
+  ) {
+    const refreshed = await handleRefreshToken(session)
+    if (!refreshed) {
+      return null
+    }
+    session = refreshed
+  }
+
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (
     storeConfig.deliveryPromise?.enabled &&
@@ -120,33 +180,21 @@ export const validateSession = async (session: Session) => {
     return data.validateSession
   } catch (error) {
     const shouldRefreshToken =
-      error?.status === 401 && storeConfig.experimental?.refreshToken
+      !isLocalEnvironment() &&
+      error?.status === 401 &&
+      storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
-      const result = await refreshTokenRequest()
-
-      if (isRefreshTokenSuccessful(result)) {
-        const refreshAfter = String(
-          Math.floor(new Date(result?.refreshAfter).getTime() / 1000)
-        )
-
-        sessionStore.set({
-          ...session,
-          refreshAfter,
-        })
-      } else {
-        // If the refresh token fails 3x, set the refreshAfter to now + 1 hour
-        // so that we can postpone refreshToken request and continue the ValidateSession request
-        sessionStore.set({
-          ...session,
-          refreshAfter: String(Math.floor(Date.now() / 1000) + 1 * 60 * 60), // now + 1 hour
-        })
+      const refreshed = await handleRefreshToken(session)
+      if (refreshed) {
+        sessionStore.set(refreshed)
       }
     }
   }
 }
 
-const [validationStore, onValidate] = createValidationStore(validateSession)
+const [validationStore, onValidate, hasValidatedStore] =
+  createValidationStore(validateSession)
 
 const defaultStore = createSessionStore(storeConfig.session, onValidate)
 
@@ -160,6 +208,21 @@ export const sessionStore = {
     // Trigger cart revalidation when session changes
     cartStore.set(cartStore.read())
   },
+}
+
+export async function logoutAndClearSession(session: Session) {
+  try {
+    await fetch('/api/fs/logout', { method: 'POST' })
+  } catch (logoutError) {
+    console.error('Failed to call logout endpoint:', logoutError)
+  }
+
+  sessionStore.set({
+    ...session,
+    person: null,
+    b2b: null,
+    refreshAfter: null,
+  })
 }
 
 interface SessionOptions {
@@ -184,7 +247,8 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
   const currentSessionStore = sessionStore.read() ?? sessionStore.readInitial()
   const resultSessionStore = useStore(sessionStore)
   const isValidating = useStore(validationStore)
-  const { isSessionReady } = useSessionReady({ isValidating })
+  const hasValidated = useStore(hasValidatedStore)
+  const { isSessionReady } = useSessionReady({ isValidating, hasValidated })
 
   let { channel, ...session } = resultSessionStore ?? currentSessionStore
 
@@ -211,12 +275,21 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
  * The session ready state is persisted in sessionStorage to maintain consistency across page navigations
  * and provide faster loading times on subsequent page visits.
  *
+ * Uses `hasValidated` (a reactive store value) instead of a ref-based transition tracker to avoid
+ * a React 18 automatic batching race condition where `isValidating` goes true→false so fast that
+ * the effect never observes the `true` state, leaving `isSessionReady` stuck at false.
+ *
  * @param isValidating - Whether the session is currently being validated
+ * @param hasValidated - Whether at least one validation cycle has ever completed
  * @returns An object containing the session readiness status
  */
 export const useSessionReady = ({
   isValidating,
-}: { isValidating: boolean }) => {
+  hasValidated,
+}: {
+  isValidating: boolean
+  hasValidated: boolean
+}) => {
   // Initialize with persisted state from sessionStorage
   const [isSessionReady, setIsSessionReady] = useState(() => {
     if (typeof window === 'undefined') return false
@@ -227,44 +300,18 @@ export const useSessionReady = ({
     }
   })
 
-  // Wait for session to be stable (not validating and has consistent data)
-  const hasValidatedRef = useRef(false)
-
   useEffect(() => {
-    // Only run the effect if there has already been a change in isValidating (that is, validateSession has already been called at least once)
-    if (!hasValidatedRef.current && isValidating) {
-      hasValidatedRef.current = true
-      return
-    }
+    // Only mark ready once at least one full validation cycle has completed
+    // and validation is not currently in flight.
+    if (isValidating || !hasValidated) return
 
-    if (!hasValidatedRef.current) {
-      return
+    setIsSessionReady(true)
+    try {
+      sessionStorage.setItem(SESSION_READY_KEY, 'true')
+    } catch {
+      // Ignore storage errors
     }
-
-    if (!isValidating) {
-      setIsSessionReady(true)
-      // Persist the ready state in sessionStorage
-      try {
-        sessionStorage.setItem(SESSION_READY_KEY, 'true')
-      } catch {
-        // Ignore storage errors
-      }
-      return
-    }
-
-    // Only set to false if we don't have a persisted ready state
-    if (typeof window !== 'undefined') {
-      try {
-        const persistedReady =
-          sessionStorage.getItem(SESSION_READY_KEY) === 'true'
-        if (!persistedReady) {
-          setIsSessionReady(false)
-        }
-      } catch {
-        setIsSessionReady(false)
-      }
-    }
-  }, [isValidating])
+  }, [isValidating, hasValidated])
 
   return { isSessionReady }
 }

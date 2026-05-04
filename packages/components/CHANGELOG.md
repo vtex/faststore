@@ -3,11 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Features
+
+- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
+- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
+- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
+
+# 3.99.0-dev.6 (2026-05-04)
+
+**Note:** Version bump only for package @faststore/components
+
+# 3.99.0-dev.5 (2026-05-04)
+
+### Bug Fixes
+
+- Enhance session validation logic to skip token refresh in local … ([#3285](https://github.com/vtex/faststore/issues/3285)) ([41a330a](https://github.com/vtex/faststore/commit/41a330a9704a29369141e6e78b1f6d01e5a2e1a5))
+
+# 3.99.0-dev.4 (2026-04-28)
+
+**Note:** Version bump only for package @faststore/components
+
+# 3.99.0-dev.3 (2026-04-23)
+
+### Features
+
+- add isGift field to StoreOffer type and resolvers - SFS-3040 ([#3220](https://github.com/vtex/faststore/issues/3220)) ([e10fc92](https://github.com/vtex/faststore/commit/e10fc92633a5296a5b03286028d31d9c280561c6))
+
+# [3.99.0-dev.1](https://github.com/vtex/faststore/compare/v3.99.0-dev.0...v3.99.0-dev.1) (2026-04-15)
+
+**Note:** Version bump only for package @faststore/components
+
 ## [3.98.1](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1) (2026-04-07)
 
 ### Bug Fixes
 
 - simplify city and postal code display logic in `RegionBar` and `RegionButton` ([#3259](https://github.com/vtex/faststore/issues/3259)) ([8944bee](https://github.com/vtex/faststore/commit/8944bee9cb92ccea2b6ca24309cfa5478b6f4d0d))
+
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/components
+
+# 3.98.0 (2026-03-27)
 
 # 3.98.0 (2026-03-27)
 
@@ -35,31 +73,19 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/components
 
-## [Unreleased]
-
-### Features
-
-- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
-- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
-- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
-
 # [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
 
 ### Features
 
 - release version 20260224 ([#3225](https://github.com/vtex/faststore/issues/3225)) ([7a52516](https://github.com/vtex/faststore/commit/7a5251677a8f67066a2e060191b896ae6d0b0d9a))
 
-# 3.97.0-dev.2 (2026-02-06)
-
 # [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
 
 **Note:** Version bump only for package @faststore/components
 
+# 3.97.0-dev.2 (2026-02-06)
+
 ## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
-
-# 3.96.0-dev.22 (2026-01-21)
-
-**Note:** Version bump only for package @faststore/components
 
 # [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
 
