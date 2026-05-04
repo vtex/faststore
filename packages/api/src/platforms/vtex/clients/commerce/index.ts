@@ -18,6 +18,7 @@ import type { Context, Options } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
+  getAuthCookie,
   getStoreCookie,
   getWithAutCookie,
   getWithCookie,
@@ -737,14 +738,14 @@ export const VtexCommerce = (
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        // Token is read from the incoming request's account-scoped auth cookie.
+        const token = getAuthCookie(ctx.headers?.cookie ?? '', account)
 
         return fetchAPI(
           `${base}/api/vtexid/credential/validate`,
           {
             headers,
-            body: JSON.stringify({
-              token: headers['VtexIdclientAutCookie'],
-            }),
+            body: JSON.stringify({ token }),
             method: 'POST',
           },
           { storeCookies }
