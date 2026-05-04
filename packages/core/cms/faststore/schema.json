@@ -3804,17 +3804,8 @@
   "$defs": {
     "base-component": {
       "type": "object",
-      "required": ["$componentKey", "$componentTitle"],
-      "properties": {
-        "$componentKey": {
-          "type": "string",
-          "description": "Unique identifier for the component"
-        },
-        "$componentTitle": {
-          "type": "string",
-          "description": "Display title for the component"
-        }
-      }
+      "required": [],
+      "properties": {}
     },
     "base-page-template": {
       "type": "object",
