@@ -50,17 +50,21 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - Add Shopping Assistant component to FastStore schema ([#3255](https://github.com/vtex/faststore/issues/3255)) ([f4c8ea6](https://github.com/vtex/faststore/commit/f4c8ea65da468d26acac198071882523a8a57215))
 
-## [3.98.2](https://github.com/vtex/faststore/compare/v3.98.1...v3.98.2) (2026-04-09)
-
-- Store ID param sent to Content Platform client ([#3265](https://github.com/vtex/faststore/issues/3265)) ([63fffd8](https://github.com/vtex/faststore/commit/63fffd878403c4d0c9aff8f6d56064dfa42ab833))
-
-### Bug Fixes
-
-## [3.98.3](https://github.com/vtex/faststore/compare/v3.98.2...v3.98.3) (2026-04-09)
+## [3.98.4](https://github.com/vtex/faststore/compare/v3.98.3...v3.98.4) (2026-04-15)
 
 **Note:** Version bump only for package faststore
 
-## [3.98.4](https://github.com/vtex/faststore/compare/v3.98.3...v3.98.4) (2026-04-15)
+## [3.98.3](https://github.com/vtex/faststore/compare/v3.98.2...v3.98.3) (2026-04-09)
+
+### Bug Fixes
+
+- Store ID param sent to Content Platform client ([#3265](https://github.com/vtex/faststore/issues/3265)) ([63fffd8](https://github.com/vtex/faststore/commit/63fffd878403c4d0c9aff8f6d56064dfa42ab833))
+
+## [3.98.2](https://github.com/vtex/faststore/compare/v3.98.1...v3.98.2) (2026-04-09)
+
+### Bug Fixes
+
+- unsafe props ternary ([#3254](https://github.com/vtex/faststore/issues/3254)) ([00f35b5](https://github.com/vtex/faststore/commit/00f35b5b49a756b6de84d1739ae157e3f074f01e))
 
 ## [3.98.1](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1) (2026-04-07)
 
@@ -97,6 +101,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package faststore
 
 # [3.98.0-dev.6](https://github.com/vtex/faststore/compare/v3.98.0-dev.5...v3.98.0-dev.6) (2026-03-24)
+
+### Bug Fixes
 
 - enhance cache key management in useQuery ([#3230](https://github.com/vtex/faststore/issues/3230)) ([3f28502](https://github.com/vtex/faststore/commit/3f28502a8d381e476728661ea1150d0777ba87d1))
 

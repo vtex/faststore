@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Features
+
+- Re-exported `useCSVParser` hook from `@faststore/components` (see components changelog for details).
+- Re-exported `useFileUpload` hook from `@faststore/components` (see components changelog for details).
+- Re-exported `FileUploadCard` component from `@faststore/components` (see components changelog for details).
+
 # [3.99.0-dev.7](https://github.com/vtex/faststore/compare/v3.99.0-dev.6...v3.99.0-dev.7) (2026-05-04)
 
 ### Bug Fixes
@@ -48,10 +56,31 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - Add Shopping Assistant component to FastStore schema ([#3255](https://github.com/vtex/faststore/issues/3255)) ([f4c8ea6](https://github.com/vtex/faststore/commit/f4c8ea65da468d26acac198071882523a8a57215))
 
-## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+## [3.98.4](https://github.com/vtex/faststore/compare/v3.98.3...v3.98.4) (2026-04-15)
 
 **Note:** Version bump only for package @faststore/core
 
+## [3.98.3](https://github.com/vtex/faststore/compare/v3.98.2...v3.98.3) (2026-04-09)
+
+### Bug Fixes
+
+- Store ID param sent to Content Platform client ([#3265](https://github.com/vtex/faststore/issues/3265)) ([63fffd8](https://github.com/vtex/faststore/commit/63fffd878403c4d0c9aff8f6d56064dfa42ab833))
+
+## [3.98.2](https://github.com/vtex/faststore/compare/v3.98.1...v3.98.2) (2026-04-09)
+
+### Bug Fixes
+
+- unsafe props ternary ([#3254](https://github.com/vtex/faststore/issues/3254)) ([00f35b5](https://github.com/vtex/faststore/commit/00f35b5b49a756b6de84d1739ae157e3f074f01e))
+
+## [3.98.1](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1) (2026-04-07)
+
+### Bug Fixes
+
+- simplify city and postal code display logic in `RegionBar` and `RegionButton` ([#3259](https://github.com/vtex/faststore/issues/3259)) ([8944bee](https://github.com/vtex/faststore/commit/8944bee9cb92ccea2b6ca24309cfa5478b6f4d0d))
+
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+
+**Note:** Version bump only for package @faststore/core
 # 3.98.0 (2026-03-27)
 
 ### Bug Fixes
@@ -75,14 +104,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - Add Quick Order Full Feature ([#3197](https://github.com/vtex/faststore/issues/3197)) ([f5518d7](https://github.com/vtex/faststore/commit/f5518d7f205dccad99b6ea0a127fd09cf77d1edb))
-
-## [Unreleased]
-
-### Features
-
-- Re-exported `useCSVParser` hook from `@faststore/components` (see components changelog for details).
-- Re-exported `useFileUpload` hook from `@faststore/components` (see components changelog for details).
-- Re-exported `FileUploadCard` component from `@faststore/components` (see components changelog for details).
 
 # [3.98.0-dev.7](https://github.com/vtex/faststore/compare/v3.98.0-dev.6...v3.98.0-dev.7) (2026-03-26)
 
@@ -132,6 +153,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/core
 
+# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
+
+**Note:** Version bump only for package @faststore/core
+
 # [3.97.0-dev.6](https://github.com/vtex/faststore/compare/v3.97.0-dev.5...v3.97.0-dev.6) (2026-02-19)
 
 ### Bug Fixes
@@ -160,10 +185,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - reorder feature ([#3153](https://github.com/vtex/faststore/issues/3153)) ([d0fdeec](https://github.com/vtex/faststore/commit/d0fdeec77cd94e16f1b79dcc927487320983ba0e))
 
-# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
-
-**Note:** Version bump only for package @faststore/core
-
 # [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
 
 # 3.97.0-dev.0 (2026-01-27)
@@ -176,12 +197,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - Enable fraction digit formatting for SEO's `product:price:amount` meta tag ([#3179](https://github.com/vtex/faststore/issues/3179)) ([d6e6252](https://github.com/vtex/faststore/commit/d6e6252eb578d782505b8e505ee48cd9fd1526e3))
 
-## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
-
-# 3.96.0-dev.22 (2026-01-21)
-
-**Note:** Version bump only for package @faststore/core
-
 ## [3.96.5](https://github.com/vtex/faststore/compare/v3.96.4...v3.96.5) (2026-02-02)
 
 ### Bug Fixes
@@ -193,6 +208,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - close filter on apply button click in FilterSlider component ([#3187](https://github.com/vtex/faststore/issues/3187)) ([f3c96eb](https://github.com/vtex/faststore/commit/f3c96eb5e73178d8c863a3e40ac576dc623a0624))
+
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
 
 ## [3.96.3](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.3) (2026-01-21)
 

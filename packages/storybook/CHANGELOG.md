@@ -27,10 +27,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/storybook
 
-## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+## [3.98.1](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1) (2026-04-07)
 
 **Note:** Version bump only for package @faststore/storybook
 
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
 # 3.98.0 (2026-03-27)
 
 ### Bug Fixes
@@ -69,21 +70,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/storybook
 
+# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
+
+**Note:** Version bump only for package @faststore/storybook
+
 # [3.97.0-dev.5](https://github.com/vtex/faststore/compare/v3.97.0-dev.4...v3.97.0-dev.5) (2026-02-19)
 
 **Note:** Version bump only for package @faststore/storybook
 
 # 3.97.0-dev.2 (2026-02-06)
 
-# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
-
-**Note:** Version bump only for package @faststore/storybook
-
 ## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
-
-# 3.96.0-dev.22 (2026-01-21)
-
-**Note:** Version bump only for package @faststore/storybook
 
 # [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Features
+
+- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
+- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
+- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
+
 # 3.99.0-dev.6 (2026-05-04)
 
 **Note:** Version bump only for package @faststore/components
@@ -39,6 +47,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 3.98.0 (2026-03-27)
 
+# 3.98.0 (2026-03-27)
+
+### Bug Fixes
+
 - Set `after` attribute as string instead of integer ([#3245](https://github.com/vtex/faststore/issues/3245)) ([c40d3fc](https://github.com/vtex/faststore/commit/c40d3fcf0018099cc067bb7082757535ca9839b0))
 
 ### Features
@@ -61,31 +73,19 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @faststore/components
 
-## [Unreleased]
-
-### Features
-
-- Added `useCSVParser` hook for parsing CSV files in a web worker, with error handling and CSV template generation.
-- Added `useFileUpload` hook to manage file upload errors, validation, and rejection reasons.
-- Added `FileUploadCard` component for file selection, drag-and-drop, and template download, with error state and file validation.
-
 # [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.0-dev.6...v3.98.0-dev.0) (2026-02-24)
 
 ### Features
 
 - release version 20260224 ([#3225](https://github.com/vtex/faststore/issues/3225)) ([7a52516](https://github.com/vtex/faststore/commit/7a5251677a8f67066a2e060191b896ae6d0b0d9a))
 
-# 3.97.0-dev.2 (2026-02-06)
-
 # [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
 
 **Note:** Version bump only for package @faststore/components
 
+# 3.97.0-dev.2 (2026-02-06)
+
 ## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
-
-# 3.96.0-dev.22 (2026-01-21)
-
-**Note:** Version bump only for package @faststore/components
 
 # [3.96.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.96.0) (2025-12-24)
 
