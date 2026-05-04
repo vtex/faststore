@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0](https://github.com/vtex/faststore/compare/v3.98.4...v3.99.0) (2026-05-04)
+
+### Features
+
+- version bump v3 ([#3293](https://github.com/vtex/faststore/issues/3293)) ([0475e38](https://github.com/vtex/faststore/commit/0475e387df8f8a3ae486209a2ef828bb71edc60a))
+
 # 3.99.0-dev.6 (2026-05-04)
 
 **Note:** Version bump only for package @faststore/storybook
@@ -32,6 +38,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package @faststore/storybook
 
 ## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0-dev.10...v3.98.1-dev.0) (2026-03-27)
+
 # 3.98.0 (2026-03-27)
 
 ### Bug Fixes
