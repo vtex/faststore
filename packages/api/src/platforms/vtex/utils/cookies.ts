@@ -145,22 +145,21 @@ export const getAuthCookie = (cookies: string, account: string) => {
   return authCookie || ''
 }
 
+/**
+ * Headers for authenticated VtexID requests. The auth token is carried by
+ * the forwarded `cookie` header — not duplicated as a separate header.
+ */
 export const getWithAutCookie = (ctx: ContextForCookies) => {
   const withCookie = getWithCookie(ctx)
 
-  return function withAutCookie(forwardedHost: string, account: string) {
-    const headers: HeadersInit = withCookie({
+  return function withAutCookie(
+    forwardedHost: string,
+    _account?: string
+  ): HeadersInit {
+    return withCookie({
       'content-type': 'application/json',
       'X-FORWARDED-HOST': forwardedHost,
     })
-
-    const VtexIdclientAutCookie = getAuthCookie(
-      ctx?.headers?.cookie ?? '',
-      account
-    )
-    headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
-
-    return headers
   }
 }
 
