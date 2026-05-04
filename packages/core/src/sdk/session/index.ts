@@ -19,6 +19,11 @@ import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
+const isLocalEnvironment = (): boolean =>
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1')
+
 const isReloadAfterLogoutPending = (): boolean => {
   try {
     return (
@@ -120,7 +125,9 @@ export const validateSession = async (session: Session) => {
   // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
   // On success, continue to the validation flow with the refreshed session.
   // On failure (logoutAndClearSession already triggered), bail out.
+  // Skipped in local environments where the refresh token infrastructure is unavailable.
   if (
+    !isLocalEnvironment() &&
     storeConfig.experimental?.refreshToken &&
     isRefreshAfterExpired(session)
   ) {
@@ -173,7 +180,9 @@ export const validateSession = async (session: Session) => {
     return data.validateSession
   } catch (error) {
     const shouldRefreshToken =
-      error?.status === 401 && storeConfig.experimental?.refreshToken
+      !isLocalEnvironment() &&
+      error?.status === 401 &&
+      storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
       const refreshed = await handleRefreshToken(session)

@@ -161,7 +161,11 @@ const handler: NextApiHandler = async (request, response) => {
     // value is used to cache bust the request if there is a VtexIdclientAutCookie
     const { operation, variables, query, v: value } = parseRequest(request)
 
+    const hostname = request.headers.host?.split(':')[0]
+    const isLocal = hostname === 'localhost' || hostname === '127.0.0.1'
+
     if (
+      !isLocal &&
       operation.__meta__.operationName === 'ValidateSession' &&
       discoveryConfig.experimental?.refreshToken
     ) {
