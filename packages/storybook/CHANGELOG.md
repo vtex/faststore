@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.99.0-dev.5 (2026-05-04)
+
+### Bug Fixes
+
+- Enhance session validation logic to skip token refresh in local … ([#3285](https://github.com/vtex/faststore/issues/3285)) ([41a330a](https://github.com/vtex/faststore/commit/41a330a9704a29369141e6e78b1f6d01e5a2e1a5))
+
 # 3.99.0-dev.4 (2026-04-28)
 
 **Note:** Version bump only for package @faststore/storybook
