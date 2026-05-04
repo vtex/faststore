@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.99.0-dev.7](https://github.com/vtex/faststore/compare/v3.99.0-dev.6...v3.99.0-dev.7) (2026-05-04)
+
+### Bug Fixes
+
+- fixing preview tag style ([#3058](https://github.com/vtex/faststore/issues/3058)) ([5084915](https://github.com/vtex/faststore/commit/50849157ac190a57fc151e7e6c9cb10df487bff6))
+
 # 3.99.0-dev.6 (2026-05-04)
 
 ### Bug Fixes
