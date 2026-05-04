@@ -29,7 +29,13 @@ const nextConfig = {
       transpilePackages: storeConfig.experimental.transpilePackages,
     }),
   images: {
-    domains: [`${storeConfig.api.storeId}.vtexassets.com`],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: `${storeConfig.api.storeId}.vtexassets.com`,
+        pathname: '/**',
+      },
+    ],
     deviceSizes: [360, 412, 540, 768, 1280, 1440],
     imageSizes: [34, 68, 154, 320],
     loader: 'custom',
