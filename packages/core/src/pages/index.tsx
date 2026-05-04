@@ -158,11 +158,12 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   PreviewData
 > = async ({ previewData, locale }) => {
+  const contentContext = { previewData, locale }
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData, locale)
+  ] = getGlobalSectionsData(contentContext)
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   let cmsPage = null
@@ -173,17 +174,16 @@ export const getStaticProps: GetStaticProps<
 
   const pagePromise = cmsPage
     ? contentService.getSingleContent<PageContentType>({
+        ...contentContext,
         contentType: 'home',
-        previewData,
         documentId: cmsPage.documentId,
         versionId: cmsPage.versionId,
         releaseId: cmsPage.releaseId,
         locale,
       })
     : contentService.getSingleContent<PageContentType>({
+        ...contentContext,
         contentType: 'home',
-        previewData,
-        locale,
       })
 
   const [

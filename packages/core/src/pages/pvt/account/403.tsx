@@ -96,11 +96,15 @@ const getServerSidePropsBase: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

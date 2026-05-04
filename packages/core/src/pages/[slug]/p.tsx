@@ -317,12 +317,13 @@ export const getStaticProps: GetStaticProps<
   PreviewData
 > = async ({ params, previewData, locale }) => {
   const slug = params?.slug ?? ''
+  const contentContext = { previewData, locale }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData, locale)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     searchResult,
@@ -373,7 +374,7 @@ export const getStaticProps: GetStaticProps<
   const cmsPage: PDPContentType = await contentService.getPdpContent(
     data.product,
     {
-      previewData,
+      ...contentContext,
       slug,
       locale,
     }

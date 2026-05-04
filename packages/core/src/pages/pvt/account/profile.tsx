@@ -95,12 +95,16 @@ const getServerSidePropsBase: GetServerSideProps<
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [profile, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([

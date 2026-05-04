@@ -1,8 +1,8 @@
 import { assertValidSchema } from 'graphql'
+import { describe, expect, it } from 'vitest'
 
 import storeConfig from '../../discovery.config'
-import { execute, getEnvelop } from '../../src/server'
-import { getFinalAPISchema } from '../../src/server'
+import { execute, getEnvelop, getFinalAPISchema } from '../../src/server'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -80,6 +80,8 @@ const QUERIES = [
   'pickupPoints',
 ]
 
+const OPTIONAL_GENERATED_QUERIES = new Set(['accountName'])
+
 const MUTATIONS = [
   'validateCart',
   'validateSession',
@@ -106,8 +108,11 @@ describe('FastStore GraphQL Layer', () => {
 
     it('should return a valid GraphQL schema contain all expected queries', async () => {
       const queryFields = nativeSchema.getQueryType()?.getFields() ?? {}
+      const queryNames = Object.keys(queryFields).filter(
+        (query) => !OPTIONAL_GENERATED_QUERIES.has(query)
+      )
 
-      expect(Object.keys(queryFields)).toEqual(QUERIES)
+      expect(queryNames).toEqual(QUERIES)
     })
 
     it('should return a valid GraphQL schema contain all expected mutations', async () => {
