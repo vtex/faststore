@@ -1,5 +1,4 @@
 import { saveFile } from '../utils/file'
-import { format } from 'prettier'
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { getBasePath, withBasePath } from '../utils/directory'
@@ -7,6 +6,9 @@ import { logger } from '../utils/logger'
 import graphql from 'graphql'
 import path from 'path'
 import fsExtra from 'fs-extra'
+import * as recast from 'recast'
+import babelParser from 'recast/parsers/babel.js'
+import prettier from 'prettier'
 
 const { Kind, OperationTypeNode, parse: parseGraphql } = graphql
 
@@ -77,28 +79,16 @@ export default class CacheGraphql extends Command {
       { with: { type: 'json' } }
     )
 
-    const discoveryConfig = await import(configPath)
     const cachedQueries = getQueries(persistedDocuments)
 
-    saveConfigFile(
-      await format(
-        `module.exports = ${JSON.stringify(
-          {
-            ...(discoveryConfig?.default ?? discoveryConfig),
-            experimental: {
-              ...(discoveryConfig?.default ?? discoveryConfig).experimental,
-              cachedOperations: cachedQueries ?? [],
-            },
-          },
-          undefined,
-          2
-        )}`,
-        {
-          parser: 'typescript',
-          quoteProps: 'as-needed',
-        }
-      )
-    )
+    const source = fsExtra.readFileSync(configPath, 'utf8')
+    const patched = updateCachedOperations(source, cachedQueries)
+    const prettierConfig = await prettier.resolveConfig(configPath)
+    const formatted = await prettier.format(patched, {
+      ...prettierConfig,
+      filepath: configPath,
+    })
+    saveConfigFile(formatted)
 
     logger.info(
       `${chalk.green('[Success]')} - GraphQL queries cached with success: 🎉
@@ -183,4 +173,111 @@ const getQueries = (persistedDocuments: Record<string, string>) => {
   }
 
   return operationNames
+}
+
+/**
+ * Updates only the `experimental.cachedOperations` property inside the
+ * `module.exports = { ... }` object literal of a discovery config file,
+ * preserving comments, formatting, and dynamic expressions (e.g. `process.env`).
+ */
+function updateCachedOperations(
+  source: string,
+  cachedQueries: string[]
+): string {
+  const ast = recast.parse(source, { parser: babelParser })
+  const b = recast.types.builders
+
+  const newArray = b.arrayExpression(
+    cachedQueries.map((name) => b.stringLiteral(name))
+  )
+
+  const isPropertyNamed = (p: any, name: string) =>
+    (p.type === 'ObjectProperty' || p.type === 'Property') &&
+    ((p.key.type === 'Identifier' && p.key.name === name) ||
+      ((p.key.type === 'StringLiteral' || p.key.type === 'Literal') &&
+        p.key.value === name))
+
+  let patched = false
+
+  recast.types.visit(ast, {
+    visitAssignmentExpression(path: any) {
+      const node = path.node
+      const isModuleExports =
+        node.operator === '=' &&
+        node.left.type === 'MemberExpression' &&
+        node.left.object.type === 'Identifier' &&
+        node.left.object.name === 'module' &&
+        node.left.property.type === 'Identifier' &&
+        node.left.property.name === 'exports'
+
+      if (!isModuleExports || node.right.type !== 'ObjectExpression') {
+        return false
+      }
+
+      const experimentalProp = node.right.properties.find((p: any) =>
+        isPropertyNamed(p, 'experimental')
+      )
+
+      if (
+        !experimentalProp ||
+        experimentalProp.value.type !== 'ObjectExpression'
+      ) {
+        return false
+      }
+
+      const props = experimentalProp.value.properties
+      const idx = props.findIndex((p: any) =>
+        isPropertyNamed(p, 'cachedOperations')
+      )
+
+      const newProp = b.objectProperty(
+        b.identifier('cachedOperations'),
+        newArray
+      )
+
+      if (idx >= 0) {
+        props[idx] = newProp
+      } else {
+        props.push(newProp)
+      }
+
+      patched = true
+      return false
+    },
+  })
+
+  if (!patched) {
+    throw new Error(
+      `Couldn't find \`module.exports = { ..., experimental: { ... } }\` in ${configFileName}`
+    )
+  }
+
+  return removeRecastBlankLinesInExperimental(recast.print(ast).code)
+}
+
+/**
+ * recast inserts spurious blank lines between properties of the `experimental`
+ * object when we modify it. Collapse any sequence of blank lines inside that
+ * block into none, preserving the rest of the file as-is.
+ */
+function removeRecastBlankLinesInExperimental(code: string): string {
+  const startMatch = code.match(/\n[ \t]*experimental:\s*\{\n/)
+  if (!startMatch || startMatch.index === undefined) return code
+
+  const blockStart = startMatch.index + startMatch[0].length
+  let depth = 1
+  let i = blockStart
+  while (i < code.length && depth > 0) {
+    const ch = code[i]
+    if (ch === '{') depth++
+    else if (ch === '}') depth--
+    if (depth === 0) break
+    i++
+  }
+  const blockEnd = i
+
+  const before = code.slice(0, blockStart)
+  const block = code.slice(blockStart, blockEnd).replace(/\n[ \t]*\n+/g, '\n')
+  const after = code.slice(blockEnd)
+  return before + block + after
 }
