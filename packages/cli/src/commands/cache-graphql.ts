@@ -6,8 +6,6 @@ import { logger } from '../utils/logger'
 import graphql from 'graphql'
 import path from 'path'
 import fsExtra from 'fs-extra'
-import * as recast from 'recast'
-import babelParser from 'recast/parsers/babel.js'
 import prettier from 'prettier'
 
 const { Kind, OperationTypeNode, parse: parseGraphql } = graphql
@@ -177,107 +175,82 @@ const getQueries = (persistedDocuments: Record<string, string>) => {
 
 /**
  * Updates only the `experimental.cachedOperations` property inside the
- * `module.exports = { ... }` object literal of a discovery config file,
- * preserving comments, formatting, and dynamic expressions (e.g. `process.env`).
+ * `module.exports = { ... }` object literal of a discovery config file.
+ *
+ * Works as a targeted string edit (no AST): it locates the `experimental: { ... }`
+ * block by counting curly braces and either replaces an existing
+ * `cachedOperations: [...]` array or inserts a new one before the closing `}`.
+ * The rest of the file (comments, `process.env.*`, formatting, ...) is left
+ * untouched. A final pass through prettier normalizes the inserted snippet.
  */
 function updateCachedOperations(
   source: string,
   cachedQueries: string[]
 ): string {
-  const ast = recast.parse(source, { parser: babelParser })
-  const b = recast.types.builders
-
-  const newArray = b.arrayExpression(
-    cachedQueries.map((name) => b.stringLiteral(name))
-  )
-
-  const isPropertyNamed = (p: any, name: string) =>
-    (p.type === 'ObjectProperty' || p.type === 'Property') &&
-    ((p.key.type === 'Identifier' && p.key.name === name) ||
-      ((p.key.type === 'StringLiteral' || p.key.type === 'Literal') &&
-        p.key.value === name))
-
-  let patched = false
-
-  recast.types.visit(ast, {
-    visitAssignmentExpression(path: any) {
-      const node = path.node
-      const isModuleExports =
-        node.operator === '=' &&
-        node.left.type === 'MemberExpression' &&
-        node.left.object.type === 'Identifier' &&
-        node.left.object.name === 'module' &&
-        node.left.property.type === 'Identifier' &&
-        node.left.property.name === 'exports'
-
-      if (!isModuleExports || node.right.type !== 'ObjectExpression') {
-        return false
-      }
-
-      const experimentalProp = node.right.properties.find((p: any) =>
-        isPropertyNamed(p, 'experimental')
-      )
-
-      if (
-        !experimentalProp ||
-        experimentalProp.value.type !== 'ObjectExpression'
-      ) {
-        return false
-      }
-
-      const props = experimentalProp.value.properties
-      const idx = props.findIndex((p: any) =>
-        isPropertyNamed(p, 'cachedOperations')
-      )
-
-      const newProp = b.objectProperty(
-        b.identifier('cachedOperations'),
-        newArray
-      )
-
-      if (idx >= 0) {
-        props[idx] = newProp
-      } else {
-        props.push(newProp)
-      }
-
-      patched = true
-      return false
-    },
-  })
-
-  if (!patched) {
+  const block = findExperimentalBlock(source)
+  if (!block) {
     throw new Error(
-      `Couldn't find \`module.exports = { ..., experimental: { ... } }\` in ${configFileName}`
+      `Couldn't find \`experimental: { ... }\` block in ${configFileName}`
     )
   }
 
-  return removeRecastBlankLinesInExperimental(recast.print(ast).code)
+  const arraySnippet = `[\n${cachedQueries.map((q) => `    '${q}',`).join('\n')}\n  ]`
+  const propSnippet = `cachedOperations: ${arraySnippet},`
+
+  const inner = source.slice(block.innerStart, block.innerEnd)
+  const existing = findCachedOperationsRange(inner)
+
+  if (existing) {
+    const absStart = block.innerStart + existing.start
+    const absEnd = block.innerStart + existing.end
+    return source.slice(0, absStart) + propSnippet + source.slice(absEnd)
+  }
+
+  const insertAt = block.innerEnd
+  const head = source.slice(0, insertAt).replace(/\s*$/, '')
+  const tail = source.slice(insertAt)
+  return `${head}\n  ${propSnippet}\n${tail}`
 }
 
-/**
- * recast inserts spurious blank lines between properties of the `experimental`
- * object when we modify it. Collapse any sequence of blank lines inside that
- * block into none, preserving the rest of the file as-is.
- */
-function removeRecastBlankLinesInExperimental(code: string): string {
-  const startMatch = code.match(/\n[ \t]*experimental:\s*\{\n/)
-  if (!startMatch || startMatch.index === undefined) return code
+/** Find the `experimental: { ... }` block, returning the inner range. */
+function findExperimentalBlock(source: string) {
+  const re = /(^|\n)[ \t]*experimental\s*:\s*\{/
+  const match = re.exec(source)
+  if (!match) return null
 
-  const blockStart = startMatch.index + startMatch[0].length
+  const innerStart = match.index + match[0].length
   let depth = 1
-  let i = blockStart
-  while (i < code.length && depth > 0) {
-    const ch = code[i]
+  for (let i = innerStart; i < source.length; i++) {
+    const ch = source[i]
     if (ch === '{') depth++
-    else if (ch === '}') depth--
-    if (depth === 0) break
-    i++
+    else if (ch === '}') {
+      depth--
+      if (depth === 0) return { innerStart, innerEnd: i }
+    }
   }
-  const blockEnd = i
+  return null
+}
 
-  const before = code.slice(0, blockStart)
-  const block = code.slice(blockStart, blockEnd).replace(/\n[ \t]*\n+/g, '\n')
-  const after = code.slice(blockEnd)
-  return before + block + after
+/** Find the `cachedOperations: [...]` property range inside a string. */
+function findCachedOperationsRange(inner: string) {
+  const re = /(^|\n)[ \t]*cachedOperations\s*:\s*\[/
+  const match = re.exec(inner)
+  if (!match) return null
+
+  const start = match.index + (match[1] === '\n' ? 1 : 0)
+  const arrayStart = match.index + match[0].length
+  let depth = 1
+  for (let i = arrayStart; i < inner.length; i++) {
+    const ch = inner[i]
+    if (ch === '[') depth++
+    else if (ch === ']') {
+      depth--
+      if (depth === 0) {
+        let end = i + 1
+        if (inner[end] === ',') end++
+        return { start, end }
+      }
+    }
+  }
+  return null
 }
