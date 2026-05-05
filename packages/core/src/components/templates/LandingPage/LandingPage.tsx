@@ -121,7 +121,7 @@ export const getLandingPageBySlug = async (
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
       const pageBySlug = cmsData['landingPage'].find((page: any) => {
-        return slug === page.settings?.seo?.slug
+        return `/${slug}` === page.settings?.seo?.slug
       })
 
       if (pageBySlug) {
@@ -147,7 +147,7 @@ export const getLandingPageBySlug = async (
         filters:
           contentContext.previewData?.contentType === 'landingPage'
             ? undefined
-            : { 'settings.seo.slug': `/${slug}` },
+            : { filters: { 'settings.seo.slug': `/${slug}` } },
       })
     return landingPageData
   } catch (error) {
