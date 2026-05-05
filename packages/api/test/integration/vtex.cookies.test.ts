@@ -299,3 +299,45 @@ describe('Cookie normalization (duplicate handling)', () => {
     expect(result).toEqual('newToken')
   })
 })
+
+describe('Auth token resolution from merged cookie set', () => {
+  const ACCOUNT = 'mystore'
+
+  it('Should pick the storage-updated auth token over the original request cookie', () => {
+    // Mirrors how `vtexid.validate` resolves the body token: the cookie header
+    // already merges request + storage updates, so the body must follow the same
+    // source to stay consistent with the outgoing `cookie` header.
+    const originalToken = 'jwt-original'
+    const refreshedToken = 'jwt-refreshed'
+
+    const ctx = {
+      headers: {
+        cookie: `vtex_session=foo; VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: {
+        cookies: new Map<string, { value: string }>([
+          [`VtexIdclientAutCookie_${ACCOUNT}`, { value: refreshedToken }],
+        ]),
+      },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(refreshedToken)
+  })
+
+  it('Should fall back to the original request cookie when storage has no updates', () => {
+    const originalToken = 'jwt-original'
+
+    const ctx = {
+      headers: {
+        cookie: `VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: { cookies: new Map() },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(originalToken)
+  })
+})
