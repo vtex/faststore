@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { GraphqlContext } from '../../src/platforms/vtex'
 import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
 import {
+  getAuthCookie,
   getStoreCookie,
   getUpdatedCookie,
   getWithAutCookie,
@@ -253,5 +254,92 @@ describe('getStoreCookie', () => {
         'CheckoutOrderFormOwnership=CFEUHpzya69CNICSrc4h5cJzeQE856pULms%2BxxQdF9EOh5WPwtrzqMwl9FwAhPVM; expires=Sat, 08 Jun 2024 20:12:41 GMT; domain=vtexfaststore.com; path=/; secure; samesite=strict; httponly',
     })
     expect(ctx.storage.cookies.size).toEqual(2)
+  })
+})
+
+describe('Cookie normalization (duplicate handling)', () => {
+  it('Should handle duplicate cookies and keep the last value in getUpdatedCookie', () => {
+    const cookieWithDuplicates =
+      'VtexIdclientAutCookie_account=oldValue; vtex_session=sessionValue; VtexIdclientAutCookie_account=newValue'
+    const ctx = {
+      headers: { cookie: cookieWithDuplicates },
+      storage: { cookies: new Map() },
+    }
+
+    const result = getUpdatedCookie(ctx)
+
+    // Should keep the last value for duplicate keys, maintaining order of first appearance
+    expect(result).toEqual(
+      'VtexIdclientAutCookie_account=newValue; vtex_session=sessionValue'
+    )
+  })
+
+  it('Should handle multiple duplicate cookies and keep the last values', () => {
+    const cookieWithMultipleDuplicates =
+      'key1=value1; key2=value2; key1=value1_updated; key3=value3; key2=value2_updated; key1=value1_final'
+    const ctx = {
+      headers: { cookie: cookieWithMultipleDuplicates },
+      storage: { cookies: new Map() },
+    }
+
+    const result = getUpdatedCookie(ctx)
+
+    // Should keep the last value for each duplicate key, maintaining order of first appearance
+    expect(result).toEqual(
+      'key1=value1_final; key2=value2_updated; key3=value3'
+    )
+  })
+
+  it('Should handle duplicate auth cookies in getAuthCookie and return the last value', () => {
+    const cookieWithDuplicateAuth =
+      'VtexIdclientAutCookie_account=oldToken; other_cookie=value; VtexIdclientAutCookie_account=newToken'
+    const account = 'account'
+
+    const result = getAuthCookie(cookieWithDuplicateAuth, account)
+
+    // Should return the last (newest) auth token
+    expect(result).toEqual('newToken')
+  })
+})
+
+describe('Auth token resolution from merged cookie set', () => {
+  const ACCOUNT = 'mystore'
+
+  it('Should pick the storage-updated auth token over the original request cookie', () => {
+    // Mirrors how `vtexid.validate` resolves the body token: the cookie header
+    // already merges request + storage updates, so the body must follow the same
+    // source to stay consistent with the outgoing `cookie` header.
+    const originalToken = 'jwt-original'
+    const refreshedToken = 'jwt-refreshed'
+
+    const ctx = {
+      headers: {
+        cookie: `vtex_session=foo; VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: {
+        cookies: new Map<string, { value: string }>([
+          [`VtexIdclientAutCookie_${ACCOUNT}`, { value: refreshedToken }],
+        ]),
+      },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(refreshedToken)
+  })
+
+  it('Should fall back to the original request cookie when storage has no updates', () => {
+    const originalToken = 'jwt-original'
+
+    const ctx = {
+      headers: {
+        cookie: `VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: { cookies: new Map() },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(originalToken)
   })
 })

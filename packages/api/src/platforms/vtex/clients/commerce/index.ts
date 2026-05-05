@@ -20,6 +20,7 @@ import type { Channel } from '../../utils/channel'
 import {
   getAuthCookie,
   getStoreCookie,
+  getUpdatedCookie,
   getWithAutCookie,
   getWithCookie,
 } from '../../utils/cookies'
@@ -781,8 +782,9 @@ export const VtexCommerce = (
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {
         const headers: HeadersInit = withAutCookie(forwardedHost, account)
-        // Token is read from the incoming request's account-scoped auth cookie.
-        const token = getAuthCookie(ctx.headers?.cookie ?? '', account)
+        // Read from the merged cookie set so the body token stays in sync with
+        // the `cookie` header (both pull from request + storage updates).
+        const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)
 
         return fetchAPI(
           `${base}/api/vtexid/credential/validate`,
