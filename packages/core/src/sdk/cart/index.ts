@@ -16,7 +16,11 @@ import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
-export interface CartItem extends SDKCartItem, CartItemFragment {}
+export interface CartItem
+  extends SDKCartItem,
+    Omit<CartItemFragment, 'isGift'> {
+  isGift?: boolean | null
+}
 
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
@@ -53,6 +57,7 @@ export const ValidateCartMutation = gql(`
     priceWithTaxes
     listPrice
     listPriceWithTaxes
+    isGift
     itemOffered {
       ...CartProductItem
     }
@@ -88,7 +93,12 @@ export const ValidateCartMutation = gql(`
   }
 `)
 
-const isGift = (item: CartItem) => item.price === 0
+const isGift = (item: CartItem) => {
+  if (storeConfig.experimental?.useIsGiftFromOrderForm) {
+    return item?.isGift ?? false
+  }
+  return item.price === 0
+}
 
 const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
   [

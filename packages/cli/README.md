@@ -25,32 +25,36 @@ npm install -g @faststore/cli
 ```
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.99.0-dev.2 linux-x64 node-v20.20.2
+@faststore/cli/3.99.0-dev.8 linux-x64 node-v20.20.2
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 ## Commands
 
 <!-- commands -->
-* [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
-* [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
-* [`faststore create [PATH]`](#faststore-create-path)
-* [`faststore dev [PATH] [ACCOUNT] [PORT]`](#faststore-dev-path-account-port)
-* [`faststore generate`](#faststore-generate)
-* [`faststore generate-i18n [PATH]`](#faststore-generate-i18n-path)
-* [`faststore help [COMMAND]`](#faststore-help-command)
-* [`faststore prepare [PATH]`](#faststore-prepare-path)
-* [`faststore serve [ACCOUNT] [PATH] [PORT]`](#faststore-serve-account-path-port)
-* [`faststore test [PATH]`](#faststore-test-path)
+
+- [Installation](#installation)
+- [Commands](#commands)
+- [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
+- [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
+- [`faststore create [PATH]`](#faststore-create-path)
+- [`faststore dev [ACCOUNT] [PATH] [PORT]`](#faststore-dev-account-path-port)
+- [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
+- [`faststore generate-i18n [PATH]`](#faststore-generate-i18n-path)
+- [`faststore help [COMMAND]`](#faststore-help-command)
+- [`faststore prepare [PATH]`](#faststore-prepare-path)
+- [`faststore test [PATH]`](#faststore-test-path)
 
 ## `faststore build [ACCOUNT] [PATH]`
 
@@ -67,7 +71,7 @@ FLAGS
                registry.
 ```
 
-_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.2/dist/commands/build.js)_
+_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/build.js)_
 
 ## `faststore cms-sync [PATH]`
 
@@ -82,7 +86,7 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.2/dist/commands/cms-sync.js)_
+_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/cms-sync.js)_
 
 ## `faststore create [PATH]`
 
@@ -102,7 +106,7 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.2/dist/commands/create.js)_
+_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/create.js)_
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
@@ -119,7 +123,7 @@ FLAGS
   --watch-plugins  Enable watching for plugin changes
 ```
 
-_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.2/dist/commands/dev.js)_
+_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/dev.js)_
 
 ## `faststore generate-graphql [PATH]`
 
@@ -180,7 +184,7 @@ ARGUMENTS
   [PATH]  The path where the FastStore being run is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.2/dist/commands/start.js)_
+_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/start.js)_
 
 ## `faststore test [PATH]`
 
@@ -192,5 +196,6 @@ ARGUMENTS
   [PATH]  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.2/dist/commands/test.js)_
+_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/test.js)_
+
 <!-- commandsstop -->

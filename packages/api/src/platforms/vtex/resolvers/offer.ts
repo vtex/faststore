@@ -160,4 +160,11 @@ export const StoreOffer: Record<string, GraphqlResolver<Root>> = {
 
     return null
   },
+  isGift: (root) => {
+    if (isOrderFormItem(root)) {
+      return root.isGift ?? false
+    }
+
+    return null
+  },
 }

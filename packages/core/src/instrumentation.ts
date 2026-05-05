@@ -1,5 +1,5 @@
-import pkgJSON from '../package.json'
 import config from '../discovery.config'
+import pkgJSON from '../package.json'
 
 export async function register() {
   if (

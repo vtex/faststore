@@ -132,12 +132,12 @@ module.exports = {
 
   // Preview redirects
   previewRedirects: {
+    404: '/404',
+    500: '/500',
     home: '/',
     plp: '/office',
     search: '/s?q=headphone',
     pdp: '/apple-magic-mouse/p',
-    500: '/500',
-    404: '/404',
   },
 
   // Lighthouse CI
@@ -194,6 +194,7 @@ module.exports = {
     enableRedirects: false,
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
+    useIsGiftFromOrderForm: false,
     graphqlCacheControl: {
       maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
       staleWhileRevalidate: 60 * 60, // 1 hour

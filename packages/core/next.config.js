@@ -57,6 +57,7 @@ const nextConfig = {
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
+    instrumentationHook: true,
     scrollRestoration: !storeConfig.experimental.scrollRestoration,
   },
   /*

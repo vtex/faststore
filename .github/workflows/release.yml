@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - dev
+      - 3.x
 
 permissions:
   id-token: write # Required for OIDC
@@ -71,7 +72,12 @@ jobs:
         if: github.ref_name == 'dev'
         run: pnpm release:dev
 
+      - name: Publish (3.x)
+        if: github.ref_name == '3.x'
+        run: pnpm release:v3
+
       - name: Publish to Chromatic
+        if: github.ref_name != '3.x'
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

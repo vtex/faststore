@@ -1357,6 +1357,8 @@ export type StoreMarketingData = {
 export type StoreOffer = {
   /** Offer item availability. */
   availability: Scalars['String']['output'];
+  /** Whether this offer is a gift (e.g. free promotional item). */
+  isGift: Maybe<Scalars['Boolean']['output']>;
   /** Offer item condition. */
   itemCondition: Scalars['String']['output'];
   /** Information on the item being offered. */
@@ -2585,11 +2587,11 @@ export type ValidateCartMutationMutationVariables = Exact<{
 }>;
 
 
-export type ValidateCartMutationMutation = { validateCart: { order: { orderNumber: string, shouldSplitItem: boolean | null, acceptedOffer: Array<{ quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } }> }, messages: Array<{ text: string, status: StoreStatus }> } | null };
+export type ValidateCartMutationMutation = { validateCart: { order: { orderNumber: string, shouldSplitItem: boolean | null, acceptedOffer: Array<{ quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, isGift: boolean | null, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } }> }, messages: Array<{ text: string, status: StoreStatus }> } | null };
 
 export type CartMessageFragment = { text: string, status: StoreStatus };
 
-export type CartItemFragment = { quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+export type CartItemFragment = { quantity: number, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, isGift: boolean | null, seller: { identifier: string }, itemOffered: { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
 
 export type CartProductItemFragment = { sku: string, name: string, unitMultiplier: number | null, gtin: string, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> };
 
@@ -3198,6 +3200,7 @@ export const CartItemFragmentDoc = new TypedDocumentString(`
   priceWithTaxes
   listPrice
   listPriceWithTaxes
+  isGift
   itemOffered {
     ...CartProductItem
   }
@@ -3248,7 +3251,7 @@ export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"Serv
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
-export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
+export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"32c15f8888ca34f223def7972b7f19090808435a"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
 export const ClientProductCountQueryDocument = {"__meta__":{"operationName":"ClientProductCountQuery","operationHash":"dc912e7272e3d9f5ced206837df87f544d39d0a5"}} as unknown as TypedDocumentString<ClientProductCountQueryQuery, ClientProductCountQueryQueryVariables>;
