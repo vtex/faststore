@@ -140,20 +140,22 @@ export const validateSession = async (session: Session) => {
     session = refreshed
   }
 
-  const settings = getSettings()
-  const newChanel = JSON.stringify({
-    ...(JSON.parse(session.channel ?? '{}') ?? {}),
-    salesChannel: settings.salesChannel,
-  })
+  if (storeConfig.localization?.enabled) {
+    const settings = getSettings()
+    const newChanel = JSON.stringify({
+      ...(JSON.parse(session.channel ?? '{}') ?? {}),
+      salesChannel: settings.salesChannel,
+    })
 
-  if (
-    newChanel !== session.channel ||
-    settings.locale !== session.locale ||
-    deepEqual(settings.currency, session.currency) === false
-  ) {
-    session.locale = settings.locale
-    session.currency = settings.currency
-    session.channel = newChanel
+    if (
+      newChanel !== session.channel ||
+      settings.locale !== session.locale ||
+      deepEqual(settings.currency, session.currency) === false
+    ) {
+      session.locale = settings.locale
+      session.currency = settings.currency
+      session.channel = newChanel
+    }
   }
 
   // If deliveryPromise is enabled and there is no postalCode in the session
