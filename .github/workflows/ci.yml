@@ -41,19 +41,14 @@ jobs:
           role-to-assume: arn:aws:iam::053131491888:role/diagnostics-gh-actions-role
           aws-region: us-east-1
 
-      - name: Set CodeArtifact Auth Token
+      - name: Set CodeArtifact Auth
         run: |
-          TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
-          mkdir -p ./packages/diagnostics/vendor
-          curl -fL -H "Authorization: Bearer $TOKEN" https://main-053131491888.d.codeartifact.us-east-1.amazonaws.com/npm/observability/@vtex/diagnostics-nodejs/-/diagnostics-nodejs-5.1.9.tgz -o ./packages/diagnostics/vendor/diagnostics-nodejs-5.1.9.tgz
+          CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
+          echo "CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
           pnpm i
-          echo "[INFO] Install done! \n[INFO] Adding vendor package to diagnostics"
-          ls -l ./packages/diagnostics/vendor
-          pnpm add @vtex/diagnostics-nodejs@./vendor/diagnostics-nodejs-5.1.9.tgz --filter @faststore/diagnostics
-
 
       - name: Lint
         run: pnpm lint
