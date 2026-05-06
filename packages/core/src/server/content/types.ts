@@ -21,7 +21,7 @@ export interface ContentParams extends ContentRequestContext {
   documentId?: string
   versionId?: string
   releaseId?: string
-  filters?: Record<string, unknown>
+  filters?: Record<string, string>
   locale?: string
 }
 

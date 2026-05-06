@@ -19,8 +19,8 @@ import type { PageContentType } from 'src/server/cms'
 import { getComponentKey } from 'src/utils/cms'
 
 import storeConfig from 'discovery.config'
-import { contentService } from 'src/server/content/service'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
+import { contentService } from 'src/server/content/service'
 import type { ContentRequestContext } from 'src/server/content/types'
 
 /* A list of components that can be used in the CMS. */
@@ -121,7 +121,7 @@ export const getLandingPageBySlug = async (
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
       const pageBySlug = cmsData['landingPage'].find((page: any) => {
-        return slug === page.settings?.seo?.slug
+        return `/${slug}` === page.settings?.seo?.slug
       })
 
       if (pageBySlug) {
