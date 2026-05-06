@@ -46,6 +46,7 @@ jobs:
           TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
           mkdir -p ./packages/diagnostics/vendor
           curl -H "Authorization: Bearer $TOKEN" https://main-053131491888.d.codeartifact.us-east-1.amazonaws.com/npm/observability/@vtex/diagnostics-nodejs/-/diagnostics-nodejs-5.1.9.tgz -o ./packages/diagnostics/vendor/diagnostics-nodejs-5.1.9.tgz
+          pnpm add @vtex/diagnostics-nodejs@./vendor/diagnostics-nodejs-5.1.9.tgz --filter @faststore/diagnostics
 
       - name: Install dependencies
         run: pnpm i
