@@ -1,32 +1,32 @@
+import type { ServerProductQueryQuery } from '@generated/graphql'
 import type { ContentData, Locator } from '@vtex/client-cms'
-import ClientCP from '@vtex/client-cp'
 import type { ContentEntry, EntryPathParams } from '@vtex/client-cp'
+import ClientCP from '@vtex/client-cp'
+import MissingContentError from 'src/sdk/error/MissingContentError'
+import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import { getCMSPage, getPage, type PageContentType } from 'src/server/cms'
-import type { ContentOptions, ContentParams, PreviewData } from './types'
-import config from '../../../discovery.config'
-import { getPLP, type PLPContentType } from '../cms/plp'
 import {
   findBestPDPTemplate,
   findBestPLPTemplate,
   type Rewrite,
   type RewritesConfig,
 } from 'src/utils/multipleTemplates'
-import MissingContentError from 'src/sdk/error/MissingContentError'
+import config from '../../../discovery.config'
 import { getPDP, type PDPContentType } from '../cms/pdp'
-import MultipleContentError from 'src/sdk/error/MultipleContentError'
-import type { ServerProductQueryQuery } from '@generated/graphql'
+import { getPLP, type PLPContentType } from '../cms/plp'
+import type { ContentOptions, ContentParams } from './types'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
 
+const OPTIONAL_CONTENT_TYPES = [
+  'globalHeaderSections',
+  'globalFooterSections',
+] as const
 export class ContentService {
-  private clientCP: ClientCP
-
-  constructor() {
-    this.clientCP = new ClientCP({
-      tenant: config.api.storeId,
-    })
-  }
+  private readonly clientCP = new ClientCP({
+    tenant: config.api.storeId,
+  })
 
   async getSingleContent<T extends ContentData>(
     params: ContentParams
@@ -157,7 +157,13 @@ export class ContentService {
   ): Promise<PageContentType> {
     const { entries } = await this.clientCP.listEntries(params)
     if (!entries || entries.length === 0) {
-      console.warn('No entries found for params', params)
+      const isOptional = OPTIONAL_CONTENT_TYPES.includes(
+        params.contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]
+      )
+
+      if (!isOptional) {
+        console.warn('No entries found for params', params)
+      }
       return {} as PageContentType
     }
     if (entries.length > 1) {
@@ -167,7 +173,13 @@ export class ContentService {
   }
 
   private createContentOptions(params: ContentParams): ContentOptions {
-    const { contentType, previewData, slug } = params
+    const { contentType, previewData, slug, locale } = params
+    const previewLocale = previewData?.locale
+    const effectiveLocale =
+      previewLocale !== undefined &&
+      (locale === undefined || locale === config.session.locale)
+        ? previewLocale
+        : locale
 
     const contentPreviewEnabled = previewData?.contentType === contentType
     const branchPreviewEnabled = isBranchPreview(previewData)
@@ -178,6 +190,7 @@ export class ContentService {
         contentPreviewEnabled,
         branchPreviewEnabled
       ),
+      ...(effectiveLocale !== undefined && { locale: effectiveLocale }),
       ...(slug !== undefined && { slug }),
       isPreview: contentPreviewEnabled || branchPreviewEnabled,
     }
@@ -191,6 +204,7 @@ export class ContentService {
         (config.contentSource as Record<string, string>)?.project ??
         'faststore',
       contentType: cmsOptions.contentType,
+      locale: options.locale,
       slug: options.slug,
     }
 
@@ -204,14 +218,12 @@ export class ContentService {
       params.branchId = cmsOptions.releaseId
     }
     if ('filters' in cmsOptions && cmsOptions.filters) {
-      const nested = (
-        cmsOptions.filters as { filters?: Record<string, unknown> }
-      ).filters as Record<string, unknown>
-      if (nested && nested['settings.seo.slug']) {
-        const seo = nested['settings.seo.slug'] as string
+      const filters = cmsOptions.filters as Record<string, unknown>
+      const seo = filters['settings.seo.slug']
+
+      if (typeof seo === 'string' && !params.slug) {
         params.slug = seo.replace(/^\//, '')
       }
-      Object.assign(params, cmsOptions.filters)
     }
 
     return params as EntryPathParams
@@ -230,7 +242,7 @@ export class ContentService {
       releaseId,
       filters,
     } = params
-    const { slug: _, ...previewLocator } = previewData || {}
+    const { slug: _, locale: __, ...previewLocator } = previewData ?? {}
 
     return {
       contentType,
@@ -254,7 +266,7 @@ export class ContentService {
       ...entry,
       ...data,
       id: entry.id,
-      name: entry.name || '',
+      name: entry.name ?? '',
     }
   }
 }

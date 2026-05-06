@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-profile-summary] {
   display: flex;
   flex-direction: column;
@@ -46,11 +48,11 @@
   min-width: min-content;
   padding: calc(var(--fs-spacing-3) + var(--fs-spacing-0));
 
-  @include media("<notebook") {
+  @include utilities.media("<notebook") {
     justify-content: space-between;
   }
 
-  @include media("<tablet") {
+  @include utilities.media("<tablet") {
     padding: calc(var(--fs-spacing-0) + var(--fs-spacing-0));
   }
 
@@ -58,7 +60,7 @@
     display: flex;
     align-items: center;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       width: 60%;
     }
   }
@@ -76,7 +78,7 @@
     background-color: #cbe9ff;
     border-radius: var(--fs-border-radius-pill);
 
-    @include media("<=tablet") {
+    @include utilities.media("<=tablet") {
       margin-right: var(--fs-spacing-1);
     }
   }
@@ -87,11 +89,11 @@
     gap: var(--fs-spacing-0);
     font-size: var(--fs-text-size-legend);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       width: 75%;
     }
 
-    @include media("<=tablet") {
+    @include utilities.media("<=tablet") {
       font-size: var(--fs-text-size-tiny);
     }
 

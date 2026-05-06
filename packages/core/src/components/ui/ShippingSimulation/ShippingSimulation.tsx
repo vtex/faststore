@@ -20,6 +20,7 @@ interface ShippingSimulationProps
     quantity: number
     seller: string
   }
+  invalidPostalCodeErrorMessage?: string
 }
 
 export default function ShippingSimulation({
@@ -28,6 +29,7 @@ export default function ShippingSimulation({
   inputLabel,
   title,
   idkPostalCodeLinkProps,
+  invalidPostalCodeErrorMessage,
   ...otherProps
 }: ShippingSimulationProps) {
   const { ShippingSimulation: ShippingSimulationWrapper } =
@@ -39,7 +41,10 @@ export default function ShippingSimulation({
     handleSubmit,
     handleOnInput,
     handleOnClear,
-  } = useShippingSimulation(productShippingInfo)
+  } = useShippingSimulation({
+    shippingItem: productShippingInfo,
+    invalidPostalCodeErrorMessage,
+  })
 
   const { postalCode, displayClearButton, errorMessage } = input
 

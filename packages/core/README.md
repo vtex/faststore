@@ -19,7 +19,7 @@ This starter ships the main FastStore configuration files to get your store up a
 Install dependencies with pnpm
 
 ```shell
-pnpm i 
+pnpm i
 ```
 
 2. **Start developing**
@@ -179,6 +179,7 @@ $ pnpm generate
 That's it! you have just regenerated all graphql queries/fragments for your application and the new data you requested should be available to your component.
 
 > Pro tip: Pass `-w` to the `pnpm generate` command so it watches for changes and you don't need to run this command multiple times.
+
 
 ## CMS Integration
 

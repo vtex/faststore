@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-product-tile-skeleton] {
   // --------------------------------------------------------
   // Design Tokens for Product Tile Skeleton
@@ -25,13 +27,13 @@
   padding: 0;
   overflow: hidden;
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     display: grid;
     grid-auto-rows: 62% auto;
     [data-fs-product-card-image] { height: 100%; }
   }
 
-  @include media(">=notebook") { grid-auto-rows: 80% auto; }
+  @include utilities.media(">=notebook") { grid-auto-rows: 80% auto; }
 
   [data-fs-product-tile-skeleton-content] {
     display: flex;
@@ -40,7 +42,7 @@
     padding: var(--fs-product-tile-skeleton-content-padding);
     background-color: var(--fs-product-tile-skeleton-wide-bkg-color);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       flex-direction: row;
       justify-content: space-between;
       height: 100%;
@@ -65,7 +67,7 @@
 
     [data-fs-skeleton-variant="image"] { border-radius: 0; }
 
-    @include media(">=tablet") { height: 100%; }
+    @include utilities.media(">=tablet") { height: 100%; }
   }
 
   [data-fs-product-tile-skeleton-image],

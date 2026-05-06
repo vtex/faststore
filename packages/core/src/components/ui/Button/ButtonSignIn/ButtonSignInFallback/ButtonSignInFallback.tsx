@@ -1,4 +1,6 @@
-import { Icon, LinkButton } from '@faststore/ui'
+import { Icon } from '@faststore/ui'
+
+import LinkButton from 'src/components/ui/LinkButton'
 
 function ButtonSignInFallback() {
   return (

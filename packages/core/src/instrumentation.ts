@@ -1,11 +1,25 @@
-export async function register() {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    const isProduction = process.env.NODE_ENV === 'production'
-    const isVercel = !!process.env.VERCEL
+import config from '../discovery.config'
+import pkgJSON from '../package.json'
 
-    if (isProduction && !isVercel) {
-      await require('pino')
-      await require('next-logger')
+export async function register() {
+  if (
+    process.env.NEXT_RUNTIME === 'nodejs' &&
+    config.analytics.otelEnabled === true
+  ) {
+    const { name, version } = pkgJSON
+    try {
+      const { getTelemetryClient } = await import('@faststore/diagnostics')
+      console.log('Instrumemtation.ts: Getting telemetry client')
+
+      return getTelemetryClient({
+        serviceName: config.analytics?.serviceName ?? name,
+        version,
+        account: config.api.storeId,
+        clientName: config.api.storeId,
+        packageName: name,
+      })
+    } catch (error) {
+      console.error('Failed to initialize OTEL Instrumentation')
     }
   }
 }

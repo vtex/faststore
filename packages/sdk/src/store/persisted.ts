@@ -73,6 +73,9 @@ export const persisted =
       () => document.visibilityState === 'visible' && debouncedSync()
     )
 
+    // Block IDB writes until the initial read completes.  This prevents a
+    // race where an early store.set (from session sync, etc.) overwrites
+    // saved data before it has been read back.
     store.subscribe((value) => {
       if (hydrated) {
         setIDB(key, value)

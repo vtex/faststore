@@ -1,5 +1,5 @@
 // The import order of these stylesheets does affect in the layers override
 // global/index.scss should be import before themes/index.scss
-@import "./global/index.scss";
-@import "../customizations/src/themes/index.scss";
-@import "../plugins/index.scss";
+@use "./global/index.scss" as global;
+@use "../customizations/src/themes/index.scss" as themes;
+@use "../plugins/index.scss" as plugins;

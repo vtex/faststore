@@ -1,3 +1,4 @@
+import { expect, test, vi } from 'vitest'
 import { createBaseStore } from '../../src'
 
 test('Store: Returns initial value', () => {
@@ -8,7 +9,7 @@ test('Store: Returns initial value', () => {
 
 test('Store: Broadcasts after set', async () => {
   const store = createBaseStore(1)
-  const mocked = jest.fn()
+  const mocked = vi.fn()
 
   store.subscribe(mocked)
   store.set(2)
@@ -19,7 +20,7 @@ test('Store: Broadcasts after set', async () => {
 
 test('Store: Returns initial value after set', async () => {
   const store = createBaseStore(1)
-  const mocked = jest.fn()
+  const mocked = vi.fn()
 
   store.subscribe(mocked)
   store.set(2)

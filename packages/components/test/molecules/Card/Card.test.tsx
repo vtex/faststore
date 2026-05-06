@@ -1,47 +1,50 @@
-import { describe, expect, it } from '@jest/globals'
-import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
-import { axe, toHaveNoViolations } from 'jest-axe'
-
+import { cleanup, render } from '@testing-library/react'
 import React from 'react'
-
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { axe } from 'vitest-axe'
 import { Card } from '../../../src/index'
 
-expect.extend(toHaveNoViolations)
+afterEach(() => {
+  cleanup()
+})
 
 describe('Card', () => {
-  const mockIconAction = jest.fn()
-  it('renders with title', () => {
-    render(<Card title="Test Card" />)
+  const mockIconAction = vi.fn()
+  beforeEach(() => {
+    mockIconAction.mockClear()
+  })
 
-    const cardTitle = screen.getByText('Test Card')
+  it('renders with title', () => {
+    const renderResult = render(<Card title="Test Card" />)
+
+    const cardTitle = renderResult.getByText('Test Card')
     expect(cardTitle).toBeInTheDocument()
   })
 
   it('renders with custom max width', () => {
-    render(<Card title="Test Card" maxWidth="500px" />)
+    const renderResult = render(<Card title="Test Card" maxWidth="500px" />)
 
-    const card = screen.getByTestId('fs-card')
+    const card = renderResult.getByTestId('fs-card')
     expect(card).toHaveStyle('max-width: 500px')
   })
 
   it('renders with icon', () => {
-    render(<Card title="Test Card" iconName="star" />)
+    const renderResult = render(<Card title="Test Card" iconName="star" />)
 
-    const iconButton = screen.getByLabelText(
-      'Test Card action'
-    ) as HTMLButtonElement
+    const iconButton = renderResult.getByLabelText('Test Card action', {
+      selector: 'button',
+    })
     expect(iconButton).toBeInTheDocument()
   })
 
   it('executes the icon action when clicked', () => {
-    render(
+    const renderResult = render(
       <Card title="Test Card" iconName="star" iconAction={mockIconAction} />
     )
 
-    const iconButton = screen.getByLabelText(
-      'Test Card action'
-    ) as HTMLButtonElement
+    const iconButton = renderResult.getByLabelText('Test Card action', {
+      selector: 'button',
+    })
     iconButton.click()
     expect(mockIconAction).toHaveBeenCalled()
   })
@@ -50,6 +53,7 @@ describe('Card', () => {
     const { container } = render(
       <Card title="Test Card" iconName="star" iconAction={mockIconAction} />
     )
+    // @ts-expect-error
     expect(await axe(container)).toHaveNoViolations()
   })
 })

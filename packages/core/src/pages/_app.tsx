@@ -15,13 +15,20 @@ import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
 
-import SEO from 'next-seo.config'
 import storeConfig from 'discovery.config'
+import SEO from 'next-seo.config'
 
 // FastStore UI's base styles
 import '../styles/main.scss'
 
 import { ITEMS_PER_PAGE } from 'src/constants'
+import { useLocalizationConfig } from 'src/sdk/localization/useLocalizationConfig'
+
+function LocalizationConfigUpdater() {
+  // Update session with localization config
+  useLocalizationConfig()
+  return null
+}
 
 function App({ Component, pageProps }: AppProps) {
   useGeolocation()
@@ -35,6 +42,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary>
+      {storeConfig.localization?.enabled && <LocalizationConfigUpdater />}
       <Head> {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</Head>
       <DefaultSeo {...SEO} />
 

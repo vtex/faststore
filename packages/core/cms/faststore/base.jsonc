@@ -1,6 +1,6 @@
 {
   // This should be automatically updated and point to Schema Registry.
-  "$id": "vtex.faststore",
+  "$id": "vtex.faststore4",
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
   // Default content-types available in FastStore can be added here.

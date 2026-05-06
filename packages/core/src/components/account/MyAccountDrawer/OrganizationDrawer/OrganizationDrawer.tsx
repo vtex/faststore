@@ -1,5 +1,6 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
 
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { useSession } from 'src/sdk/session'
 import {
   expireCookieClient,
@@ -124,7 +125,7 @@ export const doLogout = async (_event?: unknown) => {
   } finally {
     setReloadAfterLogoutReturn()
     window.location.assign(
-      `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${storeConfig.storeUrl}`
+      `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${getStoreURL()}`
     )
   }
 }

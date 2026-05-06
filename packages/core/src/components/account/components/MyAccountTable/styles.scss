@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-account-table] {
   display: grid;
   grid-template-columns: 1fr;
@@ -5,7 +7,7 @@
   border-spacing: 0;
   border-collapse: collapse;
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     grid-template-columns: minmax(11.25rem, auto) 1fr;
   }
 
@@ -25,7 +27,7 @@
       > [data-fs-account-table-data] { border-bottom: none; }
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: contents;
     }
   }
@@ -41,7 +43,7 @@
     color: var(--fs-color-text-light);
     text-align: left;
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       min-height: var(--fs-spacing-10);
       padding-bottom: 0;
       border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
@@ -59,7 +61,7 @@
 
     [data-fs-link] { padding: 0; }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       min-height: var(--fs-spacing-10);
       border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
     }

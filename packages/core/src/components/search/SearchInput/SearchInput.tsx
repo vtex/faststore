@@ -33,10 +33,10 @@ import {
 } from '@faststore/ui'
 
 import type {
-  SearchInputFieldProps as UISearchInputFieldProps,
-  SearchInputFieldRef as UISearchInputFieldRef,
   CSVData,
   Product,
+  SearchInputFieldProps as UISearchInputFieldProps,
+  SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
 
 import type { SearchProviderContextValue } from '@faststore/ui'
@@ -49,7 +49,7 @@ import { cartStore } from 'src/sdk/cart'
 import { convertProductToQuickOrder } from 'src/sdk/product/convertProductToQuickOrder'
 import { useBulkProductsQuery } from 'src/sdk/product/useBulkProductsQuery'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { useFormatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
 const SearchDropdown = lazy(
@@ -70,10 +70,12 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
-  /**
-   * Called when the user clicks Search in the file upload card, with the parsed CSV data.
-   * Use this to run bulk search, add to cart, or analytics.
-   */
+  submitButtonAriaLabel?: string
+  loadingLabel?: string
+  searchHistoryTitle?: string
+  searchTopTitle?: string
+  // Called when the user clicks Search in the file upload card, with the parsed CSV data.
+  // Use this to run bulk search, add to cart, or analytics.
   onFileSearch?: (data: CSVData) => void
 } & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
@@ -99,6 +101,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       sort,
       placeholder,
       quickOrderSettings,
+      submitButtonAriaLabel,
+      loadingLabel,
+      searchHistoryTitle,
+      searchTopTitle,
       onFileSearch,
       ...otherProps
     },
@@ -123,6 +129,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+    const formatSearchPath = useFormatSearchPath()
     const priceFormatter = usePriceFormatter()
     const { pushToast } = useUI()
 
@@ -444,6 +451,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const buttonProps = {
       onClick: onSearchClick,
       testId: buttonTestId,
+      'aria-label': submitButtonAriaLabel,
     }
 
     const handleAddToCart = useCallback(
@@ -513,7 +521,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         {hidden ? (
           <UIIconButton
             type="submit"
-            aria-label={a11yLabels?.searchButtonAriaLabel}
+            aria-label={
+              a11yLabels?.searchButtonAriaLabel ?? submitButtonAriaLabel
+            }
             icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}
@@ -575,6 +585,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 <SearchDropdown
                   sort={sort as SearchState['sort']}
                   quickOrderSettings={quickOrderSettings}
+                  loadingLabel={loadingLabel}
+                  searchHistoryTitle={searchHistoryTitle}
+                  searchTopTitle={searchTopTitle}
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }

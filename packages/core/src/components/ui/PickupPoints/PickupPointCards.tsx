@@ -49,7 +49,7 @@ function PickupPointCards({
     title: regionErrorMessage,
     description: regionErrorHelperMessage,
   },
-  choosePickupPointAriaLabel = 'Select a store',
+  choosePickupPointAriaLabel,
 }: PickupPointCardsProps) {
   if (regionErrorMessage) {
     return (
@@ -68,9 +68,7 @@ function PickupPointCards({
   if (noPickupPointsAvailableMessage) {
     return (
       <UIEmptyState
-        title={
-          noPickupPointsAvailableMessage ?? 'No available stores near location.'
-        }
+        title={noPickupPointsAvailableMessage}
         titleIcon={
           <UIIcon name="Storefront" width={56} height={56} weight="thin" />
         }

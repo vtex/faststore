@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-buy-button] {
   // --------------------------------------------------------
   // Design Tokens for Buy Button
@@ -22,7 +24,7 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  @include focus-ring-visible;
+  @include utilities.focus-ring-visible;
 
   color: var(--fs-buy-button-text-color);
 
@@ -30,7 +32,6 @@
     background-color: var(--fs-buy-button-bkg-color);
     border: var(--fs-button-border-width) solid var(--fs-buy-button-border-color);
   }
-
 
   &:hover [data-fs-button-wrapper] {
     color: var(--fs-buy-button-text-color-hover);

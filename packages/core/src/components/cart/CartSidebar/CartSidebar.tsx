@@ -108,6 +108,10 @@ export interface CartSidebarProps {
     }
     text: UICartSidebarProps['alertText']
   }
+  emptyCart?: {
+    title?: string
+    buttonLabel?: string
+  }
   checkoutButton: {
     label: string
     loadingLabel: string
@@ -131,6 +135,7 @@ function CartSidebar({
     icon: { icon: alertIcon, alt: alertIconAlt },
     text: alertText,
   },
+  emptyCart,
   checkoutButton: {
     label: checkoutLabel,
     loadingLabel: checkoutLoadingLabel,
@@ -178,7 +183,11 @@ function CartSidebar({
           onClose={fadeOut}
         >
           {isEmpty ? (
-            <EmptyCart onDismiss={closeCart} />
+            <EmptyCart
+              title={emptyCart?.title}
+              buttonLabel={emptyCart?.buttonLabel}
+              onDismiss={closeCart}
+            />
           ) : (
             <>
               <UICartSidebarList>

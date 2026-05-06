@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 export const CollectionDesksQuery = `query CollectionQuery {
   collection(slug: "desks") {
     id

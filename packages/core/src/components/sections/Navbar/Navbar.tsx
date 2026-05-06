@@ -23,8 +23,16 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    submitButtonAriaLabel?: string
+    searchHistoryTitle?: string
+    searchTopTitle?: string
+    collapseSearchAriaLabel?: string
     quickOrderSettings?: {
       quickOrder: boolean
+      invalidQuantityToastLabels?: {
+        title?: string
+        message?: string
+      }
       attachmentButton?: {
         icon: {
           icon: string
@@ -45,6 +53,7 @@ export interface NavbarProps {
           }
         }
       }
+      outOfStockLabel?: string
       drawer?: {
         defaultTitle?: string
         columns?: {
@@ -106,6 +115,7 @@ export interface NavbarProps {
         >
       }
     }
+    loadingLabel?: string
   }
   signInButton: {
     icon: {
@@ -127,6 +137,19 @@ export interface NavbarProps {
         icon: string
       }
       label: string
+    }
+    localizationButton?: {
+      shouldDisplayLocalizationButton: boolean
+      icon: {
+        icon: string
+      }
+    }
+    localizationSelector: {
+      title?: string
+      languageLabel?: string
+      currencyLabel?: string
+      description?: string
+      saveLabel?: string
     }
     pageLinks: PageLinks[]
     menu: {
@@ -155,6 +178,17 @@ function NavbarSection({
       icon: { icon: regionIcon },
       enabled: shouldDisplayRegion,
     },
+    localizationButton: {
+      icon: { icon: localizationIcon },
+      shouldDisplayLocalizationButton,
+    } = { icon: { icon: '' }, shouldDisplayLocalizationButton: false },
+    localizationSelector: {
+      title: localizationTitle,
+      languageLabel: localizationLanguageLabel,
+      currencyLabel: localizationCurrencyLabel,
+      description: localizationDescription,
+      saveLabel: localizationSaveLabel,
+    } = {},
   },
 }: NavbarProps) {
   return (
@@ -171,6 +205,17 @@ function NavbarSection({
           icon: regionIcon,
           label: regionLabel,
           shouldDisplayRegion,
+        }}
+        localizationButton={{
+          icon: localizationIcon,
+          shouldDisplayLocalizationButton,
+        }}
+        localizationSelector={{
+          title: localizationTitle,
+          languageLabel: localizationLanguageLabel,
+          currencyLabel: localizationCurrencyLabel,
+          description: localizationDescription,
+          saveLabel: localizationSaveLabel,
         }}
       />
     </Section>

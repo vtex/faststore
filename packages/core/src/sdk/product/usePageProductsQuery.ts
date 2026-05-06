@@ -1,10 +1,10 @@
-import storeConfig from 'discovery.config'
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
 import type {
   ClientManyProductsQueryWithSearchIdQuery,
   ClientManyProductsQueryWithSearchIdQueryVariables,
 } from '@generated/graphql'
+import storeConfig from 'discovery.config'
 import deepEquals from 'fast-deep-equal'
 import {
   createContext,
@@ -150,7 +150,7 @@ export const useCreateUseGalleryPage = (
     const { data } = useQuery<
       ClientManyProductsQueryWithSearchIdQuery,
       ClientManyProductsQueryWithSearchIdQueryVariables
-    >(query, localizedVariables, {
+    >(query, localizedVariablesWithRegion, {
       fallbackData: null,
       suspense: true,
       doNotRun:

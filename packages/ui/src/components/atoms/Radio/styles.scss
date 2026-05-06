@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-radio] {
   // --------------------------------------------------------
   // Design Tokens for radio
@@ -47,7 +49,7 @@
   transition: var(--fs-radio-transition);
   appearance: none;
 
-  @include input-focus-ring;
+  @include utilities.input-focus-ring;
 
   &::before {
     width: var(--fs-radio-knob-width);

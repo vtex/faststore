@@ -1,7 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 import { SelectField } from '@faststore/ui'
 
-const OptionsMap = {
+const DEFAULT_OPTIONS = {
   price_desc: 'Price, descending',
   price_asc: 'Price, ascending',
   orders_desc: 'Top sales',
@@ -10,35 +10,33 @@ const OptionsMap = {
   release_desc: 'Release date',
   discount_desc: 'Discount',
   score_desc: 'Relevance',
-}
+} as const
 
-const keys = Object.keys(OptionsMap) as Array<keyof typeof OptionsMap>
+const SORT_OPTIONS_KEYS = Object.keys(DEFAULT_OPTIONS) as Array<
+  keyof typeof DEFAULT_OPTIONS
+>
+
+type SortOptionKeys = (typeof SORT_OPTIONS_KEYS)[number]
+
 export interface SortProps {
   label?: string
-  options?: {
-    price_desc?: string
-    price_asc?: string
-    orders_desc?: string
-    name_asc?: string
-    name_desc?: string
-    release_desc?: string
-    discount_desc?: string
-    score_desc?: string
-  }
+  options?: Partial<Record<SortOptionKeys, string>>
 }
 
-type SortOptionKeys = keyof SortProps['options']
-
-function Sort({ label = 'Sort by', options = OptionsMap }: SortProps) {
+function Sort({ label = 'Sort by', options = DEFAULT_OPTIONS }: SortProps) {
   const { state, setState } = useSearch()
 
-  const optionsMap = Object.keys(options).reduce(
-    (acc, currentKey: SortOptionKeys) => {
-      acc[currentKey] = options[currentKey] ?? OptionsMap[currentKey]
+  const optionsMap = SORT_OPTIONS_KEYS.reduce(
+    (acc, key) => {
+      if (Object.hasOwn(options, key)) {
+        acc[key] = options[key] ?? DEFAULT_OPTIONS[key]
+      }
       return acc
     },
     {} as Record<SortOptionKeys, string>
   )
+
+  const keys = Object.keys(optionsMap) as Array<SortOptionKeys>
 
   return (
     <SelectField
