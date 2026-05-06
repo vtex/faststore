@@ -91,6 +91,7 @@ packages/gatsby-**/**/*.json
 # autogen graphql files
 packages/core/@generated/schema.graphql
 packages/core/@generated/persisted-documents.json
+packages/core/@generated/cached-operations.json
 
 # lighthouse CI autogen files
 .lighthouseci
