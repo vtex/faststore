@@ -5,7 +5,7 @@ import { useUI } from '../../hooks'
 function Toast() {
   const { toasts, popToast } = useUI()
   const toast = toasts[toasts.length - 1]
-  const timeoutRef = useRef<number>()
+  const timeoutRef = useRef<number | NodeJS.Timeout>()
 
   const [visible, setVisible] = useState(false)
 

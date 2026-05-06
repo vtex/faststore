@@ -2,11 +2,13 @@
 
 import type { TelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
 import type { TraceClient } from '@vtex/diagnostics-nodejs/dist/types/traces.js'
+import type { LogClient } from '@vtex/diagnostics-nodejs/dist/types/logs.d.ts'
 
 declare global {
   var fsDiagnostics: {
-    TELEMETRY_CLIENTS: Map<string, TelemetryClient | undefined>
-    TRACE_CLIENTS: Map<string, TraceClient | undefined>
+    TELEMETRY_CLIENT: TelemetryClient | undefined
+    TRACE_CLIENT: TraceClient | undefined
+    LOGGER_CLIENT: LogClient | undefined
     IS_DEV: boolean
   }
 }
