@@ -4,6 +4,7 @@ import {
   getAuthCookie,
   getStoreCookie,
   getUpdatedCookie,
+  getWithAutCookie,
   getWithCookie,
   updatesContextStorageCookies,
   updatesCookieValueByKey,
@@ -95,6 +96,69 @@ describe('getWithCookie', () => {
     const newHeaders = withCookie(headers)
 
     expect(newHeaders).toEqual({ ...headers, cookie: ctx.headers.cookie })
+  })
+})
+
+describe('getWithAutCookie', () => {
+  const FORWARDED_HOST = 'mystore.fast.store'
+  const ACCOUNT = 'mystore'
+  const TOKEN = 'jwt-store-audience-value'
+
+  it('Should forward the suffixed auth cookie via the `cookie` header', () => {
+    const cookie = `vtex_session=foo; VtexIdclientAutCookie_${ACCOUNT}=${TOKEN}`
+    const ctx = {
+      headers: { cookie },
+      storage: { cookies: new Map() },
+    }
+
+    const withAutCookie = getWithAutCookie(ctx)
+    const headers = withAutCookie(FORWARDED_HOST, ACCOUNT) as Record<
+      string,
+      string
+    >
+
+    expect(headers).toEqual({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': FORWARDED_HOST,
+      cookie,
+    })
+  })
+
+  it('Should NOT set the unscoped `VtexIdclientAutCookie` header', () => {
+    // Regression: the auth token is forwarded only via the account-scoped cookie.
+    const cookie = `VtexIdclientAutCookie_${ACCOUNT}=${TOKEN}`
+    const ctx = {
+      headers: { cookie },
+      storage: { cookies: new Map() },
+    }
+
+    const withAutCookie = getWithAutCookie(ctx)
+    const headers = withAutCookie(FORWARDED_HOST, ACCOUNT) as Record<
+      string,
+      string
+    >
+
+    expect(headers).not.toHaveProperty('VtexIdclientAutCookie')
+  })
+
+  it('Should still build base headers when no auth cookie is present', () => {
+    const ctx = {
+      headers: { cookie: 'vtex_segment=foo' },
+      storage: { cookies: new Map() },
+    }
+
+    const withAutCookie = getWithAutCookie(ctx)
+    const headers = withAutCookie(FORWARDED_HOST, ACCOUNT) as Record<
+      string,
+      string
+    >
+
+    expect(headers).toEqual({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': FORWARDED_HOST,
+      cookie: 'vtex_segment=foo',
+    })
+    expect(headers).not.toHaveProperty('VtexIdclientAutCookie')
   })
 })
 
@@ -233,5 +297,47 @@ describe('Cookie normalization (duplicate handling)', () => {
 
     // Should return the last (newest) auth token
     expect(result).toEqual('newToken')
+  })
+})
+
+describe('Auth token resolution from merged cookie set', () => {
+  const ACCOUNT = 'mystore'
+
+  it('Should pick the storage-updated auth token over the original request cookie', () => {
+    // Mirrors how `vtexid.validate` resolves the body token: the cookie header
+    // already merges request + storage updates, so the body must follow the same
+    // source to stay consistent with the outgoing `cookie` header.
+    const originalToken = 'jwt-original'
+    const refreshedToken = 'jwt-refreshed'
+
+    const ctx = {
+      headers: {
+        cookie: `vtex_session=foo; VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: {
+        cookies: new Map<string, { value: string }>([
+          [`VtexIdclientAutCookie_${ACCOUNT}`, { value: refreshedToken }],
+        ]),
+      },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(refreshedToken)
+  })
+
+  it('Should fall back to the original request cookie when storage has no updates', () => {
+    const originalToken = 'jwt-original'
+
+    const ctx = {
+      headers: {
+        cookie: `VtexIdclientAutCookie_${ACCOUNT}=${originalToken}`,
+      },
+      storage: { cookies: new Map() },
+    }
+
+    const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', ACCOUNT)
+
+    expect(token).toEqual(originalToken)
   })
 })
