@@ -14,6 +14,10 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
+    permissions:
+      id-token: write # Required if using OIDC
+      contents: read
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
