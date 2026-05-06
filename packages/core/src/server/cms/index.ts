@@ -1,4 +1,4 @@
-import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
+import type { ContentData, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
@@ -10,7 +10,7 @@ export type Options =
   | Locator
   | {
       contentType: string
-      filters?: Partial<ContentTypeOptions>
+      filters?: Record<string, string>
     }
 
 type ProductGallerySettings = {
@@ -94,7 +94,7 @@ export const getCMSPage = async (
   const perPage = 10
   const response = await cmsClient.getCMSPagesByContentType(
     options.contentType,
-    { ...options.filters, page: page, perPage }
+    { filters: options.filters, page: page, perPage }
   )
 
   pages.push(...response.data)
@@ -109,7 +109,7 @@ export const getCMSPage = async (
     const restOfPages = await Promise.all(
       pagesToFetch.map((i) =>
         cmsClient.getCMSPagesByContentType(options.contentType, {
-          ...options.filters,
+          filters: options.filters,
           page: i,
           perPage,
         })
