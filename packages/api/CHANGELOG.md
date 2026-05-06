@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.99.1 (2026-05-06)
+
+### Bug Fixes
+
+- forward auth token only via account-scoped cookie ([#3294](https://github.com/vtex/faststore/issues/3294)) ([f48c34b](https://github.com/vtex/faststore/commit/f48c34b7aea4167a4d5f235f8e23e6336fd03f9c))
+
 # [3.99.0](https://github.com/vtex/faststore/compare/v3.98.4...v3.99.0) (2026-05-04)
 
 ### Features
