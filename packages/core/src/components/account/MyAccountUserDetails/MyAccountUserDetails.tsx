@@ -5,15 +5,17 @@ import styles from './styles.module.scss'
 
 type MyAccountUserDetailsProps = {
   userDetails: {
+    username: string
     name: string
     email: string
+    phone: string
     role: string[]
     orgUnit: string
   }
 }
 
 export default function MyAccountUserDetails({
-  userDetails: { name, email, role, orgUnit },
+  userDetails: { username, name, email, phone, role, orgUnit },
 }: MyAccountUserDetailsProps) {
   return (
     <section className={styles.section}>
@@ -22,14 +24,18 @@ export default function MyAccountUserDetails({
         <AccountTable
           rows={[
             { heading: 'Name', data: name ? name : '–' },
+            { heading: 'Username', data: username ? username : '–' },
+            { heading: 'Phone number', data: phone ? phone : '–' },
             { heading: 'Email', data: email },
             {
               heading: 'Role',
-              data: role.map((r) => (
-                <span key={r} data-fs-user-details-row-value>
-                  <Tag>{r}</Tag>
+              data: (
+                <span data-fs-user-details-row-tags>
+                  {role.map((r) => (
+                    <Tag key={r}>{r}</Tag>
+                  ))}
                 </span>
-              )),
+              ),
             },
             { heading: 'Organizational unit', data: orgUnit },
           ]}
