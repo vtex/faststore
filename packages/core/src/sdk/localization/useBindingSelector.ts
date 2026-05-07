@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import storeConfig from '../../../discovery.config'
 import { buildRedirectUrl } from '../../utils/localization/bindingPaths'
@@ -76,6 +76,16 @@ export function useBindingSelector(): UseBindingSelectorReturn {
     () => currentCurrency?.code ?? null
   )
   const [error, setError] = useState<BindingSelectorError | null>(null)
+
+  // Sync selections when session resolves after initial render (e.g. stale session
+  // from a previous locale when navigating between locale-prefixed paths)
+  useEffect(() => {
+    setLocaleCode(currentLocale ?? null)
+  }, [currentLocale])
+
+  useEffect(() => {
+    setCurrencyCode(currentCurrency?.code ?? null)
+  }, [currentCurrency?.code])
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
   const languages = useMemo(
