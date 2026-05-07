@@ -25,6 +25,8 @@ export async function getTracesClient(telemetryClient: TelemetryClient) {
     setGlobalProvider: true,
     exporter: tracesExporter,
   })
+
+  return global.fsDiagnostics.TRACE_CLIENT
 }
 
 export function getTraceClient(_?: string) {
