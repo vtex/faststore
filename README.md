@@ -68,3 +68,9 @@ These packages are part of the monorepo but are not intended for direct use by s
 ## License
 
 Licensed under the [MIT license](https://github.com/vtex/faststore/blob/master/LICENSE)
+
+
+## Developing
+
+- 🚀 [Install](./docs/install.md)
+- 🗄️ [Observability](./docs/observability.md)
