@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1-dev.1](https://github.com/vtex/faststore/compare/v4.0.1-dev.0...v4.0.1-dev.1) (2026-05-07)
+
+### Bug Fixes
+
+- updates schemas vtex.faststore ([#3304](https://github.com/vtex/faststore/issues/3304)) ([490175f](https://github.com/vtex/faststore/commit/490175ff4cc06bf23f7957bbd1f9d002baa13e43))
+
 ## [4.0.1-dev.0](https://github.com/vtex/faststore/compare/v4.0.0...v4.0.1-dev.0) (2026-05-07)
 
 # 4.0.0-dev.4 (2026-05-07)
