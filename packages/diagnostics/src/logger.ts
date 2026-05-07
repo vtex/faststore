@@ -14,7 +14,7 @@ async function setupLogsExporter() {
   const logsExporter = Exporters.CreateExporter(
     Exporters.CreateLogsExporterConfig({
       endpoint: OTLP_LOGGER_ENDPOINT,
-      insecure: true,
+      insecure: global.fsDiagnostics.IS_DEV ?? false,
     }),
     'otlp'
   )

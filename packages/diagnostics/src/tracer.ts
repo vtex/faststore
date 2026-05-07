@@ -16,6 +16,9 @@ async function setupTracesExporter() {
 }
 
 export async function getTracesClient(telemetryClient: TelemetryClient) {
+  if (global.fsDiagnostics.TRACE_CLIENT)
+    return global.fsDiagnostics.TRACE_CLIENT
+
   const tracesExporter = await setupTracesExporter()
 
   global.fsDiagnostics.TRACE_CLIENT ??= await telemetryClient.newTracesClient({

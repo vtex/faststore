@@ -42,8 +42,8 @@ export async function getTelemetryClient(opt: {
   )
 
   const { serviceName, account } = opt
-  getLogger(client, { serviceName, client: account })
-  getTracesClient(client)
+  await getLogger(client, { serviceName, client: account })
+  await getTracesClient(client)
 
   client.registerInstrumentations([new HttpInstrumentation()])
 
