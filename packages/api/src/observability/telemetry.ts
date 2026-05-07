@@ -1,6 +1,5 @@
 import { OTELAPI } from '@faststore/diagnostics'
 import { name, version } from '../../package.json' with { type: 'json' }
-import { getTraceClient } from '@faststore/diagnostics'
 export const ResolverTrace = <
   TContext extends {
     OTEL: Record<string, any>
@@ -24,7 +23,6 @@ export const ResolverTrace = <
       return fn(source, vars, graphqlContext, info)
     }
 
-    // const traceClient = getTraceClient()
     const tracer = OTELAPI.trace.getTracer('Graphql')
     const span = tracer.startSpan(resolverName ?? 'Unknown Graphql Resolver', {
       kind: OTELAPI.SpanKind.INTERNAL,
