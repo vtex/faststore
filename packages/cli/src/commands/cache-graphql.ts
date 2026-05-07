@@ -1,5 +1,4 @@
 import { saveFile } from '../utils/file'
-import { format } from 'prettier'
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
 import { getBasePath, withBasePath } from '../utils/directory'
@@ -12,6 +11,7 @@ const { Kind, OperationTypeNode, parse: parseGraphql } = graphql
 
 const persistedDocumentsName = 'persisted-documents.json'
 const configFileName = 'discovery.config.default.js'
+const cachedOperationsFileName = 'cached-operations.json'
 
 export default class CacheGraphql extends Command {
   static flags = {
@@ -62,7 +62,11 @@ export default class CacheGraphql extends Command {
       )
     }
 
-    const saveConfigFile = saveFile(configPath)
+    const cachedOperationsPath = path.join(
+      path.dirname(persistedDocumentsPath),
+      cachedOperationsFileName
+    )
+    const saveCachedOperationsFile = saveFile(cachedOperationsPath)
 
     if (fsExtra.pathExistsSync(tmpDir))
       logger.info(`${chalk.blue('[Info]')} - .faststore Path at: ${tmpDir}`)
@@ -71,33 +75,19 @@ export default class CacheGraphql extends Command {
     logger.info(
       `${chalk.blue('[Info]')} - Persisted documents at: ${persistedDocumentsPath}`
     )
+    logger.info(
+      `${chalk.blue('[Info]')} - Cached operations output: ${cachedOperationsPath}`
+    )
 
     const { default: persistedDocuments } = await import(
       persistedDocumentsPath,
       { with: { type: 'json' } }
     )
 
-    const discoveryConfig = await import(configPath)
     const cachedQueries = getQueries(persistedDocuments)
 
-    saveConfigFile(
-      await format(
-        `module.exports = ${JSON.stringify(
-          {
-            ...(discoveryConfig?.default ?? discoveryConfig),
-            experimental: {
-              ...(discoveryConfig?.default ?? discoveryConfig).experimental,
-              cachedOperations: cachedQueries ?? [],
-            },
-          },
-          undefined,
-          2
-        )}`,
-        {
-          parser: 'typescript',
-          quoteProps: 'as-needed',
-        }
-      )
+    saveCachedOperationsFile(
+      `${JSON.stringify(cachedQueries ?? [], null, 2)}\n`
     )
 
     logger.info(

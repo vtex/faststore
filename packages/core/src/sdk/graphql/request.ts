@@ -19,13 +19,12 @@ export interface BaseRequestOptions<V = any> {
   value?: string | null
 }
 
-const MethodByOperation = async (operationName: string) => {
-  const { experimental } = await import('../../../discovery.config')
-  return Array.isArray(experimental.cachedOperations) &&
-    experimental.cachedOperations.includes(operationName)
-    ? 'GET'
-    : 'POST'
-}
+const cachedOperations = import('../../../@generated/cached-operations.json')
+  .then((mod) => mod.default as string[])
+  .catch(() => [] as string[])
+
+const MethodByOperation = async (operationName: string) =>
+  (await cachedOperations).includes(operationName) ? 'GET' : 'POST'
 
 /* This piece of code was taken out of @faststore/graphql-utils */
 const baseRequest = async <V = any, D = any>(
