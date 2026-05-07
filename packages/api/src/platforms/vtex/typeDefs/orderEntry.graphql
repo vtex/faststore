@@ -1,0 +1,53 @@
+"""
+Input for uploading a file to the Order Entry Service.
+The file is transmitted as a Base64-encoded string so it can travel
+through the standard GraphQL JSON pipeline without multipart support.
+"""
+input IOrderEntryUpload {
+  """
+  Base64-encoded file content.
+  """
+  fileContent: String!
+  """
+  Original file name (e.g. "order.csv").
+  """
+  fileName: String!
+  """
+  MIME type of the file (e.g. "text/csv", "image/png").
+  """
+  mimeType: String!
+}
+
+"""
+Result returned after uploading a file to the Order Entry Service.
+"""
+type OrderEntryUploadResult {
+  """
+  S3 object key that identifies the uploaded file.
+  Must be passed to the subsequent operation mutation.
+  """
+  objectKey: String!
+}
+
+input IOrderEntryOperation {
+  objectKey: String!
+  orderFormId: String!
+  sessionToken: String
+}
+
+type OrderEntryOperationResult {
+  operationId: String!
+}
+
+type OrderEntryMissingItem {
+  itemId: String!
+  itemName: String
+  reason: String!
+}
+
+type OrderEntryOperationStatus {
+  status: String!
+  entityId: String!
+  message: String
+  missingItems: [OrderEntryMissingItem!]
+}
