@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import storeConfig from '../../../discovery.config'
 import { buildRedirectUrl } from '../../utils/localization/bindingPaths'
@@ -77,14 +77,21 @@ export function useBindingSelector(): UseBindingSelectorReturn {
   )
   const [error, setError] = useState<BindingSelectorError | null>(null)
 
+  const hasUserEditedSelection = useRef(false)
+
   // Sync selections when session resolves after initial render (e.g. stale session
-  // from a previous locale when navigating between locale-prefixed paths)
+  // from a previous locale when navigating between locale-prefixed paths).
+  // Skipped once the user has made an in-progress selection.
   useEffect(() => {
-    setLocaleCode(currentLocale ?? null)
+    if (!hasUserEditedSelection.current) {
+      setLocaleCode(currentLocale ?? null)
+    }
   }, [currentLocale])
 
   useEffect(() => {
-    setCurrencyCode(currentCurrency?.code ?? null)
+    if (!hasUserEditedSelection.current) {
+      setCurrencyCode(currentCurrency?.code ?? null)
+    }
   }, [currentCurrency?.code])
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
@@ -108,6 +115,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
   // Handle locale code change
   const handleSetLocaleCode = useCallback(
     (code: string) => {
+      hasUserEditedSelection.current = true
       setLocaleCode(code)
       setError(null)
 
@@ -136,6 +144,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
 
   // Handle currency code change
   const handleSetCurrencyCode = useCallback((code: string) => {
+    hasUserEditedSelection.current = true
     setCurrencyCode(code)
     setError(null)
   }, [])
