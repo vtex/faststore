@@ -1,5 +1,9 @@
 import type { APIOptions } from '@faststore/api'
-import { getTraceClient } from '@faststore/diagnostics'
+import {
+  getTelemetryClient,
+  getTraceClient,
+  OTELAPI,
+} from '@faststore/diagnostics'
 import storeConfig from '../../discovery.config'
 import pkgJSON from '../../package.json'
 
@@ -32,16 +36,36 @@ export const apiOptions: APIOptions = {
 export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
   apiOptions: T
 ): Promise<T> {
-  const OTEL = {}
-  getTraceClient(
-    apiOptions?.discoveryConfig?.analytics?.serviceName ?? name
-  )?.inject(OTEL)
+  // Safe guard in dev mode to prevent the
+  // global scope to be erased in hot-module-reload.
+  await getTelemetryClient({
+    serviceName: storeConfig.analytics?.serviceName ?? 'faststore',
+    version,
+    account: storeConfig.api.storeId,
+    clientName: storeConfig.api.storeId,
+    packageName: name,
+  })
 
-  return {
+  const options = {
     ...apiOptions,
     OTEL: {
-      ...OTEL,
+      __otelContext: {},
       enabled: storeConfig.analytics?.otelEnabled?.toString() === 'true',
     },
-  } as T
+  } satisfies T
+
+  const tracer = OTELAPI.trace.getTracer('@faststore/core')
+  const span = tracer.startSpan('@faststore/core graphql')
+
+  const context = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
+  OTELAPI.propagation.inject(options.OTEL.__otelContext, context)
+
+  try {
+    return options as T
+  } catch (error) {
+    span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
+    span?.recordException(error)
+  } finally {
+    span?.end()
+  }
 }
