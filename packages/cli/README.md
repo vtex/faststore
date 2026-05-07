@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/4.0.0-dev.2 linux-x64 node-v24.13.0
+@faststore/cli/4.0.0-dev.3 linux-x64 node-v24.13.0
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
