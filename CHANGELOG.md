@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-dev.2](https://github.com/vtex/faststore/compare/v4.0.0-dev.1...v4.0.0-dev.2) (2026-05-07)
+
+### Features
+
+- force publish all packages on v4 release ([0e765a3](https://github.com/vtex/faststore/commit/0e765a335da1f16b4a4298caa31900286f324ea8))
+
 # [4.0.0-dev.1](https://github.com/vtex/faststore/compare/v4.0.0-dev.0...v4.0.0-dev.1) (2026-05-07)
 
 ### Features
