@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "3.99.0-dev.8",
+  "version": "3.99.0-dev.9",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -27,6 +27,8 @@
   ],
   "dependencies": {
     "@antfu/ni": "catalog:",
+    "@faststore/api": "workspace:*",
+    "@faststore/core": "workspace:*",
     "@graphql-codegen/cli": "catalog:",
     "@graphql-tools/merge": "catalog:",
     "@graphql-tools/utils": "catalog:",
@@ -35,6 +37,7 @@
     "@oclif/core": "^4",
     "@oclif/plugin-help": "^6",
     "@oclif/plugin-not-found": "^3",
+    "@vtex/faststore-sdk": "0.1.1-canary.5",
     "chalk": "~4.1.2",
     "chokidar": "^3.5.3",
     "degit": "^2.8.4",
@@ -43,11 +46,8 @@
     "globby": "^15.0.0",
     "oclif": "^4",
     "ora": "5.4.1",
-    "@vtex/faststore-sdk": "0.1.1-canary.5",
-    "resolve-pkg": "^3.0.0",
     "prettier": "^3.1.0",
-    "@faststore/api": "workspace:*",
-    "@faststore/core": "workspace:*"
+    "resolve-pkg": "^3.0.0"
   },
   "devDependencies": {
     "@types/degit": "^2.8.6",

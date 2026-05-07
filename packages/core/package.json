@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "3.99.0-dev.8",
+  "version": "3.99.0-dev.9",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -60,6 +60,7 @@
     "@lexical/list": "^0.34.0",
     "@lexical/react": "^0.34.0",
     "@lexical/rich-text": "^0.34.0",
+    "@lhci/cli": "^0.15.1",
     "@types/react": "catalog:",
     "@vtex/client-cms": "^0.2.16",
     "@vtex/client-cp": "0.5.1",
@@ -79,13 +80,12 @@
     "postcss": "^8.4.4",
     "prettier": "^2.2.0",
     "react-intersection-observer": "catalog:",
-    "sass-loader": "^12.6.0",
     "sass": "^1.97.0",
+    "sass-loader": "^12.6.0",
     "sharp": "^0.32.6",
     "style-loader": "^3.3.1",
     "swr": "^2.2.5",
-    "use-sync-external-store": "^1.6.0",
-    "@lhci/cli": "^0.15.1"
+    "use-sync-external-store": "^1.6.0"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",

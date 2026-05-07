@@ -1,22 +1,22 @@
 {
   "name": "@faststore/storybook",
-  "version": "3.99.0-dev.8",
+  "version": "3.99.0-dev.9",
   "private": true,
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.2",
     "@storybook/addon-essentials": "^8.5.2",
     "@storybook/addon-interactions": "^8.5.2",
     "@storybook/addon-onboarding": "^8.5.2",
     "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
     "@storybook/blocks": "^8.5.2",
-    "@storybook/test": "^8.5.2",
-    "@chromatic-com/storybook": "^4.1.2",
     "@storybook/nextjs": "10.2.3",
+    "@storybook/test": "^8.5.2",
     "@types/react": "catalog:",
-    "storybook": "^10.2.3",
-    "sass": "^1.83.4"
+    "sass": "^1.83.4",
+    "storybook": "^10.2.3"
   },
   "scripts": {
     "dev": "storybook dev -p 6006",

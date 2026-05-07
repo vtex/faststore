@@ -25,36 +25,32 @@ npm install -g @faststore/cli
 ```
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.99.0-dev.8 linux-x64 node-v20.20.2
+@faststore/cli/3.99.0-dev.9 linux-x64 node-v24.13.0
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 ## Commands
 
 <!-- commands -->
-
-- [Installation](#installation)
-- [Commands](#commands)
-- [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
-- [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
-- [`faststore create [PATH]`](#faststore-create-path)
-- [`faststore dev [ACCOUNT] [PATH] [PORT]`](#faststore-dev-account-path-port)
-- [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
-- [`faststore generate-i18n [PATH]`](#faststore-generate-i18n-path)
-- [`faststore help [COMMAND]`](#faststore-help-command)
-- [`faststore prepare [PATH]`](#faststore-prepare-path)
-- [`faststore test [PATH]`](#faststore-test-path)
+* [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
+* [`faststore cache-graphql [STORE]`](#faststore-cache-graphql-store)
+* [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
+* [`faststore create [PATH]`](#faststore-create-path)
+* [`faststore dev [PATH] [ACCOUNT] [PORT]`](#faststore-dev-path-account-port)
+* [`faststore generate`](#faststore-generate)
+* [`faststore help [COMMAND]`](#faststore-help-command)
+* [`faststore prepare [PATH]`](#faststore-prepare-path)
+* [`faststore serve [ACCOUNT] [PATH] [PORT]`](#faststore-serve-account-path-port)
+* [`faststore test [PATH]`](#faststore-test-path)
 
 ## `faststore build [ACCOUNT] [PATH]`
 
@@ -71,7 +67,19 @@ FLAGS
                registry.
 ```
 
-_See code: [dist/commands/build.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/build.js)_
+## `faststore cache-graphql [STORE]`
+
+```
+USAGE
+  $ faststore cache-graphql [STORE] [--queries <value>] [--config <value>]
+
+ARGUMENTS
+  [STORE]  The path where the FastStore being built is or the persisted-document path. Defaults to cwd.
+
+FLAGS
+  --config=<value>   The path where the discovery.config is located
+  --queries=<value>  The path to locate persisted-document file.
+```
 
 ## `faststore cms-sync [PATH]`
 
@@ -85,8 +93,6 @@ ARGUMENTS
 FLAGS
   -d, --dry-run
 ```
-
-_See code: [dist/commands/cms-sync.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/cms-sync.js)_
 
 ## `faststore create [PATH]`
 
@@ -106,9 +112,7 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/create.js)_
-
-## `faststore dev [ACCOUNT] [PATH] [PORT]`
+## `faststore dev [PATH] [ACCOUNT] [PORT]`
 
 ```
 USAGE
@@ -123,35 +127,11 @@ FLAGS
   --watch-plugins  Enable watching for plugin changes
 ```
 
-_See code: [dist/commands/dev.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/dev.js)_
-
-## `faststore generate-graphql [PATH]`
+## `faststore generate`
 
 ```
 USAGE
   $ faststore generate
-```
-
-_See code: [dist/commands/generate-graphql.js](https://github.com/vtex/faststore/blob/v3.98.0-dev.2/dist/commands/generate-graphql.js)_
-
-## `faststore generate-i18n [PATH]`
-
-Generates and syncs i18n configuration (locales, regions, currencies) from FastStore SDK
-
-```
-USAGE
-  $ faststore generate-i18n [PATH] [--config CONFIG]
-
-ARGUMENTS
-  PATH  The path where the FastStore being built is. Defaults to cwd.
-
-FLAGS
-  --config=CONFIG  The path where the discovery.config is located
-
-DESCRIPTION
-  Fetches i18n configuration from FastStore SDK and updates the discovery.config file
-  with locales, regions, and currencies settings. Requires VTEX credentials:
-  VTEX_ACCOUNT, FS_DISCOVERY_APP_KEY, and FS_DISCOVERY_APP_TOKEN environment variables.
 ```
 
 ## `faststore help [COMMAND]`
@@ -172,7 +152,7 @@ DESCRIPTION
   Display help for faststore.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.35/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.37/src/commands/help.ts)_
 
 ## `faststore prepare [PATH]`
 
@@ -184,7 +164,17 @@ ARGUMENTS
   [PATH]  The path where the FastStore being run is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/start.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/start.js)_
+## `faststore serve [ACCOUNT] [PATH] [PORT]`
+
+```
+USAGE
+  $ faststore serve [ACCOUNT] [PATH] [PORT]
+
+ARGUMENTS
+  [ACCOUNT]  The account for which the Discovery is running. Currently noop.
+  [PATH]     The path where the FastStore being run is. Defaults to cwd.
+  [PORT]     The port where FastStore should run. Defaults to 3000.
+```
 
 ## `faststore test [PATH]`
 
@@ -195,7 +185,4 @@ USAGE
 ARGUMENTS
   [PATH]  The path where the FastStore being tested is. Defaults to cwd.
 ```
-
-_See code: [dist/commands/test.js](https://github.com/vtex/faststore/blob/v3.99.0-dev.8/dist/commands/test.js)_
-
 <!-- commandsstop -->

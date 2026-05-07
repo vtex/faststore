@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "3.99.0-dev.8",
+  "version": "3.99.0-dev.9",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.mjs",
   "typings": "dist/index.d.ts",
@@ -27,8 +27,8 @@
   },
   "peerDependencies": {
     "react": "catalog:",
-    "tabbable": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "tabbable": "catalog:"
   },
   "dependencies": {
     "react-intersection-observer": "catalog:",
@@ -37,18 +37,18 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "catalog:",
+    "@types/papaparse": "^5.5.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/tabbable": "catalog:",
-    "@types/papaparse": "^5.5.0",
+    "papaparse": "^5.5.3",
+    "react-dropzone": "^14.3.8",
+    "tabbable": "catalog:",
     "tslib": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
-    "tabbable": "catalog:",
     "vitest": "catalog:",
-    "vitest-axe": "^0.1.0",
-    "papaparse": "^5.5.3",
-    "react-dropzone": "^14.3.8"
+    "vitest-axe": "^0.1.0"
   },
   "engines": {
     "node": ">=20"
