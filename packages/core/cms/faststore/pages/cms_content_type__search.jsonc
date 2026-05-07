@@ -121,6 +121,9 @@
             },
             {
               "$ref": "#/components/ScrollToTopButton"
+            },
+            {
+              "$ref": "#/components/ShoppingAssistant"
             }
           ]
         }
