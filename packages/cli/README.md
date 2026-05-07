@@ -25,37 +25,32 @@ npm install -g @faststore/cli
 ```
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/4.0.0 linux-x64 node-v24.13.0
+@faststore/cli/4.0.1-dev.0 linux-x64 node-v24.13.0
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 ## Commands
 
 <!-- commands -->
-
-- [Installation](#installation)
-- [Commands](#commands)
-- [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
-- [`faststore cache-graphql [STORE]`](#faststore-cache-graphql-store)
-- [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
-- [`faststore create [PATH]`](#faststore-create-path)
-- [`faststore dev [PATH] [ACCOUNT] [PORT]`](#faststore-dev-path-account-port)
-- [`faststore generate`](#faststore-generate)
-- [`faststore help [COMMAND]`](#faststore-help-command)
-- [`faststore prepare [PATH]`](#faststore-prepare-path)
-- [`faststore serve [ACCOUNT] [PATH] [PORT]`](#faststore-serve-account-path-port)
-- [`faststore test [PATH]`](#faststore-test-path)
+* [`faststore build [ACCOUNT] [PATH]`](#faststore-build-account-path)
+* [`faststore cache-graphql [STORE]`](#faststore-cache-graphql-store)
+* [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
+* [`faststore create [PATH]`](#faststore-create-path)
+* [`faststore dev [PATH] [ACCOUNT] [PORT]`](#faststore-dev-path-account-port)
+* [`faststore generate`](#faststore-generate)
+* [`faststore help [COMMAND]`](#faststore-help-command)
+* [`faststore prepare [PATH]`](#faststore-prepare-path)
+* [`faststore serve [ACCOUNT] [PATH] [PORT]`](#faststore-serve-account-path-port)
+* [`faststore test [PATH]`](#faststore-test-path)
 
 ## `faststore build [ACCOUNT] [PATH]`
 
@@ -190,5 +185,4 @@ USAGE
 ARGUMENTS
   [PATH]  The path where the FastStore being tested is. Defaults to cwd.
 ```
-
 <!-- commandsstop -->
