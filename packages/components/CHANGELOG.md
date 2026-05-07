@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/vtex/faststore/compare/v3.99.0...v4.0.0) (2026-05-07)
+
+### Features
+
+- FastStore v4 ([#3302](https://github.com/vtex/faststore/issues/3302)) ([c7ca1a2](https://github.com/vtex/faststore/commit/c7ca1a2a9a6161bdf30e33a965ecf2fda9ef3fbf))
+
 # [4.0.0-dev.4](https://github.com/vtex/faststore/compare/v4.0.0-dev.3...v4.0.0-dev.4) (2026-05-07)
 
 **Note:** Version bump only for package @faststore/components
