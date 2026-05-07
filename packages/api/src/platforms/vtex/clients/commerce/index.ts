@@ -794,5 +794,114 @@ export const VtexCommerce = (
         )
       },
     },
+    orderEntry: {
+      uploadFile: ({
+        fileBuffer,
+        fileName,
+        mimeType,
+      }: {
+        fileBuffer: Buffer
+        fileName: string
+        mimeType: string
+      }): Promise<{ objectKey: string }> => {
+        const autHeaders = withAutCookie(forwardedHost, account)
+        const boundary = `----FastStoreUploadBoundary${Date.now()}`
+        const CRLF = '\r\n'
+
+        const headerPart = [
+          `--${boundary}`,
+          `Content-Disposition: form-data; name="file"; filename="${fileName}"`,
+          `Content-Type: ${mimeType}`,
+          '',
+          '',
+        ].join(CRLF)
+
+        const footer = `${CRLF}--${boundary}--${CRLF}`
+
+        const headerBytes = Buffer.from(headerPart)
+        const footerBytes = Buffer.from(footer)
+        const body = new Uint8Array(
+          headerBytes.byteLength +
+            fileBuffer.byteLength +
+            footerBytes.byteLength
+        )
+        let offset = 0
+        body.set(headerBytes, offset)
+        offset += headerBytes.byteLength
+        body.set(fileBuffer, offset)
+        offset += fileBuffer.byteLength
+        body.set(footerBytes, offset)
+
+        return fetchAPI(
+          `${base}/api/order-entry/upload?an=${account}`,
+          {
+            method: 'POST',
+            headers: {
+              ...autHeaders,
+              'content-type': `multipart/form-data; boundary=${boundary}`,
+            },
+            body: body.buffer as ArrayBuffer,
+          },
+          {}
+        )
+      },
+
+      startOperation: ({
+        objectKey,
+        orderFormId,
+        sessionToken,
+      }: {
+        objectKey: string
+        orderFormId: string
+        sessionToken?: string
+      }): Promise<{ operationId: string }> => {
+        const autHeaders = withAutCookie(forwardedHost, account)
+        const body = JSON.stringify({
+          objectKey,
+          orderFormId,
+          operation: 'CreateCart',
+          ...(sessionToken ? { sessionToken } : {}),
+        })
+
+        return fetchAPI(
+          `${base}/api/order-entry/operation?an=${account}`,
+          {
+            method: 'POST',
+            headers: {
+              ...autHeaders,
+              'Content-Type': 'application/json',
+            },
+            body,
+          },
+          {}
+        )
+      },
+
+      getOperation: ({
+        operationId,
+      }: {
+        operationId: string
+      }): Promise<{
+        status: string
+        entityId: string
+        message?: string
+        missingItems?: Array<{
+          itemId: string
+          itemName?: string
+          reason: string
+        }>
+      }> => {
+        const autHeaders = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/order-entry/operation/${operationId}?an=${account}`,
+          {
+            method: 'GET',
+            headers: autHeaders,
+          },
+          {}
+        )
+      },
+    },
   }
 }
