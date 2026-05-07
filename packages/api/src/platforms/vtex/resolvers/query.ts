@@ -571,18 +571,36 @@ export const Query = {
   // only b2b users
   userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
+      account,
+      headers,
       clients: { commerce },
     } = ctx
 
-    const sessionData = await commerce.session('').catch(() => null)
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+    const userId = jwt?.userId ?? ''
 
-    const shopper = sessionData?.namespaces.shopper ?? null
+    const [sessionData, shopperResult, lmRoles] = await Promise.all([
+      commerce.session('').catch(() => null),
+      userId
+        ? commerce.masterData.getShopperById({ userId }).catch(() => null)
+        : Promise.resolve(null),
+      userId
+        ? commerce.licenseManager.getUserRoles({ userId }).catch(() => null)
+        : Promise.resolve(null),
+    ])
+
+    const shopper = shopperResult?.[0]
     const authentication = sessionData?.namespaces.authentication ?? null
 
+    const fullName =
+      `${(shopper?.firstName ?? '').trim()} ${(shopper?.lastName ?? '').trim()}`.trim()
+
     return {
-      name: shopper?.firstName?.value ?? '',
-      email: authentication?.storeUserEmail.value ?? '',
-      role: ['Admin'], // TODO change when implemented roles,
+      username: authentication?.storeUserEmail?.value ?? '',
+      name: fullName,
+      email: authentication?.storeUserEmail?.value ?? '',
+      phone: shopper?.phone ?? '',
+      role: lmRoles?.Roles?.map((r) => r.Name) ?? [],
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
