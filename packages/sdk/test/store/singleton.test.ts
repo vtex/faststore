@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { createBaseStore, singleton } from '../../src'
 
 const getStore = <T>(initial: T, key = 'key') =>

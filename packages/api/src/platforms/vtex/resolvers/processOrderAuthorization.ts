@@ -1,7 +1,7 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type {
-  ProcessOrderAuthorizationResponse,
   IProcessOrderAuthorization,
+  ProcessOrderAuthorizationResponse,
 } from '../../../__generated__/schema'
 import {
   extractRuleForAuthorization,
@@ -11,7 +11,7 @@ import {
 export const processOrderAuthorization = async (
   _: any,
   { data }: { data: IProcessOrderAuthorization },
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ): Promise<ProcessOrderAuthorizationResponse | null> => {
   // Process the authorization
   const commercialAuth = await commerce.oms.processOrderAuthorization(data)

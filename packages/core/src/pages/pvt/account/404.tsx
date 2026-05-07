@@ -24,6 +24,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 /* A list of components that can be used in the CMS. */
@@ -71,11 +72,15 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
   })
@@ -88,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     page,
@@ -98,7 +103,8 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsFooter,
   ] = await Promise.all([
     getPage<PageContentType>({
-      ...(context.previewData?.contentType === '404' && context.previewData),
+      ...(contentContext.previewData?.contentType === '404' &&
+        contentContext.previewData),
       contentType: '404',
     }),
     execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
@@ -143,5 +149,9 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)
 
 export default Page

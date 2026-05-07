@@ -1,7 +1,9 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 [data-fs-account-header] {
   padding: var(--fs-spacing-3) 0;
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     padding: var(--fs-spacing-6) 0;
   }
 

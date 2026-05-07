@@ -1,6 +1,9 @@
-import type { Options as APIOptions } from '@faststore/api'
-
+import type { APIOptions } from '@faststore/api'
+import { getTraceClient } from '@faststore/diagnostics'
 import storeConfig from '../../discovery.config'
+import pkgJSON from '../../package.json'
+
+const { name, version } = pkgJSON
 
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
@@ -19,4 +22,26 @@ export const apiOptions: APIOptions = {
     enableUnavailableItemsOnCart:
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
+  version,
+  OTEL: {
+    enabled: storeConfig.analytics.otelEnabled,
+  },
+  discoveryConfig: storeConfig,
+}
+
+export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
+  apiOptions: T
+): Promise<T> {
+  const OTEL = {}
+  getTraceClient(
+    apiOptions?.discoveryConfig?.analytics?.serviceName ?? name
+  )?.inject(OTEL)
+
+  return {
+    ...apiOptions,
+    OTEL: {
+      ...OTEL,
+      enabled: storeConfig.analytics?.otelEnabled?.toString() === 'true',
+    },
+  } as T
 }

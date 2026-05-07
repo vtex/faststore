@@ -1,4 +1,5 @@
 import { set } from 'idb-keyval'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import { type Cart, type CartItem, createCartStore } from '../../src'
 import { waitFor } from '../waitFor'
@@ -80,13 +81,15 @@ describe('updateItemQuantity', () => {
 })
 
 describe('removeItem', () => {
-  store.addItem(item)
+  it('should remove an item', () => {
+    store.addItem(item)
 
-  expect(store.read().items).toHaveLength(1)
+    expect(store.read().items).toHaveLength(1)
 
-  store.removeItem(item.id)
+    store.removeItem(item.id)
 
-  expect(store.read().items).toHaveLength(0)
+    expect(store.read().items).toHaveLength(0)
+  })
 })
 
 describe('emptyCart', () => {

@@ -23,6 +23,7 @@ import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
 import storeConfig from 'discovery.config'
@@ -90,16 +91,20 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
@@ -159,5 +164,9 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)
 
 export default Page

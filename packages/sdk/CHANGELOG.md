@@ -3,11 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.99.0](https://github.com/vtex/faststore/compare/v3.98.4...v3.99.0) (2026-05-04)
+# [4.0.0-dev.4](https://github.com/vtex/faststore/compare/v4.0.0-dev.3...v4.0.0-dev.4) (2026-05-07)
 
-### Features
+**Note:** Version bump only for package @faststore/sdk
 
-- version bump v3 ([#3293](https://github.com/vtex/faststore/issues/3293)) ([0475e38](https://github.com/vtex/faststore/commit/0475e387df8f8a3ae486209a2ef828bb71edc60a))
+# [4.0.0-dev.3](https://github.com/vtex/faststore/compare/v4.0.0-dev.2...v4.0.0-dev.3) (2026-05-07)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.0.0-dev.2](https://github.com/vtex/faststore/compare/v4.0.0-dev.1...v4.0.0-dev.2) (2026-05-07)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# 3.99.0-dev.9 (2026-05-07)
+
+### Bug Fixes
+
+- release command ([e912b5e](https://github.com/vtex/faststore/commit/e912b5e10cf61e65f24502fb077c06799009da61))
+
+# 3.99.0-dev.8 (2026-05-04)
+
+**Note:** Version bump only for package @faststore/sdk
 
 # 3.99.0-dev.6 (2026-05-04)
 

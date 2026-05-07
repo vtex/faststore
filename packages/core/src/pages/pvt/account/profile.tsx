@@ -21,6 +21,7 @@ import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
 import PageProvider from 'src/sdk/overrides/PageProvider'
@@ -77,7 +78,7 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
@@ -94,12 +95,16 @@ export const getServerSideProps: GetServerSideProps<
     headers: context.req.headers as Record<string, string>,
     account: storeConfig.api.storeId,
   })
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [profile, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
@@ -150,3 +155,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

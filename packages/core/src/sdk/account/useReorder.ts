@@ -8,10 +8,13 @@ import type {
   CartItemFragment,
   IStoreCart,
 } from '@generated/graphql'
+import ReorderError from '../error/ReorderError/ReorderError'
 import { request } from '../graphql/request'
 import { sessionStore } from '../session'
+import { useLink } from '../ui/useLink'
+
+import storeConfig from '../../../discovery.config'
 import { redirectToCheckout } from '../cart/redirectToCheckout'
-import ReorderError from '../error/ReorderError/ReorderError'
 
 type Order = ServerOrderDetailsQueryQuery['userOrder']
 type AdditionalProperties =
@@ -33,6 +36,9 @@ const getItemId = (item: CartItemFragment) => {
 export const useReorder = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
+  const { resolveLink } = useLink()
+  const resolvedCheckoutUrl =
+    resolveLink(storeConfig.checkoutUrl) ?? storeConfig.checkoutUrl
 
   const reorder = async (order: Order | null | undefined) => {
     if (!order) {
@@ -131,7 +137,7 @@ export const useReorder = () => {
 
       cartStore.set(updatedCart)
 
-      redirectToCheckout(validated.order.orderNumber)
+      redirectToCheckout(validated.order.orderNumber, resolvedCheckoutUrl)
     } catch (err) {
       setError(err instanceof Error ? err : new ReorderError('Unknown error'))
       console.error('Error reordering:', err)

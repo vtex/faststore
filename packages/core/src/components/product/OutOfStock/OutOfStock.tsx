@@ -4,7 +4,11 @@ import { useState } from 'react'
 
 import { useSession } from 'src/sdk/session'
 
-function OutOfStock() {
+function OutOfStock({
+  loadingLabel,
+}: {
+  loadingLabel?: string
+}) {
   const { postalCode } = useSession()
 
   const [isLoading, setIsLoading] = useState(false)
@@ -44,6 +48,7 @@ function OutOfStock() {
       onSubmit={handleSubmit}
       disabled={isLoading}
       errorMessage={error}
+      loadingLabel={loadingLabel}
     />
   )
 }

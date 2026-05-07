@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-sku-matrix-sidebar] {
   // --------------------------------------------------------
   // Design Tokens for SKU Matrix Sidebar
@@ -31,17 +33,6 @@
   height: 100vh;
   overflow: auto;
 
-  [data-fs-table] {
-    flex-shrink: 0;
-    padding: var(--fs-spacing-3) var(--fs-spacing-8);
-    padding-bottom: 0;
-
-    @include media('<tablet') {
-      padding: var(--fs-spacing-3);
-      padding-bottom: 0;
-    }
-  }
-
   &[data-fs-slide-over] {
     background-color: var(--fs-sku-matrix-sidebar-bkg-color);
 
@@ -49,16 +40,16 @@
       padding: var(--fs-spacing-8);
       padding-bottom: 0;
 
-      @include media('<tablet') {
+      @include utilities.media("<tablet") {
         padding: var(--fs-spacing-3);
         padding-bottom: 0;
       }
     }
 
-    &[data-fs-slide-over-size='partial'] {
+    &[data-fs-slide-over-size="partial"] {
       width: var(--fs-sku-matrix-slide-over-partial-width-mobile);
 
-      @include media('>=notebook') {
+      @include utilities.media(">=notebook") {
         max-width: var(--fs-sku-matrix-slide-over-partial-width-mobile);
       }
     }
@@ -71,7 +62,15 @@
   }
 
   [data-fs-table] {
+    flex-shrink: 0;
+    padding: var(--fs-spacing-3) var(--fs-spacing-8);
+    padding-bottom: 0;
     color: var(--fs-color-neutral-6);
+
+    @include utilities.media("<tablet") {
+      padding: var(--fs-spacing-3);
+      padding-bottom: 0;
+    }
 
     [data-fs-table-cell] {
       &:first-child {
@@ -92,7 +91,7 @@
   }
 
   [data-fs-table-cell],
-  [data-fs-price-variant='spot'] {
+  [data-fs-price-variant="spot"] {
     font-weight: var(--fs-text-weight-medium);
   }
 
@@ -113,8 +112,8 @@
 
   [data-fs-sku-matrix-sidebar-cell-image] {
     display: flex;
-    align-items: center;
     gap: var(--fs-spacing-2);
+    align-items: center;
 
     img {
       object-fit: cover;
@@ -132,17 +131,17 @@
   }
 
   [data-fs-sku-matrix-sidebar-footer] {
-    display: flex;
-    width: 100%;
-    padding: var(--fs-spacing-4) var(--fs-spacing-8);
-    justify-content: space-between;
     position: sticky;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--fs-spacing-4) var(--fs-spacing-8);
     margin-top: auto;
-    border-top: var(--fs-border-width) solid var(--fs-border-color-light);
     background-color: var(--fs-sku-matrix-sidebar-bkg-color);
+    border-top: var(--fs-border-width) solid var(--fs-border-color-light);
 
     > div {
       display: flex;
@@ -155,7 +154,7 @@
       }
     }
 
-    @include media('<tablet') {
+    @include utilities.media("<tablet") {
       padding: var(--fs-spacing-3);
     }
   }

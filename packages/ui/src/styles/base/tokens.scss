@@ -2,6 +2,8 @@
 // FS UI TOKENS
 // Brandless Theme
 // ----------------------------------------------------------
+@use "./utilities.scss";
+@use "sass:map";
 
 @layer base {
   body {
@@ -139,7 +141,7 @@
 
     --fs-scale                           : var(--fs-text-scale-mobile);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       --fs-scale                         : var(--fs-text-scale-desktop);
     }
 
@@ -197,11 +199,11 @@
     // PADDING
     --fs-grid-padding                    : var(--fs-spacing-3);
 
-    @include media(">=tablet") {
+    @include utilities.media(">=tablet") {
       --fs-grid-padding                  : var(--fs-spacing-4);
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       --fs-grid-padding                  : var(--fs-spacing-5);
     }
 
@@ -223,11 +225,11 @@
     --fs-grid-gap-4                      : var(--fs-spacing-5);
 
     // BREAKPOINTS
-    --fs-grid-breakpoint-phone           : #{map-get($breakpoints, "phone")};
-    --fs-grid-breakpoint-phonemid        : #{map-get($breakpoints, "phonemid")};
-    --fs-grid-breakpoint-tablet          : #{map-get($breakpoints, "tablet")};
-    --fs-grid-breakpoint-notebook        : #{map-get($breakpoints, "notebook")};
-    --fs-grid-breakpoint-desktop         : #{map-get($breakpoints, "desktop")};
+    --fs-grid-breakpoint-phone           : #{map.get(utilities.$breakpoints, "phone")};
+    --fs-grid-breakpoint-phonemid        : #{map.get(utilities.$breakpoints, "phonemid")};
+    --fs-grid-breakpoint-tablet          : #{map.get(utilities.$breakpoints, "tablet")};
+    --fs-grid-breakpoint-notebook        : #{map.get(utilities.$breakpoints, "notebook")};
+    --fs-grid-breakpoint-desktop         : #{map.get(utilities.$breakpoints, "desktop")};
 
     // --------------------------------------------------------
     // Interactive Controls (UI Essentials)
@@ -238,7 +240,7 @@
     --fs-control-tap-size-smallest       : calc(var(--fs-control-tap-size) / 2);
     --fs-control-min-height              : var(--fs-control-tap-size);
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       --fs-control-tap-size              : var(--fs-spacing-7); // This value can be smaller on desktops
     }
 

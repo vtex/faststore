@@ -1,4 +1,4 @@
-import type { Context, Options } from '../../'
+import type { GraphqlContext } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import { getWithCookie } from '../../utils/cookies'
 import type {
@@ -94,7 +94,7 @@ export const IntelligentSearch = (
     showSponsored,
     subDomainPrefix,
   }: Options,
-  ctx: Context
+  ctx: GraphqlContext
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
   const withCookie = getWithCookie(ctx)

@@ -8,15 +8,23 @@
     "DISCOVERY_DEBUG"
   ],
   "tasks": {
-    "site#build": {
-      "dependsOn": ["^build"],
-      "env": ["BASE_SITE_URL"],
-      "outputs": [".next/**"]
-    },
     "build": {
       "dependsOn": ["^build"],
       "env": ["BASE_SITE_URL"],
       "outputs": ["dist/**"]
+    },
+    "generate": {},
+    "@faststore/api#build": {
+      "dependsOn": ["generate", "^build"],
+      "env": ["BASE_SITE_URL"],
+      "outputs": ["dist/**"]
+    },
+    "@faststore/api#generate": {
+      "outputs": ["src/__generated__/**"]
+    },
+    "@faststore/core#generate": {
+      "dependsOn": ["^generate", "@faststore/cli#build"],
+      "outputs": ["@generated/**"]
     },
     "test": {
       "dependsOn": ["^build"]
@@ -34,12 +42,6 @@
       "cache": false
     },
     "@faststore/api#dev:graphql": {
-      "outputs": ["dist/**"]
-    },
-    "@faststore/api#build:cjs": {
-      "outputs": ["dist/**"]
-    },
-    "@faststore/api#build:esm": {
       "outputs": ["dist/**"]
     }
   }

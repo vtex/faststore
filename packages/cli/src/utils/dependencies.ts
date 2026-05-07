@@ -7,12 +7,12 @@ type InstallDependenciesOptions = {
   errorMessage: string
 }
 
-export function installDependencies({
+export async function installDependencies({
   dependencies,
   cwd,
   errorMessage,
 }: InstallDependenciesOptions) {
-  const packageManager = getPreferredPackageManager()
+  const packageManager = await getPreferredPackageManager()
   const installCommand = packageManager === 'npm' ? 'install' : 'add'
 
   runCommandSync({

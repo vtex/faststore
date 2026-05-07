@@ -1,51 +1,59 @@
-.section [data-fs-preview-tag] {
-  position: fixed;
-  inset: 1rem 1rem auto auto;
-  z-index: var(--fs-z-index-highest);
-  border-radius: var(--fs-border-radius-pill);
-  box-shadow: var(--fs-shadow-darker);
-  backdrop-filter: blur(var(--fs-spacing-1));
+@use "sass:meta";
 
-  [data-fs-badge-wrapper="true"] {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: var(--fs-spacing-1) var(--fs-spacing-6) var(--fs-spacing-1) var(--fs-spacing-2);
-    color: var(--fs-color-text);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    background: var(--fs-color-danger-bkg);
-    border-radius: var(--fs-border-radius-pill);
-    box-shadow: var(--fs-shadow-hover);
+@layer components {
+  .section {
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Badge/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/atoms/Icon/styles.scss");
+    @include meta.load-css("~@faststore/ui/src/components/molecules/Tag/styles.scss");
 
-    [data-fs-tag-icon-button="true"] {
-      position: absolute;
-      right: calc(-1 * var(--fs-spacing-1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: var(--fs-spacing-7);
-      height: var(--fs-spacing-7);
-      cursor: pointer;
+    [data-fs-preview-tag] {
+      position: fixed;
+      inset: 1rem 1rem auto auto;
+      z-index: var(--fs-z-index-highest);
+      border-radius: var(--fs-border-radius-pill);
+      box-shadow: var(--fs-shadow-darker);
+      backdrop-filter: blur(var(--fs-spacing-1));
 
-      [data-fs-icon] {
+      [data-fs-badge-wrapper="true"] {
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 16px;
-        height: 16px;
+        padding: var(--fs-spacing-1) var(--fs-spacing-6) var(--fs-spacing-1) var(--fs-spacing-2);
+        color: var(--fs-color-text);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         background: var(--fs-color-danger-bkg);
-        border-radius: 50%;
-        transition: var(--fs-transition-property) var(--fs-transition-timing) var(--fs-transition-function);
-      }
+        border-radius: var(--fs-border-radius-pill);
+        box-shadow: var(--fs-shadow-hover);
 
-      &:hover [data-fs-icon],
-      &:focus [data-fs-icon] {
-        filter: brightness(0.9);
-      }
+        [data-fs-tag-icon-button="true"] {
+          position: absolute;
+          right: calc(-1 * var(--fs-spacing-1));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: var(--fs-spacing-7);
+          height: var(--fs-spacing-7);
+          cursor: pointer;
 
-      &:focus [data-fs-icon] {
-        border: var(--fs-border-width) solid currentColor;
+          [data-fs-icon] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--fs-color-danger-bkg);
+            border-radius: 50%;
+            transition: var(--fs-transition-property) var(--fs-transition-timing) var(--fs-transition-function);
+          }
+
+          &:hover [data-fs-icon],
+          &:focus [data-fs-icon] {
+            filter: brightness(0.9);
+          }
+
+          &:focus [data-fs-icon] {
+            border: var(--fs-border-width) solid currentColor;
+          }
+        }
       }
     }
   }

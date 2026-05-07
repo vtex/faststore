@@ -2,6 +2,7 @@ import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
 import { Breadcrumb as UIBreadcrumb } from '@faststore/ui'
 import { memo } from 'react'
 
+import storeConfig from 'discovery.config'
 import Link from 'src/components/ui/Link'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 export interface BreadcrumbProps extends UIBreadcrumbProps {
@@ -9,11 +10,7 @@ export interface BreadcrumbProps extends UIBreadcrumbProps {
   alt: string
 }
 
-const Breadcrumb = ({
-  icon,
-  alt = 'Go to homepage',
-  ...otherProps
-}: BreadcrumbProps) => {
+const Breadcrumb = ({ icon, alt, ...otherProps }: BreadcrumbProps) => {
   const { Breadcrumb, Icon } = useOverrideComponents<'Breadcrumb'>()
 
   return (
@@ -31,15 +28,21 @@ const Breadcrumb = ({
             height={18}
             weight="bold"
             {...Icon.props}
-            name={icon ?? Icon.props.name ?? 'Home'}
+            name={icon ?? Icon.props.name}
           />
         </Link>
       }
-      renderLink={({ itemProps: { item: link, name } }) => (
-        <Link data-fs-breadcrumb-link href={link} prefetch={false}>
-          {name}
-        </Link>
-      )}
+      renderLink={({ itemProps: { item: link, name } }) =>
+        // workaround to display the name without a link since localized slug is not available yet
+        // TODO: when localized slugs are available remove this workaround
+        storeConfig.localization?.enabled ? (
+          <span data-fs-breadcrumb-link>{name}</span>
+        ) : (
+          <Link data-fs-breadcrumb-link href={link} prefetch={false}>
+            {name}
+          </Link>
+        )
+      }
       {...Breadcrumb.props}
       {...otherProps}
     />

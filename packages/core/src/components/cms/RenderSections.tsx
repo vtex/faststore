@@ -25,6 +25,12 @@ interface Props {
 
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal', 'RegionSlider']
 
+/** Filter CMS metadata props so they are not passed to section components (and thus to the DOM). */
+function getSectionProps(data: Record<string, unknown>) {
+  const { $componentKey: _key, $componentTitle: _title, ...sectionProps } = data
+  return sectionProps
+}
+
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
   { ssr: false }
@@ -119,16 +125,18 @@ export const RenderSectionsBase = ({
           return null
         }
 
+        const sectionProps = getSectionProps(data)
+
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
             {data.skipLazyLoadingSection ? (
-              <Component {...data} />
+              <Component {...sectionProps} />
             ) : (
               <LazyLoadingSection
                 sectionName={name}
                 isInteractive={isInteractive}
               >
-                <Component {...data} />
+                <Component {...sectionProps} />
               </LazyLoadingSection>
             )}
           </SectionBoundary>

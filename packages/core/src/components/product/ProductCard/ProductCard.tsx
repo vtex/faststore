@@ -82,7 +82,7 @@ function ProductCard({
   aspectRatio = 1,
   imgProps,
   ratingValue,
-  buttonLabel = 'Add',
+  buttonLabel,
   onButtonClick,
   showDiscountBadge = true,
   taxesConfiguration,

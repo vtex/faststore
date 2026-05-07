@@ -1,30 +1,22 @@
 {
   "name": "@faststore/storybook",
-  "version": "3.99.0",
+  "version": "4.0.0-dev.4",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vtex/faststore.git",
-    "directory": "packages/storybook"
+  "engines": {
+    "node": ">=20"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.4",
+    "@chromatic-com/storybook": "^4.1.2",
     "@storybook/addon-essentials": "^8.5.2",
     "@storybook/addon-interactions": "^8.5.2",
     "@storybook/addon-onboarding": "^8.5.2",
     "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
     "@storybook/blocks": "^8.5.2",
-    "@storybook/nextjs": "^8.5.2",
-    "@storybook/react": "^8.5.2",
+    "@storybook/nextjs": "10.2.3",
     "@storybook/test": "^8.5.2",
-    "@types/react": "^18.2.42",
-    "@types/react-dom": "^18.2.42",
+    "@types/react": "catalog:",
     "sass": "^1.83.4",
-    "storybook": "^8.5.2"
-  },
-  "volta": {
-    "node": "18.19.0",
-    "pnpm": "9.15.1"
+    "storybook": "^10.2.3"
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
@@ -33,8 +25,8 @@
   "dependencies": {
     "@faststore/components": "workspace:*",
     "@faststore/ui": "workspace:*",
-    "next": "^15.1.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }

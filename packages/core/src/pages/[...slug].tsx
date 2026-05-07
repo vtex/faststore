@@ -114,17 +114,18 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string[] },
   PreviewData
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, locale }) => {
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
+  const contentContext = { previewData, locale }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
-  const landingPagePromise = getLandingPageBySlug(slug, previewData)
+  const landingPagePromise = getLandingPageBySlug(slug, contentContext)
 
   const landingPage = await landingPagePromise
 
@@ -174,8 +175,9 @@ export const getStaticProps: GetStaticProps<
     }),
     contentService.getPlpContent(
       {
-        previewData,
+        ...contentContext,
         slug,
+        locale,
       },
       rewrites
     ),
@@ -191,6 +193,7 @@ export const getStaticProps: GetStaticProps<
         ?.sortBySelection as SearchState['sort'],
       term: '',
       selectedFacets: data?.collection?.meta.selectedFacets,
+      locale,
     })
 
   const notFound = errors.find(isNotFoundError)
