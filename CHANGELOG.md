@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/vtex/faststore/compare/v3.99.0...v4.0.0) (2026-05-07)
+
+### Features
+
+- FastStore v4 ([#3302](https://github.com/vtex/faststore/issues/3302)) ([c7ca1a2](https://github.com/vtex/faststore/commit/c7ca1a2a9a6161bdf30e33a965ecf2fda9ef3fbf))
+
 # [4.0.0-dev.4](https://github.com/vtex/faststore/compare/v4.0.0-dev.3...v4.0.0-dev.4) (2026-05-07)
 
 ### Bug Fixes
@@ -180,6 +186,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package faststore
 
+# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
+
+**Note:** Version bump only for package faststore
+
 # [3.97.0-dev.6](https://github.com/vtex/faststore/compare/v3.97.0-dev.5...v3.97.0-dev.6) (2026-02-19)
 
 ### Bug Fixes
@@ -208,10 +218,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - reorder feature ([#3153](https://github.com/vtex/faststore/issues/3153)) ([d0fdeec](https://github.com/vtex/faststore/commit/d0fdeec77cd94e16f1b79dcc927487320983ba0e))
 
-# [3.97.0](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0) (2026-02-03)
-
-**Note:** Version bump only for package faststore
-
 # [3.97.0-dev.1](https://github.com/vtex/faststore/compare/v3.96.5...v3.97.0-dev.1) (2026-02-03)
 
 # 3.97.0-dev.0 (2026-01-27)
@@ -224,12 +230,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - Enable fraction digit formatting for SEO's `product:price:amount` meta tag ([#3179](https://github.com/vtex/faststore/issues/3179)) ([d6e6252](https://github.com/vtex/faststore/commit/d6e6252eb578d782505b8e505ee48cd9fd1526e3))
 
-## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
-
-# 3.96.0-dev.22 (2026-01-21)
-
-**Note:** Version bump only for package faststore
-
 ## [3.96.5](https://github.com/vtex/faststore/compare/v3.96.4...v3.96.5) (2026-02-02)
 
 ### Bug Fixes
@@ -241,6 +241,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - close filter on apply button click in FilterSlider component ([#3187](https://github.com/vtex/faststore/issues/3187)) ([f3c96eb](https://github.com/vtex/faststore/commit/f3c96eb5e73178d8c863a3e40ac576dc623a0624))
+
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
 
 ## [3.96.3](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.3) (2026-01-21)
 
@@ -263,6 +265,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - version 20251223 ([#3161](https://github.com/vtex/faststore/issues/3161)) ([ad5e8d1](https://github.com/vtex/faststore/commit/ad5e8d12fe45f1fb8e1134165172bf1c6b2a91e2))
+
+# 3.96.0-dev.22 (2026-01-21)
+
+**Note:** Version bump only for package faststore
 
 # 3.96.0-dev.22 (2026-01-21)
 
@@ -378,16 +384,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.95.1-dev.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.95.1-dev.0) (2025-12-02)
 
-# 3.95.0-dev.3 (2025-12-02)
-
-**Note:** Version bump only for package faststore
-
 # 3.95.0 (2025-12-02)
 
 ### Features
 
 - release graduate ([#3139](https://github.com/vtex/faststore/issues/3139)) ([90285fc](https://github.com/vtex/faststore/commit/90285fcc453531a897ba52adcb14032e8ebd8065))
 - release version 20250212 ([#3138](https://github.com/vtex/faststore/issues/3138)) ([5e51548](https://github.com/vtex/faststore/commit/5e5154898e3756aa8d95efd54d76db0c90248d8d))
+
+# 3.95.0-dev.3 (2025-12-02)
+
+**Note:** Version bump only for package faststore
 
 # [3.95.0-dev.2](https://github.com/vtex/faststore/compare/v3.94.0...v3.95.0-dev.2) (2025-12-02)
 
@@ -410,16 +416,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
 
-# 3.93.0-dev.4 (2025-11-17)
-
-**Note:** Version bump only for package faststore
-
 # 3.94.0 (2025-11-19)
 
 ### Features
 
 - release version 20251119 17 05 ([#3126](https://github.com/vtex/faststore/issues/3126)) ([9753c3f](https://github.com/vtex/faststore/commit/9753c3ff5ea760767978c41ec138b661a87ad731))
 - update version to 3.93.0-dev.4 and clean up changelogs ([#3127](https://github.com/vtex/faststore/issues/3127)) ([0c29d74](https://github.com/vtex/faststore/commit/0c29d749dc2222d01d848ffda9c2ae95dfba22af))
+
+# 3.93.0-dev.4 (2025-11-17)
+
+**Note:** Version bump only for package faststore
 
 # [3.93.0-dev.4](https://github.com/vtex/faststore/compare/v3.93.0-dev.3...v3.93.0-dev.4) (2025-11-17)
 
