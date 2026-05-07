@@ -49,6 +49,7 @@ const LocalizationButton = ({
     setLocaleCode,
     setCurrencyCode,
     save,
+    reset,
     isSaveEnabled,
     error,
   } = useBindingSelector()
@@ -97,7 +98,10 @@ const LocalizationButton = ({
       {isSelectorOpen && (
         <LocalizationSelector
           isOpen={isSelectorOpen}
-          onClose={() => setIsSelectorOpen(false)}
+          onClose={() => {
+            setIsSelectorOpen(false)
+            reset()
+          }}
           triggerRef={buttonRef}
           languages={languages}
           currencies={currencies}
