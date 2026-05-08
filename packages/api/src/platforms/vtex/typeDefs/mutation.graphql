@@ -31,5 +31,7 @@ type Mutation {
   Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
   Returns an operationId to poll for the operation status.
   """
-  startOrderEntryOperation(data: IOrderEntryOperation!): OrderEntryOperationResult
+  startOrderEntryOperation(
+    data: IOrderEntryOperation!
+  ): OrderEntryOperationResult
 }
