@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useCart } from '../cart'
 import { useOrderEntryOperation } from './useOrderEntryOperation'
@@ -6,6 +6,8 @@ import { useOrderEntryUpload } from './useOrderEntryUpload'
 
 export function useOrderEntry() {
   const cart = useCart()
+
+  const [isOperationStarting, setIsOperationStarting] = useState(false)
 
   const { uploadFile, isUploading, error: uploadError } = useOrderEntryUpload()
   const {
@@ -20,10 +22,15 @@ export function useOrderEntry() {
     async (file: File) => {
       const objectKey = await uploadFile(file)
       if (!objectKey) return
-      await startOperation({
-        objectKey,
-        orderFormId: cart.id ?? '',
-      })
+      setIsOperationStarting(true)
+      try {
+        await startOperation({
+          objectKey,
+          orderFormId: cart.id ?? '',
+        })
+      } finally {
+        setIsOperationStarting(false)
+      }
     },
     [uploadFile, startOperation, cart.id]
   )
@@ -31,7 +38,9 @@ export function useOrderEntry() {
   return {
     submitFile,
     status,
-    isLoading: isUploading || isOperating,
+    isLoading: isUploading || isOperationStarting || isOperating,
+    isUploading,
+    isProcessing: isOperationStarting || isOperating,
     error: uploadError ? new Error(uploadError.message) : operationError,
     reset,
   }

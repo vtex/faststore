@@ -123,7 +123,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const {
       submitFile,
       status: oesStatus,
-      isLoading: isOESLoading,
+      isUploading: isOESUploading,
+      isProcessing: isOESProcessing,
       error: oesError,
       reset: resetOES,
     } = useOrderEntry()
@@ -322,6 +323,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 }
                 searchButtonLabel={fileUploadCardConfig?.searchButtonLabel}
                 uploadingStatusText={fileUploadCardConfig?.uploadingStatusText}
+                processingStatusText={
+                  fileUploadCardConfig?.processingStatusText ?? 'Importing...'
+                }
                 getCompletedStatusText={getCompletedStatusText}
                 errorMessages={resolvedErrorMessages}
                 accept={fileUploadCardConfig?.acceptedFileTypes}
@@ -332,7 +336,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 formatterFileSize={formatFileSize}
                 formatterFileName={formatFileName}
                 onSearch={handleSearch}
-                isUploading={isOESLoading}
+                isUploading={isOESUploading}
+                isProcessing={isOESProcessing}
                 hasError={!!oesError || oesStatus?.status === 'FAILED'}
                 {...((oesError || oesStatus?.status === 'FAILED') && {
                   errorType: FileUploadErrorType.Unreadable,
