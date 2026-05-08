@@ -61,6 +61,7 @@ export const VtexCommerce = (
   ctx: GraphqlContext
 ) => {
   const base = `https://${account}.${environment}.com.br`
+  const oesBase = `https://${account}.vtexcommercebeta.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
   const withAutCookie = getWithAutCookie(ctx)
@@ -833,7 +834,7 @@ export const VtexCommerce = (
         body.set(footerBytes, offset)
 
         return fetchAPI(
-          `${base}/api/order-entry/upload?an=${account}`,
+          `${oesBase}/api/order-entry/upload?an=${account}`,
           {
             method: 'POST',
             headers: {
@@ -864,7 +865,7 @@ export const VtexCommerce = (
         })
 
         return fetchAPI(
-          `${base}/api/order-entry/operation?an=${account}`,
+          `${oesBase}/api/order-entry/operation?an=${account}`,
           {
             method: 'POST',
             headers: {
@@ -894,10 +895,27 @@ export const VtexCommerce = (
         const autHeaders = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
-          `${base}/api/order-entry/operation/${operationId}?an=${account}`,
+          `${oesBase}/api/order-entry/operation/${operationId}?an=${account}`,
           {
             method: 'GET',
             headers: autHeaders,
+          },
+          {}
+        )
+      },
+
+      createOrderForm: (): Promise<{ orderFormId: string }> => {
+        const autHeaders = withAutCookie(forwardedHost, account)
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm?sc=${ctx.storage.channel.salesChannel}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-FORWARDED-HOST': forwardedHost,
+              VtexIdclientAutCookie: autHeaders['VtexIdclientAutCookie'],
+            },
+            body: '{}',
           },
           {}
         )
