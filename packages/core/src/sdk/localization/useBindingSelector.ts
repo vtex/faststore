@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import storeConfig from '../../../discovery.config'
 import { buildRedirectUrl } from '../../utils/localization/bindingPaths'
@@ -56,6 +56,8 @@ export interface UseBindingSelectorReturn {
   setCurrencyCode: (code: string) => void
   /** Action to save selections and redirect */
   save: () => void
+  /** Discards unsaved changes and resets selections to current session values */
+  reset: () => void
 }
 
 /**
@@ -76,6 +78,23 @@ export function useBindingSelector(): UseBindingSelectorReturn {
     () => currentCurrency?.code ?? null
   )
   const [error, setError] = useState<BindingSelectorError | null>(null)
+
+  const hasUserEditedSelection = useRef(false)
+
+  // Sync selections when session resolves after initial render (e.g. stale session
+  // from a previous locale when navigating between locale-prefixed paths).
+  // Skipped once the user has made an in-progress selection; call reset() on close to re-enable.
+  useEffect(() => {
+    if (!hasUserEditedSelection.current) {
+      setLocaleCode(currentLocale ?? null)
+    }
+  }, [currentLocale])
+
+  useEffect(() => {
+    if (!hasUserEditedSelection.current) {
+      setCurrencyCode(currentCurrency?.code ?? null)
+    }
+  }, [currentCurrency?.code])
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
   const languages = useMemo(
@@ -98,6 +117,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
   // Handle locale code change
   const handleSetLocaleCode = useCallback(
     (code: string) => {
+      hasUserEditedSelection.current = true
       setLocaleCode(code)
       setError(null)
 
@@ -126,6 +146,7 @@ export function useBindingSelector(): UseBindingSelectorReturn {
 
   // Handle currency code change
   const handleSetCurrencyCode = useCallback((code: string) => {
+    hasUserEditedSelection.current = true
     setCurrencyCode(code)
     setError(null)
   }, [])
@@ -169,6 +190,14 @@ export function useBindingSelector(): UseBindingSelectorReturn {
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)
 
+  // Discards unsaved changes and re-enables session syncing
+  const reset = useCallback(() => {
+    hasUserEditedSelection.current = false
+    setLocaleCode(currentLocale ?? null)
+    setCurrencyCode(currentCurrency?.code ?? null)
+    setError(null)
+  }, [currentLocale, currentCurrency?.code])
+
   return {
     languages,
     currencies,
@@ -179,5 +208,6 @@ export function useBindingSelector(): UseBindingSelectorReturn {
     setLocaleCode: handleSetLocaleCode,
     setCurrencyCode: handleSetCurrencyCode,
     save,
+    reset,
   }
 }
