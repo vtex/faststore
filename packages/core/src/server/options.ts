@@ -58,7 +58,7 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
   const span = tracer.startSpan('@faststore/core graphql')
 
   const context = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
-  OTELAPI.propagation.inject(options.OTEL.__otelContext, context)
+  OTELAPI.propagation.inject(context, options.OTEL.__otelContext)
 
   try {
     return options as T
