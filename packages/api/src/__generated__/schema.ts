@@ -1749,8 +1749,12 @@ export type StoreUserDetails = {
   name?: Maybe<Scalars['String']['output']>;
   /** User's organizational unit. */
   orgUnit?: Maybe<Scalars['String']['output']>;
+  /** User's phone number. */
+  phone?: Maybe<Scalars['String']['output']>;
   /** User's role. */
   role?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** User's username (login). May differ from email when Alternative Login is enabled. */
+  username?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrder = {

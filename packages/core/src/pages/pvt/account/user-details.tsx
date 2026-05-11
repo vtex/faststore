@@ -35,8 +35,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type UserDetailsPagePros = {
   userDetails: {
+    username: string
     name: string
     email: string
+    phone: string
     role: string[]
     orgUnit: string
   }
@@ -75,8 +77,10 @@ const query = gql(`
       name
     }
     userDetails {
+      username
       name
       email
+      phone
       role
       orgUnit
     }

@@ -1658,8 +1658,12 @@ export type StoreUserDetails = {
   name: Maybe<Scalars['String']['output']>;
   /** User's organizational unit. */
   orgUnit: Maybe<Scalars['String']['output']>;
+  /** User's phone number. */
+  phone: Maybe<Scalars['String']['output']>;
   /** User's role. */
   role: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** User's username (login). May differ from email when Alternative Login is enabled. */
+  username: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrder = {
@@ -2560,7 +2564,7 @@ export type ServerSecurityQuery = { accountProfile: { name: string | null }, use
 export type ServerUserDetailsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ServerUserDetailsQueryQuery = { accountProfile: { name: string | null }, userDetails: { name: string | null, email: string | null, role: Array<string | null> | null, orgUnit: string | null } };
+export type ServerUserDetailsQueryQuery = { accountProfile: { name: string | null }, userDetails: { username: string | null, name: string | null, email: string | null, phone: string | null, role: Array<string | null> | null, orgUnit: string | null } };
 
 export type CancelOrderMutationMutationVariables = Exact<{
   data: IUserOrderCancel;
@@ -3247,7 +3251,7 @@ export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"Ser
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
 export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
-export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"e5eb7e46c685d0c7a2ec62c865bfb0a66f81d557"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
+export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"630ec1f47f2710ce3d7895e9131482641f30c837"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
