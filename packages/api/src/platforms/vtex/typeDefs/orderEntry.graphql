@@ -51,3 +51,15 @@ type OrderEntryOperationStatus {
   message: String
   missingItems: [OrderEntryMissingItem!]
 }
+
+type OrderFormCartItem {
+  id: String!
+  name: String!
+  price: Int!
+  listPrice: Int!
+  quantity: Int!
+  imageUrl: String
+  availability: String!
+  seller: String!
+  unitMultiplier: Float
+}

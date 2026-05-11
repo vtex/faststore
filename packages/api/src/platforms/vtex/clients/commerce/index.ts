@@ -920,6 +920,26 @@ export const VtexCommerce = (
           {}
         )
       },
+
+      getOrderFormItems: ({
+        orderFormId,
+      }: {
+        orderFormId: string
+      }): Promise<{ items: import('./types/OrderForm').OrderFormItem[] }> => {
+        const autHeaders = withAutCookie(forwardedHost, account)
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${orderFormId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-FORWARDED-HOST': forwardedHost,
+              VtexIdclientAutCookie: autHeaders['VtexIdclientAutCookie'],
+            },
+          },
+          {}
+        )
+      },
     },
   }
 }

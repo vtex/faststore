@@ -768,6 +768,19 @@ export type OrderEntryUploadResult = {
   objectKey: Scalars['String'];
 };
 
+export type OrderFormCartItem = {
+  __typename?: 'OrderFormCartItem';
+  availability: Scalars['String'];
+  id: Scalars['String'];
+  imageUrl?: Maybe<Scalars['String']>;
+  listPrice: Scalars['Int'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  quantity: Scalars['Int'];
+  seller: Scalars['String'];
+  unitMultiplier?: Maybe<Scalars['Float']>;
+};
+
 /** Newsletter information. */
 export type PersonNewsletter = {
   __typename?: 'PersonNewsletter';
@@ -935,6 +948,8 @@ export type Query = {
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
   orderEntryOperation?: Maybe<OrderEntryOperationStatus>;
+  /** Returns the items in an orderForm by its ID. */
+  orderFormItems: Array<OrderFormCartItem>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
@@ -993,6 +1008,11 @@ export type QueryListUserOrdersArgs = {
 
 export type QueryOrderEntryOperationArgs = {
   operationId: Scalars['String'];
+};
+
+
+export type QueryOrderFormItemsArgs = {
+  orderFormId: Scalars['String'];
 };
 
 
