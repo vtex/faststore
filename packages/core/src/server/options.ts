@@ -28,7 +28,7 @@ export const apiOptions: APIOptions = {
   },
   version,
   OTEL: {
-    enabled: storeConfig.analytics.otelEnabled,
+    enabled: true,
   },
   discoveryConfig: storeConfig,
 }
@@ -50,7 +50,7 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
     ...apiOptions,
     OTEL: {
       __otelContext: {},
-      enabled: storeConfig.analytics?.otelEnabled?.toString() === 'true',
+      enabled: true,
     },
   } satisfies T
 

@@ -4,7 +4,7 @@ This projects uses OpenTelemetry to logs and traces. This logs and traces are se
 
 ## Logs
 
-The log is exported to a collector URL defined by `OTLP_LOGGER_ENDPOINT` env var. The value for dev should be `developer-logs.opentelemetry-collector.vtex.systems:80` and for production `logs.opentelemetry-collector.vtex.systems:80`
+The log is exported to a collector URL defined by `OTLP_LOGGER_ENDPOINT` var defined [here](../packages/diagnostics/src/globals.ts). The variable is configured with the correct production variable. To log in development the following url should be used: `developer-logs.opentelemetry-collector.vtex.systems:80`
 
 To see the generated logs one should go to the (grafana app)[https://grafana.vtex.com/explore] and search by attrs:
   - `vtex.account.name:required_logs_account_name` -> Example: `vtex.account.name:storeframework`
@@ -14,7 +14,7 @@ To see the generated logs one should go to the (grafana app)[https://grafana.vte
 
 ## Traces
 
-The traces are exported to a collector URL defined by `OTLP_TRACES_ENDPOINT` env variable. The falue for production should be: `opentelemetry-collector.vtex.systems:80`
+The traces are exported to a collector URL defined by `OTLP_TRACES_ENDPOINT` variable defined [here](../packages/diagnostics/src/globals.ts). The variable is configured with the correct production variable.
 
 To see the traces collected we should connected to the vpn go to the (sgnoz app)[https://signoz-traces.vtex.systems/home] and search for
 traces that contains the following attrs:

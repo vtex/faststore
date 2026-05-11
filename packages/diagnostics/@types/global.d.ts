@@ -10,5 +10,7 @@ declare global {
     TRACE_CLIENT: TraceClient | undefined
     LOGGER_CLIENT: LogClient | undefined
     IS_DEV: boolean
+    OTLP_TRACES_ENDPOINT: string
+    OTLP_LOGGER_ENDPOINT: string
   }
 }
