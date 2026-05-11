@@ -31,15 +31,13 @@ export async function getLogger(
   if (global.fsDiagnostics.LOGGER_CLIENT)
     return global.fsDiagnostics.LOGGER_CLIENT
 
-  const logger = await client.newLogsClient({
+  global.fsDiagnostics.LOGGER_CLIENT = await client.newLogsClient({
     exporter: await setupLogsExporter(),
   })
 
-  overrideConsole(logger, opt)
+  overrideConsole(global.fsDiagnostics.LOGGER_CLIENT, opt)
 
-  global.fsDiagnostics.LOGGER_CLIENT ??= logger
-
-  return logger
+  return global.fsDiagnostics.LOGGER_CLIENT
 }
 
 function overrideConsole(
