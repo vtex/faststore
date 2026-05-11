@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.99.2](https://github.com/vtex/faststore/compare/v3.99.1...v3.99.2) (2026-05-11)
+
+### Bug Fixes
+
+- PLP "Load more products" overwriting list instead of appending ([#3305](https://github.com/vtex/faststore/issues/3305)) ([b6a98bf](https://github.com/vtex/faststore/commit/b6a98bf4ceffb8b75e5e1347c87bfd833c233d1e)), closes [#3015](https://github.com/vtex/faststore/issues/3015) [#3015](https://github.com/vtex/faststore/issues/3015)
+
 ## 3.99.1 (2026-05-06)
 
 **Note:** Version bump only for package @faststore/sdk
