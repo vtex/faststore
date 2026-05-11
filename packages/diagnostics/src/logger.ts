@@ -9,7 +9,7 @@ import { format } from 'node:util'
 
 async function setupLogsExporter() {
   const OTLP_LOGGER_ENDPOINT =
-    process.env.OTLP_LOGGER_ENDPOINT || 'localhost:4317'
+    globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'localhost:4317'
 
   const logsExporter = Exporters.CreateExporter(
     Exporters.CreateLogsExporterConfig({

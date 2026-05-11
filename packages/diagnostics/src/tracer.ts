@@ -3,7 +3,7 @@ import type { TelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/cl
 
 async function setupTracesExporter() {
   const OTLP_TRACES_ENDPOINT =
-    process.env.OTLP_TRACES_ENDPOINT || 'localhost:4317'
+    globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT || 'localhost:4317'
 
   const tracesConfig = Exporters.CreateTracesExporterConfig({
     endpoint: OTLP_TRACES_ENDPOINT,
