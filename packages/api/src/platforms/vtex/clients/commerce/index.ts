@@ -453,7 +453,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -697,6 +697,23 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/license-manager/pvt/users/${email}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getUserRoles: ({
+        userId,
+      }: { userId: string }): Promise<{
+        Email: string
+        Roles: Array<{ Id: number; Name: string }>
+      }> => {
+        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+
+        return fetchAPI(
+          `${base}/api/license-manager/storefront/users/${userId}/roles`,
           {
             method: 'GET',
             headers,

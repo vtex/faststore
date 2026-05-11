@@ -37,6 +37,7 @@ export interface Profile {
   email?: Value
   firstName?: Value
   lastName?: Value
+  phone?: Value
 }
 
 export interface Shopper {

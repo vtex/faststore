@@ -518,6 +518,10 @@ User details information.
 """
 type StoreUserDetails {
   """
+  User's username (login). May differ from email when Alternative Login is enabled.
+  """
+  username: String
+  """
   User's name.
   """
   name: String
@@ -525,6 +529,10 @@ type StoreUserDetails {
   User's email.
   """
   email: String
+  """
+  User's phone number.
+  """
+  phone: String
   """
   User's role.
   """
