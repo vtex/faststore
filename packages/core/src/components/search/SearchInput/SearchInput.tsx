@@ -28,7 +28,6 @@ import {
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
   useOnClickOutside,
-  useUI,
 } from '@faststore/ui'
 
 import type {
@@ -44,9 +43,11 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 
 import { cartStore } from 'src/sdk/cart'
+import type { CartItem } from 'src/sdk/cart'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 import { useOrderEntry } from 'src/sdk/orderEntry/useOrderEntry'
-import { redirectToCheckout } from 'src/sdk/cart/redirectToCheckout'
+import { useOrderFormItems } from 'src/sdk/orderEntry/useOrderFormItems'
+import type { OrderFormCartItem } from 'src/sdk/orderEntry/useOrderFormItems'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { formatFileName, formatFileSize } from 'src/utils/utilities'
 
@@ -83,6 +84,20 @@ const sendAnalytics = async (term: string) => {
   })
 }
 
+function mapOrderFormItemsToProducts(items: OrderFormCartItem[]): Product[] {
+  return items.map((item) => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    quantityUpdated: false,
+    image: { url: item.imageUrl ?? '', alternateName: item.name },
+    inventory: item.availability === 'available' ? 9999 : 0,
+    availability:
+      item.availability === 'available' ? 'available' : 'outOfStock',
+    selectedCount: item.quantity,
+  }))
+}
+
 const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
   function SearchInput(
     {
@@ -110,13 +125,14 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const [hasFile, setHasFile] = useState(false)
     const [isQuickOrderDrawerOpen, setIsQuickOrderDrawerOpen] = useState(false)
     const [quickOrderProducts, setQuickOrderProducts] = useState<Product[]>([])
-    const [noProductsError, setNoProductsError] = useState<boolean>(false)
+    const [oesOrderFormItems, setOesOrderFormItems] = useState<
+      OrderFormCartItem[]
+    >([])
 
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
     const priceFormatter = usePriceFormatter()
-    const { pushToast } = useUI()
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
@@ -129,19 +145,33 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       reset: resetOES,
     } = useOrderEntry()
 
+    const {
+      fetchOrderFormItems,
+      items: orderFormItems,
+      reset: resetOrderFormItems,
+    } = useOrderFormItems()
+
     useEffect(() => {
       if (
         (oesStatus?.status === 'SUCCESS' ||
           oesStatus?.status === 'PARTIAL_SUCCESS') &&
         oesStatus.entityId
       ) {
-        redirectToCheckout(oesStatus.entityId)
+        fetchOrderFormItems(oesStatus.entityId)
       }
     }, [oesStatus?.status, oesStatus?.entityId])
 
+    useEffect(() => {
+      if (!orderFormItems || orderFormItems.length === 0) return
+      setOesOrderFormItems(orderFormItems)
+      setQuickOrderProducts(mapOrderFormItemsToProducts(orderFormItems))
+      setFileUploadVisible(false)
+      setIsUploadOpen(false)
+      setIsQuickOrderDrawerOpen(true)
+    }, [orderFormItems])
+
     const isQuickOrderEnabled = quickOrderSettings?.quickOrder ?? false
     const attachmentButton = quickOrderSettings?.attachmentButton
-    const toastMessages = quickOrderSettings?.toastMessages
     const drawerConfig = quickOrderSettings?.drawer
     const a11yLabels = quickOrderSettings?.accessibilityLabels
     const fileUploadCardConfig = quickOrderSettings?.fileUploadCard
@@ -174,10 +204,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const handleDismiss = () => {
       setSelectedFile(null)
       setQuickOrderProducts([])
+      setOesOrderFormItems([])
       setFileUploadVisible(false)
       setHasFile(false)
       setIsUploadOpen(false)
       resetOES()
+      resetOrderFormItems()
     }
 
     const handleSearch = async (_file?: File) => {
@@ -208,9 +240,59 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       testId: buttonTestId,
     }
 
-    const handleAddToCart = useCallback(() => {
-      setIsQuickOrderDrawerOpen(false)
-    }, [])
+    const handleAddToCart = useCallback(
+      (productsToAdd: Product[]) => {
+        for (const product of productsToAdd) {
+          if (
+            product.selectedCount <= 0 ||
+            product.availability !== 'available'
+          )
+            continue
+
+          const originalItem = oesOrderFormItems.find(
+            (item) => item.id === product.id
+          )
+
+          const cartItem: Omit<CartItem, 'id'> = {
+            itemOffered: {
+              sku: product.id,
+              name: product.name,
+              unitMultiplier: originalItem?.unitMultiplier ?? 1,
+              image: [
+                {
+                  url: product.image.url,
+                  alternateName: product.image.alternateName,
+                },
+              ],
+              brand: { name: '' },
+              isVariantOf: {
+                productGroupID: '',
+                name: product.name,
+                skuVariants: {
+                  activeVariations: {},
+                  slugsMap: {},
+                  availableVariations: {},
+                },
+              },
+              gtin: '',
+              additionalProperty: [],
+            },
+            seller: { identifier: originalItem?.seller ?? '1' },
+            quantity: product.selectedCount,
+            price: product.price,
+            priceWithTaxes: product.price,
+            listPrice: originalItem?.listPrice ?? product.price,
+            listPriceWithTaxes: originalItem?.listPrice ?? product.price,
+          }
+
+          cartStore.addItem(cartItem)
+        }
+        setIsQuickOrderDrawerOpen(false)
+        setQuickOrderProducts([])
+        setOesOrderFormItems([])
+      },
+      [oesOrderFormItems]
+    )
 
     const getCompletedStatusText = useCallback(
       (fileSize: number) => {
@@ -354,6 +436,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             onClick: () => {
               setIsQuickOrderDrawerOpen(false)
               setQuickOrderProducts([])
+              setOesOrderFormItems([])
             },
           }}
           providerProps={{
@@ -373,6 +456,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             onCloseDrawer={() => {
               setIsQuickOrderDrawerOpen(false)
               setQuickOrderProducts([])
+              setOesOrderFormItems([])
             }}
           />
           <QuickOrderDrawerProducts

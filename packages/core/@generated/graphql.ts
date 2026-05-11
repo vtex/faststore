@@ -740,6 +740,18 @@ export type OrderEntryOperationStatus = {
 }
 
 /** Result returned after uploading a file to the Order Entry Service. */
+export type OrderFormCartItem = {
+  availability: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  imageUrl: Maybe<Scalars['String']['output']>;
+  listPrice: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  quantity: Scalars['Int']['output'];
+  seller: Scalars['String']['output'];
+  unitMultiplier: Maybe<Scalars['Float']['output']>;
+};
+
 export type OrderEntryUploadResult = {
   /**
    * S3 object key that identifies the uploaded file.
@@ -903,6 +915,8 @@ export type Query = {
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
   orderEntryOperation: Maybe<OrderEntryOperationStatus>;
+  /** Returns the items in an orderForm by its ID. */
+  orderFormItems: Array<OrderFormCartItem>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
@@ -962,6 +976,10 @@ export type QueryListUserOrdersArgs = {
 export type QueryOrderEntryOperationArgs = {
   operationId: Scalars['String']['input']
 }
+
+export type QueryOrderFormItemsArgs = {
+  orderFormId: Scalars['String']['input'];
+};
 
 export type QueryPickupPointsArgs = {
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>;
@@ -2719,6 +2737,12 @@ export type UploadFileToOrderEntryMutationMutation = {
   uploadFileToOrderEntry: { objectKey: string } | null
 }
 
+export type OrderFormItemsQueryQueryVariables = Exact<{
+  orderFormId: Scalars['String']['input'];
+}>
+
+export type OrderFormItemsQueryQuery = { orderFormItems: Array<{ id: string, name: string, price: number, listPrice: number, quantity: number, imageUrl: string | null, availability: string, seller: string, unitMultiplier: number | null }> };
+
 export type ClientProductCountQueryQueryVariables = Exact<{
   term: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -3413,6 +3437,7 @@ export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"Subsc
 export const StartOrderEntryOperationMutationDocument = {"__meta__":{"operationName":"StartOrderEntryOperationMutation","operationHash":"78c50fbf9b85d03dbeac9b05b06405217f2ec440"}} as unknown as TypedDocumentString<StartOrderEntryOperationMutationMutation, StartOrderEntryOperationMutationMutationVariables>;
 export const OrderEntryOperationQueryDocument = {"__meta__":{"operationName":"OrderEntryOperationQuery","operationHash":"93fc6c5c593dd4c82686fdf063fe419760297e54"}} as unknown as TypedDocumentString<OrderEntryOperationQueryQuery, OrderEntryOperationQueryQueryVariables>;
 export const UploadFileToOrderEntryMutationDocument = {"__meta__":{"operationName":"UploadFileToOrderEntryMutation","operationHash":"fdf0f46d99da60e78dc0095928f2262440fd7c15"}} as unknown as TypedDocumentString<UploadFileToOrderEntryMutationMutation, UploadFileToOrderEntryMutationMutationVariables>;
+export const OrderFormItemsQueryDocument = {"__meta__":{"operationName":"OrderFormItemsQuery","operationHash":"f79941638f18e16cce62e936fcf055b1f995d7cf"}} as unknown as TypedDocumentString<OrderFormItemsQueryQuery, OrderFormItemsQueryQueryVariables>;
 export const ClientProductCountQueryDocument = {"__meta__":{"operationName":"ClientProductCountQuery","operationHash":"dc912e7272e3d9f5ced206837df87f544d39d0a5"}} as unknown as TypedDocumentString<ClientProductCountQueryQuery, ClientProductCountQueryQueryVariables>;
 export const ClientAllVariantProductsQueryDocument = {"__meta__":{"operationName":"ClientAllVariantProductsQuery","operationHash":"4039e05f01a2fe449e20e8b82170d0ba94b1fbe9"}} as unknown as TypedDocumentString<ClientAllVariantProductsQueryQuery, ClientAllVariantProductsQueryQueryVariables>;
 export const ClientProductQueryDocument = {"__meta__":{"operationName":"ClientProductQuery","operationHash":"3d65d8f0d279557542be9a361cb3ceb2008bad45"}} as unknown as TypedDocumentString<ClientProductQueryQuery, ClientProductQueryQueryVariables>;

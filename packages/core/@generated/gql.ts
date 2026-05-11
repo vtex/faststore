@@ -46,6 +46,7 @@ type Documents = {
     "\n  mutation StartOrderEntryOperationMutation($data: IOrderEntryOperation!) {\n    startOrderEntryOperation(data: $data) {\n      operationId\n    }\n  }\n": typeof types.StartOrderEntryOperationMutationDocument,
     "\n  query OrderEntryOperationQuery($operationId: String!) {\n    orderEntryOperation(operationId: $operationId) {\n      status\n      entityId\n      message\n      missingItems {\n        itemId\n        itemName\n        reason\n      }\n    }\n  }\n": typeof types.OrderEntryOperationQueryDocument,
     "\n  mutation UploadFileToOrderEntryMutation($data: IOrderEntryUpload!) {\n    uploadFileToOrderEntry(data: $data) {\n      objectKey\n    }\n  }\n": typeof types.UploadFileToOrderEntryMutationDocument,
+    "\n  query OrderFormItemsQuery($orderFormId: String!) {\n    orderFormItems(orderFormId: $orderFormId) {\n      id\n      name\n      price\n      listPrice\n      quantity\n      imageUrl\n      availability\n      seller\n      unitMultiplier\n    }\n  }\n": typeof types.OrderFormItemsQueryDocument,
     "\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n": typeof types.ClientProductCountQueryDocument,
     "\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n": typeof types.ClientAllVariantProductsQueryDocument,
     "\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n": typeof types.ClientProductQueryDocument,
@@ -92,6 +93,7 @@ const documents: Documents = {
     "\n  mutation StartOrderEntryOperationMutation($data: IOrderEntryOperation!) {\n    startOrderEntryOperation(data: $data) {\n      operationId\n    }\n  }\n": types.StartOrderEntryOperationMutationDocument,
     "\n  query OrderEntryOperationQuery($operationId: String!) {\n    orderEntryOperation(operationId: $operationId) {\n      status\n      entityId\n      message\n      missingItems {\n        itemId\n        itemName\n        reason\n      }\n    }\n  }\n": types.OrderEntryOperationQueryDocument,
     "\n  mutation UploadFileToOrderEntryMutation($data: IOrderEntryUpload!) {\n    uploadFileToOrderEntry(data: $data) {\n      objectKey\n    }\n  }\n": types.UploadFileToOrderEntryMutationDocument,
+    "\n  query OrderFormItemsQuery($orderFormId: String!) {\n    orderFormItems(orderFormId: $orderFormId) {\n      id\n      name\n      price\n      listPrice\n      quantity\n      imageUrl\n      availability\n      seller\n      unitMultiplier\n    }\n  }\n": types.OrderFormItemsQueryDocument,
     "\n  query ClientProductCountQuery($term: String) {\n    productCount(term: $term) {\n      total\n    }\n  }\n": types.ClientProductCountQueryDocument,
     "\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n": types.ClientAllVariantProductsQueryDocument,
     "\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n": types.ClientProductQueryDocument,
@@ -231,6 +233,10 @@ export function gql(source: "\n  query OrderEntryOperationQuery($operationId: St
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation UploadFileToOrderEntryMutation($data: IOrderEntryUpload!) {\n    uploadFileToOrderEntry(data: $data) {\n      objectKey\n    }\n  }\n"): typeof import('./graphql').UploadFileToOrderEntryMutationDocument;
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query OrderFormItemsQuery($orderFormId: String!) {\n    orderFormItems(orderFormId: $orderFormId) {\n      id\n      name\n      price\n      listPrice\n      quantity\n      imageUrl\n      availability\n      seller\n      unitMultiplier\n    }\n  }\n"): typeof import('./graphql').OrderFormItemsQueryDocument;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
