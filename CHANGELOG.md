@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1-dev.2](https://github.com/vtex/faststore/compare/v4.0.1-dev.1...v4.0.1-dev.2) (2026-05-11)
+
+### Bug Fixes
+
+- localization selector stale and reset selection for unsaved changes ([#3301](https://github.com/vtex/faststore/issues/3301)) ([023e52e](https://github.com/vtex/faststore/commit/023e52ee3c8798cfc9f12ed98e99e8efacb1f1d5))
+
 ## [4.0.1-dev.1](https://github.com/vtex/faststore/compare/v4.0.1-dev.0...v4.0.1-dev.1) (2026-05-07)
 
 ### Bug Fixes
