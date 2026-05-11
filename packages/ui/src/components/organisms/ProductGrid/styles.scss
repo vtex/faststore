@@ -23,19 +23,17 @@
   grid-gap: var(--fs-product-grid-gap-mobile);
 
   @include utilities.media(">=tablet") {
-    $pagination-start-index: 2;
-
     grid-template-columns: repeat(var(--fs-product-grid-columns-desktop), 1fr);
     grid-gap: var(--fs-product-grid-gap-tablet);
-
-    &:nth-of-type(n + #{$pagination-start-index}) {
-      margin-top: var(--fs-product-grid-gap-desktop);
-    }
+    padding-bottom: var(--fs-product-grid-gap-tablet);
   }
 
-  @include utilities.media("<notebook") { padding-bottom: var(--fs-grid-gap-2); }
+  @include utilities.media("<notebook") {
+    padding-bottom: var(--fs-product-grid-gap-mobile);
+  }
 
   @include utilities.media(">=notebook") {
     grid-gap: var(--fs-product-grid-gap-desktop);
+    padding-bottom: var(--fs-product-grid-gap-desktop);
   }
 }
