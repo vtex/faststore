@@ -64,6 +64,9 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Verify publish manifests
+        run: pnpm release:verify
+
       - name: Publish (main)
         if: github.ref_name == 'main'
         run: pnpm release
