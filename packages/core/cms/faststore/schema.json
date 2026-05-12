@@ -1,123 +1,6 @@
 {
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
-  "$defs": {
-    "base-component": {
-      "$singleton": false,
-      "$abstract": false,
-      "properties": {},
-      "definitions": {},
-      "$recursiveAnchor": false,
-      "uniqueItems": false,
-      "required": [],
-      "type": "object",
-      "deprecated": false,
-      "readOnly": false,
-      "writeOnly": false
-    },
-    "base-page-template": {
-      "$singleton": false,
-      "$abstract": false,
-      "properties": {
-        "sections": {
-          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS",
-          "$singleton": false,
-          "$abstract": false,
-          "definitions": {},
-          "$recursiveAnchor": false,
-          "uniqueItems": false,
-          "required": [],
-          "deprecated": false,
-          "readOnly": false,
-          "writeOnly": false
-        }
-      },
-      "definitions": {},
-      "$recursiveAnchor": false,
-      "uniqueItems": false,
-      "required": [],
-      "type": "object",
-      "deprecated": false,
-      "readOnly": false,
-      "writeOnly": false
-    },
-    "$ALLOW_ALL_COMPONENTS": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "$ref": "#/components/Alert"
-          },
-          {
-            "$ref": "#/components/BannerNewsletter"
-          },
-          {
-            "$ref": "#/components/BannerText"
-          },
-          {
-            "$ref": "#/components/Breadcrumb"
-          },
-          {
-            "$ref": "#/components/CartSidebar"
-          },
-          {
-            "$ref": "#/components/Children"
-          },
-          {
-            "$ref": "#/components/CrossSellingShelf"
-          },
-          {
-            "$ref": "#/components/EmptyState"
-          },
-          {
-            "$ref": "#/components/Footer"
-          },
-          {
-            "$ref": "#/components/Hero"
-          },
-          {
-            "$ref": "#/components/Incentives"
-          },
-          {
-            "$ref": "#/components/Navbar"
-          },
-          {
-            "$ref": "#/components/Newsletter"
-          },
-          {
-            "$ref": "#/components/ProductDetails"
-          },
-          {
-            "$ref": "#/components/ProductGallery"
-          },
-          {
-            "$ref": "#/components/ProductShelf"
-          },
-          {
-            "$ref": "#/components/ProductTiles"
-          },
-          {
-            "$ref": "#/components/RegionBar"
-          },
-          {
-            "$ref": "#/components/RegionModal"
-          },
-          {
-            "$ref": "#/components/RegionPopover"
-          },
-          {
-            "$ref": "#/components/Search"
-          },
-          {
-            "$ref": "#/components/ShoppingAssistant"
-          },
-          {
-            "$ref": "#/components/ScrollToTopButton"
-          }
-        ]
-      }
-    }
-  },
   "content-types": {
     "404": {
       "$extends": ["#/components/base-page-template"],
@@ -158,65 +41,7 @@
       "title": "Global Footer Sections",
       "properties": {
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -232,65 +57,7 @@
       "title": "Global Header Sections",
       "properties": {
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -660,65 +427,7 @@
           "$componentTitle": "Loading"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -880,65 +589,7 @@
           "$componentTitle": "SEO"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -999,68 +650,7 @@
           "$componentTitle": "SEO"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/CrossSellingShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -1131,74 +721,7 @@
           "$componentTitle": "SEO"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/CrossSellingShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductDetails"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -1279,74 +802,7 @@
           "$componentTitle": "Product Gallery"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductGallery"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ScrollToTopButton"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -1415,74 +871,7 @@
           "$componentTitle": "Product Gallery"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductGallery"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ScrollToTopButton"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -4724,6 +4113,35 @@
       "deprecated": false,
       "$abstract": false
     },
+    "ScrollToTopButton": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "ScrollToTopButton",
+      "$componentTitle": "Scroll to Top Button",
+      "title": "Scroll to Top Button",
+      "description": "A button to scroll the page back to the top",
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "title": "Button Text",
+          "description": "Text displayed on the button",
+          "type": "string",
+          "default": "Scroll to top"
+        },
+        "iconPosition": {
+          "title": "Icon Position",
+          "description": "Position of the icon relative to the text",
+          "type": "string",
+          "enumNames": ["Left", "Right"],
+          "enum": ["left", "right"],
+          "default": "left"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
     "Search": {
       "$extends": ["#/$defs/base-component"],
       "$componentKey": "Search",
@@ -4884,35 +4302,97 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false
-    },
-    "ScrollToTopButton": {
-      "$extends": ["#/$defs/base-component"],
-      "$componentKey": "ScrollToTopButton",
-      "$componentTitle": "Scroll to Top Button",
-      "title": "Scroll to Top Button",
-      "description": "A button to scroll the page back to the top",
+    }
+  },
+  "$defs": {
+    "base-component": {
       "type": "object",
-      "required": ["text"],
+      "required": [],
+      "properties": {}
+    },
+    "base-page-template": {
+      "type": "object",
       "properties": {
-        "text": {
-          "title": "Button Text",
-          "description": "Text displayed on the button",
-          "type": "string",
-          "default": "Scroll to top"
-        },
-        "iconPosition": {
-          "title": "Icon Position",
-          "description": "Position of the icon relative to the text",
-          "type": "string",
-          "enumNames": ["Left", "Right"],
-          "enum": ["left", "right"],
-          "default": "left"
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
-      },
-      "readOnly": false,
-      "writeOnly": false,
-      "deprecated": false,
-      "$abstract": false
+      }
+    },
+    "$ALLOW_ALL_COMPONENTS": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/components/Alert"
+          },
+          {
+            "$ref": "#/components/BannerNewsletter"
+          },
+          {
+            "$ref": "#/components/BannerText"
+          },
+          {
+            "$ref": "#/components/Breadcrumb"
+          },
+          {
+            "$ref": "#/components/CartSidebar"
+          },
+          {
+            "$ref": "#/components/Children"
+          },
+          {
+            "$ref": "#/components/CrossSellingShelf"
+          },
+          {
+            "$ref": "#/components/EmptyState"
+          },
+          {
+            "$ref": "#/components/Footer"
+          },
+          {
+            "$ref": "#/components/Hero"
+          },
+          {
+            "$ref": "#/components/Incentives"
+          },
+          {
+            "$ref": "#/components/Navbar"
+          },
+          {
+            "$ref": "#/components/Newsletter"
+          },
+          {
+            "$ref": "#/components/ProductDetails"
+          },
+          {
+            "$ref": "#/components/ProductGallery"
+          },
+          {
+            "$ref": "#/components/ProductShelf"
+          },
+          {
+            "$ref": "#/components/ProductTiles"
+          },
+          {
+            "$ref": "#/components/RegionBar"
+          },
+          {
+            "$ref": "#/components/RegionModal"
+          },
+          {
+            "$ref": "#/components/RegionPopover"
+          },
+          {
+            "$ref": "#/components/ScrollToTopButton"
+          },
+          {
+            "$ref": "#/components/Search"
+          },
+          {
+            "$ref": "#/components/ShoppingAssistant"
+          }
+        ]
+      }
     }
   }
 }
