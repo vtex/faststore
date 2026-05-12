@@ -27,7 +27,7 @@
 
 ## Package structure
 
-```
+```text
 src/
 ├── analytics/   # Event types, sendAnalyticsEvent, useAnalyticsEvent
 ├── cart/        # Cart state and hooks

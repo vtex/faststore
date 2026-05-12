@@ -23,7 +23,7 @@ Styling is handled separately by `@faststore/ui`, which consumes this package an
 
 ## Package structure
 
-```
+```text
 src/
 ├── atoms/       # Basic building blocks (Button, Input, Badge, Icon, etc.)
 ├── molecules/   # Composite components (Accordion, CartItem, ProductCard, etc.)

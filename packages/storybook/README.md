@@ -19,7 +19,7 @@ Stories import components from `@faststore/components` and are styled via `@fast
 
 ## Package structure
 
-```
+```text
 stories/          # One .stories.tsx file per component
 .storybook/
 ├── main.ts       # Storybook config (framework, addons, story paths)

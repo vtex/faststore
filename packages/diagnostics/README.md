@@ -21,7 +21,7 @@
 
 ## Package structure
 
-```
+```text
 src/
 ├── globals.ts    # Initializes the global fsDiagnostics state (telemetry client map, IS_DEV flag)
 ├── start.ts      # getTelemetryClient() and getTraceClient() implementations

@@ -26,7 +26,7 @@ Components in this package have no styles by default — all customization happe
 
 ## Package structure
 
-```
+```text
 src/
 ├── components/
 │   ├── atoms/       # SCSS per atom (e.g. Badge/styles.scss, Button/styles.scss)

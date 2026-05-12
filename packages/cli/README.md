@@ -22,7 +22,7 @@
 
 ## Package structure
 
-```
+```text
 src/
 ├── commands/   # One file per CLI command (dev.ts, build.ts, generate.ts, etc.)
 ├── utils/      # Shared utilities used across commands

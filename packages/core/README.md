@@ -18,7 +18,7 @@ Store builders consume this package through `@faststore/cli` and extend it via t
 
 ## Package structure
 
-```
+```text
 packages/core/
 ├── src/
 │   ├── components/
