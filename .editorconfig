@@ -1,6 +1,8 @@
 # http://editorconfig.org
+# top-most EditorConfig file
 root = true
 
+# 2 space indentation for JavaScript, TypeScript, JSX/TSX, CSS, SCSS, HTML, JSON, YAML files
 [*]
 indent_style = space
 indent_size = 2
@@ -11,3 +13,16 @@ insert_final_newline = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+# 1 tab indentation for Dockerfile, Makefile Justfile or justfile and shell scripts
+[Dockerfile, Makefile, justfile, Justfile, *.sh]
+indent_style = tab
+indent_size = 1
+
+# Ignore binary files
+[*.{png,jpg,jpeg,gif,svg,ico}]
+indent_style = none
+
+# Ignore binary files
+[*.{png,jpg,jpeg,gif,svg,ico}]
+indent_style = none
