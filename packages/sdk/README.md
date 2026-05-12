@@ -8,51 +8,74 @@
 </h1>
 <p align="center">
   <strong>
-    Lightweight ecommerce state managment library
+    Lightweight ecommerce state management library
   </strong>
 </p>
-
-<div style="display: flex; justify-content: center; width: 100%">
-  <a href="https://www.npmjs.com/package/@faststore/sdk" style="padding: 0px 2px 0px 0px">
-    <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
+<p align="center">
+  <a href="https://www.npmjs.com/package/@faststore/sdk">
+    <img src="https://badge.fury.io/js/%40faststore%2Fsdk.svg" alt="npm version" />
   </a>
-  <a href="https://bundlephobia.com/package/@faststore/sdk" style="padding: 0px 2px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/minzip/@faststore/sdk" />
-  </a>
-  <a href="https://bundlephobia.com/package/@faststore/sdk" style="padding: 0px 2px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/tree-shaking/@faststore/sdk" />
-  </a>
-  <a href="https://bundlephobia.com/package/@faststore/sdk" style="padding: 0px 0px 0px 2px">
-    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/sdk" />
-  </a>
-</div>
+</p>
 
-## Installation
+`@faststore/sdk` provides the core business logic and state management for FastStore storefronts. It is consumed by `@faststore/core` and covers five domains:
 
-From the command line in your project directory, run pnpm add `@faststore/sdk`.
+- **Analytics** — event types and dispatch utilities for ecommerce tracking
+- **Cart** — cart state management
+- **Search** — search state, facets, pagination, and serialization
+- **Session** — user session state
+- **UI** — global UI state (minicart visibility, modals, drawers, etc.)
 
-```cmd
-pnpm add @faststore/sdk
+## Package structure
+
+```
+src/
+├── analytics/   # Event types, sendAnalyticsEvent, useAnalyticsEvent
+├── cart/        # Cart state and hooks
+├── search/      # Search state, facets, pagination, serializer
+├── session/     # Session state and provider
+├── ui/          # Global UI state (useGlobalUIState, Provider)
+├── store/       # Reactive store primitives (base, optimistic, persisted, etc.)
+├── utils/       # Shared utilities
+├── types.ts     # Shared TypeScript types
+└── index.ts     # Public exports
 ```
 
-## Usage
+## How to run
 
-```tsx
-import React, { Component } from 'react'
+### Prerequisites
 
-import { useUI } from '@faststore/sdk'
+- Node.js ≥ 20
+- pnpm
 
-function MyComponent {
-  const { displayMinicart } = useUI()
+### Local setup
 
-  if (displayMinicart) {
-    return <div>Minicart</div>
-  }
+```bash
+# 1. Install dependencies (from the repo root)
+pnpm install
 
-  return null
-}
+# 2. Start the build in watch mode
+pnpm dev
 ```
+
+## How to develop
+
+Each domain lives in its own directory under `src/`. When adding or modifying logic:
+
+1. Edit the relevant module in `src/{domain}/`
+2. Export new symbols from `src/index.ts` if they are part of the public API
+3. Run `pnpm test` to verify nothing broke
+4. Run `pnpm size` to check the bundle size stays within the 10 KB limit
+
+## How to test
+
+```bash
+pnpm test
+```
+
+## How to publish
+
+Versioning and publishing are managed at the monorepo root by Lerna. Do not publish this package independently. Refer to the [Contributing guidelines](../../CONTRIBUTING.MD) for the full release workflow.
 
 ## Docs
 
-For more information, please refer to our documentation: https://v1.faststore.dev/reference/sdk/faststore-sdk
+- **SDK reference:** [developers.vtex.com/docs/guides/faststore/sdk-overview](https://developers.vtex.com/docs/guides/faststore/sdk-overview)
