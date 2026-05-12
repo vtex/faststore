@@ -10,7 +10,14 @@
  *   developer mode), logs a warning instead of failing.
  */
 
-import { existsSync, lstatSync, mkdirSync, readlinkSync, rmSync, symlinkSync } from 'node:fs'
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readlinkSync,
+  rmSync,
+  symlinkSync,
+} from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -34,7 +41,9 @@ for (const name of links) {
   const relativeTarget = relative(claudeDir, target)
 
   if (!existsSync(target)) {
-    console.warn(`[setup-claude] target missing: ${relative(repoRoot, target)} (skipped)`)
+    console.warn(
+      `[setup-claude] target missing: ${relative(repoRoot, target)} (skipped)`
+    )
     continue
   }
 
