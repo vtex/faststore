@@ -12,15 +12,15 @@
   </strong>
 </p>
 <p align="center">
-  FastStore is a fullstack toolkit based on React that helps developers build Performant, Stable, SEO and Analytics ready ecommerces in a matter of days.
+  FastStore is a fullstack toolkit based on React and Next.js that helps developers build performant, stable, SEO-ready, and analytics-ready storefronts.
 </p>
 
 
-- <strong>Performance</strong>: Keep yourself calm. We use strict budgets to ensure our libs are always light and fast.
+- <strong>Performance</strong>: We use strict budgets to ensure our libs are always light and fast.
 - <strong>Stability</strong>: Generate your pages ahead by using a Jamstack ready toolkit.
-- <strong>SEO/Analytics</strong>: Connect to your favorite analytics provider.
-- <strong>Freedom</strong>: Use our API/SDK/UI components to connect, manage and display your ecommerce using Next.JS, a powerful React framework.
-- <strong>Speed</strong>: Customize our starter to fit your needs. Do not waste time creating tests, thinking about architecture or infrastructure, it's all taken care of.
+- <strong>SEO/Analytics</strong>: Built-in hooks and events for your analytics provider.
+- <strong>Freedom</strong>: Compose with our API, SDK, and UI components using Next.js.
+- <strong>Speed</strong>: Customize our starter to fit your needs — architecture, tests, and infrastructure are all taken care of.
 
 ## Getting started
 
@@ -28,7 +28,9 @@
 
 ## Official Starter
 
-- [NextJS](https://github.com/vtex-sites/starter.store): FastStore Starter for a generic store.
+- [starter.store](https://github.com/vtex-sites/starter.store): FastStore starter for a generic Next.js storefront.
+
+Follow the [FastStore getting started guide](https://developers.vtex.com/docs/guides/faststore/getting-started-overview) to set up your environment and create your first storefront through the WebOps onboarding flow.
 
 ## Learn
 
@@ -36,7 +38,7 @@ Check out our [FastStore Docs](https://developers.vtex.com/docs/guides/faststore
 
 ## Contributing
 
-This is a work in progress. If you are an adventurous person, you can read the code and have some fun! Refer to [Contributing guidelines](CONTRIBUTING.MD) for more information.
+We welcome all kinds of contributions — bug fixes, new features, and documentation improvements. Check out the [Contributing guidelines](CONTRIBUTING.md) to get started. The monorepo is managed with pnpm, orchestrated by Turbo, and versioned with Lerna.
 
 ## Getting help
 
@@ -44,12 +46,24 @@ If you find any issues on the project you would like to report, please create an
 
 ## Packages
 
-| Package         | Description                                                                                                                                                                      |                                                                                                                                                                                                                                                   Status                                                                                                                                                                                                                                                    |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| @faststore/core | Bundles FastStore source code, including the starter for FatsStore projects: starter store. It contains three sub-packages, Components, SDK, and API, which handle the starter.) |                                                                                                                                 [![npm version](https://badge.fury.io/js/%40faststore%2Fcore.svg)](https://badge.fury.io/js/%40faststore%2Fcore) [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/core)](https://bundlephobia.com/package/@faststore/core)                                                                                                                                 |
-| @faststore/ui   | Exports basic Store components. Check out our [documentation](https://developers.vtex.com/docs/guides/faststore/components-index)                                                                            |                                                                                                                                     [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui) [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui)                                                                                                                                     |
-| @faststore/sdk  | Exports basic logic hooks for creating your custom ecommerce                                                                                                                     | [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk) [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![tree shaking](https://badgen.net/bundlephobia/tree-shaking/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![tree shaking](https://badgen.net/bundlephobia/dependency-count/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) |
-| @faststore/api  | Connect your site to your ecommerce provider                                                                                                                                     |                                                                                                                                                                                             [![npm version](https://badge.fury.io/js/%40faststore%2Fapi.svg)](https://bundlephobia.com/package/@faststore/api)                                                                                                                                                                                              |
+| Package | Description | Status |
+| :--- | :--- | :---: |
+| `@faststore/core` | Bundles FastStore source code - components, pages, SDK logic, and server-side utilities into a ready-to-use storefront boilerplate. | [![npm version](https://badge.fury.io/js/%40faststore%2Fcore.svg)](https://badge.fury.io/js/%40faststore%2Fcore) |
+| `@faststore/api` | GraphQL API layer that connects to e-commerce platforms (e.g. VTEX), defines the data contract, and handles fetching and mutations. | [![npm version](https://badge.fury.io/js/%40faststore%2Fapi.svg)](https://badge.fury.io/js/%40faststore%2Fapi) |
+| `@faststore/sdk` | Lightweight state management library for core e-commerce logic: analytics, cart, search, and user sessions. | [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk) |
+| `@faststore/components` | Style-agnostic React components following Atomic Design principles — structure, logic, and accessibility without any styling. | [![npm version](https://badge.fury.io/js/%40faststore%2Fcomponents.svg)](https://badge.fury.io/js/%40faststore%2Fcomponents) |
+| `@faststore/ui` | Foundational styling layer — design tokens, global styles, and basic UI components. Check out our [component docs](https://developers.vtex.com/docs/guides/faststore/components-index). | [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui) |
+| `@faststore/cli` | CLI for initializing projects, running local dev servers, building, and syncing GraphQL schemas and CMS data. | [![npm version](https://badge.fury.io/js/%40faststore%2Fcli.svg)](https://badge.fury.io/js/%40faststore%2Fcli) |
+
+## Development Tooling
+
+These packages are part of the monorepo but are not intended for direct use by store builders:
+
+| Package | Description |
+| :--- | :--- |
+| `@faststore/lighthouse` | Generates Lighthouse CI configurations for automated performance audits and quality gates. |
+| `@faststore/diagnostics` | OpenTelemetry tracing and observability for monitoring application performance. |
+| `@faststore/storybook` | Isolated environment for developing and documenting UI components (not published). |
 
 ## License
 
