@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-dev.2](https://github.com/vtex/faststore/compare/v4.1.0-dev.1...v4.1.0-dev.2) (2026-05-12)
+
+**Note:** Version bump only for package @faststore/storybook
+
 # [4.1.0-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.0...v4.1.0-dev.1) (2026-05-11)
 
 **Note:** Version bump only for package @faststore/storybook
