@@ -51,7 +51,7 @@ Storybook will be available at `http://localhost:6006`.
 ### Adding a story for a new component
 
 1. Create `stories/{component-name}.stories.tsx`
-2. Import the component from `@faststore/components`:
+2. Import the component from `@faststore/ui`:
    ```tsx
    import { Badge } from '@faststore/ui'
    import type { Meta, StoryObj } from '@storybook/nextjs'
