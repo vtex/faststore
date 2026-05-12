@@ -22,6 +22,7 @@
     "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --force-publish --yes && lerna publish from-git --dist-tag=dev --yes",
     "release:v3": "lerna version --conventional-commits --yes && lerna publish from-git --dist-tag=v3-latest --yes",
     "clean": "turbo run clean && rm -rf node_modules",
+    "setup:claude": "node ./scripts/setup-claude.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
