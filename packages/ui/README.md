@@ -91,7 +91,7 @@ For interactive visual testing, use Storybook. Run `pnpm dev` from `packages/sto
 
 Versioning and publishing are managed at the monorepo root by Lerna. Do not publish this package independently. Refer to the [Contributing guidelines](../../CONTRIBUTING.MD) for the full release workflow.
 
-## Docs
+## Documentation
 
 - **Component reference:** [developers.vtex.com/docs/guides/faststore/components-index](https://developers.vtex.com/docs/guides/faststore/components-index)
 - **Styling guidelines:** [`AGENTS.md`](../../AGENTS.md#step-3-add-styling-faststoreui)
