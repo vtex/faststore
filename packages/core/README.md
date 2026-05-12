@@ -101,9 +101,41 @@ This project uses icons from [Phosphor Icons](https://phosphoricons.com/).
 
 ### Adding CMS configuration
 
+FastStore currently supports two CMS content sources. The flow depends on which one we want to update.
+
+#### Headless CMS (legacy)
+
 1. Define the section schema in `cms/faststore/sections.json`
 2. For new content types, add them to `cms/faststore/content-types.json`
-3. Run `pnpm faststore cms-sync` (via the CLI) to push changes to the CMS
+3. Run `pnpm faststore cms-sync` to push changes to the CMS
+
+#### CMS (new)
+
+Schemas are defined as individual `.jsonc` files instead of a single `sections.json`.
+To support both CMS versions, changes made to the legacy files are migrated to the new format using the split commands.
+
+1. After updating `sections.json` or `content-types.json`, run the split commands to generate the new format:
+```sh
+vtex content split-components -i cms/faststore/sections.json -o cms/faststore/components
+```
+
+```sh
+vtex content split-content-types -i cms/faststore/content-types.json -s cms/faststore/sections.json -o cms/faststore/pages
+```
+
+2. Generate the schema:
+```sh
+   vtex content generate-schema cms/faststore/components cms/faststore/pages -o cms/faststore/schema.json
+```
+
+3. Upload the schema to the Schema Registry:
+```sh
+vtex content upload-schema cms/faststore/schema.json
+```
+
+Files can be placed in `cms/components/` and `cms/pages/`, or co-located alongside their component in `src/components/`.
+
+> For schema syntax and the full architectural overview, see the [CMS architecture and schema declarations](https://developers.vtex.com/docs/guides/understanding-cms-architecture-and-schema-declarations) guide.
 
 ## How to test
 
