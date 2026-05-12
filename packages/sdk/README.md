@@ -76,6 +76,6 @@ pnpm test
 
 Versioning and publishing are managed at the monorepo root by Lerna. Do not publish this package independently. Refer to the [Contributing guidelines](../../CONTRIBUTING.MD) for the full release workflow.
 
-## Docs
+## Documentation
 
 - **SDK reference:** [developers.vtex.com/docs/guides/faststore/sdk-overview](https://developers.vtex.com/docs/guides/faststore/sdk-overview)
