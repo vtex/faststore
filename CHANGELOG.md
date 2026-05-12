@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.99.3](https://github.com/vtex/faststore/compare/v3.99.2...v3.99.3) (2026-05-12)
+
+### Bug Fixes
+
+- allow_all_components for CMS and faststore v3 ([#3313](https://github.com/vtex/faststore/issues/3313)) ([fe8914b](https://github.com/vtex/faststore/commit/fe8914b897d86d82a459eef79694a668049e5617))
+
 ## [3.99.2](https://github.com/vtex/faststore/compare/v3.99.1...v3.99.2) (2026-05-11)
 
 ### Bug Fixes
