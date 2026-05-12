@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://faststore.dev">
+  <a href="https://developers.vtex.com/docs/guides/faststore">
     <img alt="Faststore" src="../ui/static/logo.png" width="60" />
   </a>
 </p>
