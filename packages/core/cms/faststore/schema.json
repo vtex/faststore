@@ -41,62 +41,7 @@
       "title": "Global Footer Sections",
       "properties": {
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -112,62 +57,7 @@
       "title": "Global Header Sections",
       "properties": {
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -485,65 +375,7 @@
           "$componentTitle": "Delivery Promise"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              },
-              {
-                "$ref": "#/components/ShoppingAssistant"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -699,62 +531,7 @@
           "$componentTitle": "SEO"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -808,65 +585,7 @@
           "$componentTitle": "SEO"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/CrossSellingShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -931,71 +650,7 @@
           "$componentTitle": "SEO"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/CrossSellingShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductDetails"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -1062,68 +717,7 @@
           "$componentTitle": "Product Gallery"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductGallery"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
@@ -1178,68 +772,7 @@
           "$componentTitle": "Product Gallery"
         },
         "sections": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/components/Search"
-              },
-              {
-                "$ref": "#/components/Navbar"
-              },
-              {
-                "$ref": "#/components/Alert"
-              },
-              {
-                "$ref": "#/components/Footer"
-              },
-              {
-                "$ref": "#/components/BannerText"
-              },
-              {
-                "$ref": "#/components/Hero"
-              },
-              {
-                "$ref": "#/components/Incentives"
-              },
-              {
-                "$ref": "#/components/ProductShelf"
-              },
-              {
-                "$ref": "#/components/ProductTiles"
-              },
-              {
-                "$ref": "#/components/Newsletter"
-              },
-              {
-                "$ref": "#/components/Children"
-              },
-              {
-                "$ref": "#/components/BannerNewsletter"
-              },
-              {
-                "$ref": "#/components/Breadcrumb"
-              },
-              {
-                "$ref": "#/components/ProductGallery"
-              },
-              {
-                "$ref": "#/components/CartSidebar"
-              },
-              {
-                "$ref": "#/components/RegionBar"
-              },
-              {
-                "$ref": "#/components/RegionModal"
-              },
-              {
-                "$ref": "#/components/RegionPopover"
-              },
-              {
-                "$ref": "#/components/EmptyState"
-              }
-            ]
-          }
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
         }
       },
       "readOnly": false,
