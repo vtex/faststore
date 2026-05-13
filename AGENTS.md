@@ -61,12 +61,40 @@ packages/
 ├── cli/              # Command-line tools
 ├── components/       # React components structure layer (unstyled)
 ├── core/             # Main application (Next.js)
+├── diagnostics/      # OpenTelemetry integration for observability
 ├── graphql-utils/    # GraphQL utilities
 ├── lighthouse/       # Performance testing
 ├── sdk/              # Business logic hooks
 ├── storybook/        # Component documentation
 └── ui/               # UI components and styles layer
 ```
+
+> **Shared dependency versions**: `pnpm-workspace.yaml` uses the pnpm `catalog:` feature to centrally pin shared dependency versions. When adding a dependency that is already used elsewhere, reference the catalog version (e.g. `"vitest": "catalog:"`) instead of duplicating a version number.
+
+### Build pipeline (Turbo)
+
+Turbo orchestrates tasks across packages with these key dependencies (`turbo.json`):
+
+- `build` depends on `^build` (dependency-first — upstream packages build before their consumers)
+- `test` depends on `^build`
+- `@faststore/core#generate` explicitly depends on `@faststore/cli#build` — the CLI **must** be compiled before type generation runs
+- `@faststore/api#build` depends on its own `generate` step
+- `dev` and `dev:server` have caching disabled
+- `size` is a dedicated task for bundle size budgets
+
+### Dual module output
+
+All library packages export both ESM and CJS through conditional `exports` in their `package.json`:
+
+- ESM: `dist/es/index.mjs`
+- CJS: `dist/cjs/index.js`
+- TypeScript types: `dist/typings/`
+
+Every package exposes a single top-level entry. Internal helpers are not re-exported from the public entry point.
+
+### Bundle size budgets
+
+Library packages have strict size budgets enforced by the `pnpm size` Turbo task. `@faststore/sdk` is especially lean (~10KB target) — be mindful when adding dependencies.
 
 ## 🎯 Key Packages
 
@@ -132,11 +160,21 @@ packages/
 - `organisms/` - Complex components
 
 ### @faststore/cli
-**Purpose**: Command-line interface for development
+**Purpose**: Command-line interface for development. oclif-based CLI that generates types and caches GraphQL persisted documents for other packages.
 **Location**: `packages/cli/`
 
 **Commands** (in `src/commands/`):
 - Build, dev, test, cms-sync, create, generate-graphql.ts commands
+
+> **Important**: Must be built before `@faststore/core` or `@faststore/api` can run their `generate` step.
+
+### @faststore/diagnostics
+**Purpose**: OpenTelemetry integration for observability and tracing
+**Location**: `packages/diagnostics/`
+
+### @faststore/lighthouse
+**Purpose**: Performance testing utilities for Lighthouse audits
+**Location**: `packages/lighthouse/`
 
 ## 🔄 Development Workflow
 
@@ -165,10 +203,15 @@ pnpm stylelint         # Check SCSS files
 pnpm stylelint:fix     # Auto-fix SCSS
 
 # Testing
-pnpm test              # Run all tests
+pnpm test                                          # Run all tests
+pnpm turbo run test --filter=@faststore/sdk       # Test a specific package
+cd packages/sdk && pnpm vitest run test/hooks.test.ts  # Run a single test file
+cd packages/api && pnpm test:unit                  # API unit tests only
+cd packages/api && pnpm test:int                   # API integration tests only
 
 # Building
 pnpm build             # Build all packages
+pnpm size              # Check bundle size budgets
 
 # Releasing
 pnpm release           # Release new version (main)
@@ -210,11 +253,37 @@ FastStore uses Atomic Design principles:
 
 ### File Naming Conventions
 
-- **Components**: PascalCase (e.g., `ProductCard.tsx`)
+- **Components**: PascalCase folder + file (e.g., `Button/Button.tsx`)
+- **Barrel exports**: Each component folder exposes `index.ts`
 - **Hooks**: camelCase with "use" prefix (e.g., `useFormattedPrice.ts`)
 - **Utilities**: camelCase (e.g., `formatPrice.ts`)
 - **Styles**: Match component name (e.g., `ProductCard.scss`)
 - **Tests**: Match source with `.test.` (e.g., `ProductCard.test.tsx`)
+
+### TypeScript Conventions
+
+- **Prop interfaces**: `{ComponentName}Props` (e.g., `ButtonProps`)
+- **Extend matching HTML element** when applicable: `ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>`
+- **Variant union types** exported alongside the component: `type Variant = 'primary' | 'secondary'`
+- **All `Props` and variant types re-exported** from the barrel `index.ts`
+- **TypeScript strict mode** is enabled globally
+
+### Code Style (Biome)
+
+Biome handles linting and formatting with these rules:
+
+- Single quotes
+- No semicolons
+- ES5 trailing commas
+- 2-space indentation
+
+Run `pnpm lint` to check and `pnpm lint:fix` to auto-fix.
+
+### Commit & Branch Conventions
+
+- **Commits / PR titles**: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `style:`, `refactor:`, `ci:`, `test:`)
+- **Branch naming**: matching prefixes — `feat/`, `fix/`, `chore/`, etc.
+- **Target branch**: PRs target `dev` (hotfixes go to `main`); `dev` merges to `main` every ~2 weeks on release.
 
 ### GraphQL Conventions
 
@@ -222,6 +291,31 @@ FastStore uses Atomic Design principles:
 - **Generated types**: In `@generated/` directories (DO NOT edit manually)
 - **Codegen**: Run `pnpm generate:codegen` to regenerate types
 - **Schema**: Auto-generated from type definitions
+- **Persisted documents**: IDs are cached by `@faststore/cli`; never commit raw query strings without running the generate step
+
+**Naming (in `@faststore/api`)**:
+
+| Element | Pattern | Example |
+|---------|---------|---------|
+| Query/mutation names | camelCase | `validateCart`, `subscribeToNewsletter` |
+| Schema types | `Store{Entity}` prefix | `StoreProduct`, `StoreCart` |
+| Pagination types | `{Entity}Connection` / `{Entity}Edge` | `ProductConnection`, `ProductEdge` |
+| Input types | `I{Entity}` prefix | `IStoreCart`, `IPersonNewsletter` |
+
+### SDK Store Conventions (`@faststore/sdk`)
+
+- **Hook factories**: `use{Feature}` — `useCart`, `useGlobalUIState`
+- **Store creators**: `create{Entity}Store` — `createCartStore`
+- **Store modifiers**: descriptive camelCase — `optimistic()`, `persisted()`, `singleton()`
+
+### Compound Components
+
+For components with sub-parts (e.g., `Accordion`, `AccordionButton`, `AccordionPanel`):
+
+- Co-locate all sub-components in one folder
+- **Default export**: the main component
+- **Named exports**: sub-components and types
+- Re-export everything through the barrel `index.ts`
 
 ## 🎨 Common Patterns
 
@@ -706,7 +800,7 @@ yarn dev
 ```typescript
 // packages/components/test/atoms/Button/Button.test.tsx
 import { render, screen } from '@testing-library/react'
-import { axe } from 'jest-axe'
+import { axe } from 'vitest-axe'
 import Button from '../../../src/atoms/Button'
 
 describe('Button', () => {
@@ -750,7 +844,7 @@ describe('Button', () => {
 **Test Guidelines**:
 - **Render Tests**: Verify component renders correctly with different props
 - **Prop Handling**: Test component behavior based on props
-- **Accessibility**: Include `jest-axe` tests for a11y compliance
+- **Accessibility**: Include `vitest-axe` tests for a11y compliance
 - **Structure**: Use `describe` blocks for organization
 
 **Run Tests**:
@@ -835,9 +929,10 @@ yarn test
 - **Biome**: Linting/formatting
 
 ### Testing
-- **Jest**: Unit testing
-- **Cypress**: E2E testing
-- **Testing Library**: Component testing
+- **Vitest**: Unit and integration testing (used across all packages)
+- **Cypress**: E2E testing (in `@faststore/core`)
+- **Testing Library**: Component testing (`@testing-library/react`)
+- **vitest-axe**: Accessibility testing in `@faststore/components`
 - **Lighthouse**: Performance testing
 
 ### Other
@@ -847,13 +942,30 @@ yarn test
 
 ## 🧪 Testing
 
-### Unit Tests
+### Unit Tests (Vitest)
 ```bash
 # Run all unit tests
 pnpm test
 
 # Test specific package
 pnpm turbo run test --filter=@faststore/sdk
+
+# Run a single test file
+cd packages/sdk && pnpm vitest run test/hooks.test.ts
+```
+
+### Browser vs Node tests (`@faststore/core`)
+
+`@faststore/core` separates tests by environment:
+- **Browser tests**: files matching `*.browser.test.{ts,tsx}` run in a browser-like environment
+- **Node tests**: regular `*.test.{ts,tsx}` run in Node
+
+### Unit vs Integration tests (`@faststore/api`)
+
+```bash
+cd packages/api
+pnpm test:unit   # Unit tests
+pnpm test:int    # Integration tests
 ```
 
 ### E2E Tests (Cypress)
@@ -871,6 +983,7 @@ pnpm lhci
 ### Test File Locations
 - `test/` directories in each package
 - `*.test.ts` or `*.test.tsx` alongside source files
+- `*.browser.test.{ts,tsx}` for browser-environment tests in core
 - `cypress/` directory in core package
 
 ## 🗺️ Navigation Tips for AI Agents
