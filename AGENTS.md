@@ -128,7 +128,7 @@ Package-specific conventions live alongside the code:
 - [`packages/sdk/AGENTS.md`](packages/sdk/AGENTS.md) — framework-agnostic discipline, bundle budget, store conventions
 - [`packages/cli/AGENTS.md`](packages/cli/AGENTS.md) — oclif command structure, generate ordering
 
-Other packages (`diagnostics`, `graphql-utils`, `lighthouse`, `storybook`, `ui`) do not have a scoped file because their conventions are sufficiently captured by this root document.
+Other packages (`diagnostics`, `lighthouse`, `storybook`, `ui`) do not have a scoped file because their conventions are sufficiently captured by this root document.
 
 ---
 
