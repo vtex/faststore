@@ -14,6 +14,6 @@ metadata:
     vtex.com/application-id: ZYS1XPEC
 spec:
   lifecycle: production
-  owner: te-0012
+  owner: te-0011
   type: fullstack-app
   dependsOn: []
