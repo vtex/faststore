@@ -1,0 +1,19 @@
+- name: faststore
+  referenceId: ZYS1XPEC
+  build:
+    provider: dkcicd
+    pipelines:
+      - name: node-ci-v2
+        parameters:
+          nodeVersion: "24.13.0"
+          nodeCommands:
+            - "run lint"
+            - "run build && run size && run test:coverage"
+          shallowClone: "false"
+          sonarProjectName: vtex_faststore_f0a862d5-9557-49f9-8d09-de40caa76622
+        when:
+          - event: pull_request
+            source: branch
+          - event: push
+            source: branch
+            regex: ^(?!kubernetes).*
