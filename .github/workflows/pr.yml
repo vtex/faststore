@@ -18,7 +18,7 @@ jobs:
             components
             sdk
             lighthouse
-            graphql-utils
+            diagnostics
             deps
             deps-dev
           types: |

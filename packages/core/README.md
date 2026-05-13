@@ -1,224 +1,165 @@
 <p align="center">
-  <a href="https://github.com/vtex/faststore">
-    <img alt="Store Framework" src="https://emoji.slack-edge.com/T02BCPD0X/store-framework/7547b127e929c376.png" width="75" />
+    <img alt="Faststore" src="../ui/static/logo.png" width="60" />
+</p>
+
+<h1 align="center">FastStore Core</h1>
+
+<p align="center">
+  <a href="https://badge.fury.io/js/%40faststore%2Fcore">
+    <img alt="npm version" src="https://badge.fury.io/js/%40faststore%2Fcore.svg" />
   </a>
 </p>
-<h1 align="center">
-  A starter powered by FastStore and NextJS.
-</h1>
 
-Kick off your store with this boilerplate.
-This starter ships the main FastStore configuration files to get your store up and running blazing-fast. This source code is the base for FastStore projects starter.
 
-## 🚀 Quick start
 
-1. **Install dependencies**
+`@faststore/core` is the main Next.js application for FastStore storefronts. It bundles together all the building blocks of a store — sections, pages, SDK hooks, server utilities, and CMS configuration — into a ready-to-use boilerplate.
 
-> PS: you can install dependencies using the package manager of your choosing. In this guide, we'll be using `pnpm` as an example.
+Store builders consume this package through `@faststore/cli` and extend it via the `src/customizations/` directory. You will work directly in this package when contributing new sections, pages, SDK hooks, or CMS configurations to the FastStore platform.
 
-Install dependencies with pnpm
+## Package structure
 
-```shell
-pnpm i
+```text
+packages/core/
+├── src/
+│   ├── components/
+│   │   ├── sections/     # Full-page content slices (Hero, ProductGallery, ProductShelf…)
+│   │   ├── ui/           # Store-level UI components (compositions of @faststore/ui)
+│   │   ├── skeletons/    # Loading state skeleton components
+│   │   └── …             # Domain folders: cart, product, search, navigation, auth…
+│   ├── pages/            # Next.js file-based routes
+│   ├── sdk/              # Business logic hooks (cart, session, search, analytics…)
+│   ├── server/           # Server-side utilities (CMS content fetching)
+│   ├── customizations/   # Store-level overrides: styles, fonts, components, fragments
+│   ├── styles/           # Global SCSS styles
+│   └── instrumentation.ts  # Next.js instrumentation hook (boots @faststore/diagnostics when otelEnabled)
+├── cms/faststore/        # CMS configuration: sections.json, content-types.json, schemas
+├── @generated/           # Auto-generated GraphQL types — do not edit
+├── discovery.config.default.js  # Committed base store configuration (platform, sales channel, locale)
+├── discovery.config.js          # Merges default config with store-level customizations — do not edit directly
+├── next.config.js        # Next.js configuration
+├── codegen.ts            # GraphQL code generation config
+└── lighthouserc.js       # Lighthouse CI configuration
 ```
 
-2. **Start developing**
+## How to run
 
-   Navigate into your new site’s directory and start it up.
-
-   ```shell
-   pnpm dev
-   ```
-
-3. **Open the source code and start editing!**
-
-   Your site is now running at `http://localhost:3000`!
-
-## 🧐 What's inside?
-
-A quick look at the top-level files and directories you'll see in a this NextJS project.
-
-    ./
-    ├── node_modules
-    ├── @generated
-    ├── cms
-    ├── public
-    ├── src
-    ├── test
-    ├── .babelrc.js
-    ├── .editorconfig
-    ├── .prettierignore
-    ├── .prettierrrc
-    ├── .stylelintignore
-    ├── .gitignore
-    ├── codegen.ts
-    ├── cypress
-    ├── cypress.config.ts
-    ├── discovery.config.default.js
-    ├── discovery.config.js
-    ├── index.ts
-    ├── jest.config.js
-    ├── LICENSE
-    ├── lighthouserc.js
-    ├── next-env.d.ts
-    ├── next.config.ts
-    ├── package.json
-    ├── tsconfig.json
-    ├── postcss.config.js
-    ├── postinstall.js
-    ├── README.md
-    ├── stylelint.config.js
-    ├── tsconfig.json
-    ├── vtex.env
-
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`LICENSE`**: NextJS is licensed under the MIT license.
-
-6.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-7.  **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
-
-8.  **`discovery.config.default.js`**: Configure your e-commerce platform, default sales channel etc.
-
-9.  **`@generated`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
-
-10. **`cypress`**: End to End(e2e) tests using Cypress. Most of the scenarios are covered here. Add your custom flows to avoid regressions
-
-11. **`cypress.config.ts`**: [Cypress configuration file](https://docs.cypress.io/guides/references/configuration)
-
-12. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
-
-13. **`.prettierignore`**: Ignore listed files when applying prettier rules
-
-## 💻 Code Structure
-
-All code is inside the `src` folder. The code is split into folders that implement an MVC-like architecture.
-
-The `controller` is inside the `src/sdk` folder. This is where you will find most logic for the application. This folder contains hooks for adding items to cart, making graphql queries, resizing images, etc. If you need to write a custom business logic this is probably the place to put this logic.
-
-The `views` are written in the `src/components` folder and are subdivided into domain-specific components. Cart related items are inside the `src/components/cart` folder. Search and Product related components like facets, product summary, and search results are in their respective folders. Basic building blocks components used in the sections are inside the UI folder.
-Section components are those components that occupy a whole slice on the webpage and are desirable to be changed by a CMS. Section components are Product Gallery, Product Shelf and Hero and BannerText.
-
-The `model`, in a website, is where the data fetching occurs. Since this project uses Jamstack, a crucial design decision was made to explicitly split where Static and Dynamic data are fetched. The files inside the `src/pages` folder use [NextJS's File System Route API](https://nextjs.org/docs/routing/introduction) to declare routes and fetch static data.
-
-To summarize:
-
-1. `src/pages`: Routes are declared and static data is fetched.
-2. `src/views`: Receives static data from `src/pages`, enriches this data with dynamic attributes, and render section components along with SEO tags.
-3. `src/components/sections`: Receives necessary data and use domain-specific components (cart/product/search/ui) for rendering a slice on the web page.
-
-### Managing SVG Icons
-
-Icons help build web pages by illustrating concepts and improving website navigation. However, using icons can decrease the page's performance. One option to avoid the decrease of the page's performance is to use SVGs from a single SVG file, located in `/static/icons.svg`, and load them with the `ui/Icon` component.
-
-In the following steps, learn how to add and use a new SVG icon and avoid decreasing page performance while using an icon.
-
-#### Adding an SVG icon
-
-1. In the SVG file, change the `svg` tag to `symbol`.
-2. Add an `id` to the symbol. Remember to use an unique `id` and do not replicate it.
-3. Remove unnecessary HTML/SVG properties to allow you to style and decrease the final file size, such as `fill`, `stroke-width`, `width`, `height`, and `color`.
-
-An example adding Bell icon:
-
-```svg
-<svg style="display:none">
-<symbol id="Bell" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M56.2,104a71.9,71.9,0,0,1,72.3-72c39.6.3,71.3,33.2,71.3,72.9V112c0,35.8,7.5,56.6,14.1,68a8,8,0,0,1-6.9,12H49a8,8,0,0,1-6.9-12c6.6-11.4,14.1-32.2,14.1-68Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><path d="M96,192v8a32,32,0,0,0,64,0v-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
-</svg>
-```
-
-#### Using an SVG icon
-
-1. Get the icon's `id` that you created in the SVG icon file.
-2. Add the `id` in the React component that you desire to use the SVG icon. For example
-
-```tsx
-// src/components/ui/MyIconButton/MyIconButton.tsx
-import Icon from '@faststore/ui'
-
-function ButtonIcon() {
-  return (
-    <button>
-      <Icon name="<<symbol_id>>" weight="thin" />
-    </button>
-  )
-}
-
-export default ButtonIcon
-```
-
-This project uses SVGs from [Phosphor icons](https://phosphoricons.com/).
-More details, please refer to this [doc](https://www.faststore.dev/docs/icons).
-
-## 🖊️ Styling Components
-
-Our customized themes are based on [Design Tokens](https://css-tricks.com/what-are-design-tokens/) using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) or a CSS class for each token. We utilize the styles from the `@faststore/ui` package, which are imported into the `src/styles` directory. Additionally, each component's styles are imported directly into the section where they are being used. Refer to [Theming overview](https://www.faststore.dev/docs/theming-overview) for more details.
-
-## 🍒 Adding queries
-
-We use [graphql-codegen](https://www.graphql-code-generator.com/) to pre-process GraphQL queries. This compilation generates TypeScript typings and configurations for our graphql server under the folder `@generated/graphql`.
-This means we can statically analyze your code in search of bugs and secure your graphql server before each deploy. If, however you need to change any GraphQL Fragment, Query or Mutation, you will need to regenerate the whole thing. To do this, open your terminal and type
+**Prerequisites:** Node ≥ 20, pnpm
 
 ```sh
-$ pnpm dev
+pnpm install
+pnpm dev        # generates GraphQL types, then starts the Next.js dev server
 ```
 
-Now, after the nextjs development server is up and running, open another terminal and run
-
-```sh
-$ pnpm generate
-```
-
-That's it! you have just regenerated all graphql queries/fragments for your application and the new data you requested should be available to your component.
-
-> Pro tip: Pass `-w` to the `pnpm generate` command so it watches for changes and you don't need to run this command multiple times.
+Your store will be available at `http://localhost:3000`.
 
 
-## CMS Integration
 
-This store is integrated with [VTEX headless CMS](https://v1.faststore.dev/tutorials/cms/0).
+> The `pnpm dev` command runs `pnpm generate` automatically before starting the dev server. You only need to run `pnpm generate` manually when you change a GraphQL query or fragment while the server is already running.
 
-The page rendered with CMS is the index page: `pages/index.tsx`
-The `cms/faststore` contains the `content-types.json` and `sections.json` files.
+## How to develop
 
-### CMS configs
+### Adding or modifying a section
 
-It's possible to change the CMS tenant and workspace at `discovery.config.default.js`.
+Sections are full-page slices that can be managed via the CMS. They live in `src/components/sections/`.
 
-## 🎓 Learning the Frameworks
+1. Create `src/components/sections/{SectionName}/{SectionName}.tsx` and a companion `.module.scss`
+2. Compose the section using components from `@faststore/ui`
+3. Add the section definition to `cms/faststore/sections.json` (name, props, schema)
+4. Export the section from the sections index
 
-Looking for more guidance? Full documentation for FastStore lives [on this GitHub repository](https://github.com/vtex/faststore). Also, for learning NextJS, take a look at the [NextJS Website](https://nextjs.org/docs/getting-started), they have plenty of tutorials and examples in there.
+### Adding a store-level UI component
 
-## ⚡ Performance & QA
+Store-level UI components (not intended for the shared library) live in `src/components/ui/`.
 
-This project has strict performance budgets. Right out of the box, this project performs around 95 on Google's Page Speed Insights website, which usually is way more strict than your laptop's chrome lighthouse. Every time you commit to the repository, our QA bots will run and evaluate your code quality. We recommend you NEVER put in production a code that breaks any of the bots. If a bot breaks and still you need to put the code into production, change the bot config (`lighthouserc.js`, `cypress.config.ts`) to make it pass and merge. This way you ensure your website will keep performing well during the years to come.
+1. Create `src/components/ui/{ComponentName}/{ComponentName}.tsx` with a companion `.module.scss`
+2. Compose using components from `@faststore/ui`
+3. Use TypeScript for props — no `data-fs-*` attributes needed here (those belong in `@faststore/components`)
 
-## Adding third party scripts
+### Adding or modifying a GraphQL query
 
-Adding third-party scripts to a webpage usually makes it slow. To maintain great performance while third-party scripts are added, this project uses [Partytown](https://github.com/BuilderIO/partytown/), a lazy-load library that helps relocate intensive scripts into a web worker and off of the main thread.
+1. Edit or create a `.graphql` file with your query or fragment
+2. Run `pnpm generate` to regenerate types under `@generated/`
+3. Import the generated types from `@generated/graphql`
 
-To add scripts using Partytown, add the `type="text/partytown"` to the script tag and make sure to add it before the Partytown script or component.
-Some third-party scripts execute expensive computations that may require some time to run, making pages few slow. If that's the case, wrap those in a function and reference it on the Partytown `forward` prop. By doing this, Partytown will run this function on a web worker so it doesn't block the main thread.
+> Never edit files inside `@generated/` manually — they are overwritten on every `pnpm generate` run.
+
+### Managing SVG icons
+
+Icons are loaded from a single sprite at `public/icons.svg` via the `Icon` component from `@faststore/ui`.
+
+1. Open `public/icons.svg` and add a new `<symbol>` with a unique `id`
+2. Remove `fill`, `stroke-width`, `width`, `height`, and `color` attributes from the symbol so it can be styled via CSS
+3. Use the icon in any component:
 
 ```tsx
-export const onRenderBody = ({ setHeadComponents }) => {
-  // ...
-  setHeadComponents([
-    <script type="text/partytown">
-      window.expensiveFunction = function() {/* expensive computation used by custom-script */}
-    </script>
-    <script key="custom-script" src="*://domain/path" type="text/partytown" />,
-    <Partytown key="partytown" forward={["expensiveFunction"]} />
-  ])
-  // ...
-}
+import { Icon } from '@faststore/ui'
+
+<Icon name="Bell" weight="thin" />
 ```
 
-For more information about integrating third-party scripts: [Partytown Wiki](https://github.com/BuilderIO/partytown/wiki).
+This project uses icons from [Phosphor Icons](https://phosphoricons.com/).
+
+### Adding CMS configuration
+
+FastStore currently supports two CMS content sources. The flow depends on which one we want to update.
+
+#### Headless CMS (legacy)
+
+1. Define the section schema in `cms/faststore/sections.json`
+2. For new content types, add them to `cms/faststore/content-types.json`
+3. Run `pnpm faststore cms-sync` to push changes to the CMS
+
+#### CMS (new)
+
+Schemas are defined as individual `.jsonc` files instead of a single `sections.json`.
+To support both CMS versions, changes made to the legacy files are migrated to the new format using the split commands.
+
+1. After updating `sections.json` or `content-types.json`, run the split commands to generate the new format:
+```sh
+vtex content split-components -i cms/faststore/sections.json -o cms/faststore/components
+```
+
+```sh
+vtex content split-content-types -i cms/faststore/content-types.json -s cms/faststore/sections.json -o cms/faststore/pages
+```
+
+2. Generate the schema:
+```sh
+   vtex content generate-schema cms/faststore/components cms/faststore/pages -o cms/faststore/schema.json
+```
+
+3. Upload the schema to the Schema Registry:
+```sh
+vtex content upload-schema cms/faststore/schema.json
+```
+
+Files can be placed in `cms/components/` and `cms/pages/`, or co-located alongside their component in `src/components/`.
+
+> For schema syntax and the full architectural overview, see the [CMS architecture and schema declarations](https://developers.vtex.com/docs/guides/understanding-cms-architecture-and-schema-declarations) guide.
+
+## How to test
+
+```sh
+pnpm test         # unit tests (Vitest)
+pnpm test:e2e     # E2E tests (Cypress)
+pnpm lhci         # Lighthouse performance audit
+```
+
+This project has strict performance budgets. The Lighthouse CI (`lhci`) runs automatically on every PR and enforces score minimums and metric budgets defined in `lighthouserc.js`.
+
+## How to publish
+
+This package is versioned and published as part of the FastStore monorepo release process, managed by Lerna at the monorepo root. Do not publish individually.
+
+```sh
+# From the monorepo root:
+pnpm release      # publish to latest (main branch)
+pnpm release:dev  # publish to dev tag (dev branch)
+```
+
+## Documentation
+
+- [FastStore documentation](https://developers.vtex.com/docs/guides/faststore/getting-started-overview)
+- [Theming and design tokens](https://developers.vtex.com/docs/guides/faststore/styling-overview)
+- [CMS integration](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview)
+- [Next.js docs](https://nextjs.org/docs)

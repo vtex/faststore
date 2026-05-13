@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Dropzone, Icon, UIProvider } from '@faststore/components'
+import { Button, Dropzone, Icon, UIProvider } from '@faststore/ui'
 
 export default {
   title: 'Dropzone',

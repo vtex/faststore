@@ -61,7 +61,6 @@ packages/
 ├── cli/              # Command-line tools
 ├── components/       # React components structure layer (unstyled)
 ├── core/             # Main application (Next.js)
-├── graphql-utils/    # GraphQL utilities
 ├── lighthouse/       # Performance testing
 ├── sdk/              # Business logic hooks
 ├── storybook/        # Component documentation
