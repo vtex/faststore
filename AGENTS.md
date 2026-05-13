@@ -66,7 +66,7 @@ Each package within the FastStore monorepo MUST maintain clear boundaries and a 
 
 ### VII. Conventional Commits & Semantic Versioning
 
-- Commit format: `<type>(<scope>): <description>` (e.g. `feat(sdk): add cart persistence`).
+- Commit format: `<type>: <description>` (e.g. `feat(sdk): add cart persistence`).
 - Allowed types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `ci`, `test`.
 - Breaking changes MUST include `BREAKING CHANGE:` in commit body or `!` after type.
 - Lerna automatically versions packages based on Conventional Commits.
