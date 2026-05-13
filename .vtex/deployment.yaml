@@ -1,16 +1,19 @@
 - name: faststore
   referenceId: ZYS1XPEC
+  description: FastStore monorepo — quality gate (lint, build, size, test:coverage, SonarQube scan)
   build:
     provider: dkcicd
     pipelines:
       - name: node-ci-v2
         parameters:
-          nodeVersion: "24.13.0"
+          nodeVersion: 24-bookworm
           nodeCommands:
-            - "run lint"
-            - "run build && run size && run test:coverage"
-          shallowClone: "false"
+            - lint
+            - build && size && test:coverage
+          shallowClone: false
           sonarProjectName: vtex_faststore_f0a862d5-9557-49f9-8d09-de40caa76622
+        runtime:
+          architecture: amd64
         when:
           - event: pull_request
             source: branch
