@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: faststore
+  description: FastStore is a fullstack toolkit based on React that helps developers build Performant, Stable, SEO and Analytics ready ecommerces in a matter of days.
+  tags:
+    - typescript
+  annotations:
+    vtex.com/janus-acronym: ""
+    vtex.com/o11y-os-index: ""
+    grafana/dashboard-selector: ""
+    github.com/project-slug: vtex/faststore
+    backstage.io/techdocs-ref: dir:../
+    vtex.com/application-id: ZYS1XPEC
+spec:
+  lifecycle: production
+  owner: te-0011
+  type: fullstack-app
+  dependsOn: []
