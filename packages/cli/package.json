@@ -59,7 +59,8 @@
     "tslib": "catalog:",
     "tsup": "^8.5.0",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:"
   },
   "peerDependencies": {
     "graphql": "catalog:"
@@ -84,6 +85,7 @@
   "scripts": {
     "build": "tsup-node",
     "test": "vitest run src/**/*.test.ts",
+    "test:coverage": "vitest run src/**/*.test.ts --coverage",
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "na run build && oclif readme",
     "version": "oclif readme && git add README.md"

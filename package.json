@@ -17,6 +17,7 @@
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --conventional-graduate --yes && lerna publish from-git --yes",
     "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --force-publish --yes && lerna publish from-git --dist-tag=dev --yes",

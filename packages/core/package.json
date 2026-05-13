@@ -18,6 +18,7 @@
   "scripts": {
     "test:e2e": "cypress open",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "lhci": "lhci autorun",
     "partytown": "partytown copylib ./public/~partytown",
     "gen-types": "node ../cli/bin/run generate-types .",
@@ -106,7 +107,8 @@
     "is-ci": "^3.0.0",
     "jsdom": "^27.4.0",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:"
   },
   "peerDependencies": {
     "graphql": "catalog:",
