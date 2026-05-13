@@ -8,7 +8,7 @@
 
 ## Tech
 
-- Next.js 13.5 (SSR/SSG)
+- Next.js 16 (SSR/SSG)
 - React 18.2
 - GraphQL via `@faststore/api`
 - SCSS Modules for component styles

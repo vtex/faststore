@@ -8,8 +8,8 @@
 
 ## Tech
 
-- GraphQL 15.6 + GraphQL Codegen
-- TypeScript 5.3 (strict)
+- GraphQL 16.11.0 + GraphQL Codegen
+- TypeScript 5.9.3 (strict)
 - Envelop (GraphQL plugin system)
 - Vitest for unit + integration tests
 
