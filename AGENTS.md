@@ -166,8 +166,8 @@ Key patterns: Component-based (atomic design), GraphQL-first data fetching, Next
 FastStore uses a **pnpm workspace** monorepo:
 
 - **pnpm** 9.15.5: package manager
-- **Lerna** 8.1.9: versioning and publishing
-- **Turbo** 2.3.4: build orchestration
+- **Lerna** ^9.0.3: versioning and publishing
+- **Turbo** ^2.3.4: build orchestration
 - **Biome**: linting and formatting
 
 ### Package Organization
