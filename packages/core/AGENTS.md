@@ -125,6 +125,22 @@ sendAnalyticsEvent({
 - For core/sections: edit the `.module.scss` next to the component.
 - For library tokens: edit `packages/ui/src/styles/`.
 
+### Managing SVG icons
+
+Icons are loaded from a single sprite at `public/icons.svg` via the `Icon` component from `@faststore/ui`.
+
+1. Open `public/icons.svg` and add a new `<symbol>` with a unique `id`
+2. Remove `fill`, `stroke-width`, `width`, `height`, and `color` attributes from the symbol so it can be styled via CSS
+3. Use the icon in any component:
+
+```tsx
+import { Icon } from '@faststore/ui'
+
+;<Icon name="Bell" weight="thin" />
+```
+
+This project uses icons from [Phosphor Icons](https://phosphoricons.com/).
+
 ## Tests
 
 `@faststore/core` separates tests by environment:
