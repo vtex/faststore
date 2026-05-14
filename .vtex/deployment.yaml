@@ -14,6 +14,7 @@
           sonarHost: http://sonarqube.vtex.systems
           sonarProjectName: vtex_faststore_f0a862d5-9557-49f9-8d09-de40caa76622
           gitBaseBranchName: dev
+          sonarExclusions: "**/dist/**,**/.next/**,**/@generated/**,**/__generated__/**,**/node_modules/**,**/*.d.ts,**/cypress/**,packages/storybook/**,packages/lighthouse/**,packages/diagnostics/**,packages/ui/**,packages/graphql-utils/**"
         runtime:
           architecture: amd64
         when:
