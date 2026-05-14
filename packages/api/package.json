@@ -35,7 +35,7 @@
     "test:unit": "vitest run ./test/unit",
     "test:unitc": "pnpm run test:unit --coverage --coverage.reportsDirectory=./coverage/unit",
     "test": "pnpm run test:unit && pnpm run test:int",
-    "test:coverage": "pnpm run test:unitc && pnpm run test:intc",
+    "test:coverage": "pnpm run test:unitc && pnpm run test:intc && pnpm dlx lcov-result-merger 'coverage/{unit,int}/lcov.info' coverage/lcov.info",
     "generate": "graphql-codegen --config codegen.yml",
     "dev:server": "pnpm build && node ./local/server.mjs"
   },
