@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.99.4 (2026-05-14)
+
+### Bug Fixes
+
+- region slider section render 3.x ([#3321](https://github.com/vtex/faststore/issues/3321)) ([8e9fa4f](https://github.com/vtex/faststore/commit/8e9fa4fae7d6c306e66164e3229d2f74b28982d3))
+- use starter.store 3.x branch in CI ([#3324](https://github.com/vtex/faststore/issues/3324)) ([baaf13c](https://github.com/vtex/faststore/commit/baaf13cc791b7c54948f31fe2891ea3351706053)), closes [#3321](https://github.com/vtex/faststore/issues/3321) [#3321](https://github.com/vtex/faststore/issues/3321)
+
 ## [3.99.3](https://github.com/vtex/faststore/compare/v3.99.2...v3.99.3) (2026-05-12)
 
 ### Bug Fixes

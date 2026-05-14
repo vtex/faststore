@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.99.3
+        specifier: ^3.99.4
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -306,7 +306,7 @@ importers:
         specifier: workspace:*
         version: link:../api
       "@faststore/graphql-utils":
-        specifier: ^3.99.1
+        specifier: ^3.99.4
         version: link:../graphql-utils
       "@faststore/lighthouse":
         specifier: workspace:*

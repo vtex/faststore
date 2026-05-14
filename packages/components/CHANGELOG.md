@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.99.4 (2026-05-14)
+
+### Bug Fixes
+
+- use starter.store 3.x branch in CI ([#3324](https://github.com/vtex/faststore/issues/3324)) ([baaf13c](https://github.com/vtex/faststore/commit/baaf13cc791b7c54948f31fe2891ea3351706053)), closes [#3321](https://github.com/vtex/faststore/issues/3321) [#3321](https://github.com/vtex/faststore/issues/3321)
+
 ## 3.99.1 (2026-05-06)
 
 **Note:** Version bump only for package @faststore/components
