@@ -302,8 +302,8 @@ For components with sub-parts (e.g. `Accordion` + `AccordionButton` + `Accordion
 
 ## Tech Stack
 
-**Frontend:** React 18.2, Next.js 13.5, TypeScript 5.3, SCSS, SWR 2.2.
-**GraphQL:** GraphQL 15.6, GraphQL Codegen, Envelop.
+**Frontend:** React 18.2, Next.js ^16, TypeScript 5.9.3, SCSS, SWR ^2.2.5.
+**GraphQL:** GraphQL 16.11.0, GraphQL Codegen, Envelop.
 **Build tools:** Turbo, pnpm, Lerna, Biome.
 **Testing:** Vitest, Cypress, Testing Library, `vitest-axe`, Lighthouse.
 **Other:** Lexical (rich text), Partytown (third-party scripts), Sharp (image optimization).
