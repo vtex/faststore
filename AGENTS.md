@@ -104,7 +104,6 @@ When working in this repository, prefer the following skills:
 - `specification`, `implementing` — SDD Lite flow (small-to-medium tasks)
 - `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, `/speckit.analyze`, `/speckit.implement` — SDD Full flow (larger or higher-risk tasks)
 - `prd-writer`, `rfc-writer`, `plan-backlog-jira` — discovery and planning
-- Local: `~/.agents/skills/faststore-storefront` for FastStore storefront-specific recipes
 
 Avoid creating local skills that duplicate the official VTEX skills.
 
