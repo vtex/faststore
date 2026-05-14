@@ -23,12 +23,42 @@ interface Props {
   isInteractive?: boolean
 }
 
-const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal', 'RegionSlider']
+const REGION_SLIDER_SECTION_NAME = 'RegionSlider'
+
+const SECTIONS_OUT_OF_VIEWPORT = [
+  'CartSidebar',
+  'RegionModal',
+  REGION_SLIDER_SECTION_NAME,
+]
 
 /** Filter CMS metadata props so they are not passed to section components (and thus to the DOM). */
 function getSectionProps(data: Record<string, unknown>) {
   const { $componentKey: _key, $componentTitle: _title, ...sectionProps } = data
   return sectionProps
+}
+
+/**
+ * Ensure a RegionSlider section exists in the iteration. After PR #2961 the
+ * section was removed from `sections.json`, so CP-based stores (whose CP
+ * schemas were generated in PR #3071) and fresh hCMS stores no longer have it
+ * in their CMS content. The runtime still expects the section to flow through
+ * `RenderSections` so that `LazyLoadingSection` can gate the lazy import on
+ * `regionSlider.isOpen`. Inject the entry only if it is not already present in
+ * `sections` or `globalSections` to avoid double-rendering for legacy hCMS
+ * stores that have it persisted in their CMS.
+ */
+function withRegionSliderSection(
+  sections: Section[] | undefined,
+  globalSections: Section[] | undefined
+): Section[] {
+  const base = sections ?? []
+  const isPresent =
+    base.some(({ name }) => name === REGION_SLIDER_SECTION_NAME) ||
+    globalSections?.some(({ name }) => name === REGION_SLIDER_SECTION_NAME)
+
+  if (isPresent) return base
+
+  return [...base, { name: REGION_SLIDER_SECTION_NAME, data: {} }]
 }
 
 const Toast = dynamic(
@@ -156,6 +186,11 @@ function RenderSections({
     globalSections ?? sections
   )
 
+  const augmentedSections = useMemo(
+    () => withRegionSliderSection(sections, globalSections),
+    [sections, globalSections]
+  )
+
   const { isInteractive } = useTTI()
   const router = useRouter()
 
@@ -178,9 +213,9 @@ function RenderSections({
           isInteractive={isInteractive}
         />
       )}
-      {sections && sections.length > 0 && (
+      {augmentedSections.length > 0 && (
         <RenderSectionsBase
-          sections={sections}
+          sections={augmentedSections}
           components={components}
           isInteractive={isInteractive}
         />
