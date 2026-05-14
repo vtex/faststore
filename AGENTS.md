@@ -21,7 +21,7 @@ Internal maintainers also follow additional private documents (a constitution an
 Each package within the FastStore monorepo MUST maintain clear boundaries and a single responsibility:
 
 - **`@faststore/api`**: GraphQL BFF abstraction serving as the data layer. MUST expose only GraphQL interfaces and handle platform-specific integrations.
-- **`@faststore/sdk`**: Framework-agnostic business rules and state management. MUST NOT contain framework-specific code (React, Vue, etc.).
+- **`@faststore/sdk`**: Business rules and state management. AVOID having framework-specific code (React, Vue, etc.).
 - **`@faststore/components`**: React-specific component implementations. MUST focus on component behavior and structure, delegating styling to `@faststore/ui`.
 - **`@faststore/ui`**: Styling layer using SCSS. MUST provide themeable design tokens and component styles without implementation logic.
 - **`@faststore/core`**: Integration layer that orchestrates all packages and contains experimental features. Acts as the reference implementation and starter template.

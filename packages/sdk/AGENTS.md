@@ -4,7 +4,7 @@
 
 ## Purpose
 
-`@faststore/sdk` provides **framework-agnostic business rules and state management**. It is consumed by `@faststore/core` and other framework-specific layers, but MUST itself remain free of framework dependencies.
+`@faststore/sdk` provides **framework-agnostic business rules and state management**. It is consumed by `@faststore/core` and other framework-specific layers, But SHOULD avoid framework dependencies whenever possible.
 
 ## Bundle Budget (NON-NEGOTIABLE)
 
