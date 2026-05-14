@@ -46,14 +46,22 @@ export class ContentService {
 
     if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
+      const MAX_PAGES = 100
       const allEntries: ContentEntry[] = []
       let scroll: string | undefined
+      let pages = 0
 
       do {
         const result = await this.clientCP.listEntries(serviceParams, scroll)
         allEntries.push(...result.entries)
-        scroll = result.scroll ?? undefined
-      } while (scroll)
+        const next = result.scroll ?? undefined
+        if (next && next === scroll) break
+        scroll = next
+      } while (scroll && ++pages < MAX_PAGES)
+
+      if (pages >= MAX_PAGES) {
+        console.warn('listEntries pagination hit MAX_PAGES cap', serviceParams)
+      }
 
       return this.fillEntriesWithData(
         allEntries,
@@ -72,6 +80,11 @@ export class ContentService {
     const options = this.createContentOptions(plpParams)
 
     if (isContentPlatformSource()) {
+      const directMatch = await this.getSingleContent<PLPContentType>(plpParams)
+      if (directMatch) {
+        return directMatch
+      }
+
       const pages = (await this.getMultipleContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
@@ -91,6 +104,11 @@ export class ContentService {
     const options = this.createContentOptions(pdpParams)
 
     if (isContentPlatformSource()) {
+      const directMatch = await this.getSingleContent<PDPContentType>(pdpParams)
+      if (directMatch) {
+        return directMatch
+      }
+
       const pages = (await this.getMultipleContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
       return findBestPDPTemplate(
