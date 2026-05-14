@@ -11,6 +11,7 @@
           nodeCommands:
             - ci:dkcicd
           shallowClone: false
+          sonarHost: http://sonarqube.vtex.systems
           sonarProjectName: vtex_faststore_f0a862d5-9557-49f9-8d09-de40caa76622
         runtime:
           architecture: amd64

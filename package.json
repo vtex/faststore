@@ -18,7 +18,7 @@
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage",
-    "ci:dkcicd": "turbo run lint build size test:coverage --log-order=grouped",
+    "ci:dkcicd": "pnpm build && pnpm lint && pnpm size && pnpm test:coverage",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --conventional-graduate --yes && lerna publish from-git --yes",
     "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --force-publish --yes && lerna publish from-git --dist-tag=dev --yes",
