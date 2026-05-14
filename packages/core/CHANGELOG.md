@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-dev.5](https://github.com/vtex/faststore/compare/v4.1.0-dev.4...v4.1.0-dev.5) (2026-05-14)
+
+### Bug Fixes
+
+- region slider section render ([#3318](https://github.com/vtex/faststore/issues/3318)) ([f9f5e0d](https://github.com/vtex/faststore/commit/f9f5e0dbd6c3e92b24a3fb1e21a95bfb1c6744f1)), closes [#2887](https://github.com/vtex/faststore/issues/2887) [#2961](https://github.com/vtex/faststore/issues/2961) [#3071](https://github.com/vtex/faststore/issues/3071)
+
 # [4.1.0-dev.4](https://github.com/vtex/faststore/compare/v4.1.0-dev.3...v4.1.0-dev.4) (2026-05-13)
 
 **Note:** Version bump only for package @faststore/core
