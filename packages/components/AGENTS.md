@@ -178,25 +178,6 @@ cd packages/components
 pnpm build
 ```
 
-**Optional temporary test page** while developing (delete before PR):
-
-```tsx
-// packages/core/src/pages/component.tsx
-import { NewComponent } from "@faststore/ui";
-
-function Page() {
-  return <NewComponent />;
-}
-
-export default Page;
-```
-
-```bash
-cd packages/core
-pnpm dev
-# Navigate to http://localhost:3000/component
-```
-
 ### Step 3: Add styling (`@faststore/ui`)
 
 **Location:** `packages/ui/src/components/{category}/{ComponentName}/styles.scss`
