@@ -30,9 +30,10 @@ if (packageJson.devDependencies[packageToResolve]) {
 } else if (packageJson.dependencies[packageToResolve]) {
   packageJson.dependencies[packageToResolve] = versionResolution
 } else {
-  console.info(
-    `${packageToResolve} is not a dependency of the specified project`
-  )
+  packageJson.devDependencies = {
+    ...packageJson.devDependencies,
+    [packageToResolve]: versionResolution,
+  }
 }
 
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
