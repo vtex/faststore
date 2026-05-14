@@ -268,10 +268,12 @@ pnpm build
 4. **Mobile-first approach:**
 
    ```scss
+   @use "@faststore/ui/src/styles/base/utilities" as u;
+
    [data-fs-banner-text-content] {
      padding: var(--fs-banner-text-padding-mobile);
 
-     @include media(">=notebook") {
+     @include u.media(">=notebook") {
        padding: var(--fs-banner-text-padding-desktop);
      }
    }
