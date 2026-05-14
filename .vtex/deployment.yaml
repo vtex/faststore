@@ -20,4 +20,4 @@
             source: branch
           - event: push
             source: branch
-            regex: ^(?!kubernetes).*
+            regex: ^(main|dev)$
