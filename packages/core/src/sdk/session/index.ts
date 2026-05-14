@@ -8,6 +8,7 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import deepEqual from 'fast-deep-equal'
+import { isLocalHostBrowser } from 'src/utils/isLocalHost'
 import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
@@ -20,11 +21,6 @@ import { getSettings } from '../localization/useLocalizationConfig'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
-
-const isLocalEnvironment = (): boolean =>
-  typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1')
 
 const isReloadAfterLogoutPending = (): boolean => {
   try {
@@ -129,7 +125,7 @@ export const validateSession = async (session: Session) => {
   // On failure (logoutAndClearSession already triggered), bail out.
   // Skipped in local environments where the refresh token infrastructure is unavailable.
   if (
-    !isLocalEnvironment() &&
+    !isLocalHostBrowser() &&
     storeConfig.experimental?.refreshToken &&
     isRefreshAfterExpired(session)
   ) {
@@ -200,7 +196,7 @@ export const validateSession = async (session: Session) => {
     return data.validateSession
   } catch (error) {
     const shouldRefreshToken =
-      !isLocalEnvironment() &&
+      !isLocalHostBrowser() &&
       error?.status === 401 &&
       storeConfig.experimental?.refreshToken
 
