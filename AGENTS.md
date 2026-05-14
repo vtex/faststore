@@ -79,7 +79,39 @@ Each package within the FastStore monorepo MUST maintain clear boundaries and a 
 
 ## Dependency Discipline
 
+### Shared Versions
+
 - Shared dependency versions live in `pnpm-workspace.yaml` via the `catalog:` feature. Duplicating versions across packages is forbidden — reference the catalog version (e.g. `"vitest": "catalog:"`).
+- When bumping a catalog entry, all consumers MUST be re-tested in the same PR.
+
+### Adding a Third-Party Dependency
+
+Adding a new third-party package is a **deliberate decision**, not a default. Before introducing one:
+
+1. **Justify the need.** Prefer the standard library, an existing dependency, or a small in-repo utility. A new dependency is only acceptable when it removes meaningful complexity, risk, or maintenance burden that the team would otherwise own.
+2. **Evaluate the package.** It MUST be:
+   - actively maintained (recent releases, responsive issue tracker);
+   - compatible with the repository's MIT license (no GPL/AGPL/SSPL or other copyleft);
+   - free of known critical vulnerabilities (`pnpm audit` clean for the new tree);
+   - typed (ships its own types or has a maintained `@types/*` package).
+3. **Measure the impact.** For runtime dependencies in user-facing packages (`@faststore/core`, `@faststore/components`, `@faststore/ui`, `@faststore/sdk`), check the bundle cost via `pnpm size` and the published bundle on [bundlephobia](https://bundlephobia.com/) / [pkg-size.dev](https://pkg-size.dev/). Regressions against the existing budget MUST block the PR.
+4. **Pick the right bucket.**
+   - `dependencies`: required at runtime by the published package.
+   - `devDependencies`: only used during build, lint, or test.
+   - `peerDependencies`: framework or host package the consumer is expected to provide (e.g. `react`, `next`).
+   - Never duplicate a `peerDependency` in `dependencies`.
+5. **Pin via the catalog.** If the dependency is (or could be) shared by more than one package, add it to `pnpm-workspace.yaml` under `catalog:` and reference it as `"<pkg>": "catalog:"`. Single-package dev tooling may be declared locally.
+6. **Respect the package's role.**
+   - `@faststore/sdk` Prefer zero-dependency solutions (see [`packages/sdk/AGENTS.md`](packages/sdk/AGENTS.md)).
+   - `@faststore/components` and `@faststore/ui` MUST NOT pull in heavy runtime dependencies for visual concerns that can be solved with CSS or existing primitives.
+7. **Document the choice.** Mention in the PR description what was evaluated, why the dependency was chosen over alternatives, and the bundle delta when applicable.
+
+Any of the following require **explicit human approval** (see [Agent Autonomy Boundaries](#agent-autonomy-boundaries)):
+
+- Adding a new runtime dependency to `@faststore/sdk`, `@faststore/components`, `@faststore/ui`, or `@faststore/api`.
+- Replacing or removing an existing public-facing dependency.
+- Bumping a dependency across a major version.
+- Adding any package with a non-permissive license, unclear maintenance status, or known unresolved CVEs.
 
 ## Agent Autonomy Boundaries
 
@@ -96,6 +128,7 @@ Forbidden without explicit human approval:
 - Modify authentication, authorization, CSP, CI/CD pipelines, or production env config.
 - Remove or skip tests to make a build pass.
 - Add third-party scripts to `@faststore/core` outside of Partytown integration.
+- Add a new runtime third-party dependency to a published package (`@faststore/{sdk,components,ui,api,core,cli}`) without following the [Dependency Discipline](#dependency-discipline) checklist and recording the evaluation in the PR description.
 
 ## Expected Skills
 
