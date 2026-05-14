@@ -51,6 +51,6 @@ Dual ESM/CJS via conditional `exports`:
 
 Internal helpers are NOT re-exported from the public entry. If you add a new module, only re-export what truly belongs to the public API surface.
 
-## When NOT to add code here
+## When NOT to add code in @faststore/sdk
 
 - Store-specific logic that belongs in `@faststore/core` overrides.
