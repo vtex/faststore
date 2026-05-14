@@ -30,7 +30,7 @@
       "dependsOn": ["^build"]
     },
     "test:coverage": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "generate"],
       "outputs": ["coverage/**"]
     },
     "lint": {},

@@ -9,10 +9,7 @@
           nodeVersion: 24-bookworm
           packageManager: pnpm
           nodeCommands:
-            - lint
-            - build
-            - size
-            - test:coverage
+            - ci:dkcicd
           shallowClone: false
           sonarProjectName: vtex_faststore_f0a862d5-9557-49f9-8d09-de40caa76622
         runtime:
