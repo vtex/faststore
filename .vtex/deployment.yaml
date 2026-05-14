@@ -13,11 +13,9 @@
           shallowClone: false
           sonarHost: http://sonarqube.vtex.systems
           sonarProjectName: vtex_faststore_f0a862d5-9557-49f9-8d09-de40caa76622
+          gitBaseBranchName: dev
         runtime:
           architecture: amd64
         when:
           - event: pull_request
             source: branch
-          - event: push
-            source: branch
-            regex: ^(main|dev)$
