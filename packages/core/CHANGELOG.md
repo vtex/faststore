@@ -38,6 +38,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - allow_all_components for CMS ([#3312](https://github.com/vtex/faststore/issues/3312)) ([eadeaa3](https://github.com/vtex/faststore/commit/eadeaa36782b40be0fe7fb16604f7a5bc3da2b79))
+# 4.1.0 (2026-05-11)
+
+### Features
+
+- version bump 4.1.0 ([#3310](https://github.com/vtex/faststore/issues/3310)) ([1ea7bac](https://github.com/vtex/faststore/commit/1ea7bac649d783e50a9e79f8fe412009ae4a87f7)), closes [#3309](https://github.com/vtex/faststore/issues/3309) [#3308](https://github.com/vtex/faststore/issues/3308) [#3306](https://github.com/vtex/faststore/issues/3306) [#3304](https://github.com/vtex/faststore/issues/3304) [#3301](https://github.com/vtex/faststore/issues/3301)
 
 # [4.1.0-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.0...v4.1.0-dev.1) (2026-05-11)
 
