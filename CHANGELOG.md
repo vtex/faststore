@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.1.2-dev.0 (2026-05-15)
+
+### Bug Fixes
+
+- bump version ([4fbfa64](https://github.com/vtex/faststore/commit/4fbfa649afc57218dbf8020abc7333c05b0b034f))
+
 ## 4.1.1 (2026-05-15)
 
 ### Bug Fixes
