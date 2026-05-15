@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "4.1.0-dev.7",
+  "version": "4.1.0-dev.8",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -97,6 +97,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node": "catalog:",
     "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/coverage-v8": "catalog:",
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.8.1",
     "cypress": "12.17.4",
@@ -107,8 +108,7 @@
     "is-ci": "^3.0.0",
     "jsdom": "^27.4.0",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "@vitest/coverage-v8": "catalog:"
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "graphql": "catalog:",

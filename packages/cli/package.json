@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "4.1.0-dev.7",
+  "version": "4.1.0-dev.8",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -53,14 +53,14 @@
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^11",
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "graphql": "catalog:",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
     "tslib": "catalog:",
     "tsup": "^8.5.0",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "@vitest/coverage-v8": "catalog:"
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "graphql": "catalog:"

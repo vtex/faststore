@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "4.1.0-dev.7",
+  "version": "4.1.0-dev.8",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.mjs",
   "typings": "dist/index.d.ts",
@@ -42,6 +42,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/tabbable": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "papaparse": "^5.5.3",
     "react-dropzone": "^14.3.8",
     "tabbable": "catalog:",
@@ -49,8 +50,7 @@
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vitest": "catalog:",
-    "vitest-axe": "^0.1.0",
-    "@vitest/coverage-v8": "catalog:"
+    "vitest-axe": "^0.1.0"
   },
   "engines": {
     "node": ">=20"
