@@ -27,7 +27,7 @@ export { default as ProductShelfSection } from './src/components/sections/Produc
 export { default as RegionBarSection } from './src/components/sections/RegionBar'
 export { default as Section } from './src/components/sections/Section'
 
-// Delivery Promise
+// Delivery Promise.
 export {
   PICKUP_IN_POINT_FACET_VALUE,
   PICKUP_POINT_FACET_KEY,
