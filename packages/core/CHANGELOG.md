@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-dev.10](https://github.com/vtex/faststore/compare/v4.1.0...v4.1.0-dev.10) (2026-05-15)
+
+**Note:** Version bump only for package @faststore/core
+
 # [4.1.0-dev.9](https://github.com/vtex/faststore/compare/v4.1.0-dev.8...v4.1.0-dev.9) (2026-05-15)
 
 **Note:** Version bump only for package @faststore/core
@@ -38,6 +42,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - allow_all_components for CMS ([#3312](https://github.com/vtex/faststore/issues/3312)) ([eadeaa3](https://github.com/vtex/faststore/commit/eadeaa36782b40be0fe7fb16604f7a5bc3da2b79))
+
 # 4.1.0 (2026-05-11)
 
 ### Features
