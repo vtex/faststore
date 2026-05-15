@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-dev.10](https://github.com/vtex/faststore/compare/v4.1.0...v4.1.0-dev.10) (2026-05-15)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.9](https://github.com/vtex/faststore/compare/v4.1.0-dev.8...v4.1.0-dev.9) (2026-05-15)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.8](https://github.com/vtex/faststore/compare/v4.1.0-dev.7...v4.1.0-dev.8) (2026-05-15)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.7](https://github.com/vtex/faststore/compare/v4.1.0-dev.6...v4.1.0-dev.7) (2026-05-15)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.6](https://github.com/vtex/faststore/compare/v4.1.0-dev.5...v4.1.0-dev.6) (2026-05-14)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.5](https://github.com/vtex/faststore/compare/v4.1.0-dev.4...v4.1.0-dev.5) (2026-05-14)
+
+### Bug Fixes
+
+- region slider section render ([#3318](https://github.com/vtex/faststore/issues/3318)) ([f9f5e0d](https://github.com/vtex/faststore/commit/f9f5e0dbd6c3e92b24a3fb1e21a95bfb1c6744f1)), closes [#2887](https://github.com/vtex/faststore/issues/2887) [#2961](https://github.com/vtex/faststore/issues/2961) [#3071](https://github.com/vtex/faststore/issues/3071)
+
+# [4.1.0-dev.4](https://github.com/vtex/faststore/compare/v4.1.0-dev.3...v4.1.0-dev.4) (2026-05-13)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.3](https://github.com/vtex/faststore/compare/v4.1.0-dev.2...v4.1.0-dev.3) (2026-05-13)
+
+**Note:** Version bump only for package faststore
+
+# [4.1.0-dev.2](https://github.com/vtex/faststore/compare/v4.1.0-dev.1...v4.1.0-dev.2) (2026-05-12)
+
+### Bug Fixes
+
+- allow_all_components for CMS ([#3312](https://github.com/vtex/faststore/issues/3312)) ([eadeaa3](https://github.com/vtex/faststore/commit/eadeaa36782b40be0fe7fb16604f7a5bc3da2b79))
+
 # 4.1.0 (2026-05-11)
 
 ### Features

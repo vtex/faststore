@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextareaField } from '@faststore/components'
+import { TextareaField } from '@faststore/ui'
 
 export default {
   title: 'TextareaField',

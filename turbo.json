@@ -29,6 +29,10 @@
     "test": {
       "dependsOn": ["^build"]
     },
+    "test:coverage": {
+      "dependsOn": ["^build", "generate"],
+      "outputs": ["coverage/**"]
+    },
     "lint": {},
     "serve": {},
     "start": {

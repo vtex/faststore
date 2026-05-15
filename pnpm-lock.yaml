@@ -54,6 +54,9 @@ catalogs:
     "@types/tabbable":
       specifier: ^3.1.1
       version: 3.1.4
+    "@vitest/coverage-v8":
+      specifier: 4.0.7
+      version: 4.0.7
     cookie:
       specifier: ^0.7.0
       version: 0.7.2
@@ -64,8 +67,8 @@ catalogs:
       specifier: ^27.4.0
       version: 27.4.0
     next:
-      specifier: ^16
-      version: 16.1.6
+      specifier: ^16.2.6
+      version: 16.2.6
     react:
       specifier: 18.2.0
       version: 18.2.0
@@ -211,6 +214,9 @@ importers:
       "@types/sanitize-html":
         specifier: ^2.9.1
         version: 2.16.0
+      "@vitest/coverage-v8":
+        specifier: "catalog:"
+        version: 4.0.7(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       concurrently:
         specifier: ^6.2.1
         version: 6.5.1
@@ -314,6 +320,9 @@ importers:
       "@types/node":
         specifier: "catalog:"
         version: 20.19.13
+      "@vitest/coverage-v8":
+        specifier: "catalog:"
+        version: 4.0.7(vitest@4.0.7(@types/node@20.19.13)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       graphql:
         specifier: 16.11.0
         version: 16.11.0
@@ -369,6 +378,9 @@ importers:
       "@types/tabbable":
         specifier: "catalog:"
         version: 3.1.4
+      "@vitest/coverage-v8":
+        specifier: "catalog:"
+        version: 4.0.7(vitest@4.0.7(@types/node@25.3.0)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       papaparse:
         specifier: ^5.5.3
         version: 5.5.3
@@ -524,10 +536,10 @@ importers:
         version: 0.34.0
       next:
         specifier: "catalog:"
-        version: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
+        version: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
       next-seo:
         specifier: ^6.6.0
-        version: 6.8.0(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 6.8.0(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       postcss:
         specifier: ^8.4.4
         version: 8.5.6
@@ -586,6 +598,9 @@ importers:
       "@vitejs/plugin-react":
         specifier: ^5.1.2
         version: 5.1.4(vite@7.3.1(@types/node@20.19.13)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
+      "@vitest/coverage-v8":
+        specifier: "catalog:"
+        version: 4.0.7(vitest@4.0.7(@types/node@20.19.13)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       axe-core:
         specifier: ^4.8.1
         version: 4.11.1
@@ -678,6 +693,9 @@ importers:
       "@types/react":
         specifier: "catalog:"
         version: 18.3.28
+      "@vitest/coverage-v8":
+        specifier: "catalog:"
+        version: 4.0.7(vitest@4.0.7(@types/node@20.19.13)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       fake-indexeddb:
         specifier: ^3.1.3
         version: 3.1.8
@@ -713,7 +731,7 @@ importers:
         version: link:../ui
       next:
         specifier: "catalog:"
-        version: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
+        version: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
       react:
         specifier: "catalog:"
         version: 18.2.0
@@ -741,7 +759,7 @@ importers:
         version: 8.6.14(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       "@storybook/nextjs":
         specifier: 10.2.3
-        version: 10.2.3(@swc/core@1.15.30)(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(type-fest@2.19.0)(typescript@5.9.3)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(@swc/core@1.15.30))
+        version: 10.2.3(@swc/core@1.15.30)(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(type-fest@2.19.0)(typescript@5.9.3)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(@swc/core@1.15.30))
       "@storybook/test":
         specifier: ^8.5.2
         version: 8.6.15(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
@@ -2045,6 +2063,13 @@ packages:
         integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==,
       }
     engines: { node: ">=6.9.0" }
+
+  "@bcoe/v8-coverage@1.0.2":
+    resolution:
+      {
+        integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==,
+      }
+    engines: { node: ">=18" }
 
   "@biomejs/biome@1.9.4":
     resolution:
@@ -4308,79 +4333,79 @@ packages:
         integrity: sha512-klcSooChXXOzIm+SE5IISIAn3bYzYfPjbX7D7HoqZL84oAfgREeSg5vSIaSFH+DaGzzvImTyWe1OyrJ67vik4A==,
       }
 
-  "@next/env@16.1.6":
+  "@next/env@16.2.6":
     resolution:
       {
-        integrity: sha512-N1ySLuZjnAtN3kFnwhAwPvZah8RJxKasD7x1f8shFqhncnWZn4JMfg37diLNuoHsLAlrDfM3g4mawVdtAG8XLQ==,
+        integrity: sha512-gd8HoHN4ufj73WmR3JmVolrpJR47ILK6LouP5xElPglaVxir6e1a7VzvTvDWkOoPXT9rkkTzyCxBu4yeZfZwcw==,
       }
 
-  "@next/swc-darwin-arm64@16.1.6":
+  "@next/swc-darwin-arm64@16.2.6":
     resolution:
       {
-        integrity: sha512-wTzYulosJr/6nFnqGW7FrG3jfUUlEf8UjGA0/pyypJl42ExdVgC6xJgcXQ+V8QFn6niSG2Pb8+MIG1mZr2vczw==,
+        integrity: sha512-ZJGkkcNfYgrrMkqOdZ7zoLa1TOy0qpcMfk/z4Mh/FKUz40gVO+HNQWqmLxf67Z5WB64DRp0dhEbyHfel+6sJUg==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [darwin]
 
-  "@next/swc-darwin-x64@16.1.6":
+  "@next/swc-darwin-x64@16.2.6":
     resolution:
       {
-        integrity: sha512-BLFPYPDO+MNJsiDWbeVzqvYd4NyuRrEYVB5k2N3JfWncuHAy2IVwMAOlVQDFjj+krkWzhY2apvmekMkfQR0CUQ==,
+        integrity: sha512-v/YLBHIY132Ced3puBJ7YJKw1lqsCrgcNo2aRJlCEyQrrCeRJlvGlnmxhPxNQI3KE3N1DN5r9TPNPvka3nq5RQ==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [darwin]
 
-  "@next/swc-linux-arm64-gnu@16.1.6":
+  "@next/swc-linux-arm64-gnu@16.2.6":
     resolution:
       {
-        integrity: sha512-OJYkCd5pj/QloBvoEcJ2XiMnlJkRv9idWA/j0ugSuA34gMT6f5b7vOiCQHVRpvStoZUknhl6/UxOXL4OwtdaBw==,
+        integrity: sha512-RPOvqlYBbcQjkz9VQQDZ2T2bARIjXZV1KFlt+V2Mr6SW/e4I9fcKsaA0hdyf2FHoTlsV2xnBd5Y912rP/1Ce6w==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [linux]
 
-  "@next/swc-linux-arm64-musl@16.1.6":
+  "@next/swc-linux-arm64-musl@16.2.6":
     resolution:
       {
-        integrity: sha512-S4J2v+8tT3NIO9u2q+S0G5KdvNDjXfAv06OhfOzNDaBn5rw84DGXWndOEB7d5/x852A20sW1M56vhC/tRVbccQ==,
+        integrity: sha512-URUTu1+dMkxJsPFgm+OeEvq9wf5sujw0EvgYy80TDGHTSLTnIHeqb0Eu8A3sC95IRgjejQL+kC4mw+4yPxiAXA==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [linux]
 
-  "@next/swc-linux-x64-gnu@16.1.6":
+  "@next/swc-linux-x64-gnu@16.2.6":
     resolution:
       {
-        integrity: sha512-2eEBDkFlMMNQnkTyPBhQOAyn2qMxyG2eE7GPH2WIDGEpEILcBPI/jdSv4t6xupSP+ot/jkfrCShLAa7+ZUPcJQ==,
+        integrity: sha512-DOj182mPV8G3UkrayLoREM5YEYI+Dk5wv7Ox9xl1fFibAELEsFD0lDPfHIeILlutMMfdyhlzYPELG3peuKaurw==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [linux]
 
-  "@next/swc-linux-x64-musl@16.1.6":
+  "@next/swc-linux-x64-musl@16.2.6":
     resolution:
       {
-        integrity: sha512-oicJwRlyOoZXVlxmIMaTq7f8pN9QNbdes0q2FXfRsPhfCi8n8JmOZJm5oo1pwDaFbnnD421rVU409M3evFbIqg==,
+        integrity: sha512-HKQ5SP/V/ub73UvF7n/zeJlxk2kLmtL7Wzrg4WfmkjmNos5onJ2tKu7yZOPdL18A6Svfn3max29ym+ry7NkK4g==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [linux]
 
-  "@next/swc-win32-arm64-msvc@16.1.6":
+  "@next/swc-win32-arm64-msvc@16.2.6":
     resolution:
       {
-        integrity: sha512-gQmm8izDTPgs+DCWH22kcDmuUp7NyiJgEl18bcr8irXA5N2m2O+JQIr6f3ct42GOs9c0h8QF3L5SzIxcYAAXXw==,
+        integrity: sha512-LZXpTlPyS5v7HhSmnvsLGP3iIYgYOBnc8r8ArlT55sGHV89bR2HlDdBjWQ+PY6SJMmk8TuVGFuxalnP3k/0Dwg==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [win32]
 
-  "@next/swc-win32-x64-msvc@16.1.6":
+  "@next/swc-win32-x64-msvc@16.2.6":
     resolution:
       {
-        integrity: sha512-NRfO39AIrzBnixKbjuo2YiYhB6o9d8v/ymU9m/Xk8cyVk+k7XylniXkHwjs4s70wedVffc6bQNbufk5v0xEm0A==,
+        integrity: sha512-F0+4i0h9J6C4eE3EAPWsoCk7UW/dbzOjyzxY0qnDUOYFu6FFmdZ6l97/XdV3/Nz3VYyO7UWjyEJUXkGqcoXfMA==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
@@ -7105,6 +7130,18 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
+  "@vitest/coverage-v8@4.0.7":
+    resolution:
+      {
+        integrity: sha512-MXc+kEA5EUwMMGmNt1S6CIOEl/iCmAhGZQq1QgMNC3/QpYSOxkysEi6pxWhkqJ7YT/RduoVEV5rxFxHG18V3LA==,
+      }
+    peerDependencies:
+      "@vitest/browser": 4.0.7
+      vitest: 4.0.7
+    peerDependenciesMeta:
+      "@vitest/browser":
+        optional: true
+
   "@vitest/expect@2.0.5":
     resolution:
       {
@@ -8000,6 +8037,12 @@ packages:
         integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==,
       }
     engines: { node: ">=4" }
+
+  ast-v8-to-istanbul@0.3.12:
+    resolution:
+      {
+        integrity: sha512-BRRC8VRZY2R4Z4lFIL35MwNXmwVqBityvOIwETtsCSwvjl0IdgFsy9NhdaA6j74nUdtJJlIypeRhpDam19Wq3g==,
+      }
 
   astral-regex@2.0.0:
     resolution:
@@ -12629,6 +12672,13 @@ packages:
       }
     engines: { node: ">=10" }
 
+  istanbul-lib-source-maps@5.0.6:
+    resolution:
+      {
+        integrity: sha512-yg2d+Em4KizZC5niWhQaIomgf5WlL4vOOjZ5xGCmF8SnPE/mDWWXgvRExdcpCgh9lLRRa1/fSYp2ymmbJ1pI+A==,
+      }
+    engines: { node: ">=10" }
+
   istanbul-reports@3.2.0:
     resolution:
       {
@@ -12697,6 +12747,12 @@ packages:
         integrity: sha512-c80Qupofp43y4cJ7+8TTDN/AsDwLi5oOm/plBrWI+iQt485vKXCco+yVmOwEgdo9VOdsYTuV0UlTeetVPTriXA==,
       }
     engines: { node: ">=12" }
+
+  js-tokens@10.0.0:
+    resolution:
+      {
+        integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==,
+      }
 
   js-tokens@4.0.0:
     resolution:
@@ -13311,6 +13367,12 @@ packages:
         integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==,
       }
 
+  magicast@0.3.5:
+    resolution:
+      {
+        integrity: sha512-L0WhttDl+2BOsybvEOLK7fW3UA0OQ0IQ2d6Zl2x/a6vVRs3bAY0ECOSHHeL5jD+SbOpOCUEi0y1DgHEn9Qn1AQ==,
+      }
+
   make-dir@2.1.0:
     resolution:
       {
@@ -13890,10 +13952,10 @@ packages:
       react: ">=16.0.0"
       react-dom: ">=16.0.0"
 
-  next@16.1.6:
+  next@16.2.6:
     resolution:
       {
-        integrity: sha512-hkyRkcu5x/41KoqnROkfTm2pZVbKxvbZRuNvKXLRXxs3VfyO0WhY50TQS40EuKO9SW3rBj/sF3WbVwDACeMZyw==,
+        integrity: sha512-qOVgKJg1+At15NpeUP+eJgCHvTCgXsogweq87Ri/Ix7PkqQHg4sdaXmSFqKlgaIXE4kW0g25LE68W87UANlHtw==,
       }
     engines: { node: ">=20.9.0" }
     hasBin: true
@@ -17058,10 +17120,10 @@ packages:
         integrity: sha512-buUzX4sXC4efFX6xg2bw6/eZsCUh8qQwSavC4D9HpONMFlRbcHhD8Je5qwYdCpViR6q0qla2wPP+t91a2vgolg==,
       }
 
-  third-party-web@0.29.0:
+  third-party-web@0.29.2:
     resolution:
       {
-        integrity: sha512-nBDSJw5B7Sl1YfsATG2XkW5qgUPODbJhXw++BKygi9w6O/NKS98/uY/nR/DxDq2axEjL6halHW1v+jhm/j1DBQ==,
+        integrity: sha512-fegtha91tq2DHphyoiBXVHjVi2YG9zFaRnboT9C28tO1en9Y3wJsfspuy40F+u5wl3hHVbw7cnd1b67kEGHb8g==,
       }
 
   throttleit@1.0.1:
@@ -19955,6 +20017,8 @@ snapshots:
       "@babel/helper-string-parser": 7.27.1
       "@babel/helper-validator-identifier": 7.28.5
 
+  "@bcoe/v8-coverage@1.0.2": {}
+
   "@biomejs/biome@1.9.4":
     optionalDependencies:
       "@biomejs/cli-darwin-arm64": 1.9.4
@@ -22061,30 +22125,30 @@ snapshots:
 
   "@neoconfetti/react@1.0.0": {}
 
-  "@next/env@16.1.6": {}
+  "@next/env@16.2.6": {}
 
-  "@next/swc-darwin-arm64@16.1.6":
+  "@next/swc-darwin-arm64@16.2.6":
     optional: true
 
-  "@next/swc-darwin-x64@16.1.6":
+  "@next/swc-darwin-x64@16.2.6":
     optional: true
 
-  "@next/swc-linux-arm64-gnu@16.1.6":
+  "@next/swc-linux-arm64-gnu@16.2.6":
     optional: true
 
-  "@next/swc-linux-arm64-musl@16.1.6":
+  "@next/swc-linux-arm64-musl@16.2.6":
     optional: true
 
-  "@next/swc-linux-x64-gnu@16.1.6":
+  "@next/swc-linux-x64-gnu@16.2.6":
     optional: true
 
-  "@next/swc-linux-x64-musl@16.1.6":
+  "@next/swc-linux-x64-musl@16.2.6":
     optional: true
 
-  "@next/swc-win32-arm64-msvc@16.1.6":
+  "@next/swc-win32-arm64-msvc@16.2.6":
     optional: true
 
-  "@next/swc-win32-x64-msvc@16.1.6":
+  "@next/swc-win32-x64-msvc@16.2.6":
     optional: true
 
   "@nodelib/fs.scandir@2.1.5":
@@ -22140,7 +22204,7 @@ snapshots:
       proggy: 3.0.0
       promise-all-reject-late: 1.0.1
       promise-call-limit: 3.0.2
-      semver: 7.7.2
+      semver: 7.7.4
       ssri: 12.0.0
       treeverse: 3.0.0
       walk-up-path: 4.0.0
@@ -22149,7 +22213,7 @@ snapshots:
 
   "@npmcli/fs@4.0.0":
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.4
 
   "@npmcli/fs@5.0.0":
     dependencies:
@@ -22163,7 +22227,7 @@ snapshots:
       npm-pick-manifest: 10.0.0
       proc-log: 5.0.0
       promise-retry: 2.0.1
-      semver: 7.7.2
+      semver: 7.7.4
       which: 5.0.0
 
   "@npmcli/git@7.0.1":
@@ -22174,7 +22238,7 @@ snapshots:
       npm-pick-manifest: 11.0.3
       proc-log: 6.1.0
       promise-retry: 2.0.1
-      semver: 7.7.2
+      semver: 7.7.4
       which: 6.0.1
 
   "@npmcli/installed-package-contents@3.0.0":
@@ -22200,7 +22264,7 @@ snapshots:
       json-parse-even-better-errors: 5.0.0
       pacote: 21.3.1
       proc-log: 6.1.0
-      semver: 7.7.2
+      semver: 7.7.4
     transitivePeerDependencies:
       - supports-color
 
@@ -22219,7 +22283,7 @@ snapshots:
       hosted-git-info: 9.0.2
       json-parse-even-better-errors: 5.0.0
       proc-log: 6.1.0
-      semver: 7.7.2
+      semver: 7.7.4
       validate-npm-package-license: 3.0.4
 
   "@npmcli/promise-spawn@8.0.3":
@@ -22254,7 +22318,7 @@ snapshots:
       enquirer: 2.3.6
       minimatch: 10.1.1
       nx: 22.5.1
-      semver: 7.7.2
+      semver: 7.7.4
       tslib: 2.8.1
       yargs-parser: 21.1.1
 
@@ -22816,7 +22880,7 @@ snapshots:
   "@paulirish/trace_engine@0.0.53":
     dependencies:
       legacy-javascript: 0.0.1
-      third-party-web: 0.29.0
+      third-party-web: 0.29.2
 
   "@pmmmwh/react-refresh-webpack-plugin@0.5.17(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(@swc/core@1.15.30))":
     dependencies:
@@ -23640,7 +23704,7 @@ snapshots:
       "@vitest/utils": 2.1.9
       storybook: 10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
-  "@storybook/nextjs@10.2.3(@swc/core@1.15.30)(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(type-fest@2.19.0)(typescript@5.9.3)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(@swc/core@1.15.30))":
+  "@storybook/nextjs@10.2.3(@swc/core@1.15.30)(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(type-fest@2.19.0)(typescript@5.9.3)(webpack-hot-middleware@2.26.1)(webpack@5.105.2(@swc/core@1.15.30))":
     dependencies:
       "@babel/core": 7.29.0
       "@babel/plugin-syntax-bigint": 7.8.3(@babel/core@7.29.0)
@@ -23664,7 +23728,7 @@ snapshots:
       css-loader: 6.11.0(webpack@5.105.2(@swc/core@1.15.30))
       image-size: 2.0.2
       loader-utils: 3.3.1
-      next: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
+      next: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.105.2(@swc/core@1.15.30))
       postcss: 8.5.6
       postcss-loader: 8.2.1(postcss@8.5.6)(typescript@5.9.3)(webpack@5.105.2(@swc/core@1.15.30))
@@ -24155,6 +24219,57 @@ snapshots:
       "@types/babel__core": 7.20.5
       react-refresh: 0.18.0
       vite: 7.3.1(@types/node@20.19.13)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+    transitivePeerDependencies:
+      - supports-color
+
+  "@vitest/coverage-v8@4.0.7(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))":
+    dependencies:
+      "@bcoe/v8-coverage": 1.0.2
+      "@vitest/utils": 4.0.7
+      ast-v8-to-istanbul: 0.3.12
+      debug: 4.4.3(supports-color@8.1.1)
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-report: 3.0.1
+      istanbul-lib-source-maps: 5.0.6
+      istanbul-reports: 3.2.0
+      magicast: 0.3.5
+      std-env: 3.10.0
+      tinyrainbow: 3.0.3
+      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+    transitivePeerDependencies:
+      - supports-color
+
+  "@vitest/coverage-v8@4.0.7(vitest@4.0.7(@types/node@20.19.13)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))":
+    dependencies:
+      "@bcoe/v8-coverage": 1.0.2
+      "@vitest/utils": 4.0.7
+      ast-v8-to-istanbul: 0.3.12
+      debug: 4.4.3(supports-color@8.1.1)
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-report: 3.0.1
+      istanbul-lib-source-maps: 5.0.6
+      istanbul-reports: 3.2.0
+      magicast: 0.3.5
+      std-env: 3.10.0
+      tinyrainbow: 3.0.3
+      vitest: 4.0.7(@types/node@20.19.13)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+    transitivePeerDependencies:
+      - supports-color
+
+  "@vitest/coverage-v8@4.0.7(vitest@4.0.7(@types/node@25.3.0)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))":
+    dependencies:
+      "@bcoe/v8-coverage": 1.0.2
+      "@vitest/utils": 4.0.7
+      ast-v8-to-istanbul: 0.3.12
+      debug: 4.4.3(supports-color@8.1.1)
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-report: 3.0.1
+      istanbul-lib-source-maps: 5.0.6
+      istanbul-reports: 3.2.0
+      magicast: 0.3.5
+      std-env: 3.10.0
+      tinyrainbow: 3.0.3
+      vitest: 4.0.7(@types/node@25.3.0)(jiti@2.6.1)(jsdom@27.4.0)(sass@1.97.3)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -24746,6 +24861,12 @@ snapshots:
   ast-types@0.16.1:
     dependencies:
       tslib: 2.8.1
+
+  ast-v8-to-istanbul@0.3.12:
+    dependencies:
+      "@jridgewell/trace-mapping": 0.3.31
+      estree-walker: 3.0.3
+      js-tokens: 10.0.0
 
   astral-regex@2.0.0: {}
 
@@ -25522,7 +25643,7 @@ snapshots:
       handlebars: 4.7.8
       json-stringify-safe: 5.0.1
       meow: 8.1.2
-      semver: 7.7.2
+      semver: 7.7.4
       split: 1.0.1
 
   conventional-commits-filter@3.0.0:
@@ -26842,7 +26963,7 @@ snapshots:
   git-semver-tags@5.0.1:
     dependencies:
       meow: 8.1.2
-      semver: 7.7.2
+      semver: 7.7.4
 
   git-up@7.0.0:
     dependencies:
@@ -27322,7 +27443,7 @@ snapshots:
       npm-package-arg: 13.0.1
       promzard: 2.0.0
       read: 4.1.0
-      semver: 7.7.2
+      semver: 7.7.4
       validate-npm-package-license: 3.0.4
       validate-npm-package-name: 6.0.2
 
@@ -27643,9 +27764,17 @@ snapshots:
 
   istanbul-lib-source-maps@4.0.1:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.3(supports-color@8.1.1)
       istanbul-lib-coverage: 3.2.2
       source-map: 0.6.1
+    transitivePeerDependencies:
+      - supports-color
+
+  istanbul-lib-source-maps@5.0.6:
+    dependencies:
+      "@jridgewell/trace-mapping": 0.3.31
+      debug: 4.4.3(supports-color@8.1.1)
+      istanbul-lib-coverage: 3.2.2
     transitivePeerDependencies:
       - supports-color
 
@@ -27686,6 +27815,8 @@ snapshots:
   jpeg-js@0.4.4: {}
 
   js-library-detector@6.7.0: {}
+
+  js-tokens@10.0.0: {}
 
   js-tokens@4.0.0: {}
 
@@ -27913,7 +28044,7 @@ snapshots:
       npm-package-arg: 13.0.1
       npm-registry-fetch: 19.1.0
       proc-log: 5.0.0
-      semver: 7.7.2
+      semver: 7.7.4
       sigstore: 4.1.0
       ssri: 12.0.0
     transitivePeerDependencies:
@@ -28164,6 +28295,12 @@ snapshots:
     dependencies:
       "@jridgewell/sourcemap-codec": 1.5.5
 
+  magicast@0.3.5:
+    dependencies:
+      "@babel/parser": 7.29.0
+      "@babel/types": 7.29.0
+      source-map-js: 1.2.1
+
   make-dir@2.1.0:
     dependencies:
       pify: 4.0.1
@@ -28175,7 +28312,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.4
 
   make-error@1.3.6: {}
 
@@ -28477,15 +28614,15 @@ snapshots:
 
   netmask@2.0.2: {}
 
-  next-seo@6.8.0(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next-seo@6.8.0(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      next: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
+      next: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3):
+  next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.97.3):
     dependencies:
-      "@next/env": 16.1.6
+      "@next/env": 16.2.6
       "@swc/helpers": 0.5.15
       baseline-browser-mapping: 2.10.0
       caniuse-lite: 1.0.30001770
@@ -28494,14 +28631,14 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       styled-jsx: 5.1.6(@babel/core@7.29.0)(react@18.2.0)
     optionalDependencies:
-      "@next/swc-darwin-arm64": 16.1.6
-      "@next/swc-darwin-x64": 16.1.6
-      "@next/swc-linux-arm64-gnu": 16.1.6
-      "@next/swc-linux-arm64-musl": 16.1.6
-      "@next/swc-linux-x64-gnu": 16.1.6
-      "@next/swc-linux-x64-musl": 16.1.6
-      "@next/swc-win32-arm64-msvc": 16.1.6
-      "@next/swc-win32-x64-msvc": 16.1.6
+      "@next/swc-darwin-arm64": 16.2.6
+      "@next/swc-darwin-x64": 16.2.6
+      "@next/swc-linux-arm64-gnu": 16.2.6
+      "@next/swc-linux-arm64-musl": 16.2.6
+      "@next/swc-linux-x64-gnu": 16.2.6
+      "@next/swc-linux-x64-musl": 16.2.6
+      "@next/swc-win32-arm64-msvc": 16.2.6
+      "@next/swc-win32-x64-msvc": 16.2.6
       "@opentelemetry/api": 1.9.0
       sass: 1.97.3
       sharp: 0.34.5
@@ -28546,7 +28683,7 @@ snapshots:
       make-fetch-happen: 15.0.2
       nopt: 9.0.0
       proc-log: 6.1.0
-      semver: 7.7.2
+      semver: 7.7.4
       tar: 7.5.7
       tinyglobby: 0.2.12
       which: 6.0.1
@@ -28616,7 +28753,7 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.1
-      semver: 7.7.2
+      semver: 7.7.4
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@6.0.2:
@@ -28643,7 +28780,7 @@ snapshots:
 
   npm-install-checks@7.1.2:
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.4
 
   npm-install-checks@8.0.0:
     dependencies:
@@ -28664,7 +28801,7 @@ snapshots:
     dependencies:
       hosted-git-info: 9.0.2
       proc-log: 5.0.0
-      semver: 7.7.2
+      semver: 7.7.4
       validate-npm-package-name: 6.0.2
 
   npm-packlist@10.0.3:
@@ -28677,14 +28814,14 @@ snapshots:
       npm-install-checks: 7.1.2
       npm-normalize-package-bin: 4.0.0
       npm-package-arg: 12.0.2
-      semver: 7.7.2
+      semver: 7.7.4
 
   npm-pick-manifest@11.0.3:
     dependencies:
       npm-install-checks: 8.0.0
       npm-normalize-package-bin: 5.0.0
       npm-package-arg: 13.0.1
-      semver: 7.7.2
+      semver: 7.7.4
 
   npm-registry-fetch@19.1.0:
     dependencies:
@@ -28741,7 +28878,7 @@ snapshots:
       ora: 5.3.0
       picocolors: 1.1.1
       resolve.exports: 2.0.3
-      semver: 7.7.2
+      semver: 7.7.4
       string-width: 4.2.3
       tar-stream: 2.2.0
       tmp: 0.2.5
@@ -30756,7 +30893,7 @@ snapshots:
 
   third-party-web@0.26.7: {}
 
-  third-party-web@0.29.0: {}
+  third-party-web@0.29.2: {}
 
   throttleit@1.0.1: {}
 

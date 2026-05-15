@@ -5,7 +5,7 @@ import {
   Icon,
   SearchDropdown,
   UIProvider,
-} from '@faststore/components'
+} from '@faststore/ui'
 
 export default {
   title: 'UploadFileDropdown',

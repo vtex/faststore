@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "4.1.0",
+  "version": "4.1.0-dev.10",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "type": "module",
@@ -53,6 +53,7 @@
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^11",
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "graphql": "catalog:",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
@@ -84,6 +85,7 @@
   "scripts": {
     "build": "tsup-node",
     "test": "vitest run src/**/*.test.ts",
+    "test:coverage": "vitest run src/**/*.test.ts --coverage",
     "postpack": "shx rm -f oclif.manifest.json",
     "prepack": "na run build && oclif readme",
     "version": "oclif readme && git add README.md"
