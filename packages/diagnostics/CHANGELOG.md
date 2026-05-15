@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0-dev.9](https://github.com/vtex/faststore/compare/v4.1.0-dev.8...v4.1.0-dev.9) (2026-05-15)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
 # [4.1.0-dev.8](https://github.com/vtex/faststore/compare/v4.1.0-dev.7...v4.1.0-dev.8) (2026-05-15)
 
 **Note:** Version bump only for package @faststore/diagnostics
