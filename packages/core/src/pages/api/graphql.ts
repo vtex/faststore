@@ -9,6 +9,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 
 import discoveryConfig from 'discovery.config'
 import { getJWTAutCookie } from 'src/utils/getCookie'
+import { isLocalHost } from 'src/utils/isLocalHost'
 import { shouldForceRefreshTokenForValidateSession } from 'src/utils/validateSessionRefreshToken'
 import { execute } from '../../server'
 
@@ -161,8 +162,7 @@ const handler: NextApiHandler = async (request, response) => {
     // value is used to cache bust the request if there is a VtexIdclientAutCookie
     const { operation, variables, query, v: value } = parseRequest(request)
 
-    const hostname = request.headers.host?.split(':')[0]
-    const isLocal = hostname === 'localhost' || hostname === '127.0.0.1'
+    const isLocal = isLocalHost(request.headers.host?.split(':')[0])
 
     if (
       !isLocal &&
