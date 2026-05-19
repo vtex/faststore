@@ -282,7 +282,9 @@ const addPluginsTheme = async (basePath: string, plugins: Plugin[]) => {
         getPackagePath(getPluginName(plugin), 'src', 'themes', 'index.scss')
       )
     )
-    .map((plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss"`)
+    .map(
+      (plugin) => `@use "${getPluginName(plugin)}/src/themes/index.scss" as *;`
+    )
     .join('\n')
 
   writeFileSync(tmpThemesPluginsFile, pluginImportsContent)
