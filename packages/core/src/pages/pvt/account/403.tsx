@@ -23,6 +23,8 @@ import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { getRequestHostname } from 'src/utils/getRequestHostname'
+import { isLocalHost } from 'src/utils/isLocalHost'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
@@ -137,10 +139,18 @@ const getServerSidePropsBase: GetServerSideProps<
     const fromPage =
       typeof context.query.from === 'string' ? context.query.from : ''
 
+    // The refresh-token round-trip is unreachable from localhost (cross-origin
+    // POST that drops the `vid_rt` cookie), and forcing it would clear the
+    // manually injected `VtexIdclientAutCookie_<account>`. Render the static
+    // 403 view instead so developers can keep testing logged-in scenarios
+    // regardless of the `experimental.refreshToken` flag.
+    const isLocal = isLocalHost(getRequestHostname(context.req.headers.host))
+
     return {
       props: {
         globalSections: globalSectionsResult,
         needsRefreshToken:
+          !isLocal &&
           (statusCode === 401 || statusCode === 403) &&
           storeConfig.experimental?.refreshToken,
         fromPage,
