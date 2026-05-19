@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.99.6](https://github.com/vtex/faststore/compare/v3.99.5...v3.99.6) (2026-05-19)
+
+### Bug Fixes
+
+- bypass refresh-token flow on localhost in 403 page and useRefreshToken hook ([#3326](https://github.com/vtex/faststore/issues/3326)) ([5943129](https://github.com/vtex/faststore/commit/5943129ed4aa51823e90b7826a88a864f75ddd11)), closes [#3325](https://github.com/vtex/faststore/issues/3325) [#3325](https://github.com/vtex/faststore/issues/3325)
+
 ## 3.99.4 (2026-05-14)
 
 ### Bug Fixes
