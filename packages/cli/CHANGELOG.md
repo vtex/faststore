@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+### Bug Fixes
+
+- generate plugin themes with Sass [@use](https://github.com/use) instead of [@import](https://github.com/import) ([#3283](https://github.com/vtex/faststore/issues/3283)) ([22c0e74](https://github.com/vtex/faststore/commit/22c0e74d7d3b3714a5e9b6917d7cc60aa36eeb69))
+
 ## 4.1.2-dev.1 (2026-05-19)
 
 **Note:** Version bump only for package @faststore/cli
