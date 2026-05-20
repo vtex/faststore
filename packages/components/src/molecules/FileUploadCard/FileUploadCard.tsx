@@ -156,6 +156,7 @@ const FileUploadCard = ({
 }: FileUploadCardProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const fileTypeErrorRef = useRef<FileUploadErrorType | undefined>(undefined)
   const [dragActive, setDragActive] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [uploadState, setUploadState] = useState<FileUploadState>(
@@ -184,6 +185,7 @@ const FileUploadCard = ({
 
   useEffect(() => {
     if (!selectedFile) return
+    if (fileTypeErrorRef.current) return
 
     if (hasError) {
       setUploadState(FileUploadState.Error)
@@ -232,11 +234,13 @@ const FileUploadCard = ({
       setSelectedFile(file)
 
       if (!isValidFileType(file)) {
+        fileTypeErrorRef.current = FileUploadErrorType.Unsupported
         setUploadState(FileUploadState.Error)
         setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
+      fileTypeErrorRef.current = undefined
       setErrorType(undefined)
 
       if (isUploading) {
@@ -276,11 +280,13 @@ const FileUploadCard = ({
       setSelectedFile(file)
 
       if (!isValidFileType(file)) {
+        fileTypeErrorRef.current = FileUploadErrorType.Unsupported
         setUploadState(FileUploadState.Error)
         setErrorType(FileUploadErrorType.Unsupported)
         return
       }
 
+      fileTypeErrorRef.current = undefined
       setErrorType(undefined)
 
       if (isUploading) {
@@ -320,6 +326,7 @@ const FileUploadCard = ({
   }
 
   const handleRemoveFile = () => {
+    fileTypeErrorRef.current = undefined
     setSelectedFile(null)
     setUploadState(FileUploadState.Uploading)
     setErrorType(undefined)
