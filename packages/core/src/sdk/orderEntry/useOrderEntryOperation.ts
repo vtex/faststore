@@ -34,7 +34,7 @@ const OrderEntryOperationQuery = gql(`
   }
 `)
 
-const TERMINAL_STATUSES = ['SUCCESS', 'PARTIAL_SUCCESS', 'FAILED']
+const TERMINAL_STATUSES = new Set(['SUCCESS', 'PARTIAL_SUCCESS', 'FAILED'])
 
 export type OrderEntryOperationStatus = NonNullable<
   OrderEntryOperationQueryQuery['orderEntryOperation']
@@ -73,7 +73,7 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
       doNotRun: !operationId,
       refreshInterval: (latestData) => {
         const s = latestData?.orderEntryOperation?.status
-        if (s && TERMINAL_STATUSES.includes(s)) return 0
+        if (s && TERMINAL_STATUSES.has(s)) return 0
         return 2000
       },
     }
@@ -103,7 +103,7 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
   const isPolling =
     !!operationId &&
     !!currentStatus &&
-    !TERMINAL_STATUSES.includes(currentStatus)
+    !TERMINAL_STATUSES.has(currentStatus)
   const isPending = !!operationId && !currentStatus
 
   return {

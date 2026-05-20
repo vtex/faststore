@@ -841,7 +841,7 @@ export const VtexCommerce = (
               ...autHeaders,
               'content-type': `multipart/form-data; boundary=${boundary}`,
             },
-            body: body.buffer as ArrayBuffer,
+            body: body.buffer,
           },
           {}
         )
