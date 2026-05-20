@@ -172,7 +172,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     }, [orderFormItems])
 
     const { isAutenticated } = useAuth()
-    const isQuickOrderEnabled = (quickOrderSettings?.quickOrder ?? false) && isAutenticated
+    const isQuickOrderEnabled =
+      (quickOrderSettings?.quickOrder ?? false) && isAutenticated
     const attachmentButton = quickOrderSettings?.attachmentButton
     const drawerConfig = quickOrderSettings?.drawer
     const a11yLabels = quickOrderSettings?.accessibilityLabels
