@@ -89,7 +89,24 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
-  rewrites: storeConfig.rewrites,
+  rewrites: async () => {
+    const llmsRewrites = [
+      { source: '/llms.txt', destination: '/api/fs/llms' },
+      { source: '/llms-full.txt', destination: '/api/fs/llms-full' },
+    ]
+    const storeRewrites = storeConfig.rewrites
+      ? await storeConfig.rewrites()
+      : []
+
+    if (Array.isArray(storeRewrites)) {
+      return [...llmsRewrites, ...storeRewrites]
+    }
+
+    return {
+      ...storeRewrites,
+      beforeFiles: [...llmsRewrites, ...(storeRewrites.beforeFiles ?? [])],
+    }
+  },
   turbopack: {
     root: getRootFolder(),
     // https://nextjs.org/docs/app/api-reference/turbopack#css-module-ordering
