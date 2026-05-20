@@ -169,7 +169,9 @@ const generatePluginPages = async (basePath: string, plugins: Plugin[]) => {
     const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
-    const { default: pluginConfig } = await import(pathToFileURL(pluginConfigPath).href)
+    const { default: pluginConfig } = await import(
+      pathToFileURL(pluginConfigPath).href
+    )
 
     const { pages: pagesCustom } = getPluginCustomConfig(plugin)
 
@@ -309,7 +311,9 @@ const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
     const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
-    const { default: pluginConfig } = await import(pathToFileURL(pluginConfigPath).href)
+    const { default: pluginConfig } = await import(
+      pathToFileURL(pluginConfigPath).href
+    )
 
     const { apis: apisCustom } = getPluginCustomConfig(plugin)
 

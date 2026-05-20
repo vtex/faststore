@@ -179,11 +179,15 @@ async function copyCypressFiles(basePath: string) {
     let userStoreConfig
 
     if (existsSync(userStoreConfigFile)) {
-      userStoreConfig = (await import(pathToFileURL(path.resolve(userStoreConfigFile)).href))
-        ?.default
+      userStoreConfig = (
+        await import(pathToFileURL(path.resolve(userStoreConfigFile)).href)
+      )?.default
     } else if (existsSync(userLegacyStoreConfigFile)) {
-      userStoreConfig = (await import(pathToFileURL(path.resolve(userLegacyStoreConfigFile)).href))
-        ?.default
+      userStoreConfig = (
+        await import(
+          pathToFileURL(path.resolve(userLegacyStoreConfigFile)).href
+        )
+      )?.default
     } else {
       logger.info(
         `${chalk.blue(
@@ -262,10 +266,13 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
   let userStoreConfig
 
   if (existsSync(userStoreConfigFile)) {
-    userStoreConfig = (await import(pathToFileURL(path.resolve(userStoreConfigFile)).href))?.default
+    userStoreConfig = (
+      await import(pathToFileURL(path.resolve(userStoreConfigFile)).href)
+    )?.default
   } else if (existsSync(userLegacyStoreConfigFile)) {
-    userStoreConfig = (await import(pathToFileURL(path.resolve(userLegacyStoreConfigFile)).href))
-      ?.default
+    userStoreConfig = (
+      await import(pathToFileURL(path.resolve(userLegacyStoreConfigFile)).href)
+    )?.default
   } else {
     logger.info(
       `${chalk.blue(
@@ -306,7 +313,8 @@ async function copyTheme(basePath: string) {
   const userStoreConfigFilePath =
     storeConfigFile && path.resolve(storeConfigFile)
   const importedStoreConfig =
-    userStoreConfigFilePath && (await import(pathToFileURL(userStoreConfigFilePath).href))
+    userStoreConfigFilePath &&
+    (await import(pathToFileURL(userStoreConfigFilePath).href))
   const storeConfig =
     userStoreConfigFilePath &&
     (importedStoreConfig?.default || importedStoreConfig)
@@ -380,12 +388,18 @@ async function checkDependencies(basePath: string, packagesToCheck: string[]) {
   const corePackageJsonPath = path.join(coreDir, 'package.json')
   const rootPackageJsonPath = path.join(getRoot(), 'package.json')
 
-  const { default: corePackageJson } = await import(pathToFileURL(corePackageJsonPath).href, {
-    with: { type: 'json' },
-  })
-  const { default: rootPackageJson } = await import(pathToFileURL(rootPackageJsonPath).href, {
-    with: { type: 'json' },
-  })
+  const { default: corePackageJson } = await import(
+    pathToFileURL(corePackageJsonPath).href,
+    {
+      with: { type: 'json' },
+    }
+  )
+  const { default: rootPackageJson } = await import(
+    pathToFileURL(rootPackageJsonPath).href,
+    {
+      with: { type: 'json' },
+    }
+  )
 
   packagesToCheck.forEach((packageName) => {
     const coreVersion =
@@ -451,7 +465,9 @@ async function validateAndInstallMissingDependencies(basePath: string) {
     return
   }
 
-  const { default: userStoreConfig } = await import(pathToFileURL(currentUserStoreConfigFile).href)
+  const { default: userStoreConfig } = await import(
+    pathToFileURL(currentUserStoreConfigFile).href
+  )
   const { default: userPackageJson } = await import(
     pathToFileURL(path.join(userDir, 'package.json')).href,
     {
@@ -529,7 +545,9 @@ async function enableSearchSSR(basePath: string) {
   if (!storeConfigPath) {
     return
   }
-  const { default: storeConfig } = await import(pathToFileURL(storeConfigPath).href)
+  const { default: storeConfig } = await import(
+    pathToFileURL(storeConfigPath).href
+  )
   if (!storeConfig.experimental.enableSearchSSR) {
     return
   }
