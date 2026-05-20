@@ -7,6 +7,7 @@ const { readFileSync, existsSync, writeFileSync, mkdirSync } = fsExtra
 
 import { withBasePath } from './directory'
 import { getPluginName, getPluginsList } from './plugins'
+import { pathToFileURL } from 'url'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -123,7 +124,7 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
   } = withBasePath(basePath)
 
   const { default: userStoreConfig } = await import(
-    path.resolve(userStoreConfigFile)
+    pathToFileURL(path.resolve(userStoreConfigFile)).href
   )
   const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
 

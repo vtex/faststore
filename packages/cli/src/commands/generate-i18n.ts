@@ -10,6 +10,7 @@ import { checkAndValidateLocalization } from '../utils/config'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { saveFile } from '../utils/file'
 import { logger } from '../utils/logger'
+import { pathToFileURL } from 'node:url'
 
 const configFileName = 'discovery.config.default.js'
 
@@ -120,7 +121,7 @@ export default class GenerateI18n extends Command {
       logger.info(`${chalk.blue('[Info]')} - .faststore Path at: ${tmpDir}`)
 
     logger.info(`${chalk.blue('[Info]')} - Config file location: ${configPath}`)
-    const discoveryConfig = await import(configPath)
+    const discoveryConfig = await import(pathToFileURL(configPath).href)
 
     const faststore = new FastStoreSDK({
       account: VTEX_ACCOUNT,

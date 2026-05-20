@@ -2,6 +2,7 @@ import fsExtra from 'fs-extra'
 import path from 'path'
 import { withBasePath } from './directory'
 import { logger } from './logger'
+import { pathToFileURL } from 'url'
 
 const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
 
@@ -69,7 +70,7 @@ export const getPluginsList = async (basePath: string): Promise<Plugin[]> => {
   try {
     const {
       default: { plugins = [] },
-    } = await import(tmpStoreConfigFile)
+    } = await import(pathToFileURL(tmpStoreConfigFile).href)
     return plugins
   } catch (error) {
     logger.error(`Could not load plugins from store config`)
@@ -168,7 +169,7 @@ const generatePluginPages = async (basePath: string, plugins: Plugin[]) => {
     const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
-    const { default: pluginConfig } = await import(pluginConfigPath)
+    const { default: pluginConfig } = await import(pathToFileURL(pluginConfigPath).href)
 
     const { pages: pagesCustom } = getPluginCustomConfig(plugin)
 
@@ -308,7 +309,7 @@ const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
     const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
-    const { default: pluginConfig } = await import(pluginConfigPath)
+    const { default: pluginConfig } = await import(pathToFileURL(pluginConfigPath).href)
 
     const { apis: apisCustom } = getPluginCustomConfig(plugin)
 

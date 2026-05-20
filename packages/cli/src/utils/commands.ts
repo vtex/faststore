@@ -1,6 +1,7 @@
 import fsExtra from 'fs-extra'
 import { spawnSync } from 'node:child_process'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import resolvePackage from 'resolve-pkg'
 
 const { existsSync } = fsExtra
@@ -58,7 +59,7 @@ async function loadPackageJsonAt(at?: string): Promise<
 
   if (!existsSync(location)) return
 
-  const content = await import(location, {
+  const content = await import(pathToFileURL(location).href, {
     with: { type: 'json' },
   })
 

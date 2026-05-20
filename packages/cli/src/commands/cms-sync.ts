@@ -4,6 +4,7 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 export default class CmsSync extends Command {
   static flags = {
@@ -25,7 +26,7 @@ export default class CmsSync extends Command {
     const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
 
     const { default: userStoreConfig } = await import(
-      path.resolve(userStoreConfigFile)
+      pathToFileURL(path.resolve(userStoreConfigFile)).href
     )
     const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
 

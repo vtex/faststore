@@ -6,6 +6,7 @@ import { logger } from '../utils/logger'
 import graphql from 'graphql'
 import path from 'path'
 import fsExtra from 'fs-extra'
+import { pathToFileURL } from 'url'
 
 const { Kind, OperationTypeNode, parse: parseGraphql } = graphql
 
@@ -80,7 +81,7 @@ export default class CacheGraphql extends Command {
     )
 
     const { default: persistedDocuments } = await import(
-      persistedDocumentsPath,
+      pathToFileURL(persistedDocumentsPath).href,
       { with: { type: 'json' } }
     )
 

@@ -4,6 +4,7 @@ import path from 'path'
 
 import { withBasePath } from './directory'
 import { logger } from './logger'
+import { pathToFileURL } from 'url'
 
 const configFileName = 'discovery.config.js'
 
@@ -37,7 +38,7 @@ export async function getDiscoveryConfig(
   for (const configPath of configPaths) {
     if (existsSync(configPath)) {
       try {
-        const discoveryConfig = await import(configPath)
+        const discoveryConfig = await import(pathToFileURL(configPath).href)
         return discoveryConfig?.default ?? discoveryConfig
       } catch (error) {
         logger.warn(
