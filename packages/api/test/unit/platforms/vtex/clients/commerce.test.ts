@@ -71,4 +71,167 @@ describe('VTEX Commerce', () => {
       })
     })
   })
+
+  describe('Order Entry', () => {
+    describe('uploadFile', () => {
+      it('calls OES upload endpoint with multipart body and returns objectKey', async () => {
+        const mockResponse = { objectKey: 's3-key-abc' }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const fileBuffer = Buffer.from('SKU,Qty\n001,5')
+        const result = await commerce.orderEntry.uploadFile({
+          fileBuffer,
+          fileName: 'items.csv',
+          mimeType: 'text/csv',
+        })
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/order-entry/upload')
+        expect(url).toContain('storeframework')
+        expect(init.method).toBe('POST')
+        expect(init.headers['content-type']).toContain('multipart/form-data')
+        expect(result).toEqual(mockResponse)
+      })
+
+      it('falls back to application/octet-stream for invalid mimeType', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({ objectKey: 'key' })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.orderEntry.uploadFile({
+          fileBuffer: Buffer.from('data'),
+          fileName: 'file.bin',
+          mimeType: 'not a valid/mime type!!',
+        })
+
+        const [, init] = fetchAPIMocked.mock.calls[0]
+        expect(init.headers['content-type']).toContain('multipart/form-data')
+        const bodyStr = Buffer.from(init.body).toString()
+        expect(bodyStr).toContain('Content-Type: application/octet-stream')
+      })
+
+      it('multipart body contains file content between header and footer', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({ objectKey: 'key' })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const content = 'SKU,Qty\n001,1'
+        const fileBuffer = Buffer.from(content)
+        await commerce.orderEntry.uploadFile({
+          fileBuffer,
+          fileName: 'items.csv',
+          mimeType: 'text/csv',
+        })
+
+        const [, init] = fetchAPIMocked.mock.calls[0]
+        const bodyStr = Buffer.from(init.body).toString()
+        expect(bodyStr).toContain('filename="items.csv"')
+        expect(bodyStr).toContain(content)
+      })
+    })
+
+    describe('startOperation', () => {
+      it('calls OES operation endpoint with objectKey, orderFormId, and operation', async () => {
+        const mockResponse = { operationId: 'op-123' }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.orderEntry.startOperation({
+          objectKey: 's3-key',
+          orderFormId: 'of-1',
+        })
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/order-entry/operation')
+        expect(init.method).toBe('POST')
+        const body = JSON.parse(init.body)
+        expect(body.objectKey).toBe('s3-key')
+        expect(body.orderFormId).toBe('of-1')
+        expect(body.operation).toBe('CreateCart')
+        expect(result).toEqual(mockResponse)
+      })
+
+      it('includes sessionToken in body when provided', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({ operationId: 'op-456' })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.orderEntry.startOperation({
+          objectKey: 'key',
+          orderFormId: 'of-1',
+          sessionToken: 'tok-abc',
+        })
+
+        const [, init] = fetchAPIMocked.mock.calls[0]
+        const body = JSON.parse(init.body)
+        expect(body.sessionToken).toBe('tok-abc')
+      })
+
+      it('omits sessionToken from body when not provided', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({ operationId: 'op-789' })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.orderEntry.startOperation({
+          objectKey: 'key',
+          orderFormId: 'of-1',
+        })
+
+        const [, init] = fetchAPIMocked.mock.calls[0]
+        const body = JSON.parse(init.body)
+        expect(body.sessionToken).toBeUndefined()
+      })
+    })
+
+    describe('getOperation', () => {
+      it('calls OES operation GET endpoint with operationId', async () => {
+        const mockResponse = { status: 'SUCCESS', entityId: 'cart-1' }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.orderEntry.getOperation({
+          operationId: 'op-abc',
+        })
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/op-abc')
+        expect(init.method).toBe('GET')
+        expect(result).toEqual(mockResponse)
+      })
+    })
+
+    describe('createOrderForm', () => {
+      it('calls checkout orderForm endpoint and returns orderFormId', async () => {
+        const mockResponse = { orderFormId: 'of-new' }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.orderEntry.createOrderForm()
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/checkout/pub/orderForm')
+        expect(init.method).toBe('POST')
+        expect(result).toEqual(mockResponse)
+      })
+    })
+
+    describe('getOrderFormItems', () => {
+      it('calls checkout orderForm GET endpoint with orderFormId', async () => {
+        const mockResponse = { items: [] }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.orderEntry.getOrderFormItems({
+          orderFormId: 'of-123',
+        })
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/of-123')
+        expect(init.method).toBe('GET')
+        expect(result).toEqual(mockResponse)
+      })
+    })
+  })
 })
