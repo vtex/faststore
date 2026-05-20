@@ -46,7 +46,8 @@ export class ContentService {
 
     if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
-      const MAX_PAGES = 100
+      // TODO: This should be temporary until the cp data-plane have a search engine.
+      const MAX_PAGES = 25
       const allEntries: ContentEntry[] = []
       let scroll: string | undefined
       let pages = 0
@@ -80,10 +81,10 @@ export class ContentService {
     const options = this.createContentOptions(plpParams)
 
     if (isContentPlatformSource()) {
-      const directMatch = await this.getSingleContent<PLPContentType>(plpParams)
-      if (directMatch) {
-        return directMatch
-      }
+      // const directMatch = await this.getSingleContent<PLPContentType>(plpParams)
+      // if (directMatch) {
+      //   return directMatch
+      // }
 
       const pages = (await this.getMultipleContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
