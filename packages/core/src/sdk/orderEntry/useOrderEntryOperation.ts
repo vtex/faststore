@@ -100,7 +100,8 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
   const reset = useCallback(() => setOperationId(null), [])
 
   const currentStatus = statusData?.orderEntryOperation?.status ?? null
-  const isPolling = !!operationId && !!currentStatus && !TERMINAL_STATUSES.has(currentStatus)
+  const isPolling =
+    !!operationId && !!currentStatus && !TERMINAL_STATUSES.has(currentStatus)
   const isPending = !!operationId && !currentStatus
 
   return {
