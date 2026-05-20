@@ -1,10 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
-import {
-  FileRejectionCode,
-  useFileUpload,
-} from '../../src/hooks/useFileUpload'
+import { FileRejectionCode, useFileUpload } from '../../src/hooks/useFileUpload'
 
 afterEach(() => {})
 
@@ -20,10 +17,14 @@ describe('useFileUpload', () => {
   })
 
   it('sets error on FileTooLarge rejection using maxSize', () => {
-    const { result } = renderHook(() => useFileUpload({ maxSize: 10 * 1024 * 1024 }))
+    const { result } = renderHook(() =>
+      useFileUpload({ maxSize: 10 * 1024 * 1024 })
+    )
 
     act(() => {
-      result.current.onFilesRejected([makeRejection(FileRejectionCode.FileTooLarge)])
+      result.current.onFilesRejected([
+        makeRejection(FileRejectionCode.FileTooLarge),
+      ])
     })
 
     expect(result.current.uploadError).toBe(
@@ -37,7 +38,9 @@ describe('useFileUpload', () => {
     )
 
     act(() => {
-      result.current.onFilesRejected([makeRejection(FileRejectionCode.FileInvalidType)])
+      result.current.onFilesRejected([
+        makeRejection(FileRejectionCode.FileInvalidType),
+      ])
     })
 
     expect(result.current.uploadError).toBe(
@@ -49,7 +52,9 @@ describe('useFileUpload', () => {
     const { result } = renderHook(() => useFileUpload({ maxFiles: 1 }))
 
     act(() => {
-      result.current.onFilesRejected([makeRejection(FileRejectionCode.TooManyFiles)])
+      result.current.onFilesRejected([
+        makeRejection(FileRejectionCode.TooManyFiles),
+      ])
     })
 
     expect(result.current.uploadError).toBe(
@@ -96,7 +101,9 @@ describe('useFileUpload', () => {
     const { result } = renderHook(() => useFileUpload())
 
     act(() => {
-      result.current.onFilesRejected([makeRejection(FileRejectionCode.TooManyFiles)])
+      result.current.onFilesRejected([
+        makeRejection(FileRejectionCode.TooManyFiles),
+      ])
     })
 
     expect(result.current.uploadError).not.toBeNull()
@@ -112,7 +119,9 @@ describe('useFileUpload', () => {
     const { result } = renderHook(() => useFileUpload())
 
     act(() => {
-      result.current.onFilesRejected([makeRejection(FileRejectionCode.FileTooLarge)])
+      result.current.onFilesRejected([
+        makeRejection(FileRejectionCode.FileTooLarge),
+      ])
     })
 
     expect(result.current.uploadError).toBe(
@@ -123,12 +132,17 @@ describe('useFileUpload', () => {
   it('formats multiple accepted extensions in error message', () => {
     const { result } = renderHook(() =>
       useFileUpload({
-        acceptedTypes: { 'text/csv': ['.csv'], 'application/vnd.ms-excel': ['.xlsx'] },
+        acceptedTypes: {
+          'text/csv': ['.csv'],
+          'application/vnd.ms-excel': ['.xlsx'],
+        },
       })
     )
 
     act(() => {
-      result.current.onFilesRejected([makeRejection(FileRejectionCode.FileInvalidType)])
+      result.current.onFilesRejected([
+        makeRejection(FileRejectionCode.FileInvalidType),
+      ])
     })
 
     expect(result.current.uploadError).toContain('CSV')

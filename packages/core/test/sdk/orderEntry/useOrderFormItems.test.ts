@@ -17,7 +17,11 @@ afterEach(() => {
 
 describe('useOrderFormItems', () => {
   it('initializes with null items and not loading', () => {
-    mockUseQuery.mockReturnValue({ data: null, error: null, isValidating: false })
+    mockUseQuery.mockReturnValue({
+      data: null,
+      error: null,
+      isValidating: false,
+    })
 
     const { result } = renderHook(() => useOrderFormItems())
 
@@ -57,7 +61,11 @@ describe('useOrderFormItems', () => {
   })
 
   it('isLoading is true when orderFormId is set but data and error are null', () => {
-    mockUseQuery.mockReturnValue({ data: null, error: null, isValidating: false })
+    mockUseQuery.mockReturnValue({
+      data: null,
+      error: null,
+      isValidating: false,
+    })
 
     const { result } = renderHook(() => useOrderFormItems())
 
@@ -85,7 +93,11 @@ describe('useOrderFormItems', () => {
   })
 
   it('reset clears orderFormId and stops loading', () => {
-    mockUseQuery.mockReturnValue({ data: null, error: null, isValidating: false })
+    mockUseQuery.mockReturnValue({
+      data: null,
+      error: null,
+      isValidating: false,
+    })
 
     const { result } = renderHook(() => useOrderFormItems())
 
@@ -107,7 +119,11 @@ describe('useOrderFormItems', () => {
   })
 
   it('exposes isValidating from useQuery', () => {
-    mockUseQuery.mockReturnValue({ data: null, error: null, isValidating: true })
+    mockUseQuery.mockReturnValue({
+      data: null,
+      error: null,
+      isValidating: true,
+    })
 
     const { result } = renderHook(() => useOrderFormItems())
 

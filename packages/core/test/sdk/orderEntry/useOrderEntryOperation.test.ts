@@ -9,10 +9,14 @@ const mockStartOp = vi.hoisted(() => vi.fn())
 const mockUseLazyQuery = vi.hoisted(() =>
   vi.fn(() => [mockStartOp, { isValidating: false, error: null }])
 )
-const mockUseQuery = vi.hoisted(() => vi.fn(() => ({ data: null, error: null })))
+const mockUseQuery = vi.hoisted(() =>
+  vi.fn(() => ({ data: null, error: null }))
+)
 
 vi.mock('@generated', () => ({ gql: (s: unknown) => s }))
-vi.mock('src/sdk/graphql/useLazyQuery', () => ({ useLazyQuery: mockUseLazyQuery }))
+vi.mock('src/sdk/graphql/useLazyQuery', () => ({
+  useLazyQuery: mockUseLazyQuery,
+}))
 vi.mock('src/sdk/graphql/useQuery', () => ({ useQuery: mockUseQuery }))
 
 import { useOrderEntryOperation } from '../../../src/sdk/orderEntry/useOrderEntryOperation'
@@ -23,7 +27,10 @@ afterEach(() => {
 
 describe('useOrderEntryOperation', () => {
   it('initializes with null status and not loading', () => {
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({ data: null, error: null })
 
     const { result } = renderHook(() => useOrderEntryOperation())
@@ -37,13 +44,19 @@ describe('useOrderEntryOperation', () => {
     mockStartOp.mockResolvedValueOnce({
       startOrderEntryOperation: { operationId: 'op-123' },
     })
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({ data: null, error: null })
 
     const { result } = renderHook(() => useOrderEntryOperation())
 
     await act(async () => {
-      await result.current.startOperation({ objectKey: 'key-abc', orderFormId: 'of-1' })
+      await result.current.startOperation({
+        objectKey: 'key-abc',
+        orderFormId: 'of-1',
+      })
     })
 
     expect(result.current.isLoading).toBe(true)
@@ -53,7 +66,10 @@ describe('useOrderEntryOperation', () => {
     mockStartOp.mockResolvedValueOnce({
       startOrderEntryOperation: { operationId: 'op-123' },
     })
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({
       data: {
         orderEntryOperation: {
@@ -69,7 +85,10 @@ describe('useOrderEntryOperation', () => {
     const { result } = renderHook(() => useOrderEntryOperation())
 
     await act(async () => {
-      await result.current.startOperation({ objectKey: 'key', orderFormId: 'of-1' })
+      await result.current.startOperation({
+        objectKey: 'key',
+        orderFormId: 'of-1',
+      })
     })
 
     expect(result.current.status?.status).toBe('SUCCESS')
@@ -80,7 +99,10 @@ describe('useOrderEntryOperation', () => {
     mockStartOp.mockResolvedValueOnce({
       startOrderEntryOperation: { operationId: 'op-fail' },
     })
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({
       data: {
         orderEntryOperation: {
@@ -96,7 +118,10 @@ describe('useOrderEntryOperation', () => {
     const { result } = renderHook(() => useOrderEntryOperation())
 
     await act(async () => {
-      await result.current.startOperation({ objectKey: 'key', orderFormId: 'of-1' })
+      await result.current.startOperation({
+        objectKey: 'key',
+        orderFormId: 'of-1',
+      })
     })
 
     expect(result.current.status?.status).toBe('FAILED')
@@ -107,13 +132,19 @@ describe('useOrderEntryOperation', () => {
     mockStartOp.mockResolvedValueOnce({
       startOrderEntryOperation: { operationId: 'op-123' },
     })
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({ data: null, error: null })
 
     const { result } = renderHook(() => useOrderEntryOperation())
 
     await act(async () => {
-      await result.current.startOperation({ objectKey: 'key', orderFormId: 'of-1' })
+      await result.current.startOperation({
+        objectKey: 'key',
+        orderFormId: 'of-1',
+      })
     })
 
     act(() => result.current.reset())
@@ -123,14 +154,22 @@ describe('useOrderEntryOperation', () => {
   })
 
   it('does not set operationId when startOperation returns no id', async () => {
-    mockStartOp.mockResolvedValueOnce({ startOrderEntryOperation: { operationId: null } })
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockStartOp.mockResolvedValueOnce({
+      startOrderEntryOperation: { operationId: null },
+    })
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({ data: null, error: null })
 
     const { result } = renderHook(() => useOrderEntryOperation())
 
     await act(async () => {
-      await result.current.startOperation({ objectKey: 'key', orderFormId: 'of-1' })
+      await result.current.startOperation({
+        objectKey: 'key',
+        orderFormId: 'of-1',
+      })
     })
 
     expect(result.current.isLoading).toBe(false)
@@ -139,7 +178,10 @@ describe('useOrderEntryOperation', () => {
   it('returns startError when useLazyQuery exposes an error', () => {
     const error = new Error('Start failed')
 
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error },
+    ])
     mockUseQuery.mockReturnValue({ data: null, error: null })
 
     const { result } = renderHook(() => useOrderEntryOperation())
@@ -150,7 +192,10 @@ describe('useOrderEntryOperation', () => {
   it('returns statusError when useQuery exposes an error', () => {
     const error = new Error('Poll failed')
 
-    mockUseLazyQuery.mockReturnValue([mockStartOp, { isValidating: false, error: null }])
+    mockUseLazyQuery.mockReturnValue([
+      mockStartOp,
+      { isValidating: false, error: null },
+    ])
     mockUseQuery.mockReturnValue({ data: null, error })
 
     const { result } = renderHook(() => useOrderEntryOperation())
