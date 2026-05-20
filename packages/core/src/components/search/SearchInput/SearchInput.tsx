@@ -70,6 +70,10 @@ export type SearchInputProps = {
   placeholder?: string
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
+  submitButtonAriaLabel?: string
+  loadingLabel?: string
+  searchHistoryTitle?: string
+  searchTopTitle?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit' | 'attachmentButtonIcon'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
