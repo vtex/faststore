@@ -1,13 +1,13 @@
-import path from 'path'
 import chalk from 'chalk'
+import path from 'path'
 // import { ux } from '@oclif/core'
 import { confirm } from '@inquirer/prompts'
 import fsExtra from 'fs-extra'
 const { readFileSync, existsSync, writeFileSync, mkdirSync } = fsExtra
 
+import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'
 import { getPluginName, getPluginsList } from './plugins'
-import { pathToFileURL } from 'url'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string

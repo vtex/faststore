@@ -2,9 +2,9 @@ import chalk from 'chalk'
 import { existsSync } from 'fs'
 import path from 'path'
 
+import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'
 import { logger } from './logger'
-import { pathToFileURL } from 'url'
 
 const configFileName = 'discovery.config.js'
 

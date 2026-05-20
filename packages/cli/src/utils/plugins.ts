@@ -1,8 +1,8 @@
 import fsExtra from 'fs-extra'
+import { pathToFileURL } from 'node:url'
 import path from 'path'
 import { withBasePath } from './directory'
 import { logger } from './logger'
-import { pathToFileURL } from 'url'
 
 const { copySync, existsSync, mkdirSync, readdirSync, writeFileSync } = fsExtra
 

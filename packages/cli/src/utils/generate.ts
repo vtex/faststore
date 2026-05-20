@@ -5,12 +5,12 @@ import path from 'path'
 
 import ora from 'ora'
 
+import { pathToFileURL } from 'node:url'
 import { createNextJsPages } from './createNextjsPages'
 import { installDependencies } from './dependencies'
 import { withBasePath } from './directory'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
-import { pathToFileURL } from 'url'
 
 const {
   copyFileSync,
