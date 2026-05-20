@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+### Bug Fixes
+
+- **ui:** use dvh for SlideOver height on mobile - SFS-3108 ([#3333](https://github.com/vtex/faststore/issues/3333)) ([487fe0f](https://github.com/vtex/faststore/commit/487fe0f452b25a3653091aeec647ab7f6bcb97d4))
+
 ## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
 
 **Note:** Version bump only for package @faststore/ui
