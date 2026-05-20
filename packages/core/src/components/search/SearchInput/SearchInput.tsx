@@ -85,7 +85,7 @@ const sendAnalytics = async (term: string) => {
   })
 }
 
-function mapOrderFormItemsToProducts(items: OrderFormCartItem[]): Product[] {
+export function mapOrderFormItemsToProducts(items: OrderFormCartItem[]): Product[] {
   return items.map((item) => ({
     id: item.id,
     name: item.name,

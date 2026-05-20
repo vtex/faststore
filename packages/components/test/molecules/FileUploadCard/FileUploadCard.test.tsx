@@ -180,4 +180,115 @@ describe('FileUploadCard', () => {
 
     expect(onFileSelect).toHaveBeenCalledWith([xlsxFile])
   })
+
+  it('shows FileUploadStatus after valid file is dropped', () => {
+    render(<FileUploadCard {...defaultProps} />)
+
+    const dropzone = screen.getByRole('region', { name: 'Drop zone' })
+    const csvFile = new File(['SKU,Qty\n001,1'], 'dropped.csv', {
+      type: 'text/csv',
+    })
+    fireEvent.drop(dropzone, { dataTransfer: { files: [csvFile] } })
+
+    expect(screen.getByText('dropped.csv')).toBeInTheDocument()
+  })
+
+  it('shows error state for unsupported file dropped', () => {
+    render(
+      <FileUploadCard
+        {...defaultProps}
+        accept=".csv"
+        errorMessages={{
+          [FileUploadErrorType.Unsupported]: {
+            title: 'Unsupported file type',
+            description: 'Only CSV files are accepted',
+          },
+        }}
+      />
+    )
+
+    const dropzone = screen.getByRole('region', { name: 'Drop zone' })
+    const pdfFile = new File(['data'], 'doc.pdf', { type: 'application/pdf' })
+    fireEvent.drop(dropzone, { dataTransfer: { files: [pdfFile] } })
+
+    expect(screen.getByText('Unsupported file type')).toBeInTheDocument()
+  })
+
+  it('sets dragActive on dragenter and clears on dragleave', () => {
+    render(<FileUploadCard {...defaultProps} />)
+
+    const dropzone = screen.getByRole('region', { name: 'Drop zone' })
+
+    fireEvent.dragEnter(dropzone)
+    expect(dropzone).toHaveAttribute(
+      'data-fs-file-upload-card-dragging',
+      'true'
+    )
+
+    fireEvent.dragLeave(dropzone)
+    expect(dropzone).toHaveAttribute(
+      'data-fs-file-upload-card-dragging',
+      'false'
+    )
+  })
+
+  it('calls onDismiss when Escape key is pressed and isOpen is true', () => {
+    const onDismiss = vi.fn()
+    render(<FileUploadCard {...defaultProps} onDismiss={onDismiss} />)
+
+    fireEvent.keyDown(window, { key: 'Escape' })
+
+    expect(onDismiss).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not call onDismiss on Escape when isOpen is false', () => {
+    const onDismiss = vi.fn()
+    render(
+      <FileUploadCard {...defaultProps} isOpen={false} onDismiss={onDismiss} />
+    )
+
+    fireEvent.keyDown(window, { key: 'Escape' })
+
+    expect(onDismiss).not.toHaveBeenCalled()
+  })
+
+  it('shows error state from hasError prop after file is selected', () => {
+    render(
+      <FileUploadCard
+        {...defaultProps}
+        hasError
+        errorType={FileUploadErrorType.Unexpected}
+      />
+    )
+
+    const input = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
+    const csvFile = new File(['SKU,Qty'], 'items.csv', { type: 'text/csv' })
+    fireEvent.change(input, { target: { files: [csvFile] } })
+
+    expect(screen.getByText('Unexpected error')).toBeInTheDocument()
+  })
+
+  it('calls onDownloadTemplate when provided and download button is clicked', () => {
+    const onDownloadTemplate = vi.fn()
+    render(
+      <FileUploadCard
+        {...defaultProps}
+        onDownloadTemplate={onDownloadTemplate}
+      />
+    )
+
+    fireEvent.click(screen.getByText('Download template'))
+
+    expect(onDownloadTemplate).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not call onSearch when no file is selected', () => {
+    const onSearch = vi.fn()
+    render(<FileUploadCard {...defaultProps} onSearch={onSearch} />)
+
+    // onSearch is only shown in FileUploadStatus which needs a file
+    expect(screen.queryByText('Search')).not.toBeInTheDocument()
+  })
 })
