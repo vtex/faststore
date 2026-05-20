@@ -56,6 +56,39 @@ function createTmpFolder(basePath: string) {
 }
 
 /**
+ * Builds the `.faststore/package.json` from `@faststore/core`'s manifest.
+ * Strips `exports` and `packageManager` (the latter is pinned to pnpm and
+ * breaks Yarn/Corepack on consumer stores).
+ */
+export function buildFaststorePackageJson(
+  coreManifest: Record<string, unknown>
+): Record<string, unknown> {
+  const {
+    exports: _exports,
+    packageManager: _packageManager,
+    ...rest
+  } = coreManifest
+
+  const existingScripts =
+    (rest.scripts as Record<string, string> | undefined) ?? {}
+
+  return {
+    ...rest,
+    name: 'dot-faststore',
+    scripts: {
+      ...existingScripts,
+      generate: 'faststore generate',
+      build: 'next build --webpack',
+      serve: 'next serve',
+      dev: 'next dev --webpack',
+      'dev-only': 'next dev --webpack',
+      predev: 'na run partytown',
+      prebuild: 'na run partytown',
+    },
+  }
+}
+
+/**
  * Prevents imports from @faststore/core from randomly conflicting
  * where sometimes the package.json from the .faststore folder
  * took precedence over @faststore/core's package.json.
@@ -63,21 +96,11 @@ function createTmpFolder(basePath: string) {
 function filterAndCopyPackageJson(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
-  const { exports: _, ...filteredFileContent } = JSON.parse(
+  const coreManifest = JSON.parse(
     readFileSync(path.join(coreDir, 'package.json'), 'utf8')
   )
 
-  filteredFileContent.name = 'dot-faststore'
-  filteredFileContent.scripts = {
-    ...filteredFileContent.scripts,
-    generate: 'faststore generate',
-    build: 'next build --webpack',
-    serve: 'next serve',
-    dev: 'next dev --webpack',
-    'dev-only': 'next dev --webpack',
-    predev: 'na run partytown',
-    prebuild: 'na run partytown',
-  }
+  const filteredFileContent = buildFaststorePackageJson(coreManifest)
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
     spaces: 2,
