@@ -1,11 +1,11 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type { MutationStartOrderEntryOperationArgs } from '../../../__generated__/schema'
 import { BadRequestError } from '../../errors'
 
 export const startOrderEntryOperation = async (
   _: unknown,
   { data }: MutationStartOrderEntryOperationArgs,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ) => {
   if (!data?.objectKey) {
     throw new BadRequestError('Missing objectKey')

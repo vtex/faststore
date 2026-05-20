@@ -1,11 +1,11 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type { QueryOrderFormItemsArgs } from '../../../__generated__/schema'
 import { BadRequestError } from '../../errors'
 
 export const getOrderFormItems = async (
   _: unknown,
   { orderFormId }: QueryOrderFormItemsArgs,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ) => {
   if (!orderFormId) {
     throw new BadRequestError('Missing orderFormId')

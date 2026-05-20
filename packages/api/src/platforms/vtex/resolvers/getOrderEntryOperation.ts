@@ -1,11 +1,11 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type { QueryOrderEntryOperationArgs } from '../../../__generated__/schema'
 import { BadRequestError } from '../../errors'
 
 export const getOrderEntryOperation = async (
   _: unknown,
   { operationId }: QueryOrderEntryOperationArgs,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ) => {
   if (!operationId) {
     throw new BadRequestError('Missing operationId')

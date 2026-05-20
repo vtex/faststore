@@ -1,11 +1,11 @@
-import type { Context } from '..'
+import type { GraphqlContext } from '..'
 import type { MutationUploadFileToOrderEntryArgs } from '../../../__generated__/schema'
 import { BadRequestError } from '../../errors'
 
 export const uploadFileToOrderEntry = async (
   _: unknown,
   { data }: MutationUploadFileToOrderEntryArgs,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: GraphqlContext
 ) => {
   const { fileContent, fileName, mimeType } = data
 
