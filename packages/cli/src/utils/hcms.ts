@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import path from 'path'
+import path from 'node:path'
 // import { ux } from '@oclif/core'
 import { confirm } from '@inquirer/prompts'
 import fsExtra from 'fs-extra'

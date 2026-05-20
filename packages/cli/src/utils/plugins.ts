@@ -1,6 +1,6 @@
 import fsExtra from 'fs-extra'
+import path from 'node:path'
 import { pathToFileURL } from 'node:url'
-import path from 'path'
 import { withBasePath } from './directory'
 import { logger } from './logger'
 

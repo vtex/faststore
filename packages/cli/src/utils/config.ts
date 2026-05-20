@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import { existsSync } from 'fs'
-import path from 'path'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 
 import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'

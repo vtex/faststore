@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
-const path = require('path')
-const fs = require('fs')
+const path = require('node:path')
+const fs = require('node:fs')
 const [, , basePath, packageToResolve, versionResolution] = process.argv
 
 if (!basePath || !packageToResolve || !versionResolution) {

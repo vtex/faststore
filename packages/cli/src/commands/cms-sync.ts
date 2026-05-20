@@ -1,5 +1,5 @@
 import { Args, Command, Flags } from '@oclif/core'
-import { spawn } from 'child_process'
+import { spawn } from 'node:child_process'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'

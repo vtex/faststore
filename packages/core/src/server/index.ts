@@ -22,7 +22,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
 import * as GraphQLJS from 'graphql'
 import { GraphQLError } from 'graphql'
-import path from 'path'
+import path from 'node:path'
 
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
