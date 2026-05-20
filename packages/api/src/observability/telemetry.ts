@@ -1,6 +1,5 @@
 import { OTELAPI } from '@faststore/diagnostics'
 import { name, version } from '../../package.json' with { type: 'json' }
-
 export const ResolverTrace = <
   TContext extends {
     OTEL: Record<string, any>
@@ -24,43 +23,38 @@ export const ResolverTrace = <
       return fn(source, vars, graphqlContext, info)
     }
 
-    const trace = OTELAPI.trace.getTracer(name, version)
-    const activeContext = OTELAPI.propagation.extract(
-      OTELAPI.context.active(),
-      graphqlContext.OTEL
+    const tracer = OTELAPI.trace.getTracer('Graphql')
+    const span = tracer.startSpan(resolverName ?? 'Unknown Graphql Resolver', {
+      kind: OTELAPI.SpanKind.INTERNAL,
+      attributes: {
+        timestamp: Date.now(),
+        '@faststore_version': version,
+        '@faststore_package_name': name,
+        '@faststore_account_name': graphqlContext.account,
+        '@faststore_environment': process.env.NODE_ENV,
+      },
+    })
+
+    OTELAPI.trace.setSpan(
+      OTELAPI.propagation.extract(
+        OTELAPI.context.active(),
+        graphqlContext.OTEL.__otelContext
+      ),
+      span
     )
 
-    return OTELAPI.context.with(activeContext, () => {
-      const span = trace.startSpan(resolverName ?? 'Unknown Graphql Resolver', {
-        startTime: Date.now(),
-        kind: OTELAPI.SpanKind.INTERNAL,
-        attributes: {
-          timestamp: Date.now(),
-          '@faststore_version': version,
-          '@faststore_package_name': name,
-          '@faststore_account_name': graphqlContext.account,
-          '@faststore_environment': process.env.NODE_ENV,
-        },
-      })
-
-      if (!span) return fn(source, vars, graphqlContext, info)
-      try {
-        const returnedValue = fn(source, vars, graphqlContext, info)
-
-        if (!(returnedValue instanceof Promise)) {
-          span.end()
-          return returnedValue
-        }
-
-        return returnedValue.then((value) => {
-          span.end()
-          return value
-        }) as TReturn
-      } catch (error) {
-        span.end()
-        console.error(`Error when executing resolver: ${resolverName}`, error)
-        throw error
-      }
-    })
+    try {
+      return fn(source, vars, graphqlContext, info)
+    } catch (error: any) {
+      span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
+      span?.recordException(error)
+      console.error(
+        `Error when executing resolver: ${resolverName}: \n %o`,
+        error
+      )
+      throw error
+    } finally {
+      span?.end()
+    }
   }
 }

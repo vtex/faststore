@@ -6,6 +6,8 @@
     pipelines:
       - name: node-ci-v2
         parameters:
+          privateRegistry: vtex-npm
+          awsAccountId: "053131491888"
           nodeVersion: 24-bookworm
           packageManager: pnpm
           nodeCommands:

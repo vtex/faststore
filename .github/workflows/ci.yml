@@ -15,6 +15,10 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
+    permissions:
+        id-token: write # Required if using OIDC
+        contents: read
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -30,6 +34,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24.13.0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::053131491888:role/diagnostics-gh-actions-role
+          aws-region: us-east-1
+
+      - name: Set CodeArtifact Auth
+        run: |
+          CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
+          echo "CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: pnpm i

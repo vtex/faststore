@@ -2,14 +2,11 @@ import config from '../discovery.config'
 import pkgJSON from '../package.json'
 
 export async function register() {
-  if (
-    process.env.NEXT_RUNTIME === 'nodejs' &&
-    config.analytics.otelEnabled === true
-  ) {
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
     const { name, version } = pkgJSON
     try {
       const { getTelemetryClient } = await import('@faststore/diagnostics')
-      console.log('Instrumemtation.ts: Getting telemetry client')
+      console.log('Instrumentation.ts: Getting telemetry client')
 
       return getTelemetryClient({
         serviceName: config.analytics?.serviceName ?? name,

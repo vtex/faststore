@@ -20,8 +20,6 @@ interface Options {
   version?: string
   OTEL?: {
     enabled: boolean
-    traceparent?: string
-    tracestate?: string
   }
   discoveryConfig?: Record<string, unknown>
 }
