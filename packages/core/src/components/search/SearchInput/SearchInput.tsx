@@ -45,6 +45,7 @@ import useSuggestions from 'src/sdk/search/useSuggestions'
 import { cartStore } from 'src/sdk/cart'
 import type { CartItem } from 'src/sdk/cart'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
+import { useAuth } from 'src/sdk/auth'
 import { useOrderEntry } from 'src/sdk/orderEntry/useOrderEntry'
 import { useOrderFormItems } from 'src/sdk/orderEntry/useOrderFormItems'
 import type { OrderFormCartItem } from 'src/sdk/orderEntry/useOrderFormItems'
@@ -170,7 +171,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setIsQuickOrderDrawerOpen(true)
     }, [orderFormItems])
 
-    const isQuickOrderEnabled = quickOrderSettings?.quickOrder ?? false
+    const { isAutenticated } = useAuth()
+    const isQuickOrderEnabled = (quickOrderSettings?.quickOrder ?? false) && isAutenticated
     const attachmentButton = quickOrderSettings?.attachmentButton
     const drawerConfig = quickOrderSettings?.drawer
     const a11yLabels = quickOrderSettings?.accessibilityLabels
