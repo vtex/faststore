@@ -27,6 +27,7 @@ type Mutation {
   The returned `objectKey` is required to start an order entry operation.
   """
   uploadFileToOrderEntry(data: IOrderEntryUpload!): OrderEntryUploadResult
+    @auth
   """
   Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
   Returns an operationId to poll for the operation status.
@@ -34,4 +35,5 @@ type Mutation {
   startOrderEntryOperation(
     data: IOrderEntryOperation!
   ): OrderEntryOperationResult
+    @auth
 }

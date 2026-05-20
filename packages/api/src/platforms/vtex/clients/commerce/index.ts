@@ -809,10 +809,15 @@ export const VtexCommerce = (
         const boundary = `----FastStoreUploadBoundary${Date.now()}`
         const CRLF = '\r\n'
 
+        const SAFE_MIME_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9!#$&\-.^_]*\/[a-zA-Z0-9][a-zA-Z0-9!#$&\-.^_+]*$/
+        const safeMimeType = SAFE_MIME_PATTERN.test(mimeType)
+          ? mimeType
+          : 'application/octet-stream'
+
         const headerPart = [
           `--${boundary}`,
           `Content-Disposition: form-data; name="file"; filename="${fileName}"`,
-          `Content-Type: ${mimeType}`,
+          `Content-Type: ${safeMimeType}`,
           '',
           '',
         ].join(CRLF)

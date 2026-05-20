@@ -465,10 +465,12 @@ type Query {
   Returns the status of an Order Entry Service operation by its ID.
   """
   orderEntryOperation(operationId: String!): OrderEntryOperationStatus
+    @auth
   """
   Returns the items in an orderForm by its ID.
   """
   orderFormItems(orderFormId: String!): [OrderFormCartItem!]!
+    @auth
 }
 
 type ValidateUserData {
