@@ -146,7 +146,9 @@ describe('uploadFileToOrderEntry', () => {
     await expect(
       uploadFileToOrderEntry(
         null,
-        { data: { fileContent: '', fileName: 'test.csv', mimeType: 'text/csv' } },
+        {
+          data: { fileContent: '', fileName: 'test.csv', mimeType: 'text/csv' },
+        },
         ctx as any
       )
     ).rejects.toThrow(BadRequestError)
@@ -226,7 +228,13 @@ describe('startOrderEntryOperation', () => {
 
     const result = await startOrderEntryOperation(
       null,
-      { data: { objectKey: 'key-abc', orderFormId: 'of-1', sessionToken: 'tok-123' } },
+      {
+        data: {
+          objectKey: 'key-abc',
+          orderFormId: 'of-1',
+          sessionToken: 'tok-123',
+        },
+      },
       ctx as any
     )
 

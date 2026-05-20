@@ -17,7 +17,8 @@ const defaultProps = {
   searchButtonLabel: 'Search',
   uploadingStatusText: 'Uploading...',
   processingStatusText: 'Processing...',
-  getCompletedStatusText: (size: number) => `File ready (${(size / 1024).toFixed(1)} KB)`,
+  getCompletedStatusText: (size: number) =>
+    `File ready (${(size / 1024).toFixed(1)} KB)`,
   errorMessages: {
     [FileUploadErrorType.Unexpected]: {
       title: 'Unexpected error',
