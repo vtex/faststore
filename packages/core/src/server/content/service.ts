@@ -81,10 +81,10 @@ export class ContentService {
     const options = this.createContentOptions(plpParams)
 
     if (isContentPlatformSource()) {
-      // const directMatch = await this.getSingleContent<PLPContentType>(plpParams)
-      // if (directMatch) {
-      //   return directMatch
-      // }
+      const directMatch = await this.getSingleContent<PLPContentType>(plpParams)
+      if (directMatch) {
+        return directMatch
+      }
 
       const pages = (await this.getMultipleContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
