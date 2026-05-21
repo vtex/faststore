@@ -6,8 +6,12 @@ import { getClientCacheBustingValue } from 'src/utils/cookieCacheBusting'
 import type { Operation, RequestOptions } from './request'
 import { request } from './request'
 
-export type QueryOptions = SWRConfiguration &
-  RequestOptions & { doNotRun?: boolean }
+type CustomOptions = {
+  doNotRun?: boolean
+  fullQueryResponse?: boolean
+}
+
+export type QueryOptions = SWRConfiguration & RequestOptions & CustomOptions
 
 export const getKey = <Variables>(
   operationName: string,

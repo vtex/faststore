@@ -1,3 +1,4 @@
+import type { KeyedMutator } from 'swr'
 import { gql } from '@generated'
 import type {
   ClientManyProductsQueryQuery,
@@ -40,16 +41,33 @@ export const query = gql(`
   }
 `)
 
+// Overloads
+export function useProductsQuery(
+  variables: Partial<ClientManyProductsQueryQueryVariables>,
+  options?: QueryOptions & { fullQueryResponse?: false }
+): ClientManyProductsQueryQuery
+
+export function useProductsQuery(
+  variables: Partial<ClientManyProductsQueryQueryVariables>,
+  options?: QueryOptions & { fullQueryResponse: true }
+): {
+  error: any
+  mutate: KeyedMutator<ClientManyProductsQueryQuery>
+  isValidating: boolean
+  isLoading: boolean
+  data: ClientManyProductsQueryQuery
+}
+
 /**
  * Use this hook for fetching a list of products, like shelves and tiles
  */
-export const useProductsQuery = (
+export function useProductsQuery(
   variables: Partial<ClientManyProductsQueryQueryVariables>,
   options?: QueryOptions
-) => {
+) {
   const localizedVariables = useLocalizedVariables(variables)
 
-  const { data } = useQuery<
+  const { data, ...queryResponse } = useQuery<
     ClientManyProductsQueryQuery,
     ClientManyProductsQueryQueryVariables
   >(query, localizedVariables, {
@@ -57,6 +75,10 @@ export const useProductsQuery = (
     suspense: true,
     ...options,
   })
+
+  if (options?.fullQueryResponse) {
+    return { data, ...queryResponse }
+  }
 
   return data
 }
