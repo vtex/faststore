@@ -17,7 +17,6 @@ import {
 } from 'react'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
-import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
 
@@ -142,7 +141,6 @@ export const useCreateUseGalleryPage = (
 
     const shouldFetchFirstPage = useShouldFetchFirstPage({
       page,
-      generatedBuildTime,
     })
 
     const shouldFetch = !hasSameVariables || shouldFetchFirstPage

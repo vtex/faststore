@@ -5,6 +5,7 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
@@ -19,6 +20,7 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
+import { faststoreLoader } from 'src/components/ui/Image/loader'
 import ProductListing from './ProductListing'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
@@ -119,6 +121,26 @@ export default function ProductListingPage({
     )
   }
 
+  // Preload the above-fold LCP image so the browser fetches it at parse time,
+  // before JS hydration. Hero section (if present) is always the true LCP
+  // candidate on PLPs that include one. Fallback: first product image.
+  const heroSection = plpContentType.sections?.find(
+    (s: { name: string; data: any }) => s.name === 'Hero'
+  )
+  const rawLcpImageUrl: string | undefined =
+    heroSection?.data?.image?.src ??
+    server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
+  // Hero images span the full viewport on mobile (~390px), 640 covers 2× DPR.
+  // Product images use sizes="30vw", so 256 is the appropriate step.
+  const lcpImageWidth = heroSection ? 640 : 256
+  const lcpImageUrl = rawLcpImageUrl
+    ? faststoreLoader({
+        src: rawLcpImageUrl,
+        width: lcpImageWidth,
+        quality: 75,
+      })
+    : undefined
+
   return (
     <SearchProvider
       onChange={applySearchState}
@@ -126,6 +148,16 @@ export default function ProductListingPage({
       shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
       {...searchParams}
     >
+      {lcpImageUrl && (
+        <Head>
+          <link
+            rel="preload"
+            as="image"
+            href={lcpImageUrl}
+            fetchPriority="high"
+          />
+        </Head>
+      )}
       {/* SEO */}
       <NextSeo
         title={title}
