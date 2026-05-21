@@ -60,7 +60,7 @@ export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
   ctx: GraphqlContext
 ) => {
-  const base = `https://${account}.${environment}.com.br`
+  const base = `https://vtexisdev2--${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
   const withAutCookie = getWithAutCookie(ctx)
