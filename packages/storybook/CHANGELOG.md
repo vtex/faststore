@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+### Bug Fixes
+
+- url resolution in windows ([#3337](https://github.com/vtex/faststore/issues/3337)) ([2476091](https://github.com/vtex/faststore/commit/24760916bdcfc73c7d4ef7f92829976d4f1f97d6))
+
 ## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
 
 **Note:** Version bump only for package @faststore/storybook
