@@ -3,7 +3,6 @@ import storeConfig from '../../discovery.config'
 
 import { GTM_DEBUG_QUERY_STRING } from 'src/components/ThirdPartyScripts/GoogleTagManager'
 import { WebFonts } from 'src/customizations/src/GlobalOverrides'
-import { inter } from 'src/fonts/inter'
 
 function Document() {
   const direction = storeConfig.direction || 'ltr'
@@ -61,7 +60,7 @@ function Document() {
           }}
         />
       </Head>
-      <body className={`theme ${inter.variable}`}>
+      <body className="theme">
         <Main />
         <NextScript />
       </body>
