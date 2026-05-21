@@ -1,6 +1,7 @@
 import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
-import { Suspense, lazy, useState, type MouseEvent } from 'react'
+import ProductGalleryPage from './ProductGalleryPage'
+import { Suspense, useState, type MouseEvent } from 'react'
 
 import { useSearch } from '@faststore/sdk'
 import { useUI } from '@faststore/ui'
@@ -25,7 +26,6 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import styles from '../../sections/ProductGallery/section.module.scss'
 
-const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
   () =>
     import(

@@ -11,45 +11,46 @@ function hasTimeElapsed({
 
 interface UseShouldFetchFirstPageParams {
   page: number
-  generatedBuildTime: number
 }
 
 /**
  * This hook determines if the first page (page 0) should be fetched.
  * This is because the first page is initially fetched from the server side and injected into the cache for performance and SEO reasons.
  * So this hook checks if the first page should be fetched again on the client side
- * after 5 minutes since the build time (last fetch from the server side) or the last fetch time from the client side.
+ * after 5 minutes since the user loaded the page (not the build time), or the last fetch time from the client side.
  *
  * @param page The page number
- * @param generatedBuildTime The time the page was generated
  * @returns boolean
  *
  **/
 export function useShouldFetchFirstPage({
   page,
-  generatedBuildTime,
 }: UseShouldFetchFirstPageParams): boolean {
-  if (page !== 0) return false
-
+  // Capture the time the user loaded this page (not the build time).
+  // useRef ensures this is set only once per component mount.
+  // Hooks must run before any early return to comply with the Rules of Hooks.
+  const pageLoadTime = useRef(Date.now())
   const lastFetchTime = useRef<number | undefined>()
 
-  const passedFiveMinutesAfterBuild = hasTimeElapsed({
-    timestamp: generatedBuildTime,
+  if (page !== 0) return false
+
+  const passedFiveMinutesSincePageLoad = hasTimeElapsed({
+    timestamp: pageLoadTime.current,
     period: FIVE_MINUTES,
   })
 
-  const isFirstClientSideFetchFromFirstPage =
-    lastFetchTime.current === undefined
+  const currentLastFetchTime = lastFetchTime.current
+  const isFirstClientSideFetchFromFirstPage = currentLastFetchTime === undefined
 
   const passedFiveMinutesSinceLastFetch =
-    !isFirstClientSideFetchFromFirstPage &&
+    currentLastFetchTime !== undefined &&
     hasTimeElapsed({
-      timestamp: lastFetchTime.current!,
+      timestamp: currentLastFetchTime,
       period: FIVE_MINUTES,
     })
 
   if (
-    passedFiveMinutesAfterBuild &&
+    passedFiveMinutesSincePageLoad &&
     (isFirstClientSideFetchFromFirstPage || passedFiveMinutesSinceLastFetch)
   ) {
     lastFetchTime.current = Date.now()

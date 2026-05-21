@@ -1,13 +1,11 @@
+/**
+ * WebFonts is kept for store-level overrides via customizations/src/fonts/WebFonts.tsx.
+ * The Inter font is now self-hosted via next/font/google (see src/fonts/inter.ts),
+ * which eliminates the render-blocking request to fonts.googleapis.com.
+ * Stores should NOT add a <link rel="stylesheet"> to Google Fonts here.
+ */
 function WebFonts() {
-  return (
-    <>
-      {/* Add a <link> tag for your font-family of choice */}
-      {/* <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
-      /> */}
-    </>
-  )
+  return null
 }
 
 export default WebFonts
