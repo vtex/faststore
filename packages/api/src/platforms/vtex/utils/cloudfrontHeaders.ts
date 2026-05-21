@@ -1,24 +1,18 @@
 import type { GraphqlContext } from '../index'
 
 /**
- * Viewer-location headers that CloudFront can inject on requests forwarded
- * to the origin when the corresponding origin request policy is enabled.
+ * Subset of CloudFront viewer-location headers that VTEX Intelligent Search
+ * consumes. The CDN can emit a broader set (see AWS doc), but IS only honors
+ * these four — narrowing the list keeps the PII surface area small and the
+ * cache key impact predictable.
  *
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/adding-cloudfront-headers.html#cloudfront-headers-viewer-location
  */
 export const CLOUDFRONT_VIEWER_LOCATION_HEADERS = [
-  'CloudFront-Viewer-Address',
-  'CloudFront-Viewer-ASN',
-  'CloudFront-Viewer-City',
   'CloudFront-Viewer-Country',
-  'CloudFront-Viewer-Country-Name',
-  'CloudFront-Viewer-Country-Region',
-  'CloudFront-Viewer-Country-Region-Name',
   'CloudFront-Viewer-Latitude',
   'CloudFront-Viewer-Longitude',
-  'CloudFront-Viewer-Metro-Code',
   'CloudFront-Viewer-Postal-Code',
-  'CloudFront-Viewer-Time-Zone',
 ] as const
 
 /**

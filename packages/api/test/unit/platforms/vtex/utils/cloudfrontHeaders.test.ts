@@ -26,14 +26,14 @@ describe('getCloudFrontViewerLocationHeaders', () => {
     const result = getCloudFrontViewerLocationHeaders({
       host: 'example.com',
       'cloudfront-viewer-country': 'BR',
-      'cloudfront-viewer-city': 'São Paulo',
+      'cloudfront-viewer-latitude': '-23.55',
       'cloudfront-viewer-postal-code': '01000-000',
       'x-some-other-header': 'ignored',
     })
 
     expect(result).toEqual({
       'CloudFront-Viewer-Country': 'BR',
-      'CloudFront-Viewer-City': 'São Paulo',
+      'CloudFront-Viewer-Latitude': '-23.55',
       'CloudFront-Viewer-Postal-Code': '01000-000',
     })
   })
@@ -49,13 +49,24 @@ describe('getCloudFrontViewerLocationHeaders', () => {
   it('preserves the canonical CloudFront header casing regardless of input casing', () => {
     const result = getCloudFrontViewerLocationHeaders({
       'CLOUDFRONT-VIEWER-COUNTRY': 'BR',
-      'CloudFront-Viewer-City': 'São Paulo',
+      'CloudFront-Viewer-Postal-Code': '01000-000',
     })
 
     expect(result).toEqual({
       'CloudFront-Viewer-Country': 'BR',
-      'CloudFront-Viewer-City': 'São Paulo',
+      'CloudFront-Viewer-Postal-Code': '01000-000',
     })
+  })
+
+  it('ignores CloudFront viewer headers that are outside the IS subset (e.g. City, Time-Zone)', () => {
+    const result = getCloudFrontViewerLocationHeaders({
+      'cloudfront-viewer-country': 'BR',
+      'cloudfront-viewer-city': 'São Paulo',
+      'cloudfront-viewer-time-zone': 'America/Sao_Paulo',
+      'cloudfront-viewer-address': '203.0.113.1',
+    })
+
+    expect(result).toEqual({ 'CloudFront-Viewer-Country': 'BR' })
   })
 
   it('forwards every documented viewer-location header verbatim when present', () => {

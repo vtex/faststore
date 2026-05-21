@@ -42,7 +42,6 @@ describe('IntelligentSearch headers forwarding', () => {
   it('forwards CloudFront viewer-location headers when present', async () => {
     const search = await buildSearch({
       'cloudfront-viewer-country': 'BR',
-      'cloudfront-viewer-city': 'São Paulo',
       'cloudfront-viewer-postal-code': '01000-000',
       'cloudfront-viewer-latitude': '-23.55',
       'cloudfront-viewer-longitude': '-46.63',
@@ -55,7 +54,6 @@ describe('IntelligentSearch headers forwarding', () => {
     const sentHeaders = init.headers as Record<string, string>
 
     expect(sentHeaders['CloudFront-Viewer-Country']).toBe('BR')
-    expect(sentHeaders['CloudFront-Viewer-City']).toBe('São Paulo')
     expect(sentHeaders['CloudFront-Viewer-Postal-Code']).toBe('01000-000')
     expect(sentHeaders['CloudFront-Viewer-Latitude']).toBe('-23.55')
     expect(sentHeaders['CloudFront-Viewer-Longitude']).toBe('-46.63')
@@ -106,8 +104,9 @@ describe('IntelligentSearch headers forwarding', () => {
     const init = fetchAPIMocked.mock.calls[0][1] as RequestInit
     const sentHeaders = init.headers as Record<string, string>
 
-    expect(sentHeaders).not.toHaveProperty('CloudFront-Viewer-City')
     expect(sentHeaders).not.toHaveProperty('CloudFront-Viewer-Postal-Code')
+    expect(sentHeaders).not.toHaveProperty('CloudFront-Viewer-Latitude')
+    expect(sentHeaders).not.toHaveProperty('CloudFront-Viewer-Longitude')
   })
 
   it('preserves existing X-FORWARDED-HOST and content-type headers', async () => {
