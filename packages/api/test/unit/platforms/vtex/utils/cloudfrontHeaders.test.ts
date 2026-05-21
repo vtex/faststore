@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   CLOUDFRONT_VIEWER_LOCATION_HEADERS,
   getCloudFrontViewerLocationHeaders,
+  redactCloudFrontViewerLocationHeaders,
 } from '../../../../../src/platforms/vtex/utils/cloudfrontHeaders'
 
 describe('getCloudFrontViewerLocationHeaders', () => {
@@ -86,5 +87,84 @@ describe('getCloudFrontViewerLocationHeaders', () => {
       ])
     )
     expect(result).toEqual(expected)
+  })
+})
+
+describe('redactCloudFrontViewerLocationHeaders', () => {
+  it('returns undefined when headers is undefined', () => {
+    expect(redactCloudFrontViewerLocationHeaders(undefined)).toBeUndefined()
+  })
+
+  it('redacts every CloudFront viewer-location header value', () => {
+    const result = redactCloudFrontViewerLocationHeaders({
+      'CloudFront-Viewer-Country': 'BR',
+      'CloudFront-Viewer-Postal-Code': '01000-000',
+      'CloudFront-Viewer-Latitude': '-23.55',
+      'CloudFront-Viewer-Longitude': '-46.63',
+    }) as Record<string, string>
+
+    expect(result['cloudfront-viewer-country']).toBe('[REDACTED]')
+    expect(result['cloudfront-viewer-postal-code']).toBe('[REDACTED]')
+    expect(result['cloudfront-viewer-latitude']).toBe('[REDACTED]')
+    expect(result['cloudfront-viewer-longitude']).toBe('[REDACTED]')
+  })
+
+  it('passes non-sensitive headers through unchanged', () => {
+    const result = redactCloudFrontViewerLocationHeaders({
+      'content-type': 'application/json',
+      'X-FORWARDED-HOST': 'example.com',
+      'CloudFront-Viewer-Country': 'BR',
+    }) as Record<string, string>
+
+    expect(result['content-type']).toBe('application/json')
+    // Headers normalizes keys to lowercase.
+    expect(result['x-forwarded-host']).toBe('example.com')
+    expect(result['cloudfront-viewer-country']).toBe('[REDACTED]')
+  })
+
+  it('matches sensitive header names case-insensitively', () => {
+    const result = redactCloudFrontViewerLocationHeaders({
+      'CLOUDFRONT-VIEWER-COUNTRY': 'BR',
+      'cloudfront-viewer-postal-code': '01000-000',
+    }) as Record<string, string>
+
+    expect(result['cloudfront-viewer-country']).toBe('[REDACTED]')
+    expect(result['cloudfront-viewer-postal-code']).toBe('[REDACTED]')
+  })
+
+  it('accepts a Headers instance as input', () => {
+    const input = new Headers({
+      'content-type': 'application/json',
+      'CloudFront-Viewer-Country': 'BR',
+    })
+    const result = redactCloudFrontViewerLocationHeaders(input) as Record<
+      string,
+      string
+    >
+
+    expect(result['content-type']).toBe('application/json')
+    expect(result['cloudfront-viewer-country']).toBe('[REDACTED]')
+  })
+
+  it('accepts a [key, value][] form as input', () => {
+    const result = redactCloudFrontViewerLocationHeaders([
+      ['content-type', 'application/json'],
+      ['CloudFront-Viewer-Country', 'BR'],
+    ]) as Record<string, string>
+
+    expect(result['content-type']).toBe('application/json')
+    expect(result['cloudfront-viewer-country']).toBe('[REDACTED]')
+  })
+
+  it('does not touch keys that are not in the sensitive list', () => {
+    const result = redactCloudFrontViewerLocationHeaders({
+      // CloudFront emits these too, but we intentionally do not forward them
+      // and so we also do not need to redact them.
+      'CloudFront-Viewer-City': 'São Paulo',
+      'CloudFront-Viewer-Time-Zone': 'America/Sao_Paulo',
+    }) as Record<string, string>
+
+    expect(result['cloudfront-viewer-city']).toBe('São Paulo')
+    expect(result['cloudfront-viewer-time-zone']).toBe('America/Sao_Paulo')
   })
 })

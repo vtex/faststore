@@ -7,6 +7,7 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from '../../errors'
+import { redactCloudFrontViewerLocationHeaders } from '../utils/cloudfrontHeaders'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
@@ -35,7 +36,11 @@ export const fetchAPI = async (
     return response.status !== 204 ? response.json() : undefined
   }
 
-  console.error(info, init, response)
+  const sanitizedInit = init && {
+    ...init,
+    headers: redactCloudFrontViewerLocationHeaders(init.headers),
+  }
+  console.error(info, sanitizedInit, response)
   const text = await response.text()
 
   // Check if response has a valid status property

@@ -15,6 +15,10 @@ export const CLOUDFRONT_VIEWER_LOCATION_HEADERS = [
   'CloudFront-Viewer-Postal-Code',
 ] as const
 
+const SENSITIVE_HEADER_NAMES_LOWER = new Set(
+  CLOUDFRONT_VIEWER_LOCATION_HEADERS.map((name) => name.toLowerCase())
+)
+
 /**
  * Returns the CloudFront viewer-location headers present on the incoming
  * request, keyed by their canonical CloudFront name. Headers that are not
@@ -38,4 +42,30 @@ export const getCloudFrontViewerLocationHeaders = (
   }
 
   return forwarded
+}
+
+/**
+ * Returns a copy of `headers` with every CloudFront viewer-location header
+ * value replaced by '[REDACTED]'. Intended for log statements (e.g. the
+ * console.error in fetch.ts on non-OK responses) so PII does not leak into
+ * observability sinks. Non-sensitive headers pass through unchanged.
+ *
+ * Output is always a plain Record<string, string>, with keys normalized to
+ * lowercase (a side effect of routing through the Headers constructor — this
+ * is consistent with how HTTP treats header names and keeps the redaction
+ * logic uniform across all HeadersInit input forms).
+ */
+export const redactCloudFrontViewerLocationHeaders = (
+  headers: HeadersInit | undefined
+): Record<string, string> | undefined => {
+  if (!headers) {
+    return headers
+  }
+
+  const result: Record<string, string> = {}
+  new Headers(headers).forEach((value, key) => {
+    // Headers normalizes keys to lowercase, so we can compare directly.
+    result[key] = SENSITIVE_HEADER_NAMES_LOWER.has(key) ? '[REDACTED]' : value
+  })
+  return result
 }
