@@ -370,6 +370,26 @@ export type IGeoCoordinates = {
   longitude: Scalars['Float']['input'];
 };
 
+export type IOrderEntryOperation = {
+  objectKey: Scalars['String']['input'];
+  orderFormId: Scalars['String']['input'];
+  sessionToken?: InputMaybe<Scalars['String']['input']>;
+};
+
+/**
+ * Input for uploading a file to the Order Entry Service.
+ * The file is transmitted as a Base64-encoded string so it can travel
+ * through the standard GraphQL JSON pipeline without multipart support.
+ */
+export type IOrderEntryUpload = {
+  /** Base64-encoded file content. */
+  fileContent: Scalars['String']['input'];
+  /** Original file name (e.g. "order.csv"). */
+  fileName: Scalars['String']['input'];
+  /** MIME type of the file (e.g. "text/csv", "image/png"). */
+  mimeType: Scalars['String']['input'];
+};
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -665,8 +685,19 @@ export type Mutation = {
   cancelOrder?: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
+  /**
+   * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
+   * Returns an operationId to poll for the operation status.
+   */
+  startOrderEntryOperation?: Maybe<OrderEntryOperationResult>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
+  /**
+   * Uploads a file to the Order Entry Service and returns the S3 object key.
+   * The file must be Base64-encoded and passed via the `data` input.
+   * The returned `objectKey` is required to start an order entry operation.
+   */
+  uploadFileToOrderEntry?: Maybe<OrderEntryUploadResult>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart?: Maybe<StoreCart>;
   /** Updates a web session with the specified values. */
@@ -684,8 +715,18 @@ export type MutationProcessOrderAuthorizationArgs = {
 };
 
 
+export type MutationStartOrderEntryOperationArgs = {
+  data: IOrderEntryOperation;
+};
+
+
 export type MutationSubscribeToNewsletterArgs = {
   data: IPersonNewsletter;
+};
+
+
+export type MutationUploadFileToOrderEntryArgs = {
+  data: IOrderEntryUpload;
 };
 
 
@@ -698,6 +739,49 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input'];
   session: IStoreSession;
+};
+
+export type OrderEntryMissingItem = {
+  __typename?: 'OrderEntryMissingItem';
+  itemId: Scalars['String']['output'];
+  itemName?: Maybe<Scalars['String']['output']>;
+  reason: Scalars['String']['output'];
+};
+
+export type OrderEntryOperationResult = {
+  __typename?: 'OrderEntryOperationResult';
+  operationId: Scalars['String']['output'];
+};
+
+export type OrderEntryOperationStatus = {
+  __typename?: 'OrderEntryOperationStatus';
+  entityId: Scalars['String']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  missingItems?: Maybe<Array<OrderEntryMissingItem>>;
+  status: Scalars['String']['output'];
+};
+
+/** Result returned after uploading a file to the Order Entry Service. */
+export type OrderEntryUploadResult = {
+  __typename?: 'OrderEntryUploadResult';
+  /**
+   * S3 object key that identifies the uploaded file.
+   * Must be passed to the subsequent operation mutation.
+   */
+  objectKey: Scalars['String']['output'];
+};
+
+export type OrderFormCartItem = {
+  __typename?: 'OrderFormCartItem';
+  availability: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  listPrice: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  quantity: Scalars['Int']['output'];
+  seller: Scalars['String']['output'];
+  unitMultiplier?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Newsletter information. */
@@ -865,6 +949,10 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
+  /** Returns the status of an Order Entry Service operation by its ID. */
+  orderEntryOperation?: Maybe<OrderEntryOperationStatus>;
+  /** Returns the items in an orderForm by its ID. */
+  orderFormItems: Array<OrderFormCartItem>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
@@ -918,6 +1006,16 @@ export type QueryListUserOrdersArgs = {
   perPage?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryOrderEntryOperationArgs = {
+  operationId: Scalars['String']['input'];
+};
+
+
+export type QueryOrderFormItemsArgs = {
+  orderFormId: Scalars['String']['input'];
 };
 
 

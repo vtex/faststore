@@ -356,6 +356,26 @@ export type IGeoCoordinates = {
   longitude: Scalars['Float']['input'];
 };
 
+export type IOrderEntryOperation = {
+  objectKey: Scalars['String']['input'];
+  orderFormId: Scalars['String']['input'];
+  sessionToken: InputMaybe<Scalars['String']['input']>;
+};
+
+/**
+ * Input for uploading a file to the Order Entry Service.
+ * The file is transmitted as a Base64-encoded string so it can travel
+ * through the standard GraphQL JSON pipeline without multipart support.
+ */
+export type IOrderEntryUpload = {
+  /** Base64-encoded file content. */
+  fileContent: Scalars['String']['input'];
+  /** Original file name (e.g. "order.csv"). */
+  fileName: Scalars['String']['input'];
+  /** MIME type of the file (e.g. "text/csv", "image/png"). */
+  mimeType: Scalars['String']['input'];
+};
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -646,8 +666,19 @@ export type Mutation = {
   cancelOrder: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>;
+  /**
+   * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
+   * Returns an operationId to poll for the operation status.
+   */
+  startOrderEntryOperation: Maybe<OrderEntryOperationResult>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
+  /**
+   * Uploads a file to the Order Entry Service and returns the S3 object key.
+   * The file must be Base64-encoded and passed via the `data` input.
+   * The returned `objectKey` is required to start an order entry operation.
+   */
+  uploadFileToOrderEntry: Maybe<OrderEntryUploadResult>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart: Maybe<StoreCart>;
   /** Updates a web session with the specified values. */
@@ -665,8 +696,18 @@ export type MutationProcessOrderAuthorizationArgs = {
 };
 
 
+export type MutationStartOrderEntryOperationArgs = {
+  data: IOrderEntryOperation;
+};
+
+
 export type MutationSubscribeToNewsletterArgs = {
   data: IPersonNewsletter;
+};
+
+
+export type MutationUploadFileToOrderEntryArgs = {
+  data: IOrderEntryUpload;
 };
 
 
@@ -679,6 +720,44 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input'];
   session: IStoreSession;
+};
+
+export type OrderEntryMissingItem = {
+  itemId: Scalars['String']['output'];
+  itemName: Maybe<Scalars['String']['output']>;
+  reason: Scalars['String']['output'];
+};
+
+export type OrderEntryOperationResult = {
+  operationId: Scalars['String']['output'];
+};
+
+export type OrderEntryOperationStatus = {
+  entityId: Scalars['String']['output'];
+  message: Maybe<Scalars['String']['output']>;
+  missingItems: Maybe<Array<OrderEntryMissingItem>>;
+  status: Scalars['String']['output'];
+};
+
+/** Result returned after uploading a file to the Order Entry Service. */
+export type OrderEntryUploadResult = {
+  /**
+   * S3 object key that identifies the uploaded file.
+   * Must be passed to the subsequent operation mutation.
+   */
+  objectKey: Scalars['String']['output'];
+};
+
+export type OrderFormCartItem = {
+  availability: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  imageUrl: Maybe<Scalars['String']['output']>;
+  listPrice: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  quantity: Scalars['Int']['output'];
+  seller: Scalars['String']['output'];
+  unitMultiplier: Maybe<Scalars['Float']['output']>;
 };
 
 /** Newsletter information. */
@@ -834,6 +913,10 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
+  /** Returns the status of an Order Entry Service operation by its ID. */
+  orderEntryOperation: Maybe<OrderEntryOperationStatus>;
+  /** Returns the items in an orderForm by its ID. */
+  orderFormItems: Array<OrderFormCartItem>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
@@ -887,6 +970,16 @@ export type QueryListUserOrdersArgs = {
   perPage: InputMaybe<Scalars['Int']['input']>;
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryOrderEntryOperationArgs = {
+  operationId: Scalars['String']['input'];
+};
+
+
+export type QueryOrderFormItemsArgs = {
+  orderFormId: Scalars['String']['input'];
 };
 
 
@@ -2613,6 +2706,34 @@ export type SubscribeToNewsletterMutationVariables = Exact<{
 
 export type SubscribeToNewsletterMutation = { subscribeToNewsletter: { id: string } | null };
 
+export type StartOrderEntryOperationMutationMutationVariables = Exact<{
+  data: IOrderEntryOperation;
+}>;
+
+
+export type StartOrderEntryOperationMutationMutation = { startOrderEntryOperation: { operationId: string } | null };
+
+export type OrderEntryOperationQueryQueryVariables = Exact<{
+  operationId: Scalars['String']['input'];
+}>;
+
+
+export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
+
+export type UploadFileToOrderEntryMutationMutationVariables = Exact<{
+  data: IOrderEntryUpload;
+}>;
+
+
+export type UploadFileToOrderEntryMutationMutation = { uploadFileToOrderEntry: { objectKey: string } | null };
+
+export type OrderFormItemsQueryQueryVariables = Exact<{
+  orderFormId: Scalars['String']['input'];
+}>;
+
+
+export type OrderFormItemsQueryQuery = { orderFormItems: Array<{ id: string, name: string, price: number, listPrice: number, quantity: number, imageUrl: string | null, availability: string, seller: string, unitMultiplier: number | null }> };
+
 export type ClientProductCountQueryQueryVariables = Exact<{
   term: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -2626,13 +2747,6 @@ export type ClientAllVariantProductsQueryQueryVariables = Exact<{
 
 
 export type ClientAllVariantProductsQueryQuery = { product: { id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ sku: string, name: string, image: Array<{ url: string, alternateName: string }>, offers: { highPrice: number, lowPrice: number, lowPriceWithTaxes: number, offerCount: number, priceCurrency: string, offers: Array<{ listPrice: number, listPriceWithTaxes: number, sellingPrice: number, priceCurrency: string, price: number, priceWithTaxes: number, priceValidUntil: string, itemCondition: string, availability: string, quantity: number }> }, additionalProperty: Array<{ propertyID: string, value: any, name: string, valueReference: any }> }> | null } | null } } };
-
-export type ClientProductQueryQueryVariables = Exact<{
-  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
-}>;
-
-
-export type ClientProductQueryQuery = { product: { sku: string, name: string, gtin: string, description: string, unitMultiplier: number | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
 
 export type ClientManyProductsQueryWithSearchIdQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -2661,6 +2775,13 @@ export type ClientProductGalleryQueryQuery = { redirect: { url: string | null } 
     >, metadata: { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null } | null } };
 
 export type SearchEvent_MetadataFragment = { isTermMisspelled: boolean, logicalOperator: string, fuzzy: string | null };
+
+export type ClientProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
+}>;
+
+
+export type ClientProductQueryQuery = { product: { sku: string, name: string, gtin: string, description: string, unitMultiplier: number | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
 
 export type ClientManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -3258,11 +3379,15 @@ export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser",
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"32c15f8888ca34f223def7972b7f19090808435a"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
+export const StartOrderEntryOperationMutationDocument = {"__meta__":{"operationName":"StartOrderEntryOperationMutation","operationHash":"78c50fbf9b85d03dbeac9b05b06405217f2ec440"}} as unknown as TypedDocumentString<StartOrderEntryOperationMutationMutation, StartOrderEntryOperationMutationMutationVariables>;
+export const OrderEntryOperationQueryDocument = {"__meta__":{"operationName":"OrderEntryOperationQuery","operationHash":"93fc6c5c593dd4c82686fdf063fe419760297e54"}} as unknown as TypedDocumentString<OrderEntryOperationQueryQuery, OrderEntryOperationQueryQueryVariables>;
+export const UploadFileToOrderEntryMutationDocument = {"__meta__":{"operationName":"UploadFileToOrderEntryMutation","operationHash":"fdf0f46d99da60e78dc0095928f2262440fd7c15"}} as unknown as TypedDocumentString<UploadFileToOrderEntryMutationMutation, UploadFileToOrderEntryMutationMutationVariables>;
+export const OrderFormItemsQueryDocument = {"__meta__":{"operationName":"OrderFormItemsQuery","operationHash":"f79941638f18e16cce62e936fcf055b1f995d7cf"}} as unknown as TypedDocumentString<OrderFormItemsQueryQuery, OrderFormItemsQueryQueryVariables>;
 export const ClientProductCountQueryDocument = {"__meta__":{"operationName":"ClientProductCountQuery","operationHash":"dc912e7272e3d9f5ced206837df87f544d39d0a5"}} as unknown as TypedDocumentString<ClientProductCountQueryQuery, ClientProductCountQueryQueryVariables>;
 export const ClientAllVariantProductsQueryDocument = {"__meta__":{"operationName":"ClientAllVariantProductsQuery","operationHash":"4039e05f01a2fe449e20e8b82170d0ba94b1fbe9"}} as unknown as TypedDocumentString<ClientAllVariantProductsQueryQuery, ClientAllVariantProductsQueryQueryVariables>;
-export const ClientProductQueryDocument = {"__meta__":{"operationName":"ClientProductQuery","operationHash":"3d65d8f0d279557542be9a361cb3ceb2008bad45"}} as unknown as TypedDocumentString<ClientProductQueryQuery, ClientProductQueryQueryVariables>;
 export const ClientManyProductsQueryWithSearchIdDocument = {"__meta__":{"operationName":"ClientManyProductsQueryWithSearchId","operationHash":"23be1e1fcaf0bd2719a9324272c891c922045180"}} as unknown as TypedDocumentString<ClientManyProductsQueryWithSearchIdQuery, ClientManyProductsQueryWithSearchIdQueryVariables>;
 export const ClientProductGalleryQueryDocument = {"__meta__":{"operationName":"ClientProductGalleryQuery","operationHash":"bfc40da32b60f9404a4adb96b0856e3fbb04b076"}} as unknown as TypedDocumentString<ClientProductGalleryQueryQuery, ClientProductGalleryQueryQueryVariables>;
+export const ClientProductQueryDocument = {"__meta__":{"operationName":"ClientProductQuery","operationHash":"3d65d8f0d279557542be9a361cb3ceb2008bad45"}} as unknown as TypedDocumentString<ClientProductQueryQuery, ClientProductQueryQueryVariables>;
 export const ClientManyProductsQueryDocument = {"__meta__":{"operationName":"ClientManyProductsQuery","operationHash":"e49027bc29aa10cbf7bbb0ed62239af8de1653f0"}} as unknown as TypedDocumentString<ClientManyProductsQueryQuery, ClientManyProductsQueryQueryVariables>;
 export const ClientManyProductsSelectedQueryDocument = {"__meta__":{"operationName":"ClientManyProductsSelectedQuery","operationHash":"b668777678c137b8c7004297df4d8b8f2b29ee06"}} as unknown as TypedDocumentString<ClientManyProductsSelectedQueryQuery, ClientManyProductsSelectedQueryQueryVariables>;
 export const ClientProfileQueryDocument = {"__meta__":{"operationName":"ClientProfileQuery","operationHash":"34ea14c0d4a57ddf9bc11e4be0cd2b5a6506d3d4"}} as unknown as TypedDocumentString<ClientProfileQueryQuery, ClientProfileQueryQueryVariables>;

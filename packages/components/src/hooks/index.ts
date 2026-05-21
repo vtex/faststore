@@ -4,12 +4,6 @@ export {
   useUI,
   type Toast as ToastProps,
 } from './UIProvider'
-export { useCSVParser } from './useCSVParser'
-export type {
-  CSVData,
-  CSVParserError,
-  CSVParserOptions,
-} from './useCSVParser'
 export { useFadeEffect } from './useFadeEffect'
 export { FileRejectionCode, useFileUpload } from './useFileUpload'
 export { useOnClickOutside } from './useOnClickOutside'

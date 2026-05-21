@@ -108,6 +108,7 @@ export interface NavbarProps {
         removeButtonAriaLabel?: string
         searchButtonLabel?: string
         uploadingStatusText?: string
+        processingStatusText?: string
         completedStatusTemplate?: string
         acceptedFileTypes?: string
         errorMessages?: Partial<

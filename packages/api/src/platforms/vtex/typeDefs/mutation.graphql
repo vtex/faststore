@@ -21,4 +21,17 @@ type Mutation {
   processOrderAuthorization(
     data: IProcessOrderAuthorization!
   ): ProcessOrderAuthorizationResponse
+  """
+  Uploads a file to the Order Entry Service and returns the S3 object key.
+  The file must be Base64-encoded and passed via the `data` input.
+  The returned `objectKey` is required to start an order entry operation.
+  """
+  uploadFileToOrderEntry(data: IOrderEntryUpload!): OrderEntryUploadResult @auth
+  """
+  Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
+  Returns an operationId to poll for the operation status.
+  """
+  startOrderEntryOperation(
+    data: IOrderEntryOperation!
+  ): OrderEntryOperationResult @auth
 }
