@@ -189,6 +189,7 @@ function ProductGrid({
                       height: 150,
                       sizes: '30vw',
                       loading: idx < 4 ? 'eager' : 'lazy',
+                      priority: idx === 0 && page === firstPage,
                     }}
                     {...ProductCard.props}
                     bordered={bordered ?? ProductCard.props.bordered}
