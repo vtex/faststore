@@ -63,9 +63,9 @@ export const redactCloudFrontViewerLocationHeaders = (
   }
 
   const result: Record<string, string> = {}
-  new Headers(headers).forEach((value, key) => {
-    // Headers normalizes keys to lowercase, so we can compare directly.
+  // Headers is iterable as [key, value] pairs and normalizes keys to lowercase.
+  for (const [key, value] of new Headers(headers)) {
     result[key] = SENSITIVE_HEADER_NAMES_LOWER.has(key) ? '[REDACTED]' : value
-  })
+  }
   return result
 }
