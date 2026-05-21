@@ -1,5 +1,6 @@
 import type { GraphqlContext } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
+import { getCloudFrontViewerLocationHeaders } from '../../utils/cloudfrontHeaders'
 import { getWithCookie } from '../../utils/cookies'
 import type {
   FuzzyFacet,
@@ -113,6 +114,7 @@ export const IntelligentSearch = (
   const headers: HeadersInit = withCookie({
     'content-type': 'application/json',
     'X-FORWARDED-HOST': forwardedHost,
+    ...getCloudFrontViewerLocationHeaders(ctx.headers),
   })
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
