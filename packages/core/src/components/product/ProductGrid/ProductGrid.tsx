@@ -120,6 +120,7 @@ function ProductGrid({
                       height: 150,
                       sizes: '30vw',
                       loading: 'eager',
+                      fetchPriority: idx === 0 ? 'high' : undefined,
                     }}
                     {...ProductCard.props}
                     bordered={bordered ?? ProductCard.props.bordered}
@@ -189,6 +190,8 @@ function ProductGrid({
                       height: 150,
                       sizes: '30vw',
                       loading: idx < 4 ? 'eager' : 'lazy',
+                      fetchPriority:
+                        idx === 0 && page === firstPage ? 'high' : undefined,
                     }}
                     {...ProductCard.props}
                     bordered={bordered ?? ProductCard.props.bordered}
