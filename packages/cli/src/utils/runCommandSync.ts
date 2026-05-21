@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import type { ChildProcess, ExecException } from 'child_process'
-import { execSync } from 'child_process'
+import type { ChildProcess, ExecException } from 'node:child_process'
+import { execSync } from 'node:child_process'
 import { logger } from './logger'
 
 type ExecSyncError = (ExecException & ChildProcess) | undefined

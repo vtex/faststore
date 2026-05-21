@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('node:path')
 const storeConfig = require('./discovery.config')
 const { buildI18nDomains } = require('./scripts/i18n')
 

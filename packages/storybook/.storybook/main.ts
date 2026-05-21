@@ -1,7 +1,7 @@
 import type { StorybookConfig } from '@storybook/nextjs'
 
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /**
  * This function is used to resolve the absolute path of a package.
