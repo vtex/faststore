@@ -97,7 +97,10 @@ export default function ProductListing({
       section.name === 'ProductGallery'
         ? {
             ...section,
-            data: { ...section.data, skipLazyLoadingSection: true },
+            data: {
+              ...(section.data as Record<string, unknown>),
+              skipLazyLoadingSection: true,
+            },
           }
         : section
     ) ?? sections
