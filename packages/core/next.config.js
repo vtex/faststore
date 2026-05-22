@@ -87,15 +87,16 @@ const nextConfig = {
     }
 
     // When optimizedFonts is enabled, redirect src/fonts/inter (the Babel-safe
-    // stub) to src/fonts/inter.optimized.ts (the real next/font/google module).
-    // The stub is the default so that stores using Babel are never affected.
-    // inter.optimized.ts is only pulled into the module graph here, when the
-    // flag is explicitly set to true, at which point SWC is required.
+    // stub) to fonts/inter.ts (the real next/font/google module, intentionally
+    // outside src/ so no TypeScript scan or Next.js scanner ever touches it
+    // unless this plugin explicitly adds it to the webpack module graph).
+    // inter.ts in fonts/ is only compiled when optimizedFonts === true, at
+    // which point SWC is required and expected by the store.
     if (storeConfig.experimental?.optimizedFonts === true) {
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(
           /src[/\\]fonts[/\\]inter$/,
-          path.resolve(__dirname, 'src/fonts/inter.optimized.ts')
+          path.resolve(__dirname, 'fonts/inter.ts')
         )
       )
     }

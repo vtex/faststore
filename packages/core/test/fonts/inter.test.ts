@@ -20,16 +20,16 @@ describe('inter.ts (default stub — Babel-safe)', () => {
   })
 })
 
-describe('inter.optimized.ts (SWC-only, loaded when optimizedFonts: true)', () => {
+describe('fonts/inter.ts (SWC-only, outside src/ — loaded when optimizedFonts: true)', () => {
   it('exports an inter font object with the expected variable', async () => {
-    const { inter } = await import('src/fonts/inter.optimized')
+    const { inter } = await import('../../fonts/inter')
 
     expect(inter).toBeDefined()
     expect(inter.variable).toBe('--font-inter')
   })
 
   it('configures only latin and latin-ext subsets', async () => {
-    await import('src/fonts/inter.optimized')
+    await import('../../fonts/inter')
 
     expect(mockInter).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -39,7 +39,7 @@ describe('inter.optimized.ts (SWC-only, loaded when optimizedFonts: true)', () =
   })
 
   it('configures display: swap for performance', async () => {
-    await import('src/fonts/inter.optimized')
+    await import('../../fonts/inter')
 
     expect(mockInter).toHaveBeenCalledWith(
       expect.objectContaining({
