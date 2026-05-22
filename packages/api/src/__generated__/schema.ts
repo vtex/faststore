@@ -764,10 +764,6 @@ export type OrderEntryOperationStatus = {
 /** Result returned after uploading a file to the Order Entry Service. */
 export type OrderEntryUploadResult = {
   __typename?: 'OrderEntryUploadResult';
-  /**
-   * S3 object key that identifies the uploaded file.
-   * Must be passed to the subsequent operation mutation.
-   */
   objectKey: Scalars['String']['output'];
 };
 

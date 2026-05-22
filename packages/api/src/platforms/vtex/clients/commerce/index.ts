@@ -61,7 +61,6 @@ export const VtexCommerce = (
   ctx: GraphqlContext
 ) => {
   const base = `https://${account}.${environment}.com.br`
-  const oesBase = `https://${account}.vtexcommercebeta.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
   const withAutCookie = getWithAutCookie(ctx)
@@ -840,7 +839,7 @@ export const VtexCommerce = (
         body.set(footerBytes, offset)
 
         return fetchAPI(
-          `${oesBase}/api/order-entry/upload?an=${account}`,
+          `${base}/api/order-entry/upload?an=${account}`,
           {
             method: 'POST',
             headers: {
@@ -871,7 +870,7 @@ export const VtexCommerce = (
         })
 
         return fetchAPI(
-          `${oesBase}/api/order-entry/operation?an=${account}`,
+          `${base}/api/order-entry/operation?an=${account}`,
           {
             method: 'POST',
             headers: {
@@ -901,7 +900,7 @@ export const VtexCommerce = (
         const autHeaders = withAutCookie(forwardedHost, account)
 
         return fetchAPI(
-          `${oesBase}/api/order-entry/operation/${operationId}?an=${account}`,
+          `${base}/api/order-entry/operation/${operationId}?an=${account}`,
           {
             method: 'GET',
             headers: autHeaders,

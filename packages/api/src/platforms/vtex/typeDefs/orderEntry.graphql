@@ -22,10 +22,6 @@ input IOrderEntryUpload {
 Result returned after uploading a file to the Order Entry Service.
 """
 type OrderEntryUploadResult {
-  """
-  S3 object key that identifies the uploaded file.
-  Must be passed to the subsequent operation mutation.
-  """
   objectKey: String!
 }
 
