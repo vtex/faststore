@@ -86,17 +86,16 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
-    // When optimizedFonts is disabled (default), redirect src/fonts/inter to a
-    // null stub so that inter.ts (which imports next/font/google and requires SWC)
-    // is never compiled.  A plain resolve.alias won't work here because Next.js
-    // resolves tsconfig paths ("src/*") to absolute paths before webpack's alias
-    // lookup runs.  NormalModuleReplacementPlugin matches the raw request string,
-    // so it fires before path resolution and correctly intercepts the require.
-    if (storeConfig.experimental?.optimizedFonts !== true) {
+    // When optimizedFonts is enabled, redirect src/fonts/inter (the Babel-safe
+    // stub) to src/fonts/inter.optimized.ts (the real next/font/google module).
+    // The stub is the default so that stores using Babel are never affected.
+    // inter.optimized.ts is only pulled into the module graph here, when the
+    // flag is explicitly set to true, at which point SWC is required.
+    if (storeConfig.experimental?.optimizedFonts === true) {
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(
-          /src\/fonts\/inter$/,
-          path.resolve(__dirname, 'src/fonts/inter.stub.ts')
+          /src[/\\]fonts[/\\]inter$/,
+          path.resolve(__dirname, 'src/fonts/inter.optimized.ts')
         )
       )
     }
