@@ -35,7 +35,7 @@
   "sideEffects": false,
   "dependencies": {
     "@antfu/ni": "catalog:",
-    "@builder.io/partytown": "^0.6.1",
+    "@qwik.dev/partytown": "^0.14.0",
     "@envelop/core": "catalog:",
     "@envelop/graphql-jit": "catalog:",
     "@envelop/parser-cache": "catalog:",
