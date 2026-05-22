@@ -67,7 +67,7 @@ const nextConfig = {
    * of the monorepo
    * */
   outputFileTracingRoot: getRootFolder(),
-  webpack: (config, { isServer, dev }) => {
+  webpack: (config, { isServer, dev, webpack }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
     config.module.rules
@@ -88,13 +88,16 @@ const nextConfig = {
 
     // When optimizedFonts is disabled (default), redirect src/fonts/inter to a
     // null stub so that inter.ts (which imports next/font/google and requires SWC)
-    // is never added to the webpack module graph.  Without this alias, webpack
-    // would statically follow the require() in _document.tsx and hand inter.ts
-    // to Babel, which would fail with "next/font requires SWC".
+    // is never compiled.  A plain resolve.alias won't work here because Next.js
+    // resolves tsconfig paths ("src/*") to absolute paths before webpack's alias
+    // lookup runs.  NormalModuleReplacementPlugin matches the raw request string,
+    // so it fires before path resolution and correctly intercepts the require.
     if (storeConfig.experimental?.optimizedFonts !== true) {
-      config.resolve.alias['src/fonts/inter'] = path.resolve(
-        __dirname,
-        'src/fonts/inter.stub.ts'
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /src\/fonts\/inter$/,
+          path.resolve(__dirname, 'src/fonts/inter.stub.ts')
+        )
       )
     }
 
