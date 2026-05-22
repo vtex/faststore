@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Added
+
+- `experimental.optimizedFonts` config flag. When enabled, FastStore self-hosts
+  the Inter font via `next/font/google`, eliminating the render-blocking request
+  to `fonts.googleapis.com` (~660ms FCP improvement on mobile).
+
+  To enable, add to your `discovery.config.js`:
+
+  ```js
+  experimental: {
+    optimizedFonts: true,
+  }
+  ```
+
+  When enabling, also remove any `<link rel="stylesheet" href="https://fonts.googleapis.com/...">` tag from your `customizations/src/fonts/WebFonts.tsx` to avoid duplicate font loads. If you use a font other than Inter, do not enable this flag — configure your own font in `WebFonts.tsx` instead.
+
+  This flag is **opt-in** and defaults to `false`. Existing stores that do not set it are completely unaffected.
+
 ## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
 
 ### Bug Fixes

@@ -203,6 +203,17 @@ module.exports = {
     scrollRestoration: false,
     /** Package names to transpile (e.g. ['@vtex/components']). Use a non-empty list to enable Next.js transpilation. */
     transpilePackages: [],
+    /**
+     * When true, FastStore self-hosts the Inter font via next/font/google,
+     * eliminating the render-blocking request to fonts.googleapis.com.
+     * Improves FCP by ~660ms on mobile.
+     *
+     * Default: false (no change to existing behavior).
+     *
+     * When enabling, remove any <link rel="stylesheet"> to Google Fonts
+     * from your customizations/src/fonts/WebFonts.tsx to avoid duplicate loads.
+     */
+    optimizedFonts: false,
   },
 
   // Text direction: 'ltr' (left-to-right) or 'rtl' (right-to-left)
