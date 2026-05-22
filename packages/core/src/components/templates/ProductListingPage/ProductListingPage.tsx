@@ -121,23 +121,17 @@ export default function ProductListingPage({
     )
   }
 
-  // Preload the above-fold LCP image so the browser fetches it at parse time,
-  // before JS hydration. Hero section (if present) is always the true LCP
-  // candidate on PLPs that include one. Fallback: first product image.
-  const heroSection = plpContentType.sections?.find((s) => s.name === 'Hero')
-  // Section.data is typed as `unknown` by @vtex/client-cms — cast it so we
-  // can safely access the Hero image src without TypeScript errors.
-  const heroData = heroSection?.data as { image?: { src?: string } } | undefined
+  // Preload the first product image so the browser fetches it at parse time,
+  // before JS hydration. PSI consistently identifies the first product grid
+  // item as the LCP element even when a Hero section is present — the hero
+  // renders at a smaller visual area than the first product card on mobile.
+  // Product images use sizes="30vw"; 256px covers 2× DPR at ~390px viewport.
   const rawLcpImageUrl: string | undefined =
-    heroData?.image?.src ??
     server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
-  // Hero images span the full viewport on mobile (~390px), 640 covers 2× DPR.
-  // Product images use sizes="30vw", so 256 is the appropriate step.
-  const lcpImageWidth = heroSection ? 640 : 256
   const lcpImageUrl = rawLcpImageUrl
     ? faststoreLoader({
         src: rawLcpImageUrl,
-        width: lcpImageWidth,
+        width: 256,
         quality: 75,
       })
     : undefined
