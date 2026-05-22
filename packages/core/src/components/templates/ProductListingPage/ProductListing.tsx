@@ -83,28 +83,6 @@ export default function ProductListing({
     globalSettings,
   } as PLPContext
 
-  // ProductGallery is the primary above-fold content on the PLP. By default,
-  // RenderSections wraps every section in a ViewportObserver (LazyLoadingSection),
-  // which initialises as `isVisible=false` on the server and only reveals its
-  // children after the IntersectionObserver fires client-side (~hydration time).
-  // For ProductGallery this means zero <img> tags appear in the SSR HTML, leaving
-  // the browser with nothing to fetch until React hydrates — the direct cause of
-  // the ~2 s resource-load-delay on the LCP metric. Setting skipLazyLoadingSection
-  // bypasses the ViewportObserver so Next.js SSG/ISR embeds the product <img>
-  // elements in the initial HTML and the browser can start fetching them at parse time.
-  const sectionsEager =
-    sections?.map((section) =>
-      section.name === 'ProductGallery'
-        ? {
-            ...section,
-            data: {
-              ...(section.data as Record<string, unknown>),
-              skipLazyLoadingSection: true,
-            },
-          }
-        : section
-    ) ?? sections
-
   return (
     <>
       {/*
@@ -121,7 +99,7 @@ export default function ProductListing({
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
           <RenderSections
-            sections={sectionsEager}
+            sections={sections}
             globalSections={globalSections}
             components={COMPONENTS}
           />
