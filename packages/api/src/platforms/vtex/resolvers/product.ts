@@ -198,4 +198,36 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
   deliveryPromiseBadges: ({ isVariantOf: { deliveryPromisesBadges } }) =>
     deliveryPromisesBadges,
+  otherLocales: async (root, _args, ctx) => {
+    const isLocalizationEnabled =
+      (ctx.discoveryConfig as any)?.localization?.enabled === true
+
+    if (!isLocalizationEnabled) return null
+
+    const productId = root.isVariantOf.productId
+    const itemId = root.itemId
+
+    if (!ctx.storage.productLanguagesCache) {
+      ctx.storage.productLanguagesCache = new Map()
+    }
+
+    let languages = ctx.storage.productLanguagesCache.get(productId)
+
+    if (!languages) {
+      try {
+        languages =
+          await ctx.clients.catalogMultilanguage.getProductLanguages(productId)
+        ctx.storage.productLanguagesCache.set(productId, languages)
+      } catch {
+        return null
+      }
+    }
+
+    return languages
+      .filter((e) => e.LinkId !== null)
+      .map((e) => ({
+        locale: e.Locale,
+        slug: `${e.LinkId}-${itemId}`,
+      }))
+  },
 }

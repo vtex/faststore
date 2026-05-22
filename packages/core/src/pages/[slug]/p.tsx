@@ -306,6 +306,11 @@ const query = gql(`
         productGroupID
       }
 
+      otherLocales {
+        locale
+        slug
+      }
+
       ...ProductDetailsFragment_product
     }
   }
