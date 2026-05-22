@@ -5,6 +5,7 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
@@ -19,6 +20,7 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
+import { faststoreLoader } from 'src/components/ui/Image/loader'
 import ProductListing from './ProductListing'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
@@ -119,6 +121,21 @@ export default function ProductListingPage({
     )
   }
 
+  // Preload the first product image so the browser fetches it at parse time,
+  // before JS hydration. PSI consistently identifies the first product grid
+  // item as the LCP element even when a Hero section is present — the hero
+  // renders at a smaller visual area than the first product card on mobile.
+  // Product images use sizes="30vw"; 256px covers 2× DPR at ~390px viewport.
+  const rawLcpImageUrl: string | undefined =
+    server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
+  const lcpImageUrl = rawLcpImageUrl
+    ? faststoreLoader({
+        src: rawLcpImageUrl,
+        width: 256,
+        quality: 75,
+      })
+    : undefined
+
   return (
     <SearchProvider
       onChange={applySearchState}
@@ -126,6 +143,16 @@ export default function ProductListingPage({
       shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
       {...searchParams}
     >
+      {lcpImageUrl && (
+        <Head>
+          <link
+            rel="preload"
+            as="image"
+            href={lcpImageUrl}
+            fetchPriority="high"
+          />
+        </Head>
+      )}
       {/* SEO */}
       <NextSeo
         title={title}
