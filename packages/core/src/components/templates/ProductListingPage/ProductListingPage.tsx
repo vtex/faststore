@@ -125,13 +125,18 @@ export default function ProductListingPage({
   // before JS hydration. PSI consistently identifies the first product grid
   // item as the LCP element even when a Hero section is present — the hero
   // renders at a smaller visual area than the first product card on mobile.
-  // Product images use sizes="30vw"; 256px covers 2× DPR at ~390px viewport.
+  //
+  // Width reasoning: next.config.js imageSizes=[34,68,154,320], deviceSizes=[360,412,...].
+  // Product cards use sizes="30vw". At Lighthouse mobile (412px viewport, DPR≈2):
+  //   30vw × 412 × 2 = 247px → browser picks 320 (first step ≥ 247 in the srcset).
+  // Using 320 here makes the preload URL exactly match the <img> srcset selection,
+  // so the browser can reuse the preloaded response instead of fetching a second URL.
   const rawLcpImageUrl: string | undefined =
     server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
   const lcpImageUrl = rawLcpImageUrl
     ? faststoreLoader({
         src: rawLcpImageUrl,
-        width: 256,
+        width: 320,
         quality: 75,
       })
     : undefined
