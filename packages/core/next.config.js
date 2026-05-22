@@ -86,6 +86,18 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
+    // When optimizedFonts is disabled (default), redirect src/fonts/inter to a
+    // null stub so that inter.ts (which imports next/font/google and requires SWC)
+    // is never added to the webpack module graph.  Without this alias, webpack
+    // would statically follow the require() in _document.tsx and hand inter.ts
+    // to Babel, which would fail with "next/font requires SWC".
+    if (storeConfig.experimental?.optimizedFonts !== true) {
+      config.resolve.alias['src/fonts/inter'] = path.resolve(
+        __dirname,
+        'src/fonts/inter.stub.ts'
+      )
+    }
+
     return config
   },
   redirects: storeConfig.redirects,
