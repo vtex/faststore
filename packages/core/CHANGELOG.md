@@ -8,8 +8,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Added
 
 - `experimental.optimizedFonts` config flag. When enabled, FastStore self-hosts
-  the Inter font via `next/font/google`, eliminating the render-blocking request
-  to `fonts.googleapis.com` (~660ms FCP improvement on mobile).
+  the Inter font via the `@fontsource/inter` package, eliminating the
+  render-blocking request to `fonts.googleapis.com` (~660ms FCP improvement on
+  mobile).
 
   To enable, add to your `discovery.config.js`:
 
@@ -22,6 +23,25 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   When enabling, also remove any `<link rel="stylesheet" href="https://fonts.googleapis.com/...">` tag from your `customizations/src/fonts/WebFonts.tsx` to avoid duplicate font loads. If you use a font other than Inter, do not enable this flag — configure your own font in `WebFonts.tsx` instead.
 
   This flag is **opt-in** and defaults to `false`. Existing stores that do not set it are completely unaffected.
+
+- `@fontsource/inter` runtime dependency in `@faststore/core`.
+
+  **Justification (per [AGENTS.md > Dependency Discipline](../../AGENTS.md#dependency-discipline)):**
+  - **Need:** powers the new opt-in `experimental.optimizedFonts` self-hosting
+    path. The first implementation attempt used `next/font/google`, which fails
+    at build time for stores that ship a custom `.babelrc.js` (Next.js disables
+    SWC and `next/font` requires SWC). `@fontsource/inter` is compiler-agnostic
+    plain CSS + woff2, so it works with both Babel and SWC.
+  - **Evaluation:** MIT-licensed, actively maintained (5.x, regular releases),
+    no critical CVEs, ships its own `index.css` exports declaration. Bundles
+    the same Google-Fonts woff2 files as `next/font/google` would have shipped.
+  - **Bundle impact:** zero when the flag is off — webpack's
+    `NormalModuleReplacementPlugin` redirects the import target so the package
+    is never added to the module graph for stores that haven't opted in.
+  - **Bucket:** `dependencies` (runtime, only used when the flag is on, but
+    must be resolvable when stores enable the flag).
+  - **Pinning:** declared locally in `packages/core/package.json` because no
+    other package consumes it. Caret-pinned to `^5.2.6`.
 
 ## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
 

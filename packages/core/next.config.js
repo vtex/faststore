@@ -86,12 +86,18 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
-    // When optimizedFonts is enabled, redirect src/fonts/inter (the Babel-safe
-    // stub) to fonts/inter.ts (the real next/font/google module, intentionally
-    // outside src/ so no TypeScript scan or Next.js scanner ever touches it
-    // unless this plugin explicitly adds it to the webpack module graph).
-    // inter.ts in fonts/ is only compiled when optimizedFonts === true, at
-    // which point SWC is required and expected by the store.
+    // When optimizedFonts is enabled, redirect src/fonts/inter (an empty stub)
+    // to fonts/inter.ts (located outside src/), which side-effect-imports the
+    // @fontsource/inter CSS files and ships the self-hosted .woff2 assets.
+    //
+    // Why a webpack alias instead of a runtime conditional require()?
+    //   - Without this plugin, webpack would either bundle the CSS unconditionally
+    //     (defeating the no-cost-when-off acceptance criterion) or never bundle
+    //     it (defeating opt-in). The alias makes the choice purely build-time.
+    //   - The previous implementation used next/font/google here. That caused
+    //     hard build failures for stores with a custom .babelrc.js, because
+    //     next/font requires SWC. The CSS-import approach used now is
+    //     compiler-agnostic and works with both Babel and SWC.
     if (storeConfig.experimental?.optimizedFonts === true) {
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(

@@ -21,6 +21,15 @@ import SEO from 'next-seo.config'
 // FastStore UI's base styles
 import '../styles/main.scss'
 
+// Opt-in self-hosted Inter font.
+// Resolves to an empty stub by default (no .woff2 files bundled).
+// When experimental.optimizedFonts is true in discovery.config,
+// next.config.js redirects this import to fonts/inter.ts (outside src/),
+// which side-effect-imports the @fontsource/inter CSS files and ships the
+// .woff2 assets. The Next.js global-CSS rule requires this import to live
+// in _app.tsx; it is intentionally placed here for that reason.
+import 'src/fonts/inter'
+
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useLocalizationConfig } from 'src/sdk/localization/useLocalizationConfig'
 

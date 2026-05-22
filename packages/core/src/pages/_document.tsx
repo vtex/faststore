@@ -4,13 +4,6 @@ import storeConfig from '../../discovery.config'
 import { GTM_DEBUG_QUERY_STRING } from 'src/components/ThirdPartyScripts/GoogleTagManager'
 import { WebFonts } from 'src/customizations/src/GlobalOverrides'
 
-// Opt-in self-hosted Inter font.
-// When optimizedFonts is false (default), the inter module is never imported,
-// so next/font/google does not bundle any .woff2 assets for this store.
-const optimizedFonts = storeConfig.experimental?.optimizedFonts === true
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const inter = optimizedFonts ? require('src/fonts/inter').inter : null
-
 function Document() {
   const direction = storeConfig.direction || 'ltr'
   const gtmContainerId = storeConfig.analytics?.gtmContainerId
@@ -19,8 +12,6 @@ function Document() {
   const enableScriptsLogs = storeConfig.experimental?.enableScriptsLogs === true
   const forwards = []
   if (includeVTEX) forwards.push('sendrc')
-
-  const bodyClassName = inter ? `theme ${inter.variable}` : 'theme'
 
   return (
     <Html dir={direction}>
@@ -69,7 +60,7 @@ function Document() {
           }}
         />
       </Head>
-      <body className={bodyClassName}>
+      <body className="theme">
         <Main />
         <NextScript />
       </body>

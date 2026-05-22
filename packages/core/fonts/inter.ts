@@ -1,24 +1,19 @@
-import { Inter } from 'next/font/google'
-
-/**
- * Inter font loaded via next/font/google for automatic self-hosting.
- * This eliminates the render-blocking external request to fonts.googleapis.com
- * and fonts.gstatic.com when `experimental.optimizedFonts` is enabled in
- * discovery.config.
- *
- * Only `latin` and `latin-ext` subsets are bundled by default. Stores that
- * need additional scripts (cyrillic, greek, vietnamese, etc) should override
- * this module via customizations/src/fonts/inter.ts.
- *
- * The font is applied via CSS variable --font-inter on <body> in _document.tsx,
- * but only when the experimental flag is on.
- *
- * NOTE: This file requires SWC (not Babel) to compile. It is only imported
- * when experimental.optimizedFonts is true in discovery.config.
- */
-export const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600', '700', '900'],
-  display: 'swap',
-  variable: '--font-inter',
-})
+// Real Inter font self-hosting via @fontsource/inter.
+//
+// This file lives outside src/ on purpose, so it never enters the TypeScript
+// scan or the webpack module graph unless next.config.js explicitly redirects
+// src/fonts/inter to here (which only happens when experimental.optimizedFonts
+// is true in discovery.config).
+//
+// Each weight CSS file from @fontsource/inter ships @font-face declarations
+// for every supported subset (latin, latin-ext, cyrillic, greek, vietnamese)
+// gated by unicode-range, so browsers only download the .woff2 files they
+// actually need for the characters on the page.
+//
+// Because these are plain CSS imports (not next/font), they work with both
+// Babel and SWC and never trigger the next/font/google compiler requirement.
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/inter/700.css'
+import '@fontsource/inter/900.css'

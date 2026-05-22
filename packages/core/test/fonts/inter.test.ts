@@ -1,50 +1,21 @@
 import { describe, expect, it, vi } from 'vitest'
 
-const mockInter = vi.fn()
+vi.mock('@fontsource/inter/400.css', () => ({}))
+vi.mock('@fontsource/inter/500.css', () => ({}))
+vi.mock('@fontsource/inter/600.css', () => ({}))
+vi.mock('@fontsource/inter/700.css', () => ({}))
+vi.mock('@fontsource/inter/900.css', () => ({}))
 
-vi.mock('next/font/google', () => ({
-  Inter: (options: Record<string, unknown>) => {
-    mockInter(options)
-    return {
-      className: 'inter-class',
-      variable: '--font-inter',
-      style: { fontFamily: 'Inter' },
-    }
-  },
-}))
-
-describe('inter.ts (default stub — Babel-safe)', () => {
-  it('exports null so builds with Babel never load next/font/google', async () => {
-    const { inter } = await import('src/fonts/inter')
-    expect(inter).toBeNull()
+describe('src/fonts/inter.ts (default Babel-safe stub)', () => {
+  it('is an empty side-effect-free module so no CSS is bundled when optimizedFonts is off', async () => {
+    const mod = await import('src/fonts/inter')
+    expect(Object.keys(mod)).toEqual([])
   })
 })
 
-describe('fonts/inter.ts (SWC-only, outside src/ — loaded when optimizedFonts: true)', () => {
-  it('exports an inter font object with the expected variable', async () => {
-    const { inter } = await import('../../fonts/inter')
-
-    expect(inter).toBeDefined()
-    expect(inter.variable).toBe('--font-inter')
-  })
-
-  it('configures only latin and latin-ext subsets', async () => {
-    await import('../../fonts/inter')
-
-    expect(mockInter).toHaveBeenCalledWith(
-      expect.objectContaining({
-        subsets: ['latin', 'latin-ext'],
-      })
-    )
-  })
-
-  it('configures display: swap for performance', async () => {
-    await import('../../fonts/inter')
-
-    expect(mockInter).toHaveBeenCalledWith(
-      expect.objectContaining({
-        display: 'swap',
-      })
-    )
+describe('fonts/inter.ts (real, loaded only when optimizedFonts: true)', () => {
+  it('imports the @fontsource/inter weight files for self-hosting', async () => {
+    const mod = await import('../../fonts/inter')
+    expect(Object.keys(mod)).toEqual([])
   })
 })
