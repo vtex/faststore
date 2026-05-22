@@ -68,7 +68,7 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search },
+      clients: { commerce, search, catalogMultilanguage },
     } = ctx
 
     try {
@@ -85,13 +85,48 @@ export const Query = {
        *
        * In some cases, the slug has a valid skuId for a different
        * product. This condition makes sure that the fetched sku
-       * is the one we actually asked for
+       * is the one we actually asked for.
+       *
+       * When localization is enabled, the slug prefix may be a localized
+       * LinkId that differs from the IS linkText (always in the default locale).
+       * In that case we validate against the Catalog Multilanguage API before
+       * rejecting the slug.
        * */
       if (
         slug &&
         sku.isVariantOf.linkText &&
         !slug.startsWith(sku.isVariantOf.linkText)
       ) {
+        const isLocalizationEnabled =
+          (ctx.discoveryConfig as any)?.localization?.enabled === true
+        if (
+          isLocalizationEnabled &&
+          locale &&
+          isValidSkuId(slug.split('-').pop() ?? '')
+        ) {
+          const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
+          const productGroupID = sku.isVariantOf.productId
+          try {
+            // Initialize cache if needed
+            if (!ctx.storage.productLanguagesCache) {
+              ctx.storage.productLanguagesCache = new Map()
+            }
+            let languages =
+              ctx.storage.productLanguagesCache.get(productGroupID)
+            if (!languages) {
+              languages =
+                await catalogMultilanguage.getProductLanguages(productGroupID)
+              ctx.storage.productLanguagesCache.set(productGroupID, languages)
+            }
+            const localeEntry = languages.find((e) => e.Locale === locale)
+            if (localeEntry?.LinkId === slugPrefix) {
+              return sku
+            }
+          } catch {
+            // Catalog Multilanguage API unavailable — fall through to pagetype
+          }
+        }
+
         throw new Error(
           `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
         )
