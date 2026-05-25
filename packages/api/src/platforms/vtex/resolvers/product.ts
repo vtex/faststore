@@ -223,11 +223,25 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
       }
     }
 
-    return languages
+    const entries = languages
       .filter((e) => e.LinkId !== null)
       .map((e) => ({
         locale: e.Locale,
         slug: `${e.LinkId}-${itemId}`,
       }))
+
+    // The Catalog Multilanguage API does not include the default locale.
+    // Add it using the IS linkText, which is always in the default locale.
+    const defaultLocale = (ctx.discoveryConfig as any)?.localization
+      ?.defaultLocale as string | undefined
+
+    if (defaultLocale && !entries.find((e) => e.locale === defaultLocale)) {
+      entries.push({
+        locale: defaultLocale,
+        slug: `${root.isVariantOf.linkText}-${itemId}`,
+      })
+    }
+
+    return entries
   },
 }
