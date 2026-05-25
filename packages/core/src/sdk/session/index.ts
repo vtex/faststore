@@ -17,9 +17,9 @@ import {
 } from '../account/refreshToken'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { getSettings } from '../localization/settings'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
+import { getInitialSession, installLocaleCorrector } from './initialSession'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
 const isReloadAfterLogoutPending = (): boolean => {
@@ -136,24 +136,6 @@ export const validateSession = async (session: Session) => {
     session = refreshed
   }
 
-  // if (storeConfig.localization?.enabled) {
-  //   const settings = getSettings()
-  //   const newChanel = JSON.stringify({
-  //     ...(JSON.parse(session.channel ?? '{}') ?? {}),
-  //     salesChannel: settings.salesChannel,
-  //   })
-
-  //   if (
-  //     newChanel !== session.channel ||
-  //     settings.locale !== session.locale ||
-  //     deepEqual(settings.currency, session.currency) === false
-  //   ) {
-  //     session.locale = settings.locale
-  //     session.currency = settings.currency
-  //     session.channel = newChanel
-  //   }
-  // }
-
   // If deliveryPromise is enabled and there is no postalCode in the session
   if (
     storeConfig.deliveryPromise?.enabled &&
@@ -212,84 +194,11 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
-/**
- * Computes the initial session value by merging the URL-derived locale,
- * currency, and sales channel into the default session config.
- *
- * Without this, the session store initializes with the default locale from
- * discovery.config.  The persisted middleware then hydrates from IDB (or
- * falls back to readInitial()) and triggers validateSession with that
- * default/stale locale.  Only later, in a useEffect, does
- * useLocalizationConfig detect the URL locale and correct the session —
- * causing a second, redundant pair of validateSession + validateCart calls.
- *
- * By seeding the initial value with the URL locale we ensure:
- * 1. readInitial() already contains the correct locale (fixes first-visit).
- * 2. The correction subscriber below can fix IDB payloads that carry an
- *    outdated locale without an extra round-trip.
- */
-function getInitialSession(): Session {
-  if (!storeConfig.localization?.enabled || typeof window === 'undefined') {
-    return storeConfig.session
-  }
-
-  try {
-    const settings = getSettings()
-    const channel = JSON.parse(storeConfig.session.channel ?? '{}') ?? {}
-    channel.salesChannel = settings.salesChannel
-
-    return {
-      ...storeConfig.session,
-      locale: settings.locale,
-      currency: settings.currency,
-      channel: JSON.stringify(channel),
-    }
-  } catch {
-    return storeConfig.session
-  }
-}
-
 const urlAwareInitialSession = getInitialSession()
 const defaultStore = createSessionStore(urlAwareInitialSession, onValidate)
 
-/**
- * One-time subscriber that corrects the locale when the persisted middleware
- * hydrates a session from IDB whose locale/currency/channel differ from
- * the current URL binding.
- *
- * Because this subscriber is registered after the optimistic middleware's
- * subscriber, it fires within the same synchronous store.set() call.
- * Calling defaultStore.set() here re-enters the base store's set(), which
- * cancels the previously-enqueued optimistic handler (wrong locale) and
- * enqueues a new one (correct locale) — resulting in a single API call.
- */
 if (storeConfig.localization?.enabled && typeof window !== 'undefined') {
-  let corrected = false
-
-  defaultStore.subscribe((session: Session) => {
-    if (corrected) return
-    corrected = true
-
-    if (
-      session.locale === urlAwareInitialSession.locale &&
-      deepEqual(session.currency, urlAwareInitialSession.currency) &&
-      session.channel === urlAwareInitialSession.channel
-    ) {
-      return
-    }
-
-    const channel = JSON.parse(session.channel ?? '{}') ?? {}
-    channel.salesChannel = JSON.parse(
-      urlAwareInitialSession.channel ?? '{}'
-    )?.salesChannel
-
-    defaultStore.set({
-      ...session,
-      locale: urlAwareInitialSession.locale,
-      currency: urlAwareInitialSession.currency,
-      channel: JSON.stringify(channel),
-    })
-  })
+  installLocaleCorrector(defaultStore, urlAwareInitialSession)
 }
 
 export const sessionStore = {
