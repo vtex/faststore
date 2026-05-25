@@ -17,7 +17,6 @@ import {
 } from '../account/refreshToken'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { getSettings } from '../localization/useLocalizationConfig'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
@@ -134,24 +133,6 @@ export const validateSession = async (session: Session) => {
       return null
     }
     session = refreshed
-  }
-
-  if (storeConfig.localization?.enabled) {
-    const settings = getSettings()
-    const newChanel = JSON.stringify({
-      ...(JSON.parse(session.channel ?? '{}') ?? {}),
-      salesChannel: settings.salesChannel,
-    })
-
-    if (
-      newChanel !== session.channel ||
-      settings.locale !== session.locale ||
-      deepEqual(settings.currency, session.currency) === false
-    ) {
-      session.locale = settings.locale
-      session.currency = settings.currency
-      session.channel = newChanel
-    }
   }
 
   // If deliveryPromise is enabled and there is no postalCode in the session
