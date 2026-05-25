@@ -64,7 +64,7 @@
     "@lhci/cli": "^0.15.1",
     "@types/react": "catalog:",
     "@vtex/client-cms": "^0.2.16",
-    "@vtex/client-cp": "0.5.1",
+    "@vtex/client-cp": "0.6.0",
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
     "cookie": "catalog:",
