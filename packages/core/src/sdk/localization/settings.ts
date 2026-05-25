@@ -31,6 +31,14 @@ export function getSettingsFromConfig(
 export function getSettings(params?: {
   url?: string | URL
 }): LocalizationSettings {
+  if (!config.localization) {
+    const err = new Error(
+      'Missing localization configuration in faststore config file.'
+    )
+    console.error(err)
+    throw err
+  }
+
   let url = params?.url ?? ''
   const defaultConfig =
     config.localization.locales[config.localization.defaultLocale]
@@ -55,14 +63,6 @@ export function getSettings(params?: {
   }
 
   if (url instanceof URL) url = url.toString()
-
-  if (!config.localization) {
-    const Err = new Error(
-      'Missing localization configuration in faststore config file.'
-    )
-    console.error(Err)
-    throw Err
-  }
 
   const { config: regionConfig, binding } = matchURLBinding(url)
   if (!!regionConfig && !!binding) {

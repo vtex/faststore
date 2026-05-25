@@ -19,7 +19,16 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { installLocaleCorrector } from '../../../src/sdk/session/initialSession'
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+/**
+ * Yields to a macrotask boundary, which guarantees all currently-enqueued
+ * microtasks (the `optimistic` middleware's `queue.then(handler)` cascade)
+ * have fully drained — including chained continuations from `await` points
+ * inside async handlers. More deterministic than a fixed `sleep(N)` and more
+ * robust than `await Promise.resolve()` chains (which only drain a fixed
+ * number of microtask "generations").
+ */
+const flushMicrotasks = () =>
+  new Promise<void>((resolve) => setTimeout(resolve, 0))
 
 const URL_AWARE: Session = {
   locale: 'pt-BR',
@@ -65,7 +74,7 @@ describe('installLocaleCorrector', () => {
 
     // Simulates `persisted.hydrateFromIDB` resolving with a stale payload.
     store.set(STALE)
-    await sleep(50)
+    await flushMicrotasks()
 
     expect(onValidate).toHaveBeenCalledTimes(1)
     expect(onValidate.mock.calls[0][0].locale).toBe('pt-BR')
@@ -92,7 +101,7 @@ describe('installLocaleCorrector', () => {
       },
     }
     store.set(stalePayload)
-    await sleep(50)
+    await flushMicrotasks()
 
     const corrected = store.read()
     expect(corrected.locale).toBe('pt-BR')
@@ -114,7 +123,7 @@ describe('installLocaleCorrector', () => {
         '{"salesChannel":"2","regionId":"region-xyz","customKey":"keep-me"}',
     }
     store.set(stalePayload)
-    await sleep(50)
+    await flushMicrotasks()
 
     const channel = JSON.parse(store.read().channel ?? '{}')
     expect(channel.salesChannel).toBe('1')
@@ -128,7 +137,7 @@ describe('installLocaleCorrector', () => {
 
     // Simulates IDB hydration with the SAME locale as the URL-aware default.
     store.set(URL_AWARE)
-    await sleep(50)
+    await flushMicrotasks()
 
     expect(onValidate).toHaveBeenCalledTimes(1)
     expect(onValidate.mock.calls[0][0].locale).toBe('pt-BR')
@@ -141,13 +150,13 @@ describe('installLocaleCorrector', () => {
 
     // First hydration triggers the corrector.
     store.set(STALE)
-    await sleep(50)
+    await flushMicrotasks()
     expect(store.read().locale).toBe('pt-BR')
     onValidate.mockClear()
 
     // Now simulate a user changing locale via LocalizationSelector.
     store.set(STALE)
-    await sleep(50)
+    await flushMicrotasks()
 
     // The corrector must NOT undo this user-driven change.
     expect(store.read().locale).toBe('en-US')
@@ -161,11 +170,39 @@ describe('installLocaleCorrector', () => {
     unsubscribe()
 
     store.set(STALE)
-    await sleep(50)
+    await flushMicrotasks()
 
     // Without the corrector active, the stale value stays in the store.
     expect(store.read().locale).toBe('en-US')
     expect(onValidate).toHaveBeenCalledTimes(1)
     expect(onValidate.mock.calls[0][0].locale).toBe('en-US')
+  })
+
+  it('survives a malformed channel JSON in the hydrated payload (does not throw, still corrects)', async () => {
+    const { store, onValidate } = makeStore(URL_AWARE)
+    installLocaleCorrector(store, URL_AWARE)
+
+    const malformedPayload: Session = {
+      ...STALE,
+      // Simulates a corrupted IDB write — invalid JSON.
+      channel: '{not valid json',
+    }
+
+    // If the corrector threw, the surrounding `store.set` would abort the
+    // subscribers iteration and the optimistic handler queued for the stale
+    // payload would NOT be cancelled — re-introducing the race condition.
+    expect(() => store.set(malformedPayload)).not.toThrow()
+    await flushMicrotasks()
+
+    // Correction still applied: locale aligned with URL, salesChannel taken
+    // from the URL-aware initial session (since the malformed channel is
+    // treated as `{}`).
+    expect(store.read().locale).toBe('pt-BR')
+    const channel = JSON.parse(store.read().channel ?? '{}')
+    expect(channel.salesChannel).toBe('1')
+
+    // And the stale validation was cancelled — only the corrected one ran.
+    expect(onValidate).toHaveBeenCalledTimes(1)
+    expect(onValidate.mock.calls[0][0].locale).toBe('pt-BR')
   })
 })

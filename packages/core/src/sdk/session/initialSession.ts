@@ -5,6 +5,22 @@ import storeConfig from '../../../discovery.config'
 import { getSettings } from '../localization/settings'
 
 /**
+ * Parses a session.channel JSON string defensively. Returns `{}` on null,
+ * undefined, empty, or malformed input.
+ */
+function safeParseChannel(
+  value: string | null | undefined
+): Record<string, unknown> {
+  if (!value) return {}
+  try {
+    const parsed = JSON.parse(value)
+    return parsed && typeof parsed === 'object' ? parsed : {}
+  } catch {
+    return {}
+  }
+}
+
+/**
  * Computes the initial session value by merging the URL-derived locale,
  * currency, and sales channel into the provided defaults.
  *
@@ -80,10 +96,8 @@ export function installLocaleCorrector(
       return
     }
 
-    const channel = JSON.parse(session.channel ?? '{}') ?? {}
-    channel.salesChannel = JSON.parse(
-      initialSession.channel ?? '{}'
-    )?.salesChannel
+    const channel = safeParseChannel(session.channel)
+    channel.salesChannel = safeParseChannel(initialSession.channel).salesChannel
 
     store.set({
       ...session,
