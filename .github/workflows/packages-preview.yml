@@ -42,8 +42,8 @@ jobs:
 
       - name: Set CodeArtifact Auth
         run: |
-          CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
-          echo "CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> $GITHUB_ENV
+          CA_TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
+          echo "CA_TOKEN=$CA_TOKEN" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: pnpm i
