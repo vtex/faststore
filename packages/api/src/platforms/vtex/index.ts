@@ -33,7 +33,7 @@ export interface GraphqlContext {
     searchArgs?: Omit<SearchArgs, 'type'>
     cookies: Map<string, Record<string, string>>
     /** Cached product language entries keyed by productGroupID. Shared between resolver fix and otherLocales. */
-    productLanguagesCache?: Map<
+    productLocaleTranslationsCache?: Map<
       string,
       import('./clients/catalogMultilanguage').ProductLanguageEntry[]
     >

@@ -30,7 +30,9 @@ export const CatalogMultilanguage = ({
      * Returns localized data for all registered locales of a product.
      * Used to validate localized slugs and to build otherLocales for hreflang.
      */
-    getProductLanguages: (productId: string): Promise<ProductLanguageEntry[]> =>
+    getProductLocaleTranslations: (
+      productId: string
+    ): Promise<ProductLanguageEntry[]> =>
       fetchAPI(`${base}/api/catalog/pvt/product/${productId}/language`, {
         method: 'GET',
         headers: withAppKeyAndToken({ 'Content-Type': 'application/json' }),

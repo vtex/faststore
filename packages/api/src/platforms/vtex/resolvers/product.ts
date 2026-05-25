@@ -207,23 +207,29 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
 
-    if (!ctx.storage.productLanguagesCache) {
-      ctx.storage.productLanguagesCache = new Map()
+    if (!ctx.storage.productLocaleTranslationsCache) {
+      ctx.storage.productLocaleTranslationsCache = new Map()
     }
 
-    let languages = ctx.storage.productLanguagesCache.get(productId)
+    let localeTranslations =
+      ctx.storage.productLocaleTranslationsCache.get(productId)
 
-    if (!languages) {
+    if (!localeTranslations) {
       try {
-        languages =
-          await ctx.clients.catalogMultilanguage.getProductLanguages(productId)
-        ctx.storage.productLanguagesCache.set(productId, languages)
+        localeTranslations =
+          await ctx.clients.catalogMultilanguage.getProductLocaleTranslations(
+            productId
+          )
+        ctx.storage.productLocaleTranslationsCache.set(
+          productId,
+          localeTranslations
+        )
       } catch {
         return null
       }
     }
 
-    const entries = languages
+    const entries = localeTranslations
       .filter((e) => e.LinkId !== null)
       .map((e) => ({
         locale: e.Locale,
@@ -231,7 +237,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
       }))
 
     // The Catalog Multilanguage API does not include the default locale.
-    // Add it using the IS linkText, which is always in the default locale.
+    // Add it using the Intelligent Search linkText field, which is the default locale.
     const defaultLocale = (ctx.discoveryConfig as any)?.localization
       ?.defaultLocale as string | undefined
 
