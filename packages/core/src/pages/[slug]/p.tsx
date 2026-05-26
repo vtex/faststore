@@ -34,6 +34,7 @@ import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductContext'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
@@ -238,13 +239,15 @@ function Page({
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <PageProvider context={context}>
-        <RenderSections
-          sections={sections}
-          globalSections={globalSections}
-          components={COMPONENTS}
-        />
-      </PageProvider>
+      <LocalizedProductProvider otherLocales={server.product.otherLocales}>
+        <PageProvider context={context}>
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          />
+        </PageProvider>
+      </LocalizedProductProvider>
     </>
   )
 }
