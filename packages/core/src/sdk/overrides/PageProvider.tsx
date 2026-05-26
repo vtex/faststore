@@ -94,6 +94,16 @@ export const usePLP = () => usePage<PLPContext>()
 
 export const useSearchPage = () => usePage<SearchPageContext>()
 
+/**
+ * Like usePDP but returns null instead of throwing when called outside a PDP context.
+ * Safe to call from global components (e.g. Navbar, LocalizationButton).
+ */
+export const useSafePDP = (): PDPContext | null => {
+  const value = useContext(PageContext)
+  if (!value?.context || !isPDP(value.context)) return null
+  return value.context
+}
+
 export const useDynamicContent = <T,>() => usePage<DynamicContent<T>>()
 
 export default PageProvider
