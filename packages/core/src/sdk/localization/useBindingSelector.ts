@@ -64,9 +64,14 @@ export interface UseBindingSelectorReturn {
  * Hook that provides state and actions for the localization selector.
  * Manages locale selection, currency filtering, and binding resolution.
  *
+ * @param otherLocales - Optional list of localized slugs for the current product.
+ *   When provided (e.g. on PDP), the save action navigates to the localized product
+ *   URL instead of preserving the current page path verbatim.
  * @returns Object with languages, currencies, selections, and actions
  */
-export function useBindingSelector(): UseBindingSelectorReturn {
+export function useBindingSelector(
+  otherLocales?: Array<{ locale: string; slug: string }> | null
+): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
   const localizationConfig = storeConfig.localization as LocalizationConfig
 
@@ -181,12 +186,39 @@ export function useBindingSelector(): UseBindingSelectorReturn {
       return
     }
 
-    // Redirect to binding URL, preserving the current page path and query string
+    // On PDP: navigate to the localized product URL
+    if (otherLocales?.length) {
+      // 1. Target locale has a specific translation → use it
+      const localizedEntry = otherLocales.find((e) => e.locale === localeCode)
+
+      // 2. No translation for target locale → fall back to the default locale slug
+      //    (IS linkText, always in the default locale) to avoid carrying over a
+      //    translated slug from a different locale (e.g. Italian slug on es-ES)
+      const fallbackEntry = otherLocales.find(
+        (e) => e.locale === localizationConfig.defaultLocale
+      )
+
+      const entry = localizedEntry ?? fallbackEntry
+
+      if (entry) {
+        const baseUrl = binding.url.replace(/\/$/, '')
+        window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
+        return
+      }
+    }
+
+    // Outside PDP: redirect to binding URL, preserving the current page path
     window.location.href = buildRedirectUrl(
       binding.url,
       `${window.location.pathname}${window.location.search}${window.location.hash}`
     )
-  }, [localeCode, currencyCode, localizationConfig.locales])
+  }, [
+    localeCode,
+    currencyCode,
+    localizationConfig.locales,
+    localizationConfig.defaultLocale,
+    otherLocales,
+  ])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)
 

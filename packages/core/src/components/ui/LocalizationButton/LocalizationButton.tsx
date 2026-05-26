@@ -6,6 +6,7 @@ import { Icon, Button as UIButton } from '@faststore/ui'
 import storeConfig from 'discovery.config'
 import LocalizationSelector from 'src/components/localization/LocalizationSelector'
 import { useBindingSelector } from 'src/sdk/localization'
+import { useSafePDP } from 'src/sdk/overrides/PageProvider'
 import { useSession } from 'src/sdk/session'
 
 export interface LocalizationButtonErrorMessages {
@@ -41,6 +42,9 @@ const LocalizationButton = ({
   const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
+  const pdp = useSafePDP()
+  const otherLocales = pdp?.data?.product?.otherLocales ?? undefined
+
   const {
     languages,
     currencies,
@@ -52,7 +56,7 @@ const LocalizationButton = ({
     reset,
     isSaveEnabled,
     error,
-  } = useBindingSelector()
+  } = useBindingSelector(otherLocales)
 
   const { locale: sessionLocale, currency: sessionCurrency } = useSession()
 
