@@ -30,7 +30,7 @@ interface LocalizedProductProviderProps extends PropsWithChildren {
 export function LocalizedProductProvider({
   otherLocales,
   children,
-}: Readonly<LocalizedProductProviderProps>) {
+}: LocalizedProductProviderProps) {
   const value = useMemo(
     () => ({ otherLocales: otherLocales ?? null }),
     [otherLocales]
