@@ -1,5 +1,5 @@
 import type { GraphqlContext } from '..'
-import { CatalogMultilanguage } from './catalogMultilanguage'
+import { CatalogDataplane } from './catalog'
 import { VtexCommerce } from './commerce'
 import { IntelligentSearch } from './search'
 
@@ -8,11 +8,11 @@ export type Clients = ReturnType<typeof getClients>
 export const getClients = (options: Options, ctx: GraphqlContext) => {
   const search = IntelligentSearch(options, ctx)
   const commerce = VtexCommerce(options, ctx)
-  const catalogMultilanguage = CatalogMultilanguage(options)
+  const catalog = CatalogDataplane(options)
 
   return {
     search,
     commerce,
-    catalogMultilanguage,
+    catalog,
   }
 }

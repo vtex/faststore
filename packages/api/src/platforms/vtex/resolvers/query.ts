@@ -68,7 +68,7 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search, catalogMultilanguage },
+      clients: { commerce, search, catalog },
     } = ctx
 
     try {
@@ -89,7 +89,7 @@ export const Query = {
        *
        * When localization is enabled, the slug prefix may be a localized
        * LinkId that differs from the IS linkText (always in the default locale).
-       * In that case we validate against the Catalog Multilanguage API before
+       * In that case we validate against the Catalog Dataplane API before
        * rejecting the slug.
        * */
       if (
@@ -99,6 +99,7 @@ export const Query = {
       ) {
         const isLocalizationEnabled =
           (ctx.discoveryConfig as any)?.localization?.enabled === true
+
         if (
           isLocalizationEnabled &&
           locale &&
@@ -106,24 +107,26 @@ export const Query = {
         ) {
           const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
           const productGroupID = sku.isVariantOf.productId
+          const cacheKey = `${productGroupID}:${locale}`
+
           try {
-            // Initialize cache if needed
-            if (!ctx.storage.productLanguagesCache) {
-              ctx.storage.productLanguagesCache = new Map()
+            let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
+
+            if (!entry) {
+              const result = await catalog.getLocalizedProduct(
+                productGroupID,
+                locale
+              )
+              entry = { linkId: result.linkId, category: result.category }
+              ctx.storage.productTranslationsCache ??= new Map()
+              ctx.storage.productTranslationsCache.set(cacheKey, entry)
             }
-            let languages =
-              ctx.storage.productLanguagesCache.get(productGroupID)
-            if (!languages) {
-              languages =
-                await catalogMultilanguage.getProductLanguages(productGroupID)
-              ctx.storage.productLanguagesCache.set(productGroupID, languages)
-            }
-            const localeEntry = languages.find((e) => e.Locale === locale)
-            if (localeEntry?.LinkId === slugPrefix) {
+
+            if (entry.linkId === slugPrefix) {
               return sku
             }
-          } catch {
-            // Catalog Multilanguage API unavailable — fall through to pagetype
+          } catch (dataplaneErr) {
+            // Catalog Dataplane API unavailable — fall through to error
           }
         }
 

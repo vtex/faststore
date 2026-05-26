@@ -32,10 +32,10 @@ export interface GraphqlContext {
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
     cookies: Map<string, Record<string, string>>
-    /** Cached product language entries keyed by productGroupID. Shared between resolver fix and otherLocales. */
-    productLocaleTranslationsCache?: Map<
+    /** Cached localized product entries keyed by "productId:locale". Shared between slug validation, otherLocales, and breadcrumb. */
+    productTranslationsCache?: Map<
       string,
-      import('./clients/catalogMultilanguage').ProductLanguageEntry[]
+      import('./clients/catalog').LocalizedProductEntry
     >
   }
   headers: Record<string, string>

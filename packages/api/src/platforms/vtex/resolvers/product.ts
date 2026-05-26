@@ -204,50 +204,43 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
 
     if (!isLocalizationEnabled) return null
 
+    const configuredLocales = Object.keys(
+      (ctx.discoveryConfig as any)?.localization?.locales ?? {}
+    )
+
+    if (configuredLocales.length === 0) return null
+
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
 
-    if (!ctx.storage.productLocaleTranslationsCache) {
-      ctx.storage.productLocaleTranslationsCache = new Map()
-    }
+    const results = await Promise.all(
+      configuredLocales.map(async (locale) => {
+        const cacheKey = `${productId}:${locale}`
+        let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
 
-    let localeTranslations =
-      ctx.storage.productLocaleTranslationsCache.get(productId)
+        if (!entry) {
+          try {
+            const result = await ctx.clients.catalog.getLocalizedProduct(
+              productId,
+              locale
+            )
+            entry = { linkId: result.linkId, category: result.category }
+            ctx.storage.productTranslationsCache ??= new Map()
+            ctx.storage.productTranslationsCache.set(cacheKey, entry)
+          } catch {
+            return null
+          }
+        }
 
-    if (!localeTranslations) {
-      try {
-        localeTranslations =
-          await ctx.clients.catalogMultilanguage.getProductLocaleTranslations(
-            productId
-          )
-        ctx.storage.productLocaleTranslationsCache.set(
-          productId,
-          localeTranslations
-        )
-      } catch {
-        return null
-      }
-    }
-
-    const entries = localeTranslations
-      .filter((e) => e.LinkId !== null)
-      .map((e) => ({
-        locale: e.Locale,
-        slug: `${e.LinkId}-${itemId}`,
-      }))
-
-    // The Catalog Multilanguage API does not include the default locale.
-    // Add it using the Intelligent Search linkText field, which is the default locale.
-    const defaultLocale = (ctx.discoveryConfig as any)?.localization
-      ?.defaultLocale as string | undefined
-
-    if (defaultLocale && !entries.find((e) => e.locale === defaultLocale)) {
-      entries.push({
-        locale: defaultLocale,
-        slug: `${root.isVariantOf.linkText}-${itemId}`,
+        return { locale, linkId: entry.linkId }
       })
-    }
+    )
 
-    return entries
+    return results
+      .filter(
+        (e): e is { locale: string; linkId: string } =>
+          e !== null && Boolean(e.linkId)
+      )
+      .map((e) => ({ locale: e.locale, slug: `${e.linkId}-${itemId}` }))
   },
 }
