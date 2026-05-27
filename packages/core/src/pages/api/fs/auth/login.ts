@@ -11,8 +11,28 @@ import {
 const COOKIE_NAME = '__fs_auth_token'
 const TOKEN_TTL_SECONDS = 10 * 60
 
+interface WebOpsSessionPayload {
+  valid: boolean
+  token?: string
+}
+
 const isSafeReturnToPath = (value: string): boolean => {
   return value.startsWith('/') && !value.startsWith('//')
+}
+
+const isWebOpsSessionPayload = (
+  data: unknown
+): data is WebOpsSessionPayload => {
+  if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+    return false
+  }
+
+  const payload = data as Record<string, unknown>
+
+  return (
+    typeof payload.valid === 'boolean' &&
+    (payload.token === undefined || typeof payload.token === 'string')
+  )
 }
 
 const handler: NextApiHandler = async (
@@ -60,7 +80,15 @@ const handler: NextApiHandler = async (
       return
     }
 
-    const data = await webopsResponse.json()
+    const data: unknown = await webopsResponse.json()
+
+    if (!isWebOpsSessionPayload(data)) {
+      response.status(500).json({
+        success: false,
+        error: 'Internal server error',
+      })
+      return
+    }
 
     if (data.valid && data.token) {
       const returnTo =
