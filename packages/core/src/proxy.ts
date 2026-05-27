@@ -192,7 +192,7 @@ export const config = {
      * - ~partytown (partytown scripts)
      * - paths ending with a file extension (static assets)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown|.*\\.[^/]+$).*)',
+    String.raw`/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown|.*\.[^/]+$).*)`,
     '/_next/data/:path*',
   ],
 }
