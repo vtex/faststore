@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { type FormEvent, useState } from 'react'
 
+import { isLoginResponse } from '../../server/password-protection/login-response'
 import styles from './fs-auth-login.module.scss'
 
 export default function PasswordProtectionLogin() {
@@ -29,7 +30,12 @@ export default function PasswordProtectionLogin() {
         body: JSON.stringify({ password }),
       })
 
-      const data = await response.json()
+      const data: unknown = await response.json()
+
+      if (!isLoginResponse(data)) {
+        setError('Service temporarily unavailable')
+        return
+      }
 
       if (data.success && data.redirectUrl) {
         globalThis.location.href = data.redirectUrl

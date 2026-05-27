@@ -3,6 +3,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import storeConfig from 'discovery.config'
 
 import { isSecureAuthCookieForPagesApi } from '../../../../server/password-protection/auth-cookie'
+import type { LoginResponse } from '../../../../server/password-protection/login-response'
 import {
   sessionUrl,
   passwordProtectionTimeouts,
@@ -35,9 +36,9 @@ const isWebOpsSessionPayload = (
   )
 }
 
-const handler: NextApiHandler = async (
+const handler: NextApiHandler<LoginResponse> = async (
   request: NextApiRequest,
-  response: NextApiResponse
+  response: NextApiResponse<LoginResponse>
 ) => {
   if (request.method !== 'POST') {
     response.status(405).end()
