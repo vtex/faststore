@@ -1,26 +1,41 @@
+import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
 import {
-  orderStatusMap,
+  getLocalizedOrderStatusMap,
+  getOrderStatusLabel,
   type OrderStatusKey,
   type OrderStatusMapValue,
 } from 'src/utils/userOrderStatus'
 
-function getStatusVariant({ status }: { status: string }) {
+function getStatusVariant({
+  status,
+  statusMap,
+}: {
+  status: string
+  statusMap: Record<OrderStatusKey, OrderStatusMapValue>
+}) {
   return (
-    (orderStatusMap[status as OrderStatusKey] as OrderStatusMapValue)
-      ?.variant || 'neutral'
+    (statusMap[status as OrderStatusKey] as OrderStatusMapValue)?.variant ||
+    'neutral'
   )
 }
 
 function StatusBadge({
   status,
   statusFallback,
-}: { status: string; statusFallback?: string }) {
+  statusLabels,
+}: {
+  status: string
+  statusFallback?: string
+  statusLabels?: OrderStatusCmsLabels
+}) {
+  const statusMap = getLocalizedOrderStatusMap(statusLabels)
+
   return (
     <span
       data-fs-my-account-badge
-      data-fs-my-account-badge-variant={getStatusVariant({ status })}
+      data-fs-my-account-badge-variant={getStatusVariant({ status, statusMap })}
     >
-      {orderStatusMap[status as OrderStatusKey]?.label || statusFallback || '-'}
+      {getOrderStatusLabel({ status, cmsLabels: statusLabels, statusFallback })}
     </span>
   )
 }

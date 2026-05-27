@@ -1,6 +1,7 @@
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import type { PropsWithChildren } from 'react'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
 import StatusBadge from '../../components/StatusBadge'
 import BuyingPolicyAlert from './BuyingPolicyAlert'
 import OrderActions from './OrderActions'
@@ -14,11 +15,13 @@ import styles from './section.module.scss'
 export type OrderDetailsHeaderProps = {
   order: ServerOrderDetailsQueryQuery['userOrder']
   labels?: OrderDetailsHeaderLabels
+  statusLabels?: OrderStatusCmsLabels
 }
 
 export function OrderDetailsHeader({
   order,
   labels: labelsProp,
+  statusLabels,
 }: OrderDetailsHeaderProps) {
   const labels = resolveOrderDetailsHeaderLabels(labelsProp)
 
@@ -43,6 +46,7 @@ export function OrderDetailsHeader({
             <StatusBadge
               status={order.status}
               statusFallback={order.statusDescription}
+              statusLabels={statusLabels}
             />
           </div>
         </div>

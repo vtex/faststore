@@ -29,6 +29,7 @@ import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
 import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
+import { extractOrderStatusLabelsFromSections } from 'src/utils/userOrderStatus'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
@@ -396,6 +397,10 @@ const getServerSidePropsBase: GetServerSideProps<
     pageContent.sections
   )
 
+  const orderStatusLabels = extractOrderStatusLabelsFromSections(
+    pageContent.sections
+  )
+
   return {
     props: {
       globalSections: globalSectionsResult,
@@ -403,6 +408,7 @@ const getServerSidePropsBase: GetServerSideProps<
       navigationLabels: navigationData as AccountNavigationLabels,
       accountPageData: {
         order: orderDetails.data.userOrder,
+        orderStatusLabels,
       },
       pageSections,
       isRepresentative,

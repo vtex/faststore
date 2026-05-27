@@ -1,3 +1,6 @@
+import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
+import { pickOrderStatusCmsLabels as pickOrderStatusCmsLabelsFromData } from 'src/utils/userOrderStatus'
+
 export type ListOrdersSectionLabels = {
   pageTitle?: string
   searchPlaceholder?: string
@@ -98,4 +101,12 @@ export function getStatusFacetLabels(
   labels: Required<ListOrdersSectionLabels>
 ): string[] {
   return STATUS_LABEL_KEYS.map((key) => labels[key])
+}
+
+export function pickOrderStatusCmsLabels(
+  labels?: ListOrdersSectionLabels
+): OrderStatusCmsLabels | undefined {
+  return pickOrderStatusCmsLabelsFromData(
+    labels as Record<string, unknown> | undefined
+  )
 }

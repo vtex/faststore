@@ -23,7 +23,8 @@ const AccountOrderDetails = ({
   approveLabel = defaultOrderDetailsHeaderLabels.approveLabel,
   rejectLabel = defaultOrderDetailsHeaderLabels.rejectLabel,
 }: AccountOrderDetailsProps) => {
-  const { order } = useAccountPageData<AccountOrderDetailsPageData>()
+  const { order, orderStatusLabels } =
+    useAccountPageData<AccountOrderDetailsPageData>()
 
   if (!order) {
     return null
@@ -33,6 +34,7 @@ const AccountOrderDetails = ({
     <Section className="section-account-order-details">
       <OrderDetailsHeader
         order={order}
+        statusLabels={orderStatusLabels}
         labels={{
           orderNumberPrefix,
           goBackLabel,

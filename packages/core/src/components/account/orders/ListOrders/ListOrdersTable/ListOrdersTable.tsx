@@ -10,7 +10,10 @@ import { ExpandButton } from './ExpandButton/ExpandButton'
 
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
 import type { ListOrdersSectionLabels } from '../listOrdersLabels'
-import { resolveListOrdersLabels } from '../listOrdersLabels'
+import {
+  pickOrderStatusCmsLabels,
+  resolveListOrdersLabels,
+} from '../listOrdersLabels'
 
 const MAX_ITEM_FIELDS = 5
 const MAX_ORDER_FIELDS = 5
@@ -100,6 +103,7 @@ export default function ListOrdersTable({
   labels?: ListOrdersSectionLabels
 }) {
   const labels = resolveListOrdersLabels(labelsProp)
+  const statusLabels = pickOrderStatusCmsLabels(labels)
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
@@ -323,6 +327,7 @@ export default function ListOrdersTable({
                   <StatusBadge
                     status={item.status}
                     statusFallback={item.statusDescription}
+                    statusLabels={statusLabels}
                   />
                   {!isDesktop && <p>{deliveryBy}</p>}
                 </td>

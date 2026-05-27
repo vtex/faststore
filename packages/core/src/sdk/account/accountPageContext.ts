@@ -5,6 +5,7 @@ import type {
 } from '@generated/graphql'
 import type { PageGlobalContext } from 'src/sdk/overrides/PageProvider'
 import { usePage } from 'src/sdk/overrides/PageProvider'
+import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
 import type { AccountNavigationLabels } from './getMyAccountRoutes'
 
 export type AccountProfilePageData = {
@@ -28,6 +29,7 @@ export type AccountOrdersListPageData = {
 
 export type AccountOrderDetailsPageData = {
   order: ServerOrderDetailsQueryQuery['userOrder']
+  orderStatusLabels?: OrderStatusCmsLabels
 }
 
 export type AccountSecurityPageData = {
