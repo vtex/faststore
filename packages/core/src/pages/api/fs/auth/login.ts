@@ -2,7 +2,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import storeConfig from 'discovery.config'
 
-import type { LoginResponse } from '../../../../server/password-protection/login-response'
+import type { LoginResponse } from '../../../../utils/loginResponse'
 import {
   sessionUrl,
   passwordProtectionTimeouts,

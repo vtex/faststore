@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { type FormEvent, useState } from 'react'
 
-import { isLoginResponse } from '../../server/password-protection/login-response'
+import { isLoginResponse } from '../../utils/loginResponse'
 import styles from './fs-auth-login.module.scss'
 
 export default function PasswordProtectionLogin() {
