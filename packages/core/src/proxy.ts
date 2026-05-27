@@ -7,6 +7,8 @@ import {
   isValidLocale,
 } from 'src/utils/localization/bindingPaths'
 
+import { AuthenticationService } from './server/authentication-service'
+
 type RewriteRule = {
   regex: RegExp
   locale: string
@@ -93,7 +95,7 @@ function rewriteSubdomainRequest(
   return null
 }
 
-export function proxy(request: NextRequest) {
+function localizationRewrite(request: NextRequest): NextResponse {
   if (!storeConfig.localization?.enabled) {
     return NextResponse.next()
   }
@@ -146,9 +148,43 @@ export function proxy(request: NextRequest) {
   return NextResponse.next()
 }
 
+export async function proxy(request: NextRequest) {
+  let authResult: Awaited<
+    ReturnType<AuthenticationService['authenticateRequest']>
+  >
+
+  try {
+    const authService = new AuthenticationService()
+    authResult = await authService.authenticateRequest(request)
+  } catch {
+    return NextResponse.error()
+  }
+
+  if (authResult.response.status !== 200) {
+    return authResult.response
+  }
+
+  const response = localizationRewrite(request)
+
+  for (const cookie of authResult.response.cookies.getAll()) {
+    response.cookies.set(cookie)
+  }
+
+  return response
+}
+
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.[^/]+$).*)',
+    /*
+     * Match all paths. Exclude:
+     * - api (e.g. api/fs/auth/login)
+     * - _next/static, _next/image
+     * - favicon.ico
+     * - fs-auth-login (password-protection login page)
+     * - ~partytown (partytown scripts)
+     * - paths ending with a file extension (static assets)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown|.*\\.[^/]+$).*)',
     '/_next/data/:path*',
   ],
 }

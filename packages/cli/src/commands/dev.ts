@@ -8,10 +8,9 @@ import { cpSync, existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { getPreferredPackageManager } from '../utils/commands'
-import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
 import { getBasePath, withBasePath } from '../utils/directory'
-import { generate, toggleProxyByLocalizationFlag } from '../utils/generate'
+import { generate } from '../utils/generate'
 import { logger } from '../utils/logger'
 import { runCommandSync } from '../utils/runCommandSync'
 
@@ -204,10 +203,6 @@ export default class Dev extends Command {
     spawnSync('node', [cliPath, 'generate-i18n', basePath], {
       stdio: 'inherit',
     })
-
-    const config = await getDiscoveryConfig(basePath)
-    const localizationEnabled = config?.localization?.enabled === true
-    toggleProxyByLocalizationFlag(basePath, localizationEnabled)
 
     storeDev(getRoot(), tmpDir, coreDir, port)
 
