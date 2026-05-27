@@ -66,8 +66,9 @@ Each package within the FastStore monorepo MUST maintain clear boundaries and a 
 
 ### VII. Conventional Commits & Semantic Versioning
 
-- Commit format: `<type>: <description>` (e.g. `feat(sdk): add cart persistence`).
+- Commit format: `<type>(<scope>): <description>` (e.g. `feat(sdk): add cart persistence`).
 - Allowed types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `ci`, `test`.
+- Allowed scopes: `core`, `ui`, `api`, `components`, `sdk`, `lighthouse`, `diagnostics`, `deps`, `deps-dev`. PRs using any other scope will fail the "Lint PR" CI check enforced by `.github/workflows/pr.yml`.
 - Breaking changes MUST include `BREAKING CHANGE:` in commit body or `!` after type.
 - Lerna automatically versions packages based on Conventional Commits.
 - All packages follow `MAJOR.MINOR.PATCH` semantic versioning.
