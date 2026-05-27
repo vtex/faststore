@@ -1,0 +1,44 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderStatus",
+  "$componentTitle": "Account Order Status",
+  "title": "Account Order Status",
+  "description": "Order status timeline for My Account order details",
+  "type": "object",
+  "properties": {
+    "statusTitle": {
+      "type": "string",
+      "title": "Status Title",
+      "default": "Status"
+    },
+    "orderPlacedStep": {
+      "type": "string",
+      "title": "Order Placed Step",
+      "default": "Order placed"
+    },
+    "paymentPendingStep": {
+      "type": "string",
+      "title": "Payment Pending Step",
+      "default": "Payment Pending"
+    },
+    "handlingStep": {
+      "type": "string",
+      "title": "Handling Step",
+      "default": "Handling order"
+    },
+    "invoicedStep": {
+      "type": "string",
+      "title": "Invoiced Step",
+      "default": "Invoiced"
+    },
+    "deliveredStep": {
+      "type": "string",
+      "title": "Delivered Step",
+      "default": "Delivered"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

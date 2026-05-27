@@ -675,6 +675,102 @@
       "$abstract": false,
       "identifierKeys": []
     },
+    "myaccountorderdetails": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "My Account — Order Details",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
+    "myaccountorders": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "My Account — Orders",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
+    "myaccountprofile": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "My Account — Profile",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
+    "myaccountsecurity": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "My Account — Security",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
+    "myaccountunauthorized": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "My Account — Unauthorized",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
+    "myaccountuserdetails": {
+      "$extends": ["#/components/base-page-template"],
+      "$singleton": true,
+      "type": "object",
+      "title": "My Account — User Details",
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false,
+      "identifierKeys": []
+    },
     "pdp": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": false,
@@ -882,6 +978,782 @@
     }
   },
   "components": {
+    "AccountNavigation": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountNavigation",
+      "$componentTitle": "Account Navigation",
+      "title": "Account Navigation",
+      "description": "Navigation menu for My Account pages with sidebar and drawer labels",
+      "type": "object",
+      "properties": {
+        "profileLabel": {
+          "type": "string",
+          "title": "Profile Menu Label",
+          "default": "Profile"
+        },
+        "ordersLabel": {
+          "type": "string",
+          "title": "Orders Menu Label",
+          "default": "Orders"
+        },
+        "userDetailsLabel": {
+          "type": "string",
+          "title": "User Details Menu Label",
+          "default": "User Details"
+        },
+        "securityLabel": {
+          "type": "string",
+          "title": "Security Menu Label",
+          "default": "Security"
+        },
+        "manageLabel": {
+          "type": "string",
+          "title": "Manage Button Label",
+          "default": "Manage"
+        },
+        "logoutLabel": {
+          "type": "string",
+          "title": "Logout Button Label",
+          "default": "Logout"
+        },
+        "switchLabel": {
+          "type": "string",
+          "title": "Switch Button Label",
+          "default": "Switch"
+        },
+        "companyLabel": {
+          "type": "string",
+          "title": "Company Label",
+          "default": "Company"
+        },
+        "contractLabel": {
+          "type": "string",
+          "title": "Contract Label",
+          "default": "Contract"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderBudgets": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderBudgets",
+      "$componentTitle": "Account Order Budgets",
+      "title": "Account Order Budgets",
+      "description": "Budgets section for My Account order details",
+      "type": "object",
+      "properties": {
+        "budgetsTitle": {
+          "type": "string",
+          "title": "Budgets Title",
+          "default": "Budgets"
+        },
+        "nameLabel": {
+          "type": "string",
+          "title": "Name Label",
+          "default": "Name"
+        },
+        "availableLabel": {
+          "type": "string",
+          "title": "Available Label",
+          "default": "Available"
+        },
+        "toBeSpentLabel": {
+          "type": "string",
+          "title": "To Be Spent Label",
+          "default": "To be spent"
+        },
+        "remainingLabel": {
+          "type": "string",
+          "title": "Remaining Label",
+          "default": "Remaining"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderDelivery": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderDelivery",
+      "$componentTitle": "Account Order Delivery",
+      "title": "Account Order Delivery",
+      "description": "Order delivery section for My Account order details",
+      "type": "object",
+      "properties": {
+        "deliveryTitle": {
+          "type": "string",
+          "title": "Delivery Title",
+          "default": "Delivery"
+        },
+        "recipientLabel": {
+          "type": "string",
+          "title": "Recipient Label",
+          "default": "Recipient"
+        },
+        "deliveryAddressLabel": {
+          "type": "string",
+          "title": "Delivery Address Label",
+          "default": "Delivery address"
+        },
+        "storeAddressLabel": {
+          "type": "string",
+          "title": "Store Address Label",
+          "default": "Store address"
+        },
+        "storeHoursLabel": {
+          "type": "string",
+          "title": "Store Hours Label",
+          "default": "Store Hours"
+        },
+        "fromLabel": {
+          "type": "string",
+          "title": "From Label",
+          "default": "From:"
+        },
+        "toLabel": {
+          "type": "string",
+          "title": "To Label",
+          "default": "To:"
+        },
+        "itemCountTemplate": {
+          "type": "string",
+          "title": "Item Count Template",
+          "default": "{count} item(s)"
+        },
+        "eachLabel": {
+          "type": "string",
+          "title": "Each Label",
+          "default": "Each"
+        },
+        "taxesLabel": {
+          "type": "string",
+          "title": "Taxes Label",
+          "default": "Taxes"
+        },
+        "totalLabel": {
+          "type": "string",
+          "title": "Total Label",
+          "default": "Total"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderDetails": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderDetails",
+      "$componentTitle": "Account Order Details",
+      "title": "Account Order Details",
+      "description": "Order details header and actions for My Account",
+      "type": "object",
+      "properties": {
+        "orderNumberPrefix": {
+          "type": "string",
+          "title": "Order Number Prefix",
+          "default": "Order #"
+        },
+        "goBackLabel": {
+          "type": "string",
+          "title": "Go Back Label",
+          "default": "Go back"
+        },
+        "cancelOrderLabel": {
+          "type": "string",
+          "title": "Cancel Order Label",
+          "default": "Cancel order"
+        },
+        "reorderLabel": {
+          "type": "string",
+          "title": "Reorder Label",
+          "default": "Reorder"
+        },
+        "notNowLabel": {
+          "type": "string",
+          "title": "Not Now Label",
+          "default": "Not now"
+        },
+        "cancelConfirmMessage": {
+          "type": "string",
+          "title": "Cancel Confirm Message",
+          "default": "Are you sure you want to cancel this order?"
+        },
+        "cancelSuccessToast": {
+          "type": "string",
+          "title": "Cancel Success Toast",
+          "default": "Order cancelled successfully"
+        },
+        "cancelErrorToast": {
+          "type": "string",
+          "title": "Cancel Error Toast",
+          "default": "Failed to cancel order"
+        },
+        "approveLabel": {
+          "type": "string",
+          "title": "Approve Label",
+          "default": "Approve"
+        },
+        "rejectLabel": {
+          "type": "string",
+          "title": "Reject Label",
+          "default": "Reject"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderMoreInfo": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderMoreInfo",
+      "$componentTitle": "Account Order More Info",
+      "title": "Account Order More Info",
+      "description": "More information section for My Account order details",
+      "type": "object",
+      "properties": {
+        "moreInfoTitle": {
+          "type": "string",
+          "title": "More Info Title",
+          "default": "More information"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderOrderedBy": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderOrderedBy",
+      "$componentTitle": "Account Order Ordered By",
+      "title": "Account Order Ordered By",
+      "description": "Ordered by section for My Account order details",
+      "type": "object",
+      "properties": {
+        "orderedByTitle": {
+          "type": "string",
+          "title": "Ordered By Title",
+          "default": "Ordered by"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderPayment": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderPayment",
+      "$componentTitle": "Account Order Payment",
+      "title": "Account Order Payment",
+      "description": "Order payment section for My Account order details",
+      "type": "object",
+      "properties": {
+        "paymentTitle": {
+          "type": "string",
+          "title": "Payment Title",
+          "default": "Payment"
+        },
+        "billingLabel": {
+          "type": "string",
+          "title": "Billing Label",
+          "default": "Billing"
+        },
+        "bankInvoiceLabel": {
+          "type": "string",
+          "title": "Bank Invoice Label",
+          "default": "Bank Invoice"
+        },
+        "paypalLabel": {
+          "type": "string",
+          "title": "PayPal Label",
+          "default": "PayPal"
+        },
+        "giftCardLabel": {
+          "type": "string",
+          "title": "Gift Card Label",
+          "default": "Gift Card"
+        },
+        "endingInLabel": {
+          "type": "string",
+          "title": "Ending In Label",
+          "default": "ending in"
+        },
+        "tidLabel": {
+          "type": "string",
+          "title": "Tid Label",
+          "default": "Tid:"
+        },
+        "authIdLabel": {
+          "type": "string",
+          "title": "AuthId Label",
+          "default": "AuthId:"
+        },
+        "invoiceNumberLabel": {
+          "type": "string",
+          "title": "Invoice Number Label",
+          "default": "Invoice Number:"
+        },
+        "printBankInvoiceLabel": {
+          "type": "string",
+          "title": "Print Bank Invoice Label",
+          "default": "Print Bank Invoice"
+        },
+        "installmentCopy": {
+          "type": "string",
+          "title": "Installment Copy",
+          "default": "{count}x of {value}"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrdersList": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrdersList",
+      "$componentTitle": "Account Orders List",
+      "title": "Account Orders List",
+      "description": "Orders list section for My Account",
+      "type": "object",
+      "properties": {
+        "pageTitle": {
+          "type": "string",
+          "title": "Page Title",
+          "default": "Orders"
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "title": "Search Placeholder",
+          "default": "Search"
+        },
+        "filtersLabel": {
+          "type": "string",
+          "title": "Filters Label",
+          "default": "Filters"
+        },
+        "clearAllLabel": {
+          "type": "string",
+          "title": "Clear All Label",
+          "default": "Clear All"
+        },
+        "viewResultsLabel": {
+          "type": "string",
+          "title": "View Results Label",
+          "default": "View Results"
+        },
+        "noResultsLabel": {
+          "type": "string",
+          "title": "No Results Label",
+          "default": "No results found"
+        },
+        "noOrdersLabel": {
+          "type": "string",
+          "title": "No Orders Label",
+          "default": "You don't have any orders"
+        },
+        "startShoppingLabel": {
+          "type": "string",
+          "title": "Start Shopping Label",
+          "default": "Start shopping"
+        },
+        "placedOnLabel": {
+          "type": "string",
+          "title": "Placed On Label",
+          "default": "Placed on"
+        },
+        "deliveryByLabel": {
+          "type": "string",
+          "title": "Delivery By Label",
+          "default": "Delivery by"
+        },
+        "pendingApprovalLabel": {
+          "type": "string",
+          "title": "Pending Approval Label",
+          "default": "Pending my approval"
+        },
+        "paginationOfLabel": {
+          "type": "string",
+          "title": "Pagination Of Label",
+          "default": "of"
+        },
+        "previousPageLabel": {
+          "type": "string",
+          "title": "Previous Page Label",
+          "default": "Previous Page"
+        },
+        "nextPageLabel": {
+          "type": "string",
+          "title": "Next Page Label",
+          "default": "Next Page"
+        },
+        "viewAllLabel": {
+          "type": "string",
+          "title": "View All Label",
+          "default": "View all"
+        },
+        "viewLessLabel": {
+          "type": "string",
+          "title": "View Less Label",
+          "default": "View less"
+        },
+        "fromLabel": {
+          "type": "string",
+          "title": "From Label",
+          "default": "From"
+        },
+        "toLabel": {
+          "type": "string",
+          "title": "To Label",
+          "default": "To"
+        },
+        "invalidDateRangeLabel": {
+          "type": "string",
+          "title": "Invalid Date Range Label",
+          "default": "Invalid date range"
+        },
+        "orderPlacedStatus": {
+          "type": "string",
+          "title": "Order Placed Status",
+          "default": "Order Placed"
+        },
+        "pendingApprovalStatus": {
+          "type": "string",
+          "title": "Pending Approval Status",
+          "default": "Pending approval"
+        },
+        "paymentPendingStatus": {
+          "type": "string",
+          "title": "Payment Pending Status",
+          "default": "Payment Pending"
+        },
+        "paymentApprovedStatus": {
+          "type": "string",
+          "title": "Payment Approved Status",
+          "default": "Payment Approved"
+        },
+        "paymentDeniedStatus": {
+          "type": "string",
+          "title": "Payment Denied Status",
+          "default": "Payment Denied"
+        },
+        "readyForDeliveryStatus": {
+          "type": "string",
+          "title": "Ready For Delivery Status",
+          "default": "Ready for Delivery"
+        },
+        "invoicedStatus": {
+          "type": "string",
+          "title": "Invoiced Status",
+          "default": "Invoiced"
+        },
+        "cancellationRequestedStatus": {
+          "type": "string",
+          "title": "Cancellation Requested Status",
+          "default": "Cancellation Requested"
+        },
+        "canceledStatus": {
+          "type": "string",
+          "title": "Canceled Status",
+          "default": "Canceled"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderStatus": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderStatus",
+      "$componentTitle": "Account Order Status",
+      "title": "Account Order Status",
+      "description": "Order status timeline for My Account order details",
+      "type": "object",
+      "properties": {
+        "statusTitle": {
+          "type": "string",
+          "title": "Status Title",
+          "default": "Status"
+        },
+        "orderPlacedStep": {
+          "type": "string",
+          "title": "Order Placed Step",
+          "default": "Order placed"
+        },
+        "paymentPendingStep": {
+          "type": "string",
+          "title": "Payment Pending Step",
+          "default": "Payment Pending"
+        },
+        "handlingStep": {
+          "type": "string",
+          "title": "Handling Step",
+          "default": "Handling order"
+        },
+        "invoicedStep": {
+          "type": "string",
+          "title": "Invoiced Step",
+          "default": "Invoiced"
+        },
+        "deliveredStep": {
+          "type": "string",
+          "title": "Delivered Step",
+          "default": "Delivered"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountOrderSummary": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountOrderSummary",
+      "$componentTitle": "Account Order Summary",
+      "title": "Account Order Summary",
+      "description": "Order summary section for My Account order details",
+      "type": "object",
+      "properties": {
+        "summaryTitle": {
+          "type": "string",
+          "title": "Summary Title",
+          "default": "Summary"
+        },
+        "totalLabel": {
+          "type": "string",
+          "title": "Total Label",
+          "default": "Total"
+        },
+        "interestLabel": {
+          "type": "string",
+          "title": "Interest Label",
+          "default": "Interest"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountProfile": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountProfile",
+      "$componentTitle": "Account Profile",
+      "title": "Account Profile",
+      "description": "Profile section for My Account page showing user information",
+      "type": "object",
+      "properties": {
+        "pageTitle": {
+          "type": "string",
+          "title": "Page Title",
+          "default": "Profile"
+        },
+        "nameLabel": {
+          "type": "string",
+          "title": "Name Label",
+          "default": "Name"
+        },
+        "emailLabel": {
+          "type": "string",
+          "title": "Email Label",
+          "default": "Email"
+        },
+        "idLabel": {
+          "type": "string",
+          "title": "ID Label",
+          "default": "ID"
+        },
+        "createdDateLabel": {
+          "type": "string",
+          "title": "Created Date Label",
+          "default": "Created date"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountSecurity": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountSecurity",
+      "$componentTitle": "Account Security",
+      "title": "Account Security",
+      "description": "Security section for My Account",
+      "type": "object",
+      "properties": {
+        "pageTitle": {
+          "type": "string",
+          "title": "Page Title",
+          "default": "Security"
+        },
+        "passwordLabel": {
+          "type": "string",
+          "title": "Password Label",
+          "default": "Password"
+        },
+        "resetPasswordLabel": {
+          "type": "string",
+          "title": "Reset Password Label",
+          "default": "Reset password"
+        },
+        "currentPasswordLabel": {
+          "type": "string",
+          "title": "Current Password Label",
+          "default": "Current Password"
+        },
+        "newPasswordLabel": {
+          "type": "string",
+          "title": "New Password Label",
+          "default": "New Password"
+        },
+        "showPasswordAria": {
+          "type": "string",
+          "title": "Show Password Aria Label",
+          "default": "Show Password"
+        },
+        "cancelLabel": {
+          "type": "string",
+          "title": "Cancel Label",
+          "default": "Cancel"
+        },
+        "savePasswordLabel": {
+          "type": "string",
+          "title": "Save Password Label",
+          "default": "Save Password"
+        },
+        "passwordRulesIntro": {
+          "type": "string",
+          "title": "Password Rules Intro",
+          "default": "Your password must have at least:"
+        },
+        "rule8Chars": {
+          "type": "string",
+          "title": "Rule 8 Characters",
+          "default": "8 characters"
+        },
+        "rule1Uppercase": {
+          "type": "string",
+          "title": "Rule 1 Uppercase",
+          "default": "1 uppercase letter"
+        },
+        "rule1Lowercase": {
+          "type": "string",
+          "title": "Rule 1 Lowercase",
+          "default": "1 lowercase letter"
+        },
+        "rule1Number": {
+          "type": "string",
+          "title": "Rule 1 Number",
+          "default": "1 number"
+        },
+        "emailRequiredError": {
+          "type": "string",
+          "title": "Email Required Error",
+          "default": "Email is required"
+        },
+        "allFieldsRequiredError": {
+          "type": "string",
+          "title": "All Fields Required Error",
+          "default": "All fields are required"
+        },
+        "samePasswordError": {
+          "type": "string",
+          "title": "Same Password Error",
+          "default": "New password cannot be the same as the current password"
+        },
+        "passwordUpdatedToast": {
+          "type": "string",
+          "title": "Password Updated Toast",
+          "default": "Password updated successfully"
+        },
+        "passwordFailedToast": {
+          "type": "string",
+          "title": "Password Failed Toast",
+          "default": "Failed to set password."
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountUnauthorized": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountUnauthorized",
+      "$componentTitle": "Account Unauthorized",
+      "title": "Account Unauthorized",
+      "description": "Unauthorized access section for My Account 403 page",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title",
+          "default": "Unauthorized Access"
+        },
+        "subtitle": {
+          "type": "string",
+          "title": "Subtitle",
+          "default": "You don't have permission to access this page."
+        },
+        "backLabel": {
+          "type": "string",
+          "title": "Back Label",
+          "default": "Back to Account"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
+    "AccountUserDetails": {
+      "$extends": ["#/$defs/base-component"],
+      "$componentKey": "AccountUserDetails",
+      "$componentTitle": "Account User Details",
+      "title": "Account User Details",
+      "description": "User details section for My Account",
+      "type": "object",
+      "properties": {
+        "pageTitle": {
+          "type": "string",
+          "title": "Page Title",
+          "default": "User details"
+        },
+        "nameLabel": {
+          "type": "string",
+          "title": "Name Label",
+          "default": "Name"
+        },
+        "emailLabel": {
+          "type": "string",
+          "title": "Email Label",
+          "default": "Email"
+        },
+        "roleLabel": {
+          "type": "string",
+          "title": "Role Label",
+          "default": "Role"
+        },
+        "orgUnitLabel": {
+          "type": "string",
+          "title": "Organizational Unit Label",
+          "default": "Organizational unit"
+        }
+      },
+      "readOnly": false,
+      "writeOnly": false,
+      "deprecated": false,
+      "$abstract": false
+    },
     "Alert": {
       "$extends": ["#/$defs/base-component"],
       "$componentKey": "Alert",
@@ -4322,6 +5194,48 @@
       "type": "array",
       "items": {
         "anyOf": [
+          {
+            "$ref": "#/components/AccountNavigation"
+          },
+          {
+            "$ref": "#/components/AccountOrderBudgets"
+          },
+          {
+            "$ref": "#/components/AccountOrderDelivery"
+          },
+          {
+            "$ref": "#/components/AccountOrderDetails"
+          },
+          {
+            "$ref": "#/components/AccountOrderMoreInfo"
+          },
+          {
+            "$ref": "#/components/AccountOrderOrderedBy"
+          },
+          {
+            "$ref": "#/components/AccountOrderPayment"
+          },
+          {
+            "$ref": "#/components/AccountOrdersList"
+          },
+          {
+            "$ref": "#/components/AccountOrderStatus"
+          },
+          {
+            "$ref": "#/components/AccountOrderSummary"
+          },
+          {
+            "$ref": "#/components/AccountProfile"
+          },
+          {
+            "$ref": "#/components/AccountSecurity"
+          },
+          {
+            "$ref": "#/components/AccountUnauthorized"
+          },
+          {
+            "$ref": "#/components/AccountUserDetails"
+          },
           {
             "$ref": "#/components/Alert"
           },
