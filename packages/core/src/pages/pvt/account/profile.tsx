@@ -1,10 +1,12 @@
-import type { Locator } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
-import { ProfileSection } from 'src/components/account/profile'
-import RenderSections from 'src/components/cms/RenderSections'
+import { Layout } from 'src/components/account'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
+import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
@@ -18,8 +20,12 @@ import type {
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/profile/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/profile/before'
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
+import type { AccountProfilePageData } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
+import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
@@ -27,23 +33,22 @@ import storeConfig from 'discovery.config'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 
-/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
 type ProfilePageProps = {
-  accountProfile: {
-    name: string | null
-    email: string | null
-    id: string | null
-  }
+  pageSections: Section[]
+  navigationLabels: AccountNavigationLabels
+  accountPageData: AccountProfilePageData
 } & MyAccountProps
 
 export default function Profile({
   globalSections: globalSectionsProp,
-  accountProfile,
+  pageSections,
+  navigationLabels,
+  accountPageData,
   accountName,
   isRepresentative,
 }: ProfilePageProps) {
@@ -51,18 +56,28 @@ export default function Profile({
     globalSectionsProp ?? {}
 
   return (
-    <PageProvider context={{ globalSettings }}>
+    <PageProvider
+      context={{
+        globalSettings,
+        accountPageData,
+        navigationLabels,
+      }}
+    >
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout
+        <Layout
           isRepresentative={isRepresentative}
           accountName={accountName}
+          navigationLabels={navigationLabels}
         >
           <BeforeSection />
-          <ProfileSection profile={accountProfile} />
+          <RenderSectionsBase
+            sections={pageSections}
+            components={ACCOUNT_COMPONENTS}
+          />
           <AfterSection />
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )
@@ -79,7 +94,7 @@ const query = gql(`
 `)
 
 const getServerSidePropsBase: GetServerSideProps<
-  MyAccountProps,
+  ProfilePageProps,
   Record<string, string>,
   Locator
 > = async (context) => {
@@ -106,27 +121,35 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(contentContext)
 
-  const [profile, globalSections, globalSectionsHeader, globalSectionsFooter] =
-    await Promise.all([
-      execute<ServerProfileQueryQueryVariables, ServerProfileQueryQuery>(
-        {
-          variables: {},
-          operation: query,
-        },
-        { headers: { ...context.req.headers } }
-      ),
-      globalSectionsPromise,
-      globalSectionsHeaderPromise,
-      globalSectionsFooterPromise,
-    ])
+  const [
+    pageContent,
+    profile,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
+    fetchMyAccountPageContent(
+      'myaccountprofile',
+      contentContext,
+      '/pvt/account/profile'
+    ),
+    execute<ServerProfileQueryQueryVariables, ServerProfileQueryQuery>(
+      {
+        variables: {},
+        operation: query,
+      },
+      { headers: { ...context.req.headers } }
+    ),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ])
 
   if (profile.errors) {
     console.error(...profile.errors)
 
     const statusCode: number = (profile.errors[0] as any)?.extensions?.status
 
-    // Redirect to 403 for authentication errors (401/403) to handle token refresh
-    // Redirect to 404 for other errors
     const destination: string =
       statusCode === 401 || statusCode === 403
         ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/profile')}`
@@ -140,6 +163,10 @@ const getServerSidePropsBase: GetServerSideProps<
     }
   }
 
+  const { pageSections, navigationData } = extractAccountNavigationData(
+    pageContent.sections
+  )
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
@@ -149,8 +176,12 @@ const getServerSidePropsBase: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: profile.data.accountProfile.name,
-      accountProfile: profile.data.accountProfile,
+      accountName: profile.data.accountProfile.name ?? '',
+      accountPageData: {
+        profile: profile.data.accountProfile,
+      },
+      pageSections,
+      navigationLabels: navigationData as AccountNavigationLabels,
       isRepresentative,
     },
   }

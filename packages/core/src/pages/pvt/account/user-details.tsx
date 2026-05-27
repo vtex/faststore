@@ -1,12 +1,14 @@
+import type { Locator, Section } from '@vtex/client-cms'
+import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
-import RenderSections from 'src/components/cms/RenderSections'
+import { Layout } from 'src/components/account'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
+import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-
-import type { Locator } from '@vtex/client-cms'
-import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
@@ -16,56 +18,65 @@ import type {
   ServerUserDetailsQueryQueryVariables,
 } from '@generated/graphql'
 import storeConfig from 'discovery.config'
-import MyAccountUserDetails from 'src/components/account/MyAccountUserDetails/MyAccountUserDetails'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/user-details/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/user-details/before'
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
+import type { AccountUserDetailsPageData } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
 import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
+import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
-/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
-type UserDetailsPagePros = {
-  userDetails: {
-    username: string
-    name: string
-    email: string
-    phone: string
-    role: string[]
-    orgUnit: string
-  }
+type UserDetailsPageProps = {
+  pageSections: Section[]
+  navigationLabels: AccountNavigationLabels
+  accountPageData: AccountUserDetailsPageData
 } & MyAccountProps
 
 export default function Page({
   globalSections: globalSectionsProp,
+  pageSections,
+  navigationLabels,
+  accountPageData,
   accountName,
   isRepresentative,
-  userDetails,
-}: UserDetailsPagePros) {
+}: UserDetailsPageProps) {
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? {}
 
   return (
-    <PageProvider context={{ globalSettings }}>
+    <PageProvider
+      context={{
+        globalSettings,
+        accountPageData,
+        navigationLabels,
+      }}
+    >
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout
+        <Layout
           isRepresentative={isRepresentative}
           accountName={accountName}
+          navigationLabels={navigationLabels}
         >
           <BeforeSection />
-          <MyAccountUserDetails userDetails={userDetails} />
+          <RenderSectionsBase
+            sections={pageSections}
+            components={ACCOUNT_COMPONENTS}
+          />
           <AfterSection />
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )
@@ -88,7 +99,7 @@ const query = gql(`
 `)
 
 const getServerSidePropsBase: GetServerSideProps<
-  MyAccountProps,
+  UserDetailsPageProps,
   Record<string, string>,
   Locator
 > = async (context) => {
@@ -104,6 +115,16 @@ const getServerSidePropsBase: GetServerSideProps<
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }
   }
+
+  if (!isRepresentative) {
+    return {
+      redirect: {
+        destination: '/pvt/account',
+        permanent: false,
+      },
+    }
+  }
+
   const contentContext = {
     previewData: context.previewData,
     locale: context.locale,
@@ -116,11 +137,17 @@ const getServerSidePropsBase: GetServerSideProps<
   ] = getGlobalSectionsData(contentContext)
 
   const [
+    pageContent,
     userDetails,
     globalSections,
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
+    fetchMyAccountPageContent(
+      'myaccountuserdetails',
+      contentContext,
+      '/pvt/account/user-details'
+    ),
     execute<ServerUserDetailsQueryQueryVariables, ServerUserDetailsQueryQuery>(
       {
         variables: {},
@@ -135,24 +162,12 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooterPromise,
   ])
 
-  // If the user is not a representative (b2b), redirect them to the account home page
-  if (!isRepresentative) {
-    return {
-      redirect: {
-        destination: '/pvt/account',
-        permanent: false,
-      },
-    }
-  }
-
   if (userDetails?.errors) {
     console.error(...userDetails.errors)
 
     const statusCode: number = (userDetails.errors[0] as any)?.extensions
       ?.status
 
-    // Redirect to 403 for authentication errors (401/403) to handle token refresh
-    // Redirect to 404 for other errors
     const destination: string =
       statusCode === 401 || statusCode === 403
         ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/user-details')}`
@@ -166,6 +181,10 @@ const getServerSidePropsBase: GetServerSideProps<
     }
   }
 
+  const { pageSections, navigationData } = extractAccountNavigationData(
+    pageContent.sections
+  )
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
@@ -175,8 +194,19 @@ const getServerSidePropsBase: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: userDetails.data.accountProfile.name,
-      userDetails: userDetails.data?.userDetails ?? {},
+      accountName: userDetails.data.accountProfile.name ?? '',
+      navigationLabels: navigationData as AccountNavigationLabels,
+      accountPageData: {
+        userDetails: userDetails.data?.userDetails ?? {
+          username: '',
+          name: '',
+          email: '',
+          phone: '',
+          role: [],
+          orgUnit: '',
+        },
+      },
+      pageSections,
       isRepresentative,
     },
   }
