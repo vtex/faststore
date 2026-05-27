@@ -176,7 +176,15 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all paths. Exclude:
+     * Explicit root entry. Required because Next.js' negative-lookahead
+     * matcher pattern does not catch `/` on its own (the trailing `(.*)`
+     * makes path-to-regexp treat the root as unmatched). Without this,
+     * password protection silently bypasses the homepage.
+     * See: https://github.com/vercel/next.js/issues/62078
+     */
+    '/',
+    /*
+     * Match all other paths. Exclude:
      * - api (e.g. api/fs/auth/login)
      * - _next/static, _next/image
      * - favicon.ico
