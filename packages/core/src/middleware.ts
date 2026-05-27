@@ -31,39 +31,43 @@ const redirectsClient = new DynamoRedirectsClient()
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
+  let authResult: Awaited<
+    ReturnType<AuthenticationService['authenticateRequest']>
+  >
+
   try {
     const authService = new AuthenticationService()
-    const authResult = await authService.authenticateRequest(request)
-
-    if (authResult.response.status !== 200) {
-      return authResult.response
-    }
-
-    if (process.env.ENABLE_REDIRECTS_MIDDLEWARE === 'true') {
-      const redirect = await redirectsClient.get(path)
-
-      if (redirect) {
-        const redirectUrl = new URL(redirect.to, storeConfig.storeUrl)
-        const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
-        const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
-
-        for (const cookie of authResult.response.cookies.getAll()) {
-          response.cookies.set(cookie)
-        }
-
-        response.headers.set(
-          'Cache-Control',
-          'public, max-age=300, stale-while-revalidate=31536000'
-        )
-
-        return response
-      }
-    }
-
-    return authResult.response
+    authResult = await authService.authenticateRequest(request)
   } catch {
-    return NextResponse.next()
+    return NextResponse.error()
   }
+
+  if (authResult.response.status !== 200) {
+    return authResult.response
+  }
+
+  if (process.env.ENABLE_REDIRECTS_MIDDLEWARE === 'true') {
+    const redirect = await redirectsClient.get(path)
+
+    if (redirect) {
+      const redirectUrl = new URL(redirect.to, storeConfig.storeUrl)
+      const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
+      const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
+
+      for (const cookie of authResult.response.cookies.getAll()) {
+        response.cookies.set(cookie)
+      }
+
+      response.headers.set(
+        'Cache-Control',
+        'public, max-age=300, stale-while-revalidate=31536000'
+      )
+
+      return response
+    }
+  }
+
+  return authResult.response
 }
 
 export const config = {
