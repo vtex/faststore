@@ -124,6 +124,44 @@ function Page({
       .toString()
   }
 
+  // hreflang alternate links for multi-locale stores
+  const hreflangLinks: Array<{ rel: string; hrefLang: string; href: string }> =
+    []
+  if (
+    storeConfig.localization?.enabled &&
+    server.product.otherLocales?.length
+  ) {
+    const locales = storeConfig.localization.locales as Record<string, any>
+    const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
+    const defaultLocale = storeConfig.localization.defaultLocale as
+      | string
+      | undefined
+
+    for (const { locale, slug } of server.product.otherLocales) {
+      const bindingUrl = locales?.[locale]?.bindings?.[0]?.url as
+        | string
+        | undefined
+      if (bindingUrl) {
+        hreflangLinks.push({
+          rel: 'alternate',
+          hrefLang: locale,
+          href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
+        })
+      }
+    }
+
+    const defaultEntry = server.product.otherLocales.find(
+      (e) => e.locale === defaultLocale
+    )
+    if (defaultEntry) {
+      hreflangLinks.push({
+        rel: 'alternate',
+        hrefLang: 'x-default',
+        href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
+      })
+    }
+  }
+
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
@@ -201,53 +239,11 @@ function Page({
             content: currency.code,
           },
         ]}
+        additionalLinkTags={hreflangLinks}
         titleTemplate={titleTemplate}
       />
 
       <BreadcrumbJsonLd itemListElements={itemListElements} />
-
-      {/* hreflang alternate links for multi-locale stores */}
-      {storeConfig.localization?.enabled &&
-      server.product.otherLocales?.length ? (
-        <Head>
-          {server.product.otherLocales.map(({ locale, slug }) => {
-            const localeConfig = (
-              storeConfig.localization?.locales as Record<string, any>
-            )?.[locale]
-            const bindingUrl = localeConfig?.bindings?.[0]?.url as
-              | string
-              | undefined
-            if (!bindingUrl) return null
-            const base = bindingUrl.replace(/\/$/, '')
-            return (
-              <link
-                key={locale}
-                rel="alternate"
-                hrefLang={locale}
-                href={`${base}/${slug}/p`}
-              />
-            )
-          })}
-          {/* x-default points to the root URL (no locale prefix) */}
-          {(() => {
-            const defaultLocale = storeConfig.localization?.defaultLocale as
-              | string
-              | undefined
-            const defaultEntry = server.product.otherLocales?.find(
-              (e) => e.locale === defaultLocale
-            )
-            if (!defaultEntry) return null
-            const baseUrl = storeConfig.storeUrl.replace(/\/$/, '')
-            return (
-              <link
-                rel="alternate"
-                hrefLang="x-default"
-                href={`${baseUrl}/${defaultEntry.slug}/p`}
-              />
-            )
-          })()}
-        </Head>
-      ) : null}
 
       <ProductJsonLd
         id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
