@@ -1,8 +1,13 @@
 import { Button } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
-import { FastStoreOrderStatusWithLabels } from 'src/utils/userOrderStatus'
+import {
+  type ListOrdersSectionLabels,
+  getStatusDisplayLabels,
+  resolveListOrdersLabels,
+} from '../listOrdersLabels'
 
-type MyAccountSelectedTagsProps = {
+type SelectedTagsProps = {
+  labels?: ListOrdersSectionLabels
   filters: {
     status?: string[]
     dateInitial?: string
@@ -39,7 +44,10 @@ function formatFilterDate(date: string, locale: string) {
 function Tags({
   filters,
   onRemoveFilter,
-}: Pick<MyAccountSelectedTagsProps, 'filters' | 'onRemoveFilter'>) {
+  labels: labelsProp,
+}: Pick<SelectedTagsProps, 'filters' | 'onRemoveFilter' | 'labels'>) {
+  const labels = resolveListOrdersLabels(labelsProp)
+  const statusDisplayLabels = getStatusDisplayLabels(labels)
   const { locale } = useSession()
   const { dateInitial, dateFinal, status, pendingMyApproval } = filters
 
@@ -73,11 +81,7 @@ function Tags({
 
   const statusTags = (status || []).map((value) => (
     <div key={`status-${value}`} data-fs-list-orders-selected-tag>
-      <span>
-        {FastStoreOrderStatusWithLabels[
-          value.toLowerCase() as keyof typeof FastStoreOrderStatusWithLabels
-        ] || value}
-      </span>
+      <span>{statusDisplayLabels[value.toLowerCase()] || value}</span>
       <button
         data-fs-list-orders-selected-tag-clear
         onClick={() => onRemoveFilter('status', value)}
@@ -89,7 +93,7 @@ function Tags({
 
   const pendingMyApprovalTag = pendingMyApproval && (
     <div key="pending-approval" data-fs-list-orders-selected-tag>
-      <span>Pending my approval</span>
+      <span>{labels.pendingApprovalLabel}</span>
       <button
         data-fs-list-orders-selected-tag-clear
         onClick={() => onRemoveFilter('pendingMyApproval', pendingMyApproval)}
@@ -108,11 +112,13 @@ function Tags({
   )
 }
 
-function MyAccountSelectedTags({
+function SelectedTags({
   filters,
   onClearAll,
   onRemoveFilter,
-}: MyAccountSelectedTagsProps) {
+  labels: labelsProp,
+}: SelectedTagsProps) {
+  const labels = resolveListOrdersLabels(labelsProp)
   const hasFilters = Object.entries(filters).some(
     ([key, values]) =>
       (key === 'status' ||
@@ -127,14 +133,18 @@ function MyAccountSelectedTags({
     <>
       {hasFilters && (
         <div data-fs-list-orders-selected-tags>
-          <Tags filters={filters} onRemoveFilter={onRemoveFilter} />
+          <Tags
+            filters={filters}
+            onRemoveFilter={onRemoveFilter}
+            labels={labels}
+          />
           <Button
             variant="tertiary"
             size="small"
             data-fs-list-orders-selected-tags-clear-all-button
             onClick={onClearAll}
           >
-            Clear All
+            {labels.clearAllLabel}
           </Button>
         </div>
       )}
@@ -142,4 +152,4 @@ function MyAccountSelectedTags({
   )
 }
 
-export default MyAccountSelectedTags
+export default SelectedTags

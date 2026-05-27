@@ -1,1 +1,1 @@
-export { default } from './MyAccountFilterSlider'
+export { default } from './FilterSlider'

@@ -4,22 +4,28 @@ import type {
 } from '@generated/graphql'
 import { useState } from 'react'
 import {
-  MyAccountAccordion,
-  MyAccountAccordionButton,
-  MyAccountAccordionItem,
-  MyAccountAccordionPanel,
-} from '../../../components/MyAccountAccordion'
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+} from '../../../components/Accordion'
 import { useFormatPrice } from '../../../utils/useFormatPrice'
-import MyAccountDeliveryOptionAccordionDeliveryInfo from './MyAccountDeliveryOptionAccordionDeliveryInfo'
+import DeliveryOptionAccordionDeliveryInfo from './DeliveryOptionAccordionDeliveryInfo'
 import {
-  MyAccountDeliveryOptionAccordionProduct,
-  MyAccountDeliveryOptionAccordionProducts,
-} from './MyAccountDeliveryOptionAccordionProducts'
+  DeliveryOptionAccordionProduct,
+  DeliveryOptionAccordionProducts,
+} from './DeliveryOptionAccordionProducts'
 
-interface MyAccountDeliveryOptionAccordionProps {
+import {
+  type OrderDeliverySectionLabels,
+  resolveOrderDeliveryLabels,
+} from '../orderDetailsLabels'
+
+interface DeliveryOptionAccordionProps {
   deliveryOption: UserOrderDeliveryOption
   contact?: UserOrderDeliveryOptionsContact | null
   currencyCode: string
+  labels?: OrderDeliverySectionLabels
   customFields?: Array<{
     type: string
     id: string
@@ -31,12 +37,14 @@ interface MyAccountDeliveryOptionAccordionProps {
   }>
 }
 
-function MyAccountDeliveryOptionAccordion({
+function DeliveryOptionAccordion({
   deliveryOption,
   contact,
   currencyCode,
+  labels: labelsProp,
   customFields,
-}: MyAccountDeliveryOptionAccordionProps) {
+}: DeliveryOptionAccordionProps) {
+  const labels = resolveOrderDeliveryLabels(labelsProp)
   const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
     new Set([])
   )
@@ -44,7 +52,12 @@ function MyAccountDeliveryOptionAccordion({
 
   const title = deliveryOption.friendlyDeliveryOptionName
 
-  const summary = `${deliveryOption.quantityOfDifferentItems} ${deliveryOption.quantityOfDifferentItems === 1 ? 'item' : 'items'} – Total ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
+  const itemCount = labels.itemCountTemplate.replace(
+    '{count}',
+    String(deliveryOption.quantityOfDifferentItems)
+  )
+
+  const summary = `${itemCount} – ${labels.totalLabel} ${formatPrice(deliveryOption.total ?? 0, currencyCode)}`
 
   const onChange = (index: number) => {
     if (indicesExpanded.has(index)) {
@@ -56,23 +69,23 @@ function MyAccountDeliveryOptionAccordion({
   }
 
   return (
-    <MyAccountAccordion
+    <Accordion
       indices={indicesExpanded}
       onChange={onChange}
       data-fs-delivery-option-accordion
     >
-      <MyAccountAccordionItem index={0} key={String(0)}>
-        <MyAccountAccordionButton title={title} summary={summary} />
-        <MyAccountAccordionPanel>
-          <MyAccountDeliveryOptionAccordionDeliveryInfo
+      <AccordionItem index={0} key={String(0)}>
+        <AccordionButton title={title} summary={summary} />
+        <AccordionPanel>
+          <DeliveryOptionAccordionDeliveryInfo
             deliveryOption={deliveryOption}
             contact={contact}
           />
-          <MyAccountDeliveryOptionAccordionProducts>
+          <DeliveryOptionAccordionProducts>
             {deliveryOption.items?.map((item, index) => {
               const tax = (item.tax ?? 0) + (item.taxPriceTagsTotal ?? 0)
               return (
-                <MyAccountDeliveryOptionAccordionProduct
+                <DeliveryOptionAccordionProduct
                   key={index}
                   image={item.imageUrl || ''}
                   quantity={item.quantity}
@@ -87,11 +100,11 @@ function MyAccountDeliveryOptionAccordion({
                 />
               )
             })}
-          </MyAccountDeliveryOptionAccordionProducts>
-        </MyAccountAccordionPanel>
-      </MyAccountAccordionItem>
-    </MyAccountAccordion>
+          </DeliveryOptionAccordionProducts>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
   )
 }
 
-export default MyAccountDeliveryOptionAccordion
+export default DeliveryOptionAccordion

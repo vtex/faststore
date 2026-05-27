@@ -1,11 +1,11 @@
 import { AccordionPanel as UIAccordionPanel } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
-interface MyAccountAccordionPanelProps {
+interface AccordionPanelProps {
   children: ReactNode
 }
 
-function MyAccountAccordionPanel({ children }: MyAccountAccordionPanelProps) {
+function AccordionPanel({ children }: AccordionPanelProps) {
   return (
     <UIAccordionPanel>
       <div data-fs-my-account-accordion-content>{children}</div>
@@ -13,4 +13,4 @@ function MyAccountAccordionPanel({ children }: MyAccountAccordionPanelProps) {
   )
 }
 
-export default MyAccountAccordionPanel
+export default AccordionPanel

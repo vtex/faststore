@@ -1,16 +1,30 @@
 import { Link } from '@faststore/ui'
 
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
-import { USER_DETAILS_ROUTE } from 'src/sdk/account/getMyAccountRoutes'
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
+import {
+  USER_DETAILS_ROUTE,
+  getExtraMyAccountRoutes,
+  getMyAccountRoutes,
+} from 'src/sdk/account/getMyAccountRoutes'
 
 const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
 
 export const OrganizationDrawerBody = ({
   isRepresentative,
 }: { isRepresentative: boolean }) => {
+  const navigationLabels = useAccountNavigationLabels()
+
+  const menuItems = navigationLabels
+    ? getMyAccountRoutes({
+        routes: getExtraMyAccountRoutes(menuRoutes),
+        labels: navigationLabels,
+      })
+    : menuRoutes
+
   const routes = isRepresentative
-    ? menuRoutes
-    : menuRoutes.filter(
+    ? menuItems
+    : menuItems.filter(
         ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
       )
   return (

@@ -1,87 +1,43 @@
-import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
-import MyAccountStatusCard from 'src/components/account/orders/MyAccountOrderDetails/MyAccountStatusCard'
-import MyAccountBuyingPolicyAlert from './MyAccountBuyingPolicyAlert'
-import MyAccountDeliveryCard from './MyAccountDeliveryCard'
-import { MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
-import MyAccountOrderActions from './MyAccountOrderActions'
-import MyAccountOrderedByCard from './MyAccountOrderedByCard'
-import MyAccountPaymentCard from './MyAccountPaymentCard'
-import MyAccountReorderButton from './MyAccountReorderButton'
-import MyAccountSummaryCard from './MyAccountSummaryCard'
-import MyAccountBudgetsCard from './MyAccountBudgetsCard'
-
 import type {
   ServerOrderDetailsQueryQuery,
   UserOrderDeliveryOption,
   UserOrderDeliveryOptionsData,
 } from '@generated/graphql'
 import type { OrderStatusKey } from 'src/utils/userOrderStatus'
-import MyAccountStatusBadge from '../../components/MyAccountStatusBadge'
-import MyAccountMoreInformationCard from './MyAccountMoreInformationCard'
-import styles from './section.module.scss'
+import BudgetsCard from './BudgetsCard'
+import DeliveryCard from './DeliveryCard'
+import { DeliveryOptionAccordion } from './DeliveryOptionAccordion'
+import MoreInformationCard from './MoreInformationCard'
+import OrderedByCard from './OrderedByCard'
+import PaymentCard from './PaymentCard'
+import StatusCard from './StatusCard'
+import SummaryCard from './SummaryCard'
+import { OrderDetailsHeader, OrderDetailsPageShell } from './OrderDetailsHeader'
 
-export interface MyAccountOrderDetailsProps {
+export interface OrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
 }
 
-const MIN_HISTORY_LENGTH_TO_GO_BACK = 2
-
-export default function MyAccountOrderDetails({
-  order,
-}: MyAccountOrderDetailsProps) {
+/**
+ * @deprecated Use CMS section wrappers (AccountOrderDetails, AccountOrderStatus, …)
+ * rendered via RenderSectionsBase on the order details page.
+ */
+export default function OrderDetails({ order }: OrderDetailsProps) {
   const moreInformationCustomFields = order?.customFields?.find(
     (field) => field.type === 'order'
   )?.fields
 
   return (
-    <div className={styles.page} data-fs-order-details>
-      <header data-fs-order-details-header>
-        <div data-fs-order-details-header-title>
-          <a href="/pvt/account/orders">
-            <UIIconButton
-              data-fs-order-details-header-back-button
-              size="small"
-              aria-label="Go back"
-              icon={<UIIcon name="ArrowLeft" />}
-              type="button"
-            />
-          </a>
-          <div data-fs-order-details-header-title-wrapper>
-            <h1 data-fs-order-details-header-title-text>
-              Order #{order.orderId}
-            </h1>
-            <MyAccountStatusBadge
-              status={order.status}
-              statusFallback={order.statusDescription}
-            />
-          </div>
-        </div>
-
-        <div data-fs-order-details-header-actions>
-          <MyAccountReorderButton order={order} />
-          <MyAccountOrderActions
-            allowCancellation={order.allowCancellation}
-            orderId={order.orderId}
-            customerEmail={order.clientProfileData?.email}
-            order={order}
-          />
-        </div>
-      </header>
+    <OrderDetailsPageShell>
+      <OrderDetailsHeader order={order} />
 
       <main data-fs-order-details-content>
-        {order.ruleForAuthorization && (
-          <MyAccountBuyingPolicyAlert
-            ruleForAuthorization={order.ruleForAuthorization}
-            onAuthorizationComplete={() => window.location.reload()}
-          />
-        )}
-
-        <MyAccountOrderedByCard
+        <OrderedByCard
           clientProfileData={order.clientProfileData}
           shopper={order.shopper}
         />
 
-        <MyAccountDeliveryCard
+        <DeliveryCard
           deliveryOptionsData={
             order.deliveryOptionsData as UserOrderDeliveryOptionsData
           }
@@ -91,25 +47,25 @@ export default function MyAccountOrderDetails({
           }
         />
 
-        <MyAccountStatusCard
+        <StatusCard
           status={order.status as OrderStatusKey}
           creationDate={order.creationDate}
         />
 
-        <MyAccountPaymentCard
+        <PaymentCard
           currencyCode={order.storePreferencesData.currencyCode}
           paymentData={order.paymentData}
           allowCancellation={order.allowCancellation}
         />
 
-        <MyAccountSummaryCard
+        <SummaryCard
           totals={order.totals}
           currencyCode={order.storePreferencesData.currencyCode}
           transactions={order.paymentData.transactions}
         />
 
         {order.deliveryOptionsData.deliveryOptions.map((option) => (
-          <MyAccountDeliveryOptionAccordion
+          <DeliveryOptionAccordion
             key={option.friendlyDeliveryOptionName}
             deliveryOption={option as UserOrderDeliveryOption}
             contact={order.deliveryOptionsData.contact}
@@ -121,16 +77,16 @@ export default function MyAccountOrderDetails({
         ))}
 
         {moreInformationCustomFields?.length > 0 && (
-          <MyAccountMoreInformationCard fields={moreInformationCustomFields} />
+          <MoreInformationCard fields={moreInformationCustomFields} />
         )}
 
         {order.budgetData && (
-          <MyAccountBudgetsCard
+          <BudgetsCard
             budgetData={order.budgetData}
             currencyCode={order.storePreferencesData.currencyCode}
           />
         )}
       </main>
-    </div>
+    </OrderDetailsPageShell>
   )
 }

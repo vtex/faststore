@@ -1,1 +1,1 @@
-export { default } from './MyAccountMenu'
+export { default } from './Menu'

@@ -1,4 +1,4 @@
-export { default as MyAccountAccordion } from './MyAccountAccordion'
-export { default as MyAccountAccordionButton } from './MyAccountAccordionButton'
-export { default as MyAccountAccordionItem } from './MyAccountAccordionItem'
-export { default as MyAccountAccordionPanel } from './MyAccountAccordionPanel'
+export { default as Accordion } from './Accordion'
+export { default as AccordionButton } from './AccordionButton'
+export { default as AccordionItem } from './AccordionItem'
+export { default as AccordionPanel } from './AccordionPanel'

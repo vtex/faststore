@@ -1,2 +1,2 @@
-export { default } from './MyAccountFilterFacetDateRange'
-export type { MyAccountFilterFacetDateRangeProps } from './MyAccountFilterFacetDateRange'
+export { default } from './FilterFacetDateRange'
+export type { FilterFacetDateRangeProps } from './FilterFacetDateRange'

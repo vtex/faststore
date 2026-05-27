@@ -1,1 +1,1 @@
-export { default } from './MyAccountOrderedByCard'
+export { default } from './OrderedByCard'

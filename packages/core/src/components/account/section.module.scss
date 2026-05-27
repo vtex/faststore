@@ -1,5 +1,5 @@
 @use "sass:meta";
 
 @layer components {
-  @include meta.load-css("./MyAccountLayout/styles.scss");
+  @include meta.load-css("./Layout/styles.scss");
 }

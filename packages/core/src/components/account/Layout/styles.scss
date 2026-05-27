@@ -9,8 +9,8 @@
   @include meta.load-css("~@faststore/ui/src/components/atoms/Input/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/molecules/LinkButton/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/molecules/SearchInputField/styles.scss");
-  @include meta.load-css("../MyAccountMenu/styles.scss");
-  @include meta.load-css("../components/MyAccountHeader/styles.scss");
+  @include meta.load-css("../Menu/styles.scss");
+  @include meta.load-css("../components/Header/styles.scss");
 
   display: grid;
   grid-template-rows: auto 1fr;

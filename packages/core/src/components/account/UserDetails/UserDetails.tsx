@@ -1,9 +1,13 @@
-import Tag from '../components/MyAccountTag'
-import AccountTable from '../components/MyAccountTable'
-import AccountHeader from '../components/MyAccountHeader'
+import Tag from '../components/Tag'
+import AccountTable from '../components/Table'
+import AccountHeader from '../components/Header'
+import {
+  type UserDetailsSectionLabels,
+  resolveUserDetailsLabels,
+} from './userDetailsLabels'
 import styles from './styles.module.scss'
 
-type MyAccountUserDetailsProps = {
+type UserDetailsProps = {
   userDetails: {
     username: string
     name: string
@@ -12,23 +16,27 @@ type MyAccountUserDetailsProps = {
     role: string[]
     orgUnit: string
   }
+  labels?: UserDetailsSectionLabels
 }
 
-export default function MyAccountUserDetails({
+export default function UserDetails({
   userDetails: { username, name, email, phone, role, orgUnit },
-}: MyAccountUserDetailsProps) {
+  labels: labelsProp,
+}: UserDetailsProps) {
+  const labels = resolveUserDetailsLabels(labelsProp)
+
   return (
     <section className={styles.section}>
-      <AccountHeader pageTitle="User details" />
+      <AccountHeader pageTitle={labels.pageTitle} />
       <div data-fs-user-details-container>
         <AccountTable
           rows={[
-            { heading: 'Name', data: name ? name : '–' },
+            { heading: labels.nameLabel, data: name ? name : '–' },
             { heading: 'Username', data: username ? username : '–' },
             { heading: 'Phone number', data: phone ? phone : '–' },
-            { heading: 'Email', data: email },
+            { heading: labels.emailLabel, data: email },
             {
-              heading: 'Role',
+              heading: labels.roleLabel,
               data: (
                 <span data-fs-user-details-row-tags>
                   {role.map((r) => (
@@ -37,7 +45,7 @@ export default function MyAccountUserDetails({
                 </span>
               ),
             },
-            { heading: 'Organizational unit', data: orgUnit },
+            { heading: labels.orgUnitLabel, data: orgUnit },
           ]}
         />
       </div>

@@ -1,7 +1,8 @@
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-import MyAccountCard from '../../../components/MyAccountCard'
+import Card from '../../../components/Card'
 
-interface MyAccountOrderedByCardProps {
+interface OrderedByCardProps {
+  title?: string
   clientProfileData: Pick<
     ServerOrderDetailsQueryQuery['userOrder']['clientProfileData'],
     | 'firstName'
@@ -19,10 +20,11 @@ interface MyAccountOrderedByCardProps {
   }
 }
 
-function MyAccountOrderedByCard({
+function OrderedByCard({
+  title = 'Ordered by',
   clientProfileData,
   shopper,
-}: MyAccountOrderedByCardProps) {
+}: OrderedByCardProps) {
   const shopperNameExists = Boolean(shopper?.firstName)
   const firstName =
     (shopperNameExists ? shopper?.firstName : clientProfileData?.firstName) ??
@@ -39,7 +41,7 @@ function MyAccountOrderedByCard({
   }
 
   return (
-    <MyAccountCard title="Ordered by" data-fs-order-ordered-by-card>
+    <Card title={title} data-fs-order-ordered-by-card>
       {isCorporate && corporateName && (
         <div data-fs-ordered-by-org>
           <div data-fs-ordered-by-avatar>{getFirstLetter(corporateName)}</div>
@@ -58,8 +60,8 @@ function MyAccountOrderedByCard({
           </p>
         )}
       </div>
-    </MyAccountCard>
+    </Card>
   )
 }
 
-export default MyAccountOrderedByCard
+export default OrderedByCard

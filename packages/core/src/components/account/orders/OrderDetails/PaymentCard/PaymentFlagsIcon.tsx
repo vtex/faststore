@@ -1,5 +1,5 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import type { OrderPaymentDataTransactionPayment } from './MyAccountPaymentCard'
+import type { OrderPaymentDataTransactionPayment } from './PaymentCard'
 
 interface PaymentFlagsIconProps {
   payment: Pick<
@@ -45,7 +45,7 @@ function shouldShowFlag(
   return true
 }
 
-function MyAccountPaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
+function PaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
   const getPaymentFlag = () => {
     const { group, paymentSystemName, paymentOrigin } = payment
 
@@ -103,4 +103,4 @@ function MyAccountPaymentFlagsIcon({ payment }: PaymentFlagsIconProps) {
   )
 }
 
-export default MyAccountPaymentFlagsIcon
+export default PaymentFlagsIcon

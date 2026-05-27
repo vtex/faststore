@@ -1,6 +1,7 @@
 import { Button, Icon } from '@faststore/ui'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 import { useSession } from 'src/sdk/session'
 
 export type ProfileSummaryProps = {
@@ -8,6 +9,8 @@ export type ProfileSummaryProps = {
   orgName: string
   bordered?: boolean
   showManageLink?: boolean
+  manageLabel?: string
+  logoutLabel?: string
   person: {
     image?: ReactNode
     name: string
@@ -21,9 +24,16 @@ export const ProfileSummary = ({
   orgName,
   bordered = false,
   showManageLink = false,
+  manageLabel: manageLabelProp,
+  logoutLabel: logoutLabelProp,
   ...otherProps
 }: ProfileSummaryProps) => {
   const { b2b } = useSession()
+  const navigationLabels = useAccountNavigationLabels()
+  const manageLabel =
+    manageLabelProp ?? navigationLabels?.manageLabel ?? 'Manage'
+  const logoutLabel =
+    logoutLabelProp ?? navigationLabels?.logoutLabel ?? 'Logout'
 
   return (
     <section
@@ -38,7 +48,7 @@ export const ProfileSummary = ({
             data-fs-profile-summary-org-link
             href={`/pvt/organization-account/org-unit/${b2b?.unitId}`}
           >
-            Manage <Icon name="OpenInNew" width={23} height={23} />
+            {manageLabel} <Icon name="OpenInNew" width={23} height={23} />
           </Link>
         )}
       </div>
@@ -58,7 +68,7 @@ export const ProfileSummary = ({
           variant="tertiary"
           size="small"
         >
-          Logout
+          {logoutLabel}
         </Button>
       </div>
     </section>

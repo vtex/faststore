@@ -1,1 +1,1 @@
-export { default } from './MyAccountLayout'
+export { default } from './Layout'

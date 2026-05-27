@@ -12,8 +12,8 @@ import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
-import FilterFacetDateRange from './MyAccountFilterFacetDateRange'
-import FilterFacetPendingApproval from './MyAccountFilterFacetPendingApproval'
+import FilterFacetDateRange from './FilterFacetDateRange'
+import FilterFacetPendingApproval from './FilterFacetPendingApproval'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -42,9 +42,12 @@ export interface FilterSliderProps {
    * Ref to the search input field.
    */
   searchInputRef?: MutableRefObject<SearchInputFieldRef>
+  fromLabel?: string
+  toLabel?: string
+  invalidDateRangeLabel?: string
 }
 
-function MyAccountFilterSlider({
+function FilterSlider({
   facets,
   testId,
   dispatch,
@@ -54,6 +57,9 @@ function MyAccountFilterSlider({
   clearButtonLabel,
   applyButtonLabel,
   searchInputRef,
+  fromLabel,
+  toLabel,
+  invalidDateRangeLabel,
 }: FilterSliderProps & ReturnType<typeof useMyAccountFilter>) {
   const dateRangeInputRef = useRef<{
     clear: () => void
@@ -220,6 +226,9 @@ function MyAccountFilterSlider({
                   from={facet.from}
                   to={facet.to}
                   setDisabled={setDisabled}
+                  fromLabel={fromLabel}
+                  toLabel={toLabel}
+                  invalidDateRangeLabel={invalidDateRangeLabel}
                 />
               )}
             </UIFilterFacets>
@@ -230,4 +239,4 @@ function MyAccountFilterSlider({
   )
 }
 
-export default MyAccountFilterSlider
+export default FilterSlider

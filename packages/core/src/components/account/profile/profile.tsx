@@ -1,7 +1,6 @@
 import { Link } from '@faststore/ui'
-import AccountTable from '../components/MyAccountTable'
-import AccountHeader from '../components/MyAccountHeader'
-import { strings } from './i18n'
+import AccountTable from '../components/Table'
+import AccountHeader from '../components/Header'
 import styles from './profile.module.scss'
 import { useDateFormatter } from './use-date-formatter'
 
@@ -12,9 +11,26 @@ interface UserProfile {
   createdDate?: string | null
 }
 
+export type ProfileSectionLabels = {
+  pageTitle?: string
+  nameLabel?: string
+  emailLabel?: string
+  idLabel?: string
+  createdDateLabel?: string
+}
+
+const defaultProfileLabels: Required<ProfileSectionLabels> = {
+  pageTitle: 'Profile',
+  nameLabel: 'Name',
+  emailLabel: 'Email',
+  idLabel: 'ID',
+  createdDateLabel: 'Created date',
+}
+
 export interface ProfileSectionProps {
   profile?: UserProfile
   locale?: string
+  labels?: ProfileSectionLabels
 }
 
 /*
@@ -23,27 +39,34 @@ export interface ProfileSectionProps {
 export function ProfileSection({
   profile,
   locale = 'en-US',
+  labels,
 }: ProfileSectionProps) {
   const { formatStringDate } = useDateFormatter(locale)
+  const pageTitle = labels?.pageTitle ?? defaultProfileLabels.pageTitle
+  const nameLabel = labels?.nameLabel ?? defaultProfileLabels.nameLabel
+  const emailLabel = labels?.emailLabel ?? defaultProfileLabels.emailLabel
+  const idLabel = labels?.idLabel ?? defaultProfileLabels.idLabel
+  const createdDateLabel =
+    labels?.createdDateLabel ?? defaultProfileLabels.createdDateLabel
 
   return (
     <div data-fs-account-profile-section className={styles.section}>
-      <AccountHeader pageTitle={strings.profile} />
+      <AccountHeader pageTitle={pageTitle} />
       <section data-fs-account-profile-body>
         <AccountTable
           rows={[
-            { heading: strings.name, data: profile?.name },
+            { heading: nameLabel, data: profile?.name },
             {
-              heading: strings.email,
+              heading: emailLabel,
               data: (
                 <Link href={`mailto:${profile?.email}`}>{profile?.email}</Link>
               ),
             },
-            { heading: strings.id, data: profile?.id },
+            { heading: idLabel, data: profile?.id },
             ...(profile?.createdDate
               ? [
                   {
-                    heading: strings.createdDate,
+                    heading: createdDateLabel,
                     data: formatStringDate(profile.createdDate),
                   },
                 ]

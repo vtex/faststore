@@ -1,8 +1,9 @@
 import type { UserOrderDeliveryOptionsData } from '@generated/graphql'
 import { camelCaseToTitle } from 'src/utils/utilities'
-import MyAccountCard from '../../../components/MyAccountCard'
+import Card from '../../../components/Card'
 
-interface MyAccountDeliveryCardProps {
+interface DeliveryCardProps {
+  title?: string
   deliveryOptionsData?: UserOrderDeliveryOptionsData
   fields?: Array<{
     name: string
@@ -11,12 +12,13 @@ interface MyAccountDeliveryCardProps {
   }>
 }
 
-export default function MyAccountDeliveryCard({
+export default function DeliveryCard({
+  title = 'Delivery',
   deliveryOptionsData,
   fields,
-}: MyAccountDeliveryCardProps) {
+}: DeliveryCardProps) {
   return (
-    <MyAccountCard title="Delivery" data-fs-order-delivery-card>
+    <Card title={title} data-fs-order-delivery-card>
       <div data-fs-delivery-methods>
         {deliveryOptionsData.deliveryOptions.map((option, index) => (
           <p key={option.friendlyDeliveryOptionName} data-fs-delivery-method>
@@ -42,6 +44,6 @@ export default function MyAccountDeliveryCard({
           )}
         </div>
       )}
-    </MyAccountCard>
+    </Card>
   )
 }

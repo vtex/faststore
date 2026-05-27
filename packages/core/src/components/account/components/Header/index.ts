@@ -1,1 +1,1 @@
-export { default } from './MyAccountHeader'
+export { default } from './Header'

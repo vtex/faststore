@@ -18,15 +18,15 @@ function InfoContainer({ title, children }: InfoContainerProps) {
   )
 }
 
-interface MyAccountDeliveryOptionAccordionDeliveryInfoProps {
+interface DeliveryOptionAccordionDeliveryInfoProps {
   deliveryOption: UserOrderDeliveryOption
   contact?: UserOrderDeliveryOptionsContact | null
 }
 
-function MyAccountDeliveryOptionAccordionDeliveryInfo({
+function DeliveryOptionAccordionDeliveryInfo({
   deliveryOption,
   contact,
-}: MyAccountDeliveryOptionAccordionDeliveryInfoProps) {
+}: DeliveryOptionAccordionDeliveryInfoProps) {
   const isPickup = deliveryOption.deliveryChannel === 'pickup-in-point'
   const address = isPickup
     ? deliveryOption.pickupStoreInfo?.address
@@ -83,4 +83,4 @@ function MyAccountDeliveryOptionAccordionDeliveryInfo({
   )
 }
 
-export default MyAccountDeliveryOptionAccordionDeliveryInfo
+export default DeliveryOptionAccordionDeliveryInfo

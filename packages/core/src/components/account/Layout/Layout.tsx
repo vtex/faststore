@@ -1,32 +1,46 @@
 import type { PropsWithChildren } from 'react'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
-import { USER_DETAILS_ROUTE } from 'src/sdk/account/getMyAccountRoutes'
-import MyAccountMenu from '../MyAccountMenu'
+import {
+  type AccountNavigationLabels,
+  USER_DETAILS_ROUTE,
+  getExtraMyAccountRoutes,
+  getMyAccountRoutes,
+} from 'src/sdk/account/getMyAccountRoutes'
+import Menu from '../Menu'
 import styles from '../section.module.scss'
 
-export type MyAccountLayoutProps = {
+export type LayoutProps = {
   accountName: string
   isRepresentative?: boolean
+  navigationLabels?: AccountNavigationLabels
 }
 
 const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
 
-const MyAccountLayout = ({
+const Layout = ({
   children,
   accountName,
   isRepresentative = true,
-}: PropsWithChildren<MyAccountLayoutProps>) => {
+  navigationLabels,
+}: PropsWithChildren<LayoutProps>) => {
+  const menuItems = navigationLabels
+    ? getMyAccountRoutes({
+        routes: getExtraMyAccountRoutes(menuRoutes),
+        labels: navigationLabels,
+      })
+    : menuRoutes
+
   const routes = isRepresentative
-    ? menuRoutes
-    : menuRoutes.filter(
+    ? menuItems
+    : menuItems.filter(
         ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
       )
 
   return (
     <section className={styles.layout}>
-      <MyAccountMenu accountName={accountName} items={routes} />
+      <Menu accountName={accountName} items={routes} />
       <div data-fs-account-layout-content>{children}</div>
     </section>
   )
 }
-export default MyAccountLayout
+export default Layout

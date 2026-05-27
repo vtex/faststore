@@ -1,1 +1,1 @@
-export { default } from './MyAccountMoreInformationCard'
+export { default } from './MoreInformationCard'

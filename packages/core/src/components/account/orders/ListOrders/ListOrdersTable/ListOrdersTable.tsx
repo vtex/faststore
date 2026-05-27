@@ -2,13 +2,15 @@ import { Icon, IconButton } from '@faststore/ui'
 
 import { useState } from 'react'
 
-import MyAccountStatusBadge from 'src/components/account/components/MyAccountStatusBadge'
+import StatusBadge from 'src/components/account/components/StatusBadge'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { ExpandButton } from './ExpandButton/ExpandButton'
 
 import type { ServerListOrdersQueryQuery } from '@generated/graphql'
+import type { ListOrdersSectionLabels } from '../listOrdersLabels'
+import { resolveListOrdersLabels } from '../listOrdersLabels'
 
 const MAX_ITEM_FIELDS = 5
 const MAX_ORDER_FIELDS = 5
@@ -21,7 +23,7 @@ function formatOrderDate(date: string, locale: string) {
   })
 }
 
-type MyAccountListOrdersTableProps = {
+type ListOrdersTableProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
   total: number
   perPage: number
@@ -40,11 +42,14 @@ export function Pagination({
   page,
   total,
   perPage,
+  labels: labelsProp,
 }: {
   page: number
   total: number
   perPage: number
+  labels?: ListOrdersSectionLabels
 }) {
+  const labels = resolveListOrdersLabels(labelsProp)
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
   const lastIndexLabel =
@@ -64,14 +69,14 @@ export function Pagination({
 
   return (
     <div data-fs-list-orders-table-pagination>
-      <p>{`${firstIndexLabel} — ${lastIndexLabel} of ${total}`}</p>
+      <p>{`${firstIndexLabel} — ${lastIndexLabel} ${labels.paginationOfLabel} ${total}`}</p>
       <IconButton
         size="small"
         variant="tertiary"
         disabled={page === 1}
         onClick={() => handlePageChange(page - 1)}
         icon={<Icon name="CaretLeft" />}
-        aria-label="Previous Page"
+        aria-label={labels.previousPageLabel}
       />
       <IconButton
         size="small"
@@ -79,18 +84,22 @@ export function Pagination({
         disabled={page === totalPages}
         onClick={() => handlePageChange(page + 1)}
         icon={<Icon name="CaretRight" />}
-        aria-label="Next Page"
+        aria-label={labels.nextPageLabel}
       />
     </div>
   )
 }
 
-export default function MyAccountListOrdersTable({
+export default function ListOrdersTable({
   listOrders,
   total,
   perPage,
   filters,
-}: MyAccountListOrdersTableProps) {
+  labels: labelsProp,
+}: ListOrdersTableProps & {
+  labels?: ListOrdersSectionLabels
+}) {
+  const labels = resolveListOrdersLabels(labelsProp)
   const { isDesktop } = useScreenResize()
   const { locale } = useSession()
   const formatPrice = useFormatPrice()
@@ -157,7 +166,7 @@ export default function MyAccountListOrdersTable({
               : '-'
             const totalPrice = formatPrice(item.totalValue, item.currencyCode)
             const deliveryBy = item.ShippingEstimatedDate
-              ? `Delivery by ${formatOrderDate(
+              ? `${labels.deliveryByLabel} ${formatOrderDate(
                   item.ShippingEstimatedDate,
                   locale
                 )}`
@@ -208,7 +217,7 @@ export default function MyAccountListOrdersTable({
                     <td data-fs-list-orders-table-cell>
                       <div data-fs-list-orders-table-product-info>
                         <p data-fs-list-orders-table-product-info-label>
-                          Placed on
+                          {labels.placedOnLabel}
                         </p>
                         <p
                           data-fs-list-orders-table-product-info-value
@@ -220,7 +229,7 @@ export default function MyAccountListOrdersTable({
                       {hasOrderOrItemCustomFields && (
                         <div data-fs-list-orders-table-product-info>
                           <p data-fs-list-orders-table-product-info-label>
-                            Delivery by
+                            {labels.deliveryByLabel}
                           </p>
                           <p
                             data-fs-list-orders-table-product-info-value
@@ -259,6 +268,8 @@ export default function MyAccountListOrdersTable({
                               ariaControls={additionalInfoIdOrder}
                               isExpanded={isOrderFieldsExpanded}
                               count={orderLevel.length - MAX_ORDER_FIELDS}
+                              viewAllLabel={labels.viewAllLabel}
+                              viewLessLabel={labels.viewLessLabel}
                               onToggle={() =>
                                 handleToggle(item.orderId, 'order')
                               }
@@ -295,6 +306,8 @@ export default function MyAccountListOrdersTable({
                               ariaControls={additionalInfoIdItem}
                               isExpanded={isItemFieldsExpanded}
                               count={itemLevel.length - MAX_ITEM_FIELDS}
+                              viewAllLabel={labels.viewAllLabel}
+                              viewLessLabel={labels.viewLessLabel}
                               onToggle={() =>
                                 handleToggle(item.orderId, 'item')
                               }
@@ -307,7 +320,7 @@ export default function MyAccountListOrdersTable({
                 )}
 
                 <td data-fs-list-orders-table-cell>
-                  <MyAccountStatusBadge
+                  <StatusBadge
                     status={item.status}
                     statusFallback={item.statusDescription}
                   />
@@ -319,7 +332,12 @@ export default function MyAccountListOrdersTable({
         </tbody>
       </table>
       {isDesktop && (
-        <Pagination page={filters.page} total={total} perPage={perPage} />
+        <Pagination
+          page={filters.page}
+          total={total}
+          perPage={perPage}
+          labels={labels}
+        />
       )}
     </>
   )

@@ -1,11 +1,11 @@
-interface MyAccountTableProps {
+interface TableProps {
   rows?: Array<{
     heading: string
     data: React.ReactNode | string
   }>
 }
 
-function MyAccountTable({ rows, ...props }: MyAccountTableProps) {
+function Table({ rows, ...props }: TableProps) {
   return (
     <table data-fs-account-table {...props}>
       <tbody data-fs-account-table-body>
@@ -20,4 +20,4 @@ function MyAccountTable({ rows, ...props }: MyAccountTableProps) {
   )
 }
 
-export default MyAccountTable
+export default Table

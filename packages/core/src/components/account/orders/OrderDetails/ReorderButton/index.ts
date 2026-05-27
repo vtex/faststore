@@ -1,2 +1,2 @@
-export { default } from './MyAccountReorderButton'
-export type { MyAccountReorderButtonProps } from './MyAccountReorderButton'
+export { default } from './ReorderButton'
+export type { ReorderButtonProps } from './ReorderButton'

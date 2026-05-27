@@ -41,7 +41,7 @@ export { useShippingSimulation as useShippingSimulation_unstable } from '../../s
 export { default as useScreenResize_unstable } from '../../src/sdk/ui/useScreenResize'
 
 // Components
-export { OrganizationSignInButton as OrganizationSignInButton_unstable } from '../../src/components/account/MyAccountDrawer/OrganizationSignInButton'
+export { OrganizationSignInButton as OrganizationSignInButton_unstable } from '../../src/components/account/Drawer/OrganizationSignInButton'
 export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
 export { ButtonSignIn as ButtonSignIn_unstable } from '../../src/components/ui/Button'
 

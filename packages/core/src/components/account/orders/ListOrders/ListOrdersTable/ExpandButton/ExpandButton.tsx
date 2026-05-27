@@ -5,6 +5,8 @@ type ExpandButtonProps = {
   onToggle: (e: React.MouseEvent<HTMLButtonElement>) => void
   count: number
   label?: string
+  viewAllLabel?: string
+  viewLessLabel?: string
   ariaControls?: string
 }
 
@@ -12,6 +14,8 @@ export function ExpandButton({
   isExpanded,
   onToggle,
   label,
+  viewAllLabel = 'View all',
+  viewLessLabel = 'View less',
   ariaControls,
 }: ExpandButtonProps) {
   return (
@@ -36,7 +40,7 @@ export function ExpandButton({
         onToggle(e)
       }}
     >
-      {isExpanded ? 'View less' : (label ?? 'View all')}
+      {isExpanded ? viewLessLabel : (label ?? viewAllLabel)}
     </Button>
   )
 }

@@ -13,7 +13,7 @@ import {
   type SearchInputFieldRef,
 } from '@faststore/ui'
 import { useEffect } from 'react'
-import MyAccountFilterSlider from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider'
+import FilterSlider from 'src/components/account/orders/ListOrders/FilterSlider'
 import { useDebounce } from 'src/sdk/account/useDebounce'
 import {
   useMyAccountFilter,
@@ -22,14 +22,17 @@ import {
 } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
-import AccountHeader from '../../components/MyAccountHeader'
-import MyAccountListOrdersTable, {
-  Pagination,
-} from './MyAccountListOrdersTable/MyAccountListOrdersTable'
-import SelectedFiltersTags from './MyAccountSelectedTags/MyAccountSelectedTags'
+import AccountHeader from '../../components/Header'
+import {
+  type ListOrdersSectionLabels,
+  getStatusFacetLabels,
+  resolveListOrdersLabels,
+} from './listOrdersLabels'
+import ListOrdersTable, { Pagination } from './ListOrdersTable/ListOrdersTable'
+import SelectedFiltersTags from './SelectedTags/SelectedTags'
 import styles from './styles.module.scss'
 
-export type MyAccountListOrdersProps = {
+export type ListOrdersProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
   total: number
   perPage: number
@@ -42,12 +45,13 @@ export type MyAccountListOrdersProps = {
     clientEmail: string
     pendingMyApproval?: boolean
   }
+  labels?: ListOrdersSectionLabels
 }
 
 function getSelectedFacets({
   filters,
 }: {
-  filters: MyAccountListOrdersProps['filters']
+  filters: ListOrdersProps['filters']
 }): SelectedFacet[] {
   return Object.keys(filters).reduce((acc, filter) => {
     // FilterSlider does not deal with these filters
@@ -88,21 +92,25 @@ function getSelectedFacets({
 
 function getAllFacets({
   filters,
+  labels,
 }: {
-  filters: MyAccountListOrdersProps['filters']
+  filters: ListOrdersProps['filters']
+  labels: ReturnType<typeof resolveListOrdersLabels>
 }): MyAccountFilter_FacetsFragment[] {
+  const statusFacetLabels = getStatusFacetLabels(labels)
+
   return [
     {
       __typename: 'StoreFacetPendingApproval',
       key: 'pendingMyApproval',
-      label: 'Pending Approval',
+      label: labels.pendingApprovalLabel,
     } as any,
     {
       __typename: 'StoreFacetBoolean',
       key: 'status',
       label: 'Status',
-      values: FastStoreOrderStatus.map((status) => ({
-        label: status,
+      values: FastStoreOrderStatus.map((status, index) => ({
+        label: statusFacetLabels[index] ?? status,
         quantity: 0,
         selected: false,
         value: status.toLowerCase(),
@@ -118,9 +126,7 @@ function getAllFacets({
   ]
 }
 
-function hasActiveFilters(
-  filters: MyAccountListOrdersProps['filters']
-): boolean {
+function hasActiveFilters(filters: ListOrdersProps['filters']): boolean {
   return (
     filters.status.length > 0 ||
     Boolean(filters.dateInitial) ||
@@ -130,12 +136,14 @@ function hasActiveFilters(
   )
 }
 
-export default function MyAccountListOrders({
+export default function ListOrders({
   listOrders,
   total,
   perPage,
   filters,
-}: MyAccountListOrdersProps) {
+  labels: labelsProp,
+}: ListOrdersProps) {
+  const labels = resolveListOrdersLabels(labelsProp)
   const router = useRouter()
   const { isDesktop } = useScreenResize()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
@@ -179,7 +187,7 @@ export default function MyAccountListOrders({
   )
 
   const selectedFacets: SelectedFacet[] = getSelectedFacets({ filters })
-  const allFacets = getAllFacets({ filters })
+  const allFacets = getAllFacets({ filters, labels })
 
   const filter = useMyAccountFilter({
     allFacets,
@@ -193,13 +201,13 @@ export default function MyAccountListOrders({
 
   return (
     <div className={styles.page}>
-      <AccountHeader pageTitle="Orders" />
+      <AccountHeader pageTitle={labels.pageTitle} />
       <div data-fs-list-orders-controls>
         <div data-fs-list-orders-search-filters>
           <SearchInputField
             ref={searchInputRef}
             data-fs-search-input-field-list-orders
-            placeholder="Search"
+            placeholder={labels.searchPlaceholder}
             onBlur={(_) => {
               handleSearchChange(searchInputRef.current.inputRef.value)
             }}
@@ -233,15 +241,21 @@ export default function MyAccountListOrders({
               openFilter()
             }}
           >
-            Filters
+            {labels.filtersLabel}
           </Button>
         </div>
         {isDesktop && (
-          <Pagination page={filters.page} total={total} perPage={perPage} />
+          <Pagination
+            page={filters.page}
+            total={total}
+            perPage={perPage}
+            labels={labels}
+          />
         )}
       </div>
 
       <SelectedFiltersTags
+        labels={labels}
         filters={{
           status: filters.status,
           dateInitial: filters.dateInitial,
@@ -280,11 +294,14 @@ export default function MyAccountListOrders({
       />
 
       {displayFilter && (
-        <MyAccountFilterSlider
+        <FilterSlider
           {...filter}
-          title="Filters"
-          clearButtonLabel="Clear All"
-          applyButtonLabel="View Results"
+          title={labels.filtersLabel}
+          clearButtonLabel={labels.clearAllLabel}
+          applyButtonLabel={labels.viewResultsLabel}
+          fromLabel={labels.fromLabel}
+          toLabel={labels.toLabel}
+          invalidDateRangeLabel={labels.invalidDateRangeLabel}
           searchInputRef={searchInputRef}
           testId="my-account-filter-slider"
         />
@@ -300,7 +317,7 @@ export default function MyAccountListOrders({
               weight="thin"
             />
           }
-          title={hasFilters ? 'No results found' : "You don't have any orders"}
+          title={hasFilters ? labels.noResultsLabel : labels.noOrdersLabel}
           bkgColor="light"
         >
           {!hasFilters && (
@@ -309,20 +326,26 @@ export default function MyAccountListOrders({
               href="/"
               variant="secondary"
             >
-              Start shopping
+              {labels.startShoppingLabel}
             </LinkButton>
           )}
         </EmptyState>
       ) : (
-        <MyAccountListOrdersTable
+        <ListOrdersTable
           listOrders={listOrders}
           total={total}
           perPage={perPage}
           filters={filters}
+          labels={labels}
         />
       )}
       {!isDesktop && (
-        <Pagination page={filters.page} total={total} perPage={perPage} />
+        <Pagination
+          page={filters.page}
+          total={total}
+          perPage={perPage}
+          labels={labels}
+        />
       )}
     </div>
   )

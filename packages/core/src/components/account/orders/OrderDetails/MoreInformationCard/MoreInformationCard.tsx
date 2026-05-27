@@ -1,7 +1,8 @@
 import { camelCaseToTitle } from 'src/utils/utilities'
-import MyAccountCard from '../../../components/MyAccountCard'
+import Card from '../../../components/Card'
 
-export interface MyAccountMoreInformationCardProps {
+export interface MoreInformationCardProps {
+  title?: string
   fields: Array<{
     name: string
     value: string
@@ -9,11 +10,12 @@ export interface MyAccountMoreInformationCardProps {
   }>
 }
 
-function MyAccountMoreInformationCard({
+function MoreInformationCard({
+  title = 'More information',
   fields,
-}: MyAccountMoreInformationCardProps) {
+}: MoreInformationCardProps) {
   return (
-    <MyAccountCard title="More information" data-fs-order-more-information-card>
+    <Card title={title} data-fs-order-more-information-card>
       <div data-fs-order-more-information-card-content>
         {fields.map((item) => (
           <div key={item.name} data-fs-order-more-information-card-item>
@@ -24,8 +26,8 @@ function MyAccountMoreInformationCard({
           </div>
         ))}
       </div>
-    </MyAccountCard>
+    </Card>
   )
 }
 
-export default MyAccountMoreInformationCard
+export default MoreInformationCard

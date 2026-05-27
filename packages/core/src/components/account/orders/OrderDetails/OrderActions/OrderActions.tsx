@@ -7,26 +7,33 @@ import {
   useUI,
 } from '@faststore/ui'
 import { useState } from 'react'
-import MyAccountOrderActionModal from 'src/components/account/orders/MyAccountOrderDetails/MyAccountOrderActionModal'
+import OrderActionModal from 'src/components/account/orders/OrderDetails/OrderActionModal'
 import { useCancelOrder } from 'src/sdk/account/useCancelOrder'
 import { useReorder } from 'src/sdk/account/useReorder'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import {
+  type OrderDetailsHeaderLabels,
+  resolveOrderDetailsHeaderLabels,
+} from '../orderDetailsLabels'
 
 type Order = ServerOrderDetailsQueryQuery['userOrder']
 
-interface MyAccountOrderActionsProps {
+interface OrderActionsProps {
   allowCancellation: boolean
   orderId: string
   customerEmail?: string
   order: Order
+  labels?: OrderDetailsHeaderLabels
 }
 
-export default function MyAccountOrderActions({
+export default function OrderActions({
   allowCancellation,
   orderId,
   customerEmail,
   order,
-}: MyAccountOrderActionsProps) {
+  labels: labelsProp,
+}: OrderActionsProps) {
+  const labels = resolveOrderDetailsHeaderLabels(labelsProp)
   const [isCancelOpen, setIsCancelOpen] = useState<boolean>(false)
   const { pushToast } = useUI()
 
@@ -47,7 +54,7 @@ export default function MyAccountOrderActions({
       setIsCancelOpen(false)
       pushToast({
         status: 'INFO',
-        message: 'Order canceled successfully',
+        message: labels.cancelSuccessToast,
         icon: <UIIcon width={30} height={30} name="CircleWavyCheck" />,
       })
 
@@ -55,7 +62,7 @@ export default function MyAccountOrderActions({
     } catch (error) {
       pushToast({
         status: 'ERROR',
-        message: "Order couldn't be canceled due to a technical issue.",
+        message: labels.cancelErrorToast,
         icon: <UIIcon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -79,7 +86,7 @@ export default function MyAccountOrderActions({
               data-fs-order-actions-item
               data-fs-order-actions-item-reorder
             >
-              Reorder
+              {labels.reorderLabel}
             </DropdownItem>
             {allowCancellation && (
               <DropdownItem
@@ -88,19 +95,19 @@ export default function MyAccountOrderActions({
                 data-fs-order-actions-item
                 data-fs-order-actions-item-cancel
               >
-                Cancel order
+                {labels.cancelOrderLabel}
               </DropdownItem>
             )}
           </DropdownMenu>
         </Dropdown>
       </div>
 
-      <MyAccountOrderActionModal
+      <OrderActionModal
         isOpen={isCancelOpen}
         loading={loading}
-        title="Cancel order"
-        message="Are you sure you want to cancel this order? This action can't be undone."
-        confirmText="Cancel order"
+        title={labels.cancelOrderLabel}
+        message={labels.cancelConfirmMessage}
+        confirmText={labels.cancelOrderLabel}
         danger
         onClose={() => setIsCancelOpen(false)}
         onConfirm={handleCancel}

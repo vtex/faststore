@@ -9,20 +9,20 @@
   @include meta.load-css("~@faststore/ui/src/components/molecules/Card/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/molecules/Alert/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/molecules/Dropdown/styles.scss");
-  @include meta.load-css("../../components/MyAccountAccordion/styles.scss");
-  @include meta.load-css("../../components/MyAccountCard/styles.scss");
-  @include meta.load-css("../../components/MyAccountStatusBadge/styles.scss");
-  @include meta.load-css("./MyAccountSummaryCard/styles.scss");
-  @include meta.load-css("./MyAccountOrderedByCard/styles.scss");
-  @include meta.load-css("./MyAccountDeliveryCard/styles.scss");
-  @include meta.load-css("./MyAccountPaymentCard/styles.scss");
-  @include meta.load-css("./MyAccountDeliveryOptionAccordion/styles.scss");
-  @include meta.load-css("./MyAccountOrderActions/styles.scss");
-  @include meta.load-css("./MyAccountReorderButton/styles.scss");
-  @include meta.load-css("./MyAccountStatusCard/styles.scss");
-  @include meta.load-css("./MyAccountMoreInformationCard/styles.scss");
-  @include meta.load-css("./MyAccountBuyingPolicyAlert/styles.scss");
-  @include meta.load-css("./MyAccountBudgetsCard/styles.scss");
+  @include meta.load-css("../../components/Accordion/styles.scss");
+  @include meta.load-css("../../components/Card/styles.scss");
+  @include meta.load-css("../../components/StatusBadge/styles.scss");
+  @include meta.load-css("./SummaryCard/styles.scss");
+  @include meta.load-css("./OrderedByCard/styles.scss");
+  @include meta.load-css("./DeliveryCard/styles.scss");
+  @include meta.load-css("./PaymentCard/styles.scss");
+  @include meta.load-css("./DeliveryOptionAccordion/styles.scss");
+  @include meta.load-css("./OrderActions/styles.scss");
+  @include meta.load-css("./ReorderButton/styles.scss");
+  @include meta.load-css("./StatusCard/styles.scss");
+  @include meta.load-css("./MoreInformationCard/styles.scss");
+  @include meta.load-css("./BuyingPolicyAlert/styles.scss");
+  @include meta.load-css("./BudgetsCard/styles.scss");
 
   // --------------------------------------------------------
   // Design Tokens

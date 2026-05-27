@@ -1,1 +1,1 @@
-export { default } from './MyAccountSelectedTags'
+export { default } from './SelectedTags'

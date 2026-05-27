@@ -11,7 +11,7 @@ function getStatusVariant({ status }: { status: string }) {
   )
 }
 
-function MyAccountStatusBadge({
+function StatusBadge({
   status,
   statusFallback,
 }: { status: string; statusFallback?: string }) {
@@ -25,4 +25,4 @@ function MyAccountStatusBadge({
   )
 }
 
-export default MyAccountStatusBadge
+export default StatusBadge

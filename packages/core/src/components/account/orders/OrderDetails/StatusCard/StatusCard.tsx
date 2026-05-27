@@ -1,9 +1,13 @@
 import { Icon as UIIcon, Skeleton as UISkeleton } from '@faststore/ui'
 import { useRef, type ReactNode } from 'react'
-import MyAccountCard from 'src/components/account/components/MyAccountCard'
+import Card from 'src/components/account/components/Card'
 import { orderStatusMap, type OrderStatusKey } from 'src/utils/userOrderStatus'
 import { useConnectorPositioning } from './useConnectorPositioning'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import {
+  type OrderStatusSectionLabels,
+  resolveOrderStatusLabels,
+} from '../orderDetailsLabels'
 
 export type StepStatus = 'completed' | 'loading' | 'not-started' | 'failed'
 export type StepKey =
@@ -19,9 +23,10 @@ interface Step {
   completedAt?: string
 }
 
-interface MyAccountStatusCardProps {
+interface StatusCardProps {
   status: OrderStatusKey
   creationDate: ServerOrderDetailsQueryQuery['userOrder']['creationDate']
+  labels?: OrderStatusSectionLabels
 }
 
 // Define custom labels for each step based on their status
@@ -212,10 +217,12 @@ const getStepStatus = ({
   return thisStepIndex < currentStepIndex ? 'completed' : 'not-started'
 }
 
-function MyAccountStatusCard({
+function StatusCard({
   status,
   creationDate,
-}: MyAccountStatusCardProps) {
+  labels: labelsProp,
+}: StatusCardProps) {
+  const labels = resolveOrderStatusLabels(labelsProp)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useConnectorPositioning(containerRef)
@@ -237,11 +244,25 @@ function MyAccountStatusCard({
       isFailed,
     })
 
-    const stepLabel = isCanceled
+    let stepLabel = isCanceled
       ? step.key === 'payment'
         ? currentStatusLabel
         : '—' // prevent hydration mismatch
       : step.label(stepStatus)
+
+    if (!isCanceled) {
+      if (step.key === 'order') {
+        stepLabel = labels.orderPlacedStep
+      } else if (step.key === 'payment' && stepStatus === 'loading') {
+        stepLabel = labels.paymentPendingStep
+      } else if (step.key === 'processing' && stepStatus === 'loading') {
+        stepLabel = labels.handlingStep
+      } else if (step.key === 'shipping' && stepStatus === 'completed') {
+        stepLabel = labels.invoicedStep
+      } else if (step.key === 'shipping' && stepStatus === 'loading') {
+        stepLabel = labels.deliveredStep
+      }
+    }
 
     // Add creation date to the order step when it's completed or failed
     let completedAt: string | undefined
@@ -261,7 +282,7 @@ function MyAccountStatusCard({
   })
 
   return (
-    <MyAccountCard title="Status" data-fs-order-status-card>
+    <Card title={labels.statusTitle} data-fs-order-status-card>
       <div data-fs-order-status-content ref={containerRef}>
         {steps.map((step, index) => (
           <div
@@ -300,8 +321,8 @@ function MyAccountStatusCard({
           </div>
         ))}
       </div>
-    </MyAccountCard>
+    </Card>
   )
 }
 
-export default MyAccountStatusCard
+export default StatusCard

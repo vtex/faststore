@@ -1,1 +1,1 @@
-export { default } from './MyAccountBudgetsCard'
+export { default } from './BudgetsCard'

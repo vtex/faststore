@@ -18,8 +18,8 @@
   @include meta.load-css("~@faststore/ui/src/components/organisms/Filter/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/organisms/FilterSlider/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
-  @include meta.load-css("./MyAccountFilterFacetDateRange/styles.scss");
-  @include meta.load-css("./MyAccountFilterFacetPendingApproval/styles.scss");
+  @include meta.load-css("./FilterFacetDateRange/styles.scss");
+  @include meta.load-css("./FilterFacetPendingApproval/styles.scss");
 
   [data-fs-badge] {
     display: none;

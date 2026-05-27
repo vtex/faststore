@@ -1,5 +1,9 @@
-import MyAccountCard from 'src/components/account/components/MyAccountCard'
+import Card from 'src/components/account/components/Card'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
+import {
+  type OrderSummarySectionLabels,
+  resolveOrderSummaryLabels,
+} from '../orderDetailsLabels'
 
 // Interface for order totals (items, shipping, discounts)
 // TODO: Use type from API
@@ -19,17 +23,20 @@ interface Transaction {
   }>
 }
 
-interface MyAccountSummaryCardProps {
+interface SummaryCardProps {
   totals: Total[]
   currencyCode: string
   transactions: Transaction[]
+  labels?: OrderSummarySectionLabels
 }
 
-function MyAccountSummaryCard({
+function SummaryCard({
   totals,
   currencyCode,
   transactions,
-}: MyAccountSummaryCardProps) {
+  labels: labelsProp,
+}: SummaryCardProps) {
+  const labels = resolveOrderSummaryLabels(labelsProp)
   const formatPrice = useFormatPrice()
 
   // Calculate any payment surcharges from active transactions
@@ -58,7 +65,7 @@ function MyAccountSummaryCard({
     if (surchargeAmount > 0) {
       const interestLineItem = {
         id: 'Interest',
-        name: 'Interest',
+        name: labels.interestLabel,
         value: surchargeAmount,
       }
 
@@ -73,7 +80,7 @@ function MyAccountSummaryCard({
   const totalAmount = displayTotals.reduce((sum, total) => sum + total.value, 0)
 
   return (
-    <MyAccountCard title="Summary" data-fs-order-summary-card>
+    <Card title={labels.summaryTitle} data-fs-order-summary-card>
       {displayTotals.map((total) => (
         <div key={total.id} data-fs-order-summary-item>
           <span>{total.name}</span>
@@ -81,11 +88,11 @@ function MyAccountSummaryCard({
         </div>
       ))}
       <div data-fs-order-summary-item data-fs-order-summary-total>
-        <span>Total</span>
+        <span>{labels.totalLabel}</span>
         <span>{formatPrice(totalAmount, currencyCode)}</span>
       </div>
-    </MyAccountCard>
+    </Card>
   )
 }
 
-export default MyAccountSummaryCard
+export default SummaryCard

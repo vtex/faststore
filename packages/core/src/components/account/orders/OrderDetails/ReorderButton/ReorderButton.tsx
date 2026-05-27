@@ -4,15 +4,17 @@ import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 
 type Order = ServerOrderDetailsQueryQuery['userOrder']
 
-export interface MyAccountReorderButtonProps {
+export interface ReorderButtonProps {
   order: Order
   onClick?: () => void
+  label?: string
 }
 
-export default function MyAccountReorderButton({
+export default function ReorderButton({
   order,
   onClick,
-}: MyAccountReorderButtonProps) {
+  label = 'Reorder',
+}: ReorderButtonProps) {
   const { reorder, loading } = useReorder()
 
   const handleClick = async () => {
@@ -31,7 +33,7 @@ export default function MyAccountReorderButton({
       onClick={handleClick}
       disabled={loading}
     >
-      Reorder
+      {label}
     </Button>
   )
 }

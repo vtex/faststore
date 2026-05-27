@@ -1,2 +1,2 @@
-export { default } from './MyAccountFilterFacetPendingApproval'
-export type { MyAccountFilterFacetPendingApprovalProps } from './MyAccountFilterFacetPendingApproval'
+export { default } from './FilterFacetPendingApproval'
+export type { FilterFacetPendingApprovalProps } from './FilterFacetPendingApproval'

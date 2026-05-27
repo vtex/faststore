@@ -1,1 +1,1 @@
-export { default } from './MyAccountStatusCard'
+export { default } from './StatusCard'

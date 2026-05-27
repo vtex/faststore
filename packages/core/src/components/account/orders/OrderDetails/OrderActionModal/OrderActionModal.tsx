@@ -9,7 +9,7 @@ import {
 } from '@faststore/ui'
 import styles from './styles.module.scss'
 
-interface MyAccountOrderActionModalProps {
+interface OrderActionModalProps {
   isOpen: boolean
   loading?: boolean
   title: string
@@ -22,7 +22,7 @@ interface MyAccountOrderActionModalProps {
   onConfirm: () => void
 }
 
-export default function MyAccountOrderActionModal({
+export default function OrderActionModal({
   isOpen = false,
   loading = false,
   title,
@@ -33,7 +33,7 @@ export default function MyAccountOrderActionModal({
   danger = false,
   onClose,
   onConfirm,
-}: MyAccountOrderActionModalProps) {
+}: OrderActionModalProps) {
   const { fade, fadeOut, fadeIn } = useFadeEffect()
 
   return (

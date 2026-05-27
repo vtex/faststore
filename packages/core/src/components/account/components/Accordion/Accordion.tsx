@@ -1,8 +1,6 @@
 import { Accordion as UIAccordion, type AccordionProps } from '@faststore/ui'
 
-interface MyAccountAccordionProps extends AccordionProps {}
-
-function MyAccountAccordion({ children, ...props }: MyAccountAccordionProps) {
+function Accordion({ children, ...props }: AccordionProps) {
   return (
     <UIAccordion {...props} data-fs-my-account-accordion>
       {children}
@@ -10,4 +8,4 @@ function MyAccountAccordion({ children, ...props }: MyAccountAccordionProps) {
   )
 }
 
-export default MyAccountAccordion
+export default Accordion

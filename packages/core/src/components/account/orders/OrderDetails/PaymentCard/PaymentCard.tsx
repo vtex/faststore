@@ -1,8 +1,12 @@
-import MyAccountCard from '../../../components/MyAccountCard'
-import MyAccountPaymentFlagsIcon from './MyAccountPaymentFlagsIcon'
+import Card from '../../../components/Card'
+import PaymentFlagsIcon from './PaymentFlagsIcon'
 import { Link } from '@faststore/ui'
 import { useFormatPrice } from '../../../utils/useFormatPrice'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import {
+  type OrderPaymentSectionLabels,
+  resolveOrderPaymentLabels,
+} from '../orderDetailsLabels'
 
 export type OrderPaymentData =
   ServerOrderDetailsQueryQuery['userOrder']['paymentData']
@@ -11,17 +15,19 @@ export type OrderPaymentDataTransaction =
 export type OrderPaymentDataTransactionPayment =
   OrderPaymentDataTransaction['payments'][number]
 
-interface MyAccountPaymentCardProps {
+interface PaymentCardProps {
   paymentData?: OrderPaymentData
   currencyCode: string
   allowCancellation?: boolean
+  labels?: OrderPaymentSectionLabels
 }
 
 const getPaymentMethodInfo = (
-  payment: OrderPaymentDataTransaction['payments'][number]
+  payment: OrderPaymentDataTransaction['payments'][number],
+  labels: Required<OrderPaymentSectionLabels>
 ) => {
   const baseInfo = {
-    type: 'Billing',
+    type: labels.billingLabel,
     methodName: '',
     icon: payment.paymentSystemName,
   }
@@ -31,24 +37,24 @@ const getPaymentMethodInfo = (
     case 'debitCard':
       return {
         ...baseInfo,
-        methodName: `${payment.paymentSystemName} ending in ${payment.lastDigits}`,
+        methodName: `${payment.paymentSystemName} ${labels.endingInLabel} ${payment.lastDigits}`,
       }
     case 'bankInvoice':
       return {
         ...baseInfo,
-        type: 'Bank Invoice',
-        methodName: 'Bank Invoice',
+        type: labels.bankInvoiceLabel,
+        methodName: labels.bankInvoiceLabel,
       }
     case 'payPal':
       return {
         ...baseInfo,
-        methodName: 'PayPal',
+        methodName: labels.paypalLabel,
       }
     case 'giftCard':
       return {
         ...baseInfo,
-        type: 'Gift Card',
-        methodName: 'Gift Card',
+        type: labels.giftCardLabel,
+        methodName: labels.giftCardLabel,
       }
     default:
       return {
@@ -70,11 +76,13 @@ const getBankInvoiceUrl = (transactions: OrderPaymentDataTransaction[]) => {
   return null
 }
 
-function MyAccountPaymentCard({
+function PaymentCard({
   paymentData,
   currencyCode,
   allowCancellation = false,
-}: MyAccountPaymentCardProps) {
+  labels: labelsProp,
+}: PaymentCardProps) {
+  const labels = resolveOrderPaymentLabels(labelsProp)
   const formatPrice = useFormatPrice()
 
   const bankInvoiceUrl = getBankInvoiceUrl(paymentData?.transactions)
@@ -82,10 +90,10 @@ function MyAccountPaymentCard({
   const showPrintBankInvoiceButton = allowCancellation && bankInvoiceUrl
 
   return (
-    <MyAccountCard title="Payment" data-fs-order-payment-card>
+    <Card title={labels.paymentTitle} data-fs-order-payment-card>
       <div data-fs-payment-details>
         {paymentData?.transactions[0]?.payments.map((payment) => {
-          const methodInfo = getPaymentMethodInfo(payment)
+          const methodInfo = getPaymentMethodInfo(payment, labels)
           // Check if redemptionCode exists on payment
           const hasRedemptionCode =
             payment.group === 'giftCard' && payment.redemptionCode
@@ -95,7 +103,7 @@ function MyAccountPaymentCard({
               <div data-fs-payment-method>
                 <div data-fs-payment-method-info>
                   <p data-fs-payment-name>{methodInfo.methodName}</p>
-                  <MyAccountPaymentFlagsIcon payment={payment} />
+                  <PaymentFlagsIcon payment={payment} />
                 </div>
                 <div data-fs-payment-value>
                   {hasRedemptionCode ? (
@@ -105,11 +113,15 @@ function MyAccountPaymentCard({
                     </span>
                   ) : payment.installments > 1 ? (
                     <span>
-                      {payment.installments}x of{' '}
-                      {formatPrice(
-                        payment.value / payment.installments,
-                        currencyCode
-                      )}
+                      {labels.installmentCopy
+                        .replace('{count}', String(payment.installments))
+                        .replace(
+                          '{value}',
+                          formatPrice(
+                            payment.value / payment.installments,
+                            currencyCode
+                          )
+                        )}
                     </span>
                   ) : (
                     <span>{formatPrice(payment.value, currencyCode)}</span>
@@ -119,17 +131,20 @@ function MyAccountPaymentCard({
 
               <div data-fs-payment-transaction-info>
                 {payment.tid && (
-                  <span data-fs-payment-tid>Tid: {payment.tid}</span>
+                  <span data-fs-payment-tid>
+                    {labels.tidLabel} {payment.tid}
+                  </span>
                 )}
                 {payment.connectorResponses?.authId && (
                   <span data-fs-payment-authid>
-                    AuthId: {String(payment.connectorResponses.authId)}
+                    {labels.authIdLabel}{' '}
+                    {String(payment.connectorResponses.authId)}
                   </span>
                 )}
                 <div data-fs-payment-bank-invoice>
                   {payment.bankIssuedInvoiceIdentificationNumber && (
                     <span data-fs-payment-bank-invoice-number>
-                      Invoice Number:{' '}
+                      {labels.invoiceNumberLabel}{' '}
                       {payment.bankIssuedInvoiceIdentificationNumber}
                     </span>
                   )}
@@ -139,7 +154,7 @@ function MyAccountPaymentCard({
                       href={bankInvoiceUrl}
                       target="_blank"
                     >
-                      Print Bank Invoice
+                      {labels.printBankInvoiceLabel}
                     </Link>
                   )}
                 </div>
@@ -148,8 +163,8 @@ function MyAccountPaymentCard({
           )
         })}
       </div>
-    </MyAccountCard>
+    </Card>
   )
 }
 
-export default MyAccountPaymentCard
+export default PaymentCard

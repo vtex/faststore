@@ -1,8 +1,6 @@
 import { type CardProps, Card as UICard } from '@faststore/ui'
 
-interface MyAccountCardProps extends CardProps {}
-
-function MyAccountCard({ children, ...props }: MyAccountCardProps) {
+function Card({ children, ...props }: CardProps) {
   return (
     <UICard {...props} data-fs-my-account-card>
       {children}
@@ -10,4 +8,4 @@ function MyAccountCard({ children, ...props }: MyAccountCardProps) {
   )
 }
 
-export default MyAccountCard
+export default Card

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { camelCaseToTitle } from 'src/utils/utilities'
 
-interface MyAccountDeliveryOptionAccordionProductProps {
+interface DeliveryOptionAccordionProductProps {
   image: string
   quantity: number
   name: string
@@ -15,7 +15,7 @@ interface MyAccountDeliveryOptionAccordionProductProps {
   total: string
 }
 
-function MyAccountDeliveryOptionAccordionProduct({
+function DeliveryOptionAccordionProduct({
   image,
   quantity,
   name,
@@ -23,7 +23,7 @@ function MyAccountDeliveryOptionAccordionProduct({
   price,
   tax,
   total,
-}: MyAccountDeliveryOptionAccordionProductProps) {
+}: DeliveryOptionAccordionProductProps) {
   return (
     <div data-fs-delivery-option-accordion-product>
       <div data-fs-delivery-option-accordion-product-top>
@@ -58,17 +58,14 @@ function MyAccountDeliveryOptionAccordionProduct({
   )
 }
 
-interface MyAccountDeliveryOptionAccordionProductsProps {
+interface DeliveryOptionAccordionProductsProps {
   children: ReactNode
 }
 
-function MyAccountDeliveryOptionAccordionProducts({
+function DeliveryOptionAccordionProducts({
   children,
-}: MyAccountDeliveryOptionAccordionProductsProps) {
+}: DeliveryOptionAccordionProductsProps) {
   return <div data-fs-delivery-option-accordion-products>{children}</div>
 }
 
-export {
-  MyAccountDeliveryOptionAccordionProduct,
-  MyAccountDeliveryOptionAccordionProducts,
-}
+export { DeliveryOptionAccordionProduct, DeliveryOptionAccordionProducts }

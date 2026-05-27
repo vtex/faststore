@@ -5,22 +5,29 @@ import {
   useUI,
 } from '@faststore/ui'
 import { useState } from 'react'
-import MyAccountOrderActionModal from '../MyAccountOrderActionModal'
+import OrderActionModal from '../OrderActionModal'
 import { useOrderAuthorization } from 'src/sdk/account/useOrderAuthorization'
 import type { ProcessOrderAuthorizationRule } from '@generated/graphql'
 
-interface MyAccountBuyingPolicyAlertProps {
+interface BuyingPolicyAlertProps {
   ruleForAuthorization: ProcessOrderAuthorizationRule
   onAuthorizationComplete?: () => void
+  labels?: {
+    approveLabel?: string
+    rejectLabel?: string
+  }
 }
 
 export const BUYING_POLICY_APPROVAL_REQUIRED_MESSAGE =
   'This buying policy requires your approval before the order can proceed.'
 
-export default function MyAccountBuyingPolicyAlert({
+export default function BuyingPolicyAlert({
   ruleForAuthorization,
   onAuthorizationComplete,
-}: MyAccountBuyingPolicyAlertProps) {
+  labels,
+}: BuyingPolicyAlertProps) {
+  const approveLabel = labels?.approveLabel ?? 'Approve'
+  const rejectLabel = labels?.rejectLabel ?? 'Reject'
   const { pushToast } = useUI()
   const [isAuthorizationOpen, setIsAuthorizationOpen] = useState<boolean>(false)
   const { data, error, processOrderAuthorization, loading } =
@@ -107,7 +114,7 @@ export default function MyAccountBuyingPolicyAlert({
             data-fs-buying-policy-action-reject
             data-fs-button-danger
           >
-            Reject
+            {rejectLabel}
           </UIButton>
           <UIButton
             variant="primary"
@@ -117,7 +124,7 @@ export default function MyAccountBuyingPolicyAlert({
             loading={loading}
             data-fs-buying-policy-action-approve
           >
-            Approve
+            {approveLabel}
           </UIButton>
         </div>
       </div>
@@ -132,7 +139,7 @@ export default function MyAccountBuyingPolicyAlert({
         </UIAlert>
       )}
 
-      <MyAccountOrderActionModal
+      <OrderActionModal
         isOpen={isAuthorizationOpen}
         loading={loading}
         onClose={() => setIsAuthorizationOpen(false)}

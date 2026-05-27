@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import styles from '../section.module.scss'
 
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 interface NavItem {
@@ -10,14 +11,13 @@ interface NavItem {
   route: string
 }
 
-export interface MyAccountMenuProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   avatarImageUrl?: string
   accountName: string
   items: NavItem[]
 }
 
-const Nav = ({ items }: Pick<MyAccountMenuProps, 'items'>) => {
+const Nav = ({ items }: Pick<MenuProps, 'items'>) => {
   const router = useRouter()
   const currentRoute = router.pathname
 
@@ -38,12 +38,10 @@ const Nav = ({ items }: Pick<MyAccountMenuProps, 'items'>) => {
   )
 }
 
-const MyAccountMenu = ({
-  avatarImageUrl,
-  accountName,
-  items,
-}: MyAccountMenuProps) => {
+const Menu = ({ avatarImageUrl, accountName, items }: MenuProps) => {
   const { isDesktop } = useScreenResize()
+  const navigationLabels = useAccountNavigationLabels()
+  const switchLabel = navigationLabels?.switchLabel ?? 'Switch'
 
   return (
     <div className={styles.menu}>
@@ -62,7 +60,7 @@ const MyAccountMenu = ({
             variant="secondary"
             size="small"
           >
-            Switch
+            {switchLabel}
           </Button>
         </div>
       ) : null}
@@ -71,4 +69,4 @@ const MyAccountMenu = ({
   )
 }
 
-export default MyAccountMenu
+export default Menu

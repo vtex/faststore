@@ -2,8 +2,8 @@
 
 @layer components {
   .section {
-    @include meta.load-css("../components/MyAccountTag/styles.scss");
-    @include meta.load-css("../components/MyAccountTable/styles.scss");
+    @include meta.load-css("../components/Tag/styles.scss");
+    @include meta.load-css("../components/Table/styles.scss");
 
     // --------------------------------------------------------
     // Design Tokens

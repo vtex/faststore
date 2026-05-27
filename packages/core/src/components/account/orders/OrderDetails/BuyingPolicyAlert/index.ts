@@ -1,1 +1,1 @@
-export { default } from './MyAccountBuyingPolicyAlert'
+export { default } from './BuyingPolicyAlert'

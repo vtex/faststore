@@ -1,8 +1,8 @@
-interface MyAccountHeaderProps {
+interface HeaderProps {
   pageTitle: string
 }
 
-function MyAccountHeader({ pageTitle }: MyAccountHeaderProps) {
+function Header({ pageTitle }: HeaderProps) {
   return (
     <header data-fs-account-header>
       <h1 data-fs-account-header-title>{pageTitle}</h1>
@@ -10,4 +10,4 @@ function MyAccountHeader({ pageTitle }: MyAccountHeaderProps) {
   )
 }
 
-export default MyAccountHeader
+export default Header

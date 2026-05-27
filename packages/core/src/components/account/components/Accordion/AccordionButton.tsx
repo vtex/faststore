@@ -4,17 +4,13 @@ import {
 } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
-interface MyAccountAccordionButtonProps {
+interface AccordionButtonProps {
   title: string
   summary: string
   children?: ReactNode
 }
 
-function MyAccountAccordionButton({
-  title,
-  summary,
-  children,
-}: MyAccountAccordionButtonProps) {
+function AccordionButton({ title, summary, children }: AccordionButtonProps) {
   return (
     <UIAccordionButton
       collapsedIcon={<UIIcon name="CaretDown" />}
@@ -32,4 +28,4 @@ function MyAccountAccordionButton({
   )
 }
 
-export default MyAccountAccordionButton
+export default AccordionButton

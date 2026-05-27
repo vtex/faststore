@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react'
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import { Skeleton as UISkeleton } from '@faststore/ui'
-import { OrganizationSignInButton } from 'src/components/account/MyAccountDrawer/OrganizationSignInButton'
+import { OrganizationSignInButton } from 'src/components/account/Drawer/OrganizationSignInButton'
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'

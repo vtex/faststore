@@ -2,7 +2,7 @@ import { Toggle } from '@faststore/ui'
 import { useMemo } from 'react'
 import type { SelectedFacet } from 'src/sdk/search/useMyAccountFilter'
 
-export interface MyAccountFilterFacetPendingApprovalProps {
+export interface FilterFacetPendingApprovalProps {
   /**
    * Current selected facets from filter context
    */
@@ -13,10 +13,10 @@ export interface MyAccountFilterFacetPendingApprovalProps {
   dispatch: (action: { type: 'toggleFacet' | 'setFacet'; payload: any }) => void
 }
 
-function MyAccountFilterFacetPendingApproval({
+function FilterFacetPendingApproval({
   selected,
   dispatch,
-}: MyAccountFilterFacetPendingApprovalProps) {
+}: FilterFacetPendingApprovalProps) {
   const isSelected = useMemo(
     () =>
       selected.some((f) => f.key === 'pendingMyApproval' && f.value === 'true'),
@@ -59,4 +59,4 @@ function MyAccountFilterFacetPendingApproval({
   )
 }
 
-export default MyAccountFilterFacetPendingApproval
+export default FilterFacetPendingApproval

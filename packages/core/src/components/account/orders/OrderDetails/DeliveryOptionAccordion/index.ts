@@ -1,6 +1,6 @@
-export { default as MyAccountDeliveryOptionAccordion } from './MyAccountDeliveryOptionAccordion'
-export { default as MyAccountDeliveryOptionAccordionDeliveryInfo } from './MyAccountDeliveryOptionAccordionDeliveryInfo'
+export { default as DeliveryOptionAccordion } from './DeliveryOptionAccordion'
+export { default as DeliveryOptionAccordionDeliveryInfo } from './DeliveryOptionAccordionDeliveryInfo'
 export {
-  MyAccountDeliveryOptionAccordionProduct,
-  MyAccountDeliveryOptionAccordionProducts,
-} from './MyAccountDeliveryOptionAccordionProducts'
+  DeliveryOptionAccordionProduct,
+  DeliveryOptionAccordionProducts,
+} from './DeliveryOptionAccordionProducts'

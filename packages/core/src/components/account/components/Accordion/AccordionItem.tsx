@@ -1,16 +1,12 @@
 import { AccordionItem as UIAccordionItem } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
-interface MyAccountAccordionItemProps {
+interface AccordionItemProps {
   index: number
   children: ReactNode
 }
 
-function MyAccountAccordionItem({
-  children,
-  index,
-  ...props
-}: MyAccountAccordionItemProps) {
+function AccordionItem({ children, index, ...props }: AccordionItemProps) {
   return (
     <UIAccordionItem index={index} {...props} data-fs-my-account-accordion-item>
       {children}
@@ -18,4 +14,4 @@ function MyAccountAccordionItem({
   )
 }
 
-export default MyAccountAccordionItem
+export default AccordionItem

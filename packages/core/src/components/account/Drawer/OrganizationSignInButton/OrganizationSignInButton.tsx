@@ -1,5 +1,6 @@
 import { Button, Icon } from '@faststore/ui'
 import { useState, type MouseEvent } from 'react'
+import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 import { useSession } from 'src/sdk/session'
 import { OrganizationDrawer } from '../OrganizationDrawer/OrganizationDrawer'
 
@@ -13,6 +14,9 @@ export const OrganizationSignInButton = ({
   const [isOpen, setIsOpen] = useState(false)
 
   const { person } = useSession()
+  const navigationLabels = useAccountNavigationLabels()
+  const companyLabel = navigationLabels?.companyLabel ?? 'Company'
+  const contractLabel = navigationLabels?.contractLabel ?? 'Contract'
 
   const openDrawer = (
     event: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>
@@ -41,7 +45,7 @@ export const OrganizationSignInButton = ({
         icon={<Icon name={icon} width={18} height={18} weight="bold" />}
         iconPosition="left"
       >
-        {person?.id ? 'Company' : 'Contract'}
+        {person?.id ? companyLabel : contractLabel}
       </Button>
 
       {isOpen && (

@@ -1,1 +1,1 @@
-export { default } from './MyAccountOrderActions'
+export { default } from './OrderActions'

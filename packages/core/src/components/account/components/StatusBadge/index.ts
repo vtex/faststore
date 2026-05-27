@@ -1,1 +1,1 @@
-export { default } from './MyAccountStatusBadge'
+export { default } from './StatusBadge'

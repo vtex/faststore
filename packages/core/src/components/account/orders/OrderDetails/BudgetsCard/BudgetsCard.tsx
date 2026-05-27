@@ -1,16 +1,23 @@
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
-import MyAccountCard from 'src/components/account/components/MyAccountCard'
+import Card from 'src/components/account/components/Card'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
+import {
+  type OrderBudgetsSectionLabels,
+  resolveOrderBudgetsLabels,
+} from '../orderDetailsLabels'
 
-interface MyAccountBudgetsCardProps {
+interface BudgetsCardProps {
   budgetData: ServerOrderDetailsQueryQuery['userOrder']['budgetData']
   currencyCode: string
+  labels?: OrderBudgetsSectionLabels
 }
 
-function MyAccountBudgetsCard({
+function BudgetsCard({
   budgetData,
   currencyCode,
-}: MyAccountBudgetsCardProps) {
+  labels: labelsProp,
+}: BudgetsCardProps) {
+  const labels = resolveOrderBudgetsLabels(labelsProp)
   const formatPrice = useFormatPrice()
 
   if (!budgetData?.budgets || budgetData.budgets.length === 0) {
@@ -68,13 +75,13 @@ function MyAccountBudgetsCard({
   }
 
   return (
-    <MyAccountCard title="Budgets" data-fs-order-budgets-card>
+    <Card title={labels.budgetsTitle} data-fs-order-budgets-card>
       <div data-fs-budgets-table>
         <div data-fs-budgets-table-header>
-          <div data-fs-budgets-header-name>Name</div>
-          <div data-fs-budgets-header-available>Available</div>
-          <div data-fs-budgets-header-to-be-spent>To be spent</div>
-          <div data-fs-budgets-header-remaining>Remaining</div>
+          <div data-fs-budgets-header-name>{labels.nameLabel}</div>
+          <div data-fs-budgets-header-available>{labels.availableLabel}</div>
+          <div data-fs-budgets-header-to-be-spent>{labels.toBeSpentLabel}</div>
+          <div data-fs-budgets-header-remaining>{labels.remainingLabel}</div>
         </div>
         <div data-fs-budgets-table-body>
           {budgetRows.map(
@@ -112,8 +119,8 @@ function MyAccountBudgetsCard({
           )}
         </div>
       </div>
-    </MyAccountCard>
+    </Card>
   )
 }
 
-export default MyAccountBudgetsCard
+export default BudgetsCard
