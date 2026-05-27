@@ -5,7 +5,6 @@ import type { CryptoKey } from 'jose'
 
 import storeConfig from '../../discovery.config'
 
-import { isSecureAuthCookieForMiddleware } from './password-protection/auth-cookie'
 import {
   publicKeyUrl,
   renewUrl,
@@ -82,8 +81,8 @@ export class AuthenticationService {
   }
 
   private getNormalizedHost(request: NextRequest): string {
-    const hostname = request.headers.get('host') || ''
-    return hostname.split(':')[0].trim().toLowerCase()
+    const host = request.headers.get('host') || ''
+    return host.split(':')[0].toLowerCase()
   }
 
   async authenticateRequest(request: NextRequest): Promise<AuthResult> {
@@ -208,7 +207,7 @@ export class AuthenticationService {
 
         if (data.valid && data.token) {
           const response = NextResponse.next()
-          this.setAuthCookie(response, data.token, request)
+          this.setAuthCookie(response, data.token)
 
           return { response }
         }
@@ -240,7 +239,7 @@ export class AuthenticationService {
         const response = NextResponse.next()
 
         if (status.token) {
-          this.setAuthCookie(response, status.token, request)
+          this.setAuthCookie(response, status.token)
         }
 
         return { response }
@@ -256,14 +255,10 @@ export class AuthenticationService {
     }
   }
 
-  private setAuthCookie(
-    response: NextResponse,
-    token: string,
-    request: NextRequest
-  ): void {
+  private setAuthCookie(response: NextResponse, token: string): void {
     response.cookies.set(COOKIE_NAME, token, {
       httpOnly: true,
-      secure: isSecureAuthCookieForMiddleware(request),
+      secure: true,
       sameSite: 'lax',
       path: '/',
       maxAge: TOKEN_TTL_SECONDS,

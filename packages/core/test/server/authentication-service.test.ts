@@ -457,27 +457,4 @@ describe('AuthenticationService', () => {
     expect(response.status).toBe(200)
     expect(global.fetch).not.toHaveBeenCalled()
   })
-
-  it('sets auth cookie without Secure on localhost in production', async () => {
-    ;(global.fetch as jest.Mock).mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        protected: false,
-        token: 't',
-      }),
-    })
-
-    const service = new AuthenticationService()
-    const request = new NextRequest('http://localhost:3000/', {
-      headers: { host: 'localhost:3000' },
-    })
-
-    process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = 'true'
-
-    const { response } = await service.authenticateRequest(request)
-
-    const cookie = response.cookies.get('__fs_auth_token')
-    expect(cookie?.name).toBe('__fs_auth_token')
-    expect(cookie?.secure).toBe(false)
-  })
 })
