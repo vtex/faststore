@@ -279,7 +279,7 @@ function Page({
               />
             )
           })}
-          {/* x-default points to the default locale */}
+          {/* x-default points to the root URL (no locale prefix) */}
           {(() => {
             const defaultLocale = storeConfig.localization?.defaultLocale as
               | string
@@ -287,20 +287,13 @@ function Page({
             const defaultEntry = server.product.otherLocales?.find(
               (e) => e.locale === defaultLocale
             )
-            const defaultLocaleConfig = defaultLocale
-              ? (storeConfig.localization?.locales as Record<string, any>)?.[
-                  defaultLocale
-                ]
-              : undefined
-            const defaultBindingUrl = defaultLocaleConfig?.bindings?.[0]?.url as
-              | string
-              | undefined
-            if (!defaultEntry || !defaultBindingUrl) return null
+            if (!defaultEntry) return null
+            const baseUrl = storeConfig.storeUrl.replace(/\/$/, '')
             return (
               <link
                 rel="alternate"
                 hrefLang="x-default"
-                href={`${defaultBindingUrl.replace(/\/$/, '')}/${defaultEntry.slug}/p`}
+                href={`${baseUrl}/${defaultEntry.slug}/p`}
               />
             )
           })()}
