@@ -77,19 +77,65 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
   unitMultiplier: ({ unitMultiplier }) => unitMultiplier,
-  breadcrumbList: ({
-    isVariantOf: {
-      categories,
-      productName,
-      linkText,
-      categoryId,
-      categoriesIds,
-    },
-    itemId,
-  }) => {
+  breadcrumbList: async (root, _args, ctx) => {
+    const {
+      isVariantOf: {
+        categories,
+        productName,
+        linkText,
+        categoryId,
+        categoriesIds,
+        productId,
+      },
+      itemId,
+    } = root
+
     const mainTreeIndex = findMainTreeIndex(categoriesIds, categoryId)
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
+
+    const isLocalizationEnabled =
+      (ctx.discoveryConfig as any)?.localization?.enabled === true
+    const locale = ctx.storage.locale
+
+    if (isLocalizationEnabled && locale) {
+      const cacheKey = `${productId}:${locale}`
+      let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
+
+      if (!entry) {
+        try {
+          const result = await ctx.clients.catalog.getLocalizedProduct(
+            productId,
+            locale
+          )
+          entry = { linkId: result.linkId, category: result.category }
+          ctx.storage.productTranslationsCache ??= new Map()
+          ctx.storage.productTranslationsCache.set(cacheKey, entry)
+        } catch {
+          // Catalog API unavailable — fall through to IS-based behavior
+        }
+      }
+
+      const uriSegments = entry?.category?.fullPathUriName?.split('/') ?? []
+
+      if (entry && uriSegments.length === splittedCategories.length) {
+        return {
+          itemListElement: [
+            ...splittedCategories.map((name, index) => ({
+              name,
+              item: `/${uriSegments.slice(0, index + 1).join('/')}/`,
+              position: index + 1,
+            })),
+            {
+              name: productName,
+              item: getPath(entry.linkId, itemId),
+              position: splittedCategories.length + 1,
+            },
+          ],
+          numberOfItems: splittedCategories.length,
+        }
+      }
+    }
 
     return {
       itemListElement: [
