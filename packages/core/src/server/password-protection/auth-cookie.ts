@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 
 function isLocalHost(host: string): boolean {
   const normalizedHost = host.toLowerCase()
-  const match = new RegExp(/^\[([^\\]]+)\](?::\d+)?$/).exec(normalizedHost)
+  const match = new RegExp(/^\[([^\]]+)\](?::\d+)?$/).exec(normalizedHost)
   const hostname = match?.[1] ?? normalizedHost.split(':')[0] ?? ''
 
   return (
