@@ -105,4 +105,18 @@ describe('buildFaststorePackageJson', () => {
 
     expect(input).toEqual(coreManifest)
   })
+
+  it('propagates the store `volta` config when provided', () => {
+    const volta = { node: '20.19.0', yarn: '1.19.1' }
+
+    const result = buildFaststorePackageJson(coreManifest, volta)
+
+    expect(result.volta).toEqual(volta)
+  })
+
+  it('omits `volta` when no config is provided', () => {
+    const result = buildFaststorePackageJson(coreManifest)
+
+    expect(result).not.toHaveProperty('volta')
+  })
 })

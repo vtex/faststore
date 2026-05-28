@@ -60,9 +60,15 @@ function createTmpFolder(basePath: string) {
  * Builds the `.faststore/package.json` from `@faststore/core`'s manifest.
  * Strips `exports` and `packageManager` (the latter is pinned to pnpm and
  * breaks Yarn/Corepack on consumer stores).
+ *
+ * Propagates the store's `volta` config (when present) so Volta pins the same
+ * Node/Yarn versions inside `.faststore`. Volta stops at the nearest
+ * `package.json` and would otherwise fall back to a global Yarn Berry, which
+ * breaks on the nested manifest.
  */
 export function buildFaststorePackageJson(
-  coreManifest: Record<string, unknown>
+  coreManifest: Record<string, unknown>,
+  voltaConfig?: Record<string, unknown>
 ): Record<string, unknown> {
   const {
     exports: _exports,
@@ -76,6 +82,7 @@ export function buildFaststorePackageJson(
   return {
     ...rest,
     name: 'dot-faststore',
+    ...(voltaConfig ? { volta: voltaConfig } : {}),
     scripts: {
       ...existingScripts,
       generate: 'faststore generate',
@@ -90,18 +97,46 @@ export function buildFaststorePackageJson(
 }
 
 /**
+ * Reads the `volta` config from the store root `package.json`, if present.
+ * Returns `undefined` when the file or the field is missing so the generated
+ * manifest stays untouched for stores that do not use Volta.
+ */
+function readRootVoltaConfig(
+  rootDir: string
+): Record<string, unknown> | undefined {
+  try {
+    const rootManifestPath = path.join(rootDir, 'package.json')
+
+    if (!existsSync(rootManifestPath)) {
+      return undefined
+    }
+
+    const rootManifest = JSON.parse(readFileSync(rootManifestPath, 'utf8'))
+
+    return rootManifest?.volta
+  } catch {
+    return undefined
+  }
+}
+
+/**
  * Prevents imports from @faststore/core from randomly conflicting
  * where sometimes the package.json from the .faststore folder
  * took precedence over @faststore/core's package.json.
  */
 function filterAndCopyPackageJson(basePath: string) {
-  const { coreDir, tmpDir } = withBasePath(basePath)
+  const { coreDir, tmpDir, getRoot } = withBasePath(basePath)
 
   const coreManifest = JSON.parse(
     readFileSync(path.join(coreDir, 'package.json'), 'utf8')
   )
 
-  const filteredFileContent = buildFaststorePackageJson(coreManifest)
+  const voltaConfig = readRootVoltaConfig(getRoot())
+
+  const filteredFileContent = buildFaststorePackageJson(
+    coreManifest,
+    voltaConfig
+  )
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
     spaces: 2,
