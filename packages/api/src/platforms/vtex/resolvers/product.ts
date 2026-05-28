@@ -90,9 +90,6 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
       itemId,
     } = root
 
-    // IS returns parallel arrays: categories (names) and categoriesIds (IDs), one entry per
-    // registered category tree. findMainTreeIndex picks the tree whose leaf ID matches the
-    // product's categoryId, so we never mix items from different trees into the breadcrumb.
     const mainTreeIndex = findMainTreeIndex(categoriesIds, categoryId)
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
@@ -134,8 +131,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
           .filter(Boolean)
 
         const localizedCategories = entry.categories
-          .filter((cat) => mainTreeIds.includes(cat.id.toString()))
-          // Sort shallow → deep so index 0 = root, index N-1 = leaf
+          .filter((category) => mainTreeIds.includes(category.id.toString()))
           .sort(
             (a, b) =>
               a.fullPath.split('/').length - b.fullPath.split('/').length
@@ -146,11 +142,11 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
         if (localizedCategories.length === splittedCategories.length) {
           return {
             itemListElement: [
-              // Category items: display name from IS (already localized by IS when using
-              // Catalog translations), link slug from Catalog Dataplane fullPathUriName.
-              ...splittedCategories.map((name, index) => ({
-                name,
-                item: `/${localizedCategories[index].fullPathUriName}/`,
+              // Category items: both name and slug come from Catalog Dataplane, ensuring
+              // they are always consistent with each other for the requested locale.
+              ...localizedCategories.map((category, index) => ({
+                name: category.name,
+                item: `/${category.fullPathUriName}/`,
                 position: index + 1,
               })),
               {
