@@ -90,9 +90,6 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
       itemId,
     } = root
 
-    // IS returns parallel arrays: categories (names) and categoriesIds (IDs), one entry per
-    // registered category tree. findMainTreeIndex picks the tree whose leaf ID matches the
-    // product's categoryId, so we never mix items from different trees into the breadcrumb.
     const mainTreeIndex = findMainTreeIndex(categoriesIds, categoryId)
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
