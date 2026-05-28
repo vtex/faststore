@@ -1,5 +1,5 @@
+import { spawn } from 'node:child_process'
 import { getPreferredPackageManager } from './commands'
-import { runCommandSync } from './runCommandSync'
 
 type InstallDependenciesOptions = {
   dependencies: string[]
@@ -15,10 +15,18 @@ export async function installDependencies({
   const packageManager = await getPreferredPackageManager()
   const installCommand = packageManager === 'npm' ? 'install' : 'add'
 
-  runCommandSync({
-    cmd: `${packageManager} ${installCommand} ${dependencies.join(' ')}`,
-    errorMessage,
-    throws: 'error',
-    cwd,
+  return new Promise<void>((resolve, reject) => {
+    const child = spawn(packageManager, [installCommand, ...dependencies], {
+      cwd,
+      stdio: 'inherit',
+    })
+
+    child.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(errorMessage))
+      } else {
+        resolve()
+      }
+    })
   })
 }
