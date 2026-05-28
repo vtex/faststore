@@ -205,6 +205,16 @@ export function useBindingSelector(
         window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
         return
       }
+
+      // PDP context without a resolvable localized slug: avoid carrying stale PDP path.
+      window.location.href = binding.url
+      return
+    }
+
+    // otherLocales is empty/null but we're still on a PDP: strip the stale slug.
+    if (window.location.pathname.endsWith('/p')) {
+      window.location.href = binding.url
+      return
     }
 
     // Outside PDP: redirect to binding URL, preserving the current page path

@@ -29,10 +29,7 @@ export interface LocalizedProductResponse {
  * Client for the VTEX Catalog Dataplane API.
  * Uses Accept-Language header to return locale-specific product data.
  */
-export const CatalogDataplane = ({
-  account,
-  environment,
-}: Pick<Options, 'account' | 'environment'>) => {
+export const CatalogDataplane = ({ account, environment }: Options) => {
   const base = `https://api.${environment}.com.br`
 
   return {
