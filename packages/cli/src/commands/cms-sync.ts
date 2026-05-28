@@ -37,8 +37,7 @@ export default class CmsSync extends Command {
       return
     }
 
-    return spawn(`vtex cms sync ${cmsProjectName}`, {
-      shell: true,
+    return spawn('vtex', ['cms', 'sync', cmsProjectName], {
       cwd: tmpDir,
       stdio: 'inherit',
     })
