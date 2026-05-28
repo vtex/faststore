@@ -90,6 +90,9 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
       itemId,
     } = root
 
+    // IS returns parallel arrays: categories (names) and categoriesIds (IDs), one entry per
+    // registered category tree. findMainTreeIndex picks the tree whose leaf ID matches the
+    // product's categoryId, so we never mix items from different trees into the breadcrumb.
     const mainTreeIndex = findMainTreeIndex(categoriesIds, categoryId)
     const mainTree = categories[mainTreeIndex]
     const splittedCategories = removeTrailingSlashes(mainTree).split('/')
@@ -99,6 +102,9 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const locale = ctx.storage.locale
 
     if (isLocalizationEnabled && locale) {
+      // productTranslationsCache is request-scoped and shared with the slug and otherLocales
+      // resolvers — if any of them already called getLocalizedProduct for this product+locale,
+      // we reuse the result here at zero extra cost.
       const cacheKey = `${productId}:${locale}`
       let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
 
@@ -108,35 +114,60 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
             productId,
             locale
           )
-          entry = { linkId: result.linkId, category: result.category }
+          // Store both linkId (for the product item URL) and the full categories array
+          // (for per-level localized slugs). We intentionally keep categories[] rather than
+          // just the leaf category so we never need to reconstruct the hierarchy via split('/').
+          entry = { linkId: result.linkId, categories: result.categories ?? [] }
           ctx.storage.productTranslationsCache ??= new Map()
           ctx.storage.productTranslationsCache.set(cacheKey, entry)
         } catch {
-          // Catalog API unavailable — fall through to IS-based behavior
+          // Catalog Dataplane API unavailable — fall through to IS-based behavior below
         }
       }
 
-      const uriSegments = entry?.category?.fullPathUriName?.split('/') ?? []
+      if (entry) {
+        // Extract the category IDs that belong to the main tree (same tree chosen from IS above).
+        // A product can be registered in multiple trees; Catalog Dataplane returns all of them
+        // in categories[], so we filter to only the ones matching this tree's IDs.
+        const mainTreeIds = removeTrailingSlashes(categoriesIds[mainTreeIndex])
+          .split('/')
+          .filter(Boolean)
 
-      if (entry && uriSegments.length === splittedCategories.length) {
-        return {
-          itemListElement: [
-            ...splittedCategories.map((name, index) => ({
-              name,
-              item: `/${uriSegments.slice(0, index + 1).join('/')}/`,
-              position: index + 1,
-            })),
-            {
-              name: productName,
-              item: getPath(entry.linkId, itemId),
-              position: splittedCategories.length + 1,
-            },
-          ],
-          numberOfItems: splittedCategories.length,
+        const localizedCategories = entry.categories
+          .filter((cat) => mainTreeIds.includes(cat.id.toString()))
+          // Sort shallow → deep so index 0 = root, index N-1 = leaf
+          .sort(
+            (a, b) =>
+              a.fullPath.split('/').length - b.fullPath.split('/').length
+          )
+
+        // Length guard: if Catalog Dataplane returns fewer categories than IS expects
+        // (e.g. data inconsistency or empty categories), fall through to the IS fallback.
+        if (localizedCategories.length === splittedCategories.length) {
+          return {
+            itemListElement: [
+              // Category items: display name from IS (already localized by IS when using
+              // Catalog translations), link slug from Catalog Dataplane fullPathUriName.
+              ...splittedCategories.map((name, index) => ({
+                name,
+                item: `/${localizedCategories[index].fullPathUriName}/`,
+                position: index + 1,
+              })),
+              {
+                name: productName,
+                item: getPath(entry.linkId, itemId),
+                position: splittedCategories.length + 1,
+              },
+            ],
+            numberOfItems: splittedCategories.length,
+          }
         }
       }
     }
 
+    // Fallback: localization disabled, Catalog Dataplane unavailable, or category count mismatch.
+    // Builds paths by applying slugify() to the IS category names, which mirrors the behaviour
+    // of the VTEX Rewriter for default-locale slugs.
     return {
       itemListElement: [
         ...splittedCategories.map((name, index) => {
@@ -270,7 +301,10 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
               productId,
               locale
             )
-            entry = { linkId: result.linkId, category: result.category }
+            entry = {
+              linkId: result.linkId,
+              categories: result.categories ?? [],
+            }
             ctx.storage.productTranslationsCache ??= new Map()
             ctx.storage.productTranslationsCache.set(cacheKey, entry)
           } catch {

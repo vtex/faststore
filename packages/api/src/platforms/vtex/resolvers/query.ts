@@ -117,7 +117,10 @@ export const Query = {
                 productGroupID,
                 locale
               )
-              entry = { linkId: result.linkId, category: result.category }
+              entry = {
+                linkId: result.linkId,
+                categories: result.categories ?? [],
+              }
               ctx.storage.productTranslationsCache ??= new Map()
               ctx.storage.productTranslationsCache.set(cacheKey, entry)
             }

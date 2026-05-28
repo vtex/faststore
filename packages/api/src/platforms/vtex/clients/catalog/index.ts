@@ -1,20 +1,28 @@
 import { fetchAPI } from '../fetch'
 
+export interface LocalizedCategoryEntry {
+  id: number
+  name: string
+  /** Slash-separated IDs from root to this node, e.g. "9281/9285". Used to determine depth. */
+  fullPath: string
+  /** Slash-separated localized slugs from root to this node, e.g. "apparel/t-shirts". */
+  fullPathUriName: string
+}
+
 export interface LocalizedProductEntry {
   linkId: string
-  category: { name: string; fullPathUriName: string } | null
+  /** All categories the product belongs to across all trees, as returned by Catalog Dataplane. */
+  categories: LocalizedCategoryEntry[]
 }
 
 export interface LocalizedProductResponse {
   id: number
   linkId: string
   name: string
-  category: {
-    id: number
-    name: string
-    fullPath: string
-    fullPathUriName: string
-  } | null
+  /** Leaf category (deepest level) the product is registered under. */
+  category: LocalizedCategoryEntry | null
+  /** Full ancestry chain for every category tree the product belongs to. */
+  categories: LocalizedCategoryEntry[]
 }
 
 /**
@@ -28,10 +36,6 @@ export const CatalogDataplane = ({
   const base = `https://api.${environment}.com.br`
 
   return {
-    /**
-     * Returns localized product data (linkId, category) for a specific locale.
-     * Used for slug validation, otherLocales, and breadcrumb construction.
-     */
     getLocalizedProduct: (
       productId: string,
       locale: string
