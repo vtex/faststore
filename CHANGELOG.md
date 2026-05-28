@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+### Bug Fixes
+
+- localization race condition ([#3281](https://github.com/vtex/faststore/issues/3281)) ([75cb5df](https://github.com/vtex/faststore/commit/75cb5dfb5dd3dcd58a15273df5f4c20bb1c8987b)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [#3111](https://github.com/vtex/faststore/issues/3111)
+
 ## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
 
 **Note:** Version bump only for package faststore
