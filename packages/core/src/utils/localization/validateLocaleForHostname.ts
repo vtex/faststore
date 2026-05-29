@@ -51,10 +51,8 @@ export function validateLocaleForHostname(
   hostname: string,
   locale: string
 ): boolean {
-  const localesSettings = getLocalesSettings()
-
   // Skip validation when localization is disabled (consistent with bindingPaths.ts)
-  if (!localesSettings?.enabled) {
+  if (!storeConfig.localization?.enabled) {
     return true
   }
 
