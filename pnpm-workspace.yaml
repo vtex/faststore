@@ -41,3 +41,4 @@ catalog:
 overrides:
   graphql: 16.11.0
   typescript: 5.9.3
+  '@vtex/diagnostics-semconv': 'file:vendor/vtex-diagnostics-semconv-5.1.4.tgz'
