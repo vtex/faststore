@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2-dev.8...v4.2.0-dev.0) (2026-06-01)
+
+### Features
+
+- paginate listEntries with scroll ([#3282](https://github.com/vtex/faststore/issues/3282)) ([2e43804](https://github.com/vtex/faststore/commit/2e43804b7c3ee336eee5a19f1a11d3185c01102d))
+
 ## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
 
 ### Bug Fixes
