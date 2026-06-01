@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.2.0-dev.1 (2026-06-01)
+
+### Bug Fixes
+
+- createNextJSPages throwing preventing copy of store discovery-co… ([#3356](https://github.com/vtex/faststore/issues/3356)) ([cf318ab](https://github.com/vtex/faststore/commit/cf318abfecf4c6497d40bfe58203acc90b199696))
+
 # [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2-dev.8...v4.2.0-dev.0) (2026-06-01)
 
 **Note:** Version bump only for package @faststore/components
