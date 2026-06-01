@@ -20,5 +20,5 @@ To see the traces collected we should connected to the vpn go to the (sgnoz app)
 traces that contains the following attrs:
   - `@faststore_account_name: required_trace_account_name`
   - `@faststore_environment:production|development`
-
+You can search for @faststore_environment="development" or @faststore_environment="production"
 
