@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+### Bug Fixes
+
+- strip packageManager from generated .faststore/package.json ([#3335](https://github.com/vtex/faststore/issues/3335)) ([5a2b793](https://github.com/vtex/faststore/commit/5a2b793c4b12f986c72e801fb03809b568a99344))
+
 # 4.2.0-dev.1 (2026-06-01)
 
 ### Bug Fixes
