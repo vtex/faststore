@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm && turbo run preinstall --log-order=grouped",
+    "preinstall": "npx only-allow pnpm && (cd ./packages/diagnostics && pnpm run preinstall)",
     "build": "turbo run build --log-order=grouped && turbo run generate --log-order=grouped",
     "build:codesandbox": "turbo run build --filter @faststore/cli... && turbo run generate --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",

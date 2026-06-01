@@ -13,10 +13,6 @@
       "env": ["BASE_SITE_URL"],
       "outputs": ["dist/**"]
     },
-    "preinstall": {
-      "dependsOn": ["^preinstall"],
-      "env": ["CA_TOKEN"]
-    },
     "generate": {},
     "@faststore/api#build": {
       "dependsOn": ["generate", "^build"],
