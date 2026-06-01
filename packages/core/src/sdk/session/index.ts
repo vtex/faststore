@@ -8,6 +8,7 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import deepEqual from 'fast-deep-equal'
+import { isLocalHostBrowser } from 'src/utils/isLocalHost'
 import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
@@ -16,15 +17,10 @@ import {
 } from '../account/refreshToken'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
-import { getSettings } from '../localization/useLocalizationConfig'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
+import { getInitialSession, installLocaleCorrector } from './initialSession'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
-
-const isLocalEnvironment = (): boolean =>
-  typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1')
 
 const isReloadAfterLogoutPending = (): boolean => {
   try {
@@ -129,7 +125,7 @@ export const validateSession = async (session: Session) => {
   // On failure (logoutAndClearSession already triggered), bail out.
   // Skipped in local environments where the refresh token infrastructure is unavailable.
   if (
-    !isLocalEnvironment() &&
+    !isLocalHostBrowser() &&
     storeConfig.experimental?.refreshToken &&
     isRefreshAfterExpired(session)
   ) {
@@ -138,24 +134,6 @@ export const validateSession = async (session: Session) => {
       return null
     }
     session = refreshed
-  }
-
-  if (storeConfig.localization?.enabled) {
-    const settings = getSettings()
-    const newChanel = JSON.stringify({
-      ...(JSON.parse(session.channel ?? '{}') ?? {}),
-      salesChannel: settings.salesChannel,
-    })
-
-    if (
-      newChanel !== session.channel ||
-      settings.locale !== session.locale ||
-      deepEqual(settings.currency, session.currency) === false
-    ) {
-      session.locale = settings.locale
-      session.currency = settings.currency
-      session.channel = newChanel
-    }
   }
 
   // If deliveryPromise is enabled and there is no postalCode in the session
@@ -200,7 +178,7 @@ export const validateSession = async (session: Session) => {
     return data.validateSession
   } catch (error) {
     const shouldRefreshToken =
-      !isLocalEnvironment() &&
+      !isLocalHostBrowser() &&
       error?.status === 401 &&
       storeConfig.experimental?.refreshToken
 
@@ -216,7 +194,12 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
-const defaultStore = createSessionStore(storeConfig.session, onValidate)
+const urlAwareInitialSession = getInitialSession()
+const defaultStore = createSessionStore(urlAwareInitialSession, onValidate)
+
+if (storeConfig.localization?.enabled && typeof window !== 'undefined') {
+  installLocaleCorrector(defaultStore, urlAwareInitialSession)
+}
 
 export const sessionStore = {
   ...defaultStore,

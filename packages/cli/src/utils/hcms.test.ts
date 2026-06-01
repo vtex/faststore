@@ -1,5 +1,5 @@
+import path from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
-import path from 'path'
 import {
   allNewCustomContentTypes,
   allNewCustomSections,
@@ -11,12 +11,12 @@ import {
   sectionDuplicates,
 } from '../__mocks__/hcms'
 
+import { withBasePath } from './directory'
 import {
   dedupeAndMergeDefinitions,
-  splitCustomDefinitions,
   mergeCMSFile,
+  splitCustomDefinitions,
 } from './hcms'
-import { withBasePath } from './directory'
 
 const fsExtraMocked = vi.hoisted(() => ({
   mkdirSync: vi.fn(),
