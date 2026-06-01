@@ -35,8 +35,8 @@
         --fs-slide-over-header-bkg: #f5f5f5;
 
         flex-direction: row;
-        align-items: start;
-        justify-content: end;
+        align-items: flex-start;
+        justify-content: flex-end;
         height: var(--fs-slide-over-header-height);
         padding: var(--fs-spacing-2);
         background-color: var(--fs-slide-over-header-bkg);
