@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-import { existsSync, lstatSync, mkdirSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, writeFileSync } from 'node:fs'
 import { writeFile, mkdir } from 'node:fs/promises'
 import { dirname, join, basename, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { format } from 'node:util'
 
 const REGISTRY =
   'https://main-053131491888.d.codeartifact.us-east-1.amazonaws.com/npm/observability'
@@ -22,7 +20,11 @@ async function main(vendors = VENDORS) {
   let [, , downloadLocation] = process.argv
 
   if (!existsSync(downloadLocation)) {
-    downloadLocation = resolve(process.env.PWD ?? process.cwd())
+    downloadLocation = resolve(
+      process.env.PWD ?? process.cwd(),
+      downloadLocation
+    )
+    mkdirSync(downloadLocation, { recursive: true })
   }
 
   if (
@@ -42,9 +44,9 @@ async function main(vendors = VENDORS) {
       `${name.replace('@', '').replace('/', '-')}-${version}.tgz`
     )
     const destination = join(downloadLocation, filename)
-    await mkdir(downloadLocation, { recursive: true })
-    await writeFile(destination, buffer)
-    console.log(`Saved ${name}-${version} -> ${downloadLocation}`)
+    mkdirSync(dirname(destination), { recursive: true })
+    writeFileSync(destination, buffer)
+    console.log(`Saved ${name}-${version} -> ${destination}`)
   }
 }
 
