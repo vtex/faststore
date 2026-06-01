@@ -93,7 +93,7 @@ export default class GenerateI18n extends Command {
       VTEX_ACCOUNT && FS_DISCOVERY_APP_KEY && FS_DISCOVERY_APP_TOKEN
 
     if (!hasCredentials) {
-      logger.error(`${chalk.red('[Error]')} - Missing VTEX credentials.\n
+      logger.error(`${chalk.red('[Error]')} - Missing credentials.\n
       ${chalk.cyan('Required Action:')}\n
       Check your FastStore WebOps Settings page - to work in production, it should contain the following variables: ${chalk.cyan('VTEX_ACCOUNT')}, ${chalk.cyan('FS_DISCOVERY_APP_KEY')}, ${chalk.cyan('FS_DISCOVERY_APP_TOKEN')}.\n
       If running locally, please check your ${chalk.bold('vtex.env')} file, it should also contain those variables.
