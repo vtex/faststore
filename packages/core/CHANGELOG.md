@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/core
+
 # 4.2.0-dev.4 (2026-06-01)
 
 ### Bug Fixes
@@ -75,12 +79,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - bump version ([4fbfa64](https://github.com/vtex/faststore/commit/4fbfa649afc57218dbf8020abc7333c05b0b034f))
-
-## [4.1.2](https://github.com/vtex/faststore/compare/v4.1.1...v4.1.2) (2026-06-01)
-
-### Bug Fixes
-
-- **core:** fix locale validation for disabled localization and pvt routes ([#3358](https://github.com/vtex/faststore/issues/3358)) ([b742658](https://github.com/vtex/faststore/commit/b742658140d8b3cd5a42767a3eab1ef64ce0e63e))
 
 ## 4.1.1 (2026-05-15)
 

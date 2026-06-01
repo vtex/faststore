@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/cli
+
 # 4.2.0-dev.4 (2026-06-01)
 
 ### Bug Fixes
@@ -66,7 +70,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package @faststore/cli
 
 ## 4.1.2-dev.0 (2026-05-15)
-## [4.1.2](https://github.com/vtex/faststore/compare/v4.1.1...v4.1.2) (2026-06-01)
 
 **Note:** Version bump only for package @faststore/cli
 
