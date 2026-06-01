@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+### Performance Improvements
+
+- **core:** SSR ProductGallery and fix CLS on screen-size detection (VTE-9) ([#3349](https://github.com/vtex/faststore/issues/3349)) ([e70a23b](https://github.com/vtex/faststore/commit/e70a23b54504be4cddc97e76c89cf4323fe0941e)), closes [#3345](https://github.com/vtex/faststore/issues/3345)
+
 # [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
 
 ### Bug Fixes
