@@ -35,4 +35,25 @@ jobs:
 
       - name: Build
         run: pnpm build
-      - run: pnpm dlx pkg-pr-new publish './packages/*' --no-compact --packageManager=yarn --commentWithSha
+
+      # pnpm pack resolves the `workspace:` and `catalog:` protocols into concrete
+      # versions in the tarball's package.json (npm/yarn pack leave them untouched,
+      # producing uninstallable preview packages). Storybook is intentionally skipped.
+      - name: Pack packages with pnpm
+        run: |
+          mkdir -p artifacts
+          pnpm --filter="./packages/*" --filter="!@faststore/storybook" exec \
+            pnpm pack --pack-destination "$GITHUB_WORKSPACE/artifacts"
+
+      # pkg-pr-new only accepts package directories, not tarballs, so extract the
+      # resolved tarballs and hand the resulting directories to it.
+      - name: Extract resolved packages
+        run: |
+          mkdir -p publish
+          for tarball in artifacts/*.tgz; do
+            dir="publish/$(basename "$tarball" .tgz)"
+            mkdir -p "$dir"
+            tar -xzf "$tarball" -C "$dir" --strip-components=1
+          done
+
+      - run: pnpm dlx pkg-pr-new publish './publish/*' --no-compact --packageManager=pnpm --commentWithSha
