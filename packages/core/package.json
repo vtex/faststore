@@ -45,7 +45,7 @@
     "@faststore/lighthouse": "workspace:*",
     "@faststore/sdk": "workspace:*",
     "@faststore/ui": "workspace:*",
-    "@fontsource/inter": "^5.2.6",
+    "@fontsource/inter": "catalog:",
     "@graphql-codegen/cli": "catalog:",
     "@graphql-codegen/client-preset": "4.2.6",
     "@graphql-codegen/typescript": "catalog:",
