@@ -66,8 +66,7 @@ async function storeDev(
 
   runCommandSync({
     cmd: `${packageManager} predev`,
-    errorMessage:
-      'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
+    errorMessage: `The "predev" step ("${packageManager} predev") failed inside the ".faststore" directory. See the error output below for details.`,
     throws: 'error',
     cwd: tmpDir,
   })
