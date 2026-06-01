@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/vtex/faststore/compare/v4.2.0...v4.2.1) (2026-06-01)
+
+### Bug Fixes
+
+- fix vtex message ([e9b2105](https://github.com/vtex/faststore/commit/e9b21055dba0ba24658eda1511056ef29d6b0274))
+
 # [4.2.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0) (2026-06-01)
 
 ### Features
