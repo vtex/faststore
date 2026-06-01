@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0) (2026-06-01)
+
+### Bug Fixes
+
+- preview pnpm pack ([#3367](https://github.com/vtex/faststore/issues/3367)) ([48c36c5](https://github.com/vtex/faststore/commit/48c36c5ee90fc20ce7eb188b034db8f59627afb2))
+
+### Features
+
+- release version 2026 06 01 ([#3370](https://github.com/vtex/faststore/issues/3370)) ([61fcbdf](https://github.com/vtex/faststore/commit/61fcbdfde6a8bb6eb6f0f00d9b5ac3f28421dbf3))
+- Release version 2026 06 01 1 ([#3373](https://github.com/vtex/faststore/issues/3373)) ([df3cb4d](https://github.com/vtex/faststore/commit/df3cb4de391a252831dd28cf3bd46f7493bea742))
+
 # [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
 
 **Note:** Version bump only for package faststore
