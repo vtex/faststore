@@ -635,25 +635,25 @@ importers:
 
   packages/diagnostics:
     dependencies:
+      resolve-pkg:
+        specifier: ^3.0.1
+        version: 3.0.1
+    devDependencies:
       '@opentelemetry/api':
         specifier: ^1.9.0
         version: 1.9.1
       '@opentelemetry/instrumentation-http':
         specifier: ^0.212.0
         version: 0.212.0(@opentelemetry/api@1.9.1)
-      '@vtex/diagnostics-nodejs':
-        specifier: ^5.1.9
-        version: 5.1.9(@opentelemetry/api@1.9.1)(@types/express@4.17.25)(express@4.22.2)
-      '@vtex/diagnostics-semconv':
-        specifier: 5.1.4
-        version: 5.1.4
-      resolve-pkg:
-        specifier: ^3.0.1
-        version: 3.0.1
-    devDependencies:
       '@types/node':
         specifier: 'catalog:'
         version: 20.19.13
+      '@vtex/diagnostics-nodejs':
+        specifier: file:vendor/vtex-diagnostics-nodejs-5.1.9.tgz
+        version: file:packages/diagnostics/vendor/vtex-diagnostics-nodejs-5.1.9.tgz(@opentelemetry/api@1.9.1)(@types/express@4.17.25)(express@4.22.2)
+      '@vtex/diagnostics-semconv':
+        specifier: file:vendor/vtex-diagnostics-semconv-5.1.4.tgz
+        version: file:packages/diagnostics/vendor/vtex-diagnostics-semconv-5.1.4.tgz
       tslib:
         specifier: 'catalog:'
         version: 2.8.1
@@ -4871,8 +4871,9 @@ packages:
     resolution: {integrity: sha512-z5ooUZvOl7okcfIgXxviI4Y2TNpotbZBHhseL+AhMsyG+UxijcfqyiNDcQncWKbNmPQY6/kZgjuAh/ENaN+2CA==}
     engines: {node: '>=16'}
 
-  '@vtex/diagnostics-nodejs@5.1.9':
-    resolution: {integrity: sha512-HPU8A0MmmKAZ+X60L3vY59vRgr0Q5zRPrHwq1NIQc6NNJ945WXXaVD7OEZJAkhxuPGm8e1fknGFBfMCbfP6qPg==}
+  '@vtex/diagnostics-nodejs@file:packages/diagnostics/vendor/vtex-diagnostics-nodejs-5.1.9.tgz':
+    resolution: {integrity: sha512-HPU8A0MmmKAZ+X60L3vY59vRgr0Q5zRPrHwq1NIQc6NNJ945WXXaVD7OEZJAkhxuPGm8e1fknGFBfMCbfP6qPg==, tarball: file:packages/diagnostics/vendor/vtex-diagnostics-nodejs-5.1.9.tgz}
+    version: 5.1.9
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0'
@@ -4895,6 +4896,11 @@ packages:
 
   '@vtex/diagnostics-semconv@5.1.4':
     resolution: {integrity: sha512-q31zROhgVl96/R+cm2a2NXN1t3G5seWWcpYkNPLN1srgEzHF4zof2DvHzfK8IcWmUdzDEVYoLRSX+cFR/drLrA==}
+    engines: {node: '>=14'}
+
+  '@vtex/diagnostics-semconv@file:packages/diagnostics/vendor/vtex-diagnostics-semconv-5.1.4.tgz':
+    resolution: {integrity: sha512-q31zROhgVl96/R+cm2a2NXN1t3G5seWWcpYkNPLN1srgEzHF4zof2DvHzfK8IcWmUdzDEVYoLRSX+cFR/drLrA==, tarball: file:packages/diagnostics/vendor/vtex-diagnostics-semconv-5.1.4.tgz}
+    version: 5.1.4
     engines: {node: '>=14'}
 
   '@vtex/faststore-sdk@0.1.1-canary.5':
@@ -16509,7 +16515,7 @@ snapshots:
       - debug
       - supports-color
 
-  '@vtex/diagnostics-nodejs@5.1.9(@opentelemetry/api@1.9.1)(@types/express@4.17.25)(express@4.22.2)':
+  '@vtex/diagnostics-nodejs@file:packages/diagnostics/vendor/vtex-diagnostics-nodejs-5.1.9.tgz(@opentelemetry/api@1.9.1)(@types/express@4.17.25)(express@4.22.2)':
     dependencies:
       '@aws-sdk/client-s3': 3.1053.0
       '@grpc/grpc-js': 1.14.4
@@ -16543,6 +16549,8 @@ snapshots:
       - supports-color
 
   '@vtex/diagnostics-semconv@5.1.4': {}
+
+  '@vtex/diagnostics-semconv@file:packages/diagnostics/vendor/vtex-diagnostics-semconv-5.1.4.tgz': {}
 
   '@vtex/faststore-sdk@0.1.1-canary.5': {}
 
