@@ -262,6 +262,9 @@ export class AuthenticationService {
     const returnTo = `${request.nextUrl.pathname}${request.nextUrl.search}`
     loginUrl.searchParams.set('returnTo', returnTo)
 
-    return NextResponse.redirect(loginUrl)
+    const response = NextResponse.redirect(loginUrl)
+    response.headers.set('Cache-Control', 'no-store')
+
+    return response
   }
 }
