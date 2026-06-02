@@ -5,6 +5,7 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
@@ -14,8 +15,7 @@ import type {
   ServerManyProductsQueryQueryVariables,
 } from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
-import { getCriticalProductImagePreload } from 'src/sdk/head/getCriticalProductImagePreload'
-import useServerHeadComponents from 'src/sdk/head/useServerHeadComponents'
+import { getCriticalProductImagePreload } from 'src/components/ui/Image/getCriticalProductImagePreload'
 import { useApplySearchState } from 'src/sdk/search/state'
 
 import type { PLPContentType } from 'src/server/cms/plp'
@@ -134,9 +134,6 @@ export default function ProductListingPage({
   const lcpImagePreload = getCriticalProductImagePreload(
     server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
   )
-  const serverHeadComponents = useServerHeadComponents(
-    lcpImagePreload ? <link {...lcpImagePreload} /> : null
-  )
 
   return (
     <SearchProvider
@@ -145,7 +142,11 @@ export default function ProductListingPage({
       shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
       {...searchParams}
     >
-      {serverHeadComponents}
+      {lcpImagePreload && (
+        <Head>
+          <link {...lcpImagePreload} />
+        </Head>
+      )}
       {/* SEO */}
       <NextSeo
         title={title}

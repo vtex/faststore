@@ -1,4 +1,4 @@
-import { faststoreLoader } from 'src/components/ui/Image/loader'
+import { faststoreLoader } from './loader'
 
 export interface CriticalProductImagePreload {
   rel: 'preload'

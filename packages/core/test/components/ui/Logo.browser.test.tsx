@@ -16,24 +16,24 @@ describe('Logo', () => {
     imageSpy.mockClear()
   })
 
-  it('uses eager loading by default', () => {
+  it('uses lazy loading by default', () => {
     render(<Logo alt="FastStore" src="/logo.svg" />)
 
     expect(imageSpy).toHaveBeenCalledTimes(1)
     expect(imageSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        loading: 'eager',
+        loading: 'lazy',
       })
     )
   })
 
   it('keeps explicit loading overrides', () => {
-    render(<Logo alt="FastStore" src="/logo.svg" loading="lazy" />)
+    render(<Logo alt="FastStore" src="/logo.svg" loading="eager" />)
 
     expect(imageSpy).toHaveBeenCalledTimes(1)
     expect(imageSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        loading: 'lazy',
+        loading: 'eager',
       })
     )
   })

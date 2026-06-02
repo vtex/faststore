@@ -76,7 +76,7 @@ function NavbarSlider({
           title={logo.link ? logo.link.title : homeLabel}
           onClick={fadeOut}
         >
-          <Logo alt={logo.alt} src={logo.src} />
+          <Logo alt={logo.alt} src={logo.src} loading="eager" />
         </Link>
       </NavbarSliderHeader.Component>
       <NavbarSliderContent.Component {...NavbarSliderContent.props}>
