@@ -97,7 +97,7 @@ export const IntelligentSearch = (
   }: Options,
   ctx: GraphqlContext
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
+  const base = `https://gabiru--${account}.${environment}.com.br/api/io`
   const withCookie = getWithCookie(ctx)
 
   const host =
