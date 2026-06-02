@@ -96,14 +96,6 @@ export class AuthenticationService {
       const verification = await this.verifyToken(token)
 
       if (verification.valid && verification.payload) {
-        if (!verification.payload.protected) {
-          return { response: NextResponse.next() }
-        }
-
-        if (!this.shouldProtectDomain(request, verification.payload.scope)) {
-          return { response: NextResponse.next() }
-        }
-
         return { response: NextResponse.next() }
       }
 
