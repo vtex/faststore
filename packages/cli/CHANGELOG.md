@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.100.0](https://github.com/vtex/faststore/compare/v3.99.6...v3.100.0) (2026-06-02)
+
+### Features
+
+- Password Protection (v3) ([#3347](https://github.com/vtex/faststore/issues/3347)) ([e215c72](https://github.com/vtex/faststore/commit/e215c72af5bf49783790a8d5ea7316d7c415ec57))
+
 ## [3.99.6](https://github.com/vtex/faststore/compare/v3.99.5...v3.99.6) (2026-05-19)
 
 **Note:** Version bump only for package @faststore/cli
