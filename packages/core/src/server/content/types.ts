@@ -13,6 +13,12 @@ export type PreviewData = Locator & {
 export interface ContentRequestContext {
   previewData?: PreviewData | null
   locale?: string
+  /**
+   * A/B test variant branch. When set, all CP calls resolve content from this
+   * branch (mapped to the CP `branchId`) without enabling preview mode, so ISR
+   * stays intact. Sourced from the `__variant` querystring via middleware.
+   */
+  branchId?: string
 }
 
 export interface ContentParams extends ContentRequestContext {

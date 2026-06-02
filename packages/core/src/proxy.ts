@@ -6,6 +6,7 @@ import {
   getSubdomainBindings,
   isValidLocale,
 } from 'src/utils/localization/bindingPaths'
+import { resolveVariantRewrite } from 'src/utils/variant'
 
 type RewriteRule = {
   regex: RegExp
@@ -94,6 +95,14 @@ function rewriteSubdomainRequest(
 }
 
 export function proxy(request: NextRequest) {
+  // A/B test variant branch takes precedence: when `__variant` is present,
+  // rewrite to the internal `/_variant/[branchId]/...` route. Runs before the
+  // localization early-return so it also applies when localization is disabled.
+  const variantRewrite = resolveVariantRewrite(request.nextUrl)
+  if (variantRewrite) {
+    return NextResponse.rewrite(variantRewrite)
+  }
+
   if (!storeConfig.localization?.enabled) {
     return NextResponse.next()
   }

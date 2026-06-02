@@ -7,6 +7,7 @@ import { useSearch } from '@faststore/sdk'
 import { UIProvider } from '@faststore/ui'
 
 import { useReloadAfterLogoutReturn } from 'src/components/account/MyAccountDrawer/OrganizationDrawer/useReloadAfterLogoutReturn'
+import ExperimentDataLayer from 'src/components/ExperimentDataLayer'
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
@@ -47,6 +48,7 @@ function App({ Component, pageProps }: AppProps) {
       <DefaultSeo {...SEO} />
 
       <AnalyticsHandler />
+      <ExperimentDataLayer />
 
       <UIProvider>
         <DeliveryPromiseProvider>

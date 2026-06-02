@@ -272,6 +272,7 @@ export class ContentService {
       versionId,
       releaseId,
       filters,
+      branchId,
     } = params
     const { slug: _, locale: __, ...previewLocator } = previewData ?? {}
 
@@ -286,6 +287,10 @@ export class ContentService {
       ...(versionId !== undefined && { versionId }),
       ...(releaseId !== undefined && { releaseId }),
       ...(filters && { filters }),
+      // A/B variant branch: resolve content from the variant branch via the CP
+      // `branchId` (mapped from `versionId`). Placed last so it wins over the
+      // preview locator. Does not toggle `isPreview`, so ISR is preserved.
+      ...(branchId ? { versionId: branchId } : {}),
     }
   }
 
