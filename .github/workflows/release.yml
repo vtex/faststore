@@ -64,11 +64,10 @@ jobs:
           CA_TOKEN=$(aws codeartifact get-authorization-token --domain main --domain-owner 053131491888 --region us-east-1 --query authorizationToken --output text)
           echo "CA_TOKEN=$CA_TOKEN" >> $GITHUB_ENV
 
-      - name: PreInstall
-        run: pnpm run preinstall
-
       - name: Install dependencies
-        run: pnpm i
+        run: |
+          pnpm run preinstall
+          pnpm i
 
       - name: Lint
         run: pnpm lint
