@@ -1,5 +1,6 @@
 import {
   buildIntelligentSearchRequest,
+  parseSegmentCookie,
   type IntelligentSearchFacet,
 } from '../../../../../src/platforms/vtex/utils/intelligentSearchRequest'
 
@@ -366,6 +367,131 @@ describe('buildIntelligentSearchRequest', () => {
       expect(request.toString()).toMatch(/^brand\/nike\/\?/)
       expect(request.toString()).toContain('from=0')
       expect(request.toString()).toContain('to=9')
+    })
+  })
+
+  describe('real vtex_segment cookie examples', () => {
+    // '{"campaigns":null,"channel":"1",...,"facets":"zip-code=01002020;country=BRA;..."}'
+    const segmentWithShippingBase64 =
+      'eyJjYW1wYWlnbnMiOm51bGwsImNoYW5uZWwiOiIxIiwicHJpY2VUYWJsZXMiOm51bGwsInJlZ2lvbklkIjpudWxsLCJ1dG1fY2FtcGFpZ24iOm51bGwsInV0bV9zb3VyY2UiOm51bGwsInV0bWlfY2FtcGFpZ24iOm51bGwsImN1cnJlbmN5Q29kZSI6IkJSTCIsImN1cnJlbmN5U3ltYm9sIjoiUiQiLCJjb3VudHJ5Q29kZSI6IkJSQSIsImN1bHR1cmVJbmZvIjoicHQtQlIiLCJhZG1pbl9jdWx0dXJlSW5mbyI6InB0LUJSIiwiY2hhbm5lbFByaXZhY3kiOiJwdWJsaWMiLCJmYWNldHMiOiJ6aXAtY29kZT0wMTAwMjAyMDtjb3VudHJ5PUJSQTtjb29yZGluYXRlcz0tNDYuNjM3MDQ2ODEzOTY0ODUsLTIzLjU0NzIwNDk3MTMxMzQ3NztwaWNrdXBQb2ludD1tdW5kb2RvY2FiZWxlaXJlaXJvbG9qYTU1XzI5O2RlbGl2ZXJ5Wm9uZXNIYXNoPTk3NTMzMTg0MjZjMTNjMTkwMGI1ZmU1N2I2Mzk4MjdlO3BpY2t1cFBvaW50c0hhc2g9ODQzNWIzMjI1Mjg0ZDRlNTdjNjNjZjgxNjA4NzA5NGQ7In0='
+
+    // '{"campaigns":null,"channel":"1",...,"facets":"productClusterIds=158;"}'
+    const segmentWithProductClusterBase64 =
+      'eyJjYW1wYWlnbnMiOm51bGwsImNoYW5uZWwiOiIxIiwicHJpY2VUYWJsZXMiOm51bGwsInJlZ2lvbklkIjoidjIuN0RDQjdDRDUzMzk5MzU2MkEyRkM0RUFGRUM2QjNEQjQiLCJ1dG1fY2FtcGFpZ24iOm51bGwsInV0bV9zb3VyY2UiOm51bGwsInV0bWlfY2FtcGFpZ24iOm51bGwsImN1cnJlbmN5Q29kZSI6IlVTRCIsImN1cnJlbmN5U3ltYm9sIjoiJCIsImNvdW50cnlDb2RlIjoiVVNBIiwiY3VsdHVyZUluZm8iOiJlbi1VUyIsImFkbWluX2N1bHR1cmVJbmZvIjoiZW4tVVMiLCJjaGFubmVsUHJpdmFjeSI6InB1YmxpYyIsImZhY2V0cyI6InByb2R1Y3RDbHVzdGVySWRzPTE1ODsifQ=='
+
+    function cookieHeader(segmentBase64: string) {
+      return `vtex_segment=${segmentBase64}`
+    }
+
+    it('decodes shipping/geo segment from base64 cookie', () => {
+      const segment = parseSegmentCookie(
+        cookieHeader(segmentWithShippingBase64)
+      )
+
+      expect(segment.channel).toBe('1')
+      expect(segment.regionId).toBeNull()
+      expect(segment.countryCode).toBe('BRA')
+      expect(segment.cultureInfo).toBe('pt-BR')
+      expect(segment.facets).toBe(
+        'zip-code=01002020;country=BRA;coordinates=-46.63704681396485,-23.547204971313477;pickupPoint=mundodocabeleireiroloja55_29;deliveryZonesHash=9753318426c13c1900b5fe57b639827e;pickupPointsHash=8435b3225284d4e57c63cf816087094d;'
+      )
+    })
+
+    it('decodes productClusterIds segment from base64 cookie', () => {
+      const segment = parseSegmentCookie(
+        cookieHeader(segmentWithProductClusterBase64)
+      )
+
+      expect(segment.channel).toBe('1')
+      expect(segment.regionId).toBe('v2.7DCB7CD533993562A2FC4EAFEC6B3DB4')
+      expect(segment.countryCode).toBe('USA')
+      expect(segment.cultureInfo).toBe('en-US')
+      expect(segment.facets).toBe('productClusterIds=158;')
+    })
+
+    it('builds product-search query from shipping/geo segment cookie', () => {
+      const segment = parseSegmentCookie(
+        cookieHeader(segmentWithShippingBase64)
+      )
+
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'product-search',
+        segment,
+        defaults: {
+          locale: 'pt-BR',
+          salesChannel: 1,
+          regionId: 'fallback-region-id',
+          hideUnavailableItems: true,
+          simulationBehavior: 'default',
+          showSponsored: false,
+        },
+        args: {
+          page: 0,
+          count: 12,
+          query: 'shampoo',
+          selectedFacets: [{ key: 'category-1', value: 'cabelos' }],
+        },
+      })
+
+      expect(request.path).toBe('category-1/cabelos/')
+
+      expect(paramsToObject(request.params)).toEqual({
+        from: '0',
+        to: '11',
+        query: 'shampoo',
+        sc: '1',
+        regionId: 'fallback-region-id',
+        country: 'BRA',
+        locale: 'pt-BR',
+        'zip-code': '01002020',
+        coordinates: '-46.63704681396485,-23.547204971313477',
+        pickupPoint: 'mundodocabeleireiroloja55_29',
+        deliveryZonesHash: '9753318426c13c1900b5fe57b639827e',
+        pickupPointHash: '8435b3225284d4e57c63cf816087094d',
+        hideUnavailableItems: 'true',
+        simulationBehavior: 'default',
+        showSponsored: 'false',
+        allowRedirect: 'false',
+      })
+    })
+
+    it('builds product-search query from productClusterIds segment cookie', () => {
+      const segment = parseSegmentCookie(
+        cookieHeader(segmentWithProductClusterBase64)
+      )
+
+      const request = buildIntelligentSearchRequest({
+        endpoint: 'product-search',
+        segment,
+        defaults: {
+          locale: 'en-US',
+          salesChannel: 1,
+          hideUnavailableItems: false,
+          showSponsored: true,
+        },
+        args: {
+          page: 1,
+          count: 24,
+          sort: 'price:asc',
+          selectedFacets: [{ key: 'brand', value: 'nike' }],
+        },
+      })
+
+      expect(request.path).toBe('brand/nike/')
+
+      expect(paramsToObject(request.params)).toEqual({
+        from: '24',
+        to: '47',
+        sort: 'price:asc',
+        sc: '1',
+        regionId: 'v2.7DCB7CD533993562A2FC4EAFEC6B3DB4',
+        country: 'USA',
+        locale: 'en-US',
+        productClusterId: '158',
+        hideUnavailableItems: 'false',
+        showSponsored: 'true',
+        allowRedirect: 'false',
+      })
     })
   })
 })
