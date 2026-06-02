@@ -124,7 +124,7 @@ describe('buildIntelligentSearchRequest', () => {
       })
     })
 
-    it('prefers segment sc/regionId over defaults', () => {
+    it('prefers default sc/regionId over segment values', () => {
       const request = buildIntelligentSearchRequest({
         endpoint: 'facets',
         segment: { channel: 9, regionId: 'from-segment' },
@@ -137,8 +137,8 @@ describe('buildIntelligentSearchRequest', () => {
       })
 
       expect(paramsToObject(request.params)).toMatchObject({
-        sc: '9',
-        regionId: 'from-segment',
+        sc: '1',
+        regionId: 'from-defaults',
       })
     })
   })
@@ -196,7 +196,7 @@ describe('buildIntelligentSearchRequest', () => {
         },
       })
 
-      expect(request.path).toContain('shipping/delivery/')
+      expect(request.path).toBe('shipping/delivery/')
     })
 
     it('keeps all-delivery-methods in path from selectedFacets but does not re-add shipping', () => {

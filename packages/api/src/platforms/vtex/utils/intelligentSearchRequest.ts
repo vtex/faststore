@@ -334,7 +334,7 @@ function buildAttributePath(selectedFacets: IntelligentSearchFacet[]) {
     }
 
     return key !== 'ft'
-      ? `${attributePath}${encodeSafeURI(key)}/${removeDiacriticsFromURL(encodeSafeURI(value)).replace(/ |%20/, '-')}/`
+      ? `${attributePath}${encodeSafeURI(key)}/${removeDiacriticsFromURL(encodeSafeURI(value)).replace(/ |%20/g, '-')}/`
       : attributePath
   }, '')
 }
@@ -354,8 +354,12 @@ function resolveSegmentData(
 ): { segmentParams: SegmentParams; extraFacets: IntelligentSearchFacet[] } {
   const { segmentParams, extraFacets } = extractSegmentData(segment ?? {})
 
-  const sc = segmentParams.sc ?? defaults?.salesChannel
-  const regionId = segmentParams.regionId ?? defaults?.regionId
+  // Server-provided defaults are authoritative for sales channel/region: the
+  // raw `vtex_segment` cookie is client-supplied base64 JSON and must not be
+  // able to override the trusted server context. Only fall back to the cookie
+  // values when no default is provided.
+  const sc = defaults?.salesChannel ?? segmentParams.sc
+  const regionId = defaults?.regionId ?? segmentParams.regionId
   const locale = defaults?.locale ?? segmentParams.locale ?? ''
 
   return {
@@ -389,11 +393,21 @@ function preparePathFacets(
 
   const withShippingFacets = [...pathFacets]
 
-  if (shippingFacet !== null) {
+  // `pathFacets` may already contain the shipping/delivery-options facets, so
+  // only push them when they are not already present to avoid duplicated path
+  // segments like `shipping/delivery/shipping/delivery/`.
+  const hasShippingInPath = withShippingFacets.some(
+    ({ key }) => key === SHIPPING_KEY
+  )
+  const hasDeliveryOptionsInPath = withShippingFacets.some(
+    ({ key }) => key === DELIVERY_OPTIONS_KEY
+  )
+
+  if (shippingFacet !== null && !hasShippingInPath) {
     withShippingFacets.push(shippingFacet)
   }
 
-  if (deliveryOptionsFacet !== null) {
+  if (deliveryOptionsFacet !== null && !hasDeliveryOptionsInPath) {
     withShippingFacets.push(deliveryOptionsFacet)
   }
 
