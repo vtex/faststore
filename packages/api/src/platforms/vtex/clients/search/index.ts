@@ -63,12 +63,15 @@ export type ProductIdentifierField = 'id' | 'slug' | 'ean' | 'reference' | 'sku'
 export interface FetchProductArgs {
   field: ProductIdentifierField
   value: string
+  showInvisibleItems?: boolean
+  hideUnavailableItems?: boolean
 }
 
 export interface ProductsByIdentifierArgs {
   field: ProductIdentifierField
   values: string[]
   showInvisibleItems?: boolean
+  hideUnavailableItems?: boolean
 }
 
 const FUZZY_KEY = 'fuzzy'
@@ -271,6 +274,8 @@ export const IntelligentSearch = (
   const fetchProduct = ({
     field,
     value,
+    hideUnavailableItems,
+    showInvisibleItems,
   }: FetchProductArgs): Promise<Product | null> => {
     const { segmentParams } = segmentData
     const params = new URLSearchParams({
@@ -279,6 +284,14 @@ export const IntelligentSearch = (
     })
 
     appendSegmentParams(params, segmentParams)
+
+    if (hideUnavailableItems) {
+      params.append('hideUnavailableItems', 'true')
+    }
+
+    if (showInvisibleItems) {
+      params.append('show-invisible-items', 'true')
+    }
 
     return Promise.resolve(
       fetchAPI(
@@ -291,9 +304,13 @@ export const IntelligentSearch = (
   const productsByIdentifier = async ({
     field,
     values,
+    showInvisibleItems,
+    hideUnavailableItems,
   }: ProductsByIdentifierArgs): Promise<Product[]> => {
     const productsResult = await Promise.all(
-      values.map((value) => fetchProduct({ field, value }))
+      values.map((value) =>
+        fetchProduct({ field, value, hideUnavailableItems, showInvisibleItems })
+      )
     )
 
     return productsResult.filter(
