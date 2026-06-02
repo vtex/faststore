@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.2.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0) (2026-06-01)
+
+### Features
+
+- release version 2026 06 01 ([#3370](https://github.com/vtex/faststore/issues/3370)) ([61fcbdf](https://github.com/vtex/faststore/commit/61fcbdfde6a8bb6eb6f0f00d9b5ac3f28421dbf3))
+- Release version 2026 06 01 1 ([#3373](https://github.com/vtex/faststore/issues/3373)) ([df3cb4d](https://github.com/vtex/faststore/commit/df3cb4de391a252831dd28cf3bd46f7493bea742))
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+# 4.2.0-dev.4 (2026-06-01)
+
+### Bug Fixes
+
+- preview pnpm pack ([#3367](https://github.com/vtex/faststore/issues/3367)) ([186579c](https://github.com/vtex/faststore/commit/186579c4cca44e4d21c25068f075c0fbb6a56d96))
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+### Bug Fixes
+
+- strip packageManager from generated .faststore/package.json ([#3335](https://github.com/vtex/faststore/issues/3335)) ([5a2b793](https://github.com/vtex/faststore/commit/5a2b793c4b12f986c72e801fb03809b568a99344))
+
+# 4.2.0-dev.1 (2026-06-01)
+
+### Bug Fixes
+
+- createNextJSPages throwing preventing copy of store discovery-co… ([#3356](https://github.com/vtex/faststore/issues/3356)) ([cf318ab](https://github.com/vtex/faststore/commit/cf318abfecf4c6497d40bfe58203acc90b199696))
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2-dev.8...v4.2.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+### Bug Fixes
+
+- url resolution in windows ([#3337](https://github.com/vtex/faststore/issues/3337)) ([2476091](https://github.com/vtex/faststore/commit/24760916bdcfc73c7d4ef7f92829976d4f1f97d6))
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+### Bug Fixes
+
+- generate plugin themes with Sass [@use](https://github.com/use) instead of [@import](https://github.com/import) ([#3283](https://github.com/vtex/faststore/issues/3283)) ([22c0e74](https://github.com/vtex/faststore/commit/22c0e74d7d3b3714a5e9b6917d7cc60aa36eeb69))
+
+## 4.1.2-dev.1 (2026-05-19)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## 4.1.2-dev.0 (2026-05-15)
 
 **Note:** Version bump only for package @faststore/cli

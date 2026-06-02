@@ -12,6 +12,8 @@ metadata:
     github.com/project-slug: vtex/faststore
     backstage.io/techdocs-ref: dir:../
     vtex.com/application-id: ZYS1XPEC
+    vtex.com/sdd-check-skip: 'true'
+    vtex.com/sdd-check-skip-reason: This is a legacy component that predates Spec-Kit requirements.
 spec:
   lifecycle: production
   owner: te-0011

@@ -53,4 +53,5 @@ jobs:
 
       - name: Build
         run: pnpm build
-      - run: pnpm dlx pkg-pr-new publish './packages/*' --no-compact --packageManager=yarn --commentWithSha
+
+      - run: pnpm dlx pkg-pr-new publish './packages/*' '!./packages/storybook' --no-compact --pnpm --commentWithSha

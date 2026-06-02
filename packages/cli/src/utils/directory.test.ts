@@ -1,5 +1,5 @@
+import path from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import path from 'path'
 import { withBasePath } from './directory'
 
 const pathsToMatch = (expected: string, desired: string) => {

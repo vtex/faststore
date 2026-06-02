@@ -1,4 +1,4 @@
-import storeConfig from 'discovery.config.default.js'
+import storeConfig from 'discovery.config'
 import type { LocalesSettings } from '../../typings/locales'
 import { getRequestHostname } from '../getRequestHostname'
 
@@ -51,6 +51,11 @@ export function validateLocaleForHostname(
   hostname: string,
   locale: string
 ): boolean {
+  // Skip validation when localization is disabled (consistent with bindingPaths.ts)
+  if (!storeConfig.localization?.enabled) {
+    return true
+  }
+
   const normalizedHostname = getRequestHostname(hostname)
 
   if (!normalizedHostname) {

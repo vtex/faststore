@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { isLocalHostBrowser } from 'src/utils/isLocalHost'
 import { logoutAndClearSession, sessionStore } from '../session'
 import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
 
@@ -11,6 +12,17 @@ export const useRefreshToken = (
   useEffect(() => {
     const handleRefreshTokenAndUpdateSession = async () => {
       if (!needsRefreshToken) return
+
+      // The refresh-token endpoint lives on the production origin and relies on
+      // the `vid_rt` cookie scoped to that origin. From localhost the request is
+      // cross-origin, so the cookie is not sent and the refresh always fails —
+      // which would also wipe the manually injected `VtexIdclientAutCookie_<account>`
+      // via `logoutAndClearSession`. Bail out and fall back to the static 403
+      // view so developers can keep testing logged-in flows.
+      if (isLocalHostBrowser()) {
+        setShouldShow403(true)
+        return
+      }
 
       const currentSession = sessionStore.read() ?? sessionStore.readInitial()
 

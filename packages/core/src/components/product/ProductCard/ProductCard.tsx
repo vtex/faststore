@@ -166,6 +166,7 @@ function ProductCard({
             width={imgProps?.width ?? 360}
             height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
             loading={imgProps?.loading}
+            fetchPriority={imgProps?.fetchPriority}
           />
         </UIProductCardImage>
         <UIProductCardContent

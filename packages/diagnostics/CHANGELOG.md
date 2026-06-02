@@ -3,6 +3,138 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+# [4.2.0-dev.4](https://github.com/vtex/faststore/compare/v4.2.0-dev.3...v4.2.0-dev.4) (2026-06-01)
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+# [4.2.0-dev.1](https://github.com/vtex/faststore/compare/v4.2.0-dev.0...v4.2.0-dev.1) (2026-06-01)
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0-dev.0) (2026-06-01)
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+## [4.1.2-dev.1](https://github.com/vtex/faststore/compare/v4.1.1...v4.1.2-dev.1) (2026-05-19)
+
+## [4.1.1-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.11...v4.1.1-dev.1) (2026-05-15)
+
+# [4.1.0-dev.11](https://github.com/vtex/faststore/compare/v4.1.0-dev.10...v4.1.0-dev.11) (2026-05-15)
+
+# [4.1.0-dev.10](https://github.com/vtex/faststore/compare/v4.1.0-dev.8...v4.1.0-dev.10) (2026-05-15)
+
+# [4.1.0-dev.8](https://github.com/vtex/faststore/compare/v4.1.0-dev.7...v4.1.0-dev.8) (2026-05-15)
+
+# [4.1.0-dev.7](https://github.com/vtex/faststore/compare/v4.1.0-dev.6...v4.1.0-dev.7) (2026-05-15)
+
+# [4.1.0-dev.6](https://github.com/vtex/faststore/compare/v4.1.0-dev.5...v4.1.0-dev.6) (2026-05-14)
+
+# [4.1.0-dev.5](https://github.com/vtex/faststore/compare/v4.1.0-dev.4...v4.1.0-dev.5) (2026-05-14)
+
+# [4.1.0-dev.4](https://github.com/vtex/faststore/compare/v4.1.0-dev.3...v4.1.0-dev.4) (2026-05-13)
+
+# [4.1.0-dev.3](https://github.com/vtex/faststore/compare/v4.1.0-dev.2...v4.1.0-dev.3) (2026-05-13)
+
+# [4.1.0-dev.2](https://github.com/vtex/faststore/compare/v4.1.0...v4.1.0-dev.2) (2026-05-12)
+
+# [4.1.0-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.0...v4.1.0-dev.1) (2026-05-11)
+
+# [4.1.0-dev.0](https://github.com/vtex/faststore/compare/v4.0.1-dev.2...v4.1.0-dev.0) (2026-05-11)
+
+## [4.0.1-dev.2](https://github.com/vtex/faststore/compare/v4.0.1-dev.1...v4.0.1-dev.2) (2026-05-11)
+
+## [4.0.1-dev.1](https://github.com/vtex/faststore/compare/v4.0.1-dev.0...v4.0.1-dev.1) (2026-05-07)
+
+## [4.0.1-dev.0](https://github.com/vtex/faststore/compare/v4.0.0...v4.0.1-dev.0) (2026-05-07)
+
+# [4.0.0-dev.4](https://github.com/vtex/faststore/compare/v4.0.0-dev.3...v4.0.0-dev.4) (2026-05-07)
+
+### Bug Fixes
+
+- add repository field to diagnostics package for OIDC provenance ([d1e40ab](https://github.com/vtex/faststore/commit/d1e40abe742b469a68b3d178c10ef56e5184ec29))
+
+# [4.0.0-dev.3](https://github.com/vtex/faststore/compare/v4.0.0-dev.2...v4.0.0-dev.3) (2026-05-07)
+
+# [4.0.0-dev.2](https://github.com/vtex/faststore/compare/v4.0.0-dev.1...v4.0.0-dev.2) (2026-05-07)
+
+# [4.0.0-dev.0](https://github.com/vtex/faststore/compare/v3.99.0...v4.0.0-dev.0) (2026-05-07)
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+# 4.2.0-dev.4 (2026-06-01)
+
+### Bug Fixes
+
+- preview pnpm pack ([#3367](https://github.com/vtex/faststore/issues/3367)) ([186579c](https://github.com/vtex/faststore/commit/186579c4cca44e4d21c25068f075c0fbb6a56d96))
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+# 4.2.0-dev.1 (2026-06-01)
+
+### Bug Fixes
+
+- createNextJSPages throwing preventing copy of store discovery-co… ([#3356](https://github.com/vtex/faststore/issues/3356)) ([cf318ab](https://github.com/vtex/faststore/commit/cf318abfecf4c6497d40bfe58203acc90b199696))
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2-dev.8...v4.2.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
+## 4.1.2-dev.1 (2026-05-19)
+
+**Note:** Version bump only for package @faststore/diagnostics
+
 ## 4.1.2-dev.0 (2026-05-15)
 
 **Note:** Version bump only for package @faststore/diagnostics

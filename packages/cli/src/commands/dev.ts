@@ -1,12 +1,12 @@
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { spawn, spawnSync } from 'child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 
-import { cpSync, existsSync, readFileSync } from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { cpSync, existsSync, readFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getDiscoveryConfig } from '../utils/config'
 import { checkDeprecatedSecretFiles } from '../utils/deprecations'
@@ -66,8 +66,7 @@ async function storeDev(
 
   runCommandSync({
     cmd: `${packageManager} predev`,
-    errorMessage:
-      'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
+    errorMessage: `The "predev" step ("${packageManager} predev") failed inside the ".faststore" directory. See the error output below for details.`,
     throws: 'error',
     cwd: tmpDir,
   })
