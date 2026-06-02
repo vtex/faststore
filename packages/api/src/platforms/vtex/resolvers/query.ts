@@ -430,8 +430,6 @@ export const Query = {
 
     const result = await search.productCount({
       query: term ?? undefined,
-      page: 0,
-      count: 0,
     })
 
     return result

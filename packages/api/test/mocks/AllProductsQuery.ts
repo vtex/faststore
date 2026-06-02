@@ -78,7 +78,7 @@ export const AllProductsQueryFirst5 = `query AllProducts {
 `
 
 export const productSearchPage1Count5Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/intelligent-search/v1/product-search/?from=0&to=4&query=&sort=&sc=1&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false&allowRedirect=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/intelligent-search/v1/product-search/?from=0&to=4&sc=1&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false&allowRedirect=false',
   init: {
     headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
   },

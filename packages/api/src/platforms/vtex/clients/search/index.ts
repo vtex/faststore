@@ -193,22 +193,30 @@ export const IntelligentSearch = (
     query = '',
     page,
     count,
-    sort = '',
+    sort,
     selectedFacets = [],
     showInvisibleItems,
     sponsoredCount,
     hideUnavailableItems: searchHideUnavailableItems,
     allowRedirect = false,
-  }: Omit<SearchArgs, 'type'>) => {
-    const from = page * count
-    const to = count !== 0 ? from + count - 1 : from
+  }: Partial<Omit<SearchArgs, 'type'>>) => {
+    const params = new URLSearchParams()
 
-    const params = new URLSearchParams({
-      from: from.toString(),
-      to: to.toString(),
-      query,
-      sort,
-    })
+    if (page !== undefined && count !== undefined) {
+      const from = page * count
+      const to = count !== 0 ? from + count - 1 : from
+
+      params.append('from', from.toString())
+      params.append('to', to.toString())
+    }
+
+    if (query) {
+      params.append('query', query)
+    }
+
+    if (sort) {
+      params.append('sort', sort)
+    }
 
     const mergedSegmentParams = mergeSegmentParamsWithPickupFromPath(
       segmentData.segmentParams,
@@ -347,7 +355,7 @@ export const IntelligentSearch = (
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
   const productCount = (
-    args: Omit<SearchArgs, 'type'>
+    args: Omit<SearchArgs, 'type' | 'page' | 'count' | 'sort'>
   ): Promise<ProductCountResult> => {
     const { params, pathname } = buildSearchParams(args)
 
