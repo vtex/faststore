@@ -7,7 +7,7 @@ interface LogoProps {
   loading?: ImageProps['loading']
 }
 
-function Logo({ alt, src, loading = 'lazy' }: LogoProps) {
+function Logo({ alt, src, loading = 'eager' }: LogoProps) {
   if (!src) {
     console.error('Logo image src is required.')
     return null

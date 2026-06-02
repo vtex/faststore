@@ -5,7 +5,6 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
@@ -15,12 +14,13 @@ import type {
   ServerManyProductsQueryQueryVariables,
 } from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
+import { getCriticalProductImagePreload } from 'src/sdk/head/getCriticalProductImagePreload'
+import useServerHeadComponents from 'src/sdk/head/useServerHeadComponents'
 import { useApplySearchState } from 'src/sdk/search/state'
 
 import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
-import { faststoreLoader } from 'src/components/ui/Image/loader'
 import ProductListing from './ProductListing'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
@@ -131,15 +131,12 @@ export default function ProductListingPage({
   //   30vw × 412 × 2 = 247px → browser picks 320 (first step ≥ 247 in the srcset).
   // Using 320 here makes the preload URL exactly match the <img> srcset selection,
   // so the browser can reuse the preloaded response instead of fetching a second URL.
-  const rawLcpImageUrl: string | undefined =
+  const lcpImagePreload = getCriticalProductImagePreload(
     server?.search?.products?.edges?.[0]?.node?.image?.[0]?.url
-  const lcpImageUrl = rawLcpImageUrl
-    ? faststoreLoader({
-        src: rawLcpImageUrl,
-        width: 320,
-        quality: 75,
-      })
-    : undefined
+  )
+  const serverHeadComponents = useServerHeadComponents(
+    lcpImagePreload ? <link {...lcpImagePreload} /> : null
+  )
 
   return (
     <SearchProvider
@@ -148,16 +145,7 @@ export default function ProductListingPage({
       shouldResetInfiniteScroll={!storeConfig.experimental?.scrollRestoration}
       {...searchParams}
     >
-      {lcpImageUrl && (
-        <Head>
-          <link
-            rel="preload"
-            as="image"
-            href={lcpImageUrl}
-            fetchPriority="high"
-          />
-        </Head>
-      )}
+      {serverHeadComponents}
       {/* SEO */}
       <NextSeo
         title={title}
