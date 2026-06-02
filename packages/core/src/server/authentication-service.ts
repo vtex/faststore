@@ -12,8 +12,8 @@ import {
   passwordProtectionTimeouts,
 } from './password-protection/webops-api'
 
-const COOKIE_NAME = '__fs_auth_token'
-const TOKEN_TTL_SECONDS = 10 * 60
+export const COOKIE_NAME = '__fs_auth_token'
+export const TOKEN_TTL_SECONDS = 10 * 60
 /** How long to reuse the RSA public key fetched from WebOps */
 const PUBLIC_KEY_CACHE_MS = 60 * 60 * 1000
 

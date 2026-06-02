@@ -7,9 +7,10 @@ import {
   sessionUrl,
   passwordProtectionTimeouts,
 } from '../../../../server/password-protection/webops-api'
-
-const COOKIE_NAME = '__fs_auth_token'
-const TOKEN_TTL_SECONDS = 10 * 60
+import {
+  COOKIE_NAME,
+  TOKEN_TTL_SECONDS,
+} from 'src/server/authentication-service'
 
 interface WebOpsSessionPayload {
   valid: boolean
