@@ -101,7 +101,7 @@ export const SearchQueryFirst5Products = `query SearchQuery {
 }`
 
 export const productSearchCategory1Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false&allowRedirect=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/intelligent-search/v1/product-search/category-1/office/?from=0&to=4&query=&sort=&sc=1&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false&allowRedirect=false',
   init: {
     headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
   },
@@ -1397,7 +1397,7 @@ export const productSearchCategory1Fetch = {
 }
 
 export const attributeSearchCategory1Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false&allowRedirect=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/intelligent-search/v1/facets/category-1/office/?from=0&to=4&query=&sort=&sc=1&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false&allowRedirect=false',
   init: {
     headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
   },

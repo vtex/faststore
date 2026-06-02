@@ -20,7 +20,7 @@ import {
   pageTypeOfficeDesksFetch,
   pageTypeOfficeFetch,
 } from '../mocks/CollectionQuery'
-import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
+import { ProductByIdQuery, pdpFetch } from '../mocks/ProductQuery'
 import {
   RedirectQueryTermTech,
   redirectTermTechFetch,
@@ -139,7 +139,7 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [productSearchFetch, salesChannelStaleFetch]
+  const fetchAPICalls = [pdpFetch, salesChannelStaleFetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)

@@ -1,11 +1,20 @@
 import type { Context, Options } from '../../'
-import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import { getWithCookie } from '../../utils/cookies'
 import type {
   FuzzyFacet,
   OperatorFacet,
   SelectedFacet,
 } from '../../utils/facets'
+import {
+  appendSegmentParams,
+  buildSegmentParams,
+  getSegmentLocale,
+} from '../../utils/segment'
+import {
+  buildAttributePath,
+  concatSelectedFacets,
+  mergeSegmentParamsWithPickupFromPath,
+} from '../../utils/searchPath'
 import { fetchAPI } from '../fetch'
 import type {
   Facet,
@@ -14,6 +23,7 @@ import type {
 } from './types/FacetSearchResult'
 import type { ProductCountResult } from './types/ProductCountResult'
 import type {
+  Product,
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
@@ -48,24 +58,34 @@ export interface ProductLocator {
   value: string
 }
 
-const POLICY_KEY = 'trade-policy'
-const REGION_KEY = 'region-id'
+export type ProductIdentifierField = 'id' | 'slug' | 'ean' | 'reference' | 'sku'
+
+export interface FetchProductArgs {
+  field: ProductIdentifierField
+  value: string
+}
+
+export interface ProductsByIdentifierArgs {
+  field: ProductIdentifierField
+  values: string[]
+  showInvisibleItems?: boolean
+}
+
 const FUZZY_KEY = 'fuzzy'
 const OPERATOR_KEY = 'operator'
 const PICKUP_POINT_KEY = 'pickupPoint'
 const SHIPPING_KEY = 'shipping'
 const DELIVERY_OPTIONS_KEY = 'delivery-options'
 const IN_STOCK_KEY = 'in-stock'
+const POLICY_KEY = 'trade-policy'
+const REGION_KEY = 'region-id'
 
-const EXTRA_FACETS_KEYS = new Set([
+const PATH_EXCLUDED_KEYS = new Set([
   POLICY_KEY,
   REGION_KEY,
   FUZZY_KEY,
   OPERATOR_KEY,
   PICKUP_POINT_KEY,
-  SHIPPING_KEY,
-  DELIVERY_OPTIONS_KEY,
-  IN_STOCK_KEY,
 ])
 
 export const isFacetBoolean = (
@@ -96,8 +116,9 @@ export const IntelligentSearch = (
   }: Options,
   ctx: Context
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
+  const base = `https://${account}.${environment}.com.br`
   const withCookie = getWithCookie(ctx)
+  const segmentData = buildSegmentParams(ctx)
 
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
@@ -115,40 +136,8 @@ export const IntelligentSearch = (
     'X-FORWARDED-HOST': forwardedHost,
   })
 
-  const getPolicyFacet = (): IStoreSelectedFacet | null => {
-    const { salesChannel } = ctx.storage.channel
-
-    if (!salesChannel) {
-      return null
-    }
-
-    return {
-      key: POLICY_KEY,
-      value: salesChannel,
-    }
-  }
-
-  const getRegionFacet = (): IStoreSelectedFacet | null => {
-    const { regionId, seller } = ctx.storage.channel
-    const sellerRegionId = seller
-      ? Buffer.from(`SW#${seller}`).toString('base64')
-      : null
-    const facet = sellerRegionId ?? regionId
-
-    if (!facet) {
-      return null
-    }
-
-    return {
-      key: REGION_KEY,
-      value: facet,
-    }
-  }
-
-  const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const withDefaultFacets = facets.filter(
-      ({ key }) => !EXTRA_FACETS_KEYS.has(key)
-    )
+  const preparePathFacets = (facets: SelectedFacet[]) => {
+    const pathFacets = facets.filter(({ key }) => !PATH_EXCLUDED_KEYS.has(key))
 
     const shippingFacet =
       facets.find(
@@ -162,29 +151,17 @@ export const IntelligentSearch = (
           key === DELIVERY_OPTIONS_KEY && value !== 'all-delivery-options'
       ) ?? null
 
-    const policyFacet =
-      facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
-
-    const regionFacet =
-      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
+    const withShippingFacets = [...pathFacets]
 
     if (shippingFacet !== null) {
-      withDefaultFacets.push(shippingFacet)
+      withShippingFacets.push(shippingFacet)
     }
 
     if (deliveryOptionsFacet !== null) {
-      withDefaultFacets.push(deliveryOptionsFacet)
+      withShippingFacets.push(deliveryOptionsFacet)
     }
 
-    if (policyFacet !== null) {
-      withDefaultFacets.push(policyFacet)
-    }
-
-    if (regionFacet !== null) {
-      withDefaultFacets.push(regionFacet)
-    }
-
-    return withDefaultFacets
+    return concatSelectedFacets(withShippingFacets, segmentData.extraFacets)
   }
 
   const addSearchParamsFacets = (
@@ -209,26 +186,36 @@ export const IntelligentSearch = (
     }
   }
 
-  const search = <T>({
+  const buildSearchParams = ({
     query = '',
     page,
     count,
     sort = '',
     selectedFacets = [],
-    type,
     showInvisibleItems,
     sponsoredCount,
     hideUnavailableItems: searchHideUnavailableItems,
     allowRedirect = false,
-  }: SearchArgs): Promise<T> => {
+  }: Omit<SearchArgs, 'type'>) => {
+    const from = page * count
+    const to = count !== 0 ? from + count - 1 : from
+
     const params = new URLSearchParams({
-      page: (page + 1).toString(),
-      count: count !== 0 ? count.toString() : '1',
+      from: from.toString(),
+      to: to.toString(),
       query,
       sort,
-      locale: ctx.storage.locale,
     })
 
+    const mergedSegmentParams = mergeSegmentParamsWithPickupFromPath(
+      segmentData.segmentParams,
+      selectedFacets
+    )
+
+    appendSegmentParams(
+      params,
+      mergedSegmentParams ?? segmentData.segmentParams
+    )
     addSearchParamsFacets(selectedFacets, params)
 
     if (showInvisibleItems) {
@@ -263,12 +250,17 @@ export const IntelligentSearch = (
       params.append('allowRedirect', allowRedirect.toString())
     }
 
-    const pathname = addDefaultFacets(selectedFacets)
-      .map(({ key, value }) => `${key}/${value}`)
-      .join('/')
+    const pathname = buildAttributePath(preparePathFacets(selectedFacets))
+
+    return { params, pathname }
+  }
+
+  const search = <T>({ type, ...args }: SearchArgs): Promise<T> => {
+    const { params, pathname } = buildSearchParams(args)
+    const endpoint = type === 'facets' ? 'facets' : 'product-search'
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      `${base}/api/intelligent-search/v1/${endpoint}/${pathname}?${params.toString()}`,
       { headers }
     )
   }
@@ -276,27 +268,60 @@ export const IntelligentSearch = (
   const products = (args: Omit<SearchArgs, 'type'>) =>
     search<ProductSearchResult>({ ...args, type: 'product_search' })
 
+  const fetchProduct = ({
+    field,
+    value,
+  }: FetchProductArgs): Promise<Product | null> => {
+    const { segmentParams } = segmentData
+    const params = new URLSearchParams({
+      field,
+      value,
+    })
+
+    appendSegmentParams(params, segmentParams)
+
+    return Promise.resolve(
+      fetchAPI(
+        `${base}/api/intelligent-search/v1/products?${params.toString()}`,
+        { headers }
+      )
+    ).catch(() => null)
+  }
+
+  const productsByIdentifier = async ({
+    field,
+    values,
+  }: ProductsByIdentifierArgs): Promise<Product[]> => {
+    const productsResult = await Promise.all(
+      values.map((value) => fetchProduct({ field, value }))
+    )
+
+    return productsResult.filter(
+      (product): product is Product => product !== null
+    )
+  }
+
   const suggestedTerms = (
     args: Omit<SearchArgs, 'type'>
   ): Promise<Suggestion> => {
     const params = new URLSearchParams({
       query: args.query?.toString() ?? '',
-      locale: ctx.storage.locale,
+      locale: getSegmentLocale(ctx),
     })
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
+      `${base}/api/intelligent-search/v1/search-suggestions?${params.toString()}`,
       { headers }
     )
   }
 
   const topSearches = (): Promise<Suggestion> => {
     const params = new URLSearchParams({
-      locale: ctx.storage.locale,
+      locale: getSegmentLocale(ctx),
     })
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
+      `${base}/api/intelligent-search/v1/top-searches?${params.toString()}`,
       { headers }
     )
   }
@@ -305,16 +330,12 @@ export const IntelligentSearch = (
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
   const productCount = (
-    args: Pick<SearchArgs, 'query'>
+    args: Omit<SearchArgs, 'type'>
   ): Promise<ProductCountResult> => {
-    const params = new URLSearchParams()
-
-    if (args?.query) {
-      params.append('query', args.query.toString())
-    }
+    const { params, pathname } = buildSearchParams(args)
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/catalog_count?${params.toString()}`,
+      `${base}/api/intelligent-search/v1/catalog-count/${pathname}?${params.toString()}`,
       { headers }
     )
   }
@@ -322,6 +343,8 @@ export const IntelligentSearch = (
   return {
     facets,
     products,
+    fetchProduct,
+    productsByIdentifier,
     suggestedTerms,
     topSearches,
     productCount,

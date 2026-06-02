@@ -6,11 +6,11 @@ import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import {
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
-  checkoutOrderFormCustomDataValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
   checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
+  createProductFetchResultForSku,
   InvalidCart,
   productSearchPage1Count1Fetch,
   ValidateCartMutation,
@@ -65,6 +65,14 @@ function pickFetchAPICallResult(
   _: RequestInit | undefined,
   expectedFetchAPICalls: Array<Record<'info' | 'init' | 'result', unknown>>
 ) {
+  const url = String(info)
+
+  if (url.includes('/api/intelligent-search/v1/products?')) {
+    const skuId = new URL(url).searchParams.get('value') ?? ''
+
+    return createProductFetchResultForSku(skuId)
+  }
+
   for (const call of expectedFetchAPICalls) {
     if (info === call.info) {
       return call.result
@@ -94,21 +102,13 @@ beforeEach(() => {
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
   mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, [
-      checkoutOrderFormValidFetch,
-      checkoutOrderFormCustomDataValidFetch,
-      salesChannelStaleFetch,
-    ])
+    pickFetchAPICallResult(info, init, [checkoutOrderFormValidFetch])
   )
 
   const response = await run(ValidateCartMutation, { cart: ValidCart })
 
-  // When cart is valid, the system will:
-  // 1. GET orderForm
-  // 2. PUT customData (update/set etag because cart might have been modified elsewhere)
-  // 3. GET saleschannel (to get currency info)
-  // Since the cart matches and etag is now correct, it returns null (no changes needed)
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  // When cart is valid and etag is up to date, only checkout calls are made.
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   expect(response.data?.validateCart).toEqual(null)
 })
