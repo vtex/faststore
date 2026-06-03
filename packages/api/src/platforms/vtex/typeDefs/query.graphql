@@ -464,7 +464,8 @@ type Query {
   """
   Returns the status of an Order Entry Service operation by its ID.
   """
-  orderEntryOperation(operationId: String!): StoreOrderEntryOperationStatus @auth
+  orderEntryOperation(operationId: String!): StoreOrderEntryOperationStatus
+    @auth
   """
   Returns the items in an orderForm by its ID.
   """
