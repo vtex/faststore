@@ -10,7 +10,10 @@
           awsAccountId: "053131491888"
           nodeVersion: 24-bookworm
           packageManager: pnpm
+          skipInstall: true
           nodeCommands:
+            - preinstall
+            - install
             - ci:dkcicd
           shallowClone: false
           sonarHost: http://sonarqube.vtex.systems
