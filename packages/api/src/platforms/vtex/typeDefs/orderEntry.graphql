@@ -27,7 +27,7 @@ type StoreOrderEntryUploadResult {
 
 input IOrderEntryOperation {
   objectKey: String!
-  orderFormId: String!
+  orderFormId: String
   sessionToken: String
 }
 
@@ -43,7 +43,7 @@ type StoreOrderEntryMissingItem {
 
 type StoreOrderEntryOperationStatus {
   status: String!
-  entityId: String!
+  entityId: String
   message: String
   missingItems: [StoreOrderEntryMissingItem!]
 }

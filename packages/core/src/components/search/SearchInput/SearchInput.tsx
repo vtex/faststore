@@ -206,10 +206,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       resetOES()
     }
 
-    const handleDownloadTemplate = () => {
-      // template download is handled by the FileUploadCard's onDownloadTemplate prop
-    }
-
     const handleDismiss = () => {
       setSelectedFile(null)
       setQuickOrderProducts([])
@@ -329,7 +325,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         {hidden ? (
           <UIIconButton
             type="submit"
-            aria-label={a11yLabels?.searchButtonAriaLabel}
+            aria-label={a11yLabels?.searchButtonAriaLabel ?? 'Search'}
             icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}
@@ -423,7 +419,6 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                 isOpen={isUploadOpen || hasFile || fileUploadVisible}
                 onDismiss={handleDismiss}
                 onFileSelect={handleFileSelect}
-                onDownloadTemplate={handleDownloadTemplate}
                 formatterFileSize={formatFileSize}
                 formatterFileName={formatFileName}
                 onSearch={handleSearch}
@@ -453,7 +448,15 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             isLoading: false,
             totalRequestedSkus: 0,
             onAddToCart: handleAddToCart,
-            alertMessages: drawerConfig?.alertMessages,
+            alertMessages: {
+              ...drawerConfig?.alertMessages,
+              ...(oesStatus?.status === 'PARTIAL_SUCCESS' && {
+                notFound:
+                  oesStatus.message ??
+                  drawerConfig?.alertMessages?.notFound ??
+                  'Some items could not be imported.',
+              }),
+            },
           }}
         >
           <QuickOrderDrawerHeader

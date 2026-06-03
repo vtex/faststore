@@ -82,8 +82,9 @@ export interface FileUploadCardProps
   uploadingStatusText: string
   /**
    * Status text when processing/polling in FileUploadStatus (e.g. from CMS).
+   * @default 'Importing...'
    */
-  processingStatusText: string
+  processingStatusText?: string
   /**
    * Status text when completed in FileUploadStatus (e.g. from CMS). Receives file size in bytes.
    */

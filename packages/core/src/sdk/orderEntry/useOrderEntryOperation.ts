@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 import { gql } from '@generated'
 import type {
@@ -35,6 +35,7 @@ const OrderEntryOperationQuery = gql(`
 `)
 
 const TERMINAL_STATUSES = new Set(['SUCCESS', 'PARTIAL_SUCCESS', 'FAILED'])
+const POLL_TIMEOUT_MS = 60_000
 
 export type OrderEntryOperationStatus = NonNullable<
   OrderEntryOperationQueryQuery['orderEntryOperation']
@@ -54,6 +55,8 @@ export type UseOrderEntryOperationReturn = {
 
 export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
   const [operationId, setOperationId] = useState<string | null>(null)
+  const [timeoutError, setTimeoutError] = useState<Error | null>(null)
+  const pollStartRef = useRef<number | null>(null)
 
   const [startOp, { isValidating: isStarting, error: startError }] =
     useLazyQuery<
@@ -74,6 +77,13 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
       refreshInterval: (latestData) => {
         const s = latestData?.orderEntryOperation?.status
         if (s && TERMINAL_STATUSES.has(s)) return 0
+        if (
+          pollStartRef.current !== null &&
+          Date.now() - pollStartRef.current >= POLL_TIMEOUT_MS
+        ) {
+          setTimeoutError(new Error('Operation timed out. Please try again.'))
+          return 0
+        }
         return 2000
       },
     }
@@ -92,12 +102,20 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
         },
       })
       const id = result?.startOrderEntryOperation?.operationId
-      if (id) setOperationId(id)
+      if (id) {
+        pollStartRef.current = Date.now()
+        setTimeoutError(null)
+        setOperationId(id)
+      }
     },
     [startOp]
   )
 
-  const reset = useCallback(() => setOperationId(null), [])
+  const reset = useCallback(() => {
+    setOperationId(null)
+    setTimeoutError(null)
+    pollStartRef.current = null
+  }, [])
 
   const currentStatus = statusData?.orderEntryOperation?.status ?? null
   const isPolling =
@@ -108,7 +126,7 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
     startOperation,
     status: operationId ? (statusData?.orderEntryOperation ?? null) : null,
     isLoading: isStarting || isPolling || isPending,
-    error: (startError ?? statusError ?? null) as Error | null,
+    error: (startError ?? statusError ?? timeoutError ?? null) as Error | null,
     reset,
   }
 }

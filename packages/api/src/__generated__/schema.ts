@@ -372,7 +372,7 @@ export type IGeoCoordinates = {
 
 export type IOrderEntryOperation = {
   objectKey: Scalars['String']['input'];
-  orderFormId: Scalars['String']['input'];
+  orderFormId?: InputMaybe<Scalars['String']['input']>;
   sessionToken?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1534,7 +1534,7 @@ export type StoreOrderEntryOperationResult = {
 
 export type StoreOrderEntryOperationStatus = {
   __typename?: 'StoreOrderEntryOperationStatus';
-  entityId: Scalars['String']['output'];
+  entityId?: Maybe<Scalars['String']['output']>;
   message?: Maybe<Scalars['String']['output']>;
   missingItems?: Maybe<Array<StoreOrderEntryMissingItem>>;
   status: Scalars['String']['output'];
