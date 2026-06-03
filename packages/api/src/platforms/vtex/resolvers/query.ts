@@ -104,10 +104,12 @@ export const Query = {
         throw new NotFoundError(`No product found for slug ${slug}`)
       }
 
-      const product = await search.fetchProduct({
-        field: 'id',
-        value: String(route.id),
-      })
+      const product = await search
+        .fetchProduct({
+          field: 'id',
+          value: String(route.id),
+        })
+        .catch(() => null)
 
       if (!product) {
         throw new NotFoundError(`No product found for id ${route.id}`)

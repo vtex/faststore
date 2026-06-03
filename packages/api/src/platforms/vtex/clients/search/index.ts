@@ -138,7 +138,7 @@ export const IntelligentSearch = (
     value,
     hideUnavailableItems: hideUnavailable,
     showInvisibleItems,
-  }: FetchProductArgs): Promise<Product | null> => {
+  }: FetchProductArgs): Promise<Product> => {
     const request = buildIntelligentSearchRequest({
       endpoint: 'products',
       segment,
@@ -156,7 +156,7 @@ export const IntelligentSearch = (
         `${base}/api/intelligent-search/v1/products?${request.params.toString()}`,
         { headers }
       )
-    ).catch(() => null)
+    )
   }
 
   const productsByIdentifier = async ({
