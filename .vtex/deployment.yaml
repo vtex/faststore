@@ -6,7 +6,7 @@
     pipelines:
       - name: node-ci-v2
         parameters:
-          privateRegistry: internal-npm
+          privateRegistry: observability
           awsAccountId: "053131491888"
           nodeVersion: 24-bookworm
           packageManager: pnpm
