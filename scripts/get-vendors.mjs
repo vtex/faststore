@@ -54,13 +54,10 @@ async function downloadPackage(name, version) {
   const headers = {
     Authorization: `Bearer ${process.env.CA_TOKEN}`,
   }
-
-  let response = await fetch(
-    `${REGISTRY}/${encodeURIComponent(name)}/${version}`,
-    {
-      headers,
-    }
-  )
+  const url = `${REGISTRY}/${encodeURIComponent(name)}/${version}`
+  let response = await fetch(url, {
+    headers,
+  })
 
   if (!response.ok) {
     const body = await response.text()
