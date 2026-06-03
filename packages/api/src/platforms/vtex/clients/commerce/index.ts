@@ -813,10 +813,11 @@ export const VtexCommerce = (
         const safeMimeType = SAFE_MIME_PATTERN.test(mimeType)
           ? mimeType
           : 'application/octet-stream'
+        const safeFileName = fileName.replace(/[\r\n"]/g, '_')
 
         const headerPart = [
           `--${boundary}`,
-          `Content-Disposition: form-data; name="file"; filename="${fileName}"`,
+          `Content-Disposition: form-data; name="file"; filename="${safeFileName}"`,
           `Content-Type: ${safeMimeType}`,
           '',
           '',
@@ -916,9 +917,9 @@ export const VtexCommerce = (
           {
             method: 'POST',
             headers: {
+              ...autHeaders,
               'Content-Type': 'application/json',
               'X-FORWARDED-HOST': forwardedHost,
-              VtexIdclientAutCookie: autHeaders['VtexIdclientAutCookie'],
             },
             body: '{}',
           },
@@ -937,9 +938,9 @@ export const VtexCommerce = (
           {
             method: 'GET',
             headers: {
+              ...autHeaders,
               'Content-Type': 'application/json',
               'X-FORWARDED-HOST': forwardedHost,
-              VtexIdclientAutCookie: autHeaders['VtexIdclientAutCookie'],
             },
           },
           {}

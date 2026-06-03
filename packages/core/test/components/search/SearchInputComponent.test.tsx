@@ -99,7 +99,7 @@ const orderFormState = vi.hoisted(() => ({
 }))
 
 vi.mock('src/sdk/auth', () => ({
-  useAuth: vi.fn(() => ({ isAutenticated: true })),
+  useAuth: vi.fn(() => ({ isAuthenticated: true })),
 }))
 
 vi.mock('src/sdk/orderEntry/useOrderEntry', () => ({
@@ -218,7 +218,7 @@ describe('SearchInput (OES integration)', () => {
 
   it('does not render attachment button when user is not authenticated', async () => {
     const { useAuth } = await import('src/sdk/auth')
-    vi.mocked(useAuth).mockReturnValue({ isAutenticated: false })
+    vi.mocked(useAuth).mockReturnValue({ isAuthenticated: false })
 
     const { queryByRole } = render(
       <Wrapper>

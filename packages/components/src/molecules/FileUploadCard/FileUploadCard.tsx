@@ -242,14 +242,7 @@ const FileUploadCard = ({
 
       fileTypeErrorRef.current = undefined
       setErrorType(undefined)
-
-      if (isUploading) {
-        setUploadState(FileUploadState.Uploading)
-      } else if (isProcessing) {
-        setUploadState(FileUploadState.Processing)
-      } else {
-        setUploadState(FileUploadState.Completed)
-      }
+      setUploadState(FileUploadState.Uploading)
 
       if (onFileSelect) {
         onFileSelect(files)
@@ -288,14 +281,7 @@ const FileUploadCard = ({
 
       fileTypeErrorRef.current = undefined
       setErrorType(undefined)
-
-      if (isUploading) {
-        setUploadState(FileUploadState.Uploading)
-      } else if (isProcessing) {
-        setUploadState(FileUploadState.Processing)
-      } else {
-        setUploadState(FileUploadState.Completed)
-      }
+      setUploadState(FileUploadState.Uploading)
 
       if (onFileSelect) {
         onFileSelect(files)

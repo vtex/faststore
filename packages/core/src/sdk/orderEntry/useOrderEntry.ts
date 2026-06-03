@@ -9,14 +9,25 @@ export function useOrderEntry() {
 
   const [isOperationStarting, setIsOperationStarting] = useState(false)
 
-  const { uploadFile, isUploading, error: uploadError } = useOrderEntryUpload()
+  const {
+    uploadFile,
+    isUploading,
+    error: uploadError,
+    clearError: clearUploadError,
+  } = useOrderEntryUpload()
   const {
     startOperation,
     status,
     isLoading: isOperating,
     error: operationError,
-    reset,
+    reset: resetOperation,
   } = useOrderEntryOperation()
+
+  const reset = useCallback(() => {
+    clearUploadError()
+    resetOperation()
+    setIsOperationStarting(false)
+  }, [clearUploadError, resetOperation])
 
   const submitFile = useCallback(
     async (file: File) => {

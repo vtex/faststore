@@ -166,7 +166,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       ) {
         fetchOrderFormItems(oesStatus.entityId)
       }
-    }, [oesStatus?.status, oesStatus?.entityId])
+    }, [oesStatus?.status, oesStatus?.entityId, fetchOrderFormItems])
 
     useEffect(() => {
       if (!orderFormItems || orderFormItems.length === 0) return
@@ -177,9 +177,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setIsQuickOrderDrawerOpen(true)
     }, [orderFormItems])
 
-    const { isAutenticated } = useAuth()
+    const { isAuthenticated } = useAuth()
     const isQuickOrderEnabled =
-      (quickOrderSettings?.quickOrder ?? false) && isAutenticated
+      (quickOrderSettings?.quickOrder ?? false) && isAuthenticated
     const attachmentButton = quickOrderSettings?.attachmentButton
     const drawerConfig = quickOrderSettings?.drawer
     const a11yLabels = quickOrderSettings?.accessibilityLabels

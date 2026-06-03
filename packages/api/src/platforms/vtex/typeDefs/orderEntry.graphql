@@ -21,7 +21,7 @@ input IOrderEntryUpload {
 """
 Result returned after uploading a file to the Order Entry Service.
 """
-type OrderEntryUploadResult {
+type StoreOrderEntryUploadResult {
   objectKey: String!
 }
 
@@ -31,24 +31,24 @@ input IOrderEntryOperation {
   sessionToken: String
 }
 
-type OrderEntryOperationResult {
+type StoreOrderEntryOperationResult {
   operationId: String!
 }
 
-type OrderEntryMissingItem {
+type StoreOrderEntryMissingItem {
   itemId: String!
   itemName: String
   reason: String!
 }
 
-type OrderEntryOperationStatus {
+type StoreOrderEntryOperationStatus {
   status: String!
   entityId: String!
   message: String
-  missingItems: [OrderEntryMissingItem!]
+  missingItems: [StoreOrderEntryMissingItem!]
 }
 
-type OrderFormCartItem {
+type StoreOrderFormCartItem {
   id: String!
   name: String!
   price: Int!

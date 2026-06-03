@@ -106,7 +106,7 @@ export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
 
   return {
     startOperation,
-    status: statusData?.orderEntryOperation ?? null,
+    status: operationId ? (statusData?.orderEntryOperation ?? null) : null,
     isLoading: isStarting || isPolling || isPending,
     error: (startError ?? statusError ?? null) as Error | null,
     reset,

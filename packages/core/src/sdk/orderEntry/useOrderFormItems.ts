@@ -48,7 +48,7 @@ export function useOrderFormItems() {
 
   return {
     fetchOrderFormItems,
-    items: data?.orderFormItems ?? null,
+    items: orderFormId ? (data?.orderFormItems ?? null) : null,
     isLoading: !!orderFormId && !data && !error,
     isValidating,
     error: error as Error | null,

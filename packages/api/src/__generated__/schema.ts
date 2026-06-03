@@ -689,7 +689,7 @@ export type Mutation = {
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
    */
-  startOrderEntryOperation?: Maybe<OrderEntryOperationResult>;
+  startOrderEntryOperation?: Maybe<StoreOrderEntryOperationResult>;
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /**
@@ -697,7 +697,7 @@ export type Mutation = {
    * The file must be Base64-encoded and passed via the `data` input.
    * The returned `objectKey` is required to start an order entry operation.
    */
-  uploadFileToOrderEntry?: Maybe<OrderEntryUploadResult>;
+  uploadFileToOrderEntry?: Maybe<StoreOrderEntryUploadResult>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart?: Maybe<StoreCart>;
   /** Updates a web session with the specified values. */
@@ -739,45 +739,6 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input'];
   session: IStoreSession;
-};
-
-export type OrderEntryMissingItem = {
-  __typename?: 'OrderEntryMissingItem';
-  itemId: Scalars['String']['output'];
-  itemName?: Maybe<Scalars['String']['output']>;
-  reason: Scalars['String']['output'];
-};
-
-export type OrderEntryOperationResult = {
-  __typename?: 'OrderEntryOperationResult';
-  operationId: Scalars['String']['output'];
-};
-
-export type OrderEntryOperationStatus = {
-  __typename?: 'OrderEntryOperationStatus';
-  entityId: Scalars['String']['output'];
-  message?: Maybe<Scalars['String']['output']>;
-  missingItems?: Maybe<Array<OrderEntryMissingItem>>;
-  status: Scalars['String']['output'];
-};
-
-/** Result returned after uploading a file to the Order Entry Service. */
-export type OrderEntryUploadResult = {
-  __typename?: 'OrderEntryUploadResult';
-  objectKey: Scalars['String']['output'];
-};
-
-export type OrderFormCartItem = {
-  __typename?: 'OrderFormCartItem';
-  availability: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  imageUrl?: Maybe<Scalars['String']['output']>;
-  listPrice: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
-  price: Scalars['Int']['output'];
-  quantity: Scalars['Int']['output'];
-  seller: Scalars['String']['output'];
-  unitMultiplier?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Newsletter information. */
@@ -946,9 +907,9 @@ export type Query = {
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
-  orderEntryOperation?: Maybe<OrderEntryOperationStatus>;
+  orderEntryOperation?: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
-  orderFormItems: Array<OrderFormCartItem>;
+  orderFormItems: Array<StoreOrderFormCartItem>;
   /** Returns a list of pickup points near to the given geo coordinates. */
   pickupPoints?: Maybe<PickupPoints>;
   /** Returns the details of a product based on the specified locator. */
@@ -1557,6 +1518,45 @@ export type StoreOrder = {
   orderNumber: Scalars['String']['output'];
   /** Indicates whether or not items with attachments should be split. */
   shouldSplitItem?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type StoreOrderEntryMissingItem = {
+  __typename?: 'StoreOrderEntryMissingItem';
+  itemId: Scalars['String']['output'];
+  itemName?: Maybe<Scalars['String']['output']>;
+  reason: Scalars['String']['output'];
+};
+
+export type StoreOrderEntryOperationResult = {
+  __typename?: 'StoreOrderEntryOperationResult';
+  operationId: Scalars['String']['output'];
+};
+
+export type StoreOrderEntryOperationStatus = {
+  __typename?: 'StoreOrderEntryOperationStatus';
+  entityId: Scalars['String']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  missingItems?: Maybe<Array<StoreOrderEntryMissingItem>>;
+  status: Scalars['String']['output'];
+};
+
+/** Result returned after uploading a file to the Order Entry Service. */
+export type StoreOrderEntryUploadResult = {
+  __typename?: 'StoreOrderEntryUploadResult';
+  objectKey: Scalars['String']['output'];
+};
+
+export type StoreOrderFormCartItem = {
+  __typename?: 'StoreOrderFormCartItem';
+  availability: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  listPrice: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  quantity: Scalars['Int']['output'];
+  seller: Scalars['String']['output'];
+  unitMultiplier?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Organization. */

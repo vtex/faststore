@@ -11,7 +11,9 @@ export const startOrderEntryOperation = async (
     throw new BadRequestError('Missing objectKey')
   }
 
-  const { orderFormId } = await commerce.orderEntry.createOrderForm()
+  const orderFormId =
+    data.orderFormId ||
+    (await commerce.orderEntry.createOrderForm()).orderFormId
 
   return commerce.orderEntry.startOperation({
     objectKey: data.objectKey,
