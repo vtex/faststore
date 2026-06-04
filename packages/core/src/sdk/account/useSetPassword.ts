@@ -53,8 +53,10 @@ export const useSetPassword = (accountName?: string) => {
         recaptcha: !input.recaptcha ? null : input.recaptcha,
       }
 
+      const an = encodeURIComponent(accountName ?? config.api.storeId)
+
       const response = await fetch(
-        `/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
+        `/api/authenticator/pub/authentication/classic/setpassword?expireSessions=true&an=${an}`,
         {
           method: 'POST',
           body: buildFormData(body),
