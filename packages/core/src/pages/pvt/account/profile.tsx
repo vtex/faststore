@@ -129,7 +129,7 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   ] = await Promise.all([
     fetchMyAccountPageContent(
-      'myaccountprofile',
+      'myAccountProfile',
       contentContext,
       '/pvt/account/profile'
     ),

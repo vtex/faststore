@@ -675,7 +675,7 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "myaccountorderdetails": {
+    "myAccountOrderDetails": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
@@ -691,7 +691,7 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "myaccountorders": {
+    "myAccountOrders": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
@@ -707,7 +707,7 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "myaccountprofile": {
+    "myAccountProfile": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
@@ -723,7 +723,7 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "myaccountsecurity": {
+    "myAccountSecurity": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
@@ -739,7 +739,7 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "myaccountunauthorized": {
+    "myAccountUnauthorized": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",
@@ -755,7 +755,7 @@
       "$abstract": false,
       "identifierKeys": []
     },
-    "myaccountuserdetails": {
+    "myAccountUserDetails": {
       "$extends": ["#/components/base-page-template"],
       "$singleton": true,
       "type": "object",

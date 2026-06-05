@@ -1,10 +1,10 @@
 export type MyAccountContentType =
-  | 'myaccountprofile'
-  | 'myaccountorders'
-  | 'myaccountorderdetails'
-  | 'myaccountuserdetails'
-  | 'myaccountsecurity'
-  | 'myaccountunauthorized'
+  | 'myAccountProfile'
+  | 'myAccountOrders'
+  | 'myAccountOrderDetails'
+  | 'myAccountUserDetails'
+  | 'myAccountSecurity'
+  | 'myAccountUnauthorized'
 
 export type DefaultMyAccountSection = {
   name: string
@@ -13,9 +13,9 @@ export type DefaultMyAccountSection = {
 }
 
 const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
-  myaccountprofile: ['AccountNavigation', 'AccountProfile'],
-  myaccountorders: ['AccountNavigation', 'AccountOrdersList'],
-  myaccountorderdetails: [
+  myAccountProfile: ['AccountNavigation', 'AccountProfile'],
+  myAccountOrders: ['AccountNavigation', 'AccountOrdersList'],
+  myAccountOrderDetails: [
     'AccountNavigation',
     'AccountOrderDetails',
     'AccountOrderStatus',
@@ -26,9 +26,9 @@ const DEFAULT_SECTION_KEYS: Record<MyAccountContentType, string[]> = {
     'AccountOrderBudgets',
     'AccountOrderMoreInfo',
   ],
-  myaccountuserdetails: ['AccountNavigation', 'AccountUserDetails'],
-  myaccountsecurity: ['AccountNavigation', 'AccountSecurity'],
-  myaccountunauthorized: ['AccountUnauthorized'],
+  myAccountUserDetails: ['AccountNavigation', 'AccountUserDetails'],
+  myAccountSecurity: ['AccountNavigation', 'AccountSecurity'],
+  myAccountUnauthorized: ['AccountUnauthorized'],
 }
 
 export function getDefaultMyAccountSections(

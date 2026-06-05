@@ -349,7 +349,7 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   ] = await Promise.all([
     fetchMyAccountPageContent(
-      'myaccountorderdetails',
+      'myAccountOrderDetails',
       contentContext,
       orderPath
     ),

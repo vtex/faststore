@@ -1,5 +1,5 @@
 {
-  "myaccountorders": {
+  "myAccountOrders": {
     "$extends": ["#/components/base-page-template"],
     "$singleton": true,
     "type": "object",

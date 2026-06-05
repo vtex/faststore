@@ -106,7 +106,7 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   ] = await Promise.all([
     fetchMyAccountPageContent(
-      'myaccountunauthorized',
+      'myAccountUnauthorized',
       contentContext,
       '/pvt/account/403'
     ),
