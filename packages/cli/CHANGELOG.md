@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.1](https://github.com/vtex/faststore/compare/v3.100.0...v3.100.1) (2026-06-08)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [3.100.0](https://github.com/vtex/faststore/compare/v3.99.6...v3.100.0) (2026-06-02)
 
 ### Features

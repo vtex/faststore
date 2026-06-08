@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.1](https://github.com/vtex/faststore/compare/v3.100.0...v3.100.1) (2026-06-08)
+
+### Bug Fixes
+
+- image loader error at vtex assets ([#3382](https://github.com/vtex/faststore/issues/3382)) ([4241afb](https://github.com/vtex/faststore/commit/4241afb3ef4a325fe60afed45f45dfccb2edbd3a))
+
 # [3.100.0](https://github.com/vtex/faststore/compare/v3.99.6...v3.100.0) (2026-06-02)
 
 ### Features
