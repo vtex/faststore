@@ -201,7 +201,7 @@ const handler: NextApiHandler = async (request, response) => {
       { headers: request.headers }
     )
 
-    const hasErrors = Array.isArray(errors)
+    const hasErrors = Array.isArray(errors) && errors.length > 0
 
     if (hasErrors) {
       // After error masking, entries are GraphQLError instances whose
