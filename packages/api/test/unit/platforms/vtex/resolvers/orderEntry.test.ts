@@ -216,7 +216,7 @@ describe('startOrderEntryOperation', () => {
     ).rejects.toThrow(BadRequestError)
   })
 
-  it('creates order form and starts operation', async () => {
+  it('creates order form when orderFormId is empty', async () => {
     const ctx = makeContext()
     ctx.clients.commerce.orderEntry.createOrderForm.mockResolvedValueOnce({
       orderFormId: 'of-new',
@@ -231,7 +231,7 @@ describe('startOrderEntryOperation', () => {
       {
         data: {
           objectKey: 'key-abc',
-          orderFormId: 'of-1',
+          orderFormId: '',
           sessionToken: 'tok-123',
         },
       },
@@ -251,11 +251,40 @@ describe('startOrderEntryOperation', () => {
     expect(result).toEqual(mockResult)
   })
 
+  it('reuses provided orderFormId without calling createOrderForm', async () => {
+    const ctx = makeContext()
+    const mockResult = { operationId: 'op-456' }
+    ctx.clients.commerce.orderEntry.startOperation.mockResolvedValueOnce(
+      mockResult
+    )
+
+    const result = await startOrderEntryOperation(
+      null,
+      {
+        data: {
+          objectKey: 'key-abc',
+          orderFormId: 'of-1',
+          sessionToken: 'tok-123',
+        },
+      },
+      ctx as any
+    )
+
+    expect(
+      ctx.clients.commerce.orderEntry.createOrderForm
+    ).not.toHaveBeenCalled()
+    expect(ctx.clients.commerce.orderEntry.startOperation).toHaveBeenCalledWith(
+      {
+        objectKey: 'key-abc',
+        orderFormId: 'of-1',
+        sessionToken: 'tok-123',
+      }
+    )
+    expect(result).toEqual(mockResult)
+  })
+
   it('passes undefined sessionToken when not provided', async () => {
     const ctx = makeContext()
-    ctx.clients.commerce.orderEntry.createOrderForm.mockResolvedValueOnce({
-      orderFormId: 'of-new',
-    })
     ctx.clients.commerce.orderEntry.startOperation.mockResolvedValueOnce({
       operationId: 'op-789',
     })
@@ -266,8 +295,15 @@ describe('startOrderEntryOperation', () => {
       ctx as any
     )
 
+    expect(
+      ctx.clients.commerce.orderEntry.createOrderForm
+    ).not.toHaveBeenCalled()
     expect(ctx.clients.commerce.orderEntry.startOperation).toHaveBeenCalledWith(
-      expect.objectContaining({ sessionToken: undefined })
+      {
+        objectKey: 'key-xyz',
+        orderFormId: 'of-1',
+        sessionToken: undefined,
+      }
     )
   })
 })

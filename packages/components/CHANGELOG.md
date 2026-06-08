@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Breaking Changes
+
+- Removed `useCSVParser`, `CSVData`, `CSVParserError`, and `CSVParserOptions` from `@faststore/components`. CSV parsing is now handled internally by the Order Entry Service flow in `@faststore/core`. If you need custom CSV parsing in your storefront, implement the logic directly or use a third-party library such as `papaparse`.
+
 ## 4.1.1 (2026-05-15)
 
 ### Bug Fixes
