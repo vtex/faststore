@@ -77,6 +77,7 @@ const QUERIES = [
   'userDetails',
   'accountProfile',
   'validateUser',
+  'availableContracts',
   'pickupPoints',
 ]
 

@@ -1,7 +1,9 @@
+import pLimit from 'p-limit'
 import type {
   ProcessOrderAuthorizationRule,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
+  QueryAvailableContractsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
   QueryPickupPointsArgs,
@@ -14,6 +16,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  StoreContract,
   UserOrderFromList,
 } from '../../../__generated__/schema'
 import {
@@ -43,6 +46,9 @@ import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
+
+// Caps concurrent MasterData lookups while resolving contract corporate names.
+const CONCURRENT_CONTRACT_REQUESTS_MAX = 5
 
 export const Query = {
   product: async (
@@ -655,6 +661,71 @@ export const Query = {
       id: user?.id || '',
       // createdAt: '',
     }
+  },
+  // only b2b users
+  // Lists the contracts associated with the buyer's Organization Unit, resolved to
+  // human-readable corporate names. The list is governed: it is derived from the
+  // Org Unit's own scopes, so only contracts the unit is associated with are returned.
+  availableContracts: async (
+    _: unknown,
+    { orgUnitId }: QueryAvailableContractsArgs,
+    ctx: GraphqlContext
+  ): Promise<StoreContract[]> => {
+    if (!orgUnitId) {
+      throw new BadRequestError('Missing orgUnitId')
+    }
+
+    const {
+      clients: { commerce },
+    } = ctx
+
+    // 1. Governed source: the contract IDs associated with this Org Unit.
+    const scopesByUnit = await commerce.units.getScopesByOrgUnit({ orgUnitId })
+
+    const contractIds = Array.from(
+      new Set((scopesByUnit?.scopes ?? []).flatMap((scope) => scope?.ids ?? []))
+    ).filter(Boolean)
+
+    if (contractIds.length === 0) {
+      return []
+    }
+
+    // 2. The currently active contract id. For B2B representatives the active
+    // contract is exposed as the session profile id (same mapping used by
+    // `accountProfile`). Failures here only affect the `isActive` flag.
+    const sessionData = await commerce.session('').catch(() => null)
+    const activeContractId = sessionData?.namespaces.profile?.id?.value ?? ''
+
+    // 3. Resolve each contract id to its corporate name. Per-contract failures are
+    // isolated so a single bad lookup never breaks the whole list.
+    const limit = pLimit(CONCURRENT_CONTRACT_REQUESTS_MAX)
+    const resolved = await Promise.all(
+      contractIds.map((contractId) =>
+        limit(async (): Promise<StoreContract | null> => {
+          try {
+            const contract = await commerce.masterData.getContractById({
+              contractId,
+            })
+
+            if (!contract?.corporateName) {
+              return null
+            }
+
+            return {
+              id: contractId,
+              corporateName: contract.corporateName,
+              isActive: contractId === activeContractId,
+            }
+          } catch {
+            return null
+          }
+        })
+      )
+    )
+
+    return resolved.filter((contract): contract is StoreContract =>
+      Boolean(contract)
+    )
   },
   pickupPoints: async (
     _: unknown,

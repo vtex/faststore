@@ -452,6 +452,20 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
+  Lists the commercial contracts associated with the given Organization Unit,
+  resolved to human-readable corporate names. Governed: only contracts associated
+  with the authenticated buyer's Organization Unit are returned.
+  """
+  availableContracts(
+    """
+    The Organization Unit identifier whose contracts will be listed.
+    """
+    orgUnitId: String!
+  ): [StoreContract!]!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
   Returns a list of pickup points near to the given geo coordinates.
   """
   pickupPoints(

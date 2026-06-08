@@ -1,4 +1,4 @@
-import { Link, SlideOverHeader } from '@faststore/ui'
+import { Button, Link, SlideOverHeader } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
 export type OrganizationDrawerHeaderProps = {
@@ -6,6 +6,11 @@ export type OrganizationDrawerHeaderProps = {
   contractImage?: ReactNode
   contractName: string
   contractUrl: string
+  /**
+   * When provided, renders the "Change" CTA next to the active contract,
+   * opening the contract switcher (Figma node 103-5434).
+   */
+  onChangeContract?: () => void
 }
 
 export const OrganizationDrawerHeader = ({
@@ -13,6 +18,7 @@ export const OrganizationDrawerHeader = ({
   contractName,
   contractImage,
   onCloseDrawer,
+  onChangeContract,
 }: OrganizationDrawerHeaderProps) => {
   return (
     <>
@@ -33,6 +39,15 @@ export const OrganizationDrawerHeader = ({
             {contractName}
           </h1>
         </Link>
+        {onChangeContract && (
+          <Button
+            data-fs-organization-drawer-header-change
+            variant="secondary"
+            onClick={onChangeContract}
+          >
+            Change
+          </Button>
+        )}
       </div>
     </>
   )

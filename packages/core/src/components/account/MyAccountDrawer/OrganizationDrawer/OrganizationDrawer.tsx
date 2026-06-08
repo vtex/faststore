@@ -1,4 +1,5 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
+import { useState } from 'react'
 
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { useSession } from 'src/sdk/session'
@@ -10,10 +11,13 @@ import {
 } from 'src/utils/clearCookies'
 import storeConfig from '../../../../../discovery.config'
 import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
+import { ContractSwitcher } from './ContractSwitcher'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import { setReloadAfterLogoutReturn } from './useReloadAfterLogoutReturn'
 import styles from './section.module.scss'
+
+type OrganizationDrawerView = 'menu' | 'switch'
 
 type OrganizationDrawerProps = {
   isOpen: boolean
@@ -137,6 +141,7 @@ export const OrganizationDrawer = ({
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
   const { b2b, person } = useSession()
+  const [view, setView] = useState<OrganizationDrawerView>('menu')
 
   const contractName =
     b2b?.contractName ??
@@ -148,6 +153,8 @@ export const OrganizationDrawer = ({
     : null
 
   const isOrganizationManager = b2b?.organizationManager || false
+  // The switcher is only meaningful for B2B buyers tied to an Organization Unit.
+  const canSwitchContract = Boolean(b2b?.unitId)
 
   return (
     <SlideOver
@@ -166,8 +173,20 @@ export const OrganizationDrawer = ({
         onCloseDrawer={closeDrawer}
         contractName={contractName}
         contractUrl={contractUrl}
+        onChangeContract={
+          canSwitchContract && view === 'menu'
+            ? () => setView('switch')
+            : undefined
+        }
       />
-      <OrganizationDrawerBody isRepresentative={isRepresentative} />
+      {view === 'switch' ? (
+        <ContractSwitcher
+          onBack={() => setView('menu')}
+          onSwitched={() => setView('menu')}
+        />
+      ) : (
+        <OrganizationDrawerBody isRepresentative={isRepresentative} />
+      )}
       <footer data-fs-organization-drawer-footer-wrapper>
         <ProfileSummary
           showManageLink={isOrganizationManager}
