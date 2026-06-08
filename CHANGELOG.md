@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
+
+### Bug Fixes
+
+- **core:** propagate upstream error status instead of always 500 ([#3379](https://github.com/vtex/faststore/issues/3379)) ([c03d3df](https://github.com/vtex/faststore/commit/c03d3dff7f5920e834a318417a4a02cc653453cf))
+
 # [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
 
 # [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
