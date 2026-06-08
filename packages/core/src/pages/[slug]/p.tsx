@@ -199,6 +199,22 @@ function Page({
             property: 'product:price:currency',
             content: currency.code,
           },
+          {
+            property: 'product:sku',
+            content: product.sku,
+          },
+          {
+            property: 'product:name',
+            content: product.name,
+          },
+          {
+            property: 'product:category',
+            content: itemListElements[0]?.name ?? undefined,
+          },
+          {
+            property: 'product:url',
+            content: meta.canonical,
+          },
         ]}
         titleTemplate={titleTemplate}
       />
