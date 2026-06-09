@@ -26,6 +26,7 @@ import {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
+import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import type { GraphqlContext } from '../index'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
@@ -107,15 +108,12 @@ export const Query = {
         throw new NotFoundError(`No product found for slug ${slug}`)
       }
 
-      const {
-        products: [product],
-      } = await search.products({
-        page: 0,
-        count: 1,
-        query: `product:${route.id}`,
-        // Manually disabling this flag to prevent regionalization issues
-        hideUnavailableItems: false,
-      })
+      const product = await search
+        .fetchProduct({
+          field: 'id',
+          value: String(route.id),
+        })
+        .catch(() => null)
 
       if (!product) {
         throw new NotFoundError(`No product found for id ${route.id}`)
@@ -162,39 +160,60 @@ export const Query = {
       mutateLocaleContext(ctx, locale)
     }
 
-    let query = term
-
-    /**
-     * In case we are using crossSelling, we need to modify the search
-     * we will be performing on our search engine. The idea in here
-     * is to use the cross selling API for fetching the productIds our
-     * search will return for us.
-     * Doing this two request workflow makes it possible to have cross
-     * selling with Search features, like pagination, internationalization
-     * etc
-     */
-    if (crossSelling) {
-      const products = await ctx.clients.commerce.catalog.products.crossselling(
-        {
-          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
-          productId: crossSelling.value,
-        }
-      )
-
-      query = `product:${products
-        .map((x) => x.productId)
-        .slice(0, first)
-        .join(';')}`
-    }
-
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs: Omit<SearchArgs, 'type'> = {
       page: Math.ceil(after / first) || 0,
       count: first,
-      query: query ?? undefined,
+      query: term ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
       sponsoredCount: sponsoredCount ?? undefined,
+    }
+
+    /**
+     * In case we are using crossSelling, we fetch product IDs from the
+     * cross selling API and then hydrate them using the PDP endpoint
+     * via productsByIdentifier.
+     */
+    if (crossSelling) {
+      const crossSellingProducts =
+        await ctx.clients.commerce.catalog.products.crossselling({
+          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
+          productId: crossSelling.value,
+        })
+
+      const productIds = crossSellingProducts
+        .map((x) => x.productId)
+        .slice(0, first)
+
+      const productSearchPromise: Promise<ProductSearchResult> =
+        ctx.clients.search
+          .productsByIdentifier({ field: 'id', values: productIds })
+          .then((products) => ({
+            products,
+            recordsFiltered: products.length,
+            pagination: {
+              count: products.length,
+              current: { index: 0, proxyURL: '' },
+              before: [],
+              after: [],
+              perPage: first,
+              next: { index: 0, proxyURL: '' },
+              previous: { index: 0, proxyURL: '' },
+              first: { index: 0, proxyURL: '' },
+              last: { index: 0, proxyURL: '' },
+            },
+            sampling: false,
+            options: { sorts: [], counts: [] },
+            translated: false,
+            locale: '',
+            query: '',
+            operator: 'and',
+            fuzzy: '0',
+            searchId: '',
+          }))
+
+      return { searchArgs, productSearchPromise }
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
@@ -250,14 +269,12 @@ export const Query = {
       return []
     }
 
-    const query = `id:${productIds.join(';')}`
-    const products = await search.products({
-      page: 0,
-      count: productIds.length,
-      query,
+    const products = await search.productsByIdentifier({
+      field: 'id',
+      values: productIds,
     })
 
-    return products.products
+    return products
       .flatMap((product) =>
         product.items.map((sku) => enhanceSku(sku, product))
       )
