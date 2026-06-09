@@ -291,4 +291,80 @@ describe('FileUploadCard', () => {
     // onSearch is only shown in FileUploadStatus which needs a file
     expect(screen.queryByText('Search')).not.toBeInTheDocument()
   })
+
+  it('ignores dragEnter and does not set dragging when isOpen is false', () => {
+    render(<FileUploadCard {...defaultProps} isOpen={false} />)
+
+    const dropzone = document.querySelector(
+      '[data-fs-file-upload-card-dropzone]'
+    )
+    if (dropzone) {
+      fireEvent.dragEnter(dropzone)
+      expect(dropzone).toHaveAttribute(
+        'data-fs-file-upload-card-dragging',
+        'false'
+      )
+    }
+  })
+
+  it('applies formatterFileName to displayed file name', () => {
+    const formatterFileName = (name: string) => `formatted-${name}`
+    render(
+      <FileUploadCard {...defaultProps} formatterFileName={formatterFileName} />
+    )
+
+    const input = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
+    const csvFile = new File(['data'], 'items.csv', { type: 'text/csv' })
+    fireEvent.change(input, { target: { files: [csvFile] } })
+
+    expect(screen.getByText('formatted-items.csv')).toBeInTheDocument()
+  })
+
+  it('falls back to .csv when accept is empty', () => {
+    const onFileSelect = vi.fn()
+    render(
+      <FileUploadCard {...defaultProps} accept="" onFileSelect={onFileSelect} />
+    )
+
+    const input = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
+    const csvFile = new File(['data'], 'items.csv', { type: 'text/csv' })
+    fireEvent.change(input, { target: { files: [csvFile] } })
+
+    expect(onFileSelect).toHaveBeenCalledWith([csvFile])
+  })
+
+  it('rejects non-csv file when accept is empty', () => {
+    render(<FileUploadCard {...defaultProps} accept="" />)
+
+    const input = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
+    const pdfFile = new File(['data'], 'doc.pdf', { type: 'application/pdf' })
+    fireEvent.change(input, { target: { files: [pdfFile] } })
+
+    expect(screen.getByText('Unsupported file type')).toBeInTheDocument()
+  })
+
+  it('validates by MIME type when accept value has no leading dot', () => {
+    const onFileSelect = vi.fn()
+    render(
+      <FileUploadCard
+        {...defaultProps}
+        accept="text/csv"
+        onFileSelect={onFileSelect}
+      />
+    )
+
+    const input = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
+    const csvFile = new File(['data'], 'items.csv', { type: 'text/csv' })
+    fireEvent.change(input, { target: { files: [csvFile] } })
+
+    expect(onFileSelect).toHaveBeenCalledWith([csvFile])
+  })
 })

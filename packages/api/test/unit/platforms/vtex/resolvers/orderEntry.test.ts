@@ -176,6 +176,42 @@ describe('uploadFileToOrderEntry', () => {
     ).rejects.toThrow(BadRequestError)
   })
 
+  it('throws BadRequestError for invalid Base64 content', async () => {
+    const ctx = makeContext()
+    await expect(
+      uploadFileToOrderEntry(
+        null,
+        {
+          data: {
+            fileContent: 'not-valid-base64!!!',
+            fileName: 'test.csv',
+            mimeType: 'text/csv',
+          },
+        },
+        ctx as any
+      )
+    ).rejects.toThrow(BadRequestError)
+  })
+
+  it('throws BadRequestError when file exceeds 5MB', async () => {
+    const ctx = makeContext()
+    // ~7MB of base64 content (5MB * 4/3 ≈ 6.7MB base64)
+    const largeBase64 = 'A'.repeat(7 * 1024 * 1024)
+    await expect(
+      uploadFileToOrderEntry(
+        null,
+        {
+          data: {
+            fileContent: largeBase64,
+            fileName: 'large.csv',
+            mimeType: 'text/csv',
+          },
+        },
+        ctx as any
+      )
+    ).rejects.toThrow(BadRequestError)
+  })
+
   it('calls uploadFile with decoded buffer and returns result', async () => {
     const ctx = makeContext()
     const mockResult = { objectKey: 's3-key-123' }
