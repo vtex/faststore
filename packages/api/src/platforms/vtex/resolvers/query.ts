@@ -45,6 +45,16 @@ import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 
+const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
+const SLUG_MISMATCH_ERROR =
+  'Slug was set but the fetched sku does not satisfy the slug condition.'
+
+const shouldFallbackToProductRoute = (error: unknown) =>
+  isNotFoundError(error) ||
+  (error instanceof Error &&
+    (error.message === INVALID_SKU_ID_ERROR ||
+      error.message.startsWith(SLUG_MISMATCH_ERROR)))
+
 export const Query = {
   product: async (
     _: unknown,
@@ -74,7 +84,7 @@ export const Query = {
       const skuId = id ?? slug?.split('-').pop() ?? ''
 
       if (!isValidSkuId(skuId)) {
-        throw new Error('Invalid SkuId')
+        throw new Error(INVALID_SKU_ID_ERROR)
       }
 
       const sku = await skuLoader.load(skuId)
@@ -98,6 +108,10 @@ export const Query = {
 
       return sku
     } catch (err) {
+      if (!shouldFallbackToProductRoute(err)) {
+        throw err
+      }
+
       if (slug == null) {
         throw new BadRequestError('Missing slug or id')
       }
