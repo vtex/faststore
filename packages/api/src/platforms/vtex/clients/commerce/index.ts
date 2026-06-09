@@ -813,7 +813,7 @@ export const VtexCommerce = (
         const safeMimeType = SAFE_MIME_PATTERN.test(mimeType)
           ? mimeType
           : 'application/octet-stream'
-        const safeFileName = fileName.replace(/[\r\n"]/g, '_')
+        const safeFileName = fileName.replaceAll(/[\r\n"]/g, '_')
 
         const headerPart = [
           `--${boundary}`,

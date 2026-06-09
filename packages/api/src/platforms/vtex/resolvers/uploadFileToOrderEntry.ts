@@ -15,7 +15,7 @@ export const uploadFileToOrderEntry = async (
     )
   }
 
-  const normalized = fileContent.replace(/\s/g, '')
+  const normalized = fileContent.replaceAll(/\s/g, '')
   const isValidBase64 =
     /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
       normalized
