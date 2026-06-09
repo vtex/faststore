@@ -292,6 +292,30 @@ describe('FileUploadCard', () => {
     expect(screen.queryByText('Search')).not.toBeInTheDocument()
   })
 
+  it('sets dragActive on dragover like dragenter', () => {
+    render(<FileUploadCard {...defaultProps} />)
+
+    const dropzone = screen.getByRole('region', { name: 'Drop zone' })
+    fireEvent.dragOver(dropzone)
+    expect(dropzone).toHaveAttribute(
+      'data-fs-file-upload-card-dragging',
+      'true'
+    )
+  })
+
+  it('triggers built-in download when onDownloadTemplate is not provided', () => {
+    const createObjectURL = vi.fn(() => 'blob:mock-url')
+    const revokeObjectURL = vi.fn()
+    global.URL.createObjectURL = createObjectURL
+    global.URL.revokeObjectURL = revokeObjectURL
+
+    render(<FileUploadCard {...defaultProps} />)
+    fireEvent.click(screen.getByText('Download template'))
+
+    expect(createObjectURL).toHaveBeenCalledTimes(1)
+    expect(revokeObjectURL).toHaveBeenCalledTimes(1)
+  })
+
   it('ignores dragEnter and does not set dragging when isOpen is false', () => {
     render(<FileUploadCard {...defaultProps} isOpen={false} />)
 

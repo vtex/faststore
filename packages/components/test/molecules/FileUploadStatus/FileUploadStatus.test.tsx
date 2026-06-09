@@ -194,6 +194,30 @@ describe('FileUploadStatus', () => {
     expect(onSelectFile).toHaveBeenCalledTimes(1)
   })
 
+  it('uses default Importing... text when processingStatusText is not provided', () => {
+    const { processingStatusText: _, ...propsWithoutProcessing } = defaultProps
+    render(
+      <FileUploadStatus
+        {...propsWithoutProcessing}
+        state={FileUploadState.Processing}
+      />
+    )
+    expect(screen.getByText('Importing...')).toBeInTheDocument()
+  })
+
+  it('shows empty strings when error state has no matching or unexpected errorMessages', () => {
+    render(
+      <FileUploadStatus
+        {...defaultProps}
+        state={FileUploadState.Error}
+        errorType={FileUploadErrorType.Empty}
+        errorMessages={{}}
+      />
+    )
+    // Component renders without crashing and shows empty error content
+    expect(screen.getByTestId('fs-file-upload-status')).toBeInTheDocument()
+  })
+
   it('uses testId to identify the root element', () => {
     render(
       <FileUploadStatus
