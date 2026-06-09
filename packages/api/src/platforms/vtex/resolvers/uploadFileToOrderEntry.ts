@@ -16,6 +16,14 @@ export const uploadFileToOrderEntry = async (
   }
 
   const normalized = fileContent.replaceAll(/\s/g, '')
+
+  const MAX_FILE_BYTES = 5 * 1024 * 1024
+  const estimatedBytes = Math.floor((normalized.length * 3) / 4)
+
+  if (estimatedBytes > MAX_FILE_BYTES) {
+    throw new BadRequestError('File exceeds maximum allowed size of 5MB')
+  }
+
   const isValidBase64 =
     /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
       normalized
@@ -23,13 +31,6 @@ export const uploadFileToOrderEntry = async (
 
   if (!isValidBase64) {
     throw new BadRequestError('Invalid Base64 fileContent')
-  }
-
-  const MAX_FILE_BYTES = 5 * 1024 * 1024
-  const estimatedBytes = Math.floor((normalized.length * 3) / 4)
-
-  if (estimatedBytes > MAX_FILE_BYTES) {
-    throw new BadRequestError('File exceeds maximum allowed size of 5MB')
   }
 
   const fileBuffer = Buffer.from(normalized, 'base64')
