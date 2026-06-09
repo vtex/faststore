@@ -611,6 +611,12 @@
           },
           "$componentTitle": "slug"
         },
+        "siteMap": {
+          "title": "Public",
+          "description": "When enabled, this page's URL is added to sitemap.xml so search engines can discover and index it. Disable to keep the page out of the sitemap (e.g. for private, temporary, or campaign-only landing pages).",
+          "default": false,
+          "type": "boolean"
+        },
         "seo": {
           "title": "SEO",
           "description": "Search Engine Optimization options",
