@@ -137,6 +137,16 @@ Files can be placed in `cms/components/` and `cms/pages/`, or co-located alongsi
 
 > For schema syntax and the full architectural overview, see the [CMS architecture and schema declarations](https://developers.vtex.com/docs/guides/understanding-cms-architecture-and-schema-declarations) guide.
 
+### Testing Content Platform branch variants
+
+When `contentSource.type` is set to `CP`, a storefront URL can render content from a Content Platform branch by adding the `__variant` query parameter. The value must be the Content Platform branch UUID, not the branch display name.
+
+```text
+/?__variant=ebe75532-bb2f-417a-9c02-9b9f1c957367
+```
+
+The proxy rewrites the request to the internal `/_variant/[branchId]` route. That route resolves all Content Platform entries with the same `branchId` while keeping Next.js preview mode disabled, so ISR behavior remains unchanged.
+
 ## How to test
 
 ```sh

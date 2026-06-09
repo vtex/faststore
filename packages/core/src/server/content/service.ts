@@ -18,6 +18,7 @@ import type { ContentOptions, ContentParams } from './types'
 import { isBranchPreview, isContentPlatformSource } from './utils'
 
 type ContentResult = ContentData | (ContentEntry & PageContentType)
+type EntriesListResult = { entries?: ContentEntry[] } | ContentEntry[]
 
 const OPTIONAL_CONTENT_TYPES = [
   'globalHeaderSections',
@@ -171,7 +172,7 @@ export class ContentService {
       throw new Error(`${operation} requires entryId or slug`)
     }
 
-    if (isPreview) {
+    if (isPreview || params.branchId) {
       return params.entryId
         ? (this.clientCP.previewEntryById(params) as Promise<PageContentType>)
         : (this.clientCP.previewEntryBySlug(params) as Promise<PageContentType>)
@@ -186,7 +187,13 @@ export class ContentService {
     params: EntryPathParams,
     isPreview: boolean
   ): Promise<PageContentType> {
-    const { entries } = await this.clientCP.listEntries(params)
+    const result = (
+      params.branchId
+        ? await this.clientCP.listPreviewEntries(params)
+        : await this.clientCP.listEntries(params)
+    ) as EntriesListResult
+    const entries = Array.isArray(result) ? result : result.entries
+
     if (!entries || entries.length === 0) {
       const isOptional = OPTIONAL_CONTENT_TYPES.includes(
         params.contentType as (typeof OPTIONAL_CONTENT_TYPES)[number]

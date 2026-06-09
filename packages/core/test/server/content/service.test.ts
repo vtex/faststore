@@ -10,6 +10,14 @@ import type {
 type ContentServiceInternals = {
   createContentOptions: (params: ContentParams) => ContentOptions
   convertOptionsToParams: (options: ContentOptions) => EntryPathParams
+  getEntryData: (
+    params: EntryPathParams,
+    isPreview: boolean
+  ) => Promise<unknown>
+  fetchFirstEntryFromList: (
+    params: EntryPathParams,
+    isPreview: boolean
+  ) => Promise<unknown>
 }
 
 const getServiceInternals = (service: ContentService) =>
@@ -170,5 +178,83 @@ describe('ContentService', () => {
         expect(options.isPreview).toBe(false)
       }
     )
+  })
+
+  describe('variant branchId CP calls', () => {
+    it('uses the branch-aware CP endpoint without marking the page as preview', async () => {
+      const service = getServiceInternals(new ContentService())
+      const clientCP = {
+        previewEntryById: async () => ({ sections: [] }),
+        getEntry: async () => {
+          throw new Error('data-plane getEntry should not be used for branchId')
+        },
+      }
+
+      Object.assign(service, { clientCP })
+
+      const result = await service.getEntryData(
+        {
+          accountName: 'brandless',
+          storeId: 'faststore',
+          contentType: 'home',
+          entryId: 'entry-1',
+          branchId: 'campaign-x',
+        },
+        false
+      )
+
+      expect(result).toEqual({ sections: [] })
+    })
+
+    it('uses branch-aware listing when resolving the first entry from a branch', async () => {
+      const service = getServiceInternals(new ContentService())
+      const clientCP = {
+        listPreviewEntries: async () => ({
+          entries: [{ id: 'entry-1', name: 'Home' }],
+        }),
+        previewEntryById: async () => ({ sections: [] }),
+        listEntries: async () => {
+          throw new Error(
+            'data-plane listEntries should not be used for branchId'
+          )
+        },
+      }
+
+      Object.assign(service, { clientCP })
+
+      const result = await service.fetchFirstEntryFromList(
+        {
+          accountName: 'brandless',
+          storeId: 'faststore',
+          contentType: 'home',
+          branchId: 'campaign-x',
+        },
+        false
+      )
+
+      expect(result).toEqual({ sections: [] })
+    })
+
+    it('accepts branch-aware entry lists returned as a raw array', async () => {
+      const service = getServiceInternals(new ContentService())
+      const clientCP = {
+        listPreviewEntries: async () => [{ id: 'entry-1', name: 'Home' }],
+        previewEntryById: async () => ({ sections: [] }),
+      }
+
+      Object.assign(service, { clientCP })
+
+      const result = await service.fetchFirstEntryFromList(
+        {
+          accountName: 'brandless',
+          storeId: 'faststore',
+          contentType: 'home',
+          branchId: 'pala-test',
+        },
+        false
+      )
+
+      expect(result).toEqual({ sections: [] })
+    })
   })
 })

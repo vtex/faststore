@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { config as proxyConfig } from '../../src/proxy'
 import { resolveVariantRewrite } from '../../src/utils/variant'
 
 const requestUrl = (path: string) => new URL(`https://store.example.com${path}`)
@@ -30,5 +31,9 @@ describe('resolveVariantRewrite', () => {
 
     expect(rewritten?.pathname).toBe('/_variant/campaign-x/produto/p')
     expect(rewritten?.searchParams.get('utm_source')).toBe('newsletter')
+  })
+
+  it('runs the proxy for the home page route', () => {
+    expect(proxyConfig.matcher).toContain('/')
   })
 })
