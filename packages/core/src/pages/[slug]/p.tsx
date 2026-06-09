@@ -200,6 +200,10 @@ function Page({
             content: currency.code,
           },
           {
+            property: 'product:id',
+            content: product.id,
+          },
+          {
             property: 'product:sku',
             content: product.sku,
           },
@@ -214,6 +218,14 @@ function Page({
           {
             property: 'product:url',
             content: meta.canonical,
+          },
+          {
+            property: 'product:brand',
+            content: product.brand.name,
+          },
+          {
+            property: 'product:condition',
+            content: 'new',
           },
         ]}
         titleTemplate={titleTemplate}
