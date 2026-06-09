@@ -1,7 +1,8 @@
 import chalk from 'chalk'
-import { existsSync } from 'fs'
-import path from 'path'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 
+import { pathToFileURL } from 'node:url'
 import { withBasePath } from './directory'
 import { logger } from './logger'
 
@@ -37,7 +38,7 @@ export async function getDiscoveryConfig(
   for (const configPath of configPaths) {
     if (existsSync(configPath)) {
       try {
-        const discoveryConfig = await import(configPath)
+        const discoveryConfig = await import(pathToFileURL(configPath).href)
         return discoveryConfig?.default ?? discoveryConfig
       } catch (error) {
         logger.warn(

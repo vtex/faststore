@@ -1,11 +1,12 @@
-import { saveFile } from '../utils/file'
 import { Args, Command, Flags } from '@oclif/core'
 import chalk from 'chalk'
-import { getBasePath, withBasePath } from '../utils/directory'
-import { logger } from '../utils/logger'
-import graphql from 'graphql'
-import path from 'path'
 import fsExtra from 'fs-extra'
+import graphql from 'graphql'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
+import { getBasePath, withBasePath } from '../utils/directory'
+import { saveFile } from '../utils/file'
+import { logger } from '../utils/logger'
 
 const { Kind, OperationTypeNode, parse: parseGraphql } = graphql
 
@@ -80,7 +81,7 @@ export default class CacheGraphql extends Command {
     )
 
     const { default: persistedDocuments } = await import(
-      persistedDocumentsPath,
+      pathToFileURL(persistedDocumentsPath).href,
       { with: { type: 'json' } }
     )
 

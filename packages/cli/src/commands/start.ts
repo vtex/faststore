@@ -1,7 +1,7 @@
 import { Args, Command } from '@oclif/core'
-import { spawn, spawnSync } from 'child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import fsExtra from 'fs-extra'
-import path from 'path'
+import path from 'node:path'
 import { getPreferredPackageManager } from '../utils/commands'
 import { getBasePath, withBasePath } from '../utils/directory'
 

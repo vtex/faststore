@@ -32,6 +32,7 @@
 
   &:not([data-fs-slide-over-direction="bottomSide"]) {
     height: 100vh;
+    height: 100dvh;
   }
 
   &[data-fs-slide-over-size="full"] {

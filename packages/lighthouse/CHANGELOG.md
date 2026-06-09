@@ -3,6 +3,202 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+# [4.2.0-dev.4](https://github.com/vtex/faststore/compare/v4.2.0-dev.3...v4.2.0-dev.4) (2026-06-01)
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+# [4.2.0-dev.1](https://github.com/vtex/faststore/compare/v4.2.0-dev.0...v4.2.0-dev.1) (2026-06-01)
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0-dev.0) (2026-06-01)
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+## [4.1.2-dev.1](https://github.com/vtex/faststore/compare/v4.1.1...v4.1.2-dev.1) (2026-05-19)
+
+## [4.1.1-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.11...v4.1.1-dev.1) (2026-05-15)
+
+# [4.1.0-dev.11](https://github.com/vtex/faststore/compare/v4.1.0-dev.10...v4.1.0-dev.11) (2026-05-15)
+
+# [4.1.0-dev.10](https://github.com/vtex/faststore/compare/v4.1.0-dev.8...v4.1.0-dev.10) (2026-05-15)
+
+# [4.1.0-dev.8](https://github.com/vtex/faststore/compare/v4.1.0-dev.7...v4.1.0-dev.8) (2026-05-15)
+
+# [4.1.0-dev.7](https://github.com/vtex/faststore/compare/v4.1.0-dev.6...v4.1.0-dev.7) (2026-05-15)
+
+# [4.1.0-dev.6](https://github.com/vtex/faststore/compare/v4.1.0-dev.5...v4.1.0-dev.6) (2026-05-14)
+
+# [4.1.0-dev.5](https://github.com/vtex/faststore/compare/v4.1.0-dev.4...v4.1.0-dev.5) (2026-05-14)
+
+# [4.1.0-dev.4](https://github.com/vtex/faststore/compare/v4.1.0-dev.3...v4.1.0-dev.4) (2026-05-13)
+
+# [4.1.0-dev.3](https://github.com/vtex/faststore/compare/v4.1.0-dev.2...v4.1.0-dev.3) (2026-05-13)
+
+# [4.1.0-dev.2](https://github.com/vtex/faststore/compare/v4.1.0...v4.1.0-dev.2) (2026-05-12)
+
+# [4.1.0-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.0...v4.1.0-dev.1) (2026-05-11)
+
+# [4.1.0-dev.0](https://github.com/vtex/faststore/compare/v4.0.1-dev.2...v4.1.0-dev.0) (2026-05-11)
+
+## [4.0.1-dev.2](https://github.com/vtex/faststore/compare/v4.0.1-dev.1...v4.0.1-dev.2) (2026-05-11)
+
+## [4.0.1-dev.1](https://github.com/vtex/faststore/compare/v4.0.1-dev.0...v4.0.1-dev.1) (2026-05-07)
+
+## [4.0.1-dev.0](https://github.com/vtex/faststore/compare/v4.0.0...v4.0.1-dev.0) (2026-05-07)
+
+# [4.0.0-dev.4](https://github.com/vtex/faststore/compare/v4.0.0-dev.3...v4.0.0-dev.4) (2026-05-07)
+
+# [4.0.0-dev.3](https://github.com/vtex/faststore/compare/v4.0.0-dev.2...v4.0.0-dev.3) (2026-05-07)
+
+# [4.0.0-dev.2](https://github.com/vtex/faststore/compare/v4.0.0-dev.1...v4.0.0-dev.2) (2026-05-07)
+
+# [4.0.0-dev.0](https://github.com/vtex/faststore/compare/v3.99.0...v4.0.0-dev.0) (2026-05-07)
+
+# [3.99.0-dev.8](https://github.com/vtex/faststore/compare/v3.99.0-dev.7...v3.99.0-dev.8) (2026-05-04)
+
+# [3.99.0-dev.6](https://github.com/vtex/faststore/compare/v3.99.0-dev.4...v3.99.0-dev.6) (2026-05-04)
+
+# [3.99.0-dev.4](https://github.com/vtex/faststore/compare/v3.99.0-dev.3...v3.99.0-dev.4) (2026-04-28)
+
+# [3.99.0-dev.3](https://github.com/vtex/faststore/compare/v3.99.0-dev.2...v3.99.0-dev.3) (2026-04-23)
+
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1-dev.0) (2026-03-27)
+
+# [3.98.0-dev.1](https://github.com/vtex/faststore/compare/v3.98.0-dev.0...v3.98.0-dev.1) (2026-02-24)
+
+# [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.1...v3.98.0-dev.0) (2026-02-24)
+
+# [3.97.0-dev.2](https://github.com/vtex/faststore/compare/v3.97.0...v3.97.0-dev.2) (2026-02-06)
+
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
+
+# [3.96.0-dev.22](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.0-dev.22) (2026-01-21)
+
+# [3.96.0-dev.18](https://github.com/vtex/faststore/compare/v3.96.0-dev.17...v3.96.0-dev.18) (2025-12-24)
+
+# [3.96.0-dev.17](https://github.com/vtex/faststore/compare/v3.96.0-dev.16...v3.96.0-dev.17) (2025-12-23)
+
+# [3.96.0-dev.16](https://github.com/vtex/faststore/compare/v3.96.0-dev.15...v3.96.0-dev.16) (2025-12-23)
+
+# [3.96.0-dev.11](https://github.com/vtex/faststore/compare/v3.96.0-dev.10...v3.96.0-dev.11) (2025-12-23)
+
+# [3.96.0-dev.10](https://github.com/vtex/faststore/compare/v3.96.0-dev.9...v3.96.0-dev.10) (2025-12-23)
+
+# [3.96.0-dev.9](https://github.com/vtex/faststore/compare/v3.96.0-dev.8...v3.96.0-dev.9) (2025-12-23)
+
+# [3.96.0-dev.8](https://github.com/vtex/faststore/compare/v3.96.0-dev.7...v3.96.0-dev.8) (2025-12-23)
+
+# [3.96.0-dev.7](https://github.com/vtex/faststore/compare/v3.96.0-dev.6...v3.96.0-dev.7) (2025-12-23)
+
+# [3.96.0-dev.6](https://github.com/vtex/faststore/compare/v3.96.0-dev.5...v3.96.0-dev.6) (2025-12-23)
+
+# [3.96.0-dev.5](https://github.com/vtex/faststore/compare/v3.96.0-dev.4...v3.96.0-dev.5) (2025-12-23)
+
+# [3.96.0-dev.4](https://github.com/vtex/faststore/compare/v3.96.0-dev.3...v3.96.0-dev.4) (2025-12-23)
+
+## [3.95.1-dev.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.95.1-dev.0) (2025-12-02)
+
+# [3.95.0-dev.3](https://github.com/vtex/faststore/compare/v3.95.0-dev.2...v3.95.0-dev.3) (2025-12-02)
+
+# [3.95.0-dev.1](https://github.com/vtex/faststore/compare/v3.95.0-dev.0...v3.95.0-dev.1) (2025-12-01)
+
+## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
+
+# [3.93.0-dev.3](https://github.com/vtex/faststore/compare/v3.93.0-dev.2...v3.93.0-dev.3) (2025-11-17)
+
+# [3.93.0-dev.1](https://github.com/vtex/faststore/compare/v3.93.0...v3.93.0-dev.1) (2025-11-06)
+
+## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.92.1-dev.0) (2025-11-03)
+
+## [3.91.3-dev.0](https://github.com/vtex/faststore/compare/v3.91.2...v3.91.3-dev.0) (2025-10-30)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+# 4.2.0-dev.4 (2026-06-01)
+
+### Bug Fixes
+
+- preview pnpm pack ([#3367](https://github.com/vtex/faststore/issues/3367)) ([186579c](https://github.com/vtex/faststore/commit/186579c4cca44e4d21c25068f075c0fbb6a56d96))
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+# 4.2.0-dev.1 (2026-06-01)
+
+### Bug Fixes
+
+- createNextJSPages throwing preventing copy of store discovery-co… ([#3356](https://github.com/vtex/faststore/issues/3356)) ([cf318ab](https://github.com/vtex/faststore/commit/cf318abfecf4c6497d40bfe58203acc90b199696))
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2-dev.8...v4.2.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## 4.1.2-dev.1 (2026-05-19)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
+## 4.1.2-dev.0 (2026-05-15)
+
+**Note:** Version bump only for package @faststore/lighthouse
+
 ## 4.1.1 (2026-05-15)
 
 ### Bug Fixes

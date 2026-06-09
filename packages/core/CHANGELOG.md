@@ -3,6 +3,100 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
+
+### Bug Fixes
+
+- **core:** propagate upstream error status instead of always 500 ([#3379](https://github.com/vtex/faststore/issues/3379)) ([c03d3df](https://github.com/vtex/faststore/commit/c03d3dff7f5920e834a318417a4a02cc653453cf))
+
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.2.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0) (2026-06-01)
+
+### Features
+
+- release version 2026 06 01 ([#3370](https://github.com/vtex/faststore/issues/3370)) ([61fcbdf](https://github.com/vtex/faststore/commit/61fcbdfde6a8bb6eb6f0f00d9b5ac3f28421dbf3))
+- Release version 2026 06 01 1 ([#3373](https://github.com/vtex/faststore/issues/3373)) ([df3cb4d](https://github.com/vtex/faststore/commit/df3cb4de391a252831dd28cf3bd46f7493bea742))
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/core
+
+# 4.2.0-dev.4 (2026-06-01)
+
+### Bug Fixes
+
+- preview pnpm pack ([#3367](https://github.com/vtex/faststore/issues/3367)) ([186579c](https://github.com/vtex/faststore/commit/186579c4cca44e4d21c25068f075c0fbb6a56d96))
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+### Performance Improvements
+
+- **core:** SSR ProductGallery and fix CLS on screen-size detection (VTE-9) ([#3349](https://github.com/vtex/faststore/issues/3349)) ([e70a23b](https://github.com/vtex/faststore/commit/e70a23b54504be4cddc97e76c89cf4323fe0941e)), closes [#3345](https://github.com/vtex/faststore/issues/3345)
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/core
+
+# 4.2.0-dev.1 (2026-06-01)
+
+### Bug Fixes
+
+- createNextJSPages throwing preventing copy of store discovery-co… ([#3356](https://github.com/vtex/faststore/issues/3356)) ([cf318ab](https://github.com/vtex/faststore/commit/cf318abfecf4c6497d40bfe58203acc90b199696))
+- **sdk:** refetch first PLP page from page-load time, not build time ([#3350](https://github.com/vtex/faststore/issues/3350)) ([608c636](https://github.com/vtex/faststore/commit/608c6362eff32b0dabba9d51ada09e50699cd3c8)), closes [#3345](https://github.com/vtex/faststore/issues/3345)
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2-dev.8...v4.2.0-dev.0) (2026-06-01)
+
+### Features
+
+- paginate listEntries with scroll ([#3282](https://github.com/vtex/faststore/issues/3282)) ([2e43804](https://github.com/vtex/faststore/commit/2e43804b7c3ee336eee5a19f1a11d3185c01102d))
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+### Bug Fixes
+
+- localization race condition ([#3281](https://github.com/vtex/faststore/issues/3281)) ([75cb5df](https://github.com/vtex/faststore/commit/75cb5dfb5dd3dcd58a15273df5f4c20bb1c8987b)), closes [#3111](https://github.com/vtex/faststore/issues/3111) [#3111](https://github.com/vtex/faststore/issues/3111)
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+### Bug Fixes
+
+- url resolution in windows ([#3337](https://github.com/vtex/faststore/issues/3337)) ([2476091](https://github.com/vtex/faststore/commit/24760916bdcfc73c7d4ef7f92829976d4f1f97d6))
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+**Note:** Version bump only for package @faststore/core
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+**Note:** Version bump only for package @faststore/core
+
+## 4.1.2-dev.1 (2026-05-19)
+
+### Bug Fixes
+
+- bypass refresh-token flow on localhost in 403 page and useRefreshToken hook ([#3325](https://github.com/vtex/faststore/issues/3325)) ([d48571a](https://github.com/vtex/faststore/commit/d48571a15176497b019bae1462617c3159459421)), closes [#3285](https://github.com/vtex/faststore/issues/3285) [#3285](https://github.com/vtex/faststore/issues/3285)
+
+## 4.1.2-dev.0 (2026-05-15)
+
+### Bug Fixes
+
+- bump version ([4fbfa64](https://github.com/vtex/faststore/commit/4fbfa649afc57218dbf8020abc7333c05b0b034f))
+
 ## 4.1.1 (2026-05-15)
 
 ### Bug Fixes
