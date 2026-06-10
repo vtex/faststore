@@ -1,0 +1,61 @@
+"""
+Summary of a quote returned in list results.
+"""
+type UserQuoteSummary {
+  """
+  Unique identifier of the quote.
+  """
+  id: String!
+  """
+  Status of the quote.
+  """
+  status: String!
+  """
+  Optional label assigned to the quote.
+  """
+  label: String
+  """
+  ISO 8601 date-time when the quote was created.
+  """
+  createdAt: String!
+  """
+  ISO 8601 date-time when the quote expires.
+  """
+  expiresAt: String!
+  """
+  Total amount of the quote.
+  """
+  amount: Float!
+}
+
+"""
+Result returned by the listUserQuotes query.
+"""
+type UserQuoteListResult {
+  """
+  Array of quote summaries for the current page.
+  """
+  list: [UserQuoteSummary!]!
+  """
+  Pagination information.
+  """
+  paging: UserQuoteListPaging!
+}
+
+"""
+Pagination metadata for the quotes list.
+"""
+type UserQuoteListPaging {
+  """
+  Total number of quotes matching the query.
+  """
+  total: Int!
+  """
+  Current page number (1-based).
+  """
+  currentPage: Int!
+  """
+  Number of items per page.
+  """
+  perPage: Int!
+}
