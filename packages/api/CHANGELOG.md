@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.2](https://github.com/vtex/faststore/compare/v4.3.0-dev.1...v4.3.0-dev.2) (2026-06-10)
+
+### Features
+
+- file upload via Order Entry Service (OES) ([#3334](https://github.com/vtex/faststore/issues/3334)) ([03edc11](https://github.com/vtex/faststore/commit/03edc11952ea61fda4127aae4812b204845ecdb1))
+
 # [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
 
 **Note:** Version bump only for package @faststore/api
