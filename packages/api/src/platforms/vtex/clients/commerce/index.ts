@@ -46,6 +46,7 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import type { QuoteListResult, ListUserQuotesArgs } from './types/Quote'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -774,6 +775,43 @@ export const VtexCommerce = (
             headers,
           },
           {}
+        )
+      },
+    },
+    quotes: {
+      listUserQuotes: ({
+        page,
+        perPage,
+        status,
+        createdAtFrom,
+        createdAtTo,
+        expiresAtFrom,
+        expiresAtTo,
+      }: ListUserQuotesArgs): Promise<QuoteListResult> => {
+        const params = new URLSearchParams()
+
+        if (page) params.append('pageNumber', page.toString())
+        if (perPage) params.append('pageSize', perPage.toString())
+        if (status && status.length > 0) {
+          status.filter(Boolean).forEach((s) => params.append('status', s))
+        }
+        if (createdAtFrom) params.append('createdAtFrom', createdAtFrom)
+        if (createdAtTo) params.append('createdAtTo', createdAtTo)
+        if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
+        if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/quoting/quotes?${params.toString()}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
         )
       },
     },

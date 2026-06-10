@@ -561,6 +561,41 @@ export const Query = {
       paging: orders.paging,
     }
   },
+  listUserQuotes: async (
+    _: unknown,
+    filters: {
+      page?: number
+      perPage?: number
+      status?: string[]
+      createdAtFrom?: string
+      createdAtTo?: string
+      expiresAtFrom?: string
+      expiresAtTo?: string
+    },
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.quotes.listUserQuotes(filters)
+
+    return {
+      list: result.items.map((quote) => ({
+        id: quote.id,
+        status: quote.status,
+        label: quote.label ?? null,
+        createdAt: quote.createdAt,
+        expiresAt: quote.expiresAt,
+        amount: quote.amount,
+      })),
+      paging: {
+        total: result.totalItems,
+        currentPage: result.pageNumber,
+        perPage: result.pageSize,
+      },
+    }
+  },
   validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
