@@ -1,6 +1,10 @@
 import type { PropsWithChildren } from 'react'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
-import { USER_DETAILS_ROUTE } from 'src/sdk/account/getMyAccountRoutes'
+import {
+  ROUTES_ONLY_FOR_B2B_MEMBERS,
+  USER_DETAILS_ROUTE,
+} from 'src/sdk/account/getMyAccountRoutes'
+import { useSession } from 'src/sdk/session'
 import MyAccountMenu from '../MyAccountMenu'
 import styles from '../section.module.scss'
 
@@ -16,11 +20,18 @@ const MyAccountLayout = ({
   accountName,
   isRepresentative = true,
 }: PropsWithChildren<MyAccountLayoutProps>) => {
-  const routes = isRepresentative
-    ? menuRoutes
-    : menuRoutes.filter(
-        ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
-      )
+  const { b2b } = useSession()
+  const isOrgMember = Boolean(b2b?.unitId)
+
+  const routes = (
+    isRepresentative
+      ? menuRoutes
+      : menuRoutes.filter(
+          ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
+        )
+  ).filter(
+    ({ route }) => isOrgMember || !ROUTES_ONLY_FOR_B2B_MEMBERS.includes(route)
+  )
 
   return (
     <section className={styles.layout}>
