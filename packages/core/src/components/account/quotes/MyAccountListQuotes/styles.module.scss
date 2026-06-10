@@ -1,0 +1,47 @@
+@use "sass:meta";
+@use "@faststore/ui/src/styles/base/utilities";
+
+.page {
+  @include meta.load-css("../../orders/MyAccountListOrders/MyAccountListOrdersTable/styles.scss");
+  @include meta.load-css("../../orders/MyAccountListOrders/MyAccountSelectedTags/styles.scss");
+  @include meta.load-css("../../components/MyAccountStatusBadge/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/organisms/EmptyState/styles.scss");
+
+  // --------------------------------------------------------
+  // Design Tokens
+  // --------------------------------------------------------
+
+  --fs-list-orders-padding: var(--fs-spacing-5);
+  --fs-page-height: 100%;
+
+  --fs-list-orders-filter-margin-bottom: var(--fs-spacing-3);
+  --fs-list-orders-filter-gap-mobile: var(--fs-grid-gap-0);
+  --fs-list-orders-filter-width-mobile: 100%;
+  --fs-list-orders-filter-margin-bottom-mobile: 0;
+
+  --fs-list-orders-filter-button-border-radius: var(--fs-border-radius-pill);
+  --fs-list-orders-filter-button-height: 2.375rem;
+
+  height: var(--fs-page-height);
+
+  [data-fs-list-orders-controls] {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--fs-list-orders-filter-margin-bottom);
+  }
+
+  [data-fs-list-orders-search-filters] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    @include utilities.media("<notebook") {
+      flex-direction: column;
+      gap: var(--fs-list-orders-filter-gap-mobile);
+      align-items: flex-end;
+      width: var(--fs-list-orders-filter-width-mobile);
+      margin-bottom: var(--fs-list-orders-filter-margin-bottom-mobile);
+    }
+  }
+}
