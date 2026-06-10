@@ -1,0 +1,132 @@
+import { useCallback, useRef, useState } from 'react'
+
+import { gql } from '@generated'
+import type {
+  OrderEntryOperationQueryQuery,
+  OrderEntryOperationQueryQueryVariables,
+  StartOrderEntryOperationMutationMutation,
+  StartOrderEntryOperationMutationMutationVariables,
+} from '@generated/graphql'
+
+import { useLazyQuery } from '../graphql/useLazyQuery'
+import { useQuery } from '../graphql/useQuery'
+
+const StartOrderEntryOperationMutation = gql(`
+  mutation StartOrderEntryOperationMutation($data: IOrderEntryOperation!) {
+    startOrderEntryOperation(data: $data) {
+      operationId
+    }
+  }
+`)
+
+const OrderEntryOperationQuery = gql(`
+  query OrderEntryOperationQuery($operationId: String!) {
+    orderEntryOperation(operationId: $operationId) {
+      status
+      entityId
+      message
+      missingItems {
+        itemId
+        itemName
+        reason
+      }
+    }
+  }
+`)
+
+const TERMINAL_STATUSES = new Set(['SUCCESS', 'PARTIAL_SUCCESS', 'FAILED'])
+const POLL_TIMEOUT_MS = 60_000
+
+export type OrderEntryOperationStatus = NonNullable<
+  OrderEntryOperationQueryQuery['orderEntryOperation']
+>
+
+export type UseOrderEntryOperationReturn = {
+  startOperation: (data: {
+    objectKey: string
+    orderFormId: string
+    sessionToken?: string
+  }) => Promise<void>
+  status: OrderEntryOperationStatus | null
+  isLoading: boolean
+  error: Error | null
+  reset: () => void
+}
+
+export function useOrderEntryOperation(): UseOrderEntryOperationReturn {
+  const [operationId, setOperationId] = useState<string | null>(null)
+  const [timeoutError, setTimeoutError] = useState<Error | null>(null)
+  const pollStartRef = useRef<number | null>(null)
+
+  const [startOp, { isValidating: isStarting, error: startError }] =
+    useLazyQuery<
+      StartOrderEntryOperationMutationMutation,
+      StartOrderEntryOperationMutationMutationVariables
+    >(StartOrderEntryOperationMutation, {
+      data: { objectKey: '', orderFormId: '', sessionToken: null },
+    })
+
+  const { data: statusData, error: statusError } = useQuery<
+    OrderEntryOperationQueryQuery,
+    OrderEntryOperationQueryQueryVariables
+  >(
+    OrderEntryOperationQuery,
+    { operationId: operationId ?? '' },
+    {
+      doNotRun: !operationId,
+      refreshInterval: (latestData) => {
+        const s = latestData?.orderEntryOperation?.status
+        if (s && TERMINAL_STATUSES.has(s)) return 0
+        if (
+          pollStartRef.current !== null &&
+          Date.now() - pollStartRef.current >= POLL_TIMEOUT_MS
+        ) {
+          setTimeoutError(new Error('Operation timed out. Please try again.'))
+          return 0
+        }
+        return 2000
+      },
+    }
+  )
+
+  const startOperation = useCallback(
+    async (data: {
+      objectKey: string
+      orderFormId: string
+      sessionToken?: string
+    }) => {
+      const result = await startOp({
+        data: {
+          ...data,
+          sessionToken: data.sessionToken ?? null,
+        },
+      })
+      const id = result?.startOrderEntryOperation?.operationId
+      if (id) {
+        pollStartRef.current = Date.now()
+        setTimeoutError(null)
+        setOperationId(id)
+      }
+    },
+    [startOp]
+  )
+
+  const reset = useCallback(() => {
+    setOperationId(null)
+    setTimeoutError(null)
+    pollStartRef.current = null
+  }, [])
+
+  const currentStatus = statusData?.orderEntryOperation?.status ?? null
+  const isPolling =
+    !!operationId && !!currentStatus && !TERMINAL_STATUSES.has(currentStatus)
+  const isPending = !!operationId && !currentStatus
+
+  return {
+    startOperation,
+    status: operationId ? (statusData?.orderEntryOperation ?? null) : null,
+    isLoading: isStarting || isPolling || isPending,
+    error: (startError ?? statusError ?? timeoutError ?? null) as Error | null,
+    reset,
+  }
+}

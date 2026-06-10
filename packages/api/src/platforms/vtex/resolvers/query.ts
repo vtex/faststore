@@ -16,6 +16,8 @@ import type {
   QueryUserOrderArgs,
   UserOrderFromList,
 } from '../../../__generated__/schema'
+import { getOrderEntryOperation } from './getOrderEntryOperation'
+import { getOrderFormItems } from './getOrderFormItems'
 import {
   BadRequestError,
   ForbiddenError,
@@ -671,4 +673,6 @@ export const Query = {
 
     return result
   },
+  orderEntryOperation: getOrderEntryOperation,
+  orderFormItems: getOrderFormItems,
 }
