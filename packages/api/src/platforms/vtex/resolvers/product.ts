@@ -291,9 +291,8 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const itemId = root.itemId
     const locale = ctx.storage.locale
 
-    // A single Catalog Dataplane call returns availableLinkIds for every locale,
-    // so we no longer fan out one request per configured locale. We fetch for the
-    // current locale (reusing the request-scoped cache shared with the slug and
+    // availableLinkIds returns localized slug for every locale,
+    // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
     // breadcrumb resolvers) and read the full map from the response.
     const cacheKey = `${productId}:${locale}`
     let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
