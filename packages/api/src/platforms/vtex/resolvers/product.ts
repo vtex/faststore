@@ -114,7 +114,11 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
           // Store both linkId (for the product item URL) and the full categories array
           // (for per-level localized slugs). We intentionally keep categories[] rather than
           // just the leaf category so we never need to reconstruct the hierarchy via split('/').
-          entry = { linkId: result.linkId, categories: result.categories ?? [] }
+          entry = {
+            linkId: result.linkId,
+            categories: result.categories ?? [],
+            availableLinkIds: result.availableLinkIds ?? {},
+          }
           ctx.storage.productTranslationsCache ??= new Map()
           ctx.storage.productTranslationsCache.set(cacheKey, entry)
         } catch {
@@ -285,38 +289,42 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
 
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
+    const locale = ctx.storage.locale
 
-    const results = await Promise.all(
-      configuredLocales.map(async (locale) => {
-        const cacheKey = `${productId}:${locale}`
-        let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
+    // A single Catalog Dataplane call returns availableLinkIds for every locale,
+    // so we no longer fan out one request per configured locale. We fetch for the
+    // current locale (reusing the request-scoped cache shared with the slug and
+    // breadcrumb resolvers) and read the full map from the response.
+    const cacheKey = `${productId}:${locale}`
+    let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
 
-        if (!entry) {
-          try {
-            const result = await ctx.clients.catalog.getLocalizedProduct(
-              productId,
-              locale
-            )
-            entry = {
-              linkId: result.linkId,
-              categories: result.categories ?? [],
-            }
-            ctx.storage.productTranslationsCache ??= new Map()
-            ctx.storage.productTranslationsCache.set(cacheKey, entry)
-          } catch {
-            return null
-          }
+    if (!entry || !entry.availableLinkIds) {
+      try {
+        const result = await ctx.clients.catalog.getLocalizedProduct(
+          productId,
+          locale
+        )
+        entry = {
+          linkId: result.linkId,
+          categories: result.categories ?? [],
+          availableLinkIds: result.availableLinkIds ?? {},
         }
+        ctx.storage.productTranslationsCache ??= new Map()
+        ctx.storage.productTranslationsCache.set(cacheKey, entry)
+      } catch {
+        return null
+      }
+    }
 
-        return { locale, linkId: entry.linkId }
+    const { availableLinkIds } = entry
+
+    return configuredLocales
+      .map((configuredLocale) => {
+        const linkId = availableLinkIds[configuredLocale]
+        return linkId
+          ? { locale: configuredLocale, slug: `${linkId}-${itemId}` }
+          : null
       })
-    )
-
-    return results
-      .filter(
-        (e): e is { locale: string; linkId: string } =>
-          e !== null && Boolean(e.linkId)
-      )
-      .map((e) => ({ locale: e.locale, slug: `${e.linkId}-${itemId}` }))
+      .filter((e): e is { locale: string; slug: string } => e !== null)
   },
 }

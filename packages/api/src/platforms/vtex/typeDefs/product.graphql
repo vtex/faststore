@@ -106,7 +106,7 @@ Localized product data for a specific locale.
 """
 type StoreProductLocale {
   """
-  BCP 47 locale code (e.g. "pt-BR", "it-IT").
+  Locale code (e.g. "pt-BR", "it-IT").
   """
   locale: String!
   """

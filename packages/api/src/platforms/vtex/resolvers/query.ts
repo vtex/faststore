@@ -120,6 +120,7 @@ export const Query = {
               entry = {
                 linkId: result.linkId,
                 categories: result.categories ?? [],
+                availableLinkIds: result.availableLinkIds ?? {},
               }
               ctx.storage.productTranslationsCache ??= new Map()
               ctx.storage.productTranslationsCache.set(cacheKey, entry)

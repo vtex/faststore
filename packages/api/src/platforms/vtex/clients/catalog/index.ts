@@ -13,6 +13,8 @@ export interface LocalizedProductEntry {
   linkId: string
   /** All categories the product belongs to across all trees, as returned by Catalog Dataplane. */
   categories: LocalizedCategoryEntry[]
+  /** Localized linkIds keyed by locale, covering all available locales in a single response. */
+  availableLinkIds: Record<string, string>
 }
 
 export interface LocalizedProductResponse {
@@ -23,6 +25,8 @@ export interface LocalizedProductResponse {
   category: LocalizedCategoryEntry | null
   /** Full ancestry chain for every category tree the product belongs to. */
   categories: LocalizedCategoryEntry[]
+  /** Localized linkIds keyed by locale, covering all available locales in a single response. */
+  availableLinkIds: Record<string, string>
 }
 
 /**
