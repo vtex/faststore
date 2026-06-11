@@ -19,9 +19,7 @@ interface Options {
   flags?: FeatureFlags
   version?: string
   OTEL?: {
-    enabled: boolean
-    traceparent?: string
-    tracestate?: string
+    enabled: true
   }
   discoveryConfig?: Record<string, unknown>
 }
