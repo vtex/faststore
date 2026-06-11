@@ -85,6 +85,18 @@ describe('/api/fs/auth/login', () => {
     )
   })
 
+  it('returns 400 when request body is missing', async () => {
+    const handler = await getHandler()
+    const { req, res } = createReqRes({ body: undefined })
+
+    await handler(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(400)
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ success: false, error: 'Password is required' })
+    )
+  })
+
   it('returns 400 when password is not a string', async () => {
     const handler = await getHandler()
     const { req, res } = createReqRes({ body: { password: 123 } })
@@ -147,6 +159,22 @@ describe('/api/fs/auth/login', () => {
     ;(global.fetch as Mock).mockResolvedValue({
       ok: true,
       json: async () => ({ valid: false }),
+    })
+    const handler = await getHandler()
+    const { req, res } = createReqRes()
+
+    await handler(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(401)
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ success: false, error: 'Invalid password' })
+    )
+  })
+
+  it('returns 401 when WebOps responds valid=true without a token', async () => {
+    ;(global.fetch as Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({ valid: true }),
     })
     const handler = await getHandler()
     const { req, res } = createReqRes()

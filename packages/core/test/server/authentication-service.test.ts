@@ -216,6 +216,65 @@ describe('AuthenticationService', () => {
     )
   })
 
+  it('allows traffic when JWT is valid but protected scope does not apply', async () => {
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+
+    jwtVerifyMock.mockResolvedValueOnce({
+      payload: {
+        storeId: 'test-store',
+        protected: true,
+        scope: 'CUSTOM_DOMAINS',
+      },
+      protectedHeader: { alg: 'RS256' },
+    } as unknown as Awaited<ReturnType<typeof jwtVerify>>)
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/account', {
+        headers: { cookie: '__fs_auth_token=valid' },
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('reuses the cached WebOps public key for subsequent JWT verifications', async () => {
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+
+    jwtVerifyMock.mockResolvedValue({
+      payload: {
+        storeId: 'test-store',
+        protected: true,
+        scope: 'DEFAULT_DOMAINS',
+      },
+      protectedHeader: { alg: 'RS256' },
+    } as unknown as Awaited<ReturnType<typeof jwtVerify>>)
+
+    const service = new AuthenticationService()
+
+    await service.authenticateRequest(
+      previewRequest('/first', {
+        headers: { cookie: '__fs_auth_token=one' },
+      })
+    )
+    await service.authenticateRequest(
+      previewRequest('/second', {
+        headers: { cookie: '__fs_auth_token=two' },
+      })
+    )
+
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+    expect(importSPKIMock).toHaveBeenCalledTimes(1)
+    expect(jwtVerifyMock).toHaveBeenCalledTimes(2)
+  })
+
   it('verifies JWT locally when cookie present (not protected payload)', async () => {
     ;(global.fetch as Mock).mockResolvedValueOnce({
       ok: true,
@@ -274,6 +333,54 @@ describe('AuthenticationService', () => {
     )
 
     expect(response.status).toBe(307)
+  })
+
+  it('falls back to status when WebOps public-key request fails', async () => {
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 503,
+    })
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        protected: false,
+        token: 'after-public-key-failure',
+      }),
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=stale' },
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.cookies.get('__fs_auth_token')?.value).toBe(
+      'after-public-key-failure'
+    )
+  })
+
+  it('falls back to status when WebOps public-key response is missing a key', async () => {
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: '   ' }),
+    })
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        protected: false,
+      }),
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=stale' },
+      })
+    )
+
+    expect(response.status).toBe(200)
   })
 
   it('falls back to status when cookie JWT fails verification for non-expiry reasons', async () => {
@@ -363,6 +470,36 @@ describe('AuthenticationService', () => {
     )
 
     expect(response.status).toBe(307)
+  })
+
+  it('treats expired JWT from another store as unauthenticated', async () => {
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ publicKey: 'test-pem' }),
+    })
+    jwtVerifyMock.mockRejectedValueOnce(
+      new errors.JWTExpired('jwt expired', { storeId: 'other-store' })
+    )
+    decodeJwtMock.mockReturnValueOnce({
+      storeId: 'other-store',
+      protected: true,
+      scope: 'DEFAULT_DOMAINS',
+    } as ReturnType<typeof decodeJwt>)
+    ;(global.fetch as Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        protected: false,
+      }),
+    })
+
+    const service = new AuthenticationService()
+    const { response } = await service.authenticateRequest(
+      previewRequest('/p', {
+        headers: { cookie: '__fs_auth_token=expired-other-store' },
+      })
+    )
+
+    expect(response.status).toBe(200)
   })
 
   it('redirects to login when JWT is expired and renew body is not valid', async () => {
