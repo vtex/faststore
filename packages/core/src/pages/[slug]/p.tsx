@@ -150,6 +150,12 @@ function Page({
       }
     }
 
+    // PREMISE: the default locale is served at the store root (no locale prefix),
+    // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
+    // prefix while other locales live under `/{locale}`. Hence `x-default` points to
+    // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
+    // prefix or a dedicated domain instead of the root, this href must be derived
+    // from that locale's binding URL instead of `storeUrl`.
     const defaultEntry = server.product.otherLocales.find(
       (e) => e.locale === defaultLocale
     )

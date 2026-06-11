@@ -290,6 +290,8 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const productId = root.isVariantOf.productId
     const itemId = root.itemId
     const locale = ctx.storage.locale
+    const defaultLocale = (ctx.discoveryConfig as any)?.localization
+      ?.defaultLocale
 
     // availableLinkIds returns localized slug for every locale,
     // we fetch for the current locale (reusing the request-scoped cache shared with the slug and
@@ -316,12 +318,27 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     }
 
     const { availableLinkIds } = entry
+    const { linkText } = root.isVariantOf
 
     return configuredLocales
       .map((configuredLocale) => {
+        // The default locale always uses the canonical IS linkText: it is always
+        // present and matches the Query.product `slug.startsWith(linkText)` fast
+        // path, so the fallback URL resolves cleanly even when the catalog has no
+        // default-locale entry in availableLinkIds.
+        if (configuredLocale === defaultLocale) {
+          return { locale: configuredLocale, slug: getSlug(linkText, itemId) }
+        }
+
+        // Non-default locales only appear when they have a registered localized slug
+        // in availableLinkIds. Untranslated locales are omitted so they are never
+        // advertised as hreflang alternates — this keeps the hreflang cluster
+        // symmetric across all locale variants of the product (every variant emits
+        // the same set: default + translated locales). The LocalizationSelector
+        // falls back to the default slug under the target prefix for omitted locales.
         const linkId = availableLinkIds[configuredLocale]
         return linkId
-          ? { locale: configuredLocale, slug: `${linkId}-${itemId}` }
+          ? { locale: configuredLocale, slug: getSlug(linkId, itemId) }
           : null
       })
       .filter((e): e is { locale: string; slug: string } => e !== null)
