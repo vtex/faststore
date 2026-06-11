@@ -16,6 +16,7 @@ catalog:
   '@graphql-tools/utils': 10.10.1
   '@next/third-parties': ^16.2.6
   '@playwright/test': ^1.55.0
+  '@testing-library/jest-dom': 6.9.1
   '@testing-library/react': 14.3.1
   '@types/node': 20.19.13
   '@types/react': ^18.3.27

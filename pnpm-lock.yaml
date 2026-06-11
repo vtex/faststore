@@ -39,6 +39,9 @@ catalogs:
     '@graphql-tools/utils':
       specifier: 10.10.1
       version: 10.10.1
+    '@testing-library/jest-dom':
+      specifier: 6.9.1
+      version: 6.9.1
     '@testing-library/react':
       specifier: 14.3.1
       version: 14.3.1
@@ -362,7 +365,7 @@ importers:
         version: 7.0.2(react@18.2.0)
     devDependencies:
       '@testing-library/jest-dom':
-        specifier: ^6.9.1
+        specifier: 'catalog:'
         version: 6.9.1
       '@testing-library/react':
         specifier: 'catalog:'
@@ -587,6 +590,9 @@ importers:
       '@testing-library/cypress':
         specifier: ^10.0.1
         version: 10.1.0(cypress@12.17.4)
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 6.9.1
       '@testing-library/react':
         specifier: 'catalog:'
         version: 14.3.1(@types/react@18.3.28)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)

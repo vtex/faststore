@@ -2,6 +2,7 @@
  * @vitest-environment jsdom
  */
 
+import '@testing-library/jest-dom/vitest'
 import React from 'react'
 import {
   cleanup,
@@ -101,12 +102,12 @@ describe('PasswordProtectionLogin', () => {
 
     expect(
       screen.queryByText('This store is password protected')
-    ).not.toBeNull()
+    ).toBeInTheDocument()
     expect(
       screen.queryByText('Enter the password to access the store')
-    ).not.toBeNull()
-    expect(screen.queryByLabelText('Password')).not.toBeNull()
-    expect(screen.queryByRole('button', { name: 'Login' })).not.toBeNull()
+    ).toBeInTheDocument()
+    expect(screen.queryByLabelText('Password')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Login' })).toBeInTheDocument()
   })
 
   it('posts the password and redirects to the requested return path', async () => {
