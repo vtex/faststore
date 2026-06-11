@@ -19,8 +19,8 @@ describe('isLoginResponse', () => {
     expect(isLoginResponse(42)).toBe(false)
   })
 
-  it('returns true for an empty object', () => {
-    expect(isLoginResponse({})).toBe(true)
+  it('returns false for an empty object', () => {
+    expect(isLoginResponse({})).toBe(false)
   })
 
   it('returns true for a valid success payload', () => {
@@ -45,13 +45,13 @@ describe('isLoginResponse', () => {
     expect(isLoginResponse({ error: true })).toBe(false)
   })
 
-  it('returns true when all fields are undefined (all optional)', () => {
+  it('returns false when all fields are undefined', () => {
     expect(
       isLoginResponse({
         success: undefined,
         redirectUrl: undefined,
         error: undefined,
       })
-    ).toBe(true)
+    ).toBe(false)
   })
 })

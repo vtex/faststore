@@ -10,8 +10,13 @@ export const isLoginResponse = (data: unknown): data is LoginResponse => {
   }
 
   const payload = data as Record<string, unknown>
+  const hasLoginResponseField =
+    payload.success !== undefined ||
+    payload.redirectUrl !== undefined ||
+    payload.error !== undefined
 
   return (
+    hasLoginResponseField &&
     (payload.success === undefined || typeof payload.success === 'boolean') &&
     (payload.redirectUrl === undefined ||
       typeof payload.redirectUrl === 'string') &&

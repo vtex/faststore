@@ -87,7 +87,12 @@ describe('AuthenticationService', () => {
 
   afterAll(() => {
     setNodeEnv(originalNodeEnv)
-    process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = originalCustomDomains
+
+    if (originalCustomDomains == null) {
+      delete process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED
+    } else {
+      process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = originalCustomDomains
+    }
   })
 
   it('skips protection in development', async () => {

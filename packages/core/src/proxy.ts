@@ -185,14 +185,14 @@ export const config = {
     '/',
     /*
      * Match all other paths. Exclude:
-     * - api (e.g. api/fs/auth/login)
+     * - api/fs/auth/login (password-protection login endpoint)
      * - _next/static, _next/image
      * - favicon.ico
      * - fs-auth-login (password-protection login page)
      * - ~partytown (partytown scripts)
      * - paths ending with a file extension (static assets)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown|.*[.][^/]+$).*)',
+    '/((?!api/fs/auth/login$|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown|.*[.][^/]+$).*)',
     '/_next/data/:path*',
   ],
 }
