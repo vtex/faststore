@@ -46,8 +46,29 @@ export class ContentService {
 
     if (isContentPlatformSource()) {
       const serviceParams = this.convertOptionsToParams(options)
-      const { entries } = await this.clientCP.listEntries(serviceParams)
-      return this.fillEntriesWithData(entries, serviceParams, options.isPreview)
+      // TODO: This should be temporary until the cp data-plane have a search engine.
+      const MAX_PAGES = 25
+      const allEntries: ContentEntry[] = []
+      let scroll: string | undefined
+      let pages = 0
+
+      do {
+        const result = await this.clientCP.listEntries(serviceParams, scroll)
+        allEntries.push(...result.entries)
+        const next = result.scroll ?? undefined
+        if (next && next === scroll) break
+        scroll = next
+      } while (scroll && ++pages < MAX_PAGES)
+
+      if (pages >= MAX_PAGES) {
+        console.warn('listEntries pagination hit MAX_PAGES cap', serviceParams)
+      }
+
+      return this.fillEntriesWithData(
+        allEntries,
+        serviceParams,
+        options.isPreview
+      )
     }
     return getCMSPage(options.cmsOptions)
   }
@@ -60,6 +81,11 @@ export class ContentService {
     const options = this.createContentOptions(plpParams)
 
     if (isContentPlatformSource()) {
+      const directMatch = await this.getSingleContent<PLPContentType>(plpParams)
+      if (directMatch) {
+        return directMatch
+      }
+
       const pages = (await this.getMultipleContent(plpParams)).data
       if (!pages?.length) throw new MissingContentError(options.cmsOptions)
       return findBestPLPTemplate(
@@ -79,6 +105,11 @@ export class ContentService {
     const options = this.createContentOptions(pdpParams)
 
     if (isContentPlatformSource()) {
+      const directMatch = await this.getSingleContent<PDPContentType>(pdpParams)
+      if (directMatch) {
+        return directMatch
+      }
+
       const pages = (await this.getMultipleContent(pdpParams)).data
       if (!pages.length) throw new MissingContentError(options.cmsOptions)
       return findBestPDPTemplate(
