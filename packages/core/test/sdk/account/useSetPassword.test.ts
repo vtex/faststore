@@ -41,6 +41,12 @@ function getSetPasswordCall() {
   )
 }
 
+function getStartLoginCall() {
+  return mockFetch.mock.calls.find((call) =>
+    String(call[0]).includes('/pub/authentication/start')
+  )
+}
+
 describe('useSetPassword', () => {
   beforeEach(() => {
     mockFetch.mockReset()
@@ -71,6 +77,37 @@ describe('useSetPassword', () => {
     expect(url).not.toContain('/api/vtexid/')
     expect(url).toContain('expireSessions=true')
     expect(url).toContain('an=myaccount')
+  })
+
+  it('posts to the new authenticator start route with an and credentials', async () => {
+    mockFetch
+      .mockResolvedValueOnce(okResponse({})) // startLogin
+      .mockResolvedValueOnce(okResponse({ authStatus: 'success' }))
+
+    const { result } = renderHook(() => useSetPassword('myaccount'))
+
+    await act(async () => {
+      await result.current.setPassword(validInput)
+    })
+
+    const call = getStartLoginCall()
+    expect(call).toBeDefined()
+
+    const url = String(call?.[0])
+    expect(url).toContain('/api/authenticator/pub/authentication/start')
+    expect(url).not.toContain('/api/vtexid/')
+    expect(url).toContain('an=myaccount')
+
+    const init = call?.[1] as RequestInit
+    expect(init?.method).toBe('POST')
+    expect(init?.credentials).toBe('include')
+
+    const body = init?.body as FormData
+    expect(body).toBeInstanceOf(FormData)
+    expect(body.get('user')).toBe(validInput.userEmail)
+    expect(body.get('scope')).toBe('myaccount')
+    expect(body.get('accountName')).toBe('myaccount')
+    expect(body.get('returnUrl')).toBe('/')
   })
 
   it('sends a POST with credentials and the expected form-data body', async () => {
@@ -141,7 +178,15 @@ describe('useSetPassword', () => {
       await result.current.setPassword(validInput)
     })
 
-    const url = String(getSetPasswordCall()?.[0])
-    expect(url).toContain('an=storeframework')
+    const setPasswordUrl = String(getSetPasswordCall()?.[0])
+    expect(setPasswordUrl).toContain('an=storeframework')
+
+    const startLoginCall = getStartLoginCall()
+    const startLoginUrl = String(startLoginCall?.[0])
+    expect(startLoginUrl).toContain('an=storeframework')
+
+    const startBody = (startLoginCall?.[1] as RequestInit)?.body as FormData
+    expect(startBody.get('scope')).toBe('storeframework')
+    expect(startBody.get('accountName')).toBe('storeframework')
   })
 })
