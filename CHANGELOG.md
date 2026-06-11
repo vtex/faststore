@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.2](https://github.com/vtex/faststore/compare/v3.100.1...v3.100.2) (2026-06-11)
+
+### Bug Fixes
+
+- paginate listEntries with scroll ([#3384](https://github.com/vtex/faststore/issues/3384)) ([83fdae8](https://github.com/vtex/faststore/commit/83fdae826f8fd3e1f739887b21b529598f325cb6))
+
 ## [3.100.1](https://github.com/vtex/faststore/compare/v3.100.0...v3.100.1) (2026-06-08)
 
 ### Bug Fixes
