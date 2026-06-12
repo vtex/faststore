@@ -8,7 +8,10 @@ import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-grpc'
 import { credentials } from '@grpc/grpc-js'
 import { logs } from '@opentelemetry/api-logs'
 
-export function setupLogs(resource: Resource) {
+export function setupLogs(resource: Resource): LoggerProvider {
+  if (globalThis.fsDiagnostics.LOGGER_CLIENT)
+    return globalThis.fsDiagnostics.LOGGER_CLIENT
+
   const OTLP_LOGGER_ENDPOINT =
     globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'localhost:4317'
 
@@ -34,4 +37,8 @@ export function setupLogs(resource: Resource) {
   })
 
   logs.setGlobalLoggerProvider(loggerProvider)
+
+  globalThis.fsDiagnostics.LOGGER_CLIENT ??= loggerProvider
+
+  return loggerProvider
 }

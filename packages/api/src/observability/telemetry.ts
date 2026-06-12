@@ -24,8 +24,10 @@ export const ResolverTrace = <
       return fn(source, vars, graphqlContext, info)
     }
 
+    resolverName ??= 'Unknown Graphql Resolver'
     const tracer = OTELAPI.trace.getTracer('Graphql')
-    const span = tracer.startSpan(resolverName ?? 'Unknown Graphql Resolver', {
+
+    const span = tracer.startSpan(resolverName, {
       kind: OTELAPI.SpanKind.INTERNAL,
       attributes: {
         timestamp: Date.now(),
@@ -36,7 +38,7 @@ export const ResolverTrace = <
       },
     })
 
-    OTELAPI.trace.setSpan(
+    const context = OTELAPI.trace.setSpan(
       OTELAPI.propagation.extract(
         OTELAPI.context.active(),
         graphqlContext.OTEL.__otelContext
@@ -45,17 +47,37 @@ export const ResolverTrace = <
     )
 
     try {
-      return fn(source, vars, graphqlContext, info)
-    } catch (error: any) {
-      span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
-      span?.recordException(error)
-      console.error(
-        `Error when executing resolver: ${resolverName}: \n %o`,
-        error
+      const returnedValue = OTELAPI.context.with(context, () =>
+        fn(source, vars, graphqlContext, info)
       )
-      throw error
-    } finally {
+
+      if (returnedValue instanceof Promise) {
+        return returnedValue
+          .then((promisedResult) => {
+            span?.end()
+
+            return promisedResult
+          })
+          .catch((err) => {
+            throw catchError(
+              err,
+              span,
+              resolverName ?? 'Unknown Graphql Resolver'
+            )
+          }) as TReturn
+      }
+
       span?.end()
+      return returnedValue
+    } catch (error: any) {
+      throw catchError(error, span, resolverName)
     }
   }
+}
+
+function catchError(error: Error, span: OTELAPI.Span, resolverName: string) {
+  span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
+  span?.recordException(error)
+  console.error(`Error when executing resolver: ${resolverName}: \n %o`, error)
+  return error
 }

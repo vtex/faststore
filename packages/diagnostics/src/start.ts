@@ -1,6 +1,10 @@
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import { resourceFromAttributes } from '@opentelemetry/resources'
-import { ATTR_VTEX_ACCOUNT_NAME } from '@vtex/diagnostics-semconv'
+import {
+  ATTR_VTEX_ACCOUNT_NAME,
+  ATTR_VTEX_APPLICATION_ID,
+  ATTR_VTEX_DIAGNOSTICS_NAME,
+} from '@vtex/diagnostics-semconv'
 import { traceExporter } from './tracer'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
 import { setupLogs } from './logger'
@@ -17,6 +21,8 @@ export async function getTelemetryClient(opt: {
 
   const resource = resourceFromAttributes({
     [ATTR_VTEX_ACCOUNT_NAME]: opt.account ?? 'unknown',
+    [ATTR_VTEX_APPLICATION_ID]: opt.serviceName,
+    [ATTR_VTEX_DIAGNOSTICS_NAME]: 'faststore_custom',
     '@faststore_version': opt.version,
     '@faststore_package_name': opt.packageName,
     '@faststore_account_name': opt.account ?? 'unknown',
@@ -29,21 +35,23 @@ export async function getTelemetryClient(opt: {
     instrumentations: [new HttpInstrumentation()],
   })
 
-  setupLogs(resource)
+  const logs = setupLogs(resource)
+
+  sdk.start()
 
   if (global.fsDiagnostics.IS_DEV) console.log('TELEMETRY CLIENT STARTED', opt)
 
   global.fsDiagnostics.TELEMETRY_CLIENT ??= sdk
 
-  process.on('SIGTERM', () => {
+  process.on('SIGTERM', async () => {
+    await logs.shutdown()
+
     sdk
       .shutdown()
       .then(() => console.log('OTel SDK shut down gracefully'))
       .catch((err) => console.error('Error shutting down OTel SDK', err))
       .finally(() => process.exit(0))
   })
-
-  sdk.start()
 
   return sdk
 }

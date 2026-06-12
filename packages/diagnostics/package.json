@@ -8,7 +8,7 @@
     "directory": "packages/diagnostics"
   },
   "main": "./dist/cjs/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build"
   },
