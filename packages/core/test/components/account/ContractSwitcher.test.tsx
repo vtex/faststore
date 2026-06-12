@@ -20,8 +20,9 @@ vi.mock('src/sdk/account/useSwitchContract', () => ({
 import { ContractSwitcher } from '../../../src/components/account/MyAccountDrawer/OrganizationDrawer/ContractSwitcher'
 
 const contracts = [
-  { id: 'a', corporateName: 'Stellar Global', isActive: true },
+  { id: 'a', corporateName: 'Stellar Global', isActive: true, isDefault: true },
   { id: 'b', corporateName: 'Acme Foods', isActive: false },
+  { id: 'c', corporateName: 'Beacon Security Corp', isActive: false },
 ]
 
 describe('ContractSwitcher', () => {
@@ -50,7 +51,9 @@ describe('ContractSwitcher', () => {
       error: null,
     })
 
-    const { container } = render(<ContractSwitcher onBack={vi.fn()} />)
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
 
     expect(
       container.querySelector('[data-fs-contract-switcher-loading]')
@@ -64,7 +67,7 @@ describe('ContractSwitcher', () => {
       error: new Error('boom'),
     })
 
-    render(<ContractSwitcher onBack={vi.fn()} />)
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
 
     expect(screen.getByRole('alert')).toBeTruthy()
   })
@@ -76,33 +79,64 @@ describe('ContractSwitcher', () => {
       error: null,
     })
 
-    const { container } = render(<ContractSwitcher onBack={vi.fn()} />)
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
+    )
 
     expect(
       container.querySelector('[data-fs-contract-switcher-empty]')
     ).toBeTruthy()
   })
 
-  it('renders contracts by corporate name and marks the active one (REQ-04, REQ-05)', () => {
-    const { container } = render(<ContractSwitcher onBack={vi.fn()} />)
-
-    expect(screen.getByText('Stellar Global')).toBeTruthy()
-    expect(screen.getByText('Acme Foods')).toBeTruthy()
-
-    const activeOption = container.querySelector(
-      '[data-fs-contract-switcher-option][aria-current="true"]'
+  it('shows the active contract as the current session and lists alternatives (REQ-04, REQ-05)', () => {
+    const { container } = render(
+      <ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />
     )
-    expect(activeOption).toBeTruthy()
-    expect((activeOption as HTMLButtonElement).disabled).toBe(true)
+
+    const currentCard = container.querySelector(
+      '[data-fs-contract-switcher-current-card]'
+    )
+    expect(currentCard?.textContent).toContain('Stellar Global')
+
+    // The active contract is not offered as a selectable alternative.
+    expect(screen.getByText('Acme Foods')).toBeTruthy()
+    expect(screen.getByText('Beacon Security Corp')).toBeTruthy()
+    const options = container.querySelectorAll(
+      '[data-fs-contract-switcher-option]'
+    )
+    expect(options.length).toBe(2)
   })
 
-  it('switches to a selected contract (REQ-03)', async () => {
+  it('requires selecting a contract before Confirm is enabled, then switches (REQ-03)', async () => {
     const onSwitched = vi.fn()
-    render(<ContractSwitcher onBack={vi.fn()} onSwitched={onSwitched} />)
+    render(
+      <ContractSwitcher
+        onBack={vi.fn()}
+        onClose={vi.fn()}
+        onSwitched={onSwitched}
+      />
+    )
+
+    const confirm = screen.getByRole('button', { name: /confirm/i })
+    expect((confirm as HTMLButtonElement).disabled).toBe(true)
 
     fireEvent.click(screen.getByText('Acme Foods'))
+    expect((confirm as HTMLButtonElement).disabled).toBe(false)
+
+    fireEvent.click(confirm)
 
     await waitFor(() => expect(mockSwitchContract).toHaveBeenCalledWith('b'))
     await waitFor(() => expect(onSwitched).toHaveBeenCalledTimes(1))
+  })
+
+  it('filters the alternatives by search', () => {
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'acme' },
+    })
+
+    expect(screen.getByText('Acme Foods')).toBeTruthy()
+    expect(screen.queryByText('Beacon Security Corp')).toBeNull()
   })
 })

@@ -1,11 +1,15 @@
-import { Button, Link, SlideOverHeader } from '@faststore/ui'
+import { Button, Icon, Link, SlideOverHeader } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
 export type OrganizationDrawerHeaderProps = {
   onCloseDrawer?: () => void
   contractImage?: ReactNode
   contractName: string
-  contractUrl: string
+  contractUrl: string | null
+  /**
+   * Marks the active contract as the Organization Unit's default (star).
+   */
+  isDefault?: boolean
   /**
    * When provided, renders the "Change" CTA next to the active contract,
    * opening the contract switcher (Figma node 103-5434).
@@ -17,6 +21,7 @@ export const OrganizationDrawerHeader = ({
   contractUrl,
   contractName,
   contractImage,
+  isDefault,
   onCloseDrawer,
   onChangeContract,
 }: OrganizationDrawerHeaderProps) => {
@@ -26,6 +31,7 @@ export const OrganizationDrawerHeader = ({
       <div data-fs-organization-drawer-header>
         <Link
           data-fs-organization-drawer-header-contract-link
+          aria-label={contractName}
           {...(contractUrl && { href: contractUrl })}
         >
           <div data-fs-organization-drawer-header-contract-image>
@@ -35,19 +41,38 @@ export const OrganizationDrawerHeader = ({
               </span>
             )}
           </div>
-          <h1 data-fs-organization-drawer-header-contract-name>
-            {contractName}
-          </h1>
         </Link>
-        {onChangeContract && (
-          <Button
-            data-fs-organization-drawer-header-change
-            variant="secondary"
-            onClick={onChangeContract}
+        <div data-fs-organization-drawer-header-row>
+          <Link
+            data-fs-organization-drawer-header-contract-name-link
+            {...(contractUrl && { href: contractUrl })}
           >
-            Change
-          </Button>
-        )}
+            <h1 data-fs-organization-drawer-header-contract-name>
+              {contractName}
+            </h1>
+          </Link>
+          {(isDefault || onChangeContract) && (
+            <div data-fs-organization-drawer-header-actions>
+              {isDefault && (
+                <Icon
+                  data-fs-organization-drawer-header-default
+                  name="Star"
+                  width={20}
+                  height={20}
+                />
+              )}
+              {onChangeContract && (
+                <Button
+                  data-fs-organization-drawer-header-change
+                  variant="secondary"
+                  onClick={onChangeContract}
+                >
+                  Change
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </>
   )

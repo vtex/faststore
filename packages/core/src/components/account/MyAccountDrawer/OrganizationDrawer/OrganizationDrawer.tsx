@@ -10,9 +10,9 @@ import {
   getVtexCookieNames,
 } from 'src/utils/clearCookies'
 import storeConfig from '../../../../../discovery.config'
-import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
 import { ContractSwitcher } from './ContractSwitcher'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
+import { OrganizationDrawerFooter } from './OrganizationDrawerFooter'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import { setReloadAfterLogoutReturn } from './useReloadAfterLogoutReturn'
 import styles from './section.module.scss'
@@ -140,13 +140,10 @@ export const OrganizationDrawer = ({
   isRepresentative,
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b, person } = useSession()
+  const { b2b } = useSession()
   const [view, setView] = useState<OrganizationDrawerView>('menu')
 
-  const contractName =
-    b2b?.contractName ??
-    `${(person?.givenName ?? '').trim()} ${(person?.familyName ?? '').trim()}`.trim() ??
-    ''
+  const contractName = b2b?.contractName ?? ''
 
   const contractUrl = b2b?.unitId
     ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
@@ -154,6 +151,8 @@ export const OrganizationDrawer = ({
 
   const isOrganizationManager = b2b?.organizationManager || false
   // The switcher is only meaningful for B2B buyers tied to an Organization Unit.
+  // Buyers with a single (or no alternative) contract see the empty state inside
+  // the switcher; we don't fetch the contract count eagerly to protect TTFB.
   const canSwitchContract = Boolean(b2b?.unitId)
 
   return (
@@ -169,36 +168,35 @@ export const OrganizationDrawer = ({
         className: `section ${styles.section} section-organization-drawer`,
       }}
     >
-      <OrganizationDrawerHeader
-        onCloseDrawer={closeDrawer}
-        contractName={contractName}
-        contractUrl={contractUrl}
-        onChangeContract={
-          canSwitchContract && view === 'menu'
-            ? () => setView('switch')
-            : undefined
-        }
-      />
       {view === 'switch' ? (
         <ContractSwitcher
           onBack={() => setView('menu')}
+          onClose={fadeOut}
           onSwitched={() => setView('menu')}
         />
       ) : (
-        <OrganizationDrawerBody isRepresentative={isRepresentative} />
+        <div data-fs-organization-drawer-menu>
+          <div data-fs-organization-drawer-menu-scroll>
+            <OrganizationDrawerHeader
+              onCloseDrawer={closeDrawer}
+              contractName={contractName}
+              contractUrl={contractUrl}
+              onChangeContract={
+                canSwitchContract ? () => setView('switch') : undefined
+              }
+            />
+            <OrganizationDrawerBody isRepresentative={isRepresentative} />
+          </div>
+          <OrganizationDrawerFooter
+            orgName={b2b?.unitName ?? ''}
+            userName={b2b?.userName ?? ''}
+            userEmail={b2b?.userEmail ?? ''}
+            showManageLink={isOrganizationManager}
+            manageUrl={contractUrl ?? undefined}
+            onLogoutClick={doLogout}
+          />
+        </div>
       )}
-      <footer data-fs-organization-drawer-footer-wrapper>
-        <ProfileSummary
-          showManageLink={isOrganizationManager}
-          bordered={true}
-          onLogoutClick={doLogout}
-          person={{
-            name: b2b?.userName ?? '',
-            email: b2b?.userEmail ?? '',
-          }}
-          orgName={b2b?.unitName ?? ''}
-        />
-      </footer>
     </SlideOver>
   )
 }
