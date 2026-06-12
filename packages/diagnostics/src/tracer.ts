@@ -1,34 +1,30 @@
-import { Exporters } from '@vtex/diagnostics-nodejs'
-import type { TelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc'
+import * as grpc from '@grpc/grpc-js'
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
 
-async function setupTracesExporter() {
+export function traceExporter() {
   const OTLP_TRACES_ENDPOINT =
     globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT || 'localhost:4317'
 
-  const tracesConfig = Exporters.CreateTracesExporterConfig({
-    endpoint: OTLP_TRACES_ENDPOINT,
-    insecure: global.fsDiagnostics.IS_DEV ?? false,
+  let credentials = grpc.credentials.createSsl()
+  if (
+    OTLP_TRACES_ENDPOINT.includes('localhost') ||
+    OTLP_TRACES_ENDPOINT.includes('127.0.0.1') ||
+    globalThis.fsDiagnostics.IS_DEV
+  ) {
+    credentials = grpc.credentials.createInsecure()
+  }
+
+  const collectorExporter = new OTLPTraceExporter({
+    credentials,
+    url: OTLP_TRACES_ENDPOINT,
+    compression: 'gzip' as any,
   })
 
-  const tracesExporter = Exporters.CreateExporter(tracesConfig, 'otlp')
-  await tracesExporter.initialize()
-  return tracesExporter
-}
-
-export async function getTracesClient(telemetryClient: TelemetryClient) {
-  if (global.fsDiagnostics.TRACE_CLIENT)
-    return global.fsDiagnostics.TRACE_CLIENT
-
-  const tracesExporter = await setupTracesExporter()
-
-  global.fsDiagnostics.TRACE_CLIENT ??= await telemetryClient.newTracesClient({
-    setGlobalProvider: true,
-    exporter: tracesExporter,
+  return new BatchSpanProcessor(collectorExporter, {
+    maxQueueSize: 2048,
+    maxExportBatchSize: 512,
+    scheduledDelayMillis: 5000,
+    exportTimeoutMillis: 30_000,
   })
-
-  return global.fsDiagnostics.TRACE_CLIENT
-}
-
-export function getTraceClient(_?: string) {
-  return global.fsDiagnostics.TRACE_CLIENT
 }

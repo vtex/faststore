@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
   root: process.env.PWD ?? process.cwd(),
   plugins: [dts() as any],
   build: {
-    sourcemap: mode === 'production' ? 'hidden' : 'inline',
+    sourcemap: 'inline',
     outDir: './dist',
     lib: {
       entry: './src/index.ts',
@@ -18,7 +18,6 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       external: [
-        /@vtex\/diagnostics-nodejs/,
         /@opentelemetry/,
         ...builtinModules.concat(builtinModules.map((e) => `node:${e}`)),
         ...Object.keys({

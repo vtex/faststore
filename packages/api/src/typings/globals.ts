@@ -18,9 +18,7 @@ interface Options {
   incrementAddress: boolean
   flags?: FeatureFlags
   version?: string
-  OTEL?: {
-    enabled: true
-  }
+  OTEL: Record<string, any>
   discoveryConfig?: Record<string, unknown>
 }
 

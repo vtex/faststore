@@ -1,11 +1,9 @@
-import { NewTelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
-import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
-import resolvePackage from 'resolve-pkg'
+import { NodeSDK } from '@opentelemetry/sdk-node'
+import { resourceFromAttributes } from '@opentelemetry/resources'
 import { ATTR_VTEX_ACCOUNT_NAME } from '@vtex/diagnostics-semconv'
-
-import { name as currentPkgName } from '../package.json' with { type: 'json' }
-import { getTracesClient } from './tracer'
-import { getLogger } from './logger'
+import { traceExporter } from './tracer'
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
+import { setupLogs } from './logger'
 
 export async function getTelemetryClient(opt: {
   serviceName: string
@@ -17,39 +15,35 @@ export async function getTelemetryClient(opt: {
   if (global.fsDiagnostics.TELEMETRY_CLIENT)
     return global.fsDiagnostics.TELEMETRY_CLIENT
 
-  const client = await NewTelemetryClient(
-    currentPkgName,
-    opt.clientName,
-    opt.serviceName,
-    {
-      additionalAttrs: {
-        [ATTR_VTEX_ACCOUNT_NAME]: opt.account ?? 'unknown',
-        '@faststore_version': opt.version,
-        '@faststore_package_name': opt.packageName,
-        '@faststore_account_name': opt.account ?? 'unknown',
-        '@faststore_environment': process.env.NODE_ENV ?? 'development',
-      },
-      // debug: global.fsDiagnostics.IS_DEV,
-      config: {
-        configPath: resolvePackage(
-          `@faststore/diagnostics/configs/${global.fsDiagnostics.IS_DEV ? 'dev' : 'prod'}.json`,
-          {
-            cwd: process.env.PWD ?? process.cwd(),
-          }
-        ),
-      },
-    }
-  )
+  const resource = resourceFromAttributes({
+    [ATTR_VTEX_ACCOUNT_NAME]: opt.account ?? 'unknown',
+    '@faststore_version': opt.version,
+    '@faststore_package_name': opt.packageName,
+    '@faststore_account_name': opt.account ?? 'unknown',
+    '@faststore_environment': process.env.NODE_ENV ?? 'development',
+  })
 
-  const { serviceName, account } = opt
-  await getLogger(client, { serviceName, client: account })
-  await getTracesClient(client)
+  const sdk = new NodeSDK({
+    resource,
+    spanProcessors: [traceExporter()],
+    instrumentations: [new HttpInstrumentation()],
+  })
 
-  client.registerInstrumentations([new HttpInstrumentation()])
+  setupLogs(resource)
 
   if (global.fsDiagnostics.IS_DEV) console.log('TELEMETRY CLIENT STARTED', opt)
 
-  global.fsDiagnostics.TELEMETRY_CLIENT ??= client
+  global.fsDiagnostics.TELEMETRY_CLIENT ??= sdk
 
-  return client
+  process.on('SIGTERM', () => {
+    sdk
+      .shutdown()
+      .then(() => console.log('OTel SDK shut down gracefully'))
+      .catch((err) => console.error('Error shutting down OTel SDK', err))
+      .finally(() => process.exit(0))
+  })
+
+  sdk.start()
+
+  return sdk
 }

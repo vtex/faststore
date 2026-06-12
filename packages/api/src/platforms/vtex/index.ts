@@ -40,7 +40,10 @@ export interface GraphqlContext {
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
   return OTELAPI.context.with(
-    OTELAPI.propagation.extract(OTELAPI.context.active(), options.OTEL),
+    OTELAPI.propagation.extract(
+      OTELAPI.context.active(),
+      options.OTEL.__otelContext
+    ),
     () =>
       (ctx: any): GraphqlContext => {
         ctx.storage = {
