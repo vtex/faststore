@@ -24,6 +24,9 @@ catalogs:
     '@envelop/validation-cache':
       specifier: ^10
       version: 10.1.1
+    '@fontsource/inter':
+      specifier: ^5.2.6
+      version: 5.2.8
     '@graphql-codegen/cli':
       specifier: 6.1.1
       version: 6.1.1
@@ -440,7 +443,7 @@ importers:
         specifier: workspace:*
         version: link:../ui
       '@fontsource/inter':
-        specifier: ^5.2.6
+        specifier: 'catalog:'
         version: 5.2.8
       '@graphql-codegen/cli':
         specifier: 'catalog:'
