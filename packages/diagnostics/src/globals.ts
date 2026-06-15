@@ -4,7 +4,6 @@ const isDev =
 globalThis.fsDiagnostics ??= {
   IS_DEV: isDev,
   TELEMETRY_CLIENT: undefined,
-  TRACE_CLIENT: undefined,
   LOGGER_CLIENT: undefined,
   OTLP_TRACES_ENDPOINT:
     'traces-grpc-faststore-pvl.opentelemetry-collector.vtex.systems:80',

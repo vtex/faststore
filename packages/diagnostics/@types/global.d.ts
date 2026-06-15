@@ -1,12 +1,10 @@
-import type { TelemetryClient } from '@vtex/diagnostics-nodejs/dist/telemetry/client.js'
-import type { TraceClient } from '@vtex/diagnostics-nodejs/dist/types/traces.js'
-import type { LogClient } from '@vtex/diagnostics-nodejs/dist/types/logs.d.ts'
+import type { NodeSDK } from '@opentelemetry/sdk-node'
+import type { LoggerProvider } from '@opentelemetry/sdk-logs'
 
 declare global {
   var fsDiagnostics: {
-    TELEMETRY_CLIENT: TelemetryClient | undefined
-    TRACE_CLIENT: TraceClient | undefined
-    LOGGER_CLIENT: LogClient | undefined
+    TELEMETRY_CLIENT: NodeSDK | undefined
+    LOGGER_CLIENT: LoggerProvider | undefined
     IS_DEV: boolean
     OTLP_TRACES_ENDPOINT: string
     OTLP_LOGGER_ENDPOINT: string
