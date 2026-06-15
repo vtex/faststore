@@ -5,12 +5,37 @@ import { useSession } from 'src/sdk/session'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import type { ServerListQuotesQueryQuery } from '@generated/graphql'
 
-function formatDate(date: string, locale: string) {
-  return new Date(date).toLocaleDateString(locale, {
+function formatDateTime(isoString: string, locale: string) {
+  return new Date(isoString).toLocaleString(locale, {
     year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
   })
+}
+
+function formatDateShort(isoString: string, locale: string) {
+  return new Date(isoString).toLocaleDateString(locale, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
+function getRelativeExpiry(isoString: string): string | null {
+  const diffMs = new Date(isoString).getTime() - Date.now()
+  if (diffMs <= 0) return null
+
+  const hours = Math.floor(diffMs / 3_600_000)
+  const days = Math.floor(diffMs / 86_400_000)
+  const weeks = Math.floor(days / 7)
+  const months = Math.floor(days / 30)
+
+  if (hours < 24) return `${hours} ${hours === 1 ? 'hour' : 'hours'} left`
+  if (days < 14) return `${days} ${days === 1 ? 'day' : 'days'} left`
+  if (weeks < 8) return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} left`
+  return `${months} ${months === 1 ? 'month' : 'months'} left`
 }
 
 function formatAmount(amount: number, locale: string, currencyCode: string) {
@@ -96,97 +121,87 @@ export default function MyAccountListQuotesTable({
 
   return (
     <>
-      <table data-fs-list-orders-table>
-        <tbody data-fs-list-orders-table-body>
-          {listQuotes.list.map((item) => {
-            const quoteUrl = `/pvt/account/quotes/${item.id}`
-            const createdDate = formatDate(item.createdAt, locale)
-            const expiresDate = formatDate(item.expiresAt, locale)
-            const formattedAmount = formatAmount(
-              item.amount,
-              locale,
-              currencyCode
-            )
+      <div data-fs-quotes-list>
+        {listQuotes.list.map((item) => {
+          const quoteUrl = `/pvt/account/quotes/${item.id}`
+          const relativeExpiry = getRelativeExpiry(item.expiresAt)
+          const formattedAmount = formatAmount(
+            item.amount,
+            locale,
+            currencyCode
+          )
 
-            const handleRowClick = () => {
+          const handleClick = () => {
+            window.location.href = quoteUrl
+          }
+
+          const handleKeyDown = (e: React.KeyboardEvent) => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
               window.location.href = quoteUrl
             }
+          }
 
-            const handleRowKeyDown = (e: React.KeyboardEvent) => {
-              if (e.key === 'Enter') {
-                e.preventDefault()
-                window.location.href = quoteUrl
-              }
-            }
+          return (
+            <div
+              data-fs-quotes-list-row
+              key={item.id}
+              onClick={handleClick}
+              onKeyDown={handleKeyDown}
+              tabIndex={0}
+              role="button"
+              aria-label={`View quote ${item.label ?? item.id} details`}
+            >
+              {/* Left: ID + label */}
+              <div data-fs-quotes-list-col-main>
+                <p data-fs-quotes-list-id>{item.id}</p>
+                {item.label && <p data-fs-quotes-list-label>{item.label}</p>}
+              </div>
 
-            return (
-              <tr
-                data-fs-list-orders-table-row
-                key={item.id}
-                onClick={handleRowClick}
-                onKeyDown={handleRowKeyDown}
-                tabIndex={0}
-                aria-label={`View quote ${item.label ?? item.id} details`}
-              >
-                <td data-fs-list-orders-table-cell>
-                  <div data-fs-list-orders-table-product-info-main>
-                    <p
-                      data-fs-list-orders-table-product-info-order-id
-                      title={`ID: ${item.id}`}
-                    >
-                      {item.label ?? item.id}
-                    </p>
-                    <p
-                      data-fs-list-orders-table-product-info-order-total
-                      title={`Amount: ${formattedAmount}`}
-                    >
-                      {formattedAmount}
-                    </p>
+              {/* Middle: created by + dates (desktop only) */}
+              {isDesktop && (
+                <div data-fs-quotes-list-col-dates>
+                  {item.createdBy && (
+                    <div data-fs-quotes-list-date-group>
+                      <span data-fs-quotes-list-date-label>Created by</span>
+                      <span data-fs-quotes-list-date-value>
+                        {item.createdBy}
+                      </span>
+                    </div>
+                  )}
+                  <div data-fs-quotes-list-date-group>
+                    <span data-fs-quotes-list-date-label>Creation date</span>
+                    <span data-fs-quotes-list-date-value>
+                      {formatDateTime(item.createdAt, locale)}
+                    </span>
                   </div>
-                </td>
+                  <div data-fs-quotes-list-date-group>
+                    <span data-fs-quotes-list-date-label>Expires on</span>
+                    <span data-fs-quotes-list-date-value>
+                      {formatDateShort(item.expiresAt, locale)}
+                      {relativeExpiry && (
+                        <span data-fs-quotes-list-relative-expiry>
+                          {' · '}
+                          {relativeExpiry}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </div>
+              )}
 
-                {isDesktop && (
-                  <>
-                    <td data-fs-list-orders-table-cell>
-                      <div data-fs-list-orders-table-product-info>
-                        <p data-fs-list-orders-table-product-info-label>
-                          Created
-                        </p>
-                        <p
-                          data-fs-list-orders-table-product-info-value
-                          title={createdDate}
-                        >
-                          {createdDate}
-                        </p>
-                      </div>
-                    </td>
-                    <td data-fs-list-orders-table-cell>
-                      <div data-fs-list-orders-table-product-info>
-                        <p data-fs-list-orders-table-product-info-label>
-                          Expires
-                        </p>
-                        <p
-                          data-fs-list-orders-table-product-info-value
-                          title={expiresDate}
-                        >
-                          {expiresDate}
-                        </p>
-                      </div>
-                    </td>
-                  </>
-                )}
-
-                <td data-fs-list-orders-table-cell>
-                  <MyAccountQuoteStatusBadge status={item.status} />
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-      {isDesktop && (
-        <Pagination page={filters.page} total={total} perPage={perPage} />
-      )}
+              {/* Right: badge + total */}
+              <div data-fs-quotes-list-col-status>
+                <MyAccountQuoteStatusBadge status={item.status} />
+                <p data-fs-quotes-list-total>
+                  Total <strong>{formattedAmount}</strong>
+                </p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <Pagination page={filters.page} total={total} perPage={perPage} />
     </>
   )
 }

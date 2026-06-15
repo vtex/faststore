@@ -26,6 +26,10 @@ type UserQuoteSummary {
   Total amount of the quote.
   """
   amount: Float!
+  """
+  Name or email of the user who created the quote.
+  """
+  createdBy: String
 }
 
 """

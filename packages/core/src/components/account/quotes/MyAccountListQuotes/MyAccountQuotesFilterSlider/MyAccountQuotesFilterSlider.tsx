@@ -1,10 +1,4 @@
-import {
-  Filter as UIFilter,
-  FilterFacetBoolean as UIFilterFacetBoolean,
-  FilterFacetBooleanItem as UIFilterFacetBooleanItem,
-  FilterFacets as UIFilterFacets,
-  FilterSlider as UIFilterSlider,
-} from '@faststore/ui'
+import { FilterSlider as UIFilterSlider } from '@faststore/ui'
 
 import { useRef, useState } from 'react'
 import MyAccountFilterFacetDateRange from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider/MyAccountFilterFacetDateRange/MyAccountFilterFacetDateRange'
@@ -12,6 +6,7 @@ import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
 } from 'src/sdk/search/useMyAccountFilter'
+import MyAccountQuotesStatusSelector from '../MyAccountQuotesStatusSelector/MyAccountQuotesStatusSelector'
 import styles from './section.module.scss'
 
 export interface MyAccountQuotesFilterSliderProps {
@@ -75,6 +70,14 @@ function MyAccountQuotesFilterSlider({
     window.location.href = `/pvt/account/quotes${params.toString() ? `?${params}` : ''}`
   }
 
+  const statusFacet = facets.find(
+    (f) => f.__typename === 'StoreFacetBoolean' && f.key === 'status'
+  )
+  const rangeFacets = facets.filter((f) => f.__typename === 'StoreFacetRange')
+  const selectedStatusValues = selected
+    .filter((f) => f.key === 'status')
+    .map((f) => f.value)
+
   return (
     <UIFilterSlider
       overlayProps={{
@@ -100,76 +103,49 @@ function MyAccountQuotesFilterSlider({
       }}
       onClose={() => {}}
     >
-      <UIFilter
-        testId={`mobile-${testId}`}
-        indicesExpanded={expanded}
-        onAccordionChange={(index: number) =>
-          dispatch({ type: 'toggleExpanded', payload: index })
-        }
-      >
-        {facets.map((facet, index) => {
-          const { __typename: type, label } = facet
-          const isExpanded = expanded.has(index)
-          return (
-            <UIFilterFacets
-              key={`${testId}-${label}-${index}`}
-              testId={`mobile-${testId}`}
-              index={index}
-              type={type}
-              label={label}
-            >
-              {type === 'StoreFacetBoolean' && isExpanded && (
-                <UIFilterFacetBoolean>
-                  {facet.values.map((item) => {
-                    const normalizedTestId = testId?.trim().toLowerCase() || ''
-                    const normalizedFacetLabel =
-                      facet.label?.trim().toLowerCase() || ''
-                    const normalizedItemLabel =
-                      item.label?.trim().toLowerCase() || ''
-                    const itemId = `${normalizedTestId}-${normalizedFacetLabel}-${normalizedItemLabel}`
-
-                    return (
-                      <UIFilterFacetBooleanItem
-                        key={itemId}
-                        id={itemId}
-                        testId={`mobile-${normalizedTestId}`}
-                        onFacetChange={(facet) =>
-                          dispatch({ type: 'toggleFacet', payload: facet })
-                        }
-                        selected={item.selected}
-                        value={item.value}
-                        quantity={item.quantity}
-                        facetKey={facet.key}
-                        label={item.label}
-                      />
-                    )
-                  })}
-                </UIFilterFacetBoolean>
-              )}
-              {type === 'StoreFacetRange' &&
-                isExpanded &&
-                facet.key === 'createdAt' && (
-                  <MyAccountFilterFacetDateRange
-                    ref={createdDateRangeRef}
-                    from={facet.from}
-                    to={facet.to}
-                    setDisabled={setDisabled}
-                  />
-                )}
-              {type === 'StoreFacetRange' &&
-                isExpanded &&
-                facet.key === 'expiresAt' && (
-                  <MyAccountFilterFacetDateRange
-                    ref={expiresDateRangeRef}
-                    from={facet.from}
-                    to={facet.to}
-                    setDisabled={setDisabled}
-                  />
-                )}
-            </UIFilterFacets>
-          )
-        })}
-      </UIFilter>
+      {statusFacet && (
+        <MyAccountQuotesStatusSelector
+          value={selectedStatusValues}
+          onChange={(newSelected) => {
+            const added = newSelected.filter(
+              (v) => !selectedStatusValues.includes(v)
+            )
+            const removed = selectedStatusValues.filter(
+              (v) => !newSelected.includes(v)
+            )
+            ;[...added, ...removed].forEach((v) =>
+              dispatch({
+                type: 'toggleFacet',
+                payload: { key: 'status', value: v },
+              })
+            )
+          }}
+        />
+      )}
+      {rangeFacets.map((facet, index) => (
+        <div
+          key={`${testId}-${facet.label}-${index}`}
+          data-fs-quotes-filter-group
+        >
+          <p data-fs-quotes-filter-group-label>{facet.label}</p>
+          {facet.key === 'createdAt' && (
+            <MyAccountFilterFacetDateRange
+              ref={createdDateRangeRef}
+              from={facet.from}
+              to={facet.to}
+              setDisabled={setDisabled}
+            />
+          )}
+          {facet.key === 'expiresAt' && (
+            <MyAccountFilterFacetDateRange
+              ref={expiresDateRangeRef}
+              from={facet.from}
+              to={facet.to}
+              setDisabled={setDisabled}
+            />
+          )}
+        </div>
+      ))}
     </UIFilterSlider>
   )
 }

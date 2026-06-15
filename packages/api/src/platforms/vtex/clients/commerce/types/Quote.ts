@@ -5,6 +5,7 @@ export interface QuoteSummary {
   createdAt: string
   expiresAt: string
   amount: number
+  createdBy?: string
 }
 
 export interface QuoteListResult {

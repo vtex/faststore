@@ -14,7 +14,6 @@ import MyAccountListQuotesTable, {
   Pagination,
 } from './MyAccountListQuotesTable/MyAccountListQuotesTable'
 import MyAccountQuotesFilterSlider from './MyAccountQuotesFilterSlider/MyAccountQuotesFilterSlider'
-import MyAccountQuotesSelectedTags from './MyAccountQuotesSelectedTags/MyAccountQuotesSelectedTags'
 import styles from './styles.module.scss'
 
 export type MyAccountListQuotesProps = {
@@ -93,6 +92,16 @@ function hasActiveFilters(
   )
 }
 
+function countActiveFilters(
+  filters: MyAccountListQuotesProps['filters']
+): number {
+  let count = 0
+  if (filters.status.length > 0) count++
+  if (filters.createdAtFrom || filters.createdAtTo) count++
+  if (filters.expiresAtFrom || filters.expiresAtTo) count++
+  return count
+}
+
 export default function MyAccountListQuotes({
   listQuotes,
   total,
@@ -108,6 +117,7 @@ export default function MyAccountListQuotes({
   const { openFilter, filter: displayFilter } = useUI()
 
   const hasFilters = hasActiveFilters(filters)
+  const activeFilterCount = countActiveFilters(filters)
   const isEmpty = listQuotes.list.length === 0
 
   return (
@@ -140,55 +150,12 @@ export default function MyAccountListQuotes({
             }}
           >
             Filters
+            {activeFilterCount > 0 && (
+              <span data-fs-filter-count>{activeFilterCount}</span>
+            )}
           </Button>
         </div>
       </div>
-
-      <MyAccountQuotesSelectedTags
-        filters={{
-          status: filters.status,
-          createdAtFrom: filters.createdAtFrom,
-          createdAtTo: filters.createdAtTo,
-          expiresAtFrom: filters.expiresAtFrom,
-          expiresAtTo: filters.expiresAtTo,
-        }}
-        onClearAll={() => {
-          window.location.href = '/pvt/account/quotes'
-        }}
-        onRemoveFilter={(key, value) => {
-          const updatedFilters = { ...filters }
-
-          if (key === 'status' && Array.isArray(updatedFilters.status)) {
-            updatedFilters.status = updatedFilters.status.filter(
-              (v) => v.toLowerCase() !== value.toLowerCase()
-            )
-          } else if (key === 'createdAtFrom' || key === 'createdAtTo') {
-            updatedFilters.createdAtFrom = ''
-            updatedFilters.createdAtTo = ''
-          } else if (key === 'expiresAtFrom' || key === 'expiresAtTo') {
-            updatedFilters.expiresAtFrom = ''
-            updatedFilters.expiresAtTo = ''
-          }
-
-          const { page: _, ...filterParams } = updatedFilters
-          const filteredQuery = Object.fromEntries(
-            Object.entries(filterParams).filter(([, v]) =>
-              Array.isArray(v) ? v.length > 0 : Boolean(v)
-            )
-          )
-
-          const params = new URLSearchParams()
-          Object.entries(filteredQuery).forEach(([k, v]) => {
-            if (Array.isArray(v)) {
-              v.forEach((item) => params.append(k, item))
-            } else {
-              params.set(k, v as string)
-            }
-          })
-
-          window.location.href = `/pvt/account/quotes${params.toString() ? `?${params}` : ''}`
-        }}
-      />
 
       {displayFilter && (
         <MyAccountQuotesFilterSlider
