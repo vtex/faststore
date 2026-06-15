@@ -496,7 +496,9 @@ export const productSearchPage1Count1Fetch = {
   },
 }
 
-export const createProductFetchResultForSku = (skuId: string) => {
+export const createProductFetchResultForSku = (
+  skuId: string
+): typeof productSearchPage1Count1Fetch.result => {
   const { items, ...product } = productSearchPage1Count1Fetch.result
 
   return {

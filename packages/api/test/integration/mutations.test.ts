@@ -106,7 +106,9 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
 
   const response = await run(ValidateCartMutation, { cart: ValidCart })
 
-  // When cart is valid and etag is up to date, only checkout calls are made.
+  // When cart is valid and etag is up to date:
+  // 1. GET orderForm (checkoutOrderFormValidFetch)
+  // 2. GET product data via v1/products (handled dynamically)
   expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   expect(response.data?.validateCart).toEqual(null)

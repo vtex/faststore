@@ -384,6 +384,14 @@ describe('buildIntelligentSearchRequest', () => {
       return `vtex_segment=${segmentBase64}`
     }
 
+    it('returns empty object when cookie header is missing', () => {
+      expect(parseSegmentCookie(undefined)).toEqual({})
+    })
+
+    it('returns empty object for malformed base64/json cookie', () => {
+      expect(parseSegmentCookie('vtex_segment=not-base64')).toEqual({})
+    })
+
     it('decodes shipping/geo segment from base64 cookie', () => {
       const segment = parseSegmentCookie(
         cookieHeader(segmentWithShippingBase64)

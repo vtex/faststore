@@ -179,7 +179,7 @@ export const Query = {
       page: Math.ceil(after / first) || 0,
       count: first,
       query: term ?? undefined,
-      sort: SORT_MAP[sort ?? 'score_desc'],
+      sort: SORT_MAP[sort ?? 'score_desc'] ?? SORT_MAP.score_desc,
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
       sponsoredCount: sponsoredCount ?? undefined,
     }

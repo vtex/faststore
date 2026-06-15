@@ -1,3 +1,5 @@
+import pLimit from 'p-limit'
+
 import type { GraphqlContext } from '../../'
 import { getWithCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
@@ -21,6 +23,10 @@ import type {
 } from './types/ProductSearchResult'
 
 export type { ProductIdentifierField, Sort }
+
+// Bounds simultaneous IS v1 /products calls; values cardinality is capped
+// upstream by DataLoader maxBatchSize (99) and cross-sell/products `first`.
+const PRODUCTS_BY_IDENTIFIER_CONCURRENCY = 10
 
 export interface SearchArgs {
   query?: string
@@ -151,11 +157,9 @@ export const IntelligentSearch = (
       },
     })
 
-    return Promise.resolve(
-      fetchAPI(
-        `${base}/api/intelligent-search/v1/products?${request.params.toString()}`,
-        { headers }
-      )
+    return fetchAPI(
+      `${base}/api/intelligent-search/v1/products?${request.params.toString()}`,
+      { headers }
     )
   }
 
@@ -165,13 +169,21 @@ export const IntelligentSearch = (
     showInvisibleItems,
     hideUnavailableItems: hideUnavailable,
   }: ProductsByIdentifierArgs): Promise<Product[]> => {
+    const limit = pLimit(PRODUCTS_BY_IDENTIFIER_CONCURRENCY)
+
     const productsResult = await Promise.all(
       values.map((value) =>
-        fetchProduct({
-          field,
-          value,
-          hideUnavailableItems: hideUnavailable,
-          showInvisibleItems,
+        limit(async () => {
+          try {
+            return await fetchProduct({
+              field,
+              value,
+              hideUnavailableItems: hideUnavailable,
+              showInvisibleItems,
+            })
+          } catch {
+            return null
+          }
         })
       )
     )
