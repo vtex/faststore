@@ -20,8 +20,30 @@
   @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
   @include meta.load-css("../../../orders/MyAccountListOrders/MyAccountFilterSlider/MyAccountFilterFacetDateRange/styles.scss");
 
+  [data-fs-slide-over] {
+    --fs-slide-over-partial-width-notebook: calc(100% / 2.2);
+    --fs-slide-over-partial-max-width-notebook: calc(var(--fs-grid-breakpoint-notebook) / 2.2);
+    --fs-filter-slider-content-padding: 0 var(--fs-spacing-7);
+  }
+
   [data-fs-badge] {
     display: none;
     visibility: hidden;
+  }
+
+  // Status selector inside the filter drawer
+  [data-fs-quotes-status-selector] {
+    padding: var(--fs-spacing-5) var(--fs-spacing-7) 0;
+  }
+
+  [data-fs-quotes-filter-group] {
+    padding: var(--fs-spacing-5) var(--fs-spacing-7);
+  }
+
+  [data-fs-quotes-filter-group-label] {
+    margin: 0 0 var(--fs-spacing-3);
+    font-size: var(--fs-text-size-base);
+    font-weight: var(--fs-text-weight-regular);
+    color: var(--fs-color-text);
   }
 }

@@ -588,6 +588,7 @@ export const Query = {
         createdAt: quote.createdAt,
         expiresAt: quote.expiresAt,
         amount: quote.amount,
+        createdBy: quote.createdBy ?? null,
       })),
       paging: {
         total: result.totalItems,

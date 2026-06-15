@@ -11,9 +11,12 @@ import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
 import { gql } from '@generated/gql'
 import type {
+  ServerAccountPageQueryQuery,
+  ServerAccountPageQueryQueryVariables,
   ServerListQuotesQueryQuery,
   ServerListQuotesQueryQueryVariables,
 } from '@generated/graphql'
+import { ServerAccountPageQueryDocument } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/quotes/after'
 import { default as BeforeSection } from 'src/customizations/src/myAccount/extensions/quotes/before'
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
@@ -92,15 +95,13 @@ const query = gql(`
         createdAt
         expiresAt
         amount
+        createdBy
       }
       paging {
         total
         currentPage
         perPage
       }
-    }
-    accountProfile {
-      name
     }
   }
 `)
@@ -150,6 +151,7 @@ const getServerSidePropsBase: GetServerSideProps<
 
   const [
     listQuotesResult,
+    accountProfileResult,
     globalSections,
     globalSectionsHeader,
     globalSectionsFooter,
@@ -169,6 +171,10 @@ const getServerSidePropsBase: GetServerSideProps<
       },
       { headers: { ...context.req.headers } }
     ),
+    execute<ServerAccountPageQueryQueryVariables, ServerAccountPageQueryQuery>(
+      { variables: {}, operation: ServerAccountPageQueryDocument },
+      { headers: { ...context.req.headers } }
+    ).catch(() => null),
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
@@ -177,10 +183,10 @@ const getServerSidePropsBase: GetServerSideProps<
   if (listQuotesResult.errors) {
     console.error(...listQuotesResult.errors)
 
-    const status = extractStatusFromError(listQuotesResult.errors[0])
+    const errorStatus = extractStatusFromError(listQuotesResult.errors[0])
 
     const destination =
-      status === 403 || status === 401
+      errorStatus === 403 || errorStatus === 401
         ? `/pvt/account/403?from=${encodeURIComponent('/pvt/account/quotes')}`
         : '/pvt/account/404'
 
@@ -201,7 +207,7 @@ const getServerSidePropsBase: GetServerSideProps<
   return {
     props: {
       globalSections: globalSectionsResult,
-      accountName: listQuotesResult.data.accountProfile.name,
+      accountName: accountProfileResult?.data?.accountProfile?.name ?? '',
       listQuotes: listQuotesResult.data.listUserQuotes,
       total: listQuotesResult.data.listUserQuotes.paging.total,
       perPage: listQuotesResult.data.listUserQuotes.paging.perPage,

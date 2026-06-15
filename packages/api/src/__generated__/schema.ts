@@ -2682,6 +2682,8 @@ export type UserQuoteSummary = {
   amount: Scalars['Float']['output'];
   /** ISO 8601 date-time when the quote was created. */
   createdAt: Scalars['String']['output'];
+  /** Name or email of the user who created the quote. */
+  createdBy?: Maybe<Scalars['String']['output']>;
   /** ISO 8601 date-time when the quote expires. */
   expiresAt: Scalars['String']['output'];
   /** Unique identifier of the quote. */

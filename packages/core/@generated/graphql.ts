@@ -2508,6 +2508,8 @@ export type UserQuoteSummary = {
   amount: Scalars['Float']['output'];
   /** ISO 8601 date-time when the quote was created. */
   createdAt: Scalars['String']['output'];
+  /** Name or email of the user who created the quote. */
+  createdBy: Maybe<Scalars['String']['output']>;
   /** ISO 8601 date-time when the quote expires. */
   expiresAt: Scalars['String']['output'];
   /** Unique identifier of the quote. */
@@ -2614,7 +2616,7 @@ export type ServerListQuotesQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerListQuotesQueryQuery = { listUserQuotes: { list: Array<{ id: string, status: string, label: string | null, createdAt: string, expiresAt: string, amount: number }>, paging: { total: number, currentPage: number, perPage: number } } | null, accountProfile: { name: string | null } };
+export type ServerListQuotesQueryQuery = { listUserQuotes: { list: Array<{ id: string, status: string, label: string | null, createdAt: string, expiresAt: string, amount: number, createdBy: string | null }>, paging: { total: number, currentPage: number, perPage: number } } | null };
 
 export type ServerSecurityQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3310,7 +3312,7 @@ export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerPr
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
-export const ServerListQuotesQueryDocument = {"__meta__":{"operationName":"ServerListQuotesQuery","operationHash":"447b4859f487fdbd177d53908777e1f8d55a4e17"}} as unknown as TypedDocumentString<ServerListQuotesQueryQuery, ServerListQuotesQueryQueryVariables>;
+export const ServerListQuotesQueryDocument = {"__meta__":{"operationName":"ServerListQuotesQuery","operationHash":"c4821ad80fcc40e3323abeeef338945dedad9bd9"}} as unknown as TypedDocumentString<ServerListQuotesQueryQuery, ServerListQuotesQueryQueryVariables>;
 export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
 export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"630ec1f47f2710ce3d7895e9131482641f30c837"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
