@@ -23,9 +23,7 @@ export const apiOptions: APIOptions = {
       storeConfig.api?.enableUnavailableItemsOnCart ?? false,
   },
   version,
-  OTEL: {
-    enabled: storeConfig.analytics.otelEnabled,
-  },
+  OTEL_ENABLED: true,
   discoveryConfig: storeConfig,
 }
 
@@ -46,9 +44,6 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
 
   return {
     ...apiOptions,
-    OTEL: {
-      __otelContext: {},
-      enabled: true,
-    },
+    OTEL_ENABLED: true,
   } satisfies T
 }

@@ -30,9 +30,7 @@ const apiOptions = {
     enableOrderFormSync: true,
     enableUnavailableItemsOnCart: false,
   },
-  OTEL: {
-    __otelContext: {},
-  },
+  OTEL_ENABLED: false,
 } as Options
 
 vi.useFakeTimers({ shouldAdvanceTime: true })

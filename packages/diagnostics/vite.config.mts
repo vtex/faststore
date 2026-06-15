@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
   root: process.env.PWD ?? process.cwd(),
   plugins: [dts() as any],
   build: {
-    sourcemap: 'inline',
+    sourcemap: mode === 'production' ? 'hidden' : 'inline',
     outDir: './dist',
     lib: {
       entry: './src/index.ts',

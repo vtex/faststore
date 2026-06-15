@@ -7,16 +7,9 @@ import {
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-grpc'
 import { credentials } from '@grpc/grpc-js'
 import { type Logger, SeverityNumber, logs } from '@opentelemetry/api-logs'
-import {
-  ATTR_VTEX_ACCOUNT_NAME,
-  ATTR_VTEX_APPLICATION_ID,
-} from '@vtex/diagnostics-semconv'
 import { format } from 'node:util'
 
-export function setupLogs(
-  resource: Resource,
-  opt: { serviceName: string; account: string }
-): LoggerProvider {
+export function setupLogs(resource: Resource): LoggerProvider {
   if (globalThis.fsDiagnostics.LOGGER_CLIENT)
     return globalThis.fsDiagnostics.LOGGER_CLIENT
 
@@ -48,7 +41,7 @@ export function setupLogs(
 
   globalThis.fsDiagnostics.LOGGER_CLIENT ??= loggerProvider
 
-  overrideConsole(loggerProvider.getLogger('@faststore/console'), opt)
+  overrideConsole(loggerProvider.getLogger('@faststore/console'))
 
   return loggerProvider
 }
@@ -58,11 +51,11 @@ export function setupLogs(
  * console methods is also emitted as an OpenTelemetry log record, while still
  * writing to the original console. The wrapping happens only once (guarded by
  * the `LOGGER_CLIENT` check in `setupLogs`).
+ *
+ * Account/application identity is attached once via the provider's `resource`,
+ * so individual records intentionally omit those attributes.
  */
-function overrideConsole(
-  logger: Logger,
-  opt: { serviceName: string; account: string }
-) {
+function overrideConsole(logger: Logger) {
   // Console methods we forward to OpenTelemetry logs, mapped to the OTel severity.
   const CONSOLE_SEVERITY: Record<
     string,
@@ -94,11 +87,6 @@ function overrideConsole(
             severityNumber: severity.number,
             severityText: severity.text,
             body: format(...args),
-            attributes: {
-              [ATTR_VTEX_ACCOUNT_NAME]: opt.account,
-              [ATTR_VTEX_APPLICATION_ID]: 'faststore',
-              service: opt.serviceName,
-            },
           })
         } catch {
           // Never let telemetry break application logging.

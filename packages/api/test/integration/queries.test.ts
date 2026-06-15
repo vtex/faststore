@@ -58,9 +58,7 @@ const apiOptions = {
     enableOrderFormSync: true,
     enableUnavailableItemsOnCart: false,
   },
-  OTEL: {
-    __otelContext: {},
-  },
+  OTEL_ENABLED: false,
 } as Options
 
 const createRunner = async () => {

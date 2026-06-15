@@ -38,13 +38,7 @@ export const ResolverTrace = <
       },
     })
 
-    const context = OTELAPI.trace.setSpan(
-      OTELAPI.propagation.extract(
-        OTELAPI.context.active(),
-        graphqlContext.OTEL.__otelContext
-      ),
-      span
-    )
+    const context = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
 
     try {
       const returnedValue = OTELAPI.context.with(context, () =>

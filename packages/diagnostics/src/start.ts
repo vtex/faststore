@@ -35,16 +35,13 @@ export async function getTelemetryClient(opt: {
     instrumentations: [new HttpInstrumentation()],
   })
 
-  const logs = setupLogs(resource, {
-    serviceName: opt.serviceName,
-    account: opt.account ?? 'unknown',
-  })
+  global.fsDiagnostics.TELEMETRY_CLIENT = sdk
+
+  const logs = setupLogs(resource)
 
   sdk.start()
 
   if (global.fsDiagnostics.IS_DEV) console.log('TELEMETRY CLIENT STARTED', opt)
-
-  global.fsDiagnostics.TELEMETRY_CLIENT ??= sdk
 
   process.on('SIGTERM', async () => {
     await logs.shutdown()
