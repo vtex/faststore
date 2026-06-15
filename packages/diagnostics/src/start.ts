@@ -35,7 +35,10 @@ export async function getTelemetryClient(opt: {
     instrumentations: [new HttpInstrumentation()],
   })
 
-  const logs = setupLogs(resource)
+  const logs = setupLogs(resource, {
+    serviceName: opt.serviceName,
+    account: opt.account ?? 'unknown',
+  })
 
   sdk.start()
 
