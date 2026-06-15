@@ -1,5 +1,9 @@
 import { OTELAPI } from '@faststore/diagnostics'
 import { name, version } from '../../package.json' with { type: 'json' }
+import { getOTELLogger, logger } from '@faststore/diagnostics'
+import { format } from 'node:util'
+
+const OTELLogger = logger(getOTELLogger('@faststore/api'))
 
 export const ResolverTrace = <
   TContext extends {
@@ -73,6 +77,7 @@ function catchError(error: Error, span: OTELAPI.Span, resolverName: string) {
   span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
   span?.recordException(error)
   span?.end()
-  console.error(`Error when executing resolver: ${resolverName}: \n %o`, error)
+  console.error(`Error at resolver: ${resolverName}: \n %o`, error)
+  OTELLogger('error', format(`Error at resolver: ${resolverName}\n%o`, error))
   return error
 }

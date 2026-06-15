@@ -41,61 +41,31 @@ export function setupLogs(resource: Resource): LoggerProvider {
 
   globalThis.fsDiagnostics.LOGGER_CLIENT ??= loggerProvider
 
-  overrideConsole(loggerProvider.getLogger('@faststore/console'))
-
   return loggerProvider
 }
 
-/**
- * Wraps `globalThis.console` in a Proxy so that every call to the standard
- * console methods is also emitted as an OpenTelemetry log record, while still
- * writing to the original console. The wrapping happens only once (guarded by
- * the `LOGGER_CLIENT` check in `setupLogs`).
- *
- * Account/application identity is attached once via the provider's `resource`,
- * so individual records intentionally omit those attributes.
- */
-function overrideConsole(logger: Logger) {
-  // Console methods we forward to OpenTelemetry logs, mapped to the OTel severity.
-  const CONSOLE_SEVERITY: Record<
-    string,
-    { number: SeverityNumber; text: string }
-  > = {
-    error: { number: SeverityNumber.ERROR, text: 'ERROR' },
-    warn: { number: SeverityNumber.WARN, text: 'WARN' },
-    info: { number: SeverityNumber.INFO, text: 'INFO' },
-    debug: { number: SeverityNumber.DEBUG, text: 'DEBUG' },
+export function getOTELLogger(name = 'faststore') {
+  return globalThis.fsDiagnostics.LOGGER_CLIENT?.getLogger(name)
+}
+
+const CONSOLE_SEVERITY = {
+  error: { number: SeverityNumber.ERROR, text: 'ERROR' },
+  warn: { number: SeverityNumber.WARN, text: 'WARN' },
+  info: { number: SeverityNumber.INFO, text: 'INFO' },
+  debug: { number: SeverityNumber.DEBUG, text: 'DEBUG' },
+} as const
+
+export function logger(client?: Logger | undefined) {
+  return (severity: keyof typeof CONSOLE_SEVERITY, ...args: unknown[]) => {
+    if (!client)
+      console.info(
+        'OTEL logger is disabled. No logs will be sent to OTEL backend.'
+      )
+
+    client?.emit({
+      severityNumber: CONSOLE_SEVERITY[severity].number,
+      severityText: CONSOLE_SEVERITY[severity].text,
+      body: format(args),
+    })
   }
-
-  const handler: ProxyHandler<Console> = {
-    get(target, prop, receiver) {
-      const original = Reflect.get(target, prop, receiver)
-
-      if (
-        typeof prop !== 'string' ||
-        typeof original !== 'function' ||
-        !(prop in CONSOLE_SEVERITY)
-      ) {
-        return original
-      }
-
-      const severity = CONSOLE_SEVERITY[prop]
-
-      return (...args: unknown[]) => {
-        try {
-          logger.emit({
-            severityNumber: severity.number,
-            severityText: severity.text,
-            body: format(...args),
-          })
-        } catch {
-          // Never let telemetry break application logging.
-        }
-
-        return Reflect.apply(original, target, args)
-      }
-    },
-  }
-
-  globalThis.console = new Proxy(globalThis.console, handler)
 }
