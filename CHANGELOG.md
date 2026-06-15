@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.3](https://github.com/vtex/faststore/compare/v4.3.0-dev.2...v4.3.0-dev.3) (2026-06-15)
+
+### Features
+
+- adding sitemap to cms LP content-type ([#3386](https://github.com/vtex/faststore/issues/3386)) ([7e81ae2](https://github.com/vtex/faststore/commit/7e81ae208003ece9e19d50ab24489f9c27773929))
+
 # [4.3.0-dev.2](https://github.com/vtex/faststore/compare/v4.3.0-dev.1...v4.3.0-dev.2) (2026-06-10)
 
 ### Features
