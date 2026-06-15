@@ -6,7 +6,8 @@ export function traceExporter() {
   const OTLP_TRACES_ENDPOINT =
     globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT || 'localhost:4317'
 
-  let credentials = grpc.credentials.createSsl()
+  // let credentials = grpc.credentials.createSsl()
+  let credentials = grpc.credentials.createInsecure()
   if (
     OTLP_TRACES_ENDPOINT.includes('localhost') ||
     OTLP_TRACES_ENDPOINT.includes('127.0.0.1') ||

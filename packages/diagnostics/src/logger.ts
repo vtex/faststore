@@ -16,7 +16,8 @@ export function setupLogs(resource: Resource): LoggerProvider {
   const OTLP_LOGGER_ENDPOINT =
     globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'localhost:4317'
 
-  let c = credentials.createSsl()
+  // let c = credentials.createSsl()
+  let c = credentials.createInsecure()
   if (
     OTLP_LOGGER_ENDPOINT.includes('localhost') ||
     OTLP_LOGGER_ENDPOINT.includes('127.0.0.1') ||
