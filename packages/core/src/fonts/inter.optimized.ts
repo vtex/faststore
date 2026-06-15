@@ -1,9 +1,12 @@
 // Real Inter font self-hosting via @fontsource/inter.
 //
-// This file lives outside src/ on purpose, so it never enters the TypeScript
-// scan or the webpack module graph unless next.config.js explicitly redirects
-// src/fonts/inter to here (which only happens when experimental.optimizedFonts
-// is true in discovery.config).
+// This module lives inside src/ on purpose. Next.js only extracts global CSS
+// (including the @font-face rules shipped by @fontsource/inter) when the
+// importing module stays in the global-CSS chain reachable from _app.tsx within
+// src/. When experimental.optimizedFonts is true, next.config.js redirects the
+// empty src/fonts/inter stub to this file via NormalModuleReplacementPlugin
+// (webpack) / resolveAlias (Turbopack), keeping it in that chain so both the
+// @font-face declarations and the .woff2 assets are emitted.
 //
 // Each weight CSS file from @fontsource/inter ships @font-face declarations
 // for every supported subset (latin, latin-ext, cyrillic, greek, vietnamese)

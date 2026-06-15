@@ -87,8 +87,15 @@ const nextConfig = {
     }
 
     // When optimizedFonts is enabled, redirect src/fonts/inter (an empty stub)
-    // to fonts/inter.ts (located outside src/), which side-effect-imports the
+    // to src/fonts/inter.optimized.ts, which side-effect-imports the
     // @fontsource/inter CSS files and ships the self-hosted .woff2 assets.
+    //
+    // The target MUST stay inside src/: Next.js only extracts global CSS
+    // (the @font-face rules) when the importing module remains in the
+    // global-CSS chain reachable from _app.tsx within src/. Pointing this at a
+    // module outside src/ still resolves the url(...woff2) assets (so the files
+    // are emitted) but drops the @font-face rules, leaving orphaned .woff2 and
+    // an unapplied font.
     //
     // Why a webpack alias instead of a runtime conditional require()?
     //   - Without this plugin, webpack would either bundle the CSS unconditionally
@@ -102,7 +109,7 @@ const nextConfig = {
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(
           /src[/\\]fonts[/\\]inter$/,
-          path.resolve(__dirname, 'fonts/inter.ts')
+          path.resolve(__dirname, 'src/fonts/inter.optimized.ts')
         )
       )
     }
@@ -116,6 +123,16 @@ const nextConfig = {
     // https://nextjs.org/docs/app/api-reference/turbopack#css-module-ordering
     resolveAlias: {
       '~*': '*',
+      // Mirror the webpack NormalModuleReplacementPlugin above: when
+      // optimizedFonts is enabled, redirect the empty src/fonts/inter stub to
+      // the real self-hosting module (kept inside src/ so global CSS extraction
+      // still picks up the @font-face rules).
+      ...(storeConfig.experimental?.optimizedFonts === true && {
+        'src/fonts/inter': path.resolve(
+          __dirname,
+          'src/fonts/inter.optimized.ts'
+        ),
+      }),
     },
   },
 }

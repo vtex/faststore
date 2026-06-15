@@ -13,9 +13,9 @@ describe('src/fonts/inter.ts (default Babel-safe stub)', () => {
   })
 })
 
-describe('fonts/inter.ts (real, loaded only when optimizedFonts: true)', () => {
+describe('src/fonts/inter.optimized.ts (real, loaded only when optimizedFonts: true)', () => {
   it('imports the @fontsource/inter weight files for self-hosting', async () => {
-    const mod = await import('../../fonts/inter')
+    const mod = await import('src/fonts/inter.optimized')
     expect(Object.keys(mod)).toEqual([])
   })
 })
