@@ -13,6 +13,8 @@ vi.mock('@faststore/diagnostics', () => {
       registerInstrumentations: vi.fn(),
     }),
     getTraceClient: vi.fn(),
+    getOTELLogger: vi.fn(),
+    logger: vi.fn(() => vi.fn()),
     OTELAPI: {
       trace: {
         getTracer: vi.fn(() => ({
