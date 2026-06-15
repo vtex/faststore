@@ -1,5 +1,5 @@
 import type { APIOptions } from '@faststore/api'
-import { getTelemetryClient, OTELAPI } from '@faststore/diagnostics'
+import { getTelemetryClient } from '@faststore/diagnostics'
 import storeConfig from '../../discovery.config'
 import pkgJSON from '../../package.json'
 
@@ -44,26 +44,11 @@ export async function withTraceClient<T extends APIOptions = typeof apiOptions>(
     })
   }
 
-  const options = {
+  return {
     ...apiOptions,
     OTEL: {
       __otelContext: {},
       enabled: true,
     },
   } satisfies T
-
-  const tracer = OTELAPI.trace.getTracer('@faststore/core')
-  const span = tracer.startSpan('@faststore/core graphql')
-
-  const context = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
-  OTELAPI.propagation.inject(context, options.OTEL.__otelContext)
-
-  try {
-    return options as T
-  } catch (error) {
-    span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
-    span?.recordException(error)
-  } finally {
-    span?.end()
-  }
 }

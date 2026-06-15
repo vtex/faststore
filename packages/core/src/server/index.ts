@@ -16,6 +16,7 @@ import {
   GraphqlVtexSchema,
   isFastStoreError,
 } from '@faststore/api'
+import { OTELAPI } from '@faststore/diagnostics'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema } from '@graphql-tools/schema'
@@ -127,20 +128,36 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 
   const contextValue = await contextFactory(envelopContext)
 
-  const { data, errors } = (await run({
-    schema,
-    document: parse(query),
-    variableValues: variables,
-    contextValue,
-    operationName,
-  })) as { data: D; errors: unknown[] }
+  // Create a per-request root span and make it the active context so the
+  // resolver spans created by `@faststore/api` (`ResolverTrace`) parent to it.
+  const tracer = OTELAPI.trace.getTracer('@faststore/core')
+  const span = tracer.startSpan(`graphql ${operationName ?? 'operation'}`)
+  const otelContext = OTELAPI.trace.setSpan(OTELAPI.context.active(), span)
 
-  return {
-    data,
-    errors,
-    extensions: {
-      cookies: contextValue.storage.cookies,
-      cacheControl: contextValue.cacheControl,
-    },
+  try {
+    const { data, errors } = (await OTELAPI.context.with(otelContext, () =>
+      run({
+        schema,
+        document: parse(query),
+        variableValues: variables,
+        contextValue,
+        operationName,
+      })
+    )) as { data: D; errors: unknown[] }
+
+    return {
+      data,
+      errors,
+      extensions: {
+        cookies: contextValue.storage.cookies,
+        cacheControl: contextValue.cacheControl,
+      },
+    }
+  } catch (error) {
+    span.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
+    span.recordException(error as Error)
+    throw error
+  } finally {
+    span.end()
   }
 }

@@ -78,6 +78,7 @@ export const ResolverTrace = <
 function catchError(error: Error, span: OTELAPI.Span, resolverName: string) {
   span?.setStatus({ code: OTELAPI.SpanStatusCode.ERROR })
   span?.recordException(error)
+  span?.end()
   console.error(`Error when executing resolver: ${resolverName}: \n %o`, error)
   return error
 }
