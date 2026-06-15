@@ -21,7 +21,6 @@ import {
   getAuthCookie,
   getStoreCookie,
   getUpdatedCookie,
-  getWithAutCookie,
   getWithCookie,
 } from '../../utils/cookies'
 import type { ContractResponse } from './Contract'
@@ -65,7 +64,6 @@ export const VtexCommerce = (
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
-  const withAutCookie = getWithAutCookie(ctx)
   const withAppKeyAndToken = getWithAppKeyAndToken()
 
   const host =
@@ -490,7 +488,10 @@ export const VtexCommerce = (
     },
     profile: {
       addresses: async (userId: string): Promise<Record<string, string>> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
@@ -501,7 +502,10 @@ export const VtexCommerce = (
     },
     oms: {
       userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
@@ -584,7 +588,10 @@ export const VtexCommerce = (
       getCommercialAuthorizationsByOrderId: ({
         orderId,
       }: ICommercialAuthorizationByOrderId): Promise<CommercialAuthorizationResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/${account}/commercial-authorizations/order/${orderId}`,
@@ -601,7 +608,10 @@ export const VtexCommerce = (
         ruleId,
         approved,
       }: IProcessOrderAuthorization): Promise<CommercialAuthorizationResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         const APPROVAL_SCORE = 100
         const REJECTION_SCORE = 0
@@ -629,7 +639,10 @@ export const VtexCommerce = (
       getUnitByUserId: ({
         userId,
       }: { userId: string }): Promise<UnitResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/units/v1/${userId}/unit`,
@@ -643,7 +656,10 @@ export const VtexCommerce = (
       getOrgUnitById: ({
         orgUnitId,
       }: { orgUnitId: string }): Promise<UnitResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}`,
@@ -657,7 +673,10 @@ export const VtexCommerce = (
       getScopesByOrgUnit: ({
         orgUnitId,
       }: { orgUnitId: string }): Promise<ScopesByUnit> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}/scopes`,
@@ -677,7 +696,10 @@ export const VtexCommerce = (
         name: string
         email: string
       }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/license-manager/users/${userId}`,
@@ -695,7 +717,10 @@ export const VtexCommerce = (
         name: string
         email: string
       }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/license-manager/pvt/users/${email}`,
@@ -712,7 +737,10 @@ export const VtexCommerce = (
         Email: string
         Roles: Array<{ Id: number; Name: string }>
       }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/license-manager/storefront/users/${userId}/roles`,
@@ -781,7 +809,10 @@ export const VtexCommerce = (
     },
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
         // Read from the merged cookie set so the body token stays in sync with
         // the `cookie` header (both pull from request + storage updates).
         const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)

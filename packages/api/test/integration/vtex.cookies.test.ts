@@ -6,7 +6,6 @@ import {
   getAuthCookie,
   getStoreCookie,
   getUpdatedCookie,
-  getWithAutCookie,
   getWithCookie,
   updatesContextStorageCookies,
   updatesCookieValueByKey,
@@ -98,69 +97,6 @@ describe('getWithCookie', () => {
     const newHeaders = withCookie(headers)
 
     expect(newHeaders).toEqual({ ...headers, cookie: ctx.headers.cookie })
-  })
-})
-
-describe('getWithAutCookie', () => {
-  const FORWARDED_HOST = 'mystore.fast.store'
-  const ACCOUNT = 'mystore'
-  const TOKEN = 'jwt-store-audience-value'
-
-  it('Should forward the suffixed auth cookie via the `cookie` header', () => {
-    const cookie = `vtex_session=foo; VtexIdclientAutCookie_${ACCOUNT}=${TOKEN}`
-    const ctx = {
-      headers: { cookie },
-      storage: { cookies: new Map() },
-    }
-
-    const withAutCookie = getWithAutCookie(ctx)
-    const headers = withAutCookie(FORWARDED_HOST, ACCOUNT) as Record<
-      string,
-      string
-    >
-
-    expect(headers).toEqual({
-      'content-type': 'application/json',
-      'X-FORWARDED-HOST': FORWARDED_HOST,
-      cookie,
-    })
-  })
-
-  it('Should NOT set the unscoped `VtexIdclientAutCookie` header', () => {
-    // Regression: the auth token is forwarded only via the account-scoped cookie.
-    const cookie = `VtexIdclientAutCookie_${ACCOUNT}=${TOKEN}`
-    const ctx = {
-      headers: { cookie },
-      storage: { cookies: new Map() },
-    }
-
-    const withAutCookie = getWithAutCookie(ctx)
-    const headers = withAutCookie(FORWARDED_HOST, ACCOUNT) as Record<
-      string,
-      string
-    >
-
-    expect(headers).not.toHaveProperty('VtexIdclientAutCookie')
-  })
-
-  it('Should still build base headers when no auth cookie is present', () => {
-    const ctx = {
-      headers: { cookie: 'vtex_segment=foo' },
-      storage: { cookies: new Map() },
-    }
-
-    const withAutCookie = getWithAutCookie(ctx)
-    const headers = withAutCookie(FORWARDED_HOST, ACCOUNT) as Record<
-      string,
-      string
-    >
-
-    expect(headers).toEqual({
-      'content-type': 'application/json',
-      'X-FORWARDED-HOST': FORWARDED_HOST,
-      cookie: 'vtex_segment=foo',
-    })
-    expect(headers).not.toHaveProperty('VtexIdclientAutCookie')
   })
 })
 
