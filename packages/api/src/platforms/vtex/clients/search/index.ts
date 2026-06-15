@@ -22,7 +22,10 @@ import type {
   Suggestion,
 } from './types/ProductSearchResult'
 
-export type { ProductIdentifierField, Sort }
+export type {
+  ProductIdentifierField,
+  Sort,
+} from '../../utils/intelligentSearchRequest'
 
 // Bounds simultaneous IS v1 /products calls; values cardinality is capped
 // upstream by DataLoader maxBatchSize (99) and cross-sell/products `first`.

@@ -126,7 +126,7 @@ const removeDiacriticsFromURL = (url: string) =>
     decodeURIComponent(url)
       .normalize('NFD')
       // biome-ignore lint/suspicious/noMisleadingCharacterClass: After NFD normalization, combining marks are separated and can be matched individually
-      .replace(/[\u0300-\u036f]/g, '')
+      .replaceAll(/[\u0300-\u036f]/g, '')
   )
 
 const PICKUP_IN_POINT_SUFFIX_RE = /^pickup-in-point-(.+)$/
@@ -158,36 +158,44 @@ export function parseSegmentCookie(
   }
 }
 
-function extractSegmentData(segment: Record<string, unknown>): {
-  segmentParams: SegmentParams
+function parseSegmentFacetsString(facetsStr: string): {
+  shipping: Record<string, string>
+  queryParams: Record<string, string>
   extraFacets: IntelligentSearchFacet[]
 } {
   const shipping: Record<string, string> = {}
   const queryParams: Record<string, string> = {}
-  const extraFacetsResult: IntelligentSearchFacet[] = []
+  const extraFacets: IntelligentSearchFacet[] = []
 
-  if (typeof segment.facets === 'string' && segment.facets) {
-    const facetsStr = segment.facets
+  for (const pair of facetsStr.split(';')) {
+    const eqIdx = pair.indexOf('=')
 
-    for (const pair of facetsStr.split(';')) {
-      const eqIdx = pair.indexOf('=')
+    if (eqIdx < 0) continue
 
-      if (eqIdx < 0) continue
+    const key = pair.slice(0, eqIdx)
+    const value = pair.slice(eqIdx + 1)
 
-      const key = pair.slice(0, eqIdx)
-      const value = pair.slice(eqIdx + 1)
+    if (!key || !value) continue
 
-      if (!key || !value) continue
-
-      if (SHIPPING_FACET_KEYS.has(key)) {
-        shipping[key] = value
-      } else if (QUERY_PARAM_FACET_KEYS.has(key)) {
-        queryParams[key] = value
-      } else {
-        extraFacetsResult.push({ key, value })
-      }
+    if (SHIPPING_FACET_KEYS.has(key)) {
+      shipping[key] = value
+    } else if (QUERY_PARAM_FACET_KEYS.has(key)) {
+      queryParams[key] = value
+    } else {
+      extraFacets.push({ key, value })
     }
   }
+
+  return { shipping, queryParams, extraFacets }
+}
+
+function extractSegmentData(segment: Record<string, unknown>): {
+  segmentParams: SegmentParams
+  extraFacets: IntelligentSearchFacet[]
+} {
+  const facetsStr = typeof segment.facets === 'string' ? segment.facets : ''
+  const { shipping, queryParams, extraFacets } =
+    parseSegmentFacetsString(facetsStr)
 
   return {
     segmentParams: {
@@ -208,7 +216,7 @@ function extractSegmentData(segment: Record<string, unknown>): {
       priceTables: (segment.priceTables as string | undefined) ?? undefined,
       productClusterIds: queryParams.productClusterIds,
     },
-    extraFacets: extraFacetsResult,
+    extraFacets,
   }
 }
 
@@ -281,7 +289,7 @@ function mergeSegmentParamsWithPickupFromPath(
   }
 
   return {
-    ...(segmentParams ?? {}),
+    ...segmentParams,
     pickupPoint: pathPickupId,
   }
 }
@@ -333,9 +341,9 @@ function buildAttributePath(selectedFacets: IntelligentSearchFacet[]) {
       value = value.replace(' TO ', ':')
     }
 
-    return key !== 'ft'
-      ? `${attributePath}${encodeSafeURI(key)}/${removeDiacriticsFromURL(encodeSafeURI(value)).replace(/ |%20/g, '-')}/`
-      : attributePath
+    return key === 'ft'
+      ? attributePath
+      : `${attributePath}${encodeSafeURI(key)}/${removeDiacriticsFromURL(encodeSafeURI(value)).replaceAll(/ |%20/g, '-')}/`
   }, '')
 }
 
@@ -466,7 +474,7 @@ function buildSearchLikeParams(
 
   if (options.includePagination && page !== undefined && count !== undefined) {
     const from = page * count
-    const to = count !== 0 ? from + count - 1 : from
+    const to = count === 0 ? from : from + count - 1
 
     params.append('from', from.toString())
     params.append('to', to.toString())
