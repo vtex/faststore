@@ -71,7 +71,6 @@ function overrideConsole(
     error: { number: SeverityNumber.ERROR, text: 'ERROR' },
     warn: { number: SeverityNumber.WARN, text: 'WARN' },
     info: { number: SeverityNumber.INFO, text: 'INFO' },
-    log: { number: SeverityNumber.INFO, text: 'INFO' },
     debug: { number: SeverityNumber.DEBUG, text: 'DEBUG' },
   }
 
