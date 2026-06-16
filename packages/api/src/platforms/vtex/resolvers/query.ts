@@ -571,6 +571,7 @@ export const Query = {
       createdAtTo?: string
       expiresAtFrom?: string
       expiresAtTo?: string
+      label?: string
     },
     ctx: GraphqlContext
   ) => {
@@ -580,16 +581,40 @@ export const Query = {
 
     const result = await commerce.quotes.listUserQuotes(filters)
 
+    const list = await Promise.all(
+      result.items.map(async (quote) => {
+        let createdByName: string | null = quote.createdBy ?? null
+
+        if (quote.createdBy) {
+          try {
+            const [shopper] = await commerce.masterData.getShopperById({
+              userId: quote.createdBy,
+            })
+            if (shopper) {
+              const fullName = [shopper.firstName, shopper.lastName]
+                .filter(Boolean)
+                .join(' ')
+              createdByName = fullName || quote.createdBy
+            }
+          } catch {
+            createdByName = quote.createdBy
+          }
+        }
+
+        return {
+          id: quote.id,
+          status: quote.status,
+          label: quote.label ?? null,
+          createdAt: quote.createdAt,
+          expiresAt: quote.expiresAt,
+          amount: quote.amount,
+          createdBy: createdByName,
+        }
+      })
+    )
+
     return {
-      list: result.items.map((quote) => ({
-        id: quote.id,
-        status: quote.status,
-        label: quote.label ?? null,
-        createdAt: quote.createdAt,
-        expiresAt: quote.expiresAt,
-        amount: quote.amount,
-        createdBy: quote.createdBy ?? null,
-      })),
+      list,
       paging: {
         total: result.totalItems,
         currentPage: result.pageNumber,

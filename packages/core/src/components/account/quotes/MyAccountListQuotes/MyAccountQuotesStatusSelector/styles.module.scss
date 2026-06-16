@@ -1,11 +1,14 @@
 @use "@faststore/ui/src/styles/base/utilities";
 
 .wrapper {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--fs-spacing-1);
   min-width: 220px;
+
+  [data-fs-quotes-status-input-wrapper] {
+    position: relative;
+  }
 }
 
 .label {

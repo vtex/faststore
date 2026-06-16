@@ -676,7 +676,9 @@ export const VtexCommerce = (
         name: string
         email: string
       }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withAppKeyAndToken({
+          'content-type': 'application/json',
+        })
 
         return fetchAPI(
           `${base}/api/license-manager/users/${userId}`,
@@ -787,6 +789,7 @@ export const VtexCommerce = (
         createdAtTo,
         expiresAtFrom,
         expiresAtTo,
+        label,
       }: ListUserQuotesArgs): Promise<QuoteListResult> => {
         const params = new URLSearchParams()
 
@@ -799,6 +802,7 @@ export const VtexCommerce = (
         if (createdAtTo) params.append('createdAtTo', createdAtTo)
         if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
         if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
+        if (label) params.append('label', label)
 
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',

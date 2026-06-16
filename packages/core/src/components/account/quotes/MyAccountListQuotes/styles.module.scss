@@ -4,6 +4,7 @@
 .page {
   @include meta.load-css("../../components/MyAccountStatusBadge/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/atoms/Button/styles.scss");
+  @include meta.load-css("~@faststore/ui/src/components/molecules/SearchInputField/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/organisms/EmptyState/styles.scss");
 
   // --------------------------------------------------------
@@ -39,9 +40,14 @@
 
   [data-fs-list-orders-search-filters] {
     display: flex;
-    gap: var(--fs-spacing-1);
+    flex: 1;
+    gap: var(--fs-spacing-3);
     align-items: center;
-    margin-left: auto;
+    max-width: 55%;
+
+    [data-fs-search-input-field-wrapper] {
+      flex: 1;
+    }
   }
 
   [data-fs-filter-count] {

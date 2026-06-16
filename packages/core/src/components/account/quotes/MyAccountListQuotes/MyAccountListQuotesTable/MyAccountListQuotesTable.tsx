@@ -57,6 +57,7 @@ type MyAccountListQuotesTableProps = {
     createdAtTo: string
     expiresAtFrom: string
     expiresAtTo: string
+    label: string
   }
 }
 

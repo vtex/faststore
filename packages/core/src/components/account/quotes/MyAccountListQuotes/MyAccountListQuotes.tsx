@@ -1,8 +1,17 @@
-import { Button, EmptyState, Icon as UIIcon, useUI } from '@faststore/ui'
+import {
+  Button,
+  EmptyState,
+  Icon as UIIcon,
+  SearchInputField,
+  useUI,
+  type SearchInputFieldRef,
+} from '@faststore/ui'
+import { useRef, useEffect, type MutableRefObject } from 'react'
 
 import type { ServerListQuotesQueryQuery } from '@generated/graphql'
 
 import AccountHeader from '../../components/MyAccountHeader'
+import { useDebounce } from 'src/sdk/account/useDebounce'
 import {
   useMyAccountFilter,
   type MyAccountFilter_FacetsFragment,
@@ -27,6 +36,7 @@ export type MyAccountListQuotesProps = {
     createdAtTo: string
     expiresAtFrom: string
     expiresAtTo: string
+    label: string
   }
 }
 
@@ -88,7 +98,8 @@ function hasActiveFilters(
     Boolean(filters.createdAtFrom) ||
     Boolean(filters.createdAtTo) ||
     Boolean(filters.expiresAtFrom) ||
-    Boolean(filters.expiresAtTo)
+    Boolean(filters.expiresAtTo) ||
+    Boolean(filters.label)
   )
 }
 
@@ -109,6 +120,24 @@ export default function MyAccountListQuotes({
   filters,
 }: MyAccountListQuotesProps) {
   const { isDesktop } = useScreenResize()
+  const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
+
+  useEffect(() => {
+    if (!searchInputRef.current?.inputRef) return
+    searchInputRef.current.inputRef.value = filters.label ?? ''
+  }, [filters.label])
+
+  const handleSearchChange = useDebounce(
+    (value: string) => {
+      const params = new URLSearchParams(window.location.search)
+      params.delete('label')
+      params.delete('page')
+      if (value) params.set('label', value)
+      window.location.href = `/pvt/account/quotes?${params.toString()}`
+    },
+    300,
+    filters.label
+  )
 
   const selectedFacets: SelectedFacet[] = getSelectedFacets({ filters })
   const allFacets = getAllFacets({ filters })
@@ -125,9 +154,22 @@ export default function MyAccountListQuotes({
       <AccountHeader pageTitle="Quotes" />
       <div data-fs-list-orders-controls>
         <div data-fs-list-orders-search-filters>
-          {isDesktop && (
-            <Pagination page={filters.page} total={total} perPage={perPage} />
-          )}
+          <SearchInputField
+            ref={searchInputRef}
+            data-fs-search-input-field-list-orders
+            placeholder="Search"
+            onBlur={() => {
+              handleSearchChange(searchInputRef.current.inputRef.value)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearchChange(searchInputRef.current.inputRef.value)
+              }
+            }}
+            onSubmit={() => {
+              handleSearchChange(searchInputRef.current.inputRef.value)
+            }}
+          />
           <Button
             data-fs-list-orders-search-filters-button
             size="small"
@@ -155,6 +197,9 @@ export default function MyAccountListQuotes({
             )}
           </Button>
         </div>
+        {isDesktop && (
+          <Pagination page={filters.page} total={total} perPage={perPage} />
+        )}
       </div>
 
       {displayFilter && (
