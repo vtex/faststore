@@ -4,7 +4,7 @@ import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
 
 export function traceExporter() {
   const OTLP_TRACES_ENDPOINT =
-    globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT || 'localhost:4317'
+    globalThis.fsDiagnostics.OTLP_TRACES_ENDPOINT || 'http://localhost:4317'
 
   // let credentials = grpc.credentials.createSsl()
   let credentials = grpc.credentials.createInsecure()

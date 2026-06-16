@@ -11,7 +11,7 @@ import { format } from 'node:util'
 
 export function getLoggerExporter() {
   const OTLP_LOGGER_ENDPOINT =
-    globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'localhost:4317'
+    globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'http://localhost:4317'
 
   // let c = credentials.createSsl()
   let c = credentials.createInsecure()
