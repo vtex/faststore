@@ -838,7 +838,10 @@ export const VtexCommerce = (
         fileName: string
         mimeType: string
       }): Promise<{ objectKey: string }> => {
-        const autHeaders = withAutCookie(forwardedHost, account)
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
         const boundary = `----FastStoreUploadBoundary${Date.now()}`
         const CRLF = '\r\n'
 
@@ -896,7 +899,10 @@ export const VtexCommerce = (
         orderFormId: string
         sessionToken?: string
       }): Promise<{ operationId: string }> => {
-        const autHeaders = withAutCookie(forwardedHost, account)
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
         const body = JSON.stringify({
           objectKey,
           orderFormId,
@@ -908,10 +914,7 @@ export const VtexCommerce = (
           `${base}/api/order-entry/operation?an=${account}`,
           {
             method: 'POST',
-            headers: {
-              ...autHeaders,
-              'Content-Type': 'application/json',
-            },
+            headers: autHeaders,
             body,
           },
           {}
@@ -932,7 +935,10 @@ export const VtexCommerce = (
           reason: string
         }>
       }> => {
-        const autHeaders = withAutCookie(forwardedHost, account)
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/order-entry/operation/${operationId}?an=${account}`,
@@ -945,16 +951,15 @@ export const VtexCommerce = (
       },
 
       createOrderForm: (): Promise<{ orderFormId: string }> => {
-        const autHeaders = withAutCookie(forwardedHost, account)
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm?sc=${ctx.storage.channel.salesChannel}`,
           {
             method: 'POST',
-            headers: {
-              ...autHeaders,
-              'Content-Type': 'application/json',
-              'X-FORWARDED-HOST': forwardedHost,
-            },
+            headers: autHeaders,
             body: '{}',
           },
           {}
@@ -966,16 +971,15 @@ export const VtexCommerce = (
       }: {
         orderFormId: string
       }): Promise<{ items: import('./types/OrderForm').OrderFormItem[] }> => {
-        const autHeaders = withAutCookie(forwardedHost, account)
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${orderFormId}`,
           {
             method: 'GET',
-            headers: {
-              ...autHeaders,
-              'Content-Type': 'application/json',
-              'X-FORWARDED-HOST': forwardedHost,
-            },
+            headers: autHeaders,
           },
           {}
         )
