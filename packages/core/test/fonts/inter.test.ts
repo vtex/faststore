@@ -1,21 +1,23 @@
-import { describe, expect, it, vi } from 'vitest'
+import { createRequire } from 'node:module'
+import { describe, expect, it } from 'vitest'
 
-vi.mock('@fontsource/inter/400.css', () => ({}))
-vi.mock('@fontsource/inter/500.css', () => ({}))
-vi.mock('@fontsource/inter/600.css', () => ({}))
-vi.mock('@fontsource/inter/700.css', () => ({}))
-vi.mock('@fontsource/inter/900.css', () => ({}))
+const require = createRequire(import.meta.url)
 
-describe('src/fonts/inter.ts (default Babel-safe stub)', () => {
-  it('is an empty side-effect-free module so no CSS is bundled when optimizedFonts is off', async () => {
-    const mod = await import('src/fonts/inter')
-    expect(Object.keys(mod)).toEqual([])
-  })
-})
+// Weights that next.config.js appends to main.scss as
+// `@import '@fontsource/inter/<weight>.css'` when experimental.optimizedFonts
+// is enabled. This test guards the dependency contract that injection relies on:
+// if @fontsource/inter ever stops shipping one of these stylesheets, the
+// optimizedFonts build would fail to resolve the @import, so we want to catch it
+// here rather than in a downstream store build.
+const INTER_WEIGHTS = [400, 500, 600, 700, 900]
 
-describe('src/fonts/inter.optimized.ts (real, loaded only when optimizedFonts: true)', () => {
-  it('imports the @fontsource/inter weight files for self-hosting', async () => {
-    const mod = await import('src/fonts/inter.optimized')
-    expect(Object.keys(mod)).toEqual([])
-  })
+describe('optimizedFonts: @fontsource/inter weight stylesheets', () => {
+  it.each(INTER_WEIGHTS)(
+    'resolves the %s weight stylesheet injected into main.scss',
+    (weight) => {
+      expect(() =>
+        require.resolve(`@fontsource/inter/${weight}.css`)
+      ).not.toThrow()
+    }
+  )
 })

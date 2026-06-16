@@ -18,17 +18,12 @@ import useScrollRestoration from 'src/sdk/ui/useScrollRestoration'
 import storeConfig from 'discovery.config'
 import SEO from 'next-seo.config'
 
-// FastStore UI's base styles
+// FastStore UI's base styles.
+// When experimental.optimizedFonts is true in discovery.config, next.config.js
+// appends the @fontsource/inter weight stylesheets to this global stylesheet so
+// the self-hosted Inter @font-face rules + .woff2 ship in main.scss's chunk
+// (which is linked on every page). When the flag is off, nothing is added.
 import '../styles/main.scss'
-
-// Opt-in self-hosted Inter font.
-// Resolves to an empty stub by default (no .woff2 files bundled).
-// When experimental.optimizedFonts is true in discovery.config,
-// next.config.js redirects this import to src/fonts/inter.optimized.ts,
-// which side-effect-imports the @fontsource/inter CSS files and ships the
-// .woff2 assets. The Next.js global-CSS rule requires this import to live
-// in _app.tsx; it is intentionally placed here for that reason.
-import 'src/fonts/inter'
 
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useLocalizationConfig } from 'src/sdk/localization/useLocalizationConfig'

@@ -211,9 +211,10 @@ module.exports = {
      * Default: false (no change to existing behavior).
      *
      * Implementation uses plain CSS @font-face imports (not next/font/google)
-     * so it works with both Babel and SWC. When the flag is false, webpack's
-     * NormalModuleReplacementPlugin keeps the package out of the bundle, so
-     * there is zero cost for stores that do not opt in.
+     * so it works with both Babel and SWC. next.config.js appends the
+     * @fontsource/inter stylesheets to the global stylesheet (main.scss) only
+     * when this flag is true, so there is zero cost for stores that do not opt
+     * in.
      *
      * When enabling, remove any <link rel="stylesheet"> to Google Fonts
      * from your customizations/src/fonts/WebFonts.tsx to avoid duplicate loads.

@@ -17,6 +17,31 @@ console.log(`
   Analytics Enabled: ${storeConfig.analytics?.otelEnabled ?? false}
 `)
 
+const optimizedFontsEnabled = storeConfig.experimental?.optimizedFonts === true
+
+// Self-hosted Inter font (opt-in via experimental.optimizedFonts).
+//
+// We append the @fontsource/inter weight stylesheets to the global stylesheet
+// (src/styles/main.scss) through Sass's additionalData. Sass passes these plain
+// CSS @imports through untouched and css-loader inlines them into main.scss's
+// own chunk — the global stylesheet that Next links on every page — so the
+// @font-face rules and the .woff2 assets ship together. Plain CSS imports (not
+// next/font) keep this compiler-agnostic (works with both Babel and SWC).
+const interFontFaceImports = [400, 500, 600, 700, 900]
+  .map((weight) => `@import '@fontsource/inter/${weight}.css';`)
+  .join('\n')
+
+// Scoped to main.scss only: returning the content untouched for every other
+// stylesheet avoids duplicating the @font-face rules into each CSS module.
+// Appended (never prepended) so the imports land after main.scss's leading
+// @use rules, which Sass requires to come first.
+const appendInterFontsToGlobalStylesheet = (content, loaderContext) => {
+  const resourcePath = (loaderContext?.resourcePath ?? '').replace(/\\/g, '/')
+  const isGlobalStylesheet = resourcePath.endsWith('/src/styles/main.scss')
+
+  return isGlobalStylesheet ? `${content}\n${interFontFaceImports}` : content
+}
+
 /**
  * @type {import('next').NextConfig}
  * */
@@ -54,6 +79,9 @@ const nextConfig = {
       },
   sassOptions: {
     silenceDeprecations: ['if-function', 'legacy-js-api'],
+    ...(optimizedFontsEnabled && {
+      additionalData: appendInterFontsToGlobalStylesheet,
+    }),
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
@@ -67,7 +95,7 @@ const nextConfig = {
    * of the monorepo
    * */
   outputFileTracingRoot: getRootFolder(),
-  webpack: (config, { isServer, dev, webpack }) => {
+  webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
     config.module.rules
@@ -86,34 +114,6 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
-    // When optimizedFonts is enabled, redirect src/fonts/inter (an empty stub)
-    // to src/fonts/inter.optimized.ts, which side-effect-imports the
-    // @fontsource/inter CSS files and ships the self-hosted .woff2 assets.
-    //
-    // The target MUST stay inside src/: Next.js only extracts global CSS
-    // (the @font-face rules) when the importing module remains in the
-    // global-CSS chain reachable from _app.tsx within src/. Pointing this at a
-    // module outside src/ still resolves the url(...woff2) assets (so the files
-    // are emitted) but drops the @font-face rules, leaving orphaned .woff2 and
-    // an unapplied font.
-    //
-    // Why a webpack alias instead of a runtime conditional require()?
-    //   - Without this plugin, webpack would either bundle the CSS unconditionally
-    //     (defeating the no-cost-when-off acceptance criterion) or never bundle
-    //     it (defeating opt-in). The alias makes the choice purely build-time.
-    //   - The previous implementation used next/font/google here. That caused
-    //     hard build failures for stores with a custom .babelrc.js, because
-    //     next/font requires SWC. The CSS-import approach used now is
-    //     compiler-agnostic and works with both Babel and SWC.
-    if (storeConfig.experimental?.optimizedFonts === true) {
-      config.plugins.push(
-        new webpack.NormalModuleReplacementPlugin(
-          /src[/\\]fonts[/\\]inter$/,
-          path.resolve(__dirname, 'src/fonts/inter.optimized.ts')
-        )
-      )
-    }
-
     return config
   },
   redirects: storeConfig.redirects,
@@ -123,16 +123,6 @@ const nextConfig = {
     // https://nextjs.org/docs/app/api-reference/turbopack#css-module-ordering
     resolveAlias: {
       '~*': '*',
-      // Mirror the webpack NormalModuleReplacementPlugin above: when
-      // optimizedFonts is enabled, redirect the empty src/fonts/inter stub to
-      // the real self-hosting module (kept inside src/ so global CSS extraction
-      // still picks up the @font-face rules).
-      ...(storeConfig.experimental?.optimizedFonts === true && {
-        'src/fonts/inter': path.resolve(
-          __dirname,
-          'src/fonts/inter.optimized.ts'
-        ),
-      }),
     },
   },
 }
