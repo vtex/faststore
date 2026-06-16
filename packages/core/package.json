@@ -35,7 +35,7 @@
   "sideEffects": false,
   "dependencies": {
     "@antfu/ni": "catalog:",
-    "@builder.io/partytown": "^0.6.1",
+    "@qwik.dev/partytown": "^0.14.0",
     "@envelop/core": "catalog:",
     "@envelop/graphql-jit": "catalog:",
     "@envelop/parser-cache": "catalog:",
@@ -45,6 +45,7 @@
     "@faststore/lighthouse": "workspace:*",
     "@faststore/sdk": "workspace:*",
     "@faststore/ui": "workspace:*",
+    "@fontsource/inter": "catalog:",
     "@graphql-codegen/cli": "catalog:",
     "@graphql-codegen/client-preset": "4.2.6",
     "@graphql-codegen/typescript": "catalog:",

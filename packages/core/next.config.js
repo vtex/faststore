@@ -17,6 +17,31 @@ console.log(`
   Analytics Enabled: ${storeConfig.analytics?.otelEnabled ?? false}
 `)
 
+const optimizedFontsEnabled = storeConfig.experimental?.optimizedFonts === true
+
+// Self-hosted Inter font (opt-in via experimental.optimizedFonts).
+//
+// We append the @fontsource/inter weight stylesheets to the global stylesheet
+// (src/styles/main.scss) through Sass's additionalData. Sass passes these plain
+// CSS @imports through untouched and css-loader inlines them into main.scss's
+// own chunk — the global stylesheet that Next links on every page — so the
+// @font-face rules and the .woff2 assets ship together. Plain CSS imports (not
+// next/font) keep this compiler-agnostic (works with both Babel and SWC).
+const interFontFaceImports = [400, 500, 600, 700, 900]
+  .map((weight) => `@import '@fontsource/inter/${weight}.css';`)
+  .join('\n')
+
+// Scoped to main.scss only: returning the content untouched for every other
+// stylesheet avoids duplicating the @font-face rules into each CSS module.
+// Appended (never prepended) so the imports land after main.scss's leading
+// @use rules, which Sass requires to come first.
+const appendInterFontsToGlobalStylesheet = (content, loaderContext) => {
+  const resourcePath = (loaderContext?.resourcePath ?? '').replace(/\\/g, '/')
+  const isGlobalStylesheet = resourcePath.endsWith('/src/styles/main.scss')
+
+  return isGlobalStylesheet ? `${content}\n${interFontFaceImports}` : content
+}
+
 /**
  * @type {import('next').NextConfig}
  * */
@@ -54,6 +79,9 @@ const nextConfig = {
       },
   sassOptions: {
     silenceDeprecations: ['if-function', 'legacy-js-api'],
+    ...(optimizedFontsEnabled && {
+      additionalData: appendInterFontsToGlobalStylesheet,
+    }),
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {

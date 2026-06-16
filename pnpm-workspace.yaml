@@ -9,6 +9,7 @@ catalog:
   '@envelop/parser-cache': ^10
   '@envelop/testing': ^10
   '@envelop/validation-cache': ^10
+  '@fontsource/inter': ^5.2.6
   '@graphql-codegen/cli': 6.1.1
   '@graphql-codegen/typescript': 4.0.7
   '@graphql-tools/merge': 9.1.1
