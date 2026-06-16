@@ -23,4 +23,5 @@ export interface ListUserQuotesArgs {
   createdAtTo?: string
   expiresAtFrom?: string
   expiresAtTo?: string
+  label?: string
 }

@@ -973,6 +973,7 @@ export type QueryListUserQuotesArgs = {
   createdAtTo?: InputMaybe<Scalars['String']['input']>;
   expiresAtFrom?: InputMaybe<Scalars['String']['input']>;
   expiresAtTo?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;

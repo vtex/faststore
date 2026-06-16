@@ -46,65 +46,67 @@ export default function MyAccountQuotesStatusSelector({
   return (
     <div className={styles.wrapper} ref={ref} data-fs-quotes-status-selector>
       <span className={styles.label}>Status</span>
-      <div
-        className={styles.input}
-        data-open={open || undefined}
-        onClick={() => setOpen((o) => !o)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') setOpen((o) => !o)
-        }}
-        role="combobox"
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        aria-controls="status-listbox"
-        tabIndex={0}
-      >
-        {value.map((key) => {
-          const entry = statusEntries.find((e) => e.key === key)
-          return (
-            <span
-              key={key}
-              className={styles.chip}
-              data-variant={entry?.variant ?? 'neutral'}
-            >
-              {entry?.label ?? key}
-              <button
-                type="button"
-                className={styles.chipRemove}
-                onClick={(e) => remove(key, e)}
-                aria-label={`Remove ${entry?.label ?? key}`}
-              >
-                &times;
-              </button>
-            </span>
-          )
-        })}
-      </div>
-      {open && (
+      <div data-fs-quotes-status-input-wrapper>
         <div
-          id="status-listbox"
-          className={styles.dropdown}
-          role="listbox"
-          aria-multiselectable="true"
-          tabIndex={-1}
+          className={styles.input}
+          data-open={open || undefined}
+          onClick={() => setOpen((o) => !o)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') setOpen((o) => !o)
+          }}
+          role="combobox"
+          aria-expanded={open}
+          aria-haspopup="listbox"
+          aria-controls="status-listbox"
+          tabIndex={0}
         >
-          {statusEntries.map(({ key, label }) => {
-            const id = `status-opt-${key}`
-            const checked = value.includes(key)
+          {value.map((key) => {
+            const entry = statusEntries.find((e) => e.key === key)
             return (
-              <div key={key} className={styles.option}>
-                <input
-                  type="checkbox"
-                  id={id}
-                  checked={checked}
-                  onChange={() => toggle(key)}
-                />
-                <label htmlFor={id}>{label}</label>
-              </div>
+              <span
+                key={key}
+                className={styles.chip}
+                data-variant={entry?.variant ?? 'neutral'}
+              >
+                {entry?.label ?? key}
+                <button
+                  type="button"
+                  className={styles.chipRemove}
+                  onClick={(e) => remove(key, e)}
+                  aria-label={`Remove ${entry?.label ?? key}`}
+                >
+                  &times;
+                </button>
+              </span>
             )
           })}
         </div>
-      )}
+        {open && (
+          <div
+            id="status-listbox"
+            className={styles.dropdown}
+            role="listbox"
+            aria-multiselectable="true"
+            tabIndex={-1}
+          >
+            {statusEntries.map(({ key, label }) => {
+              const id = `status-opt-${key}`
+              const checked = value.includes(key)
+              return (
+                <div key={key} className={styles.option}>
+                  <input
+                    type="checkbox"
+                    id={id}
+                    checked={checked}
+                    onChange={() => toggle(key)}
+                  />
+                  <label htmlFor={id}>{label}</label>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

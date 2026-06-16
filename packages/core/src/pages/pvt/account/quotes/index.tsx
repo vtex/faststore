@@ -47,6 +47,7 @@ type ListQuotesPageProps = {
     createdAtTo: string
     expiresAtFrom: string
     expiresAtTo: string
+    label: string
   }
 } & MyAccountProps
 
@@ -86,8 +87,8 @@ export default function ListQuotesPage({
 }
 
 const query = gql(`
-  query ServerListQuotesQuery ($page: Int, $perPage: Int, $status: [String], $createdAtFrom: String, $createdAtTo: String, $expiresAtFrom: String, $expiresAtTo: String) {
-    listUserQuotes (page: $page, perPage: $perPage, status: $status, createdAtFrom: $createdAtFrom, createdAtTo: $createdAtTo, expiresAtFrom: $expiresAtFrom, expiresAtTo: $expiresAtTo) {
+  query ServerListQuotesQuery ($page: Int, $perPage: Int, $status: [String], $createdAtFrom: String, $createdAtTo: String, $expiresAtFrom: String, $expiresAtTo: String, $label: String) {
+    listUserQuotes (page: $page, perPage: $perPage, status: $status, createdAtFrom: $createdAtFrom, createdAtTo: $createdAtTo, expiresAtFrom: $expiresAtFrom, expiresAtTo: $expiresAtTo, label: $label) {
       list {
         id
         status
@@ -148,6 +149,7 @@ const getServerSidePropsBase: GetServerSideProps<
   const expiresAtFrom =
     (context.query.expiresAtFrom as string | undefined) || ''
   const expiresAtTo = (context.query.expiresAtTo as string | undefined) || ''
+  const label = (context.query.label as string | undefined) || ''
 
   const [
     listQuotesResult,
@@ -166,6 +168,7 @@ const getServerSidePropsBase: GetServerSideProps<
           createdAtTo: createdAtTo || undefined,
           expiresAtFrom: expiresAtFrom || undefined,
           expiresAtTo: expiresAtTo || undefined,
+          label: label || undefined,
         },
         operation: query,
       },
@@ -218,6 +221,7 @@ const getServerSidePropsBase: GetServerSideProps<
         createdAtTo,
         expiresAtFrom,
         expiresAtTo,
+        label,
       },
       isRepresentative,
     },
