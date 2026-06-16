@@ -1,53 +1,53 @@
 import { describe, expect, it } from 'vitest'
 
-import { isLoginResponse } from '../../src/utils/loginResponse'
+import { isUnlockResponse } from '../../src/utils/unlockResponse'
 
-describe('isLoginResponse', () => {
+describe('isUnlockResponse', () => {
   it('returns false for null', () => {
-    expect(isLoginResponse(null)).toBe(false)
+    expect(isUnlockResponse(null)).toBe(false)
   })
 
   it('returns false for an array', () => {
-    expect(isLoginResponse([])).toBe(false)
+    expect(isUnlockResponse([])).toBe(false)
   })
 
   it('returns false for a string', () => {
-    expect(isLoginResponse('ok')).toBe(false)
+    expect(isUnlockResponse('ok')).toBe(false)
   })
 
   it('returns false for a number', () => {
-    expect(isLoginResponse(42)).toBe(false)
+    expect(isUnlockResponse(42)).toBe(false)
   })
 
   it('returns false for an empty object', () => {
-    expect(isLoginResponse({})).toBe(false)
+    expect(isUnlockResponse({})).toBe(false)
   })
 
   it('returns true for a valid success payload', () => {
-    expect(isLoginResponse({ success: true, redirectUrl: '/home' })).toBe(true)
+    expect(isUnlockResponse({ success: true, redirectUrl: '/home' })).toBe(true)
   })
 
   it('returns true for a valid error payload', () => {
-    expect(isLoginResponse({ success: false, error: 'Invalid password' })).toBe(
-      true
-    )
+    expect(
+      isUnlockResponse({ success: false, error: 'Invalid password' })
+    ).toBe(true)
   })
 
   it('returns false when success is not a boolean', () => {
-    expect(isLoginResponse({ success: 'yes' })).toBe(false)
+    expect(isUnlockResponse({ success: 'yes' })).toBe(false)
   })
 
   it('returns false when redirectUrl is not a string', () => {
-    expect(isLoginResponse({ redirectUrl: 123 })).toBe(false)
+    expect(isUnlockResponse({ redirectUrl: 123 })).toBe(false)
   })
 
   it('returns false when error is not a string', () => {
-    expect(isLoginResponse({ error: true })).toBe(false)
+    expect(isUnlockResponse({ error: true })).toBe(false)
   })
 
   it('returns false when all fields are undefined', () => {
     expect(
-      isLoginResponse({
+      isUnlockResponse({
         success: undefined,
         redirectUrl: undefined,
         error: undefined,

@@ -63,7 +63,7 @@ vi.mock(
   { virtual: true }
 )
 
-import PasswordProtectionLogin from '../../src/pages/fs-auth-login'
+import PasswordProtectionLogin from '../../src/pages/password-protection'
 
 const originalLocation = window.location
 
@@ -78,7 +78,7 @@ function fillAndSubmit(password = 'secret') {
   fireEvent.change(screen.getByLabelText('Password'), {
     target: { value: password },
   })
-  fireEvent.submit(screen.getByRole('button', { name: 'Login' }))
+  fireEvent.submit(screen.getByRole('button', { name: 'Unlock' }))
 }
 
 describe('PasswordProtectionLogin', () => {
@@ -107,7 +107,7 @@ describe('PasswordProtectionLogin', () => {
       screen.queryByText('Enter the password to access the store')
     ).toBeInTheDocument()
     expect(screen.queryByLabelText('Password')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Login' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Unlock' })).toBeInTheDocument()
   })
 
   it('posts the password and redirects to the requested return path', async () => {
@@ -131,7 +131,7 @@ describe('PasswordProtectionLogin', () => {
     const [requestUrl, requestInit] = (global.fetch as Mock).mock.calls[0]
     const url = new URL(requestUrl)
 
-    expect(url.pathname).toBe('/api/fs/auth/login')
+    expect(url.pathname).toBe('/api/fs/password-protection/unlock')
     expect(url.searchParams.get('returnTo')).toBe('/checkout?step=cart')
     expect(requestInit).toMatchObject({
       method: 'POST',

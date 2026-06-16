@@ -1,22 +1,22 @@
-export interface LoginResponse {
+export interface UnlockResponse {
   success?: boolean
   redirectUrl?: string
   error?: string
 }
 
-export const isLoginResponse = (data: unknown): data is LoginResponse => {
+export const isUnlockResponse = (data: unknown): data is UnlockResponse => {
   if (typeof data !== 'object' || data === null || Array.isArray(data)) {
     return false
   }
 
   const payload = data as Record<string, unknown>
-  const hasLoginResponseField =
+  const hasUnlockResponseField =
     payload.success !== undefined ||
     payload.redirectUrl !== undefined ||
     payload.error !== undefined
 
   return (
-    hasLoginResponseField &&
+    hasUnlockResponseField &&
     (payload.success === undefined || typeof payload.success === 'boolean') &&
     (payload.redirectUrl === undefined ||
       typeof payload.redirectUrl === 'string') &&

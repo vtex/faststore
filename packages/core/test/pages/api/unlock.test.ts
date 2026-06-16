@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 
-import type { LoginResponse } from '../../../src/utils/loginResponse'
+import type { UnlockResponse } from '../../../src/utils/unlockResponse'
 
 vi.mock('discovery.config', () => ({
   __esModule: true,
@@ -16,7 +16,7 @@ vi.mock('../../../src/server/password-protection/webops-api', () => ({
 
 function createReqRes(overrides: Partial<NextApiRequest> = {}): {
   req: NextApiRequest
-  res: NextApiResponse<LoginResponse> & {
+  res: NextApiResponse<UnlockResponse> & {
     status: Mock
     json: Mock
     end: Mock
@@ -53,11 +53,13 @@ function createReqRes(overrides: Partial<NextApiRequest> = {}): {
 }
 
 async function getHandler() {
-  const mod = await import('../../../src/pages/api/fs/auth/login')
+  const mod = await import(
+    '../../../src/pages/api/fs/password-protection/unlock'
+  )
   return mod.default
 }
 
-describe('/api/fs/auth/login', () => {
+describe('/api/fs/password-protection/unlock', () => {
   beforeEach(() => {
     vi.resetModules()
     global.fetch = vi.fn()
@@ -187,7 +189,7 @@ describe('/api/fs/auth/login', () => {
     )
   })
 
-  it('sets auth cookie and returns 200 with redirectUrl on success', async () => {
+  it('sets protection cookie and returns 200 with redirectUrl on success', async () => {
     ;(global.fetch as Mock).mockResolvedValue({
       ok: true,
       json: async () => ({ valid: true, token: 'jwt-abc' }),
@@ -200,7 +202,7 @@ describe('/api/fs/auth/login', () => {
     expect(res.setHeader).toHaveBeenCalledWith(
       'Set-Cookie',
       expect.arrayContaining([
-        expect.stringContaining('__fs_auth_token=jwt-abc'),
+        expect.stringContaining('__fs_password_protection=jwt-abc'),
       ])
     )
     expect(res.setHeader).toHaveBeenCalledWith(

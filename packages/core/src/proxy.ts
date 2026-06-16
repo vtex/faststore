@@ -7,7 +7,7 @@ import {
   isValidLocale,
 } from 'src/utils/localization/bindingPaths'
 
-import { AuthenticationService } from './server/authentication-service'
+import { PasswordProtectionService } from './server/password-protection-service'
 
 type RewriteRule = {
   regex: RegExp
@@ -149,24 +149,25 @@ function localizationRewrite(request: NextRequest): NextResponse {
 }
 
 export async function proxy(request: NextRequest) {
-  let authResult: Awaited<
-    ReturnType<AuthenticationService['authenticateRequest']>
+  let storeProtectionResult: Awaited<
+    ReturnType<PasswordProtectionService['checkStoreProtection']>
   >
 
   try {
-    const authService = new AuthenticationService()
-    authResult = await authService.authenticateRequest(request)
+    const protectionService = new PasswordProtectionService()
+    storeProtectionResult =
+      await protectionService.checkStoreProtection(request)
   } catch {
     return NextResponse.error()
   }
 
-  if (authResult.response.status !== 200) {
-    return authResult.response
+  if (storeProtectionResult.response.status !== 200) {
+    return storeProtectionResult.response
   }
 
   const response = localizationRewrite(request)
 
-  for (const cookie of authResult.response.cookies.getAll()) {
+  for (const cookie of storeProtectionResult.response.cookies.getAll()) {
     response.cookies.set(cookie)
   }
 
@@ -185,14 +186,14 @@ export const config = {
     '/',
     /*
      * Match all other paths. Exclude:
-     * - api/fs/auth/login (password-protection login endpoint)
+     * - api/fs/password-protection/unlock (password-protection unlock endpoint)
      * - _next/static, _next/image
      * - favicon.ico
-     * - fs-auth-login (password-protection login page)
+     * - password-protection (password-protection page)
      * - ~partytown (partytown scripts)
      * - paths ending with a file extension (static assets)
      */
-    '/((?!api/fs/auth/login$|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown|.*[.][^/]+$).*)',
+    '/((?!api/fs/password-protection/unlock$|_next/static|_next/image|favicon.ico|password-protection|~partytown|.*[.][^/]+$).*)',
     '/_next/data/:path*',
   ],
 }
