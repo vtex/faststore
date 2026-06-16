@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import { quoteStatusMap, type QuoteStatusKey } from 'src/utils/quoteStatus'
 import styles from './styles.module.scss'
 
-type Props = {
+type MyAccountQuotesStatusSelectorProps = {
   value: string[]
   onChange: (selected: string[]) => void
 }
@@ -17,9 +17,10 @@ const statusEntries = Object.entries(quoteStatusMap).map(([key, entry]) => ({
 export default function MyAccountQuotesStatusSelector({
   value,
   onChange,
-}: Props) {
+}: MyAccountQuotesStatusSelectorProps) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const labelId = useId()
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -45,7 +46,9 @@ export default function MyAccountQuotesStatusSelector({
 
   return (
     <div className={styles.wrapper} ref={ref} data-fs-quotes-status-selector>
-      <span className={styles.label}>Status</span>
+      <span id={labelId} className={styles.label}>
+        Status
+      </span>
       <div data-fs-quotes-status-input-wrapper>
         <div
           className={styles.input}
@@ -55,6 +58,7 @@ export default function MyAccountQuotesStatusSelector({
             if (e.key === 'Enter' || e.key === ' ') setOpen((o) => !o)
           }}
           role="combobox"
+          aria-labelledby={labelId}
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-controls="status-listbox"

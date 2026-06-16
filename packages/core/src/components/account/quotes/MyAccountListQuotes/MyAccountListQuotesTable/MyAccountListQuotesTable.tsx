@@ -6,7 +6,10 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 import type { ServerListQuotesQueryQuery } from '@generated/graphql'
 
 function formatDateTime(isoString: string, locale: string) {
-  return new Date(isoString).toLocaleString(locale, {
+  if (!isoString) return ''
+  const parsed = new Date(isoString)
+  if (isNaN(parsed.getTime())) return isoString
+  return parsed.toLocaleString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -16,7 +19,10 @@ function formatDateTime(isoString: string, locale: string) {
 }
 
 function formatDateShort(isoString: string, locale: string) {
-  return new Date(isoString).toLocaleDateString(locale, {
+  if (!isoString) return ''
+  const parsed = new Date(isoString)
+  if (isNaN(parsed.getTime())) return isoString
+  return parsed.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

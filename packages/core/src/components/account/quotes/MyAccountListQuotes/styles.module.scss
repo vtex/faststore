@@ -31,14 +31,14 @@
   // Controls bar (filter button + pagination)
   // --------------------------------------------------------
 
-  [data-fs-list-orders-controls] {
+  [data-fs-list-quotes-controls] {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: var(--fs-quotes-list-filter-margin-bottom);
   }
 
-  [data-fs-list-orders-search-filters] {
+  [data-fs-list-quotes-search-filters] {
     display: flex;
     flex: 1;
     gap: var(--fs-spacing-3);

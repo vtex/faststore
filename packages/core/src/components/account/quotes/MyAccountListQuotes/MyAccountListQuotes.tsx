@@ -152,11 +152,11 @@ export default function MyAccountListQuotes({
   return (
     <div className={styles.page}>
       <AccountHeader pageTitle="Quotes" />
-      <div data-fs-list-orders-controls>
-        <div data-fs-list-orders-search-filters>
+      <div data-fs-list-quotes-controls>
+        <div data-fs-list-quotes-search-filters>
           <SearchInputField
             ref={searchInputRef}
-            data-fs-search-input-field-list-orders
+            data-fs-search-input-field-list-quotes
             placeholder="Search"
             onBlur={() => {
               handleSearchChange(searchInputRef.current.inputRef.value)
@@ -171,7 +171,7 @@ export default function MyAccountListQuotes({
             }}
           />
           <Button
-            data-fs-list-orders-search-filters-button
+            data-fs-list-quotes-search-filters-button
             size="small"
             variant="tertiary"
             icon={
