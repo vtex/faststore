@@ -8,5 +8,5 @@ globalThis.fsDiagnostics ??= {
   OTLP_TRACES_ENDPOINT:
     'traces-grpc-faststore-pvl.opentelemetry-collector.vtex.systems:80',
   OTLP_LOGGER_ENDPOINT:
-    'logs-developer-fluentd-faststore-pvl.opentelemetry-collector.vtex.systems:80',
+    'logs-developer-fluentd-faststore-pvl.opentelemetry-collector.vtex.systems',
 }
