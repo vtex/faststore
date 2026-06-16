@@ -7,7 +7,7 @@ const OTELLogger = logger(getOTELLogger('@faststore/api'))
 
 export const ResolverTrace = <
   TContext extends {
-    OTEL: Record<string, any>
+    OTEL_ENABLED: boolean
     account: string
     discoveryConfig: Record<string, any>
   },
@@ -24,7 +24,7 @@ export const ResolverTrace = <
     graphqlContext: TContext,
     info: any
   ): TReturn => {
-    if ((graphqlContext?.OTEL?.enabled ?? false) === false) {
+    if ((graphqlContext?.OTEL_ENABLED ?? false) === false) {
       return fn(source, vars, graphqlContext, info)
     }
 

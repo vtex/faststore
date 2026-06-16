@@ -7,7 +7,8 @@ import {
 } from '@vtex/diagnostics-semconv'
 import { traceExporter } from './tracer'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
-import { setupLogs } from './logger'
+import { UndiciInstrumentation } from '@opentelemetry/instrumentation-undici'
+import { getLoggerExporter, setupLogs } from './logger'
 
 export async function getTelemetryClient(opt: {
   serviceName: string
@@ -34,7 +35,8 @@ export async function getTelemetryClient(opt: {
   const sdk = new NodeSDK({
     resource,
     spanProcessors: [traceExporter()],
-    instrumentations: [new HttpInstrumentation()],
+    logRecordProcessors: [getLoggerExporter()],
+    instrumentations: [new HttpInstrumentation(), new UndiciInstrumentation()],
   })
 
   global.fsDiagnostics.TELEMETRY_CLIENT = sdk

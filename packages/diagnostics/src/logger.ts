@@ -9,10 +9,7 @@ import { credentials } from '@grpc/grpc-js'
 import { type Logger, SeverityNumber, logs } from '@opentelemetry/api-logs'
 import { format } from 'node:util'
 
-export function setupLogs(resource: Resource): LoggerProvider {
-  if (globalThis.fsDiagnostics.LOGGER_CLIENT)
-    return globalThis.fsDiagnostics.LOGGER_CLIENT
-
+export function getLoggerExporter() {
   const OTLP_LOGGER_ENDPOINT =
     globalThis.fsDiagnostics.OTLP_LOGGER_ENDPOINT || 'localhost:4317'
 
@@ -26,16 +23,21 @@ export function setupLogs(resource: Resource): LoggerProvider {
     c = credentials.createInsecure()
   }
 
+  return new BatchLogRecordProcessor(
+    new OTLPLogExporter({
+      credentials: c,
+      url: OTLP_LOGGER_ENDPOINT,
+    })
+  )
+}
+
+export function setupLogs(resource: Resource): LoggerProvider {
+  if (globalThis.fsDiagnostics.LOGGER_CLIENT)
+    return globalThis.fsDiagnostics.LOGGER_CLIENT
+
   const loggerProvider = new LoggerProvider({
     resource,
-    processors: [
-      new BatchLogRecordProcessor(
-        new OTLPLogExporter({
-          credentials: c,
-          url: OTLP_LOGGER_ENDPOINT,
-        })
-      ),
-    ],
+    processors: [getLoggerExporter()],
   })
 
   logs.setGlobalLoggerProvider(loggerProvider)
