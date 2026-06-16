@@ -22,8 +22,6 @@ console.log(`
  * */
 const nextConfig = {
   /* config options here */
-  /* Replaces terser by swc for minifying. It's the default in NextJS 13 */
-  swcMinify: true,
   ...(Array.isArray(storeConfig.experimental?.transpilePackages) &&
     storeConfig.experimental.transpilePackages.length > 0 && {
       transpilePackages: storeConfig.experimental.transpilePackages,
@@ -55,9 +53,7 @@ const nextConfig = {
   sassOptions: {
     silenceDeprecations: ['if-function', 'legacy-js-api'],
   },
-  // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
-    instrumentationHook: true,
     scrollRestoration: !storeConfig.experimental.scrollRestoration,
   },
   /*
@@ -68,6 +64,27 @@ const nextConfig = {
    * */
   outputFileTracingRoot: getRootFolder(),
   webpack: (config, { isServer, dev }) => {
+    // `@opentelemetry/sdk-node` (pulled in by @faststore/diagnostics) does an
+    // optional `require('@opentelemetry/shim-opencensus')` guarded by a try/catch.
+    // The module is an optional peer that isn't installed, so webpack reports a
+    // "Module not found" error it can't see is intentional. Aliasing it to `false`
+    // resolves it to an empty module, matching the graceful degradation the SDK
+    // already expects at runtime (Turbopack handles this case on its own).
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@opentelemetry/shim-opencensus': false,
+    }
+
+    // `require-in-the-middle` (used by OpenTelemetry instrumentation) patches
+    // modules through a dynamic `require` that webpack can't statically analyze,
+    // emitting a benign "Critical dependency" warning. `serverExternalPackages`
+    // handles this for Turbopack, but the webpack builder still traces into it,
+    // so we silence the warning for this module specifically.
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings ?? []),
+      { module: /require-in-the-middle/ },
+    ]
+
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
     config.module.rules

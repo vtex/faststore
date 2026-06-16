@@ -20,6 +20,8 @@ export async function getTelemetryClient(opt: {
     return global.fsDiagnostics.TELEMETRY_CLIENT
 
   const resource = resourceFromAttributes({
+    'service.name': opt.serviceName,
+    'service.version': opt.version,
     [ATTR_VTEX_ACCOUNT_NAME]: opt.account ?? 'unknown',
     [ATTR_VTEX_APPLICATION_ID]: opt.serviceName,
     [ATTR_VTEX_DIAGNOSTICS_NAME]: 'faststore_custom',
