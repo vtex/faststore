@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.5](https://github.com/vtex/faststore/compare/v4.3.0-dev.4...v4.3.0-dev.5) (2026-06-16)
+
+### Bug Fixes
+
+- **api:** use account-scoped cookie in orderEntry headers ([#3395](https://github.com/vtex/faststore/issues/3395)) ([d5f6ac3](https://github.com/vtex/faststore/commit/d5f6ac3d49e70fd0c11475baecae72d3bffbef84)), closes [#3334](https://github.com/vtex/faststore/issues/3334) [#3381](https://github.com/vtex/faststore/issues/3381) [#3381](https://github.com/vtex/faststore/issues/3381)
+- forward auth token only via account-scoped cookie ([#3381](https://github.com/vtex/faststore/issues/3381)) ([37d6fcf](https://github.com/vtex/faststore/commit/37d6fcf3937d0ff9b45a7ca08ab6935cfadd7542))
+
 # [4.3.0-dev.4](https://github.com/vtex/faststore/compare/v4.3.0-dev.3...v4.3.0-dev.4) (2026-06-15)
 
 **Note:** Version bump only for package faststore
