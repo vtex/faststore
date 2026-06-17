@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.7](https://github.com/vtex/faststore/compare/v4.3.0-dev.6...v4.3.0-dev.7) (2026-06-17)
+
+### Bug Fixes
+
+- **core:** use authenticator route for setpassword ([#3380](https://github.com/vtex/faststore/issues/3380)) ([a155269](https://github.com/vtex/faststore/commit/a155269678d8a0584a98008b1384bf146f6da1cb))
+
 # [4.3.0-dev.6](https://github.com/vtex/faststore/compare/v4.3.0-dev.5...v4.3.0-dev.6) (2026-06-17)
 
 ### Bug Fixes
