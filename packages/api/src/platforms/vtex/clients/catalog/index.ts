@@ -34,7 +34,7 @@ export interface LocalizedProductResponse {
  * Uses Accept-Language header to return locale-specific product data.
  */
 export const CatalogDataplane = ({ account, environment }: Options) => {
-  const base = `https://api.${environment}.com.br`
+  const base = `https://${account}.${environment}.com.br`
 
   return {
     getLocalizedProduct: (
