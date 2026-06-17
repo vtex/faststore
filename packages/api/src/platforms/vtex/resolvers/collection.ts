@@ -1,72 +1,65 @@
 import type { GraphqlResolver } from '..'
-import type { Brand } from '../clients/commerce/types/Brand'
-import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { CollectionPageType } from '../clients/commerce/types/Portal'
-import { isCollectionPageType } from '../loaders/collection'
+import {
+  isBrand,
+  isCategory,
+  isCollection,
+  type ByLinkIdBrandRoot,
+  type ByLinkIdCategoryRoot,
+  type ByLinkIdCollectionRoot,
+} from '../loaders/collection'
 import { slugify } from '../utils/slugify'
 
 export type Root =
-  | Brand
-  | (CategoryTree & { level: number })
-  | CollectionPageType
+  | ByLinkIdCategoryRoot
+  | ByLinkIdBrandRoot
+  | ByLinkIdCollectionRoot
 
-const isBrand = (x: any): x is Brand | CollectionPageType =>
-  x.type === 'brand' ||
-  (isCollectionPageType(x) && x.pageType.toLowerCase() === 'brand')
-
-const isCollection = (x: Root): x is CollectionPageType =>
-  isCollectionPageType(x) && x.pageType.toLowerCase() === 'collection'
-
-const slugifyRoot = (root: Root) => {
-  if (isBrand(root) || isCollection(root)) {
-    return slugify(root.name)
+const slugifyRoot = (root: Root): string => {
+  if (isCategory(root)) {
+    // root.slug is the full accumulated input slug (e.g. "vestuario/camisetas"),
+    // injected by the loader — no URL parsing needed.
+    return root.slug
   }
 
-  if (isCollectionPageType(root)) {
-    return new URL(`https://${root.url}`).pathname.slice(1).toLowerCase()
+  if (isBrand(root)) {
+    return root.linkId
   }
 
-  return new URL(root.url).pathname.slice(1).toLowerCase()
+  // collection — linkId may be null for clusters not yet registered in multilanguage
+  return root.linkId ?? slugify(root.name)
 }
 
 export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugifyRoot(root),
-  seo: (root) =>
-    isBrand(root) || isCollectionPageType(root)
-      ? {
-          title: root.title ?? root.name,
-          description: root.metaTagDescription,
-        }
-      : {
-          title: root.Title,
-          description: root.MetaTagDescription,
-        },
-  type: (root) =>
-    isBrand(root)
-      ? 'Brand'
-      : isCollectionPageType(root)
-        ? root.pageType
-        : root.level === 0
-          ? 'Department'
-          : 'Category',
+  seo: (root) => ({
+    title: root.title ?? root.name,
+    description: root.metaTagDescription,
+  }),
+  type: (root) => {
+    if (isBrand(root)) return 'Brand'
+    if (isCollection(root)) return 'Collection'
+    // Department = root category (no parent); Category = everything else.
+    // SubCategory distinction (3rd level+) requires recursive parent lookup — deferred.
+    return root.fatherCategoryId === null ? 'Department' : 'Category'
+  },
   meta: (root) => {
     const slug = slugifyRoot(root)
 
-    return isBrand(root)
-      ? {
-          selectedFacets: [{ key: 'brand', value: slug }],
-        }
-      : isCollection(root)
-        ? {
-            selectedFacets: [{ key: 'productclusterids', value: root.id }],
-          }
-        : {
-            selectedFacets: slug.split('/').map((segment, index) => ({
-              key: `category-${index + 1}`,
-              value: segment,
-            })),
-          }
+    if (isBrand(root)) {
+      return { selectedFacets: [{ key: 'brand', value: slug }] }
+    }
+
+    if (isCollection(root)) {
+      return { selectedFacets: [{ key: 'productclusterids', value: root.id }] }
+    }
+
+    return {
+      selectedFacets: slug.split('/').map((segment, index) => ({
+        key: `category-${index + 1}`,
+        value: segment,
+      })),
+    }
   },
   breadcrumbList: async (root, _, ctx) => {
     const {
@@ -76,32 +69,22 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
     const slug = slugifyRoot(root)
 
     /**
-     * Split slug into segments so we fetch all data for
-     * the breadcrumb. For instance, if we get `/foo/bar`
-     * we need all metadata for both `/foo` and `/bar` and
-     * thus we need to fetch pageType for `/foo` and `/bar`
+     * Split slug into segments so each breadcrumb level gets its own
+     * by-linkid result. For "vestuario/camisetas" this produces two loader
+     * calls: one for "vestuario" and one for "vestuario/camisetas".
      */
-    const segments = slug.split('/').filter((segment) => Boolean(segment))
-    const slugs = segments.map((__, index) =>
+    const segments = slug.split('/').filter(Boolean)
+    const slugs = segments.map((_, index) =>
       segments.slice(0, index + 1).join('/')
     )
 
-    const collections: (CollectionPageType & {
-      slug: string
-    })[] = await Promise.all(
-      slugs.map(async (s) => {
-        const collection = await collectionLoader.load(s)
-        return { slug: s, ...collection }
-      })
+    const collections = await Promise.all(
+      slugs.map((s) => collectionLoader.load(s))
     )
 
     return {
       itemListElement: collections.map((collection, index) => ({
-        item: isCollection(collection)
-          ? `/${collection.slug}`
-          : new URL(
-              `https://${(collection as CollectionPageType).url}`
-            ).pathname.toLowerCase(),
+        item: `/${slugifyRoot(collection)}`,
         name: collection.name,
         position: index + 1,
       })),

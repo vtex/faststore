@@ -29,6 +29,10 @@ import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import type { GraphqlContext } from '../index'
+import type {
+  ByLinkIdBrandRoot,
+  ByLinkIdCategoryRoot,
+} from '../loaders/collection'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -42,6 +46,7 @@ import {
   transformSelectedFacet,
 } from '../utils/facets'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
+import { slugify } from '../utils/slugify'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
@@ -378,25 +383,47 @@ export const Query = {
       commerce.catalog.category.tree(),
     ])
 
-    const categories: Array<CategoryTree & { level: number }> = []
-    const dfs = (node: CategoryTree, level: number) => {
-      categories.push({ ...node, level })
+    // Flatten the category tree. parentId is tracked per node so
+    // the type resolver can correctly classify Departments (fatherCategoryId: null)
+    // vs Categories (fatherCategoryId: number).
+    const categoryRoots: ByLinkIdCategoryRoot[] = []
+    const dfs = (node: CategoryTree, parentId: number | null) => {
+      categoryRoots.push({
+        id: node.id,
+        name: node.name,
+        fatherCategoryId: parentId,
+        linkId: slugify(node.name),
+        title: node.Title,
+        description: null,
+        metaTagDescription: node.MetaTagDescription,
+        availableLinkIds: null,
+        entityType: 'category' as const,
+        slug: new URL(node.url).pathname.slice(1).toLowerCase(),
+      })
 
       for (const child of node.children) {
-        dfs(child, level + 1)
+        dfs(child, node.id)
       }
     }
 
     for (const node of tree) {
-      dfs(node, 0)
+      dfs(node, null)
     }
 
-    const collections = [
-      ...brands
-        .filter((brand) => brand.isActive)
-        .map((x) => ({ ...x, type: 'brand' })),
-      ...categories,
-    ]
+    const brandRoots: ByLinkIdBrandRoot[] = brands
+      .filter((brand) => brand.isActive)
+      .map((brand) => ({
+        id: brand.id,
+        name: brand.name,
+        linkId: slugify(brand.name),
+        title: brand.title,
+        description: null,
+        metaTagDescription: brand.metaTagDescription,
+        availableLinkIds: null,
+        entityType: 'brand' as const,
+      }))
+
+    const collections = [...brandRoots, ...categoryRoots]
 
     const validCollections = collections
       // Nullable slugs may cause one route to override the other

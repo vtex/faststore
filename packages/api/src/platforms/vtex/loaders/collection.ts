@@ -3,49 +3,92 @@ import pLimit from 'p-limit'
 
 import { NotFoundError } from '../../errors'
 import type { Clients } from '../clients'
-import type { CollectionPageType } from '../clients/commerce/types/Portal'
+import type {
+  ByLinkIdBrandResponse,
+  ByLinkIdCategoryResponse,
+  ByLinkIdCollectionResponse,
+} from '../clients/commerce/types/ByLinkId'
 
-// Limits concurrent requests to 20 so that they don't timeout
 const CONCURRENT_REQUESTS_MAX = 20
 
-const collectionPageTypes = new Set([
-  'brand',
-  'category',
-  'department',
-  'subcategory',
-  'collection',
-  'cluster',
-] as const)
+export type ByLinkIdCategoryRoot = ByLinkIdCategoryResponse & {
+  entityType: 'category'
+  /**
+   * Full accumulated input slug injected by the loader (e.g. "vestuario/camisetas").
+   * Used by slugifyRoot so that meta.selectedFacets builds the correct facet keys
+   * without relying on root.url (which is absent in the by-linkid response).
+   */
+  slug: string
+}
 
-export const isCollectionPageType = (x: any): x is CollectionPageType =>
-  typeof x.pageType === 'string' &&
-  collectionPageTypes.has(x.pageType.toLowerCase())
+export type ByLinkIdBrandRoot = ByLinkIdBrandResponse & {
+  entityType: 'brand'
+}
+
+export type ByLinkIdCollectionRoot = ByLinkIdCollectionResponse & {
+  entityType: 'collection'
+}
+
+export type Root =
+  | ByLinkIdCategoryRoot
+  | ByLinkIdBrandRoot
+  | ByLinkIdCollectionRoot
+
+export const isCategory = (root: Root): root is ByLinkIdCategoryRoot =>
+  root.entityType === 'category'
+
+export const isBrand = (root: Root): root is ByLinkIdBrandRoot =>
+  root.entityType === 'brand'
+
+export const isCollection = (root: Root): root is ByLinkIdCollectionRoot =>
+  root.entityType === 'collection'
 
 export const getCollectionLoader = (_: Options, clients: Clients) => {
   const limit = pLimit(CONCURRENT_REQUESTS_MAX)
 
-  const loader = async (
-    slugs: readonly string[]
-  ): Promise<CollectionPageType[]> => {
+  const loader = async (slugs: readonly string[]): Promise<Root[]> => {
     return Promise.all(
       slugs.map((slug: string) =>
         limit(async () => {
-          const page = await clients.commerce.catalog.portal.pagetype(slug)
+          // For multi-segment slugs (e.g. "vestuario/camisetas") the entity type is
+          // determined by the last segment — the leaf category owns the page.
+          // The full slug is injected into the result for meta.selectedFacets and
+          // breadcrumb URL construction.
+          const lastSegment = slug.split('/').at(-1)!
 
-          if (isCollectionPageType(page)) {
-            return page
+          // Step 1: category
+          const categories =
+            await clients.commerce.catalog.byLinkId.category(lastSegment)
+          if (categories !== null && categories.length > 0) {
+            // When multiple categories share the same linkId at different tree levels
+            // (e.g. "bolas" under both "esportes" and "infantil"), fatherCategoryId-based
+            // disambiguation can be added here in a follow-up. For now, take the first match.
+            return { ...categories[0], entityType: 'category' as const, slug }
+          }
+
+          // Step 2: brand (always single-segment)
+          const brands = await clients.commerce.catalog.byLinkId.brand(slug)
+          if (brands !== null && brands.length > 0) {
+            return { ...brands[0], entityType: 'brand' as const }
+          }
+
+          // Step 3: collection cluster (always single-segment)
+          const collections =
+            await clients.commerce.catalog.byLinkId.collection(slug)
+          if (collections !== null && collections.length > 0) {
+            return { ...collections[0], entityType: 'collection' as const }
           }
 
           throw new NotFoundError(
-            `Catalog returned ${page.pageType} for slug: ${slug}. This usually happens when there is more than one category with the same name in the same category tree level.`
+            `No catalog entity found for slug: ${slug}. Cascade exhausted (category → brand → collection).`
           )
         })
       )
     )
   }
 
-  return new DataLoader<string, CollectionPageType>(loader, {
-    // DataLoader is being used to cache requests, not to batch them
+  return new DataLoader<string, Root>(loader, {
+    // DataLoader is used for caching, not batching
     batch: false,
   })
 }
