@@ -36,13 +36,13 @@ export function getSkuIdFromPdpPath(pathname: string): string | null {
 export function persistOtherLocales(
   otherLocales: LocalizedProductLocale[]
 ): void {
-  if (typeof globalThis.window === 'undefined' || !otherLocales.length) return
+  if (typeof window === 'undefined' || !otherLocales.length) return
 
   const skuId = otherLocales[0]?.slug.split('-').pop()
   if (!skuId) return
 
   try {
-    globalThis.window.sessionStorage.setItem(
+    window.sessionStorage.setItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`,
       JSON.stringify(otherLocales)
     )
@@ -56,13 +56,13 @@ export function persistOtherLocales(
  * by the current PDP URL. Returns null when not on a PDP or nothing is stored.
  */
 export function recoverOtherLocales(): LocalizedProductLocale[] | null {
-  if (typeof globalThis.window === 'undefined') return null
+  if (typeof window === 'undefined') return null
 
-  const skuId = getSkuIdFromPdpPath(globalThis.window.location.pathname)
+  const skuId = getSkuIdFromPdpPath(window.location.pathname)
   if (!skuId) return null
 
   try {
-    const raw = globalThis.window.sessionStorage.getItem(
+    const raw = window.sessionStorage.getItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`
     )
 
@@ -282,7 +282,7 @@ export function useBindingSelector(
 
       if (entry) {
         const baseUrl = binding.url.replace(/\/$/, '')
-        globalThis.window.location.href = `${baseUrl}/${entry.slug}/p${globalThis.window.location.search}${globalThis.window.location.hash}`
+        window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
         return
       }
     }
@@ -292,9 +292,9 @@ export function useBindingSelector(
     // locale home. For a default-locale slug this resolves the product; for an
     // unavailable/untranslated slug it yields a 404 at the product URL, never the
     // locale root.
-    globalThis.window.location.href = buildRedirectUrl(
+    window.location.href = buildRedirectUrl(
       binding.url,
-      `${globalThis.window.location.pathname}${globalThis.window.location.search}${globalThis.window.location.hash}`
+      `${window.location.pathname}${window.location.search}${window.location.hash}`
     )
   }, [
     localeCode,
