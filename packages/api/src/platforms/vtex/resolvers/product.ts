@@ -130,12 +130,14 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
         // Extract the category IDs that belong to the main tree (same tree chosen from IS above).
         // A product can be registered in multiple trees; Catalog Dataplane returns all of them
         // in categories[], so we filter to only the ones matching this tree's IDs.
-        const mainTreeIds = removeTrailingSlashes(categoriesIds[mainTreeIndex])
-          .split('/')
-          .filter(Boolean)
+        const mainTreeIds = new Set(
+          removeTrailingSlashes(categoriesIds[mainTreeIndex])
+            .split('/')
+            .filter(Boolean)
+        )
 
         const localizedCategories = entry.categories
-          .filter((category) => mainTreeIds.includes(category.id.toString()))
+          .filter((category) => mainTreeIds.has(category.id.toString()))
           .sort(
             (a, b) =>
               a.fullPath.split('/').length - b.fullPath.split('/').length
@@ -301,7 +303,7 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
     const cacheKey = `${productId}:${locale}`
     let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
 
-    if (!entry || !entry.availableLinkIds) {
+    if (!entry?.availableLinkIds) {
       try {
         const result = await ctx.clients.catalog.getLocalizedProduct(
           productId,

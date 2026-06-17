@@ -21,7 +21,7 @@ const OTHER_LOCALES_STORAGE_PREFIX = 'fs:otherLocales:'
  * Returns null when the path is not a product page or has no numeric id.
  */
 export function getSkuIdFromPdpPath(pathname: string): string | null {
-  const match = pathname.match(/\/([^/]+)\/p\/?$/)
+  const match = pathname.match(/\/([^/]+)\/p\/?$/) // NOSONAR
   const skuId = match?.[1]?.split('-').pop()
 
   return skuId && /^\d+$/.test(skuId) ? skuId : null
@@ -36,13 +36,13 @@ export function getSkuIdFromPdpPath(pathname: string): string | null {
 export function persistOtherLocales(
   otherLocales: LocalizedProductLocale[]
 ): void {
-  if (typeof window === 'undefined' || !otherLocales.length) return
+  if (typeof globalThis.window === 'undefined' || !otherLocales.length) return
 
   const skuId = otherLocales[0]?.slug.split('-').pop()
   if (!skuId) return
 
   try {
-    window.sessionStorage.setItem(
+    globalThis.window.sessionStorage.setItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`,
       JSON.stringify(otherLocales)
     )
@@ -56,13 +56,13 @@ export function persistOtherLocales(
  * by the current PDP URL. Returns null when not on a PDP or nothing is stored.
  */
 export function recoverOtherLocales(): LocalizedProductLocale[] | null {
-  if (typeof window === 'undefined') return null
+  if (typeof globalThis.window === 'undefined') return null
 
-  const skuId = getSkuIdFromPdpPath(window.location.pathname)
+  const skuId = getSkuIdFromPdpPath(globalThis.window.location.pathname)
   if (!skuId) return null
 
   try {
-    const raw = window.sessionStorage.getItem(
+    const raw = globalThis.window.sessionStorage.getItem(
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`
     )
 
@@ -282,7 +282,7 @@ export function useBindingSelector(
 
       if (entry) {
         const baseUrl = binding.url.replace(/\/$/, '')
-        window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
+        globalThis.window.location.href = `${baseUrl}/${entry.slug}/p${globalThis.window.location.search}${globalThis.window.location.hash}`
         return
       }
     }
@@ -292,9 +292,9 @@ export function useBindingSelector(
     // locale home. For a default-locale slug this resolves the product; for an
     // unavailable/untranslated slug it yields a 404 at the product URL, never the
     // locale root.
-    window.location.href = buildRedirectUrl(
+    globalThis.window.location.href = buildRedirectUrl(
       binding.url,
-      `${window.location.pathname}${window.location.search}${window.location.hash}`
+      `${globalThis.window.location.pathname}${globalThis.window.location.search}${globalThis.window.location.hash}`
     )
   }, [
     localeCode,
