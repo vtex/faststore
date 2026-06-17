@@ -143,7 +143,9 @@ export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
 
         // Length guard: if Catalog Dataplane returns fewer categories than IS expects
         // (e.g. data inconsistency or empty categories), fall through to the IS fallback.
-        if (localizedCategories.length === splittedCategories.length) {
+        const hasAllBreadcrumbLevels =
+          localizedCategories.length === splittedCategories.length
+        if (hasAllBreadcrumbLevels) {
           return {
             itemListElement: [
               // Category items: both name and slug come from Catalog Dataplane, ensuring
