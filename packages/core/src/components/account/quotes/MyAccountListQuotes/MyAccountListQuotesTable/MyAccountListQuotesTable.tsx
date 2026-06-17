@@ -130,7 +130,7 @@ export default function MyAccountListQuotesTable({
     <>
       <div data-fs-quotes-list>
         {listQuotes.list.map((item) => {
-          const quoteUrl = `/pvt/account/quotes/${item.id}`
+          const quoteUrl = `/pvt/organization-account/order-entry?quoteId=${item.id}`
           const relativeExpiry = getRelativeExpiry(item.expiresAt)
           const formattedAmount = formatAmount(
             item.amount,
