@@ -82,6 +82,15 @@ export class PasswordProtectionService {
 
   private getNormalizedHost(request: NextRequest): string {
     const host = request.headers.get('host') || ''
+
+    if (host.startsWith('[')) {
+      const closingBracket = host.indexOf(']')
+
+      if (closingBracket !== -1) {
+        return host.slice(1, closingBracket).toLowerCase()
+      }
+    }
+
     return host.split(':')[0].toLowerCase()
   }
 

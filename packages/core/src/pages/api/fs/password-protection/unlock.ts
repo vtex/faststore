@@ -2,11 +2,11 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import storeConfig from 'discovery.config'
 
-import type { UnlockResponse } from '../../../../utils/unlockResponse'
+import type { UnlockResponse } from 'src/utils/unlockResponse'
 import {
   sessionUrl,
   passwordProtectionTimeouts,
-} from '../../../../server/password-protection/webops-api'
+} from 'src/server/password-protection/webops-api'
 import {
   COOKIE_NAME,
   TOKEN_TTL_SECONDS,

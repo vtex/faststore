@@ -11,6 +11,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {
   afterEach,
   beforeEach,
@@ -74,11 +75,11 @@ function stubLocation(origin = 'https://store.example.com') {
   })
 }
 
-function fillAndSubmit(password = 'secret') {
+async function fillAndSubmit(password = 'secret') {
   fireEvent.change(screen.getByLabelText('Password'), {
     target: { value: password },
   })
-  fireEvent.submit(screen.getByRole('button', { name: 'Unlock' }))
+  await userEvent.click(screen.getByRole('button', { name: 'Unlock' }))
 }
 
 describe('PasswordProtectionLogin', () => {
@@ -122,7 +123,7 @@ describe('PasswordProtectionLogin', () => {
     })
 
     render(<PasswordProtectionLogin />)
-    fillAndSubmit()
+    await fillAndSubmit()
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalled()
@@ -151,7 +152,7 @@ describe('PasswordProtectionLogin', () => {
     })
 
     render(<PasswordProtectionLogin />)
-    fillAndSubmit('wrong')
+    await fillAndSubmit('wrong')
 
     expect((await screen.findByRole('alert')).textContent).toBe(
       'Invalid password'
@@ -167,7 +168,7 @@ describe('PasswordProtectionLogin', () => {
     })
 
     render(<PasswordProtectionLogin />)
-    fillAndSubmit()
+    await fillAndSubmit()
 
     expect((await screen.findByRole('alert')).textContent).toBe(
       'Invalid password'
@@ -180,7 +181,7 @@ describe('PasswordProtectionLogin', () => {
     })
 
     render(<PasswordProtectionLogin />)
-    fillAndSubmit()
+    await fillAndSubmit()
 
     expect((await screen.findByRole('alert')).textContent).toBe(
       'Service temporarily unavailable'
@@ -191,7 +192,7 @@ describe('PasswordProtectionLogin', () => {
     ;(global.fetch as Mock).mockRejectedValue(new Error('network'))
 
     render(<PasswordProtectionLogin />)
-    fillAndSubmit()
+    await fillAndSubmit()
 
     expect((await screen.findByRole('alert')).textContent).toBe(
       'Service temporarily unavailable'
