@@ -1,2 +1,3 @@
+pnpm run preinstall
 pnpm i
 pnpm lint-staged
