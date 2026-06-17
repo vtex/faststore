@@ -41,15 +41,12 @@ export const CatalogDataplane = ({ account, environment }: Options) => {
       productId: string,
       locale: string
     ): Promise<LocalizedProductResponse> =>
-      fetchAPI(
-        `${base}/api/catalog-dataplane/product/${productId}?an=${account}`,
-        {
-          method: 'GET',
-          headers: {
-            'Accept-Language': locale,
-            'Content-Type': 'application/json',
-          },
-        }
-      ),
+      fetchAPI(`${base}/api/catalog-dataplane/product/${productId}`, {
+        method: 'GET',
+        headers: {
+          'Accept-Language': locale,
+          'Content-Type': 'application/json',
+        },
+      }),
   }
 }
