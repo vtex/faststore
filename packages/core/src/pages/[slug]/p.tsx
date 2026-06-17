@@ -87,6 +87,50 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
+function buildHreflangLinks(
+  storeConfig: StoreConfig,
+  otherLocales: Array<{ locale: string; slug: string }> | null | undefined
+): Array<{ rel: string; hrefLang: string; href: string }> {
+  if (!storeConfig.localization?.enabled || !otherLocales?.length) return []
+
+  const locales = storeConfig.localization.locales as Record<string, any>
+  const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
+  const defaultLocale = storeConfig.localization.defaultLocale as
+    | string
+    | undefined
+  const links: Array<{ rel: string; hrefLang: string; href: string }> = []
+
+  for (const { locale, slug } of otherLocales) {
+    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url as
+      | string
+      | undefined
+    if (bindingUrl) {
+      links.push({
+        rel: 'alternate',
+        hrefLang: locale,
+        href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
+      })
+    }
+  }
+
+  // PREMISE: the default locale is served at the store root (no locale prefix),
+  // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
+  // prefix while other locales live under `/{locale}`. Hence `x-default` points to
+  // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
+  // prefix or a dedicated domain instead of the root, this href must be derived
+  // from that locale's binding URL instead of `storeUrl`.
+  const defaultEntry = otherLocales.find((e) => e.locale === defaultLocale)
+  if (defaultEntry) {
+    links.push({
+      rel: 'alternate',
+      hrefLang: 'x-default',
+      href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
+    })
+  }
+
+  return links
+}
+
 function Page({
   data: server,
   sections,
@@ -125,48 +169,10 @@ function Page({
   }
 
   // hreflang alternate links for multi-locale stores
-  const hreflangLinks: Array<{ rel: string; hrefLang: string; href: string }> =
-    []
-  if (
-    storeConfig.localization?.enabled &&
-    server.product.otherLocales?.length
-  ) {
-    const locales = storeConfig.localization.locales as Record<string, any>
-    const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
-    const defaultLocale = storeConfig.localization.defaultLocale as
-      | string
-      | undefined
-
-    for (const { locale, slug } of server.product.otherLocales) {
-      const bindingUrl = locales?.[locale]?.bindings?.[0]?.url as
-        | string
-        | undefined
-      if (bindingUrl) {
-        hreflangLinks.push({
-          rel: 'alternate',
-          hrefLang: locale,
-          href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
-        })
-      }
-    }
-
-    // PREMISE: the default locale is served at the store root (no locale prefix),
-    // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
-    // prefix while other locales live under `/{locale}`. Hence `x-default` points to
-    // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
-    // prefix or a dedicated domain instead of the root, this href must be derived
-    // from that locale's binding URL instead of `storeUrl`.
-    const defaultEntry = server.product.otherLocales.find(
-      (e) => e.locale === defaultLocale
-    )
-    if (defaultEntry) {
-      hreflangLinks.push({
-        rel: 'alternate',
-        hrefLang: 'x-default',
-        href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
-      })
-    }
-  }
+  const hreflangLinks = buildHreflangLinks(
+    storeConfig as StoreConfig,
+    server.product.otherLocales
+  )
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
