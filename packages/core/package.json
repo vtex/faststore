@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "4.3.0-dev.5",
+  "version": "4.3.0-dev.6",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -35,7 +35,6 @@
   "sideEffects": false,
   "dependencies": {
     "@antfu/ni": "catalog:",
-    "@qwik.dev/partytown": "^0.14.0",
     "@envelop/core": "catalog:",
     "@envelop/graphql-jit": "catalog:",
     "@envelop/parser-cache": "catalog:",
@@ -62,6 +61,7 @@
     "@lexical/react": "^0.34.0",
     "@lexical/rich-text": "^0.34.0",
     "@lhci/cli": "^0.15.1",
+    "@qwik.dev/partytown": "^0.14.0",
     "@types/react": "catalog:",
     "@vtex/client-cms": "^0.2.16",
     "@vtex/client-cp": "0.6.0",

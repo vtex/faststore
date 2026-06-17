@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.6](https://github.com/vtex/faststore/compare/v4.3.0-dev.5...v4.3.0-dev.6) (2026-06-17)
+
+### Bug Fixes
+
+- migrate partytown [@builder](https://github.com/builder).io → [@qwik](https://github.com/qwik).dev@0.14.0 ([#3394](https://github.com/vtex/faststore/issues/3394)) ([dae8d3b](https://github.com/vtex/faststore/commit/dae8d3b3823b3e1758af9547cae9bd92cef480b9))
+
 # [4.3.0-dev.5](https://github.com/vtex/faststore/compare/v4.3.0-dev.4...v4.3.0-dev.5) (2026-06-16)
 
 **Note:** Version bump only for package @faststore/core
