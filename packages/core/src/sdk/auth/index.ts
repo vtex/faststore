@@ -17,7 +17,7 @@ export const useAuth = () => {
     Boolean(channel.salesChannel) &&
     channel.hasOnlyDefaultSalesChannel === false
 
-  const isAutenticated = hasSalesChannel && person
+  const isAuthenticated = hasSalesChannel && person
 
-  return { isAutenticated, profile: person, channel, isValidating }
+  return { isAuthenticated, profile: person, channel, isValidating }
 }

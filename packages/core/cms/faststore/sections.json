@@ -684,6 +684,11 @@
                       "type": "string",
                       "default": "Uploading..."
                     },
+                    "processingStatusText": {
+                      "title": "Processing status text",
+                      "type": "string",
+                      "default": "Importing..."
+                    },
                     "completedStatusTemplate": {
                       "title": "Completed status text ({fileSize} will be replaced with file size in KB)",
                       "type": "string",

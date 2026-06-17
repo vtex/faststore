@@ -18,6 +18,21 @@ const DEFAULT_MAX_AGE = 5 * 60 // 5 minutes
 const DEFAULT_STALE_WHILE_REVALIDATE = 60 * 60 // 1 hour
 const ALLOWED_HOST_SUFFIXES = ['localhost', '.vtex.app', '.localhost']
 
+/**
+ * Recovers a FastStoreError from an execution error, whether it is the error
+ * itself or wrapped as the `originalError` of a masked GraphQLError.
+ */
+const recoverFastStoreError = (graphqlError: unknown) => {
+  if (isFastStoreError(graphqlError)) {
+    return graphqlError
+  }
+
+  const originalError = (graphqlError as { originalError?: unknown })
+    ?.originalError
+
+  return isFastStoreError(originalError) ? originalError : undefined
+}
+
 // Example: "Set-Cookie: key=value; Domain=example.com; Path=/"
 const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
 
@@ -186,13 +201,53 @@ const handler: NextApiHandler = async (request, response) => {
       { headers: request.headers }
     )
 
-    const hasErrors = Array.isArray(errors)
+    const hasErrors = Array.isArray(errors) && errors.length > 0
 
     if (hasErrors) {
-      const error = errors.find(isFastStoreError)
-      console.error('Graphql execution returned with error: ', error)
+      // After error masking, entries are GraphQLError instances whose
+      // `name` is "GraphQLError" — the original FastStoreError (carrying the
+      // upstream status) is nested in `originalError`. Recover it so the BFF
+      // propagates the real status instead of collapsing everything to 500.
+      const fastStoreError = errors.map(recoverFastStoreError).find(Boolean)
 
-      response.status(error?.extensions.status ?? 500).end()
+      console.error(
+        'Graphql execution returned with error: ',
+        errors.map((graphqlError) => {
+          const fsError = recoverFastStoreError(graphqlError)
+
+          return {
+            message: (graphqlError as { message?: string })?.message,
+            status: fsError?.extensions.status,
+            type: fsError?.extensions.type,
+          }
+        })
+      )
+
+      const status = fastStoreError?.extensions.status ?? 500
+
+      // No recoverable FastStoreError: keep the masked, body-less 500.
+      if (!fastStoreError) {
+        response.status(status).end()
+        return
+      }
+
+      // Only FastStoreError-derived details are exposed. `type`/`status` are a
+      // closed enum (safe everywhere); the free-text `message` may echo raw
+      // upstream text, so it is restricted to non-production responses. The
+      // full message is still available server-side via the log above.
+      const responseError = {
+        extensions: {
+          type: fastStoreError.extensions.type,
+          status: fastStoreError.extensions.status,
+        },
+        ...(process.env.NODE_ENV !== 'production'
+          ? { message: fastStoreError.message }
+          : {}),
+      }
+
+      response.status(status)
+      response.setHeader('content-type', 'application/json')
+      response.send(JSON.stringify({ errors: [responseError] }))
       return
     }
 

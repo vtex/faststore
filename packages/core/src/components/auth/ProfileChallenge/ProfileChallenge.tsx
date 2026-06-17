@@ -9,9 +9,9 @@ const ProfileChallenge = ({
   fallback = null,
   children,
 }: PropsWithChildren<ProfileChallengeProps>) => {
-  const { isAutenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
 
-  return <>{isAutenticated ? children : fallback}</>
+  return <>{isAuthenticated ? children : fallback}</>
 }
 
 export default ProfileChallenge

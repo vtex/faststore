@@ -145,25 +145,6 @@ export const getAuthCookie = (cookies: string, account: string) => {
   return authCookie || ''
 }
 
-export const getWithAutCookie = (ctx: ContextForCookies) => {
-  const withCookie = getWithCookie(ctx)
-
-  return function withAutCookie(forwardedHost: string, account: string) {
-    const headers: HeadersInit = withCookie({
-      'content-type': 'application/json',
-      'X-FORWARDED-HOST': forwardedHost,
-    })
-
-    const VtexIdclientAutCookie = getAuthCookie(
-      ctx?.headers?.cookie ?? '',
-      account
-    )
-    headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
-
-    return headers
-  }
-}
-
 /**
  * This function updates the cookie value based on its key
  *

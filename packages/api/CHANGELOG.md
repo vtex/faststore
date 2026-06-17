@@ -3,6 +3,220 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.8](https://github.com/vtex/faststore/compare/v4.3.0-dev.7...v4.3.0-dev.8) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.3.0-dev.7](https://github.com/vtex/faststore/compare/v4.3.0-dev.6...v4.3.0-dev.7) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.3.0-dev.6](https://github.com/vtex/faststore/compare/v4.3.0-dev.5...v4.3.0-dev.6) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.3.0-dev.5](https://github.com/vtex/faststore/compare/v4.3.0-dev.4...v4.3.0-dev.5) (2026-06-16)
+
+### Bug Fixes
+
+- **api:** use account-scoped cookie in orderEntry headers ([#3395](https://github.com/vtex/faststore/issues/3395)) ([d5f6ac3](https://github.com/vtex/faststore/commit/d5f6ac3d49e70fd0c11475baecae72d3bffbef84)), closes [#3334](https://github.com/vtex/faststore/issues/3334) [#3381](https://github.com/vtex/faststore/issues/3381) [#3381](https://github.com/vtex/faststore/issues/3381)
+- forward auth token only via account-scoped cookie ([#3381](https://github.com/vtex/faststore/issues/3381)) ([37d6fcf](https://github.com/vtex/faststore/commit/37d6fcf3937d0ff9b45a7ca08ab6935cfadd7542))
+
+# [4.3.0-dev.4](https://github.com/vtex/faststore/compare/v4.3.0-dev.3...v4.3.0-dev.4) (2026-06-15)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.3.0-dev.3](https://github.com/vtex/faststore/compare/v4.3.0-dev.2...v4.3.0-dev.3) (2026-06-15)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.3.0-dev.2](https://github.com/vtex/faststore/compare/v4.3.0-dev.1...v4.3.0-dev.2) (2026-06-10)
+
+### Features
+
+- file upload via Order Entry Service (OES) ([#3334](https://github.com/vtex/faststore/issues/3334)) ([03edc11](https://github.com/vtex/faststore/commit/03edc11952ea61fda4127aae4812b204845ecdb1))
+
+# [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+# [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
+
+# [4.2.0-dev.4](https://github.com/vtex/faststore/compare/v4.2.0-dev.3...v4.2.0-dev.4) (2026-06-01)
+
+# [4.2.0-dev.3](https://github.com/vtex/faststore/compare/v4.2.0-dev.2...v4.2.0-dev.3) (2026-06-01)
+
+# [4.2.0-dev.2](https://github.com/vtex/faststore/compare/v4.2.0-dev.1...v4.2.0-dev.2) (2026-06-01)
+
+# [4.2.0-dev.1](https://github.com/vtex/faststore/compare/v4.2.0-dev.0...v4.2.0-dev.1) (2026-06-01)
+
+# [4.2.0-dev.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0-dev.0) (2026-06-01)
+
+## [4.1.2-dev.8](https://github.com/vtex/faststore/compare/v4.1.2-dev.7...v4.1.2-dev.8) (2026-05-28)
+
+## [4.1.2-dev.7](https://github.com/vtex/faststore/compare/v4.1.2-dev.6...v4.1.2-dev.7) (2026-05-28)
+
+## [4.1.2-dev.6](https://github.com/vtex/faststore/compare/v4.1.2-dev.5...v4.1.2-dev.6) (2026-05-27)
+
+## [4.1.2-dev.5](https://github.com/vtex/faststore/compare/v4.1.2-dev.4...v4.1.2-dev.5) (2026-05-21)
+
+## [4.1.2-dev.4](https://github.com/vtex/faststore/compare/v4.1.2-dev.3...v4.1.2-dev.4) (2026-05-20)
+
+## [4.1.2-dev.3](https://github.com/vtex/faststore/compare/v4.1.2-dev.2...v4.1.2-dev.3) (2026-05-20)
+
+## [4.1.2-dev.2](https://github.com/vtex/faststore/compare/v4.1.2-dev.1...v4.1.2-dev.2) (2026-05-19)
+
+## [4.1.2-dev.1](https://github.com/vtex/faststore/compare/v4.1.1...v4.1.2-dev.1) (2026-05-19)
+
+## [4.1.1-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.11...v4.1.1-dev.1) (2026-05-15)
+
+# [4.1.0-dev.11](https://github.com/vtex/faststore/compare/v4.1.0-dev.10...v4.1.0-dev.11) (2026-05-15)
+
+# [4.1.0-dev.10](https://github.com/vtex/faststore/compare/v4.1.0-dev.8...v4.1.0-dev.10) (2026-05-15)
+
+# [4.1.0-dev.8](https://github.com/vtex/faststore/compare/v4.1.0-dev.7...v4.1.0-dev.8) (2026-05-15)
+
+# [4.1.0-dev.7](https://github.com/vtex/faststore/compare/v4.1.0-dev.6...v4.1.0-dev.7) (2026-05-15)
+
+# [4.1.0-dev.6](https://github.com/vtex/faststore/compare/v4.1.0-dev.5...v4.1.0-dev.6) (2026-05-14)
+
+# [4.1.0-dev.5](https://github.com/vtex/faststore/compare/v4.1.0-dev.4...v4.1.0-dev.5) (2026-05-14)
+
+# [4.1.0-dev.4](https://github.com/vtex/faststore/compare/v4.1.0-dev.3...v4.1.0-dev.4) (2026-05-13)
+
+# [4.1.0-dev.3](https://github.com/vtex/faststore/compare/v4.1.0-dev.2...v4.1.0-dev.3) (2026-05-13)
+
+# [4.1.0-dev.2](https://github.com/vtex/faststore/compare/v4.1.0...v4.1.0-dev.2) (2026-05-12)
+
+# [4.1.0-dev.1](https://github.com/vtex/faststore/compare/v4.1.0-dev.0...v4.1.0-dev.1) (2026-05-11)
+
+# [4.1.0-dev.0](https://github.com/vtex/faststore/compare/v4.0.1-dev.2...v4.1.0-dev.0) (2026-05-11)
+
+### Features
+
+- user details adjusts - SFS-2950 ([#3306](https://github.com/vtex/faststore/issues/3306)) ([70b018d](https://github.com/vtex/faststore/commit/70b018d713b4ec0da698bfc377332b356d9fa9cd))
+
+## [4.0.1-dev.2](https://github.com/vtex/faststore/compare/v4.0.1-dev.1...v4.0.1-dev.2) (2026-05-11)
+
+## [4.0.1-dev.1](https://github.com/vtex/faststore/compare/v4.0.1-dev.0...v4.0.1-dev.1) (2026-05-07)
+
+## [4.0.1-dev.0](https://github.com/vtex/faststore/compare/v4.0.0...v4.0.1-dev.0) (2026-05-07)
+
+# [4.0.0-dev.4](https://github.com/vtex/faststore/compare/v4.0.0-dev.3...v4.0.0-dev.4) (2026-05-07)
+
+# [4.0.0-dev.3](https://github.com/vtex/faststore/compare/v4.0.0-dev.2...v4.0.0-dev.3) (2026-05-07)
+
+# [4.0.0-dev.2](https://github.com/vtex/faststore/compare/v4.0.0-dev.1...v4.0.0-dev.2) (2026-05-07)
+
+# [4.0.0-dev.0](https://github.com/vtex/faststore/compare/v3.99.0...v4.0.0-dev.0) (2026-05-07)
+
+# [3.99.0-dev.8](https://github.com/vtex/faststore/compare/v3.99.0-dev.7...v3.99.0-dev.8) (2026-05-04)
+
+# [3.99.0-dev.6](https://github.com/vtex/faststore/compare/v3.99.0-dev.4...v3.99.0-dev.6) (2026-05-04)
+
+# [3.99.0-dev.4](https://github.com/vtex/faststore/compare/v3.99.0-dev.3...v3.99.0-dev.4) (2026-04-28)
+
+# [3.99.0-dev.3](https://github.com/vtex/faststore/compare/v3.99.0-dev.2...v3.99.0-dev.3) (2026-04-23)
+
+### Features
+
+- add isGift field to StoreOffer type and resolvers - SFS-3040 ([#3220](https://github.com/vtex/faststore/issues/3220)) ([e10fc92](https://github.com/vtex/faststore/commit/e10fc92633a5296a5b03286028d31d9c280561c6))
+
+## [3.98.1-dev.0](https://github.com/vtex/faststore/compare/v3.98.0...v3.98.1-dev.0) (2026-03-27)
+
+# [3.98.0-dev.3](https://github.com/vtex/faststore/compare/v3.98.0-dev.2...v3.98.0-dev.3) (2026-03-12)
+
+### Features
+
+- Add ActivityFlow data parameters with search-related information ([#3105](https://github.com/vtex/faststore/issues/3105)) ([8f69ff8](https://github.com/vtex/faststore/commit/8f69ff855c31abedba66071132240c53a93ab56d))
+
+# [3.98.0-dev.2](https://github.com/vtex/faststore/compare/v3.98.0-dev.1...v3.98.0-dev.2) (2026-03-03)
+
+### Features
+
+- add mpn (manufacturer code) to product's structured data ([#3234](https://github.com/vtex/faststore/issues/3234)) ([9597e39](https://github.com/vtex/faststore/commit/9597e39a8d63a651b815f90fe3b1ea5409258ca3))
+
+# [3.98.0-dev.1](https://github.com/vtex/faststore/compare/v3.98.0-dev.0...v3.98.0-dev.1) (2026-02-24)
+
+# [3.98.0-dev.0](https://github.com/vtex/faststore/compare/v3.97.1...v3.98.0-dev.0) (2026-02-24)
+
+# [3.97.0-dev.3](https://github.com/vtex/faststore/compare/v3.97.0-dev.2...v3.97.0-dev.3) (2026-02-06)
+
+### Features
+
+- add budget to order details ([#3130](https://github.com/vtex/faststore/issues/3130)) ([f109b02](https://github.com/vtex/faststore/commit/f109b0271542aef02810d2996f00e075a9b9bde6))
+
+# [3.97.0-dev.2](https://github.com/vtex/faststore/compare/v3.97.0...v3.97.0-dev.2) (2026-02-06)
+
+## [3.96.4-dev.0](https://github.com/vtex/faststore/compare/v3.96.3...v3.96.4-dev.0) (2026-01-21)
+
+# [3.96.0-dev.22](https://github.com/vtex/faststore/compare/v3.96.2...v3.96.0-dev.22) (2026-01-21)
+
+### Bug Fixes
+
+- Clear cart (get new orderForm) if there is no checkout cookie present ([#3178](https://github.com/vtex/faststore/issues/3178)) ([f3f69bc](https://github.com/vtex/faststore/commit/f3f69bca1c54f2859ad4c3ac9a52563a0e8c2571))
+
+# [3.96.0-dev.18](https://github.com/vtex/faststore/compare/v3.96.0-dev.17...v3.96.0-dev.18) (2025-12-24)
+
+# [3.96.0-dev.17](https://github.com/vtex/faststore/compare/v3.96.0-dev.16...v3.96.0-dev.17) (2025-12-23)
+
+# [3.96.0-dev.11](https://github.com/vtex/faststore/compare/v3.96.0-dev.10...v3.96.0-dev.11) (2025-12-23)
+
+# [3.96.0-dev.10](https://github.com/vtex/faststore/compare/v3.96.0-dev.9...v3.96.0-dev.10) (2025-12-23)
+
+# [3.96.0-dev.9](https://github.com/vtex/faststore/compare/v3.96.0-dev.8...v3.96.0-dev.9) (2025-12-23)
+
+# [3.96.0-dev.8](https://github.com/vtex/faststore/compare/v3.96.0-dev.7...v3.96.0-dev.8) (2025-12-23)
+
+# [3.96.0-dev.7](https://github.com/vtex/faststore/compare/v3.96.0-dev.6...v3.96.0-dev.7) (2025-12-23)
+
+# [3.96.0-dev.6](https://github.com/vtex/faststore/compare/v3.96.0-dev.5...v3.96.0-dev.6) (2025-12-23)
+
+# [3.96.0-dev.5](https://github.com/vtex/faststore/compare/v3.96.0-dev.4...v3.96.0-dev.5) (2025-12-23)
+
+# [3.96.0-dev.4](https://github.com/vtex/faststore/compare/v3.96.0-dev.3...v3.96.0-dev.4) (2025-12-23)
+
+# [3.96.0-dev.3](https://github.com/vtex/faststore/compare/v3.96.0-dev.2...v3.96.0-dev.3) (2025-12-22)
+
+# [3.96.0-dev.2](https://github.com/vtex/faststore/compare/v3.96.0-dev.1...v3.96.0-dev.2) (2025-12-18)
+
+### Bug Fixes
+
+- adds cache busting to bypass cache when logged in/out. ([#3152](https://github.com/vtex/faststore/issues/3152)) ([862ea50](https://github.com/vtex/faststore/commit/862ea50999214771c4fa38fa70db789b4de5e59b))
+
+# [3.96.0-dev.0](https://github.com/vtex/faststore/compare/v3.95.1-dev.0...v3.96.0-dev.0) (2025-12-10)
+
+### Features
+
+- adds `priceTags` as tax - SFS-2970 ([#3144](https://github.com/vtex/faststore/issues/3144)) ([d1b3869](https://github.com/vtex/faststore/commit/d1b38699f2955890be1759e1d6d6cf55e1c4dda9))
+
+## [3.95.1-dev.0](https://github.com/vtex/faststore/compare/v3.95.0...v3.95.1-dev.0) (2025-12-02)
+
+# [3.95.0-dev.3](https://github.com/vtex/faststore/compare/v3.95.0-dev.2...v3.95.0-dev.3) (2025-12-02)
+
+# [3.95.0-dev.1](https://github.com/vtex/faststore/compare/v3.95.0-dev.0...v3.95.0-dev.1) (2025-12-01)
+
+### Bug Fixes
+
+- Consider the session when finding orderForm changes ([#3091](https://github.com/vtex/faststore/issues/3091)) ([b5cfb55](https://github.com/vtex/faststore/commit/b5cfb557ae7bfda912f93d14cb59369184d6eae3))
+- Update `validateCart` mutation tests ([#3132](https://github.com/vtex/faststore/issues/3132)) ([c8cbb52](https://github.com/vtex/faststore/commit/c8cbb5204562ddee126c63a576ba1f4d264092f7))
+
+## [3.94.1-dev.0](https://github.com/vtex/faststore/compare/v3.94.0...v3.94.1-dev.0) (2025-11-19)
+
+# [3.93.0-dev.3](https://github.com/vtex/faststore/compare/v3.93.0-dev.2...v3.93.0-dev.3) (2025-11-17)
+
+### Features
+
+- add filter and selected tag for pending my approval ([#3001](https://github.com/vtex/faststore/issues/3001)) ([#3101](https://github.com/vtex/faststore/issues/3101)) ([c4c3f6a](https://github.com/vtex/faststore/commit/c4c3f6a9c4380a07502f4a42241cf541c52ef58f)), closes [vtex-sites/b2bfaststoredev.store#358](https://github.com/vtex-sites/b2bfaststoredev.store/issues/358)
+
+# [3.93.0-dev.1](https://github.com/vtex/faststore/compare/v3.93.0...v3.93.0-dev.1) (2025-11-06)
+
+## [3.92.1-dev.0](https://github.com/vtex/faststore/compare/v3.92.0...v3.92.1-dev.0) (2025-11-03)
+
+## [3.91.3-dev.0](https://github.com/vtex/faststore/compare/v3.91.2...v3.91.3-dev.0) (2025-10-30)
+
 # [4.2.0-dev.5](https://github.com/vtex/faststore/compare/v4.2.0-dev.4...v4.2.0-dev.5) (2026-06-01)
 
 **Note:** Version bump only for package @faststore/api

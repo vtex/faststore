@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dev.8](https://github.com/vtex/faststore/compare/v4.3.0-dev.7...v4.3.0-dev.8) (2026-06-17)
+
+### Features
+
+- Password Protection (v4) ([#3276](https://github.com/vtex/faststore/issues/3276)) ([575f162](https://github.com/vtex/faststore/commit/575f162f6ec6fda9d3134ab61f673a897dcc2f56))
+
+# [4.3.0-dev.7](https://github.com/vtex/faststore/compare/v4.3.0-dev.6...v4.3.0-dev.7) (2026-06-17)
+
+### Bug Fixes
+
+- **core:** use authenticator route for setpassword ([#3380](https://github.com/vtex/faststore/issues/3380)) ([a155269](https://github.com/vtex/faststore/commit/a155269678d8a0584a98008b1384bf146f6da1cb))
+
+# [4.3.0-dev.6](https://github.com/vtex/faststore/compare/v4.3.0-dev.5...v4.3.0-dev.6) (2026-06-17)
+
+### Bug Fixes
+
+- migrate partytown [@builder](https://github.com/builder).io → [@qwik](https://github.com/qwik).dev@0.14.0 ([#3394](https://github.com/vtex/faststore/issues/3394)) ([dae8d3b](https://github.com/vtex/faststore/commit/dae8d3b3823b3e1758af9547cae9bd92cef480b9))
+
+# [4.3.0-dev.5](https://github.com/vtex/faststore/compare/v4.3.0-dev.4...v4.3.0-dev.5) (2026-06-16)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.3.0-dev.4](https://github.com/vtex/faststore/compare/v4.3.0-dev.3...v4.3.0-dev.4) (2026-06-15)
+
+**Note:** Version bump only for package @faststore/core
+
+# [4.3.0-dev.3](https://github.com/vtex/faststore/compare/v4.3.0-dev.2...v4.3.0-dev.3) (2026-06-15)
+
+### Features
+
+- adding sitemap to cms LP content-type ([#3386](https://github.com/vtex/faststore/issues/3386)) ([7e81ae2](https://github.com/vtex/faststore/commit/7e81ae208003ece9e19d50ab24489f9c27773929))
+
+# [4.3.0-dev.2](https://github.com/vtex/faststore/compare/v4.3.0-dev.1...v4.3.0-dev.2) (2026-06-10)
+
+### Features
+
+- file upload via Order Entry Service (OES) ([#3334](https://github.com/vtex/faststore/issues/3334)) ([03edc11](https://github.com/vtex/faststore/commit/03edc11952ea61fda4127aae4812b204845ecdb1))
+
+# [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
+
+### Bug Fixes
+
+- **core:** propagate upstream error status instead of always 500 ([#3379](https://github.com/vtex/faststore/issues/3379)) ([c03d3df](https://github.com/vtex/faststore/commit/c03d3dff7f5920e834a318417a4a02cc653453cf))
+
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/core
+
 # [4.2.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0) (2026-06-01)
 
 ### Features

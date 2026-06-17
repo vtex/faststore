@@ -39,84 +39,89 @@ const authMessage = {
 export const useSetPassword = (accountName?: string) => {
   const [loading, setLoading] = useState<boolean>(false)
 
-  const setPassword = useCallback(async (input: SetPasswordInput) => {
-    setLoading(true)
+  const setPassword = useCallback(
+    async (input: SetPasswordInput) => {
+      setLoading(true)
 
-    try {
-      await startLogin({ email: input.userEmail, accountName })
+      try {
+        const an = encodeURIComponent(accountName ?? config.api.storeId)
 
-      const body = {
-        login: input.userEmail,
-        currentPassword: input.currentPassword,
-        newPassword: input.newPassword,
-        accesskey: !input.accesskey ? null : input.accesskey,
-        recaptcha: !input.recaptcha ? null : input.recaptcha,
-      }
+        await startLogin({ email: input.userEmail, accountName, an })
 
-      const response = await fetch(
-        `/api/vtexid/pub/authentication/classic/setpassword?expireSessions=true`,
-        {
-          method: 'POST',
-          body: buildFormData(body),
-          credentials: 'include',
+        const body = {
+          login: input.userEmail,
+          currentPassword: input.currentPassword,
+          newPassword: input.newPassword,
+          accesskey: !input.accesskey ? null : input.accesskey,
+          recaptcha: !input.recaptcha ? null : input.recaptcha,
         }
-      )
 
-      if (!response.ok) {
-        setLoading(false)
-
-        console.error('Set password request failed:', response.statusText)
-
-        let errorStatus = AUTH_STATUS.UNEXPECTED_ERROR
-
-        try {
-          const errorBody = await response.json()
-          if (errorBody?.authStatus) {
-            errorStatus = String(errorBody.authStatus).toLowerCase().trim()
+        const response = await fetch(
+          `/api/authenticator/pub/authentication/classic/setpassword?expireSessions=true&an=${an}`,
+          {
+            method: 'POST',
+            body: buildFormData(body),
+            credentials: 'include',
           }
-        } catch {
-          // Keep the default error
+        )
+
+        if (!response.ok) {
+          setLoading(false)
+
+          console.error('Set password request failed:', response.statusText)
+
+          let errorStatus = AUTH_STATUS.UNEXPECTED_ERROR
+
+          try {
+            const errorBody = await response.json()
+            if (errorBody?.authStatus) {
+              errorStatus = String(errorBody.authStatus).toLowerCase().trim()
+            }
+          } catch {
+            // Keep the default error
+          }
+
+          return {
+            success: false,
+            message: authMessage[errorStatus],
+          }
         }
+
+        const result: SetPasswordResultType = await response.json()
+
+        if (!result) {
+          setLoading(false)
+
+          return {
+            success: false,
+            message: authMessage[AUTH_STATUS.NO_RESPONSE],
+          }
+        }
+
+        const authStatus = result?.authStatus?.toLowerCase().trim() ?? ''
+
+        return {
+          success: authStatus === AUTH_STATUS.SUCCESS,
+          message: authMessage[authStatus] || 'Unexpected error occurred',
+        }
+      } catch (err) {
+        console.error('Error setting password:', err)
+
+        const authStatus =
+          typeof err === 'object' && err !== null && 'authStatus' in err
+            ? String(err.authStatus).toLowerCase().trim()
+            : AUTH_STATUS.UNEXPECTED_ERROR
 
         return {
           success: false,
-          message: authMessage[errorStatus],
+          message: authMessage[authStatus] || 'Unexpected error occurred',
         }
-      }
-
-      const result: SetPasswordResultType = await response.json()
-
-      if (!result) {
+      } finally {
         setLoading(false)
-
-        return {
-          success: false,
-          message: authMessage[AUTH_STATUS.NO_RESPONSE],
-        }
       }
-
-      const authStatus = result?.authStatus?.toLowerCase().trim() ?? ''
-
-      return {
-        success: authStatus === AUTH_STATUS.SUCCESS,
-        message: authMessage[authStatus] || 'Unexpected error occurred',
-      }
-    } catch (err) {
-      console.error('Error setting password:', err)
-
-      const authStatus =
-        typeof err === 'object' && err !== null && 'authStatus' in err
-          ? String(err.authStatus).toLowerCase().trim()
-          : AUTH_STATUS.UNEXPECTED_ERROR
-
-      return {
-        success: false,
-        message: authMessage[authStatus] || 'Unexpected error occurred',
-      }
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    [accountName]
+  )
 
   return { setPassword, loading }
 }
@@ -124,23 +129,28 @@ export const useSetPassword = (accountName?: string) => {
 const startLogin = async ({
   email,
   accountName,
+  an,
 }: {
   email: string
   accountName?: string
+  an: string
 }) => {
   try {
-    const response = await fetch(`/api/vtexid/pub/authentication/startlogin`, {
-      method: 'POST',
-      credentials: 'include',
-      body: buildFormData({
-        user: email,
-        scope: accountName ?? config.api.storeId,
-        accountName: accountName ?? config.api.storeId,
-        returnUrl: '/',
-        callbackUrl: '/',
-        fingerprint: null,
-      }),
-    })
+    const scope = accountName ?? config.api.storeId
+
+    const response = await fetch(
+      `/api/authenticator/pub/authentication/start?an=${an}`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        body: buildFormData({
+          user: email,
+          scope,
+          accountName: scope,
+          returnUrl: '/',
+        }),
+      }
+    )
 
     if (!response.ok) {
       throw {
