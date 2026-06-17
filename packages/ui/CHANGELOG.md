@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0) (2026-06-17)
+
+### Features
+
+- graduate v4.3.0 ([#3396](https://github.com/vtex/faststore/issues/3396)) ([b489766](https://github.com/vtex/faststore/commit/b4897664c7826dcd59bfde7c3599c93259d4d11f)), closes [#3276](https://github.com/vtex/faststore/issues/3276) [#3334](https://github.com/vtex/faststore/issues/3334) [#3386](https://github.com/vtex/faststore/issues/3386) [#3380](https://github.com/vtex/faststore/issues/3380) [#3394](https://github.com/vtex/faststore/issues/3394) [#3395](https://github.com/vtex/faststore/issues/3395) [#3381](https://github.com/vtex/faststore/issues/3381) [#3379](https://github.com/vtex/faststore/issues/3379) [#3375](https://github.com/vtex/faststore/issues/3375)
+
 # [4.3.0-dev.8](https://github.com/vtex/faststore/compare/v4.3.0-dev.7...v4.3.0-dev.8) (2026-06-17)
 
 **Note:** Version bump only for package @faststore/ui
