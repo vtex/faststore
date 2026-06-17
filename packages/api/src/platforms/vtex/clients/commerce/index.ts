@@ -14,6 +14,7 @@ import {
   type UserOrderCancel,
   type UserOrderListResult,
 } from '../../../..'
+import { isNotFoundError } from '../../../errors'
 import type { GraphqlContext } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
@@ -34,6 +35,11 @@ import type {
   OrderFormInputItem,
 } from './types/OrderForm'
 import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
+import type {
+  ByLinkIdBrandResponse,
+  ByLinkIdCategoryResponse,
+  ByLinkIdCollectionResponse,
+} from './types/ByLinkId'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -106,6 +112,47 @@ export const VtexCommerce = (
             undefined,
             { storeCookies }
           ),
+      },
+      byLinkId: {
+        category: async (
+          linkId: string
+        ): Promise<ByLinkIdCategoryResponse[] | null> => {
+          const params = new URLSearchParams({ an: account })
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/category/by-linkid/${encodeURIComponent(linkId)}?${params}`
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
+        brand: async (
+          linkId: string
+        ): Promise<ByLinkIdBrandResponse[] | null> => {
+          const params = new URLSearchParams({ an: account })
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}?${params}`
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
+        collection: async (
+          linkId: string
+        ): Promise<ByLinkIdCollectionResponse[] | null> => {
+          const params = new URLSearchParams({ an: account })
+          try {
+            return await fetchAPI(
+              `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}?${params}`
+            )
+          } catch (error) {
+            if (isNotFoundError(error)) return null
+            throw error
+          }
+        },
       },
       products: {
         crossselling: ({
