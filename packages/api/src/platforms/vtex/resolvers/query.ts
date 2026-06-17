@@ -16,8 +16,6 @@ import type {
   QueryUserOrderArgs,
   UserOrderFromList,
 } from '../../../__generated__/schema'
-import { getOrderEntryOperation } from './getOrderEntryOperation'
-import { getOrderFormItems } from './getOrderFormItems'
 import {
   BadRequestError,
   ForbiddenError,
@@ -25,6 +23,7 @@ import {
   isForbiddenError,
   isNotFoundError,
 } from '../../errors'
+import type { Clients } from '../clients'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
@@ -45,6 +44,48 @@ import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
+import { getOrderEntryOperation } from './getOrderEntryOperation'
+import { getOrderFormItems } from './getOrderFormItems'
+
+/**
+ * Validates that a slug mismatch between IS linkText and the requested slug is
+ * actually a localized slug match. Fetches the localized product entry from
+ * Catalog Dataplane (with request-scoped caching) and checks whether the slug
+ * prefix matches the localized linkId for the current locale.
+ *
+ * Returns true if the slug is a valid localized match, false otherwise
+ * (including when the Dataplane API is unavailable).
+ */
+async function isLocalizedSlugMatch(
+  ctx: GraphqlContext,
+  catalog: Clients['catalog'],
+  slug: string,
+  productGroupID: string,
+  locale: string
+): Promise<boolean> {
+  const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
+  const cacheKey = `${productGroupID}:${locale}`
+
+  try {
+    let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
+
+    if (!entry) {
+      const result = await catalog.getLocalizedProduct(productGroupID, locale)
+      entry = {
+        linkId: result.linkId,
+        categories: result.categories ?? [],
+        availableLinkIds: result.availableLinkIds ?? {},
+      }
+      ctx.storage.productTranslationsCache ??= new Map()
+      ctx.storage.productTranslationsCache.set(cacheKey, entry)
+    }
+
+    return entry.linkId === slugPrefix
+  } catch {
+    // Catalog Dataplane API unavailable — fall through to error
+    return false
+  }
+}
 
 export const Query = {
   product: async (
@@ -103,35 +144,16 @@ export const Query = {
         if (
           isLocalizationEnabled &&
           locale &&
-          isValidSkuId(slug.split('-').pop() ?? '')
+          isValidSkuId(slug.split('-').pop() ?? '') &&
+          (await isLocalizedSlugMatch(
+            ctx,
+            catalog,
+            slug,
+            sku.isVariantOf.productId,
+            locale
+          ))
         ) {
-          const slugPrefix = slug.slice(0, slug.lastIndexOf('-'))
-          const productGroupID = sku.isVariantOf.productId
-          const cacheKey = `${productGroupID}:${locale}`
-
-          try {
-            let entry = ctx.storage.productTranslationsCache?.get(cacheKey)
-
-            if (!entry) {
-              const result = await catalog.getLocalizedProduct(
-                productGroupID,
-                locale
-              )
-              entry = {
-                linkId: result.linkId,
-                categories: result.categories ?? [],
-                availableLinkIds: result.availableLinkIds ?? {},
-              }
-              ctx.storage.productTranslationsCache ??= new Map()
-              ctx.storage.productTranslationsCache.set(cacheKey, entry)
-            }
-
-            if (entry.linkId === slugPrefix) {
-              return sku
-            }
-          } catch (dataplaneErr) {
-            // Catalog Dataplane API unavailable — fall through to error
-          }
+          return sku
         }
 
         throw new Error(
