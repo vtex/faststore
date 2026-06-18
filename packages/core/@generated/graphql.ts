@@ -919,6 +919,7 @@ export type QueryAllProductsArgs = {
 
 
 export type QueryCollectionArgs = {
+  locale: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
 };
 
@@ -2631,6 +2632,7 @@ export type ServerAccountPageQueryQuery = { accountProfile: { name: string | nul
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']['input'];
+  locale: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -3305,7 +3307,7 @@ export const ClientTopSearchSuggestionsFragmentDoc = new TypedDocumentString(`
     `, {"fragmentName":"ClientTopSearchSuggestions"}) as unknown as TypedDocumentString<ClientTopSearchSuggestionsFragment, unknown>;
 export const ServerCollectionPageFragmentDoc = new TypedDocumentString(`
     fragment ServerCollectionPage on Query {
-  collection(slug: $slug) {
+  collection(slug: $slug, locale: $locale) {
     id
   }
 }
@@ -3388,7 +3390,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
-export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"d46841b30ae1f6350021b5cf02f253d56c848664"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
+export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"a69f9f19036498952c3892b20dba632cacaa76d4"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"c51aaec5d4ed39e5b8d7d65f460fcd2bc8645346"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;

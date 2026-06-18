@@ -211,9 +211,13 @@ export const Query = {
   },
   collection: (
     _: unknown,
-    { slug }: QueryCollectionArgs,
+    { slug, locale }: QueryCollectionArgs,
     ctx: GraphqlContext
   ) => {
+    if (locale) {
+      mutateLocaleContext(ctx, locale)
+    }
+
     const {
       loaders: { collectionLoader },
     } = ctx

@@ -230,6 +230,12 @@ type Query {
     Collection slug.
     """
     slug: String!
+    """
+    Locale code (e.g. "pt-BR"). When provided, the resolver sets the request
+    locale so that localization-aware fields (e.g. otherLocales) return data
+    for the correct locale instead of the store default.
+    """
+    locale: String
   ): StoreCollection!
     @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
 
