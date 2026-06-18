@@ -177,4 +177,9 @@ describe('formatFilterDate', () => {
     expect(formatFilterDate('2024-00-15', 'en-US')).toBe('2024-00-15')
     expect(formatFilterDate('2024-03-00', 'en-US')).toBe('2024-03-00')
   })
+
+  it('returns the original string for dates that roll over (e.g. Feb 31)', () => {
+    expect(formatFilterDate('2024-02-31', 'en-US')).toBe('2024-02-31')
+    expect(formatFilterDate('2024-04-31', 'en-US')).toBe('2024-04-31')
+  })
 })
