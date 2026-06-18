@@ -8,6 +8,30 @@ import { logger } from './logger'
 
 const configFileName = 'discovery.config.js'
 
+export type ResolvedContentSource = 'CMS' | 'CP'
+
+/**
+ * Resolves the store's contentSource.type to a supported CMS flow.
+ * Absent or CMS → legacy Headless CMS; CP → Content Platform schema publish.
+ */
+export function resolveContentSource(rawType?: string): ResolvedContentSource {
+  const normalized = rawType?.toUpperCase()
+
+  switch (normalized) {
+    case undefined:
+    case 'CMS':
+      return 'CMS'
+    case 'CP':
+      return 'CP'
+    default: {
+      logger.error(
+        `${chalk.red('[Error]')} - Unsupported contentSource.type "${rawType}". Expected "CMS" or "CP".`
+      )
+      process.exit(1)
+    }
+  }
+}
+
 /**
  * Partial type for discovery config with only the properties used by this module
  */

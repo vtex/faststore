@@ -1,10 +1,35 @@
 import { Args, Command, Flags } from '@oclif/core'
+import chalk from 'chalk'
 import { spawn } from 'node:child_process'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
+import {
+  resolveContentSource,
+  type ResolvedContentSource,
+} from '../utils/config'
+import {
+  errorNoCustomization,
+  generateAndUploadSchema,
+  getCpSchemaOutputPath,
+  getExistingCpDirs,
+} from '../utils/cp-schema'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
-import path from 'node:path'
-import { pathToFileURL } from 'node:url'
+import { logger } from '../utils/logger'
+
+type StoreConfig = {
+  contentSource?: {
+    type?: string
+    project?: string
+  }
+}
+
+const CONTENT_SOURCE_ACTION: Record<ResolvedContentSource, string> = {
+  CMS: 'merging and syncing CMS content',
+  CP: 'generating and uploading schema',
+}
 
 export default class CmsSync extends Command {
   static flags = {
@@ -23,24 +48,83 @@ export default class CmsSync extends Command {
     const { flags, args } = await this.parse(CmsSync)
 
     const basePath = getBasePath(args.path)
-    const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
+    const { userStoreConfigFile } = withBasePath(basePath)
 
-    const { default: userStoreConfig } = await import(
-      pathToFileURL(path.resolve(userStoreConfigFile)).href
+    const storeConfig: StoreConfig | null = existsSync(userStoreConfigFile)
+      ? (await import(pathToFileURL(path.resolve(userStoreConfigFile)).href))
+          .default
+      : null
+
+    const source = resolveContentSource(storeConfig?.contentSource?.type)
+
+    logger.info(
+      `${chalk.blue('[Info]')} - Detected contentSource "${source}" — ${CONTENT_SOURCE_ACTION[source]}`
     )
-    const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
+
+    switch (source) {
+      case 'CMS':
+        return this.runLegacySync({
+          basePath,
+          storeConfig,
+          dryRun: flags['dry-run'],
+        })
+      case 'CP':
+        return this.runCpSync({
+          basePath,
+          dryRun: flags['dry-run'],
+        })
+      default: {
+        return source
+      }
+    }
+  }
+
+  private async runLegacySync({
+    basePath,
+    storeConfig,
+    dryRun,
+  }: {
+    basePath: string
+    storeConfig: StoreConfig | null
+    dryRun?: boolean
+  }) {
+    const { tmpDir } = withBasePath(basePath)
+    const project = storeConfig?.contentSource?.project ?? 'faststore'
 
     await generate({ setup: true, basePath })
     await mergeCMSFiles(basePath)
 
-    if (flags['dry-run']) {
+    if (dryRun) {
       return
     }
 
-    return spawn(`vtex cms sync ${cmsProjectName}`, {
+    return spawn(`vtex cms sync ${project}`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
+    })
+  }
+
+  private runCpSync({
+    basePath,
+    dryRun,
+  }: {
+    basePath: string
+    dryRun?: boolean
+  }) {
+    const dirs = getExistingCpDirs(basePath)
+
+    if (dirs.length === 0) {
+      errorNoCustomization()
+    }
+
+    const schemaOut = getCpSchemaOutputPath(basePath)
+
+    generateAndUploadSchema({
+      basePath,
+      dirs,
+      schemaOut,
+      dryRun: dryRun ?? false,
     })
   }
 }

@@ -124,6 +124,17 @@ vtex content split-content-types -i cms/faststore/content-types.json -s cms/fast
 ```
 
 IMPORTANT: The Faststore Core Team is the only one that needs to add the -l base.jsonc to the output. Merchants will automatically use the base from the Schema Registry.
+
+**Store developers:** set `contentSource: { type: 'CP' }` in `discovery.config.js`, place custom schemas under `cms/faststore/components/` and/or `cms/faststore/pages/`, then run:
+
+```sh
+yarn cms-sync
+```
+
+`cms-sync` detects the content source automatically — in CP mode it generates the schema from your customizations (no `-l` / `base.jsonc`) and uploads it to the Schema Registry. Use `--dry-run` to generate locally without uploading.
+
+**FastStore Core team** (publishing the base schema with the core layer):
+
 2. Generate the schema:
 ```sh
    vtex content generate-schema cms/faststore/components cms/faststore/pages -l cms/faststore/base.jsonc -o cms/faststore/schema.json
