@@ -8,32 +8,43 @@ export interface LocalizedProductLocale {
 
 interface LocalizedProductData {
   /**
-   * Localized slug entries for all available locales of the current product.
-   * Null when not on a product page or when localization is disabled.
+   * Localized slug entries for all available locales of the current page.
+   * Null when localization is disabled or the page type does not support it.
    */
   otherLocales: LocalizedProductLocale[] | null
+  /**
+   * Suffix appended after the localized slug when building the redirect URL.
+   * Use '/p' for product pages (PDP), '' for collection/PLP pages.
+   */
+  urlSuffix: string
 }
 
 const LocalizedProductContext = createContext<LocalizedProductData | null>(null)
 
 interface LocalizedProductProviderProps extends PropsWithChildren {
   otherLocales: LocalizedProductLocale[] | null | undefined
+  /**
+   * Suffix to append to the localized slug when building the redirect URL.
+   * Defaults to '/p' (product pages). Pass '' for collection/PLP pages.
+   */
+  urlSuffix?: string
 }
 
 /**
- * Provides localized product data (e.g. otherLocales) to any component in
+ * Provides localized page data (otherLocales, urlSuffix) to any component in
  * the tree — including global components like LocalizationButton that are
- * not co-located with the PDP sections.
+ * not co-located with page sections.
  *
- * Set in p.tsx; returns null outside a product page.
+ * Set in p.tsx (PDP) and [...slug].tsx (PLP); returns null outside those pages.
  */
 export function LocalizedProductProvider({
   otherLocales,
+  urlSuffix = '/p',
   children,
 }: LocalizedProductProviderProps) {
   const value = useMemo(
-    () => ({ otherLocales: otherLocales ?? null }),
-    [otherLocales]
+    () => ({ otherLocales: otherLocales ?? null, urlSuffix }),
+    [otherLocales, urlSuffix]
   )
 
   return (

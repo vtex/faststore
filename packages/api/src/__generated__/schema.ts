@@ -1295,6 +1295,11 @@ export type StoreCollection = {
   id: Scalars['ID']['output'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
+  /**
+   * Localized versions of this collection for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales?: Maybe<Array<StoreCollectionLocale>>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
@@ -1328,6 +1333,15 @@ export type StoreCollectionFacet = {
   key: Scalars['String']['output'];
   /** Facet value. */
   value: Scalars['String']['output'];
+};
+
+/** Localized collection data for a specific locale. */
+export type StoreCollectionLocale = {
+  __typename?: 'StoreCollectionLocale';
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized collection slug (e.g. "vestuario/camisetas"). */
+  slug: Scalars['String']['output'];
 };
 
 /** Collection meta information. Used for search. */

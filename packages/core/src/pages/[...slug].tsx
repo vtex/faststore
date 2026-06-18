@@ -106,6 +106,10 @@ const query = gql(`
           value
         }
       }
+      otherLocales {
+        locale
+        slug
+      }
     }
   }
 `)

@@ -43,6 +43,7 @@ const LocalizationButton = ({
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const otherLocales = useLocalizedProduct()?.otherLocales ?? undefined
+  const urlSuffix = useLocalizedProduct()?.urlSuffix ?? '/p'
 
   const {
     languages,
@@ -55,7 +56,7 @@ const LocalizationButton = ({
     reset,
     isSaveEnabled,
     error,
-  } = useBindingSelector(otherLocales)
+  } = useBindingSelector(otherLocales, urlSuffix)
 
   const { locale: sessionLocale, currency: sessionCurrency } = useSession()
 

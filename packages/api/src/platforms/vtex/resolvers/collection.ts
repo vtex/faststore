@@ -91,4 +91,70 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
       numberOfItems: collections.length,
     }
   },
+
+  otherLocales: async (root, _, ctx) => {
+    const isLocalizationEnabled =
+      (ctx.discoveryConfig as any)?.localization?.enabled === true
+
+    if (!isLocalizationEnabled) return null
+
+    const configuredLocales = Object.keys(
+      (ctx.discoveryConfig as any)?.localization?.locales ?? {}
+    )
+
+    if (configuredLocales.length === 0) return null
+
+    const currentLocale = ctx.storage.locale
+    const slug = slugifyRoot(root)
+    const segments = slug.split('/').filter(Boolean)
+
+    if (segments.length === 0) return null
+
+    const {
+      loaders: { collectionLoader },
+    } = ctx
+
+    // Build per-level slug paths: ["vestuario", "vestuario/camisetas"].
+    // The collectionLoader DataLoader cache means any segment already fetched
+    // by breadcrumbList costs nothing here.
+    const segmentSlugs = segments.map((_, i) =>
+      segments.slice(0, i + 1).join('/')
+    )
+
+    let entities: Root[]
+
+    try {
+      entities = await Promise.all(
+        segmentSlugs.map((s) => collectionLoader.load(s))
+      )
+    } catch {
+      return null
+    }
+
+    return configuredLocales
+      .map((configuredLocale) => {
+        if (configuredLocale === currentLocale) {
+          // The input slug is already the localized path for the current locale.
+          return { locale: configuredLocale, slug }
+        }
+
+        // Build the full path by joining each segment's localized linkId.
+        // If any segment has no availableLinkIds entry for this locale, omit it
+        // to keep the hreflang cluster symmetric.
+        const parts: string[] = []
+
+        for (const entity of entities) {
+          const linkId = entity.availableLinkIds?.[configuredLocale]
+
+          if (!linkId) return null
+
+          parts.push(linkId)
+        }
+
+        return parts.length > 0
+          ? { locale: configuredLocale, slug: parts.join('/') }
+          : null
+      })
+      .filter((e): e is { locale: string; slug: string } => e !== null)
+  },
 }

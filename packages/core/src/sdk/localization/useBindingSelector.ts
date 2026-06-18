@@ -125,13 +125,16 @@ export interface UseBindingSelectorReturn {
  * Hook that provides state and actions for the localization selector.
  * Manages locale selection, currency filtering, and binding resolution.
  *
- * @param otherLocales - Optional list of localized slugs for the current product.
- *   When provided (e.g. on PDP), the save action navigates to the localized product
- *   URL instead of preserving the current page path verbatim.
+ * @param otherLocales - Optional list of localized slugs for the current page.
+ *   When provided (e.g. on PDP or PLP), the save action navigates to the
+ *   localized page URL instead of preserving the current page path verbatim.
+ * @param urlSuffix - Suffix appended after the slug when building the redirect URL.
+ *   Use '/p' for product pages (default) and '' for collection/PLP pages.
  * @returns Object with languages, currencies, selections, and actions
  */
 export function useBindingSelector(
-  otherLocales?: Array<{ locale: string; slug: string }> | null
+  otherLocales?: Array<{ locale: string; slug: string }> | null,
+  urlSuffix = '/p'
 ): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
   const localizationConfig = storeConfig.localization as LocalizationConfig
@@ -282,7 +285,7 @@ export function useBindingSelector(
 
       if (entry) {
         const baseUrl = binding.url.replace(/\/$/, '')
-        window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
+        window.location.href = `${baseUrl}/${entry.slug}${urlSuffix}${window.location.search}${window.location.hash}`
         return
       }
     }
@@ -308,6 +311,7 @@ export function useBindingSelector(
     localizationConfig.locales,
     localizationConfig.defaultLocale,
     otherLocales,
+    urlSuffix,
   ])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)
