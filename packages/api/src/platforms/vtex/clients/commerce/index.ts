@@ -819,18 +819,65 @@ export const VtexCommerce = (
         expiresAtTo,
         label,
       }: ListUserQuotesArgs): Promise<QuoteListResult> => {
+        const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
+        const VALID_STATUSES = new Set([
+          'Draft',
+          'Requested',
+          'InReview',
+          'Reviewed',
+          'Approved',
+          'Declined',
+          'Expired',
+          'ConvertedToCart',
+          'ConvertedToOrder',
+        ])
+
+        if (page !== undefined && (!Number.isInteger(page) || page < 1)) {
+          throw new Error(
+            `listUserQuotes: invalid page "${page}" — must be a positive integer`
+          )
+        }
+        if (
+          perPage !== undefined &&
+          (!Number.isInteger(perPage) || perPage < 1)
+        ) {
+          throw new Error(
+            `listUserQuotes: invalid perPage "${perPage}" — must be a positive integer`
+          )
+        }
+        for (const [field, value] of [
+          ['createdAtFrom', createdAtFrom],
+          ['createdAtTo', createdAtTo],
+          ['expiresAtFrom', expiresAtFrom],
+          ['expiresAtTo', expiresAtTo],
+        ] as [string, string | undefined][]) {
+          if (value && !ISO_DATE.test(value)) {
+            throw new Error(
+              `listUserQuotes: invalid ${field} "${value}" — must be YYYY-MM-DD`
+            )
+          }
+        }
+        if (status && status.length > 0) {
+          const invalid = status.filter((s) => !VALID_STATUSES.has(s))
+          if (invalid.length > 0) {
+            throw new Error(
+              `listUserQuotes: invalid status values: ${invalid.join(', ')}`
+            )
+          }
+        }
+
         const params = new URLSearchParams()
 
         if (page) params.append('pageNumber', page.toString())
         if (perPage) params.append('pageSize', perPage.toString())
         if (status && status.length > 0) {
-          status.filter(Boolean).forEach((s) => params.append('status', s))
+          status.forEach((s) => params.append('status', s))
         }
         if (createdAtFrom) params.append('createdAtFrom', createdAtFrom)
         if (createdAtTo) params.append('createdAtTo', createdAtTo)
         if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
         if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
-        if (label) params.append('label', label)
+        if (label && label.trim()) params.append('label', label.trim())
 
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
