@@ -27,6 +27,11 @@ import {
 import type { ContractResponse } from './Contract'
 import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
+import type {
+  ByLinkIdBrandResponse,
+  ByLinkIdCategoryResponse,
+  ByLinkIdCollectionResponse,
+} from './types/ByLinkId'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
 import type {
@@ -35,11 +40,6 @@ import type {
   OrderFormInputItem,
 } from './types/OrderForm'
 import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
-import type {
-  ByLinkIdBrandResponse,
-  ByLinkIdCategoryResponse,
-  ByLinkIdCollectionResponse,
-} from './types/ByLinkId'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
@@ -117,10 +117,9 @@ export const VtexCommerce = (
         category: async (
           linkId: string
         ): Promise<ByLinkIdCategoryResponse[] | null> => {
-          const params = new URLSearchParams({ an: account })
           try {
             return await fetchAPI(
-              `${base}/api/catalog_system/pub/category/by-linkid/${encodeURIComponent(linkId)}?${params}`
+              `${base}/api/catalog_system/pub/category/by-linkid/${encodeURIComponent(linkId)}`
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
@@ -130,10 +129,9 @@ export const VtexCommerce = (
         brand: async (
           linkId: string
         ): Promise<ByLinkIdBrandResponse[] | null> => {
-          const params = new URLSearchParams({ an: account })
           try {
             return await fetchAPI(
-              `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}?${params}`
+              `${base}/api/catalog_system/pub/brand/by-linkid/${encodeURIComponent(linkId)}`
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
@@ -143,10 +141,9 @@ export const VtexCommerce = (
         collection: async (
           linkId: string
         ): Promise<ByLinkIdCollectionResponse[] | null> => {
-          const params = new URLSearchParams({ an: account })
           try {
             return await fetchAPI(
-              `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}?${params}`
+              `${base}/api/catalog_system/pub/collection/by-linkid/${encodeURIComponent(linkId)}`
             )
           } catch (error) {
             if (isNotFoundError(error)) return null
