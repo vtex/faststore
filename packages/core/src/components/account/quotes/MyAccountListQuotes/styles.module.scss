@@ -87,10 +87,8 @@
     }
 
     &:hover,
-    &:focus,
     &:focus-visible {
       background-color: var(--fs-quotes-list-row-hover-bg);
-      outline: none;
     }
 
     &:focus-visible {

@@ -9,7 +9,7 @@ type MyAccountQuotesStatusSelectorProps = {
 }
 
 const statusEntries = Object.entries(quoteStatusMap).map(([key, entry]) => ({
-  key: key.toLowerCase(),
+  key,
   label: entry.label,
   variant: entry.variant,
 }))

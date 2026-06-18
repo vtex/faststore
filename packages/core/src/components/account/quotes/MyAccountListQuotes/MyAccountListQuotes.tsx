@@ -12,17 +12,18 @@ import type { ServerListQuotesQueryQuery } from '@generated/graphql'
 
 import AccountHeader from '../../components/MyAccountHeader'
 import { useDebounce } from 'src/sdk/account/useDebounce'
-import {
-  useMyAccountFilter,
-  type MyAccountFilter_FacetsFragment,
-  type SelectedFacet,
-} from 'src/sdk/search/useMyAccountFilter'
+import { useMyAccountFilter } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import { quoteStatusMap } from 'src/utils/quoteStatus'
 import MyAccountListQuotesTable, {
   Pagination,
 } from './MyAccountListQuotesTable/MyAccountListQuotesTable'
 import MyAccountQuotesFilterSlider from './MyAccountQuotesFilterSlider/MyAccountQuotesFilterSlider'
+import {
+  getSelectedFacets,
+  getAllFacets,
+  hasActiveFilters,
+  countActiveFilters,
+} from './quoteFilters'
 import styles from './styles.module.scss'
 
 export type MyAccountListQuotesProps = {
@@ -38,79 +39,6 @@ export type MyAccountListQuotesProps = {
     expiresAtTo: string
     label: string
   }
-}
-
-function getSelectedFacets({
-  filters,
-}: {
-  filters: MyAccountListQuotesProps['filters']
-}): SelectedFacet[] {
-  const facets: SelectedFacet[] = []
-
-  if (filters.status.length > 0) {
-    filters.status.forEach((s) =>
-      facets.push({ key: 'status', value: s.toLowerCase() })
-    )
-  }
-
-  return facets
-}
-
-function getAllFacets({
-  filters,
-}: {
-  filters: MyAccountListQuotesProps['filters']
-}): MyAccountFilter_FacetsFragment[] {
-  return [
-    {
-      __typename: 'StoreFacetBoolean',
-      key: 'status',
-      label: 'Status',
-      values: Object.entries(quoteStatusMap).map(([key, { label }]) => ({
-        label,
-        quantity: 0,
-        selected: false,
-        value: key.toLowerCase(),
-      })),
-    },
-    {
-      __typename: 'StoreFacetRange',
-      key: 'createdAt',
-      label: 'Created Date',
-      from: filters.createdAtFrom,
-      to: filters.createdAtTo,
-    },
-    {
-      __typename: 'StoreFacetRange',
-      key: 'expiresAt',
-      label: 'Expiry Date',
-      from: filters.expiresAtFrom,
-      to: filters.expiresAtTo,
-    },
-  ]
-}
-
-function hasActiveFilters(
-  filters: MyAccountListQuotesProps['filters']
-): boolean {
-  return (
-    filters.status.length > 0 ||
-    Boolean(filters.createdAtFrom) ||
-    Boolean(filters.createdAtTo) ||
-    Boolean(filters.expiresAtFrom) ||
-    Boolean(filters.expiresAtTo) ||
-    Boolean(filters.label)
-  )
-}
-
-function countActiveFilters(
-  filters: MyAccountListQuotesProps['filters']
-): number {
-  let count = 0
-  if (filters.status.length > 0) count++
-  if (filters.createdAtFrom || filters.createdAtTo) count++
-  if (filters.expiresAtFrom || filters.expiresAtTo) count++
-  return count
 }
 
 export default function MyAccountListQuotes({
@@ -139,8 +67,8 @@ export default function MyAccountListQuotes({
     filters.label
   )
 
-  const selectedFacets: SelectedFacet[] = getSelectedFacets({ filters })
-  const allFacets = getAllFacets({ filters })
+  const selectedFacets = getSelectedFacets(filters)
+  const allFacets = getAllFacets(filters)
 
   const filter = useMyAccountFilter({ allFacets, selectedFacets })
   const { openFilter, filter: displayFilter } = useUI()
@@ -186,7 +114,7 @@ export default function MyAccountListQuotes({
             onClick={() => {
               filter.dispatch({
                 type: 'selectFacets',
-                payload: getSelectedFacets({ filters }),
+                payload: getSelectedFacets(filters),
               })
               openFilter()
             }}
@@ -197,7 +125,7 @@ export default function MyAccountListQuotes({
             )}
           </Button>
         </div>
-        {isDesktop && (
+        {isDesktop && total > 0 && (
           <Pagination page={filters.page} total={total} perPage={perPage} />
         )}
       </div>
@@ -234,7 +162,7 @@ export default function MyAccountListQuotes({
         />
       )}
 
-      {!isDesktop && (
+      {!isDesktop && total > 0 && (
         <Pagination page={filters.page} total={total} perPage={perPage} />
       )}
     </div>
