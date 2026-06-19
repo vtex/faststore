@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
   buildLanguageOptions,
@@ -6,7 +6,37 @@ import {
   isValidUrl,
   resolveBinding,
 } from '../../../src/sdk/localization/bindingSelector'
+import type { LocalizedProductLocale } from '../../../src/sdk/localization/LocalizedProductContext'
 import type { Locale } from '../../../src/sdk/localization/types'
+import {
+  getSkuIdFromPdpPath,
+  persistOtherLocales,
+  recoverOtherLocales,
+} from '../../../src/sdk/localization/useBindingSelector'
+
+/** In-memory Storage stub matching the subset used by the helpers. */
+function createFakeStorage() {
+  const map = new Map<string, string>()
+
+  return {
+    getItem: (key: string) => (map.has(key) ? (map.get(key) as string) : null),
+    setItem: (key: string, value: string) => {
+      map.set(key, value)
+    },
+    removeItem: (key: string) => {
+      map.delete(key)
+    },
+    clear: () => map.clear(),
+  }
+}
+
+/** Stubs a browser-like `window` with the given pathname and a fresh storage. */
+function stubWindow(pathname: string) {
+  const sessionStorage = createFakeStorage()
+  vi.stubGlobal('window', { location: { pathname }, sessionStorage })
+
+  return sessionStorage
+}
 
 // Test data that mirrors what the hook would receive from discovery.config
 const mockLocales: Record<string, Locale> = {
@@ -214,6 +244,114 @@ describe('useBindingSelector integration scenarios', () => {
       // Only EUR is available, so it would be auto-selected
       expect(newCurrencies.length).toBe(1)
       expect(newCurrencies[0]).toBe('EUR')
+    })
+  })
+
+  describe('getSkuIdFromPdpPath', () => {
+    afterEach(() => {
+      vi.unstubAllGlobals()
+    })
+
+    it('extracts the SKU id from a locale-prefixed PDP path', () => {
+      expect(
+        getSkuIdFromPdpPath(
+          '/en-CA/adidas-mens-performance-polo-blast-blue-65/p'
+        )
+      ).toBe('65')
+    })
+
+    it('extracts the SKU id from a default-locale (root) PDP path', () => {
+      expect(
+        getSkuIdFromPdpPath('/adidas-mens-performance-polo-blast-blue-65/p')
+      ).toBe('65')
+    })
+
+    it('extracts the SKU id from a custom-path binding PDP', () => {
+      expect(getSkuIdFromPdpPath('/europe/it/some-product-slug-12/p')).toBe(
+        '12'
+      )
+    })
+
+    it('handles a trailing slash after /p', () => {
+      expect(getSkuIdFromPdpPath('/pt-BR/some-slug-9/p/')).toBe('9')
+    })
+
+    it('returns null for non-PDP paths', () => {
+      expect(getSkuIdFromPdpPath('/en-CA')).toBeNull()
+      expect(getSkuIdFromPdpPath('/en-CA/office')).toBeNull()
+      expect(getSkuIdFromPdpPath('/')).toBeNull()
+    })
+
+    it('returns null when the slug has no numeric id', () => {
+      expect(getSkuIdFromPdpPath('/en-CA/no-numeric-id/p')).toBeNull()
+    })
+  })
+
+  describe('persist / recover otherLocales (sessionStorage)', () => {
+    afterEach(() => {
+      vi.unstubAllGlobals()
+    })
+
+    const otherLocales: LocalizedProductLocale[] = [
+      { locale: 'en-US', slug: 'adidas-mens-performance-polo-blast-blue-65' },
+      {
+        locale: 'pt-BR',
+        slug: 'adidas-polo-performance-masculina-azul-blast-65',
+      },
+      {
+        locale: 'fr-CA',
+        slug: 'adidas-polo-performance-homme-bleu-blast-ca-65',
+      },
+    ]
+
+    it('round-trips the map for the SKU referenced by the current path', () => {
+      // Persisted while on a working PDP (SKU 65).
+      stubWindow('/adidas-mens-performance-polo-blast-blue-65/p')
+      persistOtherLocales(otherLocales)
+
+      // Later, on a 404 for en-CA (same SKU 65, default-locale slug in the URL).
+      vi.stubGlobal('window', {
+        location: {
+          pathname: '/en-CA/adidas-mens-performance-polo-blast-blue-65/p',
+        },
+        sessionStorage: window.sessionStorage,
+      })
+
+      expect(recoverOtherLocales()).toEqual(otherLocales)
+    })
+
+    it('returns null when the current path references a different SKU', () => {
+      stubWindow('/adidas-mens-performance-polo-blast-blue-65/p')
+      persistOtherLocales(otherLocales)
+
+      vi.stubGlobal('window', {
+        location: { pathname: '/en-CA/some-other-product-99/p' },
+        sessionStorage: window.sessionStorage,
+      })
+
+      expect(recoverOtherLocales()).toBeNull()
+    })
+
+    it('returns null when the current path is not a PDP', () => {
+      stubWindow('/adidas-mens-performance-polo-blast-blue-65/p')
+      persistOtherLocales(otherLocales)
+
+      vi.stubGlobal('window', {
+        location: { pathname: '/en-CA' },
+        sessionStorage: window.sessionStorage,
+      })
+
+      expect(recoverOtherLocales()).toBeNull()
+    })
+
+    it('does not persist when otherLocales is empty', () => {
+      const storage = stubWindow(
+        '/adidas-mens-performance-polo-blast-blue-65/p'
+      )
+      persistOtherLocales([])
+
+      expect(recoverOtherLocales()).toBeNull()
+      expect(storage.getItem('fs:otherLocales:65')).toBeNull()
     })
   })
 })

@@ -32,10 +32,17 @@ export interface GraphqlContext {
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
     cookies: Map<string, Record<string, string>>
+    /** Cached localized product entries keyed by "productId:locale". Shared between slug validation, otherLocales, and breadcrumb. */
+    productTranslationsCache?: Map<
+      string,
+      import('./clients/catalog').LocalizedProductEntry
+    >
   }
   headers: Record<string, string>
   account: string
   OTEL: Record<string, unknown>
+  /** Discovery config passed from @faststore/core, including localization settings. */
+  discoveryConfig?: Record<string, unknown>
 }
 
 export const GraphqlVtexContextFactory = async (options: Options) => {
