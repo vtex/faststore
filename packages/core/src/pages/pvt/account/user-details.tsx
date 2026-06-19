@@ -25,6 +25,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -34,8 +35,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type UserDetailsPagePros = {
   userDetails: {
+    username: string
     name: string
     email: string
+    phone: string
     role: string[]
     orgUnit: string
   }
@@ -74,15 +77,17 @@ const query = gql(`
       name
     }
     userDetails {
+      username
       name
       email
+      phone
       role
       orgUnit
     }
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
@@ -99,12 +104,16 @@ export const getServerSideProps: GetServerSideProps<
   if (!isFaststoreMyAccountEnabled) {
     return { redirect }
   }
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     userDetails,
@@ -172,3 +181,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

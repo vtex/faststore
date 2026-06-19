@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-input-field] {
   // --------------------------------------------------------
   // Design Tokens for Input Field
@@ -51,6 +53,7 @@
 
   [data-fs-input] {
     --fs-input-padding: var(--fs-input-field-padding);
+
     padding: var(--fs-input-field-padding);
     color: var(--fs-input-field-color);
 
@@ -70,7 +73,7 @@
 
     &:not(:placeholder-shown) + label,
     &:focus + label {
-      top: rem(6px);
+      top: utilities.rem(6px);
       left: var(--fs-border-width);
       font-size: var(--fs-input-field-label-size);
     }
@@ -95,7 +98,8 @@
   &[data-fs-input-field-error="true"] {
     [data-fs-input] {
       border-color: var(--fs-input-field-error-border-color);
-      @include input-focus-ring(
+
+      @include utilities.input-focus-ring(
         $outline: #{var(--fs-input-field-error-focus-ring)},
         $border: #{var(--fs-input-field-error-border-color)}
       );
@@ -115,7 +119,7 @@
   }
 
   &[data-fs-input-field-actionable="true"] {
-    min-width: rem(250px);
+    min-width: utilities.rem(250px);
 
     [data-fs-input] { padding-right: var(--fs-spacing-13); }
 

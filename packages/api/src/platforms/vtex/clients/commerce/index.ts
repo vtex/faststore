@@ -14,12 +14,13 @@ import {
   type UserOrderCancel,
   type UserOrderListResult,
 } from '../../../..'
-import type { Context, Options } from '../../index'
+import type { GraphqlContext } from '../../index'
 import { getWithAppKeyAndToken } from '../../utils/auth'
 import type { Channel } from '../../utils/channel'
 import {
+  getAuthCookie,
   getStoreCookie,
-  getWithAutCookie,
+  getUpdatedCookie,
   getWithCookie,
 } from '../../utils/cookies'
 import type { ContractResponse } from './Contract'
@@ -27,7 +28,11 @@ import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { MasterDataResponse } from './types/Newsletter'
-import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type {
+  ClientPreferencesData,
+  OrderForm,
+  OrderFormInputItem,
+} from './types/OrderForm'
 import type { PickupPoints, PickupPointsInput } from './types/PickupPoints'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
@@ -54,12 +59,11 @@ const BASE_INIT = {
 
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
-  ctx: Context
+  ctx: GraphqlContext
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
-  const withAutCookie = getWithAutCookie(ctx)
   const withAppKeyAndToken = getWithAppKeyAndToken()
 
   const host =
@@ -214,6 +218,28 @@ export const VtexCommerce = (
           {
             headers,
             body: JSON.stringify(marketingData),
+            method: 'POST',
+          },
+          { storeCookies }
+        )
+      },
+      clientPreferencesData: ({
+        id,
+        clientPreferencesData,
+      }: {
+        id: string
+        clientPreferencesData: ClientPreferencesData
+      }): Promise<OrderForm> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/attachments/clientPreferencesData`,
+          {
+            headers,
+            body: JSON.stringify(clientPreferencesData),
             method: 'POST',
           },
           { storeCookies }
@@ -427,7 +453,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -462,7 +488,10 @@ export const VtexCommerce = (
     },
     profile: {
       addresses: async (userId: string): Promise<Record<string, string>> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
@@ -473,7 +502,10 @@ export const VtexCommerce = (
     },
     oms: {
       userOrder: ({ orderId }: { orderId: string }): Promise<UserOrder> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/oms/user/orders/${orderId}`,
@@ -556,7 +588,10 @@ export const VtexCommerce = (
       getCommercialAuthorizationsByOrderId: ({
         orderId,
       }: ICommercialAuthorizationByOrderId): Promise<CommercialAuthorizationResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/${account}/commercial-authorizations/order/${orderId}`,
@@ -573,7 +608,10 @@ export const VtexCommerce = (
         ruleId,
         approved,
       }: IProcessOrderAuthorization): Promise<CommercialAuthorizationResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         const APPROVAL_SCORE = 100
         const REJECTION_SCORE = 0
@@ -601,7 +639,10 @@ export const VtexCommerce = (
       getUnitByUserId: ({
         userId,
       }: { userId: string }): Promise<UnitResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/units/v1/${userId}/unit`,
@@ -615,7 +656,10 @@ export const VtexCommerce = (
       getOrgUnitById: ({
         orgUnitId,
       }: { orgUnitId: string }): Promise<UnitResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}`,
@@ -629,7 +673,10 @@ export const VtexCommerce = (
       getScopesByOrgUnit: ({
         orgUnitId,
       }: { orgUnitId: string }): Promise<ScopesByUnit> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}/scopes`,
@@ -649,7 +696,10 @@ export const VtexCommerce = (
         name: string
         email: string
       }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/license-manager/users/${userId}`,
@@ -667,10 +717,33 @@ export const VtexCommerce = (
         name: string
         email: string
       }> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
         return fetchAPI(
           `${base}/api/license-manager/pvt/users/${email}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+      getUserRoles: ({
+        userId,
+      }: { userId: string }): Promise<{
+        Email: string
+        Roles: Array<{ Id: number; Name: string }>
+      }> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/license-manager/storefront/users/${userId}/roles`,
           {
             method: 'GET',
             headers,
@@ -736,18 +809,179 @@ export const VtexCommerce = (
     },
     vtexid: {
       validate: (): Promise<VtexIdResponse> => {
-        const headers: HeadersInit = withAutCookie(forwardedHost, account)
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        // Read from the merged cookie set so the body token stays in sync with
+        // the `cookie` header (both pull from request + storage updates).
+        const token = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)
 
         return fetchAPI(
           `${base}/api/vtexid/credential/validate`,
           {
             headers,
-            body: JSON.stringify({
-              token: headers['VtexIdclientAutCookie'],
-            }),
+            body: JSON.stringify({ token }),
             method: 'POST',
           },
           { storeCookies }
+        )
+      },
+    },
+    orderEntry: {
+      uploadFile: ({
+        fileBuffer,
+        fileName,
+        mimeType,
+      }: {
+        fileBuffer: Buffer
+        fileName: string
+        mimeType: string
+      }): Promise<{ objectKey: string }> => {
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        const boundary = `----FastStoreUploadBoundary${Date.now()}`
+        const CRLF = '\r\n'
+
+        const SAFE_MIME_PATTERN =
+          /^[a-zA-Z0-9][a-zA-Z0-9!#$&\-.^_]*\/[a-zA-Z0-9][a-zA-Z0-9!#$&\-.^_+]*$/
+        const safeMimeType = SAFE_MIME_PATTERN.test(mimeType)
+          ? mimeType
+          : 'application/octet-stream'
+        const safeFileName = fileName.replaceAll(/[\r\n"]/g, '_')
+
+        const headerPart = [
+          `--${boundary}`,
+          `Content-Disposition: form-data; name="file"; filename="${safeFileName}"`,
+          `Content-Type: ${safeMimeType}`,
+          '',
+          '',
+        ].join(CRLF)
+
+        const footer = `${CRLF}--${boundary}--${CRLF}`
+
+        const headerBytes = Buffer.from(headerPart)
+        const footerBytes = Buffer.from(footer)
+        const body = new Uint8Array(
+          headerBytes.byteLength +
+            fileBuffer.byteLength +
+            footerBytes.byteLength
+        )
+        let offset = 0
+        body.set(headerBytes, offset)
+        offset += headerBytes.byteLength
+        body.set(fileBuffer, offset)
+        offset += fileBuffer.byteLength
+        body.set(footerBytes, offset)
+
+        return fetchAPI(
+          `${base}/api/order-entry/upload?an=${account}`,
+          {
+            method: 'POST',
+            headers: {
+              ...autHeaders,
+              'content-type': `multipart/form-data; boundary=${boundary}`,
+            },
+            body: body.buffer,
+          },
+          {}
+        )
+      },
+
+      startOperation: ({
+        objectKey,
+        orderFormId,
+        sessionToken,
+      }: {
+        objectKey: string
+        orderFormId: string
+        sessionToken?: string
+      }): Promise<{ operationId: string }> => {
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        const body = JSON.stringify({
+          objectKey,
+          orderFormId,
+          operation: 'CreateCart',
+          ...(sessionToken ? { sessionToken } : {}),
+        })
+
+        return fetchAPI(
+          `${base}/api/order-entry/operation?an=${account}`,
+          {
+            method: 'POST',
+            headers: autHeaders,
+            body,
+          },
+          {}
+        )
+      },
+
+      getOperation: ({
+        operationId,
+      }: {
+        operationId: string
+      }): Promise<{
+        status: string
+        entityId: string
+        message?: string
+        missingItems?: Array<{
+          itemId: string
+          itemName?: string
+          reason: string
+        }>
+      }> => {
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/order-entry/operation/${operationId}?an=${account}`,
+          {
+            method: 'GET',
+            headers: autHeaders,
+          },
+          {}
+        )
+      },
+
+      createOrderForm: (): Promise<{ orderFormId: string }> => {
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm?sc=${ctx.storage.channel.salesChannel}`,
+          {
+            method: 'POST',
+            headers: autHeaders,
+            body: '{}',
+          },
+          {}
+        )
+      },
+
+      getOrderFormItems: ({
+        orderFormId,
+      }: {
+        orderFormId: string
+      }): Promise<{ items: import('./types/OrderForm').OrderFormItem[] }> => {
+        const autHeaders = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${orderFormId}`,
+          {
+            method: 'GET',
+            headers: autHeaders,
+          },
+          {}
         )
       },
     },

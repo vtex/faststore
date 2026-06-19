@@ -33,17 +33,20 @@ const pickParam = (req: NextApiRequest, parameter: string) => {
 const setPreviewAndRedirect = (
   res: NextApiResponse,
   previewData: Record<string, string>,
-  redirectPath: string
+  redirectPath: string,
+  locale?: string
 ) => {
+  const previewSessionData =
+    locale === undefined ? previewData : { ...previewData, locale }
   const options: { maxAge: number; path?: string } = {
     maxAge: 3600,
   }
 
-  if (!isBranchPreview(previewData as PreviewData)) {
+  if (!isBranchPreview(previewSessionData as PreviewData)) {
     options.path = redirectPath.split('?')[0]
   }
 
-  res.setPreviewData(previewData, options)
+  res.setPreviewData(previewSessionData, options)
   res.redirect(redirectPath)
 }
 
@@ -58,6 +61,7 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     let slug = pickParam(req, 'slug')
+    const locale = pickParam(req, 'locale')
     if (slug && !slug.startsWith('/')) {
       slug = `/${slug}`
     }
@@ -99,9 +103,13 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     // Fetch CMS to check if the provided `locator` exists
-    const page = await contentService.getSingleContent({
-      contentType: locator.contentType,
+    const contentContext = {
       previewData: locator,
+      locale,
+    }
+    const page = await contentService.getSingleContent({
+      ...contentContext,
+      contentType: locator.contentType,
       slug,
       documentId: locator.documentId,
       versionId: locator.versionId,
@@ -121,21 +129,26 @@ const handler: NextApiHandler = async (req, res) => {
       slug &&
       ['landingPage', 'plp', 'pdp'].includes(locator.contentType)
     ) {
-      return setPreviewAndRedirect(res, locator, slug)
+      return setPreviewAndRedirect(res, locator, slug, locale)
     }
 
     // Redirect to the path from the fetched locator
     const redirects = previewRedirects as Record<string, string>
     if (redirects[locator.contentType]) {
-      return setPreviewAndRedirect(res, locator, redirects[locator.contentType])
+      return setPreviewAndRedirect(
+        res,
+        locator,
+        redirects[locator.contentType],
+        locale
+      )
     }
 
     if (locator.contentType === 'landingPage') {
       slug = (page.settings as Settings)?.seo?.slug
-      return setPreviewAndRedirect(res, locator, slug)
+      return setPreviewAndRedirect(res, locator, slug, locale)
     }
 
-    return setPreviewAndRedirect(res, locator, '/')
+    return setPreviewAndRedirect(res, locator, '/', locale)
   } catch (error) {
     if (error instanceof StatusError) {
       res.status(error.status).end(error.message)

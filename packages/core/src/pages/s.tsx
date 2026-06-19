@@ -1,8 +1,9 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
+import type { SearchSettings } from 'src/server/cms'
 import {
   formatSearchState,
   parseSearchState,
@@ -20,6 +21,7 @@ import {
   getStaticProps,
   type SearchPageProps,
 } from 'src/experimental/searchServerSideFunctions'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 
 export interface SearchPageContextType {
   title: string
@@ -49,13 +51,20 @@ const useSearchParams = ({
 
 type StoreConfig = typeof storeConfig
 
-function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
+function generateSEOData(
+  storeConfig: StoreConfig,
+  searchTerm?: string,
+  pageSeoSettings?: SearchSettings['settings']['seo']
+) {
   const { search: searchSeo, ...seo } = storeConfig.seo
 
   const isSSREnabled = storeConfig.experimental.enableSearchSSR
 
   const title = searchTerm ?? seo.title ?? 'Search Results'
-  const titleTemplate = searchSeo?.titleTemplate ?? seo.titleTemplate
+  const titleTemplate =
+    pageSeoSettings?.titleTemplate ??
+    searchSeo?.titleTemplate ??
+    seo.titleTemplate
   const description = searchSeo?.descriptionTemplate
     ? searchSeo.descriptionTemplate
         .replace(/%s/g, () => searchTerm ?? '')
@@ -79,7 +88,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
   }
 
   const canonical = searchTerm
-    ? `${storeConfig.storeUrl}/s?q=${searchTerm.replaceAll(' ', '+')}`
+    ? `${getStoreURL()}/s?q=${searchTerm.replaceAll(' ', '+')}`
     : undefined
 
   return {
@@ -116,9 +125,20 @@ function Page({
     return null
   }
 
+  const [effectiveSearchTerm, setEffectiveSearchTerm] = useState<
+    string | undefined
+  >(() => searchTerm ?? undefined)
+
+  useEffect(() => {
+    if (!searchTerm && searchParams.term) {
+      setEffectiveSearchTerm(searchParams.term)
+    }
+  }, [searchParams.term, searchTerm])
+
   const { noindex, nofollow, ...seoData } = generateSEOData(
     storeConfig,
-    searchTerm ?? searchParams.term ?? undefined
+    effectiveSearchTerm,
+    settings?.seo
   )
 
   return (
@@ -149,7 +169,7 @@ function Page({
         searchContentType={searchContentType}
         serverData={{
           title: seoData.title,
-          searchTerm: searchTerm ?? searchParams.term ?? undefined,
+          searchTerm: effectiveSearchTerm,
         }}
         globalSections={globalSections}
         globalSettings={globalSettings}

@@ -1,0 +1,562 @@
+"""
+Each product edge contains a `node`, with product information, and a `cursor`, that can be used as a reference for pagination.
+"""
+type StoreProductEdge {
+  """
+  Each product node contains the information of a product returned by the query.
+  """
+  node: StoreProduct!
+  """
+  Product cursor. Used as pagination reference.
+  """
+  cursor: String!
+}
+
+"""
+Product connections, including pagination information and products returned by the query.
+"""
+type StoreProductConnection {
+  """
+  Product pagination information.
+  """
+  pageInfo: StorePageInfo!
+  """
+  Array with product connection edges, each containing a product and a corresponding cursor.
+  """
+  edges: [StoreProductEdge!]!
+}
+
+"""
+Each collection edge contains a `node`, with product collection information, and a `cursor`, that can be used as a reference for pagination.
+"""
+type StoreCollectionEdge {
+  """
+  Each collection node contains the information of a product collection returned by the query.
+  """
+  node: StoreCollection!
+  """
+  Collection cursor. Used as pagination reference.
+  """
+  cursor: String!
+}
+
+"""
+Collection connections, including pagination information and collections returned by the query.
+"""
+type StoreCollectionConnection {
+  """
+  Collection pagination information.
+  """
+  pageInfo: StorePageInfo!
+  """
+  Array with collection connection page edges, each containing a collection and a corresponding cursor..
+  """
+  edges: [StoreCollectionEdge!]!
+}
+
+"""
+Product search results sorting options.
+"""
+enum StoreSort {
+  """
+  Sort by price, from highest to lowest.
+  """
+  price_desc
+  """
+  Sort by price, from lowest to highest.
+  """
+  price_asc
+  """
+  Sort by orders, from highest to lowest.
+  """
+  orders_desc
+  """
+  Sort by name, in reverse alphabetical order.
+  """
+  name_desc
+  """
+  Sort by name, in alphabetical order.
+  """
+  name_asc
+  """
+  Sort by release date, from  highest to lowest.
+  """
+  release_desc
+  """
+  Sort by discount value, from highest to lowest.
+  """
+  discount_desc
+  """
+  Sort by product score, from highest to lowest.
+  """
+  score_desc
+}
+
+"""
+Selected search facet input.
+"""
+input IStoreSelectedFacet {
+  """
+  Selected search facet key.
+  """
+  key: String!
+  """
+  Selected search facet value.
+  """
+  value: String!
+}
+
+"""
+Search facet type.
+"""
+enum StoreFacetType {
+  """
+  Indicates boolean search facet.
+  """
+  BOOLEAN
+  """
+  Indicates range type search facet.
+  """
+  RANGE
+}
+
+"""
+Suggestion term.
+"""
+type StoreSuggestionTerm {
+  """
+  The term.
+  """
+  value: String!
+  """
+  Its occurrences count.
+  """
+  count: Int!
+}
+
+"""
+Suggestions information.
+"""
+type StoreSuggestions {
+  """
+  Array with suggestion terms.
+  """
+  terms: [StoreSuggestionTerm!]!
+  """
+  Array with suggestion products' information.
+  """
+  products: [StoreProduct!]!
+}
+
+"""
+Search result.
+"""
+type SearchMetadata {
+  """
+  Indicates if the search term was misspelled.
+  """
+  isTermMisspelled: Boolean!
+  """
+  Logical operator used to run the search.
+  """
+  logicalOperator: String!
+  """
+  Indicates how the search engine corrected the misspelled word by using fuzzy logic.
+  """
+  fuzzy: String
+}
+
+"""
+Search result.
+"""
+type StoreSearchResult {
+  """
+  Search result products.
+  """
+  products: StoreProductConnection!
+  """
+  Array of search result facets.
+  """
+  facets: [StoreFacet!]!
+  """
+  Search result suggestions.
+  """
+  suggestions: StoreSuggestions!
+  """
+  Search result metadata. Additional data can be used to send analytics events.
+  """
+  metadata: SearchMetadata
+  """
+  Search result searchId. Unique identifier for the search query can be used to correlate search analytics events.
+  """
+  searchId: String!
+}
+
+input IGeoCoordinates {
+  """
+  The latitude of the geographic coordinates.
+  """
+  latitude: Float!
+  """
+  The longitude of the geographic coordinates.
+  """
+  longitude: Float!
+}
+
+type ProductCountResult {
+  """
+  Total product count.
+  """
+  total: Int!
+}
+
+type Query {
+  """
+  Returns the details of a product based on the specified locator.
+  """
+  product(
+    """
+    An array of selected search facets.
+    """
+    locator: [IStoreSelectedFacet!]!
+  ): StoreProduct!
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns the details of a collection based on the collection slug.
+  """
+  collection(
+    """
+    Collection slug.
+    """
+    slug: String!
+  ): StoreCollection!
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns the result of a product, facet, or suggestion search.
+  """
+  search(
+    """
+    Search pagination argument, indicating how many results should be returned from the complete result list.
+    """
+    first: Int!
+    """
+    Search pagination argument, indicating the cursor corresponding with the item after which the results should be fetched.
+    """
+    after: String
+    """
+    Search results sorting mode.
+    """
+    sort: StoreSort = score_desc
+    """
+    Search term.
+    """
+    term: String = ""
+    """
+    Array of selected search facets.
+    """
+    selectedFacets: [IStoreSelectedFacet!]
+    """
+    Search advertisement products return in result.
+    """
+    sponsoredCount: Int
+  ): StoreSearchResult!
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about all products.
+  """
+  allProducts(
+    """
+    Product pagination argument, indicating how many items should be returned from the complete result list.
+    """
+    first: Int!
+    """
+    Product pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
+    """
+    after: String
+  ): StoreProductConnection!
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about selected products.
+  """
+  products(productIds: [String!]!): [StoreProduct!]!
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about all collections.
+  """
+  allCollections(
+    """
+    Collection pagination argument, indicating how many items should be returned from the complete result list.
+    """
+    first: Int!
+    """
+    Collection pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
+    """
+    after: String
+  ): StoreCollectionConnection!
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about shipping simulation.
+  """
+  shipping(
+    """
+    List of SKU products
+    """
+    items: [IShippingItem!]!
+    """
+    Postal code to freight calculator
+    """
+    postalCode: String!
+    """
+    Country of postal code
+    """
+    country: String!
+  ): ShippingData
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns if there's a redirect for a search.
+  """
+  redirect(
+    """
+    Search term.
+    """
+    term: String
+    """
+    Array of selected search facets.
+    """
+    selectedFacets: [IStoreSelectedFacet!]
+  ): StoreRedirect
+
+  """
+  Returns a list of sellers available for a specific localization.
+  """
+  sellers(
+    """
+    Postal code input to calculate sellers
+    """
+    postalCode: String
+    """
+    Geocoordinates input to calculate sellers
+    """
+    geoCoordinates: IGeoCoordinates
+    """
+    Country of localization
+    """
+    country: String!
+    """
+    Sales channel of the navigation
+    """
+    salesChannel: String
+  ): SellersData
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the profile.
+  """
+  profile(
+    """
+    Identifier for user.
+    """
+    id: String!
+  ): Profile
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns the total product count information based on a specific location accessible through the VTEX segment cookie.
+  """
+  productCount(
+    """
+    Search term.
+    """
+    term: String
+  ): ProductCountResult
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the Details of an User Order.
+  """
+  userOrder(
+    """
+    Identifier for the order.
+    """
+    orderId: String!
+  ): UserOrderResult
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns the list of Orders that the User can view.
+  """
+  listUserOrders(
+    """
+    Page number of the list of orders.
+    """
+    page: Int
+    """
+    Quantity of items per page of the list of orders.
+    """
+    perPage: Int
+    """
+    Status of the list of orders.
+    """
+    status: [String]
+    """
+    Initial date of the list of orders.
+    """
+    dateInitial: String
+    """
+    Final date of the list of orders.
+    """
+    dateFinal: String
+    """
+    Text used to full text filter of the list of orders.
+    """
+    text: String
+    """
+    Client email used to filter of the list of orders.
+    """
+    clientEmail: String
+    """
+    Filter orders that are pending user approval.
+    """
+    pendingMyApproval: Boolean
+  ): UserOrderListMinimalResult
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the current user details.
+  """
+  userDetails: StoreUserDetails!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns the account profile information for the current authenticated user (b2b or b2c user).
+  """
+  accountProfile: StoreAccountProfile!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about the user validation.
+  """
+  validateUser: ValidateUserData
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
+  Returns a list of pickup points near to the given geo coordinates.
+  """
+  pickupPoints(
+    """
+    Geo coordinates input.
+    """
+    geoCoordinates: IStoreGeoCoordinates
+  ): PickupPoints
+    @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+  """
+  Returns the status of an Order Entry Service operation by its ID.
+  """
+  orderEntryOperation(operationId: String!): StoreOrderEntryOperationStatus
+    @auth
+  """
+  Returns the items in an orderForm by its ID.
+  """
+  orderFormItems(orderFormId: String!): [StoreOrderFormCartItem!]! @auth
+}
+
+type ValidateUserData {
+  """
+  Indicates if the user is valid.
+  """
+  isValid: Boolean!
+}
+
+"""
+Redirect informations, including url returned by the query.
+https://schema.org/Thing
+"""
+type StoreRedirect {
+  """
+  URL to redirect
+  """
+  url: String
+}
+
+"""
+Regionalization with sellers information.
+"""
+type SellersData {
+  """
+  Identification of region.
+  """
+  id: String
+  """
+  List of sellers.
+  """
+  sellers: [SellerInfo]
+}
+
+"""
+Information of sellers.
+"""
+type SellerInfo {
+  """
+  Identification of the seller
+  """
+  id: String
+  """
+  Name of the seller
+  """
+  name: String
+  """
+  Logo of the seller
+  """
+  logo: String
+}
+
+"""
+User details information.
+"""
+type StoreUserDetails {
+  """
+  User's username (login). May differ from email when Alternative Login is enabled.
+  """
+  username: String
+  """
+  User's name.
+  """
+  name: String
+  """
+  User's email.
+  """
+  email: String
+  """
+  User's phone number.
+  """
+  phone: String
+  """
+  User's role.
+  """
+  role: [String]
+  """
+  User's organizational unit.
+  """
+  orgUnit: String
+}
+
+"""
+Account profile information.
+"""
+type StoreAccountProfile {
+  name: String
+  email: String
+  id: String
+}

@@ -1,22 +1,23 @@
-import { Command, Flags } from '@oclif/core'
-import { spawn } from 'child_process'
+import { Args, Command, Flags } from '@oclif/core'
+import { spawn } from 'node:child_process'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 export default class CmsSync extends Command {
   static flags = {
     ['dry-run']: Flags.boolean({ char: 'd' }),
   }
 
-  static args = [
-    {
+  static args = {
+    path: Args.string({
       name: 'path',
       description:
         'The path where the FastStore being synched with the CMS is. Defaults to cwd.',
-    },
-  ]
+    }),
+  }
 
   async run() {
     const { flags, args } = await this.parse(CmsSync)
@@ -24,7 +25,9 @@ export default class CmsSync extends Command {
     const basePath = getBasePath(args.path)
     const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
 
-    const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    const { default: userStoreConfig } = await import(
+      pathToFileURL(path.resolve(userStoreConfigFile)).href
+    )
     const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
 
     await generate({ setup: true, basePath })

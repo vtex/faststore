@@ -1,4 +1,4 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type {
   Facet,
   FacetValueBoolean,
@@ -9,7 +9,7 @@ import { min } from '../utils/orderStatistics'
 
 export type Root = Facet
 
-export const StoreFacet: Record<string, Resolver<Root>> = {
+export const StoreFacet: Record<string, GraphqlResolver<Root>> = {
   __resolveType: ({ type, values }) => {
     if (type !== 'TEXT' && type !== 'DELIVERY') {
       return 'StoreFacetRange'
@@ -29,7 +29,7 @@ export const StoreFacet: Record<string, Resolver<Root>> = {
 
 export const StoreFacetBoolean: Record<
   string,
-  Resolver<Facet<FacetValueBoolean>>
+  GraphqlResolver<Facet<FacetValueBoolean>>
 > = {
   key: ({ key }) => key,
   label: ({ name }) => name,
@@ -38,7 +38,7 @@ export const StoreFacetBoolean: Record<
 
 export const StoreFacetRange: Record<
   string,
-  Resolver<Facet<FacetValueRange>>
+  GraphqlResolver<Facet<FacetValueRange>>
 > = {
   key: ({ key }) => key,
   label: ({ name }) => name,

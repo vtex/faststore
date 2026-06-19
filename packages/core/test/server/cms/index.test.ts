@@ -1,5 +1,5 @@
+import { vi } from 'vitest'
 import { clientCMS, getCMSPage } from '../../../src/server/cms'
-import { jest } from '@jest/globals'
 import type { ContentData } from '@vtex/client-cms'
 
 describe('CMS Integration', () => {
@@ -20,7 +20,7 @@ describe('CMS Integration', () => {
 
   describe('getCMSPage', () => {
     it('returns the first page if there is only one page', async () => {
-      const mockFunction = jest.fn(() => {
+      const mockFunction = vi.fn(() => {
         return Promise.resolve({
           data: mockData(3),
           hasNextPage: false,
@@ -36,8 +36,7 @@ describe('CMS Integration', () => {
     })
 
     it('loads multiple pages', async () => {
-      const mockFunction: jest.Mock<typeof clientCMS.getCMSPagesByContentType> =
-        jest.fn()
+      const mockFunction = vi.fn()
 
       mockFunction.mockImplementationOnce(() => {
         return Promise.resolve({

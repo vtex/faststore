@@ -1,5 +1,6 @@
-import { waitFor } from '../waitFor'
 import { set } from 'idb-keyval'
+import { expect, test } from 'vitest'
+import { waitFor } from '../waitFor'
 
 import { createBaseStore, persisted } from '../../src'
 

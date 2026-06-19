@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities.scss";
+
 [data-fs-image-gallery] {
   // --------------------------------------------------------
   // Design Tokens for Image Gallery
@@ -53,7 +55,7 @@
   row-gap: var(--fs-image-gallery-gap-mobile);
   width: var(--fs-image-gallery-width);
 
-  @include media(">=tablet") {
+  @include utilities.media(">=tablet") {
     left: 0;
     width: 100%;
 
@@ -63,7 +65,7 @@
     }
   }
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     >[data-fs-image] {
       height: var(--fs-image-gallery-current-height);
     }
@@ -78,9 +80,9 @@
     justify-content: center;
     max-height: var(--fs-image-gallery-selector-max-height);
 
-    @include media("<notebook") { overflow: hidden; }
+    @include utilities.media("<notebook") { overflow: hidden; }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       flex-direction: column;
       grid-row: 1;
       justify-content: space-between;
@@ -96,13 +98,13 @@
 
     &::-webkit-scrollbar { display: none; }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       flex-direction: column;
       row-gap: var(--fs-image-gallery-selector-elements-gap-notebook);
-      overflow-y: hidden;
       align-items: center;
       width: 100%;
       padding: var(--fs-image-gallery-selector-elements-padding-notebook);
+      overflow-y: hidden;
     }
   }
 
@@ -114,21 +116,22 @@
       padding: 0;
       overflow: hidden;
       background-color: transparent;
-      border-radius: var(--fs-image-gallery-selector-thumbnail-border-radius);
       border: var(--fs-image-gallery-selector-thumbnail-border-width) solid transparent;
+      border-radius: var(--fs-image-gallery-selector-thumbnail-border-radius);
       transition: all var(--fs-image-gallery-transition-timing) var(--fs-image-gallery-transition-function);
+
       img {
+        max-width: inherit;
+        height: inherit;
         border-radius: var(--fs-image-gallery-selector-thumbnail-border-radius);
         object-fit: cover;
-        height: inherit;
-        max-width: inherit;
       }
+
       > span {
         width: 100%;
         height: 100%;
       }
     }
-
 
     &:hover:not([data-fs-image-gallery-selector-thumbnail="selected"]) [data-fs-button-wrapper] {
       border-color: var(--fs-image-gallery-selector-thumbnail-selected-border-color);
@@ -145,10 +148,10 @@
     }
 
     &:focus-visible [data-fs-button-wrapper] {
-      @include focus-ring;
+      @include utilities.focus-ring;
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       width: var(--fs-image-gallery-selector-thumbnail-width-notebook);
       height: var(--fs-image-gallery-selector-thumbnail-height-notebook);
     }
@@ -156,22 +159,23 @@
 
   [data-fs-image-gallery-selector-control] {
     position: absolute;
+    z-index: 1;
     display: flex;
     align-items: center;
-    z-index: 1;
 
     &::after {
-      background: linear-gradient(90deg, var(--fs-image-gallery-selector-control-gradient-bkg-color) 55%, transparent);
-      content: '';
-      width: 100%;
-      height: 100%;
       position: absolute;
       left: 0;
       z-index: -1;
-      @include media(">=notebook") { background: linear-gradient(180deg, var(--fs-image-gallery-selector-control-gradient-bkg-color) 55%, transparent); }
+      width: 100%;
+      height: 100%;
+      content: "";
+      background: linear-gradient(90deg, var(--fs-image-gallery-selector-control-gradient-bkg-color) 55%, transparent);
+
+      @include utilities.media(">=notebook") { background: linear-gradient(180deg, var(--fs-image-gallery-selector-control-gradient-bkg-color) 55%, transparent); }
     }
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       height: 100%;
       padding-left: var(--fs-grid-padding);
 
@@ -185,7 +189,7 @@
       }
     }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       justify-content: center;
       width: 100%;
 
@@ -196,11 +200,9 @@
         transform: scaleY(-1);
       }
     }
-
   }
 
   [data-fs-image-gallery-selector-control-button] {
-
     [data-fs-button-wrapper] {
       background-color: var(--fs-image-gallery-selector-control-bkg-color);
       border-radius: var(--fs-image-gallery-selector-control-border-radius);
@@ -209,7 +211,7 @@
 
     &:hover [data-fs-button-wrapper] { box-shadow: var(--fs-image-gallery-selector-control-shadow); }
 
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       transform: rotate(90deg);
     }
   }
@@ -219,7 +221,7 @@
   // --------------------------------------------------------
 
   &[data-fs-image-gallery="with-selector"] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
       column-gap: var(--fs-image-gallery-gap-notebook);

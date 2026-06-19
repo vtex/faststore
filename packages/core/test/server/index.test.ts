@@ -1,11 +1,8 @@
 import { assertValidSchema } from 'graphql'
+import { describe, expect, it } from 'vitest'
 
 import storeConfig from '../../discovery.config'
-import { execute, getEnvelop } from '../../src/server'
-import {
-  getMergedSchema,
-  getTypeDefsFromFolder,
-} from '../../src/server/generator/schema'
+import { execute, getEnvelop, getFinalAPISchema } from '../../src/server'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -81,7 +78,11 @@ const QUERIES = [
   'accountProfile',
   'validateUser',
   'pickupPoints',
+  'orderEntryOperation',
+  'orderFormItems',
 ]
+
+const OPTIONAL_GENERATED_QUERIES = new Set(['accountName'])
 
 const MUTATIONS = [
   'validateCart',
@@ -89,11 +90,13 @@ const MUTATIONS = [
   'subscribeToNewsletter',
   'cancelOrder',
   'processOrderAuthorization',
+  'uploadFileToOrderEntry',
+  'startOrderEntryOperation',
 ]
 
 describe('FastStore GraphQL Layer', () => {
   describe('@faststore/api', () => {
-    const nativeSchema = getMergedSchema()
+    const nativeSchema = getFinalAPISchema()
 
     it('should return a valid GraphQL schema', async () => {
       // `assertValidSchema()` will throw an error if the schema is invalid, and
@@ -109,8 +112,11 @@ describe('FastStore GraphQL Layer', () => {
 
     it('should return a valid GraphQL schema contain all expected queries', async () => {
       const queryFields = nativeSchema.getQueryType()?.getFields() ?? {}
+      const queryNames = Object.keys(queryFields).filter(
+        (query) => !OPTIONAL_GENERATED_QUERIES.has(query)
+      )
 
-      expect(Object.keys(queryFields)).toEqual(QUERIES)
+      expect(queryNames).toEqual(QUERIES)
     })
 
     it('should return a valid GraphQL schema contain all expected mutations', async () => {
@@ -120,23 +126,9 @@ describe('FastStore GraphQL Layer', () => {
     })
   })
 
-  describe('VTEX API Extension', () => {
-    it('getTypeDefsFromFolder function should return an Array', () => {
-      const typeDefs = getTypeDefsFromFolder('vtex')
-      expect(typeDefs).toBeInstanceOf(Array)
-    })
-  })
-
-  describe('Third Party API Extension', () => {
-    it('getTypeDefsFromFolder function should return an Array', () => {
-      const typeDefs = getTypeDefsFromFolder('thirdParty')
-      expect(typeDefs).toBeInstanceOf(Array)
-    })
-  })
-
   describe('Final Schema after merging', () => {
     it('should return a valid merged GraphQL schema', async () => {
-      const schema = getMergedSchema()
+      const schema = getFinalAPISchema()
 
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.

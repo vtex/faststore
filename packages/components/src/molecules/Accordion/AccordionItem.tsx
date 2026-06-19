@@ -1,5 +1,5 @@
-import React, { useContext, forwardRef, createContext } from 'react'
 import type { ElementType, HTMLAttributes, ReactElement } from 'react'
+import React, { createContext, forwardRef, useContext } from 'react'
 import type {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,

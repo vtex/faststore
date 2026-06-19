@@ -34,6 +34,11 @@
         }
       }
     },
+    "loadingLabel": {
+      "title": "Loading Label",
+      "type": "string",
+      "default": "Loading..."
+    },
     "buyButton": {
       "title": "Buy Button",
       "type": "object",
@@ -128,6 +133,11 @@
           "title": "Description section title",
           "type": "string",
           "default": "Description"
+        },
+        "accordionAriaLabel": {
+          "title": "Product description accordion aria label",
+          "type": "string",
+          "default": "Product Description Content"
         }
       }
     },
@@ -139,6 +149,24 @@
           "title": "Should use unit multiplier?",
           "type": "boolean",
           "default": false
+        },
+        "invalidQuantityToastLabels": {
+          "title": "Invalid quantity toast",
+          "description": "This toast will be displayed when the quantity is out of the range of the min and max values.",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Invalid quantity!"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string",
+              "description": "If the message has %{min}, %{max} and %{quantity} placeholders, they will be replaced by the min, max and quantity values.",
+              "default": "The quantity you entered is outside the range of '%{min}' to '%{max}'. The quantity was set to '%{quantity}'."
+            }
+          }
         }
       }
     },
@@ -242,5 +270,9 @@
         }
       }
     }
-  }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
 }

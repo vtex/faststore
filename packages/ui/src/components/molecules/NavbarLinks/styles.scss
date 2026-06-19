@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-navbar-links] {
   // --------------------------------------------------------
   // Design Tokens for Navbar Links
@@ -32,10 +34,10 @@
   background-color: var(--fs-navbar-links-bkg-color);
   transition: var(--fs-navbar-links-transition-property) var(--fs-navbar-links-transition-timing) var(--fs-navbar-links-transition-function);
 
-  @include media("<notebook") { padding: 0; }
+  @include utilities.media("<notebook") { padding: 0; }
 
   [data-fs-navbar-links-wrapper] {
-    @include media(">=notebook") {
+    @include utilities.media(">=notebook") {
       display: flex;
       align-items: center;
     }
@@ -58,19 +60,20 @@
       color: var(--fs-color-text-display);
     }
 
-    @include media("<notebook") {
+    @include utilities.media("<notebook") {
       display: none;
     }
   }
 
-  @include media(">=notebook") {
+  @include utilities.media(">=notebook") {
     [data-fs-navbar-links-list] {
       position: relative;
       display: flex;
-      align-items: center;
       column-gap: var(--fs-spacing-3);
+      align-items: center;
       padding-left: var(--fs-navbar-links-list-padding-left-notebook);
       margin-left: var(--fs-navbar-links-list-margin-left-notebook);
+
       &::before {
         position: absolute;
         left: calc(-1 * var(--fs-spacing-1));
@@ -87,7 +90,7 @@
     }
   }
 
-  @include media("<notebook") {
+  @include utilities.media("<notebook") {
     border-top: var(--fs-navbar-links-border-top-width-mobile) solid var(--fs-navbar-links-border-top-color-mobile);
     border-bottom: var(--fs-navbar-links-border-bottom-width-mobile) solid var(--fs-navbar-links-border-bottom-color-mobile);
   }

@@ -1,4 +1,4 @@
-import { existsSync } from 'fs'
+import { existsSync } from 'node:fs'
 import chalk from 'chalk'
 import { logger } from './logger'
 

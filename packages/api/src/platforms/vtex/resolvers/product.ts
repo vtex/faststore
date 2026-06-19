@@ -1,6 +1,5 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type { StoreImage, StoreProductImageArgs } from '../../..'
-import type { PromiseType } from '../../../typings'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
@@ -56,16 +55,16 @@ const findMainTreeIndex = (categoriesIds: string[], categoryId: string) => {
   return mainTreeIndex < 0 ? 0 : mainTreeIndex
 }
 
-export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<
+export const StoreProduct: Record<string, GraphqlResolver<Root>> & {
+  offers: GraphqlResolver<
     Root,
     any,
     Array<EnhancedCommercialOffer<Root['sellers'][number], Root>>
   >
 
-  isVariantOf: Resolver<Root, any, Root>
+  isVariantOf: GraphqlResolver<Root, any, Root>
 
-  image: Resolver<Root, any, StoreImage[]>
+  image: GraphqlResolver<Root, any, StoreImage[]>
 } = {
   productID: ({ itemId }) => itemId,
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,

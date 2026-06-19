@@ -50,6 +50,7 @@ export async function fetchServerManyProducts({
   selectedFacets = [],
   sponsoredCount = 3,
   filter = true,
+  locale,
 }: {
   itemsPerPage: number
   sort: SearchState['sort']
@@ -60,8 +61,9 @@ export async function fetchServerManyProducts({
   }[]
   sponsoredCount?: number
   filter?: boolean
+  locale: string
 }) {
-  let { channel, locale } = storeConfig.session
+  let { channel } = storeConfig.session
 
   if (filter) {
     const { hasOnlyDefaultSalesChannel, ...filteredChannel } =

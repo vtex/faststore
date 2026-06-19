@@ -1,9 +1,9 @@
-import type { Resolver } from '..'
+import type { GraphqlResolver } from '..'
 import type { FacetValueBoolean } from '../clients/search/types/FacetSearchResult'
 
 export const StoreFacetValueBoolean: Record<
   string,
-  Resolver<FacetValueBoolean>
+  GraphqlResolver<FacetValueBoolean>
 > = {
   value: ({ value }) => value,
   label: ({ name }) => name || 'unknown',

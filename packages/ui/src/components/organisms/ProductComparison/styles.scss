@@ -1,3 +1,5 @@
+@use "../../../styles/base/utilities";
+
 [data-fs-product-comparison-toolbar] {
   // Design Tokens for Product Comparison Toolbar
   // --------------------------------------------------------
@@ -57,7 +59,7 @@
     color: var(--fs-color-disabled-text);
   }
 
-  @include media("<notebook") {
+  @include utilities.media("<notebook") {
     [data-fs-button] {
       &[data-fs-button-variant="primary"],
       &[data-fs-button-variant="tertiary"] {
@@ -72,7 +74,7 @@
     }
   }
 
-  @include media(">notebook") {
+  @include utilities.media(">notebook") {
     display: flex;
     gap: var(--fs-spacing-2);
     align-items: center;
@@ -176,7 +178,7 @@
         margin-top: var(--fs-spacing-3);
         border-top: var(--fs-border-width) solid var(--fs-border-color-light);
 
-        @include media(">tablet") {
+        @include utilities.media(">tablet") {
           width: 100%;
         }
 
@@ -251,7 +253,7 @@
     }
   }
 
-  @include media(">notebook") {
+  @include utilities.media(">notebook") {
     display: flex;
     flex-direction: column;
     padding: var(--fs-spacing-6) var(--fs-spacing-8);
@@ -341,7 +343,7 @@
 }
 
 [data-fs-product-comparison-dropdown-button] {
-  @include media(">notebook") {
+  @include utilities.media(">notebook") {
     display: none;
   }
 }

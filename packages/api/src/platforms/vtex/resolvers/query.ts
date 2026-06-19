@@ -16,6 +16,8 @@ import type {
   QueryUserOrderArgs,
   UserOrderFromList,
 } from '../../../__generated__/schema'
+import { getOrderEntryOperation } from './getOrderEntryOperation'
+import { getOrderFormItems } from './getOrderFormItems'
 import {
   BadRequestError,
   ForbiddenError,
@@ -26,7 +28,7 @@ import {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
-import type { Context } from '../index'
+import type { GraphqlContext } from '../index'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -45,7 +47,11 @@ import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
 
 export const Query = {
-  product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
+  product: async (
+    _: unknown,
+    { locator }: QueryProductArgs,
+    ctx: GraphqlContext
+  ) => {
     // Insert channel in context for later usage
     const channel = findChannel(locator)
     const locale = findLocale(locator)
@@ -122,7 +128,11 @@ export const Query = {
       return enhanceSku(sku, product)
     }
   },
-  collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
+  collection: (
+    _: unknown,
+    { slug }: QueryCollectionArgs,
+    ctx: GraphqlContext
+  ) => {
     const {
       loaders: { collectionLoader },
     } = ctx
@@ -139,7 +149,7 @@ export const Query = {
       selectedFacets,
       sponsoredCount,
     }: QuerySearchArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     // Insert channel in context for later usage
     const channel = findChannel(selectedFacets)
@@ -196,7 +206,7 @@ export const Query = {
   allProducts: async (
     _: unknown,
     { first, after: maybeAfter }: QueryAllProductsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
@@ -232,7 +242,7 @@ export const Query = {
   products: async (
     _: unknown,
     { productIds }: QueryProductsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
@@ -260,7 +270,7 @@ export const Query = {
   allCollections: async (
     _: unknown,
     { first, after: maybeAfter }: QueryAllCollectionsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -318,7 +328,7 @@ export const Query = {
   shipping: async (
     _: unknown,
     { country, items, postalCode }: QueryShippingArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       loaders: { simulationLoader },
@@ -338,7 +348,7 @@ export const Query = {
   redirect: async (
     _: unknown,
     { term, selectedFacets }: QueryRedirectArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     // Currently the search redirection can be done through a search term or filter (facet) so we limit the redirect query to always have one of these values otherwise we do not execute it.
     // https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/4Gd2wLQFbCwTsh8RUDwSoL?&utm_source=autocomplete
@@ -361,7 +371,7 @@ export const Query = {
   sellers: async (
     _: unknown,
     { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -381,7 +391,11 @@ export const Query = {
       sellers,
     }
   },
-  profile: async (_: unknown, { id }: QueryProfileArgs, ctx: Context) => {
+  profile: async (
+    _: unknown,
+    { id }: QueryProfileArgs,
+    ctx: GraphqlContext
+  ) => {
     const {
       clients: { commerce },
     } = ctx
@@ -407,7 +421,7 @@ export const Query = {
   productCount: async (
     _: unknown,
     { term }: QueryProductCountArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { search },
@@ -422,7 +436,7 @@ export const Query = {
   userOrder: async (
     _: unknown,
     { orderId }: QueryUserOrderArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     try {
       if (!orderId) {
@@ -525,7 +539,7 @@ export const Query = {
   listUserOrders: async (
     _: unknown,
     filters: QueryListUserOrdersArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -549,7 +563,7 @@ export const Query = {
       paging: orders.paging,
     }
   },
-  validateUser: async (_: unknown, __: unknown, _ctx: Context) => {
+  validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
     return {
@@ -557,26 +571,44 @@ export const Query = {
     }
   },
   // only b2b users
-  userDetails: async (_: unknown, __: unknown, ctx: Context) => {
+  userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
+      account,
+      headers,
       clients: { commerce },
     } = ctx
 
-    const sessionData = await commerce.session('').catch(() => null)
+    const jwt = parseJwt(getAuthCookie(headers?.cookie ?? '', account))
+    const userId = jwt?.userId ?? ''
 
-    const shopper = sessionData?.namespaces.shopper ?? null
+    const [sessionData, shopperResult, lmRoles] = await Promise.all([
+      commerce.session('').catch(() => null),
+      userId
+        ? commerce.masterData.getShopperById({ userId }).catch(() => null)
+        : Promise.resolve(null),
+      userId
+        ? commerce.licenseManager.getUserRoles({ userId }).catch(() => null)
+        : Promise.resolve(null),
+    ])
+
+    const shopper = shopperResult?.[0]
     const authentication = sessionData?.namespaces.authentication ?? null
 
+    const fullName =
+      `${(shopper?.firstName ?? '').trim()} ${(shopper?.lastName ?? '').trim()}`.trim()
+
     return {
-      name: shopper?.firstName?.value ?? '',
-      email: authentication?.storeUserEmail.value ?? '',
-      role: ['Admin'], // TODO change when implemented roles,
+      username: authentication?.storeUserEmail?.value ?? '',
+      name: fullName,
+      email: authentication?.storeUserEmail?.value ?? '',
+      phone: shopper?.phone ?? '',
+      role: lmRoles?.Roles?.map((r) => r.Name) ?? [],
       orgUnit: authentication?.unitName?.value ?? '',
     }
   },
   // If isRepresentative, return b2b information.
   // If not, return b2c user information
-  accountProfile: async (_: unknown, __: unknown, ctx: Context) => {
+  accountProfile: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {
       account,
       headers,
@@ -629,7 +661,7 @@ export const Query = {
   pickupPoints: async (
     _: unknown,
     { geoCoordinates }: QueryPickupPointsArgs,
-    ctx: Context
+    ctx: GraphqlContext
   ) => {
     const {
       clients: { commerce },
@@ -641,4 +673,6 @@ export const Query = {
 
     return result
   },
+  orderEntryOperation: getOrderEntryOperation,
+  orderFormItems: getOrderFormItems,
 }

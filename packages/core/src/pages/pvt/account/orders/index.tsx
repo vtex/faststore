@@ -19,6 +19,7 @@ import { default as BeforeSection } from 'src/customizations/src/myAccount/exten
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { groupOrderStatusByLabel } from 'src/utils/userOrderStatus'
 
@@ -125,7 +126,7 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
@@ -135,7 +136,10 @@ export const getServerSideProps: GetServerSideProps<
     account: storeConfig.api.storeId,
   })
 
-  const { previewData } = context
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
 
   const { isFaststoreMyAccountEnabled, redirect } = getMyAccountRedirect({
     query: context.query,
@@ -149,7 +153,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const page = Number(context.query.page as string | undefined) || 1
   const perPage = 25 // TODO: make this configurable
@@ -253,3 +257,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

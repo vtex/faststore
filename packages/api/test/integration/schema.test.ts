@@ -1,7 +1,9 @@
+import { beforeAll, describe, expect, it } from 'vitest'
+
 import type { GraphQLSchema } from 'graphql'
 import { assertValidSchema } from 'graphql'
 
-import { getSchema } from '../../src'
+import { GraphqlVtexSchema } from '../../src'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -76,6 +78,8 @@ const QUERIES = [
   'accountProfile',
   'validateUser',
   'pickupPoints',
+  'orderEntryOperation',
+  'orderFormItems',
 ]
 
 const MUTATIONS = [
@@ -84,26 +88,14 @@ const MUTATIONS = [
   'subscribeToNewsletter',
   'cancelOrder',
   'processOrderAuthorization',
+  'uploadFileToOrderEntry',
+  'startOrderEntryOperation',
 ]
 
 let schema: GraphQLSchema
 
 beforeAll(async () => {
-  schema = await getSchema({
-    platform: 'vtex',
-    account: 'storeframework',
-    environment: 'vtexcommercestable',
-    channel: '{"salesChannel":"1"}',
-    locale: 'en-US',
-    subDomainPrefix: ['www'],
-    hideUnavailableItems: false,
-    incrementAddress: false,
-    showSponsored: false,
-    flags: {
-      enableOrderFormSync: true,
-      enableUnavailableItemsOnCart: false,
-    },
-  })
+  schema = await GraphqlVtexSchema()
 })
 
 describe('Schema', () => {

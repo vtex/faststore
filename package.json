@@ -9,17 +9,23 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "turbo run build --log-order=grouped",
+    "build": "turbo run build --log-order=grouped && turbo run generate --log-order=grouped",
+    "build:codesandbox": "turbo run build --filter @faststore/cli... && turbo run generate --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "ci:dkcicd": "pnpm build && pnpm lint && pnpm size && pnpm test:coverage && mkdir -p coverage && pnpm dlx lcov-result-merger 'packages/*/coverage/lcov.info' coverage/lcov.info --prepend-source-files",
     "size": "turbo run size",
-    "release": "lerna version --conventional-commits --conventional-graduate --yes && lerna publish from-git --yes",
-    "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --yes && lerna publish from-git --dist-tag=dev --yes",
+    "release": "lerna version --conventional-commits --conventional-graduate --yes && pnpm -r publish --access public --no-git-checks",
+    "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --force-publish --yes && pnpm -r publish --access public --tag dev --no-git-checks",
+    "release:v3": "lerna version --conventional-commits --yes && pnpm -r publish --access public --tag v3-latest --no-git-checks",
+    "release:verify": "node ./scripts/verify-publish-manifests.mjs",
     "clean": "turbo run clean && rm -rf node_modules",
+    "check:spec-kit": "node ./scripts/check-spec-kit.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -35,14 +41,10 @@
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.0.1",
     "turbo": "^2.3.4",
-    "typescript": "5.3.2"
+    "typescript": "catalog:"
   },
   "version": "0.0.0",
-  "volta": {
-    "node": "18.19.0",
-    "pnpm": "9.15.5"
-  },
-  "packageManager": "pnpm@9.15.5",
+  "packageManager": "pnpm@10.28.0",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",
     "*.scss": "stylelint --fix"

@@ -15,6 +15,7 @@ import { execute } from 'src/server'
 
 import { validateUser } from 'src/sdk/account/validateUser'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import storeConfig from '../../discovery.config'
 
@@ -32,11 +33,15 @@ const query = gql(`
   }
 `)
 
-export const getServerSideProps: GetServerSideProps<
+const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
   Locator
 > = async (context) => {
+  const contentContext = {
+    previewData: context.previewData,
+    locale: context.locale,
+  }
   const validationResult = await validateUser(context)
 
   // Guard clause: Early redirect to login if user is invalid and doesn't need refresh
@@ -77,7 +82,7 @@ export const getServerSideProps: GetServerSideProps<
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(context.previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [account, globalSections, globalSectionsHeader, globalSectionsFooter] =
     await Promise.all([
@@ -110,3 +115,7 @@ export const getServerSideProps: GetServerSideProps<
     },
   }
 }
+
+export const getServerSideProps = withLocaleValidationSSR(
+  getServerSidePropsBase
+)

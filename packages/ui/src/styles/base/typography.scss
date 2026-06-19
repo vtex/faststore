@@ -2,6 +2,7 @@
 // FS UI STYLES
 // Typography (Text)
 // ----------------------------------------------------------
+@use "./utilities.scss";
 
 @layer base {
   body {
@@ -22,7 +23,7 @@
     font-weight: var(--fs-text-weight-bold);
     line-height: 1.16;
 
-    @include media(">=notebook") { font-size: var(--fs-text-size-5); }
+    @include utilities.media(">=notebook") { font-size: var(--fs-text-size-5); }
   }
 
   .text__title-mini {

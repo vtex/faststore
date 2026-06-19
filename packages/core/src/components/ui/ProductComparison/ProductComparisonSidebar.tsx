@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react'
 import {
   type IProductComparison,
   type ProductComparisonSidebarProps as UIProductComparisonSidebarProps,
   ProductComparisonSidebar as UIProductComparisonSidebar,
   useProductComparison,
 } from '@faststore/ui'
+import React from 'react'
 
 import { gql } from '@generated/gql'
 import type { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
@@ -12,24 +12,38 @@ import type { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useProductsSelected } from 'src/sdk/product/useProductsSelected'
 
-const sortOptions = [
-  {
-    value: 'productByName',
-    label: 'Product Name',
-    onChange: (productComparison: IProductComparison[]) =>
-      productComparison.sort((a, b) => a.name.localeCompare(b.name)),
-  },
-  {
-    value: 'productByPrice',
-    label: 'Price',
-    onChange: (productComparison: IProductComparison[]) =>
-      productComparison.sort((a, b) => a.offers.lowPrice - b.offers.lowPrice),
-  },
-] as const
+type SortOptionsValue = 'productByName' | 'productByPrice'
 
-export type SortOptions = (typeof sortOptions)[number]
+export type SortOptions = {
+  value: SortOptionsValue
+  label: string
+  onChange: (productComparison: IProductComparison[]) => IProductComparison[]
+}
+
+function getSortOptions(
+  sortOptionsLabels: Record<SortOptionsValue, string>
+): SortOptions[] {
+  const { productByName = '', productByPrice = '' } = sortOptionsLabels
+  return [
+    {
+      value: 'productByName',
+      label: productByName,
+      onChange: (productComparison: IProductComparison[]) =>
+        productComparison.sort((a, b) => a.name.localeCompare(b.name)),
+    },
+    {
+      value: 'productByPrice',
+      label: productByPrice,
+      onChange: (productComparison: IProductComparison[]) =>
+        productComparison.sort((a, b) => a.offers.lowPrice - b.offers.lowPrice),
+    },
+  ]
+}
 
 function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
+  const {
+    sortLabels: { options: sortOptionsLabels = {} } = {},
+  } = props
   const { productIds, products, isOpen, handleProductsComparison } =
     useProductComparison()
   const [productIdToBuy, setProductIdToBuy] = React.useState<string | null>(
@@ -159,7 +173,10 @@ function ProductComparisonSidebar(props: UIProductComparisonSidebarProps) {
     <UIProductComparisonSidebar
       handleProductToBuy={setProductIdToBuy}
       setPendingEvent={setPendingEvent}
-      sortOptions={[...sortOptions]}
+      sortOptions={getSortOptions({
+        productByName: sortOptionsLabels?.productByName,
+        productByPrice: sortOptionsLabels?.productByPrice,
+      })}
       {...props}
     />
   )

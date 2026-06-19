@@ -1,5 +1,18 @@
 import chalk from 'chalk'
-import {
+import fsExtra from 'fs-extra'
+
+import path from 'node:path'
+
+import ora from 'ora'
+
+import { pathToFileURL } from 'node:url'
+import { createNextJsPages } from './createNextjsPages'
+import { installDependencies } from './dependencies'
+import { withBasePath } from './directory'
+import { logger } from './logger'
+import { installPlugins } from './plugins'
+
+const {
   copyFileSync,
   copySync,
   existsSync,
@@ -9,17 +22,7 @@ import {
   removeSync,
   writeFileSync,
   writeJsonSync,
-} from 'fs-extra'
-import path from 'path'
-
-import ora from 'ora'
-
-import { createNextJsPages } from './createNextjsPages'
-import { installDependencies } from './dependencies'
-import { withBasePath } from './directory'
-import { logger } from './logger'
-import { installPlugins } from './plugins'
-
+} = fsExtra
 interface GenerateOptions {
   setup?: boolean
   basePath: string
@@ -53,19 +56,86 @@ function createTmpFolder(basePath: string) {
 }
 
 /**
+ * Builds the `.faststore/package.json` from `@faststore/core`'s manifest.
+ * Strips `exports` and `packageManager` (the latter is pinned to pnpm and
+ * breaks Yarn/Corepack on consumer stores).
+ *
+ * Propagates the store's `volta` config (when present) so Volta pins the same
+ * Node/Yarn versions inside `.faststore`. Volta stops at the nearest
+ * `package.json` and would otherwise fall back to a global Yarn Berry, which
+ * breaks on the nested manifest.
+ */
+export function buildFaststorePackageJson(
+  coreManifest: Record<string, unknown>,
+  voltaConfig?: Record<string, unknown>
+): Record<string, unknown> {
+  const {
+    exports: _exports,
+    packageManager: _packageManager,
+    ...rest
+  } = coreManifest
+
+  const existingScripts =
+    (rest.scripts as Record<string, string> | undefined) ?? {}
+
+  return {
+    ...rest,
+    name: 'dot-faststore',
+    ...(voltaConfig ? { volta: voltaConfig } : {}),
+    scripts: {
+      ...existingScripts,
+      generate: 'faststore generate',
+      build: 'next build --webpack',
+      serve: 'next serve',
+      dev: 'next dev --webpack',
+      'dev-only': 'next dev --webpack',
+      predev: 'na run partytown',
+      prebuild: 'na run partytown',
+    },
+  }
+}
+
+/**
+ * Reads the `volta` config from the store root `package.json`, if present.
+ * Returns `undefined` when the file or the field is missing so the generated
+ * manifest stays untouched for stores that do not use Volta.
+ */
+function readRootVoltaConfig(
+  rootDir: string
+): Record<string, unknown> | undefined {
+  try {
+    const rootManifestPath = path.join(rootDir, 'package.json')
+
+    if (!existsSync(rootManifestPath)) {
+      return undefined
+    }
+
+    const rootManifest = JSON.parse(readFileSync(rootManifestPath, 'utf8'))
+
+    return rootManifest?.volta
+  } catch {
+    return undefined
+  }
+}
+
+/**
  * Prevents imports from @faststore/core from randomly conflicting
  * where sometimes the package.json from the .faststore folder
  * took precedence over @faststore/core's package.json.
  */
 function filterAndCopyPackageJson(basePath: string) {
-  const { coreDir, tmpDir } = withBasePath(basePath)
+  const { coreDir, tmpDir, getRoot } = withBasePath(basePath)
 
-  const corePackageJsonPath = path.join(coreDir, 'package.json')
+  const coreManifest = JSON.parse(
+    readFileSync(path.join(coreDir, 'package.json'), 'utf8')
+  )
 
-  const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
-  const { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
+  const voltaConfig = readRootVoltaConfig(getRoot())
 
-  filteredFileContent.name = 'dot-faststore'
+  const filteredFileContent = buildFaststorePackageJson(
+    coreManifest,
+    voltaConfig
+  )
 
   writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
     spaces: 2,
@@ -166,9 +236,15 @@ async function copyCypressFiles(basePath: string) {
     let userStoreConfig
 
     if (existsSync(userStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userStoreConfigFile))
+      userStoreConfig = (
+        await import(pathToFileURL(path.resolve(userStoreConfigFile)).href)
+      )?.default
     } else if (existsSync(userLegacyStoreConfigFile)) {
-      userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+      userStoreConfig = (
+        await import(
+          pathToFileURL(path.resolve(userLegacyStoreConfigFile)).href
+        )
+      )?.default
     } else {
       logger.info(
         `${chalk.blue(
@@ -217,25 +293,25 @@ function copyUserStarterToCustomizations(basePath: string) {
       copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
       createNextJsPages(basePath)
     }
-
-    if (existsSync(userStoreConfigFile)) {
-      copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
-    } else if (existsSync(userLegacyStoreConfigFile)) {
-      copySync(userLegacyStoreConfigFile, tmpStoreConfigFile, {
-        dereference: true,
-      })
-    } else {
-      logger.info(
-        `${chalk.blue(
-          'info'
-        )} - No store config file was found in the root directory`
-      )
-    }
-
-    logger.log(`${chalk.green('success')} - Starter files copied`)
   } catch (err) {
     logger.error(`${chalk.red('error')} - ${err}`)
   }
+
+  if (existsSync(userStoreConfigFile)) {
+    copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
+  } else if (existsSync(userLegacyStoreConfigFile)) {
+    copySync(userLegacyStoreConfigFile, tmpStoreConfigFile, {
+      dereference: true,
+    })
+  } else {
+    logger.info(
+      `${chalk.blue(
+        'info'
+      )} - No store config file was found in the root directory`
+    )
+  }
+
+  logger.log(`${chalk.green('success')} - Starter files copied`)
 }
 
 async function createCmsWebhookUrlsJsonFile(basePath: string) {
@@ -247,9 +323,13 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
   let userStoreConfig
 
   if (existsSync(userStoreConfigFile)) {
-    userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    userStoreConfig = (
+      await import(pathToFileURL(path.resolve(userStoreConfigFile)).href)
+    )?.default
   } else if (existsSync(userLegacyStoreConfigFile)) {
-    userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+    userStoreConfig = (
+      await import(pathToFileURL(path.resolve(userLegacyStoreConfigFile)).href)
+    )?.default
   } else {
     logger.info(
       `${chalk.blue(
@@ -283,25 +363,25 @@ async function copyTheme(basePath: string) {
     userLegacyStoreConfigFile,
   } = withBasePath(basePath)
 
-  let storeConfig
+  const storeConfigFile =
+    (existsSync(userStoreConfigFile) && userStoreConfigFile) ||
+    (existsSync(userLegacyStoreConfigFile) && userLegacyStoreConfigFile)
 
-  // Because of how node caches imports, if we don't delete the cache
-  // for the {discovery|faststore}.config.js files we will return a
-  // cached version and not reflect the theme change until a restart
-  // happens. Deleting before importing clears the cache
-  if (existsSync(userStoreConfigFile)) {
-    delete require.cache[path.resolve(userStoreConfigFile)]
-    storeConfig = await import(path.resolve(userStoreConfigFile))
-  } else if (existsSync(userLegacyStoreConfigFile)) {
-    delete require.cache[path.resolve(userLegacyStoreConfigFile)]
-    storeConfig = await import(path.resolve(userLegacyStoreConfigFile))
-  } else {
+  const userStoreConfigFilePath =
+    storeConfigFile && path.resolve(storeConfigFile)
+  const importedStoreConfig =
+    userStoreConfigFilePath &&
+    (await import(pathToFileURL(userStoreConfigFilePath).href))
+  const storeConfig =
+    userStoreConfigFilePath &&
+    (importedStoreConfig?.default || importedStoreConfig)
+
+  if (!storeConfig)
     logger.info(
       `${chalk.blue(
         'info'
       )} - No store config file was found in the root directory`
     )
-  }
 
   if (storeConfig.theme) {
     const customTheme = path.join(
@@ -359,14 +439,24 @@ function updateBuildTime(basePath: string) {
   }
 }
 
-function checkDependencies(basePath: string, packagesToCheck: string[]) {
+async function checkDependencies(basePath: string, packagesToCheck: string[]) {
   const { coreDir, getRoot } = withBasePath(basePath)
 
   const corePackageJsonPath = path.join(coreDir, 'package.json')
   const rootPackageJsonPath = path.join(getRoot(), 'package.json')
 
-  const corePackageJson = require(corePackageJsonPath)
-  const rootPackageJson = require(rootPackageJsonPath)
+  const { default: corePackageJson } = await import(
+    pathToFileURL(corePackageJsonPath).href,
+    {
+      with: { type: 'json' },
+    }
+  )
+  const { default: rootPackageJson } = await import(
+    pathToFileURL(rootPackageJsonPath).href,
+    {
+      with: { type: 'json' },
+    }
+  )
 
   packagesToCheck.forEach((packageName) => {
     const coreVersion =
@@ -423,7 +513,7 @@ function getCurrentUserStoreConfigFile(basePath: string) {
   return null
 }
 
-function validateAndInstallMissingDependencies(basePath: string) {
+async function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir } = withBasePath(basePath)
 
   const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath)
@@ -432,22 +522,29 @@ function validateAndInstallMissingDependencies(basePath: string) {
     return
   }
 
-  const userStoreConfig = require(currentUserStoreConfigFile)
-  const userPackageJson = require(path.join(userDir, 'package.json'))
+  const { default: userStoreConfig } = await import(
+    pathToFileURL(currentUserStoreConfigFile).href
+  )
+  const { default: userPackageJson } = await import(
+    pathToFileURL(path.join(userDir, 'package.json')).href,
+    {
+      with: { type: 'json' },
+    }
+  )
 
   const missingDependencies: Array<{
     feature: string
     dependencies: string[]
   }> = []
 
-  if (userStoreConfig.experimental.preact) {
+  if (userStoreConfig?.experimental?.preact) {
     missingDependencies.push({
       feature: 'Preact',
       dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8'],
     })
   }
 
-  missingDependencies.forEach(({ feature, dependencies }) => {
+  missingDependencies.forEach(async ({ feature, dependencies }) => {
     const dependenciesToInstall = dependencies.filter((dependency) => {
       const dependencyName = dependency.split('@')[0]
       return !userPackageJson.dependencies[dependencyName]
@@ -458,7 +555,7 @@ function validateAndInstallMissingDependencies(basePath: string) {
         `Installing ${feature} missing dependencies\n`
       ).start()
 
-      installDependencies({
+      await installDependencies({
         dependencies: dependenciesToInstall,
         cwd: userDir,
         errorMessage: `failed to install ${feature} dependencies`,
@@ -469,47 +566,15 @@ function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
-// TODO: Read the value from an environment variable
-const ENABLE_REDIRECTS_MIDDLEWARE = false
-
-// Enable redirects middleware by renaming the file from middleware__DISABLED.ts to middleware.tsß
-function enableRedirectsMiddleware(basePath: string) {
-  if (!ENABLE_REDIRECTS_MIDDLEWARE) {
-    return
-  }
-
-  try {
-    const { tmpDir } = withBasePath(basePath)
-
-    const disabledMiddlewarePath = path.join(
-      tmpDir,
-      'src',
-      'middleware__DISABLED.ts'
-    )
-
-    /* Rename the file to enable middleware functionality and then remove the disabled middleware file */
-    if (existsSync(disabledMiddlewarePath)) {
-      const enabledMiddlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
-      copyFileSync(disabledMiddlewarePath, enabledMiddlewarePath)
-      removeSync(disabledMiddlewarePath)
-
-      logger.log(
-        `${chalk.green('success')} Redirects middleware has been enabled`
-      )
-    }
-  } catch (error) {
-    logger.error(error)
-    throw error
-  }
-}
-
-function enableSearchSSR(basePath: string) {
+async function enableSearchSSR(basePath: string) {
   const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
 
   if (!storeConfigPath) {
     return
   }
-  const storeConfig = require(storeConfigPath)
+  const { default: storeConfig } = await import(
+    pathToFileURL(storeConfigPath).href
+  )
   if (!storeConfig.experimental.enableSearchSSR) {
     return
   }
@@ -531,7 +596,7 @@ export async function generate(options: GenerateOptions) {
 
   let setupPromise: Promise<unknown> | null = null
 
-  validateAndInstallMissingDependencies(basePath)
+  await validateAndInstallMissingDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([
@@ -551,8 +616,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
-    enableRedirectsMiddleware(basePath),
-
     installPlugins(basePath),
   ])
 }

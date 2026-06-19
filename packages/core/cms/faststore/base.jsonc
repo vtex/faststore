@@ -1,6 +1,6 @@
 {
   // This should be automatically updated and point to Schema Registry.
-  "$id": "vtex.faststore",
+  "$id": "vtex.faststore4",
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
   // Default content-types available in FastStore can be added here.
@@ -12,17 +12,8 @@
     // Every component schema must extend this base schema.
     "base-component": {
       "type": "object",
-      "required": ["$componentKey", "$componentTitle"],
-      "properties": {
-        "$componentKey": {
-          "type": "string",
-          "description": "Unique identifier for the component"
-        },
-        "$componentTitle": {
-          "type": "string",
-          "description": "Display title for the component"
-        }
-      }
+      "required": [],
+      "properties": {}
     },
     "base-page-template": {
       "type": "object",

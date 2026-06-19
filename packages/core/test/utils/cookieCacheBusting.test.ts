@@ -1,26 +1,34 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
 
-const mockRead = jest.fn()
-const mockReadInitial = jest.fn()
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-jest.mock('src/sdk/session', () => ({
-  sessionStore: {
-    read: () => mockRead(),
-    readInitial: () => mockReadInitial(),
+const mockRead = vi.fn()
+const mockReadInitial = vi.fn()
+
+vi.mock('discovery.config', () => ({
+  __esModule: true,
+  default: {
+    api: {
+      storeId: 'store',
+    },
+    deliveryPromise: { enabled: true },
   },
 }))
 
-jest.mock('discovery.config', () => ({
-  deliveryPromise: { enabled: true },
+vi.mock('src/sdk/session', () => ({
+  sessionStore: {
+    read: (...args: unknown[]) => mockRead(...args),
+    readInitial: (...args: unknown[]) => mockReadInitial(...args),
+  },
 }))
 
 import {
   getClientCacheBustingValue,
+  STORAGE_KEY_CACHE_BUST_LAST_VALUE,
   STORAGE_KEY_PERSON_ID,
   STORAGE_KEY_POSTAL_CODE,
-  STORAGE_KEY_CACHE_BUST_LAST_VALUE,
 } from '../../src/utils/cookieCacheBusting'
 
 const setSession = ({
@@ -45,14 +53,14 @@ const clearSession = () => {
 
 describe('cookieCacheBusting', () => {
   beforeEach(() => {
-    jest.restoreAllMocks()
     sessionStorage.clear()
+    vi.restoreAllMocks()
     clearSession()
   })
 
   describe('returns null (shared public CDN cache)', () => {
     it('should clear storage and return null when neither person nor postalCode is set', () => {
-      const removeItemSpy = jest.spyOn(Storage.prototype, 'removeItem')
+      const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem')
 
       const result = getClientCacheBustingValue()
 
@@ -69,8 +77,8 @@ describe('cookieCacheBusting', () => {
     it('should return a new timestamp value and persist when person logs in', () => {
       setSession({ personId: 'user-id-1' })
 
-      const nowSpy = jest.spyOn(Date, 'now').mockReturnValue(1700000000000)
-      const setItemSpy = jest.spyOn(Storage.prototype, 'setItem')
+      const nowSpy = vi.spyOn(Date, 'now').mockReturnValue(1700000000000)
+      const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
 
       const result = getClientCacheBustingValue()
 
@@ -94,8 +102,8 @@ describe('cookieCacheBusting', () => {
         '1700000000000::user-id-1'
       )
 
-      const nowSpy = jest.spyOn(Date, 'now')
-      const setItemSpy = jest.spyOn(Storage.prototype, 'setItem')
+      const nowSpy = vi.spyOn(Date, 'now')
+      const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
 
       const result = getClientCacheBustingValue()
 
@@ -108,8 +116,8 @@ describe('cookieCacheBusting', () => {
       setSession({ personId: 'user-id-1' })
       sessionStorage.setItem(STORAGE_KEY_PERSON_ID, 'user-id-1')
 
-      const nowSpy = jest.spyOn(Date, 'now').mockReturnValue(1700000000123)
-      const setItemSpy = jest.spyOn(Storage.prototype, 'setItem')
+      const nowSpy = vi.spyOn(Date, 'now').mockReturnValue(1700000000123)
+      const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
 
       const result = getClientCacheBustingValue()
 
@@ -133,7 +141,7 @@ describe('cookieCacheBusting', () => {
         '1700000000000::user-id-1'
       )
 
-      jest.spyOn(Date, 'now').mockReturnValue(1700000000456)
+      vi.spyOn(Date, 'now').mockReturnValue(1700000000456)
 
       const result = getClientCacheBustingValue()
 
@@ -149,7 +157,7 @@ describe('cookieCacheBusting', () => {
     it('should return a value for anonymous users who have a postalCode set', () => {
       setSession({ postalCode: '24230220' })
 
-      jest.spyOn(Date, 'now').mockReturnValue(1700000001000)
+      vi.spyOn(Date, 'now').mockReturnValue(1700000001000)
 
       const result = getClientCacheBustingValue()
 
@@ -164,7 +172,7 @@ describe('cookieCacheBusting', () => {
         '1700000001000::24230220'
       )
 
-      const nowSpy = jest.spyOn(Date, 'now')
+      const nowSpy = vi.spyOn(Date, 'now')
 
       const result = getClientCacheBustingValue()
 
@@ -180,7 +188,7 @@ describe('cookieCacheBusting', () => {
         '1700000001000::50030260'
       )
 
-      jest.spyOn(Date, 'now').mockReturnValue(1700000002000)
+      vi.spyOn(Date, 'now').mockReturnValue(1700000002000)
 
       const result = getClientCacheBustingValue()
 
@@ -194,7 +202,7 @@ describe('cookieCacheBusting', () => {
     it('should combine personId and postalCode for logged-in users', () => {
       setSession({ personId: 'user-id-1', postalCode: '24230220' })
 
-      jest.spyOn(Date, 'now').mockReturnValue(1700000003000)
+      vi.spyOn(Date, 'now').mockReturnValue(1700000003000)
 
       const result = getClientCacheBustingValue()
 
@@ -210,7 +218,7 @@ describe('cookieCacheBusting', () => {
         '1700000003000::user-id-1::50030260'
       )
 
-      jest.spyOn(Date, 'now').mockReturnValue(1700000004000)
+      vi.spyOn(Date, 'now').mockReturnValue(1700000004000)
 
       const result = getClientCacheBustingValue()
 

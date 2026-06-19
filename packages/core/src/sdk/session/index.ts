@@ -8,6 +8,8 @@ import type {
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
 import deepEqual from 'fast-deep-equal'
+import { isLocalHostBrowser } from 'src/utils/isLocalHost'
+import { filterChannel } from 'src/utils/utilities'
 import storeConfig from '../../../discovery.config'
 import {
   isRefreshTokenSuccessful,
@@ -17,6 +19,7 @@ import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
+import { getInitialSession, installLocaleCorrector } from './initialSession'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
 const isReloadAfterLogoutPending = (): boolean => {
@@ -120,7 +123,9 @@ export const validateSession = async (session: Session) => {
   // If the refreshToken is enabled and the refreshAfter is expired, refresh the token.
   // On success, continue to the validation flow with the refreshed session.
   // On failure (logoutAndClearSession already triggered), bail out.
+  // Skipped in local environments where the refresh token infrastructure is unavailable.
   if (
+    !isLocalHostBrowser() &&
     storeConfig.experimental?.refreshToken &&
     isRefreshAfterExpired(session)
   ) {
@@ -173,7 +178,9 @@ export const validateSession = async (session: Session) => {
     return data.validateSession
   } catch (error) {
     const shouldRefreshToken =
-      error?.status === 401 && storeConfig.experimental?.refreshToken
+      !isLocalHostBrowser() &&
+      error?.status === 401 &&
+      storeConfig.experimental?.refreshToken
 
     if (shouldRefreshToken) {
       const refreshed = await handleRefreshToken(session)
@@ -187,7 +194,12 @@ export const validateSession = async (session: Session) => {
 const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
-const defaultStore = createSessionStore(storeConfig.session, onValidate)
+const urlAwareInitialSession = getInitialSession()
+const defaultStore = createSessionStore(urlAwareInitialSession, onValidate)
+
+if (storeConfig.localization?.enabled && typeof window !== 'undefined') {
+  installLocaleCorrector(defaultStore, urlAwareInitialSession)
+}
 
 export const sessionStore = {
   ...defaultStore,
@@ -244,9 +256,7 @@ export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
   let { channel, ...session } = resultSessionStore ?? currentSessionStore
 
   if (filter) {
-    const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
-      JSON.parse(channel)
-    channel = JSON.stringify(filteredChannel)
+    channel = filterChannel(channel ?? '')
   }
 
   return useMemo(

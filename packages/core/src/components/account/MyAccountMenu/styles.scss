@@ -1,3 +1,5 @@
+@use "@faststore/ui/src/styles/base/utilities";
+
 .menu {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,12 @@
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  @include utilities.media(">=notebook") {
+    padding: 0;
+    padding-top: var(--fs-spacing-6);
+    overflow: visible;
+  }
 }
 
 .account {
@@ -31,7 +39,9 @@
 }
 
 .switchButton {
-  display: none; /* While it's use case is not implemented */
+  display: none;
+
+  /* While it's use case is not implemented */
   max-width: fit-content;
   height: 1.5rem;
 }
@@ -39,6 +49,11 @@
 .nav {
   display: flex;
   gap: var(--fs-spacing-1);
+
+  @include utilities.media(">=notebook") {
+    flex-direction: column;
+    gap: var(--fs-spacing-0);
+  }
 }
 
 .navItem {
@@ -67,7 +82,7 @@
     background-color: var(--fs-color-tertiary-bkg-disabled);
   }
 
-  > a,
+  >a,
   a:link,
   a:visited {
     display: inline-block;
@@ -86,30 +101,14 @@
       box-shadow: none;
     }
   }
-}
 
-@include media(">=notebook") {
-  grid-template-rows: none;
-  grid-template-columns: max(300px) 80%;
-  gap: var(--fs-spacing-3);
-  padding: 0 var(--fs-spacing-3) 0 var(--fs-spacing-6);
-
-  .menu {
-    padding: 0;
-    padding-top: var(--fs-spacing-6);
-    overflow: visible;
-  }
-
-  .nav {
-    flex-direction: column;
-    gap: var(--fs-spacing-0);
-  }
-
-  .navItem {
+  @include utilities.media(">=notebook") {
     margin-left: -16px;
   }
+}
 
-  .avatar {
+.avatar {
+  @include utilities.media(">=notebook") {
     display: flex;
     align-items: center;
     justify-content: center;

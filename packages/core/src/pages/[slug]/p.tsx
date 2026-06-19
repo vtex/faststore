@@ -27,12 +27,14 @@ import { getRedirect } from 'src/sdk/redirects'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 import { getComponentKey } from 'src/utils/cms'
+import { getChannelForLocale } from 'src/utils/localization/bindingPaths'
 
 import storeConfig from 'discovery.config'
 import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
@@ -101,7 +103,10 @@ function Page({
 
   // SEO data
   const title = meta?.title ?? storeSeo.title
-  const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
+  const titleTemplate =
+    settings?.seo?.titleTemplate ??
+    pdpSeo?.titleTemplate ??
+    storeSeo.titleTemplate
   const description =
     meta?.description ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
@@ -122,7 +127,7 @@ function Page({
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = getStoreURL() + pathname
 
         return { name, position, item: pageUrl }
       }
@@ -197,7 +202,12 @@ function Page({
         ]}
         titleTemplate={titleTemplate}
       />
-      <BreadcrumbJsonLd itemListElements={itemListElements} />
+
+      {/* TODO: when localized slugs are available remove this workaround */}
+      {!storeConfig.localization?.enabled && (
+        <BreadcrumbJsonLd itemListElements={itemListElements} />
+      )}
+
       <ProductJsonLd
         id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
         mainEntityOfPage={`${meta.canonical}${
@@ -305,14 +315,15 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string },
   PreviewData
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, locale }) => {
   const slug = params?.slug ?? ''
+  const contentContext = { previewData, locale }
 
   const [
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
-  ] = getGlobalSectionsData(previewData)
+  ] = getGlobalSectionsData(contentContext)
 
   const [
     searchResult,
@@ -321,7 +332,13 @@ export const getStaticProps: GetStaticProps<
     globalSectionsFooter,
   ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
-      variables: { locator: [{ key: 'slug', value: slug }] },
+      variables: {
+        locator: [
+          { key: 'slug', value: slug },
+          { key: 'channel', value: getChannelForLocale(locale) },
+          { key: 'locale', value: locale },
+        ],
+      },
       operation: query,
     }),
     globalSectionsPromise,
@@ -357,15 +374,16 @@ export const getStaticProps: GetStaticProps<
   const cmsPage: PDPContentType = await contentService.getPdpContent(
     data.product,
     {
-      previewData,
+      ...contentContext,
       slug,
+      locale,
     }
   )
 
   const { seo } = data.product
   const title = seo.title
   const description = seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
+  const canonical = `${getStoreURL()}${seo.canonical}`
 
   const meta = { title, description, canonical }
 

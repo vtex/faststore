@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
   shipping(
     items: [{ id: "99988211", quantity: 1, seller: "1" }]
@@ -41,7 +42,7 @@ export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
           dockId
           courierName
           quantity
-        } 
+        }
         deliveryChannel
         friendlyName
         pickupPointId
@@ -65,7 +66,7 @@ export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
           additionalInfo
           dockId
           isPickupStore
-        } 
+        }
         pickupDistance
       }
     }

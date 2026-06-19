@@ -1,0 +1,14 @@
+{
+  "traces": {
+    "sampling": {
+      "defaultRate": 1,
+      "rules": [
+        {
+          "name": "debug_all",
+          "sampleRate": 1,
+          "conditions": []
+        }
+      ]
+    }
+  }
+}
