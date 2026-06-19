@@ -2087,6 +2087,7 @@ export type UserOrderCourierStatus = {
   data?: Maybe<Array<UserOrderTrackingInformation>>;
   finished?: Maybe<Scalars['Boolean']>;
   status?: Maybe<Scalars['String']>;
+  deliveredDate?: Maybe<Scalars['String']['output']>
 };
 
 export type UserOrderCurrencyFormatInfo = {
