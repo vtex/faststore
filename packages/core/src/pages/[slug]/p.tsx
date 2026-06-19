@@ -34,6 +34,7 @@ import {
   getGlobalSectionsData,
   type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { LocalizedProductProvider } from 'src/sdk/localization/LocalizedProductContext'
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
@@ -86,6 +87,50 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
+function buildHreflangLinks(
+  storeConfig: StoreConfig,
+  otherLocales: Array<{ locale: string; slug: string }> | null | undefined
+): Array<{ rel: string; hrefLang: string; href: string }> {
+  if (!storeConfig.localization?.enabled || !otherLocales?.length) return []
+
+  const locales = storeConfig.localization.locales as Record<string, any>
+  const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
+  const defaultLocale = storeConfig.localization.defaultLocale as
+    | string
+    | undefined
+  const links: Array<{ rel: string; hrefLang: string; href: string }> = []
+
+  for (const { locale, slug } of otherLocales) {
+    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url as
+      | string
+      | undefined
+    if (bindingUrl) {
+      links.push({
+        rel: 'alternate',
+        hrefLang: locale,
+        href: `${bindingUrl.replace(/\/$/, '')}/${slug}/p`,
+      })
+    }
+  }
+
+  // PREMISE: the default locale is served at the store root (no locale prefix),
+  // which is how Next.js i18n sub-path routing works — the `defaultLocale` has no
+  // prefix while other locales live under `/{locale}`. Hence `x-default` points to
+  // `${storeUrl}/{slug}/p`. If a store ever serves its default locale under a path
+  // prefix or a dedicated domain instead of the root, this href must be derived
+  // from that locale's binding URL instead of `storeUrl`.
+  const defaultEntry = otherLocales.find((e) => e.locale === defaultLocale)
+  if (defaultEntry) {
+    links.push({
+      rel: 'alternate',
+      hrefLang: 'x-default',
+      href: `${baseStoreUrl}/${defaultEntry.slug}/p`,
+    })
+  }
+
+  return links
+}
+
 function Page({
   data: server,
   sections,
@@ -122,6 +167,12 @@ function Page({
       .toFixed(pdpSeo.minPriceAmountFractionDigits)
       .toString()
   }
+
+  // hreflang alternate links for multi-locale stores
+  const hreflangLinks = buildHreflangLinks(
+    storeConfig as StoreConfig,
+    server.product.otherLocales
+  )
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
@@ -200,13 +251,11 @@ function Page({
             content: currency.code,
           },
         ]}
+        additionalLinkTags={hreflangLinks}
         titleTemplate={titleTemplate}
       />
 
-      {/* TODO: when localized slugs are available remove this workaround */}
-      {!storeConfig.localization?.enabled && (
-        <BreadcrumbJsonLd itemListElements={itemListElements} />
-      )}
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
 
       <ProductJsonLd
         id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
@@ -238,13 +287,15 @@ function Page({
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <PageProvider context={context}>
-        <RenderSections
-          sections={sections}
-          globalSections={globalSections}
-          components={COMPONENTS}
-        />
-      </PageProvider>
+      <LocalizedProductProvider otherLocales={server.product.otherLocales}>
+        <PageProvider context={context}>
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          />
+        </PageProvider>
+      </LocalizedProductProvider>
     </>
   )
 }
@@ -304,6 +355,11 @@ const query = gql(`
 
       isVariantOf {
         productGroupID
+      }
+
+      otherLocales {
+        locale
+        slug
       }
 
       ...ProductDetailsFragment_product

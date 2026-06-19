@@ -1625,6 +1625,11 @@ export type StoreProduct = {
   name: Scalars['String']['output'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
+  /**
+   * Localized versions of this product for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales?: Maybe<Array<StoreProductLocale>>;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output'];
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
@@ -1687,6 +1692,15 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants?: Maybe<SkuVariants>;
+};
+
+/** Localized product data for a specific locale. */
+export type StoreProductLocale = {
+  __typename?: 'StoreProductLocale';
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized product slug including the SKU ID suffix (e.g. "adidas-polo-uomo-65"). */
+  slug: Scalars['String']['output'];
 };
 
 /** Properties that can be associated with products and products groups. */

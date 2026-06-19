@@ -9,7 +9,68 @@ import {
   isValidUrl,
   resolveBinding,
 } from './bindingSelector'
+import type { LocalizedProductLocale } from './LocalizedProductContext'
 import type { BindingSelectorError, Locale } from './types'
+
+const OTHER_LOCALES_STORAGE_PREFIX = 'fs:otherLocales:'
+
+/**
+ * Extracts the SKU id from a PDP-shaped pathname ("/.../{slug}-{skuId}/p").
+ * Slugs always end with "-{skuId}" (see `getSlug` in the API), so the id is the
+ * last "-"-separated segment of the path segment that precedes "/p".
+ * Returns null when the path is not a product page or has no numeric id.
+ */
+export function getSkuIdFromPdpPath(pathname: string): string | null {
+  const match = pathname.match(/\/([^/]+)\/p\/?$/) // NOSONAR
+  const skuId = match?.[1]?.split('-').pop()
+
+  return skuId && /^\d+$/.test(skuId) ? skuId : null
+}
+
+/**
+ * Persists the localized slug map for a product keyed by its SKU id. This lets
+ * the locale selector rebuild canonical localized product URLs even after the
+ * user lands on a context-less page (e.g. a 404 for a locale where the product
+ * is unavailable), where `otherLocales` is no longer provided by the page.
+ */
+export function persistOtherLocales(
+  otherLocales: LocalizedProductLocale[]
+): void {
+  if (typeof window === 'undefined' || !otherLocales.length) return
+
+  const skuId = otherLocales[0]?.slug.split('-').pop()
+  if (!skuId) return
+
+  try {
+    window.sessionStorage.setItem(
+      `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`,
+      JSON.stringify(otherLocales)
+    )
+  } catch {
+    // sessionStorage may be unavailable (private mode/quota); non-critical.
+  }
+}
+
+/**
+ * Recovers a previously persisted localized slug map for the product referenced
+ * by the current PDP URL. Returns null when not on a PDP or nothing is stored.
+ */
+export function recoverOtherLocales(): LocalizedProductLocale[] | null {
+  if (typeof window === 'undefined') return null
+
+  const skuId = getSkuIdFromPdpPath(window.location.pathname)
+  if (!skuId) return null
+
+  try {
+    const raw = window.sessionStorage.getItem(
+      `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`
+    )
+
+    return raw ? (JSON.parse(raw) as LocalizedProductLocale[]) : null
+  } catch {
+    return null
+  }
+}
 
 interface Currency {
   code: string
@@ -64,9 +125,14 @@ export interface UseBindingSelectorReturn {
  * Hook that provides state and actions for the localization selector.
  * Manages locale selection, currency filtering, and binding resolution.
  *
+ * @param otherLocales - Optional list of localized slugs for the current product.
+ *   When provided (e.g. on PDP), the save action navigates to the localized product
+ *   URL instead of preserving the current page path verbatim.
  * @returns Object with languages, currencies, selections, and actions
  */
-export function useBindingSelector(): UseBindingSelectorReturn {
+export function useBindingSelector(
+  otherLocales?: Array<{ locale: string; slug: string }> | null
+): UseBindingSelectorReturn {
   const { locale: currentLocale, currency: currentCurrency } = useSession()
   const localizationConfig = storeConfig.localization as LocalizationConfig
 
@@ -95,6 +161,15 @@ export function useBindingSelector(): UseBindingSelectorReturn {
       setCurrencyCode(currentCurrency?.code ?? null)
     }
   }, [currentCurrency?.code])
+
+  // Persist the product's localized slugs (when on a PDP) so a later locale
+  // switch can rebuild the canonical localized URL even from a context-less
+  // page (e.g. a 404 for a locale where the product is unavailable).
+  useEffect(() => {
+    if (otherLocales?.length) {
+      persistOtherLocales(otherLocales)
+    }
+  }, [otherLocales])
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
   const languages = useMemo(
@@ -181,12 +256,53 @@ export function useBindingSelector(): UseBindingSelectorReturn {
       return
     }
 
-    // Redirect to binding URL, preserving the current page path and query string
+    // Prefer the current page's localized slugs. When missing (e.g. we're on a
+    // 404 for a locale where the product is unavailable) recover the map that was
+    // persisted while on a working PDP, so we can still build the canonical
+    // localized product URL instead of dropping the user on the locale home.
+    const effectiveOtherLocales = otherLocales?.length
+      ? otherLocales
+      : recoverOtherLocales()
+
+    if (effectiveOtherLocales?.length) {
+      // 1. Target locale has a specific translation → use it
+      const localizedEntry = effectiveOtherLocales.find(
+        (e) => e.locale === localeCode
+      )
+
+      // 2. No translation for target locale → fall back to the default locale slug
+      //    (IS linkText, always in the default locale) to avoid carrying over a
+      //    translated slug from a different locale (e.g. Italian slug on es-ES).
+      //    For an unavailable target this yields a 404 at the product URL (expected).
+      const fallbackEntry = effectiveOtherLocales.find(
+        (e) => e.locale === localizationConfig.defaultLocale
+      )
+
+      const entry = localizedEntry ?? fallbackEntry
+
+      if (entry) {
+        const baseUrl = binding.url.replace(/\/$/, '')
+        window.location.href = `${baseUrl}/${entry.slug}/p${window.location.search}${window.location.hash}`
+        return
+      }
+    }
+
+    // No localized slugs available (not even persisted): preserve the current
+    // page path under the target binding instead of dropping the user on the
+    // locale home. For a default-locale slug this resolves the product; for an
+    // unavailable/untranslated slug it yields a 404 at the product URL, never the
+    // locale root.
     window.location.href = buildRedirectUrl(
       binding.url,
       `${window.location.pathname}${window.location.search}${window.location.hash}`
     )
-  }, [localeCode, currencyCode, localizationConfig.locales])
+  }, [
+    localeCode,
+    currencyCode,
+    localizationConfig.locales,
+    localizationConfig.defaultLocale,
+    otherLocales,
+  ])
 
   const isSaveEnabled = Boolean(localeCode && currencyCode && !error)
 

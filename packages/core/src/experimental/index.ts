@@ -79,3 +79,5 @@ export type {
   Locale,
 } from '../sdk/localization/types'
 export type { UseBindingSelectorReturn } from '../sdk/localization/useBindingSelector'
+export { useLocalizedProduct as useLocalizedProduct_unstable } from '../sdk/localization/LocalizedProductContext'
+export type { LocalizedProductLocale as LocalizedProductLocale_unstable } from '../sdk/localization/LocalizedProductContext'
