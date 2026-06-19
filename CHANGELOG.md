@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.0](https://github.com/vtex/faststore/compare/v4.3.1-dev.0...v4.4.0-dev.0) (2026-06-19)
+
+### Features
+
+- **api:** Migrate to VTEX Intelligent Search V1 API ([#3385](https://github.com/vtex/faststore/issues/3385)) ([74e034a](https://github.com/vtex/faststore/commit/74e034aed44d97634ae4fcafbe3e48745b68fa65)), closes [#3376](https://github.com/vtex/faststore/issues/3376)
+
 ## [4.3.1-dev.0](https://github.com/vtex/faststore/compare/v4.3.0-dev.8...v4.3.1-dev.0) (2026-06-17)
 
 **Note:** Version bump only for package faststore
