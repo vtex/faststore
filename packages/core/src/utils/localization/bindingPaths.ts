@@ -151,6 +151,47 @@ export function getSubdomainBindings(): SubdomainBinding[] {
 }
 
 /**
+ * True when the hostname serves at least one locale via a non-root URL path
+ * (including locale-code paths like `/pt-BR`, not only custom paths like `/europe/it`).
+ */
+export function hostnameHasPathBasedLocaleBindings(hostname: string): boolean {
+  if (!storeConfig.localization?.enabled) {
+    return false
+  }
+
+  const locales = (storeConfig.localization.locales ||
+    {}) as LocalesSettings['locales']
+
+  for (const localeConfig of Object.values(locales)) {
+    if (!localeConfig?.bindings?.length) {
+      continue
+    }
+
+    for (const binding of localeConfig.bindings) {
+      if (!binding.url) {
+        continue
+      }
+
+      try {
+        const urlObj = new URL(binding.url)
+        if (urlObj.hostname !== hostname) {
+          continue
+        }
+
+        const pathname = urlObj.pathname.replace(/\/$/, '') || '/'
+        if (pathname !== '/') {
+          return true
+        }
+      } catch {
+        continue
+      }
+    }
+  }
+
+  return false
+}
+
+/**
  * Extracts custom path prefix from current pathname
  * @param pathname - Current pathname (e.g., '/europe/it/apparel')
  * @returns Custom path prefix if found, null otherwise

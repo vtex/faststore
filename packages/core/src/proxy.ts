@@ -4,6 +4,7 @@ import { getRequestHostname } from 'src/utils/getRequestHostname'
 import {
   getCustomPathsFromBindings,
   getSubdomainBindings,
+  hostnameHasPathBasedLocaleBindings,
   isValidLocale,
 } from 'src/utils/localization/bindingPaths'
 
@@ -55,11 +56,13 @@ const validLocales = new Set(
  *
  * @param request - The request to rewrite.
  * @param locale - The locale to rewrite to.
+ * @param hostname - Client-facing hostname from the Host header.
  * @returns The rewritten response or null if the request is not a subdomain request.
  */
 function rewriteSubdomainRequest(
   request: NextRequest,
-  locale: string
+  locale: string,
+  hostname: string
 ): NextResponse | null {
   const { pathname, search } = request.nextUrl
 
@@ -69,6 +72,10 @@ function rewriteSubdomainRequest(
     const [, currentLocale] = dataMatch
 
     if (currentLocale !== locale && validLocales.has(currentLocale)) {
+      if (hostnameHasPathBasedLocaleBindings(hostname)) {
+        return null
+      }
+
       const url = request.nextUrl.clone()
       url.pathname = pathname.replace(`/${currentLocale}/`, `/${locale}/`)
       url.search = search
@@ -82,6 +89,10 @@ function rewriteSubdomainRequest(
   const firstSegment = pathname.split('/')[1] ?? ''
 
   if (!validLocales.has(firstSegment)) {
+    if (hostnameHasPathBasedLocaleBindings(hostname)) {
+      return null
+    }
+
     const rest = pathname.replace(/^\/+/, '')
     const normalizedPath = rest ? `/${locale}/${rest}` : `/${locale}`
 
@@ -115,7 +126,11 @@ function localizationRewrite(request: NextRequest): NextResponse {
   const subdomainMatch = subdomainBindings.find((b) => b.hostname === hostname)
 
   if (subdomainMatch && isValidLocale(subdomainMatch.locale)) {
-    const result = rewriteSubdomainRequest(request, subdomainMatch.locale)
+    const result = rewriteSubdomainRequest(
+      request,
+      subdomainMatch.locale,
+      hostname
+    )
 
     if (result) {
       return result

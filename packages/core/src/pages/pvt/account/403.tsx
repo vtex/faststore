@@ -20,6 +20,7 @@ import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sectio
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useRefreshToken } from 'src/sdk/account/useRefreshToken'
+import { useLink } from 'src/sdk/ui/useLink'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
@@ -50,6 +51,7 @@ function Page({
   needsRefreshToken,
   fromPage,
 }: Props) {
+  const { resolveLink } = useLink()
   const { sections: globalSections, settings: globalSettings } =
     globalSectionsProp ?? { sections: [], settings: {} }
 
@@ -75,7 +77,7 @@ function Page({
             subtitle="You don't have permission to access this page."
             showLoader={false}
           >
-            <LinkButton variant="secondary" href="/pvt/account">
+            <LinkButton variant="secondary" href={resolveLink('/pvt/account')}>
               Back to Account
             </LinkButton>
           </EmptyState>
