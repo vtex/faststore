@@ -44,6 +44,10 @@ export interface SliderProps
    */
   absoluteValuesLabel: RangeLabel
   /**
+   * Disables interactions.
+   */
+  disabled?: boolean
+  /**
    * Callback that fires when the slider value changes.
    */
   onChange?: (value: { min: number; max: number }) => void
@@ -85,6 +89,8 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       step,
       minValueLabelComponent,
       maxValueLabelComponent,
+      'aria-labelledby': ariaLabelledBy,
+      disabled,
       ...otherProps
     },
     ref
@@ -148,6 +154,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             max={Math.round(max.absolute)}
             value={minVal}
             step={step}
+            disabled={disabled}
             onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
             onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
             onChange={(event) => {
@@ -161,8 +168,9 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             aria-valuemin={min.absolute}
             aria-valuemax={max.absolute}
             aria-valuenow={minVal}
+            aria-valuetext={getAriaValueText?.(minVal, 'min')}
             aria-label={String(minVal)}
-            aria-labelledby={getAriaValueText?.(minVal, 'min')}
+            aria-labelledby={ariaLabelledBy}
           />
           {minValueLabelComponent && (
             <span
@@ -183,6 +191,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             max={Math.round(max.absolute)}
             value={maxVal}
             step={step}
+            disabled={disabled}
             onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
             onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
             onChange={(event) => {
@@ -196,8 +205,9 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             aria-valuemin={min.absolute}
             aria-valuemax={max.absolute}
             aria-valuenow={maxVal}
+            aria-valuetext={getAriaValueText?.(maxVal, 'max')}
             aria-label={String(maxVal)}
-            aria-labelledby={getAriaValueText?.(maxVal, 'max')}
+            aria-labelledby={ariaLabelledBy}
           />
           {maxValueLabelComponent && (
             <span
