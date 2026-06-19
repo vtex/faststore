@@ -5,6 +5,7 @@ import { useState } from 'react'
 import StatusBadge from 'src/components/account/components/StatusBadge'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
 import { useSession } from 'src/sdk/session'
+import { useLink } from 'src/sdk/ui/useLink'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { ExpandButton } from './ExpandButton/ExpandButton'
 
@@ -53,6 +54,8 @@ export function Pagination({
   labels?: ListOrdersSectionLabels
 }) {
   const labels = resolveListOrdersLabels(labelsProp)
+  const { resolveLink } = useLink()
+  const ordersHref = resolveLink('/pvt/account/orders') ?? '/pvt/account/orders'
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
   const lastIndexLabel =
@@ -67,7 +70,7 @@ export function Pagination({
     } else {
       params.set('page', String(newPage))
     }
-    window.location.href = `/pvt/account/orders${params.toString() ? `?${params}` : ''}`
+    window.location.href = `${ordersHref}${params.toString() ? `?${params}` : ''}`
   }
 
   return (

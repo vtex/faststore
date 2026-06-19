@@ -24,6 +24,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
@@ -128,7 +129,10 @@ const getServerSidePropsBase: GetServerSideProps<
     if (statusCode === 401 || statusCode === 403) {
       return {
         redirect: {
-          destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+          destination: localizeRedirectDestination(
+            `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+            context
+          ),
           permanent: false,
         },
       }

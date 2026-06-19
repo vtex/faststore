@@ -1,6 +1,7 @@
 import { Icon as UIIcon, IconButton as UIIconButton } from '@faststore/ui'
 import type { PropsWithChildren } from 'react'
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
+import { useLink } from 'src/sdk/ui/useLink'
 import type { OrderStatusCmsLabels } from 'src/utils/userOrderStatus'
 import StatusBadge from '../../components/StatusBadge'
 import BuyingPolicyAlert from './BuyingPolicyAlert'
@@ -11,6 +12,8 @@ import {
   resolveOrderDetailsHeaderLabels,
 } from './orderDetailsLabels'
 import styles from './section.module.scss'
+
+const ORDERS_PATH = '/pvt/account/orders'
 
 export type OrderDetailsHeaderProps = {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -24,12 +27,14 @@ export function OrderDetailsHeader({
   statusLabels,
 }: OrderDetailsHeaderProps) {
   const labels = resolveOrderDetailsHeaderLabels(labelsProp)
+  const { resolveLink } = useLink()
+  const ordersHref = resolveLink(ORDERS_PATH) ?? ORDERS_PATH
 
   return (
     <>
       <header data-fs-order-details-header>
         <div data-fs-order-details-header-title>
-          <a href="/pvt/account/orders">
+          <a href={ordersHref}>
             <UIIconButton
               data-fs-order-details-header-back-button
               size="small"

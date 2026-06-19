@@ -27,8 +27,9 @@ import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
-import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
 import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
+import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
@@ -119,7 +120,7 @@ const getServerSidePropsBase: GetServerSideProps<
   if (!isRepresentative) {
     return {
       redirect: {
-        destination: '/pvt/account',
+        destination: localizeRedirectDestination('/pvt/account', context),
         permanent: false,
       },
     }
@@ -175,7 +176,7 @@ const getServerSidePropsBase: GetServerSideProps<
 
     return {
       redirect: {
-        destination,
+        destination: localizeRedirectDestination(destination, context),
         permanent: false,
       },
     }
