@@ -50,11 +50,17 @@ export const getCollectionLoader = (_: Options, clients: Clients) => {
     return Promise.all(
       slugs.map((slug: string) =>
         limit(async () => {
+          // Normalize to lowercase so that merchants who register linkIds with mixed
+          // casing (allowed by the Catalog multilanguage API) get the same resolution
+          // as lowercase URLs. The by-linkid API is case-sensitive, while the legacy
+          // pagetype API was not, so skipping this would be a regression.
+          const normalizedSlug = slug.toLowerCase()
+
           // For multi-segment slugs (e.g. "vestuario/camisetas") the entity type is
           // determined by the last segment — the leaf category owns the page.
           // The full slug is injected into the result for meta.selectedFacets and
           // breadcrumb URL construction.
-          const lastSegment = slug.split('/').at(-1)!
+          const lastSegment = normalizedSlug.split('/').at(-1)!
 
           // Step 1: category
           const categories =
@@ -63,18 +69,23 @@ export const getCollectionLoader = (_: Options, clients: Clients) => {
             // When multiple categories share the same linkId at different tree levels
             // (e.g. "bolas" under both "esportes" and "infantil"), fatherCategoryId-based
             // disambiguation can be added here in a follow-up. For now, take the first match.
-            return { ...categories[0], entityType: 'category' as const, slug }
+            return {
+              ...categories[0],
+              entityType: 'category' as const,
+              slug: normalizedSlug,
+            }
           }
 
           // Step 2: brand (always single-segment)
-          const brands = await clients.commerce.catalog.byLinkId.brand(slug)
+          const brands =
+            await clients.commerce.catalog.byLinkId.brand(normalizedSlug)
           if (brands !== null && brands.length > 0) {
             return { ...brands[0], entityType: 'brand' as const }
           }
 
           // Step 3: collection cluster (always single-segment)
           const collections =
-            await clients.commerce.catalog.byLinkId.collection(slug)
+            await clients.commerce.catalog.byLinkId.collection(normalizedSlug)
           if (collections !== null && collections.length > 0) {
             return { ...collections[0], entityType: 'collection' as const }
           }
