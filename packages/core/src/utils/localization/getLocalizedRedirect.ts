@@ -3,6 +3,18 @@ import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 
 type LocaleContext = Pick<GetServerSidePropsContext, 'locale' | 'defaultLocale'>
 
+/**
+ * Next.js supports `redirect.locale` for i18n GSSP redirects at runtime.
+ * The public `Redirect` type omits this field.
+ */
+type RedirectWithI18nLocale = {
+  destination: string
+  permanent?: boolean
+  statusCode?: 301 | 302 | 303 | 307 | 308
+  basePath?: false
+  locale?: string | false
+}
+
 function isInternalPath(destination: string): boolean {
   return destination.startsWith('/') && !destination.startsWith('//')
 }
@@ -20,7 +32,8 @@ export function localizeRedirectResult<P extends Record<string, unknown>>(
     return result
   }
 
-  const { destination, locale: redirectLocale } = result.redirect
+  const redirect = result.redirect as RedirectWithI18nLocale
+  const { destination, locale: redirectLocale } = redirect
 
   if (
     !isInternalPath(destination) ||
@@ -39,8 +52,8 @@ export function localizeRedirectResult<P extends Record<string, unknown>>(
 
   return {
     redirect: {
-      ...result.redirect,
+      ...redirect,
       locale: context.locale,
     },
-  }
+  } as GetServerSidePropsResult<P>
 }
