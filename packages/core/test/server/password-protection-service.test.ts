@@ -2,9 +2,9 @@ import { decodeJwt, errors, importSPKI, jwtVerify } from 'jose'
 import { NextRequest } from 'next/server'
 
 import {
-  AuthenticationService,
+  PasswordProtectionService,
   resetPasswordProtectionPublicKeyCacheForTests,
-} from '../../src/server/authentication-service'
+} from '../../src/server/password-protection-service'
 
 function setNodeEnv(value: string | undefined): void {
   const env = process.env as Record<string, string | undefined>
@@ -62,7 +62,7 @@ function previewRequest(
   })
 }
 
-describe('AuthenticationService', () => {
+describe('PasswordProtectionService', () => {
   const originalNodeEnv = process.env.NODE_ENV
   const originalCustomDomains = process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED
 
@@ -83,8 +83,10 @@ describe('AuthenticationService', () => {
   it('skips protection in development', async () => {
     setNodeEnv('development')
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(previewRequest('/p'))
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
+      previewRequest('/p')
+    )
 
     expect(response.status).toBe(200)
     expect(global.fetch).not.toHaveBeenCalled()
@@ -99,13 +101,13 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/products')
     )
 
     expect(response.status).toBe(200)
-    expect(response.cookies.get('__fs_auth_token')?.value).toBe(
+    expect(response.cookies.get('__fs_password_protection')?.value).toBe(
       'neg-cache-token'
     )
     expect(global.fetch).toHaveBeenCalledWith(
@@ -118,7 +120,7 @@ describe('AuthenticationService', () => {
     )
   })
 
-  it('redirects to login when protected and host matches DEFAULT_DOMAINS scope', async () => {
+  it('redirects to unlock page when protected and host matches DEFAULT_DOMAINS scope', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValue({
       ok: true,
       json: async () => ({
@@ -128,14 +130,14 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/secret')
     )
 
     expect(response.status).toBe(307)
     const location = response.headers.get('location') ?? ''
-    expect(location).toContain('/fs-auth-login')
+    expect(location).toContain('/password-protection')
     expect(location).toContain('returnTo=%2Fsecret')
   })
 
@@ -148,13 +150,15 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(previewRequest('/p'))
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
+      previewRequest('/p')
+    )
 
     expect(response.status).toBe(200)
   })
 
-  it('redirects to login when protected for ALL_DOMAINS on custom host', async () => {
+  it('redirects to unlock page when protected for ALL_DOMAINS on custom host', async () => {
     process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = 'true'
     ;(global.fetch as jest.Mock).mockResolvedValue({
       ok: true,
@@ -164,8 +168,8 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       new NextRequest('https://shop.example.com/checkout', {
         headers: { host: 'shop.example.com' },
       })
@@ -190,10 +194,10 @@ describe('AuthenticationService', () => {
       protectedHeader: { alg: 'RS256' },
     } as unknown as Awaited<ReturnType<typeof jwtVerify>>)
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/account', {
-        headers: { cookie: '__fs_auth_token=valid' },
+        headers: { cookie: '__fs_password_protection=valid' },
       })
     )
 
@@ -220,12 +224,12 @@ describe('AuthenticationService', () => {
       protectedHeader: { alg: 'RS256' },
     } as unknown as Awaited<ReturnType<typeof jwtVerify>>)
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/p', {
         headers: {
           host: 'preview.vtex.app',
-          cookie: '__fs_auth_token=abc',
+          cookie: '__fs_password_protection=abc',
         },
       })
     )
@@ -254,11 +258,11 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/x', {
         headers: {
-          cookie: '__fs_auth_token=bad',
+          cookie: '__fs_password_protection=bad',
         },
       })
     )
@@ -280,15 +284,17 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/p', {
-        headers: { cookie: '__fs_auth_token=garbage' },
+        headers: { cookie: '__fs_password_protection=garbage' },
       })
     )
 
     expect(response.status).toBe(200)
-    expect(response.cookies.get('__fs_auth_token')?.value).toBe('after-bad-jwt')
+    expect(response.cookies.get('__fs_password_protection')?.value).toBe(
+      'after-bad-jwt'
+    )
     expect(jwtVerifyMock).toHaveBeenCalled()
     expect(global.fetch).toHaveBeenCalledTimes(2)
   })
@@ -316,18 +322,20 @@ describe('AuthenticationService', () => {
       }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/p', {
-        headers: { cookie: '__fs_auth_token=old' },
+        headers: { cookie: '__fs_password_protection=old' },
       })
     )
 
     expect(response.status).toBe(200)
-    expect(response.cookies.get('__fs_auth_token')?.value).toBe('renewed-token')
+    expect(response.cookies.get('__fs_password_protection')?.value).toBe(
+      'renewed-token'
+    )
   })
 
-  it('redirects to login when JWT is expired and renew response is not ok', async () => {
+  it('redirects to unlock page when JWT is expired and renew response is not ok', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ publicKey: 'test-pem' }),
@@ -345,17 +353,17 @@ describe('AuthenticationService', () => {
       status: 502,
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/p', {
-        headers: { cookie: '__fs_auth_token=expired' },
+        headers: { cookie: '__fs_password_protection=expired' },
       })
     )
 
     expect(response.status).toBe(307)
   })
 
-  it('redirects to login when JWT is expired and renew body is not valid', async () => {
+  it('redirects to unlock page when JWT is expired and renew body is not valid', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ publicKey: 'test-pem' }),
@@ -373,10 +381,10 @@ describe('AuthenticationService', () => {
       json: async () => ({ valid: false }),
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/p', {
-        headers: { cookie: '__fs_auth_token=expired' },
+        headers: { cookie: '__fs_password_protection=expired' },
       })
     )
 
@@ -398,61 +406,65 @@ describe('AuthenticationService', () => {
     } as ReturnType<typeof decodeJwt>)
     ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('renew down'))
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
       previewRequest('/p', {
-        headers: { cookie: '__fs_auth_token=old' },
+        headers: { cookie: '__fs_password_protection=old' },
       })
     )
 
     expect(response.status).toBe(200)
   })
 
-  it('fail-closes to login on default domain when status request fails', async () => {
+  it('fail-closes to unlock page on default domain when status request fails', async () => {
     ;(global.fetch as jest.Mock).mockRejectedValue(new Error('network'))
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(previewRequest('/p'))
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
+      previewRequest('/p')
+    )
 
     expect(response.status).toBe(307)
-    expect(response.headers.get('location')).toContain('/fs-auth-login')
+    expect(response.headers.get('location')).toContain('/password-protection')
   })
 
-  it('fail-closes to login when status endpoint returns a non-ok HTTP status', async () => {
+  it('fail-closes to unlock page when status endpoint returns a non-ok HTTP status', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValue({
       ok: false,
       status: 503,
     })
 
-    const service = new AuthenticationService()
-    const { response } = await service.authenticateRequest(previewRequest('/p'))
+    const service = new PasswordProtectionService()
+    const { response } = await service.checkStoreProtection(
+      previewRequest('/p')
+    )
 
     expect(response.status).toBe(307)
-    expect(response.headers.get('location')).toContain('/fs-auth-login')
+    expect(response.headers.get('location')).toContain('/password-protection')
   })
 
-  it('fail-closes to login on custom domain when status request fails', async () => {
+  it('fail-closes to unlock page on custom domain when status request fails', async () => {
     process.env.CUSTOM_DOMAINS_PROTECTION_ENABLED = 'true'
     ;(global.fetch as jest.Mock).mockRejectedValue(new Error('network'))
 
-    const service = new AuthenticationService()
+    const service = new PasswordProtectionService()
     const request = new NextRequest('https://shop.example.com/page', {
       headers: { host: 'shop.example.com' },
     })
 
-    const { response } = await service.authenticateRequest(request)
+    const { response } = await service.checkStoreProtection(request)
 
     expect(response.status).toBe(307)
-    expect(response.headers.get('location')).toContain('/fs-auth-login')
+    expect(response.headers.get('location')).toContain('/password-protection')
   })
 
   it('does not enforce protection on custom domain when env gate is off', async () => {
-    const service = new AuthenticationService()
+    const service = new PasswordProtectionService()
     const request = new NextRequest('https://shop.example.com/page', {
       headers: { host: 'shop.example.com' },
     })
 
-    const { response } = await service.authenticateRequest(request)
+    const { response } = await service.checkStoreProtection(request)
 
     expect(response.status).toBe(200)
     expect(global.fetch).not.toHaveBeenCalled()

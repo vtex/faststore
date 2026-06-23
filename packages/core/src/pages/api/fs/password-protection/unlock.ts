@@ -2,7 +2,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import storeConfig from 'discovery.config'
 
-import type { LoginResponse } from '../../../../utils/loginResponse'
+import type { UnlockResponse } from '../../../../utils/unlockResponse'
 import {
   sessionUrl,
   passwordProtectionTimeouts,
@@ -10,7 +10,7 @@ import {
 import {
   COOKIE_NAME,
   TOKEN_TTL_SECONDS,
-} from 'src/server/authentication-service'
+} from 'src/server/password-protection-service'
 
 interface WebOpsSessionPayload {
   valid: boolean
@@ -36,9 +36,9 @@ const isWebOpsSessionPayload = (
   )
 }
 
-const handler: NextApiHandler<LoginResponse> = async (
+const handler: NextApiHandler<UnlockResponse> = async (
   request: NextApiRequest,
-  response: NextApiResponse<LoginResponse>
+  response: NextApiResponse<UnlockResponse>
 ) => {
   if (request.method !== 'POST') {
     response.status(405).end()
