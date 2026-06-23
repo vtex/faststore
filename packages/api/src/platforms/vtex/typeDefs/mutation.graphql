@@ -35,4 +35,16 @@ type Mutation {
   startOrderEntryOperation(
     data: IOrderEntryOperation!
   ): StoreOrderEntryOperationResult @auth
+  """
+  Starts an anonymous personalization session for the current shopper.
+  """
+  startSession: Boolean!
+  """
+  Reports a product view event to the personalization engine.
+  """
+  sendProductViewEvent(
+    userId: String!
+    product: String!
+    source: ProductViewSource
+  ): Boolean!
 }

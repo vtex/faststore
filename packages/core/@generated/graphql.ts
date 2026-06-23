@@ -709,12 +709,14 @@ export type Mutation = {
   cancelOrder: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>;
+  /** Reports a product view event to the personalization engine. */
   sendProductViewEvent: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation: Maybe<StoreOrderEntryOperationResult>;
+  /** Starts an anonymous personalization session for the current shopper. */
   startSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
@@ -985,6 +987,7 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile: Maybe<Profile>;
+  /** Returns personalized product recommendations for a given campaign. */
   recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>;

@@ -1,21 +1,3 @@
-extend type Query {
-  recommendations(
-    campaignVrn: String!
-    userId: String
-    products: [String!]
-  ): RecommendationResponse!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
-}
-
-extend type Mutation {
-  startSession: Boolean!
-  sendProductViewEvent(
-    userId: String!
-    product: String!
-    source: ProductViewSource
-  ): Boolean!
-}
-
 type RecommendationResponse {
   products: [RecommendationProduct!]!
   correlationId: String!

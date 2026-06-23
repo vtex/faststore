@@ -132,6 +132,23 @@ export type AvailableDeliveryWindows = {
   tax?: Maybe<Scalars['Int']['output']>;
 };
 
+export type Benefit = {
+  __typename?: 'Benefit';
+  featured?: Maybe<Scalars['Boolean']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<BenefitItem>>;
+  name?: Maybe<Scalars['String']['output']>;
+  teaserType?: Maybe<Scalars['String']['output']>;
+};
+
+export type BenefitItem = {
+  __typename?: 'BenefitItem';
+  benefitProduct?: Maybe<RecommendationProduct>;
+  benefitSKUIds?: Maybe<Array<Scalars['String']['output']>>;
+  discount?: Maybe<Scalars['Float']['output']>;
+  minQuantity?: Maybe<Scalars['Int']['output']>;
+};
+
 export type BusinessHour = {
   __typename?: 'BusinessHour';
   /** Business hour closing time. */
@@ -140,6 +157,12 @@ export type BusinessHour = {
   dayOfWeek?: Maybe<Scalars['Int']['output']>;
   /** Business hour opening time. */
   openingTime?: Maybe<Scalars['String']['output']>;
+};
+
+export type ClusterHighlight = {
+  __typename?: 'ClusterHighlight';
+  id?: Maybe<Scalars['ID']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 /** Commercial Authorization dimension status. */
@@ -355,6 +378,11 @@ export type DeliveryPromiseBadge = {
   __typename?: 'DeliveryPromiseBadge';
   /** Badge type. */
   typeName?: Maybe<Scalars['String']['output']>;
+};
+
+export type Discount = {
+  __typename?: 'Discount';
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 /** Input to get commercial authorizations by order ID. */
@@ -615,6 +643,27 @@ export type IUserOrderCancel = {
   reason?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Image = {
+  __typename?: 'Image';
+  cacheId?: Maybe<Scalars['ID']['output']>;
+  imageId?: Maybe<Scalars['ID']['output']>;
+  imageLabel?: Maybe<Scalars['String']['output']>;
+  imageTag?: Maybe<Scalars['String']['output']>;
+  imageText?: Maybe<Scalars['String']['output']>;
+  imageUrl: Scalars['String']['output'];
+};
+
+export type Installment = {
+  __typename?: 'Installment';
+  InterestRate?: Maybe<Scalars['Float']['output']>;
+  Name?: Maybe<Scalars['String']['output']>;
+  NumberOfInstallments?: Maybe<Scalars['Int']['output']>;
+  PaymentSystemGroupName?: Maybe<Scalars['String']['output']>;
+  PaymentSystemName?: Maybe<Scalars['String']['output']>;
+  TotalValuePlusInterestRate?: Maybe<Scalars['Float']['output']>;
+  Value?: Maybe<Scalars['Float']['output']>;
+};
+
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
@@ -685,11 +734,15 @@ export type Mutation = {
   cancelOrder?: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
+  /** Reports a product view event to the personalization engine. */
+  sendProductViewEvent: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation?: Maybe<StoreOrderEntryOperationResult>;
+  /** Starts an anonymous personalization session for the current shopper. */
+  startSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /**
@@ -712,6 +765,13 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
+};
+
+
+export type MutationSendProductViewEventArgs = {
+  product: Scalars['String']['input'];
+  source?: InputMaybe<ProductViewSource>;
+  userId: Scalars['String']['input'];
 };
 
 
@@ -739,6 +799,23 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input'];
   session: IStoreSession;
+};
+
+export type Offer = {
+  __typename?: 'Offer';
+  AvailableQuantity?: Maybe<Scalars['Float']['output']>;
+  Installments?: Maybe<Array<Installment>>;
+  ListPrice?: Maybe<Scalars['Float']['output']>;
+  Price?: Maybe<Scalars['Float']['output']>;
+  PriceValidUntil?: Maybe<Scalars['String']['output']>;
+  PriceWithoutDiscount?: Maybe<Scalars['Float']['output']>;
+  RewardValue?: Maybe<Scalars['Float']['output']>;
+  Tax?: Maybe<Scalars['Float']['output']>;
+  discountHighlights?: Maybe<Array<Discount>>;
+  giftSkuIds?: Maybe<Array<Scalars['String']['output']>>;
+  spotPrice?: Maybe<Scalars['Float']['output']>;
+  taxPercentage?: Maybe<Scalars['Float']['output']>;
+  teasers?: Maybe<Array<Teaser>>;
 };
 
 /** Newsletter information. */
@@ -832,6 +909,12 @@ export type PickupStoreInfo = {
   isPickupStore?: Maybe<Scalars['Boolean']['output']>;
 };
 
+export type PriceRange = {
+  __typename?: 'PriceRange';
+  highPrice?: Maybe<Scalars['Float']['output']>;
+  lowPrice?: Maybe<Scalars['Float']['output']>;
+};
+
 /** Process Order Authorization response. */
 export type ProcessOrderAuthorizationResponse = {
   __typename?: 'ProcessOrderAuthorizationResponse';
@@ -852,10 +935,30 @@ export type ProcessOrderAuthorizationRule = {
   rule: CommercialAuthorizationRule;
 };
 
+export type ProductClusters = {
+  __typename?: 'ProductClusters';
+  id?: Maybe<Scalars['ID']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
 export type ProductCountResult = {
   __typename?: 'ProductCountResult';
   /** Total product count. */
   total: Scalars['Int']['output'];
+};
+
+export type ProductPriceRange = {
+  __typename?: 'ProductPriceRange';
+  listPrice?: Maybe<PriceRange>;
+  sellingPrice?: Maybe<PriceRange>;
+};
+
+export const enum ProductViewSource {
+  Desktop = 'DESKTOP',
+  Mobile = 'MOBILE',
+  MobileApp = 'MOBILE_APP',
+  WebDesktop = 'WEB_DESKTOP',
+  WebMobile = 'WEB_MOBILE'
 };
 
 export type Profile = {
@@ -894,6 +997,13 @@ export type ProfileAddress = {
   street?: Maybe<Scalars['String']['output']>;
 };
 
+export type Property = {
+  __typename?: 'Property';
+  name?: Maybe<Scalars['String']['output']>;
+  originalName?: Maybe<Scalars['String']['output']>;
+  values?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
 export type Query = {
   __typename?: 'Query';
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
@@ -920,6 +1030,8 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile?: Maybe<Profile>;
+  /** Returns personalized product recommendations for a given campaign. */
+  recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -1001,6 +1113,13 @@ export type QueryProfileArgs = {
 };
 
 
+export type QueryRecommendationsArgs = {
+  campaignVrn: Scalars['String']['input'];
+  products?: InputMaybe<Array<Scalars['String']['input']>>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
   term?: InputMaybe<Scalars['String']['input']>;
@@ -1036,6 +1155,71 @@ export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
 };
 
+export type RecommendationCampaign = {
+  __typename?: 'RecommendationCampaign';
+  id: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type RecommendationProduct = {
+  __typename?: 'RecommendationProduct';
+  /** If this product is sponsored, ad information will be added here. */
+  advertisement?: Maybe<Advertisement>;
+  benefits?: Maybe<Array<Benefit>>;
+  brand?: Maybe<Scalars['String']['output']>;
+  brandId?: Maybe<Scalars['Int']['output']>;
+  cacheId?: Maybe<Scalars['String']['output']>;
+  categories?: Maybe<Array<Scalars['String']['output']>>;
+  categoriesIds?: Maybe<Array<Scalars['String']['output']>>;
+  categoryId?: Maybe<Scalars['ID']['output']>;
+  clusterHighlights?: Maybe<Array<ClusterHighlight>>;
+  description?: Maybe<Scalars['String']['output']>;
+  items: Array<Sku>;
+  link?: Maybe<Scalars['String']['output']>;
+  linkText?: Maybe<Scalars['String']['output']>;
+  metaTagDescription?: Maybe<Scalars['String']['output']>;
+  priceRange?: Maybe<ProductPriceRange>;
+  productClusters?: Maybe<Array<ProductClusters>>;
+  productId: Scalars['String']['output'];
+  productName?: Maybe<Scalars['String']['output']>;
+  productReference?: Maybe<Scalars['String']['output']>;
+  properties?: Maybe<Array<Property>>;
+  releaseDate?: Maybe<Scalars['String']['output']>;
+  skuSpecifications?: Maybe<Array<SkuSpecification>>;
+  specificationGroups?: Maybe<Array<SpecificationGroupRec>>;
+  titleTag?: Maybe<Scalars['String']['output']>;
+};
+
+export type RecommendationResponse = {
+  __typename?: 'RecommendationResponse';
+  campaign: RecommendationCampaign;
+  correlationId: Scalars['String']['output'];
+  products: Array<RecommendationProduct>;
+};
+
+export type Reference = {
+  __typename?: 'Reference';
+  Key?: Maybe<Scalars['String']['output']>;
+  Value?: Maybe<Scalars['String']['output']>;
+};
+
+export type Sku = {
+  __typename?: 'SKU';
+  complementName?: Maybe<Scalars['String']['output']>;
+  ean?: Maybe<Scalars['String']['output']>;
+  images: Array<Image>;
+  itemId: Scalars['String']['output'];
+  measurementUnit?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  nameComplete?: Maybe<Scalars['String']['output']>;
+  referenceId?: Maybe<Array<Reference>>;
+  sellers?: Maybe<Array<Seller>>;
+  unitMultiplier?: Maybe<Scalars['Float']['output']>;
+  variations?: Maybe<Array<Property>>;
+  videos?: Maybe<Array<Video>>;
+};
+
 export type SkuSpecificationField = {
   __typename?: 'SKUSpecificationField';
   id?: Maybe<Scalars['String']['output']>;
@@ -1060,6 +1244,15 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']['output'];
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']['output'];
+};
+
+export type Seller = {
+  __typename?: 'Seller';
+  addToCartLink?: Maybe<Scalars['String']['output']>;
+  commertialOffer?: Maybe<Offer>;
+  sellerDefault?: Maybe<Scalars['Boolean']['output']>;
+  sellerId?: Maybe<Scalars['String']['output']>;
+  sellerName?: Maybe<Scalars['String']['output']>;
 };
 
 /** Information of sellers. */
@@ -1194,6 +1387,20 @@ export type SpecificationGroup = {
   name: Scalars['String']['output'];
   originalName: Scalars['String']['output'];
   specifications: Array<Specification>;
+};
+
+export type SpecificationGroupRec = {
+  __typename?: 'SpecificationGroupRec';
+  name?: Maybe<Scalars['String']['output']>;
+  originalName?: Maybe<Scalars['String']['output']>;
+  specifications?: Maybe<Array<SpecificationGroupRecProperty>>;
+};
+
+export type SpecificationGroupRecProperty = {
+  __typename?: 'SpecificationGroupRecProperty';
+  name?: Maybe<Scalars['String']['output']>;
+  originalName?: Maybe<Scalars['String']['output']>;
+  values?: Maybe<Array<Scalars['String']['output']>>;
 };
 
 /** Account profile information. */
@@ -1849,6 +2056,30 @@ export type StoreUserDetails = {
   role?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** User's username (login). May differ from email when Alternative Login is enabled. */
   username?: Maybe<Scalars['String']['output']>;
+};
+
+export type Teaser = {
+  __typename?: 'Teaser';
+  conditions?: Maybe<TeaserCondition>;
+  effects?: Maybe<TeaserEffects>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type TeaserCondition = {
+  __typename?: 'TeaserCondition';
+  minimumQuantity?: Maybe<Scalars['Int']['output']>;
+  parameters?: Maybe<Array<Maybe<TeaserValue>>>;
+};
+
+export type TeaserEffects = {
+  __typename?: 'TeaserEffects';
+  parameters?: Maybe<Array<Maybe<TeaserValue>>>;
+};
+
+export type TeaserValue = {
+  __typename?: 'TeaserValue';
+  name?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrder = {
@@ -2740,4 +2971,9 @@ export type ValidateUserData = {
   __typename?: 'ValidateUserData';
   /** Indicates if the user is valid. */
   isValid: Scalars['Boolean']['output'];
+};
+
+export type Video = {
+  __typename?: 'Video';
+  videoUrl?: Maybe<Scalars['String']['output']>;
 };
