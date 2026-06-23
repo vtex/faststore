@@ -1,10 +1,10 @@
 import { Icon, IconButton } from '@faststore/ui'
 
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import StatusBadge from 'src/components/account/components/StatusBadge'
 import { useFormatPrice } from 'src/components/account/utils/useFormatPrice'
-import { useSession } from 'src/sdk/session'
 import { useLink } from 'src/sdk/ui/useLink'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { ExpandButton } from './ExpandButton/ExpandButton'
@@ -108,7 +108,7 @@ export default function ListOrdersTable({
   const labels = resolveListOrdersLabels(labelsProp)
   const statusLabels = pickOrderStatusCmsLabels(labels)
   const { isDesktop } = useScreenResize()
-  const { locale } = useSession()
+  const { locale } = useRouter()
   const formatPrice = useFormatPrice()
 
   const [expandedRows, setExpandedRows] = useState<
