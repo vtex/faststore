@@ -262,11 +262,11 @@ export class PasswordProtectionService {
   }
 
   private redirectToUnlockPage(request: NextRequest): NextResponse {
-    const loginUrl = new URL('/password-protection', request.url)
+    const unlockUrl = new URL('/password-protection', request.url)
     const returnTo = `${request.nextUrl.pathname}${request.nextUrl.search}`
-    loginUrl.searchParams.set('returnTo', returnTo)
+    unlockUrl.searchParams.set('returnTo', returnTo)
 
-    const response = NextResponse.redirect(loginUrl)
+    const response = NextResponse.redirect(unlockUrl)
     response.headers.set('Cache-Control', 'no-store')
 
     return response
