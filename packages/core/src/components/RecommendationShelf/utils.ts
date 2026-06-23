@@ -7,7 +7,7 @@ const MAX_MOBILE_WIDTH = 768
 const USER_ID_COOKIE = 'vtex-rec-user-id'
 
 export function checkIsMobile(): boolean {
-  if (typeof globalThis.window === 'undefined') {
+  if (globalThis.window === undefined) {
     return false
   }
 
