@@ -48,12 +48,15 @@ const baseRequest = async <V = any, D = any>(
 
   // Uses method from fetchOptions.
   // If no one is passed, figure out with via heuristic
-  const method =
-    fetchOptions?.method !== undefined
-      ? fetchOptions.method.toUpperCase()
-      : operationName.endsWith('Query')
-        ? 'GET'
-        : 'POST'
+  const resolveMethod = (): string => {
+    if (fetchOptions?.method) {
+      return fetchOptions.method.toUpperCase()
+    }
+
+    return operationName.endsWith('Query') ? 'GET' : 'POST'
+  }
+
+  const method = resolveMethod()
 
   const params = new URLSearchParams({
     operationName,
@@ -86,14 +89,14 @@ const baseRequest = async <V = any, D = any>(
 
   let responseBody = null
 
-  if (contentType && contentType.includes('application/json')) {
+  if (contentType?.includes('application/json')) {
     try {
       responseBody = await response.json()
     } catch (error) {
       console.error('Error parsing JSON', error)
       throw new Error('Error parsing JSON response')
     }
-  } else if (contentType && contentType.includes('text/plain')) {
+  } else if (contentType?.includes('text/plain')) {
     responseBody = await response.text()
   }
 
@@ -101,11 +104,5 @@ const baseRequest = async <V = any, D = any>(
     return responseBody
   }
 
-  if (response.ok) {
-    return response.status !== 204 ? response.json() : (undefined as any)
-  }
-
-  const error = new Error('Error while fetching', { cause: responseBody })
-
-  throw error
+  throw new Error('Error while fetching', { cause: responseBody })
 }

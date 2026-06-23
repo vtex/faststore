@@ -84,13 +84,7 @@ export const RecommendationShelf = ({
   if (!userId) {
     // The pixel might take a while to load and set the userId cookie,
     // so we use a retry mechanism to ensure we get the userId if available.
-    getWithRetry<string>(() => {
-      if (!userId) {
-        return getUserIdFromCookie()
-      }
-
-      return ''
-    })
+    getWithRetry<string>(() => getUserIdFromCookie())
       .then((value) => {
         setUserId(value)
       })

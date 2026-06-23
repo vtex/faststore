@@ -27,13 +27,15 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
   options?: QueryOptions
 ) =>
   useSWR<Data>(
-    () =>
-      options?.doNotRun
-        ? null
-        : getKey(
-            operation['__meta__'] ? operation['__meta__']['operationName'] : '',
-            variables
-          ),
+    () => {
+      if (options?.doNotRun) {
+        return null
+      }
+
+      const operationName = operation['__meta__']?.['operationName'] ?? ''
+
+      return getKey(operationName, variables)
+    },
     {
       fetcher: () => request<Data, Variables>(operation, variables, options),
       ...DEFAULT_OPTIONS,
