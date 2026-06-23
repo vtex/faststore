@@ -9,6 +9,10 @@ export type OrderDetailsHeaderLabels = {
   cancelErrorToast?: string
   approveLabel?: string
   rejectLabel?: string
+  rejectModalTitle?: string
+  /** Supports the `{policy}` placeholder, replaced with the policy name. */
+  rejectModalMessage?: string
+  rejectModalConfirmText?: string
 }
 
 export type OrderStatusSectionLabels = {
@@ -83,6 +87,10 @@ export const defaultOrderDetailsHeaderLabels: Required<OrderDetailsHeaderLabels>
     cancelErrorToast: "Order couldn't be canceled due to a technical issue.",
     approveLabel: 'Approve',
     rejectLabel: 'Reject',
+    rejectModalTitle: 'Reject approval request',
+    rejectModalMessage:
+      "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone.",
+    rejectModalConfirmText: 'Reject',
   }
 
 export const defaultOrderStatusLabels: Required<OrderStatusSectionLabels> = {

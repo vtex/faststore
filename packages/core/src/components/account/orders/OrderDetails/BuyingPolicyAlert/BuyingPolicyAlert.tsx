@@ -4,7 +4,7 @@ import {
   Icon as UIIcon,
   useUI,
 } from '@faststore/ui'
-import { useState } from 'react'
+import { Fragment, type ReactNode, useState } from 'react'
 import OrderActionModal from '../OrderActionModal'
 import { useOrderAuthorization } from 'src/sdk/account/useOrderAuthorization'
 import type { ProcessOrderAuthorizationRule } from '@generated/graphql'
@@ -15,11 +15,30 @@ interface BuyingPolicyAlertProps {
   labels?: {
     approveLabel?: string
     rejectLabel?: string
+    rejectModalTitle?: string
+    rejectModalMessage?: string
+    rejectModalConfirmText?: string
   }
 }
 
 export const BUYING_POLICY_APPROVAL_REQUIRED_MESSAGE =
   'This buying policy requires your approval before the order can proceed.'
+
+const DEFAULT_REJECT_MODAL_TITLE = 'Reject approval request'
+const DEFAULT_REJECT_MODAL_MESSAGE =
+  "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone."
+const DEFAULT_REJECT_MODAL_CONFIRM_TEXT = 'Reject'
+
+function renderRejectMessage(template: string, policyName: string): ReactNode {
+  const lines = template.replace('{policy}', policyName).split('\n')
+
+  return lines.map((line, index) => (
+    <Fragment key={`${index}-${line}`}>
+      {line}
+      {index < lines.length - 1 && <br />}
+    </Fragment>
+  ))
+}
 
 export default function BuyingPolicyAlert({
   ruleForAuthorization,
@@ -28,6 +47,12 @@ export default function BuyingPolicyAlert({
 }: BuyingPolicyAlertProps) {
   const approveLabel = labels?.approveLabel ?? 'Approve'
   const rejectLabel = labels?.rejectLabel ?? 'Reject'
+  const rejectModalTitle =
+    labels?.rejectModalTitle ?? DEFAULT_REJECT_MODAL_TITLE
+  const rejectModalMessage =
+    labels?.rejectModalMessage ?? DEFAULT_REJECT_MODAL_MESSAGE
+  const rejectModalConfirmText =
+    labels?.rejectModalConfirmText ?? DEFAULT_REJECT_MODAL_CONFIRM_TEXT
   const { pushToast } = useUI()
   const [isAuthorizationOpen, setIsAuthorizationOpen] = useState<boolean>(false)
   const { data, error, processOrderAuthorization, loading } =
@@ -144,18 +169,12 @@ export default function BuyingPolicyAlert({
         loading={loading}
         onClose={() => setIsAuthorizationOpen(false)}
         onConfirm={handleReject}
-        title="Reject approval request"
-        message={
-          <>
-            You're about to reject this approval request, triggered by the
-            {` ${ruleForAuthorization.rule.name} policy`}. Rejecting any
-            approval request will deny the entire order.
-            <br />
-            <br />
-            This action is permanent and cannot be undone.
-          </>
-        }
-        confirmText="Reject"
+        title={rejectModalTitle}
+        message={renderRejectMessage(
+          rejectModalMessage,
+          ruleForAuthorization.rule.name
+        )}
+        confirmText={rejectModalConfirmText}
         danger
       />
     </>

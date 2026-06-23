@@ -70,6 +70,9 @@ export function OrderDetailsHeader({
           labels={{
             approveLabel: labels.approveLabel,
             rejectLabel: labels.rejectLabel,
+            rejectModalTitle: labels.rejectModalTitle,
+            rejectModalMessage: labels.rejectModalMessage,
+            rejectModalConfirmText: labels.rejectModalConfirmText,
           }}
         />
       )}

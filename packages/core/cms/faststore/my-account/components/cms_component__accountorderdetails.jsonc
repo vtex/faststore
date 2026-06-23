@@ -55,6 +55,21 @@
       "type": "string",
       "title": "Reject Label",
       "default": "Reject"
+    },
+    "rejectModalTitle": {
+      "type": "string",
+      "title": "Reject Modal Title",
+      "default": "Reject approval request"
+    },
+    "rejectModalMessage": {
+      "type": "string",
+      "title": "Reject Modal Message",
+      "default": "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone."
+    },
+    "rejectModalConfirmText": {
+      "type": "string",
+      "title": "Reject Modal Confirm Text",
+      "default": "Reject"
     }
   },
   "readOnly": false,
