@@ -32,8 +32,8 @@ export default function UserDetails({
         <AccountTable
           rows={[
             { heading: labels.nameLabel, data: name ? name : '–' },
-            { heading: 'Username', data: username ? username : '–' },
-            { heading: 'Phone number', data: phone ? phone : '–' },
+            { heading: labels.usernameLabel, data: username ? username : '–' },
+            { heading: labels.phoneLabel, data: phone ? phone : '–' },
             { heading: labels.emailLabel, data: email },
             {
               heading: labels.roleLabel,

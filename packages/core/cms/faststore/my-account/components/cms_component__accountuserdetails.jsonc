@@ -16,10 +16,20 @@
       "title": "Name Label",
       "default": "Name"
     },
+    "usernameLabel": {
+      "type": "string",
+      "title": "Username Label",
+      "default": "Username"
+    },
     "emailLabel": {
       "type": "string",
       "title": "Email Label",
       "default": "Email"
+    },
+    "phoneLabel": {
+      "type": "string",
+      "title": "Phone Label",
+      "default": "Phone number"
     },
     "roleLabel": {
       "type": "string",

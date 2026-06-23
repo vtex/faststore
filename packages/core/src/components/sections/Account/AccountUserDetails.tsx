@@ -12,7 +12,9 @@ export type AccountUserDetailsProps = UserDetailsSectionLabels
 const AccountUserDetails = ({
   pageTitle = defaultUserDetailsLabels.pageTitle,
   nameLabel = defaultUserDetailsLabels.nameLabel,
+  usernameLabel = defaultUserDetailsLabels.usernameLabel,
   emailLabel = defaultUserDetailsLabels.emailLabel,
+  phoneLabel = defaultUserDetailsLabels.phoneLabel,
   roleLabel = defaultUserDetailsLabels.roleLabel,
   orgUnitLabel = defaultUserDetailsLabels.orgUnitLabel,
 }: AccountUserDetailsProps) => {
@@ -25,7 +27,9 @@ const AccountUserDetails = ({
         labels={{
           pageTitle,
           nameLabel,
+          usernameLabel,
           emailLabel,
+          phoneLabel,
           roleLabel,
           orgUnitLabel,
         }}
