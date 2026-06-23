@@ -12,8 +12,10 @@
     },
     "campaignVrn": {
       "title": "Campaign VRN",
-      "description": "Newtail campaign VRN that drives the recommendation (e.g. vrn:newtail:campaign:PERSONALIZED:abc123).",
-      "type": "string"
+      "description": "Recommendation campaign VRN (e.g. vrn:recommendations:my-account:rec-persona-v2:abc123).",
+      "type": "string",
+      "pattern": "^vrn:recommendations:[^:]+:(rec-cross-v2|rec-similar-v2|rec-persona-v2|rec-last-v2|rec-top-items-v2|rec-search-v2|rec-next-v2|rec-visual-v2):[^:]+$"
+    }
     }
   }
 }
