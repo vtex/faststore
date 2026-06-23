@@ -180,7 +180,7 @@ const getServerSidePropsBase: GetServerSideProps<
       accountName: security.data.accountProfile.name ?? '',
       navigationLabels: navigationData as AccountNavigationLabels,
       accountPageData: {
-        userEmail: security.data?.userDetails.email || '',
+        userEmail: security.data?.userDetails?.email || '',
       },
       globalSections: globalSectionsResult,
       pageSections,
