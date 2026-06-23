@@ -1,5 +1,6 @@
 import { camelCaseToTitle } from 'src/utils/utilities'
 import Card from '../../../components/Card'
+import { defaultOrderMoreInfoLabels } from '../orderDetailsLabels'
 
 export interface MoreInformationCardProps {
   title?: string
@@ -11,7 +12,7 @@ export interface MoreInformationCardProps {
 }
 
 function MoreInformationCard({
-  title = 'More information',
+  title = defaultOrderMoreInfoLabels.moreInfoTitle,
   fields,
 }: MoreInformationCardProps) {
   return (
