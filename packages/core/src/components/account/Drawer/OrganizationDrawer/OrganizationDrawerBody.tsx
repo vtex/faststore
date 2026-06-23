@@ -15,12 +15,10 @@ export const OrganizationDrawerBody = ({
 }: { isRepresentative: boolean }) => {
   const navigationLabels = useAccountNavigationLabels()
 
-  const menuItems = navigationLabels
-    ? getMyAccountRoutes({
-        routes: getExtraMyAccountRoutes(menuRoutes),
-        labels: navigationLabels,
-      })
-    : menuRoutes
+  const menuItems = getMyAccountRoutes({
+    routes: getExtraMyAccountRoutes(menuRoutes),
+    labels: navigationLabels,
+  })
 
   const routes = isRepresentative
     ? menuItems
