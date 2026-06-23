@@ -1,4 +1,4 @@
-import React, { useId, useMemo, useState } from 'react'
+import React, { useEffect, useId, useMemo, useState } from 'react'
 
 import { usePDP } from '@faststore/core'
 import { ProductShelf, Carousel } from '@faststore/ui'
@@ -81,26 +81,42 @@ export const RecommendationShelf = ({
     productIds.length
   )
 
-  if (!userId) {
+  useEffect(() => {
+    let cancelled = false
+
     // The pixel might take a while to load and set the userId cookie,
     // so we use a retry mechanism to ensure we get the userId if available.
     getWithRetry<string>(() => getUserIdFromCookie())
       .then((value) => {
-        setUserId(value)
+        if (!cancelled) {
+          setUserId(value)
+        }
       })
-      .catch((error) => {
-        console.error('Error retrieving userId from cookie', error, campaignVrn)
-        setUserId(null)
+      .catch((retryError) => {
+        console.error(
+          'Error retrieving userId from cookie',
+          retryError,
+          campaignVrn
+        )
+        if (!cancelled) {
+          setUserId(null)
+        }
       })
-  }
+
+    return () => {
+      cancelled = true
+    }
+  }, [campaignVrn])
 
   if (error) {
+    // Don't log `recommendationArgs`: it carries the userId. Log only
+    // non-identifying context.
     console.error(
       'Error fetching recommendations',
       error.cause,
       error.message,
-      'with args',
-      recommendationArgs
+      'for campaign',
+      campaignVrn
     )
     return null
   }

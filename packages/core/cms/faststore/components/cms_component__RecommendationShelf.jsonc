@@ -16,6 +16,5 @@
       "type": "string",
       "pattern": "^vrn:recommendations:[^:]+:(rec-cross-v2|rec-similar-v2|rec-persona-v2|rec-last-v2|rec-top-items-v2|rec-search-v2|rec-next-v2|rec-visual-v2):[^:]+$"
     }
-    }
   }
 }

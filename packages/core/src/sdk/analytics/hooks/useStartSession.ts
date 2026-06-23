@@ -128,12 +128,16 @@ export function useStartSession(props?: any) {
       return
     }
 
-    lastProductViewSentRef.current = productId
-
     const source: ProductViewSource = checkIsMobile()
       ? 'WEB_MOBILE'
       : 'WEB_DESKTOP'
 
-    void runSendProductViewEvent({ userId, product: productId, source })
+    // Only mark the product view as sent once the mutation succeeds, so a
+    // failed/timed-out request isn't permanently suppressed.
+    runSendProductViewEvent({ userId, product: productId, source })
+      .then(() => {
+        lastProductViewSentRef.current = productId
+      })
+      .catch(() => {})
   }, [productId, runSendProductViewEvent])
 }

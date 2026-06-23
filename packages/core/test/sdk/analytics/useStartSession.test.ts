@@ -120,6 +120,17 @@ describe('useStartSession', () => {
     expect(runSendProductViewEvent).not.toHaveBeenCalled()
   })
 
+  it('swallows product-view mutation failures', async () => {
+    getCookie.mockReturnValue('already-started')
+    runSendProductViewEvent.mockRejectedValue(new Error('network'))
+
+    renderHook(() => useStartSession(pdpProps))
+
+    await waitFor(() => {
+      expect(runSendProductViewEvent).toHaveBeenCalledTimes(1)
+    })
+  })
+
   it('does not re-send the same product view across re-renders', async () => {
     getCookie.mockReturnValue('already-started')
 

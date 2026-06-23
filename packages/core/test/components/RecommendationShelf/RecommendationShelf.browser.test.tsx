@@ -125,6 +125,23 @@ describe('RecommendationShelf', () => {
     })
   })
 
+  it('still renders when the cookie lookup fails', async () => {
+    getWithRetry.mockRejectedValue(new Error('no cookie'))
+    useRecommendations.mockReturnValue({
+      data: recommendationData,
+      isLoading: false,
+      error: null,
+    })
+
+    const { getAllByTestId } = render(
+      <RecommendationShelf campaignVrn={CAMPAIGN_VRN} />
+    )
+
+    await waitFor(() => {
+      expect(getAllByTestId('product-card')).toHaveLength(2)
+    })
+  })
+
   it('renders nothing when there is an error', () => {
     useRecommendations.mockReturnValue({
       data: undefined,
