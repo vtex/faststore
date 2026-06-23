@@ -17,25 +17,24 @@ export default function DeliveryCard({
   deliveryOptionsData,
   fields,
 }: DeliveryCardProps) {
+  const deliveryOptions = deliveryOptionsData?.deliveryOptions ?? []
+  const contact = deliveryOptionsData?.contact
+
   return (
     <Card title={title} data-fs-order-delivery-card>
       <div data-fs-delivery-methods>
-        {deliveryOptionsData.deliveryOptions.map((option, index) => (
+        {deliveryOptions.map((option) => (
           <p key={option.friendlyDeliveryOptionName} data-fs-delivery-method>
             {option.friendlyDeliveryOptionName}
           </p>
         ))}
       </div>
 
-      {deliveryOptionsData.contact && (
+      {contact && (
         <div data-fs-delivery-contact>
-          <p data-fs-delivery-contact-name>
-            {deliveryOptionsData.contact.name}
-          </p>
-          {deliveryOptionsData.contact.phone && (
-            <p data-fs-delivery-contact-phone>
-              {deliveryOptionsData.contact.phone}
-            </p>
+          <p data-fs-delivery-contact-name>{contact.name}</p>
+          {contact.phone && (
+            <p data-fs-delivery-contact-phone>{contact.phone}</p>
           )}
           {fields?.length > 0 && (
             <p data-fs-delivery-contact-fields>
