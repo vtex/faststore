@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react'
 
 import { gql } from '@faststore/core/api'
 
+import { useLazyQuery } from 'src/sdk/graphql/useLazyQuery'
 import { checkIsMobile, getUserIdFromCookie } from 'src/sdk/analytics/utils'
-import { useLazyQuery } from 'src/components/RecommendationShelf/queries/useLazyQuery'
 import { getCookie } from 'src/utils/getCookie'
 
 // Cookie set once the anonymous personalization session has been started,
@@ -39,6 +39,20 @@ type SendProductViewEventVariables = {
 }
 
 /**
+ * Minimal shape of the page props forwarded by `Layout`. On a PDP they carry
+ * the product; on other pages the fields are simply absent.
+ */
+type StartSessionPageProps = {
+  data?: {
+    product?: {
+      isVariantOf?: {
+        productGroupID?: string | null
+      } | null
+    } | null
+  } | null
+}
+
+/**
  * Global recommendation/personalization tracking side effects:
  * - starts an anonymous session once per browser session;
  * - reports a product view whenever a new PDP product is displayed.
@@ -54,7 +68,7 @@ type SendProductViewEventVariables = {
  * All work runs client-side in effects (after hydration), so it doesn't affect
  * SSR/TTFB or Lighthouse render metrics.
  */
-export function useStartSession(props?: any) {
+export function useStartSession(props?: StartSessionPageProps) {
   const productId: string | null =
     props?.data?.product?.isVariantOf?.productGroupID ?? null
   const lastProductViewSentRef = useRef<string | null>(null)

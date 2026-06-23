@@ -1,6 +1,6 @@
 import { gql } from '@faststore/core/api'
 import type { RecommendationResponse } from '@generated/graphql'
-import { useQuery } from './queries/useQuery'
+import { useQuery } from 'src/sdk/graphql/useQuery'
 
 const query = gql(`query FetchRecommendationsQuery(
   $campaignVrn: String!

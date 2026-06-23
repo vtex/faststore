@@ -12,7 +12,7 @@ vi.mock('@faststore/core/api', () => ({
 const runStartSession = vi.hoisted(() => vi.fn())
 const runSendProductViewEvent = vi.hoisted(() => vi.fn())
 const useLazyQueryMock = vi.hoisted(() => vi.fn())
-vi.mock('src/components/RecommendationShelf/queries/useLazyQuery', () => ({
+vi.mock('src/sdk/graphql/useLazyQuery', () => ({
   useLazyQuery: useLazyQueryMock,
 }))
 

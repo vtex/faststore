@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 vi.mock('@faststore/core/api', () => ({ gql: () => ({ __meta__: {} }) }))
 
 const useQueryMock = vi.hoisted(() => vi.fn())
-vi.mock('src/components/RecommendationShelf/queries/useQuery', () => ({
+vi.mock('src/sdk/graphql/useQuery', () => ({
   useQuery: useQueryMock,
 }))
 
