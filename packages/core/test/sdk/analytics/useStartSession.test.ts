@@ -18,7 +18,7 @@ vi.mock('src/components/RecommendationShelf/queries/useLazyQuery', () => ({
 
 const checkIsMobile = vi.hoisted(() => vi.fn())
 const getUserIdFromCookie = vi.hoisted(() => vi.fn())
-vi.mock('src/components/RecommendationShelf/utils', () => ({
+vi.mock('src/sdk/analytics/utils', () => ({
   checkIsMobile,
   getUserIdFromCookie,
 }))

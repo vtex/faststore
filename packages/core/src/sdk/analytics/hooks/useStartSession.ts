@@ -2,10 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { gql } from '@faststore/core/api'
 
-import {
-  checkIsMobile,
-  getUserIdFromCookie,
-} from 'src/components/RecommendationShelf/utils'
+import { checkIsMobile, getUserIdFromCookie } from 'src/sdk/analytics/utils'
 import { useLazyQuery } from 'src/components/RecommendationShelf/queries/useLazyQuery'
 import { getCookie } from 'src/utils/getCookie'
 

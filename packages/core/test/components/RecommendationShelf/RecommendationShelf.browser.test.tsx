@@ -36,11 +36,11 @@ vi.mock('src/components/RecommendationShelf/useRecommendations', () => ({
 const checkIsMobile = vi.hoisted(() => vi.fn())
 const getUserIdFromCookie = vi.hoisted(() => vi.fn())
 const getWithRetry = vi.hoisted(() => vi.fn())
-vi.mock('src/components/RecommendationShelf/utils', () => ({
+vi.mock('src/sdk/analytics/utils', () => ({
   checkIsMobile,
   getUserIdFromCookie,
-  getWithRetry,
 }))
+vi.mock('src/components/RecommendationShelf/utils', () => ({ getWithRetry }))
 
 import { RecommendationShelf } from 'src/components/RecommendationShelf/RecommendationShelf'
 

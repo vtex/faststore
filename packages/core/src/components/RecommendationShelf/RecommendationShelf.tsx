@@ -5,6 +5,7 @@ import { ProductShelf, Carousel } from '@faststore/ui'
 
 import ProductCard from 'src/components/product/ProductCard'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { checkIsMobile, getUserIdFromCookie } from 'src/sdk/analytics/utils'
 
 import { mapRecommendationToProductCard } from './mapRecommendationToProductCard'
 import type { RecommendationShelfProps } from './RecommendationShelf.types'
@@ -13,7 +14,7 @@ import {
   useRecommendations,
   type RecommendationInput,
 } from './useRecommendations'
-import { checkIsMobile, getUserIdFromCookie, getWithRetry } from './utils'
+import { getWithRetry } from './utils'
 import { getTypeFromVrn } from './vrn'
 
 function getRecommendationArguments(
