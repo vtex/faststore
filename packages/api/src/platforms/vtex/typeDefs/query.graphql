@@ -478,7 +478,7 @@ type Query {
     userId: String
     products: [String!]
   ): RecommendationResponse!
-    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
 type ValidateUserData {
