@@ -1,0 +1,19 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "RecommendationShelf",
+  "$componentTitle": "RecommendationShelf",
+  "type": "object",
+  "required": ["campaignVrn"],
+  "properties": {
+    "title": {
+      "title": "Title",
+      "description": "Override the shelf title. If not set, the campaign title will be used.",
+      "type": "string"
+    },
+    "campaignVrn": {
+      "title": "Campaign VRN",
+      "description": "Newtail campaign VRN that drives the recommendation (e.g. vrn:newtail:campaign:PERSONALIZED:abc123).",
+      "type": "string"
+    }
+  }
+}

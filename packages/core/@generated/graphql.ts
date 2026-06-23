@@ -132,6 +132,21 @@ export type AvailableDeliveryWindows = {
   tax: Maybe<Scalars['Int']['output']>;
 };
 
+export type Benefit = {
+  featured: Maybe<Scalars['Boolean']['output']>;
+  id: Maybe<Scalars['String']['output']>;
+  items: Maybe<Array<BenefitItem>>;
+  name: Maybe<Scalars['String']['output']>;
+  teaserType: Maybe<Scalars['String']['output']>;
+};
+
+export type BenefitItem = {
+  benefitProduct: Maybe<RecommendationProduct>;
+  benefitSKUIds: Maybe<Array<Scalars['String']['output']>>;
+  discount: Maybe<Scalars['Float']['output']>;
+  minQuantity: Maybe<Scalars['Int']['output']>;
+};
+
 export type BusinessHour = {
   /** Business hour closing time. */
   closingTime: Maybe<Scalars['String']['output']>;
@@ -139,6 +154,11 @@ export type BusinessHour = {
   dayOfWeek: Maybe<Scalars['Int']['output']>;
   /** Business hour opening time. */
   openingTime: Maybe<Scalars['String']['output']>;
+};
+
+export type ClusterHighlight = {
+  id: Maybe<Scalars['ID']['output']>;
+  name: Maybe<Scalars['String']['output']>;
 };
 
 /** Commercial Authorization dimension status. */
@@ -343,6 +363,10 @@ export type DeliveryPromiseBadge = {
   typeName: Maybe<Scalars['String']['output']>;
 };
 
+export type Discount = {
+  name: Maybe<Scalars['String']['output']>;
+};
+
 /** Input to get commercial authorizations by order ID. */
 export type ICommercialAuthorizationByOrderId = {
   /** Order ID to get commercial authorizations for. */
@@ -358,7 +382,7 @@ export type IGeoCoordinates = {
 
 export type IOrderEntryOperation = {
   objectKey: Scalars['String']['input'];
-  orderFormId?: InputMaybe<Scalars['String']['input']>;
+  orderFormId: InputMaybe<Scalars['String']['input']>;
   sessionToken: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -601,6 +625,25 @@ export type IUserOrderCancel = {
   reason: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Image = {
+  cacheId: Maybe<Scalars['ID']['output']>;
+  imageId: Maybe<Scalars['ID']['output']>;
+  imageLabel: Maybe<Scalars['String']['output']>;
+  imageTag: Maybe<Scalars['String']['output']>;
+  imageText: Maybe<Scalars['String']['output']>;
+  imageUrl: Scalars['String']['output'];
+};
+
+export type Installment = {
+  InterestRate: Maybe<Scalars['Float']['output']>;
+  Name: Maybe<Scalars['String']['output']>;
+  NumberOfInstallments: Maybe<Scalars['Int']['output']>;
+  PaymentSystemGroupName: Maybe<Scalars['String']['output']>;
+  PaymentSystemName: Maybe<Scalars['String']['output']>;
+  TotalValuePlusInterestRate: Maybe<Scalars['Float']['output']>;
+  Value: Maybe<Scalars['Float']['output']>;
+};
+
 export type LogisticsInfo = {
   /** LogisticsInfo itemIndex. */
   itemIndex: Maybe<Scalars['String']['output']>;
@@ -666,11 +709,13 @@ export type Mutation = {
   cancelOrder: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>;
+  sendProductViewEvent: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
    */
   startOrderEntryOperation: Maybe<StoreOrderEntryOperationResult>;
+  startSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
   /**
@@ -693,6 +738,13 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
+};
+
+
+export type MutationSendProductViewEventArgs = {
+  product: Scalars['String']['input'];
+  source: InputMaybe<ProductViewSource>;
+  userId: Scalars['String']['input'];
 };
 
 
@@ -720,6 +772,22 @@ export type MutationValidateCartArgs = {
 export type MutationValidateSessionArgs = {
   search: Scalars['String']['input'];
   session: IStoreSession;
+};
+
+export type Offer = {
+  AvailableQuantity: Maybe<Scalars['Float']['output']>;
+  Installments: Maybe<Array<Installment>>;
+  ListPrice: Maybe<Scalars['Float']['output']>;
+  Price: Maybe<Scalars['Float']['output']>;
+  PriceValidUntil: Maybe<Scalars['String']['output']>;
+  PriceWithoutDiscount: Maybe<Scalars['Float']['output']>;
+  RewardValue: Maybe<Scalars['Float']['output']>;
+  Tax: Maybe<Scalars['Float']['output']>;
+  discountHighlights: Maybe<Array<Discount>>;
+  giftSkuIds: Maybe<Array<Scalars['String']['output']>>;
+  spotPrice: Maybe<Scalars['Float']['output']>;
+  taxPercentage: Maybe<Scalars['Float']['output']>;
+  teasers: Maybe<Array<Teaser>>;
 };
 
 /** Newsletter information. */
@@ -807,6 +875,11 @@ export type PickupStoreInfo = {
   isPickupStore: Maybe<Scalars['Boolean']['output']>;
 };
 
+export type PriceRange = {
+  highPrice: Maybe<Scalars['Float']['output']>;
+  lowPrice: Maybe<Scalars['Float']['output']>;
+};
+
 /** Process Order Authorization response. */
 export type ProcessOrderAuthorizationResponse = {
   /** Indicates if authorization is pending for other authorizers. */
@@ -825,10 +898,27 @@ export type ProcessOrderAuthorizationRule = {
   rule: CommercialAuthorizationRule;
 };
 
+export type ProductClusters = {
+  id: Maybe<Scalars['ID']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+};
+
 export type ProductCountResult = {
   /** Total product count. */
   total: Scalars['Int']['output'];
 };
+
+export type ProductPriceRange = {
+  listPrice: Maybe<PriceRange>;
+  sellingPrice: Maybe<PriceRange>;
+};
+
+export type ProductViewSource =
+  | 'DESKTOP'
+  | 'MOBILE'
+  | 'MOBILE_APP'
+  | 'WEB_DESKTOP'
+  | 'WEB_MOBILE';
 
 export type Profile = {
   /** Collection of user's address */
@@ -864,6 +954,12 @@ export type ProfileAddress = {
   street: Maybe<Scalars['String']['output']>;
 };
 
+export type Property = {
+  name: Maybe<Scalars['String']['output']>;
+  originalName: Maybe<Scalars['String']['output']>;
+  values: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
 export type Query = {
   /** Returns the account profile information for the current authenticated user (b2b or b2c user). */
   accountProfile: StoreAccountProfile;
@@ -873,6 +969,7 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  getCookies: Maybe<VtCookies>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
@@ -889,6 +986,7 @@ export type Query = {
   products: Array<StoreProduct>;
   /** Returns information about the profile. */
   profile: Maybe<Profile>;
+  recommendations: RecommendationResponse;
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -970,6 +1068,13 @@ export type QueryProfileArgs = {
 };
 
 
+export type QueryRecommendationsArgs = {
+  campaignVrn: Scalars['String']['input'];
+  products: InputMaybe<Array<Scalars['String']['input']>>;
+  userId: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>;
   term: InputMaybe<Scalars['String']['input']>;
@@ -1005,6 +1110,66 @@ export type QueryUserOrderArgs = {
   orderId: Scalars['String']['input'];
 };
 
+export type RecommendationCampaign = {
+  id: Scalars['String']['output'];
+  title: Maybe<Scalars['String']['output']>;
+  type: Scalars['String']['output'];
+};
+
+export type RecommendationProduct = {
+  /** If this product is sponsored, ad information will be added here. */
+  advertisement: Maybe<Advertisement>;
+  benefits: Maybe<Array<Benefit>>;
+  brand: Maybe<Scalars['String']['output']>;
+  brandId: Maybe<Scalars['Int']['output']>;
+  cacheId: Maybe<Scalars['String']['output']>;
+  categories: Maybe<Array<Scalars['String']['output']>>;
+  categoriesIds: Maybe<Array<Scalars['String']['output']>>;
+  categoryId: Maybe<Scalars['ID']['output']>;
+  clusterHighlights: Maybe<Array<ClusterHighlight>>;
+  description: Maybe<Scalars['String']['output']>;
+  items: Array<Sku>;
+  link: Maybe<Scalars['String']['output']>;
+  linkText: Maybe<Scalars['String']['output']>;
+  metaTagDescription: Maybe<Scalars['String']['output']>;
+  priceRange: Maybe<ProductPriceRange>;
+  productClusters: Maybe<Array<ProductClusters>>;
+  productId: Scalars['String']['output'];
+  productName: Maybe<Scalars['String']['output']>;
+  productReference: Maybe<Scalars['String']['output']>;
+  properties: Maybe<Array<Property>>;
+  releaseDate: Maybe<Scalars['String']['output']>;
+  skuSpecifications: Maybe<Array<SkuSpecification>>;
+  specificationGroups: Maybe<Array<SpecificationGroupRec>>;
+  titleTag: Maybe<Scalars['String']['output']>;
+};
+
+export type RecommendationResponse = {
+  campaign: RecommendationCampaign;
+  correlationId: Scalars['String']['output'];
+  products: Array<RecommendationProduct>;
+};
+
+export type Reference = {
+  Key: Maybe<Scalars['String']['output']>;
+  Value: Maybe<Scalars['String']['output']>;
+};
+
+export type Sku = {
+  complementName: Maybe<Scalars['String']['output']>;
+  ean: Maybe<Scalars['String']['output']>;
+  images: Array<Image>;
+  itemId: Scalars['String']['output'];
+  measurementUnit: Maybe<Scalars['String']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  nameComplete: Maybe<Scalars['String']['output']>;
+  referenceId: Maybe<Array<Reference>>;
+  sellers: Maybe<Array<Seller>>;
+  unitMultiplier: Maybe<Scalars['Float']['output']>;
+  variations: Maybe<Array<Property>>;
+  videos: Maybe<Array<Video>>;
+};
+
 export type SkuSpecificationField = {
   id: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
@@ -1026,6 +1191,14 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']['output'];
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']['output'];
+};
+
+export type Seller = {
+  addToCartLink: Maybe<Scalars['String']['output']>;
+  commertialOffer: Maybe<Offer>;
+  sellerDefault: Maybe<Scalars['Boolean']['output']>;
+  sellerId: Maybe<Scalars['String']['output']>;
+  sellerName: Maybe<Scalars['String']['output']>;
 };
 
 /** Information of sellers. */
@@ -1151,6 +1324,18 @@ export type SpecificationGroup = {
   name: Scalars['String']['output'];
   originalName: Scalars['String']['output'];
   specifications: Array<Specification>;
+};
+
+export type SpecificationGroupRec = {
+  name: Maybe<Scalars['String']['output']>;
+  originalName: Maybe<Scalars['String']['output']>;
+  specifications: Maybe<Array<SpecificationGroupRecProperty>>;
+};
+
+export type SpecificationGroupRecProperty = {
+  name: Maybe<Scalars['String']['output']>;
+  originalName: Maybe<Scalars['String']['output']>;
+  values: Maybe<Array<Scalars['String']['output']>>;
 };
 
 /** Account profile information. */
@@ -1753,6 +1938,26 @@ export type StoreUserDetails = {
   role: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** User's username (login). May differ from email when Alternative Login is enabled. */
   username: Maybe<Scalars['String']['output']>;
+};
+
+export type Teaser = {
+  conditions: Maybe<TeaserCondition>;
+  effects: Maybe<TeaserEffects>;
+  name: Maybe<Scalars['String']['output']>;
+};
+
+export type TeaserCondition = {
+  minimumQuantity: Maybe<Scalars['Int']['output']>;
+  parameters: Maybe<Array<Maybe<TeaserValue>>>;
+};
+
+export type TeaserEffects = {
+  parameters: Maybe<Array<Maybe<TeaserValue>>>;
+};
+
+export type TeaserValue = {
+  name: Maybe<Scalars['String']['output']>;
+  value: Maybe<Scalars['String']['output']>;
 };
 
 export type UserOrder = {
@@ -2565,6 +2770,24 @@ export type ValidateUserData = {
   isValid: Scalars['Boolean']['output'];
 };
 
+export type Video = {
+  videoUrl: Maybe<Scalars['String']['output']>;
+};
+
+export type VtCookies = {
+  vtex_segment: Scalars['String']['output'];
+  vtex_session: Scalars['String']['output'];
+};
+
+export type FetchRecommendationsQueryQueryVariables = Exact<{
+  campaignVrn: Scalars['String']['input'];
+  userId: InputMaybe<Scalars['String']['input']>;
+  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type FetchRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ cacheId: string | null, productId: string, description: string | null, productName: string | null, productReference: string | null, linkText: string | null, brand: string | null, brandId: number | null, link: string | null, categories: Array<string> | null, categoryId: string | null, releaseDate: string | null, advertisement: { adId: string, campaignId: string, actionCost: number, adRequestId: string, adResponseId: string } | null, priceRange: { sellingPrice: { highPrice: number | null, lowPrice: number | null } | null, listPrice: { highPrice: number | null, lowPrice: number | null } | null } | null, specificationGroups: Array<{ name: string | null, originalName: string | null, specifications: Array<{ name: string | null, originalName: string | null, values: Array<string> | null }> | null }> | null, skuSpecifications: Array<{ field: { name: string, originalName: string | null }, values: Array<{ name: string, originalName: string | null }> }> | null, productClusters: Array<{ id: string | null, name: string | null }> | null, clusterHighlights: Array<{ id: string | null, name: string | null }> | null, properties: Array<{ name: string | null, values: Array<string | null> | null }> | null, items: Array<{ itemId: string, name: string | null, nameComplete: string | null, complementName: string | null, ean: string | null, measurementUnit: string | null, unitMultiplier: number | null, variations: Array<{ name: string | null, values: Array<string | null> | null }> | null, referenceId: Array<{ Key: string | null, Value: string | null }> | null, images: Array<{ cacheId: string | null, imageId: string | null, imageLabel: string | null, imageTag: string | null, imageUrl: string, imageText: string | null }>, sellers: Array<{ sellerId: string | null, sellerName: string | null, sellerDefault: boolean | null, commertialOffer: { Price: number | null, ListPrice: number | null, Tax: number | null, taxPercentage: number | null, spotPrice: number | null, PriceWithoutDiscount: number | null, RewardValue: number | null, PriceValidUntil: string | null, AvailableQuantity: number | null, discountHighlights: Array<{ name: string | null }> | null, teasers: Array<{ name: string | null, conditions: { minimumQuantity: number | null, parameters: Array<{ name: string | null, value: string | null } | null> | null } | null, effects: { parameters: Array<{ name: string | null, value: string | null } | null> | null } | null }> | null, Installments: Array<{ Value: number | null, InterestRate: number | null, TotalValuePlusInterestRate: number | null, NumberOfInstallments: number | null, Name: string | null, PaymentSystemName: string | null }> | null } | null }> | null }> }>, campaign: { id: string, title: string | null, type: string } } };
+
 export type ProductSummary_ProductFragment = { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null };
 
 type Filter_Facets_StoreFacetBoolean_Fragment = { __typename: 'StoreFacetBoolean', key: string, label: string, values: Array<{ label: string, value: string, selected: boolean, quantity: number | null }> };
@@ -2674,6 +2897,20 @@ export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
 
+export type StartSessionMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StartSessionMutation = { startSession: boolean };
+
+export type SendProductViewEventMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+  product: Scalars['String']['input'];
+  source: InputMaybe<ProductViewSource>;
+}>;
+
+
+export type SendProductViewEventMutation = { sendProductViewEvent: boolean };
+
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart;
   session: IStoreSession;
@@ -2714,7 +2951,7 @@ export type OrderEntryOperationQueryQueryVariables = Exact<{
 }>;
 
 
-export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
+export type OrderEntryOperationQueryQuery = { orderEntryOperation: { status: string, entityId: string | null, message: string | null, missingItems: Array<{ itemId: string, itemName: string | null, reason: string }> | null } | null };
 
 export type UploadFileToOrderEntryMutationMutationVariables = Exact<{
   data: IOrderEntryUpload;
@@ -3361,6 +3598,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   fuzzy
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
+export const FetchRecommendationsQueryDocument = {"__meta__":{"operationName":"FetchRecommendationsQuery","operationHash":"767c3273d7aa61ca0cb1c5a60545d69bcfaf7e77"}} as unknown as TypedDocumentString<FetchRecommendationsQueryQuery, FetchRecommendationsQueryQueryVariables>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
@@ -3372,6 +3610,8 @@ export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"Serv
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
+export const StartSessionDocument = {"__meta__":{"operationName":"StartSession","operationHash":"bf9c4a8bc27fb6ed256336880aea8939b04943cf"}} as unknown as TypedDocumentString<StartSessionMutation, StartSessionMutationVariables>;
+export const SendProductViewEventDocument = {"__meta__":{"operationName":"SendProductViewEvent","operationHash":"2c1d370d6d66811a23d8862d38a83a89b5c2baa1"}} as unknown as TypedDocumentString<SendProductViewEventMutation, SendProductViewEventMutationVariables>;
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"32c15f8888ca34f223def7972b7f19090808435a"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
