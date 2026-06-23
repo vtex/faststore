@@ -1,5 +1,6 @@
 .turbo
 .next
+*.tsbuildinfo
 
 # Logs
 logs

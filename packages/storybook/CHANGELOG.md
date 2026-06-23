@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.0](https://github.com/vtex/faststore/compare/v4.3.1-dev.0...v4.4.0-dev.0) (2026-06-19)
+
+**Note:** Version bump only for package @faststore/storybook
+
+## [4.3.1-dev.0](https://github.com/vtex/faststore/compare/v4.3.0-dev.8...v4.3.1-dev.0) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0) (2026-06-17)
+
+### Features
+
+- graduate v4.3.0 ([#3396](https://github.com/vtex/faststore/issues/3396)) ([b489766](https://github.com/vtex/faststore/commit/b4897664c7826dcd59bfde7c3599c93259d4d11f)), closes [#3276](https://github.com/vtex/faststore/issues/3276) [#3334](https://github.com/vtex/faststore/issues/3334) [#3386](https://github.com/vtex/faststore/issues/3386) [#3380](https://github.com/vtex/faststore/issues/3380) [#3394](https://github.com/vtex/faststore/issues/3394) [#3395](https://github.com/vtex/faststore/issues/3395) [#3381](https://github.com/vtex/faststore/issues/3381) [#3379](https://github.com/vtex/faststore/issues/3379) [#3375](https://github.com/vtex/faststore/issues/3375)
+
+# [4.3.0-dev.8](https://github.com/vtex/faststore/compare/v4.3.0-dev.7...v4.3.0-dev.8) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.7](https://github.com/vtex/faststore/compare/v4.3.0-dev.6...v4.3.0-dev.7) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.6](https://github.com/vtex/faststore/compare/v4.3.0-dev.5...v4.3.0-dev.6) (2026-06-17)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.5](https://github.com/vtex/faststore/compare/v4.3.0-dev.4...v4.3.0-dev.5) (2026-06-16)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.4](https://github.com/vtex/faststore/compare/v4.3.0-dev.3...v4.3.0-dev.4) (2026-06-15)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.3](https://github.com/vtex/faststore/compare/v4.3.0-dev.2...v4.3.0-dev.3) (2026-06-15)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.2](https://github.com/vtex/faststore/compare/v4.3.0-dev.1...v4.3.0-dev.2) (2026-06-10)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.1](https://github.com/vtex/faststore/compare/v4.3.0-dev.0...v4.3.0-dev.1) (2026-06-08)
+
+**Note:** Version bump only for package @faststore/storybook
+
+# [4.3.0-dev.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0-dev.0) (2026-06-01)
+
+**Note:** Version bump only for package @faststore/storybook
+
 # [4.2.0](https://github.com/vtex/faststore/compare/v4.1.2...v4.2.0) (2026-06-01)
 
 ### Features

@@ -475,6 +475,15 @@ type Query {
     geoCoordinates: IStoreGeoCoordinates
   ): PickupPoints
     @cacheControl(scope: "public", sMaxAge: 300, staleWhileRevalidate: 3600)
+  """
+  Returns the status of an Order Entry Service operation by its ID.
+  """
+  orderEntryOperation(operationId: String!): StoreOrderEntryOperationStatus
+    @auth
+  """
+  Returns the items in an orderForm by its ID.
+  """
+  orderFormItems(orderFormId: String!): [StoreOrderFormCartItem!]! @auth
 }
 
 type ValidateUserData {

@@ -79,6 +79,8 @@ const QUERIES = [
   'validateUser',
   'availableContracts',
   'pickupPoints',
+  'orderEntryOperation',
+  'orderFormItems',
 ]
 
 const OPTIONAL_GENERATED_QUERIES = new Set(['accountName'])
@@ -89,6 +91,8 @@ const MUTATIONS = [
   'subscribeToNewsletter',
   'cancelOrder',
   'processOrderAuthorization',
+  'uploadFileToOrderEntry',
+  'startOrderEntryOperation',
 ]
 
 describe('FastStore GraphQL Layer', () => {

@@ -1,6 +1,123 @@
 {
   "title": "FastStore Schema",
   "description": "Collection of default schemas for FastStore.",
+  "$defs": {
+    "base-component": {
+      "$singleton": false,
+      "$abstract": false,
+      "properties": {},
+      "definitions": {},
+      "$recursiveAnchor": false,
+      "uniqueItems": false,
+      "required": [],
+      "type": "object",
+      "deprecated": false,
+      "readOnly": false,
+      "writeOnly": false
+    },
+    "base-page-template": {
+      "$singleton": false,
+      "$abstract": false,
+      "properties": {
+        "sections": {
+          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS",
+          "$singleton": false,
+          "$abstract": false,
+          "definitions": {},
+          "$recursiveAnchor": false,
+          "uniqueItems": false,
+          "required": [],
+          "deprecated": false,
+          "readOnly": false,
+          "writeOnly": false
+        }
+      },
+      "definitions": {},
+      "$recursiveAnchor": false,
+      "uniqueItems": false,
+      "required": [],
+      "type": "object",
+      "deprecated": false,
+      "readOnly": false,
+      "writeOnly": false
+    },
+    "$ALLOW_ALL_COMPONENTS": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/components/Alert"
+          },
+          {
+            "$ref": "#/components/BannerNewsletter"
+          },
+          {
+            "$ref": "#/components/BannerText"
+          },
+          {
+            "$ref": "#/components/Breadcrumb"
+          },
+          {
+            "$ref": "#/components/CartSidebar"
+          },
+          {
+            "$ref": "#/components/Children"
+          },
+          {
+            "$ref": "#/components/CrossSellingShelf"
+          },
+          {
+            "$ref": "#/components/EmptyState"
+          },
+          {
+            "$ref": "#/components/Footer"
+          },
+          {
+            "$ref": "#/components/Hero"
+          },
+          {
+            "$ref": "#/components/Incentives"
+          },
+          {
+            "$ref": "#/components/Navbar"
+          },
+          {
+            "$ref": "#/components/Newsletter"
+          },
+          {
+            "$ref": "#/components/ProductDetails"
+          },
+          {
+            "$ref": "#/components/ProductGallery"
+          },
+          {
+            "$ref": "#/components/ProductShelf"
+          },
+          {
+            "$ref": "#/components/ProductTiles"
+          },
+          {
+            "$ref": "#/components/RegionBar"
+          },
+          {
+            "$ref": "#/components/RegionModal"
+          },
+          {
+            "$ref": "#/components/RegionPopover"
+          },
+          {
+            "$ref": "#/components/ScrollToTopButton"
+          },
+          {
+            "$ref": "#/components/Search"
+          },
+          {
+            "$ref": "#/components/ShoppingAssistant"
+          }
+        ]
+      }
+    }
+  },
   "content-types": {
     "404": {
       "$extends": ["#/components/base-page-template"],
@@ -610,6 +727,12 @@
             "ui:widget": "slug"
           },
           "$componentTitle": "slug"
+        },
+        "siteMap": {
+          "title": "Public",
+          "description": "When enabled, this page's URL is added to sitemap.xml so search engines can discover and index it. Disable to keep the page out of the sitemap (e.g. for private, temporary, or campaign-only landing pages).",
+          "default": true,
+          "type": "boolean"
         },
         "seo": {
           "title": "SEO",
@@ -4302,97 +4425,6 @@
       "writeOnly": false,
       "deprecated": false,
       "$abstract": false
-    }
-  },
-  "$defs": {
-    "base-component": {
-      "type": "object",
-      "required": [],
-      "properties": {}
-    },
-    "base-page-template": {
-      "type": "object",
-      "properties": {
-        "sections": {
-          "$ref": "#/$defs/$ALLOW_ALL_COMPONENTS"
-        }
-      }
-    },
-    "$ALLOW_ALL_COMPONENTS": {
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "$ref": "#/components/Alert"
-          },
-          {
-            "$ref": "#/components/BannerNewsletter"
-          },
-          {
-            "$ref": "#/components/BannerText"
-          },
-          {
-            "$ref": "#/components/Breadcrumb"
-          },
-          {
-            "$ref": "#/components/CartSidebar"
-          },
-          {
-            "$ref": "#/components/Children"
-          },
-          {
-            "$ref": "#/components/CrossSellingShelf"
-          },
-          {
-            "$ref": "#/components/EmptyState"
-          },
-          {
-            "$ref": "#/components/Footer"
-          },
-          {
-            "$ref": "#/components/Hero"
-          },
-          {
-            "$ref": "#/components/Incentives"
-          },
-          {
-            "$ref": "#/components/Navbar"
-          },
-          {
-            "$ref": "#/components/Newsletter"
-          },
-          {
-            "$ref": "#/components/ProductDetails"
-          },
-          {
-            "$ref": "#/components/ProductGallery"
-          },
-          {
-            "$ref": "#/components/ProductShelf"
-          },
-          {
-            "$ref": "#/components/ProductTiles"
-          },
-          {
-            "$ref": "#/components/RegionBar"
-          },
-          {
-            "$ref": "#/components/RegionModal"
-          },
-          {
-            "$ref": "#/components/RegionPopover"
-          },
-          {
-            "$ref": "#/components/ScrollToTopButton"
-          },
-          {
-            "$ref": "#/components/Search"
-          },
-          {
-            "$ref": "#/components/ShoppingAssistant"
-          }
-        ]
-      }
     }
   }
 }

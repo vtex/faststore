@@ -79,6 +79,8 @@ const QUERIES = [
   'validateUser',
   'availableContracts',
   'pickupPoints',
+  'orderEntryOperation',
+  'orderFormItems',
 ]
 
 const MUTATIONS = [
@@ -87,6 +89,8 @@ const MUTATIONS = [
   'subscribeToNewsletter',
   'cancelOrder',
   'processOrderAuthorization',
+  'uploadFileToOrderEntry',
+  'startOrderEntryOperation',
 ]
 
 let schema: GraphQLSchema

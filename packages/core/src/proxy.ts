@@ -7,6 +7,8 @@ import {
   isValidLocale,
 } from 'src/utils/localization/bindingPaths'
 
+import { PasswordProtectionService } from './server/password-protection-service'
+
 type RewriteRule = {
   regex: RegExp
   locale: string
@@ -93,7 +95,7 @@ function rewriteSubdomainRequest(
   return null
 }
 
-export function proxy(request: NextRequest) {
+function localizationRewrite(request: NextRequest): NextResponse {
   if (!storeConfig.localization?.enabled) {
     return NextResponse.next()
   }
@@ -146,9 +148,52 @@ export function proxy(request: NextRequest) {
   return NextResponse.next()
 }
 
+export async function proxy(request: NextRequest) {
+  let storeProtectionResult: Awaited<
+    ReturnType<PasswordProtectionService['checkStoreProtection']>
+  >
+
+  try {
+    const protectionService = new PasswordProtectionService()
+    storeProtectionResult =
+      await protectionService.checkStoreProtection(request)
+  } catch {
+    return NextResponse.error()
+  }
+
+  if (storeProtectionResult.response.status !== 200) {
+    return storeProtectionResult.response
+  }
+
+  const response = localizationRewrite(request)
+
+  for (const cookie of storeProtectionResult.response.cookies.getAll()) {
+    response.cookies.set(cookie)
+  }
+
+  return response
+}
+
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.[^/]+$).*)',
+    /*
+     * Explicit root entry. Required because Next.js' negative-lookahead
+     * matcher pattern does not catch `/` on its own (the trailing `(.*)`
+     * makes path-to-regexp treat the root as unmatched). Without this,
+     * password protection silently bypasses the homepage.
+     * See: https://github.com/vercel/next.js/issues/62078
+     */
+    '/',
+    /*
+     * Match all other paths. Exclude:
+     * - api/fs/password-protection/unlock (password-protection unlock endpoint)
+     * - _next/static, _next/image
+     * - favicon.ico
+     * - password-protection (password-protection page)
+     * - ~partytown (partytown scripts)
+     * - paths ending with a file extension (static assets)
+     */
+    '/((?!api/fs/password-protection/unlock$|_next/static|_next/image|favicon.ico|password-protection|~partytown|.*[.][^/]+$).*)',
     '/_next/data/:path*',
   ],
 }
