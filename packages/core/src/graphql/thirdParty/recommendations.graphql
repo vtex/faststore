@@ -1,0 +1,211 @@
+extend type Query {
+  recommendations(
+    campaignVrn: String!
+    userId: String
+    products: [String!]
+  ): RecommendationResponse!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+}
+
+extend type Mutation {
+  startSession: Boolean!
+  sendProductViewEvent(
+    userId: String!
+    product: String!
+    source: ProductViewSource
+  ): Boolean!
+}
+
+type RecommendationResponse {
+  products: [RecommendationProduct!]!
+  correlationId: String!
+  campaign: RecommendationCampaign!
+}
+
+type RecommendationCampaign {
+  id: String!
+  title: String
+  type: String!
+}
+
+type RecommendationProduct {
+  brand: String
+  brandId: Int
+  benefits: [Benefit!]
+  cacheId: String
+  categoryId: ID
+  categories: [String!]
+  categoriesIds: [String!]
+  clusterHighlights: [ClusterHighlight!]
+  description: String
+  items: [SKU!]!
+  link: String
+  linkText: String
+  metaTagDescription: String
+  priceRange: ProductPriceRange
+  releaseDate: String
+  productClusters: [ProductClusters!]
+  productId: String!
+  productName: String
+  productReference: String
+  properties: [Property!]
+  skuSpecifications: [SkuSpecification!]
+  specificationGroups: [SpecificationGroupRec!]
+  titleTag: String
+  """
+  If this product is sponsored, ad information will be added here.
+  """
+  advertisement: Advertisement
+}
+
+type Benefit {
+  featured: Boolean
+  id: String
+  name: String
+  items: [BenefitItem!]
+  teaserType: String
+}
+
+type BenefitItem {
+  benefitProduct: RecommendationProduct
+  benefitSKUIds: [String!]
+  discount: Float
+  minQuantity: Int
+}
+
+type SKU {
+  itemId: String!
+  name: String
+  nameComplete: String
+  complementName: String
+  ean: String
+  referenceId: [Reference!]
+  measurementUnit: String
+  unitMultiplier: Float
+  images: [Image!]!
+  videos: [Video!]
+  sellers: [Seller!]
+  variations: [Property!]
+}
+
+type Seller {
+  sellerId: String
+  sellerName: String
+  addToCartLink: String
+  sellerDefault: Boolean
+  commertialOffer: Offer
+}
+
+type Offer {
+  Installments: [Installment!]
+  Price: Float
+  ListPrice: Float
+  spotPrice: Float
+  PriceWithoutDiscount: Float
+  AvailableQuantity: Float
+  Tax: Float
+  taxPercentage: Float
+  teasers: [Teaser!]
+  discountHighlights: [Discount!]
+  giftSkuIds: [String!]
+  RewardValue: Float
+  PriceValidUntil: String
+}
+
+type Installment {
+  Value: Float
+  InterestRate: Float
+  TotalValuePlusInterestRate: Float
+  NumberOfInstallments: Int
+  Name: String
+  PaymentSystemName: String
+  PaymentSystemGroupName: String
+}
+
+type Discount {
+  name: String
+}
+
+type Teaser {
+  name: String
+  conditions: TeaserCondition
+  effects: TeaserEffects
+}
+
+type TeaserCondition {
+  minimumQuantity: Int
+  parameters: [TeaserValue]
+}
+
+type TeaserEffects {
+  parameters: [TeaserValue]
+}
+
+type TeaserValue {
+  name: String
+  value: String
+}
+
+type Image {
+  cacheId: ID
+  imageId: ID
+  imageLabel: String
+  imageTag: String
+  imageUrl: String!
+  imageText: String
+}
+
+type Video {
+  videoUrl: String
+}
+
+type Reference {
+  Key: String
+  Value: String
+}
+
+type Property {
+  name: String
+  originalName: String
+  values: [String]
+}
+
+type ClusterHighlight {
+  id: ID
+  name: String
+}
+
+type ProductClusters {
+  id: ID
+  name: String
+}
+
+type SpecificationGroupRec {
+  originalName: String
+  name: String
+  specifications: [SpecificationGroupRecProperty!]
+}
+
+type SpecificationGroupRecProperty {
+  originalName: String
+  name: String
+  values: [String!]
+}
+
+type PriceRange {
+  highPrice: Float
+  lowPrice: Float
+}
+
+type ProductPriceRange {
+  sellingPrice: PriceRange
+  listPrice: PriceRange
+}
+
+enum ProductViewSource {
+  WEB_DESKTOP
+  WEB_MOBILE
+  MOBILE_APP
+  MOBILE
+  DESKTOP
+}
