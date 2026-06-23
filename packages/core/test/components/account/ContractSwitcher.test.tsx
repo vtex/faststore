@@ -32,6 +32,7 @@ describe('ContractSwitcher', () => {
       switchContract: mockSwitchContract,
       loading: false,
       error: null,
+      enabled: true,
     })
     mockUseAvailableContracts.mockReturnValue({
       contracts,
@@ -127,6 +128,22 @@ describe('ContractSwitcher', () => {
 
     await waitFor(() => expect(mockSwitchContract).toHaveBeenCalledWith('b'))
     await waitFor(() => expect(onSwitched).toHaveBeenCalledTimes(1))
+  })
+
+  it('keeps Confirm disabled when contract switching is not enabled', () => {
+    mockUseSwitchContract.mockReturnValue({
+      switchContract: mockSwitchContract,
+      loading: false,
+      error: null,
+      enabled: false,
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    fireEvent.click(screen.getByText('Acme Foods'))
+
+    const confirm = screen.getByRole('button', { name: /confirm/i })
+    expect((confirm as HTMLButtonElement).disabled).toBe(true)
   })
 
   it('filters the alternatives by search', () => {

@@ -43,6 +43,7 @@ export const ContractSwitcher = ({
     switchContract,
     loading: switching,
     error: switchError,
+    enabled: switchEnabled,
   } = useSwitchContract()
 
   const [search, setSearch] = useState('')
@@ -72,7 +73,10 @@ export const ContractSwitcher = ({
   })
 
   const canConfirm =
-    selectedId !== null && selectedId !== currentContract?.id && !switching
+    switchEnabled &&
+    selectedId !== null &&
+    selectedId !== currentContract?.id &&
+    !switching
 
   const handleConfirm = async () => {
     if (!selectedId) {

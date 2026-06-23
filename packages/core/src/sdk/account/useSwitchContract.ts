@@ -2,7 +2,11 @@ import { useState } from 'react'
 
 import { cartStore } from '../cart'
 import { sessionStore, validateSession } from '../session'
-import { ContractSwitchError, changeContractToken } from './changeContractToken'
+import {
+  ContractSwitchError,
+  changeContractToken,
+  isContractSwitchEnabled,
+} from './changeContractToken'
 
 /**
  * Orchestrates a full change of commercial context (REQ-06).
@@ -28,7 +32,13 @@ export const useSwitchContract = () => {
 
     try {
       // 1. Full change of commercial context server-side.
-      await changeContractToken(contractId)
+      const switched = await changeContractToken(contractId)
+      if (!switched) {
+        setError(
+          new ContractSwitchError('Contract switching is not available yet')
+        )
+        return false
+      }
 
       // 2. Revalidate the session so the active contract reflects the new context.
       const revalidated = await validateSession(previousSession)
@@ -56,5 +66,10 @@ export const useSwitchContract = () => {
     }
   }
 
-  return { switchContract, loading, error }
+  return {
+    switchContract,
+    loading,
+    error,
+    enabled: isContractSwitchEnabled,
+  }
 }

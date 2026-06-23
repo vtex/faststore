@@ -22,29 +22,58 @@ vi.mock('src/sdk/cart', () => ({
   cartStore: { emptyCart: mockEmptyCart },
 }))
 
+import * as changeContractTokenModule from '../../../src/sdk/account/changeContractToken'
 import { useSwitchContract } from '../../../src/sdk/account/useSwitchContract'
-import { changeContractToken } from '../../../src/sdk/account/changeContractToken'
+
+const { changeContractToken } = changeContractTokenModule
 
 describe('changeContractToken', () => {
   it('rejects when contractId is missing', async () => {
     await expect(changeContractToken('')).rejects.toThrow(/contractId/i)
   })
 
-  it('resolves for a valid contractId', async () => {
-    await expect(changeContractToken('contract-1')).resolves.toBeUndefined()
+  it('returns false for a valid contractId while ChangeToken is unwired', async () => {
+    await expect(changeContractToken('contract-1')).resolves.toBe(false)
   })
 })
 
 describe('useSwitchContract', () => {
   beforeEach(() => {
     mockValidateSession.mockResolvedValue({ b2b: { contractName: 'New Corp' } })
+    vi.spyOn(
+      changeContractTokenModule,
+      'changeContractToken'
+    ).mockResolvedValue(false)
   })
 
   afterEach(() => {
     vi.clearAllMocks()
+    vi.restoreAllMocks()
+  })
+
+  it('does not reset the cart when ChangeToken is a no-op (stub)', async () => {
+    const { result } = renderHook(() => useSwitchContract())
+
+    let ok: boolean | undefined
+    await act(async () => {
+      ok = await result.current.switchContract('contract-2')
+    })
+
+    expect(ok).toBe(false)
+    expect(mockValidateSession).not.toHaveBeenCalled()
+    expect(mockSessionSet).not.toHaveBeenCalled()
+    expect(mockEmptyCart).not.toHaveBeenCalled()
+    expect(result.current.enabled).toBe(false)
+
+    await waitFor(() => expect(result.current.error).toBeInstanceOf(Error))
   })
 
   it('switches context: revalidates the session and resets the cart (REQ-06)', async () => {
+    vi.spyOn(
+      changeContractTokenModule,
+      'changeContractToken'
+    ).mockResolvedValueOnce(true)
+
     const { result } = renderHook(() => useSwitchContract())
 
     let ok: boolean | undefined
@@ -62,6 +91,10 @@ describe('useSwitchContract', () => {
   })
 
   it('keeps the previous contract active and surfaces an error on failure', async () => {
+    vi.spyOn(
+      changeContractTokenModule,
+      'changeContractToken'
+    ).mockResolvedValueOnce(true)
     mockValidateSession.mockRejectedValueOnce(new Error('revalidate failed'))
 
     const { result } = renderHook(() => useSwitchContract())

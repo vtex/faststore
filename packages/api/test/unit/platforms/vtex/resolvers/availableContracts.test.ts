@@ -19,6 +19,11 @@ const makeCtx = () =>
 
 const availableContracts = (Query as any).availableContracts
 
+const contractWithEmail = (contractId: string) => ({
+  corporateName: `Corp ${contractId.toUpperCase()}`,
+  email: `${contractId}@example.com`,
+})
+
 beforeEach(() => {
   vi.clearAllMocks()
   // Default: active contract id resolves to "b" via the session profile id.
@@ -38,11 +43,11 @@ describe('Query.availableContracts', () => {
   it('lists the Org Unit contracts by corporate name and flags the active one', async () => {
     getScopesByOrgUnit.mockResolvedValue({
       organizationUnitId: 'unit-1',
-      scopes: [{ scope: 'contract', ids: ['a', 'b', 'c'] }],
+      scopes: [{ scope: 'contractIds', ids: ['a', 'b', 'c'] }],
     })
     getContractById.mockImplementation(
       ({ contractId }: { contractId: string }) =>
-        Promise.resolve({ corporateName: `Corp ${contractId.toUpperCase()}` })
+        Promise.resolve(contractWithEmail(contractId))
     )
 
     const result = await availableContracts(
@@ -79,13 +84,13 @@ describe('Query.availableContracts', () => {
   it('isolates per-contract resolution failures', async () => {
     getScopesByOrgUnit.mockResolvedValue({
       organizationUnitId: 'unit-1',
-      scopes: [{ scope: 'contract', ids: ['a', 'b'] }],
+      scopes: [{ scope: 'contractIds', ids: ['a', 'b'] }],
     })
     getContractById.mockImplementation(
       ({ contractId }: { contractId: string }) =>
         contractId === 'a'
           ? Promise.reject(new Error('MasterData down'))
-          : Promise.resolve({ corporateName: 'Corp B' })
+          : Promise.resolve(contractWithEmail(contractId))
     )
 
     const result = await availableContracts(
@@ -102,13 +107,13 @@ describe('Query.availableContracts', () => {
   it('skips contracts that have no corporate name', async () => {
     getScopesByOrgUnit.mockResolvedValue({
       organizationUnitId: 'unit-1',
-      scopes: [{ scope: 'contract', ids: ['a', 'b'] }],
+      scopes: [{ scope: 'contractIds', ids: ['a', 'b'] }],
     })
     getContractById.mockImplementation(
       ({ contractId }: { contractId: string }) =>
         contractId === 'a'
-          ? Promise.resolve({ corporateName: '' })
-          : Promise.resolve({ corporateName: 'Corp B' })
+          ? Promise.resolve({ corporateName: '', email: 'a@example.com' })
+          : Promise.resolve(contractWithEmail(contractId))
     )
 
     const result = await availableContracts(
@@ -122,17 +127,40 @@ describe('Query.availableContracts', () => {
     ])
   })
 
-  it('deduplicates contract ids across scopes', async () => {
+  it('skips contracts that have no email', async () => {
+    getScopesByOrgUnit.mockResolvedValue({
+      organizationUnitId: 'unit-1',
+      scopes: [{ scope: 'contractIds', ids: ['a', 'b'] }],
+    })
+    getContractById.mockImplementation(
+      ({ contractId }: { contractId: string }) =>
+        contractId === 'a'
+          ? Promise.resolve({ corporateName: 'Corp A', email: '' })
+          : Promise.resolve(contractWithEmail(contractId))
+    )
+
+    const result = await availableContracts(
+      null,
+      { orgUnitId: 'unit-1' },
+      makeCtx()
+    )
+
+    expect(result).toEqual([
+      { id: 'b', corporateName: 'Corp B', isActive: true },
+    ])
+  })
+
+  it('ignores non-contractIds scopes', async () => {
     getScopesByOrgUnit.mockResolvedValue({
       organizationUnitId: 'unit-1',
       scopes: [
-        { scope: 'contract', ids: ['a', 'b'] },
-        { scope: 'price', ids: ['b'] },
+        { scope: 'contractIds', ids: ['a', 'b'] },
+        { scope: 'priceIds', ids: ['b', 'x'] },
       ],
     })
     getContractById.mockImplementation(
       ({ contractId }: { contractId: string }) =>
-        Promise.resolve({ corporateName: `Corp ${contractId.toUpperCase()}` })
+        Promise.resolve(contractWithEmail(contractId))
     )
 
     const result = await availableContracts(
@@ -143,5 +171,8 @@ describe('Query.availableContracts', () => {
 
     expect(result).toHaveLength(2)
     expect(getContractById).toHaveBeenCalledTimes(2)
+    expect(getContractById).not.toHaveBeenCalledWith(
+      expect.objectContaining({ contractId: 'x' })
+    )
   })
 })

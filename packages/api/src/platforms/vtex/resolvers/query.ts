@@ -682,9 +682,13 @@ export const Query = {
     // 1. Governed source: the contract IDs associated with this Org Unit.
     const scopesByUnit = await commerce.units.getScopesByOrgUnit({ orgUnitId })
 
-    const contractIds = Array.from(
-      new Set((scopesByUnit?.scopes ?? []).flatMap((scope) => scope?.ids ?? []))
-    ).filter(Boolean)
+    const contractScope = (scopesByUnit?.scopes ?? []).find(
+      (scope) => scope?.scope === 'contractIds'
+    )
+
+    const contractIds = Array.from(new Set(contractScope?.ids ?? [])).filter(
+      Boolean
+    )
 
     if (contractIds.length === 0) {
       return []
@@ -707,7 +711,7 @@ export const Query = {
               contractId,
             })
 
-            if (!contract?.corporateName) {
+            if (!contract?.corporateName || !contract?.email) {
               return null
             }
 
