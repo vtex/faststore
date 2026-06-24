@@ -971,6 +971,7 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  getCookies: Maybe<VtCookies>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
@@ -2774,6 +2775,11 @@ export type ValidateUserData = {
 
 export type Video = {
   videoUrl: Maybe<Scalars['String']['output']>;
+};
+
+export type VtCookies = {
+  vtex_segment: Scalars['String']['output'];
+  vtex_session: Scalars['String']['output'];
 };
 
 export type FetchRecommendationsQueryQueryVariables = Exact<{

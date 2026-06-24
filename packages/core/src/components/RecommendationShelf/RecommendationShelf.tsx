@@ -5,7 +5,6 @@ import { ProductShelf, Carousel } from '@faststore/ui'
 
 import ProductCard from 'src/components/product/ProductCard'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
-import { checkIsMobile, getUserIdFromCookie } from 'src/sdk/analytics/utils'
 
 import { mapRecommendationToProductCard } from './mapRecommendationToProductCard'
 import type { RecommendationShelfProps } from './RecommendationShelf.types'
@@ -14,6 +13,7 @@ import {
   useRecommendations,
   type RecommendationInput,
 } from './useRecommendations'
+import { checkIsMobile, getUserIdFromCookie } from 'src/sdk/analytics/utils'
 import { getWithRetry } from './utils'
 import { getTypeFromVrn } from './vrn'
 
@@ -51,10 +51,18 @@ function getRecommendationArguments(
 export const RecommendationShelf = ({
   title,
   campaignVrn,
+  mapProductToProductCard = mapRecommendationToProductCard,
+  carouselConfiguration,
+  productCardConfiguration,
 }: RecommendationShelfProps) => {
   const id = useId()
   const isMobile = checkIsMobile()
-  const itemsPerPage = isMobile ? 2 : 4
+  const {
+    itemsPerPageDesktop = 4,
+    itemsPerPageMobile = 2,
+    ...carouselProps
+  } = carouselConfiguration ?? {}
+  const itemsPerPage = isMobile ? itemsPerPageMobile : itemsPerPageDesktop
   const [userId, setUserId] = useState<string | null | undefined>(undefined)
 
   const { data: productDetailPage } = usePDP()
@@ -150,27 +158,27 @@ export const RecommendationShelf = ({
             itemsPerPage={itemsPerPage}
             variant="scroll"
             infiniteMode={false}
+            {...carouselProps}
           >
             {items.map((item, index) => (
               <div
                 key={item.productId}
                 className={styles.recommendationShelfItem}
+                {...(shouldAddAFAttr
+                  ? {
+                      'data-af-element': 'recommendation-shelf-product',
+                      'data-af-correlation-id': correlationId,
+                      'data-af-campaign-id': campaignId,
+                      'data-af-product-id': item.productId,
+                      'data-af-onclick': !!item.productId,
+                      'data-af-product-position': index + 1,
+                    }
+                  : {})}
               >
                 <ProductCard
-                  key={item.productId}
-                  product={mapRecommendationToProductCard(item)}
+                  product={mapProductToProductCard(item)}
                   index={index}
-                  showDiscountBadge
-                  {...(shouldAddAFAttr
-                    ? {
-                        'data-af-element': 'recommendation-shelf-product',
-                        'data-af-correlation-id': correlationId,
-                        'data-af-campaign-id': campaignId,
-                        'data-af-product-id': item.productId,
-                        'data-af-onclick': !!item.productId,
-                        'data-af-product-position': index + 1,
-                      }
-                    : {})}
+                  {...productCardConfiguration}
                 />
               </div>
             ))}
