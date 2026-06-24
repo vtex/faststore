@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
 import { UIProvider } from '@faststore/ui'
 
-import { useReloadAfterLogoutReturn } from 'src/components/account/MyAccountDrawer/OrganizationDrawer/useReloadAfterLogoutReturn'
+import { useReloadAfterLogoutReturn } from 'src/components/account/Drawer/OrganizationDrawer/useReloadAfterLogoutReturn'
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
