@@ -199,6 +199,34 @@ function Page({
             property: 'product:price:currency',
             content: currency.code,
           },
+          {
+            property: 'product:id',
+            content: product.id,
+          },
+          {
+            property: 'product:sku',
+            content: product.sku,
+          },
+          {
+            property: 'product:name',
+            content: product.name,
+          },
+          {
+            property: 'product:category',
+            content: itemListElements[0]?.name ?? undefined,
+          },
+          {
+            property: 'product:url',
+            content: meta.canonical,
+          },
+          {
+            property: 'product:brand',
+            content: product.brand.name,
+          },
+          {
+            property: 'product:condition',
+            content: 'new',
+          },
         ]}
         titleTemplate={titleTemplate}
       />
