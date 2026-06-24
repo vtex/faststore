@@ -165,14 +165,14 @@ export function useBindingSelector(
     }
   }, [currentCurrency?.code])
 
-  // Persist the product's localized slugs (when on a PDP) so a later locale
-  // switch can rebuild the canonical localized URL even from a context-less
-  // page (e.g. a 404 for a locale where the product is unavailable).
+  // Persist the product's localized slugs so a later locale switch can rebuild
+  // the canonical localized URL even from a context-less page (e.g. a 404).
+  // Only relevant on PDPs — PLP otherLocales are collection slugs, not products.
   useEffect(() => {
-    if (otherLocales?.length) {
+    if (urlSuffix === '/p' && otherLocales?.length) {
       persistOtherLocales(otherLocales)
     }
-  }, [otherLocales])
+  }, [otherLocales, urlSuffix])
 
   // Build language options with disambiguation - returns Record<localeCode, languageName>
   const languages = useMemo(
