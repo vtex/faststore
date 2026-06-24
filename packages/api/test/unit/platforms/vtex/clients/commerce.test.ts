@@ -258,10 +258,12 @@ describe('Catalog byLinkId', () => {
       fetchAPIMocked.mockResolvedValueOnce([])
 
       const { commerce } = clients.getClients(apiOptions, context)
-      await commerce.catalog.byLinkId.category('computer---software')
+      // Ampersand is a reserved URL character that encodeURIComponent must encode
+      await commerce.catalog.byLinkId.category('Computer&Software')
 
       const [url] = fetchAPIMocked.mock.calls[0]
-      expect(url).toContain('computer---software')
+      expect(url).toContain('Computer%26Software')
+      expect(url).not.toContain('Computer&Software')
     })
 
     it('returns null when the API responds with 404', async () => {
