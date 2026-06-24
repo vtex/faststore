@@ -51,6 +51,21 @@ export function persistOtherLocales(
   }
 }
 
+function isLocalizedProductLocaleArray(
+  value: unknown
+): value is LocalizedProductLocale[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (item) =>
+        typeof item === 'object' &&
+        item !== null &&
+        typeof (item as Record<string, unknown>).locale === 'string' &&
+        typeof (item as Record<string, unknown>).slug === 'string'
+    )
+  )
+}
+
 /**
  * Recovers a previously persisted localized slug map for the product referenced
  * by the current PDP URL. Returns null when not on a PDP or nothing is stored.
@@ -66,7 +81,9 @@ export function recoverOtherLocales(): LocalizedProductLocale[] | null {
       `${OTHER_LOCALES_STORAGE_PREFIX}${skuId}`
     )
 
-    return raw ? (JSON.parse(raw) as LocalizedProductLocale[]) : null
+    if (!raw) return null
+    const parsed: unknown = JSON.parse(raw)
+    return isLocalizedProductLocaleArray(parsed) ? parsed : null
   } catch {
     return null
   }
