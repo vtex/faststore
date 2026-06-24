@@ -12,9 +12,8 @@ export const isContractSwitchEnabled = false
  * Integration seam for the VTEX "ChangeToken" operation, which flips the active
  * contract token within an Organization Unit on the server side.
  *
- * OPEN QUESTION — see `specs/contract-switcher.md` (Arch Decision 2): the concrete
- * VTEX endpoint/payload for ChangeToken is not yet defined. This function is the
- * single place to wire it once confirmed.
+ * See `specs/contract-switcher.md` (Arch Decision 2) for the switch mechanism.
+ * Wire the VTEX endpoint here when available.
  *
  * Returns `true` only when the server-side commercial context has actually changed
  * to `contractId`. Returns `false` while the endpoint is unwired. Throws
@@ -28,7 +27,5 @@ export async function changeContractToken(
     throw new ContractSwitchError('Missing contractId for contract switch')
   }
 
-  // TODO(contract-switcher): wire the VTEX ChangeToken endpoint here and return true
-  // once the server confirms the commercial context changed.
   return false
 }

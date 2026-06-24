@@ -156,4 +156,62 @@ describe('ContractSwitcher', () => {
     expect(screen.getByText('Acme Foods')).toBeTruthy()
     expect(screen.queryByText('Beacon Security Corp')).toBeNull()
   })
+
+  it('shows an empty search result message when nothing matches', () => {
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'zzzz-no-match' },
+    })
+
+    expect(screen.getByText('No contracts match your search.')).toBeTruthy()
+  })
+
+  it('clears the search input', () => {
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    const searchInput = screen.getByLabelText(
+      'Search contracts'
+    ) as HTMLInputElement
+
+    fireEvent.change(searchInput, {
+      target: { value: 'acme' },
+    })
+    fireEvent.click(screen.getByLabelText('Clear search'))
+
+    expect(searchInput.value).toBe('')
+    expect(screen.getByText('Beacon Security Corp')).toBeTruthy()
+  })
+
+  it('shows a switch error when the contract change fails', () => {
+    mockUseSwitchContract.mockReturnValue({
+      switchContract: mockSwitchContract,
+      loading: false,
+      error: new Error('switch failed'),
+      enabled: true,
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    expect(screen.getByText(/couldn't switch your contract/i)).toBeTruthy()
+  })
+
+  it('does not call onSwitched when the switch returns false', async () => {
+    mockSwitchContract.mockResolvedValue(false)
+    const onSwitched = vi.fn()
+
+    render(
+      <ContractSwitcher
+        onBack={vi.fn()}
+        onClose={vi.fn()}
+        onSwitched={onSwitched}
+      />
+    )
+
+    fireEvent.click(screen.getByText('Acme Foods'))
+    fireEvent.click(screen.getByRole('button', { name: /confirm/i }))
+
+    await waitFor(() => expect(mockSwitchContract).toHaveBeenCalledWith('b'))
+    expect(onSwitched).not.toHaveBeenCalled()
+  })
 })
