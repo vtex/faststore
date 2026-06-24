@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.1](https://github.com/vtex/faststore/compare/v4.4.0-dev.0...v4.4.0-dev.1) (2026-06-24)
+
+### Features
+
+- my account cms ([#3354](https://github.com/vtex/faststore/issues/3354)) ([2400c45](https://github.com/vtex/faststore/commit/2400c4537e58d5f4093d8c10275443a0876f62f8))
+
 # [4.4.0-dev.0](https://github.com/vtex/faststore/compare/v4.3.1-dev.0...v4.4.0-dev.0) (2026-06-19)
 
 **Note:** Version bump only for package @faststore/cli
