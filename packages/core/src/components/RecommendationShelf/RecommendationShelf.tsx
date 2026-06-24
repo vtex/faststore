@@ -1,10 +1,11 @@
-import React, { useEffect, useId, useMemo, useState } from 'react'
+import { useId, useMemo } from 'react'
 
 import { usePDP } from '@faststore/core'
 import { ProductShelf, Carousel } from '@faststore/ui'
 
 import ProductCard from 'src/components/product/ProductCard'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import { mapRecommendationToProductCard } from './mapRecommendationToProductCard'
 import type { RecommendationShelfProps } from './RecommendationShelf.types'
@@ -13,8 +14,7 @@ import {
   useRecommendations,
   type RecommendationInput,
 } from './useRecommendations'
-import { checkIsMobile, getUserIdFromCookie } from 'src/sdk/analytics/utils'
-import { getWithRetry } from './utils'
+import { useRecommendationUserId } from './useRecommendationUserId'
 import { getTypeFromVrn } from './vrn'
 
 function getRecommendationArguments(
@@ -24,7 +24,9 @@ function getRecommendationArguments(
   const { userId, pdpProduct } = context
   const type = getTypeFromVrn(campaignVrn)
 
-  if (!userId) return null
+  // `type` is null for malformed/unknown VRNs; bail out so we never fetch (and
+  // never throw) on an invalid campaign coming from the CMS.
+  if (!type || !userId) return null
 
   switch (type) {
     case 'NEXT_INTERACTION':
@@ -56,14 +58,18 @@ export const RecommendationShelf = ({
   productCardConfiguration,
 }: RecommendationShelfProps) => {
   const id = useId()
-  const isMobile = checkIsMobile()
+  const { isMobile, isTablet } = useScreenResize()
   const {
     itemsPerPageDesktop = 4,
     itemsPerPageMobile = 2,
     ...carouselProps
   } = carouselConfiguration ?? {}
-  const itemsPerPage = isMobile ? itemsPerPageMobile : itemsPerPageDesktop
-  const [userId, setUserId] = useState<string | null | undefined>(undefined)
+  // Treat mobile and tablet viewports (<= 768px) as "mobile" for paging, which
+  // matches the carousel layout the shelf was designed around.
+  const itemsPerPage =
+    isMobile || isTablet ? itemsPerPageMobile : itemsPerPageDesktop
+
+  const userId = useRecommendationUserId(campaignVrn)
 
   const { data: productDetailPage } = usePDP()
 
@@ -89,33 +95,6 @@ export const RecommendationShelf = ({
     campaignId &&
     productIds.length
   )
-
-  useEffect(() => {
-    let cancelled = false
-
-    // The pixel might take a while to load and set the userId cookie,
-    // so we use a retry mechanism to ensure we get the userId if available.
-    getWithRetry<string>(() => getUserIdFromCookie())
-      .then((value) => {
-        if (!cancelled) {
-          setUserId(value)
-        }
-      })
-      .catch((retryError) => {
-        console.error(
-          'Error retrieving userId from cookie',
-          retryError,
-          campaignVrn
-        )
-        if (!cancelled) {
-          setUserId(null)
-        }
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [campaignVrn])
 
   if (error) {
     // Don't log `recommendationArgs`: it carries the userId. Log only

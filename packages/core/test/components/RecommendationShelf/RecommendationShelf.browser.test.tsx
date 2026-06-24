@@ -33,14 +33,13 @@ vi.mock('src/components/RecommendationShelf/useRecommendations', () => ({
   useRecommendations,
 }))
 
-const checkIsMobile = vi.hoisted(() => vi.fn())
-const getUserIdFromCookie = vi.hoisted(() => vi.fn())
-const getWithRetry = vi.hoisted(() => vi.fn())
-vi.mock('src/sdk/analytics/utils', () => ({
-  checkIsMobile,
-  getUserIdFromCookie,
+const useScreenResize = vi.hoisted(() => vi.fn())
+vi.mock('src/sdk/ui/useScreenResize', () => ({ default: useScreenResize }))
+
+const useRecommendationUserId = vi.hoisted(() => vi.fn())
+vi.mock('src/components/RecommendationShelf/useRecommendationUserId', () => ({
+  useRecommendationUserId,
 }))
-vi.mock('src/components/RecommendationShelf/utils', () => ({ getWithRetry }))
 
 import { RecommendationShelf } from 'src/components/RecommendationShelf/RecommendationShelf'
 
@@ -55,11 +54,13 @@ const recommendationData = {
 
 beforeEach(() => {
   usePDP.mockReturnValue({ data: undefined })
-  checkIsMobile.mockReturnValue(false)
-  getUserIdFromCookie.mockReturnValue('user-1')
-  // Keep the cookie lookup pending so the component doesn't trigger an async
-  // state update; the recommendations hook is mocked independently.
-  getWithRetry.mockReturnValue(new Promise<string>(() => {}))
+  useScreenResize.mockReturnValue({
+    isMobile: false,
+    isTablet: false,
+    isDesktop: true,
+    loading: false,
+  })
+  useRecommendationUserId.mockReturnValue('user-1')
 })
 
 afterEach(() => {
@@ -88,9 +89,6 @@ describe('RecommendationShelf', () => {
     usePDP.mockReturnValue({
       data: { product: { isVariantOf: { productGroupID: 'pg-1' } } },
     })
-    // Resolve the cookie lookup so the component derives a userId and builds the
-    // recommendation arguments from the PDP product.
-    getWithRetry.mockResolvedValue('user-1')
     useRecommendations.mockReturnValue({
       data: recommendationData,
       isLoading: false,
@@ -125,8 +123,8 @@ describe('RecommendationShelf', () => {
     })
   })
 
-  it('still renders when the cookie lookup fails', async () => {
-    getWithRetry.mockRejectedValue(new Error('no cookie'))
+  it('still renders when there is no resolved userId', async () => {
+    useRecommendationUserId.mockReturnValue(null)
     useRecommendations.mockReturnValue({
       data: recommendationData,
       isLoading: false,

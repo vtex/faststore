@@ -46,9 +46,11 @@ describe('getTypeFromVrn', () => {
     expect(getTypeFromVrn(vrn('rec-visual-v2'))).toBe('VISUAL_SIMILARITY')
   })
 
-  it('throws on an unknown campaign type', () => {
-    expect(() => getTypeFromVrn(vrn('rec-bogus'))).toThrow(
-      /Unknown campaign type/
-    )
+  it('returns null on an unknown campaign type', () => {
+    expect(getTypeFromVrn(vrn('rec-bogus'))).toBeNull()
+  })
+
+  it('returns null on a malformed vrn', () => {
+    expect(getTypeFromVrn('not-a-vrn')).toBeNull()
   })
 })

@@ -2,6 +2,12 @@ import { gql } from '@faststore/core/api'
 import type { RecommendationResponse } from '@generated/graphql'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
+// This query intentionally fetches the full `RecommendationProduct` shape rather
+// than only the fields consumed by the default `mapRecommendationToProductCard`.
+// The shelf exposes a `mapProductToProductCard` override, so a store can plug in
+// a custom mapper that reads additional fields (specifications, clusters,
+// teasers, installments, etc.). Keeping the selection complete means those
+// customizations work without having to edit this query.
 const query = gql(`query FetchRecommendationsQuery(
   $campaignVrn: String!
   $userId: String

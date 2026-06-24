@@ -4,6 +4,7 @@ import { gql } from '@faststore/core/api'
 
 import { useLazyQuery } from 'src/sdk/graphql/useLazyQuery'
 import { getCookie } from 'src/utils/getCookie'
+import { retry } from 'src/utils/retry'
 
 // Cookie set once the anonymous personalization session has been started,
 // so we only fire `StartSession` a single time per browser session.
@@ -45,34 +46,21 @@ export function useStartSession() {
       return
     }
 
-    let cancelled = false
+    const controller = new AbortController()
 
     // The session endpoint may not be ready on the first try, so we retry with
     // exponential backoff until it returns a defined result (or we give up).
-    const retryUntilSuccess = async () => {
-      const MAX_ATTEMPTS = 10
-      let delay = 300
-
-      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-        if (cancelled) {
-          return
-        }
-
-        const result = await runStartSession({})
-
-        if (result !== undefined) {
-          return
-        }
-
-        await new Promise<void>((resolve) => setTimeout(resolve, delay))
-        delay = Math.min(delay * 2, 3000)
-      }
-    }
-
-    void retryUntilSuccess()
+    void retry(() => runStartSession({}), {
+      attempts: 10,
+      delayMs: 300,
+      backoff: true,
+      maxDelayMs: 3000,
+      until: (result) => result !== undefined,
+      signal: controller.signal,
+    })
 
     return () => {
-      cancelled = true
+      controller.abort()
     }
   }, [runStartSession])
 }
