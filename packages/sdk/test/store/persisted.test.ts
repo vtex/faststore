@@ -1,4 +1,4 @@
-import { set } from 'idb-keyval'
+import { get, set } from 'idb-keyval'
 import { expect, test } from 'vitest'
 import { waitFor } from '../waitFor'
 
@@ -38,6 +38,19 @@ test('Persisted Store: reconcile is applied on hydration', async () => {
   const store = getStore<Doc>({ a: 'init', b: 'init' }, hydrateKey, forceA)
 
   await waitFor(() => expect(store.read()).toEqual({ a: 'url', b: 'keep' }))
+})
+
+test('Persisted Store: reconcile writes the corrected value to IDB on hydration', async () => {
+  const hydrateKey = 'reconcile-hydrate-idb'
+  set(hydrateKey, { a: 'stale', b: 'keep' })
+
+  // Hydration alone must cure the stale persisted payload — without waiting for
+  // a focus sync or any subsequent write.
+  getStore<Doc>({ a: 'init', b: 'init' }, hydrateKey, forceA)
+
+  await waitFor(async () =>
+    expect(await get(hydrateKey)).toEqual({ a: 'url', b: 'keep' })
+  )
 })
 
 test('Persisted Store: reconcile is applied on focus sync from IDB', async () => {

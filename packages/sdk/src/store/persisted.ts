@@ -58,11 +58,14 @@ export const persisted =
     const hydrateFromIDB = async () => {
       const payload = await getIDB<T>(key)
 
+      // Flip before the set so the reconciled value is persisted at load time,
+      // curing a stale payload (e.g. outdated locale) without waiting for the
+      // next write. Safe now that the initial read has completed.
+      hydrated = true
+
       if (typeof document !== 'undefined') {
         store.set(merge(payload ?? store.readInitial()))
       }
-
-      hydrated = true
     }
 
     hydrateFromIDB()
@@ -87,9 +90,10 @@ export const persisted =
       () => document.visibilityState === 'visible' && debouncedSync()
     )
 
-    // Block IDB writes until the initial read completes.  This prevents a
-    // race where an early store.set (from session sync, etc.) overwrites
-    // saved data before it has been read back.
+    // Block IDB writes until the initial read completes (`hydrated` is set
+    // inside `hydrateFromIDB` right after the read). This prevents a race where
+    // an early store.set (from session sync, etc.) overwrites saved data before
+    // it has been read back.
     store.subscribe((value) => {
       if (hydrated) {
         setIDB(key, value)
