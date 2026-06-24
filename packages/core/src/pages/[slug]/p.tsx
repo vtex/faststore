@@ -93,18 +93,14 @@ function buildHreflangLinks(
 ): Array<{ rel: string; hrefLang: string; href: string }> {
   if (!storeConfig.localization?.enabled || !otherLocales?.length) return []
 
-  const locales = storeConfig.localization.locales as Record<string, any>
+  const locales = storeConfig.localization.locales
   const baseStoreUrl = storeConfig.storeUrl.replace(/\/$/, '')
-  const defaultLocale = storeConfig.localization.defaultLocale as
-    | string
-    | undefined
+  const defaultLocale = storeConfig.localization.defaultLocale
   const links: Array<{ rel: string; hrefLang: string; href: string }> = []
 
   for (const { locale, slug } of otherLocales) {
-    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url as
-      | string
-      | undefined
-    if (bindingUrl) {
+    const bindingUrl = locales?.[locale]?.bindings?.[0]?.url
+    if (typeof bindingUrl === 'string' && bindingUrl.length > 0) {
       links.push({
         rel: 'alternate',
         hrefLang: locale,
