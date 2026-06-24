@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 import storeConfig from 'discovery.config'
 import { ITEMS_PER_SECTION } from 'src/constants'
+import { getSettings } from 'src/sdk/localization/settings'
 import { useSession } from 'src/sdk/session'
 import { toArray } from 'src/utils/utilities'
 
