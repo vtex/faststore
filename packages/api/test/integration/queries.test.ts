@@ -6,11 +6,6 @@ import {
   AllCollectionsQueryFirst5,
   catalogBrandListFetch,
   catalogCategory3Fetch,
-  catalogPageTypeAcer,
-  catalogPageTypeAdidas,
-  catalogPageTypeBrand,
-  catalogPageTypeIRobot,
-  catalogPageTypeSkechers,
 } from '../mocks/AllCollectionsQuery'
 import {
   AllProductsQueryFirst5,
@@ -18,9 +13,8 @@ import {
 } from '../mocks/AllProductsQuery'
 import {
   CollectionDesksQuery,
-  pageTypeDesksFetch,
-  pageTypeOfficeDesksFetch,
-  pageTypeOfficeFetch,
+  byLinkIdCategoryDesksFetch,
+  catalogCategory10Fetch,
 } from '../mocks/CollectionQuery'
 import { ProductByIdQuery, pdpFetch } from '../mocks/ProductQuery'
 import {
@@ -113,11 +107,7 @@ beforeEach(() => {
 
 test('`collection` query', async () => {
   const run = await createRunner()
-  const fetchAPICalls = [
-    pageTypeDesksFetch,
-    pageTypeOfficeFetch,
-    pageTypeOfficeDesksFetch,
-  ]
+  const fetchAPICalls = [byLinkIdCategoryDesksFetch, catalogCategory10Fetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -125,7 +115,7 @@ test('`collection` query', async () => {
 
   const response = await run(CollectionDesksQuery)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -163,15 +153,7 @@ test('`product` query', async () => {
 
 test('`allCollections` query', async () => {
   const run = await createRunner()
-  const fetchAPICalls = [
-    catalogBrandListFetch,
-    catalogCategory3Fetch,
-    catalogPageTypeSkechers,
-    catalogPageTypeAdidas,
-    catalogPageTypeAcer,
-    catalogPageTypeIRobot,
-    catalogPageTypeBrand,
-  ]
+  const fetchAPICalls = [catalogBrandListFetch, catalogCategory3Fetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -179,7 +161,7 @@ test('`allCollections` query', async () => {
 
   const response = await run(AllCollectionsQueryFirst5)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(7)
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
