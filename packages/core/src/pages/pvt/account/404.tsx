@@ -12,7 +12,7 @@ import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
 } from '@generated/graphql'
-import { MyAccountLayout } from 'src/components/account'
+import { Layout } from 'src/components/account'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections, {
   RenderSectionsBase,
@@ -54,11 +54,11 @@ function Page({
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout accountName={accountName}>
+        <Layout accountName={accountName}>
           {sections && sections.length > 0 && (
             <RenderSectionsBase sections={sections} components={COMPONENTS} />
           )}
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )

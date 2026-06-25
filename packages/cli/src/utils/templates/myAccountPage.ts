@@ -1,6 +1,6 @@
 /*
   TODO: Code in a template string is not a good practice because it becomes very difficult to maintain.
-  There will be a component called MyAccountLayout that will wrap the entire MyAccount Layout, including the global sections, menu, etc.
+  There will be a component called Layout that will wrap the entire My Account layout, including the global sections, menu, etc.
   This will reduce the amount of code inside the template string.
 */
 
@@ -9,7 +9,7 @@ export const myAccountPageTemplate = (pagePath: string) => `
   import RenderSections from 'src/components/cms/RenderSections'
   import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
   import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-  import { MyAccountLayout } from 'src/components/account'
+  import { Layout } from 'src/components/account'
   import {
     getServerSideProps,
     type MyAccountProps,
@@ -31,9 +31,9 @@ export const myAccountPageTemplate = (pagePath: string) => `
           globalSections={globalSections}
           components={COMPONENTS}
         >
-          <MyAccountLayout accountName={accountName} isRepresentative={isRepresentative}>
+          <Layout accountName={accountName} isRepresentative={isRepresentative}>
             <DynamicPage />
-          </MyAccountLayout>
+          </Layout>
         </RenderSections>
       </PageProvider>
     )

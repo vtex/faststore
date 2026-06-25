@@ -1,0 +1,19 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderOrderedBy",
+  "$componentTitle": "Account Order Ordered By",
+  "title": "Account Order Ordered By",
+  "description": "Ordered by section for My Account order details",
+  "type": "object",
+  "properties": {
+    "orderedByTitle": {
+      "type": "string",
+      "title": "Ordered By Title",
+      "default": "Ordered by"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

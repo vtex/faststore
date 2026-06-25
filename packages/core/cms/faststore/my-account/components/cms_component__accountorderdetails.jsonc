@@ -1,0 +1,79 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderDetails",
+  "$componentTitle": "Account Order Details",
+  "title": "Account Order Details",
+  "description": "Order details header and actions for My Account",
+  "type": "object",
+  "properties": {
+    "orderNumberPrefix": {
+      "type": "string",
+      "title": "Order Number Prefix",
+      "default": "Order #"
+    },
+    "goBackLabel": {
+      "type": "string",
+      "title": "Go Back Label",
+      "default": "Go back"
+    },
+    "cancelOrderLabel": {
+      "type": "string",
+      "title": "Cancel Order Label",
+      "default": "Cancel order"
+    },
+    "reorderLabel": {
+      "type": "string",
+      "title": "Reorder Label",
+      "default": "Reorder"
+    },
+    "notNowLabel": {
+      "type": "string",
+      "title": "Not Now Label",
+      "default": "Not now"
+    },
+    "cancelConfirmMessage": {
+      "type": "string",
+      "title": "Cancel Confirm Message",
+      "default": "Are you sure you want to cancel this order?"
+    },
+    "cancelSuccessToast": {
+      "type": "string",
+      "title": "Cancel Success Toast",
+      "default": "Order cancelled successfully"
+    },
+    "cancelErrorToast": {
+      "type": "string",
+      "title": "Cancel Error Toast",
+      "default": "Failed to cancel order"
+    },
+    "approveLabel": {
+      "type": "string",
+      "title": "Approve Label",
+      "default": "Approve"
+    },
+    "rejectLabel": {
+      "type": "string",
+      "title": "Reject Label",
+      "default": "Reject"
+    },
+    "rejectModalTitle": {
+      "type": "string",
+      "title": "Reject Modal Title",
+      "default": "Reject approval request"
+    },
+    "rejectModalMessage": {
+      "type": "string",
+      "title": "Reject Modal Message",
+      "default": "You're about to reject this approval request, triggered by the {policy} policy. Rejecting any approval request will deny the entire order.\n\nThis action is permanent and cannot be undone."
+    },
+    "rejectModalConfirmText": {
+      "type": "string",
+      "title": "Reject Modal Confirm Text",
+      "default": "Reject"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

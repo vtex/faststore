@@ -1,0 +1,29 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountUnauthorized",
+  "$componentTitle": "Account Unauthorized",
+  "title": "Account Unauthorized",
+  "description": "Unauthorized access section for My Account 403 page",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Title",
+      "default": "Unauthorized Access"
+    },
+    "subtitle": {
+      "type": "string",
+      "title": "Subtitle",
+      "default": "You don't have permission to access this page."
+    },
+    "backLabel": {
+      "type": "string",
+      "title": "Back Label",
+      "default": "Back to Account"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

@@ -123,9 +123,10 @@ vtex content split-components -i cms/faststore/sections.json -o cms/faststore/co
 vtex content split-content-types -i cms/faststore/content-types.json -s cms/faststore/sections.json -o cms/faststore/pages
 ```
 
+IMPORTANT: The Faststore Core Team is the only one that needs to add the -l base.jsonc to the output. Merchants will automatically use the base from the Schema Registry.
 2. Generate the schema:
 ```sh
-   vtex content generate-schema cms/faststore/components cms/faststore/pages -o cms/faststore/schema.json
+   vtex content generate-schema cms/faststore/components cms/faststore/pages -l cms/faststore/base.jsonc -o cms/faststore/schema.json
 ```
 
 3. Upload the schema to the Schema Registry:
