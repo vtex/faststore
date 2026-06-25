@@ -1,3 +1,7 @@
+import fetch from 'isomorphic-unfetch'
+
+import storeConfig from '../../../discovery.config'
+
 export class ContractSwitchError extends Error {
   constructor(message: string) {
     super(message)
@@ -5,20 +9,16 @@ export class ContractSwitchError extends Error {
   }
 }
 
-/** False until VTEX ChangeToken is wired in changeContractToken. */
-export const isContractSwitchEnabled = false
+export const isContractSwitchEnabled = true
 
 /**
- * Integration seam for the VTEX "ChangeToken" operation, which flips the active
- * contract token within an Organization Unit on the server side.
+ * Switches the buyer's active contract via VTEX Identity storefront credential API.
  *
- * See `specs/contract-switcher.md` (Arch Decision 2) for the switch mechanism.
- * Wire the VTEX endpoint here when available.
+ * POST /api/authenticator/storefront/credential/switch-properties?an={account}
+ * Body: { properties: { customerId: contractId } }
  *
- * Returns `true` only when the server-side commercial context has actually changed
- * to `contractId`. Returns `false` while the endpoint is unwired. Throws
- * `ContractSwitchError` on hard failures (missing id, network/4xx) so
- * `switchContract` can keep the previous contract active.
+ * Returns `true` when the server confirms the switch. Throws `ContractSwitchError`
+ * on hard failures so `switchContract` can keep the previous contract active.
  */
 export async function changeContractToken(
   contractId: string
@@ -27,5 +27,29 @@ export async function changeContractToken(
     throw new ContractSwitchError('Missing contractId for contract switch')
   }
 
-  return false
+  const an = encodeURIComponent(storeConfig.api.storeId)
+
+  const response = await fetch(
+    `/api/authenticator/storefront/credential/switch-properties?an=${an}`,
+    {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        properties: {
+          customerId: contractId,
+        },
+      }),
+    }
+  )
+
+  if (!response.ok) {
+    throw new ContractSwitchError(
+      `Failed to switch contract (${response.status})`
+    )
+  }
+
+  return true
 }

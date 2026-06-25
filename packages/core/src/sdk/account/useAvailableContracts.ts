@@ -38,7 +38,7 @@ export const useAvailableContracts = (enabled = true) => {
   >(
     AvailableContractsQuery,
     { orgUnitId },
-    { doNotRun: !enabled || !orgUnitId }
+    { doNotRun: !enabled || !orgUnitId, dedupingInterval: 0 }
   )
 
   return {

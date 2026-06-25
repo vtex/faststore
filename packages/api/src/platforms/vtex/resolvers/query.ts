@@ -34,9 +34,10 @@ import type { ProductSearchResult } from '../clients/search/types/ProductSearchR
 import type { GraphqlContext } from '../index'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import {
-  isSwitchableStoreFrontContract,
+  mapSessionContractsToStoreContracts,
+  parseSessionAvailableContracts,
   resolveActiveContractDisplayName,
-  resolveContractDisplayNameFromStoreFront,
+  resolveActiveContractIdFromSession,
 } from '../utils/contract'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
@@ -695,7 +696,7 @@ export const Query = {
     }
   },
   // only b2b users
-  // Storefront contract list — buyer-portal BFF `contracts/attached?details=true`.
+  // Contract list from VTEX session `shopper.availableContracts`.
   availableContracts: async (
     _: unknown,
     { orgUnitId }: QueryAvailableContractsArgs,
@@ -732,20 +733,16 @@ export const Query = {
       )
     }
 
-    const { contracts = [] } =
-      await commerce.storeFront.getAttachedContractsByOrgUnit({ orgUnitId })
+    const contracts = parseSessionAvailableContracts(
+      sessionData?.namespaces.shopper
+    )
 
-    if (contracts.length === 0) {
-      return []
-    }
+    const activeContractId =
+      resolveActiveContractIdFromSession(sessionData) ||
+      jwt?.customerId?.trim() ||
+      ''
 
-    const activeContractId = sessionData?.namespaces.profile?.id?.value ?? ''
-
-    return contracts.filter(isSwitchableStoreFrontContract).map((contract) => ({
-      id: contract.id,
-      corporateName: resolveContractDisplayNameFromStoreFront(contract),
-      isActive: contract.id === activeContractId,
-    }))
+    return mapSessionContractsToStoreContracts(contracts, activeContractId)
   },
   pickupPoints: async (
     _: unknown,

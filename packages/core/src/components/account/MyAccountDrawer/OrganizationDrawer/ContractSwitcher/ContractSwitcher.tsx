@@ -3,14 +3,13 @@ import { useState, type ReactNode } from 'react'
 
 import { useAvailableContracts } from 'src/sdk/account/useAvailableContracts'
 import { useSwitchContract } from 'src/sdk/account/useSwitchContract'
+import { useSession } from 'src/sdk/session'
 
 export type ContractSwitcherProps = {
   /** Returns to the drawer menu view (also used by Cancel). */
   onBack: () => void
   /** Closes the whole drawer. */
   onClose: () => void
-  /** Called after a contract switch succeeds. */
-  onSwitched?: () => void
 }
 
 /**
@@ -35,8 +34,6 @@ type ContractSwitcherContentProps = {
   ordered: SwitcherContract[]
   search: string
   selectedId: string | null
-  switching: boolean
-  switchError: Error | null
   onSearchChange: (value: string) => void
   onSearchClear: () => void
   onSelectContract: (contractId: string) => void
@@ -93,7 +90,6 @@ type ContractSwitcherAlternativesProps = {
   ordered: SwitcherContract[]
   search: string
   selectedId: string | null
-  switching: boolean
   onSearchChange: (value: string) => void
   onSearchClear: () => void
   onSelectContract: (contractId: string) => void
@@ -132,11 +128,10 @@ const ContractSwitcherSearch = ({
 const ContractSwitcherOptionList = ({
   ordered,
   selectedId,
-  switching,
   onSelectContract,
 }: Pick<
   ContractSwitcherAlternativesProps,
-  'ordered' | 'selectedId' | 'switching' | 'onSelectContract'
+  'ordered' | 'selectedId' | 'onSelectContract'
 >) => (
   <ul data-fs-contract-switcher-list>
     {ordered.map((contract) => {
@@ -149,7 +144,6 @@ const ContractSwitcherOptionList = ({
             data-fs-contract-switcher-option
             data-fs-contract-switcher-option-selected={isSelected}
             aria-pressed={isSelected}
-            disabled={switching}
             onClick={() => onSelectContract(contract.id)}
           >
             <span data-fs-contract-switcher-avatar aria-hidden="true">
@@ -178,7 +172,6 @@ const ContractSwitcherAlternatives = ({
   ordered,
   search,
   selectedId,
-  switching,
   onSearchChange,
   onSearchClear,
   onSelectContract,
@@ -199,7 +192,6 @@ const ContractSwitcherAlternatives = ({
       <ContractSwitcherOptionList
         ordered={ordered}
         selectedId={selectedId}
-        switching={switching}
         onSelectContract={onSelectContract}
       />
     )
@@ -237,7 +229,6 @@ const ContractSwitcherContent = ({
   ordered,
   search,
   selectedId,
-  switching,
   switchError,
   onSearchChange,
   onSearchClear,
@@ -259,7 +250,6 @@ const ContractSwitcherContent = ({
         ordered={ordered}
         search={search}
         selectedId={selectedId}
-        switching={switching}
         onSearchChange={onSearchChange}
         onSearchClear={onSearchClear}
         onSelectContract={onSelectContract}
@@ -278,21 +268,24 @@ const ContractSwitcherContent = ({
 export const ContractSwitcher = ({
   onBack,
   onClose,
-  onSwitched,
 }: ContractSwitcherProps) => {
   const { contracts, loading, error } = useAvailableContracts(true)
+  const { b2b } = useSession()
   const {
     switchContract,
     loading: switching,
     error: switchError,
-    enabled: switchEnabled,
   } = useSwitchContract()
 
   const [search, setSearch] = useState('')
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const allContracts: SwitcherContract[] = contracts
+  const activeContractId = b2b?.customerId?.trim() ?? ''
   const currentContract =
+    (activeContractId
+      ? allContracts.find((contract) => contract.id === activeContractId)
+      : null) ??
     allContracts.find((contract) => contract.isActive) ??
     allContracts[0] ??
     null
@@ -315,21 +308,14 @@ export const ContractSwitcher = ({
   })
 
   const canConfirm =
-    switchEnabled &&
-    selectedId !== null &&
-    selectedId !== currentContract?.id &&
-    !switching
+    selectedId !== null && selectedId !== currentContract?.id && !switching
 
   const handleConfirm = async () => {
     if (!selectedId) {
       return
     }
 
-    const ok = await switchContract(selectedId)
-
-    if (ok) {
-      onSwitched?.()
-    }
+    await switchContract(selectedId)
   }
 
   return (
@@ -359,7 +345,6 @@ export const ContractSwitcher = ({
           ordered={ordered}
           search={search}
           selectedId={selectedId}
-          switching={switching}
           switchError={switchError}
           onSearchChange={setSearch}
           onSearchClear={() => setSearch('')}
@@ -375,7 +360,6 @@ export const ContractSwitcher = ({
           variant="primary"
           disabled={!canConfirm}
           loading={switching}
-          loadingLabel="Switching"
           onClick={handleConfirm}
         >
           Confirm

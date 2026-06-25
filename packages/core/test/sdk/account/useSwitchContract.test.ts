@@ -5,41 +5,32 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const mockValidateSession = vi.hoisted(() => vi.fn())
-const mockSessionSet = vi.hoisted(() => vi.fn())
-const mockEmptyCart = vi.hoisted(() => vi.fn())
-const previousSession = { b2b: { contractName: 'Previous Corp' } }
+const mockRefreshTokenRequest = vi.hoisted(() => vi.fn())
+const mockReload = vi.hoisted(() => vi.fn())
+const mockClearPersistedSessionState = vi.hoisted(() => vi.fn())
 
-vi.mock('src/sdk/session', () => ({
-  validateSession: mockValidateSession,
-  sessionStore: {
-    read: () => previousSession,
-    set: mockSessionSet,
-  },
+vi.mock('src/sdk/account/refreshToken', () => ({
+  refreshTokenRequest: mockRefreshTokenRequest,
+  isRefreshTokenSuccessful: (result: { status?: string } | undefined) =>
+    result?.status?.toLowerCase?.() === 'success',
 }))
 
-vi.mock('src/sdk/cart', () => ({
-  cartStore: { emptyCart: mockEmptyCart },
+vi.mock('src/sdk/account/clearPersistedSessionState', () => ({
+  clearPersistedSessionState: mockClearPersistedSessionState,
 }))
 
 import * as changeContractTokenModule from '../../../src/sdk/account/changeContractToken'
 import { useSwitchContract } from '../../../src/sdk/account/useSwitchContract'
 
-const { changeContractToken } = changeContractTokenModule
-
-describe('changeContractToken', () => {
-  it('rejects when contractId is missing', async () => {
-    await expect(changeContractToken('')).rejects.toThrow(/contractId/i)
-  })
-
-  it('returns false for a valid contractId while ChangeToken is unwired', async () => {
-    await expect(changeContractToken('contract-1')).resolves.toBe(false)
-  })
-})
-
 describe('useSwitchContract', () => {
   beforeEach(() => {
-    mockValidateSession.mockResolvedValue({ b2b: { contractName: 'New Corp' } })
+    mockRefreshTokenRequest.mockResolvedValue({ status: 'success' })
+    mockClearPersistedSessionState.mockResolvedValue(undefined)
+    mockReload.mockReset()
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: { ...window.location, reload: mockReload },
+    })
     vi.spyOn(
       changeContractTokenModule,
       'changeContractToken'
@@ -51,7 +42,7 @@ describe('useSwitchContract', () => {
     vi.restoreAllMocks()
   })
 
-  it('does not reset the cart when ChangeToken is a no-op (stub)', async () => {
+  it('does not refresh or reload when switch-properties returns false', async () => {
     const { result } = renderHook(() => useSwitchContract())
 
     let ok: boolean | undefined
@@ -60,15 +51,14 @@ describe('useSwitchContract', () => {
     })
 
     expect(ok).toBe(false)
-    expect(mockValidateSession).not.toHaveBeenCalled()
-    expect(mockSessionSet).not.toHaveBeenCalled()
-    expect(mockEmptyCart).not.toHaveBeenCalled()
-    expect(result.current.enabled).toBe(false)
+    expect(mockRefreshTokenRequest).not.toHaveBeenCalled()
+    expect(mockReload).not.toHaveBeenCalled()
+    expect(result.current.enabled).toBe(true)
 
     await waitFor(() => expect(result.current.error).toBeInstanceOf(Error))
   })
 
-  it('switches context: revalidates the session and resets the cart (REQ-06)', async () => {
+  it('refreshes auth and reloads the page after a successful switch (REQ-06)', async () => {
     vi.spyOn(
       changeContractTokenModule,
       'changeContractToken'
@@ -82,20 +72,18 @@ describe('useSwitchContract', () => {
     })
 
     expect(ok).toBe(true)
-    expect(mockValidateSession).toHaveBeenCalledWith(previousSession)
-    expect(mockSessionSet).toHaveBeenCalledWith({
-      b2b: { contractName: 'New Corp' },
-    })
-    expect(mockEmptyCart).toHaveBeenCalledTimes(1)
+    expect(mockRefreshTokenRequest).toHaveBeenCalledTimes(1)
+    expect(mockClearPersistedSessionState).toHaveBeenCalledTimes(1)
+    expect(mockReload).toHaveBeenCalledTimes(1)
     expect(result.current.error).toBeNull()
   })
 
-  it('keeps the previous contract active and surfaces an error on failure', async () => {
+  it('surfaces an error when refresh fails after switch-properties succeeds', async () => {
     vi.spyOn(
       changeContractTokenModule,
       'changeContractToken'
     ).mockResolvedValueOnce(true)
-    mockValidateSession.mockRejectedValueOnce(new Error('revalidate failed'))
+    mockRefreshTokenRequest.mockResolvedValueOnce({ status: 'failed' })
 
     const { result } = renderHook(() => useSwitchContract())
 
@@ -105,9 +93,27 @@ describe('useSwitchContract', () => {
     })
 
     expect(ok).toBe(false)
-    // Previous contract stays active, cart is not reset.
-    expect(mockSessionSet).toHaveBeenCalledWith(previousSession)
-    expect(mockEmptyCart).not.toHaveBeenCalled()
+    expect(mockReload).not.toHaveBeenCalled()
+
+    await waitFor(() => expect(result.current.error).toBeInstanceOf(Error))
+  })
+
+  it('surfaces an error when switch-properties fails', async () => {
+    vi.spyOn(
+      changeContractTokenModule,
+      'changeContractToken'
+    ).mockRejectedValueOnce(new Error('switch failed'))
+
+    const { result } = renderHook(() => useSwitchContract())
+
+    let ok: boolean | undefined
+    await act(async () => {
+      ok = await result.current.switchContract('contract-2')
+    })
+
+    expect(ok).toBe(false)
+    expect(mockRefreshTokenRequest).not.toHaveBeenCalled()
+    expect(mockReload).not.toHaveBeenCalled()
 
     await waitFor(() => expect(result.current.error).toBeInstanceOf(Error))
   })

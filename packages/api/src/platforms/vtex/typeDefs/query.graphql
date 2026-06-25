@@ -463,7 +463,7 @@ type Query {
     orgUnitId: String!
   ): [StoreContract!]!
     @auth
-    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+    @cacheControl(scope: "private", maxAge: 0, sMaxAge: 0)
 
   """
   Returns a list of pickup points near to the given geo coordinates.

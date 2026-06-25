@@ -45,7 +45,6 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { StoreFrontAttachedContractsResponse } from './types/StoreFront'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
 
@@ -86,12 +85,9 @@ export const VtexCommerce = (
     return withCookie({
       ...additionalHeaders,
       'X-FORWARDED-HOST': forwardedHost,
-      ...(authToken ? { VtexIdclientAutCookie: authToken } : {}),
+      ...(authToken ? { [`VtexIdclientAutCookie_${account}`]: authToken } : {}),
     })
   }
-
-  /** Buyer-portal store-front BFF — same host as organization-units APIs. */
-  const storeFrontBase = `https://${account}.myvtex.com`
 
   return {
     catalog: {
@@ -469,7 +465,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,shopper.availableContracts,shopper.activeContractId,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -696,30 +692,6 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/units/v1/${orgUnitId}/scopes`,
-          {
-            method: 'GET',
-            headers,
-          },
-          {}
-        )
-      },
-    },
-    /**
-     * Buyer-portal store-front BFF (requires buyer-portal-graphql IO app).
-     * Mirrors faststore-plugin-buyer-portal `ContractsClient.listAttachedContracts`.
-     */
-    storeFront: {
-      getAttachedContractsByOrgUnit: ({
-        orgUnitId,
-      }: {
-        orgUnitId: string
-      }): Promise<StoreFrontAttachedContractsResponse> => {
-        const headers: HeadersInit = withBuyerAuthHeaders({
-          Accept: 'application/json',
-        })
-
-        return fetchAPI(
-          `${storeFrontBase}/_v/store-front/units/${orgUnitId}/contracts/attached?details=true`,
           {
             method: 'GET',
             headers,

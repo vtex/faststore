@@ -25,19 +25,32 @@ async function fetchWithRetry(
   return undefined
 }
 
+function getRefreshTokenUrl(): string {
+  if (typeof window !== 'undefined') {
+    return '/api/vtexid/refreshtoken/webstore'
+  }
+
+  return `${new URL(getStoreURL()).origin}/api/vtexid/refreshtoken/webstore`
+}
+
+function getRefreshTokenHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    'content-type': 'application/json',
+  }
+
+  if (typeof window === 'undefined') {
+    headers.Host = `${sanitizeHost(new URL(getStoreURL()).origin)}`
+  }
+
+  return headers
+}
+
 export const refreshTokenRequest = async (): Promise<
   RefreshTokenResponse | undefined
 > => {
-  const storeOriginURL = new URL(getStoreURL()).origin
-  const REFRESH_TOKEN_URL = `${storeOriginURL}/api/vtexid/refreshtoken/webstore`
-  const headers: HeadersInit = {
-    'content-type': 'application/json',
-    Host: `${sanitizeHost(storeOriginURL)}`,
-  }
-
-  return await fetchWithRetry(REFRESH_TOKEN_URL, {
+  return fetchWithRetry(getRefreshTokenUrl(), {
     credentials: 'include',
-    headers,
+    headers: getRefreshTokenHeaders(),
     body: JSON.stringify({}),
     method: 'POST',
   })

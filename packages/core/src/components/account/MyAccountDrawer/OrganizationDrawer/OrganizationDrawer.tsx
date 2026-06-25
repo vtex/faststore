@@ -172,11 +172,7 @@ export const OrganizationDrawer = ({
       }}
     >
       {view === 'switch' ? (
-        <ContractSwitcher
-          onBack={() => setView('menu')}
-          onClose={fadeOut}
-          onSwitched={() => setView('menu')}
-        />
+        <ContractSwitcher onBack={() => setView('menu')} onClose={fadeOut} />
       ) : (
         <div data-fs-organization-drawer-menu>
           <div data-fs-organization-drawer-menu-scroll>

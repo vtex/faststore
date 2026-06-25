@@ -2,10 +2,11 @@ import { describe, expect, it } from 'vitest'
 
 import {
   isSwitchableContractSummary,
-  isSwitchableStoreFrontContract,
+  isSwitchableSessionContract,
+  mapSessionContractsToStoreContracts,
+  parseSessionAvailableContracts,
   resolveActiveContractDisplayName,
   resolveContractDisplayNameFromMd,
-  resolveContractDisplayNameFromStoreFront,
 } from '../../../../../src/platforms/vtex/utils/contract'
 
 describe('contract utils', () => {
@@ -29,34 +30,113 @@ describe('contract utils', () => {
     })
   })
 
-  describe('resolveContractDisplayNameFromStoreFront', () => {
-    it('returns trimmed contract name', () => {
+  describe('parseSessionAvailableContracts', () => {
+    it('returns typed contracts from shopper.availableContracts', () => {
       expect(
-        resolveContractDisplayNameFromStoreFront({
-          id: 'c1',
-          name: ' SUMA B2B Contract ',
+        parseSessionAvailableContracts({
+          availableContracts: {
+            value: [
+              {
+                customerId: 'c1',
+                contractName: 'SUMA B2B Contract',
+                isActive: true,
+                isCurrent: true,
+              },
+            ],
+          },
         })
-      ).toBe('SUMA B2B Contract')
+      ).toEqual([
+        {
+          customerId: 'c1',
+          contractName: 'SUMA B2B Contract',
+          isActive: true,
+          isCurrent: true,
+        },
+      ])
+    })
+
+    it('returns an empty list when availableContracts is missing', () => {
+      expect(parseSessionAvailableContracts(null)).toEqual([])
     })
   })
 
-  describe('isSwitchableStoreFrontContract', () => {
-    it('requires id, name, and email', () => {
+  describe('isSwitchableSessionContract', () => {
+    it('requires id, name, and active status', () => {
       expect(
-        isSwitchableStoreFrontContract({
-          id: 'c1',
-          name: 'Corp',
-          email: 'a@example.com',
+        isSwitchableSessionContract({
+          customerId: 'c1',
+          contractName: 'Corp',
+          isActive: true,
+          isCurrent: false,
         })
       ).toBe(true)
 
       expect(
-        isSwitchableStoreFrontContract({
-          id: 'c1',
-          name: '',
-          email: 'a@example.com',
+        isSwitchableSessionContract({
+          customerId: 'c1',
+          contractName: '',
+          isActive: true,
+          isCurrent: false,
         })
       ).toBe(false)
+
+      expect(
+        isSwitchableSessionContract({
+          customerId: 'c1',
+          contractName: 'Corp',
+          isActive: false,
+          isCurrent: false,
+        })
+      ).toBe(false)
+    })
+  })
+
+  describe('mapSessionContractsToStoreContracts', () => {
+    it('maps session contracts to GraphQL StoreContract entries', () => {
+      expect(
+        mapSessionContractsToStoreContracts([
+          {
+            customerId: 'a',
+            contractName: 'Corp A',
+            isActive: true,
+            isCurrent: false,
+          },
+          {
+            customerId: 'b',
+            contractName: 'Corp B',
+            isActive: true,
+            isCurrent: true,
+          },
+        ])
+      ).toEqual([
+        { id: 'a', corporateName: 'Corp A', isActive: false },
+        { id: 'b', corporateName: 'Corp B', isActive: true },
+      ])
+    })
+
+    it('uses activeContractId when isCurrent flags are stale', () => {
+      expect(
+        mapSessionContractsToStoreContracts(
+          [
+            {
+              customerId: 'a',
+              contractName: 'Corp A',
+              isActive: true,
+              isCurrent: true,
+            },
+            {
+              customerId: 'b',
+              contractName: 'Corp B',
+              isActive: true,
+              isCurrent: false,
+            },
+          ],
+          'b'
+        )
+      ).toEqual([
+        { id: 'a', corporateName: 'Corp A', isActive: false },
+        { id: 'b', corporateName: 'Corp B', isActive: true },
+      ])
     })
   })
 
@@ -89,7 +169,7 @@ describe('contract utils', () => {
             lastName: { value: 'Doe' },
           }
         )
-      ).toBe('Jane Doe')
+      ).toBe('Jane')
     })
   })
 })

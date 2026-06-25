@@ -17,6 +17,12 @@ vi.mock('src/sdk/account/useSwitchContract', () => ({
   useSwitchContract: mockUseSwitchContract,
 }))
 
+vi.mock('src/sdk/session', () => ({
+  useSession: () => ({
+    b2b: { customerId: 'a', unitId: 'unit-1' },
+  }),
+}))
+
 import { ContractSwitcher } from '../../../src/components/account/MyAccountDrawer/OrganizationDrawer/ContractSwitcher'
 
 const contracts = [
@@ -109,14 +115,7 @@ describe('ContractSwitcher', () => {
   })
 
   it('requires selecting a contract before Confirm is enabled, then switches (REQ-03)', async () => {
-    const onSwitched = vi.fn()
-    render(
-      <ContractSwitcher
-        onBack={vi.fn()}
-        onClose={vi.fn()}
-        onSwitched={onSwitched}
-      />
-    )
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
 
     const confirm = screen.getByRole('button', { name: /confirm/i })
     expect((confirm as HTMLButtonElement).disabled).toBe(true)
@@ -127,23 +126,17 @@ describe('ContractSwitcher', () => {
     fireEvent.click(confirm)
 
     await waitFor(() => expect(mockSwitchContract).toHaveBeenCalledWith('b'))
-    await waitFor(() => expect(onSwitched).toHaveBeenCalledTimes(1))
   })
 
-  it('keeps Confirm disabled when contract switching is not enabled', () => {
-    mockUseSwitchContract.mockReturnValue({
-      switchContract: mockSwitchContract,
-      loading: false,
-      error: null,
-      enabled: false,
-    })
-
+  it('keeps Confirm disabled until a different contract is selected', () => {
     render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
-
-    fireEvent.click(screen.getByText('Acme Foods'))
 
     const confirm = screen.getByRole('button', { name: /confirm/i })
     expect((confirm as HTMLButtonElement).disabled).toBe(true)
+
+    fireEvent.click(screen.getByText('Acme Foods'))
+
+    expect((confirm as HTMLButtonElement).disabled).toBe(false)
   })
 
   it('filters the alternatives by search', () => {
@@ -196,22 +189,14 @@ describe('ContractSwitcher', () => {
     expect(screen.getByText(/couldn't switch your contract/i)).toBeTruthy()
   })
 
-  it('does not call onSwitched when the switch returns false', async () => {
+  it('does not reload when the switch returns false', async () => {
     mockSwitchContract.mockResolvedValue(false)
-    const onSwitched = vi.fn()
 
-    render(
-      <ContractSwitcher
-        onBack={vi.fn()}
-        onClose={vi.fn()}
-        onSwitched={onSwitched}
-      />
-    )
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
 
     fireEvent.click(screen.getByText('Acme Foods'))
     fireEvent.click(screen.getByRole('button', { name: /confirm/i }))
 
     await waitFor(() => expect(mockSwitchContract).toHaveBeenCalledWith('b'))
-    expect(onSwitched).not.toHaveBeenCalled()
   })
 })

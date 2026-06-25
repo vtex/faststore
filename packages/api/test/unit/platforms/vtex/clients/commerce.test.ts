@@ -234,28 +234,4 @@ describe('VTEX Commerce', () => {
       })
     })
   })
-
-  describe('Store front', () => {
-    describe('getAttachedContractsByOrgUnit', () => {
-      it('calls buyer-portal store-front attached endpoint with buyer auth', async () => {
-        fetchAPIMocked.mockResolvedValueOnce({
-          contracts: [],
-          ids: [],
-          total: 0,
-        })
-
-        const { commerce } = clients.getClients(apiOptions, context)
-        await commerce.storeFront.getAttachedContractsByOrgUnit({
-          orgUnitId: '8418314c-957d-410e-afb5-5ef722f7bbfc',
-        })
-
-        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
-        const [url, init] = fetchAPIMocked.mock.calls[0]
-        expect(url).toBe(
-          'https://storeframework.myvtex.com/_v/store-front/units/8418314c-957d-410e-afb5-5ef722f7bbfc/contracts/attached?details=true'
-        )
-        expect(init.method).toBe('GET')
-      })
-    })
-  })
 })
