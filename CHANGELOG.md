@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.2](https://github.com/vtex/faststore/compare/v4.4.0-dev.1...v4.4.0-dev.2) (2026-06-25)
+
+### Bug Fixes
+
+- **core:** version authenticator routes to v1 ([#3398](https://github.com/vtex/faststore/issues/3398)) ([a4ac863](https://github.com/vtex/faststore/commit/a4ac863f35b91d3980f9a11e81aede3606f92efe))
+
 # [4.4.0-dev.1](https://github.com/vtex/faststore/compare/v4.4.0-dev.0...v4.4.0-dev.1) (2026-06-24)
 
 ### Features
