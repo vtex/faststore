@@ -129,7 +129,9 @@ export const doLogout = async (_event?: unknown) => {
   } finally {
     setReloadAfterLogoutReturn()
     window.location.assign(
-      `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${getStoreURL()}`
+      `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${
+        storeConfig.api.storeId
+      }&returnUrl=${getStoreURL()}`
     )
   }
 }
@@ -140,10 +142,11 @@ export const OrganizationDrawer = ({
   isRepresentative,
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
-  const { b2b } = useSession()
+  const { b2b, person } = useSession()
   const [view, setView] = useState<OrganizationDrawerView>('menu')
 
-  const contractName = b2b?.contractName ?? ''
+  const contractName =
+    b2b?.contractName?.trim() || `${(person?.givenName ?? '').trim()}` || ''
 
   const contractUrl = b2b?.unitId
     ? `/pvt/organization-account/org-unit/${b2b?.unitId}`

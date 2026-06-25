@@ -45,6 +45,7 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type { StoreFrontAttachedContractsResponse } from './types/StoreFront'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
 
@@ -76,6 +77,21 @@ export const VtexCommerce = (
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
+
+  const withBuyerAuthHeaders = (
+    additionalHeaders: Record<string, string> = {}
+  ): HeadersInit => {
+    const authToken = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)
+
+    return withCookie({
+      ...additionalHeaders,
+      'X-FORWARDED-HOST': forwardedHost,
+      ...(authToken ? { VtexIdclientAutCookie: authToken } : {}),
+    })
+  }
+
+  /** Buyer-portal store-front BFF — same host as organization-units APIs. */
+  const storeFrontBase = `https://${account}.myvtex.com`
 
   return {
     catalog: {
@@ -688,6 +704,30 @@ export const VtexCommerce = (
         )
       },
     },
+    /**
+     * Buyer-portal store-front BFF (requires buyer-portal-graphql IO app).
+     * Mirrors faststore-plugin-buyer-portal `ContractsClient.listAttachedContracts`.
+     */
+    storeFront: {
+      getAttachedContractsByOrgUnit: ({
+        orgUnitId,
+      }: {
+        orgUnitId: string
+      }): Promise<StoreFrontAttachedContractsResponse> => {
+        const headers: HeadersInit = withBuyerAuthHeaders({
+          Accept: 'application/json',
+        })
+
+        return fetchAPI(
+          `${storeFrontBase}/_v/store-front/units/${orgUnitId}/contracts/attached?details=true`,
+          {
+            method: 'GET',
+            headers,
+          },
+          {}
+        )
+      },
+    },
     licenseManager: {
       getUserById: ({
         userId,
@@ -760,10 +800,9 @@ export const VtexCommerce = (
           throw new BadRequestError('Missing contractId to fetch CL fields.')
         }
 
-        const headers: HeadersInit = withAppKeyAndToken({
+        const headers: HeadersInit = withBuyerAuthHeaders({
           Accept: 'application/json',
           'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
         })
 
         return fetchAPI(
