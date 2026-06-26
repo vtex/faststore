@@ -83,9 +83,9 @@ describe('cp-schema', () => {
   })
 
   describe('getCpSchemaOutputPath', () => {
-    it('points to cms/faststore/schema.json under the store root', () => {
+    it('returns a path relative to the store root', () => {
       expect(getCpSchemaOutputPath(tempDir)).toBe(
-        path.join(tempDir, 'cms', 'faststore', 'schema.json')
+        path.join('cms', 'faststore', 'schema.json')
       )
     })
   })

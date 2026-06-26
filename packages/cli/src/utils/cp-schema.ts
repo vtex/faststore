@@ -30,7 +30,13 @@ export function errorNoCustomization(): never {
 }
 
 export function getCpSchemaOutputPath(basePath: string): string {
-  return path.join(withBasePath(basePath).userCMSDir, 'schema.json')
+  // Relative to basePath: the toolbelt resolves -o against the cwd
+  // (path.join(cwd, arg)), so an absolute path would be doubled into
+  // <store>/<store>/cms/... and fail with ENOENT.
+  return path.relative(
+    basePath,
+    path.join(withBasePath(basePath).userCMSDir, 'schema.json')
+  )
 }
 
 export type MyAccountMerge = {
