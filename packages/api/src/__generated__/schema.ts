@@ -740,7 +740,7 @@ export type Mutation = {
    */
   startOrderEntryOperation?: Maybe<StoreOrderEntryOperationResult>;
   /** Starts an anonymous personalization session for the current shopper. */
-  startSession: Scalars['Boolean']['output'];
+  startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /**

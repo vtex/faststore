@@ -93,7 +93,7 @@ const MUTATIONS = [
   'processOrderAuthorization',
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
-  'startSession',
+  'startRecommendationSession',
 ]
 
 describe('FastStore GraphQL Layer', () => {

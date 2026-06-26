@@ -91,7 +91,7 @@ const MUTATIONS = [
   'processOrderAuthorization',
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
-  'startSession',
+  'startRecommendationSession',
 ]
 
 let schema: GraphQLSchema

@@ -715,7 +715,7 @@ export type Mutation = {
    */
   startOrderEntryOperation: Maybe<StoreOrderEntryOperationResult>;
   /** Starts an anonymous personalization session for the current shopper. */
-  startSession: Scalars['Boolean']['output'];
+  startRecommendationSession: Scalars['Boolean']['output'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>;
   /**
@@ -2878,10 +2878,10 @@ export type ValidateUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ValidateUserQuery = { validateUser: { isValid: boolean } | null };
 
-export type StartSessionMutationVariables = Exact<{ [key: string]: never; }>;
+export type StartRecommendationSessionMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StartSessionMutation = { startSession: boolean };
+export type StartRecommendationSessionMutation = { startRecommendationSession: boolean };
 
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart;
@@ -3582,7 +3582,7 @@ export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"Serv
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;
 export const ProcessOrderAuthorizationMutationDocument = {"__meta__":{"operationName":"ProcessOrderAuthorizationMutation","operationHash":"8c25d37c8d6e7c20ab21bb8a4f4e6a2fe320ea8d"}} as unknown as TypedDocumentString<ProcessOrderAuthorizationMutationMutation, ProcessOrderAuthorizationMutationMutationVariables>;
 export const ValidateUserDocument = {"__meta__":{"operationName":"ValidateUser","operationHash":"32f99c73c3de958b64d6bece1afe800469f54548"}} as unknown as TypedDocumentString<ValidateUserQuery, ValidateUserQueryVariables>;
-export const StartSessionDocument = {"__meta__":{"operationName":"StartSession","operationHash":"bf9c4a8bc27fb6ed256336880aea8939b04943cf"}} as unknown as TypedDocumentString<StartSessionMutation, StartSessionMutationVariables>;
+export const StartRecommendationSessionDocument = {"__meta__":{"operationName":"StartRecommendationSession","operationHash":"1def6438c0cd87b85002411ac7326c221f192583"}} as unknown as TypedDocumentString<StartRecommendationSessionMutation, StartRecommendationSessionMutationVariables>;
 export const ValidateCartMutationDocument = {"__meta__":{"operationName":"ValidateCartMutation","operationHash":"32c15f8888ca34f223def7972b7f19090808435a"}} as unknown as TypedDocumentString<ValidateCartMutationMutation, ValidateCartMutationMutationVariables>;
 export const ClientPickupPointsQueryDocument = {"__meta__":{"operationName":"ClientPickupPointsQuery","operationHash":"3fa04e88c811fcb5ece7206fd5aa745bdbc143a8"}} as unknown as TypedDocumentString<ClientPickupPointsQueryQuery, ClientPickupPointsQueryQueryVariables>;
 export const SubscribeToNewsletterDocument = {"__meta__":{"operationName":"SubscribeToNewsletter","operationHash":"feb7005103a859e2bc8cf2360d568806fd88deba"}} as unknown as TypedDocumentString<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;

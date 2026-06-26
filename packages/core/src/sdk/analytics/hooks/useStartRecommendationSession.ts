@@ -33,8 +33,8 @@ type StartRecommendationSessionVariables = Record<string, never>
  * All work runs client-side in effects (after hydration), so it doesn't affect
  * SSR/TTFB or Lighthouse render metrics.
  */
-export function useStartSession() {
-  const [runStartSession] = useLazyQuery<
+export function useStartRecommendationSession() {
+  const [runStartRecommendationSession] = useLazyQuery<
     StartRecommendationSessionData,
     StartRecommendationSessionVariables
   >(
@@ -58,7 +58,7 @@ export function useStartSession() {
 
     // The session endpoint may not be ready on the first try, so we retry with
     // exponential backoff until it returns a defined result (or we give up).
-    void retry(() => runStartSession({}), {
+    void retry(() => runStartRecommendationSession({}), {
       attempts: 10,
       delayMs: 300,
       backoff: true,
@@ -70,5 +70,5 @@ export function useStartSession() {
     return () => {
       controller.abort()
     }
-  }, [runStartSession])
+  }, [runStartRecommendationSession])
 }

@@ -38,5 +38,5 @@ type Mutation {
   """
   Starts an anonymous personalization session for the current shopper.
   """
-  startSession: Boolean!
+  startRecommendationSession: Boolean!
 }
