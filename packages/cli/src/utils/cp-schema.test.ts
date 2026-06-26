@@ -17,6 +17,7 @@ vi.mock('./directory', async () => {
     withBasePath: (basePath: string) => ({
       userCMSDir: nodePath.join(basePath, 'cms', 'faststore'),
       coreCMSDir: coreCMSDirMock(),
+      tmpDir: nodePath.join(basePath, '.faststore'),
     }),
   }
 })
@@ -180,9 +181,11 @@ describe('cp-schema', () => {
       const { mergeDir, dirs } = prepareMyAccountMergeDir(tempDir)
 
       try {
+        // Staging lives inside the store's .faststore and paths are relative.
+        expect(mergeDir.startsWith(path.join(tempDir, '.faststore'))).toBe(true)
         expect(dirs).toEqual([
-          path.join(mergeDir, 'components'),
-          path.join(mergeDir, 'pages'),
+          path.relative(tempDir, path.join(mergeDir, 'components')),
+          path.relative(tempDir, path.join(mergeDir, 'pages')),
         ])
         expect(
           fs.existsSync(

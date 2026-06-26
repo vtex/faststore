@@ -5,7 +5,6 @@
  */
 import chalk from 'chalk'
 import { cpSync, existsSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
 import { withBasePath } from './directory'
 import { logger } from './logger'
@@ -35,26 +34,32 @@ export function getCpSchemaOutputPath(basePath: string): string {
 }
 
 export type MyAccountMerge = {
-  /** Temporary root directory holding the merged My Account JSONC. */
+  /** Absolute root directory holding the merged My Account JSONC. */
   mergeDir: string
   /**
-   * Absolute paths of the two merged directories, ordered as
-   * `[components, pages]` so they can be passed positionally to
+   * Paths of the two merged directories, relative to `basePath` and ordered as
+   * `[components, pages]`, so they can be passed positionally to
    * `generate-schema <componentsPath> <pagesPath>`.
    */
   dirs: string[]
 }
 
 /**
- * Builds a temporary staging directory with exactly two subdirectories
- * (`components` and `pages`), each holding the file-level merge of the core My
- * Account CMS JSONC and the store's own customizations, ready to be fed to
+ * Builds a staging directory with exactly two subdirectories (`components` and
+ * `pages`), each holding the file-level merge of the core My Account CMS JSONC
+ * and the store's own customizations, ready to be fed to
  * `generate-schema <componentsPath> <pagesPath>`.
  *
  * `generate-schema` accepts exactly two positional directory arguments, so the
  * merge has to happen at the file level (not by passing extra directories).
  * Core My Account files are copied first and the store's files are copied on
  * top, so a store that customizes a My Account file keeps its own version.
+ *
+ * The staging dir lives inside the store's `.faststore` tmp folder (created on
+ * demand) and the returned paths are relative to `basePath`. The toolbelt
+ * resolves positional args against the cwd (`path.join(cwd, arg)`), so an
+ * absolute path under `os.tmpdir()` would be mangled into `<store>/var/...`
+ * and fail with ENOENT.
  *
  * The My Account schemas are intentionally excluded from the published base
  * schema (and the Schema Registry), so they must be supplied locally when the
@@ -64,7 +69,7 @@ export type MyAccountMerge = {
  * Exits the process when the core My Account schemas are not found.
  */
 export function prepareMyAccountMergeDir(basePath: string): MyAccountMerge {
-  const { coreCMSDir, userCMSDir } = withBasePath(basePath)
+  const { coreCMSDir, userCMSDir, tmpDir } = withBasePath(basePath)
   const coreMyAccountDir = path.join(coreCMSDir, 'my-account')
 
   if (!existsSync(coreMyAccountDir)) {
@@ -74,9 +79,9 @@ export function prepareMyAccountMergeDir(basePath: string): MyAccountMerge {
     process.exit(1)
   }
 
-  const mergeDir = mkdtempSync(
-    path.join(os.tmpdir(), 'faststore-cms-myaccount-')
-  )
+  // `.faststore` may not exist yet in the CP flow (it does not run `generate`).
+  mkdirSync(tmpDir, { recursive: true })
+  const mergeDir = mkdtempSync(path.join(tmpDir, 'cms-myaccount-'))
 
   const dirs: string[] = []
   for (const subdir of MY_ACCOUNT_SUBDIRS) {
@@ -94,7 +99,7 @@ export function prepareMyAccountMergeDir(basePath: string): MyAccountMerge {
       cpSync(storeSource, dest, { recursive: true })
     }
 
-    dirs.push(dest)
+    dirs.push(path.relative(basePath, dest))
   }
 
   return { mergeDir, dirs }
