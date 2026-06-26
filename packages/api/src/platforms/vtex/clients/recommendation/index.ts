@@ -3,7 +3,7 @@ import { getStoreCookie, getWithCookie } from '../../utils/cookies'
 import { fetchAPI } from '../fetch'
 import type {
   RecommendationResult,
-  StartSessionResult,
+  StartRecommendationSessionResult,
 } from './types/RecommendationResult'
 
 // Identifies the storefront origin to the Recommendations BFF, as required by
@@ -64,7 +64,9 @@ export const Recommendation = (
   // orderForm from the forwarded `checkout.vtex.com` cookie and replies with the
   // `vtex-rec-user-id`/`vtex-rec-user-start-session` Set-Cookie headers, which we
   // forward to the browser through `ctx.storage.cookies`.
-  const startSession = (): Promise<StartSessionResult | undefined> => {
+  const startRecommendationSession = (): Promise<
+    StartRecommendationSessionResult | undefined
+  > => {
     const params = new URLSearchParams({ an: account })
 
     return fetchAPI(
@@ -76,6 +78,6 @@ export const Recommendation = (
 
   return {
     recommendations,
-    startSession,
+    startRecommendationSession,
   }
 }

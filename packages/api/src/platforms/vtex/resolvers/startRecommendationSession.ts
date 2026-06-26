@@ -13,7 +13,7 @@ export const startRecommendationSession = async (
   __: unknown,
   ctx: GraphqlContext
 ) => {
-  await ctx.clients.recommendation.startSession()
+  await ctx.clients.recommendation.startRecommendationSession()
 
   return true
 }

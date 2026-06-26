@@ -22,6 +22,6 @@ export interface RecommendationBffCampaign {
 }
 
 /** Response of `POST /api/recommend-bff/v2/users/start-session`. */
-export interface StartSessionResult {
+export interface StartRecommendationSessionResult {
   recommendationsUserId: string
 }
