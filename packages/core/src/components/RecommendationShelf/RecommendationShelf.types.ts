@@ -1,26 +1,41 @@
+import type { ComponentType } from 'react'
+
 import type { CarouselProps } from '@faststore/ui'
-import type {
-  ProductSummary_ProductFragment,
-  RecommendationProduct,
-} from '@generated/graphql'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+
+import type { ProductCardProps } from 'src/components/product/ProductCard'
 
 /**
- * Maps a `RecommendationProduct` into the `ProductCard` data shape.
- * Implemented by `mapRecommendationToProductCard` and overridable per shelf.
+ * Maps a recommendation product (a normalized `StoreProduct`, identical to the
+ * search response consumed by the rest of the shelves) into the props passed to
+ * the card component. Defaults to identity (`(product, index) => ({ product,
+ * index })`). Override it — typically together with `ProductCard` — to render
+ * custom cards that read additional/personalized fields.
  */
-export type RecommendationProductCardMapper = (
-  product: RecommendationProduct
-) => ProductSummary_ProductFragment
+export type RecommendationProductCardMapper<TCardProps = ProductCardProps> = (
+  product: ProductSummary_ProductFragment,
+  index: number
+) => TCardProps
 
-export type RecommendationShelfProps = {
+export type RecommendationShelfProps<
+  TCardProps extends object = ProductCardProps,
+> = {
   title?: string
   campaignVrn: string
   /**
-   * Maps a recommendation product into the `ProductCard` data shape. Defaults to
-   * `mapRecommendationToProductCard`. This is a code-level override and is not
-   * exposed through the CMS schema (`cms_component__RecommendationShelf.jsonc`).
+   * Custom card component rendered for each recommended product. Defaults to the
+   * core `ProductCard`. This is a code-level override and is not exposed through
+   * the CMS schema (`cms_component__RecommendationShelf.jsonc`).
    */
-  mapProductToProductCard?: RecommendationProductCardMapper
+  ProductCard?: ComponentType<TCardProps>
+  /**
+   * Maps a recommendation product into the props of the card component. Defaults
+   * to passing the product through as `{ product, index, ...productCardConfiguration }`.
+   * When provided, this mapper is fully responsible for the card props (the
+   * default `productCardConfiguration` merge no longer applies). This is a
+   * code-level override and is not exposed through the CMS schema.
+   */
+  mapProductToProductCard?: RecommendationProductCardMapper<TCardProps>
   /**
    * Forwarded to the underlying `Carousel`. `id` stays controlled by the shelf.
    * `itemsPerPage` is derived from `itemsPerPageDesktop`/`itemsPerPageMobile`

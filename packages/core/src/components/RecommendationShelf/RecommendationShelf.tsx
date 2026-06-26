@@ -1,14 +1,19 @@
-import { useId, useMemo } from 'react'
+import { type ComponentType, useId, useMemo } from 'react'
 
 import { usePDP } from '@faststore/core'
 import { ProductShelf, Carousel } from '@faststore/ui'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
-import ProductCard from 'src/components/product/ProductCard'
+import DefaultProductCard, {
+  type ProductCardProps,
+} from 'src/components/product/ProductCard'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
-import { mapRecommendationToProductCard } from './mapRecommendationToProductCard'
-import type { RecommendationShelfProps } from './RecommendationShelf.types'
+import type {
+  RecommendationProductCardMapper,
+  RecommendationShelfProps,
+} from './RecommendationShelf.types'
 import styles from './RecommendationShelf.module.scss'
 import {
   useRecommendations,
@@ -50,13 +55,26 @@ function getRecommendationArguments(
   }
 }
 
-export const RecommendationShelf = ({
+export function RecommendationShelf<
+  TCardProps extends object = ProductCardProps,
+>({
   title,
   campaignVrn,
-  mapProductToProductCard = mapRecommendationToProductCard,
+  ProductCard,
+  mapProductToProductCard,
   carouselConfiguration,
   productCardConfiguration,
-}: RecommendationShelfProps) => {
+}: RecommendationShelfProps<TCardProps>) {
+  const CardComponent = (ProductCard ??
+    DefaultProductCard) as ComponentType<TCardProps>
+
+  const mapToCardProps = (mapProductToProductCard ??
+    ((product: ProductSummary_ProductFragment, index: number) => ({
+      product,
+      index,
+      ...productCardConfiguration,
+    }))) as RecommendationProductCardMapper<TCardProps>
+
   const id = useId()
   const { isMobile, isTablet } = useScreenResize()
   const {
@@ -85,7 +103,7 @@ export const RecommendationShelf = ({
   const campaignId = data?.campaign.id
 
   const productIds = useMemo(
-    () => items.map((p) => p.productId).join(', '),
+    () => items.map((p) => p.isVariantOf.productGroupID).join(', '),
     [items]
   )
 
@@ -139,28 +157,28 @@ export const RecommendationShelf = ({
             infiniteMode={false}
             {...carouselProps}
           >
-            {items.map((item, index) => (
-              <div
-                key={item.productId}
-                className={styles.recommendationShelfItem}
-                {...(shouldAddAFAttr
-                  ? {
-                      'data-af-element': 'recommendation-shelf-product',
-                      'data-af-correlation-id': correlationId,
-                      'data-af-campaign-id': campaignId,
-                      'data-af-product-id': item.productId,
-                      'data-af-onclick': !!item.productId,
-                      'data-af-product-position': index + 1,
-                    }
-                  : {})}
-              >
-                <ProductCard
-                  product={mapProductToProductCard(item)}
-                  index={index}
-                  {...productCardConfiguration}
-                />
-              </div>
-            ))}
+            {items.map((item, index) => {
+              const productId = item.isVariantOf.productGroupID
+
+              return (
+                <div
+                  key={item.id}
+                  className={styles.recommendationShelfItem}
+                  {...(shouldAddAFAttr
+                    ? {
+                        'data-af-element': 'recommendation-shelf-product',
+                        'data-af-correlation-id': correlationId,
+                        'data-af-campaign-id': campaignId,
+                        'data-af-product-id': productId,
+                        'data-af-onclick': !!productId,
+                        'data-af-product-position': index + 1,
+                      }
+                    : {})}
+                >
+                  <CardComponent {...mapToCardProps(item, index)} />
+                </div>
+              )
+            })}
           </Carousel>
         </ProductShelf>
       </ProductShelfSkeleton>

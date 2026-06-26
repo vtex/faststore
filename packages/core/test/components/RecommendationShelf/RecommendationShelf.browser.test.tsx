@@ -47,7 +47,10 @@ const CAMPAIGN_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
 const CROSS_SELL_VRN = 'vrn:recommendations:acc:rec-cross-v2:campaign-1'
 
 const recommendationData = {
-  products: [{ productId: 'p-1' }, { productId: 'p-2' }],
+  products: [
+    { id: 'p-1', isVariantOf: { productGroupID: 'p-1' } },
+    { id: 'p-2', isVariantOf: { productGroupID: 'p-2' } },
+  ],
   correlationId: 'corr-1',
   campaign: { id: 'camp-1', title: 'Recommended for you', type: 'TOP_ITEMS' },
 }

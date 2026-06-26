@@ -1,13 +1,11 @@
 import { gql } from '@faststore/core/api'
-import type { RecommendationResponse } from '@generated/graphql'
+import type { FetchRecommendationsQueryQuery } from '@generated/graphql'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
-// This query intentionally fetches the full `RecommendationProduct` shape rather
-// than only the fields consumed by the default `mapRecommendationToProductCard`.
-// The shelf exposes a `mapProductToProductCard` override, so a store can plug in
-// a custom mapper that reads additional fields (specifications, clusters,
-// teasers, installments, etc.). Keeping the selection complete means those
-// customizations work without having to edit this query.
+// Recommendations return the same normalized `StoreProduct` shape as the search
+// response, so the shelf renders identical product cards to regular shelves.
+// We select `...ProductSummary_product` (the fragment consumed by `ProductCard`)
+// to keep this interface consistent with the rest of the components.
 const query = gql(`query FetchRecommendationsQuery(
   $campaignVrn: String!
   $userId: String
@@ -19,134 +17,7 @@ const query = gql(`query FetchRecommendationsQuery(
     products: $products
   ) {
     products {
-      cacheId
-      productId
-      description
-      productName
-      productReference
-      linkText
-      brand
-      brandId
-      link
-      categories
-      categoryId
-      releaseDate
-      advertisement {
-        adId
-        campaignId
-        actionCost
-        adRequestId
-        adResponseId
-      }
-      priceRange {
-        sellingPrice {
-          highPrice
-          lowPrice
-        }
-        listPrice {
-          highPrice
-          lowPrice
-        }
-      }
-      specificationGroups {
-        name
-        originalName
-        specifications {
-          name
-          originalName
-          values
-        }
-      }
-      skuSpecifications {
-        field {
-          name
-          originalName
-        }
-        values {
-          name
-          originalName
-        }
-      }
-      productClusters {
-        id
-        name
-      }
-      clusterHighlights {
-        id
-        name
-      }
-      properties {
-        name
-        values
-      }
-      items {
-        itemId
-        name
-        nameComplete
-        complementName
-        ean
-        variations {
-          name
-          values
-        }
-        referenceId {
-          Key
-          Value
-        }
-        measurementUnit
-        unitMultiplier
-        images {
-          cacheId
-          imageId
-          imageLabel
-          imageTag
-          imageUrl
-          imageText
-        }
-        sellers {
-          sellerId
-          sellerName
-          sellerDefault
-          commertialOffer {
-            discountHighlights {
-              name
-            }
-            teasers {
-              name
-              conditions {
-                minimumQuantity
-                parameters {
-                  name
-                  value
-                }
-              }
-              effects {
-                parameters {
-                  name
-                  value
-                }
-              }
-            }
-            Price
-            ListPrice
-            Tax
-            taxPercentage
-            spotPrice
-            PriceWithoutDiscount
-            RewardValue
-            PriceValidUntil
-            AvailableQuantity
-            Installments {
-              Value
-              InterestRate
-              TotalValuePlusInterestRate
-              NumberOfInstallments
-              Name
-              PaymentSystemName
-            }
-          }
-        }
-      }
+      ...ProductSummary_product
     }
     correlationId
     campaign {
@@ -164,9 +35,13 @@ export type RecommendationInput = {
   products: string[]
 }
 
+export type RecommendationResponse =
+  FetchRecommendationsQueryQuery['recommendations']
+export type RecommendationProduct = RecommendationResponse['products'][number]
+
 export const useRecommendations = (args: RecommendationInput | null) => {
   const { data, isLoading, error } = useQuery<
-    { recommendations: RecommendationResponse },
+    FetchRecommendationsQueryQuery,
     RecommendationInput
   >(query, args ?? ({} as RecommendationInput), {
     doNotRun: args === null,
