@@ -22,8 +22,12 @@ import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
 import { logger } from '../utils/logger'
+import { assertVtexReadyForAccount } from '../utils/vtex'
 
 type StoreConfig = {
+  api?: {
+    storeId?: string
+  }
   contentSource?: {
     type?: string
     project?: string
@@ -122,6 +126,8 @@ export default class CmsSync extends Command {
     storeConfig: StoreConfig | null
     dryRun?: boolean
   }) {
+    assertVtexReadyForAccount(storeConfig?.api?.storeId)
+
     const dirs = getExistingCpDirs(basePath)
 
     let merge: MyAccountMerge | undefined

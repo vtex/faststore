@@ -17,6 +17,7 @@ const generateAndUploadSchemaMock = vi.hoisted(() => vi.fn())
 const getCpSchemaOutputPathMock = vi.hoisted(() => vi.fn())
 const prepareMyAccountMergeDirMock = vi.hoisted(() => vi.fn())
 const cleanupMyAccountMergeDirMock = vi.hoisted(() => vi.fn())
+const assertVtexReadyForAccountMock = vi.hoisted(() => vi.fn())
 
 vi.mock('node:child_process', () => ({
   spawn: (...args: unknown[]) => spawnMock(...args),
@@ -41,6 +42,11 @@ vi.mock('../utils/cp-schema', () => ({
     prepareMyAccountMergeDirMock(...args),
   cleanupMyAccountMergeDir: (...args: unknown[]) =>
     cleanupMyAccountMergeDirMock(...args),
+}))
+
+vi.mock('../utils/vtex', () => ({
+  assertVtexReadyForAccount: (...args: unknown[]) =>
+    assertVtexReadyForAccountMock(...args),
 }))
 
 import CmsSync from './cms-sync'
@@ -230,6 +236,18 @@ describe('CmsSync', () => {
       expect(infoMock).toHaveBeenCalledWith(
         expect.stringContaining('Detected contentSource "CP"')
       )
+    })
+
+    it('runs the vtex preflight with the store account before generating', async () => {
+      writeDiscoveryConfig(tempDir, {
+        api: { storeId: 'brandless' },
+        contentSource: { type: 'CP' },
+      })
+      getExistingCpDirsMock.mockReturnValue(['cms/faststore/components'])
+
+      await runCmsSync({ storeDir: tempDir })
+
+      expect(assertVtexReadyForAccountMock).toHaveBeenCalledWith('brandless')
     })
   })
 
