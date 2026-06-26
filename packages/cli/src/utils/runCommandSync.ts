@@ -17,8 +17,8 @@ const showError = ({
   logger.error(`${chalk.red('error')} - ${message}`)
 
   if (cmd && output) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${JSON.stringify(cmd)} error ↓`)
-    logger.log(output)
+    logger.error(`${chalk.magenta('$')} ${cmd}`)
+    logger.error(output)
   }
 
   process.exit(1)
@@ -36,8 +36,8 @@ const showWarning = ({
   logger.warn(`${chalk.yellow('warn')} - ${message}`)
 
   if (cmd && output) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${JSON.stringify(cmd)} warn ↓`)
-    logger.log(output)
+    logger.warn(`${chalk.magenta('$')} ${cmd}`)
+    logger.warn(output)
   }
 }
 
@@ -52,18 +52,18 @@ export const runCommandSync = ({
   throws: 'warning' | 'error'
   cwd?: string
 }) => {
-  const debug = process.env.DISCOVERY_DEBUG === 'true' ? true : false
-
   try {
     logger.log(`[STARTED] ${cmd}`)
 
-    const res = execSync(
-      debug ? `${cmd} --debug --verbose 2>&1` : `${cmd} 2>&1`,
-      {
-        stdio: 'pipe',
-        cwd,
-      }
-    )
+    // stdout + stderr are merged via 2>&1 so the captured output holds the
+    // tool's real error. We intentionally do not append --debug/--verbose:
+    // strict toolbelt commands (e.g. `vtex content generate-schema`) reject
+    // unknown flags. Verbose progress logging is gated by DISCOVERY_DEBUG in
+    // the logger itself.
+    const res = execSync(`${cmd} 2>&1`, {
+      stdio: 'pipe',
+      cwd,
+    })
     logger.log(`[STATUS] ${res?.toString() ?? 'Unknown'}`)
     logger.log(`[FINISHED] ${cmd}`)
   } catch (error) {
