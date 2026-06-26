@@ -11,13 +11,49 @@ export class ContractSwitchError extends Error {
 
 export const isContractSwitchEnabled = true
 
+type VtexAuthCookie = {
+  Name: string
+  Value: string
+}
+
+export type SwitchPropertiesResponse = {
+  authStatus?: string
+  expiresIn?: number
+  authCookie?: VtexAuthCookie | null
+  accountAuthCookie?: VtexAuthCookie | null
+}
+
+const DEFAULT_AUTH_COOKIE_MAX_AGE = 86_400
+
+export function applyVtexAuthCookieFromSwitchResponse(
+  response: SwitchPropertiesResponse
+): void {
+  if (globalThis.window === undefined) {
+    return
+  }
+
+  const maxAge = response.expiresIn ?? DEFAULT_AUTH_COOKIE_MAX_AGE
+  const secure =
+    globalThis.window.location.protocol === 'https:' ? '; secure' : ''
+
+  const cookies = [response.authCookie, response.accountAuthCookie].filter(
+    (cookie): cookie is VtexAuthCookie =>
+      Boolean(cookie?.Name?.trim() && cookie?.Value)
+  )
+
+  for (const cookie of cookies) {
+    document.cookie = `${cookie.Name}=${cookie.Value}; path=/; max-age=${maxAge}; samesite=lax${secure}`
+  }
+}
+
 /**
  * Switches the buyer's active contract via VTEX Identity storefront credential API.
  *
  * POST /api/authenticator/storefront/credential/switch-properties?an={account}
  * Body: { properties: { customerId: contractId } }
  *
- * Returns `true` when the server confirms the switch. Throws `ContractSwitchError`
+ * Applies the returned `authCookie` (and optional `accountAuthCookie`) so the
+ * storefront JWT reflects the new commercial context. Throws `ContractSwitchError`
  * on hard failures so `switchContract` can keep the previous contract active.
  */
 export async function changeContractToken(
@@ -50,6 +86,20 @@ export async function changeContractToken(
       `Failed to switch contract (${response.status})`
     )
   }
+
+  const payload = (await response.json()) as SwitchPropertiesResponse
+
+  if (payload.authStatus?.toLowerCase() !== 'success') {
+    throw new ContractSwitchError('Contract switch was not successful')
+  }
+
+  if (!payload.authCookie?.Name || !payload.authCookie?.Value) {
+    throw new ContractSwitchError(
+      'Contract switch succeeded but no auth cookie was returned'
+    )
+  }
+
+  applyVtexAuthCookieFromSwitchResponse(payload)
 
   return true
 }

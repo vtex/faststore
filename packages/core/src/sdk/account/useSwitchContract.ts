@@ -6,15 +6,13 @@ import {
   changeContractToken,
   isContractSwitchEnabled,
 } from './changeContractToken'
-import { isRefreshTokenSuccessful, refreshTokenRequest } from './refreshToken'
 
 /**
  * Orchestrates a full change of commercial context (REQ-06).
  *
  * Steps:
- *  1. POST switch-properties with the target contract id.
- *  2. Refresh the storefront auth cookie so JWT claims (e.g. customerId) match.
- *  3. Clear persisted session state and reload the page.
+ *  1. POST switch-properties with the target contract id and apply the returned auth cookie.
+ *  2. Clear persisted session state and reload the page.
  */
 export const useSwitchContract = () => {
   const [loading, setLoading] = useState(false)
@@ -31,13 +29,6 @@ export const useSwitchContract = () => {
           new ContractSwitchError('Contract switching is not available yet')
         )
         return false
-      }
-
-      const refreshResult = await refreshTokenRequest()
-      if (!isRefreshTokenSuccessful(refreshResult)) {
-        throw new ContractSwitchError(
-          'Failed to refresh authentication after contract switch'
-        )
       }
 
       await clearPersistedSessionState()
