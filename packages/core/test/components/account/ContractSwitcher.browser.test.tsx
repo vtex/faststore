@@ -104,6 +104,9 @@ describe('ContractSwitcher', () => {
       '[data-fs-contract-switcher-current-card]'
     )
     expect(currentCard?.textContent).toContain('Stellar Global')
+    expect(
+      currentCard?.querySelector('[data-fs-contract-switcher-default]')
+    ).toBeTruthy()
 
     // The active contract is not offered as a selectable alternative.
     expect(screen.getByText('Acme Foods')).toBeTruthy()

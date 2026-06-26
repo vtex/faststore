@@ -117,4 +117,24 @@ describe('useSwitchContract', () => {
 
     await waitFor(() => expect(result.current.error).toBeInstanceOf(Error))
   })
+
+  it('normalizes non-Error failures from switch-properties', async () => {
+    vi.spyOn(
+      changeContractTokenModule,
+      'changeContractToken'
+    ).mockRejectedValueOnce('unexpected')
+
+    const { result } = renderHook(() => useSwitchContract())
+
+    let ok: boolean | undefined
+    await act(async () => {
+      ok = await result.current.switchContract('contract-2')
+    })
+
+    expect(ok).toBe(false)
+
+    await waitFor(() =>
+      expect(result.current.error?.message).toBe('Failed to switch contract')
+    )
+  })
 })

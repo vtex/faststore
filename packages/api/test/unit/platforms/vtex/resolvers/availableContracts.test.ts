@@ -181,4 +181,48 @@ describe('Query.availableContracts', () => {
 
     expect(result).toEqual([])
   })
+
+  it('rejects listing when session lookup fails and no unit id is available', async () => {
+    session.mockRejectedValueOnce(new Error('session unavailable'))
+
+    await expect(
+      availableContracts(null, { orgUnitId: 'unit-1' }, makeCtx())
+    ).rejects.toThrow(/not allowed/i)
+  })
+
+  it('resolves active contract id from jwt when session omits it', async () => {
+    session.mockResolvedValueOnce({
+      namespaces: {
+        authentication: { unitId: { value: 'unit-1' } },
+        shopper: {
+          availableContracts: {
+            value: [
+              {
+                customerId: 'jwt-contract',
+                contractName: 'JWT Corp',
+                isActive: true,
+                isCurrent: false,
+              },
+            ],
+          },
+        },
+      },
+    })
+
+    const jwtPayload = Buffer.from(
+      JSON.stringify({ unitId: 'unit-1', customerId: 'jwt-contract' })
+    ).toString('base64url')
+    const token = `header.${jwtPayload}.signature`
+
+    const ctx = makeCtx()
+    ctx.headers = {
+      cookie: `VtexIdclientAutCookie_b2bfaststoredev=${token}`,
+    }
+
+    const result = await availableContracts(null, { orgUnitId: 'unit-1' }, ctx)
+
+    expect(result).toEqual([
+      { id: 'jwt-contract', corporateName: 'JWT Corp', isActive: true },
+    ])
+  })
 })

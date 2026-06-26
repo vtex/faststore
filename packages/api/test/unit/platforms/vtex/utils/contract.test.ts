@@ -6,6 +6,7 @@ import {
   mapSessionContractsToStoreContracts,
   parseSessionAvailableContracts,
   resolveActiveContractDisplayName,
+  resolveActiveContractIdFromSession,
   resolveContractDisplayNameFromMd,
 } from '../../../../../src/platforms/vtex/utils/contract'
 
@@ -57,6 +58,37 @@ describe('contract utils', () => {
 
     it('returns an empty list when availableContracts is missing', () => {
       expect(parseSessionAvailableContracts(null)).toEqual([])
+    })
+
+    it('filters malformed session contract entries', () => {
+      expect(
+        parseSessionAvailableContracts({
+          availableContracts: {
+            value: [
+              {
+                customerId: 'c1',
+                contractName: 'Valid',
+                isActive: true,
+                isCurrent: false,
+              },
+              {
+                customerId: '',
+                contractName: 'Invalid',
+                isActive: true,
+                isCurrent: false,
+              },
+              null,
+            ],
+          },
+        })
+      ).toEqual([
+        {
+          customerId: 'c1',
+          contractName: 'Valid',
+          isActive: true,
+          isCurrent: false,
+        },
+      ])
     })
   })
 
@@ -137,6 +169,61 @@ describe('contract utils', () => {
         { id: 'a', corporateName: 'Corp A', isActive: false },
         { id: 'b', corporateName: 'Corp B', isActive: true },
       ])
+    })
+
+    it('falls back to isCurrent when activeContractId is empty', () => {
+      expect(
+        mapSessionContractsToStoreContracts([
+          {
+            customerId: 'a',
+            contractName: 'Corp A',
+            isActive: true,
+            isCurrent: false,
+          },
+          {
+            customerId: 'b',
+            contractName: 'Corp B',
+            isActive: true,
+            isCurrent: true,
+          },
+        ])
+      ).toEqual([
+        { id: 'a', corporateName: 'Corp A', isActive: false },
+        { id: 'b', corporateName: 'Corp B', isActive: true },
+      ])
+    })
+  })
+
+  describe('resolveActiveContractIdFromSession', () => {
+    it('prefers shopper.activeContractId over authentication and profile ids', () => {
+      expect(
+        resolveActiveContractIdFromSession({
+          namespaces: {
+            shopper: { activeContractId: { value: 'shopper-id' } },
+            authentication: { customerId: { value: 'auth-id' } },
+            profile: { id: { value: 'profile-id' } },
+          },
+        })
+      ).toBe('shopper-id')
+    })
+
+    it('falls back to authentication.customerId and profile.id', () => {
+      expect(
+        resolveActiveContractIdFromSession({
+          namespaces: {
+            authentication: { customerId: { value: 'auth-id' } },
+            profile: { id: { value: 'profile-id' } },
+          },
+        })
+      ).toBe('auth-id')
+
+      expect(
+        resolveActiveContractIdFromSession({
+          namespaces: {
+            profile: { id: { value: 'profile-id' } },
+          },
+        })
+      ).toBe('profile-id')
     })
   })
 
