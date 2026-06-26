@@ -128,15 +128,19 @@ export default class CmsSync extends Command {
   }) {
     assertVtexReadyForAccount(storeConfig?.api?.storeId)
 
-    const dirs = getExistingCpDirs(basePath)
-
     let merge: MyAccountMerge | undefined
+    let dirs: string[]
+
     if (isMyAccountEnabled(storeConfig)) {
       logger.info(
         `${chalk.blue('[Info]')} - Merging My Account sections and content-types into the schema`
       )
+      // The merge dir already contains the store's own customizations merged
+      // with the core My Account schemas, so it replaces the raw store dirs.
       merge = prepareMyAccountMergeDir(basePath)
-      dirs.push(...merge.dirs)
+      dirs = merge.dirs
+    } else {
+      dirs = getExistingCpDirs(basePath)
     }
 
     if (dirs.length === 0) {

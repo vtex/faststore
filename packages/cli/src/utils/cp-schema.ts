@@ -4,7 +4,7 @@
  * Store context only: no `-l` / base.jsonc, no core merge.
  */
 import chalk from 'chalk'
-import { cpSync, existsSync, mkdtempSync, rmSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { withBasePath } from './directory'
@@ -37,27 +37,35 @@ export function getCpSchemaOutputPath(basePath: string): string {
 export type MyAccountMerge = {
   /** Temporary root directory holding the merged My Account JSONC. */
   mergeDir: string
-  /** Absolute paths of the merged subdirectories to feed to generate-schema. */
+  /**
+   * Absolute paths of the two merged directories, ordered as
+   * `[components, pages]` so they can be passed positionally to
+   * `generate-schema <componentsPath> <pagesPath>`.
+   */
   dirs: string[]
 }
 
 /**
- * Builds a temporary directory with the My Account CMS JSONC, ready to be fed
- * to `generate-schema`.
+ * Builds a temporary staging directory with exactly two subdirectories
+ * (`components` and `pages`), each holding the file-level merge of the core My
+ * Account CMS JSONC and the store's own customizations, ready to be fed to
+ * `generate-schema <componentsPath> <pagesPath>`.
+ *
+ * `generate-schema` accepts exactly two positional directory arguments, so the
+ * merge has to happen at the file level (not by passing extra directories).
+ * Core My Account files are copied first and the store's files are copied on
+ * top, so a store that customizes a My Account file keeps its own version.
  *
  * The My Account schemas are intentionally excluded from the published base
  * schema (and the Schema Registry), so they must be supplied locally when the
  * `experimental.enableFaststoreMyAccount` flag is on. They are copied from the
- * installed `@faststore/core`; this temp dir is also the seam where a future
- * store-side My Account customization could be overlaid per-file.
+ * installed `@faststore/core`.
  *
  * Exits the process when the core My Account schemas are not found.
  */
 export function prepareMyAccountMergeDir(basePath: string): MyAccountMerge {
-  const coreMyAccountDir = path.join(
-    withBasePath(basePath).coreCMSDir,
-    'my-account'
-  )
+  const { coreCMSDir, userCMSDir } = withBasePath(basePath)
+  const coreMyAccountDir = path.join(coreCMSDir, 'my-account')
 
   if (!existsSync(coreMyAccountDir)) {
     logger.error(
@@ -72,14 +80,20 @@ export function prepareMyAccountMergeDir(basePath: string): MyAccountMerge {
 
   const dirs: string[] = []
   for (const subdir of MY_ACCOUNT_SUBDIRS) {
-    const source = path.join(coreMyAccountDir, subdir)
+    const dest = path.join(mergeDir, subdir)
+    mkdirSync(dest, { recursive: true })
 
-    if (!existsSync(source)) {
-      continue
+    // Core My Account first; the store's customizations override on collision.
+    const coreSource = path.join(coreMyAccountDir, subdir)
+    if (existsSync(coreSource)) {
+      cpSync(coreSource, dest, { recursive: true })
     }
 
-    const dest = path.join(mergeDir, subdir)
-    cpSync(source, dest, { recursive: true })
+    const storeSource = path.join(userCMSDir, subdir)
+    if (existsSync(storeSource)) {
+      cpSync(storeSource, dest, { recursive: true })
+    }
+
     dirs.push(dest)
   }
 

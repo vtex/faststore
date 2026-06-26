@@ -262,7 +262,7 @@ describe('CmsSync', () => {
       })
     })
 
-    it('appends merged My Account dirs and announces the merge (matrix #10)', async () => {
+    it('passes the merged My Account dirs and announces the merge (matrix #10)', async () => {
       writeDiscoveryConfig(tempDir, {
         contentSource: { type: 'CP' },
         experimental: { enableFaststoreMyAccount: true },
@@ -278,13 +278,12 @@ describe('CmsSync', () => {
       expect(infoMock).toHaveBeenCalledWith(
         expect.stringContaining('Merging My Account')
       )
+      // The merge dir already contains the store customizations, so generate
+      // receives exactly the two merged dirs (not the raw store dirs).
+      expect(getExistingCpDirsMock).not.toHaveBeenCalled()
       expect(generateAndUploadSchemaMock).toHaveBeenCalledWith({
         basePath: tempDir,
-        dirs: [
-          'cms/faststore/components',
-          'cms/faststore/pages',
-          ...mergedDirs,
-        ],
+        dirs: mergedDirs,
         schemaOut: path.join(tempDir, 'cms/faststore/schema.json'),
         dryRun: false,
       })

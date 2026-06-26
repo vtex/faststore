@@ -154,7 +154,27 @@ describe('cp-schema', () => {
       coreCMSDirMock.mockReturnValue(coreDir)
     }
 
-    it('copies core My Account components/pages into a temp dir', () => {
+    function seedStoreCustomizations() {
+      const storeComponents = path.join(
+        tempDir,
+        'cms',
+        'faststore',
+        'components'
+      )
+      const storePages = path.join(tempDir, 'cms', 'faststore', 'pages')
+      fs.mkdirSync(storeComponents, { recursive: true })
+      fs.mkdirSync(storePages, { recursive: true })
+      fs.writeFileSync(
+        path.join(storeComponents, 'cms_component__store.jsonc'),
+        '{}'
+      )
+      fs.writeFileSync(
+        path.join(storePages, 'cms_content_type__store.jsonc'),
+        '{}'
+      )
+    }
+
+    it('merges core My Account components/pages into two staging dirs', () => {
       seedCoreMyAccount()
 
       const { mergeDir, dirs } = prepareMyAccountMergeDir(tempDir)
@@ -175,6 +195,76 @@ describe('cp-schema', () => {
           )
         ).toBe(true)
         expect(exitMock).not.toHaveBeenCalled()
+      } finally {
+        fs.rmSync(mergeDir, { recursive: true, force: true })
+      }
+    })
+
+    it('merges the store customizations alongside the core My Account schemas', () => {
+      seedCoreMyAccount()
+      seedStoreCustomizations()
+
+      const { mergeDir } = prepareMyAccountMergeDir(tempDir)
+
+      try {
+        // Core My Account files present.
+        expect(
+          fs.existsSync(
+            path.join(mergeDir, 'components', 'cms_component__x.jsonc')
+          )
+        ).toBe(true)
+        // Store customizations present in the same staging dir.
+        expect(
+          fs.existsSync(
+            path.join(mergeDir, 'components', 'cms_component__store.jsonc')
+          )
+        ).toBe(true)
+        expect(
+          fs.existsSync(
+            path.join(mergeDir, 'pages', 'cms_content_type__store.jsonc')
+          )
+        ).toBe(true)
+      } finally {
+        fs.rmSync(mergeDir, { recursive: true, force: true })
+      }
+    })
+
+    it('lets the store override a core My Account file on collision', () => {
+      const coreDir = path.join(tempDir, 'core', 'cms', 'faststore')
+      const coreComponents = path.join(coreDir, 'my-account', 'components')
+      fs.mkdirSync(coreComponents, { recursive: true })
+      fs.writeFileSync(
+        path.join(coreComponents, 'cms_component__shared.jsonc'),
+        '{"owner":"core"}'
+      )
+      fs.mkdirSync(path.join(coreDir, 'my-account', 'pages'), {
+        recursive: true,
+      })
+      coreCMSDirMock.mockReturnValue(coreDir)
+
+      const storeComponents = path.join(
+        tempDir,
+        'cms',
+        'faststore',
+        'components'
+      )
+      fs.mkdirSync(storeComponents, { recursive: true })
+      fs.writeFileSync(
+        path.join(storeComponents, 'cms_component__shared.jsonc'),
+        '{"owner":"store"}'
+      )
+
+      const { mergeDir } = prepareMyAccountMergeDir(tempDir)
+
+      try {
+        expect(
+          fs
+            .readFileSync(
+              path.join(mergeDir, 'components', 'cms_component__shared.jsonc'),
+              'utf-8'
+            )
+            .toString()
+        ).toContain('store')
       } finally {
         fs.rmSync(mergeDir, { recursive: true, force: true })
       }
