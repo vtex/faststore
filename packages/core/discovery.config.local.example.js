@@ -1,9 +1,14 @@
 /**
  * Example local overrides for B2B contract switcher development.
  *
- * Copy to discovery.config.local.js (gitignored) before running locally:
+ * Copy to discovery.config.local.js (gitignored) before running locally.
+ * Run from `packages/core`:
  *
  *   cp discovery.config.local.example.js discovery.config.local.js
+ *
+ * Or from the repo root:
+ *
+ *   cp packages/core/discovery.config.local.example.js packages/core/discovery.config.local.js
  */
 module.exports = {
   plugins: ['@vtex/faststore-plugin-buyer-portal'],

@@ -10,7 +10,10 @@ let finalConfig = deepmerge(defaultConfig, starterConfig)
 
 try {
   finalConfig = deepmerge(finalConfig, require('./discovery.config.local'))
-} catch {
+} catch (error) {
+  if (error?.code !== 'MODULE_NOT_FOUND') {
+    throw error
+  }
   // Optional local overrides (packages/core/discovery.config.local.js).
 }
 

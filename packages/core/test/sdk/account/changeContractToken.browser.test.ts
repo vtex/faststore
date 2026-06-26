@@ -65,6 +65,7 @@ describe('changeContractToken', () => {
     )
     expect(init.method).toBe('POST')
     expect(init.credentials).toBe('include')
+    expect(init.signal).toBeDefined()
     expect(JSON.parse(init.body as string)).toEqual({
       properties: { customerId: contractId },
     })
@@ -83,6 +84,16 @@ describe('changeContractToken', () => {
 
     await expect(changeContractToken('contract-1')).rejects.toThrow(
       /Failed to switch contract \(401\)/
+    )
+  })
+
+  it('throws when the switch request times out', async () => {
+    const timeoutError = new Error('The operation was aborted')
+    timeoutError.name = 'TimeoutError'
+    mockFetch.mockRejectedValueOnce(timeoutError)
+
+    await expect(changeContractToken('contract-1')).rejects.toThrow(
+      /Contract switch timed out/
     )
   })
 

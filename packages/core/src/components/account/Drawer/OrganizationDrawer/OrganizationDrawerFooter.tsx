@@ -1,6 +1,6 @@
 import { Icon, IconButton, Link } from '@faststore/ui'
 
-export type OrganizationDrawerFooterProps = {
+export interface OrganizationDrawerFooterProps {
   orgName: string
   userName: string
   userEmail?: string

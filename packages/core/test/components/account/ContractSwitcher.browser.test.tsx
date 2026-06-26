@@ -142,6 +142,37 @@ describe('ContractSwitcher', () => {
     expect((confirm as HTMLButtonElement).disabled).toBe(false)
   })
 
+  it('keeps Confirm disabled when switching is unavailable', () => {
+    mockUseSwitchContract.mockReturnValue({
+      switchContract: mockSwitchContract,
+      loading: false,
+      error: null,
+      enabled: false,
+    })
+
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    fireEvent.click(screen.getByText('Acme Foods'))
+
+    const confirm = screen.getByRole('button', { name: /confirm/i })
+    expect((confirm as HTMLButtonElement).disabled).toBe(true)
+  })
+
+  it('keeps Confirm disabled when the selected contract is filtered out', () => {
+    render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
+
+    fireEvent.click(screen.getByText('Acme Foods'))
+
+    const confirm = screen.getByRole('button', { name: /confirm/i })
+    expect((confirm as HTMLButtonElement).disabled).toBe(false)
+
+    fireEvent.change(screen.getByLabelText('Search contracts'), {
+      target: { value: 'beacon' },
+    })
+
+    expect((confirm as HTMLButtonElement).disabled).toBe(true)
+  })
+
   it('filters the alternatives by search', () => {
     render(<ContractSwitcher onBack={vi.fn()} onClose={vi.fn()} />)
 

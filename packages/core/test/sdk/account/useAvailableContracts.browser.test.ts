@@ -24,7 +24,26 @@ describe('useAvailableContracts', () => {
     vi.clearAllMocks()
   })
 
-  it('skips the query when disabled or orgUnitId is missing', () => {
+  it('skips the query when the hook is disabled', () => {
+    mockUseSession.mockReturnValue({ b2b: { unitId: 'unit-1' } })
+    mockUseQuery.mockReturnValue({
+      data: undefined,
+      error: null,
+      isValidating: false,
+    })
+
+    const { result } = renderHook(() => useAvailableContracts(false))
+
+    expect(result.current.contracts).toEqual([])
+    expect(result.current.loading).toBe(false)
+    expect(mockUseQuery).toHaveBeenCalledWith(
+      expect.anything(),
+      { orgUnitId: 'unit-1' },
+      expect.objectContaining({ doNotRun: true })
+    )
+  })
+
+  it('skips the query when orgUnitId is missing', () => {
     mockUseSession.mockReturnValue({ b2b: { unitId: '' } })
     mockUseQuery.mockReturnValue({
       data: undefined,
@@ -32,12 +51,9 @@ describe('useAvailableContracts', () => {
       isValidating: false,
     })
 
-    const disabled = renderHook(() => useAvailableContracts(false))
-    expect(disabled.result.current.contracts).toEqual([])
-    expect(disabled.result.current.loading).toBe(false)
+    const { result } = renderHook(() => useAvailableContracts(true))
 
-    const missingUnit = renderHook(() => useAvailableContracts(true))
-    expect(missingUnit.result.current.contracts).toEqual([])
+    expect(result.current.contracts).toEqual([])
     expect(mockUseQuery).toHaveBeenCalledWith(
       expect.anything(),
       { orgUnitId: '' },

@@ -24,6 +24,7 @@ export type SwitchPropertiesResponse = {
 }
 
 const DEFAULT_AUTH_COOKIE_MAX_AGE = 86_400
+const SWITCH_PROPERTIES_TIMEOUT_MS = 30_000
 
 export function applyVtexAuthCookieFromSwitchResponse(
   response: SwitchPropertiesResponse
@@ -64,10 +65,11 @@ export async function changeContractToken(
   }
 
   const an = encodeURIComponent(storeConfig.api.storeId)
+  const url = `/api/authenticator/storefront/credential/switch-properties?an=${an}`
 
-  const response = await fetch(
-    `/api/authenticator/storefront/credential/switch-properties?an=${an}`,
-    {
+  let response: Response
+  try {
+    response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -78,8 +80,20 @@ export async function changeContractToken(
           customerId: contractId,
         },
       }),
+      signal: AbortSignal.timeout(SWITCH_PROPERTIES_TIMEOUT_MS),
+    })
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      (error.name === 'TimeoutError' || error.name === 'AbortError')
+    ) {
+      throw new ContractSwitchError('Contract switch timed out')
     }
-  )
+
+    throw error instanceof Error
+      ? new ContractSwitchError(`Failed to switch contract: ${error.message}`)
+      : new ContractSwitchError('Failed to switch contract')
+  }
 
   if (!response.ok) {
     throw new ContractSwitchError(
