@@ -461,9 +461,7 @@ type Query {
     The Organization Unit identifier whose contracts will be listed.
     """
     orgUnitId: String!
-  ): [StoreContract!]!
-    @auth
-    @cacheControl(scope: "private", sMaxAge: 0)
+  ): [StoreContract!]! @auth @cacheControl(scope: "private", sMaxAge: 0)
 
   """
   Returns a list of pickup points near to the given geo coordinates.
