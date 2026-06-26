@@ -4,16 +4,30 @@ import path from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const runCommandSyncMock = vi.hoisted(() => vi.fn())
+const coreCMSDirMock = vi.hoisted(() => vi.fn<[], string>())
 
 vi.mock('./runCommandSync', () => ({
   runCommandSync: (...args: unknown[]) => runCommandSyncMock(...args),
 }))
 
+vi.mock('./directory', async () => {
+  const nodePath = await import('node:path')
+
+  return {
+    withBasePath: (basePath: string) => ({
+      userCMSDir: nodePath.join(basePath, 'cms', 'faststore'),
+      coreCMSDir: coreCMSDirMock(),
+    }),
+  }
+})
+
 import {
+  cleanupMyAccountMergeDir,
   errorNoCustomization,
   generateAndUploadSchema,
   getCpSchemaOutputPath,
   getExistingCpDirs,
+  prepareMyAccountMergeDir,
 } from './cp-schema'
 import { logger } from './logger'
 
@@ -25,6 +39,10 @@ describe('cp-schema', () => {
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-cp-schema-'))
     runCommandSyncMock.mockClear()
+    coreCMSDirMock.mockReset()
+    coreCMSDirMock.mockReturnValue(
+      path.join(tempDir, 'core', 'cms', 'faststore')
+    )
     exitMock = vi.spyOn(process, 'exit').mockImplementation((() => {}) as never)
     errorMock = vi.spyOn(logger, 'error').mockImplementation(() => {})
   })
@@ -121,6 +139,83 @@ describe('cp-schema', () => {
       expect(runCommandSyncMock.mock.calls[0][0].cmd).toContain(
         'generate-schema'
       )
+    })
+  })
+
+  describe('prepareMyAccountMergeDir', () => {
+    function seedCoreMyAccount() {
+      const coreDir = path.join(tempDir, 'core', 'cms', 'faststore')
+      const componentsDir = path.join(coreDir, 'my-account', 'components')
+      const pagesDir = path.join(coreDir, 'my-account', 'pages')
+      fs.mkdirSync(componentsDir, { recursive: true })
+      fs.mkdirSync(pagesDir, { recursive: true })
+      fs.writeFileSync(path.join(componentsDir, 'cms_component__x.jsonc'), '{}')
+      fs.writeFileSync(path.join(pagesDir, 'cms_content_type__y.jsonc'), '{}')
+      coreCMSDirMock.mockReturnValue(coreDir)
+    }
+
+    it('copies core My Account components/pages into a temp dir', () => {
+      seedCoreMyAccount()
+
+      const { mergeDir, dirs } = prepareMyAccountMergeDir(tempDir)
+
+      try {
+        expect(dirs).toEqual([
+          path.join(mergeDir, 'components'),
+          path.join(mergeDir, 'pages'),
+        ])
+        expect(
+          fs.existsSync(
+            path.join(mergeDir, 'components', 'cms_component__x.jsonc')
+          )
+        ).toBe(true)
+        expect(
+          fs.existsSync(
+            path.join(mergeDir, 'pages', 'cms_content_type__y.jsonc')
+          )
+        ).toBe(true)
+        expect(exitMock).not.toHaveBeenCalled()
+      } finally {
+        fs.rmSync(mergeDir, { recursive: true, force: true })
+      }
+    })
+
+    it('errors and exits when core My Account schemas are missing', () => {
+      coreCMSDirMock.mockReturnValue(
+        path.join(tempDir, 'core-without-myaccount')
+      )
+
+      const result = prepareMyAccountMergeDir(tempDir)
+
+      expect(errorMock).toHaveBeenCalledWith(
+        expect.stringContaining(
+          'My Account is enabled but the core My Account schemas were not found'
+        )
+      )
+      expect(exitMock).toHaveBeenCalledWith(1)
+
+      // process.exit is mocked to a noop in tests, so the function continues and
+      // may create an empty temp dir — clean it up to avoid leaking.
+      if (result?.mergeDir) {
+        fs.rmSync(result.mergeDir, { recursive: true, force: true })
+      }
+    })
+  })
+
+  describe('cleanupMyAccountMergeDir', () => {
+    it('removes the merge directory', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'faststore-cleanup-'))
+      fs.writeFileSync(path.join(dir, 'a.txt'), 'x')
+
+      cleanupMyAccountMergeDir(dir)
+
+      expect(fs.existsSync(dir)).toBe(false)
+    })
+
+    it('does not throw when the directory is already gone', () => {
+      const dir = path.join(tempDir, 'nonexistent')
+
+      expect(() => cleanupMyAccountMergeDir(dir)).not.toThrow()
     })
   })
 })

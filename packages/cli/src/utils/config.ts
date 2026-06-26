@@ -11,6 +11,25 @@ const configFileName = 'discovery.config.js'
 export type ResolvedContentSource = 'CMS' | 'CP'
 
 /**
+ * Minimal config shape consumed when deciding whether to merge My Account
+ * schemas. Kept loose on purpose so callers can pass their own store config.
+ */
+type MyAccountConfig = {
+  experimental?: {
+    enableFaststoreMyAccount?: boolean
+  }
+}
+
+/**
+ * Whether FastStore My Account is enabled in the store config.
+ * When enabled (CP mode only), `cms-sync` merges the core My Account CMS
+ * schemas into the generated schema. Defaults to false when absent.
+ */
+export function isMyAccountEnabled(config?: MyAccountConfig | null): boolean {
+  return config?.experimental?.enableFaststoreMyAccount === true
+}
+
+/**
  * Resolves the store's contentSource.type to a supported CMS flow.
  * Absent or CMS → legacy Headless CMS; CP → Content Platform schema publish.
  */

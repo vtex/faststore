@@ -5,14 +5,18 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import {
+  isMyAccountEnabled,
   resolveContentSource,
   type ResolvedContentSource,
 } from '../utils/config'
 import {
+  cleanupMyAccountMergeDir,
   errorNoCustomization,
   generateAndUploadSchema,
   getCpSchemaOutputPath,
   getExistingCpDirs,
+  type MyAccountMerge,
+  prepareMyAccountMergeDir,
 } from '../utils/cp-schema'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
@@ -23,6 +27,9 @@ type StoreConfig = {
   contentSource?: {
     type?: string
     project?: string
+  }
+  experimental?: {
+    enableFaststoreMyAccount?: boolean
   }
 }
 
@@ -71,6 +78,7 @@ export default class CmsSync extends Command {
       case 'CP':
         return this.runCpSync({
           basePath,
+          storeConfig,
           dryRun: flags['dry-run'],
         })
       default: {
@@ -107,12 +115,23 @@ export default class CmsSync extends Command {
 
   private runCpSync({
     basePath,
+    storeConfig,
     dryRun,
   }: {
     basePath: string
+    storeConfig: StoreConfig | null
     dryRun?: boolean
   }) {
     const dirs = getExistingCpDirs(basePath)
+
+    let merge: MyAccountMerge | undefined
+    if (isMyAccountEnabled(storeConfig)) {
+      logger.info(
+        `${chalk.blue('[Info]')} - Merging My Account sections and content-types into the schema`
+      )
+      merge = prepareMyAccountMergeDir(basePath)
+      dirs.push(...merge.dirs)
+    }
 
     if (dirs.length === 0) {
       errorNoCustomization()
@@ -120,11 +139,17 @@ export default class CmsSync extends Command {
 
     const schemaOut = getCpSchemaOutputPath(basePath)
 
-    generateAndUploadSchema({
-      basePath,
-      dirs,
-      schemaOut,
-      dryRun: dryRun ?? false,
-    })
+    try {
+      generateAndUploadSchema({
+        basePath,
+        dirs,
+        schemaOut,
+        dryRun: dryRun ?? false,
+      })
+    } finally {
+      if (merge) {
+        cleanupMyAccountMergeDir(merge.mergeDir)
+      }
+    }
   }
 }

@@ -30,7 +30,7 @@ Each file in `src/commands/` defines one oclif command:
 - `start.ts` — production server
 - `test.ts` — test runner
 - `prepare.ts` — pre-run preparation
-- `cms-sync.ts` — sync CMS content (legacy Headless CMS or CP schema publish, auto-detected from `discovery.config.js` `contentSource.type`)
+- `cms-sync.ts` — sync CMS content (legacy Headless CMS or CP schema publish, auto-detected from `discovery.config.js` `contentSource.type`; in CP mode, when `experimental.enableFaststoreMyAccount` is on, merges the core My Account schemas into a temp dir and includes them in the single generated/uploaded schema)
 - `create.ts` — scaffold new stores
 - `generate.ts` — top-level type generation entry
 - `generate-graphql.ts` — GraphQL type generation

@@ -131,7 +131,9 @@ IMPORTANT: The Faststore Core Team is the only one that needs to add the -l base
 yarn cms-sync
 ```
 
-`cms-sync` detects the content source automatically — in CP mode it generates the schema from your customizations (no `-l` / `base.jsonc`) and uploads it to the Schema Registry. Use `--dry-run` to generate locally without uploading.
+`cms-sync` detects the content source automatically — in CP mode it generates the schema from your customizations and uploads it to the Schema Registry. Use `--dry-run` to generate locally without uploading.
+
+If `experimental.enableFaststoreMyAccount` is enabled, `cms-sync` also merges the core My Account schemas (shipped in `@faststore/core`) into the generated schema. These schemas are intentionally excluded from the published base schema (so they are not in the Schema Registry), so the command copies them into a temporary directory, includes them in the same single `generate-schema`/`upload-schema` run as your own customizations, announces the merge, and removes the temporary directory afterwards.
 
 **FastStore Core team** (publishing the base schema with the core layer):
 

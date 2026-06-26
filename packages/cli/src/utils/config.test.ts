@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { resolveContentSource } from './config'
+import { isMyAccountEnabled, resolveContentSource } from './config'
 import { logger } from './logger'
 
 describe('resolveContentSource', () => {
@@ -37,5 +37,26 @@ describe('resolveContentSource', () => {
       expect.stringContaining('Unsupported contentSource.type "WORDPRESS"')
     )
     expect(exitMock).toHaveBeenCalledWith(1)
+  })
+})
+
+describe('isMyAccountEnabled', () => {
+  it('returns true when experimental.enableFaststoreMyAccount is true', () => {
+    expect(
+      isMyAccountEnabled({ experimental: { enableFaststoreMyAccount: true } })
+    ).toBe(true)
+  })
+
+  it('returns false when explicitly disabled', () => {
+    expect(
+      isMyAccountEnabled({ experimental: { enableFaststoreMyAccount: false } })
+    ).toBe(false)
+  })
+
+  it('returns false when the flag, experimental, or config is absent', () => {
+    expect(isMyAccountEnabled({ experimental: {} })).toBe(false)
+    expect(isMyAccountEnabled({})).toBe(false)
+    expect(isMyAccountEnabled(null)).toBe(false)
+    expect(isMyAccountEnabled(undefined)).toBe(false)
   })
 })
