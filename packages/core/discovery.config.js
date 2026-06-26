@@ -14,25 +14,4 @@ try {
   // Optional local overrides (packages/core/discovery.config.local.js).
 }
 
-const { storeId } = finalConfig.api
-
-finalConfig.rewrites = async () => {
-  if (process.env.NODE_ENV !== 'development') {
-    return { beforeFiles: [] }
-  }
-
-  return {
-    beforeFiles: [
-      {
-        source: '/api/authenticator/:path*',
-        destination: `https://${storeId}.myvtex.com/api/authenticator/:path*`,
-      },
-      {
-        source: '/api/vtexid/:path*',
-        destination: `https://${storeId}.myvtex.com/api/vtexid/:path*`,
-      },
-    ],
-  }
-}
-
 module.exports = finalConfig

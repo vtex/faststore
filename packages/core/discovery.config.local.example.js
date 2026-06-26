@@ -1,6 +1,9 @@
 /**
- * Local overrides for B2B contract switcher development (b2bfaststoredev).
- * Merged by discovery.config.js — safe to customize per developer/account.
+ * Example local overrides for B2B contract switcher development.
+ *
+ * Copy to discovery.config.local.js (gitignored) before running locally:
+ *
+ *   cp discovery.config.local.example.js discovery.config.local.js
  */
 module.exports = {
   plugins: ['@vtex/faststore-plugin-buyer-portal'],
@@ -29,4 +32,26 @@ module.exports = {
       'https://b2bfaststoredev.myvtex.com/cms-releases/webhook-releases',
     ],
   },
+}
+
+// Dev-only: proxy VTEX Identity routes (WebOps handles this in production).
+const { storeId } = module.exports.api
+
+module.exports.rewrites = async () => {
+  if (process.env.NODE_ENV !== 'development') {
+    return { beforeFiles: [] }
+  }
+
+  return {
+    beforeFiles: [
+      {
+        source: '/api/authenticator/:path*',
+        destination: `https://${storeId}.myvtex.com/api/authenticator/:path*`,
+      },
+      {
+        source: '/api/vtexid/:path*',
+        destination: `https://${storeId}.myvtex.com/api/vtexid/:path*`,
+      },
+    ],
+  }
 }
