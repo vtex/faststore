@@ -26,7 +26,7 @@ async function fetchWithRetry(
 }
 
 function getRefreshTokenUrl(): string {
-  if (typeof window !== 'undefined') {
+  if (typeof globalThis.window !== 'undefined') {
     return '/api/vtexid/refreshtoken/webstore'
   }
 
@@ -38,7 +38,7 @@ function getRefreshTokenHeaders(): HeadersInit {
     'content-type': 'application/json',
   }
 
-  if (typeof window === 'undefined') {
+  if (typeof globalThis.window === 'undefined') {
     headers.Host = `${sanitizeHost(new URL(getStoreURL()).origin)}`
   }
 

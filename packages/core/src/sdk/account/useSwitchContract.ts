@@ -42,8 +42,8 @@ export const useSwitchContract = () => {
 
       await clearPersistedSessionState()
 
-      if (typeof window !== 'undefined') {
-        window.location.reload()
+      if (typeof globalThis.window !== 'undefined') {
+        globalThis.window.location.reload()
       }
 
       return true

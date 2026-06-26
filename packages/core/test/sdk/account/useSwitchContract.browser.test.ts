@@ -27,9 +27,9 @@ describe('useSwitchContract', () => {
     mockRefreshTokenRequest.mockResolvedValue({ status: 'success' })
     mockClearPersistedSessionState.mockResolvedValue(undefined)
     mockReload.mockReset()
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis.window, 'location', {
       configurable: true,
-      value: { ...window.location, reload: mockReload },
+      value: { ...globalThis.window.location, reload: mockReload },
     })
     vi.spyOn(
       changeContractTokenModule,
