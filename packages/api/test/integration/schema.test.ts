@@ -92,7 +92,6 @@ const MUTATIONS = [
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
   'startSession',
-  'sendProductViewEvent',
 ]
 
 let schema: GraphQLSchema

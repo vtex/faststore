@@ -709,8 +709,6 @@ export type Mutation = {
   cancelOrder: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization: Maybe<ProcessOrderAuthorizationResponse>;
-  /** Reports a product view event to the personalization engine. */
-  sendProductViewEvent: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
@@ -740,13 +738,6 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
-};
-
-
-export type MutationSendProductViewEventArgs = {
-  product: Scalars['String']['input'];
-  source: InputMaybe<ProductViewSource>;
-  userId: Scalars['String']['input'];
 };
 
 
@@ -915,13 +906,6 @@ export type ProductPriceRange = {
   sellingPrice: Maybe<PriceRange>;
 };
 
-export type ProductViewSource =
-  | 'DESKTOP'
-  | 'MOBILE'
-  | 'MOBILE_APP'
-  | 'WEB_DESKTOP'
-  | 'WEB_MOBILE';
-
 export type Profile = {
   /** Collection of user's address */
   addresses: Maybe<Array<Maybe<ProfileAddress>>>;
@@ -971,7 +955,6 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
-  getCookies: Maybe<VtCookies>;
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
@@ -2775,11 +2758,6 @@ export type ValidateUserData = {
 
 export type Video = {
   videoUrl: Maybe<Scalars['String']['output']>;
-};
-
-export type VtCookies = {
-  vtex_segment: Scalars['String']['output'];
-  vtex_session: Scalars['String']['output'];
 };
 
 export type FetchRecommendationsQueryQueryVariables = Exact<{

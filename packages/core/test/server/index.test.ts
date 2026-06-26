@@ -94,7 +94,6 @@ const MUTATIONS = [
   'uploadFileToOrderEntry',
   'startOrderEntryOperation',
   'startSession',
-  'sendProductViewEvent',
 ]
 
 describe('FastStore GraphQL Layer', () => {

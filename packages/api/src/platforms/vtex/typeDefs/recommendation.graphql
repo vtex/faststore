@@ -183,11 +183,3 @@ type ProductPriceRange {
   sellingPrice: PriceRange
   listPrice: PriceRange
 }
-
-enum ProductViewSource {
-  WEB_DESKTOP
-  WEB_MOBILE
-  MOBILE_APP
-  MOBILE
-  DESKTOP
-}

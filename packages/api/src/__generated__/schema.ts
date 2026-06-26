@@ -734,8 +734,6 @@ export type Mutation = {
   cancelOrder?: Maybe<UserOrderCancel>;
   /** Process Order Authorization */
   processOrderAuthorization?: Maybe<ProcessOrderAuthorizationResponse>;
-  /** Reports a product view event to the personalization engine. */
-  sendProductViewEvent: Scalars['Boolean']['output'];
   /**
    * Submits an uploaded file for bulk import into a VTEX cart via the Order Entry Service.
    * Returns an operationId to poll for the operation status.
@@ -765,13 +763,6 @@ export type MutationCancelOrderArgs = {
 
 export type MutationProcessOrderAuthorizationArgs = {
   data: IProcessOrderAuthorization;
-};
-
-
-export type MutationSendProductViewEventArgs = {
-  product: Scalars['String']['input'];
-  source?: InputMaybe<ProductViewSource>;
-  userId: Scalars['String']['input'];
 };
 
 
@@ -951,14 +942,6 @@ export type ProductPriceRange = {
   __typename?: 'ProductPriceRange';
   listPrice?: Maybe<PriceRange>;
   sellingPrice?: Maybe<PriceRange>;
-};
-
-export const enum ProductViewSource {
-  Desktop = 'DESKTOP',
-  Mobile = 'MOBILE',
-  MobileApp = 'MOBILE_APP',
-  WebDesktop = 'WEB_DESKTOP',
-  WebMobile = 'WEB_MOBILE'
 };
 
 export type Profile = {
