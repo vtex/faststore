@@ -34,6 +34,7 @@ type ContractSwitcherContentProps = {
   ordered: SwitcherContract[]
   search: string
   selectedId: string | null
+  switchError: Error | null
   onSearchChange: (value: string) => void
   onSearchClear: () => void
   onSelectContract: (contractId: string) => void
