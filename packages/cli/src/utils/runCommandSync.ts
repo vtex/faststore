@@ -46,22 +46,29 @@ export const runCommandSync = ({
   errorMessage,
   throws,
   cwd,
+  interactive = false,
 }: {
   cmd: string
   errorMessage: string
   throws: 'warning' | 'error'
   cwd?: string
+  interactive?: boolean
 }) => {
   try {
     logger.log(`[STARTED] ${cmd}`)
 
-    // stdout + stderr are merged via 2>&1 so the captured output holds the
-    // tool's real error. We intentionally do not append --debug/--verbose:
-    // strict toolbelt commands (e.g. `vtex content generate-schema`) reject
-    // unknown flags. Verbose progress logging is gated by DISCOVERY_DEBUG in
-    // the logger itself.
-    const res = execSync(`${cmd} 2>&1`, {
-      stdio: 'pipe',
+    // Interactive mode (stdio: 'inherit') wires the child to the parent TTY so
+    // the toolbelt can prompt the user — e.g. generate-schema's "override
+    // default definitions?" confirmation and upload-schema's version selection.
+    // execSync stays synchronous, preserving generate → upload ordering. Output
+    // goes straight to the terminal, so it can't be captured (and need not be).
+    //
+    // Non-interactive mode merges stdout + stderr via 2>&1 so the captured
+    // output holds the tool's real error. We intentionally do not append
+    // --debug/--verbose: strict toolbelt commands reject unknown flags. Verbose
+    // progress logging is gated by DISCOVERY_DEBUG in the logger itself.
+    const res = execSync(interactive ? cmd : `${cmd} 2>&1`, {
+      stdio: interactive ? 'inherit' : 'pipe',
       cwd,
     })
     logger.log(`[STATUS] ${res?.toString() ?? 'Unknown'}`)

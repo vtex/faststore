@@ -118,12 +118,14 @@ describe('cp-schema', () => {
         cwd: tempDir,
         throws: 'error',
         errorMessage: 'Failed to generate CMS schema',
+        interactive: true,
       })
       expect(runCommandSyncMock.mock.calls[1][0]).toEqual({
         cmd: `vtex content upload-schema ${schemaOut}`,
         cwd: tempDir,
         throws: 'error',
         errorMessage: 'Failed to upload CMS schema',
+        interactive: true,
       })
       expect(runCommandSyncMock.mock.calls[0][0].cmd).not.toContain('-l')
     })

@@ -130,11 +130,15 @@ export function generateAndUploadSchema({
   schemaOut: string
   dryRun: boolean
 }): void {
+  // Interactive: generate-schema prompts to confirm overriding base
+  // definitions (no --yes flag), and upload-schema prompts for the schema
+  // version to publish. stdio must reach the user's TTY.
   runCommandSync({
     cmd: `vtex content generate-schema ${dirs.join(' ')} -o ${schemaOut}`,
     cwd: basePath,
     throws: 'error',
     errorMessage: 'Failed to generate CMS schema',
+    interactive: true,
   })
 
   if (dryRun) {
@@ -146,5 +150,6 @@ export function generateAndUploadSchema({
     cwd: basePath,
     throws: 'error',
     errorMessage: 'Failed to upload CMS schema',
+    interactive: true,
   })
 }
