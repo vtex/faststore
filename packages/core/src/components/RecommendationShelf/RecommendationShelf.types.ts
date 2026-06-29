@@ -17,11 +17,31 @@ export type RecommendationProductCardMapper<TCardProps = ProductCardProps> = (
   index: number
 ) => TCardProps
 
+/**
+ * Source of the products used as context for the recommendation request:
+ * - `'PDP'`: the current product detail page product.
+ * - `'CART'`: the products currently in the cart (useful for cross-sell on the
+ *   cart page).
+ */
+export type ItemContext = 'PDP' | 'CART'
+
 export type RecommendationShelfProps<
   TCardProps extends object = ProductCardProps,
 > = {
   title?: string
   campaignVrn: string
+  /**
+   * Where to read the products used as context for the recommendation request:
+   * - `'PDP'`: the current product detail page product.
+   * - `'CART'`: the products currently in the cart (useful for cross-sell on the
+   *   cart page).
+   *
+   * Only affects campaigns that require product context (cross-sell, similar
+   * items, visual similarity, next interaction). Context-agnostic campaigns
+   * (top items, personalized, last seen, search-based) ignore it.
+   * @default 'PDP'
+   */
+  itemsContext?: ItemContext
   /**
    * Custom card component rendered for each recommended product. Defaults to the
    * core `ProductCard`. This is a code-level override and is not exposed through
@@ -37,25 +57,34 @@ export type RecommendationShelfProps<
    */
   mapProductToProductCard?: RecommendationProductCardMapper<TCardProps>
   /**
-   * Forwarded to the underlying `Carousel`. `id` stays controlled by the shelf.
-   * `itemsPerPage` is derived from `itemsPerPageDesktop`/`itemsPerPageMobile`
-   * based on the viewport.
+   * Number of items per page on desktop viewports. Forwarded to the underlying
+   * `Carousel` as `itemsPerPage` when the viewport is desktop.
+   * @default 4
    */
-  carouselConfiguration?: Pick<
-    CarouselProps,
-    'infiniteMode' | 'variant' | 'controls'
-  > & {
-    /**
-     * Number of items per page on desktop viewports.
-     * @default 4
-     */
-    itemsPerPageDesktop?: number
-    /**
-     * Number of items per page on mobile viewports.
-     * @default 2
-     */
-    itemsPerPageMobile?: number
-  }
+  itemsPerPageDesktop?: number
+  /**
+   * Number of items per page on mobile and tablet viewports. Forwarded to the
+   * underlying `Carousel` as `itemsPerPage` when the viewport is mobile/tablet.
+   * @default 2
+   */
+  itemsPerPageMobile?: number
+  /**
+   * How the carousel navigates between items. Forwarded to the underlying
+   * `Carousel`.
+   * @default 'scroll'
+   */
+  variant?: CarouselProps['variant']
+  /**
+   * Enables infinite navigation (only applies to the `slide` variant).
+   * Forwarded to the underlying `Carousel`.
+   * @default false
+   */
+  infiniteMode?: CarouselProps['infiniteMode']
+  /**
+   * Which navigation elements are visible. Forwarded to the underlying
+   * `Carousel`.
+   */
+  controls?: CarouselProps['controls']
   /**
    * Forwarded to each `ProductCard` rendered by the shelf.
    */

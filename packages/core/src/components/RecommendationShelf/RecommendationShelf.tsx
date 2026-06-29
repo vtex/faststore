@@ -8,6 +8,7 @@ import DefaultProductCard, {
   type ProductCardProps,
 } from 'src/components/product/ProductCard'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { useCart } from 'src/sdk/cart'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import type {
@@ -24,9 +25,9 @@ import { getTypeFromVrn } from './vrn'
 
 function getRecommendationArguments(
   campaignVrn: string,
-  context: { userId?: string | null; pdpProduct?: string }
+  context: { userId?: string | null; contextProducts: string[] }
 ): RecommendationInput | null {
-  const { userId, pdpProduct } = context
+  const { userId, contextProducts } = context
   const type = getTypeFromVrn(campaignVrn)
 
   // `type` is null for malformed/unknown VRNs; bail out so we never fetch (and
@@ -38,13 +39,16 @@ function getRecommendationArguments(
     case 'VISUAL_SIMILARITY':
     case 'CROSS_SELL':
     case 'SIMILAR_ITEMS':
-      if (!pdpProduct) {
+      // These campaigns need product context. Without any (e.g. `CART` context
+      // on an empty cart, or `PDP` context outside a product page), skip the
+      // fetch instead of requesting recommendations we can't anchor.
+      if (contextProducts.length === 0) {
         return null
       }
       return {
         userId,
         campaignVrn,
-        products: [pdpProduct],
+        products: contextProducts,
       }
     default:
       return {
@@ -60,9 +64,14 @@ export function RecommendationShelf<
 >({
   title,
   campaignVrn,
+  itemsContext = 'PDP',
   ProductCard,
   mapProductToProductCard,
-  carouselConfiguration,
+  itemsPerPageDesktop = 4,
+  itemsPerPageMobile = 2,
+  variant = 'scroll',
+  infiniteMode = false,
+  controls,
   productCardConfiguration,
 }: RecommendationShelfProps<TCardProps>) {
   const CardComponent = (ProductCard ??
@@ -77,11 +86,6 @@ export function RecommendationShelf<
 
   const id = useId()
   const { isMobile, isTablet } = useScreenResize()
-  const {
-    itemsPerPageDesktop = 4,
-    itemsPerPageMobile = 2,
-    ...carouselProps
-  } = carouselConfiguration ?? {}
   // Treat mobile and tablet viewports (<= 768px) as "mobile" for paging, which
   // matches the carousel layout the shelf was designed around.
   const itemsPerPage =
@@ -90,10 +94,29 @@ export function RecommendationShelf<
   const userId = useRecommendationUserId(campaignVrn)
 
   const { data: productDetailPage } = usePDP()
+  const { items: cartItems } = useCart()
+
+  // Resolve the products used as context for the request from the configured
+  // source: the current PDP product, or the (deduplicated) cart items.
+  const contextProducts = useMemo(() => {
+    if (itemsContext === 'CART') {
+      return Array.from(
+        new Set(
+          cartItems
+            .map((item) => item.itemOffered.isVariantOf.productGroupID)
+            .filter(Boolean)
+        )
+      )
+    }
+
+    const pdpProduct = productDetailPage?.product.isVariantOf.productGroupID
+
+    return pdpProduct ? [pdpProduct] : []
+  }, [itemsContext, cartItems, productDetailPage])
 
   const recommendationArgs = getRecommendationArguments(campaignVrn, {
     userId,
-    pdpProduct: productDetailPage?.product.isVariantOf.productGroupID,
+    contextProducts,
   })
 
   const { data, isLoading, error } = useRecommendations(recommendationArgs)
@@ -153,9 +176,9 @@ export function RecommendationShelf<
           <Carousel
             id={id}
             itemsPerPage={itemsPerPage}
-            variant="scroll"
-            infiniteMode={false}
-            {...carouselProps}
+            variant={variant}
+            infiniteMode={infiniteMode}
+            controls={controls}
           >
             {items.map((item, index) => {
               const productId = item.isVariantOf.productGroupID
