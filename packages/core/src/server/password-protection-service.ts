@@ -12,7 +12,7 @@ import {
   passwordProtectionTimeouts,
 } from './password-protection/webops-api'
 
-export const COOKIE_NAME = '__fs_auth_token'
+export const COOKIE_NAME = '__fs_password_protection'
 export const TOKEN_TTL_SECONDS = 10 * 60
 /** How long to reuse the RSA public key fetched from WebOps */
 const PUBLIC_KEY_CACHE_MS = 60 * 60 * 1000
@@ -25,7 +25,7 @@ interface TokenPayload {
   exp?: number
 }
 
-interface AuthResult {
+interface StoreProtectionResult {
   response: NextResponse
 }
 
@@ -73,7 +73,7 @@ export function resetPasswordProtectionPublicKeyCacheForTests(): void {
   publicKeyCache = null
 }
 
-export class AuthenticationService {
+export class PasswordProtectionService {
   private readonly storeId: string
 
   constructor() {
@@ -85,7 +85,9 @@ export class AuthenticationService {
     return host.split(':')[0].toLowerCase()
   }
 
-  async authenticateRequest(request: NextRequest): Promise<AuthResult> {
+  async checkStoreProtection(
+    request: NextRequest
+  ): Promise<StoreProtectionResult> {
     if (!this.shouldCheckProtection(request)) {
       return { response: NextResponse.next() }
     }
@@ -104,7 +106,7 @@ export class AuthenticationService {
       }
     }
 
-    return await this.handleNoAuth(request)
+    return await this.handleProtectionCheck(request)
   }
 
   private shouldCheckProtection(request: NextRequest): boolean {
@@ -182,7 +184,7 @@ export class AuthenticationService {
     request: NextRequest,
     expiredToken: string,
     payload: TokenPayload
-  ): Promise<AuthResult> {
+  ): Promise<StoreProtectionResult> {
     try {
       const res = await fetch(renewUrl(), {
         method: 'POST',
@@ -199,7 +201,7 @@ export class AuthenticationService {
 
         if (data.valid && data.token) {
           const response = NextResponse.next()
-          this.setAuthCookie(response, data.token)
+          this.setProtectionCookie(response, data.token)
 
           return { response }
         }
@@ -212,17 +214,19 @@ export class AuthenticationService {
       return { response: NextResponse.next() }
     }
 
-    return { response: this.redirectToLogin(request) }
+    return { response: this.redirectToUnlockPage(request) }
   }
 
-  private async handleNoAuth(request: NextRequest): Promise<AuthResult> {
+  private async handleProtectionCheck(
+    request: NextRequest
+  ): Promise<StoreProtectionResult> {
     try {
       const res = await fetch(protectionStatusUrl(), {
         signal: AbortSignal.timeout(passwordProtectionTimeouts.defaultMs),
       })
 
       if (!res.ok) {
-        return { response: this.redirectToLogin(request) }
+        return { response: this.redirectToUnlockPage(request) }
       }
 
       const status = await res.json()
@@ -231,7 +235,7 @@ export class AuthenticationService {
         const response = NextResponse.next()
 
         if (status.token) {
-          this.setAuthCookie(response, status.token)
+          this.setProtectionCookie(response, status.token)
         }
 
         return { response }
@@ -241,13 +245,13 @@ export class AuthenticationService {
         return { response: NextResponse.next() }
       }
 
-      return { response: this.redirectToLogin(request) }
+      return { response: this.redirectToUnlockPage(request) }
     } catch {
-      return { response: this.redirectToLogin(request) }
+      return { response: this.redirectToUnlockPage(request) }
     }
   }
 
-  private setAuthCookie(response: NextResponse, token: string): void {
+  private setProtectionCookie(response: NextResponse, token: string): void {
     response.cookies.set(COOKIE_NAME, token, {
       httpOnly: true,
       secure: true,
@@ -257,12 +261,12 @@ export class AuthenticationService {
     })
   }
 
-  private redirectToLogin(request: NextRequest): NextResponse {
-    const loginUrl = new URL('/fs-auth-login', request.url)
+  private redirectToUnlockPage(request: NextRequest): NextResponse {
+    const unlockUrl = new URL('/password-protection', request.url)
     const returnTo = `${request.nextUrl.pathname}${request.nextUrl.search}`
-    loginUrl.searchParams.set('returnTo', returnTo)
+    unlockUrl.searchParams.set('returnTo', returnTo)
 
-    const response = NextResponse.redirect(loginUrl)
+    const response = NextResponse.redirect(unlockUrl)
     response.headers.set('Cache-Control', 'no-store')
 
     return response

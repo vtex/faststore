@@ -3,8 +3,8 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { type FormEvent, useState } from 'react'
 
-import { isLoginResponse } from '../../utils/loginResponse'
-import styles from './fs-auth-login.module.scss'
+import { isUnlockResponse } from '../../utils/unlockResponse'
+import styles from './password-protection.module.scss'
 
 export default function PasswordProtectionLogin() {
   const router = useRouter()
@@ -21,7 +21,10 @@ export default function PasswordProtectionLogin() {
     setError('')
 
     try {
-      const url = new URL('/api/fs/auth/login', globalThis.location.origin)
+      const url = new URL(
+        '/api/fs/password-protection/unlock',
+        globalThis.location.origin
+      )
       url.searchParams.set('returnTo', returnTo)
 
       const response = await fetch(url.toString(), {
@@ -32,7 +35,7 @@ export default function PasswordProtectionLogin() {
 
       const data: unknown = await response.json()
 
-      if (!isLoginResponse(data)) {
+      if (!isUnlockResponse(data)) {
         setError('Service temporarily unavailable')
         return
       }
@@ -50,7 +53,7 @@ export default function PasswordProtectionLogin() {
   }
 
   return (
-    <div className={styles.fsAuthLogin}>
+    <div className={styles.fsPasswordProtection}>
       <Head>
         <meta name="robots" content="noindex,nofollow" />
       </Head>
@@ -63,7 +66,7 @@ export default function PasswordProtectionLogin() {
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <InputField
-            id="fs-auth-password"
+            id="password-protection-input"
             label="Password"
             type="password"
             value={password}
@@ -81,7 +84,7 @@ export default function PasswordProtectionLogin() {
             disabled={loading}
             loading={loading}
           >
-            Login
+            Unlock
           </Button>
         </form>
       </div>

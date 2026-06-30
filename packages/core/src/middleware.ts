@@ -1,6 +1,6 @@
 /*
  * Middleware is always active. It runs:
- * 1. Password protection (AuthenticationService) — when applicable (default/custom domains per env).
+ * 1. Password protection (PasswordProtectionService) — when applicable (default/custom domains per env).
  * 2. Redirects — only when ENABLE_REDIRECTS_MIDDLEWARE is set at runtime.
  */
 
@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
 
-import { AuthenticationService } from './server/authentication-service'
+import { PasswordProtectionService } from './server/password-protection-service'
 
 type Redirect = {
   from: string
@@ -31,19 +31,20 @@ const redirectsClient = new DynamoRedirectsClient()
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
-  let authResult: Awaited<
-    ReturnType<AuthenticationService['authenticateRequest']>
+  let storeProtectionResult: Awaited<
+    ReturnType<PasswordProtectionService['checkStoreProtection']>
   >
 
   try {
-    const authService = new AuthenticationService()
-    authResult = await authService.authenticateRequest(request)
+    const protectionService = new PasswordProtectionService()
+    storeProtectionResult =
+      await protectionService.checkStoreProtection(request)
   } catch {
     return NextResponse.error()
   }
 
-  if (authResult.response.status !== 200) {
-    return authResult.response
+  if (storeProtectionResult.response.status !== 200) {
+    return storeProtectionResult.response
   }
 
   if (process.env.ENABLE_REDIRECTS_MIDDLEWARE === 'true') {
@@ -54,7 +55,7 @@ export async function middleware(request: NextRequest) {
       const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
       const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
 
-      for (const cookie of authResult.response.cookies.getAll()) {
+      for (const cookie of storeProtectionResult.response.cookies.getAll()) {
         response.cookies.set(cookie)
       }
 
@@ -67,7 +68,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return authResult.response
+  return storeProtectionResult.response
 }
 
 export const config = {
@@ -75,13 +76,13 @@ export const config = {
     /*
      * Match all paths including `/`
      * Exclude:
-     * - api (e.g. api/fs/auth/login)
+     * - api (e.g. api/fs/password-protection/unlock)
      * - _next/static, _next/image
      * - favicon.ico
-     * - fs-auth-login (login page)
+     * - password-protection (unlock page)
      * - ~partytown (partytown scripts)
      */
     '/',
-    '/((?!api|_next/static|_next/image|favicon.ico|fs-auth-login|~partytown).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|password-protection|~partytown).*)',
   ],
 }
