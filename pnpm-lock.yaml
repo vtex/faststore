@@ -668,9 +668,6 @@ importers:
       '@opentelemetry/sdk-trace-node':
         specifier: ^2.8.0
         version: 2.8.0(@opentelemetry/api@1.9.0)
-      '@vtex/diagnostics-semconv':
-        specifier: ^5.1.1
-        version: 5.1.1
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -4796,10 +4793,6 @@ packages:
   '@vtex/client-cp@0.6.0':
     resolution: {integrity: sha512-+ijNI8uOIB84oOSZFiEmEcjXe23sK9lwTyvyoB72y1gS7Xfqgwn93F9gzrbYjxerPNZTb8ZSlsGBLWxCx1ONBw==}
     engines: {node: '>=16'}
-
-  '@vtex/diagnostics-semconv@5.1.1':
-    resolution: {integrity: sha512-qkGFvmAbRlsYS+MoXLJchKsVc5PK+wZT9i3Eel7XvfVLZDYo6jmZ8k0ew0cQlwqhPpEXE53NJ82cLoTPxIG9lg==}
-    engines: {node: '>=14'}
 
   '@vtex/faststore-sdk@0.1.1-canary.5':
     resolution: {integrity: sha512-yzZFhp9hRMP+oV/wmNYuv7Cwwbm2j5EcALQQa/X59a1xXpk2ZyHAwmFc61fTFO8mQkOc3HK2ZY2R9BtF78NS+Q==}
@@ -16968,8 +16961,6 @@ snapshots:
       axios: 1.13.5
     transitivePeerDependencies:
       - debug
-
-  '@vtex/diagnostics-semconv@5.1.1': {}
 
   '@vtex/faststore-sdk@0.1.1-canary.5': {}
 

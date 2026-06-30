@@ -1,10 +1,5 @@
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import { resourceFromAttributes } from '@opentelemetry/resources'
-import {
-  ATTR_VTEX_ACCOUNT_NAME,
-  ATTR_VTEX_APPLICATION_ID,
-  ATTR_VTEX_DIAGNOSTICS_NAME,
-} from '@vtex/diagnostics-semconv'
 import { traceExporter } from './tracer'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
 import { UndiciInstrumentation } from '@opentelemetry/instrumentation-undici'
@@ -23,9 +18,9 @@ export async function getTelemetryClient(opt: {
   const resource = resourceFromAttributes({
     'service.name': opt.serviceName,
     'service.version': opt.version,
-    [ATTR_VTEX_ACCOUNT_NAME]: opt.account ?? 'unknown',
-    [ATTR_VTEX_APPLICATION_ID]: opt.serviceName,
-    [ATTR_VTEX_DIAGNOSTICS_NAME]: 'faststore_custom',
+    'vtex.account.name': opt.account ?? 'unknown',
+    'vtex.application.id': opt.serviceName,
+    'vtex.diagnostics.name': 'faststore_custom',
     '@faststore_version': opt.version,
     '@faststore_package_name': opt.packageName,
     '@faststore_account_name': opt.account ?? 'unknown',
