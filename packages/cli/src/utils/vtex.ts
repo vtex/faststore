@@ -1,11 +1,12 @@
 /**
  * Preflight checks for the `vtex` toolbelt used by the CP flow of `cms-sync`.
  *
- * The CP flow runs `vtex content generate-schema`/`upload-schema` through
- * `runCommandSync` (non-interactive, `stdio: 'pipe'`). If the toolbelt is
- * missing or the user is logged out / logged into the wrong account, those
- * commands either fail silently or stop at an interactive login prompt that
- * never gets answered. These checks surface an actionable error up front.
+ * The CP flow shells out to `vtex content generate-schema`/`upload-schema`. If
+ * the toolbelt is missing, the user is logged out, or logged into the wrong
+ * account, those commands either fail opaquely or stall on an interactive login
+ * prompt before the dev can answer the real schema prompts. Running these
+ * checks first surfaces an actionable error (install / `vtex login` /
+ * `vtex switch`) up front, against the store's `api.storeId`.
  */
 import { execSync } from 'node:child_process'
 import chalk from 'chalk'

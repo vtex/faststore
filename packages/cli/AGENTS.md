@@ -30,7 +30,7 @@ Each file in `src/commands/` defines one oclif command:
 - `start.ts` — production server
 - `test.ts` — test runner
 - `prepare.ts` — pre-run preparation
-- `cms-sync.ts` — sync CMS content (legacy Headless CMS or CP schema publish, auto-detected from `discovery.config.js` `contentSource.type`; in CP mode, when `experimental.enableFaststoreMyAccount` is on, merges the core My Account schemas into a temp dir and includes them in the single generated/uploaded schema)
+- `cms-sync.ts` — sync CMS content (legacy Headless CMS or CP schema publish, auto-detected from `discovery.config.js` `contentSource.type`). CP mode runs a pre-flight (`vtex --version` + `vtex whoami` vs `api.storeId`, via `utils/vtex.ts`), then `generate-schema`/`upload-schema` **interactively** with paths relative to the store root. When `experimental.enableFaststoreMyAccount` is on, it file-merges the core My Account schemas with the store's `cms/faststore/{components,pages}` into a staging dir under `.faststore` (store overrides core) and uses those two merged dirs as the single generate/upload input.
 - `create.ts` — scaffold new stores
 - `generate.ts` — top-level type generation entry
 - `generate-graphql.ts` — GraphQL type generation
