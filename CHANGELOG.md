@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.100.3](https://github.com/vtex/faststore/compare/v3.100.2...v3.100.3) (2026-06-30)
+
+### Bug Fixes
+
+- align password-protection vocabulary in v3 (unlock, not login) ([#3404](https://github.com/vtex/faststore/issues/3404)) ([30222fc](https://github.com/vtex/faststore/commit/30222fcde2b180eb3ded421949a2359917ba53d4)), closes [#3276](https://github.com/vtex/faststore/issues/3276)
+
 ## [3.100.2](https://github.com/vtex/faststore/compare/v3.100.1...v3.100.2) (2026-06-11)
 
 ### Bug Fixes
