@@ -79,3 +79,6 @@ export type {
   Locale,
 } from '../sdk/localization/types'
 export type { UseBindingSelectorReturn } from '../sdk/localization/useBindingSelector'
+export { useLink as useLink_unstable } from '../sdk/ui/useLink'
+export { default as Link_unstable } from '../components/ui/Link'
+export { localizeRedirectDestination as localizeRedirectDestination_unstable } from '../utils/localization/localizeRedirectDestination'

@@ -1,4 +1,4 @@
-import { Link } from '@faststore/ui'
+import Link from 'src/components/ui/Link'
 
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
