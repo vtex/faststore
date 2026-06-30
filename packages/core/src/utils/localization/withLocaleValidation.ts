@@ -23,12 +23,6 @@ export function withLocaleValidationSSR<P extends Record<string, any>>(
       return getServerSidePropsFn(context)
     }
 
-    // Skip locale validation for private/authenticated routes
-    const pathname = req.url?.split('?')[0] ?? ''
-    if (pathname.startsWith('/pvt/')) {
-      return getServerSidePropsFn(context)
-    }
-
     const isValid = validateLocaleForHostname(hostname, locale)
 
     if (!isValid) {

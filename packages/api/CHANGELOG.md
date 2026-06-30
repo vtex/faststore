@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.4](https://github.com/vtex/faststore/compare/v4.4.0-dev.3...v4.4.0-dev.4) (2026-06-30)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.4.0-dev.3](https://github.com/vtex/faststore/compare/v4.4.0-dev.2...v4.4.0-dev.3) (2026-06-29)
+
+### Bug Fixes
+
+- sync IS locale with URL and selectedFacets on navigation ([#3405](https://github.com/vtex/faststore/issues/3405)) ([90d644d](https://github.com/vtex/faststore/commit/90d644dcf7a232c3f2bea316658580b10108b502)), closes [#3401](https://github.com/vtex/faststore/issues/3401) [#3401](https://github.com/vtex/faststore/issues/3401)
+
+# [4.4.0-dev.2](https://github.com/vtex/faststore/compare/v4.4.0-dev.1...v4.4.0-dev.2) (2026-06-25)
+
+**Note:** Version bump only for package @faststore/api
+
+# [4.4.0-dev.1](https://github.com/vtex/faststore/compare/v4.4.0-dev.0...v4.4.0-dev.1) (2026-06-24)
+
+**Note:** Version bump only for package @faststore/api
+
 # [4.4.0-dev.0](https://github.com/vtex/faststore/compare/v4.3.1-dev.0...v4.4.0-dev.0) (2026-06-19)
 
 ### Features

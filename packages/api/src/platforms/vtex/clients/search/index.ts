@@ -81,7 +81,9 @@ function getRegionIdFromContext(ctx: GraphqlContext): string | undefined {
 function getSegmentLocale(ctx: GraphqlContext): string {
   const segment = parseSegmentCookie(ctx.headers?.cookie)
 
-  return (segment.cultureInfo as string | undefined) ?? ctx.storage.locale
+  // Prefer ctx.storage.locale (set from trusted selectedFacets) over the
+  // vtex_segment cookie, which can lag on hard locale-switch navigation.
+  return ctx.storage.locale || (segment.cultureInfo as string | undefined) || ''
 }
 
 export const IntelligentSearch = (

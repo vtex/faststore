@@ -11,6 +11,10 @@ import {
 } from '@faststore/ui'
 
 import { useSetPassword } from 'src/sdk/account/useSetPassword'
+import {
+  type SecuritySectionLabels,
+  resolveSecurityLabels,
+} from './securityLabels'
 import styles from './styles.module.scss'
 
 type SecurityDrawerProps = {
@@ -18,21 +22,24 @@ type SecurityDrawerProps = {
   isOpen: boolean
   onClose: () => void
   accountName?: string
+  labels?: SecuritySectionLabels
 }
-
-const validations = [
-  { label: '8 characters', test: (v: string) => v.length >= 8 },
-  { label: '1 uppercase letter', test: (v: string) => /[A-Z]/.test(v) },
-  { label: '1 lowercase letter', test: (v: string) => /[a-z]/.test(v) },
-  { label: '1 number', test: (v: string) => /\d/.test(v) },
-]
 
 export const SecurityDrawer = ({
   userEmail,
   accountName,
   isOpen,
   onClose,
+  labels: labelsProp,
 }: SecurityDrawerProps) => {
+  const labels = resolveSecurityLabels(labelsProp)
+
+  const validations = [
+    { label: labels.rule8Chars, test: (v: string) => v.length >= 8 },
+    { label: labels.rule1Uppercase, test: (v: string) => /[A-Z]/.test(v) },
+    { label: labels.rule1Lowercase, test: (v: string) => /[a-z]/.test(v) },
+    { label: labels.rule1Number, test: (v: string) => /\d/.test(v) },
+  ]
   const { fade, fadeOut } = useFadeEffect()
   const { pushToast } = useUI()
 
@@ -64,17 +71,17 @@ export const SecurityDrawer = ({
 
   const handleSetPassword = async () => {
     if (!userEmail) {
-      setFormError('Email is required to set a new password.')
+      setFormError(labels.emailRequiredError)
       return
     }
 
     if (!newPassword || !currentPassword) {
-      setFormError('All fields are required to set a new password.')
+      setFormError(labels.allFieldsRequiredError)
       return
     }
 
     if (newPassword === currentPassword) {
-      setFormError('New password cannot be the same as the current password.')
+      setFormError(labels.samePasswordError)
       return
     }
 
@@ -100,7 +107,7 @@ export const SecurityDrawer = ({
         pushToast({
           title: 'Success setting password',
           status: 'INFO',
-          message: 'Password updated successfully',
+          message: labels.passwordUpdatedToast,
           icon: <Icon width={30} height={30} name="CircleWavyCheck" />,
         })
 
@@ -111,7 +118,7 @@ export const SecurityDrawer = ({
       pushToast({
         title: 'Error setting password',
         status: 'ERROR',
-        message: 'Failed to set password.',
+        message: labels.passwordFailedToast,
         icon: <Icon width={30} height={30} name="CircleWavyWarning" />,
       })
     }
@@ -129,7 +136,9 @@ export const SecurityDrawer = ({
       overlayProps={{ className: styles.section }}
     >
       <SlideOverHeader data-fs-security-drawer-header onClose={handleClose}>
-        <h1 data-fs-security-drawer-header-title>Reset password</h1>
+        <h1 data-fs-security-drawer-header-title>
+          {labels.resetPasswordLabel}
+        </h1>
       </SlideOverHeader>
 
       <div data-fs-security-drawer-body>
@@ -138,7 +147,7 @@ export const SecurityDrawer = ({
             data-fs-security-drawer-input
             id="security-drawer-input-current-password"
             type={showCurrentPassword ? 'text' : 'password'}
-            placeholder="Current Password"
+            placeholder={labels.currentPasswordLabel}
             inputMode="text"
             value={currentPassword}
             onChange={(e) => {
@@ -149,7 +158,7 @@ export const SecurityDrawer = ({
           <IconButton
             data-fs-security-drawer-input-password-toggle
             size="small"
-            aria-label="Show Password"
+            aria-label={labels.showPasswordAria}
             onClick={() => setShowCurrentPassword((prev) => !prev)}
             icon={
               showCurrentPassword ? (
@@ -166,7 +175,7 @@ export const SecurityDrawer = ({
             data-fs-security-drawer-input
             id="security-drawer-input-new-password"
             type={showNewPassword ? 'text' : 'password'}
-            placeholder="New Password"
+            placeholder={labels.newPasswordLabel}
             inputMode="text"
             value={newPassword}
             onChange={(e) => {
@@ -177,7 +186,7 @@ export const SecurityDrawer = ({
           <IconButton
             data-fs-security-drawer-input-password-toggle
             size="small"
-            aria-label="Show Password"
+            aria-label={labels.showPasswordAria}
             onClick={() => setShowNewPassword((prev) => !prev)}
             icon={
               showNewPassword ? <Icon name="EyeSlash" /> : <Icon name="Eye" />
@@ -200,7 +209,7 @@ export const SecurityDrawer = ({
         {newPassword.length > 0 && (
           <div data-fs-security-drawer-password-rules-container>
             <p data-fs-security-drawer-password-rules-title>
-              Your password must have at least:
+              {labels.passwordRulesIntro}
             </p>
 
             <ul data-fs-security-drawer-password-rules-list>
@@ -225,7 +234,7 @@ export const SecurityDrawer = ({
 
       <footer data-fs-security-drawer-footer>
         <Button variant="secondary" onClick={handleClose}>
-          Cancel
+          {labels.cancelLabel}
         </Button>
 
         <Button
@@ -235,7 +244,7 @@ export const SecurityDrawer = ({
           disabled={loading || !currentPassword || !newPassword || !allValid}
           onClick={handleSetPassword}
         >
-          Save Password
+          {labels.savePasswordLabel}
         </Button>
       </footer>
     </SlideOver>

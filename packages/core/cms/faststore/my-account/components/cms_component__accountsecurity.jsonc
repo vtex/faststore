@@ -1,0 +1,104 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountSecurity",
+  "$componentTitle": "Account Security",
+  "title": "Account Security",
+  "description": "Security section for My Account",
+  "type": "object",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "title": "Page Title",
+      "default": "Security"
+    },
+    "passwordLabel": {
+      "type": "string",
+      "title": "Password Label",
+      "default": "Password"
+    },
+    "resetPasswordLabel": {
+      "type": "string",
+      "title": "Reset Password Label",
+      "default": "Reset password"
+    },
+    "currentPasswordLabel": {
+      "type": "string",
+      "title": "Current Password Label",
+      "default": "Current Password"
+    },
+    "newPasswordLabel": {
+      "type": "string",
+      "title": "New Password Label",
+      "default": "New Password"
+    },
+    "showPasswordAria": {
+      "type": "string",
+      "title": "Show Password Aria Label",
+      "default": "Show Password"
+    },
+    "cancelLabel": {
+      "type": "string",
+      "title": "Cancel Label",
+      "default": "Cancel"
+    },
+    "savePasswordLabel": {
+      "type": "string",
+      "title": "Save Password Label",
+      "default": "Save Password"
+    },
+    "passwordRulesIntro": {
+      "type": "string",
+      "title": "Password Rules Intro",
+      "default": "Your password must have at least:"
+    },
+    "rule8Chars": {
+      "type": "string",
+      "title": "Rule 8 Characters",
+      "default": "8 characters"
+    },
+    "rule1Uppercase": {
+      "type": "string",
+      "title": "Rule 1 Uppercase",
+      "default": "1 uppercase letter"
+    },
+    "rule1Lowercase": {
+      "type": "string",
+      "title": "Rule 1 Lowercase",
+      "default": "1 lowercase letter"
+    },
+    "rule1Number": {
+      "type": "string",
+      "title": "Rule 1 Number",
+      "default": "1 number"
+    },
+    "emailRequiredError": {
+      "type": "string",
+      "title": "Email Required Error",
+      "default": "Email is required"
+    },
+    "allFieldsRequiredError": {
+      "type": "string",
+      "title": "All Fields Required Error",
+      "default": "All fields are required"
+    },
+    "samePasswordError": {
+      "type": "string",
+      "title": "Same Password Error",
+      "default": "New password cannot be the same as the current password"
+    },
+    "passwordUpdatedToast": {
+      "type": "string",
+      "title": "Password Updated Toast",
+      "default": "Password updated successfully"
+    },
+    "passwordFailedToast": {
+      "type": "string",
+      "title": "Password Failed Toast",
+      "default": "Failed to set password."
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}
