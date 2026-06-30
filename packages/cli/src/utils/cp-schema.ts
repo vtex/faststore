@@ -56,11 +56,6 @@ export type MyAccountMerge = {
  * and the store's own customizations, ready to be fed to
  * `generate-schema <componentsPath> <pagesPath>`.
  *
- * `generate-schema` accepts exactly two positional directory arguments, so the
- * merge has to happen at the file level (not by passing extra directories).
- * Core My Account files are copied first and the store's files are copied on
- * top, so a store that customizes a My Account file keeps its own version.
- *
  * The staging dir lives inside the store's `.faststore` tmp folder (created on
  * demand) and the returned paths are relative to `basePath`. The toolbelt
  * resolves positional args against the cwd (`path.join(cwd, arg)`), so an
@@ -89,26 +84,31 @@ export function prepareMyAccountMergeDir(basePath: string): MyAccountMerge {
   mkdirSync(tmpDir, { recursive: true })
   const mergeDir = mkdtempSync(path.join(tmpDir, 'cms-myaccount-'))
 
-  const dirs: string[] = []
-  for (const subdir of MY_ACCOUNT_SUBDIRS) {
-    const dest = path.join(mergeDir, subdir)
-    mkdirSync(dest, { recursive: true })
+  try {
+    const dirs: string[] = []
+    for (const subdir of MY_ACCOUNT_SUBDIRS) {
+      const dest = path.join(mergeDir, subdir)
+      mkdirSync(dest, { recursive: true })
 
-    // Core My Account first; the store's customizations override on collision.
-    const coreSource = path.join(coreMyAccountDir, subdir)
-    if (existsSync(coreSource)) {
-      cpSync(coreSource, dest, { recursive: true })
+      // Core My Account first; the store's customizations override on collision.
+      const coreSource = path.join(coreMyAccountDir, subdir)
+      if (existsSync(coreSource)) {
+        cpSync(coreSource, dest, { recursive: true })
+      }
+
+      const storeSource = path.join(userCMSDir, subdir)
+      if (existsSync(storeSource)) {
+        cpSync(storeSource, dest, { recursive: true })
+      }
+
+      dirs.push(path.relative(basePath, dest))
     }
 
-    const storeSource = path.join(userCMSDir, subdir)
-    if (existsSync(storeSource)) {
-      cpSync(storeSource, dest, { recursive: true })
-    }
-
-    dirs.push(path.relative(basePath, dest))
+    return { mergeDir, dirs }
+  } catch (error) {
+    cleanupMyAccountMergeDir(mergeDir)
+    throw error
   }
-
-  return { mergeDir, dirs }
 }
 
 /**

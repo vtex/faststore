@@ -275,6 +275,28 @@ describe('cp-schema', () => {
       }
     })
 
+    it('removes the staging dir and rethrows when a copy fails midway', () => {
+      // core/my-account exists (so the guard passes), but `components` is a FILE.
+      // cpSync(file → staging dir) throws, so the copy fails after the staging
+      // dir was created — exercising the self-cleanup path.
+      const coreDir = path.join(tempDir, 'core', 'cms', 'faststore')
+      const myAccount = path.join(coreDir, 'my-account')
+      fs.mkdirSync(myAccount, { recursive: true })
+      fs.writeFileSync(path.join(myAccount, 'components'), 'not a dir')
+      coreCMSDirMock.mockReturnValue(coreDir)
+
+      expect(() => prepareMyAccountMergeDir(tempDir)).toThrow()
+
+      // The staging dir was created under .faststore then removed on failure.
+      const stagingParent = path.join(tempDir, '.faststore')
+      const leftovers = fs.existsSync(stagingParent)
+        ? fs
+            .readdirSync(stagingParent)
+            .filter((name) => name.startsWith('cms-myaccount-'))
+        : []
+      expect(leftovers).toEqual([])
+    })
+
     it('errors and exits when core My Account schemas are missing', () => {
       coreCMSDirMock.mockReturnValue(
         path.join(tempDir, 'core-without-myaccount')

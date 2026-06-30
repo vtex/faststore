@@ -129,7 +129,6 @@ export default class CmsSync extends Command {
     assertVtexReadyForAccount(storeConfig?.api?.storeId)
 
     let merge: MyAccountMerge | undefined
-    let dirs: string[]
 
     if (isMyAccountEnabled(storeConfig)) {
       logger.info(
@@ -138,16 +137,26 @@ export default class CmsSync extends Command {
       // The merge dir already contains the store's own customizations merged
       // with the core My Account schemas, so it replaces the raw store dirs.
       merge = prepareMyAccountMergeDir(basePath)
-      dirs = merge.dirs
-    } else {
-      dirs = getExistingCpDirs(basePath)
     }
+
+    const dirs = merge ? merge.dirs : getExistingCpDirs(basePath)
 
     if (dirs.length === 0) {
       errorNoCustomization()
     }
 
     const schemaOut = getCpSchemaOutputPath(basePath)
+
+    // A toolbelt failure inside generateAndUploadSchema exits via process.exit(),
+    // which bypasses `finally`. Register the cleanup on `exit` so the staging dir
+    // is removed on that path too, then run it synchronously and drop the hook on
+    // every normal path (success, dry-run, or a thrown error).
+    let cleanup: (() => void) | undefined
+    if (merge) {
+      const { mergeDir } = merge
+      cleanup = () => cleanupMyAccountMergeDir(mergeDir)
+      process.once('exit', cleanup)
+    }
 
     try {
       generateAndUploadSchema({
@@ -157,8 +166,9 @@ export default class CmsSync extends Command {
         dryRun: dryRun ?? false,
       })
     } finally {
-      if (merge) {
-        cleanupMyAccountMergeDir(merge.mergeDir)
+      if (cleanup) {
+        process.removeListener('exit', cleanup)
+        cleanup()
       }
     }
   }

@@ -343,6 +343,42 @@ describe('CmsSync', () => {
       expect(cleanupMyAccountMergeDirMock).toHaveBeenCalledWith(mergeDir)
     })
 
+    it('cleans up via an exit hook so a toolbelt process.exit cannot leak the staging dir', async () => {
+      writeDiscoveryConfig(tempDir, {
+        contentSource: { type: 'CP' },
+        experimental: { enableFaststoreMyAccount: true },
+      })
+      getExistingCpDirsMock.mockReturnValue([])
+
+      let exitHandler: ((...args: unknown[]) => void) | undefined
+      const onceSpy = vi.spyOn(process, 'once').mockImplementation(((
+        event: string,
+        handler: (...args: unknown[]) => void
+      ) => {
+        if (event === 'exit') {
+          exitHandler = handler
+        }
+        return process
+      }) as never)
+      const removeSpy = vi.spyOn(process, 'removeListener')
+
+      await runCmsSync({ storeDir: tempDir })
+
+      expect(onceSpy).toHaveBeenCalledWith('exit', expect.any(Function))
+      // The hook is removed on the normal path so listeners don't accumulate.
+      expect(removeSpy).toHaveBeenCalledWith('exit', exitHandler)
+
+      // The exit hook itself removes the staging dir — the guarantee for the
+      // process.exit() path that bypasses `finally`.
+      cleanupMyAccountMergeDirMock.mockClear()
+      expect(exitHandler).toBeDefined()
+      exitHandler?.()
+      expect(cleanupMyAccountMergeDirMock).toHaveBeenCalledWith(mergeDir)
+
+      onceSpy.mockRestore()
+      removeSpy.mockRestore()
+    })
+
     it('does not generate when core My Account schemas are missing (matrix #14)', async () => {
       writeDiscoveryConfig(tempDir, {
         contentSource: { type: 'CP' },
