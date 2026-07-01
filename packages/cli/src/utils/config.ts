@@ -8,6 +8,49 @@ import { logger } from './logger'
 
 const configFileName = 'discovery.config.js'
 
+export type ResolvedContentSource = 'CMS' | 'CP'
+
+/**
+ * Minimal config shape consumed when deciding whether to merge My Account
+ * schemas. Kept loose on purpose so callers can pass their own store config.
+ */
+type MyAccountConfig = {
+  experimental?: {
+    enableFaststoreMyAccount?: boolean
+  }
+}
+
+/**
+ * Whether FastStore My Account is enabled in the store config.
+ * When enabled (CP mode only), `cms-sync` merges the core My Account CMS
+ * schemas into the generated schema. Defaults to false when absent.
+ */
+export function isMyAccountEnabled(config?: MyAccountConfig | null): boolean {
+  return config?.experimental?.enableFaststoreMyAccount === true
+}
+
+/**
+ * Resolves the store's contentSource.type to a supported CMS flow.
+ * Absent or CMS → legacy Headless CMS; CP → Content Platform schema publish.
+ */
+export function resolveContentSource(rawType?: string): ResolvedContentSource {
+  const normalized = rawType?.toUpperCase()
+
+  switch (normalized) {
+    case undefined:
+    case 'CMS':
+      return 'CMS'
+    case 'CP':
+      return 'CP'
+    default: {
+      logger.error(
+        `${chalk.red('[Error]')} - Unsupported contentSource.type "${rawType}". Expected "CMS" or "CP".`
+      )
+      process.exit(1)
+    }
+  }
+}
+
 /**
  * Partial type for discovery config with only the properties used by this module
  */

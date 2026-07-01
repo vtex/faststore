@@ -17,8 +17,8 @@ const showError = ({
   logger.error(`${chalk.red('error')} - ${message}`)
 
   if (cmd && output) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${JSON.stringify(cmd)} error ↓`)
-    logger.log(output)
+    logger.error(`${chalk.magenta('$')} ${cmd}`)
+    logger.error(output)
   }
 
   process.exit(1)
@@ -36,8 +36,8 @@ const showWarning = ({
   logger.warn(`${chalk.yellow('warn')} - ${message}`)
 
   if (cmd && output) {
-    logger.log(`${chalk.magenta('DEBUG')} - $ ${JSON.stringify(cmd)} warn ↓`)
-    logger.log(output)
+    logger.warn(`${chalk.magenta('$')} ${cmd}`)
+    logger.warn(output)
   }
 }
 
@@ -46,24 +46,31 @@ export const runCommandSync = ({
   errorMessage,
   throws,
   cwd,
+  interactive = false,
 }: {
   cmd: string
   errorMessage: string
   throws: 'warning' | 'error'
   cwd?: string
+  interactive?: boolean
 }) => {
-  const debug = process.env.DISCOVERY_DEBUG === 'true' ? true : false
-
   try {
     logger.log(`[STARTED] ${cmd}`)
 
-    const res = execSync(
-      debug ? `${cmd} --debug --verbose 2>&1` : `${cmd} 2>&1`,
-      {
-        stdio: 'pipe',
-        cwd,
-      }
-    )
+    // Interactive mode (stdio: 'inherit') wires the child to the parent TTY so
+    // the toolbelt can prompt the user — e.g. generate-schema's "override
+    // default definitions?" confirmation and upload-schema's version selection.
+    // execSync stays synchronous, preserving generate → upload ordering. Output
+    // goes straight to the terminal, so it can't be captured (and need not be).
+    //
+    // Non-interactive mode merges stdout + stderr via 2>&1 so the captured
+    // output holds the tool's real error. We intentionally do not append
+    // --debug/--verbose: strict toolbelt commands reject unknown flags. Verbose
+    // progress logging is gated by DISCOVERY_DEBUG in the logger itself.
+    const res = execSync(interactive ? cmd : `${cmd} 2>&1`, {
+      stdio: interactive ? 'inherit' : 'pipe',
+      cwd,
+    })
     logger.log(`[STATUS] ${res?.toString() ?? 'Unknown'}`)
     logger.log(`[FINISHED] ${cmd}`)
   } catch (error) {
