@@ -26,6 +26,7 @@ vi.mock('../../../../../src/platforms/vtex/clients/fetch.ts', () => ({
 function makeCtx(overrides: {
   storageLocale?: string
   cookie?: string
+  localizationEnabled?: boolean
 }): GraphqlContext {
   return {
     id: 'test',
@@ -43,6 +44,10 @@ function makeCtx(overrides: {
     },
     account: 'storeframework',
     OTEL: {},
+    discoveryConfig:
+      overrides.localizationEnabled != null
+        ? { localization: { enabled: overrides.localizationEnabled } }
+        : undefined,
   } as unknown as GraphqlContext
 }
 
@@ -53,7 +58,7 @@ function capturedLocale(): string | null {
 }
 
 describe('IntelligentSearch — getSegmentLocale priority', () => {
-  it('prefers ctx.storage.locale over vtex_segment cookie cultureInfo', async () => {
+  it('prefers ctx.storage.locale over vtex_segment cookie when localization is enabled', async () => {
     // Simulate stale vtex_segment cookie from previous locale (en-US) while the
     // server-side ctx.storage.locale is already updated to it-IT.
     const enUSSegment = Buffer.from(
@@ -65,6 +70,7 @@ describe('IntelligentSearch — getSegmentLocale priority', () => {
     const ctx = makeCtx({
       storageLocale: 'it-IT',
       cookie: `vtex_segment=${enUSSegment}`,
+      localizationEnabled: true,
     })
 
     const is = IntelligentSearch(searchOptions, ctx)
@@ -73,7 +79,43 @@ describe('IntelligentSearch — getSegmentLocale priority', () => {
     expect(capturedLocale()).toBe('it-IT')
   })
 
-  it('falls back to vtex_segment cultureInfo when ctx.storage.locale is empty', async () => {
+  it('ignores ctx.storage.locale and uses vtex_segment cultureInfo when localization is disabled', async () => {
+    // Non-localized stores: the cookie's cultureInfo is the authoritative source.
+    const enUSSegment = Buffer.from(
+      JSON.stringify({ cultureInfo: 'en-US' })
+    ).toString('base64')
+
+    fetchAPIMocked.mockResolvedValueOnce({ products: { edges: [] } })
+
+    const ctx = makeCtx({
+      storageLocale: 'it-IT', // should be ignored — localization disabled
+      cookie: `vtex_segment=${enUSSegment}`,
+      localizationEnabled: false,
+    })
+
+    const is = IntelligentSearch(searchOptions, ctx)
+    await is.products({ page: 0, count: 1 })
+
+    expect(capturedLocale()).toBe('en-US')
+  })
+
+  it('falls back to storage.locale for non-localized stores when no vtex_segment cookie is set', async () => {
+    // First visit / no cookie — storage.locale is the safety net.
+    fetchAPIMocked.mockResolvedValueOnce({ products: { edges: [] } })
+
+    const ctx = makeCtx({
+      storageLocale: 'pt-BR',
+      cookie: '',
+      localizationEnabled: false,
+    })
+
+    const is = IntelligentSearch(searchOptions, ctx)
+    await is.products({ page: 0, count: 1 })
+
+    expect(capturedLocale()).toBe('pt-BR')
+  })
+
+  it('falls back to vtex_segment cultureInfo when ctx.storage.locale is empty (localization enabled)', async () => {
     // base64 JSON: { "cultureInfo": "pt-BR" }
     const ptBRSegment = Buffer.from(
       JSON.stringify({ cultureInfo: 'pt-BR' })
@@ -84,6 +126,7 @@ describe('IntelligentSearch — getSegmentLocale priority', () => {
     const ctx = makeCtx({
       storageLocale: '',
       cookie: `vtex_segment=${ptBRSegment}`,
+      localizationEnabled: true,
     })
 
     const is = IntelligentSearch(searchOptions, ctx)
@@ -97,7 +140,11 @@ describe('IntelligentSearch — getSegmentLocale priority', () => {
     // URLSearchParams.get('locale') returns null rather than ''.
     fetchAPIMocked.mockResolvedValueOnce({ products: { edges: [] } })
 
-    const ctx = makeCtx({ storageLocale: '', cookie: '' })
+    const ctx = makeCtx({
+      storageLocale: '',
+      cookie: '',
+      localizationEnabled: true,
+    })
 
     const is = IntelligentSearch(searchOptions, ctx)
     await is.products({ page: 0, count: 1 })
