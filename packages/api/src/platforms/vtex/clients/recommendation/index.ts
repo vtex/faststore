@@ -8,7 +8,7 @@ import type {
 
 // Identifies the storefront origin to the Recommendations BFF, as required by
 // the API (`x-vtex-rec-origin` header).
-const REC_ORIGIN_SUFFIX = 'storefront/vtex.recommendation-shelf@2.x'
+const REC_ORIGIN_SUFFIX = 'storefront/faststore.recommendation-shelf@v4'
 
 export interface RecommendationArgs {
   campaignVrn: string
