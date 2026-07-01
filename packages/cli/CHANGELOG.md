@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.5](https://github.com/vtex/faststore/compare/v4.4.0-dev.4...v4.4.0-dev.5) (2026-07-01)
+
+### Features
+
+- make cms-sync content-source aware (CMS + CP) ([#3406](https://github.com/vtex/faststore/issues/3406)) ([8e4e4ca](https://github.com/vtex/faststore/commit/8e4e4cab61b6e6fec05b8ae014e4ed2298028b92)), closes [#5c1a1](https://github.com/vtex/faststore/issues/5c1a1) [#ff6b6](https://github.com/vtex/faststore/issues/ff6b6) [#3a0d0](https://github.com/vtex/faststore/issues/3a0d0) [#ff6b6](https://github.com/vtex/faststore/issues/ff6b6) [#10391](https://github.com/vtex/faststore/issues/10391) [#3ddc84](https://github.com/vtex/faststore/issues/3ddc84) [#1](https://github.com/vtex/faststore/issues/1) [#14](https://github.com/vtex/faststore/issues/14) [#15](https://github.com/vtex/faststore/issues/15) [#18](https://github.com/vtex/faststore/issues/18)
+
 # [4.4.0-dev.4](https://github.com/vtex/faststore/compare/v4.4.0-dev.3...v4.4.0-dev.4) (2026-06-30)
 
 **Note:** Version bump only for package @faststore/cli
