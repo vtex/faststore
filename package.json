@@ -21,6 +21,7 @@
     "ci:dkcicd": "pnpm build && pnpm lint && pnpm size && pnpm test:coverage && mkdir -p coverage && pnpm dlx lcov-result-merger 'packages/*/coverage/lcov.info' coverage/lcov.info --prepend-source-files",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --conventional-graduate --yes && pnpm -r publish --access public --no-git-checks",
+    "release:hotfix": "lerna version --conventional-commits --force-publish --yes && pnpm -r publish --access public --no-git-checks",
     "release:dev": "lerna version --conventional-commits --conventional-prerelease --preid=dev --force-publish --yes && pnpm -r publish --access public --tag dev --no-git-checks",
     "release:v3": "lerna version --conventional-commits --yes && pnpm -r publish --access public --tag v3-latest --no-git-checks",
     "release:verify": "node ./scripts/verify-publish-manifests.mjs",

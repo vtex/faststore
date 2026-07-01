@@ -67,8 +67,15 @@ jobs:
       - name: Verify publish manifests
         run: pnpm release:verify
 
+      # Hotfixes pushed straight to main carry a [hotfix] marker in the head
+      # commit message so all packages are versioned together (force-publish),
+      # instead of only the changed ones.
+      - name: Publish (main - hotfix)
+        if: github.ref_name == 'main' && contains(github.event.head_commit.message, '[hotfix]')
+        run: pnpm release:hotfix
+
       - name: Publish (main)
-        if: github.ref_name == 'main'
+        if: github.ref_name == 'main' && !contains(github.event.head_commit.message, '[hotfix]')
         run: pnpm release
 
       - name: Publish (dev)

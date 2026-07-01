@@ -1,0 +1,85 @@
+# Opens a backport PR to `dev` whenever a hotfix lands on `main`.
+# A hotfix is identified by the `[hotfix]` marker in the head commit message
+# (same convention used by the CD workflow to force-publish all packages).
+# The hotfix commit is cherry-picked onto a branch from `dev`; if it conflicts,
+# the job fails so the backport can be done manually.
+name: Backport hotfix to dev
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  backport:
+    name: Open backport PR to dev
+    if: contains(github.event.head_commit.message, '[hotfix]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure CI Git User
+        run: |
+          git config user.name vtexgithubbot
+          git config user.email vtexgithubbot@github.com
+
+      - name: Create backport branch and cherry-pick hotfix
+        id: backport
+        run: |
+          SHORT_SHA="${GITHUB_SHA::8}"
+          BRANCH="backport/hotfix-${SHORT_SHA}"
+
+          git fetch origin dev
+          git checkout -b "$BRANCH" origin/dev
+
+          if git cherry-pick "$GITHUB_SHA"; then
+            echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+            echo "conflict=false" >> "$GITHUB_OUTPUT"
+          else
+            git cherry-pick --abort || true
+            echo "conflict=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push backport branch
+        if: steps.backport.outputs.conflict == 'false'
+        run: git push origin "${{ steps.backport.outputs.branch }}"
+
+      - name: Open backport PR
+        if: steps.backport.outputs.conflict == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          BRANCH: ${{ steps.backport.outputs.branch }}
+          # Passed via env (not inlined into the script) to avoid shell injection
+          # from arbitrary commit message content.
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          gh pr create \
+            --base dev \
+            --head "$BRANCH" \
+            --title "chore: backport hotfix ${GITHUB_SHA::8} to dev" \
+            --body "$(cat <<EOF
+          Automated backport of hotfix [\`${GITHUB_SHA::8}\`](https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}) merged into \`main\`.
+
+          Keeps \`dev\` aligned with the fix so it is not lost on the next \`dev\` → \`main\` release.
+
+          Original commit message:
+
+          \`\`\`
+          ${COMMIT_MESSAGE}
+          \`\`\`
+          EOF
+          )"
+
+      - name: Fail when cherry-pick conflicts
+        if: steps.backport.outputs.conflict == 'true'
+        run: |
+          echo "::error::Cherry-pick of ${GITHUB_SHA} onto dev had conflicts. Please backport this hotfix to dev manually."
+          exit 1
