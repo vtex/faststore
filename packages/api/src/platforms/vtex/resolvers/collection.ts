@@ -1,4 +1,4 @@
-import type { GraphqlResolver } from '..'
+import type { GraphqlContext, GraphqlResolver } from '..'
 import {
   isBrand,
   isCategory,
@@ -8,6 +8,19 @@ import {
   type ByLinkIdCollectionRoot,
 } from '../loaders/collection'
 import { slugify } from '../utils/slugify'
+
+interface LocalizationConfig {
+  enabled?: boolean
+  defaultLocale?: string
+  locales?: Record<string, unknown>
+}
+
+function getLocalizationConfig(ctx: GraphqlContext): LocalizationConfig {
+  return (
+    (ctx.discoveryConfig as { localization?: LocalizationConfig } | undefined)
+      ?.localization ?? {}
+  )
+}
 
 export type Root =
   | ByLinkIdCategoryRoot
@@ -109,10 +122,19 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
       clients: { commerce },
     } = ctx
 
+    // Fetch tree and segment entities in parallel; tree is cached request-scoped
+    // so otherLocales (if also requested) shares the same fetch.
+    const treePromise =
+      ctx.storage.categoryTree != null
+        ? Promise.resolve(ctx.storage.categoryTree)
+        : commerce.catalog.category.tree(10)
+
     const [entities, tree] = await Promise.all([
       Promise.all(segmentSlugs.map((s) => collectionLoader.load(s))),
-      commerce.catalog.category.tree(10),
+      treePromise,
     ])
+
+    ctx.storage.categoryTree ??= tree
 
     return {
       selectedFacets: entities.map((entity, index) => ({
@@ -153,14 +175,11 @@ export const StoreCollection: Record<string, GraphqlResolver<Root>> = {
   },
 
   otherLocales: async (root, _, ctx) => {
-    const isLocalizationEnabled =
-      (ctx.discoveryConfig as any)?.localization?.enabled === true
+    const localizationConfig = getLocalizationConfig(ctx)
 
-    if (!isLocalizationEnabled) return null
+    if (!localizationConfig.enabled) return null
 
-    const configuredLocales = Object.keys(
-      (ctx.discoveryConfig as any)?.localization?.locales ?? {}
-    )
+    const configuredLocales = Object.keys(localizationConfig.locales ?? {})
 
     if (configuredLocales.length === 0) return null
 
