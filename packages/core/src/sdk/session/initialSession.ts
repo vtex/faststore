@@ -1,5 +1,4 @@
-import type { Session, Store } from '@faststore/sdk'
-import deepEqual from 'fast-deep-equal'
+import type { Session } from '@faststore/sdk'
 
 import storeConfig from '../../../discovery.config'
 import { getSettings } from '../localization/settings'
@@ -31,10 +30,10 @@ function safeParseChannel(
  * useLocalizationConfig detect the URL locale and correct the session —
  * causing a second, redundant pair of validateSession + validateCart calls.
  *
- * By seeding the initial value with the URL locale we ensure:
- * 1. readInitial() already contains the correct locale (fixes first-visit).
- * 2. The correction subscriber below can fix IDB payloads that carry an
- *    outdated locale without an extra round-trip.
+ * By seeding the initial value with the URL locale we ensure readInitial()
+ * already contains the correct locale (fixes first-visit). IDB payloads that
+ * carry an outdated locale are corrected by `reconcileSessionLocale` (wired as
+ * the `persisted` reconcile seam in `createSessionStore`).
  */
 export function getInitialSession(
   defaults: Session = storeConfig.session
@@ -60,50 +59,36 @@ export function getInitialSession(
 }
 
 /**
- * Installs a one-shot subscriber that corrects the locale/currency/channel
- * when the persisted middleware hydrates a session from IDB whose values
- * differ from the URL-derived initial session.
+ * Reconciles a session payload read from IDB (on hydration and on the
+ * `focus`/`visibilitychange` cross-tab sync) with the URL-derived localization
+ * settings, forcing `locale`/`currency`/`salesChannel` to follow the URL while
+ * preserving every other field from the persisted payload.
  *
- * Why this works:
- * - It must be subscribed AFTER `optimistic`, so it fires within the same
- *   synchronous `store.set()` call that enqueues `validateSession(stale)`.
- * - It then calls `store.set(corrected)`, re-entering the base store's set().
- *   The base store invokes `cancelations.forEach(cancel)` which flips the
- *   `cancel` flag of the just-enqueued optimistic handler — preventing the
- *   stale `validateSession` from ever hitting the network — and broadcasts
- *   again, enqueueing a new optimistic handler with the corrected value.
+ * This is the SDK `persisted` reconcile seam (see `CreateStoreOptions`): the
+ * URL is the single source of truth for localization, so neither a stale IDB
+ * value nor a `validateSession` round-trip (which receives no locale hint in
+ * `search` on path-based bindings) can flip the locale back to the default.
  *
- * The `corrected` flag guarantees the subscriber runs at most once: subsequent
- * locale changes (e.g. from `LocalizationSelector`) must not be intercepted.
- *
- * @returns Unsubscribe function (mainly useful in tests).
+ * When localization is disabled or there is no `window` (SSR), the payload is
+ * returned untouched.
  */
-export function installLocaleCorrector(
-  store: Store<Session>,
-  initialSession: Session
-): () => void {
-  let corrected = false
+export function reconcileSessionLocale(fromIDB: Session): Session {
+  if (!storeConfig.localization?.enabled || typeof window === 'undefined') {
+    return fromIDB
+  }
 
-  return store.subscribe((session: Session) => {
-    if (corrected) return
-    corrected = true
+  try {
+    const settings = getSettings()
+    const channel = safeParseChannel(fromIDB.channel)
+    channel.salesChannel = settings.salesChannel
 
-    if (
-      session.locale === initialSession.locale &&
-      deepEqual(session.currency, initialSession.currency) &&
-      session.channel === initialSession.channel
-    ) {
-      return
-    }
-
-    const channel = safeParseChannel(session.channel)
-    channel.salesChannel = safeParseChannel(initialSession.channel).salesChannel
-
-    store.set({
-      ...session,
-      locale: initialSession.locale,
-      currency: initialSession.currency,
+    return {
+      ...fromIDB,
+      locale: settings.locale,
+      currency: settings.currency,
       channel: JSON.stringify(channel),
-    })
-  })
+    }
+  } catch {
+    return fromIDB
+  }
 }

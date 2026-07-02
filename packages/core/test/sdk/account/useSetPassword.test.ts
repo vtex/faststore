@@ -72,7 +72,7 @@ describe('useSetPassword', () => {
 
     const url = String(call?.[0])
     expect(url).toContain(
-      '/api/authenticator/pub/authentication/classic/setpassword'
+      '/api/authenticator/v1/pub/authentication/classic/setpassword'
     )
     expect(url).not.toContain('/api/vtexid/')
     expect(url).toContain('expireSessions=true')
@@ -94,7 +94,7 @@ describe('useSetPassword', () => {
     expect(call).toBeDefined()
 
     const url = String(call?.[0])
-    expect(url).toContain('/api/authenticator/pub/authentication/start')
+    expect(url).toContain('/api/authenticator/v1/pub/authentication/start')
     expect(url).not.toContain('/api/vtexid/')
     expect(url).toContain('an=myaccount')
 

@@ -12,7 +12,7 @@ import type {
   ServerAccountPageQueryQuery,
   ServerAccountPageQueryQueryVariables,
 } from '@generated/graphql'
-import { MyAccountLayout } from 'src/components/account'
+import { Layout } from 'src/components/account'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections, {
   RenderSectionsBase,
@@ -24,6 +24,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { type PageContentType, getPage } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 
@@ -54,11 +55,11 @@ function Page({
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout accountName={accountName}>
+        <Layout accountName={accountName}>
           {sections && sections.length > 0 && (
             <RenderSectionsBase sections={sections} components={COMPONENTS} />
           )}
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )
@@ -128,7 +129,10 @@ const getServerSidePropsBase: GetServerSideProps<
     if (statusCode === 401 || statusCode === 403) {
       return {
         redirect: {
-          destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+          destination: localizeRedirectDestination(
+            `/pvt/account/403?from=${encodeURIComponent('/pvt/account/404')}`,
+            context
+          ),
           permanent: false,
         },
       }

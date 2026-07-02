@@ -1,9 +1,10 @@
-import { useSession } from 'src/sdk/session'
+import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 
 // Format price values according to the specified currency (converts cents to standard units)
 export const useFormatPrice = () => {
-  const { locale } = useSession()
+  // get locale from router instead of using useSession to avoid SSR hydration issues
+  const { locale } = useRouter()
 
   return useCallback(
     (value: number, currencyCode: string) => {

@@ -1,13 +1,18 @@
-import type { Locator } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
-import MyAccountOrderDetails from 'src/components/account/orders/MyAccountOrderDetails'
-import RenderSections from 'src/components/cms/RenderSections'
+import { Layout } from 'src/components/account'
+import { OrderDetailsPageShell } from 'src/components/account/orders/OrderDetails'
+import RenderSections, {
+  RenderSectionsBase,
+} from 'src/components/cms/RenderSections'
+import ACCOUNT_COMPONENTS from 'src/components/cms/account/Components'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { MyAccountProps } from 'src/experimental/myAccountServerSideProps'
+import type { AccountOrderDetailsPageData } from 'src/sdk/account/accountPageContext'
+import type { AccountNavigationLabels } from 'src/sdk/account/getMyAccountRoutes'
 
 import { gql } from '@generated'
 import type {
@@ -22,6 +27,9 @@ import { getIsRepresentative } from 'src/sdk/account/getIsRepresentative'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { execute } from 'src/server'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
+import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
+import { extractOrderStatusLabelsFromSections } from 'src/utils/userOrderStatus'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import { extractStatusFromError } from 'src/utils/utilities'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
@@ -32,12 +40,16 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type OrderDetailsPageProps = {
-  order: ServerOrderDetailsQueryQuery['userOrder']
+  pageSections: Section[]
+  navigationLabels: AccountNavigationLabels
+  accountPageData: AccountOrderDetailsPageData
 } & MyAccountProps
 
 export default function OrderDetailsPage({
   globalSections: globalSectionsProp,
-  order,
+  pageSections,
+  navigationLabels,
+  accountPageData,
   accountName,
   isRepresentative,
 }: OrderDetailsPageProps) {
@@ -45,18 +57,32 @@ export default function OrderDetailsPage({
     globalSectionsProp ?? {}
 
   return (
-    <PageProvider context={{ globalSettings }}>
+    <PageProvider
+      context={{
+        globalSettings,
+        accountPageData,
+        navigationLabels,
+      }}
+    >
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout
+        <Layout
           isRepresentative={isRepresentative}
           accountName={accountName}
+          navigationLabels={navigationLabels}
         >
           <BeforeSection />
-          <MyAccountOrderDetails order={order} />
+          <OrderDetailsPageShell>
+            <main data-fs-order-details-content>
+              <RenderSectionsBase
+                sections={pageSections}
+                components={ACCOUNT_COMPONENTS}
+              />
+            </main>
+          </OrderDetailsPageShell>
           <AfterSection />
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )
@@ -313,12 +339,20 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooterPromise,
   ] = getGlobalSectionsData(contentContext)
 
+  const orderPath = `/pvt/account/orders/${id}`
+
   const [
+    pageContent,
     orderDetails,
     globalSections,
     globalSectionsHeader,
     globalSectionsFooter,
   ] = await Promise.all([
+    fetchMyAccountPageContent(
+      'myAccountOrderDetails',
+      contentContext,
+      orderPath
+    ),
     execute<
       ServerOrderDetailsQueryQueryVariables,
       ServerOrderDetailsQueryQuery
@@ -359,13 +393,24 @@ const getServerSidePropsBase: GetServerSideProps<
     globalSectionsFooter,
   })
 
-  const order = orderDetails.data.userOrder
+  const { pageSections, navigationData } = extractAccountNavigationData(
+    pageContent.sections
+  )
+
+  const orderStatusLabels = extractOrderStatusLabelsFromSections(
+    pageContent.sections
+  )
 
   return {
     props: {
       globalSections: globalSectionsResult,
-      order,
-      accountName: orderDetails.data.accountProfile.name,
+      accountName: orderDetails.data.accountProfile.name ?? '',
+      navigationLabels: navigationData as AccountNavigationLabels,
+      accountPageData: {
+        order: orderDetails.data.userOrder,
+        orderStatusLabels,
+      },
+      pageSections,
       isRepresentative,
     },
   }

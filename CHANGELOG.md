@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.6](https://github.com/vtex/faststore/compare/v4.4.0-dev.5...v4.4.0-dev.6) (2026-07-02)
+
+# [4.3.0](https://github.com/vtex/faststore/compare/v4.3.0-dev.8...v4.3.0) (2026-06-17)
+
+### Bug Fixes
+
+- fix vtex message ([e9b2105](https://github.com/vtex/faststore/commit/e9b21055dba0ba24658eda1511056ef29d6b0274))
+
+### Features
+
+- graduate v4.3.0 ([#3396](https://github.com/vtex/faststore/issues/3396)) ([b489766](https://github.com/vtex/faststore/commit/b4897664c7826dcd59bfde7c3599c93259d4d11f)), closes [#3276](https://github.com/vtex/faststore/issues/3276) [#3334](https://github.com/vtex/faststore/issues/3334) [#3386](https://github.com/vtex/faststore/issues/3386) [#3380](https://github.com/vtex/faststore/issues/3380) [#3394](https://github.com/vtex/faststore/issues/3394) [#3395](https://github.com/vtex/faststore/issues/3395) [#3381](https://github.com/vtex/faststore/issues/3381) [#3379](https://github.com/vtex/faststore/issues/3379) [#3375](https://github.com/vtex/faststore/issues/3375)
+
+# [4.4.0-dev.5](https://github.com/vtex/faststore/compare/v4.4.0-dev.4...v4.4.0-dev.5) (2026-07-01)
+
+### Features
+
+- make cms-sync content-source aware (CMS + CP) ([#3406](https://github.com/vtex/faststore/issues/3406)) ([8e4e4ca](https://github.com/vtex/faststore/commit/8e4e4cab61b6e6fec05b8ae014e4ed2298028b92)), closes [#5c1a1](https://github.com/vtex/faststore/issues/5c1a1) [#ff6b6](https://github.com/vtex/faststore/issues/ff6b6) [#3a0d0](https://github.com/vtex/faststore/issues/3a0d0) [#ff6b6](https://github.com/vtex/faststore/issues/ff6b6) [#10391](https://github.com/vtex/faststore/issues/10391) [#3ddc84](https://github.com/vtex/faststore/issues/3ddc84) [#1](https://github.com/vtex/faststore/issues/1) [#14](https://github.com/vtex/faststore/issues/14) [#15](https://github.com/vtex/faststore/issues/15) [#18](https://github.com/vtex/faststore/issues/18)
+
+# [4.4.0-dev.4](https://github.com/vtex/faststore/compare/v4.4.0-dev.3...v4.4.0-dev.4) (2026-06-30)
+
+### Features
+
+- add i18n support for /pvt/account navigation ([#3400](https://github.com/vtex/faststore/issues/3400)) ([695dd0e](https://github.com/vtex/faststore/commit/695dd0ee8e06e32ad76c23925c5e095740430f0f))
+
+# [4.4.0-dev.3](https://github.com/vtex/faststore/compare/v4.4.0-dev.2...v4.4.0-dev.3) (2026-06-29)
+
+### Bug Fixes
+
+- sync IS locale with URL and selectedFacets on navigation ([#3405](https://github.com/vtex/faststore/issues/3405)) ([90d644d](https://github.com/vtex/faststore/commit/90d644dcf7a232c3f2bea316658580b10108b502)), closes [#3401](https://github.com/vtex/faststore/issues/3401) [#3401](https://github.com/vtex/faststore/issues/3401)
+
+# [4.4.0-dev.2](https://github.com/vtex/faststore/compare/v4.4.0-dev.1...v4.4.0-dev.2) (2026-06-25)
+
+### Bug Fixes
+
+- **core:** version authenticator routes to v1 ([#3398](https://github.com/vtex/faststore/issues/3398)) ([a4ac863](https://github.com/vtex/faststore/commit/a4ac863f35b91d3980f9a11e81aede3606f92efe))
+
+# [4.4.0-dev.1](https://github.com/vtex/faststore/compare/v4.4.0-dev.0...v4.4.0-dev.1) (2026-06-24)
+
+### Features
+
+- my account cms ([#3354](https://github.com/vtex/faststore/issues/3354)) ([2400c45](https://github.com/vtex/faststore/commit/2400c4537e58d5f4093d8c10275443a0876f62f8))
+
+# [4.4.0-dev.0](https://github.com/vtex/faststore/compare/v4.3.1-dev.0...v4.4.0-dev.0) (2026-06-19)
+
+### Features
+
+- **api:** Migrate to VTEX Intelligent Search V1 API ([#3385](https://github.com/vtex/faststore/issues/3385)) ([74e034a](https://github.com/vtex/faststore/commit/74e034aed44d97634ae4fcafbe3e48745b68fa65)), closes [#3376](https://github.com/vtex/faststore/issues/3376)
+
+## [4.3.1-dev.0](https://github.com/vtex/faststore/compare/v4.3.0-dev.8...v4.3.1-dev.0) (2026-06-17)
+
+**Note:** Version bump only for package faststore
+
 # [4.3.0](https://github.com/vtex/faststore/compare/v4.2.0...v4.3.0) (2026-06-17)
 
 ### Bug Fixes
