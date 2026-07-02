@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   getTypeFromVrn,
   isValidVrn,
-} from 'src/components/RecommendationShelf/vrn'
+} from 'src/components/sections/RecommendationShelf/vrn'
 
 const vrn = (type: string) => `vrn:recommendations:account:${type}:campaign-1`
 

@@ -7,7 +7,7 @@ vi.mock('src/sdk/graphql/useQuery', () => ({
   useQuery: useQueryMock,
 }))
 
-import { useRecommendations } from 'src/components/RecommendationShelf/useRecommendations'
+import { useRecommendations } from 'src/components/sections/RecommendationShelf/useRecommendations'
 
 afterEach(() => {
   vi.clearAllMocks()

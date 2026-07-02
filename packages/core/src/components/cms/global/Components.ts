@@ -47,7 +47,7 @@ const ShoppingAssistant = dynamic(
 const RecommendationShelf = dynamic(
   () =>
     import(
-      /* webpackChunkName: "RecommendationShelf" */ 'src/components/RecommendationShelf'
+      /* webpackChunkName: "RecommendationShelf" */ 'src/components/sections/RecommendationShelf'
     ).then((mod) => mod.RecommendationShelf),
   { ssr: false }
 )

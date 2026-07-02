@@ -29,17 +29,23 @@ vi.mock('src/components/skeletons/ProductShelfSkeleton', () => ({
 }))
 
 const useRecommendations = vi.hoisted(() => vi.fn())
-vi.mock('src/components/RecommendationShelf/useRecommendations', () => ({
-  useRecommendations,
-}))
+vi.mock(
+  'src/components/sections/RecommendationShelf/useRecommendations',
+  () => ({
+    useRecommendations,
+  })
+)
 
 const useScreenResize = vi.hoisted(() => vi.fn())
 vi.mock('src/sdk/ui/useScreenResize', () => ({ default: useScreenResize }))
 
 const useRecommendationUserId = vi.hoisted(() => vi.fn())
-vi.mock('src/components/RecommendationShelf/useRecommendationUserId', () => ({
-  useRecommendationUserId,
-}))
+vi.mock(
+  'src/components/sections/RecommendationShelf/useRecommendationUserId',
+  () => ({
+    useRecommendationUserId,
+  })
+)
 
 // Keep the real store config (the cart SDK reads `storeConfig.cart` at module
 // init) and only override the opt-in flag, which we toggle per test.
@@ -62,7 +68,7 @@ vi.mock('discovery.config', async (original) => {
   }
 })
 
-import { RecommendationShelf } from 'src/components/RecommendationShelf/RecommendationShelf'
+import { RecommendationShelf } from 'src/components/sections/RecommendationShelf/RecommendationShelf'
 
 const CAMPAIGN_VRN = 'vrn:recommendations:acc:rec-top-items-v2:campaign-1'
 const CROSS_SELL_VRN = 'vrn:recommendations:acc:rec-cross-v2:campaign-1'
