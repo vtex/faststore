@@ -69,6 +69,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
+// Maps schema.org `itemCondition` URLs to the values accepted by the
+// Open Graph `product:condition` meta tag (`new` | `refurbished` | `used`).
+const OG_PRODUCT_CONDITION_BY_SCHEMA: Record<string, string> = {
+  'https://schema.org/NewCondition': 'new',
+  'https://schema.org/RefurbishedCondition': 'refurbished',
+  'https://schema.org/UsedCondition': 'used',
+}
+
 type Props = PDPContentType & {
   data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
@@ -122,6 +130,11 @@ function Page({
       .toFixed(pdpSeo.minPriceAmountFractionDigits)
       .toString()
   }
+
+  const productCondition =
+    OG_PRODUCT_CONDITION_BY_SCHEMA[
+      product.offers.offers[0]?.itemCondition ?? ''
+    ]
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
@@ -201,7 +214,7 @@ function Page({
           },
           {
             property: 'product:id',
-            content: product.id,
+            content: product.isVariantOf?.productGroupID ?? undefined,
           },
           {
             property: 'product:sku',
@@ -223,10 +236,14 @@ function Page({
             property: 'product:brand',
             content: product.brand.name,
           },
-          {
-            property: 'product:condition',
-            content: 'new',
-          },
+          ...(productCondition
+            ? [
+                {
+                  property: 'product:condition',
+                  content: productCondition,
+                },
+              ]
+            : []),
         ]}
         titleTemplate={titleTemplate}
       />

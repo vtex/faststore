@@ -1,7 +1,14 @@
+import { BadRequestError } from '../../errors'
 import type { QueryRecommendationsArgs } from '../../../__generated__/schema'
 import type { GraphqlContext } from '../index'
 import { enhanceSku, type EnhancedSku } from '../utils/enhanceSku'
 import { pickBestSku } from '../utils/sku'
+
+// Structural check for a recommendations campaign VRN
+// (`vrn:recommendations:<account>:<campaign-type>:<campaign-id>`). Kept generic
+// on purpose: the authoritative campaign taxonomy lives in `@faststore/core`,
+// and `@faststore/api` must not depend on it, so we only validate the shape.
+const RECOMMENDATION_VRN_PATTERN = /^vrn:recommendations:[^:]+:[^:]+:[^:]+$/
 
 /**
  * Resolves personalized recommendations for a campaign.
@@ -23,9 +30,33 @@ export const recommendations = async (
 
   const { salesChannel } = ctx.storage.channel
 
+  // Validate inputs server-side so only clean, well-formed payloads reach the
+  // Recommendations BFF (see @faststore/api server-side validation principle).
+  const normalizedCampaignVrn = campaignVrn?.trim()
+  if (
+    !normalizedCampaignVrn ||
+    !RECOMMENDATION_VRN_PATTERN.test(normalizedCampaignVrn)
+  ) {
+    throw new BadRequestError(`Invalid campaignVrn: "${campaignVrn}"`)
+  }
+
+  const normalizedUserId = userId?.trim()
+  if (userId != null && !normalizedUserId) {
+    throw new BadRequestError('Invalid userId: must be a non-empty string')
+  }
+
+  if (
+    products != null &&
+    (!Array.isArray(products) || products.some((product) => !product?.trim()))
+  ) {
+    throw new BadRequestError(
+      'Invalid products: must be an array of non-empty strings'
+    )
+  }
+
   const response = await recommendation.recommendations({
-    campaignVrn,
-    userId: userId ?? undefined,
+    campaignVrn: normalizedCampaignVrn,
+    userId: normalizedUserId || undefined,
     products: products ?? [],
     salesChannel: salesChannel ?? undefined,
     locale: ctx.storage.locale,

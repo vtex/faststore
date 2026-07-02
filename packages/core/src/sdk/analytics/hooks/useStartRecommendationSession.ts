@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { gql } from '@faststore/core/api'
 
+import storeConfig from 'discovery.config'
 import { useLazyQuery } from 'src/sdk/graphql/useLazyQuery'
 import { getCookie } from 'src/utils/getCookie'
 import { retry } from 'src/utils/retry'
@@ -32,6 +33,9 @@ type StartRecommendationSessionVariables = Record<string, never>
  *
  * All work runs client-side in effects (after hydration), so it doesn't affect
  * SSR/TTFB or Lighthouse render metrics.
+ *
+ * Gated behind the `experimental.enableRecommendations` flag: stores that don't
+ * opt into Recommendations never start a session nor hit the Recommendations API.
  */
 export function useStartRecommendationSession() {
   const [runStartRecommendationSession] = useLazyQuery<
@@ -46,6 +50,10 @@ export function useStartRecommendationSession() {
   )
 
   useEffect(() => {
+    if (!storeConfig.experimental.enableRecommendations) {
+      return
+    }
+
     const startRecommendationSessionCookie = getCookie(
       VTEX_REC_USER_START_SESSION
     )
@@ -58,14 +66,28 @@ export function useStartRecommendationSession() {
 
     // The session endpoint may not be ready on the first try, so we retry with
     // exponential backoff until it returns a defined result (or we give up).
-    void retry(() => runStartRecommendationSession({}), {
-      attempts: 10,
-      delayMs: 300,
-      backoff: true,
-      maxDelayMs: 3000,
-      until: (result) => result !== undefined,
-      signal: controller.signal,
-    })
+    // Transient request/GraphQL rejections are treated as retryable: swallow
+    // the error and return `undefined` so the backoff loop keeps going instead
+    // of aborting on the first failure.
+    void retry(
+      async () => {
+        try {
+          return await runStartRecommendationSession({})
+        } catch {
+          return undefined
+        }
+      },
+      {
+        attempts: 10,
+        delayMs: 300,
+        backoff: true,
+        maxDelayMs: 3000,
+        until: (result) => result !== undefined,
+        signal: controller.signal,
+      }
+      // Guard the discarded promise so a give-up (or any unexpected rejection)
+      // never surfaces as an unhandled promise rejection.
+    ).catch(() => {})
 
     return () => {
       controller.abort()

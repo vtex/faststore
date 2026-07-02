@@ -13,7 +13,17 @@ export const startRecommendationSession = async (
   __: unknown,
   ctx: GraphqlContext
 ) => {
-  await ctx.clients.recommendation.startRecommendationSession()
+  const result = await ctx.clients.recommendation.startRecommendationSession()
+
+  // The BFF may not be ready on the first call and can resolve without a
+  // session payload. Only report success once a session actually exists (its
+  // `recommendationsUserId`); otherwise surface an error so the caller retries
+  // instead of treating an empty response as a started session.
+  if (!result?.recommendationsUserId) {
+    throw new Error(
+      'Failed to start recommendation session: no session data returned'
+    )
+  }
 
   return true
 }

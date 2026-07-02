@@ -1,7 +1,3 @@
-/**
- * @vitest-environment jsdom
- */
-
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const mockGetCookie = vi.hoisted(() => vi.fn())

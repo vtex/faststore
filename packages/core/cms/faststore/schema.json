@@ -4455,39 +4455,45 @@
           "enum": ["PDP", "CART"],
           "enumNames": ["Product page", "Cart"]
         },
-        "itemsPerPageDesktop": {
-          "title": "Items per page (desktop)",
-          "description": "Number of products shown per page on desktop viewports.",
-          "type": "number",
-          "default": 4
-        },
-        "itemsPerPageMobile": {
-          "title": "Items per page (mobile)",
-          "description": "Number of products shown per page on mobile and tablet viewports.",
-          "type": "number",
-          "default": 2
-        },
-        "variant": {
-          "title": "Carousel track variant",
-          "description": "How the carousel navigates between items.",
-          "type": "string",
-          "default": "scroll",
-          "enum": ["slide", "scroll"],
-          "enumNames": ["Slide", "Scroll"]
-        },
-        "infiniteMode": {
-          "title": "Infinite navigation?",
-          "description": "Only applies to the 'slide' variant.",
-          "type": "boolean",
-          "default": false
-        },
-        "controls": {
-          "title": "Navigation controls",
-          "description": "Which navigation elements should be visible.",
-          "type": "string",
-          "default": "complete",
-          "enum": ["complete", "navigationArrows", "paginationBullets"],
-          "enumNames": ["Arrows and bullets", "Arrows only", "Bullets only"]
+        "carouselConfiguration": {
+          "title": "Carousel Configuration",
+          "type": "object",
+          "properties": {
+            "itemsPerPageDesktop": {
+              "title": "Items per page (desktop)",
+              "description": "Number of products shown per page on desktop viewports.",
+              "type": "number",
+              "default": 4
+            },
+            "itemsPerPageMobile": {
+              "title": "Items per page (mobile)",
+              "description": "Number of products shown per page on mobile and tablet viewports.",
+              "type": "number",
+              "default": 2
+            },
+            "variant": {
+              "title": "Carousel track variant",
+              "description": "How the carousel navigates between items.",
+              "type": "string",
+              "default": "scroll",
+              "enum": ["slide", "scroll"],
+              "enumNames": ["Slide", "Scroll"]
+            },
+            "infiniteMode": {
+              "title": "Infinite navigation?",
+              "description": "Only applies to the 'slide' variant.",
+              "type": "boolean",
+              "default": false
+            },
+            "controls": {
+              "title": "Navigation controls",
+              "description": "Which navigation elements should be visible.",
+              "type": "string",
+              "default": "complete",
+              "enum": ["complete", "navigationArrows", "paginationBullets"],
+              "enumNames": ["Arrows and bullets", "Arrows only", "Bullets only"]
+            }
+          }
         },
         "productCardConfiguration": {
           "title": "Product Card Configuration",

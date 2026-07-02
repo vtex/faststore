@@ -57,34 +57,40 @@ export type RecommendationShelfProps<
    */
   mapProductToProductCard?: RecommendationProductCardMapper<TCardProps>
   /**
-   * Number of items per page on desktop viewports. Forwarded to the underlying
-   * `Carousel` as `itemsPerPage` when the viewport is desktop.
-   * @default 4
-   */
-  itemsPerPageDesktop?: number
-  /**
-   * Number of items per page on mobile and tablet viewports. Forwarded to the
-   * underlying `Carousel` as `itemsPerPage` when the viewport is mobile/tablet.
-   * @default 2
-   */
-  itemsPerPageMobile?: number
-  /**
-   * How the carousel navigates between items. Forwarded to the underlying
-   * `Carousel`.
-   * @default 'scroll'
-   */
-  variant?: CarouselProps['variant']
-  /**
-   * Enables infinite navigation (only applies to the `slide` variant).
-   * Forwarded to the underlying `Carousel`.
-   * @default false
-   */
-  infiniteMode?: CarouselProps['infiniteMode']
-  /**
-   * Which navigation elements are visible. Forwarded to the underlying
+   * Carousel behaviour and paging configuration. Forwarded to the underlying
    * `Carousel`.
    */
-  controls?: CarouselProps['controls']
+  carouselConfiguration?: {
+    /**
+     * Number of items per page on desktop viewports. Forwarded to the
+     * underlying `Carousel` as `itemsPerPage` when the viewport is desktop.
+     * @default 4
+     */
+    itemsPerPageDesktop?: number
+    /**
+     * Number of items per page on mobile and tablet viewports. Forwarded to the
+     * underlying `Carousel` as `itemsPerPage` when the viewport is mobile/tablet.
+     * @default 2
+     */
+    itemsPerPageMobile?: number
+    /**
+     * How the carousel navigates between items. Forwarded to the underlying
+     * `Carousel`.
+     * @default 'scroll'
+     */
+    variant?: CarouselProps['variant']
+    /**
+     * Enables infinite navigation (only applies to the `slide` variant).
+     * Forwarded to the underlying `Carousel`.
+     * @default false
+     */
+    infiniteMode?: CarouselProps['infiniteMode']
+    /**
+     * Which navigation elements are visible. Forwarded to the underlying
+     * `Carousel`.
+     */
+    controls?: CarouselProps['controls']
+  }
   /**
    * Forwarded to each `ProductCard` rendered by the shelf.
    */
