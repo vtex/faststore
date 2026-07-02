@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0-dev.6](https://github.com/vtex/faststore/compare/v4.4.0-dev.5...v4.4.0-dev.6) (2026-07-02)
+
+# [4.3.0](https://github.com/vtex/faststore/compare/v4.3.0-dev.8...v4.3.0) (2026-06-17)
+
+### Bug Fixes
+
+- fix vtex message ([e9b2105](https://github.com/vtex/faststore/commit/e9b21055dba0ba24658eda1511056ef29d6b0274))
+
+### Features
+
+- graduate v4.3.0 ([#3396](https://github.com/vtex/faststore/issues/3396)) ([b489766](https://github.com/vtex/faststore/commit/b4897664c7826dcd59bfde7c3599c93259d4d11f)), closes [#3276](https://github.com/vtex/faststore/issues/3276) [#3334](https://github.com/vtex/faststore/issues/3334) [#3386](https://github.com/vtex/faststore/issues/3386) [#3380](https://github.com/vtex/faststore/issues/3380) [#3394](https://github.com/vtex/faststore/issues/3394) [#3395](https://github.com/vtex/faststore/issues/3395) [#3381](https://github.com/vtex/faststore/issues/3381) [#3379](https://github.com/vtex/faststore/issues/3379) [#3375](https://github.com/vtex/faststore/issues/3375)
+
 # [4.4.0-dev.5](https://github.com/vtex/faststore/compare/v4.4.0-dev.4...v4.4.0-dev.5) (2026-07-01)
 
 ### Features
