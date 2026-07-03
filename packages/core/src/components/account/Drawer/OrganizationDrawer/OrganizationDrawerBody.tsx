@@ -3,6 +3,7 @@ import Link from 'src/components/ui/Link'
 import menuRoutes from 'src/customizations/src/myAccount/navigation'
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'
 import {
+  ROUTES_ONLY_FOR_B2B_MEMBERS,
   USER_DETAILS_ROUTE,
   getExtraMyAccountRoutes,
   getMyAccountRoutes,
@@ -12,7 +13,11 @@ const ROUTES_ONLY_FOR_REPRESENTATIVE = [USER_DETAILS_ROUTE]
 
 export const OrganizationDrawerBody = ({
   isRepresentative,
-}: { isRepresentative: boolean }) => {
+  isOrgMember,
+}: {
+  isRepresentative: boolean
+  isOrgMember: boolean
+}) => {
   const navigationLabels = useAccountNavigationLabels()
 
   const menuItems = getMyAccountRoutes({
@@ -20,11 +25,16 @@ export const OrganizationDrawerBody = ({
     labels: navigationLabels,
   })
 
-  const routes = isRepresentative
-    ? menuItems
-    : menuItems.filter(
-        ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
-      )
+  const routes = (
+    isRepresentative
+      ? menuItems
+      : menuItems.filter(
+          ({ route }) => !ROUTES_ONLY_FOR_REPRESENTATIVE.includes(route)
+        )
+  ).filter(
+    ({ route }) => isOrgMember || !ROUTES_ONLY_FOR_B2B_MEMBERS.includes(route)
+  )
+
   return (
     <div data-fs-organization-drawer-body>
       <div data-fs-organization-drawer-body-contents>
