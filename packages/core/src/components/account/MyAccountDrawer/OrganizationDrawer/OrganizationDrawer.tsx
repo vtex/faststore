@@ -148,6 +148,7 @@ export const OrganizationDrawer = ({
     : null
 
   const isOrganizationManager = b2b?.organizationManager || false
+  const isOrgMember = Boolean(b2b?.unitId)
 
   return (
     <SlideOver
@@ -167,7 +168,10 @@ export const OrganizationDrawer = ({
         contractName={contractName}
         contractUrl={contractUrl}
       />
-      <OrganizationDrawerBody isRepresentative={isRepresentative} />
+      <OrganizationDrawerBody
+        isRepresentative={isRepresentative}
+        isOrgMember={isOrgMember}
+      />
       <footer data-fs-organization-drawer-footer-wrapper>
         <ProfileSummary
           showManageLink={isOrganizationManager}

@@ -23,6 +23,20 @@ type MyAccountQuotesSelectedTagsProps = {
   ) => void
 }
 
+function formatDateRangeLabel(
+  from: string | undefined,
+  to: string | undefined,
+  locale: string
+) {
+  if (from && to) {
+    return `${formatFilterDate(from, locale)} to ${formatFilterDate(to, locale)}`
+  }
+  if (from) {
+    return `from ${formatFilterDate(from, locale)}`
+  }
+  return `to ${formatFilterDate(to!, locale)}`
+}
+
 function Tags({
   filters,
   onRemoveFilter,
@@ -34,13 +48,7 @@ function Tags({
   const createdTag = (createdAtFrom || createdAtTo) && (
     <div key="created-date-range" data-fs-list-orders-selected-tag>
       <span data-fs-list-orders-selected-tag-label>
-        {`Created: ${
-          createdAtFrom && createdAtTo
-            ? `${formatFilterDate(createdAtFrom, locale)} to ${formatFilterDate(createdAtTo, locale)}`
-            : createdAtFrom
-              ? `from ${formatFilterDate(createdAtFrom, locale)}`
-              : `to ${formatFilterDate(createdAtTo!, locale)}`
-        }`}
+        {`Created: ${formatDateRangeLabel(createdAtFrom, createdAtTo, locale)}`}
       </span>
       <button
         data-fs-list-orders-selected-tag-clear
@@ -54,13 +62,7 @@ function Tags({
   const expiresTag = (expiresAtFrom || expiresAtTo) && (
     <div key="expires-date-range" data-fs-list-orders-selected-tag>
       <span data-fs-list-orders-selected-tag-label>
-        {`Expires: ${
-          expiresAtFrom && expiresAtTo
-            ? `${formatFilterDate(expiresAtFrom, locale)} to ${formatFilterDate(expiresAtTo, locale)}`
-            : expiresAtFrom
-              ? `from ${formatFilterDate(expiresAtFrom, locale)}`
-              : `to ${formatFilterDate(expiresAtTo!, locale)}`
-        }`}
+        {`Expires: ${formatDateRangeLabel(expiresAtFrom, expiresAtTo, locale)}`}
       </span>
       <button
         data-fs-list-orders-selected-tag-clear

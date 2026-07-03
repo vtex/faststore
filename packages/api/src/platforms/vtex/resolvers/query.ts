@@ -583,37 +583,40 @@ export const Query = {
 
     const result = await commerce.quotes.listUserQuotes(filters)
 
-    const list = await Promise.all(
-      result.items.map(async (quote) => {
-        let createdByName: string | null = quote.createdBy ?? null
+    const uniqueCreatedByIds = [
+      ...new Set(result.items.map((quote) => quote.createdBy).filter(Boolean)),
+    ] as string[]
 
-        if (quote.createdBy) {
-          try {
-            const [shopper] = await commerce.masterData.getShopperById({
-              userId: quote.createdBy,
-            })
-            if (shopper) {
-              const fullName = [shopper.firstName, shopper.lastName]
-                .filter(Boolean)
-                .join(' ')
-              createdByName = fullName || quote.createdBy
-            }
-          } catch {
-            createdByName = quote.createdBy
+    const createdByNameById = new Map<string, string>()
+    await Promise.all(
+      uniqueCreatedByIds.map(async (userId) => {
+        try {
+          const [shopper] = await commerce.masterData.getShopperById({
+            userId,
+          })
+          if (shopper) {
+            const fullName = [shopper.firstName, shopper.lastName]
+              .filter(Boolean)
+              .join(' ')
+            if (fullName) createdByNameById.set(userId, fullName)
           }
-        }
-
-        return {
-          id: quote.id,
-          status: quote.status,
-          label: quote.label ?? null,
-          createdAt: quote.createdAt,
-          expiresAt: quote.expiresAt,
-          amount: quote.amount,
-          createdBy: createdByName,
+        } catch {
+          // Fall back to the raw id below if the lookup fails
         }
       })
     )
+
+    const list = result.items.map((quote) => ({
+      id: quote.id,
+      status: quote.status,
+      label: quote.label ?? null,
+      createdAt: quote.createdAt,
+      expiresAt: quote.expiresAt,
+      amount: quote.amount,
+      createdBy: quote.createdBy
+        ? (createdByNameById.get(quote.createdBy) ?? quote.createdBy)
+        : null,
+    }))
 
     return {
       list,

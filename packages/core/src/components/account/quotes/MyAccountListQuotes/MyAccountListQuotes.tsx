@@ -75,7 +75,7 @@ export default function MyAccountListQuotes({
 
   const hasFilters = hasActiveFilters(filters)
   const activeFilterCount = countActiveFilters(filters)
-  const isEmpty = listQuotes.list.length === 0
+  const isEmpty = (listQuotes?.list.length ?? 0) === 0
 
   return (
     <div className={styles.page}>

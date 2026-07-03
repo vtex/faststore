@@ -49,7 +49,13 @@ function MyAccountQuotesFilterSlider({
     const createdRange = createdDateRangeRef.current?.getDataRangeFacet()?.value
     const expiresRange = expiresDateRangeRef.current?.getDataRangeFacet()?.value
 
-    const params = new URLSearchParams()
+    const params = new URLSearchParams(window.location.search)
+    params.delete('page')
+    params.delete('status')
+    params.delete('createdAtFrom')
+    params.delete('createdAtTo')
+    params.delete('expiresAtFrom')
+    params.delete('expiresAtTo')
 
     const statusFacets = selected.filter((f) => f.key === 'status')
     statusFacets.forEach((f) => params.append('status', f.value))

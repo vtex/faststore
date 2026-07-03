@@ -201,6 +201,15 @@ const getServerSidePropsBase: GetServerSideProps<
     }
   }
 
+  if (!listQuotesResult.data.listUserQuotes) {
+    return {
+      redirect: {
+        destination: '/pvt/account/404',
+        permanent: false,
+      },
+    }
+  }
+
   const globalSectionsResult = injectGlobalSections({
     globalSections,
     globalSectionsHeader,
