@@ -71,7 +71,7 @@ export function RecommendationShelf<
   mapProductToProductCard,
   carouselConfiguration,
   productCardConfiguration,
-}: RecommendationShelfProps<TCardProps>) {
+}: Readonly<RecommendationShelfProps<TCardProps>>) {
   const {
     itemsPerPageDesktop = 4,
     itemsPerPageMobile = 2,
@@ -161,7 +161,7 @@ export function RecommendationShelf<
   }
 
   if (!isLoading && items.length === 0) {
-    return <></>
+    return null
   }
 
   return (
