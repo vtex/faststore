@@ -3,7 +3,7 @@ import { useSession } from 'src/sdk/session'
 import { quoteStatusMap, type QuoteStatusKey } from 'src/utils/quoteStatus'
 import { formatFilterDate } from '../quoteFilters'
 
-type MyAccountQuotesSelectedTagsProps = {
+type MyAccountQuotesSelectedTagsProps = Readonly<{
   filters: {
     status?: string[]
     createdAtFrom?: string
@@ -21,7 +21,7 @@ type MyAccountQuotesSelectedTagsProps = {
       | 'expiresAtTo',
     value: string
   ) => void
-}
+}>
 
 function formatDateRangeLabel(
   from: string | undefined,

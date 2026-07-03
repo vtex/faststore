@@ -1,6 +1,6 @@
 import { quoteStatusMap, type QuoteStatusKey } from 'src/utils/quoteStatus'
 
-function MyAccountQuoteStatusBadge({ status }: { status: string }) {
+function MyAccountQuoteStatusBadge({ status }: Readonly<{ status: string }>) {
   const entry = quoteStatusMap[status as QuoteStatusKey]
   return (
     <span

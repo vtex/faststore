@@ -58,6 +58,84 @@ const BASE_INIT = {
   },
 }
 
+const QUOTE_ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
+const QUOTE_VALID_STATUSES = new Set([
+  'Draft',
+  'Requested',
+  'InReview',
+  'Reviewed',
+  'Approved',
+  'Declined',
+  'Expired',
+  'ConvertedToCart',
+  'ConvertedToOrder',
+])
+
+function validateListUserQuotesArgs({
+  page,
+  perPage,
+  status,
+  createdAtFrom,
+  createdAtTo,
+  expiresAtFrom,
+  expiresAtTo,
+}: ListUserQuotesArgs): void {
+  if (page !== undefined && (!Number.isInteger(page) || page < 1)) {
+    throw new Error(
+      `listUserQuotes: invalid page "${page}" — must be a positive integer`
+    )
+  }
+  if (perPage !== undefined && (!Number.isInteger(perPage) || perPage < 1)) {
+    throw new Error(
+      `listUserQuotes: invalid perPage "${perPage}" — must be a positive integer`
+    )
+  }
+  for (const [field, value] of [
+    ['createdAtFrom', createdAtFrom],
+    ['createdAtTo', createdAtTo],
+    ['expiresAtFrom', expiresAtFrom],
+    ['expiresAtTo', expiresAtTo],
+  ] as [string, string | undefined][]) {
+    if (value && !QUOTE_ISO_DATE.test(value)) {
+      throw new Error(
+        `listUserQuotes: invalid ${field} "${value}" — must be YYYY-MM-DD`
+      )
+    }
+  }
+  if (status && status.length > 0) {
+    const invalid = status.filter((s) => !QUOTE_VALID_STATUSES.has(s))
+    if (invalid.length > 0) {
+      throw new Error(
+        `listUserQuotes: invalid status values: ${invalid.join(', ')}`
+      )
+    }
+  }
+}
+
+function buildListUserQuotesParams({
+  page,
+  perPage,
+  status,
+  createdAtFrom,
+  createdAtTo,
+  expiresAtFrom,
+  expiresAtTo,
+  label,
+}: ListUserQuotesArgs): URLSearchParams {
+  const params = new URLSearchParams()
+
+  if (page) params.append('pageNumber', page.toString())
+  if (perPage) params.append('pageSize', perPage.toString())
+  status?.forEach((s) => params.append('status', s))
+  if (createdAtFrom) params.append('createdAtFrom', createdAtFrom)
+  if (createdAtTo) params.append('createdAtTo', createdAtTo)
+  if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
+  if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
+  if (label?.trim()) params.append('label', label.trim())
+
+  return params
+}
+
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
   ctx: GraphqlContext
@@ -809,75 +887,10 @@ export const VtexCommerce = (
       },
     },
     quotes: {
-      listUserQuotes: ({
-        page,
-        perPage,
-        status,
-        createdAtFrom,
-        createdAtTo,
-        expiresAtFrom,
-        expiresAtTo,
-        label,
-      }: ListUserQuotesArgs): Promise<QuoteListResult> => {
-        const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
-        const VALID_STATUSES = new Set([
-          'Draft',
-          'Requested',
-          'InReview',
-          'Reviewed',
-          'Approved',
-          'Declined',
-          'Expired',
-          'ConvertedToCart',
-          'ConvertedToOrder',
-        ])
+      listUserQuotes: (args: ListUserQuotesArgs): Promise<QuoteListResult> => {
+        validateListUserQuotesArgs(args)
 
-        if (page !== undefined && (!Number.isInteger(page) || page < 1)) {
-          throw new Error(
-            `listUserQuotes: invalid page "${page}" — must be a positive integer`
-          )
-        }
-        if (
-          perPage !== undefined &&
-          (!Number.isInteger(perPage) || perPage < 1)
-        ) {
-          throw new Error(
-            `listUserQuotes: invalid perPage "${perPage}" — must be a positive integer`
-          )
-        }
-        for (const [field, value] of [
-          ['createdAtFrom', createdAtFrom],
-          ['createdAtTo', createdAtTo],
-          ['expiresAtFrom', expiresAtFrom],
-          ['expiresAtTo', expiresAtTo],
-        ] as [string, string | undefined][]) {
-          if (value && !ISO_DATE.test(value)) {
-            throw new Error(
-              `listUserQuotes: invalid ${field} "${value}" — must be YYYY-MM-DD`
-            )
-          }
-        }
-        if (status && status.length > 0) {
-          const invalid = status.filter((s) => !VALID_STATUSES.has(s))
-          if (invalid.length > 0) {
-            throw new Error(
-              `listUserQuotes: invalid status values: ${invalid.join(', ')}`
-            )
-          }
-        }
-
-        const params = new URLSearchParams()
-
-        if (page) params.append('pageNumber', page.toString())
-        if (perPage) params.append('pageSize', perPage.toString())
-        if (status && status.length > 0) {
-          status.forEach((s) => params.append('status', s))
-        }
-        if (createdAtFrom) params.append('createdAtFrom', createdAtFrom)
-        if (createdAtTo) params.append('createdAtTo', createdAtTo)
-        if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
-        if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
-        if (label && label.trim()) params.append('label', label.trim())
+        const params = buildListUserQuotesParams(args)
 
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',

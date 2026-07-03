@@ -26,7 +26,7 @@ import {
 } from './quoteFilters'
 import styles from './styles.module.scss'
 
-export type MyAccountListQuotesProps = {
+export type MyAccountListQuotesProps = Readonly<{
   listQuotes: ServerListQuotesQueryQuery['listUserQuotes']
   total: number
   perPage: number
@@ -39,7 +39,7 @@ export type MyAccountListQuotesProps = {
     expiresAtTo: string
     label: string
   }
-}
+}>
 
 export default function MyAccountListQuotes({
   listQuotes,
@@ -57,11 +57,11 @@ export default function MyAccountListQuotes({
 
   const handleSearchChange = useDebounce(
     (value: string) => {
-      const params = new URLSearchParams(window.location.search)
+      const params = new URLSearchParams(globalThis.location.search)
       params.delete('label')
       params.delete('page')
       if (value) params.set('label', value)
-      window.location.href = `/pvt/account/quotes?${params.toString()}`
+      globalThis.location.href = `/pvt/account/quotes?${params.toString()}`
     },
     300,
     filters.label

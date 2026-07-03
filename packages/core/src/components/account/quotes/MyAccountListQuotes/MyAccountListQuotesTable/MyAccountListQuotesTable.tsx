@@ -8,7 +8,7 @@ import type { ServerListQuotesQueryQuery } from '@generated/graphql'
 function formatDateTime(isoString: string, locale: string) {
   if (!isoString) return ''
   const parsed = new Date(isoString)
-  if (isNaN(parsed.getTime())) return isoString
+  if (Number.isNaN(parsed.getTime())) return isoString
   return parsed.toLocaleString(locale, {
     year: 'numeric',
     month: 'short',
@@ -21,7 +21,7 @@ function formatDateTime(isoString: string, locale: string) {
 function formatDateShort(isoString: string, locale: string) {
   if (!isoString) return ''
   const parsed = new Date(isoString)
-  if (isNaN(parsed.getTime())) return isoString
+  if (Number.isNaN(parsed.getTime())) return isoString
   return parsed.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
@@ -52,7 +52,7 @@ function formatAmount(amount: number, locale: string, currencyCode: string) {
   }).format(amount)
 }
 
-type MyAccountListQuotesTableProps = {
+type MyAccountListQuotesTableProps = Readonly<{
   listQuotes: ServerListQuotesQueryQuery['listUserQuotes']
   total: number
   perPage: number
@@ -65,32 +65,32 @@ type MyAccountListQuotesTableProps = {
     expiresAtTo: string
     label: string
   }
-}
+}>
 
 export function Pagination({
   page,
   total,
   perPage,
-}: {
+}: Readonly<{
   page: number
   total: number
   perPage: number
-}) {
+}>) {
   const totalPages = Math.ceil(total / perPage)
   const firstIndexLabel = page === 1 ? 1 : (page - 1) * perPage + 1
-  const lastIndexLabel =
-    total > firstIndexLabel + perPage - 1
-      ? firstIndexLabel + perPage - 1
-      : total
+  const lastIndexLabel = Math.min(firstIndexLabel + perPage - 1, total)
 
   const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(window.location.search)
+    const params = new URLSearchParams(globalThis.location.search)
     if (newPage === 1 || newPage === 0) {
       params.delete('page')
     } else {
       params.set('page', String(newPage))
     }
-    window.location.href = `/pvt/account/quotes${params.toString() ? `?${params}` : ''}`
+    const search = params.toString()
+    globalThis.location.href = search
+      ? `/pvt/account/quotes?${search}`
+      : '/pvt/account/quotes'
   }
 
   return (

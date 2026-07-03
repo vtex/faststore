@@ -1,12 +1,12 @@
 import { useEffect, useId, useRef, useState } from 'react'
 
-import { quoteStatusMap, type QuoteStatusKey } from 'src/utils/quoteStatus'
+import { quoteStatusMap } from 'src/utils/quoteStatus'
 import styles from './styles.module.scss'
 
-type MyAccountQuotesStatusSelectorProps = {
+type MyAccountQuotesStatusSelectorProps = Readonly<{
   value: string[]
   onChange: (selected: string[]) => void
-}
+}>
 
 const statusEntries = Object.entries(quoteStatusMap).map(([key, entry]) => ({
   key,
@@ -57,10 +57,8 @@ export default function MyAccountQuotesStatusSelector({
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') setOpen((o) => !o)
           }}
-          role="combobox"
           aria-labelledby={labelId}
           aria-expanded={open}
-          aria-haspopup="listbox"
           aria-controls="status-listbox"
           tabIndex={0}
         >
@@ -86,13 +84,7 @@ export default function MyAccountQuotesStatusSelector({
           })}
         </div>
         {open && (
-          <div
-            id="status-listbox"
-            className={styles.dropdown}
-            role="listbox"
-            aria-multiselectable="true"
-            tabIndex={-1}
-          >
+          <div id="status-listbox" className={styles.dropdown} tabIndex={-1}>
             {statusEntries.map(({ key, label }) => {
               const id = `status-opt-${key}`
               const checked = value.includes(key)

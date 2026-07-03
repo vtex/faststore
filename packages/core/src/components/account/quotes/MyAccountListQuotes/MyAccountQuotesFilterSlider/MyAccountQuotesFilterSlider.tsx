@@ -49,7 +49,7 @@ function MyAccountQuotesFilterSlider({
     const createdRange = createdDateRangeRef.current?.getDataRangeFacet()?.value
     const expiresRange = expiresDateRangeRef.current?.getDataRangeFacet()?.value
 
-    const params = new URLSearchParams(window.location.search)
+    const params = new URLSearchParams(globalThis.location.search)
     params.delete('page')
     params.delete('status')
     params.delete('createdAtFrom')
@@ -73,7 +73,10 @@ function MyAccountQuotesFilterSlider({
       params.set('expiresAtTo', expiresRange.to.trim())
     }
 
-    window.location.href = `/pvt/account/quotes${params.toString() ? `?${params}` : ''}`
+    const search = params.toString()
+    globalThis.location.href = search
+      ? `/pvt/account/quotes?${search}`
+      : '/pvt/account/quotes'
   }
 
   const statusFacet = facets.find(
