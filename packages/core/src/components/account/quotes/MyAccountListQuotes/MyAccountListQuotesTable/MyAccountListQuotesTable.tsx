@@ -130,7 +130,6 @@ export default function MyAccountListQuotesTable({
     <>
       <div data-fs-quotes-list>
         {listQuotes.list.map((item) => {
-          const quoteUrl = `/pvt/organization-account/order-entry?quoteId=${item.id}`
           const relativeExpiry = getRelativeExpiry(item.expiresAt)
           const formattedAmount = formatAmount(
             item.amount,
@@ -138,27 +137,8 @@ export default function MyAccountListQuotesTable({
             currencyCode
           )
 
-          const handleClick = () => {
-            window.location.href = quoteUrl
-          }
-
-          const handleKeyDown = (e: React.KeyboardEvent) => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              window.location.href = quoteUrl
-            }
-          }
-
           return (
-            <div
-              data-fs-quotes-list-row
-              key={item.id}
-              onClick={handleClick}
-              onKeyDown={handleKeyDown}
-              tabIndex={0}
-              role="button"
-              aria-label={`View quote ${item.label ?? item.id} details`}
-            >
+            <div data-fs-quotes-list-row key={item.id}>
               {/* Left: ID + label */}
               <div data-fs-quotes-list-col-main>
                 <p data-fs-quotes-list-id>{item.id}</p>

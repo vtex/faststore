@@ -78,7 +78,6 @@
     gap: var(--fs-spacing-4);
     align-items: flex-start;
     padding: var(--fs-spacing-4) 0;
-    cursor: pointer;
     border-bottom: 1px solid var(--fs-quotes-list-border-color);
     transition: background-color 0.2s ease;
 
@@ -86,13 +85,8 @@
       border-bottom: none;
     }
 
-    &:hover,
-    &:focus-visible {
+    &:hover {
       background-color: var(--fs-quotes-list-row-hover-bg);
-    }
-
-    &:focus-visible {
-      outline: 3px solid var(--fs-color-focus-ring);
     }
   }
 
