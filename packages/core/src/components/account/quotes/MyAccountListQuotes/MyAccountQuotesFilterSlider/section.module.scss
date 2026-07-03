@@ -18,7 +18,7 @@
   @include meta.load-css("~@faststore/ui/src/components/organisms/Filter/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/organisms/FilterSlider/styles.scss");
   @include meta.load-css("~@faststore/ui/src/components/organisms/SlideOver/styles.scss");
-  @include meta.load-css("../../../orders/MyAccountListOrders/MyAccountFilterSlider/MyAccountFilterFacetDateRange/styles.scss");
+  @include meta.load-css("../../../orders/ListOrders/FilterSlider/FilterFacetDateRange/styles.scss");
 
   [data-fs-slide-over] {
     --fs-slide-over-partial-width-notebook: calc(100% / 2.2);

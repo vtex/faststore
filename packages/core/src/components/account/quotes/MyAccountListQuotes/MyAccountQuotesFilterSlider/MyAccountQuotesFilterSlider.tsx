@@ -1,7 +1,7 @@
 import { FilterSlider as UIFilterSlider } from '@faststore/ui'
 
 import { useRef, useState } from 'react'
-import MyAccountFilterFacetDateRange from 'src/components/account/orders/MyAccountListOrders/MyAccountFilterSlider/MyAccountFilterFacetDateRange/MyAccountFilterFacetDateRange'
+import MyAccountFilterFacetDateRange from 'src/components/account/orders/ListOrders/FilterSlider/FilterFacetDateRange/FilterFacetDateRange'
 import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,

@@ -2,7 +2,7 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { MyAccountLayout } from 'src/components/account'
+import { Layout } from 'src/components/account'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
@@ -70,10 +70,7 @@ export default function ListQuotesPage({
       <RenderSections globalSections={globalSections} components={COMPONENTS}>
         <NextSeo noindex nofollow />
 
-        <MyAccountLayout
-          isRepresentative={isRepresentative}
-          accountName={accountName}
-        >
+        <Layout isRepresentative={isRepresentative} accountName={accountName}>
           <BeforeSection />
           <MyAccountListQuotes
             listQuotes={listQuotes}
@@ -82,7 +79,7 @@ export default function ListQuotesPage({
             total={total}
           />
           <AfterSection />
-        </MyAccountLayout>
+        </Layout>
       </RenderSections>
     </PageProvider>
   )

@@ -45,6 +45,12 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
         inverse={inverse}
         passHref
         href={finalHref}
+        // resolveLink already produces the fully localized href (custom path or
+        // explicit locale prefix), so NextLink must not add its own locale
+        // prefix on top of it. Otherwise SSR over-localizes (e.g.
+        // /it-IT/europe/it/...) while the client keeps /europe/it/..., causing
+        // a hydration mismatch.
+        locale={false}
         legacyBehavior={false}
         prefetch={prefetch}
         {...otherProps}

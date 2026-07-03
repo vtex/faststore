@@ -10,7 +10,7 @@ import { useRef, useEffect, type MutableRefObject } from 'react'
 
 import type { ServerListQuotesQueryQuery } from '@generated/graphql'
 
-import AccountHeader from '../../components/MyAccountHeader'
+import AccountHeader from '../../components/Header'
 import { useDebounce } from 'src/sdk/account/useDebounce'
 import { useMyAccountFilter } from 'src/sdk/search/useMyAccountFilter'
 import useScreenResize from 'src/sdk/ui/useScreenResize'

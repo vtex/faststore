@@ -19,7 +19,7 @@ import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 import { getPostalCode } from '../userLocation/index'
-import { getInitialSession, installLocaleCorrector } from './initialSession'
+import { getInitialSession, reconcileSessionLocale } from './initialSession'
 import { RELOAD_AFTER_LOGOUT_KEY, SESSION_READY_KEY } from './storageKeys'
 
 const isReloadAfterLogoutPending = (): boolean => {
@@ -195,11 +195,14 @@ const [validationStore, onValidate, hasValidatedStore] =
   createValidationStore(validateSession)
 
 const urlAwareInitialSession = getInitialSession()
-const defaultStore = createSessionStore(urlAwareInitialSession, onValidate)
-
-if (storeConfig.localization?.enabled && typeof window !== 'undefined') {
-  installLocaleCorrector(defaultStore, urlAwareInitialSession)
-}
+const defaultStore = createSessionStore(
+  urlAwareInitialSession,
+  onValidate,
+  'fs::session',
+  storeConfig.localization?.enabled
+    ? { reconcile: reconcileSessionLocale }
+    : undefined
+)
 
 export const sessionStore = {
   ...defaultStore,

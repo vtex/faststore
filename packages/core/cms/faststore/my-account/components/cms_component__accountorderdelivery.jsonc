@@ -1,0 +1,69 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountOrderDelivery",
+  "$componentTitle": "Account Order Delivery",
+  "title": "Account Order Delivery",
+  "description": "Order delivery section for My Account order details",
+  "type": "object",
+  "properties": {
+    "deliveryTitle": {
+      "type": "string",
+      "title": "Delivery Title",
+      "default": "Delivery"
+    },
+    "recipientLabel": {
+      "type": "string",
+      "title": "Recipient Label",
+      "default": "Recipient"
+    },
+    "deliveryAddressLabel": {
+      "type": "string",
+      "title": "Delivery Address Label",
+      "default": "Delivery address"
+    },
+    "storeAddressLabel": {
+      "type": "string",
+      "title": "Store Address Label",
+      "default": "Store address"
+    },
+    "storeHoursLabel": {
+      "type": "string",
+      "title": "Store Hours Label",
+      "default": "Store Hours"
+    },
+    "fromLabel": {
+      "type": "string",
+      "title": "From Label",
+      "default": "From:"
+    },
+    "toLabel": {
+      "type": "string",
+      "title": "To Label",
+      "default": "To:"
+    },
+    "itemCountTemplate": {
+      "type": "string",
+      "title": "Item Count Template",
+      "default": "{count} item(s)"
+    },
+    "eachLabel": {
+      "type": "string",
+      "title": "Each Label",
+      "default": "Each"
+    },
+    "taxesLabel": {
+      "type": "string",
+      "title": "Taxes Label",
+      "default": "Taxes"
+    },
+    "totalLabel": {
+      "type": "string",
+      "title": "Total Label",
+      "default": "Total"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}

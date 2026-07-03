@@ -12,10 +12,9 @@ export const getSkuLoader = ({ flags }: Options, clients: Clients) => {
       (key) => key.split('-')[1] === 'invisibleItems'
     )
 
-    const { products } = await clients.search.products({
-      query: `sku:${skuIds.join(';')}`,
-      page: 0,
-      count: skuIds.length,
+    const products = await clients.search.productsByIdentifier({
+      field: 'sku',
+      values: skuIds,
       showInvisibleItems,
       ...(flags?.enableUnavailableItemsOnCart && {
         hideUnavailableItems: false,

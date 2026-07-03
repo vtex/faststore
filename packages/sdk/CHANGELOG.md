@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/vtex/faststore/compare/v4.4.0-dev.6...v4.4.0) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.4.0-dev.6](https://github.com/vtex/faststore/compare/v4.4.0-dev.5...v4.4.0-dev.6) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.4.0-dev.5](https://github.com/vtex/faststore/compare/v4.4.0-dev.4...v4.4.0-dev.5) (2026-07-01)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.4.0-dev.4](https://github.com/vtex/faststore/compare/v4.4.0-dev.3...v4.4.0-dev.4) (2026-06-30)
+
+### Features
+
+- add i18n support for /pvt/account navigation ([#3400](https://github.com/vtex/faststore/issues/3400)) ([695dd0e](https://github.com/vtex/faststore/commit/695dd0ee8e06e32ad76c23925c5e095740430f0f))
+
+# [4.4.0-dev.3](https://github.com/vtex/faststore/compare/v4.4.0-dev.2...v4.4.0-dev.3) (2026-06-29)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.4.0-dev.2](https://github.com/vtex/faststore/compare/v4.4.0-dev.1...v4.4.0-dev.2) (2026-06-25)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.4.0-dev.1](https://github.com/vtex/faststore/compare/v4.4.0-dev.0...v4.4.0-dev.1) (2026-06-24)
+
+**Note:** Version bump only for package @faststore/sdk
+
+# [4.4.0-dev.0](https://github.com/vtex/faststore/compare/v4.3.1-dev.0...v4.4.0-dev.0) (2026-06-19)
+
+**Note:** Version bump only for package @faststore/sdk
+
 ## [4.3.1-dev.0](https://github.com/vtex/faststore/compare/v4.3.0-dev.8...v4.3.1-dev.0) (2026-06-17)
 
 **Note:** Version bump only for package @faststore/sdk

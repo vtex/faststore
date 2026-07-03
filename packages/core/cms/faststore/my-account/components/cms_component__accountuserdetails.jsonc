@@ -1,0 +1,49 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountUserDetails",
+  "$componentTitle": "Account User Details",
+  "title": "Account User Details",
+  "description": "User details section for My Account",
+  "type": "object",
+  "properties": {
+    "pageTitle": {
+      "type": "string",
+      "title": "Page Title",
+      "default": "User details"
+    },
+    "nameLabel": {
+      "type": "string",
+      "title": "Name Label",
+      "default": "Name"
+    },
+    "usernameLabel": {
+      "type": "string",
+      "title": "Username Label",
+      "default": "Username"
+    },
+    "emailLabel": {
+      "type": "string",
+      "title": "Email Label",
+      "default": "Email"
+    },
+    "phoneLabel": {
+      "type": "string",
+      "title": "Phone Label",
+      "default": "Phone number"
+    },
+    "roleLabel": {
+      "type": "string",
+      "title": "Role Label",
+      "default": "Role"
+    },
+    "orgUnitLabel": {
+      "type": "string",
+      "title": "Organizational Unit Label",
+      "default": "Organizational unit"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}
