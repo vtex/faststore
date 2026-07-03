@@ -634,6 +634,19 @@ export const Query = {
       isValid: true,
     }
   },
+  isOrganizationMember: async (
+    _: unknown,
+    __: unknown,
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+
+    return Boolean(sessionData?.namespaces.authentication?.unitId?.value)
+  },
   // only b2b users
   userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
     const {

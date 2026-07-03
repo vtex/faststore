@@ -492,6 +492,13 @@ type Query {
     @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
 
   """
+  Returns whether the current authenticated user belongs to a B2B organization unit.
+  """
+  isOrganizationMember: Boolean!
+    @auth
+    @cacheControl(scope: "private", sMaxAge: 300, staleWhileRevalidate: 3600)
+
+  """
   Returns a list of pickup points near to the given geo coordinates.
   """
   pickupPoints(

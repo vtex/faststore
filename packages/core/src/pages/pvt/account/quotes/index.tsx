@@ -15,6 +15,8 @@ import type {
   ServerAccountPageQueryQueryVariables,
   ServerListQuotesQueryQuery,
   ServerListQuotesQueryQueryVariables,
+  ServerQuotesOrganizationMemberQueryQuery,
+  ServerQuotesOrganizationMemberQueryQueryVariables,
 } from '@generated/graphql'
 import { ServerAccountPageQueryDocument } from '@generated/graphql'
 import { default as AfterSection } from 'src/customizations/src/myAccount/extensions/quotes/after'
@@ -107,6 +109,12 @@ const query = gql(`
   }
 `)
 
+const organizationMemberQuery = gql(`
+  query ServerQuotesOrganizationMemberQuery {
+    isOrganizationMember
+  }
+`)
+
 const getServerSidePropsBase: GetServerSideProps<
   MyAccountProps,
   Record<string, string>,
@@ -154,6 +162,7 @@ const getServerSidePropsBase: GetServerSideProps<
   const [
     listQuotesResult,
     accountProfileResult,
+    organizationMemberResult,
     globalSections,
     globalSectionsHeader,
     globalSectionsFooter,
@@ -178,10 +187,26 @@ const getServerSidePropsBase: GetServerSideProps<
       { variables: {}, operation: ServerAccountPageQueryDocument },
       { headers: { ...context.req.headers } }
     ).catch(() => null),
+    execute<
+      ServerQuotesOrganizationMemberQueryQueryVariables,
+      ServerQuotesOrganizationMemberQueryQuery
+    >(
+      { variables: {}, operation: organizationMemberQuery },
+      { headers: { ...context.req.headers } }
+    ).catch(() => null),
     globalSectionsPromise,
     globalSectionsHeaderPromise,
     globalSectionsFooterPromise,
   ])
+
+  if (!organizationMemberResult?.data?.isOrganizationMember) {
+    return {
+      redirect: {
+        destination: `/pvt/account/403?from=${encodeURIComponent('/pvt/account/quotes')}`,
+        permanent: false,
+      },
+    }
+  }
 
   if (listQuotesResult.errors) {
     console.error(...listQuotesResult.errors)
