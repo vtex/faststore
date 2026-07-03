@@ -269,7 +269,7 @@ describe('VTEX Commerce', () => {
         expect(url).toContain('createdAtTo=2026-01-31')
         expect(url).toContain('expiresAtFrom=2026-02-01')
         expect(url).toContain('expiresAtTo=2026-02-28')
-        expect(url).toContain(`label=${encodeURIComponent('my quote')}`)
+        expect(url).toContain('label=my+quote')
         expect(init.method).toBe('GET')
         expect(result).toEqual(mockResponse)
       })
