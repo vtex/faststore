@@ -50,18 +50,7 @@ export default function MyAccountQuotesStatusSelector({
         Status
       </span>
       <div data-fs-quotes-status-input-wrapper>
-        <div
-          className={styles.input}
-          data-open={open || undefined}
-          onClick={() => setOpen((o) => !o)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') setOpen((o) => !o)
-          }}
-          aria-labelledby={labelId}
-          aria-expanded={open}
-          aria-controls="status-listbox"
-          tabIndex={0}
-        >
+        <div className={styles.input} data-open={open || undefined}>
           {value.map((key) => {
             const entry = statusEntries.find((e) => e.key === key)
             return (
@@ -82,6 +71,16 @@ export default function MyAccountQuotesStatusSelector({
               </span>
             )
           })}
+          <button
+            type="button"
+            className={styles.toggle}
+            aria-labelledby={labelId}
+            aria-expanded={open}
+            aria-controls="status-listbox"
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span aria-hidden="true">▾</span>
+          </button>
         </div>
         {open && (
           <div id="status-listbox" className={styles.dropdown} tabIndex={-1}>
