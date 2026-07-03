@@ -78,6 +78,7 @@ const QUERIES = [
   'userDetails',
   'accountProfile',
   'validateUser',
+  'isOrganizationMember',
   'pickupPoints',
   'orderEntryOperation',
   'orderFormItems',
