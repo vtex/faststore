@@ -291,6 +291,10 @@ describe('VTEX Commerce', () => {
         expect(url).toContain('/api/recommend-bff/v2/users/start-session')
         expect(init.method).toBe('POST')
         expect(result).toEqual(mockResponse)
+      })
+    })
+  })
+
   describe('Quotes', () => {
     describe('listUserQuotes', () => {
       it('calls the quoting endpoint with pagination, status, date range and trimmed label params', async () => {
