@@ -71,7 +71,7 @@ export function RecommendationShelf<
   mapProductToProductCard,
   carouselConfiguration,
   productCardConfiguration,
-}: Readonly<RecommendationShelfProps<TCardProps>>) {
+}: RecommendationShelfProps<TCardProps>) {
   const {
     itemsPerPageDesktop = 4,
     itemsPerPageMobile = 2,

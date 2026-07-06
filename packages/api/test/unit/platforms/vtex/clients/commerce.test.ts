@@ -234,4 +234,64 @@ describe('VTEX Commerce', () => {
       })
     })
   })
+
+  describe('Recommendation', () => {
+    describe('recommendations', () => {
+      it('builds the query string with all optional params', async () => {
+        const mockResponse = { products: [], correlationId: '', campaign: {} }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.recommendation.recommendations({
+          campaignVrn: 'vrn:recommendations:acc:rec-cross-v2:c-1',
+          userId: 'user-1',
+          products: ['pg-1', 'pg-2'],
+          salesChannel: '1',
+          locale: 'en-US',
+        })
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/recommend-bff/v2/recommendations')
+        expect(url).toContain('campaignVrn=vrn')
+        expect(url).toContain('userId=user-1')
+        expect(url).toContain('products=pg-1%2Cpg-2')
+        expect(url).toContain('salesChannel=1')
+        expect(url).toContain('locale=en-US')
+        expect(result).toEqual(mockResponse)
+      })
+
+      it('omits optional params when not provided', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({})
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.recommendation.recommendations({
+          campaignVrn: 'vrn:recommendations:acc:rec-top-items-v2:c-1',
+        })
+
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).not.toContain('userId=')
+        expect(url).not.toContain('products=')
+        expect(url).not.toContain('salesChannel=')
+        expect(url).not.toContain('locale=')
+      })
+    })
+
+    describe('startRecommendationSession', () => {
+      it('posts to the start-session endpoint', async () => {
+        const mockResponse = { recommendationsUserId: 'user-1' }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result =
+          await commerce.recommendation.startRecommendationSession()
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/recommend-bff/v2/users/start-session')
+        expect(init.method).toBe('POST')
+        expect(result).toEqual(mockResponse)
+      })
+    })
+  })
 })
