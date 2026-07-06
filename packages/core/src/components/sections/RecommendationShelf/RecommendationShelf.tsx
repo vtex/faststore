@@ -17,7 +17,7 @@ import type {
   RecommendationProductCardMapper,
   RecommendationShelfProps,
 } from './RecommendationShelf.types'
-import styles from './RecommendationShelf.module.scss'
+import styles from './section.module.scss'
 import {
   useRecommendations,
   type RecommendationInput,
@@ -166,7 +166,7 @@ export function RecommendationShelf<
 
   return (
     <section
-      className={`${styles.recommendationShelf} section-product-shelf layout__section section`}
+      className={`${styles.section} section-product-shelf layout__section section`}
       {...(shouldAddAFAttr
         ? {
             'data-af-element': 'recommendation-shelf' as const,
@@ -196,7 +196,7 @@ export function RecommendationShelf<
               return (
                 <div
                   key={item.id}
-                  className={styles.recommendationShelfItem}
+                  data-fs-recommendation-shelf-item
                   {...(shouldAddAFAttr
                     ? {
                         'data-af-element': 'recommendation-shelf-product',

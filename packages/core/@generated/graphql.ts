@@ -2588,15 +2588,6 @@ export type ValidateUserData = {
   isValid: Scalars['Boolean']['output'];
 };
 
-export type FetchRecommendationsQueryQueryVariables = Exact<{
-  campaignVrn: Scalars['String']['input'];
-  userId: InputMaybe<Scalars['String']['input']>;
-  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
-}>;
-
-
-export type FetchRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }>, campaign: { id: string, title: string | null, type: string } } };
-
 export type ProductSummary_ProductFragment = { slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null };
 
 type Filter_Facets_StoreFacetBoolean_Fragment = { __typename: 'StoreFacetBoolean', key: string, label: string, values: Array<{ label: string, value: string, selected: boolean, quantity: number | null }> };
@@ -2609,6 +2600,15 @@ export type Filter_FacetsFragment =
 ;
 
 export type ProductDetailsFragment_ProductFragment = { sku: string, name: string, gtin: string, description: string, unitMultiplier: number | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> };
+
+export type ClientRecommendationsQueryQueryVariables = Exact<{
+  campaignVrn: Scalars['String']['input'];
+  userId: InputMaybe<Scalars['String']['input']>;
+  products: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type ClientRecommendationsQueryQuery = { recommendations: { correlationId: string, products: Array<{ slug: string, sku: string, name: string, gtin: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, brand: { name: string, brandName: string }, isVariantOf: { productGroupID: string, name: string, skuVariants: { allVariantsByName: any | null, activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, listPrice: number, listPriceWithTaxes: number, priceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, deliveryPromiseBadges: Array<{ typeName: string | null } | null> | null }>, campaign: { id: string, title: string | null, type: string } } };
 
 export type ProductComparisonFragment_ProductFragment = { sku: string, slug: string, name: string, gtin: string, description: string, unitMultiplier: number | null, hasSpecifications: boolean | null, id: string, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, image: Array<{ url: string, alternateName: string }>, brand: { name: string }, offers: { lowPrice: number, lowPriceWithTaxes: number, offers: Array<{ availability: string, price: number, priceWithTaxes: number, listPrice: number, quantity: number, listPriceWithTaxes: number, seller: { identifier: string } }> }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }>, advertisement: { adId: string, adResponseId: string } | null, skuSpecifications: Array<{ field: { id: string | null, name: string, originalName: string | null }, values: Array<{ name: string, id: string | null, fieldId: string | null, originalName: string | null }> }>, specificationGroups: Array<{ name: string, originalName: string, specifications: Array<{ name: string, originalName: string, values: Array<string> }> }> };
 
@@ -3398,7 +3398,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
   fuzzy
 }
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
-export const FetchRecommendationsQueryDocument = {"__meta__":{"operationName":"FetchRecommendationsQuery","operationHash":"64a95fe632da7ee9c9d6ddf136eb36e938268292"}} as unknown as TypedDocumentString<FetchRecommendationsQueryQuery, FetchRecommendationsQueryQueryVariables>;
+export const ClientRecommendationsQueryDocument = {"__meta__":{"operationName":"ClientRecommendationsQuery","operationHash":"db61ca57203036d24d5e1e2c9e40d6d0906f0056"}} as unknown as TypedDocumentString<ClientRecommendationsQueryQuery, ClientRecommendationsQueryQueryVariables>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
 export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;

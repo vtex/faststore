@@ -45,10 +45,26 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type {
+  RecommendationResult,
+  StartRecommendationSessionResult,
+} from './types/RecommendationResult'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
+
+// Identifies the storefront origin to the Recommendations BFF, as required by
+// the API (`x-vtex-rec-origin` header).
+const REC_ORIGIN_SUFFIX = 'storefront/faststore.recommendation-shelf@v4'
+
+export interface RecommendationArgs {
+  campaignVrn: string
+  userId?: string
+  products?: string[]
+  salesChannel?: string
+  locale?: string
+}
 
 const BASE_INIT = {
   method: 'POST',
@@ -76,6 +92,15 @@ export const VtexCommerce = (
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
+
+  // Recommendations BFF (`/api/recommend-bff/v2`) lives under the same account
+  // host as the other commerce APIs, so it's exposed here as a namespace.
+  const recommendationBase = `${base}/api/recommend-bff/v2`
+  const recommendationHeaders: HeadersInit = withCookie({
+    accept: 'application/json',
+    'content-type': 'application/json',
+    'x-vtex-rec-origin': `${account}/${REC_ORIGIN_SUFFIX}`,
+  })
 
   return {
     catalog: {
@@ -982,6 +1007,55 @@ export const VtexCommerce = (
             headers: autHeaders,
           },
           {}
+        )
+      },
+    },
+
+    // Anonymous personalization / recommendations served by the VTEX
+    // Recommendations BFF. The BFF replies with `vtex-rec-*` Set-Cookie headers
+    // (forwarded to the browser via `ctx.storage.cookies`) and returns products
+    // already hydrated in the Intelligent Search shape.
+    recommendation: {
+      recommendations: ({
+        campaignVrn,
+        userId,
+        products = [],
+        salesChannel,
+        locale,
+      }: RecommendationArgs): Promise<RecommendationResult> => {
+        const params = new URLSearchParams({ an: account, campaignVrn })
+
+        if (userId) {
+          params.append('userId', userId)
+        }
+
+        if (products.length > 0) {
+          params.append('products', products.join(','))
+        }
+
+        if (salesChannel) {
+          params.append('salesChannel', salesChannel)
+        }
+
+        if (locale) {
+          params.append('locale', locale)
+        }
+
+        return fetchAPI(
+          `${recommendationBase}/recommendations?${params.toString()}`,
+          { headers: recommendationHeaders }
+        )
+      },
+
+      startRecommendationSession: (): Promise<
+        StartRecommendationSessionResult | undefined
+      > => {
+        const params = new URLSearchParams({ an: account })
+
+        return fetchAPI(
+          `${recommendationBase}/users/start-session?${params.toString()}`,
+          { method: 'POST', headers: recommendationHeaders },
+          { storeCookies }
         )
       },
     },

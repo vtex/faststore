@@ -2,17 +2,17 @@
 @use "sass:meta";
 
 @layer components {
-  .recommendationShelfItem {
-    display: flex;
-    width: 100%;
-    height: 100%;
-
-    > * {
+  .section {
+    [data-fs-recommendation-shelf-item] {
+      display: flex;
       width: 100%;
-    }
-  }
+      height: 100%;
 
-  .recommendationShelf {
+      > * {
+        width: 100%;
+      }
+    }
+
     [data-fs-product-shelf-skeleton] {
       --fs-carousel-item-margin-right: var(--fs-spacing-3);
 

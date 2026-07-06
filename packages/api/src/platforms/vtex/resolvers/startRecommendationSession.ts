@@ -13,7 +13,8 @@ export const startRecommendationSession = async (
   __: unknown,
   ctx: GraphqlContext
 ) => {
-  const result = await ctx.clients.recommendation.startRecommendationSession()
+  const result =
+    await ctx.clients.commerce.recommendation.startRecommendationSession()
 
   // The BFF may not be ready on the first call and can resolve without a
   // session payload. Only report success once a session actually exists (its

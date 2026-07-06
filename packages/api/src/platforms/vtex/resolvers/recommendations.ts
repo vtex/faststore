@@ -25,7 +25,7 @@ export const recommendations = async (
   ctx: GraphqlContext
 ) => {
   const {
-    clients: { recommendation },
+    clients: { commerce },
   } = ctx
 
   const { salesChannel } = ctx.storage.channel
@@ -54,7 +54,7 @@ export const recommendations = async (
     )
   }
 
-  const response = await recommendation.recommendations({
+  const response = await commerce.recommendation.recommendations({
     campaignVrn: normalizedCampaignVrn,
     userId: normalizedUserId || undefined,
     products: products ?? [],

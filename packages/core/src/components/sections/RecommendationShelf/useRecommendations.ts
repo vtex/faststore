@@ -1,12 +1,12 @@
 import { gql } from '@faststore/core/api'
-import type { FetchRecommendationsQueryQuery } from '@generated/graphql'
+import type { ClientRecommendationsQueryQuery } from '@generated/graphql'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
 // Recommendations return the same normalized `StoreProduct` shape as the search
 // response, so the shelf renders identical product cards to regular shelves.
 // We select `...ProductSummary_product` (the fragment consumed by `ProductCard`)
 // to keep this interface consistent with the rest of the components.
-const query = gql(`query FetchRecommendationsQuery(
+const query = gql(`query ClientRecommendationsQuery(
   $campaignVrn: String!
   $userId: String
   $products: [String!]
@@ -36,12 +36,12 @@ export type RecommendationInput = {
 }
 
 export type RecommendationResponse =
-  FetchRecommendationsQueryQuery['recommendations']
+  ClientRecommendationsQueryQuery['recommendations']
 export type RecommendationProduct = RecommendationResponse['products'][number]
 
 export const useRecommendations = (args: RecommendationInput | null) => {
   const { data, isLoading, error } = useQuery<
-    FetchRecommendationsQueryQuery,
+    ClientRecommendationsQueryQuery,
     RecommendationInput
   >(query, args ?? ({} as RecommendationInput), {
     doNotRun: args === null,
