@@ -15,6 +15,7 @@ import { execute } from 'src/server'
 
 import { validateUser } from 'src/sdk/account/validateUser'
 import { injectGlobalSections } from 'src/server/cms/global'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
 import storeConfig from '../../discovery.config'
@@ -48,7 +49,7 @@ const getServerSidePropsBase: GetServerSideProps<
   if (!validationResult.isValid && !validationResult.needsRefresh) {
     return {
       redirect: {
-        destination: '/login',
+        destination: localizeRedirectDestination('/login', context),
         permanent: false,
       },
     }
@@ -59,7 +60,10 @@ const getServerSidePropsBase: GetServerSideProps<
     const currentPath = context.req.url || '/pvt/account'
     return {
       redirect: {
-        destination: `/pvt/account/403?from=${encodeURIComponent(currentPath)}`,
+        destination: localizeRedirectDestination(
+          `/pvt/account/403?from=${encodeURIComponent(currentPath)}`,
+          context
+        ),
         permanent: false,
       },
     }

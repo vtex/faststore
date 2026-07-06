@@ -875,8 +875,12 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Returns whether the current authenticated user belongs to a B2B organization unit. */
+  isOrganizationMember: Scalars['Boolean']['output'];
   /** Returns the list of Orders that the User can view. */
   listUserOrders: Maybe<UserOrderListMinimalResult>;
+  /** Returns the list of Quotes that the authenticated Buyer can view. */
+  listUserQuotes: Maybe<UserQuoteListResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
   orderEntryOperation: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
@@ -936,6 +940,18 @@ export type QueryListUserOrdersArgs = {
   perPage: InputMaybe<Scalars['Int']['input']>;
   status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryListUserQuotesArgs = {
+  createdAtFrom: InputMaybe<Scalars['String']['input']>;
+  createdAtTo: InputMaybe<Scalars['String']['input']>;
+  expiresAtFrom: InputMaybe<Scalars['String']['input']>;
+  expiresAtTo: InputMaybe<Scalars['String']['input']>;
+  label: InputMaybe<Scalars['String']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  perPage: InputMaybe<Scalars['Int']['input']>;
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -2583,6 +2599,42 @@ export type UserOrderTransactions = {
   transactionId: Maybe<Scalars['String']['output']>;
 };
 
+/** Pagination metadata for the quotes list. */
+export type UserQuoteListPaging = {
+  /** Current page number (1-based). */
+  currentPage: Scalars['Int']['output'];
+  /** Number of items per page. */
+  perPage: Scalars['Int']['output'];
+  /** Total number of quotes matching the query. */
+  total: Scalars['Int']['output'];
+};
+
+/** Result returned by the listUserQuotes query. */
+export type UserQuoteListResult = {
+  /** Array of quote summaries for the current page. */
+  list: Array<UserQuoteSummary>;
+  /** Pagination information. */
+  paging: UserQuoteListPaging;
+};
+
+/** Summary of a quote returned in list results. */
+export type UserQuoteSummary = {
+  /** Total amount of the quote. */
+  amount: Scalars['Float']['output'];
+  /** ISO 8601 date-time when the quote was created. */
+  createdAt: Scalars['String']['output'];
+  /** Name or email of the user who created the quote. */
+  createdBy: Maybe<Scalars['String']['output']>;
+  /** ISO 8601 date-time when the quote expires. */
+  expiresAt: Scalars['String']['output'];
+  /** Unique identifier of the quote. */
+  id: Scalars['String']['output'];
+  /** Optional label assigned to the quote. */
+  label: Maybe<Scalars['String']['output']>;
+  /** Status of the quote. */
+  status: Scalars['String']['output'];
+};
+
 export type ValidateUserData = {
   /** Indicates if the user is valid. */
   isValid: Scalars['Boolean']['output'];
@@ -2676,6 +2728,25 @@ export type ServerProfileQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ServerProfileQueryQuery = { accountProfile: { name: string | null, email: string | null, id: string | null } };
+
+export type ServerListQuotesQueryQueryVariables = Exact<{
+  page: InputMaybe<Scalars['Int']['input']>;
+  perPage: InputMaybe<Scalars['Int']['input']>;
+  status: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  createdAtFrom: InputMaybe<Scalars['String']['input']>;
+  createdAtTo: InputMaybe<Scalars['String']['input']>;
+  expiresAtFrom: InputMaybe<Scalars['String']['input']>;
+  expiresAtTo: InputMaybe<Scalars['String']['input']>;
+  label: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ServerListQuotesQueryQuery = { listUserQuotes: { list: Array<{ id: string, status: string, label: string | null, createdAt: string, expiresAt: string, amount: number, createdBy: string | null }>, paging: { total: number, currentPage: number, perPage: number } } | null };
+
+export type ServerQuotesOrganizationMemberQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerQuotesOrganizationMemberQueryQuery = { isOrganizationMember: boolean };
 
 export type ServerSecurityQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3405,6 +3476,8 @@ export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerPr
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
+export const ServerListQuotesQueryDocument = {"__meta__":{"operationName":"ServerListQuotesQuery","operationHash":"cce44921361a629c793364adb43319601cc0aa33"}} as unknown as TypedDocumentString<ServerListQuotesQueryQuery, ServerListQuotesQueryQueryVariables>;
+export const ServerQuotesOrganizationMemberQueryDocument = {"__meta__":{"operationName":"ServerQuotesOrganizationMemberQuery","operationHash":"9ba9119f2a361c83af8ecc703cb28f915df10ac8"}} as unknown as TypedDocumentString<ServerQuotesOrganizationMemberQueryQuery, ServerQuotesOrganizationMemberQueryQueryVariables>;
 export const ServerSecurityDocument = {"__meta__":{"operationName":"ServerSecurity","operationHash":"0890ba3456c40a426893b80b698df7a84cfdd6a1"}} as unknown as TypedDocumentString<ServerSecurityQuery, ServerSecurityQueryVariables>;
 export const ServerUserDetailsQueryDocument = {"__meta__":{"operationName":"ServerUserDetailsQuery","operationHash":"630ec1f47f2710ce3d7895e9131482641f30c837"}} as unknown as TypedDocumentString<ServerUserDetailsQueryQuery, ServerUserDetailsQueryQueryVariables>;
 export const CancelOrderMutationDocument = {"__meta__":{"operationName":"CancelOrderMutation","operationHash":"e2b06da6840614d3c72768e56579b9d3b8e80802"}} as unknown as TypedDocumentString<CancelOrderMutationMutation, CancelOrderMutationMutationVariables>;

@@ -49,6 +49,29 @@ const validLocales = new Set(
 )
 
 /**
+ * Resolves the locale Next.js already assigned to this request (path prefix or
+ * domain routing). For _next/data routes the locale is embedded in the path.
+ */
+function getActiveLocaleFromRequest(request: NextRequest): string | undefined {
+  const { pathname } = request.nextUrl
+  const dataMatch = pathname.match(DATA_ROUTE_RE)
+
+  if (dataMatch) {
+    const localeFromData = dataMatch[1]
+    if (validLocales.has(localeFromData)) {
+      return localeFromData
+    }
+  }
+
+  const { locale } = request.nextUrl
+  if (locale && validLocales.has(locale)) {
+    return locale
+  }
+
+  return undefined
+}
+
+/**
  * Rewrites the request to the subdomain locale.
  * Without this, getStaticProps receives the wrong locale on subdomain domains
  * because Next.js domain routing doesn't set the locale for server-side rendering.
@@ -61,6 +84,19 @@ function rewriteSubdomainRequest(
   request: NextRequest,
   locale: string
 ): NextResponse | null {
+  const activeLocale = getActiveLocaleFromRequest(request)
+
+  // Root bindings share a hostname with path-prefixed locales (e.g. /pt-BR).
+  // When Next already resolved a different locale, skip injecting the subdomain
+  // locale to avoid double-prefix rewrites like /pt-BR/en-US/...
+  if (
+    activeLocale &&
+    validLocales.has(activeLocale) &&
+    activeLocale !== locale
+  ) {
+    return null
+  }
+
   const { pathname, search } = request.nextUrl
 
   const dataMatch = pathname.match(DATA_ROUTE_RE)

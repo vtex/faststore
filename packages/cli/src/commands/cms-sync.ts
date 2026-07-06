@@ -1,10 +1,46 @@
 import { Args, Command, Flags } from '@oclif/core'
+import chalk from 'chalk'
 import { spawn } from 'node:child_process'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
+import {
+  isMyAccountEnabled,
+  resolveContentSource,
+  type ResolvedContentSource,
+} from '../utils/config'
+import {
+  cleanupMyAccountMergeDir,
+  errorNoCustomization,
+  generateAndUploadSchema,
+  getCpSchemaOutputPath,
+  getExistingCpDirs,
+  type MyAccountMerge,
+  prepareMyAccountMergeDir,
+} from '../utils/cp-schema'
 import { getBasePath, withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
-import path from 'node:path'
-import { pathToFileURL } from 'node:url'
+import { logger } from '../utils/logger'
+import { assertVtexReadyForAccount } from '../utils/vtex'
+
+type StoreConfig = {
+  api?: {
+    storeId?: string
+  }
+  contentSource?: {
+    type?: string
+    project?: string
+  }
+  experimental?: {
+    enableFaststoreMyAccount?: boolean
+  }
+}
+
+const CONTENT_SOURCE_ACTION: Record<ResolvedContentSource, string> = {
+  CMS: 'merging and syncing CMS content',
+  CP: 'generating and uploading schema',
+}
 
 export default class CmsSync extends Command {
   static flags = {
@@ -23,24 +59,117 @@ export default class CmsSync extends Command {
     const { flags, args } = await this.parse(CmsSync)
 
     const basePath = getBasePath(args.path)
-    const { tmpDir, userStoreConfigFile } = withBasePath(basePath)
+    const { userStoreConfigFile } = withBasePath(basePath)
 
-    const { default: userStoreConfig } = await import(
-      pathToFileURL(path.resolve(userStoreConfigFile)).href
+    const storeConfig: StoreConfig | null = existsSync(userStoreConfigFile)
+      ? (await import(pathToFileURL(path.resolve(userStoreConfigFile)).href))
+          .default
+      : null
+
+    const source = resolveContentSource(storeConfig?.contentSource?.type)
+
+    logger.info(
+      `${chalk.blue('[Info]')} - Detected contentSource "${source}" — ${CONTENT_SOURCE_ACTION[source]}`
     )
-    const cmsProjectName = userStoreConfig.contentSource?.project ?? 'faststore'
+
+    switch (source) {
+      case 'CMS':
+        return this.runLegacySync({
+          basePath,
+          storeConfig,
+          dryRun: flags['dry-run'],
+        })
+      case 'CP':
+        return this.runCpSync({
+          basePath,
+          storeConfig,
+          dryRun: flags['dry-run'],
+        })
+      default: {
+        return source
+      }
+    }
+  }
+
+  private async runLegacySync({
+    basePath,
+    storeConfig,
+    dryRun,
+  }: {
+    basePath: string
+    storeConfig: StoreConfig | null
+    dryRun?: boolean
+  }) {
+    const { tmpDir } = withBasePath(basePath)
+    const project = storeConfig?.contentSource?.project ?? 'faststore'
 
     await generate({ setup: true, basePath })
     await mergeCMSFiles(basePath)
 
-    if (flags['dry-run']) {
+    if (dryRun) {
       return
     }
 
-    return spawn(`vtex cms sync ${cmsProjectName}`, {
+    return spawn(`vtex cms sync ${project}`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
+  }
+
+  private runCpSync({
+    basePath,
+    storeConfig,
+    dryRun,
+  }: {
+    basePath: string
+    storeConfig: StoreConfig | null
+    dryRun?: boolean
+  }) {
+    assertVtexReadyForAccount(storeConfig?.api?.storeId)
+
+    let merge: MyAccountMerge | undefined
+
+    if (isMyAccountEnabled(storeConfig)) {
+      logger.info(
+        `${chalk.blue('[Info]')} - Merging My Account sections and content-types into the schema`
+      )
+      // The merge dir already contains the store's own customizations merged
+      // with the core My Account schemas, so it replaces the raw store dirs.
+      merge = prepareMyAccountMergeDir(basePath)
+    }
+
+    const dirs = merge ? merge.dirs : getExistingCpDirs(basePath)
+
+    if (dirs.length === 0) {
+      errorNoCustomization()
+    }
+
+    const schemaOut = getCpSchemaOutputPath(basePath)
+
+    // A toolbelt failure inside generateAndUploadSchema exits via process.exit(),
+    // which bypasses `finally`. Register the cleanup on `exit` so the staging dir
+    // is removed on that path too, then run it synchronously and drop the hook on
+    // every normal path (success, dry-run, or a thrown error).
+    let cleanup: (() => void) | undefined
+    if (merge) {
+      const { mergeDir } = merge
+      cleanup = () => cleanupMyAccountMergeDir(mergeDir)
+      process.once('exit', cleanup)
+    }
+
+    try {
+      generateAndUploadSchema({
+        basePath,
+        dirs,
+        schemaOut,
+        dryRun: dryRun ?? false,
+      })
+    } finally {
+      if (cleanup) {
+        process.removeListener('exit', cleanup)
+        cleanup()
+      }
+    }
   }
 }

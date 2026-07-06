@@ -29,6 +29,7 @@ import {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
+import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import type { GraphqlContext } from '../index'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
@@ -46,6 +47,16 @@ import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SORT_MAP } from '../utils/sort'
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
 import { StoreCollection } from './collection'
+
+const INVALID_SKU_ID_ERROR = 'Invalid SkuId'
+const SLUG_MISMATCH_ERROR =
+  'Slug was set but the fetched sku does not satisfy the slug condition.'
+
+const shouldFallbackToProductRoute = (error: unknown) =>
+  isNotFoundError(error) ||
+  (error instanceof Error &&
+    (error.message === INVALID_SKU_ID_ERROR ||
+      error.message.startsWith(SLUG_MISMATCH_ERROR)))
 
 export const Query = {
   product: async (
@@ -76,7 +87,7 @@ export const Query = {
       const skuId = id ?? slug?.split('-').pop() ?? ''
 
       if (!isValidSkuId(skuId)) {
-        throw new Error('Invalid SkuId')
+        throw new Error(INVALID_SKU_ID_ERROR)
       }
 
       const sku = await skuLoader.load(skuId)
@@ -100,6 +111,10 @@ export const Query = {
 
       return sku
     } catch (err) {
+      if (!shouldFallbackToProductRoute(err)) {
+        throw err
+      }
+
       if (slug == null) {
         throw new BadRequestError('Missing slug or id')
       }
@@ -110,15 +125,12 @@ export const Query = {
         throw new NotFoundError(`No product found for slug ${slug}`)
       }
 
-      const {
-        products: [product],
-      } = await search.products({
-        page: 0,
-        count: 1,
-        query: `product:${route.id}`,
-        // Manually disabling this flag to prevent regionalization issues
-        hideUnavailableItems: false,
-      })
+      const product = await search
+        .fetchProduct({
+          field: 'id',
+          value: String(route.id),
+        })
+        .catch(() => null)
 
       if (!product) {
         throw new NotFoundError(`No product found for id ${route.id}`)
@@ -165,39 +177,60 @@ export const Query = {
       mutateLocaleContext(ctx, locale)
     }
 
-    let query = term
-
-    /**
-     * In case we are using crossSelling, we need to modify the search
-     * we will be performing on our search engine. The idea in here
-     * is to use the cross selling API for fetching the productIds our
-     * search will return for us.
-     * Doing this two request workflow makes it possible to have cross
-     * selling with Search features, like pagination, internationalization
-     * etc
-     */
-    if (crossSelling) {
-      const products = await ctx.clients.commerce.catalog.products.crossselling(
-        {
-          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
-          productId: crossSelling.value,
-        }
-      )
-
-      query = `product:${products
-        .map((x) => x.productId)
-        .slice(0, first)
-        .join(';')}`
-    }
-
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs: Omit<SearchArgs, 'type'> = {
       page: Math.ceil(after / first) || 0,
       count: first,
-      query: query ?? undefined,
-      sort: SORT_MAP[sort ?? 'score_desc'],
+      query: term ?? undefined,
+      sort: SORT_MAP[sort ?? 'score_desc'] ?? SORT_MAP.score_desc,
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
       sponsoredCount: sponsoredCount ?? undefined,
+    }
+
+    /**
+     * In case we are using crossSelling, we fetch product IDs from the
+     * cross selling API and then hydrate them using the PDP endpoint
+     * via productsByIdentifier.
+     */
+    if (crossSelling) {
+      const crossSellingProducts =
+        await ctx.clients.commerce.catalog.products.crossselling({
+          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
+          productId: crossSelling.value,
+        })
+
+      const productIds = crossSellingProducts
+        .map((x) => x.productId)
+        .slice(0, first)
+
+      const productSearchPromise: Promise<ProductSearchResult> =
+        ctx.clients.search
+          .productsByIdentifier({ field: 'id', values: productIds })
+          .then((products) => ({
+            products,
+            recordsFiltered: products.length,
+            pagination: {
+              count: products.length,
+              current: { index: 0, proxyURL: '' },
+              before: [],
+              after: [],
+              perPage: first,
+              next: { index: 0, proxyURL: '' },
+              previous: { index: 0, proxyURL: '' },
+              first: { index: 0, proxyURL: '' },
+              last: { index: 0, proxyURL: '' },
+            },
+            sampling: false,
+            options: { sorts: [], counts: [] },
+            translated: false,
+            locale: '',
+            query: '',
+            operator: 'and',
+            fuzzy: '0',
+            searchId: '',
+          }))
+
+      return { searchArgs, productSearchPromise }
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
@@ -253,14 +286,12 @@ export const Query = {
       return []
     }
 
-    const query = `id:${productIds.join(';')}`
-    const products = await search.products({
-      page: 0,
-      count: productIds.length,
-      query,
+    const products = await search.productsByIdentifier({
+      field: 'id',
+      values: productIds,
     })
 
-    return products.products
+    return products
       .flatMap((product) =>
         product.items.map((sku) => enhanceSku(sku, product))
       )
@@ -564,12 +595,89 @@ export const Query = {
       paging: orders.paging,
     }
   },
+  listUserQuotes: async (
+    _: unknown,
+    filters: {
+      page?: number
+      perPage?: number
+      status?: string[]
+      createdAtFrom?: string
+      createdAtTo?: string
+      expiresAtFrom?: string
+      expiresAtTo?: string
+      label?: string
+    },
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.quotes.listUserQuotes(filters)
+
+    const uniqueCreatedByIds = [
+      ...new Set(result.items.map((quote) => quote.createdBy).filter(Boolean)),
+    ] as string[]
+
+    const createdByNameById = new Map<string, string>()
+    await Promise.all(
+      uniqueCreatedByIds.map(async (userId) => {
+        try {
+          const [shopper] = await commerce.masterData.getShopperById({
+            userId,
+          })
+          if (shopper) {
+            const fullName = [shopper.firstName, shopper.lastName]
+              .filter(Boolean)
+              .join(' ')
+            if (fullName) createdByNameById.set(userId, fullName)
+          }
+        } catch {
+          // Fall back to the raw id below if the lookup fails
+        }
+      })
+    )
+
+    const list = result.items.map((quote) => ({
+      id: quote.id,
+      status: quote.status,
+      label: quote.label ?? null,
+      createdAt: quote.createdAt,
+      expiresAt: quote.expiresAt,
+      amount: quote.amount,
+      createdBy: quote.createdBy
+        ? (createdByNameById.get(quote.createdBy) ?? quote.createdBy)
+        : null,
+    }))
+
+    return {
+      list,
+      paging: {
+        total: result.totalItems,
+        currentPage: result.pageNumber,
+        perPage: result.pageSize,
+      },
+    }
+  },
   validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
     return {
       isValid: true,
     }
+  },
+  isOrganizationMember: async (
+    _: unknown,
+    __: unknown,
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+
+    return Boolean(sessionData?.namespaces.authentication?.unitId?.value)
   },
   // only b2b users
   userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {

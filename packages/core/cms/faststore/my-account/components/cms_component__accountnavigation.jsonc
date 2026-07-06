@@ -1,0 +1,59 @@
+{
+  "$extends": ["#/$defs/base-component"],
+  "$componentKey": "AccountNavigation",
+  "$componentTitle": "Account Navigation",
+  "title": "Account Navigation",
+  "description": "Navigation menu for My Account pages with sidebar and drawer labels",
+  "type": "object",
+  "properties": {
+    "profileLabel": {
+      "type": "string",
+      "title": "Profile Menu Label",
+      "default": "Profile"
+    },
+    "ordersLabel": {
+      "type": "string",
+      "title": "Orders Menu Label",
+      "default": "Orders"
+    },
+    "userDetailsLabel": {
+      "type": "string",
+      "title": "User Details Menu Label",
+      "default": "User Details"
+    },
+    "securityLabel": {
+      "type": "string",
+      "title": "Security Menu Label",
+      "default": "Security"
+    },
+    "manageLabel": {
+      "type": "string",
+      "title": "Manage Button Label",
+      "default": "Manage"
+    },
+    "logoutLabel": {
+      "type": "string",
+      "title": "Logout Button Label",
+      "default": "Logout"
+    },
+    "switchLabel": {
+      "type": "string",
+      "title": "Switch Button Label",
+      "default": "Switch"
+    },
+    "companyLabel": {
+      "type": "string",
+      "title": "Company Label",
+      "default": "Company"
+    },
+    "contractLabel": {
+      "type": "string",
+      "title": "Contract Label",
+      "default": "Contract"
+    }
+  },
+  "readOnly": false,
+  "writeOnly": false,
+  "deprecated": false,
+  "$abstract": false
+}
