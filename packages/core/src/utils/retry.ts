@@ -42,7 +42,7 @@ export async function retry<T>(
     delayMs = 500,
     backoff = false,
     maxDelayMs = 3000,
-    until = (value) => Boolean(value),
+    until = Boolean,
     signal,
   }: RetryOptions<T> = {}
 ): Promise<T> {
