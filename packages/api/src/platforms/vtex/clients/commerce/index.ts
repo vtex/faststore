@@ -1143,7 +1143,8 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${recommendationBase}/recommendations?${params.toString()}`,
-          { headers: recommendationHeaders }
+          { headers: recommendationHeaders },
+          { storeCookies }
         )
       },
 

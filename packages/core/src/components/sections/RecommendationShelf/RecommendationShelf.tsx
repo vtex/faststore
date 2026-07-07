@@ -115,7 +115,7 @@ export function RecommendationShelf<
       )
     }
 
-    const pdpProduct = productDetailPage?.product.isVariantOf.productGroupID
+    const pdpProduct = productDetailPage?.product?.isVariantOf?.productGroupID
 
     return pdpProduct ? [pdpProduct] : []
   }, [itemsContext, cartItems, productDetailPage])
@@ -179,9 +179,12 @@ export function RecommendationShelf<
         : {})}
     >
       <ProductShelfSkeleton loading={isLoading} itemsPerPage={itemsPerPage}>
-        <h2 className="text__title-section layout__content">
-          {title ?? data?.campaign.title}
-        </h2>
+        {(title || data?.campaign.title) && (
+          <h2 className="text__title-section layout__content">
+            {title || data?.campaign.title}
+          </h2>
+        )}
+
         <ProductShelf>
           <Carousel
             id={id}

@@ -258,6 +258,9 @@ describe('VTEX Commerce', () => {
         expect(url).toContain('products=pg-1%2Cpg-2')
         expect(url).toContain('salesChannel=1')
         expect(url).toContain('locale=en-US')
+        // Forwards the cookie-storage hook so the BFF's `vtex-rec-*` Set-Cookie
+        // headers are persisted through `ctx.storage.cookies`.
+        expect(fetchAPIMocked.mock.calls[0][2]).toHaveProperty('storeCookies')
         expect(result).toEqual(mockResponse)
       })
 
