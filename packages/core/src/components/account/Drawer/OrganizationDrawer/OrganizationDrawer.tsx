@@ -166,6 +166,7 @@ export const OrganizationDrawer = ({
   // Buyers with a single (or no alternative) contract see the empty state inside
   // the switcher; we don't fetch the contract count eagerly to protect TTFB.
   const canSwitchContract = Boolean(b2b?.unitId)
+  const isOrgMember = Boolean(b2b?.unitId)
 
   return (
     <SlideOver
@@ -193,7 +194,10 @@ export const OrganizationDrawer = ({
                 canSwitchContract ? () => setView('switch') : undefined
               }
             />
-            <OrganizationDrawerBody isRepresentative={isRepresentative} />
+            <OrganizationDrawerBody
+              isRepresentative={isRepresentative}
+              isOrgMember={isOrgMember}
+            />
           </div>
           <OrganizationDrawerFooter
             orgName={b2b?.unitName ?? ''}

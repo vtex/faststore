@@ -1,6 +1,7 @@
-import { Button, Link } from '@faststore/ui'
+import { Button } from '@faststore/ui'
 import { useRouter } from 'next/router'
 
+import Link from 'src/components/ui/Link'
 import styles from '../section.module.scss'
 
 import { useAccountNavigationLabels } from 'src/sdk/account/accountPageContext'

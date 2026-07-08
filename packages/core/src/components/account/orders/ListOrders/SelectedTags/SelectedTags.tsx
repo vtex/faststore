@@ -1,5 +1,5 @@
 import { Button } from '@faststore/ui'
-import { useSession } from 'src/sdk/session'
+import { useRouter } from 'next/router'
 import {
   type ListOrdersSectionLabels,
   getStatusDisplayLabels,
@@ -48,7 +48,7 @@ function Tags({
 }: Pick<SelectedTagsProps, 'filters' | 'onRemoveFilter' | 'labels'>) {
   const labels = resolveListOrdersLabels(labelsProp)
   const statusDisplayLabels = getStatusDisplayLabels(labels)
-  const { locale } = useSession()
+  const { locale } = useRouter()
   const { dateInitial, dateFinal, status, pendingMyApproval } = filters
 
   const formattedDateInitial = dateInitial

@@ -20,6 +20,7 @@ import {
   type MyAccountFilter_FacetsFragment,
   type SelectedFacet,
 } from 'src/sdk/search/useMyAccountFilter'
+import { useLink } from 'src/sdk/ui/useLink'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { FastStoreOrderStatus } from 'src/utils/userOrderStatus'
 import AccountHeader from '../../components/Header'
@@ -31,6 +32,8 @@ import {
 import ListOrdersTable, { Pagination } from './ListOrdersTable/ListOrdersTable'
 import SelectedFiltersTags from './SelectedTags/SelectedTags'
 import styles from './styles.module.scss'
+
+const ORDERS_PATH = '/pvt/account/orders'
 
 export type ListOrdersProps = {
   listOrders: ServerListOrdersQueryQuery['listUserOrders']
@@ -145,6 +148,8 @@ export default function ListOrders({
 }: ListOrdersProps) {
   const labels = resolveListOrdersLabels(labelsProp)
   const router = useRouter()
+  const { resolveLink } = useLink()
+  const ordersHref = resolveLink(ORDERS_PATH) ?? ORDERS_PATH
   const { isDesktop } = useScreenResize()
   const searchInputRef = useRef(null) as MutableRefObject<SearchInputFieldRef>
 
@@ -179,7 +184,7 @@ export default function ListOrders({
           params.set('text', value)
         }
 
-        window.location.href = `/pvt/account/orders?${params.toString()}`
+        window.location.href = `${ordersHref}?${params.toString()}`
       }
     },
     300,
@@ -263,7 +268,7 @@ export default function ListOrders({
           pendingMyApproval: filters.pendingMyApproval,
         }}
         onClearAll={() => {
-          window.location.href = '/pvt/account/orders'
+          window.location.href = ordersHref
         }}
         onRemoveFilter={(key, value) => {
           const { page, clientEmail, ...updatedFilters } = { ...filters }
@@ -289,7 +294,7 @@ export default function ListOrders({
           const params = new URLSearchParams(
             filteredQuery as Record<string, string>
           )
-          window.location.href = `/pvt/account/orders?${params.toString()}`
+          window.location.href = `${ordersHref}?${params.toString()}`
         }}
       />
 

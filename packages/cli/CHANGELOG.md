@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.0](https://github.com/vtex/faststore/compare/v4.4.1-dev.0...v4.5.0-dev.0) (2026-07-03)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [4.4.1-dev.0](https://github.com/vtex/faststore/compare/v4.4.0...v4.4.1-dev.0) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.4.0](https://github.com/vtex/faststore/compare/v4.4.0-dev.6...v4.4.0) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.4.0-dev.6](https://github.com/vtex/faststore/compare/v4.4.0-dev.5...v4.4.0-dev.6) (2026-07-02)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.4.0-dev.5](https://github.com/vtex/faststore/compare/v4.4.0-dev.4...v4.4.0-dev.5) (2026-07-01)
+
+### Features
+
+- make cms-sync content-source aware (CMS + CP) ([#3406](https://github.com/vtex/faststore/issues/3406)) ([8e4e4ca](https://github.com/vtex/faststore/commit/8e4e4cab61b6e6fec05b8ae014e4ed2298028b92)), closes [#5c1a1](https://github.com/vtex/faststore/issues/5c1a1) [#ff6b6](https://github.com/vtex/faststore/issues/ff6b6) [#3a0d0](https://github.com/vtex/faststore/issues/3a0d0) [#ff6b6](https://github.com/vtex/faststore/issues/ff6b6) [#10391](https://github.com/vtex/faststore/issues/10391) [#3ddc84](https://github.com/vtex/faststore/issues/3ddc84) [#1](https://github.com/vtex/faststore/issues/1) [#14](https://github.com/vtex/faststore/issues/14) [#15](https://github.com/vtex/faststore/issues/15) [#18](https://github.com/vtex/faststore/issues/18)
+
+# [4.4.0-dev.4](https://github.com/vtex/faststore/compare/v4.4.0-dev.3...v4.4.0-dev.4) (2026-06-30)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.4.0-dev.3](https://github.com/vtex/faststore/compare/v4.4.0-dev.2...v4.4.0-dev.3) (2026-06-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [4.4.0-dev.2](https://github.com/vtex/faststore/compare/v4.4.0-dev.1...v4.4.0-dev.2) (2026-06-25)
+
+**Note:** Version bump only for package @faststore/cli
+
 # [4.4.0-dev.1](https://github.com/vtex/faststore/compare/v4.4.0-dev.0...v4.4.0-dev.1) (2026-06-24)
 
 ### Features

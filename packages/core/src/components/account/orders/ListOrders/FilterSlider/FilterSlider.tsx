@@ -8,6 +8,7 @@ import {
 } from '@faststore/ui'
 
 import { type MutableRefObject, useRef, useState } from 'react'
+import { useLink } from 'src/sdk/ui/useLink'
 import type {
   MyAccountFilter_FacetsFragment,
   useMyAccountFilter,
@@ -61,6 +62,7 @@ function FilterSlider({
   toLabel,
   invalidDateRangeLabel,
 }: FilterSliderProps & ReturnType<typeof useMyAccountFilter>) {
+  const { resolveLink } = useLink()
   const dateRangeInputRef = useRef<{
     clear: () => void
     getDataRangeFacet: () => {
@@ -121,7 +123,9 @@ function FilterSlider({
       }
     })
 
-    window.location.href = `/pvt/account/orders?${params.toString()}`
+    const ordersHref =
+      resolveLink('/pvt/account/orders') ?? '/pvt/account/orders'
+    window.location.href = `${ordersHref}?${params.toString()}`
   }
 
   return (

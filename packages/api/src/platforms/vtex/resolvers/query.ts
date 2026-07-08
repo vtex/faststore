@@ -602,12 +602,89 @@ export const Query = {
       paging: orders.paging,
     }
   },
+  listUserQuotes: async (
+    _: unknown,
+    filters: {
+      page?: number
+      perPage?: number
+      status?: string[]
+      createdAtFrom?: string
+      createdAtTo?: string
+      expiresAtFrom?: string
+      expiresAtTo?: string
+      label?: string
+    },
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.quotes.listUserQuotes(filters)
+
+    const uniqueCreatedByIds = [
+      ...new Set(result.items.map((quote) => quote.createdBy).filter(Boolean)),
+    ] as string[]
+
+    const createdByNameById = new Map<string, string>()
+    await Promise.all(
+      uniqueCreatedByIds.map(async (userId) => {
+        try {
+          const [shopper] = await commerce.masterData.getShopperById({
+            userId,
+          })
+          if (shopper) {
+            const fullName = [shopper.firstName, shopper.lastName]
+              .filter(Boolean)
+              .join(' ')
+            if (fullName) createdByNameById.set(userId, fullName)
+          }
+        } catch {
+          // Fall back to the raw id below if the lookup fails
+        }
+      })
+    )
+
+    const list = result.items.map((quote) => ({
+      id: quote.id,
+      status: quote.status,
+      label: quote.label ?? null,
+      createdAt: quote.createdAt,
+      expiresAt: quote.expiresAt,
+      amount: quote.amount,
+      createdBy: quote.createdBy
+        ? (createdByNameById.get(quote.createdBy) ?? quote.createdBy)
+        : null,
+    }))
+
+    return {
+      list,
+      paging: {
+        total: result.totalItems,
+        currentPage: result.pageNumber,
+        perPage: result.pageSize,
+      },
+    }
+  },
   validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
     return {
       isValid: true,
     }
+  },
+  isOrganizationMember: async (
+    _: unknown,
+    __: unknown,
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+
+    return Boolean(sessionData?.namespaces.authentication?.unitId?.value)
   },
   // only b2b users
   userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {

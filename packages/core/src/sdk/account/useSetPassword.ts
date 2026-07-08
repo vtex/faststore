@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
 import fetch from 'isomorphic-unfetch'
+import { useCallback, useState } from 'react'
 import { buildFormData } from 'src/utils/utilities'
 import config from '../../../discovery.config'
 
@@ -57,7 +57,7 @@ export const useSetPassword = (accountName?: string) => {
         }
 
         const response = await fetch(
-          `/api/authenticator/pub/authentication/classic/setpassword?expireSessions=true&an=${an}`,
+          `/api/authenticator/v1/pub/authentication/classic/setpassword?expireSessions=true&an=${an}`,
           {
             method: 'POST',
             body: buildFormData(body),
@@ -139,7 +139,7 @@ const startLogin = async ({
     const scope = accountName ?? config.api.storeId
 
     const response = await fetch(
-      `/api/authenticator/pub/authentication/start?an=${an}`,
+      `/api/authenticator/v1/pub/authentication/start?an=${an}`,
       {
         method: 'POST',
         credentials: 'include',

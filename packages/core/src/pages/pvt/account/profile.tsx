@@ -27,6 +27,7 @@ import { injectGlobalSections } from 'src/server/cms/global'
 import { extractAccountNavigationData } from 'src/server/cms/myAccountDefaultSections'
 import { fetchMyAccountPageContent } from 'src/server/cms/fetchMyAccountPageContent'
 import { getMyAccountRedirect } from 'src/utils/myAccountRedirect'
+import { localizeRedirectDestination } from 'src/utils/localization/localizeRedirectDestination'
 import { withLocaleValidationSSR } from 'src/utils/localization/withLocaleValidation'
 
 import storeConfig from 'discovery.config'
@@ -157,7 +158,7 @@ const getServerSidePropsBase: GetServerSideProps<
 
     return {
       redirect: {
-        destination,
+        destination: localizeRedirectDestination(destination, context),
         permanent: false,
       },
     }
