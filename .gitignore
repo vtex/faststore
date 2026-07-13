@@ -115,4 +115,7 @@ packages/core/@generated/cached-operations.json
 /tmp
 oclif.manifest.json
 
+# Local store overrides (copy from discovery.config.local.example.js)
+packages/core/discovery.config.local.js
+
 *storybook.log

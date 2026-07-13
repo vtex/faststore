@@ -902,6 +902,12 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
   allProducts: StoreProductConnection;
+  /**
+   * Lists the commercial contracts associated with the given Organization Unit,
+   * resolved to human-readable corporate names. Governed: only contracts associated
+   * with the authenticated buyer's Organization Unit are returned.
+   */
+  availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
   /** Returns whether the current authenticated user belongs to a B2B organization unit. */
@@ -950,6 +956,11 @@ export type QueryAllCollectionsArgs = {
 export type QueryAllProductsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   first: Scalars['Int']['input'];
+};
+
+
+export type QueryAvailableContractsArgs = {
+  orgUnitId: Scalars['String']['input'];
 };
 
 
@@ -1367,6 +1378,17 @@ export const enum StoreCollectionType {
   Department = 'Department',
   /** Third level of product categorization. */
   SubCategory = 'SubCategory'
+};
+
+/** A commercial contract available to a buyer's Organization Unit. */
+export type StoreContract = {
+  __typename?: 'StoreContract';
+  /** Human-readable corporate name of the contract (resolved from MasterData). */
+  corporateName: Scalars['String']['output'];
+  /** Contract identifier (the contract/scope ID associated with the Organization Unit). */
+  id: Scalars['ID']['output'];
+  /** Indicates whether this contract is the one currently active in the session. */
+  isActive: Scalars['Boolean']['output'];
 };
 
 /** Currency information. */

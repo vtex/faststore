@@ -235,6 +235,20 @@ describe('VTEX Commerce', () => {
     })
   })
 
+  describe('Session', () => {
+    it('requests shopper contract fields from the sessions API', async () => {
+      fetchAPIMocked.mockResolvedValueOnce({ namespaces: {} })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.session('')
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain('shopper.availableContracts')
+      expect(url).toContain('shopper.activeContractId')
+    })
+  })
+
   describe('Quotes', () => {
     describe('listUserQuotes', () => {
       it('calls the quoting endpoint with pagination, status, date range and trimmed label params', async () => {
