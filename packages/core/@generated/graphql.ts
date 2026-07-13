@@ -1581,6 +1581,11 @@ export type StoreProduct = {
   name: Scalars['String']['output'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
+  /**
+   * Localized versions of this product for all available locales.
+   * Only populated when localization is enabled.
+   */
+  otherLocales: Maybe<Array<StoreProductLocale>>;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output'];
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
@@ -1640,6 +1645,14 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants: Maybe<SkuVariants>;
+};
+
+/** Localized product data for a specific locale. */
+export type StoreProductLocale = {
+  /** Locale code (e.g. "pt-BR", "it-IT"). */
+  locale: Scalars['String']['output'];
+  /** Localized product slug including the SKU ID suffix (e.g. "adidas-polo-uomo-65"). */
+  slug: Scalars['String']['output'];
 };
 
 /** Properties that can be associated with products and products groups. */
@@ -2688,7 +2701,7 @@ export type ServerProductQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mpn: string, name: string, description: string, releaseDate: string, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
+export type ServerProductQueryQuery = { product: { sku: string, gtin: string, mpn: string, name: string, description: string, releaseDate: string, unitMultiplier: number | null, id: string, seo: { title: string, description: string, canonical: string }, brand: { name: string }, breadcrumbList: { itemListElement: Array<{ item: string, name: string, position: number }> }, image: Array<{ url: string, alternateName: string }>, offers: { lowPrice: number, highPrice: number, lowPriceWithTaxes: number, priceCurrency: string, offers: Array<{ availability: string, price: number, priceValidUntil: string, priceCurrency: string, itemCondition: string, priceWithTaxes: number, listPrice: number, listPriceWithTaxes: number, quantity: number, seller: { identifier: string } }> }, isVariantOf: { name: string, productGroupID: string, skuVariants: { activeVariations: any | null, slugsMap: any | null, availableVariations: any | null, allVariantProducts: Array<{ name: string, productID: string }> | null } | null }, otherLocales: Array<{ locale: string, slug: string }> | null, additionalProperty: Array<{ propertyID: string, name: string, value: any, valueReference: any }> } };
 
 export type UserOrderItemsFragmentFragment = { id: string | null, name: string | null, quantity: number | null, sellingPrice: number | null, unitMultiplier: number | null, measurementUnit: string | null, imageUrl: string | null, detailUrl: string | null, refId: string | null, rewardValue: number | null };
 
@@ -3462,7 +3475,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(`
     `, {"fragmentName":"SearchEvent_metadata"}) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>;
 export const ServerAccountPageQueryDocument = {"__meta__":{"operationName":"ServerAccountPageQuery","operationHash":"9baae331b75848a310fecb457e8c971ae27897ff"}} as unknown as TypedDocumentString<ServerAccountPageQueryQuery, ServerAccountPageQueryQueryVariables>;
 export const ServerCollectionPageQueryDocument = {"__meta__":{"operationName":"ServerCollectionPageQuery","operationHash":"4b33c5c07f440dc7489e55619dc2211a13786e72"}} as unknown as TypedDocumentString<ServerCollectionPageQueryQuery, ServerCollectionPageQueryQueryVariables>;
-export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"f03d0963fed159ac4bbe11f90ea09c635a66b68c"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
+export const ServerProductQueryDocument = {"__meta__":{"operationName":"ServerProductQuery","operationHash":"c51aaec5d4ed39e5b8d7d65f460fcd2bc8645346"}} as unknown as TypedDocumentString<ServerProductQueryQuery, ServerProductQueryQueryVariables>;
 export const ServerOrderDetailsQueryDocument = {"__meta__":{"operationName":"ServerOrderDetailsQuery","operationHash":"bdf677bbccce12186a5ef15aebdce46585a99782"}} as unknown as TypedDocumentString<ServerOrderDetailsQueryQuery, ServerOrderDetailsQueryQueryVariables>;
 export const ServerListOrdersQueryDocument = {"__meta__":{"operationName":"ServerListOrdersQuery","operationHash":"70d06de1da9c11f10ebde31b66fd74eccd456af5"}} as unknown as TypedDocumentString<ServerListOrdersQueryQuery, ServerListOrdersQueryQueryVariables>;
 export const ServerProfileQueryDocument = {"__meta__":{"operationName":"ServerProfileQuery","operationHash":"672fe0f00b7b710b63fc6573c0a6b2ec54812b8f"}} as unknown as TypedDocumentString<ServerProfileQueryQuery, ServerProfileQueryQueryVariables>;
