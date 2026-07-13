@@ -295,6 +295,17 @@ describe('VTEX Commerce', () => {
         expect(init.method).toBe('POST')
         expect(result).toEqual(mockResponse)
       })
+  describe('Session', () => {
+    it('requests shopper contract fields from the sessions API', async () => {
+      fetchAPIMocked.mockResolvedValueOnce({ namespaces: {} })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.session('')
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain('shopper.availableContracts')
+      expect(url).toContain('shopper.activeContractId')
     })
   })
 

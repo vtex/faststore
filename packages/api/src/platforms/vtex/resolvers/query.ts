@@ -2,6 +2,7 @@ import type {
   ProcessOrderAuthorizationRule,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
+  QueryAvailableContractsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
   QueryPickupPointsArgs,
@@ -14,6 +15,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  StoreContract,
   UserOrderFromList,
 } from '../../../__generated__/schema'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -32,6 +34,12 @@ import type { SearchArgs } from '../clients/search'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import type { GraphqlContext } from '../index'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
+import {
+  mapSessionContractsToStoreContracts,
+  parseSessionAvailableContracts,
+  resolveActiveContractDisplayName,
+  resolveActiveContractIdFromSession,
+} from '../utils/contract'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku } from '../utils/enhanceSku'
@@ -742,9 +750,7 @@ export const Query = {
         contractId: profile?.id?.value ?? '',
       })
 
-      const name =
-        contract?.corporateName ??
-        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
+      const name = resolveActiveContractDisplayName(contract, profile)
 
       return {
         name: name || '',
@@ -766,6 +772,55 @@ export const Query = {
       id: user?.id || '',
       // createdAt: '',
     }
+  },
+  // only b2b users
+  // Contract list from VTEX session `shopper.availableContracts`.
+  availableContracts: async (
+    _: unknown,
+    { orgUnitId }: QueryAvailableContractsArgs,
+    ctx: GraphqlContext
+  ): Promise<StoreContract[]> => {
+    if (!orgUnitId) {
+      throw new BadRequestError('Missing orgUnitId')
+    }
+
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+    const authToken = getAuthCookie(headers?.cookie ?? '', account)
+    let jwt: ReturnType<typeof parseJwt> = null
+
+    try {
+      jwt = authToken ? parseJwt(authToken) : null
+    } catch {
+      jwt = null
+    }
+
+    const sessionUnitId =
+      sessionData?.namespaces.authentication?.unitId?.value?.trim() ??
+      jwt?.unitId?.trim() ??
+      ''
+
+    if (!sessionUnitId || sessionUnitId !== orgUnitId) {
+      throw new ForbiddenError(
+        'You are not allowed to list contracts for this organization unit'
+      )
+    }
+
+    const contracts = parseSessionAvailableContracts(
+      sessionData?.namespaces.shopper
+    )
+
+    const activeContractId =
+      resolveActiveContractIdFromSession(sessionData) ||
+      jwt?.customerId?.trim() ||
+      ''
+
+    return mapSessionContractsToStoreContracts(contracts, activeContractId)
   },
   pickupPoints: async (
     _: unknown,

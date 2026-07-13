@@ -1,4 +1,5 @@
 import { SlideOver, useFadeEffect } from '@faststore/ui'
+import { useEffect, useState } from 'react'
 
 import { getStoreURL } from 'src/sdk/localization/useLocalizationConfig'
 import { useSession } from 'src/sdk/session'
@@ -9,11 +10,14 @@ import {
   getVtexCookieNames,
 } from 'src/utils/clearCookies'
 import storeConfig from '../../../../../discovery.config'
-import { ProfileSummary } from '../ProfileSummary/ProfileSummary'
+import { ContractSwitcher } from './ContractSwitcher'
 import { OrganizationDrawerBody } from './OrganizationDrawerBody'
+import { OrganizationDrawerFooter } from './OrganizationDrawerFooter'
 import { OrganizationDrawerHeader } from './OrganizationDrawerHeader'
 import { setReloadAfterLogoutReturn } from './useReloadAfterLogoutReturn'
 import styles from './section.module.scss'
+
+type OrganizationDrawerView = 'menu' | 'switch'
 
 type OrganizationDrawerProps = {
   isOpen: boolean
@@ -125,7 +129,9 @@ export const doLogout = async (_event?: unknown) => {
   } finally {
     setReloadAfterLogoutReturn()
     window.location.assign(
-      `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${storeConfig.api.storeId}&returnUrl=${getStoreURL()}`
+      `${storeConfig.secureSubdomain}/api/vtexid/pub/logout?scope=${
+        storeConfig.api.storeId
+      }&returnUrl=${getStoreURL()}`
     )
   }
 }
@@ -137,17 +143,29 @@ export const OrganizationDrawer = ({
 }: OrganizationDrawerProps) => {
   const { fade, fadeOut } = useFadeEffect()
   const { b2b, person } = useSession()
+  const [view, setView] = useState<OrganizationDrawerView>('menu')
+
+  useEffect(() => {
+    if (!isOpen) {
+      setView('menu')
+    }
+  }, [isOpen])
 
   const contractName =
-    b2b?.contractName ??
-    `${(person?.givenName ?? '').trim()} ${(person?.familyName ?? '').trim()}`.trim() ??
-    ''
+    b2b?.contractName?.trim() ||
+    b2b?.unitName?.trim() ||
+    `${(person?.givenName ?? '').trim()}` ||
+    'Organization'
 
   const contractUrl = b2b?.unitId
     ? `/pvt/organization-account/org-unit/${b2b?.unitId}`
     : null
 
   const isOrganizationManager = b2b?.organizationManager || false
+  // The switcher is only meaningful for B2B buyers tied to an Organization Unit.
+  // Buyers with a single (or no alternative) contract see the empty state inside
+  // the switcher; we don't fetch the contract count eagerly to protect TTFB.
+  const canSwitchContract = Boolean(b2b?.unitId)
   const isOrgMember = Boolean(b2b?.unitId)
 
   return (
@@ -163,27 +181,34 @@ export const OrganizationDrawer = ({
         className: `section ${styles.section} section-organization-drawer`,
       }}
     >
-      <OrganizationDrawerHeader
-        onCloseDrawer={closeDrawer}
-        contractName={contractName}
-        contractUrl={contractUrl}
-      />
-      <OrganizationDrawerBody
-        isRepresentative={isRepresentative}
-        isOrgMember={isOrgMember}
-      />
-      <footer data-fs-organization-drawer-footer-wrapper>
-        <ProfileSummary
-          showManageLink={isOrganizationManager}
-          bordered={true}
-          onLogoutClick={doLogout}
-          person={{
-            name: b2b?.userName ?? '',
-            email: b2b?.userEmail ?? '',
-          }}
-          orgName={b2b?.unitName ?? ''}
-        />
-      </footer>
+      {view === 'switch' ? (
+        <ContractSwitcher onBack={() => setView('menu')} onClose={fadeOut} />
+      ) : (
+        <div data-fs-organization-drawer-menu>
+          <div data-fs-organization-drawer-menu-scroll>
+            <OrganizationDrawerHeader
+              onCloseDrawer={closeDrawer}
+              contractName={contractName}
+              contractUrl={contractUrl}
+              onChangeContract={
+                canSwitchContract ? () => setView('switch') : undefined
+              }
+            />
+            <OrganizationDrawerBody
+              isRepresentative={isRepresentative}
+              isOrgMember={isOrgMember}
+            />
+          </div>
+          <OrganizationDrawerFooter
+            orgName={b2b?.unitName ?? ''}
+            userName={b2b?.userName ?? ''}
+            userEmail={b2b?.userEmail ?? ''}
+            showManageLink={isOrganizationManager}
+            manageUrl={contractUrl ?? undefined}
+            onLogoutClick={doLogout}
+          />
+        </div>
+      )}
     </SlideOver>
   )
 }

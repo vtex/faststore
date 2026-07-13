@@ -180,6 +180,17 @@ export const VtexCommerce = (
     'content-type': 'application/json',
     'x-vtex-rec-origin': `${account}/${REC_ORIGIN_SUFFIX}`,
   })
+  const withBuyerAuthHeaders = (
+    additionalHeaders: Record<string, string> = {}
+  ): HeadersInit => {
+    const authToken = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)
+
+    return withCookie({
+      ...additionalHeaders,
+      'X-FORWARDED-HOST': forwardedHost,
+      ...(authToken ? { [`VtexIdclientAutCookie_${account}`]: authToken } : {}),
+    })
+  }
 
   return {
     catalog: {
@@ -557,7 +568,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,shopper.availableContracts,shopper.activeContractId,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -864,10 +875,9 @@ export const VtexCommerce = (
           throw new BadRequestError('Missing contractId to fetch CL fields.')
         }
 
-        const headers: HeadersInit = withAppKeyAndToken({
+        const headers: HeadersInit = withBuyerAuthHeaders({
           Accept: 'application/json',
           'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
         })
 
         return fetchAPI(

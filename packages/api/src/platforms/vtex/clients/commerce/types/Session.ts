@@ -40,10 +40,19 @@ export interface Profile {
   phone?: Value
 }
 
+export type SessionAvailableContract = {
+  customerId: string
+  contractName: string
+  isActive: boolean
+  isCurrent: boolean
+}
+
 export interface Shopper {
   firstName?: Value
   lastName?: Value
   organizationManager?: { value: boolean }
+  availableContracts?: { value: SessionAvailableContract[] }
+  activeContractId?: Value
 }
 
 export interface Checkout {
