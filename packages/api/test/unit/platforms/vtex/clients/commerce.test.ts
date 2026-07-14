@@ -295,6 +295,9 @@ describe('VTEX Commerce', () => {
         expect(init.method).toBe('POST')
         expect(result).toEqual(mockResponse)
       })
+    })
+  })
+
   describe('Session', () => {
     it('requests shopper contract fields from the sessions API', async () => {
       fetchAPIMocked.mockResolvedValueOnce({ namespaces: {} })
