@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const TTI_TIMEOUT = 5000 // 5 seconds without long tasks as a criterion for Time To Interactive - https://web.dev/articles/tti
+const TTI_TIMEOUT = 1000 // 5 seconds without long tasks as a criterion for Time To Interactive - https://web.dev/articles/tti
 
 /**
  * Polyfill for requestIdleCallback, which is not available for every browser

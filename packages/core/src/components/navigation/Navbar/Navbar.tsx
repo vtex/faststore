@@ -167,7 +167,7 @@ function Navbar({
                 title={logo.link ? logo.link.title : homeLabel}
                 prefetch={false}
               >
-                <Logo src={logo.src} alt={logo.alt} />
+                <Logo src={logo.src} alt={logo.alt} loading="eager" />
               </Link>
             </>
           )}
