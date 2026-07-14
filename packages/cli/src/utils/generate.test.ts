@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { buildFaststorePackageJson } from './generate'
+import {
+  PUBLIC_FILES_ALLOWED_EXTENSIONS,
+  buildFaststorePackageJson,
+  isPublicFileAllowed,
+} from './generate'
 
 describe('buildFaststorePackageJson', () => {
   const coreManifest = {
@@ -118,5 +122,53 @@ describe('buildFaststorePackageJson', () => {
     const result = buildFaststorePackageJson(coreManifest)
 
     expect(result).not.toHaveProperty('volta')
+  })
+})
+
+describe('isPublicFileAllowed', () => {
+  it('always allows directories regardless of their name', () => {
+    expect(isPublicFileAllowed('/public', true)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts', true)).toBe(true)
+    expect(isPublicFileAllowed('/public/assets/images', true)).toBe(true)
+  })
+
+  it('copies self-hosted font files', () => {
+    expect(isPublicFileAllowed('/public/fonts/inter.woff', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.woff2', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.ttf', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.otf', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/fonts/inter.eot', false)).toBe(true)
+  })
+
+  it('still copies the previously supported extensions', () => {
+    expect(isPublicFileAllowed('/public/manifest.json', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/robots.txt', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/sitemap.xml', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/favicon.ico', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/logo.svg', false)).toBe(true)
+  })
+
+  it('matches the extension case-insensitively', () => {
+    expect(isPublicFileAllowed('/public/fonts/Inter.WOFF2', false)).toBe(true)
+    expect(isPublicFileAllowed('/public/LOGO.SVG', false)).toBe(true)
+  })
+
+  it('rejects files whose extension is not allowed', () => {
+    expect(isPublicFileAllowed('/public/script.ts', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/styles.css', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/notes.md', false)).toBe(false)
+  })
+
+  it('does not match extensions as a substring of the file name', () => {
+    // Regression: the old filter used `endsWith`, so `basico` matched `ico`.
+    expect(isPublicFileAllowed('/public/basico', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/data.myjson', false)).toBe(false)
+    expect(isPublicFileAllowed('/public/nested/public', false)).toBe(false)
+  })
+
+  it('exposes the allowed extensions as dot-prefixed values', () => {
+    for (const extension of PUBLIC_FILES_ALLOWED_EXTENSIONS) {
+      expect(extension.startsWith('.')).toBe(true)
+    }
   })
 })
