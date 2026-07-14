@@ -3,6 +3,12 @@ export interface Route {
   title: string
   /* Accessible path within My Account */
   route: string
+  /**
+   * When set, the page body renders from this CMS content-type.
+   * Presence of this field is the single opt-in for a CMS-driven page.
+   * Pure CMS vs hybrid is derived by the CLI from whether a code body exists.
+   */
+  contentType?: string
 }
 
 export type AccountNavigationLabels = Partial<{
