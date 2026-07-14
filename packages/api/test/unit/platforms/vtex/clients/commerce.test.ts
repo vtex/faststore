@@ -234,4 +234,133 @@ describe('VTEX Commerce', () => {
       })
     })
   })
+
+  describe('Session', () => {
+    it('requests shopper contract fields from the sessions API', async () => {
+      fetchAPIMocked.mockResolvedValueOnce({ namespaces: {} })
+
+      const { commerce } = clients.getClients(apiOptions, context)
+      await commerce.session('')
+
+      expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+      const [url] = fetchAPIMocked.mock.calls[0]
+      expect(url).toContain('shopper.availableContracts')
+      expect(url).toContain('shopper.activeContractId')
+    })
+  })
+
+  describe('Quotes', () => {
+    describe('listUserQuotes', () => {
+      it('calls the quoting endpoint with pagination, status, date range and trimmed label params', async () => {
+        const mockResponse = {
+          items: [],
+          totalItems: 0,
+          pageNumber: 1,
+          pageSize: 25,
+        }
+        fetchAPIMocked.mockResolvedValueOnce(mockResponse)
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        const result = await commerce.quotes.listUserQuotes({
+          page: 1,
+          perPage: 25,
+          status: ['Draft', 'Requested'],
+          createdAtFrom: '2026-01-01',
+          createdAtTo: '2026-01-31',
+          expiresAtFrom: '2026-02-01',
+          expiresAtTo: '2026-02-28',
+          label: '  my quote  ',
+        })
+
+        expect(fetchAPIMocked).toHaveBeenCalledTimes(1)
+        const [url, init] = fetchAPIMocked.mock.calls[0]
+        expect(url).toContain('/api/quoting/quotes?')
+        expect(url).toContain('pageNumber=1')
+        expect(url).toContain('pageSize=25')
+        expect(url).toContain('status=Draft')
+        expect(url).toContain('status=Requested')
+        expect(url).toContain('createdAtFrom=2026-01-01')
+        expect(url).toContain('createdAtTo=2026-01-31')
+        expect(url).toContain('expiresAtFrom=2026-02-01')
+        expect(url).toContain('expiresAtTo=2026-02-28')
+        expect(url).toContain('label=my+quote')
+        expect(init.method).toBe('GET')
+        expect(result).toEqual(mockResponse)
+      })
+
+      it('omits an empty/whitespace-only label instead of sending it', async () => {
+        fetchAPIMocked.mockResolvedValueOnce({
+          items: [],
+          totalItems: 0,
+          pageNumber: 1,
+          pageSize: 25,
+        })
+
+        const { commerce } = clients.getClients(apiOptions, context)
+        await commerce.quotes.listUserQuotes({ label: '   ' })
+
+        const [url] = fetchAPIMocked.mock.calls[0]
+        expect(url).not.toContain('label=')
+      })
+
+      it.each([0, -1, 1.5])('throws for an invalid page "%s"', (page) => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() => commerce.quotes.listUserQuotes({ page })).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it.each([0, -1, 1.5])('throws for an invalid perPage "%s"', (perPage) => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() => commerce.quotes.listUserQuotes({ perPage })).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it('throws for an invalid createdAtFrom format', () => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() =>
+          commerce.quotes.listUserQuotes({ createdAtFrom: '01-01-2026' })
+        ).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it('throws for an invalid createdAtTo format', () => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() =>
+          commerce.quotes.listUserQuotes({ createdAtTo: '2026/01/31' })
+        ).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it('throws for an invalid expiresAtFrom format', () => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() =>
+          commerce.quotes.listUserQuotes({ expiresAtFrom: 'not-a-date' })
+        ).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it('throws for an invalid expiresAtTo format', () => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() =>
+          commerce.quotes.listUserQuotes({ expiresAtTo: '2026-1-1' })
+        ).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+
+      it('throws for an invalid status value', () => {
+        const { commerce } = clients.getClients(apiOptions, context)
+
+        expect(() =>
+          commerce.quotes.listUserQuotes({ status: ['NotAStatus'] })
+        ).toThrow(Error)
+        expect(fetchAPIMocked).not.toHaveBeenCalled()
+      })
+    })
+  })
 })

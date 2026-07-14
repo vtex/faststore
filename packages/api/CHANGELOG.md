@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.0](https://github.com/vtex/faststore/compare/v4.4.1-dev.0...v4.5.0-dev.0) (2026-07-03)
+
+### Features
+
+- quotes list for B2B buyers in My Account ([#3388](https://github.com/vtex/faststore/issues/3388)) ([a6c1ef6](https://github.com/vtex/faststore/commit/a6c1ef6d13abd1f525832ccca9a5c0dc6a4b1a87)), closes [faststore-dx-spec-kit#13](https://github.com/faststore-dx-spec-kit/issues/13)
+
 ## [4.4.1-dev.0](https://github.com/vtex/faststore/compare/v4.4.0...v4.4.1-dev.0) (2026-07-02)
 
 **Note:** Version bump only for package @faststore/api

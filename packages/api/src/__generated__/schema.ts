@@ -902,10 +902,20 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
   allProducts: StoreProductConnection;
+  /**
+   * Lists the commercial contracts associated with the given Organization Unit,
+   * resolved to human-readable corporate names. Governed: only contracts associated
+   * with the authenticated buyer's Organization Unit are returned.
+   */
+  availableContracts: Array<StoreContract>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
+  /** Returns whether the current authenticated user belongs to a B2B organization unit. */
+  isOrganizationMember: Scalars['Boolean']['output'];
   /** Returns the list of Orders that the User can view. */
   listUserOrders?: Maybe<UserOrderListMinimalResult>;
+  /** Returns the list of Quotes that the authenticated Buyer can view. */
+  listUserQuotes?: Maybe<UserQuoteListResult>;
   /** Returns the status of an Order Entry Service operation by its ID. */
   orderEntryOperation?: Maybe<StoreOrderEntryOperationStatus>;
   /** Returns the items in an orderForm by its ID. */
@@ -949,6 +959,11 @@ export type QueryAllProductsArgs = {
 };
 
 
+export type QueryAvailableContractsArgs = {
+  orgUnitId: Scalars['String']['input'];
+};
+
+
 export type QueryCollectionArgs = {
   slug: Scalars['String']['input'];
 };
@@ -963,6 +978,18 @@ export type QueryListUserOrdersArgs = {
   perPage?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   text?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryListUserQuotesArgs = {
+  createdAtFrom?: InputMaybe<Scalars['String']['input']>;
+  createdAtTo?: InputMaybe<Scalars['String']['input']>;
+  expiresAtFrom?: InputMaybe<Scalars['String']['input']>;
+  expiresAtTo?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1351,6 +1378,17 @@ export const enum StoreCollectionType {
   Department = 'Department',
   /** Third level of product categorization. */
   SubCategory = 'SubCategory'
+};
+
+/** A commercial contract available to a buyer's Organization Unit. */
+export type StoreContract = {
+  __typename?: 'StoreContract';
+  /** Human-readable corporate name of the contract (resolved from MasterData). */
+  corporateName: Scalars['String']['output'];
+  /** Contract identifier (the contract/scope ID associated with the Organization Unit). */
+  id: Scalars['ID']['output'];
+  /** Indicates whether this contract is the one currently active in the session. */
+  isActive: Scalars['Boolean']['output'];
 };
 
 /** Currency information. */
@@ -2734,6 +2772,45 @@ export type UserOrderTransactions = {
   merchantName?: Maybe<Scalars['String']['output']>;
   payments?: Maybe<Array<Maybe<UserOrderPayments>>>;
   transactionId?: Maybe<Scalars['String']['output']>;
+};
+
+/** Pagination metadata for the quotes list. */
+export type UserQuoteListPaging = {
+  __typename?: 'UserQuoteListPaging';
+  /** Current page number (1-based). */
+  currentPage: Scalars['Int']['output'];
+  /** Number of items per page. */
+  perPage: Scalars['Int']['output'];
+  /** Total number of quotes matching the query. */
+  total: Scalars['Int']['output'];
+};
+
+/** Result returned by the listUserQuotes query. */
+export type UserQuoteListResult = {
+  __typename?: 'UserQuoteListResult';
+  /** Array of quote summaries for the current page. */
+  list: Array<UserQuoteSummary>;
+  /** Pagination information. */
+  paging: UserQuoteListPaging;
+};
+
+/** Summary of a quote returned in list results. */
+export type UserQuoteSummary = {
+  __typename?: 'UserQuoteSummary';
+  /** Total amount of the quote. */
+  amount: Scalars['Float']['output'];
+  /** ISO 8601 date-time when the quote was created. */
+  createdAt: Scalars['String']['output'];
+  /** Name or email of the user who created the quote. */
+  createdBy?: Maybe<Scalars['String']['output']>;
+  /** ISO 8601 date-time when the quote expires. */
+  expiresAt: Scalars['String']['output'];
+  /** Unique identifier of the quote. */
+  id: Scalars['String']['output'];
+  /** Optional label assigned to the quote. */
+  label?: Maybe<Scalars['String']['output']>;
+  /** Status of the quote. */
+  status: Scalars['String']['output'];
 };
 
 export type ValidateUserData = {

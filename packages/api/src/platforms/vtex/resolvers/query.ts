@@ -2,6 +2,7 @@ import type {
   ProcessOrderAuthorizationRule,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
+  QueryAvailableContractsArgs,
   QueryCollectionArgs,
   QueryListUserOrdersArgs,
   QueryPickupPointsArgs,
@@ -14,6 +15,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryUserOrderArgs,
+  StoreContract,
   UserOrderFromList,
 } from '../../../__generated__/schema'
 import { getOrderEntryOperation } from './getOrderEntryOperation'
@@ -31,6 +33,12 @@ import type { SearchArgs } from '../clients/search'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import type { GraphqlContext } from '../index'
 import { extractRuleForAuthorization } from '../utils/commercialAuth'
+import {
+  mapSessionContractsToStoreContracts,
+  parseSessionAvailableContracts,
+  resolveActiveContractDisplayName,
+  resolveActiveContractIdFromSession,
+} from '../utils/contract'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 import { enhanceSku } from '../utils/enhanceSku'
@@ -594,12 +602,89 @@ export const Query = {
       paging: orders.paging,
     }
   },
+  listUserQuotes: async (
+    _: unknown,
+    filters: {
+      page?: number
+      perPage?: number
+      status?: string[]
+      createdAtFrom?: string
+      createdAtTo?: string
+      expiresAtFrom?: string
+      expiresAtTo?: string
+      label?: string
+    },
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.quotes.listUserQuotes(filters)
+
+    const uniqueCreatedByIds = [
+      ...new Set(result.items.map((quote) => quote.createdBy).filter(Boolean)),
+    ] as string[]
+
+    const createdByNameById = new Map<string, string>()
+    await Promise.all(
+      uniqueCreatedByIds.map(async (userId) => {
+        try {
+          const [shopper] = await commerce.masterData.getShopperById({
+            userId,
+          })
+          if (shopper) {
+            const fullName = [shopper.firstName, shopper.lastName]
+              .filter(Boolean)
+              .join(' ')
+            if (fullName) createdByNameById.set(userId, fullName)
+          }
+        } catch {
+          // Fall back to the raw id below if the lookup fails
+        }
+      })
+    )
+
+    const list = result.items.map((quote) => ({
+      id: quote.id,
+      status: quote.status,
+      label: quote.label ?? null,
+      createdAt: quote.createdAt,
+      expiresAt: quote.expiresAt,
+      amount: quote.amount,
+      createdBy: quote.createdBy
+        ? (createdByNameById.get(quote.createdBy) ?? quote.createdBy)
+        : null,
+    }))
+
+    return {
+      list,
+      paging: {
+        total: result.totalItems,
+        currentPage: result.pageNumber,
+        perPage: result.pageSize,
+      },
+    }
+  },
   validateUser: async (_: unknown, __: unknown, _ctx: GraphqlContext) => {
     // Authentication is now handled by @auth directive
     // If we reach here, validation was successful, otherwise an error would have been thrown
     return {
       isValid: true,
     }
+  },
+  isOrganizationMember: async (
+    _: unknown,
+    __: unknown,
+    ctx: GraphqlContext
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+
+    return Boolean(sessionData?.namespaces.authentication?.unitId?.value)
   },
   // only b2b users
   userDetails: async (_: unknown, __: unknown, ctx: GraphqlContext) => {
@@ -664,9 +749,7 @@ export const Query = {
         contractId: profile?.id?.value ?? '',
       })
 
-      const name =
-        contract?.corporateName ??
-        `${(profile?.firstName?.value ?? '').trim()} ${(profile?.lastName?.value ?? '').trim()}`.trim()
+      const name = resolveActiveContractDisplayName(contract, profile)
 
       return {
         name: name || '',
@@ -688,6 +771,55 @@ export const Query = {
       id: user?.id || '',
       // createdAt: '',
     }
+  },
+  // only b2b users
+  // Contract list from VTEX session `shopper.availableContracts`.
+  availableContracts: async (
+    _: unknown,
+    { orgUnitId }: QueryAvailableContractsArgs,
+    ctx: GraphqlContext
+  ): Promise<StoreContract[]> => {
+    if (!orgUnitId) {
+      throw new BadRequestError('Missing orgUnitId')
+    }
+
+    const {
+      account,
+      headers,
+      clients: { commerce },
+    } = ctx
+
+    const sessionData = await commerce.session('').catch(() => null)
+    const authToken = getAuthCookie(headers?.cookie ?? '', account)
+    let jwt: ReturnType<typeof parseJwt> = null
+
+    try {
+      jwt = authToken ? parseJwt(authToken) : null
+    } catch {
+      jwt = null
+    }
+
+    const sessionUnitId =
+      sessionData?.namespaces.authentication?.unitId?.value?.trim() ??
+      jwt?.unitId?.trim() ??
+      ''
+
+    if (!sessionUnitId || sessionUnitId !== orgUnitId) {
+      throw new ForbiddenError(
+        'You are not allowed to list contracts for this organization unit'
+      )
+    }
+
+    const contracts = parseSessionAvailableContracts(
+      sessionData?.namespaces.shopper
+    )
+
+    const activeContractId =
+      resolveActiveContractIdFromSession(sessionData) ||
+      jwt?.customerId?.trim() ||
+      ''
+
+    return mapSessionContractsToStoreContracts(contracts, activeContractId)
   },
   pickupPoints: async (
     _: unknown,

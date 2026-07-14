@@ -47,6 +47,7 @@ import type {
 } from './types/Simulation'
 import type { ScopesByUnit, UnitResponse } from './types/Unit'
 import type { VtexIdResponse } from './types/VtexId'
+import type { QuoteListResult, ListUserQuotesArgs } from './types/Quote'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -55,6 +56,84 @@ const BASE_INIT = {
   headers: {
     'content-type': 'application/json',
   },
+}
+
+const QUOTE_ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
+const QUOTE_VALID_STATUSES = new Set([
+  'Draft',
+  'Requested',
+  'InReview',
+  'Reviewed',
+  'Approved',
+  'Declined',
+  'Expired',
+  'ConvertedToCart',
+  'ConvertedToOrder',
+])
+
+function validateListUserQuotesArgs({
+  page,
+  perPage,
+  status,
+  createdAtFrom,
+  createdAtTo,
+  expiresAtFrom,
+  expiresAtTo,
+}: ListUserQuotesArgs): void {
+  if (page !== undefined && (!Number.isInteger(page) || page < 1)) {
+    throw new Error(
+      `listUserQuotes: invalid page "${page}" — must be a positive integer`
+    )
+  }
+  if (perPage !== undefined && (!Number.isInteger(perPage) || perPage < 1)) {
+    throw new Error(
+      `listUserQuotes: invalid perPage "${perPage}" — must be a positive integer`
+    )
+  }
+  for (const [field, value] of [
+    ['createdAtFrom', createdAtFrom],
+    ['createdAtTo', createdAtTo],
+    ['expiresAtFrom', expiresAtFrom],
+    ['expiresAtTo', expiresAtTo],
+  ] as [string, string | undefined][]) {
+    if (value && !QUOTE_ISO_DATE.test(value)) {
+      throw new Error(
+        `listUserQuotes: invalid ${field} "${value}" — must be YYYY-MM-DD`
+      )
+    }
+  }
+  if (status && status.length > 0) {
+    const invalid = status.filter((s) => !QUOTE_VALID_STATUSES.has(s))
+    if (invalid.length > 0) {
+      throw new Error(
+        `listUserQuotes: invalid status values: ${invalid.join(', ')}`
+      )
+    }
+  }
+}
+
+function buildListUserQuotesParams({
+  page,
+  perPage,
+  status,
+  createdAtFrom,
+  createdAtTo,
+  expiresAtFrom,
+  expiresAtTo,
+  label,
+}: ListUserQuotesArgs): URLSearchParams {
+  const params = new URLSearchParams()
+
+  if (page) params.append('pageNumber', page.toString())
+  if (perPage) params.append('pageSize', perPage.toString())
+  status?.forEach((s) => params.append('status', s))
+  if (createdAtFrom) params.append('createdAtFrom', createdAtFrom)
+  if (createdAtTo) params.append('createdAtTo', createdAtTo)
+  if (expiresAtFrom) params.append('expiresAtFrom', expiresAtFrom)
+  if (expiresAtTo) params.append('expiresAtTo', expiresAtTo)
+  if (label?.trim()) params.append('label', label.trim())
+
+  return params
 }
 
 export const VtexCommerce = (
@@ -76,6 +155,18 @@ export const VtexCommerce = (
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
+
+  const withBuyerAuthHeaders = (
+    additionalHeaders: Record<string, string> = {}
+  ): HeadersInit => {
+    const authToken = getAuthCookie(getUpdatedCookie(ctx) ?? '', account)
+
+    return withCookie({
+      ...additionalHeaders,
+      'X-FORWARDED-HOST': forwardedHost,
+      ...(authToken ? { [`VtexIdclientAutCookie_${account}`]: authToken } : {}),
+    })
+  }
 
   return {
     catalog: {
@@ -453,7 +544,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.phone,shopper.firstName,shopper.lastName,shopper.organizationManager,shopper.availableContracts,shopper.activeContractId,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,authentication.customerId,authentication.storeUserId,authentication.storeUserEmail,authentication.unitId,authentication.unitName,checkout.regionId,public.postalCode'
       )
 
       const headers: HeadersInit = withCookie({
@@ -760,10 +851,9 @@ export const VtexCommerce = (
           throw new BadRequestError('Missing contractId to fetch CL fields.')
         }
 
-        const headers: HeadersInit = withAppKeyAndToken({
+        const headers: HeadersInit = withBuyerAuthHeaders({
           Accept: 'application/json',
           'content-type': 'application/json',
-          'X-FORWARDED-HOST': forwardedHost,
         })
 
         return fetchAPI(
@@ -804,6 +894,27 @@ export const VtexCommerce = (
             headers,
           },
           {}
+        )
+      },
+    },
+    quotes: {
+      listUserQuotes: (args: ListUserQuotesArgs): Promise<QuoteListResult> => {
+        validateListUserQuotesArgs(args)
+
+        const params = buildListUserQuotesParams(args)
+
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/quoting/quotes?${params.toString()}`,
+          {
+            method: 'GET',
+            headers,
+          },
+          { storeCookies }
         )
       },
     },

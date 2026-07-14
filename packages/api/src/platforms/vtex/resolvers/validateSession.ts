@@ -7,6 +7,7 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
+import { resolveActiveContractDisplayName } from '../utils/contract'
 import { getAuthCookie, parseJwt } from '../utils/cookies'
 
 async function getPreciseLocationData(
@@ -198,7 +199,7 @@ export const validateSession = async (
             `${typeof shopper?.firstName?.value === 'string' ? shopper.firstName.value : ''} ${typeof shopper?.lastName?.value === 'string' ? shopper.lastName.value : ''}`.trim(),
           userEmail: authentication?.storeUserEmail.value ?? '',
           savedPostalCode: publicData?.postalCode?.value ?? '',
-          contractName: contract?.corporateName ?? '',
+          contractName: resolveActiveContractDisplayName(contract, profile),
           organizationManager: shopper?.organizationManager?.value ?? false,
         }
       : null,
