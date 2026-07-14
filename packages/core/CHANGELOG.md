@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0-dev.1](https://github.com/vtex/faststore/compare/v4.5.0-dev.0...v4.5.0-dev.1) (2026-07-14)
+
+### Bug Fixes
+
+- **api:** add storeCookies option to fetchAPI for recommendations ([0e36d26](https://github.com/vtex/faststore/commit/0e36d269600ad9d219e8899ad58d6f81b18f70cb))
+- **api:** expose recommendation and personalization operations ([961112a](https://github.com/vtex/faststore/commit/961112a8d2434e9fa961e7b6805850d90165d70f))
+- **core:** add recommendation/personalization GraphQL typeDefs ([5f3999b](https://github.com/vtex/faststore/commit/5f3999b3a045d6ca7218cbc9eadee00021a4231c))
+- **core:** harden RecommendationShelf per review feedback ([e369181](https://github.com/vtex/faststore/commit/e36918123b0f14d9628d7ef71238ac714c99a7fc))
+- **ProductGallery:** cast context to PLPContext for SEO title retrieval ([c674edc](https://github.com/vtex/faststore/commit/c674edccb35fabd5432185a4b85290f8447b7af6))
+
+### Features
+
+- **api, core:** implement server-side validation for recommendations and enable opt-in feature ([060d0a0](https://github.com/vtex/faststore/commit/060d0a0a151faa8494d1ae781f18baad5505b149))
+- **api, core:** return StoreProduct from recommendations for consistent interface ([1ea6afa](https://github.com/vtex/faststore/commit/1ea6afacbc768c1395b3b46e735bac6a0cfed73e))
+- **core:** add RecommendationShelf component for personalized product recommendations ([3214947](https://github.com/vtex/faststore/commit/3214947496a3ca28282af1b8a07a8f0567be01e2))
+- **core:** add RecommendationShelf section with personalization tracking ([6c426a8](https://github.com/vtex/faststore/commit/6c426a80bd3e408eac989b00d4b10d45b74f2967))
+- **core:** B2B contract switcher in the account drawer ([#3390](https://github.com/vtex/faststore/issues/3390)) ([380396a](https://github.com/vtex/faststore/commit/380396a7405f7bdb472b1219274d84807c61e153)), closes [#3354](https://github.com/vtex/faststore/issues/3354)
+- **core:** enhance RecommendationShelf with configurable items context and carousel settings ([7b4e2d2](https://github.com/vtex/faststore/commit/7b4e2d274d8acb07b74f6a29c34e806eff311b1f))
+- **core:** make RecommendationShelf carousel and product card configurable ([402816e](https://github.com/vtex/faststore/commit/402816e0dda8529ea081d9dcfd50626d889bf4f8))
+
 # [4.5.0-dev.0](https://github.com/vtex/faststore/compare/v4.4.1-dev.0...v4.5.0-dev.0) (2026-07-03)
 
 ### Features
